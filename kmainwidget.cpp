@@ -1023,62 +1023,70 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
     if ( !sanityChecksSuccessful( url ) )
         return;
 
-    // Setup destination
-    QString destDir = getSaveDirectoryFor( url.fileName() );
-
-    KURL destURL;
-    bool bDestisMalformed=true;
-    bool b_expertMode=ksettings.b_expertMode;
-    while (bDestisMalformed)
+    // simply take the given dest, if valid, otherwise ask for destination url
+    KURL destURL = KURL::fromPathOrURL( dest );
+    if ( destURL.isMalformed() )
     {
-        if (d.isNull()) {           // if we didn't provide destination
-            if (!b_expertMode) {
-                // open the filedialog for confirmation
-                KFileDialog dlg(destDir, QString::null,this,"save_as",true);
-                dlg.setCaption(i18n("Save As"));
-                dlg.setSelection(url.fileName());
-                dlg.setOperationMode(KFileDialog::Saving);
-                // TODO set the default destiantion
-                dlg.exec();
+        // Setup destination
+        QString destDir = getSaveDirectoryFor( url.fileName() );
 
-                if (!dlg.result()) {       // cancelled
+        bool bDestisMalformed=true;
+        bool b_expertMode=ksettings.b_expertMode;
+        while (bDestisMalformed)
+        {
+            if (d.isNull()) {           // if we didn't provide destination
+                if (!b_expertMode) {
+                    // open the filedialog for confirmation
+                    KFileDialog dlg(destDir, QString::null,this,"save_as",true);
+                    dlg.setCaption(i18n("Save As"));
+                    dlg.setSelection(url.fileName());
+                    dlg.setOperationMode(KFileDialog::Saving);
+                    // TODO set the default destiantion
+                    dlg.exec();
+
+                    if (!dlg.result()) {       // cancelled
 #ifdef _DEBUG
-                    sDebugOut << endl;
+                        sDebugOut << endl;
 #endif
-                    return;
+                        return;
+                    }
+                    else
+                    {
+                        destURL = dlg.selectedURL();
+                        ksettings.lastDirectory = destURL.directory();
+                    }
                 }
-                else {
-                    destURL = dlg.selectedURL();
+                else
+                {
+                    // in expert mode don't open the filedialog
+                    destURL = KURL::fromPathOrURL( destDir + "/" +
+                                                   url.fileName() );
+                }
+            }
+            else {
+                destURL = KURL::fromPathOrURL( d );
+            }
+
+            //check if destination already exists
+
+            if(KIO::NetAccess::exists(destURL))
+            {
+                if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
+                {
+                    bDestisMalformed=false;
+                    KIO::NetAccess::del(destURL);
+                }
+                else
+                {
+                    d = QString::null;
+                    b_expertMode=false;
                     ksettings.lastDirectory = destURL.directory();
                 }
-            } else {
-                // in expert mode don't open the filedialog
-                destURL = KURL::fromPathOrURL( destDir + "/" + url.fileName() );
-            }
-        } else {
-            destURL = KURL::fromPathOrURL( d );
-        }
-
-        //check if destination already exists
-
-        if(KIO::NetAccess::exists(destURL))
-        {
-            if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
-            {
-                bDestisMalformed=false;
-                KIO::NetAccess::del(destURL);
             }
             else
-            {
-                d=QString::null;
-                b_expertMode=false;
-                ksettings.lastDirectory = destURL.directory();
-            }
+                bDestisMalformed=false;
         }
-        else
-            bDestisMalformed=false;
     }
-    // QString file = url.fileName();
 
     // create a new transfer item
     Transfer *item = myTransferList->addTransfer(url, destURL);

@@ -302,7 +302,7 @@ void Transfer::updateAll()
         //logMessage(i18n("Total size is unknown"));
         setText(view->lv_total, i18n("unknown"));
     }
-    
+
     dlgIndividual->setTotalSize(totalSize);
     dlgIndividual->setPercent(0);
     dlgIndividual->setProcessedSize(0);
@@ -619,10 +619,10 @@ void Transfer::slotProcessedSize(unsigned long bytes)
     int old = percent;
     processedSize = bytes;
 
-    if (totalSize == 0) 
+    if (totalSize == 0)
     {
         percent = 0;
-    } 
+    }
     else if ( totalSize < processedSize ) // bogus totalSize value
     {
         percent = 99; // what can we say?
@@ -897,14 +897,6 @@ bool Transfer::isVisible()
 {
     return dlgIndividual->isVisible();
 }
-
-
-
-
-
-
-
-
 
 
 #include "transfer.moc"
