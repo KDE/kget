@@ -73,7 +73,7 @@ Q_OBJECT public:
     void setAutoSave();
     void setAutoDisconnect();
 
-    LogWindow *logwin() { return logWindow;}
+    LogWindow *logwin()const { return logWindow;}
     friend class Settings;
 
     // Actions

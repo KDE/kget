@@ -62,7 +62,7 @@ Q_OBJECT public:
     TransferList(QWidget * parent = 0, const char *name = 0);
     virtual ~ TransferList();
 
-    Transfer *addTransfer(const KURL & _source, const KURL & _dest, 
+    Transfer *addTransfer(const KURL & _source, const KURL & _dest,
                           bool canShow = true );
 
     virtual void setSelected(QListViewItem * item, bool selected);
@@ -70,7 +70,7 @@ Q_OBJECT public:
     void moveToBegin(Transfer * item);
     void moveToEnd(Transfer * item);
 
-    uint getPhasesNum()
+    uint getPhasesNum()const
     {
         return phasesNum;
     }

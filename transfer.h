@@ -81,46 +81,46 @@ public:
     bool keepDialogOpen() const;
 
 
-    QDateTime getStartTime()
+    QDateTime getStartTime()const
     {
         return startTime;
     }
-    QTime getRemainingTime()
+    QTime getRemainingTime()const
     {
         return remainingTime;
     }
 
-    unsigned long getTotalSize()
+    unsigned long getTotalSize()const
     {
         return totalSize;
     }
-    unsigned long getProcessedSize()
+    unsigned long getProcessedSize()const
     {
         return processedSize;
     }
 
-    KURL getSrc()
+    KURL getSrc()const
     {
         return src;
     }
-    KURL getDest()
+    KURL getDest()const
     {
         return dest;
     }
-    int getPercent()
+    int getPercent()const
     {
         return percent;
     }
 
-    int getSpeed()
+    int getSpeed()const
     {
         return speed;
     }
-    TransferStatus getStatus()
+    TransferStatus getStatus()const
     {
         return status;
     }
-    int getMode()
+    int getMode()const
     {
         return mode;
     }

@@ -41,6 +41,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kglobal.h>
+#include <qlabel.h>
 
 #include "bwdatetime.h"
 #include "common.h"

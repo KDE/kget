@@ -28,7 +28,7 @@ GetFileJob::~GetFileJob()
 {}
 
 /** Return true if the file has been resumed */
-bool GetFileJob::getCanResume()
+bool GetFileJob::getCanResume()const
 {
     return m_canResume;
 }

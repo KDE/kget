@@ -29,7 +29,7 @@ class GetFileJob:public FileCopyJob
 public:
     GetFileJob(const KURL & m_src, const KURL & m_dest);
     ~GetFileJob();
-    bool getCanResume();
+    bool getCanResume() const;
 };
 }
 

@@ -27,12 +27,12 @@
 /*
  KPostit - postit notes for the KDE Project
  Copyright (C) 1997 Bernd Johannes Wuebben
- 
- wuebben@math.cornell.edu 
+
+ wuebben@math.cornell.edu
  wuebben@kde.org
- 
+
  This class is a modified version of a class found in:
- 
+
  qtremind - an X windows appoint reminder program.
  Copyright (C) 1997  Tom Daley
  */
@@ -41,13 +41,13 @@
 #ifndef BW_DATE_TIME_H_
 #define BW_DATE_TIME_H_
 
-#include <qlabel.h>
+
 #include <qbuttongroup.h>
 #include <qradiobutton.h>
 #include <qdatetime.h>
 #include "common.h"
 // #include "spin.h"
-
+class QLabel;
 class QSpinBox;
 
 class BWDateTime:public QWidget
