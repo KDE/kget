@@ -43,6 +43,7 @@ void GroupItem::updateContents(bool updateAll)
     
     if(updateAll)
     {
+        setPixmap(0, SmallIcon("package") );
         setText(0, info.name);
         setText(2, KIO::convertSize(info.totalSize));
     }

@@ -48,7 +48,10 @@ Group::TransferInfoCache Group::updatedInfoCache(Transfer * t)
 void Group::updatePercent()
 {
     kdDebug() << "updatePercent" << gInfo.processedSize << " / " << gInfo.totalSize << endl;
-    gInfo.percent = 100 * gInfo.processedSize / gInfo.totalSize;
+    if(gInfo.totalSize != 0)
+        gInfo.percent = 100 * gInfo.processedSize / gInfo.totalSize;
+    else
+        gInfo.percent = 0;
 }    
 
 void Group::addTransfer(Transfer * t)

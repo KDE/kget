@@ -17,6 +17,7 @@
 #include <qwidget.h>
 #include <qmap.h>
 #include <klistview.h>
+#include <kiconloader.h>
 
 class KListView;
 class KPushButton;

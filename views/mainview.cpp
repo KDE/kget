@@ -13,12 +13,15 @@
 #include <qpainter.h>
 #include <qpalette.h>
 #include <qfont.h>
+#include <qimage.h>
+#include <qpixmap.h>
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
 #include <kiconloader.h>
 #include <kio/global.h>
+#include <kimageeffect.h>
 
 #include "mainview.h"
 #include "transferlist.h"
@@ -46,9 +49,17 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
 {
     //QListViewItem::paintCell(p, cg, column, width, align);
     
-    //p->fillRect(0,0,width, height(), QColor(174, 174, 220).dark(120));
+/*    QPixmap * topLeftPix = new QPixmap(
+        KImageEffect::gradient( QSize( width, height() ),
+        cg.brush(QColorGroup::Background).color(), 
+        cg.brush(QColorGroup::Background).color().light(110),
+        KImageEffect::VerticalGradient ) );*/
+        
+
+//     p->drawPixmap(0,0, *topLeftPix);
     p->fillRect(0,0,width, height(), cg.brush(QColorGroup::Background));
     
+   
     switch (column)
     {
         case 0:
@@ -59,10 +70,12 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
             QFont f(p->font());
             f.setBold(true);
             p->setFont(f);
-            p->drawText(0,0,width, height(), Qt::AlignVCenter, 
+            p->setPen(QPen(cg.brush(QColorGroup::Background).color().dark(110),2));
+            p->drawRoundRect(0,0,width, height(), 15, 100);
+            p->setPen(cg.brush(QColorGroup::Foreground).color());
+            p->drawText(0,0,width, height(), Qt::AlignCenter, 
                     group->info().name);
             break;
-
     }
     
 /*    switch (column)
