@@ -124,7 +124,10 @@ void Slave::error(int _error, QString _msg)
         m_status = SLV_ABORTING;
         switch (_error) {
         case ERR_CANNOT_OPEN_FOR_READING:
+	  break;
         case ERR_CANNOT_OPEN_FOR_WRITING:
+          _msg = "Cannot Open for Writing:"  +_msg;
+	  break;
         case ERR_CANNOT_LAUNCH_PROCESS:
         case ERR_INTERNAL:
         case ERR_MALFORMED_URL:
