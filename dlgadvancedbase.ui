@@ -100,7 +100,7 @@
                         <cstring>cb_expertmode</cstring>
                     </property>
                     <property name="text">
-                        <string>Expert mode (Do not prompt for Cancel or Delete)</string>
+                        <string>Expert mode (do not prompt for Cancel or Delete)</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox" row="8" column="0" rowspan="1" colspan="3">
