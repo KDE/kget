@@ -51,8 +51,7 @@ class KMainWidget:public KMainWindow
 
 Q_OBJECT public:
         enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
-                               ID_TOTAL_TIME, ID_TOTAL_SPEED
-                             };
+                               ID_TOTAL_TIME         , ID_TOTAL_SPEED                };
 
         KMainWidget(bool bStartDocked = false);
         ~KMainWidget();
@@ -68,10 +67,7 @@ Q_OBJECT public:
         void setAutoSave();
         void setAutoDisconnect();
 
-        LogWindow *logwin()
-        {
-                return logWindow;
-        }
+        LogWindow *logwin() { return logWindow;}
         friend class Settings;
 
         // Actions
@@ -210,9 +206,6 @@ private:
 
         KToggleAction *m_paShowStatusbar;
         KToggleAction *m_paDropTarget, *m_paDockWindow, *m_paNormal;
-
-private:                     // Private methods
-
 
 };
 

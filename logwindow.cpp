@@ -183,6 +183,7 @@ void LogWindow::closeEvent(QCloseEvent *)
 {
         kmain->m_paShowLog->setChecked(false);
         kmain->b_viewLogWindow = false;
+        hide();
 }
 
 

@@ -37,8 +37,6 @@
 #include <net/if.h>
 #endif
 
-#include <qdir.h>
-#include <qpainter.h>
 #include <qclipboard.h>
 #include <qregexp.h>
 #include <qdragobject.h>
@@ -386,31 +384,33 @@ void KMainWidget::setupGUI()
         m_paDelay->setExclusiveGroup("TransferMode");
 
         // options actions
-        m_paUseAnimation = new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
-        m_paUseSound = new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
-        m_paPreferences = new KAction(i18n("P&references"), QIconSet(QPixmap(locate("data", "kget/pics/tool_preferences.xpm"))), 0, this, SLOT(slotPreferences()), actionCollection(), "preferences");
-        m_paExpertMode = new KToggleAction(i18n("&Expert mode"), "tool_expert", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
-        m_paUseLastDir = new KToggleAction(i18n("&Use-last-directory mode"), "tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
-        m_paAutoDisconnect = new KToggleAction(i18n("Auto-&disconnect mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
-        m_paAutoShutdown = new KToggleAction(i18n("Auto-s&hutdown mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
-        m_paOfflineMode = new KToggleAction(i18n("&Offline mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
-        m_paAutoPaste = new KToggleAction(i18n("Auto-pas&te mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
+        m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
+        m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
+        m_paExpertMode     =  new KToggleAction(i18n("&Expert mode"), "tool_expert", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
+        m_paUseLastDir     =  new KToggleAction(i18n("&Use-last-directory mode"), "tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
+        m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&disconnect mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
+        m_paAutoShutdown   =  new KToggleAction(i18n("Auto-s&hutdown mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
+        m_paOfflineMode    =  new KToggleAction(i18n("&Offline mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
+        m_paAutoPaste      =  new KToggleAction(i18n("Auto-pas&te mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
+
+        m_paPreferences    =  new KAction(i18n("P&references"), QIconSet(QPixmap(locate("data", "kget/pics/tool_preferences.xpm"))), 0, this, SLOT(slotPreferences()), actionCollection(), "preferences");
 
         KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection(), "configure_keybinding");
-
         KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection(), "configure_toolbars");
 
         // view actions
+
         m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), actionCollection(), "show_statusbar");
 
-        m_paShowLog = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
-        m_paDropTarget = new KRadioAction(i18n("Drop &target"), "tool_drop_target", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
-        m_paDockWindow = new KRadioAction(i18n("&Dock window"), "tool_dock", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
-        m_paNormal = new KRadioAction(i18n("&Normal"), "tool_normal", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
+        m_paShowLog       = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
+
+        m_paDropTarget    = new KRadioAction(i18n("Drop &target"), "tool_drop_target", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
+        m_paDockWindow    = new KRadioAction(i18n("&Dock window"), "tool_dock", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
+        m_paNormal        = new KRadioAction(i18n("&Normal"), "tool_normal", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
 
         m_paDropTarget->setExclusiveGroup("WindowMode");
         m_paDockWindow->setExclusiveGroup("WindowMode");
-        m_paNormal->setExclusiveGroup("WindowMode");
+        m_paNormal    ->setExclusiveGroup("WindowMode");
 
         menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
         KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), actionCollection(), "whats_this");
@@ -419,6 +419,7 @@ void KMainWidget::setupGUI()
 
         toolBar()->setBarPos(ksettings.toolbarPosition);
         toolBar()->setIconText(KToolBar::IconOnly);
+
         // setup statusbar
         statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
         statusBar()->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
@@ -426,12 +427,13 @@ void KMainWidget::setupGUI()
         statusBar()->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
         statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
 
-        if (ksettings.b_showStatusbar) {
+        if (ksettings.b_showStatusbar)
                 statusBar()->show();
-        } else {
+        else
                 statusBar()->hide();
-        }
+
         slotUpdateActions();
+
         updateStatusBar();
 
 
@@ -594,9 +596,9 @@ void KMainWidget::slotImportTextFile()
         int i, j;
 
         filename = KFileDialog::getOpenURL(currentDirectory).url();
-        if (filename.isEmpty()) {
+        if (filename.isEmpty())
                 return;
-        }
+
         if (KIO::NetAccess::download(filename, tmpFile)) {
                 list = kFileToString(tmpFile);
                 KIO::NetAccess::removeTempFile(tmpFile);
@@ -606,7 +608,6 @@ void KMainWidget::slotImportTextFile()
         i = 0;
         while ((j = list.find('\n', i)) != -1) {
                 QString newtransfer = list.mid(i, j - i);
-
                 addTransfer(newtransfer);
                 i = j + 1;
         }
@@ -646,16 +647,16 @@ void KMainWidget::readTransfers(bool ask_for_name)
 
 
         if (txt.isEmpty()) {
+#ifdef _DEBUG
                 sDebugOut << endl;
+#endif
                 return;
         }
 
         sDebug << "Read from file: " << txt << endl;
         myTransferList->readTransfers(txt);
-
         checkQueue();
         slotTransferTimeout();
-
         myTransferList->clearSelection();
 
 
@@ -687,21 +688,27 @@ void KMainWidget::writeTransfers(bool ask_for_name)
         QString str;
         QString txt;
 
-        if (ask_for_name) {
+        if (ask_for_name)
                 txt = KFileDialog::getSaveFileName(currentDirectory, "*.kgt|*.kgt\n*.*|All files");
-        } else {
+         else
                 txt = locateLocal("appdata", "transfers");
-        }
 
-        if (txt.isEmpty()) {
-                sDebugOut << endl;
+
+        if (txt.isEmpty())
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
                 return;
-        }
+
 
 
         if (txt.findRev(".kgt") == -1)
                 txt += ".kgt";
+
+#ifdef _DEBUG
         sDebug << "Writing transfers " << txt << endl;
+#endif
+
         myTransferList->writeTransfers(txt);
 
 #ifdef _DEBUG
@@ -740,9 +747,10 @@ void KMainWidget::slotQuit()
                 item = it.current();
                 if (item->getStatus() == Transfer::ST_RUNNING && !ksettings.b_expertMode) {
                         if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close Kget?"), i18n("Warning")) != KMessageBox::Yes) {
-                                #ifdef _DEBUG
-                                 sDebugOut << endl;
-                                #endif
+#ifdef _DEBUG
+                                sDebugOut << endl;
+#endif
+
                                 return;
                         }
                 }
@@ -753,6 +761,7 @@ void KMainWidget::slotQuit()
 #ifdef _DEBUG
         sDebugOut << endl;
 #endif
+
         delete this;
         kapp->quit();
 }
@@ -1039,9 +1048,9 @@ void KMainWidget::slotPasteTransfer()
                 delete box;
         }
 
-        if (!newtransfer.isEmpty()) {
+        if (!newtransfer.isEmpty())
                 addTransfer(newtransfer);
-        }
+
 
 #ifdef _DEBUG
         sDebugOut << endl;
@@ -1058,22 +1067,28 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
 
         // don't download file URL's TODO : uncomment
         if (!strcmp(url.protocol(), "file")) {
-                sDebug << "File protocol not accepted !" << endl;
+#ifdef _DEBUG
+                sDebugOut << "File protocol not accepted !" << endl;
+#endif
                 return;
         }
 
         if (url.isMalformed()) {
-                if (!ksettings.b_expertMode) {
+                if (!ksettings.b_expertMode)
                         KMessageBox::error(this, i18n("Malformed URL:\n") + s, i18n("Error"));
-                }
+#ifdef _DEBUG
+                sDebugOut << "Malformed URL" << endl;
+#endif
                 return;
         }
         // if we find this URL in the list
         if (myTransferList->find(s)) {
-                if (!ksettings.b_expertMode) {
+                if (!ksettings.b_expertMode)
                         KMessageBox::error(this, i18n("Already saving URL \n") + s, i18n("Error"));
-                }
-                return;
+#ifdef _DEBUG
+                sDebugOut << "Malformed URL" << endl;
+#endif
+                 return;
         }
         // Setup destination
 
@@ -1100,17 +1115,16 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
         if (d.isNull()) {           // if we didn't provide destination
                 if (!ksettings.b_expertMode) {
                         // open the filedialog for confirmation
-                        KFileDialog *dlg = new KFileDialog(destDir, "",
-                                                           this,
-                                                           i18n("Save As"),
-                                                           true);
-
+                        KFileDialog *dlg = new KFileDialog(destDir, "",this,i18n("Save As"),true);
                         dlg->setSelection(url.fileName());
                         dlg->setOperationMode(KFileDialog::Saving);
                         // TODO set the default destiantion
                         dlg->exec();
 
                         if (!dlg->result()) {       // cancelled
+#ifdef _DEBUG
+                                sDebugOut << endl;
+#endif
                                 return;
                         } else {
                                 dest = dlg->selectedURL().url();
@@ -1303,7 +1317,7 @@ void KMainWidget::slotTransferTimeout()
         }
 
 #ifdef _DEBUG
-        sDebugOut << endl;
+        //sDebugOut << endl;
 #endif
 }
 
@@ -1986,7 +2000,9 @@ void KMainWidget::slotUpdateActions()
                                 m_paMoveToEnd->setEnabled(false);
                         }
                         // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
+#ifdef _DEBUG
                         sDebug << "-->ONLINE= " << ksettings.b_offlineMode << endl;
+#endif
                         if (item == first_item && !ksettings.b_offlineMode) {
                                 switch (item->getStatus()) {
                                 case Transfer::ST_TRYING:
@@ -1999,7 +2015,9 @@ void KMainWidget::slotUpdateActions()
                                         m_paResume->setEnabled(true);
                                         m_paPause->setEnabled(false);
                                         m_paRestart->setEnabled(false);
+#ifdef _DEBUG
                                         sDebug << "STATUS IS  stopped" << item->getStatus() << endl;
+#endif
                                         break;
                                 }               //end switch
 
@@ -2022,17 +2040,21 @@ void KMainWidget::slotUpdateActions()
 
                                         switch (item->getMode()) {
                                         case Transfer::MD_QUEUED:
+#ifdef _DEBUG
                                                 sDebug << "....................THE MODE  IS  MD_QUEUED " << item->getMode() << endl;
+#endif
                                                 m_paQueue->setChecked(true);
                                                 break;
                                         case Transfer::MD_SCHEDULED:
+#ifdef _DEBUG
                                                 sDebug << "....................THE MODE  IS  MD_SCHEDULED " << item->getMode() << endl;
-
+#endif
                                                 m_paTimer->setChecked(true);
                                                 break;
                                         case Transfer::MD_DELAYED:
+#ifdef _DEBUG
                                                 sDebug << "....................THE MODE  IS  MD_DELAYED " << item->getMode() << endl;
-
+#endif
                                                 m_paDelay->setChecked(true);
                                                 break;
                                         }
@@ -2175,7 +2197,9 @@ void KMainWidget::checkOnline()
                         flag = true;
                         b_online = false;
                 } else if (ifr.ifr_flags == 0) {
+#ifdef _DEBUG
                         sDebug << "Can't get flags from interface " << ifr.ifr_name << endl;
+#endif
                         b_online = false;
                 } else if (ifr.ifr_flags & IFF_UP) {    // if (ifr.ifr_flags & IFF_RUNNING)
                         b_online = true;
@@ -2190,7 +2214,9 @@ void KMainWidget::checkOnline()
 
         if (b_online != old) {
                 if (flag) {             // so that we write this only once when connection is changed
+#ifdef _DEBUG
                         sDebug << "Unknown interface " << ifr.ifr_name << endl;
+#endif
                 }
 
                 if (b_online) {
@@ -2204,7 +2230,7 @@ void KMainWidget::checkOnline()
 
 
 #ifdef _DEBUG
-        sDebugOut << endl;
+        //sDebugOut << endl;
 #endif
 }
 
@@ -2249,6 +2275,7 @@ static int sockets_open()
 #ifdef _DEBUG
         sDebugOut << endl;
 #endif
+
         return ddp_sock;
 }
 
@@ -2315,7 +2342,9 @@ void KMainWidget::customEvent(QCustomEvent * _e)
                 e->getItem()->logMessage(e->getMsg(), true);
                 break;
         default:
+#ifdef _DEBUG
                 sDebug << "Unkow Result..die" << result << endl;
+#endif
                 assert(0);
 
 
@@ -2323,7 +2352,7 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 
 
 #ifdef _DEBUG
-        sDebugOut << endl;
+        //sDebugOut << endl;
 #endif
 }
 
