@@ -50,8 +50,13 @@
 
 DropTarget::DropTarget():QWidget()
 {
-
-    if (ksettings.dropPosition.x() != -1)
+    int x = ksettings.dropPosition.x();
+    int y = ksettings.dropPosition.y();
+    
+    if (x != -1 &&
+        x >= 0 && y >= 0 &&
+        (x + TARGET_WIDTH) <= KApplication::desktop()->width() &&
+        (y + TARGET_HEIGHT) <= KApplication::desktop()->height() )
     {
         move(ksettings.dropPosition);
         KWin::setState(winId(), ksettings.dropState);

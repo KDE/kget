@@ -183,13 +183,14 @@ Settings::load()
 
     // read main window geometry settings
     config->setGroup("MainGeometry");
-    mainPosition = config->readPointEntry("Position", new QPoint(-1, -1));
+    const QPoint point(-1,-1);
+    mainPosition = config->readPointEntry("Position", &point);
     mainSize = config->readSizeEntry("Size");
     mainState = config->readUnsignedLongNumEntry("State", 0);
 
     // read drop target geometry settings
     config->setGroup("DropGeometry");
-    dropPosition = config->readPointEntry("Position", new QPoint(-1, -1));
+    dropPosition = config->readPointEntry("Position", &point);
     dropState = config->readUnsignedLongNumEntry("State", 0);
 }
 
