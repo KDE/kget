@@ -80,16 +80,6 @@ void TransferKio::slotSetSpeed(int speed)
 
 }
 
-void TransferKio::slotSetDelay(int seconds)
-{
-    tInfo.status = St_Delayed;
-    setTransferChange(Tc_Status);    
-
-    //TODO: Implement the delay
-        
-    emit transferChanged(this);
-}
-
 void TransferKio::slotSetSegmented(int nSegments)
 {
 

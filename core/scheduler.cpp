@@ -483,7 +483,7 @@ void Scheduler::slotTransferChanged(Transfer * item)
             {
 //            case Transfer::St_Delayed:
             case Transfer::St_Aborted:
-                item->slotSetDelay(30);
+                item->slotSetDelay(5);
             case Transfer::St_Finished:
             case Transfer::St_Stopped:
                 sDebug << "TRANSFER REMOVAL: " << item << endl;

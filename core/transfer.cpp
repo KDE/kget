@@ -92,6 +92,16 @@ void Transfer::about() const
     kdDebug() << "TRANSFER: (" << this << ") " << tInfo.src.fileName() << endl;
 }
 
+void Transfer::slotSetDelay(int seconds)
+{
+    tInfo.status = St_Delayed;
+    setTransferChange(Tc_Status);
+
+    startTimer( 1000 * seconds );
+
+    emit transferChanged(this);
+}
+
 void Transfer::setTransferChange(TransferChange p)
 {
     QMap<const TransferInterrogator *, TransferChanges>::Iterator it = transferChanges.begin();    
@@ -139,4 +149,14 @@ void Transfer::write(QDomNode * n)
     t.setAttribute("Percent", tInfo.percent);
     
     sDebugOut << endl;
+}
+
+void Transfer::timerEvent( QTimerEvent *e )
+{
+    tInfo.status = St_Stopped;
+    setTransferChange(Tc_Status);
+
+    killTimers();
+
+    emit transferChanged(this);
 }

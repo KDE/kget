@@ -126,9 +126,13 @@ public slots:
     virtual void slotRemove() = 0;
     
     virtual void slotSetSpeed(int speed) = 0;
-    virtual void slotSetDelay(int seconds) = 0;
     virtual void slotSetSegmented(int nSegments) = 0;
-   
+
+    /**
+     * This function can be reimplemented if necessary
+     */
+    virtual void slotSetDelay(int seconds);
+
 signals:
     void transferChanged(Transfer *);
 
@@ -144,6 +148,9 @@ protected:
     Info tInfo;
         
 private:
+    //This function is used to implement slotSetDelay(int)
+    void timerEvent( QTimerEvent *e );
+
     Scheduler * sched;
     QMap<const TransferInterrogator *, TransferChanges> transferChanges;
 };

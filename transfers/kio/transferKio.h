@@ -37,7 +37,6 @@ public slots:
     virtual void slotRemove();
     
     virtual void slotSetSpeed(int speed);
-    virtual void slotSetDelay(int seconds);
     virtual void slotSetSegmented(int nSegments);
     
 private:

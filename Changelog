@@ -1,4 +1,13 @@
 2005-01-14 Dario Massarin <nekkar@libero.it>
+        * Implement delay in the transfer class. We don't need this function
+        to be abstract virtual. Remove its partial implementation from the 
+        TransferKio class.
+        * Now the scheduler sets a small delay (5 seconds) when necessary
+        (with broken urls) to the transfers. This is enough to allow the
+        scheduler to skip them when downloading and to go on downloading the
+        non broken urls. Nice behaviour, IMHO.
+
+2005-01-14 Dario Massarin <nekkar@libero.it>
         * Correct stupid bug that caused wrong updates of the percent field 
         in the group object.
 
