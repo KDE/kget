@@ -357,8 +357,13 @@ void TransferList::writeTransfers(QString file)
         sDebug << ">>>>Entering with file =" << file << endl;
 
         QFile f(file);
-
-        assert(f.open(IO_WriteOnly));
+             
+        
+	if (!f.open(IO_WriteOnly))
+ 	  {
+ 	    //TODO ADD Message LOG
+ 	    return ;
+ 	  }
 
         KSimpleConfig config(file);
         int num = childCount();
