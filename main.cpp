@@ -31,25 +31,25 @@
 #include <kcmdlineargs.h>
 #include <kurl.h>
 #include <kuniqueapplication.h>
+#include <qprocess.h>
 
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "kmainwidget.h"
-#include "globals.h"
+#include "splash.h"
 
 
 static const char description[] = I18N_NOOP("An advanced download manager for KDE.");
 
 static const char version[] = KGETVERSION;
 
-
 static KCmdLineOptions option[] = {
-                                      { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
-                                      {"+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
-                                      KCmdLineLastOption
-                                  };
+    { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
+    { "+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
+    KCmdLineLastOption
+};
 
 static void cleanup(void);
 static void setSignalHandler(void (*handler) (int));
@@ -100,41 +100,56 @@ class KGetApp : public KUniqueApplication
 {
 private:
     KMainWidget *kmainwidget;
+    OSDWidget * osd;
     
 public:
-    KGetApp() : KUniqueApplication()
+    KGetApp()
+        : KUniqueApplication(), kmainwidget( 0 ), osd( 0 )
     {
-#ifdef _DEBUG
-        sDebugIn << endl;
-#endif
-
-        kmainwidget=0;
-
-#ifdef _DEBUG
-        sDebugOut << endl;
-#endif
+        showSplash();
     }
 
     ~KGetApp()
     {
-#ifdef _DEBUG
-        sDebugIn << endl;
-#endif
-    delete kmainwidget;
-#ifdef _DEBUG
-        sDebugOut << endl;
-#endif
+        delete kmainwidget;
     }
 
+    void showSplash()
+    {
+        //determine whether splash-screen is enabled in amarokrc
+        QString rcfile( ::getenv( "HOME" ) );
+        rcfile += "/.kde/share/config/kgetrc";
+
+        QFile file( rcfile );
+        file.open( IO_ReadOnly );
+        QString line;
+
+        //TODO read the right property from the 'kgetrc' file
+//         while ( file.readLine( line, 2000 ) != -1 ) {
+//             if ( line.contains( "Show Splashscreen" ) && line.contains( "false" ) )
+//                 return;
+//         }
+
+        //get KDE prefix from kde-config
+        QProcess * proc = new QProcess( this );
+        proc->addArgument( "kde-config" );
+        proc->addArgument( "--prefix" );
+        proc->start();
+
+        //wait until process has finished
+        while ( proc->isRunning() );
+
+        //read output from kde-config
+        QString path = proc->readStdout();
+        path.remove( "\n" );
+        path += "/share/apps/kget/pics/kget_splash.png";
+
+        osd = new OSDWidget( path );
+    }
 
     int newInstance()
     {
-#ifdef _DEBUG
-        sDebugIn <<"kmainwidget="<<kmainwidget << endl;
-#endif
-
         KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
 
         if (kmainwidget==0)
         {
@@ -144,7 +159,6 @@ public:
                 kmainwidget=new KMainWidget();
             setMainWidget(kmain);
         }
-
         else
             KWin::activateWindow (kmainwidget->winId());
 
@@ -170,13 +184,9 @@ public:
             kmain->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
                                   KURL::fromPathOrURL( args->arg(1) ));
 */
-
         args->clear();
-
-#ifdef _DEBUG
-        sDebugOut << endl;
-#endif
-
+        if ( osd )
+            osd->removeOSD();
         return 0;
     }
 };
@@ -192,7 +202,6 @@ int main(int argc, char *argv[])
     aboutData.addAuthor("Carsten Pfeiffer", 0, "pfeiffer@kde.org");
     aboutData.addAuthor("Matej Koss", 0);
 
-
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineArgs::addCmdLineOptions(option);
 
@@ -206,10 +215,8 @@ int main(int argc, char *argv[])
     KGetApp kApp;
 
     setSignalHandler(signalHandler);
+
     kApp.exec();
 
     cleanup();
-
-
-
 }
