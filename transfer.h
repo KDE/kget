@@ -65,8 +65,8 @@ public:
 
 
 
-    Transfer(TransferList * view, const KURL & _src, const KURL & _dest);
-    Transfer(TransferList * view, Transfer * after, const KURL & _src, const KURL & _dest);
+    Transfer(TransferList * view, const KURL & _src, const KURL & _dest, const uint _id=0);
+    Transfer(TransferList * view, Transfer * after, const KURL & _src, const KURL & _dest, const uint _id=0);
     ~Transfer();
 
     void synchronousAbort();
@@ -188,7 +188,7 @@ signals:
     void log(uint, const QString &, const QString &);
 
 private:
-    void init();
+    void init(const uint _id);
 
     Slave *m_pSlave;
 

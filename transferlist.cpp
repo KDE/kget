@@ -72,6 +72,8 @@ TransferList::TransferList(QWidget * parent, const char *name)
     lv_speed = addColumn(i18n("Speed"));
     lv_remaining = addColumn(i18n("Rem. Time"));
     lv_url = addColumn(i18n("Address (URL)"));
+    
+    jobid=1;
 
     // initial layout
     KConfig *config = KGlobal::config();
@@ -126,7 +128,8 @@ Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest,
                                     bool canShow)
 {
     Transfer *last = static_cast<Transfer*>( lastItem() );
-    Transfer *new_item = new Transfer(this, last, _source, _dest);
+    Transfer *new_item = new Transfer(this, last, _source, _dest, jobid);
+    jobid++;
     if ( canShow )
         new_item->maybeShow();
 

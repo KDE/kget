@@ -52,7 +52,7 @@
 extern Settings ksettings;
 
 
-Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest)
+Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest, const uint _id)
     : QObject( _view ),
       KListViewItem(_view)
 {
@@ -62,13 +62,13 @@ Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest)
     dest = _dest;
 
     view = _view;
-    init();
+    init(_id);
 
     sDebugOut << endl;
 }
 
 
-Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest)
+Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest, const uint _id)
     : QObject( _view ),
       KListViewItem(_view, (QListViewItem *) after)
 {
@@ -77,7 +77,7 @@ Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, co
     view = _view;
     src = _src;
     dest = _dest;
-    init();
+    init(_id);
 
     sDebugOut << endl;
 }
@@ -95,14 +95,14 @@ Transfer::~Transfer()
 
 
 void
-Transfer::init()
+Transfer::init(const uint _id)
 {
     sDebugIn << endl;
 
     totalSize = 0;
     processedSize = 0;
     percent = 0;
-    id = 0;
+    id = _id;
     m_pSlave = new Slave(this, src, dest);
     canResume = false;
     startTime = QDateTime::currentDateTime();

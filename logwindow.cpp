@@ -91,6 +91,7 @@ SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
     lv_log = new QListView(this);
     lv_log->setMultiSelection(false);
     lv_log->setAllColumnsShowFocus(true);
+    lv_log->setSorting(-1);
 
     lv_log->addColumn(i18n("Id"), 40);
     lv_log->addColumn(i18n("Name"), 100);
@@ -115,7 +116,12 @@ void SeparatedLog::addLog(uint id, const QString & filename, const QString & mes
     if (!trMap.contains(id)) {
         trMap.insert(id, message);
         QString tmps;
-        new QListViewItem(lv_log, tmps.setNum(id), filename);
+        QListViewItem *last=lv_log->lastItem();
+        new QListViewItem(lv_log, last);
+        last=lv_log->lastItem();
+        last->setText(0, tmps.setNum(id));
+        last->setText(1, filename);
+        // if I don't do this, ID#10 gets sorted between ID#1 and ID#2, ugly.      
     } else {
         trMap[id] += message;
     }

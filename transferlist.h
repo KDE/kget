@@ -109,6 +109,7 @@ protected:
     QPixmap pixRetrying;
 
     uint phasesNum;
+    uint jobid;
 };
 
 
