@@ -411,9 +411,9 @@ void KMainWidget::setupGUI(bool startDocked)
 #endif
 
     //IconView
-    QWidget * w = new IconViewWidget( scheduler );
-    w->resize(400,300);
-    w->show();
+    KMdiChildView * i = new IconViewMdiView( scheduler );
+    addWindow(i);
+    i->show();
     
     //TestView
     TestView * t = new TestView( scheduler );

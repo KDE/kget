@@ -13,7 +13,7 @@
 #include "viewinterface.h"
 
 #include <qiconview.h>
-#include <qlayout.h>
+#include <kmdichildview.h>
 
 class IconView;
 class QPixmap;
@@ -30,6 +30,7 @@ class IconViewTransfer : public QIconViewItem
 	Transfer * getTransfer();
 
     protected:
+	virtual void paintItem( QPainter * p, const QColorGroup & cg );
 	virtual void paintFocus( QPainter * p, const QColorGroup & cg );
 
     private:
@@ -56,22 +57,15 @@ class IconView : public QIconView, public ViewInterface
 	void slotNewTransfer();
 	void slotRemoveItems();
 	void slotSetPriority();
-	void slotSetOperation();
+	void slotSetCommand();
 	void slotSetGroup();
 	//from "transfer operations" popup
 };
 
-class IconViewWidget : public QWidget
+class IconViewMdiView : public KMdiChildView
 {
     public:
-	IconViewWidget( Scheduler * s, QWidget * parent = 0, const char * name = 0 )
-	{
-	    QVBoxLayout * vLay = new QVBoxLayout( this );
-	    vLay->addWidget( new IconView( s, this ) );
-	    IconView * iv2 = new IconView( s, this );
-	    iv2->setItemTextPos( QIconView::Right );
-	    vLay->addWidget( iv2 );
-	}
+	IconViewMdiView( Scheduler * s, QWidget * parent = 0, const char * name = 0 );
 };
 
 #endif
