@@ -37,12 +37,14 @@
 
 #include "kmainwidget.h"
 #include <qcursor.h>
+#ifdef Q_WS_X11
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
 #include <X11/extensions/shape.h>
 #undef Bool
 #undef Status
+#endif
 #include "settings.h"
 #include "droptarget.h"
 #define TARGET_WIDTH   70
@@ -144,7 +146,9 @@ DropTarget::mousePressEvent(QMouseEvent * e)
 
 void DropTarget::resizeEvent(QResizeEvent *)
 {
+#ifdef Q_WS_X11
     XShapeCombineMask(x11Display(), winId(), ShapeBounding, 0, 0, mask.handle(), ShapeSet);
+#endif
 }
 
 
