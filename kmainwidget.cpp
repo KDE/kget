@@ -1054,7 +1054,7 @@ void KMainWidget::checkQueue()
 	// count running transfers
 	for (; it.current(); ++it) {
 	    status = it.current()->getStatus();
-	    if (status == Transfer::ST_RUNNING)
+	    if (status == Transfer::ST_RUNNING||status==Transfer::ST_TRYING)
 
 		numRun++;
 	}
@@ -1063,7 +1063,7 @@ void KMainWidget::checkQueue()
 	for (; it.current() && numRun < ksettings.maxSimultaneousConnections; ++it) {
 	    item = it.current();
 	    if ((item->getMode() == Transfer::MD_QUEUED)
-		&& (item->getStatus() != Transfer::ST_RUNNING)) {
+		&& (item->getStatus() != Transfer::ST_RUNNING && item->getStatus()!=Transfer::ST_TRYING)) {
 		 log(i18n("Starting another queued job."));
 		item->slotResume();
 		numRun++;
