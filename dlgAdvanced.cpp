@@ -58,7 +58,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
         gridLayout->setColStretch(2, 5);
 
         // adding new transfers
-        lb_adding = new QLabel(i18n("Add new transfers as :"), this);
+        lb_adding = new QLabel(i18n("Add new transfers as:"), this);
         gridLayout->addWidget(lb_adding, 0, 0);
 
         bg_adding = new QButtonGroup();
@@ -102,7 +102,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
         cb_expertmode =
                 new
                 QCheckBox(i18n
-                          ("Expert mode ( don't prompt for cancel or delete )"),
+                          ("Expert mode (don't prompt for cancel or delete)"),
                           this);
         gridLayout->addMultiCellWidget(cb_expertmode, 6, 6, 0, 2);
 }

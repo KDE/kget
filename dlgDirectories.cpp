@@ -147,14 +147,14 @@ void DlgDirectories::addEntry
                         ext.isEmpty() || dir.isEmpty()) {
                 KMessageBox::error(this,
                                    i18n
-                                   ("Each row consist of exactly one\n extension type and one directory"),
+                                   ("Each row consists of exactly one\n extension type and one directory"),
                                    i18n("Error"));
                 return;
         }
 
         QDir f(dir);
         if (!f.exists()) {
-                KMessageBox::error(this, i18n("Directory doesn't exist :\n") + dir,
+                KMessageBox::error(this, i18n("Directory doesn't exist:\n") + dir,
                                    i18n("Error"));
                 return;
         }
@@ -187,7 +187,7 @@ void DlgDirectories::changeEntry
                                 ext.isEmpty() || dir.isEmpty()) {
                         KMessageBox::error(this,
                                            i18n
-                                           ("Each row consist of exactly one\n extension type and one directory"),
+                                           ("Each row consists of exactly one\n extension type and one directory"),
                                            i18n("Error"));
                         return;
                 }

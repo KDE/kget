@@ -55,7 +55,7 @@ DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
 
         // opened connection
         lb_maxnum =
-                new QLabel(i18n("Maximum number of opened connections :"), this);
+                new QLabel(i18n("Maximum number of opened connections:"), this);
         limitsLayout->addWidget(lb_maxnum, 0, 0);
 
         le_maxnum = new KIntNumInput(0, this, 10);
@@ -63,7 +63,7 @@ DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
         limitsLayout->addWidget(le_maxnum, 0, 1);
 
         // minimum bandwidth
-        lb_minband = new QLabel(i18n("Minimum network bandwidth :"), this);
+        lb_minband = new QLabel(i18n("Minimum network bandwidth:"), this);
         limitsLayout->addWidget(lb_minband, 2, 0);
 
         le_minband = new KIntNumInput(0, this, 10);
@@ -72,7 +72,7 @@ DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
         limitsLayout->addWidget(le_minband, 2, 1);
 
         // maximum bandwidth
-        lb_maxband = new QLabel(i18n("Maximum network bandwidth :"), this);
+        lb_maxband = new QLabel(i18n("Maximum network bandwidth:"), this);
         limitsLayout->addWidget(lb_maxband, 3, 0);
 
         le_maxband = new KIntNumInput(0, this, 10);

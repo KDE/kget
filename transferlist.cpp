@@ -87,7 +87,7 @@ TransferList::TransferList(QWidget * parent,
         lv_total = addColumn(i18n("Total"));
         lv_speed = addColumn(i18n("Speed"));
         lv_remaining = addColumn(i18n("Rem. Time"));
-        lv_url = addColumn(i18n("Address ( URL )"));
+        lv_url = addColumn(i18n("Address (URL)"));
 
         readConfig();
 

@@ -393,7 +393,7 @@ void Transfer::updateAll()
                 dlgIndividual->setPercent(0);
                 dlgIndividual->setProcessedSize(0);
         } else {
-                logMessage(i18n("Total size is unknow"));
+                logMessage(i18n("Total size is unknown"));
                 setText(view->lv_total, "unknow");
                 dlgIndividual->setTotalSize(totalSize);
                 dlgIndividual->setPercent(0);
@@ -1023,7 +1023,7 @@ void Transfer::slotTotalFiles(unsigned long files)
 
         totalFiles = files;
 
-        logMessage(i18n("Total number of files is : %1").arg(totalFiles));
+        logMessage(i18n("Total number of files is: %1").arg(totalFiles));
 
         QString tmps;
         tmps.sprintf("%d / %d", processedFiles, totalFiles);
@@ -1041,7 +1041,7 @@ void Transfer::slotProcessedFiles(unsigned long files)
 
         processedFiles = files;
 
-        logMessage(i18n("Processed number of files is : %1").
+        logMessage(i18n("Processed number of files is: %1").
                    arg(processedFiles));
 
         QString tmps;
@@ -1243,7 +1243,7 @@ bool Transfer::read(KSimpleConfig * config, int id)
         }
 
         if (src.isMalformed() && !ksettings.b_expertMode) {
-                KMessageBox::error(kmain, i18n("Malformed URL :\n") + src.url(),
+                KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(),
                                    i18n("Error"));
                 return false;
         }

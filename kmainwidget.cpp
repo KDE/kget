@@ -507,14 +507,14 @@ void KMainWidget::setupGUI()
         toolBar()->setBarPos(ksettings.toolbarPosition);
         toolBar()->setIconText(KToolBar::IconOnly);
         // setup statusbar
-        statusBar()->insertFixedItem(i18n(" Transfers : %1 ").arg(99),
+        statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99),
                                      ID_TOTAL_TRANSFERS);
-        statusBar()->insertFixedItem(i18n(" Files : %1 ").arg(555),
+        statusBar()->insertFixedItem(i18n(" Files: %1 ").arg(555),
                                      ID_TOTAL_FILES);
-        statusBar()->insertFixedItem(i18n(" Size : %1 kB ").arg("134.56"),
+        statusBar()->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"),
                                      ID_TOTAL_SIZE);
-        statusBar()->insertFixedItem(i18n(" Time : 00:00:00 "), ID_TOTAL_TIME);
-        statusBar()->insertFixedItem(i18n(" %1 kB/s ").arg("123.34"),
+        statusBar()->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
+        statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"),
                                      ID_TOTAL_SPEED);
 
         if (ksettings.b_showStatusbar) {
@@ -582,20 +582,20 @@ void KMainWidget::setupWhatsThis()
         tmp8 = i18n("<b>Preferences</b> button opens a preferences dialog\n"
                     "where you can set various options.\n"
                     "\n"
-                    "Some of these options can be more easily set with toolbar.");
+                    "Some of these options can be more easily set using the toolbar.");
         m_paPreferences->setWhatsThis(tmp8);
 
         static QString tmp9;
         tmp9 = i18n("<b>Log window</b> button opens a log window.\n"
-                    "Log window records all program events that occur\n"
-                    "during the run of Kget.");
+                    "The log window records all program events that occur\n"
+                    "while Kget is running.");
         m_paShowLog->setWhatsThis(tmp9);
 
         static QString tmp10;
-        tmp10 = i18n("<b>Paste transfer</b> button adds an URL from\n"
+        tmp10 = i18n("<b>Paste transfer</b> button adds a URL from\n"
                      "the clipboard as a new transfer.\n"
                      "\n"
-                     "This way you can easily copy&paste URL's between\n"
+                     "This way you can easily copy&paste URLs between\n"
                      "applications.");
         m_paPasteTransfer->setWhatsThis(tmp10);
 
@@ -618,7 +618,7 @@ void KMainWidget::setupWhatsThis()
                      "\n"
                      "When set, Kget will ignore the directory settings\n"
                      "and put all new added transfers into the directory\n"
-                     "where ther last transfer was put.");
+                     "where the last transfer was put.");
         m_paUseLastDir->setWhatsThis(tmp12);
 
         static QString tmp13;
@@ -628,7 +628,7 @@ void KMainWidget::setupWhatsThis()
                      "When set, Kget will disconnect automatically\n"
                      "after all queued transfers are finished.\n" "\n"
                      "<b>Important!</b>\n"
-                     "Turn on also the expert mode when you want Kget\n"
+                     "Also turn on the expert mode when you want Kget\n"
                      "to disconnect without asking.");
         m_paAutoDisconnect->setWhatsThis(tmp13);
 
@@ -639,7 +639,7 @@ void KMainWidget::setupWhatsThis()
                      "When set, Kget will quit automatically\n"
                      "after all queued transfers are finished.\n"
                      "<b>Important!</b>\n"
-                     "Turn on also the expert mode when you want Kget\n"
+                     "Also turn on the expert mode when you want Kget\n"
                      "to quit without asking.");
         m_paAutoShutdown->setWhatsThis(tmp14);
 
@@ -647,7 +647,7 @@ void KMainWidget::setupWhatsThis()
         tmp15 = i18n("<b>Offline mode</b> button toggles the offline mode\n"
                      "on and off.\n"
                      "\n"
-                     "When set, Kget will act as it was not connected\n"
+                     "When set, Kget will act as if it was not connected\n"
                      "to the Internet.\n"
                      "\n"
                      "You can browse offline, while still being able to add\n"
@@ -659,7 +659,7 @@ void KMainWidget::setupWhatsThis()
                      "on and off.\n"
                      "\n"
                      "When set, Kget will periodically scan the clipboard\n"
-                     "for URL's and paste them automatically.");
+                     "for URLs and paste them automatically.");
         m_paAutoPaste->setWhatsThis(tmp16);
 
         static QString tmp17;
@@ -675,13 +675,13 @@ void KMainWidget::setupWhatsThis()
 
         static QString tmp18;
         tmp18 = i18n("<b>Dock widget</b> button toggles the window style\n"
-                     "between a normal window and a dock widget.\n"
+                     "between a normal window and a docked widget.\n"
                      "\n"
                      "When set, the main window will be hidden and\n"
-                     "instead a dock widget will appear on a panel.\n"
+                     "instead a docked widget will appear on the panel.\n"
                      "\n"
-                     "You can show/hide a normal window with a simple click\n"
-                     "on a dock widget.");
+                     "You can show/hide a normal window by simply clicking\n"
+                     "on a docked widget.");
         m_paDockWindow->setWhatsThis(tmp18);
         static QString tmp19;
         tmp19 = i18n("<b>Normal window</b> button sets\n"
@@ -836,7 +836,7 @@ void KMainWidget::slotQuit()
         Transfer *item;
         TransferIterator it(myTransferList);
 
-        log(i18n("Quitting ..."));
+        log(i18n("Quitting..."));
 
         for (; it.current(); ++it) {
                 item = it.current();
@@ -1043,7 +1043,7 @@ void KMainWidget::slotOpenTransfer()
 #endif
         while (!ok) {
                 newtransfer =
-                        KLineEditDlg::getText(i18n("Open transfer :"), newtransfer,
+                        KLineEditDlg::getText(i18n("Open transfer:"), newtransfer,
                                               &ok, this);
 
                 // user presses cancel
@@ -1054,7 +1054,7 @@ void KMainWidget::slotOpenTransfer()
                 KURL url(newtransfer);
                 if (url.isMalformed()) {
                         KMessageBox::error(this,
-                                           i18n("Malformed URL :\n") + newtransfer,
+                                           i18n("Malformed URL:\n") + newtransfer,
                                            i18n("Error"));
                         ok = false;
                 }
@@ -1100,7 +1100,7 @@ void KMainWidget::slotPasteTransfer()
         newtransfer = newtransfer.stripWhiteSpace();
 
         if (!ksettings.b_expertMode) {
-                KLineEditDlg *box = new KLineEditDlg(i18n("Open transfer :"),
+                KLineEditDlg *box = new KLineEditDlg(i18n("Open transfer:"),
                                                      newtransfer, this);
                 box->show();
 
@@ -1133,7 +1133,7 @@ void KMainWidget::addTransfer(QString s, QString d)
 
         if (url.isMalformed()) {
                 if (!ksettings.b_expertMode) {
-                        KMessageBox::error(this, i18n("Malformed URL :\n") + s,
+                        KMessageBox::error(this, i18n("Malformed URL:\n") + s,
                                            i18n("Error"));
                 }
                 return;
@@ -1988,15 +1988,15 @@ void KMainWidget::updateStatusBar()
                 }
         }
 
-        statusBar()->changeItem(i18n(" Transfers : %1 ").
+        statusBar()->changeItem(i18n(" Transfers: %1 ").
                                 arg(myTransferList->childCount()),
                                 ID_TOTAL_TRANSFERS);
-        statusBar()->changeItem(i18n(" Files : %1 ").arg(totalFiles),
+        statusBar()->changeItem(i18n(" Files: %1 ").arg(totalFiles),
                                 ID_TOTAL_FILES);
-        statusBar()->changeItem(i18n(" Size : %1 ").
+        statusBar()->changeItem(i18n(" Size: %1 ").
                                 arg(KIO::convertSize(totalSize)),
                                 ID_TOTAL_SIZE);
-        statusBar()->changeItem(i18n(" Time : %1 ").arg(remTime.toString()),
+        statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()),
                                 ID_TOTAL_TIME);
         statusBar()->changeItem(i18n(" %1/s ").
                                 arg(KIO::convertSize(totalSpeed)),
@@ -2020,7 +2020,7 @@ void KMainWidget::disconnect()
                         return;
                 }
         }
-        log(i18n("Disconnecting ..."));
+        log(i18n("Disconnecting..."));
         system(ksettings.disconnectCommand.ascii());
         sDebug << "<<<<Leaving" << endl;
 }

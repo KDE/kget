@@ -58,7 +58,7 @@ DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
         automationLayout->setColStretch(4, 5);
 
         // auto save
-        cb_autoSave = new QCheckBox(i18n("Auto save file list every :"), this);
+        cb_autoSave = new QCheckBox(i18n("Auto save file list every:"), this);
         automationLayout->addWidget(cb_autoSave, 0, 0);
 
         le_autoSave = new KIntNumInput(0, this, 10);
@@ -71,11 +71,11 @@ DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
 
 
         cb_autoDisconnect =
-                new QCheckBox(i18n("Auto disconnect after done downloading"),
+                new QCheckBox(i18n("Auto disconnect after finished downloading"),
                               this);
         automationLayout->addMultiCellWidget(cb_autoDisconnect, 1, 1, 0, 2);
 
-        lb_autoDisconnect = new QLabel(i18n("Disconnect command :"), this);
+        lb_autoDisconnect = new QLabel(i18n("Disconnect command:"), this);
         automationLayout->addWidget(lb_autoDisconnect, 2, 0,
                                     AlignRight | AlignVCenter);
 
@@ -95,7 +95,7 @@ DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
 
         // auto shutdown
         cb_autoShutdown =
-                new QCheckBox(i18n("Auto shutdown after done downloading"), this);
+                new QCheckBox(i18n("Auto shutdown after finished downloading"), this);
         automationLayout->addWidget(cb_autoShutdown, 5, 0);
 
         // auto paste

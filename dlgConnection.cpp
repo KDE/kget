@@ -64,7 +64,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
                 new QCheckBox(i18n("On login or timeout error"), gb_reconnect);
         reconnectLayout->addWidget(cb_onerror, 0, 0);
 
-        lb_after = new QLabel(i18n("reconnect after :"), gb_reconnect);
+        lb_after = new QLabel(i18n("reconnect after:"), gb_reconnect);
         reconnectLayout->addWidget(lb_after, 1, 1);
 
         le_after = new KIntNumInput(0, gb_reconnect, 10, "le_after");
@@ -72,7 +72,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
         le_after->setRange(1, 3600, 1, false);
         reconnectLayout->addWidget(le_after, 1, 2);
 
-        lb_retries = new QLabel(i18n("number of retries :"), gb_reconnect);
+        lb_retries = new QLabel(i18n("number of retries:"), gb_reconnect);
         reconnectLayout->addWidget(lb_retries, 2, 1);
 
         le_retries = new KIntNumInput(0, gb_reconnect, 10, "le_retries");
@@ -152,7 +152,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
         cmb_type->insertItem(i18n("ISDN"));
         typeLayout->addWidget(cmb_type, 0, 0);
 
-        lb_linknum = new QLabel(i18n("Link number :"), gb_type);
+        lb_linknum = new QLabel(i18n("Link number:"), gb_type);
         typeLayout->addWidget(lb_linknum, 0, 1, AlignCenter);
 
         le_linknum = new KIntNumInput(0, gb_type, 10);

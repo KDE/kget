@@ -140,19 +140,19 @@ void DlgSystem::setupSound()
 
         switch (id) {
         case 0:
-                s = i18n("Filename for sound added :");
+                s = i18n("Filename for sound added:");
                 t = soundAdded;
                 break;
         case 1:
-                s = i18n("Filename for sound started :");
+                s = i18n("Filename for sound started:");
                 t = soundStarted;
                 break;
         case 2:
-                s = i18n("Filename for sound finished :");
+                s = i18n("Filename for sound finished:");
                 t = soundFinished;
                 break;
         case 3:
-                s = i18n("Filename for sound finished-all :");
+                s = i18n("Filename for sound finished-all:");
                 t = soundFinishedAll;
                 break;
         }
