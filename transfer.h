@@ -82,7 +82,8 @@ public:
     QTime getRemainingTime()const {return remainingTime;}
     int getSpeed()const {return speed;}
     TransferStatus getStatus()const {return status;}
-        
+    bool getCanResume()const {return canResume;}
+            
     /**
      * These functions are used to set the transfer properties
      */

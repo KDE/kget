@@ -10,6 +10,8 @@
 #ifndef _KGET_GLOBALS_H
 #define _KGET_GLOBALS_H
 
+#include <qvaluelist.h>
+
 //remove this include
 #include <kdebug.h>
 

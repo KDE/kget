@@ -257,7 +257,6 @@ void Slave::Connect()
     mDebugIn << endl;
 
 
-    connect(copyjob, SIGNAL(canceled(KIO::Job *)), SLOT(slotCanceled(KIO::Job *)));
     connect(copyjob, SIGNAL(connected(KIO::Job *)), SLOT(slotConnected(KIO::Job *)));
     connect(copyjob, SIGNAL(result(KIO::Job *)), SLOT(slotResult(KIO::Job *)));
 
@@ -273,19 +272,11 @@ void Slave::Connect()
 }
 
 
-void Slave::slotCanceled(KIO::Job *)
-{
-    mDebugIn << endl;
-
-
-    mDebugOut << endl;
-}
-
 void Slave::slotConnected(KIO::Job *)
 {
     mDebugIn << endl;
 
-
+    
     mDebugOut << endl;
 }
 
@@ -293,7 +284,7 @@ void Slave::slotResult(KIO::Job * job)
 {
     mDebugIn << endl;
     
-    assert(copyjob == job);
+    //assert(copyjob == job);
     copyjob=0L;
     KIO::Error error=KIO::Error(job->error());
     if (!error) {
@@ -303,6 +294,23 @@ void Slave::slotResult(KIO::Job * job)
         QString tmsg="<font color=\"red\"> <b>" + job->errorString() + \
                      "</font></b>";
         transfer->slaveInfoMessage(tmsg);
+        switch (error)
+            {
+            case KIO::ERR_COULD_NOT_LOGIN:
+            case KIO::ERR_SERVER_TIMEOUT:
+                //Timeout or login error
+                transfer->slavePostMessage(SLV_ERROR);
+                break;
+            case KIO::ERR_CONNECTION_BROKEN:
+                // Connection Broken
+                transfer->slavePostMessage(SLV_BROKEN);
+                break;            
+            default:
+                job->showErrorDialog();
+                transfer->slavePostMessage(SLV_DELAYED);
+                
+                
+        }
         if (/*transfer->retryOnError()FIXME Removed function*/true && \
             ((error==KIO::ERR_COULD_NOT_LOGIN) || (error==KIO::ERR_SERVER_TIMEOUT))) {
             //Timeout or login error

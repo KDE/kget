@@ -103,7 +103,6 @@ protected:
     virtual void run();
 
 private slots:
-    void slotCanceled(KIO::Job *);
     void slotConnected(KIO::Job *);
     void slotResult(KIO::Job *);
     void slotTotalSize(KIO::Job *, KIO::filesize_t);

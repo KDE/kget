@@ -191,13 +191,25 @@ void TransferList::moveToEnd(Transfer * item)
 }
 */
 
+bool TransferList::contains(Transfer * transfer)
+{
+    iterator it = begin();
+    iterator endList = end();
+    
+    for(; it != endList; ++it)
+        {
+        if(*it == transfer)
+            return true;
+    }
+    return false;
+}
 
 Transfer * TransferList::find(const KURL& _src)
 {
-    iterator it;
+    iterator it = begin();
     iterator endList = end();
     
-    for(it = begin(); it != endList; ++it)
+    for(; it != endList; ++it)
         {
         if((*it)->getSrc() == _src)
             return *it;

@@ -67,8 +67,8 @@ public:
      * if priority != -1 the transfer becomes the first item having
      * priority "priority".
      */
-    void moveToBegin(Transfer * item, int priority);
-    void moveToBegin(TransferList &, int priority);
+    void moveToBegin(Transfer * item, int priority = -1);
+    void moveToBegin(TransferList &, int priority = -1);
     
     /**
      * Functions used to move transfer items inside the list.
@@ -77,14 +77,15 @@ public:
      * if priority != -1 the transfer becomes the last item having
      * priority "priority".
      */
-    void moveToEnd(Transfer * item, int priority);
-    void moveToEnd(TransferList &, int priority);
+    void moveToEnd(Transfer * item, int priority = -1);
+    void moveToEnd(TransferList &, int priority = -1);
 
     uint getPhasesNum()const
     {
         return phasesNum;
     }
     
+    bool contains(Transfer * transfer);
     Transfer * find(const KURL& _src);
 
     void readTransfers(const KURL& file, Scheduler * scheduler);

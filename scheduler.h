@@ -68,21 +68,15 @@ public slots:
      */
     void slotNewURLs(const KURL::List & src, const QString& destDir);
     
-    /**
-     * See the above function for details
-     * TEMP(Dario) I have removed the const qualifier to the KURL object
-     * becouse I need to modify it when no src is passed to the function
-     */
-	void slotNewURL(KURL src, const QString& destDir);
-    
+   
 	void slotRemoveItems(TransferList &);
-	void slotRemoveItem(Transfer *);
+	void slotRemoveItems(Transfer *);
     
 	void slotSetPriority(TransferList &, int);
 	void slotSetPriority(Transfer *, int);
     
 	void slotSetCommand(TransferList &, TransferCommand);
-	void slotSetCommand(Transfer *, TransferCommand);
+	bool slotSetCommand(Transfer *, TransferCommand);
     
 	void slotSetGroup(TransferList &, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
@@ -108,6 +102,13 @@ public slots:
      */
     void slotImportTransfers(bool ask_for_name = false);
     
+    /** 
+     * This function adds the transfers included in the file location
+     * calling the readTransfer function in the transferList object.
+     * It checks if the file is valid.
+     */
+    void slotImportTransfers(const KURL & file);
+    
     /**
      * Used to export all the transfers in a .kgt file. 
      * If ask_for_name is true the function opens a KFileDialog 
@@ -116,27 +117,25 @@ public slots:
      * placed in the application data directory.
      */
     void slotExportTransfers(bool ask_for_name = false);
-  
-    /** 
-     * This function adds the transfers included in the file location
-     * calling the readTransfer function in the transferList object.
-     * It checks if the file is valid.
-     */
-    void slotReadTransfers(const KURL & file);
-    
-private:
-    
+
     /**
      * This function reads the transfers included in the file location
      * calling the writeTransfer function in the transferList object.
      * It checks if the file is valid.
      */
-    void writeTransfers(QString & file);
+    void slotExportTransfers(QString & file);
+      
+    
+private:
+    
     
     /**
-     * Functions used to add Transfers from URLS
+     * See the above function for details
+     * TEMP(Dario) I have removed the const qualifier to the KURL object
+     * becouse I need to modify it when no src is passed to the function
      */
-         
+	void slotNewURL(KURL src, const QString& destDir);
+    
     /**
      * Called in the slotImportTextFile(...) function.
      * You can add only a Transfer, with destDir being requested with
@@ -153,21 +152,29 @@ private:
     /**
      * Checks if the given url is valid or not.
      */
-    bool isValidURL( const KURL& url );
+    bool isValidURL( KURL url );
     
     /**
-     * Checks if the given destination dir is valid or not.
+     * Checks if the given destination dir is valid or not. If not
+     * dialogs appear where the user can insert a valid one.
      */
-    bool isValidDest( const KURL& url);
+    KURL getValidDest( const QString& filename, const KURL& dest);
     
     QString getSaveDirectoryFor( const QString& filename ) const;
     
+    /**
+     * We call these methods to notify the queue that we have added 
+     * or removed new items from the general transfer list.
+     */
+    void queueAddedItems(TransferList &);
+    void queueRemovedItems(TransferList &);
+        
     /**
      * Checks the number of running transfers. It starts or stops the
      * transfers, trying to have the number of running transfers 
      * specified by the user
      */
-    void checkRunningTransfers();
+    void queueUpdate();
     
     /**
      * Returns the ConnectionInterface for the selected transfer.

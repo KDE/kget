@@ -425,7 +425,7 @@ void KMainWidget::slotStop()
 void KMainWidget::readTransfersEx(const KURL & url)
 {
     //### port to schedRequestOperation(OpReadTransfers,url);
-    scheduler->slotReadTransfers(url);
+    scheduler->slotImportTransfers(url);
 }
 
 

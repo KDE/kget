@@ -33,6 +33,7 @@
 
 class DlgAutomation:public DlgAutomationBase
 {
+Q_OBJECT
 public:
     DlgAutomation(QWidget * parent);
 };
