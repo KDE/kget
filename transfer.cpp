@@ -119,15 +119,6 @@ bool Transfer::read(QDomDocument * doc, QDomNode * n)
 {
     sDebugIn << endl;
 
-/*    t.setAttribute("Group", info.group);
-    t.setAttribute("Priority", info.priority);
-    t.setAttribute("Status", info.status);
-    t.setAttribute("Source", info.src.url());
-    t.setAttribute("Dest", info.dest.url());
-    t.setAttribute("TotalSize", info.totalSize);
-    t.setAttribute("ProcessedSize", info.processedSize);
-    t.setAttribute("Percent", info.percent);*/
-    
     QDomElement e = n->toElement();
     
     info.group = e.attribute("Group");
@@ -138,36 +129,6 @@ bool Transfer::read(QDomDocument * doc, QDomNode * n)
     info.totalSize = e.attribute("TotalSize").toInt();
     info.processedSize = e.attribute("ProcessedSize").toInt();
     info.percent = e.attribute("Percent").toULong();
-
-// 	if ( !(info.group = node.attribute("Group")).isNull())
-// 		board->setName(value);
-
-/*    QString str;
-    str.sprintf("Item%d", id);
-    config->setGroup(str);
-
-    if (src.isEmpty() || dest.isEmpty()) {
-        return false;
-    }
-
-    if (!src.isValid() && !ksettings.b_expertMode) {
-        KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
-        return false;
-    }
-
-    mode = (TransferMode) config->readNumEntry("Mode", MD_QUEUED);
-    status = (TransferStatus) config->readNumEntry("Status", ST_RUNNING);
-    startTime = config->readDateTimeEntry("ScheduledTime");
-    canResume = config->readBoolEntry("CanResume", true);
-    totalSize = config->readNumEntry("TotalSize", 0);
-    processedSize = config->readNumEntry("ProcessedSize", 0);
-
-    if (status != ST_FINISHED && totalSize != 0) {
-        //TODO insert additional check
-        status = ST_STOPPED;
-    }
-
-    updateAll();*/
     sDebugOut << endl;
     return true;
 }
