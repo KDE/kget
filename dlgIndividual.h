@@ -39,7 +39,6 @@
 #include <kpushbutton.h>
 #include <kaction.h>
 #include <ksqueezedtextlabel.h>
-#include <kprocess.h>
 #include "bwdatetime.h"
 #include "dockindividual.h"
 

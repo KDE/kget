@@ -34,6 +34,7 @@
 #include <klocale.h>
 #include <ktoolbar.h>
 #include <kaction.h>
+#include <krun.h>
 #include "common.h"
 
 #include <qsizepolicy.h>
@@ -215,7 +216,7 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
     //bool keepOpenChecked = false;
     //bool noCaptionYet = true;
     setCaption(i18n("Progress Dialog"));
-    
+
     bKeepDlgOpen=false;
 }
 
@@ -355,11 +356,8 @@ void DlgIndividual::slotOpenLocation(){
 #endif
 
     KURL location=m_location;
-    KProcess proc;
     location.setFileName("");
-    proc << "konqueror" << location.prettyURL();
-    proc.start(KProcess::DontCare);
-
+    kapp->invokeBrowser( location.url() );
 
 #ifdef _DEBUG
     sDebugOut<<endl;
@@ -372,11 +370,7 @@ void DlgIndividual::slotOpenFile(){
   sDebugIn "Starting kfmclient with url "<<m_location.prettyURL()<<endl;
 #endif
 
-    KShellProcess proc;
-    proc << "kfmclient exec " << m_location.prettyURL();
-    proc.start(KProcess::DontCare);
-
-
+    (void) new KRun( m_location );
 
 #ifdef _DEBUG
     sDebugOut<<endl;
