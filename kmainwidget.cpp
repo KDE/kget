@@ -209,6 +209,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
     // Setup special windows
     kdrop = new DropTarget();
     kdock = new DockWidget(this);
+    connect(kdock, SIGNAL(quitSelected()), SLOT(slotQuit()));
 
     // Set geometry
     if (ksettings.mainPosition.x() != -1) {
@@ -672,10 +673,6 @@ void KMainWidget::writeLog()
 #endif
 }
 
-void KMainWidget::close()
-{
-    slotQuit();
-}
 
 void KMainWidget::slotQuit()
 {
