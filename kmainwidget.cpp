@@ -2372,4 +2372,19 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
     return true;
 }
 
+bool KMainWidget::isDropTargetVisible() const
+{
+    return m_paDropTarget->isChecked();
+}
+
+void KMainWidget::setDropTargetVisible( bool setVisible )
+{
+    if ( setVisible != isDropTargetVisible() )
+    {
+        m_paDropTarget->setChecked( !m_paDropTarget->isChecked() );
+        slotToggleDropTarget();
+    }
+}
+
+
 #include "kmainwidget.moc"

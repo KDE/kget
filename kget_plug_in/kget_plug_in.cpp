@@ -18,6 +18,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <kdatastream.h>
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
@@ -84,11 +85,8 @@ void KGet_plug_in::showPopup()
 
     if (p_dcopServer->isApplicationRegistered ("kget"))
     {
-        DCOPRef kget( "kget", "kget mainwindow" );
-        DCOPRef action = kget.call( "action", QCString("drop_target") );
-        QVariant result = action.call( "property", "checked" );
-        if ( result.isValid() )
-            hasDropTarget = result.toBool();
+        DCOPRef kget( "kget", "KGet-Interface" );
+        hasDropTarget = kget.call( "isDropTargetVisible" );
     }
 
     m_paToggleDropTarget->setChecked( hasDropTarget );
@@ -100,8 +98,8 @@ void KGet_plug_in::slotShowDrop()
         KRun::runCommand("kget --showDropTarget");
     else
     {
-        DCOPRef kget( "kget", "kget mainwindow" );
-        kget.send( "activateAction", QCString("drop_target") );
+        DCOPRef kget( "kget", "KGet-Interface" );
+        kget.send( "setDropTargetVisible", m_paToggleDropTarget->isChecked());
     }
 }
 
@@ -134,7 +132,7 @@ void KGet_plug_in::slotShowLinks()
             continue;
 
         LinkItem *item = new LinkItem( (DOM::Element) link );
-        if ( item->isValid() && 
+        if ( item->isValid() &&
              dupeCheck.find( item->url.url() ) == dupeCheck.end() )
         {
             linkList.append( item );
