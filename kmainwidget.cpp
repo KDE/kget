@@ -848,7 +848,7 @@ void KMainWidget::slotDeleteCurrent()
     checkQueue(); // needed !
 
     if ( !ksettings.b_expertMode && transferFinishedMeanwhile > 0 )
-        KMessageBox::information(this, i18n("%n transfer you wanted to delete completed before it could be deleted.",
+        KMessageBox::information(this, i18n("The transfer you wanted to delete completed before it could be deleted.",
                                             "%n transfers you wanted to delete completed before they could be deleted.",
                                             transferFinishedMeanwhile ),
                                  QString::null, "completedBeforeDeletion" );
