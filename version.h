@@ -28,7 +28,7 @@
 #define _VERSION_H_
 
 
-#define KGETVERSION  "v0.8.0-beta-3"
+#define KGETVERSION  "v0.8.1"
 #define KGET_APP_NAME      "kget"
 
 

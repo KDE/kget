@@ -519,15 +519,17 @@ void Transfer::slotCanceled(KIO::Job *)
 
 void Transfer::slotFinished()
 {
-    sDebugIn << endl;
 
+
+  sDebugIn << endl;
+ 
     logMessage(i18n("Download finished"));
     mode = MD_NONE;
     status = ST_FINISHED;
     slotProcessedSize(totalSize);
+
     slotSpeed(0);
     dlgIndividual->enableOpenFile();
-
     emit statusChanged(this, OP_FINISHED);
     sDebugOut << endl;
 }

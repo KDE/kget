@@ -327,7 +327,7 @@ void DlgIndividual::addLog(const QString & _msg)
 
 void DlgIndividual::slotKeepOpenToggled(bool bToggled){
 #ifdef _DEBUG
-    sDebugIn<<endl;
+  sDebugIn <<"bToggled= "<<bToggled<<endl;
 #endif
 
 
