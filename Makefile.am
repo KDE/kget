@@ -1,39 +1,29 @@
-SUBDIRS = . pics icons sounds kget_plug_in
-INCLUDES = $(all_includes)
-
+SUBDIRS = conf views . pics icons sounds kget_plug_in
+INCLUDES = $(all_includes) -Iconf -Iviews
 
 bin_PROGRAMS = kget
 
-kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lkmdi
-kget_SOURCES = slave.cpp transferlist.cpp \
-               transfer.cpp settings.cpp logwindow.cpp \
-               kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp \
-               dlgconnectionbase.ui dlgautomationbase.ui dlglimitsbase.ui \
-               dlgadvancedbase.ui dlgdirectoriesbase.ui dlgsystembase.ui \
-               dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp \
-               dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
-               dlgAutomation.cpp dlgAdvanced.cpp \
-               main.cpp dockindividual.cpp kget_iface.skel safedelete.cpp \
-               scheduler.cpp connection.cpp viewinterface.cpp \
-               iconview.cpp testview.cpp
+kget_LDFLAGS = $(all_libraries) $(KDE_RPATH) -Lconf -Lviews
+kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lkmdi -lconf -lviews
+kget_SOURCES = transferlist.cpp transfer.cpp slave.cpp kfileio.cpp \
+               scheduler.cpp connection.cpp safedelete.cpp \
+               viewinterface.cpp kmainwidget.cpp docking.cpp \
+               splash.cpp main.cpp kget_iface.skel 
+#add settings.kcfgc when conf/settings class is removed
 
-noinst_HEADERS = globals.h \
-                 dlgAdvanced.h dlgAutomation.h dlgConnection.h \
-                 dlgDirectories.h dlgIndividual.h dlgLimits.h \
-                 dlgPreferences.h dlgSystem.h docking.h droptarget.h \
-                 kfileio.h kmainwidget.h logwindow.h settings.h \
-                 transfer.h transferlist.h slave.h \
-                 dockindividual.h scheduler.h connection.h\
-                 viewinterface.h viewinterface_p.h\
-                 iconview.h testview.h 
+noinst_HEADERS = transferlist.h transfer.h slave.h kfileio.h \
+                 scheduler.h connection.h safedelete.h  \
+                 viewinterface.h viewinterface_p.h kmainwidget.h docking.h \
+                 splash.h globals.h
+#add settings.h when conf/settings class is removed
 
 kget_METASOURCES = AUTO
 
 xdg_apps_DATA = kget.desktop
+kde_kcfg_DATA = kget.kcfg
 
 mimedir = $(kde_mimedir)/application
-mime_DATA =x-kgetlist.desktop
+mime_DATA = x-kgetlist.desktop
 
 EXTRA_DIST = kget.desktop $(mime_DATA)
 
