@@ -9,5 +9,5 @@ khtml_kget_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
 
 KDE_ICON = AUTO
 
-data_DATA = kget_plug_in.rc
-datadir = $(kde_datadir)/khtml/kpartplugins
+part_DATA = kget_plug_in.rc
+partdir = $(kde_datadir)/khtml/kpartplugins

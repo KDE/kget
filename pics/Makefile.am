@@ -1,4 +1,4 @@
-data_DATA = connect0.png connect1.png connect2.png connect3.png \
+pics_DATA = connect0.png connect1.png connect2.png connect3.png \
             connect4.png connect5.png connect6.png connect7.png \
             try0.png try1.png try2.png try3.png \
             try4.png try5.png try6.png try7.png \
@@ -6,7 +6,7 @@ data_DATA = connect0.png connect1.png connect2.png connect3.png \
             retrying.png dock.png target.png \
             bar0.png bar1.png bar2.png bar3.png bar4.png bar5.png bar6.png
 
-datadir = $(kde_datadir)/kget/pics
+picsdir = $(kde_datadir)/kget/pics
 
-EXTRA_DIST = $(data_DATA)
+EXTRA_DIST = $(pics_DATA)
 
