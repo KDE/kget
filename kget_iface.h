@@ -21,7 +21,7 @@ protected:
 k_dcop:
     /**
      * @param src The urls to download
-     * @parem destDir The destination direction or QString::null if unspecified
+     * @param destDir The destination direction or QString::null if unspecified
      */
     virtual ASYNC addTransfers( const KURL::List& src, const QString& destDir = QString::null ) = 0;
     
