@@ -172,7 +172,11 @@ void DropTarget::toggleSticky()
 {
     b_sticky = !b_sticky;
     popupMenu->setItemChecked(pop_sticky, b_sticky);
+    updateStickyState();
+}
 
+void DropTarget::updateStickyState()
+{
     if (b_sticky)
     {
         KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop | NET::Sticky);
