@@ -70,8 +70,6 @@ class KMainWidget:public KMainWindow {
     LogWindow *logwin() {
 	return logWindow;
     } friend class Settings;
-  /** No descriptions */
-  void setDock();
 
     // Actions
     KToggleAction *m_paShowLog;

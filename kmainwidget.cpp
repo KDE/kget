@@ -1995,13 +1995,3 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 
 
 #include "kmainwidget.moc"
-/** No descriptions */
-void KMainWidget::setDock(){
-sDebugIn<<endl;
-ksettings.windowStyle = DOCKED;
-slotDock();
-m_paDockWindow->setChecked(true);
-kdock->show();
-this->hide();
-sDebugOut<<endl;
-}

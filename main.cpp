@@ -124,10 +124,6 @@ KGetApp::KGetApp():KApplication()
 int KGetApp::newInstance()
 {
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-  //  int i;
-  //  i=  args->count();
-    // process arguments
- //   kmain->setDock();
 
     for (int i = 0; i < args->count(); i++) {
    	kmain->addTransferEx(args->arg(i),QString::null,true);
