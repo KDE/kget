@@ -24,13 +24,16 @@
  *
  ***************************************************************************/
 
-
+#include <qgroupbox.h>
+#include <qcheckbox.h>
+#include <qlabel.h>
 #include <qlayout.h>
 
 #include <klocale.h>
 #include "common.h"
 
 #include <kdialog.h>
+#include <klineedit.h>
 
 #include "settings.h"
 #include "kmainwidget.h"
@@ -39,7 +42,6 @@
 
 DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
 {
-
     setTitle(i18n("Automation Options"));
 
     QGridLayout *automationLayout = new QGridLayout(this, 5, 5, 20, KDialog::spacingHint());
@@ -74,7 +76,7 @@ DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
     lb_autoDisconnect = new QLabel(i18n("Disconnect command:"), this);
     automationLayout->addWidget(lb_autoDisconnect, 2, 0, AlignRight | AlignVCenter);
 
-    le_autoDisconnect = new QLineEdit(this);
+    le_autoDisconnect = new KLineEdit(this);
     automationLayout->addMultiCellWidget(le_autoDisconnect, 2, 2, 1, 3);
 
     cb_timedDisconnect = new QCheckBox(i18n("Timed disconnect"), this);

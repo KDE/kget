@@ -31,12 +31,11 @@
 
 #include <stdio.h>
 
-#include <qpopupmenu.h>
 #include <qdragobject.h>
 
-#include <kpopupmenu.h>
 #include <ksystemtray.h>
 
+class KPopupMenu;
 class KMainWidget;
 
 class DockWidget:public KSystemTray

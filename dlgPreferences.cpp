@@ -116,7 +116,6 @@ void DlgPreferences::done(int r)
     }
 
     hide();
-
 }
 
 

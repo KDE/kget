@@ -29,14 +29,16 @@
 #define _DLGAUTOMATION_H
 
 #include <qgroupbox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcheckbox.h>
 #include <qstringlist.h>
 
 #include <knuminput.h>
 
 #include "bwdatetime.h"
+
+class QCheckBox;
+class QGroupBox;
+class QLabel;
+class KLineEdit;
 
 class DlgAutomation:public QGroupBox
 {
@@ -58,7 +60,7 @@ private:
     // auto disconnect settings
     QCheckBox *cb_autoDisconnect;
     QLabel *lb_autoDisconnect;
-    QLineEdit *le_autoDisconnect;
+    KLineEdit *le_autoDisconnect;
     QCheckBox *cb_timedDisconnect;
     BWDateTime *spins;
 

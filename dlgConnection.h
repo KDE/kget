@@ -29,13 +29,14 @@
 #define _DLGCONNECTION_H
 
 #include <qstringlist.h>
-#include <qgroupbox.h>
 #include <qwidget.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
 
-#include <knuminput.h>
+#include <kcombobox.h>
+
+class KIntNumInput;
+class QCheckBox;
+class QGroupBox;
+class QLabel;
 
 class DlgConnection:public QWidget
 {
@@ -48,7 +49,7 @@ Q_OBJECT public:
     void applyData();
     void setData();
 
-    int type()
+    int type() const
     {
         return cmb_type->currentItem();
     }
@@ -83,7 +84,7 @@ private:
     // type settings
     QGroupBox *gb_type;
 
-    QComboBox *cmb_type;
+    KComboBox *cmb_type;
 
     QLabel *lb_linknum;
     KIntNumInput *le_linknum;

@@ -28,9 +28,11 @@
 
 #include <kapplication.h>
 #include <kconfig.h>
+#include <kiconloader.h>
 #include <kstandarddirs.h>
 #include <kwin.h>
 #include <klocale.h>
+#include <kpopupmenu.h>
 #include <kurldrag.h>
 
 #include "kmainwidget.h"
@@ -79,20 +81,19 @@ DropTarget::DropTarget():QWidget()
     int offsetx = -10;
     int offsety = -5;
 
-    QPixmap *tmppix = new QPixmap();
-    tmppix->load(locate("appdata", "pics/target.png"));
+    QPixmap tmppix = UserIcon("target");
 
     handpix1 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix1->fill(backgroundColor());
-    bitBlt(handpix1, offsetx, offsety, tmppix);
+    bitBlt(handpix1, offsetx, offsety, &tmppix);
 
     handpix2 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix2->fill(backgroundColor());
-    bitBlt(handpix2, offsetx, offsety, tmppix);
+    bitBlt(handpix2, offsetx, offsety, &tmppix);
 
     handpix3 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix3->fill(backgroundColor());
-    bitBlt(handpix3, offsetx, offsety, tmppix);
+    bitBlt(handpix3, offsetx, offsety, &tmppix);
 
     setBackgroundPixmap(*handpix1);
 
@@ -112,9 +113,6 @@ DropTarget::DropTarget():QWidget()
 
     // Enable dropping
     setAcceptDrops(true);
-
-    delete tmppix;
-
 }
 
 
@@ -215,7 +213,6 @@ void DropTarget::toggleMinimizeRestore()
 /** No descriptions */
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
-
     if (oldX == 0)
     {
         oldX = e->x();
@@ -225,7 +222,6 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
 
 
     QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
-
 }
 
 /** No descriptions */
@@ -233,5 +229,4 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 {
     if (e->button() == LeftButton)
         toggleMinimizeRestore();
-
 }

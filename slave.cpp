@@ -25,14 +25,14 @@
  ***************************************************************************/
 
 
+#include <kapplication.h>
 
 #include "slave.h"
 #include <assert.h>
 
 Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
+    : QThread()
 {
-
-
     mDebug << ">>>>Entering" << endl;
     copyjob = NULL;
     m_src = _src;
@@ -42,8 +42,6 @@ Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
     nPendingCommand = 0;
 
     mDebug << ">>>>Leaving" << endl;
-
-
 }
 
 Slave::~Slave()
@@ -64,21 +62,17 @@ void Slave::Op(SlaveCommand _cmd)
 /** No descriptions */
 void Slave::PostMessage(SlaveResult _event, unsigned long _data)
 {
-
     SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _data);
 
     postEvent(kapp->mainWidget(), (QEvent *) e1);
-
 }
 
 void Slave::PostMessage(SlaveResult _event, const QString & _msg)
 {
-
     SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _msg);
 
     postEvent(kapp->mainWidget(), (QEvent *) e1);
     mDebug << "Msg:" << "_msg = " << _msg << endl;
-
 }
 
 void Slave::InfoMessage(const QString & _msg)
@@ -87,16 +81,12 @@ void Slave::InfoMessage(const QString & _msg)
 
     postEvent(kapp->mainWidget(), (QEvent *) e1);
     mDebug << "Infor Msg:" << "_msg = " << _msg << endl;
-
-
-
 }
 
 
 
 void Slave::run()
 {
-
     mDebugIn << endl;
 
     SlaveCommand cmd;
@@ -149,18 +139,11 @@ void Slave::run()
                 assert(0);
             }
         }
-
-
     }
-
-
 
 
     copyjob = NULL;
     mDebugOut << endl;
-
-
-
 }
 
 
@@ -212,8 +195,7 @@ void Slave::slotConnected(KIO::Job *)
 {
     mDebugIn << endl;
 
-
-
+    
     mDebugOut << endl;
 }
 

@@ -25,11 +25,16 @@
  ***************************************************************************/
 
 
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qcheckbox.h>
 #include <qlayout.h>
 
 #include <klocale.h>
 #include <kprotocolmanager.h>
 #include <kdialog.h>
+#include <knuminput.h>
+
 
 #include "kmainwidget.h"
 #include "settings.h"
@@ -132,7 +137,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     typeLayout->setColStretch(1, 5);
     typeLayout->setColStretch(2, 5);
 
-    cmb_type = new QComboBox(gb_type);
+    cmb_type = new KComboBox(false, gb_type);
 
     cmb_type->insertItem(i18n("Permanent"));
     cmb_type->insertItem(i18n("Ethernet"));

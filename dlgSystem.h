@@ -31,13 +31,14 @@
 #define _DLGSYSTEM_H
 
 #include <qwidget.h>
-#include <qlabel.h>
-#include <qgroupbox.h>
-#include <qcombobox.h>
-#include <qbuttongroup.h>
-#include <qradiobutton.h>
-#include <qcheckbox.h>
-#include <qpushbutton.h>
+
+class QButtonGroup;
+class QCheckBox;
+class QGroupBox;
+class QLabel;
+class QPushButton;
+class QRadioButton;
+class KComboBox;
 
 class DlgSystem:public QWidget
 {

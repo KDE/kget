@@ -117,7 +117,7 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
             QString bakName = aFileName;
 
             bakName += '~';
-            unlink(QFile::encodeName(bakName));
+            QFile::remove(bakName);
             rc = rename(QFile::encodeName(aFileName), QFile::encodeName(bakName));
             if (rc) {
                 // failed to rename file

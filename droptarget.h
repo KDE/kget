@@ -31,8 +31,7 @@
 #include <qbitmap.h>
 #include <qdragobject.h>
 
-#include <kpopupmenu.h>
-
+class KPopupMenu;
 class KMainWidget;
 
 class DropTarget:public QWidget
@@ -48,17 +47,16 @@ protected:
     virtual void resizeEvent(QResizeEvent *);
 
     // drag and drop
-    void dragEnterEvent(QDragEnterEvent *);
+    virtual void dragEnterEvent(QDragEnterEvent *);
     /** No descriptions */
     virtual void mouseDoubleClickEvent(QMouseEvent * e);
-    void dropEvent(QDropEvent *);
+    virtual void dropEvent(QDropEvent *);
     /** No descriptions */
     virtual void mouseMoveEvent(QMouseEvent *);
+    virtual void mousePressEvent(QMouseEvent * e);
 
 private slots:
     void toggleSticky();
-
-    void mousePressEvent(QMouseEvent * e);
     void toggleMinimizeRestore();
 
 private:

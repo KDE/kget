@@ -191,11 +191,6 @@ Settings::load()
     config->setGroup("DropGeometry");
     dropPosition = config->readPointEntry("Position", new QPoint(-1, -1));
     dropState = config->readUnsignedLongNumEntry("State", 0);
-
-
-
-
-
 }
 
 

@@ -29,11 +29,12 @@
 #define _DLGDIRECTORIES_H
 
 #include <qgroupbox.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
 #include <qstringlist.h>
 
-#include <qlistview.h>
+class KLineEdit;
+class QPushButton;
+class QListView;
+class QListViewItem;
 
 class DlgDirectories:public QGroupBox
 {
@@ -52,8 +53,8 @@ private:
     QListView * lv_entries;
 
     // edit entries
-    QLineEdit *le_ext;
-    QLineEdit *le_dir;
+    KLineEdit *le_ext;
+    KLineEdit *le_dir;
 
     // maximum bandwidth
     QPushButton *pb_add;

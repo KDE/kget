@@ -25,19 +25,23 @@
  ***************************************************************************/
 
 
-#include <qpushbutton.h>
-#include <qtimer.h>
 #include <qlayout.h>
 
+#include "dockindividual.h"
+
+#include <qlabel.h>
+#include <qtabwidget.h>
+#include <kprogress.h>
+#include <qtextedit.h>
+#include <qcheckbox.h>
+#include <kpushbutton.h>
+#include <ksqueezedtextlabel.h>
+
 #include <kapplication.h>
-#include <kdialog.h>
 #include <klocale.h>
 #include <ktoolbar.h>
-#include <kaction.h>
 #include <krun.h>
 #include "common.h"
-
-#include <qsizepolicy.h>
 
 #include "transfer.h"
 
@@ -48,12 +52,10 @@
 
 DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 {
-
     item = _item;
 
     //create dock
     m_pDockIndividual =new DockIndividual(this);
-
 
 
     // Actions
@@ -125,8 +127,6 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 
     toolBar->insertLineSeparator();
     m_paDock->plug(toolBar);
-
-
 
 
 
@@ -208,8 +208,6 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
     }
 
 
-
-
     resize( sizeHint() );
     setMaximumHeight(sizeHint().height());
 
@@ -237,9 +235,7 @@ void DlgIndividual::setPercent(unsigned long percent)
 
 void DlgIndividual::setProcessedSize(unsigned long bytes)
 {
-
     sizeLabel->setText(i18n("%1 of %2").arg(KIO::convertSize(bytes)).arg(KIO::convertSize(m_iTotalSize)));
-
 }
 
 
@@ -260,7 +256,6 @@ void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 
 void DlgIndividual::setCopying(const KURL & from, const KURL & to)
 {
-
     m_location=to;
     setCaption(m_location.fileName());
 
@@ -291,7 +286,6 @@ void DlgIndividual::slotToggleAdvanced(bool advanced)
 #ifdef _DEBUG
     sDebugOut<<endl;
 #endif
-
 }
 
 void DlgIndividual::slotToggleDock()
@@ -311,7 +305,6 @@ void DlgIndividual::slotToggleDock()
 #ifdef _DEBUG
     sDebugOut<<endl;
 #endif
-
 }
 
 
@@ -319,7 +312,6 @@ void DlgIndividual::slotToggleDock()
 /** Append the _msg to the log file */
 void DlgIndividual::addLog(const QString & _msg)
 {
-
     QString tmps;
 
     tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + _msg + "</code><br>";
@@ -328,7 +320,8 @@ void DlgIndividual::addLog(const QString & _msg)
 }
 
 
-void DlgIndividual::slotKeepOpenToggled(bool bToggled){
+void DlgIndividual::slotKeepOpenToggled(bool bToggled)
+{
 #ifdef _DEBUG
   sDebugIn <<"bToggled= "<<bToggled<<endl;
 #endif
@@ -345,12 +338,11 @@ void DlgIndividual::slotKeepOpenToggled(bool bToggled){
 #ifdef _DEBUG
     sDebugOut<<endl;
 #endif
-
 }
 
 
-void DlgIndividual::slotOpenLocation(){
-
+void DlgIndividual::slotOpenLocation()
+{
 #ifdef _DEBUG
     sDebugIn<<endl;
 #endif
@@ -362,10 +354,10 @@ void DlgIndividual::slotOpenLocation(){
 #ifdef _DEBUG
     sDebugOut<<endl;
 #endif
-
 }
 
-void DlgIndividual::slotOpenFile(){
+void DlgIndividual::slotOpenFile()
+{
 #ifdef _DEBUG
   sDebugIn "Starting kfmclient with url "<<m_location.prettyURL()<<endl;
 #endif
@@ -375,12 +367,11 @@ void DlgIndividual::slotOpenFile(){
 #ifdef _DEBUG
     sDebugOut<<endl;
 #endif
-
 }
 
 
-void DlgIndividual::enableOpenFile(){
-
+void DlgIndividual::enableOpenFile()
+{
 #ifdef _DEBUG
     sDebugIn<<endl;
 #endif
@@ -389,17 +380,14 @@ void DlgIndividual::enableOpenFile(){
     openFile->setEnabled(true);
 
     if (!bKeepDlgOpen)
-      {
+    {
         hide();
         m_pDockIndividual->hide();
-
-
-      }
+    }
 
 #ifdef _DEBUG
     sDebugOut<<endl;
 #endif
-
 }
 
 #include "dlgIndividual.moc"

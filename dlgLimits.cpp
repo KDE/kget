@@ -25,8 +25,10 @@
  ***************************************************************************/
 
 
+#include <qlabel.h>
 #include <qlayout.h>
 
+#include <knuminput.h>
 #include <klocale.h>
 #include <kdialog.h>
 
@@ -37,7 +39,6 @@
 
 DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
 {
-
     setTitle(i18n("Limits Options"));
 
     QGridLayout *limitsLayout = new QGridLayout(this, 4, 2, 20, KDialog::spacingHint());

@@ -27,28 +27,27 @@
 #ifndef __dlgprogress_h__
 #define __dlgprogress_h__
 
-#include <qlabel.h>
-#include <qradiobutton.h>
-#include <qpushbutton.h>
-#include <qtabwidget.h>
 #include <qdatetime.h>
-#include <kprogress.h>
-#include <kdialog.h>
-#include <qtextedit.h>
-#include <qcheckbox.h>
-#include <kpushbutton.h>
-#include <kaction.h>
-#include <ksqueezedtextlabel.h>
 #include "bwdatetime.h"
-#include "dockindividual.h"
+
+#include <kdialog.h>
 
 class Transfer;
 
+class QLabel;
+class QRadioButton;
+class QTabWidget;
+class QTextEdit;
+class QCheckBox;
+class KPushButton;
+class KProgress;
+
+class DockIndividual;
 
 class DlgIndividual:public KDialog
 {
-
-Q_OBJECT public:
+Q_OBJECT 
+public:
     DlgIndividual(Transfer * _item);
     ~DlgIndividual()
     {}

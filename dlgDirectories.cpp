@@ -25,6 +25,9 @@
  ***************************************************************************/
 
 
+#include <qpushbutton.h>
+#include <qlistview.h>
+
 #include <qlayout.h>
 
 #ifdef Unsorted
@@ -35,6 +38,7 @@
 
 #include <kfiledialog.h>
 #include <kiconloader.h>
+#include <klineedit.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -45,7 +49,6 @@
 
 DlgDirectories::DlgDirectories(QWidget * parent):QGroupBox(parent)
 {
-
     setTitle(i18n("Directories Options"));
 
     QGridLayout *directoriesLayout = new QGridLayout(this, 4, 5, 20, 5);
@@ -87,10 +90,10 @@ DlgDirectories::DlgDirectories(QWidget * parent):QGroupBox(parent)
     pb_down->setEnabled(false);
 
     // edit entries
-    le_ext = new QLineEdit(this);
+    le_ext = new KLineEdit(this);
     directoriesLayout->addMultiCellWidget(le_ext, 2, 2, 0, 1);
 
-    le_dir = new QLineEdit(this);
+    le_dir = new KLineEdit(this);
     directoriesLayout->addMultiCellWidget(le_dir, 2, 2, 2, 3);
 
     // edit buttons
@@ -152,10 +155,7 @@ void DlgDirectories::addEntry()
 void DlgDirectories::deleteEntry()
 {
     QListViewItem *item = lv_entries->selectedItem();
-
-    if (item) {
-        delete item;
-    }
+    delete item;
 }
 
 
@@ -234,9 +234,7 @@ void DlgDirectories::upEntry()
 
 void DlgDirectories::browse()
 {
-
     le_dir->setText(KFileDialog::getExistingDirectory());
-
 }
 
 

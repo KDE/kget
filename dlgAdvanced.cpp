@@ -40,7 +40,6 @@
 
 DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
 {
-
     setTitle(i18n("Advanced Options"));
 
     QGridLayout *gridLayout = new QGridLayout(this, 7, 3, 20, KDialog::spacingHint());
@@ -105,8 +104,6 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
 
     cb_ShowMain = new QCheckBox(i18n("Show main window at startup"), this);
     gridLayout->addMultiCellWidget(cb_ShowMain, 8, 8, 0, 2);
-
-
 }
 
 
@@ -136,7 +133,6 @@ DlgAdvanced::setData()
 
 void DlgAdvanced::applyData()
 {
-
     ksettings.b_addQueued = rb_queued->isChecked();
     ksettings.b_showIndividual = cb_individual->isChecked();
     ksettings.b_iconifyIndividual = cb_iconify->isChecked();
@@ -154,14 +150,11 @@ void DlgAdvanced::applyData()
     if (ksettings.b_KonquerorIntegration!=bIsKonquiEnable)
     {
         ksettings.b_KonquerorIntegration=!ksettings.b_KonquerorIntegration;
-        KConfig *cfg = new KConfig("konquerorrc", false, false);
-        cfg->setGroup("HTML Settings");
-        cfg->writeEntry("DownloadManager",(bIsKonquiEnable)?"kget":"");
-        cfg->sync();
-        delete cfg;
+        KConfig cfg("konquerorrc", false, false);
+        cfg.setGroup("HTML Settings");
+        cfg.writeEntry("DownloadManager",(bIsKonquiEnable)?"kget":"");
+        cfg.sync();
     }
-
-
 }
 
 #include "dlgAdvanced.moc"

@@ -5,7 +5,7 @@
 *    Revision     : $Id$
 *    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : 
+*                 :
 *    email        : pch@freeshell.org
 *
 ****************************************************************************/
@@ -29,19 +29,15 @@
 #define DOCKINDIVIDUAL_H
 
 #include <ksystemtray.h>
-#include <qpainter.h>
-#include <qtooltip.h>
-#include <qpixmap.h>
-#include <kstandarddirs.h>
-#include <kpopupmenu.h>
 #include "common.h"
+
+class KPopupMenu;
 
 class DockIndividual : public KSystemTray  {
     Q_OBJECT
 public:
     DockIndividual(QWidget *parent=0, const char *name=0);
     ~DockIndividual();
-    QPixmap *m_pix;
     int nPic;
     void setTip(const QString &);
     void setValue(int value);

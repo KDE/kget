@@ -29,10 +29,9 @@
 #define _DLGLIMITS_H
 
 #include <qgroupbox.h>
-#include <qlabel.h>
-#include <qstringlist.h>
 
-#include <knuminput.h>
+class QLabel;
+class KIntNumInput;
 
 class DlgLimits:public QGroupBox
 {

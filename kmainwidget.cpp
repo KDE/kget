@@ -45,6 +45,7 @@
 #include <qtooltip.h>
 #include <qtimer.h>
 #include <qdropsite.h>
+#include <qpopupmenu.h>
 
 #include <kfiledialog.h>
 #include <kapplication.h>
@@ -266,7 +267,7 @@ KMainWidget::~KMainWidget()
 #endif
 
     delete prefDlg;
-    
+
     delete animTimer;
     delete(DropTarget *) kdrop;
     writeTransfers();
@@ -1561,7 +1562,7 @@ void KMainWidget::slotPreferences()
         prefDlg = new DlgPreferences(this);
 
     prefDlg->show();
-    
+
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif

@@ -5,7 +5,7 @@
 *    Revision     : $Id$
 *    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : 
+*                 :
 *    email        : pch@freeshell.org
 *
 ****************************************************************************/
@@ -24,23 +24,21 @@
  *
  ***************************************************************************/
 
+#include <qtooltip.h>
 
+#include <kiconloader.h>
+#include <kpopupmenu.h>
 
 #include "dockindividual.h"
-DockIndividual::DockIndividual(QWidget *parent, const char *name ) : KSystemTray(parent,name) {
-
-
-
-    m_pix = new QPixmap();
+DockIndividual::DockIndividual(QWidget *parent, const char *name ) : KSystemTray(parent,name)
+{
     nPic=0;
-    m_pix->load(locate("appdata", "pics/bar0.png"));
-    setPixmap(*m_pix);
+    setPixmap( UserIcon("bar0") );
 
 
 }
 DockIndividual::~DockIndividual(){
     QToolTip::remove(this);
-    delete m_pix;
 }
 
 
@@ -69,13 +67,11 @@ void DockIndividual::setValue(int value){
     if (tmpPic!=nPic)
     {
         nPic=tmpPic;
-        QString str;
-        str=QString("pics/bar%1.png").arg(nPic);
-        m_pix->load(locate("appdata", str));
-        setPixmap(*m_pix);
+        QString str = "bar" + QString::number( nPic );
+        setPixmap( UserIcon( str ) );
     }
 
-#ifdef _DEBUG   
+#ifdef _DEBUG
     //sDebugOut<<endl;
 #endif
 }
@@ -84,7 +80,6 @@ void DockIndividual::setValue(int value){
 
 void DockIndividual::setTip(const QString & _tip)
 {
-
 #ifdef _DEBUG
     //sDebugIn<<"_tip="<<_tip<<endl;
 #endif
@@ -95,12 +90,11 @@ void DockIndividual::setTip(const QString & _tip)
 #ifdef _DEBUG
     //sDebugOut<<endl;
 #endif
-
 }
 
 #include "dockindividual.moc"
 /** No descriptions */
-void DockIndividual::contextMenuAboutToShow ( KPopupMenu* menu ){
-
+void DockIndividual::contextMenuAboutToShow ( KPopupMenu* menu )
+{
     menu->removeItemAt (3);
 }

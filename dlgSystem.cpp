@@ -27,6 +27,15 @@
 
 #include <qlayout.h>
 
+#include <qcheckbox.h>
+#include <qlabel.h>
+#include <qgroupbox.h>
+#include <qpushbutton.h>
+#include <qbuttongroup.h>
+#include <qradiobutton.h>
+
+#include <kcombobox.h>
+
 #include <kfontdialog.h>
 #include <kaudioplayer.h>
 //#include <klineeditdlg.h>
@@ -42,7 +51,6 @@
 
 DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
 {
-
     QGridLayout *topGridLayout = new QGridLayout(this, 4, 4, 20, KDialog::spacingHint());
 
     topGridLayout->setRowStretch(0, 7);
@@ -60,7 +68,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     cb_useSound = new QCheckBox(i18n("Use sounds"), this);
     topGridLayout->addWidget(cb_useSound, 0, 0);
 
-    cmb_sounds = new QComboBox(this);
+    cmb_sounds = new KComboBox(false, this);
 
     cmb_sounds->insertItem(i18n("Added"));
     cmb_sounds->insertItem(i18n("Started"));
@@ -152,9 +160,8 @@ void DlgSystem::setupSound()
         t = soundFinishedAll;
         break;
     }
-    KFileDialog *pDlg;
     KURLRequesterDlg *box = new KURLRequesterDlg(t, s, this, "kurl_sound");
-    pDlg = box->fileDialog();
+    KFileDialog *pDlg = box->fileDialog();
     pDlg->setFilter(i18n("*.wav|WAV files\n*|All files"));
     int result = box->exec();
     sDebug << "Result= " << result << endl;
@@ -162,10 +169,13 @@ void DlgSystem::setupSound()
     if (result == QDialog::Rejected)
     {  /* cancelled */
         sDebug << "Cancelled" << endl;
+        delete box;
         return;
     }
 
     s = box->selectedURL().url();       // text();
+    delete box;
+
     sDebug << "Selected audio files: " << s << endl;
     if (s.isEmpty())
     {          /* answer is "" */
@@ -229,9 +239,7 @@ void DlgSystem::testSound()
     }
 
 
-
     sDebug << "<<<<Leaving" << endl;
-
 }
 
 
@@ -289,7 +297,6 @@ void DlgSystem::applyData()
 
     ksettings.listViewFont = lb_font->font();
     kmain->setListFont();
-
 }
 
 #include "dlgSystem.moc"

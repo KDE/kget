@@ -27,8 +27,9 @@
 #include <qpainter.h>
 
 #include <kapplication.h>
-#include <kstandarddirs.h>
+#include <kiconloader.h>
 #include <klocale.h>
+#include <kpopupmenu.h>
 #include <kurldrag.h>
 
 #include "kmainwidget.h"
@@ -43,23 +44,19 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
     parent = _parent;
 
-    QPixmap *tmppix = new QPixmap();
-
-    tmppix->load(locate("appdata", "pics/dock.png"));
+    QPixmap tmppix = UserIcon("dock");
 
     handpix1 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
     handpix1->fill(backgroundColor());
-    bitBlt(handpix1, 0, 0, tmppix);
+    bitBlt(handpix1, 0, 0, &tmppix);
 
     handpix2 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
     handpix2->fill(backgroundColor());
-    bitBlt(handpix2, 0, 0, tmppix);
+    bitBlt(handpix2, 0, 0, &tmppix);
 
     handpix3 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
     handpix3->fill(backgroundColor());
-    bitBlt(handpix3, 0, 0, tmppix);
-
-    delete tmppix;
+    bitBlt(handpix3, 0, 0, &tmppix);
 
     setPixmap(*handpix1);
 
@@ -74,7 +71,6 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // Enable dropping
     setAcceptDrops(true);
-
 }
 
 
@@ -84,8 +80,6 @@ DockWidget::~DockWidget()
     delete handpix2;
     delete handpix3;
 }
-
-
 
 
 void DockWidget::dragEnterEvent(QDragEnterEvent * event)
@@ -118,10 +112,9 @@ void DockWidget::mousePressEvent(QMouseEvent * e)
 }
 
 
-void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu ){
-
+void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
+{
     menu->connectItem( menu->idAt(4), kmain, SLOT(slotQuit()));
-
 }
 
 #include "docking.moc"

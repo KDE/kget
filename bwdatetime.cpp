@@ -117,7 +117,6 @@ BWDateTime::BWDateTime(QDateTime qdt, QWidget * parent, const char *name):QWidge
     glay->addWidget(minute, 2, 2);
     if (use12Clock)
         glay->addMultiCellWidget(ampm, 2, 2, 3, 5);
-
 }
 
 
@@ -223,8 +222,6 @@ void BWDateTime::slotValueChanged(int)
     emit signalDateChanged(mydatetime);
 
     sDebugOut << endl;
-
-
 }
 
 #include "bwdatetime.moc"

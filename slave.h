@@ -27,7 +27,6 @@
 #ifndef SLAVE_H
 #define SLAVE_H
 
-#include <kapplication.h>
 #include <qthread.h>
 #include <kurl.h>
 #include <klocale.h>
