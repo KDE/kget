@@ -9,20 +9,20 @@
             <x>0</x>
             <y>0</y>
             <width>296</width>
-            <height>169</height>
+            <height>197</height>
         </rect>
     </property>
     <property name="caption">
         <string>DlgAppearance</string>
     </property>
-    <vbox>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <property name="margin">
             <number>0</number>
         </property>
-        <widget class="QCheckBox">
+        <widget class="QCheckBox" row="0" column="0">
             <property name="name">
                 <cstring>kcfg_ShowMain</cstring>
             </property>
@@ -30,7 +30,7 @@
                 <string>Show main window at startup</string>
             </property>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="QLayoutWidget" row="1" column="0">
             <property name="name">
                 <cstring>layout4</cstring>
             </property>
@@ -68,7 +68,7 @@
                 </spacer>
             </grid>
         </widget>
-        <widget class="QCheckBox">
+        <widget class="QCheckBox" row="2" column="0">
             <property name="name">
                 <cstring>kcfg_ShowIndividual</cstring>
             </property>
@@ -76,45 +76,7 @@
                 <string>Open each download in a separate window</string>
             </property>
         </widget>
-        <widget class="QLayoutWidget">
-            <property name="name">
-                <cstring>layout11</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <spacer>
-                    <property name="name">
-                        <cstring>spacer2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Fixed</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>16</width>
-                            <height>18</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>kcfg_DockifyIndividual</cstring>
-                    </property>
-                    <property name="enabled">
-                        <bool>false</bool>
-                    </property>
-                    <property name="text">
-                        <string>Docked</string>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget class="QLayoutWidget">
+        <widget class="QLayoutWidget" row="4" column="0">
             <property name="name">
                 <cstring>layout17</cstring>
             </property>
@@ -177,15 +139,7 @@
                 </spacer>
             </hbox>
         </widget>
-        <widget class="QCheckBox">
-            <property name="name">
-                <cstring>kcfg_ShowSplashscreen</cstring>
-            </property>
-            <property name="text">
-                <string>Show splashscreen</string>
-            </property>
-        </widget>
-        <spacer>
+        <spacer row="7" column="0">
             <property name="name">
                 <cstring>spacer26</cstring>
             </property>
@@ -198,11 +152,95 @@
             <property name="sizeHint">
                 <size>
                     <width>190</width>
-                    <height>16</height>
+                    <height>20</height>
                 </size>
             </property>
         </spacer>
-    </vbox>
+        <widget class="QCheckBox" row="6" column="0">
+            <property name="name">
+                <cstring>kcfg_ShowSplashscreen</cstring>
+            </property>
+            <property name="text">
+                <string>Show splashscreen</string>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget" row="3" column="0">
+            <property name="name">
+                <cstring>layout11</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>18</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>kcfg_DockifyIndividual</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Docked</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget" row="5" column="0">
+            <property name="name">
+                <cstring>layout11_2</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer2_3</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>18</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>kcfg_AnimateDropTarget</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Enable animations</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </grid>
 </widget>
 <connections>
     <connection>
@@ -215,6 +253,12 @@
         <sender>kcfg_ShowIndividual</sender>
         <signal>toggled(bool)</signal>
         <receiver>kcfg_DockifyIndividual</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg_ShowDropTarget</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>kcfg_AnimateDropTarget</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
 </connections>

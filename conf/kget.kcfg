@@ -25,6 +25,9 @@
     <entry name="ShowDropTarget" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="AnimateDropTarget" type="Bool">
+      <default>true</default>
+    </entry>
     <entry name="ShowSplashscreen" type="Bool">
       <label>Sets to show the splashscreen while kget is loading</label>
       <default>true</default>

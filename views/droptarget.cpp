@@ -129,7 +129,9 @@ DropTarget::DropTarget(KMainWidget * mw)
     popupMenu->insertTitle(mw->caption());
     popupMenu->setCheckable(true);
 
-    mw->actionCollection()->action("download")->plug(popupMenu);
+    KToggleAction * downloadAction = (KToggleAction *)mw->actionCollection()->action("download");
+    downloadAction->plug(popupMenu);
+    connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->insertSeparator();
     pop_show = popupMenu->insertItem("", this, SLOT(toggleMinimizeRestore()));
     popupMenu->insertItem(i18n("Hide me"), this, SLOT(slotClose()));
@@ -155,11 +157,13 @@ DropTarget::~DropTarget()
 }
 
 
-void
-DropTarget::slotClose()
+void DropTarget::slotClose()
 {
     Settings::setShowDropTarget( false );
-    playAnimationHide();
+    if ( Settings::animateDropTarget() )
+        playAnimationHide();
+    else
+        hide();
     if (parentWidget->isHidden())
         toggleMinimizeRestore();
     KMessageBox::information(parentWidget,
@@ -170,10 +174,16 @@ DropTarget::slotClose()
 }
 
 
+void DropTarget::slotStartStopToggled( bool started )
+{
+    if ( started && Settings::animateDropTarget() )
+        playAnimationSync();
+}
+
+
 /** widget events */
 
-void
-DropTarget::mousePressEvent(QMouseEvent * e)
+void DropTarget::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == LeftButton)
     {
@@ -209,6 +219,9 @@ void DropTarget::dropEvent(QDropEvent * event)
 	schedNewURLs( list, QString::null );
     else if (QTextDrag::decode(event, str))
 	schedNewURLs( KURL::fromPathOrURL(str), QString::null );
+    else return;
+    if ( Settings::animateDropTarget() )
+        playAnimationSync();
 }
 
 
@@ -281,12 +294,32 @@ void DropTarget::playAnimation()
 void DropTarget::playAnimationHide()
 {
     if ( animTimer )
+    {
+        if ( animTimer->isActive() )
+            move( x(), (int)(ani_y) );
         delete animTimer;
+    }
     animTimer = new QTimer;
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimateHide() ));
     ani_y = (float)y();
     ani_vy = 0;
+    animTimer->start(TARGET_ANI_MS);
+}
+
+void DropTarget::playAnimationSync()
+{
+    if ( animTimer )
+    {
+        if ( animTimer->isActive() )
+            move( x(), (int)(ani_y) );
+        delete animTimer;
+    }
+    animTimer = new QTimer;
+    connect( animTimer, SIGNAL( timeout() ),
+        this, SLOT( slotAnimateSync() ));
+    ani_y = (float)y();
+    ani_vy = -1;
     animTimer->start(TARGET_ANI_MS);
 }
 
@@ -325,6 +358,24 @@ void DropTarget::slotAnimateHide()
         hide();
     } else
         move( x(), (int)(new_y) );
+}
+
+void DropTarget::slotAnimateSync()
+{
+    static float dT = TARGET_ANI_MS / 1000.0;
+
+    ani_vy += 4 * dT;               // from -1 to 1 in 0.5 seconds
+    float i = 2 * M_PI * ani_vy;    // from -2PI to 2PI
+    float j = (i == 0.0) ? 1 : (sin( i ) / i) * (1 + fabs(ani_vy));
+
+    if ( ani_vy >= 1 )
+    {
+        animTimer->stop();
+        delete animTimer;
+        animTimer = 0;
+        move( x(), (int)(ani_y) );
+    } else
+        move( x(), (int)(ani_y + 6*j) );
 }
 
 #include "droptarget.moc"

@@ -46,6 +46,7 @@ public:
     void updateStickyState();
     void playAnimation();
     void playAnimationHide();
+    void playAnimationSync();
 
 protected:
     // drag and drop
@@ -62,8 +63,10 @@ protected:
 private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
+    void slotStartStopToggled( bool );
     void slotAnimate();
     void slotAnimateHide();
+    void slotAnimateSync();
     void slotClose();
 
 private:
