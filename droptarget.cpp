@@ -26,10 +26,12 @@
 
 #include <qpainter.h>
 
+#include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kiconloader.h>
 #include <kglobalsettings.h>
+#include <kmainwindow.h>
 #include <kwin.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
@@ -48,7 +50,7 @@
 #include "settings.h"
 #include "droptarget.h"
 
-DropTarget::DropTarget():QWidget()
+DropTarget::DropTarget(KMainWindow * mainWin):QWidget()
 {
     int x = ksettings.dropPosition.x();
     int y = ksettings.dropPosition.y();
@@ -91,6 +93,10 @@ DropTarget::DropTarget():QWidget()
     pop_Min = popupMenu->insertItem(i18n("Minimize"), this, SLOT(toggleMinimizeRestore()));
 
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
+    popupMenu->insertSeparator();
+    mainWin->action("drop_target")->plug(popupMenu);
+    popupMenu->insertSeparator();
+    
     popupMenu->setItemChecked(pop_sticky, b_sticky);
     kmain->m_paPreferences->plug(popupMenu);
     popupMenu->insertSeparator();
