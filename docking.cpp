@@ -26,7 +26,6 @@
 
 #include <qpainter.h>
 
-#include <kapplication.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kpopupmenu.h>

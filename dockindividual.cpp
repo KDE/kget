@@ -34,10 +34,10 @@ DockIndividual::DockIndividual(QWidget *parent, const char *name ) : KSystemTray
 {
     nPic=0;
     setPixmap( UserIcon("bar0") );
-
-
 }
-DockIndividual::~DockIndividual(){
+
+DockIndividual::~DockIndividual()
+{
     QToolTip::remove(this);
 }
 

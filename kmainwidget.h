@@ -28,8 +28,6 @@
 #ifndef _KMAINWIDGET_H_
 #define _KMAINWIDGET_H_
 
-#include <qguardedptr.h>
-
 #include <kmainwindow.h>
 #include <kaction.h>
 #include <kurl.h>
@@ -192,6 +190,7 @@ private:
 
     LogWindow *logWindow;
     DlgPreferences *prefDlg;
+    DockWidget *kdock;
 
     QString lastClipboard;
 
@@ -220,6 +219,6 @@ private:
 };
 
 extern KMainWidget *kmain;
-extern QGuardedPtr < DropTarget > kdrop;
+extern DropTarget *kdrop;
 
 #endif                          // _KMAINWIDGET_H_

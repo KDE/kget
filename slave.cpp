@@ -27,11 +27,16 @@
 
 #include <kapplication.h>
 
+#include "getfilejob.h"
 #include "slave.h"
+#include "slaveevent.h"
+#include "transfer.h"
+
 #include <assert.h>
 
 Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
-    : QThread()
+    : QObject(),
+      QThread()
 {
     mDebug << ">>>>Entering" << endl;
     copyjob = NULL;
@@ -64,14 +69,14 @@ void Slave::PostMessage(SlaveResult _event, unsigned long _data)
 {
     SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _data);
 
-    postEvent(kapp->mainWidget(), (QEvent *) e1);
+    QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
 }
 
 void Slave::PostMessage(SlaveResult _event, const QString & _msg)
 {
     SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _msg);
 
-    postEvent(kapp->mainWidget(), (QEvent *) e1);
+    QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
     mDebug << "Msg:" << "_msg = " << _msg << endl;
 }
 
@@ -79,7 +84,7 @@ void Slave::InfoMessage(const QString & _msg)
 {
     SlaveEvent *e1 = new SlaveEvent(m_parent, SLV_INFO, _msg);
 
-    postEvent(kapp->mainWidget(), (QEvent *) e1);
+    QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
     mDebug << "Infor Msg:" << "_msg = " << _msg << endl;
 }
 
@@ -110,6 +115,7 @@ void Slave::run()
         case PAUSE:
             mDebug << " FETCHED COMMAND       PAUSE" << endl;
             copyjob->kill(true);
+            copyjob = 0L;
             PostMessage(SLV_PAUSED);
             break;
 
@@ -117,7 +123,6 @@ void Slave::run()
             mDebug << " FETCHED COMMAND       REMOVE" << endl;
             running = false;
             copyjob->kill(true);
-
             copyjob = 0L;
             PostMessage(SLV_REMOVED);
             break;
@@ -144,9 +149,9 @@ void Slave::run()
             }
             running = false;
             break;
-            
+
         default: {
-            mDebug << " UNKNOW COMMAND DIE...." << endl;
+            mDebug << " UNKNOWN COMMAND DIE...." << endl;
             assert(0);
         }
         }

@@ -38,10 +38,7 @@
 
 #include "slave.h"
 
-
-
 class QTimer;
-
 
 class KSimpleConfig;
 class KAction;
@@ -55,7 +52,7 @@ class TransferList;
 
 class Transfer:public QObject, public KListViewItem
 {
-    Q_OBJECT 
+    Q_OBJECT
 public:
     enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
 
@@ -183,19 +180,14 @@ public slots:
     void slotTotalSize(unsigned long bytes);
     void slotProcessedSize(unsigned long);
 
-
-
-
     void slotStartTime(const QDateTime &);
-
 
 signals:
     void statusChanged(Transfer *, int _operation);
     void log(uint, const QString &, const QString &);
 
-
 private:
-    void setupFields();
+    void init();
 
     KURL src;
     KURL dest;
@@ -229,11 +221,7 @@ private:
     // individual download window
     DlgIndividual *dlgIndividual;
 
-
-
-}
-
-;
+};
 
 
 #endif                          // _Transfer_h

@@ -52,7 +52,8 @@ static int defaultColumnWidth[] = {
                                   };
 
 
-TransferList::TransferList(QWidget * parent, const char *name):KListView(parent, name)
+TransferList::TransferList(QWidget * parent, const char *name)
+    : KListView(parent, name)
 {
     // enable selection of more than one item
     setSelectionMode( QListView::Extended );
@@ -175,7 +176,6 @@ void TransferList::moveToBegin(Transfer * item)
 
 void TransferList::moveToEnd(Transfer * item)
 {
-
     //        ASSERT(item);
 
     Transfer *new_item = addTransfer(item->getSrc(), item->getDest());
@@ -260,7 +260,6 @@ void TransferList::readTransfers(const KURL& file)
             }
         }
     }
-
 }
 
 void TransferList::writeTransfers(const QString& file)

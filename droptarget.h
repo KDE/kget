@@ -36,12 +36,11 @@ class KMainWidget;
 
 class DropTarget:public QWidget
 {
+Q_OBJECT 
 
-Q_OBJECT public:
+public:
     DropTarget();
     ~DropTarget();
-
-
 
 protected:
     virtual void resizeEvent(QResizeEvent *);

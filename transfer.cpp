@@ -49,31 +49,33 @@
 extern Settings ksettings;
 
 
-Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest):KListViewItem(_view)
+Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest)
+    : QObject( _view ),
+      KListViewItem(_view)
 {
-
     sDebugIn << endl;
 
     src = _src;
     dest = _dest;
 
     view = _view;
-    setupFields();
-
+    init();
 
     sDebugOut << endl;
-
 }
 
 
-Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest):KListViewItem(_view, (QListViewItem *) after)
+Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest)
+    : QObject( _view ),
+      KListViewItem(_view, (QListViewItem *) after)
 {
-
     sDebugIn << endl;
+
     view = _view;
     src = _src;
     dest = _dest;
-    setupFields();
+    init();
+
     sDebugOut << endl;
 }
 
@@ -81,17 +83,16 @@ Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, co
 Transfer::~Transfer()
 {
     sDebugIn << endl;
-    dlgIndividual->close();
+//     delete m_pSlave;
     delete dlgIndividual;
     sDebugOut << endl;
 }
 
 
 void
-Transfer::setupFields()
+Transfer::init()
 {
     sDebugIn << endl;
-
 
     totalSize = 0;
     processedSize = 0;
@@ -121,11 +122,11 @@ Transfer::setupFields()
     connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
 
     // setup actions
-    m_paResume = new KAction(i18n("&Resume"), QIconSet(QPixmap(locate("appdata", "pics/tool_resume.png"))), 0, this, SLOT(slotResume()), this, "resume");
+    m_paResume = new KAction(i18n("&Resume"), locate("appdata", "pics/tool_resume.png"), 0, this, SLOT(slotResume()), this, "resume");
 
-    m_paPause = new KAction(i18n("&Pause"), QIconSet(QPixmap(locate("appdata", "pics/tool_pause.png"))), 0, this, SLOT(slotRequestPause()), this, "pause");
+    m_paPause = new KAction(i18n("&Pause"), locate("appdata", "pics/tool_pause.png"), 0, this, SLOT(slotRequestPause()), this, "pause");
 
-    m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("appdata", "pics/tool_delete.png"))), 0, this, SLOT(slotRequestRemove()), this, "delete");
+    m_paDelete = new KAction(i18n("&Delete"), locate("appdata", "pics/tool_delete.png"), 0, this, SLOT(slotRequestRemove()), this, "delete");
 
     m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRequestRestart()), this, "restart");
 
@@ -159,19 +160,14 @@ void Transfer::copy(Transfer * _orig)
 {
     sDebugIn << endl;
 
-
-
     canResume = _orig->canResume;
     dest = _orig->dest;
 
     src = _orig->src;
     id = _orig->id;
 
-
-
     mode = _orig->mode;
     percent = _orig->percent;
-
 
     processedSize = _orig->processedSize;
     remainingTime = _orig->remainingTime;
@@ -219,9 +215,6 @@ void Transfer::slotUpdateActions()
         m_paRestart->setEnabled(false);
 
         break;
-
-
-
     }
 
     // disable all signals
@@ -354,8 +347,6 @@ void Transfer::UpdateRetry()
     retry += " / " + MaxRetry;
 
     setText(view->lv_count, retry);
-
-
 }
 
 
@@ -400,7 +391,6 @@ void Transfer::slotRequestPause()
     m_paRestart->setEnabled(false);
 
 
-
     m_pSlave->Op(Slave::PAUSE);
     sDebug << "Requesting Pause.." << endl;
 
@@ -424,13 +414,12 @@ void Transfer::slotRequestRemove()
     sDebugIn << endl;
     m_paDelete->setEnabled(false);
     m_paPause->setEnabled(false);
-    dlgIndividual->close();
+    delete dlgIndividual;
 
     if (status == ST_RUNNING) {
         m_pSlave->Op(Slave::REMOVE);
     } else
         emit statusChanged(this, OP_REMOVED);
-
 
     sDebugOut << endl;
 }
@@ -740,16 +729,11 @@ void Transfer::write(KSimpleConfig * config, int id)
 
 
 
-
-
-
 /** No descriptions */
 void Transfer::slotExecPause()
 {
-
     sDebugIn << endl;
     slotSpeed(0);
-
 
     mode = MD_DELAYED;
     m_paDelay->setChecked(true);
@@ -763,12 +747,10 @@ void Transfer::slotExecPause()
     kmain->slotUpdateActions();
     emit statusChanged(this, OP_PAUSED);
     sDebugOut << endl;
-
 }
 
 void Transfer::slotExecAbort(const QString & _msg)
 {
-
     mode = MD_DELAYED;
     status = ST_STOPPED;
     slotSpeed(0);               //need???????
@@ -796,9 +778,7 @@ void Transfer::slotExecAbort(const QString & _msg)
         mode = MD_DELAYED;
     }
 
-
     emit statusChanged(this, OP_ABORTED);
-
 }
 
 /** No descriptions */
@@ -810,7 +790,6 @@ void Transfer::slotExecRemove()
     m_pSlave->wait();
     emit statusChanged(this, OP_REMOVED);
     sDebugOut << endl;
-
 }
 
 
@@ -819,7 +798,6 @@ void Transfer::slotExecResume()
     sDebugIn << endl;
     emit statusChanged(this, OP_RESUMED);
     sDebugOut << endl;
-
 }
 
 void Transfer::slotExecConnected()
@@ -828,14 +806,12 @@ void Transfer::slotExecConnected()
     status = ST_RUNNING;
     emit statusChanged(this, OP_CONNECTED);
     sDebugOut << endl;
-
 }
 
 
 void Transfer::slotCanResume(bool _bCanResume)
 {
     sDebugIn << endl;
-
 
     canResume = _bCanResume;
 
@@ -849,7 +825,6 @@ void Transfer::slotCanResume(bool _bCanResume)
     dlgIndividual->setCanResume(canResume);
 
     sDebugOut << endl;
-
 }
 
 
@@ -865,7 +840,6 @@ void Transfer::slotExecDelay()
     emit statusChanged(this, OP_DELAYED);
 
     sDebugOut << endl;
-
 }
 
 /** No descriptions */
@@ -879,7 +853,6 @@ void Transfer::slotExecSchedule()
     emit statusChanged(this, OP_SCHEDULED);
 
     sDebugOut << endl;
-
 }
 
 /** No descriptions */
@@ -889,7 +862,6 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
 
     setStartTime(_startTime);
     sDebugOut << endl;
-
 }
 
 /** return true if the dlgIndividual is Visible */

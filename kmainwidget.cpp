@@ -67,7 +67,6 @@
 #include <kstatusbar.h>
 #include <kconfig.h>
 #include <kio/netaccess.h>
-#include <krootpixmap.h>
 
 #include "settings.h"
 #include "transfer.h"
@@ -94,8 +93,7 @@ KMainWidget *kmain = 0L;
 
 #define LOAD_ICON(X) KGlobal::iconLoader()->loadIcon(X, KIcon::MainToolbar)
 
-QGuardedPtr < DropTarget > kdrop = 0L;
-QGuardedPtr < DockWidget > kdock = 0L;
+DropTarget *kdrop = 0L;
 
 Settings ksettings;             // this object contains all settings
 
@@ -111,7 +109,7 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 
 
 KMainWidget::KMainWidget(bool bStartDocked)
-    : KMainWindow(0),
+    : KMainWindow(0, "kget mainwindow"),
       KGetIface( "KGet-Interface" ),
       prefDlg( 0L )
 {
@@ -143,7 +141,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
     logFileName = locateLocal("appdata", "logs/");
     logFileName += tmp;
 
-    lastClipboard = kapp->clipboard()->text( QClipboard::Clipboard );
+    lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard );
     // Load all settings from KConfig
     ksettings.load();
 
@@ -213,8 +211,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
     kdrop = new DropTarget();
     kdock = new DockWidget(this);
 
-    //      kroot= new KRootPixmap(kdrop);
-    //      kroot->start();
     // Set geometry
     if (ksettings.mainPosition.x() != -1) {
         resize(ksettings.mainSize);
@@ -270,7 +266,7 @@ KMainWidget::~KMainWidget()
 
     delete prefDlg;
     delete animTimer;
-    delete(DropTarget *) kdrop;
+    delete kdrop;
     writeTransfers();
     writeLog();
 
@@ -324,70 +320,72 @@ void KMainWidget::setupGUI()
     myTransferList = new TransferList(this, "transferList");
     myTransferList->setSorting(-1);
     setListFont();
+    
+    KActionCollection *coll = actionCollection();
 
     connect(myTransferList, SIGNAL(selectionChanged()), this, SLOT(slotUpdateActions()));
     connect(myTransferList, SIGNAL(transferSelected(Transfer *)), this, SLOT(slotOpenIndividual()));
     connect(myTransferList, SIGNAL(popupMenu(Transfer *)), this, SLOT(slotPopupMenu(Transfer *)));
 
     // file actions
-    m_paOpenTransfer = KStdAction::open(this, SLOT(slotOpenTransfer()), actionCollection(), "open_transfer");
-    m_paPasteTransfer = KStdAction::paste(this, SLOT(slotPasteTransfer()), actionCollection(), "paste_transfer");
+    m_paOpenTransfer = KStdAction::open(this, SLOT(slotOpenTransfer()), coll, "open_transfer");
+    m_paPasteTransfer = KStdAction::paste(this, SLOT(slotPasteTransfer()), coll, "paste_transfer");
 
-    m_paExportTransfers = new KAction(i18n("&Export Transfer List..."), 0, this, SLOT(slotExportTransfers()), actionCollection(), "export_transfers");
-    m_paImportTransfers = new KAction(i18n("&Import Transfer List..."), 0, this, SLOT(slotImportTransfers()), actionCollection(), "import_transfers");
+    m_paExportTransfers = new KAction(i18n("&Export Transfer List..."), 0, this, SLOT(slotExportTransfers()), coll, "export_transfers");
+    m_paImportTransfers = new KAction(i18n("&Import Transfer List..."), 0, this, SLOT(slotImportTransfers()), coll, "import_transfers");
 
-    m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), actionCollection(), "import_text");
+    m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), coll, "import_text");
 
-    m_paQuit = KStdAction::quit(this, SLOT(slotQuit()), actionCollection(), "quit");
+    m_paQuit = KStdAction::quit(this, SLOT(slotQuit()), coll, "quit");
 
 
     // transfer actions
-    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), actionCollection(), "copy_url");
-    m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), actionCollection(), "open_individual");
+    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), coll, "copy_url");
+    m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), coll, "open_individual");
 
-    m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), actionCollection(), "move_begin");
+    m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), coll, "move_begin");
 
-    m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), actionCollection(), "move_end");
+    m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), coll, "move_end");
 #ifdef _DEBUG
     sDebug << "Loading pics" << endl;
 #endif
-    m_paResume = new KAction(i18n("&Resume"),"tool_resume", 0, this, SLOT(slotResumeCurrent()), actionCollection(), "resume");
-    m_paPause = new KAction(i18n("&Pause"),"tool_pause", 0, this, SLOT(slotPauseCurrent()), actionCollection(), "pause");
-    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), actionCollection(), "delete");
-    m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), actionCollection(), "restart");
+    m_paResume = new KAction(i18n("&Resume"),"tool_resume", 0, this, SLOT(slotResumeCurrent()), coll, "resume");
+    m_paPause = new KAction(i18n("&Pause"),"tool_pause", 0, this, SLOT(slotPauseCurrent()), coll, "pause");
+    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), coll, "delete");
+    m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), coll, "restart");
 
-    m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), actionCollection(), "queue");
-    m_paTimer = new KRadioAction(i18n("&Timer"),"tool_timer", 0, this, SLOT(slotTimerCurrent()), actionCollection(), "timer");
-    m_paDelay = new KRadioAction(i18n("De&lay"),"tool_delay", 0, this, SLOT(slotDelayCurrent()), actionCollection(), "delay");
+    m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), coll, "queue");
+    m_paTimer = new KRadioAction(i18n("&Timer"),"tool_timer", 0, this, SLOT(slotTimerCurrent()), coll, "timer");
+    m_paDelay = new KRadioAction(i18n("De&lay"),"tool_delay", 0, this, SLOT(slotDelayCurrent()), coll, "delay");
 
     m_paQueue->setExclusiveGroup("TransferMode");
     m_paTimer->setExclusiveGroup("TransferMode");
     m_paDelay->setExclusiveGroup("TransferMode");
 
     // options actions
-    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
-    m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
-    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
-    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
-    m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
-    m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
-    m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
+    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
+    m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), coll, "toggle_sound");
+    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
+    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
+    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), coll, "auto_disconnect");
+    m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), coll, "auto_shutdown");
+    m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), coll, "offline_mode");
+    m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), coll, "auto_paste");
 
-    m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), actionCollection());
+    m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), coll);
 
-    KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection(), "configure_keybinding");
-    KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection(), "configure_toolbars");
+    KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll, "configure_keybinding");
+    KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll, "configure_toolbars");
 
     // view actions
 
-    m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), actionCollection(), "show_statusbar");
+    m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), coll, "show_statusbar");
 
-    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
-    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), actionCollection(), "drop_target");
+    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
+    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
-    KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), actionCollection(), "whats_this");
+    KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), coll, "whats_this");
 
     createGUI("kgetui.rc");
 
@@ -956,7 +954,7 @@ void KMainWidget::slotCheckClipboard()
     //sDebugIn << endl;
 #endif
 
-    QString clipData = kapp->clipboard()->text();
+    QString clipData = QApplication::clipboard()->text();
 
     if (clipData != lastClipboard) {
         sDebug << "New clipboard event" << endl;
@@ -986,7 +984,7 @@ void KMainWidget::slotPasteTransfer()
 
     QString newtransfer;
 
-    newtransfer = kapp->clipboard()->text();
+    newtransfer = QApplication::clipboard()->text();
     newtransfer = newtransfer.stripWhiteSpace();
 
     if (!ksettings.b_expertMode) {
@@ -1363,7 +1361,6 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
 #ifdef _DEBUG
     //sDebugIn << endl;
 #endif
-
 
     switch (_operation) {
 
@@ -2268,11 +2265,9 @@ void KMainWidget::customEvent(QCustomEvent * _e)
         break;
     default:
 #ifdef _DEBUG
-        sDebug << "Unkow Result..die" << result << endl;
+        sDebug << "Unknown Result..die" << result << endl;
 #endif
         assert(0);
-
-
     }
 
 
@@ -2323,7 +2318,7 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
             {
                 KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
             }
-            
+
             transfer->showIndividual();
             return false;
         }

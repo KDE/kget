@@ -29,7 +29,6 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kiconloader.h>
-#include <kstandarddirs.h>
 #include <kwin.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
@@ -137,10 +136,8 @@ DropTarget::mousePressEvent(QMouseEvent * e)
     }
     else if (e->button() == RightButton)
     {
-
         popupMenu->setItemEnabled(pop_Min, kmain->isVisible());
         popupMenu->setItemEnabled(pop_Max, kmain->isHidden());
-
 
         popupMenu->popup(QCursor::pos());
     }
@@ -148,7 +145,6 @@ DropTarget::mousePressEvent(QMouseEvent * e)
     {
         kmain->slotPasteTransfer();
     }
-
 }
 
 
@@ -204,11 +200,7 @@ void DropTarget::toggleMinimizeRestore()
         kmain->hide();
     else
         kmain->show();
-
-
 }
-
-#include "droptarget.moc"
 
 /** No descriptions */
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
@@ -220,7 +212,6 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
         return;
     }
 
-
     QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
 }
 
@@ -230,3 +221,5 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
     if (e->button() == LeftButton)
         toggleMinimizeRestore();
 }
+
+#include "droptarget.moc"

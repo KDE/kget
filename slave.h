@@ -29,16 +29,19 @@
 
 #include <qthread.h>
 #include <kurl.h>
-#include <klocale.h>
 #include <qvaluestack.h>
 #include <qwaitcondition.h>
 #include <qmutex.h>
 #include <qobject.h>
 
 #include "common.h"
-#include "getfilejob.h"
-#include "slaveevent.h"
 
+namespace KIO
+{
+    class GetFileJob;
+};
+
+class Transfer;
 
 class Slave:public QObject, public QThread
 {
@@ -57,6 +60,7 @@ Q_OBJECT public:
         SLV_FINISHED, SLV_INFO, SLV_REMOVED
     };
 
+    // ### those don't seem to be used at all!!
     enum SlaveStatus {
 
         SLV_RUNNING, SLV_STOPPING, SLV_FINISHING, SLV_ABORTING

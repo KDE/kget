@@ -50,7 +50,8 @@
 #include "dlgIndividual.h"
 
 
-DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
+DlgIndividual::DlgIndividual(Transfer * _item)
+    : KDialog(0, "dialog")
 {
     item = _item;
 
