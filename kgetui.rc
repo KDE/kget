@@ -9,7 +9,7 @@
         <Separator/>
         <Action name="quit"/>
     </Menu>
-   <Menu name="options"><text>&amp;Options</text>
+   <Menu name="settings"><text>&amp;Settings</text>
         <Separator/>
         <Action name="configure_notifications"/>
         <Action name="configure_keys"/>
