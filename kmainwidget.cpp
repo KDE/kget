@@ -62,8 +62,6 @@
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
-static const int ToolBar_HEIGHT = 35;
-
 class KXMLGUIBuilderKG : public KXMLGUIBuilder
 /**
  * This class is reimplemented only to handle the special case of the
@@ -164,6 +162,7 @@ void KMainWidget::setupActions()
     ta->setChecked( Settings::downloadAtStartup() );
 
     // following actions are only designed to be show in the toolbar when window is 'compressed'
+    new BandAction(i18n("Band Graph"), 0, ac, "view_bandgraph");
     new SpacerAction(i18n("<Spacer>"), 0, ac, "view_spacer");
     new ViewAsAction(i18n("View type: "), 0, ac, "view_vlabel");
     new ComboAction(i18n("Window shape"), 0, ac, this, "view_mode");

@@ -14,11 +14,13 @@
 #include <kaction.h>
 #include <qwidget.h>
 #include <qtimer.h>
-#include <qptrvector.h>
+#include <qvaluevector.h>
+#include <stdlib.h>
 class KMainWidget;
 class QComboBox;
 class QSize;
 class QPixmap;
+class QTimer;
 class QPaintEvent;
 class QPopupMenu;
 
@@ -30,6 +32,8 @@ class QPopupMenu;
  *
  */
 
+static const int ToolBar_HEIGHT = 35;
+
 /** Widgets */
 class BMW_TTimer : public QTimer
 {
@@ -38,68 +42,50 @@ class BMW_TTimer : public QTimer
     BMW_TTimer()
     {
         connect( this, SIGNAL( timeout() ), this, SLOT( ito() ) );
-        start( 100 );
+        start( 50 );
     }
   
   private slots:
-    void ito()
-    {
-        static float i = 1.0;
-        static bool toggle = false;
-        i *= 1.01;
-        newSample( (toggle = !toggle) ? i : 1.5-i );
-    }
+    void ito() { newSample( drand48() * 3.0 + drand48() * 3.0 ); }
 
   signals:
     void newSample( float );
-
 };
 
 class BandMonWidget : public QWidget
 {
   Q_OBJECT
   public:
-    enum Direction { Horizontal, Vertical };
-    enum ScaleMode { ManualMax, AutoPeak, AutoMean };
-    
-    BandMonWidget( enum Direction, QWidget * parent = 0, const char * name = 0 );
+    BandMonWidget( bool isVertical = false, QWidget * parent = 0, const char * name = 0 );
     ~BandMonWidget();
 
     void setLength( int length );
-    
+    void setFrequency( float samples_per_second );
+    void setMaximum( float max_kbps = -1 );
+
     QSize minimumSizeHint() const;
     QSize sizeHint() const { return minimumSizeHint(); }
     
   public slots:
-    // data plot related slots
     void addSample( float speed_kbps );
     void clear();
 
-    // display mode related slots
-    void setDuration( float time ) { timeGap = time; }
-    void setScaleMode( enum ScaleMode s ) { scale = s; }
-    void enableCompression( bool enabled ) { bCompression = enabled; }
-    void enableText( bool enabled ) { bText = enabled; }
-
-  protected:
-    void draw();
-    void paintEvent( QPaintEvent * );
-    double timeStamp();
+  private slots:
+    void slotScroll();
 
   private:
-    int len;
-    enum Direction dir;
-    enum ScaleMode scale;
-    bool bCompression;
-    bool bText;
-    float timeGap;
-    
-    struct SpeedSample { float speed_kbps, time_stamp; };
-    QPtrVector<SpeedSample> samples;
+    void drawPixmap();
+    void paintEvent( QPaintEvent * );
+
+    int pixelLength;
+    bool isVertical;
+    float samplesPerSecond;
+    float maximum;
+    QValueVector<float> samples;
     int samples_current;
-    
+
     QPixmap * pm;
-    QPopupMenu * popup;
+    QTimer * timer;
 };
 
 
@@ -128,6 +114,15 @@ class ViewAsAction : public KAction
 {
   public:
     ViewAsAction( const QString& name, const KShortcut&, KActionCollection*,
+        const char* name );
+    virtual int plug( QWidget* w, int index = -1 );
+};
+
+// Displays a band graph widget
+class BandAction : public KAction
+{
+  public:
+    BandAction( const QString& name, const KShortcut&, KActionCollection*,
         const char* name );
     virtual int plug( QWidget* w, int index = -1 );
 };

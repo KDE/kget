@@ -26,142 +26,148 @@
 #include <qpainter.h>
 #include <qwhatsthis.h>
 
-#include <sys/time.h>
 
+//Remember : popup , compression , enable text..
 
-static const uint defaultLength = 100;
-static const uint defaultHeight = 35;
-static const uint defaultTimeGap = 10;
-
-BandMonWidget::BandMonWidget( enum Direction d, QWidget * parent, const char * name )
-    : QWidget( parent, name ), len( defaultLength ), dir( d ),
-    scale( AutoPeak ), bCompression( false ), bText( false ), 
-    timeGap( defaultTimeGap ), pm( 0 )
+BandMonWidget::BandMonWidget( bool v, QWidget * parent, const char * name )
+    : QWidget( parent, name ), pixelLength( 100 ),
+    isVertical( v ), pm( 0 )
 {
-    samples.setAutoDelete( true );
-    clear();
-    draw();
+    setBackgroundMode( Qt::PaletteButton );
+
+    samples.resize( pixelLength, 0 );
+    samples_current = pixelLength - 1;
+
+    timer = new QTimer();
+    connect( timer, SIGNAL( timeout() ), this, SLOT( slotScroll() ) );
+    
+    setFrequency( 10 );
+    setMaximum( 5 );
+    
+    drawPixmap();
 }
 
 BandMonWidget::~BandMonWidget()
 {
+    delete timer;
     delete pm;
 }
 
-void BandMonWidget::setLength( int length )
+void BandMonWidget::setFrequency( float samples_per_second )
 {
-    len = length;
-    pm->resize( minimumSizeHint() );
-    draw();
-    resize( minimumSizeHint() );
+    samplesPerSecond = samples_per_second;
+    timer->start( (int)( 1000.0 / samples_per_second ) );
+}
+
+void BandMonWidget::setMaximum( float max_kbps )
+{
+    maximum = max_kbps;
+}
+
+void BandMonWidget::setLength( int /*length*/ )
+{
+/*  TODO this
+    samples.clear();
+    samples.resize( pixelLength = length, 0 );
+    samples_current = -1;
+    QSize s = minimumSizeHint()
+    pm->resize( s );
+    drawPixmap();
+    resize( s );
+*/
 }
 
 QSize BandMonWidget::minimumSizeHint () const
 {
-    if ( dir == Vertical )
-        return QSize( defaultHeight, len );
-    return QSize( len, defaultHeight );
+    if ( isVertical )
+        return QSize( ToolBar_HEIGHT, pixelLength );
+    return QSize( pixelLength, ToolBar_HEIGHT );
 }
 
 void BandMonWidget::addSample( float speed )
 {    
-    if ( ++samples_current >= samples.size() )
-        samples_current = 0;
-
-    SpeedSample * s = new SpeedSample();
-    s->speed_kbps = speed;
-    s->time_stamp = timeStamp();
-    samples.insert( samples_current, s );
-
-    draw();
+    samples[ samples_current ] = speed;
 }
 
 void BandMonWidget::clear()
 {
-    samples.clear();
-    samples_current = -1;
-    samples.resize( 5 );
+    for ( int i = samples.size() - 1; i >= 0; i-- )
+        samples[ i ] = 0.0;
+    samples_current = pixelLength - 1;
 }
 
-double BandMonWidget::timeStamp()
+void BandMonWidget::slotScroll()
 {
-    struct timeval tv;
-    gettimeofday( &tv, 0 );
-    return tv.tv_sec + tv.tv_usec / 1000000.0;
+    drawPixmap();
+    if ( ++samples_current >= (int)samples.size() )
+        samples_current = 0;
+    update();
 }
 
-void BandMonWidget::draw()
+void BandMonWidget::drawPixmap()
 {
     if ( !pm )
         pm = new QPixmap( minimumSizeHint() );
-    pm->fill( palette().active().background() );
     
-    if ( samples.count() < 2 )
-        return;
-
-    double currentTime = timeStamp();
-    
-    // open a painter over a pixmap and paint it
+    // open a painter over the internal pixmap
     QPainter p;
     p.begin( pm );
 
-    
-    if ( dir == Horizontal )
+    // fill background (TODO : use style().toolbar fill)
+    p.fillRect( pm->rect(), palette().active().background() );
+
+    // draw a line on the bottom
+    QColor color = palette().active().button();
+    p.setPen( color );
+    p.drawLine( 0, ToolBar_HEIGHT - 1 , pixelLength - 1, ToolBar_HEIGHT - 1 );
+
+    // draw the graph
+    p.setPen( color.dark( 160 ) );
+    int count = samples.size();
+    int tmp_index = samples_current + 1;
+    if ( tmp_index >= count )
+        tmp_index = 0;    
+    if ( !isVertical )
     {
-        p.setPen( Qt::blue );
-        p.setBrush( Qt::darkBlue );
-        uint count = samples.count();
-        
-        uint tmp_index = (count < samples.size()) ? 0 : samples_current + 1;
-        if ( tmp_index >= samples.size() )
-            tmp_index = 0;
-        
-        for ( int i = 0; i < count - 1; i++ )
+        int y_base = ToolBar_HEIGHT - 2;
+        int y_ext = y_base - 3;
+
+        for ( int i = 0; i < count; i++ )
         {
-            QPointArray pa( 4 );
-            SpeedSample * sP = samples.at( tmp_index++ );
-            if ( tmp_index >= samples.size() )
+            float h = samples[ tmp_index ];
+            if ( h > maximum )
+            {
+                QColor oldcol = p.pen().color();
+                p.setPen( color.dark(140) );
+                p.drawLine( i, y_base, i, y_base - y_ext );
+                p.setPen( oldcol );
+            }
+            else
+                p.drawLine( i, y_base, i, y_base - y_ext * (h / maximum) );
+            if ( ++tmp_index >= count )
                 tmp_index = 0;
-            SpeedSample * sN = samples.at( tmp_index );
-            double X1 = len * (currentTime - sP->time_stamp) / timeGap;
-            double X2 = len * (currentTime - sN->time_stamp) / timeGap;
-            pa.setPoint( 0, X1, defaultHeight );
-            pa.setPoint( 1, X1, 10 * sP->speed_kbps );
-            pa.setPoint( 2, X2, defaultHeight );
-            pa.setPoint( 3, X2, 10 * sN->speed_kbps );
-            kdWarning() << X1 << " | " << X2 << " | " << timeStamp() << endl;
-            p.drawPolygon( pa );
         }
-
-/*    
+    } else { /*TODO this*/ }
     
-    int pa_index = 0;
-    
-        float minX = len;
-        pa.setPoint( pa_index++, minX, defaultHeight );
-        for ( int i = 0; i < samples_count; i++ )
-        {
-            SpeedSample * ss = samples.at(i);
-            float x = len - 5 * pa_index;
-            pa.setPoint( pa_index++, x, 10 * ss->speed_kbps );
-
-            if ( len < minX )
-                minX = len;
-            
-            if ( --tmp_index < 0 )
-                tmp_index = samples_count - 1;
-        }
-        pa.setPoint( pa_index++, minX, defaultHeight );
-        pa.setPoint( pa_index, len, defaultHeight );
-*/  
-    } else
+    // draw the mean line
+    p.setPen( color.light( 160 ) );
+    float mean = 0;
+    for ( int i = samples.size() - 1; i >= 0 ; i-- )
+        mean += samples[ i ];
+    mean /= samples.size();
+    if ( !isVertical )
     {
-        //TODO implement me
-    }
+        int y_base = ToolBar_HEIGHT - 2;
+        int y_ext = y_base - 3;
+        float k = mean / maximum;
+        
+        if ( k < 1 )
+            p.drawLine( 0, y_base - y_ext * k, pixelLength - 1, y_base - y_ext * k );
+        else
+            p.drawLine( 0, y_base - y_ext, pixelLength - 1, y_base - y_ext );
+    } else { /*TODO this*/ }
     
     p.end();
-    
-    update();
 }
 
 void BandMonWidget::paintEvent( QPaintEvent * e )
@@ -268,10 +274,33 @@ int SpacerAction::plug( QWidget* w, int index )
     toolBar->insertWidget( id, 0, widget, index );
     toolBar->setItemAutoSized( id, true );
 
+    return containerCount() - 1;
+}
+
+
+BandAction::BandAction( const QString& text, const KShortcut& cut,
+    KActionCollection* ac, const char* name )
+    : KAction( text, cut, ac, name ) {}
+
+int BandAction::plug( QWidget* w, int index )
+{
+    if ( !w->inherits( "KToolBar" ) ) {
+        kdError() << "KWidgetAction::plug: BandAction must be plugged into KToolBar." << endl;
+        return -1;
+    }
+
+    KToolBar* toolBar = static_cast<KToolBar*>( w );
+    int id = KAction::getToolButtonID();
+    addContainer( toolBar, id );
+    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+
+    QWidget * widget = new BandMonWidget( false, toolBar );
+    toolBar->insertWidget( id, 0, widget, index );
+    toolBar->setItemAutoSized( id, false );
+
     BMW_TTimer * t = new BMW_TTimer();
     connect( t, SIGNAL( newSample(float) ), widget, SLOT( addSample(float)) );
     return containerCount() - 1;
 }
-
 
 #include "kmainwidget_actions.moc"
