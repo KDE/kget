@@ -75,12 +75,12 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     sourceLabel = new KSqueezedTextLabel(this);
     grid->addWidget(sourceLabel, 0, 2);
-    sourceLabel->setText("Source Label");
+    sourceLabel->setText(i18n("Source Label"));
     grid->addWidget(new QLabel(i18n("Destination:"), this), 1, 0);
 
     destLabel = new KSqueezedTextLabel(this);
     grid->addWidget(destLabel, 1, 2);
-    destLabel->setText("Source Label");
+    destLabel->setText(i18n("Source Label"));
 
     m_pProgressBar = new KProgress(this);
     topLayout->addWidget( m_pProgressBar );
@@ -99,7 +99,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     speedLabel = new QLabel(this);
     hBox->addWidget(speedLabel, 1);
-    speedLabel->setText("0 B/s");
+    speedLabel->setText(i18n("0 B/s"));
 
     // setup toolbar
     hBox = new QHBoxLayout();
