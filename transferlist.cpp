@@ -122,10 +122,13 @@ TransferList::~TransferList()
 }
 
 
-Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest)
+Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest, 
+                                    bool canShow)
 {
     Transfer *last = static_cast<Transfer*>( lastItem() );
     Transfer *new_item = new Transfer(this, last, _source, _dest);
+    if ( canShow )
+        new_item->maybeShow();
 
     return new_item;
 }
@@ -164,7 +167,6 @@ void TransferList::moveToBegin(Transfer * item)
     //        ASSERT(item);
 
     Transfer *new_item = new Transfer(this, item->getSrc(), item->getDest());
-
     new_item->copy(item);
 
     delete item;
@@ -178,8 +180,8 @@ void TransferList::moveToEnd(Transfer * item)
 {
     //        ASSERT(item);
 
-    Transfer *new_item = addTransfer(item->getSrc(), item->getDest());
-
+    Transfer *last = static_cast<Transfer*>( lastItem() );
+    Transfer *new_item = new Transfer(this, last, item->getSrc(), item->getDest());
     new_item->copy(item);
 
     delete item;
@@ -254,10 +256,15 @@ void TransferList::readTransfers(const KURL& file)
 
             src  = KURL::fromPathOrURL( config.readEntry("Source") );
             dest = KURL::fromPathOrURL( config.readEntry("Dest") );
-            item = addTransfer( src, dest );
+            item = addTransfer( src, dest, false ); // don't show!
 
-            if (!item->read(&config, i)) {
+            if (!item->read(&config, i))
                 delete item;
+            else 
+            {
+                // configuration read, now we know the status to determine 
+                // whether to show or not
+                item->maybeShow();
             }
         }
     }

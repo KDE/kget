@@ -201,12 +201,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     topLayout->addWidget(panelAdvanced);
     slotToggleAdvanced(ksettings.b_advancedIndividual);
-    if (ksettings.b_showIndividual)
-    {
-        show();
-    }
-
-
+    
     resize( sizeHint() );
 
     //bool keepOpenChecked = false;

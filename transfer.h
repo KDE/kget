@@ -165,6 +165,7 @@ public:
     void slotSpeed(unsigned long);
     /** No descriptions */
     bool isVisible();
+    void maybeShow();
 
 public slots:
     // operation methods
