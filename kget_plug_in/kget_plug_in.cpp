@@ -195,7 +195,7 @@ KPluginFactory::~KPluginFactory()
 
 extern "C"
 {
-    void* init_khtml_kget()
+    KDE_EXPORT void* init_khtml_kget()
     {
 		KGlobal::locale()->insertCatalogue("kget");
         return new KPluginFactory;
