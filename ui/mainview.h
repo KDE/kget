@@ -22,7 +22,7 @@ class MainView;
 
 class MainViewGroupItem : public QListViewItem
 {
-    public:
+public:
     MainViewGroupItem(MainView * parent, Group * g);
 
     void updateContents(bool updateAll=false);
@@ -30,14 +30,14 @@ class MainViewGroupItem : public QListViewItem
     
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
     
-    private:
-    Group * group;
+private:
     MainView * view;
+    Group * group;
 };
 
 class MainViewItem : public QListViewItem
 {
-    public:
+public:
     MainViewItem(MainView * parent, Transfer * t);
 
     void updateContents(bool updateAll=false);
@@ -45,9 +45,9 @@ class MainViewItem : public QListViewItem
     
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
     
-    private:
-    Transfer * transfer;
+private:
     MainView * view;
+    Transfer * transfer;
 };
 
 class MainView : public KListView, public ViewInterface

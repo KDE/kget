@@ -158,14 +158,14 @@ void KMainWidget::setupActions()
     KToggleAction * ta;
 
     // local - Shows a dialog asking for a new URL to download
-    new KAction(i18n("&New Download..."), "filenew", 0, this, SLOT(slotNewURL()), ac, "open_transfer");
+    new KAction(i18n("&New Download..."), "filenew", CTRL+Key_N, this, SLOT(slotNewURL()), ac, "open_transfer");
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
     // ->Scheduler - Ask for transfersList export
     new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), ac, "export_transfers");
     // ->Scheduler - Ask for transfersList import
     new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), ac, "import_transfers");
-    
+
     // ->Scheduler - ACTIVATE/STOP the scheduler
     ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this, SLOT(slotDownloadToggled()), ac, "download");
     ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));

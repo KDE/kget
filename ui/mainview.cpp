@@ -96,7 +96,7 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
     {
         Group::Info info = group->info();
         p->drawText(0,2,width, height()-4, Qt::AlignCenter, 
-                        QString().setNum(info.percent) + "%");
+                        QString::number(info.percent) + "%");
     }
 }
 
@@ -246,7 +246,7 @@ void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
     if(column == 3)
     {
         Transfer::Info info = transfer->info();
-        float rectWidth = (width-6) * info.percent / 100;
+        int rectWidth = (int)((width-6) * info.percent / 100);
 
         p->setPen(cg.background().dark());
         p->drawRect(2,2,width-4, height()-4);
@@ -260,7 +260,7 @@ void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
         
         p->setPen(cg.foreground());
         p->drawText(2,2,width-4, height()-4, Qt::AlignCenter, 
-                    QString().setNum(info.percent) + "%");
+                    QString::number(info.percent) + "%");
     }
 }
 

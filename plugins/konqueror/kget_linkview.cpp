@@ -61,6 +61,11 @@ void KGetLinkView::initView()
     m_view->addColumn( i18n("Location (URL)") );
 
     setCentralWidget( m_view );
+
+    // setting a fixed (not floating) toolbar
+    toolBar()->setMovingEnabled(false);
+    // setting Text next to Icons
+    toolBar()->setIconText( KToolBar::IconTextRight );
 }
 
 void KGetLinkView::setLinks( QPtrList<LinkItem>& links )

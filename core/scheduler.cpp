@@ -767,7 +767,7 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
 //        QStringList::Iterator it = Settings::mimeDirList().begin();
 //        QStringList::Iterator end = Settings::mimeDirList().end();
 //        for (; it != end; ++it)
-        for ( uint i = 0; i < Settings::mimeDirList().count(); i=i+2 )
+        for ( uint i = 0; i < Settings::mimeDirList().count(); i+=2 )
         {
             sDebug << ">>> " << Settings::mimeDirList()[i] << endl;
             // odd list items are regular expressions
@@ -795,6 +795,54 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
     return Settings::lastDirectory();
 }
 
+/*
+These could be new functions that should be much simpler and will(?) replace
+the existing ones.
+
+typedef struct {
+    KURL fromURL;
+    QString toDir;
+} dlPaths;
+
+// connect (via the ViewInterfaceConnector) the slotNewURL() to this function
+void Scheduler::addNewEmptyURL()
+{
+    // here kget should:
+    // a) prompt the user, using the input dialog, a new download
+    bool ok;
+    QString newtransfer = KInputDialog::getText(i18n("New Download"),
+                                                i18n("Enter URL:"), "", &ok,
+                                                mainWidget);
+    if (!ok)
+        return;
+
+    // b) checking if the URL is valid
+    KURL from( newtransfer );
+    if ( !isValidURL( from ) )
+        return;
+
+    // c) get the right dest folder for that
+    QString dest = getDestFolderFor( from );
+
+    // d) scheduling the new tansfer
+    dlPaths newdl;
+    newdl.fromURL = from;
+    newdl.toDir = 
+    if ( !schedNewTransfer( newdl ) )
+        return;
+
+}
+
+
+bool Scheduler::schedNewTransfer( dlPaths newdl )
+{
+    // - schedule the download represented by the scruct newdl
+    // - returns true if we added succesfully the new dl, false otherwise
+
+}
+
+
+*/
 
 //BEGIN Private low level queue commands implementation
 

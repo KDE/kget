@@ -18,7 +18,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <kdatastream.h>
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
@@ -51,7 +50,7 @@ KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
     QPixmap pix = KGlobal::iconLoader()->loadIcon("khtml_kget",
                                                   KIcon::MainToolbar);
     KActionMenu *menu = new KActionMenu( i18n("Download Manager"), pix,
-					 actionCollection(), "kget_menu" );
+                                         actionCollection(), "kget_menu" );
     menu->setDelayed( false );
     connect( menu->popupMenu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));
 
@@ -170,7 +169,7 @@ void KGet_plug_in::startDownload( const KURL::List& urls )
                                               "addTransfers(KURL::List, QString)",
                                               data );
 
-    qDebug("*** startDownload: %i", ok );
+    kdDebug() << "*** startDownload: " << ok << endl;
 }
 
 KPluginFactory::KPluginFactory( QObject* parent, const char* name )
@@ -184,15 +183,17 @@ QObject* KPluginFactory::createObject( QObject* parent, const char* name, const 
     QObject *obj = new KGet_plug_in( parent, name );
     return obj;
 }
-KPluginFactory::~KPluginFactory()
-{ delete s_instance; }
 
+KPluginFactory::~KPluginFactory()
+{
+    delete s_instance;
+}
 
 extern "C"
 {
     void* init_khtml_kget()
     {
-		KGlobal::locale()->insertCatalogue("kget");
+        KGlobal::locale()->insertCatalogue("kget");
         return new KPluginFactory;
     }
 

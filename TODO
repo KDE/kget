@@ -33,6 +33,8 @@ SHORT-TERM (URGENT):
       is still present in the transfers list (in the Scheduler class, function
       slotTransferChanged() ).
   CHG #28 <pino> verify that all the settings are respected
+  FIX #30 <pino> make more fluid the drop target movement
+  ADD #32 <pino> implement the grouping functionalities
 
 MID-TERM:
 
@@ -51,6 +53,7 @@ MID-TERM:
       implemented.
   ADD #23 <dario> make it possible to associate a default folder to each group.
   ADD #29 <pino> tooltips and what's this for settings
+  ADD #31 <pino> implement the notifications
 
 LONG-TERM:
 

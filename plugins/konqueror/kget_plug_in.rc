@@ -1,13 +1,11 @@
 <!DOCTYPE kpartgui>
 <kpartgui library="khtml_kget" name="khtml_kget" version="3" >
-                  <MenuBar>
-                  <Menu name="tools">
-                             <Text>&amp;Tools</Text>
-<Action name="launch_kget"/>
-             </Menu>
-             </MenuBar>
-             <ToolBar name="mainToolBar">
-             <Action name="kget_menu"/>
-             </ToolBar>
+<MenuBar>
+    <Menu name="tools"><Text>&amp;Tools</Text>
+        <Action name="kget_menu"/>
+    </Menu>
+</MenuBar>
+<ToolBar name="mainToolBar">
+    <Action name="kget_menu"/>
+</ToolBar>
 </kpartgui>
-
