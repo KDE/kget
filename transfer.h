@@ -117,10 +117,10 @@ Q_OBJECT public:
         {
                 return speed;
         }
-        int getStatus()
+        TransferStatus getStatus()
         {
                 return status;
-        };
+        }
         int getMode()
         {
                 return mode;
