@@ -17,7 +17,7 @@ mimedir = $(kde_mimedir)/application
 mime_DATA = x-kgetlist.desktop
 
 stuffdir = $(kde_datadir)/kget
-stuff_DATA = kget.rc
+stuff_DATA = kgetui.rc
 
 EXTRA_DIST = kget.desktop $(mime_DATA)
 
