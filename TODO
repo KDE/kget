@@ -21,7 +21,7 @@ SHORT-TERM (URGENT):
 
   -- MAINWINDOW --
   CHG <dario> rename the KMainWidget class (that IMHO is a rather confusing name)
-      to MainWindow
+      to MainWindow (KGet? KGetWindow?)
 
   -- SCHEDULER --
   FIX <pino> _rewrite_ & simplify the scheduler functions which schedule
@@ -67,7 +67,7 @@ SHORT-TERM (URGENT):
   ADD <dario> (JJ) add new functions to the interface to select a list of transfers 
       or a group. Something like: schedSelItems(const TransferList &) and
       schedSelGroup(const Group &).
-      We also need to add the relative virtual functions:
+      We also need to add the related virtual functions:
       schedulerSelectedItems(const TransferList &) and
       schedulerSelectedGroup(const Group &)
       These new functions will be used, for example, from the sidebar to select
@@ -111,9 +111,11 @@ MID-TERM:
   ADD <dario> make it possible to associate a default folder to each group.
   ADD <pino> tooltips and what's this for settings
   ADD <pino> implement the notifications
-  ADD <dario> add a widard on the first app execution, where the users selects
-      his download folders. Perhaps we could provide a good default like
-      ~/downloads/.
+  ADD <dario> add a wizard on the first app execution, where the user can set
+      his download folders and other "vital" settings like the integration with
+      Konqueror. Perhaps we could provide a good default like ~/downloads/.
+  ADD <pino> make the sidebar capable of several sizes for its items (16, 22,
+      32, ...)
 
 LONG-TERM:
 
