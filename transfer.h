@@ -91,7 +91,7 @@ public:
     {
         return totalSize;
     }
-    KIO::filesize_t long getProcessedSize()const
+    KIO::filesize_t getProcessedSize()const
     {
         return processedSize;
     }

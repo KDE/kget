@@ -292,7 +292,7 @@ void Transfer::updateAll()
 	}
 
     if (totalSize != 0) {
-        //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+        //logMessage(i18n("Total size is %1 bytes").arg((double)totalSize));
         setText(view->lv_total, KIO::convertSize(totalSize));
     } else {
         //logMessage(i18n("Total size is unknown"));
