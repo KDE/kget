@@ -180,38 +180,6 @@ void Transfer::synchronousAbort()
 
 }
 
-void Transfer::copy(Transfer * _orig)
-{
-    sDebugIn << endl;
-
-    canResume = _orig->canResume;
-    dest = _orig->dest;
-
-    src = _orig->src;
-    id = _orig->id;
-
-    mode = _orig->mode;
-    percent = _orig->percent;
-
-    processedSize = _orig->processedSize;
-    remainingTime = _orig->remainingTime;
-    retryCount = _orig->retryCount;
-    speed = _orig->speed;
-    startTime = _orig->startTime;
-    status = _orig->status;
-    totalSize = _orig->totalSize;
-
-    updateAll();
-    slotUpdateActions();
-
-    if ( _orig->isVisible() )
-        showIndividual();
-
-    sDebugOut << endl;
-}
-
-
-
 void Transfer::slotUpdateActions()
 {
     sDebugIn << "the item Status is =" << status << "offline=" << ksettings.b_offlineMode << endl;
