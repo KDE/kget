@@ -453,17 +453,17 @@ void Transfer::slotRequestRemove()
     m_paDelete->setEnabled(false);
     m_paPause->setEnabled(false);
     if(dlgIndividual)
-		dlgIndividual->close();
+                dlgIndividual->close();
 
+    KURL file = dest;
     if ( status != ST_FINISHED )
     {
         // delete the partly downloaded file, if any
-        KURL file = dest;
         file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
-        if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
-        {
-            SafeDelete::deleteFile( file ); // ### messagebox on failure?
-        }
+    }
+    if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
+    {
+        SafeDelete::deleteFile( file ); // ### messagebox on failure?
     }
     if (status == ST_RUNNING)
         m_pSlave->Op(Slave::REMOVE);
