@@ -1,4 +1,4 @@
-SUBDIRS = . pics sounds 
+SUBDIRS = . pics sounds kget_plug_in
 INCLUDES = $(all_includes)
 
 
