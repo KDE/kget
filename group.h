@@ -15,9 +15,13 @@
 #include <qobject.h>
 #include <qvaluelist.h>
 
+#include "transfer.h"
+
 class QString;
 class QDomDocument;
 class QDomNode;
+
+class TransferList;
 
 /**
  * class Group: 
@@ -33,9 +37,11 @@ class QDomNode;
  */
 class Group
 {
+    friend class GroupList;
+
     public:
     
-    struct Info
+    typedef struct Info
     {
         QString name;
         
@@ -49,7 +55,7 @@ class Group
     public:
     Group(const QString& name);
     Group(QDomNode * n);
-            
+    
     bool read(QDomNode * n);
     void write(QDomNode * n) const;
     
@@ -59,10 +65,36 @@ class Group
     void about() const;
     
     private:
+    void addTransfer(Transfer *);
+    void delTransfer(Transfer *);
+    void changedTransfer(Transfer *, Transfer::TransferChanges);
+
+    /**
+     * This struct becomes necessary to handle, calculate and update 
+     * correctly the informations coming from the transfers. For example,
+     * if we only take an integer rapresenting the total processedSize
+     * of the group we should, with every change in the transfers'  
+     * processedSize property, iterate over all the transfers summing up 
+     * all the processedSize int. Instead, in this way, we can perform 
+     * this operation in O(1), but we use more memory.
+     */
+    typedef struct TransferInfoCache
+    {
+        unsigned long totalSize;
+        unsigned long processedSize;
+        int speed;
+    };
+    
+    TransferInfoCache updatedInfoCache(Transfer *);
+    void updatePercent();
+        
     Info gInfo;
+    QMap <Transfer*, TransferInfoCache> transfersMap;
 };
 
-class GroupList : public QObject, public QValueList<Group *>
+class GroupList : public QObject, 
+                  public QValueList<Group *>, 
+                  public TransferInterrogator
 {
 Q_OBJECT
 
@@ -80,12 +112,20 @@ Q_OBJECT
     void addGroups(const GroupList& list);
     void delGroup(Group group);
     void delGroups(const GroupList& list);
-    void modifyGroup(const QString& groupName, Group * group);
+    void modifyGroup(const QString& groupName, Group group);
         
     bool read(QDomDocument * doc);
     void write(QDomDocument * doc) const;
 
     void about() const;
+    
+    public slots:
+    void slotAddedTransfers(TransferList);
+    void slotRemovedTransfers(TransferList);
+    void slotChangedTransfers(TransferList);
+    
+    private:
+    QMap<QString, Group*> groupsMap;
 };
 
 #endif

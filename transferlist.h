@@ -27,7 +27,8 @@ public:
     typedef QValueListIterator<Transfer *> iterator;
     typedef QValueListConstIterator<Transfer *> constIterator;
 
-    TransferList(Transfer * transfer = 0);
+    TransferList();
+    TransferList(Transfer * transfer);
     virtual ~TransferList();
 
     /**

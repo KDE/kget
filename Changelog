@@ -1,3 +1,16 @@
+2004-10-17 Dario Massarin <nekkar@libero.it>
+    
+        * transfer.{h,cpp}: New class TransferInterrogator that abstracts the
+        objects that can "interrogate" the Transfers using the function
+        changesFlags(TransferInterrogator *). In this way not only the views
+        can do it but also, for example, the GroupList objects.
+
+        * group.{h,cpp}: The Group class has been further developed to keep
+        global statistics on its transfers. There is still lots of work to do.
+        
+        * mainview.{h,cpp}: Tried to achieve a better look&feel. I'm not very
+        happy with the final result, yet.
+
 2004-10-16 Dario Massarin <nekkar@libero.it>
     
         * Added license statements.

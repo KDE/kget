@@ -15,6 +15,14 @@
 #include "scheduler.h"
 #include "viewinterface.h"
 
+TransferInterrogator::TransferInterrogator()
+{
+    static int newId=-1;
+    id = ++newId;
+    kdDebug() << "new TransferInterrogator: id = " << id << endl;
+
+}
+
 Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest)
         : sched(_scheduler)
 {
@@ -64,9 +72,9 @@ const Transfer::Info& Transfer::info() const
     return tInfo;
 }
     
-Transfer::TransferChanges Transfer::getChangesFlags(ViewInterface * view)
+Transfer::TransferChanges Transfer::changesFlags(TransferInterrogator * ti)
 {
-    int id = view->getId();
+    int id = ti->getId();
     int s = transferChanges.size();
         
     if( s < id )
@@ -82,9 +90,9 @@ Transfer::TransferChanges Transfer::getChangesFlags(ViewInterface * view)
     return transferChanges[id];
 }
 
-void Transfer::resetChangesFlags(ViewInterface * view)
+void Transfer::resetChangesFlags(TransferInterrogator * ti)
 {
-    int id = view->getId();
+    int id = ti->getId();
     int s = transferChanges.size();
 
     QValueVector<int> p;

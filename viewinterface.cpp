@@ -73,7 +73,7 @@ void ViewInterfaceConnector::slotCleared()
 
 void ViewInterfaceConnector::slotAddedItems( TransferList tl )
 {
-    //kdDebug() << "slotAddedItems()" << endl;
+//     kdDebug() << "slotAddedItems()" << endl;
     iface->schedulerAddedItems( tl );
 }
 
@@ -91,7 +91,7 @@ void ViewInterfaceConnector::slotChangedItems( TransferList tl )
 
 void ViewInterfaceConnector::slotAddedGroups( GroupList gl )
 {
-    //kdDebug() << "slotAddedItems()" << endl;
+//     kdDebug() << "slotAddedGroups()" << endl;
     iface->schedulerAddedGroups( gl );
 }
 

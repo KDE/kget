@@ -27,6 +27,19 @@ class TransferList;
 class Scheduler;
 class ViewInterface;
 
+class TransferInterrogator
+{
+    public:
+    
+    TransferInterrogator();
+    
+    int getId() const {return id;} 
+    
+    private:
+    
+    int id;
+};
+
 class Transfer : public QObject
 {
 Q_OBJECT
@@ -55,7 +68,7 @@ Q_OBJECT
                            Tc_Log           = 0x00000080 
                          };
     
-    struct Info
+    typedef struct Info
     {
         int priority;
         TransferStatus status;
@@ -127,8 +140,8 @@ Q_OBJECT
     
     const Info& info() const;
     
-    TransferChanges getChangesFlags(ViewInterface *);
-    void resetChangesFlags(ViewInterface *);
+    TransferChanges changesFlags(TransferInterrogator *);
+    void resetChangesFlags(TransferInterrogator *);
        
     void setPriority(int p);
     void setGroup(const QString& group);

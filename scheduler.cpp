@@ -42,9 +42,18 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
     runningTransfers = new TransferList();
     removedTransfers = new TransferList();
     groups = new GroupList();
+    
+    connect(this, SIGNAL(addedItems(TransferList)),
+            groups, SLOT(slotAddedTransfers(TransferList)));
+    connect(this, SIGNAL(removedItems(TransferList)),
+            groups, SLOT(slotRemovedTransfers(TransferList)));
+    connect(this, SIGNAL(changedItems(TransferList)),
+            groups, SLOT(slotChangedTransfers(TransferList)));
+    
     connections.append( new Connection(this) );
     
     slotImportTransfers();
+    kdDebug() << "IMPORTAZIONE TRASFERIMENTI COMPLETATA5" << endl;
 }
 
 Scheduler::~Scheduler()
@@ -370,7 +379,7 @@ void Scheduler::slotDelGroup(GroupList l)
 
 void Scheduler::slotModifyGroup(const QString& n, Group g)
 {
-    groups->modifyGroup(n, &g);
+    groups->modifyGroup(n, g);
 }
 
 void Scheduler::slotReqOperation(SchedulerOperation operation)
@@ -522,7 +531,7 @@ void Scheduler::slotImportTransfers(const KURL & file)
     TransferList newTransfers;
     
     newTransfers.readTransfers(file.url(), this, &newGroups);
-    
+
     transfers->addTransfers(newTransfers);
     groups->addGroups(newGroups);
     

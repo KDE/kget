@@ -16,6 +16,7 @@
 #include <qobject.h>
 #include "globals.h"
 
+#include "transfer.h"
 #include "transferlist.h"
 #include "group.h"
 
@@ -34,7 +35,7 @@
   * @version $Id: 
   **/
 
-class ViewInterface
+class ViewInterface : public TransferInterrogator
 {
     public:
 	ViewInterface( const char * name = "view-iface" );

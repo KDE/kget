@@ -60,7 +60,7 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
             f.setBold(true);
             p->setFont(f);
             p->drawText(0,0,width, height(), Qt::AlignVCenter, 
-                    /*i18n("Group: ")+*/group->info().name);
+                    group->info().name);
             break;
 
     }
@@ -106,9 +106,9 @@ void MainViewItem::updateContents(bool updateAll)
 {
     Transfer::Info info=transfer->info();
     
-    transfer->getChangesFlags(view);
+    transfer->changesFlags(view);
     
-    Transfer::TransferChanges transferFlags = transfer->getChangesFlags(view);
+    Transfer::TransferChanges transferFlags = transfer->changesFlags(view);
 
 //     kdDebug() << "FLAGS before reset" << transfer->gettransferFlags(view) << endl;
         
@@ -268,6 +268,8 @@ void MainView::schedulerCleared()
 
 void MainView::schedulerAddedItems( TransferList list )
 {
+    kdDebug() << "MainView::schedulerAddedItems" << endl;
+
     TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
     

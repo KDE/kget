@@ -26,6 +26,12 @@
 #include "transferlist.h"
 #include "scheduler.h"
 
+TransferList::TransferList()
+    : QValueList<Transfer *>()
+{
+
+}
+
 TransferList::TransferList(Transfer * transfer)
     : QValueList<Transfer *>()
 {
