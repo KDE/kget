@@ -1,3 +1,6 @@
+2005-01-22 Dario Massarin <nekkar@libero.it>
+        * Ported the new sidebar to the QListBox class.
+
 2005-01-15 Dario Massarin <nekkar@libero.it>
         * Initial implementation of a new sidebar.
 

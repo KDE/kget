@@ -10,7 +10,6 @@ Legend:
 
     IN PROGRESS
 ---------------------
-FIX <dario> handle SideBar resizing correctly
 
 
 
@@ -96,6 +95,7 @@ LONG-TERM:
   FIX <dario> the konqueror plugin doesn't allow the download of links if 
       the relative web page has been closed
   FIX <pino> make more fluid the drop target movement
+  FIX <dario> handle SideBar resizing correctly
 
 
 

@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,7 +11,7 @@
 #ifndef _SIDEBAR_H
 #define _SIDEBAR_H
 
-#include <qscrollview.h>
+#include <qlistbox.h>
 #include <qwidget.h>
 #include <qvaluelist.h>
 #include <qmap.h>
@@ -20,62 +20,55 @@
 
 class Sidebar;
 
-class SidebarItem : public QWidget
+class SidebarItem : public QListBoxItem
 {
-    Q_OBJECT
-
 public:
-    SidebarItem( QWidget * parent, Sidebar * sidebar );
+    SidebarItem( Sidebar * sidebar );
 
-    void addChild(SidebarItem *);
+    int height(const QListBox * lb) const;
+    int width(const QListBox * lb) const;
+
     void setText(const QString& string);
 
-public slots:
-    void showChildren( bool show = true );
-    void setSelected( bool selected = true );
+    void addChild(SidebarItem *);
+    void removeChild(SidebarItem *);
 
-signals:
-    void selected(SidebarItem *);
+    void showChildren( bool show = true );
+    void select();
 
 protected:
-    void mouseDoubleClickEvent ( QMouseEvent * e );
-    void mousePressEvent( QMouseEvent * e );
-    void paintEvent ( QPaintEvent * );
+    void setVisible(bool visible = true);
+    void paint ( QPainter * );
 
     Sidebar * m_sidebar;
     QString   m_text;
+    bool      m_isVisible;
     bool      m_showChildren;
-    bool      m_isSelected;
 
 private:
     QValueList<SidebarItem *> * m_childItems;
-    QMap<QString, class GroupFolder *> m_groupsMap;
 };
 
 
 class DownloadsFolder : public SidebarItem
 {
-Q_OBJECT
-
 public:
-    DownloadsFolder( QWidget * parent, Sidebar * sidebar );
+    DownloadsFolder( Sidebar * sidebar );
 
 protected:
-    void paintEvent ( QPaintEvent * );
+    void paint ( QPainter * );
 };
 
 class GroupFolder : public SidebarItem
 {
-Q_OBJECT
-
 public:
-    GroupFolder( QWidget * parent, Sidebar * sidebar );
+    GroupFolder( Sidebar * sidebar );
 
 protected:
-    void paintEvent ( QPaintEvent * );
+    void paint ( QPainter * );
 };
 
-class Sidebar : public QScrollView, public ViewInterface
+class Sidebar : public QListBox, public ViewInterface
 {
 Q_OBJECT
 
@@ -84,18 +77,16 @@ Q_OBJECT
 public:
     Sidebar( QWidget * parent = 0, const char * name = 0 );
 
+public slots:
+    void slotItemSelected(QListBoxItem *);
+
     //Methods reimplemented from the ViewInterface class
     void schedulerAddedGroups( const GroupList& );
     void schedulerRemovedGroups( const GroupList& );
 
-public slots:
-    void slotItemSelected(SidebarItem *);
-
 private:
-    class QVBox *     m_layout;
     DownloadsFolder * m_dItem;
     QMap<QString, GroupFolder *> m_groupsMap;
-    QValueList<SidebarItem *> m_items;
 };
 
 #endif
