@@ -369,12 +369,13 @@ void DlgIndividual::slotOpenLocation(){
 
 void DlgIndividual::slotOpenFile(){
 #ifdef _DEBUG
-    sDebugIn<<endl;
+  sDebugIn "Starting kfmclient with url "<<m_location.prettyURL()<<endl;
 #endif
 
-    KProcess proc;
-    proc << "konqueror" << m_location.prettyURL();
+    KShellProcess proc;
+    proc << "kfmclient exec " << m_location.prettyURL();
     proc.start(KProcess::DontCare);
+
 
 
 #ifdef _DEBUG
