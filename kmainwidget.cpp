@@ -27,6 +27,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #ifdef __svr4__
 #define map BULLSHIT            // on Solaris it conflicts with STL ?

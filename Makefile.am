@@ -39,4 +39,3 @@ KDE_ICON = AUTO
 
 messages: rc.cpp
 	$(XGETTEXT) *.cpp *.h -o $(podir)/kget.pot
-
