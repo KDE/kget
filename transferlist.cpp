@@ -254,8 +254,8 @@ void TransferList::readTransfers(const KURL& file)
             str.sprintf("Item%d", i);
             config.setGroup(str);
 
-            src  = KURL::fromPathOrURL( config.readEntry("Source") );
-            dest = KURL::fromPathOrURL( config.readEntry("Dest") );
+            src  = KURL::fromPathOrURL( config.readPathEntry("Source") );
+            dest = KURL::fromPathOrURL( config.readPathEntry("Dest") );
             item = addTransfer( src, dest, false ); // don't show!
 
             if (!item->read(&config, i))

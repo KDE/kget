@@ -156,7 +156,7 @@ Settings::load()
     config->setGroup("Directories");
 
     b_useLastDir = config->readBoolEntry("UseLastDirectory", DEF_UseLastDir);
-    lastDirectory = config->readEntry("LastDirectory",
+    lastDirectory = config->readPathEntry("LastDirectory",
                                       QString("file:") + QDir::currentDirPath() );
 
     QStringList strList;
