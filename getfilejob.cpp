@@ -21,7 +21,7 @@ namespace KIO
 {
 
 
-GetFileJob::GetFileJob(const KURL & m_src, const KURL & m_dest):FileCopyJob(m_src, m_dest,644, false, false, false, false)
+GetFileJob::GetFileJob(const KURL & m_src, const KURL & m_dest):FileCopyJob(m_src, m_dest,-1, false, false, false, false)
 {}
 
 GetFileJob::~GetFileJob()
