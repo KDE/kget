@@ -126,7 +126,7 @@ Transfer::setupFields()
 
         m_paPause = new KAction(i18n("&Pause"), QIconSet(QPixmap(locate("data", "kget/pics/tool_pause.xpm"))), 0, this, SLOT(slotRequestPause()), this, "pause");
 
-        m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delete.xpm"))), 0, this, SLOT(slotRequestRemove()), this, "delete");
+        m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delete.png"))), 0, this, SLOT(slotRequestRemove()), this, "delete");
 
         m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRestart()), this, "restart");
 

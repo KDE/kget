@@ -48,7 +48,8 @@ DockWidget::DockWidget(KMainWidget * _parent):KDockWindow(_parent)
 
         QPixmap *tmppix = new QPixmap();
 
-        tmppix->load(locate("data", path + "dock_hand1.xpm"));
+//      tmppix->load(locate("data", path + "dock_hand1.xpm"));
+        tmppix->load(locate("data", path + "dock.png"));
 
         handpix1 = new QPixmap(ICONWIDTH, ICONHEIGHT);
         handpix1->fill(backgroundColor());
@@ -57,7 +58,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KDockWindow(_parent)
         delete tmppix;
 
         tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock_hand2.xpm"));
+        tmppix->load(locate("data", path + "dock.xpm"));
 
         handpix2 = new QPixmap(ICONWIDTH, ICONHEIGHT);
         handpix2->fill(backgroundColor());
@@ -66,7 +67,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KDockWindow(_parent)
         delete tmppix;
 
         tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock_hand3.xpm"));
+        tmppix->load(locate("data", path + "dock.xpm"));
 
         handpix3 = new QPixmap(ICONWIDTH, ICONHEIGHT);
         handpix3->fill(backgroundColor());

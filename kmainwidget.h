@@ -31,6 +31,7 @@
 #include <qguardedptr.h>
 
 #include <kmainwindow.h>
+//#include <krootpixmap.h>
 #include "common.h"
 class KAction;
 class KToggleAction;
@@ -176,6 +177,8 @@ protected:
         QTimer *clipboardTimer;     // timer for checking clipboard - autopaste function
 
         QString logFileName;
+
+   //     KRootPixmap  *kroot;        //trasparent widget
 
 private:
         TransferList * myTransferList;

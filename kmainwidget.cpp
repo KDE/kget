@@ -65,6 +65,7 @@
 #include <kstatusbar.h>
 #include <kconfig.h>
 
+#include <krootpixmap.h>
 
 #include "settings.h"
 #include "transfer.h"
@@ -76,6 +77,8 @@
 #include "docking.h"
 #include "droptarget.h"
 #include <assert.h>
+
+
 
 #include <kio/authinfo.h>
 #include <qiconset.h>
@@ -204,6 +207,9 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
         kdrop = new DropTarget();
         kdock = new DockWidget(this);
 
+
+  //      kroot= new KRootPixmap(kdrop);
+  //      kroot->start();
         // Set geometry
         if (ksettings.mainPosition.x() != -1) {
                 resize(ksettings.mainSize);
@@ -370,13 +376,13 @@ void KMainWidget::setupGUI()
         m_paPause = new KAction(i18n("&Pause"), QIconSet(QPixmap(locate("data", "kget/pics/tool_pause.xpm"))), 0, this, SLOT(slotPauseCurrent()), actionCollection(), "pause");
 
 
-        m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delete.xpm"))), 0, this, SLOT(slotDeleteCurrent()), actionCollection(), "delete");
+        m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delete.png"))), 0, this, SLOT(slotDeleteCurrent()), actionCollection(), "delete");
 
 
-        m_paRestart = new KAction(i18n("Re&start"), QIconSet(QPixmap(locate("data", "kget/pics/tool_restart.xpm"))), 0, this, SLOT(slotRestartCurrent()), actionCollection(), "restart");
+        m_paRestart = new KAction(i18n("Re&start"), QIconSet(QPixmap(locate("data", "kget/pics/tool_restart.png"))), 0, this, SLOT(slotRestartCurrent()), actionCollection(), "restart");
 
-        m_paQueue = new KRadioAction(i18n("&Queue"), QIconSet(QPixmap(locate("data", "kget/pics/tool_queue.xpm"))), 0, this, SLOT(slotQueueCurrent()), actionCollection(), "queue");
-        m_paTimer = new KRadioAction(i18n("&Timer"), QIconSet(QPixmap(locate("data", "kget/pics/tool_timer.xpm"))), 0, this, SLOT(slotTimerCurrent()), actionCollection(), "timer");
+        m_paQueue = new KRadioAction(i18n("&Queue"), QIconSet(QPixmap(locate("data", "kget/pics/tool_queue.png"))), 0, this, SLOT(slotQueueCurrent()), actionCollection(), "queue");
+        m_paTimer = new KRadioAction(i18n("&Timer"), QIconSet(QPixmap(locate("data", "kget/pics/tool_timer.png"))), 0, this, SLOT(slotTimerCurrent()), actionCollection(), "timer");
         m_paDelay = new KRadioAction(i18n("De&lay"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delay.xpm"))), 0, this, SLOT(slotDelayCurrent()), actionCollection(), "delay");
 
         m_paQueue->setExclusiveGroup("TransferMode");
@@ -387,13 +393,13 @@ void KMainWidget::setupGUI()
         m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
         m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
         m_paExpertMode     =  new KToggleAction(i18n("&Expert mode"), "tool_expert", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
-        m_paUseLastDir     =  new KToggleAction(i18n("&Use-last-directory mode"), "tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
+        m_paUseLastDir     =  new KToggleAction(i18n("&Use-last-directory mode"), "tool_uselastdir.png", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
         m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&disconnect mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
         m_paAutoShutdown   =  new KToggleAction(i18n("Auto-s&hutdown mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
         m_paOfflineMode    =  new KToggleAction(i18n("&Offline mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
         m_paAutoPaste      =  new KToggleAction(i18n("Auto-pas&te mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
 
-        m_paPreferences    =  new KAction(i18n("P&references"), QIconSet(QPixmap(locate("data", "kget/pics/tool_preferences.xpm"))), 0, this, SLOT(slotPreferences()), actionCollection(), "preferences");
+        m_paPreferences    =  new KAction(i18n("P&references"), QIconSet(QPixmap(locate("data", "kget/pics/tool_preferences.png"))), 0, this, SLOT(slotPreferences()), actionCollection(), "preferences");
 
         KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection(), "configure_keybinding");
         KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection(), "configure_toolbars");
@@ -402,11 +408,11 @@ void KMainWidget::setupGUI()
 
         m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), actionCollection(), "show_statusbar");
 
-        m_paShowLog       = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
+        m_paShowLog       = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
 
-        m_paDropTarget    = new KRadioAction(i18n("Drop &target"), "tool_drop_target", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
+        m_paDropTarget    = new KRadioAction(i18n("Drop &target"),"tool_drop_target.png", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
         m_paDockWindow    = new KRadioAction(i18n("&Dock window"), "tool_dock", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
-        m_paNormal        = new KRadioAction(i18n("&Normal"), "tool_normal", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
+        m_paNormal        = new KRadioAction(i18n("&Normal"), "tool_normal.png", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
 
         m_paDropTarget->setExclusiveGroup("WindowMode");
         m_paDockWindow->setExclusiveGroup("WindowMode");

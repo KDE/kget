@@ -42,13 +42,13 @@
 #undef Status
 #include "settings.h"
 #include "droptarget.h"
-#define TARGET_WIDTH   60
-#define TARGET_HEIGHT  60
+#define TARGET_WIDTH   70
+#define TARGET_HEIGHT  69
 
 #undef  ICONWIDTH
 #undef  ICONHEIGHT
-#define ICONWIDTH      48
-#define ICONHEIGHT     48
+#define ICONWIDTH      90
+#define ICONHEIGHT    89
 
 DropTarget::DropTarget():QWidget()
 {
@@ -67,39 +67,42 @@ DropTarget::DropTarget():QWidget()
     b_sticky = ksettings.dropState & NET::Sticky;
 
     // setup mask
-    mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
+   mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
     mask.fill(color0);
+
     QPainter p2;
 
     p2.begin(&mask);
     p2.setBrush(color1);
-    p2.drawRoundRect(0, 0, 60, 60, 40, 40);
+    //p2.drawRoundRect(0, 0, 60, 60, 40, 40);
     // p2.drawEllipse( 0, 0, 60, 60 );
+
+      p2.drawChord( 0, 0,70,69,5760,5760);
     p2.end();
 
     // setup pixmaps
     QString path = "kget/pics/";
 
-    int offsetx = (TARGET_WIDTH - ICONWIDTH) / 2;
-    int offsety = (TARGET_HEIGHT - ICONHEIGHT) / 2;
+    int offsetx = -10;
+    int offsety = -5;
 
     QPixmap *tmppix = new QPixmap();
 
-    tmppix->load(locate("data", path + "target_hand1.xpm"));
+    tmppix->load(locate("data", path + "target.png"));
     handpix1 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix1->fill(backgroundColor());
     bitBlt(handpix1, offsetx, offsety, tmppix);
     delete tmppix;
 
     tmppix = new QPixmap();
-    tmppix->load(locate("data", path + "target_hand2.xpm"));
+    tmppix->load(locate("data", path + "target.png"));
     handpix2 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix2->fill(backgroundColor());
     bitBlt(handpix2, offsetx, offsety, tmppix);
     delete tmppix;
 
     tmppix = new QPixmap();
-    tmppix->load(locate("data", path + "target_hand3.xpm"));
+    tmppix->load(locate("data", path + "target.png"));
     handpix3 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix3->fill(backgroundColor());
     bitBlt(handpix3, offsetx, offsety, tmppix);
@@ -214,7 +217,7 @@ void DropTarget::setAnim(int i1, int i2, int i3, int i4, bool online)
     size[1] = i2;
     size[2] = i3;
     size[3] = i4;
-
+/*
     if (isVisible())
     {
         if (!online || ksettings.b_offlineMode)
@@ -247,6 +250,7 @@ void DropTarget::setAnim(int i1, int i2, int i3, int i4, bool online)
             setBackgroundPixmap(pm);
         }
     }
+    */
 }
 
 
