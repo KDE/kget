@@ -261,8 +261,7 @@ void Slave::slotResult(KIO::Job * job)
         PostMessage(SLV_FINISHED);
     }
     else {
-        if (m_parent->getMode() == Transfer::MD_NEW \
-            && error == KIO::ERR_DOES_NOT_EXIST)
+        if (m_parent->getMode() == Transfer::MD_NEW)
         {
             PostMessage(SLV_NOTINCACHE);
             return;
