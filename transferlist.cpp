@@ -64,7 +64,7 @@ TransferList::TransferList(QWidget * parent, const char *name)
     setAllColumnsShowFocus(true);
 
     lv_pixmap = addColumn(i18n("S"));
-    lv_filename = addColumn(i18n("Local Filename"));
+    lv_filename = addColumn(i18n("Local File Name"));
     lv_resume = addColumn(i18n("Resumed"));
     lv_count = addColumn(i18n("Count"));
     lv_progress = addColumn(i18n("%"));
@@ -72,7 +72,7 @@ TransferList::TransferList(QWidget * parent, const char *name)
     lv_speed = addColumn(i18n("Speed"));
     lv_remaining = addColumn(i18n("Rem. Time"));
     lv_url = addColumn(i18n("Address (URL)"));
-    
+
     jobid=1;
 
     // initial layout

@@ -62,25 +62,25 @@ void DlgSystem::setupSound()
     switch (id)
     {
     case 0:
-        s = i18n("Sound filename for action 'added':");
+        s = i18n("Sound file name for action 'added':");
         t = soundAdded;
         break;
     case 1:
-        s = i18n("Sound filename for action 'started':");
+        s = i18n("Sound file name for action 'started':");
         t = soundStarted;
         break;
     case 2:
-        s = i18n("Sound filename for action 'finished':");
+        s = i18n("Sound file name for action 'finished':");
         t = soundFinished;
         break;
     case 3:
-        s = i18n("Sound filename for action 'finished-all':");
+        s = i18n("Sound file name for action 'finished-all':");
         t = soundFinishedAll;
         break;
     }
     KURLRequesterDlg *box = new KURLRequesterDlg(t, s, this, "kurl_sound");
     KFileDialog *pDlg = box->fileDialog();
-    pDlg->setFilter(i18n("*.wav|WAV files\n*|All Files"));
+    pDlg->setFilter(i18n("*.wav|WAV Files\n*|All Files"));
     int result = box->exec();
     sDebug << "Result= " << result << endl;
 
