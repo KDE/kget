@@ -67,6 +67,9 @@ Tray::Tray(KMainWidget * parent)
 
     // add tooltip telling "I'm kget"
     QToolTip::add( this, kapp->aboutData()->shortDescription() );
+
+    // connecting the "Exit" menu item to the quit() of our app
+    connect( this, SIGNAL( quitSelected() ), kapp, SLOT(quit()));
 }
 
 // dtor: delete internal classes
@@ -101,12 +104,6 @@ void Tray::mousePressEvent(QMouseEvent * e)
         schedRequestOperation( OpPasteTransfer );
     else
         KSystemTray::mousePressEvent(e);
-}
-
-// connect the 4th menu entry ("quit") to QApplication::quit()
-void Tray::contextMenuAboutToShow ( KPopupMenu* menu )
-{
-    menu->connectItem( menu->idAt(5), kapp, SLOT(quit()));
 }
 
 // display blinking icon when downloading

@@ -28,7 +28,7 @@
 #define _KMAINWIDGET_H_
 
 #include <qwidget.h>
-#include <kxmlguiclient.h>
+
 #include <kaction.h>
 #include <kmainwindow.h>
 
@@ -40,7 +40,6 @@ class KURL;
 class KURL::List;
 
 /** The main window of KGet2. Can be collapsed or expanded. */
-
 class KMainWidget : public KMainWindow, public ViewInterface, virtual public DCOPIface
 {
 Q_OBJECT

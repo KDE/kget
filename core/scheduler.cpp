@@ -842,6 +842,7 @@ bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
                 return true;
     }
     sDebugOut << endl;
+    return false;
 }
 
 void Scheduler::queueEvaluateItems(TransferList list, bool force)

@@ -27,7 +27,6 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <klocale.h>
-#include <kmainwindow.h>
 #include <kstandarddirs.h>
 #include <kwin.h>
 #include <kurl.h>

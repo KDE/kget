@@ -60,9 +60,6 @@ protected:
     void dragEnterEvent( QDragEnterEvent * );
     void dropEvent( QDropEvent * );
 
-    // hook to mangle popup connections before display
-    virtual void contextMenuAboutToShow( KPopupMenu * menu );
-
 private:
     // repaints trayIcon showing progress (and overlay if present)
     void paintIcon( int mergePixels = -1, bool force = false );
