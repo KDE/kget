@@ -61,8 +61,10 @@ Q_OBJECT public:
     KMainWidget(bool bShowMain = false);
     ~KMainWidget();
 
-    void addTransfer(const QString& src, const QString& dest = QString::null);
-    void addTransferEx(const KURL& url, const QString& dst = QString::null, bool bShowIndividual = false);
+    void addTransfer( const QString& src );
+    void addTransferEx( const KURL& url,
+                        const KURL& destFile = KURL(),
+                        bool bShowIndividual = false );
 
     // dcop interface
     virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );

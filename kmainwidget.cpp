@@ -1012,20 +1012,23 @@ void KMainWidget::slotPasteTransfer()
 #endif
 }
 
-void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShowIndividual)
+// destFile must be a filename, not a directory! And it will be deleted, if
+// it exists already, without further notice.
+void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile, 
+                                bool bShowIndividual)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    QString d = dest;
+    KURL df = destFile;
 
     if ( !sanityChecksSuccessful( url ) )
         return;
 
-    // simply take the given dest, if valid, otherwise ask for destination url
-    KURL destURL = KURL::fromPathOrURL( dest );
-    if ( destURL.isMalformed() )
+    KURL destURL = destFile;
+
+    if ( destURL.isMalformed() ) // empty URL -> ask for destination
     {
         // Setup destination
         QString destDir = getSaveDirectoryFor( url.fileName() );
@@ -1034,7 +1037,7 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
         bool b_expertMode=ksettings.b_expertMode;
         while (bDestisMalformed)
         {
-            if (d.isNull()) {           // if we didn't provide destination
+            if (df.isEmpty()) {           // if we didn't provide destination
                 if (!b_expertMode) {
                     // open the filedialog for confirmation
                     KFileDialog dlg(destDir, QString::null,this,"save_as",true);
@@ -1064,7 +1067,7 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
                 }
             }
             else {
-                destURL = KURL::fromPathOrURL( d );
+                destURL = df;
             }
 
             //check if destination already exists
@@ -1078,7 +1081,7 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
                 }
                 else
                 {
-                    d = QString::null;
+                    df = KURL();
                     b_expertMode=false;
                     ksettings.lastDirectory = destURL.directory();
                 }
@@ -1086,6 +1089,14 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
             else
                 bDestisMalformed=false;
         }
+    }
+
+    else // destURL was given, check whether the file exists already
+    {
+        // simply delete it, the calling process should have asked if you 
+        // really want to delete (at least khtml does)
+        if(KIO::NetAccess::exists(destURL))
+            KIO::NetAccess::del(destURL);
     }
 
     // create a new transfer item
@@ -1125,7 +1136,25 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
 
     if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
     {
-        addTransferEx( urlsToDownload.first(), destDir );
+        KURL destFile;
+        
+        if ( !destDir.isEmpty() )
+        {
+            // create a proper destination file from destDir
+            KURL destURL = KURL::fromPathOrURL( destDir );
+            destURL.adjustPath( +1 );
+            destURL.setFileName( urlsToDownload.first().fileName() );
+            if(KIO::NetAccess::exists(destURL))
+            {
+                if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
+                {
+                    KIO::NetAccess::del(destURL);
+                    destFile = destURL;
+                }
+            }
+        }
+        
+        addTransferEx( urlsToDownload.first(), destFile );
         return;
     }
 
@@ -1186,7 +1215,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
     checkQueue();
 }
 
-void KMainWidget::addTransfer(const QString& src, const QString& dest)
+void KMainWidget::addTransfer(const QString& src)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -1195,7 +1224,7 @@ void KMainWidget::addTransfer(const QString& src, const QString& dest)
     if ( src.isEmpty() )
         return;
 
-    addTransferEx( KURL::fromPathOrURL( src ), dest, false );
+    addTransferEx( KURL::fromPathOrURL( src ) );
 
 #ifdef _DEBUG
     sDebugOut << endl;

@@ -29,16 +29,15 @@
 #include <klocale.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
+#include <kurl.h>
+#include <kuniqueapplication.h>
 
-#include <dirent.h>
-#include <sys/stat.h>
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "kmainwidget.h"
 #include "version.h"
-#include "main.h"
 
 
 
@@ -98,83 +97,88 @@ static void cleanup(void)
 }
 
 
-KGetApp::KGetApp ():KUniqueApplication ()
+class KGetApp : public KUniqueApplication
 {
-
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    kmainwidget=0;
-
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-KGetApp::~KGetApp ()
-{
-
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-
-}
-
-
-int KGetApp::newInstance()
-{
-#ifdef _DEBUG
-    sDebugIn <<"kmainwidget="<<kmainwidget << endl;
-#endif
-
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-
-    if (kmainwidget==0)
-    {
-        if(args->count()>0)
-            kmainwidget=new KMainWidget(true);
-        else
-            kmainwidget=new KMainWidget();
-        setMainWidget(kmain);
-    }
-
-    else
-        KWin::setActiveWindow (kmainwidget->winId());
-
-     if (args->isSet("showDropTarget"))
-         kmain->activateDropTarget();
-
-    if (args->count()==1)
+private:
+    KMainWidget *kmainwidget;
+    
+public:
+    KGetApp() : KUniqueApplication()
     {
 #ifdef _DEBUG
-        sDebug <<"args(0)= "<<args->arg(0) << endl;
+        sDebugIn << endl;
 #endif
-        QString txt(args->arg(0));
-        if ( txt.endsWith( ".kgt" ) )
-            kmain->readTransfersEx(txt);
-        else
-            kmain->addTransferEx(txt, QString::null, true);
-    }
-    else if(args->count()==2)
-        kmain->addTransferEx(args->arg(0),args->arg(1), true);
 
-    args->clear();
+        kmainwidget=0;
 
 #ifdef _DEBUG
-    sDebugOut << endl;
+        sDebugOut << endl;
+#endif
+    }
+
+    ~KGetApp()
+    {
+#ifdef _DEBUG
+        sDebugIn << endl;
 #endif
 
-    return 0;
-}
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
+    }
+
+
+    int newInstance()
+    {
+#ifdef _DEBUG
+        sDebugIn <<"kmainwidget="<<kmainwidget << endl;
+#endif
+
+        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+
+
+        if (kmainwidget==0)
+        {
+            if(args->count()>0)
+                kmainwidget=new KMainWidget(true);
+            else
+                kmainwidget=new KMainWidget();
+            setMainWidget(kmain);
+        }
+
+        else
+            KWin::setActiveWindow (kmainwidget->winId());
+
+        if (args->isSet("showDropTarget"))
+            kmain->activateDropTarget();
+
+        if (args->count()==1)
+        {
+#ifdef _DEBUG
+            sDebug <<"args(0)= "<<args->arg(0) << endl;
+#endif
+            QString txt(args->arg(0));
+            if ( txt.endsWith( ".kgt" ) )
+                kmain->readTransfersEx(txt);
+            else
+                kmain->addTransferEx( KURL::fromPathOrURL( txt ),
+                                      KURL(), true );
+        }
+        else if(args->count()==2)
+            kmain->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
+                                  KURL::fromPathOrURL( args->arg(1) ),  
+                                  true);
+
+        args->clear();
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
+
+        return 0;
+    }
+};
 
 
 /////////////////////////////////////////////////////////////////

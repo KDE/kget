@@ -19,7 +19,7 @@ noinst_HEADERS = bwdatetime.h common.h \
                  dlgDirectories.h dlgIndividual.h dlgLimits.h \
                  dlgPreferences.h dlgSystem.h docking.h droptarget.h \
                  kfileio.h kmainwidget.h logwindow.h settings.h \
-                 transfer.h transferlist.h main.h version.h slave.h \
+                 transfer.h transferlist.h version.h slave.h \
                  slaveevent.h http_defaults.h getfilejob.h dockindividual.h
 
 kget_METASOURCES = AUTO
