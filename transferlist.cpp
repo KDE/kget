@@ -55,13 +55,17 @@ void TransferList::addTransfer(Transfer * transfer, bool toBegin)
     sDebugIn << endl;
 
     jobid++;
-    if(toBegin)
-        push_front(transfer);
-    else
-        push_back(transfer);
     
-    //qHeapSort(*this);
-
+    iterator it = begin();
+    iterator endList = end();
+        
+    if(toBegin)
+        for (; it!=endList && (**it < *transfer); ++it );
+    else
+        for (; it!=endList && (**it <= *transfer); ++it );
+    
+    insert(it, transfer);
+    
     sDebugOut << endl;
 }
 
@@ -74,15 +78,9 @@ void TransferList::addTransfers(TransferList & transfers, bool toBegin)
     
     for(; it != endList; ++it)
         {
-        sDebug << "it" << endl;
         jobid++;
-        if(toBegin)
-            push_front(*it);
-        else
-            push_back(*it);
+        addTransfer(*it, toBegin);
     }
-    qHeapSort(*this);
-
     sDebugOut << endl;
 }
 
@@ -217,7 +215,6 @@ Transfer * TransferList::find(const KURL& _src)
     return 0;
 }
 
-
 void TransferList::readTransfers(const KURL& file, Scheduler * scheduler)
 {
     sDebugIn << endl;
@@ -249,10 +246,13 @@ void TransferList::readTransfers(const KURL& file, Scheduler * scheduler)
             kdDebug(DKGET) << "CCC" << endl;
            
             Transfer * t = new Transfer(scheduler, src, dest, i);
-            addTransfer(t); 
 
             if (!t->read(&config, i))
                 delete item;
+            
+            addTransfer(t);
+            
+            
             /*else
             {
                 // configuration read, now we know the status to determine

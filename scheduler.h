@@ -82,6 +82,7 @@ public slots:
 	void slotSetGroup(Transfer *, const QString &);
 
 	void slotReqOperation(SchedulerOperation);
+	void slotReqOperation(SchedulerDebugOp);
 
     /**
      * This slot is called from the Transfer object when its status

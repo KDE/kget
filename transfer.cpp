@@ -248,19 +248,21 @@ void Transfer::write(KSimpleConfig * config, int id)
     config->writeEntry("ScheduledTime", startTime);
     sDebugOut << endl;
 }
-
-bool Transfer::operator<(Transfer * transfer2)
+/*
+bool Transfer::operator<(const Transfer& t2) const
 {
-    if(getPriority() < transfer2->getPriority())
+    sDebugIn << endl;
+
+    if(t2.getPriority() < getPriority()  )
         return true;
     return false;
-}
+}*/
 
 void Transfer::about()
 {
     kdDebug(DKGET) << "Transfer item: (prior= "<< getPriority() << ") "<< endl;
-    kdDebug(DKGET) << "src  = "<< src.url() << endl;
-    kdDebug(DKGET) << "dest = "<< dest.url() << endl;
+    kdDebug(DKGET) << "  src  = "<< src.url() << endl;
+    kdDebug(DKGET) << "  dest = "<< dest.url() << endl;
 }
 
 void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)

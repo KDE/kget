@@ -47,6 +47,7 @@ class ViewInterface
 	void schedSetCommand( TransferList &, TransferCommand );
 	void schedSetGroup( TransferList &, const QString & );
 	void schedRequestOperation( SchedulerOperation );
+	void schedDebugOperation( SchedulerDebugOp );
 
 	/** pure virtual 'notifications' (<- scheduler)
 	 * The functions *must* be implemented to receive notifications

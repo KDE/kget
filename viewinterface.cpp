@@ -31,6 +31,8 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
 	     sched, SLOT( slotSetGroup(TransferList &, const QString &) ) );
     connect( this, SIGNAL( reqOperation(SchedulerOperation) ),
 	     sched, SLOT( slotReqOperation(SchedulerOperation) ) );
+    connect( this, SIGNAL( reqOperation(SchedulerDebugOp) ),
+	     sched, SLOT( slotReqOperation(SchedulerDebugOp) ) );
 }
 
 void ViewInterfaceConnector::slotCleared()
@@ -112,6 +114,12 @@ void ViewInterface::schedSetGroup( TransferList &l, const QString & g )
 }
 
 void ViewInterface::schedRequestOperation( SchedulerOperation op )
+{
+    if ( d )
+	d->reqOperation( op );
+}
+
+void ViewInterface::schedDebugOperation( SchedulerDebugOp op )
 {
     if ( d )
 	d->reqOperation( op );

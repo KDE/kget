@@ -63,7 +63,8 @@ TestView::TestView(QWidget * parent)
     btResume = new KPushButton("Resume", this);
     btPause = new KPushButton("Stop", this);
     btRemove = new KPushButton("Remove", this);
-
+    btPrintT = new KPushButton("Print list", this);
+    
     btSetPrior1->setFixedHeight(30);
     btSetPrior2->setFixedHeight(30);
     btSetPrior3->setFixedHeight(30);
@@ -72,6 +73,7 @@ TestView::TestView(QWidget * parent)
     btResume->setFixedHeight(30);
     btPause->setFixedHeight(30);
     btRemove->setFixedHeight(30);
+    btPrintT->setFixedHeight(30);
 
     //layout adjust
     layout2 = new QGridLayout(0, 2, 5);
@@ -83,6 +85,7 @@ TestView::TestView(QWidget * parent)
     layout2->addWidget(btResume, 0, 0);
     layout2->addWidget(btPause, 0, 1);
     layout2->addWidget(btRemove, 0, 2);    
+    layout2->addWidget(btPrintT, 0, 3);
     
     layout1 = new QGridLayout(this, 2, 1);
     layout1->addWidget(listView, 1, 1);
@@ -112,6 +115,7 @@ void TestView::initConnections()
     connect(btResume, SIGNAL( clicked() ), this, SLOT( resume() ));
     connect(btPause, SIGNAL( clicked() ), this, SLOT( pause() ));
     connect(btRemove, SIGNAL( clicked() ), this, SLOT( remove() ));
+    connect(btPrintT, SIGNAL( clicked() ), this, SLOT( printList() ));
 }
 
 void TestView::initTable()
@@ -211,6 +215,10 @@ void TestView::remove()
     sDebugOut << endl;
 }
 
+void TestView::printList()
+{
+    schedDebugOperation(OpPrintTransferList);
+}
 
 void TestView::schedulerCleared()
 {

@@ -16,7 +16,6 @@
  *
  */
  
-class Scheduler;
 class Transfer;
 
   
@@ -69,6 +68,7 @@ public slots:
     void resume();
     void pause();
     void remove();
+    void printList();
 
 private:
     void setPriority(int n);
@@ -84,6 +84,7 @@ private:
     KPushButton * btResume;
     KPushButton * btPause;
     KPushButton * btRemove;
+    KPushButton * btPrintT;
     
     QGridLayout * layout1;
     QGridLayout * layout2;

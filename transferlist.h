@@ -35,10 +35,14 @@ class Transfer;
 class Scheduler;
 
 
+
 class TransferList : public QValueList<Transfer *>
 {
+
 public:
 
+    typedef QValueListIterator<Transfer *> iterator;
+    
     TransferList(Transfer * transfer = 0);
     virtual ~TransferList();
 
@@ -109,6 +113,7 @@ protected:
 
     uint phasesNum;
     uint jobid;
+
 };
 
 

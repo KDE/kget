@@ -71,27 +71,36 @@ public:
     /**
      * These functions are used to get informations about the transfer
      */
-    KURL getSrc()const {return src;}
-    KURL getDest()const {return dest;}
-    unsigned long getTotalSize()const {return totalSize;}
-    unsigned long getProcessedSize()const {return processedSize;}
-    int getPercent()const {return percent;}
-    int getPriority()const {return priority;}
-    QString getGroup()const {return group;}
-    QDateTime getStartTime()const {return startTime;}
-    QTime getRemainingTime()const {return remainingTime;}
-    int getSpeed()const {return speed;}
-    TransferStatus getStatus()const {return status;}
-    bool getCanResume()const {return canResume;}
-    int getDelay()const {return delayTime;}
+    inline KURL getSrc()const {return src;}
+    inline KURL getDest()const {return dest;}
+    inline unsigned long getTotalSize()const {return totalSize;}
+    inline unsigned long getProcessedSize()const {return processedSize;}
+    inline int getPercent()const {return percent;}
+    inline int getPriority()const {return priority;}
+    inline QString getGroup()const {return group;}
+    inline QDateTime getStartTime()const {return startTime;}
+    inline QTime getRemainingTime()const {return remainingTime;}
+    inline int getSpeed()const {return speed;}
+    inline TransferStatus getStatus()const {return status;}
+    inline bool getCanResume()const {return canResume;}
+    inline int getDelay()const {return delayTime;}
     
     /**
      * These functions are used to set the transfer properties
      */
-    void setPriority(int _priority) {priority = _priority;}
-    void setGroup(const QString & _group) {group = _group;}
+    inline void setPriority(int _priority) {priority = _priority;}
+    inline void setGroup(const QString & _group) {group = _group;}
     void setSpeed(unsigned long _speed);
-    
+
+    /**
+     * This operator is used to determine the relationship of < or >
+     * priority between two transfers.
+     */
+    inline bool operator<(const Transfer& t2) const
+        {return getPriority() < t2.getPriority();}
+    inline bool operator<=(const Transfer& t2) const
+        {return getPriority() <= t2.getPriority();}
+        
 
 private slots:
     bool slotResume();
@@ -115,11 +124,6 @@ private:
     void write(KSimpleConfig * config, int id);
     
     
-    /**
-     * This operator is used to determine the relationship of < or >
-     * priority between two transfers.
-     */
-    bool operator<(Transfer *);
     
 
     //Slave Messages

@@ -32,6 +32,7 @@ class ViewInterfaceConnector : public QObject
 	void setOperation( TransferList &, TransferCommand );
 	void setGroup( TransferList &, const QString & );
 	void reqOperation( SchedulerOperation );
+    void reqOperation( SchedulerDebugOp );
 
     public slots:
 	void slotCleared();

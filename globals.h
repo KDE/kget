@@ -53,4 +53,6 @@ enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
 enum SchedulerOperation { OpPasteTransfer, OpImportTextFile,
     OpImportTransfers, OpExportTransfers, OpRun, OpStop };
 
+// used to debug the scheduler from the views
+enum SchedulerDebugOp { OpPrintTransferList };
 #endif
