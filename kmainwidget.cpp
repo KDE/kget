@@ -139,8 +139,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0), KGetIface( "KGet-Int
     logFileName = locateLocal("appdata", "logs/");
     logFileName += tmp;
 
-    // Clear clipboard
-    kapp->clipboard()->setText("");
+    lastClipboard = kapp->clipboard()->text( QClipboard::Clipboard );
     // Load all settings from KConfig
     ksettings.load();
 
@@ -266,6 +265,8 @@ KMainWidget::~KMainWidget()
     sDebugIn << endl;
 #endif
 
+    delete prefDlg;
+    
     delete animTimer;
     delete(DropTarget *) kdrop;
     writeTransfers();
@@ -791,6 +792,7 @@ void KMainWidget::slotDeleteCurrent()
     update();
     TransferIterator it(myTransferList);
 
+    // #### only one message box per deletion!
     while (it.current()) {
         if (it.current()->isSelected()) {
             bool isRunning = false;
@@ -928,7 +930,7 @@ void KMainWidget::slotOpenTransfer()
             return;
         }
 
-        KURL url(newtransfer);
+        KURL url = KURL::fromPathOrURL(newtransfer);
 
         if (url.isMalformed()) {
             KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(newtransfer), i18n("Error"));
@@ -956,16 +958,15 @@ void KMainWidget::slotCheckClipboard()
     if (clipData != lastClipboard) {
         sDebug << "New clipboard event" << endl;
 
-        lastClipboard = clipData.copy();
+        lastClipboard = clipData;
         if (clipData.isEmpty() || clipData.stripWhiteSpace().isEmpty()) {
             return;
         }
 
-        KURL url(lastClipboard.stripWhiteSpace());
+        KURL url = KURL::fromPathOrURL(lastClipboard.stripWhiteSpace());
 
-        if (!url.isMalformed() && ksettings.b_autoPaste) {
+        if (!url.isMalformed() && !url.isLocalFile() && ksettings.b_autoPaste)
             slotPasteTransfer();
-        }
     }
 
 #ifdef _DEBUG
@@ -1183,13 +1184,7 @@ void KMainWidget::addTransfer(const QString& src, const QString& dest)
     if ( src.isEmpty() )
         return;
 
-    KURL url;
-    if ( src[0] == '/' )
-        url.setPath( src );
-    else
-        url = src;
-
-    addTransferEx(url, dest, false);
+    addTransferEx( KURL::fromPathOrURL( src ), dest, false );
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1425,8 +1420,10 @@ void KMainWidget::slotCopyToClipboard()
     Transfer *item = (Transfer *) myTransferList->currentItem();
 
     if (item) {
+        QString url = item->getSrc().url();
         QClipboard *cb = QApplication::clipboard();
-        cb->setText(item->getSrc().url());
+        cb->setText( url, QClipboard::Selection );
+        cb->setText( url, QClipboard::Clipboard);
         myTransferList->clearSelection();
     }
 
@@ -1560,8 +1557,11 @@ void KMainWidget::slotPreferences()
     sDebugIn << endl;
 #endif
 
-    prefDlg = new DlgPreferences(this);
+    if ( !prefDlg )
+        prefDlg = new DlgPreferences(this);
 
+    prefDlg->show();
+    
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -1769,7 +1769,6 @@ void KMainWidget::slotToggleDropTarget()
         kdrop->show();
     else
         kdrop->hide();
-
 
 
 #ifdef _DEBUG

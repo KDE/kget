@@ -100,7 +100,6 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     sysDlg->setData();
 
     disableResize();
-    show();
 }
 
 
