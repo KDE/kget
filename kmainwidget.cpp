@@ -392,7 +392,7 @@ void KMainWidget::setupGUI()
         // options actions
         m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
         m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
-        m_paExpertMode     =  new KToggleAction(i18n("&Expert mode"), "tool_expert", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
+        m_paExpertMode     =  new KToggleAction(i18n("&Expert mode"), "tool_expert.png", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
         m_paUseLastDir     =  new KToggleAction(i18n("&Use-last-directory mode"), "tool_uselastdir.png", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
         m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&disconnect mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
         m_paAutoShutdown   =  new KToggleAction(i18n("Auto-s&hutdown mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
@@ -411,7 +411,7 @@ void KMainWidget::setupGUI()
         m_paShowLog       = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
 
         m_paDropTarget    = new KRadioAction(i18n("Drop &target"),"tool_drop_target.png", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
-        m_paDockWindow    = new KRadioAction(i18n("&Dock window"), "tool_dock", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
+        m_paDockWindow    = new KRadioAction(i18n("&Dock window"), "tool_dock.png", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
         m_paNormal        = new KRadioAction(i18n("&Normal"), "tool_normal.png", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
 
         m_paDropTarget->setExclusiveGroup("WindowMode");

@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = connect0.xpm connect1.xpm connect2.xpm connect3.xpm connect4.xpm connect5.xpm connect6.xpm dock_hand1.xpm dock_hand2.xpm dock_hand3.xpm kget.xpm Makefile.am md_delayed.xpm md_finished.xpm md_queued.xpm md_scheduled.xpm retrying.xpm target_hand1.xpm target_hand2.xpm target_hand3.xpm tool_clipboard.xpm tool_delay.xpm tool_disconnect.xpm tool_dock.xpm tool_expert.xpm tool_pause.xpm tool_resume.xpm tool_shutdown.xpm try0.xpm try1.xpm try2.xpm try3.xpm try4.xpm try5.xpm try6.xpm connect7.xpm try7.xpm tool_offline_mode-off.xpm tool_offline_mode-on.xpm tool_delete.png tool_normal.png tool_paste.png tool_queue.png tool_timer.png tool_uselastdir.png tool_drop_target.png tool_logwindow.png tool_preferences.png tool_restart.png dock.png target.png 
+EXTRA_DIST = connect0.xpm connect1.xpm connect2.xpm connect3.xpm connect4.xpm connect5.xpm connect6.xpm dock_hand1.xpm dock_hand2.xpm dock_hand3.xpm kget.xpm Makefile.am md_delayed.xpm md_finished.xpm md_queued.xpm md_scheduled.xpm retrying.xpm target_hand1.xpm target_hand2.xpm target_hand3.xpm tool_clipboard.xpm tool_delay.xpm tool_disconnect.xpm tool_expert.xpm tool_pause.xpm tool_resume.xpm tool_shutdown.xpm try0.xpm try1.xpm try2.xpm try3.xpm try4.xpm try5.xpm try6.xpm connect7.xpm try7.xpm tool_offline_mode-off.xpm tool_offline_mode-on.xpm tool_delete.png tool_normal.png tool_paste.png tool_queue.png tool_timer.png tool_uselastdir.png tool_drop_target.png tool_logwindow.png tool_preferences.png tool_restart.png dock.png target.png tool_dock.png 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
@@ -48,8 +48,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tool_delay.xpm $(kde_datadir)/kget/pics/tool_delay.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
 	$(INSTALL_DATA) $(srcdir)/tool_disconnect.xpm $(kde_datadir)/kget/pics/tool_disconnect.xpm
-	$(mkinstalldirs) $(kde_datadir)/kget/pics/
-	$(INSTALL_DATA) $(srcdir)/tool_dock.xpm $(kde_datadir)/kget/pics/tool_dock.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
 	$(INSTALL_DATA) $(srcdir)/tool_expert.xpm $(kde_datadir)/kget/pics/tool_expert.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
@@ -128,7 +126,6 @@ uninstall-local:
 	-rm -f $(kde_datadir)/kget/pics/tool_clipboard.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_delay.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_disconnect.xpm
-	-rm -f $(kde_datadir)/kget/pics/tool_dock.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_expert.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_pause.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_resume.xpm
