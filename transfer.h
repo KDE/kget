@@ -45,7 +45,7 @@ class KRadioAction;
 
 
 
-class DlgIndividual;
+class Scheduler;
 class TransferList;
 
 
@@ -87,11 +87,16 @@ public:
     int getSpeed()const {return speed;}
     TransferStatus getStatus()const {return status;}
     int getMode()const {return mode;}
+    int getPriority() {return priority;}
+    int getSubPriority() {return subPriority;}
     
     void setMode(TransferMode _mode) {mode = _mode;}
     void setStatus(TransferStatus _status) {status = _status;};
     void setStartTime(QDateTime _startTime) {startTime = _startTime;};
     void setSpeed(unsigned long _speed);
+    void setPriority(int _priority) {priority = _priority;}
+    void setSubPriority(int _subPriority) {subPriority = _subPriority;}
+    
 
     void UpdateRetry();
 
@@ -143,6 +148,8 @@ signals:
 private:
     Slave *m_pSlave;
 
+    Scheduler * scheduler;
+    
     KURL src;
     KURL dest;
 
@@ -167,16 +174,13 @@ private:
     TransferStatus status;
     TransferMode mode;
 
+    int priority;
+    int subPriority;
+    
     // how many times have we retried already
     unsigned int retryCount;
 
     bool canResume;
-
-    TransferList *view;
-
-    // individual download window
-    QGuardedPtr<DlgIndividual> dlgIndividual;
-	
 };
 
 

@@ -51,7 +51,9 @@
 #define TARGET_HEIGHT  69
 
 
-DropTarget::DropTarget():QWidget()
+DropTarget::DropTarget(Scheduler * _scheduler)
+    : QWidget(),
+      scheduler(_scheduler)
 {
     int x = ksettings.dropPosition.x();
     int y = ksettings.dropPosition.y();
@@ -105,9 +107,9 @@ DropTarget::DropTarget():QWidget()
 
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
     popupMenu->setItemChecked(pop_sticky, b_sticky);
-    kmain->m_paPreferences->plug(popupMenu);
+    //kmain->m_paPreferences->plug(popupMenu);
     popupMenu->insertSeparator();
-    kmain->m_paQuit->plug(popupMenu);
+    //kmain->m_paQuit->plug(popupMenu);
 
     // Enable dropping
     setAcceptDrops(true);
@@ -139,7 +141,7 @@ DropTarget::mousePressEvent(QMouseEvent * e)
     }
     else if (e->button() == MidButton)
     {
-        kmain->slotPasteTransfer();
+        scheduler->slotPasteTransfer();
     }
 }
 

@@ -97,6 +97,9 @@ extern QString ConnectionDevices[];
 
 #include <kwin.h>
 #include <qvaluelist.h>
+#include <qfont.h>
+
+
 struct DirItem
 {
     QString extRegexp;

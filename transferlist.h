@@ -24,48 +24,43 @@
  *
  ***************************************************************************/
 
-#ifndef _TransferList_h
-#define _TransferList_h
+#ifndef _TRANSFERLIST_H
+#define _TRANSFERLIST_H
 
-#include <klistview.h>
-#include <qptrlist.h>
+#include <qvaluelist.h>
 
 #include <kurl.h>
 
 class Transfer;
 
-class TransferIterator:public QListViewItemIterator
+/*class TransferIterator : public QValueListIterator
 {
 
 public:
 
-    TransferIterator(QListView * view):QListViewItemIterator(view)
+    TransferIterator() : QValueListIterator()
     {
     }
     Transfer *current() const
     {
-        return (Transfer *) QListViewItemIterator::current();
+        //return (Transfer *) QListViewItemIterator::current();
     }
     void reset()
     {
-        curr = listView->firstChild();
+        //curr = listView->firstChild();
     }
 
 };
+*/
 
-
-class TransferList:public KListView
+class TransferList : public QValueList<Transfer *>
 {
-Q_OBJECT public:
+public:
 
+    TransferList();
+    virtual ~TransferList();
 
-    TransferList(QWidget * parent = 0, const char *name = 0);
-    virtual ~ TransferList();
-
-    Transfer *addTransfer(const KURL & _source, const KURL & _dest,
-                          bool canShow = true );
-
-    virtual void setSelected(QListViewItem * item, bool selected);
+    Transfer * addTransfer(const KURL & _source, const KURL & _dest);
 
     void moveToBegin(Transfer * item);
     void moveToEnd(Transfer * item);
@@ -74,7 +69,7 @@ Q_OBJECT public:
     {
         return phasesNum;
     }
-    bool updateStatus(int counter);
+    
     Transfer * find(const KURL& _src);
     bool isQueueEmpty();
 
@@ -82,14 +77,6 @@ Q_OBJECT public:
     void writeTransfers(const QString& file);
 
     friend class Transfer;
-
-signals:
-    void transferSelected(Transfer * item);
-    void popupMenu(Transfer * item);
-
-protected slots:
-    void slotTransferSelected(QListViewItem * item);
-    void slotPopupMenu(QListViewItem * item);
 
 protected:
 
@@ -100,17 +87,9 @@ protected:
     int lv_pixmap, lv_filename, lv_resume, lv_count, lv_progress;
     int lv_total, lv_speed, lv_remaining, lv_url;
 
-    QPtrList < QPixmap > animConn;
-    QPtrList < QPixmap > animTry;
-    QPixmap pixQueued;
-    QPixmap pixScheduled;
-    QPixmap pixDelayed;
-    QPixmap pixFinished;
-    QPixmap pixRetrying;
-
     uint phasesNum;
     uint jobid;
 };
 
 
-#endif                          // _TransferList_h
+#endif                          // _TRANSFERLIST_H

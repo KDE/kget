@@ -112,16 +112,31 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 
 KMainWidget::KMainWidget(bool bStartDocked)
     : KGetIface( "KGet-Interface" ),
-      KMainWindow(0, "kget mainwindow"),
+      KMdiMainFrm(0, "kget mainwindow", KMdi::IDEAlMode),
       prefDlg( 0L )
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    scheduler = new Scheduler();
+    sDebug << "aaa" << endl;
+
+    setXMLFile("kgetui.rc");
     
-    {
+    scheduler = new Scheduler(this);
+    
+    kdrop = new DropTarget(scheduler);
+    kdock = new DockWidget(this, scheduler);
+    
+    setupActions();
+    setupGUI(bStartDocked);
+    setupConnections();
+    //setupWhatsThis();
+}
+        
+
+//THESE FUNCTIONS MUST BE RE-INTEGRATED
+/*    {
         KConfig cfg( "kioslaverc", false, false);
         cfg.setGroup(QString::null);
         cfg.writeEntry("AutoResume", true);
@@ -135,6 +150,9 @@ KMainWidget::KMainWidget(bool bStartDocked)
     myTransferList = 0L;
     kmain = this;
 
+    sDebug << "bbb" << endl;
+  
+    
     // Set log time, needed for the name of log file
     QDate date = QDateTime::currentDateTime().date();
     QTime time = QDateTime::currentDateTime().time();
@@ -149,40 +167,54 @@ KMainWidget::KMainWidget(bool bStartDocked)
     // Load all settings from KConfig
     ksettings.load();
 
+    sDebug << "ccc" << endl;
+    
     // Setup log window
     logWindow = new LogWindow();
 
+    sDebug << "ccc1" << endl;
+    
     setCaption(KGETVERSION);
+    sDebug << "ccc2" << endl;
 
     setupGUI();
-    setupWhatsThis();
+    sDebug << "ccc3" << endl;
+    //setupWhatsThis();
 
+    sDebug << "ccc4" << endl;
     log(i18n("Welcome to KGet"));
 
-    setCentralWidget(myTransferList);
-
+    sDebug << "ccc5" << endl;
     connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveYourself()));
 
+    sDebug << "ccc6" << endl;
     // Enable dropping
     setAcceptDrops(true);
 
+    sDebug << "ddd1" << endl;
+    
     // Setup connection timer
-    connectionTimer = new QTimer(this);
-    connect(connectionTimer, SIGNAL(timeout()), SLOT(slotCheckConnection()));
+//    connectionTimer = new QTimer(this);
+    sDebug << "ddd2" << endl;
+//    connect(connectionTimer, SIGNAL(timeout()), SLOT(slotCheckConnection()));
 
+    sDebug << "ddd3" << endl;
     // setup socket for checking connection
     if ((_sock = sockets_open()) < 0) {
         log(i18n("Could not create valid socket"), false);
     } else {
-        connectionTimer->start(5000);   // 5 second interval for checking connection
+        //connectionTimer->start(5000);   // 5 second interval for checking connection
     }
+    sDebug << "ddd4" << endl;
 
-    checkOnline();
-    if (!b_online) {
+    //checkOnline();
+    /*if (!b_online) {
         log(i18n("Starting offline"));
     }
+    */
+  //  sDebug << "ddd5" << endl;
     // Setup animation timer
-    animTimer = new QTimer(this);
+/*    animTimer = new QTimer(this);
     animCounter = 0;
     connect(animTimer, SIGNAL(timeout()), SLOT(slotAnimTimeout()));
 
@@ -208,13 +240,19 @@ KMainWidget::KMainWidget(bool bStartDocked)
     if (ksettings.b_autoPaste) {
         clipboardTimer->start(1000);
     }
-
-    scheduler->readTransfers(false);
+*/
+/*    sDebug << "eee" << endl;
+    
+    scheduler->slotImportTransfers();
+    sDebug << "eee1" << endl;
 
     // Setup special windows
-    kdrop = new DropTarget();
-    kdock = new DockWidget(this);
+    kdrop = new DropTarget(scheduler);
+    sDebug << "eee2" << endl;
+    kdock = new DockWidget(this, scheduler);
 
+    sDebug << "eee3" << endl;
+    
     // Set geometry
     if (ksettings.mainPosition.x() != -1) {
         resize(ksettings.mainSize);
@@ -224,41 +262,48 @@ KMainWidget::KMainWidget(bool bStartDocked)
         resize(650, 180);
     }
 
+    sDebug << "eee4" << endl;
+
     // update actions
-    m_paUseAnimation->setChecked(ksettings.b_useAnimation);
+ /*   m_paUseAnimation->setChecked(ksettings.b_useAnimation);
     m_paUseSound->setChecked(ksettings.b_useSound);
     m_paExpertMode->setChecked(ksettings.b_expertMode);
     m_paUseLastDir->setChecked(ksettings.b_useLastDir);
-
-    if (ksettings.connectionType != PERMANENT) {
-        m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
+*/
+/*    if (ksettings.connectionType != PERMANENT) {
+        //m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
     }
     setAutoDisconnect();
+    
+    sDebug << "eee5" << endl;
 
-    m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
+    //m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
 
 
-    m_paOfflineMode->setChecked(ksettings.b_offlineMode);
+    //m_paOfflineMode->setChecked(ksettings.b_offlineMode);
 
 
     if (ksettings.b_offlineMode)
         setCaption(i18n("Offline"), false);
     else {
         setCaption(QString::null, false);
-        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
+        //m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
-    m_paAutoPaste->setChecked(ksettings.b_autoPaste);
-    m_paShowLog->setChecked(b_viewLogWindow);
+    sDebug << "eee6" << endl;
+    
+    //m_paAutoPaste->setChecked(ksettings.b_autoPaste);
+    //m_paShowLog->setChecked(b_viewLogWindow);
 
     if (!bStartDocked && ksettings.b_showMain)
         show();
+    sDebug << "eee7" << endl;
 
     kdock->show();
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
-}
+*/
 
 
 KMainWidget::~KMainWidget()
@@ -269,7 +314,7 @@ KMainWidget::~KMainWidget()
 
     delete prefDlg;
     delete kdrop;
-    scheduler->writeTransfers();
+    scheduler->slotExportTransfers();
     writeLog();
 
 #ifdef _DEBUG
@@ -278,59 +323,16 @@ KMainWidget::~KMainWidget()
     delete logWindow;
 }
 
-
-void KMainWidget::log(const QString & message, bool statusbar)
+void KMainWidget::setupActions()
 {
-#ifdef _DEBUG
-    sDebugIn <<" message= "<< message << endl;
-#endif
-
-    logWindow->logGeneral(message);
-
-    if (statusbar) {
-        statusBar()->message(message, 1000);
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::slotSaveYourself()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    scheduler->writeTransfers();
-    ksettings.save();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::setupGUI()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    // setup transfer list
-    myTransferList = new TransferList(this, "transferList");
-    myTransferList->setSorting(-1);
-    setListFont();
-
+/*
     KActionCollection *coll = actionCollection();
 
-    connect(myTransferList, SIGNAL(selectionChanged()), this, SLOT(slotUpdateActions()));
-    connect(myTransferList, SIGNAL(transferSelected(Transfer *)), this, SLOT(slotOpenIndividual()));
-    connect(myTransferList, SIGNAL(popupMenu(Transfer *)), this, SLOT(slotPopupMenu(Transfer *)));
-
-    // file actions
-    m_paOpenTransfer = KStdAction::open(this, SLOT(slotOpenTransfer()), coll, "open_transfer");
+    /** 
+     * FILE ACTIONS
+     */
+         
+/*    m_paOpenTransfer = KStdAction::open(this, SLOT(slotOpenTransfer()), coll, "open_transfer");
     m_paPasteTransfer = KStdAction::paste(this, SLOT(slotPasteTransfer()), coll, "paste_transfer");
 
     m_paExportTransfers = new KAction(i18n("&Export Transfer List..."), 0, scheduler, SLOT(slotExportTransfers()), coll, "export_transfers");
@@ -341,8 +343,11 @@ void KMainWidget::setupGUI()
     m_paQuit = KStdAction::quit(this, SLOT(slotQuit()), coll, "quit");
 
 
-    // transfer actions
-    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), coll, "copy_url");
+    /** 
+     * TRANSFER ACTIONS
+     */
+     
+/*    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), coll, "copy_url");
     m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), coll, "open_individual");
 
     m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), coll, "move_begin");
@@ -364,8 +369,11 @@ void KMainWidget::setupGUI()
     m_paTimer->setExclusiveGroup("TransferMode");
     m_paDelay->setExclusiveGroup("TransferMode");
 
-    // options actions
-    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
+    /**
+     * OPTIONS ACTIONS
+     */
+     
+/*    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
     m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), coll, "toggle_sound");
     m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
     m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
@@ -379,16 +387,40 @@ void KMainWidget::setupGUI()
     KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll);
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
-    // view actions
-    createStandardStatusBarAction();
+    /**
+     * VIEW ACTIONS
+     */
+/*    createStandardStatusBarAction();
 
     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
     m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
     KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), coll, "whats_this");
+*/
+}
 
-    createGUI("kgetui.rc");
+void KMainWidget::setupGUI(bool startDocked)
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    createGUI(0);
+    
+    if (!startDocked && ksettings.b_showMain)
+        show();
+
+    kdock->show();
+   
+
+
+/*  
+
+*/
+
+/*    
+
 
     // setup statusbar
     statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
@@ -397,17 +429,26 @@ void KMainWidget::setupGUI()
     statusBar()->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
     statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
 
+    */
+    
     setAutoSaveSettings( "MainWindow", false /*Settings takes care of size & pos & state */ );
 
-    slotUpdateActions();
+    //slotUpdateActions();
 
-    updateStatusBar();
+    //updateStatusBar();
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
 }
 
+void KMainWidget::setupConnections()
+{
+/*    connect(myTransferList, SIGNAL(selectionChanged()), this, SLOT(slotUpdateActions()));
+    connect(myTransferList, SIGNAL(transferSelected(Transfer *)), this, SLOT(slotOpenIndividual()));
+    connect(myTransferList, SIGNAL(popupMenu(Transfer *)), this, SLOT(slotPopupMenu(Transfer *)));
+*/
+}
 
 void KMainWidget::setupWhatsThis()
 {
@@ -481,6 +522,37 @@ void KMainWidget::setupWhatsThis()
 #endif
 }
 
+void KMainWidget::log(const QString & message, bool statusbar)
+{
+#ifdef _DEBUG
+    sDebugIn <<" message= "<< message << endl;
+#endif
+
+    logWindow->logGeneral(message);
+
+    if (statusbar) {
+        statusBar()->message(message, 1000);
+    }
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+
+
+void KMainWidget::slotSaveYourself()
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    scheduler->slotExportTransfers();
+    ksettings.save();
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
 
 void KMainWidget::slotConfigureKeys()
 {
@@ -519,42 +591,8 @@ void KMainWidget::slotNewToolbarConfig()
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
-
-    createGUI("kgetui.rc");
+    createGUI(0);
     applyMainWindowSettings( KGlobal::config(), "MainWindow" );
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::slotImportTextFile()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    QString tmpFile;
-    QString list;
-    int i, j;
-
-    KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
-    if (!filename.isValid())
-        return;
-
-    if (KIO::NetAccess::download(filename, tmpFile, this)) {
-        list = kFileToString(tmpFile);
-        KIO::NetAccess::removeTempFile(tmpFile);
-    } else
-        list = kFileToString(filename.path()); // file not accessible -> give error message
-
-    i = 0;
-    while ((j = list.find('\n', i)) != -1) {
-        QString newtransfer = list.mid(i, j - i);
-        scheduler->addTransfer(newtransfer);
-        i = j + 1;
-    }
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -582,7 +620,7 @@ void KMainWidget::slotQuit()
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
-
+/*
     Transfer *item;
     TransferIterator it(myTransferList);
 
@@ -602,7 +640,7 @@ void KMainWidget::slotQuit()
     }
 
     ksettings.save();
-
+*/
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -610,9 +648,13 @@ void KMainWidget::slotQuit()
     kapp->quit();
 }
 
+void KMainWidget::readTransfersEx(const KURL & url)
+{
+    scheduler->slotReadTransfers(url);
+}
 
 
-
+/*
 void KMainWidget::slotOpenTransfer()
 {
 #ifdef _DEBUG
@@ -650,9 +692,9 @@ void KMainWidget::slotOpenTransfer()
     sDebugOut << endl;
 #endif
 }
+*/
 
-
-
+/*
 void KMainWidget::slotCheckClipboard()
 {
 #ifdef _DEBUG
@@ -671,14 +713,14 @@ void KMainWidget::slotCheckClipboard()
         KURL url = KURL::fromPathOrURL( lastClipboard );
 
         if (url.isValid() && !url.isLocalFile())
-            slotPasteTransfer();
+            scheduler->slotPasteTransfer();
     }
 
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
 }
-
+*/
 
 /*
 void KMainWidget::slotAnimTimeout()
@@ -707,20 +749,20 @@ void KMainWidget::slotAnimTimeout()
 
 */
 
-
+/*
 void KMainWidget::slotAutosaveTimeout()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
 #endif
 
-    scheduler->writeTransfers();
+    scheduler->slotExportTransfers();
 
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
 }
-
+*/
 
 
 
@@ -748,20 +790,22 @@ void KMainWidget::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list)) {
-        scheduler->slotNewURLs(list);
+        scheduler->slotNewURLs(list, QString("KGet::default"));
     } else if (QTextDrag::decode(event, str)) {
-        scheduler->slotNewURL(str);
+        scheduler->slotNewURL(str, QString("KGet::default"));
     }
     sDebugOut << endl;
 }
 
 
+/*
 void KMainWidget::slotCopyToClipboard()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
 #endif
 
+/*
     Transfer *item = (Transfer *) myTransferList->currentItem();
 
     if (item) {
@@ -772,11 +816,12 @@ void KMainWidget::slotCopyToClipboard()
         myTransferList->clearSelection();
     }
 
+    
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
 }
-
+*/
 
 
 bool KMainWidget::queryClose()
@@ -812,7 +857,7 @@ void KMainWidget::setAutoDisconnect()
 #endif
 
     // disable action when we are connected permanently
-    m_paAutoDisconnect->setEnabled(ksettings.connectionType != PERMANENT);
+    //m_paAutoDisconnect->setEnabled(ksettings.connectionType != PERMANENT);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -901,7 +946,7 @@ void KMainWidget::slotToggleOfflineMode()
     ksettings.b_offlineMode = !ksettings.b_offlineMode;
     if (ksettings.b_offlineMode) {
         log(i18n("Offline mode on."));
-        pauseAll();
+        //pauseAll();
         setCaption(i18n("Offline"), false);
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_off"));
     } else {
@@ -913,7 +958,7 @@ void KMainWidget::slotToggleOfflineMode()
 
 
     slotUpdateActions();
-    checkQueue();
+    //checkQueue();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1057,7 +1102,7 @@ void KMainWidget::slotPopupMenu(Transfer * item)
 #endif
 
     // select current item
-    myTransferList->setCurrentItem(item);
+    //myTransferList->setCurrentItem(item);
 
     // set action properties
     slotUpdateActions();
@@ -1073,23 +1118,9 @@ void KMainWidget::slotPopupMenu(Transfer * item)
 }
 
 
-void KMainWidget::setListFont()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    myTransferList->setFont(ksettings.listViewFont);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-/*
 void KMainWidget::slotUpdateActions()
 {
-#ifdef _DEBUG
+/*#ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
@@ -1245,15 +1276,16 @@ void KMainWidget::slotUpdateActions()
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
-}
 */
+}
+
 
 void KMainWidget::updateStatusBar()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
 #endif
-
+/*
     Transfer *item;
     QString tmpstr;
 
@@ -1282,7 +1314,7 @@ void KMainWidget::updateStatusBar()
     statusBar()->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
     statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
     statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
-
+*/
 
 #ifdef _DEBUG
     //sDebugOut << endl;
@@ -1379,10 +1411,10 @@ void KMainWidget::checkOnline()
 
         if (b_online) {
             log(i18n("We are online."));
-            checkQueue();
+            //checkQueue();
         } else {
             log(i18n("We are offline."));
-            pauseAll();
+//            pauseAll();
         }
     }
 
@@ -1443,7 +1475,7 @@ static int sockets_open()
 
 /** No descriptions */
 
-QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
+/*QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
 {
     // first set destination directory to current directory ( which is also last used )
     QString destDir = ksettings.lastDirectory;
@@ -1465,7 +1497,12 @@ QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
 
     return destDir;
 }
+*/
 
+void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
+{
+    scheduler->slotNewURLs(src, dest); 
+}
 
 bool KMainWidget::isDropTargetVisible() const
 {

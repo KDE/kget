@@ -1,12 +1,21 @@
 #include "scheduler.h"
+#include "safedelete.h"
+#include "settings.h"
 
-//temporary: fixes some of missing includes
 #include "kmainwidget.h"
+#include "transfer.h"
+#include "transferlist.h"
+
+#include <kio/netaccess.h>
 #include <kfiledialog.h>
+#include <kmessagebox.h>
+#include <klocale.h>
 
-Scheduler::Scheduler()
+Scheduler::Scheduler(KMainWidget * _mainWidget)
+    : QObject(),
+      mainWidget(_mainWidget)
 {
-
+    transfers = new TransferList();
 }
 
 Scheduler::~Scheduler()
@@ -22,7 +31,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     {
         KURL url = *it;
         if ( url.fileName().endsWith( ".kgt" ) )
-            readTransfers(url);
+            slotReadTransfers(url);
         else
             urlsToDownload.append( url );
     }
@@ -47,9 +56,9 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
             {
                 destURL.adjustPath( +1 );
                 destURL.setFileName( fileName );
-                if(KIO::NetAccess::exists(destURL, false, this))
+                if(KIO::NetAccess::exists(destURL, false, mainWidget))
                 {
-                    if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                    if (KMessageBox::warningYesNo(mainWidget,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
                         == KMessageBox::Yes)
                     {
                         SafeDelete::deleteFile( destURL );
@@ -69,8 +78,8 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     {
         if ( !destDir.isEmpty()  )
             dest.setPath( destDir );
-        else
-            dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
+        //else
+        //    dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
         // ask in any case, when destDir is empty
         if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
@@ -93,7 +102,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     {
         KURL srcURL = *it;
 
-        if ( !sanityChecksSuccessful( *it ) )
+        if ( !isValidURL( *it ) )
             continue;
 
         KURL destURL = dest;
@@ -103,52 +112,97 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 
         destURL.setFileName( fileName );
 
-        if(KIO::NetAccess::exists(destURL, false, this))
+        if(KIO::NetAccess::exists(destURL, false, mainWidget))
         {
-            if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ) )
+            if (KMessageBox::warningYesNo(mainWidget,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ) )
                                           == KMessageBox::Yes)
             {
                 SafeDelete::deleteFile( destURL );
             }
         }
 
-        Transfer *item = myTransferList->addTransfer(*it, destURL);
-        item->updateAll(); // update the remaining fields
+        Transfer *item = transfers->addTransfer(*it, destURL);
+        //item->updateAll(); // update the remaining fields
     }
 
-    myTransferList->clearSelection();
+    //transfers->clearSelection();
 
-    if (ksettings.b_useSound) {
+/*    if (ksettings.b_useSound) {
         KAudioPlayer::play(ksettings.audioAdded);
     }
-    checkQueue();
+*/    
+    //checkQueue();
 
 }
+
 
 void Scheduler::slotNewURL(const KURL & src, const QString& destDir)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
-
+/*
     if ( src.isEmpty() )
         return;
 
     addTransferEx( KURL::fromPathOrURL( src ) );
 
+*/    
+    
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
 }
 
-void Scheduler::slotSetOperation(QValueList<Transfer *>, enum Operation)
+void Scheduler::slotRemoveItems(QValueList<Transfer *> list)
 {
-    
+
 }
 
-/*
+void Scheduler::slotRemoveItem(Transfer * item)
+{
+
+}
+
+void Scheduler::slotSetPriority(QValueList<Transfer *> list, int priority)
+{
+
+}
+
+void Scheduler::slotSetPriority(Transfer * item, int priority)
+{
+
+}
+
+void Scheduler::slotSetOperation(QValueList<Transfer *> list, Operation op)
+{
+
+}
+
+void Scheduler::slotSetOperation(Transfer * item, Operation op)
+{
+
+}
+
+void Scheduler::slotSetGroup(QValueList<Transfer *> list, const QString & groupName)
+{
+
+}
+
+void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
+{
+
+}
+
+void Scheduler::slotTransferStatusChanged(Transfer *, int operation)
+{
+
+}
+
+
 void Scheduler::slotPasteTransfer()
 {
+/*
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
@@ -179,14 +233,53 @@ void Scheduler::slotPasteTransfer()
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
-}
 */
+}
 
-/*
+
+
+
+void Scheduler::slotImportTextFile()
+{
+/*#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    QString tmpFile;
+    QString list;
+    int i, j;
+
+    KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
+    if (!filename.isValid())
+        return;
+
+    if (KIO::NetAccess::download(filename, tmpFile, this)) {
+        list = kFileToString(tmpFile);
+        KIO::NetAccess::removeTempFile(tmpFile);
+    } else
+        list = kFileToString(filename.path()); // file not accessible -> give error message
+
+    i = 0;
+    while ((j = list.find('\n', i)) != -1) {
+        QString newtransfer = list.mid(i, j - i);
+        scheduler->addTransfer(newtransfer);
+        i = j + 1;
+    }
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+*/
+}
+
+
+
+
+
 
 void Scheduler::slotImportTransfers(bool ask_for_name)
 {
-#ifdef _DEBUG
+/*#ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
@@ -197,15 +290,17 @@ void Scheduler::slotImportTransfers(bool ask_for_name)
     else
         url.setPath( locateLocal("appdata", "transfers.kgt") );
 
-    readTransfers(url);
+    slotReadTransfers(url);
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+*/
 }
 
-void Scheduler::readTransfers(const KURL & file)
+void Scheduler::slotReadTransfers(const KURL & file)
 {
+/*
 #ifdef _DEBUG
   sDebugIn << endl;
 #endif
@@ -220,19 +315,21 @@ void Scheduler::readTransfers(const KURL & file)
 #ifdef _DEBUG
     sDebug << "Read from file: " << file << endl;
 #endif
-    myTransferList->readTransfers(file);
+    transfers->readTransfers(file);
     checkQueue();
     slotTransferTimeout();
-    myTransferList->clearSelection();
+    transfers->clearSelection();
 
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+*/
 }
 
 void Scheduler::slotExportTransfers(bool ask_for_name)
 {
+/*
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
@@ -251,11 +348,13 @@ void Scheduler::slotExportTransfers(bool ask_for_name)
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+*/
 }
 
 
 void Scheduler::writeTransfers(const QString & file)
 {
+/*
 
     if (file.isEmpty())
     {
@@ -271,14 +370,15 @@ void Scheduler::writeTransfers(const QString & file)
     sDebug << "Writing transfers " << txt << endl;
 #endif
     //FIX
-    myTransferList->writeTransfers(file);
-
+    transfers->writeTransfers(file);
+*/
 }
 
 // destFile must be a filename, not a directory! And it will be deleted, if
 // it exists already, without further notice.
 void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
 {
+/*
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
@@ -363,13 +463,13 @@ void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
     }
 
     // create a new transfer item
-    Transfer *item = myTransferList->addTransfer(url, destURL);
+    Transfer *item = transfers->addTransfer(url, destURL);
     item->updateAll(); // update the remaining fields
 
     if (ksettings.b_showIndividual)
         item->showIndividual();
 
-    myTransferList->clearSelection();
+    transfers->clearSelection();
 
     if (ksettings.b_useSound) {
         KAudioPlayer::play(ksettings.audioAdded);
@@ -378,10 +478,12 @@ void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+*/
 }
 
-bool Scheduler::isValidUrl( const KURL& url )
+bool Scheduler::isValidURL( const KURL& url )
 {
+/*
     if (!url.isValid() || !KProtocolInfo::supportsReading( url ) )
     {
         if (!ksettings.b_expertMode)
@@ -390,7 +492,7 @@ bool Scheduler::isValidUrl( const KURL& url )
         return false;
     }
     // if we find this URL in the list
-    Transfer *transfer = myTransferList->find( url );
+    Transfer *transfer = transfers->find( url );
     if ( transfer )
     {
         if ( transfer->getStatus() != Transfer::ST_FINISHED )
@@ -430,6 +532,7 @@ bool Scheduler::isValidUrl( const KURL& url )
 //     }
 
     return true;
+*/
 }
 
 bool Scheduler::isValidDest( const KURL& dest )
@@ -437,7 +540,7 @@ bool Scheduler::isValidDest( const KURL& dest )
     //Copy from addTransferEx
 }
 
-*/
+
 
 /*
 
@@ -453,7 +556,7 @@ void Scheduler::checkQueue()
 
     if (!ksettings.b_offlineMode && b_online) {
 
-        TransferIterator it(myTransferList);
+        TransferIterator it(transfers);
 
         // count running transfers
         for (; it.current(); ++it) {
@@ -503,7 +606,7 @@ void Scheduler::slotMoveToBegin()
     sDebugIn << endl;
 #endif
 
-    myTransferList->moveToBegin((Transfer *) myTransferList->currentItem());
+    transfers->moveToBegin((Transfer *) transfers->currentItem());
 
 
 #ifdef _DEBUG
@@ -518,7 +621,7 @@ void Scheduler::slotMoveToEnd()
     sDebugIn << endl;
 #endif
 
-    myTransferList->moveToEnd((Transfer *) myTransferList->currentItem());
+    transfers->moveToEnd((Transfer *) transfers->currentItem());
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -532,7 +635,7 @@ void Scheduler::slotOpenIndividual()
     sDebugIn << endl;
 #endif
 
-    Transfer *item = (Transfer *) myTransferList->currentItem();
+    Transfer *item = (Transfer *) transfers->currentItem();
     if (item)
         item->showIndividual();
 
@@ -551,7 +654,7 @@ void Scheduler::slotResumeCurrent()
     sDebugIn << endl;
 #endif
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     for (; it.current(); ++it)
         if (it.current()->isSelected())
@@ -571,7 +674,7 @@ void Scheduler::slotPauseCurrent()
     sDebugIn << endl;
 #endif
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     m_paPause->setEnabled(false);
     m_paRestart->setEnabled(false);
@@ -596,7 +699,7 @@ void Scheduler::slotRestartCurrent()
     sDebugIn << endl;
 #endif
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     for (; it.current(); ++it)
         if (it.current()->isSelected())
@@ -619,7 +722,7 @@ void Scheduler::slotDeleteCurrent()
     m_paDelete->setEnabled(false);
     m_paPause->setEnabled(false);
     update();
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
     QValueList<QGuardedPtr<Transfer> > selectedItems;
     QStringList itemNames;
 
@@ -690,7 +793,7 @@ void Scheduler::pauseAll()
 
     log(i18n("Pausing all jobs"), false);
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
     Transfer::TransferStatus Status;
     for (; it.current(); ++it) {
         Status = it.current()->getStatus();
@@ -711,7 +814,7 @@ void Scheduler::slotQueueCurrent()
     sDebugIn << endl;
 #endif
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     for (; it.current(); ++it) {
         if (it.current()->isSelected()) {
@@ -719,7 +822,7 @@ void Scheduler::slotQueueCurrent()
         }
     }
 
-    //    myTransferList->clearSelection();
+    //    transfers->clearSelection();
     slotUpdateActions();
 
 #ifdef _DEBUG
@@ -735,7 +838,7 @@ void Scheduler::slotTimerCurrent()
 #endif
 
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     for (; it.current(); ++it)
         if (it.current()->isSelected())
@@ -754,7 +857,7 @@ void Scheduler::slotDelayCurrent()
     sDebugIn << endl;
 #endif
 
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     for (; it.current(); ++it)
         if (it.current()->isSelected())
@@ -772,7 +875,7 @@ void Scheduler::slotTransferTimeout()
 #endif
 
     Transfer *item;
-    TransferIterator it(myTransferList);
+    TransferIterator it(transfers);
 
     bool flag = false;
 
@@ -872,12 +975,8 @@ void Scheduler::customEvent(QCustomEvent * _e)
         assert(0);
     }
 }
-*/
 
-#ifdef _DEBUG
-    //sDebugOut << endl;
-#endif
-}
+*
 
 /*
 void Scheduler::slotStatusChanged(Transfer * item, int _operation)
@@ -897,7 +996,7 @@ void Scheduler::slotStatusChanged(Transfer * item, int _operation)
         else
             item->setMode(Transfer::MD_NONE);
 
-        if (myTransferList->isQueueEmpty()) {
+        if (transfers->isQueueEmpty()) {
             // no items in the TransferList or we have donwload all items
             if (ksettings.b_autoDisconnect)
                 onlineDisconnect();

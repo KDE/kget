@@ -5,7 +5,7 @@ INCLUDES = $(all_includes)
 bin_PROGRAMS = kget
 
 kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET)
+kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lqt -lkmdi
 kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
                transfer.cpp settings.cpp logwindow.cpp \
                kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp \

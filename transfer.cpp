@@ -37,10 +37,9 @@
 #include "safedelete.h"
 #include "settings.h"
 #include "logwindow.h"
-#include "kmainwidget.h"
-#include "dlgIndividual.h"
 #include "transferlist.h"
 #include "transfer.h"
+#include "scheduler.h"
 
 #include <kapplication.h>
 #include <kio/passdlg.h>
@@ -52,11 +51,11 @@ extern Settings ksettings;
 
 
 Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id)
-    : QObject( _view ), scheduler(_scheduler), 
+    : scheduler(_scheduler), 
       src(_src), dest(_dest), totalSize(0),
       processedSize(0), percent(0), id(_id),
       speed(0), retryCount(0), canResume(false),
-      status(ST_STOPPED)
+      status(ST_STOPPED), priority(3)
 {
     sDebugIn << endl;
 
@@ -109,7 +108,6 @@ Transfer::~Transfer()
     sDebugIn << endl;
 
     synchronousAbort();
-    delete dlgIndividual;
     
     sDebugOut << endl;
 }
@@ -146,8 +144,6 @@ void Transfer::slotUpdateActions()
         m_paResume->setEnabled(false);
         m_paPause->setEnabled(false);
         m_paRestart->setEnabled(false);
-        if(dlgIndividual)
-			dlgIndividual->update();
         return;
     }
 
@@ -206,9 +202,6 @@ void Transfer::slotUpdateActions()
     m_paTimer->blockSignals(false);
     m_paDelay->blockSignals(false);
 
-    if (dlgIndividual)
-        dlgIndividual->update();
-
     sDebugOut << endl;
 }
 
@@ -231,8 +224,6 @@ void Transfer::UpdateRetry()
     retry.setNum(retryCount);
     MaxRetry.setNum(ksettings.reconnectRetries);
     retry += " / " + MaxRetry;
-
-    setText(view->lv_count, retry);
 }
 
 
@@ -301,9 +292,7 @@ void Transfer::slotRequestRemove()
     sDebugIn << endl;
     m_paDelete->setEnabled(false);
     m_paPause->setEnabled(false);
-    if(dlgIndividual)
-		dlgIndividual->close();
-
+ 
     if ( status != ST_FINISHED )
     {
         // delete the partly downloaded file, if any
@@ -402,8 +391,6 @@ void Transfer::slotFinished()
     slotProcessedSize(totalSize);
 
     slotSpeed(0);
-    if(dlgIndividual)
-		dlgIndividual->enableOpenFile();
     emit statusChanged(this, OP_FINISHED);
     sDebugOut << endl;
 }
@@ -438,7 +425,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
 
     setSpeed(bytes_per_second);
 
-    if (speed == 0 && status == ST_RUNNING) {
+/*    if (speed == 0 && status == ST_RUNNING) {
         setText(view->lv_speed, i18n("Stalled"));
         setText(view->lv_remaining, i18n("Stalled"));
     } else if (speed == 0 && status == ST_FINISHED) {
@@ -458,9 +445,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
         setText(view->lv_speed, tmps);
         setText(view->lv_remaining, remainingTime.toString());
     }
-
-	if(dlgIndividual)
-    	dlgIndividual->setSpeed(speed, remainingTime);
+*/
 
     //sDebugOut<<endl;
 }
@@ -477,13 +462,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
         totalSize = bytes;
         if (totalSize != 0) {
             logMessage(i18n("Total size is %1 bytes").arg(totalSize));
-            setText(view->lv_total, KIO::convertSize(totalSize));
-			if(dlgIndividual)
-				{
-				dlgIndividual->setTotalSize(totalSize);
-				dlgIndividual->setPercent(0);
-				dlgIndividual->setProcessedSize(0);
-			}
+//            setText(view->lv_total, KIO::convertSize(totalSize));
         }
     } else {
 
@@ -520,15 +499,11 @@ void Transfer::slotProcessedSize(unsigned long bytes)
         percent = 99; // what can we say?
         totalSize = processedSize;
 
-        setText(view->lv_total, KIO::convertSize(totalSize));
-		if(dlgIndividual)
-        	dlgIndividual->setTotalSize(totalSize);
+        //setText(view->lv_total, KIO::convertSize(totalSize));
     }
     else {
         percent = (int) (((float) processedSize / (float) totalSize) * 100.0);
     }
-	if(dlgIndividual)
-    	dlgIndividual->setProcessedSize(processedSize);
 
     if (percent != old) {
         QString tmps;
@@ -538,10 +513,8 @@ void Transfer::slotProcessedSize(unsigned long bytes)
             tmps.setNum(percent);
         }
 
-        setText(view->lv_progress, tmps);
+//        setText(view->lv_progress, tmps);
 
-		if(dlgIndividual)
-        	dlgIndividual->setPercent(percent);
     }
     //sDebug<< "<<<<Leaving"<<endl;
 }
@@ -557,8 +530,6 @@ void Transfer::logMessage(const QString & message)
 
     transferLog.append(tmps + '\n');
     
-    if(dlgIndividual)
-        dlgIndividual->appendLog(tmps);
 
     sDebugOut << endl;
 }
@@ -579,7 +550,7 @@ bool Transfer::read(KSimpleConfig * config, int id)
     }
 
     if (!src.isValid() && !ksettings.b_expertMode) {
-        KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
+        //KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
         return false;
     }
 
@@ -638,7 +609,7 @@ void Transfer::slotExecPause()
     m_paResume->setEnabled(true);
     slotUpdateActions();
     //TODO WE NEED TO UPDATE ACTIONS..
-    kmain->slotUpdateActions();
+    //kmain->slotUpdateActions();
     emit statusChanged(this, OP_PAUSED);
     sDebugOut << endl;
 }
@@ -701,12 +672,10 @@ void Transfer::slotCanResume(bool _bCanResume)
 
     if (canResume) {
         logMessage(i18n("Download resumed"));
-        setText(view->lv_resume, i18n("Yes"));
-    } else {
+        //setText(view->lv_resume, i18n("Yes"));
+    } /*else {
         setText(view->lv_resume, i18n("No"));
-    }
-
-    //dlgIndividual->setCanResume(canResume);
+    }*/
 
     sDebugOut << endl;
 }
@@ -746,11 +715,6 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
 
     setStartTime(_startTime);
     sDebugOut << endl;
-}
-
-bool Transfer::keepDialogOpen() const
-{
-    return dlgIndividual ? dlgIndividual->keepDialogOpen() : false;
 }
 
 bool Transfer::retryOnError()

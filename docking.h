@@ -37,12 +37,13 @@
 
 class KPopupMenu;
 class KMainWidget;
+class Scheduler;
 
 class DockWidget:public KSystemTray
 {
 
 Q_OBJECT public:
-    DockWidget(KMainWidget * parent);
+    DockWidget(KMainWidget * parent, Scheduler * _scheduler);
     ~DockWidget();
     /** No descriptions */
     virtual void contextMenuAboutToShow ( KPopupMenu* menu );
@@ -59,6 +60,7 @@ protected:
 
 private:
     KMainWidget *parent;
+    Scheduler * scheduler;
 
 };
 

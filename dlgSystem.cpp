@@ -204,7 +204,7 @@ void DlgSystem::applyData()
     }
 
     ksettings.listViewFont = le_font->font();
-    kmain->setListFont();
+    //kmain->setListFont();
 }
 
 void DlgSystem::slotChanged()

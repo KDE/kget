@@ -34,12 +34,14 @@
 class KPopupMenu;
 class KMainWidget;
 
+class Scheduler;
+
 class DropTarget:public QWidget
 {
 Q_OBJECT 
 
 public:
-    DropTarget();
+    DropTarget(Scheduler * _scheduler);
     ~DropTarget();
 
     void updateStickyState();
@@ -61,6 +63,8 @@ private slots:
     void toggleMinimizeRestore();
 
 private:
+    Scheduler * scheduler;
+
     KPopupMenu * popupMenu;
     KMainWidget *parent;
 

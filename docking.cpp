@@ -34,11 +34,14 @@
 #include <kurldrag.h>
 
 #include "kmainwidget.h"
+#include "scheduler.h"
 #include "settings.h"
 #include "docking.h"
 
 
-DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
+DockWidget::DockWidget(KMainWidget * _parent, Scheduler * _scheduler)
+    : KSystemTray(_parent),
+      scheduler(_scheduler)
 {
     parent = _parent;
 
@@ -46,7 +49,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
-    parent->m_paPreferences->plug(popupMenu);
+    //parent->m_paPreferences->plug(popupMenu);
 
     // Enable dropping
     setAcceptDrops(true);
@@ -83,7 +86,7 @@ void DockWidget::dropEvent(QDropEvent * event)
 void DockWidget::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == MidButton) {
-        parent->slotPasteTransfer();
+        scheduler->slotPasteTransfer();
     } else {
         KSystemTray::mousePressEvent(e);
     }

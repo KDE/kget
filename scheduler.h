@@ -9,7 +9,10 @@
 
 class QString;
 
+class KMainWidget;
+class TransferList;
 class Transfer;
+
 
 class GlobalStatus
 {
@@ -36,7 +39,7 @@ class Scheduler : public QObject
 {
 Q_OBJECT
 public:
-	Scheduler();
+	Scheduler(KMainWidget * _mainWidget);
 	~Scheduler();
 	
 	enum Operation {};
@@ -73,8 +76,8 @@ public slots:
 	void slotSetPriority(QValueList<Transfer *>, int);
 	void slotSetPriority(Transfer *, int);
     
-	void slotSetOperation(QValueList<Transfer *>, enum Operation);
-	void slotSetOperation(Transfer *, enum Operation);
+	void slotSetOperation(QValueList<Transfer *>, Operation);
+	void slotSetOperation(Transfer *, Operation);
     
 	void slotSetGroup(QValueList<Transfer *>, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
@@ -83,7 +86,7 @@ public slots:
      * This slot is called from the Transfer object when its status
      * has changed
      */
-    void slotTransferStatusChanged(Transfer *, int operation)
+    void slotTransferStatusChanged(Transfer *, int operation);
 
     /**
      * This function adds the transfer copied in the clipboard
@@ -116,15 +119,16 @@ public slots:
      * placed in the application data directory.
      */
     void slotExportTransfers(bool ask_for_name = false);
-    
-private:
   
     /** 
      * This function adds the transfers included in the file location
      * calling the readTransfer function in the transferList object.
      * It checks if the file is valid.
      */
-    void readTransfers(const KURL & file);
+    void slotReadTransfers(const KURL & file);
+    
+    
+private:
     
     /**
      * This function reads the transfers included in the file location
@@ -155,7 +159,7 @@ private:
     /**
      * Checks if the given url is valid or not.
      */
-    bool isValidUrl( const KURL& url );
+    bool isValidURL( const KURL& url );
     
     /**
      * Checks if the given destination dir is valid or not.
@@ -163,6 +167,10 @@ private:
     bool isValidDest( const KURL& url);
     
     void checkQueue();
+    
+    
+    TransferList * transfers;
+    KMainWidget * mainWidget;
 };
 
 #endif

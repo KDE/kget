@@ -28,7 +28,7 @@
 #ifndef _KMAINWIDGET_H_
 #define _KMAINWIDGET_H_
 
-#include <kmainwindow.h>
+#include <kmdimainfrm.h>
 #include <kaction.h>
 #include <kurl.h>
 #include "common.h"
@@ -51,7 +51,7 @@ class Scheduler;
 class Settings;
 
 
-class KMainWidget:public KMainWindow, virtual public KGetIface
+class KMainWidget:public KMdiMainFrm, virtual public KGetIface
 {
 
 Q_OBJECT 
@@ -69,9 +69,6 @@ public:
     virtual void setDropTargetVisible( bool setVisible );
 
     
-    void checkQueue();
-
-    void setListFont();
     void setAutoSave();
     void setAutoDisconnect();
 
@@ -87,7 +84,6 @@ public:
     void readTransfersEx(const KURL & url);
 
 public slots:
-    void slotPasteTransfer();
     void slotToggleLogWindow();
     void slotPreferences();
     void slotToggleExpertMode();
@@ -103,24 +99,14 @@ public slots:
 protected slots:
     void slotQuit();
 
-    void slotOpenTransfer();
-    void slotExportTransfers();
-    void slotImportTransfers();
-    void slotImportTextFile();
-
     void slotSaveYourself();
     void slotCheckConnection();
 
+//    void slotTransferTimeout();
+//    void slotAutosaveTimeout();
 
-    void slotStatusChanged(Transfer * item, int _operation);
-
-    void slotOpenIndividual();
-
-    void slotTransferTimeout();
-    void slotAutosaveTimeout();
-
-    void slotCopyToClipboard();
-    void slotCheckClipboard();
+//    void slotCopyToClipboard();
+//    void slotCheckClipboard();
 
     void slotConfigureKeys();
     void slotConfigureToolbars();
@@ -142,7 +128,9 @@ protected:
     void writeTransfers(bool ask_for_name = false);
 
 
-    void setupGUI();
+    void setupActions();
+    void setupGUI(bool startDocked);
+    void setupConnections();
     void setupWhatsThis();
 
     void updateStatusBar();
@@ -154,11 +142,7 @@ protected:
     // utility functions
     void onlineDisconnect();
     void checkOnline();
-    void pauseAll();
     void log(const QString & message, bool statusbar = true);
-
-    /** No descriptions */
-    virtual void customEvent(QCustomEvent * e);
 
     // various timers
     QTimer *animTimer;          // animation timer

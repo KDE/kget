@@ -59,7 +59,7 @@ void DlgLimits::applyData()
     ksettings.maxSimultaneousConnections = le_maxnum->value();
     ksettings.minimumBandwidth = le_minband->value();
     ksettings.maximumBandwidth = le_maxband->value();
-    kmain->checkQueue();
+    //kmain->checkQueue();
 }
 
 void DlgLimits::slotChanged()
