@@ -40,5 +40,5 @@ KDE_ICON = AUTO
 
 messages: rc.cpp
 	$(EXTRACTRC) *.ui > rc.cpp
-	$(EXTRACTRC) */*.rc >> rc.cpp
+	$(EXTRACTRC) *.rc */*.rc >> rc.cpp
 	$(XGETTEXT) *.cpp */*.cpp *.h -o $(podir)/kget.pot
