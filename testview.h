@@ -9,7 +9,7 @@
 #include <klistview.h>
 #include <kmdichildview.h>
 
-#include "mdiviewinterface.h"
+#include "viewinterface.h"
 
 /**
  * This class are only to test the scheduler functions
@@ -42,7 +42,7 @@ private:
 };
  
 
-class TestView : public MdiViewInterface
+class TestView : public KMdiChildView, public ViewInterface
 {
 Q_OBJECT
 public:
@@ -52,13 +52,14 @@ public:
     void initTable();
     void initConnections();
 
-public slots:
-	void schedulerCleared();
-	void schedulerAddedItems( TransferList &);
-	void schedulerRemovedItems( TransferList &);
-	void schedulerChangedItems( TransferList &);
-	void schedulerStatus( GlobalStatus * );
+    // public methods inherited from the ViewInterface
+    void schedulerCleared();
+    void schedulerAddedItems( TransferList &);
+    void schedulerRemovedItems( TransferList &);
+    void schedulerChangedItems( TransferList &);
+    void schedulerStatus( GlobalStatus * );
 
+public slots:
     void setPriority1() {setPriority(1);}
     void setPriority2() {setPriority(2);} 
     void setPriority3() {setPriority(3);}

@@ -1,45 +1,61 @@
+/* This file is part of the KDE project
+   Copyright (C) 2004 KGet Developers < >
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
 #ifndef _VIEWINTERFACE_H
 #define _VIEWINTERFACE_H
 
 #include <kurl.h>
-#include <qvaluelist.h>
 #include <qobject.h>
-
 #include "globals.h"
 
-class TransferList;
+/**
+  * This class defines an unified interface to talk to the scheduler.
+  * It defines some pure virtual functions, that must be implemented to
+  * make a VIEW (a generic 'monitor' over the scheduler) working.
+  *
+  * This class is not a widget, and may be inherited from every 'VIEW'
+  * such as the tray manager, the small dock-widget or any mdichild*
+  * objects.
+  *
+  * @short A base class for exchanging data with the scheduler.
+  * @author Enrico Ros <eros.kde@email.it>
+  * @version $Id: 
+  **/
 
-class ViewInterface : public QObject
+class ViewInterface
 {
-Q_OBJECT
-public:
-	ViewInterface( Scheduler * );
+    public:
+	ViewInterface( Scheduler * scheduler, const char * name = "view-iface" );
+	virtual ~ViewInterface();
 
-signals:
-	/**
-	 * Those are the commands for the scheduler
-     * TEMP(Dario) It's better that TransferList is passed as a reference
-     * becouse it gets created and destroyed by the interface (safer).
+	/** commands (-> scheduler)
+	 * Those functions must be called to dispatch information to the
+	 * connected scheduler.
 	 */
-	void newURLs( const KURL::List &, const QString &destDir );
-	void removeItems( TransferList & );
-	void setPriority( TransferList &, int );
-	void setOperation( TransferList &, TransferOperation );
-	void setGroup( TransferList &, const QString & );
+	void schedNewURLs( const KURL::List &, const QString &destDir );
+	void schedRemoveItems( TransferList & );
+	void schedSetPriority( TransferList &, int );
+	void schedSetOperation( TransferList &, TransferOperation );
+	void schedSetGroup( TransferList &, const QString & );
 
-public slots:
-	/**
-	 * Every slot here is a scheduler notification/answer. Just
-	 * reimplement those in a subclass to catch broadcasted
-	 * messages.
-     * TEMP(Dario) It's better that TransferList is passed as a reference
-     * becouse it gets created and destroyed by the scheduler (safer).
+	/** pure virtual 'notifications' (<- scheduler)
+	 * The functions *must* be implemented to receive notifications
+	 * (files added/removed, status changed, etc..) from the scheduler.
 	 */
-	virtual void schedulerCleared();
-	virtual void schedulerAddedItems( TransferList &);
-	virtual void schedulerRemovedItems( TransferList &);
-	virtual void schedulerChangedItems( TransferList &);
-	virtual void schedulerStatus( GlobalStatus * );
+	virtual void schedulerCleared() {};
+	virtual void schedulerAddedItems( TransferList &) {};
+	virtual void schedulerRemovedItems( TransferList &) {};
+	virtual void schedulerChangedItems( TransferList &) {};
+	virtual void schedulerStatus( GlobalStatus * ) {};
+
+    private:
+	class ViewInterfaceConnector * d;
 };
 
 #endif

@@ -5,14 +5,16 @@
 
 class KGetIconView;
 
-class KGetIconViewItem : public QIconViewItem
+class KGetIconViewTransfer : public QIconViewItem
 {
     public:
-	KGetIconViewItem( KGetIconView * parent, const char * name = 0 );
+	KGetIconViewTransfer( KGetIconView * parent, Transfer * transfer );
 
-    private:
+    protected:
 	
 
+    private:
+	Transfer * transfer;
 };
 
 class KGetIconView : public QIconView, public ViewInterface

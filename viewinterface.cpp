@@ -1,22 +1,23 @@
-#include <qobject.h>
 #include "viewinterface.h"
+#include "viewinterface_p.h"
 #include "scheduler.h"
 #include "transferlist.h"
 
-ViewInterface::ViewInterface( Scheduler * sched )
+//BEGIN ViewInterfaceConnector implementation 
+ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Scheduler * sched, const char * name )
+    : QObject( 0, name ), iface( viewIface )
 {
     // Incoming data: connect shceduler's signals to local slots
-    connect( sched, SIGNAL( addedItems(TransferList &) ),
-	     this, SLOT( schedulerAddedItems(TransferList &) ) );
-    connect( sched, SIGNAL( removedItems(TransferList &) ),
-	     this, SLOT( schedulerRemovedItems(TransferList &) ) );
-    connect( sched, SIGNAL( changedItems(TransferList &) ),
-	     this, SLOT( schedulerChangedItems(TransferList &) ) );
     connect( sched, SIGNAL( clear() ),
-	     this, SLOT( schedulerCleared() ) );
+	     this, SLOT( slotCleared() ) );
+    connect( sched, SIGNAL( addedItems(TransferList &) ),
+	     this, SLOT( slotAddedItems(TransferList &) ) );
+    connect( sched, SIGNAL( removedItems(TransferList &) ),
+	     this, SLOT( slotRemovedItems(TransferList &) ) );
+    connect( sched, SIGNAL( changedItems(TransferList &) ),
+	     this, SLOT( slotChangedItems(TransferList &) ) );
     connect( sched, SIGNAL( globalStatus(GlobalStatus *) ),
-	     this, SLOT( schedulerStatus(GlobalStatus *) ) );
-
+	     this, SLOT( slotStatus(GlobalStatus *) ) );
     // Outgoing data: connect local signals to scheduler's slots
     connect( this, SIGNAL( newURLs(const KURL::List &, const QString &) ),
 	     sched, SLOT( slotNewURLs(const KURL::List &, const QString &) ) );
@@ -30,20 +31,73 @@ ViewInterface::ViewInterface( Scheduler * sched )
 	     sched, SLOT( slotSetGroup(TransferList &, const QString &) ) );
 }
 
+void ViewInterfaceConnector::slotCleared()
+{
+    //kdDebug() << "slotCleared()" << endl;
+    iface->schedulerCleared();
+}
 
-void ViewInterface::schedulerCleared()
-{}
+void ViewInterfaceConnector::slotAddedItems( TransferList &tl )
+{
+    //kdDebug() << "slotAddedItems()" << endl;
+    iface->schedulerAddedItems( tl );
+}
 
-void ViewInterface::schedulerAddedItems( TransferList &)
-{}
+void ViewInterfaceConnector::slotRemovedItems( TransferList &tl )
+{
+    //kdDebug() << "slotRemovedItems()" << endl;
+    iface->schedulerRemovedItems( tl );
+}
 
-void ViewInterface::schedulerRemovedItems( TransferList &)
-{}
+void ViewInterfaceConnector::slotChangedItems( TransferList &tl )
+{
+    //kdDebug() << "slotChangedItems()" << endl;
+    iface->schedulerChangedItems( tl );
+}
 
-void ViewInterface::schedulerChangedItems( TransferList &)
-{}
+void ViewInterfaceConnector::slotStatus( GlobalStatus *gs )
+{
+    //kdDebug() << "slotStatus()" << endl;
+    iface->schedulerStatus( gs );
+}
+//END 
 
-void ViewInterface::schedulerStatus( GlobalStatus * )
-{}
 
-#include "viewinterface.moc"
+//BEGIN ViewInterface iplementation 
+ViewInterface::ViewInterface( Scheduler * scheduler, const char * name )
+{
+    d = new ViewInterfaceConnector( this, scheduler, name );
+}
+
+ViewInterface::~ViewInterface()
+{
+    delete d;
+}
+
+void ViewInterface::schedNewURLs( const KURL::List &l, const QString &dir )
+{
+    d->newURLs( l, dir );
+}
+
+void ViewInterface::schedRemoveItems( TransferList &l )
+{
+    d->removeItems( l );
+}
+
+void ViewInterface::schedSetPriority( TransferList &l, int p )
+{
+    d->setPriority( l, p );
+}
+
+void ViewInterface::schedSetOperation( TransferList &l, TransferOperation op )
+{
+    d->setOperation( l, op );
+}
+
+void ViewInterface::schedSetGroup( TransferList &l, const QString & g )
+{
+    d->setGroup( l, g );
+}
+//END 
+
+#include "viewinterface_p.moc"

@@ -46,7 +46,7 @@ bool TestViewItem::update(Transfer * t)
 
 
 TestView::TestView(Scheduler * _scheduler, QWidget * parent)
-    : MdiViewInterface(_scheduler),
+    : ViewInterface(_scheduler),
       scheduler(_scheduler)
 {
     //listView
@@ -133,7 +133,7 @@ void TestView::setPriority(int n)
             list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
         ++it;
     }
-    emit MdiViewInterface::setPriority(list, n);
+    schedSetPriority(list, n);
 
     sDebugOut << endl;
 }

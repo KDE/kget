@@ -5,10 +5,12 @@
 *
 */
 
-KGetIconViewItem::KGetIconViewItem( KGetIconView * parent, const char * name )
-    : QIconViewItem( parent, name )
+KGetIconViewTransfer::KGetIconViewTransfer( KGetIconView * parent, Transfer * t )
+    : QIconViewItem( parent ), transfer( t )
 {
-
+    setRenameEnabled( false );
+    setDragEnabled( false );
+    setDropEnabled( false );
 
 }
  

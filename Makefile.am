@@ -15,7 +15,7 @@ kget_SOURCES = slave.cpp transferlist.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
                dlgAutomation.cpp dlgAdvanced.cpp \
                main.cpp dockindividual.cpp kget_iface.skel safedelete.cpp \
-               scheduler.cpp mdiviewinterface.cpp viewinterface.cpp \
+               scheduler.cpp viewinterface.cpp \
                iconview.cpp testview.cpp
 
 noinst_HEADERS = globals.h \
@@ -25,7 +25,7 @@ noinst_HEADERS = globals.h \
                  kfileio.h kmainwidget.h logwindow.h settings.h \
                  transfer.h transferlist.h slave.h \
                  dockindividual.h \
-                 scheduler.h viewinterface.h mdiviewinterface.h \
+                 scheduler.h viewinterface.h viewinterface_p.h\
                  iconview.h testview.h 
 
 kget_METASOURCES = AUTO
