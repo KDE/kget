@@ -161,8 +161,9 @@ void KGet_plug_in::slotShowLinks()
 
 void KGet_plug_in::startDownload( const KURL::List& urls )
 {
-    if (!p_dcopServer->isApplicationRegistered ("kget"))
-        KRun::runCommand("kget");
+  if (!p_dcopServer->isApplicationRegistered ("kget")) {
+    KApplication::startServiceByDesktopName("kget");
+  }
 
     kapp->updateRemoteUserTimestamp("kget");
     QByteArray data;
