@@ -30,7 +30,7 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
+                <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>cb_onerror</cstring>
                     </property>
@@ -38,7 +38,7 @@
                         <string>On login or timeout error</string>
                     </property>
                 </widget>
-                <widget class="QLabel" row="1" column="1">
+                <widget class="QLabel" row="2" column="1">
                     <property name="name">
                         <cstring>lb_after</cstring>
                     </property>
@@ -46,7 +46,7 @@
                         <string>Reconnect after:</string>
                     </property>
                 </widget>
-                <widget class="QLabel" row="2" column="1">
+                <widget class="QLabel" row="0" column="0">
                     <property name="name">
                         <cstring>lb_retries</cstring>
                     </property>
@@ -54,7 +54,7 @@
                         <string>Number of retries:</string>
                     </property>
                 </widget>
-                <widget class="KIntSpinBox" row="1" column="2">
+                <widget class="KIntSpinBox" row="2" column="2">
                     <property name="name">
                         <cstring>le_after</cstring>
                     </property>
@@ -68,7 +68,7 @@
                         <number>1</number>
                     </property>
                 </widget>
-                <widget class="KIntSpinBox" row="2" column="2">
+                <widget class="KIntSpinBox" row="0" column="2">
                     <property name="name">
                         <cstring>le_retries</cstring>
                     </property>
@@ -84,15 +84,7 @@
                         <string>On broken connection</string>
                     </property>
                 </widget>
-                <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="2">
-                    <property name="name">
-                        <cstring>cb_autoresume</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Automatically resume if possible</string>
-                    </property>
-                </widget>
-                <spacer row="1" column="0">
+                <spacer row="0" column="1">
                     <property name="name">
                         <cstring>spacer2</cstring>
                     </property>
@@ -339,18 +331,6 @@
     <connection>
         <sender>cb_onerror</sender>
         <signal>toggled(bool)</signal>
-        <receiver>lb_retries</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>cb_onerror</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>le_retries</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>cb_onerror</sender>
-        <signal>toggled(bool)</signal>
         <receiver>DlgConnectionBase</receiver>
         <slot>slotChanged()</slot>
     </connection>
@@ -368,12 +348,6 @@
     </connection>
     <connection>
         <sender>cb_onbroken</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>DlgConnectionBase</receiver>
-        <slot>slotChanged()</slot>
-    </connection>
-    <connection>
-        <sender>cb_autoresume</sender>
         <signal>toggled(bool)</signal>
         <receiver>DlgConnectionBase</receiver>
         <slot>slotChanged()</slot>

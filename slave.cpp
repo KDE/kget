@@ -115,7 +115,6 @@ void Slave::run()
                 mDebug << " FETCHED COMMAND       RETR" << endl;
                 KIO::Scheduler::checkSlaveOnHold( true );
                 copyjob = new KIO::GetFileJob(m_src, m_dest);
-                copyjob->setAutoErrorHandlingEnabled(true);
                 Connect();
                 PostMessage(SLV_RESUMED);
                 break;
@@ -233,16 +232,32 @@ void Slave::slotConnected(KIO::Job *)
 void Slave::slotResult(KIO::Job * job)
 {
     mDebugIn << endl;
-    if (job->error()) {
-        InfoMessage(job->errorString());
-        terminate(); // AEEIIII!
-        wait();
-        PostMessage(SLV_DELAYED);
-    } else
-    {
+    terminate(); // AEEIIII!
+    wait();
+    copyjob=0L;
+    KIO::Error error=KIO::Error(job->error());
+    if (!error) {
         terminate(); // AEEIIII!
         wait();
         PostMessage(SLV_FINISHED);
+    }
+    else {
+        QString tmsg="<code><font color=\"red\"> <strong>" + job->errorString() + \
+                     "</font> </strong></code><br/>";
+        InfoMessage(tmsg);
+        if (m_parent->retryOnError() && \
+            ((error==KIO::ERR_COULD_NOT_LOGIN) || (error==KIO::ERR_SERVER_TIMEOUT))) {
+            //Timeout or login error
+            PostMessage(SLV_ERROR);
+        }
+        else if (m_parent->retryOnBroken() && (error==KIO::ERR_CONNECTION_BROKEN)) {
+            // Connection Broken
+            PostMessage(SLV_BROKEN);
+        }
+        else {
+            job->showErrorDialog();
+            PostMessage(SLV_DELAYED);
+        }
     }
     mDebugOut << endl;
 }

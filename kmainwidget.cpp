@@ -2282,9 +2282,14 @@ void KMainWidget::customEvent(QCustomEvent * _e)
         e->getItem()->slotTotalSize(e->getData());
         break;
 
-    case Slave::SLV_ABORTED:
-        e->getItem()->slotExecAbort(e->getMsg());
+    case Slave::SLV_ERROR:
+        e->getItem()->slotExecError();
         break;
+
+    case Slave::SLV_BROKEN:
+        e->getItem()->slotExecBroken();
+        break;
+
     case Slave::SLV_REMOVED:
         e->getItem()->slotExecRemove();
         break;

@@ -72,8 +72,8 @@ void DlgConnection::setData()
 {
     lb_after->setEnabled(ksettings.b_reconnectOnError);
     le_after->setEnabled(ksettings.b_reconnectOnError);
-    lb_retries->setEnabled(ksettings.b_reconnectOnError);
-    le_retries->setEnabled(ksettings.b_reconnectOnError);
+//    lb_retries->setEnabled(ksettings.b_reconnectOnError);
+//    le_retries->setEnabled(ksettings.b_reconnectOnError);
     cb_onerror->setChecked(ksettings.b_reconnectOnError);
 
     le_after->setValue(ksettings.reconnectTime);
@@ -81,7 +81,7 @@ void DlgConnection::setData()
 
     cb_onbroken->setChecked(ksettings.b_reconnectOnBroken);
 
-    cb_autoresume->setChecked(KProtocolManager::autoResume());
+//    cb_autoresume->setChecked(KProtocolManager::autoResume());
 
     le_nodata->setValue(ksettings.timeoutData);
     le_noresume->setValue(ksettings.timeoutDataNoResume);

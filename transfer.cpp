@@ -363,6 +363,7 @@ void Transfer::slotResume()
 
     status = ST_TRYING;
     mode = MD_QUEUED;
+    logMessage(i18n("Attempt number %1").arg(retryCount));
 
     sDebug << "sending Resume to slave " << endl;
     m_pSlave->Op(Slave::RETR);
@@ -753,38 +754,30 @@ void Transfer::slotExecPause()
     sDebugOut << endl;
 }
 
-void Transfer::slotExecAbort(const QString & _msg)
+void Transfer::slotExecError()
 {
-    mode = MD_DELAYED;
+    sDebugIn << endl;
+
     status = ST_STOPPED;
-    slotSpeed(0);               //need???????
-    QString tmps;
-
-    tmps = "<code><font color=\"red\"> <strong>" + _msg + "</font> </strong></code><br/>";
-
-    logMessage(tmps);
-
-    if (ksettings.b_reconnectOnError) {
-        retryCount++;
-        if (retryCount == ksettings.reconnectRetries) { // no more retries
-            if (retryCount > ksettings.reconnectRetries)
-                ksettings.reconnectRetries = retryCount;
-            status = ST_STOPPED;
-            mode = MD_DELAYED;
-        } else {
-            status = ST_STOPPED;
-            mode = MD_SCHEDULED;
-            startTime = QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60);
-            logMessage(i18n("Attempt number %1").arg(retryCount));
-        }
-    } else {                    // if reconnecting is not enabled - simply set to delayed
-        status = ST_STOPPED;
-        mode = MD_DELAYED;
-    }
-
-    emit statusChanged(this, OP_ABORTED);
+    mode = MD_SCHEDULED;
+    startTime=QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60);
+    emit statusChanged(this, OP_SCHEDULED);
+    
+    sDebugOut << endl;
 }
 
+void Transfer::slotExecBroken()
+{
+    sDebugIn << endl;
+    
+    status = ST_STOPPED;
+    mode = MD_QUEUED;
+    emit statusChanged(this, OP_QUEUED);
+    
+    sDebugOut << endl;
+} 
+
+   
 void Transfer::slotExecRemove()
 {
     sDebugIn << endl;
@@ -881,6 +874,16 @@ void Transfer::maybeShow()
 {
     if ( ksettings.b_showIndividual && getStatus() != Transfer::ST_FINISHED )
         dlgIndividual->show();
+}
+
+bool Transfer::retryOnError()
+{
+    return (ksettings.b_reconnectOnError && (retryCount <= ksettings.reconnectRetries));
+}
+
+bool Transfer::retryOnBroken()
+{
+    return (ksettings.b_reconnectOnBroken && (retryCount <= ksettings.reconnectRetries));
 }
 
 #include "transfer.moc"

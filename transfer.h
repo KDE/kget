@@ -156,12 +156,16 @@ public:
     void slotExecDelay();
     void slotExecSchedule();
     void slotExecConnected();
-    void slotExecAbort(const QString &);
+    void slotExecError();
+    void slotExecBroken();
     void slotCanResume(bool _bCanResume);
     void slotSpeed(unsigned long);
 
     bool isVisible() const;
     void maybeShow();
+    
+    bool retryOnError();
+    bool retryOnBroken();
 
 public slots:
     // operation methods
