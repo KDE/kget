@@ -36,6 +36,7 @@
 #include <qcheckbox.h>
 #include <kpushbutton.h>
 #include <ksqueezedtextlabel.h>
+#include <kdatetimewidget.h>
 
 #include <kapplication.h>
 #include <kaction.h>
@@ -201,7 +202,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     topLayout->addWidget(panelAdvanced);
     slotToggleAdvanced(ksettings.b_advancedIndividual);
-    
+
     resize( sizeHint() );
 
     //bool keepOpenChecked = false;

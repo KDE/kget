@@ -30,15 +30,14 @@
 
 #include <qgroupbox.h>
 #include <qstringlist.h>
-
-#include <knuminput.h>
-
-#include <kdatetimewidget.h>
+#include <qdatetime.h>
 
 class QCheckBox;
 class QGroupBox;
 class QLabel;
 class KLineEdit;
+class KDateTimeWidget;
+class KIntNumInput;
 
 class DlgAutomation:public QGroupBox
 {

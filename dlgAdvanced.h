@@ -29,11 +29,12 @@
 #define _DLGADVANCED_H
 
 #include <qgroupbox.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qradiobutton.h>
 #include <qbuttongroup.h>
 #include <qstringlist.h>
+
+class QLabel;
+class QCheckBox;
+class QRadioButton;
 
 class DlgAdvanced:public QGroupBox
 {

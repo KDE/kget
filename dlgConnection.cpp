@@ -34,6 +34,7 @@
 #include <kprotocolmanager.h>
 #include <kdialog.h>
 #include <knuminput.h>
+#include <kcombobox.h>
 
 
 #include "kmainwidget.h"

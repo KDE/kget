@@ -25,6 +25,9 @@
  ***************************************************************************/
 
 #include <qlayout.h>
+#include <qlabel.h>
+#include <qcheckbox.h>
+#include <qradiobutton.h>
 
 #include <kprotocolmanager.h>
 

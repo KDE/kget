@@ -30,6 +30,8 @@
 #include <qlayout.h>
 
 #include <klocale.h>
+#include <kdatetimewidget.h>
+#include <knuminput.h>
 #include "common.h"
 
 #include <kdialog.h>

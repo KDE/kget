@@ -31,12 +31,11 @@
 #include <qstringlist.h>
 #include <qwidget.h>
 
-#include <kcombobox.h>
-
 class KIntNumInput;
 class QCheckBox;
 class QGroupBox;
 class QLabel;
+class KComboBox;
 
 class DlgConnection:public QWidget
 {

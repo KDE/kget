@@ -30,6 +30,7 @@
 #include <kapplication.h>
 #include <klocale.h>
 #include <kaction.h>
+#include <kcombobox.h>
 
 #include "dlgConnection.h"
 #include "dlgAutomation.h"

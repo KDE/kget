@@ -28,7 +28,6 @@
 #define __dlgprogress_h__
 
 #include <qdatetime.h>
-#include <kdatetimewidget.h>
 
 #include <qwidget.h>
 
@@ -42,6 +41,7 @@ class QCheckBox;
 class KPushButton;
 class KProgress;
 class KToggleAction;
+class KDateTimeWidget;
 
 class DockIndividual;
 
@@ -70,7 +70,7 @@ public slots:
     void slotOpenFile();
 
     bool keepDialogOpen() const { return bKeepDlgOpen; }
-    
+
 protected slots:
     void slotToggleAdvanced(bool);
     void slotToggleDock();
