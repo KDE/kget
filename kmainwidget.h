@@ -162,13 +162,13 @@ protected:
     void updateStatusBar();
 
     // some flags
-    bool b_online;
+    bool b_connected;
     bool b_viewPreferences;
 
     // utility functions
     void onlineDisconnect();
     void checkOnline();
-    void pauseAll();
+    void stopAll();
     void log(const QString & message, bool statusbar = true);
 
     /** No descriptions */

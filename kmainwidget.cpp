@@ -124,7 +124,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
         cfg.sync();
     }
 
-    b_online = TRUE;
+    b_connected = TRUE;
     b_viewLogWindow = FALSE;
     b_viewPreferences = FALSE;
 
@@ -174,9 +174,8 @@ KMainWidget::KMainWidget(bool bStartDocked)
     }
 
     checkOnline();
-    if (!b_online) {
-        log(i18n("Starting offline"));
-    }
+    ksettings.b_offline=( !b_connected || ksettings.b_offlineMode );
+
     // Setup animation timer
     animTimer = new QTimer(this);
     animCounter = 0;
@@ -234,15 +233,16 @@ KMainWidget::KMainWidget(bool bStartDocked)
     m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
 
 
-    m_paOfflineMode->setChecked(ksettings.b_offlineMode);
-
-
-    if (ksettings.b_offlineMode)
-        setCaption(i18n("Offline"), false);
-    else {
-        setCaption(QString::null, false);
+    m_paOfflineMode->setChecked(ksettings.b_offline);
+    if (!ksettings.b_offlineMode) 
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
-    }
+
+    if (ksettings.b_offline) {
+        setCaption(i18n("Offline"), false);
+        log(i18n("Starting offline"));
+    } else
+        setCaption(QString::null, false);
+    
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowLog->setChecked(b_viewLogWindow);
 
@@ -845,22 +845,22 @@ void KMainWidget::slotDeleteCurrent()
 }
 
 
-void KMainWidget::pauseAll()
+void KMainWidget::stopAll()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    log(i18n("Pausing all jobs"), false);
+    log(i18n("Stopping all jobs"), false);
 
     TransferIterator it(myTransferList);
     Transfer::TransferStatus Status;
     for (; it.current(); ++it) {
         Status = it.current()->getStatus();
         if (Status == Transfer::ST_TRYING || Status == Transfer::ST_RUNNING)
-            it.current()->slotRequestPause();
+            it.current()->slotStop();
     }
-
+    slotUpdateActions();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1274,7 +1274,7 @@ void KMainWidget::checkQueue()
     int status;
     Transfer *item;
 
-    if (!ksettings.b_offlineMode && b_online) {
+    if (!ksettings.b_offline) {
 
         TransferIterator it(myTransferList);
 
@@ -1294,7 +1294,7 @@ void KMainWidget::checkQueue()
 
             isQuequed = (item->getMode() == Transfer::MD_QUEUED);
 
-            if (!isRunning && isQuequed && !ksettings.b_offlineMode) {
+            if (!isRunning && isQuequed && !ksettings.b_offline) {
                 log(i18n("Starting another queued job."));
                 item->slotResume();
                 numRun++;
@@ -1673,24 +1673,24 @@ void KMainWidget::slotToggleOfflineMode()
     sDebugIn "ksettings.b_offlineMode = " << ksettings.b_offlineMode << endl;
 #endif
 
-
     ksettings.b_offlineMode = !ksettings.b_offlineMode;
-    if (ksettings.b_offlineMode) {
+    ksettings.b_offline=(ksettings.b_offlineMode || !b_connected);
+    if (ksettings.b_offline) {
         log(i18n("Offline mode on."));
-        pauseAll();
+        stopAll();
         setCaption(i18n("Offline"), false);
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_off"));
     } else {
         log(i18n("Offline mode off."));
-        setCaption(i18n(""), false);
+        setCaption(QString::null, false);
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
-    m_paOfflineMode->setChecked(ksettings.b_offlineMode);
+
+    m_paOfflineMode->setChecked(ksettings.b_offline);
 
 
     slotUpdateActions();
     checkQueue();
-
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -1923,9 +1923,9 @@ void KMainWidget::slotUpdateActions()
             }
             // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
 #ifdef _DEBUG
-            sDebug << "-->ONLINE= " << ksettings.b_offlineMode << endl;
+            sDebug << "-->ONLINE= " << ksettings.b_offline << endl;
 #endif
-            if (item == first_item && !ksettings.b_offlineMode) {
+            if (item == first_item && !ksettings.b_offline) {
                 switch (item->getStatus()) {
                 case Transfer::ST_TRYING:
                 case Transfer::ST_RUNNING:
@@ -2077,7 +2077,7 @@ void KMainWidget::onlineDisconnect()
     sDebugIn << endl;
 #endif
 
-    if (!b_online) {
+    if (!b_connected) {
         return;
     }
 
@@ -2104,9 +2104,21 @@ void KMainWidget::slotCheckConnection()
 #ifdef _DEBUG
     //sDebugIn << endl;
 #endif
-
+    bool old = b_connected;
     checkOnline();
-
+    if (b_connected != old) {
+        if (b_connected) {
+            log(i18n("We are online."));
+            setCaption(QString::null, false);
+            ksettings.b_offline=ksettings.b_offlineMode;
+            checkQueue();
+        } else {
+            log(i18n("We are offline."));
+            setCaption(i18n("Offline"), false);
+            ksettings.b_offline=true;
+            stopAll();
+        }
+    }
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
@@ -2118,8 +2130,6 @@ void KMainWidget::checkOnline()
 #ifdef _DEBUG
     //sDebugIn << endl;
 #endif
-
-    bool old = b_online;
 
     struct ifreq ifr;
 
@@ -2134,40 +2144,28 @@ void KMainWidget::checkOnline()
         // get the flags for particular device
         if (ioctl(_sock, SIOCGIFFLAGS, &ifr) < 0) {
             flag = true;
-            b_online = false;
+            b_connected = false;
         } else if (ifr.ifr_flags == 0) {
 #ifdef _DEBUG
             sDebug << "Can't get flags from interface " << ifr.ifr_name << endl;
 #endif
-            b_online = false;
+            b_connected = false;
         } else if (ifr.ifr_flags & IFF_UP) {    // if (ifr.ifr_flags & IFF_RUNNING)
-            b_online = true;
+            b_connected = true;
         } else {
-            b_online = false;
+            b_connected = false;
         }
     } else {
-        b_online = true;        // PERMANENT connection
+        b_connected = true;        // PERMANENT connection
     }
 
-    m_paOfflineMode->setEnabled(b_online);
+    m_paOfflineMode->setEnabled(b_connected);
 
-    if (b_online != old) {
-        if (flag) {             // so that we write this only once when connection is changed
+    if (flag) {
 #ifdef _DEBUG
             sDebug << "Unknown interface " << ifr.ifr_name << endl;
 #endif
         }
-
-        if (b_online) {
-            log(i18n("We are online."));
-            checkQueue();
-        } else {
-            log(i18n("We are offline."));
-            pauseAll();
-        }
-    }
-
-
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif

@@ -186,6 +186,7 @@ public slots:
     void slotProcessedSize(KIO::filesize_t);
 
     void slotStartTime(const QDateTime &);
+    void slotStop(); // stop all transfers when going offline
     
 signals:
     void statusChanged(Transfer *, int _operation);

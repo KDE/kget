@@ -181,9 +181,9 @@ void Transfer::synchronousAbort()
 
 void Transfer::slotUpdateActions()
 {
-    sDebugIn << "the item Status is =" << status << "offline=" << ksettings.b_offlineMode << endl;
-    //if we are in offlinemode just disable all actions  and return
-    if (ksettings.b_offlineMode) {
+    sDebugIn << "the item Status is =" << status << "offline=" << ksettings.b_offline << endl;
+     //if we are offline just disable Resume and Pause and return
+    if (ksettings.b_offline) {
         m_paResume->setEnabled(false);
         m_paPause->setEnabled(false);
         m_paRestart->setEnabled(false);
@@ -395,6 +395,26 @@ void Transfer::slotResume()
 }
 
 
+ void Transfer::slotStop()
+{
+    sDebugIn << endl;
+
+    logMessage(i18n("Stopping"));
+
+    assert(status <= ST_RUNNING && ksettings.b_offline);
+
+    m_pSlave->Op(Slave::KILL); // KILL doesn't post a Message
+    sDebug << "Killing Slave" << endl;
+
+    slotSpeed(0);
+    mode = MD_QUEUED;
+    status=ST_STOPPED;
+    m_paQueue->setChecked(true);
+
+    slotUpdateActions();
+
+    sDebugOut << endl;
+}
 
 
 void Transfer::slotRequestPause()

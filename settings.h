@@ -132,7 +132,9 @@ public:
 
     uint connectionType;
     uint linkNumber;
-    bool b_offlineMode;
+    bool b_offlineMode;// If we want to be offline
+    bool b_offline;    // If we really are offline
+
 
     // automation options
     bool b_autoSave;
