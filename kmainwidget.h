@@ -66,6 +66,9 @@ Q_OBJECT public:
 
     // dcop interface
     virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
+    virtual bool isDropTargetVisible() const;
+    virtual void setDropTargetVisible( bool setVisible );
+
 
     void checkQueue();
 
