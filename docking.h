@@ -59,7 +59,6 @@ Q_OBJECT public:
     DockWidget(KMainWidget * parent);
     ~DockWidget();
     /** No descriptions */
-    virtual void contextMenuAboutToShow ( KPopupMenu* menu );
     void updateToolTip( const QString& );
 
 
@@ -74,7 +73,7 @@ protected:
 
 private:
     KMainWidget *parent;
-   DynamicTip * dtip;
+    DynamicTip * dtip;
 
 };
 

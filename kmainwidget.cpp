@@ -110,7 +110,7 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 
 KMainWidget::KMainWidget(bool bStartDocked)
     : KGetIface( "KGet-Interface" ),
-      KMainWindow(0, "kget mainwindow"),
+      KMainWindow(0, "kget mainwindow",0),
       prefDlg( 0 ), kdock( 0 )
 {
 #ifdef _DEBUG
@@ -672,6 +672,10 @@ void KMainWidget::writeLog()
 #endif
 }
 
+void KMainWidget::close()
+{
+    slotQuit();
+}
 
 void KMainWidget::slotQuit()
 {

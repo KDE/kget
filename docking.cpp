@@ -93,11 +93,6 @@ void DockWidget::mousePressEvent(QMouseEvent * e)
 }
 
 
-void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
-{
-    menu->connectItem( menu->idAt(4), kmain, SLOT(slotQuit()));
-}
-
 void DockWidget::updateToolTip( const QString& _status )
 {
    dtip->setStatus( _status );
