@@ -52,7 +52,9 @@ class Settings;
 class KMainWidget:public KMainWindow, virtual public KGetIface
 {
 
-Q_OBJECT public:
+Q_OBJECT 
+
+public:
     enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                            ID_TOTAL_TIME         , ID_TOTAL_SPEED                };
 
@@ -61,8 +63,7 @@ Q_OBJECT public:
 
     void addTransfer( const QString& src );
     void addTransferEx( const KURL& url,
-                        const KURL& destFile = KURL(),
-                        bool bShowIndividual = false );
+                        const KURL& destFile = KURL());
 
     // dcop interface
     virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );

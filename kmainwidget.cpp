@@ -1016,8 +1016,7 @@ void KMainWidget::slotPasteTransfer()
 
 // destFile must be a filename, not a directory! And it will be deleted, if
 // it exists already, without further notice.
-void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
-                                bool bShowIndividual)
+void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -1107,7 +1106,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
     Transfer *item = myTransferList->addTransfer(url, destURL);
     item->updateAll(); // update the remaining fields
 
-    if (bShowIndividual)
+    if (ksettings.b_showIndividual)
         item->showIndividual();
 
     myTransferList->clearSelection();
