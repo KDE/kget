@@ -2171,12 +2171,15 @@ static int sockets_open()
 #endif
 
     inet_sock = socket(AF_INET, SOCK_DGRAM, 0);
+#ifdef AF_IPX
     ipx_sock = socket(AF_IPX, SOCK_DGRAM, 0);
-#ifdef AF_AX25
+#else
+    ipx_sock = -1;
+#endif
 
+#ifdef AF_AX25
     ax25_sock = socket(AF_AX25, SOCK_DGRAM, 0);
 #else
-
     ax25_sock = -1;
 #endif
 
