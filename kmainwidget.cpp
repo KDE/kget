@@ -56,7 +56,6 @@
 #include <kglobal.h>
 #include <kwin.h>
 #include <kmessagebox.h>
-#include <kaction.h>
 #include <kstdaction.h>
 #include <khelpmenu.h>
 #include <kedittoolbar.h>

@@ -31,10 +31,10 @@
 #include <qguardedptr.h>
 
 #include <kmainwindow.h>
-//#include <krootpixmap.h>
+#include <kaction.h>
 #include "common.h"
 class KAction;
-class KToggleAction;
+//class KToggleAction;
 class KRadioAction;
 
 class DockWidget;
@@ -77,7 +77,7 @@ Q_OBJECT public:
     bool b_viewLogWindow;
 
     void readTransfersEx(const QString & txt);
-
+ 
 public slots:
     void slotPasteTransfer();
     void slotToggleLogWindow();
@@ -204,6 +204,9 @@ private:
 
     KToggleAction *m_paShowStatusbar;
     KToggleAction *m_paDropTarget;
+
+    public:
+    void activateDropTarget(void){if(!m_paDropTarget->isChecked()) m_paDropTarget->activate();};
 
 };
 

@@ -48,6 +48,7 @@ static const char *version = KGETVERSION;
 
 
 static KCmdLineOptions option[] = {
+                                      { "showDropTarget", I18N_NOOP("Start kget with drop target"), 0 },
                                       {"+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
                                       {0, 0, 0}
                                   };
@@ -149,7 +150,9 @@ int KGetApp::newInstance()
     else
         KWin::setActiveWindow (kmainwidget->winId());
 
-
+     if (args->isSet("showDropTarget"))
+         kmain->activateDropTarget();
+     
     if (args->count()==1)
     {
 #ifdef _DEBUG
