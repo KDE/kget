@@ -90,7 +90,7 @@ Transfer::~Transfer()
     // needs some more investigation
     if ( !m_pSlave->running() )
         delete m_pSlave;
-    
+
     delete dlgIndividual;
     sDebugOut << endl;
 }
@@ -201,7 +201,9 @@ void Transfer::slotUpdateActions()
         dlgIndividual->update();
         return;
     }
+
     UpdateRetry();
+    
     switch (status) {
     case ST_TRYING:
     case ST_RUNNING:
@@ -219,7 +221,6 @@ void Transfer::slotUpdateActions()
         m_paResume->setEnabled(false);
         m_paPause->setEnabled(false);
         m_paRestart->setEnabled(false);
-
         break;
     }
 
@@ -272,7 +273,6 @@ void Transfer::setSpeed(unsigned long _speed)
     remainingTime = KIO::calculateRemaining(totalSize, processedSize, speed);
     //sDebugOut <<endl;
 }
-
 
 
 

@@ -320,7 +320,7 @@ void KMainWidget::setupGUI()
     myTransferList = new TransferList(this, "transferList");
     myTransferList->setSorting(-1);
     setListFont();
-    
+
     KActionCollection *coll = actionCollection();
 
     connect(myTransferList, SIGNAL(selectionChanged()), this, SLOT(slotUpdateActions()));
@@ -1038,7 +1038,8 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
             if (df.isEmpty()) {           // if we didn't provide destination
                 if (!b_expertMode) {
                     // open the filedialog for confirmation
-                    KFileDialog dlg(destDir, QString::null,this,"save_as",true);
+                    KFileDialog dlg( destDir, QString::null,
+                                     isVisible() ? this : 0L, "save_as", true);
                     dlg.setCaption(i18n("Save As"));
                     dlg.setSelection(url.fileName());
                     dlg.setOperationMode(KFileDialog::Saving);
