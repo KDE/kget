@@ -246,11 +246,19 @@ void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
     if(column == 3)
     {
         Transfer::Info info = transfer->info();
-        float rectWidth = (width-4) * info.percent / 100;
+        float rectWidth = (width-6) * info.percent / 100;
+
+        p->setPen(cg.background().dark());
+        p->drawRect(2,2,width-4, height()-4);
         
-        p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight));
+        p->setPen(cg.background());
+        p->fillRect(3,3,width-6, height()-6, cg.brush(QColorGroup::Background));
+        
+        p->setPen(cg.brush(QColorGroup::Highlight).color().light(105));
+        p->drawRect(3,3,rectWidth, height()-6);
+        p->fillRect(4,4,rectWidth-2, height()-8, cg.brush(QColorGroup::Highlight));
+        
         p->setPen(cg.foreground());
-        p->drawRect(2,2,rectWidth, height()-4);
         p->drawText(2,2,width-4, height()-4, Qt::AlignCenter, 
                     QString().setNum(info.percent) + "%");
     }
