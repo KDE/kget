@@ -1,4 +1,10 @@
 2005-01-14 Dario Massarin <nekkar@libero.it>
+        * Improve the mainview look&feel, especially in the way the groups
+        are painted. The priority column has been removed. The arrow indicators
+        showing the priority have been changed to display a kget icon, that gets
+        colorized with a color which depends on the priority level.
+
+2005-01-14 Dario Massarin <nekkar@libero.it>
         * Implement delay in the transfer class. We don't need this function
         to be abstract virtual. Remove its partial implementation from the 
         TransferKio class.

@@ -22,6 +22,7 @@
 #include <kiconloader.h>
 #include <kio/global.h>
 #include <kimageeffect.h>
+#include <kiconeffect.h>
 
 #include "mainview.h"
 #include "core/transferlist.h"
@@ -32,12 +33,13 @@ MainViewGroupItem::MainViewGroupItem(MainView * parent, Group * g)
       group(g)
 {
     setOpen(true);
+    setHeight(30);
 }
 
 void MainViewGroupItem::updateContents(bool updateAll)
 {
     Group::Info info = group->info();
-    
+
     if(updateAll)
     {
         setText(1, info.name);
@@ -47,66 +49,56 @@ void MainViewGroupItem::updateContents(bool updateAll)
 
 void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
 {
+    //I must set the height becouse it gets overwritten when changing fonts
+    setHeight(30);
+   
     //QListViewItem::paintCell(p, cg, column, width, align);
     
-/*    QPixmap * topLeftPix = new QPixmap(
-        KImageEffect::gradient( QSize( width, height() ),
-        cg.brush(QColorGroup::Background).color(), 
-        cg.brush(QColorGroup::Background).color().light(110),
-        KImageEffect::VerticalGradient ) );*/
-        
+    static QPixmap * topGradient = new QPixmap(
+               KImageEffect::gradient( 
+                   QSize( 1, 8 ),
+                   cg.brush(QColorGroup::Background).color().light(110),
+                   cg.brush(QColorGroup::Background).color(),
+                   KImageEffect::VerticalGradient ) );
 
-//     p->drawPixmap(0,0, *topLeftPix);
-    p->fillRect(0,0,width, height(), cg.brush(QColorGroup::Background));
+    static QPixmap * bottomGradient = new QPixmap(
+               KImageEffect::gradient( 
+                   QSize( 1, 5 ),
+                   cg.brush(QColorGroup::Background).color().dark(150),
+                   QColor( Qt::white ),
+                   KImageEffect::VerticalGradient ) );
+
+    p->fillRect(0,0,width, 4, QColor( Qt::white ));
+    p->fillRect(0,12,width, height()-4-8-5, cg.brush(QColorGroup::Background));
+    p->drawTiledPixmap(0,4, width, 8, *topGradient);
+    p->drawTiledPixmap(0,height()-5, width, 5, *bottomGradient);
+    p->setPen(QPen(cg.brush(QColorGroup::Background).color().dark(130),1));
+    p->drawLine(0,4,width, 4);
     
-   
+    p->setPen(cg.brush(QColorGroup::Foreground).color());
+    
     if(column == 0)
-    {        
-         p->drawPixmap(3, 0, SmallIcon("package"));
-    }
-    else if(column == 1)
     {
+        p->drawPixmap(3, 4, SmallIcon("folder", 22));
         QFont f(p->font());
         f.setBold(true);
         p->setFont( f );
-        p->setPen(QPen(cg.brush(QColorGroup::Background).color().dark(110),2));
-        p->drawRoundRect(0,0,width, height(), 15, 100);
-        p->setPen(cg.brush(QColorGroup::Foreground).color());
-        p->drawText(0,0,width, height(), Qt::AlignCenter, 
-                group->info().name);
+        p->drawText(30,7,width, height()-7, Qt::AlignLeft,
+                     group->info().name);
     }
-    else if(column == 3)    
+    else if(column == 2)
     {
         Group::Info info = group->info();
-        p->drawText(2,2,width, height()-4, Qt::AlignLeft, 
+        p->drawText(0,7,width, height()-7, Qt::AlignLeft, 
                         KIO::convertSize(info.totalSize));
     }
-    else if(column == 4)
+    else if(column == 3)
     {
         Group::Info info = group->info();
-/*        float rectWidth = (width-4) * info.percent / 100;
-        p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight).color().dark(115));
-        p->setPen(cg.foreground());
-        p->drawRect(2,2,rectWidth, height()-4);*/
-        p->drawText(2,2,width, height()-4, Qt::AlignCenter, 
+        p->drawText(0,2,width, height()-4, Qt::AlignCenter, 
                         QString().setNum(info.percent) + "%");
     }
-    
-/*    switch (column)
-    {
-        case 0:
-            p->fillRect(3,3,width-3, height()-3, QColor(174, 174, 220).dark(20));
-            break;
-        case 5:
-            p->fillRect(0,3,width-3, height()-3, QColor(174, 174, 220).dark(20));
-            break;
-        default:
-            p->fillRect(0,3,width, height()-3, QColor(174, 174, 220).dark(20));
-            break;
-            
-    }
-*/    
-} 
+}
 
 
 
@@ -122,8 +114,6 @@ void MainViewItem::updateContents(bool updateAll)
 {
     Transfer::Info info=transfer->info();
     
-    transfer->changesFlags(view);
-    
     Transfer::TransferChanges transferFlags = transfer->changesFlags(view);
 
 //     kdDebug() << "FLAGS before reset" << transfer->gettransferFlags(view) << endl;
@@ -131,39 +121,51 @@ void MainViewItem::updateContents(bool updateAll)
     if(updateAll)
     {
 //         kdDebug() << "UPDATE:  name" << endl;
-        setText(1, info.src.fileName());
+        setText(0, info.src.fileName());
     }
     
     if(updateAll || (transferFlags & Transfer::Tc_Priority) )
     {
 //         kdDebug() << "UPDATE:  priority" << endl;                
-//         setText(0, QString().setNum(info.priority));
+        
+        bool colorizeIcon = true;
+        QColor saturatedColor;
+        
         switch(info.priority)
         {
-            case 1: 
-//                 setText(0, i18n("Highest") );
-                setPixmap(0, SmallIcon("2uparrow") ); 
+            case 1:
+                saturatedColor = QColor(Qt::yellow);
                 break;
             case 2: 
-//                 setText(0, i18n("High") );
-                setPixmap(0, SmallIcon("1uparrow") ); 
+                saturatedColor = QColor(Qt::red);
                 break;
-            case 3: 
-//                 setText(0, i18n("Normal") );
-                setPixmap(0, SmallIcon("1rightarrow") ); 
+            case 3:
+                colorizeIcon = false; 
+                setPixmap(0, SmallIcon("kget"));
                 break;
             case 4: 
-//                 setText(0, i18n("Low") );
-                setPixmap(0, SmallIcon("1downarrow") ); 
+                saturatedColor = QColor(Qt::green);
                 break;
             case 5: 
-//                 setText(0, i18n("Lowest") );
-                setPixmap(0, SmallIcon("2downarrow") ); 
+                saturatedColor = QColor(Qt::gray);
                 break;
             case 6: 
-//                 setText(0, i18n("Highest") );
-                setPixmap(0, SmallIcon("stop") ); 
+                colorizeIcon = false;
+                setPixmap(0, SmallIcon("stop"));
                 break;
+        }
+        if(colorizeIcon)
+        {
+            QImage priorityIcon = SmallIcon("kget").convertToImage();
+            // eros: this looks cool with dark red blue or green but sucks with
+            // other colors (such as kde default's pale pink..). maybe the effect
+            // or the blended color has to be changed..
+            int hue, sat, value;
+            saturatedColor.getHsv( &hue, &sat, &value );
+            saturatedColor.setHsv( hue, (sat + 510) / 3, value );
+            KIconEffect::colorize( priorityIcon, saturatedColor, 0.9 );
+            
+            setPixmap(0, QPixmap(priorityIcon));
         }
     }
     
@@ -173,28 +175,28 @@ void MainViewItem::updateContents(bool updateAll)
         switch(info.status)
         {
             case Transfer::St_Trying:
-                setText(2, i18n("Connecting..."));
-                setPixmap(2, SmallIcon("connect_creating"));
+                setText(1, i18n("Connecting..."));
+                setPixmap(1, SmallIcon("connect_creating"));
                 break;
             case Transfer::St_Running:
-                setText(2, i18n("Downloading..."));
-                setPixmap(2, SmallIcon("tool_resume"));
+                setText(1, i18n("Downloading..."));
+                setPixmap(1, SmallIcon("tool_resume"));
                 break;
             case Transfer::St_Delayed:
-                setText(2, i18n("Delayed"));
-                setPixmap(2, SmallIcon("tool_timer"));
+                setText(1, i18n("Delayed"));
+                setPixmap(1, SmallIcon("tool_timer"));
                 break;
             case Transfer::St_Stopped:
-                setText(2, i18n("Stopped"));
-                setPixmap(2, SmallIcon("stop"));
+                setText(1, i18n("Stopped"));
+                setPixmap(1, SmallIcon("stop"));
                 break;
             case Transfer::St_Aborted:
-                setText(2, i18n("Aborted"));
-                setPixmap(2, SmallIcon("stop"));
+                setText(1, i18n("Aborted"));
+                setPixmap(1, SmallIcon("stop"));
                 break;
             case Transfer::St_Finished:
-                setText(2, i18n("Completed"));
-                setPixmap(2, SmallIcon("ok"));
+                setText(1, i18n("Completed"));
+                setPixmap(1, SmallIcon("ok"));
                 break;
         }
     }
@@ -203,9 +205,9 @@ void MainViewItem::updateContents(bool updateAll)
     {
 //         kdDebug() << "UPDATE:  totalSize" << endl;
         if (info.totalSize != 0)
-            setText(3, KIO::convertSize(info.totalSize));
+            setText(2, KIO::convertSize(info.totalSize));
         else
-            setText(3, i18n("unknown"));
+            setText(2, i18n("unknown"));
     }
                 
     if(updateAll || (transferFlags & Transfer::Tc_Percent) )
@@ -220,12 +222,12 @@ void MainViewItem::updateContents(bool updateAll)
         if(info.speed==0)
         {
             if(info.status == Transfer::St_Running)
-                setText(5, i18n("Stalled") );
+                setText(4, i18n("Stalled") );
             else
-                setText(5, "" );
+                setText(4, "" );
         }
         else
-            setText(5, i18n("%1/s").arg(KIO::convertSize(info.speed)) );
+            setText(4, i18n("%1/s").arg(KIO::convertSize(info.speed)) );
     }
         
 /*    if(updateAll || (transferFlags & Transfer::Tc_Log) )
@@ -241,7 +243,7 @@ void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
 {
     QListViewItem::paintCell(p, cg, column, width, align);
 
-    if(column == 4)
+    if(column == 3)
     {
         Transfer::Info info = transfer->info();
         float rectWidth = (width-4) * info.percent / 100;
@@ -249,7 +251,7 @@ void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
         p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight));
         p->setPen(cg.foreground());
         p->drawRect(2,2,rectWidth, height()-4);
-        p->drawText(2,2,width, height()-4, Qt::AlignCenter, 
+        p->drawText(2,2,width-4, height()-4, Qt::AlignCenter, 
                     QString().setNum(info.percent) + "%");
     }
 }
@@ -263,7 +265,6 @@ MainView::MainView( QWidget * parent, const char * name )
     setSelectionMode(QListView::Extended);
     setSorting(0);
     
-    addColumn("Priority", 60);
     addColumn("File", 150);
     addColumn("Status", 120);
     addColumn("Size", 80);    
