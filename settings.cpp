@@ -255,6 +255,7 @@ void Settings::save()
     // write directory options
     config->setGroup("Directories");
     config->writeEntry("UseLastDirectory", b_useLastDir);
+    config->writeEntry("LastDirectory", lastDirectory );
     DirList::Iterator it;
     QStringList lst;
 
