@@ -35,6 +35,7 @@
 #include <kwin.h>
 
 #include <assert.h>
+#include "safedelete.h"
 #include "settings.h"
 #include "logwindow.h"
 #include "kmainwidget.h"
@@ -441,7 +442,7 @@ void Transfer::slotRequestRemove()
         file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
         if ( KIO::NetAccess::exists( file ) ) // don't pollute user with warnings
         {
-            KIO::NetAccess::del( file ); // ### messagebox on failure?
+            SafeDelete::deleteFile( file ); // ### messagebox on failure?
         }
     }
     if (status == ST_RUNNING) 
