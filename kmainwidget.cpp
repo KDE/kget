@@ -24,273 +24,339 @@
  *
  ***************************************************************************/
 
-#include <qregexp.h>
-#include <qdragobject.h>
-#include <qwhatsthis.h>
-#include <qtooltip.h>
-#include <qtimer.h>
-#include <qdropsite.h>
-
 #include <kapplication.h>
-#include <kglobal.h>
+#include <kconfig.h>
 #include <klocale.h>
+#include <kstandarddirs.h>
 #include <kwin.h>
 #include <kurl.h>
 #include <kurldrag.h>
-#include <kstdaction.h>
+#include <kxmlguibuilder.h>
+#include <kxmlguifactory.h>
+#include <kaction.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
+#include <kmenubar.h>
+#include <ktoolbar.h>
 #include <kstatusbar.h>
+#include <ksqueezedtextlabel.h>
 #include <kiconloader.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
-#include "preferencesdialog.h"
 
 #include "kmainwidget.h"
 #include "globals.h"
+#include "settings.h"
+#include "preferencesdialog.h"
 #include "scheduler.h"
+#include "browserbar.h"
 #include "iconview.h"
 #include "testview.h"
 #include "transferlist.h"
-#include "kfileio.h"
 #include "logwindow.h"
 #include "docking.h"
 #include "droptarget.h"
-#include "settings.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
 
-KMainWidget::KMainWidget()
-    : KGetIface( "KGet-Interface" ),
-      KMdiMainFrm(0, "kget mainwindow", KMdi::IDEAlMode),
-      ViewInterface( "viewIface-main" ),
-      kdrop(0), kdock(0), logWindow(0)
+class KXMLGUIBuilderKG : public KXMLGUIBuilder
+/**
+ * This class is reimplemented only to handle the special case of the
+ * KMenuBar being provided by KMainWidget (that is a QWidget) and not
+ * by a KMainWindow. In that case we won't construct a new one.
+ */
 {
-    setXMLFile("kgetui.rc");
-    
+  public:
+    KXMLGUIBuilderKG( QWidget * w ) : KXMLGUIBuilder( w ) {};
+
+    virtual QWidget *createContainer( QWidget *parent, int index, const QDomElement &element, int &id )
+    {
+        if ( element.tagName().lower() == "menubar" )
+        {
+            KMenuBar *menu = static_cast<KMenuBar*>(widget()->child( "kget_menubar", "KMenuBar", false ));
+            if ( menu )
+                return menu;
+        }
+        return KXMLGUIBuilder::createContainer(parent, index, element, id);
+    }
+};
+
+
+KMainWidget::KMainWidget( QWidget * parent, const char * name )
+    : KGetIface( "KGet-Interface" ),
+    QWidget( parent, name, Qt::WType_TopLevel | Qt::WNoAutoErase ),
+    KXMLGUIClient(), ViewInterface( "viewIface-main" ),
+    kdrop(0), kdock(0), logWindow(0)
+{
+    // scheduler creation and viewinterface connection
     scheduler = new Scheduler(this);
     connectToScheduler( scheduler );
-    
+
+    // create actions
     setupActions();
+
+    // create widgets and the XMLGUI look
     setupGUI();
-    slotUpdateActions();
 
-    //This must be the last one
-    schedRequestOperation(OpImportTransfers);
-    
-    if ( Settings::firstRun() )
-    {
-        if ( kdrop )
-        {
-            kdrop->playAnimation();
-            kdrop->show();
-        }
-        Settings::setFirstRun(false);
-    }
-     
-    if ( kdrop && Settings::showDropTarget() )
-        kdrop->show();
-}
-
-//THESE FUNCTIONS MUST BE RE-INTEGRATED
-/*  
-    //Set auto-resume in kioslaverc
-    {
-	//include <kconfig.h>
-        KConfig cfg( "kioslaverc", false, false);
-        cfg.setGroup(QString::null);
-        cfg.writeEntry("AutoResume", true);
-        cfg.sync();
-    }
-
-    b_viewLogWindow = FALSE;
-
-    // Set log time, needed for the name of log file
-    QDate date = QDateTime::currentDateTime().date();
-    QTime time = QDateTime::currentDateTime().time();
-    QString tmp;
-    tmp.sprintf("log%d:%d:%d-%d:%d:%d", date.day(), date.month(), date.year(), time.hour(), time.minute(), time.second());
-    logFileName = locateLocal("appdata", "logs/");
-    logFileName += tmp;
-
-    // Load all settings from KConfig
-    //Settings takes care of size & pos & state, so disable autosaving
-    setAutoSaveSettings( "MainWindow", false );
-
-    sDebug << "ccc" << endl;
-    
-    // Setup log window
-    logWindow = new LogWindow();
-
-    sDebug << "ccc1" << endl;
-    
+    // set window title
     setCaption(KGETVERSION);
-    sDebug << "ccc2" << endl;
 
-    setupGUI();
-
-    sDebug << "ccc4" << endl;
-    log(i18n("Welcome to KGet"));
-
-    sDebug << "ccc5" << endl;
-    connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveYourself()));
-
-    sDebug << "ccc6" << endl;
-    // Enable dropping
+    // enable dropping
     setAcceptDrops(true);
 
-    // update actions
-    m_paExpertMode->setChecked(Settings::expertMode());
-    
-    sDebug << "eee5" << endl;
+    // session management stuff
+    connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveMyself()));
 
-    //m_paAutoShutdown->setChecked(Settings::autoShutdown());
+    // set auto-resume in kioslaverc (is there a cleaner way?)
+    KConfig cfg( "kioslaverc", false, false);
+    cfg.setGroup(QString::null);
+    cfg.writeEntry("AutoResume", true);
+    cfg.sync();
 
-    sDebug << "eee6" << endl;
-    
-    //m_paShowLog->setChecked(b_viewLogWindow);
-*/
+    // load transfer list
+    schedRequestOperation(OpImportTransfers);
+
+    // reset the FirstRun config option
+    Settings::setFirstRun(false);
+}
 
 
 KMainWidget::~KMainWidget()
 {
+    slotSaveMyself();
     delete kdrop;
     delete kdock;
-    schedRequestOperation(OpExportTransfers);
-    delete scheduler;
-    //write log to file
-    //kCStringToFile(logWindow->getText().local8Bit(), logFileName, false, false);
     delete logWindow;
-
-    Settings::setMainPosition( pos() );
-    Settings::setMainSize( size() );
-    Settings::setMainState( KWin::windowInfo(winId()).state() );
+    delete scheduler;
+    // the following call saves options set in above dtors
     Settings::writeConfig();
 }
 
+
+#include <qcombobox.h>
 void KMainWidget::setupActions()
 {
-    KActionCollection *coll = actionCollection();
+    KActionCollection * ac = actionCollection();
+    KAction * a;
 
-    // Local: Shows a dialog asking for a new URL to download
-    m_paOpenTransfer = new KAction(i18n("&New Download..."), "editclear", 0, this, SLOT(slotNewURL()), coll, "open_transfer");
-    // Local: Destroys all sub-windows and exits
-    m_paQuit = KStdAction::quit(this, SLOT(slotQuit()), coll, "quit");
-    // Local: Build and show the "preferences dialog" (or reuse an existing one)
-    m_paPreferences = KStdAction::preferences(this, SLOT(slotPreferences()), coll, "preferences");
-    m_paPreferences->setWhatsThis(i18n("<b>Preferences</b> button opens a preferences dialog\n" "where you can set various options.\n" "\n" "Some of these options can be more easily set using the toolbar."));
-    // ->Scheduler: Ask for transfersList export
-    m_paExportTransfers = new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), coll, "export_transfers");
-    // ->Scheduler: Ask for transfersList import
-    m_paImportTransfers = new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), coll, "import_transfers");
-    // ->Scheduler: ACTIVATE the scheduler
-    m_paResume = new KAction(i18n("&Start"),"player_play", 0, this, SLOT(slotRun()), coll, "start");
-    m_paResume->setWhatsThis(i18n("<b>Resume</b> button starts downloading\n"));
-    // ->Scheduler: STOP the scheduler
-    m_paPause = new KAction(i18n("&Stop"),"player_stop", 0, this, SLOT(slotStop()), coll, "stop");
-    m_paPause->setWhatsThis(i18n("<b>Pause</b> button stops selected transfers\n" "and sets their mode to <i>delayed</i>."));
+    // local - Shows a dialog asking for a new URL to download
+    new KAction(i18n("&New Download..."), "editclear", 0, this, SLOT(slotNewURL()), ac, "open_transfer");
+    // local - Destroys all sub-windows and exits
+    KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
+    // ->Scheduler - Ask for transfersList export
+    new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), ac, "export_transfers");
+    // ->Scheduler - Ask for transfersList import
+    new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), ac, "import_transfers");
+    // ->Scheduler - ACTIVATE the scheduler
+    a = new KAction(i18n("&Start"),"player_play", 0, this, SLOT(slotRun()), ac, "start");
+    a->setWhatsThis(i18n("<b>Start</b> button <i>starts downloading</i>\n"));
+    // ->Scheduler - STOP the scheduler
+    a = new KAction(i18n("&Stop"),"player_stop", 0, this, SLOT(slotStop()), ac, "stop");
+    a->setWhatsThis(i18n("<b>Stop</b> button <i>stops downloading</i>."));
 
+    new KToggleAction("KTEST", "konqueror", 0, this, SLOT(slotTest()), ac, "ktest");
     
-    (void) new KAction( i18n("Configure &Notifications..."), "knotify", 0, this, SLOT(slotEditNotifications()), coll, "configure_notifications" );
-/*
-    m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), coll, "import_text");
+    QComboBox * cmb = new QComboBox();
+    cmb->insertItem("[small view]");
+    cmb->insertItem("transfers");
+    cmb->insertItem("transferred files");
+    new KWidgetAction( cmb, "prova", 0, this, SLOT(slotTest()), ac, "prova_act" );
+    
+    QWidget * fixx = new QWidget();
+    fixx->setFixedSize(50,50);
+    fixx->setEraseColor( Qt::red );
+    new KWidgetAction( fixx, "provass", 0, this, SLOT(slotTest()), ac, "prova_act2" );
+    
+    // Local: Build and show the "preferences dialog" (or reuse an existing one)
+    KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
+    KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
+    KStdAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
+    KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
+//options_configure_keybinding, options_configure, options_configure_toolbars, options_configure_notifications
+
+/*  m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), ac, "import_text");
 
     // TRANSFER ACTIONS
 
-    m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), coll, "open_individual");
-    m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), coll, "move_begin");
-    m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), coll, "move_end");
+    m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), ac, "open_individual");
+    m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), ac, "move_begin");
+    m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), ac, "move_end");
 
-    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), coll, "delete");
+    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), ac, "delete");
     m_paDelete->setWhatsThis(i18n("<b>Delete</b> button removes selected transfers\n" "from the list."));
-    m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), coll, "restart");
+    m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), ac, "restart");
     m_paRestart->setWhatsThis(i18n("<b>Restart</b> button is a convenience button\n" "that simply does Pause and Resume."));
 
     // OPTIONS ACTIONS
 
-    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
+    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), ac, "expert_mode");
     m_paExpertMode->setWhatsThis(i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking."));
-    m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), coll, "auto_shutdown");
+    m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), ac, "auto_shutdown");
     m_paAutoShutdown->setWhatsThis(i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, KGet will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to quit without asking."));
-
-    KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll);
-    KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
     // VIEW ACTIONS
     
     createStandardStatusBarAction();
 
-    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
+    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), ac, "toggle_log");
     m_paShowLog->setWhatsThis(i18n("<b>Log window</b> button opens a log window.\n" "The log window records all program events that occur\n" "while KGet is running."));
-    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
+    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), ac, "drop_target");
     m_paDropTarget->setWhatsThis(i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window."));
 
     //include <khelpmenu.h>
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
-    KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), coll, "whats_this");
+    KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), ac, "whats_this");
 
     // m_paDockWindow->setWhatsThis(i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget."));
     // m_paNormal->setWhatsThis(i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window"));    
 */
+    updateActions();
 }
+
 
 void KMainWidget::setupGUI()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-    //Create Menus and Toolbars
-    createGUI(0);
+    /** main content creation */
+    
+    // the top menu
+    menuBar = new KMenuBar( this, "kget_menubar" );
+    
+    // the top flat toolbar
+    toolBar = new KToolBar( this, "kget_toolbar" );
 
-    //Wrap a QWidget
-    //addWindow(createWrapper(t, "", ""));
+    // central main widget (hidden by default)
+    browserBar = new BrowserBar( this );
+    browserBar->hide();
 
-    //IconView
+    // bottom status bar
+    statusBar = new KStatusBar( this );
+    statusBar->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
+    statusBar->addWidget( new KSqueezedTextLabel( this ), 2 );
+    statusBar->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
+    statusBar->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"), ID_TOTAL_SIZE);
+    statusBar->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
+    statusBar->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
+    updateStatusBar();
+
+    // create menu entries and toolbar buttons from the XML file
+    createGUI();
+
+    /** widgets inserted in the 'body' part */
+
+    // create the 'right view'
+    TestView * t = new TestView( (QWidget *)browserBar->container() );
+    t->connectToScheduler(scheduler);
+
+    // create the 'left panels' views and link them to the 'right view'
     IconViewMdiView * i = new IconViewMdiView();
     i->connectToScheduler(scheduler);
-    addWindow(i);
-    i->show();
-
-    //TestView
-    TestView * t = new TestView();
-    t->connectToScheduler(scheduler);
-    addWindow(t);
-    t->show();
-
-    //MainWidget (myself)
-    resize(Settings::mainSize());
-    move(Settings::mainPosition());
-    KWin::setState(winId(), Settings::mainState());
-    if (Settings::showMain())
-        show();  //show *this before child windows or else we lose focus
+    browserBar->addBrowser( i, i18n( "Icons" ), "view_icon" );
+    i = new IconViewMdiView();
+    browserBar->addBrowser( i, i18n( "Icons" ), "view_icon" );
+    i = new IconViewMdiView();
     
-    //DropTarget
+    /** set layouting of the main widget */
+    
+    QBoxLayout *layV = new QVBoxLayout( this );
+    menuBar->setMinimumHeight( menuBar->height() );
+    layV->addWidget( menuBar );
+    layV->addWidget( toolBar );
+    layV->addWidget( browserBar, 2 );
+    layV->addWidget( statusBar );
+
+    /** restore position, size and visibility */
+
+    // MainWidget (myself)
+    move( Settings::mainPosition() );
+    resize( Settings::mainSize() );
+    setShown( Settings::showMain() );
+    KWin::setState(winId(), Settings::mainState());
+    setSmallDisplay( !Settings::showMainLarge() );
+
+    /** other (external) widgets creation */
+   
+    // DropTarget
     kdrop = new DropTarget(this);
     kdrop->connectToScheduler(scheduler);
-    //will be showed at the end of KMainWidget's constructor
+    if ( Settings::showDropTarget() || Settings::firstRun() )
+        kdrop->show();
+    if ( Settings::firstRun() )
+        kdrop->playAnimation();
 
-    //DockWidget
+    // LogWindow
+    //logWindow = new LogWindow();
+    //log(i18n("Welcome to KGet2"));
+
+    // DockWidget
     kdock = new DockWidget(this);
     kdock->connectToScheduler(scheduler);
     kdock->show();
-
-    // setup statusbar
-    statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
-    statusBar()->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
-    statusBar()->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"), ID_TOTAL_SIZE);
-    statusBar()->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
-    statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
-    updateStatusBar();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
 
-void KMainWidget::log(const QString & message, bool statusbar)
+
+void KMainWidget::setSmallDisplay( bool small )
+{
+    setUpdatesEnabled( false );
+    if ( small )
+    {
+        int minH = menuBar->height() + toolBar->height() + statusBar->height();
+        Settings::setMainSize( size() );
+        browserBar->hide();
+        setFixedHeight( minH );
+        resize( 200, minH );
+    }
+    else
+    {
+        browserBar->show();
+        browserBar->setMinimumHeight( 100 );
+        setMaximumHeight( 32767 );
+        resize( Settings::mainSize() );
+    }
+    setUpdatesEnabled( true );
+}
+
+
+void KMainWidget::createGUI()
+{
+    // disabling the updates prevents unnecessary redraws
+    setUpdatesEnabled( false );
+
+    // make sure to have an empty GUI
+    menuBar->clear();
+    toolBar->clear();
+
+    // we always want to load in our global standards file
+    setXMLFile( locate( "config", "ui/ui_standards.rc", instance() ) );
+
+    // now, merge in our local xml file.  if this is null, then that
+    setXMLFile( "kgetui.rc", true );
+
+    // make sure we don't have any state saved already
+    setXMLGUIBuildDocument( QDomDocument() );
+
+    // do the actual GUI building
+    KXMLGUIBuilderKG builder( this );
+    KXMLGUIFactory factory( &builder, this );
+
+    //build Toolbar, plug actions
+    factory.addClient( this );
+
+    setUpdatesEnabled( true );
+    updateGeometry();
+}
+
+void KMainWidget::slotTest()
+{
+    static bool tb = false;
+    setSmallDisplay( tb );
+    tb = !tb;
+}
+
+
+void KMainWidget::log(const QString & message, bool sb)
 {
 #ifdef _DEBUG
     sDebugIn <<" message= "<< message << endl;
@@ -298,8 +364,8 @@ void KMainWidget::log(const QString & message, bool statusbar)
 
     logWindow->logGeneral(message);
 
-    if (statusbar) {
-        statusBar()->message(message, 1000);
+    if (sb) {
+        statusBar->message(message, 1000);
     }
 
 #ifdef _DEBUG
@@ -308,49 +374,35 @@ void KMainWidget::log(const QString & message, bool statusbar)
 }
 
 
-void KMainWidget::slotSaveYourself()
+void KMainWidget::slotSaveMyself()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    schedRequestOperation(OpExportTransfers);
+    // save last parameters ..
+    Settings::setMainPosition( pos() );
+    Settings::setMainSize( size() );
+    Settings::setMainState( KWin::windowInfo(winId()).state() );
+    // .. and write config to disk
     Settings::writeConfig();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
+    schedRequestOperation(OpExportTransfers);
 }
+
 
 void KMainWidget::slotConfigureKeys()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
     KKeyDialog::configure(actionCollection());
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
-
 
 void KMainWidget::slotConfigureToolbars()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    saveMainWindowSettings( KGlobal::config(), "MainWindow" );
-    KEditToolbar edit(factory());
+//FIXME? Save settings for statusbar, menubar and toolbar to their respective
+//    saveMainWindowSettings( KGlobal::config(), "MainWindow" );
+    KEditToolbar edit( "kget_toolbar", actionCollection() );
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
+}
 
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
+void KMainWidget::slotConfigureNotifications()
+{
+    KNotifyDialog::configure(this);
 }
 
 
@@ -359,20 +411,13 @@ void KMainWidget::slotNewToolbarConfig()
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
-    createGUI(0);
-    applyMainWindowSettings( KGlobal::config(), "MainWindow" );
+    createGUI();
+//FIXME?    applyMainWindowSettings( KGlobal::config(), "MainWindow" );
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
 }
-
-
-void KMainWidget::slotEditNotifications()
-{
-    KNotifyDialog::configure(this);
-}
-
 
 void KMainWidget::slotNewConfig()
 {
@@ -428,45 +473,6 @@ void KMainWidget::readTransfersEx(const KURL & url)
 }
 
 
-void KMainWidget::dragEnterEvent(QDragEnterEvent * event)
-{
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
-    event->accept(KURLDrag::canDecode(event) || QTextDrag::canDecode(event));
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::dropEvent(QDropEvent * event)
-{
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
-    KURL::List list;
-    QString str;
-
-    if (KURLDrag::decode(event, list))
-        schedNewURLs(list, QString());
-    else if (QTextDrag::decode(event, str))
-        schedNewURLs(KURL::fromPathOrURL(str), QString());
-
-    sDebugOut << endl;
-}
-
-bool KMainWidget::queryClose()
-{
-    if( kapp->sessionSaving())
-        return true;
-    hide();
-    return false;
-}
-
 void KMainWidget::slotPreferences()
 {
     KNotifyClient::event( winId(), "added" );
@@ -491,87 +497,7 @@ void KMainWidget::slotNewURL()
     schedNewURLs(KURL(), QString::null);
 }
 
-void KMainWidget::slotToggleLogWindow()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    b_viewLogWindow = !b_viewLogWindow;
-    if (b_viewLogWindow)
-        logWindow->show();
-    else
-        logWindow->hide();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void KMainWidget::slotToggleExpertMode()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    bool expert = !Settings::expertMode();
-    Settings::setExpertMode( expert );
-
-    if (expert) {
-        log(i18n("Expert mode on."));
-    } else {
-        log(i18n("Expert mode off."));
-    }
-    m_paExpertMode->setChecked(expert);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void KMainWidget::slotToggleAutoShutdown()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    bool autoShutDown = !Settings::autoShutdown();
-    Settings::setAutoShutdown( autoShutDown );
-
-    if (autoShutDown) {
-        log(i18n("Auto shutdown on."));
-    } else {
-        log(i18n("Auto shutdown off."));
-    }
-
-    m_paAutoShutdown->setChecked(autoShutDown);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::slotToggleDropTarget()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    if (Settings::showDropTarget()) {
-        kdrop->show();
-        kdrop->updateStickyState();
-    }
-    else
-        kdrop->hide();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::slotUpdateActions()
+void KMainWidget::updateActions()
 {
 /*#ifdef _DEBUG
     sDebugIn << endl;
@@ -703,17 +629,50 @@ void KMainWidget::updateStatusBar()
         }
     }
 
-    statusBar()->changeItem(i18n(" Transfers: %1 ").arg( ASK TO SCHEDULER FOR NUMBER ), ID_TOTAL_TRANSFERS);
-    statusBar()->changeItem(i18n(" Files: %1 ").arg(totalFiles), ID_TOTAL_FILES);
-    statusBar()->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
-    statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
-    statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
+    statusBar->changeItem(i18n(" Transfers: %1 ").arg( ASK TO SCHEDULER FOR NUMBER ), ID_TOTAL_TRANSFERS);
+    statusBar->changeItem(i18n(" Files: %1 ").arg(totalFiles), ID_TOTAL_FILES);
+    statusBar->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
+    statusBar->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
+    statusBar->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
 */
 
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
 }
+
+
+/** widget events */
+
+void KMainWidget::closeEvent( QCloseEvent * e )
+{
+    if( kapp->sessionSaving())
+        e->ignore();
+    else
+    {
+        hide();
+        e->accept();
+    }
+}
+
+void KMainWidget::dragEnterEvent(QDragEnterEvent * event)
+{
+    event->accept(KURLDrag::canDecode(event) || QTextDrag::canDecode(event));
+}
+
+void KMainWidget::dropEvent(QDropEvent * event)
+{
+    KURL::List list;
+    QString str;
+
+    if (KURLDrag::decode(event, list))
+        schedNewURLs(list, QString());
+    else if (QTextDrag::decode(event, str))
+        schedNewURLs(KURL::fromPathOrURL(str), QString());
+}
+
+
+/** DCOP interface */
 
 void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
 {
@@ -724,16 +683,13 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
 
 bool KMainWidget::isDropTargetVisible() const
 {
-    return Settings::showDropTarget();
+    return kdrop->isVisible();
 }
 
 void KMainWidget::setDropTargetVisible( bool setVisible )
 {
-    if ( setVisible != isDropTargetVisible() )
-    {
-        //m_paDropTarget->setChecked( !m_paDropTarget->isChecked() );
-        slotToggleDropTarget();
-    }
+    if ( setVisible != Settings::showDropTarget() )
+        kdrop->setShown( setVisible );
 }
 
 void KMainWidget::setOfflineMode( bool offline )
@@ -743,8 +699,7 @@ void KMainWidget::setOfflineMode( bool offline )
 
 bool KMainWidget::isOfflineMode() const
 {
-    //FIXME ceck if the scheduler isRunning
-    return false;
+    return scheduler->isRunning();
 }
 
 #include "kmainwidget.moc"
@@ -752,7 +707,7 @@ bool KMainWidget::isOfflineMode() const
 //BEGIN auto-disconnection 
 /*
 KToggleAction *m_paAutoDisconnect,
-    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), coll, "auto_disconnect");
+    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), ac, "auto_disconnect");
     tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
     m_paAutoDisconnect->setWhatsThis(tmp);
 
@@ -813,7 +768,7 @@ void KMainWidget::setAutoDisconnect()
 
     KToggleAction *m_paUseAnimation
     m_paUseAnimation->setChecked(Settings::useAnimation());
-    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
+    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), ac, "toggle_animation");
 
 void KMainWidget::slotToggleAnimation()
 {
@@ -866,7 +821,7 @@ void KMainWidget::slotAnimTimeout()
 //BEGIN copy URL to clipboard 
 /*
     KAction *m_paCopy,
-    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), coll, "copy_url");
+    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), ac, "copy_url");
     //on updateActions() set to true if an url is selected else set to false
     m_paCopy->setEnabled(false);
 
@@ -895,6 +850,7 @@ void KMainWidget::slotCopyToClipboard()
 //BEGIN Auto saving transfer list 
 /*
     // Setup autosave timer
+    QTimer *autosaveTimer;      // timer for autosaving transfer list
     autosaveTimer = new QTimer(this);
     connect(autosaveTimer, SIGNAL(timeout()), SLOT(slotAutosaveTimeout()));
     setAutoSave();
@@ -934,9 +890,9 @@ void KMainWidget::setAutoSave()
 /*
 //construct actions
     KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
-    m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), coll, "queue");
-    m_paTimer = new KRadioAction(i18n("&Timer"),"tool_timer", 0, this, SLOT(slotTimerCurrent()), coll, "timer");
-    m_paDelay = new KRadioAction(i18n("De&lay"),"tool_delay", 0, this, SLOT(slotDelayCurrent()), coll, "delay");
+    m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), ac, "queue");
+    m_paTimer = new KRadioAction(i18n("&Timer"),"tool_timer", 0, this, SLOT(slotTimerCurrent()), ac, "timer");
+    m_paDelay = new KRadioAction(i18n("De&lay"),"tool_delay", 0, this, SLOT(slotDelayCurrent()), ac, "delay");
     m_paQueue->setExclusiveGroup("TransferMode");
     m_paTimer->setExclusiveGroup("TransferMode");
     m_paDelay->setExclusiveGroup("TransferMode");
@@ -948,6 +904,7 @@ void KMainWidget::setAutoSave()
     m_paDelay->setWhatsThis(tmp);
 
     // Setup transfer timer for scheduled downloads and checkQueue()
+    QTimer *transferTimer;      // timer for scheduled transfers
     transferTimer = new QTimer(this);
     connect(transferTimer, SIGNAL(timeout()), SLOT(slotTransferTimeout()));
     transferTimer->start(10000);        // 10 secs time interval
@@ -1026,7 +983,7 @@ void KMainWidget::setAutoSave()
         setCaption(QString::null, false);
         //m_paOfflineMode->setIcon( "tool_offline_mode_on" );
     }
-    m_paOfflineMode =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), coll, "offline_mode");
+    m_paOfflineMode =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), ac, "offline_mode");
     tmp = i18n("<b>Offline mode</b> button toggles the offline mode\n" "on and off.\n" "\n" "When set, KGet will act as if it was not connected\n" "to the Internet.\n" "\n" "You can browse offline, while still being able to add\n" "new transfers as queued.");
     m_paOfflineMode->setWhatsThis(tmp);
 
@@ -1045,7 +1002,7 @@ void KMainWidget::slotToggleOfflineMode()
     }
     m_paOfflineMode->setChecked(Settings::offlineMode());
 
-    slotUpdateActions();
+    updateActions();
     //checkQueue();
 }
 
@@ -1060,7 +1017,7 @@ void KMainWidget::setOfflineMode( bool offline )
 
 //BEGIN clipboard check
 /*
-    lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).stripWhiteSpace();
+    QString lastClipboard (in header) = QApplication::clipboard()->text( QClipboard::Clipboard ).stripWhiteSpace();
 
     // Setup clipboard timer
 #include <qclipboard.h>
@@ -1071,13 +1028,13 @@ void KMainWidget::setOfflineMode( bool offline )
         clipboardTimer->start(1000);
 
     KToggleAction *m_paAutoPaste;   
-    m_paAutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), coll, "auto_paste");
+    m_paAutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), ac, "auto_paste");
     tmp = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, KGet will periodically scan the clipboard\n" "for URLs and paste them automatically.");
     m_paAutoPaste->setWhatsThis(tmp);
     //m_paAutoPaste->setChecked(Settings::autoPaste());
 
     KAction *m_paPasteTransfer;
-    (### CHG WITH schedReqOp) m_paPasteTransfer = KStdAction::paste($scheduler$, SLOT(slotPasteTransfer()), coll, "paste_transfer");
+    (### CHG WITH schedReqOp) m_paPasteTransfer = KStdAction::paste($scheduler$, SLOT(slotPasteTransfer()), ac, "paste_transfer");
     tmp = i18n("<b>Paste transfer</b> button adds a URL from\n" "the clipboard as a new transfer.\n" "\n" "This way you can easily copy&paste URLs between\n" "applications.");
     m_paPasteTransfer->setWhatsThis(tmp);
 
@@ -1135,7 +1092,7 @@ void KMainWidget::slotCheckClipboard()
 //BEGIN use last directory Action 
 /*
 KToggleAction *m_paExpertMode, *m_paUseLastDir
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
+    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), ac, "use_last_dir");
     m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
     m_paUseLastDir->setChecked(Settings::useLastDir());
 
@@ -1162,3 +1119,19 @@ void KMainWidget::slotToggleUseLastDir()
 */
 //END 
 
+//BEGIN slotToggle<T> 
+/*
+void KMainWidget::slotToggle<T>()
+{
+    bool value = !Settings::<T>();
+    Settings::set<T>( value );
+
+    if (value) {
+        log(i18n("<T> mode on."));
+    } else {
+        log(i18n("<T> mode off."));
+    }
+//    m_paExpertMode->setChecked(expert);
+}
+*/
+//END 

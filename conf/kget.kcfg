@@ -65,6 +65,9 @@
     <entry name="OfflineMode" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="DownloadAtStartup" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="LimitDownloads" type="Bool">
       <default>false</default>
     </entry>

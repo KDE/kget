@@ -35,12 +35,13 @@
 #include <qtooltip.h>
 
 #include "docking.h"
+#include "kmainwidget.h"
 
 /** class DockWidget
   * Reimplmentation of the system tray class adding drag/drop
   * capabilities and the quit action.
   */
-DockWidget::DockWidget(KMainWindow * parent)
+DockWidget::DockWidget(KMainWidget * parent)
     : KSystemTray(parent), ViewInterface()
 {
     setPixmap( loadIcon( "dock" ));

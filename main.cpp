@@ -143,7 +143,7 @@ public:
         KWin::activateWindow(mainwidget->winId());
 
         if (args->isSet("showDropTarget"))
-            mainwidget->activateDropTarget();
+        { /*FIXME mainwidget->activateDropTarget();*/ }
 
         if (args->count()==1)
         {

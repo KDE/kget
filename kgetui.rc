@@ -11,59 +11,20 @@
         <Separator/>
         <Action name="quit"/>
     </Menu>
-    <Menu name="transfer"><text>&amp;Transfer</text>
-        <Action name="copy_url"/>
-        <Action name="open_individual"/>
-        <Action name="move_begin"/>
-        <Action name="move_end"/>
-        <Separator/>
-        <Action name="delete"/>
-        <Action name="restart"/>
-        <Separator/>
-        <Action name="queue"/>
-        <Action name="timer"/>
-        <Action name="delay"/>
-    </Menu>
-    <Menu noMerge="1" name="view"><text>&amp;View</text>
-        <Action name="toggle_log"/>
-        <Separator/>
-        <Action name="drop_target"/>
-    </Menu>
-    <Menu name="options"><text>&amp;Options</text>
-        <Action name="toggle_animation"/>
-        <Action name="toggle_sound"/>
-        <Separator/>
-        <Action name="expert_mode"/>
-        <Action name="use_last_dir"/>
-        <Action name="offline_mode"/>
-        <Separator/>
-        <Action name="auto_disconnect"/>
-        <Action name="auto_shutdown"/>
-        <Action name="auto_paste"/>
-        <Separator/>
-        <Action name="drop_target"/>
-    </Menu>
-    <Menu name="settings">
-        <text>&amp;Settings</text>
-	<Action name="preferences" group="settings_configure"/>
-	<Action name="configure_notifications" group="settings_configure"/>
-    </Menu>
-    <Menu name="help"><text>&amp;Help</text>
+    <Menu name="help">
+	<Merge/>
     </Menu>
 </MenuBar>
-<ToolBar fullWidth="true" name="mainToolBar"><text>Main Toolbar</text>
+<ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
     <Action name="start"/>
     <Action name="stop"/>
     <Separator/>
     <Action name="delete"/>
     <Action name="restart"/>
     <Separator/>
-    <Action name="queue"/>
-    <Action name="timer"/>
-    <Action name="delay"/>
-    <Separator/>
-    <Action name="toggle_log"/>
-    <Action name="paste_transfer"/>
+    <Action name="configure_toolbars"/>
+    <Action name="preferences"/>
+    <Action name="configure_kyes"/>
     <Separator/>
     <Action name="expert_mode"/>
     <Action name="use_last_dir"/>
@@ -73,7 +34,7 @@
     <Action name="auto_paste"/>
     <Separator/>
     <Action name="drop_target"/>
-     <Separator/>
+    <Separator/>
     <Action name="whats_this"/>
 </ToolBar>
 </kpartgui>

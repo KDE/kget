@@ -24,14 +24,14 @@ k_dcop:
      * @parem destDir The destination direction or QString::null if unspecified
      */
     virtual ASYNC addTransfers( const KURL::List& src, const QString& destDir = QString::null ) = 0;
-    
+
     virtual bool isDropTargetVisible() const = 0;
-    
+
     virtual void setDropTargetVisible( bool setVisible ) = 0;
 
-	virtual void setOfflineMode( bool offline ) = 0;
+    virtual void setOfflineMode( bool offline ) = 0;
 
-	virtual bool isOfflineMode() const = 0;
+    virtual bool isOfflineMode() const = 0;
 };
 
 #endif // KGET_IFACE_H

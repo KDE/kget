@@ -24,123 +24,91 @@
  *
  ***************************************************************************/
 
-
 #ifndef _KMAINWIDGET_H_
 #define _KMAINWIDGET_H_
 
-#include <kmdimainfrm.h>
-#include <kurl.h>
-#include "globals.h"
+#include <qwidget.h>
+#include <kxmlguiclient.h>
 
 #include "kget_iface.h"
 #include "viewinterface.h"
+#include "globals.h"
 
-class KAction;
-class KRadioAction;
+class KURL;
+class KURL::List;
 
-class DockWidget;
-class DropTarget;
-class LogWindow;
 
-class KMainWidget:public KMdiMainFrm, public ViewInterface, virtual public KGetIface
+class KMainWidget : public QWidget, public KXMLGUIClient, public ViewInterface, virtual public KGetIface
 {
-
-Q_OBJECT 
-
+Q_OBJECT
 public:
-    KMainWidget();
+    KMainWidget( QWidget * = 0, const char * = 0 );
     ~KMainWidget();
 
-    // dcop interface
-    virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
-    virtual bool isDropTargetVisible() const;
-    virtual void setDropTargetVisible( bool setVisible );
+    // toggles between small / complete layouts
+    void setSmallDisplay( bool wantSmall );
 
     // called by main.cpp
     void readTransfersEx(const KURL & url);
 
 protected slots:
+    // slots connected to actions
     void slotNewURL();
-    
-    void slotToggleLogWindow();
-    void slotPreferences();
-    void slotToggleExpertMode();
-    void slotToggleAutoShutdown();
-    void slotToggleDropTarget();
-    void slotUpdateActions();
-
-protected slots:
     void slotQuit();
-
-    void slotSaveYourself();
+    void slotPreferences();
     void slotExportTransfers();
     void slotImportTransfers();
     void slotRun();
     void slotStop();
-    
+    void slotConfigureNotifications();
     void slotConfigureKeys();
     void slotConfigureToolbars();
+
+    // misc slots
+    void slotSaveMyself();
     void slotNewToolbarConfig();
-    void slotEditNotifications();
     void slotNewConfig();
+    
+    void slotTest();
 
 protected:
-    //From the DCOP iface
+    // from the DCOP interface
+    virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
+    virtual bool isDropTargetVisible() const;
+    virtual void setDropTargetVisible( bool setVisible );
     virtual void setOfflineMode( bool online );
     virtual bool isOfflineMode() const;
 
-    virtual bool queryClose();
-
+    // ignore/accept quit events
+    virtual void closeEvent( QCloseEvent * );
+    
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);
     virtual void dropEvent(QDropEvent *);
 
-    void readTransfers(bool ask_for_name = false);
-    void writeTransfers(bool ask_for_name = false);
-
-    // utility functions
+private:
+    // some functions
+    void updateActions();
+    void updateStatusBar();
+    void log( const QString &, bool sbar = true );
+    void createGUI();
+    // one-time functions
     void setupActions();
     void setupGUI();
-    void updateStatusBar();
-    void log(const QString & message, bool statusbar = true);
 
-
-private:
-    bool sanityChecksSuccessful( const KURL& url );
-
+    // internal objects
     Scheduler * scheduler;
 
-    // child widgets
-    DropTarget *kdrop;
-    DockWidget *kdock;
-    LogWindow *logWindow;
-    KHelpMenu *menuHelp;
-
-    // various timers
-    QTimer *transferTimer;      // timer for scheduled transfers
-    QTimer *autosaveTimer;      // timer for autosaving transfer list
-    // some variables
-    QString logFileName;
-    QString lastClipboard;
-    bool b_viewLogWindow;
-
-    // Actions
-    KAction *m_paPreferences, *m_paQuit;
-    KAction *m_paOpenTransfer, *m_paExportTransfers, *m_paImportTransfers;
-    KAction *m_paImportText;
-
-    KToggleAction *m_paShowLog;
-    KAction *m_paMoveToBegin, *m_paMoveToEnd, *m_paIndividual;
-    KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
-
-    KToggleAction *m_paExpertMode;
-    KToggleAction *m_paAutoShutdown;
-
-    KToggleAction *m_paDropTarget;
-
-public:
-    void activateDropTarget(void){if(!m_paDropTarget->isChecked()) m_paDropTarget->activate();};
-
+    // internal widgets
+    class KMenuBar   * menuBar;
+    class KStatusBar * statusBar;
+    class KToolBar   * toolBar;
+    class BrowserBar * browserBar;
+    
+    // separated widgets
+    class DropTarget *kdrop;
+    class DockWidget *kdock;
+    class LogWindow *logWindow;
 };
 
-#endif                          // _KMAINWIDGET_H_
+#endif
