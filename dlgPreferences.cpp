@@ -48,7 +48,7 @@
 
 
 DlgPreferences::DlgPreferences(QWidget * parent):
-        KDialogBase(Tabbed, i18n("Preferences"), Ok | Apply | Help | Cancel, Ok, parent, "", true)
+        KDialogBase(Tabbed, i18n("Configure"), Ok | Apply | Help | Cancel, Ok, parent, "", true)
 {
     // add pages
     QFrame *page = addPage(i18n("Connection"));
