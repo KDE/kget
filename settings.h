@@ -92,15 +92,10 @@ extern QString ConnectionDevices[];
 
 #define DEF_WindowStyle         NORMAL
 
-// Misc settings
-#define DEF_ToolbarPosition     KToolBar::Top
-#define DEF_ShowStatusbar       true
-
 
 #include <qdatetime.h>
 
 #include <kwin.h>
-#include <ktoolbar.h>
 #include <qvaluelist.h>
 struct DirItem
 {
@@ -188,9 +183,6 @@ public:
     bool b_useAnimation;
     QFont listViewFont;
 
-
-    KToolBar::BarPosition toolbarPosition;
-    bool b_showStatusbar;
 
     // geometry settings
     QPoint mainPosition;

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kget" version="1">
+<kpartgui name="kget" version="2">
 <MenuBar>
     <Menu noMerge="1" name="file"><text>&amp;File</text>
         <Action name="open_transfer"/>
@@ -28,7 +28,6 @@
         <Action name="delay"/>
     </Menu>
     <Menu noMerge="1" name="view"><text>&amp;View</text>
-        <Action name="show_statusbar"/>
         <Action name="toggle_log"/>
         <Separator/>
         <Action name="drop_target"/>
@@ -46,7 +45,9 @@
         <Action name="auto_paste"/>
         <Separator/>
         <Action name="drop_target"/>
-
+    </Menu>
+    <Menu name="settings"><text>&amp;Settings</text>
+        <Action name="show_statusbar" append="show_merge"/>
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
     </Menu>

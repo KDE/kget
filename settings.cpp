@@ -180,8 +180,6 @@ Settings::load()
     QFont font = kapp->font(kmain->myTransferList);
 
     listViewFont = config->readFontEntry("Font", &font);
-    toolbarPosition = (KToolBar::BarPosition) config->readNumEntry("Toolbar", DEF_ToolbarPosition);
-    b_showStatusbar = config->readBoolEntry("Statusbar", DEF_ShowStatusbar);
 
     // read main window geometry settings
     config->setGroup("MainGeometry");
@@ -278,10 +276,6 @@ void Settings::save()
     // write misc options
     config->setGroup("Misc");
     config->writeEntry("Font", listViewFont);
-
-    toolbarPosition = kmain->toolBar()->barPos();
-    config->writeEntry("Toolbar", (uint) toolbarPosition);
-    config->writeEntry("Statusbar", b_showStatusbar);
 
     // write main window geometry properties
     config->setGroup("MainGeometry");

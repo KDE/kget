@@ -243,10 +243,10 @@ KMainWidget::KMainWidget(bool bStartDocked)
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
-    m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
+    m_paShowStatusbar->setChecked( !statusBar()->isHidden() );
     m_paShowLog->setChecked(b_viewLogWindow);
 
-      if (!bStartDocked && ksettings.b_showMain)
+    if (!bStartDocked && ksettings.b_showMain)
         show();
 
     kdock->show();
@@ -262,6 +262,11 @@ KMainWidget::~KMainWidget()
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
+
+    // because of our closeEvent() reimp, KMainWindow won't save the settings,
+    // so we have to do it ourselves
+    if (settingsDirty())
+        saveMainWindowSettings( KGlobal::config(), "MainWindow" );
 
     delete prefDlg;
     delete animTimer;
@@ -373,8 +378,8 @@ void KMainWidget::setupGUI()
 
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), coll);
 
-    KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll, "configure_keybinding");
-    KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll, "configure_toolbars");
+    KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll);
+    KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
     // view actions
 
@@ -388,9 +393,6 @@ void KMainWidget::setupGUI()
 
     createGUI("kgetui.rc");
 
-    toolBar()->setBarPos(ksettings.toolbarPosition);
-    toolBar()->setIconText(KToolBar::IconOnly);
-
     // setup statusbar
     statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
     statusBar()->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
@@ -398,16 +400,11 @@ void KMainWidget::setupGUI()
     statusBar()->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
     statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
 
-    if (ksettings.b_showStatusbar)
-        statusBar()->show();
-    else
-        statusBar()->hide();
+    setAutoSaveSettings( "MainWindow", false /*Settings takes care of size & pos & state */ );
 
     slotUpdateActions();
 
     updateStatusBar();
-
-
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -488,7 +485,6 @@ void KMainWidget::setupWhatsThis()
 }
 
 
-
 void KMainWidget::slotConfigureKeys()
 {
 #ifdef _DEBUG
@@ -504,15 +500,31 @@ void KMainWidget::slotConfigureKeys()
 }
 
 
-
 void KMainWidget::slotConfigureToolbars()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
+    saveMainWindowSettings( KGlobal::config(), "MainWindow" );
     KEditToolbar edit(factory());
+    connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+
+
+void KMainWidget::slotNewToolbarConfig()
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    createGUI("kgetui.rc");
+    applyMainWindowSettings( KGlobal::config(), "MainWindow" );
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1578,15 +1590,14 @@ void KMainWidget::slotToggleStatusbar()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_showStatusbar = !ksettings.b_showStatusbar;
-
-    if (!ksettings.b_showStatusbar) {
+    if (!statusBar()->isHidden()) {
         statusBar()->hide();
     } else {
         statusBar()->show();
     }
+    setSettingsDirty();
 
-    resizeEvent(0L);
+    resizeEvent(0L); // ??
 
 #ifdef _DEBUG
     sDebugOut << endl;

@@ -137,6 +137,7 @@ protected slots:
 
     void slotConfigureKeys();
     void slotConfigureToolbars();
+    void slotNewToolbarConfig();
 
     void slotPopupMenu(Transfer * item);
 
