@@ -74,7 +74,7 @@ Q_OBJECT public:
         return phasesNum;
     }
     bool updateStatus(int counter);
-    bool find(const KURL& _src);
+    Transfer * find(const KURL& _src);
     bool isQueueEmpty();
 
     void readTransfers(const KURL& file);

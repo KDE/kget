@@ -1211,7 +1211,6 @@ void KMainWidget::checkQueue()
         for (; it.current(); ++it) {
             status = it.current()->getStatus();
             if (status == Transfer::ST_RUNNING || status == Transfer::ST_TRYING)
-
                 numRun++;
         }
         sDebug << "Found " << numRun << " Running Jobs" << endl;
@@ -2275,10 +2274,28 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
         return false;
     }
     // if we find this URL in the list
-    if (myTransferList->find(url))
+    Transfer *transfer = myTransferList->find( url );
+    if ( transfer )
     {
         if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
+        {
+            if ( transfer->getStatus() != Transfer::ST_FINISHED )
+            {
+                KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
+                transfer->showIndividual();
+                return false;
+            }
+            else // transfer is finished, ask if we want to download again
+            {
+                if ( KMessageBox::questionYesNo(this, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
+                     == KMessageBox::Yes )
+                {
+                    transfer->slotRequestRemove();
+                    checkQueue();
+                    return true;
+                }
+            }
+        }
 
         return false;
     }

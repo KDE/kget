@@ -218,17 +218,17 @@ bool TransferList::isQueueEmpty()
 }
 
 
-bool TransferList::find(const KURL& _src)
+Transfer * TransferList::find(const KURL& _src)
 {
     TransferIterator it(this);
 
     for (; it.current(); ++it) {
         if (it.current()->getSrc() == _src) {
-            return true;
+            return it.current();
         }
     }
 
-    return false;
+    return 0L;
 }
 
 

@@ -55,10 +55,8 @@ class TransferList;
 
 class Transfer:public QObject, public KListViewItem
 {
-
-
-Q_OBJECT public:
-
+    Q_OBJECT 
+public:
     enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
 
     enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
