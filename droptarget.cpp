@@ -174,7 +174,7 @@ void DropTarget::dropEvent(QDropEvent * event)
 
     if (KURLDrag::decode(event, list))
     {
-        kmain->addDropTransfers(list);
+        kmain->addTransfers(list);
     }
     else if (QTextDrag::decode(event, str))
     {

@@ -101,7 +101,7 @@ void DockWidget::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list)) {
-        parent->addDropTransfers(list);
+        parent->addTransfers(list);
     } else if (QTextDrag::decode(event, str)) {
         parent->addTransfer(str);
     }

@@ -7,6 +7,7 @@
 *    copyright    : (C) 2002 by Patrick Charbonnier
 *                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
 *    email        : pch@freeshell.org
+*    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
 *
 ****************************************************************************/
 
@@ -108,7 +109,7 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 
 
 
-KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
+KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0), KGetIface( "KGet-Interface" )
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -618,27 +619,27 @@ void KMainWidget::readTransfers(bool ask_for_name)
     sDebugIn << endl;
 #endif
 
-    QString txt;
+    KURL url;
 
     if (ask_for_name)
-        txt = KFileDialog::getOpenURL(currentDirectory, i18n("*.kgt|*.kgt\n*|All files")).url();
+        url = KFileDialog::getOpenURL(currentDirectory, i18n("*.kgt|*.kgt\n*|All files"));
     else
-        txt = locateLocal("appdata", "transfers.kgt");
+        url.setPath( locateLocal("appdata", "transfers.kgt") );
 
-    readTransfersEx(txt);
+    readTransfersEx(url);
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
 }
 
-void KMainWidget::readTransfersEx(const QString & txt)
+void KMainWidget::readTransfersEx(const KURL & file)
 {
 #ifdef _DEBUG
   sDebugIn << endl;
 #endif
 
-    if (txt.isEmpty()) {
+    if (!file.isValid()) {
 
 #ifdef _DEBUG
         sDebugOut<< " string empty" << endl;
@@ -646,9 +647,9 @@ void KMainWidget::readTransfersEx(const QString & txt)
         return;
     }
 #ifdef _DEBUG
-    sDebug << "Read from file: " << txt << endl;
+    sDebug << "Read from file: " << file << endl;
 #endif
-    myTransferList->readTransfers(txt);
+    myTransferList->readTransfers(file);
     checkQueue();
     slotTransferTimeout();
     myTransferList->clearSelection();
@@ -1061,128 +1062,163 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
 #endif
 
     QString d = dest;
-    
-    // don't download file URL's TODO : uncomment?
-    if (url.protocol()!="http"&&url.protocol()!="ftp") {
 
-        KMessageBox::error(this, i18n("File protocol not accepted!\n%1").arg(url.prettyURL()), i18n("Error"));
+    if ( !sanityChecksSuccessful( url ) )
+        return;
 
-#ifdef _DEBUG
-        sDebugOut << endl;
-#endif
-        return;
-    }
-
-    if (url.isMalformed()) {
-        if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
-#ifdef _DEBUG
-        sDebugOut << "Malformed URL" << endl;
-#endif
-        return;
-    }
-    // if we find this URL in the list
-    if (myTransferList->find(url)) {
-        if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
-#ifdef _DEBUG
-        sDebugOut << "Malformed URL" << endl;
-#endif
-        return;
-    }
     // Setup destination
-
-    // first set destination directory to current directory ( which is also last used )
-    QString destDir = currentDirectory;
-
-    if (!ksettings.b_useLastDir) {
-        // check wildcards for default directory
-        DirList::Iterator it;
-        for (it = ksettings.defaultDirList.begin(); it != ksettings.defaultDirList.end(); ++it) {
-            QRegExp rexp((*it).extRegexp);
-
-            rexp.setWildcard(true);
-
-            if ((rexp.search(url.fileName())) != -1) {
-                destDir = (*it).defaultDir;
-                break;
-            }
-        }
-    }
+    QString destDir = getSaveDirectoryFor( url.fileName() );
 
     KURL destURL;
     bool bDestisMalformed=true;
     bool b_expertMode=ksettings.b_expertMode;
     while (bDestisMalformed)
     {
-    if (d.isNull()) {           // if we didn't provide destination
-        if (!b_expertMode) {
-            // open the filedialog for confirmation
-            KFileDialog *dlg = new KFileDialog(currentDirectory, "",this,"save_as",true);
-            dlg->setCaption(i18n("Save As"));
-            dlg->setSelection(url.fileName());
-            dlg->setOperationMode(KFileDialog::Saving);
-            // TODO set the default destiantion
-            dlg->exec();
+        if (d.isNull()) {           // if we didn't provide destination
+            if (!b_expertMode) {
+                // open the filedialog for confirmation
+                KFileDialog dlg(destDir, QString::null,this,"save_as",true);
+                dlg.setCaption(i18n("Save As"));
+                dlg.setSelection(url.fileName());
+                dlg.setOperationMode(KFileDialog::Saving);
+                // TODO set the default destiantion
+                dlg.exec();
 
-            if (!dlg->result()) {       // cancelled
+                if (!dlg.result()) {       // cancelled
 #ifdef _DEBUG
-                sDebugOut << endl;
+                    sDebugOut << endl;
 #endif
-                return;
-            }
-	    else {
-                destURL = dlg->selectedURL();
-                currentDirectory = destURL.directory();
+                    return;
+                }
+                else {
+                    destURL = dlg.selectedURL();
+                    currentDirectory = destURL.directory();
+                }
+            } else {
+                // in expert mode don't open the filedialog
+                destURL = KURL::fromPathOrURL( destDir + "/" + url.fileName() );
             }
         } else {
-            // in expert mode don't open the filedialog
-            destURL = destDir + "/" + url.fileName();
+            destURL = KURL::fromPathOrURL( d );
         }
-    } else {
-        destURL = d;
+
+        //check if destination already exists
+
+        if(KIO::NetAccess::exists(destURL))
+        {
+            if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
+            {
+                bDestisMalformed=false;
+                KIO::NetAccess::del(destURL);
+            }
+            else
+            {
+                d=QString::null;
+                b_expertMode=false;
+                currentDirectory = destURL.directory();
+            }
+        }
+        else
+            bDestisMalformed=false;
     }
-
-   //check if destination already exists
-
-    if(KIO::NetAccess::exists(destURL))
-      {
-      if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
-          {
-	   bDestisMalformed=false;
-	   KIO::NetAccess::del(destURL);
-	   }
-           else
-	   {
-            d=QString::null;
-	    b_expertMode=false;
-	    currentDirectory = destURL.directory();
-	  }
-     }
-     else
-     bDestisMalformed=false;
-
-   }
-   // QString file = url.fileName();
+    // QString file = url.fileName();
 
     // create a new transfer item
     Transfer *item = myTransferList->addTransfer(url, destURL);
+    item->updateAll(); // update the remaining fields
 
-    // update the remaining fields
-    item->updateAll();
+    if (bShowIndividual)
+        item->showIndividual();
 
     myTransferList->clearSelection();
 
     if (ksettings.b_useSound) {
         KAudioPlayer::play(ksettings.audioAdded);
     }
-    if (bShowIndividual)
-        item->showIndividual();
     checkQueue();
-
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+}
+
+
+void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
+{
+    KURL::List urlsToDownload;
+
+    for ( KURL::List::ConstIterator it = src.begin(); it != src.end(); ++it )
+    {
+        KURL url = *it;
+        if ( url.fileName().endsWith( ".kgt" ) )
+            readTransfersEx(url);
+        else
+            urlsToDownload.append( url );
+    }
+
+    if ( urlsToDownload.isEmpty() )
+        return;
+
+    if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
+    {
+        addTransferEx( urlsToDownload.first(), destDir );
+        return;
+    }
+
+    // multiple files -> ask for directory, not for every single filename
+    KURL dest;
+    if ( destDir.isEmpty() || !QFileInfo( destDir ).isDir() )
+    {
+        if ( !destDir.isEmpty()  )
+            dest.setPath( destDir );
+        else
+            dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
+
+        // ask in any case, when destDir is empty
+        if ( destDir.isEmpty() || !QFileInfo( dest.directory() ).isDir() )
+        {
+            QString dir = KFileDialog::getExistingDirectory( dest.directory() );
+            if ( dir.isEmpty() ) // aborted
+                return;
+
+            dest.setPath( dir );
+            currentDirectory = dir;
+        }
+    }
+    
+    // dest is now finally the real destination directory for all the files
+
+    // create new transfer items
+    KURL::List::ConstIterator it = urlsToDownload.begin();
+    for ( ; it != urlsToDownload.end(); ++it )
+    {
+        KURL srcURL = *it;
+
+        if ( !sanityChecksSuccessful( *it ) )
+            continue;
+
+        KURL destURL = dest;
+        destURL.adjustPath( +1 );
+        destURL.setFileName( (*it).fileName() );
+
+        if(KIO::NetAccess::exists(destURL))
+        {
+            if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))
+                == KMessageBox::Yes)
+            {
+                KIO::NetAccess::del(destURL);
+            }
+        }
+
+        Transfer *item = myTransferList->addTransfer(*it, destURL);
+        item->updateAll(); // update the remaining fields
+    }
+
+    myTransferList->clearSelection();
+
+    if (ksettings.b_useSound) {
+        KAudioPlayer::play(ksettings.audioAdded);
+    }
+    checkQueue();
 }
 
 void KMainWidget::addTransfer(const QString& src, const QString& dest)
@@ -1193,13 +1229,13 @@ void KMainWidget::addTransfer(const QString& src, const QString& dest)
 
     if ( src.isEmpty() )
         return;
-    
+
     KURL url;
     if ( src[0] == '/' )
         url.setPath( src );
     else
         url = src;
-    
+
     addTransferEx(url, dest, false);
 
 #ifdef _DEBUG
@@ -1419,36 +1455,11 @@ void KMainWidget::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list)) {
-        addDropTransfers(list);
+        addTransfers(list);
     } else if (QTextDrag::decode(event, str)) {
         addTransfer(str);
     }
     sDebugOut << endl;
-}
-
-
-void KMainWidget::addDropTransfers(const KURL::List& list)
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    KURL url;
-    KURL::List::ConstIterator it = list.begin();
-    for ( ; it != list.end(); ++it )
-    {
-        url = *it;
-        if ( url.fileName().endsWith( ".kgt" ) )
-            readTransfersEx(url.url());
-        else
-            addTransferEx(url);
-    }
-
-    myTransferList->clearSelection();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
 
 
@@ -1521,6 +1532,8 @@ void KMainWidget::closeEvent(QCloseEvent *_event)
 {
 #ifdef _DEBUG
     sDebugIn<<"type="<<_event->type() << endl;
+#else
+    Q_UNUSED( _event )
 #endif
 
     hide();
@@ -2277,5 +2290,58 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 #endif
 }
 
+QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
+{
+    // first set destination directory to current directory ( which is also last used )
+    QString destDir = currentDirectory;
+
+    if (!ksettings.b_useLastDir) {
+        // check wildcards for default directory
+        DirList::Iterator it;
+        for (it = ksettings.defaultDirList.begin(); it != ksettings.defaultDirList.end(); ++it) {
+            QRegExp rexp((*it).extRegexp);
+
+            rexp.setWildcard(true);
+
+            if ((rexp.search( filename )) != -1) {
+                destDir = (*it).defaultDir;
+                break;
+            }
+        }
+    }
+
+    return destDir;
+}
+
+bool KMainWidget::sanityChecksSuccessful( const KURL& url )
+{
+    if (url.isMalformed())
+    {
+        if (!ksettings.b_expertMode)
+            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
+
+        return false;
+    }
+    // if we find this URL in the list
+    if (myTransferList->find(url))
+    {
+        if (!ksettings.b_expertMode)
+            KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
+
+        return false;
+    }
+
+    // why restrict this to ftp and http? (pfeiffer)
+//     // don't download file URL's TODO : uncomment?
+//     if (url.protocol() == "http" && url.protocol() != "ftp") {
+//         KMessageBox::error(this, i18n("File protocol not accepted!\n%1").arg(url.prettyURL()), i18n("Error"));
+// #ifdef _DEBUG
+//         sDebugOut << endl;
+// #endif
+//         return false;
+//     }
+
+    return true;
+}
 
 #include "kmainwidget.moc"

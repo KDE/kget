@@ -299,7 +299,7 @@ bool TransferList::isQueueEmpty()
 }
 
 
-bool TransferList::find(KURL _src)
+bool TransferList::find(const KURL& _src)
 {
     TransferIterator it(this);
 
@@ -313,7 +313,7 @@ bool TransferList::find(KURL _src)
 }
 
 
-void TransferList::readTransfers(QString file)
+void TransferList::readTransfers(const KURL& file)
 {
 
     QString tmpFile;

@@ -34,6 +34,9 @@
 #include <kaction.h>
 #include <kurl.h>
 #include "common.h"
+
+#include "kget_iface.h"
+
 class KAction;
 //class KToggleAction;
 class KRadioAction;
@@ -48,7 +51,7 @@ class TransferList;
 class Settings;
 
 
-class KMainWidget:public KMainWindow
+class KMainWidget:public KMainWindow, virtual public KGetIface
 {
 
 Q_OBJECT public:
@@ -60,8 +63,9 @@ Q_OBJECT public:
 
     void addTransfer(const QString& src, const QString& dest = QString::null);
     void addTransferEx(const KURL& url, const QString& dst = QString::null, bool bShowIndividual = false);
-    void addDropTransfers(const KURL::List& list);
 
+    // dcop interface
+    virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
 
     void checkQueue();
 
@@ -78,7 +82,7 @@ Q_OBJECT public:
     KAction *m_paQuit;
     bool b_viewLogWindow;
 
-    void readTransfersEx(const QString & txt);
+    void readTransfersEx(const KURL & url);
 
 public slots:
     void slotPasteTransfer();
@@ -137,12 +141,12 @@ protected slots:
     void slotPopupMenu(Transfer * item);
 
 protected:
-    void closeEvent(QCloseEvent *);
+    virtual void closeEvent(QCloseEvent *);
     void writeLog();
 
     // drag and drop
-    void dragEnterEvent(QDragEnterEvent *);
-    void dropEvent(QDropEvent *);
+    virtual void dragEnterEvent(QDragEnterEvent *);
+    virtual void dropEvent(QDropEvent *);
 
     void readTransfers(bool ask_for_name = false);
     void writeTransfers(bool ask_for_name = false);
@@ -178,6 +182,9 @@ protected:
 
 
 private:
+    QString getSaveDirectoryFor( const QString& filename ) const;
+    bool sanityChecksSuccessful( const KURL& url );
+
     TransferList * myTransferList;
     KHelpMenu *menuHelp;
 

@@ -74,10 +74,10 @@ Q_OBJECT public:
         return phasesNum;
     }
     bool updateStatus(int counter);
-    bool find(KURL _src);
+    bool find(const KURL& _src);
     bool isQueueEmpty();
 
-    void readTransfers(QString file);
+    void readTransfers(const KURL& file);
     void writeTransfers(QString file);
 
     friend class Transfer;

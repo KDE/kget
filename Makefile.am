@@ -12,7 +12,7 @@ kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
                dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
                dlgAutomation.cpp dlgAdvanced.cpp bwdatetime.cpp \
-               main.cpp dockindividual.cpp
+               main.cpp dockindividual.cpp kget_iface.skel
 
 noinst_HEADERS = bwdatetime.h common.h \
                  dlgAdvanced.h dlgAutomation.h dlgConnection.h \
