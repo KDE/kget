@@ -178,7 +178,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     panelAdvanced->addTab(spins, i18n("Timer"));
     panelAdvanced->hide();
 
-    connect(spins, SIGNAL(signalDateChanged(const QDateTime &)), item, SLOT(slotStartTime(const QDateTime &)));
+    connect(spins, SIGNAL(valueChanged(const QDateTime &)), item, SLOT(slotStartTime(const QDateTime &)));
 
     // adding item log
     ml_log = new QTextEdit(panelAdvanced);

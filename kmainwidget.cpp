@@ -1190,6 +1190,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
     }
 
     // dest is now finally the real destination directory for all the files
+    dest.adjustPath(+1);
 
     // create new transfer items
     KURL::List::ConstIterator it = urlsToDownload.begin();
@@ -1201,7 +1202,6 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             continue;
 
         KURL destURL = dest;
-        destURL.adjustPath( +1 );
         destURL.setFileName( (*it).fileName() );
 
         if(KIO::NetAccess::exists(destURL))
