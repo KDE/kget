@@ -1014,7 +1014,7 @@ void KMainWidget::slotPasteTransfer()
 
 // destFile must be a filename, not a directory! And it will be deleted, if
 // it exists already, without further notice.
-void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile, 
+void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
                                 bool bShowIndividual)
 {
 #ifdef _DEBUG
@@ -1093,7 +1093,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
 
     else // destURL was given, check whether the file exists already
     {
-        // simply delete it, the calling process should have asked if you 
+        // simply delete it, the calling process should have asked if you
         // really want to delete (at least khtml does)
         if(KIO::NetAccess::exists(destURL))
             KIO::NetAccess::del(destURL);
@@ -1137,7 +1137,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
     if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
     {
         KURL destFile;
-        
+
         if ( !destDir.isEmpty() )
         {
             // create a proper destination file from destDir
@@ -1153,7 +1153,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
                 }
             }
         }
-        
+
         addTransferEx( urlsToDownload.first(), destFile );
         return;
     }
@@ -2317,23 +2317,26 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
     Transfer *transfer = myTransferList->find( url );
     if ( transfer )
     {
-        if (!ksettings.b_expertMode)
+        if ( transfer->getStatus() != Transfer::ST_FINISHED )
         {
-            if ( transfer->getStatus() != Transfer::ST_FINISHED )
+            if ( !ksettings.b_expertMode )
             {
                 KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
-                transfer->showIndividual();
-                return false;
             }
-            else // transfer is finished, ask if we want to download again
+            
+            transfer->showIndividual();
+            return false;
+        }
+
+        else // transfer is finished, ask if we want to download again
+        {
+            if ( ksettings.b_expertMode ||
+                 (KMessageBox::questionYesNo(this, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
+                     == KMessageBox::Yes) )
             {
-                if ( KMessageBox::questionYesNo(this, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
-                     == KMessageBox::Yes )
-                {
-                    transfer->slotRequestRemove();
-                    checkQueue();
-                    return true;
-                }
+                transfer->slotRequestRemove();
+                checkQueue();
+                return true;
             }
         }
 
