@@ -48,7 +48,7 @@
 #include "transfer.h"
 
 #include "settings.h"
-#include "dlgIndividual.h"
+#include "dlgindividual.h"
 
 
 DlgIndividual::DlgIndividual(Transfer * _item)
@@ -179,7 +179,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
 
     topLayout->addWidget(panelAdvanced);
-    slotToggleAdvanced(ksettings.b_advancedIndividual);
+    slotToggleAdvanced(Settings::advancedIndividual());
 
     resize( sizeHint() );
 
@@ -365,4 +365,4 @@ void DlgIndividual::enableOpenFile()
 #endif
 }
 
-#include "dlgIndividual.moc"
+#include "dlgindividual.moc"
