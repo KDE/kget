@@ -30,7 +30,7 @@
     </entry>
     <entry name="ShowSplashscreen" type="Bool">
       <label>Sets to show the splashscreen while kget is loading</label>
-      <default>true</default>
+      <default>false</default>
     </entry>
   </group>
 

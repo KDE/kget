@@ -42,7 +42,9 @@ public slots:
     
 private:
     void createJob();
-    
+
+    KIO::FileCopyJob * copyjob;
+        
 private slots:
     void slotResult( KIO::Job *job );
     void slotInfoMessage( KIO::Job *job, const QString & msg );
@@ -51,8 +53,6 @@ private slots:
     void slotTotalSize( KIO::Job *job, KIO::filesize_t size );
     void slotProcessedSize( KIO::Job *job, KIO::filesize_t size );
     void slotSpeed( KIO::Job *job, unsigned long bytes_per_second );
-    
-    KIO::FileCopyJob * copyjob;
 };
 
 #endif

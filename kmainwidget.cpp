@@ -90,39 +90,18 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     : KGetIface( "KGet-Interface" ),
     QWidget( parent, name, Qt::WType_TopLevel | Qt::WNoAutoErase ),
     KXMLGUIClient(), ViewInterface( "viewIface-main" ),
-    rightWidget(0), kdrop(0), kdock(0), logWindow(0)
+    rightWidget(0), kdrop(0), kdock(0), logWindow(0), mainView(0)
 {
-    // scheduler creation and viewinterface connection
-    scheduler = new Scheduler(this);
-    connectToScheduler( scheduler );
-
     // create actions
     setupActions();
-
+    
     // create widgets and the XMLGUI look
     setupGUI();
 
     // set window title
     setCaption(KGETVERSION);
 
-    // enable dropping
-    setAcceptDrops(true);
-
-    // session management stuff
-    connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveMyself()));
-
-    // set auto-resume in kioslaverc (is there a cleaner way?)
-    KConfig cfg( "kioslaverc", false, false);
-    cfg.setGroup(QString::null);
-    cfg.writeEntry("AutoResume", true);
-    cfg.sync();
-
-    // immediately start downloading if configured this way
-    if ( Settings::downloadAtStartup() )
-        slotDownloadToggled();
-
-    // reset the FirstRun config option
-    Settings::setFirstRun(false);
+    QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
 
 
@@ -133,6 +112,7 @@ KMainWidget::~KMainWidget()
     delete kdock;
     delete logWindow;
     delete scheduler;
+    delete mainView;
     // the following call saves options set in above dtors
     Settings::writeConfig();
 }
@@ -218,6 +198,7 @@ void KMainWidget::setupGUI()
 {
     /** main content creation */
     
+    
     // the top menu
     menuBar = new KMenuBar( this, "kget_menubar" );
     
@@ -246,18 +227,16 @@ void KMainWidget::setupGUI()
     
     // create menu entries and toolbar buttons from the XML file
     createGUI();
- 
+    
     /** widgets inserted in the 'body' part */
 
     // create the 'right view'
-    MainView * t = new MainView( (QWidget *)browserBar->container() );
+    mainView = new MainView( (QWidget *)browserBar->container() );
     //TestView * t = new TestView( (QWidget *)browserBar->container() );
-    t->connectToScheduler(scheduler);
-    rightWidget = t;
+    rightWidget = mainView;
 
     // side panel :: Groups
     groupsPanel = new GroupsPanel(0,"groups panel");
-    groupsPanel->connectToScheduler(scheduler);
     browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
     
 //     // side panel :: Global statistics
@@ -289,38 +268,81 @@ void KMainWidget::setupGUI()
     layV->addWidget( browserBar, 2 );
     layV->addWidget( statusBar );
 
+    
     /** restore position, size and visibility */
 
     // MainWidget (myself)
     move( Settings::mainPosition() );
-    setViewMode( Settings::showMainLarge() ? vm_transfers : vm_compact, true );
+    rightWidget->show();
+    browserBar->show();
+    browserBar->setMinimumHeight( 200 );
+    //setEraseColor( palette().active().background().dark(150) );
+    setMaximumHeight( 32767 );
+    resize( Settings::mainSize() );
+    
+    
+//    setViewMode( Settings::showMainLarge() ? vm_transfers : vm_compact, true );
     setShown( Settings::showMain() );
     KWin::setState(winId(), Settings::mainState());
 
     /** other (external) widgets creation */
    
-    // DropTarget
-    kdrop = new DropTarget(this);
-    kdrop->connectToScheduler(scheduler);
-    if ( Settings::showDropTarget() || Settings::firstRun() )
-        kdrop->show();
-    if ( Settings::firstRun() )
-        kdrop->playAnimation();
+    
+    //Some of the widgets are initialized in slotDelayedInit()    
 
     // LogWindow
     //logWindow = new LogWindow();
     //log(i18n("Welcome to KGet2"));
 
-    // DockWidget
-    kdock = new DockWidget(this);
-    kdock->connectToScheduler(scheduler);
-    kdock->show();
 }
 
+void KMainWidget::slotDelayedInit()
+{
+    
+    // DropTarget
+    kdrop = new DropTarget(this);
+    if ( Settings::showDropTarget() || Settings::firstRun() )
+        kdrop->show();
+    if ( Settings::firstRun() )
+        kdrop->playAnimation();
+
+    // DockWidget
+    kdock = new DockWidget(this);
+    kdock->show();
+        
+    // scheduler creation 
+    scheduler = new Scheduler(this);
+    
+    //viewinterface connection
+    connectToScheduler( scheduler );
+    kdock->connectToScheduler(scheduler);
+    mainView->connectToScheduler(scheduler);
+    groupsPanel->connectToScheduler(scheduler);
+    kdrop->connectToScheduler(scheduler);
+
+    // enable dropping
+    setAcceptDrops(true);
+
+    // session management stuff
+    connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveMyself()));
+
+    // set auto-resume in kioslaverc (is there a cleaner way?)
+    KConfig cfg( "kioslaverc", false, false);
+    cfg.setGroup(QString::null);
+    cfg.writeEntry("AutoResume", true);
+    cfg.sync();
+
+    // immediately start downloading if configured this way
+    if ( Settings::downloadAtStartup() )
+        slotDownloadToggled();
+
+    // reset the FirstRun config option
+    Settings::setFirstRun(false);
+}
 
 void KMainWidget::setViewMode( enum ViewMode mode, bool force )
 {
-    if ( (mode == vMode) && !force )
+/*    if ( (mode == vMode) && !force )
         return;
     setUpdatesEnabled( false );
     switch ( mode )
@@ -338,15 +360,22 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
             } break;
         case vm_transfers: {
             delete rightWidget;
-            MainView * t = new MainView( (QWidget *)browserBar->container() );
+            kdDebug() << "3.1.1" << endl;
+            mainView = new MainView( (QWidget *)browserBar->container() );
             //TestView * t = new TestView( (QWidget *)browserBar->container() );
-            t->connectToScheduler(scheduler);
-            rightWidget = t;
+            mainView->connectToScheduler(scheduler);
+            kdDebug() << "3.1.2" << endl;
+            rightWidget = mainView;
+            kdDebug() << "3.1.3" << endl;
             rightWidget->show();
+            kdDebug() << "3.1.4" << endl;
             browserBar->show();
+            kdDebug() << "3.1.5" << endl;
             browserBar->setMinimumHeight( 200 );
+            kdDebug() << "3.1.6" << endl;
             //setEraseColor( palette().active().background().dark(150) );
             setMaximumHeight( 32767 );
+            kdDebug() << "3.1.7" << endl;
             if ( vMode == vm_compact || force )
                 resize( Settings::mainSize() );
             } break;
@@ -365,6 +394,7 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
     vMode = mode;
     viewModeChanged( (int)vMode );
     setUpdatesEnabled( true );
+*/
 }
 
 

@@ -1,4 +1,8 @@
 2004-11-05 Dario Massarin <nekkar@libero.it>
+        * Delayed initialization. This should speed up the application startup
+        especially when the user has lots of transfers.
+
+2004-11-05 Dario Massarin <nekkar@libero.it>
         * Cleanups all over the code.
         
         * interrogator.h: Now we have this new file that defines the two classes

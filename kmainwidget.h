@@ -83,6 +83,7 @@ private slots:
     void slotConfigureToolbars();
 
     // misc slots
+    void slotDelayedInit();
     void slotSaveMyself();
     void slotNewToolbarConfig();
     void slotNewConfig();
@@ -114,6 +115,7 @@ private:
     class GroupsPanel * groupsPanel;
     class QLabel      * helpPanel;
     class QWidget     * rightWidget;
+    class MainView    * mainView;
     
     // separated widgets
     class DropTarget * kdrop;
