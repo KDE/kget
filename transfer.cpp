@@ -874,10 +874,9 @@ void Transfer::slotCanResume(bool _bCanResume)
         canResume = _bCanResume;
 
         if (canResume) {
-                logMessage(i18n("Download can be resumed"));
+                logMessage(i18n("Download resumed"));
                 setText(view->lv_resume, i18n("Yes"));
         } else {
-                logMessage(i18n("Download can not be resumed"));
                 setText(view->lv_resume, i18n("No"));
         }
 
