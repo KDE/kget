@@ -2,10 +2,10 @@
                                 dlgSystem.cpp
                              -------------------
     Revision 				: $Id$
-    begin						: Tue Jan 29 2002
+    begin				: Tue Jan 29 2002
     copyright				: (C) 2002 by Patrick Charbonnier
-									: Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-    email						: pch@freeshell.og
+					: Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+    email				: pch@freeshell.org
  ***************************************************************************/
 
 /***************************************************************************
