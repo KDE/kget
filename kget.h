@@ -31,7 +31,7 @@
 #include <config.h>
 #endif
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <qwidget.h>
 
 /** KGet is the base class of the project */

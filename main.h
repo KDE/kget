@@ -33,7 +33,7 @@
 //#include <kuniqueapp.h>
 //class KGetApp:public KUniqueApplication {
 //#else
-#include <kapp.h>
+#include <kapplication.h>
 class KGetApp:public KApplication
 {
         //#endif

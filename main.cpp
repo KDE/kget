@@ -55,7 +55,7 @@ static KCmdLineOptions option[] = {
 static void cleanup(void);
 static void setSignalHandler(void (*handler) (int));
 
-static msg_handler oldMsgHandler = 0L;
+//static msg_handler oldMsgHandler = 0L;
 
 //-----------------------------------------------------------------------------
 // Crash recovery signal handler
@@ -92,7 +92,7 @@ static void setSignalHandler(void (*handler) (int))
 
 static void cleanup(void)
 {
-    qInstallMsgHandler(oldMsgHandler);
+    qInstallMsgHandler(0L /*oldMsgHandler*/);
     QString cmd;
 }
 

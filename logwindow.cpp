@@ -35,7 +35,7 @@
 #include "kmainwidget.h"
 #include "logwindow.h"
 
-#include <kapp.h>
+#include <kapplication.h>
 // // Replace regular space with nbsp
 // QString replaceSpaces(const QString &str) {
 //   QString res = str;

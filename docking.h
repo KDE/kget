@@ -35,11 +35,11 @@
 #include <qdragobject.h>
 
 #include <kpopupmenu.h>
-#include <kdockwindow.h>
+#include <ksystemtray.h>
 
 class KMainWidget;
 
-class DockWidget:public KDockWindow
+class DockWidget:public KSystemTray
 {
 
 Q_OBJECT public:

@@ -101,8 +101,8 @@ protected:
     int lv_pixmap, lv_filename, lv_resume, lv_count, lv_progress;
     int lv_total, lv_speed, lv_remaining, lv_url;
 
-    static QList < QPixmap > *animConn;
-    static QList < QPixmap > *animTry;
+    static QPtrList < QPixmap > *animConn;
+    static QPtrList < QPixmap > *animTry;
     static QPixmap *pixQueued;
     static QPixmap *pixScheduled;
     static QPixmap *pixDelayed;

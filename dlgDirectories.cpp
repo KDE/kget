@@ -41,7 +41,7 @@
 
 #include "settings.h"
 #include "dlgDirectories.h"
-#include <kapp.h>
+#include <kapplication.h>
 
 DlgDirectories::DlgDirectories(QWidget * parent):QGroupBox(parent)
 {

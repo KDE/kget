@@ -24,8 +24,8 @@
  *
  ***************************************************************************/
 
-#include <kapp.h>
-#include <kstddirs.h>
+#include <kapplication.h>
+#include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <klocale.h>

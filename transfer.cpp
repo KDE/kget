@@ -41,7 +41,7 @@
 #include "transferlist.h"
 #include "transfer.h"
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kio/passdlg.h>
 #include <kio/global.h>
 

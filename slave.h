@@ -29,7 +29,7 @@
 #include <kio/job.h>
 #include <qthread.h>
 #include <kurl.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <qfile.h>
 #include "slaveevent.h"
 

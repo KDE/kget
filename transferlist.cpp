@@ -24,8 +24,8 @@
  *
  ***************************************************************************/
 
-#include <kapp.h>
-#include <kstddirs.h>
+#include <kapplication.h>
+#include <kstandarddirs.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kconfig.h>
@@ -55,8 +55,8 @@ static int defaultColumnWidth[] = {
 
 
 // TransferList static members
-QList < QPixmap > *TransferList::animConn = 0L;
-QList < QPixmap > *TransferList::animTry = 0L;
+QPtrList < QPixmap > *TransferList::animConn = 0L;
+QPtrList < QPixmap > *TransferList::animTry = 0L;
 QPixmap *TransferList::pixQueued = 0L;
 QPixmap *TransferList::pixScheduled = 0L;
 QPixmap *TransferList::pixDelayed = 0L;
@@ -151,8 +151,8 @@ TransferList::~TransferList()
 void
 TransferList::initStatic()
 {
-        animConn = new QList < QPixmap >;
-        animTry = new QList < QPixmap >;
+        animConn = new QPtrList < QPixmap >;
+        animTry = new QPtrList < QPixmap >;
         pixQueued = new QPixmap;
         pixScheduled = new QPixmap;
         pixDelayed = new QPixmap;
@@ -242,7 +242,7 @@ void TransferList::moveToBegin(Transfer * item)
 {
         TransferIterator it(this);
 
-        ASSERT(item);
+//        ASSERT(item);
 
         Transfer *new_item = new Transfer(this, item->getSrc(), item->getDest());
 
@@ -258,7 +258,7 @@ void TransferList::moveToBegin(Transfer * item)
 void TransferList::moveToEnd(Transfer * item)
 {
 
-        ASSERT(item);
+//        ASSERT(item);
 
         Transfer *new_item = addTransfer(item->getSrc(), item->getDest());
 

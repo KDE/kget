@@ -29,7 +29,7 @@
 #include <qtimer.h>
 #include <qlayout.h>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kdialog.h>
 #include <klocale.h>
 #include <ktoolbar.h>

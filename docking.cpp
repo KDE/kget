@@ -26,8 +26,8 @@
 
 #include <qpainter.h>
 
-#include <kapp.h>
-#include <kstddirs.h>
+#include <kapplication.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
 
 #include "kmainwidget.h"
@@ -38,7 +38,7 @@
 #define ICONHEIGHT 24
 
 
-DockWidget::DockWidget(KMainWidget * _parent):KDockWindow(_parent)
+DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
 
         parent = _parent;
@@ -160,7 +160,7 @@ void DockWidget::mousePressEvent(QMouseEvent * e)
         if (e->button() == MidButton) {
                 parent->slotPasteTransfer();
         } else {
-                KDockWindow::mousePressEvent(e);
+                KSystemTray::mousePressEvent(e);
         }
 }
 

@@ -27,7 +27,7 @@
 
 #include <qlayout.h>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 #include <kaction.h>
 

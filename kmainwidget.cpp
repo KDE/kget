@@ -46,8 +46,8 @@
 #include <qdropsite.h>
 
 #include <kfiledialog.h>
-#include <kapp.h>
-#include <kstddirs.h>
+#include <kapplication.h>
+#include <kstandarddirs.h>
 #include <kiconloader.h>
 #include <kaudioplayer.h>
 #include <kurl.h>
@@ -1072,7 +1072,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
         KURL url(s);
 
         // don't download file URL's TODO : uncomment
-        if (!strcmp(url.protocol(), "file")) {
+        if (url.protocol()!="file") {
 #ifdef _DEBUG
                 sDebugOut << "File protocol not accepted !" << endl;
 #endif
@@ -1109,7 +1109,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
 
                         rexp.setWildcard(true);
 
-                        if ((rexp.match(url.fileName())) != -1) {
+                        if ((rexp.search(url.fileName())) != -1) {
                                 destDir = (*it).defaultDir;
                                 break;
                         }
@@ -1121,8 +1121,9 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
         if (d.isNull()) {           // if we didn't provide destination
                 if (!ksettings.b_expertMode) {
                         // open the filedialog for confirmation
-                        KFileDialog *dlg = new KFileDialog(destDir, "",this,i18n("Save As"),true);
-                        dlg->setSelection(url.fileName());
+                        KFileDialog *dlg = new KFileDialog(destDir, "",this,"save_as",true);
+                        dlg->setCaption(i18n("Save As"));
+			dlg->setSelection(url.fileName());
                         dlg->setOperationMode(KFileDialog::Saving);
                         // TODO set the default destiantion
                         dlg->exec();
