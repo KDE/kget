@@ -62,6 +62,7 @@ DropTarget::DropTarget():QWidget()
         (y + bgnd.height()) <= desk.bottom() )
     {
         move(ksettings.dropPosition);
+        resize(bgnd.width(), bgnd.height());
         KWin::setState(winId(), ksettings.dropState);
     }
     else
