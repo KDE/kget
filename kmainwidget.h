@@ -109,6 +109,8 @@ private:
     class KStatusBar * statusBar;
     class KToolBar   * toolBar;
     class BrowserBar * browserBar;
+     class QWidget    * groupsPanel;
+     class QLabel     * helpPanel;
     class QWidget    * rightWidget;
     
     // separated widgets
@@ -136,6 +138,16 @@ class ComboAction : public KAction
     class QComboBox * widget;
     KMainWidget * parent;
 };
+
+
+// spacer pluggable into a toolbar
+class SpacerAction : public KAction
+{
+  public:
+    SpacerAction( const QString& name, const KShortcut&, KActionCollection* );
+    virtual int plug( QWidget* w, int index = -1 );
+};
+
 
 /*
 class XyzAction : public KAction

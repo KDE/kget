@@ -165,6 +165,7 @@ void KMainWidget::setupActions()
 
     // following actions are only designed to be show in the toolbar when window is 'compressed'
     new ComboAction( i18n("Window shape"), 0, ac, this );
+    new SpacerAction( i18n("<Spacer>"), 0, ac );
     
     // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
@@ -246,20 +247,32 @@ void KMainWidget::setupGUI()
     t->connectToScheduler(scheduler);
     rightWidget = t;
 
-    // create the 'left panels' views and link them to the 'right view'
+    // side panel :: Global statistics
     GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
     browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
-    
+
+    // side panel :: Transfer details
     IconViewMdiView * i = new IconViewMdiView();
     i->connectToScheduler(scheduler);
-    browserBar->addBrowser( i, i18n( "Transfer" ), "folder" );
-    
-    browserBar->addBrowser( new QWidget(0,"other panel"), i18n( "Other" ), "browser" );
-    
-    browserBar->addBrowser( new QWidget(0,"help panel"), i18n( "Help" ), "help" );
-    
+    browserBar->addBrowser( i, i18n( "Transfer" ), "browser" );
+
+    // side panel :: Groups
+    groupsPanel = new QWidget(0,"groups panel");
+    browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
+
+    // side panel :: Help
+    helpPanel = new QLabel( "", this, "help panel" );
+    helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>\
+                This widget should display context sensitive help\
+                (maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>\
+                Dario && Enrico");
+    helpPanel->setFrameShape( QFrame::StyledPanel );
+    helpPanel->setFrameShadow( QFrame::Sunken );
+    helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
+    browserBar->addBrowser( helpPanel, i18n( "Help" ), "help" );
+
     /** set layouting of the main widget */
-    
+
     QBoxLayout *layV = new QVBoxLayout( this );
     menuBar->setMinimumHeight( menuBar->height() );
     layV->addWidget( menuBar );
@@ -766,6 +779,31 @@ void ComboAction::slotViewModeChanged( int index )
 {
     if ( widget )
         widget->setCurrentItem( index );
+}
+
+
+SpacerAction::SpacerAction( const QString& text, const KShortcut& cut,
+    KActionCollection* ac )
+    : KAction( text, cut, ac, "view_spacer" ) {}
+
+int SpacerAction::plug( QWidget* w, int index )
+{
+    if ( !w->inherits( "KToolBar" ) ) {
+        kdError() << "KWidgetAction::plug: SpacerAction must be plugged into KToolBar." << endl;
+        return -1;
+    }
+
+    KToolBar* toolBar = static_cast<KToolBar*>( w );
+    int id = KAction::getToolButtonID();
+    addContainer( toolBar, id );
+    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+
+    QWidget * widget = new QWidget();
+    widget->reparent( toolBar, QPoint() );
+    toolBar->insertWidget( id, 0, widget, index );
+    toolBar->setItemAutoSized( id, true );
+
+    return containerCount() - 1;
 }
 
 

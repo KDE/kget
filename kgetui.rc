@@ -21,14 +21,14 @@
     </Menu>
 </MenuBar>
 <ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
-    <Action name="view_mode" />
-    <Separator/>
-    <Separator lineSeparator="true"/>
-    <Separator/>
     <Action name="download" />
     <Separator/>
     <Separator lineSeparator="true"/>
     <Separator/>
     <Action name="preferences"/>
+    <Separator/>
+    <Separator lineSeparator="true"/>    
+    <Action name="view_spacer" />
+    <Action name="view_mode" />
 </ToolBar>
 </kpartgui>
