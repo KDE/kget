@@ -34,7 +34,7 @@
 #include "transferlist.h"
 #include "droptarget.h"
 #include "settings.h"
-
+#include "common.h"
 
 QString ConnectionDevices[6] = {
                                        "",
@@ -49,7 +49,7 @@ QString ConnectionDevices[6] = {
 void
 Settings::load()
 {
-        kdDebug(5001) << "Loading settings" << endl;
+        sDebug<< "Loading settings" << endl;
 
         KConfig *config = kapp->config();
 
@@ -251,7 +251,7 @@ Settings::load()
 
 void Settings::save()
 {
-        kdDebug(5001) << "Saving settings" << endl;
+        sDebug << "Saving settings" << endl;
 
         KConfig *config = kapp->config();
 
