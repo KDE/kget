@@ -15,6 +15,8 @@
 #include "transferKio.h"
 #include "globals.h"
 
+#include "transferKio.moc"
+
 TransferKio::TransferKio(Scheduler * _scheduler, const KURL & _src, const KURL & _dest)
     : Transfer(_scheduler, _src, _dest),
       copyjob(0)

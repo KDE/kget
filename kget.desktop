@@ -1,9 +1,10 @@
 # KDE Config File  
 [Desktop Entry]
+Encoding=UTF-8
 Type=Application
 Exec=kget -caption "%c" %i %m  
 Icon=kget
-Terminal=0
+Terminal=false
 Name=KGet
 Name[ar]=ك.جيت
 Name[cy]=KNôl
@@ -39,4 +40,4 @@ GenericName[sr]=Менаџер преузимања
 GenericName[sv]=Nerladdningshanterare
 GenericName[ta]=பதிவிறக்க மேளாளர்
 GenericName[zh_CN]=下载管理器
-Categories=Qt;KDE;Network
+Categories=Qt;KDE;Network;

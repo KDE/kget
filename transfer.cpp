@@ -16,6 +16,7 @@
 #include "scheduler.h"
 #include "viewinterface.h"
 
+#include "transfer.moc"
 
 Transfer::Transfer(Scheduler * _scheduler, KURL _src, KURL _dest)
         : sched(_scheduler)
