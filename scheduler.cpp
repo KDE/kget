@@ -8,6 +8,7 @@
 #include <klocale.h>
 #include <kprotocolinfo.h>
 #include <kinputdialog.h>
+#include <kaudioplayer.h>
 
 #include "scheduler.h"
 #include "connection.h"
@@ -16,8 +17,8 @@
 #include "kmainwidget.h"
 
 Scheduler::Scheduler(KMainWidget * _mainWidget)
-    : QObject(), running(false),
-      mainWidget(_mainWidget)
+    : QObject(), mainWidget(_mainWidget),
+    running(false)
 {
     transfers = new TransferList();
     runningTransfers = new TransferList();
@@ -98,7 +99,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
                 return;
 
             dest.setPath( dir );
-            ksettings.lastDirectory = dir;
+            Settings::setLastDirectory( dir );
         }
     }
 
@@ -144,10 +145,10 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     
     //transfers->clearSelection();
 
-/*    if (ksettings.b_useSound) {
-        KAudioPlayer::play(ksettings.audioAdded);
+    if (Settings::useSound()) {
+        KAudioPlayer::play(Settings::audioAdded());
     }
-*/    
+
     //checkQueue();
 
     sDebugOut << endl;
@@ -172,7 +173,7 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
             {
             //sDebug << "BBB" << endl;
             
-            newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, mainWidget);
+            newtransfer = KInputDialog::getText(i18n("New Download"), i18n("Enter URL:"), newtransfer, &ok, mainWidget);
     
             // user presses cancel
             if (!ok) 
@@ -336,7 +337,7 @@ void Scheduler::slotReqOperation(SchedulerOperation operation)
 //     newtransfer = QApplication::clipboard()->text();
 //     newtransfer = newtransfer.stripWhiteSpace();
 // 
-//     if (!ksettings.b_expertMode) {
+//     if (!Settings::expertMode()) {
 //         bool ok = false;
 //         newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
 // 
@@ -354,7 +355,7 @@ void Scheduler::slotReqOperation(SchedulerOperation operation)
 //     QString list;
 //     int i, j;
 // 
-//     KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
+//     KURL filename = KFileDialog::getOpenURL(Settings::lastDirectory());
 //     if (!filename.isValid())
 //         return;
 // 
@@ -436,7 +437,7 @@ void Scheduler::slotImportTransfers(bool ask_for_name)
     KURL url;
 
     if (ask_for_name)
-        url = KFileDialog::getOpenURL(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
+        url = KFileDialog::getOpenURL(Settings::lastDirectory(), i18n("*.kgt|*.kgt\n*|All Files"));
     else
         url.setPath( locateLocal("appdata", "transfers.kgt") );
 
@@ -490,7 +491,7 @@ void Scheduler::slotExportTransfers(bool ask_for_name)
     QString txt;
 
     if (ask_for_name)
-        txt = KFileDialog::getSaveFileName(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
+        txt = KFileDialog::getSaveFileName(Settings::lastDirectory(), i18n("*.kgt|*.kgt\n*|All Files"));
     else
         txt = locateLocal("appdata", "transfers.kgt");
 
@@ -543,7 +544,7 @@ Transfer * Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
     {
         // Setup destination
         QString destDir = getSaveDirectoryFor( url.fileName() );
-        bool b_expertMode = ksettings.b_expertMode;
+        bool b_expertMode = Settings::expertMode();
         bool bDestisMalformed = true;
 
         while (bDestisMalformed)
@@ -571,7 +572,7 @@ Transfer * Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
                 else
                 {
                     destURL = dlg.selectedURL();
-                    ksettings.lastDirectory = destURL.directory();
+                    Settings::setLastDirectory( destURL.directory() );
                 }
             }
             else {
@@ -594,7 +595,7 @@ Transfer * Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
                 else
                 {
                     b_expertMode=false;
-                    ksettings.lastDirectory = destURL.directory();
+                    Settings::setLastDirectory( destURL.directory() );
                 }
             }
             else
@@ -627,7 +628,7 @@ bool Scheduler::isValidURL( const KURL& url )
 
     if (!url.isValid() || !KProtocolInfo::supportsReading( url ) )
     {
-        if (!ksettings.b_expertMode)
+        if (!Settings::expertMode())
             KMessageBox::error(mainWidget, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
 
         return false;
@@ -638,7 +639,7 @@ bool Scheduler::isValidURL( const KURL& url )
     {
         if ( transfer->getStatus() != ST_FINISHED )
         {
-            if ( !ksettings.b_expertMode )
+            if ( !Settings::expertMode() )
             {
                 KMessageBox::error(mainWidget, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
             }
@@ -648,7 +649,7 @@ bool Scheduler::isValidURL( const KURL& url )
 
         else // transfer is finished, ask if we want to download again
         {
-            if ( ksettings.b_expertMode ||
+            if ( Settings::expertMode() ||
                  (KMessageBox::questionYesNo(mainWidget, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
                      == KMessageBox::Yes) )
             {
@@ -674,9 +675,10 @@ bool Scheduler::isValidURL( const KURL& url )
     return true;
 }
 
-bool Scheduler::isValidDest( const KURL& dest )
+bool Scheduler::isValidDest( const KURL& /*dest*/ )
 {
-    //Copy from addTransferEx
+    //TODO Copy from addTransferEx
+    return true;
 }
 
 QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
@@ -686,20 +688,23 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
      * ( which is also last used )
      */
      
-    QString destDir = ksettings.lastDirectory;
+    QString destDir = Settings::lastDirectory();
 
-    if (!ksettings.b_useLastDir) {
+    if (!Settings::useLastDirectory()) {
         // check wildcards for default directory
-        DirList::Iterator it;
-        for (it = ksettings.defaultDirList.begin(); 
-             it != ksettings.defaultDirList.end(); ++it) 
-             {
-             QRegExp rexp((*it).extRegexp);
 
+        QStringList::Iterator it = Settings::mimeDirList().begin();
+        QStringList::Iterator end = Settings::mimeDirList().end();
+        for (; it != end; ++it)
+        {
+            // odd list items are regular expressions
+            QRegExp rexp(*it);
             rexp.setWildcard(true);
+            // even list items are directory
+            ++it;
 
             if ((rexp.search( filename )) != -1) {
-                destDir = (*it).defaultDir;
+                destDir = *it;
                 break;
             }
         }
@@ -712,7 +717,7 @@ void Scheduler::checkRunningTransfers()
 {
     sDebugIn << endl;
 
-    int newTransfers = /*ksettings.maxSimultaneousConnections*/ 1 - runningTransfers->size();
+    int newTransfers = /*Settings::maxSimConnections() si puo' attivare*/ 1 - runningTransfers->size();
     
     if(newTransfers <= 0 )
         return;
@@ -738,7 +743,7 @@ void Scheduler::checkRunningTransfers()
     int status;
     Transfer *item;
 
-    if (!ksettings.b_offlineMode && b_online) {
+    if (!Settings::offlineMode() && b_online) {
 
         TransferIterator it(transfers);
 
@@ -752,13 +757,13 @@ void Scheduler::checkRunningTransfers()
         it.reset();
         bool isRunning;
         bool isQuequed;
-        for (; it.current() && numRun < ksettings.maxSimultaneousConnections; ++it) {
+        for (; it.current() && numRun < Settings::maxSimConnections(); ++it) {
             item = it.current();
             isRunning = (item->getStatus() == Transfer::ST_RUNNING) || (item->getStatus() == Transfer::ST_TRYING);
 
             isQuequed = (item->getMode() == Transfer::MD_QUEUED);
 
-            if (!isRunning && isQuequed && !ksettings.b_offlineMode) {
+            if (!isRunning && isQuequed && !Settings::offlineMode()) {
                 log(i18n("Starting another queued job."));
                 item->slotResume();
                 numRun++;
@@ -914,7 +919,7 @@ void Scheduler::slotDeleteCurrent()
         ++it;
     }
 
-    if (!ksettings.b_expertMode)
+    if (!Settings::expertMode())
     {
         if ( selectedItems.count() > 1 )
         {
@@ -953,7 +958,7 @@ void Scheduler::slotDeleteCurrent()
 
     checkQueue(); // needed !
 
-    if ( !ksettings.b_expertMode && transferFinishedMeanwhile > 0 )
+    if ( !Settings::expertMode() && transferFinishedMeanwhile > 0 )
         KMessageBox::information(this, i18n("The transfer you wanted to delete completed before it could be deleted.",
                                             "%n transfers you wanted to delete completed before they could be deleted.",
                                             transferFinishedMeanwhile ),
@@ -1072,7 +1077,8 @@ void Scheduler::slotTransferTimeout()
     }
 
     // CONTROLLO AUTODISCONNESSIONE
-    if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate())
+    QTime disconnectTime( Settings::disconnectHour(), Settings::disconnectMinute() );
+    if (Settings::autoDisconnect() && Settings::timedDisconnect() && disconnectTime() <= QTime::currentTime() )
     { // AUTODISCONNETTI }
 
 #ifdef _DEBUG

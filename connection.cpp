@@ -14,6 +14,7 @@
 #endif
 
 #include "connection.h"
+#include "settings.h"
 
 QString ConnectionDevices[6] = {
     "",
@@ -71,7 +72,7 @@ void KMainWidget::onlineDisconnect()
     if (!b_online)
         return;
 
-    if (!settings->getExpertMode()) {
+    if (!Settings::expertMode()) {
         if (KMessageBox::questionYesNo(this, i18n("Do you really want to disconnect?"),
                                        i18n("Question"),
                                        KStdGuiItem::yes(), KStdGuiItem::no(),
@@ -81,7 +82,7 @@ void KMainWidget::onlineDisconnect()
         }
     }
     log(i18n("Disconnecting..."));
-    system(QFile::encodeName(settings->getDisconnectCommand()));
+    system(QFile::encodeName(Settings::disconnectCommand()));
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -102,11 +103,11 @@ void KMainWidget::slotCheckOnline()
     memset(&ifr, 0, sizeof(ifreq));
 
     // setup the device name according to the type of connection and link number
-    snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s%d", ConnectionDevices[settings->getConnectionType()].ascii(), settings->getLinkNumber());
+    snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s%d", ConnectionDevices[Settings::connectionType()].ascii(), Settings::linkNumber());
 
     bool flag = false;
 
-    if (settings->getConnectionType() != PERMANENT) {
+    if (Settings::connectionType() != Settings::Permanent) {
         // get the flags for particular device
         if (ioctl(_sock, SIOCGIFFLAGS, &ifr) < 0) {
             flag = true;

@@ -87,8 +87,8 @@ void Transfer::slotResume()
         slave = new Slave(this, src, dest);
 
     retryCount++;
-    if (retryCount > ksettings.reconnectRetries)
-        ksettings.reconnectRetries = retryCount;
+    if (retryCount > Settings::reconnectRetries())
+        Settings::setReconnectRetries( retryCount );
     assert(status == ST_STOPPED);
 
     sDebug << "src: " << src.url() << endl;
@@ -186,8 +186,8 @@ bool Transfer::read(KSimpleConfig * config, int id)
         return false;
     }
 
-    if (!src.isValid() && !ksettings.b_expertMode) {
-        //KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
+    if (!src.isValid() && !Settings::expertMode()) {
+        //FIXME remove kmain! KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
         return false;
     }
 
@@ -298,7 +298,7 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
             break;
         case Slave::SLV_ERROR:
             status = ST_STOPPED;
-            //startTime=QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60); //FIXME give a look!
+            //startTime=QDateTime::currentDateTime().addSecs(Settings::reconnectTime() * 60); //FIXME give a look!
             emit statusChanged(this, MSG_ABORTED);
             break;
         case Slave::SLV_BROKEN:

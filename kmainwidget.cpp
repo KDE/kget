@@ -34,6 +34,7 @@
 #include <kapplication.h>
 #include <kglobal.h>
 #include <klocale.h>
+#include <kwin.h>
 #include <kurl.h>
 #include <kurldrag.h>
 #include <kstdaction.h>
@@ -47,30 +48,31 @@
 #include "scheduler.h"
 #include "iconview.h"
 #include "testview.h"
-#include "settings.h"
 #include "transferlist.h"
 #include "kfileio.h"
-#include "dlgPreferences.h"
 #include "logwindow.h"
 #include "docking.h"
 #include "droptarget.h"
+#include "settings.h"
 
+// configuration includes
+#include <kconfigdialog.h>
+#include "dlgAdvanced.h"
+#include "dlgAutomation.h"
+#include "dlgConnection.h"
+#include "dlgDirectories.h"
+#include "dlgLimits.h"
+#include "dlgSystem.h"
 
-KMainWidget *kmain = 0L;
-DropTarget *kdrop = 0L;
-
-Settings ksettings;             // this object contains all settings
 
 KMainWidget::KMainWidget(bool bStartDocked)
     : KGetIface( "KGet-Interface" ),
       KMdiMainFrm(0, "kget mainwindow", KMdi::IDEAlMode),
       ViewInterface( "viewIface-main" ),
-      prefDlg( 0L )
+      logWindow(0), kdock(0), kdrop(0)
 {
     setXMLFile("kgetui.rc");
     
-    ksettings.load();
-
     scheduler = new Scheduler(this);
     connectToScheduler( scheduler );
     
@@ -81,15 +83,16 @@ KMainWidget::KMainWidget(bool bStartDocked)
 
     //This must be the last one
     schedRequestOperation(OpImportTransfers);
-
-        
+    
 //    menuBar()->insertItem( tr("&Window"), windowMenu());
 //    setCentralWidget(0);
-    
-    //Misc reimported
-    kmain = this;
-    
-    show();
+
+    if ( Settings::firstRun() )
+    {
+//        if ( kdrop )
+//            kdrop->playAnimation();
+        Settings::setFirstRun(false);
+    }
 }
 
 //THESE FUNCTIONS MUST BE RE-INTEGRATED
@@ -104,7 +107,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
     }
 
     b_viewLogWindow = FALSE;
-    b_viewPreferences = FALSE;
 
     // Set log time, needed for the name of log file
     QDate date = QDateTime::currentDateTime().date();
@@ -143,34 +145,21 @@ KMainWidget::KMainWidget(bool bStartDocked)
     sDebug << "eee" << endl;
     
     schedReqOperation( OpImportTransfers );
-    sDebug << "eee1" << endl;
-
-    // Set geometry
-    if (ksettings.mainPosition.x() != -1) {
-        resize(ksettings.mainSize);
-        move(ksettings.mainPosition);
-        //Todo include kwin.h
-        KWin::setState(winId(), ksettings.mainState);
-    } else {
-        resize(650, 180);
-    }
-
-    sDebug << "eee4" << endl;
 
     // update actions
-    m_paUseSound->setChecked(ksettings.b_useSound);
-    m_paExpertMode->setChecked(ksettings.b_expertMode);
-    m_paUseLastDir->setChecked(ksettings.b_useLastDir);
+    m_paUseSound->setChecked(Settings::useSound());
+    m_paExpertMode->setChecked(Settings::expertMode());
+    m_paUseLastDir->setChecked(Settings::useLastDir());
     
     sDebug << "eee5" << endl;
 
-    //m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
+    //m_paAutoShutdown->setChecked(Settings::autoShutdown());
 
     sDebug << "eee6" << endl;
     
     //m_paShowLog->setChecked(b_viewLogWindow);
 
-    if (!bStartDocked && ksettings.b_showMain)
+    if (!bStartDocked && Settings::showMain())
         show();
     sDebug << "eee7" << endl;
 */
@@ -178,14 +167,19 @@ KMainWidget::KMainWidget(bool bStartDocked)
 
 KMainWidget::~KMainWidget()
 {
-    delete prefDlg;
     delete kdrop;
+    delete kdock;
     schedRequestOperation(OpExportTransfers);
     delete scheduler;
+    delete logWindow;
 
     //write log to file
     //kCStringToFile(logWindow->getText().local8Bit(), logFileName, false, false);
-    //delete logWindow;
+
+    Settings::setMainPosition( pos() );
+    Settings::setMainSize( size() );
+    Settings::setMainState( KWin::windowInfo(winId()).state() );
+    Settings::writeConfig();
 }
 
 void KMainWidget::setupActions()
@@ -284,13 +278,16 @@ void KMainWidget::setupGUI(bool startDocked)
     kdrop->connectToScheduler(scheduler);
     kdrop->show();
 
-    //DockWidget    
+    //DockWidget
     kdock = new DockWidget(this);
     kdock->connectToScheduler(scheduler);
     kdock->show();
 
-    //MainWidget 
-    if (!startDocked && ksettings.b_showMain)
+    //MainWidget (myself)
+    resize(Settings::mainSize());
+    move(Settings::mainPosition());
+    KWin::setState(winId(), Settings::mainState());
+    if (!startDocked || Settings::showMain())
         show();
 
     // setup statusbar
@@ -336,7 +333,7 @@ void KMainWidget::slotSaveYourself()
 #endif
 
     schedRequestOperation(OpExportTransfers);
-    ksettings.save();
+    Settings::writeConfig();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -395,13 +392,13 @@ void KMainWidget::slotQuit()
     log(i18n("Quitting..."));
 
     // TODO check if items in ST_RUNNING state and ask for confirmation before quitting (if not expert mode)
-    if (someRunning && !ksettings.b_expertMode) {
+    if (someRunning && !Settings::expertMode()) {
 	//include <kmessagebox.h>
 	if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close KGet?"), i18n("Warning")) != KMessageBox::Yes)
             return;
     }
 */
-    ksettings.save();
+    Settings::writeConfig();
     kapp->quit();
 }
 
@@ -477,10 +474,28 @@ void KMainWidget::slotPreferences()
     sDebugIn << endl;
 #endif
 
-    if ( !prefDlg )
-        prefDlg = new DlgPreferences(this);
+    //An instance of your dialog could be already created and could be cached, 
+    //in which case you want to display the cached dialog instead of creating 
+    //another one 
+    if ( KConfigDialog::showDialog( "preferences" ) ) 
+        return; 
 
-    prefDlg->show();
+    //KConfigDialog didn't find an instance of this dialog, so lets create it
+    KConfigDialog* dialog = new KConfigDialog( this, "preferences", Settings::self() );
+
+    dialog->addPage( new DlgAdvanced(0), i18n("Advanced"), "configure" ); 
+    dialog->addPage( new DlgAutomation(0), i18n("Automation"), "konqueror" ); 
+    dialog->addPage( new DlgConnection(0), i18n("Connection"), "kget" ); 
+    dialog->addPage( new DlgDirectories(0), i18n("Directories"), "kmail" ); 
+    dialog->addPage( new DlgLimits(0), i18n("Limits"), "konsole" ); 
+    dialog->addPage( new DlgSystem(0), i18n("System"), "gear" ); 
+ 
+    //User edited the configuration - update your local copies of the 
+    //configuration data 
+    connect( dialog, SIGNAL(settingsChanged()), 
+             this, SLOT(updateConfiguration()) ); 
+ 
+    dialog->show();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -515,7 +530,7 @@ void KMainWidget::slotToggleSound()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_useSound = !ksettings.b_useSound;
+    Settings::setUseSound( !Settings::useSound() );
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -529,14 +544,15 @@ void KMainWidget::slotToggleExpertMode()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_expertMode = !ksettings.b_expertMode;
+    bool expert = !Settings::expertMode();
+    Settings::setExpertMode( expert );
 
-    if (ksettings.b_expertMode) {
+    if (expert) {
         log(i18n("Expert mode on."));
     } else {
         log(i18n("Expert mode off."));
     }
-    m_paExpertMode->setChecked(ksettings.b_expertMode);
+    m_paExpertMode->setChecked(expert);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -550,9 +566,9 @@ void KMainWidget::slotToggleUseLastDir()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_useLastDir = !ksettings.b_useLastDir;
+    Settings::setUseLastDirectory( !Settings::useLastDirectory() );
 
-    if (ksettings.b_useLastDir) {
+    if (Settings::useLastDirectory()) {
         log(i18n("Use last folder on."));
     } else {
         log(i18n("Use last folder off."));
@@ -570,15 +586,16 @@ void KMainWidget::slotToggleAutoShutdown()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_autoShutdown = !ksettings.b_autoShutdown;
+    bool autoShutDown = !Settings::autoShutdown();
+    Settings::setAutoShutdown( autoShutDown );
 
-    if (ksettings.b_autoShutdown) {
+    if (autoShutDown) {
         log(i18n("Auto shutdown on."));
     } else {
         log(i18n("Auto shutdown off."));
     }
 
-    m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
+    m_paAutoShutdown->setChecked(autoShutDown);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -596,10 +613,8 @@ void KMainWidget::slotToggleDropTarget()
         kdrop->show();
         kdrop->updateStickyState();
     }
-    else {
+    else
         kdrop->hide();
-    }
-
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -653,7 +668,7 @@ void KMainWidget::slotUpdateActions()
             }
             // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
 #ifdef _DEBUG
-            sDebug << "-->ONLINE= " << ksettings.b_offlineMode << endl;
+            sDebug << "-->ONLINE= " << Settings::offlineMode() << endl;
 #endif
             if (item == first_item && SONO ONLINE) {
                 switch (item->getStatus()) {
@@ -792,8 +807,8 @@ KToggleAction *m_paAutoDisconnect,
     tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
     m_paAutoDisconnect->setWhatsThis(tmp);
 
-    if (ksettings.connectionType != PERMANENT) {
-        //m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
+    if (Settings::connectionType() != Settings::Permanent) {
+        //m_paAutoDisconnect->setChecked(Settings::autoDisconnect());
     }
     setAutoDisconnect();
 
@@ -803,14 +818,14 @@ void KMainWidget::slotToggleAutoDisconnect()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_autoDisconnect = !ksettings.b_autoDisconnect;
+    Settings::setAutoDisconnect( !Settings::autoDisconnect() );
 
-    if (ksettings.b_autoDisconnect) {
+    if (Settings::autoDisconnect()) {
         log(i18n("Auto disconnect on."));
     } else {
         log(i18n("Auto disconnect off."));
     }
-    m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
+    m_paAutoDisconnect->setChecked(Settings::autoDisconnect());
     
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -824,7 +839,7 @@ void KMainWidget::setAutoDisconnect()
 #endif
 
     // disable action when we are connected permanently
-    //m_paAutoDisconnect->setEnabled(ksettings.connectionType != PERMANENT);
+    //m_paAutoDisconnect->setEnabled(Settings::connectionType() != Settings::Permanent);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -841,14 +856,14 @@ void KMainWidget::setAutoDisconnect()
     animCounter = 0;
     connect(animTimer, SIGNAL(timeout()), SLOT(slotAnimTimeout()));
     
-    if (ksettings.b_useAnimation) {
+    if (Settings::useAnimation()) {
         animTimer->start(400);
     } else {
         animTimer->start(1000);
     }
 
     KToggleAction *m_paUseAnimation
-    m_paUseAnimation->setChecked(ksettings.b_useAnimation);
+    m_paUseAnimation->setChecked(Settings::useAnimation());
     m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
 
 void KMainWidget::slotToggleAnimation()
@@ -857,9 +872,9 @@ void KMainWidget::slotToggleAnimation()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_useAnimation = !ksettings.b_useAnimation;
+    Settings::setUseAnimation( !Settings::useAnimation() );
 
-    if (!ksettings.b_useAnimation && animTimer->isActive()) {
+    if (!Settings::useAnimation() && animTimer->isActive()) {
         animTimer->stop();
         animTimer->start(1000);
         animCounter = 0;
@@ -955,8 +970,8 @@ void KMainWidget::setAutoSave()
 #endif
 
     autosaveTimer->stop();
-    if (ksettings.b_autoSave) {
-        autosaveTimer->start(ksettings.autoSaveInterval * 60000);
+    if (Settings::autoSave()) {
+        autosaveTimer->start(Settings::autoSaveInterval() * 60000);
     }
 
 #ifdef _DEBUG
@@ -1055,8 +1070,8 @@ void KMainWidget::setAutoSave()
 //BEGIN offline mode 
 /*
     KToggleAction *m_paOfflineMode
-    //m_paOfflineMode->setChecked(ksettings.b_offlineMode);
-    if (ksettings.b_offlineMode)
+    //m_paOfflineMode->setChecked(Settings::offlineMode());
+    if (Settings::offlineMode())
         setCaption(i18n("Offline"), false);
     else {
         setCaption(QString::null, false);
@@ -1068,8 +1083,8 @@ void KMainWidget::setAutoSave()
 
 void KMainWidget::slotToggleOfflineMode()
 {
-    ksettings.b_offlineMode = !ksettings.b_offlineMode;
-    if (ksettings.b_offlineMode) {
+    Settings::setOfflineMode( !Settings::offlineMode() );
+    if (Settings::offlineMode()) {
         log(i18n("Offline mode on."));
         pauseAll();
         setCaption(i18n("Offline"), false);
@@ -1079,7 +1094,7 @@ void KMainWidget::slotToggleOfflineMode()
         setCaption(i18n(""), false);
         m_paOfflineMode->setIcon( "tool_offline_mode_on" );
     }
-    m_paOfflineMode->setChecked(ksettings.b_offlineMode);
+    m_paOfflineMode->setChecked(Settings::offlineMode());
 
     slotUpdateActions();
     //checkQueue();
@@ -1088,7 +1103,7 @@ void KMainWidget::slotToggleOfflineMode()
 void KMainWidget::setOfflineMode( bool offline )
 {
     //FIXME start/stop the scheduler
-    if ( ksettings.b_offlineMode != offline )
+    if ( Settings::offlineMode() != offline )
         slotToggleOfflineMode();
 }
 */
@@ -1103,15 +1118,14 @@ void KMainWidget::setOfflineMode( bool offline )
     QTimer *clipboardTimer;     // timer for checking clipboard - autopaste function
     clipboardTimer = new QTimer(this);
     connect(clipboardTimer, SIGNAL(timeout()), SLOT(slotCheckClipboard()));
-    if (ksettings.b_autoPaste) {
+    if (Settings::autoPaste())
         clipboardTimer->start(1000);
-    }
 
     KToggleAction *m_paAutoPaste;   
     m_paAutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), coll, "auto_paste");
     tmp = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, KGet will periodically scan the clipboard\n" "for URLs and paste them automatically.");
     m_paAutoPaste->setWhatsThis(tmp);
-    //m_paAutoPaste->setChecked(ksettings.b_autoPaste);
+    //m_paAutoPaste->setChecked(Settings::autoPaste());
 
     KAction *m_paPasteTransfer;
     (### CHG WITH schedReqOp) m_paPasteTransfer = KStdAction::paste($scheduler$, SLOT(slotPasteTransfer()), coll, "paste_transfer");
@@ -1124,16 +1138,17 @@ void KMainWidget::slotToggleAutoPaste()
     sDebugIn << endl;
 #endif
 
-    ksettings.b_autoPaste = !ksettings.b_autoPaste;
+    bool autoPaste = !Settings::autoPaste();
+    Settings::setAutoPaste( autoPaste );
 
-    if (ksettings.b_autoPaste) {
+    if (autoPaste) {
         log(i18n("Auto paste on."));
         clipboardTimer->start(1000);
     } else {
         log(i18n("Auto paste off."));
         clipboardTimer->stop();
     }
-    m_paAutoPaste->setChecked(ksettings.b_autoPaste);
+    m_paAutoPaste->setChecked(autoPaste);
 
 #ifdef _DEBUG
     sDebugOut << endl;

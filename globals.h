@@ -39,7 +39,7 @@ class TransferList;
 class Transfer;
 
 // Enumerates the commands that can be executed on a transfer (must be global)
-enum TransferCommand { CmdResume, CmdRestart, CmdPause, OtherOpsFollowing };
+enum TransferCommand { CmdResume, CmdRestart, CmdPause };
 
 enum TransferMessage {
     MSG_FINISHED, MSG_RESUMED, MSG_PAUSED, MSG_REMOVED, MSG_ABORTED,
@@ -48,10 +48,6 @@ enum TransferMessage {
 };
 
 enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
-
-
-// from settings.h, will be moved on connection.h
-enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 
 enum SchedulerOperation { OpPasteTransfer, OpImportTextFile,
     OpImportTransfers, OpExportTransfers, OpRun, OpStop };

@@ -33,7 +33,6 @@
 #include <kaction.h>
 
 #include "transfer.h"
-#include "kmainwidget.h"
 #include "logwindow.h"
 
 #include <kapplication.h>
@@ -182,8 +181,8 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
 
 void LogWindow::closeEvent(QCloseEvent *e)
 {
-    kmain->m_paShowLog->setChecked(false);
-    kmain->b_viewLogWindow = false;
+    //FIXME kmain->m_paShowLog->setChecked(false);
+    //FIXME kmain->b_viewLogWindow = false;
     KDialogBase::closeEvent( e );
 }
 

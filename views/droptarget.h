@@ -33,6 +33,7 @@
 
 class KPopupMenu;
 class KMainWidget;
+class QTimer;
 
 class DropTarget:public QWidget, public ViewInterface
 {
@@ -43,35 +44,31 @@ public:
     ~DropTarget();
 
     void updateStickyState();
+    void playAnimation();
 
 protected:
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);
-    /** No descriptions */
     virtual void mouseDoubleClickEvent(QMouseEvent * e);
     virtual void dropEvent(QDropEvent *);
-    /** No descriptions */
+    
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent * e);
 
 private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
+    void slotAnimate();
 
 private:
     KPopupMenu * popupMenu;
     QWidget * parentWidget;
-
-    bool b_sticky;
+    QTimer * animTimer;
 
     int pop_sticky;
     int pop_Max;
     int pop_Min;
 
-    int size[4];
-
-public:                      // Public attributes
-    /**  */
     int oldX;
     int oldY;
 };

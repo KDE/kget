@@ -62,9 +62,9 @@ static void signalHandler(int sigId)
 {
     fprintf(stderr, "*** KGet got signal %d\n", sigId);
 
-    if (sigId != SIGSEGV && kmain) {
+    if (sigId != SIGSEGV) {
         fprintf(stderr, "*** KGet saving data\n");
-        delete kmain;
+        //FIXME delete kmain;
     }
     // If Kget crashes again below this line we consider the data lost :-|
     // Otherwise Kget will end in an infinite loop.
@@ -99,19 +99,19 @@ static void cleanup(void)
 class KGetApp : public KUniqueApplication
 {
 private:
-    KMainWidget *kmainwidget;
+    KMainWidget * mainwidget;
     OSDWidget * osd;
     
 public:
     KGetApp()
-        : KUniqueApplication(), kmainwidget( 0 ), osd( 0 )
+        : KUniqueApplication(), mainwidget( 0 ), osd( 0 )
     {
         showSplash();
     }
 
     ~KGetApp()
     {
-        delete kmainwidget;
+        delete mainwidget;
     }
 
     void showSplash()
@@ -151,19 +151,15 @@ public:
     {
         KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-        if (kmainwidget==0)
+        if (!mainwidget)
         {
-            if(args->count()>0)
-                kmainwidget=new KMainWidget(true);
-            else
-                kmainwidget=new KMainWidget();
-            setMainWidget(kmain);
+            mainwidget = new KMainWidget(args->count()>0);
+            setMainWidget(mainwidget);
         }
-        else
-            KWin::activateWindow (kmainwidget->winId());
+        KWin::activateWindow(mainwidget->winId());
 
         if (args->isSet("showDropTarget"))
-            kmain->activateDropTarget();
+            mainwidget->activateDropTarget();
 
         if (args->count()==1)
         {
@@ -172,16 +168,16 @@ public:
 #endif
             QString txt(args->arg(0));
             if ( txt.endsWith( ".kgt" ) )
-                kmain->readTransfersEx(KURL::fromPathOrURL( txt ));
+                mainwidget->readTransfersEx(KURL::fromPathOrURL( txt ));
 /* FIXME: the scheduler sould do that
             else
-                kmain->addTransferEx( KURL::fromPathOrURL( txt ),
+                mainwidget->addTransferEx( KURL::fromPathOrURL( txt ),
                                       KURL());
 */
         }
 /* FIXME: the scheduler sould do that
         else if(args->count()==2)
-            kmain->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
+            mainwidget->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
                                   KURL::fromPathOrURL( args->arg(1) ));
 */
         args->clear();

@@ -29,7 +29,6 @@
 #define _KMAINWIDGET_H_
 
 #include <kmdimainfrm.h>
-#include <kaction.h>
 #include <kurl.h>
 #include "globals.h"
 
@@ -37,15 +36,11 @@
 #include "viewinterface.h"
 
 class KAction;
-//class KToggleAction;
 class KRadioAction;
 
 class DockWidget;
 class DropTarget;
 class LogWindow;
-class DlgPreferences;
-
-class Settings;
 
 class KMainWidget:public KMdiMainFrm, public ViewInterface, virtual public KGetIface
 {
@@ -121,9 +116,6 @@ protected:
     
     void updateStatusBar();
 
-    // some flags
-    bool b_viewPreferences;
-
     // utility functions
     void log(const QString & message, bool statusbar = true);
 
@@ -142,8 +134,8 @@ private:
     KHelpMenu *menuHelp;
 
     LogWindow *logWindow;
-    DlgPreferences *prefDlg;
     DockWidget *kdock;
+    DropTarget *kdrop;
 
     QString lastClipboard;
 
@@ -164,8 +156,5 @@ public:
     void activateDropTarget(void){if(!m_paDropTarget->isChecked()) m_paDropTarget->activate();};
 
 };
-
-extern KMainWidget *kmain;
-extern DropTarget *kdrop;
 
 #endif                          // _KMAINWIDGET_H_

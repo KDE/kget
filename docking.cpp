@@ -72,7 +72,7 @@ void DockWidget::dropEvent(QDropEvent * event)
     if (KURLDrag::decode(event, list))
         schedNewURLs(list, QString::null);
     else if (QTextDrag::decode(event, str))
-        schedNewURLs(KURL(str), QString::null);
+        schedNewURLs(KURL::fromPathOrURL(str), QString::null);
 }
 
 // filter middle mouse clicks to ask scheduler to paste URL

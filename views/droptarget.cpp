@@ -26,7 +26,6 @@
 
 #include <kaction.h>
 #include <kmainwindow.h>
-#include <kglobalsettings.h>
 #include <kiconloader.h>
 #include <kwin.h>
 #include <klocale.h>
@@ -39,43 +38,36 @@
 #include <qcursor.h>
 #include <qpainter.h>
 #include <qbitmap.h>
-#ifdef Q_WS_X11
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/Xos.h>
-#include <X11/extensions/shape.h>
-#undef Bool
-#undef Status
-#endif
+#include <qtimer.h>
+#include <qapplication.h>
+
 #include "settings.h"
 #include "droptarget.h"
+
 #define TARGET_WIDTH   68
 #define TARGET_HEIGHT  67
+#define TARGET_OFFSETX -11
+#define TARGET_OFFSETY -6
+#define TARGET_ANI_MS  40
 
 
 DropTarget::DropTarget(KMainWindow * mw)
-    : QWidget(), ViewInterface(), parentWidget((QWidget*)mw)
+    : QWidget(0, "drop", WType_TopLevel | WStyle_StaysOnTop |
+    WStyle_Customize | WStyle_NoBorder | WStyle_Tool), ViewInterface(),
+    parentWidget((QWidget*)mw), animTimer(0)
 {
-    int x = ksettings.dropPosition.x();
-    int y = ksettings.dropPosition.y();
-    
     QRect desk = KGlobalSettings::desktopGeometry(this);
+    desk.setRight( desk.right() - TARGET_WIDTH );
+    desk.setBottom( desk.bottom() - TARGET_HEIGHT );
 
-    if (x != -1 &&
-        x >= desk.left() && y >= desk.top() &&
-        (x + TARGET_WIDTH) <= desk.right() &&
-        (y + TARGET_HEIGHT) <= desk.bottom() )
-    {
-        move(ksettings.dropPosition);
-        KWin::setState(winId(), ksettings.dropState);
-    }
+    if ( desk.contains(Settings::dropPosition()) )
+        move(Settings::dropPosition());
     else
-    {
-        setGeometry(desk.x()+200, desk.y()+200, TARGET_WIDTH, TARGET_HEIGHT);
-        KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop);
-    }
+        move(desk.x()+200, desk.y()+200);
+    resize(TARGET_WIDTH, TARGET_HEIGHT);
 
-    b_sticky = ksettings.dropState & NET::Sticky;
+    unsigned long state = NET::SkipTaskbar | NET::StaysOnTop;
+    KWin::setState(winId(), Settings::dropSticky() ? (state | NET::Sticky) : state );
 
     // setup mask
     QBitmap mask(TARGET_WIDTH, TARGET_HEIGHT);
@@ -88,13 +80,10 @@ DropTarget::DropTarget(KMainWindow * mw)
     setMask( mask );
 
     // setup pixmaps
-    int offsetx = -11;
-    int offsety = -6;
-
     QPixmap bgnd = QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     bgnd.fill( Qt::white );
     QPixmap tmp = UserIcon( "target" );
-    bitBlt(&bgnd, offsetx, offsety, &tmp );
+    bitBlt(&bgnd, TARGET_OFFSETX, TARGET_OFFSETY, &tmp );
 
     /* The following code was adapted from kdebase/kicker/ui/k_mnu.cpp
      * It paints a tint over the kget arrow taking the tint color from
@@ -140,7 +129,7 @@ DropTarget::DropTarget(KMainWindow * mw)
     pop_Max = popupMenu->insertItem(i18n("Maximize"), this, SLOT(toggleMinimizeRestore()));
     pop_Min = popupMenu->insertItem(i18n("Minimize"), this, SLOT(toggleMinimizeRestore()));
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
-    popupMenu->setItemChecked(pop_sticky, b_sticky);
+    popupMenu->setItemChecked(pop_sticky, Settings::dropSticky());
     mw->actionCollection()->action("preferences")->plug(popupMenu);
     popupMenu->insertSeparator();
     mw->actionCollection()->action("quit")->plug(popupMenu);
@@ -152,7 +141,12 @@ DropTarget::DropTarget(KMainWindow * mw)
 
 DropTarget::~DropTarget()
 {
+    Settings::setDropPosition( pos() );
+//    unsigned long state = KWin::windowInfo(kdrop->winId()).state();
+//    // state will be 0L if droptarget is hidden. Sigh.
+//    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE ); 
     delete popupMenu;
+    delete animTimer;
 }
 
 
@@ -191,27 +185,23 @@ void DropTarget::dropEvent(QDropEvent * event)
     if (KURLDrag::decode(event, list))
 	schedNewURLs( list, QString::null );
     else if (QTextDrag::decode(event, str))
-	schedNewURLs( KURL(str), QString::null );
+	schedNewURLs( KURL::fromPathOrURL(str), QString::null );
 }
 
 
 void DropTarget::toggleSticky()
 {
-    b_sticky = !b_sticky;
-    popupMenu->setItemChecked(pop_sticky, b_sticky);
+    Settings::setDropSticky( !Settings::dropSticky() );
+    popupMenu->setItemChecked(pop_sticky, Settings::dropSticky());
     updateStickyState();
 }
 
 void DropTarget::updateStickyState()
 {
-    if (b_sticky)
-    {
+    if ( Settings::dropSticky() )
         KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop | NET::Sticky);
-    }
     else
-    {
         KWin::clearState(winId(), NET::Sticky);
-    }
 }
 
 void DropTarget::toggleMinimizeRestore()
@@ -222,7 +212,6 @@ void DropTarget::toggleMinimizeRestore()
         parentWidget->show();
 }
 
-/** No descriptions */
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
     if (oldX == 0)
@@ -235,11 +224,37 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
     QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
 }
 
-/** No descriptions */
 void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 {
     if (e->button() == LeftButton)
         toggleMinimizeRestore();
+}
+
+void DropTarget::playAnimation()
+{
+    if ( !animTimer )
+    {
+        animTimer = new QTimer;
+        connect( animTimer, SIGNAL( timeout() ),
+                 this, SLOT( slotAnimate() ));
+    }
+    QWidget *d = QApplication::desktop();
+    move( d->width() - width() - 60, -height() );
+    animTimer->start(TARGET_ANI_MS);
+}
+
+void DropTarget::slotAnimate()
+{
+    int left = x();
+    int top = y();
+    move( left, top+10 );
+    
+    QWidget *d = QApplication::desktop();
+    if ( top > (d->height()/2)-80 && animTimer )
+    {
+        animTimer->stop();
+        delete animTimer;
+    }
 }
 
 #include "droptarget.moc"
