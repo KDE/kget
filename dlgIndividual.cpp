@@ -278,7 +278,10 @@ void DlgIndividual::slotToggleAdvanced(bool advanced)
     if (advanced)
         panelAdvanced->show();
     else
+    {
         panelAdvanced->hide();
+        adjustSize();
+    }
 
 #ifdef _DEBUG
     sDebugOut<<endl;
