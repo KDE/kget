@@ -3,7 +3,7 @@
                   <MenuBar>
                   <Menu name="tools">
                              <Text>&amp;Tools</Text>
-<Action name="launch_kget"/>
+<Action name="kget_menu"/>
              </Menu>
              </MenuBar>
              <ToolBar name="mainToolBar">
