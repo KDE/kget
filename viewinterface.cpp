@@ -33,6 +33,9 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
 	     sched, SLOT( slotReqOperation(SchedulerOperation) ) );
     connect( this, SIGNAL( reqOperation(SchedulerDebugOp) ),
 	     sched, SLOT( slotReqOperation(SchedulerDebugOp) ) );
+    // Clears and fills up the view
+    slotCleared();
+    slotAddedItems( sched->getTransfers() );
 }
 
 void ViewInterfaceConnector::slotCleared()

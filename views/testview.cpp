@@ -50,6 +50,7 @@ TestView::TestView(QWidget * parent)
     //listView
     listView = new KListView(this);
     listView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding, false);
+    listView->setAllColumnsShowFocus(true);
     listView->setSelectionMode(QListView::Extended);
     listView->setSorting(0);
     initTable();
@@ -234,6 +235,7 @@ void TestView::schedulerAddedItems( TransferList & list)
     
     for(it = list.begin(); it != endList; ++it)
         {
+	//sDebug << "item" << endl;
         listView->insertItem(new TestViewItem(listView, *it));
     }
     

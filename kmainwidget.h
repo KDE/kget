@@ -29,6 +29,7 @@
 
 #include <qwidget.h>
 #include <kxmlguiclient.h>
+#include <kaction.h>
 
 #include "kget_iface.h"
 #include "viewinterface.h"
@@ -38,6 +39,8 @@ class KURL;
 class KURL::List;
 
 
+/** The main window of KGet2. Can be collapsed or expanded. */
+
 class KMainWidget : public QWidget, public KXMLGUIClient, public ViewInterface, virtual public KGetIface
 {
 Q_OBJECT
@@ -46,30 +49,11 @@ public:
     ~KMainWidget();
 
     // toggles between small / complete layouts
-    void setSmallDisplay( bool wantSmall );
+    enum ViewMode { vm_compact = 0, vm_transfers = 1, vm_downloaded = 2 };
+    void setViewMode( enum ViewMode, bool force = false );
 
     // called by main.cpp
     void readTransfersEx(const KURL & url);
-
-protected slots:
-    // slots connected to actions
-    void slotNewURL();
-    void slotQuit();
-    void slotPreferences();
-    void slotExportTransfers();
-    void slotImportTransfers();
-    void slotRun();
-    void slotStop();
-    void slotConfigureNotifications();
-    void slotConfigureKeys();
-    void slotConfigureToolbars();
-
-    // misc slots
-    void slotSaveMyself();
-    void slotNewToolbarConfig();
-    void slotNewConfig();
-    
-    void slotTest();
 
 protected:
     // from the DCOP interface
@@ -86,6 +70,27 @@ protected:
     virtual void dragEnterEvent(QDragEnterEvent *);
     virtual void dropEvent(QDropEvent *);
 
+private slots:
+    // slots connected to actions
+    void slotNewURL();
+    void slotQuit();
+    void slotPreferences();
+    void slotExportTransfers();
+    void slotImportTransfers();
+    void slotRun();
+    void slotStop();
+    void slotConfigureNotifications();
+    void slotConfigureKeys();
+    void slotConfigureToolbars();
+
+    // misc slots
+    void slotSaveMyself();
+    void slotNewToolbarConfig();
+    void slotNewConfig();
+
+signals:
+    void viewModeChanged( int );
+
 private:
     // some functions
     void updateActions();
@@ -96,19 +101,49 @@ private:
     void setupActions();
     void setupGUI();
 
-    // internal objects
+    // internals
     Scheduler * scheduler;
+    enum ViewMode vMode;
 
     // internal widgets
     class KMenuBar   * menuBar;
     class KStatusBar * statusBar;
     class KToolBar   * toolBar;
     class BrowserBar * browserBar;
+    class QWidget    * rightWidget;
     
     // separated widgets
-    class DropTarget *kdrop;
-    class DockWidget *kdock;
-    class LogWindow *logWindow;
+    class DropTarget * kdrop;
+    class DockWidget * kdock;
+    class LogWindow  * logWindow;
 };
 
+
+/** Action classes used mainly in the main (internal) toolbar */
+
+// view 'shape' selector
+class ComboAction : public KAction
+{
+  Q_OBJECT
+  public:
+    ComboAction( const QString& name, const KShortcut&, KActionCollection*, KMainWidget* );
+    virtual int plug( QWidget* w, int index = -1 );
+
+  private slots:
+    void slotComboActivated(int);
+    void slotViewModeChanged(int);
+
+  private:
+    class QComboBox * widget;
+    KMainWidget * parent;
+};
+
+/*
+class XyzAction : public KAction
+{
+public:
+    XyzAction( const QString& name, const KShortcut&, KActionCollection* );
+    virtual int plug( QWidget* w, int index = -1 );
+};
+*/
 #endif

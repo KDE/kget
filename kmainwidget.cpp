@@ -45,14 +45,12 @@
 #include <knotifydialog.h>
 
 #include "kmainwidget.h"
-#include "globals.h"
 #include "settings.h"
 #include "preferencesdialog.h"
 #include "scheduler.h"
 #include "browserbar.h"
 #include "iconview.h"
 #include "testview.h"
-#include "transferlist.h"
 #include "logwindow.h"
 #include "docking.h"
 #include "droptarget.h"
@@ -61,6 +59,7 @@
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
+static const int ToolBar_HEIGHT = 35;
 
 class KXMLGUIBuilderKG : public KXMLGUIBuilder
 /**
@@ -89,7 +88,7 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     : KGetIface( "KGet-Interface" ),
     QWidget( parent, name, Qt::WType_TopLevel | Qt::WNoAutoErase ),
     KXMLGUIClient(), ViewInterface( "viewIface-main" ),
-    kdrop(0), kdock(0), logWindow(0)
+    rightWidget(0), kdrop(0), kdock(0), logWindow(0)
 {
     // scheduler creation and viewinterface connection
     scheduler = new Scheduler(this);
@@ -115,9 +114,6 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     cfg.setGroup(QString::null);
     cfg.writeEntry("AutoResume", true);
     cfg.sync();
-
-    // load transfer list
-    schedRequestOperation(OpImportTransfers);
 
     // reset the FirstRun config option
     Settings::setFirstRun(false);
@@ -157,18 +153,8 @@ void KMainWidget::setupActions()
     a = new KAction(i18n("&Stop"),"player_stop", 0, this, SLOT(slotStop()), ac, "stop");
     a->setWhatsThis(i18n("<b>Stop</b> button <i>stops downloading</i>."));
 
-    new KToggleAction("KTEST", "konqueror", 0, this, SLOT(slotTest()), ac, "ktest");
-    
-    QComboBox * cmb = new QComboBox();
-    cmb->insertItem("[small view]");
-    cmb->insertItem("transfers");
-    cmb->insertItem("transferred files");
-    new KWidgetAction( cmb, "prova", 0, this, SLOT(slotTest()), ac, "prova_act" );
-    
-    QWidget * fixx = new QWidget();
-    fixx->setFixedSize(50,50);
-    fixx->setEraseColor( Qt::red );
-    new KWidgetAction( fixx, "provass", 0, this, SLOT(slotTest()), ac, "prova_act2" );
+    // following actions are only designed to be show in the toolbar when window is 'compressed'
+    new ComboAction( i18n("Window shape"), 0, ac, this );
     
     // Local: Build and show the "preferences dialog" (or reuse an existing one)
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
@@ -216,7 +202,6 @@ void KMainWidget::setupActions()
     updateActions();
 }
 
-
 void KMainWidget::setupGUI()
 {
     /** main content creation */
@@ -249,6 +234,7 @@ void KMainWidget::setupGUI()
     // create the 'right view'
     TestView * t = new TestView( (QWidget *)browserBar->container() );
     t->connectToScheduler(scheduler);
+    rightWidget = t;
 
     // create the 'left panels' views and link them to the 'right view'
     IconViewMdiView * i = new IconViewMdiView();
@@ -271,10 +257,9 @@ void KMainWidget::setupGUI()
 
     // MainWidget (myself)
     move( Settings::mainPosition() );
-    resize( Settings::mainSize() );
+    setViewMode( Settings::showMainLarge() ? vm_transfers : vm_compact, true );
     setShown( Settings::showMain() );
     KWin::setState(winId(), Settings::mainState());
-    setSmallDisplay( !Settings::showMainLarge() );
 
     /** other (external) widgets creation */
    
@@ -297,24 +282,48 @@ void KMainWidget::setupGUI()
 }
 
 
-void KMainWidget::setSmallDisplay( bool small )
+void KMainWidget::setViewMode( enum ViewMode mode, bool force )
 {
+    if ( (mode == vMode) && !force )
+        return;
     setUpdatesEnabled( false );
-    if ( small )
+    switch ( mode )
     {
-        int minH = menuBar->height() + toolBar->height() + statusBar->height();
-        Settings::setMainSize( size() );
-        browserBar->hide();
-        setFixedHeight( minH );
-        resize( 200, minH );
+        case vm_compact: {
+            int minH = menuBar->height() + toolBar->height() + statusBar->height();
+            // fix for when layouting a still hidden mainWindow
+            if ( toolBar->height() > ToolBar_HEIGHT )
+                minH = ToolBar_HEIGHT + menuBar->height() + statusBar->height();
+            Settings::setMainSize( size() );
+            browserBar->hide();
+            setFixedHeight( minH );
+            resize( 200, minH );
+            } break;
+        case vm_transfers: {
+            delete rightWidget;
+            TestView * t = new TestView( (QWidget *)browserBar->container() );
+            t->connectToScheduler(scheduler);
+            rightWidget = t;
+            rightWidget->show();
+            browserBar->show();
+            browserBar->setMinimumHeight( 100 );
+            setMaximumHeight( 32767 );
+            if ( vMode == vm_compact || force )
+                resize( Settings::mainSize() );
+            } break;
+        case vm_downloaded: {
+            delete rightWidget;
+            rightWidget = new QWidget( (QWidget *)browserBar->container() );
+            rightWidget->show();
+            browserBar->show();
+            browserBar->setMinimumHeight( 100 );
+            setMaximumHeight( 32767 );
+            if ( vMode == vm_compact || force )
+                resize( Settings::mainSize() );
+            } break;
     }
-    else
-    {
-        browserBar->show();
-        browserBar->setMinimumHeight( 100 );
-        setMaximumHeight( 32767 );
-        resize( Settings::mainSize() );
-    }
+    vMode = mode;
+    viewModeChanged( (int)vMode );
     setUpdatesEnabled( true );
 }
 
@@ -348,13 +357,6 @@ void KMainWidget::createGUI()
     updateGeometry();
 }
 
-void KMainWidget::slotTest()
-{
-    static bool tb = false;
-    setSmallDisplay( tb );
-    tb = !tb;
-}
-
 
 void KMainWidget::log(const QString & message, bool sb)
 {
@@ -378,11 +380,11 @@ void KMainWidget::slotSaveMyself()
 {
     // save last parameters ..
     Settings::setMainPosition( pos() );
-    Settings::setMainSize( size() );
+    if ( vMode != vm_compact )
+        Settings::setMainSize( size() );
     Settings::setMainState( KWin::windowInfo(winId()).state() );
     // .. and write config to disk
     Settings::writeConfig();
-    schedRequestOperation(OpExportTransfers);
 }
 
 
@@ -701,6 +703,60 @@ bool KMainWidget::isOfflineMode() const
 {
     return scheduler->isRunning();
 }
+
+
+/** Actions implementation */
+#include <ktoolbar.h>
+#include <kapplication.h>
+#include <qwhatsthis.h>
+#include <qcombobox.h>
+
+ComboAction::ComboAction( const QString& text, const KShortcut& cut,
+    KActionCollection* ac, KMainWidget *mw )
+    : KAction( text, cut, ac, "view_mode" ), widget( 0 ), parent( mw )
+{
+    connect( parent, SIGNAL( viewModeChanged(int) ), this, SLOT( slotViewModeChanged(int) ) );
+}
+
+int ComboAction::plug( QWidget* w, int index )
+{
+    if ( !w->inherits( "KToolBar" ) ) {
+        kdError() << "KWidgetAction::plug: ComboAction must be plugged into KToolBar." << endl;
+        return -1;
+    }
+
+    KToolBar* toolBar = static_cast<KToolBar*>( w );
+    int id = KAction::getToolButtonID();
+    addContainer( toolBar, id );
+    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+
+    widget = new QComboBox();
+    widget->insertItem( i18n("Compact View") );
+    widget->insertItem( i18n("Transfers") );
+    widget->insertItem( i18n("Downloaded Files") );
+    widget->setFixedHeight( ToolBar_HEIGHT - 6 );
+    widget->setFocusPolicy(QWidget::NoFocus);
+    connect( widget, SIGNAL( activated(int) ), this, SLOT( slotComboActivated(int) ) );
+
+    widget->reparent( toolBar, QPoint() );
+    toolBar->insertWidget( id, 0, widget, index );
+    toolBar->setItemAutoSized( id, false /*true*/ );
+
+    QWhatsThis::add( widget, whatsThis() );
+    return containerCount() - 1;
+}
+
+void ComboAction::slotComboActivated( int index )
+{
+    parent->setViewMode( (enum KMainWidget::ViewMode)index );
+}
+
+void ComboAction::slotViewModeChanged( int index )
+{
+    if ( widget )
+        widget->setCurrentItem( index );
+}
+
 
 #include "kmainwidget.moc"
 
