@@ -1052,10 +1052,8 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
                 else
                     dlg.setSelection(destURL.url());
 
-                // TODO set the default destiantion
-                dlg.exec();
-
-                if (!dlg.result()) {       // cancelled
+                if ( dlg.exec() == QDialog::Rejected )
+                {
 #ifdef _DEBUG
                     sDebugOut << endl;
 #endif
@@ -1069,8 +1067,10 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
             }
             else {
                 // in expert mode don't open the filedialog
+                // if destURL is not empty, it's the suggested filename
                 destURL = KURL::fromPathOrURL( destDir + "/" +
-                                                url.fileName() );
+                                               destURL.isEmpty() ? 
+                                                   url.fileName() : destURL.url() );
             }
 
             //check if destination already exists
