@@ -262,7 +262,6 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
 
 
 #ifdef _DEBUG
-
         sDebugOut << endl;
 #endif
 }
@@ -281,29 +280,32 @@ KMainWidget::~KMainWidget()
         }
 
         delete(DropTarget *) kdrop;
-
         writeTransfers();
-
         writeLog();
 
-        sDebugOut << endl;
 
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
 void KMainWidget::log(const QString & message, bool statusbar)
 {
 #ifdef _DEBUG
-        sDebugIn << endl;
+        sDebugIn <<" message= "<< message << endl;
 #endif
 
-        sDebug << message << endl;
         logWindow->logGeneral(message);
 
         if (statusbar) {
                 statusBar()->message(message, 1000);
         }
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -316,7 +318,9 @@ void KMainWidget::slotSaveYourself()
         writeTransfers();
         ksettings.save();
 
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -429,8 +433,12 @@ void KMainWidget::setupGUI()
         }
         slotUpdateActions();
         updateStatusBar();
-        sDebugOut << endl;
 
+
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -534,7 +542,12 @@ void KMainWidget::setupWhatsThis()
 
         tmp19 = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
         m_paNormal->setWhatsThis(tmp19);
+
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -546,7 +559,11 @@ void KMainWidget::slotConfigureKeys()
 #endif
 
         KKeyDialog::configureKeys(actionCollection(), xmlFile());
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -558,9 +575,11 @@ void KMainWidget::slotConfigureToolbars()
 #endif
 
         KEditToolbar edit(factory());
-
         edit.exec();
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -591,7 +610,10 @@ void KMainWidget::slotImportTextFile()
                 addTransfer(newtransfer);
                 i = j + 1;
         }
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -602,7 +624,10 @@ void KMainWidget::slotImportTransfers()
 #endif
 
         readTransfers(true);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -634,7 +659,9 @@ void KMainWidget::readTransfers(bool ask_for_name)
         myTransferList->clearSelection();
 
 
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -645,7 +672,10 @@ void KMainWidget::slotExportTransfers()
 #endif
 
         writeTransfers(true);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 void KMainWidget::writeTransfers(bool ask_for_name)
@@ -673,7 +703,10 @@ void KMainWidget::writeTransfers(bool ask_for_name)
                 txt += ".kgt";
         sDebug << "Writing transfers " << txt << endl;
         myTransferList->writeTransfers(txt);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -685,7 +718,10 @@ void KMainWidget::writeLog()
 
 
         kCStringToFile(logWindow->getText().ascii(), logFileName.ascii(), false, false);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -704,15 +740,20 @@ void KMainWidget::slotQuit()
                 item = it.current();
                 if (item->getStatus() == Transfer::ST_RUNNING && !ksettings.b_expertMode) {
                         if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close Kget?"), i18n("Warning")) != KMessageBox::Yes) {
+                                #ifdef _DEBUG
+                                 sDebugOut << endl;
+                                #endif
                                 return;
                         }
                 }
         }
-        sDebugOut << endl;
 
         ksettings.save();
-        delete this;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
+        delete this;
         kapp->quit();
 }
 
@@ -725,15 +766,15 @@ void KMainWidget::slotResumeCurrent()
 
         TransferIterator it(myTransferList);
 
-        for (; it.current(); ++it) {
-                if (it.current()->isSelected()) {
+        for (; it.current(); ++it)
+                if (it.current()->isSelected())
                         it.current()->slotResume();
-                }
-        }
-
         slotUpdateActions();
-        sDebugOut << endl;
 
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -749,14 +790,15 @@ void KMainWidget::slotPauseCurrent()
         m_paRestart->setEnabled(false);
         update();
 
-        for (; it.current(); ++it) {
-                if (it.current()->isSelected()) {
+        for (; it.current(); ++it)
+                if (it.current()->isSelected())
                         it.current()->slotRequestPause();
-                }
-        }
-
         slotUpdateActions();
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -769,17 +811,15 @@ void KMainWidget::slotRestartCurrent()
 
         TransferIterator it(myTransferList);
 
-        for (; it.current(); ++it) {
-                if (it.current()->isSelected()) {
+        for (; it.current(); ++it)
+                if (it.current()->isSelected())
                         it.current()->slotRequestRestart();
-                }
-        }
-
         slotUpdateActions();
 
 
+#ifdef _DEBUG
         sDebugOut << endl;
-
+#endif
 }
 
 
@@ -815,10 +855,11 @@ void KMainWidget::slotDeleteCurrent()
                         it++;               // update counts
                 }
         }
-
         checkQueue();               // needed !
 
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -837,7 +878,11 @@ void KMainWidget::pauseAll()
                 if (Status == Transfer::ST_TRYING || Status == Transfer::ST_RUNNING)
                         it.current()->slotRequestPause();
         }
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -857,9 +902,10 @@ void KMainWidget::slotQueueCurrent()
 
         //    myTransferList->clearSelection();
         slotUpdateActions();
+
+#ifdef _DEBUG
         sDebugOut << endl;
-
-
+#endif
 }
 
 
@@ -872,14 +918,13 @@ void KMainWidget::slotTimerCurrent()
 
         TransferIterator it(myTransferList);
 
-        for (; it.current(); ++it) {
-                if (it.current()->isSelected()) {
+        for (; it.current(); ++it)
+                if (it.current()->isSelected())
                         it.current()->slotRequestSchedule();
-                }
-        }
 
-        //    myTransferList->clearSelection();
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 
 }
 
@@ -892,14 +937,13 @@ void KMainWidget::slotDelayCurrent()
 
         TransferIterator it(myTransferList);
 
-        for (; it.current(); ++it) {
-                if (it.current()->isSelected()) {
+        for (; it.current(); ++it)
+                if (it.current()->isSelected())
                         it.current()->slotRequestDelay();
-                }
-        }
 
-        //    myTransferList->clearSelection();
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -936,8 +980,9 @@ void KMainWidget::slotOpenTransfer()
 
         addTransfer(newtransfer);
 
+#ifdef _DEBUG
         sDebugOut << endl;
-
+#endif
 }
 
 
@@ -964,7 +1009,10 @@ void KMainWidget::slotCheckClipboard()
                         slotPasteTransfer();
                 }
         }
-        //    sDebugOut <<endl;
+
+#ifdef _DEBUG
+        //sDebugOut << endl;
+#endif
 }
 
 
@@ -994,7 +1042,10 @@ void KMainWidget::slotPasteTransfer()
         if (!newtransfer.isEmpty()) {
                 addTransfer(newtransfer);
         }
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
@@ -1089,8 +1140,10 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
         if (bShowIndividual)
                 item->showIndividual();
         checkQueue();
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 void KMainWidget::addTransfer(QString s, QString d)
@@ -1100,6 +1153,11 @@ void KMainWidget::addTransfer(QString s, QString d)
 #endif
 
         addTransferEx(s, d, false);
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
+
 }
 
 
@@ -1111,9 +1169,6 @@ void KMainWidget::checkQueue()
 
         uint numRun = 0;
         int status;
-
-        sDebugIn << endl;
-
         Transfer *item;
 
         if (!ksettings.b_offlineMode && b_online) {
@@ -1148,11 +1203,15 @@ void KMainWidget::checkQueue()
 
                 updateStatusBar();
 
-                sDebugOut << endl;
         } else {
                 log("Cannot continue offline status");
-                // assert(0);
         }
+
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
+
 }
 
 
@@ -1207,8 +1266,11 @@ void KMainWidget::slotAnimTimeout()
                         kdrop->setAnim(progindex[0], progindex[1], progindex[2], progindex[3], b_online);
                 }
         }
-        //sDebugOut<<endl;
 
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 
 }
 
@@ -1239,8 +1301,10 @@ void KMainWidget::slotTransferTimeout()
         if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate()) {
                 disconnect();
         }
-        //sDebugOut<<endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1251,7 +1315,10 @@ void KMainWidget::slotAutosaveTimeout()
 #endif
 
         writeTransfers();
-        sDebugOut << endl;
+
+#ifdef _DEBUG
+        //sDebugOut << endl;
+#endif
 }
 
 
@@ -1307,11 +1374,11 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
                 slotTransferTimeout();  // this will check schedule times
                 return;                 // checkQueue() is called from slotTransferTimeout()
         }
-
-
         checkQueue();
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1322,7 +1389,10 @@ void KMainWidget::dragEnterEvent(QDragEnterEvent * event)
 #endif
 
         event->accept(QUriDrag::canDecode(event) || QTextDrag::canDecode(event));
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1358,7 +1428,9 @@ void KMainWidget::addDropTransfers(QStrList * list)
 
         myTransferList->clearSelection();
 
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1372,11 +1444,13 @@ void KMainWidget::slotCopyToClipboard()
 
         if (item) {
                 QClipboard *cb = QApplication::clipboard();
-
                 cb->setText(item->getSrc().url());
                 myTransferList->clearSelection();
         }
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1387,7 +1461,11 @@ void KMainWidget::slotMoveToBegin()
 #endif
 
         myTransferList->moveToBegin((Transfer *) myTransferList->currentItem());
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1398,7 +1476,10 @@ void KMainWidget::slotMoveToEnd()
 #endif
 
         myTransferList->moveToEnd((Transfer *) myTransferList->currentItem());
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1409,11 +1490,13 @@ void KMainWidget::slotOpenIndividual()
 #endif
 
         Transfer *item = (Transfer *) myTransferList->currentItem();
-
-        if (item) {
+        if (item)
                 item->showIndividual();
-        }
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 void KMainWidget::hideEvent(QHideEvent * _hev)
@@ -1423,10 +1506,13 @@ void KMainWidget::hideEvent(QHideEvent * _hev)
 #endif
 
         _hev = _hev;
-
         if (ksettings.windowStyle != NORMAL)
                 hide();
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 
 }
 
@@ -1437,7 +1523,10 @@ void KMainWidget::closeEvent(QCloseEvent *)
 #endif
 
         slotQuit();
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1452,8 +1541,10 @@ void KMainWidget::setAutoSave()
         if (ksettings.b_autoSave) {
                 autosaveTimer->start(ksettings.autoSaveInterval * 60000);
         }
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1466,8 +1557,10 @@ void KMainWidget::setAutoDisconnect()
 
         // disable action when we are connected permanently
         m_paAutoDisconnect->setEnabled(ksettings.connectionType != PERMANENT);
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1487,7 +1580,10 @@ void KMainWidget::slotToggleStatusbar()
         }
 
         resizeEvent(0L);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1498,7 +1594,10 @@ void KMainWidget::slotPreferences()
 #endif
 
         prefDlg = new DlgPreferences(this);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1513,7 +1612,10 @@ void KMainWidget::slotToggleLogWindow()
                 logWindow->show();
         else
                 logWindow->hide();
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1533,7 +1635,10 @@ void KMainWidget::slotToggleAnimation()
                 animTimer->stop();
                 animTimer->start(400);
         }
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1544,7 +1649,10 @@ void KMainWidget::slotToggleSound()
 #endif
 
         ksettings.b_useSound = !ksettings.b_useSound;
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1571,7 +1679,10 @@ void KMainWidget::slotToggleOfflineMode()
 
         slotUpdateActions();
         checkQueue();
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1589,7 +1700,10 @@ void KMainWidget::slotToggleExpertMode()
                 log(i18n("Expert mode off."));
         }
         m_paExpertMode->setChecked(ksettings.b_expertMode);
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1606,7 +1720,10 @@ void KMainWidget::slotToggleUseLastDir()
         } else {
                 log(i18n("Use last directory off."));
         }
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1624,8 +1741,10 @@ void KMainWidget::slotToggleAutoDisconnect()
                 log(i18n("Auto disconnect off."));
         }
         m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1645,8 +1764,10 @@ void KMainWidget::slotToggleAutoShutdown()
 
         m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
 
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1664,9 +1785,10 @@ void KMainWidget::slotToggleAutoPaste()
                 log(i18n("Auto paste off."));
         }
         m_paAutoPaste->setChecked(ksettings.b_autoPaste);
+
+#ifdef _DEBUG
         sDebugOut << endl;
-
-
+#endif
 }
 
 void KMainWidget::slotDock()
@@ -1681,7 +1803,10 @@ void KMainWidget::slotDock()
                 ksettings.windowStyle = DOCKED;
         }
         setWindowStyle();
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1697,8 +1822,10 @@ void KMainWidget::slotDropTarget()
                 ksettings.windowStyle = DROP_TARGET;
         }
         setWindowStyle();
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 void KMainWidget::slotNormal()
@@ -1713,7 +1840,11 @@ void KMainWidget::slotNormal()
                 ksettings.windowStyle = NORMAL;
         }
         setWindowStyle();
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1733,11 +1864,13 @@ void KMainWidget::slotPopupMenu(Transfer * item)
         slotUpdateActions();
 
         // popup transfer menu at the position
-        QWidget *menu = guiFactory()->container("transfer",
-                                                this);
-
+        QWidget *menu = guiFactory()->container("transfer",this);
         ((QPopupMenu *) menu)->popup(QCursor::pos());
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1748,8 +1881,10 @@ void KMainWidget::setListFont()
 #endif
 
         myTransferList->setFont(ksettings.listViewFont);
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1784,8 +1919,10 @@ void KMainWidget::setWindowStyle()
                 kdrop->show();
                 break;
         }
-        sDebugOut << endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1927,7 +2064,11 @@ void KMainWidget::slotUpdateActions()
         m_paQueue->blockSignals(false);
         m_paTimer->blockSignals(false);
         m_paDelay->blockSignals(false);
+
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1965,8 +2106,11 @@ void KMainWidget::updateStatusBar()
         statusBar()->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
         statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
         statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
-        //sDebugOut<<endl;
 
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -1987,7 +2131,10 @@ void KMainWidget::disconnect()
         }
         log(i18n("Disconnecting..."));
         system(ksettings.disconnectCommand.ascii());
+
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -1998,7 +2145,10 @@ void KMainWidget::slotCheckConnection()
 #endif
 
         checkOnline();
-        //sDebugOut<<endl;
+
+#ifdef _DEBUG
+        //sDebugOut << endl;
+#endif
 }
 
 
@@ -2051,8 +2201,11 @@ void KMainWidget::checkOnline()
                         pauseAll();
                 }
         }
-        //sDebugOut<<"b_online="<<b_online<<endl;
 
+
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
@@ -2093,6 +2246,9 @@ static int sockets_open()
          *    If this is -1 we have no known network layers and its time to jump.
          */
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
         return ddp_sock;
 }
 
@@ -2165,8 +2321,10 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 
         }
 
-        //sDebugOut<<endl;
 
+#ifdef _DEBUG
+        sDebugOut << endl;
+#endif
 }
 
 
