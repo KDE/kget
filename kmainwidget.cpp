@@ -2091,7 +2091,11 @@ void KMainWidget::onlineDisconnect()
     }
 
     if (!ksettings.b_expertMode) {
-        if (KMessageBox::questionYesNo(this, i18n("Do you really want to disconnect?"), i18n("Question")) != KMessageBox::Yes) {
+        if (KMessageBox::questionYesNo(this, i18n("Do you really want to disconnect?"), 
+                                       i18n("Question"), 
+                                       KStdGuiItem::yes(), KStdGuiItem::no(), 
+                                       "kget_AutoOnlineDisconnect") 
+            != KMessageBox::Yes) {
             return;
         }
     }

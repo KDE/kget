@@ -31,6 +31,7 @@
 #include <kwin.h>
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
+#include <netwm_def.h>
 
 #include <qdir.h>
 
@@ -40,6 +41,8 @@
 #include "settings.h"
 #include "common.h"
 #include "version.h"
+
+static const unsigned long DEFAULT_DOCK_STATE = (NET::SkipTaskbar | NET::StaysOnTop);
 
 QString ConnectionDevices[6] = {
                                    "",
@@ -191,7 +194,7 @@ Settings::load()
     // read drop target geometry settings
     config->setGroup("DropGeometry");
     dropPosition = config->readPointEntry("Position", &point);
-    dropState = config->readUnsignedLongNumEntry("State", 0);
+    dropState = config->readUnsignedLongNumEntry("State", DEFAULT_DOCK_STATE );
 }
 
 
@@ -282,12 +285,14 @@ void Settings::save()
     config->setGroup("MainGeometry");
     config->writeEntry("Position", kmain->pos());
     config->writeEntry("Size", kmain->size());
-    config->writeEntry("State", KWin::info(kmain->winId()).state);
+    config->writeEntry("State", KWin::windowInfo(kmain->winId()).state());
 
     // write drop target geometry properties
     config->setGroup("DropGeometry");
     config->writeEntry("Position", kdrop->pos());
-    config->writeEntry("State", KWin::info(kdrop->winId()).state);
+    unsigned long state = KWin::windowInfo(kdrop->winId()).state();
+    // state will be 0L if droptarget is hidden. Sigh.
+    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );
 
 
     config->sync();
