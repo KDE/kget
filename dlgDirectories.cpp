@@ -79,14 +79,14 @@ void DlgDirectories::addEntry()
     QString dir = le_dir->text();
 
     if (ext.contains(",") || dir.contains(",") || ext.isEmpty() || dir.isEmpty()) {
-        KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one directory"), i18n("Error"));
+        KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder"), i18n("Error"));
         return;
     }
 
     QDir f(dir);
 
     if (!f.exists()) {
-        KMessageBox::error(this, i18n("Directory does not exist:\n%1").arg(dir), i18n("Error"));
+        KMessageBox::error(this, i18n("Folder does not exist:\n%1").arg(dir), i18n("Error"));
         return;
     }
 
@@ -115,14 +115,14 @@ void DlgDirectories::changeEntry()
         QString dir = le_dir->text();
 
         if (ext.contains(",") || dir.contains(",") || ext.isEmpty() || dir.isEmpty()) {
-            KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one directory"), i18n("Error"));
+            KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder"), i18n("Error"));
             return;
         }
 
         QDir f(dir);
 
         if (!f.exists()) {
-            KMessageBox::error(this, i18n("Directory does not exist:\n%1").arg(dir), i18n("Error"));
+            KMessageBox::error(this, i18n("Folder does not exist:\n%1").arg(dir), i18n("Error"));
             return;
         }
 

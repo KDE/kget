@@ -86,7 +86,7 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     //        seaDlg = new DlgSearch(page);
     // topLayout->addWidget(seaDlg);
 
-    page = addPage(i18n("Directories"));
+    page = addPage(i18n("Folders"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     dirDlg = new DlgDirectories(page);
     topLayout->addWidget(dirDlg);

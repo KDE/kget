@@ -365,7 +365,7 @@ void KMainWidget::setupGUI()
     m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
     m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), coll, "toggle_sound");
     m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
+    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
     m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), coll, "auto_disconnect");
     m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), coll, "auto_shutdown");
     m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), coll, "offline_mode");
@@ -447,7 +447,7 @@ void KMainWidget::setupWhatsThis()
     tmp = i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking.");
     m_paExpertMode->setWhatsThis(tmp);
 
-    tmp = i18n("<b>Use last directory</b> button toggles the\n" "use-last-directory feature on and off.\n" "\n" "When set, KGet will ignore the directory settings\n" "and put all new added transfers into the directory\n" "where the last transfer was put.");
+    tmp = i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put.");
     m_paUseLastDir->setWhatsThis(tmp);
 
     tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
@@ -1740,9 +1740,9 @@ void KMainWidget::slotToggleUseLastDir()
     ksettings.b_useLastDir = !ksettings.b_useLastDir;
 
     if (ksettings.b_useLastDir) {
-        log(i18n("Use last directory on."));
+        log(i18n("Use last folder on."));
     } else {
-        log(i18n("Use last directory off."));
+        log(i18n("Use last folder off."));
     }
 
 #ifdef _DEBUG

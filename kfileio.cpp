@@ -47,7 +47,7 @@ QString kFileToString(const QString & aFileName, bool aEnsureNL, bool aVerbose)
     }
     if (info.isDir()) {
         if (aVerbose)
-            KMessageBox::error(qApp->mainWidget(), i18n("This is a directory and not a file:\n%1").arg(aFileName));
+            KMessageBox::error(qApp->mainWidget(), i18n("This is a folder and not a file:\n%1").arg(aFileName));
         return QString::null;
     }
     if (!info.isReadable()) {

@@ -86,7 +86,7 @@
                     </column>
                     <column>
                         <property name="text">
-                            <string>Default Directory</string>
+                            <string>Default Folder</string>
                         </property>
                         <property name="clickable">
                             <bool>true</bool>
