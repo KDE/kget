@@ -162,14 +162,7 @@ void Transfer::synchronousAbort()
 {
     if ( m_pSlave )
     {
-        if ( m_pSlave->running() )
-        {
-            m_pSlave->Op(Slave::KILL);
-            m_pSlave->wait();
-        }
-
-        if ( m_pSlave->running() )
-            m_pSlave->terminate();
+        m_pSlave->Op(Slave::KILL);
 
         delete m_pSlave;
         m_pSlave = 0L;
@@ -179,38 +172,6 @@ void Transfer::synchronousAbort()
     }
 
 }
-
-void Transfer::copy(Transfer * _orig)
-{
-    sDebugIn << endl;
-
-    canResume = _orig->canResume;
-    dest = _orig->dest;
-
-    src = _orig->src;
-    id = _orig->id;
-
-    mode = _orig->mode;
-    percent = _orig->percent;
-
-    processedSize = _orig->processedSize;
-    remainingTime = _orig->remainingTime;
-    retryCount = _orig->retryCount;
-    speed = _orig->speed;
-    startTime = _orig->startTime;
-    status = _orig->status;
-    totalSize = _orig->totalSize;
-
-    updateAll();
-    slotUpdateActions();
-
-    if ( _orig->isVisible() )
-        showIndividual();
-
-    sDebugOut << endl;
-}
-
-
 
 void Transfer::slotUpdateActions()
 {
@@ -821,7 +782,6 @@ void Transfer::slotExecRemove()
 {
     sDebugIn << endl;
 
-    m_pSlave->wait();
     emit statusChanged(this, OP_REMOVED);
     sDebugOut << endl;
 }

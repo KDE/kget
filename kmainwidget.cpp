@@ -1844,13 +1844,10 @@ void KMainWidget::slotPopupMenu(Transfer * item)
     sDebugIn << endl;
 #endif
 
-    myTransferList->clearSelection();
-    myTransferList->setSelected(item, true);
-
     // select current item
     myTransferList->setCurrentItem(item);
 
-    // set action properties only for this item
+    // set action properties
     slotUpdateActions();
 
     // popup transfer menu at the position
