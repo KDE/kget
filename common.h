@@ -24,11 +24,11 @@
 
 #include <kdebug.h>
 
-#define mDebugIn mDebug << ">>>>Entering"
-#define mDebugOut mDebug << ">>>>Leaving"
+#define mDebugIn mDebug << ">>>>Entering "
+#define mDebugOut mDebug << ">>>>Leaving "
 
-#define sDebugIn sDebug << ">>>>Entering"
-#define sDebugOut sDebug << ">>>>Leaving"
+#define sDebugIn sDebug << ">>>>Entering "
+#define sDebugOut sDebug << ">>>>Leaving "
 
 
 #define mDebug   kdDebug(DKGET)<<k_funcinfo << THREAD_ID

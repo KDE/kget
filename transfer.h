@@ -79,7 +79,7 @@ Q_OBJECT public:
 
         bool read(KSimpleConfig * config, int id);
         void write(KSimpleConfig * config, int id);
-        void logMessage(const QString & message, bool bLogOnMainWidget = false);
+        void logMessage(const QString & message);
 
 
         QDateTime getStartTime()

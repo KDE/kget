@@ -553,7 +553,7 @@ void Transfer::slotRenaming(KIO::Job *, const KURL &, const KURL & to)
 
 void Transfer::slotSpeed(unsigned long bytes_per_second)
 {
-        //sDebug<< ">>>>Entering"<<endl;
+        //sDebugIn <<endl;
 
         setSpeed(bytes_per_second);
 
@@ -579,14 +579,17 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
         }
 
         dlgIndividual->setSpeed(speed, remainingTime);
-        //sDebug<< "<<<<Leaving"<<endl;
+
+        //sDebugOut<<endl;
 }
 
 
 
 void Transfer::slotTotalSize(unsigned long bytes)
 {
-        sDebugOut << endl;
+#ifdef _DEBUG
+        sDebugIn<<" totalSize is = "<<totalSize << endl;
+#endif
 
         if (totalSize == 0) {
                 totalSize = bytes;
@@ -598,13 +601,20 @@ void Transfer::slotTotalSize(unsigned long bytes)
                         dlgIndividual->setProcessedSize(0);
                 }
         } else {
-                //if totalSize!=bytes we have a problems...
-                assert(totalSize == bytes);
+
+#ifdef _DEBUG
+                 sDebug<<"totalSize="<<totalSize<<" bytes="<<bytes<<endl;
+                 assert(totalSize == bytes);
+#endif
+                if (totalSize != bytes)
+                logMessage(i18n("Oops the file size does not match!"));
+                   else        
                 logMessage(i18n("File Size checked"));
         }
 
-
+#ifdef _DEBUG
         sDebugOut << endl;
+#endif
 }
 
 
@@ -655,11 +665,9 @@ void Transfer::showIndividual()
 
 
 
-void Transfer::logMessage(const QString & message, bool bLogOnMainWidget)
+void Transfer::logMessage(const QString & message)
 {
         sDebugIn << message << endl;
-        //       if (bLogOnMainWidget)
-        //        setText(view->lv_resume, message);
 
         emit log(id, src.fileName(), message);
         dlgIndividual->addLog(message);

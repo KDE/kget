@@ -2343,7 +2343,7 @@ void KMainWidget::customEvent(QCustomEvent * _e)
         break;
 
     case Slave::SLV_INFO:
-        e->getItem()->logMessage(e->getMsg(), true);
+        e->getItem()->logMessage(e->getMsg());
         break;
     default:
 #ifdef _DEBUG
