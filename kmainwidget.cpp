@@ -1156,7 +1156,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             // create a proper destination file from destDir
             KURL destURL = KURL::fromPathOrURL( destDir );
             QString fileName = urlsToDownload.first().fileName();
-            
+
             // in case the fileName is empty, we simply ask for a filename in
             // addTransferEx. Do NOT attempt to use an empty filename, that
             // would be a directory (and we don't want to overwrite that!)
@@ -1219,7 +1219,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             fileName = KURL::encode_string_no_slash( (*it).prettyURL() );
 
         destURL.setFileName( fileName );
-            
+
         if(KIO::NetAccess::exists(destURL))
         {
             if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ) )
@@ -1361,7 +1361,7 @@ void KMainWidget::slotTransferTimeout()
     }
 
     if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate()) {
-        disconnect();
+        onlineDisconnect();
     }
 
 #ifdef _DEBUG
@@ -1404,7 +1404,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
         if (myTransferList->isQueueEmpty()) {
             // no items in the TransferList or we have donwload all items
             if (ksettings.b_autoDisconnect)
-                disconnect();
+                onlineDisconnect();
 
             if (ksettings.b_autoShutdown) {
                 slotQuit();
@@ -1818,8 +1818,10 @@ void KMainWidget::slotToggleAutoPaste()
 
     if (ksettings.b_autoPaste) {
         log(i18n("Auto paste on."));
+        clipboardTimer->start(1000);
     } else {
         log(i18n("Auto paste off."));
+        clipboardTimer->stop();
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
 
@@ -2089,7 +2091,7 @@ void KMainWidget::updateStatusBar()
 }
 
 
-void KMainWidget::disconnect()
+void KMainWidget::onlineDisconnect()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
