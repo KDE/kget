@@ -42,6 +42,8 @@
 #include <kedittoolbar.h>
 #include <kstatusbar.h>
 #include <kiconloader.h>
+#include <knotifyclient.h>
+#include <knotifydialog.h>
 
 #include "kmainwidget.h"
 #include "globals.h"
@@ -57,19 +59,21 @@
 
 // configuration includes
 #include <kconfigdialog.h>
-#include "dlgAdvanced.h"
-#include "dlgAutomation.h"
-#include "dlgConnection.h"
+#include "dlgappearance.h"
+#include "dlgnetwork.h"
 #include "dlgDirectories.h"
-#include "dlgLimits.h"
-#include "dlgSystem.h"
+#include "dlgadvanced.h"
+
+// local defs.
+enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
+                       ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
 
 KMainWidget::KMainWidget(bool bStartDocked)
     : KGetIface( "KGet-Interface" ),
       KMdiMainFrm(0, "kget mainwindow", KMdi::IDEAlMode),
       ViewInterface( "viewIface-main" ),
-      logWindow(0), kdock(0), kdrop(0)
+      kdrop(0), kdock(0), logWindow(0)
 {
     setXMLFile("kgetui.rc");
     
@@ -79,14 +83,10 @@ KMainWidget::KMainWidget(bool bStartDocked)
     setupActions();
     setupGUI(bStartDocked);
     slotUpdateActions();
-    setupConnections();
 
     //This must be the last one
     schedRequestOperation(OpImportTransfers);
     
-//    menuBar()->insertItem( tr("&Window"), windowMenu());
-//    setCentralWidget(0);
-
     if ( Settings::firstRun() )
     {
 //        if ( kdrop )
@@ -142,12 +142,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
     // Enable dropping
     setAcceptDrops(true);
 
-    sDebug << "eee" << endl;
-    
-    schedReqOperation( OpImportTransfers );
-
     // update actions
-    m_paUseSound->setChecked(Settings::useSound());
     m_paExpertMode->setChecked(Settings::expertMode());
     m_paUseLastDir->setChecked(Settings::useLastDir());
     
@@ -158,10 +153,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
     sDebug << "eee6" << endl;
     
     //m_paShowLog->setChecked(b_viewLogWindow);
-
-    if (!bStartDocked && Settings::showMain())
-        show();
-    sDebug << "eee7" << endl;
 */
 
 
@@ -171,10 +162,9 @@ KMainWidget::~KMainWidget()
     delete kdock;
     schedRequestOperation(OpExportTransfers);
     delete scheduler;
-    delete logWindow;
-
     //write log to file
     //kCStringToFile(logWindow->getText().local8Bit(), logFileName, false, false);
+    delete logWindow;
 
     Settings::setMainPosition( pos() );
     Settings::setMainSize( size() );
@@ -184,27 +174,28 @@ KMainWidget::~KMainWidget()
 
 void KMainWidget::setupActions()
 {
-
     KActionCollection *coll = actionCollection();
 
-    /** 
-     * FILE ACTIONS
-     */
-         
-    KURL url;
-    QString string;
+    // Local: Shows a dialog asking for a new URL to download
     m_paOpenTransfer = new KAction(i18n("&New Download..."), "editclear", 0, this, SLOT(slotNewURL()), coll, "open_transfer");
+    // Local: Destroys all sub-windows and exits
     m_paQuit = KStdAction::quit(this, SLOT(slotQuit()), coll, "quit");
+    // Local: Build and show the "preferences dialog" (or reuse an existing one)
     m_paPreferences = KStdAction::preferences(this, SLOT(slotPreferences()), coll, "preferences");
     m_paPreferences->setWhatsThis(i18n("<b>Preferences</b> button opens a preferences dialog\n" "where you can set various options.\n" "\n" "Some of these options can be more easily set using the toolbar."));
+    // ->Scheduler: Ask for transfersList export
     m_paExportTransfers = new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), coll, "export_transfers");
+    // ->Scheduler: Ask for transfersList import
     m_paImportTransfers = new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), coll, "import_transfers");
+    // ->Scheduler: ACTIVATE the scheduler
     m_paResume = new KAction(i18n("&Start"),"player_play", 0, this, SLOT(slotRun()), coll, "start");
     m_paResume->setWhatsThis(i18n("<b>Resume</b> button starts downloading\n"));
+    // ->Scheduler: STOP the scheduler
     m_paPause = new KAction(i18n("&Stop"),"player_stop", 0, this, SLOT(slotStop()), coll, "stop");
     m_paPause->setWhatsThis(i18n("<b>Pause</b> button stops selected transfers\n" "and sets their mode to <i>delayed</i>."));
 
     
+    (void) new KAction( i18n("Configure &Notifications..."), "knotify", 0, this, SLOT(slotEditNotifications()), coll, "configure_notifications" );
 /*
     m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), coll, "import_text");
 
@@ -221,7 +212,6 @@ void KMainWidget::setupActions()
 
     // OPTIONS ACTIONS
 
-    m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), coll, "toggle_sound");
     m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
     m_paExpertMode->setWhatsThis(i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking."));
     m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
@@ -286,7 +276,7 @@ void KMainWidget::setupGUI(bool startDocked)
     //MainWidget (myself)
     resize(Settings::mainSize());
     move(Settings::mainPosition());
-    KWin::setState(winId(), Settings::mainState());
+//    KWin::setState(winId(), Settings::mainState());
     if (!startDocked || Settings::showMain())
         show();
 
@@ -302,11 +292,6 @@ void KMainWidget::setupGUI(bool startDocked)
     sDebugOut << endl;
 #endif
 }
-
-void KMainWidget::setupConnections()
-{
-}
-        
 
 void KMainWidget::log(const QString & message, bool statusbar)
 {
@@ -383,6 +368,19 @@ void KMainWidget::slotNewToolbarConfig()
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+}
+
+
+void KMainWidget::slotEditNotifications()
+{
+    KNotifyDialog::configure(this);
+}
+
+
+void KMainWidget::slotNewConfig()
+{
+    sDebugIn << endl;
+    sDebugOut << endl;
 }
 
 
@@ -468,11 +466,14 @@ bool KMainWidget::queryClose()
     return false;
 }
 
+
 void KMainWidget::slotPreferences()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
+
+    KNotifyClient::event( winId(), "started" );
 
     //An instance of your dialog could be already created and could be cached, 
     //in which case you want to display the cached dialog instead of creating 
@@ -483,17 +484,19 @@ void KMainWidget::slotPreferences()
     //KConfigDialog didn't find an instance of this dialog, so lets create it
     KConfigDialog* dialog = new KConfigDialog( this, "preferences", Settings::self() );
 
-    dialog->addPage( new DlgAdvanced(0), i18n("Advanced"), "configure" ); 
-    dialog->addPage( new DlgAutomation(0), i18n("Automation"), "konqueror" ); 
-    dialog->addPage( new DlgConnection(0), i18n("Connection"), "kget" ); 
-    dialog->addPage( new DlgDirectories(0), i18n("Directories"), "kmail" ); 
-    dialog->addPage( new DlgLimits(0), i18n("Limits"), "konsole" ); 
-    dialog->addPage( new DlgSystem(0), i18n("System"), "gear" ); 
- 
+    dialog->addPage( new DlgAppearance(0), i18n("Appearance"), "looknfeel",
+                     i18n("Look and feel") );
+    dialog->addPage( new DlgNetwork(0), i18n("Network"), "network",
+                     i18n("Network and downloads") );
+    dialog->addPage( new DlgDirectories(0), i18n("Directories"), "folder_open",
+                     i18n("Default download directories") );
+    dialog->addPage( new DlgAdvanced(0), i18n("Advanced"), "exec",
+                     i18n("Advanced options") );
+
     //User edited the configuration - update your local copies of the 
     //configuration data 
     connect( dialog, SIGNAL(settingsChanged()), 
-             this, SLOT(updateConfiguration()) ); 
+             this, SLOT(slotNewConfig()) );
  
     dialog->show();
 
@@ -523,20 +526,6 @@ void KMainWidget::slotToggleLogWindow()
     sDebugOut << endl;
 #endif
 }
-
-void KMainWidget::slotToggleSound()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    Settings::setUseSound( !Settings::useSound() );
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
 
 void KMainWidget::slotToggleExpertMode()
 {

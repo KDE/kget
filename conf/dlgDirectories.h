@@ -27,20 +27,28 @@
 #ifndef _DLGDIRECTORIES_H
 #define _DLGDIRECTORIES_H
 
+#include <qstringlist.h>
 #include "dlgdirectoriesbase.h"
 
 class DlgDirectories : public DlgDirectoriesBase
 {
-
-Q_OBJECT
-
+	Q_OBJECT
+	Q_PROPERTY( QStringList list READ list WRITE setList )
 public:
 
     DlgDirectories(QWidget * parent);
-    ~DlgDirectories() {}
     void applyData();
     void setData();
+    
+    QStringList list() const { return l; }
+    void setList( QStringList li ) { l=li; }
 
+public slots:
+    void changed( const QStringList &line ) { setList(line); };
+
+private:
+    QStringList l;
+    
 signals:
     void configChanged();
 

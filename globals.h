@@ -10,8 +10,6 @@
 #ifndef _KGET_GLOBALS_H
 #define _KGET_GLOBALS_H
 
-#include <qvaluelist.h>
-
 //remove this include
 #include <kdebug.h>
 
@@ -54,12 +52,5 @@ enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
 
 enum SchedulerOperation { OpPasteTransfer, OpImportTextFile,
     OpImportTransfers, OpExportTransfers, OpRun, OpStop };
-
-struct DirItem {
-    QString extRegexp;
-    QString defaultDir;
-};
-
-typedef QValueList<DirItem> DirList;
 
 #endif

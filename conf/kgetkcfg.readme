@@ -1,0 +1,56 @@
+1 ReconnectTime
+1 ReconnectRetries
+2 ConnectionType
+3 AutoSave
+1 AutoSaveInterval
+2 AutoDisconnect
+1 DisconnectCommand
+2 AutoShutdown
+2 AutoPaste (better doc.)
+1 MaxSimConnections (rinominare)
+1 ShowMain (REDO)
+  ShowIndividual (on conf?)
+  IconifyIndividual (on conf?)
+  AdvancedIndividual (on conf?)
+4 ExpertMode (???)
+1 FirstRun
+  KonquerorIntegration (reimp!!)
+2 UseLastDirectory
+2 LastDirectory
+1 MimeDirList
+1 MainPosition
+1 MainSize
+1 MainState
+1 DropPosition
+1 DropSticky
+1 ShowSplashscreen (ADD)
+
+Old opts not used by anyone:
+  ReconnectOnError
+  ReconnectOnBroken
+  TimeoutData
+  TimeoutDataNoResume
+  MinimumBandwidth
+  MaximumBandwidth
+
+Removed opts:
+  UseSound
+  AudioAdded      |
+  AudioStarted    | convert to use
+  AudioFinished   | plain text entrybox
+  AudioFinishedAll| (or system notificat!)
+
+Obsoleted opts:
+X LinkNumber
+X OfflineMode (convertire in start/stop all'avvio)
+X UseAnimation
+X TimedDisconnect
+X DisconnectHour
+X DisconnectMinute
+X RemoveOnSuccess
+X GetSizes
+X Font
+
+Changed in conf:
+++ DisconnectDateTime
+++ Downloading (ex OfflineMode)

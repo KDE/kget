@@ -1,4 +1,4 @@
-File=kget.kcfg
 ClassName=Settings
-Singleton=yes
+File=kget.kcfg
 Mutators=true
+Singleton=true

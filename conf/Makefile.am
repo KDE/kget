@@ -1,9 +1,7 @@
 noinst_LIBRARIES = libconf.a
 
-libconf_a_SOURCES = dlgconnectionbase.ui dlgautomationbase.ui dlglimitsbase.ui \
-                    dlgadvancedbase.ui dlgdirectoriesbase.ui dlgsystembase.ui \
-                    dlgConnection.cpp dlgAutomation.cpp dlgLimits.cpp \
-                    dlgAdvanced.cpp dlgDirectories.cpp dlgSystem.cpp \
+libconf_a_SOURCES = dlgappearance.ui dlgadvanced.ui dlgnetwork.ui \
+                    dlgdirectoriesbase.ui dlgDirectories.cpp \
                     settings.kcfgc
 
 INCLUDES = -I$(srcdir)/.. -I$(srcdir)/../views $(all_includes)

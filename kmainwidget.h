@@ -48,9 +48,6 @@ class KMainWidget:public KMdiMainFrm, public ViewInterface, virtual public KGetI
 Q_OBJECT 
 
 public:
-    enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
-                           ID_TOTAL_TIME         , ID_TOTAL_SPEED                };
-
     KMainWidget(bool bShowMain = false);
     ~KMainWidget();
 
@@ -59,17 +56,10 @@ public:
     virtual bool isDropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );
 
-    LogWindow *logwin()const { return logWindow;}
-
-    // Actions
-    KToggleAction *m_paShowLog;
-    KAction *m_paPreferences;
-    KAction *m_paQuit;
-    bool b_viewLogWindow;
-
+    // called by main.cpp
     void readTransfersEx(const KURL & url);
 
-public slots:
+protected slots:
     void slotNewURL();
     
     void slotToggleLogWindow();
@@ -78,7 +68,6 @@ public slots:
     void slotToggleUseLastDir();
     void slotToggleAutoShutdown();
     void slotToggleDropTarget();
-    void slotToggleSound();
     void slotUpdateActions();
 
 protected slots:
@@ -93,6 +82,8 @@ protected slots:
     void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotNewToolbarConfig();
+    void slotEditNotifications();
+    void slotNewConfig();
 
 protected:
     //From the DCOP iface
@@ -108,45 +99,41 @@ protected:
     void readTransfers(bool ask_for_name = false);
     void writeTransfers(bool ask_for_name = false);
 
-
+    // utility functions
     void setupActions();
     void setupGUI(bool startDocked);
-    void setupConnections();
-    void setupWhatsThis();
-    
     void updateStatusBar();
-
-    // utility functions
     void log(const QString & message, bool statusbar = true);
-
-    // various timers
-    QTimer *transferTimer;      // timer for scheduled transfers
-    QTimer *autosaveTimer;      // timer for autosaving transfer list
-
-    QString logFileName;
 
 
 private:
     bool sanityChecksSuccessful( const KURL& url );
 
     Scheduler * scheduler;
-    
+
+    // child widgets
+    DropTarget *kdrop;
+    DockWidget *kdock;
+    LogWindow *logWindow;
     KHelpMenu *menuHelp;
 
-    LogWindow *logWindow;
-    DockWidget *kdock;
-    DropTarget *kdrop;
-
+    // various timers
+    QTimer *transferTimer;      // timer for scheduled transfers
+    QTimer *autosaveTimer;      // timer for autosaving transfer list
+    // some variables
+    QString logFileName;
     QString lastClipboard;
+    bool b_viewLogWindow;
 
     // Actions
+    KAction *m_paPreferences, *m_paQuit;
     KAction *m_paOpenTransfer, *m_paExportTransfers, *m_paImportTransfers;
     KAction *m_paImportText;
 
+    KToggleAction *m_paShowLog;
     KAction *m_paMoveToBegin, *m_paMoveToEnd, *m_paIndividual;
     KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
 
-    KToggleAction *m_paUseSound;
     KToggleAction *m_paExpertMode, *m_paUseLastDir;
     KToggleAction *m_paAutoShutdown;
 

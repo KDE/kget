@@ -92,8 +92,11 @@ bool Transfer::slotResume()
         slave = new Slave(this, src, dest);
 
     retryCount++;
+/* FIXME reconnectRetries is only used here.
+   This code modifies a config. variable!?, please check.
     if (retryCount > Settings::reconnectRetries())
         Settings::setReconnectRetries( retryCount );
+*/
     assert(status == ST_STOPPED);
 
     sDebug << "src: " << src.url() << endl;

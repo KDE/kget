@@ -51,13 +51,26 @@ static KCmdLineOptions option[] = {
     KCmdLineLastOption
 };
 
-static void cleanup(void);
-static void setSignalHandler(void (*handler) (int));
-
-//static msg_handler oldMsgHandler = 0L;
-
 //-----------------------------------------------------------------------------
-// Crash recovery signal handler
+// Crash recovery signal handling routines
+
+static void setSignalHandler(void (*handler) (int))
+{
+    signal(SIGSEGV, handler);
+    signal(SIGKILL, handler);
+    signal(SIGTERM, handler);
+    signal(SIGHUP, handler);
+    signal(SIGFPE, handler);
+    signal(SIGABRT, handler);
+    // catch also the keyboard interrupt
+    signal(SIGINT, handler);
+}
+
+static void cleanup(void)
+{
+    qInstallMsgHandler(0L /*oldMsgHandler*/);
+}
+
 static void signalHandler(int sigId)
 {
     fprintf(stderr, "*** KGet got signal %d\n", sigId);
@@ -74,34 +87,8 @@ static void signalHandler(int sigId)
 }
 
 
-//-----------------------------------------------------------------------------
-static void setSignalHandler(void (*handler) (int))
-{
-    signal(SIGSEGV, handler);
-    signal(SIGKILL, handler);
-    signal(SIGTERM, handler);
-    signal(SIGHUP, handler);
-    signal(SIGFPE, handler);
-    signal(SIGABRT, handler);
-
-    // catch also the keyboard interrupt
-    signal(SIGINT, handler);
-}
-
-
-static void cleanup(void)
-{
-    qInstallMsgHandler(0L /*oldMsgHandler*/);
-//     QString cmd;
-}
-
-
 class KGetApp : public KUniqueApplication
 {
-private:
-    KMainWidget * mainwidget;
-    OSDWidget * osd;
-    
 public:
     KGetApp()
         : KUniqueApplication(), mainwidget( 0 ), osd( 0 )
@@ -111,24 +98,21 @@ public:
 
     ~KGetApp()
     {
+        delete osd;
         delete mainwidget;
     }
 
     void showSplash()
     {
-        //determine whether splash-screen is enabled in amarokrc
+        //determine whether splash-screen is enabled in kgetrc
         QString rcfile( ::getenv( "HOME" ) );
         rcfile += "/.kde/share/config/kgetrc";
-
         QFile file( rcfile );
         file.open( IO_ReadOnly );
         QString line;
-
-        //TODO read the right property from the 'kgetrc' file
-//         while ( file.readLine( line, 2000 ) != -1 ) {
-//             if ( line.contains( "Show Splashscreen" ) && line.contains( "false" ) )
-//                 return;
-//         }
+        while ( file.readLine( line, 2000 ) != -1 )
+            if ( line.contains( "ShowSplashscreen" ) && line.contains( "false" ) )
+                return;
 
         //get KDE prefix from kde-config
         QProcess * proc = new QProcess( this );
@@ -163,9 +147,6 @@ public:
 
         if (args->count()==1)
         {
-#ifdef _DEBUG
-            sDebug <<"args(0)= "<<args->arg(0) << endl;
-#endif
             QString txt(args->arg(0));
             if ( txt.endsWith( ".kgt" ) )
                 mainwidget->readTransfersEx(KURL::fromPathOrURL( txt ));
@@ -185,11 +166,15 @@ public:
             osd->removeOSD();
         return 0;
     }
+
+private:
+    KMainWidget * mainwidget;
+    OSDWidget * osd;
 };
 
 
 /////////////////////////////////////////////////////////////////
-
+ 
 int main(int argc, char *argv[])
 {
     KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description, KAboutData::License_GPL, "(C) 2001 - 2002, Patrick Charbonnier \n(C) 2002, Carsten Pfeiffer\n(C) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");

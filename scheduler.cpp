@@ -8,7 +8,7 @@
 #include <klocale.h>
 #include <kprotocolinfo.h>
 #include <kinputdialog.h>
-#include <kaudioplayer.h>
+#include <knotifyclient.h>
 
 #include "scheduler.h"
 #include "connection.h"
@@ -149,9 +149,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     
     queueAddedItems(list);
 
-    if (Settings::useSound()) {
-        KAudioPlayer::play(Settings::audioAdded());
-    }
+    KNotifyClient::event( mainWidget->winId(), "added" );
         
     sDebugOut << endl;
 }
