@@ -441,7 +441,7 @@ void Transfer::slotRequestRemove()
         // delete the partly downloaded file, if any
         KURL file = dest;
         file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
-        if ( KIO::NetAccess::exists( file ) ) // don't pollute user with warnings
+        if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
         {
             SafeDelete::deleteFile( file ); // ### messagebox on failure?
         }

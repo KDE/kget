@@ -229,7 +229,7 @@ void TransferList::readTransfers(const KURL& file)
 {
     QString tmpFile;
 
-    if (KIO::NetAccess::download(file, tmpFile)) {
+    if (KIO::NetAccess::download(file, tmpFile, (QWidget*)parent())) {
         KSimpleConfig config(tmpFile);
 
         config.setGroup("Common");
