@@ -64,7 +64,7 @@
 #include <kio/netaccess.h>
 #include <kstatusbar.h>
 #include <kconfig.h>
-
+#include <kio/netaccess.h>
 #include <krootpixmap.h>
 
 #include "settings.h"
@@ -1125,11 +1125,14 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
     }
 
     KURL dest;
-
+    bool bDestisMalformed=true;
+    bool b_expertMode=ksettings.b_expertMode;
+    while (bDestisMalformed)
+    {
     if (d.isNull()) {           // if we didn't provide destination
-        if (!ksettings.b_expertMode) {
+        if (!b_expertMode) {
             // open the filedialog for confirmation
-            KFileDialog *dlg = new KFileDialog(destDir, "",this,"save_as",true);
+            KFileDialog *dlg = new KFileDialog(currentDirectory, "",this,"save_as",true);
             dlg->setCaption(i18n("Save As"));
             dlg->setSelection(url.fileName());
             dlg->setOperationMode(KFileDialog::Saving);
@@ -1141,7 +1144,8 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
                 sDebugOut << endl;
 #endif
                 return;
-            } else {
+            } 
+	    else {
                 dest = dlg->selectedURL().url();
                 currentDirectory = dest.directory();
             }
@@ -1152,8 +1156,28 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
     } else {
         dest = d;
     }
-
-    QString file = url.fileName();
+     
+   //check if destination already exists
+   
+    if(KIO::NetAccess::exists(dest))
+      {
+      if (KMessageBox::warningYesNo(this,i18n("Destination file already exists\n do you want to overwrite?"))==KMessageBox::Yes)
+          {
+	   bDestisMalformed=false;
+	   KIO::NetAccess::del(dest);
+	   }
+           else
+	   {
+            d=QString::null;
+	    b_expertMode=false;
+	    currentDirectory = dest.directory();
+	  }
+     }
+     else
+     bDestisMalformed=false;
+     
+   }
+   // QString file = url.fileName();
 
     // create a new transfer item
     Transfer *item = myTransferList->addTransfer(s, dest);
