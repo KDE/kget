@@ -40,8 +40,10 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
     parent = _parent;
 
-    QPixmap tmppix = UserIcon("dock");
-    setPixmap( UserIcon( "dock" ) );
+        
+    KIconLoader *loader = KGlobal::iconLoader();
+    QPixmap tmppix=loader->loadIcon("dock", KIcon::Small);
+    this->setPixmap(tmppix);
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
