@@ -94,7 +94,7 @@ static void setSignalHandler(void (*handler) (int))
 static void cleanup(void)
 {
     qInstallMsgHandler(0L /*oldMsgHandler*/);
-    QString cmd;
+//     QString cmd;
 }
 
 
@@ -152,7 +152,7 @@ int KGetApp::newInstance()
 
      if (args->isSet("showDropTarget"))
          kmain->activateDropTarget();
-     
+
     if (args->count()==1)
     {
 #ifdef _DEBUG
