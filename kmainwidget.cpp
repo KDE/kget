@@ -582,7 +582,7 @@ void KMainWidget::readTransfers(bool ask_for_name)
     KURL url;
 
     if (ask_for_name)
-        url = KFileDialog::getOpenURL(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All files"));
+        url = KFileDialog::getOpenURL(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
     else
         url.setPath( locateLocal("appdata", "transfers.kgt") );
 
@@ -644,7 +644,7 @@ void KMainWidget::writeTransfers(bool ask_for_name)
     QString txt;
 
     if (ask_for_name)
-        txt = KFileDialog::getSaveFileName(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All files"));
+        txt = KFileDialog::getSaveFileName(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
     else
         txt = locateLocal("appdata", "transfers.kgt");
 
