@@ -196,17 +196,17 @@ bool TransferList::updateStatus(int counter)
 }
 
 
-bool TransferList::isQueueEmpty()
+bool TransferList::areTransfersQueuedOrScheduled()
 {
     TransferIterator it(this);
 
-    if (childCount() <= 0)
-        return true;
-    else
-        for (; it.current(); ++it)
-            if (it.current()->getMode() == Transfer::MD_NONE)
+    if (childCount() > 0) {
+        for (; it.current(); ++it) {
+            if ((it.current()->getMode() == Transfer::MD_QUEUED)|| \
+                (it.current()->getMode() == Transfer::MD_SCHEDULED))
                 return true;
-
+        }
+    }
     return false;
 }
 

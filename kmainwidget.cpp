@@ -1407,8 +1407,8 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
         else
             item->setMode(Transfer::MD_NONE);
 
-        if (myTransferList->isQueueEmpty()) {
-            // no items in the TransferList or we have donwload all items
+        if (!myTransferList->areTransfersQueuedOrScheduled()) {
+            // no items or only delayed and finished items in the TransferList
             if (ksettings.b_autoDisconnect)
                 onlineDisconnect();
 

@@ -76,7 +76,7 @@ Q_OBJECT public:
     }
     bool updateStatus(int counter);
     Transfer * find(const KURL& _src);
-    bool isQueueEmpty();
+    bool areTransfersQueuedOrScheduled();
 
     void readTransfers(const KURL& file);
     void writeTransfers(const QString& file);
