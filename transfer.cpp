@@ -36,7 +36,6 @@
 #include <assert.h>
 #include "safedelete.h"
 #include "settings.h"
-#include "logwindow.h"
 #include "transferlist.h"
 #include "transfer.h"
 #include "scheduler.h"

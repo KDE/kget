@@ -47,14 +47,15 @@
 
 #include "kmainwidget.h"
 #include "settings.h"
-#include "preferencesdialog.h"
+#include "conf/preferencesdialog.h"
 #include "scheduler.h"
-#include "browserbar.h"
-#include "iconview.h"
-#include "testview.h"
-#include "logwindow.h"
 #include "docking.h"
-#include "droptarget.h"
+#include "browserbar.h"
+#include "views/iconview.h"
+#include "views/testview.h"
+#include "views/logwindow.h"
+#include "views/droptarget.h"
+#include "panels/panel_global.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
@@ -246,11 +247,15 @@ void KMainWidget::setupGUI()
     rightWidget = t;
 
     // create the 'left panels' views and link them to the 'right view'
-    browserBar->addBrowser( new QWidget(0,"trasfer panel"), i18n( "Statistics" ), "gear" );
+    GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
+    browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
+    
     IconViewMdiView * i = new IconViewMdiView();
     i->connectToScheduler(scheduler);
     browserBar->addBrowser( i, i18n( "Transfer" ), "folder" );
+    
     browserBar->addBrowser( new QWidget(0,"other panel"), i18n( "Other" ), "browser" );
+    
     browserBar->addBrowser( new QWidget(0,"help panel"), i18n( "Help" ), "help" );
     
     /** set layouting of the main widget */
@@ -305,6 +310,7 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
                 minH = ToolBar_HEIGHT + menuBar->height() + statusBar->height();
             Settings::setMainSize( size() );
             browserBar->hide();
+            //setEraseColor( palette().active().background() );
             setFixedHeight( minH );
             resize( 200, minH );
             } break;
@@ -315,7 +321,8 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
             rightWidget = t;
             rightWidget->show();
             browserBar->show();
-            browserBar->setMinimumHeight( 100 );
+            browserBar->setMinimumHeight( 150 );
+            //setEraseColor( palette().active().background().dark(150) );
             setMaximumHeight( 32767 );
             if ( vMode == vm_compact || force )
                 resize( Settings::mainSize() );
@@ -325,7 +332,8 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
             rightWidget = new QWidget( (QWidget *)browserBar->container() );
             rightWidget->show();
             browserBar->show();
-            browserBar->setMinimumHeight( 100 );
+            browserBar->setMinimumHeight( 150 );
+            //setEraseColor( palette().active().background().dark(150) );
             setMaximumHeight( 32767 );
             if ( vMode == vm_compact || force )
                 resize( Settings::mainSize() );

@@ -130,7 +130,6 @@ DropTarget::DropTarget(KMainWidget * mw)
     popupMenu->setCheckable(true);
 
     mw->actionCollection()->action("download")->plug(popupMenu);
-//    mw->actionCollection()->action("stop")->plug(popupMenu);
     popupMenu->insertSeparator();
     pop_show = popupMenu->insertItem("", this, SLOT(toggleMinimizeRestore()));
     popupMenu->insertItem(i18n("Hide me"), this, SLOT(slotClose()));
