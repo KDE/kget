@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
 
     if (!KGetApp::start()) {
         fprintf(stderr, "kget is already running!\n");
-        exit(0);
+        return 0;
     }
 
     KGetApp kApp;
@@ -206,7 +206,4 @@ int main(int argc, char *argv[])
     kApp.exec();
 
     cleanup();
-
-
-
 }
