@@ -111,7 +111,7 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 KMainWidget::KMainWidget(bool bStartDocked)
     : KGetIface( "KGet-Interface" ),
       KMainWindow(0, "kget mainwindow"),
-      prefDlg( 0L )
+      prefDlg( 0 ), kdock( 0 )
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -372,7 +372,7 @@ void KMainWidget::setupGUI()
 
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), coll);
 
-    KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), 
+    KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()),
 actionCollection());
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
@@ -2057,12 +2057,13 @@ void KMainWidget::updateStatusBar()
     statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
     statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
 
-    tmpstr = i18n(" Transfers: %1 ").arg(myTransferList->childCount()) +
-    i18n(" Files: %1 ").arg(totalFiles)+
-    i18n(" Size: %1 ").arg(KIO::convertSize(totalSize))+
-    i18n(" Time: %1 %2/s").arg(remTime.toString()).arg(KIO::convertSize(totalSpeed));
-    kdock->updateToolTip( tmpstr );
-
+    if (kdock) {
+        tmpstr = i18n(" Transfers: %1 ").arg(myTransferList->childCount()) +
+                 i18n(" Files: %1 ").arg(totalFiles)+
+                 i18n(" Size: %1 ").arg(KIO::convertSize(totalSize))+
+                 i18n(" Time: %1 %2/s").arg(remTime.toString()).arg(KIO::convertSize(totalSpeed));
+        kdock->updateToolTip( tmpstr );
+    }
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
