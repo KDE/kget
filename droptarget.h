@@ -42,6 +42,8 @@ public:
     DropTarget();
     ~DropTarget();
 
+    void updateStickyState();
+
 protected:
     virtual void resizeEvent(QResizeEvent *);
 
@@ -69,10 +71,6 @@ private:
     int pop_Min;
 
     int size[4];
-
-    QPixmap *handpix1;
-    QPixmap *handpix2;
-    QPixmap *handpix3;
 
     QBitmap mask;
 public:                      // Public attributes

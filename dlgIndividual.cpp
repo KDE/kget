@@ -51,7 +51,7 @@
 
 
 DlgIndividual::DlgIndividual(Transfer * _item)
-    : KDialog(0, "dialog")
+    : QWidget(0, "dialog")
 {
     item = _item;
 
@@ -94,23 +94,17 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     resumeLabel = new QLabel(this);
     hBox->addWidget(resumeLabel);
 
-    hBox = new QHBoxLayout();
-    topLayout->addLayout(hBox);
-
     speedLabel = new QLabel(this);
-    hBox->addWidget(speedLabel, 1);
     speedLabel->setText("0 B/s");
+    topLayout->addWidget(speedLabel);
 
     // setup toolbar
-    hBox = new QHBoxLayout();
-    topLayout->addLayout(hBox);
-
     KToolBar *toolBar = new KToolBar(this);
-
     toolBar->setIconText(KToolBar::IconOnly);
     toolBar->setBarPos(KToolBar::Bottom);
     toolBar->enableFloating(false);
     toolBar->enableMoving(false);
+    toolBar->setFlat(true);
 
     topLayout->addWidget( toolBar );
 
@@ -201,11 +195,6 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     topLayout->addWidget(panelAdvanced);
     slotToggleAdvanced(ksettings.b_advancedIndividual);
-    if (ksettings.b_showIndividual)
-    {
-        show();
-    }
-
 
     resize( sizeHint() );
 
