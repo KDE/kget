@@ -37,7 +37,6 @@ private slots:
     void slotShowDrop();
     void slotShowLinks();
     void showPopup();
-    void startDownload( const KURL::List& urls );
 };
 
 

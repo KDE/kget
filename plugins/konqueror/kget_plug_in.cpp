@@ -152,28 +152,9 @@ void KGet_plug_in::slotShowLinks()
     KGetLinkView *view = new KGetLinkView();
     QString url = doc.URL().string();
     view->setPageURL( url );
-//    connect( view, SIGNAL( leechURLs( const KURL::List& ) ),
-//             SLOT( startDownload( const KURL::List& ) ));
 
     view->setLinks( linkList );
     view->show();
-}
-
-void KGet_plug_in::startDownload( const KURL::List& urls )
-{
-/*
-    if (!p_dcopServer->isApplicationRegistered ("kget"))
-        KRun::runCommand("kget");
-
-    QByteArray data;
-    QDataStream stream( data, IO_WriteOnly );
-    stream << urls << QString::null;
-    bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
-                                              "addTransfers(KURL::List, QString)",
-                                              data );
-
-    kdDebug() << "*** startDownload: " << ok << endl;
-*/
 }
 
 KPluginFactory::KPluginFactory( QObject* parent, const char* name )

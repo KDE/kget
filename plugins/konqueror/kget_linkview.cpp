@@ -103,7 +103,6 @@ void KGetLinkView::slotStartLeech()
                             i18n("You did not select any files to download."),
                             i18n("No Files Selected") );
     else
-//        emit leechURLs( urls );
     {
         DCOPClient* p_dcopServer = new DCOPClient();
         p_dcopServer->attach();
