@@ -49,8 +49,23 @@ signals:
 	void globalStatus(GlobalStatus *);
 	
 public slots:
-	void slotNewURLs(const KURL::List &);
-	void slotNewURL(const KURL &);
+	/**
+     * Just an idea for these slots: we can handle 3 cases:
+     *  1) src = empty list -> means that the src url must be inserted 
+     *     manually from the user (with a dialog popping up)
+     *  2) destDir = empty -> means that the destDir must be inserted
+     *     manually from the user (with a dialog popping up)
+     *  3) destDir = QString("KGet::default") means that the destination 
+     *     is the kget default
+     *  In this way we can take care of every possible situation using
+     *  only a function.
+     */
+    void slotNewURLs(const KURL::List & src, const QString& destDir);
+    
+    /**
+     * See the above function for details
+     */
+	void slotNewURL(const KURL & src, const QString& destDir);
     
 	void slotRemoveItems(QValueList<Transfer *>);
 	void slotRemoveItem(Transfer *);
@@ -65,39 +80,46 @@ public slots:
 	void slotSetGroup(Transfer *, const QString &);
 
     /**
-     * Used to import the URLS
-     *
+     * This slot is called from the Transfer object when its status
+     * has changed
+     */
+    void slotTransferStatusChanged(Transfer *, int operation)
+
+    /**
+     * This function adds the transfer copied in the clipboard
+     */
+    void slotPasteTransfer();
+    
+    /**
+     * Used to import the URLS from a text file
      */
     void slotImportTextFile();
         
     /**
-     * Used to import the transfers included in a .kgt file. The function
-     * opens a KFileDialog where it is possible to select the file.
+     * KGET TRANSFERS FILE related
      */
-    void slotImportTransfers();
     
     /**
-     * Used to export the all the transfers in a .kgt file. The function
-     * opens a KFileDialog where it is possible to select the file.
+     * Used to import the transfers included in a .kgt file. 
+     * If ask_for_name is true the function opens a KFileDialog 
+     * where you can choose the file to read from. If ask_for_name 
+     * is false, the function opens the transfers.kgt file
+     * placed in the application data directory.
      */
-    void slotExportTransfers();
+    void slotImportTransfers(bool ask_for_name = false);
+    
+    /**
+     * Used to export all the transfers in a .kgt file. 
+     * If ask_for_name is true the function opens a KFileDialog 
+     * where you can choose the file to write to. If ask_for_name 
+     * is false, the function saves to the transfers.kgt file
+     * placed in the application data directory.
+     */
+    void slotExportTransfers(bool ask_for_name = false);
     
 private:
-    /**
-     * KGET CONFIGURATION FILES related
-     */
-    
-    /**
-     * Called by slotImportTransfers(). If ask_for_name is true the function
-     * opens a KFileDialog where you can choose the file to read from. If
-     * ask_for_name is false, the function opens the transfers.kgt file
-     * placed in the application data directory
-     */
-    void readTransfers(bool ask_for_name);
-    
-    /**
-     * Low level function. It is called from readTransfers(...)  and
-     * addTransfers(...).
+  
+    /** 
      * This function adds the transfers included in the file location
      * calling the readTransfer function in the transferList object.
      * It checks if the file is valid.
@@ -105,35 +127,16 @@ private:
     void readTransfers(const KURL & file);
     
     /**
-     * Called by slotExportTransfers(). If ask_for_name is true the function
-     * opens a KFileDialog where you can choose the file to write to. If
-     * ask_for_name is false, the function saves to the transfers.kgt file
-     * placed in the application data directory.
-     */
-    void writeTransfers(bool ask_for_name);
-    
-    /**
-     * Low level function.
      * This function reads the transfers included in the file location
      * calling the writeTransfer function in the transferList object.
      * It checks if the file is valid.
      */
     void writeTransfers(const QString & file);
     
-    
     /**
      * Functions used to add Transfers from URLS
      */
          
-    /**
-     * Called from the KMainWidget class in the dropEvent function.
-     * This function is used to add new Transfers. If an URL in the
-     * KURL::List is referred to a .kgt file, the transfers included
-     * in that configuration file are automatically added. The destDir
-     * contains the destination directory.
-     */
-    void addTransfers(const KURL::List& src, const QString& destDir);
-    
     /**
      * Called by the KMainWidget class in the dropEvent, and in the 
      * slotImportTextFile(...) function.
@@ -152,7 +155,12 @@ private:
     /**
      * Checks if the given url is valid or not.
      */
-    bool sanityChecksSuccessful( const KURL& url );
+    bool isValidUrl( const KURL& url );
+    
+    /**
+     * Checks if the given destination dir is valid or not.
+     */
+    bool isValidDest( const KURL& url);
     
     void checkQueue();
 };

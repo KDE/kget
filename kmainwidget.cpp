@@ -680,41 +680,6 @@ void KMainWidget::slotCheckClipboard()
 }
 
 
-void KMainWidget::slotPasteTransfer()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    QString newtransfer;
-
-    newtransfer = QApplication::clipboard()->text();
-    newtransfer = newtransfer.stripWhiteSpace();
-
-    if (!ksettings.b_expertMode) {
-        bool ok = false;
-        newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
-
-        if (!ok) {
-            // cancelled
-#ifdef _DEBUG
-            sDebugOut << endl;
-#endif
-            return;
-        }
-
-    }
-
-    if (!newtransfer.isEmpty())
-        scheduler->addTransfer(newtransfer);
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
 /*
 void KMainWidget::slotAnimTimeout()
 {

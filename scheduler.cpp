@@ -14,127 +14,7 @@ Scheduler::~Scheduler()
 
 }
 
-void Scheduler::slotNewURLs(const KURL::List &)
-{
-
-}
-
-void Scheduler::slotNewURL(const KURL &)
-{
-
-}
-
-void Scheduler::slotSetOperation(QValueList<Transfer *>, enum Operation)
-{
-    
-}
-
-
-/*
-void Scheduler::slotImportTransfers()
-{
-    readTransfers(true);    
-}
-
-void Scheduler::readTransfers(bool ask_for_name)
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    KURL url;
-
-    if (ask_for_name)
-        url = KFileDialog::getOpenURL(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
-    else
-        url.setPath( locateLocal("appdata", "transfers.kgt") );
-
-    readTransfers(url);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void Scheduler::readTransfers(const KURL & file)
-{
-#ifdef _DEBUG
-  sDebugIn << endl;
-#endif
-
-    if (!file.isValid()) {
-
-#ifdef _DEBUG
-        sDebugOut<< " string empty" << endl;
-#endif
-        return;
-    }
-#ifdef _DEBUG
-    sDebug << "Read from file: " << file << endl;
-#endif
-    myTransferList->readTransfers(file);
-    checkQueue();
-    slotTransferTimeout();
-    myTransferList->clearSelection();
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void Scheduler::slotExportTransfers()
-{
-    writeTransfers(true);
-}
-
-void Scheduler::writeTransfers(bool ask_for_name)
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    QString str;
-    QString txt;
-
-    if (ask_for_name)
-        txt = KFileDialog::getSaveFileName(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
-    else
-        txt = locateLocal("appdata", "transfers.kgt");
-
-
-    writeTransfers(txt);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void Scheduler::writeTransfers(const QString & file)
-{
-
-    if (file.isEmpty())
-    {
-#ifdef _DEBUG
-        sDebugOut<< " because Destination File name isEmpty"<< endl;
-#endif
-        return;
-    }
-    if (!txt.endsWith(".kgt"))
-        txt += ".kgt";
-
-#ifdef _DEBUG
-    sDebug << "Writing transfers " << txt << endl;
-#endif
-    //FIX
-    myTransferList->writeTransfers(file);
-
-}
-
-
-
-void Scheduler::addTransfers( const KURL::List& src, const QString& destDir )
+void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 {
     KURL::List urlsToDownload;
 
@@ -242,9 +122,10 @@ void Scheduler::addTransfers( const KURL::List& src, const QString& destDir )
         KAudioPlayer::play(ksettings.audioAdded);
     }
     checkQueue();
+
 }
 
-void Scheduler::addTransfer(const QString& src)
+void Scheduler::slotNewURL(const KURL & src, const QString& destDir)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -258,6 +139,139 @@ void Scheduler::addTransfer(const QString& src)
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+}
+
+void Scheduler::slotSetOperation(QValueList<Transfer *>, enum Operation)
+{
+    
+}
+
+/*
+void Scheduler::slotPasteTransfer()
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    QString newtransfer;
+
+    newtransfer = QApplication::clipboard()->text();
+    newtransfer = newtransfer.stripWhiteSpace();
+
+    if (!ksettings.b_expertMode) {
+        bool ok = false;
+        newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
+
+        if (!ok) {
+            // cancelled
+#ifdef _DEBUG
+            sDebugOut << endl;
+#endif
+            return;
+        }
+
+    }
+
+    if (!newtransfer.isEmpty())
+        scheduler->addTransfer(newtransfer);
+
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+*/
+
+/*
+
+void Scheduler::slotImportTransfers(bool ask_for_name)
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    KURL url;
+
+    if (ask_for_name)
+        url = KFileDialog::getOpenURL(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
+    else
+        url.setPath( locateLocal("appdata", "transfers.kgt") );
+
+    readTransfers(url);
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+
+void Scheduler::readTransfers(const KURL & file)
+{
+#ifdef _DEBUG
+  sDebugIn << endl;
+#endif
+
+    if (!file.isValid()) {
+
+#ifdef _DEBUG
+        sDebugOut<< " string empty" << endl;
+#endif
+        return;
+    }
+#ifdef _DEBUG
+    sDebug << "Read from file: " << file << endl;
+#endif
+    myTransferList->readTransfers(file);
+    checkQueue();
+    slotTransferTimeout();
+    myTransferList->clearSelection();
+
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+
+void Scheduler::slotExportTransfers(bool ask_for_name)
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    QString str;
+    QString txt;
+
+    if (ask_for_name)
+        txt = KFileDialog::getSaveFileName(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All Files"));
+    else
+        txt = locateLocal("appdata", "transfers.kgt");
+
+
+    writeTransfers(txt);
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+
+
+void Scheduler::writeTransfers(const QString & file)
+{
+
+    if (file.isEmpty())
+    {
+#ifdef _DEBUG
+        sDebugOut<< " because Destination File name isEmpty"<< endl;
+#endif
+        return;
+    }
+    if (!txt.endsWith(".kgt"))
+        txt += ".kgt";
+
+#ifdef _DEBUG
+    sDebug << "Writing transfers " << txt << endl;
+#endif
+    //FIX
+    myTransferList->writeTransfers(file);
 
 }
 
@@ -366,7 +380,7 @@ void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
 #endif
 }
 
-bool Scheduler::sanityChecksSuccessful( const KURL& url )
+bool Scheduler::isValidUrl( const KURL& url )
 {
     if (!url.isValid() || !KProtocolInfo::supportsReading( url ) )
     {
@@ -416,6 +430,11 @@ bool Scheduler::sanityChecksSuccessful( const KURL& url )
 //     }
 
     return true;
+}
+
+bool Scheduler::isValidDest( const KURL& dest )
+{
+    //Copy from addTransferEx
 }
 
 */

@@ -25,10 +25,9 @@
  ***************************************************************************/
 
 
-#ifndef _Transfer_h
-#define _Transfer_h
+#ifndef _TRANSFER_H
+#define _TRANSFER_H
 
-#include <klistview.h>
 #include <qdatetime.h>
 #include <qguardedptr.h>
 #include <qmap.h>
@@ -50,9 +49,10 @@ class DlgIndividual;
 class TransferList;
 
 
-class Transfer:public QObject, public KListViewItem
+class Transfer:public QObject
 {
-    Q_OBJECT
+Q_OBJECT
+
 public:
     enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
 
@@ -65,8 +65,7 @@ public:
 
 
 
-    Transfer(TransferList * view, const KURL & _src, const KURL & _dest, const uint _id=0);
-    Transfer(TransferList * view, Transfer * after, const KURL & _src, const KURL & _dest, const uint _id=0);
+    Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id=0);
     ~Transfer();
 
     void synchronousAbort();
@@ -78,69 +77,22 @@ public:
     bool keepDialogOpen() const;
 
 
-    QDateTime getStartTime()const
-    {
-        return startTime;
-    }
-    QTime getRemainingTime()const
-    {
-        return remainingTime;
-    }
-
-    unsigned long getTotalSize()const
-    {
-        return totalSize;
-    }
-    unsigned long getProcessedSize()const
-    {
-        return processedSize;
-    }
-
-    KURL getSrc()const
-    {
-        return src;
-    }
-    KURL getDest()const
-    {
-        return dest;
-    }
-    int getPercent()const
-    {
-        return percent;
-    }
-
-    int getSpeed()const
-    {
-        return speed;
-    }
-    TransferStatus getStatus()const
-    {
-        return status;
-    }
-    int getMode()const
-    {
-        return mode;
-    }
-
-    void setMode(TransferMode _mode)
-    {
-        mode = _mode;
-    }
-    void setStatus(TransferStatus _status)
-    {
-        status = _status;
-    };
-    void setStartTime(QDateTime _startTime)
-    {
-        startTime = _startTime;
-    };
+    QDateTime getStartTime()const {return startTime;}
+    QTime getRemainingTime()const {return remainingTime;}
+    unsigned long getTotalSize()const {return totalSize;}
+    unsigned long getProcessedSize()const {return processedSize;}
+    KURL getSrc()const {return src;}
+    KURL getDest()const {return dest;}
+    int getPercent()const {return percent;}
+    int getSpeed()const {return speed;}
+    TransferStatus getStatus()const {return status;}
+    int getMode()const {return mode;}
+    
+    void setMode(TransferMode _mode) {mode = _mode;}
+    void setStatus(TransferStatus _status) {status = _status;};
+    void setStartTime(QDateTime _startTime) {startTime = _startTime;};
     void setSpeed(unsigned long _speed);
 
-    // update methods
-    void updateAll();
-    bool updateStatus(int counter);
-
-    void showIndividual();
     void UpdateRetry();
 
 
@@ -161,9 +113,6 @@ public:
     void slotCanResume(bool _bCanResume);
     void slotSpeed(unsigned long);
 
-    bool isVisible() const;
-    void maybeShow();
-    
     bool retryOnError();
     bool retryOnBroken();
 
@@ -192,8 +141,6 @@ signals:
     void log(uint, const QString &, const QString &);
 
 private:
-    void init(const uint _id);
-
     Slave *m_pSlave;
 
     KURL src;

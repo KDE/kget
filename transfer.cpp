@@ -24,8 +24,6 @@
  *
  ***************************************************************************/
 
-#include <qheader.h>
-
 #include <kurl.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -53,81 +51,30 @@
 extern Settings ksettings;
 
 
-Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest, const uint _id)
-    : QObject( _view ),
-      KListViewItem(_view),
-      dlgIndividual( 0 )
+Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id)
+    : QObject( _view ), scheduler(_scheduler), 
+      src(_src), dest(_dest), totalSize(0),
+      processedSize(0), percent(0), id(_id),
+      speed(0), retryCount(0), canResume(false),
+      status(ST_STOPPED)
 {
     sDebugIn << endl;
 
-    src = _src;
-    dest = _dest;
-
-    view = _view;
-    init(_id);
-
-    sDebugOut << endl;
-}
-
-
-Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest, const uint _id)
-    : QObject( _view ),
-      KListViewItem(_view, (QListViewItem *) after),
-      src(_src), dest(_dest), view(_view),
-      dlgIndividual( 0 )
-{
-    sDebugIn << endl;
-
-    view = _view;
-    src = _src;
-    dest = _dest;
-    init(_id);
-
-    sDebugOut << endl;
-}
-
-
-Transfer::~Transfer()
-{
-    sDebugIn << endl;
-
-    synchronousAbort();
-    delete dlgIndividual;
-    
-    sDebugOut << endl;
-}
-
-
-void
-Transfer::init(const uint _id)
-{
-    sDebugIn << endl;
-
-    totalSize = 0;
-    processedSize = 0;
-    percent = 0;
-    id = _id;
     m_pSlave = new Slave(this, src, dest);
-    canResume = false;
     startTime = QDateTime::currentDateTime();
-    speed = 0;
-    // retryCount = ksettings.reconnectRetries-1;
-    retryCount = 0;
-    //first off all we need to know if resume is supported...
 
-    status = ST_STOPPED;
+    logMessage(i18n("Copy file from: %1").arg(src.url()));
+    logMessage(i18n("To: %1").arg(dest.url()));
 
     if (ksettings.b_addQueued)
         mode = MD_QUEUED;
     else
         mode = MD_DELAYED;
 
-
-
-    connect(this, SIGNAL(statusChanged(Transfer *, int)), kmain, SLOT(slotStatusChanged(Transfer *, int)));
+    connect(this, SIGNAL(statusChanged(Transfer *, int)), scheduler, SLOT(slotStatusChanged(Transfer *, int)));
     connect(this, SIGNAL(statusChanged(Transfer *, int)), this, SLOT(slotUpdateActions()));
 
-    connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
+    //connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
 
     // setup actions
     m_paResume = new KAction(i18n("&Resume"), "tool_resume", 0, this, SLOT(slotResume()), this, "resume");
@@ -153,9 +100,20 @@ Transfer::init(const uint _id)
     // m_paDock = new KAction(i18n("&Dock"),"tool_dock", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
 
     // setup individual transfer dialog
-
+    
     sDebugOut << endl;
 }
+
+Transfer::~Transfer()
+{
+    sDebugIn << endl;
+
+    synchronousAbort();
+    delete dlgIndividual;
+    
+    sDebugOut << endl;
+}
+
 
 
 void Transfer::synchronousAbort()
@@ -264,96 +222,6 @@ void Transfer::setSpeed(unsigned long _speed)
     remainingTime = KIO::calculateRemaining(totalSize, processedSize, speed);
     //sDebugOut <<endl;
 }
-
-
-
-void Transfer::updateAll()
-{
-    sDebugIn << endl;
-
-    updateStatus(status);       // first phase of animation
-
-    logMessage(i18n("Copy file from: %1").arg(src.url()));
-    logMessage(i18n("To: %1").arg(dest.url()));
-
-    // source
-    setText(view->lv_url, src.prettyURL());
-
-    // destination
-    setText(view->lv_filename, dest.fileName());
-
-    if(dlgIndividual)
-		{
-		dlgIndividual->setCopying(src, dest);
-    	dlgIndividual->setCanResume(canResume);
-		dlgIndividual->setTotalSize(totalSize);
-		dlgIndividual->setPercent(0);
-		dlgIndividual->setProcessedSize(0);
-	}
-
-    if (totalSize != 0) {
-        //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
-        setText(view->lv_total, KIO::convertSize(totalSize));
-    } else {
-        //logMessage(i18n("Total size is unknown"));
-        setText(view->lv_total, i18n("unknown"));
-    }
-
-
-    sDebugOut << endl;
-}
-
-
-bool Transfer::updateStatus(int counter)
-{
-    //sDebug<< ">>>>Entering"<<endl;
-
-    QPixmap *pix = 0L;
-    bool isTransfer = false;
-    static TransferStatus prevStatus;
-    
-    view->setUpdatesEnabled(false);
-    
-    switch(status)
-        {
-        case ST_RUNNING:
-            pix = view->animConn.at(counter);
-        case ST_TRYING:
-            pix = view->animTry.at(counter);
-            isTransfer = true;
-            break;
-        case ST_STOPPED:
-            if(mode == MD_QUEUED)
-                pix = &view->pixQueued;
-            else if(mode == MD_SCHEDULED)
-                pix = &view->pixScheduled;
-            else
-                pix = &view->pixDelayed;
-            break;
-        case ST_FINISHED:
-            pix = &view->pixFinished;
-    }
-       
-    setPixmap(view->lv_pixmap, *pix);
-    view->setUpdatesEnabled(true);
-    
-    if(prevStatus!=status || status==ST_RUNNING || status==ST_TRYING)
-        {
-        QRect rect = view->header()->sectionRect(view->lv_pixmap);
-                
-        int x = rect.x();
-        int y = view->itemRect(this).y();
-        int w = rect.width();
-        int h = rect.height();
-        
-        view->QScrollView::updateContents(x,y,w,h);
-        
-        prevStatus = status;
-    }
-    
-    return isTransfer;
-}
-
 
 void Transfer::UpdateRetry()
 {
@@ -679,41 +547,6 @@ void Transfer::slotProcessedSize(unsigned long bytes)
 }
 
 
-
-
-void Transfer::showIndividual()
-{
-    sDebugIn << endl;
-
-    //    create a DlgIndividual only if it hasn't been created yet
-    if(!dlgIndividual)
-    {
-        dlgIndividual = new DlgIndividual(this);
-        dlgIndividual->setLog(transferLog);
-        dlgIndividual->setCopying(src, dest);
-        dlgIndividual->setCanResume(canResume);
-        dlgIndividual->setTotalSize(totalSize);
-        dlgIndividual->setPercent(percent);
-        dlgIndividual->setProcessedSize(processedSize);
-    }
-            
-    dlgIndividual->raise();
-
-    
-    if (ksettings.b_iconifyIndividual) {
-        KWin::iconifyWindow( dlgIndividual->winId() );
-    }
-
-    //      update the actions
-    slotUpdateActions();
-    //     then show the single dialog
-    KWin::deIconifyWindow( dlgIndividual->winId() );
-    dlgIndividual->show();
-    
-    sDebugOut << endl;
-}
-
-
 void Transfer::logMessage(const QString & message)
 {
     sDebugIn << message << endl;
@@ -761,8 +594,9 @@ bool Transfer::read(KSimpleConfig * config, int id)
         //TODO insert additional check
         status = ST_STOPPED;
     }
-
-    updateAll();
+    logMessage(i18n("Copy file from: %1").arg(src.url()));
+    logMessage(i18n("To: %1").arg(dest.url()));
+    
     sDebugOut << endl;
     return true;
 }
@@ -914,24 +748,9 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
     sDebugOut << endl;
 }
 
-/** return true if the dlgIndividual is Visible */
-bool Transfer::isVisible() const
-{
-    return dlgIndividual ? dlgIndividual->isVisible() : false;    
-}
-
 bool Transfer::keepDialogOpen() const
 {
     return dlgIndividual ? dlgIndividual->keepDialogOpen() : false;
-}
-
-void Transfer::maybeShow()
-{
-    if ( ksettings.b_showIndividual && getStatus() != Transfer::ST_FINISHED )
-    {
-        if(dlgIndividual)
-            dlgIndividual->show();
-    }
 }
 
 bool Transfer::retryOnError()
