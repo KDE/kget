@@ -58,12 +58,7 @@ protected:
     void dropEvent(QDropEvent *);
 
 private:
-    int size[3];
     KMainWidget *parent;
-
-    QPixmap *handpix1;
-    QPixmap *handpix2;
-    QPixmap *handpix3;
 
 };
 

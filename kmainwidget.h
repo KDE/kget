@@ -66,6 +66,9 @@ Q_OBJECT public:
 
     // dcop interface
     virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
+    virtual bool isDropTargetVisible() const;
+    virtual void setDropTargetVisible( bool setVisible );
+
 
     void checkQueue();
 
@@ -141,7 +144,7 @@ protected slots:
     void slotPopupMenu(Transfer * item);
 
 protected:
-    virtual void closeEvent(QCloseEvent *);
+    virtual bool queryClose();
     void writeLog();
 
     // drag and drop
@@ -162,7 +165,7 @@ protected:
     bool b_viewPreferences;
 
     // utility functions
-    void disconnect();
+    void onlineDisconnect();
     void checkOnline();
     void pauseAll();
     void log(const QString & message, bool statusbar = true);

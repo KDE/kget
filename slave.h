@@ -45,10 +45,12 @@ class Transfer;
 
 class Slave:public QObject, public QThread
 {
-Q_OBJECT public:
+    Q_OBJECT 
+
+public:
     enum SlaveCommand {
         RETR, PAUSE, RESTART, ABORT, DELAY,
-        SCHEDULE, REMOVE, NOOP
+        SCHEDULE, REMOVE, KILL, NOOP
     };
 
     enum SlaveResult {
@@ -57,13 +59,7 @@ Q_OBJECT public:
         SLV_CAN_RESUME, SLV_CONNECTED,
 
         SLV_RESUMED, SLV_PAUSED, SLV_ABORTED, SLV_SCHEDULED, SLV_DELAYED,
-        SLV_FINISHED, SLV_INFO, SLV_REMOVED
-    };
-
-    // ### those don't seem to be used at all!!
-    enum SlaveStatus {
-
-        SLV_RUNNING, SLV_STOPPING, SLV_FINISHING, SLV_ABORTING
+        SLV_FINISHED, SLV_INFO, SLV_REMOVED, SLV_KILLED
     };
 
 public:
