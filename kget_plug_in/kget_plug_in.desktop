@@ -41,9 +41,11 @@ Comment[pt]=Gestor de Transferências
 Comment[pt_BR]=Gerenciador de Download
 Comment[ru]=Менеджер загрузок
 Comment[sl]=Upravitelj prenosov
+Comment[sr]=Менаџер преузимања
+Comment[sr@Latn]=Менаџер преузимања
 Comment[sv]=Nerladdningshanterare
 Comment[uk]=Менеджер звантажень
 Comment[xx]=xxDownload Managerxx
 Comment[zh_CN]=下载管理器
-Icon=kget
+Icon=khtml_kget
 
