@@ -266,7 +266,6 @@ KMainWidget::~KMainWidget()
 #endif
 
     delete prefDlg;
-    delete animTimer;
     delete kdrop;
     writeTransfers();
     writeLog();
