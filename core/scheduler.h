@@ -15,7 +15,7 @@ class JobQueue;
 class Job;
 
 /**
- * class Scheduler:
+ * @brief Scheduler class: what handle all the jobs in kget.
  *
  * This class handles all the jobs in kget. See job.h for further details.
  * When we want a job to be executed in kget, we have to add the queue
@@ -30,11 +30,15 @@ class Scheduler
 
         /**
          * Starts globally the execution of the jobs
+         *
+         * @see stop()
          */
         void run();
 
         /**
          * Stops globally the execution of the jobs
+         *
+         * @see start()
          */
         void stop();
 

@@ -57,7 +57,7 @@ public:
     TransferItem(TransferGroupItem * parent, TransferHandler * transfer);
 
     //Transfer observer virtual functions
-    void transferChangedEvent(TransferHandler *);
+    void transferChangedEvent(TransferHandler * transfer);
 
     void updateContents(bool updateAll=false);
 

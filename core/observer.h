@@ -16,7 +16,8 @@ class TransferHandler;
 class TransferGroupHandler;
 
 /**
- * ModelObserver class:
+ * @brief ModelObserver class
+ *
  * A view should reimplement this class in order to receive notification about 
  * changes happened to the model
  */
@@ -38,16 +39,14 @@ class ModelObserver
         virtual void removedTransferGroupEvent(TransferGroupHandler * group){}
 
 
-        /**
-         * In the future we will have also notifications about new searches..
-         */
+        // In the future we will have also notifications about new searches..
 };
 
 class TransferGroupObserver
 {
     public:
         /**
-         * Notifies that a transfer has changed (status, progress, ...)
+         * Notifies that a transfer has changed (status, progress, etc...)
          *
          * @param group The group that has changed
          */
@@ -94,9 +93,6 @@ class TransferObserver
 };
 
 
-/**
- * Here we should add also other observers (SearchObserver)
- *
- */
+// Here we should add also other observers (SearchObserver)
 
 #endif

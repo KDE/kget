@@ -96,7 +96,7 @@ FILE_PATTERNS          = *.c \
                          *.H \
                          *.dox
 RECURSIVE              = YES
-EXCLUDE                = 
+EXCLUDE                = plugins
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = *.ui.h
 EXAMPLE_PATH           = 
