@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>DlgLimitsBase</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,166 +8,177 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>568</width>
-            <height>141</height>
+            <width>351</width>
+            <height>95</height>
         </rect>
     </property>
-    <vbox>
+    <property name="caption">
+        <string>DlgLimitsBase</string>
+    </property>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <property name="margin">
             <number>0</number>
         </property>
-        <widget class="QGroupBox">
+        <widget class="QLabel" row="0" column="0">
             <property name="name">
-                <cstring>gb_limits</cstring>
+                <cstring>lbl_maxnum</cstring>
             </property>
-            <property name="title">
-                <string>Limits Options</string>
+            <property name="text">
+                <string>Maximum open connections:</string>
             </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel" row="0" column="0" rowspan="2" colspan="1">
-                    <property name="name">
-                        <cstring>lbl_maxnum</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Maximum open connections:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="2" column="0">
-                    <property name="name">
-                        <cstring>lb_minband</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Minimum network bandwidth:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="3" column="0">
-                    <property name="name">
-                        <cstring>lb_maxband</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Maximum network bandwidth:</string>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="0" column="2">
-                    <property name="name">
-                        <cstring>le_maxnum</cstring>
-                    </property>
-                    <property name="minValue">
-                        <number>1</number>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="1" column="2" rowspan="2" colspan="1">
-                    <property name="name">
-                        <cstring>le_minband</cstring>
-                    </property>
-                    <property name="suffix">
-                        <string> bytes/sec</string>
-                    </property>
-                    <property name="maxValue">
-                        <number>100000</number>
-                    </property>
-                    <property name="minValue">
-                        <number>100</number>
-                    </property>
-                    <property name="lineStep">
-                        <number>100</number>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="3" column="2">
-                    <property name="name">
-                        <cstring>le_maxband</cstring>
-                    </property>
-                    <property name="suffix">
-                        <string> bytes/sec</string>
-                    </property>
-                    <property name="maxValue">
-                        <number>100000</number>
-                    </property>
-                    <property name="minValue">
-                        <number>100</number>
-                    </property>
-                    <property name="lineStep">
-                        <number>100</number>
-                    </property>
-                </widget>
-                <spacer row="0" column="1">
-                    <property name="name">
-                        <cstring>spacer19</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <spacer row="2" column="1">
-                    <property name="name">
-                        <cstring>spacer20</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <spacer row="3" column="1">
-                    <property name="name">
-                        <cstring>spacer21</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-            </grid>
         </widget>
-    </vbox>
+        <widget class="KIntSpinBox" row="0" column="2">
+            <property name="name">
+                <cstring>kcfg_MaxSimConnections</cstring>
+            </property>
+            <property name="minValue">
+                <number>1</number>
+            </property>
+        </widget>
+        <spacer row="0" column="1">
+            <property name="name">
+                <cstring>spacer19</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>40</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>lb_minband</cstring>
+            </property>
+            <property name="text">
+                <string>Minimum network bandwidth:</string>
+            </property>
+        </widget>
+        <widget class="KIntSpinBox" row="1" column="2">
+            <property name="name">
+                <cstring>kcfg_MinimumBandwidth</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="suffix">
+                <string> bytes/sec</string>
+            </property>
+            <property name="maxValue">
+                <number>100000</number>
+            </property>
+            <property name="minValue">
+                <number>100</number>
+            </property>
+            <property name="lineStep">
+                <number>100</number>
+            </property>
+        </widget>
+        <spacer row="1" column="1">
+            <property name="name">
+                <cstring>spacer20</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>110</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="2" column="0">
+            <property name="name">
+                <cstring>lb_maxband</cstring>
+            </property>
+            <property name="text">
+                <string>Maximum network bandwidth:</string>
+            </property>
+        </widget>
+        <widget class="KIntSpinBox" row="2" column="2">
+            <property name="name">
+                <cstring>kcfg_MaximumBandwidth</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="suffix">
+                <string> bytes/sec</string>
+            </property>
+            <property name="maxValue">
+                <number>100000</number>
+            </property>
+            <property name="minValue">
+                <number>100</number>
+            </property>
+            <property name="lineStep">
+                <number>100</number>
+            </property>
+        </widget>
+        <spacer row="2" column="1">
+            <property name="name">
+                <cstring>spacer21</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>110</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="3" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>spacer4</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>260</width>
+                    <height>51</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
 </widget>
-<customwidgets>
-</customwidgets>
 <connections>
     <connection>
-        <sender>le_maxband</sender>
+        <sender>kcfg_MaximumBandwidth</sender>
         <signal>valueChanged(int)</signal>
         <receiver>DlgLimitsBase</receiver>
         <slot>slotChanged()</slot>
     </connection>
     <connection>
-        <sender>le_maxnum</sender>
+        <sender>kcfg_MaxSimConnections</sender>
         <signal>valueChanged(int)</signal>
         <receiver>DlgLimitsBase</receiver>
         <slot>slotChanged()</slot>
     </connection>
     <connection>
-        <sender>le_minband</sender>
+        <sender>kcfg_MinimumBandwidth</sender>
         <signal>valueChanged(int)</signal>
         <receiver>DlgLimitsBase</receiver>
         <slot>slotChanged()</slot>
@@ -181,9 +192,4 @@
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
-<includehints>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-</includehints>
 </UI>

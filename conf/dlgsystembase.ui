@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>DlgSystemBase</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,9 +8,12 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>389</width>
-            <height>137</height>
+            <width>401</width>
+            <height>151</height>
         </rect>
+    </property>
+    <property name="caption">
+        <string>DlgSystemBase</string>
     </property>
     <grid>
         <property name="name">
@@ -21,7 +24,7 @@
         </property>
         <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
             <property name="name">
-                <cstring>cb_useSound</cstring>
+                <cstring>kcfg_UseSound</cstring>
             </property>
             <property name="text">
                 <string>Use sounds</string>
@@ -104,7 +107,7 @@
         </spacer>
         <widget class="QCheckBox" row="2" column="0" rowspan="1" colspan="3">
             <property name="name">
-                <cstring>cb_useAnimation</cstring>
+                <cstring>kcfg_UseAnimation</cstring>
             </property>
             <property name="text">
                 <string>Use animation</string>
@@ -131,7 +134,7 @@
         </widget>
         <widget class="KFontRequester" row="4" column="2" rowspan="1" colspan="5">
             <property name="name">
-                <cstring>le_font</cstring>
+                <cstring>kcfg_Font</cstring>
             </property>
         </widget>
         <widget class="QButtonGroup" row="3" column="2" rowspan="1" colspan="4">
@@ -197,19 +200,34 @@
                 </size>
             </property>
         </spacer>
+        <spacer row="5" column="0" rowspan="1" colspan="6">
+            <property name="name">
+                <cstring>spacer22</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>320</width>
+                    <height>30</height>
+                </size>
+            </property>
+        </spacer>
     </grid>
 </widget>
-<customwidgets>
-</customwidgets>
 <connections>
     <connection>
-        <sender>cb_useSound</sender>
+        <sender>kcfg_UseSound</sender>
         <signal>toggled(bool)</signal>
         <receiver>DlgSystemBase</receiver>
         <slot>slotChanged()</slot>
     </connection>
     <connection>
-        <sender>cb_useAnimation</sender>
+        <sender>kcfg_UseAnimation</sender>
         <signal>toggled(bool)</signal>
         <receiver>DlgSystemBase</receiver>
         <slot>slotChanged()</slot>
@@ -221,25 +239,25 @@
         <slot>slotChanged()</slot>
     </connection>
     <connection>
-        <sender>le_font</sender>
+        <sender>kcfg_Font</sender>
         <signal>fontSelected(const QFont&amp;)</signal>
         <receiver>DlgSystemBase</receiver>
         <slot>slotChanged()</slot>
     </connection>
     <connection>
-        <sender>cb_useSound</sender>
+        <sender>kcfg_UseSound</sender>
         <signal>toggled(bool)</signal>
         <receiver>cmb_sounds</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>cb_useSound</sender>
+        <sender>kcfg_UseSound</sender>
         <signal>toggled(bool)</signal>
         <receiver>pb_changesound</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>cb_useSound</sender>
+        <sender>kcfg_UseSound</sender>
         <signal>toggled(bool)</signal>
         <receiver>pb_testsound</receiver>
         <slot>setEnabled(bool)</slot>
@@ -267,7 +285,4 @@
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
-<includehints>
-    <includehint>kfontrequester.h</includehint>
-</includehints>
 </UI>

@@ -24,9 +24,6 @@
  *
  ***************************************************************************/
 
-
-
-
 #ifndef _DLGSYSTEM_H
 #define _DLGSYSTEM_H
 
@@ -38,11 +35,7 @@ Q_OBJECT public:
     DlgSystem(QWidget * parent);
     ~DlgSystem() {}
 
-    void applyData();
-    void setData();
-
 private:
-
     QString soundAdded;
     QString soundStarted;
     QString soundFinished;

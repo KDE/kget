@@ -33,7 +33,6 @@
 #include <kdialog.h>
 
 #include "settings.h"
-#include "kmainwidget.h"
 #include "dlgLimits.h"
 
 
@@ -41,30 +40,6 @@ DlgLimits::DlgLimits(QWidget * parent)
     : DlgLimitsBase(parent)
 {
     // TODO: these are not supported yet, so disable them
-    le_maxband->setEnabled(false);
-    le_minband->setEnabled(false);
-}
-
-
-void DlgLimits::setData()
-{
-    le_maxnum->setValue(ksettings.maxSimultaneousConnections);
-    le_minband->setValue(ksettings.minimumBandwidth);
-    le_maxband->setValue(ksettings.maximumBandwidth);
-}
-
-
-void DlgLimits::applyData()
-{
-    ksettings.maxSimultaneousConnections = le_maxnum->value();
-    ksettings.minimumBandwidth = le_minband->value();
-    ksettings.maximumBandwidth = le_maxband->value();
-    //kmain->checkQueue();
-}
-
-void DlgLimits::slotChanged()
-{
-    emit configChanged();
 }
 
 #include "dlgLimits.moc"

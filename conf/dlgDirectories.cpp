@@ -35,6 +35,7 @@
 
 #include <qdir.h>
 
+#include <kapplication.h>
 #include <kfiledialog.h>
 #include <klineedit.h>
 #include <kglobal.h>
@@ -43,7 +44,6 @@
 
 #include "settings.h"
 #include "dlgDirectories.h"
-#include <kapplication.h>
 
 DlgDirectories::DlgDirectories(QWidget * parent)
     : DlgDirectoriesBase(parent)
@@ -176,32 +176,44 @@ void DlgDirectories::browse()
 
 void DlgDirectories::setData()
 {
-    DirList::Iterator it;
+    if ( Settings::mimeDirList().count() > 0) {
+        QStringList::Iterator it = Settings::mimeDirList().fromLast();
+        QStringList::Iterator begin = Settings::mimeDirList().begin();
 
-    if (ksettings.defaultDirList.count() > 0) {
         // we need to insert items in the reverse order
         // because "new QListViewItem" puts itself at the beginning
-        for (it = ksettings.defaultDirList.fromLast(); it != ksettings.defaultDirList.begin(); it--) {
-            new QListViewItem(lv_entries, (*it).extRegexp, (*it).defaultDir);
+/*  FIXME      for (; it != begin; it--) {
+            QString dir = *it;
+            it--;
+            new QListViewItem(lv_entries, *it, dir);
         }
-        new QListViewItem(lv_entries, (*it).extRegexp, (*it).defaultDir);
+        new QListViewItem(lv_entries, (*it).extRegexp, (*it).defaultDir);*/
     }
+    
+/* FIXME sample code:  for (; it != end; ++it)
+    {
+        // odd list items are regular expressions
+        QRegExp rexp(*it);
+        rexp.setWildcard(true);
+        // even list items are directory
+        ++it;
+        if ((rexp.search( filename )) != -1) {
+            destDir = *it;
+            break;
+        }
+    }*/
 }
 
 
 void DlgDirectories::applyData()
 {
-    ksettings.defaultDirList.clear();
+    Settings::mimeDirList().clear();
     QListViewItemIterator it(lv_entries);
 
     for (; it.current(); ++it) {
         QListViewItem *item = it.current();
-
-        DirItem ditem;
-
-        ditem.extRegexp = item->text(0);
-        ditem.defaultDir = item->text(1);
-        ksettings.defaultDirList.append(ditem);
+        Settings::mimeDirList().append( item->text(0) );
+        Settings::mimeDirList().append( item->text(1) );
     }
 }
 

@@ -24,11 +24,8 @@
  *
  ***************************************************************************/
 
-
 #ifndef _DLGCONNECTION_H
 #define _DLGCONNECTION_H
-
-#include <qstringlist.h>
 
 #include "dlgconnectionbase.h"
 
@@ -42,10 +39,7 @@ Q_OBJECT public:
     void applyData();
     void setData();
 
-    int type() const
-    {
-        return cmb_type->currentItem();
-    }
+    int type() const;
 
 signals:
     void typeChanged(int type);

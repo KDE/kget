@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>DlgConnectionBase</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,18 +8,21 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>319</width>
-            <height>355</height>
+            <width>305</width>
+            <height>346</height>
         </rect>
     </property>
-    <vbox>
+    <property name="caption">
+        <string>DlgConnectionBase</string>
+    </property>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <property name="margin">
             <number>0</number>
         </property>
-        <widget class="QGroupBox">
+        <widget class="QGroupBox" row="0" column="0">
             <property name="name">
                 <cstring>gb_reconnect</cstring>
             </property>
@@ -30,7 +33,7 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
+                <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="5">
                     <property name="name">
                         <cstring>cb_onerror</cstring>
                     </property>
@@ -38,15 +41,7 @@
                         <string>On login or timeout error</string>
                     </property>
                 </widget>
-                <widget class="QLabel" row="2" column="1">
-                    <property name="name">
-                        <cstring>lb_after</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Reconnect after:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="0" column="0">
+                <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>lb_retries</cstring>
                     </property>
@@ -54,7 +49,40 @@
                         <string>Number of retries:</string>
                     </property>
                 </widget>
-                <widget class="KIntSpinBox" row="2" column="2">
+                <widget class="KIntSpinBox" row="0" column="4">
+                    <property name="name">
+                        <cstring>le_retries</cstring>
+                    </property>
+                    <property name="minValue">
+                        <number>1</number>
+                    </property>
+                </widget>
+                <spacer row="2" column="0">
+                    <property name="name">
+                        <cstring>spacer3</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="2" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>lb_after</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Reconnect after:</string>
+                    </property>
+                </widget>
+                <widget class="KIntSpinBox" row="2" column="4">
                     <property name="name">
                         <cstring>le_after</cstring>
                     </property>
@@ -68,23 +96,7 @@
                         <number>1</number>
                     </property>
                 </widget>
-                <widget class="KIntSpinBox" row="0" column="2">
-                    <property name="name">
-                        <cstring>le_retries</cstring>
-                    </property>
-                    <property name="minValue">
-                        <number>1</number>
-                    </property>
-                </widget>
-                <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="2">
-                    <property name="name">
-                        <cstring>cb_onbroken</cstring>
-                    </property>
-                    <property name="text">
-                        <string>On broken connection</string>
-                    </property>
-                </widget>
-                <spacer row="0" column="1">
+                <spacer row="0" column="2" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>spacer2</cstring>
                     </property>
@@ -101,9 +113,9 @@
                         </size>
                     </property>
                 </spacer>
-                <spacer row="2" column="0">
+                <spacer row="2" column="3">
                     <property name="name">
-                        <cstring>spacer3</cstring>
+                        <cstring>spacer2_2</cstring>
                     </property>
                     <property name="orientation">
                         <enum>Horizontal</enum>
@@ -113,14 +125,22 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>40</width>
+                            <width>90</width>
                             <height>20</height>
                         </size>
                     </property>
                 </spacer>
+                <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="5">
+                    <property name="name">
+                        <cstring>cb_onbroken</cstring>
+                    </property>
+                    <property name="text">
+                        <string>On broken connection</string>
+                    </property>
+                </widget>
             </grid>
         </widget>
-        <widget class="QGroupBox">
+        <widget class="QGroupBox" row="1" column="0">
             <property name="name">
                 <cstring>gb_timeout</cstring>
             </property>
@@ -219,7 +239,7 @@
                 </widget>
             </grid>
         </widget>
-        <widget class="QGroupBox">
+        <widget class="QGroupBox" row="2" column="0">
             <property name="name">
                 <cstring>gb_type</cstring>
             </property>
@@ -313,7 +333,24 @@
                 </widget>
             </grid>
         </widget>
-    </vbox>
+        <spacer row="3" column="0">
+            <property name="name">
+                <cstring>spacer24</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>220</width>
+                    <height>48</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
 </widget>
 <connections>
     <connection>

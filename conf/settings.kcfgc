@@ -1,3 +1,4 @@
 File=kget.kcfg
 ClassName=Settings
 Singleton=yes
+Mutators=true

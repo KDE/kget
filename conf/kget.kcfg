@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> 
+  <kcfgfile name="kgetrc"/> 
+
+<!-- backward compatibility -->
+
+  <include>qdir.h</include>
+  <include>qsize.h</include>
+
+  <group name="Connection">
+    <entry name="ReconnectOnError" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="ReconnectTime" type="Int">
+      <default>1</default>
+    </entry>
+    <entry name="ReconnectRetries" type="Int">
+      <default>10</default>
+    </entry>
+    <entry name="ReconnectOnBroken" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="TimeoutData" type="Int">
+      <default>5</default>
+    </entry>
+    <entry name="TimeoutDataNoResume" type="Int">
+      <default>15</default>
+    </entry>
+    <entry name="ConnectionType" type="Enum">
+      <choices>
+        <choice name="Permanent"/>
+        <choice name="Ethernet"/>
+        <choice name="PLIP"/>
+        <choice name="SLIP"/>
+        <choice name="PPP"/>
+        <choice name="ISDN"/>
+      </choices>
+      <default>Permanent</default>
+    </entry>
+    <entry name="LinkNumber" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="OfflineMode" type="Bool">
+      <default>false</default>
+    </entry>
+  </group>
+
+  <group name="System">
+    <entry name="UseSound" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="AudioAdded" type="Path" key="Added">
+      <default>kget/sounds/added.wav</default>
+    </entry>
+    <entry name="AudioStarted" type="Path" key="Started">
+      <default>kget/sounds/started.wav</default>
+    </entry>
+    <entry name="AudioFinished" type="Path" key="Finished">
+      <default>kget/sounds/finished.wav</default>
+    </entry>
+    <entry name="AudioFinishedAll" type="Path" key="FinishedAll">
+      <default>kget/sounds/finishedall.wav</default>
+    </entry>
+    <entry name="UseAnimation" type="Bool">
+      <default>true</default>
+    </entry>
+  </group>
+
+  <group name="Automation">
+    <entry name="AutoSave" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="AutoSaveInterval" type="Int">
+      <default>10</default>
+    </entry>
+    <entry name="AutoDisconnect" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="DisconnectCommand" type="String">
+      <default>kppp -k</default>
+    </entry>
+    <entry name="TimedDisconnect" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="DisconnectHour" type="Int" key="DisconnectTimeHour">
+      <default>0</default>
+    </entry>
+    <entry name="DisconnectMinute" type="Int" key="DisconnectTimeMinute">
+      <default>0</default>
+    </entry>
+    <entry name="AutoShutdown" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="AutoPaste" type="Bool">
+      <default>false</default>
+    </entry>
+  </group>
+
+  <group name="Limits">
+    <entry name="MaxSimConnections" type="Int">
+      <default>2</default>
+    </entry>
+    <entry name="MinimumBandwidth" type="Int">
+      <default>1000</default>
+    </entry>
+    <entry name="MaximumBandwidth" type="Int">
+      <default>10000</default>
+    </entry>
+  </group>
+
+  <group name="Advanced">
+    <entry name="ShowMain" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="ShowIndividual" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="IconifyIndividual" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="AdvancedIndividual" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="RemoveOnSuccess" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="GetSizes" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="ExpertMode" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="FirstRun" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="KonquerorIntegration" type="Bool">
+      <default>false</default>
+    </entry>
+  </group>
+
+  <group name="Directories">
+    <entry name="UseLastDirectory" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="LastDirectory" type="Path">
+      <default code="true">QDir::currentDirPath()</default>
+    </entry>
+    <entry name="MimeDirList" type="StringList" key="Items">
+      <label>extRegExp, defaultDir, extR..</label>
+    </entry>
+  </group>
+    
+  <group name="Misc">
+    <entry name="Font" type="Font">
+      <default code="true">KGlobalSettings::generalFont()</default> 
+    </entry>
+  </group>
+    
+  <group name="MainGeometry">
+    <entry name="MainPosition" type="Point" key="Position"/>
+    <entry name="MainSize" type="Size" key="Size">
+      <default code="true">QSize(650,180)</default>
+    </entry>
+    <entry name="MainState" type="UInt64" key="State">
+      <default>0</default>
+    </entry>
+  </group>
+    
+  <group name="DropGeometry">
+    <entry name="DropPosition" type="Point" key="Position"/>
+    <entry name="DropSticky" type="Bool" key="Sticky"/>
+  </group>
+    
+</kcfg>

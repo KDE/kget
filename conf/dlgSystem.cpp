@@ -34,6 +34,7 @@
 #endif
 
 #include <kcombobox.h>
+#include <kapplication.h>
 #include <kaudioplayer.h>
 #include <kurlrequesterdlg.h>
 #include <kfontrequester.h>
@@ -41,8 +42,9 @@
 #include <kdialog.h>
 #include <kio/netaccess.h>
 #include <kfiledialog.h>
+
 #include "settings.h"
-#include "kmainwidget.h"
+#include "globals.h"
 #include "dlgSystem.h"
 
 
@@ -161,51 +163,49 @@ void DlgSystem::testSound()
     sDebug << "<<<<Leaving" << endl;
 }
 
-
+/*
 void DlgSystem::setData()
 {
-    cb_useSound->setChecked(ksettings.b_useSound);
-    cmb_sounds->setEnabled(ksettings.b_useSound);
-    pb_changesound->setEnabled(ksettings.b_useSound);
-    pb_testsound->setEnabled(ksettings.b_useSound);
+    cb_useSound->setChecked(Settings::useSound());
+    cmb_sounds->setEnabled(Settings::useSound());
+    pb_changesound->setEnabled(Settings::useSound());
+    pb_testsound->setEnabled(Settings::useSound());
 
-    soundAdded = ksettings.audioAdded;
-    soundStarted = ksettings.audioStarted;
-    soundFinished = ksettings.audioFinished;
-    soundFinishedAll = ksettings.audioFinishedAll;
+    soundAdded = Settings::audioAdded();
+    soundStarted = Settings::audioStarted();
+    soundFinished = Settings::audioFinished();
+    soundFinishedAll = Settings::audioFinishedAll();
 
-    cb_useAnimation->setChecked(ksettings.b_useAnimation);
+    cb_useAnimation->setChecked(Settings::useAnimation());
 
-    le_font->setFont(ksettings.listViewFont);
+    le_font->setFont(Settings::font());
 }
 
 
 void DlgSystem::applyData()
 {
-    if (cb_useSound->isChecked() != ksettings.b_useSound)
-    {
-        kmain->slotToggleSound();
+    if (cb_useSound->isChecked() != Settings::useSound()) {
+        //FIXME kmain->slotToggleSound();
     }
 
     QString tmpFile;
 
     if (KIO::NetAccess::download(KURL( soundAdded ), tmpFile, 0))
-        ksettings.audioAdded = tmpFile;
+        Settings::setAudioAdded( tmpFile );
     if (KIO::NetAccess::download(KURL( soundStarted ), tmpFile, 0))
-        ksettings.audioStarted = tmpFile;
+        Settings::setAudioStarted( tmpFile );
     if (KIO::NetAccess::download(KURL( soundFinished ), tmpFile, 0))
-        ksettings.audioFinished = tmpFile;
+        Settings::setAudioFinished( tmpFile );
     if (KIO::NetAccess::download(KURL( soundFinishedAll ), tmpFile, 0))
-        ksettings.audioFinishedAll = tmpFile;
+        Settings::setAudioFinishedAll( tmpFile );
 
-    if (cb_useAnimation->isChecked() != ksettings.b_useAnimation)
-    {
+    if (cb_useAnimation->isChecked() != Settings::useAnimation()) {
         //FIXME kmain->slotToggleAnimation();
     }
 
-    ksettings.listViewFont = le_font->font();
-    //kmain->setListFont();
-}
+    Settings::setFont( le_font->font() );
+    //FIXME kmain->setListFont();
+}*/
 
 void DlgSystem::slotChanged()
 {

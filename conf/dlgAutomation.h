@@ -24,38 +24,17 @@
  *
  ***************************************************************************/
 
-
 #ifndef _DLGAUTOMATION_H
 #define _DLGAUTOMATION_H
 
-#include <qstringlist.h>
 #include <qdatetime.h>
 
 #include "dlgautomationbase.h"
 
 class DlgAutomation:public DlgAutomationBase
 {
-
-Q_OBJECT public:
-
+public:
     DlgAutomation(QWidget * parent);
-    ~DlgAutomation() {}
-    void applyData();
-    void setData();
-
-private:
-
-    QDateTime disconnectDateTime;
-
-signals:
-    void configChanged();
-
-public slots:
-    void slotTypeChanged(int);
-
-protected slots:
-    void disconnectToggled(bool);
-    void slotChanged();
 };
 
 #endif                          // _DLGAUTOMATION_H

@@ -36,8 +36,6 @@
 #include <knuminput.h>
 #include <kcombobox.h>
 
-
-#include "kmainwidget.h"
 #include "settings.h"
 #include "dlgConnection.h"
 
@@ -70,37 +68,37 @@ void DlgConnection::comboActivated(int Index)
 
 void DlgConnection::setData()
 {
-    lb_after->setEnabled(ksettings.b_reconnectOnError);
-    le_after->setEnabled(ksettings.b_reconnectOnError);
-//    lb_retries->setEnabled(ksettings.b_reconnectOnError);
-//    le_retries->setEnabled(ksettings.b_reconnectOnError);
-    cb_onerror->setChecked(ksettings.b_reconnectOnError);
+    lb_after->setEnabled(Settings::reconnectOnError());
+    le_after->setEnabled(Settings::reconnectOnError());
+//    lb_retries->setEnabled(Settings::reconnectOnError());
+//    le_retries->setEnabled(Settings::reconnectOnError());
+    cb_onerror->setChecked(Settings::reconnectOnError());
 
-    le_after->setValue(ksettings.reconnectTime);
-    le_retries->setValue(ksettings.reconnectRetries);
+    le_after->setValue(Settings::reconnectTime());
+    le_retries->setValue(Settings::reconnectRetries());
 
-    cb_onbroken->setChecked(ksettings.b_reconnectOnBroken);
+    cb_onbroken->setChecked(Settings::reconnectOnBroken());
 
 //    cb_autoresume->setChecked(KProtocolManager::autoResume());
 
-    le_nodata->setValue(ksettings.timeoutData);
-    le_noresume->setValue(ksettings.timeoutDataNoResume);
+    le_nodata->setValue(Settings::timeoutData());
+    le_noresume->setValue(Settings::timeoutDataNoResume());
 
-    cmb_type->setCurrentItem(ksettings.connectionType);
+    cmb_type->setCurrentItem(Settings::connectionType());
 
     if (cmb_type->currentItem() == 0) {
         le_linknum->setValue(0);
         lb_linknum->setEnabled(false);
         le_linknum->setEnabled(false);
     } else {
-        le_linknum->setValue(ksettings.linkNumber);
+        le_linknum->setValue(Settings::linkNumber());
         lb_linknum->setEnabled(true);
         le_linknum->setEnabled(true);
     }
 
-    cb_offlinemode->setChecked(ksettings.b_offlineMode);
-    if (ksettings.connectionType == 0)
-        cb_offlinemode->setChecked(ksettings.b_offlineMode);
+    cb_offlinemode->setChecked(Settings::offlineMode());
+    if (Settings::connectionType() == 0)
+        cb_offlinemode->setChecked(Settings::offlineMode());
     else {
         cb_offlinemode->setEnabled(false);
         cb_offlinemode->setChecked(false);
@@ -110,22 +108,27 @@ void DlgConnection::setData()
 
 void DlgConnection::applyData()
 {
-    ksettings.b_reconnectOnError = cb_onerror->isChecked();
-    ksettings.reconnectTime = le_after->value();
-    ksettings.reconnectRetries = le_retries->value();
-    ksettings.b_reconnectOnBroken = cb_onbroken->isChecked();
+    Settings::setReconnectOnError( cb_onerror->isChecked() );
+    Settings::setReconnectTime( le_after->value() );
+    Settings::setReconnectRetries( le_retries->value() );
+    Settings::setReconnectOnBroken( cb_onbroken->isChecked() );
 
     // KProtocolManager::setAutoResume(cb_autoresume->isChecked());
 
-    ksettings.timeoutData = le_nodata->value();
-    ksettings.timeoutDataNoResume = le_noresume->value();
+    Settings::setTimeoutData( le_nodata->value() );
+    Settings::setTimeoutDataNoResume( le_noresume->value() );
 
-    ksettings.connectionType = cmb_type->currentItem();
-    ksettings.linkNumber = le_linknum->value();
+    Settings::setConnectionType( cmb_type->currentItem() );
+    Settings::setLinkNumber( le_linknum->value() );
 
-    if (cb_offlinemode->isChecked() != ksettings.b_offlineMode) {
+    if (cb_offlinemode->isChecked() != Settings::offlineMode()) {
         //FIXME kmain->slotToggleOfflineMode();
     }
+}
+
+int DlgConnection::type() const
+{
+    return cmb_type->currentItem();
 }
 
 void DlgConnection::slotChanged()

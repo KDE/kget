@@ -24,7 +24,6 @@
  *
  ***************************************************************************/
 
-
 #ifndef _DLGLIMITS_H
 #define _DLGLIMITS_H
 
@@ -32,20 +31,12 @@
 
 class DlgLimits : public DlgLimitsBase
 {
-
-Q_OBJECT public:
-
+Q_OBJECT
+public:
     DlgLimits(QWidget * parent);
-    ~DlgLimits() {}
-    void applyData();
-    void setData();
-
-signals:
-    void configChanged();
 
 protected slots:
-    void slotChanged();
-
+    void slotChanged() {};
 };
 
 #endif                          // _DLGLIMITS_H

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>DlgDirectoriesBase</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,9 +8,12 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>437</width>
-            <height>275</height>
+            <width>333</width>
+            <height>211</height>
         </rect>
+    </property>
+    <property name="caption">
+        <string>DlgDirectoriesBase</string>
     </property>
     <grid>
         <property name="name">
@@ -217,8 +220,6 @@
         </widget>
     </grid>
 </widget>
-<customwidgets>
-</customwidgets>
 <connections>
     <connection>
         <sender>pb_down</sender>
@@ -279,8 +280,4 @@
 <pixmapfunction>BarIconSet</pixmapfunction>
 <layoutdefaults spacing="6" margin="11"/>
 <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
-<includehints>
-    <includehint>klineedit.h</includehint>
-    <includehint>klineedit.h</includehint>
-</includehints>
 </UI>

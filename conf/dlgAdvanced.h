@@ -23,6 +23,7 @@
  *   GNU General Public License for more details.
  *
  ***************************************************************************/
+
 #ifndef _DLGADVANCED_H
 #define _DLGADVANCED_H
 
@@ -30,22 +31,12 @@
 
 class DlgAdvanced : public DlgAdvancedBase
 {
-
 Q_OBJECT
-
 public:
-
     DlgAdvanced(QWidget * parent);
-    ~DlgAdvanced() {}
-
-    void applyData();
-    void setData();
 
 protected slots:
-    void slotChanged();
-
-signals:
-    void configChanged();
+    void slotChanged() {};
 };
 
 #endif                          // _DLGADVANCED_H
