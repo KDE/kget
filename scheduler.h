@@ -9,6 +9,7 @@
 
 #include "globals.h"
 
+#include "transfer.h"
 #include "transferlist.h"
 
 class GlobalStatus
@@ -88,7 +89,7 @@ public slots:
      * This slot is called from the Transfer object when its status
      * has changed
      */
-    void slotTransferStatusChanged(Transfer *, int TransferCommand);
+    void slotTransferMessage(Transfer *, TransferMessage);
 
     /**
      * This function adds the transfer copied in the clipboard

@@ -134,7 +134,7 @@ void TestView::setPriority(int n)
         {
         if ( it.current()->isSelected() )
             {
-            sDebug << "###" << endl;
+            //sDebug << "###" << endl;
             list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
         }
         ++it;
@@ -156,12 +156,12 @@ void TestView::resume()
         {
         if ( it.current()->isSelected() )
             {
-            sDebug << "###" << endl;
+            //sDebug << "###" << endl;
             list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
         }
         ++it;
     }
-    schedSetPriority(list, CmdPause);
+    schedSetCommand(list, CmdResume);
 
     sDebugOut << endl;
 }
@@ -178,7 +178,7 @@ void TestView::pause()
         {
         if ( it.current()->isSelected() )
             {
-            sDebug << "###" << endl;
+            //sDebug << "###" << endl;
             list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
         }
         ++it;
@@ -223,12 +223,12 @@ void TestView::schedulerChangedItems( TransferList & list)
     
     for(; it != endList; ++it)
         {
-        sDebug << "-----" << endl;
+        //sDebug << "-----" << endl;
         QListViewItemIterator itemIter(listView);
-        while(itemIter.current())
+        while(itemIter.current() && ((TestViewItem *)itemIter.current())->update(*it))
             {
-            sDebug << ":::::" << endl;
-            ((TestViewItem *)itemIter.current())->update(*it);
+            //sDebug << ":::::" << endl;
+            
             itemIter++;
         }
     }

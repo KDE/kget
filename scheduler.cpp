@@ -13,8 +13,6 @@
 #include "safedelete.h"
 #include "settings.h"
 #include "kmainwidget.h"
-#include "transfer.h"
-#include "transferlist.h"
 
 
 Scheduler::Scheduler(KMainWidget * _mainWidget)
@@ -49,7 +47,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 
     for ( KURL::List::ConstIterator it = src.begin(); it != src.end(); ++it )
     {
-        sDebug << "AAA" << endl;
+        ///sDebug << "AAA" << endl;
 
         KURL url = *it;
         if ( url.fileName().endsWith( ".kgt" ) )
@@ -58,24 +56,24 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
             urlsToDownload.append( url );
     }
 
-    sDebug << "BBB" << endl;
+    //sDebug << "BBB" << endl;
     
     if ( urlsToDownload.isEmpty() )
         return;
 
-    sDebug << "CCC" << endl;
+    //sDebug << "CCC" << endl;
 
     
     if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
         slotNewURL(src.first(), destDir);
 
-    sDebug << "DDD" << endl;
+    //sDebug << "DDD" << endl;
     
     // multiple files -> ask for directory, not for every single filename
     KURL dest;
     if ( destDir.isEmpty() || !QFileInfo( destDir ).isDir() )
     {
-        sDebug << "EEE" << endl;
+        //sDebug << "EEE" << endl;
         if ( !destDir.isEmpty()  )
             dest.setPath( destDir );
         else
@@ -154,14 +152,14 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
      */
     if ( src.isEmpty() )
         {
-        sDebug << "AAA" << endl;
+        //sDebug << "AAA" << endl;
         
         QString newtransfer;
         bool ok = false;
     
         while (!ok) 
             {
-            sDebug << "BBB" << endl;
+            //sDebug << "BBB" << endl;
             
             newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, mainWidget);
     
@@ -212,11 +210,11 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
         }
     }
 
-    sDebug << "CCC" << endl;
+    //sDebug << "CCC" << endl;
     
     Transfer * item = addTransferEx( src, destFile );
 
-    sDebug << "DDD" << endl;
+    //sDebug << "DDD" << endl;
     
     //In this case we have inserted nothing
     if (item == 0)
@@ -320,9 +318,14 @@ void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
     emit changedItems(list);
 }
 
-void Scheduler::slotTransferStatusChanged(Transfer *, int TransferCommand)
+void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
 {
-
+    sDebugIn << endl;    
+    TransferList list(this);
+    list.addTransfer(item);
+    
+    emit changedItems(list);
+    sDebugOut << endl;    
 }
 
 
@@ -1118,3 +1121,5 @@ void Scheduler::slotStatusChanged(Transfer * item, int _operation)
 #endif
 }
 */
+
+#include "scheduler.moc"

@@ -62,13 +62,11 @@ public:
 
     enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
 
-    enum TransferMessage {
-        MSG_FINISHED, MSG_RESUMED, MSG_PAUSED, MSG_REMOVED, MSG_ABORTED,
-        MSG_QUEUED, MSG_SCHEDULED, MSG_DELAYED, MSG_CONNECTED
-    };
+    //TransferMessage defined in globals.h
     
     //TransferCommand defined in globals.h
-    
+
+        
     Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id=0);
     ~Transfer();
 
