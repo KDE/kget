@@ -29,8 +29,6 @@
     </Menu>
     <Menu noMerge="1" name="view"><text>&amp;View</text>
         <Action name="toggle_log"/>
-        <Separator/>
-        <Action name="drop_target"/>
     </Menu>
     <Menu name="options"><text>&amp;Options</text>
         <Action name="toggle_animation"/>
@@ -43,11 +41,10 @@
         <Action name="auto_disconnect"/>
         <Action name="auto_shutdown"/>
         <Action name="auto_paste"/>
-        <Separator/>
-        <Action name="drop_target"/>
     </Menu>
     <Menu name="settings"><text>&amp;Settings</text>
-        <Action name="show_statusbar" append="show_merge"/>
+        <Action name="show_statusbar"/>
+        <Action name="drop_target" append="show_merge"/>
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
     </Menu>

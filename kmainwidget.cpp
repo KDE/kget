@@ -148,6 +148,8 @@ KMainWidget::KMainWidget(bool bStartDocked)
     // Setup log window
     logWindow = new LogWindow();
 
+    m_showDropTarget = false;
+
     setCaption(KGETVERSION);
 
     setupGUI();
@@ -251,7 +253,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
         show();
 
     kdock->show();
-
+    
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -373,8 +375,7 @@ void KMainWidget::setupGUI()
 
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), coll);
 
-    KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()),
-actionCollection());
+    KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), coll);
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
     // view actions
@@ -382,7 +383,7 @@ actionCollection());
 
     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
     m_paShowLog->setCheckedState(i18n("Hide &Log Window"));
-    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
+    m_paDropTarget   = new KAction(i18n("Show Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
     KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), coll, "whats_this");
@@ -1823,13 +1824,16 @@ void KMainWidget::slotToggleDropTarget()
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
+    m_showDropTarget = !m_showDropTarget;
 
-    if (m_paDropTarget->isChecked()) {
+    if (m_showDropTarget) {
         kdrop->show();
         kdrop->updateStickyState();
+        m_paDropTarget->setText(i18n("Hide Drop &Target"));
     }
     else {
         kdrop->hide();
+        m_paDropTarget->setText(i18n("Show Drop &Target"));
     }
 
 
@@ -2393,15 +2397,14 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
 
 bool KMainWidget::isDropTargetVisible() const
 {
-    return m_paDropTarget->isChecked();
+    return m_showDropTarget;
 }
 
 void KMainWidget::setDropTargetVisible( bool setVisible )
 {
     if ( setVisible != isDropTargetVisible() )
     {
-        m_paDropTarget->setChecked( !m_paDropTarget->isChecked() );
-        slotToggleDropTarget();
+        m_paDropTarget->activate();
     }
 }
 
@@ -2414,6 +2417,11 @@ void KMainWidget::setOfflineMode( bool offline )
 bool KMainWidget::isOfflineMode() const
 {
     return ksettings.b_offlineMode;
+}
+
+void KMainWidget::activateDropTarget()
+{
+    setDropTargetVisible( true );
 }
 
 #include "kmainwidget.moc"

@@ -88,6 +88,8 @@ public:
 
     void readTransfersEx(const KURL & url);
 
+    void activateDropTarget();
+
 public slots:
     void slotPasteTransfer();
     void slotToggleLogWindow();
@@ -215,10 +217,8 @@ private:
     KToggleAction *m_paExpertMode, *m_paUseLastDir, *m_paOfflineMode;
     KToggleAction *m_paAutoDisconnect, *m_paAutoShutdown, *m_paAutoPaste;
 
-    KToggleAction *m_paDropTarget;
-
-    public:
-    void activateDropTarget(void){if(!m_paDropTarget->isChecked()) m_paDropTarget->activate();};
+    KAction *m_paDropTarget;
+    bool m_showDropTarget;
 
 };
 
