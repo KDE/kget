@@ -128,11 +128,11 @@ Transfer::init()
     connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
 
     // setup actions
-    m_paResume = new KAction(i18n("&Resume"), locate("appdata", "pics/tool_resume.png"), 0, this, SLOT(slotResume()), this, "resume");
+    m_paResume = new KAction(i18n("&Resume"), "tool_resume", 0, this, SLOT(slotResume()), this, "resume");
 
-    m_paPause = new KAction(i18n("&Pause"), locate("appdata", "pics/tool_pause.png"), 0, this, SLOT(slotRequestPause()), this, "pause");
+    m_paPause = new KAction(i18n("&Pause"), "tool_pause", 0, this, SLOT(slotRequestPause()), this, "pause");
 
-    m_paDelete = new KAction(i18n("&Delete"), locate("appdata", "pics/tool_delete.png"), 0, this, SLOT(slotRequestRemove()), this, "delete");
+    m_paDelete = new KAction(i18n("&Delete"), "tool_delete", 0, this, SLOT(slotRequestRemove()), this, "delete");
 
     m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRequestRestart()), this, "restart");
 
