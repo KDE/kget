@@ -151,7 +151,17 @@ int KGetApp::newInstance()
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
     if (args->count()==1)
-        kmain->addTransferEx(args->arg(0), QString::null, true);
+      {
+#ifdef _DEBUG
+    sDebug <<"args(0)= "<<args->arg(0) << endl;
+#endif
+         QString txt(args->arg(0));
+         int i = txt.contains( ".kgt",TRUE);
+        if (i==0)
+             kmain->addTransferEx(txt, QString::null, true);
+          else
+             kmain->readTransfersEx(txt);
+       }
     else if(args->count()==2)
         kmain->addTransferEx(args->arg(0),args->arg(1), true);
 

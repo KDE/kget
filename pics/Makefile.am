@@ -10,7 +10,7 @@ data_DATA = connect0.png connect1.png connect2.png connect3.png \
             tool_delete.png tool_normal.png tool_paste.png tool_queue.png \
             tool_timer.png tool_uselastdir.png tool_drop_target.png \
             tool_logwindow.png tool_preferences.png tool_restart.png dock.png \
-            target.png 
+            target.png
 
 datadir = $(kde_datadir)/kget/pics
 

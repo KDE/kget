@@ -363,17 +363,12 @@ void KMainWidget::setupGUI()
     m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), actionCollection(), "move_begin");
 
     m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), actionCollection(), "move_end");
-
+#ifdef _DEBUG
     sDebug << "Loading pics" << endl;
-
+#endif
     m_paResume = new KAction(i18n("&Resume"), QIconSet(QPixmap(locate("appdata", "pics/tool_resume.png"))), 0, this, SLOT(slotResumeCurrent()), actionCollection(), "resume");
-
     m_paPause = new KAction(i18n("&Pause"), QIconSet(QPixmap(locate("appdata", "pics/tool_pause.png"))), 0, this, SLOT(slotPauseCurrent()), actionCollection(), "pause");
-
-
     m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("appdata", "pics/tool_delete.png"))), 0, this, SLOT(slotDeleteCurrent()), actionCollection(), "delete");
-
-
     m_paRestart = new KAction(i18n("Re&start"), QIconSet(QPixmap(locate("appdata", "pics/tool_restart.png"))), 0, this, SLOT(slotRestartCurrent()), actionCollection(), "restart");
 
     m_paQueue = new KRadioAction(i18n("&Queue"), QIconSet(QPixmap(locate("appdata", "pics/tool_queue.png"))), 0, this, SLOT(slotQueueCurrent()), actionCollection(), "queue");
@@ -394,10 +389,7 @@ void KMainWidget::setupGUI()
     m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
     m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
 
-    m_paPreferences    =
-        KStdAction::preferences(this,
-                                SLOT(slotPreferences()),
-                                actionCollection());
+    m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), actionCollection());
 
     KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection(), "configure_keybinding");
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection(), "configure_toolbars");
@@ -649,10 +641,23 @@ void KMainWidget::readTransfers(bool ask_for_name)
     else
         txt = locateLocal("appdata", "transfers");
 
+    readTransfersEx(txt);
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
+
+void KMainWidget::readTransfersEx(const QString & txt)
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
 
     if (txt.isEmpty()) {
+
 #ifdef _DEBUG
-        sDebugOut << endl;
+        sDebugOut<< " string empty" << endl;
 #endif
         return;
     }
@@ -1447,7 +1452,13 @@ void KMainWidget::addDropTransfers(QStrList * list)
     QString s;
 
     for (s = list->first(); s != 0L; s = list->next()) {
-        addTransfer(s);
+
+        int i = s.contains( ".kgt",TRUE);
+        if (i==0)
+            addTransfer(s);
+        else
+            readTransfersEx(s);
+
     }
 
     myTransferList->clearSelection();
@@ -2029,7 +2040,7 @@ void KMainWidget::slotUpdateActions()
                     m_paRestart->setEnabled(false);
                     break;
 
-                
+
                 }               //end switch
 
             } else if (item->getStatus() != first_item->getStatus()) {

@@ -76,6 +76,8 @@ Q_OBJECT public:
         KAction *m_paPreferences;
         bool b_viewLogWindow;
 
+        void readTransfersEx(const QString & txt);
+
 public slots:
         void slotPasteTransfer();
         void slotToggleLogWindow();

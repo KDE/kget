@@ -1,0 +1,9 @@
+[Desktop Entry]
+X-KDE-AutoEmbed=false
+Encoding=UTF-8
+Comment=Kget Download List
+Icon=kget_list.png
+Type=MimeType
+MimeType=application/x-kgetlist
+Patterns=*.kgt;
+DefaultApp=KGet

@@ -27,7 +27,10 @@ kget_METASOURCES = AUTO
 appsdir = $(kde_appsdir)/Internet
 apps_DATA = kget.desktop
 
-EXTRA_DIST = kget.desktop
+mimedir = $(kde_mimedir)/application
+mime_DATA =x-kgetlist.desktop
+
+EXTRA_DIST = kget.desktop $(mime_DATA)
 
 rcdir = $(kde_datadir)/kget
 rc_DATA = kgetui.rc
