@@ -31,28 +31,28 @@ class TransferGroupHandler : public TransferGroup
         /**
          * Adds an observer to this TransferGroup
          *
-         * observer: the new observer that should be added
+         * @param observer The new observer that should be added
          */
         void addObserver(TransferGroupObserver * observer);
 
         /**
          * Removes an observer from this TransferGroup
          *
-         * observer: the observer that should be removed
+         * @param observer The observer that should be removed
          */
         void delObserver(TransferGroupObserver * observer);
 
         /**
          * Returns the changes flags
          *
-         * observer: the observer that makes this request
+         * @param observer The observer that makes this request
          */
         ChangesFlags changesFlags(TransferGroupObserver * observer);
 
         /**
          * Resets the changes flags for a given TransferObserver
          *
-         * observer: the observer that makes this request
+         * @param observer The observer that makes this request
          */
         void resetChangesFlags(TransferGroupObserver * observer);
 
@@ -60,9 +60,9 @@ class TransferGroupHandler : public TransferGroup
         /**
          * Sets a change flag in the ChangesFlags variable.
          *
-         * change: the TransferChange flag to be set
-         * postEvent: if false the handler will not post an event to the observers
-         *            if true the handler will post an event to the observers
+         * @param change The TransferChange flag to be set
+         * @param postEvent if false the handler will not post an event to the observers,
+         * if true the handler will post an event to the observers
          */
         void setGroupChange(ChangesFlags change, bool postEvent=false);
 

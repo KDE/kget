@@ -13,9 +13,8 @@
 #define _JOBQUEUE_H
 
 /**
- * Class JobQueue:
+ * @brief Class JobQueue:
  *
- * --- Overview ---
  * This class abstracts the concept of queue. A queue is, basically, a 
  * group of jobs that should be executed by the scheduler (if the queue
  * is marked as active). The scheduler will execute a maximum of n jobs
@@ -37,7 +36,7 @@ class JobQueue
          * Sets the maximum number of jobs belonging to this queue that 
          * should executed simultaneously by the scheduler
          *
-         * n: maximum number of jobs
+         * @param n The maximum number of jobs
          */
         void setMaxSimultaneousJobs(int n);
 

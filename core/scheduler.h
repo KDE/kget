@@ -17,7 +17,6 @@ class Job;
 /**
  * class Scheduler:
  *
- * --- Overview ---
  * This class handles all the jobs in kget. See job.h for further details.
  * When we want a job to be executed in kget, we have to add the queue
  * that owns the job in the scheduler calling the addQueue(JobQueue *) function.
@@ -42,7 +41,7 @@ class Scheduler
         /**
          * Adds a queue to the scheduler.
          *
-         * queue: the queue that should be added
+         * @param queue The queue that should be added
          */
         void addQueue(JobQueue * queue);
 
@@ -51,7 +50,7 @@ class Scheduler
          * If some jobs in the given queue are being executed, they are
          * first stopped, then removed from the scheduler.
          *
-         * queue: the queue that should be removed
+         * @param queue The queue that should be removed
          */
         void delQueue(JobQueue * queue);
 

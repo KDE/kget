@@ -47,7 +47,11 @@ class MainView;
 class Sidebar;
 class Tray;
 
-/** The main window of KGet2. Can be collapsed or expanded. */
+/**
+ * The main window of KGet.
+ *
+ * Can be collapsed or expanded.
+ */
 class KGet : public KMainWindow, virtual public DCOPIface
 {
 Q_OBJECT

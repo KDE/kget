@@ -38,10 +38,14 @@ public:
     void showChildren( bool show = true );
     void select();
 
-    //This method updates all the pixmaps that are used to draw the items
+    /**
+     * This method updates all the pixmaps that are used to draw the items
+     */
     void updatePixmaps();
 
-    // this is public to be accessed by Sidebar::paintCell
+    /**
+     * This is public to be accessed by @see Sidebar::paintCell
+     */
     void paint ( QPainter * );
 
 protected:
@@ -70,7 +74,9 @@ class DownloadsFolder : public SidebarItem
 public:
     DownloadsFolder( Sidebar * sidebar );
 
-    // this is public to be accessed by Sidebar::paintCell
+    /**
+     * This is public to be accessed by @see Sidebar::paintCell
+     */
     void paint ( QPainter * );
 };
 
@@ -79,7 +85,9 @@ class GroupFolder : public SidebarItem
 public:
     GroupFolder( Sidebar * sidebar );
 
-    // this is public to be accessed by Sidebar::paintCell
+    /**
+     * This is public to be accessed by @see Sidebar::paintCell
+     */
     void paint ( QPainter * );
 };
 

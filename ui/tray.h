@@ -60,15 +60,19 @@ protected:
     void dropEvent( QDropEvent * );
 
 private:
-    // repaints trayIcon showing progress (and overlay if present)
+    /**
+     * Repaints trayIcon showing progress (and overlay if present)
+     */
     void paintIcon( int mergePixels = -1, bool force = false );
-    // blend an overlay icon over 'sourcePixmap' and repaint trayIcon
+    /**
+     * Blend an overlay icon over 'sourcePixmap' and repaint trayIcon
+     */
     void blendOverlay( QPixmap * sourcePixmap );
     
     QTimer * blinkTimer;
     QPixmap *baseIcon, *grayedIcon, *alternateIcon;
     QPixmap *playOverlay, *stopOverlay;
-    QPixmap *overlay;   // the current overlay (may be NULL)
+    QPixmap *overlay;   //!< The current overlay (may be NULL)
     bool iconOn;
     bool overlayVisible;
 

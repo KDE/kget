@@ -49,38 +49,34 @@ class Model
         /**
          * Adds a new observer of the Model. See observer.h for more info about it.
          *
-         * observer: the new observer
+         * @param observer The new observer
          */
         static void addObserver(ModelObserver * observer);
 
         /**
          * Removes an observer of the Model. See observer.h for more info about it.
          *
-         * observer: the observer to remove
+         * @param observer The observer to remove
          */
         static void delObserver(ModelObserver * observer);
 
 
-        /**
-         * ---------  Model retrieval  ---------
-         */
+        // ---------  Model retrieval  ---------
         //static const QValueList<TGroupHandler *> transferGroups();
 
-        /**
-         * ---------  Group managing functions ---------
-         */
+        // ---------  Group managing functions ---------
 
         /**
          * Adds a new group to the Model.
          *
-         * groupName: the name of the new group
+         * @param groupName The name of the new group
          */
         static void addGroup(const QString& groupName);
 
         /**
          * Removes a group from the Model.
          *
-         * groupName: the name of the group to be deleted
+         * @param groupName The name of the group to be deleted
          */
         static void delGroup(const QString& groupName);
 
@@ -91,28 +87,28 @@ class Model
         /**
          * Adds a new transfer to the Model
          *
-         * src: the url to be downloaded. ### WARNING! THIS IS TEMPORARY! ### We must
+         * @param src The url to be downloaded. ### WARNING! THIS IS TEMPORARY! ### We must
          *      provide a common way to add generic transfers to the Model, that
          *      must be able to handle every kind of transfers (including torrent or
          *      filesharing protocols).
-         * destDir: the destination directory
-         * groupName: the name of the group the new transfer will belong to.
+         * @param destDir The destination directory
+         * @param groupName The name of the group the new transfer will belong to
          */
         static void addTransfer(KURL src, const QString& destDir, 
-                                const QString& groupName = QString("Not grouped"));
+                                const QString& groupName = "");
 
         /**
          * Removes a transfer from the Model
          *
-         * transfer: the transfer to be removed.
+         * @param transfer The transfer to be removed
          */
         static void delTransfer(TransferHandler * transfer);
 
         /**
          * Moves a transfer to a new group
          *
-         * transfer: the transfer to be moved
-         * groupName: the name of the new transfer's group
+         * @param transfer The transfer to be moved
+         * @param groupName The name of the new transfer's group
          */
         static void moveTransfer(TransferHandler * transfer, const QString& groupName);
 
@@ -133,15 +129,17 @@ class Model
 
 
         /**
-         * Deletes the given file, if possible, and returns true.
-         * If the given url is a directory or if it is not local it returns
-         * false and shows a warning message.
+         * Deletes the given file, if possible.
          *
-         * url: the file to delete
+         * @param url The file to delete
+         *
+         * @return true if the file was successully deleted: if the given url
+         * is a directory or if it is not local it returns false and shows a
+         * warning message.
          */
         static bool safeDeleteFile( const KURL& url );
 
-        static QMap<QString, TransferGroup *> m_transferGroups;
+        static QValueList<TransferGroup *> m_transferGroups;
         static QValueList<ModelObserver *> m_observers;
 
         static Scheduler m_scheduler;

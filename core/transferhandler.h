@@ -64,14 +64,14 @@ class TransferHandler : public Transfer
         /**
          * Adds an observer to this Transfer
          *
-         * observer: the new observer that should be added
+         * @param observer Tthe new observer that should be added
          */
         void addObserver(TransferObserver * observer);
 
         /**
          * Removes an observer from this Transfer
          *
-         * observer: the observer that should be removed
+         * @param observer The observer that should be removed
          */
         void delObserver(TransferObserver * observer);
 
@@ -118,14 +118,14 @@ class TransferHandler : public Transfer
         /**
          * Returns the changes flags
          *
-         * observer: the observer that makes this request
+         * @param observer The observer that makes this request
          */
         ChangesFlags changesFlags(TransferObserver * observer) const;
 
         /**
          * Resets the changes flags for a given TransferObserver
          *
-         * observer: the observer that makes this request
+         * @param observer The observer that makes this request
          */
         void resetChangesFlags(TransferObserver * observer);
 
@@ -133,9 +133,9 @@ class TransferHandler : public Transfer
         /**
          * Sets a change flag in the ChangesFlags variable.
          *
-         * change: the TransferChange flag to be set
-         * postEvent: if false the handler will not post an event to the observers
-         *            if true the handler will post an event to the observers
+         * @param change The TransferChange flag to be set
+         * @param postEvent if false the handler will not post an event to the observers,
+         * if true the handler will post an event to the observers
          */
         void setTransferChange(ChangesFlags change, bool postEvent=false);
 

@@ -63,13 +63,19 @@ class Transfer : public Job
         virtual int percent() const =0;
         virtual int speed() const =0;
 
-        //Transfer history
+        /**
+         * Transfer history
+         */
         const QStringList log() const;
 
-        //This function defines the order between transfers
+        /**
+         * Defines the order between transfers
+         */
         bool operator<(const Transfer& t2) const;
 
-        //The owner group
+        /**
+         * The owner group
+         */
         TransferGroup * group() {return m_group;}
 
     protected:

@@ -26,14 +26,14 @@ class ModelObserver
         /**
          * Notifies that a new "transfer group" has been added to the model
          *
-         * group: the "transfer group" that has just been added
+         * @param group The "transfer group" that has just been added
          */
         virtual void addedTransferGroupEvent(TransferGroupHandler * group){}
 
         /**
          * Notifies that a new "transfer group" has been removed from the model
          *
-         * group: the "transfer group" that has just been removed
+         * @param group The "transfer group" that has just been removed
          */
         virtual void removedTransferGroupEvent(TransferGroupHandler * group){}
 
@@ -49,28 +49,28 @@ class TransferGroupObserver
         /**
          * Notifies that a transfer has changed (status, progress, ...)
          *
-         * group: the group that has changed
+         * @param group The group that has changed
          */
         virtual void groupChangedEvent(TransferGroupHandler * group){}
 
         /**
          * Notifies that a new transfer has been added to this group
          *
-         * transfer: the transfer that has just been added
+         * @param transfer The transfer that has just been added
          */
         virtual void addedTransferEvent(TransferHandler * transfer){}
 
         /**
          * Notifies that a new transfer has been removed from this group
          *
-         * transfer: the transfer that has just been removed
+         * @param transfer The transfer that has just been removed
          */
         virtual void removedTransferEvent(TransferHandler * transfer){}
 
         /**
          * Notifies that this group has been deleted
          *
-         * group: this group's handler
+         * @param group This group's handler
          */
         virtual void deletedEvent(TransferGroupHandler * group){}
 };
@@ -81,14 +81,14 @@ class TransferObserver
         /**
          * Notifies that a transfer has changed (status, progress, ...)
          * 
-         * transfer: the transfer that has changed
+         * @param transfer The transfer that has changed
          */
         virtual void transferChangedEvent(TransferHandler * transfer){}
 
         /**
          * Notifies that this transfer has been deleted
          *
-         * transfer: this transfer's handler
+         * @param transfer This transfer's handler
          */
         virtual void deletedEvent(TransferHandler * transfer){}
 };

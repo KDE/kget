@@ -12,7 +12,8 @@
 #define _JOB_H
 
 /**
- *  -- Job class -- 
+ *  @brief Job class
+ *
  *  We want to abstract this common interface in order to simplify the 
  *  Scheduler code. A Job can be either a Transfer or a search through the net.
  *  It is basically something you execute in background and that the scheduler 
@@ -48,7 +49,9 @@ class Job
         void read(QDomNode * n);
         void write(QDomNode * n);
 
-        //This one posts a job event to the scheduler
+        /**
+         * This one posts a job event to the scheduler
+         */
         void postJobEvent(JobStatus); //do we need a JobEvent instead of JobStatus?
 
         Scheduler * m_scheduler;
