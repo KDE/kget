@@ -259,7 +259,7 @@ void DlgSystem::changeFont()
 {
     QFont font = lb_font->font();
 
-    if (KFontDialog::getFont(font, true, this) == QDialog::Rejected)
+    if (KFontDialog::getFont(font, false, this) == QDialog::Rejected)
         return;
     lb_font->setFont(font);
     slotChanged();
