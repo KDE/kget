@@ -134,7 +134,8 @@ void KGet_plug_in::slotShowLinks()
             continue;
 
         LinkItem *item = new LinkItem( (DOM::Element) link );
-        if ( dupeCheck.find( item->url.url() ) == dupeCheck.end() )
+        if ( item->isValid() && 
+             dupeCheck.find( item->url.url() ) == dupeCheck.end() )
         {
             linkList.append( item );
             dupeCheck.insert( item->url.url() );

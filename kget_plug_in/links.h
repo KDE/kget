@@ -21,6 +21,11 @@ public:
     QString icon;
     QString text;
     QString mimeType;
+    
+    bool isValid() const { return m_valid; }
+    
+private:
+    bool m_valid : 1;
 };
 
 
