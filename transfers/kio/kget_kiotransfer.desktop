@@ -1,4 +1,5 @@
 [Desktop Entry]
+Encoding=UTF-8
 # service definition
 Type=Service
 ServiceTypes=KGet/Plugin
