@@ -104,7 +104,7 @@ int inet_sock = -1;             /* INET socket */
 int ddp_sock = -1;              /* Appletalk DDP socket */
 
 
-//KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
+
 KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
 {
 #ifdef _DEBUG

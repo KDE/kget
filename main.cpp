@@ -125,7 +125,8 @@ int KGetApp::newInstance()
     {
 
         kmainwidget=new KMainWidget();
-        kmainwidget->show();
+        setMainWidget(kmain);
+//        kmainwidget->show();
     }
 
     else
