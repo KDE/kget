@@ -38,6 +38,20 @@
 class KPopupMenu;
 class KMainWidget;
 
+class DynamicTip : public QToolTip
+{
+   public:
+       DynamicTip( QWidget * parent );
+       virtual ~DynamicTip() {}//TODO workaround for qt-bug, can be removed after 4.0 
+       void setStatus( const QString & _status );
+
+   protected:
+       void maybeTip( const QPoint & );
+       
+   private:
+       QString status;
+};
+
 class DockWidget:public KSystemTray
 {
 
@@ -60,6 +74,7 @@ protected:
 
 private:
     KMainWidget *parent;
+   DynamicTip * dtip;
 
 };
 

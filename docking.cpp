@@ -50,12 +50,16 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // Enable dropping
     setAcceptDrops(true);
-    QToolTip::add( this, kapp->aboutData()->shortDescription() );
+   
+   dtip = new DynamicTip( this );
+   dtip->setStatus( kapp->aboutData()->shortDescription() );
 }
 
 
 DockWidget::~DockWidget()
 {
+   delete dtip;
+   dtip = 0;
 }
 
 
@@ -94,12 +98,28 @@ void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
     menu->connectItem( menu->idAt(4), kmain, SLOT(slotQuit()));
 }
 
-#include "docking.moc"
-
-
-void DockWidget::updateToolTip( const QString& status )
+void DockWidget::updateToolTip( const QString& _status )
 {
-       QToolTip::remove( this );
-       QToolTip::add( this, status );
-
+   dtip->setStatus( _status );
 }
+
+
+DynamicTip::DynamicTip( QWidget * parent )
+   : QToolTip( parent )
+{
+   // no explicit initialization needed
+}
+
+
+void DynamicTip::setStatus( const QString & _status )
+{
+   status = _status;
+}
+
+void DynamicTip::maybeTip( const QPoint & _pos )
+{
+   QRect r( parentWidget()->rect() );
+   tip( r, status );
+}
+
+#include "docking.moc"
