@@ -621,9 +621,9 @@ void Transfer::slotTotalSize(unsigned long bytes)
          }
          else
           {
-            //if totalSize!=bytes we have a problem...
+            //if totalSize!=bytes we have a problems...
             assert(totalSize==bytes);
-            
+            logMessage(i18n("File Size checked"));
           }
 
 
