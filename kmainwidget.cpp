@@ -1570,7 +1570,7 @@ void KMainWidget::slotOpenIndividual()
 bool KMainWidget::queryClose()
 {
     if( kapp->sessionSaving())
-	return true;
+        return true;
     hide();
     return false;
 }

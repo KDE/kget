@@ -145,7 +145,7 @@ protected slots:
 
 protected:
     virtual void setOfflineMode( bool online );
-	virtual bool isOfflineMode() const;
+    virtual bool isOfflineMode() const;
     virtual bool queryClose();
     void writeLog();
 
