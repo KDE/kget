@@ -141,7 +141,7 @@ void DlgDirectories::addEntry()
     QDir f(dir);
 
     if (!f.exists()) {
-        KMessageBox::error(this, i18n("Directory doesn't exist:\n%1").arg(dir), i18n("Error"));
+        KMessageBox::error(this, i18n("Directory does not exist:\n%1").arg(dir), i18n("Error"));
         return;
     }
 
@@ -175,7 +175,7 @@ void DlgDirectories::changeEntry()
         QDir f(dir);
 
         if (!f.exists()) {
-            KMessageBox::error(this, i18n("Directory doesn't exist :\n%1").arg(dir), i18n("Error"));
+            KMessageBox::error(this, i18n("Directory does not exist:\n%1").arg(dir), i18n("Error"));
             return;
         }
 
