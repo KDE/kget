@@ -126,8 +126,6 @@ protected slots:
 
     void slotOpenIndividual();
 
-    void slotToggleStatusbar();
-
     void slotAnimTimeout();
     void slotTransferTimeout();
     void slotAutosaveTimeout();
@@ -214,7 +212,6 @@ private:
     KToggleAction *m_paExpertMode, *m_paUseLastDir, *m_paOfflineMode;
     KToggleAction *m_paAutoDisconnect, *m_paAutoShutdown, *m_paAutoPaste;
 
-    KToggleAction *m_paShowStatusbar;
     KToggleAction *m_paDropTarget;
 
     public:

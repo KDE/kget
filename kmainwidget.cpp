@@ -245,7 +245,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
-    m_paShowStatusbar->setChecked( !statusBar()->isHidden() );
     m_paShowLog->setChecked(b_viewLogWindow);
 
     if (!bStartDocked && ksettings.b_showMain)
@@ -378,8 +377,7 @@ void KMainWidget::setupGUI()
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
     // view actions
-
-    m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), coll, "show_statusbar");
+    createStandardStatusBarAction();
 
     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
     m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
@@ -1582,29 +1580,6 @@ void KMainWidget::setAutoDisconnect()
     sDebugOut << endl;
 #endif
 }
-
-
-
-void KMainWidget::slotToggleStatusbar()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    if (!statusBar()->isHidden()) {
-        statusBar()->hide();
-    } else {
-        statusBar()->show();
-    }
-    setSettingsDirty();
-
-    resizeEvent(0L); // ??
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
 
 void KMainWidget::slotPreferences()
 {
