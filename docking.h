@@ -35,6 +35,7 @@
 class KPopupMenu;
 class KMainWidget;
 class QTimer;
+class QPixmap;
 
 /**
   * This class implements the main tray icon for kget. It has a popup
@@ -53,10 +54,6 @@ public:
     ~DockWidget();
     
     void setDownloading( bool );
-    
-private slots:
-    void mousePressEvent( QMouseEvent * e );
-    void slotTimeout();
 
 protected:
     // drag and drop
@@ -67,8 +64,21 @@ protected:
     virtual void contextMenuAboutToShow( KPopupMenu * menu );
 
 private:
-    QTimer * timer;
+    // repaints trayIcon showing progress (and overlay if present)
+    void paintIcon( int mergePixels = -1, bool force = false );
+    // blend an overlay icon over 'sourcePixmap' and repaint trayIcon
+    void blendOverlay( QPixmap * sourcePixmap );
+    
+    QTimer * blinkTimer;
+    QPixmap *baseIcon, *grayedIcon, *alternateIcon;
+    QPixmap *playOverlay, *stopOverlay;
+    QPixmap *overlay;   // the current overlay (may be NULL)
     bool iconOn;
+    bool overlayVisible;
+
+private slots:
+    void mousePressEvent( QMouseEvent * e );
+    void slotTimeout();
 };
 
 #endif

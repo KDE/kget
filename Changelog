@@ -1,4 +1,9 @@
 2004-11-05 Dario Massarin <nekkar@libero.it>
+        * New system tray icon effects. This has been realized looking at the 
+        amarok code. In the future, when other things will be in place, I will
+        surely paint an icon filled according to the current downloading progress.
+
+2004-11-05 Dario Massarin <nekkar@libero.it>
         * Delayed initialization. This should speed up the application startup
         especially when the user has lots of transfers.
 
