@@ -220,6 +220,9 @@ private:
     TransferStatus status;
     TransferMode mode;
 
+   TransferStatus prevStatus;
+   TransferMode prevMode;
+
     // how many times have we retried already
     unsigned int retryCount;
 

@@ -309,7 +309,6 @@ bool Transfer::updateStatus(int counter)
 
     QPixmap *pix = 0L;
     bool isTransfer = false;
-    static TransferStatus prevStatus;
 
     view->setUpdatesEnabled(false);
 
@@ -338,7 +337,7 @@ bool Transfer::updateStatus(int counter)
     setPixmap(view->lv_pixmap, *pix);
     view->setUpdatesEnabled(true);
 
-    if(prevStatus!=status || status==ST_RUNNING || status==ST_TRYING)
+    if(prevStatus!=status || prevMode != mode || status==ST_RUNNING || status==ST_TRYING)
         {
         QRect rect = view->header()->sectionRect(view->lv_pixmap);
 
@@ -350,6 +349,7 @@ bool Transfer::updateStatus(int counter)
         view->QScrollView::updateContents(x,y,w,h);
 
         prevStatus = status;
+       prevMode = mode;
     }
 
     return isTransfer;
