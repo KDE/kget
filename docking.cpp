@@ -68,8 +68,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
-
-    popupMenu->insertItem(i18n("Preferences..."), parent, SLOT(slotPreferences()));
+    parent->m_paPreferences->plug(popupMenu);
 
 
     // Enable dropping

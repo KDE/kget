@@ -105,9 +105,9 @@ DropTarget::DropTarget():QWidget()
 
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
     popupMenu->setItemChecked(pop_sticky, b_sticky);
-    popupMenu->insertItem(i18n("Preferences..."), kmain, SLOT(slotPreferences()));
+    kmain->m_paPreferences->plug(popupMenu);
     popupMenu->insertSeparator();
-    popupMenu->insertItem(i18n("Quit"), kmain, SLOT(slotQuit()));
+    kmain->m_paQuit->plug(popupMenu);
 
     // Enable dropping
     setAcceptDrops(true);

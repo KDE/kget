@@ -74,6 +74,7 @@ Q_OBJECT public:
     // Actions
     KToggleAction *m_paShowLog;
     KAction *m_paPreferences;
+    KAction *m_paQuit;
     bool b_viewLogWindow;
 
     void readTransfersEx(const QString & txt);
@@ -192,7 +193,7 @@ private:
 
     // Actions
     KAction *m_paOpenTransfer, *m_paPasteTransfer, *m_paExportTransfers, *m_paImportTransfers;
-    KAction *m_paImportText, *m_paQuit;
+    KAction *m_paImportText;
 
     KAction *m_paMoveToBegin, *m_paMoveToEnd, *m_paCopy, *m_paIndividual;
     KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
