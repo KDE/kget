@@ -912,7 +912,7 @@ void KMainWidget::slotCheckClipboard()
 	    slotPasteTransfer();
 	}
     }
-    sDebugOut <<endl;
+//    sDebugOut <<endl;
 }
 
 

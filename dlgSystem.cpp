@@ -34,7 +34,7 @@
 #include <klocale.h>
 #include <kdialog.h>
 #include <kio/netaccess.h>
-
+#include <kfiledialog.h>
 #include "settings.h"
 #include "kmainwidget.h"
 #include "dlgSystem.h"
@@ -128,6 +128,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
 
 void DlgSystem::setupSound()
 {
+   sDebugIn<<endl;
     QString s, t;
 
     int id = cmb_sounds->currentItem();
@@ -150,17 +151,22 @@ void DlgSystem::setupSound()
 	t = soundFinishedAll;
 	break;
     }
-
-    KURLRequesterDlg *box = new KURLRequesterDlg(t, s, this, "kurl_sound");
-
-    box->show();
-
-    if (!box->result()) {	/* cancelled */
+ KFileDialog *  pDlg;
+  KURLRequesterDlg *box = new KURLRequesterDlg(t, s, this, "kurl_sound");
+  pDlg=box->fileDialog();
+  pDlg->setFilter("*.wav|*.wav\n*.*|All files");
+   int result=box->exec();
+    sDebug<<"Result= "<<result<<endl;
+    
+    if (result==QDialog::Rejected) {	/* cancelled */
+        sDebug<<"Cancelled" <<endl;
 	return;
     }
 
     s = box->selectedURL().url();	// text();
+    sDebug<<"Selected audio files: " <<s<<endl;
     if (s.isEmpty()) {		/* answer is "" */
+     sDebugOut<<"empty selection"<<endl;
 	return;
     }
 
@@ -181,6 +187,7 @@ void DlgSystem::setupSound()
 	soundFinishedAll = s;
 	break;
     }
+    sDebugOut<<endl;
 }
 
 
@@ -205,12 +212,16 @@ void DlgSystem::testSound()
 	break;
     }
     QString tmpFile;
+    sDebug<<"File to play "<<soundFile<<endl;
+ //   KAudioPlayer::play(soundFile);
+  //   KAudioPlayer::play( "/home/pch/pop.wav");
 
     if (KIO::NetAccess::download(soundFile, tmpFile)) {
-	sDebug << "Temp file is " << tmpFile << endl;
+	sDebug << "Temp file to play is " << tmpFile << endl;
 	KAudioPlayer::play(tmpFile);
 	KIO::NetAccess::removeTempFile(tmpFile);
     }
+
 
 
     sDebug << "<<<<Leaving" << endl;
