@@ -49,7 +49,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
         handpix1 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
         handpix1->fill(backgroundColor());
         bitBlt(handpix1, 0, 0, tmppix);
-
+                                                              
         handpix2 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
         handpix2->fill(backgroundColor());
         bitBlt(handpix2, 0, 0, tmppix);

@@ -46,7 +46,7 @@ Q_OBJECT public:
     DockWidget(KMainWidget * parent);
     ~DockWidget();
 
-    void setAnim(int i1, int i2, int i3, bool online);
+
 
 private slots:
     void mousePressEvent(QMouseEvent * e);
