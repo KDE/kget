@@ -380,6 +380,7 @@ void KMainWidget::setupGUI()
     createStandardStatusBarAction();
 
     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
+    m_paShowLog->setCheckedState(i18n("Hide &Log Window"));
     m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());

@@ -59,7 +59,7 @@ KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
                                            KShortcut(),
                                            this, SLOT(slotShowDrop()),
                                            actionCollection(), "show_drop" );
-
+    m_paToggleDropTarget->setCheckedState(i18n("Hide Drop Target"));
     menu->insert( m_paToggleDropTarget );
 
     KAction *action = new KAction(i18n("List All Links"), KShortcut(),
