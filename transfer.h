@@ -78,6 +78,8 @@ public:
     void write(KSimpleConfig * config, int id);
     void logMessage(const QString & message);
 
+    bool keepDialogOpen() const;
+
 
     QDateTime getStartTime()
     {
@@ -190,6 +192,7 @@ signals:
 
 private:
     void init();
+    void tryKillSlave();
 
     KURL src;
     KURL dest;

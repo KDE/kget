@@ -1366,7 +1366,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
     switch (_operation) {
 
     case Transfer::OP_FINISHED:
-        if (ksettings.b_removeOnSuccess)
+        if (ksettings.b_removeOnSuccess && !item->keepDialogOpen() )
         {
             delete item;
             item = 0L;
