@@ -40,9 +40,11 @@
 DlgLimits::DlgLimits(QWidget * parent)
     : DlgLimitsBase(parent)
 {
-    // TODO: these are not supported yet, so disable them
-    le_maxband->setEnabled(false);
-    le_minband->setEnabled(false);
+    // TODO: these are not supported yet, so hide them
+    lb_maxband->hide();
+    le_maxband->hide();
+    lb_minband->hide();
+    le_minband->hide();
 }
 
 

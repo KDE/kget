@@ -45,9 +45,10 @@
 DlgConnection::DlgConnection(QWidget * parent)
         :DlgConnectionBase(parent, "", 0)
 {
-    // TODO: these are not supported yet, so disable them
-    le_nodata->setEnabled(false);
-    le_noresume->setEnabled(false);
+    // TODO: these are not supported yet, so hide them
+    gb_timeout->hide();
+    le_nodata->hide();
+    le_noresume->hide();
 }
 
 

@@ -41,6 +41,7 @@
 DlgAdvanced::DlgAdvanced(QWidget * parent)
     : DlgAdvancedBase(parent)
 {
+    cb_partial->hide();
 }
 
 

@@ -45,10 +45,15 @@
 #include "kmainwidget.h"
 #include "dlgSystem.h"
 
+#include <qbuttongroup.h>
+#include <qlabel.h>
+
 
 DlgSystem::DlgSystem(QWidget * parent)
     : DlgSystemBase(parent)
 {
+    bg_window->hide();
+    textLabel4->hide();
 }
 
 
