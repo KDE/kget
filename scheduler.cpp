@@ -231,7 +231,7 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
             if (!src.isValid())
             {
                 sDebug << "hhh" << endl;
-                KMessageBox::error(mainWidget, i18n("Malformed URL:\n%1").arg(newtransfer), i18n("Error"));
+                KMessageBox::error(mainWidget, i18n("Malformed URL:\n%1").arg(newtransfer));
                 ok = false;
                 sDebug << "ggg" << endl;
             }
@@ -681,7 +681,7 @@ KURL Scheduler::getValidDest( const QString& filename, const KURL& dest)
     // 2) The URL is only a filename, like a default (suggested) filename.
 
     
-    KURL destURL = dest;
+    KURL destURL( dest );
     
     if ( !destURL.isValid() )
     {
@@ -753,29 +753,41 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
      * ( which is also last used )
      */
      
-    QString destDir = Settings::lastDirectory();
-
+//    for ( uint i = 0; i < Settings::mimeDirList().count(); i++ )
+//        sDebug << ">>> " << Settings::mimeDirList()[i] << endl;
+     
     if (Settings::useDefaultDirectory()) {
         // check wildcards for default directory
 
-        QStringList::Iterator it = Settings::mimeDirList().begin();
-        QStringList::Iterator end = Settings::mimeDirList().end();
-        for (; it != end; ++it)
+// damn iterators! they are causing - al least to me - some problems,
+// so i'm disabling them...
+//        QStringList::Iterator it = Settings::mimeDirList().begin();
+//        QStringList::Iterator end = Settings::mimeDirList().end();
+//        for (; it != end; ++it)
+        for ( uint i = 0; i < Settings::mimeDirList().count(); i=i+2 )
         {
+            sDebug << ">>> " << Settings::mimeDirList()[i] << endl;
             // odd list items are regular expressions
-            QRegExp rexp(*it);
+//            QRegExp rexp( ( *it ) );
+            QRegExp rexp(Settings::mimeDirList()[i]);
             rexp.setWildcard(true);
             // even list items are directory
-            ++it;
+//            ++it;
 
             if ((rexp.search( filename )) != -1) {
-                destDir = *it;
-                break;
+//                destDir = *it;
+//                break;
+                sDebug << ">>>>>> " << Settings::mimeDirList()[i+1] << endl;
+                return Settings::mimeDirList()[i+1];
             }
         }
+
+        // no specific directory found for this file, using the default one
+        return Settings::defaultDirectory();
     }
 
-    return destDir;
+    // we're in last directory mode
+    return Settings::lastDirectory();
 }
 
 
@@ -792,6 +804,7 @@ bool Scheduler::setTransferCommand(TransferList list, TransferCommand op)
         setTransferCommand(*it, op);
 
     sDebugOut << endl;
+    return true;
 }
 
 bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)

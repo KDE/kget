@@ -170,7 +170,7 @@ void DropTarget::slotClose()
         i18n("Drop target has been hidden. If you want to show it\
               again, go to Configuration->Look & Feel options."),
         i18n("Hiding drop target"),
-        i18n("CloseDroptarget") );
+        "CloseDroptarget");
 }
 
 
@@ -265,7 +265,8 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
         return;
     }
 
-    QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
+//    QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
+    move(x() + (e->x() - oldX), y() + (e->y() - oldY));
 }
 
 void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)

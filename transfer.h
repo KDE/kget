@@ -120,14 +120,14 @@ public slots:
     /**
      * These slots _MUST_ be reimplemented
      */
-    virtual bool slotResume() {}
-    virtual void slotStop() {}
-    virtual void slotRetransfer() {}
-    virtual void slotRemove() {}
+    virtual bool slotResume() = 0;
+    virtual void slotStop() = 0;
+    virtual void slotRetransfer() = 0;
+    virtual void slotRemove() = 0;
     
-    virtual void slotSetSpeed(int speed) {}
-    virtual void slotSetDelay(int seconds) {}
-    virtual void slotSetSegmented(int nSegments) {}
+    virtual void slotSetSpeed(int speed) = 0;
+    virtual void slotSetDelay(int seconds) = 0;
+    virtual void slotSetSegmented(int nSegments) = 0;
    
 signals:
     void transferChanged(Transfer *);

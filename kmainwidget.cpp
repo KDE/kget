@@ -99,7 +99,8 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     setupGUI();
 
     // set window title
-    setCaption(KGETVERSION);
+//    setCaption(KGETVERSION);
+    setCaption(i18n("KGet"));
 
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
@@ -539,7 +540,7 @@ void KMainWidget::readTransfersEx(const KURL & url)
 
 void KMainWidget::slotPreferences()
 {
-    KNotifyClient::event( winId(), "added" );
+//    KNotifyClient::event( winId(), "added" );
 
     // an instance the dialog could be already created and could be cached, 
     // in which case you want to display the cached dialog
