@@ -1838,15 +1838,24 @@ void KMainWidget::slotUpdateActions()
         Transfer *first_item = 0L;
         TransferIterator it(myTransferList);
         int index = 0;
-
-        for (; it.current(); ++it) {
+        int totals_items=0;
+        int sel_items=0;
+        for (; it.current(); ++it,++totals_items) {
                 if (it.current()->isSelected()) {
                         item = it.current();
-
+                        sel_items=totals_items;
                         index++;		// counting number of selected items
-                        if (index == 1)
+                        if (index == 1) {
                                 first_item = item;	// store first selected item
+                                if(totals_items>0)
+                                        m_paMoveToBegin->setEnabled(true);
 
+                                m_paMoveToEnd->setEnabled(true);
+                        } else {
+
+                                m_paMoveToBegin->setEnabled(false);
+                                m_paMoveToEnd->setEnabled(false);
+                        }
                         //enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
                         if (item == first_item) {
                                 switch (item->getStatus()) {
@@ -1877,9 +1886,6 @@ void KMainWidget::slotUpdateActions()
                                 m_paDelete->setEnabled(true);
                                 m_paCopy->setEnabled(true);
                                 m_paIndividual->setEnabled(true);
-                                m_paMoveToBegin->setEnabled(true);
-                                m_paMoveToEnd->setEnabled(true);
-
                                 if (item->getStatus() != Transfer::ST_FINISHED) {
                                         m_paQueue->setEnabled(true);
                                         m_paTimer->setEnabled(true);
@@ -1913,7 +1919,8 @@ void KMainWidget::slotUpdateActions()
                                 m_paQueue->setChecked(false);
                                 m_paTimer->setChecked(false);
                                 m_paDelay->setChecked(false);
-
+                                m_paMoveToBegin->setEnabled(false);
+                                m_paMoveToEnd->setEnabled(false);
                                 m_paQueue->setEnabled(false);
                                 m_paTimer->setEnabled(false);
                                 m_paDelay->setEnabled(false);
@@ -1922,6 +1929,11 @@ void KMainWidget::slotUpdateActions()
                 }			// when item is selected
         }				// loop
 
+
+
+        if (sel_items==totals_items-1)
+                m_paMoveToEnd->setEnabled(false);
+
         // enable all signals
 
 
@@ -1929,34 +1941,6 @@ void KMainWidget::slotUpdateActions()
         m_paQueue->blockSignals(false);
         m_paTimer->blockSignals(false);
         m_paDelay->blockSignals(false);
-
-
-        /*
-           for (; it.current (); ++it)
-           {
-           if (it.current ()->isSelected ())
-           {
-           item = it.current ();
-           sDebug << "STATUS IS  "<< item->getStatus() << endl;
-
-           switch (item->getStatus ())
-           {
-           case Transfer::ST_RUNNING:
-           case Transfer::ST_TRYING:
-           m_paResume->setEnabled (false);
-           m_paPause->setEnabled (true);
-           m_paRestart->setEnabled (true);
-           break;
-           case Transfer::ST_STOPPED:
-           m_paResume->setEnabled (true);
-           m_paPause->setEnabled (false);
-           m_paRestart->setEnabled (false);
-           break; }
-           }
-
-           }
-
-         */
         sDebug << "<<<<Leaving" << endl;
 }
 
@@ -2092,6 +2076,7 @@ void KMainWidget::checkOnline()
 
 
 
+
 static int sockets_open()
 {
         sDebug << ">>>>Entering" << endl;
@@ -2100,7 +2085,7 @@ static int sockets_open()
 #ifdef AF_AX25
         ax25_sock = socket(AF_AX25, SOCK_DGRAM, 0);
 #else
-        ax25_sock = -1;
+ax25_sock = -1;
 #endif
         ddp_sock = socket(AF_APPLETALK, SOCK_DGRAM, 0);
         /*
