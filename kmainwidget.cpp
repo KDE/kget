@@ -115,15 +115,12 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0), KGetIface( "KGet-Int
     sDebugIn << endl;
 #endif
 
-
-
-    KConfig *cfg = new KConfig("kioslaverc", false, false);
-    cfg->setGroup(QString::null);
-    cfg->writeEntry("AutoResume", true);
-    cfg->sync();
-    delete cfg;
-
-
+    {
+        KConfig cfg( "kioslaverc", false, false);
+        cfg.setGroup(QString::null);
+        cfg.writeEntry("AutoResume", true);
+        cfg.sync();
+    }
 
     b_online = TRUE;
     b_viewLogWindow = FALSE;
@@ -245,7 +242,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0), KGetIface( "KGet-Int
     if (ksettings.b_offlineMode)
         setCaption(i18n("Offline"), false);
     else {
-        setCaption(i18n(""), false);
+        setCaption(QString::null, false);
         m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
@@ -269,17 +266,10 @@ KMainWidget::~KMainWidget()
     sDebugIn << endl;
 #endif
 
-
-    if (animTimer) {
-        animTimer->stop();
-        delete animTimer;
-    }
-
+    delete animTimer;
     delete(DropTarget *) kdrop;
     writeTransfers();
     writeLog();
-
-
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -430,101 +420,64 @@ void KMainWidget::setupWhatsThis()
     sDebugIn << endl;
 #endif
 
+    QString tmp;
 
-    QString tmp1;
+    tmp = i18n("<b>Resume</b> button starts selected transfers\n" "and sets their mode to <i>queued</i>.");
+    m_paResume->setWhatsThis(tmp);
 
-    tmp1 = i18n("<b>Resume</b> button starts selected transfers\n" "and sets their mode to <i>queued</i>.");
-    m_paResume->setWhatsThis(tmp1);
+    tmp = i18n("<b>Pause</b> button stops selected transfers\n" "and sets their mode to <i>delayed</i>.");
+    m_paPause->setWhatsThis(tmp);
 
-    QString tmp2;
+    tmp = i18n("<b>Delete</b> button removes selected transfers\n" "from the list.");
+    m_paDelete->setWhatsThis(tmp);
 
-    tmp2 = i18n("<b>Pause</b> button stops selected transfers\n" "and sets their mode to <i>delayed</i>.");
-    m_paPause->setWhatsThis(tmp2);
+    tmp = i18n("<b>Restart</b> button is a convenience button\n" "that simply does Pause and Resume.");
+    m_paRestart->setWhatsThis(tmp);
 
-    QString tmp3;
+    tmp = i18n("<b>Queued</b> button sets the mode of selected\n" "transfers to <i>queued</i>.\n" "\n" "It is a radio button, you can select between\n" "three modes.");
+    m_paQueue->setWhatsThis(tmp);
 
-    tmp3 = i18n("<b>Delete</b> button removes selected transfers\n" "from the list.");
-    m_paDelete->setWhatsThis(tmp3);
+    tmp = i18n("<b>Scheduled</b> button sets the mode of selected\n" "transfers to <i>scheduled</i>.\n" "\n" "It is a radio button, you can select between\n" "three modes.");
+    m_paTimer->setWhatsThis(tmp);
 
-    QString tmp4;
+    tmp = i18n("<b>Delayed</b> button sets the mode of selected\n" "transfers to <i>delayed</i>." "This also causes the selected transfers to stop.\n" "\n" "It is a radio button, you can select between\n" "three modes.");
+    m_paDelay->setWhatsThis(tmp);
 
-    tmp4 = i18n("<b>Restart</b> button is a convenience button\n" "that simply does Pause and Resume.");
-    m_paRestart->setWhatsThis(tmp4);
+    tmp = i18n("<b>Preferences</b> button opens a preferences dialog\n" "where you can set various options.\n" "\n" "Some of these options can be more easily set using the toolbar.");
+    m_paPreferences->setWhatsThis(tmp);
 
-    QString tmp5;
+    tmp = i18n("<b>Log window</b> button opens a log window.\n" "The log window records all program events that occur\n" "while KGet is running.");
+    m_paShowLog->setWhatsThis(tmp);
 
-    tmp5 = i18n("<b>Queued</b> button sets the mode of selected\n" "transfers to <i>queued</i>.\n" "\n" "It is a radio button, you can select between\n" "three modes.");
-    m_paQueue->setWhatsThis(tmp5);
+    tmp = i18n("<b>Paste transfer</b> button adds a URL from\n" "the clipboard as a new transfer.\n" "\n" "This way you can easily copy&paste URLs between\n" "applications.");
+    m_paPasteTransfer->setWhatsThis(tmp);
 
-    QString tmp6;
+    tmp = i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking.");
+    m_paExpertMode->setWhatsThis(tmp);
 
-    tmp6 = i18n("<b>Scheduled</b> button sets the mode of selected\n" "transfers to <i>scheduled</i>.\n" "\n" "It is a radio button, you can select between\n" "three modes.");
-    m_paTimer->setWhatsThis(tmp6);
+    tmp = i18n("<b>Use last directory</b> button toggles the\n" "use-last-directory feature on and off.\n" "\n" "When set, KGet will ignore the directory settings\n" "and put all new added transfers into the directory\n" "where the last transfer was put.");
+    m_paUseLastDir->setWhatsThis(tmp);
 
-    QString tmp7;
+    tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
+    m_paAutoDisconnect->setWhatsThis(tmp);
 
-    tmp7 = i18n("<b>Delayed</b> button sets the mode of selected\n" "transfers to <i>delayed</i>." "This also causes the selected transfers to stop.\n" "\n" "It is a radio button, you can select between\n" "three modes.");
-    m_paDelay->setWhatsThis(tmp7);
+    tmp = i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, KGet will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to quit without asking.");
+    m_paAutoShutdown->setWhatsThis(tmp);
 
-    QString tmp8;
+    tmp = i18n("<b>Offline mode</b> button toggles the offline mode\n" "on and off.\n" "\n" "When set, KGet will act as if it was not connected\n" "to the Internet.\n" "\n" "You can browse offline, while still being able to add\n" "new transfers as queued.");
+    m_paOfflineMode->setWhatsThis(tmp);
 
-    tmp8 = i18n("<b>Preferences</b> button opens a preferences dialog\n" "where you can set various options.\n" "\n" "Some of these options can be more easily set using the toolbar.");
-    m_paPreferences->setWhatsThis(tmp8);
+    tmp = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, KGet will periodically scan the clipboard\n" "for URLs and paste them automatically.");
+    m_paAutoPaste->setWhatsThis(tmp);
 
-    QString tmp9;
-
-    tmp9 = i18n("<b>Log window</b> button opens a log window.\n" "The log window records all program events that occur\n" "while KGet is running.");
-    m_paShowLog->setWhatsThis(tmp9);
-
-    QString tmp10;
-
-    tmp10 = i18n("<b>Paste transfer</b> button adds a URL from\n" "the clipboard as a new transfer.\n" "\n" "This way you can easily copy&paste URLs between\n" "applications.");
-    m_paPasteTransfer->setWhatsThis(tmp10);
-
-    QString tmp11;
-
-    tmp11 = i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking.");
-    m_paExpertMode->setWhatsThis(tmp11);
-
-    QString tmp12;
-
-    tmp12 = i18n("<b>Use last directory</b> button toggles the\n" "use-last-directory feature on and off.\n" "\n" "When set, KGet will ignore the directory settings\n" "and put all new added transfers into the directory\n" "where the last transfer was put.");
-    m_paUseLastDir->setWhatsThis(tmp12);
-
-    QString tmp13;
-
-    tmp13 = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
-    m_paAutoDisconnect->setWhatsThis(tmp13);
-
-    QString tmp14;
-
-    tmp14 = i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, KGet will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to quit without asking.");
-    m_paAutoShutdown->setWhatsThis(tmp14);
-
-    QString tmp15;
-
-    tmp15 = i18n("<b>Offline mode</b> button toggles the offline mode\n" "on and off.\n" "\n" "When set, KGet will act as if it was not connected\n" "to the Internet.\n" "\n" "You can browse offline, while still being able to add\n" "new transfers as queued.");
-    m_paOfflineMode->setWhatsThis(tmp15);
-
-    QString tmp16;
-
-    tmp16 = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, KGet will periodically scan the clipboard\n" "for URLs and paste them automatically.");
-    m_paAutoPaste->setWhatsThis(tmp16);
-
-    QString tmp17;
-
-    tmp17 = i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window.");
-    m_paDropTarget->setWhatsThis(tmp17);
+    tmp = i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window.");
+    m_paDropTarget->setWhatsThis(tmp);
     /*
-        QString tmp18;
+        tmp = i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget.");
+        m_paDockWindow->setWhatsThis(tmp);
 
-        tmp18 = i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget.");
-        m_paDockWindow->setWhatsThis(tmp18);
-
-        QString tmp19;
-
-        tmp19 = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
-        m_paNormal->setWhatsThis(tmp19);
+        tmp = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
+        m_paNormal->setWhatsThis(tmp);
       */
 
 
@@ -572,19 +525,19 @@ void KMainWidget::slotImportTextFile()
     sDebugIn << endl;
 #endif
 
-    QString filename, tmpFile;
+    QString tmpFile;
     QString list;
     int i, j;
 
-    filename = KFileDialog::getOpenURL(currentDirectory).url();
-    if (filename.isEmpty())
+    KURL filename = KFileDialog::getOpenURL(currentDirectory);
+    if (filename.isMalformed())
         return;
 
     if (KIO::NetAccess::download(filename, tmpFile)) {
         list = kFileToString(tmpFile);
         KIO::NetAccess::removeTempFile(tmpFile);
     } else
-        list = kFileToString(filename);
+        list = kFileToString(filename.path()); // file not accessible -> give error message
 
     i = 0;
     while ((j = list.find('\n', i)) != -1) {
@@ -697,7 +650,7 @@ void KMainWidget::writeTransfers(bool ask_for_name)
 #endif
         return;
     }
-    if (txt.findRev(".kgt") == -1)
+    if (!txt.endsWith(".kgt"))
         txt += ".kgt";
 
 #ifdef _DEBUG
@@ -1184,7 +1137,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             currentDirectory = dir;
         }
     }
-    
+
     // dest is now finally the real destination directory for all the files
 
     // create new transfer items

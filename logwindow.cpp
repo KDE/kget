@@ -26,6 +26,7 @@
 
 
 #include <qlayout.h>
+#include <qlistview.h>
 
 #include <klocale.h>
 #include <kdialog.h>
@@ -36,6 +37,8 @@
 #include "logwindow.h"
 
 #include <kapplication.h>
+#include <qtextedit.h>
+
 // // Replace regular space with nbsp
 // QString replaceSpaces(const QString &str) {
 //   QString res = str;
@@ -76,9 +79,6 @@ QString removeHTML(const QString & str)
 
 SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
 {
-
-
-
     idSelected = 0;
 
     QGridLayout *topGridLayout = new QGridLayout(this, 1, 2, 20, KDialog::spacingHint());
@@ -171,8 +171,6 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
     sep_log = new SeparatedLog(page);
     topLayout->addWidget(sep_log);
 
-    setButtonOKText(i18n("Close"));
-
     connect(this, SIGNAL(closeClicked()), this, SLOT(close()));
 
     // resize( 500, 300 );
@@ -189,7 +187,6 @@ void LogWindow::closeEvent(QCloseEvent *)
 
 void LogWindow::logGeneral(const QString & message)
 {
-
     QString tmps;
 
     tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : <strong>" + message + "</strong></code><br>";

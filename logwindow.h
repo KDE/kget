@@ -28,11 +28,13 @@
 #ifndef _LOGWINDOW_H
 #define _LOGWINDOW_H
 
-#include <qlistview.h>
-#include <qtextedit.h>
 #include <qmap.h>
 
 #include <kdialogbase.h>
+
+class QListView;
+class QTextEdit;
+
 
 class SeparatedLog:public QWidget
 {

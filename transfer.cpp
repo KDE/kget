@@ -331,22 +331,22 @@ bool Transfer::updateStatus(int counter)
     bool isTransfer = false;
 
     if (status == ST_RUNNING) {
-        pix = view->animConn->at(counter);
+        pix = view->animConn.at(counter);
         isTransfer = true;
     } else if (status == ST_TRYING) {
-        pix = view->animTry->at(counter);
+        pix = view->animTry.at(counter);
         isTransfer = true;
 
     } else if (status == ST_STOPPED /*|| status==ST_PAUSED||status==ST_ABORTED */ ) {
         if (mode == MD_QUEUED) {
-            pix = view->pixQueued;
+            pix = &view->pixQueued;
         } else if (mode == MD_SCHEDULED) {
-            pix = view->pixScheduled;
+            pix = &view->pixScheduled;
         } else {
-            pix = view->pixDelayed;
+            pix = &view->pixDelayed;
         }
     } else if (status == ST_FINISHED) {
-        pix = view->pixFinished;
+        pix = &view->pixFinished;
     }
 
     setPixmap(view->lv_pixmap, *pix);

@@ -26,14 +26,13 @@
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
+#include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
 #include <ksimpleconfig.h>
 #include <kio/netaccess.h>
-
-#include <qfile.h>
 
 #include "kmainwidget.h"
 #include "transfer.h"
@@ -54,22 +53,8 @@ static int defaultColumnWidth[] = {
                                   };
 
 
-// TransferList static members
-QPtrList < QPixmap > *TransferList::animConn = 0L;
-QPtrList < QPixmap > *TransferList::animTry = 0L;
-QPixmap *TransferList::pixQueued = 0L;
-QPixmap *TransferList::pixScheduled = 0L;
-QPixmap *TransferList::pixDelayed = 0L;
-QPixmap *TransferList::pixFinished = 0L;
-QPixmap *TransferList::pixRetrying = 0L;
-
-
 TransferList::TransferList(QWidget * parent, const char *name):KListView(parent, name)
 {
-
-    if (pixQueued == 0L) {
-        initStatic();
-    }
     // enable selection of more than one item
     setSelectionMode( QListView::Extended );
 
@@ -88,43 +73,43 @@ TransferList::TransferList(QWidget * parent, const char *name):KListView(parent,
     lv_remaining = addColumn(i18n("Rem. Time"));
     lv_url = addColumn(i18n("Address (URL)"));
 
-    readConfig();
+    // initial layout
+    KConfig *config = KGlobal::config();
+    config->setGroup("ListView");
+    if ( config->readListEntry("ColumnWidths").isEmpty() )
+    {
+        for (int i = 0; i < NUM_COLS; i++)
+            setColumnWidth(i, defaultColumnWidth[i]);
+    }
+    else
+        restoreLayout( KGlobal::config(), "ListView" );
 
     QString connectPath = "pics/connect%2.png";
     QString tryPath = "pics/try%2.png";
 
     // Load animations
     QPixmap* curPix;
-    if (animConn->count() == 0) {
-        animConn->setAutoDelete(true);
-        animTry->setAutoDelete(true);
+    if (animConn.count() == 0) {
+        animConn.setAutoDelete(true);
+        animTry.setAutoDelete(true);
         for (int i = 0; i < 8; i++) {
             curPix = new QPixmap();
             curPix->load(locate("appdata", connectPath.arg(i)));
-            animConn->append(curPix);
+            animConn.append(curPix);
 
             curPix = new QPixmap();
             curPix->load(locate("appdata", tryPath.arg(i)));
-            animTry->append(curPix);
+            animTry.append(curPix);
         }
     }
 
-    pixQueued = new QPixmap();
-    pixQueued->load(locate("appdata", "pics/md_queued.png"));
+    pixQueued = UserIcon("md_queued");
+    pixScheduled = UserIcon("md_scheduled");
+    pixDelayed = UserIcon("md_delayed.png");
+    pixFinished = UserIcon("md_finished");
+    pixRetrying = UserIcon("retrying");
 
-    pixScheduled = new QPixmap();
-    pixScheduled->load(locate("appdata", "pics/md_scheduled.png"));
-
-    pixDelayed = new QPixmap();
-    pixDelayed->load(locate("appdata", "pics/md_delayed.png"));
-
-    pixFinished = new QPixmap();
-    pixFinished->load(locate("appdata", "pics/md_finished.png"));
-
-    pixRetrying = new QPixmap();
-    pixRetrying->load(locate("appdata", "pics/retrying.png"));
-
-    phasesNum = animConn->count();
+    phasesNum = animConn.count();
 
     connect(this, SIGNAL(doubleClicked(QListViewItem *)), SLOT(slotTransferSelected(QListViewItem *)));
     connect(this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)), SLOT(slotPopupMenu(QListViewItem *)));
@@ -133,43 +118,14 @@ TransferList::TransferList(QWidget * parent, const char *name):KListView(parent,
 
 TransferList::~TransferList()
 {
-    writeConfig();
-
-    delete animConn;
-    delete animTry ;
-    delete pixQueued ;
-    delete pixScheduled;
-    delete pixDelayed;
-    delete pixFinished;
-    delete pixRetrying;
-
-}
-
-
-void
-TransferList::initStatic()
-{
-    animConn = new QPtrList < QPixmap >;
-    animTry = new QPtrList < QPixmap >;
-    pixQueued = new QPixmap;
-    pixScheduled = new QPixmap;
-    pixDelayed = new QPixmap;
-    pixFinished = new QPixmap;
-    pixRetrying = new QPixmap;
+    saveLayout( KGlobal::config(), "ListView" );
 }
 
 
 Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest)
 {
-    TransferIterator it(this);
-
-    for (; it.current(); ++it) {
-        if (it.current()->itemBelow() == 0L) {  // this will find the end of list
-            break;
-        }
-    }
-
-    Transfer *new_item = new Transfer(this, it.current(), _source, _dest);
+    Transfer *last = static_cast<Transfer*>( lastItem() );
+    Transfer *new_item = new Transfer(this, last, _source, _dest);
 
     return new_item;
 }
@@ -191,7 +147,6 @@ void TransferList::slotPopupMenu(QListViewItem * item)
 
 void TransferList::setSelected(QListViewItem * item, bool selected)
 {
-
     bool tmpb = selected;
 
     if (tmpb && item->isSelected()) {
@@ -199,40 +154,6 @@ void TransferList::setSelected(QListViewItem * item, bool selected)
     }
 
     QListView::setSelected(item, tmpb);
-}
-
-
-void TransferList::readConfig()
-{
-
-    KConfig *config = kapp->config();
-
-    // read listview geometry properties
-    config->setGroup("ListView");
-    for (int i = 0; i < NUM_COLS; i++) {
-        QString tmps;
-
-        tmps.sprintf("Col%d", i);
-        setColumnWidth(i, config->readNumEntry(tmps, defaultColumnWidth[i]));
-    }
-}
-
-
-void TransferList::writeConfig()
-{
-
-    KConfig *config = kapp->config();
-
-    // write listview geometry properties
-    config->setGroup("ListView");
-    for (int i = 0; i < NUM_COLS; i++) {
-        QString tmps;
-
-        tmps.sprintf("Col%d", i);
-        config->writeEntry(tmps, columnWidth(i));
-    }
-
-    config->sync();
 }
 
 
@@ -285,7 +206,6 @@ bool TransferList::updateStatus(int counter)
 
 bool TransferList::isQueueEmpty()
 {
-
     TransferIterator it(this);
 
     if (childCount() <= 0)
@@ -315,7 +235,6 @@ bool TransferList::find(const KURL& _src)
 
 void TransferList::readTransfers(const KURL& file)
 {
-
     QString tmpFile;
 
     if (KIO::NetAccess::download(file, tmpFile)) {
@@ -325,6 +244,7 @@ void TransferList::readTransfers(const KURL& file)
         int num = config.readNumEntry("Count", 0);
 
         Transfer *item;
+        KURL src, dest;
 
         while (num--) {
             QString str;
@@ -332,7 +252,9 @@ void TransferList::readTransfers(const KURL& file)
             str.sprintf("Item%d", num);
             config.setGroup(str);
 
-            item = addTransfer(config.readEntry("Source", ""), config.readEntry("Dest", ""));
+            src  = KURL::fromPathOrURL( config.readEntry("Source") );
+            dest = KURL::fromPathOrURL( config.readEntry("Dest") );
+            item = addTransfer( src, dest );
 
             if (!item->read(&config, num)) {
                 delete item;
@@ -342,17 +264,9 @@ void TransferList::readTransfers(const KURL& file)
 
 }
 
-void TransferList::writeTransfers(QString file)
+void TransferList::writeTransfers(const QString& file)
 {
     sDebug << ">>>>Entering with file =" << file << endl;
-
-    QFile f(file);
-
-
-    if (!f.open(IO_WriteOnly)) {
-        // TODO ADD Message LOG
-        return;
-    }
 
     KSimpleConfig config(file);
     int num = childCount();
@@ -365,11 +279,6 @@ void TransferList::writeTransfers(QString file)
     for (int id = 0; it.current(); ++it, ++id)
         it.current()->write(&config, id);
     config.sync();
-
-    f.close();
-
-
-
 
     sDebug << "<<<<Leaving" << endl;
 }
