@@ -173,7 +173,7 @@ void DlgSystem::setupSound()
     }
     KURLRequesterDlg *box = new KURLRequesterDlg(t, s, this, "kurl_sound");
     KFileDialog *pDlg = box->fileDialog();
-    pDlg->setFilter(i18n("*.wav|WAV files\n*|All files"));
+    pDlg->setFilter(i18n("*.wav|WAV files\n*|All Files"));
     int result = box->exec();
     sDebug << "Result= " << result << endl;
 
