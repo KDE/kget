@@ -25,6 +25,7 @@ class SidebarItem : public QListBoxItem
 {
 public:
     SidebarItem( Sidebar * sidebar );
+    ~SidebarItem();
 
     int height(const QListBox * lb) const;
     int width(const QListBox * lb) const;
@@ -37,17 +38,27 @@ public:
     void showChildren( bool show = true );
     void select();
 
-protected:
-    void setVisible(bool visible = true);
     //This method updates all the pixmaps that are used to draw the items
     void updatePixmaps();
+
+    // this is public to be accessed by Sidebar::paintCell
     void paint ( QPainter * );
 
-    QPixmapCache m_pixCache;
+protected:
+    void setVisible(bool visible = true);
+
     Sidebar *    m_sidebar;
     QString      m_text;
     bool         m_isVisible;
     bool         m_showChildren;
+
+    //Pixmaps
+    QPixmap *    m_pixFunsel;
+    QPixmap *    m_pixFsel;
+    QPixmap *    m_pixTgrad;
+    QPixmap *    m_pixBgrad;
+    QPixmap *    m_pixPlus;
+    QPixmap *    m_pixMinus;
 
 private:
     QValueList<SidebarItem *> * m_childItems;
@@ -59,7 +70,7 @@ class DownloadsFolder : public SidebarItem
 public:
     DownloadsFolder( Sidebar * sidebar );
 
-protected:
+    // this is public to be accessed by Sidebar::paintCell
     void paint ( QPainter * );
 };
 
@@ -68,7 +79,7 @@ class GroupFolder : public SidebarItem
 public:
     GroupFolder( Sidebar * sidebar );
 
-protected:
+    // this is public to be accessed by Sidebar::paintCell
     void paint ( QPainter * );
 };
 
@@ -80,6 +91,10 @@ Q_OBJECT
 
 public:
     Sidebar( QWidget * parent = 0, const char * name = 0 );
+
+protected:
+    void paletteChange ( const QPalette & oldPalette );
+    void paintCell ( QPainter * p, int row, int col );
 
 public slots:
     void slotItemSelected(QListBoxItem *);

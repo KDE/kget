@@ -49,7 +49,7 @@ public:
     void playAnimationHide();
     void playAnimationSync();
     void setShown( bool shown, bool internal = true );
-   
+
 protected:
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);
@@ -58,7 +58,9 @@ protected:
 
     // handle quit events as hide events
     virtual void closeEvent( QCloseEvent * );
-    
+    // recolor the droptarget when palette changes
+    virtual void paletteChange ( const QPalette & oldPalette );
+
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent * e);
     virtual void mouseReleaseEvent(QMouseEvent *);
@@ -73,6 +75,7 @@ private slots:
     void slotClose();
 
 private:
+    void generateBackground();
     KPopupMenu * popupMenu;
     QWidget * parentWidget;
     QTimer * animTimer;

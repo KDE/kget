@@ -192,7 +192,7 @@ int main(int argc, char *argv[])
 
     KGetApp kApp;
 
-    setSignalHandler(signalHandler);
+    //setSignalHandler(signalHandler);
 
     kApp.exec();
 

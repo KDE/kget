@@ -135,9 +135,10 @@ void TransferKio::slotResult( KIO::Job *job )
             //There has been an error
             tInfo.status = St_Aborted;
             kdDebug() << "--  E R R O R  --" << endl;
-            copyjob=0;
             break;
     }
+     // when slotResult gets called, the copyjob has already been finished
+    copyjob=0;
     setTransferChange(Tc_Status);
     emit transferChanged(this);
 }

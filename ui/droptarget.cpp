@@ -81,47 +81,8 @@ DropTarget::DropTarget(KMainWidget * mw)
     p2.end();
     setMask( mask );
 
-    // setup pixmaps
-    QPixmap bgnd = QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-    bgnd.fill( Qt::white );
-    QPixmap tmp = UserIcon( "target" );
-    bitBlt(&bgnd, TARGET_OFFSETX, TARGET_OFFSETY, &tmp );
-
-    /* The following code was adapted from kdebase/kicker/ui/k_mnu.cpp
-     * It paints a tint over the kget arrow taking the tint color from
-     * active or inactive window title colors
-     */
-    KConfig *config = KGlobal::config();
-    QColor color = palette().active().highlight();
-
-    config->setGroup("WM");
-    QColor activeTitle = config->readColorEntry("activeBackground", &color);
-    QColor inactiveTitle = config->readColorEntry("inactiveBackground", &color);
-
-    // figure out which color is most suitable for recoloring to
-    int h1, s1, v1, h2, s2, v2, h3, s3, v3;
-    activeTitle.hsv(&h1, &s1, &v1);
-    inactiveTitle.hsv(&h2, &s2, &v2);
-    palette().active().background().hsv(&h3, &s3, &v3);
-
-    if ( (abs(h1-h3)+abs(s1-s3)+abs(v1-v3) < abs(h2-h3)+abs(s2-s3)+abs(v2-v3)) &&
-         ((abs(h1-h3)+abs(s1-s3)+abs(v1-v3) < 32) || (s1 < 32)) && (s2 > s1))
-        color = inactiveTitle;
-    else
-        color = activeTitle;
-
-    // limit max/min brightness
-    int h, s, v;
-    color.getHsv( &h, &s, &v );
-    if (v > 180)
-        color.setHsv( h, s, 180 );
-    else if (v < 76 )
-        color.setHsv( h, s, 76 );
-
-    QImage image = bgnd.convertToImage();
-    KIconEffect::colorize( image, color, 1.0 );
-    bgnd.convertFromImage( image );
-    setErasePixmap( bgnd );
+    // generate and set background pixmap
+    generateBackground();
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
@@ -233,6 +194,13 @@ void DropTarget::closeEvent( QCloseEvent * e )
 }
 
 
+void DropTarget::paletteChange( const QPalette & )
+{
+    // generate and set background pixmap
+    generateBackground();
+}
+
+
 void DropTarget::toggleSticky()
 {
     Settings::setDropSticky( !Settings::dropSticky() );
@@ -305,6 +273,50 @@ void DropTarget::setShown( bool shown, bool internal )
         if ( Settings::animateDropTarget() )
             playAnimation();
     }
+}
+
+void DropTarget::generateBackground()
+{
+    QPixmap bgnd = QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
+    bgnd.fill( Qt::white );
+    QPixmap tmp = UserIcon( "target" );
+    bitBlt(&bgnd, TARGET_OFFSETX, TARGET_OFFSETY, &tmp );
+
+    /* The following code was adapted from kdebase/kicker/ui/k_mnu.cpp
+     * It paints a tint over the kget arrow taking the tint color from
+     * active or inactive window title colors
+     */
+    KConfig *config = KGlobal::config();
+    QColor color = palette().active().highlight();
+
+    config->setGroup("WM");
+    QColor activeTitle = config->readColorEntry("activeBackground", &color);
+    QColor inactiveTitle = config->readColorEntry("inactiveBackground", &color);
+
+    // figure out which color is most suitable for recoloring to
+    int h1, s1, v1, h2, s2, v2, h3, s3, v3;
+    activeTitle.hsv(&h1, &s1, &v1);
+    inactiveTitle.hsv(&h2, &s2, &v2);
+    palette().active().background().hsv(&h3, &s3, &v3);
+
+    if ( (abs(h1-h3)+abs(s1-s3)+abs(v1-v3) < abs(h2-h3)+abs(s2-s3)+abs(v2-v3)) &&
+         ((abs(h1-h3)+abs(s1-s3)+abs(v1-v3) < 32) || (s1 < 32)) && (s2 > s1))
+        color = inactiveTitle;
+    else
+        color = activeTitle;
+
+    // limit max/min brightness
+    int h, s, v;
+    color.getHsv( &h, &s, &v );
+    if (v > 180)
+        color.setHsv( h, s, 180 );
+    else if (v < 76 )
+        color.setHsv( h, s, 76 );
+
+    QImage image = bgnd.convertToImage();
+    KIconEffect::colorize( image, color, 1.0 );
+    bgnd.convertFromImage( image );
+    setErasePixmap( bgnd );
 }
 
 

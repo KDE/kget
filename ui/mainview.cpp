@@ -31,10 +31,21 @@
 
 MainViewGroupItem::MainViewGroupItem(MainView * parent, Group * g)
     : QListViewItem(parent),
-      group(g)
+      view(parent),
+      group(g),
+      m_topGradient( 0 ),
+      m_bottomGradient( 0 )
 {
     setOpen(true);
     setHeight(30);
+    // force gradient pixmaps building
+    updatePixmaps();
+}
+
+MainViewGroupItem::~MainViewGroupItem()
+{
+    delete m_topGradient;
+    delete m_bottomGradient;
 }
 
 void MainViewGroupItem::updateContents(bool updateAll)
@@ -48,36 +59,39 @@ void MainViewGroupItem::updateContents(bool updateAll)
     }
 }
 
-void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
+void MainViewGroupItem::updatePixmaps()
 {
-    //I must set the height becouse it gets overwritten when changing fonts
+    delete m_topGradient;
+    m_topGradient = new QPixmap( KImageEffect::gradient(
+            QSize( 1, 8 ),
+            view->palette().active().background().light(110),
+            view->palette().active().background(),
+            KImageEffect::VerticalGradient ) );
+
+    delete m_bottomGradient;
+    m_bottomGradient = new QPixmap( KImageEffect::gradient(
+            QSize( 1, 5 ),
+            view->palette().active().background().dark(150),
+            view->palette().active().base(),
+            KImageEffect::VerticalGradient ) );
+}
+
+void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int /*align*/)
+{
+    //I must set the height because it gets overwritten when changing fonts
     setHeight(30);
-   
+
     //QListViewItem::paintCell(p, cg, column, width, align);
-    
-    static QPixmap * topGradient = new QPixmap(
-               KImageEffect::gradient( 
-                   QSize( 1, 8 ),
-                   cg.brush(QColorGroup::Background).color().light(110),
-                   cg.brush(QColorGroup::Background).color(),
-                   KImageEffect::VerticalGradient ) );
 
-    static QPixmap * bottomGradient = new QPixmap(
-               KImageEffect::gradient( 
-                   QSize( 1, 5 ),
-                   cg.brush(QColorGroup::Background).color().dark(150),
-                   QColor( Qt::white ),
-                   KImageEffect::VerticalGradient ) );
-
-    p->fillRect(0,0,width, 4, QColor( Qt::white ));
+    p->fillRect(0,0,width, 4, cg.brush(QColorGroup::Base));
     p->fillRect(0,12,width, height()-4-8-5, cg.brush(QColorGroup::Background));
-    p->drawTiledPixmap(0,4, width, 8, *topGradient);
-    p->drawTiledPixmap(0,height()-5, width, 5, *bottomGradient);
+    p->drawTiledPixmap(0,4, width, 8, *m_topGradient);
+    p->drawTiledPixmap(0,height()-5, width, 5, *m_bottomGradient);
     p->setPen(QPen(cg.brush(QColorGroup::Background).color().dark(130),1));
     p->drawLine(0,4,width, 4);
-    
+
     p->setPen(cg.brush(QColorGroup::Foreground).color());
-    
+
     if(column == 0)
     {
         p->drawPixmap(3, 4, SmallIcon("folder", 22));
@@ -273,7 +287,7 @@ MainView::MainView( QWidget * parent, const char * name )
     setAllColumnsShowFocus(true);
     setSelectionMode(QListView::Extended);
     setSorting(0);
-    
+
     addColumn(i18n("File"), 200);
     addColumn(i18n("Status"), 120);
     addColumn(i18n("Size"), 80);
@@ -284,7 +298,6 @@ MainView::MainView( QWidget * parent, const char * name )
 
 MainView::~MainView()
 {
-
 }
 
 void MainView::schedulerCleared()
@@ -485,7 +498,7 @@ void MainView::slotSetGroup()
     schedSetGroup( tl, "" );
 }
 
-void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos, int column )
+void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
 {
     if (!ac) return;
 
@@ -539,6 +552,13 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
 void MainView::setupActions( KActionCollection * a )
 {
     ac = a;
+}
+
+void MainView::paletteChange( const QPalette & )
+{
+    QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin(), end = groupsMap.end();
+    for ( ; it != end; ++it )
+        (*it)->updatePixmaps();
 }
 
 #include "mainview.moc"

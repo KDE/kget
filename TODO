@@ -13,7 +13,6 @@ Legend:
 
 
 
-
         TODO
 ---------------------
 
@@ -33,11 +32,6 @@ SHORT-TERM (URGENT):
       slotTransferChanged() ).
 
   -- SIDEBAR --
-  FIX <dario> (JJ) sometimes, but it's not clear to me the exact reason, the sidebar
-      crashes. Maybe this is due to the find("") call to the QPixmapCache
-      sometimes returning a null pointer. I wonder if it was better to simply
-      have some protected QPixmap objects in SidebarItem instead of using
-      the QPixmapCache class.
   ADD <dario> (JJ) once the ViewInterface has the necessary methods, make the 
       sidebar call them to select a group (calling schedSelGroup()).
   ADD <dario> add a "Finished" (is this the best name?) item. This will point
@@ -155,8 +149,11 @@ LONG-TERM:
       solution should be to check for this case in Scheduler::slotSetCommand
       by calling the info() function on the transfer and checking if its status
       is St_Trying or St_Running. In this case we should do nothing.
-
-
+  FIX <dario> (JJ) fixed Sidebar crash.
+  FIX <dario> fixed 'stop on transfer' crash
+  FIX <enrico> Optimized color scheme change (rebuilds pixmaps, droptarget,
+      etc) and pixmap deletion (leakfix)
+  CHG <enrico> disabled internal segv hander to show backtraces on crash
 
 IDEAS:
    * Use the single transfer dialog to display transfer property, progress and

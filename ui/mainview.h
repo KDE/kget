@@ -25,15 +25,20 @@ class MainViewGroupItem : public QListViewItem
 {
 public:
     MainViewGroupItem(MainView * parent, Group * g);
+    ~MainViewGroupItem();
 
     void updateContents(bool updateAll=false);
     Group * getGroup() const {return group;}
-    
+
+    void updatePixmaps();
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
-    
+
 private:
     MainView * view;
     Group * group;
+
+    QPixmap * m_topGradient;
+    QPixmap * m_bottomGradient;
 };
 
 class MainViewItem : public QListViewItem
@@ -43,9 +48,9 @@ public:
 
     void updateContents(bool updateAll=false);
     Transfer * getTransfer() const {return transfer;}    
-    
+
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
-    
+
 private:
     MainView * view;
     Transfer * transfer;
@@ -68,6 +73,9 @@ class MainView : public KListView, public ViewInterface
     virtual void schedulerRemovedGroups( const GroupList& );
     virtual void schedulerChangedGroups( const GroupList& );
     virtual void setupActions( KActionCollection * a );
+
+    protected:
+    void paletteChange ( const QPalette & oldPalette );
 
     public slots:
     void slotRightButtonClicked( QListViewItem *, const QPoint &, int);

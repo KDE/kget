@@ -25,10 +25,30 @@ SidebarItem::SidebarItem( Sidebar * sidebar )
     : QListBoxItem( ),
       m_sidebar(sidebar),
       m_showChildren( true ),
-      m_isVisible( true )
+      m_isVisible( true ),
+      m_pixFunsel( 0 ),
+      m_pixFsel( 0 ),
+      m_pixTgrad( 0 ),
+      m_pixBgrad( 0 ),
+      m_pixPlus( 0 ),
+      m_pixMinus( 0 )
+
 {
     setCustomHighlighting(true);
     m_childItems = new QValueList<SidebarItem *>();
+    updatePixmaps();
+}
+
+SidebarItem::~SidebarItem()
+{
+    delete m_childItems;
+
+    delete m_pixFunsel;
+    delete m_pixFsel;
+    delete m_pixTgrad;
+    delete m_pixBgrad;
+    delete m_pixPlus;
+    delete m_pixMinus;
 }
 
 int SidebarItem::height(const QListBox * lb) const
@@ -41,7 +61,7 @@ int SidebarItem::height(const QListBox * lb) const
 
 int SidebarItem::width(const QListBox * lb) const
 {
-    return lb->width();
+    return lb->viewport()->width();
 }
 
 void SidebarItem::addChild( SidebarItem * child )
@@ -89,70 +109,59 @@ void SidebarItem::setVisible(bool visible)
 void SidebarItem::updatePixmaps()
 {
     //Here we create all the necessary pixmaps
-    //funsel: unselected folder
-    QPixmap folder = DesktopIcon("folder", 32);
-    m_pixCache.insert("funsel", folder);
+    //m_pixFunsel: unselected folder
+    delete m_pixFunsel;
+    m_pixFunsel = new QPixmap(DesktopIcon("folder", 32));
 
-    //fsel: selected folder
-    QImage  img = DesktopIcon("folder", 32).convertToImage();
+    //m_pixFsel: selected folder
+    QImage  img = DesktopIcon("folder_open", 32).convertToImage();
     KIconEffect::toGamma(img, 0);
-    m_pixCache.insert("fsel", QPixmap(img));
+    delete m_pixFsel;
+    m_pixFsel = new QPixmap(img);
 
-    //tgrad: top gradient
-    m_pixCache.insert("tgrad",
-        QPixmap( KImageEffect::gradient( 
+    //m_pixTgrad: top gradient
+    delete m_pixTgrad;
+    m_pixTgrad = new QPixmap( KImageEffect::gradient( 
                  QSize( 1, 5 ),
                  m_sidebar->palette().active().highlight().light(150),
                  m_sidebar->palette().active().highlight(),
-                 KImageEffect::VerticalGradient ) ) );
+                 KImageEffect::VerticalGradient ) );
 
-    //bgrad: bottom gradient
-    m_pixCache.insert("bgrad",
-        QPixmap( KImageEffect::gradient( 
+    //m_pixBgrad: bottom gradient
+    delete m_pixBgrad;
+    m_pixBgrad = new QPixmap( KImageEffect::gradient( 
                  QSize( 1, 5 ),
                  m_sidebar->palette().active().highlight(),
                  m_sidebar->palette().active().highlight().light(150),
-                 KImageEffect::VerticalGradient ) ) );
+                 KImageEffect::VerticalGradient ) );
 
-    //plus: plus simbol
-    m_pixCache.insert("plus", SmallIcon("edit_add", 16));
+    //m_pixPlus: plus simbol
+    delete m_pixPlus;
+    m_pixPlus = new QPixmap(SmallIcon("edit_add", 16));
 
-    //minus: minus simbol
-    m_pixCache.insert("minus", SmallIcon("edit_remove", 16));
+    //m_pixMinus: minus simbol
+    delete m_pixMinus;
+    m_pixMinus = new QPixmap(SmallIcon("edit_remove", 16));
 }
 
 void SidebarItem::paint( QPainter * p)
 {
-    //this is used to handle a change in the color scheme, but keeping
-    //the pixmaps cached
-    static QColor * prevHighlight = 0;
-
-    if( (prevHighlight == 0) ||
-        (m_sidebar->palette().active().highlight() != *prevHighlight))
-    {
-        //Calculate all the necessary pixmaps
-        updatePixmaps();
-        if(!prevHighlight)
-            prevHighlight = new QColor(m_sidebar->palette().active().highlight());
-    }
-
     int w = width(m_sidebar);
     int h = height(m_sidebar);
 
     if(!isSelected())
-        p->fillRect(0,0,w,h, QBrush(m_sidebar->palette().active().light()));
+        p->fillRect(0,0,w,h, QBrush(m_sidebar->palette().active().base()));
     else
     {
         QColor c = m_sidebar->palette().active().highlight();
 
         p->fillRect(0,5,w, h-5-4, c);
-        p->drawTiledPixmap(0,0, w, 5, *m_pixCache.find("tgrad"));
-        p->drawTiledPixmap(0,h-4, w, 4, *m_pixCache.find("bgrad"));
+        p->drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
+        p->drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
         p->setPen(QPen(c.dark(130),1));
         p->drawLine(0,0,w, 0);
         p->drawLine(0,h-1,w, h-1);
     }
-    (*prevHighlight) = m_sidebar->palette().active().highlight();
 }
 
 DownloadsFolder::DownloadsFolder( Sidebar * sidebar )
@@ -166,19 +175,22 @@ void DownloadsFolder::paint ( QPainter * p )
     SidebarItem::paint(p);
 
     if(isSelected())
-        p->drawPixmap(10, 2, *m_pixCache.find("fsel"));
-     else
-        p->drawPixmap(10, 2, *m_pixCache.find("funsel"));
+        p->drawPixmap(10, 2, *m_pixFsel);
+    else
+        p->drawPixmap(10, 2, *m_pixFunsel);
 
     if(m_showChildren)
-        p->drawPixmap(25, 20, *m_pixCache.find("minus"));
+        p->drawPixmap(25, 20, *m_pixMinus);
     else
-        p->drawPixmap(25, 20, *m_pixCache.find("plus"));
+        p->drawPixmap(25, 20, *m_pixPlus);
 
     QFont f(p->font());
     f.setBold(isSelected());
     p->setFont( f );
-    p->setPen( m_sidebar->palette().active().foreground());
+    if (isSelected())
+        p->setPen( m_sidebar->palette().active().highlightedText());
+    else
+        p->setPen( m_sidebar->palette().active().foreground());
     p->drawText(50, 11, width(m_sidebar), height(m_sidebar)-7, Qt::AlignLeft, m_text);
 }
 
@@ -193,14 +205,17 @@ void GroupFolder::paint( QPainter * p )
     SidebarItem::paint(p);
 
     if(isSelected())
-        p->drawPixmap(30, 2, *m_pixCache.find("fsel"));
+        p->drawPixmap(30, 2, *m_pixFsel);
     else
-        p->drawPixmap(30, 2, *m_pixCache.find("funsel"));
+        p->drawPixmap(30, 2, *m_pixFunsel);
 
     QFont f(p->font());
     f.setBold(isSelected());
     p->setFont( f );
-    p->setPen( m_sidebar->palette().active().foreground());
+    if(isSelected())
+        p->setPen( m_sidebar->palette().active().highlightedText());
+    else
+        p->setPen( m_sidebar->palette().active().foreground());
     p->drawText(70, 11, width(m_sidebar), height(m_sidebar)-7, Qt::AlignLeft, m_text);
 }
 
@@ -210,12 +225,36 @@ Sidebar::Sidebar( QWidget * parent, const char * name )
     connect(this, SIGNAL(selected(QListBoxItem *)),
             this, SLOT(slotItemSelected(QListBoxItem *)));
 
-    setHScrollBarMode(QScrollView::AlwaysOff);
+    setColumnMode( FitToWidth );
 
     m_dItem = new DownloadsFolder(this);
     m_dItem->setText(i18n("Downloads"));
 
     insertItem(m_dItem);
+}
+
+void Sidebar::paletteChange ( const QPalette & oldPalette )
+{
+    for(int i=count()-1; i>=0; i--)
+    {
+        static_cast<SidebarItem*>(item(i))->updatePixmaps();
+    }
+}
+
+void Sidebar::paintCell( QPainter * p, int row, int /*col*/ )
+{
+    SidebarItem * i = (SidebarItem *)item( row );
+    int itemWidth = viewport()->width();
+    int itemHeight = i->height( this );
+
+    // paint pixmap on a back buffer
+    QPixmap backMap( itemWidth, itemHeight );
+    QPainter backPainter( &backMap );
+    i->paint( &backPainter );
+    backPainter.end();
+
+    // blit the backMap to the screen
+    p->drawPixmap( 0, 0, backMap );
 }
 
 void Sidebar::slotItemSelected(QListBoxItem * item)
