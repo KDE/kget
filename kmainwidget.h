@@ -137,7 +137,6 @@ protected slots:
     void slotCopyToClipboard();
     void slotCheckClipboard();
 
-    void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotNewToolbarConfig();
 

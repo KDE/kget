@@ -63,7 +63,6 @@
 #include <kstdaction.h>
 #include <khelpmenu.h>
 #include <kedittoolbar.h>
-#include <kkeydialog.h>
 #include <kstatusbar.h>
 #include <kconfig.h>
 #include <kio/netaccess.h>
@@ -373,7 +372,8 @@ void KMainWidget::setupGUI()
 
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), coll);
 
-    KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll);
+    KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), 
+actionCollection());
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
     // view actions
@@ -472,21 +472,6 @@ void KMainWidget::setupWhatsThis()
         tmp = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
         m_paNormal->setWhatsThis(tmp);
       */
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-void KMainWidget::slotConfigureKeys()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    KKeyDialog::configure(actionCollection());
 
 
 #ifdef _DEBUG
