@@ -151,7 +151,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
     setupGUI();
     setupWhatsThis();
 
-    log(i18n("Welcome to Kget"));
+    log(i18n("Welcome to KGet"));
 
     setCentralWidget(myTransferList);
 
@@ -488,7 +488,7 @@ void KMainWidget::setupWhatsThis()
 
     QString tmp9;
 
-    tmp9 = i18n("<b>Log window</b> button opens a log window.\n" "The log window records all program events that occur\n" "while Kget is running.");
+    tmp9 = i18n("<b>Log window</b> button opens a log window.\n" "The log window records all program events that occur\n" "while KGet is running.");
     m_paShowLog->setWhatsThis(tmp9);
 
     QString tmp10;
@@ -498,32 +498,32 @@ void KMainWidget::setupWhatsThis()
 
     QString tmp11;
 
-    tmp11 = i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want Kget to disconnect\n" "without asking.");
+    tmp11 = i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect\n" "without asking.");
     m_paExpertMode->setWhatsThis(tmp11);
 
     QString tmp12;
 
-    tmp12 = i18n("<b>Use last directory</b> button toggles the\n" "use-last-directory feature on and off.\n" "\n" "When set, Kget will ignore the directory settings\n" "and put all new added transfers into the directory\n" "where the last transfer was put.");
+    tmp12 = i18n("<b>Use last directory</b> button toggles the\n" "use-last-directory feature on and off.\n" "\n" "When set, KGet will ignore the directory settings\n" "and put all new added transfers into the directory\n" "where the last transfer was put.");
     m_paUseLastDir->setWhatsThis(tmp12);
 
     QString tmp13;
 
-    tmp13 = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, Kget will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want Kget\n" "to disconnect without asking.");
+    tmp13 = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
     m_paAutoDisconnect->setWhatsThis(tmp13);
 
     QString tmp14;
 
-    tmp14 = i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, Kget will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want Kget\n" "to quit without asking.");
+    tmp14 = i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, KGet will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to quit without asking.");
     m_paAutoShutdown->setWhatsThis(tmp14);
 
     QString tmp15;
 
-    tmp15 = i18n("<b>Offline mode</b> button toggles the offline mode\n" "on and off.\n" "\n" "When set, Kget will act as if it was not connected\n" "to the Internet.\n" "\n" "You can browse offline, while still being able to add\n" "new transfers as queued.");
+    tmp15 = i18n("<b>Offline mode</b> button toggles the offline mode\n" "on and off.\n" "\n" "When set, KGet will act as if it was not connected\n" "to the Internet.\n" "\n" "You can browse offline, while still being able to add\n" "new transfers as queued.");
     m_paOfflineMode->setWhatsThis(tmp15);
 
     QString tmp16;
 
-    tmp16 = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, Kget will periodically scan the clipboard\n" "for URLs and paste them automatically.");
+    tmp16 = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, KGet will periodically scan the clipboard\n" "for URLs and paste them automatically.");
     m_paAutoPaste->setWhatsThis(tmp16);
 
     QString tmp17;
@@ -755,7 +755,7 @@ void KMainWidget::slotQuit()
     for (; it.current(); ++it) {
         item = it.current();
         if (item->getStatus() == Transfer::ST_RUNNING && !ksettings.b_expertMode) {
-            if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close Kget?"), i18n("Warning")) != KMessageBox::Yes) {
+            if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close KGet?"), i18n("Warning")) != KMessageBox::Yes) {
 #ifdef _DEBUG
                 sDebugOut << endl;
 #endif

@@ -100,7 +100,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     cb_expertmode = new QCheckBox(i18n("Expert mode (don't prompt for cancel or delete)"), this);
     gridLayout->addMultiCellWidget(cb_expertmode, 6, 6, 0, 2);
 
-    cb_konqiIntegration= new QCheckBox(i18n("Enable  the integration with konqueror"), this);
+    cb_konqiIntegration= new QCheckBox(i18n("Enable the integration with Konqueror"), this);
     gridLayout->addMultiCellWidget(cb_konqiIntegration, 7, 7, 0, 2);
 
     cb_ShowMain = new QCheckBox(i18n("Show main window at startup"), this);

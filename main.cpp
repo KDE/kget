@@ -179,7 +179,7 @@ int KGetApp::newInstance()
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("kget"), version, description, KAboutData::License_GPL, "(c) 2001 - 2002, Patrick Charbonnier \n(c) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
+    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description, KAboutData::License_GPL, "(c) 2001 - 2002, Patrick Charbonnier \n(c) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
 
     aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
     aboutData.addAuthor("Matej Koss", 0, "koss@miesto.sk");
