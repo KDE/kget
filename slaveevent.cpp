@@ -26,7 +26,9 @@
 
 #include "slaveevent.h"
 
-SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent(346798)
+#define EVENT_TYPE (QEvent::User + 252)
+
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent(EVENT_TYPE)
 {
     m_event = _event;
     m_item = _item;
@@ -35,7 +37,7 @@ SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _lda
 }
 
 
-SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg):QCustomEvent(346798)
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg):QCustomEvent(EVENT_TYPE)
 {
     m_event = _event;
     m_item = _item;
