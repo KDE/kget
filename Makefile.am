@@ -38,4 +38,5 @@ rc_DATA = kgetui.rc
 KDE_ICON = AUTO
 
 messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/kget.pot
+	$(EXTRACTRC) */*.rc >> rc.cpp
+	$(XGETTEXT) *.cpp */*.cpp *.h -o $(podir)/kget.pot
