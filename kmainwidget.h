@@ -141,6 +141,15 @@ class ComboAction : public KAction
 };
 
 
+// Label saying "View as:"
+class ViewAsAction : public KAction
+{
+  public:
+    ViewAsAction( const QString& name, const KShortcut&, KActionCollection*,
+        const char* name );
+    virtual int plug( QWidget* w, int index = -1 );
+};
+
 // spacer pluggable into a toolbar
 class SpacerAction : public KAction
 {

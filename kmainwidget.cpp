@@ -163,8 +163,9 @@ void KMainWidget::setupActions()
     ta->setChecked( Settings::downloadAtStartup() );
 
     // following actions are only designed to be show in the toolbar when window is 'compressed'
-    new ComboAction(i18n("Window shape"), 0, ac, this, "view_mode");
     new SpacerAction(i18n("<Spacer>"), 0, ac, "view_spacer");
+    new ViewAsAction(i18n("View type: "), 0, ac, "view_vlabel");
+    new ComboAction(i18n("Window shape"), 0, ac, this, "view_mode");
     
     // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
@@ -221,6 +222,7 @@ void KMainWidget::setupGUI()
     
     // the top flat toolbar
     toolBar = new KToolBar( this, "kget_toolbar" );
+    toolBar->setIconSize( 32 );
 
     // central main widget (hidden by default)
     browserBar = new BrowserBar( this );
@@ -755,9 +757,9 @@ int ComboAction::plug( QWidget* w, int index )
     connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
 
     widget = new QComboBox();
-    widget->insertItem( i18n("Compact View") );
-    widget->insertItem( i18n("Transfers") );
-    widget->insertItem( i18n("Downloaded Files") );
+    widget->insertItem( SmallIcon("view_remove"), i18n("Compact") );
+    widget->insertItem( SmallIcon("view_detailed"), i18n("Detailed") );
+    widget->insertItem( SmallIcon("view_text"), i18n("Old files") );
     //widget->setFixedHeight( ToolBar_HEIGHT - 10 );
     widget->setFocusPolicy(QWidget::NoFocus);
     connect( widget, SIGNAL( activated(int) ), this, SLOT( slotComboActivated(int) ) );
@@ -780,6 +782,32 @@ void ComboAction::slotViewModeChanged( int index )
     if ( widget )
         widget->setCurrentItem( index );
 }
+
+
+
+ViewAsAction::ViewAsAction( const QString& text, const KShortcut& cut,
+    KActionCollection* ac, const char* name )
+    : KAction( text, cut, ac, name ) {}
+
+int ViewAsAction::plug( QWidget* w, int index )
+{
+    if ( !w->inherits( "KToolBar" ) ) {
+        kdError() << "KWidgetAction::plug: ViewAsAction must be plugged into KToolBar." << endl;
+        return -1;
+    }
+
+    KToolBar* toolBar = static_cast<KToolBar*>( w );
+    int id = KAction::getToolButtonID();
+    addContainer( toolBar, id );
+    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+
+    QLabel * label = new QLabel( text(), (QWidget *)toolBar );
+    toolBar->insertWidget( id, 0, label, index );
+    toolBar->setItemAutoSized( id, false );
+
+    return containerCount() - 1;
+}
+
 
 
 SpacerAction::SpacerAction( const QString& text, const KShortcut& cut,

@@ -24,11 +24,9 @@
     <Action name="download" />
     <Separator/>
     <Separator lineSeparator="true"/>
-    <Separator/>
-    <Action name="preferences"/>
-    <Separator/>
-    <Separator lineSeparator="true"/>    
     <Action name="view_spacer" />
+    <Separator lineSeparator="true"/>    
+    <Action name="view_vlabel" />
     <Action name="view_mode" />
 </ToolBar>
 </kpartgui>

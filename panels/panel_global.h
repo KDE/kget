@@ -29,7 +29,7 @@ class GlobalPanel : public QFrame
         virtual void paletteChange ( const QPalette & );
         
     private:
-        static const uint gradientHeight = 60;
+        static const uint gradientHeight = 100;
         QPixmap * topLeftPix;
 };
 
