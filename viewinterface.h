@@ -5,7 +5,7 @@
 
 class ViewInterface : public QObject
 {
-QOBJECT
+Q_OBJECT
 public:
 	ViewInterface( Scheduler * s ) { connectScheduler( s ); }
 
@@ -13,15 +13,15 @@ signals:
 	void newURLs( KURL::List );
 	void removeItems( QValueList<Transfer *> );
 	void setPriority( QValueList<Transfer *>, int );
-	void setOperation( QValueList<Transfer *>, enum Operation );
-	void setGroup( QVaueList<Transfer *>, const QString & );
+	void setOperation( QValueList<Transfer *>, Scheduler::Operation );
+	void setGroup( QValueList<Transfer *>, const QString & );
 
 public slots:
-	virtual void schedulerCleared();
-	virtual void schedulerAddedItems( QValueList<Transfer *> );
-	virtual void schedulerRemovedItems( QValueList<Transfer *> );
-	virtual void schedulerChangedItems( QValueList<Transfer *> );
-	virtual void schedulerStatus( GlobalStatus * );
+	virtual void schedulerCleared() {};
+	virtual void schedulerAddedItems( QValueList<Transfer *> ) {};
+	virtual void schedulerRemovedItems( QValueList<Transfer *> ) {};
+	virtual void schedulerChangedItems( QValueList<Transfer *> ) {};
+	virtual void schedulerStatus( GlobalStatus * ) {};
 	
 private: 
 	void connectScheduler( Scheduler * sched )
@@ -42,13 +42,13 @@ private:
 		connect( this, SIGNAL( newURLs( KURL::List ) ),
 			 sched, SLOT( slotNewURLs(KURL::List) ) );
 		connect( this, SIGNAL( removeItems(QValueList<Transfer *>) ),
-			 sched, SLOT( slotRemoveItems(QVaueList<Transfer *>) ) );
+			 sched, SLOT( slotRemoveItems(QValueList<Transfer *>) ) );
 		connect( this, SIGNAL( setPriority(QValueList<Transfer *>, int) ),
-			 sched, SLOT( slotSetPriority(QVaueList<Transfer *>, int) ) );
-		connect( this, SIGNAL( setOperation(QValueList<Transfer *>, enum Operation) ),
-			 sched, SLOT( slotSetOperation(QVaueList<Transfer *>, enum Operation) ) );
-		connect( this, SIGNAL( setGroup(QVaueList<Transfer *>, const QString &) ),
-			 sched, SLOT( slotSetGroup(QVaueList<Transfer *>, const QString &) ) );
+			 sched, SLOT( slotSetPriority(QValueList<Transfer *>, int) ) );
+		connect( this, SIGNAL( setOperation(QValueList<Transfer *>, enum Scheduler::Operation) ),
+			 sched, SLOT( slotSetOperation(QValueList<Transfer *>, enum Scheduler::Operation) ) );
+		connect( this, SIGNAL( setGroup(QValueList<Transfer *>, const QString &) ),
+			 sched, SLOT( slotSetGroup(QValueList<Transfer *>, const QString &) ) );
 	}
 };
 

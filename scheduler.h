@@ -3,6 +3,8 @@
 
 #include <qobject.h>
 #include <qvaluelist.h>
+#include <qdatetime.h>
+#include <qstringlist.h>
 #include <kurl.h>
 
 class QString;
@@ -32,7 +34,7 @@ public:
 
 class Scheduler : public QObject
 {
-QOBJECT
+Q_OBJECT
 public:
 	Scheduler();
 	~Scheduler();
@@ -50,16 +52,16 @@ public slots:
 	void slotNewURLs(const KURL::List &);
 	void slotNewURL(const KURL &);
     
-	void slotRemoveItems(QVaueList<Transfer *>);
+	void slotRemoveItems(QValueList<Transfer *>);
 	void slotRemoveItem(Transfer *);
     
-	void slotSetPriority(QVaueList<Transfer *>, int);
+	void slotSetPriority(QValueList<Transfer *>, int);
 	void slotSetPriority(Transfer *, int);
     
-	void slotSetOperation(QVaueList<Transfer *>, enum Operation);
+	void slotSetOperation(QValueList<Transfer *>, enum Operation);
 	void slotSetOperation(Transfer *, enum Operation);
     
-	void slotSetGroup(QVaueList<Transfer *>, const QString &);
+	void slotSetGroup(QValueList<Transfer *>, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
 
     /**
@@ -68,7 +70,8 @@ public slots:
     void slotImportTransfers();
     void slotExportTransfers();
     
-private:
+public:
+    // temp. changed to public becouse some of the following are used by kmainwidget..
     void readTransfers(bool);
     void readTransfersEx(const KURL & file);
     void writeTransfers();

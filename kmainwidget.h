@@ -34,6 +34,7 @@
 #include "common.h"
 
 #include "kget_iface.h"
+#include "scheduler.h"
 
 class KAction;
 //class KToggleAction;
@@ -171,6 +172,7 @@ protected:
 
 
 private:
+	Scheduler * sched;
     QString getSaveDirectoryFor( const QString& filename ) const;
     bool sanityChecksSuccessful( const KURL& url );
 

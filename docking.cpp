@@ -74,7 +74,8 @@ void DockWidget::dropEvent(QDropEvent * event)
     if (KURLDrag::decode(event, list)) {
         parent->addTransfers(list);
     } else if (QTextDrag::decode(event, str)) {
-        parent->addTransfer(str);
+	//FIXME: the scheduler should do that!
+        //parent->addTransfer(str);
     }
 }
 

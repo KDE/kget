@@ -1,5 +1,9 @@
 #include "scheduler.h"
 
+//temporary: fixes some of missing includes
+#include "kmainwidget.h"
+#include <kfiledialog.h>
+
 Scheduler::Scheduler()
 {
 
@@ -10,17 +14,17 @@ Scheduler::~Scheduler()
 
 }
 
-Scheduler::slotNewURLs(const KURL::List &)
+void Scheduler::slotNewURLs(const KURL::List &)
 {
 
 }
 
-Scheduler::slotNewURL(const KURL &)
+void Scheduler::slotNewURL(const KURL &)
 {
 
 }
 
-Scheduler::slotSetOperation(QValueList<Transfer *>, enum Operation)
+void Scheduler::slotSetOperation(QValueList<Transfer *>, enum Operation)
 {
     
 }
@@ -28,7 +32,7 @@ Scheduler::slotSetOperation(QValueList<Transfer *>, enum Operation)
 
 
 
-Scheduler::slotImportTransfers()
+void Scheduler::slotImportTransfers()
 {
     readTransfers(true);    
 }

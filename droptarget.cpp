@@ -170,7 +170,8 @@ void DropTarget::dropEvent(QDropEvent * event)
     }
     else if (QTextDrag::decode(event, str))
     {
-        kmain->addTransfer(str);
+	//FIXME: the scheduler should do that!
+        //kmain->addTransfer(str);
     }
 }
 

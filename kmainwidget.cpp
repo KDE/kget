@@ -209,7 +209,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
         clipboardTimer->start(1000);
     }
 
-    scheduler->readTransfers();
+    scheduler->readTransfers(false);
 
     // Setup special windows
     kdrop = new DropTarget();
@@ -552,7 +552,7 @@ void KMainWidget::slotImportTextFile()
     i = 0;
     while ((j = list.find('\n', i)) != -1) {
         QString newtransfer = list.mid(i, j - i);
-        addTransfer(newtransfer);
+        scheduler->addTransfer(newtransfer);
         i = j + 1;
     }
 
@@ -644,7 +644,7 @@ void KMainWidget::slotOpenTransfer()
         }
     }
 
-    addTransfer(newtransfer);
+    scheduler->addTransfer(newtransfer);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -706,7 +706,7 @@ void KMainWidget::slotPasteTransfer()
     }
 
     if (!newtransfer.isEmpty())
-        addTransfer(newtransfer);
+        scheduler->addTransfer(newtransfer);
 
 
 #ifdef _DEBUG

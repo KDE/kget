@@ -160,13 +160,17 @@ public:
             QString txt(args->arg(0));
             if ( txt.endsWith( ".kgt" ) )
                 kmain->readTransfersEx(KURL::fromPathOrURL( txt ));
+/* FIXME: the scheduler sould do that
             else
                 kmain->addTransferEx( KURL::fromPathOrURL( txt ),
                                       KURL());
+*/
         }
+/* FIXME: the scheduler sould do that
         else if(args->count()==2)
             kmain->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
                                   KURL::fromPathOrURL( args->arg(1) ));
+*/
 
         args->clear();
 
