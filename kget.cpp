@@ -435,6 +435,11 @@ void KMainWidget::readTransfersEx(const KURL & url)
     scheduler->slotImportTransfers(url);
 }
 
+void KMainWidget::addTransfersEx(const KURL::List& urls, const KURL& dest)
+{
+    QString s = dest.prettyURL();
+    scheduler->slotNewURLs(urls, s);
+}
 
 void KMainWidget::slotPreferences()
 {

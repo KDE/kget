@@ -41,7 +41,6 @@ private slots:
     void slotStartLeech();
 
 private:
-    void initView();
     void showLinks( const QPtrList<LinkItem>& links );
 
     QPtrList<LinkItem> m_links;

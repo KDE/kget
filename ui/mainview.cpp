@@ -273,7 +273,7 @@ MainView::MainView( QWidget * parent, const char * name )
     setSelectionMode(QListView::Extended);
     setSorting(0);
     
-    addColumn(i18n("File"), 150);
+    addColumn(i18n("File"), 200);
     addColumn(i18n("Status"), 120);
     addColumn(i18n("Size"), 80);
     addColumn(i18n("Progress"), 80);

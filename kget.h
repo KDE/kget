@@ -60,6 +60,7 @@ public:
 
     // called by main.cpp
     void readTransfersEx(const KURL & url);
+    void addTransfersEx(const KURL::List& urls, const KURL& dest);
 
 protected:
     // from the DCOP interface

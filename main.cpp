@@ -41,7 +41,7 @@
 #include "ui/splash.h"
 #include "kget.h"
 
-static const char description[] = I18N_NOOP("An advanced download manager for KDE.");
+static const char description[] = I18N_NOOP("An advanced download manager for KDE");
 
 static const char version[] = KGETVERSION;
 
@@ -129,21 +129,29 @@ public:
         if (args->isSet("showDropTarget"))
         { /*FIXME mainwidget->activateDropTarget();*/ }
 
-        if (args->count()>=1)
-        {
-            QString txt(args->arg(0));
+        KURL::List l;
+        for (int i = 0; i < args->count(); i++)
+	{
+            QString txt(args->arg(i));
             if ( txt.endsWith( ".kgt", false ) )
                 mainwidget->readTransfersEx(KURL::fromPathOrURL( txt ));
-/* FIXME: the scheduler sould do that
             else
-                mainwidget->addTransferEx( KURL::fromPathOrURL( txt ),
-                                      KURL());
-*/
+                l.push_back(args->arg(i));
         }
-/* FIXME: the scheduler sould do that
-        else if(args->count()==2)
-            mainwidget->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
-                                  KURL::fromPathOrURL( args->arg(1) ));
+        // all the args read from command line are downloads
+        if (l.count() >= 1)
+            mainwidget->addTransfersEx( l, KURL());
+/*
+        // the last arg read (when we have more than 1 arg) is considered
+        // as destination dir for the previous downloads
+        if (l.count() == 1)
+            mainwidget->addTransfersEx( l, KURL());
+        else if (l.count() > 1)
+        {
+            KURL last = l.last();
+            l.pop_back();
+            mainwidget->addTransfersEx(l, last);
+        }
 */
         args->clear();
         if ( osd )

@@ -33,8 +33,6 @@ LinkViewItem::LinkViewItem( QListView *parent, const LinkItem *lnk )
 KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     : KMainWindow( parent, name )
 {
-    KActionCollection *coll = actionCollection();
-
     (void ) new KAction( i18n("Download Selected Files"),
                          "khtml_kget",
                          CTRL+Key_D,
@@ -42,17 +40,8 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
                          actionCollection(), "startDownload" );
 
     m_links.setAutoDelete( true );
-    coll->action( "startDownload" )->plug( toolBar() );
+    actionCollection()->action( "startDownload" )->plug( toolBar() );
 
-    initView();
-}
-
-KGetLinkView::~KGetLinkView()
-{
-}
-
-void KGetLinkView::initView()
-{
     m_view = new KListView( this, "listview" );
     m_view->setSelectionMode( QListView::Extended );
     m_view->addColumn( i18n("File Name") );
@@ -66,6 +55,10 @@ void KGetLinkView::initView()
     toolBar()->setMovingEnabled(false);
     // setting Text next to Icons
     toolBar()->setIconText( KToolBar::IconTextRight );
+}
+
+KGetLinkView::~KGetLinkView()
+{
 }
 
 void KGetLinkView::setLinks( QPtrList<LinkItem>& links )
