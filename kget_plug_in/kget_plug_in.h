@@ -20,7 +20,6 @@
 #include <kaction.h>
 #include <kparts/plugin.h>
 #include <klibloader.h>
-#include <dcopclient.h>
 
 class KURL;
 class KInstance;
@@ -31,7 +30,6 @@ class KGet_plug_in : public KParts::Plugin
 public:
     KGet_plug_in( QObject* parent = 0, const char* name = 0 );
     KToggleAction *m_paToggleDropTarget ;
-    DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();
 
 public slots:

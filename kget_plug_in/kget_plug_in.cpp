@@ -16,9 +16,11 @@
  ***************************************************************************/
 
 #include <dcopref.h>
+#include <dcopclient.h>
 #include <kdatastream.h>
 
 #include <khtml_part.h> // this plugin applies to a khtml part
+#include <kapplication.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kaction.h>
@@ -41,23 +43,16 @@ KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
                                            this, SLOT(slotShowDrop()),
                                            actionCollection(), "show_drop" );
 
-    p_dcopServer= new DCOPClient();
-
-    p_dcopServer->attach ();
-
-
 }
 
 KGet_plug_in::~KGet_plug_in()
 {
-    p_dcopServer->detach();
-    delete p_dcopServer;
 }
 
 
 void KGet_plug_in::slotShowDrop()
 {
-    if (!p_dcopServer->isApplicationRegistered ("kget"))
+    if (!kapp->dcopClient()->isApplicationRegistered ("kget"))
         KRun::runCommand("kget --showDropTarget");
     else
     {
