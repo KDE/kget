@@ -60,15 +60,8 @@ class Transfer:public QObject, public QListViewItem
 Q_OBJECT public:
 
         enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
-        /*
-          enum TransferStatus
-          {
-            ST_CHECKING_RESUME,ST_CHECKING_SIZE,  ST_RESUMING, ST_GETTING,
-        		ST_RUNNING, ST_NOT_RUNNING,  ST_FINISHED,    ST_STOPPED,  ST_ABORTED, ST_PAUSED                       };
-          */
-        enum TransferStatus {
-                ST_RUNNING, ST_FINISHED, ST_STOPPED
-        };
+
+        enum TransferStatus { ST_RUNNING, ST_FINISHED, ST_STOPPED        };
 
         //emitted to inform KMainWidget that something is changed...like a task is done.,..
         enum TransferOperation {
@@ -182,11 +175,7 @@ Q_OBJECT public:
         bool updateStatus(int counter);
 
         void showIndividual();
-
-        /** No descriptions */
-        void Test(void);
-        /** No descriptions */
-
+	void UpdateRetry();
         /** No descriptions */
         void ResumeStatus();
         /** No descriptions */
