@@ -65,7 +65,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     reconnectLayout->addWidget(lb_after, 1, 1);
 
     le_after = new KIntNumInput(0, gb_reconnect, 10, "le_after");
-    le_after->setSuffix(i18n("minutes"));
+    le_after->setSuffix(i18n(" minutes"));
     le_after->setRange(1, 3600, 1, false);
     reconnectLayout->addWidget(le_after, 1, 2);
 

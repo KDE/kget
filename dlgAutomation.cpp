@@ -61,7 +61,7 @@ DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
     automationLayout->addWidget(cb_autoSave, 0, 0);
 
     le_autoSave = new KIntNumInput(0, this, 10);
-    le_autoSave->setSuffix(i18n("minutes"));
+    le_autoSave->setSuffix(i18n(" minutes"));
     le_autoSave->setRange(1, 3600, 1, false);
     automationLayout->addMultiCellWidget(le_autoSave, 0, 0, 1, 2);
 

@@ -105,7 +105,7 @@ DropTarget::DropTarget():QWidget()
 
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
     popupMenu->setItemChecked(pop_sticky, b_sticky);
-    popupMenu->insertItem(i18n("Preferences"), kmain, SLOT(slotPreferences()));
+    popupMenu->insertItem(i18n("Preferences..."), kmain, SLOT(slotPreferences()));
     popupMenu->insertSeparator();
     popupMenu->insertItem(i18n("Quit"), kmain, SLOT(slotQuit()));
 
