@@ -9,6 +9,7 @@
 */
 
 #include <kurl.h>
+#include <kdebug.h>
 
 #include "core/transfer.h"
 #include "core/transfergroup.h"

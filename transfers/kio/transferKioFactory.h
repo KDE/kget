@@ -18,6 +18,7 @@
 
 class Transfer;
 class TransferGroup;
+class Scheduler;
 
 class TransferKioFactory : public TransferFactory
 {
@@ -25,8 +26,8 @@ class TransferKioFactory : public TransferFactory
         TransferKioFactory();
         ~TransferKioFactory();
 
-        Transfer * createTransfer( KURL src, const QString& destDir,
-                                   TransferGroup * parent );
+        Transfer * createTransfer( KURL srcURL, KURL destURL,
+                                   TransferGroup * parent, Scheduler * scheduler );
 };
 
 #endif

@@ -13,8 +13,10 @@
 #include <kdebug.h>
 #include <kurl.h>
 
+#include "core/scheduler.h"
 #include "core/transfergroup.h"
-#include "transferKioFactory.h"
+#include "transfers/kio/transferKioFactory.h"
+#include "transfers/kio/transferKio.h"
 
 KGET_EXPORT_PLUGIN( TransferKioFactory )
 
@@ -28,10 +30,14 @@ TransferKioFactory::~TransferKioFactory()
     
 }
 
-Transfer * TransferKioFactory::createTransfer( KURL src, const QString& destDir, 
-                                               TransferGroup * parent )
+Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
+                                               TransferGroup * parent, Scheduler * scheduler )
 {
-    QString protocol = src.protocol();
-    kdDebug() << "Protocol = " << protocol << endl;
-    //if( protocol)
+    QString prot = srcURL.protocol();
+    kdDebug() << "Protocol = " << prot << endl;
+    if(    prot == "http" || prot == "https" 
+        || prot == "ftp"  || prot == "sftp"
+        || prot == "file")
+        return new TransferKio(parent, scheduler, srcURL, destURL);
+    return 0;
 }

@@ -22,11 +22,11 @@
 #include <klibloader.h>
 
 #include "core/model.h"
+#include "core/transfer.h"
 #include "core/transfergroup.h"
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
 #include "conf/settings.h"
-#include "transfers/kio/transferKio.h" //temporary!!
 
 /**
  * This is our Model class. This is where the user's transfers and searches are
@@ -145,11 +145,11 @@ Scheduler Model::m_scheduler = Scheduler();
 // ------ PRIVATE FUNCTIONS ------
 Model::Model()
 {
-    //Create the default group with empty name
-    m_transferGroups.append(new TransferGroup(""));
-
     //Load all the available plugins
     loadPlugins();
+
+    //Create the default group with empty name
+    m_transferGroups.append(new TransferGroup(""));
 }
 
 Model::~Model()
@@ -157,8 +157,7 @@ Model::~Model()
     unloadPlugins();
 }
 
-void Model::createTransfer(KURL src, KURL dest,
-                                 const QString& groupName)
+void Model::createTransfer(KURL src, KURL dest, const QString& groupName)
 {
     kdDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
 
@@ -166,8 +165,25 @@ void Model::createTransfer(KURL src, KURL dest,
     if (group==0)
         group = m_transferGroups.first();
 
-    //TODO write properly this method
-    //group->append(new TransferKio(group, &m_scheduler, src, dest));
+    Transfer * newTransfer;
+
+    QValueList<TransferFactory *>::iterator it = m_transferFactories.begin();
+    QValueList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
+
+    for( ; it!=itEnd ; ++it)
+    {
+        if(newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler))
+        {
+            //TODO Here I have a problem: something seems not to work here.
+            //When I use (*it)->createTransfer(), despite the fact that this
+            //is a virtual function reimplement by each plugin (for example the
+            //TransferKioFactory plugin), the plugin function isn't executed.
+            //However this function now returns a non null (but invalid) pointer
+            //group->append(newTransfer);
+            return;
+        }
+    }
+    kdDebug() << "createTransfer: Warning! No plugin found to handle the given url" << endl;
 }
 
 KURL Model::urlInputDialog()
@@ -281,15 +297,7 @@ KURL Model::getValidDestURL(const QString& destDir, KURL srcURL)
 
     if ( filename.isEmpty() )
     {
-        // I really don't understand why we should care about the source URLs
-        // with empty filename.
-        // ------ In the previous scheduler.cpp class it was: -------
-        // in case the fileName is empty, we simply ask for a filename in
-        // addTransferEx. Do NOT attempt to use an empty filename, that
-        // would be a directory (and we don't want to overwrite that!)
         // simply use the full url as filename
-
-        // ATM I use the same code I used in the next addTransfer function
         filename = KURL::encode_string_no_slash( srcURL.prettyURL() );
         kdDebug() << " Filename is empty. Setting to  " << filename << endl;
         kdDebug() << "   srcURL = " << srcURL.url() << endl;
@@ -351,16 +359,16 @@ void Model::loadPlugins()
     KTrader::OfferList offers;
 
     //TransferFactory plugins
-    //TODO here we want only the TransferFactory items. so re-enable below
-    offers = KTrader::self()->query( "KGet/Plugin"/*, str + "TransferFactory"*/ );
+    offers = KTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
 
+    //Here we use a QMap only to easily sort the plugins by rank
     QMap<int, KService::Ptr> services;
     QMap<int, KService::Ptr>::iterator it;
 
     for ( uint i = 0; i < offers.count(); ++i )
     {
         services[ offers[i]->property( "X-KDE-KGet-rank" ).toInt() ] = offers[i];
-        kdDebug() << " TRANSFER FACTORY ITEM" << endl <<
+        kdDebug() << " TransferFactory plugin found:" << endl <<
          "  rank = " << offers[i]->property( "X-KDE-KGet-rank" ).toInt() << endl <<
          "  plugintype = " << offers[i]->property( "X-KDE-KGet-plugintype" ) << endl;
     }
@@ -370,11 +378,13 @@ void Model::loadPlugins()
         KGetPlugin * plugin;
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
-            kdDebug() << "plugin found and added to the list" << endl;
+            kdDebug() << "TransferFactory plugin (" << (*it)->library() 
+                      << ") found and added to the list of available plugins" << endl;
             m_transferFactories.prepend( static_cast<TransferFactory *>(plugin) );
         }
         else
-            kdDebug() << "error" << endl;
+            kdDebug() << "Error loading TransferFactory plugin (" 
+                      << (*it)->library() << ")" << endl;
     }
 }
 
@@ -396,8 +406,6 @@ KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
     KLibLoader *loader = KLibLoader::self();
     //try to load the specified library
     KLibrary *lib = loader->globalLibrary( QFile::encodeName( service->library() ) );
-
-    kdDebug() << service->library() << endl;
 
     if ( !lib ) 
     {
