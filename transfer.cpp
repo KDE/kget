@@ -467,7 +467,7 @@ void Transfer::slotQueue()
 {
     sDebug << ">>>>Entering with mode = " << mode << endl;
 
-    logMessage(i18n("Queueing"));
+    logMessage(i18n("Queuing"));
 
     assert(!(mode == MD_QUEUED));
 
