@@ -752,8 +752,8 @@ void Transfer::write(KSimpleConfig * config, int id)
     str.sprintf("Item%d", id);
 
     config->setGroup(str);
-    config->writeEntry("Source", src.url());
-    config->writeEntry("Dest", dest.url());
+    config->writePathEntry("Source", src.url());
+    config->writePathEntry("Dest", dest.url());
     config->writeEntry("Mode", mode);
     config->writeEntry("Status", status);
     config->writeEntry("CanResume", canResume);

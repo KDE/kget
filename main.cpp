@@ -41,15 +41,15 @@
 
 
 
-static const char *description = I18N_NOOP("An advanced download manager for KDE.");
+static const char description[] = I18N_NOOP("An advanced download manager for KDE.");
 
-static const char *version = KGETVERSION;
+static const char version[] = KGETVERSION;
 
 
 static KCmdLineOptions option[] = {
                                       { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
                                       {"+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
-                                      {0, 0, 0}
+                                      KCmdLineLastOption
                                   };
 
 static void cleanup(void);

@@ -92,7 +92,7 @@ Settings::load()
     autoSaveInterval = config->readNumEntry("AutoSaveInterval", DEF_AutoSaveInterval);
 
     b_autoDisconnect = config->readBoolEntry("AutoDisconnect", DEF_AutoDisconnect);
-    disconnectCommand = config->readEntry("DisconnectCommand", DEF_DisconnectCommand);
+    disconnectCommand = config->readPathEntry("DisconnectCommand", DEF_DisconnectCommand);
 
     b_timedDisconnect = config->readBoolEntry("TimedDisconnect", DEF_TimedDisconnect);
     disconnectTime.setHMS(config->readNumEntry("DisconnectTimeHour"), config->readNumEntry("DisconnectTimeMinute"), 0);
@@ -126,7 +126,7 @@ Settings::load()
 
     KConfig *cfg = new KConfig("konquerorrc", false, false);
     cfg->setGroup("HTML Settings");
-    QString downloadManager=cfg->readEntry("DownloadManager");
+    QString downloadManager=cfg->readPathEntry("DownloadManager");
 
     b_KonquerorIntegration=(downloadManager==KGET_APP_NAME)?true:false;
 
@@ -137,7 +137,7 @@ Settings::load()
         bool bAnswerYes = KMessageBox::questionYesNo(0L,i18n("This is the first time that you have run KGet.\nDo you want to enable the integration with Konqueror?"), i18n("Konqueror Integration")) == KMessageBox::Yes;
         if (bAnswerYes)
         {
-            cfg->writeEntry("DownloadManager",KGET_APP_NAME);
+            cfg->writePathEntry("DownloadManager", QString(KGET_APP_NAME));
             cfg->sync();
             b_KonquerorIntegration=true;
         }
@@ -156,7 +156,7 @@ Settings::load()
     config->setGroup("Directories");
 
     b_useLastDir = config->readBoolEntry("UseLastDirectory", DEF_UseLastDir);
-    lastDirectory = config->readEntry("LastDirectory",
+    lastDirectory = config->readPathEntry("LastDirectory",
                                       QString("file:") + QDir::currentDirPath() );
 
     QStringList strList;
@@ -218,7 +218,7 @@ void Settings::save()
     config->writeEntry("AutoSave", b_autoSave);
     config->writeEntry("AutoSaveInterval", autoSaveInterval);
     config->writeEntry("AutoDisconnect", b_autoDisconnect);
-    config->writeEntry("DisconnectCommand", disconnectCommand);
+    config->writePathEntry("DisconnectCommand", disconnectCommand);
     config->writeEntry("TimedDisconnect", b_timedDisconnect);
     config->writeEntry("DisconnectTimeHour", disconnectTime.hour());
     config->writeEntry("DisconnectTimeMinute", disconnectTime.minute());
@@ -254,7 +254,7 @@ void Settings::save()
     // write directory options
     config->setGroup("Directories");
     config->writeEntry("UseLastDirectory", b_useLastDir);
-    config->writeEntry("LastDirectory", lastDirectory );
+    config->writePathEntry("LastDirectory", lastDirectory );
     DirList::Iterator it;
     QStringList lst;
 

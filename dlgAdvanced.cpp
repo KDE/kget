@@ -166,7 +166,7 @@ void DlgAdvanced::applyData()
         ksettings.b_KonquerorIntegration=!ksettings.b_KonquerorIntegration;
         KConfig cfg("konquerorrc", false, false);
         cfg.setGroup("HTML Settings");
-        cfg.writeEntry("DownloadManager",(bIsKonquiEnable)?"kget":"");
+        cfg.writePathEntry("DownloadManager",QString((bIsKonquiEnable)?"kget":""));
         cfg.sync();
     }
 }
