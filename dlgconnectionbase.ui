@@ -251,22 +251,22 @@
                     </item>
                     <item>
                         <property name="text">
-                            <string>PPP</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>ISDN</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
                             <string>PLIP</string>
                         </property>
                     </item>
                     <item>
                         <property name="text">
                             <string>SLIP</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>PPP</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>ISDN</string>
                         </property>
                     </item>
                     <property name="name">
