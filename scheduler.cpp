@@ -305,15 +305,17 @@ bool Scheduler::slotSetCommand(Transfer * item, TransferCommand op)
     switch (op)
         {
         case CmdResume:
-                sDebug << "111" << endl;
+                sDebug << "111 ->" << runningTransfers->size() << endl;
                 if(  (item->getStatus() == ST_STOPPED) 
                   && (item->getPriority()!=6)
-                  && (Settings::maxSimConnections() > runningTransfers->size()))
+                  && (1/*Settings::maxSimConnections()*/ > runningTransfers->size()))
                     {
                     sDebug << "222" << endl;
-                    runningTransfers->addTransfer(item);
-                    item->slotResume();
-                    return true;
+                    if(item->slotResume())
+                        {
+                        runningTransfers->addTransfer(item);
+                        return true;
+                    } 
                 }
                 sDebug << "333" << endl;
                 return false;
@@ -431,6 +433,7 @@ void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
         case MSG_PAUSED:
         case MSG_ABORTED:
         case MSG_DELAYED:
+            sDebug << "TRANSFER REMOVAL: " << item << endl;
             runningTransfers->removeTransfer(item);
             removedTransfers->addTransfer(item);
             queueUpdate();
@@ -438,6 +441,9 @@ void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
             //that we can't download. In this way we don't continue to try 
             //to download files that get a error
             
+            break;
+        case MSG_DELAY_FINISHED:
+            queueUpdate();
             break;
         case MSG_RESUMED:
             
@@ -772,11 +778,15 @@ void Scheduler::queueUpdate()
     if(!running)
         return;
     
-    int newTransfers = Settings::maxSimConnections() - runningTransfers->size();
-    
+    sDebug << "(1)" << endl;
+                
+    int newTransfers = 1/*Settings::maxSimConnections()*/ - runningTransfers->size();
+
+    sDebug << "(2) -> " << 1/*Settings::maxSimConnections()*/ << " : " << runningTransfers->size() << endl;
+        
     if(newTransfers <= 0 )
         return;
-   
+                   
     //search for the next transfer in the list to be downloaded
     TransferList::iterator it = transfers->begin();
     TransferList::iterator endList = transfers->end();

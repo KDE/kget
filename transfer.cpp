@@ -51,16 +51,18 @@ Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest
     : scheduler(_scheduler), slave(0), id(_id),
       src(_src), dest(_dest),
       totalSize(0), processedSize(0), percent(0), speed(0),  
-      status(ST_STOPPED), priority(3), retryCount(0), canResume(false)
+      status(ST_STOPPED), priority(3), retryCount(0), canResume(false),
+      delayTime(0)
 {
     sDebugIn << endl;
 
     startTime = QDateTime::currentDateTime();
-
+    
     logMessage(i18n("Copy file from: %1").arg(src.url()));
     logMessage(i18n("To: %1").arg(dest.url()));
     
     connect(this, SIGNAL(statusChanged(Transfer *, TransferMessage)), scheduler, SLOT(slotTransferMessage(Transfer *, TransferMessage)));
+    connect(&timer, SIGNAL(timeout()), this, SLOT(slotUpdateDelay()));
     
     sDebugOut << endl;
 }
@@ -79,10 +81,13 @@ void Transfer::setSpeed(unsigned long _speed)
     //FIXME: Implement me!!
 }
 
-void Transfer::slotResume()
+bool Transfer::slotResume()
 {
     sDebugIn << " state =" << status << endl;
 
+    if(delayTime != 0)
+        return false;
+    
     if(!slave)
         slave = new Slave(this, src, dest);
 
@@ -100,6 +105,8 @@ void Transfer::slotResume()
     sDebug << "sending Resume to slave " << endl;
     slave->Op(Slave::RETR);
 
+    return true;
+    
     sDebugOut << endl;
 }
 
@@ -155,6 +162,11 @@ void Transfer::slotRemove()
     sDebugOut << endl;
 }
 
+void Transfer::slotDelay(int seconds)
+{
+    delayTime = seconds;
+    timer.start(1000);
+}
 
 
 void Transfer::logMessage(const QString & message)
@@ -282,6 +294,7 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
         case Slave::SLV_DELAYED:
             status = ST_STOPPED;
             speed = 0;
+            slotDelay();
             emit statusChanged(this, MSG_DELAYED);
             break;
         case Slave::SLV_CONNECTED:
@@ -386,6 +399,15 @@ void Transfer::synchronousAbort()
     }
 }
 
+void Transfer::slotUpdateDelay()
+{
+    if(--delayTime == 0)
+        {
+        timer.stop();
+        emit statusChanged(this, MSG_DELAY_FINISHED);
+    }
+    //sDebug << "tempo rimanente = " << delayTime << endl;
+}
 
 #include "transfer.moc"
 

@@ -28,6 +28,7 @@
 #ifndef _TRANSFER_H
 #define _TRANSFER_H
 
+#include <qtimer.h>
 #include <qdatetime.h>
 #include <qguardedptr.h>
 #include <qmap.h>
@@ -38,7 +39,6 @@
 #include "slave.h"
 #include "globals.h"
 
-class QTimer;
 
 class KSimpleConfig;
 class KAction;
@@ -83,7 +83,8 @@ public:
     int getSpeed()const {return speed;}
     TransferStatus getStatus()const {return status;}
     bool getCanResume()const {return canResume;}
-            
+    int getDelay()const {return delayTime;}
+    
     /**
      * These functions are used to set the transfer properties
      */
@@ -93,11 +94,17 @@ public:
     
 
 private slots:
-    void slotResume();
+    bool slotResume();
     void slotStop();
     void slotRetransfer();
     void slotRemove();
 
+    /**
+     * Delays the transfer for "seconds" seconds
+     */
+    void slotDelay(int seconds = 60);
+
+    
 signals:
     void statusChanged(Transfer *, TransferMessage message);
     void log(uint, const QString &, const QString &);
@@ -106,6 +113,7 @@ signals:
 private:
     bool read(KSimpleConfig * config, int id);
     void write(KSimpleConfig * config, int id);
+    
     
     /**
      * This operator is used to determine the relationship of < or >
@@ -130,6 +138,7 @@ private:
     /**
      * INTERNAL FUNCTIONS
      */
+     
     void slaveTotalSize(unsigned long bytes);
     void slaveProcessedSize(unsigned long);
     
@@ -137,7 +146,11 @@ private:
     
     void synchronousAbort();
    
+    private slots:
+    void slotUpdateDelay();
     
+    private:
+        
     Transfer * transfer;
     Slave * slave;
     Scheduler * scheduler;
@@ -154,7 +167,10 @@ private:
     
     QDateTime startTime;
     QTime remainingTime;
-
+    
+    int delayTime;
+    QTimer timer;
+        
     unsigned long totalSize;
     unsigned long processedSize;
     int percent;
