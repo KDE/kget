@@ -7,7 +7,7 @@ bin_PROGRAMS = kget
 kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET)
 kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
-               transfer.cpp settings.cpp misc.cpp logwindow.cpp \
+               transfer.cpp settings.cpp logwindow.cpp \
                kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp \
                dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
@@ -18,7 +18,7 @@ noinst_HEADERS = bwdatetime.h common.h \
                  dlgAdvanced.h dlgAutomation.h dlgConnection.h \
                  dlgDirectories.h dlgIndividual.h dlgLimits.h \
                  dlgPreferences.h dlgSystem.h docking.h droptarget.h \
-                 kfileio.h kmainwidget.h logwindow.h misc.h settings.h \
+                 kfileio.h kmainwidget.h logwindow.h settings.h \
                  transfer.h transferlist.h main.h version.h slave.h \
                  slaveevent.h http_defaults.h getfilejob.h dockindividual.h
 
