@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = connect0.xpm connect1.xpm connect2.xpm connect3.xpm connect4.xpm connect5.xpm connect6.xpm dock_hand1.xpm dock_hand2.xpm dock_hand3.xpm kget.xpm Makefile.am md_delayed.xpm md_finished.xpm md_queued.xpm md_scheduled.xpm retrying.xpm target_hand1.xpm target_hand2.xpm target_hand3.xpm tool_clipboard.xpm tool_delay.xpm tool_delete.xpm tool_disconnect.xpm tool_dock.xpm tool_drop_target.xpm tool_expert.xpm tool_logwindow.xpm tool_normal.xpm tool_offline_mode.xpm tool_paste.xpm tool_pause.xpm tool_preferences.xpm tool_queue.xpm tool_restart.xpm tool_resume.xpm tool_shutdown.xpm tool_timer.xpm tool_uselastdir.xpm try0.xpm try1.xpm try2.xpm try3.xpm try4.xpm try5.xpm try6.xpm connect7.xpm try7.xpm tool_offline_mode-off.xpm tool_offline_mode-on.xpm 
+EXTRA_DIST = connect0.xpm connect1.xpm connect2.xpm connect3.xpm connect4.xpm connect5.xpm connect6.xpm dock_hand1.xpm dock_hand2.xpm dock_hand3.xpm kget.xpm Makefile.am md_delayed.xpm md_finished.xpm md_queued.xpm md_scheduled.xpm retrying.xpm target_hand1.xpm target_hand2.xpm target_hand3.xpm tool_clipboard.xpm tool_delay.xpm tool_delete.xpm tool_disconnect.xpm tool_dock.xpm tool_drop_target.xpm tool_expert.xpm tool_logwindow.xpm tool_normal.xpm tool_paste.xpm tool_pause.xpm tool_preferences.xpm tool_queue.xpm tool_restart.xpm tool_resume.xpm tool_shutdown.xpm tool_timer.xpm tool_uselastdir.xpm try0.xpm try1.xpm try2.xpm try3.xpm try4.xpm try5.xpm try6.xpm connect7.xpm try7.xpm tool_offline_mode-off.xpm tool_offline_mode-on.xpm 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
@@ -60,8 +60,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tool_logwindow.xpm $(kde_datadir)/kget/pics/tool_logwindow.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
 	$(INSTALL_DATA) $(srcdir)/tool_normal.xpm $(kde_datadir)/kget/pics/tool_normal.xpm
-	$(mkinstalldirs) $(kde_datadir)/kget/pics/
-	$(INSTALL_DATA) $(srcdir)/tool_offline_mode.xpm $(kde_datadir)/kget/pics/tool_offline_mode.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
 	$(INSTALL_DATA) $(srcdir)/tool_paste.xpm $(kde_datadir)/kget/pics/tool_paste.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
@@ -132,7 +130,6 @@ uninstall-local:
 	-rm -f $(kde_datadir)/kget/pics/tool_expert.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_logwindow.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_normal.xpm
-	-rm -f $(kde_datadir)/kget/pics/tool_offline_mode.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_paste.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_pause.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_preferences.xpm

@@ -607,24 +607,24 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
 void Transfer::slotTotalSize(unsigned long bytes)
 {
         sDebugOut << endl;
-
-        totalSize = bytes;
-        if (totalSize != 0) {
-                logMessage(i18n("Total size is %1 bytes").arg(totalSize));
-                setText(view->lv_total, KIO::convertSize(totalSize));
-                dlgIndividual->setTotalSize(totalSize);
-                dlgIndividual->setPercent(0);
-                dlgIndividual->setProcessedSize(0);
-        } else {
-                logMessage(i18n("Total size is unknow"));
-                setText(view->lv_total, "unknow");
-                dlgIndividual->setTotalSize(totalSize);
-                dlgIndividual->setPercent(0);
-                dlgIndividual->setProcessedSize(0);
-
-
-        }
-
+        
+       if (totalSize==0)
+       {
+         totalSize = bytes;
+         if (totalSize != 0) {
+                 logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+                 setText(view->lv_total, KIO::convertSize(totalSize));
+                 dlgIndividual->setTotalSize(totalSize);
+                 dlgIndividual->setPercent(0);
+                 dlgIndividual->setProcessedSize(0);
+               }
+         }
+         else
+          {
+            //if totalSize!=bytes we have a problem...
+            assert(totalSize==bytes);
+            
+          }
 
 
         sDebugOut << endl;
