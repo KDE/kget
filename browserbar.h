@@ -59,6 +59,8 @@ private:
     void adjustWidgetSizes();
 
     static const int DEFAULT_HEIGHT = 50;
+    static const int MINIMUM_WIDTH = 200;
+    static const int MAXIMUM_WIDTH = 300;
 
     uint             m_pos; //the x-axis position of m_divider
     QVBox           *m_playlist; //not the playlist, but parent to the playlist and searchBar

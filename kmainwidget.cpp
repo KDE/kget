@@ -39,6 +39,7 @@
 #include <kmenubar.h>
 #include <ktoolbar.h>
 #include <kstatusbar.h>
+#include <khelpmenu.h>
 #include <ksqueezedtextlabel.h>
 #include <kiconloader.h>
 #include <knotifyclient.h>
@@ -115,6 +116,10 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     cfg.writeEntry("AutoResume", true);
     cfg.sync();
 
+    // immediately start downloading if configured this way
+    if ( Settings::downloadAtStartup() )
+        slotDownloadToggled();
+
     // reset the FirstRun config option
     Settings::setFirstRun(false);
 }
@@ -132,11 +137,11 @@ KMainWidget::~KMainWidget()
 }
 
 
-#include <qcombobox.h>
 void KMainWidget::setupActions()
 {
     KActionCollection * ac = actionCollection();
-    KAction * a;
+    //KAction * a;
+    KToggleAction * ta;
 
     // local - Shows a dialog asking for a new URL to download
     new KAction(i18n("&New Download..."), "editclear", 0, this, SLOT(slotNewURL()), ac, "open_transfer");
@@ -146,22 +151,27 @@ void KMainWidget::setupActions()
     new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), ac, "export_transfers");
     // ->Scheduler - Ask for transfersList import
     new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), ac, "import_transfers");
-    // ->Scheduler - ACTIVATE the scheduler
-    a = new KAction(i18n("&Start"),"player_play", 0, this, SLOT(slotRun()), ac, "start");
-    a->setWhatsThis(i18n("<b>Start</b> button <i>starts downloading</i>\n"));
-    // ->Scheduler - STOP the scheduler
-    a = new KAction(i18n("&Stop"),"player_stop", 0, this, SLOT(slotStop()), ac, "stop");
-    a->setWhatsThis(i18n("<b>Stop</b> button <i>stops downloading</i>."));
+    
+    // ->Scheduler - ACTIVATE/STOP the scheduler
+    ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this, SLOT(slotDownloadToggled()), ac, "download");
+    ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));
+/* ENABLE AFTER KTOGGLEACTION PATCH CHECKIN (sent to DavidFaure)
+#if KDE_IS_VERSION(3,2,90)
+    KGuiItem checkedDownloadAction( "Stop Downloading", "stop" );
+    ta->setCheckedState( checkedDownloadAction );    
+#endif*/
+    ta->setChecked( Settings::downloadAtStartup() );
 
     // following actions are only designed to be show in the toolbar when window is 'compressed'
     new ComboAction( i18n("Window shape"), 0, ac, this );
     
-    // Local: Build and show the "preferences dialog" (or reuse an existing one)
+    // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
     KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
     KStdAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
-//options_configure_keybinding, options_configure, options_configure_toolbars, options_configure_notifications
+    // local - Standard help menu
+    new KHelpMenu(this, KGlobal::instance()->aboutData(), true, ac );
 
 /*  m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), ac, "import_text");
 
@@ -192,7 +202,6 @@ void KMainWidget::setupActions()
     m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), ac, "drop_target");
     m_paDropTarget->setWhatsThis(i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window."));
 
-    //include <khelpmenu.h>
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
     KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), ac, "whats_this");
 
@@ -237,12 +246,12 @@ void KMainWidget::setupGUI()
     rightWidget = t;
 
     // create the 'left panels' views and link them to the 'right view'
+    browserBar->addBrowser( new QWidget(0,"trasfer panel"), i18n( "Statistics" ), "gear" );
     IconViewMdiView * i = new IconViewMdiView();
     i->connectToScheduler(scheduler);
-    browserBar->addBrowser( i, i18n( "Icons" ), "view_icon" );
-    i = new IconViewMdiView();
-    browserBar->addBrowser( i, i18n( "Icons" ), "view_icon" );
-    i = new IconViewMdiView();
+    browserBar->addBrowser( i, i18n( "Transfer" ), "folder" );
+    browserBar->addBrowser( new QWidget(0,"other panel"), i18n( "Other" ), "browser" );
+    browserBar->addBrowser( new QWidget(0,"help panel"), i18n( "Help" ), "help" );
     
     /** set layouting of the main widget */
     
@@ -458,14 +467,15 @@ void KMainWidget::slotImportTransfers()
     schedRequestOperation(OpImportTransfers);
 }
 
-void KMainWidget::slotRun()
+void KMainWidget::slotDownloadToggled()
 {
-    schedRequestOperation(OpRun);
-}
-
-void KMainWidget::slotStop()
-{
-    schedRequestOperation(OpStop);
+    KToggleAction * action = (KToggleAction *)actionCollection()->action("download");
+    schedRequestOperation( action->isChecked() ? OpRun : OpStop );
+//ENABLE AFTER KTOGGLEACTION PATCH CHECKIN
+//#if not KDE_IS_VERSION(3,2,90)
+    action->setText( action->isChecked() ? i18n("Stop Downloading") : i18n("Start Downloading") );
+    action->setIcon( action->isChecked() ? "stop" : "down" );
+//#endif
 }
 
 void KMainWidget::readTransfersEx(const KURL & url)
@@ -544,9 +554,6 @@ void KMainWidget::updateActions()
                 m_paMoveToEnd->setEnabled(false);
             }
             // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
-#ifdef _DEBUG
-            sDebug << "-->ONLINE= " << Settings::offlineMode() << endl;
-#endif
             if (item == first_item && SONO ONLINE) {
                 switch (item->getStatus()) {
                 case Transfer::ST_TRYING:
@@ -648,13 +655,10 @@ void KMainWidget::updateStatusBar()
 
 void KMainWidget::closeEvent( QCloseEvent * e )
 {
-    if( kapp->sessionSaving())
+    if( kapp->sessionSaving() )
         e->ignore();
     else
-    {
         hide();
-        e->accept();
-    }
 }
 
 void KMainWidget::dragEnterEvent(QDragEnterEvent * event)
@@ -706,7 +710,6 @@ bool KMainWidget::isOfflineMode() const
 
 
 /** Actions implementation */
-#include <ktoolbar.h>
 #include <kapplication.h>
 #include <qwhatsthis.h>
 #include <qcombobox.h>
@@ -734,7 +737,7 @@ int ComboAction::plug( QWidget* w, int index )
     widget->insertItem( i18n("Compact View") );
     widget->insertItem( i18n("Transfers") );
     widget->insertItem( i18n("Downloaded Files") );
-    widget->setFixedHeight( ToolBar_HEIGHT - 6 );
+    //widget->setFixedHeight( ToolBar_HEIGHT - 10 );
     widget->setFocusPolicy(QWidget::NoFocus);
     connect( widget, SIGNAL( activated(int) ), this, SLOT( slotComboActivated(int) ) );
 
@@ -1026,48 +1029,6 @@ void KMainWidget::setAutoSave()
     m_paQueue->blockSignals(false);
     m_paTimer->blockSignals(false);
     m_paDelay->blockSignals(false);    
-*/
-//END 
-
-//BEGIN offline mode 
-/*
-    KToggleAction *m_paOfflineMode
-    //m_paOfflineMode->setChecked(Settings::offlineMode());
-    if (Settings::offlineMode())
-        setCaption(i18n("Offline"), false);
-    else {
-        setCaption(QString::null, false);
-        //m_paOfflineMode->setIcon( "tool_offline_mode_on" );
-    }
-    m_paOfflineMode =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), ac, "offline_mode");
-    tmp = i18n("<b>Offline mode</b> button toggles the offline mode\n" "on and off.\n" "\n" "When set, KGet will act as if it was not connected\n" "to the Internet.\n" "\n" "You can browse offline, while still being able to add\n" "new transfers as queued.");
-    m_paOfflineMode->setWhatsThis(tmp);
-
-void KMainWidget::slotToggleOfflineMode()
-{
-    Settings::setOfflineMode( !Settings::offlineMode() );
-    if (Settings::offlineMode()) {
-        log(i18n("Offline mode on."));
-        pauseAll();
-        setCaption(i18n("Offline"), false);
-        m_paOfflineMode->setIcon( "tool_offline_mode_off" );
-    } else {
-        log(i18n("Offline mode off."));
-        setCaption(i18n(""), false);
-        m_paOfflineMode->setIcon( "tool_offline_mode_on" );
-    }
-    m_paOfflineMode->setChecked(Settings::offlineMode());
-
-    updateActions();
-    //checkQueue();
-}
-
-void KMainWidget::setOfflineMode( bool offline )
-{
-    //FIXME start/stop the scheduler
-    if ( Settings::offlineMode() != offline )
-        slotToggleOfflineMode();
-}
 */
 //END 
 

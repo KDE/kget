@@ -24,8 +24,8 @@ mime_DATA = x-kgetlist.desktop
 
 EXTRA_DIST = kget.desktop $(mime_DATA)
 
-datadir = $(kde_datadir)/kget
-data_DATA = kgetui.rc eventsrc
+stuffdir = $(kde_datadir)/kget
+stuff_DATA = kgetui.rc eventsrc
 
 KDE_ICON = AUTO
 

@@ -106,7 +106,7 @@ BrowserBar::BrowserBar( QWidget *parent )
 BrowserBar::~BrowserBar()
 {
     KConfig *config = kapp->config();
-    config->setGroup( "PlaylistSideBar" );
+    config->setGroup( "SideBar" );
 
     config->writeEntry( "CurrentPane", m_currentBrowser ? m_currentBrowser->name() : QString::null );
 
@@ -156,13 +156,14 @@ BrowserBar::eventFilter( QObject*, QEvent *e )
         const uint currentPos = m_pos;
         const uint newPos     = mapFromGlobal( e->globalPos() ).x();
 
-        const uint maxWidth   = uint(width() * 0.5);
+        uint maxWidth   = MAXIMUM_WIDTH;
         uint minWidth   = m_tabBar->width() + m_currentBrowser->minimumWidth();
 
-        if ( 150 > minWidth )
-            minWidth = 150;
-
-        if( newPos < minWidth ) m_pos = minWidth;
+        if ( minWidth < MINIMUM_WIDTH )
+            minWidth = MINIMUM_WIDTH;
+        if ( minWidth > maxWidth )
+            m_pos = minWidth = maxWidth;
+        else if( newPos < minWidth ) m_pos = minWidth;
         else if( newPos < maxWidth ) m_pos = newPos; //TODO allow for widget maximumWidth
 
         //TODO minimum playlist width must be greater than 10/9 of tabBar width or will be strange behaviour
@@ -229,8 +230,8 @@ BrowserBar::addBrowser( QWidget *widget, const QString &title, const QString& ic
     m_browsers.push_back( widget );
 
     KConfig *config = kapp->config();
-    config->setGroup( "PlaylistSideBar" );
-    widget->setBaseSize( config->readNumEntry( name, widget->sizeHint().width() ), DEFAULT_HEIGHT );
+    config->setGroup( "SideBar" );
+    widget->setBaseSize( config->readNumEntry( name, MINIMUM_WIDTH/*widget->sizeHint().width()*/ ), DEFAULT_HEIGHT );
     if( config->readEntry( "CurrentPane" ) == name ) showHideBrowser( id );
 }
 
