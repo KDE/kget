@@ -558,7 +558,7 @@ void KMainWidget::slotToggleDropTarget()
     sDebugIn << endl;
 #endif
 
-    if (m_paDropTarget->isChecked()) {
+    if (Settings::showDropTarget()) {
         kdrop->show();
         kdrop->updateStickyState();
     }
@@ -724,14 +724,14 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
 
 bool KMainWidget::isDropTargetVisible() const
 {
-    return m_paDropTarget->isChecked();
+    return Settings::showDropTarget();
 }
 
 void KMainWidget::setDropTargetVisible( bool setVisible )
 {
     if ( setVisible != isDropTargetVisible() )
     {
-        m_paDropTarget->setChecked( !m_paDropTarget->isChecked() );
+        //m_paDropTarget->setChecked( !m_paDropTarget->isChecked() );
         slotToggleDropTarget();
     }
 }

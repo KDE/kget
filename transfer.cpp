@@ -119,11 +119,14 @@ void Transfer::slotStop()
 
     logMessage(i18n("Pausing"));
 
+    if(status != ST_TRYING && status != ST_RUNNING)
+        return;
+    
     //stopping the thread
     if(slave)
         {
         slave->Op(Slave::REMOVE);
-        slave = 0;   
+        slave = 0;
     }
         
     
