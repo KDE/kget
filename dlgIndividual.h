@@ -38,7 +38,7 @@
 #include "bwdatetime.h"
 
 #include <kdialog.h>
-#include <qtextview.h>
+#include <qtextedit.h> 
 class SearchList;
 class Transfer;
 
@@ -79,7 +79,7 @@ protected:
         QLabel *speedLabel;
         QLabel *sizeLabel;
         QLabel *resumeLabel;
-        QTextView *ml_log;
+        QTextEdit *ml_log;
 
         KProgress *m_pProgressBar;
 

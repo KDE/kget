@@ -149,7 +149,8 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
                 SLOT(slotStartTime(const QDateTime &)));
 
         //adding item log
-        ml_log = new QTextView(panelAdvanced);
+        ml_log = new QTextEdit(panelAdvanced);
+        ml_log->setReadOnly(true);
         ml_log->setFixedSize(sizeHint());
         //ml_log->setSizePolicy(policy);
 
@@ -327,7 +328,7 @@ void DlgIndividual::addLog(const QString & _msg)
 
         tmps =
                 "<code><font color=\"blue\">" + QTime::currentTime().toString() +
-                "</font> : <strong>" + _msg + "</strong></code><br/>";
+                "</font> : <strong>" + _msg + "</strong></code><br>";
 
         ml_log->append(tmps);
 }
