@@ -162,14 +162,7 @@ void Transfer::synchronousAbort()
 {
     if ( m_pSlave )
     {
-        if ( m_pSlave->running() )
-        {
-            m_pSlave->Op(Slave::KILL);
-            m_pSlave->wait();
-        }
-
-        if ( m_pSlave->running() )
-            m_pSlave->terminate();
+        m_pSlave->Op(Slave::KILL);
 
         delete m_pSlave;
         m_pSlave = 0L;
@@ -789,7 +782,6 @@ void Transfer::slotExecRemove()
 {
     sDebugIn << endl;
 
-    m_pSlave->wait();
     emit statusChanged(this, OP_REMOVED);
     sDebugOut << endl;
 }

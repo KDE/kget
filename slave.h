@@ -43,7 +43,7 @@ namespace KIO
 
 class Transfer;
 
-class Slave:public QObject, public QThread
+class Slave:public QObject
 {
     Q_OBJECT 
 
@@ -95,8 +95,6 @@ private:
     int nPendingCommand;
 
     QValueStack < SlaveCommand > stack;
-    QWaitCondition worker;
-    QMutex mutex;
     KIO::GetFileJob * copyjob;
 
 };
