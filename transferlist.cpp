@@ -33,6 +33,10 @@
 #include <kio/netaccess.h>
 #include <assert.h>
 
+#include <qdom.h>
+#include <qfile.h>
+#include <qtextstream.h>
+
 #include "transfer.h"
 #include "transferKio.h"
 #include "transferlist.h"
@@ -55,8 +59,6 @@ void TransferList::addTransfer(Transfer * transfer, bool toBegin)
 {
 //    sDebugIn << endl;
 
-    jobid++;
-    
     iterator it = begin();
     iterator endList = end();
         
@@ -70,16 +72,15 @@ void TransferList::addTransfer(Transfer * transfer, bool toBegin)
 //    sDebugOut << endl;
 }
 
-void TransferList::addTransfers(TransferList & transfers, bool toBegin)
+void TransferList::addTransfers(const TransferList & transfers, bool toBegin)
 {
     sDebugIn << endl;
 
-    iterator it = transfers.begin();
-    iterator endList = transfers.end();
+    constIterator it = transfers.begin();
+    constIterator endList = transfers.end();
     
     for(; it != endList; ++it)
-        {
-        jobid++;
+    {
         addTransfer(*it, toBegin);
     }
     sDebugOut << endl;
@@ -94,110 +95,28 @@ void TransferList::removeTransfer(Transfer * transfer)
     sDebugOut << endl;
 }
 
-void TransferList::removeTransfers(TransferList & transfers)
+void TransferList::removeTransfers(const TransferList & transfers)
 {
     sDebugIn << endl;
 
-    TransferList::iterator it = transfers.begin();
-    TransferList::iterator endList = transfers.end();
+    constIterator it = transfers.begin();
+    constIterator endList = transfers.end();
     
     for(; it != endList; ++it)
-        {
+    {
         remove(*it);
     }
     sDebugOut << endl;
 }
 
-void TransferList::moveToBegin(Transfer * item, int priority)
+bool TransferList::contains(Transfer * transfer) const
 {
-    sDebugIn << endl;
-
-    if(priority != -1)
-        item->setPriority(priority);
-    
-    //Now I remove the current Item and I reinsert it with addTransfer(..,true)
-    remove(item);
-    addTransfer(item, true);
-    
-    sDebugOut << endl;
-}
-
-void TransferList::moveToBegin(TransferList & transfers, int priority)
-{
-    sDebugIn << endl;
-
-    iterator it = transfers.begin();
-    iterator endList = transfers.end();
-
-    sDebug << "prior= " << priority << endl;
-        
-    if(priority != -1)
-        {
-        for(; it != endList; ++it)
-            {
-            sDebug << "ciclo  " << endl;
-            (*it)->setPriority(priority);
-            removeTransfer(*it);
-        }
-    }    
-    addTransfers(transfers, true);
-    
-    sDebugOut << endl;
-}
-
-void TransferList::moveToEnd(Transfer * item, int priority)
-{
-    sDebugIn << endl;
-
-    if(priority != -1)
-        item->setPriority(priority);
-    
-    //Now I remove the current Item and I reinsert it with addTransfer(..,true)
-    remove(item);
-    addTransfer(item, false);
-
-    sDebugOut << endl;
-}
-
-void TransferList::moveToEnd(TransferList & transfers, int priority)
-{
-    sDebugIn << endl;
-    
-    iterator it;
-    iterator endList = transfers.end();
-    
-    if(priority != -1)
-        {
-        for(it = transfers.begin(); it != endList; ++it)
-            {
-            (*it)->setPriority(priority);
-            removeTransfer(*it);
-        }
-    }    
-    addTransfers(transfers, false);
-
-    sDebugOut << endl;
-}
-
-
-/*
-void TransferList::moveToEnd(Transfer * item)
-{
-    //        ASSERT(item);
-
-    Transfer *oldlast=static_cast<Transfer*>(lastItem());
-    item->moveItem(oldlast);
-}
-*/
-
-bool TransferList::contains(Transfer * transfer)
-{
-    iterator it = begin();
-    iterator endList = end();
+    constIterator it = begin();
+    constIterator endList = end();
     
     for(; it != endList; ++it)
-        {
-        if(*it == transfer)
+    {
+        if( (*it) == transfer)
             return true;
     }
     return false;
@@ -209,87 +128,88 @@ Transfer * TransferList::find(const KURL& _src)
     iterator endList = end();
     
     for(; it != endList; ++it)
-        {
+    {
         if((*it)->getInfo().src == _src)
             return *it;
     }
     return 0;
 }
 
-void TransferList::readTransfers(const KURL& file, Scheduler * scheduler)
+void TransferList::readTransfers(const QString& filename, Scheduler * scheduler)
 {
     sDebugIn << endl;
-    
+
     QString tmpFile;
-
-    kdDebug(DKGET) << "AAA" << endl;      
-    
-    if (KIO::NetAccess::download(file, tmpFile, 0)) {
-        KSimpleConfig config(tmpFile);
-
-        kdDebug(DKGET) << "BBB" << endl;
         
-        config.setGroup("Common");
-        int num = config.readNumEntry("Count", 0);
-
-        Transfer *item;
-        KURL src, dest;
-
-        for ( int i = 0; i < num; i++ )
+    if (KIO::NetAccess::download(filename, tmpFile, 0)) 
+    {
+        kdDebug()<<"__1__"<<endl;
+        QFile file(tmpFile);
+        QDomDocument doc;
+   
+        if ( doc.setContent(&file) ) 
         {
-            QString str;
-
-            str.sprintf("Item%d", i);
-            config.setGroup(str);
-
-            src  = KURL::fromPathOrURL( config.readPathEntry("Source") );
-            dest = KURL::fromPathOrURL( config.readPathEntry("Dest") );
-            kdDebug(DKGET) << "CCC" << endl;
-           
-            TransferKio * t = new TransferKio(scheduler, src, dest);
-
-            if (!t->read(/*&config, i*/))
-                delete item;
+            kdDebug()<<"__2__"<<endl;
+            QDomElement root = doc.documentElement();
+            QDomNodeList nodeList = root.elementsByTagName("Transfer");
             
-            addTransfer(t);
-            
-            
-            /*else
+            for(int i=0; i<nodeList.length(); i++)
             {
-                // configuration read, now we know the status to determine
-                // whether to show or not
-                //t->maybeShow();
+                kdDebug()<<"__1__"<<endl;
+                TransferKio * t = new TransferKio(scheduler, &doc, &nodeList.item(i));
+                addTransfer(t);
             }
-            */
-        }
+        }    
+        else
+        {
+            kdWarning()<<"Error reading the transfers file"<< endl; 
+        }        
     }
+    else
+    {
+        kdWarning()<<"Error reading the transfers file"<< endl; 
+    }        
+
     sDebugOut << endl;
 }
 
-void TransferList::writeTransfers(const QString& file)
+void TransferList::writeTransfers(const QString& filename)
 {
-    sDebug << ">>>>Entering with file =" << file << endl;
+    sDebug << ">>>>Entering with file =" << filename << endl;
 
-    KSimpleConfig config(file);
-    
-    config.setGroup("Common");
-    config.writeEntry("Count", size());
+    QDomDocument doc(QString("KGet")+QString(KGETVERSION));
+    QDomElement root = doc.createElement("Transfers");
+    doc.appendChild(root);
 
     iterator it = begin();
     iterator endList = end();
 
     for (int id = 0; it != endList; ++it, ++id)
-        (*it)->write(/*&config, id*/);
-    config.sync();
-
+        (*it)->write(&doc, &root);
+        
+    QFile file(filename);
+    if ( !file.open( IO_WriteOnly ) )
+    {
+        kdWarning()<<"Unable to open output file when saving"<< endl;
+        return;
+    }
+    
+    QTextStream stream( &file );
+    doc.save( stream, 0 );
+    file.close();
+    
     sDebug << "<<<<Leaving" << endl;
 }
 
 void TransferList::about()
 {
+    kdDebug() << "TRANSFERLIST: " << endl;
+    
     iterator it;
-    for(it = begin(); it != end(); ++it)
-        {
+    iterator endList = end();
+    
+    for(it = begin(); it != endList; ++it)
+    {
         (*it)->about();
     }
 }

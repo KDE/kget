@@ -41,7 +41,8 @@ class TransferList : public QValueList<Transfer *>
 public:
 
     typedef QValueListIterator<Transfer *> iterator;
-    
+    typedef QValueListConstIterator<Transfer *> constIterator;
+
     TransferList(Transfer * transfer = 0);
     virtual ~TransferList();
 
@@ -53,46 +54,19 @@ public:
      * having the same priority
      */
     void addTransfer(Transfer * transfer, bool toBegin = false);
-   
-    void addTransfers(TransferList &, bool toBegin = false);
+    void addTransfers(const TransferList &, bool toBegin = false);
 
     /**
      * Functions used to remove items from the list
      */
     void removeTransfer(Transfer * transfer);
-    void removeTransfers(TransferList & transfers);
+    void removeTransfers(const TransferList & transfers);
 
-        
-    /**
-     * Functions used to move transfer items inside the list.
-     * if priority = -1 the transfer becomes the first item having its
-     * priority.
-     * if priority != -1 the transfer becomes the first item having
-     * priority "priority".
-     */
-    void moveToBegin(Transfer * item, int priority = -1);
-    void moveToBegin(TransferList &, int priority = -1);
-    
-    /**
-     * Functions used to move transfer items inside the list.
-     * if priority = -1 the transfer becomes the last item having its
-     * priority.
-     * if priority != -1 the transfer becomes the last item having
-     * priority "priority".
-     */
-    void moveToEnd(Transfer * item, int priority = -1);
-    void moveToEnd(TransferList &, int priority = -1);
-
-    uint getPhasesNum()const
-    {
-        return phasesNum;
-    }
-    
-    bool contains(Transfer * transfer);
+    bool contains(Transfer * transfer) const;
     Transfer * find(const KURL& _src);
 
-    void readTransfers(const KURL& file, Scheduler * scheduler);
-    void writeTransfers(const QString& file);
+    void readTransfers(const QString& filename, Scheduler * scheduler);
+    void writeTransfers(const QString& filename);
 
     /**
      * Debug function
@@ -105,13 +79,6 @@ protected:
 
     void readConfig();
     void writeConfig();
-
-    // ListView IDs
-    int lv_pixmap, lv_filename, lv_resume, lv_count, lv_progress;
-    int lv_total, lv_speed, lv_remaining, lv_url;
-
-    uint phasesNum;
-    uint jobid;
 };
 
 

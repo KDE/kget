@@ -18,6 +18,7 @@ Q_OBJECT
     public:
         
     TransferKio(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
+    TransferKio(Scheduler * _scheduler, QDomDocument * doc, QDomNode * n);
     
     public slots:
     

@@ -12,6 +12,14 @@ TransferKio::TransferKio(Scheduler * _scheduler, const KURL & _src, const KURL &
 
 }
 
+TransferKio::TransferKio(Scheduler * _scheduler, QDomDocument * doc, QDomNode * n)
+    : Transfer(_scheduler, doc, n),
+      copyjob(0)
+{
+
+
+}
+
 bool TransferKio::slotResume()
 {
     kdDebug() << "TransferKio::slotResume (1)" << endl;
@@ -35,8 +43,11 @@ bool TransferKio::slotResume()
 
 void TransferKio::slotStop()
 {
-    copyjob->kill(true);
-    copyjob=0;
+    if(copyjob)
+    {
+        copyjob->kill(true);
+        copyjob=0;
+    }
     
     info.status = St_Stopped;
     info.speed = 0;

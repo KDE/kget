@@ -270,7 +270,17 @@ void Scheduler::slotSetPriority(TransferList list, int priority)
 {
     sDebugIn << endl;
     
-    transfers->moveToBegin(list, priority);
+    TransferList::iterator it = list.begin();
+    TransferList::iterator endList = list.end();
+    
+    for(;it != endList; it++)
+    {
+        (*it)->setPriority(priority);
+        
+        // Here we remove and insert the items to keep the list sorted
+        transfers->removeTransfer(*it);
+        transfers->addTransfer(*it);
+    }
     
     emit changedItems(list);
     
@@ -465,7 +475,7 @@ void Scheduler::slotImportTransfers(const KURL & file)
     sDebug << "Read from file: " << file << endl;
     
     TransferList list;
-    list.readTransfers(file, this);
+    list.readTransfers(file.url(), this);
     transfers->addTransfers(list);
     
     queueUpdate();
@@ -771,28 +781,42 @@ void Scheduler::queueEvaluateItems(TransferList list, bool force)
     do
         {
         sDebug << "(1)" << endl;
-        switch (force)
-            {
-            case false:
-                isPrior = **it2 < **it1;
-                break;
-            case true:
-                isPrior = **it2 <= **it1;
-                break;
-        }
+        if(force)
+            isPrior = **it2 <= **it1;
+        else
+            isPrior = **it2 < **it1;
+        
         if (isPrior)
-            {
+        {
             sDebug << "(2)" << endl;
-            toRemove.addTransfer(*it1);
-            toAdd.addTransfer(*it2);
+            if(!runningTransfers->contains(*it2))
+            {
+                toRemove.addTransfer(*it1);
+                toAdd.addTransfer(*it2);
+                it1--;
+                it2++;
+            }
+            else
+            {
+                it1--;
+            }
         }
     }
     while  ( (isPrior)
-          && (it1-- != beginList1 ) 
-          && (++it2 != endList2) );
+          && (it1 != beginList1 ) 
+          && (it2 != endList2) );
         
     sDebug << "(3)" << endl;
-          
+    
+    toAdd.about();
+    toRemove.about();
+    
+/*    //Here we must remove the items that are in both the toRemove and 
+    //the toAdd list.
+    TransferList intersection = toAdd.intersect(toRemove);
+    toAdd.removeTransfers(intersection);
+    toRemove.removeTransfers(intersection);*/
+              
     setTransferCommand(toRemove, CmdPause);
     setTransferCommand(toAdd, CmdResume);
 

@@ -333,7 +333,7 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
         subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority5() ) );
         subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority6() ) );
         popup->insertItem( i18n("Set priority"), subPrio );
-        
+                
         KPopupMenu * subGroup = new KPopupMenu( popup );
         //for loop inserting all existant groups
         subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );	

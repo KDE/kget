@@ -14,5 +14,17 @@
         reimplements the KListView class. The "special features" list contains
         the introduction of some cool icons and a new progress bar.
         
+2004-10-05 Dario Massarin <nekkar@libero.it>
+        * transferlist.{h,cpp}: Api semplifications. In this moment there are some
+        new problems I have just discover and I will fix tomorrow.
+        
+        * transferlist.{h,cpp}, transfer.{h,cpp}: The way kget saves the transfers
+        into the transfers.kgt file has been completely rethinked. The code has been
+        rewritten from scratch and now it uses QDom. In this way each new transfer can,
+        if needed, save its own data that isn't already saved by the Transfer class.
+        
+        * some fixes..
+                
+        
         
         

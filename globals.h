@@ -24,7 +24,7 @@
 #define DKGET 0
 #define THREAD_ID "|--TH_ID ( "<< currentThread()<<" )--| "
 
-#define KGETVERSION "v1.7.3"
+#define KGETVERSION "v0.8.0"
 #define KGET_APP_NAME "kget"
 
 // Try to pre-declare as much as you can, do not include headers here!

@@ -14,7 +14,7 @@
       <default>true</default>
     </entry>
     <entry name="ShowMainLarge" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="ShowIndividual" type="Bool">
       <default>false</default>

@@ -8,6 +8,10 @@
 #include <kdebug.h>
 #include <kurl.h>
 
+class QDomElement;
+class QDomNode;
+class QDomDocument;
+
 class TransferList;
 class Scheduler;
 class ViewInterface;
@@ -77,11 +81,11 @@ Q_OBJECT
     QValueVector<TransferProgress> progressChanges;
         
     /**
-     * These functions _MUST_ be reimplemented
+     * These functions can be reimplemented if necessary
      */
     
-    virtual bool read(/*qdom entry*/) {}
-    virtual void write(/*qdom entry*/) {}
+    virtual bool read(QDomDocument * doc, QDomNode * n);
+    virtual void write(QDomDocument * doc, QDomNode * n);
 
     inline void setProgressChange(ProgressChange);
     
@@ -109,6 +113,7 @@ Q_OBJECT
     public:
         
     Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
+    Transfer(Scheduler * _scheduler, QDomDocument * doc, QDomNode * e);
     
     const Info& getInfo() const;
     
@@ -124,6 +129,16 @@ Q_OBJECT
     inline bool operator<=(const Transfer& t2) const
         {return info.priority <= t2.info.priority;}
 
+    inline bool operator>(const Transfer& t2) const
+        {return info.priority > t2.info.priority;}
+    
+    inline bool operator>=(const Transfer& t2) const
+        {return info.priority >= t2.info.priority;}
+        
+    inline bool operator==(const Transfer& t2) const
+        {return info.priority == t2.info.priority;}
+            
+        
     void about() const;
 };
 
