@@ -703,14 +703,14 @@ void KMainWidget::writeTransfers(bool ask_for_name)
         txt = locateLocal("appdata", "transfers");
 
 
+
     if (txt.isEmpty())
+    {
 #ifdef _DEBUG
-        sDebugOut << endl;
+        sDebugOut<< " because Destination File name isEmpty"<< endl;
 #endif
-    return;
-
-
-
+        return;
+    }
     if (txt.findRev(".kgt") == -1)
         txt += ".kgt";
 
