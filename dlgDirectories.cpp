@@ -86,7 +86,7 @@ void DlgDirectories::addEntry()
     QString dir = le_dir->text();
 
     if (ext.contains(",") || dir.contains(",") || ext.isEmpty() || dir.isEmpty()) {
-        KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder"), i18n("Error"));
+        KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder."), i18n("Error"));
         return;
     }
 
@@ -122,7 +122,7 @@ void DlgDirectories::changeEntry()
         QString dir = le_dir->text();
 
         if (ext.contains(",") || dir.contains(",") || ext.isEmpty() || dir.isEmpty()) {
-            KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder"), i18n("Error"));
+            KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder."), i18n("Error"));
             return;
         }
 

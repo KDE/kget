@@ -41,7 +41,7 @@
 
 
 
-static const char description[] = I18N_NOOP("An advanced download manager for KDE.");
+static const char description[] = I18N_NOOP("An advanced download manager for KDE");
 
 static const char version[] = KGETVERSION;
 
