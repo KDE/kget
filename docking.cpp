@@ -95,3 +95,11 @@ void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
 }
 
 #include "docking.moc"
+
+
+void DockWidget::updateToolTip( const QString& status )
+{
+       QToolTip::remove( this );
+       QToolTip::add( this, status );
+
+}

@@ -46,6 +46,7 @@ Q_OBJECT public:
     ~DockWidget();
     /** No descriptions */
     virtual void contextMenuAboutToShow ( KPopupMenu* menu );
+    void updateToolTip( const QString& );
 
 
 

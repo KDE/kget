@@ -1340,14 +1340,15 @@ void KMainWidget::slotAnimTimeout()
 
     animCounter++;
     if (animCounter == myTransferList->getPhasesNum()) {
+       //updateStatusBar();
         animCounter = 0;
     }
     // update status of all items of transferList
     isTransfer = myTransferList->updateStatus(animCounter);
 
-    if (this->isVisible()) {
+    //if (this->isVisible()) {
         updateStatusBar();
-    }
+    //}
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
@@ -2070,6 +2071,11 @@ void KMainWidget::updateStatusBar()
     statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
     statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
 
+    tmpstr = i18n(" Transfers: %1 ").arg(myTransferList->childCount()) +
+    i18n(" Files: %1 ").arg(totalFiles)+
+    i18n(" Size: %1 ").arg(KIO::convertSize(totalSize))+
+    i18n(" Time: %1 %2/s").arg(remTime.toString()).arg(KIO::convertSize(totalSpeed));
+    kdock->updateToolTip( tmpstr );
 
 #ifdef _DEBUG
     //sDebugOut << endl;
