@@ -316,28 +316,18 @@ void Transfer::updateAll()
 
         slotCopying(src, dest);	//set destination and source
 
-        if (canResume) {
-                logMessage(i18n("Download can be resumed"));
-                setText(view->lv_resume, i18n("Yes"));
-        } else {
-                logMessage(i18n("Download can not be resumed"));
-                setText(view->lv_resume, i18n("No"));
-        }
-
-
-
         dlgIndividual->setCanResume(canResume);
 
 
 
         if (totalSize != 0) {
-                logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+                //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
                 setText(view->lv_total, KIO::convertSize(totalSize));
                 dlgIndividual->setTotalSize(totalSize);
                 dlgIndividual->setPercent(0);
                 dlgIndividual->setProcessedSize(0);
         } else {
-                logMessage(i18n("Total size is unknown"));
+                //logMessage(i18n("Total size is unknown"));
                 setText(view->lv_total, "unknow");
                 dlgIndividual->setTotalSize(totalSize);
                 dlgIndividual->setPercent(0);
@@ -407,12 +397,15 @@ void Transfer::UpdateRetry()
 void Transfer::slotResume()
 {
         sDebug << ">>>>Entering with state =" << status << endl;
-        logMessage(i18n("Resuming"));
-        //wait until the slave is ready....
+        
+	//logMessage(i18n("Resuming"));
+        
+	//wait until the slave is ready....
 
         m_pSlave->wait();
 
 	// check if the Max Count is reached
+
         if((retryCount<=0)||(retryCount>ksettings.reconnectRetries))
 	  {
             retryCount=1;
@@ -570,9 +563,12 @@ void Transfer::slotFinished()
 
         logMessage(i18n("Download finished"));
         mode = MD_NONE;
-        if (ksettings.b_removeOnSuccess) {
+        if (ksettings.b_removeOnSuccess) 
+	  {
+	    dlgIndividual->close();
                 emit statusChanged(this, OP_FINISHED);
-        } else {
+        } 
+         else {
                 status = ST_FINISHED;
                 slotProcessedSize(totalSize);
                 slotSpeed(0);
@@ -592,8 +588,8 @@ void Transfer::slotCopying(const KURL & from, const KURL & to)
         src = from;
         dest = to;
 
-        logMessage(i18n("Copying %1 to %2").arg(src.url().ascii()).
-                   arg(dest.url().ascii()));
+	logMessage(i18n("Copying FROM: %1").arg(src.url().ascii()));
+	logMessage(i18n("TO: %1").arg(dest.url().ascii()));
 
         // source
         setText(view->lv_url, src.url());
@@ -974,6 +970,7 @@ void Transfer::slotExecRemove()
 void Transfer::slotExecResume()
 {
         sDebug << ">>>>Entering" << endl;
+       
         status = ST_RUNNING;
         emit statusChanged(this, OP_RESUMED);
         sDebug << "<<<<Leaving" << endl;

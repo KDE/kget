@@ -63,18 +63,7 @@ Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
 Slave::~Slave()
 {}
 
-/** No descriptions
-void Slave::setDest(const KURL & _dest){
-m_dest=_dest;
-}
-*/
-/** No descriptions
-void Slave::setSrc(const KURL & _src){
-m_src=_src;
-}
-*/
-void
-Slave::Op(SlaveCommand _cmd)
+void Slave::Op(SlaveCommand _cmd)
 {
 
         m_break = true;
@@ -115,6 +104,16 @@ inline void Slave::PostMessage(SlaveResult _event, const QString & _msg)
         mDebug << "Msg:" << "_msg = " << _msg << endl;
 
 }
+
+inline void Slave::InfoMessage(const QString & _msg)
+{
+        SlaveEvent *e1 = new SlaveEvent(m_parent,SLV_INFO, _msg);
+        postEvent(kapp->mainWidget(), (QEvent *) e1);
+        mDebug << "Infor Msg:" << "_msg = " << _msg << endl;
+
+
+
+} 
 
 void Slave::error(int _error, QString _msg)
 {
@@ -229,18 +228,21 @@ void Slave::run()
         openConnection();
 
         if (m_status == SLV_RUNNING) {
-                switch (m_cmd) {
-                case CHECK_RESUME:
-                        CanResume();
-                        break;
-                case CHECK_SIZE:
-                        GetRemoteSize();
-                        break;
-                case RETR:
-                        PostMessage(SLV_RESUMED);
-                        retr();
-                        break;
-                }
+	  switch (m_cmd) {
+	  case CHECK_RESUME:
+	    InfoMessage(i18n("Checking if the server support resume"));
+	    CanResume();
+	    break;
+	  case CHECK_SIZE:
+	   InfoMessage(i18n("Checking file size")); 
+	    GetRemoteSize();
+	    break;
+	  case RETR:
+            InfoMessage(i18n("Resuming"));
+	    PostMessage(SLV_RESUMED);
+	    retr();
+	    break;
+	  }
 
         }
 
@@ -360,3 +362,4 @@ int Slave::ReadableTimeOut(int fd, int sec)
         return (::select(fd + 1, &rset, NULL, NULL, &tv));
 
 }
+

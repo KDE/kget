@@ -76,7 +76,7 @@ public:
         /** No descriptions */
         void PostMessage(SlaveResult _event, unsigned long _data = 0L);
         void PostMessage(SlaveResult _event, const QString & _msg);
-
+	void InfoMessage(const QString & _msg);
 
 private:			// Private attributes
 

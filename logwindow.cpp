@@ -161,6 +161,8 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
         mixed_log = new QTextEdit(page);
         mixed_log->setReadOnly(true);
         mixed_log->setTextFormat(RichText);
+        mixed_log->setVScrollBarMode(QScrollView::Auto);
+        mixed_log->setWordWrap(QTextEdit::NoWrap);
         topLayout->addWidget(mixed_log);
 
         page = addPage(i18n("Separated"));
@@ -199,15 +201,17 @@ void LogWindow::logGeneral(const QString & message)
 void LogWindow::logTransfer(uint id, const QString & filename,
                             const QString & message)
 {
-        QString tmp1, tmp2;
+        QString mixed_msg,single_msg,job_id;
 
-        tmp1 =
-                "<code><font color=\"blue\">" + QTime::currentTime().toString() +
-                "</font> : " + message + "</code><br>";
-        tmp2.sprintf("<strong>%d</strong> : ", id);
+	 job_id.sprintf("Job[<font color=\"red\"\>%d</font>] : ", id);
+        mixed_msg ="<code><font color=\"blue\">" + QTime::currentTime().toString() +
+                "</font> : " + job_id+ message + "</code><br>";
+       
+	single_msg="<code><font color=\"blue\">" + QTime::currentTime().toString() +
+                "</font> : " +message + "</code><br>";
 
-        mixed_log->append(tmp2 + tmp1);
-        sep_log->addLog(id, filename, tmp1);
+        mixed_log->append(mixed_msg);
+        sep_log->addLog(id, filename,single_msg );
 }
 
 

@@ -76,11 +76,7 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
         progressLabel = new QLabel(this);
         grid->addWidget(progressLabel, 2, 2);
 
-#if QT_VERSION < 300
-          m_pProgressBar = new KProgress(0, 100, 0, KProgress::Horizontal, this);
-#else
          m_pProgressBar = new KProgress(100,this);
-#endif
 
         topLayout->addWidget(m_pProgressBar);
 
@@ -151,11 +147,14 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
         //adding item log
         ml_log = new QTextEdit(panelAdvanced);
         ml_log->setReadOnly(true);
-        ml_log->setFixedSize(sizeHint());
+        //ml_log->setFixedSize(sizeHint());
+        ml_log->setVScrollBarMode(QScrollView::Auto);
+        ml_log->setWordWrap(QTextEdit::NoWrap);
+
         //ml_log->setSizePolicy(policy);
 
         panelAdvanced->addTab(ml_log, i18n("Log"));
-        panelAdvanced->setFixedSize(sizeHint());
+        //panelAdvanced->setFixedSize(sizeHint());
 
 
 
@@ -272,17 +271,17 @@ void DlgIndividual::setCopying(const KURL & from, const KURL & to)
         source = from.url();
         dest = to.url();
 
-        if (source.length() > 50) {
-                QString left = source.left(25);
+        if (source.length() > 40) {
+                QString left = source.left(20);
                 left = left.left(left.findRev("/") + 1);
                 left += "...";
                 QString right = source.right(25);
                 right = right.right(right.length() - right.find("/"));
                 source = left + right;
         }
-        if (dest.length() > 50) {
-                QString left = dest.left(25);
-                left = left.left(left.findRev("/") + 1);
+        if (dest.length() > 40) {
+                QString left = dest.left(20);
+                left = left.left(left.findRev("/")+1);
                 left += "...";
                 QString right = dest.right(25);
                 right = right.right(right.length() - right.find("/"));
@@ -328,7 +327,7 @@ void DlgIndividual::addLog(const QString & _msg)
 
         tmps =
                 "<code><font color=\"blue\">" + QTime::currentTime().toString() +
-                "</font> : <strong>" + _msg + "</strong></code><br>";
+                "</font> : " + _msg + "</code><br>";
 
         ml_log->append(tmps);
 }

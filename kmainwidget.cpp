@@ -938,13 +938,13 @@ void KMainWidget::slotDeleteCurrent()
                                                               i18n("Question")) != KMessageBox::Yes)
                                         return;
                         }
-                        //kapp->lock();
+                       
                         isRunning =
                                 (it.current()->getStatus() == Transfer::ST_RUNNING);
                         it.current()->slotRemove();
                         if (isRunning)
                                 it++;
-                        //kapp->unlock();
+                       
                         // don't need to update counts - they are updated automatically when
                         // calling remove() if the thread is not running
 
@@ -1242,7 +1242,7 @@ void KMainWidget::checkQueue()
                         item = it.current();
                         if ((item->getMode() == Transfer::MD_QUEUED)
                                         && (item->getStatus() != Transfer::ST_RUNNING)) {
-                                log(i18n("Starting another queued job."));
+                                //log(i18n("Starting another queued job."));
                                 item->slotResume();
                                 numRun++;
                         }
