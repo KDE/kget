@@ -110,8 +110,8 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 
 
 
-KMainWidget::KMainWidget(bool bStartDocked) 
-    : KMainWindow(0), 
+KMainWidget::KMainWidget(bool bStartDocked)
+    : KMainWindow(0),
       KGetIface( "KGet-Interface" ),
       prefDlg( 0L )
 {
@@ -269,7 +269,6 @@ KMainWidget::~KMainWidget()
 #endif
 
     delete prefDlg;
-
     delete animTimer;
     delete(DropTarget *) kdrop;
     writeTransfers();
@@ -278,6 +277,7 @@ KMainWidget::~KMainWidget()
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+    delete logWindow;
 }
 
 
