@@ -24,8 +24,7 @@ noinst_HEADERS = common.h \
 
 kget_METASOURCES = AUTO
 
-appsdir = $(kde_appsdir)/Internet
-apps_DATA = kget.desktop
+xdg_apps_DATA = kget.desktop
 
 mimedir = $(kde_mimedir)/application
 mime_DATA =x-kgetlist.desktop
