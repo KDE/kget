@@ -29,6 +29,7 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kiconloader.h>
+#include <kglobalsettings.h>
 #include <kwin.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
@@ -53,17 +54,19 @@ DropTarget::DropTarget():QWidget()
     int x = ksettings.dropPosition.x();
     int y = ksettings.dropPosition.y();
     
+    QRect desk = KGlobalSettings::desktopGeometry(this);
+
     if (x != -1 &&
-        x >= 0 && y >= 0 &&
-        (x + TARGET_WIDTH) <= KApplication::desktop()->width() &&
-        (y + TARGET_HEIGHT) <= KApplication::desktop()->height() )
+        x >= desk.left() && y >= desk.top() &&
+        (x + TARGET_WIDTH) <= desk.right() &&
+        (y + TARGET_HEIGHT) <= desk.bottom() )
     {
         move(ksettings.dropPosition);
         KWin::setState(winId(), ksettings.dropState);
     }
     else
     {
-        setGeometry(200, 200, TARGET_WIDTH, TARGET_HEIGHT);
+        setGeometry(desk.x()+200, desk.y()+200, TARGET_WIDTH, TARGET_HEIGHT);
         KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop);
     }
 
