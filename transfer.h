@@ -60,11 +60,11 @@ class Transfer:public QObject, public QListViewItem {
 
     enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
 
-    enum TransferStatus { ST_RUNNING, ST_FINISHED, ST_STOPPED };
+    enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED,ST_FINISHED };
 
     enum TransferOperation {
 	OP_FINISHED, OP_RESUMED, OP_PAUSED, OP_REMOVED, OP_ABORTED,
-	OP_QUEUED, OP_SCHEDULED, OP_DELAYED
+	OP_QUEUED, OP_SCHEDULED, OP_DELAYED,OP_CONNECTED
     };
 
 
@@ -144,6 +144,7 @@ class Transfer:public QObject, public QListViewItem {
     void slotExecRemove();
     void slotExecDelay();
     void slotExecSchedule();
+    void slotExecConnected();
     void slotExecAbort(const QString &);
     void slotCanResume(bool _bCanResume);
     void slotSpeed(unsigned long);

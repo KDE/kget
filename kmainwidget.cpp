@@ -1673,6 +1673,7 @@ void KMainWidget::slotUpdateActions()
 	    // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
 	    if (item == first_item) {
 		switch (item->getStatus()) {
+		case Transfer::ST_TRYING:
 		case Transfer::ST_RUNNING:
 		    m_paResume->setEnabled(false);
 		    m_paPause->setEnabled(true);
@@ -1939,7 +1940,9 @@ void KMainWidget::customEvent(QCustomEvent * _e)
     case Slave::SLV_DELAYED:
 	e->getItem()->slotExecDelay();
 	break;
-
+   case Slave::SLV_CONNECTED:
+      e->getItem()->slotExecConnected();
+      break;
 
     case Slave::SLV_CAN_RESUME:
 	e->getItem()->slotCanResume((bool) e->getData());

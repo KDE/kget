@@ -190,8 +190,9 @@ void Slave::Connect()
 {
     mDebugIn << endl;
 
-    connect(copyjob, SIGNAL(canceled(KIO::Job *)), SLOT(slotCanceled(KIO::Job *)));
 
+    connect(copyjob, SIGNAL(canceled(KIO::Job *)), SLOT(slotCanceled(KIO::Job *)));
+    connect(copyjob, SIGNAL(connected(KIO::Job *)), SLOT(slotConnected(KIO::Job *)));
     connect(copyjob, SIGNAL(result(KIO::Job *)), SLOT(slotResult(KIO::Job *)));
 
     connect(copyjob, SIGNAL(totalSize(KIO::Job *, KIO::filesize_t)), SLOT(slotTotalSize(KIO::Job *, KIO::filesize_t)));
@@ -210,6 +211,14 @@ void Slave::slotCanceled(KIO::Job *)
 {
     mDebugIn << endl;
 
+
+    mDebugOut << endl;
+}
+void Slave::slotConnected(KIO::Job *)
+{
+    mDebugIn << endl;
+
+  
 
     mDebugOut << endl;
 }
@@ -242,7 +251,7 @@ void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
     PostMessage(SLV_TOTAL_SIZE, _total_size);
 
     PostMessage(SLV_CAN_RESUME, copyjob->getCanResume());
-
+    PostMessage(SLV_CONNECTED);
     mDebugOut << endl;
 }
 

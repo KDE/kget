@@ -96,7 +96,7 @@ TransferList::TransferList(QWidget * parent, const char *name):QListView(parent,
     if (animConn->count() == 0) {
 	animConn->setAutoDelete(true);
 	animTry->setAutoDelete(true);
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < 8; i++) {
 	    QPixmap *p1 = new QPixmap();
 	    QString name = QString("connect%1").arg(i);
 	    QString iconName = name + ".xpm";

@@ -1,5 +1,5 @@
 /* XPM */
-static char *try1[]={
+static char *try7[]={
 "26 14 37 1",
 ". c None",
 "n c #000000",
@@ -40,15 +40,15 @@ static char *try1[]={
 "x c #f6eef6",
 "..........................",
 "..........................",
-".......#aba#c...#cdeaa....",
-"......fghgigj...jklhmhn...",
-"bebbe#opqrsrsnnntqturopnd#",
-"vwvvwvxvwyzyA...aw#wywywyw",
-"BuBBuBopurCrs...CoCopoBoru",
-"ghgghghmhDEgl...FkjhmkgGgG",
-"nnnnnncbaenbnnnnHaHadeannn",
-"......nghmnDn...nhnGghn...",
-".......nnnnnn...nnnnnn....",
+".....#aba#c.....#cdeaa....",
+"....fghgigj.....jklhmhn...",
+"bee#opqrsrsnnn..tqturopnd#",
+"vwwvxvwyzyA.....aw#wywywyw",
+"BuuBopurCrs.....CoCopoBoru",
+"ghhghmhDEgl.....FkjhmkgGgG",
+"nnnncbaenbnnnn..HaHadeannn",
+"....nghmnDn.....nhnGghn...",
+".....nnnnnn.....nnnnnn....",
 "..........................",
 "..........................",
 ".....I...................."};

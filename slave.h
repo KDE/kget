@@ -53,7 +53,7 @@ class Slave:public QObject, public QThread {
     enum SlaveResult {
 
 	SLV_TOTAL_SIZE, SLV_PROGRESS_SIZE, SLV_PROGRESS_SPEED,
-	SLV_CAN_RESUME,
+	SLV_CAN_RESUME,SLV_CONNECTED,
 
 	SLV_RESUMED, SLV_PAUSED, SLV_ABORTED, SLV_SCHEDULED, SLV_DELAYED,
 	SLV_FINISHED, SLV_INFO, SLV_REMOVED
@@ -78,6 +78,8 @@ class Slave:public QObject, public QThread {
     public slots:
        /** No descriptions */
     void slotCanceled(KIO::Job *);
+       /** No descriptions */
+    void slotConnected(KIO::Job *);
        /** No descriptions */
     void slotResult(KIO::Job *);
 	/** No descriptions */

@@ -214,10 +214,11 @@ void Transfer::copy(Transfer * _orig)
 
 void Transfer::slotUpdateActions()
 {
-        sDebugIn  << endl;
+        sDebugIn  <<"Status="<<status<<endl;
 
         UpdateRetry();
         switch (status) {
+	case ST_TRYING:
         case ST_RUNNING:
                 m_paResume->setEnabled(false);
                 m_paPause->setEnabled(true);
@@ -343,10 +344,16 @@ bool Transfer::updateStatus(int counter)
         QPixmap *pix = 0L;
         bool isTransfer = false;
 
-        if (status <= ST_RUNNING) {
+        if (status == ST_RUNNING) {
                 pix = view->animConn->at(counter);
                 isTransfer = true;
         }
+	else if (status==ST_TRYING)
+	{
+                pix = view->animTry->at(counter);
+                isTransfer = true;
+
+	}
         else if (status ==
                         ST_STOPPED /*|| status==ST_PAUSED||status==ST_ABORTED */ ) {
                 if (mode == MD_QUEUED) {
@@ -397,7 +404,7 @@ void Transfer::slotResume()
 
         m_paResume->setEnabled(false);
 
-        status = ST_RUNNING;
+        status = ST_TRYING;
         mode = MD_QUEUED;
 
         sDebug << "sending Resume to slave " << endl;
@@ -843,6 +850,15 @@ void Transfer::slotExecResume()
 {
         sDebugIn  << endl;
         emit statusChanged(this, OP_RESUMED);
+        sDebugOut   << endl;
+
+}
+
+void Transfer::slotExecConnected()
+{
+        sDebugIn  << endl;
+	status=ST_RUNNING;
+        emit statusChanged(this, OP_CONNECTED);
         sDebugOut   << endl;
 
 }
