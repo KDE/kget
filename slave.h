@@ -33,15 +33,47 @@
 #include <qwaitcondition.h>
 #include <qmutex.h>
 #include <qobject.h>
+#include <qevent.h>
 
-#include "common.h"
+#include "globals.h"
+
+#include <kio/jobclasses.h>
 
 namespace KIO
 {
-    class GetFileJob;
+    class GetFileJob:public FileCopyJob
+    {
+    public:
+	GetFileJob(const KURL & m_src, const KURL & m_dest);
+	~GetFileJob();
+	bool getCanResume() const;
+    };
 }
 
-class Transfer;
+/**
+  *@author Patrick Charbonnier
+  */
+
+class SlaveEvent:public QCustomEvent
+{
+public:
+    SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata = 0L);
+    SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg);
+
+    unsigned int getEvent() const;
+    Transfer *getItem() const;
+    unsigned long getData() const;
+    const QString & getMsg() const;
+
+
+private:
+    unsigned int m_event;
+    Transfer *m_item;
+    unsigned long m_ldata;
+    QString m_msg;
+
+};
+
 
 class Slave:public QObject, public QThread
 {

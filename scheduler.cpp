@@ -175,12 +175,12 @@ void Scheduler::slotSetPriority(Transfer * item, int priority)
 
 }
 
-void Scheduler::slotSetOperation(QValueList<Transfer *> list, Operation op)
+void Scheduler::slotSetOperation(QValueList<Transfer *> list, TransferOperation op)
 {
 
 }
 
-void Scheduler::slotSetOperation(Transfer * item, Operation op)
+void Scheduler::slotSetOperation(Transfer * item, TransferOperation op)
 {
 
 }
@@ -195,7 +195,7 @@ void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
 
 }
 
-void Scheduler::slotTransferStatusChanged(Transfer *, int operation)
+void Scheduler::slotTransferStatusChanged(Transfer *, int TransferOperation)
 {
 
 }

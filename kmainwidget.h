@@ -31,7 +31,7 @@
 #include <kmdimainfrm.h>
 #include <kaction.h>
 #include <kurl.h>
-#include "common.h"
+#include "globals.h"
 
 #include "kget_iface.h"
 #include "scheduler.h"

@@ -28,12 +28,78 @@
 #include <kapplication.h>
 #include <kio/scheduler.h>
 
-#include "getfilejob.h"
 #include "slave.h"
-#include "slaveevent.h"
 #include "transfer.h"
 
 #include <assert.h>
+
+/*
+ * GetFileJob
+ */
+
+namespace KIO
+{
+    GetFileJob::GetFileJob(const KURL & m_src, const KURL & m_dest)
+	: FileCopyJob(m_src, m_dest,-1, false, false, false, false) {}
+	
+    GetFileJob::~GetFileJob() {}
+	
+    /** Return true if the file has been resumed */
+    bool GetFileJob::getCanResume()const
+    {
+	return m_canResume;
+    }
+}
+
+/*
+ * SlaveEvent
+ */
+
+#define EVENT_TYPE (QEvent::User + 252)
+
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent(EVENT_TYPE)
+{
+    m_event = _event;
+    m_item = _item;
+    m_ldata = _ldata;
+    m_msg = QString("");
+}
+
+
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg):QCustomEvent(EVENT_TYPE)
+{
+    m_event = _event;
+    m_item = _item;
+    m_ldata = 0L;
+    m_msg = _msg;
+}
+
+unsigned int
+SlaveEvent::getEvent() const
+{
+    return m_event;
+}
+
+Transfer *SlaveEvent::getItem() const
+{
+    return m_item;
+}
+
+unsigned long SlaveEvent::getData() const
+{
+    return m_ldata;
+}
+
+const QString & SlaveEvent::getMsg() const
+{
+    return m_msg;
+}
+
+
+
+/*
+ * Slave
+ */
 
 Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
     : QObject(),

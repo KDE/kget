@@ -43,7 +43,7 @@
 #include <klocale.h>
 #include <ktoolbar.h>
 #include <krun.h>
-#include "common.h"
+#include "globals.h"
 
 #include "transfer.h"
 

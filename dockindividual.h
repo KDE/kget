@@ -29,7 +29,7 @@
 #define DOCKINDIVIDUAL_H
 
 #include <ksystemtray.h>
-#include "common.h"
+#include "globals.h"
 
 class KPopupMenu;
 

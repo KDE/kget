@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include <kdatetimewidget.h>
 #include <knuminput.h>
-#include "common.h"
+#include "globals.h"
 
 #include <kdialog.h>
 #include <klineedit.h>

@@ -69,6 +69,7 @@
 #include <kio/netaccess.h>
 
 #include "scheduler.h"
+#include "iconview.h"
 #include "safedelete.h"
 #include "settings.h"
 #include "transfer.h"
@@ -86,9 +87,8 @@
 #include <kio/authinfo.h>
 #include <qiconset.h>
 
-#include "version.h"
+#include "globals.h"
 #include "slave.h"
-#include "slaveevent.h"
 
 
 KMainWidget *kmain = 0L;
@@ -127,6 +127,10 @@ KMainWidget::KMainWidget(bool bStartDocked)
     setupConnections();
     //setupWhatsThis();
     setupUserSettings();
+    
+    QWidget * w = new KGetIconView( scheduler );
+    w->resize(400,300);
+    w->show();
     
     kdrop = new DropTarget(scheduler);
     kdock = new DockWidget(this, scheduler);

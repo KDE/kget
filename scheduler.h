@@ -7,12 +7,7 @@
 #include <qstringlist.h>
 #include <kurl.h>
 
-class QString;
-
-class KMainWidget;
-class TransferList;
-class Transfer;
-
+#include "globals.h"
 
 class GlobalStatus
 {
@@ -41,9 +36,7 @@ Q_OBJECT
 public:
 	Scheduler(KMainWidget * _mainWidget);
 	~Scheduler();
-	
-	enum Operation {};
-	
+
 signals:
 	void addedItems(QValueList<Transfer *>);
 	void removedItems(QValueList<Transfer *>);
@@ -76,8 +69,8 @@ public slots:
 	void slotSetPriority(QValueList<Transfer *>, int);
 	void slotSetPriority(Transfer *, int);
     
-	void slotSetOperation(QValueList<Transfer *>, Operation);
-	void slotSetOperation(Transfer *, Operation);
+	void slotSetOperation(QValueList<Transfer *>, TransferOperation);
+	void slotSetOperation(Transfer *, TransferOperation);
     
 	void slotSetGroup(QValueList<Transfer *>, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
@@ -86,7 +79,7 @@ public slots:
      * This slot is called from the Transfer object when its status
      * has changed
      */
-    void slotTransferStatusChanged(Transfer *, int operation);
+    void slotTransferStatusChanged(Transfer *, int TransferOperation);
 
     /**
      * This function adds the transfer copied in the clipboard

@@ -37,8 +37,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "kmainwidget.h"
-#include "version.h"
-
+#include "globals.h"
 
 
 static const char description[] = I18N_NOOP("An advanced download manager for KDE.");

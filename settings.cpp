@@ -39,8 +39,7 @@
 #include "transferlist.h"
 #include "droptarget.h"
 #include "settings.h"
-#include "common.h"
-#include "version.h"
+#include "globals.h"
 
 static const unsigned long DEFAULT_DOCK_STATE = (NET::SkipTaskbar | NET::StaysOnTop);
 

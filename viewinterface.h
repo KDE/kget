@@ -1,55 +1,39 @@
 #ifndef _VIEWINTERFACE_H
 #define _VIEWINTERFACE_H
 
-#include "scheduler.h"
+#include <kurl.h>
+#include <qvaluelist.h>
+#include <qobject.h>
+
+#include "globals.h"
 
 class ViewInterface : public QObject
 {
 Q_OBJECT
 public:
-	ViewInterface( Scheduler * s ) { connectScheduler( s ); }
+	ViewInterface( Scheduler * );
 
 signals:
-	void newURLs( KURL::List );
+	/**
+	 * Those are the commands for the scheduler
+	 */
+	void newURLs( const KURL::List &, const QString &destDir );
 	void removeItems( QValueList<Transfer *> );
 	void setPriority( QValueList<Transfer *>, int );
-	void setOperation( QValueList<Transfer *>, Scheduler::Operation );
+	void setOperation( QValueList<Transfer *>, TransferOperation );
 	void setGroup( QValueList<Transfer *>, const QString & );
 
 public slots:
-	virtual void schedulerCleared() {};
-	virtual void schedulerAddedItems( QValueList<Transfer *> ) {};
-	virtual void schedulerRemovedItems( QValueList<Transfer *> ) {};
-	virtual void schedulerChangedItems( QValueList<Transfer *> ) {};
-	virtual void schedulerStatus( GlobalStatus * ) {};
-	
-private: 
-	void connectScheduler( Scheduler * sched )
-	{
-		// Incoming data: connect shceduler's signals to local slots
-		connect( sched, SIGNAL( addedItems(QValueList<Transfer *>) ),
-			 this, SLOT( schedulerAddedItems(QValueList<Transfer *>) ) );
-		connect( sched, SIGNAL( removedItems(QValueList<Transfer *>) ),
-			 this, SLOT( schedulerRemovedItems(QValueList<Transfer *>) ) );
-		connect( sched, SIGNAL( changedItems(QValueList<Transfer *>) ),
-			 this, SLOT( schedulerChangedItems(QValueList<Transfer *>) ) );
-		connect( sched, SIGNAL( clear() ),
-			 this, SLOT( schedulerCleared() ) );
-		connect( sched, SIGNAL( globalStatus(GlobalStatus *) ),
-			 this, SLOT( schedulerStatus(GlobalStatus *) ) );
-
-		// Outgoing data: connect local signals to scheduler's slots
-		connect( this, SIGNAL( newURLs( KURL::List ) ),
-			 sched, SLOT( slotNewURLs(KURL::List) ) );
-		connect( this, SIGNAL( removeItems(QValueList<Transfer *>) ),
-			 sched, SLOT( slotRemoveItems(QValueList<Transfer *>) ) );
-		connect( this, SIGNAL( setPriority(QValueList<Transfer *>, int) ),
-			 sched, SLOT( slotSetPriority(QValueList<Transfer *>, int) ) );
-		connect( this, SIGNAL( setOperation(QValueList<Transfer *>, enum Scheduler::Operation) ),
-			 sched, SLOT( slotSetOperation(QValueList<Transfer *>, enum Scheduler::Operation) ) );
-		connect( this, SIGNAL( setGroup(QValueList<Transfer *>, const QString &) ),
-			 sched, SLOT( slotSetGroup(QValueList<Transfer *>, const QString &) ) );
-	}
+	/**
+	 * Every slot here is a scheduler notification/answer. Just
+	 * reimplement those in a subclass to catch broadcasted
+	 * messages.
+	 */
+	virtual void schedulerCleared();
+	virtual void schedulerAddedItems( QValueList<Transfer *> );
+	virtual void schedulerRemovedItems( QValueList<Transfer *> );
+	virtual void schedulerChangedItems( QValueList<Transfer *> );
+	virtual void schedulerStatus( GlobalStatus * );
 };
 
 #endif

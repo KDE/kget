@@ -5,8 +5,8 @@ INCLUDES = $(all_includes)
 bin_PROGRAMS = kget
 
 kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lqt -lkmdi
-kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
+kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lkmdi
+kget_SOURCES = slave.cpp transferlist.cpp \
                transfer.cpp settings.cpp logwindow.cpp \
                kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp \
                dlgconnectionbase.ui dlgautomationbase.ui dlglimitsbase.ui \
@@ -15,16 +15,16 @@ kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
                dlgAutomation.cpp dlgAdvanced.cpp \
                main.cpp dockindividual.cpp kget_iface.skel safedelete.cpp \
-               scheduler.cpp
+               scheduler.cpp viewinterface.cpp iconview.cpp
 
-noinst_HEADERS = common.h \
+noinst_HEADERS = globals.h \
                  dlgAdvanced.h dlgAutomation.h dlgConnection.h \
                  dlgDirectories.h dlgIndividual.h dlgLimits.h \
                  dlgPreferences.h dlgSystem.h docking.h droptarget.h \
                  kfileio.h kmainwidget.h logwindow.h settings.h \
-                 transfer.h transferlist.h version.h slave.h \
-                 slaveevent.h http_defaults.h getfilejob.h dockindividual.h \
-                 scheduler.h viewinterface.h
+                 transfer.h transferlist.h slave.h \
+                 dockindividual.h \
+                 scheduler.h viewinterface.h iconview.h
 
 kget_METASOURCES = AUTO
 
