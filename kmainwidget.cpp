@@ -105,9 +105,13 @@ int ddp_sock = -1;		/* Appletalk DDP socket */
 
 KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
 {
+
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
+
+
+
 
     KConfig *cfg = new KConfig("kioslaverc", false, false);
 
