@@ -39,7 +39,7 @@ class TransferList : public QValueList<Transfer *>
 {
 public:
 
-    TransferList(Scheduler * _scheduler);
+    TransferList(Scheduler * _scheduler = 0);
     virtual ~TransferList();
 
     /**

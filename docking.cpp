@@ -48,7 +48,8 @@ DockWidget::DockWidget(KMainWidget * _parent, Scheduler * _scheduler)
     setPixmap( loadIcon( "dock" ));
 
     // popup menu for right mouse button
-    KPopupMenu *popupMenu = contextMenu();
+    //FIXME is this needed??? KPopupMenu *popupMenu = contextMenu();
+    
     //parent->m_paPreferences->plug(popupMenu);
 
     // Enable dropping

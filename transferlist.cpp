@@ -31,6 +31,7 @@
 #include <kmessagebox.h>
 #include <ksimpleconfig.h>
 #include <kio/netaccess.h>
+#include <assert.h>
 
 #include "transfer.h"
 #include "transferlist.h"
@@ -52,6 +53,12 @@ TransferList::~TransferList()
 
 Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest, bool toBegin)
 {
+    if ( !scheduler )
+    {
+	sDebug << "Can't add an URL to an unparented TransferList" << endl;
+	assert(0);
+	return 0;
+    }
     Transfer *newItem = new Transfer(scheduler, _source, _dest, jobid);
     addTransfer(newItem, toBegin);
         
@@ -222,7 +229,7 @@ void TransferList::readTransfers(const KURL& file)
 
     kdDebug(DKGET) << "AAA" << endl;      
     
-    if (KIO::NetAccess::download(file, tmpFile)) {
+    if (KIO::NetAccess::download(file, tmpFile, 0)) {
         KSimpleConfig config(tmpFile);
 
         kdDebug(DKGET) << "BBB" << endl;

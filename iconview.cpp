@@ -77,20 +77,16 @@ void IconViewTransfer::paintItem( QPainter * p, const QColorGroup & cg )
 	percent = 100;
     if ( percent < 0 )
 	percent = 0;
-    w = ((w - 10) * percent) / 100;
+    w = ((w - 12) * percent) / 100;
     p->setPen( Qt::white );
     p->setBrush( transfer->getStatus() == Transfer::ST_RUNNING ? Qt::green : Qt::red );
     p->drawRect( r.left() + 6, r.top() + h - 7, w, 5 );
     p->restore();
 }
 
-void IconViewTransfer::paintFocus( QPainter * p, const QColorGroup & cg )
+void IconViewTransfer::paintFocus( QPainter *, const QColorGroup & )
 {
-/*  No focus is better than colored focus
-    QColorGroup inverted = cg;
-    inverted.setColor( QColorGroup::Background, cg.foreground() );
-    inverted.setColor( QColorGroup::Foreground, cg.background() );
-    paintItem( p, inverted );*/
+/*  No focus is better than colored focus */
 }
 
 
@@ -132,15 +128,17 @@ void IconView::slotRightButtonClicked( QIconViewItem * item, const QPoint & pos 
     // add menu entries
     if ( overItems )
     {   // menu over an item
-	popup->insertItem( new QLabel(transfer->getDest().path(), popup) );
+	popup->insertItem( SmallIcon("down"), i18n("Resume"), this, SLOT(slotResumeItems()) );
+	popup->insertItem( SmallIcon("stop"), i18n("Stop"), this, SLOT(slotStopItems()) );
 	popup->insertItem( SmallIcon("remove"), i18n("Remove"), this, SLOT(slotRemoveItems()) );
 	
 	KPopupMenu * subPrio = new KPopupMenu( popup );
-	subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority() ) );
-	subPrio->insertItem( SmallIcon("1uparrow"), i18n("highe"), this,  SLOT( slotSetPriority() ) );
-	subPrio->insertItem( i18n("normal"), this,  SLOT( slotSetPriority() ) );
-	subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority() ) );
-	subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority() ) );
+	subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority1() ) );
+	subPrio->insertItem( SmallIcon("1uparrow"), i18n("highe"), this,  SLOT( slotSetPriority2() ) );
+	subPrio->insertItem( i18n("normal"), this,  SLOT( slotSetPriority3() ) );
+	subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority4() ) );
+	subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority5() ) );
+	subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority6() ) );
 	popup->insertItem( i18n("Set priority"), subPrio );
 	
 	KPopupMenu * subOp = new KPopupMenu( popup );
@@ -160,29 +158,82 @@ void IconView::slotRightButtonClicked( QIconViewItem * item, const QPoint & pos 
     popup->popup( pos );
 }
 
+TransferList IconView::getSelectedList()
+{
+    TransferList sl;
+    IconViewTransfer * ivt = static_cast<IconViewTransfer*>(firstItem());
+    while ( ivt )
+    {
+	if ( ivt->isSelected() )
+	    sl.addTransfer( ivt->getTransfer() );
+	ivt = static_cast<IconViewTransfer*>(ivt->nextItem());
+    }
+    return sl;
+}
+
 void IconView::slotNewTransfer()
 {
-    schedNewURLs( KURL(), "/root" );
+    schedNewURLs( KURL(), QString::null );
+}
+
+void IconView::slotResumeItems()
+{
+    TransferList tl = getSelectedList();
+    schedSetCommand( tl, CmdResume );
+}
+
+void IconView::slotStopItems()
+{
+    TransferList tl = getSelectedList();
+    schedSetCommand( tl, CmdPause );
 }
 
 void IconView::slotRemoveItems()
 {
-// 	void schedRemoveItems( TransferList & );
+    TransferList tl = getSelectedList();
+    schedRemoveItems( tl );
 }
 
-void IconView::slotSetPriority()
+void IconView::slotSetPriority1()
 {
-// 	void schedSetPriority( TransferList &, int );
+    TransferList tl = getSelectedList();
+    schedSetPriority( tl, 1 );
 }
 
-void IconView::slotSetCommand()
+void IconView::slotSetPriority2()
 {
-// 	void schedSetCommand( TransferList &, TransferCommand );
+    TransferList tl = getSelectedList();
+    schedSetPriority( tl, 2 );
+}
+
+void IconView::slotSetPriority3()
+{
+    TransferList tl = getSelectedList();
+    schedSetPriority( tl, 3 );
+}
+
+void IconView::slotSetPriority4()
+{
+    TransferList tl = getSelectedList();
+    schedSetPriority( tl, 4 );
+}
+
+void IconView::slotSetPriority5()
+{
+    TransferList tl = getSelectedList();
+    schedSetPriority( tl, 5 );
+}
+
+void IconView::slotSetPriority6()
+{
+    TransferList tl = getSelectedList();
+    schedSetPriority( tl, 6 );
 }
 
 void IconView::slotSetGroup()
 {
-// 	void schedSetGroup( TransferList &, const QString & );
+    TransferList tl = getSelectedList();
+    schedSetGroup( tl, "$TESTGROUP$" );
 }
 
 

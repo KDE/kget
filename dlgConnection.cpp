@@ -124,7 +124,7 @@ void DlgConnection::applyData()
     ksettings.linkNumber = le_linknum->value();
 
     if (cb_offlinemode->isChecked() != ksettings.b_offlineMode) {
-        kmain->slotToggleOfflineMode();
+        //FIXME kmain->slotToggleOfflineMode();
     }
 }
 

@@ -47,15 +47,11 @@
 #include <kio/netaccess.h>
 
 
-extern Settings ksettings;
-
-
 Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id)
     : scheduler(_scheduler), 
-      src(_src), dest(_dest), totalSize(0),
-      processedSize(0), percent(0), id(_id),
-      speed(0), retryCount(0), canResume(false),
-      status(ST_STOPPED), priority(3)
+      src(_src), dest(_dest), id(_id),
+      totalSize(0), processedSize(0), percent(0), speed(0),  
+      status(ST_STOPPED), priority(3), retryCount(0), canResume(false)
 {
     sDebugIn << endl;
 
@@ -305,7 +301,7 @@ void Transfer::slotRequestRemove()
         // delete the partly downloaded file, if any
         KURL file = dest;
         file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
-        if ( KIO::NetAccess::exists( file ) ) // don't pollute user with warnings
+        if ( KIO::NetAccess::exists( file, false, 0 /*FIXME use a valid QWidget*/) )
         {
             SafeDelete::deleteFile( file ); // ### messagebox on failure?
         }
@@ -879,14 +875,19 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
             slotExecRemove();
             emit statusChanged(this, MSG_REMOVED);
             break;
+
+        case Slave::SLV_KILLED:
+            //FIXME IMPLEMENT ME!
+            break;
+        case Slave::SLV_INFO:
+            //FIXME IMPLEMENT ME!
+            break;
     }
 }
 
-void Transfer::slavePostMessage(Slave::SlaveResult event, const QString & msg)
+void Transfer::slavePostMessage(Slave::SlaveResult /*event*/, const QString & /*msg*/)
 {
     
-
-
 }
 
 void Transfer::slaveInfoMessage(const QString & msg)

@@ -99,7 +99,7 @@ DropTarget::DropTarget(Scheduler * _scheduler)
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
-    popupMenu->setTitle(kapp->caption());
+    popupMenu->insertTitle(kapp->caption());
     popupMenu->setCheckable(true);
 
     pop_Max = popupMenu->insertItem(i18n("Maximize"), this, SLOT(toggleMinimizeRestore()));

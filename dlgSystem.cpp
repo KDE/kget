@@ -150,7 +150,7 @@ void DlgSystem::testSound()
     //   KAudioPlayer::play(soundFile);
     //   KAudioPlayer::play( "/home/pch/pop.wav");
 
-    if (KIO::NetAccess::download(KURL( soundFile ), tmpFile))
+    if (KIO::NetAccess::download(KURL( soundFile ), tmpFile, 0))
     {
         sDebug << "Temp file to play is " << tmpFile << endl;
         KAudioPlayer::play(tmpFile);
@@ -189,18 +189,18 @@ void DlgSystem::applyData()
 
     QString tmpFile;
 
-    if (KIO::NetAccess::download(KURL( soundAdded ), tmpFile ))
+    if (KIO::NetAccess::download(KURL( soundAdded ), tmpFile, 0))
         ksettings.audioAdded = tmpFile;
-    if (KIO::NetAccess::download(KURL( soundStarted ), tmpFile))
+    if (KIO::NetAccess::download(KURL( soundStarted ), tmpFile, 0))
         ksettings.audioStarted = tmpFile;
-    if (KIO::NetAccess::download(KURL( soundFinished ), tmpFile))
+    if (KIO::NetAccess::download(KURL( soundFinished ), tmpFile, 0))
         ksettings.audioFinished = tmpFile;
-    if (KIO::NetAccess::download(KURL( soundFinishedAll ), tmpFile))
+    if (KIO::NetAccess::download(KURL( soundFinishedAll ), tmpFile, 0))
         ksettings.audioFinishedAll = tmpFile;
 
     if (cb_useAnimation->isChecked() != ksettings.b_useAnimation)
     {
-        kmain->slotToggleAnimation();
+        //FIXME kmain->slotToggleAnimation();
     }
 
     ksettings.listViewFont = le_font->font();

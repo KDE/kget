@@ -45,9 +45,6 @@ class DropTarget;
 class LogWindow;
 class DlgPreferences;
 
-class Transfer;
-class TransferList;
-class Scheduler;
 class Settings;
 
 
@@ -68,12 +65,7 @@ public:
     virtual bool isDropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );
 
-    
-    void setAutoSave();
-    void setAutoDisconnect();
-
     LogWindow *logwin()const { return logWindow;}
-    friend class Settings;
 
     // Actions
     KToggleAction *m_paShowLog;
@@ -89,36 +81,30 @@ public slots:
     void slotToggleLogWindow();
     void slotPreferences();
     void slotToggleExpertMode();
-    void slotToggleOfflineMode();
     void slotToggleUseLastDir();
-    void slotToggleAutoDisconnect();
     void slotToggleAutoShutdown();
-    void slotToggleAutoPaste();
     void slotToggleDropTarget();
-    void slotToggleAnimation();
     void slotToggleSound();
     void slotUpdateActions();
 protected slots:
     void slotQuit();
 
     void slotSaveYourself();
-    void slotCheckConnection();
 
 //    void slotTransferTimeout();
 //    void slotAutosaveTimeout();
 
-//    void slotCopyToClipboard();
 //    void slotCheckClipboard();
 
     void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotNewToolbarConfig();
 
-    void slotPopupMenu(Transfer * item);
-
 protected:
+    //From the DCOP iface
     virtual void setOfflineMode( bool online );
     virtual bool isOfflineMode() const;
+
     virtual bool queryClose();
     void writeLog();
 
@@ -139,32 +125,23 @@ protected:
     void updateStatusBar();
 
     // some flags
-    bool b_online;
     bool b_viewPreferences;
 
     // utility functions
-    void onlineDisconnect();
-    void checkOnline();
     void log(const QString & message, bool statusbar = true);
 
     // various timers
-    QTimer *animTimer;          // animation timer
-    QTimer *connectionTimer;    // timer that checks whether we are online
     QTimer *transferTimer;      // timer for scheduled transfers
     QTimer *autosaveTimer;      // timer for autosaving transfer list
-    QTimer *clipboardTimer;     // timer for checking clipboard - autopaste function
 
     QString logFileName;
 
 
-
 private:
-	Scheduler * sched;
     bool sanityChecksSuccessful( const KURL& url );
 
     Scheduler * scheduler;
     
-    TransferList * myTransferList;
     KHelpMenu *menuHelp;
 
     LogWindow *logWindow;
@@ -173,21 +150,18 @@ private:
 
     QString lastClipboard;
 
-    uint animCounter;
-
     int _sock;
 
     // Actions
-    KAction *m_paOpenTransfer, *m_paPasteTransfer, *m_paExportTransfers, *m_paImportTransfers;
+    KAction *m_paOpenTransfer, *m_paExportTransfers, *m_paImportTransfers;
     KAction *m_paImportText;
 
-    KAction *m_paMoveToBegin, *m_paMoveToEnd, *m_paCopy, *m_paIndividual;
+    KAction *m_paMoveToBegin, *m_paMoveToEnd, *m_paIndividual;
     KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
-    KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
 
-    KToggleAction *m_paUseAnimation, *m_paUseSound;
-    KToggleAction *m_paExpertMode, *m_paUseLastDir, *m_paOfflineMode;
-    KToggleAction *m_paAutoDisconnect, *m_paAutoShutdown, *m_paAutoPaste;
+    KToggleAction *m_paUseSound;
+    KToggleAction *m_paExpertMode, *m_paUseLastDir;
+    KToggleAction *m_paAutoShutdown;
 
     KToggleAction *m_paDropTarget;
 

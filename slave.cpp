@@ -105,9 +105,9 @@ const QString & SlaveEvent::getMsg() const
 
 Slave::Slave(Transfer * _transfer, const KURL & _src, const KURL & _dest)
     : QObject(), QThread(),
-      copyjob(0), transfer(_transfer),
+      transfer(_transfer),
       m_src(_src), m_dest(_dest),
-      nPendingCommand(0)
+      nPendingCommand(0), copyjob(0)
       
 {
     mDebug << ">>>>Entering" << endl;
@@ -158,7 +158,6 @@ void Slave::run()
                 // fall through
             case RETR:
                 mDebug << " FETCHED COMMAND       RETR" << endl;
-                assert(!copyjob);
                 KIO::Scheduler::checkSlaveOnHold( true );
                 copyjob = new KIO::GetFileJob(m_src, m_dest);
                 Connect();

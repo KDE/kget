@@ -32,6 +32,7 @@ class KMainWidget;
 class QString;
 
 class Scheduler;
+class Connection;
 class GlobalStatus;
 
 class TransferList;
@@ -46,6 +47,8 @@ enum TransferMessage {
     MSG_CAN_RESUME, MSG_TOTSIZE, MSG_UPD_PROGRESS, MSG_UPD_SPEED
 };
 
+// from settings.h, will be moved on connection.h
+enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 
 #endif
 

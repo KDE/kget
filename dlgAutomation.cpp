@@ -106,12 +106,12 @@ void DlgAutomation::applyData()
     if (cb_autoSave->isChecked() != ksettings.b_autoSave || (uint) le_autoSave->value() != ksettings.autoSaveInterval) {
         ksettings.b_autoSave = cb_autoSave->isChecked();
         ksettings.autoSaveInterval = le_autoSave->value();
-        kmain->setAutoSave();
+        //FIXME kmain->setAutoSave();
     }
 
     if (cb_autoDisconnect->isChecked() != ksettings.b_autoDisconnect) {
-        kmain->slotToggleAutoDisconnect();
-        kmain->setAutoDisconnect();
+        //FIXME kmain->slotToggleAutoDisconnect();
+        //FIXME kmain->setAutoDisconnect();
     }
 
     ksettings.disconnectCommand = le_autoDisconnect->text();
@@ -124,7 +124,7 @@ void DlgAutomation::applyData()
     }
 
     if (cb_autoPaste->isChecked() != ksettings.b_autoPaste) {
-        kmain->slotToggleAutoPaste();
+        //FIXME kmain->slotToggleAutoPaste();
     }
 }
 

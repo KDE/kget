@@ -22,7 +22,7 @@
  *   GNU General Public License for more details.
  *
  ***************************************************************************/
-
+ 
 #include <kapplication.h>
 #include <kstandarddirs.h>
 #include <kglobal.h>
@@ -41,20 +41,68 @@
 #include "settings.h"
 #include "globals.h"
 
+// Connection settings
+#define DEF_ReconnectOnError    true
+#define DEF_ReconnectTime       1
+#define DEF_ReconnectRetries    10
+#define DEF_ReconnectOnBroken   true
+
+#define DEF_TimeoutData         5
+#define DEF_TimeoutDataNoResume 15
+
+#define DEF_ConnectionType      PERMANENT
+#define DEF_LinkNumber          0
+#define DEF_OfflineMode         false
+
+// Automation settings
+#define DEF_AutoSave            true
+#define DEF_AutoSaveInterval    10
+#define DEF_AutoDisconnect      false
+#define DEF_DisconnectCommand   "kppp -k"
+#define DEF_TimedDisconnect     false
+#define DEF_AutoShutdown        false
+#define DEF_AutoPaste           false
+
+// Limits settings
+#define DEF_MaxSimConnections   2
+#define DEF_MinimumBandwidth    1000
+#define DEF_MaximumBandwidth    10000
+
+// Advanced settings
+#define DEF_AddQueued           true
+#define DEF_ShowMain            false
+#define DEF_ShowIndividual      false
+#define DEF_IconifyIndividual   false
+#define DEF_AdvancedIndividual  false
+#define DEF_RemoveOnSuccess     true
+#define DEF_GetSizes            true
+#define DEF_ExpertMode          false
+
+// Search settings
+#define DEF_SearchFastest       false
+#define DEF_SearchItems         20
+#define DEF_TimeoutSearch       30
+#define DEF_SwitchHosts         false
+
+// Directories settings
+#define DEF_UseLastDir          false
+
+// System settings
+#define DEF_UseSound            true
+
+#define DEF_SoundAdded          "kget/sounds/added.wav"
+#define DEF_SoundStarted        "kget/sounds/started.wav"
+#define DEF_SoundFinished       "kget/sounds/finished.wav"
+#define DEF_SoundFinishedAll    "kget/sounds/finishedall.wav"
+
+#define DEF_UseAnimation        true
+
+#define DEF_WindowStyle         NORMAL
+
+
 static const unsigned long DEFAULT_DOCK_STATE = (NET::SkipTaskbar | NET::StaysOnTop);
 
-QString ConnectionDevices[6] = {
-                                   "",
-                                   "eth",
-                                   "plip",
-                                   "slip",
-                                   "ppp",
-                                   "isdn"
-                               };
-
-
-void
-Settings::load()
+void Settings::load()
 {
     sDebug << "Loading settings" << endl;
 

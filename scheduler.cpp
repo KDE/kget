@@ -10,10 +10,10 @@
 #include <kinputdialog.h>
 
 #include "scheduler.h"
+#include "connection.h"
 #include "safedelete.h"
 #include "settings.h"
 #include "kmainwidget.h"
-
 
 Scheduler::Scheduler(KMainWidget * _mainWidget)
     : QObject(),
@@ -21,6 +21,7 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
 {
     transfers = new TransferList(this);
     removedTransfers = new TransferList(this);
+    connections.append( new Connection(this) );
 }
 
 Scheduler::~Scheduler()
@@ -37,7 +38,6 @@ void Scheduler::stop()
 {
 
 }
-
 
 void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 {
@@ -1043,9 +1043,9 @@ void Scheduler::slotTransferTimeout()
         checkQueue();
     }
 
-    if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate()) {
-        onlineDisconnect();
-    }
+    // CONTROLLO AUTODISCONNESSIONE
+    if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate())
+    { // AUTODISCONNETTI }
 
 #ifdef _DEBUG
     //sDebugOut << endl;
@@ -1075,8 +1075,9 @@ void Scheduler::slotStatusChanged(Transfer * item, int _operation)
 
         if (transfers->isQueueEmpty()) {
             // no items in the TransferList or we have donwload all items
+            // CONTROLLO AUTODISCONNESSIONE
             if (ksettings.b_autoDisconnect)
-                onlineDisconnect();
+                {}//AUTODISCONNETTI
 
             if (ksettings.b_autoShutdown) {
                 slotQuit();

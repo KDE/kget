@@ -28,77 +28,9 @@
 #ifndef _SETTINGS_H
 #define _SETTINGS_H
 
-// common connection types
-enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
-
-extern QString ConnectionDevices[];
-
-
-// Connection settings
-#define DEF_ReconnectOnError    true
-#define DEF_ReconnectTime       1
-#define DEF_ReconnectRetries    10
-#define DEF_ReconnectOnBroken   true
-
-#define DEF_TimeoutData         5
-#define DEF_TimeoutDataNoResume 15
-
-#define DEF_ConnectionType      PERMANENT
-#define DEF_LinkNumber          0
-#define DEF_OfflineMode         false
-
-// Automation settings
-#define DEF_AutoSave            true
-#define DEF_AutoSaveInterval    10
-#define DEF_AutoDisconnect      false
-#define DEF_DisconnectCommand   "kppp -k"
-#define DEF_TimedDisconnect     false
-#define DEF_AutoShutdown        false
-#define DEF_AutoPaste           false
-
-// Limits settings
-#define DEF_MaxSimConnections   2
-#define DEF_MinimumBandwidth    1000
-#define DEF_MaximumBandwidth    10000
-
-// Advanced settings
-#define DEF_AddQueued           true
-#define DEF_ShowMain            false
-#define DEF_ShowIndividual      false
-#define DEF_IconifyIndividual   false
-#define DEF_AdvancedIndividual  false
-#define DEF_RemoveOnSuccess     true
-#define DEF_GetSizes            true
-#define DEF_ExpertMode          false
-
-// Search settings
-#define DEF_SearchFastest       false
-#define DEF_SearchItems         20
-#define DEF_TimeoutSearch       30
-#define DEF_SwitchHosts         false
-
-// Directories settings
-#define DEF_UseLastDir          false
-
-// System settings
-#define DEF_UseSound            true
-
-#define DEF_SoundAdded          "kget/sounds/added.wav"
-#define DEF_SoundStarted        "kget/sounds/started.wav"
-#define DEF_SoundFinished       "kget/sounds/finished.wav"
-#define DEF_SoundFinishedAll    "kget/sounds/finishedall.wav"
-
-#define DEF_UseAnimation        true
-
-#define DEF_WindowStyle         NORMAL
-
-
 #include <qdatetime.h>
-
-#include <kwin.h>
 #include <qvaluelist.h>
 #include <qfont.h>
-
 
 struct DirItem
 {
@@ -198,4 +130,4 @@ public:
 
 extern Settings ksettings;
 
-#endif                          // _SETTINGS_H
+#endif

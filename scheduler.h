@@ -51,8 +51,7 @@ signals:
 public slots:
     void run();
     void stop();
-	
-    
+
     /**
      * Just an idea for these slots: we can handle 3 cases:
      *  1) src = empty list -> means that the src url must be inserted 
@@ -130,7 +129,6 @@ public slots:
      */
     void slotReadTransfers(const KURL & file);
     
-    
 private:
     
     /**
@@ -173,10 +171,17 @@ private:
     
     void checkQueue();
     
-    
+    /**
+     * Returns the ConnectionInterface for the selected transfer.
+     * ..FIXME.. behavior not well defined yet.
+     * @param transfer if null this will return the default connection.
+     */
+    Connection * connectionFromTransfer( Transfer * transfer );
+     
     TransferList * transfers;
     TransferList * removedTransfers;
     KMainWidget * mainWidget;
+    QValueList<Connection*> connections;
 };
 
 #endif

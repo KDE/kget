@@ -55,11 +55,21 @@ class IconView : public QIconView, public ViewInterface
 
 	//from "kget menu" popup
 	void slotNewTransfer();
-	void slotRemoveItems();
-	void slotSetPriority();
-	void slotSetCommand();
-	void slotSetGroup();
 	//from "transfer operations" popup
+	void slotResumeItems();
+	void slotStopItems();
+	void slotRemoveItems();
+
+	void slotSetPriority1();
+	void slotSetPriority2();
+	void slotSetPriority3();
+	void slotSetPriority4();
+	void slotSetPriority5();
+	void slotSetPriority6();
+	void slotSetGroup();
+
+    private:
+	TransferList getSelectedList();
 };
 
 class IconViewMdiView : public KMdiChildView
