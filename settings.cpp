@@ -161,7 +161,7 @@ Settings::load()
 
     QStringList strList;
 
-    strList = config->readListEntry("Items");
+    strList = config->readPathListEntry("Items");
 
     defaultDirList.clear();
     QStringList::Iterator it = strList.begin();
@@ -262,7 +262,7 @@ void Settings::save()
         lst.append((*it).extRegexp);
         lst.append((*it).defaultDir);
     }
-    config->writeEntry("Items", lst);
+    config->writePathEntry("Items", lst);
 
     // write system options
     config->setGroup("System");
