@@ -24,12 +24,14 @@
 #include <qmessagebox.h>
 #include <klocale.h>
 #include <krun.h>
-
+#include <kiconloader.h>
 KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
         : Plugin( parent, name )
 {
+     
+
     m_paToggleDropTarget=new KAction(i18n("Show Kget drop target"),
-                                     "kget_plug_in", 0,
+                                    KGlobal::iconLoader()->loadIcon("khtml_kget", KIcon::MainToolbar) , 0,
                                      this, SLOT(slotShowDrop()),
                                      actionCollection(), "show_drop" );
     p_dcopServer= new DCOPClient();
