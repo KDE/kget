@@ -1269,7 +1269,7 @@ void KMainWidget::slotAnimTimeout()
 
 
 #ifdef _DEBUG
-        sDebugOut << endl;
+        //sDebugOut << endl;
 #endif
 
 }
@@ -2075,7 +2075,7 @@ void KMainWidget::slotUpdateActions()
 void KMainWidget::updateStatusBar()
 {
 #ifdef _DEBUG
-        sDebugIn << endl;
+        //sDebugIn << endl;
 #endif
 
         Transfer *item;
@@ -2109,7 +2109,7 @@ void KMainWidget::updateStatusBar()
 
 
 #ifdef _DEBUG
-        sDebugOut << endl;
+        //sDebugOut << endl;
 #endif
 }
 
