@@ -28,10 +28,12 @@
 #include <qlayout.h>
 #include <qlistview.h>
 
+#include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdialog.h>
 #include <kaction.h>
 
+#include "kfileio.h"
 #include "transfer.h"
 #include "logwindow.h"
 
@@ -157,6 +159,13 @@ void SeparatedLog::refresh()
 
 LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, "", false)
 {
+    // gate date and time, needed for the name of log file
+    QDate date = QDateTime::currentDateTime().date();
+    QTime time = QDateTime::currentDateTime().time();
+    QString tmp;
+    tmp.sprintf("log%d:%d:%d-%d:%d:%d", date.day(), date.month(), date.year(), time.hour(), time.minute(), time.second());
+    logFileName = locateLocal("appdata", "logs/");
+    logFileName += tmp;
 
     // add pages
     QFrame *page = addPage(i18n("Mixed"));
@@ -178,11 +187,15 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
     // resize( 500, 300 );
 }
 
+LogWindow::~LogWindow()
+{
+    //write log to file
+    kCStringToFile(getText().local8Bit(), logFileName, false, false);
+}
 
 void LogWindow::closeEvent(QCloseEvent *e)
 {
     //FIXME kmain->m_paShowLog->setChecked(false);
-    //FIXME kmain->b_viewLogWindow = false;
     KDialogBase::closeEvent( e );
 }
 

@@ -65,8 +65,8 @@ class LogWindow:public KDialogBase
 
 Q_OBJECT public:
     LogWindow();
-    ~LogWindow()
-    {}
+    ~LogWindow();
+    
     void logGeneral(const QString & message);
     QString getText() const;
 
@@ -79,6 +79,7 @@ protected:
 private:
     QTextEdit * mixed_log;
     SeparatedLog *sep_log;
+    QString logFileName;
 };
 
 
