@@ -173,7 +173,7 @@ void KGet_plug_in::startDownload( const KURL::List& urls )
                                               "addTransfers(KURL::List, QString)",
                                               data );
 
-    qDebug("*** startDownload: %i", ok );
+    kdDebug() << "*** startDownload: " << ok << endl;
 }
 
 KPluginFactory::KPluginFactory( QObject* parent, const char* name )
