@@ -11,15 +11,15 @@ SUBDIRS = pics sounds
 EXTRA_DIST = main.cpp kget.cpp kget.h kget.desktop lo32-app-kget.png lo16-app-kget.png bwdatetime.cpp bwdatetime.h common.h dlgAdvanced.cpp dlgAdvanced.h dlgAutomation.cpp dlgAutomation.h dlgConnection.cpp dlgConnection.h dlgDirectories.cpp dlgDirectories.h dlgIndividual.cpp dlgIndividual.h dlgLimits.cpp dlgLimits.h dlgPreferences.cpp dlgPreferences.h dlgSystem.cpp dlgSystem.h docking.cpp docking.h droptarget.cpp droptarget.h kfileio.cpp kfileio.h kmainwidget.cpp kmainwidget.h logwindow.cpp logwindow.h misc.cpp misc.h settings.cpp settings.h transfer.cpp transfer.h transferlist.cpp transferlist.h main.h version.h slave.cpp slave.h slaveevent.cpp slaveevent.h http_defaults.h kgetui.rc getfilejob.cpp getfilejob.h 
 
 install-data-local:
-	$(mkinstalldirs) $(kde_appsdir)/Applications/
-	$(INSTALL_DATA) $(srcdir)/kget.desktop $(kde_appsdir)/Applications/kget.desktop
+	$(mkinstalldirs) $(kde_appsdir)/Internet/
+	$(INSTALL_DATA) $(srcdir)/kget.desktop $(kde_appsdir)/Internet/kget.desktop
 	$(mkinstalldirs) $(kde_icondir)/locolor/32x32/apps/
 	$(INSTALL_DATA) $(srcdir)/lo32-app-kget.png $(kde_icondir)/locolor/32x32/apps/kget.png
 	$(mkinstalldirs) $(kde_icondir)/locolor/16x16/apps/
 	$(INSTALL_DATA) $(srcdir)/lo16-app-kget.png $(kde_icondir)/locolor/16x16/apps/kget.png
 
 uninstall-local:
-	-rm -f $(kde_appsdir)/Applications/kget.desktop
+	-rm -f $(kde_appsdir)/Internet/kget.desktop
 	-rm -f $(kde_icondir)/locolor/32x32/apps/kget.png
 	-rm -f $(kde_icondir)/locolor/16x16/apps/kget.png
 
