@@ -28,7 +28,7 @@
 #define __dlgprogress_h__
 
 #include <qdatetime.h>
-#include "bwdatetime.h"
+#include <kdatetimewidget.h>
 
 #include <qwidget.h>
 
@@ -94,7 +94,7 @@ protected:
     KToggleAction * m_paDock;
 
     QDateTime qdt;
-    BWDateTime *spins;
+    KDateTimeWidget *spins;
 
     Transfer *item;
 

@@ -11,10 +11,10 @@ kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
                kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp \
                dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
-               dlgAutomation.cpp dlgAdvanced.cpp bwdatetime.cpp \
+               dlgAutomation.cpp dlgAdvanced.cpp \
                main.cpp dockindividual.cpp kget_iface.skel
 
-noinst_HEADERS = bwdatetime.h common.h \
+noinst_HEADERS = common.h \
                  dlgAdvanced.h dlgAutomation.h dlgConnection.h \
                  dlgDirectories.h dlgIndividual.h dlgLimits.h \
                  dlgPreferences.h dlgSystem.h docking.h droptarget.h \

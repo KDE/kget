@@ -82,7 +82,7 @@ DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
     cb_timedDisconnect = new QCheckBox(i18n("Timed disconnect"), this);
     automationLayout->addMultiCellWidget(cb_timedDisconnect, 3, 3, 0, 2);
 
-    spins = new BWDateTime(disconnectDateTime, this, "spins");
+    spins = new KDateTimeWidget(disconnectDateTime, this);
     automationLayout->addMultiCellWidget(spins, 4, 4, 0, 2);
 
     connect(cb_autoDisconnect, SIGNAL(toggled(bool)), this, SLOT(disconnectToggled(bool)));
@@ -103,7 +103,7 @@ void DlgAutomation::disconnectToggled(bool flag)
     le_autoDisconnect->setEnabled(flag);
     cb_timedDisconnect->setEnabled(flag);
     if (cb_timedDisconnect->isChecked()) {
-        spins->setEnabled(flag);
+      spins->setEnabled(flag);
     }
 }
 
@@ -166,8 +166,8 @@ void DlgAutomation::applyData()
 
     ksettings.disconnectCommand = le_autoDisconnect->text();
     ksettings.b_timedDisconnect = cb_timedDisconnect->isChecked();
-    ksettings.disconnectDate = spins->getDateTime().date();
-    ksettings.disconnectTime = spins->getDateTime().time();
+    ksettings.disconnectDate = spins->dateTime().date();
+    ksettings.disconnectTime = spins->dateTime().time();
 
     if (cb_autoShutdown->isChecked() != ksettings.b_autoShutdown) {
         kmain->slotToggleAutoShutdown();

@@ -33,7 +33,7 @@
 
 #include <knuminput.h>
 
-#include "bwdatetime.h"
+#include <kdatetimewidget.h>
 
 class QCheckBox;
 class QGroupBox;
@@ -62,7 +62,7 @@ private:
     QLabel *lb_autoDisconnect;
     KLineEdit *le_autoDisconnect;
     QCheckBox *cb_timedDisconnect;
-    BWDateTime *spins;
+    KDateTimeWidget *spins;
 
     QDateTime disconnectDateTime;
 

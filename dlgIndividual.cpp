@@ -178,7 +178,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
         dt = item->getStartTime();
     }
 
-    spins = new BWDateTime(dt, this, "spins");
+    spins = new KDateTimeWidget(dt, this, "spins");
 
     panelAdvanced->addTab(spins, i18n("Timer"));
     panelAdvanced->hide();
