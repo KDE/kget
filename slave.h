@@ -71,13 +71,10 @@ public:
     ~Slave();
     void Op(SlaveCommand _cmd);
 
-    /** No descriptions */
-    void PostMessage(SlaveResult _event, unsigned long _data = 0L);
-    void PostMessage(SlaveResult _event, const QString & _msg);
-    void InfoMessage(const QString & _msg);
-
-
-public slots:
+protected:
+    virtual void run();
+    
+private slots:
     void slotCanceled(KIO::Job *);
     void slotConnected(KIO::Job *);
     void slotResult(KIO::Job *);
@@ -86,29 +83,26 @@ public slots:
     void slotSpeed(KIO::Job *, unsigned long);
     void slotInfoMessage(KIO::Job *, const QString &);
 
-public:
+private:
+    void Connect();
+
+    void PostMessage(SlaveResult _event, unsigned long _data = 0L);
+    void PostMessage(SlaveResult _event, const QString & _msg);
+    void InfoMessage(const QString & _msg);
+
+    Transfer * m_parent;
+
+    KURL m_src;
+    KURL m_dest;
+
+    Slave::SlaveCommand fetch_cmd();
+    int nPendingCommand;
+
     QValueStack < SlaveCommand > stack;
     QWaitCondition worker;
     QMutex mutex;
     KIO::GetFileJob * copyjob;
 
-private:                     // Private attributes
-    virtual void run();
-    void Connect();
-
-
-protected:
-
-    Transfer * m_parent;
-
-public:                      // Public attributes
-    KURL m_src;
-    KURL m_dest;
-private:                     // Private methods
-
-    /** No descriptions */
-    Slave::SlaveCommand fetch_cmd();
-    int nPendingCommand;
 };
 
 #endif

@@ -83,7 +83,14 @@ Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, co
 Transfer::~Transfer()
 {
     sDebugIn << endl;
-//     delete m_pSlave;
+
+    // ###
+    // should we terminate() the slave and delete them all?
+    // which slaves keep running even tho the transfer has finished?
+    // needs some more investigation
+    if ( !m_pSlave->running() )
+        delete m_pSlave;
+    
     delete dlgIndividual;
     sDebugOut << endl;
 }
@@ -99,7 +106,6 @@ Transfer::init()
     percent = 0;
     id = 0;
     m_pSlave = new Slave(this, src, dest);
-    m_pSlave->start();
     canResume = false;
     startTime = QDateTime::currentDateTime();
     speed = 0;

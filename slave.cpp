@@ -55,6 +55,10 @@ Slave::~Slave()
 void Slave::Op(SlaveCommand _cmd)
 {
     mDebugIn << " _cmd = " << _cmd << endl;
+
+    if ( !running() ) // start on demand
+        start();
+    
     mutex.lock();
     stack.push(_cmd);
     nPendingCommand++;
@@ -141,7 +145,7 @@ void Slave::run()
             break;
 
         case NOOP:
-            mDebug << "FETCHED COMMAND        NONE, i.e. empty stack" << endl;
+            mDebug << "FETCHED COMMAND        NOOP, i.e. empty stack" << endl;
             if ( copyjob )
             {
                 copyjob->kill(true);
@@ -198,7 +202,7 @@ void Slave::Connect()
     connect(copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), SLOT(slotInfoMessage(KIO::Job *, const QString &)));
 
     mDebugOut << endl;
-}/** No descriptions */
+}
 
 
 void Slave::slotCanceled(KIO::Job *)
@@ -217,7 +221,6 @@ void Slave::slotConnected(KIO::Job *)
     mDebugOut << endl;
 }
 
-/** No descriptions */
 void Slave::slotResult(KIO::Job * job)
 {
     mDebugIn << endl;
@@ -230,7 +233,6 @@ void Slave::slotResult(KIO::Job * job)
 }
 
 
-/** No descriptions */
 void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 {
     // mDebugIn<<endl;
@@ -239,7 +241,6 @@ void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 
 }
 
-/** No descriptions */
 void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
 {
     mDebugIn << "= " << (unsigned long) _total_size << endl;
@@ -250,7 +251,6 @@ void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
     mDebugOut << endl;
 }
 
-/** No descriptions */
 void Slave::slotProcessedSize(KIO::Job *, KIO::filesize_t _processed_size)
 {
     // mDebugIn<<endl;
@@ -259,7 +259,6 @@ void Slave::slotProcessedSize(KIO::Job *, KIO::filesize_t _processed_size)
     // mDebugOut<<endl;
 }
 
-/** No descriptions */
 void Slave::slotInfoMessage(KIO::Job *, const QString & _msg)
 {
     mDebugIn << "MSG=" << _msg << endl;
