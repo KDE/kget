@@ -3,8 +3,7 @@ pics_DATA = connect0.png connect1.png connect2.png connect3.png \
             try0.png try1.png try2.png try3.png \
             try4.png try5.png try6.png try7.png \
             md_delayed.png md_finished.png md_queued.png md_scheduled.png \
-            retrying.png dock.png target.png \
-            bar0.png bar1.png bar2.png bar3.png bar4.png bar5.png bar6.png
+            retrying.png target.png 
 
 picsdir = $(kde_datadir)/kget/pics
 

@@ -26,14 +26,13 @@
 
 #include <qtooltip.h>
 
-#include <kiconloader.h>
 #include <kpopupmenu.h>
 
 #include "dockindividual.h"
 DockIndividual::DockIndividual(QWidget *parent, const char *name ) : KSystemTray(parent,name)
 {
     nPic=0;
-    setPixmap( UserIcon("bar0") );
+    setPixmap( loadIcon("bar0") );
 }
 
 DockIndividual::~DockIndividual()
@@ -68,7 +67,7 @@ void DockIndividual::setValue(int value){
     {
         nPic=tmpPic;
         QString str = "bar" + QString::number( nPic );
-        setPixmap( UserIcon( str ) );
+        setPixmap( loadIcon( str ) );
     }
 
 #ifdef _DEBUG
