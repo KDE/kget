@@ -279,7 +279,7 @@ void Scheduler::slotSetPriority(TransferList list, int priority)
         
         // Here we remove and insert the items to keep the list sorted
         transfers->removeTransfer(*it);
-        transfers->addTransfer(*it);
+        transfers->addTransfer(*it, true);
     }
     
     emit changedItems(list);
@@ -733,16 +733,17 @@ bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
     sDebugIn << endl;
 
     switch (op)
-        {
+    {
         case CmdResume:
-                sDebug << "111 ->" << runningTransfers->size() << endl;
-                if(  (item->getInfo().status == Transfer::St_Stopped) 
-                  && (item->getInfo().priority != 6)
-                  && (Settings::maxConnections() > runningTransfers->size()) )
-                    {
+            sDebug << "111 ->" << runningTransfers->size() << endl;
+            if(  (item->getInfo().status != Transfer::St_Running)
+                && (item->getInfo().status != Transfer::St_Finished)
+                && (item->getInfo().priority != 6)       
+                && (Settings::maxConnections() > runningTransfers->size()) )
+                {
                     sDebug << "222" << endl;
                     if(item->slotResume())
-                        {
+                    {
                         runningTransfers->addTransfer(item);
                         return true;
                     } 

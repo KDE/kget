@@ -23,6 +23,8 @@ TransferKio::TransferKio(Scheduler * _scheduler, QDomDocument * doc, QDomNode * 
 bool TransferKio::slotResume()
 {
     kdDebug() << "TransferKio::slotResume (1)" << endl;
+    
+    
     if(!copyjob)
     {
         kdDebug() << "TransferKio::slotResume (2)" << endl;
