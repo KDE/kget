@@ -129,8 +129,11 @@ void Slave::run()
             case KILL:
                 mDebug << " FETCHED COMMAND      KILL" << endl;
                 running = false;
-                copyjob->kill(true);
-                copyjob = 0L;
+                if (copyjob)
+                {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                 }
                 // no message posted
                 break;
             
