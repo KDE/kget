@@ -1366,22 +1366,29 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
     switch (_operation) {
 
     case Transfer::OP_FINISHED:
-        if (ksettings.b_removeOnSuccess) {
-            item->setMode(Transfer::MD_NONE);
-            if (myTransferList->isQueueEmpty()) {
-                // no items in the TransferList or we have donwload all items
-                if (ksettings.b_autoDisconnect)
-                    disconnect();
-
-                if (ksettings.b_autoShutdown) {
-                    slotQuit();
-                    return;
-                }
-                // play(ksettings.audioFinishedAll);
-            }
-            item->slotUpdateActions();
-        } else
+        if (ksettings.b_removeOnSuccess)
+        {
             delete item;
+            item = 0L;
+        }
+        else
+            item->setMode(Transfer::MD_NONE);
+            
+        if (myTransferList->isQueueEmpty()) {
+            // no items in the TransferList or we have donwload all items
+            if (ksettings.b_autoDisconnect)
+                disconnect();
+
+            if (ksettings.b_autoShutdown) {
+                slotQuit();
+                return;
+            }
+            // play(ksettings.audioFinishedAll);
+        }
+
+        if ( item )
+            item->slotUpdateActions();
+
         break;
 
     case Transfer::OP_RESUMED:
