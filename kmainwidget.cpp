@@ -142,7 +142,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
     logFileName = locateLocal("appdata", "logs/");
     logFileName += tmp;
 
-    lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard );
+    lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).stripWhiteSpace();
     // Load all settings from KConfig
     ksettings.load();
 
@@ -959,19 +959,18 @@ void KMainWidget::slotCheckClipboard()
     //sDebugIn << endl;
 #endif
 
-    QString clipData = QApplication::clipboard()->text();
+    QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).stripWhiteSpace();
 
     if (clipData != lastClipboard) {
         sDebug << "New clipboard event" << endl;
 
         lastClipboard = clipData;
-        if (clipData.isEmpty() || clipData.stripWhiteSpace().isEmpty()) {
+        if ( lastClipboard.isEmpty() )
             return;
-        }
 
-        KURL url = KURL::fromPathOrURL(lastClipboard.stripWhiteSpace());
+        KURL url = KURL::fromPathOrURL( lastClipboard );
 
-        if (!url.isMalformed() && !url.isLocalFile() && ksettings.b_autoPaste)
+        if (!url.isMalformed() && !url.isLocalFile())
             slotPasteTransfer();
     }
 
