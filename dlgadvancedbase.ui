@@ -108,7 +108,7 @@
                         <cstring>cb_konqiIntegration</cstring>
                     </property>
                     <property name="text">
-                        <string>Enable integration with konqueror</string>
+                        <string>Enable integration with Konqueror</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox" row="9" column="0" rowspan="1" colspan="3">
