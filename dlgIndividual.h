@@ -73,7 +73,7 @@ public slots:
     bool keepDialogOpen() const { return bKeepDlgOpen; }
     
 protected slots:
-    void slotToggleAdvanced(bool);
+    void slotToggleAdvanced();
     void slotToggleDock();
     
 protected:
@@ -105,6 +105,7 @@ protected:
 
     unsigned long m_iTotalSize;
     
+    bool advanced;
 }
 
 ;

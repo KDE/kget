@@ -149,9 +149,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     pbAdvanced = new KPushButton( i18n("Advanced"), this );
 
-    pbAdvanced->setToggleButton(true);
-
-    connect(pbAdvanced, SIGNAL(toggled(bool)), SLOT(slotToggleAdvanced(bool)));
+    connect(pbAdvanced, SIGNAL(clicked()), SLOT(slotToggleAdvanced()));
 
     hBox->addWidget( pbAdvanced );
 
@@ -195,7 +193,8 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
 
     topLayout->addWidget(panelAdvanced);
-    slotToggleAdvanced(ksettings.b_advancedIndividual);
+    advanced = ksettings.b_advancedIndividual;
+    slotToggleAdvanced();
 
     resize( sizeHint() );
 
@@ -260,7 +259,8 @@ void DlgIndividual::setCanResume(bool resume)
         resumeLabel->setText(i18n("Not resumed"));
 }
 
-void DlgIndividual::slotToggleAdvanced(bool advanced)
+//void DlgIndividual::slotToggleAdvanced(bool advanced)
+void DlgIndividual::slotToggleAdvanced()
 {
 #ifdef _DEBUG
     sDebugIn<<endl;
@@ -273,6 +273,7 @@ void DlgIndividual::slotToggleAdvanced(bool advanced)
         panelAdvanced->hide();
         adjustSize();
     }
+    advanced = !advanced;
 
 #ifdef _DEBUG
     sDebugOut<<endl;

@@ -50,7 +50,6 @@ protected slots:
     void addEntry();
     void deleteEntry();
     void changeEntry();
-    void browse();
 
     void upEntry();
     void downEntry();

@@ -29,10 +29,6 @@
 #include <qtoolbutton.h>
 #include <qlistview.h>
 
-#ifdef Unsorted
-#undef Unsorted
-#endif
-
 #include <qdir.h>
 
 #include <kfiledialog.h>
@@ -40,6 +36,7 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kurlrequester.h>
 
 #include "settings.h"
 #include "dlgDirectories.h"
@@ -50,19 +47,23 @@ DlgDirectories::DlgDirectories(QWidget * parent)
 {
     connect( le_ext, SIGNAL( textChanged ( const QString & ) ), this,  SLOT( slotDirectoryChanged( ) ) );
     connect( le_dir, SIGNAL( textChanged ( const QString & ) ), this,  SLOT( slotDirectoryChanged( ) ) );
+
+    le_dir->setMode( KFile::Directory );
+    lv_entries->setSortColumn( -1 );
+
     slotDirectoryChanged();
 }
 
 void DlgDirectories::slotDirectoryChanged( )
 {
-    pb_add->setEnabled(!le_ext->text().isEmpty() &&!le_dir->text().isEmpty() );
+    pb_add->setEnabled(!le_ext->text().isEmpty() &&!le_dir->url().isEmpty() );
 }
 
 void DlgDirectories::selectEntry(QListViewItem * item)
 {
     if (item) {
         le_ext->setText(item->text(0));
-        le_dir->setText(item->text(1));
+        le_dir->setURL(item->text(1));
 
     } else {
         le_ext->clear();
@@ -83,7 +84,7 @@ void DlgDirectories::updateUpDown()
 void DlgDirectories::addEntry()
 {
     QString ext = le_ext->text();
-    QString dir = le_dir->text();
+    QString dir = le_dir->url();
 
     if (ext.contains(",") || dir.contains(",") || ext.isEmpty() || dir.isEmpty()) {
         KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder."), i18n("Error"));
@@ -119,7 +120,7 @@ void DlgDirectories::changeEntry()
 
     if (old_item) {
         QString ext = le_ext->text();
-        QString dir = le_dir->text();
+        QString dir = le_dir->url();
 
         if (ext.contains(",") || dir.contains(",") || ext.isEmpty() || dir.isEmpty()) {
             KMessageBox::error(this, i18n("Each row consists of exactly one\nextension type and one folder."), i18n("Error"));
@@ -165,12 +166,6 @@ void DlgDirectories::upEntry()
 
     updateUpDown();
     emit configChanged();
-}
-
-
-void DlgDirectories::browse()
-{
-    le_dir->setText(KFileDialog::getExistingDirectory());
 }
 
 
