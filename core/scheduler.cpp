@@ -579,7 +579,7 @@ void Scheduler::slotExportTransfers(QString & file)
         sDebugOut<< " because Destination File name isEmpty"<< endl;
         return;
     }
-    if (!file.endsWith(".kgt"))
+    if (!file.endsWith(".kgt", false))
         file += ".kgt";
 
     transfers->writeTransfers(file, this);
@@ -647,9 +647,11 @@ bool Scheduler::isValidURL( KURL url )
 
         else // transfer is finished, ask if we want to download again
         {
-            if ( Settings::expertMode() ||
-                 (KMessageBox::questionYesNo(mainWidget, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
-                     == KMessageBox::Yes) )
+            if (KMessageBox::questionYesNo(mainWidget,
+                                           i18n("URL already saved:\n%1\nDownload again?").arg(url.prettyURL()),
+                                           i18n("Download URL Again?"), KStdGuiItem::yes(),
+                                           KStdGuiItem::no(), "QuestionURLAlreadySaved" )
+                == KMessageBox::Yes)
             {
                 transfer->slotRemove();
                 //checkQueue();

@@ -27,7 +27,7 @@ PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skelet
     advanced = new DlgAdvanced(0);
      
     addPage( appearance, i18n("Appearance"), "looknfeel", i18n("Look and feel") );
-    addPage( directories, i18n("Directories"), "folder_open", i18n("Default download directories") );
+    addPage( directories, i18n("Folders"), "folder_open", i18n("Default download folders") );
     addPage( network, i18n("Network"), "network", i18n("Network and downloads") );
     addPage( advanced, i18n("Advanced"), "exec", i18n("Advanced options") );
 }
