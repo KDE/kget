@@ -569,7 +569,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
         setText(view->lv_remaining, i18n("Stalled"));
     } else if (speed == 0 && status == ST_FINISHED) {
 
-        setText(view->lv_progress, i18n("OK"));
+        setText(view->lv_progress, i18n("OK as in 'finished'","OK"));
         setText(view->lv_speed, i18n("0 MB/s"));
         setText(view->lv_remaining, i18n("00:00:00"));
 
@@ -643,7 +643,7 @@ void Transfer::slotProcessedSize(unsigned long bytes)
     if (percent != old) {
         QString tmps;
         if (percent == 100) {
-            tmps = i18n("OK");
+            tmps = i18n("OK as in 'finished'","OK");
         } else {
             tmps.setNum(percent);
         }
