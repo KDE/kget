@@ -1,10 +1,43 @@
-Add a plug-in for konqueror
-Add support for mirrors
-Add bandwidth limiting
-Splits download in 2 segments
-Better icons
-Add Help & Guide
+TODO-list for KGet
+======================
+<nick>  == reported by
+-->nick == assigned to
+#x      == sequential bug number,
+           #08 being the highest available (take this one for your next bug and increase here)
+format: {ADD, FIX, CHG} #x <nick> text [-->nick]
+
+                        
+SHORT-TERM (URGENT):
+
+  CHG #06 <dario> decoupling between gui and transfer operations. see
+      DESIGN file for more.
 
 
+MID-TERM:
+
+  ADD #07 <dario> sidebar for transfer statistics and more (bandwidth
+      graph, alternative urls, connection status/type, virtual folders,
+      ...)
+
+  CHG #05 <pfeiffer> usability enhancements as in #79519
+  
+  ADD #04 <kget> add Help & Guide
+
+  ADD #02 <kget> add bandwidth limiting
+
+
+LONG-TERM:
+
+  ADD #08 <dario> 'low priority downloads' as in br #50776.
+
+  ADD #03 <kget> splits download in N segments
+
+  ADD #01 <kget> support for mirrors
+
+
+IDEAS:
+
+
+DISCUSSING:
 
 
