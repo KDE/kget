@@ -150,6 +150,8 @@ void KGet_plug_in::slotShowLinks()
     }
 
     KGetLinkView *view = new KGetLinkView();
+    QString url = doc.URL().string();
+    view->setPageURL( url );
 //    connect( view, SIGNAL( leechURLs( const KURL::List& ) ),
 //             SLOT( startDownload( const KURL::List& ) ));
 

@@ -33,12 +33,14 @@ public:
     ~KGetLinkView();
 
     void setLinks( QPtrList<LinkItem>& links );
+    void setPageURL( const QString& url );
 
 signals:
     void leechURLs( const KURL::List& urls );
 
 private slots:
     void slotStartLeech();
+    void slotSelectAll();
 
 private:
     void showLinks( const QPtrList<LinkItem>& links );

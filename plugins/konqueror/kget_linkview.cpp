@@ -6,6 +6,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
+#include <kstdaction.h>
 #include <ktoolbar.h>
 
 #define COL_NAME 0
@@ -35,14 +36,20 @@ LinkViewItem::LinkViewItem( QListView *parent, const LinkItem *lnk )
 KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     : KMainWindow( parent, name )
 {
-    (void ) new KAction( i18n("Download Selected Files"),
-                         "khtml_kget",
-                         CTRL+Key_D,
-                         this, SLOT( slotStartLeech() ),
-                         actionCollection(), "startDownload" );
+    setPlainCaption( i18n( "KGet" ) );
+
+    KAction* actionDownload = new KAction( i18n("Download Selected Files"),
+                                           "khtml_kget", CTRL+Key_D,
+                                           this, SLOT( slotStartLeech() ),
+                                           actionCollection(), "startDownload" );
+
+    KAction* actionSelectAll = KStdAction::selectAll( this, SLOT( slotSelectAll() ),
+                                                      actionCollection() );
 
     m_links.setAutoDelete( true );
-    actionCollection()->action( "startDownload" )->plug( toolBar() );
+    actionDownload->plug( toolBar() );
+    toolBar()->insertLineSeparator();
+    actionSelectAll->plug( toolBar() );
 
     m_view = new KListView( this, "listview" );
     m_view->setSelectionMode( QListView::Extended );
@@ -50,6 +57,7 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     m_view->addColumn( i18n("Description") );
     m_view->addColumn( i18n("File Type") );
     m_view->addColumn( i18n("Location (URL)") );
+    m_view->setShowSortIndicator( true );
 
     setCentralWidget( m_view );
 
@@ -121,6 +129,16 @@ void KGetLinkView::slotStartLeech()
         p_dcopServer->detach();
         delete p_dcopServer;
     }
+}
+
+void KGetLinkView::setPageURL( const QString& url )
+{
+    setPlainCaption( i18n( "Links in: %1 - KGet" ).arg( url ) );
+}
+
+void KGetLinkView::slotSelectAll()
+{
+    m_view->selectAll( true );
 }
 
 #include "kget_linkview.moc"
