@@ -36,10 +36,9 @@
 #include <assert.h>
 
 Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
-    : QObject(),
-      QThread()
+    : QObject()
 {
-    mDebug << ">>>>Entering" << endl;
+    sDebug << ">>>>Entering" << endl;
     copyjob = NULL;
     m_src = _src;
     m_dest = _dest;
@@ -47,7 +46,7 @@ Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
 
     nPendingCommand = 0;
 
-    mDebug << ">>>>Leaving" << endl;
+    sDebug << ">>>>Leaving" << endl;
 }
 
 Slave::~Slave()
@@ -55,18 +54,13 @@ Slave::~Slave()
 
 void Slave::Op(SlaveCommand _cmd)
 {
-    mDebugIn << " _cmd = " << _cmd << endl;
+    sDebugIn << " _cmd = " << _cmd << endl;
 
-    if ( !running() ) // start on demand
-        start();
-
-    mutex.lock();
     stack.push(_cmd);
     nPendingCommand++;
-    worker.wakeOne();
-    mutex.unlock();
+    run();
 
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 /** No descriptions */
@@ -82,7 +76,7 @@ void Slave::PostMessage(SlaveResult _event, const QString & _msg)
     SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _msg);
 
     QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
-    mDebug << "Msg:" << "_msg = " << _msg << endl;
+    sDebug << "Msg:" << "_msg = " << _msg << endl;
 }
 
 void Slave::InfoMessage(const QString & _msg)
@@ -90,29 +84,24 @@ void Slave::InfoMessage(const QString & _msg)
     SlaveEvent *e1 = new SlaveEvent(m_parent, SLV_INFO, _msg);
 
     QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
-    mDebug << "Infor Msg:" << "_msg = " << _msg << endl;
+    sDebug << "Infor Msg:" << "_msg = " << _msg << endl;
 }
 
 
 
 void Slave::run()
 {
-    mDebugIn << endl;
+    sDebugIn << endl;
 
     SlaveCommand cmd;
-    bool running = true;
 
-    while (running) 
-    {
-        if (!nPendingCommand)
-            worker.wait();
         switch (cmd = fetch_cmd()) 
         {
             case RESTART:
                 copyjob->kill(true);
                 // fall through
             case RETR:
-                mDebug << " FETCHED COMMAND       RETR" << endl;
+                sDebug << " FETCHED COMMAND       RETR" << endl;
                 KIO::Scheduler::checkSlaveOnHold( true );
                 copyjob = new KIO::GetFileJob(m_src, m_dest);
                 copyjob->setAutoErrorHandlingEnabled(true);
@@ -121,81 +110,73 @@ void Slave::run()
                 break;
 
             case PAUSE:
-                mDebug << " FETCHED COMMAND       PAUSE" << endl;
+                sDebug << " FETCHED COMMAND       PAUSE" << endl;
                 copyjob->kill(true);
                 copyjob = 0L;
                 PostMessage(SLV_PAUSED);
                 break;
 
             case KILL:
-                mDebug << " FETCHED COMMAND      KILL" << endl;
-                running = false;
+                sDebug << " FETCHED COMMAND      KILL" << endl;
+                if (copyjob)
                 copyjob->kill(true);
                 copyjob = 0L;
                 // no message posted
                 break;
             
             case REMOVE:
-                mDebug << " FETCHED COMMAND       REMOVE" << endl;
-                running = false;
+                sDebug << " FETCHED COMMAND       REMOVE" << endl;
                 copyjob->kill(true);
                 copyjob = 0L;
                 PostMessage(SLV_REMOVED);
                 break;
 
             case SCHEDULE:
-                mDebug << " FETCHED COMMAND       SCHEDULE" << endl;
+                sDebug << " FETCHED COMMAND       SCHEDULE" << endl;
                 copyjob->kill(true);
                 copyjob = 0L;
                 PostMessage(SLV_SCHEDULED);
                 break;
 
             case DELAY:
-                mDebug << " FETCHED COMMAND       DELAY" << endl;
+                sDebug << " FETCHED COMMAND       DELAY" << endl;
                 copyjob->kill(true);
                 copyjob = 0L;
                 PostMessage(SLV_DELAYED);
                 break;
 
             case NOOP:
-                mDebug << "FETCHED COMMAND        NOOP, i.e. empty stack" << endl;
-                if ( copyjob )
-                {
+                sDebug << "FETCHED COMMAND        NOOP, i.e. empty stack" << endl;
+	         if ( copyjob )
                     copyjob->kill(true);
                     copyjob = 0L;
-                }
-                running = false;
                 break;
 
             default: {
-                mDebug << " UNKNOWN COMMAND DIE...." << endl;
+                sDebug << " UNKNOWN COMMAND DIE...." << endl;
                 assert(0);
             }
         }
-    }
 
-    copyjob = NULL;
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 
 Slave::SlaveCommand Slave::fetch_cmd()
 {
-    mutex.lock();
     SlaveCommand cmd = NOOP;
     if ( !stack.isEmpty() )
     {
         nPendingCommand--;
         cmd = stack.pop();
     }
-    mutex.unlock();
     return cmd;
 }
 
 
 void Slave::Connect()
 {
-    mDebugIn << endl;
+    sDebugIn << endl;
 
 
     connect(copyjob, SIGNAL(canceled(KIO::Job *)), SLOT(slotCanceled(KIO::Job *)));
@@ -210,75 +191,72 @@ void Slave::Connect()
 
     connect(copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), SLOT(slotInfoMessage(KIO::Job *, const QString &)));
 
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 
 void Slave::slotCanceled(KIO::Job *)
 {
-    mDebugIn << endl;
+    sDebugIn << endl;
 
 
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 void Slave::slotConnected(KIO::Job *)
 {
-    mDebugIn << endl;
+    sDebugIn << endl;
 
 
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 void Slave::slotResult(KIO::Job * job)
 {
-    mDebugIn << endl;
+    sDebugIn << endl;
     if (job->error()) {
         InfoMessage(job->errorString());
-        terminate(); // AEEIIII!
-        wait();
         PostMessage(SLV_DELAYED);
     } else
     {
-        terminate(); // AEEIIII!
-        wait();
         PostMessage(SLV_FINISHED);
     }
-    mDebugOut << endl;
+    copyjob=0L;
+    sDebugOut << endl;
 }
 
 
 void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 {
-    // mDebugIn<<endl;
+    // sDebugIn<<endl;
     PostMessage(SLV_PROGRESS_SPEED, lSpeed);
-    // mDebugOut<<endl;
+    // sDebugOut<<endl;
 
 }
 
 void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
 {
-    mDebugIn << "= " << (unsigned long) _total_size << endl;
+    sDebugIn << "= " << (unsigned long) _total_size << endl;
     PostMessage(SLV_TOTAL_SIZE, _total_size);
 
     PostMessage(SLV_CAN_RESUME, copyjob->getCanResume());
     PostMessage(SLV_CONNECTED);
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 void Slave::slotProcessedSize(KIO::Job *, KIO::filesize_t _processed_size)
 {
-    // mDebugIn<<endl;
+    // sDebugIn<<endl;
     PostMessage(SLV_PROGRESS_SIZE, _processed_size);
 
-    // mDebugOut<<endl;
+    // sDebugOut<<endl;
 }
 
 void Slave::slotInfoMessage(KIO::Job *, const QString & _msg)
 {
-    mDebugIn << "MSG=" << _msg << endl;
+    sDebugIn << "MSG=" << _msg << endl;
     InfoMessage(_msg);
-    mDebugOut << endl;
+    sDebugOut << endl;
 }
 
 #include "slave.moc"

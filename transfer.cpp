@@ -162,14 +162,7 @@ void Transfer::synchronousAbort()
 {
     if ( m_pSlave )
     {
-        if ( m_pSlave->running() )
-        {
-            m_pSlave->Op(Slave::KILL);
-            m_pSlave->wait();
-        }
-
-        if ( m_pSlave->running() )
-            m_pSlave->terminate();
+        m_pSlave->Op(Slave::KILL);
 
         delete m_pSlave;
         m_pSlave = 0L;
@@ -179,38 +172,6 @@ void Transfer::synchronousAbort()
     }
 
 }
-
-void Transfer::copy(Transfer * _orig)
-{
-    sDebugIn << endl;
-
-    canResume = _orig->canResume;
-    dest = _orig->dest;
-
-    src = _orig->src;
-    id = _orig->id;
-
-    mode = _orig->mode;
-    percent = _orig->percent;
-
-    processedSize = _orig->processedSize;
-    remainingTime = _orig->remainingTime;
-    retryCount = _orig->retryCount;
-    speed = _orig->speed;
-    startTime = _orig->startTime;
-    status = _orig->status;
-    totalSize = _orig->totalSize;
-
-    updateAll();
-    slotUpdateActions();
-
-    if ( _orig->isVisible() )
-        showIndividual();
-
-    sDebugOut << endl;
-}
-
-
 
 void Transfer::slotUpdateActions()
 {
@@ -317,7 +278,7 @@ void Transfer::updateAll()
     dlgIndividual->setCanResume(canResume);
 
     if (totalSize != 0) {
-        //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+        //logMessage(i18n("Total size is %1 bytes").arg((double)totalSize));
         setText(view->lv_total, KIO::convertSize(totalSize));
     } else {
         //logMessage(i18n("Total size is unknown"));
@@ -605,7 +566,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
 
 
 
-void Transfer::slotTotalSize(unsigned long bytes)
+void Transfer::slotTotalSize(KIO::filesize_t bytes)
 {
 #ifdef _DEBUG
     sDebugIn<<" totalSize is = "<<totalSize << endl;
@@ -614,7 +575,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
     if (totalSize == 0) {
         totalSize = bytes;
         if (totalSize != 0) {
-            logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+            logMessage(i18n("Total size is %1 bytes").arg((double)totalSize,0,'f'));
             setText(view->lv_total, KIO::convertSize(totalSize));
             dlgIndividual->setTotalSize(totalSize);
             dlgIndividual->setPercent(0);
@@ -639,7 +600,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
 
 
 
-void Transfer::slotProcessedSize(unsigned long bytes)
+void Transfer::slotProcessedSize(KIO::filesize_t bytes)
 {
     //sDebug<< ">>>>Entering"<<endl;
 
@@ -821,7 +782,6 @@ void Transfer::slotExecRemove()
 {
     sDebugIn << endl;
 
-    m_pSlave->wait();
     emit statusChanged(this, OP_REMOVED);
     sDebugOut << endl;
 }

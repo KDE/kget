@@ -164,13 +164,9 @@ void TransferList::moveToBegin(Transfer * item)
 {
     //        ASSERT(item);
 
-    item->synchronousAbort();
-    Transfer *new_item = new Transfer(this, item->getSrc(), item->getDest());
-    new_item->copy(item);
-
-    delete item;
-
-    clearSelection();
+    Transfer *oldfirst=static_cast<Transfer*>(firstChild());
+    item->moveItem(oldfirst); //move item after oldfirst
+    oldfirst->moveItem(item); //move oldfirst after item
 }
 
 
@@ -178,15 +174,8 @@ void TransferList::moveToEnd(Transfer * item)
 {
     //        ASSERT(item);
 
-    item->synchronousAbort();
-
-    Transfer *last = static_cast<Transfer*>( lastItem() );
-    Transfer *new_item = new Transfer(this, last, item->getSrc(), item->getDest());
-    new_item->copy(item);
-
-    delete item;
-
-    clearSelection();
+    Transfer *oldlast=static_cast<Transfer*>(lastItem());
+    item->moveItem(oldlast);
 }
 
 

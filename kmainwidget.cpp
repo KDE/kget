@@ -1844,13 +1844,10 @@ void KMainWidget::slotPopupMenu(Transfer * item)
     sDebugIn << endl;
 #endif
 
-    myTransferList->clearSelection();
-    myTransferList->setSelected(item, true);
-
     // select current item
     myTransferList->setCurrentItem(item);
 
-    // set action properties only for this item
+    // set action properties
     slotUpdateActions();
 
     // popup transfer menu at the position
@@ -2048,7 +2045,7 @@ void KMainWidget::updateStatusBar()
     QString tmpstr;
 
     int totalFiles = 0;
-    int totalSize = 0;
+    KIO::filesize_t totalSize = 0;
     int totalSpeed = 0;
     QTime remTime;
 

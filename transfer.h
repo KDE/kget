@@ -70,10 +70,7 @@ public:
     ~Transfer();
 
     void synchronousAbort();
-    void copy(Transfer *);
 
-    // note: does NOT read the "Source" and "Dest" urls. You need to pass
-    // those in the constructor already. You can't "update" those currently.
     bool read(KSimpleConfig * config, int id);
     void write(KSimpleConfig * config, int id);
     void logMessage(const QString & message);
@@ -90,11 +87,11 @@ public:
         return remainingTime;
     }
 
-    unsigned long getTotalSize()const
+    KIO::filesize_t getTotalSize()const
     {
         return totalSize;
     }
-    unsigned long getProcessedSize()const
+    KIO::filesize_t getProcessedSize()const
     {
         return processedSize;
     }
@@ -181,8 +178,8 @@ public slots:
     void slotQueue();
     void slotFinished();
 
-    void slotTotalSize(unsigned long bytes);
-    void slotProcessedSize(unsigned long);
+    void slotTotalSize(KIO::filesize_t bytes);
+    void slotProcessedSize(KIO::filesize_t);
 
     void slotStartTime(const QDateTime &);
 
@@ -206,8 +203,8 @@ private:
     // schedule time
     QDateTime startTime;
 
-    unsigned long totalSize;
-    unsigned long processedSize;
+    KIO::filesize_t totalSize;
+    KIO::filesize_t processedSize;
     int percent;
 
 
