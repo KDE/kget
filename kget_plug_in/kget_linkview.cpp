@@ -59,6 +59,7 @@ void KGetLinkView::initView()
     m_view->addColumn( i18n("Description") );
     m_view->addColumn( i18n("File Type") );
     m_view->addColumn( i18n("Location (URL)") );
+    m_view->setShowSortIndicator( true );
 
     setCentralWidget( m_view );
 }
