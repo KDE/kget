@@ -342,13 +342,12 @@ void GroupList::slotChangedTransfers(const TransferList& list)
     TransferList::constIterator endList = list.end();
 
     GroupList gl;
-    
-    kdDebug() << "111" << endl;
-    
+
+    //kdDebug() << "GroupList::slotChangedTransfers" << endl;
+
     for(; it!=endList; ++it)
     {
         QString tName = (*it)->info().group;
-        kdDebug() << "111a " << tName << endl;
         if(groupsMap.contains(tName))
         {
             Transfer::TransferChanges tc = (*it)->changesFlags(this);

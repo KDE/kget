@@ -31,10 +31,6 @@ SHORT-TERM (URGENT):
   CHG <dario> optimize if possible the fact we must check if a transfer
       is still present in the transfers list (in the Scheduler class, function
       slotTransferChanged() ).
-  FIX <dario> (JJ) fix crash when resuming an already running transfer. The 
-      solution should be to check for this case in Scheduler::slotSetCommand
-      by calling the info() function on the transfer and checking if its status
-      is St_Trying or St_Running. In this case we should do nothing.
 
   -- SIDEBAR --
   FIX <dario> (JJ) sometimes, but it's not clear to me the exact reason, the sidebar
@@ -155,6 +151,10 @@ LONG-TERM:
   FIX <pino> make more fluid the drop target movement
   FIX <dario> handle SideBar resizing correctly
   CHG <dario> finish to implement transferKio adding, for example, setDelay.
+  FIX <dario> (JJ) fix crash when resuming an already running transfer. The 
+      solution should be to check for this case in Scheduler::slotSetCommand
+      by calling the info() function on the transfer and checking if its status
+      is St_Trying or St_Running. In this case we should do nothing.
 
 
 

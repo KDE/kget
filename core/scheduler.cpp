@@ -848,50 +848,44 @@ bool Scheduler::schedNewTransfer( dlPaths newdl )
 
 bool Scheduler::setTransferCommand(TransferList list, TransferCommand op)
 {
-    sDebugIn << endl;
-    
     TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
-    
+
     for(; it!=endList; ++it)
         setTransferCommand(*it, op);
 
-    sDebugOut << endl;
     return true;
 }
 
 bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
 {
-    sDebugIn << endl;
-
     switch (op)
     {
         case CmdResume:
-            sDebug << "111 ->" << runningTransfers->size() << endl;
+            sDebug << "Scheduler::setTransferCommand() -> CmdResume" << endl;
             if(  (item->info().status != Transfer::St_Running)
                 && (item->info().status != Transfer::St_Finished)
                 && (item->info().status != Transfer::St_Delayed)
-                && (item->info().priority != 6)       
+                && (item->info().priority != 6)
                 && (Settings::maxConnections() > runningTransfers->size()) )
                 {
-                    sDebug << "222" << endl;
                     if(item->slotResume())
                     {
                         runningTransfers->addTransfer(item);
                         return true;
                     } 
                 }
-                sDebug << "333" << endl;
                 return false;
         case CmdRestart:
+                sDebug << "Scheduler::setTransferCommand() -> CmdRestart" << endl;
                 item->slotRetransfer();
                 return false; //temporary
         case CmdPause:
+                sDebug << "Scheduler::setTransferCommand() -> CmdPause" << endl;
                 runningTransfers->removeTransfer(item);
                 item->slotStop();
                 return true;
     }
-    sDebugOut << endl;
     return false;
 }
 
@@ -940,18 +934,18 @@ void Scheduler::queueEvaluateItems(TransferList list, bool force)
     while  ( (isPrior)
           && (it1 != beginList1 ) 
           && (it2 != endList2) );
-        
+
     sDebug << "(3)" << endl;
-    
+
     toAdd.about();
     toRemove.about();
-    
+
 /*    //Here we must remove the items that are in both the toRemove and 
     //the toAdd list.
     TransferList intersection = toAdd.intersect(toRemove);
     toAdd.removeTransfers(intersection);
     toRemove.removeTransfers(intersection);*/
-              
+
     setTransferCommand(toRemove, CmdPause);
     setTransferCommand(toAdd, CmdResume);
 
@@ -964,10 +958,10 @@ void Scheduler::queueRemovedItems(TransferList list)
         return;
 
     TransferList toRemove;
-        
+
     TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
-    
+
     for(; it!=endList; ++it )
     {
         if (runningTransfers->contains(*it))
@@ -975,44 +969,39 @@ void Scheduler::queueRemovedItems(TransferList list)
             toRemove.addTransfer(*it);
         }
     }
-    kdDebug() << "before" << endl;
     slotSetCommand(toRemove, CmdPause);
-    kdDebug() << "after" << endl;
 }
 
 void Scheduler::queueUpdate()
 {
-    sDebugIn << endl;
-
     if(!running)
         return;
-    
-    sDebug << "(1)" << endl;
-                
+
     int newTransfers = Settings::maxConnections() - runningTransfers->size();
 
-    sDebug << "(2) -> " << Settings::maxConnections() << " : " << runningTransfers->size() << endl;
-        
-    if(newTransfers <= 0 )
+    kdDebug() << "Scheduler::queueUpdate() ->  ( " << runningTransfers->size()
+           << " : " << Settings::maxConnections() << " )" << endl;
+
+    if( newTransfers <= 0 )
         return;
-                   
+
     //search for the next transfer in the list to be downloaded
     TransferList::iterator it = transfers->begin();
     TransferList::iterator endList = transfers->end();
-    
-    while(newTransfers > 0 && it != endList)
+
+    while( (newTransfers > 0)  && (it != endList) )
     {
-        sDebug << "AAA" << endl;
-        if(setTransferCommand(*it, CmdResume))
+        sDebug << "Scheduler::queueUpdate() -> Evaluating item..." << endl;
+        if( ((*it)->info().status == Transfer::St_Stopped)
+            && setTransferCommand(*it, CmdResume) ) 
         {
-            sDebug << "BBB" << endl;
+            sDebug << "Scheduler::queueUpdate() -> Item added to the queue" << endl;
             --newTransfers;
         }
-        sDebug << "CCC" << endl;
+        else
+            sDebug << "Scheduler::queueUpdate() -> Item not added to the queue" << endl;
         ++it;
     }
-    
-    sDebugOut << endl;
 }
 
 //END
