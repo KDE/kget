@@ -54,8 +54,6 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
             this,   SIGNAL(changedGroups(const GroupList&)));
     
     connections.append( new Connection(this) );
-    
-    slotImportTransfers();
 }
 
 Scheduler::~Scheduler()

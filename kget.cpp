@@ -66,8 +66,10 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     // scheduler creation
     // the scheduler NEEDS to be created here to make kget accept command
     // line args when executed with no instance already started
+    // We import the user's transfers calling scheduler->slotImportTransfers()
+    // in slotDelayedInit.
     scheduler = new Scheduler(this);
-    
+
     // create actions
     setupActions();
 
@@ -226,7 +228,9 @@ void KMainWidget::setupActions()
 
 void KMainWidget::slotDelayedInit()
 {
-    
+    //Here we import the user's transfers.
+    scheduler->slotImportTransfers();
+
     // DropTarget
     kdrop = new DropTarget(this);
     if ( Settings::showDropTarget() || Settings::firstRun() )
