@@ -485,7 +485,7 @@ void KMainWidget::slotConfigureKeys()
     sDebugIn << endl;
 #endif
 
-    KKeyDialog::configureKeys(actionCollection(), xmlFile());
+    KKeyDialog::configure(actionCollection());
 
 
 #ifdef _DEBUG
@@ -1069,7 +1069,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
                 // in expert mode don't open the filedialog
                 // if destURL is not empty, it's the suggested filename
                 destURL = KURL::fromPathOrURL( destDir + "/" +
-                                               ( destURL.isEmpty() ? 
+                                               ( destURL.isEmpty() ?
                                                    url.fileName() : destURL.url() ));
             }
 
