@@ -214,7 +214,9 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 
     //bool keepOpenChecked = false;
     //bool noCaptionYet = true;
-    setCaption(i18n("Progress Dialog")); // show something better than kio_uiserver
+    setCaption(i18n("Progress Dialog"));
+    
+    bKeepDlgOpen=false;
 }
 
 
