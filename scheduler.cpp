@@ -230,9 +230,13 @@ void Scheduler::slotRemoveItem(Transfer * item)
 
 void Scheduler::slotSetPriority(TransferList & list, int priority)
 {
+    sDebugIn << endl;
+    
     transfers->moveToBegin(list, priority);
     
     emit changedItems(list);
+    
+    sDebugOut << endl;
 }
 
 void Scheduler::slotSetPriority(Transfer * item, int priority)

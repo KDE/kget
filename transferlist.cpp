@@ -60,6 +60,8 @@ Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest, bo
 
 void TransferList::addTransfer(Transfer * transfer, bool toBegin)
 {
+    sDebugIn << endl;
+
     jobid++;
     if(toBegin)
         push_front(transfer);
@@ -67,10 +69,14 @@ void TransferList::addTransfer(Transfer * transfer, bool toBegin)
         push_back(transfer);
     
     qHeapSort(*this);
+
+    sDebugOut << endl;
 }
 
 void TransferList::addTransfers(TransferList & transfers, bool toBegin)
 {
+    sDebugIn << endl;
+
     iterator it;
     iterator endList = end();
     
@@ -83,15 +89,23 @@ void TransferList::addTransfers(TransferList & transfers, bool toBegin)
             push_back(*it);
     }
     qHeapSort(*this);
+
+    sDebugOut << endl;
 }
 
 void TransferList::removeTransfer(Transfer * transfer)
 {
+    sDebugIn << endl;
+
     remove(transfer);    
+    
+    sDebugOut << endl;
 }
 
 void TransferList::removeTransfers(TransferList & transfers)
 {
+    sDebugIn << endl;
+
     TransferList::iterator it;
     TransferList::iterator endList = transfers.end();
     
@@ -99,20 +113,27 @@ void TransferList::removeTransfers(TransferList & transfers)
         {
         remove(*it);
     }
+    sDebugOut << endl;
 }
 
 void TransferList::moveToBegin(Transfer * item, int priority)
 {
+    sDebugIn << endl;
+
     if(priority != -1)
         item->setPriority(priority);
     
     //Now I remove the current Item and I reinsert it with addTransfer(..,true)
     remove(item);
     addTransfer(item, true);
+    
+    sDebugOut << endl;
 }
 
 void TransferList::moveToBegin(TransferList & transfers, int priority)
 {
+    sDebugIn << endl;
+
     iterator it;
     iterator endList = transfers.end();
     
@@ -125,11 +146,13 @@ void TransferList::moveToBegin(TransferList & transfers, int priority)
         }
     }    
     addTransfers(transfers, true);
+    
+    sDebugOut << endl;
 }
 
 void TransferList::moveToEnd(Transfer * item, int priority)
 {
-    
+    sDebugIn << endl;
 
     if(priority != -1)
         item->setPriority(priority);
@@ -137,10 +160,14 @@ void TransferList::moveToEnd(Transfer * item, int priority)
     //Now I remove the current Item and I reinsert it with addTransfer(..,true)
     remove(item);
     addTransfer(item, false);
+
+    sDebugOut << endl;
 }
 
 void TransferList::moveToEnd(TransferList & transfers, int priority)
 {
+    sDebugIn << endl;
+    
     iterator it;
     iterator endList = transfers.end();
     
@@ -153,6 +180,8 @@ void TransferList::moveToEnd(TransferList & transfers, int priority)
         }
     }    
     addTransfers(transfers, false);
+
+    sDebugOut << endl;
 }
 
 

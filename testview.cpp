@@ -178,7 +178,10 @@ void TestView::schedulerChangedItems( TransferList & list)
     for(it = list.begin(); it != endList; ++it)
         {
         QListViewItemIterator itemIter(listView);
-        while(!((TestViewItem *)itemIter.current())->update(*it));
+        while(!itemIter.current())
+            {
+            ((TestViewItem *)itemIter.current())->update(*it);
+        }
     }
     
     sDebugOut << endl;
