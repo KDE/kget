@@ -47,7 +47,7 @@
 
 //#include "main.h"
 
-
+extern Settings ksettings;
 
 
 Transfer::Transfer(TransferList * _view, const KURL & _src,
@@ -200,8 +200,16 @@ void Transfer::copy(Transfer * _orig)
 
 void Transfer::slotUpdateActions()
 {
-        sDebugIn  <<"Status="<<status<<endl;
-
+   sDebugIn  <<"the item Status is ="<<status<< "offline="<<ksettings.b_offlineMode<<endl;
+  //if we are in offlinemode just disable all actions  and return
+  if (ksettings.b_offlineMode)
+      {
+                m_paResume->setEnabled(false);
+                m_paPause->setEnabled(false);
+                m_paRestart->setEnabled(false);
+                dlgIndividual->update ();
+           return;
+          }
         UpdateRetry();
         switch (status) {
 	case ST_TRYING:
@@ -259,6 +267,10 @@ void Transfer::slotUpdateActions()
         m_paQueue->blockSignals(false);
         m_paTimer->blockSignals(false);
         m_paDelay->blockSignals(false);
+
+      if (isVisible())
+          dlgIndividual->update ();
+
         sDebugOut   << endl;
 }
 
@@ -461,6 +473,7 @@ void Transfer::slotQueue()
         assert(!(mode == MD_QUEUED));
 
         mode = MD_QUEUED;
+        m_paQueue->setChecked(true);
         emit statusChanged(this, OP_QUEUED);
         sDebugOut   << endl;
 }
@@ -656,9 +669,11 @@ void Transfer::showIndividual()
 {
         sDebugIn  << endl;
 
-        // show the single dialog
-
+//      update the actions
+        slotUpdateActions();
+//     then show the single dialog
         dlgIndividual->show();
+
         sDebugOut   << endl;
 }
 
@@ -768,6 +783,7 @@ void Transfer::slotExecPause()
 
 
         mode = MD_DELAYED;
+        m_paDelay->setChecked(true);
         status = ST_STOPPED;
 
         m_paPause->setEnabled(false);
@@ -876,12 +892,13 @@ void Transfer::slotCanResume(bool _bCanResume)
 void Transfer::slotExecDelay()
 {
         sDebugIn  << endl;
-        //m_pFTP.wait();
+
         mode = MD_DELAYED;
         status = ST_STOPPED;
         slotSpeed(0);		//need???????
-
+        m_paDelay->setChecked(true);
         emit statusChanged(this, OP_DELAYED);
+
         sDebugOut   << endl;
 
 }
@@ -893,7 +910,9 @@ void Transfer::slotExecSchedule()
 
         mode = MD_SCHEDULED;
         status = ST_STOPPED;
+        m_paTimer->setChecked(true);
         emit statusChanged(this, OP_SCHEDULED);
+
         sDebugOut   << endl;
 
 }
@@ -908,3 +927,7 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
 
 }
 
+/** return true if the dlgIndividual is Visible */
+bool Transfer::isVisible(){
+return dlgIndividual->isVisible ();
+}

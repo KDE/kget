@@ -809,6 +809,14 @@ void KMainWidget::pauseAll()
 
     log(i18n("Pausing all jobs"), false);
 
+    TransferIterator it(myTransferList);
+    Transfer::TransferStatus Status;
+     for (; it.current(); ++it)
+       {
+         Status=it.current()->getStatus();
+         if(Status==Transfer::ST_TRYING||Status==Transfer::ST_RUNNING) 
+                it.current()->slotRequestPause();
+        }
     sDebugOut << endl;
 }
 
@@ -1231,6 +1239,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
 
     case Transfer::OP_ABORTED:
 	break;
+    case Transfer::OP_DELAYED:
     case Transfer::OP_QUEUED:
 	slotUpdateActions();
 	item->slotUpdateActions();
@@ -1240,9 +1249,6 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
 	item->slotUpdateActions();
 	slotTransferTimeout();	// this will check schedule times
 	return;			// checkQueue() is called from slotTransferTimeout()
-
-    case Transfer::OP_DELAYED:
-	break;
     }
 
 
@@ -1330,8 +1336,8 @@ void KMainWidget::slotOpenIndividual()
     Transfer *item = (Transfer *) myTransferList->currentItem();
 
     if (item) {
-	item->showIndividual();
-    }
+	             item->showIndividual();
+              }
     sDebugOut << endl;
 }
 
@@ -1455,6 +1461,7 @@ void KMainWidget::slotToggleOfflineMode()
     }
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
 
+    slotUpdateActions();
     checkQueue();
     sDebugOut << endl;
 }
@@ -1679,6 +1686,11 @@ void KMainWidget::slotUpdateActions()
     int sel_items = 0;
 
     for (; it.current(); ++it, ++totals_items) {
+
+    // update action on visibles windows
+   if (it.current()->isVisible())
+          it.current()->slotUpdateActions();
+
 	if (it.current()->isSelected()) {
 	    item = it.current();
 	    sel_items = totals_items;
@@ -1696,7 +1708,7 @@ void KMainWidget::slotUpdateActions()
 	    }
 	    // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
     sDebug << "-->ONLINE= " <<  ksettings.b_offlineMode << endl;
-	    if (item == first_item &&  ksettings.b_offlineMode) {
+	    if (item == first_item &&  !ksettings.b_offlineMode) {
 		switch (item->getStatus()) {
 		case Transfer::ST_TRYING:
 		case Transfer::ST_RUNNING:
@@ -1710,7 +1722,8 @@ void KMainWidget::slotUpdateActions()
 		    m_paRestart->setEnabled(false);
 		    sDebug << "STATUS IS  stopped" << item->getStatus() << endl;
 		    break;
-		}
+  		}  //end switch
+
 	    } else if (item->getStatus() != first_item->getStatus()) {
 		// disable all when all selected items don't have the same status
 		m_paResume->setEnabled(false);

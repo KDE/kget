@@ -148,6 +148,8 @@ class Transfer:public QObject, public QListViewItem {
     void slotExecAbort(const QString &);
     void slotCanResume(bool _bCanResume);
     void slotSpeed(unsigned long);
+  /** No descriptions */
+  bool isVisible();
 
     public slots:
 	// operation methods
