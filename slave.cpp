@@ -98,6 +98,7 @@ void Slave::run()
         switch (cmd = fetch_cmd()) {
         case RESTART:
             copyjob->kill(true);
+            // fall through
         case RETR:
             mDebug << " FETCHED COMMAND       RETR" << endl;
             copyjob = new KIO::GetFileJob(m_src, m_dest);
@@ -134,13 +135,22 @@ void Slave::run()
             PostMessage(SLV_DELAYED);
             break;
 
-        default: {
-                mDebug << " UNKNOW COMMAND DIE...." << endl;
-                assert(0);
+        case NOOP:
+            mDebug << "FETCHED COMMAND        NONE, i.e. empty stack" << endl;
+            if ( copyjob )
+            {
+                copyjob->kill(true);
+                copyjob = 0L;
             }
+            running = false;
+            break;
+            
+        default: {
+            mDebug << " UNKNOW COMMAND DIE...." << endl;
+            assert(0);
+        }
         }
     }
-
 
     copyjob = NULL;
     mDebugOut << endl;
@@ -154,9 +164,12 @@ void Slave::run()
 Slave::SlaveCommand Slave::fetch_cmd()
 {
     mutex.lock();
-    nPendingCommand--;
-    SlaveCommand cmd = stack.pop();
-
+    SlaveCommand cmd = NOOP;
+    if ( !stack.isEmpty() )
+    {
+        nPendingCommand--;
+        cmd = stack.pop();
+    }
     mutex.unlock();
     return cmd;
 }
@@ -195,7 +208,7 @@ void Slave::slotConnected(KIO::Job *)
 {
     mDebugIn << endl;
 
-    
+
     mDebugOut << endl;
 }
 
@@ -209,7 +222,6 @@ void Slave::slotResult(KIO::Job * job)
     } else
         PostMessage(SLV_FINISHED);
     mDebugOut << endl;
-
 }
 
 
