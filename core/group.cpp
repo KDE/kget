@@ -258,7 +258,7 @@ void GroupList::modifyGroup(const QString& groupName, Group group)
 {
     Group * g;
     
-    if(g = getGroup(groupName))
+    if((g = getGroup(groupName)))
         delGroup(*g);
     addGroup(group);
 }

@@ -150,8 +150,8 @@ void KGet_plug_in::slotShowLinks()
     }
 
     KGetLinkView *view = new KGetLinkView();
-    connect( view, SIGNAL( leechURLs( const KURL::List& ) ),
-             SLOT( startDownload( const KURL::List& ) ));
+//    connect( view, SIGNAL( leechURLs( const KURL::List& ) ),
+//             SLOT( startDownload( const KURL::List& ) ));
 
     view->setLinks( linkList );
     view->show();
@@ -159,6 +159,7 @@ void KGet_plug_in::slotShowLinks()
 
 void KGet_plug_in::startDownload( const KURL::List& urls )
 {
+/*
     if (!p_dcopServer->isApplicationRegistered ("kget"))
         KRun::runCommand("kget");
 
@@ -170,6 +171,7 @@ void KGet_plug_in::startDownload( const KURL::List& urls )
                                               data );
 
     kdDebug() << "*** startDownload: " << ok << endl;
+*/
 }
 
 KPluginFactory::KPluginFactory( QObject* parent, const char* name )

@@ -141,6 +141,8 @@ DropTarget::DropTarget(KMainWidget * mw)
     mw->actionCollection()->action("preferences")->plug(popupMenu);
     mw->actionCollection()->action("quit")->plug(popupMenu);
 
+    isdragging = false;
+
     // Enable dropping
     setAcceptDrops(true);
 }
@@ -183,8 +185,11 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
     if (e->button() == LeftButton)
     {
         // toggleMinimizeRestore ();
-        oldX = 0;
-        oldY = 0;
+//        oldX = 0;
+//        oldY = 0;
+        isdragging = true;
+        dx = QCursor::pos().x() - pos().x();
+        dy = QCursor::pos().y() - pos().y();
     }
     else if (e->button() == RightButton)
     {
@@ -253,15 +258,24 @@ void DropTarget::toggleMinimizeRestore()
 
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
+/*
     if (oldX == 0)
     {
         oldX = e->x();
         oldY = e->y();
         return;
     }
+*/
+    if (isdragging)
+        move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
 
 //    QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
-    move(x() + (e->x() - oldX), y() + (e->y() - oldY));
+//    move(x() + (e->x() - oldX), y() + (e->y() - oldY));  // <<--
+}
+
+void DropTarget::mouseReleaseEvent(QMouseEvent *)
+{
+    isdragging = false;
 }
 
 void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
@@ -304,8 +318,7 @@ void DropTarget::playAnimation()
     animTimer = new QTimer;
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimate() ));
-    QWidget *d = QApplication::desktop();
-    move( d->width() - width() - 60, -TARGET_HEIGHT );
+    move( Settings::dropPosition().x(), -TARGET_HEIGHT );
     ani_y = -1;
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
@@ -353,6 +366,7 @@ void DropTarget::slotAnimate()
     ani_y += ani_vy * dT;
     
     move( x(), (int)(d->height()/3 * (1 + ani_y)) );
+//    move( x(), (int)(Settings::dropPosition().y() * (1 + ani_y)) );
 
     if ( fabsf(ani_y) < 0.01 && fabsf(ani_vy) < 0.01 && animTimer )
     {

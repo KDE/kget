@@ -58,10 +58,16 @@ enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
 KMainWidget::KMainWidget( QWidget * parent, const char * name )
-    : KMainWindow( parent, name ), ViewInterface( "viewIface-main" ),
-      DCOPIface( "KGet-Interface" ), mainView(0), rightWidget(0), kdrop(0),
+    : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
+      ViewInterface( "viewIface-main" ),
+      mainView(0), rightWidget(0), kdrop(0),
       kdock(0)
 {
+    // scheduler creation
+    // the scheduler NEEDS to be created here to make kget accept command
+    // line args when executed with no instance already started
+    scheduler = new Scheduler(this);
+    
     // create actions
     setupActions();
 
@@ -162,7 +168,7 @@ void KMainWidget::setupActions()
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
     // ->Scheduler - Ask for transfersList export
-    new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), ac, "export_transfers");
+    new KAction(i18n("Export &Transfers List..."), 0, this, SLOT(slotExportTransfers()), ac, "export_transfers");
     // ->Scheduler - Ask for transfersList import
     new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), ac, "import_transfers");
 
@@ -232,9 +238,6 @@ void KMainWidget::slotDelayedInit()
     kdock = new Tray(this);
     kdock->show();
         
-    // scheduler creation 
-    scheduler = new Scheduler(this);
-    
     //viewinterface connection
     connectToScheduler( scheduler );
     kdock->connectToScheduler(scheduler);

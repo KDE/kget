@@ -56,7 +56,7 @@ void GroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int 
     if(column == 1)
     {
         Group::Info info = group->info();
-        float rectWidth = (width-4) * info.percent / 100;
+        int rectWidth = (int)((width-4) * info.percent / 100);
         
         p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight));
         p->setPen(cg.foreground());

@@ -61,6 +61,7 @@ protected:
     
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent * e);
+    virtual void mouseReleaseEvent(QMouseEvent *);
 
 private slots:
     void toggleSticky();
@@ -79,8 +80,11 @@ private:
     int pop_sticky;
     int pop_show;
 
-    int oldX;
-    int oldY;
+//    int oldX;
+//    int oldY;
+    int dx;
+    int dy;
+    bool isdragging;
     
     float ani_y, ani_vy;
 };

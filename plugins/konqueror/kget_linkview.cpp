@@ -1,10 +1,12 @@
+#include "kget_linkview.h"
+
+#include <dcopclient.h>
 #include <kaction.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kprocess.h>
 #include <ktoolbar.h>
-
-#include "kget_linkview.h"
 
 #define COL_NAME 0
 #define COL_DESC 1
@@ -93,8 +95,32 @@ void KGetLinkView::slotStartLeech()
                             i18n("You did not select any files to download."),
                             i18n("No Files Selected") );
     else
-        emit leechURLs( urls );
-}
+//        emit leechURLs( urls );
+    {
+        DCOPClient* p_dcopServer = new DCOPClient();
+        p_dcopServer->attach();
 
+        if (!p_dcopServer->isApplicationRegistered("kget"))
+        {
+            KProcess* proc = new KProcess();
+            *proc << "kget" << urls.toStringList();
+            proc->start( KProcess::DontCare );
+        }
+        else
+        {
+            QByteArray data;
+            QDataStream stream( data, IO_WriteOnly );
+            stream << urls << QString::null;
+            bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
+                                                      "addTransfers(KURL::List, QString)",
+                                                      data );
+
+            kdDebug() << "*** startDownload: " << ok << endl;
+        }
+
+        p_dcopServer->detach();
+        delete p_dcopServer;
+    }
+}
 
 #include "kget_linkview.moc"

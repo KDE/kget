@@ -344,6 +344,8 @@ void Scheduler::slotSetCommand(TransferList list, TransferCommand op)
             sDebug << "      PAUSE        " << endl;
             setTransferCommand(list, CmdPause);
             queueUpdate();
+        case CmdRestart:
+            ;
                         
     }
     sDebugOut << endl;
@@ -480,7 +482,7 @@ void Scheduler::slotTransferChanged(Transfer * item)
     if(transferFlags & Transfer::Tc_Status)
     {
         switch (item->info().status)
-            {
+        {
 //            case Transfer::St_Delayed:
             case Transfer::St_Aborted:
                 item->slotSetDelay(5);
