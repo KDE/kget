@@ -81,7 +81,7 @@ SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
 {
     idSelected = 0;
 
-    QGridLayout *topGridLayout = new QGridLayout(this, 1, 2, 20, KDialog::spacingHint());
+    QGridLayout *topGridLayout = new QGridLayout(this, 1, 2, 0, KDialog::spacingHint());
 
     topGridLayout->setRowStretch(0, 5);
 
@@ -200,7 +200,7 @@ void LogWindow::logTransfer(uint id, const QString & filename, const QString & m
 {
     QString mixed_msg, single_msg, job_id;
 
-    job_id.sprintf("Job[<font color=\"red\">%d</font>] : ", id);
+    job_id = QString("Job[<font color=\"red\">%1</font>] : ").arg(id);
     mixed_msg = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + job_id + message;
 
     single_msg = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message;
