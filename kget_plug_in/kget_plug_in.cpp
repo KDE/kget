@@ -61,7 +61,7 @@ KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
 
     menu->insert( m_paToggleDropTarget );
 
-    KAction *action = new KAction(i18n("List all Links..."), KShortcut(),
+    KAction *action = new KAction(i18n("List All Links..."), KShortcut(),
                                   this, SLOT( slotShowLinks() ),
                                   actionCollection(), "show_links");
     menu->insert( action );
