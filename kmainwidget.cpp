@@ -833,7 +833,7 @@ void KMainWidget::slotQueueCurrent()
 	}
     }
 
-    myTransferList->clearSelection();
+//    myTransferList->clearSelection();
     slotUpdateActions();
     sDebugOut << endl;
 
@@ -854,7 +854,7 @@ void KMainWidget::slotTimerCurrent()
 	}
     }
 
-    myTransferList->clearSelection();
+//    myTransferList->clearSelection();
     sDebugOut << endl;
 
 }
@@ -871,7 +871,7 @@ void KMainWidget::slotDelayCurrent()
 	}
     }
 
-    myTransferList->clearSelection();
+//    myTransferList->clearSelection();
     sDebugOut << endl;
 }
 

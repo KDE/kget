@@ -4,7 +4,7 @@ bin_PROGRAMS = kget
 ## INCLUDES were found outside kdevelop specific part
 
 kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp transfer.cpp settings.cpp misc.cpp logwindow.cpp kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp dlgAutomation.cpp dlgAdvanced.cpp bwdatetime.cpp kget.cpp main.cpp 
-kget_LDADD   = -lqt-mt $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET)
+kget_LDADD   =  $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET)
 
 SUBDIRS = pics sounds 
 

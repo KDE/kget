@@ -229,8 +229,12 @@ void Slave::slotResult(KIO::Job * job)
 {
     mDebugIn << endl;
     if (job->error())
-          	job->showErrorDialog();
-    PostMessage(SLV_FINISHED);
+       {
+        InfoMessage(job->errorString());
+        PostMessage(SLV_DELAYED);
+       }
+    else
+        PostMessage(SLV_FINISHED);
     mDebugOut << endl;
 
 }
