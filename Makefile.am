@@ -6,7 +6,7 @@ bin_PROGRAMS = kget
 kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp transfer.cpp settings.cpp misc.cpp logwindow.cpp kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp dlgAutomation.cpp dlgAdvanced.cpp bwdatetime.cpp kget.cpp main.cpp 
 kget_LDADD   = -lqt-mt $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET)
 
-SUBDIRS = pics 
+SUBDIRS = pics sounds 
 
 EXTRA_DIST = main.cpp kget.cpp kget.h kget.desktop lo32-app-kget.png lo16-app-kget.png bwdatetime.cpp bwdatetime.h common.h dlgAdvanced.cpp dlgAdvanced.h dlgAutomation.cpp dlgAutomation.h dlgConnection.cpp dlgConnection.h dlgDirectories.cpp dlgDirectories.h dlgIndividual.cpp dlgIndividual.h dlgLimits.cpp dlgLimits.h dlgPreferences.cpp dlgPreferences.h dlgSystem.cpp dlgSystem.h docking.cpp docking.h droptarget.cpp droptarget.h kfileio.cpp kfileio.h kmainwidget.cpp kmainwidget.h logwindow.cpp logwindow.h misc.cpp misc.h settings.cpp settings.h transfer.cpp transfer.h transferlist.cpp transferlist.h main.h version.h slave.cpp slave.h slaveevent.cpp slaveevent.h http_defaults.h kgetui.rc getfilejob.cpp getfilejob.h 
 

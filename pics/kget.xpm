@@ -1,5 +1,5 @@
 /* XPM */
-static char * caitoo_xpm[] = {
+static char * kget_xpm[] = {
 "40 40 256 2",
 "  	c None",
 ". 	c #020204",

@@ -81,7 +81,7 @@ enum WindowStyle { NORMAL, DOCKED, DROP_TARGET };
 #define DEF_UseLastDir          false
 
 // System settings
-#define DEF_UseSound            false
+#define DEF_UseSound            true
 
 #define DEF_SoundAdded          "kget/sounds/added.wav"
 #define DEF_SoundStarted        "kget/sounds/started.wav"

@@ -56,9 +56,9 @@ void
     // read system options
     config->setGroup("System");
     b_useSound = config->readBoolEntry("UseSound", DEF_UseSound);
-
+    sDebug<<"locating sounds..."<< locate("data", DEF_SoundAdded)<<endl;
     audioAdded = config->readEntry("Added", locate("data", DEF_SoundAdded));
-
+    sDebug<<"audioadded= "<< audioAdded <<endl;
     audioStarted = config->readEntry("Started", locate("data", DEF_SoundStarted));
 
     audioFinished = config->readEntry("Finished", locate("data", DEF_SoundFinished));
