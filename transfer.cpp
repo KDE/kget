@@ -674,8 +674,8 @@ void Transfer::showIndividual()
         dlgIndividual->setCopying(src, dest);
         dlgIndividual->setCanResume(canResume);
         dlgIndividual->setTotalSize(totalSize);
-        dlgIndividual->setPercent(0);
-        dlgIndividual->setProcessedSize(0);
+        dlgIndividual->setPercent(percent);
+        dlgIndividual->setProcessedSize(processedSize);
     }
             
     dlgIndividual->raise();
