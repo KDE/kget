@@ -694,6 +694,7 @@ void KMainWidget::slotQuit()
 
                 return;
             }
+            break;
         }
     }
 
