@@ -413,7 +413,6 @@ void MainView::schedulerAddedGroups( const GroupList& list )
         groupsMap[(*it)->info().name] = newItem;
 
         newItem->setVisible(false);
-//         newItem->updateContents(true);
     }
 }
 
@@ -424,10 +423,8 @@ void MainView::schedulerRemovedGroups( const GroupList& list)
 
     for(; it != endList; ++it)
     {
-        
-        delete(groupsMap[(*it)->info().name]);
+        groupsMap.remove((*it)->info().name);
     }
-
 }
 
 void MainView::schedulerChangedGroups( const GroupList& list)
