@@ -19,26 +19,80 @@ Legend:
 
 SHORT-TERM (URGENT):
 
+  -- MAINWINDOW --
+  CHG <dario> rename the KMainWidget class (that IMHO is a rather confusing name)
+      to MainWindow
+
+  -- SCHEDULER --
   FIX <pino> _rewrite_ & simplify the scheduler functions which schedule
       new downloads, atm they are too messy
   FIX <pino> _rewrite_ & simplify the scheduler functions which manage the
       downloads, atm they are too messy and don't work properly
-  FIX <dario> when resizing the columns of the mainview and the groupspanel
-      the items are not updated correctly
-  ADD <dario> implement the GlobalStatus object and make the 
-      systray to update using the ViewInterface slots instead of the actual hack.
-  ADD <dario> implement progressive filling of the icon in the system tray
-  ADD <dario> make it possible to move transfers to a specific group using 
-      the popup menu.
-  ADD <dario> make it possible to drag a transfer in a group inside the
-      mainview or in the groups visible in the groupspanel.
-  CHG <dario> verify that the painting operations in the views are performed
-      only when necessary.
   CHG <dario> optimize if possible the fact we must check if a transfer
       is still present in the transfers list (in the Scheduler class, function
       slotTransferChanged() ).
+  FIX <dario> (JJ) fix crash when resuming an already running transfer. The 
+      solution should be to check for this case in Scheduler::slotSetCommand
+      by calling the info() function on the transfer and checking if its status
+      is St_Trying or St_Running. In this case we should do nothing.
+
+  -- SIDEBAR --
+  FIX <dario> sometimes, but it's not clear to me the exact reason, the sidebar
+      crashes. Maybe this is due to the find("") call to the QPixmapCache
+      sometimes returning a null pointer. I wonder if it was better to simply
+      have some protected QPixmap objects in SidebarItem instead of using
+      the QPixmapCache class.
+  ADD <dario> (JJ) once the ViewInterface has the necessary methods, make the 
+      sidebar call them to select a group (calling schedSelGroup()).
+  ADD <dario> add a "Finished" (is this the best name?) item. This will point
+      to the downloaded files.
+  ADD <dario> add a popupmenu to add or delete groups by right-clicking on them.
+
+  -- MAINVIEW --
+  FIX <dario> when resizing the columns of the mainview and the groupspanel
+      the items are not updated correctly
+  ADD <dario> make it possible to move transfers to a specific group using
+      the popup menu.
+  ADD <dario> make it possible to drag a transfer in a group inside the
+      mainview or in the groups visible in the groupspanel.
+  ADD <dario> once the ViewInterface has the necessary methods, implement 
+      the selection of a specific group. In this way selecting a group from the
+      sidebar should display only its transfers.
+  ADD <dario> add a coloured band over the mainview displaying the currently
+      display items. For example if I select "Downloads" from the sidebar it
+      should display "Downloads". If instead I select a specific group <groupname>
+      it should display "Downloads - <groupname>"
+
+  -- VIEWINTERFACE --
+  ADD <dario> (JJ) add new functions to the interface to select a list of transfers 
+      or a group. Something like: schedSelItems(const TransferList &) and
+      schedSelGroup(const Group &).
+      We also need to add the relative virtual functions:
+      schedulerSelectedItems(const TransferList &) and
+      schedulerSelectedGroup(const Group &)
+      These new functions will be used, for example, from the sidebar to select
+      a group, and the mainview will update accordingly to this.
+
+  -- MISCELLANEOUS --
+  ADD <dario> implement the GlobalStatus object and make the
+      systray to update using the ViewInterface slots instead of the actual hack.
+      To make this happen we need to create also a special group containing all
+      the ungrouped Transfers. Then we just need to sum the progress of each group
+      to know the global download percentage.
+  FIX <dario> sometimes the group percentage stops at 99% instead of 100%.
+      This is probably caused by the optimized incremental progress update that is
+      performed inside the Group class, leading to approssimation errors.
+  ADD <dario> implement progressive filling of the icon in the system tray
+  CHG <dario> verify that the painting operations in the views are performed
+      only when necessary.
   CHG <pino> verify that all the settings are respected
   ADD <pino> implement the grouping functionalities
+  ADD <dario> in order to have all the necessary informations to calculate a
+      global progress percentage, we need to know the size of each transfer
+      in the list. This is currently not the case. Now we have this information
+      only for the already started transfers. Maybe we should add a virtual 
+      function to the transfer asking for its size and the scheduler should
+      query all the transfers until he knows the size of each one.
 
 MID-TERM:
 
@@ -48,7 +102,6 @@ MID-TERM:
   ADD <dario> use KPassivePopups to notify when all the transfers have been
       downloaded.
   CHG <dario> profile kget and look for possible optimizations.
-  CHG <dario> finish to implement transferKio adding, for example, setDelay.
   ADD <dario> add the possibility to select "open destination folder" in 
       the transfer's popup menu.
   ADD <kget> bitTorrent support
@@ -58,6 +111,9 @@ MID-TERM:
   ADD <dario> make it possible to associate a default folder to each group.
   ADD <pino> tooltips and what's this for settings
   ADD <pino> implement the notifications
+  ADD <dario> add a widard on the first app execution, where the users selects
+      his download folders. Perhaps we could provide a good default like
+      ~/downloads/.
 
 LONG-TERM:
 
@@ -96,6 +152,7 @@ LONG-TERM:
       the relative web page has been closed
   FIX <pino> make more fluid the drop target movement
   FIX <dario> handle SideBar resizing correctly
+  CHG <dario> finish to implement transferKio adding, for example, setDelay.
 
 
 
