@@ -20,8 +20,8 @@
 #include <kparts/plugin.h>
 #include <klibloader.h>
 #include <dcopclient.h>
+#include <kurl.h>
 
-class KURL;
 class KInstance;
 
 class KGet_plug_in : public KParts::Plugin
@@ -29,12 +29,15 @@ class KGet_plug_in : public KParts::Plugin
     Q_OBJECT
 public:
     KGet_plug_in( QObject* parent = 0, const char* name = 0 );
-    KAction *m_paToggleDropTarget ;
+    KToggleAction *m_paToggleDropTarget ;
     DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();
 
-public slots:
+private slots:
     void slotShowDrop();
+    void slotShowLinks();
+    void showPopup();
+    void startDownload( const KURL::List& urls );
 };
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui library="khtml_kget" name="khtml_kget" version="2" >
+<kpartgui library="khtml_kget" name="khtml_kget" version="3" >
                   <MenuBar>
                   <Menu name="tools">
                              <Text>&amp;Tools</Text>
@@ -7,7 +7,7 @@
              </Menu>
              </MenuBar>
              <ToolBar name="mainToolBar">
-             <Action name="show_drop"/>
+             <Action name="kget_menu"/>
              </ToolBar>
 </kpartgui>
 
