@@ -39,9 +39,8 @@ class KURL;
 class TransferFactory : public KGetPlugin
 {
     public:
-        Transfer * createTransferFromURL( const KURL & url );
-        //stuff .. stuff.. more stuff...
-        // fill me in, etc..
+        virtual Transfer * createTransfer( KURL src, const QString& destDir,
+                                           TransferGroup * parent )=0;
 };
 
 #endif

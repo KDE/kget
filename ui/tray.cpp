@@ -24,6 +24,10 @@
  *
  ***************************************************************************/
 
+#include <qtooltip.h>
+#include <qtimer.h>
+#include <qclipboard.h>
+
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <klocale.h>
@@ -32,19 +36,17 @@
 #include <kpopupmenu.h>
 #include <kurldrag.h>
 #include <kaction.h>
-#include <qtooltip.h>
-#include <qtimer.h>
 
-#include "tray.h"
+#include "core/model.h"
+#include "ui/tray.h"
 #include "kget.h"
 
 /** class Tray
   * Reimplmentation of the system tray class adding drag/drop
   * capabilities and the quit action.
   */
-Tray::Tray(KMainWidget * parent)
-    : KSystemTray(parent), 
-      ViewInterface(), 
+Tray::Tray(KGet * parent)
+    : KSystemTray(parent),
       blinkTimer( 0 ),
       grayedIcon( 0 ),
       alternateIcon( 0 ),
@@ -54,7 +56,7 @@ Tray::Tray(KMainWidget * parent)
     baseIcon = new QPixmap( KSystemTray::loadIcon("dock") );
     playOverlay = new QPixmap( SmallIcon( "dock_overlay_run" ) );
     stopOverlay = new QPixmap( SmallIcon( "dock_overlay_stop" ) );
-    
+
     paintIcon();
 
     // add preferences action to the context menu
@@ -91,16 +93,34 @@ void Tray::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list))
-        schedNewURLs(list, QString::null);
-    else if (QTextDrag::decode(event, str))
-        schedNewURLs(KURL::fromPathOrURL(str), QString::null);
+    {
+        KURL::List::Iterator it = list.begin();
+        KURL::List::Iterator itEnd = list.end();
+
+        for( ; it!=itEnd ; ++it )
+            Model::addTransfer(*it);
+    }
+    else
+    {
+        if (QTextDrag::decode(event, str))
+            Model::addTransfer(KURL::fromPathOrURL(str));
+        else
+            return;
+    }
 }
 
 // filter middle mouse clicks to ask scheduler to paste URL
 void Tray::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == MidButton)
-        schedRequestOperation( OpPasteTransfer );
+    {
+        //Here we paste the transfer
+        QString newtransfer = QApplication::clipboard()->text();
+        newtransfer = newtransfer.stripWhiteSpace();
+
+        if(!newtransfer.isEmpty())
+            Model::addTransfer(KURL::fromPathOrURL(newtransfer),"");
+    }
     else
         KSystemTray::mousePressEvent(e);
 }

@@ -4,7 +4,7 @@ noinst_LTLIBRARIES = libcore.la
 
 libcore_la_SOURCES = model.cpp scheduler.cpp \
                      transfer.cpp transferhandler.cpp \
-                     transfergrouphandler.cpp
+                     transfergroup.cpp transfergrouphandler.cpp
 
 libcore_la_LIBADD = plugin/libplugin.la
 

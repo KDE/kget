@@ -43,7 +43,7 @@ class TransferGroup : public JobQueue, public QValueList<Transfer *>
 
         typedef int ChangesFlags;
 
-        TransferGroup() {}
+        TransferGroup(const QString & name);
 
         //TransferGroup info retrieval
         const QString & name()    {return m_name;}
@@ -52,6 +52,16 @@ class TransferGroup : public JobQueue, public QValueList<Transfer *>
         int processedSize() const {return m_processedSize;}
         int percent() const       {return m_percent;}
         int speed() const         {return m_speed;}
+
+        /**
+         * Finds the first transfer with source src
+         *
+         * @param src the url of the source location
+         *
+         * @return the transfer pointer if the transfer has been found. Otherwise
+         * it returns 0
+         */
+        Transfer * findTransfer(KURL src);
 
     private:
         //TransferGroup info

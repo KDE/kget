@@ -47,9 +47,9 @@
 #include "conf/preferencesdialog.h"
 #include "ui/panelsmanager.h"
 #include "ui/mainview.h"
-// #include "ui/tray.h"
+#include "ui/tray.h"
 // #include "ui/testview.h"
-// #include "ui/droptarget.h"
+#include "ui/droptarget.h"
 // #include "ui/groupspanel.h"
 // #include "ui/sidebar.h"
 
@@ -59,8 +59,8 @@ enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
 
 KGet::KGet( QWidget * parent, const char * name )
     : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
-        m_mainView(0), m_rightWidget(0)/*, m_kdrop(0),
-      m_kdock(0)*/
+        m_mainView(0), m_rightWidget(0),
+        m_drop(0),     m_dock(0)
 {
     // create the model
     Model::self();
@@ -127,8 +127,8 @@ KGet::KGet( QWidget * parent, const char * name )
 KGet::~KGet()
 {
     slotSaveMyself();
-    //delete kdrop;
-    //delete kdock;
+    delete m_drop;
+    delete m_dock;
     delete m_mainView;
     // the following call saves options set in above dtors
     Settings::writeConfig();
@@ -207,15 +207,15 @@ void KGet::slotDelayedInit()
 //     scheduler->slotImportTransfers(); (model->slotImportTransfers ???)
 
     // DropTarget
-//     kdrop = new DropTarget(this);
-//     if ( Settings::showDropTarget() || Settings::firstRun() )
-//         kdrop->show();
-//     if ( Settings::firstRun() )
-//         kdrop->playAnimation();
+    m_drop = new DropTarget(this);
+    if ( Settings::showDropTarget() || Settings::firstRun() )
+        m_drop->show();
+    if ( Settings::firstRun() )
+        m_drop->playAnimation();
 
     // DockWidget
-//     kdock = new Tray(this);
-//     kdock->show();
+    m_dock = new Tray(this);
+    m_dock->show();
 
     // enable dropping
     setAcceptDrops(true);
@@ -297,9 +297,8 @@ void KGet::slotNewConfig()
     // parsed often by the code.. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
-    //TODO: re-enable this 2 lines
-//     if ( kdrop )
-//         kdrop->setShown( Settings::showDropTarget(), false );
+    if ( m_drop )
+        m_drop->setShown( Settings::showDropTarget(), false );
 }
 
 
@@ -347,8 +346,7 @@ void KGet::slotDownloadToggled()
     action->setText( downloading ? i18n("Stop Downloading") : i18n("Start Downloading") );
     action->setIcon( downloading ? "stop" : "down" );
 #endif
-    //TODO re-enable this
-    //kdock->setDownloading( downloading );
+    m_dock->setDownloading( downloading );
 }
 
 void KGet::readTransfersEx(const KURL & url)
@@ -362,7 +360,7 @@ void KGet::addTransfersEx(const KURL::List& urls, const KURL& dest)
 {
     QString s = dest.prettyURL();
     //TODO re-enable this
-    //scheduler->slotNewURLs(urls, s);
+    //Model::addTransfer(urls, s);
 }
 
 void KGet::slotPreferences()
@@ -385,7 +383,7 @@ void KGet::slotPreferences()
 void KGet::slotNewURL()
 {
     //TODO re-enable this
-    //schedNewURLs(KURL(), QString::null);
+    //Model::addTransfer(KURL());
 }
 
 void KGet::updateActions()
@@ -571,15 +569,13 @@ void KGet::addTransfers( const KURL::List& src, const QString& dest)
 
 bool KGet::isDropTargetVisible() const
 {
-    //TODO Re-enable this
-    /*    return kdrop->isVisible();*/
+    return m_drop->isVisible();
 }
 
 void KGet::setDropTargetVisible( bool setVisible )
 {
-    //TODO Re-enable this    
-/*    if ( setVisible != Settings::showDropTarget() )
-        kdrop->setShown( setVisible );*/
+    if ( setVisible != Settings::showDropTarget() )
+        m_drop->setShown( setVisible );
 }
 
 void KGet::setOfflineMode( bool offline )

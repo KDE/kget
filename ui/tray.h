@@ -30,9 +30,9 @@
 #include <qdragobject.h>
 #include <ksystemtray.h>
 
-#include "core/viewinterface.h"
+#include "core/observer.h"
 
-class KMainWidget;
+class KGet;
 class QTimer;
 class QPixmap;
 
@@ -45,13 +45,13 @@ class QPixmap;
   * @short KGet's system tray widget.
   **/
 
-class Tray : public KSystemTray, public ViewInterface
+class Tray : public KSystemTray, public ModelObserver
 {
 Q_OBJECT
 public:
-    Tray( KMainWidget * parent );
+    Tray( KGet * parent );
     ~Tray();
-    
+
     void setDownloading( bool );
 
 protected:

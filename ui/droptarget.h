@@ -30,18 +30,17 @@
 #include <qwidget.h>
 #include <qdragobject.h>
 
-#include "core/viewinterface.h"
-
-class KPopupMenu;
-class KMainWidget;
 class QTimer;
+class KPopupMenu;
 
-class DropTarget:public QWidget, public ViewInterface
+class KGet;
+
+class DropTarget : public QWidget
 {
-Q_OBJECT 
+Q_OBJECT
 
 public:
-    DropTarget(KMainWidget * parent);
+    DropTarget(KGet * parent);
     ~DropTarget();
 
     void updateStickyState();

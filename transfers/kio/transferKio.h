@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   
+
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or

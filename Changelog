@@ -1,3 +1,7 @@
+2005-03-26 Dario Massarin <nekkar@libero.it>
+        * Reorganization of the model class
+        * The new plugin structure starts working
+
 2005-03-06 Dario Massarin <nekkar@libero.it>
         The work on the new architecture has started.
 

@@ -42,6 +42,8 @@
  * @see: other headers in the dir - for plugin types definition.
  */
 
+#include <kdelibs_export.h>
+
 /**
  * @short Declares a class as plugin.
  *
@@ -60,6 +62,12 @@
     }
 
 /**
+ * Bump this number whenever the plugin framework gets 
+ * incompatible with older versions 
+ */
+ const int FrameworkVersion = 1;
+
+/**
  * @short Base class for kget plugins.
  * ...
  */
@@ -68,19 +76,22 @@ class KGetPlugin
     public:
         KGetPlugin();
         virtual ~KGetPlugin();
-/*
+
+        /*
         // set and retrieve properties
         void addPluginProperty( const QString & key, const QString & value );
         bool hasPluginProperty( const QString & key );
         QString pluginProperty( const QString & key );
 
-        // reimplement this to set the type of the plugin
+         reimplement this to set the type of the plugin
         enum PluginType { PreProcessing, Factory, PostProcessing }
         virtual PluginType pluginType() = 0;
+        */
 
     private:
-        QMap< QString, QString > m_properties;
-*/
+        //QMap< QString, QString > m_properties;
+
+
 };
 
 #endif

@@ -12,20 +12,26 @@
    of the License.
 */
 
-#ifndef _Model_H
-#define _Model_H
+#ifndef _MODEL_H
+#define _MODEL_H
 
 
 #include <qvaluelist.h>
 #include <qstring.h>
 
+#include <kservice.h>
+
 #include "scheduler.h"
+
+class KURL;
+class KLibrary;
 
 class Transfer;
 class TransferGroup;
 class TransferHandler;
+class TransferFactory;
+class KGetPlugin;
 class ModelObserver;
-class KURL;
 
 /**
  * This is our Model class. This is where the user's transfers and searches are
@@ -60,12 +66,6 @@ class Model
          */
         static void delObserver(ModelObserver * observer);
 
-
-        // ---------  Model retrieval  ---------
-        //static const QValueList<TGroupHandler *> transferGroups();
-
-        // ---------  Group managing functions ---------
-
         /**
          * Adds a new group to the Model.
          *
@@ -81,20 +81,25 @@ class Model
         static void delGroup(const QString& groupName);
 
         /**
-         * ---------  Transfer managing functions ---------
-         */
-
-        /**
          * Adds a new transfer to the Model
          *
-         * @param src The url to be downloaded. ### WARNING! THIS IS TEMPORARY! ### We must
-         *      provide a common way to add generic transfers to the Model, that
-         *      must be able to handle every kind of transfers (including torrent or
-         *      filesharing protocols).
-         * @param destDir The destination directory
+         * @param src The url to be downloaded
+         * @param destDir The destination directory. If empty we show a dialog
+         * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KURL src, const QString& destDir, 
+        static void addTransfer(KURL src, const QString& destDir = "",
+                                const QString& groupName = "");
+
+        /**
+         * Adds new transfers to the Model
+         *
+         * @param src The urls to be downloaded
+         * @param destDir The destination directory. If empty we show a dialog
+         * where the user can choose it.
+         * @param groupName The name of the group the new transfer will belong to
+         */
+        static void addTransfer(KURL::List src, QString destDir = "",
                                 const QString& groupName = "");
 
         /**
@@ -114,18 +119,40 @@ class Model
 
     private:
         Model();
+        ~Model();
 
         /**
-         * IDEAS ON HOW REORGANIZING THESE FUNCTIONS: new functions should be:
-         * - KURL urlInputDialog();
-         * - KURL destInputDialog();
-         * - bool isValidSource(KURL source);
-         * - bool isValidDest(KURL dest);
+         * Scans for all the available plugins and creates the proper
+         * transfer object for the given src url
          *
-         *
-         *
-         *
+         * @param src the source url
+         * @param dest the destination url
+         * @param groupName the group name
          */
+        static void createTransfer(KURL src, KURL dest, const QString& groupName = "");
+
+        static KURL urlInputDialog();
+        static QString destInputDialog();
+
+        static bool isValidSource(KURL source);
+        static bool isValidDestDirectory(const QString& destDir);
+
+        /**
+         * if the given url is a file that already exists the function asks
+         * the user to confirm the overwriting action
+         *
+         * @param destFile the url of the destination file
+         * @return true if the destination file is ok, otherwise returns false
+         */
+        static bool isValidDestFile(KURL destFile);
+
+        static TransferGroup * findGroup(const QString& groupName);
+        static Transfer * findTransfer(KURL url);
+
+        //Plugin-related functions
+        void loadPlugins();
+        void unloadPlugins();
+        KGetPlugin * createPluginFromService( const KService::Ptr service );
 
 
         /**
@@ -139,9 +166,17 @@ class Model
          */
         static bool safeDeleteFile( const KURL& url );
 
+
         static QValueList<TransferGroup *> m_transferGroups;
         static QValueList<ModelObserver *> m_observers;
 
+        //Lists of available plugins
+        static QValueList<TransferFactory *> m_transferFactories;
+
+        //List of KLibrary objects (used to release the plugins from memory)
+        static QValueList<KLibrary *> m_pluginKLibraries;
+
+        //Scheduler object
         static Scheduler m_scheduler;
 };
 

@@ -115,8 +115,8 @@ private:
     QWidget     * m_rightWidget;
 
     // separated widgets
-    DropTarget * m_kdrop;
-    Tray       * m_kdock;
+    DropTarget * m_drop;
+    Tray       * m_dock;
 };
 
 #endif

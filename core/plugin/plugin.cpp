@@ -41,3 +41,4 @@ bool Plugin::hasPluginProperty( const QString& key )
     return m_properties.find( key.lower() ) != m_properties.end();
 }
 */
+

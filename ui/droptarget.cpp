@@ -41,10 +41,12 @@
 #include <qpainter.h>
 #include <qbitmap.h>
 #include <qtimer.h>
+#include <qclipboard.h>
 
+#include "core/model.h"
 #include "conf/settings.h"
+#include "ui/droptarget.h"
 #include "kget.h"
-#include "droptarget.h"
 
 #define TARGET_WIDTH   68
 #define TARGET_HEIGHT  67
@@ -53,9 +55,9 @@
 #define TARGET_ANI_MS  30
 
 
-DropTarget::DropTarget(KMainWidget * mw)
+DropTarget::DropTarget(KGet * mw)
     : QWidget(0, "drop", WType_TopLevel | WStyle_StaysOnTop |
-    WStyle_Customize | WStyle_NoBorder | WStyle_Tool), ViewInterface(),
+    WStyle_Customize | WStyle_NoBorder | WStyle_Tool),
     parentWidget((QWidget *)mw), animTimer(0)
 {
     QRect desk = KGlobalSettings::desktopGeometry(this);
@@ -159,7 +161,14 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         popupMenu->popup(QCursor::pos());
     }
     else if (e->button() == MidButton)
-        schedRequestOperation( OpPasteTransfer );
+    {
+        //Here we paste the transfer
+        QString newtransfer = QApplication::clipboard()->text();
+        newtransfer = newtransfer.stripWhiteSpace();
+
+        if(!newtransfer.isEmpty())
+            Model::addTransfer(KURL::fromPathOrURL(newtransfer),"");
+    }
 }
 
 
@@ -176,10 +185,21 @@ void DropTarget::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list))
-	schedNewURLs( list, QString::null );
-    else if (QTextDrag::decode(event, str))
-	schedNewURLs( KURL::fromPathOrURL(str), QString::null );
-    else return;
+    {
+        KURL::List::Iterator it = list.begin();
+        KURL::List::Iterator itEnd = list.end();
+
+        for( ; it!=itEnd ; ++it )
+            Model::addTransfer(*it);
+    }
+    else
+    {
+        if (QTextDrag::decode(event, str))
+            Model::addTransfer(KURL::fromPathOrURL(str));
+        else
+            return;
+    }
+
     if ( Settings::animateDropTarget() )
         playAnimationSync();
 }

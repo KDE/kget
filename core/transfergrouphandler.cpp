@@ -14,7 +14,8 @@
 #include "observer.h"
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
-    : m_group(group),
+    : TransferGroup(group->name()),
+      m_group(group),
       m_scheduler(scheduler)
 {
     
