@@ -265,11 +265,6 @@ KMainWidget::~KMainWidget()
     sDebugIn << endl;
 #endif
 
-    // because of our closeEvent() reimp, KMainWindow won't save the settings,
-    // so we have to do it ourselves
-    if (settingsDirty())
-        saveMainWindowSettings( KGlobal::config(), "MainWindow" );
-
     delete prefDlg;
     delete animTimer;
     delete kdrop;
@@ -1549,22 +1544,13 @@ void KMainWidget::slotOpenIndividual()
 #endif
 }
 
-void KMainWidget::closeEvent(QCloseEvent *_event)
+bool KMainWidget::queryClose()
 {
-#ifdef _DEBUG
-    sDebugIn<<"type="<<_event->type() << endl;
-#else
-    Q_UNUSED( _event )
-#endif
-
+    if( kapp->sessionSaving())
+	return true;
     hide();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
+    return false;
 }
-
-
 
 void KMainWidget::setAutoSave()
 {
