@@ -35,6 +35,7 @@
 #include <kwin.h>
 
 #include <assert.h>
+#include "safedelete.h"
 #include "settings.h"
 #include "logwindow.h"
 #include "kmainwidget.h"
@@ -191,12 +192,12 @@ void Transfer::copy(Transfer * _orig)
     startTime = _orig->startTime;
     status = _orig->status;
     totalSize = _orig->totalSize;
-    
+
     updateAll();
 
     if ( _orig->isVisible() )
         showIndividual();
-        
+
     sDebugOut << endl;
 }
 
@@ -441,10 +442,10 @@ void Transfer::slotRequestRemove()
         file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
         if ( KIO::NetAccess::exists( file ) ) // don't pollute user with warnings
         {
-            KIO::NetAccess::del( file ); // ### messagebox on failure?
+            SafeDelete::deleteFile( file ); // ### messagebox on failure?
         }
     }
-    if (status == ST_RUNNING) 
+    if (status == ST_RUNNING)
         m_pSlave->Op(Slave::REMOVE);
     else
         emit statusChanged(this, OP_REMOVED);
