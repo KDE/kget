@@ -141,7 +141,7 @@ protected slots:
     void slotPopupMenu(Transfer * item);
 
 protected:
-    virtual void closeEvent(QCloseEvent *);
+    virtual bool queryClose();
     void writeLog();
 
     // drag and drop

@@ -177,11 +177,11 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
 }
 
 
-void LogWindow::closeEvent(QCloseEvent *)
+void LogWindow::closeEvent(QCloseEvent *e)
 {
     kmain->m_paShowLog->setChecked(false);
     kmain->b_viewLogWindow = false;
-    hide();
+    KDialogBase::closeEvent( e );
 }
 
 
