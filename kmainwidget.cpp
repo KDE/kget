@@ -119,19 +119,19 @@ KMainWidget::KMainWidget(bool bStartDocked)
     sDebugIn << endl;
 #endif
 
-    sDebug << "aaa" << endl;
-
     setXMLFile("kgetui.rc");
-    
+   
     scheduler = new Scheduler(this);
+    
+    setupActions();
+    setupConnections();
+    //setupWhatsThis();
+    setupUserSettings();
     
     kdrop = new DropTarget(scheduler);
     kdock = new DockWidget(this, scheduler);
-    
-    setupActions();
+
     setupGUI(bStartDocked);
-    setupConnections();
-    //setupWhatsThis();
 }
         
 
@@ -382,8 +382,10 @@ void KMainWidget::setupActions()
     m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), coll, "offline_mode");
     m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), coll, "auto_paste");
 
+    
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), coll);
 
+    
     KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), coll);
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
 
@@ -431,7 +433,7 @@ void KMainWidget::setupGUI(bool startDocked)
 
     */
     
-    setAutoSaveSettings( "MainWindow", false /*Settings takes care of size & pos & state */ );
+    //setAutoSaveSettings( "MainWindow", false /*Settings takes care of size & pos & state */ );
 
     //slotUpdateActions();
 
@@ -520,6 +522,11 @@ void KMainWidget::setupWhatsThis()
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
+}
+
+void KMainWidget::setupUserSettings()
+{
+    scheduler->slotImportTransfers();
 }
 
 void KMainWidget::log(const QString & message, bool statusbar)

@@ -88,18 +88,21 @@ public:
     TransferStatus getStatus()const {return status;}
     int getMode()const {return mode;}
     int getPriority() {return priority;}
-    int getSubPriority() {return subPriority;}
     
     void setMode(TransferMode _mode) {mode = _mode;}
     void setStatus(TransferStatus _status) {status = _status;};
     void setStartTime(QDateTime _startTime) {startTime = _startTime;};
     void setSpeed(unsigned long _speed);
     void setPriority(int _priority) {priority = _priority;}
-    void setSubPriority(int _subPriority) {subPriority = _subPriority;}
     
 
     void UpdateRetry();
 
+    /**
+     * Debug function:
+     */
+    void about();
+    
 
     // actions
     KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
@@ -107,6 +110,12 @@ public:
     KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
 
 public:
+    /**
+     * This operator is used to determine the relationship of < or >
+     * priority between two transfers.
+     */
+    bool operator<(Transfer *);
+    
     void slotExecPause();
     void slotExecResume();
     void slotExecRemove();
@@ -175,7 +184,6 @@ private:
     TransferMode mode;
 
     int priority;
-    int subPriority;
     
     // how many times have we retried already
     unsigned int retryCount;

@@ -9,13 +9,14 @@
 #include <kio/netaccess.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
 
 Scheduler::Scheduler(KMainWidget * _mainWidget)
     : QObject(),
       mainWidget(_mainWidget)
 {
-    transfers = new TransferList();
+    transfers = new TransferList(this);
 }
 
 Scheduler::~Scheduler()
@@ -279,7 +280,7 @@ void Scheduler::slotImportTextFile()
 
 void Scheduler::slotImportTransfers(bool ask_for_name)
 {
-/*#ifdef _DEBUG
+#ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
@@ -295,12 +296,11 @@ void Scheduler::slotImportTransfers(bool ask_for_name)
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
-*/
 }
 
 void Scheduler::slotReadTransfers(const KURL & file)
 {
-/*
+
 #ifdef _DEBUG
   sDebugIn << endl;
 #endif
@@ -316,15 +316,16 @@ void Scheduler::slotReadTransfers(const KURL & file)
     sDebug << "Read from file: " << file << endl;
 #endif
     transfers->readTransfers(file);
-    checkQueue();
-    slotTransferTimeout();
-    transfers->clearSelection();
-
+    //checkQueue(); <--- TO BE ENABLED
+    
+    
+    //slotTransferTimeout();
+    //transfers->clearSelection();
 
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
-*/
+
 }
 
 void Scheduler::slotExportTransfers(bool ask_for_name)

@@ -132,7 +132,8 @@ protected:
     void setupGUI(bool startDocked);
     void setupConnections();
     void setupWhatsThis();
-
+    void setupUserSettings();
+    
     void updateStatusBar();
 
     // some flags

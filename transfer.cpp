@@ -226,6 +226,13 @@ void Transfer::UpdateRetry()
     retry += " / " + MaxRetry;
 }
 
+void Transfer::about()
+{
+    kdDebug(DKGET) << "Transfer item: (prior= "<< getPriority() << ") "<< endl;
+    kdDebug(DKGET) << "src  = "<< src.url() << endl;
+    kdDebug(DKGET) << "dest = "<< dest.url() << endl;
+}
+
 
 void Transfer::slotResume()
 {
@@ -592,7 +599,12 @@ void Transfer::write(KSimpleConfig * config, int id)
     sDebugOut << endl;
 }
 
-
+bool Transfer::operator<(Transfer * transfer2)
+{
+    if(getPriority() < transfer2->getPriority())
+        return true;
+    return false;
+}
 
 /** No descriptions */
 void Transfer::slotExecPause()

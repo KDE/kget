@@ -34,10 +34,11 @@
 
 #include "transfer.h"
 #include "transferlist.h"
+#include "scheduler.h"
 
-
-TransferList::TransferList()
-    : QValueList<Transfer *>()
+TransferList::TransferList(Scheduler * _scheduler)
+    : QValueList<Transfer *>(),
+      scheduler(_scheduler)
 {
 
 }
@@ -49,29 +50,113 @@ TransferList::~TransferList()
 }
 
 
-Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest)
+Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest, bool toBegin)
 {
-/*    Transfer *last = static_cast<Transfer*>( lastItem() );
-    Transfer *new_item = new Transfer(this, last, _source, _dest, jobid);
-    jobid++;
-    if ( canShow )
-        new_item->maybeShow();
-
-    return new_item;
-*/
+    Transfer *newItem = new Transfer(scheduler, _source, _dest, jobid);
+    addTransfer(newItem, toBegin);
+        
+    return newItem;
 }
+
+void TransferList::addTransfer(Transfer * transfer, bool toBegin)
+{
+    jobid++;
+    if(toBegin)
+        push_front(transfer);
+    else
+        push_back(transfer);
+    
+    qHeapSort(*this);
+}
+
+void TransferList::addTransfers(TransferList & transfers, bool toBegin)
+{
+    iterator it;
+    iterator endList = end();
+    
+    for(it = begin(); it != endList; ++it)
+        {
+        jobid++;
+        if(toBegin)
+            push_front(*it);
+        else
+            push_back(*it);
+    }
+    qHeapSort(*this);
+}
+
+void TransferList::removeTransfer(Transfer * transfer)
+{
+    remove(transfer);    
+}
+
+void TransferList::removeTransfer(TransferList & transfers)
+{
+    TransferList::iterator it;
+    TransferList::iterator endList = transfers.end();
+    
+    for(it = transfers.begin(); it != endList; ++it)
+        {
+        remove(*it);
+    }
+}
+
+void TransferList::moveToBegin(Transfer * item, int priority)
+{
+    if(priority != -1)
+        item->setPriority(priority);
+    
+    //Now I remove the current Item and I reinsert it with addTransfer(..,true)
+    remove(item);
+    addTransfer(item, true);
+}
+
+void TransferList::moveToBegin(TransferList & transfers, int priority)
+{
+    iterator it;
+    iterator endList = transfers.end();
+    
+    if(priority != -1)
+        {
+        for(it = transfers.begin(); it != endList; ++it)
+            {
+            (*it)->setPriority(priority);
+            removeTransfer(*it);
+        }
+    }    
+    addTransfers(transfers, true);
+}
+
+void TransferList::moveToEnd(Transfer * item, int priority)
+{
+    
+
+    if(priority != -1)
+        item->setPriority(priority);
+    
+    //Now I remove the current Item and I reinsert it with addTransfer(..,true)
+    remove(item);
+    addTransfer(item, false);
+}
+
+void TransferList::moveToEnd(TransferList & transfers, int priority)
+{
+    iterator it;
+    iterator endList = transfers.end();
+    
+    if(priority != -1)
+        {
+        for(it = transfers.begin(); it != endList; ++it)
+            {
+            (*it)->setPriority(priority);
+            removeTransfer(*it);
+        }
+    }    
+    addTransfers(transfers, false);
+}
+
 
 /*
-void TransferList::moveToBegin(Transfer * item)
-{
-    //        ASSERT(item);
-
-    Transfer *oldfirst=static_cast<Transfer*>(firstChild());
-    item->moveItem(oldfirst); //move item after oldfirst
-    oldfirst->moveItem(item); //move oldfirst after item
-}
-
-
 void TransferList::moveToEnd(Transfer * item)
 {
     //        ASSERT(item);
@@ -99,11 +184,17 @@ Transfer * TransferList::find(const KURL& _src)
 
 void TransferList::readTransfers(const KURL& file)
 {
+    sDebugIn << endl;
+    
     QString tmpFile;
 
+    kdDebug(DKGET) << "AAA" << endl;      
+    
     if (KIO::NetAccess::download(file, tmpFile)) {
         KSimpleConfig config(tmpFile);
 
+        kdDebug(DKGET) << "BBB" << endl;
+        
         config.setGroup("Common");
         int num = config.readNumEntry("Count", 0);
 
@@ -119,18 +210,22 @@ void TransferList::readTransfers(const KURL& file)
 
             src  = KURL::fromPathOrURL( config.readPathEntry("Source") );
             dest = KURL::fromPathOrURL( config.readPathEntry("Dest") );
+            kdDebug(DKGET) << "CCC" << endl;
+           
             item = addTransfer( src, dest); // don't show!
 
             if (!item->read(&config, i))
                 delete item;
-            else
+            /*else
             {
                 // configuration read, now we know the status to determine
                 // whether to show or not
                 //item->maybeShow();
             }
+            */
         }
     }
+    sDebugOut << endl;
 }
 
 void TransferList::writeTransfers(const QString& file)
@@ -150,4 +245,13 @@ void TransferList::writeTransfers(const QString& file)
     config.sync();
 
     sDebug << "<<<<Leaving" << endl;
+}
+
+void TransferList::about()
+{
+    iterator it;
+    for(it = begin(); it != end(); ++it)
+        {
+        (*it)->about();
+    }
 }

@@ -32,6 +32,7 @@
 #include <kurl.h>
 
 class Transfer;
+class Scheduler;
 
 /*class TransferIterator : public QValueListIterator
 {
@@ -57,13 +58,47 @@ class TransferList : public QValueList<Transfer *>
 {
 public:
 
-    TransferList();
+    TransferList(Scheduler * _scheduler);
     virtual ~TransferList();
 
-    Transfer * addTransfer(const KURL & _source, const KURL & _dest);
+    /**
+     * Functions used to add transfer items to the list.
+     * if toBegin = true the item is added at the begin of the group of items
+     * having the same priority.
+     * if toBegin = false the item is added at the end of the group of items
+     * having the same priority
+     */
+    Transfer * addTransfer(const KURL & _source, const KURL & _dest, bool toBegin = false);
+    void       addTransfer(Transfer * transfer, bool toBegin = false);
+   
+    void addTransfers(TransferList &, bool toBegin = false);
 
-    void moveToBegin(Transfer * item);
-    void moveToEnd(Transfer * item);
+    /**
+     * Functions used to remove items from the list
+     */
+    void removeTransfer(Transfer * transfer);
+    void removeTransfer(TransferList & transfers);
+
+        
+    /**
+     * Functions used to move transfer items inside the list.
+     * if priority = -1 the transfer becomes the first item having its
+     * priority.
+     * if priority != -1 the transfer becomes the first item having
+     * priority "priority".
+     */
+    void moveToBegin(Transfer * item, int priority);
+    void moveToBegin(TransferList &, int priority);
+    
+    /**
+     * Functions used to move transfer items inside the list.
+     * if priority = -1 the transfer becomes the last item having its
+     * priority.
+     * if priority != -1 the transfer becomes the last item having
+     * priority "priority".
+     */
+    void moveToEnd(Transfer * item, int priority);
+    void moveToEnd(TransferList &, int priority);
 
     uint getPhasesNum()const
     {
@@ -71,14 +106,20 @@ public:
     }
     
     Transfer * find(const KURL& _src);
-    bool isQueueEmpty();
 
     void readTransfers(const KURL& file);
     void writeTransfers(const QString& file);
 
+    /**
+     * Debug function
+     */
+    void about();
+    
     friend class Transfer;
 
 protected:
+
+    Scheduler * scheduler;
 
     void readConfig();
     void writeConfig();
