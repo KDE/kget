@@ -51,7 +51,7 @@ void SidebarItem::addChild( SidebarItem * child )
     else 
         m_sidebar->insertItem( child, m_childItems->last() );
 
-    m_childItems->push_front(child);
+    m_childItems->push_back(child);
 }
 
 void SidebarItem::removeChild( SidebarItem * child )
