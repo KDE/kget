@@ -113,6 +113,20 @@ KGetApp::KGetApp ():KUniqueApplication ()
 #endif
 }
 
+KGetApp::~KGetApp ()
+{
+
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+
+  }
+
 
 int KGetApp::newInstance()
 {
@@ -126,7 +140,6 @@ int KGetApp::newInstance()
 
         kmainwidget=new KMainWidget();
         setMainWidget(kmain);
-//        kmainwidget->show();
     }
 
     else

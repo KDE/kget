@@ -111,6 +111,8 @@ DropTarget::DropTarget():QWidget()
 
     // Enable dropping
     setAcceptDrops(true);
+    
+    delete tmppix;
 
 }
 

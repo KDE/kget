@@ -134,6 +134,15 @@ TransferList::TransferList(QWidget * parent, const char *name):QListView(parent,
 TransferList::~TransferList()
 {
         writeConfig();
+
+        delete animConn;
+        delete animTry ;
+        delete pixQueued ;
+        delete pixScheduled;
+        delete pixDelayed;
+        delete pixFinished;
+        delete pixRetrying;
+
 }
 
 
