@@ -18,7 +18,8 @@
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
  *
  ***************************************************************************/
@@ -806,32 +807,32 @@ void KMainWidget::slotDeleteCurrent()
         }
         ++it;
     }
-    
-    if (!ksettings.b_expertMode) 
+
+    if (!ksettings.b_expertMode)
     {
         if ( selectedItems.count() > 1 )
         {
-            if (KMessageBox::questionYesNoList(this, i18n("Are you sure you want to delete these transfers?"), 
+            if (KMessageBox::questionYesNoList(this, i18n("Are you sure you want to delete these transfers?"),
                                                itemNames, i18n("Question"),
                                                KStdGuiItem::yes(),KStdGuiItem::no(),
-                                               QString("multiple_delete_transfer")) 
+                                               QString("multiple_delete_transfer"))
                 != KMessageBox::Yes)
                 return; // keep 'em
         }
         else
         {
-            if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"), 
+            if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"),
                                            i18n("Question"), KStdGuiItem::yes(),KStdGuiItem::no(),
-                                           QString("delete_transfer")) 
+                                           QString("delete_transfer"))
                 != KMessageBox::Yes)
                 return;
         }
     }
-    
+
     // If we reach this, we want to delete all selected transfers
     // Some of them might have finished in the meantime tho. Good that
     // we used a QGuardedPtr :)
-    
+
     int transferFinishedMeanwhile = 0;
     QValueListConstIterator<QGuardedPtr<Transfer> > lit = selectedItems.begin();;
     while ( lit != selectedItems.end() )
@@ -840,17 +841,18 @@ void KMainWidget::slotDeleteCurrent()
             (*lit)->slotRequestRemove();
         else
             ++transferFinishedMeanwhile;
-        
+
         ++lit;
     }
 
     checkQueue(); // needed !
 
     if ( !ksettings.b_expertMode && transferFinishedMeanwhile > 0 )
-        KMessageBox::information(this, i18n("%1 of the transfers you wanted to delete "
-                                            "completed before they could be deleted.").arg( transferFinishedMeanwhile ),
+        KMessageBox::information(this, i18n("%n transfer you wanted to delete completed before it could be deleted.",
+                                            "%n transfers you wanted to delete completed before they could be deleted.",
+                                            transferFinishedMeanwhile ),
                                  QString::null, "completedBeforeDeletion" );
-    
+
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
