@@ -55,39 +55,39 @@ class BWDateTime:public QWidget
 
 Q_OBJECT public:
 
-        BWDateTime(QDateTime qdt, QWidget * parent = 0, const char *name = 0);
+    BWDateTime(QDateTime qdt, QWidget * parent = 0, const char *name = 0);
 
-        void setDateTime(QDateTime qdtime);
-        QDateTime getDateTime();
-        bool checkDateTime();
-        void setEnabled(bool);
+    void setDateTime(QDateTime qdtime);
+    QDateTime getDateTime();
+    bool checkDateTime();
+    void setEnabled(bool);
 
-        bool time_notvalid;
-        bool date_notvalid;
+    bool time_notvalid;
+    bool date_notvalid;
 
 private:
-        bool use12Clock;
+    bool use12Clock;
 
-        QSpinBox *hour;
-        QSpinBox *minute;
-        QSpinBox *month;
-        QSpinBox *year;
-        QSpinBox *day;
+    QSpinBox *hour;
+    QSpinBox *minute;
+    QSpinBox *month;
+    QSpinBox *year;
+    QSpinBox *day;
 
-        QRadioButton *am, *pm;
-        QButtonGroup *ampm;
-        QLabel *daylabel;
-        QLabel *monthlabel;
-        QLabel *yearlabel;
-        QLabel *timelabel;
-        QDateTime mydatetime;
+    QRadioButton *am, *pm;
+    QButtonGroup *ampm;
+    QLabel *daylabel;
+    QLabel *monthlabel;
+    QLabel *yearlabel;
+    QLabel *timelabel;
+    QDateTime mydatetime;
 
 private slots:              // Private slots
-        /** No descriptions */
-        void slotValueChanged(int);
+    /** No descriptions */
+    void slotValueChanged(int);
 signals:                   // Signals
-        /** No descriptions */
-        void signalDateChanged(const QDateTime &);
+    /** No descriptions */
+    void signalDateChanged(const QDateTime &);
 };
 
 #endif

@@ -30,6 +30,7 @@
 DockIndividual::DockIndividual(QWidget *parent, const char *name ) : KSystemTray(parent,name) {
 
 
+
     m_pix = new QPixmap();
     nPic=0;
     m_pix->load(locate("appdata", "pics/bar0.png"));
@@ -88,7 +89,7 @@ void DockIndividual::setTip(const QString & _tip)
     //sDebugIn<<"_tip="<<_tip<<endl;
 #endif
 
-    
+
     QToolTip::add( this, _tip );
 
 #ifdef _DEBUG
@@ -98,3 +99,8 @@ void DockIndividual::setTip(const QString & _tip)
 }
 
 #include "dockindividual.moc"
+/** No descriptions */
+void DockIndividual::contextMenuAboutToShow ( KPopupMenu* menu ){
+
+    menu->removeItemAt (3);
+}

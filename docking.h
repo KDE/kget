@@ -45,8 +45,8 @@ class DockWidget:public KSystemTray
 Q_OBJECT public:
     DockWidget(KMainWidget * parent);
     ~DockWidget();
-  /** No descriptions */
-  virtual void contextMenuAboutToShow ( KPopupMenu* menu );
+    /** No descriptions */
+    virtual void contextMenuAboutToShow ( KPopupMenu* menu );
 
 
 

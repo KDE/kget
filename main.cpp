@@ -125,7 +125,7 @@ KGetApp::~KGetApp ()
     sDebugOut << endl;
 #endif
 
-  }
+}
 
 
 int KGetApp::newInstance()
@@ -134,34 +134,34 @@ int KGetApp::newInstance()
     sDebugIn <<"kmainwidget="<<kmainwidget << endl;
 #endif
 
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+
 
     if (kmainwidget==0)
     {
-
-        kmainwidget=new KMainWidget();
+        if(args->count()>0)
+            kmainwidget=new KMainWidget(true);
+        else
+            kmainwidget=new KMainWidget();
         setMainWidget(kmain);
     }
 
     else
-    {
-
         KWin::setActiveWindow (kmainwidget->winId());
-    }
 
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
     if (args->count()==1)
-      {
+    {
 #ifdef _DEBUG
-    sDebug <<"args(0)= "<<args->arg(0) << endl;
+        sDebug <<"args(0)= "<<args->arg(0) << endl;
 #endif
-         QString txt(args->arg(0));
-         int i = txt.contains( ".kgt",TRUE);
+        QString txt(args->arg(0));
+        int i = txt.contains( ".kgt",TRUE);
         if (i==0)
-             kmain->addTransferEx(txt, QString::null, true);
-          else
-             kmain->readTransfersEx(txt);
-       }
+            kmain->addTransferEx(txt, QString::null, true);
+        else
+            kmain->readTransfersEx(txt);
+    }
     else if(args->count()==2)
         kmain->addTransferEx(args->arg(0),args->arg(1), true);
 

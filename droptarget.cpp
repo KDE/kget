@@ -63,7 +63,7 @@ DropTarget::DropTarget():QWidget()
     b_sticky = ksettings.dropState & NET::Sticky;
 
     // setup mask
-   mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
+    mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
     mask.fill(color0);
 
     QPainter p2;
@@ -111,7 +111,7 @@ DropTarget::DropTarget():QWidget()
 
     // Enable dropping
     setAcceptDrops(true);
-    
+
     delete tmppix;
 
 }

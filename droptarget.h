@@ -39,49 +39,49 @@ class DropTarget:public QWidget
 {
 
 Q_OBJECT public:
-        DropTarget();
-        ~DropTarget();
+    DropTarget();
+    ~DropTarget();
 
 
 
 protected:
-        virtual void resizeEvent(QResizeEvent *);
+    virtual void resizeEvent(QResizeEvent *);
 
-        // drag and drop
-        void dragEnterEvent(QDragEnterEvent *);
-        /** No descriptions */
-        virtual void mouseDoubleClickEvent(QMouseEvent * e);
-        void dropEvent(QDropEvent *);
-        /** No descriptions */
-        virtual void mouseMoveEvent(QMouseEvent *);
+    // drag and drop
+    void dragEnterEvent(QDragEnterEvent *);
+    /** No descriptions */
+    virtual void mouseDoubleClickEvent(QMouseEvent * e);
+    void dropEvent(QDropEvent *);
+    /** No descriptions */
+    virtual void mouseMoveEvent(QMouseEvent *);
 
 private slots:
-        void toggleSticky();
+    void toggleSticky();
 
-        void mousePressEvent(QMouseEvent * e);
-        void toggleMinimizeRestore();
+    void mousePressEvent(QMouseEvent * e);
+    void toggleMinimizeRestore();
 
 private:
-        KPopupMenu * popupMenu;
-        KMainWidget *parent;
+    KPopupMenu * popupMenu;
+    KMainWidget *parent;
 
-        bool b_sticky;
+    bool b_sticky;
 
-        int pop_sticky;
-        int pop_Max;
-        int pop_Min;
+    int pop_sticky;
+    int pop_Max;
+    int pop_Min;
 
-        int size[4];
+    int size[4];
 
-        QPixmap *handpix1;
-        QPixmap *handpix2;
-        QPixmap *handpix3;
+    QPixmap *handpix1;
+    QPixmap *handpix2;
+    QPixmap *handpix3;
 
-        QBitmap mask;
+    QBitmap mask;
 public:                      // Public attributes
-        /**  */
-        int oldX;
-        int oldY;
+    /**  */
+    int oldX;
+    int oldY;
 };
 
 #endif                          // _DROPTARGET_H

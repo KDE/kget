@@ -40,39 +40,39 @@ class DlgDirectories:public QGroupBox
 
 Q_OBJECT public:
 
-        DlgDirectories(QWidget * parent);
-        ~DlgDirectories()
-        {}
-        void applyData();
-        void setData();
+    DlgDirectories(QWidget * parent);
+    ~DlgDirectories()
+    {}
+    void applyData();
+    void setData();
 
 private:
 
-        // table of entries
-        QListView * lv_entries;
+    // table of entries
+    QListView * lv_entries;
 
-        // edit entries
-        QLineEdit *le_ext;
-        QLineEdit *le_dir;
+    // edit entries
+    QLineEdit *le_ext;
+    QLineEdit *le_dir;
 
-        // maximum bandwidth
-        QPushButton *pb_add;
-        QPushButton *pb_delete;
-        QPushButton *pb_change;
-        QPushButton *pb_browse;
+    // maximum bandwidth
+    QPushButton *pb_add;
+    QPushButton *pb_delete;
+    QPushButton *pb_change;
+    QPushButton *pb_browse;
 
-        QPushButton *pb_up;
-        QPushButton *pb_down;
+    QPushButton *pb_up;
+    QPushButton *pb_down;
 
 protected slots:
-        void selectEntry(QListViewItem * item);
-        void addEntry();
-        void deleteEntry();
-        void changeEntry();
-        void browse();
+    void selectEntry(QListViewItem * item);
+    void addEntry();
+    void deleteEntry();
+    void changeEntry();
+    void browse();
 
-        void upEntry();
-        void downEntry();
+    void upEntry();
+    void downEntry();
 
 };
 

@@ -187,7 +187,7 @@ public:
     bool b_useAnimation;
     QFont listViewFont;
 
-    
+
     KToolBar::BarPosition toolbarPosition;
     bool b_showStatusbar;
 

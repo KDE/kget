@@ -33,6 +33,7 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <kstandarddirs.h>
+#include <kpopupmenu.h>
 #include "common.h"
 
 class DockIndividual : public KSystemTray  {
@@ -44,6 +45,8 @@ public:
     int nPic;
     void setTip(const QString &);
     void setValue(int value);
+    /** No descriptions */
+    virtual void contextMenuAboutToShow ( KPopupMenu* menu );
 };
 
 #endif

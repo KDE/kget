@@ -43,38 +43,38 @@ class DlgAutomation:public QGroupBox
 
 Q_OBJECT public:
 
-        DlgAutomation(QWidget * parent);
-        ~DlgAutomation()
-        {}
-        void applyData();
-        void setData();
+    DlgAutomation(QWidget * parent);
+    ~DlgAutomation()
+    {}
+    void applyData();
+    void setData();
 
 private:
 
-        // auto save settings
-        QCheckBox * cb_autoSave;
-        KIntNumInput *le_autoSave;
+    // auto save settings
+    QCheckBox * cb_autoSave;
+    KIntNumInput *le_autoSave;
 
-        // auto disconnect settings
-        QCheckBox *cb_autoDisconnect;
-        QLabel *lb_autoDisconnect;
-        QLineEdit *le_autoDisconnect;
-        QCheckBox *cb_timedDisconnect;
-        BWDateTime *spins;
+    // auto disconnect settings
+    QCheckBox *cb_autoDisconnect;
+    QLabel *lb_autoDisconnect;
+    QLineEdit *le_autoDisconnect;
+    QCheckBox *cb_timedDisconnect;
+    BWDateTime *spins;
 
-        QDateTime disconnectDateTime;
+    QDateTime disconnectDateTime;
 
-        // auto shutdown settings
-        QCheckBox *cb_autoShutdown;
+    // auto shutdown settings
+    QCheckBox *cb_autoShutdown;
 
-        // auto paste settings
-        QCheckBox *cb_autoPaste;
+    // auto paste settings
+    QCheckBox *cb_autoPaste;
 
 public slots:
-        void slotTypeChanged(int);
+    void slotTypeChanged(int);
 
 protected slots:
-        void disconnectToggled(bool);
+    void disconnectToggled(bool);
 
 };
 

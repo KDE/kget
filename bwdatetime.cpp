@@ -47,76 +47,76 @@
 
 BWDateTime::BWDateTime(QDateTime qdt, QWidget * parent, const char *name):QWidget(parent, name)
 {
-        use12Clock = KGlobal::locale()->use12Clock();
+    use12Clock = KGlobal::locale()->use12Clock();
 
-        date_notvalid = FALSE;
-        time_notvalid = FALSE;
+    date_notvalid = FALSE;
+    time_notvalid = FALSE;
 
-        daylabel = new QLabel(i18n("Day:"), this);
-        day = new QSpinBox(1, 31, 1, this);
-        day->setValue(qdt.date().day());
+    daylabel = new QLabel(i18n("Day:"), this);
+    day = new QSpinBox(1, 31, 1, this);
+    day->setValue(qdt.date().day());
 
-        connect(day, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
+    connect(day, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
 
-        monthlabel = new QLabel(i18n("Month:"), this);
-        month = new QSpinBox(1, 12, 1, this);
-        month->setValue(qdt.date().month());
+    monthlabel = new QLabel(i18n("Month:"), this);
+    month = new QSpinBox(1, 12, 1, this);
+    month->setValue(qdt.date().month());
 
-        yearlabel = new QLabel(i18n("Year:"), this);
-        year = new QSpinBox(1, 3000, 1, this);
-        year->setValue(qdt.date().year());
+    yearlabel = new QLabel(i18n("Year:"), this);
+    year = new QSpinBox(1, 3000, 1, this);
+    year->setValue(qdt.date().year());
 
-        int myhour = qdt.time().hour();
+    int myhour = qdt.time().hour();
 
-        if (use12Clock) {
-                if (myhour > 12)
-                        myhour -= 12;
-                if (myhour == 0)
-                        myhour = 12;
-        }
+    if (use12Clock) {
+        if (myhour > 12)
+            myhour -= 12;
+        if (myhour == 0)
+            myhour = 12;
+    }
 
-        timelabel = new QLabel(i18n("Time:"), this);
-        // this stuff should be replaced with a KTimeSpinBox
-        hour = use12Clock ? new QSpinBox(1, 12, 1, this)
-               : new QSpinBox(0, 23, 1, this);
-        hour->setValue(myhour);
-        minute = new QSpinBox(0, 59, 1, this);
-        minute->setValue(qdt.time().minute());
+    timelabel = new QLabel(i18n("Time:"), this);
+    // this stuff should be replaced with a KTimeSpinBox
+    hour = use12Clock ? new QSpinBox(1, 12, 1, this)
+           : new QSpinBox(0, 23, 1, this);
+    hour->setValue(myhour);
+    minute = new QSpinBox(0, 59, 1, this);
+    minute->setValue(qdt.time().minute());
 
-        if (use12Clock) {
-                ampm = new QButtonGroup(this);
-                ampm->setFrameStyle(QFrame::NoFrame);
+    if (use12Clock) {
+        ampm = new QButtonGroup(this);
+        ampm->setFrameStyle(QFrame::NoFrame);
 
-                QVBoxLayout *hlay = new QVBoxLayout(ampm, 0, KDialog::spacingHint());
+        QVBoxLayout *hlay = new QVBoxLayout(ampm, 0, KDialog::spacingHint());
 
-                am = new QRadioButton(i18n("AM"), ampm);
-                pm = new QRadioButton(i18n("PM"), ampm);
+        am = new QRadioButton(i18n("AM"), ampm);
+        pm = new QRadioButton(i18n("PM"), ampm);
 
-                if (qdt.time().hour() < 12)
-                        am->setChecked(TRUE);
-                else
-                        pm->setChecked(TRUE);
+        if (qdt.time().hour() < 12)
+            am->setChecked(TRUE);
+        else
+            pm->setChecked(TRUE);
 
-                hlay->addWidget(am);
-                hlay->addWidget(pm);
-        }
-        // layout management (pfeiffer)
-        QGridLayout *glay = new QGridLayout(this, 6, 3, KDialog::spacingHint());
+        hlay->addWidget(am);
+        hlay->addWidget(pm);
+    }
+    // layout management (pfeiffer)
+    QGridLayout *glay = new QGridLayout(this, 6, 3, KDialog::spacingHint());
 
-        glay->addWidget(daylabel, 0, 0, AlignRight);
-        glay->addWidget(day, 0, 1);
-        glay->addWidget(monthlabel, 0, 2, AlignRight);
-        glay->addWidget(month, 0, 3);
-        glay->addWidget(yearlabel, 0, 4, AlignRight);
-        glay->addWidget(year, 0, 5);
+    glay->addWidget(daylabel, 0, 0, AlignRight);
+    glay->addWidget(day, 0, 1);
+    glay->addWidget(monthlabel, 0, 2, AlignRight);
+    glay->addWidget(month, 0, 3);
+    glay->addWidget(yearlabel, 0, 4, AlignRight);
+    glay->addWidget(year, 0, 5);
 
-        glay->addRowSpacing(1, KDialog::spacingHint());
+    glay->addRowSpacing(1, KDialog::spacingHint());
 
-        glay->addWidget(timelabel, 2, 0, AlignRight);
-        glay->addWidget(hour, 2, 1);
-        glay->addWidget(minute, 2, 2);
-        if (use12Clock)
-                glay->addMultiCellWidget(ampm, 2, 2, 3, 5);
+    glay->addWidget(timelabel, 2, 0, AlignRight);
+    glay->addWidget(hour, 2, 1);
+    glay->addWidget(minute, 2, 2);
+    if (use12Clock)
+        glay->addMultiCellWidget(ampm, 2, 2, 3, 5);
 
 }
 
@@ -125,104 +125,104 @@ BWDateTime::BWDateTime(QDateTime qdt, QWidget * parent, const char *name):QWidge
 void
 BWDateTime::setDateTime(QDateTime dt)
 {
-        sDebugIn << endl;
-        day->setValue(dt.date().day());
-        month->setValue(dt.date().month());
-        year->setValue(dt.date().year());
+    sDebugIn << endl;
+    day->setValue(dt.date().day());
+    month->setValue(dt.date().month());
+    year->setValue(dt.date().year());
 
-        int myhour = dt.time().hour();
+    int myhour = dt.time().hour();
 
-        if (use12Clock && myhour > 12)
-                myhour -= 12;
+    if (use12Clock && myhour > 12)
+        myhour -= 12;
 
-        hour->setValue(myhour);
-        minute->setValue(dt.time().minute());
+    hour->setValue(myhour);
+    minute->setValue(dt.time().minute());
 
-        if (use12Clock)
-                if (dt.time().hour() < 12)
-                        am->setChecked(TRUE);
-                else
-                        pm->setChecked(FALSE);
-        sDebugOut << endl;
+    if (use12Clock)
+        if (dt.time().hour() < 12)
+            am->setChecked(TRUE);
+        else
+            pm->setChecked(FALSE);
+    sDebugOut << endl;
 }
 
 
 
 bool BWDateTime::checkDateTime(void)
 {
-        sDebugIn << endl;
-        QDate rdate;
-        QTime rtime;
+    sDebugIn << endl;
+    QDate rdate;
+    QTime rtime;
 
-        time_notvalid = FALSE;
-        date_notvalid = FALSE;
+    time_notvalid = FALSE;
+    date_notvalid = FALSE;
 
-        int myhour = hour->value();
+    int myhour = hour->value();
 
-        if (use12Clock) {
-                if (pm->isChecked() && (myhour != 12))  // 12 pm is 12 hours
-                        myhour += 12;
+    if (use12Clock) {
+        if (pm->isChecked() && (myhour != 12))  // 12 pm is 12 hours
+            myhour += 12;
 
-                if (!pm->isChecked() && (myhour == 12)) // 12 am is 0 hours
-                        myhour = 0;
-        }
+        if (!pm->isChecked() && (myhour == 12)) // 12 am is 0 hours
+            myhour = 0;
+    }
 
-        if (QTime::isValid(myhour, minute->value(), 0)) {
-                rtime.setHMS(myhour, minute->value(), 0);
-        } else {
-                KMessageBox::sorry(this, i18n("The Time you selected is invalid"));
-                time_notvalid = TRUE;
-                sDebugOut << endl;
-                return FALSE;
-        }
-
-        if (QDate::isValid(year->value(), month->value(), day->value())) {
-                rdate.setYMD(year->value(), month->value(), day->value());
-        } else {
-                KMessageBox::sorry(this, i18n("The Date you selected is invalid"));
-                date_notvalid = TRUE;
-                sDebugOut << endl;
-                return FALSE;
-        }
-
-        QDateTime rdt(rdate, rtime);
-
-        mydatetime = rdt;
+    if (QTime::isValid(myhour, minute->value(), 0)) {
+        rtime.setHMS(myhour, minute->value(), 0);
+    } else {
+        KMessageBox::sorry(this, i18n("The Time you selected is invalid"));
+        time_notvalid = TRUE;
         sDebugOut << endl;
-        return TRUE;
+        return FALSE;
+    }
+
+    if (QDate::isValid(year->value(), month->value(), day->value())) {
+        rdate.setYMD(year->value(), month->value(), day->value());
+    } else {
+        KMessageBox::sorry(this, i18n("The Date you selected is invalid"));
+        date_notvalid = TRUE;
+        sDebugOut << endl;
+        return FALSE;
+    }
+
+    QDateTime rdt(rdate, rtime);
+
+    mydatetime = rdt;
+    sDebugOut << endl;
+    return TRUE;
 }
 
 QDateTime BWDateTime::getDateTime(void)
 {
-        checkDateTime();
-        return mydatetime;
+    checkDateTime();
+    return mydatetime;
 }
 
 
 void BWDateTime::setEnabled(bool enabled)
 {
-        sDebugIn << endl;
-        day->setEnabled(enabled);
-        month->setEnabled(enabled);
-        year->setEnabled(enabled);
-        hour->setEnabled(enabled);
-        minute->setEnabled(enabled);
+    sDebugIn << endl;
+    day->setEnabled(enabled);
+    month->setEnabled(enabled);
+    year->setEnabled(enabled);
+    hour->setEnabled(enabled);
+    minute->setEnabled(enabled);
 
-        if (use12Clock) {
-                am->setEnabled(enabled);
-                pm->setEnabled(enabled);
-        }
-        sDebugOut << endl;
+    if (use12Clock) {
+        am->setEnabled(enabled);
+        pm->setEnabled(enabled);
+    }
+    sDebugOut << endl;
 }
 
 /** No descriptions */
 void BWDateTime::slotValueChanged(int)
 {
-        sDebugIn << endl;
-        checkDateTime();
-        emit signalDateChanged(mydatetime);
+    sDebugIn << endl;
+    checkDateTime();
+    emit signalDateChanged(mydatetime);
 
-        sDebugOut << endl;
+    sDebugOut << endl;
 
 
 }

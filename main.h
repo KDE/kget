@@ -36,7 +36,7 @@ class KGetApp:public KUniqueApplication {
 public:
 
     KGetApp ();
-   ~KGetApp ();
+    ~KGetApp ();
 
     int newInstance ();
 

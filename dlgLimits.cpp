@@ -38,66 +38,66 @@
 DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
 {
 
-        setTitle(i18n("Limits Options"));
+    setTitle(i18n("Limits Options"));
 
-        QGridLayout *limitsLayout = new QGridLayout(this, 4, 2, 20, KDialog::spacingHint());
+    QGridLayout *limitsLayout = new QGridLayout(this, 4, 2, 20, KDialog::spacingHint());
 
-        limitsLayout->addRowSpacing(1, 25);
+    limitsLayout->addRowSpacing(1, 25);
 
-        limitsLayout->setRowStretch(0, 5);
-        limitsLayout->setRowStretch(1, 0);
-        limitsLayout->setRowStretch(2, 5);
-        limitsLayout->setRowStretch(3, 5);
+    limitsLayout->setRowStretch(0, 5);
+    limitsLayout->setRowStretch(1, 0);
+    limitsLayout->setRowStretch(2, 5);
+    limitsLayout->setRowStretch(3, 5);
 
-        limitsLayout->setColStretch(0, 5);
-        limitsLayout->setColStretch(1, 5);
+    limitsLayout->setColStretch(0, 5);
+    limitsLayout->setColStretch(1, 5);
 
-        // opened connection
-        lb_maxnum = new QLabel(i18n("Maximum number of opened connections:"), this);
-        limitsLayout->addWidget(lb_maxnum, 0, 0);
+    // opened connection
+    lb_maxnum = new QLabel(i18n("Maximum number of opened connections:"), this);
+    limitsLayout->addWidget(lb_maxnum, 0, 0);
 
-        le_maxnum = new KIntNumInput(0, this, 10);
-        le_maxnum->setRange(1, 3600, 1, false);
-        limitsLayout->addWidget(le_maxnum, 0, 1);
+    le_maxnum = new KIntNumInput(0, this, 10);
+    le_maxnum->setRange(1, 3600, 1, false);
+    limitsLayout->addWidget(le_maxnum, 0, 1);
 
-        // minimum bandwidth
-        lb_minband = new QLabel(i18n("Minimum network bandwidth:"), this);
-        limitsLayout->addWidget(lb_minband, 2, 0);
+    // minimum bandwidth
+    lb_minband = new QLabel(i18n("Minimum network bandwidth:"), this);
+    limitsLayout->addWidget(lb_minband, 2, 0);
 
-        le_minband = new KIntNumInput(0, this, 10);
-        le_minband->setRange(1, 100000, 100, false);
-        le_minband->setSuffix(i18n("b / sec"));
-        limitsLayout->addWidget(le_minband, 2, 1);
+    le_minband = new KIntNumInput(0, this, 10);
+    le_minband->setRange(1, 100000, 100, false);
+    le_minband->setSuffix(i18n("b / sec"));
+    limitsLayout->addWidget(le_minband, 2, 1);
 
-        // maximum bandwidth
-        lb_maxband = new QLabel(i18n("Maximum network bandwidth:"), this);
-        limitsLayout->addWidget(lb_maxband, 3, 0);
+    // maximum bandwidth
+    lb_maxband = new QLabel(i18n("Maximum network bandwidth:"), this);
+    limitsLayout->addWidget(lb_maxband, 3, 0);
 
-        le_maxband = new KIntNumInput(0, this, 10);
-        le_maxband->setRange(1, 100000, 100, false);
-        le_maxband->setSuffix(i18n("b / sec"));
-        limitsLayout->addWidget(le_maxband, 3, 1);
+    le_maxband = new KIntNumInput(0, this, 10);
+    le_maxband->setRange(1, 100000, 100, false);
+    le_maxband->setSuffix(i18n("b / sec"));
+    limitsLayout->addWidget(le_maxband, 3, 1);
 
-        // TODO: these are not supported yet, so disable them
-        le_maxband->setEnabled(false);
-        le_minband->setEnabled(false);
+    // TODO: these are not supported yet, so disable them
+    le_maxband->setEnabled(false);
+    le_minband->setEnabled(false);
 }
 
 
 void DlgLimits::setData()
 {
-        le_maxnum->setValue(ksettings.maxSimultaneousConnections);
-        le_minband->setValue(ksettings.minimumBandwidth);
-        le_maxband->setValue(ksettings.maximumBandwidth);
+    le_maxnum->setValue(ksettings.maxSimultaneousConnections);
+    le_minband->setValue(ksettings.minimumBandwidth);
+    le_maxband->setValue(ksettings.maximumBandwidth);
 }
 
 
 void DlgLimits::applyData()
 {
-        ksettings.maxSimultaneousConnections = le_maxnum->value();
-        ksettings.minimumBandwidth = le_minband->value();
-        ksettings.maximumBandwidth = le_maxband->value();
-        kmain->checkQueue();
+    ksettings.maxSimultaneousConnections = le_maxnum->value();
+    ksettings.minimumBandwidth = le_minband->value();
+    ksettings.maximumBandwidth = le_maxband->value();
+    kmain->checkQueue();
 }
 
 #include "dlgLimits.moc"

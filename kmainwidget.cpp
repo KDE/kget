@@ -248,29 +248,29 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
     m_paShowLog->setChecked(b_viewLogWindow);
 
-/*        
-    if (bStartDocked)
-        ksettings.windowStyle = DOCKED;
-    switch (ksettings.windowStyle) {
-    case DROP_TARGET:
-        m_paDropTarget->setChecked(true);
-        break;
-    case DOCKED:
-        m_paDockWindow->setChecked(true);
-        break;
-    case NORMAL:
-        m_paNormal->setChecked(true);
-    default:
-        break;
-    }
-    setWindowStyle();
+    /*
+        if (bStartDocked)
+            ksettings.windowStyle = DOCKED;
+        switch (ksettings.windowStyle) {
+        case DROP_TARGET:
+            m_paDropTarget->setChecked(true);
+            break;
+        case DOCKED:
+            m_paDockWindow->setChecked(true);
+            break;
+        case NORMAL:
+            m_paNormal->setChecked(true);
+        default:
+            break;
+        }
+        setWindowStyle();
 
-*/
+    */
 
-   if (!bStartDocked && ksettings.b_showMain)
-             show();
+    if (!bStartDocked && ksettings.b_showMain)
+        show();
 
-       kdock->show();
+    kdock->show();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -404,8 +404,8 @@ void KMainWidget::setupGUI()
 
     m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), actionCollection(), "show_statusbar");
 
-     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
-     m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target.png", 0, this, SLOT(slotToggleDropTarget()), actionCollection(), "drop_target");
+    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
+    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target.png", 0, this, SLOT(slotToggleDropTarget()), actionCollection(), "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
     KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), actionCollection(), "whats_this");
@@ -530,17 +530,17 @@ void KMainWidget::setupWhatsThis()
 
     tmp17 = i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window.");
     m_paDropTarget->setWhatsThis(tmp17);
-/*
-    QString tmp18;
+    /*
+        QString tmp18;
 
-    tmp18 = i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget.");
-    m_paDockWindow->setWhatsThis(tmp18);
+        tmp18 = i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget.");
+        m_paDockWindow->setWhatsThis(tmp18);
 
-    QString tmp19;
+        QString tmp19;
 
-    tmp19 = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
-    m_paNormal->setWhatsThis(tmp19);
-  */
+        tmp19 = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
+        m_paNormal->setWhatsThis(tmp19);
+      */
 
 
 #ifdef _DEBUG
@@ -1505,7 +1505,7 @@ void KMainWidget::closeEvent(QCloseEvent *_event)
     sDebugIn<<"type="<<_event->type() << endl;
 #endif
 
-      hide();
+    hide();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1787,7 +1787,7 @@ void KMainWidget::slotToggleDropTarget()
         kdrop->hide();
 
 
-     
+
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif

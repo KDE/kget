@@ -46,26 +46,26 @@ class DlgPreferences:public KDialogBase
 
 Q_OBJECT public:
 
-        DlgPreferences(QWidget * parent);
-        ~DlgPreferences()
-        {}
+    DlgPreferences(QWidget * parent);
+    ~DlgPreferences()
+    {}
 protected:
-        void closeEvent(QCloseEvent *);
+    void closeEvent(QCloseEvent *);
 
 private:
 
-        DlgConnection * conDlg;
-        DlgAutomation *autDlg;
-        DlgLimits *limDlg;
-        DlgAdvanced *advDlg;
+    DlgConnection * conDlg;
+    DlgAutomation *autDlg;
+    DlgLimits *limDlg;
+    DlgAdvanced *advDlg;
 
-        //        DlgSearch *seaDlg;
-        DlgDirectories *dirDlg;
-        DlgSystem *sysDlg;
+    //        DlgSearch *seaDlg;
+    DlgDirectories *dirDlg;
+    DlgSystem *sysDlg;
 
 protected slots:
-        virtual void done(int r);
-        void applySettings();
+    virtual void done(int r);
+    void applySettings();
 
 };
 

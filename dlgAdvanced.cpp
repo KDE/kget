@@ -53,7 +53,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     gridLayout->setRowStretch(5, 5);
     gridLayout->setRowStretch(6, 5);
     gridLayout->setRowStretch(7, 5);
-    
+
     gridLayout->setColStretch(0, 5);
     gridLayout->setColStretch(1, 5);
     gridLayout->setColStretch(2, 5);
@@ -144,7 +144,7 @@ void DlgAdvanced::applyData()
     ksettings.b_removeOnSuccess = cb_remove->isChecked();
     ksettings.b_getSizes = cb_getsizes->isChecked();
     ksettings.b_showMain=cb_ShowMain->isChecked();
-    
+
     if (ksettings.b_expertMode != cb_expertmode->isChecked()) {
         kmain->slotToggleExpertMode();
     }

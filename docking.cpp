@@ -40,49 +40,49 @@
 
 DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
-        parent = _parent;
+    parent = _parent;
 
-        QPixmap *tmppix = new QPixmap();
+    QPixmap *tmppix = new QPixmap();
 
-        tmppix->load(locate("appdata", "pics/dock.png"));
+    tmppix->load(locate("appdata", "pics/dock.png"));
 
-        handpix1 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
-        handpix1->fill(backgroundColor());
-        bitBlt(handpix1, 0, 0, tmppix);
-                                                              
-        handpix2 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
-        handpix2->fill(backgroundColor());
-        bitBlt(handpix2, 0, 0, tmppix);
+    handpix1 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
+    handpix1->fill(backgroundColor());
+    bitBlt(handpix1, 0, 0, tmppix);
 
-        handpix3 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
-        handpix3->fill(backgroundColor());
-        bitBlt(handpix3, 0, 0, tmppix);
+    handpix2 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
+    handpix2->fill(backgroundColor());
+    bitBlt(handpix2, 0, 0, tmppix);
 
-        delete tmppix;
+    handpix3 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
+    handpix3->fill(backgroundColor());
+    bitBlt(handpix3, 0, 0, tmppix);
 
-        setPixmap(*handpix1);
+    delete tmppix;
 
-        for (int i = 0; i < 3; i++) {
-                size[i] = 0;
-        }
+    setPixmap(*handpix1);
 
-        // popup menu for right mouse button
-        KPopupMenu *popupMenu = contextMenu();
-    
-        popupMenu->insertItem(i18n("Preferences"), parent, SLOT(slotPreferences()));
+    for (int i = 0; i < 3; i++) {
+        size[i] = 0;
+    }
 
-    
-        // Enable dropping
-        setAcceptDrops(true);
+    // popup menu for right mouse button
+    KPopupMenu *popupMenu = contextMenu();
+
+    popupMenu->insertItem(i18n("Preferences"), parent, SLOT(slotPreferences()));
+
+
+    // Enable dropping
+    setAcceptDrops(true);
 
 }
 
 
 DockWidget::~DockWidget()
 {
-        delete handpix1;
-        delete handpix2;
-        delete handpix3;
+    delete handpix1;
+    delete handpix2;
+    delete handpix3;
 }
 
 
@@ -90,38 +90,38 @@ DockWidget::~DockWidget()
 
 void DockWidget::dragEnterEvent(QDragEnterEvent * event)
 {
-        event->accept(QUriDrag::canDecode(event)
-                      || QTextDrag::canDecode(event));
+    event->accept(QUriDrag::canDecode(event)
+                  || QTextDrag::canDecode(event));
 }
 
 
 void DockWidget::dropEvent(QDropEvent * event)
 {
-        QStrList list;
-        QString str;
+    QStrList list;
+    QString str;
 
-        if (QUriDrag::decode(event, list)) {
-                parent->addDropTransfers(&list);
-        } else if (QTextDrag::decode(event, str)) {
-                parent->addTransfer(str);
-        }
+    if (QUriDrag::decode(event, list)) {
+        parent->addDropTransfers(&list);
+    } else if (QTextDrag::decode(event, str)) {
+        parent->addTransfer(str);
+    }
 }
 
 
 void DockWidget::mousePressEvent(QMouseEvent * e)
 {
-        if (e->button() == MidButton) {
-                parent->slotPasteTransfer();
-        } else {
-                KSystemTray::mousePressEvent(e);
-        }
+    if (e->button() == MidButton) {
+        parent->slotPasteTransfer();
+    } else {
+        KSystemTray::mousePressEvent(e);
+    }
 }
 
 
 void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu ){
-   
+
     menu->connectItem( menu->idAt(4), kmain, SLOT(slotQuit()));
-  
+
 }
 
 #include "docking.moc"
