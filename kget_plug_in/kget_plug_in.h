@@ -17,6 +17,7 @@
 #ifndef __plugin_kget_plug_in_h
 #define __plugin_kget_plug_in_h
 
+#include <kaction.h>
 #include <kparts/plugin.h>
 #include <klibloader.h>
 #include <dcopclient.h>
@@ -29,7 +30,7 @@ class KGet_plug_in : public KParts::Plugin
     Q_OBJECT
 public:
     KGet_plug_in( QObject* parent = 0, const char* name = 0 );
-    KAction *m_paToggleDropTarget ;
+    KToggleAction *m_paToggleDropTarget ;
     DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();
 
