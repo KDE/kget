@@ -109,10 +109,14 @@ void Slave::run()
         switch (cmd = fetch_cmd()) 
         {
             case RESTART:
-                copyjob->kill(true);
+                if (copyjob) {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                }
                 // fall through
             case RETR:
                 mDebug << " FETCHED COMMAND       RETR" << endl;
+                assert(!copyjob);
                 KIO::Scheduler::checkSlaveOnHold( true );
                 copyjob = new KIO::GetFileJob(m_src, m_dest);
                 Connect();
@@ -121,16 +125,17 @@ void Slave::run()
 
             case PAUSE:
                 mDebug << " FETCHED COMMAND       PAUSE" << endl;
-                copyjob->kill(true);
-                copyjob = 0L;
+                if (copyjob) {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                }
                 PostMessage(SLV_PAUSED);
                 break;
 
             case KILL:
                 mDebug << " FETCHED COMMAND      KILL" << endl;
                 running = false;
-                if (copyjob)
-                {
+                if (copyjob) {
                     copyjob->kill(true);
                     copyjob = 0L;
                  }
@@ -140,43 +145,47 @@ void Slave::run()
             case REMOVE:
                 mDebug << " FETCHED COMMAND       REMOVE" << endl;
                 running = false;
-                copyjob->kill(true);
-                copyjob = 0L;
+                if (copyjob) {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                }
                 PostMessage(SLV_REMOVED);
                 break;
 
             case SCHEDULE:
                 mDebug << " FETCHED COMMAND       SCHEDULE" << endl;
-                copyjob->kill(true);
-                copyjob = 0L;
+                if (copyjob) {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                }
                 PostMessage(SLV_SCHEDULED);
                 break;
 
             case DELAY:
                 mDebug << " FETCHED COMMAND       DELAY" << endl;
-                copyjob->kill(true);
-                copyjob = 0L;
+                if (copyjob) {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                }
                 PostMessage(SLV_DELAYED);
                 break;
 
             case NOOP:
                 mDebug << "FETCHED COMMAND        NOOP, i.e. empty stack" << endl;
-                if ( copyjob )
-                {
+                if (copyjob) {
                     copyjob->kill(true);
                     copyjob = 0L;
                 }
                 running = false;
                 break;
 
-            default: {
+            default:
                 mDebug << " UNKNOWN COMMAND DIE...." << endl;
                 assert(0);
-            }
         }
     }
 
-    copyjob = NULL;
+    assert(!copyjob);
     mDebugOut << endl;
 }
 
@@ -235,13 +244,11 @@ void Slave::slotConnected(KIO::Job *)
 void Slave::slotResult(KIO::Job * job)
 {
     mDebugIn << endl;
-    terminate(); // AEEIIII!
-    wait();
+    
+    assert(copyjob == job);
     copyjob=0L;
     KIO::Error error=KIO::Error(job->error());
     if (!error) {
-        terminate(); // AEEIIII!
-        wait();
         PostMessage(SLV_FINISHED);
     }
     else {
