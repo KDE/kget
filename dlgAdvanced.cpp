@@ -74,7 +74,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     cb_individual = new QCheckBox(i18n("Show individual windows"), this);
     gridLayout->addWidget(cb_individual, 1, 0);
 
-    cb_iconify = new QCheckBox(i18n("iconified"), this);
+    cb_iconify = new QCheckBox(i18n("Iconified"), this);
     gridLayout->addWidget(cb_iconify, 1, 1);
 
     connect(cb_individual, SIGNAL(toggled(bool)), cb_iconify, SLOT(setEnabled(bool)));
@@ -98,7 +98,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     cb_expertmode = new QCheckBox(i18n("Expert mode (don't prompt for cancel or delete)"), this);
     gridLayout->addMultiCellWidget(cb_expertmode, 6, 6, 0, 2);
 
-    cb_konqiIntegration= new QCheckBox(i18n("Enable/Disable the integration with konqueror"), this);
+    cb_konqiIntegration= new QCheckBox(i18n("Enable/disable the integration with konqueror"), this);
     gridLayout->addMultiCellWidget(cb_konqiIntegration, 7, 7, 0, 2);
 }
 

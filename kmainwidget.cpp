@@ -347,21 +347,21 @@ void KMainWidget::setupGUI()
         m_paOpenTransfer = KStdAction::open(this, SLOT(slotOpenTransfer()), actionCollection(), "open_transfer");
         m_paPasteTransfer = KStdAction::paste(this, SLOT(slotPasteTransfer()), actionCollection(), "paste_transfer");
 
-        m_paExportTransfers = new KAction(i18n("&Export Transfer List"), 0, this, SLOT(slotExportTransfers()), actionCollection(), "export_transfers");
-        m_paImportTransfers = new KAction(i18n("&Import Transfer List"), 0, this, SLOT(slotImportTransfers()), actionCollection(), "import_transfers");
+        m_paExportTransfers = new KAction(i18n("&Export Transfer List..."), 0, this, SLOT(slotExportTransfers()), actionCollection(), "export_transfers");
+        m_paImportTransfers = new KAction(i18n("&Import Transfer List..."), 0, this, SLOT(slotImportTransfers()), actionCollection(), "import_transfers");
 
-        m_paImportText = new KAction(i18n("Import Text &File"), 0, this, SLOT(slotImportTextFile()), actionCollection(), "import_text");
+        m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), actionCollection(), "import_text");
 
         m_paQuit = KStdAction::quit(this, SLOT(slotQuit()), actionCollection(), "quit");
 
 
         // transfer actions
-        m_paCopy = new KAction(i18n("&Copy URL to clipboard"), 0, this, SLOT(slotCopyToClipboard()), actionCollection(), "copy_url");
-        m_paIndividual = new KAction(i18n("&Open individual window"), 0, this, SLOT(slotOpenIndividual()), actionCollection(), "open_individual");
+        m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), actionCollection(), "copy_url");
+        m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), actionCollection(), "open_individual");
 
-        m_paMoveToBegin = new KAction(i18n("Move to &beginning"), 0, this, SLOT(slotMoveToBegin()), actionCollection(), "move_begin");
+        m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), actionCollection(), "move_begin");
 
-        m_paMoveToEnd = new KAction(i18n("Move to &end"), 0, this, SLOT(slotMoveToEnd()), actionCollection(), "move_end");
+        m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), actionCollection(), "move_end");
 
         // TODO CHECK path
         QString path = "kget/pics/";
@@ -392,14 +392,14 @@ void KMainWidget::setupGUI()
         // options actions
         m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
         m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
-        m_paExpertMode     =  new KToggleAction(i18n("&Expert mode"), "tool_expert.png", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
-        m_paUseLastDir     =  new KToggleAction(i18n("&Use-last-directory mode"), "tool_uselastdir.png", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
-        m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&disconnect mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
-        m_paAutoShutdown   =  new KToggleAction(i18n("Auto-s&hutdown mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
-        m_paOfflineMode    =  new KToggleAction(i18n("&Offline mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
-        m_paAutoPaste      =  new KToggleAction(i18n("Auto-pas&te mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
+        m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"), "tool_expert.png", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
+        m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"), "tool_uselastdir.png", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
+        m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
+        m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
+        m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
+        m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
 
-        m_paPreferences    =  new KAction(i18n("P&references"), QIconSet(QPixmap(locate("data", "kget/pics/tool_preferences.png"))), 0, this, SLOT(slotPreferences()), actionCollection(), "preferences");
+        m_paPreferences    =  new KAction(i18n("P&references..."), QIconSet(QPixmap(locate("data", "kget/pics/tool_preferences.png"))), 0, this, SLOT(slotPreferences()), actionCollection(), "preferences");
 
         KStdAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection(), "configure_keybinding");
         KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection(), "configure_toolbars");
@@ -410,8 +410,8 @@ void KMainWidget::setupGUI()
 
         m_paShowLog       = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
 
-        m_paDropTarget    = new KRadioAction(i18n("Drop &target"),"tool_drop_target.png", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
-        m_paDockWindow    = new KRadioAction(i18n("&Dock window"), "tool_dock.png", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
+        m_paDropTarget    = new KRadioAction(i18n("Drop &Target"),"tool_drop_target.png", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
+        m_paDockWindow    = new KRadioAction(i18n("&Dock Window"), "tool_dock.png", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
         m_paNormal        = new KRadioAction(i18n("&Normal"), "tool_normal.png", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
 
         m_paDropTarget->setExclusiveGroup("WindowMode");

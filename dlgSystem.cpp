@@ -57,7 +57,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
 
     // sound settings
 
-    cb_useSound = new QCheckBox(i18n("Use Sounds"), this);
+    cb_useSound = new QCheckBox(i18n("Use sounds"), this);
     topGridLayout->addWidget(cb_useSound, 0, 0);
 
     cmb_sounds = new QComboBox(this);
@@ -68,7 +68,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     cmb_sounds->insertItem(i18n("Finished All"));
     topGridLayout->addWidget(cmb_sounds, 0, 1);
 
-    pb_changesound = new QPushButton(i18n("Change"), this);
+    pb_changesound = new QPushButton(i18n("Change..."), this);
     topGridLayout->addWidget(pb_changesound, 0, 2);
     connect(pb_changesound, SIGNAL(clicked()), SLOT(setupSound()));
 
@@ -81,7 +81,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     connect(cb_useSound, SIGNAL(toggled(bool)), pb_testsound, SLOT(setEnabled(bool)));
 
     // animation settings
-    cb_useAnimation = new QCheckBox(i18n("Use Animation"), this);
+    cb_useAnimation = new QCheckBox(i18n("Use animation"), this);
     topGridLayout->addMultiCellWidget(cb_useAnimation, 1, 1, 0, 1);
 
     // window style
@@ -98,7 +98,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     bg_window->insert(rb_docked);
     hLayout->addWidget(rb_docked);
 
-    rb_droptarget = new QRadioButton(i18n("Drop Target"), bg_window);
+    rb_droptarget = new QRadioButton(i18n("Drop target"), bg_window);
     bg_window->insert(rb_droptarget);
     hLayout->addWidget(rb_droptarget);
 
@@ -120,7 +120,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     lb_font->setFrameStyle(QFrame::Box | QFrame::Sunken);
     gLayout->addWidget(lb_font, 0, 0);
 
-    pb_browse = new QPushButton(i18n("Change"), gb_font);
+    pb_browse = new QPushButton(i18n("Change..."), gb_font);
     connect(pb_browse, SIGNAL(clicked()), SLOT(changeFont()));
     gLayout->addWidget(pb_browse, 0, 1);
 }

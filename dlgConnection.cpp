@@ -61,7 +61,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
         cb_onerror = new QCheckBox(i18n("On login or timeout error"), gb_reconnect);
         reconnectLayout->addWidget(cb_onerror, 0, 0);
 
-        lb_after = new QLabel(i18n("reconnect after:"), gb_reconnect);
+        lb_after = new QLabel(i18n("Reconnect after:"), gb_reconnect);
         reconnectLayout->addWidget(lb_after, 1, 1);
 
         le_after = new KIntNumInput(0, gb_reconnect, 10, "le_after");
@@ -69,7 +69,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
         le_after->setRange(1, 3600, 1, false);
         reconnectLayout->addWidget(le_after, 1, 2);
 
-        lb_retries = new QLabel(i18n("number of retries:"), gb_reconnect);
+        lb_retries = new QLabel(i18n("Number of retries:"), gb_reconnect);
         reconnectLayout->addWidget(lb_retries, 2, 1);
 
         le_retries = new KIntNumInput(0, gb_reconnect, 10, "le_retries");
@@ -120,7 +120,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
 
         // type settings
         gb_type = new QGroupBox(this, "gb_type");
-        gb_type->setTitle(i18n("Type of connection"));
+        gb_type->setTitle(i18n("Type of Connection"));
         topLayout->addWidget(gb_type, 10);
 
         QGridLayout *typeLayout = new QGridLayout(gb_type, 2, 3, 20, KDialog::spacingHint());

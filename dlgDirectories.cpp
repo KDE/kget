@@ -106,7 +106,7 @@ DlgDirectories::DlgDirectories(QWidget * parent):QGroupBox(parent)
         directoriesLayout->addWidget(pb_change, 3, 2);
         connect(pb_change, SIGNAL(clicked()), SLOT(changeEntry()));
 
-        pb_browse = new QPushButton(i18n("Browse"), this);
+        pb_browse = new QPushButton(i18n("Browse..."), this);
         directoriesLayout->addWidget(pb_browse, 3, 3);
         connect(pb_browse, SIGNAL(clicked()), SLOT(browse()));
 }
