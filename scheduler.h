@@ -27,6 +27,7 @@
 #include "group.h"
 #include "transfer.h"
 #include "transferlist.h"
+#include "interrogator.h"
 
 class GlobalStatus
 {
@@ -49,26 +50,13 @@ public:
 
 
 
-class Scheduler : public QObject
+class Scheduler : public QObject, TransferInterrogator
 {
 Q_OBJECT
 public:
     Scheduler(KMainWidget * _mainWidget);
     ~Scheduler();
-
     
-signals:
-    void addedItems(const TransferList&);
-    void removedItems(const TransferList&);
-    void changedItems(const TransferList&);
-    void addedGroups(const GroupList&);
-    void removedGroups(const GroupList&);
-    void changedGroups(const GroupList&);
-    
-    void clear();
-    void globalStatus(GlobalStatus *);
-
-public:
     bool isRunning()const {return running;}
     
     const TransferList & getTransfers() const {return *transfers;}
@@ -108,16 +96,10 @@ public slots:
     void slotReqOperation(SchedulerDebugOp);
 
     /**
-     * This slot is called from the Transfer object when its status
-     * has changed
-     */
-    void slotTransferStatusChanged(Transfer *, Transfer::TransferStatus);
-    
-    /**
      * This slot is called from the Transfer object when its progress
      * has changed
      */
-    void slotTransferChanged(Transfer *, Transfer::TransferChanges);
+    void slotTransferChanged(Transfer *);
     
     /**
      * KGET TRANSFERS FILE related
@@ -155,6 +137,16 @@ public slots:
      */
     void slotExportTransfers(QString & file);
       
+signals:
+    void addedItems(const TransferList&);
+    void removedItems(const TransferList&);
+    void changedItems(const TransferList&);
+    void addedGroups(const GroupList&);
+    void removedGroups(const GroupList&);
+    void changedGroups(const GroupList&);
+    
+    void clear();
+    void globalStatus(GlobalStatus *);
     
 private:
     

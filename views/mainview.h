@@ -87,7 +87,7 @@ class MainView : public KListView, public ViewInterface
     
     
     private:
-	TransferList getSelectedList();
+    TransferList getSelectedList();
     QMap<QString, MainViewGroupItem *> groupsMap;
     QMap<Transfer *, MainViewItem *> transfersMap;
 };

@@ -288,10 +288,10 @@ void Scheduler::slotRemoveItems(TransferList list)
 {
     transfers->removeTransfers(list);
     removedTransfers->addTransfers(list);
-    
-    emit removedItems(list);
-    
+
     queueRemovedItems(list);
+        
+    emit removedItems(list);
 }
 
 void Scheduler::slotSetPriority(TransferList list, int priority)
@@ -463,43 +463,44 @@ void Scheduler::slotReqOperation(SchedulerDebugOp operation)
     }
 }
 
-void Scheduler::slotTransferStatusChanged(Transfer * item,     
-                                          Transfer::TransferStatus status)
+void Scheduler::slotTransferChanged(Transfer * item)
 {
     sDebugIn << endl;    
     TransferList list(item);
     kdDebug() << "after the insertion" << endl;
     
-    switch (status)
-        {
-        case Transfer::St_Delayed:
-        case Transfer::St_Aborted:
-            item->slotSetDelay(30);
-        case Transfer::St_Finished:
-        case Transfer::St_Stopped:
-            sDebug << "TRANSFER REMOVAL: " << item << endl;
-            
-            runningTransfers->removeTransfer(item);
-            removedTransfers->addTransfer(item);
-            queueUpdate();
-            break;
-        /*case MSG_DELAY_FINISHED:
-            queueUpdate();
-            break;
-        */
-        case Transfer::St_Running:
-            break;
+    Transfer::TransferChanges transferFlags = item->changesFlags(this);
+    item->resetChangesFlags(this);
+     
+    if(transferFlags & Transfer::Tc_Status)
+    {
+        switch (item->info().status)
+            {
+//            case Transfer::St_Delayed:
+            case Transfer::St_Aborted:
+                item->slotSetDelay(30);
+            case Transfer::St_Finished:
+            case Transfer::St_Stopped:
+                sDebug << "TRANSFER REMOVAL: " << item << endl;
+                runningTransfers->removeTransfer(item);
+                queueUpdate();
+                break;
+            /*case MSG_DELAY_FINISHED:
+                queueUpdate();
+                break;
+            */
+            case Transfer::St_Running:
+                break;
+        }
     }
-       
-    emit changedItems(list);
+    
+    //TODO: OPTIMIZE IF POSSIBLE
+    if( transfers->contains(item) )
+    {
+        emit changedItems(list);
+    }
     sDebugOut << endl;    
 }
-
-void Scheduler::slotTransferChanged(Transfer * item,     
-                                            Transfer::TransferChanges changes)
-{
-    emit changedItems(TransferList(item));
-}                                           
 
 void Scheduler::slotImportTransfers(bool ask_for_name)
 {
@@ -799,6 +800,7 @@ bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
             sDebug << "111 ->" << runningTransfers->size() << endl;
             if(  (item->info().status != Transfer::St_Running)
                 && (item->info().status != Transfer::St_Finished)
+                && (item->info().status != Transfer::St_Delayed)
                 && (item->info().priority != 6)       
                 && (Settings::maxConnections() > runningTransfers->size()) )
                 {
@@ -896,13 +898,15 @@ void Scheduler::queueRemovedItems(TransferList list)
     TransferList::iterator endList = list.end();
     
     for(; it!=endList; ++it )
-        {
+    {
         if (runningTransfers->contains(*it))
-            {
+        {
             toRemove.addTransfer(*it);
         }
     }
+    kdDebug() << "before" << endl;
     slotSetCommand(toRemove, CmdPause);
+    kdDebug() << "after" << endl;
 }
 
 void Scheduler::queueUpdate()

@@ -40,19 +40,16 @@ bool TransferKio::slotResume()
     tInfo.status = St_Trying;
     setTransferChange(Tc_Status);    
 
-    emit statusChanged(this, St_Trying);
+    emit transferChanged(this);
     
     return true;
 }
 
 void TransferKio::slotStop()
 {
-    kdDebug() << "slotStop 1" << endl;
     if(copyjob)
     {
-        kdDebug() << "slotStop 2" << endl;
         copyjob->kill(true);
-        kdDebug() << "slotStop 3" << endl;
         copyjob=0;
     }
     
@@ -62,7 +59,7 @@ void TransferKio::slotStop()
     setTransferChange(Tc_Status);
     setTransferChange(Tc_Speed);    
     
-    emit statusChanged(this, St_Stopped);
+    emit transferChanged(this);
 }
 
 void TransferKio::slotRetransfer()
@@ -82,7 +79,12 @@ void TransferKio::slotSetSpeed(int speed)
 
 void TransferKio::slotSetDelay(int seconds)
 {
+    tInfo.status = St_Delayed;
+    setTransferChange(Tc_Status);    
 
+    //TODO: Implement the delay
+        
+    emit transferChanged(this);
 }
 
 void TransferKio::slotSetSegmented(int nSegments)
@@ -126,18 +128,19 @@ void TransferKio::slotResult( KIO::Job *job )
             tInfo.status = St_Finished;
             tInfo.percent = 100;
             tInfo.speed = 0;
+            tInfo.processedSize = tInfo.totalSize;
             setTransferChange(Tc_Percent);
             setTransferChange(Tc_Speed);
             break;
         default:
             //There has been an error
             tInfo.status = St_Aborted;
+            kdDebug() << "--  E R R O R  --" << endl;
+            copyjob=0;
             break;
     }
     setTransferChange(Tc_Status);
-    emit transferChanged(this, Tc_Status);
-        
-    emit statusChanged(this, tInfo.status);
+    emit transferChanged(this);
 }
 
 void TransferKio::slotInfoMessage( KIO::Job *job, const QString & msg )
@@ -150,9 +153,8 @@ void TransferKio::slotConnected( KIO::Job *job )
 //     kdDebug() << "CONNECTED" <<endl;
     
     tInfo.status = St_Running;
-    emit statusChanged(this, St_Running);
     setTransferChange(Tc_Status);
-    emit transferChanged(this, Tc_Status);
+    emit transferChanged(this);
 }
 
 void TransferKio::slotPercent( KIO::Job *job, unsigned long percent )
@@ -164,7 +166,7 @@ void TransferKio::slotPercent( KIO::Job *job, unsigned long percent )
         
     tInfo.percent = percent;
     setTransferChange(Tc_Percent);
-    emit transferChanged(this, Tc_Percent);
+    emit transferChanged(this);
 }
 
 void TransferKio::slotTotalSize( KIO::Job *job, KIO::filesize_t size )
@@ -176,7 +178,7 @@ void TransferKio::slotTotalSize( KIO::Job *job, KIO::filesize_t size )
     
     tInfo.totalSize = size;
     setTransferChange(Tc_TotalSize);
-    emit transferChanged(this, Tc_TotalSize);
+    emit transferChanged(this);
 }
 
 void TransferKio::slotProcessedSize( KIO::Job *job, KIO::filesize_t size )
@@ -188,7 +190,7 @@ void TransferKio::slotProcessedSize( KIO::Job *job, KIO::filesize_t size )
     
     tInfo.processedSize = size;
     setTransferChange(Tc_ProcessedSize);
-    emit transferChanged(this, Tc_ProcessedSize);
+    emit transferChanged(this);
 }
 
 void TransferKio::slotSpeed( KIO::Job *job, unsigned long bytes_per_second )
@@ -200,6 +202,6 @@ void TransferKio::slotSpeed( KIO::Job *job, unsigned long bytes_per_second )
     
     tInfo.speed = bytes_per_second;
     setTransferChange(Tc_Speed);
-    emit transferChanged(this, Tc_Speed);
+    emit transferChanged(this);
 }
 

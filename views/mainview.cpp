@@ -296,9 +296,12 @@ void MainView::schedulerAddedItems( const TransferList& list )
         
         kdDebug() << "groupsMap.size=" << groupsMap.size() << endl;
         
-        if(groupsMap.contains(group))
+        QMap<QString, MainViewGroupItem *>::iterator g = groupsMap.find(group);
+        
+        if(g != groupsMap.end())
         {
-            groupsMap[group]->insertItem(newItem = new MainViewItem(this, *it));
+            (*g)->insertItem(newItem = new MainViewItem(this, *it));
+            (*g)->setVisible(true);
             kdDebug() << "Trovato gruppo " << endl;   
         }
         else
@@ -319,8 +322,19 @@ void MainView::schedulerRemovedItems( const TransferList& list )
     
     for(; it != endList; ++it)
     {
-        delete(transfersMap[*it]); 
+        delete(transfersMap[*it]);
     }
+
+    //Now we hide the groups that don't contain any transfer
+    QMap<QString, MainViewGroupItem *>::iterator it2 = groupsMap.begin();
+    QMap<QString, MainViewGroupItem *>::iterator it2End = groupsMap.end();
+    
+    for(; it2 != it2End; ++it2)
+    {
+        if( (*it2)->childCount() == 0 )
+            (*it2)->setVisible(false);
+    }
+
 }
 
 void MainView::schedulerChangedItems( const TransferList& list )
@@ -345,8 +359,9 @@ void MainView::schedulerAddedGroups( const GroupList& list )
     {
         MainViewGroupItem * newItem = new MainViewGroupItem(this, *it);
         groupsMap[(*it)->info().name] = newItem;
-        
-        newItem->updateContents(true);
+
+        newItem->setVisible(false);
+//         newItem->updateContents(true);
     }
 }
 
@@ -487,7 +502,17 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
                 
         KPopupMenu * subGroup = new KPopupMenu( popup );
         //for loop inserting all existant groups
-        subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );	
+        QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin();
+        QMap<QString, MainViewGroupItem *>::iterator itEnd = groupsMap.end();
+        
+        for(; it != itEnd; ++it)
+        {
+            if( (*it)->childCount() == 0 )
+                subGroup->insertItem( SmallIcon("package"),
+                                      (*it)->getGroup()->info().name, 
+                                      this,  SLOT( slotSetGroup() ) );
+        }
+        //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );	
         popup->insertItem( SmallIcon("folder"), i18n("Set group ..."), subGroup );
     }
     else

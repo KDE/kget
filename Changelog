@@ -1,4 +1,11 @@
 2004-11-05 Dario Massarin <nekkar@libero.it>
+        * Fixed nasty bug in transferKio.cpp which produced a crash every time
+        a download was aborted.
+        * Now also the scheduler is a TransferInterrogator. This means that 
+        I have removed the transferStatusChanged signal and now only the
+        transferChanged signal is emitted from the transfer object :-)
+
+2004-11-05 Dario Massarin <nekkar@libero.it>
         * New system tray icon effects. This has been realized looking at the 
         amarok code. In the future, when other things will be in place, I will
         surely paint an icon filled according to the current downloading progress.

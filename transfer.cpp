@@ -29,17 +29,11 @@ Transfer::Transfer(Scheduler * _scheduler, KURL _src, KURL _dest)
     tInfo.percent=0;
     tInfo.speed=0;
     tInfo.group="None";
-        
-    connect( this, 
-             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
-             sched,
-             SLOT(slotTransferStatusChanged(Transfer *,
-             Transfer::TransferStatus)) );
  
     connect( this, 
-             SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
+             SIGNAL(transferChanged(Transfer *)),
              sched,
-             SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)) );
+             SLOT(slotTransferChanged(Transfer *)) );
 }
 
 Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
@@ -49,17 +43,11 @@ Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
     tInfo.speed=0;
     
     read(n);
-    
-    connect( this, 
-             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
-             sched,
-             SLOT(slotTransferStatusChanged(Transfer *,
-             Transfer::TransferStatus)) );
 
     connect( this, 
-             SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
+             SIGNAL(transferChanged(Transfer *)),
              sched,
-             SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)) );
+             SLOT(slotTransferChanged(Transfer *)) );
 
 }
              

@@ -79,7 +79,7 @@ void ViewInterfaceConnector::slotAddedItems( const TransferList& tl )
 
 void ViewInterfaceConnector::slotRemovedItems( const TransferList& tl )
 {
-    //kdDebug() << "slotRemovedItems()" << endl;
+    kdDebug() << "slotRemovedItems()" << endl;
     iface->schedulerRemovedItems( tl );
 }
 

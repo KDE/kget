@@ -130,8 +130,7 @@ public slots:
     virtual void slotSetSegmented(int nSegments) {}
    
 signals:
-    void statusChanged(Transfer *, Transfer::TransferStatus message);    
-    void transferChanged(Transfer *, Transfer::TransferChanges message);
+    void transferChanged(Transfer *);
 
 protected:
     /**

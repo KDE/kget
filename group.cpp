@@ -30,6 +30,11 @@ Group::Group(const QString& name)
 
 Group::Group(QDomNode * n)
 {
+    gInfo.speed=0;
+    gInfo.totalSize=0;
+    gInfo.processedSize=0;
+    gInfo.percent=0;
+    
     read(n);
 }
 
@@ -81,7 +86,7 @@ void Group::about() const
 
 void Group::addTransfer(Transfer * t)
 {
-    sDebugIn << endl;    
+    sDebugIn << "processedSize" << gInfo.processedSize << endl;    
 
     TransferInfoCache ic = updatedInfoCache(t);
     transfersMap[t] = ic;
@@ -99,6 +104,8 @@ void Group::delTransfer(Transfer * t)
     sDebugIn << endl;
     
     TransferInfoCache ic = transfersMap[t];
+    
+    sDebug << "delTransfer" << gInfo.totalSize << ic.totalSize << endl;
     
     gInfo.totalSize-=ic.totalSize;
     gInfo.processedSize-=ic.processedSize;
@@ -344,14 +351,13 @@ void GroupList::slotChangedTransfers(const TransferList& list)
         if(groupsMap.contains(tName))
         {
             Transfer::TransferChanges tc = (*it)->changesFlags(this);
-            kdDebug() << "222 " << tc << endl;
             Group * g = groupsMap[tName];
             
             g->changedTransfer(*it, tc);
             if( (tc & Transfer::Tc_ProcessedSize) 
                 || (tc & Transfer::Tc_TotalSize) )
                 gl.addGroup(*g);
-            
+                
             (*it)->resetChangesFlags(this);
         }
     }
