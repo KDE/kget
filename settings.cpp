@@ -31,6 +31,7 @@
 #include <klocale.h>
 #include <kwin.h>
 #include <kmessagebox.h>
+#include <kglobalsettings.h>
 
 #include <qdir.h>
 
@@ -177,7 +178,7 @@ Settings::load()
     // read misc settings
     config->setGroup("Misc");
 
-    QFont font = kapp->font(kmain->myTransferList);
+    QFont font = KGlobalSettings::generalFont();
 
     listViewFont = config->readFontEntry("Font", &font);
     toolbarPosition = (KToolBar::BarPosition) config->readNumEntry("Toolbar", DEF_ToolbarPosition);
