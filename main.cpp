@@ -148,7 +148,7 @@ public:
         }
 
         else
-            KWin::setActiveWindow (kmainwidget->winId());
+            KWin::activateWindow (kmainwidget->winId());
 
         if (args->isSet("showDropTarget"))
             kmain->activateDropTarget();
