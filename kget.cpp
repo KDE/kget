@@ -79,7 +79,7 @@ KGet::KGet( QWidget * parent, const char * name )
     //TestView * t = new TestView( (QWidget *)browserBar->container() );
      m_rightWidget = m_mainView;
 // 
-//     setCentralWidget(browserBar);
+     setCentralWidget(m_browserBar);
 
     // side panel :: Groups
 //     groupsPanel = new GroupsPanel(0,"groups panel");
