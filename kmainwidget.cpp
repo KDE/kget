@@ -68,6 +68,7 @@
 
 #include "scheduler.h"
 #include "iconview.h"
+#include "testview.h"
 #include "safedelete.h"
 #include "settings.h"
 #include "transfer.h"
@@ -124,16 +125,13 @@ KMainWidget::KMainWidget(bool bStartDocked)
     setupActions();
     setupConnections();
     //setupWhatsThis();
-    setupUserSettings();
-    
-    QWidget * w = new KGetIconView( scheduler );
-    w->resize(400,300);
-    w->show();
-    
-    kdrop = new DropTarget(scheduler);
-    kdock = new DockWidget(this, scheduler);
+
+    //All the widget initializations moved to setupGUI()
 
     setupGUI(bStartDocked);
+
+    //This must be the last one
+    setupUserSettings();
 }
         
 
@@ -412,12 +410,28 @@ void KMainWidget::setupGUI(bool startDocked)
     sDebugIn << endl;
 #endif
 
-    createGUI(0);
+    //IconView
+    QWidget * w = new KGetIconView( scheduler );
+    w->resize(400,300);
+    w->show();
     
+    //TestView
+    TestView * t = new TestView( scheduler );
+    //addWindow(createWrapper(t, "", ""));
+    addWindow(t);
+    t->show();
+    
+    //DropTarget
+    kdrop = new DropTarget(scheduler);
+    
+    //DockWidget    
+    kdock = new DockWidget(this, scheduler);
+    kdock->show();
+
+    //MainWidget    
     if (!startDocked && ksettings.b_showMain)
         show();
-
-    kdock->show();
+    createGUI(0);
    
 
 

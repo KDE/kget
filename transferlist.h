@@ -34,25 +34,6 @@
 class Transfer;
 class Scheduler;
 
-/*class TransferIterator : public QValueListIterator
-{
-
-public:
-
-    TransferIterator() : QValueListIterator()
-    {
-    }
-    Transfer *current() const
-    {
-        //return (Transfer *) QListViewItemIterator::current();
-    }
-    void reset()
-    {
-        //curr = listView->firstChild();
-    }
-
-};
-*/
 
 class TransferList : public QValueList<Transfer *>
 {
