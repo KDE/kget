@@ -13,7 +13,7 @@
 // Description: The SideBar/MultTabBar/BrowserBar all-in-one spectacular!
 //
 
-#include "browserbar.h"
+#include "panelsmanager.h"
 
 #include <qcursor.h>       //for resize cursor
 #include <qobjectlist.h>   //coloredObjects()
@@ -295,4 +295,4 @@ BrowserBar::browser( const QCString &widgetName ) const
     return 0;
 }
 
-#include "browserbar.moc"
+#include "panelsmanager.moc"

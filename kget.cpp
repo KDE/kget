@@ -45,19 +45,18 @@
 #include <knotifyclient.h>
 #include <knotifydialog.h>
 
-#include "kmainwidget.h"
-#include "kmainwidget_actions.h"
-#include "settings.h"
+#include <qtimer.h>
+
+#include "kget.h"
+#include "conf/settings.h"
 #include "conf/preferencesdialog.h"
-#include "scheduler.h"
-#include "docking.h"
-#include "browserbar.h"
-#include "views/iconview.h"
-#include "views/testview.h"
-#include "views/mainview.h"
-#include "views/logwindow.h"
-#include "views/droptarget.h"
-#include "panels/groupspanel.h"
+#include "core/scheduler.h"
+#include "ui/tray.h"
+#include "ui/panelsmanager.h"
+#include "ui/testview.h"
+#include "ui/mainview.h"
+#include "ui/droptarget.h"
+#include "ui/groupspanel.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
@@ -87,10 +86,10 @@ class KXMLGUIBuilderKG : public KXMLGUIBuilder
 
 
 KMainWidget::KMainWidget( QWidget * parent, const char * name )
-    : KGetIface( "KGet-Interface" ),
+    : DCOPIface( "KGet-Interface" ),
     QWidget( parent, name, Qt::WType_TopLevel | Qt::WNoAutoErase ),
     KXMLGUIClient(), ViewInterface( "viewIface-main" ),
-    rightWidget(0), kdrop(0), kdock(0), logWindow(0), mainView(0)
+    rightWidget(0), kdrop(0), kdock(0), mainView(0)
 {
     // create actions
     setupActions();
@@ -111,7 +110,6 @@ KMainWidget::~KMainWidget()
     slotSaveMyself();
     delete kdrop;
     delete kdock;
-    delete logWindow;
     delete scheduler;
     delete mainView;
     // the following call saves options set in above dtors
@@ -143,12 +141,6 @@ void KMainWidget::setupActions()
 #endif
     ta->setChecked( Settings::downloadAtStartup() );
 
-    // following actions are only designed to be show in the toolbar when window is 'compressed'
-    new BandAction(i18n("Band Graph"), 0, ac, "view_bandgraph");
-    new SpacerAction(i18n("<Spacer>"), 0, ac, "view_spacer");
-    new ViewAsAction(i18n("View type: "), 0, ac, "view_vlabel");
-    new ComboAction(i18n("Window shape"), 0, ac, this, "view_mode");
-    
     // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
     KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
@@ -308,7 +300,7 @@ void KMainWidget::slotDelayedInit()
         kdrop->playAnimation();
 
     // DockWidget
-    kdock = new DockWidget(this);
+    kdock = new Tray(this);
     kdock->show();
         
     // scheduler creation 
@@ -435,7 +427,9 @@ void KMainWidget::log(const QString & message, bool sb)
     sDebugIn <<" message= "<< message << endl;
 #endif
 
-    logWindow->logGeneral(message);
+    //The logWindow has been removed. Maybe we could implement 
+    //a new one. The old one was used as follows:
+    //logWindow->logGeneral(message);
 
     if (sb) {
         statusBar->message(message, 1000);
@@ -762,7 +756,7 @@ bool KMainWidget::isOfflineMode() const
     return scheduler->isRunning();
 }
 
-#include "kmainwidget.moc"
+#include "kget.moc"
 
 //BEGIN auto-disconnection 
 /*

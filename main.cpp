@@ -36,9 +36,10 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "kmainwidget.h"
-#include "splash.h"
+
 #include "conf/settings.h"
+#include "ui/splash.h"
+#include "kget.h"
 
 static const char description[] = I18N_NOOP("An advanced download manager for KDE.");
 

@@ -15,7 +15,7 @@
 #include <klistview.h>
 #include <qmap.h>
 
-#include "viewinterface.h"
+#include "core/viewinterface.h"
 
 class Transfer;
 class MainView;

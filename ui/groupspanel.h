@@ -12,7 +12,7 @@
 #ifndef _GROUPS_PANEL_H
 #define _GROUPS_PANEL_H
 
-#include "../viewinterface.h"
+#include "core/viewinterface.h"
 
 #include <qwidget.h>
 #include <qmap.h>

@@ -20,8 +20,8 @@
 #include <klistview.h>
 #include <kmdichildview.h>
 
-#include "viewinterface.h"
-#include "transfer.h"
+#include "core/viewinterface.h"
+#include "core/transfer.h"
 
 /**
  * This class are only to test the scheduler functions

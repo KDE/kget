@@ -12,7 +12,7 @@
 #ifndef _TRANSFER_KIO_H
 #define _TRANSFER_KIO_H
 
-#include "transfer.h"
+#include "core/transfer.h"
 
 #include <kio/job.h>
 

@@ -24,7 +24,7 @@
 #endif
 
 #include "connection.h"
-#include "settings.h"
+#include "conf/settings.h"
 
 QString ConnectionDevices[6] = {
     "",

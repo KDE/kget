@@ -25,19 +25,20 @@
  ***************************************************************************/
 
 
-#ifndef DOCKINDIVIDUAL_H
-#define DOCKINDIVIDUAL_H
+#ifndef _TRAYTRANSFER_H
+#define _TRAYTRANSFER_H
 
 #include <ksystemtray.h>
-#include "globals.h"
+
+#include "core/globals.h"
 
 class KPopupMenu;
 
-class DockIndividual : public KSystemTray  {
+class TrayTransfer : public KSystemTray  {
     Q_OBJECT
 public:
-    DockIndividual(QWidget *parent=0, const char *name=0);
-    ~DockIndividual();
+    TrayTransfer(QWidget *parent=0, const char *name=0);
+    ~TrayTransfer();
     int nPic;
     void setTip(const QString &);
     void setValue(int value);

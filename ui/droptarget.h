@@ -30,7 +30,7 @@
 #include <qwidget.h>
 #include <qdragobject.h>
 
-#include "viewinterface.h"
+#include "core/viewinterface.h"
 
 class KPopupMenu;
 class KMainWidget;

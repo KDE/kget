@@ -28,20 +28,21 @@
 
 #include <kpopupmenu.h>
 
-#include "dockindividual.h"
-DockIndividual::DockIndividual(QWidget *parent, const char *name ) : KSystemTray(parent,name)
+#include "traytransfer.h"
+
+TrayTransfer::TrayTransfer(QWidget *parent, const char *name ) : KSystemTray(parent,name)
 {
     nPic=0;
     setPixmap( loadIcon("bar0") );
 }
 
-DockIndividual::~DockIndividual()
+TrayTransfer::~TrayTransfer()
 {
     QToolTip::remove(this);
 }
 
 
-void DockIndividual::setValue(int value){
+void TrayTransfer::setValue(int value){
 #ifdef _DEBUG
     //sDebugIn<<" value ="<<value<<endl;
 #endif
@@ -77,7 +78,7 @@ void DockIndividual::setValue(int value){
 
 
 
-void DockIndividual::setTip(const QString & _tip)
+void TrayTransfer::setTip(const QString & _tip)
 {
 #ifdef _DEBUG
     //sDebugIn<<"_tip="<<_tip<<endl;
@@ -91,9 +92,10 @@ void DockIndividual::setTip(const QString & _tip)
 #endif
 }
 
-#include "dockindividual.moc"
 /** No descriptions */
-void DockIndividual::contextMenuAboutToShow ( KPopupMenu* menu )
+void TrayTransfer::contextMenuAboutToShow ( KPopupMenu* menu )
 {
     menu->removeItemAt (3);
 }
+
+#include "traytransfer.moc"

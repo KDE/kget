@@ -26,13 +26,14 @@
 #include <kinputdialog.h>
 #include <knotifyclient.h>
 
-#include "transferKio.h"
 #include "scheduler.h"
 #include "group.h"
 #include "connection.h"
 #include "safedelete.h"
-#include "settings.h"
-#include "kmainwidget.h"
+
+#include "conf/settings.h"
+#include "transfers/kio/transferKio.h"
+#include "kget.h"
 
 Scheduler::Scheduler(KMainWidget * _mainWidget)
     : QObject(), mainWidget(_mainWidget),

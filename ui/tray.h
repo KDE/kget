@@ -24,13 +24,13 @@
  *
  ***************************************************************************/
 
-#ifndef _DOCKING_H_
-#define _DOCKING_H_
+#ifndef _TRAY_H
+#define _TRAY_H
 
 #include <qdragobject.h>
 #include <ksystemtray.h>
 
-#include "viewinterface.h"
+#include "core/viewinterface.h"
 
 class KPopupMenu;
 class KMainWidget;
@@ -46,12 +46,12 @@ class QPixmap;
   * @short KGet's system tray widget.
   **/
 
-class DockWidget:public KSystemTray, public ViewInterface
+class Tray : public KSystemTray, public ViewInterface
 {
 Q_OBJECT
 public:
-    DockWidget( KMainWidget * parent );
-    ~DockWidget();
+    Tray( KMainWidget * parent );
+    ~Tray();
     
     void setDownloading( bool );
 

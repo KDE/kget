@@ -11,12 +11,12 @@
 #include <dcopobject.h>
 #include <kurl.h>
 
-class KGetIface : public DCOPObject
+class DCOPIface : public DCOPObject
 {
     K_DCOP
 
 protected:
-    KGetIface( QCString objId ) : DCOPObject( objId ) {}
+    DCOPIface( QCString objId ) : DCOPObject( objId ) {}
 
 k_dcop:
     /**

@@ -24,8 +24,8 @@
 #include <kimageeffect.h>
 
 #include "mainview.h"
-#include "transferlist.h"
-#include "transfer.h"
+#include "core/transferlist.h"
+#include "core/transfer.h"
 
 MainViewGroupItem::MainViewGroupItem(MainView * parent, Group * g)
     : QListViewItem(parent),

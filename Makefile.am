@@ -1,22 +1,13 @@
-SUBDIRS = conf views panels . pics icons sounds kget_plug_in
+SUBDIRS = conf core transfers ui sounds .
 INCLUDES = $(all_includes) -Iconf
 
 bin_PROGRAMS = kget
 
 kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lkmdi conf/libconf.la views/libviews.la panels/libpanels.la
-kget_SOURCES = transfer.cpp transferlist.cpp group.cpp transferKio.cpp \
-               kfileio.cpp \
-               scheduler.cpp connection.cpp safedelete.cpp \
-               viewinterface.cpp docking.cpp splash.cpp \
-               browserbar.cpp kmainwidget.cpp kmainwidget_actions.cpp \
-               main.cpp kget_iface.skel
+kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) conf/libconf.la core/libcore.la ui/libui.la transfers/kio/libtkio.la
+kget_SOURCES = kget.cpp main.cpp
 
-noinst_HEADERS = transferlist.h transfer.h group.h slave.h kfileio.h \
-                 scheduler.h connection.h safedelete.h  \
-                 viewinterface.h viewinterface_p.h kmainwidget.h \
-                 kmainwidget_actions.h docking.h \
-                 splash.h globals.h
+noinst_HEADERS = kget.h
 
 kget_METASOURCES = AUTO
 
@@ -28,7 +19,7 @@ mime_DATA = x-kgetlist.desktop
 EXTRA_DIST = kget.desktop $(mime_DATA)
 
 stuffdir = $(kde_datadir)/kget
-stuff_DATA = kgetui.rc eventsrc
+stuff_DATA = kget.rc sounds/eventsrc
 
 KDE_ICON = AUTO
 

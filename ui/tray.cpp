@@ -36,14 +36,14 @@
 #include <qtooltip.h>
 #include <qtimer.h>
 
-#include "docking.h"
-#include "kmainwidget.h"
+#include "tray.h"
+#include "kget.h"
 
-/** class DockWidget
+/** class Tray
   * Reimplmentation of the system tray class adding drag/drop
   * capabilities and the quit action.
   */
-DockWidget::DockWidget(KMainWidget * parent)
+Tray::Tray(KMainWidget * parent)
     : KSystemTray(parent), 
       ViewInterface(), 
       blinkTimer( 0 ),
@@ -70,20 +70,20 @@ DockWidget::DockWidget(KMainWidget * parent)
 }
 
 // dtor: delete internal classes
-DockWidget::~DockWidget()
+Tray::~Tray()
 {
     delete blinkTimer;
 }
 
 // test if dropped thing can be handled (must be an URLlist or a QString)
-void DockWidget::dragEnterEvent(QDragEnterEvent * event)
+void Tray::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event)
                   || QTextDrag::canDecode(event));
 }
 
 // decode the dropped element asking scheduler to download that
-void DockWidget::dropEvent(QDropEvent * event)
+void Tray::dropEvent(QDropEvent * event)
 {
     KURL::List list;
     QString str;
@@ -95,7 +95,7 @@ void DockWidget::dropEvent(QDropEvent * event)
 }
 
 // filter middle mouse clicks to ask scheduler to paste URL
-void DockWidget::mousePressEvent(QMouseEvent * e)
+void Tray::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == MidButton)
         schedRequestOperation( OpPasteTransfer );
@@ -104,13 +104,13 @@ void DockWidget::mousePressEvent(QMouseEvent * e)
 }
 
 // connect the 4th menu entry ("quit") to QApplication::quit()
-void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
+void Tray::contextMenuAboutToShow ( KPopupMenu* menu )
 {
     menu->connectItem( menu->idAt(5), kapp, SLOT(quit()));
 }
 
 // display blinking icon when downloading
-void DockWidget::setDownloading( bool running )
+void Tray::setDownloading( bool running )
 {
     if(!blinkTimer)
     {
@@ -135,7 +135,7 @@ void DockWidget::setDownloading( bool running )
 }
 
 // slot executed every 1s: toggle icon pixmap
-void DockWidget::slotTimeout()
+void Tray::slotTimeout()
 {
     if ( overlay == playOverlay )
     {
@@ -151,7 +151,7 @@ void DockWidget::slotTimeout()
     }
 }
 
-void DockWidget::paintIcon( int mergePixels, bool force )
+void Tray::paintIcon( int mergePixels, bool force )
 {
     // skip redrawing the same pixmap
     static int mergePixelsCache = 0;
@@ -196,7 +196,7 @@ void DockWidget::paintIcon( int mergePixels, bool force )
     blendOverlay( &tmpTrayPixmap );
 }
 
-void DockWidget::blendOverlay( QPixmap * sourcePixmap )
+void Tray::blendOverlay( QPixmap * sourcePixmap )
 {
     if ( !overlayVisible || !overlay || overlay->isNull() )
         return setPixmap( *sourcePixmap ); // @since 3.2
@@ -226,4 +226,4 @@ void DockWidget::blendOverlay( QPixmap * sourcePixmap )
     setPixmap( sourcePixmapCopy ); // @since 3.2
 }
 
-#include "docking.moc"
+#include "tray.moc"

@@ -13,7 +13,7 @@
 #include <kdebug.h>
 
 #include "transferKio.h"
-#include "globals.h"
+#include "core/globals.h"
 
 #include "transferKio.moc"
 

@@ -43,8 +43,8 @@
 #include <qtimer.h>
 #include <qapplication.h>
 
-#include "settings.h"
-#include "kmainwidget.h"
+#include "conf/settings.h"
+#include "kget.h"
 #include "droptarget.h"
 
 #define TARGET_WIDTH   68

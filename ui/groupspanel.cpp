@@ -21,9 +21,9 @@
 #include <qpainter.h>
 
 #include "groupspanel.h"
-#include "../group.h"
 
-#include "../scheduler.h"
+#include "core/group.h"
+#include "core/scheduler.h"
 
 GroupItem::GroupItem(KListView * parent, Group * g)
     : QListViewItem(parent),

@@ -11,11 +11,11 @@
 #include <qsizepolicy.h>
 #include <qstring.h>
 
-#include "globals.h"
+#include "core/globals.h"
 
 #include "testview.h"
-#include "transfer.h"
-#include "transferlist.h"
+#include "core/transfer.h"
+#include "core/transferlist.h"
 
 TestViewItem::TestViewItem( KListView * parent, Transfer * _transfer )
     : KListViewItem(parent),

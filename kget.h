@@ -31,9 +31,9 @@
 #include <kxmlguiclient.h>
 #include <kaction.h>
 
-#include "kget_iface.h"
-#include "viewinterface.h"
-#include "globals.h"
+#include "dcopiface.h"
+#include "core/viewinterface.h"
+#include "core/globals.h"
 
 class KURL;
 class KURL::List;
@@ -41,7 +41,7 @@ class KURL::List;
 
 /** The main window of KGet2. Can be collapsed or expanded. */
 
-class KMainWidget : public QWidget, public KXMLGUIClient, public ViewInterface, virtual public KGetIface
+class KMainWidget : public QWidget, public KXMLGUIClient, public ViewInterface, virtual public DCOPIface
 {
 Q_OBJECT
 public:
@@ -116,11 +116,10 @@ private:
     class QLabel      * helpPanel;
     class QWidget     * rightWidget;
     class MainView    * mainView;
-    
+
     // separated widgets
     class DropTarget * kdrop;
-    class DockWidget * kdock;
-    class LogWindow  * logWindow;
+    class Tray       * kdock;
 };
 
 #endif

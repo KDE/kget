@@ -21,10 +21,10 @@
 #include <qfile.h>
 #include <qtextstream.h>
 
-#include "transfer.h"
-#include "transferKio.h"
-#include "transferlist.h"
 #include "scheduler.h"
+#include "transfer.h"
+#include "transferlist.h"
+#include "transfers/kio/transferKio.h"
 
 TransferList::TransferList()
     : QValueList<Transfer *>()
