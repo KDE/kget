@@ -150,7 +150,7 @@ void DlgSystem::testSound()
     //   KAudioPlayer::play(soundFile);
     //   KAudioPlayer::play( "/home/pch/pop.wav");
 
-    if (KIO::NetAccess::download(soundFile, tmpFile))
+    if (KIO::NetAccess::download(KURL( soundFile ), tmpFile))
     {
         sDebug << "Temp file to play is " << tmpFile << endl;
         KAudioPlayer::play(tmpFile);
@@ -189,13 +189,13 @@ void DlgSystem::applyData()
 
     QString tmpFile;
 
-    if (KIO::NetAccess::download(soundAdded, tmpFile))
+    if (KIO::NetAccess::download(KURL( soundAdded ), tmpFile ))
         ksettings.audioAdded = tmpFile;
-    if (KIO::NetAccess::download(soundStarted, tmpFile))
+    if (KIO::NetAccess::download(KURL( soundStarted ), tmpFile))
         ksettings.audioStarted = tmpFile;
-    if (KIO::NetAccess::download(soundFinished, tmpFile))
+    if (KIO::NetAccess::download(KURL( soundFinished ), tmpFile))
         ksettings.audioFinished = tmpFile;
-    if (KIO::NetAccess::download(soundFinishedAll, tmpFile))
+    if (KIO::NetAccess::download(KURL( soundFinishedAll ), tmpFile))
         ksettings.audioFinishedAll = tmpFile;
 
     if (cb_useAnimation->isChecked() != ksettings.b_useAnimation)

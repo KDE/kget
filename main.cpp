@@ -159,7 +159,7 @@ public:
 #endif
             QString txt(args->arg(0));
             if ( txt.endsWith( ".kgt" ) )
-                kmain->readTransfersEx(txt);
+                kmain->readTransfersEx(KURL::fromPathOrURL( txt ));
             else
                 kmain->addTransferEx( KURL::fromPathOrURL( txt ),
                                       KURL());
