@@ -26,6 +26,7 @@
 
 
 #include <kapplication.h>
+#include <kio/scheduler.h>
 
 #include "getfilejob.h"
 #include "slave.h"
@@ -110,6 +111,7 @@ void Slave::run()
             // fall through
         case RETR:
             mDebug << " FETCHED COMMAND       RETR" << endl;
+            KIO::Scheduler::checkSlaveOnHold( true );
             copyjob = new KIO::GetFileJob(m_src, m_dest);
             copyjob->setAutoErrorHandlingEnabled(true);
             Connect();
