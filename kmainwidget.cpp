@@ -2023,6 +2023,13 @@ void KMainWidget::slotUpdateActions()
                     sDebug << "STATUS IS  stopped" << item->getStatus() << endl;
 #endif
                     break;
+                case Transfer::ST_FINISHED:
+                    m_paResume->setEnabled(false);
+                    m_paPause->setEnabled(false);
+                    m_paRestart->setEnabled(false);
+                    break;
+
+                
                 }               //end switch
 
             } else if (item->getStatus() != first_item->getStatus()) {

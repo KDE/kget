@@ -34,8 +34,8 @@
 #include "settings.h"
 #include "docking.h"
 
-#define ICONWIDTH 24
-#define ICONHEIGHT 24
+#define DOCK_ICONWIDTH 24
+#define DOCK_ICONHEIGHT 24
 
 
 DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
@@ -46,15 +46,15 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
         tmppix->load(locate("appdata", "pics/dock.png"));
 
-        handpix1 = new QPixmap(ICONWIDTH, ICONHEIGHT);
+        handpix1 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
         handpix1->fill(backgroundColor());
         bitBlt(handpix1, 0, 0, tmppix);
 
-        handpix2 = new QPixmap(ICONWIDTH, ICONHEIGHT);
+        handpix2 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
         handpix2->fill(backgroundColor());
         bitBlt(handpix2, 0, 0, tmppix);
 
-        handpix3 = new QPixmap(ICONWIDTH, ICONHEIGHT);
+        handpix3 = new QPixmap(DOCK_ICONWIDTH, DOCK_ICONHEIGHT);
         handpix3->fill(backgroundColor());
         bitBlt(handpix3, 0, 0, tmppix);
 
@@ -107,7 +107,7 @@ DockWidget::setAnim(int i1, int i2, int i3, bool online)
                         p.setPen(white);
                         for (int i = 0; i < 3; i++) {
                                 if (size[i] != 0) {
-                                        int pixels = (int) (ICONWIDTH * (float) size[i] / 100.0);
+                                        int pixels = (int) (DOCK_ICONWIDTH * (float) size[i] / 100.0);
 
                                         p.fillRect(1, i * 8, pixels, 7, blue);
                                 }

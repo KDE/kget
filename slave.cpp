@@ -27,13 +27,7 @@
 
 
 #include "slave.h"
-#include "common.h"
 
-#include <sys/types.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <string.h>             /* needed by HPUX for memset in FD_ZERO macro */
-#include <kio/job.h>
 
 Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
 {
@@ -273,3 +267,6 @@ void Slave::slotInfoMessage(KIO::Job *, const QString & _msg)
         InfoMessage(_msg);
         mDebugOut << endl;
 }
+
+
+#include "slave.moc"

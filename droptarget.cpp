@@ -45,10 +45,6 @@
 #define TARGET_WIDTH   70
 #define TARGET_HEIGHT  69
 
-#undef  ICONWIDTH
-#undef  ICONHEIGHT
-#define ICONWIDTH      90
-#define ICONHEIGHT    89
 
 DropTarget::DropTarget():QWidget()
 {
@@ -74,10 +70,7 @@ DropTarget::DropTarget():QWidget()
 
     p2.begin(&mask);
     p2.setBrush(color1);
-    //p2.drawRoundRect(0, 0, 60, 60, 40, 40);
-    // p2.drawEllipse( 0, 0, 60, 60 );
-
-      p2.drawChord( 0, 0,70,69,5760,5760);
+    p2.drawChord( 0, 0,TARGET_WIDTH,TARGET_HEIGHT,5760,5760);
     p2.end();
 
     // setup pixmaps
@@ -209,6 +202,9 @@ void DropTarget::setAnim(int i1, int i2, int i3, int i4, bool online)
     size[1] = i2;
     size[2] = i3;
     size[3] = i4;
+
+    //just to avoid compiler warning
+    online=online;
 /*
     if (isVisible())
     {

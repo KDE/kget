@@ -16,7 +16,10 @@
  ***************************************************************************/
 
 #include "getfilejob.h"
-using namespace KIO;
+
+namespace KIO
+{
+
 
 GetFileJob::GetFileJob(const KURL & m_src, const KURL & m_dest):FileCopyJob(m_src, m_dest,644, false, false, false, false)
 {}
@@ -24,8 +27,11 @@ GetFileJob::GetFileJob(const KURL & m_src, const KURL & m_dest):FileCopyJob(m_sr
 GetFileJob::~GetFileJob()
 {}
 
-/** No descriptions */
+/** Return true if the file has been resumed */
 bool GetFileJob::getCanResume()
 {
-        return m_canResume;
+    return m_canResume;
+}
+
+
 }

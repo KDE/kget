@@ -45,7 +45,6 @@
 #include <kio/passdlg.h>
 #include <kio/global.h>
 
-//#include "main.h"
 
 extern Settings ksettings;
 
@@ -739,7 +738,6 @@ void Transfer::write(KSimpleConfig * config, int id)
 
 
 
-#include "transfer.moc"
 
 /** No descriptions */
 void Transfer::slotExecPause()
@@ -895,3 +893,15 @@ bool Transfer::isVisible()
 {
         return dlgIndividual->isVisible();
 }
+
+
+
+
+
+
+
+
+
+
+#include "transfer.moc"
+

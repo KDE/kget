@@ -26,22 +26,20 @@
 
 #ifndef SLAVE_H
 #define SLAVE_H
-#include <kio/job.h>
+
+#include <kapplication.h>
 #include <qthread.h>
 #include <kurl.h>
-#include <kapplication.h>
-#include <qfile.h>
-#include "slaveevent.h"
-
-#include "common.h"
-#include <assert.h>
 #include <klocale.h>
 #include <qvaluestack.h>
 #include <qwaitcondition.h>
 #include <qmutex.h>
 #include <qobject.h>
+
+#include "common.h"
 #include "getfilejob.h"
-class Transfer;
+#include "slaveevent.h"
+
 
 class Slave:public QObject, public QThread
 {

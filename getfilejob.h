@@ -20,18 +20,17 @@
 
 #include <kio/jobclasses.h>
 
-/**
-  *@author Patrick Charbonnier
-  */
+
 namespace KIO
 {
 
 class GetFileJob:public FileCopyJob
 {
-Q_OBJECT public:
-        GetFileJob(const KURL & m_src, const KURL & m_dest);
-        ~GetFileJob();
-        bool getCanResume();
+public:
+    GetFileJob(const KURL & m_src, const KURL & m_dest);
+    ~GetFileJob();
+    bool getCanResume();
 };
 }
+
 #endif

@@ -221,7 +221,7 @@ private:
         TransferMode mode;
 
         // how many times have we retried already
-        int retryCount;
+        unsigned int retryCount;
 
         bool canResume;
 
