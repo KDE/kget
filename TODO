@@ -1,0 +1,20 @@
+CHECK: Log windows
+CHECK: Make install
+ADD:     Maximun number of retr
+ADD:  i18n
+ADD:Log info (loggin..checking resume...error)
+ADD: enable Time Out settings if not recv data
+CHECK: Use last directory mode
+CHECK: if resume is not supported on both ftp/http
+CHECK: Error Reporting
+CHECK: size not supported
+CHECK: file not found
+CHECK: directory not found
+REMOVE: remove search...
+CHECK: sound
+CHECK: animation
+CHECK: directory preference....
+CHECK: online...
+CHECK: pppd
+CHECK: icons
+CHECK: Image links

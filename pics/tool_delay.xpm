@@ -1,0 +1,24 @@
+/* XPM */
+static char *tool_delay[] = {
+/* columns rows colors chars-per-pixel */
+"16 14 4 1",
+"  c Gray0",
+". c Gray50",
+"X c Blue",
+"o c None",
+/* pixels */
+"oooooooooooooooo",
+"oooooooooooXoooo",
+"oooXX.ooooXXXooo",
+"ooooXX.ooXXXXXoo",
+"oooooXXXXXXX  oo",
+"ooooooXXXXX oooo",
+"ooooooXXXX ooooo",
+"oooooXXXXXXooooo",
+"oooooXX oXXXoooo",
+"ooooXX oooXXXooo",
+"ooooX oooooXX.oo",
+"oooX oooooooX oo",
+"ooo ooooooooo oo",
+"oooooooooooooooo"
+};

@@ -1,0 +1,12 @@
+# KDE Config File  
+[Desktop Entry]
+Type=Application
+Exec=kget -caption "%c" %i %m  
+Icon=kget.png
+MiniIcon=kget.png
+DocPath=kget/index.html
+Comment=
+Comment[de]=
+Terminal=0
+Name=KGet
+Name[de]=KGet

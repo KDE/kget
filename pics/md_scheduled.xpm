@@ -1,0 +1,23 @@
+/* XPM */
+static char*md_scheduled[]={
+"20 14 6 1",
+"b c #000000",
+"d c #ffff00",
+". c None",
+"a c #f71042",
+"# c #847b7b",
+"c c #ffffff",
+"....................",
+"....................",
+"....................",
+"......######........",
+".....#aaaaaa#.bbb...",
+"...##aaaaaaaabcccb..",
+"..#ddaaaaaaabccbccb.",
+".#dbbaaaaaabcccbcccb",
+".#db.#aaaaabccbbcccb",
+"#db...#####bcccbbccb",
+"#db.........bcccccb.",
+"#db..........bcccb..",
+"..............bbb...",
+"...................."};
