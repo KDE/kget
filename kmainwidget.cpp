@@ -1178,6 +1178,10 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
                         destFile = destURL;
                     }
                 }
+                else 
+                {
+                  destFile = destURL;
+                }
             }
         }
 
