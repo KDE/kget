@@ -66,7 +66,6 @@ Settings::load()
     audioFinished = config->readEntry("Finished", locate("data", DEF_SoundFinished));
     audioFinishedAll = config->readEntry("FinishedAll", locate("data", DEF_SoundFinishedAll));
     b_useAnimation = config->readBoolEntry("UseAnimation", DEF_UseAnimation);
-    windowStyle = config->readNumEntry("WindowStyle", DEF_WindowStyle);
 
 
     // read connection options
@@ -112,6 +111,7 @@ Settings::load()
     config->setGroup("Advanced");
 
     b_addQueued = config->readBoolEntry("AddQueued", DEF_AddQueued);
+    b_showMain  = config->readBoolEntry("ShowMain", DEF_ShowMain);
     b_showIndividual = config->readBoolEntry("ShowIndividual", DEF_ShowIndividual);
     b_iconifyIndividual = config->readBoolEntry("IconifyIndividual", DEF_IconifyIndividual);
     b_advancedIndividual = config->readBoolEntry("AdvancedIndividual", DEF_AdvancedIndividual);
@@ -237,6 +237,7 @@ void Settings::save()
 
     // write advanced options
     config->setGroup("Advanced");
+    config->writeEntry("ShowMain", b_showMain);
     config->writeEntry("AddQueued", b_addQueued);
     config->writeEntry("ShowIndividual", b_showIndividual);
     config->writeEntry("IconifyIndividual", b_iconifyIndividual);
@@ -274,8 +275,6 @@ void Settings::save()
     config->writeEntry("FinishedAll", audioFinishedAll);
 
     config->writeEntry("UseAnimation", b_useAnimation);
-
-    config->writeEntry("WindowStyle", windowStyle);
 
     // write misc options
     config->setGroup("Misc");

@@ -52,7 +52,8 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     gridLayout->setRowStretch(4, 5);
     gridLayout->setRowStretch(5, 5);
     gridLayout->setRowStretch(6, 5);
-
+    gridLayout->setRowStretch(7, 5);
+    
     gridLayout->setColStretch(0, 5);
     gridLayout->setColStretch(1, 5);
     gridLayout->setColStretch(2, 5);
@@ -101,6 +102,11 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
 
     cb_konqiIntegration= new QCheckBox(i18n("Enable  the integration with konqueror"), this);
     gridLayout->addMultiCellWidget(cb_konqiIntegration, 7, 7, 0, 2);
+
+    cb_ShowMain = new QCheckBox(i18n("Show main window at startup"), this);
+    gridLayout->addMultiCellWidget(cb_ShowMain, 8, 8, 0, 2);
+
+
 }
 
 
@@ -124,6 +130,7 @@ DlgAdvanced::setData()
     cb_expertmode->setChecked(ksettings.b_expertMode);
     cb_partial->setChecked(KProtocolManager::markPartial());
     cb_konqiIntegration->setChecked(ksettings.b_KonquerorIntegration);
+    cb_ShowMain->setChecked(ksettings.b_showMain);
 }
 
 
@@ -136,7 +143,8 @@ void DlgAdvanced::applyData()
     ksettings.b_advancedIndividual = cb_advanced->isChecked();
     ksettings.b_removeOnSuccess = cb_remove->isChecked();
     ksettings.b_getSizes = cb_getsizes->isChecked();
-
+    ksettings.b_showMain=cb_ShowMain->isChecked();
+    
     if (ksettings.b_expertMode != cb_expertmode->isChecked()) {
         kmain->slotToggleExpertMode();
     }

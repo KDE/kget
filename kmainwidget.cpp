@@ -111,6 +111,8 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
     sDebugIn << endl;
 #endif
 
+
+
     KConfig *cfg = new KConfig("kioslaverc", false, false);
     cfg->setGroup(QString::null);
     cfg->writeEntry(i18n("AutoResume"), true);
@@ -208,7 +210,6 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
     kdrop = new DropTarget();
     kdock = new DockWidget(this);
 
-
     //      kroot= new KRootPixmap(kdrop);
     //      kroot->start();
     // Set geometry
@@ -246,6 +247,8 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
     m_paShowLog->setChecked(b_viewLogWindow);
+
+/*        
     if (bStartDocked)
         ksettings.windowStyle = DOCKED;
     switch (ksettings.windowStyle) {
@@ -262,8 +265,12 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
     }
     setWindowStyle();
 
+*/
 
+   if (!bStartDocked && ksettings.b_showMain)
+             show();
 
+       kdock->show();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -397,15 +404,8 @@ void KMainWidget::setupGUI()
 
     m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), actionCollection(), "show_statusbar");
 
-    m_paShowLog       = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
-
-    m_paDropTarget    = new KRadioAction(i18n("Drop &Target"),"tool_drop_target.png", 0, this, SLOT(slotDropTarget()), actionCollection(), "drop_target");
-    m_paDockWindow    = new KRadioAction(i18n("&Dock Window"), "tool_dock.png", 0, this, SLOT(slotDock()), actionCollection(), "dock_window");
-    m_paNormal        = new KRadioAction(i18n("&Normal"), "tool_normal.png", 0, this, SLOT(slotNormal()), actionCollection(), "normal");
-
-    m_paDropTarget->setExclusiveGroup("WindowMode");
-    m_paDockWindow->setExclusiveGroup("WindowMode");
-    m_paNormal    ->setExclusiveGroup("WindowMode");
+     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
+     m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target.png", 0, this, SLOT(slotToggleDropTarget()), actionCollection(), "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
     KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), actionCollection(), "whats_this");
@@ -530,7 +530,7 @@ void KMainWidget::setupWhatsThis()
 
     tmp17 = i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window.");
     m_paDropTarget->setWhatsThis(tmp17);
-
+/*
     QString tmp18;
 
     tmp18 = i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget.");
@@ -540,7 +540,7 @@ void KMainWidget::setupWhatsThis()
 
     tmp19 = i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window");
     m_paNormal->setWhatsThis(tmp19);
-
+  */
 
 
 #ifdef _DEBUG
@@ -1262,36 +1262,6 @@ void KMainWidget::slotAnimTimeout()
     if (this->isVisible()) {
         updateStatusBar();
     }
-    // update dock widget or drop target
-    if (ksettings.windowStyle == DOCKED || ksettings.windowStyle == DROP_TARGET) {
-        int count = 0;
-        int progindex[4];
-
-        for (int i = 0; i < 4; i++) {
-            progindex[i] = 0;
-        }
-
-        if (isTransfer) {
-            TransferIterator it(myTransferList);
-            Transfer *item;
-
-            while (count < 4 && it.current()) {
-                item = it.current();
-                if ((item->getStatus() == Transfer::ST_RUNNING) && item->getMode() == Transfer::MD_QUEUED) {
-                    progindex[count] = item->getPercent();
-                    count++;
-                }
-                it++;
-            }
-
-            if (progindex[0] == 0) {    // this is a hack, so that dock widget and drop target show
-                progindex[0]++; // transfer in progress, even if percent is = 0
-            }
-        }
-
-    }
-
-
 #ifdef _DEBUG
     //sDebugOut << endl;
 #endif
@@ -1529,30 +1499,13 @@ void KMainWidget::slotOpenIndividual()
 #endif
 }
 
-void KMainWidget::hideEvent(QHideEvent * _hev)
+void KMainWidget::closeEvent(QCloseEvent *_event)
 {
 #ifdef _DEBUG
-    sDebugIn << endl;
+    sDebugIn<<"type="<<_event->type() << endl;
 #endif
 
-    _hev = _hev;
-    if (ksettings.windowStyle != NORMAL)
-        hide();
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-
-}
-
-void KMainWidget::closeEvent(QCloseEvent *)
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    slotQuit();
+      hide();
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1821,57 +1774,20 @@ void KMainWidget::slotToggleAutoPaste()
 #endif
 }
 
-void KMainWidget::slotDock()
+
+void KMainWidget::slotToggleDropTarget()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    if (ksettings.windowStyle == DOCKED) {
-        ksettings.windowStyle = NORMAL;
-    } else {
-        ksettings.windowStyle = DOCKED;
-    }
-    setWindowStyle();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
+    if (m_paDropTarget->isChecked())
+        kdrop->show();
+    else
+        kdrop->hide();
 
 
-void KMainWidget::slotDropTarget()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    if (ksettings.windowStyle == DROP_TARGET) {
-        ksettings.windowStyle = NORMAL;
-    } else {
-        ksettings.windowStyle = DROP_TARGET;
-    }
-    setWindowStyle();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void KMainWidget::slotNormal()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    if (ksettings.windowStyle == NORMAL) {
-        ksettings.windowStyle = DROP_TARGET;
-    } else {
-        ksettings.windowStyle = NORMAL;
-    }
-    setWindowStyle();
-
-
+     
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -1916,39 +1832,6 @@ void KMainWidget::setListFont()
     sDebugOut << endl;
 #endif
 }
-
-
-void KMainWidget::setWindowStyle()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    switch (ksettings.windowStyle) {
-    case NORMAL:
-        this->show();
-        kdock->hide();
-        kdrop->hide();
-        break;
-
-    case DOCKED:
-        kdock->show();
-        this->hide();
-        kdrop->hide();
-        break;
-
-    case DROP_TARGET:
-        this->hide();
-        kdock->hide();
-        kdrop->show();
-        break;
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
 
 void KMainWidget::slotUpdateActions()
 {

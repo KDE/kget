@@ -31,8 +31,6 @@
         <Action name="show_statusbar"/>
         <Action name="toggle_log"/>
         <Separator/>
-	<Action name="normal"/>
-        <Action name="dock_window"/>
         <Action name="drop_target"/>
     </Menu>
     <Menu name="options"><text>&amp;Options</text>
@@ -46,6 +44,9 @@
         <Action name="auto_disconnect"/>
         <Action name="auto_shutdown"/>
         <Action name="auto_paste"/>
+        <Separator/>
+        <Action name="drop_target"/>
+
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
     </Menu>
@@ -70,10 +71,8 @@
     <Action name="offline_mode"/>
     <Action name="auto_paste"/>
     <Separator/>
-    <Action name="normal"/>
-    <Action name="dock_window"/>
     <Action name="drop_target"/>
-    <Separator/>
+     <Separator/>
     <Action name="whats_this"/>
 </ToolBar>
 </kpartgui>

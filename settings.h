@@ -33,7 +33,6 @@ enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 
 extern QString ConnectionDevices[];
 
-enum WindowStyle { NORMAL, DOCKED, DROP_TARGET };
 
 // Connection settings
 #define DEF_ReconnectOnError    true
@@ -64,6 +63,7 @@ enum WindowStyle { NORMAL, DOCKED, DROP_TARGET };
 
 // Advanced settings
 #define DEF_AddQueued           true
+#define DEF_ShowMain            false
 #define DEF_ShowIndividual      false
 #define DEF_IconifyIndividual   false
 #define DEF_AdvancedIndividual  false
@@ -164,6 +164,7 @@ public:
     bool b_getSizes;
     bool b_expertMode;
     bool b_KonquerorIntegration;
+    bool b_showMain;
     // search options
     bool b_searchFastest;
     uint searchItems;
@@ -186,8 +187,7 @@ public:
     bool b_useAnimation;
     QFont listViewFont;
 
-    uint windowStyle;
-
+    
     KToolBar::BarPosition toolbarPosition;
     bool b_showStatusbar;
 

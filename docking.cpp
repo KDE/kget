@@ -68,9 +68,10 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
         // popup menu for right mouse button
         KPopupMenu *popupMenu = contextMenu();
-
+    
         popupMenu->insertItem(i18n("Preferences"), parent, SLOT(slotPreferences()));
 
+    
         // Enable dropping
         setAcceptDrops(true);
 
@@ -114,6 +115,13 @@ void DockWidget::mousePressEvent(QMouseEvent * e)
         } else {
                 KSystemTray::mousePressEvent(e);
         }
+}
+
+
+void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu ){
+   
+    menu->connectItem( menu->idAt(4), kmain, SLOT(slotQuit()));
+  
 }
 
 #include "docking.moc"

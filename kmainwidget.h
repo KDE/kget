@@ -54,14 +54,14 @@ Q_OBJECT public:
         enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                                ID_TOTAL_TIME         , ID_TOTAL_SPEED                };
 
-        KMainWidget(bool bStartDocked = false);
+        KMainWidget(bool bShowMain = false);
         ~KMainWidget();
 
         void addTransfer(QString src, QString dest = QString::null);
         void addTransferEx(QString src, QString dest = QString::null, bool bShowIndividual = false);
         void addDropTransfers(QStrList * list);
 
-        void setWindowStyle();
+
         void checkQueue();
 
         void setListFont();
@@ -82,14 +82,13 @@ public slots:
         void slotPasteTransfer();
         void slotToggleLogWindow();
         void slotPreferences();
-        void slotDock();
         void slotToggleExpertMode();
         void slotToggleOfflineMode();
         void slotToggleUseLastDir();
         void slotToggleAutoDisconnect();
         void slotToggleAutoShutdown();
         void slotToggleAutoPaste();
-
+        void slotToggleDropTarget();
         void slotToggleAnimation();
         void slotToggleSound();
         void slotUpdateActions();
@@ -106,10 +105,6 @@ protected slots:
 
 
         void slotStatusChanged(Transfer * item, int _operation);
-
-
-        void slotDropTarget();
-        void slotNormal();
 
         void slotResumeCurrent();
         void slotPauseCurrent();
@@ -141,8 +136,6 @@ protected slots:
 
 protected:
         void closeEvent(QCloseEvent *);
-        void hideEvent(QHideEvent *);
-
         void writeLog();
 
         // drag and drop
@@ -180,7 +173,7 @@ protected:
 
         QString logFileName;
 
-   //     KRootPixmap  *kroot;        //trasparent widget
+
 
 private:
         TransferList * myTransferList;
@@ -210,7 +203,7 @@ private:
         KToggleAction *m_paAutoDisconnect, *m_paAutoShutdown, *m_paAutoPaste;
 
         KToggleAction *m_paShowStatusbar;
-        KToggleAction *m_paDropTarget, *m_paDockWindow, *m_paNormal;
+        KToggleAction *m_paDropTarget;
 
 };
 

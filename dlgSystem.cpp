@@ -259,7 +259,6 @@ void DlgSystem::setData()
 
     cb_useAnimation->setChecked(ksettings.b_useAnimation);
 
-    bg_window->setButton(ksettings.windowStyle);
 
     lb_font->setFont(ksettings.listViewFont);
 }
@@ -286,27 +285,6 @@ void DlgSystem::applyData()
     if (cb_useAnimation->isChecked() != ksettings.b_useAnimation)
     {
         kmain->slotToggleAnimation();
-    }
-
-    uint itmp = NORMAL;
-
-    if (rb_normal->isChecked())
-    {
-        itmp = NORMAL;
-    }
-    else if (rb_docked->isChecked())
-    {
-        itmp = DOCKED;
-    }
-    else if (rb_droptarget->isChecked())
-    {
-        itmp = DROP_TARGET;
-    }
-
-    if (itmp != ksettings.windowStyle)
-    {
-        ksettings.windowStyle = itmp;
-        kmain->setWindowStyle();
     }
 
     ksettings.listViewFont = lb_font->font();
