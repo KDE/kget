@@ -30,6 +30,7 @@
 
 #include <klocale.h>
 #include <kdialog.h>
+#include <kconfig.h>
 
 #include "settings.h"
 #include "kmainwidget.h"
@@ -98,7 +99,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     cb_expertmode = new QCheckBox(i18n("Expert mode (don't prompt for cancel or delete)"), this);
     gridLayout->addMultiCellWidget(cb_expertmode, 6, 6, 0, 2);
 
-    cb_konqiIntegration= new QCheckBox(i18n("Enable/disable the integration with konqueror"), this);
+    cb_konqiIntegration= new QCheckBox(i18n("Enable  the integration with konqueror"), this);
     gridLayout->addMultiCellWidget(cb_konqiIntegration, 7, 7, 0, 2);
 }
 
@@ -139,7 +140,18 @@ void DlgAdvanced::applyData()
     if (ksettings.b_expertMode != cb_expertmode->isChecked()) {
         kmain->slotToggleExpertMode();
     }
-    ksettings.b_KonquerorIntegration=cb_konqiIntegration->isChecked();
+
+    bool bIsKonquiEnable=cb_konqiIntegration->isChecked();
+
+    if (ksettings.b_KonquerorIntegration!=bIsKonquiEnable)
+    {
+        ksettings.b_KonquerorIntegration=!ksettings.b_KonquerorIntegration;
+        KConfig *cfg = new KConfig("konquerorrc", false, false);
+        cfg->setGroup("HTML Settings");
+        cfg->writeEntry("DownloadManager",(bIsKonquiEnable)?"kget":"");
+        cfg->sync();
+        delete cfg;
+    }
 
 
 }

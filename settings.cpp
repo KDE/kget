@@ -37,6 +37,7 @@
 #include "droptarget.h"
 #include "settings.h"
 #include "common.h"
+#include "version.h"
 
 QString ConnectionDevices[6] = {
                                    "",
@@ -119,6 +120,14 @@ Settings::load()
     b_getSizes = config->readBoolEntry("GetSizes", DEF_GetSizes);
     b_expertMode = config->readBoolEntry("ExpertMode", DEF_ExpertMode);
 
+    // read if the integration whith konqueror is enabled
+
+    KConfig *cfg = new KConfig("konquerorrc", false, false);
+    cfg->setGroup("HTML Settings");
+    QString downloadManager=cfg->readEntry("DownloadManager");
+
+    b_KonquerorIntegration=(downloadManager==KGET_APP_NAME)?true:false;
+
     // check if we already asked about konqueror integration
     if(config->readBoolEntry("FirstRun",true))
     {
@@ -126,19 +135,13 @@ Settings::load()
         bool bAnswerYes=KMessageBox::questionYesNo(0L,i18n("It seams that is the first time that you run kget.\n Do you want to enable the integration with Konqueror?"), i18n("Konqueror Integration"));
         if (bAnswerYes)
         {
-            KConfig *cfg = new KConfig("konquerorrc", false, false);
-            cfg->setGroup("HTML Settings");
-            cfg->writeEntry("DownloadManager","kget");
+            cfg->writeEntry("DownloadManager",KGET_APP_NAME);
             cfg->sync();
-            delete cfg;
-            config->writeEntry("KonquerorIntegration",true);
+            b_KonquerorIntegration=true;
         }
-        else
-            config->writeEntry("KonquerorIntegration",false);
     }
+    delete cfg;
 
-    // read if the integration whith konqueror is enabled
-    b_KonquerorIntegration=config->readBoolEntry("KonquerorIntegration",false);
 
     // read search options
     config->setGroup("Search");
@@ -189,9 +192,9 @@ Settings::load()
     dropPosition = config->readPointEntry("Position", new QPoint(-1, -1));
     dropState = config->readUnsignedLongNumEntry("State", 0);
 
-    
-   
-    
+
+
+
 
 }
 
@@ -292,6 +295,7 @@ void Settings::save()
     config->setGroup("DropGeometry");
     config->writeEntry("Position", kdrop->pos());
     config->writeEntry("State", KWin::info(kdrop->winId()).state);
+
 
     config->sync();
 }
