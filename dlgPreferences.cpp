@@ -58,21 +58,25 @@ DlgPreferences::DlgPreferences(QWidget * parent):
 
     conDlg = new DlgConnection(page);
     topLayout->addWidget(conDlg);
+    connect( conDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Automation"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     autDlg = new DlgAutomation(page);
     topLayout->addWidget(autDlg);
+    connect( autDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Limits"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     limDlg = new DlgLimits(page);
     topLayout->addWidget(limDlg);
+    connect( limDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Advanced"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     advDlg = new DlgAdvanced(page);
     topLayout->addWidget(advDlg);
+    connect( advDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     // page = addPage(i18n("Search"));
     // topLayout = new QVBoxLayout(page, 0, spacingHint());
@@ -83,11 +87,13 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     dirDlg = new DlgDirectories(page);
     topLayout->addWidget(dirDlg);
+    connect( dirDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("System"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     sysDlg = new DlgSystem(page);
     topLayout->addWidget(sysDlg);
+    connect( sysDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     // type of connection influences autoDisconnect & timedDisconnect features
     connect(conDlg, SIGNAL(typeChanged(int)), autDlg, SLOT(slotTypeChanged(int)));
@@ -101,6 +107,13 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     //        seaDlg->setData();
     dirDlg->setData();
     sysDlg->setData();
+    enableButton( Apply, false );
+}
+
+
+void DlgPreferences::slotChanged()
+{
+    enableButton( Apply, true );
 }
 
 
@@ -133,6 +146,7 @@ void DlgPreferences::applySettings()
     sysDlg->applyData();
 
     ksettings.save();
+    enableButton( Apply, false );
 }
 
 #include "dlgPreferences.moc"

@@ -71,11 +71,15 @@ private:
     // auto paste settings
     QCheckBox *cb_autoPaste;
 
+signals:
+    void configChanged();
+
 public slots:
     void slotTypeChanged(int);
 
 protected slots:
     void disconnectToggled(bool);
+    void slotChanged();
 
 };
 

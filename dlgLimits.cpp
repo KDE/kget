@@ -60,6 +60,7 @@ DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
     le_maxnum = new KIntNumInput(0, this, 10);
     le_maxnum->setRange(1, 3600, 1, false);
     limitsLayout->addWidget(le_maxnum, 0, 1);
+    connect( le_maxnum, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     // minimum bandwidth
     lb_minband = new QLabel(i18n("Minimum network bandwidth:"), this);
@@ -69,6 +70,7 @@ DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
     le_minband->setRange(1, 100000, 100, false);
     le_minband->setSuffix(i18n("b / sec"));
     limitsLayout->addWidget(le_minband, 2, 1);
+    connect( le_minband, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     // maximum bandwidth
     lb_maxband = new QLabel(i18n("Maximum network bandwidth:"), this);
@@ -78,6 +80,7 @@ DlgLimits::DlgLimits(QWidget * parent):QGroupBox(parent)
     le_maxband->setRange(1, 100000, 100, false);
     le_maxband->setSuffix(i18n("b / sec"));
     limitsLayout->addWidget(le_maxband, 3, 1);
+    connect( le_maxband, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     // TODO: these are not supported yet, so disable them
     le_maxband->setEnabled(false);
@@ -99,6 +102,11 @@ void DlgLimits::applyData()
     ksettings.minimumBandwidth = le_minband->value();
     ksettings.maximumBandwidth = le_maxband->value();
     kmain->checkQueue();
+}
+
+void DlgLimits::slotChanged()
+{
+    emit configChanged();
 }
 
 #include "dlgLimits.moc"

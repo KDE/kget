@@ -58,6 +58,12 @@ private:
     QLabel *lb_maxband;
     KIntNumInput *le_maxband;
 
+signals:
+    void configChanged();
+
+protected slots:
+    void slotChanged();
+
 };
 
 #endif                          // _DLGLIMITS_H

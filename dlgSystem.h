@@ -77,6 +77,12 @@ private:
     QLabel *lb_font;
     QPushButton *pb_browse;
 
+signals:
+    void configChanged();
+
+protected slots:
+    void slotChanged();
+
 private slots:
     void changeFont();
 

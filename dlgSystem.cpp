@@ -71,6 +71,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
 
     cb_useSound = new QCheckBox(i18n("Use sounds"), this);
     topGridLayout->addWidget(cb_useSound, 0, 0);
+    connect( cb_useSound, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     cmb_sounds = new KComboBox(false, this);
 
@@ -79,6 +80,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     cmb_sounds->insertItem(i18n("Finished"));
     cmb_sounds->insertItem(i18n("Finished All"));
     topGridLayout->addWidget(cmb_sounds, 0, 1);
+    connect( cmb_sounds, SIGNAL( activated(int) ), this, SLOT( slotChanged() ) );
 
     pb_changesound = new QPushButton(i18n("Change..."), this);
     topGridLayout->addWidget(pb_changesound, 0, 2);
@@ -95,6 +97,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     // animation settings
     cb_useAnimation = new QCheckBox(i18n("Use animation"), this);
     topGridLayout->addMultiCellWidget(cb_useAnimation, 1, 1, 0, 1);
+    connect( cb_useAnimation, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     // window style
     bg_window = new QButtonGroup(i18n("Window Style"), this, "bg_window");
@@ -106,14 +109,17 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
     rb_normal = new QRadioButton(i18n("Normal"), bg_window);
     bg_window->insert(rb_normal);
     hLayout->addWidget(rb_normal);
+    connect( rb_normal, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     rb_docked = new QRadioButton(i18n("Dock widget"), bg_window);
     bg_window->insert(rb_docked);
     hLayout->addWidget(rb_docked);
+    connect( rb_docked, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     rb_droptarget = new QRadioButton(i18n("Drop target"), bg_window);
     bg_window->insert(rb_droptarget);
     hLayout->addWidget(rb_droptarget);
+    connect( rb_droptarget, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     // font groupbox
     gb_font = new QGroupBox(this, "gb_font");
@@ -207,6 +213,7 @@ void DlgSystem::setupSound()
         break;
     }
     sDebugOut << endl;
+    slotChanged();
 }
 
 
@@ -255,6 +262,7 @@ void DlgSystem::changeFont()
     if (KFontDialog::getFont(font, true, this) == QDialog::Rejected)
         return;
     lb_font->setFont(font);
+    slotChanged();
 }
 
 
@@ -302,6 +310,11 @@ void DlgSystem::applyData()
 
     ksettings.listViewFont = lb_font->font();
     kmain->setListFont();
+}
+
+void DlgSystem::slotChanged()
+{
+    emit configChanged();
 }
 
 #include "dlgSystem.moc"

@@ -91,9 +91,11 @@ private:
 
 signals:
     void typeChanged(int type);
+    void configChanged();
 
 protected slots:
     void comboActivated(int Index);
+    void slotChanged();
 
 };
 

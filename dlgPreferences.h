@@ -66,6 +66,7 @@ private:
 protected slots:
     virtual void done(int r);
     void applySettings();
+    void slotChanged();
 
 };
 

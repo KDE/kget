@@ -69,44 +69,55 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     rb_queued = new QRadioButton(i18n("Queued"), this);
     bg_adding->insert(rb_queued);
     gridLayout->addWidget(rb_queued, 0, 1);
+    connect( rb_queued, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     rb_delayed = new QRadioButton(i18n("Delayed"), this);
     bg_adding->insert(rb_delayed);
     gridLayout->addWidget(rb_delayed, 0, 2);
+    connect( rb_delayed, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     //
     cb_individual = new QCheckBox(i18n("Show individual windows"), this);
     gridLayout->addWidget(cb_individual, 1, 0);
+    connect( cb_individual, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     cb_iconify = new QCheckBox(i18n("Iconified"), this);
     gridLayout->addWidget(cb_iconify, 1, 1);
+    connect( cb_iconify, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     connect(cb_individual, SIGNAL(toggled(bool)), cb_iconify, SLOT(setEnabled(bool)));
 
     cb_advanced = new QCheckBox(i18n("Advanced individual windows"), this);
     gridLayout->addWidget(cb_advanced, 2, 0);
+    connect( cb_advanced, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     //
     cb_partial = new QCheckBox(i18n("Mark partial downloads"), this);
     gridLayout->addMultiCellWidget(cb_partial, 3, 3, 0, 2);
+    connect( cb_partial, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     //
     cb_remove = new QCheckBox(i18n("Remove files from a list after success"), this);
     gridLayout->addMultiCellWidget(cb_remove, 4, 4, 0, 2);
+    connect( cb_remove, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     //
     cb_getsizes = new QCheckBox(i18n("Get file sizes"), this);
     gridLayout->addMultiCellWidget(cb_getsizes, 5, 5, 0, 2);
+    connect( cb_getsizes, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     //
     cb_expertmode = new QCheckBox(i18n("Expert mode (don't prompt for cancel or delete)"), this);
     gridLayout->addMultiCellWidget(cb_expertmode, 6, 6, 0, 2);
+    connect( cb_expertmode, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     cb_konqiIntegration= new QCheckBox(i18n("Enable the integration with Konqueror"), this);
     gridLayout->addMultiCellWidget(cb_konqiIntegration, 7, 7, 0, 2);
+    connect( cb_konqiIntegration, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     cb_ShowMain = new QCheckBox(i18n("Show main window at startup"), this);
     gridLayout->addMultiCellWidget(cb_ShowMain, 8, 8, 0, 2);
+    connect( cb_ShowMain, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 }
 
 
@@ -158,6 +169,11 @@ void DlgAdvanced::applyData()
         cfg.writeEntry("DownloadManager",(bIsKonquiEnable)?"kget":"");
         cfg.sync();
     }
+}
+
+void DlgAdvanced::slotChanged()
+{
+    emit configChanged();
 }
 
 #include "dlgAdvanced.moc"

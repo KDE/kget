@@ -47,6 +47,12 @@ Q_OBJECT public:
     void applyData();
     void setData();
 
+protected slots:
+    void slotChanged();
+
+signals:
+    void configChanged();
+
 private:
 
     QLabel * lb_adding;

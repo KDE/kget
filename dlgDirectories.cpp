@@ -149,6 +149,7 @@ void DlgDirectories::addEntry()
     }
 
     new QListViewItem(lv_entries, ext, dir);
+    emit configChanged();
 }
 
 
@@ -156,6 +157,7 @@ void DlgDirectories::deleteEntry()
 {
     QListViewItem *item = lv_entries->selectedItem();
     delete item;
+    emit configChanged();
 }
 
 
@@ -181,6 +183,7 @@ void DlgDirectories::changeEntry()
 
         new QListViewItem(lv_entries, old_item, ext, dir);
         delete old_item;
+        emit configChanged();
     }
 }
 
@@ -206,6 +209,7 @@ void DlgDirectories::downEntry()
         delete old_item;
 
         lv_entries->setSelected(new_item, true);
+        emit configChanged();
     }
 }
 
@@ -228,6 +232,7 @@ void DlgDirectories::upEntry()
         delete old_item;
 
         lv_entries->setSelected(new_item, true);
+        emit configChanged();
     }
 }
 

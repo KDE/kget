@@ -66,6 +66,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
 
     cb_onerror = new QCheckBox(i18n("On login or timeout error"), gb_reconnect);
     reconnectLayout->addWidget(cb_onerror, 0, 0);
+    connect( cb_onerror, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     lb_after = new QLabel(i18n("Reconnect after:"), gb_reconnect);
     reconnectLayout->addWidget(lb_after, 1, 1);
@@ -74,6 +75,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     le_after->setSuffix(i18n(" minutes"));
     le_after->setRange(1, 3600, 1, false);
     reconnectLayout->addWidget(le_after, 1, 2);
+    connect( le_after, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     lb_retries = new QLabel(i18n("Number of retries:"), gb_reconnect);
     reconnectLayout->addWidget(lb_retries, 2, 1);
@@ -81,15 +83,18 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     le_retries = new KIntNumInput(0, gb_reconnect, 10, "le_retries");
     le_retries->setRange(1, 3600, 1, false);
     reconnectLayout->addWidget(le_retries, 2, 2);
+    connect( le_retries, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     connect(cb_onerror, SIGNAL(toggled(bool)), le_after, SLOT(setEnabled(bool)));
     connect(cb_onerror, SIGNAL(toggled(bool)), le_retries, SLOT(setEnabled(bool)));
 
     cb_onbroken = new QCheckBox(i18n("On broken connection"), gb_reconnect);
     reconnectLayout->addWidget(cb_onbroken, 3, 0);
+    connect( cb_onbroken, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     cb_autoresume = new QCheckBox(i18n("Automatically resume if possible"), gb_reconnect);
     reconnectLayout->addMultiCellWidget(cb_autoresume, 4, 4, 0, 2);
+    connect( cb_autoresume, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     // timeout settings
     gb_timeout = new QGroupBox(this, "gb_timeout");
@@ -112,6 +117,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     le_nodata = new KIntNumInput(0, gb_timeout, 10);
     timeoutLayout->addWidget(le_nodata, 0, 2);
     le_nodata->setRange(1, 3600, 1, false);
+    connect( le_nodata, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     lb_noresume = new QLabel(i18n("Or"), gb_timeout);
     timeoutLayout->addWidget(lb_noresume, 1, 0, AlignCenter);
@@ -120,6 +126,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     le_noresume->setSuffix(i18n(" minutes"));
     le_noresume->setRange(1, 3600, 1, false);
     timeoutLayout->addWidget(le_noresume, 1, 1);
+    connect( le_noresume, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     lb_cannot = new QLabel(i18n("if server can't resume"), gb_timeout);
     timeoutLayout->addMultiCellWidget(lb_cannot, 1, 1, 2, 3);
@@ -147,6 +154,7 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     cmb_type->insertItem(i18n("PPP"));
     cmb_type->insertItem(i18n("ISDN"));
     typeLayout->addWidget(cmb_type, 0, 0);
+    connect( cmb_type, SIGNAL( activated(int) ), this, SLOT( slotChanged() ) );
 
     lb_linknum = new QLabel(i18n("Link number:"), gb_type);
     typeLayout->addWidget(lb_linknum, 0, 1, AlignCenter);
@@ -154,9 +162,11 @@ DlgConnection::DlgConnection(QWidget * parent):QWidget(parent, "", 0)
     le_linknum = new KIntNumInput(0, gb_type, 10);
     typeLayout->addWidget(le_linknum, 0, 2);
     le_linknum->setRange(0, 100, 1, false);
+    connect( le_linknum, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
 
     cb_offlinemode = new QCheckBox(i18n("Offline mode"), gb_type);
     typeLayout->addWidget(cb_offlinemode, 1, 0);
+    connect( cb_offlinemode, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
     connect(cmb_type, SIGNAL(activated(int)), this, SLOT(comboActivated(int)));
 
@@ -235,6 +245,11 @@ void DlgConnection::applyData()
     if (cb_offlinemode->isChecked() != ksettings.b_offlineMode) {
         kmain->slotToggleOfflineMode();
     }
+}
+
+void DlgConnection::slotChanged()
+{
+    emit configChanged();
 }
 
 #include "dlgConnection.moc"

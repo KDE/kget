@@ -65,6 +65,9 @@ private:
     QPushButton *pb_up;
     QPushButton *pb_down;
 
+signals:
+    void configChanged();
+
 protected slots:
     void selectEntry(QListViewItem * item);
     void addEntry();
