@@ -226,3 +226,5 @@ void BWDateTime::slotValueChanged(int)
 
 
 }
+
+#include "bwdatetime.moc"
