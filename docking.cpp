@@ -51,8 +51,11 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
     // Enable dropping
     setAcceptDrops(true);
    
-   dtip = new DynamicTip( this );
-   dtip->setStatus( kapp->aboutData()->shortDescription() );
+    dtip = new DynamicTip( this );
+    dtip->setStatus( kapp->aboutData()->shortDescription() );
+    
+    connect(this, SIGNAL(quitSelected()),
+	    kapp, SLOT(quit()));
 }
 
 
