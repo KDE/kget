@@ -93,7 +93,7 @@ Transfer::~Transfer()
 
     synchronousAbort();
     delete dlgIndividual;
-    
+
     sDebugOut << endl;
 }
 
@@ -311,9 +311,9 @@ bool Transfer::updateStatus(int counter)
     QPixmap *pix = 0L;
     bool isTransfer = false;
     static TransferStatus prevStatus;
-    
+
     view->setUpdatesEnabled(false);
-    
+
     switch(status)
         {
         case ST_RUNNING:
@@ -333,24 +333,24 @@ bool Transfer::updateStatus(int counter)
         case ST_FINISHED:
             pix = &view->pixFinished;
     }
-       
+
     setPixmap(view->lv_pixmap, *pix);
     view->setUpdatesEnabled(true);
-    
+
     if(prevStatus!=status || status==ST_RUNNING || status==ST_TRYING)
         {
         QRect rect = view->header()->sectionRect(view->lv_pixmap);
-                
+
         int x = rect.x();
         int y = view->itemRect(this).y();
         int w = rect.width();
         int h = rect.height();
-        
+
         view->QScrollView::updateContents(x,y,w,h);
-        
+
         prevStatus = status;
     }
-    
+
     return isTransfer;
 }
 
@@ -599,7 +599,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
 
 
 
-void Transfer::slotTotalSize(unsigned long bytes)
+void Transfer::slotTotalSize(KIO::filesize_t bytes)
 {
 #ifdef _DEBUG
     sDebugIn<<" totalSize is = "<<totalSize << endl;
@@ -608,7 +608,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
     if (totalSize == 0) {
         totalSize = bytes;
         if (totalSize != 0) {
-            logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+            logMessage(i18n("Total size is %1 bytes").arg((double)totalSize,0,'f'));
             setText(view->lv_total, KIO::convertSize(totalSize));
 			if(dlgIndividual)
 				{
@@ -636,7 +636,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
 
 
 
-void Transfer::slotProcessedSize(unsigned long bytes)
+void Transfer::slotProcessedSize(KIO::filesize_t bytes)
 {
     //sDebug<< ">>>>Entering"<<endl;
 
@@ -696,10 +696,10 @@ void Transfer::showIndividual()
         dlgIndividual->setPercent(percent);
         dlgIndividual->setProcessedSize(processedSize);
     }
-            
+
     dlgIndividual->raise();
 
-    
+
     if (ksettings.b_iconifyIndividual) {
         KWin::iconifyWindow( dlgIndividual->winId() );
     }
@@ -709,7 +709,7 @@ void Transfer::showIndividual()
     //     then show the single dialog
     KWin::deIconifyWindow( dlgIndividual->winId() );
     dlgIndividual->show();
-    
+
     sDebugOut << endl;
 }
 
@@ -719,11 +719,11 @@ void Transfer::logMessage(const QString & message)
     sDebugIn << message << endl;
 
     emit log(id, src.fileName(), message);
-    
+
     QString tmps = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message;
 
     transferLog.append(tmps + '\n');
-    
+
     if(dlgIndividual)
         dlgIndividual->appendLog(tmps);
 
@@ -781,7 +781,7 @@ void Transfer::write(KSimpleConfig * config, int id)
     config->writeEntry("Mode", mode);
     config->writeEntry("Status", status);
     config->writeEntry("CanResume", canResume);
-    config->writeEntry("TotalSize", totalSize);
+    config->writeEntry("TotalSize", ( QVariant & )totalSize);
     config->writeEntry("ProcessedSize", processedSize);
     config->writeEntry("ScheduledTime", startTime);
     sDebugOut << endl;
@@ -817,22 +817,22 @@ void Transfer::slotExecError()
     mode = MD_SCHEDULED;
     startTime=QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60);
     emit statusChanged(this, OP_SCHEDULED);
-    
+
     sDebugOut << endl;
 }
 
 void Transfer::slotExecBroken()
 {
     sDebugIn << endl;
-    
+
     status = ST_STOPPED;
     mode = MD_QUEUED;
     emit statusChanged(this, OP_QUEUED);
-    
-    sDebugOut << endl;
-} 
 
-   
+    sDebugOut << endl;
+}
+
+
 void Transfer::slotExecRemove()
 {
     sDebugIn << endl;
@@ -917,7 +917,7 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
 /** return true if the dlgIndividual is Visible */
 bool Transfer::isVisible() const
 {
-    return dlgIndividual ? dlgIndividual->isVisible() : false;    
+    return dlgIndividual ? dlgIndividual->isVisible() : false;
 }
 
 bool Transfer::keepDialogOpen() const

@@ -2046,7 +2046,7 @@ void KMainWidget::updateStatusBar()
     QString tmpstr;
 
     int totalFiles = 0;
-    int totalSize = 0;
+    KIO::filesize_t totalSize = 0;
     int totalSpeed = 0;
     QTime remTime;
 
