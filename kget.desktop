@@ -2,11 +2,12 @@
 [Desktop Entry]
 Type=Application
 Exec=kget -caption "%c" %i %m  
-Icon=kget.png
-MiniIcon=kget.png
+Icon=kget
 DocPath=kget/index.html
 Comment=
-Comment[de]=
+Comment[xx]=xx
 Terminal=0
 Name=KGet
-Name[de]=KGet
+Name[ar]=ك.جيت
+Name[eo]=Prenilo
+Name[sv]=Kget
