@@ -139,7 +139,7 @@ protected:
     virtual bool read(QDomNode * n);
     virtual void write(QDomNode * n);
 
-    inline void setTransferChange(TransferChange);
+    void setTransferChange(TransferChange);
    
     Info tInfo;
         
