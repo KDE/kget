@@ -31,6 +31,7 @@
 #include <kcmdlineargs.h>
 #include <kurl.h>
 #include <kuniqueapplication.h>
+#include <kstartupinfo.h>
 
 #include <signal.h>
 #include <unistd.h>
@@ -147,7 +148,7 @@ public:
         }
 
         else
-            KWin::activateWindow (kmainwidget->winId());
+            KStartupInfo::setNewStartupId( mainWidget(), kapp->startupId());
 
         if (args->isSet("showDropTarget"))
             kmain->activateDropTarget();

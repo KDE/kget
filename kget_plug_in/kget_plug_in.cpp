@@ -22,6 +22,7 @@
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
+#include <kapplication.h>
 #include <kdatastream.h>
 #include <kdebug.h>
 #include <khtml_part.h>
@@ -163,6 +164,7 @@ void KGet_plug_in::startDownload( const KURL::List& urls )
     if (!p_dcopServer->isApplicationRegistered ("kget"))
         KRun::runCommand("kget");
 
+    kapp->updateRemoteUserTimestamp("kget");
     QByteArray data;
     QDataStream stream( data, IO_WriteOnly );
     stream << urls << QString::null;
