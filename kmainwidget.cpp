@@ -539,7 +539,7 @@ void KMainWidget::slotImportTextFile()
     if (!filename.isValid())
         return;
 
-    if (KIO::NetAccess::download(filename, tmpFile)) {
+    if (KIO::NetAccess::download(filename, tmpFile, this)) {
         list = kFileToString(tmpFile);
         KIO::NetAccess::removeTempFile(tmpFile);
     } else
@@ -796,32 +796,61 @@ void KMainWidget::slotDeleteCurrent()
     m_paPause->setEnabled(false);
     update();
     TransferIterator it(myTransferList);
+    QValueList<QGuardedPtr<Transfer> > selectedItems;
+    QStringList itemNames;
 
-    // #### only one message box per deletion!
     while (it.current()) {
         if (it.current()->isSelected()) {
-            bool isRunning = false;
-
-            if (!ksettings.b_expertMode) {
-                if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"), i18n("Question"),
-		KStdGuiItem::yes(),KStdGuiItem::no(),QString("multiple_delete_transfer")) != KMessageBox::Yes)
-                    return;
-            }
-
-            isRunning = (it.current()->getStatus() == Transfer::ST_RUNNING);
-            it.current()->slotRequestRemove();
-            if (isRunning)
-                it++;
-
-            // don't need to update counts - they are updated automatically when
-            // calling remove() if the thread is not running
-
-        } else {
-            it++;               // update counts
+            selectedItems.append( QGuardedPtr<Transfer>( it.current() ));
+            itemNames.append( it.current()->getSrc().prettyURL() );
+        }
+        ++it;
+    }
+    
+    if (!ksettings.b_expertMode) 
+    {
+        if ( selectedItems.count() > 1 )
+        {
+            if (KMessageBox::questionYesNoList(this, i18n("Are you sure you want to delete these transfers?"), 
+                                               itemNames, i18n("Question"),
+                                               KStdGuiItem::yes(),KStdGuiItem::no(),
+                                               QString("multiple_delete_transfer")) 
+                != KMessageBox::Yes)
+                return; // keep 'em
+        }
+        else
+        {
+            if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"), 
+                                           i18n("Question"), KStdGuiItem::yes(),KStdGuiItem::no(),
+                                           QString("delete_transfer")) 
+                != KMessageBox::Yes)
+                return;
         }
     }
-    checkQueue();               // needed !
+    
+    // If we reach this, we want to delete all selected transfers
+    // Some of them might have finished in the meantime tho. Good that
+    // we used a QGuardedPtr :)
+    
+    int transferFinishedMeanwhile = 0;
+    QValueListConstIterator<QGuardedPtr<Transfer> > lit = selectedItems.begin();;
+    while ( lit != selectedItems.end() )
+    {
+        if ( *lit )
+            (*lit)->slotRequestRemove();
+        else
+            ++transferFinishedMeanwhile;
+        
+        ++lit;
+    }
 
+    checkQueue(); // needed !
+
+    if ( !ksettings.b_expertMode && transferFinishedMeanwhile > 0 )
+        KMessageBox::information(this, i18n("%1 of the transfers you wanted to delete "
+                                            "completed before they could be deleted.").arg( transferFinishedMeanwhile ),
+                                 QString::null, "completedBeforeDeletion" );
+    
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -1073,7 +1102,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
             }
 
             //check if destination already exists
-            if(KIO::NetAccess::exists(destURL))
+            if(KIO::NetAccess::exists(destURL, false, this))
             {
                 if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
                                               == KMessageBox::Yes)
@@ -1096,7 +1125,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
     {
         // simply delete it, the calling process should have asked if you
         // really want to delete (at least khtml does)
-        if(KIO::NetAccess::exists(destURL))
+        if(KIO::NetAccess::exists(destURL, false, this))
             SafeDelete::deleteFile( destURL );
     }
 
@@ -1152,7 +1181,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             {
                 destURL.adjustPath( +1 );
                 destURL.setFileName( fileName );
-                if(KIO::NetAccess::exists(destURL))
+                if(KIO::NetAccess::exists(destURL, false, this))
                 {
                     if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
                         == KMessageBox::Yes)
@@ -1208,7 +1237,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
 
         destURL.setFileName( fileName );
 
-        if(KIO::NetAccess::exists(destURL))
+        if(KIO::NetAccess::exists(destURL, false, this))
         {
             if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ) )
                                           == KMessageBox::Yes)

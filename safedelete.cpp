@@ -21,7 +21,7 @@ bool SafeDelete::deleteFile( const KURL& url )
             return false;
         }
 
-        KIO::NetAccess::del( url );
+        KIO::NetAccess::del( url, 0L );
         return true;
     }
 
