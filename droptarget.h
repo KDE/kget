@@ -42,6 +42,8 @@ public:
     DropTarget();
     ~DropTarget();
 
+    void updateStickyState();
+
 protected:
     virtual void resizeEvent(QResizeEvent *);
 

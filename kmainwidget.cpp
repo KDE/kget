@@ -1797,10 +1797,13 @@ void KMainWidget::slotToggleDropTarget()
     sDebugIn << endl;
 #endif
 
-    if (m_paDropTarget->isChecked())
+    if (m_paDropTarget->isChecked()) {
         kdrop->show();
-    else
+        kdrop->updateStickyState();
+    }
+    else {
         kdrop->hide();
+    }
 
 
 #ifdef _DEBUG
