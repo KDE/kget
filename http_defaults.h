@@ -1,3 +1,15 @@
+/***************************************************************************
+*                                http_defaults.h
+*                             -------------------
+*
+*    Revision     : $Id$
+*    begin        : Tue Jan 29 2002
+*    copyright    : (C) 2002 by Patrick Charbonnier
+*
+*    email        : pch@freeshell.org
+*
+***************************************************************************/
+
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Waldo Bastian <bastian@kde.org>
  

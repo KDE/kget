@@ -1,4 +1,15 @@
-// kfileio.cpp
+/***************************************************************************
+*                                kfileio.cpp
+*                             -------------------
+*
+*    Revision     : $Id$
+*    begin        : Tue Jan 29 2002
+*    copyright    : (C) 2002 by Patrick Charbonnier
+*
+*    email        : pch@freeshell.org
+*
+***************************************************************************/
+
 // Author: Stefan Taferner <taferner@kde.org>
 
 #include <qstring.h>

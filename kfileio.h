@@ -1,3 +1,15 @@
+/***************************************************************************
+*                                kfileio.h
+*                             -------------------
+*
+*    Revision     : $Id$
+*    begin        : Tue Jan 29 2002
+*    copyright    : (C) 2002 by Patrick Charbonnier
+*
+*    email        : pch@freeshell.org
+*
+***************************************************************************/
+
 /* Load / save entire (local) files with nice diagnostics dialog messages.
  * These functions load/save the whole buffer in one i/o call, so they
  * should be pretty efficient.

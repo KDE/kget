@@ -1,3 +1,15 @@
+/***************************************************************************
+*                                   misc.cpp
+*                             -------------------
+*
+*    Revision     : $Id$
+*    begin        : Tue Jan 29 2002
+*    copyright    : (C) 2002 by Patrick Charbonnier
+*
+*    email        : pch@freeshell.org
+*
+***************************************************************************/
+
 /*
  *  Copyright (C) 1999-2000 Bernd Gehrmann
  *                          bernd@physik.hu-berlin.de
