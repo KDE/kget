@@ -105,6 +105,7 @@ private:
     // internal widgets
     class BrowserBar  * browserBar;
     class GroupsPanel * groupsPanel;
+    class Sidebar     * sidebar;
     class QWidget     * rightWidget;
     class MainView    * mainView;
 

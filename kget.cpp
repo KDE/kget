@@ -51,6 +51,7 @@
 #include "ui/mainview.h"
 #include "ui/droptarget.h"
 #include "ui/groupspanel.h"
+#include "ui/sidebar.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
@@ -79,6 +80,9 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     // side panel :: Groups
     groupsPanel = new GroupsPanel(0,"groups panel");
     browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
+
+    sidebar = new Sidebar(0, "sidebar");
+    browserBar->addBrowser( sidebar, i18n( "Groups" ), "penguin" );
 
 //     // side panel :: Global statistics
 //     GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
@@ -237,6 +241,7 @@ void KMainWidget::slotDelayedInit()
     kdock->connectToScheduler(scheduler);
     mainView->connectToScheduler(scheduler);
     groupsPanel->connectToScheduler(scheduler);
+    sidebar->connectToScheduler(scheduler);
     kdrop->connectToScheduler(scheduler);
 
     // enable dropping
