@@ -46,6 +46,7 @@
 #include <knotifydialog.h>
 
 #include "kmainwidget.h"
+#include "kmainwidget_actions.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
 #include "scheduler.h"
@@ -730,110 +731,6 @@ bool KMainWidget::isOfflineMode() const
 {
     return scheduler->isRunning();
 }
-
-
-/** Actions implementation */
-#include <kapplication.h>
-#include <qwhatsthis.h>
-#include <qcombobox.h>
-
-ComboAction::ComboAction( const QString& text, const KShortcut& cut,
-    KActionCollection* ac, KMainWidget *mw, const char* name )
-    : KAction( text, cut, ac, name ), widget( 0 ), parent( mw )
-{
-    connect( parent, SIGNAL( viewModeChanged(int) ), this, SLOT( slotViewModeChanged(int) ) );
-}
-
-int ComboAction::plug( QWidget* w, int index )
-{
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: ComboAction must be plugged into KToolBar." << endl;
-        return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
-    int id = KAction::getToolButtonID();
-    addContainer( toolBar, id );
-    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
-
-    widget = new QComboBox();
-    widget->insertItem( SmallIcon("view_remove"), i18n("Compact") );
-    widget->insertItem( SmallIcon("view_detailed"), i18n("Detailed") );
-    widget->insertItem( SmallIcon("view_text"), i18n("Old files") );
-    //widget->setFixedHeight( ToolBar_HEIGHT - 10 );
-    widget->setFocusPolicy(QWidget::NoFocus);
-    connect( widget, SIGNAL( activated(int) ), this, SLOT( slotComboActivated(int) ) );
-
-    widget->reparent( toolBar, QPoint() );
-    toolBar->insertWidget( id, 0, widget, index );
-    toolBar->setItemAutoSized( id, false /*true*/ );
-
-    QWhatsThis::add( widget, whatsThis() );
-    return containerCount() - 1;
-}
-
-void ComboAction::slotComboActivated( int index )
-{
-    parent->setViewMode( (enum KMainWidget::ViewMode)index );
-}
-
-void ComboAction::slotViewModeChanged( int index )
-{
-    if ( widget )
-        widget->setCurrentItem( index );
-}
-
-
-
-ViewAsAction::ViewAsAction( const QString& text, const KShortcut& cut,
-    KActionCollection* ac, const char* name )
-    : KAction( text, cut, ac, name ) {}
-
-int ViewAsAction::plug( QWidget* w, int index )
-{
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: ViewAsAction must be plugged into KToolBar." << endl;
-        return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
-    int id = KAction::getToolButtonID();
-    addContainer( toolBar, id );
-    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
-
-    QLabel * label = new QLabel( text(), (QWidget *)toolBar );
-    toolBar->insertWidget( id, 0, label, index );
-    toolBar->setItemAutoSized( id, false );
-
-    return containerCount() - 1;
-}
-
-
-
-SpacerAction::SpacerAction( const QString& text, const KShortcut& cut,
-    KActionCollection* ac, const char* name )
-    : KAction( text, cut, ac, name ) {}
-
-int SpacerAction::plug( QWidget* w, int index )
-{
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: SpacerAction must be plugged into KToolBar." << endl;
-        return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
-    int id = KAction::getToolButtonID();
-    addContainer( toolBar, id );
-    connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
-
-    QWidget * widget = new QWidget();
-    widget->reparent( toolBar, QPoint() );
-    toolBar->insertWidget( id, 0, widget, index );
-    toolBar->setItemAutoSized( id, true );
-
-    return containerCount() - 1;
-}
-
 
 #include "kmainwidget.moc"
 
