@@ -46,6 +46,8 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
+    parent->action("drop_target")->plug(popupMenu);
+    popupMenu->insertSeparator();
     parent->m_paPreferences->plug(popupMenu);
 
     // Enable dropping

@@ -207,7 +207,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
     readTransfers();
 
     // Setup special windows
-    kdrop = new DropTarget();
+    kdrop = new DropTarget(this);
     kdock = new DockWidget(this);
     connect(kdock, SIGNAL(quitSelected()), SLOT(slotQuit()));
 

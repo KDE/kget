@@ -33,13 +33,14 @@
 
 class KPopupMenu;
 class KMainWidget;
+class KMainWindow;
 
 class DropTarget:public QWidget
 {
 Q_OBJECT 
 
 public:
-    DropTarget();
+    DropTarget(KMainWindow *);
     ~DropTarget();
 
     void updateStickyState();
