@@ -18,8 +18,7 @@
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
  *
  ***************************************************************************/
@@ -90,12 +89,15 @@
 
 KMainWidget *kmain = 0L;
 
+#define LOAD_ICON(X) KGlobal::iconLoader()->loadIcon(X, KIcon::MainToolbar)
+
 QGuardedPtr < DropTarget > kdrop = 0L;
 QGuardedPtr < DockWidget > kdock = 0L;
 
 Settings ksettings;             // this object contains all settings
 
 static int sockets_open();
+
 
 // socket constants
 int ipx_sock = -1;              /* IPX socket */
@@ -242,32 +244,13 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
         setCaption(i18n("Offline"), false);
     else {
         setCaption(i18n(""), false);
-        m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("appdata","pics/tool_offline_mode-on.png"))));
+        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode-on"));
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
     m_paShowLog->setChecked(b_viewLogWindow);
 
-    /*
-        if (bStartDocked)
-            ksettings.windowStyle = DOCKED;
-        switch (ksettings.windowStyle) {
-        case DROP_TARGET:
-            m_paDropTarget->setChecked(true);
-            break;
-        case DOCKED:
-            m_paDockWindow->setChecked(true);
-            break;
-        case NORMAL:
-            m_paNormal->setChecked(true);
-        default:
-            break;
-        }
-        setWindowStyle();
-
-    */
-
-    if (!bStartDocked && ksettings.b_showMain)
+      if (!bStartDocked && ksettings.b_showMain)
         show();
 
     kdock->show();
@@ -372,14 +355,14 @@ void KMainWidget::setupGUI()
 #ifdef _DEBUG
     sDebug << "Loading pics" << endl;
 #endif
-    m_paResume = new KAction(i18n("&Resume"), QIconSet(QPixmap(locate("appdata", "pics/tool_resume.png"))), 0, this, SLOT(slotResumeCurrent()), actionCollection(), "resume");
-    m_paPause = new KAction(i18n("&Pause"), QIconSet(QPixmap(locate("appdata", "pics/tool_pause.png"))), 0, this, SLOT(slotPauseCurrent()), actionCollection(), "pause");
-    m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("appdata", "pics/tool_delete.png"))), 0, this, SLOT(slotDeleteCurrent()), actionCollection(), "delete");
-    m_paRestart = new KAction(i18n("Re&start"), QIconSet(QPixmap(locate("appdata", "pics/tool_restart.png"))), 0, this, SLOT(slotRestartCurrent()), actionCollection(), "restart");
+    m_paResume = new KAction(i18n("&Resume"),"tool_resume", 0, this, SLOT(slotResumeCurrent()), actionCollection(), "resume");
+    m_paPause = new KAction(i18n("&Pause"),"tool_pause", 0, this, SLOT(slotPauseCurrent()), actionCollection(), "pause");
+    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), actionCollection(), "delete");
+    m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), actionCollection(), "restart");
 
-    m_paQueue = new KRadioAction(i18n("&Queue"), QIconSet(QPixmap(locate("appdata", "pics/tool_queue.png"))), 0, this, SLOT(slotQueueCurrent()), actionCollection(), "queue");
-    m_paTimer = new KRadioAction(i18n("&Timer"), QIconSet(QPixmap(locate("appdata", "pics/tool_timer.png"))), 0, this, SLOT(slotTimerCurrent()), actionCollection(), "timer");
-    m_paDelay = new KRadioAction(i18n("De&lay"), QIconSet(QPixmap(locate("appdata", "pics/tool_delay.png"))), 0, this, SLOT(slotDelayCurrent()), actionCollection(), "delay");
+    m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), actionCollection(), "queue");
+    m_paTimer = new KRadioAction(i18n("&Timer"),"tool_timer", 0, this, SLOT(slotTimerCurrent()), actionCollection(), "timer");
+    m_paDelay = new KRadioAction(i18n("De&lay"),"tool_delay", 0, this, SLOT(slotDelayCurrent()), actionCollection(), "delay");
 
     m_paQueue->setExclusiveGroup("TransferMode");
     m_paTimer->setExclusiveGroup("TransferMode");
@@ -388,12 +371,12 @@ void KMainWidget::setupGUI()
     // options actions
     m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), actionCollection(), "toggle_animation");
     m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), actionCollection(), "toggle_sound");
-    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"), "tool_expert.png", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"), "tool_uselastdir.png", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
-    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"), "tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
+    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), actionCollection(), "expert_mode");
+    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
+    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
     m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
-    m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
-    m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
+    m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
+    m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
 
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), actionCollection());
 
@@ -404,8 +387,8 @@ void KMainWidget::setupGUI()
 
     m_paShowStatusbar = KStdAction::showStatusbar(this, SLOT(slotToggleStatusbar()), actionCollection(), "show_statusbar");
 
-    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"), "tool_logwindow.png", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
-    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target.png", 0, this, SLOT(slotToggleDropTarget()), actionCollection(), "drop_target");
+    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), actionCollection(), "toggle_log");
+    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), actionCollection(), "drop_target");
 
     menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
     KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), actionCollection(), "whats_this");
@@ -1677,11 +1660,11 @@ void KMainWidget::slotToggleOfflineMode()
         log(i18n("Offline mode on."));
         pauseAll();
         setCaption(i18n("Offline"), false);
-        m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("appdata", "pics/tool_offline_mode-off.png"))));
+        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode-off"));
     } else {
         log(i18n("Offline mode off."));
         setCaption(i18n(""), false);
-        m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("appdata", "pics/tool_offline_mode-on.png"))));
+        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode-on"));
     }
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
 
