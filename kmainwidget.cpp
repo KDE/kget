@@ -244,7 +244,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
         setCaption(i18n("Offline"), false);
     else {
         setCaption(i18n(""), false);
-        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode-on"));
+        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
@@ -375,7 +375,7 @@ void KMainWidget::setupGUI()
     m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Directory Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), actionCollection(), "use_last_dir");
     m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), actionCollection(), "auto_disconnect");
     m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
-    m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
+    m_paOfflineMode    =  new KToggleAction(i18n("&Offline Mode"),"tool_offline_mode_off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
     m_paAutoPaste      =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
 
     m_paPreferences    =  KStdAction::preferences(this, SLOT(slotPreferences()), actionCollection());
@@ -1660,11 +1660,11 @@ void KMainWidget::slotToggleOfflineMode()
         log(i18n("Offline mode on."));
         pauseAll();
         setCaption(i18n("Offline"), false);
-        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode-off"));
+        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_off"));
     } else {
         log(i18n("Offline mode off."));
         setCaption(i18n(""), false);
-        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode-on"));
+        m_paOfflineMode->setIconSet(LOAD_ICON("tool_offline_mode_on"));
     }
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
 
