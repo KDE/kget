@@ -186,7 +186,7 @@ public slots:
     void slotProcessedSize(unsigned long);
 
     void slotStartTime(const QDateTime &);
-
+    
 signals:
     void statusChanged(Transfer *, int _operation);
     void log(uint, const QString &, const QString &);
@@ -204,13 +204,15 @@ private:
 
     static uint idcount;
 
+    // log
+    QString transferLog;
+    
     // schedule time
     QDateTime startTime;
 
     unsigned long totalSize;
     unsigned long processedSize;
     int percent;
-
 
     int speed;
     QTime remainingTime;
@@ -226,8 +228,8 @@ private:
     TransferList *view;
 
     // individual download window
-    DlgIndividual *dlgIndividual;
-
+    QGuardedPtr<DlgIndividual> dlgIndividual;
+	
 };
 
 

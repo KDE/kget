@@ -54,7 +54,8 @@ extern Settings ksettings;
 
 Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest, const uint _id)
     : QObject( _view ),
-      KListViewItem(_view)
+      KListViewItem(_view),
+      dlgIndividual( 0 )
 {
     sDebugIn << endl;
 
@@ -70,7 +71,9 @@ Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest, 
 
 Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest, const uint _id)
     : QObject( _view ),
-      KListViewItem(_view, (QListViewItem *) after)
+      KListViewItem(_view, (QListViewItem *) after),
+      src(_src), dest(_dest), view(_view),
+      dlgIndividual( 0 )
 {
     sDebugIn << endl;
 
@@ -88,8 +91,8 @@ Transfer::~Transfer()
     sDebugIn << endl;
 
     synchronousAbort();
-
     delete dlgIndividual;
+    
     sDebugOut << endl;
 }
 
@@ -149,10 +152,6 @@ Transfer::init(const uint _id)
     // m_paDock = new KAction(i18n("&Dock"),"tool_dock", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
 
     // setup individual transfer dialog
-    dlgIndividual = new DlgIndividual(this);
-    if (ksettings.b_iconifyIndividual) {
-        KWin::iconifyWindow( dlgIndividual->winId() );
-    }
 
     sDebugOut << endl;
 }
@@ -188,7 +187,8 @@ void Transfer::slotUpdateActions()
         m_paResume->setEnabled(false);
         m_paPause->setEnabled(false);
         m_paRestart->setEnabled(false);
-        dlgIndividual->update();
+        if(dlgIndividual)
+			dlgIndividual->update();
         return;
     }
 
@@ -247,7 +247,7 @@ void Transfer::slotUpdateActions()
     m_paTimer->blockSignals(false);
     m_paDelay->blockSignals(false);
 
-    if (isVisible())
+    if (dlgIndividual)
         dlgIndividual->update();
 
     sDebugOut << endl;
@@ -281,8 +281,14 @@ void Transfer::updateAll()
     // destination
     setText(view->lv_filename, dest.fileName());
 
-    dlgIndividual->setCopying(src, dest);
-    dlgIndividual->setCanResume(canResume);
+    if(dlgIndividual)
+		{
+		dlgIndividual->setCopying(src, dest);
+    	dlgIndividual->setCanResume(canResume);
+		dlgIndividual->setTotalSize(totalSize);
+		dlgIndividual->setPercent(0);
+		dlgIndividual->setProcessedSize(0);
+	}
 
     if (totalSize != 0) {
         //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
@@ -292,9 +298,6 @@ void Transfer::updateAll()
         setText(view->lv_total, i18n("unknown"));
     }
 
-    dlgIndividual->setTotalSize(totalSize);
-    dlgIndividual->setPercent(0);
-    dlgIndividual->setProcessedSize(0);
 
     sDebugOut << endl;
 }
@@ -411,7 +414,8 @@ void Transfer::slotRequestRemove()
     sDebugIn << endl;
     m_paDelete->setEnabled(false);
     m_paPause->setEnabled(false);
-    dlgIndividual->close();
+    if(dlgIndividual)
+		dlgIndividual->close();
 
     if ( status != ST_FINISHED )
     {
@@ -511,7 +515,8 @@ void Transfer::slotFinished()
     slotProcessedSize(totalSize);
 
     slotSpeed(0);
-    dlgIndividual->enableOpenFile();
+    if(dlgIndividual)
+		dlgIndividual->enableOpenFile();
     emit statusChanged(this, OP_FINISHED);
     sDebugOut << endl;
 }
@@ -567,7 +572,8 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
         setText(view->lv_remaining, remainingTime.toString());
     }
 
-    dlgIndividual->setSpeed(speed, remainingTime);
+	if(dlgIndividual)
+    	dlgIndividual->setSpeed(speed, remainingTime);
 
     //sDebugOut<<endl;
 }
@@ -585,9 +591,12 @@ void Transfer::slotTotalSize(unsigned long bytes)
         if (totalSize != 0) {
             logMessage(i18n("Total size is %1 bytes").arg(totalSize));
             setText(view->lv_total, KIO::convertSize(totalSize));
-            dlgIndividual->setTotalSize(totalSize);
-            dlgIndividual->setPercent(0);
-            dlgIndividual->setProcessedSize(0);
+			if(dlgIndividual)
+				{
+				dlgIndividual->setTotalSize(totalSize);
+				dlgIndividual->setPercent(0);
+				dlgIndividual->setProcessedSize(0);
+			}
         }
     } else {
 
@@ -625,12 +634,14 @@ void Transfer::slotProcessedSize(unsigned long bytes)
         totalSize = processedSize;
 
         setText(view->lv_total, KIO::convertSize(totalSize));
-        dlgIndividual->setTotalSize(totalSize);
+		if(dlgIndividual)
+        	dlgIndividual->setTotalSize(totalSize);
     }
     else {
         percent = (int) (((float) processedSize / (float) totalSize) * 100.0);
     }
-    dlgIndividual->setProcessedSize(processedSize);
+	if(dlgIndividual)
+    	dlgIndividual->setProcessedSize(processedSize);
 
     if (percent != old) {
         QString tmps;
@@ -642,7 +653,8 @@ void Transfer::slotProcessedSize(unsigned long bytes)
 
         setText(view->lv_progress, tmps);
 
-        dlgIndividual->setPercent(percent);
+		if(dlgIndividual)
+        	dlgIndividual->setPercent(percent);
     }
     //sDebug<< "<<<<Leaving"<<endl;
 }
@@ -654,15 +666,33 @@ void Transfer::showIndividual()
 {
     sDebugIn << endl;
 
+    //    create a DlgIndividual only if it hasn't been created yet
+    if(!dlgIndividual)
+    {
+        dlgIndividual = new DlgIndividual(this);
+        dlgIndividual->setLog(transferLog);
+        dlgIndividual->setCopying(src, dest);
+        dlgIndividual->setCanResume(canResume);
+        dlgIndividual->setTotalSize(totalSize);
+        dlgIndividual->setPercent(0);
+        dlgIndividual->setProcessedSize(0);
+    }
+            
+    dlgIndividual->raise();
+
+    
+    if (ksettings.b_iconifyIndividual) {
+        KWin::iconifyWindow( dlgIndividual->winId() );
+    }
+
     //      update the actions
     slotUpdateActions();
     //     then show the single dialog
     KWin::deIconifyWindow( dlgIndividual->winId() );
     dlgIndividual->show();
-
+    
     sDebugOut << endl;
 }
-
 
 
 void Transfer::logMessage(const QString & message)
@@ -670,7 +700,13 @@ void Transfer::logMessage(const QString & message)
     sDebugIn << message << endl;
 
     emit log(id, src.fileName(), message);
-    dlgIndividual->addLog(message);
+    
+    QString tmps = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message;
+
+    transferLog.append(tmps + '\n');
+    
+    if(dlgIndividual)
+        dlgIndividual->appendLog(tmps);
 
     sDebugOut << endl;
 }
@@ -817,7 +853,7 @@ void Transfer::slotCanResume(bool _bCanResume)
         setText(view->lv_resume, i18n("No"));
     }
 
-    dlgIndividual->setCanResume(canResume);
+    //dlgIndividual->setCanResume(canResume);
 
     sDebugOut << endl;
 }
@@ -862,7 +898,7 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
 /** return true if the dlgIndividual is Visible */
 bool Transfer::isVisible() const
 {
-    return dlgIndividual->isVisible();
+    return dlgIndividual ? dlgIndividual->isVisible() : false;    
 }
 
 bool Transfer::keepDialogOpen() const
@@ -873,7 +909,10 @@ bool Transfer::keepDialogOpen() const
 void Transfer::maybeShow()
 {
     if ( ksettings.b_showIndividual && getStatus() != Transfer::ST_FINISHED )
-        dlgIndividual->show();
+    {
+        if(dlgIndividual)
+            dlgIndividual->show();
+    }
 }
 
 bool Transfer::retryOnError()

@@ -52,7 +52,8 @@ public:
     DlgIndividual(Transfer * _item);
     ~DlgIndividual()
     {}
-    void addLog(const QString & _msg);
+    void setLog(const QString & _msg);
+    void appendLog(const QString & _msg);
     void enableOpenFile();
 
 public slots:
@@ -70,11 +71,11 @@ public slots:
     void slotOpenFile();
 
     bool keepDialogOpen() const { return bKeepDlgOpen; }
-
+    
 protected slots:
     void slotToggleAdvanced(bool);
     void slotToggleDock();
-
+    
 protected:
     QLabel *sourceLabel;
     QLabel *destLabel;
@@ -103,7 +104,7 @@ protected:
     bool bKeepDlgOpen;
 
     unsigned long m_iTotalSize;
-
+    
 }
 
 ;

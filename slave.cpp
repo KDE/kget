@@ -252,8 +252,8 @@ void Slave::slotResult(KIO::Job * job)
         PostMessage(SLV_FINISHED);
     }
     else {
-        QString tmsg="<code><font color=\"red\"> <strong>" + job->errorString() + \
-                     "</font> </strong></code><br/>";
+        QString tmsg="<font color=\"red\"> <b>" + job->errorString() + \
+                     "</font></b>";
         InfoMessage(tmsg);
         if (m_parent->retryOnError() && \
             ((error==KIO::ERR_COULD_NOT_LOGIN) || (error==KIO::ERR_SERVER_TIMEOUT))) {

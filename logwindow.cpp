@@ -53,7 +53,7 @@
 // }
 
 
-QString removeHTML(const QString & str)
+static QString removeHTML(const QString & str)
 {
     QString res = str;
     int pos;
@@ -101,8 +101,7 @@ SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
     connect(lv_log, SIGNAL(selectionChanged(QListViewItem *)), SLOT(transferSelected(QListViewItem *)));
 
     ml_log = new QTextEdit(this);
-    ml_log->setReadOnly(true);
-    ml_log->setTextFormat(RichText);
+    ml_log->setTextFormat(LogText);
     ml_log->setMinimumSize(300, 200);
     ml_log->setVScrollBarMode(QScrollView::Auto);
     ml_log->setWordWrap(QTextEdit::NoWrap);
@@ -115,11 +114,10 @@ void SeparatedLog::addLog(uint id, const QString & filename, const QString & mes
 {
     if (!trMap.contains(id)) {
         trMap.insert(id, message);
-        QString tmps;
         QListViewItem *last=lv_log->lastItem();
         new QListViewItem(lv_log, last);
         last=lv_log->lastItem();
-        last->setText(0, tmps.setNum(id));
+        last->setText(0, QString::number(id));
         last->setText(1, filename);
         // if I don't do this, ID#10 gets sorted between ID#1 and ID#2, ugly.      
     } else {
@@ -166,8 +164,7 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
     QVBoxLayout *topLayout = new QVBoxLayout(page, 0, spacingHint());
 
     mixed_log = new QTextEdit(page);
-    mixed_log->setReadOnly(true);
-    mixed_log->setTextFormat(RichText);
+    mixed_log->setTextFormat(LogText);
     mixed_log->setVScrollBarMode(QScrollView::Auto);
     mixed_log->setWordWrap(QTextEdit::NoWrap);
     topLayout->addWidget(mixed_log);
@@ -193,9 +190,7 @@ void LogWindow::closeEvent(QCloseEvent *e)
 
 void LogWindow::logGeneral(const QString & message)
 {
-    QString tmps;
-
-    tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : <strong>" + message + "</strong></code><br>";
+    QString tmps = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : <b>" + message + "</b>";
 
     mixed_log->append(tmps);
 }
@@ -206,9 +201,9 @@ void LogWindow::logTransfer(uint id, const QString & filename, const QString & m
     QString mixed_msg, single_msg, job_id;
 
     job_id.sprintf("Job[<font color=\"red\">%d</font>] : ", id);
-    mixed_msg = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + job_id + message + "</code><br>";
+    mixed_msg = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + job_id + message;
 
-    single_msg = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message + "</code><br>";
+    single_msg = "<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message;
 
     mixed_log->append(mixed_msg);
     sep_log->addLog(id, filename, single_msg);

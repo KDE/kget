@@ -52,7 +52,7 @@
 
 
 DlgIndividual::DlgIndividual(Transfer * _item)
-    : QWidget(0, "dialog")
+    : QWidget(0, "dialog", WDestructiveClose)
 {
     item = _item;
 
@@ -103,8 +103,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     KToolBar *toolBar = new KToolBar(this);
     toolBar->setIconText(KToolBar::IconOnly);
     toolBar->setBarPos(KToolBar::Bottom);
-    toolBar->enableFloating(false);
-    toolBar->enableMoving(false);
+    toolBar->setMovingEnabled(false);
     toolBar->setFlat(true);
 
     topLayout->addWidget( toolBar );
@@ -182,6 +181,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     // adding item log
     ml_log = new QTextEdit(panelAdvanced);
+    ml_log->setTextFormat(LogText);
     ml_log->setReadOnly(true);
     // ml_log->setFixedSize(sizeHint());
     ml_log->setVScrollBarMode(QScrollView::Auto);
@@ -299,15 +299,15 @@ void DlgIndividual::slotToggleDock()
 }
 
 
-
-/** Append the _msg to the log file */
-void DlgIndividual::addLog(const QString & _msg)
+/** Sets the whole log */
+void DlgIndividual::setLog(const QString & _msg)
 {
-    QString tmps;
+    ml_log->setText(_msg);
+}
 
-    tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + _msg + "</code><br>";
-
-    ml_log->append(tmps);
+void DlgIndividual::appendLog(const QString & _msg)
+{
+    ml_log->append(_msg);
 }
 
 
