@@ -271,10 +271,10 @@ void GroupList::about() const
         (*it)->about();
 }
 
-void GroupList::slotAddedTransfers(TransferList list)
+void GroupList::slotAddedTransfers(const TransferList& list)
 {
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
 
     for(; it!=endList; ++it)
     {
@@ -284,10 +284,10 @@ void GroupList::slotAddedTransfers(TransferList list)
     }    
 }
 
-void GroupList::slotRemovedTransfers(TransferList list)
+void GroupList::slotRemovedTransfers(const TransferList& list)
 {
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
 
     for(; it!=endList; ++it)
     {
@@ -295,13 +295,12 @@ void GroupList::slotRemovedTransfers(TransferList list)
         if(groupsMap.contains(tName))
             groupsMap[tName]->delTransfer(*it);
     }    
-    
 }
 
-void GroupList::slotChangedTransfers(TransferList list)
+void GroupList::slotChangedTransfers(const TransferList& list)
 {
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
 
     for(; it!=endList; ++it)
     {

@@ -53,9 +53,9 @@ public:
 
     // public methods inherited from the ViewInterface
     void schedulerCleared();
-    void schedulerAddedItems( TransferList );
-    void schedulerRemovedItems( TransferList );
-    void schedulerChangedItems( TransferList );
+    void schedulerAddedItems( const TransferList& );
+    void schedulerRemovedItems( const TransferList& );
+    void schedulerChangedItems( const TransferList& );
     void schedulerStatus( GlobalStatus * );
 
 public slots:

@@ -243,20 +243,20 @@ void IconView::schedulerCleared()
     clear();
 }
 
-void IconView::schedulerAddedItems( TransferList tl )
+void IconView::schedulerAddedItems( const TransferList& tl )
 {
-    TransferList::iterator it = tl.begin();
-    TransferList::iterator endList = tl.end();
+    TransferList::constIterator it = tl.begin();
+    TransferList::constIterator endList = tl.end();
     for (; it != endList; ++it)
-	new IconViewTransfer( this, (*it) );
+	    new IconViewTransfer( this, (*it) );
 }
 
-void IconView::schedulerRemovedItems( TransferList tl )
+void IconView::schedulerRemovedItems( const TransferList& tl )
 {
     if ( !count() )
 	return;
-    TransferList::iterator it = tl.begin();
-    TransferList::iterator endList = tl.end();
+    TransferList::constIterator it = tl.begin();
+    TransferList::constIterator endList = tl.end();
     for (; it != endList; ++it)
     {
 	Transfer * transfer = *it;
@@ -271,22 +271,22 @@ void IconView::schedulerRemovedItems( TransferList tl )
     }
 }
 
-void IconView::schedulerChangedItems( TransferList tl )
+void IconView::schedulerChangedItems( const TransferList& tl )
 {
     if ( !count() )
 	return;
-    TransferList::iterator it = tl.begin();
-    TransferList::iterator endList = tl.end();
+    TransferList::constIterator it = tl.begin();
+    TransferList::constIterator endList = tl.end();
     for (; it != endList; ++it)
     {
-	Transfer * transfer = *it;
-	IconViewTransfer * ivt = static_cast<IconViewTransfer*>(firstItem());
-	while ( ivt )
-	{
-	    if ( ivt->getTransfer() == transfer )
-		ivt->update();
-	    ivt = static_cast<IconViewTransfer*>(ivt->nextItem());
-	}
+        Transfer * transfer = *it;
+        IconViewTransfer * ivt = static_cast<IconViewTransfer*>(firstItem());
+        while ( ivt )
+        {
+            if ( ivt->getTransfer() == transfer )
+            ivt->update();
+            ivt = static_cast<IconViewTransfer*>(ivt->nextItem());
+        }
     }
 }
 

@@ -279,12 +279,12 @@ void MainView::schedulerCleared()
 
 }
 
-void MainView::schedulerAddedItems( TransferList list )
+void MainView::schedulerAddedItems( const TransferList& list )
 {
     kdDebug() << "MainView::schedulerAddedItems" << endl;
 
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
     
     for(; it != endList; ++it)
     {
@@ -309,10 +309,10 @@ void MainView::schedulerAddedItems( TransferList list )
     }
 }
 
-void MainView::schedulerRemovedItems( TransferList list )
+void MainView::schedulerRemovedItems( const TransferList& list )
 {
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
     
     for(; it != endList; ++it)
     {
@@ -320,12 +320,12 @@ void MainView::schedulerRemovedItems( TransferList list )
     }
 }
 
-void MainView::schedulerChangedItems( TransferList list )
+void MainView::schedulerChangedItems( const TransferList& list )
 {
     //kdDebug() << "CHANGED_ITEMS!! " << endl;
     
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
     
     for(; it != endList; ++it)
     {

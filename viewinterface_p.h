@@ -41,12 +41,12 @@ class ViewInterfaceConnector : public QObject
 
     public slots:
 	void slotCleared();
-	void slotAddedItems( TransferList );
-	void slotRemovedItems( TransferList );
-	void slotChangedItems( TransferList );
-	void slotAddedGroups( GroupList );
-	void slotRemovedGroups( GroupList );
-	void slotChangedGroups( GroupList );
+	void slotAddedItems( const TransferList& );
+	void slotRemovedItems( const TransferList& );
+	void slotChangedItems( const TransferList& );
+	void slotAddedGroups( const GroupList& );
+	void slotRemovedGroups( const GroupList& );
+	void slotChangedGroups( const GroupList& );
 	void slotStatus( GlobalStatus * );
 
     private:

@@ -24,18 +24,18 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
     // Incoming data: connect scheduler's signals to local slots
     connect( sched, SIGNAL( clear() ),
 	     this, SLOT( slotCleared() ) );
-    connect( sched, SIGNAL( addedItems(TransferList) ),
-	     this, SLOT( slotAddedItems(TransferList) ) );
-    connect( sched, SIGNAL( removedItems(TransferList) ),
-	     this, SLOT( slotRemovedItems(TransferList) ) );
-    connect( sched, SIGNAL( changedItems(TransferList) ),
-	     this, SLOT( slotChangedItems(TransferList) ) );
-    connect( sched, SIGNAL( addedGroups(GroupList) ),
-	     this, SLOT( slotAddedGroups(GroupList) ) );
-    connect( sched, SIGNAL( removedGroups(GroupList) ),
-	     this, SLOT( slotRemovedGroups(GroupList) ) );
-    connect( sched, SIGNAL( changedGroups(GroupList) ),
-	     this, SLOT( slotChangedGroups(GroupList) ) );
+    connect( sched, SIGNAL( addedItems(const TransferList&) ),
+	     this, SLOT( slotAddedItems(const TransferList&) ) );
+    connect( sched, SIGNAL( removedItems(const TransferList&) ),
+	     this, SLOT( slotRemovedItems(const TransferList&) ) );
+    connect( sched, SIGNAL( changedItems(const TransferList&) ),
+	     this, SLOT( slotChangedItems(const TransferList&) ) );
+    connect( sched, SIGNAL( addedGroups(const GroupList&) ),
+	     this, SLOT( slotAddedGroups(const GroupList&) ) );
+    connect( sched, SIGNAL( removedGroups(const GroupList&) ),
+	     this, SLOT( slotRemovedGroups(const GroupList&) ) );
+    connect( sched, SIGNAL( changedGroups(const GroupList&) ),
+	     this, SLOT( slotChangedGroups(const GroupList&) ) );
     connect( sched, SIGNAL( globalStatus(GlobalStatus *) ),
 	     this, SLOT( slotStatus(GlobalStatus *) ) );
     // Outgoing data: connect local signals to scheduler's slots
@@ -71,37 +71,37 @@ void ViewInterfaceConnector::slotCleared()
     iface->schedulerCleared();
 }
 
-void ViewInterfaceConnector::slotAddedItems( TransferList tl )
+void ViewInterfaceConnector::slotAddedItems( const TransferList& tl )
 {
 //     kdDebug() << "slotAddedItems()" << endl;
     iface->schedulerAddedItems( tl );
 }
 
-void ViewInterfaceConnector::slotRemovedItems( TransferList tl )
+void ViewInterfaceConnector::slotRemovedItems( const TransferList& tl )
 {
     //kdDebug() << "slotRemovedItems()" << endl;
     iface->schedulerRemovedItems( tl );
 }
 
-void ViewInterfaceConnector::slotChangedItems( TransferList tl )
+void ViewInterfaceConnector::slotChangedItems( const TransferList& tl )
 {
-    //kdDebug() << "slotChangedItems()" << endl;
+//     kdDebug() << "slotChangedItems()" << endl;
     iface->schedulerChangedItems( tl );
 }
 
-void ViewInterfaceConnector::slotAddedGroups( GroupList gl )
+void ViewInterfaceConnector::slotAddedGroups( const GroupList& gl )
 {
 //     kdDebug() << "slotAddedGroups()" << endl;
     iface->schedulerAddedGroups( gl );
 }
 
-void ViewInterfaceConnector::slotRemovedGroups( GroupList gl )
+void ViewInterfaceConnector::slotRemovedGroups( const GroupList& gl )
 {
     //kdDebug() << "slotRemovedItems()" << endl;
     iface->schedulerRemovedGroups( gl );
 }
 
-void ViewInterfaceConnector::slotChangedGroups( GroupList gl )
+void ViewInterfaceConnector::slotChangedGroups( const GroupList& gl )
 {
     //kdDebug() << "slotChangedItems()" << endl;
     iface->schedulerChangedGroups( gl );

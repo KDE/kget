@@ -110,17 +110,17 @@ void GroupsPanel::schedulerCleared()
 
 }
 
-void GroupsPanel::schedulerAddedItems( TransferList list)
+void GroupsPanel::schedulerAddedItems( const TransferList& list)
 {
 
 }
 
-void GroupsPanel::schedulerRemovedItems( TransferList list)
+void GroupsPanel::schedulerRemovedItems( const TransferList& list)
 {
 
 }
 
-void GroupsPanel::schedulerChangedItems( TransferList list)
+void GroupsPanel::schedulerChangedItems( const TransferList& list)
 {
 
 }

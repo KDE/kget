@@ -58,9 +58,9 @@ Q_OBJECT
     void slotShowGroup();
 
 	virtual void schedulerCleared();
-	virtual void schedulerAddedItems( TransferList );
-	virtual void schedulerRemovedItems( TransferList );
-	virtual void schedulerChangedItems( TransferList );
+	virtual void schedulerAddedItems( const TransferList& );
+	virtual void schedulerRemovedItems( const TransferList& );
+	virtual void schedulerChangedItems( const TransferList& );
     virtual void schedulerAddedGroups( const GroupList& );
     virtual void schedulerRemovedGroups( const GroupList& );
     virtual void schedulerChangedGroups( const GroupList& );

@@ -48,9 +48,9 @@ class IconView : public QIconView, public ViewInterface
 	IconView( QWidget * parent = 0, const char * name = 0 );
 	
 	virtual void schedulerCleared();
-	virtual void schedulerAddedItems( TransferList );
-	virtual void schedulerRemovedItems( TransferList );
-	virtual void schedulerChangedItems( TransferList );
+	virtual void schedulerAddedItems( const TransferList& );
+	virtual void schedulerRemovedItems( const TransferList& );
+	virtual void schedulerChangedItems( const TransferList& );
 	virtual void schedulerStatus( GlobalStatus * );
 
     public slots:

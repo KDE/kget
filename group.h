@@ -119,10 +119,13 @@ Q_OBJECT
 
     void about() const;
     
+    signals:
+    void changedGroups(const GroupList&);
+    
     public slots:
-    void slotAddedTransfers(TransferList);
-    void slotRemovedTransfers(TransferList);
-    void slotChangedTransfers(TransferList);
+    void slotAddedTransfers(const TransferList&);
+    void slotRemovedTransfers(const TransferList&);
+    void slotChangedTransfers(const TransferList&);
     
     private:
     QMap<QString, Group*> groupsMap;

@@ -239,15 +239,15 @@ void TestView::schedulerCleared()
 
 }
 
-void TestView::schedulerAddedItems( TransferList list)
+void TestView::schedulerAddedItems( const TransferList& list)
 {
     sDebugIn << endl;
     
-    TransferList::iterator it;
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
     
-    for(it = list.begin(); it != endList; ++it)
-        {
+    for(; it != endList; ++it)
+    {
 	//sDebug << "item" << endl;
         listView->insertItem(new TestViewItem(listView, *it));
     }
@@ -255,20 +255,20 @@ void TestView::schedulerAddedItems( TransferList list)
     sDebugOut << endl;
 }
 
-void TestView::schedulerRemovedItems( TransferList list)
+void TestView::schedulerRemovedItems( const TransferList& list)
 {
     sDebugIn << endl;
     
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
     
     
     for(; it != endList; ++it)
-        {
+    {
         //sDebug << "-----" << endl;
         QListViewItemIterator itemIter(listView);
         while(itemIter.current())
-            {
+        {
             //sDebug << ":::::" << endl;
             
             if(((TestViewItem*)itemIter.current())->getTransfer() == *it)
@@ -283,20 +283,20 @@ void TestView::schedulerRemovedItems( TransferList list)
     sDebugOut << endl;
 }
 
-void TestView::schedulerChangedItems( TransferList list)
+void TestView::schedulerChangedItems( const TransferList& list)
 {
     sDebugIn << endl;
     
-    TransferList::iterator it = list.begin();
-    TransferList::iterator endList = list.end();
+    TransferList::constIterator it = list.begin();
+    TransferList::constIterator endList = list.end();
     
     
     for(; it != endList; ++it)
-        {
+    {
         //sDebug << "-----" << endl;
         QListViewItemIterator itemIter(listView);
         while(itemIter.current())
-            {
+        {
             //sDebug << ":::::" << endl;
             
             ((TestViewItem *)itemIter.current())->update(*it);

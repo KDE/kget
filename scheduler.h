@@ -58,12 +58,12 @@ public:
 
     
 signals:
-    void addedItems(TransferList);
-    void removedItems(TransferList);
-    void changedItems(TransferList);
-    void addedGroups(GroupList);
-    void removedGroups(GroupList);
-    void changedGroups(GroupList);
+    void addedItems(const TransferList&);
+    void removedItems(const TransferList&);
+    void changedItems(const TransferList&);
+    void addedGroups(const GroupList&);
+    void removedGroups(const GroupList&);
+    void changedGroups(const GroupList&);
     
     void clear();
     void globalStatus(GlobalStatus *);

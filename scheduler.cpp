@@ -43,17 +43,18 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
     removedTransfers = new TransferList();
     groups = new GroupList();
     
-    connect(this, SIGNAL(addedItems(TransferList)),
-            groups, SLOT(slotAddedTransfers(TransferList)));
-    connect(this, SIGNAL(removedItems(TransferList)),
-            groups, SLOT(slotRemovedTransfers(TransferList)));
-    connect(this, SIGNAL(changedItems(TransferList)),
-            groups, SLOT(slotChangedTransfers(TransferList)));
+    connect(this,   SIGNAL(addedItems(const TransferList&)),
+            groups, SLOT(slotAddedTransfers(const TransferList&)));
+    connect(this,   SIGNAL(removedItems(const TransferList&)),
+            groups, SLOT(slotRemovedTransfers(const TransferList&)));
+    connect(this,   SIGNAL(changedItems(const TransferList&)),
+            groups, SLOT(slotChangedTransfers(const TransferList&)));
+    connect(groups, SIGNAL(changedGroups(const GroupList&)),
+            this,   SIGNAL(changedGroups(const GroupList&)));
     
     connections.append( new Connection(this) );
     
     slotImportTransfers();
-    kdDebug() << "IMPORTAZIONE TRASFERIMENTI COMPLETATA5" << endl;
 }
 
 Scheduler::~Scheduler()
