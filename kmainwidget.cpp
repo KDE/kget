@@ -959,7 +959,7 @@ void KMainWidget::slotOpenTransfer()
 #endif
 
     while (!ok) {
-        newtransfer = KInputDialog::getText(i18n("Open transfer:"), newtransfer,QString::null, &ok, this);
+        newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
 
         // user presses cancel
         if (!ok) {
@@ -1023,7 +1023,7 @@ void KMainWidget::slotPasteTransfer()
 
     if (!ksettings.b_expertMode) {
         bool ok = false;
-        newtransfer = KInputDialog::getText(i18n("Open transfer:"), newtransfer, QString::null, &ok, this);
+        newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
 
         if (!ok) {
             // cancelled
