@@ -95,10 +95,10 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
 //     
 //     // side panel :: Help
 //     helpPanel = new QLabel( "", this, "help panel" );
-//     helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>\
-//                 This widget should display context sensitive help\
-//                 (maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>\
-//                 Dario && Enrico");
+//     helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>"
+//                 "This widget should display context sensitive help "
+//                 "(maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>"
+//                 "Dario && Enrico");
 //     helpPanel->setFrameShape( QFrame::StyledPanel );
 //     helpPanel->setFrameShadow( QFrame::Sunken );
 //     helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
@@ -112,7 +112,6 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     browserBar->setMinimumHeight( 200 );
     //setEraseColor( palette().active().background().dark(150) );
     setMaximumHeight( 32767 );
-    resize( Settings::mainSize() );
 
     if ( Settings::showMain() )
         show();
@@ -345,9 +344,8 @@ void KMainWidget::slotSaveMyself()
 {
     // save last parameters ..
     Settings::setMainPosition( pos() );
-    if ( vMode != vm_compact )
-        Settings::setMainSize( size() );
-    Settings::setMainState( KWin::windowInfo(winId()).state() );
+//    if ( vMode != vm_compact )
+//        Settings::setMainSize( size() );
     // .. and write config to disk
     Settings::writeConfig();
 }
@@ -383,21 +381,27 @@ void KMainWidget::slotNewConfig()
     // PreferencesDialog, this function is called.
 
     if ( kdrop )
-        kdrop->setShown( Settings::showDropTarget() );
+        kdrop->setShown( Settings::showDropTarget(), false );
 }
 
 
 void KMainWidget::slotQuit()
 {
 /*
-    log(i18n("Quitting..."));
-
-    // TODO check if items in ST_RUNNING state and ask for confirmation before quitting (if not expert mode)
-    if (someRunning && !Settings::expertMode()) {
+    // TODO check if items in ST_RUNNING state and ask for confirmation before quitting
+    if (scheduler->countRunning() > 0) {
 	//include <kmessagebox.h>
-	if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close KGet?"), i18n("Warning")) != KMessageBox::Yes)
+        if (KMessageBox::warningYesNo(this,
+                i18n("Some transfers are still running.\n"
+                     "Are you sure you want to close KGet?"),
+                i18n("Warning"), KStdGuiItem::yes(), KStdGuiItem::no(),
+                "ExitWithActiveTransfers") == KMessageBox::No)
             return;
     }
+
+    log(i18n("Quitting..."));
+
+    // TODO the user want to exit, so we should save our state...
 */
     Settings::writeConfig();
     kapp->quit();

@@ -39,6 +39,13 @@
 class KURL;
 class KURL::List;
 
+class BrowserBar;
+class DropTarget;
+class GroupsPanel;
+class MainView;
+class Sidebar;
+class Tray;
+
 /** The main window of KGet2. Can be collapsed or expanded. */
 class KMainWidget : public KMainWindow, public ViewInterface, virtual public DCOPIface
 {
@@ -103,15 +110,15 @@ private:
     enum ViewMode vMode;
 
     // internal widgets
-    class BrowserBar  * browserBar;
-    class GroupsPanel * groupsPanel;
-    class Sidebar     * sidebar;
-    class QWidget     * rightWidget;
-    class MainView    * mainView;
+    BrowserBar  * browserBar;
+    GroupsPanel * groupsPanel;
+    Sidebar     * sidebar;
+    MainView    * mainView;
+    QWidget     * rightWidget;
 
     // separated widgets
-    class DropTarget * kdrop;
-    class Tray       * kdock;
+    DropTarget * kdrop;
+    Tray       * kdock;
 };
 
 #endif

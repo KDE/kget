@@ -1,4 +1,4 @@
-SUBDIRS = conf core transfers ui sounds .
+SUBDIRS = conf core transfers ui sounds . plugins
 INCLUDES = $(all_includes) -Iconf
 
 bin_PROGRAMS = kget

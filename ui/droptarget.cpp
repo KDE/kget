@@ -149,6 +149,7 @@ DropTarget::DropTarget(KMainWidget * mw)
 DropTarget::~DropTarget()
 {
     Settings::setDropPosition( pos() );
+    Settings::setShowDropTarget( isShown() );
 //    unsigned long state = KWin::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
 //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE ); 
@@ -159,16 +160,10 @@ DropTarget::~DropTarget()
 
 void DropTarget::slotClose()
 {
-    Settings::setShowDropTarget( false );
-    if ( Settings::animateDropTarget() )
-        playAnimationHide();
-    else
-        hide();
-    if (parentWidget->isHidden())
-        toggleMinimizeRestore();
+    setShown( false );
     KMessageBox::information(parentWidget,
-        i18n("Drop target has been hidden. If you want to show it\
-              again, go to Configuration->Look & Feel options."),
+        i18n("Drop target has been hidden. If you want to show it "
+             "again, go to Settings->Configure KGet->Look & Feel."),
         i18n("Hiding drop target"),
         "CloseDroptarget");
 }
@@ -230,7 +225,7 @@ void DropTarget::closeEvent( QCloseEvent * e )
     if( kapp->sessionSaving() )
         e->ignore();
     else
-        slotClose();
+        setShown( false );
 }
 
 
@@ -273,6 +268,30 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 {
     if (e->button() == LeftButton)
         toggleMinimizeRestore();
+}
+
+void DropTarget::setShown( bool shown, bool internal )
+{
+    if (shown == isShown())
+        return;
+
+    if ( internal )
+        Settings::setShowDropTarget( shown );
+
+    if (!shown)
+    {
+        Settings::setDropPosition( pos() );
+        if ( Settings::animateDropTarget() )
+            playAnimationHide();
+        else
+            hide();
+    }
+    else
+    {
+        show();
+        if ( Settings::animateDropTarget() )
+            playAnimation();
+    }
 }
 
 

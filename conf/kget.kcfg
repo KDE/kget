@@ -130,9 +130,6 @@
   <group name="Internal">
     <!-- NOT CONFIGURABLE -->
     <entry name="MainPosition" type="Point"/>
-    <entry name="MainSize" type="Size">
-      <default code="true">QSize(650,180)</default>
-    </entry>
     <entry name="MainState" type="UInt64">
       <default>0</default>
     </entry>
