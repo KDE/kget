@@ -27,7 +27,7 @@
 
 
 #include "slave.h"
-
+#include <assert.h>
 
 Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
 {
