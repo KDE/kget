@@ -375,7 +375,7 @@ void Transfer::slotResume()
 
     retryCount++;
     if (retryCount > ksettings.reconnectRetries)
-        ksettings.reconnectRetries = retryCount;
+        retryCount = 1;
     UpdateRetry();
     assert(status == ST_STOPPED);
 
@@ -937,12 +937,12 @@ void Transfer::maybeShow()
 
 bool Transfer::retryOnError()
 {
-    return (ksettings.b_reconnectOnError && (retryCount <= ksettings.reconnectRetries));
+    return (ksettings.b_reconnectOnError && (retryCount < ksettings.reconnectRetries));
 }
 
 bool Transfer::retryOnBroken()
 {
-    return (ksettings.b_reconnectOnBroken && (retryCount <= ksettings.reconnectRetries));
+    return (ksettings.b_reconnectOnBroken && (retryCount < ksettings.reconnectRetries));
 }
 
 #include "transfer.moc"
