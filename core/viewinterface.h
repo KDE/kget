@@ -58,20 +58,14 @@ public:
     void schedSetCommand( TransferList, TransferCommand );
 
     void schedSetGroup( TransferList , const QString &);
-    /**
-     * schedAddGroup: here we must provide the new group
-     */
     void schedAddGroup( GroupList );
-    /**
-     * schedDelGroup: here we must provide the group name
-     */
     void schedDelGroup( GroupList );
     /**
      * schedModifyGroup: here we must provide the group name before the
-     * last changes and the new group itself 
+     * last changes and the new group itself
      */
     void schedModifyGroup( const QString &, Group );
-    
+
     void schedRequestOperation( SchedulerOperation );
     void schedDebugOperation( SchedulerDebugOp );
 
