@@ -111,7 +111,7 @@ DlgAdvanced::DlgAdvanced(QWidget * parent):QGroupBox(parent)
     gridLayout->addMultiCellWidget(cb_expertmode, 6, 6, 0, 2);
     connect( cb_expertmode, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-    cb_konqiIntegration= new QCheckBox(i18n("Enable the integration with Konqueror"), this);
+    cb_konqiIntegration= new QCheckBox(i18n("Enable integration with Konqueror"), this);
     gridLayout->addMultiCellWidget(cb_konqiIntegration, 7, 7, 0, 2);
     connect( cb_konqiIntegration, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 

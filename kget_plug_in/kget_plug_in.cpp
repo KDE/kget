@@ -145,7 +145,7 @@ void KGet_plug_in::slotShowLinks()
     if ( linkList.isEmpty() )
     {
         KMessageBox::sorry( htmlPart->widget(),
-            i18n("There are no links in the active Frame of the current HTML page."),
+            i18n("There are no links in the active frame of the current HTML page."),
             i18n("No Links") );
         return;
     }
