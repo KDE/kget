@@ -281,10 +281,7 @@ void Transfer::updateAll()
 {
     sDebugIn << endl;
 
-
     updateStatus(status);       // first phase of animation
-
-
 
     logMessage(i18n("Copy file from: %1").arg(src.url()));
     logMessage(i18n("To: %1").arg(dest.url()));
@@ -296,28 +293,19 @@ void Transfer::updateAll()
     setText(view->lv_filename, dest.fileName());
 
     dlgIndividual->setCopying(src, dest);
-
-
     dlgIndividual->setCanResume(canResume);
-
-
 
     if (totalSize != 0) {
         //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
         setText(view->lv_total, KIO::convertSize(totalSize));
-        dlgIndividual->setTotalSize(totalSize);
-        dlgIndividual->setPercent(0);
-        dlgIndividual->setProcessedSize(0);
     } else {
         //logMessage(i18n("Total size is unknown"));
         setText(view->lv_total, i18n("unknown"));
-        dlgIndividual->setTotalSize(totalSize);
-        dlgIndividual->setPercent(0);
-        dlgIndividual->setProcessedSize(0);
-
-
     }
-
+    
+    dlgIndividual->setTotalSize(totalSize);
+    dlgIndividual->setPercent(0);
+    dlgIndividual->setProcessedSize(0);
 
     sDebugOut << endl;
 }
@@ -519,9 +507,7 @@ void Transfer::slotCanceled(KIO::Job *)
 
 void Transfer::slotFinished()
 {
-
-
-  sDebugIn << endl;
+    sDebugIn << endl;
 
     logMessage(i18n("Download finished"));
     mode = MD_NONE;
@@ -633,9 +619,19 @@ void Transfer::slotProcessedSize(unsigned long bytes)
     int old = percent;
     processedSize = bytes;
 
-    if (totalSize == 0) {
+    if (totalSize == 0) 
+    {
         percent = 0;
-    } else {
+    } 
+    else if ( totalSize < processedSize ) // bogus totalSize value
+    {
+        percent = 99; // what can we say?
+        totalSize = processedSize;
+
+        setText(view->lv_total, KIO::convertSize(totalSize));
+        dlgIndividual->setTotalSize(totalSize);
+    }
+    else {
         percent = (int) (((float) processedSize / (float) totalSize) * 100.0);
     }
     dlgIndividual->setProcessedSize(processedSize);
