@@ -118,6 +118,7 @@ void Slave::run()
 	case RETR:
 	    mDebug << " FETCHED COMMAND       RETR" << endl;
 	    copyjob = new KIO::GetFileJob(m_src, m_dest);
+      copyjob->setAutoErrorHandlingEnabled(true);
 	    Connect();
 	    PostMessage(SLV_RESUMED);
 	    break;
@@ -228,7 +229,7 @@ void Slave::slotResult(KIO::Job * job)
 {
     mDebugIn << endl;
     if (job->error())
-	job->showErrorDialog();
+          	job->showErrorDialog();
     PostMessage(SLV_FINISHED);
     mDebugOut << endl;
 
