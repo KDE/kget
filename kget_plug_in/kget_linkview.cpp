@@ -33,6 +33,8 @@ LinkViewItem::LinkViewItem( QListView *parent, const LinkItem *lnk )
 KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     : KMainWindow( parent, name )
 {
+    setPlainCaption( i18n( "KGet" ) );
+
     KActionCollection *coll = actionCollection();
 
     (void ) new KAction( i18n("Download Selected Files"),
@@ -99,5 +101,9 @@ void KGetLinkView::slotStartLeech()
         emit leechURLs( urls );
 }
 
+void KGetLinkView::setPageURL( const QString& url )
+{
+    setPlainCaption( i18n( "Links in: %1 - KGet" ).arg( url ) );
+}
 
 #include "kget_linkview.moc"

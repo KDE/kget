@@ -33,6 +33,7 @@ public:
     ~KGetLinkView();
 
     void setLinks( QPtrList<LinkItem>& links );
+    void setPageURL( const QString& url );
 
 signals:
     void leechURLs( const KURL::List& urls );
