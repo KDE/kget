@@ -5,8 +5,8 @@
 **
 ****************************************************************************/
 
-#ifndef KGET_IFACE_H
-#define KGET_IFACE_H
+#ifndef DCOP_IFACE_H
+#define DCOP_IFACE_H
 
 #include <dcopobject.h>
 #include <kurl.h>
@@ -34,4 +34,4 @@ k_dcop:
     virtual bool isOfflineMode() const = 0;
 };
 
-#endif // KGET_IFACE_H
+#endif
