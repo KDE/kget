@@ -3,11 +3,13 @@
 Type=Application
 Exec=kget -caption "%c" %i %m  
 Icon=kget
-Comment=
 Terminal=0
 Name=KGet
 Name[ar]=ك.جيت
+Name[cy]=KNôl
 Name[eo]=Prenilo
 Name[sv]=Kget
+Name[th]=ดาวน์โหลด K
 Name[ven]=Wana ha K
+Name[xx]=xxKGetxx
 Categories=Qt;KDE;Network
