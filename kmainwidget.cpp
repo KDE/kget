@@ -2114,7 +2114,7 @@ void KMainWidget::checkOnline()
     memset(&ifr, 0, sizeof(ifreq));
 
     // setup the device name according to the type of connection and link number
-    sprintf(ifr.ifr_name, "%s%d", ConnectionDevices[ksettings.connectionType].ascii(), ksettings.linkNumber);
+    snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s%d", ConnectionDevices[ksettings.connectionType].ascii(), ksettings.linkNumber);
 
     bool flag = false;
 
