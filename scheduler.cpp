@@ -712,7 +712,7 @@ void Scheduler::checkRunningTransfers()
 {
     sDebugIn << endl;
 
-    int newTransfers = /*ksettings.maxSimultaneousConnections*/ 2 - runningTransfers->size();
+    int newTransfers = /*ksettings.maxSimultaneousConnections*/ 1 - runningTransfers->size();
     
     if(newTransfers <= 0 )
         return;
@@ -729,9 +729,9 @@ void Scheduler::checkRunningTransfers()
             //download the file
             (*it)->slotResume();
             runningTransfers->addTransfer(*it);
+            --newTransfers;
         }
         ++it;
-        --newTransfers;
     }
     
 /*    uint numRun = 0;

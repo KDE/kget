@@ -24,8 +24,8 @@
 #define DKGET 0
 #define THREAD_ID "|--TH_ID ( "<< currentThread()<<" )--| "
 
-#define KGETVERSION  "v0.8.3"
-#define KGET_APP_NAME      "kget"
+#define KGETVERSION "v1.7.2"
+#define KGET_APP_NAME "kget"
 
 // Try to pre-declare as much as you can, do not include headers here!
 class KMainWidget;
@@ -56,5 +56,11 @@ enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 enum SchedulerOperation { OpPasteTransfer, OpImportTextFile,
     OpImportTransfers, OpExportTransfers, OpRun, OpStop };
 
-#endif
+struct DirItem {
+    QString extRegexp;
+    QString defaultDir;
+};
 
+typedef QValueList<DirItem> DirList;
+
+#endif

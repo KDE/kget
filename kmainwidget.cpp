@@ -79,8 +79,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
     slotUpdateActions();
     setupConnections();
 
-    sDebug << "aaa#" << endl;
-    
     //This must be the last one
     schedRequestOperation(OpImportTransfers);
 

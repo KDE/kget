@@ -12,9 +12,6 @@
         <Action name="quit"/>
     </Menu>
     <Menu name="transfer"><text>&amp;Transfer</text>
-        <Action name="start"/>
-        <Action name="stop"/>
-        <Separator/>
         <Action name="copy_url"/>
         <Action name="open_individual"/>
         <Action name="move_begin"/>
@@ -55,6 +52,7 @@
 <ToolBar fullWidth="true" name="mainToolBar"><text>Main Toolbar</text>
     <Action name="start"/>
     <Action name="stop"/>
+    <Separator/>
     <Action name="delete"/>
     <Action name="restart"/>
     <Separator/>
