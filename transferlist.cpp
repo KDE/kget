@@ -245,7 +245,8 @@ void TransferList::readTransfers(const KURL& file)
         Transfer *item;
         KURL src, dest;
 
-        while (num--) {
+        for ( int i = 0; i < num; i++ )
+        {
             QString str;
 
             str.sprintf("Item%d", num);
@@ -255,7 +256,7 @@ void TransferList::readTransfers(const KURL& file)
             dest = KURL::fromPathOrURL( config.readEntry("Dest") );
             item = addTransfer( src, dest );
 
-            if (!item->read(&config, num)) {
+            if (!item->read(&config, i)) {
                 delete item;
             }
         }
