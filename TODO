@@ -37,7 +37,7 @@ SHORT-TERM (URGENT):
       is St_Trying or St_Running. In this case we should do nothing.
 
   -- SIDEBAR --
-  FIX <dario> sometimes, but it's not clear to me the exact reason, the sidebar
+  FIX <dario> (JJ) sometimes, but it's not clear to me the exact reason, the sidebar
       crashes. Maybe this is due to the find("") call to the QPixmapCache
       sometimes returning a null pointer. I wonder if it was better to simply
       have some protected QPixmap objects in SidebarItem instead of using
