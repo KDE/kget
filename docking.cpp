@@ -40,15 +40,11 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
     parent = _parent;
 
-        
-    KIconLoader *loader = KGlobal::iconLoader();
-    QPixmap tmppix=loader->loadIcon("dock", KIcon::Small);
-    this->setPixmap(tmppix);
+    setPixmap( UserIcon( "dock" ));
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
     parent->m_paPreferences->plug(popupMenu);
-
 
     // Enable dropping
     setAcceptDrops(true);
