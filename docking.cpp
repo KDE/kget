@@ -53,9 +53,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
    
     dtip = new DynamicTip( this );
     dtip->setStatus( kapp->aboutData()->shortDescription() );
-    
-    connect(this, SIGNAL(quitSelected()),
-	    kapp, SLOT(quit()));
+
 }
 
 
