@@ -78,19 +78,12 @@ public:
 
 
 public slots:
-    /** No descriptions */
     void slotCanceled(KIO::Job *);
-    /** No descriptions */
     void slotConnected(KIO::Job *);
-    /** No descriptions */
     void slotResult(KIO::Job *);
-    /** No descriptions */
     void slotTotalSize(KIO::Job *, KIO::filesize_t);
-    /** No descriptions */
     void slotProcessedSize(KIO::Job *, KIO::filesize_t);
-    /** No descriptions */
     void slotSpeed(KIO::Job *, unsigned long);
-    /** No descriptions */
     void slotInfoMessage(KIO::Job *, const QString &);
 
 public:
