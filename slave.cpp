@@ -58,7 +58,7 @@ void Slave::Op(SlaveCommand _cmd)
 
     if ( !running() ) // start on demand
         start();
-    
+
     mutex.lock();
     stack.push(_cmd);
     nPendingCommand++;
@@ -226,9 +226,15 @@ void Slave::slotResult(KIO::Job * job)
     mDebugIn << endl;
     if (job->error()) {
         InfoMessage(job->errorString());
+        terminate(); // AEEIIII!
+        wait();
         PostMessage(SLV_DELAYED);
     } else
+    {
+        terminate(); // AEEIIII!
+        wait();
         PostMessage(SLV_FINISHED);
+    }
     mDebugOut << endl;
 }
 
@@ -265,6 +271,5 @@ void Slave::slotInfoMessage(KIO::Job *, const QString & _msg)
     InfoMessage(_msg);
     mDebugOut << endl;
 }
-
 
 #include "slave.moc"

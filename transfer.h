@@ -72,6 +72,8 @@ public:
     Slave *m_pSlave;
     void copy(Transfer *);
 
+    // note: does NOT read the "Source" and "Dest" urls. You need to pass
+    // those in the constructor already. You can't "update" those currently.
     bool read(KSimpleConfig * config, int id);
     void write(KSimpleConfig * config, int id);
     void logMessage(const QString & message);

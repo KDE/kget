@@ -32,6 +32,7 @@
 #include <kaction.h>
 #include <kiconloader.h>
 #include <kstandarddirs.h>
+#include <kwin.h>
 
 #include <assert.h>
 #include "settings.h"
@@ -90,7 +91,7 @@ Transfer::~Transfer()
     // needs some more investigation
     if ( !m_pSlave->running() )
         delete m_pSlave;
-
+    
     delete dlgIndividual;
     sDebugOut << endl;
 }
@@ -153,8 +154,7 @@ Transfer::init()
     // setup individual transfer dialog
     dlgIndividual = new DlgIndividual(this);
     if (ksettings.b_iconifyIndividual) {
-        // TODO : iconify in kwin
-        // dlgIndividual->iconify( true );
+        KWin::iconifyWindow( dlgIndividual->winId() );
     }
 
     sDebugOut << endl;
@@ -203,7 +203,7 @@ void Transfer::slotUpdateActions()
     }
 
     UpdateRetry();
-    
+
     switch (status) {
     case ST_TRYING:
     case ST_RUNNING:
@@ -656,6 +656,7 @@ void Transfer::showIndividual()
     //      update the actions
     slotUpdateActions();
     //     then show the single dialog
+    KWin::deIconifyWindow( dlgIndividual->winId() );
     dlgIndividual->show();
 
     sDebugOut << endl;
@@ -683,9 +684,6 @@ bool Transfer::read(KSimpleConfig * config, int id)
     QString str;
     str.sprintf("Item%d", id);
     config->setGroup(str);
-
-    src = config->readEntry("Source", "");
-    dest = config->readEntry("Dest", "");
 
     if (src.isEmpty() || dest.isEmpty()) {
         return false;

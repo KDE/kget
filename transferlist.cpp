@@ -249,7 +249,7 @@ void TransferList::readTransfers(const KURL& file)
         {
             QString str;
 
-            str.sprintf("Item%d", num);
+            str.sprintf("Item%d", i);
             config.setGroup(str);
 
             src  = KURL::fromPathOrURL( config.readEntry("Source") );
