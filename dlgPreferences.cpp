@@ -58,28 +58,24 @@ DlgPreferences::DlgPreferences(QWidget * parent):
 
     conDlg = new DlgConnection(page);
     topLayout->addWidget(conDlg);
-    connect( conDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Automation"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     autDlg = new DlgAutomation(page);
     topLayout->addWidget(autDlg);
     topLayout->addStretch();
-    connect( autDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Limits"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     limDlg = new DlgLimits(page);
     topLayout->addWidget(limDlg);
     topLayout->addStretch();
-    connect( limDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Advanced"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     advDlg = new DlgAdvanced(page);
     topLayout->addWidget(advDlg);
     topLayout->addStretch();
-    connect( advDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     // page = addPage(i18n("Search"));
     // topLayout = new QVBoxLayout(page, 0, spacingHint());
@@ -91,54 +87,32 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     dirDlg = new DlgDirectories(page);
     topLayout->addWidget(dirDlg);
     topLayout->addStretch();
-    connect( dirDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("System"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     sysDlg = new DlgSystem(page);
     topLayout->addWidget(sysDlg);
     topLayout->addStretch();
-    connect( sysDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     // type of connection influences autoDisconnect & timedDisconnect features
     connect(conDlg, SIGNAL(typeChanged(int)), autDlg, SLOT(slotTypeChanged(int)));
 
-    connect(this, SIGNAL(applyClicked()), SLOT(applySettings()));
+    loadAllData();
 
-    conDlg->setData();
-    autDlg->setData();
-    limDlg->setData();
-    advDlg->setData();
-    //        seaDlg->setData();
-    dirDlg->setData();
-    sysDlg->setData();
-    enableButton( Apply, false );
+    connect( conDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+    connect( autDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+    connect( limDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+    connect( advDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+    connect( dirDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+    connect( sysDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 }
 
 
 void DlgPreferences::slotChanged()
 {
+    changed = true;
     enableButton( Apply, true );
 }
-
-
-void
-DlgPreferences::closeEvent(QCloseEvent * e)
-{
-    kmain->m_paPreferences->setEnabled(true);
-    KDialogBase::closeEvent(e);
-}
-
-
-void DlgPreferences::done(int r)
-{
-    if (r != Rejected) {
-        applySettings();
-    }
-
-    hide();
-}
-
 
 void DlgPreferences::applySettings()
 {
@@ -151,6 +125,39 @@ void DlgPreferences::applySettings()
     sysDlg->applyData();
 
     ksettings.save();
+    changed = false;
+    enableButton( Apply, false );
+}
+
+void DlgPreferences::slotOk()
+{
+    if ( changed )
+        applySettings();
+    accept();
+}
+
+void DlgPreferences::slotCancel()
+{
+    if ( changed )
+        loadAllData();
+    reject();
+}
+
+void DlgPreferences::slotApply()
+{
+    applySettings();
+}
+
+void DlgPreferences::loadAllData()
+{
+    conDlg->setData();
+    autDlg->setData();
+    limDlg->setData();
+    advDlg->setData();
+    //        seaDlg->setData();
+    dirDlg->setData();
+    sysDlg->setData();
+    changed = false;
     enableButton( Apply, false );
 }
 

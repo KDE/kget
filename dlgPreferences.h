@@ -49,8 +49,6 @@ Q_OBJECT public:
     DlgPreferences(QWidget * parent);
     ~DlgPreferences()
     {}
-protected:
-    void closeEvent(QCloseEvent *);
 
 private:
 
@@ -63,10 +61,16 @@ private:
     DlgDirectories *dirDlg;
     DlgSystem *sysDlg;
 
+    bool changed;
+
+    void loadAllData();
+
 protected slots:
-    virtual void done(int r);
     void applySettings();
     void slotChanged();
+    virtual void slotOk();
+    virtual void slotCancel();
+    virtual void slotApply();
 
 };
 
