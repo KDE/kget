@@ -34,6 +34,10 @@
 #include <qbuttongroup.h>
 #include <qradiobutton.h>
 
+#ifdef index
+#undef index
+#endif
+
 #include <kcombobox.h>
 
 #include <kfontdialog.h>
