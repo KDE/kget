@@ -25,6 +25,7 @@
     <Separator lineSeparator="true"/>
     <Action name="view_bandgraph" />
     <Separator lineSeparator="true"/>    
+    <Action name="view_spacer" />
     <Action name="view_vlabel" />
     <Action name="view_mode" />
 </ToolBar>

@@ -107,6 +107,8 @@ private:
     // internal widgets
     class KMenuBar   * menuBar;
     class KStatusBar * statusBar;
+     class /*KSqueezedTextLabel*/QLabel * statusBarLabel1;
+     class QLabel * statusBarLabel2;
     class KToolBar   * toolBar;
     class BrowserBar * browserBar;
      class QWidget    * groupsPanel;

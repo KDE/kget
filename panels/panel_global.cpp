@@ -34,11 +34,11 @@ GlobalPanel::GlobalPanel( QWidget * parent , const char * name )
     setBackgroundMode( Qt::NoBackground );
 
     // build the gradient pixmap
-    QColor cTop = palette().active().highlight();
+    QColor cTop = palette().active().highlight().light(110);
     QColor cBottom = palette().active().background();
     topLeftPix = new QPixmap(
-        KImageEffect::unbalancedGradient( QSize( BrowserBar::MAXIMUM_WIDTH, gradientHeight ),
-        cTop, cBottom, KImageEffect::VerticalGradient, 100, 50 )
+        KImageEffect::gradient( QSize( BrowserBar::MAXIMUM_WIDTH, gradientHeight ),
+        cTop, cBottom, KImageEffect::VerticalGradient )
     );
     
     // frame properties
@@ -48,7 +48,7 @@ GlobalPanel::GlobalPanel( QWidget * parent , const char * name )
     
     // contents
     QVBoxLayout * bl = new QVBoxLayout( this, 6, 11 );
-    QLabel * l = new QLabel( "KGet" + QString(KGETVERSION), this );
+    QLabel * l = new QLabel( "KGet " + QString(KGETVERSION), this );
     l->setEraseColor( cTop );
     QFont bigFont = l->font();
     bigFont.setPointSize( bigFont.pointSize() + 6 );
@@ -68,15 +68,15 @@ GlobalPanel::~GlobalPanel()
 
 void GlobalPanel::paletteChange ( const QPalette & oldpalette )
 {
-    QColor cTop = palette().active().highlight();
-    QColor cBottom = palette().active().background();
-    if ( cBottom == oldpalette.active().background() &&
-         cTop == oldpalette.active().highlight() )
+    if ( palette().active().background() == oldpalette.active().background() &&
+         palette().active().highlight() == oldpalette.active().highlight() )
         return;
+    QColor cTop = palette().active().highlight().light(110);
+    QColor cBottom = palette().active().background();
     QPixmap * pix = topLeftPix;
     topLeftPix = new QPixmap(
-        KImageEffect::unbalancedGradient( QSize( BrowserBar::MAXIMUM_WIDTH, gradientHeight ),
-        cTop, cBottom, KImageEffect::VerticalGradient, 100, 50 )
+        KImageEffect::gradient( QSize( BrowserBar::MAXIMUM_WIDTH, gradientHeight ),
+        cTop, cBottom, KImageEffect::VerticalGradient )
     );
     delete pix;
 }
@@ -85,9 +85,9 @@ void GlobalPanel::paintEvent( QPaintEvent * e )
 {
     QPainter p;
     p.begin( this );
-    
+    p.setClipRect( e->rect() );
+
     // draw the outer frame
-    //p.setClipRect( e->rect() );
     QFrame::drawFrame( &p );
 
     // paint the inner area (top gradient)

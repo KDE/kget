@@ -33,7 +33,7 @@ BandMonWidget::BandMonWidget( bool v, QWidget * parent, const char * name )
     : QWidget( parent, name ), pixelLength( 100 ),
     isVertical( v ), pm( 0 )
 {
-    setBackgroundMode( Qt::PaletteButton );
+    setBackgroundMode( Qt::NoBackground );
 
     samples.resize( pixelLength, 0 );
     samples_current = pixelLength - 1;
@@ -106,20 +106,23 @@ void BandMonWidget::slotScroll()
 
 void BandMonWidget::drawPixmap()
 {
-    if ( !pm )
-        pm = new QPixmap( minimumSizeHint() );
+    if ( !pm || pm->size() != size() )
+    {
+        delete pm;
+        pm = new QPixmap( size() );
+    }
     
     // open a painter over the internal pixmap
     QPainter p;
     p.begin( pm );
 
-    // fill background (TODO : use style().toolbar fill)
+    // fill background if not handled by style
     p.fillRect( pm->rect(), palette().active().background() );
 
     // draw a line on the bottom
     QColor color = palette().active().button();
     p.setPen( color );
-    p.drawLine( 0, ToolBar_HEIGHT - 1 , pixelLength - 1, ToolBar_HEIGHT - 1 );
+    p.drawLine( 0, height() - 3 , pixelLength - 1, height() - 3 );
 
     // draw the graph
     p.setPen( color.dark( 160 ) );
@@ -129,7 +132,7 @@ void BandMonWidget::drawPixmap()
         tmp_index = 0;    
     if ( !isVertical )
     {
-        int y_base = ToolBar_HEIGHT - 2;
+        int y_base = height() - 4;
         int y_ext = y_base - 3;
 
         for ( int i = 0; i < count; i++ )
@@ -157,7 +160,7 @@ void BandMonWidget::drawPixmap()
     mean /= samples.size();
     if ( !isVertical )
     {
-        int y_base = ToolBar_HEIGHT - 2;
+        int y_base = height() - 4;
         int y_ext = y_base - 3;
         float k = mean / maximum;
         
@@ -172,6 +175,8 @@ void BandMonWidget::drawPixmap()
 
 void BandMonWidget::paintEvent( QPaintEvent * e )
 {
+    if ( !pm )
+        return;        
     QPainter p;
     p.begin( this );
     QRect r = e->rect();
@@ -190,25 +195,20 @@ ComboAction::ComboAction( const QString& text, const KShortcut& cut,
 
 int ComboAction::plug( QWidget* w, int index )
 {
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: ComboAction must be plugged into KToolBar." << endl;
+    KToolBar* toolBar = dynamic_cast<KToolBar*>( w );
+    if ( !toolBar )
         return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
     int id = KAction::getToolButtonID();
     addContainer( toolBar, id );
     connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
 
-    widget = new QComboBox();
+    widget = new QComboBox( toolBar );
     widget->insertItem( SmallIcon("view_remove"), i18n("Compact") );
     widget->insertItem( SmallIcon("view_detailed"), i18n("Detailed") );
     widget->insertItem( SmallIcon("view_text"), i18n("Old files") );
-    //widget->setFixedHeight( ToolBar_HEIGHT - 10 );
     widget->setFocusPolicy(QWidget::NoFocus);
     connect( widget, SIGNAL( activated(int) ), this, SLOT( slotComboActivated(int) ) );
 
-    widget->reparent( toolBar, QPoint() );
     toolBar->insertWidget( id, 0, widget, index );
     toolBar->setItemAutoSized( id, false /*true*/ );
 
@@ -235,17 +235,15 @@ ViewAsAction::ViewAsAction( const QString& text, const KShortcut& cut,
 
 int ViewAsAction::plug( QWidget* w, int index )
 {
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: ViewAsAction must be plugged into KToolBar." << endl;
+    KToolBar* toolBar = dynamic_cast<KToolBar*>( w );
+    if ( !toolBar )
         return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
     int id = KAction::getToolButtonID();
     addContainer( toolBar, id );
     connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
 
-    QLabel * label = new QLabel( text(), (QWidget *)toolBar );
+    //use "kde toolbar widget" as the name to be styled!
+    QLabel * label = new QLabel( text(), (QWidget *)toolBar, "kde toolbar widget" );
     toolBar->insertWidget( id, 0, label, index );
     toolBar->setItemAutoSized( id, false );
 
@@ -260,17 +258,15 @@ SpacerAction::SpacerAction( const QString& text, const KShortcut& cut,
 
 int SpacerAction::plug( QWidget* w, int index )
 {
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: SpacerAction must be plugged into KToolBar." << endl;
+    KToolBar* toolBar = dynamic_cast<KToolBar*>( w );
+    if ( !toolBar )
         return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
     int id = KAction::getToolButtonID();
     addContainer( toolBar, id );
     connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
 
-    QWidget * widget = new QWidget( toolBar );
+    //use "kde toolbar widget" as the name to be styled!
+    QWidget * widget = new QWidget( toolBar, "kde toolbar widget" );
     toolBar->insertWidget( id, 0, widget, index );
     toolBar->setItemAutoSized( id, true );
 
@@ -284,12 +280,9 @@ BandAction::BandAction( const QString& text, const KShortcut& cut,
 
 int BandAction::plug( QWidget* w, int index )
 {
-    if ( !w->inherits( "KToolBar" ) ) {
-        kdError() << "KWidgetAction::plug: BandAction must be plugged into KToolBar." << endl;
+    KToolBar* toolBar = dynamic_cast<KToolBar*>( w );
+    if ( !toolBar )
         return -1;
-    }
-
-    KToolBar* toolBar = static_cast<KToolBar*>( w );
     int id = KAction::getToolButtonID();
     addContainer( toolBar, id );
     connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );

@@ -229,15 +229,20 @@ void KMainWidget::setupGUI()
     browserBar->hide();
 
     // bottom status bar
+    //statusBarLabel1 = new KSqueezedTextLabel( this );
+    statusBarLabel1 = new QLabel( this );
+    statusBarLabel2 = new QLabel( this );
     statusBar = new KStatusBar( this );
-    statusBar->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
+    statusBar->addWidget( statusBarLabel1, 0 );
+    statusBar->addWidget( statusBarLabel2, 2 );
+/*  statusBar->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
     statusBar->addWidget( new KSqueezedTextLabel( this ), 2 );
     statusBar->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
     statusBar->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"), ID_TOTAL_SIZE);
     statusBar->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
-    statusBar->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
+    statusBar->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);  */
     updateStatusBar();
-
+    
     // create menu entries and toolbar buttons from the XML file
     createGUI();
 
@@ -426,8 +431,6 @@ void KMainWidget::slotConfigureKeys()
 
 void KMainWidget::slotConfigureToolbars()
 {
-//FIXME? Save settings for statusbar, menubar and toolbar to their respective
-//    saveMainWindowSettings( KGlobal::config(), "MainWindow" );
     KEditToolbar edit( "kget_toolbar", actionCollection() );
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
@@ -441,15 +444,7 @@ void KMainWidget::slotConfigureNotifications()
 
 void KMainWidget::slotNewToolbarConfig()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
     createGUI();
-//FIXME?    applyMainWindowSettings( KGlobal::config(), "MainWindow" );
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
 
 void KMainWidget::slotNewConfig()
@@ -636,11 +631,16 @@ void KMainWidget::updateActions()
 
 void KMainWidget::updateStatusBar()
 {
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-/*
-    Transfer *item;
+    QString transfers = i18n("Downloading %1 transfers (%2) at %3");
+    QString time = i18n("%1 remaining");
+
+    transfers = transfers.arg( 2 ).arg( "23.1MB" ).arg( "4.2kb/s" );
+    time = time.arg( "1 min 2 sec" );
+
+    statusBarLabel1->setText( transfers );
+    statusBarLabel2->setText( time );
+
+/*  Transfer *item;
     QString tmpstr;
 
     int totalFiles = 0;
@@ -667,10 +667,6 @@ void KMainWidget::updateStatusBar()
     statusBar->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
     statusBar->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
 */
-
-#ifdef _DEBUG
-    //sDebugOut << endl;
-#endif
 }
 
 
