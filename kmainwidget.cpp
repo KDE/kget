@@ -639,7 +639,7 @@ void KMainWidget::readTransfers(bool ask_for_name)
     if (ask_for_name)
         txt = KFileDialog::getOpenURL(currentDirectory, i18n("*.kgt|*.kgt\n*|All files")).url();
     else
-        txt = locateLocal("appdata", "transfers");
+        txt = locateLocal("appdata", "transfers.kgt");
 
     readTransfersEx(txt);
 
@@ -651,7 +651,7 @@ void KMainWidget::readTransfers(bool ask_for_name)
 void KMainWidget::readTransfersEx(const QString & txt)
 {
 #ifdef _DEBUG
-    sDebugIn << endl;
+  sDebugIn << endl;
 #endif
 
     if (txt.isEmpty()) {
@@ -661,8 +661,9 @@ void KMainWidget::readTransfersEx(const QString & txt)
 #endif
         return;
     }
-
+#ifdef _DEBUG
     sDebug << "Read from file: " << txt << endl;
+#endif
     myTransferList->readTransfers(txt);
     checkQueue();
     slotTransferTimeout();
@@ -700,7 +701,7 @@ void KMainWidget::writeTransfers(bool ask_for_name)
     if (ask_for_name)
         txt = KFileDialog::getSaveFileName(currentDirectory, i18n("*.kgt|*.kgt\n*|All files"));
     else
-        txt = locateLocal("appdata", "transfers");
+        txt = locateLocal("appdata", "transfers.kgt");
 
 
 
