@@ -80,6 +80,7 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     browserBar->hide();
     // create the 'right view'
     mainView = new MainView( (QWidget *)browserBar->container() );
+    mainView->setupActions( actionCollection() );
     //TestView * t = new TestView( (QWidget *)browserBar->container() );
     rightWidget = mainView;
 
@@ -241,7 +242,7 @@ void KMainWidget::slotDelayedInit()
     // DockWidget
     kdock = new Tray(this);
     kdock->show();
-        
+
     //viewinterface connection
     connectToScheduler( scheduler );
     kdock->connectToScheduler(scheduler);

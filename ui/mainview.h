@@ -17,6 +17,7 @@
 
 #include "core/viewinterface.h"
 
+class KActionCollection;
 class Transfer;
 class MainView;
 
@@ -66,7 +67,8 @@ class MainView : public KListView, public ViewInterface
     virtual void schedulerAddedGroups( const GroupList& );
     virtual void schedulerRemovedGroups( const GroupList& );
     virtual void schedulerChangedGroups( const GroupList& );
-    
+    virtual void setupActions( KActionCollection * a );
+
     public slots:
     void slotRightButtonClicked( QListViewItem *, const QPoint &, int);
 	
@@ -90,6 +92,7 @@ class MainView : public KListView, public ViewInterface
     TransferList getSelectedList();
     QMap<QString, MainViewGroupItem *> groupsMap;
     QMap<Transfer *, MainViewItem *> transfersMap;
+    KActionCollection * ac;
 };
 
 #endif

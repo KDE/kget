@@ -20,6 +20,7 @@
 #include "transferlist.h"
 #include "group.h"
 
+class KActionCollection;
 
 /**
   * This class defines an unified interface to talk to the scheduler.
@@ -86,6 +87,7 @@ public:
     virtual void schedulerRemovedGroups( const GroupList& ) {};
     virtual void schedulerChangedGroups( const GroupList& ) {};
     virtual void schedulerStatus( GlobalStatus * ) {};
+    virtual void setupActions( KActionCollection * ) {};
 
 private:
     class ViewInterfaceConnector * d;

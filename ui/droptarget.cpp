@@ -41,7 +41,6 @@
 #include <qpainter.h>
 #include <qbitmap.h>
 #include <qtimer.h>
-#include <qapplication.h>
 
 #include "conf/settings.h"
 #include "kget.h"

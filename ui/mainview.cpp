@@ -16,6 +16,7 @@
 #include <qimage.h>
 #include <qpixmap.h>
 
+#include <kactioncollection.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
@@ -486,10 +487,13 @@ void MainView::slotSetGroup()
 
 void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos, int column )
 {
+    if (!ac) return;
+
     KPopupMenu * popup = new KPopupMenu( this );
     
+    TransferList t = getSelectedList();
     // insert title
-    QString t1 = i18n("Download");
+    QString t1 = i18n("%n download", "%n downloads", t.count());
     QString t2 = i18n("KGet");
     popup->insertTitle( column!=-1 ? t1 : t2 );
     
@@ -498,7 +502,7 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
     {   // menu over an item
         popup->insertItem( SmallIcon("down"), i18n("R&esume"), this, SLOT(slotResumeItems()) );
         popup->insertItem( SmallIcon("stop"), i18n("&Stop"), this, SLOT(slotStopItems()) );
-        popup->insertItem( SmallIcon("remove"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
+        popup->insertItem( SmallIcon("editdelete"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
         
         KPopupMenu * subPrio = new KPopupMenu( popup );
         subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority1() ) );
@@ -525,13 +529,16 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
         popup->insertItem( SmallIcon("folder"), i18n("Set &group"), subGroup );
     }
     else
-    	// menu on empty space
-        popup->insertItem( SmallIcon("filenew"), i18n("&New Download..."), this, SLOT(slotNewTransfer()) );
+        // menu on empty space
+        ac->action("open_transfer")->plug(popup);
 
     // show popup
     popup->popup( pos );
 }
 
-
+void MainView::setupActions( KActionCollection * a )
+{
+    ac = a;
+}
 
 #include "mainview.moc"
