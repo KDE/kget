@@ -295,30 +295,20 @@ IconViewMdiView::IconViewMdiView( QWidget * parent )
     : KMdiChildView( parent, "IconView-CV" )
 {
     QHBoxLayout * mainLay = new QHBoxLayout( this,2 );
-     QFrame * descFrame = new QFrame( this );
-     mainLay->addWidget( descFrame );
-      QVBoxLayout * leftVLay = new QVBoxLayout( descFrame,4,4 );
-       descFrame->setMinimumWidth( 150 );
-       leftVLay->addWidget( new QLabel("Transfer:", descFrame) );
      QFrame * ivFrame = new QFrame( this );
      mainLay->addWidget( ivFrame );
       QVBoxLayout * rightVLay = new QVBoxLayout( ivFrame,4,4 );
        iv1 = new IconView( ivFrame );
+       iv1->setItemTextPos( QIconView::Right );
        iv1->setLineWidth(1);
-       iv2 = new IconView( ivFrame );
-       iv2->setLineWidth(1);
-       iv2->setItemTextPos( QIconView::Right );
        rightVLay->addWidget( new QLabel("Downloading", ivFrame) );
        rightVLay->addWidget( iv1 );
-       rightVLay->addWidget( new QLabel("Next in chain", ivFrame) );
-       rightVLay->addWidget( iv2 );
-//       ivFrame->setPaletteBackgroundColor( iv2->paletteBackgroundColor());
+     //ivFrame->setPaletteBackgroundColor( iv1->paletteBackgroundColor());
 }
     
 void IconViewMdiView::connectToScheduler( Scheduler * s )
 {
     iv1->connectToScheduler( s );
-    iv2->connectToScheduler( s );
 }
 
 #include "iconview.moc"

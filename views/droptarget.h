@@ -52,6 +52,9 @@ protected:
     virtual void dragEnterEvent(QDragEnterEvent *);
     virtual void mouseDoubleClickEvent(QMouseEvent * e);
     virtual void dropEvent(QDropEvent *);
+
+    // handle quit events as hide events
+    virtual void closeEvent( QCloseEvent * );
     
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent * e);

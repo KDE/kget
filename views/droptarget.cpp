@@ -24,6 +24,7 @@
  *
  ***************************************************************************/
 
+#include <kapplication.h>
 #include <kaction.h>
 #include <kiconloader.h>
 #include <kwin.h>
@@ -128,8 +129,8 @@ DropTarget::DropTarget(KMainWidget * mw)
     popupMenu->insertTitle(mw->caption());
     popupMenu->setCheckable(true);
 
-    mw->actionCollection()->action("start")->plug(popupMenu);
-    mw->actionCollection()->action("stop")->plug(popupMenu);
+    mw->actionCollection()->action("download")->plug(popupMenu);
+//    mw->actionCollection()->action("stop")->plug(popupMenu);
     popupMenu->insertSeparator();
     pop_show = popupMenu->insertItem("", this, SLOT(toggleMinimizeRestore()));
     popupMenu->insertItem(i18n("Hide me"), this, SLOT(slotClose()));
@@ -158,16 +159,19 @@ DropTarget::~DropTarget()
 void
 DropTarget::slotClose()
 {
-    playAnimationHide();
     Settings::setShowDropTarget( false );
+    playAnimationHide();
     if (parentWidget->isHidden())
-        parentWidget->show();
+        toggleMinimizeRestore();
     KMessageBox::information(parentWidget,
         i18n("Drop target has been hidden. If you want to show it\
               again, go to Configuration->Look & Feel options."),
         i18n("Hiding drop target"),
         i18n("CloseDroptarget") );
 }
+
+
+/** widget events */
 
 void
 DropTarget::mousePressEvent(QMouseEvent * e)
@@ -206,6 +210,15 @@ void DropTarget::dropEvent(QDropEvent * event)
 	schedNewURLs( list, QString::null );
     else if (QTextDrag::decode(event, str))
 	schedNewURLs( KURL::fromPathOrURL(str), QString::null );
+}
+
+
+void DropTarget::closeEvent( QCloseEvent * e )
+{
+    if( kapp->sessionSaving() )
+        e->ignore();
+    else
+        slotClose();
 }
 
 
@@ -248,6 +261,9 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
     if (e->button() == LeftButton)
         toggleMinimizeRestore();
 }
+
+
+/** widget animations */
 
 void DropTarget::playAnimation()
 {

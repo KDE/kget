@@ -79,7 +79,6 @@ class IconViewMdiView : public KMdiChildView
 	void connectToScheduler( Scheduler * );
     private:
 	IconView * iv1;
-	IconView * iv2;
 };
 
 #endif
