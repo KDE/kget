@@ -172,6 +172,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
     if (!b_online) {
 	log(i18n("Starting offline"));
     }
+
     // Setup animation timer
     animTimer = new QTimer(this);
     animCounter = 0;
@@ -221,13 +222,20 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
     m_paUseSound->setChecked(ksettings.b_useSound);
     m_paExpertMode->setChecked(ksettings.b_expertMode);
     m_paUseLastDir->setChecked(ksettings.b_useLastDir);
-    if (ksettings.connectionType != PERMANENT) {
-	m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
+
+   if (ksettings.connectionType != PERMANENT) {
+    	m_paAutoDisconnect->setChecked(ksettings.b_autoDisconnect);
     }
     setAutoDisconnect();
 
     m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
+
+   if(ksettings.b_offlineMode)
+     setCaption( i18n("Offline" ),false);
+    else
+     setCaption( i18n("" ),false);
+
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
     m_paShowLog->setChecked(b_viewLogWindow);
@@ -1072,7 +1080,7 @@ void KMainWidget::checkQueue()
 	for (; it.current() && numRun < ksettings.maxSimultaneousConnections; ++it) {
 	    item = it.current();
 	    if ((item->getMode() == Transfer::MD_QUEUED)
-		&& (item->getStatus() != Transfer::ST_RUNNING && item->getStatus()!=Transfer::ST_TRYING)) {
+		&& (item->getStatus() != Transfer::ST_RUNNING && item->getStatus()!=Transfer::ST_TRYING && !ksettings.b_offlineMode)) {
 		 log(i18n("Starting another queued job."));
 		item->slotResume();
 		numRun++;
@@ -1440,8 +1448,10 @@ void KMainWidget::slotToggleOfflineMode()
     if (ksettings.b_offlineMode) {
 	log(i18n("Offline mode on."));
 	pauseAll();
+    setCaption( i18n("Offline" ),false);
     } else {
 	log(i18n("Offline mode off."));
+    setCaption( i18n("" ),false);
     }
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
 
