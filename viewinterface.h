@@ -41,7 +41,7 @@ class ViewInterface
 	void schedNewURLs( const KURL::List &, const QString &destDir );
 	void schedRemoveItems( TransferList & );
 	void schedSetPriority( TransferList &, int );
-	void schedSetOperation( TransferList &, TransferOperation );
+	void schedSetCommand( TransferList &, TransferCommand );
 	void schedSetGroup( TransferList &, const QString & );
 
 	/** pure virtual 'notifications' (<- scheduler)

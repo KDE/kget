@@ -78,8 +78,8 @@ public slots:
 	void slotSetPriority(TransferList &, int);
 	void slotSetPriority(Transfer *, int);
     
-	void slotSetOperation(TransferList &, TransferOperation);
-	void slotSetOperation(Transfer *, TransferOperation);
+	void slotSetOperation(TransferList &, TransferCommand);
+	void slotSetOperation(Transfer *, TransferCommand);
     
 	void slotSetGroup(TransferList &, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
@@ -88,7 +88,7 @@ public slots:
      * This slot is called from the Transfer object when its status
      * has changed
      */
-    void slotTransferStatusChanged(Transfer *, int TransferOperation);
+    void slotTransferStatusChanged(Transfer *, int TransferCommand);
 
     /**
      * This function adds the transfer copied in the clipboard

@@ -25,8 +25,8 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
 	     sched, SLOT( slotRemoveItems(TransferList &) ) );
     connect( this, SIGNAL( setPriority(TransferList &, int) ),
 	     sched, SLOT( slotSetPriority(TransferList &, int) ) );
-    connect( this, SIGNAL( setOperation(TransferList &, TransferOperation) ),
-	     sched, SLOT( slotSetOperation(TransferList &, TransferOperation) ) );
+    connect( this, SIGNAL( setOperation(TransferList &, TransferCommand) ),
+	     sched, SLOT( slotSetOperation(TransferList &, TransferCommand) ) );
     connect( this, SIGNAL( setGroup(TransferList &, const QString &) ),
 	     sched, SLOT( slotSetGroup(TransferList &, const QString &) ) );
 }
@@ -89,7 +89,7 @@ void ViewInterface::schedSetPriority( TransferList &l, int p )
     d->setPriority( l, p );
 }
 
-void ViewInterface::schedSetOperation( TransferList &l, TransferOperation op )
+void ViewInterface::schedSetCommand( TransferList &l, TransferCommand op )
 {
     d->setOperation( l, op );
 }

@@ -14,7 +14,7 @@ TestViewItem::TestViewItem( KListView * parent, Transfer * _transfer )
 {
     update();
 }
- 
+
 TestViewItem::~TestViewItem()
 {
 
@@ -53,6 +53,7 @@ TestView::TestView(Scheduler * _scheduler, QWidget * parent)
     listView = new KListView(this);
     listView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding, false);
     listView->setSelectionMode(QListView::Extended);
+    listView->setSorting(0);
     initTable();
     
     //button area
@@ -62,7 +63,7 @@ TestView::TestView(Scheduler * _scheduler, QWidget * parent)
     btSetPrior4 = new KPushButton("Priority -> 4", this);
     btSetPrior5 = new KPushButton("Priority -> 5", this);
     btResume = new KPushButton("Resume", this);
-    btStop = new KPushButton("Stop", this);
+    btPause = new KPushButton("Stop", this);
 
     btSetPrior1->setFixedHeight(30);
     btSetPrior2->setFixedHeight(30);
@@ -70,7 +71,7 @@ TestView::TestView(Scheduler * _scheduler, QWidget * parent)
     btSetPrior4->setFixedHeight(30);
     btSetPrior5->setFixedHeight(30);
     btResume->setFixedHeight(30);
-    btStop->setFixedHeight(30);
+    btPause->setFixedHeight(30);
 
     //layout adjust
     layout2 = new QGridLayout(0, 2, 5);
@@ -80,7 +81,7 @@ TestView::TestView(Scheduler * _scheduler, QWidget * parent)
     layout2->addWidget(btSetPrior4, 1, 3);
     layout2->addWidget(btSetPrior5, 1, 4);
     layout2->addWidget(btResume, 0, 0);
-    layout2->addWidget(btStop, 0, 1);
+    layout2->addWidget(btPause, 0, 1);
     
     
     layout1 = new QGridLayout(this, 2, 1);
@@ -108,6 +109,8 @@ void TestView::initConnections()
     connect(btSetPrior4, SIGNAL( clicked() ), this, SLOT( setPriority4() ));
     connect(btSetPrior5, SIGNAL( clicked() ), this, SLOT( setPriority5() ));
 
+    connect(btResume, SIGNAL( clicked() ), this, SLOT( resume() ));
+    connect(btPause, SIGNAL( clicked() ), this, SLOT( pause() ));
 }
 
 void TestView::initTable()
@@ -130,7 +133,10 @@ void TestView::setPriority(int n)
     while ( it.current() ) 
         {
         if ( it.current()->isSelected() )
+            {
+            sDebug << "###" << endl;
             list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
+        }
         ++it;
     }
     schedSetPriority(list, n);
@@ -138,9 +144,49 @@ void TestView::setPriority(int n)
     sDebugOut << endl;
 }
 
-/**
- * SLOTS
- */
+void TestView::resume()
+{
+    sDebugIn << endl;
+    
+    TransferList list(scheduler);
+    
+    QListViewItemIterator it(listView);
+    
+    while ( it.current() ) 
+        {
+        if ( it.current()->isSelected() )
+            {
+            sDebug << "###" << endl;
+            list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
+        }
+        ++it;
+    }
+    schedSetPriority(list, CmdPause);
+
+    sDebugOut << endl;
+}
+
+void TestView::pause()
+{
+    sDebugIn << endl;
+    
+    TransferList list(scheduler);
+    
+    QListViewItemIterator it(listView);
+    
+    while ( it.current() ) 
+        {
+        if ( it.current()->isSelected() )
+            {
+            sDebug << "###" << endl;
+            list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
+        }
+        ++it;
+    }
+    schedSetCommand(list, CmdPause);
+
+    sDebugOut << endl;
+}
 
 void TestView::schedulerCleared()
 {
@@ -171,18 +217,23 @@ void TestView::schedulerChangedItems( TransferList & list)
 {
     sDebugIn << endl;
     
-    TransferList::iterator it;
+    TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
     
     
-    for(it = list.begin(); it != endList; ++it)
+    for(; it != endList; ++it)
         {
+        sDebug << "-----" << endl;
         QListViewItemIterator itemIter(listView);
-        while(!itemIter.current())
+        while(itemIter.current())
             {
+            sDebug << ":::::" << endl;
             ((TestViewItem *)itemIter.current())->update(*it);
+            itemIter++;
         }
     }
+    
+    listView->sort();
     
     sDebugOut << endl;
 }

@@ -95,7 +95,7 @@ public:
     };
 
 public:
-    Slave(Transfer * _parent, const KURL & _src, const KURL & _dest);
+    Slave(Transfer * _transfer, const KURL & _src, const KURL & _dest);
     ~Slave();
     void Op(SlaveCommand _cmd);
 
@@ -114,11 +114,7 @@ private slots:
 private:
     void Connect();
 
-    void PostMessage(SlaveResult _event, unsigned long _data = 0L);
-    void PostMessage(SlaveResult _event, const QString & _msg);
-    void InfoMessage(const QString & _msg);
-
-    Transfer * m_parent;
+    Transfer * transfer;
 
     KURL m_src;
     KURL m_dest;

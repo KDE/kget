@@ -313,7 +313,7 @@ void Transfer::slotRequestRemove()
     if (status == ST_RUNNING)
         m_pSlave->Op(Slave::REMOVE);
     else
-        emit statusChanged(this, OP_REMOVED);
+        emit statusChanged(this, MSG_REMOVED);
 
     sDebugOut << endl;
 }
@@ -329,7 +329,7 @@ void Transfer::slotQueue()
 
     mode = MD_QUEUED;
     m_paQueue->setChecked(true);
-    emit statusChanged(this, OP_QUEUED);
+    emit statusChanged(this, MSG_QUEUED);
     sDebugOut << endl;
 }
 
@@ -382,7 +382,7 @@ void Transfer::slotCanceled(KIO::Job *)
         sDebugIn  << endl;
 
         logMessage(i18n("Canceled by user"));
-        emit statusChanged(this, OP_CANCELED);
+        emit statusChanged(this, MSG_CANCELED);
         sDebugOut   << endl;
 }
 
@@ -398,7 +398,7 @@ void Transfer::slotFinished()
     slotProcessedSize(totalSize);
 
     slotSpeed(0);
-    emit statusChanged(this, OP_FINISHED);
+    emit statusChanged(this, MSG_FINISHED);
     sDebugOut << endl;
 }
 
@@ -622,7 +622,7 @@ void Transfer::slotExecPause()
     slotUpdateActions();
     //TODO WE NEED TO UPDATE ACTIONS..
     //kmain->slotUpdateActions();
-    emit statusChanged(this, OP_PAUSED);
+    emit statusChanged(this, MSG_PAUSED);
     sDebugOut << endl;
 }
 
@@ -633,7 +633,7 @@ void Transfer::slotExecError()
     status = ST_STOPPED;
     mode = MD_SCHEDULED;
     startTime=QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60);
-    emit statusChanged(this, OP_SCHEDULED);
+    emit statusChanged(this, MSG_SCHEDULED);
     
     sDebugOut << endl;
 }
@@ -644,7 +644,7 @@ void Transfer::slotExecBroken()
     
     status = ST_STOPPED;
     mode = MD_QUEUED;
-    emit statusChanged(this, OP_QUEUED);
+    emit statusChanged(this, MSG_QUEUED);
     
     sDebugOut << endl;
 } 
@@ -655,7 +655,7 @@ void Transfer::slotExecRemove()
     sDebugIn << endl;
 
     m_pSlave->wait();
-    emit statusChanged(this, OP_REMOVED);
+    emit statusChanged(this, MSG_REMOVED);
     sDebugOut << endl;
 }
 
@@ -663,7 +663,7 @@ void Transfer::slotExecRemove()
 void Transfer::slotExecResume()
 {
     sDebugIn << endl;
-    emit statusChanged(this, OP_RESUMED);
+    emit statusChanged(this, MSG_RESUMED);
     sDebugOut << endl;
 }
 
@@ -671,7 +671,7 @@ void Transfer::slotExecConnected()
 {
     sDebugIn << endl;
     status = ST_RUNNING;
-    emit statusChanged(this, OP_CONNECTED);
+    emit statusChanged(this, MSG_CONNECTED);
     sDebugOut << endl;
 }
 
@@ -702,7 +702,7 @@ void Transfer::slotExecDelay()
     status = ST_STOPPED;
     slotSpeed(0);               //need???????
     m_paDelay->setChecked(true);
-    emit statusChanged(this, OP_DELAYED);
+    emit statusChanged(this, MSG_DELAYED);
 
     sDebugOut << endl;
 }
@@ -715,7 +715,7 @@ void Transfer::slotExecSchedule()
     mode = MD_SCHEDULED;
     status = ST_STOPPED;
     m_paTimer->setChecked(true);
-    emit statusChanged(this, OP_SCHEDULED);
+    emit statusChanged(this, MSG_SCHEDULED);
 
     sDebugOut << endl;
 }
@@ -738,6 +738,151 @@ bool Transfer::retryOnBroken()
 {
     return (ksettings.b_reconnectOnBroken && (retryCount <= ksettings.reconnectRetries));
 }
+
+/*     WE NEED TO REPLACE THIS OLD MAINWIDGET FUNCTION
+void Scheduler::customEvent(QCustomEvent * _e)
+{
+#ifdef _DEBUG
+    //sDebugIn << endl;
+#endif
+
+
+    SlaveEvent *e = (SlaveEvent *) _e;
+    unsigned int result = e->getEvent();
+
+    switch (result) {
+
+        // running cases..
+    case Slave::SLV_PROGRESS_SIZE:
+        e->getItem()->slotProcessedSize(e->getData());
+        break;
+    case Slave::SLV_PROGRESS_SPEED:
+        e->getItem()->slotSpeed(e->getData());
+        break;
+
+    case Slave::SLV_RESUMED:
+        e->getItem()->slotExecResume();
+        break;
+
+        // stopping cases
+    case Slave::SLV_FINISHED:
+        e->getItem()->slotFinished();
+        break;
+    case Slave::SLV_PAUSED:
+        e->getItem()->slotExecPause();
+        break;
+    case Slave::SLV_SCHEDULED:
+        e->getItem()->slotExecSchedule();
+        break;
+
+    case Slave::SLV_DELAYED:
+        e->getItem()->slotExecDelay();
+        break;
+    case Slave::SLV_CONNECTED:
+        e->getItem()->slotExecConnected();
+        break;
+
+    case Slave::SLV_CAN_RESUME:
+        e->getItem()->slotCanResume((bool) e->getData());
+        break;
+
+    case Slave::SLV_TOTAL_SIZE:
+        e->getItem()->slotTotalSize(e->getData());
+        break;
+
+    case Slave::SLV_ERROR:
+        e->getItem()->slotExecError();
+        break;
+
+    case Slave::SLV_BROKEN:
+        e->getItem()->slotExecBroken();
+        break;
+
+    case Slave::SLV_REMOVED:
+        e->getItem()->slotExecRemove();
+        break;
+
+    case Slave::SLV_INFO:
+        e->getItem()->logMessage(e->getMsg());
+        break;
+    default:
+#ifdef _DEBUG
+        sDebug << "Unknown Result..die" << result << endl;
+#endif
+        assert(0);
+    }
+}
+*/
+
+void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
+{
+    switch(event)
+        {
+        case Slave::SLV_PROGRESS_SIZE:
+            slotProcessedSize(data);
+            break;
+        case Slave::SLV_PROGRESS_SPEED:
+            slotSpeed(data);
+            break;
+    
+        case Slave::SLV_RESUMED:
+            slotExecResume();
+            break;
+    
+            // stopping cases
+        case Slave::SLV_FINISHED:
+            slotFinished();
+            break;
+        case Slave::SLV_PAUSED:
+            slotExecPause();
+            break;
+        case Slave::SLV_SCHEDULED:
+            slotExecSchedule();
+            break;
+    
+        case Slave::SLV_DELAYED:
+            slotExecDelay();
+            break;
+        case Slave::SLV_CONNECTED:
+            slotExecConnected();
+            break;
+    
+        case Slave::SLV_CAN_RESUME:
+            slotCanResume((bool) data);
+            break;
+    
+        case Slave::SLV_TOTAL_SIZE:
+            slotTotalSize(data);
+            break;
+    
+        case Slave::SLV_ERROR:
+            slotExecError();
+            break;
+    
+        case Slave::SLV_BROKEN:
+            slotExecBroken();
+            break;
+    
+        case Slave::SLV_REMOVED:
+            slotExecRemove();
+            break;
+    }
+
+}
+
+void Transfer::slavePostMessage(Slave::SlaveResult event, const QString & msg)
+{
+    
+
+
+}
+
+void Transfer::slaveInfoMessage(const QString & msg)
+{
+    logMessage(msg);
+}
+
+
 
 #include "transfer.moc"
 

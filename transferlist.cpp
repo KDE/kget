@@ -68,7 +68,7 @@ void TransferList::addTransfer(Transfer * transfer, bool toBegin)
     else
         push_back(transfer);
     
-    qHeapSort(*this);
+    //qHeapSort(*this);
 
     sDebugOut << endl;
 }
@@ -77,11 +77,12 @@ void TransferList::addTransfers(TransferList & transfers, bool toBegin)
 {
     sDebugIn << endl;
 
-    iterator it;
-    iterator endList = end();
+    iterator it = transfers.begin();
+    iterator endList = transfers.end();
     
-    for(it = begin(); it != endList; ++it)
+    for(; it != endList; ++it)
         {
+        sDebug << "it" << endl;
         jobid++;
         if(toBegin)
             push_front(*it);
@@ -134,13 +135,16 @@ void TransferList::moveToBegin(TransferList & transfers, int priority)
 {
     sDebugIn << endl;
 
-    iterator it;
+    iterator it = transfers.begin();
     iterator endList = transfers.end();
-    
+
+    sDebug << "prior= " << priority << endl;
+        
     if(priority != -1)
         {
-        for(it = transfers.begin(); it != endList; ++it)
+        for(; it != endList; ++it)
             {
+            sDebug << "ciclo  " << endl;
             (*it)->setPriority(priority);
             removeTransfer(*it);
         }

@@ -36,6 +36,7 @@
 #include <kio/jobclasses.h>
 
 #include "slave.h"
+#include "globals.h"
 
 class QTimer;
 
@@ -53,18 +54,21 @@ class Transfer:public QObject
 {
 Q_OBJECT
 
+friend class Scheduler;
+friend class Slave;
+
 public:
     enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
 
     enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
 
-    enum TransferOperation {
-        OP_FINISHED, OP_RESUMED, OP_PAUSED, OP_REMOVED, OP_ABORTED,
-        OP_QUEUED, OP_SCHEDULED, OP_DELAYED, OP_CONNECTED
+    enum TransferMessage {
+        MSG_FINISHED, MSG_RESUMED, MSG_PAUSED, MSG_REMOVED, MSG_ABORTED,
+        MSG_QUEUED, MSG_SCHEDULED, MSG_DELAYED, MSG_CONNECTED
     };
-
-
-
+    
+    //TransferCommand defined in globals.h
+    
     Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id=0);
     ~Transfer();
 
@@ -110,7 +114,7 @@ public:
     //KAction *m_paDock;
     KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
 
-public:
+private:
     /**
      * This operator is used to determine the relationship of < or >
      * priority between two transfers.
@@ -131,7 +135,13 @@ public:
     bool retryOnError();
     bool retryOnBroken();
 
-public slots:
+    //Slave Messages
+    void slavePostMessage(Slave::SlaveResult event, unsigned long data = 0L);
+    void slavePostMessage(Slave::SlaveResult event, const QString & msg);
+    void slaveInfoMessage(const QString & msg);
+    
+    
+private slots:
     // operation methods
     void slotResume();
     void slotRequestPause();
@@ -152,7 +162,7 @@ public slots:
     void slotStartTime(const QDateTime &);
     
 signals:
-    void statusChanged(Transfer *, int _operation);
+    void statusChanged(Transfer *, TransferMessage message);
     void log(uint, const QString &, const QString &);
 
 private:

@@ -90,7 +90,7 @@ void IconViewTransfer::paintFocus( QPainter * p, const QColorGroup & cg )
 // 	void schedNewURLs( const KURL::List &, const QString &destDir );
 // 	void schedRemoveItems( TransferList & );
 // 	void schedSetPriority( TransferList &, int );
-// 	void schedSetOperation( TransferList &, TransferOperation );
+// 	void schedSetCommand( TransferList &, TransferCommand );
 // 	void schedSetGroup( TransferList &, const QString & );
 
 IconView::IconView( Scheduler * s, QWidget * parent, const char * name )

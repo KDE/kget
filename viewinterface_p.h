@@ -29,7 +29,7 @@ class ViewInterfaceConnector : public QObject
 	void newURLs( const KURL::List &, const QString &destDir );
 	void removeItems( TransferList & );
 	void setPriority( TransferList &, int );
-	void setOperation( TransferList &, TransferOperation );
+	void setOperation( TransferList &, TransferCommand );
 	void setGroup( TransferList &, const QString & );
 
     public slots:

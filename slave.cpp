@@ -57,12 +57,14 @@ namespace KIO
 
 #define EVENT_TYPE (QEvent::User + 252)
 
-SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent(EVENT_TYPE)
+/*SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata)
+    : QCustomEvent(EVENT_TYPE),
+      m_event(_event),
+      m_item(_item),
+      m_ldate(_ldata),
+      m_msg(QString(""))
 {
-    m_event = _event;
-    m_item = _item;
-    m_ldata = _ldata;
-    m_msg = QString("");
+
 }
 
 
@@ -94,24 +96,22 @@ const QString & SlaveEvent::getMsg() const
 {
     return m_msg;
 }
-
+*/
 
 
 /*
  * Slave
  */
 
-Slave::Slave(Transfer * _parent, const KURL & _src, const KURL & _dest)
-    : QObject(),
-      QThread()
+Slave::Slave(Transfer * _transfer, const KURL & _src, const KURL & _dest)
+    : QObject(), QThread(),
+      copyjob(0), transfer(_transfer),
+      m_src(_src), m_dest(_dest),
+      nPendingCommand(0)
+      
 {
     mDebug << ">>>>Entering" << endl;
-    copyjob = NULL;
-    m_src = _src;
-    m_dest = _dest;
-    m_parent = _parent;
 
-    nPendingCommand = 0;
 
     mDebug << ">>>>Leaving" << endl;
 }
@@ -133,30 +133,6 @@ void Slave::Op(SlaveCommand _cmd)
     mutex.unlock();
 
     mDebugOut << endl;
-}
-
-/** No descriptions */
-void Slave::PostMessage(SlaveResult _event, unsigned long _data)
-{
-    SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _data);
-
-    QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
-}
-
-void Slave::PostMessage(SlaveResult _event, const QString & _msg)
-{
-    SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _msg);
-
-    QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
-    mDebug << "Msg:" << "_msg = " << _msg << endl;
-}
-
-void Slave::InfoMessage(const QString & _msg)
-{
-    SlaveEvent *e1 = new SlaveEvent(m_parent, SLV_INFO, _msg);
-
-    QApplication::postEvent(kapp->mainWidget(), (QEvent *) e1);
-    mDebug << "Infor Msg:" << "_msg = " << _msg << endl;
 }
 
 
@@ -186,7 +162,7 @@ void Slave::run()
                 KIO::Scheduler::checkSlaveOnHold( true );
                 copyjob = new KIO::GetFileJob(m_src, m_dest);
                 Connect();
-                PostMessage(SLV_RESUMED);
+                transfer->slavePostMessage(SLV_RESUMED);
                 break;
 
             case PAUSE:
@@ -195,7 +171,7 @@ void Slave::run()
                     copyjob->kill(true);
                     copyjob = 0L;
                 }
-                PostMessage(SLV_PAUSED);
+                transfer->slavePostMessage(SLV_PAUSED);
                 break;
 
             case KILL:
@@ -215,7 +191,7 @@ void Slave::run()
                     copyjob->kill(true);
                     copyjob = 0L;
                 }
-                PostMessage(SLV_REMOVED);
+                transfer->slavePostMessage(SLV_REMOVED);
                 break;
 
             case SCHEDULE:
@@ -224,7 +200,7 @@ void Slave::run()
                     copyjob->kill(true);
                     copyjob = 0L;
                 }
-                PostMessage(SLV_SCHEDULED);
+                transfer->slavePostMessage(SLV_SCHEDULED);
                 break;
 
             case DELAY:
@@ -233,7 +209,7 @@ void Slave::run()
                     copyjob->kill(true);
                     copyjob = 0L;
                 }
-                PostMessage(SLV_DELAYED);
+                transfer->slavePostMessage(SLV_DELAYED);
                 break;
 
             case NOOP:
@@ -315,24 +291,24 @@ void Slave::slotResult(KIO::Job * job)
     copyjob=0L;
     KIO::Error error=KIO::Error(job->error());
     if (!error) {
-        PostMessage(SLV_FINISHED);
+        transfer->slavePostMessage(SLV_FINISHED);
     }
     else {
         QString tmsg="<font color=\"red\"> <b>" + job->errorString() + \
                      "</font></b>";
-        InfoMessage(tmsg);
-        if (m_parent->retryOnError() && \
+        transfer->slaveInfoMessage(tmsg);
+        if (transfer->retryOnError() && \
             ((error==KIO::ERR_COULD_NOT_LOGIN) || (error==KIO::ERR_SERVER_TIMEOUT))) {
             //Timeout or login error
-            PostMessage(SLV_ERROR);
+            transfer->slavePostMessage(SLV_ERROR);
         }
-        else if (m_parent->retryOnBroken() && (error==KIO::ERR_CONNECTION_BROKEN)) {
+        else if (transfer->retryOnBroken() && (error==KIO::ERR_CONNECTION_BROKEN)) {
             // Connection Broken
-            PostMessage(SLV_BROKEN);
+            transfer->slavePostMessage(SLV_BROKEN);
         }
         else {
             job->showErrorDialog();
-            PostMessage(SLV_DELAYED);
+            transfer->slavePostMessage(SLV_DELAYED);
         }
     }
     mDebugOut << endl;
@@ -342,7 +318,7 @@ void Slave::slotResult(KIO::Job * job)
 void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 {
     // mDebugIn<<endl;
-    PostMessage(SLV_PROGRESS_SPEED, lSpeed);
+    transfer->slavePostMessage(SLV_PROGRESS_SPEED, lSpeed);
     // mDebugOut<<endl;
 
 }
@@ -350,17 +326,17 @@ void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
 {
     mDebugIn << "= " << (unsigned long) _total_size << endl;
-    PostMessage(SLV_TOTAL_SIZE, _total_size);
+    transfer->slavePostMessage(SLV_TOTAL_SIZE, _total_size);
 
-    PostMessage(SLV_CAN_RESUME, copyjob->getCanResume());
-    PostMessage(SLV_CONNECTED);
+    transfer->slavePostMessage(SLV_CAN_RESUME, copyjob->getCanResume());
+    transfer->slavePostMessage(SLV_CONNECTED);
     mDebugOut << endl;
 }
 
 void Slave::slotProcessedSize(KIO::Job *, KIO::filesize_t _processed_size)
 {
     // mDebugIn<<endl;
-    PostMessage(SLV_PROGRESS_SIZE, _processed_size);
+    transfer->slavePostMessage(SLV_PROGRESS_SIZE, _processed_size);
 
     // mDebugOut<<endl;
 }
@@ -368,7 +344,7 @@ void Slave::slotProcessedSize(KIO::Job *, KIO::filesize_t _processed_size)
 void Slave::slotInfoMessage(KIO::Job *, const QString & _msg)
 {
     mDebugIn << "MSG=" << _msg << endl;
-    InfoMessage(_msg);
+    transfer->slaveInfoMessage(_msg);
     mDebugOut << endl;
 }
 

@@ -37,8 +37,8 @@ class GlobalStatus;
 class TransferList;
 class Transfer;
 
-// Enumerates the operations that can be done on a transfer (must be global)
-enum TransferOperation { OpResume, OpPause, OpStop, OpDelete, OtherOpsFollowing };
+// Enumerates the commands that can be executed on a transfer (must be global)
+enum TransferCommand { CmdResume, CmdRestart, CmdPause, OtherOpsFollowing };
 
 
 #endif

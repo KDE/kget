@@ -47,7 +47,7 @@ class TestView : public KMdiChildView, public ViewInterface
 Q_OBJECT
 public:
     TestView(Scheduler * _scheduler, QWidget * parent = 0);
-    ~TestView();  
+    ~TestView();
     
     void initTable();
     void initConnections();
@@ -66,6 +66,9 @@ public slots:
     void setPriority4() {setPriority(4);}
     void setPriority5() {setPriority(5);}
     
+    void resume();
+    void pause();
+
 private:
     void setPriority(int n);
     
@@ -79,7 +82,7 @@ private:
     KPushButton * btSetPrior5;
     
     KPushButton * btResume;
-    KPushButton * btStop;
+    KPushButton * btPause;
     
     QGridLayout * layout1;
     QGridLayout * layout2;

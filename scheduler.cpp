@@ -43,10 +43,14 @@ void Scheduler::stop()
 
 void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 {
+    sDebugIn << endl;
+    
     KURL::List urlsToDownload;
 
     for ( KURL::List::ConstIterator it = src.begin(); it != src.end(); ++it )
     {
+        sDebug << "AAA" << endl;
+
         KURL url = *it;
         if ( url.fileName().endsWith( ".kgt" ) )
             slotReadTransfers(url);
@@ -54,16 +58,24 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
             urlsToDownload.append( url );
     }
 
+    sDebug << "BBB" << endl;
+    
     if ( urlsToDownload.isEmpty() )
         return;
 
+    sDebug << "CCC" << endl;
+
+    
     if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
         slotNewURL(src.first(), destDir);
 
+    sDebug << "DDD" << endl;
+    
     // multiple files -> ask for directory, not for every single filename
     KURL dest;
     if ( destDir.isEmpty() || !QFileInfo( destDir ).isDir() )
     {
+        sDebug << "EEE" << endl;
         if ( !destDir.isEmpty()  )
             dest.setPath( destDir );
         else
@@ -129,6 +141,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 */    
     //checkQueue();
 
+    sDebugOut << endl;
 }
 
 
@@ -141,11 +154,15 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
      */
     if ( src.isEmpty() )
         {
+        sDebug << "AAA" << endl;
+        
         QString newtransfer;
         bool ok = false;
     
         while (!ok) 
             {
+            sDebug << "BBB" << endl;
+            
             newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, mainWidget);
     
             // user presses cancel
@@ -195,8 +212,12 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
         }
     }
 
+    sDebug << "CCC" << endl;
+    
     Transfer * item = addTransferEx( src, destFile );
 
+    sDebug << "DDD" << endl;
+    
     //In this case we have inserted nothing
     if (item == 0)
         return;
@@ -249,14 +270,31 @@ void Scheduler::slotSetPriority(Transfer * item, int priority)
     emit changedItems(list);
 }
 
-void Scheduler::slotSetOperation(TransferList & list, TransferOperation op)
+void Scheduler::slotSetOperation(TransferList & list, TransferCommand op)
 {
-
+    TransferList::iterator it = list.begin();
+    TransferList::iterator endList = list.end();
+    
+    for(; it != endList; ++it)
+        {
+        slotSetOperation(*it, op);
+    }
 }
 
-void Scheduler::slotSetOperation(Transfer * item, TransferOperation op)
+void Scheduler::slotSetOperation(Transfer * item, TransferCommand op)
 {
-
+    switch (op)
+        {
+        case CmdResume:
+                item->slotResume();
+                break;        
+        case CmdRestart:
+                item->slotRequestRestart();
+                break;
+        case CmdPause:
+                item->slotRequestPause();
+                break;
+    }
 }
 
 void Scheduler::slotSetGroup(TransferList & list, const QString & groupName)
@@ -282,7 +320,7 @@ void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
     emit changedItems(list);
 }
 
-void Scheduler::slotTransferStatusChanged(Transfer *, int TransferOperation)
+void Scheduler::slotTransferStatusChanged(Transfer *, int TransferCommand)
 {
 
 }
@@ -1013,81 +1051,6 @@ void Scheduler::slotTransferTimeout()
 */
 
 
-/*
-void Scheduler::customEvent(QCustomEvent * _e)
-{
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
-
-    SlaveEvent *e = (SlaveEvent *) _e;
-    unsigned int result = e->getEvent();
-
-    switch (result) {
-
-        // running cases..
-    case Slave::SLV_PROGRESS_SIZE:
-        e->getItem()->slotProcessedSize(e->getData());
-        break;
-    case Slave::SLV_PROGRESS_SPEED:
-        e->getItem()->slotSpeed(e->getData());
-        break;
-
-    case Slave::SLV_RESUMED:
-        e->getItem()->slotExecResume();
-        break;
-
-        // stopping cases
-    case Slave::SLV_FINISHED:
-        e->getItem()->slotFinished();
-        break;
-    case Slave::SLV_PAUSED:
-        e->getItem()->slotExecPause();
-        break;
-    case Slave::SLV_SCHEDULED:
-        e->getItem()->slotExecSchedule();
-        break;
-
-    case Slave::SLV_DELAYED:
-        e->getItem()->slotExecDelay();
-        break;
-    case Slave::SLV_CONNECTED:
-        e->getItem()->slotExecConnected();
-        break;
-
-    case Slave::SLV_CAN_RESUME:
-        e->getItem()->slotCanResume((bool) e->getData());
-        break;
-
-    case Slave::SLV_TOTAL_SIZE:
-        e->getItem()->slotTotalSize(e->getData());
-        break;
-
-    case Slave::SLV_ERROR:
-        e->getItem()->slotExecError();
-        break;
-
-    case Slave::SLV_BROKEN:
-        e->getItem()->slotExecBroken();
-        break;
-
-    case Slave::SLV_REMOVED:
-        e->getItem()->slotExecRemove();
-        break;
-
-    case Slave::SLV_INFO:
-        e->getItem()->logMessage(e->getMsg());
-        break;
-    default:
-#ifdef _DEBUG
-        sDebug << "Unknown Result..die" << result << endl;
-#endif
-        assert(0);
-    }
-}
-
-*
 
 /*
 void Scheduler::slotStatusChanged(Transfer * item, int _operation)
