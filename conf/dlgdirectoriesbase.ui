@@ -1,0 +1,286 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>DlgDirectoriesBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>DlgDirectoriesBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>437</width>
+            <height>275</height>
+        </rect>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>layout1</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QToolButton" row="2" column="1">
+                    <property name="name">
+                        <cstring>pb_down</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="iconSet">
+                        <iconset>"down"</iconset>
+                    </property>
+                </widget>
+                <spacer row="1" column="1">
+                    <property name="name">
+                        <cstring>spacer5</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QToolButton" row="0" column="1">
+                    <property name="name">
+                        <cstring>pb_up</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="iconSet">
+                        <iconset>"up"</iconset>
+                    </property>
+                </widget>
+                <widget class="QListView" row="0" column="0" rowspan="3" colspan="1">
+                    <column>
+                        <property name="text">
+                            <string>Extension</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Default Folder</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>lv_entries</cstring>
+                    </property>
+                    <property name="allColumnsShowFocus">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QLayoutWidget" row="3" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>layout12</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pb_add</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>5</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Add</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pb_delete</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>5</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Delete</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pb_change</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>5</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Change</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pb_browse</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>5</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Browse...</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="KLineEdit" row="2" column="0">
+            <property name="name">
+                <cstring>le_ext</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>lb_ext</cstring>
+            </property>
+            <property name="text">
+                <string>Extension:</string>
+            </property>
+        </widget>
+        <widget class="KLineEdit" row="2" column="1">
+            <property name="name">
+                <cstring>le_dir</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="1">
+            <property name="name">
+                <cstring>lb_dir</cstring>
+            </property>
+            <property name="text">
+                <string>Default directory:</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<customwidgets>
+</customwidgets>
+<connections>
+    <connection>
+        <sender>pb_down</sender>
+        <signal>clicked()</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>downEntry()</slot>
+    </connection>
+    <connection>
+        <sender>pb_up</sender>
+        <signal>clicked()</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>upEntry()</slot>
+    </connection>
+    <connection>
+        <sender>lv_entries</sender>
+        <signal>selectionChanged(QListViewItem*)</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>selectEntry(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>pb_add</sender>
+        <signal>clicked()</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>addEntry()</slot>
+    </connection>
+    <connection>
+        <sender>pb_delete</sender>
+        <signal>clicked()</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>deleteEntry()</slot>
+    </connection>
+    <connection>
+        <sender>pb_change</sender>
+        <signal>clicked()</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>changeEntry()</slot>
+    </connection>
+    <connection>
+        <sender>pb_browse</sender>
+        <signal>clicked()</signal>
+        <receiver>DlgDirectoriesBase</receiver>
+        <slot>browse()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="global" impldecl="in implementation">kdialog.h</include>
+    <include location="global" impldecl="in implementation">kiconloader.h</include>
+</includes>
+<slots>
+    <slot access="protected" specifier="pure virtual">selectEntry(QListViewItem *)</slot>
+    <slot specifier="pure virtual">upEntry()</slot>
+    <slot>downEntry()</slot>
+    <slot>addEntry()</slot>
+    <slot>deleteEntry()</slot>
+    <slot>changeEntry()</slot>
+    <slot>browse()</slot>
+</slots>
+<pixmapfunction>BarIconSet</pixmapfunction>
+<layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>klineedit.h</includehint>
+    <includehint>klineedit.h</includehint>
+</includehints>
+</UI>

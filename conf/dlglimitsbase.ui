@@ -1,0 +1,189 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>DlgLimitsBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>DlgLimitsBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>568</width>
+            <height>141</height>
+        </rect>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>gb_limits</cstring>
+            </property>
+            <property name="title">
+                <string>Limits Options</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="0" column="0" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>lbl_maxnum</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Maximum open connections:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="0">
+                    <property name="name">
+                        <cstring>lb_minband</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Minimum network bandwidth:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0">
+                    <property name="name">
+                        <cstring>lb_maxband</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Maximum network bandwidth:</string>
+                    </property>
+                </widget>
+                <widget class="KIntSpinBox" row="0" column="2">
+                    <property name="name">
+                        <cstring>le_maxnum</cstring>
+                    </property>
+                    <property name="minValue">
+                        <number>1</number>
+                    </property>
+                </widget>
+                <widget class="KIntSpinBox" row="1" column="2" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>le_minband</cstring>
+                    </property>
+                    <property name="suffix">
+                        <string> bytes/sec</string>
+                    </property>
+                    <property name="maxValue">
+                        <number>100000</number>
+                    </property>
+                    <property name="minValue">
+                        <number>100</number>
+                    </property>
+                    <property name="lineStep">
+                        <number>100</number>
+                    </property>
+                </widget>
+                <widget class="KIntSpinBox" row="3" column="2">
+                    <property name="name">
+                        <cstring>le_maxband</cstring>
+                    </property>
+                    <property name="suffix">
+                        <string> bytes/sec</string>
+                    </property>
+                    <property name="maxValue">
+                        <number>100000</number>
+                    </property>
+                    <property name="minValue">
+                        <number>100</number>
+                    </property>
+                    <property name="lineStep">
+                        <number>100</number>
+                    </property>
+                </widget>
+                <spacer row="0" column="1">
+                    <property name="name">
+                        <cstring>spacer19</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="2" column="1">
+                    <property name="name">
+                        <cstring>spacer20</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="3" column="1">
+                    <property name="name">
+                        <cstring>spacer21</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </grid>
+        </widget>
+    </vbox>
+</widget>
+<customwidgets>
+</customwidgets>
+<connections>
+    <connection>
+        <sender>le_maxband</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>DlgLimitsBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>le_maxnum</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>DlgLimitsBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>le_minband</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>DlgLimitsBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="global" impldecl="in implementation">kdialog.h</include>
+</includes>
+<slots>
+    <slot access="protected" specifier="pure virtual">slotChanged()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
+</UI>

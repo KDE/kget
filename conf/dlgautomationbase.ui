@@ -1,0 +1,256 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>DlgAutomationBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>DlgAutomationBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>401</width>
+            <height>217</height>
+        </rect>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>gb_automation</cstring>
+            </property>
+            <property name="title">
+                <string>Automation Options</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="KIntSpinBox" row="0" column="3">
+                    <property name="name">
+                        <cstring>le_autoSave</cstring>
+                    </property>
+                    <property name="suffix">
+                        <string> min</string>
+                    </property>
+                    <property name="maxValue">
+                        <number>3600</number>
+                    </property>
+                    <property name="minValue">
+                        <number>1</number>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="4">
+                    <property name="name">
+                        <cstring>cb_autoDisconnect</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto disconnect after completing downloads</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>cb_autoSave</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Autosave file list every:</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>cb_timedDisconnect</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Timed disconnect</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>lb_autoDisconnect</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Disconnect command:</string>
+                    </property>
+                </widget>
+                <widget class="KLineEdit" row="2" column="3">
+                    <property name="name">
+                        <cstring>le_autoDisconnect</cstring>
+                    </property>
+                </widget>
+                <widget class="KDateTimeWidget" row="4" column="1" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>spins</cstring>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="6" column="0" rowspan="1" colspan="4">
+                    <property name="name">
+                        <cstring>cb_autoPaste</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto paste from clipboard</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="5" column="0" rowspan="1" colspan="4">
+                    <property name="name">
+                        <cstring>cb_autoShutdown</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto shutdown after completing downloads</string>
+                    </property>
+                </widget>
+                <spacer row="0" column="2">
+                    <property name="name">
+                        <cstring>spacer18</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Preferred</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="2" column="0">
+                    <property name="name">
+                        <cstring>spacer16</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Preferred</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>50</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="4" column="0">
+                    <property name="name">
+                        <cstring>spacer17</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Preferred</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>50</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </grid>
+        </widget>
+    </vbox>
+</widget>
+<customwidgets>
+</customwidgets>
+<connections>
+    <connection>
+        <sender>cb_autoDisconnect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>lb_autoDisconnect</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoDisconnect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>le_autoDisconnect</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cb_timedDisconnect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>spins</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoSave</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>le_autoSave</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoSave</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>le_autoSave</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoDisconnect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>le_autoDisconnect</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>cb_timedDisconnect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>spins</sender>
+        <signal>valueChanged(const QDateTime&amp;)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoShutdown</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoPaste</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>slotChanged()</slot>
+    </connection>
+    <connection>
+        <sender>cb_autoDisconnect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>DlgAutomationBase</receiver>
+        <slot>disconnectToggled(bool)</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="global" impldecl="in implementation">kdialog.h</include>
+</includes>
+<slots>
+    <slot access="protected" specifier="pure virtual">slotChanged()</slot>
+    <slot access="protected" specifier="pure virtual">disconnectToggled(bool b)</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>kdatetimewidget.h</includehint>
+    <includehint>kdatewidget.h</includehint>
+    <includehint>ktimewidget.h</includehint>
+</includehints>
+</UI>
