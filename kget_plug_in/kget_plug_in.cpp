@@ -17,7 +17,7 @@
 
 #include <khtml_part.h> // this plugin applies to a khtml part
 #include <kdebug.h>
-#include "kget_plug_in.h"
+#include <kglobal.h>
 #include <kaction.h>
 #include <kinstance.h>
 #include <kiconloader.h>
@@ -25,6 +25,9 @@
 #include <klocale.h>
 #include <krun.h>
 #include <kiconloader.h>
+
+#include "kget_plug_in.h"
+
 KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
         : Plugin( parent, name )
 {
@@ -80,9 +83,12 @@ extern "C"
 {
     void* init_khtml_kget()
     {
+		KGlobal::locale()->insertCatalogue("kget");
         return new KPluginFactory;
     }
 
 }
 
 KInstance* KPluginFactory::s_instance = 0L;
+
+#include "kget_plug_in.moc"

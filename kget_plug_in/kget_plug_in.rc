@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui library="khtml_kget" name="khtml_kget" version="0.1" >
+<kpartgui library="khtml_kget" name="khtml_kget" version="2" >
                   <MenuBar>
                   <Menu name="tools">
                              <Text>&amp;Tools</Text>
