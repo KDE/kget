@@ -40,34 +40,19 @@
 
 DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
-
         parent = _parent;
-
-        // TODO CHECK the path
-        QString path = "kget/pics/";
 
         QPixmap *tmppix = new QPixmap();
 
-//      tmppix->load(locate("data", path + "dock_hand1.xpm"));
-        tmppix->load(locate("data", path + "dock.png"));
+        tmppix->load(locate("appdata", "pics/dock.png"));
 
         handpix1 = new QPixmap(ICONWIDTH, ICONHEIGHT);
         handpix1->fill(backgroundColor());
         bitBlt(handpix1, 0, 0, tmppix);
 
-        delete tmppix;
-
-        tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock.xpm"));
-
         handpix2 = new QPixmap(ICONWIDTH, ICONHEIGHT);
         handpix2->fill(backgroundColor());
         bitBlt(handpix2, 0, 0, tmppix);
-
-        delete tmppix;
-
-        tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock.xpm"));
 
         handpix3 = new QPixmap(ICONWIDTH, ICONHEIGHT);
         handpix3->fill(backgroundColor());

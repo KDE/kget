@@ -81,32 +81,24 @@ DropTarget::DropTarget():QWidget()
     p2.end();
 
     // setup pixmaps
-    QString path = "kget/pics/";
 
     int offsetx = -10;
     int offsety = -5;
 
     QPixmap *tmppix = new QPixmap();
+    tmppix->load(locate("appdata", "pics/target.png"));
 
-    tmppix->load(locate("data", path + "target.png"));
     handpix1 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix1->fill(backgroundColor());
     bitBlt(handpix1, offsetx, offsety, tmppix);
-    delete tmppix;
 
-    tmppix = new QPixmap();
-    tmppix->load(locate("data", path + "target.png"));
     handpix2 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix2->fill(backgroundColor());
     bitBlt(handpix2, offsetx, offsety, tmppix);
-    delete tmppix;
 
-    tmppix = new QPixmap();
-    tmppix->load(locate("data", path + "target.png"));
     handpix3 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
     handpix3->fill(backgroundColor());
     bitBlt(handpix3, offsetx, offsety, tmppix);
-    delete tmppix;
 
     setBackgroundPixmap(*handpix1);
 

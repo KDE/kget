@@ -90,50 +90,39 @@ TransferList::TransferList(QWidget * parent, const char *name):QListView(parent,
 
         readConfig();
 
-        QString path = "kget/pics/";
+        QString connectPath = "pics/connect%2.png";
+        QString tryPath = "pics/try%2.png";
 
         // Load animations
+        QPixmap* curPix;
         if (animConn->count() == 0) {
                 animConn->setAutoDelete(true);
                 animTry->setAutoDelete(true);
                 for (int i = 0; i < 8; i++) {
-                        QPixmap *p1 = new QPixmap();
-                        QString name = QString("connect%1").arg(i);
-                        QString iconName = name + ".xpm";
+                        curPix = new QPixmap();
+                        curPix->load(locate("appdata", connectPath.arg(i)));
+                        animConn->append(curPix);
 
-                        p1->load(locate("data", path + iconName));
-                        if (p1->isNull()) {
-                                KMessageBox::sorry(kmain, i18n("Could not load icon\n") + iconName, i18n("Error"));
-                        }
-
-                        animConn->append(p1);
-
-                        p1 = new QPixmap();
-                        name = QString("try%1").arg(i);
-                        iconName = name + ".xpm";
-
-                        p1->load(locate("data", path + iconName));
-                        if (p1->isNull()) {
-                                KMessageBox::sorry(this, i18n("Could not load icon\n") + iconName, i18n("Error"));
-                        }
-                        animTry->append(p1);
+                        curPix = new QPixmap();
+                        curPix->load(locate("appdata", tryPath.arg(i)));
+                        animTry->append(curPix);
                 }
         }
 
         pixQueued = new QPixmap();
-        pixQueued->load(locate("data", path + "md_queued.xpm"));
+        pixQueued->load(locate("appdata", "pics/md_queued.png"));
 
         pixScheduled = new QPixmap();
-        pixScheduled->load(locate("data", path + "md_scheduled.xpm"));
+        pixScheduled->load(locate("appdata", "pics/md_scheduled.png"));
 
         pixDelayed = new QPixmap();
-        pixDelayed->load(locate("data", path + "md_delayed.xpm"));
+        pixDelayed->load(locate("appdata", "pics/md_delayed.png"));
 
         pixFinished = new QPixmap();
-        pixFinished->load(locate("data", path + "md_finished.xpm"));
+        pixFinished->load(locate("appdata", "pics/md_finished.png"));
 
         pixRetrying = new QPixmap();
-        pixRetrying->load(locate("data", path + "retrying.xpm"));
+        pixRetrying->load(locate("appdata", "pics/retrying.png"));
 
         phasesNum = animConn->count();
 

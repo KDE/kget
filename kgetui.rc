@@ -46,8 +46,6 @@
         <Action name="auto_disconnect"/>
         <Action name="auto_shutdown"/>
         <Action name="auto_paste"/>
-        <Separator/>
-        <Action name="preferences"/>
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
     </Menu>
@@ -62,7 +60,6 @@
     <Action name="timer"/>
     <Action name="delay"/>
     <Separator/>
-    <Action name="preferences"/>
     <Action name="toggle_log"/>
     <Action name="paste_transfer"/>
     <Separator/>
