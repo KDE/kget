@@ -24,6 +24,7 @@
  *
  ***************************************************************************/
 
+#include <qheader.h>
 
 #include <kurl.h>
 #include <kmessagebox.h>
@@ -309,29 +310,47 @@ bool Transfer::updateStatus(int counter)
 
     QPixmap *pix = 0L;
     bool isTransfer = false;
-
-    if (status == ST_RUNNING) {
-        pix = view->animConn.at(counter);
-        isTransfer = true;
-    } else if (status == ST_TRYING) {
-        pix = view->animTry.at(counter);
-        isTransfer = true;
-
-    } else if (status == ST_STOPPED /*|| status==ST_PAUSED||status==ST_ABORTED */ ) {
-        if (mode == MD_QUEUED) {
-            pix = &view->pixQueued;
-        } else if (mode == MD_SCHEDULED) {
-            pix = &view->pixScheduled;
-        } else {
-            pix = &view->pixDelayed;
-        }
-    } else if (status == ST_FINISHED) {
-        pix = &view->pixFinished;
+    static TransferStatus prevStatus;
+    
+    view->setUpdatesEnabled(false);
+    
+    switch(status)
+        {
+        case ST_RUNNING:
+            pix = view->animConn.at(counter);
+        case ST_TRYING:
+            pix = view->animTry.at(counter);
+            isTransfer = true;
+            break;
+        case ST_STOPPED:
+            if(mode == MD_QUEUED)
+                pix = &view->pixQueued;
+            else if(mode == MD_SCHEDULED)
+                pix = &view->pixScheduled;
+            else
+                pix = &view->pixDelayed;
+            break;
+        case ST_FINISHED:
+            pix = &view->pixFinished;
     }
-
+       
     setPixmap(view->lv_pixmap, *pix);
-
-    //sDebug<< "<<<<Leaving"<<endl;
+    view->setUpdatesEnabled(true);
+    
+    if(prevStatus!=status || status==ST_RUNNING || status==ST_TRYING)
+        {
+        QRect rect = view->header()->sectionRect(view->lv_pixmap);
+                
+        int x = rect.x();
+        int y = view->itemRect(this).y();
+        int w = rect.width();
+        int h = rect.height();
+        
+        view->QScrollView::updateContents(x,y,w,h);
+        
+        prevStatus = status;
+    }
+    
     return isTransfer;
 }
 
