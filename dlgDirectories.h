@@ -54,7 +54,7 @@ protected slots:
 
     void upEntry();
     void downEntry();
-
+    void slotDirectoryChanged( );
 protected:
     void updateUpDown();
 

@@ -48,8 +48,15 @@
 DlgDirectories::DlgDirectories(QWidget * parent)
     : DlgDirectoriesBase(parent)
 {
+    connect( le_ext, SIGNAL( textChanged ( const QString & ) ), this,  SLOT( slotDirectoryChanged( ) ) );
+    connect( le_dir, SIGNAL( textChanged ( const QString & ) ), this,  SLOT( slotDirectoryChanged( ) ) );
+    slotDirectoryChanged();
 }
 
+void DlgDirectories::slotDirectoryChanged( )
+{
+    pb_add->setEnabled(!le_ext->text().isEmpty() &&!le_dir->text().isEmpty() );
+}
 
 void DlgDirectories::selectEntry(QListViewItem * item)
 {
