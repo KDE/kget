@@ -161,7 +161,7 @@ public:
         bool b_removeOnSuccess;
         bool b_getSizes;
         bool b_expertMode;
-
+        bool b_KonquerorIntegration;
         // search options
         bool b_searchFastest;
         uint searchItems;

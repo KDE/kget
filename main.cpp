@@ -131,9 +131,6 @@ int KGetApp::newInstance()
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-    //        for (int i = 0; i < args->count(); i++ {
-    //                kmain->addTransferEx(args->arg(i), QString::null, true);
-    //        }
     if (args->count()==1)
         kmain->addTransferEx(args->arg(0), QString::null, true);
     else if(args->count()==2)

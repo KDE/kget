@@ -60,6 +60,7 @@ private:
         QCheckBox *cb_remove;
         QCheckBox *cb_getsizes;
         QCheckBox *cb_expertmode;
+        QCheckBox *cb_konqiIntegration;
 
 };
 
