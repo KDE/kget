@@ -63,7 +63,6 @@
 #include <khelpmenu.h>
 #include <kedittoolbar.h>
 #include <kkeydialog.h>
-#include <kio/netaccess.h>
 #include <kstatusbar.h>
 #include <kconfig.h>
 #include <kio/netaccess.h>
@@ -1038,7 +1037,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
             if (df.isEmpty()) {           // if we didn't provide destination
                 if (!b_expertMode) {
                     // open the filedialog for confirmation
-                    KFileDialog dlg( destDir, QString::null, 
+                    KFileDialog dlg( destDir, QString::null,
                                      0L, "save_as", true);
                     dlg.setCaption(i18n("Save As"));
                     dlg.setSelection(url.fileName());
