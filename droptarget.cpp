@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -53,193 +53,187 @@
 DropTarget::DropTarget():QWidget()
 {
 
-        if (ksettings.dropPosition.x() != -1) {
-                move(ksettings.dropPosition);
-                KWin::setState(winId(), ksettings.dropState);
-        } else {
-                setGeometry
-                (200, 200, TARGET_WIDTH, TARGET_HEIGHT);
-                KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop);
-        }
+    if (ksettings.dropPosition.x() != -1) {
+	move(ksettings.dropPosition);
+	KWin::setState(winId(), ksettings.dropState);
+    } else {
+	setGeometry(200, 200, TARGET_WIDTH, TARGET_HEIGHT);
+	KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop);
+    }
 
-        b_sticky = ksettings.dropState & NET::Sticky;
+    b_sticky = ksettings.dropState & NET::Sticky;
 
-        // setup mask
-        mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
-        mask.fill(color0);
-        QPainter p2;
-        p2.begin(&mask);
-        p2.setBrush(color1);
-        p2.drawRoundRect(0, 0, 60, 60, 40, 40);
-        //   p2.drawEllipse( 0, 0, 60, 60 );
-        p2.end();
+    // setup mask
+    mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
+    mask.fill(color0);
+    QPainter p2;
 
-        // setup pixmaps
-        QString path = "kget/pics/";
+    p2.begin(&mask);
+    p2.setBrush(color1);
+    p2.drawRoundRect(0, 0, 60, 60, 40, 40);
+    // p2.drawEllipse( 0, 0, 60, 60 );
+    p2.end();
 
-        int offsetx = (TARGET_WIDTH - ICONWIDTH) / 2;
-        int offsety = (TARGET_HEIGHT - ICONHEIGHT) / 2;
+    // setup pixmaps
+    QString path = "kget/pics/";
 
-        QPixmap *tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "target_hand1.xpm"));
-        handpix1 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-        handpix1->fill(backgroundColor());
-        bitBlt(handpix1, offsetx, offsety, tmppix);
-        delete tmppix;
+    int offsetx = (TARGET_WIDTH - ICONWIDTH) / 2;
+    int offsety = (TARGET_HEIGHT - ICONHEIGHT) / 2;
 
-        tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "target_hand2.xpm"));
-        handpix2 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-        handpix2->fill(backgroundColor());
-        bitBlt(handpix2, offsetx, offsety, tmppix);
-        delete tmppix;
+    QPixmap *tmppix = new QPixmap();
 
-        tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "target_hand3.xpm"));
-        handpix3 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-        handpix3->fill(backgroundColor());
-        bitBlt(handpix3, offsetx, offsety, tmppix);
-        delete tmppix;
+    tmppix->load(locate("data", path + "target_hand1.xpm"));
+    handpix1 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
+    handpix1->fill(backgroundColor());
+    bitBlt(handpix1, offsetx, offsety, tmppix);
+    delete tmppix;
 
-        setBackgroundPixmap(*handpix1);
+    tmppix = new QPixmap();
+    tmppix->load(locate("data", path + "target_hand2.xpm"));
+    handpix2 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
+    handpix2->fill(backgroundColor());
+    bitBlt(handpix2, offsetx, offsety, tmppix);
+    delete tmppix;
 
-        // popup menu for right mouse button
-        popupMenu = new KPopupMenu();
-        popupMenu->setTitle(kapp->caption());
-        popupMenu->setCheckable(true);
+    tmppix = new QPixmap();
+    tmppix->load(locate("data", path + "target_hand3.xpm"));
+    handpix3 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
+    handpix3->fill(backgroundColor());
+    bitBlt(handpix3, offsetx, offsety, tmppix);
+    delete tmppix;
 
-        pop_Max = popupMenu->insertItem(i18n("Maximize"), this,
-                                        SLOT(toggleMinimizeRestore()));
-        pop_Min = popupMenu->insertItem(i18n("Minimize"), this,
-                                        SLOT(toggleMinimizeRestore()));
+    setBackgroundPixmap(*handpix1);
 
-        pop_sticky =
-                popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
-        popupMenu->setItemChecked(pop_sticky, b_sticky);
-        popupMenu->insertItem(i18n("Preferences"), kmain,
-                              SLOT(slotPreferences()));
-        popupMenu->insertSeparator();
-        popupMenu->insertItem(i18n("Quit"), kmain, SLOT(slotQuit()));
+    // popup menu for right mouse button
+    popupMenu = new KPopupMenu();
+    popupMenu->setTitle(kapp->caption());
+    popupMenu->setCheckable(true);
 
-        // Enable dropping
-        setAcceptDrops(true);
+    pop_Max = popupMenu->insertItem(i18n("Maximize"), this, SLOT(toggleMinimizeRestore()));
+    pop_Min = popupMenu->insertItem(i18n("Minimize"), this, SLOT(toggleMinimizeRestore()));
+
+    pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
+    popupMenu->setItemChecked(pop_sticky, b_sticky);
+    popupMenu->insertItem(i18n("Preferences"), kmain, SLOT(slotPreferences()));
+    popupMenu->insertSeparator();
+    popupMenu->insertItem(i18n("Quit"), kmain, SLOT(slotQuit()));
+
+    // Enable dropping
+    setAcceptDrops(true);
 
 }
 
 
 DropTarget::~DropTarget()
 {
-        delete handpix1;
-        delete handpix2;
-        delete handpix3;
-        delete popupMenu;
+    delete handpix1;
+    delete handpix2;
+    delete handpix3;
+    delete popupMenu;
 }
 
 
 void
-DropTarget::mousePressEvent(QMouseEvent * e)
+ DropTarget::mousePressEvent(QMouseEvent * e)
 {
-        if (e->button() == LeftButton) {
-                //toggleMinimizeRestore ();
-                oldX = 0;
-                oldY = 0;
+    if (e->button() == LeftButton) {
+	// toggleMinimizeRestore ();
+	oldX = 0;
+	oldY = 0;
 
-        } else if (e->button() == RightButton) {
+    } else if (e->button() == RightButton) {
 
-                popupMenu->setItemEnabled(pop_Min, kmain->isVisible());
-                popupMenu->setItemEnabled(pop_Max, kmain->isHidden());
+	popupMenu->setItemEnabled(pop_Min, kmain->isVisible());
+	popupMenu->setItemEnabled(pop_Max, kmain->isHidden());
 
 
-                popupMenu->popup(QCursor::pos());
-        } else if (e->button() == MidButton) {
-                kmain->slotPasteTransfer();
-        }
+	popupMenu->popup(QCursor::pos());
+    } else if (e->button() == MidButton) {
+	kmain->slotPasteTransfer();
+    }
 
 }
 
 
 void DropTarget::resizeEvent(QResizeEvent *)
 {
-        XShapeCombineMask(x11Display(), winId(), ShapeBounding, 0, 0,
-                          mask.handle(), ShapeSet);
+    XShapeCombineMask(x11Display(), winId(), ShapeBounding, 0, 0, mask.handle(), ShapeSet);
 }
 
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
-        event->accept(QUriDrag::canDecode(event)
-                      || QTextDrag::canDecode(event));
+    event->accept(QUriDrag::canDecode(event)
+		  || QTextDrag::canDecode(event));
 }
 
 
 void DropTarget::dropEvent(QDropEvent * event)
 {
-        QStrList list;
-        QString str;
+    QStrList list;
+    QString str;
 
-        if (QUriDrag::decode(event, list)) {
-                kmain->addDropTransfers(&list);
-        } else if (QTextDrag::decode(event, str)) {
-                kmain->addTransfer(str);
-        }
+    if (QUriDrag::decode(event, list)) {
+	kmain->addDropTransfers(&list);
+    } else if (QTextDrag::decode(event, str)) {
+	kmain->addTransfer(str);
+    }
 }
 
 
 void DropTarget::toggleSticky()
 {
-        b_sticky = !b_sticky;
-        popupMenu->setItemChecked(pop_sticky, b_sticky);
+    b_sticky = !b_sticky;
+    popupMenu->setItemChecked(pop_sticky, b_sticky);
 
-        if (b_sticky) {
-                KWin::setState(winId(),
-                               NET::SkipTaskbar | NET::StaysOnTop | NET::Sticky);
-        } else {
-                KWin::clearState(winId(), NET::Sticky);
-        }
+    if (b_sticky) {
+	KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop | NET::Sticky);
+    } else {
+	KWin::clearState(winId(), NET::Sticky);
+    }
 }
 
 
 void DropTarget::setAnim(int i1, int i2, int i3, int i4, bool online)
 {
-        size[0] = i1;
-        size[1] = i2;
-        size[2] = i3;
-        size[3] = i4;
+    size[0] = i1;
+    size[1] = i2;
+    size[2] = i3;
+    size[3] = i4;
 
-        if (isVisible()) {
-                if (!online || ksettings.b_offlineMode) {
-                        setBackgroundPixmap(*handpix3);
-                } else if (size[0] == 0 && size[1] == 0 && size[2] == 0
-                                && size[3] == 0) {
-                        setBackgroundPixmap(*handpix1);
-                } else {
-                        QPixmap pm(*handpix2);
-                        QPainter p;
-                        p.begin(&pm);
+    if (isVisible()) {
+	if (!online || ksettings.b_offlineMode) {
+	    setBackgroundPixmap(*handpix3);
+	} else if (size[0] == 0 && size[1] == 0 && size[2] == 0 && size[3] == 0) {
+	    setBackgroundPixmap(*handpix1);
+	} else {
+	    QPixmap pm(*handpix2);
+	    QPainter p;
 
-                        p.setPen(white);
-                        for (int i = 0; i < 4; i++) {
-                                if (size[i] != 0) {
-                                        int pixels =
-                                                (int) ((TARGET_WIDTH -
-                                                        8) * (float) size[i] / 100.0);
-                                        p.fillRect(4, 4 + (i * 12), pixels, 10, blue);
-                                }
-                        }
+	    p.begin(&pm);
 
-                        p.end();
-                        setBackgroundPixmap(pm);
-                }
-        }
+	    p.setPen(white);
+	    for (int i = 0; i < 4; i++) {
+		if (size[i] != 0) {
+		    int pixels = (int) ((TARGET_WIDTH - 8) * (float) size[i] / 100.0);
+
+		    p.fillRect(4, 4 + (i * 12), pixels, 10, blue);
+		}
+	    }
+
+	    p.end();
+	    setBackgroundPixmap(pm);
+	}
+    }
 }
 
 
 void DropTarget::toggleMinimizeRestore()
 {
-        if (kmain->isVisible())
-                kmain->hide();
-        else
-                kmain->show();
+    if (kmain->isVisible())
+	kmain->hide();
+    else
+	kmain->show();
 
 
 }
@@ -250,21 +244,21 @@ void DropTarget::toggleMinimizeRestore()
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
 
-        if (oldX == 0) {
-                oldX = e->x();
-                oldY = e->y();
-                return;
-        }
+    if (oldX == 0) {
+	oldX = e->x();
+	oldY = e->y();
+	return;
+    }
 
 
-        QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
+    QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
 
 }
 
 /** No descriptions */
 void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 {
-        if (e->button() == LeftButton)
-                toggleMinimizeRestore();
+    if (e->button() == LeftButton)
+	toggleMinimizeRestore();
 
 }

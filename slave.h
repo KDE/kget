@@ -3,9 +3,9 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*    email        : pch@freeshell.org
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -26,99 +26,92 @@
 
 #ifndef SLAVE_H
 #define SLAVE_H
-
+#include <kio/job.h>
 #include <qthread.h>
 #include <kurl.h>
 #include <kapp.h>
 #include <qfile.h>
 #include "slaveevent.h"
-#include "Errors.h"
+
 #include "common.h"
 #include <assert.h>
 #include <klocale.h>
-
+#include <qvaluestack.h>
+#include <qwaitcondition.h>
+#include <qmutex.h>
+#include <qobject.h>
+#include "getfilejob.h"
 class Transfer;
 
-class Slave:public QThread
-{
-public:
-        enum SlaveCommand {
-                CHECK_RESUME, CHECK_SIZE, RETR, PAUSE, RESTART, ABORT, DELAY,
-                SCHEDULE,
-                REMOVE
-        };
+class Slave:public QObject, public QThread {
+  Q_OBJECT public:
+    enum SlaveCommand {
+	RETR, PAUSE, RESTART, ABORT, DELAY,
+	SCHEDULE, REMOVE, NOOP
+    };
 
-        enum SlaveResult {
-                SLV_PROGRESS_SPEED, SLV_RESUMED, SLV_PROGRESS_SIZE,
-                SLV_CHECKED_SIZE, SLV_CHECKED_RESUME, SLV_PAUSED,
-                SLV_ABORTED, SLV_DELAYED, SLV_SCHEDULED,
-                SLV_FINISHED, SLV_INFO, SLV_UNKNOW_EVENT,
-                SLV_REMOVED, SLV_ERR, SLV_ERR_COULD_NOT_LOGIN,
-                SLV_ERR_UNKNOWN_HOST, SLV_ERR_COULD_NOT_CONNECT,
-                SLV_ERR_SERVER_TIMEOUT
-        };
+    enum SlaveResult {
 
-        enum SlaveStatus {
+	SLV_TOTAL_SIZE, SLV_PROGRESS_SIZE, SLV_PROGRESS_SPEED,
+	SLV_CAN_RESUME,
 
-                SLV_RUNNING, SLV_STOPPING, SLV_FINISHING, SLV_ABORTING
-        };
+	SLV_RESUMED, SLV_PAUSED, SLV_ABORTED, SLV_SCHEDULED, SLV_DELAYED,
+	SLV_FINISHED, SLV_INFO, SLV_REMOVED
+    };
 
-public:
-        Slave(Transfer * _parent, const KURL & _src, const KURL & _dest);
-        ~Slave();
-        /** No descriptions */
-        //  virtual void setSrc(const KURL & _dest);
-        /** No descriptions */
-        //  virtual void setDest(const KURL & _dest);
-        /** No descriptions */
-        void Op(SlaveCommand _cmd);
-        void error(int _error, QString _msg = QString::null);
-        /** No descriptions */
-        void PostMessage(SlaveResult _event, unsigned long _data = 0L);
-        void PostMessage(SlaveResult _event, const QString & _msg);
-	void InfoMessage(const QString & _msg);
+    enum SlaveStatus {
 
-private:			// Private attributes
+	SLV_RUNNING, SLV_STOPPING, SLV_FINISHING, SLV_ABORTING
+    };
+
+  public:
+     Slave(Transfer * _parent, const KURL & _src, const KURL & _dest);
+    ~Slave();
+    void Op(SlaveCommand _cmd);
+
+	/** No descriptions */
+    void PostMessage(SlaveResult _event, unsigned long _data = 0L);
+    void PostMessage(SlaveResult _event, const QString & _msg);
+    void InfoMessage(const QString & _msg);
 
 
+    public slots:
+       /** No descriptions */
+    void slotCanceled(KIO::Job *);
+       /** No descriptions */
+    void slotResult(KIO::Job *);
+	/** No descriptions */
+    void slotTotalSize(KIO::Job *, KIO::filesize_t);
+	 /** No descriptions */
+    void slotProcessedSize(KIO::Job *, KIO::filesize_t);
+	  /** No descriptions */
+    void slotSpeed(KIO::Job *, unsigned long);
+	/** No descriptions */
+    void slotInfoMessage(KIO::Job *, const QString &);
+
+  public:
+     QValueStack < SlaveCommand > stack;
+    QWaitCondition worker;
+    QMutex mutex;
+     KIO::GetFileJob * copyjob;
+
+  private:			// Private attributes
+     virtual void run();
+    void Connect();
 
 
-protected:
-        SlaveStatus m_status;
-        Transfer *m_parent;
-        bool m_break;
+  protected:
 
-
-        /** contain the last command */
-        SlaveCommand m_cmd;
-
+     Transfer * m_parent;
 
 public:			// Public attributes
-        KURL m_src;
-        KURL m_dest;
-public:			// Public attributes
-        /**  */
-        bool m_CanResume;
-        size_t m_size;
-        unsigned long m_offset;
-        unsigned long m_processed_size;
-        /**  */
-        unsigned int m_speed;
-        /**  */
+     KURL m_src;
+    KURL m_dest;
+   private:			// Private methods
 
-        virtual void run();
-
-        virtual void openConnection() = 0;
-        virtual void CanResume() = 0;
-        virtual void GetRemoteSize() = 0;
-        virtual void retr() = 0;
-
-        virtual void closeConnection() = 0;
-        bool CheckLocalOffset();
-        /** No descriptions */
-        int ReadableTimeOut(int fd, int sec);
-
-
+ /** No descriptions */
+     Slave::SlaveCommand fetch_cmd();
+    int nPendingCommand;
 };
 
 #endif

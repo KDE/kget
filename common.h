@@ -24,6 +24,13 @@
 
 #include <kdebug.h>
 
+#define mDebugIn mDebug << ">>>>Entering"
+#define mDebugOut mDebug << ">>>>Leaving"
+
+#define sDebugIn sDebug << ">>>>Entering"
+#define sDebugOut sDebug << ">>>>Leaving"
+
+
 #define mDebug   kdDebug(DKGET)<<k_funcinfo << THREAD_ID
 #define sDebug   kdDebug(DKGET)<<k_funcinfo << "|--( GUI )--| "
 #define DKGET 0
@@ -32,4 +39,4 @@
 #define Min(x, y)       (((x) < (y)) ? (x) : (y))
 
 #define TIME_OUT 35
-#endif				//common
+#endif				// common

@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -35,7 +35,6 @@
 #include "dlgAutomation.h"
 #include "dlgLimits.h"
 #include "dlgAdvanced.h"
-#include "dlgSearch.h"
 #include "dlgDirectories.h"
 #include "dlgSystem.h"
 
@@ -48,91 +47,91 @@
 
 
 DlgPreferences::DlgPreferences(QWidget * parent):
-                KDialogBase(Tabbed, i18n("Preferences"), Ok | Apply | Help | Cancel, Ok,
-                            parent, "", true)
+KDialogBase(Tabbed, i18n("Preferences"), Ok | Apply | Help | Cancel, Ok, parent, "", true)
 {
-        // add pages
-        QFrame *page = addPage(i18n("Connection"));
-        QVBoxLayout *topLayout = new QVBoxLayout(page, 0, spacingHint());
-        conDlg = new DlgConnection(page);
-        topLayout->addWidget(conDlg);
+    // add pages
+    QFrame *page = addPage(i18n("Connection"));
+    QVBoxLayout *topLayout = new QVBoxLayout(page, 0, spacingHint());
 
-        page = addPage(i18n("Automation"));
-        topLayout = new QVBoxLayout(page, 0, spacingHint());
-        autDlg = new DlgAutomation(page);
-        topLayout->addWidget(autDlg);
+    conDlg = new DlgConnection(page);
+    topLayout->addWidget(conDlg);
 
-        page = addPage(i18n("Limits"));
-        topLayout = new QVBoxLayout(page, 0, spacingHint());
-        limDlg = new DlgLimits(page);
-        topLayout->addWidget(limDlg);
+    page = addPage(i18n("Automation"));
+    topLayout = new QVBoxLayout(page, 0, spacingHint());
+    autDlg = new DlgAutomation(page);
+    topLayout->addWidget(autDlg);
 
-        page = addPage(i18n("Advanced"));
-        topLayout = new QVBoxLayout(page, 0, spacingHint());
-        advDlg = new DlgAdvanced(page);
-        topLayout->addWidget(advDlg);
+    page = addPage(i18n("Limits"));
+    topLayout = new QVBoxLayout(page, 0, spacingHint());
+    limDlg = new DlgLimits(page);
+    topLayout->addWidget(limDlg);
 
-        page = addPage(i18n("Search"));
-        topLayout = new QVBoxLayout(page, 0, spacingHint());
-        seaDlg = new DlgSearch(page);
-        topLayout->addWidget(seaDlg);
+    page = addPage(i18n("Advanced"));
+    topLayout = new QVBoxLayout(page, 0, spacingHint());
+    advDlg = new DlgAdvanced(page);
+    topLayout->addWidget(advDlg);
 
-        page = addPage(i18n("Directories"));
-        topLayout = new QVBoxLayout(page, 0, spacingHint());
-        dirDlg = new DlgDirectories(page);
-        topLayout->addWidget(dirDlg);
+    // page = addPage(i18n("Search"));
+    // topLayout = new QVBoxLayout(page, 0, spacingHint());
+//        seaDlg = new DlgSearch(page);
+    // topLayout->addWidget(seaDlg);
 
-        page = addPage(i18n("System"));
-        topLayout = new QVBoxLayout(page, 0, spacingHint());
-        sysDlg = new DlgSystem(page);
-        topLayout->addWidget(sysDlg);
+    page = addPage(i18n("Directories"));
+    topLayout = new QVBoxLayout(page, 0, spacingHint());
+    dirDlg = new DlgDirectories(page);
+    topLayout->addWidget(dirDlg);
 
-        // type of connection influences autoDisconnect & timedDisconnect features
-        connect(conDlg, SIGNAL(typeChanged(int)),
-                autDlg, SLOT(slotTypeChanged(int)));
-        connect(this, SIGNAL(applyClicked()), SLOT(applySettings()));
+    page = addPage(i18n("System"));
+    topLayout = new QVBoxLayout(page, 0, spacingHint());
+    sysDlg = new DlgSystem(page);
+    topLayout->addWidget(sysDlg);
 
-        conDlg->setData();
-        autDlg->setData();
-        limDlg->setData();
-        advDlg->setData();
-        seaDlg->setData();
-        dirDlg->setData();
-        sysDlg->setData();
+    // type of connection influences autoDisconnect & timedDisconnect features
+    connect(conDlg, SIGNAL(typeChanged(int)), autDlg, SLOT(slotTypeChanged(int)));
 
-        disableResize();
-        show();
+    connect(this, SIGNAL(applyClicked()), SLOT(applySettings()));
+
+    conDlg->setData();
+    autDlg->setData();
+    limDlg->setData();
+    advDlg->setData();
+//        seaDlg->setData();
+    dirDlg->setData();
+    sysDlg->setData();
+
+    disableResize();
+    show();
 }
 
 
 void
-DlgPreferences::closeEvent(QCloseEvent * e)
+ DlgPreferences::closeEvent(QCloseEvent * e)
 {
-        kmain->m_paPreferences->setEnabled(true);
-        KDialogBase::closeEvent(e);
+    kmain->m_paPreferences->setEnabled(true);
+    KDialogBase::closeEvent(e);
 }
 
 
 void DlgPreferences::done(int r)
 {
-        if (r != Rejected) {
-                applySettings();
-        }
+    if (r != Rejected) {
+	applySettings();
+    }
 
-        hide();
+    hide();
 
 }
 
 
 void DlgPreferences::applySettings()
 {
-        conDlg->applyData();
-        autDlg->applyData();
-        limDlg->applyData();
-        advDlg->applyData();
-        seaDlg->applyData();
-        dirDlg->applyData();
-        sysDlg->applyData();
+    conDlg->applyData();
+    autDlg->applyData();
+    limDlg->applyData();
+    advDlg->applyData();
+//        seaDlg->applyData();
+    dirDlg->applyData();
+    sysDlg->applyData();
 }
 
 #include "dlgPreferences.moc"

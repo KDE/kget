@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -39,7 +39,7 @@
 #include <qsizepolicy.h>
 
 #include "transfer.h"
-#include "searchlist.h"
+
 #include "settings.h"
 #include "kmainwidget.h"
 #include "dlgIndividual.h"
@@ -47,123 +47,123 @@
 
 DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 {
-        item = _item;
-        QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        setSizePolicy(policy);
-        QVBoxLayout *topLayout =
-                new
-                QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
-        topLayout->setResizeMode(QVBoxLayout::Fixed);
-        topLayout->addStrut(360);        // makes dlg at least that wide
+    item = _item;
+    QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-        QGridLayout *grid = new QGridLayout(3, 3);
-        topLayout->addLayout(grid);
-        grid->setColStretch(2, 1);
-        grid->addColSpacing(1, KDialog::spacingHint());
+    setSizePolicy(policy);
+    QVBoxLayout *topLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 
-        grid->addWidget(new QLabel(i18n("Source:"), this), 0, 0);
+    topLayout->setResizeMode(QVBoxLayout::Fixed);
+    topLayout->addStrut(360);	// makes dlg at least that wide
 
-        sourceLabel = new QLabel(this);
-        grid->addWidget(sourceLabel, 0, 2);
+    QGridLayout *grid = new QGridLayout(3, 3);
 
-        grid->addWidget(new QLabel(i18n("Destination:"), this), 1, 0);
+    topLayout->addLayout(grid);
+    grid->setColStretch(2, 1);
+    grid->addColSpacing(1, KDialog::spacingHint());
 
-        destLabel = new QLabel(this);
-        grid->addWidget(destLabel, 1, 2);
+    grid->addWidget(new QLabel(i18n("Source:"), this), 0, 0);
 
-        topLayout->addSpacing(5);
+    sourceLabel = new QLabel(this);
+    grid->addWidget(sourceLabel, 0, 2);
 
-        progressLabel = new QLabel(this);
-        grid->addWidget(progressLabel, 2, 2);
+    grid->addWidget(new QLabel(i18n("Destination:"), this), 1, 0);
 
-         m_pProgressBar = new KProgress(100,this);
+    destLabel = new QLabel(this);
+    grid->addWidget(destLabel, 1, 2);
 
-        topLayout->addWidget(m_pProgressBar);
+    topLayout->addSpacing(5);
 
-        // processed info
-        QHBoxLayout *hBox = new QHBoxLayout();
-        topLayout->addLayout(hBox);
+    progressLabel = new QLabel(this);
+    grid->addWidget(progressLabel, 2, 2);
 
-        speedLabel = new QLabel(this);
-        hBox->addWidget(speedLabel, 1);
+    m_pProgressBar = new KProgress(100, this);
 
-        sizeLabel = new QLabel(this);
-        hBox->addWidget(sizeLabel);
+    topLayout->addWidget(m_pProgressBar);
 
-        resumeLabel = new QLabel(this);
-        hBox->addWidget(resumeLabel);
+    // processed info
+    QHBoxLayout *hBox = new QHBoxLayout();
 
-        // setup toolbar
-        hBox = new QHBoxLayout();
-        topLayout->addLayout(hBox);
+    topLayout->addLayout(hBox);
 
-        KToolBar *toolBar = new KToolBar(this);
+    speedLabel = new QLabel(this);
+    hBox->addWidget(speedLabel, 1);
 
-        toolBar->setIconText(KToolBar::IconOnly);
-        toolBar->setBarPos(KToolBar::Bottom);
-        toolBar->enableFloating(false);
-        toolBar->enableMoving(false);
+    sizeLabel = new QLabel(this);
+    hBox->addWidget(sizeLabel);
 
-        item->m_paResume->plug(toolBar);
-        item->m_paPause->plug(toolBar);
-        item->m_paDelete->plug(toolBar);
+    resumeLabel = new QLabel(this);
+    hBox->addWidget(resumeLabel);
 
-        toolBar->insertLineSeparator();
+    // setup toolbar
+    hBox = new QHBoxLayout();
+    topLayout->addLayout(hBox);
 
-        item->m_paQueue->plug(toolBar);
-        item->m_paTimer->plug(toolBar);
-        item->m_paDelay->plug(toolBar);
+    KToolBar *toolBar = new KToolBar(this);
 
-        hBox->addWidget(toolBar, 3);
+    toolBar->setIconText(KToolBar::IconOnly);
+    toolBar->setBarPos(KToolBar::Bottom);
+    toolBar->enableFloating(false);
+    toolBar->enableMoving(false);
 
-        pbAdvanced = new QPushButton(i18n("Advanced"), this);
-        pbAdvanced->setToggleButton(true);
-        pbAdvanced->setOn(ksettings.b_advancedIndividual);
-        connect(pbAdvanced, SIGNAL(toggled(bool)),
-                SLOT(slotToggleAdvanced(bool)));
-        hBox->addWidget(pbAdvanced);
+    item->m_paResume->plug(toolBar);
+    item->m_paPause->plug(toolBar);
+    item->m_paDelete->plug(toolBar);
 
-        // setup tab dialog
-        panelAdvanced = new QTabWidget(this);
+    toolBar->insertLineSeparator();
 
-        // if the time was already set somewhere in the future, keep it
-        // otherwise set it to the current time
-        QDateTime dt;
-        if (item->getStartTime() < QDateTime::currentDateTime() &&
-                        item->getMode() != Transfer::MD_SCHEDULED) {
-                dt = QDateTime::currentDateTime();
-        } else {
-                dt = item->getStartTime();
-        }
+    item->m_paQueue->plug(toolBar);
+    item->m_paTimer->plug(toolBar);
+    item->m_paDelay->plug(toolBar);
 
-        spins = new BWDateTime(dt, this, "spins");
+    hBox->addWidget(toolBar, 3);
 
-        panelAdvanced->addTab(spins, i18n("Timer"));
-        panelAdvanced->hide();
+    pbAdvanced = new QPushButton(i18n("Advanced"), this);
+    pbAdvanced->setToggleButton(true);
+    pbAdvanced->setOn(ksettings.b_advancedIndividual);
+    connect(pbAdvanced, SIGNAL(toggled(bool)), SLOT(slotToggleAdvanced(bool)));
+    hBox->addWidget(pbAdvanced);
 
-        connect(spins, SIGNAL(signalDateChanged(const QDateTime &)), item,
-                SLOT(slotStartTime(const QDateTime &)));
+    // setup tab dialog
+    panelAdvanced = new QTabWidget(this);
 
-        //adding item log
-        ml_log = new QTextEdit(panelAdvanced);
-        ml_log->setReadOnly(true);
-        //ml_log->setFixedSize(sizeHint());
-        ml_log->setVScrollBarMode(QScrollView::Auto);
-        ml_log->setWordWrap(QTextEdit::NoWrap);
+    // if the time was already set somewhere in the future, keep it
+    // otherwise set it to the current time
+    QDateTime dt;
 
-        //ml_log->setSizePolicy(policy);
+    if (item->getStartTime() < QDateTime::currentDateTime() && item->getMode() != Transfer::MD_SCHEDULED) {
+	dt = QDateTime::currentDateTime();
+    } else {
+	dt = item->getStartTime();
+    }
 
-        panelAdvanced->addTab(ml_log, i18n("Log"));
-        //panelAdvanced->setFixedSize(sizeHint());
+    spins = new BWDateTime(dt, this, "spins");
+
+    panelAdvanced->addTab(spins, i18n("Timer"));
+    panelAdvanced->hide();
+
+    connect(spins, SIGNAL(signalDateChanged(const QDateTime &)), item, SLOT(slotStartTime(const QDateTime &)));
+
+    // adding item log
+    ml_log = new QTextEdit(panelAdvanced);
+    ml_log->setReadOnly(true);
+    // ml_log->setFixedSize(sizeHint());
+    ml_log->setVScrollBarMode(QScrollView::Auto);
+    ml_log->setWordWrap(QTextEdit::NoWrap);
+
+    // ml_log->setSizePolicy(policy);
+
+    panelAdvanced->addTab(ml_log, i18n("Log"));
+    // panelAdvanced->setFixedSize(sizeHint());
 
 
 
-        topLayout->addWidget(panelAdvanced);
-        slotToggleAdvanced(ksettings.b_advancedIndividual);
-        setFixedSize(sizeHint());
-        if (ksettings.b_showIndividual) {
-                show();
-        }
+    topLayout->addWidget(panelAdvanced);
+    slotToggleAdvanced(ksettings.b_advancedIndividual);
+    setFixedSize(sizeHint());
+    if (ksettings.b_showIndividual) {
+	show();
+    }
 
 
 }
@@ -171,92 +171,81 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 
 void DlgIndividual::setTotalSize(unsigned long bytes)
 {
-        m_iTotalSize = bytes;
+    m_iTotalSize = bytes;
 }
 
 
 void DlgIndividual::setTotalFiles(unsigned long files)
 {
-        m_iTotalFiles = files;
+    m_iTotalFiles = files;
 }
 
 
 void DlgIndividual::setTotalDirs(unsigned long dirs)
 {
-        m_iTotalDirs = dirs;
+    m_iTotalDirs = dirs;
 }
 
 
 void DlgIndividual::setPercent(unsigned long percent)
 {
-        m_pProgressBar->setValue(percent);
+    m_pProgressBar->setValue(percent);
 
-        setCaption(i18n("%1% of %2 - %3").arg(percent).
-                   arg(KIO::convertSize(m_iTotalSize)).arg(m_sFilename.
-                                                           ascii()));
+    setCaption(i18n("%1% of %2 - %3").arg(percent).arg(KIO::convertSize(m_iTotalSize)).arg(m_sFilename.ascii()));
 }
 
 
 void DlgIndividual::setProcessedSize(unsigned long bytes)
 {
 
-        sizeLabel->setText(i18n("%1 of %2").arg(KIO::convertSize(bytes)).
-                           arg(KIO::convertSize(m_iTotalSize)));
+    sizeLabel->setText(i18n("%1 of %2").arg(KIO::convertSize(bytes)).arg(KIO::convertSize(m_iTotalSize)));
 
 }
 
 
 void DlgIndividual::setProcessedDirs(unsigned long dirs)
 {
-        m_iProcessedDirs = dirs;
+    m_iProcessedDirs = dirs;
 
-        QString tmps;
-        tmps =
-                i18n("%1 / %2 directories  ").arg(m_iProcessedDirs).
-                arg(m_iTotalDirs);
-        tmps +=
-                i18n("%1 / %2 files").arg(m_iProcessedFiles).arg(m_iTotalFiles);
+    QString tmps;
 
-        progressLabel->setText(tmps);
+    tmps = i18n("%1 / %2 directories  ").arg(m_iProcessedDirs).arg(m_iTotalDirs);
+    tmps += i18n("%1 / %2 files").arg(m_iProcessedFiles).arg(m_iTotalFiles);
+
+    progressLabel->setText(tmps);
 
 }
 
 
 void DlgIndividual::setProcessedFiles(unsigned long files)
 {
-        m_iProcessedFiles = files;
+    m_iProcessedFiles = files;
 
-        QString tmps;
-        if (m_iTotalDirs > 1) {
-                tmps =
-                        i18n("%1 / %2 directories  ").arg(m_iProcessedDirs).
-                        arg(m_iTotalDirs);
-        }
-        tmps +=
-                i18n("%1 / %2 files").arg(m_iProcessedFiles).arg(m_iTotalFiles);
+    QString tmps;
 
-        progressLabel->setText(tmps);
+    if (m_iTotalDirs > 1) {
+	tmps = i18n("%1 / %2 directories  ").arg(m_iProcessedDirs).arg(m_iTotalDirs);
+    }
+    tmps += i18n("%1 / %2 files").arg(m_iProcessedFiles).arg(m_iTotalFiles);
+
+    progressLabel->setText(tmps);
 
 }
 
 
-void DlgIndividual::setSpeed(unsigned long bytes_per_second,
-                             QTime remaining)
+void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 {
-        if (bytes_per_second == 0 && item->getStatus() < Transfer::ST_RUNNING) {
+    if (bytes_per_second == 0 && item->getStatus() < Transfer::ST_RUNNING) {
 
-                speedLabel->setText(i18n("Stalled"));
+	speedLabel->setText(i18n("Stalled"));
 
-        } else if (bytes_per_second == 0
-                        && item->getStatus() == Transfer::ST_FINISHED) {
-                speedLabel->setText(i18n("Finished"));
-        } else {
+    } else if (bytes_per_second == 0 && item->getStatus() == Transfer::ST_FINISHED) {
+	speedLabel->setText(i18n("Finished"));
+    } else {
 
-                speedLabel->setText(i18n("%1/s ( %2 )").
-                                    arg(KIO::convertSize(bytes_per_second)).
-                                    arg(remaining.toString()));
+	speedLabel->setText(i18n("%1/s ( %2 )").arg(KIO::convertSize(bytes_per_second)).arg(remaining.toString()));
 
-        }
+    }
 
 
 
@@ -265,55 +254,60 @@ void DlgIndividual::setSpeed(unsigned long bytes_per_second,
 
 void DlgIndividual::setCopying(const KURL & from, const KURL & to)
 {
-        QString source;
-        QString dest;
+    QString source;
+    QString dest;
 
-        source = from.url();
-        dest = to.url();
+    source = from.url();
+    dest = to.url();
 
-        if (source.length() > 40) {
-                QString left = source.left(20);
-                left = left.left(left.findRev("/") + 1);
-                left += "...";
-                QString right = source.right(25);
-                right = right.right(right.length() - right.find("/"));
-                source = left + right;
-        }
-        if (dest.length() > 40) {
-                QString left = dest.left(20);
-                left = left.left(left.findRev("/")+1);
-                left += "...";
-                QString right = dest.right(25);
-                right = right.right(right.length() - right.find("/"));
-                dest = left + right;
-        }
+    if (source.length() > 40) {
+	QString left = source.left(20);
+
+	left = left.left(left.findRev("/") + 1);
+	left += "...";
+	QString right = source.right(25);
+
+	right = right.right(right.length() - right.find("/"));
+	source = left + right;
+    }
+    if (dest.length() > 40) {
+	QString left = dest.left(20);
+
+	left = left.left(left.findRev("/") + 1);
+	left += "...";
+	QString right = dest.right(25);
+
+	right = right.right(right.length() - right.find("/"));
+	dest = left + right;
+    }
 
 
-        m_sFilename = to.fileName();
+    m_sFilename = to.fileName();
 
-        setCaption(m_sFilename);
+    setCaption(m_sFilename);
 
-        sourceLabel->setText(source);
-        destLabel->setText(dest);
+    sourceLabel->setText(source);
+    destLabel->setText(dest);
 
 }
 
 
 void DlgIndividual::setCanResume(bool resume)
 {
-        if (resume) {
-                resumeLabel->setText(i18n("Resumable"));
-        } else {
-                resumeLabel->setText(i18n("Not resumable"));
-        }
+    if (resume)
+	resumeLabel->setText(i18n("Resumable"));
+
+    /* 
+     * else { resumeLabel->setText(i18n("Not resumable")); } */
+
 }
 
 void DlgIndividual::slotToggleAdvanced(bool advanced)
 {
-        if (advanced)
-                panelAdvanced->show();
-        else
-                panelAdvanced->hide();
+    if (advanced)
+	panelAdvanced->show();
+    else
+	panelAdvanced->hide();
 
 }
 
@@ -323,15 +317,11 @@ void DlgIndividual::slotToggleAdvanced(bool advanced)
 void DlgIndividual::addLog(const QString & _msg)
 {
 
-        QString tmps;
+    QString tmps;
 
-        tmps =
-                "<code><font color=\"blue\">" + QTime::currentTime().toString() +
-                "</font> : " + _msg + "</code><br>";
+    tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + _msg + "</code><br>";
 
-        ml_log->append(tmps);
+    ml_log->append(tmps);
 }
 
 #include "dlgIndividual.moc"
-
-

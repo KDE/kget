@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -34,49 +34,43 @@
 
 #include <kdialogbase.h>
 
-class SeparatedLog:public QWidget
-{
+class SeparatedLog:public QWidget {
 
-Q_OBJECT public:
-        SeparatedLog(QWidget * parent);
-        ~SeparatedLog()
-        {}
-        void addLog(uint id, const QString & filename, const QString & message);
-        void refresh();
+  Q_OBJECT public:
+     SeparatedLog(QWidget * parent);
+    ~SeparatedLog() {
+    } void addLog(uint id, const QString & filename, const QString & message);
+    void refresh();
 
-protected slots:
-        void transferSelected(QListViewItem * item);
+    protected slots: void transferSelected(QListViewItem * item);
 
-private:
-        QListView * lv_log;
-        QTextEdit  *ml_log;
+  private:
+    QListView * lv_log;
+    QTextEdit *ml_log;
 
-        typedef QMap < uint, QString > TransferMap;
-        TransferMap trMap;
+    typedef QMap < uint, QString > TransferMap;
+    TransferMap trMap;
 
-        uint idSelected;
+    uint idSelected;
 };
 
 
-class LogWindow:public KDialogBase
-{
+class LogWindow:public KDialogBase {
 
-Q_OBJECT public:
-        LogWindow();
-        ~LogWindow()
-        {}
-        void logGeneral(const QString & message);
-        QString getText() const;
+  Q_OBJECT public:
+     LogWindow();
+    ~LogWindow() {
+    } void logGeneral(const QString & message);
+    QString getText() const;
 
-public slots:
-        void logTransfer(uint id, const QString & filename, const QString & message);
+    public slots: void logTransfer(uint id, const QString & filename, const QString & message);
 
-protected:
-        void closeEvent(QCloseEvent *);
+  protected:
+    void closeEvent(QCloseEvent *);
 
-private:
-        QTextEdit * mixed_log;
-        SeparatedLog *sep_log;
+  private:
+    QTextEdit * mixed_log;
+    SeparatedLog *sep_log;
 };
 
 

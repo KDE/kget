@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -35,31 +35,30 @@
 #include <qbuttongroup.h>
 #include <qstringlist.h>
 
-class DlgAdvanced:public QGroupBox
-{
+class DlgAdvanced:public QGroupBox {
 
-Q_OBJECT public:
+  Q_OBJECT public:
 
-        DlgAdvanced(QWidget * parent);
-        ~DlgAdvanced();
+     DlgAdvanced(QWidget * parent);
+    ~DlgAdvanced();
 
-        void applyData();
-        void setData();
+    void applyData();
+    void setData();
 
-private:
+  private:
 
-        QLabel * lb_adding;
-        QButtonGroup *bg_adding;
-        QRadioButton *rb_queued;
-        QRadioButton *rb_delayed;
+     QLabel * lb_adding;
+    QButtonGroup *bg_adding;
+    QRadioButton *rb_queued;
+    QRadioButton *rb_delayed;
 
-        QCheckBox *cb_individual;
-        QCheckBox *cb_iconify;
-        QCheckBox *cb_advanced;
-        QCheckBox *cb_partial;
-        QCheckBox *cb_remove;
-        QCheckBox *cb_getsizes;
-        QCheckBox *cb_expertmode;
+    QCheckBox *cb_individual;
+    QCheckBox *cb_iconify;
+    QCheckBox *cb_advanced;
+    QCheckBox *cb_partial;
+    QCheckBox *cb_remove;
+    QCheckBox *cb_getsizes;
+    QCheckBox *cb_expertmode;
 
 };
 

@@ -3,9 +3,9 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*    email        : pch@freeshell.org
+*    email          :pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -35,24 +35,23 @@ class Transfer;
   *@author Patrick Charbonnier
   */
 
-class SlaveEvent:public QCustomEvent
-{
-public:
-        SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata = 0L);
-        SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg);
-        ~SlaveEvent();
+class SlaveEvent:public QCustomEvent {
+  public:
+    SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata = 0L);
+     SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg);
+    ~SlaveEvent();
 
-        unsigned int getEvent() const;
-        Transfer *getItem() const;
-        unsigned long getData() const;
-        const QString & getMsg() const;
+    unsigned int getEvent() const;
+    Transfer *getItem() const;
+    unsigned long getData() const;
+    const QString & getMsg() const;
 
 
-private:
-        unsigned int m_event;
-        Transfer *m_item;
-        unsigned long m_ldata;
-        QString m_msg;
+  private:
+    unsigned int m_event;
+    Transfer *m_item;
+    unsigned long m_ldata;
+    QString m_msg;
 
 };
 

@@ -2,11 +2,11 @@
 *                                bwdatetime.h
 *                             -------------------
 *
-*    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
-*    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*    Revision        : $Id$
+*    begin             : Tue Jan 29 2002
+*    copyright       : (C) 2002 by Patrick Charbonnier
+*                          : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email             : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -50,44 +50,43 @@
 
 class QSpinBox;
 
-class BWDateTime:public QWidget
-{
+class BWDateTime:public QWidget {
 
-Q_OBJECT public:
+  Q_OBJECT public:
 
-        BWDateTime(QDateTime qdt, QWidget * parent = 0, const char *name = 0);
+     BWDateTime(QDateTime qdt, QWidget * parent = 0, const char *name = 0);
 
-        void setDateTime(QDateTime qdtime);
-        QDateTime getDateTime();
-        bool checkDateTime();
-        void setEnabled(bool);
+    void setDateTime(QDateTime qdtime);
+    QDateTime getDateTime();
+    bool checkDateTime();
+    void setEnabled(bool);
 
-        bool time_notvalid;
-        bool date_notvalid;
+    bool time_notvalid;
+    bool date_notvalid;
 
-private:
-        bool use12Clock;
+  private:
+     bool use12Clock;
 
-        QSpinBox *hour;
-        QSpinBox *minute;
-        QSpinBox *month;
-        QSpinBox *year;
-        QSpinBox *day;
+    QSpinBox *hour;
+    QSpinBox *minute;
+    QSpinBox *month;
+    QSpinBox *year;
+    QSpinBox *day;
 
-        QRadioButton *am, *pm;
-        QButtonGroup *ampm;
-        QLabel *daylabel;
-        QLabel *monthlabel;
-        QLabel *yearlabel;
-        QLabel *timelabel;
-        QDateTime mydatetime;
+    QRadioButton *am, *pm;
+    QButtonGroup *ampm;
+    QLabel *daylabel;
+    QLabel *monthlabel;
+    QLabel *yearlabel;
+    QLabel *timelabel;
+    QDateTime mydatetime;
 
-private slots:		// Private slots
-        /** No descriptions */
-        void slotValueChanged(int);
-signals:			// Signals
-        /** No descriptions */
-        void signalDateChanged(const QDateTime &);
+    private slots:		// Private slots
+	/** No descriptions */
+    void slotValueChanged(int);
+     signals:			// Signals
+	/** No descriptions */
+    void signalDateChanged(const QDateTime &);
 };
 
 #endif

@@ -41,124 +41,126 @@
 DockWidget::DockWidget(KMainWidget * _parent):KDockWindow(_parent)
 {
 
-        parent = _parent;
+    parent = _parent;
 
-        //TODO CHECK the path
-        QString path = "kget/pics/";
+    // TODO CHECK the path
+    QString path = "kget/pics/";
 
-        QPixmap *tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock_hand1.xpm"));
+    QPixmap *tmppix = new QPixmap();
 
-        handpix1 = new QPixmap(ICONWIDTH, ICONHEIGHT);
-        handpix1->fill(backgroundColor());
-        bitBlt(handpix1, 0, 0, tmppix);
+    tmppix->load(locate("data", path + "dock_hand1.xpm"));
 
-        delete tmppix;
+    handpix1 = new QPixmap(ICONWIDTH, ICONHEIGHT);
+    handpix1->fill(backgroundColor());
+    bitBlt(handpix1, 0, 0, tmppix);
 
-        tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock_hand2.xpm"));
+    delete tmppix;
 
-        handpix2 = new QPixmap(ICONWIDTH, ICONHEIGHT);
-        handpix2->fill(backgroundColor());
-        bitBlt(handpix2, 0, 0, tmppix);
+    tmppix = new QPixmap();
+    tmppix->load(locate("data", path + "dock_hand2.xpm"));
 
-        delete tmppix;
+    handpix2 = new QPixmap(ICONWIDTH, ICONHEIGHT);
+    handpix2->fill(backgroundColor());
+    bitBlt(handpix2, 0, 0, tmppix);
 
-        tmppix = new QPixmap();
-        tmppix->load(locate("data", path + "dock_hand3.xpm"));
+    delete tmppix;
 
-        handpix3 = new QPixmap(ICONWIDTH, ICONHEIGHT);
-        handpix3->fill(backgroundColor());
-        bitBlt(handpix3, 0, 0, tmppix);
+    tmppix = new QPixmap();
+    tmppix->load(locate("data", path + "dock_hand3.xpm"));
 
-        delete tmppix;
+    handpix3 = new QPixmap(ICONWIDTH, ICONHEIGHT);
+    handpix3->fill(backgroundColor());
+    bitBlt(handpix3, 0, 0, tmppix);
 
-        setPixmap(*handpix1);
+    delete tmppix;
 
-        for (int i = 0; i < 3; i++) {
-                size[i] = 0;
-        }
+    setPixmap(*handpix1);
 
-        // popup menu for right mouse button
-        KPopupMenu *popupMenu = contextMenu();
-        popupMenu->insertItem(i18n("Preferences"), parent,
-                              SLOT(slotPreferences()));
+    for (int i = 0; i < 3; i++) {
+	size[i] = 0;
+    }
 
-        // Enable dropping
-        setAcceptDrops(true);
+    // popup menu for right mouse button
+    KPopupMenu *popupMenu = contextMenu();
+
+    popupMenu->insertItem(i18n("Preferences"), parent, SLOT(slotPreferences()));
+
+    // Enable dropping
+    setAcceptDrops(true);
 
 }
 
 
 DockWidget::~DockWidget()
 {
-        delete handpix1;
-        delete handpix2;
-        delete handpix3;
+    delete handpix1;
+    delete handpix2;
+    delete handpix3;
 }
 
 
 void
-DockWidget::setAnim(int i1, int i2, int i3, bool online)
+ DockWidget::setAnim(int i1, int i2, int i3, bool online)
 {
 
-        size[0] = i1;
-        size[1] = i2;
-        size[2] = i3;
+    size[0] = i1;
+    size[1] = i2;
+    size[2] = i3;
 
-        if (isVisible()) {
-                if (!online || ksettings.b_offlineMode) {
-                        setPixmap(*handpix3);
-                } else if (size[0] == 0 && size[1] == 0 && size[2] == 0) {
-                        setPixmap(*handpix1);
-                } else {
-                        QPixmap pm(*handpix2);
-                        QPainter p;
-                        p.begin(&pm);
+    if (isVisible()) {
+	if (!online || ksettings.b_offlineMode) {
+	    setPixmap(*handpix3);
+	} else if (size[0] == 0 && size[1] == 0 && size[2] == 0) {
+	    setPixmap(*handpix1);
+	} else {
+	    QPixmap pm(*handpix2);
+	    QPainter p;
 
-                        p.setPen(white);
-                        for (int i = 0; i < 3; i++) {
-                                if (size[i] != 0) {
-                                        int pixels =
-                                                (int) (ICONWIDTH * (float) size[i] / 100.0);
-                                        p.fillRect(1, i * 8, pixels, 7, blue);
-                                }
-                        }
+	    p.begin(&pm);
 
-                        p.end();
-                        setPixmap(pm);
-                }
-        }
+	    p.setPen(white);
+	    for (int i = 0; i < 3; i++) {
+		if (size[i] != 0) {
+		    int pixels = (int) (ICONWIDTH * (float) size[i] / 100.0);
+
+		    p.fillRect(1, i * 8, pixels, 7, blue);
+		}
+	    }
+
+	    p.end();
+	    setPixmap(pm);
+	}
+    }
 }
 
 
 void DockWidget::dragEnterEvent(QDragEnterEvent * event)
 {
-        event->accept(QUriDrag::canDecode(event)
-                      || QTextDrag::canDecode(event));
+    event->accept(QUriDrag::canDecode(event)
+		  || QTextDrag::canDecode(event));
 }
 
 
 void DockWidget::dropEvent(QDropEvent * event)
 {
-        QStrList list;
-        QString str;
+    QStrList list;
+    QString str;
 
-        if (QUriDrag::decode(event, list)) {
-                parent->addDropTransfers(&list);
-        } else if (QTextDrag::decode(event, str)) {
-                parent->addTransfer(str);
-        }
+    if (QUriDrag::decode(event, list)) {
+	parent->addDropTransfers(&list);
+    } else if (QTextDrag::decode(event, str)) {
+	parent->addTransfer(str);
+    }
 }
 
 
 void DockWidget::mousePressEvent(QMouseEvent * e)
 {
-        if (e->button() == MidButton) {
-                parent->slotPasteTransfer();
-        } else {
-                KDockWindow::mousePressEvent(e);
-        }
+    if (e->button() == MidButton) {
+	parent->slotPasteTransfer();
+    } else {
+	KDockWindow::mousePressEvent(e);
+    }
 }
 
 #include "docking.moc"

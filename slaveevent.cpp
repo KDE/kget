@@ -3,9 +3,9 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*    email        : pch@freeshell.org
+*    email          : pch@freeshell.org
 *
 ***************************************************************************/
 
@@ -26,46 +26,45 @@
 
 #include "slaveevent.h"
 
-SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent
-                (346798)
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent(346798)
 {
-        m_event = _event;
-        m_item = _item;
-        m_ldata = _ldata;
-        m_msg = QString("");
+    m_event = _event;
+    m_item = _item;
+    m_ldata = _ldata;
+    m_msg = QString("");
 }
 
 
-SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event,
-                       const QString & _msg):QCustomEvent(346798)
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, const QString & _msg):QCustomEvent(346798)
 {
-        m_event = _event;
-        m_item = _item;
-        m_ldata = 0L;
-        m_msg = _msg;
+    m_event = _event;
+    m_item = _item;
+    m_ldata = 0L;
+    m_msg = _msg;
 }
 
 
 SlaveEvent::~SlaveEvent()
-{}
+{
+}
 
 unsigned int
-SlaveEvent::getEvent() const
+ SlaveEvent::getEvent() const
 {
-        return m_event;
+    return m_event;
 }
 
 Transfer *SlaveEvent::getItem() const
 {
-        return m_item;
+    return m_item;
 };
 
 unsigned long SlaveEvent::getData() const
 {
-        return m_ldata;
+    return m_ldata;
 };
 
 const QString & SlaveEvent::getMsg() const
 {
-        return m_msg;
+    return m_msg;
 };

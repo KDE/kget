@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
+*    begin          : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
+*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email          : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -35,13 +35,12 @@
 #include <qwidget.h>
 
 /** KGet is the base class of the project */
-class KGet:public QWidget
-{
-Q_OBJECT public:
-        /** construtor */
-        KGet(QWidget * parent = 0, const char *name = 0);
-        /** destructor */
-        ~KGet();
+class KGet:public QWidget {
+  Q_OBJECT public:
+	/** construtor */
+     KGet(QWidget * parent = 0, const char *name = 0);
+	/** destructor */
+    ~KGet();
 };
 
 #endif
