@@ -36,7 +36,6 @@
 #define DKGET 0
 #define THREAD_ID "|--TH_ID ( "<< currentThread()<<" )--| "
 
-#define Min(x, y)       (((x) < (y)) ? (x) : (y))
 
 #define TIME_OUT 35
 #endif                          // common

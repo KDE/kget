@@ -97,37 +97,42 @@ static void cleanup(void)
 }
 
 
-//#ifdef NDEBUG
-//KGetApp::KGetApp ():KUniqueApplication ()
-//#else
-KGetApp::KGetApp():KApplication()
-        //#endif
+KGetApp::KGetApp ():KUniqueApplication ()
 {
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    int nArgs;
-    nArgs = args->count();
 
-    if (isRestored())
-    {
-        RESTORE(KMainWidget)
-    } else
-    {
-        if (nArgs > 0)
-            new KMainWidget(true);
-        else
-            new KMainWidget();
-    }
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
 
-    setMainWidget(kmain);
-    newInstance();
+    kmainwidget=0;
+
+
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
 }
 
 
 int KGetApp::newInstance()
 {
 #ifdef _DEBUG
-    sDebugIn << endl;
+    sDebugIn <<"kmainwidget="<<kmainwidget << endl;
 #endif
+
+
+    if (kmainwidget==0)
+    {
+
+        kmainwidget=new KMainWidget();
+        kmainwidget->show();
+    }
+
+    else
+    {
+
+        KWin::setActiveWindow (kmainwidget->winId());
+    }
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
@@ -138,12 +143,10 @@ int KGetApp::newInstance()
 
     args->clear();
 
-    KWin::setActiveWindow(kmain->winId());
-
-
 #ifdef _DEBUG
-    sDebugOut<< endl;
+    sDebugOut << endl;
 #endif
+
     return 0;
 }
 
@@ -152,7 +155,7 @@ int KGetApp::newInstance()
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description, KAboutData::License_GPL, "(c) 2001 - 2002, Patrick Charbonnier \n(c) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
+    KAboutData aboutData("kget", I18N_NOOP("kget"), version, description, KAboutData::License_GPL, "(c) 2001 - 2002, Patrick Charbonnier \n(c) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
 
     aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
     aboutData.addAuthor("Matej Koss", 0, "koss@miesto.sk");
@@ -161,17 +164,20 @@ int main(int argc, char *argv[])
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineArgs::addCmdLineOptions(option);
 
-    // TODO to uncomment for unique app
-    /*
-     * if ( ! kget::start()) { exit(0); // Don't do anything if we are already running TODO: check } */
+    KGetApp::addCmdLineOptions();
 
-    // creating the main class..
+    if (!KGetApp::start()) {
+        fprintf(stderr, "kget is already running!\n");
+        exit(0);
+    }
 
     KGetApp kApp;
 
     setSignalHandler(signalHandler);
     kApp.exec();
 
-
     cleanup();
+
+
+
 }

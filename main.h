@@ -29,19 +29,19 @@
 #ifndef __main_h__
 #define __main_h__
 
-//#ifdef NDEBUG
-//#include <kuniqueapp.h>
-//class KGetApp:public KUniqueApplication {
-//#else
-#include <kapplication.h>
-class KGetApp:public KApplication
-{
-        //#endif
+#include <kuniqueapplication.h>
+
+class KGetApp:public KUniqueApplication {
+
 public:
 
-        KGetApp();
+    KGetApp();
 
-        int newInstance();
+    int newInstance();
+
+private:
+    KMainWidget *kmainwidget;
+
 
 };
 
