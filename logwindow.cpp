@@ -10,7 +10,7 @@
 *
 ****************************************************************************/
 
-/***************************************************************************
+/**************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -100,11 +100,10 @@ SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
         connect(lv_log, SIGNAL(selectionChanged(QListViewItem *)),
                 SLOT(transferSelected(QListViewItem *)));
 
-        ml_log = new QTextView(this);
-        //  kapp->lock();
+        ml_log = new QTextEdit(this);
+        ml_log->setReadOnly(true);
         ml_log->setTextFormat(RichText);
         ml_log->setMinimumSize(300, 200);
-        //  kapp->unlock();
         topGridLayout->addWidget(ml_log, 0, 1);
 }
 
@@ -159,10 +158,9 @@ LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, 
         // add pages
         QFrame *page = addPage(i18n("Mixed"));
         QVBoxLayout *topLayout = new QVBoxLayout(page, 0, spacingHint());
-        mixed_log = new QTextView(page);
-        //  kapp->lock();
+        mixed_log = new QTextEdit(page);
+        mixed_log->setReadOnly(true);
         mixed_log->setTextFormat(RichText);
-        //  kapp->unlock();
         topLayout->addWidget(mixed_log);
 
         page = addPage(i18n("Separated"));
@@ -187,11 +185,12 @@ void LogWindow::closeEvent(QCloseEvent *)
 
 void LogWindow::logGeneral(const QString & message)
 {
+  
         QString tmps;
 
         tmps =
                 "<code><font color=\"blue\">" + QTime::currentTime().toString() +
-                "</font> : <strong>" + message + "</strong></code><br/>";
+                "</font> : <strong>" + message + "</strong></code><br>";
 
         mixed_log->append(tmps);
 }
@@ -204,7 +203,7 @@ void LogWindow::logTransfer(uint id, const QString & filename,
 
         tmp1 =
                 "<code><font color=\"blue\">" + QTime::currentTime().toString() +
-                "</font> : " + message + "</code><br/>";
+                "</font> : " + message + "</code><br>";
         tmp2.sprintf("<strong>%d</strong> : ", id);
 
         mixed_log->append(tmp2 + tmp1);

@@ -29,7 +29,7 @@
 #define _LOGWINDOW_H
 
 #include <qlistview.h>
-#include <qtextview.h>
+#include <qtextedit.h>
 #include <qmap.h>
 
 #include <kdialogbase.h>
@@ -49,7 +49,7 @@ protected slots:
 
 private:
         QListView * lv_log;
-        QTextView *ml_log;
+        QTextEdit  *ml_log;
 
         typedef QMap < uint, QString > TransferMap;
         TransferMap trMap;
@@ -75,7 +75,7 @@ protected:
         void closeEvent(QCloseEvent *);
 
 private:
-        QTextView * mixed_log;
+        QTextEdit * mixed_log;
         SeparatedLog *sep_log;
 };
 

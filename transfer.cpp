@@ -1214,7 +1214,7 @@ void Transfer::showIndividual()
 
 void Transfer::logMessage(const QString & message)
 {
-        sDebug << ">>>>Entering" << message << endl;
+        sDebug << ">>>>Entering " << message << endl;
 
 
         emit log(id, src.fileName(), message);
