@@ -1,7 +1,7 @@
-                          KGet 0.8.0-Beta-1
+                          KGet 0.8.0-RC-1
 			 					             ==========
 
-New working  release of  kget (for kde2 and kde3).
+New working  release of  kget for  kde3.
 
 INSTALLATION
 =============
@@ -19,7 +19,6 @@ BUGS
 
 TODO
 =====
- o Proxy Support
  o Download segments
 
 
