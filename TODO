@@ -1,78 +1,88 @@
 TODO-list for KGet
 ======================
+
 <nick>  == reported by
--->nick == assigned to
-#x      == sequential bug number,
-           #26 being the highest available (take this one for your next bug and increase here)
-format: {ADD, FIX, CHG} #x <nick> text [-->nick]
+Legend:
+    ADD - ADDed
+    CHG - CHanGed
+    FIX - FIXed
+
+
+    IN PROGRESS
+---------------------
+
+
+
 
         TODO
 ---------------------
 
 SHORT-TERM (URGENT):
 
-  FIX #26 <pino> _rewrite_ & simplify the scheduler functions which schedule
+  FIX <pino> _rewrite_ & simplify the scheduler functions which schedule
       new downloads, atm they are too messy
-  FIX #27 <pino> _rewrite_ & simplify the scheduler functions which manage the
+  FIX <pino> _rewrite_ & simplify the scheduler functions which manage the
       downloads, atm they are too messy and don't work properly
-  FIX #10 <dario> when resizing the columns of the mainview and the groupspanel
+  FIX <dario> the konqueror plugin doesn't allow the download of links if 
+      the relative web page has been closed
+  FIX <dario> when resizing the columns of the mainview and the groupspanel
       the items are not updated correctly
-  ADD #11 <dario> implement the GlobalStatus object and make the 
+  ADD <dario> implement the GlobalStatus object and make the 
       systray to update using the ViewInterface slots instead of the actual hack.
-  ADD #12 <dario> once #11 has been implemented, implement progressive filling
-      of the icon in the system tray
-  ADD #13 <dario> make it possible to move transfers to a specific group using 
+  ADD <dario> implement progressive filling of the icon in the system tray
+  ADD <dario> make it possible to move transfers to a specific group using 
       the popup menu.
-  ADD #14 <dario> make it possible to drag a transfer in a group inside the
+  ADD <dario> make it possible to drag a transfer in a group inside the
       mainview or in the groups visible in the groupspanel.
-  CHG #24 <dario> verify that the painting operations in the views are performed
+  CHG <dario> verify that the painting operations in the views are performed
       only when necessary.
-  CHG #25 <dario> optimize if possible the fact we must check if a transfer
+  CHG <dario> optimize if possible the fact we must check if a transfer
       is still present in the transfers list (in the Scheduler class, function
       slotTransferChanged() ).
-  CHG #28 <pino> verify that all the settings are respected
-  ADD #32 <pino> implement the grouping functionalities
+  CHG <pino> verify that all the settings are respected
+  FIX <pino> make more fluid the drop target movement
+  ADD <pino> implement the grouping functionalities
 
 MID-TERM:
 
-  ADD #15 <dario> change the actual way we use the priority for each transfer.
+  ADD <dario> change the actual way we use the priority for each transfer.
       In the future it will describe the precise order the transfers will be 
       downloaded.
-  ADD #16 <dario> use KPassivePopups to notify when all the transfers have been
+  ADD <dario> use KPassivePopups to notify when all the transfers have been
       downloaded.
-  CHG #26 <dario> profile kget and look for possible optimizations.
-  CHG #17 <dario> finish to implement transferKio adding, for example, setDelay.
-  ADD #18 <dario> add the possibility to select "open destination folder" in 
+  CHG <dario> profile kget and look for possible optimizations.
+  CHG <dario> finish to implement transferKio adding, for example, setDelay.
+  ADD <dario> add the possibility to select "open destination folder" in 
       the transfer's popup menu.
-  ADD #19 <kget> bitTorrent support
-  CHG #21 <kget> setup a decent gui with a decent toolbars.
-  CHG #22 <kget> sync the configuration options with what has currently been 
+  ADD <kget> bitTorrent support
+  CHG <kget> setup a decent gui with a decent toolbars.
+  CHG <kget> sync the configuration options with what has currently been 
       implemented.
-  ADD #23 <dario> make it possible to associate a default folder to each group.
-  ADD #29 <pino> tooltips and what's this for settings
-  ADD #31 <pino> implement the notifications
+  ADD <dario> make it possible to associate a default folder to each group.
+  ADD <pino> tooltips and what's this for settings
+  ADD <pino> implement the notifications
 
 LONG-TERM:
 
-  ADD #20 <kget> make the TestView able to make intensive tests on kget by
+  ADD <kget> make the TestView able to make intensive tests on kget by
       giving commands to the Scheduler and looking if what happens is what should
       happen.
-  CHG #05 <dario> usability enhancements as in #79519
-  ADD #07 <dario> sidebar for transfer statistics and more (bandwidth
+  CHG <dario> usability enhancements as in #79519
+  ADD <dario> sidebar for transfer statistics and more (bandwidth
       graph, alternative urls, connection status/type, virtual folders,
       ...)
-  ADD #02 <kget> add bandwidth limiting
-  ADD #03 <kget> splits download in N segments
-  ADD #01 <kget> support for mirrors
-  ADD #08 <dario> 'low priority downloads' as in br #50776.
-  ADD #04 <kget> add Help & Guide
+  ADD <kget> add bandwidth limiting
+  ADD <kget> splits download in N segments
+  ADD <kget> support for mirrors
+  ADD <dario> 'low priority downloads' as in br #50776.
+  ADD <kget> add Help & Guide
 
 
         DONE
 ---------------------
 
 
-  Things done until 21/01/05
+  Things done until 06/11/04 (when this file has been adopted)
 
   CHG <dario, eros> decoupling between gui and transfer operations.
   ADD <dario> Implement the MainView class that should become the kget main view.
@@ -85,9 +95,6 @@ LONG-TERM:
   CHG <eros> Move all the configuration framework to KConfigXT
   CHG <dario> implement delayedInitialization of the kget app. This should speed up
       the startup a lot with big lists of transfers.
-  FIX <pino> make more fluid the drop target movement
-  FIX <dario> the konqueror plugin doesn't allow the download of links if 
-      the relative web page has been closed
 
 
 
