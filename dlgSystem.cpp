@@ -98,6 +98,7 @@ DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
 
     // window style
     bg_window = new QButtonGroup(i18n("Window Style"), this, "bg_window");
+    bg_window->setEnabled( false ); // ### not implemented yet :-/
     topGridLayout->addMultiCellWidget(bg_window, 2, 2, 0, 3);
 
     QHBoxLayout *hLayout = new QHBoxLayout(bg_window, 20, KDialog::spacingHint());
