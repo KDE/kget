@@ -47,9 +47,6 @@
 #endif
 #include "settings.h"
 #include "droptarget.h"
-#define TARGET_WIDTH   70
-#define TARGET_HEIGHT  69
-
 
 DropTarget::DropTarget():QWidget()
 {
@@ -57,47 +54,37 @@ DropTarget::DropTarget():QWidget()
     int y = ksettings.dropPosition.y();
     
     QRect desk = KGlobalSettings::desktopGeometry(this);
+    QPixmap bgnd = UserIcon( "target" );
 
     if (x != -1 &&
         x >= desk.left() && y >= desk.top() &&
-        (x + TARGET_WIDTH) <= desk.right() &&
-        (y + TARGET_HEIGHT) <= desk.bottom() )
+        (x + bgnd.width()) <= desk.right() &&
+        (y + bgnd.height()) <= desk.bottom() )
     {
         move(ksettings.dropPosition);
+	resize(bgnd.width(), bgnd.height());
         KWin::setState(winId(), ksettings.dropState);
     }
     else
     {
-        setGeometry(desk.x()+200, desk.y()+200, TARGET_WIDTH, TARGET_HEIGHT);
+        setGeometry(desk.x()+200, desk.y()+200, bgnd.width(), bgnd.height());
         KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop);
     }
 
     b_sticky = ksettings.dropState & NET::Sticky;
 
-    // setup mask
-    mask.resize(TARGET_WIDTH, TARGET_HEIGHT);
-    mask.fill(color0);
-
-    QPainter p2;
-
-    p2.begin(&mask);
-    p2.setBrush(color1);
-    p2.drawChord( 0, 0,TARGET_WIDTH,TARGET_HEIGHT,5760,5760);
-    p2.end();
-
     // setup pixmaps
 
-    int offsetx = -10;
-    int offsety = -5;
+    if (!bgnd.mask())
+        kdError(5001) << "Drop target pixmap has no mask!\n";
+    else
+        mask = *bgnd.mask();
 
-    QPixmap bgnd = QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-    QPixmap tmp = UserIcon( "target" );
-    bitBlt(&bgnd, offsetx, offsety, &tmp );
     setBackgroundPixmap( bgnd );
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
-    popupMenu->setTitle(kapp->caption());
+    popupMenu->insertTitle(kapp->caption());
     popupMenu->setCheckable(true);
 
     pop_Max = popupMenu->insertItem(i18n("Maximize"), this, SLOT(toggleMinimizeRestore()));
