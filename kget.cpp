@@ -130,9 +130,10 @@ KGet::~KGet()
     delete m_drop;
     delete m_dock;
     delete m_mainView;
-    // the following call saves options set in above dtors
+// the following call saves options set in above dtors
     Settings::writeConfig();
 }
+
 
 void KGet::setupActions()
 {
@@ -383,7 +384,7 @@ void KGet::slotPreferences()
 void KGet::slotNewURL()
 {
     //TODO re-enable this
-    //Model::addTransfer(KURL());
+    Model::addTransfer(KURL());
 }
 
 void KGet::updateActions()

@@ -83,23 +83,23 @@ class Model
         /**
          * Adds a new transfer to the Model
          *
-         * @param src The url to be downloaded
+         * @param srcURL The url to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KURL src, const QString& destDir = "",
+        static void addTransfer(KURL srcURL, QString destDir = "",
                                 const QString& groupName = "");
 
         /**
          * Adds new transfers to the Model
          *
-         * @param src The urls to be downloaded
+         * @param srcURLs The urls to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KURL::List src, QString destDir = "",
+        static void addTransfer(KURL::List srcURLs, QString destDir = "",
                                 const QString& groupName = "");
 
         /**
@@ -144,7 +144,9 @@ class Model
          * @param destFile the url of the destination file
          * @return true if the destination file is ok, otherwise returns false
          */
-        static bool isValidDestFile(KURL destFile);
+        static bool isValidDestURL(KURL destURL);
+
+        static KURL getValidDestURL(const QString& destDir, KURL srcURL);
 
         static TransferGroup * findGroup(const QString& groupName);
         static Transfer * findTransfer(KURL url);

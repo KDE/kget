@@ -53,18 +53,14 @@ void Model::delGroup(const QString& groupName)
     
 }
 
-void Model::addTransfer( KURL src, const QString& destDir,
+void Model::addTransfer( KURL srcURL, QString destDir,
                          const QString& groupName )
 {
-    kdDebug() << " addTransfer:  " << src.url() << endl;
+    kdDebug() << " addTransfer:  " << srcURL.url() << endl;
 
-    if ( !isValidSource( src ) )
-        return;
-
-    KURL srcURL;
     KURL destURL;
 
-    if ( src.isEmpty() )
+    if ( srcURL.isEmpty() )
     {
         //No src location: we let the user insert it manually
         srcURL = urlInputDialog();
@@ -72,40 +68,25 @@ void Model::addTransfer( KURL src, const QString& destDir,
             return;
     }
 
-    if ( !destDir.isEmpty() )
-    {
-        // create a proper destination file from destDir
-        KURL destURL = KURL::fromPathOrURL( destDir );
-        QString fileName = src.fileName();
+    if ( !isValidSource( srcURL ) )
+        return;
 
-        if ( fileName.isEmpty() )
-        {
-            // I really don't understand why we should care about the source URLs
-            // with empty filename.
-            // ------ In the previous scheduler.cpp class it was: -------
-            // in case the fileName is empty, we simply ask for a filename in
-            // addTransferEx. Do NOT attempt to use an empty filename, that
-            // would be a directory (and we don't want to overwrite that!)
-            return;
-        }
-        else
-        {
-            destURL.adjustPath( +1 );
-            destURL.setFileName( fileName );
-            if (!isValidDestFile(destURL))
-                return;
-        }
-    }
+    if ( !isValidDestDirectory( destDir ) )
+        destDir = destInputDialog();
+
+    if( (destURL = getValidDestURL( destDir, srcURL )).isEmpty() )
+        return;
+
     createTransfer(srcURL, destURL, groupName);
 }
 
-void Model::addTransfer(KURL::List src, QString destDir,
+void Model::addTransfer(KURL::List srcURLs, QString destDir,
                         const QString& groupName)
 {
     KURL::List urlsToDownload;
 
-    KURL::List::ConstIterator it = src.begin();
-    KURL::List::ConstIterator itEnd = src.end();
+    KURL::List::ConstIterator it = srcURLs.begin();
+    KURL::List::ConstIterator itEnd = srcURLs.end();
 
     for(; it!=itEnd ; ++it)
     {
@@ -119,7 +100,7 @@ void Model::addTransfer(KURL::List src, QString destDir,
     if ( urlsToDownload.count() == 1 )
     {
         // just one file -> ask for filename
-        addTransfer(src.first(), destDir, groupName);
+        addTransfer(srcURLs.first(), destDir, groupName);
         return;
     }
 
@@ -127,29 +108,19 @@ void Model::addTransfer(KURL::List src, QString destDir,
 
     // multiple files -> ask for directory, not for every single filename
     if ( !isValidDestDirectory(destDir) )
-    {
         destDir = destInputDialog();
-        destURL.setPath( destDir );
-        destURL.adjustPath(+1);
-    }
 
     it = urlsToDownload.begin();
     itEnd = urlsToDownload.end();
 
     for ( ; it != itEnd; ++it )
     {
-        KURL srcURL = *it;
+        destURL = getValidDestURL( destDir, *it );
 
-        //Set the destURL filename
-        QString fileName = (*it).fileName();
-        if ( fileName.isEmpty() ) // simply use the full url as filename
-            fileName = KURL::encode_string_no_slash( (*it).prettyURL() );
-        destURL.setFileName( fileName );
-
-        if(!isValidDestFile(destURL))
+        if(!isValidDestURL(destURL))
             continue;
 
-        createTransfer(srcURL, destURL, groupName);
+        createTransfer(*it, destURL, groupName);
     }
 }
 
@@ -189,6 +160,8 @@ Model::~Model()
 void Model::createTransfer(KURL src, KURL dest,
                                  const QString& groupName)
 {
+    kdDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
+
     TransferGroup * group = findGroup(groupName);
     if (group==0)
         group = m_transferGroups.first();
@@ -216,16 +189,17 @@ KURL Model::urlInputDialog()
         if( isValidSource(src) )
             return src;
         else
-        {
-            KMessageBox::error(0, i18n("Malformed URL:\n%1").arg(newtransfer));
             ok = false;
-        }
     }
 }
 
 QString Model::destInputDialog()
 {
-    return KFileDialog::getExistingDirectory( /*dest.path()*/ );
+    //TODO Somehow, using KFIleDialog::getExistingDirectory() makes kget crash
+    //when we close the application. Why?
+    QString destDir = KFileDialog::getExistingDirectory( Settings::lastDirectory() );
+    Settings::setLastDirectory( destDir );
+    return destDir;
 }
 
 bool Model::isValidSource(KURL source)
@@ -271,29 +245,68 @@ bool Model::isValidSource(KURL source)
 
 bool Model::isValidDestDirectory(const QString & destDir)
 {
-    return (destDir.isEmpty() || !QFileInfo( destDir ).isDir());
+    return (!destDir.isEmpty() && QFileInfo( destDir ).isDir());
 }
 
-bool Model::isValidDestFile(KURL destFile)
+bool Model::isValidDestURL(KURL destURL)
 {
-    if(KIO::NetAccess::exists(destFile, false, 0))
+    if(KIO::NetAccess::exists(destURL, false, 0))
     {
         if (KMessageBox::warningYesNo(0,
             i18n("Destination file \n%1\nalready exists.\n"
-                 "Do you want to overwrite it?").arg( destFile.prettyURL()) )
+                 "Do you want to overwrite it?").arg( destURL.prettyURL()) )
             == KMessageBox::Yes)
         {
-            safeDeleteFile( destFile );
-            destFile = destFile;
+            safeDeleteFile( destURL );
             return true;
         }
+        return false;
     }
-    return false;
+    return true;
    /*
     KIO::open_RenameDlg(i18n("File already exists"), 
     (*it).url(), destURL.url(),
     KIO::M_MULTI);
    */
+}
+
+KURL Model::getValidDestURL(const QString& destDir, KURL srcURL)
+{
+    if ( !isValidDestDirectory(destDir) )
+        return KURL();
+
+    // create a proper destination file from destDir
+    KURL destURL = KURL::fromPathOrURL( destDir );
+    QString filename = srcURL.filename();
+
+    if ( filename.isEmpty() )
+    {
+        // I really don't understand why we should care about the source URLs
+        // with empty filename.
+        // ------ In the previous scheduler.cpp class it was: -------
+        // in case the fileName is empty, we simply ask for a filename in
+        // addTransferEx. Do NOT attempt to use an empty filename, that
+        // would be a directory (and we don't want to overwrite that!)
+        // simply use the full url as filename
+
+        // ATM I use the same code I used in the next addTransfer function
+        filename = KURL::encode_string_no_slash( srcURL.prettyURL() );
+        kdDebug() << " Filename is empty. Setting to  " << filename << endl;
+        kdDebug() << "   srcURL = " << srcURL.url() << endl;
+        kdDebug() << "   prettyURL = " << srcURL.prettyURL() << endl;
+    }
+    else
+    {
+        kdDebug() << " Filename is not empty" << endl;
+        destURL.adjustPath( +1 );
+        destURL.setFileName( filename );
+        if (!isValidDestURL(destURL))
+        {
+            kdDebug() << "   destURL " << destURL.path() << " is not valid" << endl;
+            return KURL();
+        }
+    }
+    return destURL;
 }
 
 TransferGroup * Model::findGroup(const QString & groupName)
