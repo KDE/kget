@@ -39,7 +39,7 @@
 namespace KIO
 {
     class GetFileJob;
-};
+}
 
 class Transfer;
 
