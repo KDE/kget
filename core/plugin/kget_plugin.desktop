@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=KGet/Plugin
+Comment=Plugin for KGet
+Comment[it]=Plugin per KGet
+
+# Type of plugin, e.g. "TransferFactory".
+[PropertyDef::X-KDE-KGet-plugintype]
+Type=QString
+
+# Priority of the plugin. When KTrader returns multiple offers, the one with the highest rank is chosen.
+# Range: 0 (disabled) - 255 (highest)
+[PropertyDef::X-KDE-KGet-rank]
+Type=int
+
+# Version of the framework this plugin is compatible with.
+# Current version: 1
+[PropertyDef::X-KDE-KGet-framework-version]
+Type=int
