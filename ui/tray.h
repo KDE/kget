@@ -32,7 +32,6 @@
 
 #include "core/viewinterface.h"
 
-class KPopupMenu;
 class KMainWidget;
 class QTimer;
 class QPixmap;

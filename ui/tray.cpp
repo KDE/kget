@@ -25,7 +25,6 @@
  ***************************************************************************/
 
 #include <kapplication.h>
-#include <kmainwindow.h>
 #include <kaboutdata.h>
 #include <klocale.h>
 #include <kiconloader.h>
@@ -47,9 +46,9 @@ Tray::Tray(KMainWidget * parent)
     : KSystemTray(parent), 
       ViewInterface(), 
       blinkTimer( 0 ),
-      overlay( 0 ),
-      alternateIcon( 0 ),
       grayedIcon( 0 ),
+      alternateIcon( 0 ),
+      overlay( 0 ),
       overlayVisible( false )
 {
     baseIcon = new QPixmap( KSystemTray::loadIcon("dock") );

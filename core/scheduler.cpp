@@ -786,10 +786,12 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
         }
 
         // no specific directory found for this file, using the default one
+        sDebug << ">>>>>> Using default dir" << endl;
         return Settings::defaultDirectory();
     }
 
     // we're in last directory mode
+    sDebug << ">>>>>> Using last dir" << endl;
     return Settings::lastDirectory();
 }
 

@@ -8,9 +8,13 @@ format: {ADD, FIX, CHG} #x <nick> text [-->nick]
 
         TODO
 ---------------------
-                        
+
 SHORT-TERM (URGENT):
 
+  FIX #26 <pino> _rewrite_ & simplify the scheduler functions which schedule
+      new downloads, atm they are too messy
+  FIX #27 <pino> _rewrite_ & simplify the scheduler functions which manage the
+      downloads, atm they are too messy and don't work properly
   FIX #09 <dario> the konqueror plugin doesn't allow the download of links if 
       the relative web page has been closed
   FIX #10 <dario> when resizing the columns of the mainview and the groupspanel
@@ -27,7 +31,8 @@ SHORT-TERM (URGENT):
       only when necessary.
   CHG #25 <dario> optimize if possible the fact we must check if a transfer
       is still present in the transfers list (in the Scheduler class, function
-      slotTransferChanged() ). 
+      slotTransferChanged() ).
+  CHG #28 <pino> verify that all the settings are respected
 
 MID-TERM:
 
@@ -45,6 +50,7 @@ MID-TERM:
   CHG #22 <kget> sync the configuration options with what has currently been 
       implemented.
   ADD #23 <dario> make it possible to associate a default folder to each group.
+  ADD #29 <pino> tooltips and what's this for settings
 
 LONG-TERM:
 
@@ -61,13 +67,13 @@ LONG-TERM:
   ADD #08 <dario> 'low priority downloads' as in br #50776.
   ADD #04 <kget> add Help & Guide
 
-  
+
         DONE
 ---------------------
 
 
   Things done until 06/11/04 (when this file has been adopted)
-  
+
   CHG #06 <dario, eros> decoupling between gui and transfer operations.
   ADD <dario> Implement the MainView class that should become the kget main view.
   CHG <dario> Transfer object rewrite to make it easily inherited from 
@@ -79,10 +85,12 @@ LONG-TERM:
   CHG <eros> Move all the configuration framework to KConfigXT
   CHG <dario> implement delayedInitialization of the kget app. This should speed up
       the startup a lot with big lists of transfers.
-  
-  
+
+
 
 IDEAS:
+   * Use the single transfer dialog to display transfer property, progress and
+     to set up advanced options of a transfer, like its splitting into chuncks.
 
 
 DISCUSSING:
