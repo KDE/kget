@@ -1038,8 +1038,8 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
             if (df.isEmpty()) {           // if we didn't provide destination
                 if (!b_expertMode) {
                     // open the filedialog for confirmation
-                    KFileDialog dlg( destDir, QString::null,
-                                     isVisible() ? this : 0L, "save_as", true);
+                    KFileDialog dlg( destDir, QString::null, 
+                                     0L, "save_as", true);
                     dlg.setCaption(i18n("Save As"));
                     dlg.setSelection(url.fileName());
                     dlg.setOperationMode(KFileDialog::Saving);
@@ -1373,7 +1373,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
         }
         else
             item->setMode(Transfer::MD_NONE);
-            
+
         if (myTransferList->isQueueEmpty()) {
             // no items in the TransferList or we have donwload all items
             if (ksettings.b_autoDisconnect)
