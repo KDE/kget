@@ -47,14 +47,38 @@ signals:
 	void globalStatus(GlobalStatus *);
 	
 public slots:
-	void slotNewURLs(KURL::List);
+	void slotNewURLs(const KURL::List &);
+	void slotNewURL(const KURL &);
+    
 	void slotRemoveItems(QVaueList<Transfer *>);
+	void slotRemoveItem(Transfer *);
+    
 	void slotSetPriority(QVaueList<Transfer *>, int);
+	void slotSetPriority(Transfer *, int);
+    
 	void slotSetOperation(QVaueList<Transfer *>, enum Operation);
+	void slotSetOperation(Transfer *, enum Operation);
+    
 	void slotSetGroup(QVaueList<Transfer *>, const QString &);
+	void slotSetGroup(Transfer *, const QString &);
 
+    /**
+     * Used to read the user's transfer list
+     */
+    void slotImportTransfers();
+    void slotExportTransfers();
+    
 private:
-		
+    void readTransfers(bool);
+    void readTransfersEx(const KURL & file);
+    void writeTransfers();
+    void addTransfers(const KURL::List& src, const QString& destDir);
+    void addTransfer(const QString& src);
+    void addTransfersEx(const KURL& url, const KURL& destFile);
+
+    void sanityChecksSuccessful( const KURL& url );
+    
+    void checkQueue();
 };
 
 #endif

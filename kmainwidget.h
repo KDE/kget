@@ -46,6 +46,7 @@ class DlgPreferences;
 
 class Transfer;
 class TransferList;
+class Scheduler;
 class Settings;
 
 
@@ -60,10 +61,6 @@ public:
 
     KMainWidget(bool bShowMain = false);
     ~KMainWidget();
-
-    void addTransfer( const QString& src );
-    void addTransferEx( const KURL& url,
-                        const KURL& destFile = KURL());
 
     // dcop interface
     virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
@@ -116,23 +113,10 @@ protected slots:
 
     void slotStatusChanged(Transfer * item, int _operation);
 
-    void slotResumeCurrent();
-    void slotPauseCurrent();
-    void slotDeleteCurrent();
-    void slotRestartCurrent();
-
-    void slotQueueCurrent();
-    void slotTimerCurrent();
-    void slotDelayCurrent();
-
     void slotOpenIndividual();
 
-    void slotAnimTimeout();
     void slotTransferTimeout();
     void slotAutosaveTimeout();
-
-    void slotMoveToBegin();
-    void slotMoveToEnd();
 
     void slotCopyToClipboard();
     void slotCheckClipboard();
@@ -190,6 +174,8 @@ private:
     QString getSaveDirectoryFor( const QString& filename ) const;
     bool sanityChecksSuccessful( const KURL& url );
 
+    Scheduler * scheduler;
+    
     TransferList * myTransferList;
     KHelpMenu *menuHelp;
 
