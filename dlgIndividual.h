@@ -69,6 +69,8 @@ public slots:
     void slotOpenLocation();
     void slotOpenFile();
 
+    bool keepDialogOpen() const { return bKeepDlgOpen; }
+    
 protected slots:
     void slotToggleAdvanced(bool);
     void slotToggleDock();

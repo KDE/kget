@@ -85,13 +85,8 @@ Transfer::~Transfer()
 {
     sDebugIn << endl;
 
-    // ###
-    // should we terminate() the slave and delete them all?
-    // which slaves keep running even tho the transfer has finished?
-    // needs some more investigation
-    if ( !m_pSlave->running() )
-        delete m_pSlave;
-    
+    tryKillSlave();
+
     delete dlgIndividual;
     sDebugOut << endl;
 }
@@ -161,6 +156,18 @@ Transfer::init()
 }
 
 
+void Transfer::tryKillSlave()
+{
+    // ###
+    // should we terminate() the slave and delete them all?
+    // which slaves keep running even tho the transfer has finished?
+    // needs some more investigation
+    if ( m_pSlave && !m_pSlave->running() )
+    {
+        delete m_pSlave;
+        m_pSlave = 0L;
+    }
+}
 
 void Transfer::copy(Transfer * _orig)
 {
@@ -874,6 +881,10 @@ bool Transfer::isVisible()
     return dlgIndividual->isVisible();
 }
 
+bool Transfer::keepDialogOpen() const
+{
+    return dlgIndividual ? dlgIndividual->keepDialogOpen() : false;
+}
 
 #include "transfer.moc"
 
