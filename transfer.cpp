@@ -129,8 +129,6 @@ void Transfer::slotStop()
         slave = 0;
     }
         
-    
-        
     sDebug << "Requesting Pause.." << endl;
     sDebugOut << endl;
 }
@@ -267,7 +265,8 @@ void Transfer::about()
 
 void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
 {
-
+    sDebugIn << endl;
+    
     switch(event)
         {
         case Slave::SLV_PROGRESS_SIZE:
@@ -326,7 +325,7 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
             emit statusChanged(this, MSG_ABORTED);
             break;
         case Slave::SLV_REMOVED:
-            slave->wait();
+            status = ST_STOPPED;
             emit statusChanged(this, MSG_REMOVED);
             break;
         case Slave::SLV_KILLED:
@@ -336,6 +335,7 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
             //FIXME IMPLEMENT ME!
             break;
     }
+    sDebugOut << endl;
 }
 
 void Transfer::slavePostMessage(Slave::SlaveResult /*event*/, const QString & /*msg*/)

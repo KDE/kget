@@ -76,7 +76,6 @@ public slots:
 	void slotSetPriority(Transfer *, int);
     
 	void slotSetCommand(TransferList &, TransferCommand);
-	bool slotSetCommand(Transfer *, TransferCommand);
     
 	void slotSetGroup(TransferList &, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
@@ -129,6 +128,7 @@ public slots:
     
 private:
     
+  
     
     /**
      * See the above function for details
@@ -164,16 +164,38 @@ private:
     QString getSaveDirectoryFor( const QString& filename ) const;
     
     /**
-     * We call these methods to notify the queue that we have added 
-     * or removed new items from the general transfer list.
+     * This function is a low-level function that executes a command on
+     * a given transfer. It differs from slotSetCommand becouse slotSetCommand
+     * is a higher-level function, that checks the runningTransfers queue
+     * to be sure the given commands can be executed now (calling 
+     * queueEvaluateTransfers)
      */
-    void queueAddedItems(TransferList &);
+    bool setTransferCommand(TransferList &, TransferCommand);
+    bool setTransferCommand(Transfer *, TransferCommand);
+    
+    /**
+     * This function checks if the given list contains transfers
+     * having a higher priority (lower getPriority()) than those 
+     * we are currently downloading. If this is true, it replaces
+     * them.
+     * If force=true, when the given Transfers have the same priority
+     * than the currently downloading ones, they will replace
+     * them
+     */
+    void queueEvaluateItems(TransferList &, bool force=false);
+    
+    /**
+     * This function checks if the given list contains transfers
+     * that we are currently downloading. If yes it removes (and stops)
+     * them from the runningTransfers list.
+     * It is called whenever we remove a list of transfer.
+     */
     void queueRemovedItems(TransferList &);
         
     /**
-     * Checks the number of running transfers. It starts or stops the
-     * transfers, trying to have the number of running transfers 
-     * specified by the user
+     * Checks the number of running transfers. It starts the
+     * transfers, trying to make the number of running transfers
+     * equal to the value specified by the user (in the configuration dlg).
      */
     void queueUpdate();
     

@@ -49,6 +49,7 @@ void Scheduler::stop()
         (*it)->slotStop();
         ++it;
     }
+    runningTransfers->clear();
 }
 
 void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
@@ -149,8 +150,9 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     
     emit addedItems(list);
     
-    queueAddedItems(list);
-
+    queueEvaluateItems(list);
+    queueUpdate();
+    
     KNotifyClient::event( mainWidget->winId(), "added" );
         
     sDebugOut << endl;
@@ -240,8 +242,9 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
        
     emit addedItems(list);
 
-    queueAddedItems(list);
-        
+    queueEvaluateItems(list);
+    queueUpdate();    
+    
     sDebugOut << endl;
 }
 
@@ -275,6 +278,8 @@ void Scheduler::slotSetPriority(TransferList & list, int priority)
     
     emit changedItems(list);
     
+    queueEvaluateItems(list);
+    
     sDebugOut << endl;
 }
 
@@ -285,6 +290,8 @@ void Scheduler::slotSetPriority(Transfer * item, int priority)
     TransferList list(item);
     
     emit changedItems(list);
+    
+    queueEvaluateItems(list);
 }
 
 void Scheduler::slotSetCommand(TransferList & list, TransferCommand op)
@@ -292,43 +299,24 @@ void Scheduler::slotSetCommand(TransferList & list, TransferCommand op)
     TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
     
-    for(; it != endList; ++it)
-        {
-        slotSetCommand(*it, op);
-    }
-}
-
-bool Scheduler::slotSetCommand(Transfer * item, TransferCommand op)
-{
-    sDebugIn << endl;
-
+    //for(; it!=endList && setTransferCommand(*it, op); ++it);
+    
     switch (op)
         {
         case CmdResume:
-                sDebug << "111 ->" << runningTransfers->size() << endl;
-                if(  (item->getStatus() == ST_STOPPED) 
-                  && (item->getPriority()!=6)
-                  && (Settings::maxConnections() > runningTransfers->size()))
-                    {
-                    sDebug << "222" << endl;
-                    if(item->slotResume())
-                        {
-                        runningTransfers->addTransfer(item);
-                        return true;
-                    } 
-                }
-                sDebug << "333" << endl;
-                return false;
-        case CmdRestart:
-                item->slotRetransfer();
-                return false; //temporary
+            sDebug << "      RESUME        " << endl;
+            slotSetPriority(list, 1);
+            queueEvaluateItems(list, true);
+            queueUpdate();
+            break;   
         case CmdPause:
-                runningTransfers->removeTransfer(item);
-                item->slotStop();
-                return true;
+            sDebug << "      PAUSE        " << endl;
+            setTransferCommand(list, CmdPause);
+            queueUpdate();
+                        
     }
-    sDebugOut << endl;
 }
+
 
 void Scheduler::slotSetGroup(TransferList & list, const QString & groupName)
 {
@@ -731,34 +719,101 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
     return destDir;
 }
 
-void Scheduler::queueAddedItems(TransferList & list)
+
+//BEGIN Private low level queue commands implementation
+
+bool Scheduler::setTransferCommand(TransferList & list, TransferCommand op)
 {
-    if(!running)
+    sDebugIn << endl;
+    
+    TransferList::iterator it = list.begin();
+    TransferList::iterator endList = list.end();
+    
+    for(; it!=endList; ++it)
+        setTransferCommand(*it, op);
+
+    sDebugOut << endl;
+}
+
+bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
+{
+    sDebugIn << endl;
+
+    switch (op)
+        {
+        case CmdResume:
+                sDebug << "111 ->" << runningTransfers->size() << endl;
+                if(  (item->getStatus() == ST_STOPPED) 
+                  && (item->getPriority()!=6)
+                  && (Settings::maxConnections() > runningTransfers->size()) )
+                    {
+                    sDebug << "222" << endl;
+                    if(item->slotResume())
+                        {
+                        runningTransfers->addTransfer(item);
+                        return true;
+                    } 
+                }
+                sDebug << "333" << endl;
+                return false;
+        case CmdRestart:
+                item->slotRetransfer();
+                return false; //temporary
+        case CmdPause:
+                runningTransfers->removeTransfer(item);
+                item->slotStop();
+                return true;
+    }
+    sDebugOut << endl;
+}
+
+void Scheduler::queueEvaluateItems(TransferList & list, bool force)
+{
+    sDebugIn << endl;
+    
+    if( (!running) || list.empty() || runningTransfers->empty() )
         return;
         
     TransferList toRemove;
     TransferList toAdd;
         
-    TransferList::iterator it1 = runningTransfers->begin();
-    TransferList::iterator endList1 = runningTransfers->end();
+    TransferList::iterator it1 = runningTransfers->fromLast();
+    TransferList::iterator beginList1 = runningTransfers->begin();
     
-    TransferList::iterator it2;
+    TransferList::iterator it2 = list.begin();
     TransferList::iterator endList2 = list.end();
     
-    for( ; it1 != endList1; ++it1)
+    bool isPrior;
+    
+    do
         {
-        for(it2=list.begin(); it2!=endList2; ++it2 )
+        sDebug << "(1)" << endl;
+        switch (force)
             {
-            if ( (*it2 < *it1) 
-               &&(*it1)->getCanResume() )
-                {
-                toRemove.addTransfer(*it1);
-                toAdd.addTransfer(*it2);
-            }
+            case false:
+                isPrior = **it2 < **it1;
+                break;
+            case true:
+                isPrior = **it2 <= **it1;
+                break;
+        }
+        if (isPrior)
+            {
+            sDebug << "(2)" << endl;
+            toRemove.addTransfer(*it1);
+            toAdd.addTransfer(*it2);
         }
     }
-    slotSetCommand(toRemove, CmdPause);
-    slotSetCommand(toAdd, CmdResume);
+    while  ( (isPrior)
+          && (it1-- != beginList1 ) 
+          && (++it2 != endList2) );
+        
+    sDebug << "(3)" << endl;
+          
+    setTransferCommand(toRemove, CmdPause);
+    setTransferCommand(toAdd, CmdResume);
+
+    sDebugOut << endl;
 }
 
 void Scheduler::queueRemovedItems(TransferList & list)
@@ -804,7 +859,7 @@ void Scheduler::queueUpdate()
     while(newTransfers > 0 && it != endList)
         {
         sDebug << "AAA" << endl;
-        if(slotSetCommand(*it, CmdResume))
+        if(setTransferCommand(*it, CmdResume))
             {
             sDebug << "BBB" << endl;
             --newTransfers;
@@ -814,6 +869,8 @@ void Scheduler::queueUpdate()
     
     sDebugOut << endl;
 }
+
+//END
 
 /*
 
