@@ -97,7 +97,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     speedLabel = new QLabel(this);
     speedLabel->setText(i18n("0 B/s"));
-    topLayout->addWidget(speedLabel, 1);
+    topLayout->addWidget(speedLabel);
 
     // setup toolbar
     KToolBar *toolBar = new KToolBar(this);
