@@ -102,10 +102,12 @@ void Slave::run()
     SlaveCommand cmd;
     bool running = true;
 
-    while (running) {
+    while (running) 
+    {
         if (!nPendingCommand)
             worker.wait();
-        switch (cmd = fetch_cmd()) {
+        switch (cmd = fetch_cmd()) 
+        {
         case RESTART:
             copyjob->kill(true);
             // fall through
@@ -125,6 +127,14 @@ void Slave::run()
             PostMessage(SLV_PAUSED);
             break;
 
+            case KILL:
+                mDebug << " FETCHED COMMAND      KILL" << endl;
+                running = false;
+                copyjob->kill(true);
+                copyjob = 0L;
+                // no message posted
+                break;
+            
         case REMOVE:
             mDebug << " FETCHED COMMAND       REMOVE" << endl;
             running = false;
@@ -168,10 +178,6 @@ void Slave::run()
 }
 
 
-
-
-
-/** No descriptions */
 Slave::SlaveCommand Slave::fetch_cmd()
 {
     mutex.lock();

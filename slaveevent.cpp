@@ -59,14 +59,14 @@ SlaveEvent::getEvent() const
 Transfer *SlaveEvent::getItem() const
 {
     return m_item;
-};
+}
 
 unsigned long SlaveEvent::getData() const
 {
     return m_ldata;
-};
+}
 
 const QString & SlaveEvent::getMsg() const
 {
     return m_msg;
-};
+}

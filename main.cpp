@@ -163,12 +163,11 @@ public:
                 kmain->readTransfersEx(txt);
             else
                 kmain->addTransferEx( KURL::fromPathOrURL( txt ),
-                                      KURL(), true );
+                                      KURL());
         }
         else if(args->count()==2)
             kmain->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
-                                  KURL::fromPathOrURL( args->arg(1) ),  
-                                  true);
+                                  KURL::fromPathOrURL( args->arg(1) ));
 
         args->clear();
 
