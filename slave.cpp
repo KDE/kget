@@ -230,7 +230,7 @@ void Slave::run()
         if (m_status == SLV_RUNNING) {
 	  switch (m_cmd) {
 	  case CHECK_RESUME:
-	    InfoMessage(i18n("Checking if the server support resume"));
+	    InfoMessage(i18n("Checking if the server supports resume"));
 	    CanResume();
 	    break;
 	  case CHECK_SIZE:
