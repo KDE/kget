@@ -42,10 +42,10 @@ public:
         St_Stopped,
         St_Aborted,
         St_Finished
-    };  
+    };
 
     enum TransferChange  
-    { 
+    {
         Tc_None          = 0x00000000,
         Tc_Priority      = 0x00000001,
         Tc_Status        = 0x00000002,
@@ -54,33 +54,34 @@ public:
         Tc_ProcessedSize = 0x00000010,
         Tc_Percent       = 0x00000020,
         Tc_Speed         = 0x00000040,
-        Tc_Log           = 0x00000080 
+        Tc_Log           = 0x00000080,
+        Tc_Group         = 0x00000100
     };
-    
-    typedef int TransferChanges;                         
-    
+
+    typedef int TransferChanges;
+
     typedef struct Info
     {
         int priority;
         TransferStatus status;
         QValueList <QString *> log;
-        
+
         KURL src;
         KURL dest;
-        
+
         unsigned long totalSize;
         unsigned long processedSize;
         int percent;
-    
+
         int speed;
-    
+
         QString group;  
         QDateTime startTime;
         QTime remainingTime;
         int delayTime;
-        
+
         bool canResume;
-        
+
         /**
         * This field specifies whether the transfer can perform segmented 
         * downloading or not.
@@ -90,32 +91,32 @@ public:
 
     Transfer(Scheduler * _scheduler, KURL _src, KURL _dest);
     Transfer(Scheduler * _scheduler, QDomNode * n);
-    
+
     const Info& info() const;
-    
+
     TransferChanges changesFlags(const TransferInterrogator *);
     void resetChangesFlags(const TransferInterrogator *);
-       
+
     void setPriority(int p);
     void setGroup(const QString& group);
-    
+
     inline bool operator<(const Transfer& t2) const
         {return tInfo.priority < t2.tInfo.priority;}
-    
+
     inline bool operator<=(const Transfer& t2) const
         {return tInfo.priority <= t2.tInfo.priority;}
 
     inline bool operator>(const Transfer& t2) const
         {return tInfo.priority > t2.tInfo.priority;}
-    
+
     inline bool operator>=(const Transfer& t2) const
         {return tInfo.priority >= t2.tInfo.priority;}
-        
+
     inline bool operator==(const Transfer& t2) const
         {return tInfo.priority == t2.tInfo.priority;}
-        
+
     void about() const;
-        
+
 public slots:
     /**
      * These slots _MUST_ be reimplemented
@@ -124,7 +125,7 @@ public slots:
     virtual void slotStop() = 0;
     virtual void slotRetransfer() = 0;
     virtual void slotRemove() = 0;
-    
+
     virtual void slotSetSpeed(int speed) = 0;
     virtual void slotSetSegmented(int nSegments) = 0;
 
@@ -144,9 +145,9 @@ protected:
     virtual void write(QDomNode * n);
 
     void setTransferChange(TransferChange);
-   
+
     Info tInfo;
-        
+
 private:
     //This function is used to implement slotSetDelay(int)
     void timerEvent( QTimerEvent *e );

@@ -1,3 +1,12 @@
+2005-01-29 Dario Massarin <nekkar@libero.it>
+        * Make it possible in the mainview to move the transfer to a new group
+        using the popupmenu.
+        * group.{h,cpp}: big optimization: cache the groupChanged signals. In this 
+        way the GroupList object emits far less signals than before. If you have n
+        transfers, this can save up to 2*n-1 signal calls that are all packed in
+        a single signal.
+        * Cleaned up the code a bit.
+
 2005-01-22 Dario Massarin <nekkar@libero.it>
         * Ported the new sidebar to the QListBox class.
 

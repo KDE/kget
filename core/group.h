@@ -36,14 +36,16 @@ class TransferList;
  *   This is useful becouse saves each view from calculating this data and
  *   allows each one to get this info simply calling the getInfo() method.
  */
-class Group
+class Group : public QObject
 {
+Q_OBJECT
+
 friend class GroupList;
 
 public:
-    typedef int GroupChanges;                         
-            
-    enum GroupChange     
+    typedef int GroupChanges;
+
+    enum GroupChange
     {
         Gc_None          = 0x00000000,
         Gc_TotalSize     = 0x00000001,
@@ -54,17 +56,17 @@ public:
     typedef struct Info
     {
         QString name;
-        
+
         unsigned long totalSize;
         unsigned long processedSize;
         int percent;
         int speed;
     };
-    
 
+    Group(const Group& g);
     Group(const QString& name);
     Group(QDomNode * n);
-    
+
     bool read(QDomNode * n);
     void write(QDomNode * n) const;
 
@@ -73,9 +75,12 @@ public:
 
     GroupChanges changesFlags(const GroupInterrogator *);
     void resetChangesFlags(const GroupInterrogator *);
-    
+
     void about() const;
-    
+
+    signals:
+    void groupChanged(Group *);
+
 private:
     /**
      * This struct becomes necessary to handle, calculate and update 
@@ -92,23 +97,25 @@ private:
         unsigned long processedSize;
         int speed;
     };
-    
+
+    bool findTransfer(Transfer *) const;
+
     void addTransfer(Transfer *);
     void delTransfer(Transfer *);
     void changedTransfer(Transfer *, Transfer::TransferChanges);
 
     void setGroupChange(GroupChange);
-    
+
     TransferInfoCache updatedInfoCache(Transfer *);
     void updatePercent();
-        
+
     Info gInfo;
     QMap <Transfer*, TransferInfoCache> transfersMap;
     QMap <const GroupInterrogator *, GroupChanges> groupChanges;
 };
 
-class GroupList : public QObject, 
-                  public QValueList<Group *>, 
+class GroupList : public QObject,
+                  public QValueList<Group *>,
                   public TransferInterrogator
 {
 Q_OBJECT
@@ -122,12 +129,15 @@ public:
     GroupList(const Group& group);
 
     Group * getGroup(const QString& groupName) const;
+
     void addGroup(const Group& group);
-    void addGroups(const GroupList& list);
+    void addGroup(const GroupList& list);
+
     void delGroup(const Group& group);
-    void delGroups(const GroupList& list);
+    void delGroup(const GroupList& list);
+
     void modifyGroup(const QString& groupName, Group group);
-        
+
     bool read(QDomDocument * doc);
     void write(QDomDocument * doc) const;
 
@@ -138,11 +148,21 @@ public slots:
     void slotRemovedTransfers(const TransferList&);
     void slotChangedTransfers(const TransferList&);
 
+    void slotGroupChanged(Group *);
+
 signals:
-    void changedGroups(const GroupList&);
-    
+    void groupsChanged(const GroupList&);
+
 private:
+    void timerEvent( QTimerEvent *e );
+
     QMap<QString, Group*> groupsMap;
+
+    //We use this list to cache the groupChanged signals. This prevents
+    //us from emitting too many signals to the scheduler (and this means also
+    //to each view!). All the signals emitted during a 100 ms interval (from
+    //the first one) are grouped in only one signal.
+    GroupList * m_modifiedGroups;
 };
 
 #endif

@@ -85,6 +85,9 @@ void Transfer::setPriority(int p)
 void Transfer::setGroup(const QString& group)
 {
     tInfo.group = group;
+    setTransferChange(Tc_Group);
+
+    emit transferChanged(this);
 }
 
 void Transfer::about() const

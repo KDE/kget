@@ -10,8 +10,6 @@ Legend:
 
     IN PROGRESS
 ---------------------
-  ADD <dario> make it possible to move transfers to a specific group using
-      the popup menu.
 
 
 
@@ -52,6 +50,7 @@ SHORT-TERM (URGENT):
       display items. For example if I select "Downloads" from the sidebar it
       should display "Downloads". If instead I select a specific group <groupname>
       it should display "Downloads - <groupname>"
+  ADD <dario> handle the situation when we remove a group which has transfers.
 
   -- VIEWINTERFACE --
   ADD <dario> (JJ) add new functions to the interface to select a list of transfers 
@@ -154,6 +153,8 @@ LONG-TERM:
   FIX <enrico> Optimized color scheme change (rebuilds pixmaps, droptarget,
       etc) and pixmap deletion (leakfix)
   CHG <enrico> disabled internal segv hander to show backtraces on crash
+  ADD <dario> make it possible to move transfers to a specific group using
+      the popup menu.
 
 IDEAS:
    * Use the single transfer dialog to display transfer property, progress and

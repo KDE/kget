@@ -51,12 +51,16 @@ MainViewGroupItem::~MainViewGroupItem()
 void MainViewGroupItem::updateContents(bool updateAll)
 {
     Group::Info info = group->info();
+    Group::GroupChanges groupFlags = group->changesFlags(view);
 
-    if(updateAll)
+    if( updateAll || (groupFlags & Group::Gc_TotalSize) )
     {
+        kdDebug() << "MainViewGroupItem::updateContents (" << (groupFlags & Group::Gc_TotalSize) << ")" << endl;
         setText(1, info.name);
         setText(3, KIO::convertSize(info.totalSize));
     }
+
+    group->resetChangesFlags(view);
 }
 
 void MainViewGroupItem::updatePixmaps()
@@ -317,21 +321,16 @@ void MainView::schedulerAddedItems( const TransferList& list )
         QString group = (*it)->info().group;
         MainViewItem * newItem;
         
-        kdDebug() << "groupsMap.size=" << groupsMap.size() << endl;
-        
         QMap<QString, MainViewGroupItem *>::iterator g = groupsMap.find(group);
         
         if(g != groupsMap.end())
         {
             (*g)->insertItem(newItem = new MainViewItem(this, *it));
             (*g)->setVisible(true);
-            kdDebug() << "Trovato gruppo " << endl;   
         }
         else
-        {
             newItem = new MainViewItem(this, *it);
-            kdDebug() << "Non trovato gruppo " << endl;   
-        }
+
         transfersMap[*it] = newItem;
 
         newItem->updateContents(true);
@@ -362,14 +361,44 @@ void MainView::schedulerRemovedItems( const TransferList& list )
 
 void MainView::schedulerChangedItems( const TransferList& list )
 {
-    //kdDebug() << "CHANGED_ITEMS!! " << endl;
-    
     TransferList::constIterator it = list.begin();
     TransferList::constIterator endList = list.end();
-    
+
     for(; it != endList; ++it)
     {
-        transfersMap[*it]->updateContents();
+        MainViewItem * vItem = transfersMap[*it];
+
+        //The transfer's group has changed.
+        if( (*it)->changesFlags(this)==Transfer::Tc_Group )
+        {
+            //The new group name
+            QString gName = (*it)->info().group;
+            QListViewItem * oldGroup = transfersMap[*it]->parent();
+
+            //Delete the old MainViewItem.
+            delete(vItem);
+
+            if( (oldGroup) && (oldGroup->childCount() == 0) )
+                oldGroup->setVisible(false);
+
+            //Create a new MainViewItem which belongs to the new group
+            QMap<QString, MainViewGroupItem *>::iterator g = groupsMap.find(gName);
+            MainViewItem * newItem;
+
+            if(g != groupsMap.end())
+            {
+                (*g)->insertItem(newItem = new MainViewItem(this, *it));
+                (*g)->setVisible(true);
+            }
+            else
+                newItem = new MainViewItem(this, *it);
+
+            transfersMap[*it] = newItem;
+
+            newItem->updateContents(true);
+        }
+        else
+            vItem->updateContents();
     }
 }
 
@@ -377,7 +406,7 @@ void MainView::schedulerAddedGroups( const GroupList& list )
 {
     GroupList::constIterator it = list.begin();
     GroupList::constIterator endList = list.end();
-    
+
     for(; it != endList; ++it)
     {
         MainViewGroupItem * newItem = new MainViewGroupItem(this, *it);
@@ -392,9 +421,10 @@ void MainView::schedulerRemovedGroups( const GroupList& list)
 {
     GroupList::constIterator it = list.begin();
     GroupList::constIterator endList = list.end();
-    
+
     for(; it != endList; ++it)
     {
+        
         delete(groupsMap[(*it)->info().name]);
     }
 
@@ -404,7 +434,7 @@ void MainView::schedulerChangedGroups( const GroupList& list)
 {
     GroupList::constIterator it = list.begin();
     GroupList::constIterator endList = list.end();
-    
+
     for(; it != endList; ++it)
     {
         groupsMap[(*it)->info().name]->updateContents();
@@ -456,46 +486,25 @@ void MainView::slotRemoveItems()
     schedDelItems( tl );
 }
 
-void MainView::slotSetPriority1()
+void MainView::slotSetPriority( int id )
 {
     TransferList tl = getSelectedList();
-    schedSetPriority( tl, 1 );
+    schedSetPriority( tl, id );
 }
 
-void MainView::slotSetPriority2()
+void MainView::slotSetGroup( int id )
 {
     TransferList tl = getSelectedList();
-    schedSetPriority( tl, 2 );
-}
 
-void MainView::slotSetPriority3()
-{
-    TransferList tl = getSelectedList();
-    schedSetPriority( tl, 3 );
-}
+    QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin();
+    QMap<QString, MainViewGroupItem *>::iterator itEnd = groupsMap.end();
 
-void MainView::slotSetPriority4()
-{
-    TransferList tl = getSelectedList();
-    schedSetPriority( tl, 4 );
-}
+    for(int i=0; it!=itEnd && i<id; ++it, ++i);
 
-void MainView::slotSetPriority5()
-{
-    TransferList tl = getSelectedList();
-    schedSetPriority( tl, 5 );
-}
-
-void MainView::slotSetPriority6()
-{
-    TransferList tl = getSelectedList();
-    schedSetPriority( tl, 6 );
-}
-
-void MainView::slotSetGroup()
-{
-    TransferList tl = getSelectedList();
-    schedSetGroup( tl, "" );
+    //Now the iterator points to the selected group
+    schedSetGroup( tl, (*it)->getGroup()->info().name );
+    kdDebug() << "Move to group: " << id+1 << " / " << groupsMap.size() << " " <<
+            (*it)->getGroup()->info().name << endl;
 }
 
 void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
@@ -518,12 +527,12 @@ void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & 
         popup->insertItem( SmallIcon("editdelete"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
         
         KPopupMenu * subPrio = new KPopupMenu( popup );
-        subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority1() ) );
-        subPrio->insertItem( SmallIcon("1uparrow"), i18n("high"), this,  SLOT( slotSetPriority2() ) );
-        subPrio->insertItem( SmallIcon("1rightarrow"), i18n("normal"), this,  SLOT( slotSetPriority3() ) );
-        subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority4() ) );
-        subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority5() ) );
-        subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority6() ) );
+        subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority(int) ), 0, 1);
+        subPrio->insertItem( SmallIcon("1uparrow"), i18n("high"), this,  SLOT( slotSetPriority(int) ), 0, 2);
+        subPrio->insertItem( SmallIcon("1rightarrow"), i18n("normal"), this,  SLOT( slotSetPriority(int) ), 0, 3);
+        subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority(int) ), 0, 4);
+        subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority(int) ), 0, 5);
+        subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority(int) ), 0, 6 );
         popup->insertItem( i18n("Set &priority"), subPrio );
                 
         KPopupMenu * subGroup = new KPopupMenu( popup );
@@ -531,12 +540,12 @@ void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & 
         QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin();
         QMap<QString, MainViewGroupItem *>::iterator itEnd = groupsMap.end();
         
-        for(; it != itEnd; ++it)
+        for(int i=0; it != itEnd; ++it, ++i)
         {
-            if( (*it)->childCount() == 0 )
-                subGroup->insertItem( SmallIcon("package"),
-                                      (*it)->getGroup()->info().name, 
-                                      this,  SLOT( slotSetGroup() ) );
+            subGroup->insertItem( SmallIcon("folder"),
+                                    (*it)->getGroup()->info().name, 
+                                    this,  SLOT( slotSetGroup( int ) ),
+                                    0, i);
         }
         //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );	
         popup->insertItem( SmallIcon("folder"), i18n("Set &group"), subGroup );

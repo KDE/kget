@@ -18,7 +18,14 @@
 #include "transferlist.h"
 
 
+Group::Group(const Group& g)
+    : QObject()
+{
+    gInfo = g.info();
+}
+
 Group::Group(const QString& name)
+    : QObject()
 {
     gInfo.speed=0;
     gInfo.totalSize=0;
@@ -29,6 +36,7 @@ Group::Group(const QString& name)
 }
 
 Group::Group(QDomNode * n)
+    : QObject()
 {
 //    gInfo.speed=0;
     gInfo.totalSize=0;
@@ -84,6 +92,11 @@ void Group::about() const
     kdDebug() << "  Group name= " << gInfo.name << endl; ;
 }
 
+bool Group::findTransfer(Transfer * t) const
+{
+    return (transfersMap.find(t) != transfersMap.end());
+}
+
 void Group::addTransfer(Transfer * t)
 {
     sDebugIn << "processedSize" << gInfo.processedSize << endl;    
@@ -95,6 +108,11 @@ void Group::addTransfer(Transfer * t)
     gInfo.processedSize+=ic.processedSize;
     gInfo.speed+=ic.speed;    
     updatePercent();
+
+    setGroupChange(Gc_TotalSize);
+    setGroupChange(Gc_ProcessedSize);
+    setGroupChange(Gc_Percent);
+    emit groupChanged(this);
 
     sDebugOut << endl;    
 }
@@ -114,13 +132,18 @@ void Group::delTransfer(Transfer * t)
 
     transfersMap.erase(t);
 
+    setGroupChange(Gc_TotalSize);
+    setGroupChange(Gc_ProcessedSize);
+    setGroupChange(Gc_Percent);
+    emit groupChanged(this);
+
     sDebugOut << endl;
 }
 
 void Group::changedTransfer(Transfer * t, Transfer::TransferChanges tc)
 {
     Transfer::Info ti = t->info();
-    
+
     switch(tc)
     {
         case Transfer::Tc_ProcessedSize:
@@ -128,18 +151,23 @@ void Group::changedTransfer(Transfer * t, Transfer::TransferChanges tc)
             gInfo.processedSize-=transfersMap[t].processedSize;
             gInfo.processedSize+=ti.processedSize;
             updatePercent();
-            
             transfersMap[t] = updatedInfoCache(t);
-            setGroupChange(Gc_Percent);
+
             setGroupChange(Gc_ProcessedSize);
-            break;            
+            setGroupChange(Gc_Percent);
+            emit groupChanged(this);
+            break;
+
         case Transfer::Tc_TotalSize:
             kdDebug() << "Group::changedTransfer -> TotalSize" << endl;
             gInfo.totalSize-=transfersMap[t].totalSize;
             gInfo.totalSize+=ti.totalSize;
-            
+            updatePercent();
             transfersMap[t] = updatedInfoCache(t);
+
             setGroupChange(Gc_TotalSize);
+            setGroupChange(Gc_Percent);
+            emit groupChanged(this);
             break;
     }
 }
@@ -173,19 +201,26 @@ void Group::updatePercent()
         gInfo.percent = 100 * gInfo.processedSize / gInfo.totalSize;
     else
         gInfo.percent = 0;
-}    
+}
 
 GroupList::GroupList()
+    : QObject(),
+      m_modifiedGroups(0)
 {
 
 }
 
 GroupList::GroupList(const GroupList& list)
+    : QObject(),
+      m_modifiedGroups(0),
+      QValueList<Group *>()
 {
-    addGroups(list);
+    addGroup(list);
 }
 
 GroupList::GroupList(const Group& group)
+    : QObject(),
+      m_modifiedGroups(0)
 {
     addGroup(group);
 }
@@ -208,14 +243,17 @@ void GroupList::addGroup(const Group& group)
     sDebugIn << endl;
     
     Group * newGroup = new Group(group);
-    
+
+    connect(newGroup, SIGNAL(groupChanged(Group *)),
+            this,     SLOT(slotGroupChanged(Group *)));
+
     groupsMap[group.info().name] = newGroup;
     push_front(newGroup);
     
     sDebugOut << endl;
 }
 
-void GroupList::addGroups(const GroupList& list)
+void GroupList::addGroup(const GroupList& list)
 {
     sDebugIn << endl;
     
@@ -239,7 +277,7 @@ void GroupList::delGroup(const Group& group)
         remove(g);
 }
 
-void GroupList::delGroups(const GroupList& list)
+void GroupList::delGroup(const GroupList& list)
 {
     sDebugIn << endl;
     
@@ -303,9 +341,9 @@ void GroupList::about() const
 {
     constIterator it = begin();
     constIterator endList = end();
-    
+
     kdDebug() << "GroupList" << endl;
-    
+
     for (; it != endList; ++it)
         (*it)->about();
 }
@@ -317,10 +355,10 @@ void GroupList::slotAddedTransfers(const TransferList& list)
 
     for(; it!=endList; ++it)
     {
-        QString tName = (*it)->info().group;
-        if(groupsMap.contains(tName))
-            groupsMap[tName]->addTransfer(*it);
-    }    
+        QString gName = (*it)->info().group;
+        if(groupsMap.contains(gName))
+            groupsMap[gName]->addTransfer(*it);
+    }
 }
 
 void GroupList::slotRemovedTransfers(const TransferList& list)
@@ -330,10 +368,10 @@ void GroupList::slotRemovedTransfers(const TransferList& list)
 
     for(; it!=endList; ++it)
     {
-        QString tName = (*it)->info().group;
-        if(groupsMap.contains(tName))
-            groupsMap[tName]->delTransfer(*it);
-    }    
+        QString gName = (*it)->info().group;
+        if(groupsMap.contains(gName))
+            groupsMap[gName]->delTransfer(*it);
+    }
 }
 
 void GroupList::slotChangedTransfers(const TransferList& list)
@@ -341,29 +379,77 @@ void GroupList::slotChangedTransfers(const TransferList& list)
     TransferList::constIterator it = list.begin();
     TransferList::constIterator endList = list.end();
 
-    GroupList gl;
+//     GroupList modifiedGroups;
 
     //kdDebug() << "GroupList::slotChangedTransfers" << endl;
 
     for(; it!=endList; ++it)
     {
-        QString tName = (*it)->info().group;
-        if(groupsMap.contains(tName))
+        Transfer::TransferChanges tc = (*it)->changesFlags(this);
+        QString gName = (*it)->info().group;
+
+        /**
+         * the transfer group has changed.
+         * Note that we must check for the group change before checking for all
+         * the other possible transfer changes.
+         */
+        if( tc & Transfer::Tc_Group )
         {
-            Transfer::TransferChanges tc = (*it)->changesFlags(this);
-            Group * g = groupsMap[tName];
-            
-            g->changedTransfer(*it, tc);
-            if( (tc & Transfer::Tc_ProcessedSize) 
-                || (tc & Transfer::Tc_TotalSize) )
-                gl.addGroup(*g);
-                
-            (*it)->resetChangesFlags(this);
+            //First let's find the group the transfer previously belonged to
+            QMap<QString, Group*>::iterator gIt = groupsMap.begin();
+            QMap<QString, Group*>::iterator gItEnd = groupsMap.end();
+
+            for(; gIt!=gItEnd; ++gIt)
+            {
+                //Delete the transfer from its old group
+                if((*gIt)->findTransfer(*it))
+                {
+                    (*gIt)->delTransfer(*it);
+                }
+            }
+
+            //Add the transfer to the new group
+            QMap<QString, Group*>::iterator newGroup = groupsMap.find(gName);
+            if( newGroup!=groupsMap.end() )
+            {
+                (*newGroup)->addTransfer(*it);
+            }
         }
+
+        /**
+         * the transfer progress has changed
+         */
+        if( (tc & Transfer::Tc_ProcessedSize) || (tc & Transfer::Tc_TotalSize) )
+        {
+            QMap<QString, Group*>::iterator gIter = groupsMap.find(gName);
+
+            if( gIter != groupsMap.end() )
+            {
+                //The group has been found (it belongs to the GroupList)
+                Group * g = *gIter;
+                //Notify the group that one of its transfers has changed
+                g->changedTransfer(*it, tc);
+            }
+        }
+
+        (*it)->resetChangesFlags(this);
     }
-    
-    if(!gl.isEmpty())
-        emit changedGroups(gl);
+}
+
+void GroupList::slotGroupChanged( Group * g )
+{
+    startTimer( 100 );
+
+    if(!m_modifiedGroups)
+        m_modifiedGroups = new GroupList();
+    m_modifiedGroups->push_back(g);
+}
+
+void GroupList::timerEvent( QTimerEvent *e )
+{
+    killTimers();
+    emit groupsChanged(*m_modifiedGroups);
+    m_modifiedGroups->clear();
 }
 
 #include "group.moc"

@@ -36,7 +36,7 @@ class KActionCollection;
   * @version $Id: 
   **/
 
-class ViewInterface : public TransferInterrogator, GroupInterrogator
+class ViewInterface : public TransferInterrogator, public GroupInterrogator
 {
 public:
     ViewInterface( const char * name = "view-iface" );

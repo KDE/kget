@@ -50,7 +50,7 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
             groups, SLOT(slotRemovedTransfers(const TransferList&)));
     connect(this,   SIGNAL(changedItems(const TransferList&)),
             groups, SLOT(slotChangedTransfers(const TransferList&)));
-    connect(groups, SIGNAL(changedGroups(const GroupList&)),
+    connect(groups, SIGNAL(groupsChanged(const GroupList&)),
             this,   SIGNAL(changedGroups(const GroupList&)));
     
     connections.append( new Connection(this) );
@@ -354,10 +354,10 @@ void Scheduler::slotSetGroup(TransferList list, const QString& g)
 {
     TransferList::iterator it;
     TransferList::iterator endList = list.end();
-    
+
     for(it = list.begin(); it != endList; ++it)
     {
-        //FIXME(*it)->setGroup(groupNumber);
+        (*it)->setGroup(g);
     }
     emit changedItems(list);
 }
@@ -366,7 +366,7 @@ void Scheduler::slotAddGroup(GroupList l)
 {
     l.about();
     
-    groups->addGroups(l);
+    groups->addGroup(l);
     
     kdDebug() << "Scheduler: added group!!!!" << endl;
     
@@ -377,7 +377,7 @@ void Scheduler::slotAddGroup(GroupList l)
 
 void Scheduler::slotDelGroup(GroupList l)
 {
-    groups->delGroups(l);
+    groups->delGroup(l);
     
     kdDebug() << "Scheduler: removed group!!!!" << endl;
     
@@ -540,7 +540,7 @@ void Scheduler::slotImportTransfers(const KURL & file)
     newTransfers.readTransfers(file.url(), this, &newGroups);
 
     transfers->addTransfers(newTransfers);
-    groups->addGroups(newGroups);
+    groups->addGroup(newGroups);
     
 //     kdDebug() << "SIZE:" << groups->size() << endl;
     

@@ -87,15 +87,9 @@ class MainView : public KListView, public ViewInterface
 	void slotStopItems();
 	void slotRemoveItems();
 
-	void slotSetPriority1();
-	void slotSetPriority2();
-	void slotSetPriority3();
-	void slotSetPriority4();
-	void slotSetPriority5();
-	void slotSetPriority6();
-	void slotSetGroup();
-    
-    
+    void slotSetPriority( int );
+    void slotSetGroup( int );
+
     private:
     TransferList getSelectedList();
     QMap<QString, MainViewGroupItem *> groupsMap;
