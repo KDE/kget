@@ -46,6 +46,7 @@
 #include <qtimer.h>
 #include <qdropsite.h>
 #include <qpopupmenu.h>
+#include <kinputdialog.h>
 
 #include <kprotocolinfo.h>
 #include <kfiledialog.h>
@@ -55,7 +56,6 @@
 #include <kaudioplayer.h>
 #include <kurl.h>
 #include <kurldrag.h>
-#include <klineeditdlg.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kwin.h>
@@ -929,7 +929,7 @@ void KMainWidget::slotOpenTransfer()
 #endif
 
     while (!ok) {
-        newtransfer = KLineEditDlg::getText(i18n("Open transfer:"), newtransfer, &ok, this);
+        newtransfer = KInputDialog::getText(i18n("Open transfer:"), newtransfer,QString::null, &ok, this);
 
         // user presses cancel
         if (!ok) {
@@ -993,7 +993,7 @@ void KMainWidget::slotPasteTransfer()
 
     if (!ksettings.b_expertMode) {
         bool ok = false;
-        newtransfer = KLineEditDlg::getText(i18n("Open transfer:"), newtransfer, &ok, this);
+        newtransfer = KInputDialog::getText(i18n("Open transfer:"), newtransfer, QString::null, &ok, this);
 
         if (!ok) {
             // cancelled
