@@ -96,3 +96,5 @@ void DockIndividual::setTip(const QString & _tip)
 #endif
 
 }
+
+#include "dockindividual.moc"
