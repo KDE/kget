@@ -15,85 +15,95 @@
 #include <klistview.h>
 #include <qmap.h>
 
-#include "core/viewinterface.h"
+#include "core/observer.h"
 
 class KActionCollection;
-class Transfer;
 class MainView;
+class GroupHandler;
+class TransferHandler;
+class TransferGroupHandler;
 
-class MainViewGroupItem : public QListViewItem
+class TransferGroupItem : public QListViewItem, public TransferGroupObserver
 {
 public:
-    MainViewGroupItem(MainView * parent, Group * g);
-    ~MainViewGroupItem();
+    TransferGroupItem(MainView * parent, TransferGroupHandler * group);
+    ~TransferGroupItem();
+
+    //TransferGroupObserver
+    void groupChangedEvent(TransferGroupHandler * group);
+    void addedTransferEvent(TransferHandler * transfer);
+    void removedTransferEvent(TransferHandler * transfer);
+    void deletedEvent(TransferGroupHandler * group);
 
     void updateContents(bool updateAll=false);
-    Group * getGroup() const {return group;}
+
+    TransferGroupHandler * group() const {return m_group;}
+    MainView * view() const {return m_view;}
 
     void updatePixmaps();
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
 
 private:
-    MainView * view;
-    Group * group;
+    TransferGroupHandler * m_group;
+    MainView * m_view;
 
     QPixmap * m_topGradient;
     QPixmap * m_bottomGradient;
 };
 
-class MainViewItem : public QListViewItem
+class TransferItem : public QListViewItem, public TransferObserver
 {
 public:
-    MainViewItem(MainView * parent, Transfer * t);
+    TransferItem(TransferGroupItem * parent, TransferHandler * transfer);
+
+    //Transfer observer virtual functions
+    void transferChangedEvent(TransferHandler *);
 
     void updateContents(bool updateAll=false);
-    Transfer * getTransfer() const {return transfer;}    
+
+    TransferHandler * transfer() const {return m_transfer;}
+    MainView * view() const {return m_view;}
 
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
 
 private:
-    MainView * view;
-    Transfer * transfer;
+    TransferHandler * m_transfer;
+    MainView * m_view;
 };
 
-class MainView : public KListView, public ViewInterface
+class MainView : public KListView, public ModelObserver
 {
     Q_OBJECT
-    
+
     public:
     MainView( QWidget * parent, const char * name = 0 );
     ~MainView();
-    
-	virtual void schedulerCleared();
-	virtual void schedulerAddedItems( const TransferList& );
-	virtual void schedulerRemovedItems( const TransferList& );
-	virtual void schedulerChangedItems( const TransferList& );
-	virtual void schedulerStatus( GlobalStatus * );
-    virtual void schedulerAddedGroups( const GroupList& );
-    virtual void schedulerRemovedGroups( const GroupList& );
-    virtual void schedulerChangedGroups( const GroupList& );
-    virtual void setupActions( KActionCollection * a );
+
+    //Model observer virtual functions
+    void addedTransferGroupEvent(TransferGroupHandler * group);
+
+    //KAction setup
+    void setupActions( KActionCollection * a );
 
     protected:
-    void paletteChange ( const QPalette & oldPalette );
+    void paletteChange ();
 
     public slots:
     void slotRightButtonClicked( QListViewItem *, const QPoint &, int);
-	
-	//from "kget menu" popup
-	void slotNewTransfer();
+
+    //from "kget menu" popup
+    void slotNewTransfer();
     //from "transfer operations" popup
-	void slotResumeItems();
-	void slotStopItems();
-	void slotRemoveItems();
+    void slotResumeItems();
+    void slotStopItems();
+    void slotRemoveItems();
 
     void slotSetPriority( int );
     void slotSetGroup( int );
 
     private:
-    TransferList getSelectedList();
-    QMap<QString, MainViewGroupItem *> groupsMap;
-    QMap<Transfer *, MainViewItem *> transfersMap;
+    QValueList<TransferHandler *> getSelectedList();
+
     KActionCollection * ac;
 };
 

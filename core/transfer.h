@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   
+
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
@@ -12,148 +12,96 @@
 #ifndef _TRANSFER_H
 #define _TRANSFER_H
 
-#include <qobject.h>
-#include <qmap.h>
-#include <qdatetime.h>
-
-#include <kdebug.h>
+#include <qpixmap.h>
 #include <kurl.h>
 
-class QDomElement;
+#include "job.h"
+
+class QStringList;
 class QDomNode;
-class QDomDocument;
 
-class TransferList;
+class TransferHandler;
+class TransferGroup;
 class Scheduler;
-class ViewInterface;
-class TransferInterrogator;
 
-class Transfer : public QObject
+class Transfer : public Job
 {
-Q_OBJECT
-    friend class TransferList;
-
-public:
-    enum TransferStatus  
-    { 
-        St_Trying,
-        St_Running,
-        St_Delayed,
-        St_Stopped,
-        St_Aborted,
-        St_Finished
-    };
-
-    enum TransferChange  
-    {
-        Tc_None          = 0x00000000,
-        Tc_Priority      = 0x00000001,
-        Tc_Status        = 0x00000002,
-        Tc_CanResume     = 0x00000004,
-        Tc_TotalSize     = 0x00000008,
-        Tc_ProcessedSize = 0x00000010,
-        Tc_Percent       = 0x00000020,
-        Tc_Speed         = 0x00000040,
-        Tc_Log           = 0x00000080,
-        Tc_Group         = 0x00000100
-    };
-
-    typedef int TransferChanges;
-
-    typedef struct Info
-    {
-        int priority;
-        TransferStatus status;
-        QValueList <QString *> log;
-
-        KURL src;
-        KURL dest;
-
-        unsigned long totalSize;
-        unsigned long processedSize;
-        int percent;
-
-        int speed;
-
-        QString group;  
-        QDateTime startTime;
-        QTime remainingTime;
-        int delayTime;
-
-        bool canResume;
+    public:
 
         /**
-        * This field specifies whether the transfer can perform segmented 
-        * downloading or not.
-        */
-        bool canSegment;
-    };
+         * Here we define the flags that should be shared by all the transfers.
+         * A transfer should also be able to define additional flags, in the future.
+         */
+        enum TransferChange
+        {
+            Tc_None          = 0x00000000,
+            Tc_Status        = 0x00000001,
+            Tc_CanResume     = 0x00000002,
+            Tc_TotalSize     = 0x00000004,
+            Tc_ProcessedSize = 0x00000008,
+            Tc_Percent       = 0x00000010,
+            Tc_Speed         = 0x00000020,
+            Tc_Log           = 0x00000040,
+            Tc_Group         = 0x00000080
+        };
 
-    Transfer(Scheduler * _scheduler, KURL _src, KURL _dest);
-    Transfer(Scheduler * _scheduler, QDomNode * n);
+        typedef int ChangesFlags;
 
-    const Info& info() const;
+        Transfer(TransferGroup * parent, Scheduler * scheduler,
+                 const KURL & src, const KURL & dest);
+        Transfer(TransferGroup * parent, Scheduler * scheduler, QDomNode * n);
 
-    TransferChanges changesFlags(const TransferInterrogator *);
-    void resetChangesFlags(const TransferInterrogator *);
+        virtual ~Transfer(){}
 
-    void setPriority(int p);
-    void setGroup(const QString& group);
+        const KURL & source() const;
+        const KURL & dest() const;
 
-    inline bool operator<(const Transfer& t2) const
-        {return tInfo.priority < t2.tInfo.priority;}
+        //Transfer status
+        virtual unsigned long totalSize() const =0;
+        virtual unsigned long processedSize() const =0;
 
-    inline bool operator<=(const Transfer& t2) const
-        {return tInfo.priority <= t2.tInfo.priority;}
+        virtual int percent() const =0;
+        virtual int speed() const =0;
 
-    inline bool operator>(const Transfer& t2) const
-        {return tInfo.priority > t2.tInfo.priority;}
+        //Transfer history
+        const QStringList log() const;
 
-    inline bool operator>=(const Transfer& t2) const
-        {return tInfo.priority >= t2.tInfo.priority;}
+        //This function defines the order between transfers
+        bool operator<(const Transfer& t2) const;
 
-    inline bool operator==(const Transfer& t2) const
-        {return tInfo.priority == t2.tInfo.priority;}
+        //The owner group
+        TransferGroup * group() {return m_group;}
 
-    void about() const;
+    protected:
+        //Function used to read the transfer's info from xml
+        virtual void read(QDomNode * n);
+        virtual void write(QDomNode * n);
 
-public slots:
-    /**
-     * These slots _MUST_ be reimplemented
-     */
-    virtual bool slotResume() = 0;
-    virtual void slotStop() = 0;
-    virtual void slotRetransfer() = 0;
-    virtual void slotRemove() = 0;
+        /**
+         * Makes the TransferHandler associated with this transfer know that
+         * a change in this transfer has occoured.
+         *
+         * change: the TransferChange flags to be set
+         */
+        virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
 
-    virtual void slotSetSpeed(int speed) = 0;
-    virtual void slotSetSegmented(int nSegments) = 0;
+        TransferGroup * m_group;
+        TransferHandler * m_handler;
 
-    /**
-     * This function can be reimplemented if necessary
-     */
-    virtual void slotSetDelay(int seconds);
+        // --- Transfer informations ---
+        KURL m_source;
+        KURL m_dest;
 
-signals:
-    void transferChanged(Transfer *);
+        QStringList * m_log;
+        unsigned long m_totalSize;
+        unsigned long m_processedSize;
+        int           m_percent;
+        int           m_speed;
+        //TransferStatus m_transferStatus; ???
 
-protected:
-    /**
-     * These functions can be reimplemented if necessary
-     */
-    virtual bool read(QDomNode * n);
-    virtual void write(QDomNode * n);
-
-    void setTransferChange(TransferChange);
-
-    Info tInfo;
-
-private:
-    //This function is used to implement slotSetDelay(int)
-    void timerEvent( QTimerEvent *e );
-
-    Scheduler * sched;
-    QMap<const TransferInterrogator *, TransferChanges> transferChanges;
+        QString m_statusText;
+        QPixmap m_statusPixmap;
 };
+
 
 #endif

@@ -91,7 +91,7 @@ class KGetApp : public KUniqueApplication
 {
 public:
     KGetApp()
-        : KUniqueApplication(), mainwidget( 0 ), osd( 0 )
+        : KUniqueApplication(), kget( 0 ), osd( 0 )
     {
         showSplash();
     }
@@ -99,7 +99,7 @@ public:
     ~KGetApp()
     {
         delete osd;
-        delete mainwidget;
+        delete kget;
     }
 
     void showSplash()
@@ -119,38 +119,38 @@ public:
     {
         KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-        if (!mainwidget)
+        if (!kget)
         {
-            mainwidget = new KMainWidget();
-            setMainWidget(mainwidget);
+            kget = new KGet();
+            setMainWidget(kget);
         }
-        KWin::activateWindow(mainwidget->winId());
+        KWin::activateWindow(kget->winId());
 
         if (args->isSet("showDropTarget"))
-        { /*FIXME mainwidget->activateDropTarget();*/ }
+        { /*FIXME kget->activateDropTarget();*/ }
 
         KURL::List l;
         for (int i = 0; i < args->count(); i++)
 	{
             QString txt(args->arg(i));
             if ( txt.endsWith( ".kgt", false ) )
-                mainwidget->readTransfersEx(KURL::fromPathOrURL( txt ));
+                kget->readTransfersEx(KURL::fromPathOrURL( txt ));
             else
                 l.push_back(args->arg(i));
         }
         // all the args read from command line are downloads
         if (l.count() >= 1)
-            mainwidget->addTransfersEx( l, KURL());
+            kget->addTransfersEx( l, KURL());
 /*
         // the last arg read (when we have more than 1 arg) is considered
         // as destination dir for the previous downloads
         if (l.count() == 1)
-            mainwidget->addTransfersEx( l, KURL());
+            kget->addTransfersEx( l, KURL());
         else if (l.count() > 1)
         {
             KURL last = l.last();
             l.pop_back();
-            mainwidget->addTransfersEx(l, last);
+            kget->addTransfersEx(l, last);
         }
 */
         args->clear();
@@ -160,7 +160,7 @@ public:
     }
 
 private:
-    KMainWidget * mainwidget;
+    KGet * kget;
     OSDWidget * osd;
 };
 

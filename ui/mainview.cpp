@@ -26,13 +26,13 @@
 #include <kiconeffect.h>
 
 #include "mainview.h"
-#include "core/transferlist.h"
-#include "core/transfer.h"
+#include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
 
-MainViewGroupItem::MainViewGroupItem(MainView * parent, Group * g)
+TransferGroupItem::TransferGroupItem(MainView * parent, TransferGroupHandler * group)
     : QListViewItem(parent),
-      view(parent),
-      group(g),
+      m_group(group),
+      m_view(parent),
       m_topGradient( 0 ),
       m_bottomGradient( 0 )
 {
@@ -42,45 +42,64 @@ MainViewGroupItem::MainViewGroupItem(MainView * parent, Group * g)
     updatePixmaps();
 }
 
-MainViewGroupItem::~MainViewGroupItem()
+TransferGroupItem::~TransferGroupItem()
 {
     delete m_topGradient;
     delete m_bottomGradient;
 }
 
-void MainViewGroupItem::updateContents(bool updateAll)
+void TransferGroupItem::groupChangedEvent(TransferGroupHandler * group)
 {
-    Group::Info info = group->info();
-    Group::GroupChanges groupFlags = group->changesFlags(view);
-
-    if( updateAll || (groupFlags & Group::Gc_TotalSize) )
-    {
-        kdDebug() << "MainViewGroupItem::updateContents (" << (groupFlags & Group::Gc_TotalSize) << ")" << endl;
-        setText(1, info.name);
-        setText(3, KIO::convertSize(info.totalSize));
-    }
-
-    group->resetChangesFlags(view);
+    updateContents();
 }
 
-void MainViewGroupItem::updatePixmaps()
+void TransferGroupItem::addedTransferEvent(TransferHandler * transfer)
+{
+    new TransferItem(this, transfer);
+}
+
+void TransferGroupItem::removedTransferEvent(TransferHandler * transfer)
+{
+
+}
+
+void TransferGroupItem::deletedEvent(TransferGroupHandler * group)
+{
+    
+}
+
+void TransferGroupItem::updateContents(bool updateAll)
+{
+    TransferGroupHandler::ChangesFlags groupFlags = m_group->changesFlags(this);
+
+    if( updateAll || (groupFlags & TransferGroupHandler::Gc_TotalSize) )
+    {
+        kdDebug() << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroupHandler::Gc_TotalSize) << ")" << endl;
+        setText(1, m_group->name());
+        setText(3, KIO::convertSize(m_group->totalSize()));
+    }
+
+    m_group->resetChangesFlags(this);
+}
+
+void TransferGroupItem::updatePixmaps()
 {
     delete m_topGradient;
     m_topGradient = new QPixmap( KImageEffect::gradient(
             QSize( 1, 8 ),
-            view->palette().active().background().light(110),
-            view->palette().active().background(),
+            m_view->palette().active().background().light(110),
+            m_view->palette().active().background(),
             KImageEffect::VerticalGradient ) );
 
     delete m_bottomGradient;
     m_bottomGradient = new QPixmap( KImageEffect::gradient(
             QSize( 1, 5 ),
-            view->palette().active().background().dark(150),
-            view->palette().active().base(),
+            m_view->palette().active().background().dark(150),
+            m_view->palette().active().base(),
             KImageEffect::VerticalGradient ) );
 }
 
-void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int /*align*/)
+void TransferGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int /*align*/)
 {
     //I must set the height because it gets overwritten when changing fonts
     setHeight(30);
@@ -103,76 +122,42 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
         f.setBold(true);
         p->setFont( f );
         p->drawText(30,7,width, height()-7, Qt::AlignLeft,
-                     group->info().name);
+                    m_group->name());
     }
     else if(column == 2)
     {
-        Group::Info info = group->info();
         p->drawText(0,7,width, height()-7, Qt::AlignLeft, 
-                        KIO::convertSize(info.totalSize));
+                    KIO::convertSize(m_group->totalSize()));
     }
     else if(column == 3)
     {
-        Group::Info info = group->info();
         p->drawText(0,2,width, height()-4, Qt::AlignCenter, 
-                        QString::number(info.percent) + "%");
+                    QString::number(m_group->percent()) + "%");
     }
 }
 
-
-
-MainViewItem::MainViewItem(MainView * parent, Transfer * t)
+TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfer)
     : QListViewItem(parent),
-     view(parent),
-     transfer(t)
+      m_transfer(transfer),
+      m_view(parent->view())
 {
-    
 }
 
-void MainViewItem::updateContents(bool updateAll)
+void TransferItem::updateContents(bool updateAll)
 {
-    Transfer::Info info=transfer->info();
-    
-    Transfer::TransferChanges transferFlags = transfer->changesFlags(view);
+    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-//     kdDebug() << "FLAGS before reset" << transfer->gettransferFlags(view) << endl;
-        
     if(updateAll)
     {
-//         kdDebug() << "UPDATE:  name" << endl;
-        setText(0, info.src.fileName());
+        setText(0, m_transfer->source().fileName());
     }
-    
-    if(updateAll || (transferFlags & Transfer::Tc_Priority) )
+
+    if( updateAll )
     {
-//         kdDebug() << "UPDATE:  priority" << endl;                
-        
         bool colorizeIcon = true;
-        QColor saturatedColor;
-        
-        switch(info.priority)
-        {
-            case 1:
-                saturatedColor = QColor(Qt::yellow);
-                break;
-            case 2: 
-                saturatedColor = QColor(Qt::red);
-                break;
-            case 3:
-                colorizeIcon = false; 
-                setPixmap(0, SmallIcon("kget"));
-                break;
-            case 4: 
-                saturatedColor = QColor(Qt::green);
-                break;
-            case 5: 
-                saturatedColor = QColor(Qt::gray);
-                break;
-            case 6: 
-                colorizeIcon = false;
-                setPixmap(0, SmallIcon("stop"));
-                break;
-        }
+
+        QColor saturatedColor = QColor(Qt::red);
+
         if(colorizeIcon)
         {
             QImage priorityIcon = SmallIcon("kget").convertToImage();
@@ -183,103 +168,67 @@ void MainViewItem::updateContents(bool updateAll)
             saturatedColor.getHsv( &hue, &sat, &value );
             saturatedColor.setHsv( hue, (sat + 510) / 3, value );
             KIconEffect::colorize( priorityIcon, saturatedColor, 0.9 );
-            
+
             setPixmap(0, QPixmap(priorityIcon));
         }
     }
-    
-    if(updateAll || (transferFlags & Transfer::Tc_Status) )
+
+    if(updateAll || (transferFlags & TransferHandler::Tc_Status) )
     {
 //         kdDebug() << "UPDATE:  status" << endl;
-        switch(info.status)
-        {
-            case Transfer::St_Trying:
-                setText(1, i18n("Connecting..."));
-                setPixmap(1, SmallIcon("connect_creating"));
-                break;
-            case Transfer::St_Running:
-                setText(1, i18n("Downloading..."));
-                setPixmap(1, SmallIcon("tool_resume"));
-                break;
-            case Transfer::St_Delayed:
-                setText(1, i18n("Delayed"));
-                setPixmap(1, SmallIcon("tool_timer"));
-                break;
-            case Transfer::St_Stopped:
-                setText(1, i18n("Stopped"));
-                setPixmap(1, SmallIcon("stop"));
-                break;
-            case Transfer::St_Aborted:
-                setText(1, i18n("Aborted"));
-                setPixmap(1, SmallIcon("stop"));
-                break;
-            case Transfer::St_Finished:
-                setText(1, i18n("Completed"));
-                setPixmap(1, SmallIcon("ok"));
-                break;
-        }
+        setText( 1, m_transfer->statusText() );
+        setPixmap( 1, m_transfer->statusPixmap() );
     }
-    
+
     if(updateAll || (transferFlags & Transfer::Tc_TotalSize) )
     {
 //         kdDebug() << "UPDATE:  totalSize" << endl;
-        if (info.totalSize != 0)
-            setText(2, KIO::convertSize(info.totalSize));
+        if (m_transfer->totalSize() != 0)
+            setText(2, KIO::convertSize( m_transfer->totalSize() ));
         else
             setText(2, i18n("not available", "n/a"));
     }
-                
-    if(updateAll || (transferFlags & Transfer::Tc_Percent) )
-    {
-//         kdDebug() << "UPDATE:  percent" << endl;
-        
-    }
-            
+
     if(updateAll || (transferFlags & Transfer::Tc_Speed) )
     {
 //         kdDebug() << "UPDATE:  speed" << endl;
-        if(info.speed==0)
+        int speed = m_transfer->speed();
+
+        if(speed==0)
         {
-            if(info.status == Transfer::St_Running)
+            if(m_transfer->jobStatus() == Job::Running)
                 setText(4, i18n("Stalled") );
             else
                 setText(4, "" );
         }
         else
-            setText(4, i18n("%1/s").arg(KIO::convertSize(info.speed)) );
+            setText(4, i18n("%1/s").arg(KIO::convertSize( speed )) );
     }
-        
-/*    if(updateAll || (transferFlags & Transfer::Tc_Log) )
-    {
-        
-    }*/
-            
-    transfer->resetChangesFlags(view);        
-//     kdDebug() << "FLAGS after reset" << transfer->gettransferFlags(view) << endl;
+
+    m_transfer->resetChangesFlags(this);
 }
 
-void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
+void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
 {
     QListViewItem::paintCell(p, cg, column, width, align);
 
     if(column == 3)
     {
-        Transfer::Info info = transfer->info();
-        int rectWidth = (int)((width-6) * info.percent / 100);
+        int rectWidth = (int)((width-6) * m_transfer->percent() / 100);
 
         p->setPen(cg.background().dark());
         p->drawRect(2,2,width-4, height()-4);
-        
+
         p->setPen(cg.background());
         p->fillRect(3,3,width-6, height()-6, cg.brush(QColorGroup::Background));
-        
+
         p->setPen(cg.brush(QColorGroup::Highlight).color().light(105));
         p->drawRect(3,3,rectWidth, height()-6);
         p->fillRect(4,4,rectWidth-2, height()-8, cg.brush(QColorGroup::Highlight));
-        
+
         p->setPen(cg.foreground());
         p->drawText(2,2,width-4, height()-4, Qt::AlignCenter, 
-                    QString::number(info.percent) + "%");
+                    QString::number(m_transfer->percent()) + "%");
     }
 }
 
@@ -304,225 +253,93 @@ MainView::~MainView()
 {
 }
 
-void MainView::schedulerCleared()
+void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
 {
-
+    TransferGroupItem * newGroupItem = new TransferGroupItem(this, group);
+    newGroupItem->setVisible(false);
 }
 
-void MainView::schedulerAddedItems( const TransferList& list )
+QValueList<TransferHandler *> MainView::getSelectedList()
 {
-    kdDebug() << "MainView::schedulerAddedItems" << endl;
-
-    TransferList::constIterator it = list.begin();
-    TransferList::constIterator endList = list.end();
-    
-    for(; it != endList; ++it)
-    {
-        QString group = (*it)->info().group;
-        MainViewItem * newItem;
-        
-        QMap<QString, MainViewGroupItem *>::iterator g = groupsMap.find(group);
-        
-        if(g != groupsMap.end())
-        {
-            (*g)->insertItem(newItem = new MainViewItem(this, *it));
-            (*g)->setVisible(true);
-        }
-        else
-            newItem = new MainViewItem(this, *it);
-
-        transfersMap[*it] = newItem;
-
-        newItem->updateContents(true);
-    }
-}
-
-void MainView::schedulerRemovedItems( const TransferList& list )
-{
-    TransferList::constIterator it = list.begin();
-    TransferList::constIterator endList = list.end();
-    
-    for(; it != endList; ++it)
-    {
-        delete(transfersMap[*it]);
-    }
-
-    //Now we hide the groups that don't contain any transfer
-    QMap<QString, MainViewGroupItem *>::iterator it2 = groupsMap.begin();
-    QMap<QString, MainViewGroupItem *>::iterator it2End = groupsMap.end();
-    
-    for(; it2 != it2End; ++it2)
-    {
-        if( (*it2)->childCount() == 0 )
-            (*it2)->setVisible(false);
-    }
-
-}
-
-void MainView::schedulerChangedItems( const TransferList& list )
-{
-    TransferList::constIterator it = list.begin();
-    TransferList::constIterator endList = list.end();
-
-    for(; it != endList; ++it)
-    {
-        MainViewItem * vItem = transfersMap[*it];
-
-        //The transfer's group has changed.
-        if( (*it)->changesFlags(this)==Transfer::Tc_Group )
-        {
-            //The new group name
-            QString gName = (*it)->info().group;
-            QListViewItem * oldGroup = transfersMap[*it]->parent();
-
-            //Delete the old MainViewItem.
-            delete(vItem);
-
-            if( (oldGroup) && (oldGroup->childCount() == 0) )
-                oldGroup->setVisible(false);
-
-            //Create a new MainViewItem which belongs to the new group
-            QMap<QString, MainViewGroupItem *>::iterator g = groupsMap.find(gName);
-            MainViewItem * newItem;
-
-            if(g != groupsMap.end())
-            {
-                (*g)->insertItem(newItem = new MainViewItem(this, *it));
-                (*g)->setVisible(true);
-            }
-            else
-                newItem = new MainViewItem(this, *it);
-
-            transfersMap[*it] = newItem;
-
-            newItem->updateContents(true);
-        }
-        else
-            vItem->updateContents();
-    }
-}
-
-void MainView::schedulerAddedGroups( const GroupList& list ) 
-{
-    GroupList::constIterator it = list.begin();
-    GroupList::constIterator endList = list.end();
-
-    for(; it != endList; ++it)
-    {
-        MainViewGroupItem * newItem = new MainViewGroupItem(this, *it);
-        groupsMap[(*it)->info().name] = newItem;
-
-        newItem->setVisible(false);
-    }
-}
-
-void MainView::schedulerRemovedGroups( const GroupList& list)
-{
-    GroupList::constIterator it = list.begin();
-    GroupList::constIterator endList = list.end();
-
-    for(; it != endList; ++it)
-    {
-        groupsMap.remove((*it)->info().name);
-    }
-}
-
-void MainView::schedulerChangedGroups( const GroupList& list)
-{
-    GroupList::constIterator it = list.begin();
-    GroupList::constIterator endList = list.end();
-
-    for(; it != endList; ++it)
-    {
-        groupsMap[(*it)->info().name]->updateContents();
-    }
-}
-
-void MainView::schedulerStatus( GlobalStatus * )
-{
-}
-
-TransferList MainView::getSelectedList()
-{
-    TransferList list;
+    QValueList<TransferHandler *> list;
 
     QListViewItemIterator it(this);
-    
+
     for(;*it != 0; it++)
     {
-        MainViewItem * item;
-        
-        if( isSelected(*it) &&  (item = dynamic_cast<MainViewItem*>(*it)) )
-            list.addTransfer( item->getTransfer() );
+        TransferItem * item;
+
+        if( isSelected(*it) &&  (item = dynamic_cast<TransferItem *>(*it)) )
+            list.append( item->transfer() );
     }
-    
+
     return list;
 }
 
 
 void MainView::slotNewTransfer()
 {
-    schedNewURLs( KURL(), QString::null );
+//    schedNewURLs( KURL(), QString::null );
 }
 
 void MainView::slotResumeItems()
 {
-    TransferList tl = getSelectedList();
-    schedSetCommand( tl, CmdResume );
+    QValueList <TransferHandler *> selItems = getSelectedList();
+//    schedSetCommand( selItems, CmdResume );
 }
 
 void MainView::slotStopItems()
 {
-    TransferList tl = getSelectedList();
-    schedSetCommand( tl, CmdPause );
+    QValueList <TransferHandler *> selItems = getSelectedList();
+//     schedSetCommand( selItems, CmdPause );
 }
 
 void MainView::slotRemoveItems()
 {
-    TransferList tl = getSelectedList();
-    schedDelItems( tl );
+    QValueList <TransferHandler *> selItems = getSelectedList();
+//     schedDelItems( selItems );
 }
 
 void MainView::slotSetPriority( int id )
 {
-    TransferList tl = getSelectedList();
-    schedSetPriority( tl, id );
+    QValueList <TransferHandler *> selItems = getSelectedList();
+//     schedSetPriority( selItems, id );
 }
 
 void MainView::slotSetGroup( int id )
 {
-    TransferList tl = getSelectedList();
+/*    QValueList <TransferHandler *> selItems = getSelectedList();
 
-    QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin();
-    QMap<QString, MainViewGroupItem *>::iterator itEnd = groupsMap.end();
+    QMap<QString, TransferGroupItem *>::iterator it = m_groupsMap.begin();
+    QMap<QString, TransferGroupItem *>::iterator itEnd = m_groupsMap.end();
 
     for(int i=0; it!=itEnd && i<id; ++it, ++i);
 
     //Now the iterator points to the selected group
-    schedSetGroup( tl, (*it)->getGroup()->info().name );
-    kdDebug() << "Move to group: " << id+1 << " / " << groupsMap.size() << " " <<
-            (*it)->getGroup()->info().name << endl;
+    schedSetGroup( tl, (*it)->group()->info().name );
+    kdDebug() << "Move to group: " << id+1 << " / " << m_groupsMap.size() << " " <<
+            (*it)->group()->info().name << endl;*/
 }
 
 void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
 {
-    if (!ac) return;
+/*    if (!ac) return;
 
     KPopupMenu * popup = new KPopupMenu( this );
-    
+
     TransferList t = getSelectedList();
     // insert title
     QString t1 = i18n("%n download", "%n downloads", t.count());
     QString t2 = i18n("KGet");
     popup->insertTitle( column!=-1 ? t1 : t2 );
-    
+
     // add menu entries
     if ( column!=-1 )
     {   // menu over an item
         popup->insertItem( SmallIcon("down"), i18n("R&esume"), this, SLOT(slotResumeItems()) );
         popup->insertItem( SmallIcon("stop"), i18n("&Stop"), this, SLOT(slotStopItems()) );
         popup->insertItem( SmallIcon("editdelete"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
-        
+
         KPopupMenu * subPrio = new KPopupMenu( popup );
         subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority(int) ), 0, 1);
         subPrio->insertItem( SmallIcon("1uparrow"), i18n("high"), this,  SLOT( slotSetPriority(int) ), 0, 2);
@@ -531,20 +348,20 @@ void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & 
         subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority(int) ), 0, 5);
         subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority(int) ), 0, 6 );
         popup->insertItem( i18n("Set &priority"), subPrio );
-                
+
         KPopupMenu * subGroup = new KPopupMenu( popup );
         //for loop inserting all existant groups
-        QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin();
-        QMap<QString, MainViewGroupItem *>::iterator itEnd = groupsMap.end();
-        
+        QMap<QString, TransferGroupItem *>::iterator it = m_groupsMap.begin();
+        QMap<QString, TransferGroupItem *>::iterator itEnd = m_groupsMap.end();
+
         for(int i=0; it != itEnd; ++it, ++i)
         {
             subGroup->insertItem( SmallIcon("folder"),
-                                    (*it)->getGroup()->info().name, 
+                                    (*it)->group()->info().name, 
                                     this,  SLOT( slotSetGroup( int ) ),
                                     0, i);
         }
-        //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );	
+        //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );
         popup->insertItem( SmallIcon("folder"), i18n("Set &group"), subGroup );
     }
     else
@@ -552,7 +369,7 @@ void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & 
         ac->action("open_transfer")->plug(popup);
 
     // show popup
-    popup->popup( pos );
+    popup->popup( pos );*/
 }
 
 void MainView::setupActions( KActionCollection * a )
@@ -560,11 +377,16 @@ void MainView::setupActions( KActionCollection * a )
     ac = a;
 }
 
-void MainView::paletteChange( const QPalette & )
+void MainView::paletteChange()
 {
-    QMap<QString, MainViewGroupItem *>::iterator it = groupsMap.begin(), end = groupsMap.end();
-    for ( ; it != end; ++it )
-        (*it)->updatePixmaps();
+    QListViewItemIterator it(this);
+
+    for(;*it != 0; it++)
+    {
+        TransferGroupItem * groupItem;
+        if( groupItem = dynamic_cast<TransferGroupItem *>(*it) )
+            groupItem->updatePixmaps( );
+    }
 }
 
 #include "mainview.moc"

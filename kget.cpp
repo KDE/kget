@@ -1,5 +1,5 @@
 /***************************************************************************
-*                                kmainwidget.cpp
+*                                KGet.cpp
 *                             -------------------
 *
 *    begin        : Tue Jan 29 2002
@@ -42,33 +42,28 @@
 #include <qtimer.h>
 
 #include "kget.h"
+#include "core/model.h"
 #include "conf/settings.h"
 #include "conf/preferencesdialog.h"
-#include "core/scheduler.h"
-#include "ui/tray.h"
 #include "ui/panelsmanager.h"
-#include "ui/testview.h"
 #include "ui/mainview.h"
-#include "ui/droptarget.h"
-#include "ui/groupspanel.h"
-#include "ui/sidebar.h"
+// #include "ui/tray.h"
+// #include "ui/testview.h"
+// #include "ui/droptarget.h"
+// #include "ui/groupspanel.h"
+// #include "ui/sidebar.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
-KMainWidget::KMainWidget( QWidget * parent, const char * name )
+KGet::KGet( QWidget * parent, const char * name )
     : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
-      ViewInterface( "viewIface-main" ),
-      mainView(0), rightWidget(0), kdrop(0),
-      kdock(0)
+        m_mainView(0), m_rightWidget(0)/*, m_kdrop(0),
+      m_kdock(0)*/
 {
-    // scheduler creation
-    // the scheduler NEEDS to be created here to make kget accept command
-    // line args when executed with no instance already started
-    // We import the user's transfers calling scheduler->slotImportTransfers()
-    // in slotDelayedInit.
-    scheduler = new Scheduler(this);
+    // create the model
+    Model::self();
 
     // create actions
     setupActions();
@@ -76,49 +71,29 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     createGUI("kgetui.rc");
 
     // widgets inserted in the 'body' part
-    browserBar = new BrowserBar( this );
-    browserBar->hide();
+     m_browserBar = new BrowserBar( this );
+     m_browserBar->hide();
     // create the 'right view'
-    mainView = new MainView( (QWidget *)browserBar->container() );
-    mainView->setupActions( actionCollection() );
+     m_mainView = new MainView( (QWidget *)m_browserBar->container() );
+     m_mainView->setupActions( actionCollection() );
     //TestView * t = new TestView( (QWidget *)browserBar->container() );
-    rightWidget = mainView;
-
-    setCentralWidget(browserBar);
+     m_rightWidget = m_mainView;
+// 
+//     setCentralWidget(browserBar);
 
     // side panel :: Groups
-    groupsPanel = new GroupsPanel(0,"groups panel");
-    browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
+//     groupsPanel = new GroupsPanel(0,"groups panel");
+//     browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
 
-    sidebar = new Sidebar(0, "sidebar");
-    browserBar->addBrowser( sidebar, i18n( "Groups" ), "penguin" );
-
-//     // side panel :: Global statistics
-//     GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
-//     browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
-// 
-//     // side panel :: Transfer details
-//     IconViewMdiView * i = new IconViewMdiView();
-//     i->connectToScheduler(scheduler);
-//     browserBar->addBrowser( i, i18n( "Transfer" ), "browser" );
-//     
-//     // side panel :: Help
-//     helpPanel = new QLabel( "", this, "help panel" );
-//     helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>"
-//                 "This widget should display context sensitive help "
-//                 "(maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>"
-//                 "Dario && Enrico");
-//     helpPanel->setFrameShape( QFrame::StyledPanel );
-//     helpPanel->setFrameShadow( QFrame::Sunken );
-//     helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
-//     browserBar->addBrowser( helpPanel, i18n( "Help" ), "help" );
+//     sidebar = new Sidebar(0, "sidebar");
+//     browserBar->addBrowser( sidebar, i18n( "Groups" ), "penguin" );
 
     // restore position, size and visibility
     // MainWidget (myself)
     move( Settings::mainPosition() );
-    rightWidget->show();
-    browserBar->show();
-    browserBar->setMinimumHeight( 200 );
+    m_rightWidget->show();
+    m_browserBar->show();
+    m_browserBar->setMinimumHeight( 200 );
     //setEraseColor( palette().active().background().dark(150) );
     setMaximumHeight( 32767 );
 
@@ -149,18 +124,17 @@ KMainWidget::KMainWidget( QWidget * parent, const char * name )
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
 
-KMainWidget::~KMainWidget()
+KGet::~KGet()
 {
     slotSaveMyself();
-    delete kdrop;
-    delete kdock;
-    delete scheduler;
-    delete mainView;
+    //delete kdrop;
+    //delete kdock;
+    delete m_mainView;
     // the following call saves options set in above dtors
     Settings::writeConfig();
 }
 
-void KMainWidget::setupActions()
+void KGet::setupActions()
 {
     KActionCollection * ac = actionCollection();
     //KAction * a;
@@ -227,29 +201,21 @@ void KMainWidget::setupActions()
 */
 }
 
-void KMainWidget::slotDelayedInit()
+void KGet::slotDelayedInit()
 {
     //Here we import the user's transfers.
-    scheduler->slotImportTransfers();
+//     scheduler->slotImportTransfers(); (model->slotImportTransfers ???)
 
     // DropTarget
-    kdrop = new DropTarget(this);
-    if ( Settings::showDropTarget() || Settings::firstRun() )
-        kdrop->show();
-    if ( Settings::firstRun() )
-        kdrop->playAnimation();
+//     kdrop = new DropTarget(this);
+//     if ( Settings::showDropTarget() || Settings::firstRun() )
+//         kdrop->show();
+//     if ( Settings::firstRun() )
+//         kdrop->playAnimation();
 
     // DockWidget
-    kdock = new Tray(this);
-    kdock->show();
-
-    //viewinterface connection
-    connectToScheduler( scheduler );
-    kdock->connectToScheduler(scheduler);
-    mainView->connectToScheduler(scheduler);
-    groupsPanel->connectToScheduler(scheduler);
-    sidebar->connectToScheduler(scheduler);
-    kdrop->connectToScheduler(scheduler);
+//     kdock = new Tray(this);
+//     kdock->show();
 
     // enable dropping
     setAcceptDrops(true);
@@ -271,64 +237,7 @@ void KMainWidget::slotDelayedInit()
     Settings::setFirstRun(false);
 }
 
-void KMainWidget::setViewMode( enum ViewMode mode, bool force )
-{
-/*    if ( (mode == vMode) && !force )
-        return;
-    setUpdatesEnabled( false );
-    switch ( mode )
-    {
-        case vm_compact: {
-            int minH = menuBar->height() + toolBar->height() + statusBar->height();
-            // fix the case of layouting a still hidden mainWindow
-            if ( toolBar->height() > ToolBar_HEIGHT )
-                minH = menuBar->height() + statusBar->height();
-            Settings::setMainSize( size() );
-            browserBar->hide();
-            //setEraseColor( palette().active().background() );
-            setFixedHeight( minH );
-            resize( 200, minH );
-            } break;
-        case vm_transfers: {
-            delete rightWidget;
-            kdDebug() << "3.1.1" << endl;
-            mainView = new MainView( (QWidget *)browserBar->container() );
-            //TestView * t = new TestView( (QWidget *)browserBar->container() );
-            mainView->connectToScheduler(scheduler);
-            kdDebug() << "3.1.2" << endl;
-            rightWidget = mainView;
-            kdDebug() << "3.1.3" << endl;
-            rightWidget->show();
-            kdDebug() << "3.1.4" << endl;
-            browserBar->show();
-            kdDebug() << "3.1.5" << endl;
-            browserBar->setMinimumHeight( 200 );
-            kdDebug() << "3.1.6" << endl;
-            //setEraseColor( palette().active().background().dark(150) );
-            setMaximumHeight( 32767 );
-            kdDebug() << "3.1.7" << endl;
-            if ( vMode == vm_compact || force )
-                resize( Settings::mainSize() );
-            } break;
-        case vm_downloaded: {
-            delete rightWidget;
-            rightWidget = new QWidget( (QWidget *)browserBar->container() );
-            rightWidget->show();
-            browserBar->show();
-            browserBar->setMinimumHeight( 200 );
-            //setEraseColor( palette().active().background().dark(150) );
-            setMaximumHeight( 32767 );
-            if ( vMode == vm_compact || force )
-                resize( Settings::mainSize() );
-            } break;
-    }
-    vMode = mode;
-    viewModeChanged( (int)vMode );
-    setUpdatesEnabled( true );
-*/
-}
-
-void KMainWidget::log(const QString & message, bool sb)
+void KGet::log(const QString & message, bool sb)
 {
 #ifdef _DEBUG
     sDebugIn <<" message= "<< message << endl;
@@ -348,7 +257,7 @@ void KMainWidget::log(const QString & message, bool sb)
 }
 
 
-void KMainWidget::slotSaveMyself()
+void KGet::slotSaveMyself()
 {
     // save last parameters ..
     Settings::setMainPosition( pos() );
@@ -359,41 +268,42 @@ void KMainWidget::slotSaveMyself()
 }
 
 
-void KMainWidget::slotConfigureKeys()
+void KGet::slotConfigureKeys()
 {
     KKeyDialog::configure(actionCollection());
 }
 
-void KMainWidget::slotConfigureToolbars()
+void KGet::slotConfigureToolbars()
 {
     KEditToolbar edit( "kget_toolbar", actionCollection() );
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
 }
 
-void KMainWidget::slotConfigureNotifications()
+void KGet::slotConfigureNotifications()
 {
     KNotifyDialog::configure(this);
 }
 
 
-void KMainWidget::slotNewToolbarConfig()
+void KGet::slotNewToolbarConfig()
 {
     createGUI();
 }
 
-void KMainWidget::slotNewConfig()
+void KGet::slotNewConfig()
 {
     // Update here properties modified in the config dialog and not
     // parsed often by the code.. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
-    if ( kdrop )
-        kdrop->setShown( Settings::showDropTarget(), false );
+    //TODO: re-enable this 2 lines
+//     if ( kdrop )
+//         kdrop->setShown( Settings::showDropTarget(), false );
 }
 
 
-void KMainWidget::slotQuit()
+void KGet::slotQuit()
 {
 /*
     // TODO check if items in ST_RUNNING state and ask for confirmation before quitting
@@ -415,41 +325,47 @@ void KMainWidget::slotQuit()
     kapp->quit();
 }
 
-void KMainWidget::slotExportTransfers()
+void KGet::slotExportTransfers()
 {
-    schedRequestOperation( OpExportTransfers );
+    // TODO: re-enable this
+    //schedRequestOperation( OpExportTransfers );
 }
 
-void KMainWidget::slotImportTransfers()
+void KGet::slotImportTransfers()
 {
-    schedRequestOperation(OpImportTransfers);
+    // TODO: re-enable this
+    //schedRequestOperation(OpImportTransfers);
 }
 
-void KMainWidget::slotDownloadToggled()
+void KGet::slotDownloadToggled()
 {
     KToggleAction * action = (KToggleAction *)actionCollection()->action("download");
     bool downloading = action->isChecked();
-    schedRequestOperation( downloading ? OpRun : OpStop );
+    //TODO find an alternative way of doing this with the model
+    //schedRequestOperation( downloading ? OpRun : OpStop );
 #if ! KDE_IS_VERSION(3,2,91)
     action->setText( downloading ? i18n("Stop Downloading") : i18n("Start Downloading") );
     action->setIcon( downloading ? "stop" : "down" );
 #endif
-    kdock->setDownloading( downloading );
+    //TODO re-enable this
+    //kdock->setDownloading( downloading );
 }
 
-void KMainWidget::readTransfersEx(const KURL & url)
+void KGet::readTransfersEx(const KURL & url)
 {
     //### port to schedRequestOperation(OpReadTransfers,url);
-    scheduler->slotImportTransfers(url);
+    //TODO re-enable this
+    //scheduler->slotImportTransfers(url);
 }
 
-void KMainWidget::addTransfersEx(const KURL::List& urls, const KURL& dest)
+void KGet::addTransfersEx(const KURL::List& urls, const KURL& dest)
 {
     QString s = dest.prettyURL();
-    scheduler->slotNewURLs(urls, s);
+    //TODO re-enable this
+    //scheduler->slotNewURLs(urls, s);
 }
 
-void KMainWidget::slotPreferences()
+void KGet::slotPreferences()
 {
     // an instance the dialog could be already created and could be cached, 
     // in which case you want to display the cached dialog
@@ -466,12 +382,13 @@ void KMainWidget::slotPreferences()
     dialog->show();
 }
 
-void KMainWidget::slotNewURL()
+void KGet::slotNewURL()
 {
-    schedNewURLs(KURL(), QString::null);
+    //TODO re-enable this
+    //schedNewURLs(KURL(), QString::null);
 }
 
-void KMainWidget::updateActions()
+void KGet::updateActions()
 {
 /*#ifdef _DEBUG
     sDebugIn << endl;
@@ -573,7 +490,7 @@ void KMainWidget::updateActions()
 }
 
 
-void KMainWidget::updateStatusBar()
+void KGet::updateStatusBar()
 {
     QString transfers = i18n("Downloading %1 transfers (%2) at %3");
     QString time = i18n("%1 remaining");
@@ -616,7 +533,7 @@ void KMainWidget::updateStatusBar()
 
 /** widget events */
 
-void KMainWidget::closeEvent( QCloseEvent * e )
+void KGet::closeEvent( QCloseEvent * e )
 {
     if( kapp->sessionSaving() )
         e->ignore();
@@ -624,51 +541,57 @@ void KMainWidget::closeEvent( QCloseEvent * e )
         hide();
 }
 
-void KMainWidget::dragEnterEvent(QDragEnterEvent * event)
+void KGet::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event) || QTextDrag::canDecode(event));
 }
 
-void KMainWidget::dropEvent(QDropEvent * event)
+void KGet::dropEvent(QDropEvent * event)
 {
     KURL::List list;
     QString str;
 
-    if (KURLDrag::decode(event, list))
+    //TODO re-enable this
+/*    if (KURLDrag::decode(event, list))
         schedNewURLs(list, QString());
     else if (QTextDrag::decode(event, str))
-        schedNewURLs(KURL::fromPathOrURL(str), QString());
+        schedNewURLs(KURL::fromPathOrURL(str), QString());*/
 }
 
 
 /** DCOP interface */
 
-void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
+void KGet::addTransfers( const KURL::List& src, const QString& dest)
 {
     sDebugIn << endl;
-    schedNewURLs(src, dest); 
+    //TODO re-enable this
+    //schedNewURLs(src, dest); 
     sDebugOut << endl;
 }
 
-bool KMainWidget::isDropTargetVisible() const
+bool KGet::isDropTargetVisible() const
 {
-    return kdrop->isVisible();
+    //TODO Re-enable this
+    /*    return kdrop->isVisible();*/
 }
 
-void KMainWidget::setDropTargetVisible( bool setVisible )
+void KGet::setDropTargetVisible( bool setVisible )
 {
-    if ( setVisible != Settings::showDropTarget() )
-        kdrop->setShown( setVisible );
+    //TODO Re-enable this    
+/*    if ( setVisible != Settings::showDropTarget() )
+        kdrop->setShown( setVisible );*/
 }
 
-void KMainWidget::setOfflineMode( bool offline )
+void KGet::setOfflineMode( bool offline )
 {
-    schedRequestOperation( offline ? OpStop : OpRun );
+    //TODO Re-enable this    
+//     schedRequestOperation( offline ? OpStop : OpRun );
 }
 
-bool KMainWidget::isOfflineMode() const
+bool KGet::isOfflineMode() const
 {
-    return scheduler->isRunning();
+    //TODO Re-enable this 
+//     return scheduler->isRunning();
 }
 
 #include "kget.moc"
@@ -685,7 +608,7 @@ KToggleAction *m_paAutoDisconnect,
     }
     setAutoDisconnect();
 
-void KMainWidget::slotToggleAutoDisconnect()
+void KGet::slotToggleAutoDisconnect()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -705,7 +628,7 @@ void KMainWidget::slotToggleAutoDisconnect()
 #endif
 }
 
-void KMainWidget::setAutoDisconnect()
+void KGet::setAutoDisconnect()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -739,7 +662,7 @@ void KMainWidget::setAutoDisconnect()
     m_paUseAnimation->setChecked(Settings::useAnimation());
     m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), ac, "toggle_animation");
 
-void KMainWidget::slotToggleAnimation()
+void KGet::slotToggleAnimation()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -761,7 +684,7 @@ void KMainWidget::slotToggleAnimation()
 #endif
 }
 
-void KMainWidget::slotAnimTimeout()
+void KGet::slotAnimTimeout()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
@@ -794,7 +717,7 @@ void KMainWidget::slotAnimTimeout()
     //on updateActions() set to true if an url is selected else set to false
     m_paCopy->setEnabled(false);
 
-void KMainWidget::slotCopyToClipboard()
+void KGet::slotCopyToClipboard()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
@@ -824,7 +747,7 @@ void KMainWidget::slotCopyToClipboard()
     connect(autosaveTimer, SIGNAL(timeout()), SLOT(slotAutosaveTimeout()));
     setAutoSave();
 
-void KMainWidget::slotAutosaveTimeout()
+void KGet::slotAutosaveTimeout()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
@@ -837,7 +760,7 @@ void KMainWidget::slotAutosaveTimeout()
 #endif
 }
 
-void KMainWidget::setAutoSave()
+void KGet::setAutoSave()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -965,7 +888,7 @@ void KMainWidget::setAutoSave()
     tmp = i18n("<b>Paste transfer</b> button adds a URL from\n" "the clipboard as a new transfer.\n" "\n" "This way you can easily copy&paste URLs between\n" "applications.");
     m_paPasteTransfer->setWhatsThis(tmp);
 
-void KMainWidget::slotToggleAutoPaste()
+void KGet::slotToggleAutoPaste()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -988,7 +911,7 @@ void KMainWidget::slotToggleAutoPaste()
 #endif
 }
 
-void KMainWidget::slotCheckClipboard()
+void KGet::slotCheckClipboard()
 {
 #ifdef _DEBUG
     //sDebugIn << endl;
@@ -1025,7 +948,7 @@ KToggleAction *m_paExpertMode, *m_paUseLastDir
 
 void slotToggleUseLastDir();
 
-void KMainWidget::slotToggleUseLastDir()
+void KGet::slotToggleUseLastDir()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -1048,7 +971,7 @@ void KMainWidget::slotToggleUseLastDir()
 
 //BEGIN slotToggle<T> 
 /*
-void KMainWidget::slotToggle<T>()
+void KGet::slotToggle<T>()
 {
     bool value = !Settings::<T>();
     Settings::set<T>( value );

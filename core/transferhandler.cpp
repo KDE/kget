@@ -1,0 +1,125 @@
+/* This file is part of the KDE project
+
+   Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+#include <kdebug.h>
+
+#include "observer.h"
+#include "transferhandler.h"
+
+TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
+    : Transfer(transfer->group(), scheduler, transfer->source(), transfer->dest()),
+      m_transfer(transfer)
+{
+}
+
+TransferHandler::~TransferHandler()
+{
+    
+}
+
+void TransferHandler::addObserver(TransferObserver * observer)
+{
+    m_observers.push_back(observer);
+    m_changesFlags[observer]=0xFFFFFFFF;
+}
+
+void TransferHandler::delObserver(TransferObserver * observer)
+{
+    m_observers.remove(observer);
+    m_changesFlags.remove(observer);
+}
+
+void TransferHandler::start()
+{
+    //here we should pass through the scheduler
+}
+
+void TransferHandler::stop()
+{
+    //here we should pass through the scheduler
+}
+
+int TransferHandler::elapsedTime() const
+{
+    return m_transfer->elapsedTime();
+}
+
+int TransferHandler::remainingTime() const
+{
+    return m_transfer->remainingTime();
+}
+
+bool TransferHandler::isResumable() const
+{
+    return m_transfer->isResumable();
+}
+
+unsigned long TransferHandler::totalSize() const
+{
+    return m_transfer->totalSize();
+}
+
+unsigned long TransferHandler::processedSize() const
+{
+    return m_transfer->processedSize();
+}
+
+int TransferHandler::percent() const
+{
+    return m_transfer->percent();
+}
+
+int TransferHandler::speed() const
+{
+    return m_transfer->speed();
+}
+
+Transfer::ChangesFlags TransferHandler::changesFlags(TransferObserver * observer) const
+{
+    if( m_changesFlags.find(observer) != m_changesFlags.end() )
+        return m_changesFlags[observer];
+    else
+    {
+        kdDebug() << " TransferHandler::changesFlags() doesn't see you as an observer! " << endl;
+
+        return 0xFFFFFFFF;
+    }
+}
+
+void TransferHandler::resetChangesFlags(TransferObserver * observer)
+{
+    if( m_changesFlags.find(observer) != m_changesFlags.end() )
+        m_changesFlags[observer] = 0;
+    else
+        kdDebug() << " TransferHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+}
+
+void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
+{
+    QMap<TransferObserver *, ChangesFlags>::Iterator it = m_changesFlags.begin();
+    QMap<TransferObserver *, ChangesFlags>::Iterator itEnd = m_changesFlags.end();
+
+    for( ; it!=itEnd; ++it )
+        *it |= change;
+
+    if(postEvent)
+        postTransferChangedEvent();
+}
+
+void TransferHandler::postTransferChangedEvent()
+{
+    QValueList<TransferObserver *>::iterator it = m_observers.begin();
+    QValueList<TransferObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->transferChangedEvent(this);
+    }
+}

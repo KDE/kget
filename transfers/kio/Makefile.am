@@ -11,6 +11,7 @@
 noinst_LTLIBRARIES = libtkio.la
 
 libtkio_la_SOURCES = transferKio.cpp
+libtkio_la_LIBADD = ../../core/libcore.la
 
 INCLUDES = $(all_includes) -I$(srcdir)/../..
 

@@ -12,46 +12,59 @@
 #ifndef _TRANSFER_KIO_H
 #define _TRANSFER_KIO_H
 
+#include <kio/job.h>
+
 #include "core/transfer.h"
 
-#include <kio/job.h>
+class QDomNode;
 
 /**
  * This transfer uses the KIO class to download files
  */
  
-class TransferKio : public Transfer
+class TransferKio : public QObject, public Transfer
 {
-Q_OBJECT
+    Q_OBJECT
 
-    friend class TransferList;
+    public:
+        TransferKio(TransferGroup * parent, Scheduler * scheduler,
+                    const KURL & source, const KURL & dest);
+        TransferKio(TransferGroup * parent, Scheduler * scheduler,
+                    QDomNode * n);
 
-public:
-    TransferKio(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
-    TransferKio(Scheduler * _scheduler, QDomNode * n);
-    
-public slots:
-    virtual bool slotResume();
-    virtual void slotStop();
-    virtual void slotRetransfer();
-    virtual void slotRemove();
-    
-    virtual void slotSetSpeed(int speed);
-    virtual void slotSetSegmented(int nSegments);
-    
-private:
-    bool createJob();
+    public slots:
+        // --- Job virtual functions ---
+        void start();
+        void stop();
 
-    KIO::FileCopyJob * copyjob;
-        
-private slots:
-    void slotResult( KIO::Job *job );
-    void slotInfoMessage( KIO::Job *job, const QString & msg );
-    void slotConnected( KIO::Job *job );
-    void slotPercent( KIO::Job *job, unsigned long percent );
-    void slotTotalSize( KIO::Job *job, KIO::filesize_t size );
-    void slotProcessedSize( KIO::Job *job, KIO::filesize_t size );
-    void slotSpeed( KIO::Job *job, unsigned long bytes_per_second );
+        int elapsedTime() const;
+        int remainingTime() const;
+        bool isResumable() const;
+
+        // --- Transfer virtual functions ---
+        unsigned long totalSize() const;
+        unsigned long processedSize() const;
+
+        int percent() const;
+        int speed() const;
+
+    protected:
+        void read(QDomNode * n);
+        void write(QDomNode * n);
+
+    private:
+        void createJob();
+
+        KIO::FileCopyJob * m_copyjob;
+
+    private slots:
+        void slotResult( KIO::Job * kioJob );
+        void slotInfoMessage( KIO::Job * kioJob, const QString & msg );
+        void slotConnected( KIO::Job * kioJob );
+        void slotPercent( KIO::Job * kioJob, unsigned long percent );
+        void slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size );
+        void slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size );
+        void slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second );
 };
 
 #endif

@@ -1,5 +1,5 @@
 /***************************************************************************
-*                                kmainwidget.h
+*                                KGet.h
 *                             -------------------
 *
 *    Revision     : $Id$
@@ -24,8 +24,8 @@
  *
  ***************************************************************************/
 
-#ifndef _KMAINWIDGET_H_
-#define _KMAINWIDGET_H_
+#ifndef _KGet_H_
+#define _KGet_H_
 
 #include <qwidget.h>
 
@@ -33,11 +33,12 @@
 #include <kmainwindow.h>
 
 #include "dcopiface.h"
-#include "core/viewinterface.h"
 #include "core/globals.h"
 
 class KURL;
 class KURL::List;
+
+class KGetModel;
 
 class BrowserBar;
 class DropTarget;
@@ -47,16 +48,12 @@ class Sidebar;
 class Tray;
 
 /** The main window of KGet2. Can be collapsed or expanded. */
-class KMainWidget : public KMainWindow, public ViewInterface, virtual public DCOPIface
+class KGet : public KMainWindow, virtual public DCOPIface
 {
 Q_OBJECT
 public:
-    KMainWidget( QWidget * = 0, const char * = 0 );
-    ~KMainWidget();
-
-    // toggles between small / complete layouts
-    enum ViewMode { vm_compact = 0, vm_transfers = 1, vm_downloaded = 2 };
-    void setViewMode( enum ViewMode, bool force = false );
+    KGet( QWidget * = 0, const char * = 0 );
+    ~KGet();
 
     // called by main.cpp
     void readTransfersEx(const KURL & url);
@@ -106,20 +103,16 @@ private:
     // one-time functions
     void setupActions();
 
-    // internals
-    Scheduler * scheduler;
-    enum ViewMode vMode;
-
     // internal widgets
-    BrowserBar  * browserBar;
-    GroupsPanel * groupsPanel;
-    Sidebar     * sidebar;
-    MainView    * mainView;
-    QWidget     * rightWidget;
+    BrowserBar  * m_browserBar;
+    GroupsPanel * m_groupsPanel;
+    Sidebar     * m_sidebar;
+    MainView    * m_mainView;
+    QWidget     * m_rightWidget;
 
     // separated widgets
-    DropTarget * kdrop;
-    Tray       * kdock;
+    DropTarget * m_kdrop;
+    Tray       * m_kdock;
 };
 
 #endif
