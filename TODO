@@ -1,9 +1,11 @@
 CHECK: Log windows
 CHECK: Make install
-ADD:     Maximun number of retr
-ADD:  i18n
-ADD:Log info (loggin..checking resume...error)
-ADD: enable Time Out settings if not recv data
+ADD:   Maximun number of retr
+ADD:   i18n
+ADD:   Log info (loggin..checking resume...error)
+ADD:   enable Time Out settings if not recv data
+ADD:   Proxy Support for http
+ADD:   Proxy Support for ftp
 CHECK: Use last directory mode
 CHECK: if resume is not supported on both ftp/http
 CHECK: Error Reporting
