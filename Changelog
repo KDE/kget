@@ -1,3 +1,17 @@
+2004-11-05 Dario Massarin <nekkar@libero.it>
+        * Cleanups all over the code.
+        
+        * interrogator.h: Now we have this new file that defines the two classes
+        TransferInterrogator and GroupInterrogator. If a class wants to interrogate
+        a transfer or a group object it should reimplement them.
+        
+        * group.{h,cpp}: The progressed size, totalSize and percent properties are
+        not saved anymore to file. Now we update the group properties every time
+        we see that a transfer that belongs to the group has changed. Each group 
+        change is notified to all the views.        
+        
+        * mainview.cpp: fixed crash when executing actions on a group item.
+
 2004-10-17 Dario Massarin <nekkar@libero.it>
     
         * transfer.{h,cpp}: New class TransferInterrogator that abstracts the

@@ -60,22 +60,36 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
     p->fillRect(0,0,width, height(), cg.brush(QColorGroup::Background));
     
    
-    switch (column)
+    if(column == 0)
+    {        
+         p->drawPixmap(3, 0, SmallIcon("package"));
+    }
+    else if(column == 1)
     {
-        case 0:
-            p->drawPixmap(3, 0, SmallIcon("package"));
-            break;
-    
-        case 1:
-            QFont f(p->font());
-            f.setBold(true);
-            p->setFont(f);
-            p->setPen(QPen(cg.brush(QColorGroup::Background).color().dark(110),2));
-            p->drawRoundRect(0,0,width, height(), 15, 100);
-            p->setPen(cg.brush(QColorGroup::Foreground).color());
-            p->drawText(0,0,width, height(), Qt::AlignCenter, 
-                    group->info().name);
-            break;
+        QFont f(p->font());
+        f.setBold(true);
+        p->setFont( f );
+        p->setPen(QPen(cg.brush(QColorGroup::Background).color().dark(110),2));
+        p->drawRoundRect(0,0,width, height(), 15, 100);
+        p->setPen(cg.brush(QColorGroup::Foreground).color());
+        p->drawText(0,0,width, height(), Qt::AlignCenter, 
+                group->info().name);
+    }
+    else if(column == 3)    
+    {
+        Group::Info info = group->info();
+        p->drawText(2,2,width, height()-4, Qt::AlignLeft, 
+                        KIO::convertSize(info.totalSize));
+    }
+    else if(column == 4)
+    {
+        Group::Info info = group->info();
+/*        float rectWidth = (width-4) * info.percent / 100;
+        p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight).color().dark(115));
+        p->setPen(cg.foreground());
+        p->drawRect(2,2,rectWidth, height()-4);*/
+        p->drawText(2,2,width, height()-4, Qt::AlignCenter, 
+                        QString().setNum(info.percent) + "%");
     }
     
 /*    switch (column)
@@ -92,18 +106,7 @@ void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
             
     }
 */    
-    if(column == 4)
-    {
-        Group::Info info = group->info();
-        float rectWidth = (width-4) * info.percent / 100;
-        
-        p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight).color().dark(115));
-        p->setPen(cg.foreground());
-        p->drawRect(2,2,rectWidth, height()-4);
-        p->drawText(2,2,width, height()-4, Qt::AlignCenter, 
-                    QString().setNum(info.percent) + "%");
-    }
-}
+} 
 
 
 
@@ -361,7 +364,13 @@ void MainView::schedulerRemovedGroups( const GroupList& list)
 
 void MainView::schedulerChangedGroups( const GroupList& list)
 {
-
+    GroupList::constIterator it = list.begin();
+    GroupList::constIterator endList = list.end();
+    
+    for(; it != endList; ++it)
+    {
+        groupsMap[(*it)->info().name]->updateContents();
+    }
 }
 
 void MainView::schedulerStatus( GlobalStatus * )
@@ -376,8 +385,10 @@ TransferList MainView::getSelectedList()
     
     for(;*it != 0; it++)
     {
-        if( isSelected(*it) )
-            list.addTransfer( ( static_cast<MainViewItem*>(*it) )->getTransfer() );
+        MainViewItem * item;
+        
+        if( isSelected(*it) &&  (item = dynamic_cast<MainViewItem*>(*it)) )
+            list.addTransfer( item->getTransfer() );
     }
     
     return list;

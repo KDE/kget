@@ -24,34 +24,34 @@ class ViewInterface;
 class ViewInterfaceConnector : public QObject
 {
     Q_OBJECT
-    public:
-	ViewInterfaceConnector( ViewInterface * viewIface, Scheduler * sched, const char * name );
+public:
+    ViewInterfaceConnector( ViewInterface * viewIface, Scheduler * sched, const char * name );
 
-    signals:
-	void newURLs( const KURL::List &, const QString &destDir );
-	void removeItems( TransferList );
-	void setPriority( TransferList, int );
-	void setOperation( TransferList, TransferCommand );
-	void setGroup( TransferList, const QString & );
+public slots:
+    void slotCleared();
+    void slotAddedItems( const TransferList& );
+    void slotRemovedItems( const TransferList& );
+    void slotChangedItems( const TransferList& );
+    void slotAddedGroups( const GroupList& );
+    void slotRemovedGroups( const GroupList& );
+    void slotChangedGroups( const GroupList& );
+    void slotStatus( GlobalStatus * );
+    
+signals:
+    void newURLs( const KURL::List &, const QString &destDir );
+    void removeItems( TransferList );
+    void setPriority( TransferList, int );
+    void setOperation( TransferList, TransferCommand );
+    void setGroup( TransferList, const QString & );
     void addGroup( GroupList l );
     void delGroup( GroupList l );
     void modifyGroup( const QString & n, Group g );
-	void reqOperation( SchedulerOperation );
+    void reqOperation( SchedulerOperation );
     void reqOperation( SchedulerDebugOp );
 
-    public slots:
-	void slotCleared();
-	void slotAddedItems( const TransferList& );
-	void slotRemovedItems( const TransferList& );
-	void slotChangedItems( const TransferList& );
-	void slotAddedGroups( const GroupList& );
-	void slotRemovedGroups( const GroupList& );
-	void slotChangedGroups( const GroupList& );
-	void slotStatus( GlobalStatus * );
-
-    private:
-	friend class ViewInterface;
-	ViewInterface * iface;
+private:
+    friend class ViewInterface;
+    ViewInterface * iface;
 };
 
 #endif

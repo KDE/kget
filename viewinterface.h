@@ -16,7 +16,7 @@
 #include <qobject.h>
 #include "globals.h"
 
-#include "transfer.h"
+#include "interrogator.h"
 #include "transferlist.h"
 #include "group.h"
 
@@ -35,27 +35,27 @@
   * @version $Id: 
   **/
 
-class ViewInterface : public TransferInterrogator
+class ViewInterface : public TransferInterrogator, GroupInterrogator
 {
-    public:
-	ViewInterface( const char * name = "view-iface" );
-	virtual ~ViewInterface();
+public:
+    ViewInterface( const char * name = "view-iface" );
+    virtual ~ViewInterface();
 
-	/** Call this method to wire up the view interface to a Scheduler */
-	void connectToScheduler( Scheduler * );
+    /** Call this method to wire up the view interface to a Scheduler */
+    void connectToScheduler( Scheduler * );
 
     /** Call this method to get the View id number */
     int getId();
     
-	/** commands (-> scheduler)
-	 * Those functions must be called to dispatch information to the
-	 * connected scheduler.
-	 */
-	void schedNewURLs( const KURL::List &, const QString &destDir );
-	void schedDelItems( TransferList );
-	void schedSetPriority( TransferList, int );
-	void schedSetCommand( TransferList, TransferCommand );
-	
+    /** commands (-> scheduler)
+     * Those functions must be called to dispatch information to the
+     * connected scheduler.
+     */
+    void schedNewURLs( const KURL::List &, const QString &destDir );
+    void schedDelItems( TransferList );
+    void schedSetPriority( TransferList, int );
+    void schedSetCommand( TransferList, TransferCommand );
+
     void schedSetGroup( TransferList , const QString &);
     /**
      * schedAddGroup: here we must provide the new group
@@ -69,28 +69,28 @@ class ViewInterface : public TransferInterrogator
      * schedModifyGroup: here we must provide the group name before the
      * last changes and the new group itself 
      */
-	void schedModifyGroup( const QString &, Group );
+    void schedModifyGroup( const QString &, Group );
     
     void schedRequestOperation( SchedulerOperation );
-	void schedDebugOperation( SchedulerDebugOp );
+    void schedDebugOperation( SchedulerDebugOp );
 
-	/** pure virtual 'notifications' (<- scheduler)
-	 * The functions *must* be implemented to receive notifications
-	 * (files added/removed, status changed, etc..) from the scheduler.
-	 */
-	virtual void schedulerCleared() {};
-	virtual void schedulerAddedItems( const TransferList& ) {};
-	virtual void schedulerRemovedItems( const TransferList& ) {};
-	virtual void schedulerChangedItems( const TransferList& ) {};
+    /** pure virtual 'notifications' (<- scheduler)
+     * The functions *must* be implemented to receive notifications
+     * (files added/removed, status changed, etc..) from the scheduler.
+     */
+    virtual void schedulerCleared() {};
+    virtual void schedulerAddedItems( const TransferList& ) {};
+    virtual void schedulerRemovedItems( const TransferList& ) {};
+    virtual void schedulerChangedItems( const TransferList& ) {};
     virtual void schedulerAddedGroups( const GroupList& ) {};
     virtual void schedulerRemovedGroups( const GroupList& ) {};
     virtual void schedulerChangedGroups( const GroupList& ) {};
-	virtual void schedulerStatus( GlobalStatus * ) {};
+    virtual void schedulerStatus( GlobalStatus * ) {};
 
-    private:
-	class ViewInterfaceConnector * d;
+private:
+    class ViewInterfaceConnector * d;
     int id;
-	const char * name;
+    const char * name;
 };
 
 #endif

@@ -26,13 +26,11 @@ Q_OBJECT
 
     friend class TransferList;
 
-    public:
-        
+public:
     TransferKio(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
     TransferKio(Scheduler * _scheduler, QDomNode * n);
     
-    public slots:
-    
+public slots:
     virtual bool slotResume();
     virtual void slotStop();
     virtual void slotRetransfer();
@@ -42,15 +40,10 @@ Q_OBJECT
     virtual void slotSetDelay(int seconds);
     virtual void slotSetSegmented(int nSegments);
     
-    private:
-    
-    virtual bool read(/*qdom entry*/);
-    virtual void write(/*qdom entry*/);
-
+private:
     void createJob();
     
-    private slots:
-    
+private slots:
     void slotResult( KIO::Job *job );
     void slotInfoMessage( KIO::Job *job, const QString & msg );
     void slotConnected( KIO::Job *job );

@@ -23,7 +23,7 @@ Group::Group(const QString& name)
     gInfo.speed=0;
     gInfo.totalSize=0;
     gInfo.processedSize=0;
-    gInfo.percent=50;
+    gInfo.percent=0;
     gInfo.name=name;
 
 }
@@ -33,26 +33,51 @@ Group::Group(QDomNode * n)
     read(n);
 }
 
-Group::TransferInfoCache Group::updatedInfoCache(Transfer * t)
+bool Group::read(QDomNode * n)
 {
-    Transfer::Info ti = t->info();
-    TransferInfoCache ic;
+    gInfo.speed=0;
+        
+    QDomElement e = n->toElement();
     
-    ic.totalSize = ti.totalSize;
-    ic.processedSize = ti.processedSize;
-    ic.speed = ti.speed;
+    gInfo.name = e.attribute("Name");
     
-    return ic;
+    return true;
 }
 
-void Group::updatePercent()
+void Group::write(QDomNode * n) const
 {
-    kdDebug() << "updatePercent" << gInfo.processedSize << " / " << gInfo.totalSize << endl;
-    if(gInfo.totalSize != 0)
-        gInfo.percent = 100 * gInfo.processedSize / gInfo.totalSize;
+    sDebugIn << "name:" << gInfo.name << endl;
+    
+    QDomElement e = n->ownerDocument().createElement("Group");
+    n->appendChild(e);
+        
+    e.setAttribute("Name", gInfo.name);
+
+    sDebugOut << endl;
+}
+
+Group::GroupChanges Group::changesFlags(const GroupInterrogator * ti)
+{
+    if( groupChanges.find(ti) != groupChanges.end() )
+        return groupChanges[ti];    
     else
-        gInfo.percent = 0;
-}    
+    {
+        //In this case the local transferChanges map does not contain 
+        //any information related to the given view. So we add it.
+        groupChanges[ti]=0xFFFFFFFF;
+        return 0xFFFFFFFF;
+    }
+}
+
+void Group::resetChangesFlags(const GroupInterrogator * ti)
+{
+    groupChanges[ti]=0;
+}
+
+void Group::about() const
+{
+    kdDebug() << "  Group name= " << gInfo.name << endl; ;
+}
 
 void Group::addTransfer(Transfer * t)
 {
@@ -87,66 +112,72 @@ void Group::delTransfer(Transfer * t)
 
 void Group::changedTransfer(Transfer * t, Transfer::TransferChanges tc)
 {
+    Transfer::Info ti = t->info();
+    
     switch(tc)
     {
         case Transfer::Tc_ProcessedSize:
-            Transfer::Info ti = t->info();
+            kdDebug() << "Group::changedTransfer" << endl;
             gInfo.processedSize-=transfersMap[t].processedSize;
             gInfo.processedSize+=ti.processedSize;
             updatePercent();
             
             transfersMap[t] = updatedInfoCache(t);
+            setGroupChange(Gc_Percent);
+            setGroupChange(Gc_ProcessedSize);
             break;            
+        case Transfer::Tc_TotalSize:
+            gInfo.processedSize-=transfersMap[t].totalSize;
+            gInfo.processedSize+=ti.totalSize;
+            
+            transfersMap[t] = updatedInfoCache(t);
+            setGroupChange(Gc_TotalSize);
+            break;
     }
 }
 
-bool Group::read(QDomNode * n)
+void Group::setGroupChange(GroupChange p)
 {
-    gInfo.speed=0;
-        
-    QDomElement e = n->toElement();
+    QMap<const GroupInterrogator *, GroupChanges>::Iterator it = groupChanges.begin();    
     
-    gInfo.name = e.attribute("Name");
-    gInfo.totalSize = e.attribute("TotalSize").toInt();
-    gInfo.processedSize = e.attribute("ProcessedSize").toInt();
-    gInfo.percent = e.attribute("Percent").toULong();
+    QMap<const GroupInterrogator *, GroupChanges>::Iterator itEnd = groupChanges.end();    
     
-    return true;
+    for( ; it!=itEnd; ++it )
+        *it |= p;
 }
 
-void Group::write(QDomNode * n) const
+Group::TransferInfoCache Group::updatedInfoCache(Transfer * t)
 {
-    sDebugIn << "name:" << gInfo.name << endl;
+    Transfer::Info ti = t->info();
+    TransferInfoCache ic;
     
-    QDomElement e = n->ownerDocument().createElement("Group");
-    n->appendChild(e);
-
+    ic.totalSize = ti.totalSize;
+    ic.processedSize = ti.processedSize;
+    ic.speed = ti.speed;
     
-        
-    e.setAttribute("Name", gInfo.name);
-    e.setAttribute("TotalSize", gInfo.totalSize);    
-    e.setAttribute("ProcessedSize", gInfo.processedSize);    
-    e.setAttribute("Percent", gInfo.percent);
-
-    sDebugOut << endl;
+    return ic;
 }
 
-void Group::about() const
+void Group::updatePercent()
 {
-    kdDebug() << "  Group name= " << gInfo.name << endl; ;
-}
+    kdDebug() << "updatePercent" << gInfo.processedSize << " / " << gInfo.totalSize << endl;
+    if(gInfo.totalSize != 0)
+        gInfo.percent = 100 * gInfo.processedSize / gInfo.totalSize;
+    else
+        gInfo.percent = 0;
+}    
 
 GroupList::GroupList()
 {
 
 }
 
-GroupList::GroupList(const GroupList & list)
+GroupList::GroupList(const GroupList& list)
 {
     addGroups(list);
 }
 
-GroupList::GroupList(Group group)
+GroupList::GroupList(const Group& group)
 {
     addGroup(group);
 }
@@ -164,7 +195,7 @@ Group * GroupList::getGroup(const QString& groupName) const
     return 0;
 }
 
-void GroupList::addGroup(Group group)
+void GroupList::addGroup(const Group& group)
 {
     sDebugIn << endl;
     
@@ -191,7 +222,7 @@ void GroupList::addGroups(const GroupList& list)
     sDebugOut << endl;
 }
 
-void GroupList::delGroup(Group group)
+void GroupList::delGroup(const Group& group)
 {
     QString groupName = group.info().name;
 
@@ -302,16 +333,31 @@ void GroupList::slotChangedTransfers(const TransferList& list)
     TransferList::constIterator it = list.begin();
     TransferList::constIterator endList = list.end();
 
+    GroupList gl;
+    
+    kdDebug() << "111" << endl;
+    
     for(; it!=endList; ++it)
     {
         QString tName = (*it)->info().group;
+        kdDebug() << "111a " << tName << endl;
         if(groupsMap.contains(tName))
         {
             Transfer::TransferChanges tc = (*it)->changesFlags(this);
-            groupsMap[tName]->changedTransfer(*it, tc);
+            kdDebug() << "222 " << tc << endl;
+            Group * g = groupsMap[tName];
+            
+            g->changedTransfer(*it, tc);
+            if( (tc & Transfer::Tc_ProcessedSize) 
+                || (tc & Transfer::Tc_TotalSize) )
+                gl.addGroup(*g);
+            
             (*it)->resetChangesFlags(this);
         }
-    }    
+    }
+    
+    if(!gl.isEmpty())
+        emit changedGroups(gl);
 }
 
 #include "group.moc"

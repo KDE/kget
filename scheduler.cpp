@@ -926,13 +926,14 @@ void Scheduler::queueUpdate()
     TransferList::iterator endList = transfers->end();
     
     while(newTransfers > 0 && it != endList)
-        {
+    {
         sDebug << "AAA" << endl;
         if(setTransferCommand(*it, CmdResume))
-            {
+        {
             sDebug << "BBB" << endl;
             --newTransfers;
         }
+        sDebug << "CCC" << endl;
         ++it;
     }
     

@@ -27,41 +27,36 @@ TransferKio::TransferKio(Scheduler * _scheduler, QDomNode * n)
     : Transfer(_scheduler, n),
       copyjob(0)
 {
-
-
+    Transfer::read(n);
 }
 
 bool TransferKio::slotResume()
 {
-    kdDebug() << "TransferKio::slotResume (1)" << endl;
-    
-    
     if(!copyjob)
     {
-        kdDebug() << "TransferKio::slotResume (2)" << endl;
         createJob();
     }
         
-    kdDebug() << "TransferKio::slotResume (3)" << endl;
-
     tInfo.status = St_Trying;
     setTransferChange(Tc_Status);    
-    kdDebug() << "TransferKio::slotResume (4)" << endl;
 
     emit statusChanged(this, St_Trying);
-    kdDebug() << "TransferKio::slotResume (5)" << endl;
     
     return true;
 }
 
 void TransferKio::slotStop()
 {
+    kdDebug() << "slotStop 1" << endl;
     if(copyjob)
     {
+        kdDebug() << "slotStop 2" << endl;
         copyjob->kill(true);
+        kdDebug() << "slotStop 3" << endl;
         copyjob=0;
     }
     
+    kdDebug() << "slotStop 4" << endl;
     tInfo.status = St_Stopped;
     tInfo.speed = 0;
     setTransferChange(Tc_Status);
@@ -94,16 +89,7 @@ void TransferKio::slotSetSegmented(int nSegments)
 {
 
 }
-    
-bool TransferKio::read(/*qdom entry*/)
-{
 
-}
-
-void TransferKio::write(/*qdom entry*/)
-{
-
-}
 
 //NOTE: INTERNAL METHODS
 
@@ -133,6 +119,7 @@ void TransferKio::createJob()
 
 void TransferKio::slotResult( KIO::Job *job )
 {
+    kdDebug() << "slotResult" << endl;
     switch (job->error())
     {
         case 0:
@@ -158,32 +145,9 @@ void TransferKio::slotInfoMessage( KIO::Job *job, const QString & msg )
     tInfo.log.push_back(new QString(msg));
 }
 
-/*
-    enum TransferStatus  { St_Trying;
-                           St_Running;
-                           St_Delayed;
-                           St_Stopped;
-                           St_Finished;
-                         };  
-    
-    enum TransferChange { Tc_None          = 0x00000000;
-                           Tc_CanResume     = 0x00000001;
-                           Tc_Connected     = 0x00000002;
-                           Tc_TotalSize     = 0x00000004;
-                           Tc_ProcessedSize = 0x00000008;
-                           Tc_Percent       = 0x00000010;
-                           Tc_Speed         = 0x00000011;
-
-*/
-
-/*
-    void transferChanged(Transfer *, TransferTransfer message);
-
-*/
-
 void TransferKio::slotConnected( KIO::Job *job )
 {
-    kdDebug() << "CONNECTEDCONNECTEDCONNECTEDCONNECTEDCONNECTEDCONNECTED" <<endl;
+//     kdDebug() << "CONNECTED" <<endl;
     
     tInfo.status = St_Running;
     emit statusChanged(this, St_Running);
@@ -193,6 +157,8 @@ void TransferKio::slotConnected( KIO::Job *job )
 
 void TransferKio::slotPercent( KIO::Job *job, unsigned long percent )
 {
+//     kdDebug() << "slotPercent" << endl; 
+    
     if(tInfo.status != St_Running)
         slotConnected(job);
         
@@ -203,6 +169,8 @@ void TransferKio::slotPercent( KIO::Job *job, unsigned long percent )
 
 void TransferKio::slotTotalSize( KIO::Job *job, KIO::filesize_t size )
 {
+//     kdDebug() << "slotTotalSize" << endl; 
+    
     if(tInfo.status != St_Running)
         slotConnected(job);
     
@@ -213,6 +181,8 @@ void TransferKio::slotTotalSize( KIO::Job *job, KIO::filesize_t size )
 
 void TransferKio::slotProcessedSize( KIO::Job *job, KIO::filesize_t size )
 {
+    kdDebug() << "slotProcessedSize" << endl; 
+    
     if(tInfo.status != St_Running)
         slotConnected(job);
     
@@ -223,6 +193,8 @@ void TransferKio::slotProcessedSize( KIO::Job *job, KIO::filesize_t size )
 
 void TransferKio::slotSpeed( KIO::Job *job, unsigned long bytes_per_second )
 {
+//     kdDebug() << "slotSpeed" << endl;
+    
     if(tInfo.status != St_Running)
         slotConnected(job);
     

@@ -12,18 +12,12 @@
 #include <qdom.h>
 
 #include "transfer.h"
+#include "interrogator.h"
 #include "scheduler.h"
 #include "viewinterface.h"
 
-TransferInterrogator::TransferInterrogator()
-{
-    static int newId=-1;
-    id = ++newId;
-    kdDebug() << "new TransferInterrogator: id = " << id << endl;
 
-}
-
-Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest)
+Transfer::Transfer(Scheduler * _scheduler, KURL _src, KURL _dest)
         : sched(_scheduler)
 {
     tInfo.src=_src;
@@ -36,15 +30,16 @@ Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest
     tInfo.speed=0;
     tInfo.group="None";
         
-    connect(this, 
-            SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
-            sched,
-            SLOT(slotTransferStatusChanged(Transfer *, Transfer::TransferStatus)));
-
-    connect(this, 
-            SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
-            sched,
-            SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)));
+    connect( this, 
+             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
+             sched,
+             SLOT(slotTransferStatusChanged(Transfer *,
+             Transfer::TransferStatus)) );
+ 
+    connect( this, 
+             SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
+             sched,
+             SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)) );
 }
 
 Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
@@ -55,15 +50,16 @@ Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
     
     read(n);
     
-    connect(this, 
-            SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
-            sched,
-            SLOT(slotTransferStatusChanged(Transfer *, Transfer::TransferStatus)));
+    connect( this, 
+             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
+             sched,
+             SLOT(slotTransferStatusChanged(Transfer *,
+             Transfer::TransferStatus)) );
 
-    connect(this, 
-            SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
-            sched,
-            SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)));
+    connect( this, 
+             SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
+             sched,
+             SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)) );
 
 }
              
@@ -72,43 +68,22 @@ const Transfer::Info& Transfer::info() const
     return tInfo;
 }
     
-Transfer::TransferChanges Transfer::changesFlags(TransferInterrogator * ti)
+Transfer::TransferChanges Transfer::changesFlags(const TransferInterrogator * ti)
 {
-    int id = ti->getId();
-    int s = transferChanges.size();
-        
-    if( s < id )
-        //In this case the local transferChanges vector does not contain 
-        //any information related to the given view. So we add a vector 
-        //for the view. Since we know that to each views is assigned 
-        //an increasing id number starting from 0, we create
-        //a transferChanges entry for each view with an id number lower
-        //than the given one.
-        //transferChanges.resize(id+1, 10);
-        transferChanges.resize(id+1, 0xFFFFFFFF);
-
-    return transferChanges[id];
+    if( transferChanges.find(ti) != transferChanges.end() )
+        return transferChanges[ti];    
+    else
+    {
+        //In this case the local transferChanges map does not contain 
+        //any information related to the given view. So we add it.
+        transferChanges[ti]=0xFFFFFFFF;
+        return 0xFFFFFFFF;
+    }
 }
 
-void Transfer::resetChangesFlags(TransferInterrogator * ti)
+void Transfer::resetChangesFlags(const TransferInterrogator * ti)
 {
-    int id = ti->getId();
-    int s = transferChanges.size();
-
-    QValueVector<int> p;
-    p.resize(10, 1);
-        
-    if( id < s )
-        //In this case the local transferChanges vector does not contain 
-        //any information related to the given view. So we add a vector 
-        //for the view. Since we know that to each views is assigned 
-        //an increasing id number starting from 0, we create
-        //a transferChanges entry for each view with an id number lower
-        //than the given one.
-        //transferChanges.resize(id+1, 10);
-        transferChanges.resize(id+1, 0xFFFFFFFF);
-    
-    transferChanges[id] = 0;
+    transferChanges[ti]=0;
 }
 
 
@@ -130,9 +105,12 @@ void Transfer::about() const
 
 void Transfer::setTransferChange(TransferChange p)
 {
-    int vectorSize = transferChanges.size();
-    for(int i=0; i<vectorSize; i++)
-        transferChanges[i] |= p;
+    QMap<const TransferInterrogator *, TransferChanges>::Iterator it = transferChanges.begin();    
+    
+    QMap<const TransferInterrogator *, TransferChanges>::Iterator itEnd = transferChanges.end();    
+    
+    for( ; it!=itEnd; ++it )
+        *it |= p;
 }
 
 bool Transfer::read(QDomNode * n)
@@ -149,6 +127,7 @@ bool Transfer::read(QDomNode * n)
     tInfo.totalSize = e.attribute("TotalSize").toInt();
     tInfo.processedSize = e.attribute("ProcessedSize").toInt();
     tInfo.percent = e.attribute("Percent").toULong();
+    
     sDebugOut << endl;
     return true;
 }

@@ -15,6 +15,7 @@
 #include <qobject.h>
 #include <qvaluelist.h>
 
+#include "interrogator.h"
 #include "transfer.h"
 
 class QString;
@@ -37,10 +38,19 @@ class TransferList;
  */
 class Group
 {
-    friend class GroupList;
+friend class GroupList;
 
-    public:
-    
+public:
+    typedef int GroupChanges;                         
+            
+    enum GroupChange     
+    {
+        Gc_None          = 0x00000000,
+        Gc_TotalSize     = 0x00000001,
+        Gc_ProcessedSize = 0x00000002,
+        Gc_Percent       = 0x00000004
+    };
+
     typedef struct Info
     {
         QString name;
@@ -52,23 +62,21 @@ class Group
     };
     
 
-    public:
     Group(const QString& name);
     Group(QDomNode * n);
     
     bool read(QDomNode * n);
     void write(QDomNode * n) const;
-    
+
     const Info& info() const {return gInfo;}
     void setName(const QString& name);
 
+    GroupChanges changesFlags(const GroupInterrogator *);
+    void resetChangesFlags(const GroupInterrogator *);
+    
     void about() const;
     
-    private:
-    void addTransfer(Transfer *);
-    void delTransfer(Transfer *);
-    void changedTransfer(Transfer *, Transfer::TransferChanges);
-
+private:
     /**
      * This struct becomes necessary to handle, calculate and update 
      * correctly the informations coming from the transfers. For example,
@@ -85,11 +93,18 @@ class Group
         int speed;
     };
     
+    void addTransfer(Transfer *);
+    void delTransfer(Transfer *);
+    void changedTransfer(Transfer *, Transfer::TransferChanges);
+
+    void setGroupChange(GroupChange);
+    
     TransferInfoCache updatedInfoCache(Transfer *);
     void updatePercent();
         
     Info gInfo;
     QMap <Transfer*, TransferInfoCache> transfersMap;
+    QMap <const GroupInterrogator *, GroupChanges> groupChanges;
 };
 
 class GroupList : public QObject, 
@@ -98,19 +113,18 @@ class GroupList : public QObject,
 {
 Q_OBJECT
 
-    public:
-    
+public:
     typedef QValueListIterator<Group *> iterator;
     typedef QValueListConstIterator<Group *> constIterator;
 
     GroupList();
     GroupList(const GroupList&);
-    GroupList(Group group);
+    GroupList(const Group& group);
 
     Group * getGroup(const QString& groupName) const;
-    void addGroup(Group group);
+    void addGroup(const Group& group);
     void addGroups(const GroupList& list);
-    void delGroup(Group group);
+    void delGroup(const Group& group);
     void delGroups(const GroupList& list);
     void modifyGroup(const QString& groupName, Group group);
         
@@ -118,16 +132,16 @@ Q_OBJECT
     void write(QDomDocument * doc) const;
 
     void about() const;
-    
-    signals:
-    void changedGroups(const GroupList&);
-    
-    public slots:
+
+public slots:
     void slotAddedTransfers(const TransferList&);
     void slotRemovedTransfers(const TransferList&);
     void slotChangedTransfers(const TransferList&);
+
+signals:
+    void changedGroups(const GroupList&);
     
-    private:
+private:
     QMap<QString, Group*> groupsMap;
 };
 
