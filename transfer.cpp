@@ -754,8 +754,8 @@ bool Transfer::read(KSimpleConfig * config, int id)
     status = (TransferStatus) config->readNumEntry("Status", ST_RUNNING);
     startTime = config->readDateTimeEntry("ScheduledTime");
     canResume = config->readBoolEntry("CanResume", true);
-    totalSize = config->readNumEntry("TotalSize", 0);
-    processedSize = config->readNumEntry("ProcessedSize", 0);
+    totalSize = config->readUnsignedNum64Entry("TotalSize", 0);
+    processedSize = config->readUnsignedNum64Entry("ProcessedSize", 0);
 
     if (status != ST_FINISHED && totalSize != 0) {
         //TODO insert additional check
@@ -781,8 +781,8 @@ void Transfer::write(KSimpleConfig * config, int id)
     config->writeEntry("Mode", mode);
     config->writeEntry("Status", status);
     config->writeEntry("CanResume", canResume);
-    config->writeEntry("TotalSize", ( QVariant & )totalSize);
-    config->writeEntry("ProcessedSize", processedSize);
+    config->writeEntry("TotalSize", totalSize );
+    config->writeEntry("ProcessedSize", processedSize );
     config->writeEntry("ScheduledTime", startTime);
     sDebugOut << endl;
 }
