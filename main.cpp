@@ -48,8 +48,8 @@ static const char *version = KGETVERSION;
 
 
 static KCmdLineOptions option[] = {
-                                          {"+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
-                                          {0, 0, 0}
+                                      {"+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
+                                      {0, 0, 0}
                                   };
 
 static void cleanup(void);
@@ -61,39 +61,39 @@ static msg_handler oldMsgHandler = 0L;
 // Crash recovery signal handler
 static void signalHandler(int sigId)
 {
-        fprintf(stderr, "*** KGet got signal %d\n", sigId);
+    fprintf(stderr, "*** KGet got signal %d\n", sigId);
 
-        if (sigId != SIGSEGV && kmain) {
-                fprintf(stderr, "*** KGet saving data\n");
-                delete kmain;
-        }
-        // If Kget crashes again below this line we consider the data lost :-|
-        // Otherwise Kget will end in an infinite loop.
-        setSignalHandler(SIG_DFL);
-        cleanup();
-        exit(1);
+    if (sigId != SIGSEGV && kmain) {
+        fprintf(stderr, "*** KGet saving data\n");
+        delete kmain;
+    }
+    // If Kget crashes again below this line we consider the data lost :-|
+    // Otherwise Kget will end in an infinite loop.
+    setSignalHandler(SIG_DFL);
+    cleanup();
+    exit(1);
 }
 
 
 //-----------------------------------------------------------------------------
 static void setSignalHandler(void (*handler) (int))
 {
-        signal(SIGSEGV, handler);
-        signal(SIGKILL, handler);
-        signal(SIGTERM, handler);
-        signal(SIGHUP, handler);
-        signal(SIGFPE, handler);
-        signal(SIGABRT, handler);
+    signal(SIGSEGV, handler);
+    signal(SIGKILL, handler);
+    signal(SIGTERM, handler);
+    signal(SIGHUP, handler);
+    signal(SIGFPE, handler);
+    signal(SIGABRT, handler);
 
-        // catch also the keyboard interrupt
-        signal(SIGINT, handler);
+    // catch also the keyboard interrupt
+    signal(SIGINT, handler);
 }
 
 
 static void cleanup(void)
 {
-        qInstallMsgHandler(oldMsgHandler);
-        QString cmd;
+    qInstallMsgHandler(oldMsgHandler);
+    QString cmd;
 }
 
 
@@ -101,40 +101,53 @@ static void cleanup(void)
 //KGetApp::KGetApp ():KUniqueApplication ()
 //#else
 KGetApp::KGetApp():KApplication()
-                //#endif
+        //#endif
 {
-        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-        int nArgs;
-        nArgs = args->count();
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    int nArgs;
+    nArgs = args->count();
 
-        if (isRestored())
-        {
-                RESTORE(KMainWidget)
-        } else
-        {
-                if (nArgs > 0)
-                        new KMainWidget(true);
-                else
-                        new KMainWidget();
-        }
+    if (isRestored())
+    {
+        RESTORE(KMainWidget)
+    } else
+    {
+        if (nArgs > 0)
+            new KMainWidget(true);
+        else
+            new KMainWidget();
+    }
 
-        setMainWidget(kmain);
-        newInstance();
+    setMainWidget(kmain);
+    newInstance();
 }
 
 
 int KGetApp::newInstance()
 {
-        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
 
-        for (int i = 0; i < args->count(); i++) {
-                kmain->addTransferEx(args->arg(i), QString::null, true);
-        }
-        args->clear();
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-        KWin::setActiveWindow(kmain->winId());
+    //        for (int i = 0; i < args->count(); i++ {
+    //                kmain->addTransferEx(args->arg(i), QString::null, true);
+    //        }
+    if (args->count()==1)
+        kmain->addTransferEx(args->arg(0), QString::null, true);
+    else if(args->count()==2)
+        kmain->addTransferEx(args->arg(0),args->arg(1), true);
 
-        return 0;
+    args->clear();
+
+    KWin::setActiveWindow(kmain->winId());
+
+
+#ifdef _DEBUG
+    sDebugOut<< endl;
+#endif
+    return 0;
 }
 
 
@@ -142,26 +155,26 @@ int KGetApp::newInstance()
 
 int main(int argc, char *argv[])
 {
-        KAboutData aboutData("kget", I18N_NOOP("kget"), version, description, KAboutData::License_GPL, "(c) 2001 - 2002, Patrick Charbonnier \n(c) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
+    KAboutData aboutData("kget", I18N_NOOP("kget"), version, description, KAboutData::License_GPL, "(c) 2001 - 2002, Patrick Charbonnier \n(c) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
 
-        aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
-        aboutData.addAuthor("Matej Koss", 0, "koss@miesto.sk");
-
-
-        KCmdLineArgs::init(argc, argv, &aboutData);
-        KCmdLineArgs::addCmdLineOptions(option);
-
-        // TODO to uncomment for unique app
-        /*
-         * if ( ! kget::start()) { exit(0); // Don't do anything if we are already running TODO: check } */
-
-        // creating the main class..
-
-        KGetApp kApp;
-
-        setSignalHandler(signalHandler);
-        kApp.exec();
+    aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
+    aboutData.addAuthor("Matej Koss", 0, "koss@miesto.sk");
 
 
-        cleanup();
+    KCmdLineArgs::init(argc, argv, &aboutData);
+    KCmdLineArgs::addCmdLineOptions(option);
+
+    // TODO to uncomment for unique app
+    /*
+     * if ( ! kget::start()) { exit(0); // Don't do anything if we are already running TODO: check } */
+
+    // creating the main class..
+
+    KGetApp kApp;
+
+    setSignalHandler(signalHandler);
+    kApp.exec();
+
+
+    cleanup();
 }
