@@ -10,6 +10,8 @@ Legend:
 
     IN PROGRESS
 ---------------------
+  ADD <dario> make it possible to move transfers to a specific group using
+      the popup menu.
 
 
 
@@ -41,8 +43,6 @@ SHORT-TERM (URGENT):
   -- MAINVIEW --
   FIX <dario> when resizing the columns of the mainview and the groupspanel
       the items are not updated correctly
-  ADD <dario> make it possible to move transfers to a specific group using
-      the popup menu.
   ADD <dario> make it possible to drag a transfer in a group inside the
       mainview or in the groups visible in the groupspanel.
   ADD <dario> once the ViewInterface has the necessary methods, implement 
