@@ -278,7 +278,7 @@ void Transfer::updateAll()
     dlgIndividual->setCanResume(canResume);
 
     if (totalSize != 0) {
-        //logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+        //logMessage(i18n("Total size is %1 bytes").arg((double)totalSize));
         setText(view->lv_total, KIO::convertSize(totalSize));
     } else {
         //logMessage(i18n("Total size is unknown"));
@@ -566,7 +566,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
 
 
 
-void Transfer::slotTotalSize(unsigned long bytes)
+void Transfer::slotTotalSize(KIO::filesize_t bytes)
 {
 #ifdef _DEBUG
     sDebugIn<<" totalSize is = "<<totalSize << endl;
@@ -575,7 +575,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
     if (totalSize == 0) {
         totalSize = bytes;
         if (totalSize != 0) {
-            logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+            logMessage(i18n("Total size is %1 bytes").arg((double)totalSize,0,'f'));
             setText(view->lv_total, KIO::convertSize(totalSize));
             dlgIndividual->setTotalSize(totalSize);
             dlgIndividual->setPercent(0);
@@ -600,7 +600,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
 
 
 
-void Transfer::slotProcessedSize(unsigned long bytes)
+void Transfer::slotProcessedSize(KIO::filesize_t bytes)
 {
     //sDebug<< ">>>>Entering"<<endl;
 
