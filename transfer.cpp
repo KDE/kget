@@ -414,7 +414,7 @@ void Transfer::slotRequestRemove()
     sDebugIn << endl;
     m_paDelete->setEnabled(false);
     m_paPause->setEnabled(false);
-    delete dlgIndividual;
+    dlgIndividual->close();
 
     if (status == ST_RUNNING) {
         m_pSlave->Op(Slave::REMOVE);
