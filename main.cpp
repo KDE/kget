@@ -24,14 +24,13 @@
  *
  ***************************************************************************/
 
-
 #include <kwin.h>
 #include <klocale.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <kurl.h>
 #include <kuniqueapplication.h>
-#include <qprocess.h>
+#include <kstandarddirs.h>
 
 #include <signal.h>
 #include <unistd.h>
@@ -39,7 +38,7 @@
 #include <stdlib.h>
 #include "kmainwidget.h"
 #include "splash.h"
-
+#include "conf/settings.h"
 
 static const char description[] = I18N_NOOP("An advanced download manager for KDE.");
 
@@ -105,30 +104,14 @@ public:
     void showSplash()
     {
         //determine whether splash-screen is enabled in kgetrc
-        QString rcfile( ::getenv( "HOME" ) );
-        rcfile += "/.kde/share/config/kgetrc";
-        QFile file( rcfile );
-        file.open( IO_ReadOnly );
-        QString line;
-        while ( file.readLine( line, 2000 ) != -1 )
-            if ( line.contains( "ShowSplashscreen" ) && line.contains( "false" ) )
-                return;
+        if ( !Settings::showSplashscreen() )
+            return;
 
-        //get KDE prefix from kde-config
-        QProcess * proc = new QProcess( this );
-        proc->addArgument( "kde-config" );
-        proc->addArgument( "--prefix" );
-        proc->start();
+        // getting splash-screen path
+        QString path = locate( "data", "kget/pics/kget_splash.png" );
 
-        //wait until process has finished
-        while ( proc->isRunning() );
-
-        //read output from kde-config
-        QString path = proc->readStdout();
-        path.remove( "\n" );
-        path += "/share/apps/kget/pics/kget_splash.png";
-
-        osd = new OSDWidget( path );
+        if ( !path.isEmpty() )
+            osd = new OSDWidget( path );
     }
 
     int newInstance()
@@ -145,10 +128,10 @@ public:
         if (args->isSet("showDropTarget"))
         { /*FIXME mainwidget->activateDropTarget();*/ }
 
-        if (args->count()==1)
+        if (args->count()>=1)
         {
             QString txt(args->arg(0));
-            if ( txt.endsWith( ".kgt" ) )
+            if ( txt.endsWith( ".kgt", false ) )
                 mainwidget->readTransfersEx(KURL::fromPathOrURL( txt ));
 /* FIXME: the scheduler sould do that
             else
@@ -177,7 +160,7 @@ private:
  
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description, KAboutData::License_GPL, "(C) 2001 - 2002, Patrick Charbonnier \n(C) 2002, Carsten Pfeiffer\n(C) 1998 - 2000, Matej Koss", "http://kget.sourceforge.net");
+    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description, KAboutData::License_GPL, "(C) 2001 - 2002, Patrick Charbonnier \n(C) 2002, Carsten Pfeiffer\n(C) 1998 - 2000, Matej Koss", 0, "http://kget.sourceforge.net");
 
     aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
     aboutData.addAuthor("Carsten Pfeiffer", 0, "pfeiffer@kde.org");

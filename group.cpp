@@ -30,7 +30,7 @@ Group::Group(const QString& name)
 
 Group::Group(QDomNode * n)
 {
-    gInfo.speed=0;
+//    gInfo.speed=0;
     gInfo.totalSize=0;
     gInfo.processedSize=0;
     gInfo.percent=0;
