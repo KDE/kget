@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-X-KDE-Library=rellinks
+X-KDE-Library=khtml_kget
 X-KDE-PluginInfo-Author=Patrick Charbonnier, Carsten Pfeiffer
 X-KDE-PluginInfo-Email=pch@valleeurope.net, pfeiffer@kde.org
 X-KDE-PluginInfo-Name=kget
