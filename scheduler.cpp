@@ -405,7 +405,11 @@ void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
         case MSG_REMOVED:
         case MSG_PAUSED:
         case MSG_ABORTED:
+            sDebug << "DOWNLOAD FINISHED" << endl;
+            sDebug << "number of transfers" << transfers->size() << endl;
             runningTransfers->removeTransfer(item);
+            removedTransfers->addTransfer(item);
+            sDebug << "number of transfers" << transfers->size() << endl;
             checkRunningTransfers();
             //TODO Here we should set some properties to the transfers
             //that we can't download. In this way we don't continue to try 

@@ -90,7 +90,7 @@ void TransferList::removeTransfer(Transfer * transfer)
 {
     sDebugIn << endl;
 
-    remove(transfer);    
+    remove(transfer);
     
     sDebugOut << endl;
 }
@@ -258,14 +258,14 @@ void TransferList::writeTransfers(const QString& file)
     sDebug << ">>>>Entering with file =" << file << endl;
 
     KSimpleConfig config(file);
-    int num = size();
-
+    
     config.setGroup("Common");
-    config.writeEntry("Count", num);
+    config.writeEntry("Count", size());
 
     iterator it = begin();
+    iterator endList = end();
 
-    for (int id = 0; *it; ++it, ++id)
+    for (int id = 0; it != endList; ++it, ++id)
         (*it)->write(&config, id);
     config.sync();
 

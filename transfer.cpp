@@ -109,8 +109,6 @@ void Transfer::slotStop()
 
     logMessage(i18n("Pausing"));
 
-    assert(status <= ST_RUNNING);
-
     //stopping the thread
     if(slave)
         {
@@ -269,6 +267,7 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
             status = ST_FINISHED;
             slaveProcessedSize(totalSize);
             speed = 0;
+            sDebug << "DOWNLOAD FINISHED" << endl;
             emit statusChanged(this, MSG_FINISHED);
             break;
         case Slave::SLV_PAUSED:
