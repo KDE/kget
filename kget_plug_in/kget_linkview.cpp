@@ -92,7 +92,7 @@ void KGetLinkView::slotStartLeech()
 
     if ( urls.isEmpty() )
         KMessageBox::sorry( this,
-                            i18n("You didn't select any files to download."),
+                            i18n("You did not select any files to download."),
                             i18n("No Files Selected") );
     else
         emit leechURLs( urls );

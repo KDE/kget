@@ -627,7 +627,7 @@ void Transfer::slotTotalSize(unsigned long bytes)
         assert(totalSize == bytes);
 #endif
         if (totalSize != bytes)
-            logMessage(i18n("The file size does not match!"));
+            logMessage(i18n("The file size does not match."));
         else
             logMessage(i18n("File Size checked"));
     }

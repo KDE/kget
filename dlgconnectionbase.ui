@@ -169,7 +169,7 @@
                         <cstring>lb_cannot</cstring>
                     </property>
                     <property name="text">
-                        <string>If server can't resume:</string>
+                        <string>If server cannot resume:</string>
                     </property>
                 </widget>
                 <spacer row="2" column="2">

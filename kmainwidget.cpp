@@ -169,7 +169,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
 
     // setup socket for checking connection
     if ((_sock = sockets_open()) < 0) {
-        log(i18n("Couldn't create valid socket"), false);
+        log(i18n("Could not create valid socket"), false);
     } else {
         connectionTimer->start(5000);   // 5 second interval for checking connection
     }
@@ -2091,10 +2091,10 @@ void KMainWidget::onlineDisconnect()
     }
 
     if (!ksettings.b_expertMode) {
-        if (KMessageBox::questionYesNo(this, i18n("Do you really want to disconnect?"), 
-                                       i18n("Question"), 
-                                       KStdGuiItem::yes(), KStdGuiItem::no(), 
-                                       "kget_AutoOnlineDisconnect") 
+        if (KMessageBox::questionYesNo(this, i18n("Do you really want to disconnect?"),
+                                       i18n("Question"),
+                                       KStdGuiItem::yes(), KStdGuiItem::no(),
+                                       "kget_AutoOnlineDisconnect")
             != KMessageBox::Yes) {
             return;
         }
@@ -2168,10 +2168,10 @@ void KMainWidget::checkOnline()
         }
 
         if (b_online) {
-            log(i18n("We are online!"));
+            log(i18n("We are online."));
             checkQueue();
         } else {
-            log(i18n("We are offline!"));
+            log(i18n("We are offline."));
             pauseAll();
         }
     }
