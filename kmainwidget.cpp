@@ -46,9 +46,7 @@
 #include <qtimer.h>
 #include <qdropsite.h>
 #include <qpopupmenu.h>
-#include <kinputdialog.h>
 
-#include <kprotocolinfo.h>
 #include <kfiledialog.h>
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -329,15 +327,17 @@ KMainWidget::~KMainWidget()
 
 void KMainWidget::setupActions()
 {
-/*
+
     KActionCollection *coll = actionCollection();
 
     /** 
      * FILE ACTIONS
      */
          
-/*    m_paOpenTransfer = KStdAction::open(this, SLOT(slotOpenTransfer()), coll, "open_transfer");
-    m_paPasteTransfer = KStdAction::paste(this, SLOT(slotPasteTransfer()), coll, "paste_transfer");
+    KURL url;
+    QString string;
+    m_paOpenTransfer = KStdAction::open(this, SLOT(slotNewURL()), coll, "open_transfer");
+/*    m_paPasteTransfer = KStdAction::paste(this, SLOT(slotPasteTransfer()), coll, "paste_transfer");
 
     m_paExportTransfers = new KAction(i18n("&Export Transfer List..."), 0, scheduler, SLOT(slotExportTransfers()), coll, "export_transfers");
     m_paImportTransfers = new KAction(i18n("&Import Transfer List..."), 0, scheduler, SLOT(slotImportTransfers()), coll, "import_transfers");
@@ -801,9 +801,9 @@ void KMainWidget::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list)) {
-        scheduler->slotNewURLs(list, QString("KGet::default"));
+        scheduler->slotNewURLs(list, QString());
     } else if (QTextDrag::decode(event, str)) {
-        scheduler->slotNewURL(str, QString("KGet::default"));
+        scheduler->slotNewURL(KURL::fromPathOrURL(str), QString());
     }
     sDebugOut << endl;
 }
@@ -891,6 +891,10 @@ void KMainWidget::slotPreferences()
 #endif
 }
 
+void KMainWidget::slotNewURL()
+{
+    scheduler->slotNewURL(KURL(), QString());
+}
 
 void KMainWidget::slotToggleLogWindow()
 {
@@ -1483,32 +1487,6 @@ static int sockets_open()
     return ddp_sock;
 }
 
-
-/** No descriptions */
-
-/*QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
-{
-    // first set destination directory to current directory ( which is also last used )
-    QString destDir = ksettings.lastDirectory;
-
-    if (!ksettings.b_useLastDir) {
-        // check wildcards for default directory
-        DirList::Iterator it;
-        for (it = ksettings.defaultDirList.begin(); it != ksettings.defaultDirList.end(); ++it) {
-            QRegExp rexp((*it).extRegexp);
-
-            rexp.setWildcard(true);
-
-            if ((rexp.search( filename )) != -1) {
-                destDir = (*it).defaultDir;
-                break;
-            }
-        }
-    }
-
-    return destDir;
-}
-*/
 
 void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
 {

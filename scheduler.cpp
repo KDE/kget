@@ -1,28 +1,45 @@
-#include "scheduler.h"
-#include "safedelete.h"
-#include "settings.h"
+#include <qregexp.h>
 
-#include "kmainwidget.h"
-#include "transfer.h"
-#include "transferlist.h"
-
+#include <kurl.h>
 #include <kio/netaccess.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
+#include <kprotocolinfo.h>
+#include <kinputdialog.h>
+
+#include "scheduler.h"
+#include "safedelete.h"
+#include "settings.h"
+#include "kmainwidget.h"
+#include "transfer.h"
+#include "transferlist.h"
+
 
 Scheduler::Scheduler(KMainWidget * _mainWidget)
     : QObject(),
       mainWidget(_mainWidget)
 {
     transfers = new TransferList(this);
+    removedTransfers = new TransferList(this);
 }
 
 Scheduler::~Scheduler()
 {
 
 }
+
+void Scheduler::run()
+{
+
+}
+
+void Scheduler::stop()
+{
+
+}
+
 
 void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 {
@@ -41,37 +58,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
         return;
 
     if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
-    {
-        KURL destFile;
-
-        if ( !destDir.isEmpty() )
-        {
-            // create a proper destination file from destDir
-            KURL destURL = KURL::fromPathOrURL( destDir );
-            QString fileName = urlsToDownload.first().fileName();
-
-            // in case the fileName is empty, we simply ask for a filename in
-            // addTransferEx. Do NOT attempt to use an empty filename, that
-            // would be a directory (and we don't want to overwrite that!)
-            if ( !fileName.isEmpty() )
-            {
-                destURL.adjustPath( +1 );
-                destURL.setFileName( fileName );
-                if(KIO::NetAccess::exists(destURL, false, mainWidget))
-                {
-                    if (KMessageBox::warningYesNo(mainWidget,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
-                        == KMessageBox::Yes)
-                    {
-                        SafeDelete::deleteFile( destURL );
-                        destFile = destURL;
-                    }
-                }
-            }
-        }
-
-        addTransferEx( urlsToDownload.first(), destFile );
-        return;
-    }
+        slotNewURL(src.first(), destDir);
 
     // multiple files -> ask for directory, not for every single filename
     KURL dest;
@@ -79,8 +66,8 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     {
         if ( !destDir.isEmpty()  )
             dest.setPath( destDir );
-        //else
-        //    dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
+        else
+            dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
         // ask in any case, when destDir is empty
         if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
@@ -97,6 +84,8 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     // dest is now finally the real destination directory for all the files
     dest.adjustPath(+1);
 
+    TransferList list(this);
+    
     // create new transfer items
     KURL::List::ConstIterator it = urlsToDownload.begin();
     for ( ; it != urlsToDownload.end(); ++it )
@@ -122,10 +111,16 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
             }
         }
 
-        Transfer *item = transfers->addTransfer(*it, destURL);
-        //item->updateAll(); // update the remaining fields
+        //Transfer *item = transfers->addTransfer(*it, destURL);
+        Transfer *item = new Transfer(this, *it, destURL);
+        list.addTransfer(item);
     }
 
+    transfers->addTransfers(list);
+    
+    emit addedItems(list);
+    
+    
     //transfers->clearSelection();
 
 /*    if (ksettings.b_useSound) {
@@ -137,45 +132,120 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
 }
 
 
-void Scheduler::slotNewURL(const KURL & src, const QString& destDir)
+void Scheduler::slotNewURL(KURL src, const QString& destDir)
 {
-#ifdef _DEBUG
     sDebugIn << endl;
-#endif
-/*
-    if ( src.isEmpty() )
-        return;
-
-    addTransferEx( KURL::fromPathOrURL( src ) );
-
-*/    
     
-#ifdef _DEBUG
+    /**
+     * No src location: we let the user insert it manually
+     */
+    if ( src.isEmpty() )
+        {
+        QString newtransfer;
+        bool ok = false;
+    
+        while (!ok) 
+            {
+            newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, mainWidget);
+    
+            // user presses cancel
+            if (!ok) 
+                {
+                return;
+            }
+    
+            src = KURL::fromPathOrURL(newtransfer);
+    
+            if (!src.isValid()) 
+                {
+                KMessageBox::error(mainWidget, i18n("Malformed URL:\n%1").arg(newtransfer), i18n("Error"));
+                ok = false;
+            }
+        }
+    }
+        
+    KURL destFile;
+
+    /**
+     * destDir not empty: if the file exists the function
+     * asks the user to confirm the overwriting action
+     */
+    if ( !destDir.isEmpty() )
+    {
+        // create a proper destination file from destDir
+        KURL destURL = KURL::fromPathOrURL( destDir );
+        QString fileName = src.fileName();
+
+        // in case the fileName is empty, we simply ask for a filename in
+        // addTransferEx. Do NOT attempt to use an empty filename, that
+        // would be a directory (and we don't want to overwrite that!)
+        if ( !fileName.isEmpty() )
+        {
+            destURL.adjustPath( +1 );
+            destURL.setFileName( fileName );
+            if(KIO::NetAccess::exists(destURL, false, mainWidget))
+            {
+                if (KMessageBox::warningYesNo(mainWidget,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                    == KMessageBox::Yes)
+                {
+                    SafeDelete::deleteFile( destURL );
+                    destFile = destURL;
+                }
+            }
+        }
+    }
+
+    Transfer * item = addTransferEx( src, destFile );
+
+    //In this case we have inserted nothing
+    if (item == 0)
+        return;
+    
+    TransferList list(this);
+    list.addTransfer(item);
+       
+    emit addedItems(list);
+    
     sDebugOut << endl;
-#endif
 }
 
-void Scheduler::slotRemoveItems(QValueList<Transfer *> list)
+void Scheduler::slotRemoveItems(TransferList & list)
 {
-
+    transfers->removeTransfers(list);
+    removedTransfers->addTransfers(list);
+    
+    emit removedItems(list);
 }
 
 void Scheduler::slotRemoveItem(Transfer * item)
 {
-
+    transfers->removeTransfer(item);
+    removedTransfers->addTransfer(item);
+    
+    TransferList list(this);
+    list.addTransfer(item);
+    
+    emit removedItems(list);
 }
 
-void Scheduler::slotSetPriority(QValueList<Transfer *> list, int priority)
+void Scheduler::slotSetPriority(TransferList & list, int priority)
 {
-
+    transfers->moveToBegin(list, priority);
+    
+    emit changedItems(list);
 }
 
 void Scheduler::slotSetPriority(Transfer * item, int priority)
 {
-
+    transfers->moveToBegin(item, priority);
+    
+    TransferList list(this);
+    list.addTransfer(item);
+    
+    emit changedItems(list);
 }
 
-void Scheduler::slotSetOperation(QValueList<Transfer *> list, TransferOperation op)
+void Scheduler::slotSetOperation(TransferList & list, TransferOperation op)
 {
 
 }
@@ -185,14 +255,27 @@ void Scheduler::slotSetOperation(Transfer * item, TransferOperation op)
 
 }
 
-void Scheduler::slotSetGroup(QValueList<Transfer *> list, const QString & groupName)
+void Scheduler::slotSetGroup(TransferList & list, const QString & groupName)
 {
-
+    TransferList::iterator it;
+    TransferList::iterator endList = list.end();
+    
+    for(it = list.begin(); it != endList; ++it)
+        {
+        (*it)->setGroup(groupName);
+    }
+    
+    emit changedItems(list);
 }
 
 void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
 {
+    item->setGroup(groupName);
 
+    TransferList list(this);
+    list.addTransfer(item);
+    
+    emit changedItems(list);
 }
 
 void Scheduler::slotTransferStatusChanged(Transfer *, int TransferOperation)
@@ -322,6 +405,8 @@ void Scheduler::slotReadTransfers(const KURL & file)
     //slotTransferTimeout();
     //transfers->clearSelection();
 
+    emit addedItems(*transfers);
+
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -377,15 +462,15 @@ void Scheduler::writeTransfers(const QString & file)
 
 // destFile must be a filename, not a directory! And it will be deleted, if
 // it exists already, without further notice.
-void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
+Transfer * Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
 {
-/*
+
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    if ( !sanityChecksSuccessful( url ) )
-        return;
+    if ( !isValidURL( url ) )
+        return 0;
 
     KURL destURL = destFile;
 
@@ -419,7 +504,7 @@ void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
 #ifdef _DEBUG
                     sDebugOut << endl;
 #endif
-                    return;
+                    return 0;
                 }
                 else
                 {
@@ -431,14 +516,14 @@ void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
                 // in expert mode don't open the filedialog
                 // if destURL is not empty, it's the suggested filename
                 destURL = KURL::fromPathOrURL( destDir + "/" +
-                                               ( destURL.isEmpty() 
+                                               ( destURL.isEmpty() ?
                                                    url.fileName() : destURL.url() ));
             }
 
             //check if destination already exists
-            if(KIO::NetAccess::exists(destURL, false, this))
+            if(KIO::NetAccess::exists(destURL, false, mainWidget))
             {
-                if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                if (KMessageBox::warningYesNo(mainWidget,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
                                               == KMessageBox::Yes)
                 {
                     bDestisMalformed=false;
@@ -459,36 +544,31 @@ void Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
     {
         // simply delete it, the calling process should have asked if you
         // really want to delete (at least khtml does)
-        if(KIO::NetAccess::exists(destURL, false, this))
+        if(KIO::NetAccess::exists(destURL, false, mainWidget))
             SafeDelete::deleteFile( destURL );
     }
 
     // create a new transfer item
-    Transfer *item = transfers->addTransfer(url, destURL);
-    item->updateAll(); // update the remaining fields
+    return transfers->addTransfer(url, destURL);
 
-    if (ksettings.b_showIndividual)
-        item->showIndividual();
-
-    transfers->clearSelection();
-
-    if (ksettings.b_useSound) {
+    /*if (ksettings.b_useSound) {
         KAudioPlayer::play(ksettings.audioAdded);
     }
     checkQueue();
+    */
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
-*/
+
 }
 
 bool Scheduler::isValidURL( const KURL& url )
 {
-/*
+
     if (!url.isValid() || !KProtocolInfo::supportsReading( url ) )
     {
         if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
+            KMessageBox::error(mainWidget, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
 
         return false;
     }
@@ -500,21 +580,20 @@ bool Scheduler::isValidURL( const KURL& url )
         {
             if ( !ksettings.b_expertMode )
             {
-                KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
+                KMessageBox::error(mainWidget, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
             }
 
-            transfer->showIndividual();
             return false;
         }
 
         else // transfer is finished, ask if we want to download again
         {
             if ( ksettings.b_expertMode ||
-                 (KMessageBox::questionYesNo(this, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
+                 (KMessageBox::questionYesNo(mainWidget, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
                      == KMessageBox::Yes) )
             {
                 transfer->slotRequestRemove();
-                checkQueue();
+                //checkQueue();
                 return true;
             }
         }
@@ -533,7 +612,6 @@ bool Scheduler::isValidURL( const KURL& url )
 //     }
 
     return true;
-*/
 }
 
 bool Scheduler::isValidDest( const KURL& dest )
@@ -541,6 +619,34 @@ bool Scheduler::isValidDest( const KURL& dest )
     //Copy from addTransferEx
 }
 
+QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
+{
+    /**
+     * first set destination directory to current directory 
+     * ( which is also last used )
+     */
+     
+    QString destDir = ksettings.lastDirectory;
+
+    if (!ksettings.b_useLastDir) {
+        // check wildcards for default directory
+        DirList::Iterator it;
+        for (it = ksettings.defaultDirList.begin(); 
+             it != ksettings.defaultDirList.end(); ++it) 
+             {
+             QRegExp rexp((*it).extRegexp);
+
+            rexp.setWildcard(true);
+
+            if ((rexp.search( filename )) != -1) {
+                destDir = (*it).defaultDir;
+                break;
+            }
+        }
+    }
+
+    return destDir;
+}
 
 
 /*

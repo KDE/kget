@@ -1,16 +1,17 @@
 #include <qobject.h>
 #include "viewinterface.h"
 #include "scheduler.h"
+#include "transferlist.h"
 
 ViewInterface::ViewInterface( Scheduler * sched )
 {
     // Incoming data: connect shceduler's signals to local slots
-    connect( sched, SIGNAL( addedItems(QValueList<Transfer *>) ),
-	     this, SLOT( schedulerAddedItems(QValueList<Transfer *>) ) );
-    connect( sched, SIGNAL( removedItems(QValueList<Transfer *>) ),
-	     this, SLOT( schedulerRemovedItems(QValueList<Transfer *>) ) );
-    connect( sched, SIGNAL( changedItems(QValueList<Transfer *>) ),
-	     this, SLOT( schedulerChangedItems(QValueList<Transfer *>) ) );
+    connect( sched, SIGNAL( addedItems(TransferList &) ),
+	     this, SLOT( schedulerAddedItems(TransferList &) ) );
+    connect( sched, SIGNAL( removedItems(TransferList &) ),
+	     this, SLOT( schedulerRemovedItems(TransferList &) ) );
+    connect( sched, SIGNAL( changedItems(TransferList &) ),
+	     this, SLOT( schedulerChangedItems(TransferList &) ) );
     connect( sched, SIGNAL( clear() ),
 	     this, SLOT( schedulerCleared() ) );
     connect( sched, SIGNAL( globalStatus(GlobalStatus *) ),
@@ -19,27 +20,27 @@ ViewInterface::ViewInterface( Scheduler * sched )
     // Outgoing data: connect local signals to scheduler's slots
     connect( this, SIGNAL( newURLs(const KURL::List &, const QString &) ),
 	     sched, SLOT( slotNewURLs(const KURL::List &, const QString &) ) );
-    connect( this, SIGNAL( removeItems(QValueList<Transfer *>) ),
-	     sched, SLOT( slotRemoveItems(QValueList<Transfer *>) ) );
-    connect( this, SIGNAL( setPriority(QValueList<Transfer *>, int) ),
-	     sched, SLOT( slotSetPriority(QValueList<Transfer *>, int) ) );
-    connect( this, SIGNAL( setOperation(QValueList<Transfer *>, TransferOperation) ),
-	     sched, SLOT( slotSetOperation(QValueList<Transfer *>, TransferOperation) ) );
-    connect( this, SIGNAL( setGroup(QValueList<Transfer *>, const QString &) ),
-	     sched, SLOT( slotSetGroup(QValueList<Transfer *>, const QString &) ) );
+    connect( this, SIGNAL( removeItems(TransferList &) ),
+	     sched, SLOT( slotRemoveItems(TransferList &) ) );
+    connect( this, SIGNAL( setPriority(TransferList &, int) ),
+	     sched, SLOT( slotSetPriority(TransferList &, int) ) );
+    connect( this, SIGNAL( setOperation(TransferList &, TransferOperation) ),
+	     sched, SLOT( slotSetOperation(TransferList &, TransferOperation) ) );
+    connect( this, SIGNAL( setGroup(TransferList &, const QString &) ),
+	     sched, SLOT( slotSetGroup(TransferList &, const QString &) ) );
 }
 
 
 void ViewInterface::schedulerCleared()
 {}
 
-void ViewInterface::schedulerAddedItems( QValueList<Transfer *> )
+void ViewInterface::schedulerAddedItems( TransferList &)
 {}
 
-void ViewInterface::schedulerRemovedItems( QValueList<Transfer *> )
+void ViewInterface::schedulerRemovedItems( TransferList &)
 {}
 
-void ViewInterface::schedulerChangedItems( QValueList<Transfer *> )
+void ViewInterface::schedulerChangedItems( TransferList &)
 {}
 
 void ViewInterface::schedulerStatus( GlobalStatus * )

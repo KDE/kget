@@ -84,6 +84,8 @@ public:
     void readTransfersEx(const KURL & url);
 
 public slots:
+    void slotNewURL();
+    
     void slotToggleLogWindow();
     void slotPreferences();
     void slotToggleExpertMode();
@@ -158,7 +160,6 @@ protected:
 
 private:
 	Scheduler * sched;
-    QString getSaveDirectoryFor( const QString& filename ) const;
     bool sanityChecksSuccessful( const KURL& url );
 
     Scheduler * scheduler;

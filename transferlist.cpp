@@ -90,7 +90,7 @@ void TransferList::removeTransfer(Transfer * transfer)
     remove(transfer);    
 }
 
-void TransferList::removeTransfer(TransferList & transfers)
+void TransferList::removeTransfers(TransferList & transfers)
 {
     TransferList::iterator it;
     TransferList::iterator endList = transfers.end();
@@ -169,16 +169,15 @@ void TransferList::moveToEnd(Transfer * item)
 
 Transfer * TransferList::find(const KURL& _src)
 {
-/*    TransferIterator it(this);
-
-    for (; it.current(); ++it) {
-        if (it.current()->getSrc() == _src) {
-            return it.current();
-        }
+    iterator it;
+    iterator endList = end();
+    
+    for(it = begin(); it != endList; ++it)
+        {
+        if((*it)->getSrc() == _src)
+            return *it;
     }
-
-    return 0L;
-*/
+    return 0;
 }
 
 

@@ -9,6 +9,8 @@
 
 #include "globals.h"
 
+#include "transferlist.h"
+
 class GlobalStatus
 {
 public:
@@ -37,15 +39,20 @@ public:
 	Scheduler(KMainWidget * _mainWidget);
 	~Scheduler();
 
+    
 signals:
-	void addedItems(QValueList<Transfer *>);
-	void removedItems(QValueList<Transfer *>);
-	void changedItems(QValueList<Transfer *>);
+	void addedItems(TransferList &);
+	void removedItems(TransferList &);
+	void changedItems(TransferList &);
 	void clear();
 	void globalStatus(GlobalStatus *);
 	
 public slots:
-	/**
+    void run();
+    void stop();
+	
+    
+    /**
      * Just an idea for these slots: we can handle 3 cases:
      *  1) src = empty list -> means that the src url must be inserted 
      *     manually from the user (with a dialog popping up)
@@ -60,19 +67,21 @@ public slots:
     
     /**
      * See the above function for details
+     * TEMP(Dario) I have removed the const qualifier to the KURL object
+     * becouse I need to modify it when no src is passed to the function
      */
-	void slotNewURL(const KURL & src, const QString& destDir);
+	void slotNewURL(KURL src, const QString& destDir);
     
-	void slotRemoveItems(QValueList<Transfer *>);
+	void slotRemoveItems(TransferList &);
 	void slotRemoveItem(Transfer *);
     
-	void slotSetPriority(QValueList<Transfer *>, int);
+	void slotSetPriority(TransferList &, int);
 	void slotSetPriority(Transfer *, int);
     
-	void slotSetOperation(QValueList<Transfer *>, TransferOperation);
+	void slotSetOperation(TransferList &, TransferOperation);
 	void slotSetOperation(Transfer *, TransferOperation);
     
-	void slotSetGroup(QValueList<Transfer *>, const QString &);
+	void slotSetGroup(TransferList &, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
 
     /**
@@ -147,7 +156,7 @@ private:
      * Low level function called by addTransfers(...) and addTransfer(...).
      * It adds a Transfer. destFile must be a file, not a directory!
      */
-    void addTransferEx(const KURL& url, const KURL& destFile = KURL());
+    Transfer * addTransferEx(const KURL& url, const KURL& destFile = KURL());
 
     /**
      * Checks if the given url is valid or not.
@@ -159,10 +168,13 @@ private:
      */
     bool isValidDest( const KURL& url);
     
+    QString getSaveDirectoryFor( const QString& filename ) const;
+    
     void checkQueue();
     
     
     TransferList * transfers;
+    TransferList * removedTransfers;
     KMainWidget * mainWidget;
 };
 

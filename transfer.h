@@ -88,13 +88,14 @@ public:
     TransferStatus getStatus()const {return status;}
     int getMode()const {return mode;}
     int getPriority() {return priority;}
-    
+    QString getGroup() {return group;}
+        
     void setMode(TransferMode _mode) {mode = _mode;}
     void setStatus(TransferStatus _status) {status = _status;};
     void setStartTime(QDateTime _startTime) {startTime = _startTime;};
     void setSpeed(unsigned long _speed);
     void setPriority(int _priority) {priority = _priority;}
-    
+    void setGroup(const QString & _group) {group = _group;}
 
     void UpdateRetry();
 
@@ -162,11 +163,12 @@ private:
     KURL src;
     KURL dest;
 
-    /* the tranfer id number */
+    // the tranfer id number
     uint id;
 
-    static uint idcount;
-
+    // the transfer group Name
+    QString group;
+    
     // log
     QString transferLog;
     

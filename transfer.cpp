@@ -70,7 +70,7 @@ Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest
     else
         mode = MD_DELAYED;
 
-    connect(this, SIGNAL(statusChanged(Transfer *, int)), scheduler, SLOT(slotStatusChanged(Transfer *, int)));
+    connect(this, SIGNAL(statusChanged(Transfer *, int)), scheduler, SLOT(slotTransferStatusChanged(Transfer *, int)));
     connect(this, SIGNAL(statusChanged(Transfer *, int)), this, SLOT(slotUpdateActions()));
 
     //connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));

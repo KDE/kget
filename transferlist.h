@@ -77,7 +77,7 @@ public:
      * Functions used to remove items from the list
      */
     void removeTransfer(Transfer * transfer);
-    void removeTransfer(TransferList & transfers);
+    void removeTransfers(TransferList & transfers);
 
         
     /**
