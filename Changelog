@@ -1,5 +1,9 @@
+2005-01-14 Dario Massarin <nekkar@libero.it>
+        * Correct stupid bug that caused wrong updates of the percent field 
+        in the group object.
+
 2005-01-13 Dario Massarin <nekkar@libero.it>
-	* Reorganization of the directories. Some files have been renamed.
+        * Reorganization of the directories. Some files have been renamed.
 
 2004-11-05 Dario Massarin <nekkar@libero.it>
         * Fixed nasty bug in transferKio.cpp which produced a crash every time

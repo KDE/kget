@@ -134,8 +134,9 @@ void Group::changedTransfer(Transfer * t, Transfer::TransferChanges tc)
             setGroupChange(Gc_ProcessedSize);
             break;            
         case Transfer::Tc_TotalSize:
-            gInfo.processedSize-=transfersMap[t].totalSize;
-            gInfo.processedSize+=ti.totalSize;
+            kdDebug() << "Group::changedTransfer -> TotalSize" << endl;
+            gInfo.totalSize-=transfersMap[t].totalSize;
+            gInfo.totalSize+=ti.totalSize;
             
             transfersMap[t] = updatedInfoCache(t);
             setGroupChange(Gc_TotalSize);
