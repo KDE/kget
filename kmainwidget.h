@@ -145,6 +145,8 @@ protected slots:
     void slotPopupMenu(Transfer * item);
 
 protected:
+    virtual void setOfflineMode( bool online );
+	virtual bool isOfflineMode() const;
     virtual bool queryClose();
     void writeLog();
 

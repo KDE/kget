@@ -2383,5 +2383,15 @@ void KMainWidget::setDropTargetVisible( bool setVisible )
     }
 }
 
+void KMainWidget::setOfflineMode( bool offline )
+{
+    if ( ksettings.b_offlineMode != offline )
+        slotToggleOfflineMode();
+}
+
+bool KMainWidget::isOfflineMode() const
+{
+    return ksettings.b_offlineMode;
+}
 
 #include "kmainwidget.moc"
