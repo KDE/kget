@@ -54,7 +54,7 @@ class Transfer:public QObject, public KListViewItem
 {
     Q_OBJECT
 public:
-    enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
+    enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE, MD_NEW };
 
     enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
 
@@ -160,6 +160,7 @@ public:
     void slotExecBroken();
     void slotCanResume(bool _bCanResume);
     void slotSpeed(unsigned long);
+    void checkCache();
 
     bool isVisible() const;
     void maybeShow();
@@ -174,9 +175,8 @@ public slots:
     void slotRequestRemove();
     void slotRequestSchedule();
     void slotRequestDelay();
-
+    void NotInCache();
     void slotRequestRestart();
-
     void slotUpdateActions();
 
     void slotQueue();

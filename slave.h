@@ -49,7 +49,7 @@ class Slave:public QObject, public QThread
 
 public:
     enum SlaveCommand {
-        RETR, PAUSE, RESTART, ABORT, DELAY,
+        RETR, RETR_CACHE, PAUSE, RESTART, ABORT, DELAY,
         SCHEDULE, REMOVE, KILL, NOOP
     };
 
@@ -59,7 +59,7 @@ public:
         SLV_CAN_RESUME, SLV_CONNECTED,
 
         SLV_RESUMED, SLV_PAUSED, SLV_ERROR, SLV_BROKEN, SLV_SCHEDULED, SLV_DELAYED,
-        SLV_FINISHED, SLV_INFO, SLV_REMOVED, SLV_KILLED
+        SLV_FINISHED, SLV_INFO, SLV_REMOVED, SLV_KILLED, SLV_NOTINCACHE
     };
 
 public:

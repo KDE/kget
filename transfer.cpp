@@ -116,12 +116,6 @@ Transfer::init(const uint _id)
 
     status = ST_STOPPED;
 
-    if (ksettings.b_addQueued)
-        mode = MD_QUEUED;
-    else
-        mode = MD_DELAYED;
-
-
 
     connect(this, SIGNAL(statusChanged(Transfer *, int)), kmain, SLOT(slotStatusChanged(Transfer *, int)));
     connect(this, SIGNAL(statusChanged(Transfer *, int)), this, SLOT(slotUpdateActions()));
@@ -152,6 +146,8 @@ Transfer::init(const uint _id)
     // m_paDock = new KAction(i18n("&Dock"),"tool_dock", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
 
     // setup individual transfer dialog
+
+    mode = MD_NEW;
 
     sDebugOut << endl;
 }
@@ -195,7 +191,8 @@ void Transfer::slotUpdateActions()
     UpdateRetry();
 
     switch (status) {
-    case ST_TRYING:
+
+    case ST_TRYING://fall-through
     case ST_RUNNING:
         m_paResume->setEnabled(false);
         m_paPause->setEnabled(true);
@@ -229,6 +226,7 @@ void Transfer::slotUpdateActions()
     case MD_DELAYED:
         m_paDelay->setChecked(true);
         break;
+    case MD_NEW: //fall through
     case MD_NONE:
         m_paQueue->setChecked(false);
         m_paTimer->setChecked(false);
@@ -874,6 +872,25 @@ void Transfer::slotExecResume()
 void Transfer::slotExecConnected()
 {
     sDebugIn << endl;
+    if (mode == MD_NEW)
+    {
+        if (ksettings.b_offline)// when we're offline and arrive here, then the file is in cache
+            return;             // Slave::slotResult will be called immediately, so we do nothing here
+        status = ST_STOPPED;
+        m_pSlave->Op(Slave::KILL);
+        if (ksettings.b_addQueued)
+        {
+            mode = MD_QUEUED;
+            emit statusChanged(this, OP_QUEUED);
+        }
+        else
+        {
+            mode = MD_DELAYED;
+            emit statusChanged(this, OP_DELAYED);
+        }
+        return;
+    }
+    
     status = ST_RUNNING;
     emit statusChanged(this, OP_CONNECTED);
     sDebugOut << endl;
@@ -965,5 +982,27 @@ bool Transfer::retryOnBroken()
     return (ksettings.b_reconnectOnBroken && (retryCount < ksettings.reconnectRetries));
 }
 
+void Transfer::checkCache()
+{
+    assert (mode == MD_NEW);
+
+    if (src.protocol()=="http")
+    {
+        status = ST_TRYING;
+        m_pSlave->Op(Slave::RETR_CACHE);
+    }
+    else
+        NotInCache();
+}
+
+void Transfer::NotInCache()
+{
+    logMessage(i18n("checking if file is in cache...no"));
+    if (ksettings.b_addQueued)
+        mode = MD_QUEUED;
+    else
+        mode = MD_DELAYED;
+    status = ST_STOPPED;
+}
 #include "transfer.moc"
 

@@ -1273,10 +1273,9 @@ void KMainWidget::checkQueue()
     uint numRun = 0;
     int status;
     Transfer *item;
+    TransferIterator it(myTransferList);
 
     if (!ksettings.b_offline) {
-
-        TransferIterator it(myTransferList);
 
         // count running transfers
         for (; it.current(); ++it) {
@@ -1290,11 +1289,12 @@ void KMainWidget::checkQueue()
         bool isQuequed;
         for (; it.current() && numRun < ksettings.maxSimultaneousConnections; ++it) {
             item = it.current();
-            isRunning = (item->getStatus() == Transfer::ST_RUNNING) || (item->getStatus() == Transfer::ST_TRYING);
+            isRunning = (item->getStatus() == Transfer::ST_RUNNING) || ((item->getStatus() == Transfer::ST_TRYING));
 
-            isQuequed = (item->getMode() == Transfer::MD_QUEUED);
+            isQuequed = (item->getMode() == Transfer::MD_QUEUED || item->getMode() == Transfer::MD_NEW);
 
-            if (!isRunning && isQuequed && !ksettings.b_offline) {
+            if     (!isRunning && isQuequed && !ksettings.b_offline)
+            {
                 log(i18n("Starting another queued job."));
                 item->slotResume();
                 numRun++;
@@ -1305,11 +1305,19 @@ void KMainWidget::checkQueue()
 
         updateStatusBar();
 
-    } else {
-        log(i18n("Cannot continue offline status"));
+//    } else {//TODO this has to be solved different
+//        log(i18n("Cannot continue offline status"));
     }
 
-
+    it.reset();
+    for (; it.current(); ++it)
+    {
+        item = it.current();
+        if (item->getMode() == Transfer::MD_NEW && item->getStatus() == Transfer::ST_STOPPED)
+        {
+            item->checkCache();
+        }
+    }
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -2285,6 +2293,10 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 
     case Slave::SLV_INFO:
         e->getItem()->logMessage(e->getMsg());
+        break;
+        
+        case Slave::SLV_NOTINCACHE:
+        e->getItem()->NotInCache();
         break;
     default:
 #ifdef _DEBUG

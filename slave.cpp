@@ -123,6 +123,15 @@ void Slave::run()
                 PostMessage(SLV_RESUMED);
                 break;
 
+            case RETR_CACHE:
+                mDebug << " FETCHED COMMAND       RETR_CACHE" << endl;
+                assert(!copyjob);
+                KIO::Scheduler::checkSlaveOnHold( true );
+                copyjob = new KIO::GetFileJob(m_src, m_dest);
+                copyjob->addMetaData("cache", "cacheonly");
+                Connect();
+                break;
+
             case PAUSE:
                 mDebug << " FETCHED COMMAND       PAUSE" << endl;
                 if (copyjob) {
@@ -252,6 +261,12 @@ void Slave::slotResult(KIO::Job * job)
         PostMessage(SLV_FINISHED);
     }
     else {
+        if (m_parent->getMode() == Transfer::MD_NEW \
+            && error == KIO::ERR_DOES_NOT_EXIST)
+        {
+            PostMessage(SLV_NOTINCACHE);
+            return;
+        }
         QString tmsg="<font color=\"red\"> <b>" + job->errorString() + \
                 "</b></font>";
         InfoMessage(tmsg);
@@ -284,10 +299,18 @@ void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
 {
     mDebugIn << "= " << (unsigned long) _total_size << endl;
-    PostMessage(SLV_TOTAL_SIZE, _total_size);
 
+    if ((int)_total_size == 0)//shouldn't happen, but does
+        return;
+
+    if (m_parent->getMode() != Transfer::MD_NEW)
+    {
     PostMessage(SLV_CAN_RESUME, copyjob->getCanResume());
     PostMessage(SLV_CONNECTED);
+    }
+    else
+        InfoMessage("checking if file is in cache...yes");
+    PostMessage(SLV_TOTAL_SIZE, _total_size);
     mDebugOut << endl;
 }
 
