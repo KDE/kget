@@ -42,7 +42,10 @@
  * @see: other headers in the dir - for plugin types definition.
  */
 
+#include <kdeversion.h>
+#if KDE_IS_VERSION( 3, 3, 90 )
 #include <kdelibs_export.h>
+#endif
 
 /**
  * @short Declares a class as plugin.
