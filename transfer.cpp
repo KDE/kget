@@ -290,7 +290,7 @@ void Transfer::updateAll()
     logMessage(i18n("To: %1").arg(dest.url()));
 
     // source
-    setText(view->lv_url, src.url());
+    setText(view->lv_url, src.prettyURL());
 
     // destination
     setText(view->lv_filename, dest.fileName());

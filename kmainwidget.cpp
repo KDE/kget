@@ -204,7 +204,6 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0), KGetIface( "KGet-Int
         clipboardTimer->start(1000);
     }
 
-    currentDirectory = "file:" + QDir::currentDirPath();
     readTransfers();
 
     // Setup special windows
@@ -531,7 +530,7 @@ void KMainWidget::slotImportTextFile()
     QString list;
     int i, j;
 
-    KURL filename = KFileDialog::getOpenURL(currentDirectory);
+    KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
     if (filename.isMalformed())
         return;
 
@@ -577,7 +576,7 @@ void KMainWidget::readTransfers(bool ask_for_name)
     KURL url;
 
     if (ask_for_name)
-        url = KFileDialog::getOpenURL(currentDirectory, i18n("*.kgt|*.kgt\n*|All files"));
+        url = KFileDialog::getOpenURL(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All files"));
     else
         url.setPath( locateLocal("appdata", "transfers.kgt") );
 
@@ -639,7 +638,7 @@ void KMainWidget::writeTransfers(bool ask_for_name)
     QString txt;
 
     if (ask_for_name)
-        txt = KFileDialog::getSaveFileName(currentDirectory, i18n("*.kgt|*.kgt\n*|All files"));
+        txt = KFileDialog::getSaveFileName(ksettings.lastDirectory, i18n("*.kgt|*.kgt\n*|All files"));
     else
         txt = locateLocal("appdata", "transfers.kgt");
 
@@ -1047,7 +1046,7 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
                 }
                 else {
                     destURL = dlg.selectedURL();
-                    currentDirectory = destURL.directory();
+                    ksettings.lastDirectory = destURL.directory();
                 }
             } else {
                 // in expert mode don't open the filedialog
@@ -1070,7 +1069,7 @@ void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShow
             {
                 d=QString::null;
                 b_expertMode=false;
-                currentDirectory = destURL.directory();
+                ksettings.lastDirectory = destURL.directory();
             }
         }
         else
@@ -1136,7 +1135,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
                 return;
 
             dest.setPath( dir );
-            currentDirectory = dir;
+            ksettings.lastDirectory = dir;
         }
     }
 
@@ -2246,7 +2245,7 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
 {
     // first set destination directory to current directory ( which is also last used )
-    QString destDir = currentDirectory;
+    QString destDir = ksettings.lastDirectory;
 
     if (!ksettings.b_useLastDir) {
         // check wildcards for default directory

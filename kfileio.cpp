@@ -12,6 +12,7 @@
 
 // Author: Stefan Taferner <taferner@kde.org>
 
+#include <qapplication.h>
 #include <qstring.h>
 #include <unistd.h>
 #include <string.h>
@@ -19,9 +20,9 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 
+#include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kmainwidget.h>
 
 #include "kfileio.h"
 
@@ -41,17 +42,17 @@ QString kFileToString(const QString & aFileName, bool aEnsureNL, bool aVerbose)
 
     if (!info.exists()) {
         if (aVerbose)
-            KMessageBox::error(kmain, i18n("The specified file does not exist:\n%1").arg(aFileName));
+            KMessageBox::error(qApp->mainWidget(), i18n("The specified file does not exist:\n%1").arg(aFileName));
         return QString::null;
     }
     if (info.isDir()) {
         if (aVerbose)
-            KMessageBox::error(kmain, i18n("This is a directory and not a file:\n%1").arg(aFileName));
+            KMessageBox::error(qApp->mainWidget(), i18n("This is a directory and not a file:\n%1").arg(aFileName));
         return QString::null;
     }
     if (!info.isReadable()) {
         if (aVerbose)
-            KMessageBox::error(kmain, i18n("You do not have read permissions to the file:\n%1").arg(aFileName));
+            KMessageBox::error(qApp->mainWidget(), i18n("You do not have read permissions to the file:\n%1").arg(aFileName));
         return QString::null;
     }
     if (len <= 0)
@@ -61,13 +62,13 @@ QString kFileToString(const QString & aFileName, bool aEnsureNL, bool aVerbose)
         if (aVerbose)
             switch (file.status()) {
             case IO_ReadError:
-                KMessageBox::error(kmain, i18n("Could not read file:\n%1").arg(aFileName));
+                KMessageBox::error(qApp->mainWidget(), i18n("Could not read file:\n%1").arg(aFileName));
                 break;
             case IO_OpenError:
-                KMessageBox::error(kmain, i18n("Could not open file:\n%1").arg(aFileName));
+                KMessageBox::error(qApp->mainWidget(), i18n("Could not open file:\n%1").arg(aFileName));
                 break;
             default:
-                KMessageBox::error(kmain, i18n("Error while reading file:\n%1").arg(aFileName));
+                KMessageBox::error(qApp->mainWidget(), i18n("Error while reading file:\n%1").arg(aFileName));
             }
         return QString::null;
     }
@@ -84,7 +85,7 @@ QString kFileToString(const QString & aFileName, bool aEnsureNL, bool aVerbose)
         QString msg = i18n("Could only read %1 bytes of %2.").arg(KGlobal::locale()->formatNumber(readLen,
                       0)).arg(KGlobal::locale()->formatNumber(len, 0));
 
-        KMessageBox::error(kmain, msg);
+        KMessageBox::error(qApp->mainWidget(), msg);
         return QString::null;
     }
 
@@ -108,7 +109,7 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
         if (aAskIfExists) {
             QString str = i18n("File %1 exists.\nDo you want to replace it?").arg(aFileName);
 
-            rc = KMessageBox::questionYesNo(kmain, str);
+            rc = KMessageBox::questionYesNo(qApp->mainWidget(), str);
             if (rc != KMessageBox::Yes)
                 return FALSE;
         }
@@ -123,7 +124,7 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
                 // failed to rename file
                 if (!aVerbose)
                     return FALSE;
-                rc = KMessageBox::warningYesNo(kmain, i18n("Failed to make a backup copy of %1.\nContinue anyway?").arg(aFileName));
+                rc = KMessageBox::warningYesNo(qApp->mainWidget(), i18n("Failed to make a backup copy of %1.\nContinue anyway?").arg(aFileName));
                 if (rc != KMessageBox::Yes)
                     return FALSE;
             }
@@ -134,13 +135,13 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
         if (aVerbose)
             switch (file.status()) {
             case IO_WriteError:
-                KMessageBox::error(kmain, i18n("Could not write to file:\n%1").arg(aFileName));
+                KMessageBox::error(qApp->mainWidget(), i18n("Could not write to file:\n%1").arg(aFileName));
                 break;
             case IO_OpenError:
-                KMessageBox::error(kmain, i18n("Could not open file for writing:\n%1").arg(aFileName));
+                KMessageBox::error(qApp->mainWidget(), i18n("Could not open file for writing:\n%1").arg(aFileName));
                 break;
             default:
-                KMessageBox::error(kmain, i18n("Error while writing file:\n%1").arg(aFileName));
+                KMessageBox::error(qApp->mainWidget(), i18n("Error while writing file:\n%1").arg(aFileName));
             }
         return FALSE;
     }
@@ -148,14 +149,14 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
     writeLen = file.writeBlock(aBuffer, len);
 
     if (writeLen < 0) {
-        KMessageBox::error(kmain, i18n("Could not write to file:\n%1").arg(aFileName));
+        KMessageBox::error(qApp->mainWidget(), i18n("Could not write to file:\n%1").arg(aFileName));
         return FALSE;
     } else if (writeLen < len) {
         QString msg = i18n("Could only write %1 bytes of %2.").arg(KGlobal::locale()->formatNumber(writeLen,
                       0)).arg(KGlobal::locale()->formatNumber(len,
                                                               0));
 
-        KMessageBox::error(kmain, msg);
+        KMessageBox::error(qApp->mainWidget(), msg);
         return FALSE;
     }
 

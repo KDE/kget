@@ -32,6 +32,8 @@
 #include <kwin.h>
 #include <kmessagebox.h>
 
+#include <qdir.h>
+
 #include "kmainwidget.h"
 #include "transferlist.h"
 #include "droptarget.h"
@@ -153,9 +155,9 @@ Settings::load()
     // read directory options
     config->setGroup("Directories");
 
-    // don't read this one
-    // it doesn't make sense to set it to true at the beginning
-    b_useLastDir = DEF_UseLastDir;
+    b_useLastDir = config->readBoolEntry("UseLastDirectory", DEF_UseLastDir);
+    lastDirectory = config->readEntry("LastDirectory",
+                                      QString("file:") + QDir::currentDirPath() );
 
     QStringList strList;
 
@@ -252,6 +254,7 @@ void Settings::save()
 
     // write directory options
     config->setGroup("Directories");
+    config->writeEntry("UseLastDirectory", b_useLastDir);
     DirList::Iterator it;
     QStringList lst;
 

@@ -173,6 +173,7 @@ public:
 
     // directories options
     bool b_useLastDir;
+    QString lastDirectory;
 
     DirList defaultDirList;
 

@@ -41,12 +41,13 @@ class QTextEdit;
 class QCheckBox;
 class KPushButton;
 class KProgress;
+class KToggleAction;
 
 class DockIndividual;
 
 class DlgIndividual:public KDialog
 {
-Q_OBJECT 
+Q_OBJECT
 public:
     DlgIndividual(Transfer * _item);
     ~DlgIndividual()

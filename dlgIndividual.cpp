@@ -38,6 +38,7 @@
 #include <ksqueezedtextlabel.h>
 
 #include <kapplication.h>
+#include <kaction.h>
 #include <klocale.h>
 #include <ktoolbar.h>
 #include <krun.h>
@@ -46,7 +47,6 @@
 #include "transfer.h"
 
 #include "settings.h"
-#include "kmainwidget.h"
 #include "dlgIndividual.h"
 
 
@@ -65,7 +65,6 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 
     QVBoxLayout *topLayout = new QVBoxLayout( this, KDialog::marginHint(),KDialog::spacingHint() );
     topLayout->addStrut( 360 );   // makes dlg at least that wide
-    topLayout->setResizeMode(QVBoxLayout::Fixed);
 
     QGridLayout *grid = new QGridLayout( 2, 3 );
     topLayout->addLayout(grid);
@@ -201,7 +200,6 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 
     topLayout->addWidget(panelAdvanced);
     slotToggleAdvanced(ksettings.b_advancedIndividual);
-    setFixedSize(sizeHint());
     if (ksettings.b_showIndividual)
     {
         show();
@@ -209,7 +207,6 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 
 
     resize( sizeHint() );
-    setMaximumHeight(sizeHint().height());
 
     //bool keepOpenChecked = false;
     //bool noCaptionYet = true;
@@ -259,8 +256,8 @@ void DlgIndividual::setCopying(const KURL & from, const KURL & to)
     m_location=to;
     setCaption(m_location.fileName());
 
-    sourceLabel->setText(from.url());
-    destLabel->setText(to.url());
+    sourceLabel->setText(from.prettyURL());
+    destLabel->setText(to.prettyURL());
 }
 
 
@@ -330,10 +327,10 @@ void DlgIndividual::slotKeepOpenToggled(bool bToggled)
     bKeepDlgOpen=bToggled;
 
     if (!bKeepDlgOpen && item->getStatus()==Transfer::ST_FINISHED)
-      {
+    {
         hide();
         m_pDockIndividual->hide();
-	}
+    }
 
 #ifdef _DEBUG
     sDebugOut<<endl;

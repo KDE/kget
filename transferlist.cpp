@@ -34,7 +34,6 @@
 #include <ksimpleconfig.h>
 #include <kio/netaccess.h>
 
-#include "kmainwidget.h"
 #include "transfer.h"
 #include "transferlist.h"
 

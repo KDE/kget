@@ -193,8 +193,6 @@ private:
 
     QString lastClipboard;
 
-    QString currentDirectory;
-
     uint animCounter;
 
     int _sock;

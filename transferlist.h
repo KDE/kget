@@ -28,7 +28,7 @@
 #define _TransferList_h
 
 #include <klistview.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include <kurl.h>
 
