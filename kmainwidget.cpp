@@ -1022,58 +1022,58 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
     sDebugIn << endl;
 #endif
 
-    KURL df = destFile;
-
     if ( !sanityChecksSuccessful( url ) )
         return;
 
     KURL destURL = destFile;
 
-    if ( destURL.isMalformed() ) // empty URL -> ask for destination
+    // Malformed destination url means one of two things.
+    // 1) The URL is empty.
+    // 2) The URL is only a filename, like a default (suggested) filename.
+    if ( destURL.isMalformed() )
     {
         // Setup destination
         QString destDir = getSaveDirectoryFor( url.fileName() );
+        bool b_expertMode = ksettings.b_expertMode;
+        bool bDestisMalformed = true;
 
-        bool bDestisMalformed=true;
-        bool b_expertMode=ksettings.b_expertMode;
         while (bDestisMalformed)
         {
-            if (df.isEmpty()) {           // if we didn't provide destination
-                if (!b_expertMode) {
-                    // open the filedialog for confirmation
-                    KFileDialog dlg( destDir, QString::null,
-                                     0L, "save_as", true);
-                    dlg.setCaption(i18n("Save As"));
-                    dlg.setSelection(url.fileName());
-                    dlg.setOperationMode(KFileDialog::Saving);
-                    // TODO set the default destiantion
-                    dlg.exec();
+            if (!b_expertMode) {
+                // open the filedialog for confirmation
+                KFileDialog dlg( destDir, QString::null,
+                                  0L, "save_as", true);
+                dlg.setCaption(i18n("Save As"));
+                dlg.setOperationMode(KFileDialog::Saving);
 
-                    if (!dlg.result()) {       // cancelled
+                // Use the destination name if not empty...
+                if (destURL.isEmpty())
+                    dlg.setSelection(url.fileName());
+                else
+                    dlg.setSelection(destURL.url());
+
+                // TODO set the default destiantion
+                dlg.exec();
+
+                if (!dlg.result()) {       // cancelled
 #ifdef _DEBUG
-                        sDebugOut << endl;
+                    sDebugOut << endl;
 #endif
-                        return;
-                    }
-                    else
-                    {
-                        destURL = dlg.selectedURL();
-                        ksettings.lastDirectory = destURL.directory();
-                    }
+                    return;
                 }
                 else
                 {
-                    // in expert mode don't open the filedialog
-                    destURL = KURL::fromPathOrURL( destDir + "/" +
-                                                   url.fileName() );
+                    destURL = dlg.selectedURL();
+                    ksettings.lastDirectory = destURL.directory();
                 }
             }
             else {
-                destURL = df;
+                // in expert mode don't open the filedialog
+                destURL = KURL::fromPathOrURL( destDir + "/" +
+                                                url.fileName() );
             }
 
             //check if destination already exists
-
             if(KIO::NetAccess::exists(destURL))
             {
                 if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
@@ -1084,7 +1084,6 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
                 }
                 else
                 {
-                    df = KURL();
                     b_expertMode=false;
                     ksettings.lastDirectory = destURL.directory();
                 }
