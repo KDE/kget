@@ -116,7 +116,7 @@ Transfer::setupFields()
 
 
     connect(this, SIGNAL(statusChanged(Transfer *, int)), kmain, SLOT(slotStatusChanged(Transfer *, int)));
-    connect(this, SIGNAL(statusChanged(Transfer *, int)), this, SLOT(slotUpdateActions(Transfer *, int)));
+    connect(this, SIGNAL(statusChanged(Transfer *, int)), this, SLOT(slotUpdateActions()));
 
     connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
 
@@ -127,7 +127,7 @@ Transfer::setupFields()
 
     m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("appdata", "pics/tool_delete.png"))), 0, this, SLOT(slotRequestRemove()), this, "delete");
 
-    m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRestart()), this, "restart");
+    m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRequestRestart()), this, "restart");
 
     m_paQueue = new KRadioAction(i18n("&Queue"), "tool_queue", 0, this, SLOT(slotQueue()), this, "queue");
 
@@ -522,7 +522,7 @@ void Transfer::slotFinished()
 
 
   sDebugIn << endl;
- 
+
     logMessage(i18n("Download finished"));
     mode = MD_NONE;
     status = ST_FINISHED;

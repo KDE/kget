@@ -32,6 +32,7 @@
 
 #include <kmainwindow.h>
 #include <kaction.h>
+#include <kurl.h>
 #include "common.h"
 class KAction;
 //class KToggleAction;
@@ -57,9 +58,9 @@ Q_OBJECT public:
     KMainWidget(bool bShowMain = false);
     ~KMainWidget();
 
-    void addTransfer(QString src, QString dest = QString::null);
-    void addTransferEx(QString src, QString dest = QString::null, bool bShowIndividual = false);
-    void addDropTransfers(QStrList * list);
+    void addTransfer(const QString& src, const QString& dest = QString::null);
+    void addTransferEx(const KURL& url, const QString& dst = QString::null, bool bShowIndividual = false);
+    void addDropTransfers(const KURL::List& list);
 
 
     void checkQueue();
@@ -78,7 +79,7 @@ Q_OBJECT public:
     bool b_viewLogWindow;
 
     void readTransfersEx(const QString & txt);
- 
+
 public slots:
     void slotPasteTransfer();
     void slotToggleLogWindow();

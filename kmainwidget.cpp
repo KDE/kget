@@ -51,6 +51,7 @@
 #include <kiconloader.h>
 #include <kaudioplayer.h>
 #include <kurl.h>
+#include <kurldrag.h>
 #include <klineeditdlg.h>
 #include <klocale.h>
 #include <kglobal.h>
@@ -1053,18 +1054,18 @@ void KMainWidget::slotPasteTransfer()
 #endif
 }
 
-void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
+void KMainWidget::addTransferEx(const KURL& url, const QString& dest, bool bShowIndividual)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    KURL url(s);
-
+    QString d = dest;
+    
     // don't download file URL's TODO : uncomment?
     if (url.protocol()!="http"&&url.protocol()!="ftp") {
 
-        KMessageBox::error(this, i18n("File protocol not accepted!\n%1").arg(s), i18n("Error"));
+        KMessageBox::error(this, i18n("File protocol not accepted!\n%1").arg(url.prettyURL()), i18n("Error"));
 
 #ifdef _DEBUG
         sDebugOut << endl;
@@ -1074,16 +1075,16 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
 
     if (url.isMalformed()) {
         if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(s), i18n("Error"));
+            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
 #ifdef _DEBUG
         sDebugOut << "Malformed URL" << endl;
 #endif
         return;
     }
     // if we find this URL in the list
-    if (myTransferList->find(s)) {
+    if (myTransferList->find(url)) {
         if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Already saving URL\n%1").arg(s), i18n("Error"));
+            KMessageBox::error(this, i18n("Already saving URL\n%1").arg(url.prettyURL()), i18n("Error"));
 #ifdef _DEBUG
         sDebugOut << "Malformed URL" << endl;
 #endif
@@ -1109,7 +1110,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
         }
     }
 
-    KURL dest;
+    KURL destURL;
     bool bDestisMalformed=true;
     bool b_expertMode=ksettings.b_expertMode;
     while (bDestisMalformed)
@@ -1129,43 +1130,43 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
                 sDebugOut << endl;
 #endif
                 return;
-            } 
+            }
 	    else {
-                dest = dlg->selectedURL().url();
-                currentDirectory = dest.directory();
+                destURL = dlg->selectedURL();
+                currentDirectory = destURL.directory();
             }
         } else {
             // in expert mode don't open the filedialog
-            dest = destDir + "/" + url.fileName();
+            destURL = destDir + "/" + url.fileName();
         }
     } else {
-        dest = d;
+        destURL = d;
     }
-     
+
    //check if destination already exists
-   
-    if(KIO::NetAccess::exists(dest))
+
+    if(KIO::NetAccess::exists(destURL))
       {
       if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
           {
 	   bDestisMalformed=false;
-	   KIO::NetAccess::del(dest);
+	   KIO::NetAccess::del(destURL);
 	   }
            else
 	   {
             d=QString::null;
 	    b_expertMode=false;
-	    currentDirectory = dest.directory();
+	    currentDirectory = destURL.directory();
 	  }
      }
      else
      bDestisMalformed=false;
-     
+
    }
    // QString file = url.fileName();
 
     // create a new transfer item
-    Transfer *item = myTransferList->addTransfer(s, dest);
+    Transfer *item = myTransferList->addTransfer(url, destURL);
 
     // update the remaining fields
     item->updateAll();
@@ -1184,13 +1185,22 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
 #endif
 }
 
-void KMainWidget::addTransfer(QString s, QString d)
+void KMainWidget::addTransfer(const QString& src, const QString& dest)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    addTransferEx(s, d, false);
+    if ( src.isEmpty() )
+        return;
+    
+    KURL url;
+    if ( src[0] == '/' )
+        url.setPath( src );
+    else
+        url = src;
+    
+    addTransferEx(url, dest, false);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1391,7 +1401,7 @@ void KMainWidget::dragEnterEvent(QDragEnterEvent * event)
     //sDebugIn << endl;
 #endif
 
-    event->accept(QUriDrag::canDecode(event) || QTextDrag::canDecode(event));
+    event->accept(KURLDrag::canDecode(event) || QTextDrag::canDecode(event));
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1405,11 +1415,11 @@ void KMainWidget::dropEvent(QDropEvent * event)
     //sDebugIn << endl;
 #endif
 
-    QStrList list;
+    KURL::List list;
     QString str;
 
-    if (QUriDrag::decode(event, list)) {
-        addDropTransfers(&list);
+    if (KURLDrag::decode(event, list)) {
+        addDropTransfers(list);
     } else if (QTextDrag::decode(event, str)) {
         addTransfer(str);
     }
@@ -1417,22 +1427,21 @@ void KMainWidget::dropEvent(QDropEvent * event)
 }
 
 
-void KMainWidget::addDropTransfers(QStrList * list)
+void KMainWidget::addDropTransfers(const KURL::List& list)
 {
 #ifdef _DEBUG
     sDebugIn << endl;
 #endif
 
-    QString s;
-
-    for (s = list->first(); s != 0L; s = list->next()) {
-
-        int i = s.contains( ".kgt",TRUE);
-        if (i==0)
-            addTransfer(s);
+    KURL url;
+    KURL::List::ConstIterator it = list.begin();
+    for ( ; it != list.end(); ++it )
+    {
+        url = *it;
+        if ( url.fileName().endsWith( ".kgt" ) )
+            readTransfersEx(url.url());
         else
-            readTransfersEx(s);
-
+            addTransferEx(url);
     }
 
     myTransferList->clearSelection();

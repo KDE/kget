@@ -29,6 +29,7 @@
 #include <kapplication.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
+#include <kurldrag.h>
 
 #include "kmainwidget.h"
 #include "settings.h"
@@ -89,18 +90,18 @@ DockWidget::~DockWidget()
 
 void DockWidget::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(QUriDrag::canDecode(event)
+    event->accept(KURLDrag::canDecode(event)
                   || QTextDrag::canDecode(event));
 }
 
 
 void DockWidget::dropEvent(QDropEvent * event)
 {
-    QStrList list;
+    KURL::List list;
     QString str;
 
-    if (QUriDrag::decode(event, list)) {
-        parent->addDropTransfers(&list);
+    if (KURLDrag::decode(event, list)) {
+        parent->addDropTransfers(list);
     } else if (QTextDrag::decode(event, str)) {
         parent->addTransfer(str);
     }

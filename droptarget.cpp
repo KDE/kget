@@ -31,6 +31,7 @@
 #include <kstandarddirs.h>
 #include <kwin.h>
 #include <klocale.h>
+#include <kurldrag.h>
 
 #include "kmainwidget.h"
 #include <qcursor.h>
@@ -161,19 +162,19 @@ void DropTarget::resizeEvent(QResizeEvent *)
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(QUriDrag::canDecode(event)
+    event->accept(KURLDrag::canDecode(event)
                   || QTextDrag::canDecode(event));
 }
 
 
 void DropTarget::dropEvent(QDropEvent * event)
 {
-    QStrList list;
+    KURL::List list;
     QString str;
 
-    if (QUriDrag::decode(event, list))
+    if (KURLDrag::decode(event, list))
     {
-        kmain->addDropTransfers(&list);
+        kmain->addDropTransfers(list);
     }
     else if (QTextDrag::decode(event, str))
     {
