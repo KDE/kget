@@ -2,9 +2,8 @@
 *                                transfer.cpp
 *                             -------------------
 *
-*    Revision     : $Id$
 *    begin        : Tue Jan 29 2002
-*    copyright    : (C) 2002 by Patrick Charbonnier
+*    copyright    : (C) 2002, 2003, 2004, 2005 by Patrick Charbonnier
 *                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
 *    email        : pch@freeshell.org
 *
