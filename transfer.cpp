@@ -310,7 +310,7 @@ void Transfer::updateAll()
         dlgIndividual->setProcessedSize(0);
     } else {
         //logMessage(i18n("Total size is unknown"));
-        setText(view->lv_total, "unknow");
+        setText(view->lv_total, i18n("unknown"));
         dlgIndividual->setTotalSize(totalSize);
         dlgIndividual->setPercent(0);
         dlgIndividual->setProcessedSize(0);
