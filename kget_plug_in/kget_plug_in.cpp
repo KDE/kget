@@ -76,7 +76,7 @@ KPluginFactory::~KPluginFactory()
 
 extern "C"
 {
-    void* init_libkget_plug_in()
+    void* init_khtml_kget()
     {
         return new KPluginFactory;
     }
