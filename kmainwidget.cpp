@@ -1036,20 +1036,22 @@ void KMainWidget::slotPasteTransfer()
 #endif
 
         QString newtransfer;
-
+       
         newtransfer = kapp->clipboard()->text();
         newtransfer = newtransfer.stripWhiteSpace();
 
         if (!ksettings.b_expertMode) {
-                KLineEditDlg *box = new KLineEditDlg(i18n("Open transfer:"), newtransfer, this);
-                box->show();
-                if (!box->result()) {
+        bool ok = false;
+        newtransfer = KLineEditDlg::getText(i18n("Open transfer:"), newtransfer, &ok, this);
+
+                if (!ok) {
                         // cancelled
+#ifdef _DEBUG
                         sDebugOut << endl;
+#endif
                         return;
                 }
-                newtransfer = box->text();
-                delete box;
+
         }
 
         if (!newtransfer.isEmpty())
@@ -1069,10 +1071,13 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
 
         KURL url(s);
 
-        // don't download file URL's TODO : uncomment
-        if (url.protocol()!="file") {
+        // don't download file URL's TODO : uncomment?
+        if (url.protocol()!="http"&&url.protocol()!="ftp") {
+
+                KMessageBox::error(this, i18n("File protocol not accepted !\n") + s, i18n("Error"));
+ 
 #ifdef _DEBUG
-                sDebugOut << "File protocol not accepted !" << endl;
+                sDebugOut << endl;
 #endif
                 return;
         }
@@ -1436,7 +1441,7 @@ void KMainWidget::dropEvent(QDropEvent * event)
 void KMainWidget::addDropTransfers(QStrList * list)
 {
 #ifdef _DEBUG
-        //sDebugIn << endl;
+        sDebugIn << endl;
 #endif
 
         QString s;
