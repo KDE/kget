@@ -71,6 +71,7 @@ void SidebarItem::addChild( SidebarItem * child )
     else 
         m_sidebar->insertItem( child, m_childItems->last() );
 
+    child->setVisible(m_showChildren);
     m_childItems->push_back(child);
 }
 
