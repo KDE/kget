@@ -212,13 +212,9 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
     resize( sizeHint() );
     setMaximumHeight(sizeHint().height());
 
-    bool keepOpenChecked = false;
-    bool noCaptionYet = true;
+    //bool keepOpenChecked = false;
+    //bool noCaptionYet = true;
     setCaption(i18n("Progress Dialog")); // show something better than kio_uiserver
-
-
-
-
 }
 
 
@@ -232,7 +228,7 @@ void DlgIndividual::setPercent(unsigned long percent)
 {
     m_pProgressBar->setValue(percent);
     m_pDockIndividual->setValue(percent);
-    setCaption(i18n("%1% of %2 - %3").arg(percent).arg(KIO::convertSize(m_iTotalSize)).arg((m_location.fileName()).ascii()));
+    setCaption(i18n("%1% of %2 - %3").arg(percent).arg(KIO::convertSize(m_iTotalSize)).arg(m_location.fileName()));
 }
 
 
@@ -256,9 +252,6 @@ void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 
     speedLabel->setText(msg);
     m_pDockIndividual->setTip(msg);
-
-
-
 }
 
 
@@ -270,7 +263,6 @@ void DlgIndividual::setCopying(const KURL & from, const KURL & to)
 
     sourceLabel->setText(from.url());
     destLabel->setText(to.url());
-
 }
 
 
@@ -278,11 +270,8 @@ void DlgIndividual::setCanResume(bool resume)
 {
     if (resume)
         resumeLabel->setText(i18n("Resumed"));
-
-
     else
-    { resumeLabel->setText(i18n("Not resumed")); }
-
+        resumeLabel->setText(i18n("Not resumed"));
 }
 
 void DlgIndividual::slotToggleAdvanced(bool advanced)
@@ -407,14 +396,5 @@ void DlgIndividual::enableOpenFile(){
 #endif
 
 }
-
-
-
-
-
-
-
-
-
 
 #include "dlgIndividual.moc"

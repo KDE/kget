@@ -51,7 +51,7 @@ QString kFileToString(const QString & aFileName, bool aEnsureNL, bool aVerbose)
     }
     if (!info.isReadable()) {
         if (aVerbose)
-            KMessageBox::error(kmain, i18n("You do not have read permissions " "to the file:\n%1").arg(aFileName));
+            KMessageBox::error(kmain, i18n("You do not have read permissions to the file:\n%1").arg(aFileName));
         return QString::null;
     }
     if (len <= 0)

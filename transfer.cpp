@@ -286,8 +286,8 @@ void Transfer::updateAll()
 
 
 
-    logMessage(i18n("Copy file  FROM: %1").arg(src.url().ascii()));
-    logMessage(i18n("TO: %1").arg(dest.url().ascii()));
+    logMessage(i18n("Copy file from: %1").arg(src.url()));
+    logMessage(i18n("To: %1").arg(dest.url()));
 
     // source
     setText(view->lv_url, src.url());
@@ -509,12 +509,12 @@ void Transfer::slotRequestDelay()
 void Transfer::slotCanceled(KIO::Job *)
 {
         sDebugIn  << endl;
- 
+
         logMessage(i18n("Canceled by user"));
         emit statusChanged(this, OP_CANCELED);
         sDebugOut   << endl;
 }
- 
+
 */
 
 void Transfer::slotFinished()
@@ -539,16 +539,16 @@ void Transfer::slotFinished()
 void Transfer::slotRenaming(KIO::Job *, const KURL &, const KURL & to)
 {
         sDebugIn  << endl;
- 
+
         dest = to;
- 
+
         logMessage(i18n("Renaming to %1").arg(dest.url().ascii()));
- 
+
           // destination
           setText (view->lv_filename, dest.fileName ());
- 
+
           dlgIndividual->setCopying (src, dest);
- 
+
         sDebugOut   << endl;
 }
         */

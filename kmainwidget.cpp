@@ -115,7 +115,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
 
     KConfig *cfg = new KConfig("kioslaverc", false, false);
     cfg->setGroup(QString::null);
-    cfg->writeEntry(i18n("AutoResume"), true);
+    cfg->writeEntry("AutoResume", true);
     cfg->sync();
     delete cfg;
 
@@ -637,7 +637,7 @@ void KMainWidget::readTransfers(bool ask_for_name)
     QString txt;
 
     if (ask_for_name)
-        txt = KFileDialog::getOpenURL(currentDirectory, "*.kgt|*.kgt\n*.*|All files").url();
+        txt = KFileDialog::getOpenURL(currentDirectory, i18n("*.kgt|*.kgt\n*|All files")).url();
     else
         txt = locateLocal("appdata", "transfers");
 
@@ -698,7 +698,7 @@ void KMainWidget::writeTransfers(bool ask_for_name)
     QString txt;
 
     if (ask_for_name)
-        txt = KFileDialog::getSaveFileName(currentDirectory, "*.kgt|*.kgt\n*.*|All files");
+        txt = KFileDialog::getSaveFileName(currentDirectory, i18n("*.kgt|*.kgt\n*|All files"));
     else
         txt = locateLocal("appdata", "transfers");
 
@@ -733,7 +733,7 @@ void KMainWidget::writeLog()
 #endif
 
 
-    kCStringToFile(logWindow->getText().ascii(), logFileName.ascii(), false, false);
+    kCStringToFile(logWindow->getText().local8Bit(), logFileName, false, false);
 
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -991,7 +991,7 @@ void KMainWidget::slotOpenTransfer()
         KURL url(newtransfer);
 
         if (url.isMalformed()) {
-            KMessageBox::error(this, i18n("Malformed URL:\n") + newtransfer, i18n("Error"));
+            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(newtransfer), i18n("Error"));
             ok = false;
         }
     }
@@ -1079,7 +1079,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
     // don't download file URL's TODO : uncomment?
     if (url.protocol()!="http"&&url.protocol()!="ftp") {
 
-        KMessageBox::error(this, i18n("File protocol not accepted!\n") + s, i18n("Error"));
+        KMessageBox::error(this, i18n("File protocol not accepted!\n%1").arg(s), i18n("Error"));
 
 #ifdef _DEBUG
         sDebugOut << endl;
@@ -1089,7 +1089,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
 
     if (url.isMalformed()) {
         if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Malformed URL:\n") + s, i18n("Error"));
+            KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(s), i18n("Error"));
 #ifdef _DEBUG
         sDebugOut << "Malformed URL" << endl;
 #endif
@@ -1098,7 +1098,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
     // if we find this URL in the list
     if (myTransferList->find(s)) {
         if (!ksettings.b_expertMode)
-            KMessageBox::error(this, i18n("Already saving URL \n") + s, i18n("Error"));
+            KMessageBox::error(this, i18n("Already saving URL\n%1").arg(s), i18n("Error"));
 #ifdef _DEBUG
         sDebugOut << "Malformed URL" << endl;
 #endif
@@ -1233,7 +1233,7 @@ void KMainWidget::checkQueue()
         updateStatusBar();
 
     } else {
-        log("Cannot continue offline status");
+        log(i18n("Cannot continue offline status"));
     }
 
 
@@ -2052,7 +2052,7 @@ void KMainWidget::disconnect()
         }
     }
     log(i18n("Disconnecting..."));
-    system(ksettings.disconnectCommand.ascii());
+    system(QFile::encodeName(ksettings.disconnectCommand));
 
 #ifdef _DEBUG
     sDebugOut << endl;
