@@ -95,23 +95,17 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     resumeLabel = new QLabel(this);
     hBox->addWidget(resumeLabel);
 
-    hBox = new QHBoxLayout();
-    topLayout->addLayout(hBox);
-
     speedLabel = new QLabel(this);
-    hBox->addWidget(speedLabel, 1);
     speedLabel->setText(i18n("0 B/s"));
+    topLayout->addWidget(speedLabel, 1);
 
     // setup toolbar
-    hBox = new QHBoxLayout();
-    topLayout->addLayout(hBox);
-
     KToolBar *toolBar = new KToolBar(this);
-
     toolBar->setIconText(KToolBar::IconOnly);
     toolBar->setBarPos(KToolBar::Bottom);
     toolBar->enableFloating(false);
     toolBar->enableMoving(false);
+    toolBar->setFlat(true);
 
     topLayout->addWidget( toolBar );
 
