@@ -177,7 +177,7 @@ void Transfer::synchronousAbort()
         status = ST_STOPPED;
         slotUpdateActions();
     }
-    
+
 }
 
 void Transfer::copy(Transfer * _orig)
@@ -721,7 +721,7 @@ bool Transfer::read(KSimpleConfig * config, int id)
         return false;
     }
 
-    if (src.isMalformed() && !ksettings.b_expertMode) {
+    if (!src.isValid() && !ksettings.b_expertMode) {
         KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
         return false;
     }

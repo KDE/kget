@@ -537,7 +537,7 @@ void KMainWidget::slotImportTextFile()
     int i, j;
 
     KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
-    if (filename.isMalformed())
+    if (!filename.isValid())
         return;
 
     if (KIO::NetAccess::download(filename, tmpFile)) {
@@ -938,7 +938,7 @@ void KMainWidget::slotOpenTransfer()
 
         KURL url = KURL::fromPathOrURL(newtransfer);
 
-        if (url.isMalformed()) {
+        if (!url.isValid()) {
             KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(newtransfer), i18n("Error"));
             ok = false;
         }
@@ -970,7 +970,7 @@ void KMainWidget::slotCheckClipboard()
 
         KURL url = KURL::fromPathOrURL( lastClipboard );
 
-        if (!url.isMalformed() && !url.isLocalFile())
+        if (url.isValid() && !url.isLocalFile())
             slotPasteTransfer();
     }
 
@@ -1030,7 +1030,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
     // Malformed destination url means one of two things.
     // 1) The URL is empty.
     // 2) The URL is only a filename, like a default (suggested) filename.
-    if ( destURL.isMalformed() )
+    if ( !destURL.isValid() )
     {
         // Setup destination
         QString destDir = getSaveDirectoryFor( url.fileName() );
@@ -2297,7 +2297,7 @@ QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
 
 bool KMainWidget::sanityChecksSuccessful( const KURL& url )
 {
-    if (url.isMalformed() || !KProtocolInfo::supportsReading( url ) )
+    if (!url.isValid() || !KProtocolInfo::supportsReading( url ) )
     {
         if (!ksettings.b_expertMode)
             KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
