@@ -41,7 +41,7 @@ public slots:
     virtual void slotSetSegmented(int nSegments);
     
 private:
-    void createJob();
+    bool createJob();
 
     KIO::FileCopyJob * copyjob;
         

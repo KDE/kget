@@ -1,0 +1,29 @@
+KGET DESIGN
+
+I have still to sit down and write a good description of how kget works.
+In the meanwhile I paste some lines from an e-mail I wrote to kde-core-devel.
+---------------------------------------------------------------------------
+
+
+Since the kget head code is in a very bad shape,  I started working on the 
+make_it_cool branch with Enrico Ros half an year ago.
+
+Currently the branch has been almost completely rewritten from scratch and 
+reorganized. 
+
+Now we have a Transfer class that can be easily inherited to allow new kind of 
+transfers (and yes, in the future this will allow also bitTorrent support). 
+Now the only transfer we have is "TransferKio" that uses the kde kioslaves.
+
+All the configuration stuff has been ported to KConfigXT.
+
+I have just started to implement a Group class. The idea behind this is to let 
+the user (if he wants) reorganize his downloads into groups. 
+
+The transfers.kgt file is now an xml.
+
+We have reached a good decoupling between the kget "engine" and the gui by 
+means of a ViewInterface class. Each view inheriting ViewInterface can 
+command the "scheduler" (that is the core of kget) and receives updates 
+regarding the status of each transfer. Every operation executed from a view 
+is than notified to all the views.

@@ -1,0 +1,150 @@
+This file has been copied from the kicker HACKING file from Aaron Seigo.
+
+While you may notice that there are many discrepencies between
+the code and this document, all new development should
+follow the coding style as described below amd one day the codebase will 
+actually be consistent!
+
+Naming Conventions
+------------------
+Class names start with a capital letter, member variables begin with m_.
+Methods and functions start with a lower case letter.
+
+
+Indenting
+---------
+Tabstop is 4 spaces. No tabs, only spaces.
+
+Try to keep lines under 80 characters in width. When wrapping a single
+logical line of code across multiple lines, new lines should be indented
+at least once and should preferably line up with parentheses, if any, on
+the line above. e.g.:
+
+    someMethod(parameterOne, parameterTwo,
+               parameterThree, parameterFour);
+
+If a boolean expression is spread out over several lines, the boolean
+operator is always the last item on the line, e.g.:
+
+    if ((condition1 || condition2) &&
+        condition3 &&
+        (condition4 || condition5))
+    {
+
+Switch statements should have the case line indented and the case block
+itsel further indented, e.g.:
+
+    switch (condition)
+    {
+        case 1:
+            ...
+            break;
+        case 2:
+            ...
+            break;
+        default:
+            ...;
+    }
+
+Spaces
+------
+A single space should appear between keywords and parentheses, eg:
+
+    if (
+    while (
+    for (
+
+No spaces appear between function/method names and parentheses:
+
+    function(
+    someObject->method(
+
+No spaces appear between opening closing parens and the arguments:
+
+    for (int i = 0; i < count; ++i)
+
+Spaces appear between operators, e.g.:
+
+    int i = i + 3;
+    someObject.setValue(someObject.currentValue() + 1)
+
+
+Braces
+------
+Braces always appear on a line by themself, indented to align with the
+above keyword:
+
+    if (foo)
+    {
+        ...
+    }
+    else
+    {
+        ...
+    }
+
+Unless it uglifies the code, use braces even for one-liner conditionals:
+
+    if (foo)
+    {
+        return 1;
+    }
+
+Always use braces if the conditional expression wraps across multiple
+physical lines.
+
+Braces around case blocks in switch statements are optional.
+
+
+Constructors
+------------
+Constructors are written as:
+
+    MyClass::MyClass(...)
+        : SuperClass(...),
+          m_member1(...),
+          m_member2(...),
+          ...
+    {
+
+
+Class Definitions
+-----------------
+Class definitions will follow the following order:
+
+    class <name> : <scope> <superclass>
+    {
+        public:
+            <ctors>
+            <dtors>
+            <operators>
+            <other methods>
+
+            <members>
+
+        public slots:
+            <methods>
+
+        signals:
+            <methods>
+
+        protected:
+            <ctors>
+            <dtors>
+            <operators>
+
+            <members>
+
+        protected slots:
+            <methods>
+
+        private:
+            <ctors>
+            <dtors>
+            <operators>
+
+            <members>
+
+        private slots:
+            <methods>
+    };

@@ -3,37 +3,84 @@ TODO-list for KGet
 <nick>  == reported by
 -->nick == assigned to
 #x      == sequential bug number,
-           #08 being the highest available (take this one for your next bug and increase here)
+           #26 being the highest available (take this one for your next bug and increase here)
 format: {ADD, FIX, CHG} #x <nick> text [-->nick]
 
+        TODO
+---------------------
                         
 SHORT-TERM (URGENT):
 
-  CHG #06 <dario> decoupling between gui and transfer operations. see
-      DESIGN file for more.
-
+  FIX #09 <dario> the konqueror plugin doesn't allow the download of links if 
+      the relative web page has been closed
+  FIX #10 <dario> when resizing the columns of the mainview and the groupspanel
+      the items are not updated correctly
+  ADD #11 <dario> implement the GlobalStatus object and make the 
+      systray to update using the ViewInterface slots instead of the actual hack.
+  ADD #12 <dario> once #11 has been implemented, implement progressive filling
+      of the icon in the system tray
+  ADD #13 <dario> make it possible to move transfers to a specific group using 
+      the popup menu.
+  ADD #14 <dario> make it possible to drag a transfer in a group inside the
+      mainview or in the groups visible in the groupspanel.
+  CHG #24 <dario> verify that the painting operations in the views are performed
+      only when necessary.
+  CHG #25 <dario> optimize if possible the fact we must check if a transfer
+      is still present in the transfers list (in the Scheduler class, function
+      slotTransferChanged() ). 
 
 MID-TERM:
 
-  ADD #07 <dario> sidebar for transfer statistics and more (bandwidth
-      graph, alternative urls, connection status/type, virtual folders,
-      ...)
-
-  CHG #05 <pfeiffer> usability enhancements as in #79519
-  
-  ADD #04 <kget> add Help & Guide
-
-  ADD #02 <kget> add bandwidth limiting
-
+  ADD #15 <dario> change the actual way we use the priority for each transfer.
+      In the future it will describe the precise order the transfers will be 
+      downloaded.
+  ADD #16 <dario> use KPassivePopups to notify when all the transfers have been
+      downloaded.
+  CHG #26 <dario> profile kget and look for possible optimizations.
+  CHG #17 <dario> finish to implement transferKio adding, for example, setDelay.
+  ADD #18 <dario> add the possibility to select "open destination folder" in 
+      the transfer's popup menu.
+  ADD #19 <kget> bitTorrent support
+  CHG #21 <kget> setup a decent gui with a decent toolbars.
+  CHG #22 <kget> sync the configuration options with what has currently been 
+      implemented.
+  ADD #23 <dario> make it possible to associate a default folder to each group.
 
 LONG-TERM:
 
-  ADD #08 <dario> 'low priority downloads' as in br #50776.
-
+  ADD #20 <kget> make the TestView able to make intensive tests on kget by
+      giving commands to the Scheduler and looking if what happens is what should
+      happen.
+  CHG #05 <dario> usability enhancements as in #79519
+  ADD #07 <dario> sidebar for transfer statistics and more (bandwidth
+      graph, alternative urls, connection status/type, virtual folders,
+      ...)
+  ADD #02 <kget> add bandwidth limiting
   ADD #03 <kget> splits download in N segments
-
   ADD #01 <kget> support for mirrors
+  ADD #08 <dario> 'low priority downloads' as in br #50776.
+  ADD #04 <kget> add Help & Guide
 
+  
+        DONE
+---------------------
+
+
+  Things done until 06/11/04 (when this file has been adopted)
+  
+  CHG #06 <dario, eros> decoupling between gui and transfer operations.
+  ADD <dario> Implement the MainView class that should become the kget main view.
+  CHG <dario> Transfer object rewrite to make it easily inherited from 
+      new kind of transfers.
+  ADD <dario> TransferKio. The first transfer realized using kioSlaves
+  CHG <dario> Scheduler logic enhancement (there are still lots of things to do)
+  ADD <dario> groups support and notifies to the views.
+  ADD <dario> systray icon with blinking overlay.
+  CHG <eros> Move all the configuration framework to KConfigXT
+  CHG <dario> implement delayedInitialization of the kget app. This should speed up
+      the startup a lot with big lists of transfers.
+  
+  
 
 IDEAS:
 

@@ -34,7 +34,8 @@ bool TransferKio::slotResume()
 {
     if(!copyjob)
     {
-        createJob();
+        if(!createJob())
+            return false;
     }
         
     tInfo.status = St_Trying;
@@ -95,11 +96,16 @@ void TransferKio::slotSetSegmented(int nSegments)
 
 //NOTE: INTERNAL METHODS
 
-void TransferKio::createJob()
+bool TransferKio::createJob()
 {
     if(!copyjob)
     {
-        copyjob = KIO::file_copy(tInfo.src, tInfo.dest, -1, false, false, false);
+        if( !(copyjob = KIO::file_copy(tInfo.src, tInfo.dest, -1, false, false, false)) )
+        {
+            kdDebug() << "###############################################" << endl;
+            return false;
+        }
+                                          
         connect(copyjob, SIGNAL(result(KIO::Job *)), 
                 this, SLOT(slotResult(KIO::Job *)));
         connect(copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), 
@@ -115,6 +121,7 @@ void TransferKio::createJob()
         connect(copyjob, SIGNAL(speed(KIO::Job *, unsigned long)), 
                 this, SLOT(slotSpeed(KIO::Job *, unsigned long)));
     }
+    return true;
 }
 
 //enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };

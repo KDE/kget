@@ -95,7 +95,10 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     
     KURL::List urlsToDownload;
 
-    for ( KURL::List::ConstIterator it = src.begin(); it != src.end(); ++it )
+    KURL::List::ConstIterator it = src.begin();
+    KURL::List::ConstIterator itEnd = src.end();
+    
+    for ( ; it != itEnd; ++it )
     {
         ///sDebug << "AAA" << endl;
 
@@ -150,8 +153,10 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     TransferList list;
     
     // create new transfer items
-    KURL::List::ConstIterator it = urlsToDownload.begin();
-    for ( ; it != urlsToDownload.end(); ++it )
+    it = urlsToDownload.begin();
+    itEnd = urlsToDownload.end();
+    
+    for ( ; it != itEnd; ++it )
     {
         KURL srcURL = *it;
         sDebug << ">>>>>>>>>>>>>>>  " << srcURL.url() << endl;
@@ -465,9 +470,8 @@ void Scheduler::slotReqOperation(SchedulerDebugOp operation)
 
 void Scheduler::slotTransferChanged(Transfer * item)
 {
-    sDebugIn << endl;    
+//    sDebugIn << endl;    
     TransferList list(item);
-    kdDebug() << "after the insertion" << endl;
     
     Transfer::TransferChanges transferFlags = item->changesFlags(this);
     item->resetChangesFlags(this);
@@ -499,7 +503,7 @@ void Scheduler::slotTransferChanged(Transfer * item)
     {
         emit changedItems(list);
     }
-    sDebugOut << endl;    
+//    sDebugOut << endl;    
 }
 
 void Scheduler::slotImportTransfers(bool ask_for_name)
