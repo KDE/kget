@@ -103,7 +103,7 @@ int inet_sock = -1;		/* INET socket */
 int ddp_sock = -1;		/* Appletalk DDP socket */
 
 
-KMainWidget::KMainWidget():KMainWindow(0, "kget")
+KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -115,6 +115,7 @@ KMainWidget::KMainWidget():KMainWindow(0, "kget")
     cfg->writeEntry(i18n("AutoResume"), true);
     cfg->sync();
     delete cfg;
+
 
 
     b_online = TRUE;
@@ -230,11 +231,14 @@ KMainWidget::KMainWidget():KMainWindow(0, "kget")
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
     m_paShowLog->setChecked(b_viewLogWindow);
+    if(bStartDocked)
+        ksettings.windowStyle=DOCKED_MIN;
     switch (ksettings.windowStyle) {
     case DROP_TARGET:
 	m_paDropTarget->setChecked(true);
 	break;
     case DOCKED:
+    case DOCKED_MIN:
 	m_paDockWindow->setChecked(true);
 	break;
     case NORMAL:
@@ -947,8 +951,7 @@ void KMainWidget::slotPasteTransfer()
     sDebugOut << endl;
 }
 
-
-void KMainWidget::addTransfer(QString s, QString d)
+void KMainWidget::addTransferEx(QString s, QString d,bool bShowIndividual)
 {
     sDebugIn << endl;
 
@@ -1032,10 +1035,16 @@ void KMainWidget::addTransfer(QString s, QString d)
     if (ksettings.b_useSound) {
 	KAudioPlayer::play(ksettings.audioAdded);
     }
-
+   if (bShowIndividual) item->showIndividual();
     checkQueue();
     sDebugOut << endl;
+
 }
+
+void KMainWidget::addTransfer(QString s, QString d)
+{
+   addTransferEx(s,d,false);
+ }
 
 
 void KMainWidget::checkQueue()
@@ -1426,9 +1435,8 @@ void KMainWidget::slotToggleSound()
 
 void KMainWidget::slotToggleOfflineMode()
 {
-    sDebugIn << endl;
+    sDebugIn "ksettings.b_offlineMode ="<<ksettings.b_offlineMode<< endl;
     ksettings.b_offlineMode = !ksettings.b_offlineMode;
-
     if (ksettings.b_offlineMode) {
 	log(i18n("Offline mode on."));
 	pauseAll();
@@ -1602,7 +1610,13 @@ void KMainWidget::setWindowStyle()
 	// KWM::switchToDesktop( KWM::desktop( winId() ) );
 	break;
 
-    case DOCKED:
+  case DOCKED_MIN:
+	this->hide();
+	kdock->show();
+	kdrop->hide();
+	break;
+
+  case DOCKED:
 	this->show();
 	kdock->show();
 	kdrop->hide();
@@ -1671,14 +1685,14 @@ void KMainWidget::slotUpdateActions()
 		m_paMoveToEnd->setEnabled(false);
 	    }
 	    // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
-	    if (item == first_item) {
+    sDebug << "-->ONLINE= " <<  ksettings.b_offlineMode << endl;
+	    if (item == first_item &&  ksettings.b_offlineMode) {
 		switch (item->getStatus()) {
 		case Transfer::ST_TRYING:
 		case Transfer::ST_RUNNING:
 		    m_paResume->setEnabled(false);
 		    m_paPause->setEnabled(true);
 		    m_paRestart->setEnabled(true);
-		    sDebug << "STATUS IS  ST_RUNNING " << item->getStatus() << endl;
 		    break;
 		case Transfer::ST_STOPPED:
 		    m_paResume->setEnabled(true);
@@ -1818,7 +1832,7 @@ void KMainWidget::slotCheckConnection()
 
 void KMainWidget::checkOnline()
 {
-    //sDebugIn<<endl;
+    //sDebugIn<<"b_online="<<b_online<<endl;
 
     bool old = b_online;
 
@@ -1863,7 +1877,7 @@ void KMainWidget::checkOnline()
 	    pauseAll();
 	}
     }
-    //sDebugOut<<endl;
+    //sDebugOut<<"b_online="<<b_online<<endl;
 
 }
 
@@ -1981,3 +1995,13 @@ void KMainWidget::customEvent(QCustomEvent * _e)
 
 
 #include "kmainwidget.moc"
+/** No descriptions */
+void KMainWidget::setDock(){
+sDebugIn<<endl;
+ksettings.windowStyle = DOCKED;
+slotDock();
+m_paDockWindow->setChecked(true);
+kdock->show();
+this->hide();
+sDebugOut<<endl;
+}

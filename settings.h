@@ -33,7 +33,7 @@ enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 
 extern QString ConnectionDevices[];
 
-enum WindowStyle { NORMAL, DOCKED, DROP_TARGET };
+enum WindowStyle { NORMAL, DOCKED, DROP_TARGET ,DOCKED_MIN};
 
 // Connection settings
 #define DEF_ReconnectOnError    true

@@ -67,7 +67,7 @@ install-data-local:
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
 	$(INSTALL_DATA) $(srcdir)/tool_pause.xpm $(kde_datadir)/kget/pics/tool_pause.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
-	$(INSTALL_DATA) $(srcdir)/tool_preferences.xpm $(kde_datadir)/kget/pics/tool_preference.xpm
+	$(INSTALL_DATA) $(srcdir)/tool_preferences.xpm $(kde_datadir)/kget/pics/tool_preferences.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
 	$(INSTALL_DATA) $(srcdir)/tool_queue.xpm $(kde_datadir)/kget/pics/tool_queue.xpm
 	$(mkinstalldirs) $(kde_datadir)/kget/pics/
@@ -131,7 +131,7 @@ uninstall-local:
 	-rm -f $(kde_datadir)/kget/pics/tool_offline_mode.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_paste.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_pause.xpm
-	-rm -f $(kde_datadir)/kget/pics/tool_preference.xpm
+	-rm -f $(kde_datadir)/kget/pics/tool_preferences.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_queue.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_restart.xpm
 	-rm -f $(kde_datadir)/kget/pics/tool_resume.xpm

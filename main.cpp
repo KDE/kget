@@ -97,32 +97,45 @@ static void cleanup(void)
 }
 
 
+//#ifdef NDEBUG
 //KGetApp::KGetApp ():KUniqueApplication ()
-
+//#else
 KGetApp::KGetApp():KApplication()
+//#endif
 {
+ KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+  int nArgs;
+    nArgs=  args->count();
 
     if (isRestored()) {
-	RESTORE(KMainWidget)
+	    RESTORE(KMainWidget)
     } else {
-	new KMainWidget();
+ if (nArgs>0)
+    new KMainWidget(true);
+     else
+	    new KMainWidget();
     }
 
     setMainWidget(kmain);
+    newInstance();
 }
 
 
 int KGetApp::newInstance()
 {
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
+  //  int i;
+  //  i=  args->count();
     // process arguments
+ //   kmain->setDock();
+
     for (int i = 0; i < args->count(); i++) {
-	kmain->addTransfer(args->arg(i));
+   	kmain->addTransferEx(args->arg(i),QString::null,true);
     }
     args->clear();
 
     KWin::setActiveWindow(kmain->winId());
+
     return 0;
 }
 

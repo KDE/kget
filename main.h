@@ -28,13 +28,14 @@
 
 #ifndef __main_h__
 #define __main_h__
-/*
-#include <kuniqueapp.h>
-class KGetApp:public KUniqueApplication
- */
+
+//#ifdef NDEBUG
+//#include <kuniqueapp.h>
+//class KGetApp:public KUniqueApplication {
+//#else
 #include <kapp.h>
 class KGetApp:public KApplication {
-
+//#endif
   public:
 
     KGetApp();

@@ -53,10 +53,11 @@ class KMainWidget:public KMainWindow {
 	ID_TOTAL_TIME, ID_TOTAL_SPEED
     };
 
-     KMainWidget();
+     KMainWidget(bool bStartDocked=false);
     ~KMainWidget();
 
     void addTransfer(QString src, QString dest = QString::null);
+    void addTransferEx(QString src, QString dest = QString::null,bool bShowIndividual=false);
     void addDropTransfers(QStrList * list);
 
     void setWindowStyle();
@@ -69,6 +70,8 @@ class KMainWidget:public KMainWindow {
     LogWindow *logwin() {
 	return logWindow;
     } friend class Settings;
+  /** No descriptions */
+  void setDock();
 
     // Actions
     KToggleAction *m_paShowLog;
@@ -78,7 +81,7 @@ class KMainWidget:public KMainWindow {
     public slots:void slotPasteTransfer();
     void slotToggleLogWindow();
     void slotPreferences();
-
+    void slotDock();
     void slotToggleExpertMode();
     void slotToggleOfflineMode();
     void slotToggleUseLastDir();
@@ -102,7 +105,7 @@ class KMainWidget:public KMainWindow {
 
     void slotStatusChanged(Transfer * item, int _operation);
 
-    void slotDock();
+
     void slotDropTarget();
     void slotNormal();
 

@@ -131,33 +131,19 @@ Transfer::setupFields()
                 SLOT(logTransfer(uint, const QString &, const QString &)));
 
         // setup actions
-        m_paResume =
-                new KAction(i18n("&Resume"), "tool_resume", 0, this,
-                            SLOT(slotResume()), this, "resume");
+        m_paResume =  new KAction(i18n("&Resume"), "tool_resume", 0, this, SLOT(slotResume()), this, "resume");
 
-        m_paPause =
-                new KAction(i18n("&Pause"), "tool_pause", 0, this,
-                            SLOT(slotRequestPause()), this, "pause");
+        m_paPause = new KAction(i18n("&Pause"), "tool_pause", 0, this, SLOT(slotRequestPause()), this, "pause");
 
-        m_paDelete =
-                new KAction(i18n("&Delete"), "tool_delete", 0, this,
-                            SLOT(slotRequestRemove()), this, "delete");
+        m_paDelete = new KAction(i18n("&Delete"), "tool_delete", 0, this, SLOT(slotRequestRemove()), this, "delete");
 
-        m_paRestart =
-                new KAction(i18n("Re&start"), "tool_restart", 0, this,
-                            SLOT(slotRestart()), this, "restart");
+        m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRestart()), this, "restart");
 
-        m_paQueue =
-                new KRadioAction(i18n("&Queue"), "tool_queue", 0, this,
-                                 SLOT(slotQueue()), this, "queue");
+        m_paQueue = new KRadioAction(i18n("&Queue"), "tool_queue", 0, this, SLOT(slotQueue()), this, "queue");
 
-        m_paTimer =
-                new KRadioAction(i18n("&Timer"), "tool_timer", 0, this,
-                                 SLOT(slotRequestSchedule()), this, "timer");
+        m_paTimer = new KRadioAction(i18n("&Timer"), "tool_timer", 0, this, SLOT(slotRequestSchedule()), this, "timer");
 
-        m_paDelay =
-                new KRadioAction(i18n("De&lay"), "tool_delay", 0, this,
-                                 SLOT(slotRequestDelay()), this, "delay");
+        m_paDelay = new KRadioAction(i18n("De&lay"), "tool_delay", 0, this, SLOT(slotRequestDelay()), this, "delay");
 
         m_paQueue->setExclusiveGroup("TransferMode");
         m_paTimer->setExclusiveGroup("TransferMode");
