@@ -39,5 +39,7 @@ IDEAS:
 
 
 DISCUSSING:
-
+   * Remember to move downloaded Transfers in a black-list that will be
+     deleted when program exits. So old pointers to downloaded items are
+     still valid when the transfer ends.
 
