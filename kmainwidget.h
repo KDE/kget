@@ -127,7 +127,8 @@ class ComboAction : public KAction
 {
   Q_OBJECT
   public:
-    ComboAction( const QString& name, const KShortcut&, KActionCollection*, KMainWidget* );
+    ComboAction( const QString& name, const KShortcut&, KActionCollection*,
+        KMainWidget*, const char* name );
     virtual int plug( QWidget* w, int index = -1 );
 
   private slots:
@@ -144,7 +145,8 @@ class ComboAction : public KAction
 class SpacerAction : public KAction
 {
   public:
-    SpacerAction( const QString& name, const KShortcut&, KActionCollection* );
+    SpacerAction( const QString& name, const KShortcut&, KActionCollection*,
+        const char* name );
     virtual int plug( QWidget* w, int index = -1 );
 };
 

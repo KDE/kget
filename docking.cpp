@@ -33,6 +33,7 @@
 #include <kurldrag.h>
 #include <kaction.h>
 #include <qtooltip.h>
+#include <qtimer.h>
 
 #include "docking.h"
 #include "kmainwidget.h"
@@ -42,7 +43,7 @@
   * capabilities and the quit action.
   */
 DockWidget::DockWidget(KMainWidget * parent)
-    : KSystemTray(parent), ViewInterface()
+    : KSystemTray(parent), ViewInterface(), timer( 0 )
 {
     setPixmap( loadIcon( "dock" ));
 
@@ -55,6 +56,12 @@ DockWidget::DockWidget(KMainWidget * parent)
 
     // add tooltip telling "I'm kget"
     QToolTip::add( this, kapp->aboutData()->shortDescription() );
+}
+
+// dtor: delete internal classes
+DockWidget::~DockWidget()
+{
+    delete timer;
 }
 
 // test if dropped thing can be handled (must be an URLlist or a QString)
@@ -89,6 +96,38 @@ void DockWidget::mousePressEvent(QMouseEvent * e)
 void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
 {
     menu->connectItem( menu->idAt(5), kapp, SLOT(quit()));
+}
+
+// display blinking icon when downloading
+void DockWidget::setDownloading( bool blink )
+{
+    if ( !blink )
+    {
+        if( timer )
+            timer->stop();
+        setPixmap( loadIcon( "dock" ));
+    }
+    else
+    {
+        if ( !timer )
+        {
+            timer = new QTimer;
+            connect( timer, SIGNAL( timeout() ), this, SLOT( slotTimeout() ) );
+        }
+        if ( !timer->isActive() )
+        {
+            iconOn = false;
+            setPixmap( loadIcon( "dock_off" ));
+        }
+        timer->start( 1000 );
+    }
+}
+
+// slot executed every 1s: toggle icon pixmap
+void DockWidget::slotTimeout()
+{
+    iconOn = !iconOn;
+    setPixmap( loadIcon( iconOn ? "dock_on" : "dock_off" ));
 }
 
 #include "docking.moc"

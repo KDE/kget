@@ -33,6 +33,7 @@
 
 class KPopupMenu;
 class KMainWidget;
+class QTimer;
 
 /**
   * This class implements the main tray icon for kget. It has a popup
@@ -48,16 +49,25 @@ class DockWidget:public KSystemTray, public ViewInterface
 Q_OBJECT
 public:
     DockWidget( KMainWidget * parent );
-
-    virtual void contextMenuAboutToShow( KPopupMenu * menu );
+    ~DockWidget();
+    
+    void setDownloading( bool );
 
 private slots:
     void mousePressEvent( QMouseEvent * e );
+    void slotTimeout();
 
 protected:
     // drag and drop
     void dragEnterEvent( QDragEnterEvent * );
     void dropEvent( QDropEvent * );
+
+    // hook to mangle popup connections before display
+    virtual void contextMenuAboutToShow( KPopupMenu * menu );
+
+private:
+    QTimer * timer;
+    bool iconOn;
 };
 
 #endif

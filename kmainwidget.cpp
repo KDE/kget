@@ -156,16 +156,15 @@ void KMainWidget::setupActions()
     // ->Scheduler - ACTIVATE/STOP the scheduler
     ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this, SLOT(slotDownloadToggled()), ac, "download");
     ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));
-/* ENABLE AFTER KTOGGLEACTION PATCH CHECKIN (sent to DavidFaure)
-#if KDE_IS_VERSION(3,2,90)
-    KGuiItem checkedDownloadAction( "Stop Downloading", "stop" );
+#if KDE_IS_VERSION(3,2,91)
+    KGuiItem checkedDownloadAction(i18n("Stop Downloading"), "stop");
     ta->setCheckedState( checkedDownloadAction );    
-#endif*/
+#endif
     ta->setChecked( Settings::downloadAtStartup() );
 
     // following actions are only designed to be show in the toolbar when window is 'compressed'
-    new ComboAction( i18n("Window shape"), 0, ac, this );
-    new SpacerAction( i18n("<Spacer>"), 0, ac );
+    new ComboAction(i18n("Window shape"), 0, ac, this, "view_mode");
+    new SpacerAction(i18n("<Spacer>"), 0, ac, "view_spacer");
     
     // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
@@ -318,9 +317,9 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
     {
         case vm_compact: {
             int minH = menuBar->height() + toolBar->height() + statusBar->height();
-            // fix for when layouting a still hidden mainWindow
+            // fix the case of layouting a still hidden mainWindow
             if ( toolBar->height() > ToolBar_HEIGHT )
-                minH = ToolBar_HEIGHT + menuBar->height() + statusBar->height();
+                minH = menuBar->height() + statusBar->height();
             Settings::setMainSize( size() );
             browserBar->hide();
             //setEraseColor( palette().active().background() );
@@ -334,7 +333,7 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
             rightWidget = t;
             rightWidget->show();
             browserBar->show();
-            browserBar->setMinimumHeight( 150 );
+            browserBar->setMinimumHeight( 200 );
             //setEraseColor( palette().active().background().dark(150) );
             setMaximumHeight( 32767 );
             if ( vMode == vm_compact || force )
@@ -345,7 +344,7 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
             rightWidget = new QWidget( (QWidget *)browserBar->container() );
             rightWidget->show();
             browserBar->show();
-            browserBar->setMinimumHeight( 150 );
+            browserBar->setMinimumHeight( 200 );
             //setEraseColor( palette().active().background().dark(150) );
             setMaximumHeight( 32767 );
             if ( vMode == vm_compact || force )
@@ -491,12 +490,13 @@ void KMainWidget::slotImportTransfers()
 void KMainWidget::slotDownloadToggled()
 {
     KToggleAction * action = (KToggleAction *)actionCollection()->action("download");
-    schedRequestOperation( action->isChecked() ? OpRun : OpStop );
-//ENABLE AFTER KTOGGLEACTION PATCH CHECKIN
-//#if not KDE_IS_VERSION(3,2,90)
-    action->setText( action->isChecked() ? i18n("Stop Downloading") : i18n("Start Downloading") );
-    action->setIcon( action->isChecked() ? "stop" : "down" );
-//#endif
+    bool downloading = action->isChecked();
+    schedRequestOperation( downloading ? OpRun : OpStop );
+#if ! KDE_IS_VERSION(3,2,91)
+    action->setText( downloading ? i18n("Stop Downloading") : i18n("Start Downloading") );
+    action->setIcon( downloading ? "stop" : "down" );
+#endif
+    kdock->setDownloading( downloading );
 }
 
 void KMainWidget::readTransfersEx(const KURL & url)
@@ -736,8 +736,8 @@ bool KMainWidget::isOfflineMode() const
 #include <qcombobox.h>
 
 ComboAction::ComboAction( const QString& text, const KShortcut& cut,
-    KActionCollection* ac, KMainWidget *mw )
-    : KAction( text, cut, ac, "view_mode" ), widget( 0 ), parent( mw )
+    KActionCollection* ac, KMainWidget *mw, const char* name )
+    : KAction( text, cut, ac, name ), widget( 0 ), parent( mw )
 {
     connect( parent, SIGNAL( viewModeChanged(int) ), this, SLOT( slotViewModeChanged(int) ) );
 }
@@ -783,8 +783,8 @@ void ComboAction::slotViewModeChanged( int index )
 
 
 SpacerAction::SpacerAction( const QString& text, const KShortcut& cut,
-    KActionCollection* ac )
-    : KAction( text, cut, ac, "view_spacer" ) {}
+    KActionCollection* ac, const char* name )
+    : KAction( text, cut, ac, name ) {}
 
 int SpacerAction::plug( QWidget* w, int index )
 {
