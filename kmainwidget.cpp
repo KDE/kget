@@ -857,7 +857,8 @@ void KMainWidget::slotDeleteCurrent()
             bool isRunning = false;
 
             if (!ksettings.b_expertMode) {
-                if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"), i18n("Question")) != KMessageBox::Yes)
+                if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"), i18n("Question"),
+		KStdGuiItem::yes(),KStdGuiItem::no(),QString("multiple_delete_transfer")) != KMessageBox::Yes)
                     return;
             }
 
