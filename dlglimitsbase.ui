@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>406</width>
-            <height>119</height>
+            <width>568</width>
+            <height>141</height>
         </rect>
     </property>
     <property name="caption">
@@ -38,7 +38,7 @@
                         <cstring>lbl_maxnum</cstring>
                     </property>
                     <property name="text">
-                        <string>Maximun open connections:</string>
+                        <string>Maximum open connections:</string>
                     </property>
                 </widget>
                 <widget class="QLabel" row="2" column="0">
@@ -154,6 +154,8 @@
         </widget>
     </vbox>
 </widget>
+<customwidgets>
+</customwidgets>
 <connections>
     <connection>
         <sender>le_maxband</sender>
@@ -182,4 +184,9 @@
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
 </UI>

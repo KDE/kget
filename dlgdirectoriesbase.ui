@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>357</width>
-            <height>273</height>
+            <width>437</width>
+            <height>275</height>
         </rect>
     </property>
     <property name="caption">
@@ -215,11 +215,13 @@
                 <cstring>lb_dir</cstring>
             </property>
             <property name="text">
-                <string>Default Directory:</string>
+                <string>Default directory:</string>
             </property>
         </widget>
     </grid>
 </widget>
+<customwidgets>
+</customwidgets>
 <connections>
     <connection>
         <sender>pb_down</sender>
@@ -280,4 +282,8 @@
 <pixmapfunction>BarIconSet</pixmapfunction>
 <layoutdefaults spacing="6" margin="11"/>
 <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>klineedit.h</includehint>
+    <includehint>klineedit.h</includehint>
+</includehints>
 </UI>
