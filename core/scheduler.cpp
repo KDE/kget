@@ -104,7 +104,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
         ///sDebug << "AAA" << endl;
 
         KURL url = *it;
-        if ( url.fileName().endsWith( ".kgt" ) )
+        if ( url.fileName().endsWith( ".kgt", false ) )
             slotImportTransfers(url);
         else
             urlsToDownload.append( url );

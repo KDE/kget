@@ -207,7 +207,7 @@ void MainViewItem::updateContents(bool updateAll)
         if (info.totalSize != 0)
             setText(2, KIO::convertSize(info.totalSize));
         else
-            setText(2, i18n("unknown"));
+            setText(2, i18n("not available", "n/a"));
     }
                 
     if(updateAll || (transferFlags & Transfer::Tc_Percent) )
@@ -273,11 +273,11 @@ MainView::MainView( QWidget * parent, const char * name )
     setSelectionMode(QListView::Extended);
     setSorting(0);
     
-    addColumn("File", 150);
-    addColumn("Status", 120);
-    addColumn("Size", 80);    
-    addColumn("Progress", 80);    
-    addColumn("Speed", 80);    
+    addColumn(i18n("File"), 150);
+    addColumn(i18n("Status"), 120);
+    addColumn(i18n("Size"), 80);
+    addColumn(i18n("Progress"), 80);
+    addColumn(i18n("Speed"), 80);
     connect ( this, SIGNAL(rightButtonClicked ( QListViewItem *, const QPoint &, int )), this, SLOT(slotRightButtonClicked(QListViewItem * , const QPoint &, int )) );
 }
 
@@ -489,16 +489,16 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
     KPopupMenu * popup = new KPopupMenu( this );
     
     // insert title
-    QString t1 = i18n("Transfer operations Menu");
-    QString t2 = i18n("KGet Menu");
+    QString t1 = i18n("Download");
+    QString t2 = i18n("KGet");
     popup->insertTitle( column!=-1 ? t1 : t2 );
     
     // add menu entries
     if ( column!=-1 )
     {   // menu over an item
-        popup->insertItem( SmallIcon("down"), i18n("Resume"), this, SLOT(slotResumeItems()) );
-        popup->insertItem( SmallIcon("stop"), i18n("Stop"), this, SLOT(slotStopItems()) );
-        popup->insertItem( SmallIcon("remove"), i18n("Remove"), this, SLOT(slotRemoveItems()) );
+        popup->insertItem( SmallIcon("down"), i18n("R&esume"), this, SLOT(slotResumeItems()) );
+        popup->insertItem( SmallIcon("stop"), i18n("&Stop"), this, SLOT(slotStopItems()) );
+        popup->insertItem( SmallIcon("remove"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
         
         KPopupMenu * subPrio = new KPopupMenu( popup );
         subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority1() ) );
@@ -507,7 +507,7 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
         subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority4() ) );
         subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority5() ) );
         subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority6() ) );
-        popup->insertItem( i18n("Set priority"), subPrio );
+        popup->insertItem( i18n("Set &priority"), subPrio );
                 
         KPopupMenu * subGroup = new KPopupMenu( popup );
         //for loop inserting all existant groups
@@ -522,11 +522,11 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
                                       this,  SLOT( slotSetGroup() ) );
         }
         //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );	
-        popup->insertItem( SmallIcon("folder"), i18n("Set group ..."), subGroup );
+        popup->insertItem( SmallIcon("folder"), i18n("Set &group"), subGroup );
     }
     else
     	// menu on empty space
-	    popup->insertItem( i18n("New transfer ..."), this, SLOT(slotNewTransfer()) );
+        popup->insertItem( SmallIcon("filenew"), i18n("&New Download..."), this, SLOT(slotNewTransfer()) );
 
     // show popup
     popup->popup( pos );
