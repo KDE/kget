@@ -1,3 +1,14 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+
 #include <kio/job.h>
 #include <kdebug.h>
 
@@ -33,7 +44,7 @@ bool TransferKio::slotResume()
         
     kdDebug() << "TransferKio::slotResume (3)" << endl;
 
-    info.status = St_Trying;
+    tInfo.status = St_Trying;
     setTransferChange(Tc_Status);    
     kdDebug() << "TransferKio::slotResume (4)" << endl;
 
@@ -51,8 +62,8 @@ void TransferKio::slotStop()
         copyjob=0;
     }
     
-    info.status = St_Stopped;
-    info.speed = 0;
+    tInfo.status = St_Stopped;
+    tInfo.speed = 0;
     setTransferChange(Tc_Status);
     setTransferChange(Tc_Speed);    
     
@@ -100,7 +111,7 @@ void TransferKio::createJob()
 {
     if(!copyjob)
     {
-        copyjob = KIO::file_copy(info.src, info.dest, -1, false, false, false);
+        copyjob = KIO::file_copy(tInfo.src, tInfo.dest, -1, false, false, false);
         connect(copyjob, SIGNAL(result(KIO::Job *)), 
                 this, SLOT(slotResult(KIO::Job *)));
         connect(copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), 
@@ -125,26 +136,26 @@ void TransferKio::slotResult( KIO::Job *job )
     switch (job->error())
     {
         case 0:
-            info.status = St_Finished;
-            info.percent = 100;
-            info.speed = 0;
+            tInfo.status = St_Finished;
+            tInfo.percent = 100;
+            tInfo.speed = 0;
             setTransferChange(Tc_Percent);
             setTransferChange(Tc_Speed);
             break;
         default:
             //There has been an error
-            info.status = St_Aborted;
+            tInfo.status = St_Aborted;
             break;
     }
     setTransferChange(Tc_Status);
     emit transferChanged(this, Tc_Status);
         
-    emit statusChanged(this, info.status);
+    emit statusChanged(this, tInfo.status);
 }
 
 void TransferKio::slotInfoMessage( KIO::Job *job, const QString & msg )
 {
-    info.log.push_back(new QString(msg));
+    tInfo.log.push_back(new QString(msg));
 }
 
 /*
@@ -174,7 +185,7 @@ void TransferKio::slotConnected( KIO::Job *job )
 {
     kdDebug() << "CONNECTEDCONNECTEDCONNECTEDCONNECTEDCONNECTEDCONNECTED" <<endl;
     
-    info.status = St_Running;
+    tInfo.status = St_Running;
     emit statusChanged(this, St_Running);
     setTransferChange(Tc_Status);
     emit transferChanged(this, Tc_Status);
@@ -182,40 +193,40 @@ void TransferKio::slotConnected( KIO::Job *job )
 
 void TransferKio::slotPercent( KIO::Job *job, unsigned long percent )
 {
-    if(info.status != St_Running)
+    if(tInfo.status != St_Running)
         slotConnected(job);
         
-    info.percent = percent;
+    tInfo.percent = percent;
     setTransferChange(Tc_Percent);
     emit transferChanged(this, Tc_Percent);
 }
 
 void TransferKio::slotTotalSize( KIO::Job *job, KIO::filesize_t size )
 {
-    if(info.status != St_Running)
+    if(tInfo.status != St_Running)
         slotConnected(job);
     
-    info.totalSize = size;
+    tInfo.totalSize = size;
     setTransferChange(Tc_TotalSize);
     emit transferChanged(this, Tc_TotalSize);
 }
 
 void TransferKio::slotProcessedSize( KIO::Job *job, KIO::filesize_t size )
 {
-    if(info.status != St_Running)
+    if(tInfo.status != St_Running)
         slotConnected(job);
     
-    info.processedSize = size;
+    tInfo.processedSize = size;
     setTransferChange(Tc_ProcessedSize);
     emit transferChanged(this, Tc_ProcessedSize);
 }
 
 void TransferKio::slotSpeed( KIO::Job *job, unsigned long bytes_per_second )
 {
-    if(info.status != St_Running)
+    if(tInfo.status != St_Running)
         slotConnected(job);
     
-    info.speed = bytes_per_second;
+    tInfo.speed = bytes_per_second;
     setTransferChange(Tc_Speed);
     emit transferChanged(this, Tc_Speed);
 }

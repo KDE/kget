@@ -1,3 +1,14 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+
 #ifndef _GROUP_H
 #define _GROUP_H
 
@@ -42,13 +53,13 @@ class Group
     bool read(QDomNode * n);
     void write(QDomNode * n) const;
     
-    const Info& getInfo() const {return info;}
+    const Info& info() const {return gInfo;}
     void setName(const QString& name);
 
     void about() const;
     
     private:
-    Info info;
+    Info gInfo;
 };
 
 class GroupList : public QObject, public QValueList<Group *>

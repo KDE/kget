@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
-   Copyright (C) 2004 KGet Developers < >
+   
+   Copyright (C) 2004 Enrico Ros <eros.kde@email.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -37,7 +38,7 @@ IconViewTransfer::IconViewTransfer( QIconView * parent, Transfer * t )
     
     if ( transfer )
     {
-    transferInfo = transfer->getInfo();
+    transferInfo = transfer->info();
     
 	KMimeType::Ptr mime = KMimeType::findByURL( transferInfo.dest , 0, true, false );
 	mimePix = mime->pixmap( KIcon::Desktop, 48 );
@@ -70,7 +71,7 @@ void IconViewTransfer::paintItem( QPainter * p, const QColorGroup & cg )
 	return;
 
     //Re-read the transfer informations
-    transferInfo = transfer->getInfo();
+    transferInfo = transfer->info();
     
     QRect r = pixmapRect();
     r.moveBy( x(), y() );

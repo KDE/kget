@@ -1,3 +1,13 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+  
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
 #include <qsizepolicy.h>
 #include <qstring.h>
 
@@ -34,7 +44,7 @@ bool TestViewItem::update(Transfer * t)
     if ( t==0 || t==transfer )
         {
         //Re-read the transfer informations
-        transferInfo = transfer->getInfo();
+        transferInfo = transfer->info();
 
         setText(0, QString().setNum(transferInfo.priority));
         setText(1, QString().setNum(transferInfo.status));

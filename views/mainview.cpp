@@ -1,7 +1,18 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
 #include <qstring.h>
 #include <qstyle.h>
 #include <qpainter.h>
 #include <qpalette.h>
+#include <qfont.h>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -12,6 +23,75 @@
 #include "mainview.h"
 #include "transferlist.h"
 #include "transfer.h"
+
+MainViewGroupItem::MainViewGroupItem(MainView * parent, Group * g)
+    : QListViewItem(parent),
+      group(g)
+{
+    setOpen(true);
+}
+
+void MainViewGroupItem::updateContents(bool updateAll)
+{
+    Group::Info info = group->info();
+    
+    if(updateAll)
+    {
+        setText(1, info.name);
+        setText(3, KIO::convertSize(info.totalSize));
+    }
+}
+
+void MainViewGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
+{
+    //QListViewItem::paintCell(p, cg, column, width, align);
+    
+    //p->fillRect(0,0,width, height(), QColor(174, 174, 220).dark(120));
+    p->fillRect(0,0,width, height(), cg.brush(QColorGroup::Background));
+    
+    switch (column)
+    {
+        case 0:
+            p->drawPixmap(3, 0, SmallIcon("package"));
+            break;
+    
+        case 1:
+            QFont f(p->font());
+            f.setBold(true);
+            p->setFont(f);
+            p->drawText(0,0,width, height(), Qt::AlignVCenter, 
+                    /*i18n("Group: ")+*/group->info().name);
+            break;
+
+    }
+    
+/*    switch (column)
+    {
+        case 0:
+            p->fillRect(3,3,width-3, height()-3, QColor(174, 174, 220).dark(20));
+            break;
+        case 5:
+            p->fillRect(0,3,width-3, height()-3, QColor(174, 174, 220).dark(20));
+            break;
+        default:
+            p->fillRect(0,3,width, height()-3, QColor(174, 174, 220).dark(20));
+            break;
+            
+    }
+*/    
+    if(column == 4)
+    {
+        Group::Info info = group->info();
+        float rectWidth = (width-4) * info.percent / 100;
+        
+        p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight).color().dark(115));
+        p->setPen(cg.foreground());
+        p->drawRect(2,2,rectWidth, height()-4);
+        p->drawText(2,2,width, height()-4, Qt::AlignCenter, 
+                    QString().setNum(info.percent) + "%");
+    }
+}
+
 
 
 MainViewItem::MainViewItem(MainView * parent, Transfer * t)
@@ -24,7 +104,7 @@ MainViewItem::MainViewItem(MainView * parent, Transfer * t)
 
 void MainViewItem::updateContents(bool updateAll)
 {
-    Transfer::Info info=transfer->getInfo();
+    Transfer::Info info=transfer->info();
     
     transfer->getChangesFlags(view);
     
@@ -144,10 +224,10 @@ void MainViewItem::updateContents(bool updateAll)
 void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
 {
     QListViewItem::paintCell(p, cg, column, width, align);
-    
+
     if(column == 4)
     {
-        Transfer::Info info = transfer->getInfo();
+        Transfer::Info info = transfer->info();
         float rectWidth = (width-4) * info.percent / 100;
         
         p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight));
@@ -193,7 +273,21 @@ void MainView::schedulerAddedItems( TransferList list )
     
     for(; it != endList; ++it)
     {
-        MainViewItem * newItem = new MainViewItem(this, *it);
+        QString group = (*it)->info().group;
+        MainViewItem * newItem;
+        
+        kdDebug() << "groupsMap.size=" << groupsMap.size() << endl;
+        
+        if(groupsMap.contains(group))
+        {
+            groupsMap[group]->insertItem(newItem = new MainViewItem(this, *it));
+            kdDebug() << "Trovato gruppo " << endl;   
+        }
+        else
+        {
+            newItem = new MainViewItem(this, *it);
+            kdDebug() << "Non trovato gruppo " << endl;   
+        }
         transfersMap[*it] = newItem;
 
         newItem->updateContents(true);
@@ -222,6 +316,37 @@ void MainView::schedulerChangedItems( TransferList list )
     {
         transfersMap[*it]->updateContents();
     }
+}
+
+void MainView::schedulerAddedGroups( const GroupList& list ) 
+{
+    GroupList::constIterator it = list.begin();
+    GroupList::constIterator endList = list.end();
+    
+    for(; it != endList; ++it)
+    {
+        MainViewGroupItem * newItem = new MainViewGroupItem(this, *it);
+        groupsMap[(*it)->info().name] = newItem;
+        
+        newItem->updateContents(true);
+    }
+}
+
+void MainView::schedulerRemovedGroups( const GroupList& list)
+{
+    GroupList::constIterator it = list.begin();
+    GroupList::constIterator endList = list.end();
+    
+    for(; it != endList; ++it)
+    {
+        delete(groupsMap[(*it)->info().name]);
+    }
+
+}
+
+void MainView::schedulerChangedGroups( const GroupList& list)
+{
+
 }
 
 void MainView::schedulerStatus( GlobalStatus * )

@@ -1,3 +1,14 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+
 #ifndef _TRANSFER_H
 #define _TRANSFER_H
 
@@ -76,7 +87,7 @@ Q_OBJECT
   
     protected:
     
-    Info info;
+    Info tInfo;
     Scheduler * sched;
     QValueVector<TransferChanges> transferChanges;
         
@@ -114,7 +125,7 @@ Q_OBJECT
     Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
     Transfer(Scheduler * _scheduler, QDomNode * n);
     
-    const Info& getInfo() const;
+    const Info& info() const;
     
     TransferChanges getChangesFlags(ViewInterface *);
     void resetChangesFlags(ViewInterface *);
@@ -123,19 +134,19 @@ Q_OBJECT
     void setGroup(const QString& group);
     
     inline bool operator<(const Transfer& t2) const
-        {return info.priority < t2.info.priority;}
+        {return tInfo.priority < t2.tInfo.priority;}
     
     inline bool operator<=(const Transfer& t2) const
-        {return info.priority <= t2.info.priority;}
+        {return tInfo.priority <= t2.tInfo.priority;}
 
     inline bool operator>(const Transfer& t2) const
-        {return info.priority > t2.info.priority;}
+        {return tInfo.priority > t2.tInfo.priority;}
     
     inline bool operator>=(const Transfer& t2) const
-        {return info.priority >= t2.info.priority;}
+        {return tInfo.priority >= t2.tInfo.priority;}
         
     inline bool operator==(const Transfer& t2) const
-        {return info.priority == t2.info.priority;}
+        {return tInfo.priority == t2.tInfo.priority;}
             
         
     void about() const;

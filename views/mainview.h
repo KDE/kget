@@ -1,3 +1,13 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
 #ifndef _MAINVIEW_H
 #define _MAINVIEW_H
 
@@ -9,6 +19,21 @@
 
 class Transfer;
 class MainView;
+
+class MainViewGroupItem : public QListViewItem
+{
+    public:
+    MainViewGroupItem(MainView * parent, Group * g);
+
+    void updateContents(bool updateAll=false);
+    Group * getGroup() const {return group;}
+    
+    void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
+    
+    private:
+    Group * group;
+    MainView * view;
+};
 
 class MainViewItem : public QListViewItem
 {
@@ -38,6 +63,9 @@ class MainView : public KListView, public ViewInterface
 	virtual void schedulerRemovedItems( TransferList );
 	virtual void schedulerChangedItems( TransferList );
 	virtual void schedulerStatus( GlobalStatus * );
+    virtual void schedulerAddedGroups( const GroupList& );
+    virtual void schedulerRemovedGroups( const GroupList& );
+    virtual void schedulerChangedGroups( const GroupList& );
     
     public slots:
     void slotRightButtonClicked( QListViewItem *, const QPoint &, int);
@@ -60,6 +88,7 @@ class MainView : public KListView, public ViewInterface
     
     private:
 	TransferList getSelectedList();
+    QMap<QString, MainViewGroupItem *> groupsMap;
     QMap<Transfer *, MainViewItem *> transfersMap;
 };
 

@@ -1,3 +1,18 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2004 Enrico Ros <eros.kde@email.it>
+
+   Based on:
+       kmainwidget.{h,cpp} Copyright (C) 2002 by Patrick Charbonnier
+       that was based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+   
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
 #include <qregexp.h>
 #include <qtimer.h>
 
@@ -604,7 +619,7 @@ bool Scheduler::isValidURL( KURL url )
     Transfer *transfer = transfers->find( url );
     if ( transfer )
     {
-        if ( transfer->getInfo().status != Transfer::St_Finished )
+        if ( transfer->info().status != Transfer::St_Finished )
         {
             if ( !Settings::expertMode() )
             {
@@ -772,9 +787,9 @@ bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
     {
         case CmdResume:
             sDebug << "111 ->" << runningTransfers->size() << endl;
-            if(  (item->getInfo().status != Transfer::St_Running)
-                && (item->getInfo().status != Transfer::St_Finished)
-                && (item->getInfo().priority != 6)       
+            if(  (item->info().status != Transfer::St_Running)
+                && (item->info().status != Transfer::St_Finished)
+                && (item->info().priority != 6)       
                 && (Settings::maxConnections() > runningTransfers->size()) )
                 {
                     sDebug << "222" << endl;

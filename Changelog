@@ -1,3 +1,9 @@
+2004-10-16 Dario Massarin <nekkar@libero.it>
+    
+        * Added license statements.
+        
+        * mainview.cpp: Some more work on the groups.
+
 2004-10-10 Dario Massarin <nekkar@libero.it>
 
         * group.{h,cpp}: This file introduces the Group and GroupList classes.

@@ -144,7 +144,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     // setup tab dialog
     panelAdvanced = new QTabWidget(this);
 
-    transferInfo = item->getInfo();
+    transferInfo = item->info();
     
     // if the time was already set somewhere in the future, keep it
     // otherwise set it to the current time
@@ -217,7 +217,7 @@ void DlgIndividual::setProcessedSize(unsigned long bytes)
 void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 {
     //Re-read the transfer informations
-    transferInfo = item->getInfo();
+    transferInfo = item->info();
     
     QString msg;
     if (bytes_per_second == 0 && transferInfo.status == Transfer::St_Trying )
@@ -308,7 +308,7 @@ void DlgIndividual::slotKeepOpenToggled(bool bToggled)
 #endif
     
     //Re-read the transfer informations
-    transferInfo = item->getInfo();
+    transferInfo = item->info();
 
     bKeepDlgOpen=bToggled;
 

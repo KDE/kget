@@ -1,3 +1,14 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+
 #include <qdom.h>
 #include <qstring.h>
 
@@ -7,8 +18,11 @@
 
 Group::Group(const QString& name)
 {
-    info.speed=0;
-    info.name=name;
+    gInfo.speed=0;
+    gInfo.totalSize=0;
+    gInfo.processedSize=0;
+    gInfo.percent=50;
+    gInfo.name=name;
 
 }
 
@@ -19,38 +33,38 @@ Group::Group(QDomNode * n)
 
 bool Group::read(QDomNode * n)
 {
-    info.speed=0;
-    
+    gInfo.speed=0;
+        
     QDomElement e = n->toElement();
     
-    info.name = e.attribute("Name");
-    info.totalSize = e.attribute("TotalSize").toInt();
-    info.processedSize = e.attribute("ProcessedSize").toInt();
-    info.percent = e.attribute("Percent").toULong();
+    gInfo.name = e.attribute("Name");
+    gInfo.totalSize = e.attribute("TotalSize").toInt();
+    gInfo.processedSize = e.attribute("ProcessedSize").toInt();
+    gInfo.percent = e.attribute("Percent").toULong();
     
     return true;
 }
 
 void Group::write(QDomNode * n) const
 {
-    sDebugIn << "name:" << info.name << endl;
+    sDebugIn << "name:" << gInfo.name << endl;
     
     QDomElement e = n->ownerDocument().createElement("Group");
     n->appendChild(e);
 
     
         
-    e.setAttribute("Name", info.name);
-    e.setAttribute("TotalSize", info.totalSize);    
-    e.setAttribute("ProcessedSize", info.processedSize);    
-    e.setAttribute("Percent", info.percent);
+    e.setAttribute("Name", gInfo.name);
+    e.setAttribute("TotalSize", gInfo.totalSize);    
+    e.setAttribute("ProcessedSize", gInfo.processedSize);    
+    e.setAttribute("Percent", gInfo.percent);
 
     sDebugOut << endl;
 }
 
 void Group::about() const
 {
-    kdDebug() << "  Group name= " << info.name << endl; ;
+    kdDebug() << "  Group name= " << gInfo.name << endl; ;
 }
 
 GroupList::GroupList()
@@ -75,7 +89,7 @@ Group * GroupList::getGroup(const QString& groupName) const
     
     for(;it!=endList; ++it)
     {
-        if((*it)->getInfo().name == groupName)
+        if((*it)->info().name == groupName)
             return *it;
     }
     return 0;
@@ -107,7 +121,7 @@ void GroupList::addGroups(const GroupList& list)
 
 void GroupList::delGroup(Group group)
 {
-    if (Group * g = getGroup(group.getInfo().name))    
+    if (Group * g = getGroup(group.info().name))
         remove(g);
 }
 

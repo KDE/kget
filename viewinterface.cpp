@@ -1,3 +1,14 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2004 Enrico Ros <eros.kde@email.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
 #include "viewinterface.h"
 #include "viewinterface_p.h"
 #include "scheduler.h"
@@ -50,8 +61,8 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
 	     sched, SLOT( slotReqOperation(SchedulerDebugOp) ) );
     // Clears and fills up the view
     slotCleared();
-    slotAddedItems( sched->getTransfers() );
     slotAddedGroups( sched->getGroups() );
+    slotAddedItems( sched->getTransfers() );
 }
 
 void ViewInterfaceConnector::slotCleared()

@@ -1,3 +1,14 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+
 #include <qdom.h>
 
 #include "transfer.h"
@@ -7,15 +18,15 @@
 Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest)
         : sched(_scheduler)
 {
-    info.src=_src;
-    info.dest=_dest;
-    info.status=St_Stopped;
-    info.priority=3;
-    info.totalSize=0;
-    info.processedSize=0;
-    info.percent=0;
-    info.speed=0;
-    info.group="None";
+    tInfo.src=_src;
+    tInfo.dest=_dest;
+    tInfo.status=St_Stopped;
+    tInfo.priority=3;
+    tInfo.totalSize=0;
+    tInfo.processedSize=0;
+    tInfo.percent=0;
+    tInfo.speed=0;
+    tInfo.group="None";
         
     connect(this, 
             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
@@ -32,7 +43,7 @@ Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
         : sched(_scheduler)
 
 {
-    info.speed=0;
+    tInfo.speed=0;
     
     read(n);
     
@@ -48,9 +59,9 @@ Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
 
 }
              
-const Transfer::Info& Transfer::getInfo() const
+const Transfer::Info& Transfer::info() const
 {    
-    return info;
+    return tInfo;
 }
     
 Transfer::TransferChanges Transfer::getChangesFlags(ViewInterface * view)
@@ -95,18 +106,18 @@ void Transfer::resetChangesFlags(ViewInterface * view)
 
 void Transfer::setPriority(int p)
 {
-    info.priority = p;
+    tInfo.priority = p;
     setTransferChange(Tc_Priority);
 }
 
 void Transfer::setGroup(const QString& group)
 {
-    info.group = group;
+    tInfo.group = group;
 }
 
 void Transfer::about() const
 {
-    kdDebug() << "TRANSFER: (" << this << ") " << info.src.fileName() << endl;
+    kdDebug() << "TRANSFER: (" << this << ") " << tInfo.src.fileName() << endl;
 }
 
 void Transfer::setTransferChange(TransferChange p)
@@ -122,14 +133,14 @@ bool Transfer::read(QDomNode * n)
 
     QDomElement e = n->toElement();
     
-    info.group = e.attribute("Group");
-    info.priority = e.attribute("Priority").toInt();
-    info.status = (TransferStatus) e.attribute("Status").toInt();
-    info.src = KURL::fromPathOrURL(e.attribute("Source"));
-    info.dest = KURL::fromPathOrURL(e.attribute("Dest"));
-    info.totalSize = e.attribute("TotalSize").toInt();
-    info.processedSize = e.attribute("ProcessedSize").toInt();
-    info.percent = e.attribute("Percent").toULong();
+    tInfo.group = e.attribute("Group");
+    tInfo.priority = e.attribute("Priority").toInt();
+    tInfo.status = (TransferStatus) e.attribute("Status").toInt();
+    tInfo.src = KURL::fromPathOrURL(e.attribute("Source"));
+    tInfo.dest = KURL::fromPathOrURL(e.attribute("Dest"));
+    tInfo.totalSize = e.attribute("TotalSize").toInt();
+    tInfo.processedSize = e.attribute("ProcessedSize").toInt();
+    tInfo.percent = e.attribute("Percent").toULong();
     sDebugOut << endl;
     return true;
 }
@@ -142,14 +153,14 @@ void Transfer::write(QDomNode * n)
     QDomElement t = n->ownerDocument().createElement("Transfer");
     n->appendChild(t);
     
-    t.setAttribute("Group", info.group);
-    t.setAttribute("Priority", info.priority);
-    t.setAttribute("Status", info.status);
-    t.setAttribute("Source", info.src.url());
-    t.setAttribute("Dest", info.dest.url());
-    t.setAttribute("TotalSize", info.totalSize);
-    t.setAttribute("ProcessedSize", info.processedSize);
-    t.setAttribute("Percent", info.percent);
+    t.setAttribute("Group", tInfo.group);
+    t.setAttribute("Priority", tInfo.priority);
+    t.setAttribute("Status", tInfo.status);
+    t.setAttribute("Source", tInfo.src.url());
+    t.setAttribute("Dest", tInfo.dest.url());
+    t.setAttribute("TotalSize", tInfo.totalSize);
+    t.setAttribute("ProcessedSize", tInfo.processedSize);
+    t.setAttribute("Percent", tInfo.percent);
     
     sDebugOut << endl;
 }

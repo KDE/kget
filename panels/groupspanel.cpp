@@ -1,11 +1,24 @@
+/* This file is part of the KDE project
+   
+   Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+
 #include <klistview.h>
 #include <kpushbutton.h>
 #include <klocale.h>
 #include <kinputdialog.h>
 #include <kmessagebox.h>
 #include <kdebug.h>
+#include <kio/global.h>
 
 #include <qlayout.h>
+#include <qpainter.h>
 
 #include "groupspanel.h"
 #include "../group.h"
@@ -26,48 +39,13 @@ GroupItem::~GroupItem()
 
 void GroupItem::updateContents(bool updateAll)
 {
-    Group::Info info = group->getInfo();
-    
-    setText(1, "testo");
+    Group::Info info = group->info();
     
     if(updateAll)
     {
-        setText(0, "->"+info.name);
+        setText(0, info.name);
+        setText(2, KIO::convertSize(info.totalSize));
     }
-    
-/*    if(updateAll || (progressFlags & Transfer::Pc_Priority) )
-    {
-//         kdDebug() << "UPDATE:  priority" << endl;                
-//         setText(0, QString().setNum(info.priority));
-        switch(info.priority)
-        {
-            case 1: 
-//                 setText(0, i18n("Highest") );
-                setPixmap(0, SmallIcon("2uparrow") ); 
-                break;
-            case 2: 
-//                 setText(0, i18n("High") );
-                setPixmap(0, SmallIcon("1uparrow") ); 
-                break;
-            case 3: 
-//                 setText(0, i18n("Normal") );
-                setPixmap(0, SmallIcon("1rightarrow") ); 
-                break;
-            case 4: 
-//                 setText(0, i18n("Low") );
-                setPixmap(0, SmallIcon("1downarrow") ); 
-                break;
-            case 5: 
-//                 setText(0, i18n("Lowest") );
-                setPixmap(0, SmallIcon("2downarrow") ); 
-                break;
-            case 6: 
-//                 setText(0, i18n("Highest") );
-                setPixmap(0, SmallIcon("stop") ); 
-                break;
-        }
-    }*/
-    
 }
 
 void GroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
@@ -76,14 +54,14 @@ void GroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int 
     
     if(column == 1)
     {
-/*        Transfer::Info info = transfer->getInfo();
+        Group::Info info = group->info();
         float rectWidth = (width-4) * info.percent / 100;
         
         p->fillRect(2,2,rectWidth, height()-4, cg.brush(QColorGroup::Highlight));
         p->setPen(cg.foreground());
         p->drawRect(2,2,rectWidth, height()-4);
         p->drawText(2,2,width, height()-4, Qt::AlignCenter, 
-                    QString().setNum(info.percent) + "%");*/
+                    QString().setNum(info.percent) + "%");
     }
 }
 
@@ -154,7 +132,7 @@ void GroupsPanel::schedulerAddedGroups( const GroupList& list )
     for(; it != endList; ++it)
     {
         GroupItem * newItem = new GroupItem(listView, *it);
-        groupsMap[(*it)->getInfo().name] = newItem;
+        groupsMap[(*it)->info().name] = newItem;
         
         
 
@@ -169,7 +147,7 @@ void GroupsPanel::schedulerRemovedGroups( const GroupList& list)
     
     for(; it != endList; ++it)
     {
-        delete(groupsMap[(*it)->getInfo().name]);
+        delete(groupsMap[(*it)->info().name]);
     }
 
 }
