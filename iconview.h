@@ -42,7 +42,7 @@ class IconView : public QIconView, public ViewInterface
 {
     Q_OBJECT
     public:
-	IconView( Scheduler * s, QWidget * parent = 0, const char * name = 0 );
+	IconView( QWidget * parent = 0, const char * name = 0 );
 	
 	virtual void schedulerCleared();
 	virtual void schedulerAddedItems( TransferList & );
@@ -75,7 +75,11 @@ class IconView : public QIconView, public ViewInterface
 class IconViewMdiView : public KMdiChildView
 {
     public:
-	IconViewMdiView( Scheduler * s, QWidget * parent = 0, const char * name = 0 );
+	IconViewMdiView( QWidget * parent = 0 );
+	void connectToScheduler( Scheduler * );
+    private:
+	IconView * iv1;
+	IconView * iv2;
 };
 
 #endif

@@ -50,5 +50,8 @@ enum TransferMessage {
 // from settings.h, will be moved on connection.h
 enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 
+enum SchedulerOperation { OpPasteTransfer, OpImportTextFile,
+    OpImportTransfers, OpExportTransfers, OpRun, OpStop };
+
 #endif
 

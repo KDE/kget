@@ -31,8 +31,11 @@
 class ViewInterface
 {
     public:
-	ViewInterface( Scheduler * scheduler, const char * name = "view-iface" );
+	ViewInterface( const char * name = "view-iface" );
 	virtual ~ViewInterface();
+
+	/** Call this method to wire up the view interface to a Scheduler */
+	void connectToScheduler( Scheduler * );
 
 	/** commands (-> scheduler)
 	 * Those functions must be called to dispatch information to the
@@ -43,6 +46,7 @@ class ViewInterface
 	void schedSetPriority( TransferList &, int );
 	void schedSetCommand( TransferList &, TransferCommand );
 	void schedSetGroup( TransferList &, const QString & );
+	void schedRequestOperation( SchedulerOperation );
 
 	/** pure virtual 'notifications' (<- scheduler)
 	 * The functions *must* be implemented to receive notifications
@@ -56,6 +60,7 @@ class ViewInterface
 
     private:
 	class ViewInterfaceConnector * d;
+	const char * name;
 };
 
 #endif

@@ -268,18 +268,18 @@ void Scheduler::slotSetPriority(Transfer * item, int priority)
     emit changedItems(list);
 }
 
-void Scheduler::slotSetOperation(TransferList & list, TransferCommand op)
+void Scheduler::slotSetCommand(TransferList & list, TransferCommand op)
 {
     TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
     
     for(; it != endList; ++it)
         {
-        slotSetOperation(*it, op);
+        slotSetCommand(*it, op);
     }
 }
 
-void Scheduler::slotSetOperation(Transfer * item, TransferCommand op)
+void Scheduler::slotSetCommand(Transfer * item, TransferCommand op)
 {
     switch (op)
         {
@@ -318,6 +318,75 @@ void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
     emit changedItems(list);
 }
 
+void Scheduler::slotReqOperation(SchedulerOperation operation)
+{
+    switch(operation)
+    {
+        case OpPasteTransfer:
+            kdDebug() << "PASTE TRANSFER NOT IMPLEMENTED" << endl;
+// 	        QString newtransfer;
+// 
+//     newtransfer = QApplication::clipboard()->text();
+//     newtransfer = newtransfer.stripWhiteSpace();
+// 
+//     if (!ksettings.b_expertMode) {
+//         bool ok = false;
+//         newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
+// 
+//         if (!ok)
+//             return;
+//     }
+// 
+//     if (!newtransfer.isEmpty())
+//         ### addTransfer(newtransfer);
+            break;
+
+        case OpImportTextFile:
+            kdDebug() << "IMPORT TRANSFER LIST NOT IMPLEMENTED" << endl;
+//     QString tmpFile;
+//     QString list;
+//     int i, j;
+// 
+//     KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
+//     if (!filename.isValid())
+//         return;
+// 
+//     if (KIO::NetAccess::download(filename, tmpFile, this)) {
+//         list = kFileToString(tmpFile);
+//         KIO::NetAccess::removeTempFile(tmpFile);
+//     } else
+//         list = kFileToString(filename.path()); // file not accessible -> give error message
+// 
+//     i = 0;
+//     while ((j = list.find('\n', i)) != -1) {
+//         QString newtransfer = list.mid(i, j - i);
+//         addTransfer(newtransfer);
+//         i = j + 1;
+//     }
+            break;
+
+        case OpImportTransfers:
+            slotImportTransfers(false);
+            break;
+
+        case OpExportTransfers:
+            slotExportTransfers(false);
+            break;
+
+        case OpRun:
+            run();
+            break;
+
+        case OpStop:
+            stop();
+            break;
+
+        default:
+            kdDebug() << "SCHEDULER::SLOTREQOPERATION (" << operation << ") NOT IMPLEMENTED" << endl;
+            break;
+    }
+}
+
 void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
 {
     sDebugIn << endl;    
@@ -327,83 +396,6 @@ void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
     emit changedItems(list);
     sDebugOut << endl;    
 }
-
-
-void Scheduler::slotPasteTransfer()
-{
-/*
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    QString newtransfer;
-
-    newtransfer = QApplication::clipboard()->text();
-    newtransfer = newtransfer.stripWhiteSpace();
-
-    if (!ksettings.b_expertMode) {
-        bool ok = false;
-        newtransfer = KInputDialog::getText(i18n("Open Transfer"), i18n("Open transfer:"), newtransfer, &ok, this);
-
-        if (!ok) {
-            // cancelled
-#ifdef _DEBUG
-            sDebugOut << endl;
-#endif
-            return;
-        }
-
-    }
-
-    if (!newtransfer.isEmpty())
-        scheduler->addTransfer(newtransfer);
-
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-*/
-}
-
-
-
-
-void Scheduler::slotImportTextFile()
-{
-/*#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    QString tmpFile;
-    QString list;
-    int i, j;
-
-    KURL filename = KFileDialog::getOpenURL(ksettings.lastDirectory);
-    if (!filename.isValid())
-        return;
-
-    if (KIO::NetAccess::download(filename, tmpFile, this)) {
-        list = kFileToString(tmpFile);
-        KIO::NetAccess::removeTempFile(tmpFile);
-    } else
-        list = kFileToString(filename.path()); // file not accessible -> give error message
-
-    i = 0;
-    while ((j = list.find('\n', i)) != -1) {
-        QString newtransfer = list.mid(i, j - i);
-        scheduler->addTransfer(newtransfer);
-        i = j + 1;
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-*/
-}
-
-
-
-
 
 
 void Scheduler::slotImportTransfers(bool ask_for_name)

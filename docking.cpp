@@ -24,79 +24,70 @@
  *
  ***************************************************************************/
 
-#include <qtooltip.h>
-
-#include <kaboutdata.h>
 #include <kapplication.h>
-#include <kiconloader.h>
+#include <kmainwindow.h>
+#include <kaboutdata.h>
 #include <klocale.h>
+#include <kiconloader.h>
 #include <kpopupmenu.h>
 #include <kurldrag.h>
+#include <kaction.h>
+#include <qtooltip.h>
 
-#include "kmainwidget.h"
-#include "scheduler.h"
-#include "settings.h"
 #include "docking.h"
 
-
-DockWidget::DockWidget(KMainWidget * _parent, Scheduler * _scheduler)
-    : KSystemTray(_parent),
-      scheduler(_scheduler)
+/** class DockWidget
+  * Reimplmentation of the system tray class adding drag/drop
+  * capabilities and the quit action.
+  */
+DockWidget::DockWidget(KMainWindow * parent)
+    : KSystemTray(parent), ViewInterface()
 {
-    parent = _parent;
-
     setPixmap( loadIcon( "dock" ));
 
-    // popup menu for right mouse button
-    //FIXME is this needed??? KPopupMenu *popupMenu = contextMenu();
-    
-    //parent->m_paPreferences->plug(popupMenu);
+    // add preferences action to the context menu
+    parent->actionCollection()->action("open_transfer")->plug(contextMenu());
+    parent->actionCollection()->action("preferences")->plug(contextMenu());
 
-    // Enable dropping
+    // enable dropping
     setAcceptDrops(true);
+
+    // add tooltip telling "I'm kget"
     QToolTip::add( this, kapp->aboutData()->shortDescription() );
 }
 
-
-DockWidget::~DockWidget()
-{
-}
-
-
+// test if dropped thing can be handled (must be an URLlist or a QString)
 void DockWidget::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event)
                   || QTextDrag::canDecode(event));
 }
 
-
+// decode the dropped element asking scheduler to download that
 void DockWidget::dropEvent(QDropEvent * event)
 {
     KURL::List list;
     QString str;
 
-    if (KURLDrag::decode(event, list)) {
-        parent->addTransfers(list);
-    } else if (QTextDrag::decode(event, str)) {
-	//FIXME: the scheduler should do that!
-        //parent->addTransfer(str);
-    }
+    if (KURLDrag::decode(event, list))
+        schedNewURLs(list, QString::null);
+    else if (QTextDrag::decode(event, str))
+        schedNewURLs(KURL(str), QString::null);
 }
 
-
+// filter middle mouse clicks to ask scheduler to paste URL
 void DockWidget::mousePressEvent(QMouseEvent * e)
 {
-    if (e->button() == MidButton) {
-        scheduler->slotPasteTransfer();
-    } else {
+    if (e->button() == MidButton)
+        schedRequestOperation( OpPasteTransfer );
+    else
         KSystemTray::mousePressEvent(e);
-    }
 }
 
-
+// connect the 4th menu entry ("quit") to QApplication::quit()
 void DockWidget::contextMenuAboutToShow ( KPopupMenu* menu )
 {
-    menu->connectItem( menu->idAt(4), kmain, SLOT(slotQuit()));
+    menu->connectItem( menu->idAt(5), kapp, SLOT(quit()));
 }
 
 #include "docking.moc"

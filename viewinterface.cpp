@@ -26,9 +26,11 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
     connect( this, SIGNAL( setPriority(TransferList &, int) ),
 	     sched, SLOT( slotSetPriority(TransferList &, int) ) );
     connect( this, SIGNAL( setOperation(TransferList &, TransferCommand) ),
-	     sched, SLOT( slotSetOperation(TransferList &, TransferCommand) ) );
+	     sched, SLOT( slotSetCommand(TransferList &, TransferCommand) ) );
     connect( this, SIGNAL( setGroup(TransferList &, const QString &) ),
 	     sched, SLOT( slotSetGroup(TransferList &, const QString &) ) );
+    connect( this, SIGNAL( reqOperation(SchedulerOperation) ),
+	     sched, SLOT( slotReqOperation(SchedulerOperation) ) );
 }
 
 void ViewInterfaceConnector::slotCleared()
@@ -64,40 +66,57 @@ void ViewInterfaceConnector::slotStatus( GlobalStatus *gs )
 
 
 //BEGIN ViewInterface iplementation 
-ViewInterface::ViewInterface( Scheduler * scheduler, const char * name )
-{
-    d = new ViewInterfaceConnector( this, scheduler, name );
-}
+ViewInterface::ViewInterface( const char * n )
+    : d( 0 ), name( n ) {};
 
 ViewInterface::~ViewInterface()
 {
     delete d;
 }
 
+void ViewInterface::connectToScheduler( Scheduler * scheduler )
+{
+    ViewInterfaceConnector * old = d;
+    d = new ViewInterfaceConnector( this, scheduler, name );
+    delete old;
+}
+
 void ViewInterface::schedNewURLs( const KURL::List &l, const QString &dir )
 {
-    d->newURLs( l, dir );
+    if ( d )
+	d->newURLs( l, dir );
 }
 
 void ViewInterface::schedRemoveItems( TransferList &l )
 {
-    d->removeItems( l );
+    if ( d )
+	d->removeItems( l );
 }
 
 void ViewInterface::schedSetPriority( TransferList &l, int p )
 {
-    d->setPriority( l, p );
+    if ( d )
+	d->setPriority( l, p );
 }
 
 void ViewInterface::schedSetCommand( TransferList &l, TransferCommand op )
 {
-    d->setOperation( l, op );
+    if ( d )
+	d->setOperation( l, op );
 }
 
 void ViewInterface::schedSetGroup( TransferList &l, const QString & g )
 {
-    d->setGroup( l, g );
+    if ( d )
+	d->setGroup( l, g );
 }
+
+void ViewInterface::schedRequestOperation( SchedulerOperation op )
+{
+    if ( d )
+	d->reqOperation( op );
+}
+
 //END 
 
 #include "viewinterface_p.moc"

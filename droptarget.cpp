@@ -26,16 +26,15 @@
 
 #include <qpainter.h>
 
-#include <kapplication.h>
-#include <kconfig.h>
-#include <kiconloader.h>
+#include <kaction.h>
+#include <kmainwindow.h>
 #include <kglobalsettings.h>
+#include <kiconloader.h>
 #include <kwin.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
 #include <kurldrag.h>
 
-#include "kmainwidget.h"
 #include <qcursor.h>
 #ifdef Q_WS_X11
 #include <X11/Xlib.h>
@@ -51,9 +50,8 @@
 #define TARGET_HEIGHT  69
 
 
-DropTarget::DropTarget(Scheduler * _scheduler)
-    : QWidget(),
-      scheduler(_scheduler)
+DropTarget::DropTarget(KMainWindow * mw)
+    : QWidget(), ViewInterface(), parentWidget((QWidget*)mw)
 {
     int x = ksettings.dropPosition.x();
     int y = ksettings.dropPosition.y();
@@ -99,17 +97,16 @@ DropTarget::DropTarget(Scheduler * _scheduler)
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
-    popupMenu->insertTitle(kapp->caption());
+    popupMenu->insertTitle(mw->caption());
     popupMenu->setCheckable(true);
 
     pop_Max = popupMenu->insertItem(i18n("Maximize"), this, SLOT(toggleMinimizeRestore()));
     pop_Min = popupMenu->insertItem(i18n("Minimize"), this, SLOT(toggleMinimizeRestore()));
-
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
     popupMenu->setItemChecked(pop_sticky, b_sticky);
-    //kmain->m_paPreferences->plug(popupMenu);
+    //mw->actionCollection()->action("preferences")->plug(popupMenu);
     popupMenu->insertSeparator();
-    //kmain->m_paQuit->plug(popupMenu);
+    mw->actionCollection()->action("quit")->plug(popupMenu);
 
     // Enable dropping
     setAcceptDrops(true);
@@ -130,19 +127,15 @@ DropTarget::mousePressEvent(QMouseEvent * e)
         // toggleMinimizeRestore ();
         oldX = 0;
         oldY = 0;
-
     }
     else if (e->button() == RightButton)
     {
-        popupMenu->setItemEnabled(pop_Min, kmain->isVisible());
-        popupMenu->setItemEnabled(pop_Max, kmain->isHidden());
-
+        popupMenu->setItemEnabled(pop_Min, parentWidget->isVisible());
+        popupMenu->setItemEnabled(pop_Max, parentWidget->isHidden());
         popupMenu->popup(QCursor::pos());
     }
     else if (e->button() == MidButton)
-    {
-        scheduler->slotPasteTransfer();
-    }
+        schedRequestOperation( OpPasteTransfer );
 }
 
 
@@ -167,14 +160,9 @@ void DropTarget::dropEvent(QDropEvent * event)
     QString str;
 
     if (KURLDrag::decode(event, list))
-    {
-        kmain->addTransfers(list);
-    }
+	schedNewURLs( list, QString::null );
     else if (QTextDrag::decode(event, str))
-    {
-	//FIXME: the scheduler should do that!
-        //kmain->addTransfer(str);
-    }
+	schedNewURLs( KURL(str), QString::null );
 }
 
 
@@ -199,10 +187,10 @@ void DropTarget::updateStickyState()
 
 void DropTarget::toggleMinimizeRestore()
 {
-    if (kmain->isVisible())
-        kmain->hide();
+    if (parentWidget->isVisible())
+        parentWidget->hide();
     else
-        kmain->show();
+        parentWidget->show();
 }
 
 /** No descriptions */

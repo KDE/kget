@@ -6,7 +6,6 @@
 #include "testview.h"
 #include "transfer.h"
 #include "transferlist.h"
-#include "scheduler.h"
 
 TestViewItem::TestViewItem( KListView * parent, Transfer * _transfer )
     : KListViewItem(parent),
@@ -45,9 +44,8 @@ bool TestViewItem::update(Transfer * t)
 }
 
 
-TestView::TestView(Scheduler * _scheduler, QWidget * parent)
-    : ViewInterface(_scheduler),
-      scheduler(_scheduler)
+TestView::TestView(QWidget * parent)
+    : KMdiChildView(parent, "TestView-CV"), ViewInterface()
 {
     //listView
     listView = new KListView(this);
@@ -100,7 +98,7 @@ TestView::~TestView()
 void TestView::initConnections()
 {
     //list view
-    connect(listView, SIGNAL( selectionChanged(QListViewItem *)), this, SLOT(updateSelection( QListViewItem * )));
+    //### connect(listView, SIGNAL( selectionChanged(QListViewItem *)), this, SLOT(updateSelection( QListViewItem * )));
 
     //buttons
     connect(btSetPrior1, SIGNAL( clicked() ), this, SLOT( setPriority1() ));
@@ -126,7 +124,7 @@ void TestView::setPriority(int n)
 {
     sDebugIn << endl;
     
-    TransferList list(scheduler);
+    TransferList list;
     
     QListViewItemIterator it(listView);
     
@@ -148,7 +146,7 @@ void TestView::resume()
 {
     sDebugIn << endl;
     
-    TransferList list(scheduler);
+    TransferList list;
     
     QListViewItemIterator it(listView);
     
@@ -170,7 +168,7 @@ void TestView::pause()
 {
     sDebugIn << endl;
     
-    TransferList list(scheduler);
+    TransferList list;
     
     QListViewItemIterator it(listView);
     

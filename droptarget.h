@@ -30,18 +30,17 @@
 #include <qwidget.h>
 #include <qbitmap.h>
 #include <qdragobject.h>
+#include "viewinterface.h"
 
 class KPopupMenu;
 class KMainWidget;
 
-class Scheduler;
-
-class DropTarget:public QWidget
+class DropTarget:public QWidget, public ViewInterface
 {
 Q_OBJECT 
 
 public:
-    DropTarget(Scheduler * _scheduler);
+    DropTarget(KMainWindow *);
     ~DropTarget();
 
     void updateStickyState();
@@ -63,10 +62,8 @@ private slots:
     void toggleMinimizeRestore();
 
 private:
-    Scheduler * scheduler;
-
     KPopupMenu * popupMenu;
-    KMainWidget *parent;
+    QWidget * parentWidget;
 
     bool b_sticky;
 

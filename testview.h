@@ -46,7 +46,7 @@ class TestView : public KMdiChildView, public ViewInterface
 {
 Q_OBJECT
 public:
-    TestView(Scheduler * _scheduler, QWidget * parent = 0);
+    TestView(QWidget * parent = 0);
     ~TestView();
     
     void initTable();
@@ -72,7 +72,6 @@ public slots:
 private:
     void setPriority(int n);
     
-    Scheduler * scheduler;
     KListView * listView;
 
     KPushButton * btSetPrior1;

@@ -24,44 +24,41 @@
  *
  ***************************************************************************/
 
-
-
 #ifndef _DOCKING_H_
 #define _DOCKING_H_
 
-#include <stdio.h>
-
 #include <qdragobject.h>
-
 #include <ksystemtray.h>
+#include "viewinterface.h"
 
 class KPopupMenu;
-class KMainWidget;
-class Scheduler;
+class KMainWindow;
 
-class DockWidget:public KSystemTray
+/**
+  * This class implements the main tray icon for kget. It has a popup
+  * from which the user can open a new transfer, configure kget, 
+  * minimize/restore or quit the app (default behavior) and drop
+  * links to download.
+  *
+  * @short KGet's system tray widget.
+  **/
+
+class DockWidget:public KSystemTray, public ViewInterface
 {
+Q_OBJECT
+public:
+    DockWidget( KMainWindow * parent );
 
-Q_OBJECT public:
-    DockWidget(KMainWidget * parent, Scheduler * _scheduler);
-    ~DockWidget();
-    /** No descriptions */
-    virtual void contextMenuAboutToShow ( KPopupMenu* menu );
-
-
+    virtual void contextMenuAboutToShow( KPopupMenu * menu );
 
 private slots:
-    void mousePressEvent(QMouseEvent * e);
+    void mousePressEvent( QMouseEvent * e );
 
 protected:
     // drag and drop
-    void dragEnterEvent(QDragEnterEvent *);
-    void dropEvent(QDropEvent *);
-
-private:
-    KMainWidget *parent;
-    Scheduler * scheduler;
-
+    void dragEnterEvent( QDragEnterEvent * );
+    void dropEvent( QDropEvent * );
 };
 
 #endif
+

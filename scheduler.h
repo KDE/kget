@@ -78,28 +78,20 @@ public slots:
 	void slotSetPriority(TransferList &, int);
 	void slotSetPriority(Transfer *, int);
     
-	void slotSetOperation(TransferList &, TransferCommand);
-	void slotSetOperation(Transfer *, TransferCommand);
+	void slotSetCommand(TransferList &, TransferCommand);
+	void slotSetCommand(Transfer *, TransferCommand);
     
 	void slotSetGroup(TransferList &, const QString &);
 	void slotSetGroup(Transfer *, const QString &);
+
+	void slotReqOperation(SchedulerOperation);
 
     /**
      * This slot is called from the Transfer object when its status
      * has changed
      */
     void slotTransferMessage(Transfer *, TransferMessage);
-
-    /**
-     * This function adds the transfer copied in the clipboard
-     */
-    void slotPasteTransfer();
     
-    /**
-     * Used to import the URLS from a text file
-     */
-    void slotImportTextFile();
-        
     /**
      * KGET TRANSFERS FILE related
      */
@@ -143,9 +135,7 @@ private:
      */
          
     /**
-     * Called by the KMainWidget class in the dropEvent, and in the 
-     * slotImportTextFile(...) function.
-     * Like the function above. 
+     * Called in the slotImportTextFile(...) function.
      * You can add only a Transfer, with destDir being requested with
      * a KFileDialog
      */

@@ -34,7 +34,7 @@
 #include "globals.h"
 
 #include "kget_iface.h"
-#include "scheduler.h"
+#include "viewinterface.h"
 
 class KAction;
 //class KToggleAction;
@@ -47,8 +47,7 @@ class DlgPreferences;
 
 class Settings;
 
-
-class KMainWidget:public KMdiMainFrm, virtual public KGetIface
+class KMainWidget:public KMdiMainFrm, public ViewInterface, virtual public KGetIface
 {
 
 Q_OBJECT 
@@ -86,15 +85,13 @@ public slots:
     void slotToggleDropTarget();
     void slotToggleSound();
     void slotUpdateActions();
+
 protected slots:
     void slotQuit();
 
     void slotSaveYourself();
-
-//    void slotTransferTimeout();
-//    void slotAutosaveTimeout();
-
-//    void slotCheckClipboard();
+    void slotExportTransfers();
+    void slotImportTransfers();
 
     void slotConfigureKeys();
     void slotConfigureToolbars();
@@ -106,7 +103,6 @@ protected:
     virtual bool isOfflineMode() const;
 
     virtual bool queryClose();
-    void writeLog();
 
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);
@@ -120,7 +116,6 @@ protected:
     void setupGUI(bool startDocked);
     void setupConnections();
     void setupWhatsThis();
-    void setupUserSettings();
     
     void updateStatusBar();
 
@@ -150,8 +145,6 @@ private:
 
     QString lastClipboard;
 
-    int _sock;
-
     // Actions
     KAction *m_paOpenTransfer, *m_paExportTransfers, *m_paImportTransfers;
     KAction *m_paImportText;
@@ -165,7 +158,7 @@ private:
 
     KToggleAction *m_paDropTarget;
 
-    public:
+public:
     void activateDropTarget(void){if(!m_paDropTarget->isChecked()) m_paDropTarget->activate();};
 
 };

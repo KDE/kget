@@ -95,8 +95,8 @@ void IconViewTransfer::paintFocus( QPainter *, const QColorGroup & )
 *
 */
 
-IconView::IconView( Scheduler * s, QWidget * parent, const char * name )
-    : QIconView( parent, name ), ViewInterface( s )
+IconView::IconView( QWidget * parent, const char * name )
+    : QIconView( parent, name ), ViewInterface()
 {
     setSelectionMode( Extended );
     connect( this, SIGNAL(rightButtonClicked(QIconViewItem *,const QPoint &)),
@@ -119,11 +119,9 @@ void IconView::slotRightButtonClicked( QIconViewItem * item, const QPoint & pos 
     KPopupMenu * popup = new KPopupMenu( this );
     
     // insert title
-    QFont boldFont = popup->font();
-    boldFont.setBold( true );
-    QLabel * lab = new QLabel( overItems ? "Transfer operations Menu" : "KGet Menu", popup );
-    lab->setFont( boldFont );
-    popup->insertItem( (QWidget*)lab );
+    QString t1 = i18n("Transfer operations Menu");
+    QString t2 = i18n("KGet Menu");
+    popup->insertTitle( overItems ? t1 : t2 );
     
     // add menu entries
     if ( overItems )
@@ -134,16 +132,12 @@ void IconView::slotRightButtonClicked( QIconViewItem * item, const QPoint & pos 
 	
 	KPopupMenu * subPrio = new KPopupMenu( popup );
 	subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority1() ) );
-	subPrio->insertItem( SmallIcon("1uparrow"), i18n("highe"), this,  SLOT( slotSetPriority2() ) );
+	subPrio->insertItem( SmallIcon("1uparrow"), i18n("high"), this,  SLOT( slotSetPriority2() ) );
 	subPrio->insertItem( i18n("normal"), this,  SLOT( slotSetPriority3() ) );
 	subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority4() ) );
 	subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority5() ) );
 	subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority6() ) );
 	popup->insertItem( i18n("Set priority"), subPrio );
-	
-	KPopupMenu * subOp = new KPopupMenu( popup );
-	subOp->insertItem( i18n("resume"), this,  SLOT( slotSetCommand() ) );
-	popup->insertItem( SmallIcon("forward"), i18n("Operation"), subOp );
 	
 	KPopupMenu * subGroup = new KPopupMenu( popup );
 	//for loop inserting all existant groups
@@ -152,7 +146,7 @@ void IconView::slotRightButtonClicked( QIconViewItem * item, const QPoint & pos 
     }
     else
 	// menu on empty space
-	popup->insertItem( "New transfer ...", this, SLOT(slotNewTransfer()) );
+	popup->insertItem( i18n("New transfer ..."), this, SLOT(slotNewTransfer()) );
 
     // show popup
     popup->popup( pos );
@@ -297,8 +291,8 @@ void IconView::schedulerStatus( GlobalStatus * )
 
 
 
-IconViewMdiView::IconViewMdiView( Scheduler * s, QWidget * parent, const char * name )
-    : KMdiChildView( parent, name )
+IconViewMdiView::IconViewMdiView( QWidget * parent )
+    : KMdiChildView( parent, "IconView-CV" )
 {
     QHBoxLayout * mainLay = new QHBoxLayout( this,2 );
      QFrame * descFrame = new QFrame( this );
@@ -309,9 +303,9 @@ IconViewMdiView::IconViewMdiView( Scheduler * s, QWidget * parent, const char * 
      QFrame * ivFrame = new QFrame( this );
      mainLay->addWidget( ivFrame );
       QVBoxLayout * rightVLay = new QVBoxLayout( ivFrame,4,4 );
-       IconView * iv1 = new IconView( s, ivFrame );
+       iv1 = new IconView( ivFrame );
        iv1->setLineWidth(1);
-       IconView * iv2 = new IconView( s, ivFrame );
+       iv2 = new IconView( ivFrame );
        iv2->setLineWidth(1);
        iv2->setItemTextPos( QIconView::Right );
        rightVLay->addWidget( new QLabel("Downloading", ivFrame) );
@@ -319,6 +313,12 @@ IconViewMdiView::IconViewMdiView( Scheduler * s, QWidget * parent, const char * 
        rightVLay->addWidget( new QLabel("Next in chain", ivFrame) );
        rightVLay->addWidget( iv2 );
 //       ivFrame->setPaletteBackgroundColor( iv2->paletteBackgroundColor());
+}
+    
+void IconViewMdiView::connectToScheduler( Scheduler * s )
+{
+    iv1->connectToScheduler( s );
+    iv2->connectToScheduler( s );
 }
 
 #include "iconview.moc"
