@@ -150,6 +150,7 @@ Q_OBJECT public:
 
         // actions
         KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
+        //KAction *m_paDock;
         KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
 
         /**  */
@@ -200,8 +201,8 @@ private:
 
         KURL src;
         KURL dest;
-
-        /* the tranfer id number */
+        
+       /* the tranfer id number */
         uint id;
 
         static uint idcount;
@@ -229,7 +230,7 @@ private:
 
         // individual download window
         DlgIndividual *dlgIndividual;
-
+        
 
 
 }

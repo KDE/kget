@@ -139,6 +139,10 @@ Transfer::setupFields()
         m_paTimer->setExclusiveGroup("TransferMode");
         m_paDelay->setExclusiveGroup("TransferMode");
 
+        // Actions
+
+//        m_paDock = new KAction(i18n("&Dock"),"tool_dock.png", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
+
         // setup individual transfer dialog
         dlgIndividual = new DlgIndividual(this);
         if (ksettings.b_iconifyIndividual) {
@@ -522,6 +526,8 @@ void Transfer::slotFinished()
         status = ST_FINISHED;
         slotProcessedSize(totalSize);
         slotSpeed(0);
+        dlgIndividual->enableOpenFile();
+        
         emit statusChanged(this, OP_FINISHED);
         sDebugOut << endl;
 }

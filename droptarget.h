@@ -42,7 +42,7 @@ Q_OBJECT public:
         DropTarget();
         ~DropTarget();
 
-        void setAnim(int i1, int i2, int i3, int i4, bool online);
+
 
 protected:
         virtual void resizeEvent(QResizeEvent *);

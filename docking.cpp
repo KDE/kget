@@ -85,39 +85,6 @@ DockWidget::~DockWidget()
 }
 
 
-void
-DockWidget::setAnim(int i1, int i2, int i3, bool online)
-{
-
-        size[0] = i1;
-        size[1] = i2;
-        size[2] = i3;
-
-        if (isVisible()) {
-                if (!online || ksettings.b_offlineMode) {
-                        setPixmap(*handpix3);
-                } else if (size[0] == 0 && size[1] == 0 && size[2] == 0) {
-                        setPixmap(*handpix1);
-                } else {
-                        QPixmap pm(*handpix2);
-                        QPainter p;
-
-                        p.begin(&pm);
-
-                        p.setPen(white);
-                        for (int i = 0; i < 3; i++) {
-                                if (size[i] != 0) {
-                                        int pixels = (int) (DOCK_ICONWIDTH * (float) size[i] / 100.0);
-
-                                        p.fillRect(1, i * 8, pixels, 7, blue);
-                                }
-                        }
-
-                        p.end();
-                        setPixmap(pm);
-                }
-        }
-}
 
 
 void DockWidget::dragEnterEvent(QDragEnterEvent * event)

@@ -12,7 +12,7 @@ kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
                dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
                dlgAutomation.cpp dlgAdvanced.cpp bwdatetime.cpp \
-               main.cpp 
+               main.cpp dockindividual.cpp
 
 noinst_HEADERS = bwdatetime.h common.h \
                  dlgAdvanced.h dlgAutomation.h dlgConnection.h \
@@ -20,7 +20,7 @@ noinst_HEADERS = bwdatetime.h common.h \
                  dlgPreferences.h dlgSystem.h docking.h droptarget.h \
                  kfileio.h kmainwidget.h logwindow.h misc.h settings.h \
                  transfer.h transferlist.h main.h version.h slave.h \
-                 slaveevent.h http_defaults.h getfilejob.h
+                 slaveevent.h http_defaults.h getfilejob.h dockindividual.h
 
 kget_METASOURCES = AUTO
 

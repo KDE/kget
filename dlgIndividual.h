@@ -32,78 +32,77 @@
 #include <qpushbutton.h>
 #include <qtabwidget.h>
 #include <qdatetime.h>
-
 #include <kprogress.h>
-
-#include "bwdatetime.h"
-
 #include <kdialog.h>
 #include <qtextedit.h>
+#include <qcheckbox.h>
+#include <kpushbutton.h>
+#include <kaction.h>
+#include <ksqueezedtextlabel.h>
+#include <kprocess.h>
+#include "bwdatetime.h"
+#include "dockindividual.h"
 
 class Transfer;
 
 
-class DlgIndividual:public /* QWidget QDialog */ KDialog
+class DlgIndividual:public KDialog
 {
 
 Q_OBJECT public:
-        DlgIndividual(Transfer * _item);
-        ~DlgIndividual()
-        {}
-        /** No descriptions */
-        void addLog(const QString & _msg);
-
-        /** No descriptions */
+    DlgIndividual(Transfer * _item);
+    ~DlgIndividual()
+    {}
+    void addLog(const QString & _msg);
+    void enableOpenFile();
 
 public slots:
-        void setTotalSize(unsigned long bytes);
-        void setTotalFiles(unsigned long files);
-        void setTotalDirs(unsigned long dirs);
+    void setTotalSize(unsigned long bytes);
 
-        void setProcessedSize(unsigned long bytes);
-        void setProcessedFiles(unsigned long files);
-        void setProcessedDirs(unsigned long dirs);
+    void setProcessedSize(unsigned long bytes);
 
-        void setSpeed(unsigned long bytes_per_second, QTime remaining);
-        void setPercent(unsigned long percent);
+    void setSpeed(unsigned long bytes_per_second, QTime remaining);
+    void setPercent(unsigned long percent);
 
-        void setCopying(const KURL & src, const KURL & dest);
-        void setCanResume(bool);
+    void setCopying(const KURL & src, const KURL & dest);
+    void setCanResume(bool);
+    void slotKeepOpenToggled(bool);
+    void slotOpenLocation();
+    void slotOpenFile();
 
 protected slots:
-        void slotToggleAdvanced(bool);
+    void slotToggleAdvanced(bool);
+    void slotToggleDock();
 
 protected:
-        QLabel * progressLabel;
-        QLabel *sourceLabel;
-        QLabel *destLabel;
-        QLabel *speedLabel;
-        QLabel *sizeLabel;
-        QLabel *resumeLabel;
-        QTextEdit *ml_log;
+    QLabel *sourceLabel;
+    QLabel *destLabel;
+    QLabel *speedLabel;
+    QLabel *sizeLabel;
+    QLabel *resumeLabel;
+    QTextEdit *ml_log;
 
-        KProgress *m_pProgressBar;
+    KProgress *m_pProgressBar;
+    DockIndividual * m_pDockIndividual;
 
-        QPushButton *pbAdvanced;
-        QTabWidget *panelAdvanced;
+    KPushButton   * openFile;
+    KPushButton   * openLocation;
+    KPushButton   * pbAdvanced ;
 
-        QDateTime qdt;
-        BWDateTime *spins;
+    QTabWidget    * panelAdvanced;
+    KToggleAction * m_paDock;
 
-        // search stuff
-        //        SearchList *listSearch;
+    QDateTime qdt;
+    BWDateTime *spins;
 
-        Transfer *item;
+    Transfer *item;
 
-        QString m_sFilename;
-        unsigned long m_iTotalSize;
-        unsigned long m_iTotalFiles;
-        unsigned long m_iTotalDirs;
+    KURL m_location;
 
-        unsigned long m_iProcessedDirs;
-        unsigned long m_iProcessedFiles;
+    bool bKeepDlgOpen;
 
-public:                      // Public attributes
+    unsigned long m_iTotalSize;
+
 }
 
 ;

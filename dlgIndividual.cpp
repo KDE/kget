@@ -47,53 +47,56 @@
 
 DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
 {
+
     item = _item;
-    QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    setSizePolicy(policy);
-    QVBoxLayout *topLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+    //create dock
+    m_pDockIndividual =new DockIndividual(this);
 
+
+
+    // Actions
+
+    m_paDock = new KToggleAction(i18n("&Dock"),"tool_dock.png", 0, this, SLOT(slotToggleDock()), this, "dockIndividual");
+
+
+    QVBoxLayout *topLayout = new QVBoxLayout( this, KDialog::marginHint(),KDialog::spacingHint() );
+    topLayout->addStrut( 360 );   // makes dlg at least that wide
     topLayout->setResizeMode(QVBoxLayout::Fixed);
-    topLayout->addStrut(360);   // makes dlg at least that wide
 
-    QGridLayout *grid = new QGridLayout(3, 3);
-
+    QGridLayout *grid = new QGridLayout( 2, 3 );
     topLayout->addLayout(grid);
-    grid->setColStretch(2, 1);
     grid->addColSpacing(1, KDialog::spacingHint());
 
     grid->addWidget(new QLabel(i18n("Source:"), this), 0, 0);
 
-    sourceLabel = new QLabel(this);
+    sourceLabel = new KSqueezedTextLabel(this);
     grid->addWidget(sourceLabel, 0, 2);
-
+    sourceLabel->setText("Source Label");
     grid->addWidget(new QLabel(i18n("Destination:"), this), 1, 0);
 
-    destLabel = new QLabel(this);
+    destLabel = new KSqueezedTextLabel(this);
     grid->addWidget(destLabel, 1, 2);
+    destLabel->setText("Source Label");
 
-    topLayout->addSpacing(5);
-
-    progressLabel = new QLabel(this);
-    grid->addWidget(progressLabel, 2, 2);
-
-    m_pProgressBar = new KProgress(100, this);
-
-    topLayout->addWidget(m_pProgressBar);
+    m_pProgressBar = new KProgress(this);
+    topLayout->addWidget( m_pProgressBar );
 
     // processed info
     QHBoxLayout *hBox = new QHBoxLayout();
+    topLayout->addLayout(hBox);
 
+    sizeLabel = new QLabel(this);
+    hBox->addWidget(sizeLabel);
+    resumeLabel = new QLabel(this);
+    hBox->addWidget(resumeLabel);
+
+    hBox = new QHBoxLayout();
     topLayout->addLayout(hBox);
 
     speedLabel = new QLabel(this);
     hBox->addWidget(speedLabel, 1);
-
-    sizeLabel = new QLabel(this);
-    hBox->addWidget(sizeLabel);
-
-    resumeLabel = new QLabel(this);
-    hBox->addWidget(resumeLabel);
+    speedLabel->setText("0 B/s");
 
     // setup toolbar
     hBox = new QHBoxLayout();
@@ -106,6 +109,9 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
     toolBar->enableFloating(false);
     toolBar->enableMoving(false);
 
+    topLayout->addWidget( toolBar );
+
+    // insert toolbar actions
     item->m_paResume->plug(toolBar);
     item->m_paPause->plug(toolBar);
     item->m_paDelete->plug(toolBar);
@@ -116,13 +122,44 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
     item->m_paTimer->plug(toolBar);
     item->m_paDelay->plug(toolBar);
 
-    hBox->addWidget(toolBar, 3);
+    toolBar->insertLineSeparator();
+    m_paDock->plug(toolBar);
 
-    pbAdvanced = new QPushButton(i18n("Advanced"), this);
+
+
+
+
+    QCheckBox * keepOpen = new QCheckBox( i18n("&Keep this window open after the operation is complete."), this);
+    connect( keepOpen, SIGNAL( toggled(bool) ), SLOT( slotKeepOpenToggled(bool) ) );
+    topLayout->addWidget(keepOpen);
+
+    QFrame *line3 = new QFrame( this );
+    line3->setFrameShape( QFrame::HLine );
+    line3->setFrameShadow( QFrame::Sunken );
+    topLayout->addWidget( line3 );
+
+    hBox = new QHBoxLayout();
+    topLayout->addLayout(hBox);
+
+    openFile = new KPushButton( i18n("Open &File"), this );
+    connect( openFile, SIGNAL( clicked() ), SLOT( slotOpenFile() ) );
+    hBox->addWidget( openFile );
+    openFile->setEnabled(false);
+
+    openLocation = new KPushButton( i18n("Open &Destination"), this );
+    connect( openLocation, SIGNAL( clicked() ), SLOT( slotOpenLocation() ) );
+    hBox->addWidget( openLocation );
+
+    hBox->addStretch(1);
+
+    pbAdvanced = new KPushButton( i18n("Advanced"), this );
+
     pbAdvanced->setToggleButton(true);
-    pbAdvanced->setOn(ksettings.b_advancedIndividual);
+
     connect(pbAdvanced, SIGNAL(toggled(bool)), SLOT(slotToggleAdvanced(bool)));
-    hBox->addWidget(pbAdvanced);
+
+    hBox->addWidget( pbAdvanced );
+
 
     // setup tab dialog
     panelAdvanced = new QTabWidget(this);
@@ -170,6 +207,18 @@ DlgIndividual::DlgIndividual(Transfer * _item):KDialog(0, "dialog")
     }
 
 
+
+
+    resize( sizeHint() );
+    setMaximumHeight(sizeHint().height());
+
+    bool keepOpenChecked = false;
+    bool noCaptionYet = true;
+    setCaption(i18n("Progress Dialog")); // show something better than kio_uiserver
+
+
+
+
 }
 
 
@@ -179,23 +228,11 @@ void DlgIndividual::setTotalSize(unsigned long bytes)
 }
 
 
-void DlgIndividual::setTotalFiles(unsigned long files)
-{
-    m_iTotalFiles = files;
-}
-
-
-void DlgIndividual::setTotalDirs(unsigned long dirs)
-{
-    m_iTotalDirs = dirs;
-}
-
-
 void DlgIndividual::setPercent(unsigned long percent)
 {
     m_pProgressBar->setValue(percent);
-
-    setCaption(i18n("%1% of %2 - %3").arg(percent).arg(KIO::convertSize(m_iTotalSize)).arg(m_sFilename.ascii()));
+    m_pDockIndividual->setValue(percent);
+    setCaption(i18n("%1% of %2 - %3").arg(percent).arg(KIO::convertSize(m_iTotalSize)).arg((m_location.fileName()).ascii()));
 }
 
 
@@ -207,55 +244,18 @@ void DlgIndividual::setProcessedSize(unsigned long bytes)
 }
 
 
-void DlgIndividual::setProcessedDirs(unsigned long dirs)
-{
-    m_iProcessedDirs = dirs;
-
-    QString tmps;
-
-    tmps = i18n("%1 / %2 directories  ").arg(m_iProcessedDirs).arg(m_iTotalDirs);
-    tmps += i18n("%1 / %2 files").arg(m_iProcessedFiles).arg(m_iTotalFiles);
-
-    progressLabel->setText(tmps);
-
-}
-
-
-void DlgIndividual::setProcessedFiles(unsigned long files)
-{
-    m_iProcessedFiles = files;
-
-    QString tmps;
-
-    if (m_iTotalDirs > 1)
-    {
-        tmps = i18n("%1 / %2 directories  ").arg(m_iProcessedDirs).arg(m_iTotalDirs);
-    }
-    tmps += i18n("%1 / %2 files").arg(m_iProcessedFiles).arg(m_iTotalFiles);
-
-    progressLabel->setText(tmps);
-
-}
-
-
 void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 {
+    QString msg;
     if (bytes_per_second == 0 && item->getStatus() < Transfer::ST_RUNNING)
-    {
-
-        speedLabel->setText(i18n("Stalled"));
-
-    }
+        msg=i18n("Stalled");
     else if (bytes_per_second == 0 && item->getStatus() == Transfer::ST_FINISHED)
-    {
-        speedLabel->setText(i18n("Finished"));
-    }
+        msg=i18n("Finished");
     else
-    {
+        msg=i18n("%1/s ( %2 )").arg(KIO::convertSize(bytes_per_second)).arg(remaining.toString());
 
-        speedLabel->setText(i18n("%1/s ( %2 )").arg(KIO::convertSize(bytes_per_second)).arg(remaining.toString()));
-
-    }
+    speedLabel->setText(msg);
+    m_pDockIndividual->setTip(msg);
 
 
 
@@ -264,42 +264,12 @@ void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 
 void DlgIndividual::setCopying(const KURL & from, const KURL & to)
 {
-    QString source;
-    QString dest;
 
-    source = from.url();
-    dest = to.url();
+    m_location=to;
+    setCaption(m_location.fileName());
 
-    if (source.length() > 40)
-    {
-        QString left = source.left(20);
-
-        left = left.left(left.findRev("/") + 1);
-        left += "...";
-        QString right = source.right(25);
-
-        right = right.right(right.length() - right.find("/"));
-        source = left + right;
-    }
-    if (dest.length() > 40)
-    {
-        QString left = dest.left(20);
-
-        left = left.left(left.findRev("/") + 1);
-        left += "...";
-        QString right = dest.right(25);
-
-        right = right.right(right.length() - right.find("/"));
-        dest = left + right;
-    }
-
-
-    m_sFilename = to.fileName();
-
-    setCaption(m_sFilename);
-
-    sourceLabel->setText(source);
-    destLabel->setText(dest);
+    sourceLabel->setText(from.url());
+    destLabel->setText(to.url());
 
 }
 
@@ -307,19 +277,48 @@ void DlgIndividual::setCopying(const KURL & from, const KURL & to)
 void DlgIndividual::setCanResume(bool resume)
 {
     if (resume)
-        resumeLabel->setText(i18n("Resumable"));
+        resumeLabel->setText(i18n("Resumed"));
 
-    /*
-     * else { resumeLabel->setText(i18n("Not resumable")); } */
+
+    else
+    { resumeLabel->setText(i18n("Not resumed")); }
 
 }
 
 void DlgIndividual::slotToggleAdvanced(bool advanced)
 {
+#ifdef _DEBUG
+    sDebugIn<<endl;
+#endif
+
     if (advanced)
         panelAdvanced->show();
     else
         panelAdvanced->hide();
+
+#ifdef _DEBUG
+    sDebugOut<<endl;
+#endif
+
+}
+
+void DlgIndividual::slotToggleDock()
+{
+#ifdef _DEBUG
+    sDebugIn<<endl;
+#endif
+
+    if (m_paDock->isChecked())
+    {
+        m_pDockIndividual->show();
+        hide();
+    }
+    else
+        m_pDockIndividual->hide();
+
+#ifdef _DEBUG
+    sDebugOut<<endl;
+#endif
 
 }
 
@@ -335,5 +334,87 @@ void DlgIndividual::addLog(const QString & _msg)
 
     ml_log->append(tmps);
 }
+
+
+void DlgIndividual::slotKeepOpenToggled(bool bToggled){
+#ifdef _DEBUG
+    sDebugIn<<endl;
+#endif
+
+
+    bKeepDlgOpen=bToggled;
+
+    if (!bKeepDlgOpen && item->getStatus()==Transfer::ST_FINISHED)
+        hide();
+
+#ifdef _DEBUG
+    sDebugOut<<endl;
+#endif
+
+}
+
+
+void DlgIndividual::slotOpenLocation(){
+
+#ifdef _DEBUG
+    sDebugIn<<endl;
+#endif
+
+    KURL location=m_location;
+    KProcess proc;
+    location.setFileName("");
+    proc << "konqueror" << location.prettyURL();
+    proc.start(KProcess::DontCare);
+
+
+#ifdef _DEBUG
+    sDebugOut<<endl;
+#endif
+
+}
+
+void DlgIndividual::slotOpenFile(){
+#ifdef _DEBUG
+    sDebugIn<<endl;
+#endif
+
+    KProcess proc;
+    proc << "konqueror" << m_location.prettyURL();
+    proc.start(KProcess::DontCare);
+
+
+#ifdef _DEBUG
+    sDebugOut<<endl;
+#endif
+
+}
+
+
+void DlgIndividual::enableOpenFile(){
+
+#ifdef _DEBUG
+    sDebugIn<<endl;
+#endif
+
+
+    openFile->setEnabled(true);
+
+    if (!bKeepDlgOpen)
+        hide();
+
+#ifdef _DEBUG
+    sDebugOut<<endl;
+#endif
+
+}
+
+
+
+
+
+
+
+
+
 
 #include "dlgIndividual.moc"

@@ -241,8 +241,7 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0)
         setCaption(i18n("Offline"), false);
     else {
         setCaption(i18n(""), false);
-        m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("appdata",
-                                             "pics/tool_offline_mode-on.png"))));
+        m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("appdata","pics/tool_offline_mode-on.png"))));
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
@@ -1290,11 +1289,6 @@ void KMainWidget::slotAnimTimeout()
             }
         }
 
-        if (ksettings.windowStyle == DOCKED) {
-            kdock->setAnim(progindex[0], progindex[1], progindex[2], b_online);
-        } else {
-            kdrop->setAnim(progindex[0], progindex[1], progindex[2], progindex[3], b_online);
-        }
     }
 
 

@@ -198,51 +198,6 @@ void DropTarget::toggleSticky()
 }
 
 
-void DropTarget::setAnim(int i1, int i2, int i3, int i4, bool online)
-{
-    size[0] = i1;
-    size[1] = i2;
-    size[2] = i3;
-    size[3] = i4;
-
-    //just to avoid compiler warning
-    online=online;
-/*
-    if (isVisible())
-    {
-        if (!online || ksettings.b_offlineMode)
-        {
-            setBackgroundPixmap(*handpix3);
-        }
-        else if (size[0] == 0 && size[1] == 0 && size[2] == 0 && size[3] == 0)
-        {
-            setBackgroundPixmap(*handpix1);
-        }
-        else
-        {
-            QPixmap pm(*handpix2);
-            QPainter p;
-
-            p.begin(&pm);
-
-            p.setPen(white);
-            for (int i = 0; i < 4; i++)
-            {
-                if (size[i] != 0)
-                {
-                    int pixels = (int) ((TARGET_WIDTH - 8) * (float) size[i] / 100.0);
-
-                    p.fillRect(4, 4 + (i * 12), pixels, 10, blue);
-                }
-            }
-
-            p.end();
-            setBackgroundPixmap(pm);
-        }
-    }
-    */
-}
-
 
 void DropTarget::toggleMinimizeRestore()
 {
