@@ -102,7 +102,6 @@ public slots:
     void slotToggleAnimation();
     void slotToggleSound();
     void slotUpdateActions();
-    void close();
 
 protected slots:
     void slotQuit();
