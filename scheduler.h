@@ -48,10 +48,13 @@ signals:
 	void clear();
 	void globalStatus(GlobalStatus *);
 	
+public:
+    bool isRunning()const {return running;}
+
 public slots:
     void run();
     void stop();
-
+    
     /**
      * Just an idea for these slots: we can handle 3 cases:
      *  1) src = empty list -> means that the src url must be inserted 
@@ -128,7 +131,7 @@ private:
      * calling the writeTransfer function in the transferList object.
      * It checks if the file is valid.
      */
-    void writeTransfers(const QString & file);
+    void writeTransfers(QString & file);
     
     /**
      * Functions used to add Transfers from URLS
@@ -159,7 +162,12 @@ private:
     
     QString getSaveDirectoryFor( const QString& filename ) const;
     
-    void checkQueue();
+    /**
+     * Checks the number of running transfers. It starts or stops the
+     * transfers, trying to have the number of running transfers 
+     * specified by the user
+     */
+    void checkRunningTransfers();
     
     /**
      * Returns the ConnectionInterface for the selected transfer.
@@ -170,8 +178,11 @@ private:
      
     TransferList * transfers;
     TransferList * removedTransfers;
+    TransferList * runningTransfers;
     KMainWidget * mainWidget;
     QValueList<Connection*> connections;
+    
+    bool running;
 };
 
 #endif

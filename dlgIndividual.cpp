@@ -108,22 +108,6 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
     topLayout->addWidget( toolBar );
 
-    // insert toolbar actions
-    item->m_paResume->plug(toolBar);
-    item->m_paPause->plug(toolBar);
-    item->m_paDelete->plug(toolBar);
-
-    toolBar->insertLineSeparator();
-
-    item->m_paQueue->plug(toolBar);
-    item->m_paTimer->plug(toolBar);
-    item->m_paDelay->plug(toolBar);
-
-    toolBar->insertLineSeparator();
-    m_paDock->plug(toolBar);
-
-
-
     QCheckBox * keepOpen = new QCheckBox( i18n("&Keep this window open after the operation is complete."), this);
     connect( keepOpen, SIGNAL( toggled(bool) ), SLOT( slotKeepOpenToggled(bool) ) );
     topLayout->addWidget(keepOpen);
@@ -163,7 +147,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     // otherwise set it to the current time
     QDateTime dt;
 
-    if (item->getStartTime() < QDateTime::currentDateTime() && item->getMode() != Transfer::MD_SCHEDULED)
+    if (item->getStartTime() < QDateTime::currentDateTime() )
     {
         dt = QDateTime::currentDateTime();
     }
@@ -230,9 +214,9 @@ void DlgIndividual::setProcessedSize(unsigned long bytes)
 void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 {
     QString msg;
-    if (bytes_per_second == 0 && item->getStatus() < Transfer::ST_RUNNING)
+    if (bytes_per_second == 0 && item->getStatus() < ST_RUNNING)
         msg=i18n("Stalled");
-    else if (bytes_per_second == 0 && item->getStatus() == Transfer::ST_FINISHED)
+    else if (bytes_per_second == 0 && item->getStatus() == ST_FINISHED)
         msg=i18n("Finished");
     else
         msg=i18n("%1/s ( %2 )").arg(KIO::convertSize(bytes_per_second)).arg(remaining.toString());
@@ -285,13 +269,13 @@ void DlgIndividual::slotToggleDock()
     sDebugIn<<endl;
 #endif
 
-    if (m_paDock->isChecked())
+    if (1/*m_paDock->isChecked()*/)
     {
-        m_pDockIndividual->show();
+        //m_pDockIndividual->show();
         hide();
     }
-    else
-        m_pDockIndividual->hide();
+    else;
+        //m_pDockIndividual->hide();
 
 #ifdef _DEBUG
     sDebugOut<<endl;
@@ -320,7 +304,7 @@ void DlgIndividual::slotKeepOpenToggled(bool bToggled)
 
     bKeepDlgOpen=bToggled;
 
-    if (!bKeepDlgOpen && item->getStatus()==Transfer::ST_FINISHED)
+    if (!bKeepDlgOpen && item->getStatus()==ST_FINISHED)
     {
         hide();
         m_pDockIndividual->hide();

@@ -47,6 +47,9 @@ enum TransferMessage {
     MSG_CAN_RESUME, MSG_TOTSIZE, MSG_UPD_PROGRESS, MSG_UPD_SPEED
 };
 
+enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
+
+
 // from settings.h, will be moved on connection.h
 enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 

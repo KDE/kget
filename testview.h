@@ -68,6 +68,7 @@ public slots:
     
     void resume();
     void pause();
+    void remove();
 
 private:
     void setPriority(int n);
@@ -82,6 +83,7 @@ private:
     
     KPushButton * btResume;
     KPushButton * btPause;
+    KPushButton * btRemove;
     
     QGridLayout * layout1;
     QGridLayout * layout2;

@@ -12,14 +12,14 @@
         <Action name="quit"/>
     </Menu>
     <Menu name="transfer"><text>&amp;Transfer</text>
+        <Action name="start"/>
+        <Action name="stop"/>
+        <Separator/>
         <Action name="copy_url"/>
         <Action name="open_individual"/>
-        <Separator/>
         <Action name="move_begin"/>
         <Action name="move_end"/>
         <Separator/>
-        <Action name="resume"/>
-        <Action name="pause"/>
         <Action name="delete"/>
         <Action name="restart"/>
         <Separator/>
@@ -53,8 +53,8 @@
     </Menu>
 </MenuBar>
 <ToolBar fullWidth="true" name="mainToolBar"><text>Main Toolbar</text>
-    <Action name="resume"/>
-    <Action name="pause"/>
+    <Action name="start"/>
+    <Action name="stop"/>
     <Action name="delete"/>
     <Action name="restart"/>
     <Separator/>

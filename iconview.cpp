@@ -79,7 +79,7 @@ void IconViewTransfer::paintItem( QPainter * p, const QColorGroup & cg )
 	percent = 0;
     w = ((w - 12) * percent) / 100;
     p->setPen( Qt::white );
-    p->setBrush( transfer->getStatus() == Transfer::ST_RUNNING ? Qt::green : Qt::red );
+    p->setBrush( transfer->getStatus() == ST_RUNNING ? Qt::green : Qt::red );
     p->drawRect( r.left() + 6, r.top() + h - 7, w, 5 );
     p->restore();
 }

@@ -79,9 +79,12 @@ KMainWidget::KMainWidget(bool bStartDocked)
     slotUpdateActions();
     setupConnections();
 
+    sDebug << "aaa#" << endl;
+    
     //This must be the last one
     schedRequestOperation(OpImportTransfers);
-    
+
+        
 //    menuBar()->insertItem( tr("&Window"), windowMenu());
 //    setCentralWidget(0);
     
@@ -204,6 +207,12 @@ void KMainWidget::setupActions()
     m_paPreferences->setWhatsThis(i18n("<b>Preferences</b> button opens a preferences dialog\n" "where you can set various options.\n" "\n" "Some of these options can be more easily set using the toolbar."));
     m_paExportTransfers = new KAction(i18n("&Export Transfers List..."), 0, this, SLOT(slotExportTransfers()), coll, "export_transfers");
     m_paImportTransfers = new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), coll, "import_transfers");
+    m_paResume = new KAction(i18n("&Start"),"player_play", 0, this, SLOT(slotRun()), coll, "start");
+    m_paResume->setWhatsThis(i18n("<b>Resume</b> button starts downloading\n"));
+    m_paPause = new KAction(i18n("&Stop"),"player_stop", 0, this, SLOT(slotStop()), coll, "stop");
+    m_paPause->setWhatsThis(i18n("<b>Pause</b> button stops selected transfers\n" "and sets their mode to <i>delayed</i>."));
+
+    
 /*
     m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), coll, "import_text");
 
@@ -213,10 +222,6 @@ void KMainWidget::setupActions()
     m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), coll, "move_begin");
     m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), coll, "move_end");
 
-    m_paResume = new KAction(i18n("&Resume"),"tool_resume", 0, this, SLOT(slotResumeCurrent()), coll, "resume");
-    m_paResume->setWhatsThis(i18n("<b>Resume</b> button starts selected transfers\n" "and sets their mode to <i>queued</i>."));
-    m_paPause = new KAction(i18n("&Pause"),"tool_pause", 0, this, SLOT(slotPauseCurrent()), coll, "pause");
-    m_paPause->setWhatsThis(i18n("<b>Pause</b> button stops selected transfers\n" "and sets their mode to <i>delayed</i>."));
     m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), coll, "delete");
     m_paDelete->setWhatsThis(i18n("<b>Delete</b> button removes selected transfers\n" "from the list."));
     m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), coll, "restart");
@@ -410,6 +415,16 @@ void KMainWidget::slotExportTransfers()
 void KMainWidget::slotImportTransfers()
 {
     schedRequestOperation(OpImportTransfers);
+}
+
+void KMainWidget::slotRun()
+{
+    schedRequestOperation(OpRun);
+}
+
+void KMainWidget::slotStop()
+{
+    schedRequestOperation(OpStop);
 }
 
 void KMainWidget::readTransfersEx(const KURL & url)
@@ -740,7 +755,9 @@ void KMainWidget::updateStatusBar()
 
 void KMainWidget::addTransfers( const KURL::List& src, const QString& dest)
 {
+    sDebugIn << endl;
     schedNewURLs(src, dest); 
+    sDebugOut << endl;
 }
 
 bool KMainWidget::isDropTargetVisible() const

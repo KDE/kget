@@ -62,6 +62,7 @@ TestView::TestView(QWidget * parent)
     btSetPrior5 = new KPushButton("Priority -> 5", this);
     btResume = new KPushButton("Resume", this);
     btPause = new KPushButton("Stop", this);
+    btRemove = new KPushButton("Remove", this);
 
     btSetPrior1->setFixedHeight(30);
     btSetPrior2->setFixedHeight(30);
@@ -70,6 +71,7 @@ TestView::TestView(QWidget * parent)
     btSetPrior5->setFixedHeight(30);
     btResume->setFixedHeight(30);
     btPause->setFixedHeight(30);
+    btRemove->setFixedHeight(30);
 
     //layout adjust
     layout2 = new QGridLayout(0, 2, 5);
@@ -80,7 +82,7 @@ TestView::TestView(QWidget * parent)
     layout2->addWidget(btSetPrior5, 1, 4);
     layout2->addWidget(btResume, 0, 0);
     layout2->addWidget(btPause, 0, 1);
-    
+    layout2->addWidget(btRemove, 0, 2);    
     
     layout1 = new QGridLayout(this, 2, 1);
     layout1->addWidget(listView, 1, 1);
@@ -109,6 +111,7 @@ void TestView::initConnections()
 
     connect(btResume, SIGNAL( clicked() ), this, SLOT( resume() ));
     connect(btPause, SIGNAL( clicked() ), this, SLOT( pause() ));
+    connect(btRemove, SIGNAL( clicked() ), this, SLOT( remove() ));
 }
 
 void TestView::initTable()
@@ -186,6 +189,29 @@ void TestView::pause()
     sDebugOut << endl;
 }
 
+void TestView::remove()
+{
+    sDebugIn << endl;
+    
+    TransferList list;
+    
+    QListViewItemIterator it(listView);
+    
+    while ( it.current() ) 
+        {
+        if ( it.current()->isSelected() )
+            {
+            //sDebug << "###" << endl;
+            list.addTransfer( ((TestViewItem *)it.current())->getTransfer() );
+        }
+        ++it;
+    }
+    schedRemoveItems(list);
+
+    sDebugOut << endl;
+}
+
+
 void TestView::schedulerCleared()
 {
 
@@ -208,7 +234,30 @@ void TestView::schedulerAddedItems( TransferList & list)
 
 void TestView::schedulerRemovedItems( TransferList & list)
 {
-
+    sDebugIn << endl;
+    
+    TransferList::iterator it = list.begin();
+    TransferList::iterator endList = list.end();
+    
+    
+    for(; it != endList; ++it)
+        {
+        //sDebug << "-----" << endl;
+        QListViewItemIterator itemIter(listView);
+        while(itemIter.current())
+            {
+            //sDebug << ":::::" << endl;
+            
+            if(((TestViewItem*)itemIter.current())->getTransfer() == *it)
+                delete(itemIter.current());
+            
+            itemIter++;
+        }
+    }
+    
+    listView->sort();
+    
+    sDebugOut << endl;
 }
 
 void TestView::schedulerChangedItems( TransferList & list)

@@ -47,54 +47,20 @@
 #include <kio/netaccess.h>
 
 
-Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id)
-    : scheduler(_scheduler), 
-      src(_src), dest(_dest), id(_id),
+Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, uint _id)
+    : scheduler(_scheduler), slave(0), id(_id),
+      src(_src), dest(_dest),
       totalSize(0), processedSize(0), percent(0), speed(0),  
       status(ST_STOPPED), priority(3), retryCount(0), canResume(false)
 {
     sDebugIn << endl;
 
-    m_pSlave = new Slave(this, src, dest);
     startTime = QDateTime::currentDateTime();
 
     logMessage(i18n("Copy file from: %1").arg(src.url()));
     logMessage(i18n("To: %1").arg(dest.url()));
-
-    if (ksettings.b_addQueued)
-        mode = MD_QUEUED;
-    else
-        mode = MD_DELAYED;
-
+    
     connect(this, SIGNAL(statusChanged(Transfer *, TransferMessage)), scheduler, SLOT(slotTransferMessage(Transfer *, TransferMessage)));
-    connect(this, SIGNAL(statusChanged(Transfer *, TransferMessage)), this, SLOT(slotUpdateActions()));
-
-    //connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
-
-    // setup actions
-    m_paResume = new KAction(i18n("&Resume"), "tool_resume", 0, this, SLOT(slotResume()), this, "resume");
-
-    m_paPause = new KAction(i18n("&Pause"), "tool_pause", 0, this, SLOT(slotRequestPause()), this, "pause");
-
-    m_paDelete = new KAction(i18n("&Delete"), "tool_delete", 0, this, SLOT(slotRequestRemove()), this, "delete");
-
-    m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRequestRestart()), this, "restart");
-
-    m_paQueue = new KRadioAction(i18n("&Queue"), "tool_queue", 0, this, SLOT(slotQueue()), this, "queue");
-
-    m_paTimer = new KRadioAction(i18n("&Timer"), "tool_timer", 0, this, SLOT(slotRequestSchedule()), this, "timer");
-
-    m_paDelay = new KRadioAction(i18n("De&lay"), "tool_delay", 0, this, SLOT(slotRequestDelay()), this, "delay");
-
-    m_paQueue->setExclusiveGroup("TransferMode");
-    m_paTimer->setExclusiveGroup("TransferMode");
-    m_paDelay->setExclusiveGroup("TransferMode");
-
-    // Actions
-
-    // m_paDock = new KAction(i18n("&Dock"),"tool_dock", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
-
-    // setup individual transfer dialog
     
     sDebugOut << endl;
 }
@@ -108,157 +74,36 @@ Transfer::~Transfer()
     sDebugOut << endl;
 }
 
-
-
-void Transfer::synchronousAbort()
-{
-    if ( m_pSlave )
-    {
-        if ( m_pSlave->running() )
-        {
-            m_pSlave->Op(Slave::KILL);
-            m_pSlave->wait();
-        }
-
-        if ( m_pSlave->running() )
-            m_pSlave->terminate();
-
-        delete m_pSlave;
-        m_pSlave = 0L;
-
-        status = ST_STOPPED;
-        slotUpdateActions();
-    }
-
-}
-
-void Transfer::slotUpdateActions()
-{
-    sDebugIn << "the item Status is =" << status << "offline=" << ksettings.b_offlineMode << endl;
-    //if we are in offlinemode just disable all actions  and return
-    if (ksettings.b_offlineMode) {
-        m_paResume->setEnabled(false);
-        m_paPause->setEnabled(false);
-        m_paRestart->setEnabled(false);
-        return;
-    }
-
-    UpdateRetry();
-
-    switch (status) {
-    case ST_TRYING:
-    case ST_RUNNING:
-        m_paResume->setEnabled(false);
-        m_paPause->setEnabled(true);
-        m_paRestart->setEnabled(true);
-        break;
-
-    case ST_STOPPED:
-        m_paResume->setEnabled(true);
-        m_paPause->setEnabled(false);
-        m_paRestart->setEnabled(false);
-        break;
-    case ST_FINISHED:
-        m_paResume->setEnabled(false);
-        m_paPause->setEnabled(false);
-        m_paRestart->setEnabled(false);
-        break;
-    }
-
-    // disable all signals
-    m_paQueue->blockSignals(true);
-    m_paTimer->blockSignals(true);
-    m_paDelay->blockSignals(true);
-
-    switch (mode) {
-    case MD_QUEUED:
-        m_paQueue->setChecked(true);
-        break;
-    case MD_SCHEDULED:
-        m_paTimer->setChecked(true);
-        break;
-    case MD_DELAYED:
-        m_paDelay->setChecked(true);
-        break;
-    case MD_NONE:
-        m_paQueue->setChecked(false);
-        m_paTimer->setChecked(false);
-        m_paDelay->setChecked(false);
-
-        m_paQueue->setEnabled(false);
-        m_paTimer->setEnabled(false);
-        m_paDelay->setEnabled(false);
-        break;
-
-    }
-
-
-    // enable all signals
-    m_paQueue->blockSignals(false);
-    m_paTimer->blockSignals(false);
-    m_paDelay->blockSignals(false);
-
-    sDebugOut << endl;
-}
-
-
-
 void Transfer::setSpeed(unsigned long _speed)
 {
-    // sDebugIn <<endl;
-    speed = _speed;
-
-    remainingTime = KIO::calculateRemaining(totalSize, processedSize, speed);
-    //sDebugOut <<endl;
+    //FIXME: Implement me!!
 }
-
-void Transfer::UpdateRetry()
-{
-    QString retry;
-    QString MaxRetry;
-
-    retry.setNum(retryCount);
-    MaxRetry.setNum(ksettings.reconnectRetries);
-    retry += " / " + MaxRetry;
-}
-
-void Transfer::about()
-{
-    kdDebug(DKGET) << "Transfer item: (prior= "<< getPriority() << ") "<< endl;
-    kdDebug(DKGET) << "src  = "<< src.url() << endl;
-    kdDebug(DKGET) << "dest = "<< dest.url() << endl;
-}
-
 
 void Transfer::slotResume()
 {
     sDebugIn << " state =" << status << endl;
 
+    if(!slave)
+        slave = new Slave(this, src, dest);
+
     retryCount++;
     if (retryCount > ksettings.reconnectRetries)
         ksettings.reconnectRetries = retryCount;
-    UpdateRetry();
     assert(status == ST_STOPPED);
 
     sDebug << "src: " << src.url() << endl;
     sDebug << "dest " << dest.url() << endl;
 
-    m_paResume->setEnabled(false);
-
     status = ST_TRYING;
-    mode = MD_QUEUED;
     logMessage(i18n("Attempt number %1").arg(retryCount));
 
     sDebug << "sending Resume to slave " << endl;
-    m_pSlave->Op(Slave::RETR);
+    slave->Op(Slave::RETR);
 
     sDebugOut << endl;
 }
 
-
-
-
-void Transfer::slotRequestPause()
+void Transfer::slotStop()
 {
     sDebugIn << endl;
 
@@ -267,34 +112,32 @@ void Transfer::slotRequestPause()
     assert(status <= ST_RUNNING);
 
     //stopping the thread
-
-    m_paPause->setEnabled(false);
-    m_paRestart->setEnabled(false);
-
-
-    m_pSlave->Op(Slave::PAUSE);
+    if(slave)
+        {
+        slave->Op(Slave::REMOVE);
+        slave = 0;   
+    }
+        
+    
+        
     sDebug << "Requesting Pause.." << endl;
+    sDebugOut << endl;
+}
 
+void Transfer::slotRetransfer()
+{
+    sDebugIn << endl;
+    if(!slave)
+        slave = new Slave(this, src, dest);
+    slave->Op(Slave::RESTART);
+    speed = 0;
     sDebugOut << endl;
 }
 
 
-
-
-void Transfer::slotRequestRestart()
+void Transfer::slotRemove()
 {
     sDebugIn << endl;
-    m_pSlave->Op(Slave::RESTART);
-    slotSpeed(0);
-    sDebugOut << endl;
-}
-
-
-void Transfer::slotRequestRemove()
-{
-    sDebugIn << endl;
-    m_paDelete->setEnabled(false);
-    m_paPause->setEnabled(false);
  
     if ( status != ST_FINISHED )
     {
@@ -307,220 +150,13 @@ void Transfer::slotRequestRemove()
         }
     }
     if (status == ST_RUNNING)
-        m_pSlave->Op(Slave::REMOVE);
+        slave->Op(Slave::REMOVE);
     else
         emit statusChanged(this, MSG_REMOVED);
 
     sDebugOut << endl;
 }
 
-
-void Transfer::slotQueue()
-{
-    sDebug << ">>>>Entering with mode = " << mode << endl;
-
-    logMessage(i18n("Queueing"));
-
-    assert(!(mode == MD_QUEUED));
-
-    mode = MD_QUEUED;
-    m_paQueue->setChecked(true);
-    emit statusChanged(this, MSG_QUEUED);
-    sDebugOut << endl;
-}
-
-
-void Transfer::slotRequestSchedule()
-{
-    sDebugIn << endl;
-
-    logMessage(i18n("Scheduling"));
-    assert(!(mode == MD_SCHEDULED));
-
-    // if the time was already set somewhere in the future, keep it
-    // otherwise set it to the current time + 60 seconds
-    if (startTime < QDateTime::currentDateTime()) {
-        QDateTime dt = QDateTime::currentDateTime();
-        startTime = dt.addSecs(60);
-    }
-    if (status == ST_RUNNING) {
-        m_paPause->setEnabled(false);
-        m_paRestart->setEnabled(false);
-        m_pSlave->Op(Slave::SCHEDULE);
-
-    } else
-        slotExecSchedule();
-    sDebugOut << endl;
-}
-
-
-void Transfer::slotRequestDelay()
-{
-    sDebugIn << endl;
-
-    logMessage(i18n("Delaying"));
-
-    assert(!(mode == MD_DELAYED));
-    if (status == ST_RUNNING) {
-        m_paPause->setEnabled(false);
-        m_paRestart->setEnabled(false);
-        m_pSlave->Op(Slave::DELAY);
-    } else
-        slotExecDelay();
-    sDebugOut << endl;
-}
-
-
-
-/*
-void Transfer::slotCanceled(KIO::Job *)
-{
-        sDebugIn  << endl;
-
-        logMessage(i18n("Canceled by user"));
-        emit statusChanged(this, MSG_CANCELED);
-        sDebugOut   << endl;
-}
-
-*/
-
-void Transfer::slotFinished()
-{
-    sDebugIn << endl;
-
-    logMessage(i18n("Download finished"));
-    mode = MD_NONE;
-    status = ST_FINISHED;
-    slotProcessedSize(totalSize);
-
-    slotSpeed(0);
-    emit statusChanged(this, MSG_FINISHED);
-    sDebugOut << endl;
-}
-
-
-
-
-/*
-void Transfer::slotRenaming(KIO::Job *, const KURL &, const KURL & to)
-{
-        sDebugIn  << endl;
-
-        dest = to;
-
-        logMessage(i18n("Renaming to %1").arg(dest.url().ascii()));
-
-          // destination
-          setText (view->lv_filename, dest.fileName ());
-
-          dlgIndividual->setCopying (src, dest);
-
-        sDebugOut   << endl;
-}
-        */
-
-
-
-
-void Transfer::slotSpeed(unsigned long bytes_per_second)
-{
-    //sDebugIn <<endl;
-
-    setSpeed(bytes_per_second);
-
-/*    if (speed == 0 && status == ST_RUNNING) {
-        setText(view->lv_speed, i18n("Stalled"));
-        setText(view->lv_remaining, i18n("Stalled"));
-    } else if (speed == 0 && status == ST_FINISHED) {
-
-        setText(view->lv_progress, i18n("OK as in 'finished'","OK"));
-        setText(view->lv_speed, i18n("0 MB/s"));
-        setText(view->lv_remaining, i18n("00:00:00"));
-
-    } else if (speed == 0 && status == ST_STOPPED) {
-
-
-        setText(view->lv_speed, i18n("0 MB/s"));
-        setText(view->lv_remaining, i18n("00:00:00"));
-
-    } else {
-        QString tmps = i18n("%1/s").arg(KIO::convertSize(speed));
-        setText(view->lv_speed, tmps);
-        setText(view->lv_remaining, remainingTime.toString());
-    }
-*/
-
-    //sDebugOut<<endl;
-}
-
-
-
-void Transfer::slotTotalSize(unsigned long bytes)
-{
-#ifdef _DEBUG
-    sDebugIn<<" totalSize is = "<<totalSize << endl;
-#endif
-
-    if (totalSize == 0) {
-        totalSize = bytes;
-        if (totalSize != 0) {
-            logMessage(i18n("Total size is %1 bytes").arg(totalSize));
-//            setText(view->lv_total, KIO::convertSize(totalSize));
-        }
-    } else {
-
-#ifdef _DEBUG
-        sDebug<<"totalSize="<<totalSize<<" bytes="<<bytes<<endl;
-        assert(totalSize == bytes);
-#endif
-        if (totalSize != bytes)
-            logMessage(i18n("The file size does not match."));
-        else
-            logMessage(i18n("File Size checked"));
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-
-
-void Transfer::slotProcessedSize(unsigned long bytes)
-{
-    //sDebug<< ">>>>Entering"<<endl;
-
-    int old = percent;
-    processedSize = bytes;
-
-    if (totalSize == 0)
-    {
-        percent = 0;
-    }
-    else if ( totalSize < processedSize ) // bogus totalSize value
-    {
-        percent = 99; // what can we say?
-        totalSize = processedSize;
-
-        //setText(view->lv_total, KIO::convertSize(totalSize));
-    }
-    else {
-        percent = (int) (((float) processedSize / (float) totalSize) * 100.0);
-    }
-
-    if (percent != old) {
-        QString tmps;
-        if (percent == 100) {
-            tmps = i18n("OK as in 'finished'","OK");
-        } else {
-            tmps.setNum(percent);
-        }
-
-//        setText(view->lv_progress, tmps);
-
-    }
-    //sDebug<< "<<<<Leaving"<<endl;
-}
 
 
 void Transfer::logMessage(const QString & message)
@@ -557,8 +193,9 @@ bool Transfer::read(KSimpleConfig * config, int id)
         return false;
     }
 
-    mode = (TransferMode) config->readNumEntry("Mode", MD_QUEUED);
     status = (TransferStatus) config->readNumEntry("Status", ST_RUNNING);
+    priority = config->readNumEntry("Priority", 3);
+    group = config->readEntry("Group", "none");
     startTime = config->readDateTimeEntry("ScheduledTime");
     canResume = config->readBoolEntry("CanResume", true);
     totalSize = config->readNumEntry("TotalSize", 0);
@@ -586,7 +223,8 @@ void Transfer::write(KSimpleConfig * config, int id)
     config->setGroup(str);
     config->writePathEntry("Source", src.url());
     config->writePathEntry("Dest", dest.url());
-    config->writeEntry("Mode", mode);
+    config->writeEntry("Priority", priority);
+    config->writeEntry("Group", group);
     config->writeEntry("Status", status);
     config->writeEntry("CanResume", canResume);
     config->writeEntry("TotalSize", totalSize);
@@ -602,213 +240,12 @@ bool Transfer::operator<(Transfer * transfer2)
     return false;
 }
 
-/** No descriptions */
-void Transfer::slotExecPause()
+void Transfer::about()
 {
-    sDebugIn << endl;
-    slotSpeed(0);
-
-    mode = MD_DELAYED;
-    m_paDelay->setChecked(true);
-    status = ST_STOPPED;
-
-    m_paPause->setEnabled(false);
-    m_paRestart->setEnabled(true);
-    m_paResume->setEnabled(true);
-    slotUpdateActions();
-    //TODO WE NEED TO UPDATE ACTIONS..
-    //kmain->slotUpdateActions();
-    emit statusChanged(this, MSG_PAUSED);
-    sDebugOut << endl;
+    kdDebug(DKGET) << "Transfer item: (prior= "<< getPriority() << ") "<< endl;
+    kdDebug(DKGET) << "src  = "<< src.url() << endl;
+    kdDebug(DKGET) << "dest = "<< dest.url() << endl;
 }
-
-void Transfer::slotExecError()
-{
-    sDebugIn << endl;
-
-    status = ST_STOPPED;
-    mode = MD_SCHEDULED;
-    startTime=QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60);
-    emit statusChanged(this, MSG_SCHEDULED);
-    
-    sDebugOut << endl;
-}
-
-void Transfer::slotExecBroken()
-{
-    sDebugIn << endl;
-    
-    status = ST_STOPPED;
-    mode = MD_QUEUED;
-    emit statusChanged(this, MSG_QUEUED);
-    
-    sDebugOut << endl;
-} 
-
-   
-void Transfer::slotExecRemove()
-{
-    sDebugIn << endl;
-
-    m_pSlave->wait();
-    emit statusChanged(this, MSG_REMOVED);
-    sDebugOut << endl;
-}
-
-
-void Transfer::slotExecResume()
-{
-    sDebugIn << endl;
-    emit statusChanged(this, MSG_RESUMED);
-    sDebugOut << endl;
-}
-
-void Transfer::slotExecConnected()
-{
-    sDebugIn << endl;
-    status = ST_RUNNING;
-    emit statusChanged(this, MSG_CONNECTED);
-    sDebugOut << endl;
-}
-
-
-void Transfer::slotCanResume(bool _bCanResume)
-{
-    sDebugIn << endl;
-
-    canResume = _bCanResume;
-
-    if (canResume) {
-        logMessage(i18n("Download resumed"));
-        //setText(view->lv_resume, i18n("Yes"));
-    } /*else {
-        setText(view->lv_resume, i18n("No"));
-    }*/
-
-    sDebugOut << endl;
-}
-
-
-/** No descriptions */
-void Transfer::slotExecDelay()
-{
-    sDebugIn << endl;
-
-    mode = MD_DELAYED;
-    status = ST_STOPPED;
-    slotSpeed(0);               //need???????
-    m_paDelay->setChecked(true);
-    emit statusChanged(this, MSG_DELAYED);
-
-    sDebugOut << endl;
-}
-
-/** No descriptions */
-void Transfer::slotExecSchedule()
-{
-    sDebugIn << endl;
-
-    mode = MD_SCHEDULED;
-    status = ST_STOPPED;
-    m_paTimer->setChecked(true);
-    emit statusChanged(this, MSG_SCHEDULED);
-
-    sDebugOut << endl;
-}
-
-/** No descriptions */
-void Transfer::slotStartTime(const QDateTime & _startTime)
-{
-    sDebugIn << endl;
-
-    setStartTime(_startTime);
-    sDebugOut << endl;
-}
-
-bool Transfer::retryOnError()
-{
-    return (ksettings.b_reconnectOnError && (retryCount <= ksettings.reconnectRetries));
-}
-
-bool Transfer::retryOnBroken()
-{
-    return (ksettings.b_reconnectOnBroken && (retryCount <= ksettings.reconnectRetries));
-}
-
-/*     WE NEED TO REPLACE THIS OLD MAINWIDGET FUNCTION
-void Scheduler::customEvent(QCustomEvent * _e)
-{
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
-
-    SlaveEvent *e = (SlaveEvent *) _e;
-    unsigned int result = e->getEvent();
-
-    switch (result) {
-
-        // running cases..
-    case Slave::SLV_PROGRESS_SIZE:
-        e->getItem()->slotProcessedSize(e->getData());
-        break;
-    case Slave::SLV_PROGRESS_SPEED:
-        e->getItem()->slotSpeed(e->getData());
-        break;
-
-    case Slave::SLV_RESUMED:
-        e->getItem()->slotExecResume();
-        break;
-
-        // stopping cases
-    case Slave::SLV_FINISHED:
-        e->getItem()->slotFinished();
-        break;
-    case Slave::SLV_PAUSED:
-        e->getItem()->slotExecPause();
-        break;
-    case Slave::SLV_SCHEDULED:
-        e->getItem()->slotExecSchedule();
-        break;
-
-    case Slave::SLV_DELAYED:
-        e->getItem()->slotExecDelay();
-        break;
-    case Slave::SLV_CONNECTED:
-        e->getItem()->slotExecConnected();
-        break;
-
-    case Slave::SLV_CAN_RESUME:
-        e->getItem()->slotCanResume((bool) e->getData());
-        break;
-
-    case Slave::SLV_TOTAL_SIZE:
-        e->getItem()->slotTotalSize(e->getData());
-        break;
-
-    case Slave::SLV_ERROR:
-        e->getItem()->slotExecError();
-        break;
-
-    case Slave::SLV_BROKEN:
-        e->getItem()->slotExecBroken();
-        break;
-
-    case Slave::SLV_REMOVED:
-        e->getItem()->slotExecRemove();
-        break;
-
-    case Slave::SLV_INFO:
-        e->getItem()->logMessage(e->getMsg());
-        break;
-    default:
-#ifdef _DEBUG
-        sDebug << "Unknown Result..die" << result << endl;
-#endif
-        assert(0);
-    }
-}
-*/
 
 void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
 {
@@ -816,66 +253,63 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
     switch(event)
         {
         case Slave::SLV_PROGRESS_SIZE:
-            slotProcessedSize(data);
+            slaveProcessedSize(data);
             emit statusChanged(this, MSG_UPD_PROGRESS);
             break;
         case Slave::SLV_PROGRESS_SPEED:
-            slotSpeed(data);
+            speed = data;
+            remainingTime = KIO::calculateRemaining(totalSize, processedSize, speed);
             emit statusChanged(this, MSG_UPD_SPEED);
             break;
-    
         case Slave::SLV_RESUMED:
-            slotExecResume();
             emit statusChanged(this, MSG_RESUMED);
             break;
-    
         case Slave::SLV_FINISHED:
-            slotFinished();
+            logMessage(i18n("Download finished"));
+            status = ST_FINISHED;
+            slaveProcessedSize(totalSize);
+            speed = 0;
             emit statusChanged(this, MSG_FINISHED);
             break;
         case Slave::SLV_PAUSED:
-            slotExecPause();
+            speed = 0;
+            status = ST_STOPPED;
             emit statusChanged(this, MSG_PAUSED);
             break;
         case Slave::SLV_SCHEDULED:
-            slotExecSchedule();
+            status = ST_STOPPED;
             emit statusChanged(this, MSG_SCHEDULED);
             break;
-    
         case Slave::SLV_DELAYED:
-            slotExecDelay();
+            status = ST_STOPPED;
+            speed = 0;
             emit statusChanged(this, MSG_DELAYED);
             break;
         case Slave::SLV_CONNECTED:
-            slotExecConnected();
+            status = ST_RUNNING;
             emit statusChanged(this, MSG_CONNECTED);
             break;
-    
         case Slave::SLV_CAN_RESUME:
-            slotCanResume((bool) data);
+            canResume = (bool) data;
             emit statusChanged(this, MSG_CAN_RESUME);
             break;
-    
         case Slave::SLV_TOTAL_SIZE:
-            slotTotalSize(data);
+            slaveTotalSize(data);
             emit statusChanged(this, MSG_TOTSIZE);
             break;
-    
         case Slave::SLV_ERROR:
-            slotExecError();
+            status = ST_STOPPED;
+            //startTime=QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60); //FIXME give a look!
             emit statusChanged(this, MSG_ABORTED);
             break;
-    
         case Slave::SLV_BROKEN:
-            slotExecBroken();
+            status = ST_STOPPED;
             emit statusChanged(this, MSG_ABORTED);
             break;
-    
         case Slave::SLV_REMOVED:
-            slotExecRemove();
+            slave->wait();
             emit statusChanged(this, MSG_REMOVED);
             break;
-
         case Slave::SLV_KILLED:
             //FIXME IMPLEMENT ME!
             break;
@@ -895,6 +329,63 @@ void Transfer::slaveInfoMessage(const QString & msg)
     logMessage(msg);
 }
 
+void Transfer::slaveTotalSize(unsigned long bytes)
+{
+    sDebugIn<<" totalSize is = "<<totalSize << endl;
+
+    if (totalSize == 0) 
+        {
+        totalSize = bytes;
+        if (totalSize != 0) 
+            logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+    } 
+    else 
+        {
+        sDebug<<"totalSize="<<totalSize<<" bytes="<<bytes<<endl;
+        
+        if (totalSize != bytes)
+            logMessage(i18n("The file size does not match."));
+        else
+            logMessage(i18n("File Size checked"));
+    }
+    sDebugOut << endl;
+}
+
+
+
+void Transfer::slaveProcessedSize(unsigned long bytes)
+{
+    if (totalSize == 0)
+        percent = 0;
+    else 
+        if ( totalSize < bytes ) // bogus totalSize value
+            {
+            percent = 99; // what can we say?
+            totalSize = bytes;
+        }
+        else 
+            percent = (int) (((float) bytes / (float) totalSize) * 100.0);
+}
+
+void Transfer::synchronousAbort()
+{
+    if ( slave )
+    {
+        if ( slave->running() )
+        {
+            slave->Op(Slave::KILL);
+            slave->wait();
+        }
+
+        if ( slave->running() )
+            slave->terminate();
+
+        delete slave;
+        slave = 0L;
+
+        status = ST_STOPPED;
+    }
+}
 
 
 #include "transfer.moc"

@@ -126,10 +126,16 @@ void Slave::Op(SlaveCommand _cmd)
     if ( !running() ) // start on demand
         start();
 
+    mDebug << "AA" << endl;
+                
     mutex.lock();
+    mDebug << "BB" << endl;
     stack.push(_cmd);
+    mDebug << "CC" << endl;
     nPendingCommand++;
+    mDebug << "DD" << endl;
     worker.wakeOne();
+    mDebug << "EE" << endl;
     mutex.unlock();
 
     mDebugOut << endl;
@@ -151,6 +157,7 @@ void Slave::run()
         switch (cmd = fetch_cmd()) 
         {
             case RESTART:
+                mDebug << " FETCHED COMMAND      RESTART" << endl;
                 if (copyjob) {
                     copyjob->kill(true);
                     copyjob = 0L;
@@ -296,12 +303,12 @@ void Slave::slotResult(KIO::Job * job)
         QString tmsg="<font color=\"red\"> <b>" + job->errorString() + \
                      "</font></b>";
         transfer->slaveInfoMessage(tmsg);
-        if (transfer->retryOnError() && \
+        if (/*transfer->retryOnError()FIXME Removed function*/true && \
             ((error==KIO::ERR_COULD_NOT_LOGIN) || (error==KIO::ERR_SERVER_TIMEOUT))) {
             //Timeout or login error
             transfer->slavePostMessage(SLV_ERROR);
         }
-        else if (transfer->retryOnBroken() && (error==KIO::ERR_CONNECTION_BROKEN)) {
+        else if (/*transfer->retryOnBroken()FIXME Removed function*/true && (error==KIO::ERR_CONNECTION_BROKEN)) {
             // Connection Broken
             transfer->slavePostMessage(SLV_BROKEN);
         }

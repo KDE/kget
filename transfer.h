@@ -50,154 +50,119 @@ class Scheduler;
 class TransferList;
 
 
-class Transfer:public QObject
+class Transfer : public QObject
 {
 Q_OBJECT
 
 friend class Scheduler;
 friend class Slave;
+friend class TransferList;
 
 public:
-    enum TransferMode { MD_QUEUED, MD_DELAYED, MD_SCHEDULED, MD_NONE };
 
-    enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
-
+    //TransferStatus defined in globals.h
     //TransferMessage defined in globals.h
-    
     //TransferCommand defined in globals.h
 
         
-    Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, const uint _id=0);
+    Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, uint _id=0);
     ~Transfer();
 
-    void synchronousAbort();
-
-    bool read(KSimpleConfig * config, int id);
-    void write(KSimpleConfig * config, int id);
-    void logMessage(const QString & message);
-
-    bool keepDialogOpen() const;
-
-
-    QDateTime getStartTime()const {return startTime;}
-    QTime getRemainingTime()const {return remainingTime;}
-    unsigned long getTotalSize()const {return totalSize;}
-    unsigned long getProcessedSize()const {return processedSize;}
+    /**
+     * These functions are used to get informations about the transfer
+     */
     KURL getSrc()const {return src;}
     KURL getDest()const {return dest;}
+    unsigned long getTotalSize()const {return totalSize;}
+    unsigned long getProcessedSize()const {return processedSize;}
     int getPercent()const {return percent;}
+    int getPriority()const {return priority;}
+    QString getGroup()const {return group;}
+    QDateTime getStartTime()const {return startTime;}
+    QTime getRemainingTime()const {return remainingTime;}
     int getSpeed()const {return speed;}
     TransferStatus getStatus()const {return status;}
-    int getMode()const {return mode;}
-    int getPriority() {return priority;}
-    QString getGroup() {return group;}
         
-    void setMode(TransferMode _mode) {mode = _mode;}
-    void setStatus(TransferStatus _status) {status = _status;};
-    void setStartTime(QDateTime _startTime) {startTime = _startTime;};
-    void setSpeed(unsigned long _speed);
+    /**
+     * These functions are used to set the transfer properties
+     */
     void setPriority(int _priority) {priority = _priority;}
     void setGroup(const QString & _group) {group = _group;}
-
-    void UpdateRetry();
-
-    /**
-     * Debug function:
-     */
-    void about();
+    void setSpeed(unsigned long _speed);
     
 
-    // actions
-    KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
-    //KAction *m_paDock;
-    KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
+private slots:
+    void slotResume();
+    void slotStop();
+    void slotRetransfer();
+    void slotRemove();
+
+signals:
+    void statusChanged(Transfer *, TransferMessage message);
+    void log(uint, const QString &, const QString &);
+
 
 private:
+    bool read(KSimpleConfig * config, int id);
+    void write(KSimpleConfig * config, int id);
+    
     /**
      * This operator is used to determine the relationship of < or >
      * priority between two transfers.
      */
     bool operator<(Transfer *);
     
-    void slotExecPause();
-    void slotExecResume();
-    void slotExecRemove();
-    void slotExecDelay();
-    void slotExecSchedule();
-    void slotExecConnected();
-    void slotExecError();
-    void slotExecBroken();
-    void slotCanResume(bool _bCanResume);
-    void slotSpeed(unsigned long);
-
-    bool retryOnError();
-    bool retryOnBroken();
 
     //Slave Messages
     void slavePostMessage(Slave::SlaveResult event, unsigned long data = 0L);
     void slavePostMessage(Slave::SlaveResult event, const QString & msg);
     void slaveInfoMessage(const QString & msg);
+
+    /**
+     * Debug function. This functions prints on the screen useful
+     * informations about the current transfer
+     */
+    void about();
     
+
     
-private slots:
-    // operation methods
-    void slotResume();
-    void slotRequestPause();
-    void slotRequestRemove();
-    void slotRequestSchedule();
-    void slotRequestDelay();
-
-    void slotRequestRestart();
-
-    void slotUpdateActions();
-
-    void slotQueue();
-    void slotFinished();
-
-    void slotTotalSize(unsigned long bytes);
-    void slotProcessedSize(unsigned long);
-
-    void slotStartTime(const QDateTime &);
+    /**
+     * INTERNAL FUNCTIONS
+     */
+    void slaveTotalSize(unsigned long bytes);
+    void slaveProcessedSize(unsigned long);
     
-signals:
-    void statusChanged(Transfer *, TransferMessage message);
-    void log(uint, const QString &, const QString &);
-
-private:
-    Slave *m_pSlave;
-
+    void logMessage(const QString & message);
+    
+    void synchronousAbort();
+   
+    
+    Transfer * transfer;
+    Slave * slave;
     Scheduler * scheduler;
     
     KURL src;
     KURL dest;
 
-    // the tranfer id number
-    uint id;
-
-    // the transfer group Name
-    QString group;
+    TransferStatus status;
     
-    // log
+    uint id;
+    int priority;
+    QString group;
     QString transferLog;
     
-    // schedule time
     QDateTime startTime;
+    QTime remainingTime;
 
     unsigned long totalSize;
     unsigned long processedSize;
     int percent;
 
     int speed;
-    QTime remainingTime;
 
-    TransferStatus status;
-    TransferMode mode;
-
-    int priority;
-    
     // how many times have we retried already
     unsigned int retryCount;
-
+    
     bool canResume;
 };
 

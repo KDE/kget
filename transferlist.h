@@ -39,7 +39,7 @@ class TransferList : public QValueList<Transfer *>
 {
 public:
 
-    TransferList(Scheduler * _scheduler = 0);
+    TransferList(Transfer * transfer = 0);
     virtual ~TransferList();
 
     /**
@@ -49,8 +49,7 @@ public:
      * if toBegin = false the item is added at the end of the group of items
      * having the same priority
      */
-    Transfer * addTransfer(const KURL & _source, const KURL & _dest, bool toBegin = false);
-    void       addTransfer(Transfer * transfer, bool toBegin = false);
+    void addTransfer(Transfer * transfer, bool toBegin = false);
    
     void addTransfers(TransferList &, bool toBegin = false);
 
@@ -88,7 +87,7 @@ public:
     
     Transfer * find(const KURL& _src);
 
-    void readTransfers(const KURL& file);
+    void readTransfers(const KURL& file, Scheduler * scheduler);
     void writeTransfers(const QString& file);
 
     /**
@@ -99,8 +98,6 @@ public:
     friend class Transfer;
 
 protected:
-
-    Scheduler * scheduler;
 
     void readConfig();
     void writeConfig();

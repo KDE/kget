@@ -92,7 +92,9 @@ protected slots:
     void slotSaveYourself();
     void slotExportTransfers();
     void slotImportTransfers();
-
+    void slotRun();
+    void slotStop();
+    
     void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotNewToolbarConfig();

@@ -37,32 +37,17 @@
 #include "transferlist.h"
 #include "scheduler.h"
 
-TransferList::TransferList(Scheduler * _scheduler)
-    : QValueList<Transfer *>(),
-      scheduler(_scheduler)
+TransferList::TransferList(Transfer * transfer)
+    : QValueList<Transfer *>()
 {
-
+    if(transfer)
+        addTransfer(transfer);
 }
 
 
 TransferList::~TransferList()
 {
 
-}
-
-
-Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest, bool toBegin)
-{
-    if ( !scheduler )
-    {
-	sDebug << "Can't add an URL to an unparented TransferList" << endl;
-	assert(0);
-	return 0;
-    }
-    Transfer *newItem = new Transfer(scheduler, _source, _dest, jobid);
-    addTransfer(newItem, toBegin);
-        
-    return newItem;
 }
 
 void TransferList::addTransfer(Transfer * transfer, bool toBegin)
@@ -221,7 +206,7 @@ Transfer * TransferList::find(const KURL& _src)
 }
 
 
-void TransferList::readTransfers(const KURL& file)
+void TransferList::readTransfers(const KURL& file, Scheduler * scheduler)
 {
     sDebugIn << endl;
     
@@ -251,15 +236,16 @@ void TransferList::readTransfers(const KURL& file)
             dest = KURL::fromPathOrURL( config.readPathEntry("Dest") );
             kdDebug(DKGET) << "CCC" << endl;
            
-            item = addTransfer( src, dest); // don't show!
+            Transfer * t = new Transfer(scheduler, src, dest, i);
+            addTransfer(t); 
 
-            if (!item->read(&config, i))
+            if (!t->read(&config, i))
                 delete item;
             /*else
             {
                 // configuration read, now we know the status to determine
                 // whether to show or not
-                //item->maybeShow();
+                //t->maybeShow();
             }
             */
         }
