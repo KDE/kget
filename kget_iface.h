@@ -28,6 +28,10 @@ k_dcop:
     virtual bool isDropTargetVisible() const = 0;
     
     virtual void setDropTargetVisible( bool setVisible ) = 0;
+
+	virtual void setOfflineMode( bool offline ) = 0;
+
+	virtual bool isOfflineMode() const = 0;
 };
 
 #endif // KGET_IFACE_H
