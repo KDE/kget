@@ -121,11 +121,11 @@ void SeparatedLog::addLog(uint id, const QString & filename, const QString & mes
         last->setText(1, filename);
         // if I don't do this, ID#10 gets sorted between ID#1 and ID#2, ugly.      
     } else {
-        trMap[id] += message;
+        trMap[id] += ("\n"+message);
     }
 
     if (idSelected == id) {
-        ml_log->append(message);
+        refresh();
     }
 }
 

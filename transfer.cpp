@@ -272,8 +272,8 @@ void Transfer::updateAll()
 
     updateStatus(status);       // first phase of animation
 
-    logMessage(i18n("Copy file from: %1").arg(src.url()));
-    logMessage(i18n("To: %1").arg(dest.url()));
+    logMessage(i18n("Copy file from: %1").arg(src.prettyURL()));
+    logMessage(i18n("To: %1").arg(dest.prettyURL()));
 
     // source
     setText(view->lv_url, src.prettyURL());
@@ -379,8 +379,8 @@ void Transfer::slotResume()
     UpdateRetry();
     assert(status == ST_STOPPED);
 
-    sDebug << "src: " << src.url() << endl;
-    sDebug << "dest " << dest.url() << endl;
+    sDebug << "src: " << src.prettyURL() << endl;
+    sDebug << "dest " << dest.prettyURL() << endl;
 
     m_paResume->setEnabled(false);
 
@@ -551,7 +551,7 @@ void Transfer::slotRenaming(KIO::Job *, const KURL &, const KURL & to)
 
         dest = to;
 
-        logMessage(i18n("Renaming to %1").arg(dest.url().ascii()));
+        logMessage(i18n("Renaming to %1").arg(dest.prettyURL().ascii()));
 
           // destination
           setText (view->lv_filename, dest.fileName ());
@@ -609,7 +609,7 @@ void Transfer::slotTotalSize(KIO::filesize_t bytes)
     if (totalSize == 0) {
         totalSize = bytes;
         if (totalSize != 0) {
-            logMessage(i18n("Total size is %1 bytes").arg((double)totalSize,0,'f'));
+            logMessage(i18n("Total size is %1 bytes").arg((double)totalSize,0,'f',0));
             setText(view->lv_total, KIO::convertSize(totalSize));
 			if(dlgIndividual)
 				{
@@ -747,7 +747,7 @@ bool Transfer::read(KSimpleConfig * config, int id)
     }
 
     if (!src.isValid() && !ksettings.b_expertMode) {
-        KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
+        KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.prettyURL(), i18n("Error"));
         return false;
     }
 
