@@ -121,8 +121,7 @@ public:
 #ifdef _DEBUG
         sDebugIn << endl;
 #endif
-
-
+    delete kmainwidget;
 #ifdef _DEBUG
         sDebugOut << endl;
 #endif

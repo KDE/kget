@@ -717,7 +717,6 @@ void KMainWidget::slotQuit()
     sDebugOut << endl;
 #endif
 
-    delete this;
     kapp->quit();
 }
 
