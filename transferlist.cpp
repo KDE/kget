@@ -122,10 +122,13 @@ TransferList::~TransferList()
 }
 
 
-Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest)
+Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest,
+                                    bool canShow)
 {
     Transfer *last = static_cast<Transfer*>( lastItem() );
     Transfer *new_item = new Transfer(this, last, _source, _dest);
+    if ( canShow )
+        new_item->maybeShow();
 
     return new_item;
 }
@@ -159,18 +162,16 @@ void TransferList::setSelected(QListViewItem * item, bool selected)
 
 void TransferList::moveToBegin(Transfer * item)
 {
-    TransferIterator it(this);
-
     //        ASSERT(item);
 
-    Transfer *new_item = new Transfer(this, item->getSrc(), item->getDest());
+    item->synchronousAbort();
 
+    Transfer *new_item = new Transfer(this, item->getSrc(), item->getDest());
     new_item->copy(item);
 
     delete item;
 
     clearSelection();
-    new_item->updateAll();
 }
 
 
@@ -178,14 +179,15 @@ void TransferList::moveToEnd(Transfer * item)
 {
     //        ASSERT(item);
 
-    Transfer *new_item = addTransfer(item->getSrc(), item->getDest());
+    item->synchronousAbort();
 
+    Transfer *last = static_cast<Transfer*>( lastItem() );
+    Transfer *new_item = new Transfer(this, last, item->getSrc(), item->getDest());
     new_item->copy(item);
 
     delete item;
 
     clearSelection();
-    new_item->updateAll();
 }
 
 
@@ -252,12 +254,17 @@ void TransferList::readTransfers(const KURL& file)
             str.sprintf("Item%d", i);
             config.setGroup(str);
 
-            src  = KURL::fromPathOrURL( config.readEntry("Source") );
-            dest = KURL::fromPathOrURL( config.readEntry("Dest") );
-            item = addTransfer( src, dest );
+            src  = KURL::fromPathOrURL( config.readPathEntry("Source") );
+            dest = KURL::fromPathOrURL( config.readPathEntry("Dest") );
+            item = addTransfer( src, dest, false ); // don't show!
 
-            if (!item->read(&config, i)) {
+            if (!item->read(&config, i))
                 delete item;
+            else
+            {
+                // configuration read, now we know the status to determine
+                // whether to show or not
+                item->maybeShow();
             }
         }
     }

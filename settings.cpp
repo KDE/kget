@@ -31,6 +31,7 @@
 #include <klocale.h>
 #include <kwin.h>
 #include <kmessagebox.h>
+#include <kglobalsettings.h>
 
 #include <qdir.h>
 
@@ -156,7 +157,7 @@ Settings::load()
     config->setGroup("Directories");
 
     b_useLastDir = config->readBoolEntry("UseLastDirectory", DEF_UseLastDir);
-    lastDirectory = config->readEntry("LastDirectory",
+    lastDirectory = config->readPathEntry("LastDirectory",
                                       QString("file:") + QDir::currentDirPath() );
 
     QStringList strList;
@@ -177,7 +178,7 @@ Settings::load()
     // read misc settings
     config->setGroup("Misc");
 
-    QFont font = kapp->font(kmain->myTransferList);
+    QFont font = KGlobalSettings::generalFont();
 
     listViewFont = config->readFontEntry("Font", &font);
     toolbarPosition = (KToolBar::BarPosition) config->readNumEntry("Toolbar", DEF_ToolbarPosition);
@@ -185,13 +186,14 @@ Settings::load()
 
     // read main window geometry settings
     config->setGroup("MainGeometry");
-    mainPosition = config->readPointEntry("Position", new QPoint(-1, -1));
+    const QPoint point(-1,-1);
+    mainPosition = config->readPointEntry("Position", &point);
     mainSize = config->readSizeEntry("Size");
     mainState = config->readUnsignedLongNumEntry("State", 0);
 
     // read drop target geometry settings
     config->setGroup("DropGeometry");
-    dropPosition = config->readPointEntry("Position", new QPoint(-1, -1));
+    dropPosition = config->readPointEntry("Position", &point);
     dropState = config->readUnsignedLongNumEntry("State", 0);
 }
 
