@@ -14,6 +14,7 @@
 #include <qlistbox.h>
 #include <qwidget.h>
 #include <qvaluelist.h>
+#include <qpixmapcache.h>
 #include <qmap.h>
 
 #include "core/viewinterface.h"
@@ -38,12 +39,15 @@ public:
 
 protected:
     void setVisible(bool visible = true);
+    //This method updates all the pixmaps that are used to draw the items
+    void updatePixmaps();
     void paint ( QPainter * );
 
-    Sidebar * m_sidebar;
-    QString   m_text;
-    bool      m_isVisible;
-    bool      m_showChildren;
+    QPixmapCache m_pixCache;
+    Sidebar *    m_sidebar;
+    QString      m_text;
+    bool         m_isVisible;
+    bool         m_showChildren;
 
 private:
     QValueList<SidebarItem *> * m_childItems;

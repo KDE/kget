@@ -86,32 +86,52 @@ void SidebarItem::setVisible(bool visible)
     m_isVisible = visible;
 }
 
-void SidebarItem::paint ( QPainter * p)
+void SidebarItem::updatePixmaps()
+{
+    //Here we create all the necessary pixmaps
+    //funsel: unselected folder
+    QPixmap folder = DesktopIcon("folder", 32);
+    m_pixCache.insert("funsel", folder);
+
+    //fsel: selected folder
+    QImage  img = DesktopIcon("folder", 32).convertToImage();
+    KIconEffect::toGamma(img, 0);
+    m_pixCache.insert("fsel", QPixmap(img));
+
+    //tgrad: top gradient
+    m_pixCache.insert("tgrad",
+        QPixmap( KImageEffect::gradient( 
+                 QSize( 1, 5 ),
+                 m_sidebar->palette().active().highlight().light(150),
+                 m_sidebar->palette().active().highlight(),
+                 KImageEffect::VerticalGradient ) ) );
+
+    //bgrad: bottom gradient
+    m_pixCache.insert("bgrad",
+        QPixmap( KImageEffect::gradient( 
+                 QSize( 1, 5 ),
+                 m_sidebar->palette().active().highlight(),
+                 m_sidebar->palette().active().highlight().light(150),
+                 KImageEffect::VerticalGradient ) ) );
+
+    //plus: plus simbol
+    m_pixCache.insert("plus", SmallIcon("edit_add", 16));
+
+    //minus: minus simbol
+    m_pixCache.insert("minus", SmallIcon("edit_remove", 16));
+}
+
+void SidebarItem::paint( QPainter * p)
 {
     //this is used to handle a change in the color scheme, but keeping
     //the pixmaps cached
     static QColor * prevHighlight = 0;
 
-    static QPixmap topGradient;
-    static QPixmap bottomGradient;
-
     if( (prevHighlight == 0) ||
         (m_sidebar->palette().active().highlight() != *prevHighlight))
     {
-        topGradient = QPixmap(
-            KImageEffect::gradient( 
-            QSize( 1, 5 ),
-            m_sidebar->palette().active().highlight().light(150),
-            m_sidebar->palette().active().highlight(),
-            KImageEffect::VerticalGradient ) );
-
-        bottomGradient = QPixmap(
-            KImageEffect::gradient( 
-            QSize( 1, 5 ),
-            m_sidebar->palette().active().highlight(),
-            m_sidebar->palette().active().highlight().light(150),
-            KImageEffect::VerticalGradient ) );
-
+        //Calculate all the necessary pixmaps
+        updatePixmaps();
         if(!prevHighlight)
             prevHighlight = new QColor(m_sidebar->palette().active().highlight());
     }
@@ -126,13 +146,13 @@ void SidebarItem::paint ( QPainter * p)
         QColor c = m_sidebar->palette().active().highlight();
 
         p->fillRect(0,5,w, h-5-4, c);
-        p->drawTiledPixmap(0,0, w, 5, topGradient);
-        p->drawTiledPixmap(0,h-4, w, 4, bottomGradient);
+        p->drawTiledPixmap(0,0, w, 5, *m_pixCache.find("tgrad"));
+        p->drawTiledPixmap(0,h-4, w, 4, *m_pixCache.find("bgrad"));
         p->setPen(QPen(c.dark(130),1));
         p->drawLine(0,0,w, 0);
         p->drawLine(0,h-1,w, h-1);
     }
-    (*prevHighlight)=m_sidebar->palette().active().highlight();
+    (*prevHighlight) = m_sidebar->palette().active().highlight();
 }
 
 DownloadsFolder::DownloadsFolder( Sidebar * sidebar )
@@ -145,26 +165,18 @@ void DownloadsFolder::paint ( QPainter * p )
 {
     SidebarItem::paint(p);
 
-    QPixmap icon = DesktopIcon("folder", 32);
-
     if(isSelected())
-    {
-        QImage  img = DesktopIcon("folder", 32).convertToImage();
-        KIconEffect::toGamma(img, 0);
-        p->drawPixmap(10, 2, QPixmap(img));
-    }
+        p->drawPixmap(10, 2, *m_pixCache.find("fsel"));
      else
-    {
-        p->drawPixmap(10, 2, icon);
-    }
+        p->drawPixmap(10, 2, *m_pixCache.find("funsel"));
 
     if(m_showChildren)
-        p->drawPixmap(25, 20, SmallIcon("edit_remove", 16));
+        p->drawPixmap(25, 20, *m_pixCache.find("minus"));
     else
-        p->drawPixmap(25, 20, SmallIcon("edit_add", 16));
+        p->drawPixmap(25, 20, *m_pixCache.find("plus"));
 
     QFont f(p->font());
-    f.setBold(true);
+    f.setBold(isSelected());
     p->setFont( f );
     p->setPen( m_sidebar->palette().active().foreground());
     p->drawText(50, 11, width(m_sidebar), height(m_sidebar)-7, Qt::AlignLeft, m_text);
@@ -180,19 +192,14 @@ void GroupFolder::paint( QPainter * p )
 {
     SidebarItem::paint(p);
 
-    QPixmap icon = DesktopIcon("folder", 32);
-
     if(isSelected())
-    {
-        QImage  img = DesktopIcon("folder", 32).convertToImage();
-        KIconEffect::toGamma(img, 0);
-        p->drawPixmap(30, 2, QPixmap(img));
-    }
+        p->drawPixmap(30, 2, *m_pixCache.find("fsel"));
     else
-    {
-        p->drawPixmap(30, 2, icon);
-    }
+        p->drawPixmap(30, 2, *m_pixCache.find("funsel"));
 
+    QFont f(p->font());
+    f.setBold(isSelected());
+    p->setFont( f );
     p->setPen( m_sidebar->palette().active().foreground());
     p->drawText(70, 11, width(m_sidebar), height(m_sidebar)-7, Qt::AlignLeft, m_text);
 }
