@@ -122,7 +122,7 @@ TransferList::~TransferList()
 }
 
 
-Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest, 
+Transfer *TransferList::addTransfer(const KURL & _source, const KURL & _dest,
                                     bool canShow)
 {
     Transfer *last = static_cast<Transfer*>( lastItem() );
@@ -162,8 +162,6 @@ void TransferList::setSelected(QListViewItem * item, bool selected)
 
 void TransferList::moveToBegin(Transfer * item)
 {
-    TransferIterator it(this);
-
     //        ASSERT(item);
 
     Transfer *new_item = new Transfer(this, item->getSrc(), item->getDest());
@@ -260,9 +258,9 @@ void TransferList::readTransfers(const KURL& file)
 
             if (!item->read(&config, i))
                 delete item;
-            else 
+            else
             {
-                // configuration read, now we know the status to determine 
+                // configuration read, now we know the status to determine
                 // whether to show or not
                 item->maybeShow();
             }

@@ -24,8 +24,10 @@
  *
  ***************************************************************************/
 
-#include <qpainter.h>
+#include <qtooltip.h>
 
+#include <kaboutdata.h>
+#include <kapplication.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
@@ -48,6 +50,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // Enable dropping
     setAcceptDrops(true);
+    QToolTip::add( this, kapp->aboutData()->shortDescription() );
 }
 
 
