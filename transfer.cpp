@@ -318,6 +318,8 @@ bool Transfer::updateStatus(int counter)
         {
         case ST_RUNNING:
             pix = view->animConn.at(counter);
+            isTransfer = true;
+            break;
         case ST_TRYING:
             pix = view->animTry.at(counter);
             isTransfer = true;
