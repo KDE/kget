@@ -31,7 +31,7 @@
 #include <ksimpleconfig.h>
 #include <kaction.h>
 #include <kiconloader.h>
-
+#include <kstandarddirs.h>
 
 #include <assert.h>
 #include "settings.h"
@@ -131,11 +131,11 @@ Transfer::setupFields()
                 SLOT(logTransfer(uint, const QString &, const QString &)));
 
         // setup actions
-        m_paResume =  new KAction(i18n("&Resume"), "tool_resume", 0, this, SLOT(slotResume()), this, "resume");
+        m_paResume =  new KAction(i18n("&Resume"), QIconSet(QPixmap(locate("data", "kget/pics/tool_resume.xpm"))), 0, this, SLOT(slotResume()), this, "resume");
 
-        m_paPause = new KAction(i18n("&Pause"), "tool_pause", 0, this, SLOT(slotRequestPause()), this, "pause");
+        m_paPause = new KAction(i18n("&Pause"),  QIconSet(QPixmap(locate("data", "kget/pics/tool_pause.xpm"))), 0, this, SLOT(slotRequestPause()), this, "pause");
 
-        m_paDelete = new KAction(i18n("&Delete"), "tool_delete", 0, this, SLOT(slotRequestRemove()), this, "delete");
+        m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delete.xpm"))), 0, this, SLOT(slotRequestRemove()), this, "delete");
 
         m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRestart()), this, "restart");
 

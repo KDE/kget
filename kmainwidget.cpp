@@ -229,13 +229,18 @@ KMainWidget::KMainWidget(bool bStartDocked):KMainWindow(0, "kget")
     setAutoDisconnect();
 
     m_paAutoShutdown->setChecked(ksettings.b_autoShutdown);
+
+
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
+
 
    if(ksettings.b_offlineMode)
      setCaption( i18n("Offline" ),false);
     else
-     setCaption( i18n("" ),false);
-
+     {
+     setCaption( i18n(""),false);
+     m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("data", "kget/pics/tool_offline_mode-on.xpm"))));
+      }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
     m_paShowStatusbar->setChecked(ksettings.b_showStatusbar);
     m_paShowLog->setChecked(b_viewLogWindow);
@@ -379,7 +384,7 @@ void KMainWidget::setupGUI()
 
     m_paAutoShutdown = new KToggleAction(i18n("Auto-s&hutdown mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), actionCollection(), "auto_shutdown");
 
-    m_paOfflineMode = new KToggleAction(i18n("&Offline mode"), "tool_offline_mode", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
+    m_paOfflineMode = new KToggleAction(i18n("&Offline mode"), "tool_offline_mode-off", 0, this, SLOT(slotToggleOfflineMode()), actionCollection(), "offline_mode");
 
     m_paAutoPaste = new KToggleAction(i18n("Auto-pas&te mode"), "tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), actionCollection(), "auto_paste");
 
@@ -1085,13 +1090,19 @@ void KMainWidget::checkQueue()
 	}
 	sDebug << "Found " << numRun << " Running Jobs" << endl;
 	it.reset();
+   bool isRunning;
+   bool isQuequed;
 	for (; it.current() && numRun < ksettings.maxSimultaneousConnections; ++it) {
 	    item = it.current();
-	    if ((item->getMode() == Transfer::MD_QUEUED)
-		&& (item->getStatus() != Transfer::ST_RUNNING && item->getStatus()!=Transfer::ST_TRYING && !ksettings.b_offlineMode)) {
-		 log(i18n("Starting another queued job."));
-		item->slotResume();
-		numRun++;
+      isRunning=  (item->getStatus() == Transfer::ST_RUNNING ) ||
+                  (item->getStatus() == Transfer::ST_TRYING  );
+
+      isQuequed=  (item->getMode()   == Transfer::MD_QUEUED  );
+
+	    if (!isRunning&& isQuequed && !ksettings.b_offlineMode) {
+     		 log(i18n("Starting another queued job."));
+     		item->slotResume();
+     		numRun++;
 	    }
 	}
 
@@ -1455,11 +1466,14 @@ void KMainWidget::slotToggleOfflineMode()
 	log(i18n("Offline mode on."));
 	pauseAll();
     setCaption( i18n("Offline" ),false);
+    m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("data", "kget/pics/tool_offline_mode-off.xpm"))));
     } else {
 	log(i18n("Offline mode off."));
     setCaption( i18n("" ),false);
+    m_paOfflineMode->setIconSet(QIconSet(QPixmap(locate("data", "kget/pics/tool_offline_mode-on.xpm"))));
     }
     m_paOfflineMode->setChecked(ksettings.b_offlineMode);
+    
 
     slotUpdateActions();
     checkQueue();
