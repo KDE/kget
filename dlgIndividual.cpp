@@ -336,7 +336,10 @@ void DlgIndividual::slotKeepOpenToggled(bool bToggled){
     bKeepDlgOpen=bToggled;
 
     if (!bKeepDlgOpen && item->getStatus()==Transfer::ST_FINISHED)
+      {
         hide();
+        m_pDockIndividual->hide();
+	}
 
 #ifdef _DEBUG
     sDebugOut<<endl;
@@ -391,7 +394,12 @@ void DlgIndividual::enableOpenFile(){
     openFile->setEnabled(true);
 
     if (!bKeepDlgOpen)
+      {
         hide();
+        m_pDockIndividual->hide();
+
+
+      }
 
 #ifdef _DEBUG
     sDebugOut<<endl;
