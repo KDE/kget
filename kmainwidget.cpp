@@ -1178,9 +1178,9 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
         // ask in any case, when destDir is empty
-        if ( destDir.isEmpty() || !QFileInfo( dest.directory() ).isDir() )
+        if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
         {
-            QString dir = KFileDialog::getExistingDirectory( dest.directory() );
+            QString dir = KFileDialog::getExistingDirectory( dest.path() );
             if ( dir.isEmpty() ) // aborted
                 return;
 
