@@ -19,10 +19,10 @@
     <entry name="ShowIndividual" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="IconifyIndividual" type="Bool">
+    <entry name="DockifyIndividual" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="AdvancedIndividual" type="Bool">
+    <entry name="ShowDropTarget" type="Bool">
       <default>false</default>
     </entry>
     <entry name="ShowSplashscreen" type="Bool">
@@ -30,6 +30,7 @@
       <default>true</default>
     </entry>
   </group>
+
   <group name="Advanced">
     <entry name="ExpertMode" type="Bool">
       <default>false</default>
@@ -59,11 +60,18 @@
       <default>10</default>
     </entry>
   </group>
+
   <group name="Network">
     <entry name="OfflineMode" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="MaxSimConnections" type="Int">
+    <entry name="LimitDownloads" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="MaxConnections" type="Int">
+      <default>2</default>
+    </entry>
+    <entry name="MaxConnectionsServer" type="Int">
       <default>2</default>
     </entry>
     <entry name="ReconnectOnBroken" type="Bool">
@@ -72,8 +80,11 @@
     <entry name="ReconnectRetries" type="Int">
       <default>5</default>
     </entry>
-    <entry name="ReconnectTime" type="Int">
+    <entry name="ReconnectDelay" type="Int">
       <default>60</default>
+    </entry>
+    <entry name="AutoShutdown" type="Bool">
+      <default>false</default>
     </entry>
     <entry name="AutoDisconnect" type="Bool">
       <default>false</default>
@@ -81,11 +92,24 @@
     <entry name="DisconnectCommand" type="String">
       <default>kppp -k</default>
     </entry>
-    <entry name="AutoShutdown" type="Bool">
+  </group>
+
+  <group name="Directories">
+    <entry name="AlwaysAskDirectory" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="UseDefaultDirectory" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="DefaultDirectory" type="Path">
+      <default>$HOME</default>
+    </entry>
+    <entry name="MimeDirList" type="StringList" key="Items">
+      <label>extRegExp, defaultDir, extR..</label>
+    </entry>
   </group>
-  
+
+  <!-- ObsOl3te --> 
   <group name="Connection">
     <entry name="ConnectionType" type="Enum">
       <choices>
@@ -99,26 +123,9 @@
       <default>Permanent</default>
     </entry>
   </group>
-
-  <group name="Advanced">
-    <entry name="FirstRun" type="Bool">
-      <default>true</default>
-    </entry>
-  </group>
-
-  <group name="Directories">
-    <entry name="UseLastDirectory" type="Bool">
-      <default>false</default>
-    </entry>
-    <entry name="LastDirectory" type="Path">
-      <default code="true">QDir::currentDirPath()</default>
-    </entry>
-    <entry name="MimeDirList" type="StringList" key="Items">
-      <label>extRegExp, defaultDir, extR..</label>
-    </entry>
-  </group>
     
-  <group name="Geometries">
+  <group name="Internal">
+    <!-- NOT CONFIGURABLE -->
     <entry name="MainPosition" type="Point"/>
     <entry name="MainSize" type="Size">
       <default code="true">QSize(650,180)</default>
@@ -128,6 +135,12 @@
     </entry>
     <entry name="DropPosition" type="Point"/>
     <entry name="DropSticky" type="Bool"/>
+    <entry name="FirstRun" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="LastDirectory" type="Path">
+      <default code="true">QDir::currentDirPath()</default>
+    </entry>
   </group>
 
 </kcfg>

@@ -179,7 +179,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 
 
     topLayout->addWidget(panelAdvanced);
-    slotToggleAdvanced(Settings::advancedIndividual());
+    slotToggleAdvanced(true);
 
     resize( sizeHint() );
 

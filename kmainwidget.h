@@ -48,7 +48,7 @@ class KMainWidget:public KMdiMainFrm, public ViewInterface, virtual public KGetI
 Q_OBJECT 
 
 public:
-    KMainWidget(bool bShowMain = false);
+    KMainWidget();
     ~KMainWidget();
 
     // dcop interface
@@ -65,7 +65,6 @@ protected slots:
     void slotToggleLogWindow();
     void slotPreferences();
     void slotToggleExpertMode();
-    void slotToggleUseLastDir();
     void slotToggleAutoShutdown();
     void slotToggleDropTarget();
     void slotUpdateActions();
@@ -101,7 +100,7 @@ protected:
 
     // utility functions
     void setupActions();
-    void setupGUI(bool startDocked);
+    void setupGUI();
     void updateStatusBar();
     void log(const QString & message, bool statusbar = true);
 
@@ -134,7 +133,7 @@ private:
     KAction *m_paMoveToBegin, *m_paMoveToEnd, *m_paIndividual;
     KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
 
-    KToggleAction *m_paExpertMode, *m_paUseLastDir;
+    KToggleAction *m_paExpertMode;
     KToggleAction *m_paAutoShutdown;
 
     KToggleAction *m_paDropTarget;

@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>361</width>
-            <height>293</height>
+            <width>359</width>
+            <height>295</height>
         </rect>
     </property>
     <property name="caption">
@@ -27,7 +27,7 @@
                 <cstring>kcfg_ExpertMode</cstring>
             </property>
             <property name="text">
-                <string>Disable confirmation dialogs (on delete, overwrite ..)</string>
+                <string>Disable confirmation dialogs (less verbosity)</string>
             </property>
         </widget>
         <widget class="QGroupBox">

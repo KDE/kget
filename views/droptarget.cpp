@@ -34,7 +34,9 @@
 #include <kpopupmenu.h>
 #include <kurldrag.h>
 #include <kiconeffect.h>
+#include <kmessagebox.h>
 #include <stdlib.h>
+#include <math.h>
 #include <qcursor.h>
 #include <qpainter.h>
 #include <qbitmap.h>
@@ -48,7 +50,7 @@
 #define TARGET_HEIGHT  67
 #define TARGET_OFFSETX -11
 #define TARGET_OFFSETY -6
-#define TARGET_ANI_MS  40
+#define TARGET_ANI_MS  30
 
 
 DropTarget::DropTarget(KMainWindow * mw)
@@ -126,12 +128,15 @@ DropTarget::DropTarget(KMainWindow * mw)
     popupMenu->insertTitle(mw->caption());
     popupMenu->setCheckable(true);
 
-    pop_Max = popupMenu->insertItem(i18n("Maximize"), this, SLOT(toggleMinimizeRestore()));
-    pop_Min = popupMenu->insertItem(i18n("Minimize"), this, SLOT(toggleMinimizeRestore()));
+    mw->actionCollection()->action("start")->plug(popupMenu);
+    mw->actionCollection()->action("stop")->plug(popupMenu);
+    popupMenu->insertSeparator();
+    pop_show = popupMenu->insertItem("", this, SLOT(toggleMinimizeRestore()));
+    popupMenu->insertItem(i18n("Hide me"), this, SLOT(slotClose()));
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
     popupMenu->setItemChecked(pop_sticky, Settings::dropSticky());
-    mw->actionCollection()->action("preferences")->plug(popupMenu);
     popupMenu->insertSeparator();
+    mw->actionCollection()->action("preferences")->plug(popupMenu);
     mw->actionCollection()->action("quit")->plug(popupMenu);
 
     // Enable dropping
@@ -151,6 +156,20 @@ DropTarget::~DropTarget()
 
 
 void
+DropTarget::slotClose()
+{
+    Settings::setShowDropTarget( false );
+    if (parentWidget->isHidden())
+        parentWidget->show();
+    hide();
+    KMessageBox::information(this,
+        i18n("Drop target has been hidden. If you want to show it\
+              again, go to Configuration->Look & Feel options."),
+        i18n("Hiding drop target"),
+        i18n("CloseDroptarget") );
+}
+
+void
 DropTarget::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == LeftButton)
@@ -161,8 +180,9 @@ DropTarget::mousePressEvent(QMouseEvent * e)
     }
     else if (e->button() == RightButton)
     {
-        popupMenu->setItemEnabled(pop_Min, parentWidget->isVisible());
-        popupMenu->setItemEnabled(pop_Max, parentWidget->isHidden());
+        popupMenu->changeItem(pop_show, parentWidget->isHidden() ?
+                              i18n("Show main window") :
+                              i18n("Hide main window") );
         popupMenu->popup(QCursor::pos());
     }
     else if (e->button() == MidButton)
@@ -206,10 +226,9 @@ void DropTarget::updateStickyState()
 
 void DropTarget::toggleMinimizeRestore()
 {
-    if (parentWidget->isVisible())
-        parentWidget->hide();
-    else
-        parentWidget->show();
+    bool nextState = parentWidget->isHidden();
+    Settings::setShowMain( nextState );
+    parentWidget->setShown( nextState );
 }
 
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
@@ -239,18 +258,26 @@ void DropTarget::playAnimation()
                  this, SLOT( slotAnimate() ));
     }
     QWidget *d = QApplication::desktop();
-    move( d->width() - width() - 60, -height() );
+    move( d->width() - width() - 60, -TARGET_HEIGHT );
+    ani_y = -1;
+    ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
+    if ( isHidden() )
+        show();
 }
 
 void DropTarget::slotAnimate()
 {
-    int left = x();
-    int top = y();
-    move( left, top+10 );
-    
     QWidget *d = QApplication::desktop();
-    if ( top > (d->height()/2)-80 && animTimer )
+    static float dT = TARGET_ANI_MS / 1000.0;
+    
+    ani_vy -= ani_y * 30 * dT;
+    ani_vy *= 0.95;
+    ani_y += ani_vy * dT;
+    
+    move( x(), (int)(d->height()/3 * (1 + ani_y)) );
+
+    if ( fabsf(ani_y) < 0.01 && fabsf(ani_vy) < 0.01 && animTimer )
     {
         animTimer->stop();
         delete animTimer;

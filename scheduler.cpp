@@ -90,6 +90,8 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
         if ( !destDir.isEmpty()  )
             dest.setPath( destDir );
         else
+            //FIXME files could be divided using extension, can't take the
+            //heading one only
             dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
         // ask in any case, when destDir is empty
@@ -426,13 +428,15 @@ void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
     
     switch (msg)
         {
-        case MSG_FINISHED:
+        case MSG_DELAYED:
+	case MSG_ABORTED:
+            item->slotDelay();
+	case MSG_FINISHED:
         case MSG_REMOVED:
         case MSG_PAUSED:
-        case MSG_ABORTED:
-        case MSG_DELAYED:
             sDebug << "TRANSFER REMOVAL: " << item << endl;
-            runningTransfers->removeTransfer(item);
+            
+	    runningTransfers->removeTransfer(item);
             removedTransfers->addTransfer(item);
             queueUpdate();
             //TODO Here we should set some properties to the transfers
@@ -440,7 +444,7 @@ void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
             //to download files that get a error
             
             break;
-        case MSG_DELAY_FINISHED:
+	case MSG_DELAY_FINISHED:
             queueUpdate();
             break;
         case MSG_RESUMED:
@@ -696,7 +700,7 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
      
     QString destDir = Settings::lastDirectory();
 
-    if (!Settings::useLastDirectory()) {
+    if (Settings::useDefaultDirectory()) {
         // check wildcards for default directory
 
         QStringList::Iterator it = Settings::mimeDirList().begin();

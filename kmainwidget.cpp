@@ -44,6 +44,7 @@
 #include <kiconloader.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
+#include "preferencesdialog.h"
 
 #include "kmainwidget.h"
 #include "globals.h"
@@ -57,19 +58,12 @@
 #include "droptarget.h"
 #include "settings.h"
 
-// configuration includes
-#include <kconfigdialog.h>
-#include "dlgappearance.h"
-#include "dlgnetwork.h"
-#include "dlgDirectories.h"
-#include "dlgadvanced.h"
-
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
 
-KMainWidget::KMainWidget(bool bStartDocked)
+KMainWidget::KMainWidget()
     : KGetIface( "KGet-Interface" ),
       KMdiMainFrm(0, "kget mainwindow", KMdi::IDEAlMode),
       ViewInterface( "viewIface-main" ),
@@ -81,7 +75,7 @@ KMainWidget::KMainWidget(bool bStartDocked)
     connectToScheduler( scheduler );
     
     setupActions();
-    setupGUI(bStartDocked);
+    setupGUI();
     slotUpdateActions();
 
     //This must be the last one
@@ -89,10 +83,16 @@ KMainWidget::KMainWidget(bool bStartDocked)
     
     if ( Settings::firstRun() )
     {
-//        if ( kdrop )
-//            kdrop->playAnimation();
+        if ( kdrop )
+        {
+            kdrop->playAnimation();
+            kdrop->show();
+        }
         Settings::setFirstRun(false);
     }
+     
+    if ( kdrop && Settings::showDropTarget() )
+        kdrop->show();
 }
 
 //THESE FUNCTIONS MUST BE RE-INTEGRATED
@@ -144,7 +144,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
 
     // update actions
     m_paExpertMode->setChecked(Settings::expertMode());
-    m_paUseLastDir->setChecked(Settings::useLastDir());
     
     sDebug << "eee5" << endl;
 
@@ -214,8 +213,6 @@ void KMainWidget::setupActions()
 
     m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
     m_paExpertMode->setWhatsThis(i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking."));
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
-    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
     m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), coll, "auto_shutdown");
     m_paAutoShutdown->setWhatsThis(i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, KGet will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to quit without asking."));
 
@@ -240,7 +237,7 @@ void KMainWidget::setupActions()
 */
 }
 
-void KMainWidget::setupGUI(bool startDocked)
+void KMainWidget::setupGUI()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -263,22 +260,22 @@ void KMainWidget::setupGUI(bool startDocked)
     addWindow(t);
     t->show();
 
+    //MainWidget (myself)
+    resize(Settings::mainSize());
+    move(Settings::mainPosition());
+    KWin::setState(winId(), Settings::mainState());
+    if (Settings::showMain())
+        show();  //show *this before child windows or else we lose focus
+    
     //DropTarget
     kdrop = new DropTarget(this);
     kdrop->connectToScheduler(scheduler);
-    kdrop->show();
+    //will be showed at the end of KMainWidget's constructor
 
     //DockWidget
     kdock = new DockWidget(this);
     kdock->connectToScheduler(scheduler);
     kdock->show();
-
-    //MainWidget (myself)
-    resize(Settings::mainSize());
-    move(Settings::mainPosition());
-//    KWin::setState(winId(), Settings::mainState());
-    if (!startDocked || Settings::showMain())
-        show();
 
     // setup statusbar
     statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
@@ -379,8 +376,12 @@ void KMainWidget::slotEditNotifications()
 
 void KMainWidget::slotNewConfig()
 {
-    sDebugIn << endl;
-    sDebugOut << endl;
+    // Update here properties modified in the config dialog and not
+    // parsed often by the code.. When clicking Ok or Apply of
+    // PreferencesDialog, this function is called.
+
+    if ( kdrop )
+        kdrop->setShown( Settings::showDropTarget() );
 }
 
 
@@ -466,43 +467,23 @@ bool KMainWidget::queryClose()
     return false;
 }
 
-
 void KMainWidget::slotPreferences()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
+    KNotifyClient::event( winId(), "added" );
 
-    KNotifyClient::event( winId(), "started" );
+    // an instance the dialog could be already created and could be cached, 
+    // in which case you want to display the cached dialog
+    if ( PreferencesDialog::showDialog( "preferences" ) ) 
+        return;
 
-    //An instance of your dialog could be already created and could be cached, 
-    //in which case you want to display the cached dialog instead of creating 
-    //another one 
-    if ( KConfigDialog::showDialog( "preferences" ) ) 
-        return; 
+    // we didn't find an instance of this dialog, so lets create it
+    PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
 
-    //KConfigDialog didn't find an instance of this dialog, so lets create it
-    KConfigDialog* dialog = new KConfigDialog( this, "preferences", Settings::self() );
-
-    dialog->addPage( new DlgAppearance(0), i18n("Appearance"), "looknfeel",
-                     i18n("Look and feel") );
-    dialog->addPage( new DlgNetwork(0), i18n("Network"), "network",
-                     i18n("Network and downloads") );
-    dialog->addPage( new DlgDirectories(0), i18n("Directories"), "folder_open",
-                     i18n("Default download directories") );
-    dialog->addPage( new DlgAdvanced(0), i18n("Advanced"), "exec",
-                     i18n("Advanced options") );
-
-    //User edited the configuration - update your local copies of the 
-    //configuration data 
+    // keep us informed when the user changes settings
     connect( dialog, SIGNAL(settingsChanged()), 
              this, SLOT(slotNewConfig()) );
- 
-    dialog->show();
 
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
+    dialog->show();
 }
 
 void KMainWidget::slotNewURL()
@@ -547,27 +528,6 @@ void KMainWidget::slotToggleExpertMode()
     sDebugOut << endl;
 #endif
 }
-
-
-void KMainWidget::slotToggleUseLastDir()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    Settings::setUseLastDirectory( !Settings::useLastDirectory() );
-
-    if (Settings::useLastDirectory()) {
-        log(i18n("Use last folder on."));
-    } else {
-        log(i18n("Use last folder off."));
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
 
 void KMainWidget::slotToggleAutoShutdown()
 {
@@ -1172,8 +1132,33 @@ void KMainWidget::slotCheckClipboard()
 */
 //END 
 
-//BEGIN 
+//BEGIN use last directory Action 
 /*
+KToggleAction *m_paExpertMode, *m_paUseLastDir
+    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
+    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
+    m_paUseLastDir->setChecked(Settings::useLastDir());
+
+void slotToggleUseLastDir();
+
+void KMainWidget::slotToggleUseLastDir()
+{
+#ifdef _DEBUG
+    sDebugIn << endl;
+#endif
+
+    Settings::setUseLastDirectory( !Settings::useLastDirectory() );
+
+    if (Settings::useLastDirectory()) {
+        log(i18n("Use last folder on."));
+    } else {
+        log(i18n("Use last folder off."));
+    }
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
 */
 //END 
 

@@ -59,6 +59,7 @@ private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
     void slotAnimate();
+    void slotClose();
 
 private:
     KPopupMenu * popupMenu;
@@ -66,11 +67,12 @@ private:
     QTimer * animTimer;
 
     int pop_sticky;
-    int pop_Max;
-    int pop_Min;
+    int pop_show;
 
     int oldX;
     int oldY;
+    
+    float ani_y, ani_vy;
 };
 
 #endif                          // _DROPTARGET_H

@@ -297,7 +297,6 @@ void Transfer::slavePostMessage(Slave::SlaveResult event, unsigned long data)
         case Slave::SLV_DELAYED:
             status = ST_STOPPED;
             speed = 0;
-            slotDelay();
             emit statusChanged(this, MSG_DELAYED);
             break;
         case Slave::SLV_CONNECTED:

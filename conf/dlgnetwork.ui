@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>317</width>
-            <height>261</height>
+            <width>314</width>
+            <height>315</height>
         </rect>
     </property>
     <property name="caption">
@@ -30,23 +30,40 @@
                 <string>Don't download files, only add them to the list</string>
             </property>
         </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>kcfg_LimitDownloads</cstring>
+            </property>
+            <property name="text">
+                <string>Limit maximum downloads</string>
+            </property>
+        </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout5</cstring>
+                <cstring>layout19</cstring>
             </property>
-            <hbox>
+            <grid>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QLabel">
+                <spacer row="0" column="0" rowspan="2" colspan="1">
                     <property name="name">
-                        <cstring>lbl_maxnum</cstring>
+                        <cstring>spacer16_2_2</cstring>
                     </property>
-                    <property name="text">
-                        <string>Maximum downloads:</string>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
                     </property>
-                </widget>
-                <spacer>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="0" column="2" rowspan="2" colspan="1">
                     <property name="name">
                         <cstring>spacer19</cstring>
                     </property>
@@ -58,20 +75,56 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>80</width>
-                            <height>20</height>
+                            <width>20</width>
+                            <height>50</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="KIntSpinBox">
+                <widget class="KIntSpinBox" row="0" column="3">
                     <property name="name">
-                        <cstring>kcfg_MaxSimConnections</cstring>
+                        <cstring>kcfg_MaxConnections</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
                     </property>
                     <property name="minValue">
                         <number>1</number>
                     </property>
                 </widget>
-            </hbox>
+                <widget class="QLabel" row="1" column="1">
+                    <property name="name">
+                        <cstring>lbl_maxnum_2</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Downloads from the same server:</string>
+                    </property>
+                </widget>
+                <widget class="KIntSpinBox" row="1" column="3">
+                    <property name="name">
+                        <cstring>kcfg_MaxConnectionsServer</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="minValue">
+                        <number>1</number>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="1">
+                    <property name="name">
+                        <cstring>lbl_maxnum</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Total downloads number:</string>
+                    </property>
+                </widget>
+            </grid>
         </widget>
         <widget class="QCheckBox">
             <property name="name">
@@ -97,7 +150,7 @@
                         <bool>false</bool>
                     </property>
                     <property name="text">
-                        <string>Reconnect after:</string>
+                        <string>Retry after:</string>
                     </property>
                 </widget>
                 <spacer row="0" column="2" rowspan="2" colspan="1">
@@ -119,7 +172,7 @@
                 </spacer>
                 <widget class="KIntSpinBox" row="1" column="3">
                     <property name="name">
-                        <cstring>kcfg_ReconnectTime</cstring>
+                        <cstring>kcfg_ReconnectDelay</cstring>
                     </property>
                     <property name="enabled">
                         <bool>false</bool>
@@ -191,6 +244,14 @@
                 </property>
                 <widget class="QCheckBox">
                     <property name="name">
+                        <cstring>kcfg_AutoShutdown</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Auto shutdown</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>kcfg_AutoDisconnect</cstring>
                     </property>
                     <property name="text">
@@ -240,16 +301,11 @@
                             <property name="enabled">
                                 <bool>false</bool>
                             </property>
+                            <property name="text">
+                                <string>kppp -k</string>
+                            </property>
                         </widget>
                     </hbox>
-                </widget>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>kcfg_AutoShutdown</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Auto shutdown</string>
-                    </property>
                 </widget>
             </vbox>
         </widget>
@@ -306,7 +362,31 @@
     <connection>
         <sender>kcfg_ReconnectOnBroken</sender>
         <signal>toggled(bool)</signal>
-        <receiver>kcfg_ReconnectTime</receiver>
+        <receiver>kcfg_ReconnectDelay</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg_LimitDownloads</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>lbl_maxnum</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg_LimitDownloads</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>kcfg_MaxConnections</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg_LimitDownloads</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>lbl_maxnum_2</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>kcfg_LimitDownloads</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>kcfg_MaxConnectionsServer</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
 </connections>

@@ -311,19 +311,6 @@ void Slave::slotResult(KIO::Job * job)
                 
                 
         }
-        if (/*transfer->retryOnError()FIXME Removed function*/true && \
-            ((error==KIO::ERR_COULD_NOT_LOGIN) || (error==KIO::ERR_SERVER_TIMEOUT))) {
-            //Timeout or login error
-            transfer->slavePostMessage(SLV_ERROR);
-        }
-        else if (/*transfer->retryOnBroken()FIXME Removed function*/true && (error==KIO::ERR_CONNECTION_BROKEN)) {
-            // Connection Broken
-            transfer->slavePostMessage(SLV_BROKEN);
-        }
-        else {
-            job->showErrorDialog();
-            transfer->slavePostMessage(SLV_DELAYED);
-        }
     }
     mDebugOut << endl;
 }

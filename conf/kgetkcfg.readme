@@ -1,50 +1,82 @@
-1 ReconnectTime
+--network--
+0 LimitDownloads
+1 MaxConnections
+0 MaxConnectionsServer
+
+0 ReconnectOnBroken
 1 ReconnectRetries
-2 ConnectionType
-3 AutoSave
-1 AutoSaveInterval
+1 ReconnectDelay
+
+2 AutoShutdown
 2 AutoDisconnect
 1 DisconnectCommand
-2 AutoShutdown
-2 AutoPaste (better doc.)
-1 MaxSimConnections (rinominare)
-1 ShowMain (REDO)
-  ShowIndividual (on conf?)
-  IconifyIndividual (on conf?)
-  AdvancedIndividual (on conf?)
-4 ExpertMode (???)
-1 FirstRun
-  KonquerorIntegration (reimp!!)
-2 UseLastDirectory
-2 LastDirectory
+
+
+--look--
+1 ShowMain
+0 ShowMainLarge
+
+0 ShowIndividual
+0 DockifyIndividual
+
+1 ShowDropTarget
+1 ShowSplashscreen
+
+
+--advanced--
+4 ExpertMode
+
+0 KonquerorIntegration (reimp!!)
+
+2 AutoPaste
+
+0 TimedDownload
+0 TimedDownloadDateTime
+0 TimedDisconnect
+0 TimedDisconnectDateTime
+
+3 AutoSave
+1 AutoSaveInterval
+
+
+--directory--
+0 AlwaysAskDirectory
+0 UseDefaultDirectory
+0 DefaultDirectory
 1 MimeDirList
+
+
+--internals--
+2 LastDirectory
 1 MainPosition
 1 MainSize
 1 MainState
 1 DropPosition
 1 DropSticky
-1 ShowSplashscreen (ADD)
+1 FirstRun
+
+
+Missing
+ 2 ConnectionType
 
 Old opts not used by anyone:
   ReconnectOnError
-  ReconnectOnBroken
   TimeoutData
   TimeoutDataNoResume
   MinimumBandwidth
   MaximumBandwidth
 
 Removed opts:
-  UseSound
+  UseSound        |
   AudioAdded      |
-  AudioStarted    | convert to use
-  AudioFinished   | plain text entrybox
-  AudioFinishedAll| (or system notificat!)
+  AudioStarted    | converted to use
+  AudioFinished   | system notification
+  AudioFinishedAll| 
 
 Obsoleted opts:
 X LinkNumber
 X OfflineMode (convertire in start/stop all'avvio)
 X UseAnimation
-X TimedDisconnect
 X DisconnectHour
 X DisconnectMinute
 X RemoveOnSuccess

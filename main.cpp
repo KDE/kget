@@ -137,7 +137,7 @@ public:
 
         if (!mainwidget)
         {
-            mainwidget = new KMainWidget(args->count()>0);
+            mainwidget = new KMainWidget();
             setMainWidget(mainwidget);
         }
         KWin::activateWindow(mainwidget->winId());
