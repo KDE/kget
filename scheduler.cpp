@@ -24,11 +24,15 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
     runningTransfers = new TransferList();
     removedTransfers = new TransferList();
     connections.append( new Connection(this) );
+    
+    slotImportTransfers();
 }
 
 Scheduler::~Scheduler()
 {
-
+    sDebugIn << endl;
+    slotExportTransfers();
+    sDebugOut << endl;
 }
 
 void Scheduler::run()
@@ -388,11 +392,11 @@ void Scheduler::slotReqOperation(SchedulerOperation operation)
             break;
 
         case OpImportTransfers:
-            slotImportTransfers(false);
+            slotImportTransfers(true);
             break;
 
         case OpExportTransfers:
-            slotExportTransfers(false);
+            slotExportTransfers(true);
             break;
 
         case OpRun:
@@ -480,14 +484,14 @@ void Scheduler::slotImportTransfers(const KURL & file)
         return;
     }
     sDebug << "Read from file: " << file << endl;
-    transfers->readTransfers(file, this);
-    //checkQueue(); <--- TO BE ENABLED
     
+    TransferList list;
+    list.readTransfers(file, this);
+    transfers->addTransfers(list);
     
-    //slotTransferTimeout();
-    //transfers->clearSelection();
-
-    emit addedItems(*transfers);
+    queueUpdate();
+    
+    emit addedItems(list);
 
     sDebugOut << endl;
 }

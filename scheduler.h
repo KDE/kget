@@ -37,19 +37,20 @@ class Scheduler : public QObject
 {
 Q_OBJECT
 public:
-	Scheduler(KMainWidget * _mainWidget);
-	~Scheduler();
+    Scheduler(KMainWidget * _mainWidget);
+    ~Scheduler();
 
     
 signals:
-	void addedItems(TransferList &);
-	void removedItems(TransferList &);
-	void changedItems(TransferList &);
-	void clear();
-	void globalStatus(GlobalStatus *);
-	
+    void addedItems(TransferList &);
+    void removedItems(TransferList &);
+    void changedItems(TransferList &);
+    void clear();
+    void globalStatus(GlobalStatus *);
+
 public:
     bool isRunning()const {return running;}
+    TransferList & getTransfers() const {return *transfers;}
 
 public slots:
     void run();
@@ -69,19 +70,19 @@ public slots:
     void slotNewURLs(const KURL::List & src, const QString& destDir);
     
    
-	void slotRemoveItems(TransferList &);
-	void slotRemoveItems(Transfer *);
-    
-	void slotSetPriority(TransferList &, int);
-	void slotSetPriority(Transfer *, int);
-    
-	void slotSetCommand(TransferList &, TransferCommand);
-    
-	void slotSetGroup(TransferList &, const QString &);
-	void slotSetGroup(Transfer *, const QString &);
+    void slotRemoveItems(TransferList &);
+    void slotRemoveItems(Transfer *);
 
-	void slotReqOperation(SchedulerOperation);
-	void slotReqOperation(SchedulerDebugOp);
+    void slotSetPriority(TransferList &, int);
+    void slotSetPriority(Transfer *, int);
+
+    void slotSetCommand(TransferList &, TransferCommand);
+
+    void slotSetGroup(TransferList &, const QString &);
+    void slotSetGroup(Transfer *, const QString &);
+
+    void slotReqOperation(SchedulerOperation);
+    void slotReqOperation(SchedulerDebugOp);
 
     /**
      * This slot is called from the Transfer object when its status
@@ -135,7 +136,7 @@ private:
      * TEMP(Dario) I have removed the const qualifier to the KURL object
      * becouse I need to modify it when no src is passed to the function
      */
-	void slotNewURL(KURL src, const QString& destDir);
+    void slotNewURL(KURL src, const QString& destDir);
     
     /**
      * Called in the slotImportTextFile(...) function.
