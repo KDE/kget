@@ -1079,7 +1079,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
     // don't download file URL's TODO : uncomment?
     if (url.protocol()!="http"&&url.protocol()!="ftp") {
 
-        KMessageBox::error(this, i18n("File protocol not accepted !\n") + s, i18n("Error"));
+        KMessageBox::error(this, i18n("File protocol not accepted!\n") + s, i18n("Error"));
 
 #ifdef _DEBUG
         sDebugOut << endl;

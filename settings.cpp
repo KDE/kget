@@ -132,7 +132,7 @@ Settings::load()
     if(config->readBoolEntry("FirstRun",true))
     {
         config->writeEntry("FirstRun",false);
-        bool bAnswerYes=KMessageBox::questionYesNo(0L,i18n("This is the first time that you have run KGet.\n Do you want to enable the integration with Konqueror?"), i18n("Konqueror Integration"));
+        bool bAnswerYes=KMessageBox::questionYesNo(0L,i18n("This is the first time that you have run KGet.\nDo you want to enable the integration with Konqueror?"), i18n("Konqueror Integration"));
         if (bAnswerYes)
         {
             cfg->writeEntry("DownloadManager",KGET_APP_NAME);
