@@ -55,9 +55,11 @@ class TransferItem : public QListViewItem, public TransferObserver
 {
 public:
     TransferItem(TransferGroupItem * parent, TransferHandler * transfer);
+    ~TransferItem(){}
 
     //Transfer observer virtual functions
-    void transferChangedEvent(TransferHandler * transfer);
+    void transferChangedEvent(TransferHandler * transfer) {}
+    void deletedEvent(TransferHandler * transfer) {}
 
     void updateContents(bool updateAll=false);
 

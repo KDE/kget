@@ -111,21 +111,22 @@ void Model::addTransfer( KURL src, const QString& destDir,
     if(KIO::NetAccess::exists(destURL, false, 0/*mainWidget*/))
         safeDeleteFile( destURL );
 
-    QMap<QString, TransferGroup *>::iterator it = m_transferGroups.find(groupName);
-
-    if( it != m_transferGroups.end() )
-    {
-        //The group with name "groupName" has been found
-        //WARNING! HARDCODED TRANSFER CREATION. Here we should use the
-        //Transfer Factory
-        (*it)->append( new TransferKio( (*it), &m_scheduler, src, destURL) );
-    }
-    else
-    {
-        //Group with name "groupName" not found
-        kdDebug() << "Error:    group not found: " << groupName << endl;
-        return;
-    }
+//TODO Re-enable all this
+//     QMap<QString, TransferGroup *>::iterator it = m_transferGroups.find(groupName);
+// 
+//     if( it != m_transferGroups.end() )
+//     {
+//         //The group with name "groupName" has been found
+//         //WARNING! HARDCODED TRANSFER CREATION. Here we should use the
+//         //Transfer Factory
+//         (*it)->append( new TransferKio( (*it), &m_scheduler, src, destURL) );
+//     }
+//     else
+//     {
+//         //Group with name "groupName" not found
+//         kdDebug() << "Error:    group not found: " << groupName << endl;
+//         return;
+//     }
 
     //TODO URGENT!! RE-ENABLE THESE LINES
     /*    TransferList list(item);
@@ -147,7 +148,7 @@ void Model::moveTransfer(TransferHandler * transfer, const QString& groupName)
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
-QMap<QString, TransferGroup *> Model::m_transferGroups = QMap<QString, TransferGroup *>();
+QValueList<TransferGroup *> Model::m_transferGroups = QValueList<TransferGroup *>();
 QValueList<ModelObserver *> Model::m_observers = QValueList<ModelObserver *>();
 Scheduler Model::m_scheduler = Scheduler();
 
