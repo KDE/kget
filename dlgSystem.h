@@ -30,52 +30,23 @@
 #ifndef _DLGSYSTEM_H
 #define _DLGSYSTEM_H
 
-#include <qwidget.h>
+#include "dlgsystembase.h"
 
-class QButtonGroup;
-class QCheckBox;
-class QGroupBox;
-class QLabel;
-class QPushButton;
-class QRadioButton;
-class KComboBox;
-
-class DlgSystem:public QWidget
+class DlgSystem : public DlgSystemBase
 {
 Q_OBJECT public:
     DlgSystem(QWidget * parent);
-    ~DlgSystem()
-    {}
+    ~DlgSystem() {}
+
     void applyData();
     void setData();
 
 private:
 
-    // sound settings
-    QCheckBox * cb_useSound;
-
-    QComboBox *cmb_sounds;
-    QPushButton *pb_changesound;
-    QPushButton *pb_testsound;
-
     QString soundAdded;
     QString soundStarted;
     QString soundFinished;
     QString soundFinishedAll;
-
-    // animation settings
-    QCheckBox *cb_useAnimation;
-
-    // window style settings
-    QButtonGroup *bg_window;
-    QRadioButton *rb_normal;
-    QRadioButton *rb_docked;
-    QRadioButton *rb_droptarget;
-
-    // font settings
-    QGroupBox *gb_font;
-    QLabel *lb_font;
-    QPushButton *pb_browse;
 
 signals:
     void configChanged();
@@ -84,8 +55,6 @@ protected slots:
     void slotChanged();
 
 private slots:
-    void changeFont();
-
     void setupSound();
     void testSound();
 };

@@ -42,69 +42,9 @@
 #include "dlgAutomation.h"
 
 
-DlgAutomation::DlgAutomation(QWidget * parent):QGroupBox(parent)
+DlgAutomation::DlgAutomation(QWidget * parent)
+    : DlgAutomationBase(parent)
 {
-    setTitle(i18n("Automation Options"));
-
-    QGridLayout *automationLayout = new QGridLayout(this, 5, 5, 20, KDialog::spacingHint());
-
-    automationLayout->setRowStretch(0, 5);
-    automationLayout->setRowStretch(1, 5);
-    automationLayout->setRowStretch(2, 5);
-    automationLayout->setRowStretch(3, 5);
-    automationLayout->setRowStretch(4, 5);
-
-    automationLayout->setColStretch(0, 5);
-    automationLayout->setColStretch(1, 5);
-    automationLayout->setColStretch(2, 5);
-    automationLayout->setColStretch(3, 5);
-    automationLayout->setColStretch(4, 5);
-
-    // auto save
-    cb_autoSave = new QCheckBox(i18n("Auto save file list every:"), this);
-    automationLayout->addWidget(cb_autoSave, 0, 0);
-    connect( cb_autoSave, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    le_autoSave = new KIntNumInput(0, this, 10);
-    le_autoSave->setSuffix(i18n(" minutes"));
-    le_autoSave->setRange(1, 3600, 1, false);
-    automationLayout->addMultiCellWidget(le_autoSave, 0, 0, 1, 2);
-    connect( le_autoSave, SIGNAL( valueChanged(int) ), this, SLOT( slotChanged() ) );
-
-    connect(cb_autoSave, SIGNAL(toggled(bool)), le_autoSave, SLOT(setEnabled(bool)));
-
-
-    cb_autoDisconnect = new QCheckBox(i18n("Auto disconnect after finished downloading"), this);
-    automationLayout->addMultiCellWidget(cb_autoDisconnect, 1, 1, 0, 2);
-    connect( cb_autoDisconnect, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    lb_autoDisconnect = new QLabel(i18n("Disconnect command:"), this);
-    automationLayout->addWidget(lb_autoDisconnect, 2, 0, AlignRight | AlignVCenter);
-
-    le_autoDisconnect = new KLineEdit(this);
-    automationLayout->addMultiCellWidget(le_autoDisconnect, 2, 2, 1, 3);
-    connect( le_autoDisconnect, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-
-    cb_timedDisconnect = new QCheckBox(i18n("Timed disconnect"), this);
-    automationLayout->addMultiCellWidget(cb_timedDisconnect, 3, 3, 0, 2);
-    connect( cb_timedDisconnect, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    spins = new KDateTimeWidget(disconnectDateTime, this);
-    automationLayout->addMultiCellWidget(spins, 4, 4, 0, 2);
-    connect( spins, SIGNAL( valueChanged(const QDateTime & ) ), this, SLOT( slotChanged() ) );
-
-    connect(cb_autoDisconnect, SIGNAL(toggled(bool)), this, SLOT(disconnectToggled(bool)));
-    connect(cb_timedDisconnect, SIGNAL(toggled(bool)), spins, SLOT(setEnabled(bool)));
-
-    // auto shutdown
-    cb_autoShutdown = new QCheckBox(i18n("Auto shutdown after finished downloading"), this);
-    automationLayout->addWidget(cb_autoShutdown, 5, 0);
-    connect( cb_autoShutdown, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    // auto paste
-    cb_autoPaste = new QCheckBox(i18n("Auto paste from clipboard"), this);
-    automationLayout->addWidget(cb_autoPaste, 6, 0);
-    connect( cb_autoPaste, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 }
 
 

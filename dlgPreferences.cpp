@@ -50,7 +50,7 @@
 
 
 DlgPreferences::DlgPreferences(QWidget * parent):
-        KDialogBase(Tabbed, i18n("Configure"), Ok | Apply | Help | Cancel, Ok, parent, "", true)
+        KDialogBase(Tabbed, i18n("Configure"), Ok|Apply|Help|Cancel, Ok, parent, "DlgPreferences", true)
 {
     // add pages
     QFrame *page = addPage(i18n("Connection"));
@@ -64,18 +64,21 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     autDlg = new DlgAutomation(page);
     topLayout->addWidget(autDlg);
+    topLayout->addStretch();
     connect( autDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Limits"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     limDlg = new DlgLimits(page);
     topLayout->addWidget(limDlg);
+    topLayout->addStretch();
     connect( limDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("Advanced"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     advDlg = new DlgAdvanced(page);
     topLayout->addWidget(advDlg);
+    topLayout->addStretch();
     connect( advDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     // page = addPage(i18n("Search"));
@@ -87,12 +90,14 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     dirDlg = new DlgDirectories(page);
     topLayout->addWidget(dirDlg);
+    topLayout->addStretch();
     connect( dirDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     page = addPage(i18n("System"));
     topLayout = new QVBoxLayout(page, 0, spacingHint());
     sysDlg = new DlgSystem(page);
     topLayout->addWidget(sysDlg);
+    topLayout->addStretch();
     connect( sysDlg, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 
     // type of connection influences autoDisconnect & timedDisconnect features

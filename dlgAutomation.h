@@ -28,48 +28,24 @@
 #ifndef _DLGAUTOMATION_H
 #define _DLGAUTOMATION_H
 
-#include <qgroupbox.h>
 #include <qstringlist.h>
 #include <qdatetime.h>
 
-class QCheckBox;
-class QGroupBox;
-class QLabel;
-class KLineEdit;
-class KDateTimeWidget;
-class KIntNumInput;
+#include "dlgautomationbase.h"
 
-class DlgAutomation:public QGroupBox
+class DlgAutomation:public DlgAutomationBase
 {
 
 Q_OBJECT public:
 
     DlgAutomation(QWidget * parent);
-    ~DlgAutomation()
-    {}
+    ~DlgAutomation() {}
     void applyData();
     void setData();
 
 private:
 
-    // auto save settings
-    QCheckBox * cb_autoSave;
-    KIntNumInput *le_autoSave;
-
-    // auto disconnect settings
-    QCheckBox *cb_autoDisconnect;
-    QLabel *lb_autoDisconnect;
-    KLineEdit *le_autoDisconnect;
-    QCheckBox *cb_timedDisconnect;
-    KDateTimeWidget *spins;
-
     QDateTime disconnectDateTime;
-
-    // auto shutdown settings
-    QCheckBox *cb_autoShutdown;
-
-    // auto paste settings
-    QCheckBox *cb_autoPaste;
 
 signals:
     void configChanged();
@@ -80,7 +56,6 @@ public slots:
 protected slots:
     void disconnectToggled(bool);
     void slotChanged();
-
 };
 
 #endif                          // _DLGAUTOMATION_H

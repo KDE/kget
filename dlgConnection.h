@@ -29,22 +29,16 @@
 #define _DLGCONNECTION_H
 
 #include <qstringlist.h>
-#include <qwidget.h>
 
-class KIntNumInput;
-class QCheckBox;
-class QGroupBox;
-class QLabel;
-class KComboBox;
+#include "dlgconnectionbase.h"
 
-class DlgConnection:public QWidget
+class DlgConnection : public DlgConnectionBase
 {
 
 Q_OBJECT public:
 
     DlgConnection(QWidget * parent);
-    ~DlgConnection()
-    {}
+    ~DlgConnection() {}
     void applyData();
     void setData();
 
@@ -53,42 +47,6 @@ Q_OBJECT public:
         return cmb_type->currentItem();
     }
 
-private:
-
-    // reconnect settings
-    QGroupBox * gb_reconnect;
-
-    QCheckBox *cb_onerror;
-
-    QLabel *lb_after;
-    KIntNumInput *le_after;
-
-    QLabel *lb_retries;
-    KIntNumInput *le_retries;
-
-    QCheckBox *cb_onbroken;
-
-    QCheckBox *cb_autoresume;
-
-    // timeout settings
-    QGroupBox *gb_timeout;
-
-    QLabel *lb_nodata;
-    KIntNumInput *le_nodata;
-
-    QLabel *lb_noresume;
-    KIntNumInput *le_noresume;
-    QLabel *lb_cannot;
-
-    // type settings
-    QGroupBox *gb_type;
-
-    KComboBox *cmb_type;
-
-    QLabel *lb_linknum;
-    KIntNumInput *le_linknum;
-    QCheckBox *cb_offlinemode;
-
 signals:
     void typeChanged(int type);
     void configChanged();
@@ -96,7 +54,6 @@ signals:
 protected slots:
     void comboActivated(int Index);
     void slotChanged();
-
 };
 
 #endif                          // _DLGCONNECTION_H

@@ -26,9 +26,8 @@
 
 
 #include <qpushbutton.h>
+#include <qtoolbutton.h>
 #include <qlistview.h>
-
-#include <qlayout.h>
 
 #ifdef Unsorted
 #undef Unsorted
@@ -37,7 +36,6 @@
 #include <qdir.h>
 
 #include <kfiledialog.h>
-#include <kiconloader.h>
 #include <klineedit.h>
 #include <kglobal.h>
 #include <klocale.h>
@@ -47,89 +45,33 @@
 #include "dlgDirectories.h"
 #include <kapplication.h>
 
-DlgDirectories::DlgDirectories(QWidget * parent):QGroupBox(parent)
+DlgDirectories::DlgDirectories(QWidget * parent)
+    : DlgDirectoriesBase(parent)
 {
-    setTitle(i18n("Directories Options"));
-
-    QGridLayout *directoriesLayout = new QGridLayout(this, 4, 5, 20, 5);
-
-    directoriesLayout->setRowStretch(0, 5);
-    directoriesLayout->setRowStretch(1, 5);
-    directoriesLayout->setRowStretch(2, 3);
-    directoriesLayout->setRowStretch(3, 3);
-
-    directoriesLayout->setColStretch(0, 5);
-    directoriesLayout->setColStretch(1, 5);
-    directoriesLayout->setColStretch(2, 5);
-    directoriesLayout->setColStretch(3, 5);
-    directoriesLayout->setColStretch(4, 3);
-
-    // table of entries
-    lv_entries = new QListView(this, "dirview");
-    lv_entries->setMultiSelection(false);
-    lv_entries->setAllColumnsShowFocus(true);
-    lv_entries->setSorting(-1); // do not sort automatically
-
-    lv_entries->addColumn(i18n("Extension"));
-    lv_entries->addColumn(i18n("Default Directory"));
-    connect(lv_entries, SIGNAL(selectionChanged(QListViewItem *)), SLOT(selectEntry(QListViewItem *)));
-
-    // lv_entries->setMinimumHeight( lv_entries->sizeHint().height() );
-    directoriesLayout->addMultiCellWidget(lv_entries, 0, 1, 0, 3);
-
-    pb_up = new QPushButton(this);
-    pb_up->setPixmap(BarIcon("up"));
-    connect(pb_up, SIGNAL(clicked()), SLOT(upEntry()));
-    directoriesLayout->addWidget(pb_up, 0, 4);
-    pb_up->setEnabled(false);
-
-    pb_down = new QPushButton(this);
-    pb_down->setPixmap(BarIcon("down"));
-    connect(pb_down, SIGNAL(clicked()), SLOT(downEntry()));
-    directoriesLayout->addWidget(pb_down, 1, 4);
-    pb_down->setEnabled(false);
-
-    // edit entries
-    le_ext = new KLineEdit(this);
-    directoriesLayout->addMultiCellWidget(le_ext, 2, 2, 0, 1);
-
-    le_dir = new KLineEdit(this);
-    directoriesLayout->addMultiCellWidget(le_dir, 2, 2, 2, 3);
-
-    // edit buttons
-    pb_add = new QPushButton(i18n("Add"), this);
-    directoriesLayout->addWidget(pb_add, 3, 0);
-    connect(pb_add, SIGNAL(clicked()), SLOT(addEntry()));
-
-    pb_delete = new QPushButton(i18n("Delete"), this);
-    directoriesLayout->addWidget(pb_delete, 3, 1);
-    connect(pb_delete, SIGNAL(clicked()), SLOT(deleteEntry()));
-
-    pb_change = new QPushButton(i18n("Change"), this);
-    directoriesLayout->addWidget(pb_change, 3, 2);
-    connect(pb_change, SIGNAL(clicked()), SLOT(changeEntry()));
-
-    pb_browse = new QPushButton(i18n("Browse..."), this);
-    directoriesLayout->addWidget(pb_browse, 3, 3);
-    connect(pb_browse, SIGNAL(clicked()), SLOT(browse()));
 }
 
 
 void DlgDirectories::selectEntry(QListViewItem * item)
 {
     if (item) {
-
         le_ext->setText(item->text(0));
         le_dir->setText(item->text(1));
-        pb_up->setEnabled(true);
-        pb_down->setEnabled(true);
 
     } else {
-        pb_up->setEnabled(false);
-        pb_down->setEnabled(false);
+        le_ext->clear();
+        le_dir->clear();
     }
+    updateUpDown();
 }
 
+
+void DlgDirectories::updateUpDown()
+{
+    QListViewItem *item = lv_entries->selectedItem();
+
+    pb_up->setEnabled( item && item->itemAbove() );
+    pb_down->setEnabled( item && item->itemBelow() );
+}
 
 void DlgDirectories::addEntry()
 {
@@ -149,6 +91,8 @@ void DlgDirectories::addEntry()
     }
 
     new QListViewItem(lv_entries, ext, dir);
+    updateUpDown();
+
     emit configChanged();
 }
 
@@ -157,6 +101,7 @@ void DlgDirectories::deleteEntry()
 {
     QListViewItem *item = lv_entries->selectedItem();
     delete item;
+    updateUpDown();
     emit configChanged();
 }
 
@@ -190,50 +135,29 @@ void DlgDirectories::changeEntry()
 
 void DlgDirectories::downEntry()
 {
-    QListViewItem *old_item = lv_entries->selectedItem();
+    QListViewItem *item = lv_entries->selectedItem();
 
-    if (old_item) {
-        QListViewItemIterator it(old_item);
+    if ( !item )
+        return;
 
-        if (it.current()->nextSibling() == 0L) {
-            return;
-        }
+    item->moveItem( item->itemBelow() );
 
-        QString ext = old_item->text(0);
-        QString dir = old_item->text(1);
-
-        it++;
-
-        QListViewItem *new_item = new QListViewItem(lv_entries, it.current(), ext, dir);
-
-        delete old_item;
-
-        lv_entries->setSelected(new_item, true);
-        emit configChanged();
-    }
+    updateUpDown();
+    emit configChanged();
 }
 
 
 void DlgDirectories::upEntry()
 {
-    QListViewItem *old_item = lv_entries->selectedItem();
+    QListViewItem *item = lv_entries->selectedItem();
 
-    if (old_item) {
-        QListViewItemIterator it(old_item);
+    if ( !item || !item->itemAbove() )
+        return;
 
-        QString ext = old_item->text(0);
-        QString dir = old_item->text(1);
+    item->moveItem( item->itemAbove()->itemAbove() );
 
-        it--;
-        it--;
-
-        QListViewItem *new_item = new QListViewItem(lv_entries, it.current(), ext, dir);
-
-        delete old_item;
-
-        lv_entries->setSelected(new_item, true);
-        emit configChanged();
-    }
+    updateUpDown();
+    emit configChanged();
 }
 
 

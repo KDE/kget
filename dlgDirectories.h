@@ -28,42 +28,19 @@
 #ifndef _DLGDIRECTORIES_H
 #define _DLGDIRECTORIES_H
 
-#include <qgroupbox.h>
-#include <qstringlist.h>
+#include "dlgdirectoriesbase.h"
 
-class KLineEdit;
-class QPushButton;
-class QListView;
-class QListViewItem;
-
-class DlgDirectories:public QGroupBox
+class DlgDirectories : public DlgDirectoriesBase
 {
 
-Q_OBJECT public:
+Q_OBJECT
+
+public:
 
     DlgDirectories(QWidget * parent);
-    ~DlgDirectories()
-    {}
+    ~DlgDirectories() {}
     void applyData();
     void setData();
-
-private:
-
-    // table of entries
-    QListView * lv_entries;
-
-    // edit entries
-    KLineEdit *le_ext;
-    KLineEdit *le_dir;
-
-    // maximum bandwidth
-    QPushButton *pb_add;
-    QPushButton *pb_delete;
-    QPushButton *pb_change;
-    QPushButton *pb_browse;
-
-    QPushButton *pb_up;
-    QPushButton *pb_down;
 
 signals:
     void configChanged();
@@ -77,6 +54,9 @@ protected slots:
 
     void upEntry();
     void downEntry();
+
+protected:
+    void updateUpDown();
 
 };
 

@@ -28,35 +28,17 @@
 #ifndef _DLGLIMITS_H
 #define _DLGLIMITS_H
 
-#include <qgroupbox.h>
+#include "dlglimitsbase.h"
 
-class QLabel;
-class KIntNumInput;
-
-class DlgLimits:public QGroupBox
+class DlgLimits : public DlgLimitsBase
 {
 
 Q_OBJECT public:
 
     DlgLimits(QWidget * parent);
-    ~DlgLimits()
-    {}
+    ~DlgLimits() {}
     void applyData();
     void setData();
-
-private:
-
-    // opened connections
-    QLabel * lb_maxnum;
-    KIntNumInput *le_maxnum;
-
-    // minimum bandwidth
-    QLabel *lb_minband;
-    KIntNumInput *le_minband;
-
-    // maximum bandwidth
-    QLabel *lb_maxband;
-    KIntNumInput *le_maxband;
 
 signals:
     void configChanged();

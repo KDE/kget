@@ -9,6 +9,8 @@ kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET)
 kget_SOURCES = getfilejob.cpp slaveevent.cpp slave.cpp transferlist.cpp \
                transfer.cpp settings.cpp logwindow.cpp \
                kmainwidget.cpp kfileio.cpp droptarget.cpp docking.cpp \
+               dlgconnectionbase.ui dlgautomationbase.ui dlglimitsbase.ui \
+               dlgadvancedbase.ui dlgdirectoriesbase.ui dlgsystembase.ui \
                dlgSystem.cpp dlgPreferences.cpp dlgLimits.cpp \
                dlgIndividual.cpp dlgDirectories.cpp dlgConnection.cpp \
                dlgAutomation.cpp dlgAdvanced.cpp \
@@ -37,5 +39,6 @@ rc_DATA = kgetui.rc
 KDE_ICON = AUTO
 
 messages: rc.cpp
+	$(EXTRACTRC) *.ui > rc.cpp
 	$(EXTRACTRC) */*.rc >> rc.cpp
 	$(XGETTEXT) *.cpp */*.cpp *.h -o $(podir)/kget.pot

@@ -25,25 +25,18 @@
  ***************************************************************************/
 
 
-#include <qlayout.h>
-
 #include <qcheckbox.h>
-#include <qlabel.h>
-#include <qgroupbox.h>
-#include <qpushbutton.h>
-#include <qbuttongroup.h>
 #include <qradiobutton.h>
+#include <qpushbutton.h>
 
 #ifdef index
 #undef index
 #endif
 
 #include <kcombobox.h>
-
-#include <kfontdialog.h>
 #include <kaudioplayer.h>
-//#include <klineeditdlg.h>
 #include <kurlrequesterdlg.h>
+#include <kfontrequester.h>
 #include <klocale.h>
 #include <kdialog.h>
 #include <kio/netaccess.h>
@@ -53,95 +46,9 @@
 #include "dlgSystem.h"
 
 
-DlgSystem::DlgSystem(QWidget * parent):QWidget(parent, "", 0)
+DlgSystem::DlgSystem(QWidget * parent)
+    : DlgSystemBase(parent)
 {
-    QGridLayout *topGridLayout = new QGridLayout(this, 4, 4, 20, KDialog::spacingHint());
-
-    topGridLayout->setRowStretch(0, 7);
-    topGridLayout->setRowStretch(1, 7);
-    topGridLayout->setRowStretch(2, 5);
-    topGridLayout->setRowStretch(3, 5);
-
-    topGridLayout->setColStretch(0, 5);
-    topGridLayout->setColStretch(1, 5);
-    topGridLayout->setColStretch(2, 5);
-    topGridLayout->setColStretch(3, 5);
-
-    // sound settings
-
-    cb_useSound = new QCheckBox(i18n("Use sounds"), this);
-    topGridLayout->addWidget(cb_useSound, 0, 0);
-    connect( cb_useSound, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    cmb_sounds = new KComboBox(false, this);
-
-    cmb_sounds->insertItem(i18n("Added"));
-    cmb_sounds->insertItem(i18n("Started"));
-    cmb_sounds->insertItem(i18n("Finished"));
-    cmb_sounds->insertItem(i18n("Finished All"));
-    topGridLayout->addWidget(cmb_sounds, 0, 1);
-    connect( cmb_sounds, SIGNAL( activated(int) ), this, SLOT( slotChanged() ) );
-
-    pb_changesound = new QPushButton(i18n("Change..."), this);
-    topGridLayout->addWidget(pb_changesound, 0, 2);
-    connect(pb_changesound, SIGNAL(clicked()), SLOT(setupSound()));
-
-    pb_testsound = new QPushButton(i18n("Test"), this);
-    topGridLayout->addWidget(pb_testsound, 0, 3);
-    connect(pb_testsound, SIGNAL(clicked()), SLOT(testSound()));
-
-    connect(cb_useSound, SIGNAL(toggled(bool)), cmb_sounds, SLOT(setEnabled(bool)));
-    connect(cb_useSound, SIGNAL(toggled(bool)), pb_changesound, SLOT(setEnabled(bool)));
-    connect(cb_useSound, SIGNAL(toggled(bool)), pb_testsound, SLOT(setEnabled(bool)));
-
-    // animation settings
-    cb_useAnimation = new QCheckBox(i18n("Use animation"), this);
-    topGridLayout->addMultiCellWidget(cb_useAnimation, 1, 1, 0, 1);
-    connect( cb_useAnimation, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    // window style
-    bg_window = new QButtonGroup(i18n("Window Style"), this, "bg_window");
-    bg_window->setEnabled( false ); // ### not implemented yet :-/
-    topGridLayout->addMultiCellWidget(bg_window, 2, 2, 0, 3);
-
-    QHBoxLayout *hLayout = new QHBoxLayout(bg_window, 20, KDialog::spacingHint());
-
-    rb_normal = new QRadioButton(i18n("Normal"), bg_window);
-    bg_window->insert(rb_normal);
-    hLayout->addWidget(rb_normal);
-    connect( rb_normal, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    rb_docked = new QRadioButton(i18n("Dock widget"), bg_window);
-    bg_window->insert(rb_docked);
-    hLayout->addWidget(rb_docked);
-    connect( rb_docked, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    rb_droptarget = new QRadioButton(i18n("Drop target"), bg_window);
-    bg_window->insert(rb_droptarget);
-    hLayout->addWidget(rb_droptarget);
-    connect( rb_droptarget, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-    // font groupbox
-    gb_font = new QGroupBox(this, "gb_font");
-    gb_font->setTitle(i18n("Font Settings"));
-    topGridLayout->addMultiCellWidget(gb_font, 3, 3, 0, 3);
-
-    QGridLayout *gLayout = new QGridLayout(gb_font, 1, 2, 20, KDialog::spacingHint());
-
-    gLayout->setRowStretch(0, 1);
-
-    gLayout->setColStretch(0, 10);
-    gLayout->setColStretch(1, 5);
-
-    lb_font = new QLabel(i18n("Dolor lpse"), gb_font);
-    lb_font->setAlignment(AlignHCenter | AlignVCenter);
-    lb_font->setBackgroundColor(QColor(white));
-    lb_font->setFrameStyle(QFrame::Box | QFrame::Sunken);
-    gLayout->addWidget(lb_font, 0, 0);
-
-    pb_browse = new QPushButton(i18n("Change..."), gb_font);
-    connect(pb_browse, SIGNAL(clicked()), SLOT(changeFont()));
-    gLayout->addWidget(pb_browse, 0, 1);
 }
 
 
@@ -255,17 +162,6 @@ void DlgSystem::testSound()
 }
 
 
-void DlgSystem::changeFont()
-{
-    QFont font = lb_font->font();
-
-    if (KFontDialog::getFont(font, false, this) == QDialog::Rejected)
-        return;
-    lb_font->setFont(font);
-    slotChanged();
-}
-
-
 void DlgSystem::setData()
 {
     cb_useSound->setChecked(ksettings.b_useSound);
@@ -280,8 +176,7 @@ void DlgSystem::setData()
 
     cb_useAnimation->setChecked(ksettings.b_useAnimation);
 
-
-    lb_font->setFont(ksettings.listViewFont);
+    le_font->setFont(ksettings.listViewFont);
 }
 
 
@@ -308,7 +203,7 @@ void DlgSystem::applyData()
         kmain->slotToggleAnimation();
     }
 
-    ksettings.listViewFont = lb_font->font();
+    ksettings.listViewFont = le_font->font();
     kmain->setListFont();
 }
 
