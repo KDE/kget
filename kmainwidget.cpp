@@ -1161,7 +1161,7 @@ void KMainWidget::addTransferEx(QString s, QString d, bool bShowIndividual)
    
     if(KIO::NetAccess::exists(dest))
       {
-      if (KMessageBox::warningYesNo(this,i18n("Destination file already exists\n do you want to overwrite?"))==KMessageBox::Yes)
+      if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
           {
 	   bDestisMalformed=false;
 	   KIO::NetAccess::del(dest);
