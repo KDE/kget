@@ -51,7 +51,7 @@
 
 
 DlgIndividual::DlgIndividual(Transfer * _item)
-    : KDialog(0, "dialog")
+    : QWidget(0, "dialog")
 {
     item = _item;
 

@@ -30,7 +30,7 @@
 #include <qdatetime.h>
 #include "bwdatetime.h"
 
-#include <kdialog.h>
+#include <qwidget.h>
 
 class Transfer;
 
@@ -45,7 +45,7 @@ class KToggleAction;
 
 class DockIndividual;
 
-class DlgIndividual:public KDialog
+class DlgIndividual:public QWidget
 {
 Q_OBJECT
 public:
