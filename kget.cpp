@@ -27,20 +27,15 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <klocale.h>
+#include <kmainwindow.h>
 #include <kstandarddirs.h>
 #include <kwin.h>
 #include <kurl.h>
 #include <kurldrag.h>
-#include <kxmlguibuilder.h>
-#include <kxmlguifactory.h>
 #include <kaction.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
-#include <kmenubar.h>
-#include <ktoolbar.h>
 #include <kstatusbar.h>
-#include <khelpmenu.h>
-#include <ksqueezedtextlabel.h>
 #include <kiconloader.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
@@ -62,48 +57,86 @@
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
                        ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
-class KXMLGUIBuilderKG : public KXMLGUIBuilder
-/**
- * This class is reimplemented only to handle the special case of the
- * KMenuBar being provided by KMainWidget (that is a QWidget) and not
- * by a KMainWindow. In that case we won't construct a new one.
- */
-{
-  public:
-    KXMLGUIBuilderKG( QWidget * w ) : KXMLGUIBuilder( w ) {};
-
-    virtual QWidget *createContainer( QWidget *parent, int index, const QDomElement &element, int &id )
-    {
-        if ( element.tagName().lower() == "menubar" )
-        {
-            KMenuBar *menu = static_cast<KMenuBar*>(widget()->child( "kget_menubar", "KMenuBar", false ));
-            if ( menu )
-                return menu;
-        }
-        return KXMLGUIBuilder::createContainer(parent, index, element, id);
-    }
-};
-
-
 KMainWidget::KMainWidget( QWidget * parent, const char * name )
-    : DCOPIface( "KGet-Interface" ),
-    QWidget( parent, name, Qt::WType_TopLevel | Qt::WNoAutoErase ),
-    KXMLGUIClient(), ViewInterface( "viewIface-main" ),
-    rightWidget(0), kdrop(0), kdock(0), mainView(0)
+    : KMainWindow( parent, name ), ViewInterface( "viewIface-main" ),
+      DCOPIface( "KGet-Interface" ), mainView(0), rightWidget(0), kdrop(0),
+      kdock(0)
 {
     // create actions
     setupActions();
-    
-    // create widgets and the XMLGUI look
-    setupGUI();
+
+    createGUI("kgetui.rc");
+
+    // widgets inserted in the 'body' part
+    browserBar = new BrowserBar( this );
+    browserBar->hide();
+    // create the 'right view'
+    mainView = new MainView( (QWidget *)browserBar->container() );
+    //TestView * t = new TestView( (QWidget *)browserBar->container() );
+    rightWidget = mainView;
+
+    setCentralWidget(browserBar);
+
+    // side panel :: Groups
+    groupsPanel = new GroupsPanel(0,"groups panel");
+    browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
+
+//     // side panel :: Global statistics
+//     GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
+//     browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
+// 
+//     // side panel :: Transfer details
+//     IconViewMdiView * i = new IconViewMdiView();
+//     i->connectToScheduler(scheduler);
+//     browserBar->addBrowser( i, i18n( "Transfer" ), "browser" );
+//     
+//     // side panel :: Help
+//     helpPanel = new QLabel( "", this, "help panel" );
+//     helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>\
+//                 This widget should display context sensitive help\
+//                 (maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>\
+//                 Dario && Enrico");
+//     helpPanel->setFrameShape( QFrame::StyledPanel );
+//     helpPanel->setFrameShadow( QFrame::Sunken );
+//     helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
+//     browserBar->addBrowser( helpPanel, i18n( "Help" ), "help" );
+
+    // restore position, size and visibility
+    // MainWidget (myself)
+    move( Settings::mainPosition() );
+    rightWidget->show();
+    browserBar->show();
+    browserBar->setMinimumHeight( 200 );
+    //setEraseColor( palette().active().background().dark(150) );
+    setMaximumHeight( 32767 );
+    resize( Settings::mainSize() );
+
+    if ( Settings::showMain() )
+        show();
+    else
+        hide();
+
+    // setting up status bar
+    statusBar()->show();
+    statusBar()->insertItem( "", 0 );
+    statusBar()->insertItem( "", 1 );
+    updateStatusBar();
+
+    // other (external) widgets creation 
+
+    //Some of the widgets are initialized in slotDelayedInit()    
+
+    // LogWindow
+    //logWindow = new LogWindow();
+    //log(i18n("Welcome to KGet2"));
+    setAutoSaveSettings();
 
     // set window title
 //    setCaption(KGETVERSION);
-    setCaption(i18n("KGet"));
+    setPlainCaption(i18n("KGet"));
 
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
-
 
 KMainWidget::~KMainWidget()
 {
@@ -116,7 +149,6 @@ KMainWidget::~KMainWidget()
     Settings::writeConfig();
 }
 
-
 void KMainWidget::setupActions()
 {
     KActionCollection * ac = actionCollection();
@@ -124,7 +156,7 @@ void KMainWidget::setupActions()
     KToggleAction * ta;
 
     // local - Shows a dialog asking for a new URL to download
-    new KAction(i18n("&New Download..."), "editclear", 0, this, SLOT(slotNewURL()), ac, "open_transfer");
+    new KAction(i18n("&New Download..."), "filenew", 0, this, SLOT(slotNewURL()), ac, "open_transfer");
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
     // ->Scheduler - Ask for transfersList export
@@ -146,8 +178,6 @@ void KMainWidget::setupActions()
     KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
     KStdAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
-    // local - Standard help menu
-    new KHelpMenu(this, KGlobal::instance()->aboutData(), true, ac );
 
 /*  m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), ac, "import_text");
 
@@ -184,109 +214,6 @@ void KMainWidget::setupActions()
     // m_paDockWindow->setWhatsThis(i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget."));
     // m_paNormal->setWhatsThis(i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window"));    
 */
-    updateActions();
-}
-
-void KMainWidget::setupGUI()
-{
-    /** main content creation */
-    
-    
-    // the top menu
-    menuBar = new KMenuBar( this, "kget_menubar" );
-    
-    // the top flat toolbar
-    toolBar = new KToolBar( this, "kget_toolbar" );
-    toolBar->setIconSize( 32 );
-
-    // central main widget (hidden by default)
-    browserBar = new BrowserBar( this );
-    browserBar->hide();
-
-    // bottom status bar
-    //statusBarLabel1 = new KSqueezedTextLabel( this );
-    statusBarLabel1 = new QLabel( this );
-    statusBarLabel2 = new QLabel( this );
-    statusBar = new KStatusBar( this );
-    statusBar->addWidget( statusBarLabel1, 0 );
-    statusBar->addWidget( statusBarLabel2, 2 );
-/*  statusBar->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
-    statusBar->addWidget( new KSqueezedTextLabel( this ), 2 );
-    statusBar->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
-    statusBar->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"), ID_TOTAL_SIZE);
-    statusBar->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
-    statusBar->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);  */
-    updateStatusBar();
-    
-    // create menu entries and toolbar buttons from the XML file
-    createGUI();
-    
-    /** widgets inserted in the 'body' part */
-
-    // create the 'right view'
-    mainView = new MainView( (QWidget *)browserBar->container() );
-    //TestView * t = new TestView( (QWidget *)browserBar->container() );
-    rightWidget = mainView;
-
-    // side panel :: Groups
-    groupsPanel = new GroupsPanel(0,"groups panel");
-    browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
-    
-//     // side panel :: Global statistics
-//     GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
-//     browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
-// 
-//     // side panel :: Transfer details
-//     IconViewMdiView * i = new IconViewMdiView();
-//     i->connectToScheduler(scheduler);
-//     browserBar->addBrowser( i, i18n( "Transfer" ), "browser" );
-//     
-//     // side panel :: Help
-//     helpPanel = new QLabel( "", this, "help panel" );
-//     helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>\
-//                 This widget should display context sensitive help\
-//                 (maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>\
-//                 Dario && Enrico");
-//     helpPanel->setFrameShape( QFrame::StyledPanel );
-//     helpPanel->setFrameShadow( QFrame::Sunken );
-//     helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
-//     browserBar->addBrowser( helpPanel, i18n( "Help" ), "help" );
-
-    /** set layouting of the main widget */
-
-    QBoxLayout *layV = new QVBoxLayout( this );
-    menuBar->setMinimumHeight( menuBar->height() );
-    layV->addWidget( menuBar );
-    layV->addWidget( toolBar );
-    layV->addWidget( browserBar, 2 );
-    layV->addWidget( statusBar );
-
-    
-    /** restore position, size and visibility */
-
-    // MainWidget (myself)
-    move( Settings::mainPosition() );
-    rightWidget->show();
-    browserBar->show();
-    browserBar->setMinimumHeight( 200 );
-    //setEraseColor( palette().active().background().dark(150) );
-    setMaximumHeight( 32767 );
-    resize( Settings::mainSize() );
-    
-    
-//    setViewMode( Settings::showMainLarge() ? vm_transfers : vm_compact, true );
-    setShown( Settings::showMain() );
-    KWin::setState(winId(), Settings::mainState());
-
-    /** other (external) widgets creation */
-   
-    
-    //Some of the widgets are initialized in slotDelayedInit()    
-
-    // LogWindow
-    //logWindow = new LogWindow();
-    //log(i18n("Welcome to KGet2"));
-
 }
 
 void KMainWidget::slotDelayedInit()
@@ -390,37 +317,6 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
 */
 }
 
-
-void KMainWidget::createGUI()
-{
-    // disabling the updates prevents unnecessary redraws
-    setUpdatesEnabled( false );
-
-    // make sure to have an empty GUI
-    menuBar->clear();
-    toolBar->clear();
-
-    // we always want to load in our global standards file
-    setXMLFile( locate( "config", "ui/ui_standards.rc", instance() ) );
-
-    // now, merge in our local xml file.  if this is null, then that
-    setXMLFile( "kgetui.rc", true );
-
-    // make sure we don't have any state saved already
-    setXMLGUIBuildDocument( QDomDocument() );
-
-    // do the actual GUI building
-    KXMLGUIBuilderKG builder( this );
-    KXMLGUIFactory factory( &builder, this );
-
-    //build Toolbar, plug actions
-    factory.addClient( this );
-
-    setUpdatesEnabled( true );
-    updateGeometry();
-}
-
-
 void KMainWidget::log(const QString & message, bool sb)
 {
 #ifdef _DEBUG
@@ -432,7 +328,7 @@ void KMainWidget::log(const QString & message, bool sb)
     //logWindow->logGeneral(message);
 
     if (sb) {
-        statusBar->message(message, 1000);
+        statusBar()->message(message, 1000);
     }
 
 #ifdef _DEBUG
@@ -534,8 +430,6 @@ void KMainWidget::readTransfersEx(const KURL & url)
 
 void KMainWidget::slotPreferences()
 {
-//    KNotifyClient::event( winId(), "added" );
-
     // an instance the dialog could be already created and could be cached, 
     // in which case you want to display the cached dialog
     if ( PreferencesDialog::showDialog( "preferences" ) ) 
@@ -665,9 +559,9 @@ void KMainWidget::updateStatusBar()
 
     transfers = transfers.arg( 2 ).arg( "23.1MB" ).arg( "4.2kb/s" );
     time = time.arg( "1 min 2 sec" );
-
-    statusBarLabel1->setText( transfers );
-    statusBarLabel2->setText( time );
+    
+    statusBar()->changeItem( transfers, 0 );
+    statusBar()->changeItem( time, 1 );
 
 /*  Transfer *item;
     QString tmpstr;

@@ -30,6 +30,7 @@
 #include <qwidget.h>
 #include <kxmlguiclient.h>
 #include <kaction.h>
+#include <kmainwindow.h>
 
 #include "dcopiface.h"
 #include "core/viewinterface.h"
@@ -38,10 +39,9 @@
 class KURL;
 class KURL::List;
 
-
 /** The main window of KGet2. Can be collapsed or expanded. */
 
-class KMainWidget : public QWidget, public KXMLGUIClient, public ViewInterface, virtual public DCOPIface
+class KMainWidget : public KMainWindow, public ViewInterface, virtual public DCOPIface
 {
 Q_OBJECT
 public:
@@ -96,24 +96,16 @@ private:
     void updateActions();
     void updateStatusBar();
     void log( const QString &, bool sbar = true );
-    void createGUI();
     // one-time functions
     void setupActions();
-    void setupGUI();
 
     // internals
     Scheduler * scheduler;
     enum ViewMode vMode;
 
     // internal widgets
-    class KMenuBar   * menuBar;
-    class KStatusBar * statusBar;
-    class /*KSqueezedTextLabel*/QLabel * statusBarLabel1;
-    class QLabel * statusBarLabel2;
-    class KToolBar    * toolBar;
     class BrowserBar  * browserBar;
     class GroupsPanel * groupsPanel;
-    class QLabel      * helpPanel;
     class QWidget     * rightWidget;
     class MainView    * mainView;
 
