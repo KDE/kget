@@ -3,9 +3,9 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin          : Tue Jan 29 2002
+*    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*    email          : pch@freeshell.org
+*    email        : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -43,77 +43,78 @@
 #include "getfilejob.h"
 class Transfer;
 
-class Slave:public QObject, public QThread {
-  Q_OBJECT public:
-    enum SlaveCommand {
-	RETR, PAUSE, RESTART, ABORT, DELAY,
-	SCHEDULE, REMOVE, NOOP
-    };
+class Slave:public QObject, public QThread
+{
+Q_OBJECT public:
+        enum SlaveCommand {
+                RETR, PAUSE, RESTART, ABORT, DELAY,
+                SCHEDULE, REMOVE, NOOP
+        };
 
-    enum SlaveResult {
+        enum SlaveResult {
 
-	SLV_TOTAL_SIZE, SLV_PROGRESS_SIZE, SLV_PROGRESS_SPEED,
-	SLV_CAN_RESUME,SLV_CONNECTED,
+                SLV_TOTAL_SIZE, SLV_PROGRESS_SIZE, SLV_PROGRESS_SPEED,
+                SLV_CAN_RESUME, SLV_CONNECTED,
 
-	SLV_RESUMED, SLV_PAUSED, SLV_ABORTED, SLV_SCHEDULED, SLV_DELAYED,
-	SLV_FINISHED, SLV_INFO, SLV_REMOVED
-    };
+                SLV_RESUMED, SLV_PAUSED, SLV_ABORTED, SLV_SCHEDULED, SLV_DELAYED,
+                SLV_FINISHED, SLV_INFO, SLV_REMOVED
+        };
 
-    enum SlaveStatus {
+        enum SlaveStatus {
 
-	SLV_RUNNING, SLV_STOPPING, SLV_FINISHING, SLV_ABORTING
-    };
+                SLV_RUNNING, SLV_STOPPING, SLV_FINISHING, SLV_ABORTING
+        };
 
-  public:
-     Slave(Transfer * _parent, const KURL & _src, const KURL & _dest);
-    ~Slave();
-    void Op(SlaveCommand _cmd);
+public:
+        Slave(Transfer * _parent, const KURL & _src, const KURL & _dest);
+        ~Slave();
+        void Op(SlaveCommand _cmd);
 
-	/** No descriptions */
-    void PostMessage(SlaveResult _event, unsigned long _data = 0L);
-    void PostMessage(SlaveResult _event, const QString & _msg);
-    void InfoMessage(const QString & _msg);
-
-
-    public slots:
-       /** No descriptions */
-    void slotCanceled(KIO::Job *);
-       /** No descriptions */
-    void slotConnected(KIO::Job *);
-       /** No descriptions */
-    void slotResult(KIO::Job *);
-	/** No descriptions */
-    void slotTotalSize(KIO::Job *, KIO::filesize_t);
-	 /** No descriptions */
-    void slotProcessedSize(KIO::Job *, KIO::filesize_t);
-	  /** No descriptions */
-    void slotSpeed(KIO::Job *, unsigned long);
-	/** No descriptions */
-    void slotInfoMessage(KIO::Job *, const QString &);
-
-  public:
-     QValueStack < SlaveCommand > stack;
-    QWaitCondition worker;
-    QMutex mutex;
-     KIO::GetFileJob * copyjob;
-
-  private:			// Private attributes
-     virtual void run();
-    void Connect();
+        /** No descriptions */
+        void PostMessage(SlaveResult _event, unsigned long _data = 0L);
+        void PostMessage(SlaveResult _event, const QString & _msg);
+        void InfoMessage(const QString & _msg);
 
 
-  protected:
+public slots:
+        /** No descriptions */
+        void slotCanceled(KIO::Job *);
+        /** No descriptions */
+        void slotConnected(KIO::Job *);
+        /** No descriptions */
+        void slotResult(KIO::Job *);
+        /** No descriptions */
+        void slotTotalSize(KIO::Job *, KIO::filesize_t);
+        /** No descriptions */
+        void slotProcessedSize(KIO::Job *, KIO::filesize_t);
+        /** No descriptions */
+        void slotSpeed(KIO::Job *, unsigned long);
+        /** No descriptions */
+        void slotInfoMessage(KIO::Job *, const QString &);
 
-     Transfer * m_parent;
+public:
+        QValueStack < SlaveCommand > stack;
+        QWaitCondition worker;
+        QMutex mutex;
+        KIO::GetFileJob * copyjob;
 
-public:			// Public attributes
-     KURL m_src;
-    KURL m_dest;
-   private:			// Private methods
+private:                     // Private attributes
+        virtual void run();
+        void Connect();
 
- /** No descriptions */
-     Slave::SlaveCommand fetch_cmd();
-    int nPendingCommand;
+
+protected:
+
+        Transfer * m_parent;
+
+public:                      // Public attributes
+        KURL m_src;
+        KURL m_dest;
+private:                     // Private methods
+
+        /** No descriptions */
+        Slave::SlaveCommand fetch_cmd();
+        int nPendingCommand;
 };
 
 #endif

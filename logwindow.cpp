@@ -52,25 +52,25 @@
 
 QString removeHTML(const QString & str)
 {
-    QString res = str;
-    int pos;
+        QString res = str;
+        int pos;
 
-    // replace <br/> with a newline
-    while ((pos = res.find("<br/>")) != -1) {
-	res.replace(pos, 4, "\n");
-    }
+        // replace <br/> with a newline
+        while ((pos = res.find("<br/>")) != -1) {
+                res.replace(pos, 4, "\n");
+        }
 
-    // remove all tags
-    while ((pos = res.find('<')) != -1) {
-	int pos2 = res.find('>', pos);
+        // remove all tags
+        while ((pos = res.find('<')) != -1) {
+                int pos2 = res.find('>', pos);
 
-	if (pos2 == -1) {
-	    pos2 = res.length() + 1;
-	}
-	res.remove(pos, pos2 - pos + 1);
-    }
+                if (pos2 == -1) {
+                        pos2 = res.length() + 1;
+                }
+                res.remove(pos, pos2 - pos + 1);
+        }
 
-    return res;
+        return res;
 }
 
 
@@ -79,71 +79,71 @@ SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
 
 
 
-    idSelected = 0;
+        idSelected = 0;
 
-    QGridLayout *topGridLayout = new QGridLayout(this, 1, 2, 20, KDialog::spacingHint());
+        QGridLayout *topGridLayout = new QGridLayout(this, 1, 2, 20, KDialog::spacingHint());
 
-    topGridLayout->setRowStretch(0, 5);
+        topGridLayout->setRowStretch(0, 5);
 
-    topGridLayout->setColStretch(0, 3);
-    topGridLayout->setColStretch(1, 10);
+        topGridLayout->setColStretch(0, 3);
+        topGridLayout->setColStretch(1, 10);
 
-    lv_log = new QListView(this);
-    lv_log->setMultiSelection(false);
-    lv_log->setAllColumnsShowFocus(true);
+        lv_log = new QListView(this);
+        lv_log->setMultiSelection(false);
+        lv_log->setAllColumnsShowFocus(true);
 
-    lv_log->addColumn(i18n("Id"), 40);
-    lv_log->addColumn(i18n("Name"), 100);
+        lv_log->addColumn(i18n("Id"), 40);
+        lv_log->addColumn(i18n("Name"), 100);
 
-    topGridLayout->addWidget(lv_log, 0, 0);
+        topGridLayout->addWidget(lv_log, 0, 0);
 
-    connect(lv_log, SIGNAL(selectionChanged(QListViewItem *)), SLOT(transferSelected(QListViewItem *)));
+        connect(lv_log, SIGNAL(selectionChanged(QListViewItem *)), SLOT(transferSelected(QListViewItem *)));
 
-    ml_log = new QTextEdit(this);
-    ml_log->setReadOnly(true);
-    ml_log->setTextFormat(RichText);
-    ml_log->setMinimumSize(300, 200);
-    ml_log->setVScrollBarMode(QScrollView::Auto);
-    ml_log->setWordWrap(QTextEdit::NoWrap);
+        ml_log = new QTextEdit(this);
+        ml_log->setReadOnly(true);
+        ml_log->setTextFormat(RichText);
+        ml_log->setMinimumSize(300, 200);
+        ml_log->setVScrollBarMode(QScrollView::Auto);
+        ml_log->setWordWrap(QTextEdit::NoWrap);
 
-    topGridLayout->addWidget(ml_log, 0, 1);
+        topGridLayout->addWidget(ml_log, 0, 1);
 }
 
 
 void SeparatedLog::addLog(uint id, const QString & filename, const QString & message)
 {
-    if (!trMap.contains(id)) {
-	trMap.insert(id, message);
-	QString tmps;
-	new QListViewItem(lv_log, tmps.setNum(id), filename);
-    } else {
-	trMap[id] += message;
-    }
+        if (!trMap.contains(id)) {
+                trMap.insert(id, message);
+                QString tmps;
+                new QListViewItem(lv_log, tmps.setNum(id), filename);
+        } else {
+                trMap[id] += message;
+        }
 
-    if (idSelected == id) {
-	ml_log->append(message);
-    }
+        if (idSelected == id) {
+                ml_log->append(message);
+        }
 }
 
 
 void SeparatedLog::transferSelected(QListViewItem * item)
 {
-    if (item) {
-	idSelected = item->text(0).toUInt();
-	// kapp->lock();
-	ml_log->setText(trMap[idSelected]);
-	// kapp->unlock();
-    }
+        if (item) {
+                idSelected = item->text(0).toUInt();
+                // kapp->lock();
+                ml_log->setText(trMap[idSelected]);
+                // kapp->unlock();
+        }
 }
 
 
 void SeparatedLog::refresh()
 {
-    if (idSelected > 0) {
-	// kapp->lock();
-	ml_log->setText(trMap[idSelected]);
-	// kapp->unlock();
-    }
+        if (idSelected > 0) {
+                // kapp->lock();
+                ml_log->setText(trMap[idSelected]);
+                // kapp->unlock();
+        }
 }
 
 
@@ -155,65 +155,65 @@ void SeparatedLog::refresh()
 LogWindow::LogWindow():KDialogBase(Tabbed, i18n("Log Window"), Close, Close, 0, "", false)
 {
 
-    // add pages
-    QFrame *page = addPage(i18n("Mixed"));
-    QVBoxLayout *topLayout = new QVBoxLayout(page, 0, spacingHint());
+        // add pages
+        QFrame *page = addPage(i18n("Mixed"));
+        QVBoxLayout *topLayout = new QVBoxLayout(page, 0, spacingHint());
 
-    mixed_log = new QTextEdit(page);
-    mixed_log->setReadOnly(true);
-    mixed_log->setTextFormat(RichText);
-    mixed_log->setVScrollBarMode(QScrollView::Auto);
-    mixed_log->setWordWrap(QTextEdit::NoWrap);
-    topLayout->addWidget(mixed_log);
+        mixed_log = new QTextEdit(page);
+        mixed_log->setReadOnly(true);
+        mixed_log->setTextFormat(RichText);
+        mixed_log->setVScrollBarMode(QScrollView::Auto);
+        mixed_log->setWordWrap(QTextEdit::NoWrap);
+        topLayout->addWidget(mixed_log);
 
-    page = addPage(i18n("Separated"));
-    topLayout = new QVBoxLayout(page, 0, spacingHint());
-    sep_log = new SeparatedLog(page);
-    topLayout->addWidget(sep_log);
+        page = addPage(i18n("Separated"));
+        topLayout = new QVBoxLayout(page, 0, spacingHint());
+        sep_log = new SeparatedLog(page);
+        topLayout->addWidget(sep_log);
 
-    setButtonOKText(i18n("Close"));
+        setButtonOKText(i18n("Close"));
 
-    connect(this, SIGNAL(closeClicked()), this, SLOT(close()));
+        connect(this, SIGNAL(closeClicked()), this, SLOT(close()));
 
-    // resize( 500, 300 );
+        // resize( 500, 300 );
 }
 
 
 void LogWindow::closeEvent(QCloseEvent *)
 {
-    kmain->m_paShowLog->setChecked(false);
-    kmain->b_viewLogWindow = false;
+        kmain->m_paShowLog->setChecked(false);
+        kmain->b_viewLogWindow = false;
 }
 
 
 void LogWindow::logGeneral(const QString & message)
 {
 
-    QString tmps;
+        QString tmps;
 
-    tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : <strong>" + message + "</strong></code><br>";
+        tmps = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : <strong>" + message + "</strong></code><br>";
 
-    mixed_log->append(tmps);
+        mixed_log->append(tmps);
 }
 
 
 void LogWindow::logTransfer(uint id, const QString & filename, const QString & message)
 {
-    QString mixed_msg, single_msg, job_id;
+        QString mixed_msg, single_msg, job_id;
 
-    job_id.sprintf("Job[<font color=\"red\">%d</font>] : ", id);
-    mixed_msg = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + job_id + message + "</code><br>";
+        job_id.sprintf("Job[<font color=\"red\">%d</font>] : ", id);
+        mixed_msg = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + job_id + message + "</code><br>";
 
-    single_msg = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message + "</code><br>";
+        single_msg = "<code><font color=\"blue\">" + QTime::currentTime().toString() + "</font> : " + message + "</code><br>";
 
-    mixed_log->append(mixed_msg);
-    sep_log->addLog(id, filename, single_msg);
+        mixed_log->append(mixed_msg);
+        sep_log->addLog(id, filename, single_msg);
 }
 
 
 QString LogWindow::getText() const
 {
-    return removeHTML(mixed_log->text());
+        return removeHTML(mixed_log->text());
 }
 
 #include "logwindow.moc"

@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin          : Tue Jan 29 2002
+*    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email          : pch@freeshell.org
+*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email        : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -50,11 +50,10 @@
 extern Settings ksettings;
 
 
-Transfer::Transfer(TransferList * _view, const KURL & _src,
-                   const KURL & _dest):QListViewItem(_view)
+Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest):QListViewItem(_view)
 {
 
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         src = _src;
         dest = _dest;
@@ -63,47 +62,43 @@ Transfer::Transfer(TransferList * _view, const KURL & _src,
         setupFields();
 
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 
-Transfer::Transfer(TransferList * _view, Transfer * after,
-                   const KURL & _src,
-                   const KURL & _dest):QListViewItem(_view,
-                                                                     (QListViewItem *)
-                                                                     after)
+Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest):QListViewItem(_view, (QListViewItem *) after)
 {
 
-        sDebugIn  << endl;
+        sDebugIn << endl;
         view = _view;
         src = _src;
         dest = _dest;
         setupFields();
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
 Transfer::~Transfer()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
         dlgIndividual->close();
         delete dlgIndividual;
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
 void
 Transfer::setupFields()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
 
         totalSize = 0;
         processedSize = 0;
         percent = 0;
-        id=0;
-        m_pSlave= new Slave(this,src,dest);
+        id = 0;
+        m_pSlave = new Slave(this, src, dest);
         m_pSlave->start();
         canResume = false;
         startTime = QDateTime::currentDateTime();
@@ -121,19 +116,15 @@ Transfer::setupFields()
 
 
 
-        connect(this, SIGNAL(statusChanged(Transfer *, int)), kmain,
-                SLOT(slotStatusChanged(Transfer *, int)));
-        connect(this, SIGNAL(statusChanged(Transfer *, int)), this,
-                SLOT(slotUpdateActions(Transfer *, int)));
+        connect(this, SIGNAL(statusChanged(Transfer *, int)), kmain, SLOT(slotStatusChanged(Transfer *, int)));
+        connect(this, SIGNAL(statusChanged(Transfer *, int)), this, SLOT(slotUpdateActions(Transfer *, int)));
 
-        connect(this, SIGNAL(log(uint, const QString &, const QString &)),
-                kmain->logwin(),
-                SLOT(logTransfer(uint, const QString &, const QString &)));
+        connect(this, SIGNAL(log(uint, const QString &, const QString &)), kmain->logwin(), SLOT(logTransfer(uint, const QString &, const QString &)));
 
         // setup actions
-        m_paResume =  new KAction(i18n("&Resume"), QIconSet(QPixmap(locate("data", "kget/pics/tool_resume.xpm"))), 0, this, SLOT(slotResume()), this, "resume");
+        m_paResume = new KAction(i18n("&Resume"), QIconSet(QPixmap(locate("data", "kget/pics/tool_resume.xpm"))), 0, this, SLOT(slotResume()), this, "resume");
 
-        m_paPause = new KAction(i18n("&Pause"),  QIconSet(QPixmap(locate("data", "kget/pics/tool_pause.xpm"))), 0, this, SLOT(slotRequestPause()), this, "pause");
+        m_paPause = new KAction(i18n("&Pause"), QIconSet(QPixmap(locate("data", "kget/pics/tool_pause.xpm"))), 0, this, SLOT(slotRequestPause()), this, "pause");
 
         m_paDelete = new KAction(i18n("&Delete"), QIconSet(QPixmap(locate("data", "kget/pics/tool_delete.xpm"))), 0, this, SLOT(slotRequestRemove()), this, "delete");
 
@@ -160,14 +151,14 @@ Transfer::setupFields()
 
 
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
 
 void Transfer::copy(Transfer * _orig)
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
 
 
@@ -193,26 +184,25 @@ void Transfer::copy(Transfer * _orig)
         totalSize = _orig->totalSize;
         updateAll();
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
 
 void Transfer::slotUpdateActions()
 {
-   sDebugIn  <<"the item Status is ="<<status<< "offline="<<ksettings.b_offlineMode<<endl;
-  //if we are in offlinemode just disable all actions  and return
-  if (ksettings.b_offlineMode)
-      {
+        sDebugIn << "the item Status is =" << status << "offline=" << ksettings.b_offlineMode << endl;
+        //if we are in offlinemode just disable all actions  and return
+        if (ksettings.b_offlineMode) {
                 m_paResume->setEnabled(false);
                 m_paPause->setEnabled(false);
                 m_paRestart->setEnabled(false);
-                dlgIndividual->update ();
-           return;
-          }
+                dlgIndividual->update();
+                return;
+        }
         UpdateRetry();
         switch (status) {
-	case ST_TRYING:
+        case ST_TRYING:
         case ST_RUNNING:
                 m_paResume->setEnabled(false);
                 m_paPause->setEnabled(true);
@@ -268,10 +258,10 @@ void Transfer::slotUpdateActions()
         m_paTimer->blockSignals(false);
         m_paDelay->blockSignals(false);
 
-      if (isVisible())
-          dlgIndividual->update ();
+        if (isVisible())
+                dlgIndividual->update();
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -281,8 +271,7 @@ void Transfer::setSpeed(unsigned long _speed)
         // sDebugIn <<endl;
         speed = _speed;
 
-        remainingTime =
-                KIO::calculateRemaining(totalSize, processedSize, speed);
+        remainingTime = KIO::calculateRemaining(totalSize, processedSize, speed);
         //sDebugOut <<endl;
 }
 
@@ -291,10 +280,10 @@ void Transfer::setSpeed(unsigned long _speed)
 
 void Transfer::updateAll()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
 
-        updateStatus(status);	// first phase of animation
+        updateStatus(status);       // first phase of animation
 
 
 
@@ -331,7 +320,7 @@ void Transfer::updateAll()
         }
 
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -345,15 +334,11 @@ bool Transfer::updateStatus(int counter)
         if (status == ST_RUNNING) {
                 pix = view->animConn->at(counter);
                 isTransfer = true;
-        }
-	else if (status==ST_TRYING)
-	{
+        } else if (status == ST_TRYING) {
                 pix = view->animTry->at(counter);
                 isTransfer = true;
 
-	}
-        else if (status ==
-                        ST_STOPPED /*|| status==ST_PAUSED||status==ST_ABORTED */ ) {
+        } else if (status == ST_STOPPED /*|| status==ST_PAUSED||status==ST_ABORTED */ ) {
                 if (mode == MD_QUEUED) {
                         pix = view->pixQueued;
                 } else if (mode == MD_SCHEDULED) {
@@ -379,9 +364,9 @@ void Transfer::UpdateRetry()
 
         retry.setNum(retryCount);
         MaxRetry.setNum(ksettings.reconnectRetries);
-        retry+=" / "+MaxRetry;
+        retry += " / " + MaxRetry;
 
-        setText(view->lv_count,retry);
+        setText(view->lv_count, retry);
 
 
 }
@@ -393,9 +378,9 @@ void Transfer::slotResume()
 
         retryCount++;
         if (retryCount > ksettings.reconnectRetries)
-                ksettings.reconnectRetries=retryCount;
+                ksettings.reconnectRetries = retryCount;
         UpdateRetry();
-        assert (status == ST_STOPPED);
+        assert(status == ST_STOPPED);
 
         sDebug << "src: " << src.url() << endl;
         sDebug << "dest " << dest.url() << endl;
@@ -416,7 +401,7 @@ void Transfer::slotResume()
 
 void Transfer::slotRequestPause()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         logMessage(i18n("Pausing"));
 
@@ -432,7 +417,7 @@ void Transfer::slotRequestPause()
         m_pSlave->Op(Slave::PAUSE);
         sDebug << "Requesting Pause.." << endl;
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -440,16 +425,16 @@ void Transfer::slotRequestPause()
 
 void Transfer::slotRequestRestart()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
         m_pSlave->Op(Slave::RESTART);
-	 slotSpeed(0);
-        sDebugOut   << endl;
+        slotSpeed(0);
+        sDebugOut << endl;
 }
 
 
 void Transfer::slotRequestRemove()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
         m_paDelete->setEnabled(false);
         m_paPause->setEnabled(false);
         dlgIndividual->close();
@@ -460,7 +445,7 @@ void Transfer::slotRequestRemove()
                 emit statusChanged(this, OP_REMOVED);
 
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -475,7 +460,7 @@ void Transfer::slotQueue()
         mode = MD_QUEUED;
         m_paQueue->setChecked(true);
         emit statusChanged(this, OP_QUEUED);
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -505,7 +490,7 @@ void Transfer::slotRequestSchedule()
 
 void Transfer::slotRequestDelay()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         logMessage(i18n("Delaying"));
 
@@ -516,7 +501,7 @@ void Transfer::slotRequestDelay()
                 m_pSlave->Op(Slave::DELAY);
         } else
                 slotExecDelay();
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -535,7 +520,7 @@ void Transfer::slotCanceled(KIO::Job *)
 
 void Transfer::slotFinished()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         logMessage(i18n("Download finished"));
         mode = MD_NONE;
@@ -543,7 +528,7 @@ void Transfer::slotFinished()
         slotProcessedSize(totalSize);
         slotSpeed(0);
         emit statusChanged(this, OP_FINISHED);
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
@@ -579,8 +564,7 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
         if (speed == 0 && status == ST_RUNNING) {
                 setText(view->lv_speed, i18n("Stalled"));
                 setText(view->lv_remaining, i18n("Stalled"));
-        }
-        else if (speed == 0 && status == ST_FINISHED) {
+        } else if (speed == 0 && status == ST_FINISHED) {
 
                 setText(view->lv_progress, i18n("OK"));
                 setText(view->lv_speed, i18n("0 MB/s"));
@@ -607,24 +591,21 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
 void Transfer::slotTotalSize(unsigned long bytes)
 {
         sDebugOut << endl;
-        
-       if (totalSize==0)
-       {
-         totalSize = bytes;
-         if (totalSize != 0) {
-                 logMessage(i18n("Total size is %1 bytes").arg(totalSize));
-                 setText(view->lv_total, KIO::convertSize(totalSize));
-                 dlgIndividual->setTotalSize(totalSize);
-                 dlgIndividual->setPercent(0);
-                 dlgIndividual->setProcessedSize(0);
-               }
-         }
-         else
-          {
-            //if totalSize!=bytes we have a problems...
-            assert(totalSize==bytes);
-            logMessage(i18n("File Size checked"));
-          }
+
+        if (totalSize == 0) {
+                totalSize = bytes;
+                if (totalSize != 0) {
+                        logMessage(i18n("Total size is %1 bytes").arg(totalSize));
+                        setText(view->lv_total, KIO::convertSize(totalSize));
+                        dlgIndividual->setTotalSize(totalSize);
+                        dlgIndividual->setPercent(0);
+                        dlgIndividual->setProcessedSize(0);
+                }
+        } else {
+                //if totalSize!=bytes we have a problems...
+                assert(totalSize == bytes);
+                logMessage(i18n("File Size checked"));
+        }
 
 
         sDebugOut << endl;
@@ -642,8 +623,7 @@ void Transfer::slotProcessedSize(unsigned long bytes)
         if (totalSize == 0) {
                 percent = 0;
         } else {
-                percent =
-                        (int) (((float) processedSize / (float) totalSize) * 100.0);
+                percent = (int) (((float) processedSize / (float) totalSize) * 100.0);
         }
         dlgIndividual->setProcessedSize(processedSize);
 
@@ -667,68 +647,59 @@ void Transfer::slotProcessedSize(unsigned long bytes)
 
 void Transfer::showIndividual()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
-//      update the actions
+        //      update the actions
         slotUpdateActions();
-//     then show the single dialog
+        //     then show the single dialog
         dlgIndividual->show();
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
 
-void Transfer::logMessage(const QString & message,bool bLogOnMainWidget)
+void Transfer::logMessage(const QString & message, bool bLogOnMainWidget)
 {
         sDebugIn << message << endl;
- //       if (bLogOnMainWidget)
-//	  setText(view->lv_resume, message);
-        
-	emit log(id, src.fileName(), message);
+        //       if (bLogOnMainWidget)
+        //        setText(view->lv_resume, message);
+
+        emit log(id, src.fileName(), message);
         dlgIndividual->addLog(message);
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 }
 
 
 
 bool Transfer::read(KSimpleConfig * config, int id)
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
 
         QString str;
         str.sprintf("Item%d", id);
         config->setGroup(str);
 
-        src = config->readEntry
-              ("Source", "");
-        dest = config->readEntry
-               ("Dest", "");
+        src = config->readEntry("Source", "");
+        dest = config->readEntry("Dest", "");
 
         if (src.isEmpty() || dest.isEmpty()) {
                 return false;
         }
 
         if (src.isMalformed() && !ksettings.b_expertMode) {
-                KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(),
-                                   i18n("Error"));
+                KMessageBox::error(kmain, i18n("Malformed URL:\n") + src.url(), i18n("Error"));
                 return false;
         }
 
-        mode = (TransferMode) config->readNumEntry
-               ("Mode", MD_QUEUED);
-        status = (TransferStatus) config->readNumEntry
-                 ("Status", ST_RUNNING);
-        startTime = config->readDateTimeEntry
-                    ("ScheduledTime");
-        canResume = config->readBoolEntry
-                    ("CanResume", true);
-        totalSize = config->readNumEntry
-                    ("TotalSize", 0);
-        processedSize = config->readNumEntry
-                        ("ProcessedSize", 0);
+        mode = (TransferMode) config->readNumEntry("Mode", MD_QUEUED);
+        status = (TransferStatus) config->readNumEntry("Status", ST_RUNNING);
+        startTime = config->readDateTimeEntry("ScheduledTime");
+        canResume = config->readBoolEntry("CanResume", true);
+        totalSize = config->readNumEntry("TotalSize", 0);
+        processedSize = config->readNumEntry("ProcessedSize", 0);
 
         if (status != ST_FINISHED && totalSize != 0) {
                 //TODO insert additional check
@@ -736,36 +707,28 @@ bool Transfer::read(KSimpleConfig * config, int id)
         }
 
         updateAll();
-        sDebugOut   << endl;
+        sDebugOut << endl;
         return true;
 }
 
 
 void Transfer::write(KSimpleConfig * config, int id)
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         QString str;
         str.sprintf("Item%d", id);
 
         config->setGroup(str);
-        config->writeEntry
-        ("Source", src.url());
-        config->writeEntry
-        ("Dest", dest.url());
-        config->writeEntry
-        ("Mode", mode);
-        config->writeEntry
-        ("Status", status);
-        config->writeEntry
-        ("CanResume", canResume);
-        config->writeEntry
-        ("TotalSize", totalSize);
-        config->writeEntry
-        ("ProcessedSize", processedSize);
-        config->writeEntry
-        ("ScheduledTime", startTime);
-        sDebugOut   << endl;
+        config->writeEntry("Source", src.url());
+        config->writeEntry("Dest", dest.url());
+        config->writeEntry("Mode", mode);
+        config->writeEntry("Status", status);
+        config->writeEntry("CanResume", canResume);
+        config->writeEntry("TotalSize", totalSize);
+        config->writeEntry("ProcessedSize", processedSize);
+        config->writeEntry("ScheduledTime", startTime);
+        sDebugOut << endl;
 }
 
 
@@ -802,30 +765,27 @@ void Transfer::slotExecAbort(const QString & _msg)
 
         mode = MD_DELAYED;
         status = ST_STOPPED;
-        slotSpeed(0);		//need???????
+        slotSpeed(0);               //need???????
         QString tmps;
 
-        tmps =
-                "<code><font color=\"red\"> <strong>" + _msg +
-                "</font> </strong></code><br/>";
+        tmps = "<code><font color=\"red\"> <strong>" + _msg + "</font> </strong></code><br/>";
 
         logMessage(tmps);
 
         if (ksettings.b_reconnectOnError) {
                 retryCount++;
-                if (retryCount == ksettings.reconnectRetries) {		// no more retries
+                if (retryCount == ksettings.reconnectRetries) { // no more retries
                         if (retryCount > ksettings.reconnectRetries)
-                                ksettings.reconnectRetries=retryCount;
+                                ksettings.reconnectRetries = retryCount;
                         status = ST_STOPPED;
                         mode = MD_DELAYED;
-                } else
-                {
+                } else {
                         status = ST_STOPPED;
                         mode = MD_SCHEDULED;
-                        startTime =QDateTime::currentDateTime ().addSecs (ksettings.reconnectTime* 60);
-                        logMessage (i18n ("Attempt number %1").arg (retryCount));
+                        startTime = QDateTime::currentDateTime().addSecs(ksettings.reconnectTime * 60);
+                        logMessage(i18n("Attempt number %1").arg(retryCount));
                 }
-        } else {			// if reconnecting is not enabled - simply set to delayed
+        } else {                    // if reconnecting is not enabled - simply set to delayed
                 status = ST_STOPPED;
                 mode = MD_DELAYED;
         }
@@ -838,37 +798,37 @@ void Transfer::slotExecAbort(const QString & _msg)
 /** No descriptions */
 void Transfer::slotExecRemove()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         //m_pFTP.wait();
         m_pSlave->wait();
         emit statusChanged(this, OP_REMOVED);
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 
 void Transfer::slotExecResume()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
         emit statusChanged(this, OP_RESUMED);
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 void Transfer::slotExecConnected()
 {
-        sDebugIn  << endl;
-	status=ST_RUNNING;
+        sDebugIn << endl;
+        status = ST_RUNNING;
         emit statusChanged(this, OP_CONNECTED);
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 
 void Transfer::slotCanResume(bool _bCanResume)
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
 
         canResume = _bCanResume;
@@ -882,7 +842,7 @@ void Transfer::slotCanResume(bool _bCanResume)
 
         dlgIndividual->setCanResume(canResume);
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
@@ -890,43 +850,44 @@ void Transfer::slotCanResume(bool _bCanResume)
 /** No descriptions */
 void Transfer::slotExecDelay()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         mode = MD_DELAYED;
         status = ST_STOPPED;
-        slotSpeed(0);		//need???????
+        slotSpeed(0);               //need???????
         m_paDelay->setChecked(true);
         emit statusChanged(this, OP_DELAYED);
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 /** No descriptions */
 void Transfer::slotExecSchedule()
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         mode = MD_SCHEDULED;
         status = ST_STOPPED;
         m_paTimer->setChecked(true);
         emit statusChanged(this, OP_SCHEDULED);
 
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 /** No descriptions */
 void Transfer::slotStartTime(const QDateTime & _startTime)
 {
-        sDebugIn  << endl;
+        sDebugIn << endl;
 
         setStartTime(_startTime);
-        sDebugOut   << endl;
+        sDebugOut << endl;
 
 }
 
 /** return true if the dlgIndividual is Visible */
-bool Transfer::isVisible(){
-return dlgIndividual->isVisible ();
+bool Transfer::isVisible()
+{
+        return dlgIndividual->isVisible();
 }

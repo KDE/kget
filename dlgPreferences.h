@@ -41,29 +41,32 @@ class DlgDirectories;
 class DlgSystem;
 
 
-class DlgPreferences:public KDialogBase {
+class DlgPreferences:public KDialogBase
+{
 
-  Q_OBJECT public:
+Q_OBJECT public:
 
-     DlgPreferences(QWidget * parent);
-    ~DlgPreferences() {
-  } protected:
-    void closeEvent(QCloseEvent *);
+        DlgPreferences(QWidget * parent);
+        ~DlgPreferences()
+        {}
+protected:
+        void closeEvent(QCloseEvent *);
 
-  private:
+private:
 
-    DlgConnection * conDlg;
-    DlgAutomation *autDlg;
-    DlgLimits *limDlg;
-    DlgAdvanced *advDlg;
+        DlgConnection * conDlg;
+        DlgAutomation *autDlg;
+        DlgLimits *limDlg;
+        DlgAdvanced *advDlg;
 
-//        DlgSearch *seaDlg;
-    DlgDirectories *dirDlg;
-    DlgSystem *sysDlg;
+        //        DlgSearch *seaDlg;
+        DlgDirectories *dirDlg;
+        DlgSystem *sysDlg;
 
-    protected slots: virtual void done(int r);
-    void applySettings();
+protected slots:
+        virtual void done(int r);
+        void applySettings();
 
 };
 
-#endif				// _DLGPREFERENCES_H
+#endif                          // _DLGPREFERENCES_H

@@ -39,28 +39,30 @@
 
 class KMainWidget;
 
-class DockWidget:public KDockWindow {
+class DockWidget:public KDockWindow
+{
 
-  Q_OBJECT public:
-     DockWidget(KMainWidget * parent);
-    ~DockWidget();
+Q_OBJECT public:
+        DockWidget(KMainWidget * parent);
+        ~DockWidget();
 
-    void setAnim(int i1, int i2, int i3, bool online);
+        void setAnim(int i1, int i2, int i3, bool online);
 
-    private slots:void mousePressEvent(QMouseEvent * e);
+private slots:
+        void mousePressEvent(QMouseEvent * e);
 
-  protected:
-    // drag and drop
-    void dragEnterEvent(QDragEnterEvent *);
-    void dropEvent(QDropEvent *);
+protected:
+        // drag and drop
+        void dragEnterEvent(QDragEnterEvent *);
+        void dropEvent(QDropEvent *);
 
-  private:
-    int size[3];
-    KMainWidget *parent;
+private:
+        int size[3];
+        KMainWidget *parent;
 
-    QPixmap *handpix1;
-    QPixmap *handpix2;
-    QPixmap *handpix3;
+        QPixmap *handpix1;
+        QPixmap *handpix2;
+        QPixmap *handpix3;
 
 };
 

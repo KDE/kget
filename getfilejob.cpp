@@ -19,15 +19,13 @@
 using namespace KIO;
 
 GetFileJob::GetFileJob(const KURL & m_src, const KURL & m_dest):FileCopyJob(m_src, m_dest, 0, false, false, false, false)
-{
-}
+{}
 
 GetFileJob::~GetFileJob()
-{
-}
+{}
 
 /** No descriptions */
 bool GetFileJob::getCanResume()
 {
-    return m_canResume;
+        return m_canResume;
 }

@@ -41,4 +41,4 @@ bool kCStringToFile(const QCString & buffer, const QString & fileName, bool askI
 bool kByteArrayToFile(const QByteArray & buffer, const QString & fileName, bool askIfExists = FALSE, bool createBackup = TRUE, bool withDialogs = TRUE);
 
 
-#endif				/* kfileio_h */
+#endif                          /* kfileio_h */

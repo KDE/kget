@@ -35,12 +35,13 @@
 #include <qwidget.h>
 
 /** KGet is the base class of the project */
-class KGet:public QWidget {
-  Q_OBJECT public:
-	/** construtor */
-     KGet(QWidget * parent = 0, const char *name = 0);
-	/** destructor */
-    ~KGet();
+class KGet:public QWidget
+{
+Q_OBJECT public:
+        /** construtor */
+        KGet(QWidget * parent = 0, const char *name = 0);
+        /** destructor */
+        ~KGet();
 };
 
 #endif

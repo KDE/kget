@@ -32,15 +32,15 @@
 #define _KIO_HTTP_SLAVE_DEFAULTS_H
 
 // CACHE SETTINGS
-#define DEFAULT_MAX_CACHE_SIZE          5120	// 5 MB
-#define DEFAULT_MAX_CACHE_AGE           60*60*24*14	// 14 DAYS
-#define DEFAULT_CACHE_EXPIRE            10	// 10 SECS
-#define DEFAULT_CLEAN_CACHE_INTERVAL    30*60	// 30 MINS
-#define DEFAULT_CACHE_CONTROL           KIO::CC_Verify	// Verify with remote
-#define CACHE_REVISION                  "7\n"	// Cache version
+#define DEFAULT_MAX_CACHE_SIZE          5120    // 5 MB
+#define DEFAULT_MAX_CACHE_AGE           60*60*24*14     // 14 DAYS
+#define DEFAULT_CACHE_EXPIRE            10      // 10 SECS
+#define DEFAULT_CLEAN_CACHE_INTERVAL    30*60   // 30 MINS
+#define DEFAULT_CACHE_CONTROL           KIO::CC_Verify  // Verify with remote
+#define CACHE_REVISION                  "7\n"   // Cache version
 
 // DEFAULT USER AGENT KEY - ENABLES OS NAME
-#define DEFAULT_USER_AGENT_KEYS         "o"	// Show OS
+#define DEFAULT_USER_AGENT_KEYS         "o"     // Show OS
 
 // MAXIMUM AMOUNT OF DATA THAT CAN BE SAFELY SENT OVER IPC
 #define MAX_IPC_SIZE                    1024*8

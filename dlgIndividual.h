@@ -46,63 +46,66 @@ class Transfer;
 class DlgIndividual:public /* QWidget QDialog */ KDialog
 {
 
-  Q_OBJECT public:
-     DlgIndividual(Transfer * _item);
-    ~DlgIndividual() {
-    }
-	/** No descriptions */ void addLog(const QString & _msg);
+Q_OBJECT public:
+        DlgIndividual(Transfer * _item);
+        ~DlgIndividual()
+        {}
+        /** No descriptions */
+        void addLog(const QString & _msg);
 
-	/** No descriptions */
+        /** No descriptions */
 
-    public slots:void setTotalSize(unsigned long bytes);
-    void setTotalFiles(unsigned long files);
-    void setTotalDirs(unsigned long dirs);
+public slots:
+        void setTotalSize(unsigned long bytes);
+        void setTotalFiles(unsigned long files);
+        void setTotalDirs(unsigned long dirs);
 
-    void setProcessedSize(unsigned long bytes);
-    void setProcessedFiles(unsigned long files);
-    void setProcessedDirs(unsigned long dirs);
+        void setProcessedSize(unsigned long bytes);
+        void setProcessedFiles(unsigned long files);
+        void setProcessedDirs(unsigned long dirs);
 
-    void setSpeed(unsigned long bytes_per_second, QTime remaining);
-    void setPercent(unsigned long percent);
+        void setSpeed(unsigned long bytes_per_second, QTime remaining);
+        void setPercent(unsigned long percent);
 
-    void setCopying(const KURL & src, const KURL & dest);
-    void setCanResume(bool);
+        void setCopying(const KURL & src, const KURL & dest);
+        void setCanResume(bool);
 
-    protected slots: void slotToggleAdvanced(bool);
+protected slots:
+        void slotToggleAdvanced(bool);
 
-  protected:
-    QLabel * progressLabel;
-    QLabel *sourceLabel;
-    QLabel *destLabel;
-    QLabel *speedLabel;
-    QLabel *sizeLabel;
-    QLabel *resumeLabel;
-    QTextEdit *ml_log;
+protected:
+        QLabel * progressLabel;
+        QLabel *sourceLabel;
+        QLabel *destLabel;
+        QLabel *speedLabel;
+        QLabel *sizeLabel;
+        QLabel *resumeLabel;
+        QTextEdit *ml_log;
 
-    KProgress *m_pProgressBar;
+        KProgress *m_pProgressBar;
 
-    QPushButton *pbAdvanced;
-    QTabWidget *panelAdvanced;
+        QPushButton *pbAdvanced;
+        QTabWidget *panelAdvanced;
 
-    QDateTime qdt;
-    BWDateTime *spins;
+        QDateTime qdt;
+        BWDateTime *spins;
 
-    // search stuff
-//        SearchList *listSearch;
+        // search stuff
+        //        SearchList *listSearch;
 
-    Transfer *item;
+        Transfer *item;
 
-    QString m_sFilename;
-    unsigned long m_iTotalSize;
-    unsigned long m_iTotalFiles;
-    unsigned long m_iTotalDirs;
+        QString m_sFilename;
+        unsigned long m_iTotalSize;
+        unsigned long m_iTotalFiles;
+        unsigned long m_iTotalDirs;
 
-    unsigned long m_iProcessedDirs;
-    unsigned long m_iProcessedFiles;
+        unsigned long m_iProcessedDirs;
+        unsigned long m_iProcessedFiles;
 
-  public:			// Public attributes
+public:                      // Public attributes
 }
 
 ;
 
-#endif				// __dlgprogress_h__
+#endif                          // __dlgprogress_h__

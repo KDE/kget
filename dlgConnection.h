@@ -37,60 +37,64 @@
 
 #include <knuminput.h>
 
-class DlgConnection:public QWidget {
+class DlgConnection:public QWidget
+{
 
-  Q_OBJECT public:
+Q_OBJECT public:
 
-     DlgConnection(QWidget * parent);
-    ~DlgConnection() {
-    } void applyData();
-    void setData();
+        DlgConnection(QWidget * parent);
+        ~DlgConnection()
+        {}
+        void applyData();
+        void setData();
 
-    int type() {
-	return cmb_type->currentItem();
-    }
+        int type()
+        {
+                return cmb_type->currentItem();
+        }
 
-  private:
+private:
 
-    // reconnect settings
-    QGroupBox * gb_reconnect;
+        // reconnect settings
+        QGroupBox * gb_reconnect;
 
-    QCheckBox *cb_onerror;
+        QCheckBox *cb_onerror;
 
-    QLabel *lb_after;
-    KIntNumInput *le_after;
+        QLabel *lb_after;
+        KIntNumInput *le_after;
 
-    QLabel *lb_retries;
-    KIntNumInput *le_retries;
+        QLabel *lb_retries;
+        KIntNumInput *le_retries;
 
-    QCheckBox *cb_onbroken;
+        QCheckBox *cb_onbroken;
 
-    QCheckBox *cb_autoresume;
+        QCheckBox *cb_autoresume;
 
-    // timeout settings
-    QGroupBox *gb_timeout;
+        // timeout settings
+        QGroupBox *gb_timeout;
 
-    QLabel *lb_nodata;
-    KIntNumInput *le_nodata;
+        QLabel *lb_nodata;
+        KIntNumInput *le_nodata;
 
-    QLabel *lb_noresume;
-    KIntNumInput *le_noresume;
-    QLabel *lb_cannot;
+        QLabel *lb_noresume;
+        KIntNumInput *le_noresume;
+        QLabel *lb_cannot;
 
-    // type settings
-    QGroupBox *gb_type;
+        // type settings
+        QGroupBox *gb_type;
 
-    QComboBox *cmb_type;
+        QComboBox *cmb_type;
 
-    QLabel *lb_linknum;
-    KIntNumInput *le_linknum;
-    QCheckBox *cb_offlinemode;
+        QLabel *lb_linknum;
+        KIntNumInput *le_linknum;
+        QCheckBox *cb_offlinemode;
 
-  signals:
-    void typeChanged(int type);
+signals:
+        void typeChanged(int type);
 
-    protected slots:void comboActivated(int Index);
+protected slots:
+        void comboActivated(int Index);
 
 };
 
-#endif				// _DLGCONNECTION_H
+#endif                          // _DLGCONNECTION_H

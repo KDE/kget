@@ -34,29 +34,31 @@
 
 #include <knuminput.h>
 
-class DlgLimits:public QGroupBox {
+class DlgLimits:public QGroupBox
+{
 
-  Q_OBJECT public:
+Q_OBJECT public:
 
-     DlgLimits(QWidget * parent);
-    ~DlgLimits() {
-    } void applyData();
-    void setData();
+        DlgLimits(QWidget * parent);
+        ~DlgLimits()
+        {}
+        void applyData();
+        void setData();
 
-  private:
+private:
 
-    // opened connections
-    QLabel * lb_maxnum;
-    KIntNumInput *le_maxnum;
+        // opened connections
+        QLabel * lb_maxnum;
+        KIntNumInput *le_maxnum;
 
-    // minimum bandwidth
-    QLabel *lb_minband;
-    KIntNumInput *le_minband;
+        // minimum bandwidth
+        QLabel *lb_minband;
+        KIntNumInput *le_minband;
 
-    // maximum bandwidth
-    QLabel *lb_maxband;
-    KIntNumInput *le_maxband;
+        // maximum bandwidth
+        QLabel *lb_maxband;
+        KIntNumInput *le_maxband;
 
 };
 
-#endif				// _DLGLIMITS_H
+#endif                          // _DLGLIMITS_H

@@ -34,13 +34,14 @@
 //class KGetApp:public KUniqueApplication {
 //#else
 #include <kapp.h>
-class KGetApp:public KApplication {
-//#endif
-  public:
+class KGetApp:public KApplication
+{
+        //#endif
+public:
 
-    KGetApp();
+        KGetApp();
 
-    int newInstance();
+        int newInstance();
 
 };
 

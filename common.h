@@ -39,4 +39,4 @@
 #define Min(x, y)       (((x) < (y)) ? (x) : (y))
 
 #define TIME_OUT 35
-#endif				// common
+#endif                          // common

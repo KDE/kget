@@ -33,7 +33,7 @@ enum ConnectionType { PERMANENT = 0, ETHERNET, PLIP, SLIP, PPP, ISDN };
 
 extern QString ConnectionDevices[];
 
-enum WindowStyle { NORMAL, DOCKED, DROP_TARGET ,DOCKED_MIN};
+enum WindowStyle { NORMAL, DOCKED, DROP_TARGET, DOCKED_MIN };
 
 // Connection settings
 #define DEF_ReconnectOnError    true
@@ -102,99 +102,102 @@ enum WindowStyle { NORMAL, DOCKED, DROP_TARGET ,DOCKED_MIN};
 #include <kwin.h>
 #include <ktoolbar.h>
 #include <qvaluelist.h>
-struct DirItem {
-    QString extRegexp;
-    QString defaultDir;
+struct DirItem
+{
+        QString extRegexp;
+        QString defaultDir;
 };
 
 typedef QValueList < DirItem > DirList;
 
-class Settings {
+class Settings
+{
 
-  public:
+public:
 
-    Settings() {
-    } ~Settings() {
-    }
+        Settings()
+        {}
+        ~Settings()
+        {}
 
-    void load();
-    void save();
+        void load();
+        void save();
 
-    // connection options
-    bool b_reconnectOnBroken;
-    bool b_reconnectOnError;
+        // connection options
+        bool b_reconnectOnBroken;
+        bool b_reconnectOnError;
 
-    uint reconnectTime;
-    uint reconnectRetries;
+        uint reconnectTime;
+        uint reconnectRetries;
 
-    uint timeoutData;
-    uint timeoutDataNoResume;
+        uint timeoutData;
+        uint timeoutDataNoResume;
 
-    uint connectionType;
-    uint linkNumber;
-    bool b_offlineMode;
+        uint connectionType;
+        uint linkNumber;
+        bool b_offlineMode;
 
-    // automation options
-    bool b_autoSave;
-    uint autoSaveInterval;
-    bool b_autoDisconnect;
-    QString disconnectCommand;
-    bool b_timedDisconnect;
-    QDate disconnectDate;
-    QTime disconnectTime;
-    bool b_autoShutdown;
-    bool b_autoPaste;
+        // automation options
+        bool b_autoSave;
+        uint autoSaveInterval;
+        bool b_autoDisconnect;
+        QString disconnectCommand;
+        bool b_timedDisconnect;
+        QDate disconnectDate;
+        QTime disconnectTime;
+        bool b_autoShutdown;
+        bool b_autoPaste;
 
-    // limits options
-    uint maxSimultaneousConnections;
-    uint minimumBandwidth;
-    uint maximumBandwidth;
+        // limits options
+        uint maxSimultaneousConnections;
+        uint minimumBandwidth;
+        uint maximumBandwidth;
 
-    // advanced options
-    bool b_addQueued;
-    bool b_showIndividual;
-    bool b_iconifyIndividual;
-    bool b_advancedIndividual;
-    bool b_removeOnSuccess;
-    bool b_getSizes;
-    bool b_expertMode;
+        // advanced options
+        bool b_addQueued;
+        bool b_showIndividual;
+        bool b_iconifyIndividual;
+        bool b_advancedIndividual;
+        bool b_removeOnSuccess;
+        bool b_getSizes;
+        bool b_expertMode;
 
-    // search options
-    bool b_searchFastest;
-    uint searchItems;
-    uint timeoutSearch;
-    bool b_switchHosts;
+        // search options
+        bool b_searchFastest;
+        uint searchItems;
+        uint timeoutSearch;
+        bool b_switchHosts;
 
-    // directories options
-    bool b_useLastDir;
+        // directories options
+        bool b_useLastDir;
 
-    DirList defaultDirList;
+        DirList defaultDirList;
 
-    // system options
-    bool b_useSound;
+        // system options
+        bool b_useSound;
 
-    QString audioAdded;
-    QString audioStarted;
-    QString audioFinished;
-    QString audioFinishedAll;
+        QString audioAdded;
+        QString audioStarted;
+        QString audioFinished;
+        QString audioFinishedAll;
 
-    bool b_useAnimation;
-    QFont listViewFont;
+        bool b_useAnimation;
+        QFont listViewFont;
 
-    uint windowStyle;
+        uint windowStyle;
 
-    KToolBar::BarPosition toolbarPosition;
-    bool b_showStatusbar;
+        KToolBar::BarPosition toolbarPosition;
+        bool b_showStatusbar;
 
-    // geometry settings
-    QPoint mainPosition;
-    QSize mainSize;
-    unsigned long int mainState;
+        // geometry settings
+        QPoint mainPosition;
+        QSize mainSize;
+        unsigned long int mainState;
 
-    QPoint dropPosition;
-    unsigned long int dropState;
+        QPoint dropPosition;
+        unsigned long int dropState;
 };
 
 extern Settings ksettings;
 
-#endif				// _SETTINGS_H
+#endif                          // _SETTINGS_H

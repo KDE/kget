@@ -35,31 +35,32 @@
 #include <qbuttongroup.h>
 #include <qstringlist.h>
 
-class DlgAdvanced:public QGroupBox {
+class DlgAdvanced:public QGroupBox
+{
 
-  Q_OBJECT public:
+Q_OBJECT public:
 
-     DlgAdvanced(QWidget * parent);
-    ~DlgAdvanced();
+        DlgAdvanced(QWidget * parent);
+        ~DlgAdvanced();
 
-    void applyData();
-    void setData();
+        void applyData();
+        void setData();
 
-  private:
+private:
 
-     QLabel * lb_adding;
-    QButtonGroup *bg_adding;
-    QRadioButton *rb_queued;
-    QRadioButton *rb_delayed;
+        QLabel * lb_adding;
+        QButtonGroup *bg_adding;
+        QRadioButton *rb_queued;
+        QRadioButton *rb_delayed;
 
-    QCheckBox *cb_individual;
-    QCheckBox *cb_iconify;
-    QCheckBox *cb_advanced;
-    QCheckBox *cb_partial;
-    QCheckBox *cb_remove;
-    QCheckBox *cb_getsizes;
-    QCheckBox *cb_expertmode;
+        QCheckBox *cb_individual;
+        QCheckBox *cb_iconify;
+        QCheckBox *cb_advanced;
+        QCheckBox *cb_partial;
+        QCheckBox *cb_remove;
+        QCheckBox *cb_getsizes;
+        QCheckBox *cb_expertmode;
 
 };
 
-#endif				// _DLGADVANCED_H
+#endif                          // _DLGADVANCED_H
