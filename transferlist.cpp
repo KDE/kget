@@ -64,14 +64,14 @@ QPixmap *TransferList::pixFinished = 0L;
 QPixmap *TransferList::pixRetrying = 0L;
 
 
-TransferList::TransferList(QWidget * parent, const char *name):QListView(parent, name)
+TransferList::TransferList(QWidget * parent, const char *name):KListView(parent, name)
 {
 
     if (pixQueued == 0L) {
         initStatic();
     }
     // enable selection of more than one item
-    setMultiSelection(true);
+    setSelectionMode( QListView::Extended );
 
     // // disable sorting and clicking on headers
     // setSorting( -1 );

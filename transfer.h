@@ -28,7 +28,7 @@
 #ifndef _Transfer_h
 #define _Transfer_h
 
-#include <qlistview.h>
+#include <klistview.h>
 #include <qdatetime.h>
 #include <qguardedptr.h>
 #include <qmap.h>
@@ -53,7 +53,7 @@ class DlgIndividual;
 class TransferList;
 
 
-class Transfer:public QObject, public QListViewItem
+class Transfer:public QObject, public KListViewItem
 {
 
 

@@ -27,7 +27,7 @@
 #ifndef _TransferList_h
 #define _TransferList_h
 
-#include <qlistview.h>
+#include <klistview.h>
 #include <qlist.h>
 
 #include <kurl.h>
@@ -54,7 +54,7 @@ public:
 };
 
 
-class TransferList:public QListView
+class TransferList:public KListView
 {
 Q_OBJECT public:
 

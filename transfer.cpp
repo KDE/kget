@@ -49,7 +49,7 @@
 extern Settings ksettings;
 
 
-Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest):QListViewItem(_view)
+Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest):KListViewItem(_view)
 {
 
     sDebugIn << endl;
@@ -66,7 +66,7 @@ Transfer::Transfer(TransferList * _view, const KURL & _src, const KURL & _dest):
 }
 
 
-Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest):QListViewItem(_view, (QListViewItem *) after)
+Transfer::Transfer(TransferList * _view, Transfer * after, const KURL & _src, const KURL & _dest):KListViewItem(_view, (QListViewItem *) after)
 {
 
     sDebugIn << endl;
