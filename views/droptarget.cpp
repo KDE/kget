@@ -25,7 +25,6 @@
  ***************************************************************************/
 
 #include <kaction.h>
-#include <kmainwindow.h>
 #include <kiconloader.h>
 #include <kwin.h>
 #include <klocale.h>
@@ -44,6 +43,7 @@
 #include <qapplication.h>
 
 #include "settings.h"
+#include "kmainwidget.h"
 #include "droptarget.h"
 
 #define TARGET_WIDTH   68
@@ -53,10 +53,10 @@
 #define TARGET_ANI_MS  30
 
 
-DropTarget::DropTarget(KMainWindow * mw)
+DropTarget::DropTarget(KMainWidget * mw)
     : QWidget(0, "drop", WType_TopLevel | WStyle_StaysOnTop |
     WStyle_Customize | WStyle_NoBorder | WStyle_Tool), ViewInterface(),
-    parentWidget((QWidget*)mw), animTimer(0)
+    parentWidget((QWidget *)mw), animTimer(0)
 {
     QRect desk = KGlobalSettings::desktopGeometry(this);
     desk.setRight( desk.right() - TARGET_WIDTH );
@@ -158,11 +158,11 @@ DropTarget::~DropTarget()
 void
 DropTarget::slotClose()
 {
+    playAnimationHide();
     Settings::setShowDropTarget( false );
     if (parentWidget->isHidden())
         parentWidget->show();
-    hide();
-    KMessageBox::information(this,
+    KMessageBox::information(parentWidget,
         i18n("Drop target has been hidden. If you want to show it\
               again, go to Configuration->Look & Feel options."),
         i18n("Hiding drop target"),
@@ -251,19 +251,28 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 
 void DropTarget::playAnimation()
 {
-    if ( !animTimer )
-    {
-        animTimer = new QTimer;
-        connect( animTimer, SIGNAL( timeout() ),
-                 this, SLOT( slotAnimate() ));
-    }
+    if ( animTimer )
+        delete animTimer;
+    animTimer = new QTimer;
+    connect( animTimer, SIGNAL( timeout() ),
+        this, SLOT( slotAnimate() ));
     QWidget *d = QApplication::desktop();
     move( d->width() - width() - 60, -TARGET_HEIGHT );
     ani_y = -1;
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
-    if ( isHidden() )
-        show();
+}
+
+void DropTarget::playAnimationHide()
+{
+    if ( animTimer )
+        delete animTimer;
+    animTimer = new QTimer;
+    connect( animTimer, SIGNAL( timeout() ),
+        this, SLOT( slotAnimateHide() ));
+    ani_y = (float)y();
+    ani_vy = 0;
+    animTimer->start(TARGET_ANI_MS);
 }
 
 void DropTarget::slotAnimate()
@@ -281,7 +290,26 @@ void DropTarget::slotAnimate()
     {
         animTimer->stop();
         delete animTimer;
+        animTimer = 0;
     }
+}
+
+void DropTarget::slotAnimateHide()
+{
+    static float dT = TARGET_ANI_MS / 1000.0;
+    
+    ani_vy += -2000 * dT;
+    float new_y = y() + ani_vy * dT;
+
+    if ( new_y < -height() )
+    {
+        animTimer->stop();
+        delete animTimer;
+        animTimer = 0;
+        move( x(), (int)(ani_y) );
+        hide();
+    } else
+        move( x(), (int)(new_y) );
 }
 
 #include "droptarget.moc"

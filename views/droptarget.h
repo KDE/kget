@@ -40,11 +40,12 @@ class DropTarget:public QWidget, public ViewInterface
 Q_OBJECT 
 
 public:
-    DropTarget(KMainWindow *);
+    DropTarget(KMainWidget * parent);
     ~DropTarget();
 
     void updateStickyState();
     void playAnimation();
+    void playAnimationHide();
 
 protected:
     // drag and drop
@@ -59,6 +60,7 @@ private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
     void slotAnimate();
+    void slotAnimateHide();
     void slotClose();
 
 private:
