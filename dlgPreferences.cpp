@@ -98,8 +98,6 @@ DlgPreferences::DlgPreferences(QWidget * parent):
     //        seaDlg->setData();
     dirDlg->setData();
     sysDlg->setData();
-
-    disableResize();
 }
 
 
