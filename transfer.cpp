@@ -87,7 +87,7 @@ Transfer::~Transfer()
 {
     sDebugIn << endl;
 
-    tryKillSlave();
+    synchronousAbort();
 
     delete dlgIndividual;
     sDebugOut << endl;
@@ -146,7 +146,7 @@ Transfer::init()
 
     // Actions
 
-    //        m_paDock = new KAction(i18n("&Dock"),"tool_dock.png", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
+    // m_paDock = new KAction(i18n("&Dock"),"tool_dock", 0, this,SLOT(slotRequestDelay()), this, "dockIndividual");
 
     // setup individual transfer dialog
     dlgIndividual = new DlgIndividual(this);
@@ -158,17 +158,26 @@ Transfer::init()
 }
 
 
-void Transfer::tryKillSlave()
+void Transfer::synchronousAbort()
 {
-    // ###
-    // should we terminate() the slave and delete them all?
-    // which slaves keep running even tho the transfer has finished?
-    // needs some more investigation
-    if ( m_pSlave && !m_pSlave->running() )
+    if ( m_pSlave )
     {
+        if ( m_pSlave->running() )
+        {
+            m_pSlave->Op(Slave::KILL);
+            m_pSlave->wait();
+        }
+
+        if ( m_pSlave->running() )
+            m_pSlave->terminate();
+
         delete m_pSlave;
         m_pSlave = 0L;
+
+        status = ST_STOPPED;
+        slotUpdateActions();
     }
+    
 }
 
 void Transfer::copy(Transfer * _orig)
@@ -188,12 +197,12 @@ void Transfer::copy(Transfer * _orig)
     remainingTime = _orig->remainingTime;
     retryCount = _orig->retryCount;
     speed = _orig->speed;
-    src = _orig->src;
     startTime = _orig->startTime;
     status = _orig->status;
     totalSize = _orig->totalSize;
 
     updateAll();
+    slotUpdateActions();
 
     if ( _orig->isVisible() )
         showIndividual();
@@ -808,12 +817,10 @@ void Transfer::slotExecAbort(const QString & _msg)
     emit statusChanged(this, OP_ABORTED);
 }
 
-/** No descriptions */
 void Transfer::slotExecRemove()
 {
     sDebugIn << endl;
 
-    //m_pFTP.wait();
     m_pSlave->wait();
     emit statusChanged(this, OP_REMOVED);
     sDebugOut << endl;
@@ -892,7 +899,7 @@ void Transfer::slotStartTime(const QDateTime & _startTime)
 }
 
 /** return true if the dlgIndividual is Visible */
-bool Transfer::isVisible()
+bool Transfer::isVisible() const
 {
     return dlgIndividual->isVisible();
 }

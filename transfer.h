@@ -69,7 +69,7 @@ public:
     Transfer(TransferList * view, Transfer * after, const KURL & _src, const KURL & _dest);
     ~Transfer();
 
-    Slave *m_pSlave;
+    void synchronousAbort();
     void copy(Transfer *);
 
     // note: does NOT read the "Source" and "Dest" urls. You need to pass
@@ -152,7 +152,6 @@ public:
     //KAction *m_paDock;
     KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
 
-    /**  */
 public:
     void slotExecPause();
     void slotExecResume();
@@ -163,8 +162,8 @@ public:
     void slotExecAbort(const QString &);
     void slotCanResume(bool _bCanResume);
     void slotSpeed(unsigned long);
-    /** No descriptions */
-    bool isVisible();
+
+    bool isVisible() const;
     void maybeShow();
 
 public slots:
@@ -193,7 +192,8 @@ signals:
 
 private:
     void init();
-    void tryKillSlave();
+
+    Slave *m_pSlave;
 
     KURL src;
     KURL dest;

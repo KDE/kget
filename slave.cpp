@@ -102,64 +102,75 @@ void Slave::run()
     SlaveCommand cmd;
     bool running = true;
 
-    while (running) {
+    while (running) 
+    {
         if (!nPendingCommand)
             worker.wait();
-        switch (cmd = fetch_cmd()) {
-        case RESTART:
-            copyjob->kill(true);
-            // fall through
-        case RETR:
-            mDebug << " FETCHED COMMAND       RETR" << endl;
-            KIO::Scheduler::checkSlaveOnHold( true );
-            copyjob = new KIO::GetFileJob(m_src, m_dest);
-            copyjob->setAutoErrorHandlingEnabled(true);
-            Connect();
-            PostMessage(SLV_RESUMED);
-            break;
+        switch (cmd = fetch_cmd()) 
+        {
+            case RESTART:
+                copyjob->kill(true);
+                // fall through
+            case RETR:
+                mDebug << " FETCHED COMMAND       RETR" << endl;
+                KIO::Scheduler::checkSlaveOnHold( true );
+                copyjob = new KIO::GetFileJob(m_src, m_dest);
+                copyjob->setAutoErrorHandlingEnabled(true);
+                Connect();
+                PostMessage(SLV_RESUMED);
+                break;
 
-        case PAUSE:
-            mDebug << " FETCHED COMMAND       PAUSE" << endl;
-            copyjob->kill(true);
-            copyjob = 0L;
-            PostMessage(SLV_PAUSED);
-            break;
-
-        case REMOVE:
-            mDebug << " FETCHED COMMAND       REMOVE" << endl;
-            running = false;
-            copyjob->kill(true);
-            copyjob = 0L;
-            PostMessage(SLV_REMOVED);
-            break;
-
-        case SCHEDULE:
-            mDebug << " FETCHED COMMAND       SCHEDULE" << endl;
-            copyjob->kill(true);
-            copyjob = 0L;
-            PostMessage(SLV_SCHEDULED);
-            break;
-        case DELAY:
-            mDebug << " FETCHED COMMAND       DELAY" << endl;
-            copyjob->kill(true);
-            copyjob = 0L;
-            PostMessage(SLV_DELAYED);
-            break;
-
-        case NOOP:
-            mDebug << "FETCHED COMMAND        NOOP, i.e. empty stack" << endl;
-            if ( copyjob )
-            {
+            case PAUSE:
+                mDebug << " FETCHED COMMAND       PAUSE" << endl;
                 copyjob->kill(true);
                 copyjob = 0L;
-            }
-            running = false;
-            break;
+                PostMessage(SLV_PAUSED);
+                break;
 
-        default: {
-            mDebug << " UNKNOWN COMMAND DIE...." << endl;
-            assert(0);
-        }
+            case KILL:
+                mDebug << " FETCHED COMMAND      KILL" << endl;
+                running = false;
+                copyjob->kill(true);
+                copyjob = 0L;
+                // no message posted
+                break;
+            
+            case REMOVE:
+                mDebug << " FETCHED COMMAND       REMOVE" << endl;
+                running = false;
+                copyjob->kill(true);
+                copyjob = 0L;
+                PostMessage(SLV_REMOVED);
+                break;
+
+            case SCHEDULE:
+                mDebug << " FETCHED COMMAND       SCHEDULE" << endl;
+                copyjob->kill(true);
+                copyjob = 0L;
+                PostMessage(SLV_SCHEDULED);
+                break;
+
+            case DELAY:
+                mDebug << " FETCHED COMMAND       DELAY" << endl;
+                copyjob->kill(true);
+                copyjob = 0L;
+                PostMessage(SLV_DELAYED);
+                break;
+
+            case NOOP:
+                mDebug << "FETCHED COMMAND        NOOP, i.e. empty stack" << endl;
+                if ( copyjob )
+                {
+                    copyjob->kill(true);
+                    copyjob = 0L;
+                }
+                running = false;
+                break;
+
+            default: {
+                mDebug << " UNKNOWN COMMAND DIE...." << endl;
+                assert(0);
+            }
         }
     }
 
@@ -168,10 +179,6 @@ void Slave::run()
 }
 
 
-
-
-
-/** No descriptions */
 Slave::SlaveCommand Slave::fetch_cmd()
 {
     mutex.lock();
