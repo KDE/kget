@@ -110,8 +110,8 @@ int ddp_sock = -1;              /* Appletalk DDP socket */
 
 
 KMainWidget::KMainWidget(bool bStartDocked)
-    : KMainWindow(0, "kget mainwindow"),
-      KGetIface( "KGet-Interface" ),
+    : KGetIface( "KGet-Interface" ),
+      KMainWindow(0, "kget mainwindow"),
       prefDlg( 0L )
 {
 #ifdef _DEBUG
@@ -1069,8 +1069,8 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
                 // in expert mode don't open the filedialog
                 // if destURL is not empty, it's the suggested filename
                 destURL = KURL::fromPathOrURL( destDir + "/" +
-                                               destURL.isEmpty() ? 
-                                                   url.fileName() : destURL.url() );
+                                               ( destURL.isEmpty() ? 
+                                                   url.fileName() : destURL.url() ));
             }
 
             //check if destination already exists
