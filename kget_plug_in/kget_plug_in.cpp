@@ -15,6 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <dcopref.h>
+#include <kdatastream.h>
+
 #include <khtml_part.h> // this plugin applies to a khtml part
 #include <kdebug.h>
 #include <kglobal.h>
@@ -31,12 +34,13 @@
 KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
         : Plugin( parent, name )
 {
-     
+    QPixmap pix = KGlobal::iconLoader()->loadIcon("khtml_kget",
+                                                  KIcon::MainToolbar);
+    m_paToggleDropTarget=new KToggleAction(i18n("Show Kget drop target"), pix,
+                                           KShortcut(),
+                                           this, SLOT(slotShowDrop()),
+                                           actionCollection(), "show_drop" );
 
-    m_paToggleDropTarget=new KAction(i18n("Show Kget drop target"),
-                                    KGlobal::iconLoader()->loadIcon("khtml_kget", KIcon::MainToolbar) , 0,
-                                     this, SLOT(slotShowDrop()),
-                                     actionCollection(), "show_drop" );
     p_dcopServer= new DCOPClient();
 
     p_dcopServer->attach ();
@@ -57,10 +61,8 @@ void KGet_plug_in::slotShowDrop()
         KRun::runCommand("kget --showDropTarget");
     else
     {
-      QByteArray data;
-      QDataStream arg(data, IO_WriteOnly);
-      arg << QCString("drop_target");
-      p_dcopServer->send("kget", "kget-mainwindow#1", (QCString) "activateAction(QCString)", data);
+        DCOPRef kget( "kget", "KGet-Interface" );
+        kget.send( "setDropTargetVisible", m_paToggleDropTarget->isChecked());
     }
 }
 

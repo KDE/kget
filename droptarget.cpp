@@ -50,8 +50,13 @@
 
 DropTarget::DropTarget():QWidget()
 {
+    int x = ksettings.dropPosition.x();
+    int y = ksettings.dropPosition.y();
 
-    if (ksettings.dropPosition.x() != -1)
+    if (x != -1 &&
+        x >= 0 && y >= 0 &&
+        (x + TARGET_WIDTH) <= KApplication::desktop()->width() &&
+        (y + TARGET_HEIGHT) <= KApplication::desktop()->height() )
     {
         move(ksettings.dropPosition);
         KWin::setState(winId(), ksettings.dropState);
@@ -80,21 +85,10 @@ DropTarget::DropTarget():QWidget()
     int offsetx = -10;
     int offsety = -5;
 
-    QPixmap tmppix = UserIcon("target");
-
-    handpix1 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-    handpix1->fill(backgroundColor());
-    bitBlt(handpix1, offsetx, offsety, &tmppix);
-
-    handpix2 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-    handpix2->fill(backgroundColor());
-    bitBlt(handpix2, offsetx, offsety, &tmppix);
-
-    handpix3 = new QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-    handpix3->fill(backgroundColor());
-    bitBlt(handpix3, offsetx, offsety, &tmppix);
-
-    setBackgroundPixmap(*handpix1);
+    QPixmap bgnd = QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
+    QPixmap tmp = UserIcon( "target" );
+    bitBlt(&bgnd, offsetx, offsety, &tmp );
+    setBackgroundPixmap( bgnd );
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
@@ -117,9 +111,6 @@ DropTarget::DropTarget():QWidget()
 
 DropTarget::~DropTarget()
 {
-    delete handpix1;
-    delete handpix2;
-    delete handpix3;
     delete popupMenu;
 }
 

@@ -47,6 +47,7 @@
 #include <qdropsite.h>
 #include <qpopupmenu.h>
 
+#include <kprotocolinfo.h>
 #include <kfiledialog.h>
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -68,6 +69,7 @@
 #include <kconfig.h>
 #include <kio/netaccess.h>
 
+#include "safedelete.h"
 #include "settings.h"
 #include "transfer.h"
 #include "transferlist.h"
@@ -1038,7 +1040,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
             if (df.isEmpty()) {           // if we didn't provide destination
                 if (!b_expertMode) {
                     // open the filedialog for confirmation
-                    KFileDialog dlg( destDir, QString::null, 
+                    KFileDialog dlg( destDir, QString::null,
                                      0L, "save_as", true);
                     dlg.setCaption(i18n("Save As"));
                     dlg.setSelection(url.fileName());
@@ -1073,10 +1075,11 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
 
             if(KIO::NetAccess::exists(destURL))
             {
-                if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
+                if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                                              == KMessageBox::Yes)
                 {
                     bDestisMalformed=false;
-                    KIO::NetAccess::del(destURL);
+                    SafeDelete::deleteFile( destURL );
                 }
                 else
                 {
@@ -1095,7 +1098,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile,
         // simply delete it, the calling process should have asked if you
         // really want to delete (at least khtml does)
         if(KIO::NetAccess::exists(destURL))
-            KIO::NetAccess::del(destURL);
+            SafeDelete::deleteFile( destURL );
     }
 
     // create a new transfer item
@@ -1141,16 +1144,25 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
         {
             // create a proper destination file from destDir
             KURL destURL = KURL::fromPathOrURL( destDir );
-            destURL.adjustPath( +1 );
-            destURL.setFileName( urlsToDownload.first().fileName() );
-            if(KIO::NetAccess::exists(destURL))
+            QString fileName = urlsToDownload.first().fileName();
+
+            // in case the fileName is empty, we simply ask for a filename in
+            // addTransferEx. Do NOT attempt to use an empty filename, that
+            // would be a directory (and we don't want to overwrite that!)
+            if ( !fileName.isEmpty() )
             {
-                if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))==KMessageBox::Yes)
+                destURL.adjustPath( +1 );
+                destURL.setFileName( fileName );
+                if(KIO::NetAccess::exists(destURL))
                 {
-                    KIO::NetAccess::del(destURL);
+                    if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                        == KMessageBox::Yes)
+                {
+                        SafeDelete::deleteFile( destURL );
                     destFile = destURL;
                 }
             }
+        }
         }
 
         addTransferEx( urlsToDownload.first(), destFile );
@@ -1167,9 +1179,9 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
         // ask in any case, when destDir is empty
-        if ( destDir.isEmpty() || !QFileInfo( dest.directory() ).isDir() )
+        if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
         {
-            QString dir = KFileDialog::getExistingDirectory( dest.directory() );
+            QString dir = KFileDialog::getExistingDirectory( dest.path() );
             if ( dir.isEmpty() ) // aborted
                 return;
 
@@ -1179,6 +1191,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
     }
 
     // dest is now finally the real destination directory for all the files
+    dest.adjustPath( +1 );
 
     // create new transfer items
     KURL::List::ConstIterator it = urlsToDownload.begin();
@@ -1190,15 +1203,18 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             continue;
 
         KURL destURL = dest;
-        destURL.adjustPath( +1 );
-        destURL.setFileName( (*it).fileName() );
+        QString fileName = (*it).fileName();
+        if ( fileName.isEmpty() ) // simply use the full url as filename
+            fileName = KURL::encode_string_no_slash( (*it).prettyURL() );
+        
+        destURL.setFileName( fileName );
 
         if(KIO::NetAccess::exists(destURL))
         {
             if (KMessageBox::warningYesNo(this,i18n("Destination file already exists.\nDo you want to overwrite it?"))
                 == KMessageBox::Yes)
             {
-                KIO::NetAccess::del(destURL);
+                SafeDelete::deleteFile( destURL );
             }
         }
 
@@ -1334,7 +1350,7 @@ void KMainWidget::slotTransferTimeout()
     }
 
     if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate()) {
-        disconnect();
+        onlineDisconnect();
     }
 
 #ifdef _DEBUG
@@ -1366,7 +1382,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
     switch (_operation) {
 
     case Transfer::OP_FINISHED:
-        if (ksettings.b_removeOnSuccess)
+        if (ksettings.b_removeOnSuccess && !item->keepDialogOpen() )
         {
             delete item;
             item = 0L;
@@ -1377,7 +1393,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
         if (myTransferList->isQueueEmpty()) {
             // no items in the TransferList or we have donwload all items
             if (ksettings.b_autoDisconnect)
-                disconnect();
+                onlineDisconnect();
 
             if (ksettings.b_autoShutdown) {
                 slotQuit();
@@ -1522,22 +1538,13 @@ void KMainWidget::slotOpenIndividual()
 #endif
 }
 
-void KMainWidget::closeEvent(QCloseEvent *_event)
+bool KMainWidget::queryClose()
 {
-#ifdef _DEBUG
-    sDebugIn<<"type="<<_event->type() << endl;
-#else
-    Q_UNUSED( _event )
-#endif
-
+    if( kapp->sessionSaving())
+	return true;
     hide();
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
+    return false;
 }
-
-
 
 void KMainWidget::setAutoSave()
 {
@@ -1792,8 +1799,10 @@ void KMainWidget::slotToggleAutoPaste()
 
     if (ksettings.b_autoPaste) {
         log(i18n("Auto paste on."));
+        clipboardTimer->start(1000);
     } else {
         log(i18n("Auto paste off."));
+        clipboardTimer->stop();
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
 
@@ -2063,7 +2072,7 @@ void KMainWidget::updateStatusBar()
 }
 
 
-void KMainWidget::disconnect()
+void KMainWidget::onlineDisconnect()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
@@ -2114,7 +2123,7 @@ void KMainWidget::checkOnline()
     memset(&ifr, 0, sizeof(ifreq));
 
     // setup the device name according to the type of connection and link number
-    sprintf(ifr.ifr_name, "%s%d", ConnectionDevices[ksettings.connectionType].ascii(), ksettings.linkNumber);
+    snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s%d", ConnectionDevices[ksettings.connectionType].ascii(), ksettings.linkNumber);
 
     bool flag = false;
 
@@ -2309,7 +2318,7 @@ QString KMainWidget::getSaveDirectoryFor( const QString& filename ) const
 
 bool KMainWidget::sanityChecksSuccessful( const KURL& url )
 {
-    if (url.isMalformed())
+    if (url.isMalformed() || !KProtocolInfo::supportsReading( url ) )
     {
         if (!ksettings.b_expertMode)
             KMessageBox::error(this, i18n("Malformed URL:\n%1").arg(url.prettyURL()), i18n("Error"));
@@ -2358,5 +2367,20 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
 
     return true;
 }
+
+bool KMainWidget::isDropTargetVisible() const
+{
+    return m_paDropTarget->isChecked();
+}
+
+void KMainWidget::setDropTargetVisible( bool setVisible )
+{
+    if ( setVisible != isDropTargetVisible() )
+    {
+        m_paDropTarget->setChecked( !m_paDropTarget->isChecked() );
+        slotToggleDropTarget();
+    }
+}
+
 
 #include "kmainwidget.moc"
