@@ -38,6 +38,8 @@
 #include "dlgDirectories.h"
 #include "dlgSystem.h"
 
+#include "settings.h"
+
 #ifdef index
 #undef index
 #endif

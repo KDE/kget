@@ -162,7 +162,7 @@ protected:
     bool b_viewPreferences;
 
     // utility functions
-    void disconnect();
+    void onlineDisconnect();
     void checkOnline();
     void pauseAll();
     void log(const QString & message, bool statusbar = true);

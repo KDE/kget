@@ -1350,7 +1350,7 @@ void KMainWidget::slotTransferTimeout()
     }
 
     if (ksettings.b_autoDisconnect && ksettings.b_timedDisconnect && ksettings.disconnectTime <= QTime::currentTime() && ksettings.disconnectDate == QDate::currentDate()) {
-        disconnect();
+        onlineDisconnect();
     }
 
 #ifdef _DEBUG
@@ -1393,7 +1393,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
         if (myTransferList->isQueueEmpty()) {
             // no items in the TransferList or we have donwload all items
             if (ksettings.b_autoDisconnect)
-                disconnect();
+                onlineDisconnect();
 
             if (ksettings.b_autoShutdown) {
                 slotQuit();
@@ -1808,8 +1808,10 @@ void KMainWidget::slotToggleAutoPaste()
 
     if (ksettings.b_autoPaste) {
         log(i18n("Auto paste on."));
+        clipboardTimer->start(1000);
     } else {
         log(i18n("Auto paste off."));
+        clipboardTimer->stop();
     }
     m_paAutoPaste->setChecked(ksettings.b_autoPaste);
 
@@ -2079,7 +2081,7 @@ void KMainWidget::updateStatusBar()
 }
 
 
-void KMainWidget::disconnect()
+void KMainWidget::onlineDisconnect()
 {
 #ifdef _DEBUG
     sDebugIn << endl;
