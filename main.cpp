@@ -48,7 +48,7 @@ static const char *version = KGETVERSION;
 
 
 static KCmdLineOptions option[] = {
-                                      { "showDropTarget", I18N_NOOP("Start kget with drop target"), 0 },
+                                      { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
                                       {"+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
                                       {0, 0, 0}
                                   };
