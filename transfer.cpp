@@ -1477,10 +1477,10 @@ void Transfer::SlotExecLoginInfo()
         setMode(MD_NONE);
 
         KIO::PasswordDialog * passDialog = new KIO::PasswordDialog( "Please Enter the login and Password:",user,kmain);
-
+        bool * bVal=false;
         int retry
-        = passDialog->getNameAndPassword(user, pass, false,
-                                         "Please Enter the login and Password:");
+	  = passDialog->getNameAndPassword(user, pass,bVal,
+					   "Please Enter the login and Password:");
 
         if (retry
            ) {
