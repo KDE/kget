@@ -35,7 +35,7 @@ public:
      * item is update, otherwise not. If transfer = 0, no check is done and the 
      * item is updated.
      */
-    bool update(Transfer * t = 0);
+    inline bool update(Transfer * t = 0);
 
 private:        
     Transfer * transfer;

@@ -107,10 +107,10 @@ void TransferList::removeTransfers(TransferList & transfers)
 {
     sDebugIn << endl;
 
-    TransferList::iterator it;
+    TransferList::iterator it = transfers.begin();
     TransferList::iterator endList = transfers.end();
     
-    for(it = transfers.begin(); it != endList; ++it)
+    for(; it != endList; ++it)
         {
         remove(*it);
     }
