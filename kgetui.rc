@@ -29,8 +29,6 @@
     </Menu>
     <Menu noMerge="1" name="view"><text>&amp;View</text>
         <Action name="toggle_log"/>
-        <Separator/>
-        <Action name="drop_target"/>
     </Menu>
     <Menu name="options"><text>&amp;Options</text>
         <Action name="toggle_animation"/>
