@@ -1,7 +1,8 @@
-noinst_LIBRARIES = libviews.a
+noinst_LTLIBRARIES = libviews.la
 
-libviews_a_SOURCES = dockindividual.cpp dlgindividual.cpp droptarget.cpp \
-                     logwindow.cpp iconview.cpp testview.cpp
+libviews_la_SOURCES = dockindividual.cpp dlgindividual.cpp \
+                     droptarget.cpp logwindow.cpp iconview.cpp \
+                     mainview.cpp testview.cpp
 
 INCLUDES = -I$(srcdir)/.. -I$(srcdir)/../conf $(all_includes)
 

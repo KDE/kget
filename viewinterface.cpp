@@ -3,6 +3,8 @@
 #include "scheduler.h"
 #include "transferlist.h"
 
+#include <kdebug.h>
+
 //BEGIN ViewInterfaceConnector implementation 
 ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Scheduler * sched, const char * name )
     : QObject( 0, name ), iface( viewIface )
@@ -10,25 +12,25 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
     // Incoming data: connect shceduler's signals to local slots
     connect( sched, SIGNAL( clear() ),
 	     this, SLOT( slotCleared() ) );
-    connect( sched, SIGNAL( addedItems(TransferList &) ),
-	     this, SLOT( slotAddedItems(TransferList &) ) );
-    connect( sched, SIGNAL( removedItems(TransferList &) ),
-	     this, SLOT( slotRemovedItems(TransferList &) ) );
-    connect( sched, SIGNAL( changedItems(TransferList &) ),
-	     this, SLOT( slotChangedItems(TransferList &) ) );
+    connect( sched, SIGNAL( addedItems(TransferList) ),
+	     this, SLOT( slotAddedItems(TransferList) ) );
+    connect( sched, SIGNAL( removedItems(TransferList) ),
+	     this, SLOT( slotRemovedItems(TransferList) ) );
+    connect( sched, SIGNAL( changedItems(TransferList) ),
+	     this, SLOT( slotChangedItems(TransferList) ) );
     connect( sched, SIGNAL( globalStatus(GlobalStatus *) ),
 	     this, SLOT( slotStatus(GlobalStatus *) ) );
     // Outgoing data: connect local signals to scheduler's slots
     connect( this, SIGNAL( newURLs(const KURL::List &, const QString &) ),
 	     sched, SLOT( slotNewURLs(const KURL::List &, const QString &) ) );
-    connect( this, SIGNAL( removeItems(TransferList &) ),
-	     sched, SLOT( slotRemoveItems(TransferList &) ) );
-    connect( this, SIGNAL( setPriority(TransferList &, int) ),
-	     sched, SLOT( slotSetPriority(TransferList &, int) ) );
-    connect( this, SIGNAL( setOperation(TransferList &, TransferCommand) ),
-	     sched, SLOT( slotSetCommand(TransferList &, TransferCommand) ) );
-    connect( this, SIGNAL( setGroup(TransferList &, const QString &) ),
-	     sched, SLOT( slotSetGroup(TransferList &, const QString &) ) );
+    connect( this, SIGNAL( removeItems(TransferList) ),
+	     sched, SLOT( slotRemoveItems(TransferList) ) );
+    connect( this, SIGNAL( setPriority(TransferList, int) ),
+	     sched, SLOT( slotSetPriority(TransferList, int) ) );
+    connect( this, SIGNAL( setOperation(TransferList, TransferCommand) ),
+	     sched, SLOT( slotSetCommand(TransferList, TransferCommand) ) );
+    connect( this, SIGNAL( setGroup(TransferList, const QString &) ),
+	     sched, SLOT( slotSetGroup(TransferList, const QString &) ) );
     connect( this, SIGNAL( reqOperation(SchedulerOperation) ),
 	     sched, SLOT( slotReqOperation(SchedulerOperation) ) );
     connect( this, SIGNAL( reqOperation(SchedulerDebugOp) ),
@@ -44,19 +46,19 @@ void ViewInterfaceConnector::slotCleared()
     iface->schedulerCleared();
 }
 
-void ViewInterfaceConnector::slotAddedItems( TransferList &tl )
+void ViewInterfaceConnector::slotAddedItems( TransferList tl )
 {
     //kdDebug() << "slotAddedItems()" << endl;
     iface->schedulerAddedItems( tl );
 }
 
-void ViewInterfaceConnector::slotRemovedItems( TransferList &tl )
+void ViewInterfaceConnector::slotRemovedItems( TransferList tl )
 {
     //kdDebug() << "slotRemovedItems()" << endl;
     iface->schedulerRemovedItems( tl );
 }
 
-void ViewInterfaceConnector::slotChangedItems( TransferList &tl )
+void ViewInterfaceConnector::slotChangedItems( TransferList tl )
 {
     //kdDebug() << "slotChangedItems()" << endl;
     iface->schedulerChangedItems( tl );
@@ -72,7 +74,12 @@ void ViewInterfaceConnector::slotStatus( GlobalStatus *gs )
 
 //BEGIN ViewInterface iplementation 
 ViewInterface::ViewInterface( const char * n )
-    : d( 0 ), name( n ) {};
+    : d( 0 ), name( n ) 
+{
+    static int newId=-1;
+    id = ++newId;
+    kdDebug() << "new ViewInterface: id = " << id << endl;
+}
 
 ViewInterface::~ViewInterface()
 {
@@ -86,31 +93,41 @@ void ViewInterface::connectToScheduler( Scheduler * scheduler )
     delete old;
 }
 
+int ViewInterface::getId()
+{
+    return id;
+}
+
 void ViewInterface::schedNewURLs( const KURL::List &l, const QString &dir )
 {
     if ( d )
 	d->newURLs( l, dir );
 }
 
-void ViewInterface::schedRemoveItems( TransferList &l )
+void ViewInterface::schedRemoveItems( TransferList l )
 {
     if ( d )
 	d->removeItems( l );
 }
 
-void ViewInterface::schedSetPriority( TransferList &l, int p )
+void ViewInterface::schedSetPriority( TransferList l, int p )
 {
     if ( d )
 	d->setPriority( l, p );
 }
 
-void ViewInterface::schedSetCommand( TransferList &l, TransferCommand op )
+void ViewInterface::schedSetCommand( TransferList l, TransferCommand op )
 {
     if ( d )
-	d->setOperation( l, op );
+    {
+        kdDebug() << "aaaaaaaaaaaaaaaaaaaaa" << endl;
+	    d->setOperation( l, op );
+    }
+    else
+        kdDebug() << "bbbbbbbbbbbbbbbbbbbbb" << endl;
 }
 
-void ViewInterface::schedSetGroup( TransferList &l, const QString & g )
+void ViewInterface::schedSetGroup( TransferList l, const QString & g )
 {
     if ( d )
 	d->setGroup( l, g );

@@ -1,191 +1,130 @@
-/***************************************************************************
-*                                transfer.h
-*                             -------------------
-*
-*    Revision     : $Id$
-*    begin        : Tue Jan 29 2002
-*    copyright    : (C) 2002 by Patrick Charbonnier
-*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email        : pch@freeshell.org
-*
-****************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- ***************************************************************************/
-
-
 #ifndef _TRANSFER_H
 #define _TRANSFER_H
 
-#include <qtimer.h>
+#include <qobject.h>
+#include <qvaluevector.h>
 #include <qdatetime.h>
-#include <qguardedptr.h>
-#include <qmap.h>
 
+#include <kdebug.h>
 #include <kurl.h>
-#include <kio/jobclasses.h>
 
-#include "slave.h"
-#include "globals.h"
-
-
-class KSimpleConfig;
-class KAction;
-class KRadioAction;
-
-
-
-class Scheduler;
 class TransferList;
-
+class Scheduler;
+class ViewInterface;
 
 class Transfer : public QObject
 {
 Q_OBJECT
+    friend class TransferList;
 
-friend class Scheduler;
-friend class Slave;
-friend class TransferList;
+    public:
+       
+    enum TransferStatus  { St_Trying,
+                           St_Running,
+                           St_Delayed,
+                           St_Stopped,
+                           St_Aborted,
+                           St_Finished
+                         };  
 
-public:
-
-    //TransferStatus defined in globals.h
-    //TransferMessage defined in globals.h
-    //TransferCommand defined in globals.h
-
+    typedef int TransferProgress;                         
+                         
+    enum ProgressChange  { Pc_None          = 0x00000000,
+                           Pc_Priority      = 0x00000001,
+                           Pc_Status        = 0x00000002,
+                           Pc_CanResume     = 0x00000004,
+                           Pc_TotalSize     = 0x00000008,
+                           Pc_ProcessedSize = 0x00000010,
+                           Pc_Percent       = 0x00000020,
+                           Pc_Speed         = 0x00000040,
+                           Pc_Log           = 0x00000080 
+                         };
+    
+    struct Info
+    {
+        int priority;
+        TransferStatus status;
+        QValueList <QString *> log;
         
-    Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest, uint _id=0);
-    ~Transfer();
-
-    /**
-     * These functions are used to get informations about the transfer
-     */
-    inline KURL getSrc()const {return src;}
-    inline KURL getDest()const {return dest;}
-    inline unsigned long getTotalSize()const {return totalSize;}
-    inline unsigned long getProcessedSize()const {return processedSize;}
-    inline int getPercent()const {return percent;}
-    inline int getPriority()const {return priority;}
-    inline QString getGroup()const {return group;}
-    inline QDateTime getStartTime()const {return startTime;}
-    inline QTime getRemainingTime()const {return remainingTime;}
-    inline int getSpeed()const {return speed;}
-    inline TransferStatus getStatus()const {return status;}
-    inline bool getCanResume()const {return canResume;}
-    inline int getDelay()const {return delayTime;}
-    
-    /**
-     * These functions are used to set the transfer properties
-     */
-    inline void setPriority(int _priority) {priority = _priority;}
-    inline void setGroup(const QString & _group) {group = _group;}
-    void setSpeed(unsigned long _speed);
-
-    /**
-     * This operator is used to determine the relationship of < or >
-     * priority between two transfers.
-     */
-    inline bool operator<(const Transfer& t2) const
-        {return getPriority() < t2.getPriority();}
-    inline bool operator<=(const Transfer& t2) const
-        {return getPriority() <= t2.getPriority();}
+        KURL src;
+        KURL dest;
         
+        unsigned long totalSize;
+        unsigned long processedSize;
+        int percent;
+    
+        int speed;
+            
+        QString group;
+        QDateTime startTime;
+        QTime remainingTime;
+        int delayTime;
+        
+        bool canResume;
+        
+        /**
+        * This field specifies whether the transfer can perform segmented 
+        * downloading or not.
+        */
+        bool canSegment;
+    };
 
-private slots:
-    bool slotResume();
-    void slotStop();
-    void slotRetransfer();
-    void slotRemove();
-
+  
+    protected:
+    
+    Info info;
+    Scheduler * sched;
+    QValueVector<TransferProgress> progressChanges;
+        
     /**
-     * Delays the transfer for "seconds" seconds
+     * These functions _MUST_ be reimplemented
      */
-    void slotDelay(int seconds = 60);
-
     
-signals:
-    void statusChanged(Transfer *, TransferMessage message);
-    void log(uint, const QString &, const QString &);
+    virtual bool read(/*qdom entry*/) {}
+    virtual void write(/*qdom entry*/) {}
 
-
-private:
-    bool read(KSimpleConfig * config, int id);
-    void write(KSimpleConfig * config, int id);
+    inline void setProgressChange(ProgressChange);
     
-    
-    
-
-    //Slave Messages
-    void slavePostMessage(Slave::SlaveResult event, unsigned long data = 0L);
-    void slavePostMessage(Slave::SlaveResult event, const QString & msg);
-    void slaveInfoMessage(const QString & msg);
-
-    /**
-     * Debug function. This functions prints on the screen useful
-     * informations about the current transfer
-     */
-    void about();
-    
-
+        
+    public slots:
     
     /**
-     * INTERNAL FUNCTIONS
+     * These slots _MUST_ be reimplemented
      */
-     
-    void slaveTotalSize(unsigned long bytes);
-    void slaveProcessedSize(unsigned long);
     
-    void logMessage(const QString & message);
+    virtual bool slotResume() {kdDebug() << "Transfer::slotResume" << endl;}
+    virtual void slotStop() {}
+    virtual void slotRetransfer() {}
+    virtual void slotRemove() {}
     
-    void synchronousAbort();
+    virtual void slotSetSpeed(int speed) {}
+    virtual void slotSetDelay(int seconds) {}
+    virtual void slotSetSegmented(int nSegments) {}
    
-    private slots:
-    void slotUpdateDelay();
+    signals:
     
-    private:
+    void statusChanged(Transfer *, Transfer::TransferStatus message);    
+    void progressChanged(Transfer *, Transfer::ProgressChange message);
+
+    public:
         
-    Transfer * transfer;
-    Slave * slave;
-    Scheduler * scheduler;
+    Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
     
-    KURL src;
-    KURL dest;
+    const Info& getInfo() const;
+    
+    TransferProgress getProgressFlags(ViewInterface *);
+    void resetProgressFlags(ViewInterface *);
+       
+    void setPriority(int p);
+    void setGroup(const QString& group);
+    
+    inline bool operator<(const Transfer& t2) const
+        {return info.priority < t2.info.priority;}
+    
+    inline bool operator<=(const Transfer& t2) const
+        {return info.priority <= t2.info.priority;}
 
-    TransferStatus status;
-    
-    uint id;
-    int priority;
-    QString group;
-    QString transferLog;
-    
-    QDateTime startTime;
-    QTime remainingTime;
-    
-    int delayTime;
-    QTimer timer;
-        
-    unsigned long totalSize;
-    unsigned long processedSize;
-    int percent;
-
-    int speed;
-
-    // how many times have we retried already
-    unsigned int retryCount;
-    
-    bool canResume;
+    void about() const;
 };
 
-
-#endif                          // _Transfer_h
+#endif

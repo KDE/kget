@@ -1,4 +1,5 @@
 #include <qregexp.h>
+#include <qtimer.h>
 
 #include <kurl.h>
 #include <kio/netaccess.h>
@@ -10,6 +11,7 @@
 #include <kinputdialog.h>
 #include <knotifyclient.h>
 
+#include "transferKio.h"
 #include "scheduler.h"
 #include "connection.h"
 #include "safedelete.h"
@@ -45,15 +47,18 @@ void Scheduler::stop()
 {
     running = false;
     
-    TransferList::iterator it = runningTransfers->begin();
-    TransferList::iterator endList = runningTransfers->end();
+    TransferList::iterator it;
+    //TransferList::iterator it = runningTransfers->begin();
+    //TransferList::iterator endList = runningTransfers->end();
     
-    while(it != endList)
+    //This line can sound strange.. But since the slotStop call triggers
+    //the deletion of the transfer from the runningTransfers list we can't
+    //use the iterator in the usual way
+    while( (it=runningTransfers->begin()) != runningTransfers->end())
         {
         (*it)->slotStop();
         ++it;
     }
-    runningTransfers->clear();
 }
 
 void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
@@ -146,7 +151,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
             */
         }
 
-        Transfer *item = new Transfer(this, *it, destURL);
+        Transfer *item = new TransferKio(this, *it, destURL);
         list.addTransfer(item);
     }
 
@@ -161,7 +166,6 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
         
     sDebugOut << endl;
 }
-
 
 void Scheduler::slotNewURL(KURL src, const QString& destDir)
 {
@@ -252,7 +256,7 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
     sDebugOut << endl;
 }
 
-void Scheduler::slotRemoveItems(TransferList & list)
+void Scheduler::slotRemoveItems(TransferList list)
 {
     transfers->removeTransfers(list);
     removedTransfers->addTransfers(list);
@@ -262,19 +266,7 @@ void Scheduler::slotRemoveItems(TransferList & list)
     queueRemovedItems(list);
 }
 
-void Scheduler::slotRemoveItems(Transfer * item)
-{
-    transfers->removeTransfer(item);
-    removedTransfers->addTransfer(item);
-    
-    TransferList list(item);
-    
-    emit removedItems(list);
-
-    queueRemovedItems(list);
-}
-
-void Scheduler::slotSetPriority(TransferList & list, int priority)
+void Scheduler::slotSetPriority(TransferList list, int priority)
 {
     sDebugIn << endl;
     
@@ -287,19 +279,10 @@ void Scheduler::slotSetPriority(TransferList & list, int priority)
     sDebugOut << endl;
 }
 
-void Scheduler::slotSetPriority(Transfer * item, int priority)
+void Scheduler::slotSetCommand(TransferList list, TransferCommand op)
 {
-    transfers->moveToBegin(item, priority);
-    
-    TransferList list(item);
-    
-    emit changedItems(list);
-    
-    queueEvaluateItems(list);
-}
+    sDebugIn << endl;
 
-void Scheduler::slotSetCommand(TransferList & list, TransferCommand op)
-{
     TransferList::iterator it = list.begin();
     TransferList::iterator endList = list.end();
     
@@ -319,10 +302,11 @@ void Scheduler::slotSetCommand(TransferList & list, TransferCommand op)
             queueUpdate();
                         
     }
+    sDebugOut << endl;
 }
 
 
-void Scheduler::slotSetGroup(TransferList & list, const QString & groupName)
+void Scheduler::slotSetGroup(TransferList list, const QString & groupName)
 {
     TransferList::iterator it;
     TransferList::iterator endList = list.end();
@@ -331,15 +315,6 @@ void Scheduler::slotSetGroup(TransferList & list, const QString & groupName)
         {
         (*it)->setGroup(groupName);
     }
-    
-    emit changedItems(list);
-}
-
-void Scheduler::slotSetGroup(Transfer * item, const QString & groupName)
-{
-    item->setGroup(groupName);
-
-    TransferList list(item);
     
     emit changedItems(list);
 }
@@ -424,39 +399,43 @@ void Scheduler::slotReqOperation(SchedulerDebugOp operation)
     }
 }
 
-void Scheduler::slotTransferMessage(Transfer * item, TransferMessage msg)
+void Scheduler::slotTransferStatusChanged(Transfer * item,     
+                                          Transfer::TransferStatus status)
 {
     sDebugIn << endl;    
     TransferList list(item);
+    kdDebug() << "after the insertion" << endl;
     
-    switch (msg)
+    switch (status)
         {
-        case MSG_DELAYED:
-	case MSG_ABORTED:
-            item->slotDelay();
-	case MSG_FINISHED:
-        case MSG_REMOVED:
-        case MSG_PAUSED:
+        case Transfer::St_Delayed:
+        case Transfer::St_Aborted:
+            item->slotSetDelay(30);
+        case Transfer::St_Finished:
+        case Transfer::St_Stopped:
             sDebug << "TRANSFER REMOVAL: " << item << endl;
             
-	    runningTransfers->removeTransfer(item);
+            runningTransfers->removeTransfer(item);
             removedTransfers->addTransfer(item);
             queueUpdate();
-            
             break;
-	case MSG_DELAY_FINISHED:
+        /*case MSG_DELAY_FINISHED:
             queueUpdate();
             break;
-        case MSG_RESUMED:
-            
+        */
+        case Transfer::St_Running:
             break;
-            
     }
        
     emit changedItems(list);
     sDebugOut << endl;    
 }
 
+void Scheduler::slotTransferProgressChanged(Transfer * item,     
+                                            Transfer::ProgressChange progress)
+{
+    emit changedItems(TransferList(item));
+}                                           
 
 void Scheduler::slotImportTransfers(bool ask_for_name)
 {
@@ -556,7 +535,7 @@ Transfer * Scheduler::addTransferEx(const KURL& url, const KURL& destFile)
     sDebug << "ccc" << endl;
 
     // create a new transfer item
-    Transfer * t = new Transfer(this, url, destURL);
+    Transfer * t = new TransferKio(this, url, destURL);
     transfers->addTransfer(t);
     
     return t;
@@ -579,7 +558,7 @@ bool Scheduler::isValidURL( KURL url )
     Transfer *transfer = transfers->find( url );
     if ( transfer )
     {
-        if ( transfer->getStatus() != ST_FINISHED )
+        if ( transfer->getInfo().status != Transfer::St_Finished )
         {
             if ( !Settings::expertMode() )
             {
@@ -726,7 +705,7 @@ QString Scheduler::getSaveDirectoryFor( const QString& filename ) const
 
 //BEGIN Private low level queue commands implementation
 
-bool Scheduler::setTransferCommand(TransferList & list, TransferCommand op)
+bool Scheduler::setTransferCommand(TransferList list, TransferCommand op)
 {
     sDebugIn << endl;
     
@@ -747,8 +726,8 @@ bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
         {
         case CmdResume:
                 sDebug << "111 ->" << runningTransfers->size() << endl;
-                if(  (item->getStatus() == ST_STOPPED) 
-                  && (item->getPriority()!=6)
+                if(  (item->getInfo().status == Transfer::St_Stopped) 
+                  && (item->getInfo().priority != 6)
                   && (Settings::maxConnections() > runningTransfers->size()) )
                     {
                     sDebug << "222" << endl;
@@ -771,7 +750,7 @@ bool Scheduler::setTransferCommand(Transfer * item, TransferCommand op)
     sDebugOut << endl;
 }
 
-void Scheduler::queueEvaluateItems(TransferList & list, bool force)
+void Scheduler::queueEvaluateItems(TransferList list, bool force)
 {
     sDebugIn << endl;
     
@@ -820,7 +799,7 @@ void Scheduler::queueEvaluateItems(TransferList & list, bool force)
     sDebugOut << endl;
 }
 
-void Scheduler::queueRemovedItems(TransferList & list)
+void Scheduler::queueRemovedItems(TransferList list)
 {
     if(!running)
         return;

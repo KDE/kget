@@ -43,6 +43,7 @@
 #include <klocale.h>
 #include <ktoolbar.h>
 #include <krun.h>
+#include <kio/global.h>
 #include "globals.h"
 
 #include "transfer.h"
@@ -57,7 +58,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     item = _item;
 
     //create dock
-    m_pDockIndividual =new DockIndividual(this);
+    m_pDockIndividual = new DockIndividual(this);
 
 
     // Actions
@@ -143,17 +144,19 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     // setup tab dialog
     panelAdvanced = new QTabWidget(this);
 
+    transferInfo = item->getInfo();
+    
     // if the time was already set somewhere in the future, keep it
     // otherwise set it to the current time
     QDateTime dt;
-
-    if (item->getStartTime() < QDateTime::currentDateTime() )
+    
+    if (transferInfo.startTime < QDateTime::currentDateTime() )
     {
         dt = QDateTime::currentDateTime();
     }
     else
     {
-        dt = item->getStartTime();
+        dt = transferInfo.startTime;
     }
 
     spins = new KDateTimeWidget(dt, this, "spins");
@@ -213,10 +216,13 @@ void DlgIndividual::setProcessedSize(unsigned long bytes)
 
 void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
 {
+    //Re-read the transfer informations
+    transferInfo = item->getInfo();
+    
     QString msg;
-    if (bytes_per_second == 0 && item->getStatus() < ST_RUNNING)
+    if (bytes_per_second == 0 && transferInfo.status == Transfer::St_Trying )
         msg=i18n("Stalled");
-    else if (bytes_per_second == 0 && item->getStatus() == ST_FINISHED)
+    else if (bytes_per_second == 0 && transferInfo.status == Transfer::St_Finished )
         msg=i18n("Finished");
     else
         msg=i18n("%1/s ( %2 )").arg(KIO::convertSize(bytes_per_second)).arg(remaining.toString());
@@ -300,11 +306,13 @@ void DlgIndividual::slotKeepOpenToggled(bool bToggled)
 #ifdef _DEBUG
   sDebugIn <<"bToggled= "<<bToggled<<endl;
 #endif
-
+    
+    //Re-read the transfer informations
+    transferInfo = item->getInfo();
 
     bKeepDlgOpen=bToggled;
 
-    if (!bKeepDlgOpen && item->getStatus()==ST_FINISHED)
+    if (!bKeepDlgOpen && transferInfo.status == Transfer::St_Finished)
     {
         hide();
         m_pDockIndividual->hide();

@@ -29,6 +29,7 @@
 
 #include <qdragobject.h>
 #include <ksystemtray.h>
+
 #include "viewinterface.h"
 
 class KPopupMenu;
@@ -52,7 +53,7 @@ public:
     ~DockWidget();
     
     void setDownloading( bool );
-
+    
 private slots:
     void mousePressEvent( QMouseEvent * e );
     void slotTimeout();

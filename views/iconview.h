@@ -11,6 +11,7 @@
 #define _ICONVIEW_H
 
 #include "viewinterface.h"
+#include "transfer.h"
 
 #include <qiconview.h>
 #include <kmdichildview.h>
@@ -36,6 +37,7 @@ class IconViewTransfer : public QIconViewItem
     private:
 	QPixmap mimePix;
 	Transfer * transfer;
+    Transfer::Info transferInfo;
 };
 
 class IconView : public QIconView, public ViewInterface
@@ -45,9 +47,9 @@ class IconView : public QIconView, public ViewInterface
 	IconView( QWidget * parent = 0, const char * name = 0 );
 	
 	virtual void schedulerCleared();
-	virtual void schedulerAddedItems( TransferList & );
-	virtual void schedulerRemovedItems( TransferList & );
-	virtual void schedulerChangedItems( TransferList & );
+	virtual void schedulerAddedItems( TransferList );
+	virtual void schedulerRemovedItems( TransferList );
+	virtual void schedulerChangedItems( TransferList );
 	virtual void schedulerStatus( GlobalStatus * );
 
     public slots:

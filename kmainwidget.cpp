@@ -54,6 +54,7 @@
 #include "browserbar.h"
 #include "views/iconview.h"
 #include "views/testview.h"
+#include "views/mainview.h"
 #include "views/logwindow.h"
 #include "views/droptarget.h"
 #include "panels/panel_global.h"
@@ -245,11 +246,12 @@ void KMainWidget::setupGUI()
     
     // create menu entries and toolbar buttons from the XML file
     createGUI();
-
+ 
     /** widgets inserted in the 'body' part */
 
     // create the 'right view'
-    TestView * t = new TestView( (QWidget *)browserBar->container() );
+    MainView * t = new MainView( (QWidget *)browserBar->container() );
+    //TestView * t = new TestView( (QWidget *)browserBar->container() );
     t->connectToScheduler(scheduler);
     rightWidget = t;
 
@@ -335,7 +337,8 @@ void KMainWidget::setViewMode( enum ViewMode mode, bool force )
             } break;
         case vm_transfers: {
             delete rightWidget;
-            TestView * t = new TestView( (QWidget *)browserBar->container() );
+            MainView * t = new MainView( (QWidget *)browserBar->container() );
+            //TestView * t = new TestView( (QWidget *)browserBar->container() );
             t->connectToScheduler(scheduler);
             rightWidget = t;
             rightWidget->show();

@@ -10,14 +10,13 @@
 #include <kmdichildview.h>
 
 #include "viewinterface.h"
+#include "transfer.h"
 
 /**
  * This class are only to test the scheduler functions
  *
  */
  
-class Transfer;
-
   
 class TestViewItem : public KListViewItem
 {
@@ -38,6 +37,7 @@ public:
 
 private:        
     Transfer * transfer;
+    Transfer::Info transferInfo;
 };
  
 
@@ -53,9 +53,9 @@ public:
 
     // public methods inherited from the ViewInterface
     void schedulerCleared();
-    void schedulerAddedItems( TransferList &);
-    void schedulerRemovedItems( TransferList &);
-    void schedulerChangedItems( TransferList &);
+    void schedulerAddedItems( TransferList );
+    void schedulerRemovedItems( TransferList );
+    void schedulerChangedItems( TransferList );
     void schedulerStatus( GlobalStatus * );
 
 public slots:

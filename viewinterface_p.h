@@ -27,18 +27,18 @@ class ViewInterfaceConnector : public QObject
 
     signals:
 	void newURLs( const KURL::List &, const QString &destDir );
-	void removeItems( TransferList & );
-	void setPriority( TransferList &, int );
-	void setOperation( TransferList &, TransferCommand );
-	void setGroup( TransferList &, const QString & );
+	void removeItems( TransferList );
+	void setPriority( TransferList, int );
+	void setOperation( TransferList, TransferCommand );
+	void setGroup( TransferList, const QString & );
 	void reqOperation( SchedulerOperation );
     void reqOperation( SchedulerDebugOp );
 
     public slots:
 	void slotCleared();
-	void slotAddedItems( TransferList & );
-	void slotRemovedItems( TransferList & );
-	void slotChangedItems( TransferList & );
+	void slotAddedItems( TransferList );
+	void slotRemovedItems( TransferList );
+	void slotChangedItems( TransferList );
 	void slotStatus( GlobalStatus * );
 
     private:

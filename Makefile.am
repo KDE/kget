@@ -3,9 +3,10 @@ INCLUDES = $(all_includes) -Iconf
 
 bin_PROGRAMS = kget
 
-kget_LDFLAGS = $(all_libraries) $(KDE_RPATH) -Lconf -Lviews -Lpanels
-kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lkmdi -lconf -lviews -lpanels
-kget_SOURCES = transferlist.cpp transfer.cpp slave.cpp kfileio.cpp \
+kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIBSOCKET) -lkmdi conf/libconf.la views/libviews.la panels/libpanels.la
+kget_SOURCES = transfer.cpp transferlist.cpp transferKio.cpp \
+               kfileio.cpp \
                scheduler.cpp connection.cpp safedelete.cpp \
                viewinterface.cpp docking.cpp splash.cpp \
                browserbar.cpp kmainwidget.cpp kmainwidget_actions.cpp \

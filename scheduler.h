@@ -42,9 +42,9 @@ public:
 
     
 signals:
-    void addedItems(TransferList &);
-    void removedItems(TransferList &);
-    void changedItems(TransferList &);
+    void addedItems(TransferList);
+    void removedItems(TransferList);
+    void changedItems(TransferList);
     void clear();
     void globalStatus(GlobalStatus *);
 
@@ -70,16 +70,13 @@ public slots:
     void slotNewURLs(const KURL::List & src, const QString& destDir);
     
    
-    void slotRemoveItems(TransferList &);
-    void slotRemoveItems(Transfer *);
+    void slotRemoveItems(TransferList);
 
-    void slotSetPriority(TransferList &, int);
-    void slotSetPriority(Transfer *, int);
+    void slotSetPriority(TransferList, int);
 
-    void slotSetCommand(TransferList &, TransferCommand);
+    void slotSetCommand(TransferList, TransferCommand);
 
-    void slotSetGroup(TransferList &, const QString &);
-    void slotSetGroup(Transfer *, const QString &);
+    void slotSetGroup(TransferList, const QString &);
 
     void slotReqOperation(SchedulerOperation);
     void slotReqOperation(SchedulerDebugOp);
@@ -88,7 +85,13 @@ public slots:
      * This slot is called from the Transfer object when its status
      * has changed
      */
-    void slotTransferMessage(Transfer *, TransferMessage);
+    void slotTransferStatusChanged(Transfer *, Transfer::TransferStatus);
+    
+    /**
+     * This slot is called from the Transfer object when its progress
+     * has changed
+     */
+    void slotTransferProgressChanged(Transfer *, Transfer::ProgressChange);
     
     /**
      * KGET TRANSFERS FILE related
@@ -128,8 +131,6 @@ public slots:
       
     
 private:
-    
-  
     
     /**
      * See the above function for details
@@ -171,7 +172,7 @@ private:
      * to be sure the given commands can be executed now (calling 
      * queueEvaluateTransfers)
      */
-    bool setTransferCommand(TransferList &, TransferCommand);
+    bool setTransferCommand(TransferList, TransferCommand);
     bool setTransferCommand(Transfer *, TransferCommand);
     
     /**
@@ -183,7 +184,7 @@ private:
      * than the currently downloading ones, they will replace
      * them
      */
-    void queueEvaluateItems(TransferList &, bool force=false);
+    void queueEvaluateItems(TransferList, bool force=false);
     
     /**
      * This function checks if the given list contains transfers
@@ -191,7 +192,7 @@ private:
      * them from the runningTransfers list.
      * It is called whenever we remove a list of transfer.
      */
-    void queueRemovedItems(TransferList &);
+    void queueRemovedItems(TransferList);
         
     /**
      * Checks the number of running transfers. It starts the

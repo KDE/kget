@@ -34,6 +34,7 @@
 #include <assert.h>
 
 #include "transfer.h"
+#include "transferKio.h"
 #include "transferlist.h"
 #include "scheduler.h"
 
@@ -52,7 +53,7 @@ TransferList::~TransferList()
 
 void TransferList::addTransfer(Transfer * transfer, bool toBegin)
 {
-    sDebugIn << endl;
+//    sDebugIn << endl;
 
     jobid++;
     
@@ -66,7 +67,7 @@ void TransferList::addTransfer(Transfer * transfer, bool toBegin)
     
     insert(it, transfer);
     
-    sDebugOut << endl;
+//    sDebugOut << endl;
 }
 
 void TransferList::addTransfers(TransferList & transfers, bool toBegin)
@@ -209,7 +210,7 @@ Transfer * TransferList::find(const KURL& _src)
     
     for(; it != endList; ++it)
         {
-        if((*it)->getSrc() == _src)
+        if((*it)->getInfo().src == _src)
             return *it;
     }
     return 0;
@@ -245,9 +246,9 @@ void TransferList::readTransfers(const KURL& file, Scheduler * scheduler)
             dest = KURL::fromPathOrURL( config.readPathEntry("Dest") );
             kdDebug(DKGET) << "CCC" << endl;
            
-            Transfer * t = new Transfer(scheduler, src, dest, i);
+            TransferKio * t = new TransferKio(scheduler, src, dest);
 
-            if (!t->read(&config, i))
+            if (!t->read(/*&config, i*/))
                 delete item;
             
             addTransfer(t);
@@ -278,7 +279,7 @@ void TransferList::writeTransfers(const QString& file)
     iterator endList = end();
 
     for (int id = 0; it != endList; ++it, ++id)
-        (*it)->write(&config, id);
+        (*it)->write(/*&config, id*/);
     config.sync();
 
     sDebug << "<<<<Leaving" << endl;

@@ -34,13 +34,15 @@ IconViewTransfer::IconViewTransfer( QIconView * parent, Transfer * t )
     setRenameEnabled( false );
     setDragEnabled( false );
     setDropEnabled( false );
-
+    
     if ( transfer )
     {
-	KMimeType::Ptr mime = KMimeType::findByURL( transfer->getDest() , 0, true, false );
+    transferInfo = transfer->getInfo();
+    
+	KMimeType::Ptr mime = KMimeType::findByURL( transferInfo.dest , 0, true, false );
 	mimePix = mime->pixmap( KIcon::Desktop, 48 );
 	setPixmap( mimePix );
-	setText( transfer->getDest().path() );
+	setText( transferInfo.dest.path() );
     } else
 	setText( "transfer = NULL" );
 }
@@ -67,19 +69,22 @@ void IconViewTransfer::paintItem( QPainter * p, const QColorGroup & cg )
     if ( w < 20 || h < 10 || !transfer )
 	return;
 
+    //Re-read the transfer informations
+    transferInfo = transfer->getInfo();
+    
     QRect r = pixmapRect();
     r.moveBy( x(), y() );
     p->setPen( Qt::black );
     p->setBrush( Qt::white );
     p->drawRect( r.left() + 5, r.top() + h - 8, w - 10, 7 );
-    int percent = transfer->getPercent();
+    int percent = transferInfo.percent;
     if ( percent > 100 )
 	percent = 100;
     if ( percent < 0 )
 	percent = 0;
     w = ((w - 12) * percent) / 100;
     p->setPen( Qt::white );
-    p->setBrush( transfer->getStatus() == ST_RUNNING ? Qt::green : Qt::red );
+    p->setBrush( transferInfo.status == Transfer::St_Running ? Qt::green : Qt::red );
     p->drawRect( r.left() + 6, r.top() + h - 7, w, 5 );
     p->restore();
 }
@@ -237,7 +242,7 @@ void IconView::schedulerCleared()
     clear();
 }
 
-void IconView::schedulerAddedItems( TransferList &tl )
+void IconView::schedulerAddedItems( TransferList tl )
 {
     TransferList::iterator it = tl.begin();
     TransferList::iterator endList = tl.end();
@@ -245,7 +250,7 @@ void IconView::schedulerAddedItems( TransferList &tl )
 	new IconViewTransfer( this, (*it) );
 }
 
-void IconView::schedulerRemovedItems( TransferList &tl )
+void IconView::schedulerRemovedItems( TransferList tl )
 {
     if ( !count() )
 	return;
@@ -265,7 +270,7 @@ void IconView::schedulerRemovedItems( TransferList &tl )
     }
 }
 
-void IconView::schedulerChangedItems( TransferList &tl )
+void IconView::schedulerChangedItems( TransferList tl )
 {
     if ( !count() )
 	return;

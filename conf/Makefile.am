@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libconf.a
+noinst_LTLIBRARIES = libconf.la
 
-libconf_a_SOURCES = dlgappearance.ui dlgadvanced.ui dlgnetwork.ui \
+libconf_la_SOURCES = dlgappearance.ui dlgadvanced.ui dlgnetwork.ui \
                     dlgdirectories.ui preferencesdialog.cpp \
                     settings.kcfgc
 

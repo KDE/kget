@@ -31,7 +31,6 @@
 
 #include <kurl.h>
 
-class Transfer;
 class Scheduler;
 
 
@@ -113,7 +112,6 @@ protected:
 
     uint phasesNum;
     uint jobid;
-
 };
 
 

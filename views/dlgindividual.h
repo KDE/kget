@@ -99,6 +99,8 @@ protected:
 
     Transfer *item;
 
+    Transfer::Info transferInfo;    
+    
     KURL m_location;
 
     bool bKeepDlgOpen;

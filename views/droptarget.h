@@ -29,6 +29,7 @@
 
 #include <qwidget.h>
 #include <qdragobject.h>
+
 #include "viewinterface.h"
 
 class KPopupMenu;
@@ -47,7 +48,7 @@ public:
     void playAnimation();
     void playAnimationHide();
     void playAnimationSync();
-
+   
 protected:
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);

@@ -41,14 +41,14 @@ class Transfer;
 // Enumerates the commands that can be executed on a transfer (must be global)
 enum TransferCommand { CmdResume, CmdRestart, CmdPause };
 
-enum TransferMessage {
-    MSG_FINISHED, MSG_RESUMED, MSG_PAUSED, MSG_REMOVED, MSG_ABORTED,
-    MSG_QUEUED, MSG_SCHEDULED, MSG_DELAYED, MSG_CONNECTED, 
-    MSG_CAN_RESUME, MSG_TOTSIZE, MSG_UPD_PROGRESS, MSG_UPD_SPEED,
-    MSG_DELAY_FINISHED
-};
+// enum TransferMessage {
+//     MSG_FINISHED, MSG_RESUMED, MSG_STOPPED, MSG_REMOVED, MSG_ABORTED,
+//     MSG_QUEUED, MSG_SCHEDULED, MSG_DELAYED, MSG_CONNECTED, 
+//     MSG_CAN_RESUME, MSG_TOTSIZE, MSG_UPD_PROGRESS, MSG_UPD_SPEED,
+//     MSG_DELAY_FINISHED
+// };
 
-enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
+// enum TransferStatus { ST_TRYING, ST_RUNNING, ST_STOPPED, ST_FINISHED };
 
 enum SchedulerOperation { OpPasteTransfer, OpImportTextFile,
     OpImportTransfers, OpExportTransfers, OpRun, OpStop };

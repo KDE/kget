@@ -1,0 +1,18 @@
+2004-10-04 Dario Massarin <nekkar@libero.it>
+        
+        * transfer.{h,cpp}: The transfer class has been completely rewritten. Now
+        it is possible to implement a new Transfer simply inheriting the Transfer
+        class and implementing the virtual methods.
+        There is also a new api that allows each view to ask the transfer which
+        particular field in the Info struct has changed since the last update. This
+        results in a big optimization becouse we can now avoid unnecessary repaints.
+        
+        * transferKio.{h,cpp}: This is the first implemented transfer. It's the 
+        simplest transfer one can implement since it uses a KIOSlave.
+        
+        * views/mainview.{h,cpp}: New view that should be the main one. It
+        reimplements the KListView class. The "special features" list contains
+        the introduction of some cool icons and a new progress bar.
+        
+        
+        

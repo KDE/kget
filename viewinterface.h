@@ -14,6 +14,8 @@
 #include <qobject.h>
 #include "globals.h"
 
+#include "transferlist.h"
+
 /**
   * This class defines an unified interface to talk to the scheduler.
   * It defines some pure virtual functions, that must be implemented to
@@ -37,15 +39,18 @@ class ViewInterface
 	/** Call this method to wire up the view interface to a Scheduler */
 	void connectToScheduler( Scheduler * );
 
+    /** Call this method to get the View id number */
+    int getId();
+    
 	/** commands (-> scheduler)
 	 * Those functions must be called to dispatch information to the
 	 * connected scheduler.
 	 */
 	void schedNewURLs( const KURL::List &, const QString &destDir );
-	void schedRemoveItems( TransferList & );
-	void schedSetPriority( TransferList &, int );
-	void schedSetCommand( TransferList &, TransferCommand );
-	void schedSetGroup( TransferList &, const QString & );
+	void schedRemoveItems( TransferList );
+	void schedSetPriority( TransferList, int );
+	void schedSetCommand( TransferList, TransferCommand );
+	void schedSetGroup( TransferList , const QString & );
 	void schedRequestOperation( SchedulerOperation );
 	void schedDebugOperation( SchedulerDebugOp );
 
@@ -54,13 +59,14 @@ class ViewInterface
 	 * (files added/removed, status changed, etc..) from the scheduler.
 	 */
 	virtual void schedulerCleared() {};
-	virtual void schedulerAddedItems( TransferList &) {};
-	virtual void schedulerRemovedItems( TransferList &) {};
-	virtual void schedulerChangedItems( TransferList &) {};
+	virtual void schedulerAddedItems( TransferList ) {};
+	virtual void schedulerRemovedItems( TransferList ) {};
+	virtual void schedulerChangedItems( TransferList ) {};
 	virtual void schedulerStatus( GlobalStatus * ) {};
 
     private:
 	class ViewInterfaceConnector * d;
+    int id;
 	const char * name;
 };
 

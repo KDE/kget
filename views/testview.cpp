@@ -33,11 +33,14 @@ bool TestViewItem::update(Transfer * t)
 {
     if ( t==0 || t==transfer )
         {
-        setText(0, QString().setNum(transfer->getPriority()));
-        setText(1, QString().setNum(transfer->getStatus()));
-        setText(2, QString().setNum(transfer->getPercent()));
-        setText(3, transfer->getSrc().url());
-        setText(4, transfer->getDest().url());
+        //Re-read the transfer informations
+        transferInfo = transfer->getInfo();
+
+        setText(0, QString().setNum(transferInfo.priority));
+        setText(1, QString().setNum(transferInfo.status));
+        setText(2, QString().setNum(transferInfo.percent));
+        setText(3, transferInfo.src.url());
+        setText(4, transferInfo.dest.url());
         return true;
     }
     return false;
@@ -226,7 +229,7 @@ void TestView::schedulerCleared()
 
 }
 
-void TestView::schedulerAddedItems( TransferList & list)
+void TestView::schedulerAddedItems( TransferList list)
 {
     sDebugIn << endl;
     
@@ -242,7 +245,7 @@ void TestView::schedulerAddedItems( TransferList & list)
     sDebugOut << endl;
 }
 
-void TestView::schedulerRemovedItems( TransferList & list)
+void TestView::schedulerRemovedItems( TransferList list)
 {
     sDebugIn << endl;
     
@@ -270,7 +273,7 @@ void TestView::schedulerRemovedItems( TransferList & list)
     sDebugOut << endl;
 }
 
-void TestView::schedulerChangedItems( TransferList & list)
+void TestView::schedulerChangedItems( TransferList list)
 {
     sDebugIn << endl;
     

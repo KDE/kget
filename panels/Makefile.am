@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libpanels.a
+noinst_LTLIBRARIES = libpanels.la
 
-libpanels_a_SOURCES = panel_global.cpp
+libpanels_la_SOURCES = panel_global.cpp
 
 INCLUDES = -I$(srcdir)/.. -I$(srcdir)/../conf $(all_includes)
 
