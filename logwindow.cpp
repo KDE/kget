@@ -104,6 +104,9 @@ SeparatedLog::SeparatedLog(QWidget * parent):QWidget(parent)
         ml_log->setReadOnly(true);
         ml_log->setTextFormat(RichText);
         ml_log->setMinimumSize(300, 200);
+        ml_log->setVScrollBarMode(QScrollView::Auto);
+        ml_log->setWordWrap(QTextEdit::NoWrap);
+
         topGridLayout->addWidget(ml_log, 0, 1);
 }
 
