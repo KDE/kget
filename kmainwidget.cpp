@@ -1167,9 +1167,9 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
         // ask in any case, when destDir is empty
-        if ( destDir.isEmpty() || !QFileInfo( dest.directory() ).isDir() )
+        if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
         {
-            QString dir = KFileDialog::getExistingDirectory( dest.directory() );
+            QString dir = KFileDialog::getExistingDirectory( dest.path() );
             if ( dir.isEmpty() ) // aborted
                 return;
 
@@ -1366,7 +1366,7 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
     switch (_operation) {
 
     case Transfer::OP_FINISHED:
-        if (ksettings.b_removeOnSuccess)
+        if (ksettings.b_removeOnSuccess && !item->keepDialogOpen() )
         {
             delete item;
             item = 0L;
@@ -2114,7 +2114,7 @@ void KMainWidget::checkOnline()
     memset(&ifr, 0, sizeof(ifreq));
 
     // setup the device name according to the type of connection and link number
-    sprintf(ifr.ifr_name, "%s%d", ConnectionDevices[ksettings.connectionType].ascii(), ksettings.linkNumber);
+    snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s%d", ConnectionDevices[ksettings.connectionType].ascii(), ksettings.linkNumber);
 
     bool flag = false;
 

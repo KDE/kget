@@ -45,6 +45,7 @@
 #include <kapplication.h>
 #include <kio/passdlg.h>
 #include <kio/global.h>
+#include <kio/netaccess.h>
 
 
 extern Settings ksettings;
@@ -85,12 +86,7 @@ Transfer::~Transfer()
 {
     sDebugIn << endl;
 
-    // ###
-    // should we terminate() the slave and delete them all?
-    // which slaves keep running even tho the transfer has finished?
-    // needs some more investigation
-    if ( !m_pSlave->running() )
-        delete m_pSlave;
+    tryKillSlave();
     
     delete dlgIndividual;
     sDebugOut << endl;
@@ -161,6 +157,18 @@ Transfer::init()
 }
 
 
+void Transfer::tryKillSlave()
+{
+    // ###
+    // should we terminate() the slave and delete them all?
+    // which slaves keep running even tho the transfer has finished?
+    // needs some more investigation
+    if ( m_pSlave && !m_pSlave->running() )
+    {
+        delete m_pSlave;
+        m_pSlave = 0L;
+    }
+}
 
 void Transfer::copy(Transfer * _orig)
 {
@@ -183,8 +191,12 @@ void Transfer::copy(Transfer * _orig)
     startTime = _orig->startTime;
     status = _orig->status;
     totalSize = _orig->totalSize;
+    
     updateAll();
 
+    if ( _orig->isVisible() )
+        showIndividual();
+        
     sDebugOut << endl;
 }
 
@@ -422,9 +434,19 @@ void Transfer::slotRequestRemove()
     m_paPause->setEnabled(false);
     dlgIndividual->close();
 
-    if (status == ST_RUNNING) {
+    if ( status != ST_FINISHED )
+    {
+        // delete the partly downloaded file, if any
+        KURL file = dest;
+        file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
+        if ( KIO::NetAccess::exists( file ) ) // don't pollute user with warnings
+        {
+            KIO::NetAccess::del( file ); // ### messagebox on failure?
+        }
+    }
+    if (status == ST_RUNNING) 
         m_pSlave->Op(Slave::REMOVE);
-    } else
+    else
         emit statusChanged(this, OP_REMOVED);
 
     sDebugOut << endl;
@@ -874,6 +896,16 @@ bool Transfer::isVisible()
     return dlgIndividual->isVisible();
 }
 
+bool Transfer::keepDialogOpen() const
+{
+    return dlgIndividual ? dlgIndividual->keepDialogOpen() : false;
+}
+
+void Transfer::maybeShow()
+{
+    if ( ksettings.b_showIndividual && getStatus() != Transfer::ST_FINISHED )
+        dlgIndividual->show();
+}
 
 #include "transfer.moc"
 
