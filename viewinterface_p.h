@@ -31,6 +31,9 @@ class ViewInterfaceConnector : public QObject
 	void setPriority( TransferList, int );
 	void setOperation( TransferList, TransferCommand );
 	void setGroup( TransferList, const QString & );
+    void addGroup( GroupList l );
+    void delGroup( GroupList l );
+    void modifyGroup( const QString & n, Group g );
 	void reqOperation( SchedulerOperation );
     void reqOperation( SchedulerDebugOp );
 
@@ -39,6 +42,9 @@ class ViewInterfaceConnector : public QObject
 	void slotAddedItems( TransferList );
 	void slotRemovedItems( TransferList );
 	void slotChangedItems( TransferList );
+	void slotAddedGroups( GroupList );
+	void slotRemovedGroups( GroupList );
+	void slotChangedGroups( GroupList );
 	void slotStatus( GlobalStatus * );
 
     private:

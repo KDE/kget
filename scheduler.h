@@ -9,6 +9,7 @@
 
 #include "globals.h"
 
+#include "group.h"
 #include "transfer.h"
 #include "transferlist.h"
 
@@ -45,13 +46,19 @@ signals:
     void addedItems(TransferList);
     void removedItems(TransferList);
     void changedItems(TransferList);
+    void addedGroups(GroupList);
+    void removedGroups(GroupList);
+    void changedGroups(GroupList);
+    
     void clear();
     void globalStatus(GlobalStatus *);
 
 public:
     bool isRunning()const {return running;}
-    TransferList & getTransfers() const {return *transfers;}
-
+    
+    const TransferList & getTransfers() const {return *transfers;}
+    const GroupList & getGroups() {return *groups;}
+    
 public slots:
     void run();
     void stop();
@@ -76,8 +83,12 @@ public slots:
 
     void slotSetCommand(TransferList, TransferCommand);
 
-    void slotSetGroup(TransferList, const QString &);
+    void slotSetGroup(TransferList, const QString&);
+    void slotAddGroup(GroupList);
+    void slotDelGroup(GroupList);
+    void slotModifyGroup(const QString&, Group);
 
+    
     void slotReqOperation(SchedulerOperation);
     void slotReqOperation(SchedulerDebugOp);
 
@@ -91,7 +102,7 @@ public slots:
      * This slot is called from the Transfer object when its progress
      * has changed
      */
-    void slotTransferProgressChanged(Transfer *, Transfer::ProgressChange);
+    void slotTransferChanged(Transfer *, Transfer::TransferChanges);
     
     /**
      * KGET TRANSFERS FILE related
@@ -211,9 +222,9 @@ private:
     TransferList * transfers;
     TransferList * removedTransfers;
     TransferList * runningTransfers;
+    GroupList * groups;
     KMainWidget * mainWidget;
     QValueList<Connection*> connections;
-    
     bool running;
 };
 

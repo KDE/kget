@@ -57,7 +57,7 @@
 #include "views/mainview.h"
 #include "views/logwindow.h"
 #include "views/droptarget.h"
-#include "panels/panel_global.h"
+#include "panels/groupspanel.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
@@ -255,29 +255,30 @@ void KMainWidget::setupGUI()
     t->connectToScheduler(scheduler);
     rightWidget = t;
 
-    // side panel :: Global statistics
-    GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
-    browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
-
-    // side panel :: Transfer details
-    IconViewMdiView * i = new IconViewMdiView();
-    i->connectToScheduler(scheduler);
-    browserBar->addBrowser( i, i18n( "Transfer" ), "browser" );
-
     // side panel :: Groups
-    groupsPanel = new QWidget(0,"groups panel");
+    groupsPanel = new GroupsPanel(0,"groups panel");
+    groupsPanel->connectToScheduler(scheduler);
     browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
-
-    // side panel :: Help
-    helpPanel = new QLabel( "", this, "help panel" );
-    helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>\
-                This widget should display context sensitive help\
-                (maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>\
-                Dario && Enrico");
-    helpPanel->setFrameShape( QFrame::StyledPanel );
-    helpPanel->setFrameShadow( QFrame::Sunken );
-    helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
-    browserBar->addBrowser( helpPanel, i18n( "Help" ), "help" );
+    
+//     // side panel :: Global statistics
+//     GlobalPanel * gPanel = new GlobalPanel( 0, "trasfer panel" );
+//     browserBar->addBrowser( gPanel, i18n( "Statistics" ), "gear" );
+// 
+//     // side panel :: Transfer details
+//     IconViewMdiView * i = new IconViewMdiView();
+//     i->connectToScheduler(scheduler);
+//     browserBar->addBrowser( i, i18n( "Transfer" ), "browser" );
+//     
+//     // side panel :: Help
+//     helpPanel = new QLabel( "", this, "help panel" );
+//     helpPanel->setText("<font color=\"#ff0000\" size=\"18\">Help</font><br>\
+//                 This widget should display context sensitive help\
+//                 (maybe with <u>html navigation</u>?) ... Enjoy kget2!!<br>\
+//                 Dario && Enrico");
+//     helpPanel->setFrameShape( QFrame::StyledPanel );
+//     helpPanel->setFrameShadow( QFrame::Sunken );
+//     helpPanel->setAlignment( QLabel::WordBreak | QLabel::AlignTop );
+//     browserBar->addBrowser( helpPanel, i18n( "Help" ), "help" );
 
     /** set layouting of the main widget */
 

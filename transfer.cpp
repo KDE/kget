@@ -14,26 +14,27 @@ Transfer::Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest
     info.totalSize=0;
     info.processedSize=0;
     info.percent=0;
-    info.speed=0;            
-    
+    info.speed=0;
+    info.group="None";
+        
     connect(this, 
             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
             sched,
             SLOT(slotTransferStatusChanged(Transfer *, Transfer::TransferStatus)));
 
     connect(this, 
-            SIGNAL(progressChanged(Transfer *, Transfer::ProgressChange)),
+            SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
             sched,
-            SLOT(slotTransferProgressChanged(Transfer *, Transfer::ProgressChange)));
+            SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)));
 }
 
-Transfer::Transfer(Scheduler * _scheduler, QDomDocument * doc, QDomNode * e)
+Transfer::Transfer(Scheduler * _scheduler, QDomNode * n)
         : sched(_scheduler)
 
 {
     info.speed=0;
     
-    read(doc, e);
+    read(n);
     
     connect(this, 
             SIGNAL(statusChanged(Transfer *, Transfer::TransferStatus)),
@@ -41,9 +42,9 @@ Transfer::Transfer(Scheduler * _scheduler, QDomDocument * doc, QDomNode * e)
             SLOT(slotTransferStatusChanged(Transfer *, Transfer::TransferStatus)));
 
     connect(this, 
-            SIGNAL(progressChanged(Transfer *, Transfer::ProgressChange)),
+            SIGNAL(transferChanged(Transfer *, Transfer::TransferChanges)),
             sched,
-            SLOT(slotTransferProgressChanged(Transfer *, Transfer::ProgressChange)));
+            SLOT(slotTransferChanged(Transfer *, Transfer::TransferChanges)));
 
 }
              
@@ -52,50 +53,50 @@ const Transfer::Info& Transfer::getInfo() const
     return info;
 }
     
-Transfer::TransferProgress Transfer::getProgressFlags(ViewInterface * view)
+Transfer::TransferChanges Transfer::getChangesFlags(ViewInterface * view)
 {
     int id = view->getId();
-    int s = progressChanges.size();
+    int s = transferChanges.size();
         
     if( s < id )
-        //In this case the local progressChanges vector does not contain 
+        //In this case the local transferChanges vector does not contain 
         //any information related to the given view. So we add a vector 
         //for the view. Since we know that to each views is assigned 
         //an increasing id number starting from 0, we create
-        //a progressChanges entry for each view with an id number lower
+        //a transferChanges entry for each view with an id number lower
         //than the given one.
-        //progressChanges.resize(id+1, 10);
-        progressChanges.resize(id+1, 0xFFFFFFFF);
+        //transferChanges.resize(id+1, 10);
+        transferChanges.resize(id+1, 0xFFFFFFFF);
 
-    return progressChanges[id];
+    return transferChanges[id];
 }
 
-void Transfer::resetProgressFlags(ViewInterface * view)
+void Transfer::resetChangesFlags(ViewInterface * view)
 {
     int id = view->getId();
-    int s = progressChanges.size();
+    int s = transferChanges.size();
 
     QValueVector<int> p;
     p.resize(10, 1);
         
     if( id < s )
-        //In this case the local progressChanges vector does not contain 
+        //In this case the local transferChanges vector does not contain 
         //any information related to the given view. So we add a vector 
         //for the view. Since we know that to each views is assigned 
         //an increasing id number starting from 0, we create
-        //a progressChanges entry for each view with an id number lower
+        //a transferChanges entry for each view with an id number lower
         //than the given one.
-        //progressChanges.resize(id+1, 10);
-        progressChanges.resize(id+1, 0xFFFFFFFF);
+        //transferChanges.resize(id+1, 10);
+        transferChanges.resize(id+1, 0xFFFFFFFF);
     
-    progressChanges[id] = 0;
+    transferChanges[id] = 0;
 }
 
 
 void Transfer::setPriority(int p)
 {
     info.priority = p;
-    setProgressChange(Pc_Priority);
+    setTransferChange(Tc_Priority);
 }
 
 void Transfer::setGroup(const QString& group)
@@ -108,14 +109,14 @@ void Transfer::about() const
     kdDebug() << "TRANSFER: (" << this << ") " << info.src.fileName() << endl;
 }
 
-void Transfer::setProgressChange(ProgressChange p)
+void Transfer::setTransferChange(TransferChange p)
 {
-    int vectorSize = progressChanges.size();
+    int vectorSize = transferChanges.size();
     for(int i=0; i<vectorSize; i++)
-        progressChanges[i] |= p;
+        transferChanges[i] |= p;
 }
 
-bool Transfer::read(QDomDocument * doc, QDomNode * n)
+bool Transfer::read(QDomNode * n)
 {
     sDebugIn << endl;
 
@@ -134,11 +135,11 @@ bool Transfer::read(QDomDocument * doc, QDomNode * n)
 }
 
 
-void Transfer::write(QDomDocument * doc, QDomNode * n)
+void Transfer::write(QDomNode * n)
 {
     sDebugIn << endl;
     
-    QDomElement t = doc->createElement("Transfer");
+    QDomElement t = n->ownerDocument().createElement("Transfer");
     n->appendChild(t);
     
     t.setAttribute("Group", info.group);

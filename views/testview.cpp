@@ -214,7 +214,7 @@ void TestView::remove()
         }
         ++it;
     }
-    schedRemoveItems(list);
+    schedDelItems(list);
 
     sDebugOut << endl;
 }

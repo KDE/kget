@@ -1,3 +1,12 @@
+2004-10-10 Dario Massarin <nekkar@libero.it>
+
+        * group.{h,cpp}: This file introduces the Group and GroupList classes.
+        
+        * panels/groupspanel.{h,cpp}: This is the new "group panel". It's far
+        from complete, but at least we can add/remove groups, this gets notified
+        to all the views and saved to the "transfers.kgt" together with the
+        transfers
+
 2004-10-04 Dario Massarin <nekkar@libero.it>
         
         * transfer.{h,cpp}: The transfer class has been completely rewritten. Now

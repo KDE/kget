@@ -15,6 +15,8 @@
 #include "globals.h"
 
 #include "transferlist.h"
+#include "group.h"
+
 
 /**
   * This class defines an unified interface to talk to the scheduler.
@@ -47,11 +49,26 @@ class ViewInterface
 	 * connected scheduler.
 	 */
 	void schedNewURLs( const KURL::List &, const QString &destDir );
-	void schedRemoveItems( TransferList );
+	void schedDelItems( TransferList );
 	void schedSetPriority( TransferList, int );
 	void schedSetCommand( TransferList, TransferCommand );
-	void schedSetGroup( TransferList , const QString & );
-	void schedRequestOperation( SchedulerOperation );
+	
+    void schedSetGroup( TransferList , const QString &);
+    /**
+     * schedAddGroup: here we must provide the new group
+     */
+    void schedAddGroup( GroupList );
+    /**
+     * schedDelGroup: here we must provide the group name
+     */
+    void schedDelGroup( GroupList );
+    /**
+     * schedModifyGroup: here we must provide the group name before the
+     * last changes and the new group itself 
+     */
+	void schedModifyGroup( const QString &, Group );
+    
+    void schedRequestOperation( SchedulerOperation );
 	void schedDebugOperation( SchedulerDebugOp );
 
 	/** pure virtual 'notifications' (<- scheduler)
@@ -62,6 +79,9 @@ class ViewInterface
 	virtual void schedulerAddedItems( TransferList ) {};
 	virtual void schedulerRemovedItems( TransferList ) {};
 	virtual void schedulerChangedItems( TransferList ) {};
+    virtual void schedulerAddedGroups( const GroupList& ) {};
+    virtual void schedulerRemovedGroups( const GroupList& ) {};
+    virtual void schedulerChangedGroups( const GroupList& ) {};
 	virtual void schedulerStatus( GlobalStatus * ) {};
 
     private:

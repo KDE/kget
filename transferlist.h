@@ -32,7 +32,7 @@
 #include <kurl.h>
 
 class Scheduler;
-
+class GroupList;
 
 
 class TransferList : public QValueList<Transfer *>
@@ -65,8 +65,8 @@ public:
     bool contains(Transfer * transfer) const;
     Transfer * find(const KURL& _src);
 
-    void readTransfers(const QString& filename, Scheduler * scheduler);
-    void writeTransfers(const QString& filename);
+    void readTransfers(const QString& filename, Scheduler * scheduler, GroupList * g);
+    void writeTransfers(const QString& filename, Scheduler * scheduler);
 
     /**
      * Debug function

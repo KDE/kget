@@ -26,11 +26,11 @@ void MainViewItem::updateContents(bool updateAll)
 {
     Transfer::Info info=transfer->getInfo();
     
-    transfer->getProgressFlags(view);
+    transfer->getChangesFlags(view);
     
-    Transfer::TransferProgress progressFlags = transfer->getProgressFlags(view);
+    Transfer::TransferChanges transferFlags = transfer->getChangesFlags(view);
 
-//     kdDebug() << "FLAGS before reset" << transfer->getProgressFlags(view) << endl;
+//     kdDebug() << "FLAGS before reset" << transfer->gettransferFlags(view) << endl;
         
     if(updateAll)
     {
@@ -38,7 +38,7 @@ void MainViewItem::updateContents(bool updateAll)
         setText(1, info.src.fileName());
     }
     
-    if(updateAll || (progressFlags & Transfer::Pc_Priority) )
+    if(updateAll || (transferFlags & Transfer::Tc_Priority) )
     {
 //         kdDebug() << "UPDATE:  priority" << endl;                
 //         setText(0, QString().setNum(info.priority));
@@ -71,7 +71,7 @@ void MainViewItem::updateContents(bool updateAll)
         }
     }
     
-    if(updateAll || (progressFlags & Transfer::Pc_Status) )
+    if(updateAll || (transferFlags & Transfer::Tc_Status) )
     {
 //         kdDebug() << "UPDATE:  status" << endl;
         switch(info.status)
@@ -103,7 +103,7 @@ void MainViewItem::updateContents(bool updateAll)
         }
     }
     
-    if(updateAll || (progressFlags & Transfer::Pc_TotalSize) )
+    if(updateAll || (transferFlags & Transfer::Tc_TotalSize) )
     {
 //         kdDebug() << "UPDATE:  totalSize" << endl;
         if (info.totalSize != 0)
@@ -112,13 +112,13 @@ void MainViewItem::updateContents(bool updateAll)
             setText(3, i18n("unknown"));
     }
                 
-    if(updateAll || (progressFlags & Transfer::Pc_Percent) )
+    if(updateAll || (transferFlags & Transfer::Tc_Percent) )
     {
 //         kdDebug() << "UPDATE:  percent" << endl;
         
     }
             
-    if(updateAll || (progressFlags & Transfer::Pc_Speed) )
+    if(updateAll || (transferFlags & Transfer::Tc_Speed) )
     {
 //         kdDebug() << "UPDATE:  speed" << endl;
         if(info.speed==0)
@@ -132,13 +132,13 @@ void MainViewItem::updateContents(bool updateAll)
             setText(5, i18n("%1/s").arg(KIO::convertSize(info.speed)) );
     }
         
-/*    if(updateAll || (progressFlags & Transfer::Pc_Log) )
+/*    if(updateAll || (transferFlags & Transfer::Tc_Log) )
     {
         
     }*/
             
-    transfer->resetProgressFlags(view);        
-//     kdDebug() << "FLAGS after reset" << transfer->getProgressFlags(view) << endl;
+    transfer->resetChangesFlags(view);        
+//     kdDebug() << "FLAGS after reset" << transfer->gettransferFlags(view) << endl;
 }
 
 void MainViewItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
@@ -196,7 +196,7 @@ void MainView::schedulerAddedItems( TransferList list )
         MainViewItem * newItem = new MainViewItem(this, *it);
         transfersMap[*it] = newItem;
 
-        newItem->updateContents(true);        
+        newItem->updateContents(true);
     }
 }
 
@@ -264,7 +264,7 @@ void MainView::slotStopItems()
 void MainView::slotRemoveItems()
 {
     TransferList tl = getSelectedList();
-    schedRemoveItems( tl );
+    schedDelItems( tl );
 }
 
 void MainView::slotSetPriority1()
@@ -306,7 +306,7 @@ void MainView::slotSetPriority6()
 void MainView::slotSetGroup()
 {
     TransferList tl = getSelectedList();
-    schedSetGroup( tl, "$TESTGROUP$" );
+    schedSetGroup( tl, "" );
 }
 
 void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos, int column )

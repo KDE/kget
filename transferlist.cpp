@@ -135,7 +135,7 @@ Transfer * TransferList::find(const KURL& _src)
     return 0;
 }
 
-void TransferList::readTransfers(const QString& filename, Scheduler * scheduler)
+void TransferList::readTransfers(const QString& filename, Scheduler * scheduler, GroupList * g)
 {
     sDebugIn << endl;
 
@@ -151,12 +151,16 @@ void TransferList::readTransfers(const QString& filename, Scheduler * scheduler)
         {
             kdDebug()<<"__2__"<<endl;
             QDomElement root = doc.documentElement();
-            QDomNodeList nodeList = root.elementsByTagName("Transfer");
             
-            for(int i=0; i<nodeList.length(); i++)
+            g->read(&doc);
+                
+            QDomNodeList nodeList = root.elementsByTagName("Transfer");
+            int nItems = nodeList.length();
+            
+            for(int i=0; i<nItems; i++)
             {
                 kdDebug()<<"__1__"<<endl;
-                TransferKio * t = new TransferKio(scheduler, &doc, &nodeList.item(i));
+                TransferKio * t = new TransferKio(scheduler, &nodeList.item(i));
                 addTransfer(t);
             }
         }    
@@ -173,20 +177,24 @@ void TransferList::readTransfers(const QString& filename, Scheduler * scheduler)
     sDebugOut << endl;
 }
 
-void TransferList::writeTransfers(const QString& filename)
+void TransferList::writeTransfers(const QString& filename, Scheduler * scheduler)
 {
     sDebug << ">>>>Entering with file =" << filename << endl;
 
     QDomDocument doc(QString("KGet")+QString(KGETVERSION));
-    QDomElement root = doc.createElement("Transfers");
+    QDomElement root = doc.createElement("TransferList");
     doc.appendChild(root);
 
     iterator it = begin();
     iterator endList = end();
-
-    for (int id = 0; it != endList; ++it, ++id)
-        (*it)->write(&doc, &root);
+    
+    scheduler->getGroups().write(&doc);
+    
+    for (int id = 0; it != endList; ++it)
+        (*it)->write(&root);
+    
         
+            
     QFile file(filename);
     if ( !file.open( IO_WriteOnly ) )
     {

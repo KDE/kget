@@ -2,6 +2,7 @@
 #include "viewinterface_p.h"
 #include "scheduler.h"
 #include "transferlist.h"
+#include "group.h"
 
 #include <kdebug.h>
 
@@ -9,7 +10,7 @@
 ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Scheduler * sched, const char * name )
     : QObject( 0, name ), iface( viewIface )
 {
-    // Incoming data: connect shceduler's signals to local slots
+    // Incoming data: connect scheduler's signals to local slots
     connect( sched, SIGNAL( clear() ),
 	     this, SLOT( slotCleared() ) );
     connect( sched, SIGNAL( addedItems(TransferList) ),
@@ -18,6 +19,12 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
 	     this, SLOT( slotRemovedItems(TransferList) ) );
     connect( sched, SIGNAL( changedItems(TransferList) ),
 	     this, SLOT( slotChangedItems(TransferList) ) );
+    connect( sched, SIGNAL( addedGroups(GroupList) ),
+	     this, SLOT( slotAddedGroups(GroupList) ) );
+    connect( sched, SIGNAL( removedGroups(GroupList) ),
+	     this, SLOT( slotRemovedGroups(GroupList) ) );
+    connect( sched, SIGNAL( changedGroups(GroupList) ),
+	     this, SLOT( slotChangedGroups(GroupList) ) );
     connect( sched, SIGNAL( globalStatus(GlobalStatus *) ),
 	     this, SLOT( slotStatus(GlobalStatus *) ) );
     // Outgoing data: connect local signals to scheduler's slots
@@ -31,6 +38,12 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
 	     sched, SLOT( slotSetCommand(TransferList, TransferCommand) ) );
     connect( this, SIGNAL( setGroup(TransferList, const QString &) ),
 	     sched, SLOT( slotSetGroup(TransferList, const QString &) ) );
+    connect( this, SIGNAL( addGroup(GroupList) ),
+	     sched, SLOT( slotAddGroup(GroupList) ) );
+    connect( this, SIGNAL( delGroup(GroupList) ),
+	     sched, SLOT( slotDelGroup(GroupList) ) );
+    connect( this, SIGNAL( modifyGroup(const QString&, Group) ),
+	     sched, SLOT( slotModifyGroup(const QString&, Group) ) );
     connect( this, SIGNAL( reqOperation(SchedulerOperation) ),
 	     sched, SLOT( slotReqOperation(SchedulerOperation) ) );
     connect( this, SIGNAL( reqOperation(SchedulerDebugOp) ),
@@ -38,6 +51,7 @@ ViewInterfaceConnector::ViewInterfaceConnector( ViewInterface * viewIface, Sched
     // Clears and fills up the view
     slotCleared();
     slotAddedItems( sched->getTransfers() );
+    slotAddedGroups( sched->getGroups() );
 }
 
 void ViewInterfaceConnector::slotCleared()
@@ -62,6 +76,24 @@ void ViewInterfaceConnector::slotChangedItems( TransferList tl )
 {
     //kdDebug() << "slotChangedItems()" << endl;
     iface->schedulerChangedItems( tl );
+}
+
+void ViewInterfaceConnector::slotAddedGroups( GroupList gl )
+{
+    //kdDebug() << "slotAddedItems()" << endl;
+    iface->schedulerAddedGroups( gl );
+}
+
+void ViewInterfaceConnector::slotRemovedGroups( GroupList gl )
+{
+    //kdDebug() << "slotRemovedItems()" << endl;
+    iface->schedulerRemovedGroups( gl );
+}
+
+void ViewInterfaceConnector::slotChangedGroups( GroupList gl )
+{
+    //kdDebug() << "slotChangedItems()" << endl;
+    iface->schedulerChangedGroups( gl );
 }
 
 void ViewInterfaceConnector::slotStatus( GlobalStatus *gs )
@@ -104,7 +136,7 @@ void ViewInterface::schedNewURLs( const KURL::List &l, const QString &dir )
 	d->newURLs( l, dir );
 }
 
-void ViewInterface::schedRemoveItems( TransferList l )
+void ViewInterface::schedDelItems( TransferList l )
 {
     if ( d )
 	d->removeItems( l );
@@ -119,12 +151,7 @@ void ViewInterface::schedSetPriority( TransferList l, int p )
 void ViewInterface::schedSetCommand( TransferList l, TransferCommand op )
 {
     if ( d )
-    {
-        kdDebug() << "aaaaaaaaaaaaaaaaaaaaa" << endl;
-	    d->setOperation( l, op );
-    }
-    else
-        kdDebug() << "bbbbbbbbbbbbbbbbbbbbb" << endl;
+    d->setOperation( l, op );
 }
 
 void ViewInterface::schedSetGroup( TransferList l, const QString & g )
@@ -132,6 +159,29 @@ void ViewInterface::schedSetGroup( TransferList l, const QString & g )
     if ( d )
 	d->setGroup( l, g );
 }
+
+void ViewInterface::schedAddGroup( GroupList l )
+{
+    kdDebug() << "viewinterface" << endl;
+    if ( d )
+    d->addGroup( l );
+}
+
+void ViewInterface::schedDelGroup( GroupList l )
+{
+    if ( d )
+    {
+	kdDebug() << "aaaaaaaaa" << endl;
+    d->delGroup( l );
+    }
+}
+
+void ViewInterface::schedModifyGroup( const QString & n, Group g )
+{
+    if ( d )
+	d->modifyGroup( n, g );
+}
+
 
 void ViewInterface::schedRequestOperation( SchedulerOperation op )
 {

@@ -13,6 +13,7 @@
 
 #include "transferKio.h"
 #include "scheduler.h"
+#include "group.h"
 #include "connection.h"
 #include "safedelete.h"
 #include "settings.h"
@@ -25,6 +26,7 @@ Scheduler::Scheduler(KMainWidget * _mainWidget)
     transfers = new TransferList();
     runningTransfers = new TransferList();
     removedTransfers = new TransferList();
+    groups = new GroupList();
     connections.append( new Connection(this) );
     
     slotImportTransfers();
@@ -36,6 +38,7 @@ Scheduler::~Scheduler()
     slotExportTransfers();
     sDebugOut << endl;
 }
+
 
 void Scheduler::run()
 {
@@ -55,7 +58,7 @@ void Scheduler::stop()
     //the deletion of the transfer from the runningTransfers list we can't
     //use the iterator in the usual way
     while( (it=runningTransfers->begin()) != runningTransfers->end())
-        {
+    {
         (*it)->slotStop();
         ++it;
     }
@@ -87,7 +90,7 @@ void Scheduler::slotNewURLs(const KURL::List & src, const QString& destDir)
     KURL dest;
     
     if ( urlsToDownload.count() == 1 )
-        {
+    {
         // just one file -> ask for filename
         slotNewURL(src.first(), destDir);
         return;
@@ -182,21 +185,21 @@ void Scheduler::slotNewURL(KURL src, const QString& destDir)
         bool ok = false;
     
         while (!ok) 
-            {
+        {
             //sDebug << "BBB" << endl;
             
             newtransfer = KInputDialog::getText(i18n("New Download"), i18n("Enter URL:"), newtransfer, &ok, mainWidget);
     
             // user presses cancel
             if (!ok) 
-                {
+            {
                 return;
             }
     
             src = KURL::fromPathOrURL(newtransfer);
     
             if (!src.isValid())
-                {
+            {
                 sDebug << "hhh" << endl;
                 KMessageBox::error(mainWidget, i18n("Malformed URL:\n%1").arg(newtransfer), i18n("Error"));
                 ok = false;
@@ -316,17 +319,43 @@ void Scheduler::slotSetCommand(TransferList list, TransferCommand op)
 }
 
 
-void Scheduler::slotSetGroup(TransferList list, const QString & groupName)
+void Scheduler::slotSetGroup(TransferList list, const QString& g)
 {
     TransferList::iterator it;
     TransferList::iterator endList = list.end();
     
     for(it = list.begin(); it != endList; ++it)
-        {
-        (*it)->setGroup(groupName);
+    {
+        //FIXME(*it)->setGroup(groupNumber);
     }
-    
     emit changedItems(list);
+}
+
+void Scheduler::slotAddGroup(GroupList l)
+{
+    l.about();
+    
+    groups->addGroups(l);
+    
+    kdDebug() << "Scheduler: added group!!!!" << endl;
+    
+    groups->about();
+    
+    emit addedGroups(l);
+}
+
+void Scheduler::slotDelGroup(GroupList l)
+{
+    groups->delGroups(l);
+    
+    kdDebug() << "Scheduler: removed group!!!!" << endl;
+    
+    emit removedGroups(l);
+}
+
+void Scheduler::slotModifyGroup(const QString& n, Group g)
+{
+    groups->modifyGroup(n, &g);
 }
 
 void Scheduler::slotReqOperation(SchedulerOperation operation)
@@ -441,8 +470,8 @@ void Scheduler::slotTransferStatusChanged(Transfer * item,
     sDebugOut << endl;    
 }
 
-void Scheduler::slotTransferProgressChanged(Transfer * item,     
-                                            Transfer::ProgressChange progress)
+void Scheduler::slotTransferChanged(Transfer * item,     
+                                            Transfer::TransferChanges changes)
 {
     emit changedItems(TransferList(item));
 }                                           
@@ -474,13 +503,20 @@ void Scheduler::slotImportTransfers(const KURL & file)
     }
     sDebug << "Read from file: " << file << endl;
     
-    TransferList list;
-    list.readTransfers(file.url(), this);
-    transfers->addTransfers(list);
+    GroupList newGroups;
+    TransferList newTransfers;
+    
+    newTransfers.readTransfers(file.url(), this, &newGroups);
+    
+    transfers->addTransfers(newTransfers);
+    groups->addGroups(newGroups);
+    
+//     kdDebug() << "SIZE:" << groups->size() << endl;
     
     queueUpdate();
     
-    emit addedItems(list);
+    emit addedGroups(newGroups);
+    emit addedItems(newTransfers);
 
     sDebugOut << endl;
 }
@@ -515,7 +551,7 @@ void Scheduler::slotExportTransfers(QString & file)
     if (!file.endsWith(".kgt"))
         file += ".kgt";
 
-    transfers->writeTransfers(file);
+    transfers->writeTransfers(file, this);
 
     sDebugOut << endl;
 }

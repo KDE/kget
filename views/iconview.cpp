@@ -190,7 +190,7 @@ void IconView::slotStopItems()
 void IconView::slotRemoveItems()
 {
     TransferList tl = getSelectedList();
-    schedRemoveItems( tl );
+    schedDelItems( tl );
 }
 
 void IconView::slotSetPriority1()
@@ -232,7 +232,7 @@ void IconView::slotSetPriority6()
 void IconView::slotSetGroup()
 {
     TransferList tl = getSelectedList();
-    schedSetGroup( tl, "$TESTGROUP$" );
+    schedSetGroup( tl, "" ); ///FIXME
 }
 
 

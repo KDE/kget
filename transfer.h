@@ -31,17 +31,17 @@ Q_OBJECT
                            St_Finished
                          };  
 
-    typedef int TransferProgress;                         
+    typedef int TransferChanges;                         
                          
-    enum ProgressChange  { Pc_None          = 0x00000000,
-                           Pc_Priority      = 0x00000001,
-                           Pc_Status        = 0x00000002,
-                           Pc_CanResume     = 0x00000004,
-                           Pc_TotalSize     = 0x00000008,
-                           Pc_ProcessedSize = 0x00000010,
-                           Pc_Percent       = 0x00000020,
-                           Pc_Speed         = 0x00000040,
-                           Pc_Log           = 0x00000080 
+    enum TransferChange  { Tc_None          = 0x00000000,
+                           Tc_Priority      = 0x00000001,
+                           Tc_Status        = 0x00000002,
+                           Tc_CanResume     = 0x00000004,
+                           Tc_TotalSize     = 0x00000008,
+                           Tc_ProcessedSize = 0x00000010,
+                           Tc_Percent       = 0x00000020,
+                           Tc_Speed         = 0x00000040,
+                           Tc_Log           = 0x00000080 
                          };
     
     struct Info
@@ -58,8 +58,8 @@ Q_OBJECT
         int percent;
     
         int speed;
-            
-        QString group;
+    
+        QString group;  
         QDateTime startTime;
         QTime remainingTime;
         int delayTime;
@@ -78,17 +78,16 @@ Q_OBJECT
     
     Info info;
     Scheduler * sched;
-    QValueVector<TransferProgress> progressChanges;
+    QValueVector<TransferChanges> transferChanges;
         
     /**
      * These functions can be reimplemented if necessary
      */
     
-    virtual bool read(QDomDocument * doc, QDomNode * n);
-    virtual void write(QDomDocument * doc, QDomNode * n);
+    virtual bool read(QDomNode * n);
+    virtual void write(QDomNode * n);
 
-    inline void setProgressChange(ProgressChange);
-    
+    inline void setTransferChange(TransferChange);
         
     public slots:
     
@@ -108,17 +107,17 @@ Q_OBJECT
     signals:
     
     void statusChanged(Transfer *, Transfer::TransferStatus message);    
-    void progressChanged(Transfer *, Transfer::ProgressChange message);
+    void transferChanged(Transfer *, Transfer::TransferChanges message);
 
     public:
         
     Transfer(Scheduler * _scheduler, const KURL & _src, const KURL & _dest);
-    Transfer(Scheduler * _scheduler, QDomDocument * doc, QDomNode * e);
+    Transfer(Scheduler * _scheduler, QDomNode * n);
     
     const Info& getInfo() const;
     
-    TransferProgress getProgressFlags(ViewInterface *);
-    void resetProgressFlags(ViewInterface *);
+    TransferChanges getChangesFlags(ViewInterface *);
+    void resetChangesFlags(ViewInterface *);
        
     void setPriority(int p);
     void setGroup(const QString& group);
