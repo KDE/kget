@@ -128,6 +128,8 @@ void DlgPreferences::applySettings()
     //        seaDlg->applyData();
     dirDlg->applyData();
     sysDlg->applyData();
+    
+    ksettings.save();
 }
 
 #include "dlgPreferences.moc"
