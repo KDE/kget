@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin          : Tue Jan 29 2002
+*    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email          : pch@freeshell.org
+*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email        : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -39,16 +39,17 @@ class TransferIterator:public QListViewItemIterator
 
 public:
 
-        TransferIterator(QListView * view):QListViewItemIterator(view)
-        {}
-        Transfer *current() const
-        {
-                return (Transfer *) QListViewItemIterator::current();
-        }
-        void reset()
-        {
-                curr = listView->firstChild();
-        }
+    TransferIterator(QListView * view):QListViewItemIterator(view)
+    {
+    }
+    Transfer *current() const
+    {
+        return (Transfer *) QListViewItemIterator::current();
+    }
+    void reset()
+    {
+        curr = listView->firstChild();
+    }
 
 };
 
@@ -58,57 +59,57 @@ class TransferList:public QListView
 Q_OBJECT public:
 
 
-        TransferList(QWidget * parent = 0, const char *name = 0);
-        virtual ~ TransferList();
+    TransferList(QWidget * parent = 0, const char *name = 0);
+    virtual ~ TransferList();
 
-        Transfer *addTransfer(const KURL & _source, const KURL & _dest);
+    Transfer *addTransfer(const KURL & _source, const KURL & _dest);
 
-        virtual void setSelected(QListViewItem * item, bool selected);
+    virtual void setSelected(QListViewItem * item, bool selected);
 
-        void moveToBegin(Transfer * item);
-        void moveToEnd(Transfer * item);
+    void moveToBegin(Transfer * item);
+    void moveToEnd(Transfer * item);
 
-        uint getPhasesNum()
-        {
-                return phasesNum;
-        }
-        bool updateStatus(int counter);
-        bool find(KURL _src);
-        bool isQueueEmpty();
+    uint getPhasesNum()
+    {
+        return phasesNum;
+    }
+    bool updateStatus(int counter);
+    bool find(KURL _src);
+    bool isQueueEmpty();
 
-        void readTransfers(QString file);
-        void writeTransfers(QString file);
+    void readTransfers(QString file);
+    void writeTransfers(QString file);
 
-        friend class Transfer;
+    friend class Transfer;
 
-        static void initStatic();
+    static void initStatic();
 
 signals:
-        void transferSelected(Transfer * item);
-        void popupMenu(Transfer * item);
+    void transferSelected(Transfer * item);
+    void popupMenu(Transfer * item);
 
 protected slots:
-        void slotTransferSelected(QListViewItem * item);
-        void slotPopupMenu(QListViewItem * item);
+    void slotTransferSelected(QListViewItem * item);
+    void slotPopupMenu(QListViewItem * item);
 
 protected:
 
-        void readConfig();
-        void writeConfig();
+    void readConfig();
+    void writeConfig();
 
-        // ListView IDs
-        int lv_pixmap, lv_filename, lv_resume, lv_count, lv_progress;
-        int lv_total, lv_speed, lv_remaining, lv_url;
+    // ListView IDs
+    int lv_pixmap, lv_filename, lv_resume, lv_count, lv_progress;
+    int lv_total, lv_speed, lv_remaining, lv_url;
 
-        static QList < QPixmap > *animConn;
-        static QList < QPixmap > *animTry;
-        static QPixmap *pixQueued;
-        static QPixmap *pixScheduled;
-        static QPixmap *pixDelayed;
-        static QPixmap *pixFinished;
-        static QPixmap *pixRetrying;
+    static QList < QPixmap > *animConn;
+    static QList < QPixmap > *animTry;
+    static QPixmap *pixQueued;
+    static QPixmap *pixScheduled;
+    static QPixmap *pixDelayed;
+    static QPixmap *pixFinished;
+    static QPixmap *pixRetrying;
 
-        uint phasesNum;
+    uint phasesNum;
 };
 
 

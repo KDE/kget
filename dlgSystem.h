@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin          : Tue Jan 29 2002
+*    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email          : pch@freeshell.org
+*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email        : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -42,45 +42,45 @@
 class DlgSystem:public QWidget
 {
 Q_OBJECT public:
-        DlgSystem(QWidget * parent);
-        ~DlgSystem()
-        {}
-        void applyData();
-        void setData();
+    DlgSystem(QWidget * parent);
+    ~DlgSystem()
+    {}
+    void applyData();
+    void setData();
 
 private:
 
-        // sound settings
-        QCheckBox * cb_useSound;
+    // sound settings
+    QCheckBox * cb_useSound;
 
-        QComboBox *cmb_sounds;
-        QPushButton *pb_changesound;
-        QPushButton *pb_testsound;
+    QComboBox *cmb_sounds;
+    QPushButton *pb_changesound;
+    QPushButton *pb_testsound;
 
-        QString soundAdded;
-        QString soundStarted;
-        QString soundFinished;
-        QString soundFinishedAll;
+    QString soundAdded;
+    QString soundStarted;
+    QString soundFinished;
+    QString soundFinishedAll;
 
-        // animation settings
-        QCheckBox *cb_useAnimation;
+    // animation settings
+    QCheckBox *cb_useAnimation;
 
-        // window style settings
-        QButtonGroup *bg_window;
-        QRadioButton *rb_normal;
-        QRadioButton *rb_docked;
-        QRadioButton *rb_droptarget;
+    // window style settings
+    QButtonGroup *bg_window;
+    QRadioButton *rb_normal;
+    QRadioButton *rb_docked;
+    QRadioButton *rb_droptarget;
 
-        // font settings
-        QGroupBox *gb_font;
-        QLabel *lb_font;
-        QPushButton *pb_browse;
+    // font settings
+    QGroupBox *gb_font;
+    QLabel *lb_font;
+    QPushButton *pb_browse;
 
 private slots:
-        void changeFont();
+    void changeFont();
 
-        void setupSound();
-        void testSound();
+    void setupSound();
+    void testSound();
 };
 
 #endif                          // _DLGSYSTEM_H

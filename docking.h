@@ -3,10 +3,10 @@
 *                             -------------------
 *
 *    Revision     : $Id$
-*    begin          : Tue Jan 29 2002
+*    begin        : Tue Jan 29 2002
 *    copyright    : (C) 2002 by Patrick Charbonnier
-*                       : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
-*    email          : pch@freeshell.org
+*                 : Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+*    email        : pch@freeshell.org
 *
 ****************************************************************************/
 
@@ -43,26 +43,26 @@ class DockWidget:public KDockWindow
 {
 
 Q_OBJECT public:
-        DockWidget(KMainWidget * parent);
-        ~DockWidget();
+    DockWidget(KMainWidget * parent);
+    ~DockWidget();
 
-        void setAnim(int i1, int i2, int i3, bool online);
+    void setAnim(int i1, int i2, int i3, bool online);
 
 private slots:
-        void mousePressEvent(QMouseEvent * e);
+    void mousePressEvent(QMouseEvent * e);
 
 protected:
-        // drag and drop
-        void dragEnterEvent(QDragEnterEvent *);
-        void dropEvent(QDropEvent *);
+    // drag and drop
+    void dragEnterEvent(QDragEnterEvent *);
+    void dropEvent(QDropEvent *);
 
 private:
-        int size[3];
-        KMainWidget *parent;
+    int size[3];
+    KMainWidget *parent;
 
-        QPixmap *handpix1;
-        QPixmap *handpix2;
-        QPixmap *handpix3;
+    QPixmap *handpix1;
+    QPixmap *handpix2;
+    QPixmap *handpix3;
 
 };
 
