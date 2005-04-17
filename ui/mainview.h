@@ -11,9 +11,10 @@
 #ifndef _MAINVIEW_H
 #define _MAINVIEW_H
 
-#include <qwidget.h>
-#include <klistview.h>
 #include <qmap.h>
+#include <qwidget.h>
+
+#include <klistview.h>
 
 #include "core/observer.h"
 
@@ -58,7 +59,7 @@ public:
     ~TransferItem(){}
 
     //Transfer observer virtual functions
-    void transferChangedEvent(TransferHandler * transfer) {}
+    void transferChangedEvent(TransferHandler * transfer);
     void deletedEvent(TransferHandler * transfer) {}
 
     void updateContents(bool updateAll=false);
@@ -106,6 +107,7 @@ class MainView : public KListView, public ModelObserver
     private:
     QValueList<TransferHandler *> getSelectedList();
 
+    KPopupMenu * m_popup;
     KActionCollection * ac;
 };
 

@@ -28,19 +28,74 @@
  * @see transfers/kio/kget_kiotransfer.desktop - desktop entry example
  */
 
+#include <qvaluelist.h>
+
 #include "plugin.h"
+#include "core/transfer.h"
+#include "core/transferhandler.h"
+#include "core/transferaction.h"
+
 class KURL;
+class KPopupMenu;
+
+class TransferGroup;
+class Scheduler;
 
 /**
- * @short TransferFactory  //pure//virtual//?//
+ * @short TransferFactory
  *
  * desc to come...
  */
 class TransferFactory : public KGetPlugin
 {
     public:
+        TransferFactory();
+
         virtual Transfer * createTransfer( KURL srcURL, KURL destURL, 
                                            TransferGroup * parent, Scheduler * scheduler )=0;
+
+        const QValueList<TransferAction *> & actions() {return m_actions;}
+
+        KPopupMenu * createPopupMenu(QValueList<Transfer *> transfers);
+
+    protected:
+        QValueList<TransferAction *> m_actions;
+};
+
+
+/** -------- TransferFactory actions --------
+ *
+ *  Here are the TransferAction objects common to all the Transfer objects.
+ */
+
+class ActionStart : public TransferAction
+{
+    public:
+        ActionStart( const QString& text, const QIconSet& pix, 
+                     const KShortcut& cut, KActionCollection* parent, 
+                     const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(Transfer * transfer)
+        {
+            transfer->handler()->start();
+        }
+};
+
+class ActionStop : public TransferAction
+{
+    public:
+        ActionStop( const QString& text, const QIconSet& pix, 
+                    const KShortcut& cut, KActionCollection* parent, 
+                    const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(Transfer * transfer)
+        {
+            transfer->handler()->stop();
+        }
 };
 
 #endif

@@ -21,11 +21,14 @@ class QStringList;
 class QDomNode;
 
 class TransferHandler;
+class TransferFactory;
 class TransferGroup;
 class Scheduler;
 
 class Transfer : public Job
 {
+    friend class TransferHandler;
+
     public:
 
         /**
@@ -47,9 +50,10 @@ class Transfer : public Job
 
         typedef int ChangesFlags;
 
-        Transfer(TransferGroup * parent, Scheduler * scheduler,
-                 const KURL & src, const KURL & dest);
-        Transfer(TransferGroup * parent, Scheduler * scheduler, QDomNode * n);
+        Transfer(TransferGroup * parent, TransferFactory * factory,
+                 Scheduler * scheduler, const KURL & src, const KURL & dest);
+        Transfer(TransferGroup * parent, TransferFactory * factory,
+                 Scheduler * scheduler, QDomNode * n);
 
         virtual ~Transfer(){}
 
@@ -57,11 +61,11 @@ class Transfer : public Job
         const KURL & dest() const;
 
         //Transfer status
-        virtual unsigned long totalSize() const =0;
-        virtual unsigned long processedSize() const =0;
+        unsigned long totalSize() const     {return m_totalSize;}
+        unsigned long processedSize() const {return m_processedSize;}
 
-        virtual int percent() const =0;
-        virtual int speed() const =0;
+        int percent() const                 {return m_percent;}
+        int speed() const                   {return m_speed;}
 
         /**
          * Transfer history
@@ -76,7 +80,14 @@ class Transfer : public Job
         /**
          * The owner group
          */
-        TransferGroup * group() {return m_group;}
+        TransferGroup * group() const   {return (TransferGroup *) m_jobQueue;}
+
+        /**
+         * @return the associated TransferHandler
+         */
+        TransferHandler * handler();
+
+        TransferFactory * factory() const   {return m_factory;}
 
     protected:
         //Function used to read the transfer's info from xml
@@ -91,14 +102,11 @@ class Transfer : public Job
          */
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
 
-        TransferGroup * m_group;
-        TransferHandler * m_handler;
-
         // --- Transfer informations ---
         KURL m_source;
         KURL m_dest;
 
-        QStringList * m_log;
+        QStringList   m_log;
         unsigned long m_totalSize;
         unsigned long m_processedSize;
         int           m_percent;
@@ -107,6 +115,10 @@ class Transfer : public Job
 
         QString m_statusText;
         QPixmap m_statusPixmap;
+
+    private:
+        TransferHandler * m_handler;
+        TransferFactory * m_factory;
 };
 
 

@@ -8,27 +8,31 @@
    of the License.
 */
 
+#include <kdebug.h>
 
 #include <qdom.h>
 
-#include "transfer.h"
-#include "transferhandler.h"
-#include "scheduler.h"
+#include "core/transfer.h"
+#include "core/transferhandler.h"
+#include "core/transfergroup.h"
+#include "core/scheduler.h"
 
-Transfer::Transfer(TransferGroup * parent, Scheduler * scheduler,
-                   const KURL & source, const KURL & dest)
-    : Job(scheduler), m_group(parent),
-      m_source(source), m_dest(dest)
+Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
+                   Scheduler * scheduler, const KURL & source, const KURL & dest)
+    : Job(parent, scheduler),
+      m_source(source), m_dest(dest),
+      m_handler(0), m_factory(factory),
+      m_totalSize(0), m_processedSize(0),
+      m_percent(0), m_speed(0)
 {
-    m_handler = new TransferHandler(this, scheduler);
+
 }
 
-Transfer::Transfer(TransferGroup * parent, Scheduler * scheduler, QDomNode * n)
-    : Job(scheduler),
-      m_group(parent)
+Transfer::Transfer(TransferGroup * parent, TransferFactory * factory, 
+                   Scheduler * scheduler, QDomNode * n)
+    : Job(parent, scheduler)
 {
     read(n);
-    m_handler = new TransferHandler(this, scheduler);
 }
 
 const KURL & Transfer::source() const
@@ -39,6 +43,14 @@ const KURL & Transfer::source() const
 const KURL & Transfer::dest() const
 {
     return m_dest;
+}
+
+TransferHandler * Transfer::handler()
+{
+    if(!m_handler)
+        m_handler = new TransferHandler(this, scheduler());
+
+    return m_handler;
 }
 
 void Transfer::read(QDomNode * n)
@@ -62,5 +74,5 @@ void Transfer::write(QDomNode * n)
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
 {
-    m_handler->setTransferChange(change, postEvent);
+    handler()->setTransferChange(change, postEvent);
 }

@@ -1,3 +1,26 @@
+2005-04-17 Dario Massarin <nekkar@libero.it>
+        Lots of stuff:
+        * Much work on the Job, JobQueue, TransferGroup, TransferHandler classes
+        * Make it possible for each Transfer plugin to define its own actions,
+        or to simply extend the default ones that ship with the base Transfer
+        class.
+        * Add a new TransferAction class that is basically a KAction with the
+        possibility to attach Transfer objects. When the action is executed,
+        this applies to all the attached Transfers. In this way we can create
+        each action only once, saving lots of resources.
+        * Make the TransferFactory return a pointer to a KPopupMenu, filled with
+        the actions that belong to all the transfer of the given list of transfers.
+        * Start to implement the start() and stop() functions in TransferHandler
+        * Start to turn the JobQueue in a standalone class, that doesn't need
+        to be reimplemented (but that can be reimplemented, as the TransferGroup
+        class does).
+        * Start to implement the Scheduler class.
+        * Various fixes and cleanups.
+
+        The code now allows to start and stop a transfer from the view, only by means
+        of the popupmenu. I think now it should be possible to add the long
+        awaited bitTorrent plugin, at least for testing pourposes.
+
 2005-03-26 Dario Massarin <nekkar@libero.it>
         * Reorganization of the model class
         * The new plugin structure starts working

@@ -30,8 +30,8 @@ class Transfer;
 class TransferGroup;
 class TransferHandler;
 class TransferFactory;
-class KGetPlugin;
 class ModelObserver;
+class KGetPlugin;
 
 /**
  * This is our Model class. This is where the user's transfers and searches are
@@ -130,6 +130,20 @@ class Model
          * @param groupName the group name
          */
         static void createTransfer(KURL src, KURL dest, const QString& groupName = "");
+
+        /**
+         * Posts an addedTransferGroupEvent to all the observers
+         *
+         * @param group the group that has been added to the group
+         */
+        static void postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer = 0);
+
+        /**
+         * Posts an removedTransferGroupEvent to all the observers
+         *
+         * @param group the group that has been removed from the group
+         */
+        static void postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer = 0);
 
         static KURL urlInputDialog();
         static QString destInputDialog();

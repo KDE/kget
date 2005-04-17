@@ -15,6 +15,7 @@
 #include "jobqueue.h"
 
 class Transfer;
+class TransferGroupHandler;
 
 /**
  * class TransferGroup:
@@ -28,7 +29,7 @@ class Transfer;
  * - the global progress percentage within the group
  * - the global speed within the group
  */
-class TransferGroup : public JobQueue, public QValueList<Transfer *>
+class TransferGroup : public JobQueue
 {
     public:
         enum GroupChange
@@ -43,15 +44,43 @@ class TransferGroup : public JobQueue, public QValueList<Transfer *>
 
         typedef int ChangesFlags;
 
-        TransferGroup(const QString & name);
+        TransferGroup(Scheduler * scheduler, const QString & name);
 
-        //TransferGroup info retrieval
-        const QString & name()    {return m_name;}
+        virtual ~TransferGroup();
 
-        int totalSize() const     {return m_totalSize;}
-        int processedSize() const {return m_processedSize;}
-        int percent() const       {return m_percent;}
-        int speed() const         {return m_speed;}
+        /**
+         * Appends a new transfer to the list of the transfers
+         *
+         * @param transfer the transfer to append
+         */
+        void append(Transfer * transfer);
+
+        /**
+         * Prepends a new transfer to the list of the transfers
+         *
+         * @param transfer the transfer to prepend
+         */
+        void prepend(Transfer * transfer);
+
+        /**
+         * Removes the given transfer from the list of the transfers
+         *
+         * @param transfer the transfer to remove
+         */
+        void remove(Transfer * transfer);
+
+        /**
+         * Moves a transfer in the list
+         *
+         * @param transfer The transfer to move
+         * @param position The new position of the transfer.
+         */
+        void move(Transfer * transfer, int position);
+
+        /**
+         * @return the number of jobs in the queue
+         */
+        int size() const;
 
         /**
          * Finds the first transfer with source src
@@ -63,7 +92,42 @@ class TransferGroup : public JobQueue, public QValueList<Transfer *>
          */
         Transfer * findTransfer(KURL src);
 
+        /**
+         * @return the group name
+         */
+        const QString & name()    {return m_name;}
+
+        /**
+         * @return the sum of the sizes of the transfers belonging to 
+         * this group
+         */
+        int totalSize() const     {return m_totalSize;}
+
+        /**
+         * @return the sum of the processed sizes of the transfers
+         * belonging to this group
+         */
+        int processedSize() const {return m_processedSize;}
+
+        /**
+         * @return the progress percentage
+         */
+        int percent() const       {return m_percent;}
+
+        /**
+         * @return the sum of the download speeds of the running transfers 
+         * belonging this group
+         */
+        int speed() const         {return m_speed;}
+
+        /**
+         * @return the handler associated with this group
+         */
+        TransferGroupHandler * handler();
+
     private:
+        TransferGroupHandler * m_handler;
+
         //TransferGroup info
         QString m_name;
         int m_totalSize;

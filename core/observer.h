@@ -38,7 +38,6 @@ class ModelObserver
          */
         virtual void removedTransferGroupEvent(TransferGroupHandler * group){}
 
-
         // In the future we will have also notifications about new searches..
 };
 
@@ -67,11 +66,19 @@ class TransferGroupObserver
         virtual void removedTransferEvent(TransferHandler * transfer){}
 
         /**
+         * Notifies that a new transfer has been moved
+         *
+         * @param transfer The transfer that has just been removed
+         * @param position The new transfer position
+         */
+        virtual void movedTransferEvent(TransferHandler * transfer, int position){}
+
+        /**
          * Notifies that this group has been deleted
          *
          * @param group This group's handler
          */
-        virtual void deletedEvent(TransferGroupHandler * group){}
+        virtual void deleteEvent(TransferGroupHandler * group){}
 };
 
 class TransferObserver
@@ -89,7 +96,7 @@ class TransferObserver
          *
          * @param transfer This transfer's handler
          */
-        virtual void deletedEvent(TransferHandler * transfer){}
+        virtual void deleteEvent(TransferHandler * transfer){}
 };
 
 

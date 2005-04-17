@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   
+
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
@@ -25,9 +25,10 @@
 #include <kimageeffect.h>
 #include <kiconeffect.h>
 
-#include "mainview.h"
+#include "ui/mainview.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "core/model.h"
 
 TransferGroupItem::TransferGroupItem(MainView * parent, TransferGroupHandler * group)
     : QListViewItem(parent),
@@ -40,6 +41,9 @@ TransferGroupItem::TransferGroupItem(MainView * parent, TransferGroupHandler * g
     setHeight(30);
     // force gradient pixmaps building
     updatePixmaps();
+    updateContents(true);
+
+    group->addObserver(this);
 }
 
 TransferGroupItem::~TransferGroupItem()
@@ -55,7 +59,10 @@ void TransferGroupItem::groupChangedEvent(TransferGroupHandler * group)
 
 void TransferGroupItem::addedTransferEvent(TransferHandler * transfer)
 {
+    kdDebug() << "TransferGroupItem::addedTransferEvent" << endl;
     new TransferItem(this, transfer);
+    kdDebug() << " source = " << transfer->source().url() << endl;
+    setVisible(true);
 }
 
 void TransferGroupItem::removedTransferEvent(TransferHandler * transfer)
@@ -70,16 +77,20 @@ void TransferGroupItem::deletedEvent(TransferGroupHandler * group)
 
 void TransferGroupItem::updateContents(bool updateAll)
 {
-    TransferGroupHandler::ChangesFlags groupFlags = m_group->changesFlags(this);
+//     TransferGroupHandler::ChangesFlags groupFlags = m_group->changesFlags(this);
+// 
+//     if( updateAll || (groupFlags & TransferGroup::Gc_TotalSize) )
+//     {
+//         kdDebug() << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroup::Gc_TotalSize) << ")" << endl;
+//         setText(1, m_group->name());
+//         if(m_group->totalSize() != 0)
+//             setText(3, KIO::convertSize(m_group->totalSize()));
+//         else
+//             setText(3, i18n("not available", "n/a"));
+//     }
 
-    if( updateAll || (groupFlags & TransferGroupHandler::Gc_TotalSize) )
-    {
-        kdDebug() << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroupHandler::Gc_TotalSize) << ")" << endl;
-        setText(1, m_group->name());
-        setText(3, KIO::convertSize(m_group->totalSize()));
-    }
-
-    m_group->resetChangesFlags(this);
+//TODO here (or in paintCell()?) we need to reset the flags!
+//    m_group->resetChangesFlags(this);
 }
 
 void TransferGroupItem::updatePixmaps()
@@ -141,6 +152,14 @@ TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfe
       m_transfer(transfer),
       m_view(parent->view())
 {
+    updateContents(true);
+
+    transfer->addObserver(this);
+}
+
+void TransferItem::transferChangedEvent(TransferHandler * transfer)
+{
+    updateContents();
 }
 
 void TransferItem::updateContents(bool updateAll)
@@ -173,7 +192,7 @@ void TransferItem::updateContents(bool updateAll)
         }
     }
 
-    if(updateAll || (transferFlags & TransferHandler::Tc_Status) )
+    if(updateAll || (transferFlags & Transfer::Tc_Status) )
     {
 //         kdDebug() << "UPDATE:  status" << endl;
         setText( 1, m_transfer->statusText() );
@@ -183,6 +202,7 @@ void TransferItem::updateContents(bool updateAll)
     if(updateAll || (transferFlags & Transfer::Tc_TotalSize) )
     {
 //         kdDebug() << "UPDATE:  totalSize" << endl;
+        kdDebug() << "totalSize = " << m_transfer->totalSize();
         if (m_transfer->totalSize() != 0)
             setText(2, KIO::convertSize( m_transfer->totalSize() ));
         else
@@ -196,7 +216,7 @@ void TransferItem::updateContents(bool updateAll)
 
         if(speed==0)
         {
-            if(m_transfer->jobStatus() == Job::Running)
+            if(m_transfer->status() == Job::Running)
                 setText(4, i18n("Stalled") );
             else
                 setText(4, "" );
@@ -235,7 +255,8 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
 
 
 MainView::MainView( QWidget * parent, const char * name )
-    : KListView( parent, name )
+    : KListView( parent, name ), 
+      m_popup(0)
 {
     setAllColumnsShowFocus(true);
     setSelectionMode(QListView::Extended);
@@ -247,6 +268,8 @@ MainView::MainView( QWidget * parent, const char * name )
     addColumn(i18n("Progress"), 80);
     addColumn(i18n("Speed"), 80);
     connect ( this, SIGNAL(rightButtonClicked ( QListViewItem *, const QPoint &, int )), this, SLOT(slotRightButtonClicked(QListViewItem * , const QPoint &, int )) );
+
+    Model::addObserver(this);
 }
 
 MainView::~MainView()
@@ -255,6 +278,8 @@ MainView::~MainView()
 
 void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
 {
+    kdDebug() << "MainView::addedTransferGroupEvent" << endl;
+
     TransferGroupItem * newGroupItem = new TransferGroupItem(this, group);
     newGroupItem->setVisible(false);
 }
@@ -323,6 +348,20 @@ void MainView::slotSetGroup( int id )
 
 void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
 {
+    QValueList<TransferHandler *> selectedTransfers = getSelectedList();
+
+    if( selectedTransfers.empty() )
+        return;
+
+    if(m_popup)
+    {
+        delete(m_popup);
+        m_popup = 0;
+    }
+
+    m_popup = selectedTransfers.first()->popupMenu(selectedTransfers);
+    m_popup->popup( pos );
+
 /*    if (!ac) return;
 
     KPopupMenu * popup = new KPopupMenu( this );

@@ -26,11 +26,43 @@
 #include <qvaluelist.h>
 
 class Job;
+class Scheduler;
 
 class JobQueue
 {
     public:
-        JobQueue() {}
+        enum Status {Running, Stopped};
+        typedef QValueList<Job *>::iterator iterator;
+
+        JobQueue(Scheduler * scheduler);
+        virtual ~JobQueue();
+
+        /**
+         * Sets the JobQueue status
+         *
+         * @param queueStatus the new JobQueue status
+         */
+        void setStatus(Status queueStatus);
+
+        /**
+         * @return the jobQueue status
+         */
+        Status status()     {return m_status;}
+
+        /**
+         * @return the begin of the job's list
+         */
+        iterator begin()    {return m_jobs.begin();}
+
+        /**
+         * @return the end of the job's list
+         */
+        iterator end()      {return m_jobs.end();}
+
+        /**
+         * @return a list with the running Jobs
+         */
+        const QValueList<Job *> & runningJobs();
 
         /**
          * Sets the maximum number of jobs belonging to this queue that 
@@ -41,21 +73,55 @@ class JobQueue
         void setMaxSimultaneousJobs(int n);
 
         /**
-         * Add a job to the current queue
-         *
-         * @param newjob The job to add to the current queue
+         * @return the maximum number of jobs the scheduler should ever
+         * execute simultaneously (in this queue).
          */
-        void addJob(Job * newjob);
+        int maxSimultaneousJobs() const     {return m_maxSimultaneousJobs;}
+
+    protected:
+        /**
+         * appends a job to the current queue
+         *
+         * @param job The job to append to the current queue
+         */
+        void append(Job * job);
 
         /**
-         * Returns a const reference to the list of jobs belonging to the queue
+         * prepends a job to the current queue
+         *
+         * @param job The job to prepend to the current queue
          */
-        const QValueList<Job *> & jobs() const;
+        void prepend(Job * job);
+
+        /**
+         * removes a job from the current queue
+         *
+         * @param job The job to remove from the current queue
+         */
+        void remove(Job * job);
+
+        /**
+         * Moves a job in the queue
+         *
+         * @param job The job to move
+         * @param position The new position of the job.
+         */
+        void move(Job * job, int position);
+
+        /**
+         * @return the number of jobs in the queue
+         */
+        int size() const;
+
+        Scheduler * scheduler()     {return m_scheduler;}
 
     private:
+        QValueList<Job *> m_jobs;
+
         int m_maxSimultaneousJobs;
 
-        QValueList<Job *> m_jobs;
+        Scheduler * m_scheduler;
+        Status m_status;
 };
 
 #endif

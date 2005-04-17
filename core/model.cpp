@@ -26,6 +26,7 @@
 #include "core/transfergroup.h"
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
+#include "core/observer.h"
 #include "conf/settings.h"
 
 /**
@@ -38,19 +39,44 @@
  * it in the group named "Not grouped" (better name?).
  **/
 
-void Model::addObserver(ModelObserver *)
+void Model::addObserver(ModelObserver * observer)
 {
-    
+    kdDebug() << "Model::addObserver" << endl;
+
+    m_observers.append(observer);
+
+    //Update the new observer with the TransferGroups objects of the model
+    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+
+    for( ; it!=itEnd ; ++it )
+        postAddedTransferGroupEvent(*it, observer);
+}
+
+void Model::delObserver(ModelObserver * observer)
+{
+    m_observers.remove(observer);
 }
 
 void Model::addGroup(const QString& groupName)
 {
-    
+    TransferGroup * group = new TransferGroup(&m_scheduler, groupName);
+    m_transferGroups.append(group);
+
+    kdDebug() << "Model::addGroup" << endl;
+    postAddedTransferGroupEvent(group);
 }
 
 void Model::delGroup(const QString& groupName)
 {
-    
+    TransferGroup * group = findGroup(groupName);
+
+    if(group)
+    {
+        m_transferGroups.remove(group);
+        postRemovedTransferGroupEvent(group);
+        delete(group);
+    }
 }
 
 void Model::addTransfer( KURL srcURL, QString destDir,
@@ -149,7 +175,7 @@ Model::Model()
     loadPlugins();
 
     //Create the default group with empty name
-    m_transferGroups.append(new TransferGroup(""));
+    addGroup("");
 }
 
 Model::~Model()
@@ -164,7 +190,6 @@ void Model::createTransfer(KURL src, KURL dest, const QString& groupName)
     TransferGroup * group = findGroup(groupName);
     if (group==0)
         group = m_transferGroups.first();
-
     Transfer * newTransfer;
 
     QValueList<TransferFactory *>::iterator it = m_transferFactories.begin();
@@ -174,16 +199,47 @@ void Model::createTransfer(KURL src, KURL dest, const QString& groupName)
     {
         if(newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler))
         {
-            //TODO Here I have a problem: something seems not to work here.
-            //When I use (*it)->createTransfer(), despite the fact that this
-            //is a virtual function reimplement by each plugin (for example the
-            //TransferKioFactory plugin), the plugin function isn't executed.
-            //However this function now returns a non null (but invalid) pointer
-            //group->append(newTransfer);
+            group->append(newTransfer);
+
             return;
         }
     }
     kdDebug() << "createTransfer: Warning! No plugin found to handle the given url" << endl;
+}
+
+void Model::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
+{
+    kdDebug() << "Model::postAddedTransferGroupEvent" << endl;
+    if(observer)
+    {
+        observer->addedTransferGroupEvent(group->handler());
+        return;
+    }
+
+    QValueList<ModelObserver *>::iterator it = m_observers.begin();
+    QValueList<ModelObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->addedTransferGroupEvent(group->handler());
+    }
+}
+
+void Model::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
+{
+    if(observer)
+    {
+        observer->removedTransferGroupEvent(group->handler());
+        return;
+    }
+
+    QValueList<ModelObserver *>::iterator it = m_observers.begin();
+    QValueList<ModelObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->removedTransferGroupEvent(group->handler());
+    }
 }
 
 KURL Model::urlInputDialog()
@@ -231,7 +287,7 @@ bool Model::isValidSource(KURL source)
     Transfer * transfer = findTransfer( source );
     if ( transfer )
     {
-        if ( transfer->jobStatus() == Job::Finished )
+        if ( transfer->status() == Job::Finished )
         {
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNo(0,
@@ -276,7 +332,6 @@ bool Model::isValidDestURL(KURL destURL)
             safeDeleteFile( destURL );
             return true;
         }
-        return false;
     }
     return true;
    /*

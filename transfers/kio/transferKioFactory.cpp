@@ -38,6 +38,8 @@ Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
     if(    prot == "http" || prot == "https" 
         || prot == "ftp"  || prot == "sftp"
         || prot == "file")
-        return new TransferKio(parent, scheduler, srcURL, destURL);
+    {
+        return new TransferKio(parent, this, scheduler, srcURL, destURL);
+    }
     return 0;
 }

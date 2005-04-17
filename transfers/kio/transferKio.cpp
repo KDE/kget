@@ -17,26 +17,26 @@
 
 #include "transferKio.h"
 
-TransferKio::TransferKio(TransferGroup * parent, Scheduler * scheduler,
-                         const KURL & source, const KURL & dest)
-    : Transfer(parent, scheduler, source, dest),
+TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
+                         Scheduler * scheduler, const KURL & source, const KURL & dest)
+    : Transfer(parent, factory, scheduler, source, dest),
       m_copyjob(0)
 {
     m_statusText = i18n("Stopped");
     //create a starting icon. This must be overwritten by the Transfer
-    m_statusPixmap = SmallIcon("penguin");
+    m_statusPixmap = SmallIcon("stop");
 }
 
-TransferKio::TransferKio(TransferGroup * parent, Scheduler * scheduler,
-                         QDomNode * n)
-    : Transfer(parent, scheduler, n),
+TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
+                         Scheduler * scheduler, QDomNode * n)
+    : Transfer(parent, factory, scheduler, n),
       m_copyjob(0)
 {
     Transfer::read(n);
 
     m_statusText = i18n("Stopped");
     //create a starting icon. This must be overwritten by the Transfer
-    m_statusPixmap = SmallIcon("penguin");
+    m_statusPixmap = SmallIcon("stop");
 }
 
 void TransferKio::start()
@@ -44,7 +44,9 @@ void TransferKio::start()
     if(!m_copyjob)
         createJob();
 
-    m_jobStatus = Job::Running;
+    kdDebug() << "TransferKio::start" << endl;
+
+    setStatus(Job::Running);
     m_statusText = i18n("Connecting..");
     m_statusPixmap = SmallIcon("connect_creating");
 
@@ -53,14 +55,17 @@ void TransferKio::start()
 
 void TransferKio::stop()
 {
+    if(status() == Stopped)
+        return;
+
     if(m_copyjob)
     {
         m_copyjob->kill(true);
         m_copyjob=0;
     }
 
-    kdDebug() << "slotStop 4" << endl;
-    m_jobStatus = Job::Stopped;
+    kdDebug() << "Stop" << endl;
+    setStatus(Job::Stopped);
     m_statusText = i18n("Stopped");
     m_statusPixmap = SmallIcon("stop");
     m_speed = 0;
@@ -80,26 +85,6 @@ int TransferKio::remainingTime() const
 bool TransferKio::isResumable() const
 {
     return true;
-}
-
-unsigned long TransferKio::totalSize() const
-{
-    
-}
-
-unsigned long TransferKio::processedSize() const
-{
-    
-}
-
-int TransferKio::percent() const
-{
-    
-}
-
-int TransferKio::speed() const
-{
-    
 }
 
 void TransferKio::read(QDomNode * n)
@@ -155,7 +140,7 @@ void TransferKio::slotResult( KIO::Job * kioJob )
     switch (kioJob->error())
     {
         case 0:
-            m_jobStatus = Job::Finished;
+            setStatus(Job::Finished);
             m_statusText = i18n("Finished");
             m_statusPixmap = SmallIcon("ok");
             m_percent = 100;
@@ -166,7 +151,7 @@ void TransferKio::slotResult( KIO::Job * kioJob )
             break;
         default:
             //There has been an error
-            m_jobStatus = Aborted;
+            setStatus(Job::Aborted);
             m_statusText = i18n("Aborted");
             m_statusPixmap = SmallIcon("stop");
             kdDebug() << "--  E R R O R  --" << endl;
@@ -179,14 +164,14 @@ void TransferKio::slotResult( KIO::Job * kioJob )
 
 void TransferKio::slotInfoMessage( KIO::Job * kioJob, const QString & msg )
 {
-    m_log->append(QString(msg));
+    m_log.append(QString(msg));
 }
 
 void TransferKio::slotConnected( KIO::Job * kioJob )
 {
 //     kdDebug() << "CONNECTED" <<endl;
 
-    m_jobStatus = Job::Running;
+    setStatus(Job::Running);
     m_statusText = i18n("Downloading..");
     m_statusPixmap = SmallIcon("tool_resume");
     setTransferChange(Tc_Status, true);
@@ -194,10 +179,7 @@ void TransferKio::slotConnected( KIO::Job * kioJob )
 
 void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
 {
-//     kdDebug() << "slotPercent" << endl; 
-
-    if(m_jobStatus != Job::Running)
-        slotConnected(kioJob);
+    kdDebug() << "slotPercent" << endl;
 
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -205,10 +187,9 @@ void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
 
 void TransferKio::slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size )
 {
-//     kdDebug() << "slotTotalSize" << endl; 
+    kdDebug() << "slotTotalSize" << endl;
 
-    if(m_jobStatus != Job::Running)
-        slotConnected(kioJob);
+    slotConnected(kioJob);
 
     m_totalSize = size;
     setTransferChange(Tc_TotalSize, true);
@@ -218,7 +199,7 @@ void TransferKio::slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size )
 {
     kdDebug() << "slotProcessedSize" << endl; 
 
-    if(m_jobStatus != Job::Running)
+    if(status() != Job::Running)
         slotConnected(kioJob);
 
     m_processedSize = size;
@@ -229,7 +210,7 @@ void TransferKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second )
 {
 //     kdDebug() << "slotSpeed" << endl;
 
-    if(m_jobStatus != Job::Running)
+    if(status() != Job::Running)
         slotConnected(kioJob);
 
     m_speed = bytes_per_second;

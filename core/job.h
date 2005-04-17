@@ -22,23 +22,55 @@
  *  By definition a job must always belong to a JobQueue (see jobqueue.h).
  **/
 
-class Scheduler;
 class QDomNode;
+
+class Scheduler;
+class JobQueue;
 
 class Job
 {
     public:
-        enum JobStatus {Running, Delayed, Stopped, Aborted, Finished};
+        /**
+         * The status property describes the current job status
+         *
+         * @param Running The job is being executed
+         * @param Delayed The job is delayed. This means that the scheduler should
+         *                not start it until it exits from the delayed state
+         * @param Stopped The job is stopped
+         * @param Aborted The job is stopped, but this also indicates that it
+         *                stopped becouse an error occoured
+         * @param Finished The job exited from its Running state successfully
+         */
+        enum Status {Running, Delayed, Stopped, Aborted, Finished};
 
-        Job(Scheduler * scheduler) {};
+        /**
+         * The policy property describes how the scheduler should manage this job.
+         *
+         * @param Start The scheduler should start this job even if its queue 
+         *              isn't in a Running status
+         * @param Stop The scheduler shouldn't never start this job, even if
+         *             if its queue is in a Running status
+         * @param None The scheduler should start this job depending on its
+         *             queue status
+         */
+        enum Policy {Start, Stop, None};
+
+        Job(JobQueue * parent, Scheduler * scheduler);
 
         //Job commands
         virtual void start()=0;
         virtual void stop()=0;
         void setDelay(int seconds);
 
-        //Job status
-        JobStatus jobStatus() const {return m_jobStatus;}
+        JobQueue * jobQueue() {return m_jobQueue;}
+
+        //Job properties
+        void setStatus(Status jobStatus);
+        void setPolicy(Policy jobPolicy);
+
+        Status status() const {return m_status;}
+        Policy policy() const {return m_policy;}
+
         virtual int elapsedTime() const =0;
         virtual int remainingTime() const =0;
 
@@ -46,17 +78,22 @@ class Job
         virtual bool isResumable() const =0;
 
     protected:
+        Scheduler * scheduler() const {return m_scheduler;}
+
         void read(QDomNode * n);
         void write(QDomNode * n);
 
         /**
          * This one posts a job event to the scheduler
          */
-        void postJobEvent(JobStatus); //do we need a JobEvent instead of JobStatus?
+        void postJobEvent(Status); //do we need a JobEvent instead of JobStatus?
 
+        JobQueue *  m_jobQueue;
         Scheduler * m_scheduler;
 
-        JobStatus m_jobStatus;
+    private:
+        Status m_status;
+        Policy m_policy;
 };
 
 #endif

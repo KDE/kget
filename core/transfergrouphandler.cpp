@@ -10,12 +10,12 @@
 
 #include <kdebug.h>
 
-#include "transfergrouphandler.h"
-#include "observer.h"
+#include "core/transfergrouphandler.h"
+#include "core/transfer.h"
+#include "core/observer.h"
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
-    : TransferGroup(group->name()),
-      m_group(group),
+    : m_group(group),
       m_scheduler(scheduler)
 {
     
@@ -28,8 +28,10 @@ TransferGroupHandler::~TransferGroupHandler()
 
 void TransferGroupHandler::addObserver(TransferGroupObserver * observer)
 {
+    kdDebug() << "TransferGroupHandler::addObserver" << endl;
     m_observers.push_back(observer);
     m_changesFlags[observer]=0xFFFFFFFF;
+    kdDebug() << "   Now we have " << m_observers.size() << " observers" << endl;
 }
 
 void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
@@ -79,5 +81,52 @@ void TransferGroupHandler::postGroupChangedEvent()
     for(; it!=itEnd; ++it)
     {
         (*it)->groupChangedEvent(this);
+    }
+}
+
+void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer)
+{
+    kdDebug() << "TransferGroupHandler::postAddedTransferEvent" << endl;
+    kdDebug() << "   number of observers = " << m_observers.size() << endl;
+
+    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
+    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->addedTransferEvent(transfer->handler());
+    }
+}
+
+void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
+{
+    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
+    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->removedTransferEvent(transfer->handler());
+    }
+}
+
+void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, int position)
+{
+    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
+    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->movedTransferEvent(transfer->handler(), position);
+    }
+}
+
+void TransferGroupHandler::postDeleteEvent()
+{
+    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
+    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->deleteEvent(this);
     }
 }

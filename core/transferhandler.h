@@ -1,4 +1,3 @@
-
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
@@ -17,6 +16,8 @@
 #include <qmap.h>
 
 #include "transfer.h"
+
+class KPopupMenu;
 
 class TransferObserver;
 
@@ -48,14 +49,16 @@ class TransferObserver;
  *
  * --- Interrogation about what has changed in the transfer ---
  * When a TransferObserver receives a notify about a change in the Transfer, it
- * can ask to the TransferHandler for the TFlags.
+ * can ask to the TransferHandler for the ChangesFlags.
  */
 
-class TransferHandler : public Transfer
+class TransferHandler
 {
     friend class Transfer;
 
     public:
+
+        typedef Transfer::ChangesFlags ChangesFlags;
 
         TransferHandler(Transfer * transfer, Scheduler * scheduler);
 
@@ -76,44 +79,67 @@ class TransferHandler : public Transfer
         void delObserver(TransferObserver * observer);
 
         /**
-         * These are all virtual functions reimplemented from the Job class
+         * These are all Job-related functions
          */
         void start();
         void stop();
+        void setDelay(int seconds);
+        Job::Status status() const {return m_transfer->status();}
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
 
+        /**
+         * @return the source url
+         */
+        const KURL & source() const {return m_transfer->source();}
 
         /**
-         * Returns the total size of the transfer in bytes
+         * @return the dest url
+         */
+        const KURL & dest() const {return m_transfer->dest();}
+
+        /**
+         * @return the total size of the transfer in bytes
          */
         unsigned long totalSize() const;
 
         /**
-         * Returns the downloaded size of the transfer in bytes
+         * @return the downloaded size of the transfer in bytes
          */
         unsigned long processedSize() const;
 
         /**
-         * Returns the progress percentage of the transfer
+         * @return the progress percentage of the transfer
          */
         int percent() const;
 
         /**
-         * Returns the download speed of the transfer in bytes/sec
+         * @return the download speed of the transfer in bytes/sec
          */
         int speed() const;
 
         /**
-         * Returns a string describing the current transfer status
+         * @return a string describing the current transfer status
          */
-        const QString & statusText() const {return m_statusText;}
+        const QString & statusText() const {return m_transfer->m_statusText;}
 
         /**
-         * Returns a pixmap associated with the current transfer status
+         * @return a pixmap associated with the current transfer status
          */
-        const QPixmap & statusPixmap() const {return m_statusPixmap;}
+        const QPixmap & statusPixmap() const {return m_transfer->m_statusPixmap;}
+
+        /**
+         * Returns a KPopupMenu for the given list of transfers, populated with
+         * the actions that can be executed on each transfer in the list.
+         * If the list is null, it returns the KPopupMenu associated with the 
+         * this transfer.
+         *
+         * @param transfers the transfer list
+         *
+         * @return a KPopupMenu for the given transfers
+         */
+        KPopupMenu * popupMenu(QValueList<TransferHandler *> transfers);
 
         /**
          * Returns the changes flags

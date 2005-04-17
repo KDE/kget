@@ -1,7 +1,7 @@
-INCLUDES = $(all_includes)
+INCLUDES = -I$(srcdir)/.. -I$(srcdir)/../.. $(all_includes)
 
 noinst_LTLIBRARIES = libplugin.la
-libplugin_la_SOURCES = plugin.cpp
+libplugin_la_SOURCES = plugin.cpp transferfactory.cpp
 
 noinst_HEADERS = plugin.h transferfactory.h
 

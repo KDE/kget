@@ -27,10 +27,10 @@ class TransferKio : public QObject, public Transfer
     Q_OBJECT
 
     public:
-        TransferKio(TransferGroup * parent, Scheduler * scheduler,
-                    const KURL & source, const KURL & dest);
-        TransferKio(TransferGroup * parent, Scheduler * scheduler,
-                    QDomNode * n);
+        TransferKio(TransferGroup * parent, TransferFactory * factory,
+                    Scheduler * scheduler, const KURL & src, const KURL & dest);
+        TransferKio(TransferGroup * parent, TransferFactory * factory,
+                    Scheduler * scheduler, QDomNode * n);
 
     public slots:
         // --- Job virtual functions ---
@@ -40,13 +40,6 @@ class TransferKio : public QObject, public Transfer
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
-
-        // --- Transfer virtual functions ---
-        unsigned long totalSize() const;
-        unsigned long processedSize() const;
-
-        int percent() const;
-        int speed() const;
 
     protected:
         void read(QDomNode * n);

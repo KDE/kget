@@ -10,12 +10,15 @@
 
 #include <kdebug.h>
 
-#include "observer.h"
-#include "transferhandler.h"
+#include "core/job.h"
+#include "core/jobqueue.h"
+#include "core/transferhandler.h"
+#include "core/transfergroup.h"
+#include "core/plugin/transferfactory.h"
+#include "core/observer.h"
 
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
-    : Transfer(transfer->group(), scheduler, transfer->source(), transfer->dest()),
-      m_transfer(transfer)
+    : m_transfer(transfer), m_scheduler(scheduler)
 {
 }
 
@@ -38,12 +41,19 @@ void TransferHandler::delObserver(TransferObserver * observer)
 
 void TransferHandler::start()
 {
-    //here we should pass through the scheduler
+    if(m_transfer->group()->status() == JobQueue::Running)
+    {
+        m_transfer->group()->move(m_transfer, 0);
+    }
+    else
+    {
+        m_transfer->setPolicy(Job::Start);
+    }
 }
 
 void TransferHandler::stop()
 {
-    //here we should pass through the scheduler
+    m_transfer->setPolicy(Job::Stop);
 }
 
 int TransferHandler::elapsedTime() const
@@ -79,6 +89,23 @@ int TransferHandler::percent() const
 int TransferHandler::speed() const
 {
     return m_transfer->speed();
+}
+
+KPopupMenu * TransferHandler::popupMenu(QValueList<TransferHandler *> transfers)
+{
+    QValueList<Transfer *> transferList;
+
+    QValueList<TransferHandler *>::iterator it = transfers.begin();
+    QValueList<TransferHandler *>::iterator itEnd = transfers.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+/*        kdDebug() << "TransferHandler::popupMenu->transfer = " 
+                  << (*it)->m_transfer << endl;*/
+        transferList.append( (*it)->m_transfer );
+    }
+
+    return m_transfer->factory()->createPopupMenu(transferList);
 }
 
 Transfer::ChangesFlags TransferHandler::changesFlags(TransferObserver * observer) const

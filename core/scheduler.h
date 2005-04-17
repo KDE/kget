@@ -11,8 +11,9 @@
 #ifndef _SCHEDULER_H
 #define _SCHEDULER_H
 
-class JobQueue;
-class Job;
+
+#include "core/job.h"
+#include "core/jobqueue.h"
 
 /**
  * @brief Scheduler class: what handle all the jobs in kget.
@@ -58,7 +59,33 @@ class Scheduler
          */
         void delQueue(JobQueue * queue);
 
+        //JobQueue notifications
+        void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);
+        void jobQueueMovedJobEvent(JobQueue * queue, Job * job);
+        void jobQueueAddedJobEvent(JobQueue * queue, Job * job);
+        void jobQueueRemovedJobEvent(JobQueue * queue, Job * job);
+
+        //Job notifications
+        void jobChangedEvent(Job * job, Job::Status status);
+        void jobChangedEvent(Job * job, Job::Policy status);
+
     private:
+        /**
+         * Updates the given queue, starting the jobs that come first in the queue
+         * and stopping all the other
+         *
+         * @param queue the queue to update
+         */
+        void updateQueue( JobQueue * queue );
+
+        /**
+         * @return true if the given job should be running (and this depends
+         * on the job policy and on its jobQueue status)
+         *
+         * @param job the job to evaluate
+         */
+        bool shouldBeRunning( Job * job );
+
         QValueList<JobQueue *> m_queues;
 };
 
