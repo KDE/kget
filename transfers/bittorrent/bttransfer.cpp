@@ -132,7 +132,7 @@ bool BTTransfer::slotResume()
       download.start();
     }
     catch (std::exception& e) {
-      // hte line below only compiles with exceptions activated
+      // the line below only compiles with exceptions activated
       // kdDebug() << "slotResume exception " << e.what() << endl << endl;
     }
     m_statusText = i18n("Running");
