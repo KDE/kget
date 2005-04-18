@@ -1,1 +1,1 @@
-SUBDIRS = kio
+SUBDIRS = kio bittorrent

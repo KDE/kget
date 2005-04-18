@@ -1,0 +1,6 @@
+PKG_CHECK_MODULES(TORRENT, sigc++-2.0 libtorrent >= 0.5.0,
+                  [CXXFLAGS="$CXXFLAGS $TORRENT_CFLAGS"
+                   LIBS="$LIBS $TORRENT_LIBS" HAVE_TORRENT="yes"],
+		  [HAVE_TORRENT="no" 
+		   AC_MSG_WARN([Could not find torrent libraries.])])
+AM_CONDITIONAL(HAVE_LIBTORRENT, test x$HAVE_TORRENT = "xyes")
