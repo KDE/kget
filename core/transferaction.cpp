@@ -10,9 +10,10 @@
 
 #include <kdebug.h>
 
+#include "core/model.h"
 #include "core/transferaction.h"
 
-TransferAction::TransferAction( const QString& text, const QIconSet& pix, 
+TransferAction::TransferAction( const QString& text, const QString& pix, 
                                 const KShortcut& cut, KActionCollection* parent, 
                                 const char* name )
     : KAction(text, pix, cut, this, SLOT( activate() ), parent, name)
@@ -20,27 +21,7 @@ TransferAction::TransferAction( const QString& text, const QIconSet& pix,
     
 }
 
-void TransferAction::connectToTransfer(Transfer * transfer)
-{
-    if(!m_transfers.contains(transfer))
-    {
-        //Now we are sure that the list doesn't already contain this transfer
-        m_transfers.append(transfer);
-    }
-}
-
-void TransferAction::disconnectAllTransfers()
-{
-    m_transfers.clear();
-}
-
 void TransferAction::activate()
 {
-    QValueList<Transfer *>::iterator it = m_transfers.begin();
-    QValueList<Transfer *>::iterator itEnd = m_transfers.end();
-
-    for( ; it!=itEnd ; ++it )
-    {
-        execute(*it);
-    }
+    execute( Model::selectedTransfers() );
 }

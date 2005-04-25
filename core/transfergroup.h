@@ -14,6 +14,8 @@
 
 #include "jobqueue.h"
 
+class QDomElement;
+
 class Transfer;
 class TransferGroupHandler;
 
@@ -45,6 +47,7 @@ class TransferGroup : public JobQueue
         typedef int ChangesFlags;
 
         TransferGroup(Scheduler * scheduler, const QString & name);
+        TransferGroup(Scheduler * scheduler, const QDomElement & e);
 
         virtual ~TransferGroup();
 
@@ -124,6 +127,20 @@ class TransferGroup : public JobQueue
          * @return the handler associated with this group
          */
         TransferGroupHandler * handler();
+
+        /**
+         * Saves this group object to the given QDomNode 
+         *
+         * @param n The QDomNode where the group will be saved
+         */
+        void save(QDomElement e);
+
+        /**
+         * Adds all the groups in the given QDomNode * to the group
+         *
+         * @param n The QDomNode where the group will look for the transfers to add
+         */
+        void load(const QDomElement & e);
 
     private:
         TransferGroupHandler * m_handler;

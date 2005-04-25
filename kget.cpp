@@ -63,7 +63,7 @@ KGet::KGet( QWidget * parent, const char * name )
         m_drop(0),     m_dock(0)
 {
     // create the model
-    Model::self();
+    Model::self( this );
 
     // create actions
     setupActions();
@@ -75,7 +75,6 @@ KGet::KGet( QWidget * parent, const char * name )
      m_browserBar->hide();
     // create the 'right view'
      m_mainView = new MainView( (QWidget *)m_browserBar->container() );
-     m_mainView->setupActions( actionCollection() );
     //TestView * t = new TestView( (QWidget *)browserBar->container() );
      m_rightWidget = m_mainView;
 // 
@@ -126,6 +125,9 @@ KGet::KGet( QWidget * parent, const char * name )
 
 KGet::~KGet()
 {
+    //Save the user's transfers
+    Model::save();
+
     slotSaveMyself();
     delete m_drop;
     delete m_dock;
@@ -141,7 +143,7 @@ void KGet::setupActions()
     //KAction * a;
     KToggleAction * ta;
 
-    // local - Shows a dialog asking for a new URL to download
+    // local - Shows a dialog asking for a new URL to down
     new KAction(i18n("&New Download..."), "filenew", CTRL+Key_N, this, SLOT(slotNewURL()), ac, "open_transfer");
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
@@ -205,7 +207,7 @@ void KGet::setupActions()
 void KGet::slotDelayedInit()
 {
     //Here we import the user's transfers.
-//     scheduler->slotImportTransfers(); (model->slotImportTransfers ???)
+    Model::load( locateLocal("appdata", "transfers.kgt") );
 
     // DropTarget
     m_drop = new DropTarget(this);

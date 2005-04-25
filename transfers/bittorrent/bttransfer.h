@@ -21,70 +21,62 @@
 #define BTTRANSFER_H
 
 #include <torrent/torrent.h>
-#include <qobject.h>
-#include "core/transfer.h"
-
 #include <sstream>
 
+#include <qobject.h>
 #include <qtimer.h>
 #include <qdatetime.h>
 
-namespace KIO {
-  class Job;
+#include "core/transfer.h"
+
+
+namespace KIO
+{
+    class Job;
 }
 
 class BTTransfer : public QObject, public Transfer
 {
-  Q_OBJECT
+    Q_OBJECT
 
-public:
-  BTTransfer(TransferGroup* parent, TransferFactory* factory,
-	     Scheduler* scheduler, const KURL& src, const KURL& dest);
-  BTTransfer(TransferGroup* parent, TransferFactory* factory, 
-	     Scheduler* scheduler, QDomNode* node);
-  ~BTTransfer();
+    public:
+        BTTransfer(TransferGroup* parent, TransferFactory* factory,
+                    Scheduler* scheduler, const KURL& src, const KURL& dest,
+                    const QDomElement * e = 0 );
+        ~BTTransfer();
 
+        //Job virtual functions
+        void start();
+        void stop();
+        int elapsedTime() const;
+        int remainingTime() const;
+        bool isResumable() const;
 
-  unsigned long totalSize() const;
-  unsigned long processedSize() const;
-  int percent() const;
-  int speed() const;
-  void start();
-  void stop();
-  int elapsedTime() const;
-  int remainingTime() const;
-  bool isResumable() const;
+        void save(QDomElement e);
 
-public slots:
-  bool slotResume();
-  void slotStop();
-  void slotRemove();
-    
-protected:
-  void read(QDomNode* node);
-  void write(QDomNode* node);
-  
-private slots:
-  void data(KIO::Job* job, const QByteArray& data);
-  void result(KIO::Job* job);
-  void update();
+    protected:
+        void load(QDomElement e);
 
-private:
-  QTime startTime;
-  QTimer timer;
-  std::stringstream bencodeStream;
-  torrent::Download download;
+    private slots:
+        void update();
 
-  void trackerMessage(std::string msg);
-  void downloadFinished();
-  void hashingFinished();
+    private:
+        void resume();
+        void remove(); //Now I put this functions here. Shouldn't it
+                       //be integrated in the destructor?
+        void trackerMessage(std::string msg);
+        void downloadFinished();
+        void hashingFinished();
 
-  
-  sigc::connection trackerSucceeded;
-  sigc::connection trackerFailed;
-  sigc::connection downloadDone;
-  sigc::connection hashingDone;
+        QTime startTime;
+        QTimer timer;
+        std::stringstream bencodeStream;
+        torrent::Download download;
 
+        sigc::connection trackerSucceeded;
+        sigc::connection trackerFailed;
+        sigc::connection downloadDone;
+        sigc::connection hashingDone;
 };
 
 #endif

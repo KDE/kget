@@ -17,235 +17,215 @@
  *
  */
 
-#include "bttransfer.h"
-#include "bttransfer.moc"
 
-#include <torrent/bencode.h>
-
-#include "btthread.h"
 
 #include <sigc++/bind.h>
-
-#include <kio/job.h>
-#include <kio/scheduler.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <torrent/torrent.h>
+#include <torrent/bencode.h>
 
 #include <qdom.h>
+#include <qfile.h>
+
+#include <kdebug.h>
+#include <klocale.h>
+#include <kiconloader.h>
+
+#include "bttransfer.h"
+#include "btthread.h"
 
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
-		       Scheduler* scheduler, const KURL& src, const KURL& dest)
-  : Transfer(parent, factory, scheduler, src, dest)
+               Scheduler* scheduler, const KURL& src, const KURL& dest,
+               const QDomElement * e)
+  : Transfer(parent, factory, scheduler, src, dest, e)
 {
-  BTThread::initialize();
-  kdDebug() << "new bt transfer" << endl;
-  slotResume();
+    BTThread::initialize(); //check: is this thread active always?? :-O
+    kdDebug() << "new bt transfer" << endl;
 
-  connect(&timer, SIGNAL(timeout()), SLOT(update()));
-}
- 
-BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
-		       Scheduler* scheduler, QDomNode* node)
-  : Transfer(parent, factory, scheduler, node)
-{
-  slotResume();
-  connect(&timer, SIGNAL(timeout()), SLOT(update()));
+    //We already know that the file is local (the check is in the Factory)
+    QFile file(src.path());
+    kdDebug() << "Opening file: " << src.path() << endl;
+
+    if(file.open(IO_ReadOnly))
+    {
+        kdDebug() << "***********Bittorrent file opened" << endl;
+        QByteArray data = file.readAll();
+        kdDebug() << "Stream of size: " << data.size() << endl; 
+        kdDebug() << "Stream of data: " << endl << data.data()  << endl;
+        bencodeStream.write(data.data(), data.size());
+
+        file.close();
+    }
+    else
+    {
+        kdDebug() << "***********Unable to open bittorrent file!" << endl;
+        kdDebug() << file.errorString() << endl;
+    }
+
+    connect(&timer, SIGNAL(timeout()), SLOT(update()));
+
+    m_statusText = i18n("Stopped");
+    m_statusPixmap = SmallIcon("stop");
 }
 
 BTTransfer::~BTTransfer()
 {
-  BTThread::stop();
+    BTThread::stop();
 }
 
 bool BTTransfer::isResumable() const
 {
-  return true;
-}
-
-unsigned long BTTransfer::totalSize() const
-{
-  return m_totalSize;
-}
-
-unsigned long BTTransfer::processedSize() const
-{
-  return m_processedSize;
-}
-
-int BTTransfer::percent() const
-{
-  return m_percent;
+    return true;
 }
 
 void BTTransfer::start()
 {
-  startTime = QTime::currentTime();
-  slotResume();
+    startTime = QTime::currentTime();
+    setStatus(Job::Running);
+    resume();
 }
 
 void BTTransfer::stop()
 {
-  slotStop();
+    kdDebug() << endl << "bt stopped" << endl << endl;
+    timer.stop();
+    if (download.is_valid()) 
+    {
+        download.stop();
+        download.hash_save();
+        m_statusText = i18n("Stopped");
+        m_statusPixmap = SmallIcon("stop");
+        setTransferChange(Tc_Status, true);
+        setStatus(Job::Stopped);
+
+        startTime = QTime();
+    }
 }
 
 int BTTransfer::elapsedTime() const
 {
-  return startTime.secsTo(QTime::currentTime());
+    return startTime.secsTo(QTime::currentTime());
 }
 
 int BTTransfer::remainingTime() const
 {
-  // we should use the average rate here
-  int rate = speed();
-  return (rate <= 0) ? -1 : 
-    (int)((totalSize() - processedSize()) / rate);
+    // we should use the average rate here
+    int rate = speed();
+    return (rate <= 0) ? -1 :
+        (int)((totalSize() - processedSize()) / rate);
 }
 
-int BTTransfer::speed() const
+void BTTransfer::resume()
 {
-  return m_speed;
+    kdDebug() << endl << "resume dl" << endl << endl;
+    if (!download.is_valid())
+    {
+        try
+        {
+            download = torrent::download_create(&bencodeStream);
+            // deallocate stream
+            bencodeStream.str(std::string());
+            // set directory
+            download.set_root_dir(std::string(dest().directory(false).ascii()));
+
+            if (download.get_entry_size() == 1) 
+            {
+                //set filename too?
+            }
+
+            //       trackerSucceeded = download.signal_tracker_succeded
+            // 	(sigc::bind(sigc::mem_fun(*this, &BTTransfer::trackerMessage), 
+            // 		    "succeeded"));
+            //       trackerFailed = download.signal_tracker_failed
+            // 	(sigc::mem_fun(*this, &BTTransfer::trackerMessage));
+
+            downloadDone = download.signal_download_done
+            (sigc::mem_fun(*this, &BTTransfer::downloadFinished));
+
+            hashingDone = download.signal_hash_done
+            (sigc::mem_fun(*this, &BTTransfer::hashingFinished));
+        }
+        catch (std::exception& e)
+        {
+            // line below only compiles with exceptions activated
+            // kdDebug() << "exception " << e.what() << endl;
+            return;
+        }
+        kdDebug() << "still alive" << endl;
+    }
+
+    if(!download.is_active())
+    {
+        if (!download.is_open()) 
+        {
+            kdDebug() << endl << "second turn" << endl << endl;
+            download.open();
+        }
+        if (!download.is_hash_checked()) 
+        {
+            download.hash_check(false);
+            return;
+        }
+        try 
+        {
+            kdDebug() << endl << "third turn" << endl << endl;
+            download.start();
+        }
+        catch (std::exception& e)
+        {
+        // the line below only compiles with exceptions activated
+        // kdDebug() << "Resume exception " << e.what() << endl << endl;
+        }
+        m_statusText = i18n("Connecting..");
+        m_statusPixmap = SmallIcon("connect_creating");
+        setTransferChange(Tc_Status, true);
+        timer.start(1 * 1000);
+        return;
+    }
 }
 
-bool BTTransfer::slotResume()
+void BTTransfer::remove()
 {
-  kdDebug() << endl << "resume dl" << endl << endl;
-  if (!download.is_valid()) {
-    kdDebug() << endl << "fresh start" << endl << endl;
-    KIO::TransferJob* job = KIO::get(source(), false, false);
-    connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)),
-	    SLOT(data(KIO::Job*, const QByteArray&)));
-    connect(job, SIGNAL(result(KIO::Job*)), SLOT(result(KIO::Job*)));
-    KIO::Scheduler::scheduleJob(job);
-    return true;
-  }
-  if(!download.is_active()) {
-    if (!download.is_open()) {
-      kdDebug() << endl << "second turn" << endl << endl;
-      download.open();
+    kdDebug() << endl << "bt removed" << endl << endl;
+    timer.stop();
+    if (download.is_valid() && download.is_active()) 
+    {
+        download.stop();
+        download.close();
+        torrent::download_remove(download.get_hash());
     }
-    if (!download.is_hash_checked()) {
-      download.hash_check(false);
-      return true;
-    }
-    try {
-      kdDebug() << endl << "third turn" << endl << endl;
-      download.start();
-    }
-    catch (std::exception& e) {
-      // the line below only compiles with exceptions activated
-      // kdDebug() << "slotResume exception " << e.what() << endl << endl;
-    }
-    m_statusText = i18n("Running");
-    setTransferChange(Tc_Status, true);
-    timer.start(1 * 1000);
-    return true;
-  }
-  return false;
-}
- 
-void BTTransfer::slotStop()
-{
-  kdDebug() << endl << "bt stopped" << endl << endl;
-  timer.stop();
-  if (download.is_valid()) {
-    download.stop();
-    download.hash_save();
-    m_statusText = i18n("Stopeed");
-    setTransferChange(Tc_Status, true);
-    startTime = QTime();
-  }
-}
- 
-void BTTransfer::slotRemove()
-{
-  kdDebug() << endl << "bt removed" << endl << endl;
-  timer.stop();
-  if (download.is_valid() && download.is_active()) {
-    download.stop();
-    download.close();
-    torrent::download_remove(download.get_hash());
-  }
-}
-    
-void BTTransfer::data(KIO::Job* job, const QByteArray& data)
-{
-  Q_UNUSED(job);
-  bencodeStream.write(data.data(), data.size());
-}
- 
-void BTTransfer::result(KIO::Job* job)
-{
-  kdDebug() << "finished tracker download" << endl;
-  if (job->error()) {
-    // handle error
-  }
-  else {
-    kdDebug() << "no error so far " << endl;
-    
-    try {
-      download = torrent::download_create(&bencodeStream);
-      // deallocate stream
-      bencodeStream.str(std::string());
-      // set directory
-      download.set_root_dir(std::string(dest().directory(false).ascii()));
-
-      if (download.get_entry_size() == 1) {
-	// set filename too?
-      }
-
-//       trackerSucceeded = download.signal_tracker_succeded
-// 	(sigc::bind(sigc::mem_fun(*this, &BTTransfer::trackerMessage), 
-// 		    "succeeded"));
-//       trackerFailed = download.signal_tracker_failed
-// 	(sigc::mem_fun(*this, &BTTransfer::trackerMessage));
-      
-      downloadDone = download.signal_download_done
-	(sigc::mem_fun(*this, &BTTransfer::downloadFinished));
-
-      hashingDone = download.signal_hash_done
-	(sigc::mem_fun(*this, &BTTransfer::hashingFinished));
-	
-      slotResume();
-    }
-    catch (std::exception& e) {
-      // line below only compiles with exceptions activated
-      // kdDebug() << "exception " << e.what() << endl;
-      return;
-    }
-    kdDebug() << "still alive" << endl;
-  }
 }
 
 void BTTransfer::trackerMessage(std::string msg)
 {
-  kdDebug() << "trackerMessage" << endl;
-  kdDebug() << msg.c_str() << endl;
+    kdDebug() << "trackerMessage" << endl;
+    kdDebug() << msg.c_str() << endl;
 }
 
 void BTTransfer::downloadFinished()
 {
-  kdDebug() << "bt transfer done " << endl;
-  m_statusText = i18n("Finished");
-  setTransferChange(Tc_Status);
+    kdDebug() << "bt transfer done " << endl;
+    m_statusText = i18n("Finished");
+    m_statusPixmap = SmallIcon("ok");
+    setTransferChange(Tc_Status, true);
 }
 
 void BTTransfer::hashingFinished()
 {
-  kdDebug() << "hashing finished " << endl;
-  
-  m_statusText = i18n("Trying");
-  setTransferChange(Tc_Status);
-  slotResume();
+    kdDebug() << "hashing finished " << endl;
+
+    setTransferChange(Tc_Status, true);
+    resume();
 }
 
 void BTTransfer::update()
 {
-  kdDebug() << "update" << endl;
-  if (!download.is_valid() || !download.is_active()) {
-    kdDebug() << "timer running on invalid or inactive download" << endl;
-    timer.stop();
-    return;
-  }
+    kdDebug() << "update" << endl;
+    if (!download.is_valid() || !download.is_active()) 
+    {
+        kdDebug() << "timer running on invalid or inactive download" << endl;
+        timer.stop();
+        return;
+    }
   
 //   kdDebug() << "dl name " << download.get_name().c_str() << endl;
 //   kdDebug() << "processedSize " << download.get_bytes_done() << endl;
@@ -259,44 +239,54 @@ void BTTransfer::update()
 //   kdDebug() << "peers conn " << download.get_peers_connected() << endl;
 //   kdDebug() << "handshakes " << torrent::get(torrent::HANDSHAKES_TOTAL) << endl;
 
-  BTThread::lock();
-  m_totalSize = download.get_bytes_total();
-  m_processedSize = download.get_bytes_done();
-  m_speed = download.get_rate_down();
-  BTThread::unlock();
-  if (m_totalSize > 0) {
-    m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
-    setTransferChange(Tc_Percent);
-  }
-  setTransferChange(Tc_Status);
-  setTransferChange(Tc_ProcessedSize);
-  setTransferChange(Tc_Speed);
-  setTransferChange(Tc_TotalSize, true);
-}
-
-void BTTransfer::read(QDomNode* node)
-{
-  Transfer::read(node);
-  QDomElement e(node->toElement());
-  if (!e.isNull()) {
-    QDomElement first(e.firstChild().toElement());
-    if (!first.isNull()) {
-      if (first.tagName() == "bencode") {
-	bencodeStream << first.text().ascii();
-      }
+    if(m_statusText != i18n("Running"))
+    {
+        m_statusText = i18n("Downloading..");
+        m_statusPixmap = SmallIcon("tool_resume");
+        setTransferChange(Tc_Status, true);
     }
-  }
+
+    BTThread::lock();
+    m_totalSize = download.get_bytes_total();
+    m_processedSize = download.get_bytes_done();
+    m_speed = download.get_rate_down();
+    BTThread::unlock();
+    if (m_totalSize > 0) 
+    {
+        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
+        setTransferChange(Tc_Percent);
+    }
+    setTransferChange(Tc_Status);
+    setTransferChange(Tc_ProcessedSize);
+    setTransferChange(Tc_Speed);
+    setTransferChange(Tc_TotalSize, true);
 }
 
-void BTTransfer::write(QDomNode* node)
+void BTTransfer::save(QDomElement e)
 {
-  Transfer::write(node);
-  if (download.is_valid() && !download.is_active()) {
-    QDomDocument doc(node->ownerDocument());
-    QDomElement bencode(doc.createElement("bencode"));
-    node->appendChild(bencode);
-    std::stringstream s;
-    s << torrent::download_bencode(download.get_hash());
-    bencode.appendChild(doc.createTextNode(s.str().c_str()));
-  }
+    if (download.is_valid() && !download.is_active()) 
+    {
+        QDomDocument doc(e.ownerDocument());
+        QDomElement bencode(doc.createElement("bencode"));
+        e.appendChild(bencode);
+        std::stringstream s;
+        s << torrent::download_bencode(download.get_hash());
+        bencode.appendChild(doc.createTextNode(s.str().c_str()));
+    }
 }
+
+void BTTransfer::load(QDomElement e)
+{
+    Transfer::load(e);
+
+    if (!e.isNull())
+    {
+        QDomElement first(e.firstChild().toElement());
+        if (!first.isNull() &&  (first.tagName() == "bencode") )
+        {
+            bencodeStream << first.text().ascii();
+        }
+    }
+}
+
+#include "bttransfer.moc"

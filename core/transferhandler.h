@@ -55,6 +55,7 @@ class TransferObserver;
 class TransferHandler
 {
     friend class Transfer;
+    friend class TransferFactory;
 
     public:
 
@@ -140,6 +141,22 @@ class TransferHandler
          * @return a KPopupMenu for the given transfers
          */
         KPopupMenu * popupMenu(QValueList<TransferHandler *> transfers);
+
+        /**
+         * Selects the current transfer. Selecting transfers means that all
+         * the actions executed from the gui will apply also to the current
+         * transfer.
+         *
+         * @param select if true the current transfer is selected
+         *               if false the current transfer is deselected
+         */
+        void setSelected( bool select );
+
+        /**
+         * @returns true if the current transfer is selected
+         * @returns false otherwise
+         */
+        bool isSelected() const;
 
         /**
          * Returns the changes flags

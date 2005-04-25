@@ -28,9 +28,8 @@ class TransferKio : public QObject, public Transfer
 
     public:
         TransferKio(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KURL & src, const KURL & dest);
-        TransferKio(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, QDomNode * n);
+                    Scheduler * scheduler, const KURL & src, const KURL & dest,
+                    const QDomElement * e = 0);
 
     public slots:
         // --- Job virtual functions ---
@@ -41,9 +40,10 @@ class TransferKio : public QObject, public Transfer
         int remainingTime() const;
         bool isResumable() const;
 
+        void save(QDomElement e);
+
     protected:
-        void read(QDomNode * n);
-        void write(QDomNode * n);
+        void load(QDomElement e);
 
     private:
         void createJob();

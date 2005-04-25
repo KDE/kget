@@ -23,6 +23,7 @@
 #include <kiconloader.h>
 #include <kio/global.h>
 #include <kimageeffect.h>
+#include <kmimetype.h>
 #include <kiconeffect.h>
 
 #include "ui/mainview.h"
@@ -152,6 +153,9 @@ TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfe
       m_transfer(transfer),
       m_view(parent->view())
 {
+    setDragEnabled(true);
+    setDropEnabled(true);
+
     updateContents(true);
 
     transfer->addObserver(this);
@@ -166,6 +170,8 @@ void TransferItem::updateContents(bool updateAll)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
+    kdDebug() << " TransferFlags = " << transferFlags << endl;
+
     if(updateAll)
     {
         setText(0, m_transfer->source().fileName());
@@ -173,7 +179,7 @@ void TransferItem::updateContents(bool updateAll)
 
     if( updateAll )
     {
-        bool colorizeIcon = true;
+/*        bool colorizeIcon = true;
 
         QColor saturatedColor = QColor(Qt::red);
 
@@ -189,7 +195,8 @@ void TransferItem::updateContents(bool updateAll)
             KIconEffect::colorize( priorityIcon, saturatedColor, 0.9 );
 
             setPixmap(0, QPixmap(priorityIcon));
-        }
+        }*/
+        setPixmap(0, KMimeType::pixmapForURL( m_transfer->source(), 0, KIcon::Desktop, 16, 0, 0L));
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_Status) )
@@ -225,7 +232,21 @@ void TransferItem::updateContents(bool updateAll)
             setText(4, i18n("%1/s").arg(KIO::convertSize( speed )) );
     }
 
+    if(updateAll || (transferFlags & Transfer::Tc_Selection) )
+    {
+        kdDebug() << "UPDATE:  selection    " << m_transfer->isSelected() << endl;
+        QListViewItem::setSelected( m_transfer->isSelected() );
+    }
+
     m_transfer->resetChangesFlags(this);
+}
+
+void TransferItem::setSelected(bool s)
+{
+    kdDebug() << "TransferItem::setSelected  -> " << isSelected()
+              << "  " << m_transfer->isSelected() << endl;
+
+    m_transfer->setSelected( s );
 }
 
 void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
@@ -301,51 +322,6 @@ QValueList<TransferHandler *> MainView::getSelectedList()
     return list;
 }
 
-
-void MainView::slotNewTransfer()
-{
-//    schedNewURLs( KURL(), QString::null );
-}
-
-void MainView::slotResumeItems()
-{
-    QValueList <TransferHandler *> selItems = getSelectedList();
-//    schedSetCommand( selItems, CmdResume );
-}
-
-void MainView::slotStopItems()
-{
-    QValueList <TransferHandler *> selItems = getSelectedList();
-//     schedSetCommand( selItems, CmdPause );
-}
-
-void MainView::slotRemoveItems()
-{
-    QValueList <TransferHandler *> selItems = getSelectedList();
-//     schedDelItems( selItems );
-}
-
-void MainView::slotSetPriority( int id )
-{
-    QValueList <TransferHandler *> selItems = getSelectedList();
-//     schedSetPriority( selItems, id );
-}
-
-void MainView::slotSetGroup( int id )
-{
-/*    QValueList <TransferHandler *> selItems = getSelectedList();
-
-    QMap<QString, TransferGroupItem *>::iterator it = m_groupsMap.begin();
-    QMap<QString, TransferGroupItem *>::iterator itEnd = m_groupsMap.end();
-
-    for(int i=0; it!=itEnd && i<id; ++it, ++i);
-
-    //Now the iterator points to the selected group
-    schedSetGroup( tl, (*it)->group()->info().name );
-    kdDebug() << "Move to group: " << id+1 << " / " << m_groupsMap.size() << " " <<
-            (*it)->group()->info().name << endl;*/
-}
-
 void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
 {
     QValueList<TransferHandler *> selectedTransfers = getSelectedList();
@@ -362,58 +338,6 @@ void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & 
     m_popup = selectedTransfers.first()->popupMenu(selectedTransfers);
     m_popup->popup( pos );
 
-/*    if (!ac) return;
-
-    KPopupMenu * popup = new KPopupMenu( this );
-
-    TransferList t = getSelectedList();
-    // insert title
-    QString t1 = i18n("%n download", "%n downloads", t.count());
-    QString t2 = i18n("KGet");
-    popup->insertTitle( column!=-1 ? t1 : t2 );
-
-    // add menu entries
-    if ( column!=-1 )
-    {   // menu over an item
-        popup->insertItem( SmallIcon("down"), i18n("R&esume"), this, SLOT(slotResumeItems()) );
-        popup->insertItem( SmallIcon("stop"), i18n("&Stop"), this, SLOT(slotStopItems()) );
-        popup->insertItem( SmallIcon("editdelete"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
-
-        KPopupMenu * subPrio = new KPopupMenu( popup );
-        subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority(int) ), 0, 1);
-        subPrio->insertItem( SmallIcon("1uparrow"), i18n("high"), this,  SLOT( slotSetPriority(int) ), 0, 2);
-        subPrio->insertItem( SmallIcon("1rightarrow"), i18n("normal"), this,  SLOT( slotSetPriority(int) ), 0, 3);
-        subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority(int) ), 0, 4);
-        subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority(int) ), 0, 5);
-        subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority(int) ), 0, 6 );
-        popup->insertItem( i18n("Set &priority"), subPrio );
-
-        KPopupMenu * subGroup = new KPopupMenu( popup );
-        //for loop inserting all existant groups
-        QMap<QString, TransferGroupItem *>::iterator it = m_groupsMap.begin();
-        QMap<QString, TransferGroupItem *>::iterator itEnd = m_groupsMap.end();
-
-        for(int i=0; it != itEnd; ++it, ++i)
-        {
-            subGroup->insertItem( SmallIcon("folder"),
-                                    (*it)->group()->info().name, 
-                                    this,  SLOT( slotSetGroup( int ) ),
-                                    0, i);
-        }
-        //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );
-        popup->insertItem( SmallIcon("folder"), i18n("Set &group"), subGroup );
-    }
-    else
-        // menu on empty space
-        ac->action("open_transfer")->plug(popup);
-
-    // show popup
-    popup->popup( pos );*/
-}
-
-void MainView::setupActions( KActionCollection * a )
-{
-    ac = a;
 }
 
 void MainView::paletteChange()

@@ -20,11 +20,14 @@
 #include <qstring.h>
 
 #include <kservice.h>
+#include <kurl.h>
 
 #include "scheduler.h"
 
-class KURL;
+class QDomElement;
+
 class KLibrary;
+class KActionCollection;
 
 class Transfer;
 class TransferGroup;
@@ -32,6 +35,7 @@ class TransferHandler;
 class TransferFactory;
 class ModelObserver;
 class KGetPlugin;
+class KGet;
 
 /**
  * This is our Model class. This is where the user's transfers and searches are
@@ -46,8 +50,9 @@ class KGetPlugin;
 class Model
 {
     public:
-        static Model& self()
+        static Model& self( KGet * kget )
         {
+            m_kget = kget;
             static Model m;
             return m;
         }
@@ -92,6 +97,14 @@ class Model
                                 const QString& groupName = "");
 
         /**
+         * Adds a new transfer to the Model
+         *
+         * @param e The transfer's dom element
+         * @param groupName The name of the group the new transfer will belong to
+         */
+        static void addTransfer(const QDomElement& e, const QString& groupName = "");
+
+        /**
          * Adds new transfers to the Model
          *
          * @param srcURLs The urls to be downloaded
@@ -117,6 +130,30 @@ class Model
          */
         static void moveTransfer(TransferHandler * transfer, const QString& groupName);
 
+        /**
+         * @returns the list of selected transfers
+         */
+        static QValueList<TransferHandler *> selectedTransfers();
+
+        /**
+         * Imports the transfers and groups included in the provided xml file
+         *
+         * @param filename the file name to 
+         */
+        static void load( QString filename="" );
+
+        /**
+         * Exports all the transfers and groups to the given file
+         *
+         * @param filename the file name
+         */
+        static void save( QString filename="" );
+
+        /**
+         * @return a pointer to the KActionCollection objects
+         */
+        static KActionCollection * actionCollection();
+
     private:
         Model();
         ~Model();
@@ -129,7 +166,7 @@ class Model
          * @param dest the destination url
          * @param groupName the group name
          */
-        static void createTransfer(KURL src, KURL dest, const QString& groupName = "");
+        static void createTransfer(KURL src, KURL dest, const QString& groupName = "", const QDomElement * e = 0);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers
@@ -166,9 +203,9 @@ class Model
         static Transfer * findTransfer(KURL url);
 
         //Plugin-related functions
-        void loadPlugins();
-        void unloadPlugins();
-        KGetPlugin * createPluginFromService( const KService::Ptr service );
+        static void loadPlugins();
+        static void unloadPlugins();
+        static KGetPlugin * createPluginFromService( const KService::Ptr service );
 
 
         /**
@@ -191,6 +228,9 @@ class Model
 
         //List of KLibrary objects (used to release the plugins from memory)
         static QValueList<KLibrary *> m_pluginKLibraries;
+
+        //pointer to the Main window
+        static KGet * m_kget;
 
         //Scheduler object
         static Scheduler m_scheduler;

@@ -11,5 +11,5 @@ Comment=Transfer plugin for KGet
 # options for library loader
 X-KDE-Library=libkget_kiofactory
 X-KDE-KGet-plugintype=TransferFactory
-X-KDE-KGet-rank=254
+X-KDE-KGet-rank=50
 X-KDE-KGet-framework-version=1

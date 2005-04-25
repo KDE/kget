@@ -20,21 +20,15 @@ class Transfer;
 class TransferAction : public KAction
 {
     public:
-        TransferAction( const QString& text, const QIconSet& pix, 
+        TransferAction( const QString& text, const QString& pix, 
                         const KShortcut& cut, KActionCollection* parent, 
                         const char* name );
         ~TransferAction() {}
 
-        virtual void execute(Transfer * transfer) =0;
-
-        void connectToTransfer(Transfer * transfer);
-        void disconnectAllTransfers();
+        virtual void execute(const QValueList<TransferHandler *> & transfers) =0;
 
     public slots:
         void activate();
-
-    private:
-        QValueList<Transfer *> m_transfers;
 };
 
 #endif

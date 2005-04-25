@@ -23,10 +23,8 @@
 <ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
     <Action name="download" />
     <Separator lineSeparator="true"/>
-    <Action name="view_bandgraph" />
-    <Separator lineSeparator="true"/>    
-    <Action name="view_spacer" />
-    <Action name="view_vlabel" />
-    <Action name="view_mode" />
+    <Action name="start_transfer" />
+    <Action name="stop_transfer" />
+    <Separator lineSeparator="true"/>
 </ToolBar>
 </kpartgui>

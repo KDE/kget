@@ -30,6 +30,8 @@
 
 #include <qvaluelist.h>
 
+#include <kapplication.h>
+
 #include "plugin.h"
 #include "core/transfer.h"
 #include "core/transferhandler.h"
@@ -51,19 +53,21 @@ class TransferFactory : public KGetPlugin
     public:
         TransferFactory();
 
-        virtual Transfer * createTransfer( KURL srcURL, KURL destURL, 
-                                           TransferGroup * parent, Scheduler * scheduler )=0;
+        virtual Transfer * createTransfer( KURL srcURL, KURL destURL,
+                                           TransferGroup * parent,
+                                           Scheduler * scheduler,
+                                           const QDomElement * n = 0 )=0;
 
         const QValueList<TransferAction *> & actions() {return m_actions;}
 
-        KPopupMenu * createPopupMenu(QValueList<Transfer *> transfers);
+        KPopupMenu * createPopupMenu(QValueList<TransferHandler *> transfers);
 
     protected:
         QValueList<TransferAction *> m_actions;
 };
 
 
-/** -------- TransferFactory actions --------
+/**----------------------- TransferFactory actions -----------------------
  *
  *  Here are the TransferAction objects common to all the Transfer objects.
  */
@@ -71,30 +75,66 @@ class TransferFactory : public KGetPlugin
 class ActionStart : public TransferAction
 {
     public:
-        ActionStart( const QString& text, const QIconSet& pix, 
+        ActionStart( const QString& text, const QString& pix, 
                      const KShortcut& cut, KActionCollection* parent, 
                      const char* name )
             : TransferAction(text, pix, cut, parent, name)
         {}
 
-        void execute(Transfer * transfer)
+        void execute(const QValueList<TransferHandler *> & transfers)
         {
-            transfer->handler()->start();
+            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
+            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+                (*it)->start();
         }
 };
 
 class ActionStop : public TransferAction
 {
     public:
-        ActionStop( const QString& text, const QIconSet& pix, 
+        ActionStop( const QString& text, const QString& pix, 
                     const KShortcut& cut, KActionCollection* parent, 
                     const char* name )
             : TransferAction(text, pix, cut, parent, name)
         {}
 
-        void execute(Transfer * transfer)
+        void execute(const QValueList<TransferHandler *> & transfers)
         {
-            transfer->handler()->stop();
+            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
+            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+                (*it)->stop();
+        }
+};
+
+class ActionOpenDestination : public TransferAction
+{
+    public:
+        ActionOpenDestination( const QString& text, const QString& pix,
+                               const KShortcut& cut, KActionCollection* parent,
+                               const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QValueList<TransferHandler *> & transfers)
+        {
+            QStringList openedDirs;
+
+            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
+            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+            {
+                QString directory = (*it)->dest().directory();
+                if( !openedDirs.contains( directory ) )
+                {
+                    kapp->invokeBrowser( directory );
+                    openedDirs.append( directory );
+                }
+            }
         }
 };
 

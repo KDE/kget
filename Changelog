@@ -1,3 +1,23 @@
+2005-04-25 Dario Massarin <nekkar@libero.it>
+        Lots of changes:
+        * Redesign of the TransferAction class.
+        * Now the selected transfers are handled in a perfect model/view style.
+        You can select a transfer by means of the TransferHandler. The selection
+        of a transfer triggers a TransferChangedEvent. The list of selected
+        transfers can be retrived from the model.
+        * With this code in place, I added, as a proof of concept, two actions
+        in the toolbar, that are executed only on the selected transfers.
+        * New default TransferAction: "open destination". I think it's very useful
+        * In the mainview the icon associated with each transfer now reflects
+        the mymetype of the file.
+        * Several changes in the Transfer and TransferGroup API
+        * Reorganization of the bittorrent plugin code. Now we check in the
+        Factory if the file is local, and only if this is true we create the
+        BTTransfer object. This allowed to remove lots of code.
+        * Now we can load and save the transfers when starting and closing kget.
+        It seems to work, but I didn't test this very much.
+        * Other things, that now I don't remember :-)
+
 2005-04-17 Dario Massarin <nekkar@libero.it>
         Lots of stuff:
         * Much work on the Job, JobQueue, TransferGroup, TransferHandler classes

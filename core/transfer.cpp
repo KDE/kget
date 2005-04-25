@@ -18,31 +18,17 @@
 #include "core/scheduler.h"
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
-                   Scheduler * scheduler, const KURL & source, const KURL & dest)
+                   Scheduler * scheduler, const KURL & source, const KURL & dest,
+                   const QDomElement * e)
     : Job(parent, scheduler),
       m_source(source), m_dest(dest),
-      m_handler(0), m_factory(factory),
       m_totalSize(0), m_processedSize(0),
-      m_percent(0), m_speed(0)
+      m_percent(0), m_speed(0),
+      m_isSelected(false),
+      m_handler(0), m_factory(factory)
 {
-
-}
-
-Transfer::Transfer(TransferGroup * parent, TransferFactory * factory, 
-                   Scheduler * scheduler, QDomNode * n)
-    : Job(parent, scheduler)
-{
-    read(n);
-}
-
-const KURL & Transfer::source() const
-{
-    return m_source;
-}
-
-const KURL & Transfer::dest() const
-{
-    return m_dest;
+    if( e )
+        load( *e );
 }
 
 TransferHandler * Transfer::handler()
@@ -53,23 +39,18 @@ TransferHandler * Transfer::handler()
     return m_handler;
 }
 
-void Transfer::read(QDomNode * n)
+void Transfer::save(QDomElement e)
 {
-    QDomElement e = n->toElement();
+    e.setAttribute("TotalSize", m_totalSize);
+    e.setAttribute("ProcessedSize", m_processedSize);
+    e.setAttribute("Percent", m_percent);
+}
 
+void Transfer::load(QDomElement e)
+{
     m_totalSize = e.attribute("TotalSize").toInt();
     m_processedSize = e.attribute("ProcessedSize").toInt();
     m_percent = e.attribute("Percent").toULong();
-}
-
-void Transfer::write(QDomNode * n)
-{
-    QDomElement t = n->ownerDocument().createElement("Transfer");
-    n->appendChild(t);
-
-    t.setAttribute("TotalSize", m_totalSize);
-    t.setAttribute("ProcessedSize", m_processedSize);
-    t.setAttribute("Percent", m_percent);
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)

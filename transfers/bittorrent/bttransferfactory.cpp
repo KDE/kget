@@ -17,6 +17,7 @@
  *
  */
 
+#include <kdebug.h>
 
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
@@ -24,12 +25,16 @@
 
 KGET_EXPORT_PLUGIN(BTTransferFactory)
 
-Transfer* BTTransferFactory::createTransfer(KURL srcURL, KURL destURL,
-					    TransferGroup* parent, 
-					    Scheduler* scheduler)
+Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
+                                              TransferGroup * parent,
+                                              Scheduler * scheduler, 
+                                              const QDomElement * e )
 {
-  if (srcURL.fileName().endsWith(".torrent")) {
-    return new BTTransfer(parent, this, scheduler, srcURL, destURL);
-  }
-  return 0;
+    kdDebug() << "BTTransferFactory::createTransfer" << endl;
+
+    if (srcURL.fileName().endsWith(".torrent") && srcURL.isLocalFile())
+    {
+        return new BTTransfer(parent, this, scheduler, srcURL, destURL, e);
+    }
+    return 0;
 }

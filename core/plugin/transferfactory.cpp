@@ -13,21 +13,29 @@
 #include <kiconloader.h>
 #include <kdebug.h>
 
+#include "model.h"
 #include "transferfactory.h"
 #include "transferaction.h"
 
 TransferFactory::TransferFactory()
 {
     //ActionStart action
-    m_actions.append( new ActionStart( i18n("Start"), SmallIcon("down"),
-                                       0, 0, "start_transfer" ) );
+    m_actions.append( new ActionStart( i18n("Start"), "tool_resume",
+                                       0, Model::actionCollection(),
+                                       "start_transfer" ) );
 
     //ActionStop action
-    m_actions.append( new ActionStop( i18n("Stop"), SmallIcon("stop"),
-                                      0, 0, "stop_transfer" ) );
+    m_actions.append( new ActionStop( i18n("Stop"), "tool_pause",
+                                      0, Model::actionCollection(), 
+                                      "stop_transfer" ) );
+
+    //ActionOpenDestination action
+    m_actions.append( new ActionOpenDestination( i18n("Open Destination"), "folder",
+                                                 0, Model::actionCollection(),
+                                                 "open_destination" ) );
 }
 
-KPopupMenu * TransferFactory::createPopupMenu(QValueList<Transfer *> transfers)
+KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> transfers)
 {
     if( transfers.empty() )
         return 0;
@@ -36,18 +44,19 @@ KPopupMenu * TransferFactory::createPopupMenu(QValueList<Transfer *> transfers)
     //transferfactory
     bool sameFactory = true;
 
-    QValueList<Transfer *>::iterator it = transfers.begin();
-    QValueList<Transfer *>::iterator itEnd = transfers.end();
+    QValueList<TransferHandler *>::iterator it = transfers.begin();
+    QValueList<TransferHandler *>::iterator itEnd = transfers.end();
 
     for(; (it!=itEnd) && (sameFactory) ; ++it)
     {
-        sameFactory = ( (*it)->factory() == transfers.first()->factory() );
+        sameFactory = ( (*it)->m_transfer->factory() ==
+                        transfers.first()->m_transfer->factory() );
     }
 
     //Get the right factory for the given list of transfers
     QValueList<TransferAction *> actionList;
     if(sameFactory)
-        actionList = transfers.first()->factory()->actions();
+        actionList = transfers.first()->m_transfer->factory()->actions();
     else
         actionList = this->actions();
 
@@ -60,17 +69,6 @@ KPopupMenu * TransferFactory::createPopupMenu(QValueList<Transfer *> transfers)
 
     for( ; it2!=itEnd2 ; ++it2 )
     {
-        //Now connect each action to the given list of transfers
-        (*it2)->disconnectAllTransfers();
-
-        it = transfers.begin();
-        itEnd = transfers.end();
-
-        for( ; it!=itEnd ; ++it )
-        {
-            (*it2)->connectToTransfer( *it );
-        }
-
         //Plug each action in the popup menu
         (*it2)->plug( popup );
     }

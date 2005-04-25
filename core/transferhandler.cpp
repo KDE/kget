@@ -93,19 +93,21 @@ int TransferHandler::speed() const
 
 KPopupMenu * TransferHandler::popupMenu(QValueList<TransferHandler *> transfers)
 {
-    QValueList<Transfer *> transferList;
+    return m_transfer->factory()->createPopupMenu(transfers);
+}
 
-    QValueList<TransferHandler *>::iterator it = transfers.begin();
-    QValueList<TransferHandler *>::iterator itEnd = transfers.end();
-
-    for( ; it!=itEnd ; ++it )
+void TransferHandler::setSelected( bool select )
+{
+    if( (select && !isSelected()) || (!select && isSelected()) )
     {
-/*        kdDebug() << "TransferHandler::popupMenu->transfer = " 
-                  << (*it)->m_transfer << endl;*/
-        transferList.append( (*it)->m_transfer );
+        m_transfer->m_isSelected = select;
+        setTransferChange( Transfer::Tc_Selection, true );
     }
+}
 
-    return m_transfer->factory()->createPopupMenu(transferList);
+bool TransferHandler::isSelected() const
+{
+    return m_transfer->m_isSelected;
 }
 
 Transfer::ChangesFlags TransferHandler::changesFlags(TransferObserver * observer) const

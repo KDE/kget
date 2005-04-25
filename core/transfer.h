@@ -19,6 +19,7 @@
 
 class QStringList;
 class QDomNode;
+class QDomElement;
 
 class TransferHandler;
 class TransferFactory;
@@ -45,20 +46,20 @@ class Transfer : public Job
             Tc_Percent       = 0x00000010,
             Tc_Speed         = 0x00000020,
             Tc_Log           = 0x00000040,
-            Tc_Group         = 0x00000080
+            Tc_Group         = 0x00000080,
+            Tc_Selection     = 0x00000100
         };
 
         typedef int ChangesFlags;
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
-                 Scheduler * scheduler, const KURL & src, const KURL & dest);
-        Transfer(TransferGroup * parent, TransferFactory * factory,
-                 Scheduler * scheduler, QDomNode * n);
+                 Scheduler * scheduler, const KURL & src, const KURL & dest,
+                 const QDomElement * e = 0);
 
         virtual ~Transfer(){}
 
-        const KURL & source() const;
-        const KURL & dest() const;
+        const KURL & source() const         {return m_source;}
+        const KURL & dest() const           {return m_dest;}
 
         //Transfer status
         unsigned long totalSize() const     {return m_totalSize;}
@@ -66,6 +67,8 @@ class Transfer : public Job
 
         int percent() const                 {return m_percent;}
         int speed() const                   {return m_speed;}
+
+        bool isSelected() const             {return m_isSelected;}
 
         /**
          * Transfer history
@@ -87,12 +90,22 @@ class Transfer : public Job
          */
         TransferHandler * handler();
 
+        /**
+         * @returns a pointer to the TransferFactory object
+         */
         TransferFactory * factory() const   {return m_factory;}
 
+        /**
+         * Saves this transfer to the given QDomNode
+         *
+         * @param n The pointer to the QDomNode where the transfer will be saved
+         * @return  The created QDomElement
+         */
+        virtual void save(QDomElement e);
+
     protected:
-        //Function used to read the transfer's info from xml
-        virtual void read(QDomNode * n);
-        virtual void write(QDomNode * n);
+        //Function used to load and save the transfer's info from xml
+        virtual void load(QDomElement e);
 
         /**
          * Makes the TransferHandler associated with this transfer know that
@@ -111,7 +124,8 @@ class Transfer : public Job
         unsigned long m_processedSize;
         int           m_percent;
         int           m_speed;
-        //TransferStatus m_transferStatus; ???
+
+        bool m_isSelected;
 
         QString m_statusText;
         QPixmap m_statusPixmap;

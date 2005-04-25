@@ -8,12 +8,15 @@
    of the License.
 */
 
+#include <qdom.h>
+
 #include <kurl.h>
 #include <kdebug.h>
 
 #include "core/transfer.h"
 #include "core/transfergroup.h"
 #include "core/transfergrouphandler.h"
+#include "core/model.h"
 
 TransferGroup::TransferGroup(Scheduler * scheduler, const QString & name)
     : JobQueue(scheduler),
@@ -22,6 +25,15 @@ TransferGroup::TransferGroup(Scheduler * scheduler, const QString & name)
       m_percent(0), m_speed(0)
 {
 
+}
+
+TransferGroup::TransferGroup(Scheduler * scheduler, const QDomElement & e)
+    : JobQueue(scheduler),
+      m_handler(0),
+      m_totalSize(0), m_processedSize(0),
+      m_percent(0), m_speed(0)
+{
+    load( e );
 }
 
 TransferGroup::~TransferGroup()
@@ -82,4 +94,35 @@ TransferGroupHandler * TransferGroup::handler()
     if(!m_handler)
         m_handler = new TransferGroupHandler(this, scheduler());
     return m_handler;
+}
+
+void TransferGroup::save(QDomElement e)
+{
+    e.setAttribute("Name", m_name);
+
+    iterator it = begin();
+    iterator itEnd = end();
+
+    for( ; it!=itEnd; ++it )
+    {
+        QDomElement t = e.ownerDocument().createElement("Transfer");
+        e.appendChild(t);
+        ((Transfer *) *it)->save(t);
+    }
+}
+
+void TransferGroup::load(const QDomElement & e)
+{
+    kdDebug() << "TransferGroup::load" << endl;
+
+    m_name = e.attribute("Name");
+
+    QDomNodeList nodeList = e.elementsByTagName("Transfer");
+    int nItems = nodeList.length();
+
+    for(int i=0; i<nItems; i++)
+    {
+        kdDebug() << "TransferGroup::load -> addTransfer" << endl;
+        Model::addTransfer( nodeList.item(i).toElement(), name() );
+    }
 }

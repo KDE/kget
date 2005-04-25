@@ -67,6 +67,7 @@ public:
     TransferHandler * transfer() const {return m_transfer;}
     MainView * view() const {return m_view;}
 
+    void setSelected(bool s);
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
 
 private:
@@ -78,37 +79,23 @@ class MainView : public KListView, public ModelObserver
 {
     Q_OBJECT
 
-    public:
+public:
     MainView( QWidget * parent, const char * name = 0 );
     ~MainView();
 
     //Model observer virtual functions
     void addedTransferGroupEvent(TransferGroupHandler * group);
 
-    //KAction setup
-    void setupActions( KActionCollection * a );
-
-    protected:
+protected:
     void paletteChange ();
 
-    public slots:
+public slots:
     void slotRightButtonClicked( QListViewItem *, const QPoint &, int);
 
-    //from "kget menu" popup
-    void slotNewTransfer();
-    //from "transfer operations" popup
-    void slotResumeItems();
-    void slotStopItems();
-    void slotRemoveItems();
-
-    void slotSetPriority( int );
-    void slotSetGroup( int );
-
-    private:
+private:
     QValueList<TransferHandler *> getSelectedList();
 
     KPopupMenu * m_popup;
-    KActionCollection * ac;
 };
 
 #endif

@@ -12,15 +12,16 @@
 #include <qvaluevector.h>
 
 #include <kdebug.h>
-#include <kurl.h>
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <klocale.h>
+#include <kstandarddirs.h>
 #include <ktrader.h>
 #include <klibloader.h>
 
+#include "kget.h"
 #include "core/model.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
@@ -106,6 +107,23 @@ void Model::addTransfer( KURL srcURL, QString destDir,
     createTransfer(srcURL, destURL, groupName);
 }
 
+void Model::addTransfer(const QDomElement& e, const QString& groupName)
+{
+    //We need to read these attributes now in order to know which transfer
+    //plugin to use.
+    KURL srcURL = KURL::fromPathOrURL( e.attribute("Source") );
+    KURL destURL = KURL::fromPathOrURL( e.attribute("Dest") );
+
+    kdDebug() << "Model::addTransfer  src= " << srcURL.url()
+              << " dest= " << destURL.url() << endl;
+
+    if ( srcURL.isEmpty() || !isValidSource(srcURL) 
+         || !isValidDestDirectory(destURL.directory()) )
+        return;
+
+    createTransfer(srcURL, destURL, groupName, &e);
+}
+
 void Model::addTransfer(KURL::List srcURLs, QString destDir,
                         const QString& groupName)
 {
@@ -161,12 +179,133 @@ void Model::moveTransfer(TransferHandler * transfer, const QString& groupName)
     
 }
 
+QValueList<TransferHandler *> Model::selectedTransfers()
+{
+    QValueList<TransferHandler *> selectedTransfers;
+
+    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        TransferGroup::iterator it2 = (*it)->begin();
+        TransferGroup::iterator it2End = (*it)->end();
+
+        for( ; it2!=it2End ; ++it2 )
+        {
+            Transfer * transfer = (Transfer*) *it2;
+
+            if( transfer->isSelected() )
+                selectedTransfers.append( transfer->handler() );
+        }
+    }
+    return selectedTransfers;
+}
+
+void Model::load( QString filename )
+{
+    if(filename.isEmpty())
+        filename = locateLocal("appdata", "transfers.kgt");
+
+    QString tmpFile;
+
+    //Try to save the transferlist to a temporary location
+    if(!KIO::NetAccess::download(filename, tmpFile, 0))
+        return;
+
+    QFile file(tmpFile);
+    QDomDocument doc;
+
+    kdDebug() << "111" << endl;
+
+    if(doc.setContent(&file))
+    {
+        kdDebug() << "222" << endl;
+        QDomElement root = doc.documentElement();
+
+        QDomNodeList nodeList = root.elementsByTagName("TransferGroup");
+        int nItems = nodeList.length();
+
+        for( int i = 0 ; i < nItems ; i++ )
+        {
+            kdDebug() << "333" << endl;
+
+            TransferGroup * foundGroup = findGroup( nodeList.item(i).toElement().attribute("Name") );
+
+            if( !foundGroup )
+            {
+                TransferGroup * newGroup = new TransferGroup(&m_scheduler, nodeList.item(i).toElement());
+                m_transferGroups.append(newGroup);
+                postAddedTransferGroupEvent(newGroup);
+            }
+            else
+            {
+                //A group with this name already exists.
+                //Integrate the group's transfers with the ones read from file
+                foundGroup->load(nodeList.item(i).toElement());
+            }
+        }
+    }
+    else
+    {
+        kdWarning() << "Error reading the transfers file" << endl;
+    }
+}
+
+void Model::save( QString filename )
+{
+    if ( !filename.isEmpty()
+        && QFile::exists( filename )
+        && (KMessageBox::questionYesNo(0,
+                i18n("The file %1 Already exists\nOverwrite?").arg(filename),
+                i18n("Overwrite existing file?"), KStdGuiItem::yes(),
+                KStdGuiItem::no(), "QuestionFilenameExists" )
+                == KMessageBox::Yes) )
+        return;
+
+    if(filename.isEmpty())
+        filename = locateLocal("appdata", "transfers.kgt");
+
+    QDomDocument doc(QString("KGetTransfers"));
+    QDomElement root = doc.createElement("Transfers");
+    doc.appendChild(root);
+
+    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+
+    for ( ; it!=itEnd ; ++it )
+    {
+        QDomElement e = doc.createElement("TransferGroup");
+        root.appendChild(e);
+        (*it)->save(e);
+    }
+    QFile file(filename);
+    if ( !file.open( IO_WriteOnly ) )
+    {
+        //kdWarning()<<"Unable to open output file when saving"<< endl;
+        KMessageBox::error(0,
+                           i18n("Unable to save to: %1").arg(filename),
+                           i18n("Error"));
+        return;
+    }
+
+    QTextStream stream( &file );
+    doc.save( stream, 0 );
+    file.close();
+}
+
+KActionCollection * Model::actionCollection()
+{
+    return m_kget->actionCollection();
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QValueList<TransferGroup *> Model::m_transferGroups = QValueList<TransferGroup *>();
 QValueList<ModelObserver *> Model::m_observers = QValueList<ModelObserver *>();
 QValueList<TransferFactory *> Model::m_transferFactories = QValueList<TransferFactory *>();
 QValueList<KLibrary *> Model::m_pluginKLibraries = QValueList<KLibrary *>();
 Scheduler Model::m_scheduler = Scheduler();
+KGet * Model::m_kget = 0;
 
 // ------ PRIVATE FUNCTIONS ------
 Model::Model()
@@ -183,7 +322,7 @@ Model::~Model()
     unloadPlugins();
 }
 
-void Model::createTransfer(KURL src, KURL dest, const QString& groupName)
+void Model::createTransfer(KURL src, KURL dest, const QString& groupName, const QDomElement * e)
 {
     kdDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
 
@@ -197,10 +336,10 @@ void Model::createTransfer(KURL src, KURL dest, const QString& groupName)
 
     for( ; it!=itEnd ; ++it)
     {
-        if(newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler))
+        kdDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
+        if(newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler, e))
         {
             group->append(newTransfer);
-
             return;
         }
     }
@@ -428,19 +567,32 @@ void Model::loadPlugins()
          "  plugintype = " << offers[i]->property( "X-KDE-KGet-plugintype" ) << endl;
     }
 
+    //I must fill this pluginList before and my m_transferFactories list after.
+    //This becouse calling the KLibLoader::globalLibrary() erases the static
+    //members of this class (why?), such as the m_transferFactories list.
+    QValueList<KGetPlugin *> pluginList;
+
     for( it = services.begin(); it != services.end(); ++it )
     {
         KGetPlugin * plugin;
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
+            pluginList.prepend(plugin);
             kdDebug() << "TransferFactory plugin (" << (*it)->library() 
                       << ") found and added to the list of available plugins" << endl;
-            m_transferFactories.prepend( static_cast<TransferFactory *>(plugin) );
         }
         else
             kdDebug() << "Error loading TransferFactory plugin (" 
                       << (*it)->library() << ")" << endl;
     }
+
+    QValueList<KGetPlugin *>::iterator it2 = pluginList.begin();
+    QValueList<KGetPlugin *>::iterator it2End = pluginList.end();
+
+    for( ; it2!=it2End ; ++it2 )
+        m_transferFactories.append( static_cast<TransferFactory *>(*it2) );
+
+    kdDebug() << "Number of factories = " << m_transferFactories.size() << endl;
 }
 
 void Model::unloadPlugins()
@@ -459,8 +611,10 @@ KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
 {
     //get the library loader instance
     KLibLoader *loader = KLibLoader::self();
+
     //try to load the specified library
-    KLibrary *lib = loader->globalLibrary( QFile::encodeName( service->library() ) );
+    //Warning! This line seems to erase my m_transferFactories list!!
+    KLibrary *lib = loader->library( QFile::encodeName( service->library() ) );
 
     if ( !lib ) 
     {

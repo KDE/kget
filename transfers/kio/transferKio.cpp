@@ -18,22 +18,11 @@
 #include "transferKio.h"
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KURL & source, const KURL & dest)
-    : Transfer(parent, factory, scheduler, source, dest),
+                         Scheduler * scheduler, const KURL & source, const KURL & dest,
+                         const QDomElement * e)
+    : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0)
 {
-    m_statusText = i18n("Stopped");
-    //create a starting icon. This must be overwritten by the Transfer
-    m_statusPixmap = SmallIcon("stop");
-}
-
-TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, QDomNode * n)
-    : Transfer(parent, factory, scheduler, n),
-      m_copyjob(0)
-{
-    Transfer::read(n);
-
     m_statusText = i18n("Stopped");
     //create a starting icon. This must be overwritten by the Transfer
     m_statusPixmap = SmallIcon("stop");
@@ -87,25 +76,20 @@ bool TransferKio::isResumable() const
     return true;
 }
 
-void TransferKio::read(QDomNode * n)
+void TransferKio::load(QDomElement e)
 {
-    Transfer::read(n);
-
-    QDomElement e = n->toElement();
+    Transfer::load(e);
 
     m_source = KURL::fromPathOrURL(e.attribute("Source"));
     m_dest = KURL::fromPathOrURL(e.attribute("Dest"));
 }
 
-void TransferKio::write(QDomNode * n)
+void TransferKio::save(QDomElement e)
 {
-    Transfer::write(n);
+    Transfer::save(e);
 
-    QDomElement t = n->ownerDocument().createElement("Transfer");
-    n->appendChild(t);
-
-    t.setAttribute("Source", m_source.url());
-    t.setAttribute("Dest", m_dest.url());
+    e.setAttribute("Source", m_source.url());
+    e.setAttribute("Dest", m_dest.url());
 }
 
 

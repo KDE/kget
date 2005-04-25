@@ -9,7 +9,7 @@ Name=KIO TransferFactory
 Comment=Transfer plugin for KGet
 
 # options for library loader
-X-KDE-Library=libkgetbittorrent
+X-KDE-Library=libkget_bittorrentfactory
 X-KDE-KGet-plugintype=TransferFactory
-X-KDE-KGet-rank=255
+X-KDE-KGet-rank=200
 X-KDE-KGet-framework-version=1
