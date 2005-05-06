@@ -350,7 +350,7 @@ void KMainWidget::setupGUI()
 #endif
     m_paResume = new KAction(i18n("&Resume"),"tool_resume", 0, this, SLOT(slotResumeCurrent()), coll, "resume");
     m_paPause = new KAction(i18n("&Pause"),"tool_pause", 0, this, SLOT(slotPauseCurrent()), coll, "pause");
-    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", Qt::Key_Delete, this, SLOT(slotDeleteCurrent()), coll, "delete");
+    m_paDelete = new KAction(i18n("&Delete"),"editdelete", Qt::Key_Delete, this, SLOT(slotDeleteCurrent()), coll, "delete");
     m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), coll, "restart");
 
     m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), coll, "queue");
@@ -799,19 +799,19 @@ void KMainWidget::slotDeleteCurrent()
     {
         if ( selectedItems.count() > 1 )
         {
-            if (KMessageBox::questionYesNoList(this, i18n("Are you sure you want to delete these transfers?"),
+            if (KMessageBox::warningContinueCancelList(this, i18n("Are you sure you want to delete these transfers?"),
                                                itemNames, i18n("Question"),
-                                               KStdGuiItem::yes(),KStdGuiItem::no(),
+                                               KStdGuiItem::del(),
                                                QString("multiple_delete_transfer"))
-                != KMessageBox::Yes)
+                != KMessageBox::Continue)
                 return; // keep 'em
         }
         else
         {
-            if (KMessageBox::questionYesNo(this, i18n("Are you sure you want to delete this transfer?"),
-                                           i18n("Question"), KStdGuiItem::yes(),KStdGuiItem::no(),
+            if (KMessageBox::warningContinueCancel(this, i18n("Are you sure you want to delete this transfer?"),
+                                           i18n("Question"), KStdGuiItem::del(),
                                            QString("delete_transfer"))
-                != KMessageBox::Yes)
+                != KMessageBox::Continue)
                 return;
         }
     }

@@ -127,7 +127,7 @@ Transfer::init(const uint _id)
 
     m_paPause = new KAction(i18n("&Pause"), "tool_pause", 0, this, SLOT(slotRequestPause()), this, "pause");
 
-    m_paDelete = new KAction(i18n("&Delete"), "tool_delete", 0, this, SLOT(slotRequestRemove()), this, "delete");
+    m_paDelete = new KAction(i18n("&Delete"), "editdelete", 0, this, SLOT(slotRequestRemove()), this, "delete");
 
     m_paRestart = new KAction(i18n("Re&start"), "tool_restart", 0, this, SLOT(slotRequestRestart()), this, "restart");
 
