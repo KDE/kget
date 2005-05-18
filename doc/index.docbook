@@ -80,20 +80,16 @@ download the middle one first and then the top and bottom ones second.
 <orderedlist>
 <listitem>
 <para>
-Place &kget; in offline mode. Click on 
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_on.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>  to change it to 
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_off.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>.
+Place &kget; in offline mode, by choosing the menu item
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Offline
+Mode</guimenuitem></menuchoice>.
 </para>
 </listitem>
 
 <listitem>
 <para>
-Click on the top entry with the &LMB;. Hold down the &Ctrl; key and click on the bottom entry. &kget;
-should look similar to this:
+Click on the top entry with the &LMB;. Hold down the &Ctrl; key and click on
+the bottom entry. &kget; should look similar to this:
 
 <screenshot>
 <screeninfo>Screenshot of Kget</screeninfo>
@@ -112,9 +108,7 @@ should look similar to this:
 </listitem>
 
 <listitem><para>
-Click on the delay button <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_delay.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> to prevent these items from being
+Click on the delay button to prevent these items from being
 downloaded.
 </para></listitem>
 
@@ -135,14 +129,9 @@ longer be highlighted.
 </para></listitem>
 
 <listitem><para>
-Click on 
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_off.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> to change it to online
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_on.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> and &kget; will download the
-	  middle item.
+Put &kget; back online by unchecking
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Offline
+Mode</guimenuitem></menuchoice> and &kget; will download the middle item.
 </para></listitem>
 
 <listitem><para>
@@ -170,11 +159,9 @@ while clicking with the &LMB;.
 </listitem>
 
 <listitem><para>
-Now click on 
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_queue.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> to download the two highlighted
- items.
+Now click on the <guiicon>Queue</guiicon> icon or choose <menuchoice>
+<guimenu>Transfer</guimenu><guimenuitem>Queue</guimenuitem></menuchoice> to
+download the two highlighted items.
 </para></listitem>
 
 </orderedlist>
@@ -200,9 +187,7 @@ Now click on
 <guimenuitem>Open</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens the transfer window where you can paste &URL;'s.
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="fileopen.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> </action></para></listitem>
+</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -214,9 +199,7 @@ The shortcut button is <inlinemediaobject><imageobject>
 <guimenuitem>Paste</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Pastes the contents of the clipboard into the
-transfer window. The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_paste.png" format="PNG"/>
-	  </imageobject></inlinemediaobject></action></para></listitem>
+transfer window.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -229,13 +212,10 @@ highlighted &URL;'s to a <filename>.kget</filename> file. To use this feature:
 </para>
 <itemizedlist>
 <listitem><para>
-Place &kget; in offline mode by clicking on 
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_on.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>  to change it to offline  
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_off.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>.
+Place &kget; in offline mode by clicking on the offline mode button in
+the toolbar or choosing
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Offline
+Mode</guimenuitem></menuchoice>.
 </para></listitem>
 <listitem><para>
 Drag the &URL;'s you wish to download on to &kget;.
@@ -247,10 +227,10 @@ Next click on the top entry so that it is highlighted.
 
 <listitem><para>
 Hold down the  <userinput><keycombo>
-<keycap>Shift</keycap></keycombo></userinput>
+&Shift;</keycombo></userinput>
 key and click on the bottom &URL; to highlight the entries like so:
 <screenshot>
-<screeninfo>Picture of kget for saving to export file</screeninfo>
+<screeninfo>Picture of kget saving to export file</screeninfo>
 	<mediaobject>
                <imageobject>
 	    <imagedata fileref="kget4.png" format="PNG"/>
@@ -277,7 +257,7 @@ regular basis, such as the &kde; snapshots above.
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Import Transfer File ...</guimenuitem>
+<guimenuitem>Import Transfer List ...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Loads <filename>.kget</filename> files that were created with
 <menuchoice><guimenu>File</guimenu>
@@ -297,10 +277,8 @@ discriminate between ordinary text and &URL;'s, provided the &URL; begins at the
 left margin of the document. &kget; will find these &URL;'s and load them into
 its main window for you. 
 <note><para>This feature only ignores regular text when you have clicked on
-the Expert Mode icon<inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_expert.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>. If the Expert Mode is not used
-	  then the text file must contain only &URL;'s.
+the Expert Mode icon. If the Expert Mode is not used then the text file must
+contain only &URL;'s.
 </para></note> 
 </para></listitem>
 </varlistentry>
@@ -317,7 +295,6 @@ the Expert Mode icon<inlinemediaobject><imageobject>
 </varlistentry>
 </variablelist>
 
-
 </sect2>
 
 <sect2>
@@ -333,35 +310,25 @@ the Expert Mode icon<inlinemediaobject><imageobject>
 Opens a log window that shows the events that have occurred. This is useful
 for seeing what happened during a lengthy download. Here you can see if any
 packages were skipped or if a connection timed out. 
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_logwindow.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
 </action></para></listitem>
 </varlistentry>
-
+<!-- 
 <varlistentry>
 <term><menuchoice>
 <guimenu>View</guimenu>
-<guimenuitem>Drop Target</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>The drop target is a desktop icon that allows for hiding
-and restoring of &kget;. This is used on a cluttered desktop when you want to
-periodically check the status of a download.
-The shortcut button is <inlinemediaobject><imageobject>
-    <imagedata fileref="cr22-action-tool_drop_target.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> </action></para></listitem>
-</varlistentry>
+
+</varlistentry> -->
 </variablelist>
 
 </sect2>
 
 <sect2>
-<title>The Transfer Menu</title>
+<title>The <guimenu>Transfer</guimenu> Menu</title>
 <note><para>
 In order for the entries in this menu to become active (not grayed out), you
 must highlight a download by clicking on the entry with the &LMB;.
 </para></note>
-<para>
+
 <variablelist>
 <varlistentry>
 <term><menuchoice>
@@ -400,8 +367,7 @@ list.</action>
 <guimenuitem>Move To End</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Moves a highlighted entry to the bottom of the download
-list.
-</action></para></listitem>
+list.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -410,9 +376,6 @@ list.
 <guimenuitem>Resume</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Resumes a download that has been paused.
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_resume.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
 </action></para></listitem>
 </varlistentry>
 
@@ -422,23 +385,16 @@ The shortcut button is <inlinemediaobject><imageobject>
 <guimenuitem>Pause</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Pauses a download that is running.
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_pause.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
 </action></para></listitem>
 </varlistentry>
-
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Transfer</guimenu>
 <guimenuitem>Delete</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Deletes a highlighted item from the &kget; main window.
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_delete.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-</action></para></listitem>
+<listitem><para><action>Deletes a highlighted item from the &kget; main
+window.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -447,10 +403,7 @@ The shortcut button is <inlinemediaobject><imageobject>
 <guimenuitem>Restart</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Combines the functions of Resume and Pause in one
-button. The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_restart.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-</action></para></listitem>
+button.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -459,10 +412,7 @@ button. The shortcut button is <inlinemediaobject><imageobject>
 <guimenuitem>Queue</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Causes the highlighted entries in &kget; to begin 
-downloading. The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_queue.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-</action></para></listitem>
+downloading. </action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -473,9 +423,6 @@ downloading. The shortcut button is <inlinemediaobject><imageobject>
 <listitem><para><action>Delays the download of the highlighted items by one
 minute. This is useful if you need to pause the download to check email or go
 to a website. 
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_timer.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
 </action></para></listitem>
 </varlistentry>
 
@@ -486,26 +433,14 @@ The shortcut button is <inlinemediaobject><imageobject>
 </menuchoice></term>
 <listitem><para><action>Delays the download of the highlighted items
 indefinitely.</action>
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_delay.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-<note><para>
-<inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_queue.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>,
-<inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_timer.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> and
-<inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_delay.png" format="PNG"/>
-	  </imageobject></inlinemediaobject> are radio buttons. Only one of
-	  the these three can be selected.</para>
+<note><para><guimenuitem>Queue</guimenuitem>,
+<guimenuitem>Timer</guimenuitem> and <guimenuitem>Delay</guimenuitem> are
+mutually exclusive; only one of them may be selected at a time.</para>
 </note>
 </para></listitem>
 </varlistentry>
 
 </variablelist>
-</para>
 </sect2>
 
 <sect2>
@@ -516,44 +451,52 @@ The shortcut button is <inlinemediaobject><imageobject>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Options</guimenu>
-<guimenuitem>Expert Mode</guimenuitem>
+<guimenuitem>Use Animations</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Turns off prompting. 
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_expert.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-</action></para></listitem>
+<listitem>
+<para><action>Toggle use of animations</action> to display &kget;'s
+state.</para>
+</listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Options</guimenu>
-<guimenuitem>Use Last Folder Mode</guimenuitem>
+<guimenuitem>Use Sound</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>&kget; will ignore the current folder settings and
-place all new transfers in the folder where the last transfer was placed. 
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_uselastdir.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-</action></para></listitem>
+<listitem>
+<para><action>Toggle the use of sound</action> to indicate events, &eg; a
+file being added to the download list, or a download completing.</para>
+</listitem>
 </varlistentry>
 
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Expert Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Turns off prompting.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Use-Last-Folder Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>&kget; will ignore the current folder settings and
+place all new transfers in the folder where the last transfer was placed.
+</action></para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Options</guimenu>
 <guimenuitem>Offline Mode</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles &kget; from being online (ready to download),
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_on.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>, to offline, 
-<inlinemediaobject><imageobject>
- <imagedata fileref="cr22-action-tool_offline_mode_off.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>. The offline mode is used when
-	  you want to copy &URL;'s into &kget; without them being downloaded 
-immediately.
-</action></para></listitem>
+<listitem><para><action>Toggles &kget; from being online (ready to download)
+to offline. The offline mode is used when you want to copy &URL;'s into &kget;
+without them being downloaded immediately.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -562,15 +505,10 @@ immediately.
 <guimenuitem>Auto-Disconnect Mode</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Causes &kget; to disconnect the modem.</action> Usually this
-would be &kppp;.  The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_disconnect.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>. Expert Mode
-<inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_expert.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-must be on to use this feature.
+would be &kppp;. Expert Mode must be on to use this feature.
 <note><para>
-For SuSE users the command  <userinput><command>cinternet <option>-i</option> 
+For &SuSE; users the command  <userinput><command>cinternet
+<option>-i</option>
 <parameter>ppp0</parameter> <option>-0</option></command></userinput> must be
 substituted for <userinput><command>kppp <option>-k </option></command></userinput>in the <menuchoice><guimenu>Settings</guimenu>
 <guimenuitem>Configure KGet...</guimenuitem></menuchoice>
@@ -585,14 +523,17 @@ should be <userinput><command>/usr/sbin/usernetctl
 <varlistentry>
 <term><menuchoice>
 <guimenu>Options</guimenu>
-<guimenuitem>Use Auto Shutdown Mode</guimenuitem>
+<guimenuitem>Auto Shutdown Mode</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Closes &kget; after all the downloads are
-completed. The Expert Mode must be turned on. 
-The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_shutdown.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-</action></para></listitem>
+completed. The Expert Mode must be turned on.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenu>Options</guimenu><guimenuitem>Auto-Paste
+Mode</guimenuitem></menuchoice></term>
+<listitem><para>Enable grabbing of files to download from the
+clipboard.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -600,8 +541,68 @@ The shortcut button is <inlinemediaobject><imageobject>
 </sect2>
 
 <sect2>
-<title>The <guimenu>Help</guimenu> Menu</title>
+<title>The <guimenu>Settings</guimenu> Menu</title>
 
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Hide Statusbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Hide the statusbar</action>.  The statusbar normally
+displays statistics about the currently downloading files.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Drop Target</guimenuitem>
+</menuchoice></term>
+<listitem><para>The drop target is a desktop icon that allows for
+hiding and restoring of &kget;. This is used on a cluttered desktop when you
+want to periodically check the status of a download.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Shortcuts...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Display the the familiar &kde; Keyboard Shortcut Configuration
+Dialog.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Toolbars</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Display the the familiar &kde; Toolbar Configuration Dialog.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure &kappname;</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launch the main configuration dialog.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>The <guimenu>Help</guimenu> Menu</title>
 
 &help.menu.documentation;
 
@@ -678,17 +679,12 @@ download has been completed. To configure &kget; for auto-disconnect do:
 Go to <menuchoice><guimenu>Options</guimenu><guimenuitem>Auto-Disconnect Mode
 </guimenuitem></menuchoice>
 <action> to disconnect the modem.</action> Usually this
-would be &kppp;.  The shortcut button is <inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_disconnect.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>. Expert Mode
-<inlinemediaobject><imageobject>
-	    <imagedata fileref="cr22-action-tool_expert.png" format="PNG"/>
-	  </imageobject></inlinemediaobject>
-must be on to use this feature.</para>
+would be &kppp;. Expert Mode must be on to use this feature.</para>
 </listitem>
 
 <listitem><para>
-For SuSE users the command  <userinput><command>cinternet <option>-i</option> 
+For &SuSE; users the command  <userinput><command>cinternet
+<option>-i</option>
 <parameter>ppp0</parameter> <option>-0</option></command></userinput> must be
 substituted for <userinput><command>kppp <option>-k </option></command></userinput>in the <menuchoice><guimenu>Settings</guimenu>
 <guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
