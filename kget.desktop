@@ -1,8 +1,8 @@
-# KDE Config File  
+# KDE Config File
 [Desktop Entry]
 Encoding=UTF-8
 Type=Application
-Exec=kget -caption "%c" %i %m  
+Exec=kget -caption "%c" %i %m
 Icon=kget
 Terminal=false
 Name=KGet
@@ -38,6 +38,7 @@ GenericName[hu]=Letöltéskezelő
 GenericName[is]=Niðurhalsstjóri
 GenericName[it]=Gestore dei download
 GenericName[ja]=ダウンロードマネージャ
+GenericName[lt]=Siuntimų valdymas
 GenericName[mk]=Менаџер за симнувања
 GenericName[nb]=Nedlastingsbehandler
 GenericName[nl]=Downloadmanager
