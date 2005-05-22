@@ -16,6 +16,7 @@
 #include <qmap.h>
 
 #include "transfer.h"
+#include "transfergroup.h"
 
 class KPopupMenu;
 
@@ -54,6 +55,7 @@ class TransferObserver;
 
 class TransferHandler
 {
+    friend class Model;
     friend class Transfer;
     friend class TransferFactory;
 
@@ -89,6 +91,11 @@ class TransferHandler
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
+
+        /**
+         * @return the transfer's group handler
+         */
+        TransferGroupHandler * group() const {return m_transfer->group()->handler();}
 
         /**
          * @return the source url
@@ -186,6 +193,11 @@ class TransferHandler
          * Posts a TransferChangedEvent to all the observers.
          */
         void postTransferChangedEvent();
+
+        /**
+         * Posts a deleteEvent to all the observers
+         */
+        void postDeleteEvent();
 
         Transfer * m_transfer;
         Scheduler * m_scheduler;

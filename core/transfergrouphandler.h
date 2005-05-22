@@ -46,32 +46,6 @@ class TransferGroupHandler
         void delObserver(TransferGroupObserver * observer);
 
         /**
-         * Appends a new transfer to the list of the transfers
-         *
-         * @param transfer the transfer to append
-         */
-        void append(TransferHandler * transfer);
-
-        /**
-         * Prepends a new transfer to the list of the transfers
-         *
-         * @param transfer the transfer to prepend
-         */
-        void prepend(TransferHandler * transfer);
-
-        /**
-         * Removes the given transfer from the list of the transfers
-         *
-         * @param transfer the transfer to remove
-         */
-        void remove(TransferHandler * transfer);
-
-//        /**
-//         * @return a const list with the transfers belonging to this group
-//         */
-//        const QValueList<Transfer *> jobs() const {return m_transfers;}
-
-        /**
          * Sets the maximum number of jobs belonging to this queue that 
          * should executed simultaneously by the scheduler
          *

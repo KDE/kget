@@ -56,7 +56,7 @@ class Transfer : public Job
                  Scheduler * scheduler, const KURL & src, const KURL & dest,
                  const QDomElement * e = 0);
 
-        virtual ~Transfer(){}
+        virtual ~Transfer();
 
         const KURL & source() const         {return m_source;}
         const KURL & dest() const           {return m_dest;}

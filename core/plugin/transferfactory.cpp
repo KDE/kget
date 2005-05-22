@@ -26,8 +26,13 @@ TransferFactory::TransferFactory()
 
     //ActionStop action
     m_actions.append( new ActionStop( i18n("Stop"), "tool_pause",
-                                      0, Model::actionCollection(), 
+                                      0, Model::actionCollection(),
                                       "stop_transfer" ) );
+
+    //ActionDelete action
+    m_actions.append( new ActionDelete( i18n("Delete"), "stop",
+                                        0, Model::actionCollection(),
+                                        "remove_transfer" ) );
 
     //ActionOpenDestination action
     m_actions.append( new ActionOpenDestination( i18n("Open Destination"), "folder",

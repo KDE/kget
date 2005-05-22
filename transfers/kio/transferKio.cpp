@@ -79,17 +79,11 @@ bool TransferKio::isResumable() const
 void TransferKio::load(QDomElement e)
 {
     Transfer::load(e);
-
-    m_source = KURL::fromPathOrURL(e.attribute("Source"));
-    m_dest = KURL::fromPathOrURL(e.attribute("Dest"));
 }
 
 void TransferKio::save(QDomElement e)
 {
     Transfer::save(e);
-
-    e.setAttribute("Source", m_source.url());
-    e.setAttribute("Dest", m_dest.url());
 }
 
 

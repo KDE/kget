@@ -59,7 +59,9 @@ class TransferGroupObserver
         virtual void addedTransferEvent(TransferHandler * transfer){}
 
         /**
-         * Notifies that a new transfer has been removed from this group
+         * Notifies that a new transfer has been removed from this group.
+         * Note that from the moment the view receives this signal on, the
+         * pointer to the transferHandler becomes invalid.
          *
          * @param transfer The transfer that has just been removed
          */

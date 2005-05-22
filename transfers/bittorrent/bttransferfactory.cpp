@@ -19,6 +19,8 @@
 
 #include <kdebug.h>
 
+#include <qfile.h>
+
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
 #include "bttransferfactory.h"
@@ -34,6 +36,11 @@ Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
 
     if (srcURL.fileName().endsWith(".torrent") && srcURL.isLocalFile())
     {
+        //Make sure that the given url points to an existing torrent file
+        QFile torrentFile(srcURL.path());
+        if(!torrentFile.exists())
+            return 0;
+
         return new BTTransfer(parent, this, scheduler, srcURL, destURL, e);
     }
     return 0;

@@ -24,7 +24,6 @@ TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
 
 TransferHandler::~TransferHandler()
 {
-    
 }
 
 void TransferHandler::addObserver(TransferObserver * observer)
@@ -150,5 +149,16 @@ void TransferHandler::postTransferChangedEvent()
     for(; it!=itEnd; ++it)
     {
         (*it)->transferChangedEvent(this);
+    }
+}
+
+void TransferHandler::postDeleteEvent()
+{
+    QValueList<TransferObserver *>::iterator it = m_observers.begin();
+    QValueList<TransferObserver *>::iterator itEnd = m_observers.end();
+
+    for(; it!=itEnd; ++it)
+    {
+        (*it)->deleteEvent(this);
     }
 }

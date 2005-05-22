@@ -66,11 +66,6 @@ void TransferGroupItem::addedTransferEvent(TransferHandler * transfer)
     setVisible(true);
 }
 
-void TransferGroupItem::removedTransferEvent(TransferHandler * transfer)
-{
-
-}
-
 void TransferGroupItem::deletedEvent(TransferGroupHandler * group)
 {
     
@@ -164,6 +159,11 @@ TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfe
 void TransferItem::transferChangedEvent(TransferHandler * transfer)
 {
     updateContents();
+}
+
+void TransferItem::deleteEvent(TransferHandler * transfer)
+{
+    delete(this);
 }
 
 void TransferItem::updateContents(bool updateAll)

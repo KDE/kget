@@ -171,7 +171,15 @@ void Model::addTransfer(KURL::List srcURLs, QString destDir,
 
 void Model::delTransfer(TransferHandler * transfer)
 {
-    
+    Transfer * t = transfer->m_transfer;
+    t->group()->remove( t );
+
+    //Here I delete the Transfer. The other possibility is to move it to a list
+    //and to delete all these transfers when kget gets closed. Obviously, after
+    //the notification to the views that the transfer has been removed, all the
+    //pointers to it are invalid.
+    transfer->postDeleteEvent();
+    delete( t );
 }
 
 void Model::moveTransfer(TransferHandler * transfer, const QString& groupName)

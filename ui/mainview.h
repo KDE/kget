@@ -33,7 +33,6 @@ public:
     //TransferGroupObserver
     void groupChangedEvent(TransferGroupHandler * group);
     void addedTransferEvent(TransferHandler * transfer);
-    void removedTransferEvent(TransferHandler * transfer);
     void deletedEvent(TransferGroupHandler * group);
 
     void updateContents(bool updateAll=false);
@@ -60,7 +59,7 @@ public:
 
     //Transfer observer virtual functions
     void transferChangedEvent(TransferHandler * transfer);
-    void deletedEvent(TransferHandler * transfer) {}
+    void deleteEvent(TransferHandler * transfer);
 
     void updateContents(bool updateAll=false);
 

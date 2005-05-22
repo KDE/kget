@@ -40,7 +40,6 @@ void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
     m_changesFlags.remove(observer);
 }
 
-
 TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObserver * observer)
 {
     if( m_changesFlags.find(observer) != m_changesFlags.end() )

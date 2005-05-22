@@ -80,7 +80,11 @@ bool BTTransfer::isResumable() const
 void BTTransfer::start()
 {
     startTime = QTime::currentTime();
+    m_statusText = i18n("Analizing torrent..");
+    m_statusPixmap = SmallIcon("xmag");
     setStatus(Job::Running);
+    setTransferChange(Tc_Status, true);
+
     resume();
 }
 
@@ -94,6 +98,8 @@ void BTTransfer::stop()
         download.hash_save();
         m_statusText = i18n("Stopped");
         m_statusPixmap = SmallIcon("stop");
+        m_speed = 0;
+        setTransferChange(Tc_Speed);
         setTransferChange(Tc_Status, true);
         setStatus(Job::Stopped);
 
@@ -168,6 +174,10 @@ void BTTransfer::resume()
         try 
         {
             kdDebug() << endl << "third turn" << endl << endl;
+            m_statusText = i18n("Connecting..");
+            m_statusPixmap = SmallIcon("connect_creating");
+            setTransferChange(Tc_Status, true);
+
             download.start();
         }
         catch (std::exception& e)
@@ -175,9 +185,6 @@ void BTTransfer::resume()
         // the line below only compiles with exceptions activated
         // kdDebug() << "Resume exception " << e.what() << endl << endl;
         }
-        m_statusText = i18n("Connecting..");
-        m_statusPixmap = SmallIcon("connect_creating");
-        setTransferChange(Tc_Status, true);
         timer.start(1 * 1000);
         return;
     }
@@ -239,24 +246,27 @@ void BTTransfer::update()
 //   kdDebug() << "peers conn " << download.get_peers_connected() << endl;
 //   kdDebug() << "handshakes " << torrent::get(torrent::HANDSHAKES_TOTAL) << endl;
 
-    if(m_statusText != i18n("Running"))
-    {
-        m_statusText = i18n("Downloading..");
-        m_statusPixmap = SmallIcon("tool_resume");
-        setTransferChange(Tc_Status, true);
-    }
-
     BTThread::lock();
     m_totalSize = download.get_bytes_total();
     m_processedSize = download.get_bytes_done();
     m_speed = download.get_rate_down();
     BTThread::unlock();
+
+    //Make sure we are really downloading the torrent before setting the status
+    //text to "Downloading.."
+    if( m_speed && (m_statusText != i18n("Downloading..")) )
+    {
+        m_statusText = i18n("Downloading..");
+        m_statusPixmap = SmallIcon("tool_resume");
+        setTransferChange(Tc_Status);
+    }
+
     if (m_totalSize > 0) 
     {
         m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
         setTransferChange(Tc_Percent);
     }
-    setTransferChange(Tc_Status);
+
     setTransferChange(Tc_ProcessedSize);
     setTransferChange(Tc_Speed);
     setTransferChange(Tc_TotalSize, true);
@@ -264,6 +274,8 @@ void BTTransfer::update()
 
 void BTTransfer::save(QDomElement e)
 {
+    Transfer::save(e);
+
     if (download.is_valid() && !download.is_active()) 
     {
         QDomDocument doc(e.ownerDocument());
@@ -277,10 +289,10 @@ void BTTransfer::save(QDomElement e)
 
 void BTTransfer::load(QDomElement e)
 {
-    Transfer::load(e);
-
     if (!e.isNull())
     {
+        Transfer::load(e);
+
         QDomElement first(e.firstChild().toElement());
         if (!first.isNull() &&  (first.tagName() == "bencode") )
         {

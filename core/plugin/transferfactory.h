@@ -32,7 +32,8 @@
 
 #include <kapplication.h>
 
-#include "plugin.h"
+#include "core/plugin/plugin.h"
+#include "core/model.h"
 #include "core/transfer.h"
 #include "core/transferhandler.h"
 #include "core/transferaction.h"
@@ -107,6 +108,25 @@ class ActionStop : public TransferAction
 
             for( ; it!=itEnd ; ++it )
                 (*it)->stop();
+        }
+};
+
+class ActionDelete : public TransferAction
+{
+    public:
+        ActionDelete( const QString& text, const QString& pix,
+                      const KShortcut& cut, KActionCollection* parent,
+                      const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QValueList<TransferHandler *> & transfers)
+        {
+            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
+            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+                Model::delTransfer(*it);
         }
 };
 

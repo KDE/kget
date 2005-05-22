@@ -31,6 +31,11 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
         load( *e );
 }
 
+Transfer::~Transfer()
+{
+    delete(m_handler);
+}
+
 TransferHandler * Transfer::handler()
 {
     if(!m_handler)
@@ -41,16 +46,23 @@ TransferHandler * Transfer::handler()
 
 void Transfer::save(QDomElement e)
 {
+    e.setAttribute("Source", m_source.url());
+    e.setAttribute("Dest", m_dest.url());
     e.setAttribute("TotalSize", m_totalSize);
     e.setAttribute("ProcessedSize", m_processedSize);
-    e.setAttribute("Percent", m_percent);
 }
 
 void Transfer::load(QDomElement e)
 {
+    m_source = KURL::fromPathOrURL(e.attribute("Source"));
+    m_dest = KURL::fromPathOrURL(e.attribute("Dest"));
     m_totalSize = e.attribute("TotalSize").toInt();
     m_processedSize = e.attribute("ProcessedSize").toInt();
-    m_percent = e.attribute("Percent").toULong();
+
+    if(m_totalSize != 0)
+        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
+    else
+        m_percent = 0;
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
