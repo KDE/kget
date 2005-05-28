@@ -80,11 +80,11 @@ protected:
 
 private slots:
     // slots connected to actions
-    void slotNewURL();
+    void slotNewTransfer();
+    void slotOpen();
     void slotQuit();
     void slotPreferences();
     void slotExportTransfers();
-    void slotImportTransfers();
     void slotDownloadToggled();
     void slotConfigureNotifications();
     void slotConfigureKeys();

@@ -37,29 +37,29 @@
  */
 class BTThread : public QThread
 {
-private:
-  BTThread()
-  {
-  }
-  ~BTThread();
+    private:
+        BTThread()
+        {
+        }
+        ~BTThread();
 
-public:
-  /**
-   * Initialize torrent library the instance thread and start it.
-   *
-   * torrent::initialize() should be already called before.
-   */
-  static void initialize();
-  static void stop();
-  static void lock();
-  static void unlock();
+    public:
+        /**
+        * Initialize torrent library the instance thread and start it.
+        *
+        * torrent::initialize() should be already called before.
+        */
+        static void initialize();
+        static void stop();
+        static void lock();
+        static void unlock();
 
-  void run();
+        void run();
 
-private:
-  static BTThread* instance;
-  static int initialized;
-  QMutex mutex;
+    private:
+        static BTThread* instance;
+        static int initialized;
+        QMutex mutex;
 };
 
 #endif

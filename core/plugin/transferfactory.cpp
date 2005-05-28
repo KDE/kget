@@ -30,7 +30,7 @@ TransferFactory::TransferFactory()
                                       "stop_transfer" ) );
 
     //ActionDelete action
-    m_actions.append( new ActionDelete( i18n("Delete"), "stop",
+    m_actions.append( new ActionDelete( i18n("Delete"), "trashcan_empty",
                                         0, Model::actionCollection(),
                                         "remove_transfer" ) );
 

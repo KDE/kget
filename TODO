@@ -47,8 +47,10 @@ SHORT-TERM (URGENT):
   -- BITTORRENT PLUGIN --
   FIX <dario> when stopping a transfer immediately after having started it, the
       plugin crashes.
-  FIX <dario> sometimes, the bittorrent plugin blocks all the kget gui.
-      How is this possible?
+  FIX <dario> sometimes, the bittorrent plugin blocks all the kget gui for
+      some seconds.
+  FIX <dario> if we have a torrent file and we make some copies of it with
+      different names, and then we add all the torrents to kget, kget crashes
 
   -- MISCELLANEOUS --
   ADD <dario> implement the GlobalStatus object and make the

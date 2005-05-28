@@ -60,7 +60,7 @@ Tray::Tray(KGet * parent)
     paintIcon();
 
     // add preferences action to the context menu
-    parent->actionCollection()->action("open_transfer")->plug(contextMenu());
+    parent->actionCollection()->action("new_transfer")->plug(contextMenu());
     parent->actionCollection()->action("preferences")->plug(contextMenu());
 
     // enable dropping

@@ -38,6 +38,7 @@
 #include <kiconloader.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
+#include <kfiledialog.h>
 
 #include <qtimer.h>
 
@@ -144,16 +145,20 @@ void KGet::setupActions()
     KToggleAction * ta;
 
     // local - Shows a dialog asking for a new URL to down
-    new KAction(i18n("&New Download..."), "filenew", CTRL+Key_N, this, SLOT(slotNewURL()), ac, "open_transfer");
+    new KAction(i18n("&New Download..."), "filenew", CTRL+Key_N, this,
+                SLOT(slotNewTransfer()), ac, "new_transfer");
+
+    new KAction(i18n("&Open..."), "fileopen", CTRL+Key_O, this,
+                SLOT(slotOpen()), ac, "open");
+
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
-    // ->Scheduler - Ask for transfersList export
-    new KAction(i18n("Export &Transfers List..."), 0, this, SLOT(slotExportTransfers()), ac, "export_transfers");
-    // ->Scheduler - Ask for transfersList import
-    new KAction(i18n("&Import Transfers List..."), 0, this, SLOT(slotImportTransfers()), ac, "import_transfers");
 
-    // ->Scheduler - ACTIVATE/STOP the scheduler
-    ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this, SLOT(slotDownloadToggled()), ac, "download");
+    new KAction(i18n("Export &Transfers List..."), 0, this,
+                SLOT(slotExportTransfers()), ac, "export_transfers");
+
+    ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this, 
+                           SLOT(slotDownloadToggled()), ac, "download");
     ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));
 #if KDE_IS_VERSION(3,2,91)
     KGuiItem checkedDownloadAction(i18n("Stop Downloading"), "stop");
@@ -240,70 +245,29 @@ void KGet::slotDelayedInit()
     Settings::setFirstRun(false);
 }
 
-void KGet::log(const QString & message, bool sb)
+void KGet::slotNewTransfer()
 {
-#ifdef _DEBUG
-    sDebugIn <<" message= "<< message << endl;
-#endif
+    Model::addTransfer(KURL());
+}
 
-    //The logWindow has been removed. Maybe we could implement 
-    //a new one. The old one was used as follows:
-    //logWindow->logGeneral(message);
+void KGet::slotOpen()
+{
+    QString filename = KFileDialog::getOpenFileName
+        (0,
+         "*.kgt *.torrent|" + i18n("All openable files") + "(*.kgt *.torrent)",
+         this,
+         i18n("Open file") + " - KGet"
+        );
 
-    if (sb) {
-        statusBar()->message(message, 1000);
+    if(filename.endsWith(".kgt"))
+    {
+        Model::load(filename);
+        return;
     }
 
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
+    if(!filename.isNull())
+        Model::addTransfer( KURL::fromPathOrURL( filename ) );
 }
-
-
-void KGet::slotSaveMyself()
-{
-    // save last parameters ..
-    Settings::setMainPosition( pos() );
-//    if ( vMode != vm_compact )
-//        Settings::setMainSize( size() );
-    // .. and write config to disk
-    Settings::writeConfig();
-}
-
-
-void KGet::slotConfigureKeys()
-{
-    KKeyDialog::configure(actionCollection());
-}
-
-void KGet::slotConfigureToolbars()
-{
-    KEditToolbar edit( "kget_toolbar", actionCollection() );
-    connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
-    edit.exec();
-}
-
-void KGet::slotConfigureNotifications()
-{
-    KNotifyDialog::configure(this);
-}
-
-
-void KGet::slotNewToolbarConfig()
-{
-    createGUI();
-}
-
-void KGet::slotNewConfig()
-{
-    // Update here properties modified in the config dialog and not
-    // parsed often by the code.. When clicking Ok or Apply of
-    // PreferencesDialog, this function is called.
-
-    if ( m_drop )
-        m_drop->setShown( Settings::showDropTarget(), false );
-}
-
 
 void KGet::slotQuit()
 {
@@ -327,45 +291,6 @@ void KGet::slotQuit()
     kapp->quit();
 }
 
-void KGet::slotExportTransfers()
-{
-    // TODO: re-enable this
-    //schedRequestOperation( OpExportTransfers );
-}
-
-void KGet::slotImportTransfers()
-{
-    // TODO: re-enable this
-    //schedRequestOperation(OpImportTransfers);
-}
-
-void KGet::slotDownloadToggled()
-{
-    KToggleAction * action = (KToggleAction *)actionCollection()->action("download");
-    bool downloading = action->isChecked();
-    //TODO find an alternative way of doing this with the model
-    //schedRequestOperation( downloading ? OpRun : OpStop );
-#if ! KDE_IS_VERSION(3,2,91)
-    action->setText( downloading ? i18n("Stop Downloading") : i18n("Start Downloading") );
-    action->setIcon( downloading ? "stop" : "down" );
-#endif
-    m_dock->setDownloading( downloading );
-}
-
-void KGet::readTransfersEx(const KURL & url)
-{
-    //### port to schedRequestOperation(OpReadTransfers,url);
-    //TODO re-enable this
-    //scheduler->slotImportTransfers(url);
-}
-
-void KGet::addTransfersEx(const KURL::List& urls, const KURL& dest)
-{
-    QString s = dest.prettyURL();
-    //TODO re-enable this
-    //Model::addTransfer(urls, s);
-}
-
 void KGet::slotPreferences()
 {
     // an instance the dialog could be already created and could be cached, 
@@ -383,10 +308,86 @@ void KGet::slotPreferences()
     dialog->show();
 }
 
-void KGet::slotNewURL()
+void KGet::slotExportTransfers()
 {
+    QString filename = KFileDialog::getSaveFileName
+        (0,
+         "*.kgt|" + i18n("KGet transfer list") + "(*.kgt)",
+         this,
+         i18n("Export transfers") + " - KGet"
+        );
+
+    if(!filename.isNull())
+        Model::save(filename);
+}
+
+void KGet::slotDownloadToggled()
+{
+    KToggleAction * action = (KToggleAction *)actionCollection()->action("download");
+    bool downloading = action->isChecked();
+    //TODO find an alternative way of doing this with the model
+    //schedRequestOperation( downloading ? OpRun : OpStop );
+#if ! KDE_IS_VERSION(3,2,91)
+    action->setText( downloading ? i18n("Stop Downloading") : i18n("Start Downloading") );
+    action->setIcon( downloading ? "stop" : "down" );
+#endif
+    m_dock->setDownloading( downloading );
+}
+
+void KGet::slotConfigureNotifications()
+{
+    KNotifyDialog::configure(this);
+}
+
+void KGet::slotConfigureKeys()
+{
+    KKeyDialog::configure(actionCollection());
+}
+
+void KGet::slotConfigureToolbars()
+{
+    KEditToolbar edit( "kget_toolbar", actionCollection() );
+    connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
+    edit.exec();
+}
+
+void KGet::slotSaveMyself()
+{
+    // save last parameters ..
+    Settings::setMainPosition( pos() );
+//    if ( vMode != vm_compact )
+//        Settings::setMainSize( size() );
+    // .. and write config to disk
+    Settings::writeConfig();
+}
+
+void KGet::slotNewToolbarConfig()
+{
+    createGUI();
+}
+
+void KGet::slotNewConfig()
+{
+    // Update here properties modified in the config dialog and not
+    // parsed often by the code.. When clicking Ok or Apply of
+    // PreferencesDialog, this function is called.
+
+    if ( m_drop )
+        m_drop->setShown( Settings::showDropTarget(), false );
+}
+
+void KGet::readTransfersEx(const KURL & url)
+{
+    //### port to schedRequestOperation(OpReadTransfers,url);
     //TODO re-enable this
-    Model::addTransfer(KURL());
+    //scheduler->slotImportTransfers(url);
+}
+
+void KGet::addTransfersEx(const KURL::List& urls, const KURL& dest)
+{
+    QString s = dest.prettyURL();
+    //TODO re-enable this
+    //Model::addTransfer(urls, s);
 }
 
 void KGet::updateActions()
@@ -493,14 +494,14 @@ void KGet::updateActions()
 
 void KGet::updateStatusBar()
 {
-    QString transfers = i18n("Downloading %1 transfers (%2) at %3");
-    QString time = i18n("%1 remaining");
-
-    transfers = transfers.arg( 2 ).arg( "23.1MB" ).arg( "4.2kb/s" );
-    time = time.arg( "1 min 2 sec" );
-    
-    statusBar()->changeItem( transfers, 0 );
-    statusBar()->changeItem( time, 1 );
+//     QString transfers = i18n("Downloading %1 transfers (%2) at %3");
+//     QString time = i18n("%1 remaining");
+//
+//     transfers = transfers.arg( 2 ).arg( "23.1MB" ).arg( "4.2kb/s" );
+//     time = time.arg( "1 min 2 sec" );
+//
+//     statusBar()->changeItem( transfers, 0 );
+//     statusBar()->changeItem( time, 1 );
 
 /*  Transfer *item;
     QString tmpstr;
@@ -531,6 +532,24 @@ void KGet::updateStatusBar()
 */
 }
 
+void KGet::log(const QString & message, bool sb)
+{
+#ifdef _DEBUG
+    sDebugIn <<" message= "<< message << endl;
+#endif
+
+    //The logWindow has been removed. Maybe we could implement 
+    //a new one. The old one was used as follows:
+    //logWindow->logGeneral(message);
+
+    if (sb) {
+        statusBar()->message(message, 1000);
+    }
+
+#ifdef _DEBUG
+    sDebugOut << endl;
+#endif
+}
 
 /** widget events */
 
