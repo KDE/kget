@@ -254,7 +254,9 @@ void BTTransfer::update()
 
     //Make sure we are really downloading the torrent before setting the status
     //text to "Downloading.."
-    if( m_speed && (m_statusText != i18n("Downloading..")) )
+    if( m_speed &&
+       (m_statusText != i18n("Downloading..")) &&
+       (status() != Job::Finished) )
     {
         m_statusText = i18n("Downloading..");
         m_statusPixmap = SmallIcon("tool_resume");
