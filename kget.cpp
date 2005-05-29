@@ -355,8 +355,6 @@ void KGet::slotSaveMyself()
 {
     // save last parameters ..
     Settings::setMainPosition( pos() );
-//    if ( vMode != vm_compact )
-//        Settings::setMainSize( size() );
     // .. and write config to disk
     Settings::writeConfig();
 }
@@ -375,122 +373,6 @@ void KGet::slotNewConfig()
     if ( m_drop )
         m_drop->setShown( Settings::showDropTarget(), false );
 }
-
-void KGet::readTransfersEx(const KURL & url)
-{
-    //### port to schedRequestOperation(OpReadTransfers,url);
-    //TODO re-enable this
-    //scheduler->slotImportTransfers(url);
-}
-
-void KGet::addTransfersEx(const KURL::List& urls, const KURL& dest)
-{
-    QString s = dest.prettyURL();
-    //TODO re-enable this
-    //Model::addTransfer(urls, s);
-}
-
-void KGet::updateActions()
-{
-/*#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    m_paDelete->setEnabled(false);
-    m_paResume->setEnabled(false);
-    m_paPause->setEnabled(false);
-    m_paRestart->setEnabled(false);
-
-    m_paIndividual->setEnabled(false);
-    m_paMoveToBegin->setEnabled(false);
-    m_paMoveToEnd->setEnabled(false);
-
-    Transfer *item;
-    Transfer *first_item = 0L;
-    
-    int index = 0;
-    int totals_items = 0;
-    int sel_items = 0;
-
-    //FOR EACH ITEM IN THE TRANSFER LIST
-    {
-
-        // update action on visibles windows
-        if (it.current()->isVisible())
-            it.current()->slotUpdateActions();
-
-        if (it.current()->isSelected()) {
-            item = it.current();
-            sel_items = totals_items;
-            index++;            // counting number of selected items
-            if (index == 1) {
-                first_item = item;      // store first selected item
-                if (totals_items > 0)
-                    m_paMoveToBegin->setEnabled(true);
-
-                m_paMoveToEnd->setEnabled(true);
-            } else {
-
-                m_paMoveToBegin->setEnabled(false);
-                m_paMoveToEnd->setEnabled(false);
-            }
-            // enable PAUSE, RESUME and RESTART only when we are online and not in offline mode
-            if (item == first_item && SONO ONLINE) {
-                switch (item->getStatus()) {
-                case Transfer::ST_TRYING:
-                case Transfer::ST_RUNNING:
-                    m_paResume->setEnabled(false);
-                    m_paPause->setEnabled(true);
-                    m_paRestart->setEnabled(true);
-                    break;
-                case Transfer::ST_STOPPED:
-                    m_paResume->setEnabled(true);
-                    m_paPause->setEnabled(false);
-                    m_paRestart->setEnabled(false);
-#ifdef _DEBUG
-                    sDebug << "STATUS IS  stopped" << item->getStatus() << endl;
-#endif
-                    break;
-                case Transfer::ST_FINISHED:
-                    m_paResume->setEnabled(false);
-                    m_paPause->setEnabled(false);
-                    m_paRestart->setEnabled(false);
-                    break;
-
-
-                }               //end switch
-
-            } else if (item->getStatus() != first_item->getStatus()) {
-                // disable all when all selected items don't have the same status
-                m_paResume->setEnabled(false);
-                m_paPause->setEnabled(false);
-                m_paRestart->setEnabled(false);
-            }
-
-
-            if (item == first_item) {
-                m_paDelete->setEnabled(true);
-                m_paIndividual->setEnabled(true);
-            } else if (item->getMode() != first_item->getMode()) {
-                // unset all when all selected items don't have the same mode
-                m_paMoveToBegin->setEnabled(false);
-                m_paMoveToEnd->setEnabled(false);
-            }
-
-        }                       // when item is selected
-    }                           // loop
-
-
-
-    if (sel_items == totals_items - 1)
-        m_paMoveToEnd->setEnabled(false);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-*/
-}
-
 
 void KGet::updateStatusBar()
 {
@@ -571,11 +453,10 @@ void KGet::dropEvent(QDropEvent * event)
     KURL::List list;
     QString str;
 
-    //TODO re-enable this
-/*    if (KURLDrag::decode(event, list))
-        schedNewURLs(list, QString());
+    if (KURLDrag::decode(event, list))
+        Model::addTransfer(list);
     else if (QTextDrag::decode(event, str))
-        schedNewURLs(KURL::fromPathOrURL(str), QString());*/
+        Model::addTransfer(KURL::fromPathOrURL(str));
 }
 
 
@@ -583,10 +464,7 @@ void KGet::dropEvent(QDropEvent * event)
 
 void KGet::addTransfers( const KURL::List& src, const QString& dest)
 {
-    sDebugIn << endl;
-    //TODO re-enable this
-    //schedNewURLs(src, dest); 
-    sDebugOut << endl;
+    Model::addTransfer( src, dest );
 }
 
 bool KGet::isDropTargetVisible() const

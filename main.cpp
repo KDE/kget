@@ -37,6 +37,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "core/model.h"
 #include "conf/settings.h"
 #include "ui/splash.h"
 #include "kget.h"
@@ -131,16 +132,16 @@ public:
 
         KURL::List l;
         for (int i = 0; i < args->count(); i++)
-	{
+	    {
             QString txt(args->arg(i));
             if ( txt.endsWith( ".kgt", false ) )
-                kget->readTransfersEx(KURL::fromPathOrURL( txt ));
+                Model::load( txt );
             else
                 l.push_back(args->arg(i));
         }
         // all the args read from command line are downloads
         if (l.count() >= 1)
-            kget->addTransfersEx( l, KURL());
+            Model::addTransfer( l );
 /*
         // the last arg read (when we have more than 1 arg) is considered
         // as destination dir for the previous downloads

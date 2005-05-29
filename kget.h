@@ -59,10 +59,6 @@ public:
     KGet( QWidget * = 0, const char * = 0 );
     ~KGet();
 
-    // called by main.cpp
-    void readTransfersEx(const KURL & url);
-    void addTransfersEx(const KURL::List& urls, const KURL& dest);
-
 protected:
     // from the DCOP interface
     virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
@@ -73,7 +69,7 @@ protected:
 
     // ignore/accept quit events
     virtual void closeEvent( QCloseEvent * );
-    
+
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);
     virtual void dropEvent(QDropEvent *);
@@ -101,7 +97,6 @@ signals:
 
 private:
     // some functions
-    void updateActions();
     void updateStatusBar();
     void log( const QString &, bool sbar = true );
     // one-time functions
