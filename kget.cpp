@@ -254,9 +254,9 @@ void KGet::slotOpen()
 {
     QString filename = KFileDialog::getOpenFileName
         (0,
-         "*.kgt *.torrent|" + i18n("All openable files") + "(*.kgt *.torrent)",
+         "*.kgt *.torrent|" + i18n("All openable files") + " (*.kgt *.torrent)",
          this,
-         i18n("Open file") + " - KGet"
+         i18n("Open file")
         );
 
     if(filename.endsWith(".kgt"))
@@ -265,7 +265,7 @@ void KGet::slotOpen()
         return;
     }
 
-    if(!filename.isNull())
+    if(!filename.isEmpty())
         Model::addTransfer( KURL::fromPathOrURL( filename ) );
 }
 
@@ -312,12 +312,12 @@ void KGet::slotExportTransfers()
 {
     QString filename = KFileDialog::getSaveFileName
         (0,
-         "*.kgt|" + i18n("KGet transfer list") + "(*.kgt)",
+         "*.kgt|" + i18n("KGet transfer list") + " (*.kgt)",
          this,
-         i18n("Export transfers") + " - KGet"
+         i18n("Export transfers")
         );
 
-    if(!filename.isNull())
+    if(!filename.isEmpty())
         Model::save(filename);
 }
 
