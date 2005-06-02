@@ -126,7 +126,10 @@ class ActionDelete : public TransferAction
             QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
 
             for( ; it!=itEnd ; ++it )
+            {
+                (*it)->stop();
                 Model::delTransfer(*it);
+            }
         }
 };
 
