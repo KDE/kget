@@ -55,8 +55,9 @@ class TransferGroupObserver
          * Notifies that a new transfer has been added to this group
          *
          * @param transfer The transfer that has just been added
+         * @param after The transfer after which it has been added
          */
-        virtual void addedTransferEvent(TransferHandler * transfer){}
+        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after){}
 
         /**
          * Notifies that a new transfer has been removed from this group.
@@ -68,12 +69,13 @@ class TransferGroupObserver
         virtual void removedTransferEvent(TransferHandler * transfer){}
 
         /**
-         * Notifies that a new transfer has been moved
+         * Notifies that a transfer previously belonging to this group
+         * has been moved whithin the group.
          *
-         * @param transfer The transfer that has just been removed
-         * @param position The new transfer position
+         * @param transfer The transfer that has just been moved
+         * @param after The transfer after which it has been moved
          */
-        virtual void movedTransferEvent(TransferHandler * transfer, int position){}
+        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after){}
 
         /**
          * Notifies that this group has been deleted

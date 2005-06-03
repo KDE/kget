@@ -21,7 +21,6 @@ Job::Job(JobQueue * parent, Scheduler * scheduler)
 
 }
 
-
 void Job::setStatus(Status jobStatus)
 {
     m_status = jobStatus;
@@ -33,4 +32,3 @@ void Job::setPolicy(Policy jobPolicy)
     m_policy = jobPolicy;
     m_scheduler->jobChangedEvent(this, m_status);
 }
-

@@ -75,10 +75,13 @@ class TransferGroup : public JobQueue
         /**
          * Moves a transfer in the list
          *
-         * @param transfer The transfer to move
-         * @param position The new position of the transfer.
+         * @param transfer The transfer to move. Note that this transfer can
+         *                  belong to other groups. In this situation this
+         *                  transfer are deleted from the previous group and
+         *                  moved inside this one.
+         * @param after The transfer after which we have to move the given one
          */
-        void move(Transfer * transfer, int position);
+        void move(Transfer * transfer, Transfer * after);
 
         /**
          * @return the number of jobs in the queue

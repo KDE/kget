@@ -46,6 +46,16 @@ class TransferGroupHandler
         void delObserver(TransferGroupObserver * observer);
 
         /**
+         * Moves a transfer in the group. Note that the transfers in the
+         * list can belong to different groups, while the transfer named
+         * "after" must belong to this group.
+         *
+         * @param transfers The transfers to be be moved
+         * @param after The transfer after which the given transfers should be moved
+         */
+        void move(QValueList<TransferHandler *> transfers, TransferHandler * after);
+
+        /**
          * Sets the maximum number of jobs belonging to this queue that 
          * should executed simultaneously by the scheduler
          *
@@ -114,8 +124,9 @@ class TransferGroupHandler
          * Posts an addedTransferEvent to all the observers
          *
          * @param transfer the transfer that has been added to the group
+         * @param after the transfer after which it has been added
          */
-        void postAddedTransferEvent(Transfer * transfer);
+        void postAddedTransferEvent(Transfer * transfer, Transfer * after);
 
         /**
          * Posts an removedTransferEvent to all the observers
@@ -128,9 +139,9 @@ class TransferGroupHandler
          * Posts an movedTransferEvent to all the observers
          *
          * @param transfer the transfer that has been removed from the group
-         * @param position the new position of the transfer
+         * @param after the transfer after which the it has been moved
          */
-        void postMovedTransferEvent(Transfer * transfer, int position);
+        void postMovedTransferEvent(Transfer * transfer, Transfer * after);
 
         /**
          * Posts a deleteEvent to all the observers

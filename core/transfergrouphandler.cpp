@@ -11,6 +11,7 @@
 #include <kdebug.h>
 
 #include "core/transfergrouphandler.h"
+#include "core/transferhandler.h"
 #include "core/transfer.h"
 #include "core/observer.h"
 
@@ -38,6 +39,27 @@ void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
 {
     m_observers.remove(observer);
     m_changesFlags.remove(observer);
+}
+
+void TransferGroupHandler::move(QValueList<TransferHandler *> transfers, TransferHandler * after)
+{
+    //Check that the given transfer (after) belongs to this group
+    if( after && (after->group() != this) )
+        return;
+
+    QValueList<TransferHandler *>::iterator it = transfers.begin();
+    QValueList<TransferHandler *>::iterator itEnd = transfers.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        //Move the transfers in the JobQueue
+        if(after)
+            m_group->move( (*it)->m_transfer, after->m_transfer );
+        else
+            m_group->move( (*it)->m_transfer, 0 );
+
+        after = *it;
+    }
 }
 
 TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObserver * observer)
@@ -83,7 +105,7 @@ void TransferGroupHandler::postGroupChangedEvent()
     }
 }
 
-void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer)
+void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer * after)
 {
     kdDebug() << "TransferGroupHandler::postAddedTransferEvent" << endl;
     kdDebug() << "   number of observers = " << m_observers.size() << endl;
@@ -93,7 +115,10 @@ void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer)
 
     for(; it!=itEnd; ++it)
     {
-        (*it)->addedTransferEvent(transfer->handler());
+        if(after)
+            (*it)->addedTransferEvent(transfer->handler(), after->handler());
+        else
+            (*it)->addedTransferEvent(transfer->handler(), 0);
     }
 }
 
@@ -108,14 +133,17 @@ void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
     }
 }
 
-void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, int position)
+void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer * after)
 {
     QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
     QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
 
     for(; it!=itEnd; ++it)
     {
-        (*it)->movedTransferEvent(transfer->handler(), position);
+        if(after)
+            (*it)->movedTransferEvent(transfer->handler(), after->handler());
+        else
+            (*it)->movedTransferEvent(transfer->handler(), 0);
     }
 }
 

@@ -44,16 +44,22 @@ TransferGroup::~TransferGroup()
 void TransferGroup::append(Transfer * transfer)
 {
     kdDebug() << "TransferGroup::append" << endl;
+
+    Transfer * after = static_cast<Transfer *> (last());
+
     JobQueue::append(transfer);
 
-    handler()->postAddedTransferEvent(transfer);
+    if(size() == 1)
+        handler()->postAddedTransferEvent(transfer, 0);
+    else
+        handler()->postAddedTransferEvent(transfer, after);
 }
 
 void TransferGroup::prepend(Transfer * transfer)
 {
     JobQueue::prepend(transfer);
 
-    handler()->postAddedTransferEvent(transfer);
+    handler()->postAddedTransferEvent(transfer, 0);
 }
 
 void TransferGroup::remove(Transfer * transfer)
@@ -63,11 +69,22 @@ void TransferGroup::remove(Transfer * transfer)
     handler()->postRemovedTransferEvent(transfer);
 }
 
-void TransferGroup::move(Transfer * transfer, int position)
+void TransferGroup::move(Transfer * transfer, Transfer * after)
 {
-    JobQueue::move(transfer, position);
+    if(transfer == after)
+        return;
 
-    handler()->postMovedTransferEvent(transfer, position);
+    TransferGroup * oldTransferGroup = transfer->group();
+
+    JobQueue::move(transfer, after);
+
+    if(oldTransferGroup == this)
+        handler()->postMovedTransferEvent(transfer, after);
+    else
+    {
+        handler()->postAddedTransferEvent(transfer, after);
+        oldTransferGroup->handler()->postRemovedTransferEvent(transfer);
+    }
 }
 
 int TransferGroup::size() const

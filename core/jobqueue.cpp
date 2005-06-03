@@ -8,13 +8,15 @@
    of the License.
 */
 
+#include <kdebug.h>
+
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
 
 JobQueue::JobQueue(Scheduler * scheduler)
-    : m_scheduler(scheduler),
-      m_status(Stopped),
-      m_maxSimultaneousJobs(2)
+    : m_maxSimultaneousJobs(2),
+      m_scheduler(scheduler),
+      m_status(Stopped)
 {
     m_scheduler->addQueue(this);
 }
@@ -24,7 +26,7 @@ JobQueue::~JobQueue()
     m_scheduler->delQueue(this);
 }
 
-const QValueList<Job *> & JobQueue::runningJobs()
+const QValueList<Job *> JobQueue::runningJobs()
 {
     QValueList<Job *> jobs;
 
@@ -33,7 +35,7 @@ const QValueList<Job *> & JobQueue::runningJobs()
 
     for( ; it!=itEnd ; ++it )
     {
-        if( (*it)->status() == Running )
+        if( (*it)->status() == Job::Running )
             jobs.append(*it);
     }
     return jobs;
@@ -60,15 +62,28 @@ void JobQueue::remove(Job * job)
     m_jobs.remove(job);
 }
 
-void JobQueue::move(Job * job, int position)
+void JobQueue::move(Job * job, Job * after)
 {
-    if( m_jobs.remove(job) == 0)
-        return;
+    kdDebug() << "JobQueue::move" << endl;
 
-    QValueList<Job *>::iterator it = m_jobs.at(position);
+    if( (m_jobs.remove(job) == 0) || (job == after) )
+    {
+        //The job doesn't belong to this JobQueue or the requested
+        //operations doesn't make any sense since job==after
+        return;
+    }
+
+    if(!after)
+    {
+        //The job must be inserted in front of the list
+        m_jobs.prepend(job);
+        return;
+    }
+
+    QValueList<Job *>::iterator it = m_jobs.find(after);
     if( it!=m_jobs.end() )
     {
-        m_jobs.insert(it, job);
+        m_jobs.insert(++it, job);
     }
 }
 

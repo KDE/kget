@@ -60,9 +60,14 @@ class JobQueue
         iterator end()      {return m_jobs.end();}
 
         /**
+         * @return the last job in the job's list
+         */
+        Job * last()        {return m_jobs.last();}
+
+        /**
          * @return a list with the running Jobs
          */
-        const QValueList<Job *> & runningJobs();
+        const QValueList<Job *> runningJobs();
 
         /**
          * Sets the maximum number of jobs belonging to this queue that 
@@ -101,12 +106,12 @@ class JobQueue
         void remove(Job * job);
 
         /**
-         * Moves a job in the queue
+         * Moves a job in the queue. Both the given jobs must belong to this queue
          *
          * @param job The job to move
-         * @param position The new position of the job.
+         * @param position The job after which we have to move the given job
          */
-        void move(Job * job, int position);
+        void move(Job * job, Job * after);
 
         /**
          * @return the number of jobs in the queue

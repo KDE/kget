@@ -58,6 +58,7 @@ class TransferHandler
     friend class Model;
     friend class Transfer;
     friend class TransferFactory;
+    friend class TransferGroupHandler;
 
     public:
 

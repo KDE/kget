@@ -20,6 +20,7 @@
 
 class KActionCollection;
 class MainView;
+class TransferItem;
 class GroupHandler;
 class TransferHandler;
 class TransferGroupHandler;
@@ -32,9 +33,13 @@ public:
 
     //TransferGroupObserver
     void groupChangedEvent(TransferGroupHandler * group);
-    void addedTransferEvent(TransferHandler * transfer);
+    void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+    void removedTransferEvent(TransferHandler * transfer);
+    void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
     void deletedEvent(TransferGroupHandler * group);
 
+    bool acceptDrop ( const QMimeSource * mime ) const;
+    void dropped ( QDropEvent * e );
     void updateContents(bool updateAll=false);
 
     TransferGroupHandler * group() const {return m_group;}
@@ -44,6 +49,8 @@ public:
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
 
 private:
+    TransferItem * findTransferItem( TransferHandler * transfer );
+
     TransferGroupHandler * m_group;
     MainView * m_view;
 
@@ -54,19 +61,22 @@ private:
 class TransferItem : public QListViewItem, public TransferObserver
 {
 public:
-    TransferItem(TransferGroupItem * parent, TransferHandler * transfer);
+    TransferItem(TransferGroupItem * parent, TransferHandler * transfer, QListViewItem * after = 0);
     ~TransferItem(){}
 
     //Transfer observer virtual functions
     void transferChangedEvent(TransferHandler * transfer);
     void deleteEvent(TransferHandler * transfer);
 
+    bool acceptDrop ( const QMimeSource * mime ) const;
+    void dropped ( QDropEvent * e );
     void updateContents(bool updateAll=false);
 
     TransferHandler * transfer() const {return m_transfer;}
     MainView * view() const {return m_view;}
 
     void setSelected(bool s);
+
     void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
 
 private:
@@ -85,6 +95,10 @@ public:
     //Model observer virtual functions
     void addedTransferGroupEvent(TransferGroupHandler * group);
 
+    void contentsDropEvent ( QDropEvent * );
+
+//     void contentsDragMoveEvent(QDragMoveEvent * event);
+
 protected:
     void paletteChange ();
 
@@ -92,7 +106,6 @@ public slots:
     void slotRightButtonClicked( QListViewItem *, const QPoint &, int);
 
 private:
-    QValueList<TransferHandler *> getSelectedList();
 
     KPopupMenu * m_popup;
 };

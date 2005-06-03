@@ -58,17 +58,48 @@ void TransferGroupItem::groupChangedEvent(TransferGroupHandler * group)
     updateContents();
 }
 
-void TransferGroupItem::addedTransferEvent(TransferHandler * transfer)
+void TransferGroupItem::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
     kdDebug() << "TransferGroupItem::addedTransferEvent" << endl;
-    new TransferItem(this, transfer);
     kdDebug() << " source = " << transfer->source().url() << endl;
+
+    new TransferItem(this, transfer, findTransferItem(after));
+
     setVisible(true);
+}
+
+void TransferGroupItem::removedTransferEvent(TransferHandler * transfer)
+{
+    delete(findTransferItem(transfer));
+}
+
+void TransferGroupItem::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+{
+    TransferItem * ti = findTransferItem(transfer);
+
+    if(after)
+        ti->moveItem(findTransferItem(after));
+    else
+    {
+        //Move to the top of the list
+        ti->moveItem(firstChild());
+        firstChild()->moveItem(ti);
+    }
 }
 
 void TransferGroupItem::deletedEvent(TransferGroupHandler * group)
 {
-    
+
+}
+
+bool TransferGroupItem::acceptDrop ( const QMimeSource * mime ) const
+{
+    return true;
+}
+
+void TransferGroupItem::dropped ( QDropEvent * e )
+{
+    kdDebug() << "TransferGroupItem::dropped" << endl;
 }
 
 void TransferGroupItem::updateContents(bool updateAll)
@@ -143,14 +174,29 @@ void TransferGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
     }
 }
 
-TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfer)
-    : QListViewItem(parent),
+TransferItem * TransferGroupItem::findTransferItem( TransferHandler * transfer )
+{
+    if(!transfer)
+        return 0;
+
+    QListViewItemIterator it( this );
+
+    for ( ; it.current() ; ++it )
+    {
+        TransferItem * ti = static_cast<TransferItem *>(it.current());
+        if( ti->transfer() == transfer )
+            return ti;
+    }
+    return 0;
+}
+
+TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfer, QListViewItem * after)
+    : QListViewItem(parent, after),
       m_transfer(transfer),
       m_view(parent->view())
 {
     setDragEnabled(true);
     setDropEnabled(true);
-
     updateContents(true);
 
     transfer->addObserver(this);
@@ -164,6 +210,16 @@ void TransferItem::transferChangedEvent(TransferHandler * transfer)
 void TransferItem::deleteEvent(TransferHandler * transfer)
 {
     delete(this);
+}
+
+bool TransferItem::acceptDrop ( const QMimeSource * mime ) const
+{
+    return true;
+}
+
+void TransferItem::dropped ( QDropEvent * e )
+{
+    kdDebug() << "TransferItem::dropped" << endl;
 }
 
 void TransferItem::updateContents(bool updateAll)
@@ -273,15 +329,15 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
     }
 }
 
-
-
 MainView::MainView( QWidget * parent, const char * name )
     : KListView( parent, name ), 
       m_popup(0)
 {
+    setSorting(-1);
     setAllColumnsShowFocus(true);
     setSelectionMode(QListView::Extended);
-    setSorting(0);
+    setDragEnabled(true);
+    setAcceptDrops(true);
 
     addColumn(i18n("File"), 200);
     addColumn(i18n("Status"), 120);
@@ -305,26 +361,60 @@ void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
     newGroupItem->setVisible(false);
 }
 
-QValueList<TransferHandler *> MainView::getSelectedList()
+void MainView::contentsDropEvent ( QDropEvent * e )
 {
-    QValueList<TransferHandler *> list;
+    kdDebug() << "MainView::contentsDropEvent" << endl;
 
-    QListViewItemIterator it(this);
+    cleanDropVisualizer();
 
-    for(;*it != 0; it++)
+    QValueList<TransferHandler *> transfers = Model::selectedTransfers();
+
+    QValueList<TransferHandler *>::iterator it = transfers.end();
+    QValueList<TransferHandler *>::iterator itBegin = transfers.begin();
+
+    QListViewItem * parent;
+    QListViewItem * after;
+
+    findDrop(e->pos(), parent, after);
+
+    kdDebug() << "parent=" << parent << "  " << "after=" << after << endl;
+
+    //The item has been dropped outside the available groups
+    if(parent==0)
+        return;
+
+    TransferGroupHandler * destGroup;
+    destGroup = static_cast<TransferGroupItem *>(parent)->group();
+
+    kdDebug() << "destGroup = " << destGroup << endl;
+
+    TransferHandler * destTransfer;
+    if(after)
+        destTransfer = static_cast<TransferItem *>(after)->transfer();
+    else
+        destTransfer = 0;
+
+    if(destTransfer)
     {
-        TransferItem * item;
-
-        if( isSelected(*it) &&  (item = dynamic_cast<TransferItem *>(*it)) )
-            list.append( item->transfer() );
+        kdDebug() << "Item dropped on the transfer:" << endl;
+        kdDebug() << "(" << destTransfer->source().url() << ")" << endl;
+    }
+    else
+    {
+        kdDebug() << "destTransfer == NULL" << endl;
     }
 
-    return list;
+    destGroup->move(transfers, destTransfer);
 }
 
+/*void MainView::contentsDragMoveEvent(QDragMoveEvent * event)
+{
+    kdDebug() << "contentsDragMoveEvent" << endl;
+}
+*/
 void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
 {
-    QValueList<TransferHandler *> selectedTransfers = getSelectedList();
+    QValueList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
 
     if( selectedTransfers.empty() )
         return;
@@ -337,7 +427,6 @@ void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & 
 
     m_popup = selectedTransfers.first()->popupMenu(selectedTransfers);
     m_popup->popup( pos );
-
 }
 
 void MainView::paletteChange()
