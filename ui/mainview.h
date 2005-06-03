@@ -38,8 +38,6 @@ public:
     void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
     void deletedEvent(TransferGroupHandler * group);
 
-    bool acceptDrop ( const QMimeSource * mime ) const;
-    void dropped ( QDropEvent * e );
     void updateContents(bool updateAll=false);
 
     TransferGroupHandler * group() const {return m_group;}
@@ -68,8 +66,6 @@ public:
     void transferChangedEvent(TransferHandler * transfer);
     void deleteEvent(TransferHandler * transfer);
 
-    bool acceptDrop ( const QMimeSource * mime ) const;
-    void dropped ( QDropEvent * e );
     void updateContents(bool updateAll=false);
 
     TransferHandler * transfer() const {return m_transfer;}
@@ -94,10 +90,7 @@ public:
 
     //Model observer virtual functions
     void addedTransferGroupEvent(TransferGroupHandler * group);
-
     void contentsDropEvent ( QDropEvent * );
-
-//     void contentsDragMoveEvent(QDragMoveEvent * event);
 
 protected:
     void paletteChange ();

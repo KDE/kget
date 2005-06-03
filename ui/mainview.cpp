@@ -92,16 +92,6 @@ void TransferGroupItem::deletedEvent(TransferGroupHandler * group)
 
 }
 
-bool TransferGroupItem::acceptDrop ( const QMimeSource * mime ) const
-{
-    return true;
-}
-
-void TransferGroupItem::dropped ( QDropEvent * e )
-{
-    kdDebug() << "TransferGroupItem::dropped" << endl;
-}
-
 void TransferGroupItem::updateContents(bool updateAll)
 {
 //     TransferGroupHandler::ChangesFlags groupFlags = m_group->changesFlags(this);
@@ -210,16 +200,6 @@ void TransferItem::transferChangedEvent(TransferHandler * transfer)
 void TransferItem::deleteEvent(TransferHandler * transfer)
 {
     delete(this);
-}
-
-bool TransferItem::acceptDrop ( const QMimeSource * mime ) const
-{
-    return true;
-}
-
-void TransferItem::dropped ( QDropEvent * e )
-{
-    kdDebug() << "TransferItem::dropped" << endl;
 }
 
 void TransferItem::updateContents(bool updateAll)
@@ -407,11 +387,6 @@ void MainView::contentsDropEvent ( QDropEvent * e )
     destGroup->move(transfers, destTransfer);
 }
 
-/*void MainView::contentsDragMoveEvent(QDragMoveEvent * event)
-{
-    kdDebug() << "contentsDragMoveEvent" << endl;
-}
-*/
 void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
 {
     QValueList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
