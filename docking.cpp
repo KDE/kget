@@ -42,7 +42,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 {
     parent = _parent;
 
-    setPixmap( loadIcon( "dock" ));
+    setPixmap( loadIcon( "kget_dock" ));
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
