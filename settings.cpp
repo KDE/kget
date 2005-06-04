@@ -195,6 +195,9 @@ Settings::load()
     config->setGroup("DropGeometry");
     dropPosition = config->readPointEntry("Position", &point);
     dropState = config->readUnsignedLongNumEntry("State", DEFAULT_DOCK_STATE );
+
+    // flushing pending changes
+    config->sync();
 }
 
 
