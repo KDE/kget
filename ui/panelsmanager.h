@@ -47,9 +47,9 @@ public:
 
     void     addBrowser( QWidget*, const QString&, const QString& );
 
-    static const int DEFAULT_HEIGHT = 50;
-    static const int MINIMUM_WIDTH = 200;
-    static const int MAXIMUM_WIDTH = 300;
+    static const uint DEFAULT_HEIGHT = 50;
+    static const uint MINIMUM_WIDTH = 200;
+    static const uint MAXIMUM_WIDTH = 300;
 
 protected:
     bool eventFilter( QObject*, QEvent* );

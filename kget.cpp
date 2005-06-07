@@ -488,6 +488,7 @@ bool KGet::isOfflineMode() const
 {
     //TODO Re-enable this 
 //     return scheduler->isRunning();
+    return false;
 }
 
 #include "kget.moc"

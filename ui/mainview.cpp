@@ -411,7 +411,7 @@ void MainView::paletteChange()
     for(;*it != 0; it++)
     {
         TransferGroupItem * groupItem;
-        if( groupItem = dynamic_cast<TransferGroupItem *>(*it) )
+        if(( groupItem = dynamic_cast<TransferGroupItem *>(*it) ) )
             groupItem->updatePixmaps( );
     }
 }

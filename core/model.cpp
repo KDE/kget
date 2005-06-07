@@ -345,7 +345,7 @@ void Model::createTransfer(KURL src, KURL dest, const QString& groupName, const 
     for( ; it!=itEnd ; ++it)
     {
         kdDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
-        if(newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler, e))
+        if((newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler, e)))
         {
             group->append(newTransfer);
             return;
@@ -410,6 +410,7 @@ KURL Model::urlInputDialog()
         else
             ok = false;
     }
+    return KURL();
 }
 
 QString Model::destInputDialog()
@@ -541,7 +542,7 @@ Transfer * Model::findTransfer(KURL src)
 
     for(; it!=itEnd ; ++it)
     {
-        if( t = (*it)->findTransfer(src) )
+        if( ( t = (*it)->findTransfer(src) ) )
             return t;
     }
     return 0;
