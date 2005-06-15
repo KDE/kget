@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Actions=KGetDownload;
+Icon=
+ServiceTypes=all/allfiles
+ExcludeServiceTypes=kdedevice/*
+
+[Desktop Action KGetDownload]
+Exec=kget %U
+Icon=kget
+Name=Download with KGet
