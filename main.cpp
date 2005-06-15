@@ -203,7 +203,9 @@ int main(int argc, char *argv[])
 
     KGetApp kApp;
 
-    setSignalHandler(signalHandler);
+// disabling he custom signal handler, so at least we have the backtraces for
+// crashes...
+//    setSignalHandler(signalHandler);
     kApp.exec();
 
     cleanup();
