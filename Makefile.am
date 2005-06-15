@@ -19,6 +19,9 @@ mime_DATA = x-kgetlist.desktop
 stuffdir = $(kde_datadir)/kget
 stuff_DATA = kgetui.rc
 
+servicemenudir = $(kde_datadir)/konqueror/servicemenus
+servicemenu_DATA = kget_download.desktop
+
 EXTRA_DIST = kget.desktop $(mime_DATA)
 
 KDE_ICON = AUTO
