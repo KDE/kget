@@ -113,6 +113,11 @@ TransferGroupHandler * TransferGroup::handler()
     return m_handler;
 }
 
+void TransferGroup::transferChangedEvent(Transfer * transfer)
+{
+    
+}
+
 void TransferGroup::save(QDomElement e)
 {
     e.setAttribute("Name", m_name);

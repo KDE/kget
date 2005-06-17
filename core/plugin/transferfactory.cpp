@@ -30,7 +30,7 @@ TransferFactory::TransferFactory()
                                       "stop_transfer" ) );
 
     //ActionDelete action
-    m_actions.append( new ActionDelete( i18n("Delete"), "trashcan_empty",
+    m_actions.append( new ActionDelete( i18n("Delete"), "editdelete",
                                         0, Model::actionCollection(),
                                         "remove_transfer" ) );
 
@@ -79,51 +79,5 @@ KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> tran
     }
 
     return popup;
-
-//     KPopupMenu * popup = new KPopupMenu( this );
-// 
-//     TransferList t = getSelectedList();
-//     // insert title
-//     QString t1 = i18n("%n download", "%n downloads", t.count());
-//     QString t2 = i18n("KGet");
-//     popup->insertTitle( column!=-1 ? t1 : t2 );
-// 
-//     // add menu entries
-//     if ( column!=-1 )
-//     {   // menu over an item
-//         popup->insertItem( SmallIcon("down"), i18n("R&esume"), this, SLOT(slotResumeItems()) );
-//         popup->insertItem( SmallIcon("stop"), i18n("&Stop"), this, SLOT(slotStopItems()) );
-//         popup->insertItem( SmallIcon("editdelete"), i18n("&Remove"), this, SLOT(slotRemoveItems()) );
-// 
-//         KPopupMenu * subPrio = new KPopupMenu( popup );
-//         subPrio->insertItem( SmallIcon("2uparrow"), i18n("highest"), this,  SLOT( slotSetPriority(int) ), 0, 1);
-//         subPrio->insertItem( SmallIcon("1uparrow"), i18n("high"), this,  SLOT( slotSetPriority(int) ), 0, 2);
-//         subPrio->insertItem( SmallIcon("1rightarrow"), i18n("normal"), this,  SLOT( slotSetPriority(int) ), 0, 3);
-//         subPrio->insertItem( SmallIcon("1downarrow"), i18n("low"), this,  SLOT( slotSetPriority(int) ), 0, 4);
-//         subPrio->insertItem( SmallIcon("2downarrow"), i18n("lowest"), this,  SLOT( slotSetPriority(int) ), 0, 5);
-//         subPrio->insertItem( SmallIcon("stop"), i18n("do now download"), this,  SLOT( slotSetPriority(int) ), 0, 6 );
-//         popup->insertItem( i18n("Set &priority"), subPrio );
-// 
-//         KPopupMenu * subGroup = new KPopupMenu( popup );
-//         //for loop inserting all existant groups
-//         QMap<QString, TransferGroupItem *>::iterator it = m_groupsMap.begin();
-//         QMap<QString, TransferGroupItem *>::iterator itEnd = m_groupsMap.end();
-// 
-//         for(int i=0; it != itEnd; ++it, ++i)
-//         {
-//             subGroup->insertItem( SmallIcon("folder"),
-//                                     (*it)->group()->info().name, 
-//                                     this,  SLOT( slotSetGroup( int ) ),
-//                                     0, i);
-//         }
-//         //subGroup->insertItem( i18n("new ..."), this,  SLOT( slotSetGroup() ) );
-//         popup->insertItem( SmallIcon("folder"), i18n("Set &group"), subGroup );
-//     }
-//     else
-//         // menu on empty space
-//         ac->action("open_transfer")->plug(popup);
-// 
-//     // show popup
-//     popup->popup( pos );
 }
 

@@ -68,11 +68,6 @@ void TransferGroupItem::addedTransferEvent(TransferHandler * transfer, TransferH
     setVisible(true);
 }
 
-void TransferGroupItem::removedTransferEvent(TransferHandler * transfer)
-{
-    delete(findTransferItem(transfer));
-}
-
 void TransferGroupItem::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
     TransferItem * ti = findTransferItem(transfer);
@@ -87,7 +82,7 @@ void TransferGroupItem::movedTransferEvent(TransferHandler * transfer, TransferH
     }
 }
 
-void TransferGroupItem::deletedEvent(TransferGroupHandler * group)
+void TransferGroupItem::deleteEvent(TransferGroupHandler * group)
 {
 
 }

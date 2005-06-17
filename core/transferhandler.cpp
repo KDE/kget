@@ -146,10 +146,14 @@ void TransferHandler::postTransferChangedEvent()
     QValueList<TransferObserver *>::iterator it = m_observers.begin();
     QValueList<TransferObserver *>::iterator itEnd = m_observers.end();
 
+    //Notify the observers
     for(; it!=itEnd; ++it)
     {
         (*it)->transferChangedEvent(this);
     }
+
+    //Notify the group
+    m_transfer->group()->transferChangedEvent(m_transfer);
 }
 
 void TransferHandler::postDeleteEvent()

@@ -34,9 +34,8 @@ public:
     //TransferGroupObserver
     void groupChangedEvent(TransferGroupHandler * group);
     void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-    void removedTransferEvent(TransferHandler * transfer);
     void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-    void deletedEvent(TransferGroupHandler * group);
+    void deleteEvent(TransferGroupHandler * group);
 
     void updateContents(bool updateAll=false);
 
