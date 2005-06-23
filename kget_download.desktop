@@ -9,4 +9,5 @@ ExcludeServiceTypes=kdedevice/*
 Exec=kget %U
 Icon=kget
 Name=Download with KGet
+Name[da]=Download med KGet
 Name[sv]=Ladda ner med Kget
