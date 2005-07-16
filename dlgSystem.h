@@ -41,22 +41,11 @@ Q_OBJECT public:
     void applyData();
     void setData();
 
-private:
-
-    QString soundAdded;
-    QString soundStarted;
-    QString soundFinished;
-    QString soundFinishedAll;
-
 signals:
     void configChanged();
 
 protected slots:
     void slotChanged();
-
-private slots:
-    void setupSound();
-    void testSound();
 };
 
 #endif                          // _DLGSYSTEM_H

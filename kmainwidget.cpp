@@ -53,7 +53,6 @@
 #include <kapplication.h>
 #include <kstandarddirs.h>
 #include <kiconloader.h>
-#include <kaudioplayer.h>
 #include <kurl.h>
 #include <kurldrag.h>
 #include <klocale.h>
@@ -66,6 +65,8 @@
 #include <kstatusbar.h>
 #include <kconfig.h>
 #include <kio/netaccess.h>
+#include <knotifyclient.h>
+#include <knotifydialog.h>
 
 #include "safedelete.h"
 #include "settings.h"
@@ -224,7 +225,6 @@ KMainWidget::KMainWidget(bool bStartDocked)
 
     // update actions
     m_paUseAnimation->setChecked(ksettings.b_useAnimation);
-    m_paUseSound->setChecked(ksettings.b_useSound);
     m_paExpertMode->setChecked(ksettings.b_expertMode);
     m_paUseLastDir->setChecked(ksettings.b_useLastDir);
 
@@ -253,7 +253,9 @@ KMainWidget::KMainWidget(bool bStartDocked)
         show();
 
     kdock->show();
-    
+
+    KNotifyClient::startDaemon();
+
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
@@ -365,7 +367,6 @@ void KMainWidget::setupGUI()
 
     // options actions
     m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), coll, "toggle_animation");
-    m_paUseSound       =  new KToggleAction(i18n("Use &Sound"), 0, this, SLOT(slotToggleSound()), coll, "toggle_sound");
     m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), coll, "expert_mode");
     m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), coll, "use_last_dir");
     m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), coll, "auto_disconnect");
@@ -377,6 +378,7 @@ void KMainWidget::setupGUI()
 
     KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), coll);
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
+    KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), coll);
 
     // view actions
     createStandardStatusBarAction();
@@ -1121,6 +1123,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
 
     // create a new transfer item
     Transfer *item = myTransferList->addTransfer(url, destURL);
+    KNotifyClient::event(kdock->winId(), "added", i18n("<i>%1</i> has been added.").arg(url.prettyURL()));
     item->updateAll(); // update the remaining fields
 
     if (ksettings.b_showIndividual)
@@ -1128,9 +1131,6 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
 
     myTransferList->clearSelection();
 
-    if (ksettings.b_useSound) {
-        KAudioPlayer::play(ksettings.audioAdded);
-    }
     checkQueue();
 #ifdef _DEBUG
     sDebugOut << endl;
@@ -1215,6 +1215,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
     // dest is now finally the real destination directory for all the files
     dest.adjustPath(+1);
 
+    int numdl = 0;
     // create new transfer items
     KURL::List::ConstIterator it = urlsToDownload.begin();
     for ( ; it != urlsToDownload.end(); ++it )
@@ -1242,13 +1243,14 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
 
         Transfer *item = myTransferList->addTransfer(*it, destURL);
         item->updateAll(); // update the remaining fields
+
+        numdl++;
     }
+
+    KNotifyClient::event(kdock->winId(), "added", i18n("%1 download has been added.", "%1 downloads have been added.", numdl));
 
     myTransferList->clearSelection();
 
-    if (ksettings.b_useSound) {
-        KAudioPlayer::play(ksettings.audioAdded);
-    }
     checkQueue();
 }
 
@@ -1413,6 +1415,8 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
     switch (_operation) {
 
     case Transfer::OP_FINISHED:
+    {
+        QString srcurl = item->getSrc().prettyURL();
         if (ksettings.b_removeOnSuccess && !item->keepDialogOpen() )
         {
             delete item;
@@ -1430,14 +1434,18 @@ void KMainWidget::slotStatusChanged(Transfer * item, int _operation)
                 slotQuit();
                 return;
             }
-            // play(ksettings.audioFinishedAll);
+            KNotifyClient::event(kdock->winId(), "finishedall", i18n("All the downloads are finished."));
+        }
+        else
+        {
+            KNotifyClient::event(kdock->winId(), "finished", i18n("<i>%1</i> successfully downloaded.").arg(srcurl));
         }
 
         if ( item )
             item->slotUpdateActions();
 
         break;
-
+    }
     case Transfer::OP_RESUMED:
         slotUpdateActions();
         item->slotUpdateActions();
@@ -1625,6 +1633,10 @@ void KMainWidget::slotPreferences()
 #endif
 }
 
+void KMainWidget::slotConfigureNotifications()
+{
+    KNotifyDialog::configure(this);
+}
 
 void KMainWidget::slotToggleLogWindow()
 {
@@ -1665,21 +1677,6 @@ void KMainWidget::slotToggleAnimation()
     sDebugOut << endl;
 #endif
 }
-
-
-void KMainWidget::slotToggleSound()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    ksettings.b_useSound = !ksettings.b_useSound;
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
 
 void KMainWidget::slotToggleOfflineMode()
 {

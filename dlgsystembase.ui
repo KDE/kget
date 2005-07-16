@@ -19,90 +19,7 @@
         <property name="margin">
             <number>0</number>
         </property>
-        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>cb_useSound</cstring>
-            </property>
-            <property name="text">
-                <string>Use sounds</string>
-            </property>
-        </widget>
-        <widget class="QPushButton" row="1" column="3">
-            <property name="name">
-                <cstring>pb_changesound</cstring>
-            </property>
-            <property name="text">
-                <string>Change...</string>
-            </property>
-        </widget>
-        <widget class="QPushButton" row="1" column="4">
-            <property name="name">
-                <cstring>pb_testsound</cstring>
-            </property>
-            <property name="text">
-                <string>Test</string>
-            </property>
-        </widget>
-        <spacer row="1" column="0">
-            <property name="name">
-                <cstring>spacer6</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Preferred</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>40</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
-        <widget class="KComboBox" row="1" column="1" rowspan="1" colspan="2">
-            <item>
-                <property name="text">
-                    <string>Added</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>Started</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>Finished</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>Finished All</string>
-                </property>
-            </item>
-            <property name="name">
-                <cstring>cmb_sounds</cstring>
-            </property>
-        </widget>
-        <spacer row="1" column="5" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>spacer7</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>40</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
-        <widget class="QCheckBox" row="2" column="0" rowspan="1" colspan="3">
+        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="3">
             <property name="name">
                 <cstring>cb_useAnimation</cstring>
             </property>
@@ -110,7 +27,7 @@
                 <string>Use animation</string>
             </property>
         </widget>
-        <widget class="QLabel" row="3" column="0" rowspan="1" colspan="2">
+        <widget class="QLabel" row="1" column="0" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>textLabel4</cstring>
             </property>
@@ -121,7 +38,7 @@
                 <string>Window style:</string>
             </property>
         </widget>
-        <widget class="QLabel" row="4" column="0" rowspan="1" colspan="2">
+        <widget class="QLabel" row="2" column="0" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>textLabel5</cstring>
             </property>
@@ -129,12 +46,12 @@
                 <string>Font:</string>
             </property>
         </widget>
-        <widget class="KFontRequester" row="4" column="2" rowspan="1" colspan="5">
+        <widget class="KFontRequester" row="2" column="2" rowspan="1" colspan="5">
             <property name="name">
                 <cstring>le_font</cstring>
             </property>
         </widget>
-        <widget class="QButtonGroup" row="3" column="2" rowspan="1" colspan="4">
+        <widget class="QButtonGroup" row="1" column="2" rowspan="1" colspan="4">
             <property name="name">
                 <cstring>bg_window</cstring>
             </property>
@@ -180,7 +97,7 @@
                 </widget>
             </hbox>
         </widget>
-        <spacer row="3" column="6">
+        <spacer row="1" column="6">
             <property name="name">
                 <cstring>spacer8</cstring>
             </property>
@@ -197,17 +114,28 @@
                 </size>
             </property>
         </spacer>
+        <spacer row="3" column="0">
+            <property name="name">
+                <cstring>spacer9</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>40</width>
+                    <height>10</height>
+                </size>
+            </property>
+        </spacer>
     </grid>
 </widget>
 <customwidgets>
 </customwidgets>
 <connections>
-    <connection>
-        <sender>cb_useSound</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>DlgSystemBase</receiver>
-        <slot>slotChanged()</slot>
-    </connection>
     <connection>
         <sender>cb_useAnimation</sender>
         <signal>toggled(bool)</signal>
@@ -226,44 +154,12 @@
         <receiver>DlgSystemBase</receiver>
         <slot>slotChanged()</slot>
     </connection>
-    <connection>
-        <sender>cb_useSound</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>cmb_sounds</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>cb_useSound</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>pb_changesound</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>cb_useSound</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>pb_testsound</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>pb_changesound</sender>
-        <signal>clicked()</signal>
-        <receiver>DlgSystemBase</receiver>
-        <slot>setupSound()</slot>
-    </connection>
-    <connection>
-        <sender>pb_testsound</sender>
-        <signal>clicked()</signal>
-        <receiver>DlgSystemBase</receiver>
-        <slot>testSound()</slot>
-    </connection>
 </connections>
 <includes>
     <include location="global" impldecl="in implementation">kdialog.h</include>
 </includes>
 <slots>
     <slot access="protected" specifier="pure virtual">slotChanged()</slot>
-    <slot access="protected" specifier="pure virtual">setupSound()</slot>
-    <slot access="protected" specifier="pure virtual">testSound()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>

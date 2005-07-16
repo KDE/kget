@@ -94,6 +94,7 @@ public slots:
     void slotPasteTransfer();
     void slotToggleLogWindow();
     void slotPreferences();
+    void slotConfigureNotifications();
     void slotToggleExpertMode();
     void slotToggleOfflineMode();
     void slotToggleUseLastDir();
@@ -102,7 +103,6 @@ public slots:
     void slotToggleAutoPaste();
     void slotToggleDropTarget();
     void slotToggleAnimation();
-    void slotToggleSound();
     void slotUpdateActions();
 
 protected slots:
@@ -213,7 +213,7 @@ private:
     KAction *m_paResume, *m_paPause, *m_paDelete, *m_paRestart;
     KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
 
-    KToggleAction *m_paUseAnimation, *m_paUseSound;
+    KToggleAction *m_paUseAnimation;
     KToggleAction *m_paExpertMode, *m_paUseLastDir, *m_paOfflineMode;
     KToggleAction *m_paAutoDisconnect, *m_paAutoShutdown, *m_paAutoPaste;
 

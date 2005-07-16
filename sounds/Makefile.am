@@ -1,5 +1,4 @@
-apps_DATA =	added.wav started.wav finished.wav finishedall.wav
-appsdir = $(kde_datadir)/kget/sounds
+kde_sound_DATA = KGet_Added.ogg KGet_Finished.ogg KGet_Finished_All.ogg \
+                 KGet_Started.ogg
 
-EXTRA_DIST = $(apps_DATA)
-
+EXTRA_DIST = $(kde_sound_DATA)

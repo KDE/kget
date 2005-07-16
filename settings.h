@@ -81,13 +81,6 @@ extern QString ConnectionDevices[];
 #define DEF_UseLastDir          false
 
 // System settings
-#define DEF_UseSound            true
-
-#define DEF_SoundAdded          "kget/sounds/added.wav"
-#define DEF_SoundStarted        "kget/sounds/started.wav"
-#define DEF_SoundFinished       "kget/sounds/finished.wav"
-#define DEF_SoundFinishedAll    "kget/sounds/finishedall.wav"
-
 #define DEF_UseAnimation        true
 
 #define DEF_WindowStyle         NORMAL
@@ -175,13 +168,6 @@ public:
     DirList defaultDirList;
 
     // system options
-    bool b_useSound;
-
-    QString audioAdded;
-    QString audioStarted;
-    QString audioFinished;
-    QString audioFinishedAll;
-
     bool b_useAnimation;
     QFont listViewFont;
 

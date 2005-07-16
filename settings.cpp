@@ -63,15 +63,6 @@ Settings::load()
 
     // read system options
     config->setGroup("System");
-    b_useSound = config->readBoolEntry("UseSound", DEF_UseSound);
-    sDebug << "locating sounds..." << locate("data", DEF_SoundAdded) << endl;
-    audioAdded = config->readPathEntry("Added", locate("data", DEF_SoundAdded));
-    sDebug << "audioadded= " << audioAdded << endl;
-    audioStarted = config->readPathEntry("Started", locate("data", DEF_SoundStarted));
-    audioFinished = config->readPathEntry("Finished", locate("data", DEF_SoundFinished));
-    audioFinishedAll = config->readPathEntry("FinishedAll", locate("data", DEF_SoundFinishedAll));
-    b_useAnimation = config->readBoolEntry("UseAnimation", DEF_UseAnimation);
-
 
     // read connection options
     config->setGroup("Connection");
@@ -272,12 +263,6 @@ void Settings::save()
 
     // write system options
     config->setGroup("System");
-    config->writeEntry("UseSound", b_useSound);
-    config->writePathEntry("Added", audioAdded);
-    config->writePathEntry("Started", audioStarted);
-    config->writePathEntry("Finished", audioFinished);
-    config->writePathEntry("FinishedAll", audioFinishedAll);
-
     config->writeEntry("UseAnimation", b_useAnimation);
 
     // write misc options

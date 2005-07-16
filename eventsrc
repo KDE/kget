@@ -1,0 +1,27 @@
+[!Global!]
+IconName=kget
+Comment=KGet
+
+[added]
+Name=TransferAdded
+Comment=A new download has been added
+default_sound=KGet_Added.ogg
+default_presentation=17
+
+[started]
+Name=DownloadStarted
+Comment=Downloading started
+default_sound=KGet_Started.ogg
+default_presentation=16
+
+[finished]
+Name=DownloadFinished
+Comment=Downloading finished
+default_sound=KGet_Finished.ogg
+default_presentation=16
+
+[finishedall]
+Name=AddDownloadsFinished
+Comment=All downloads finished
+default_sound=KGet_Finished_All.ogg
+default_presentation=16

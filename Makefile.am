@@ -39,6 +39,9 @@ EXTRA_DIST = kget.desktop $(mime_DATA)
 rcdir = $(kde_datadir)/kget
 rc_DATA = kgetui.rc
 
+events_DATA = eventsrc
+eventsdir = $(kde_datadir)/kget
+
 KDE_ICON = AUTO
 
 messages: rc.cpp
