@@ -1247,7 +1247,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
         numdl++;
     }
 
-    KNotifyClient::event(kdock->winId(), "added", i18n("%1 download has been added.", "%1 downloads have been added.", numdl));
+    KNotifyClient::event(kdock->winId(), "added", i18n("%1 download has been added.", "%1 downloads have been added.", numdl).arg(numdl));
 
     myTransferList->clearSelection();
 
