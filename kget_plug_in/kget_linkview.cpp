@@ -1,10 +1,14 @@
+#include "kget_linkview.h"
+
+#include <dcopclient.h>
 #include <kaction.h>
+#include <kapplication.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kprocess.h>
+#include <kstdaction.h>
 #include <ktoolbar.h>
-
-#include "kget_linkview.h"
 
 #define COL_NAME 0
 #define COL_DESC 1
@@ -35,26 +39,19 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
 {
     setPlainCaption( i18n( "KGet" ) );
 
-    KActionCollection *coll = actionCollection();
+    KAction* actionDownload = new KAction( i18n("Download Selected Files"),
+                                           "khtml_kget", CTRL+Key_D,
+                                           this, SLOT( slotStartLeech() ),
+                                           actionCollection(), "startDownload" );
 
-    (void ) new KAction( i18n("Download Selected Files"),
-                         "khtml_kget",
-                         CTRL+Key_D,
-                         this, SLOT( slotStartLeech() ),
-                         actionCollection(), "startDownload" );
+    KAction* actionSelectAll = KStdAction::selectAll( this, SLOT( slotSelectAll() ),
+                                                      actionCollection() );
 
     m_links.setAutoDelete( true );
-    coll->action( "startDownload" )->plug( toolBar() );
+    actionDownload->plug( toolBar() );
+    toolBar()->insertLineSeparator();
+    actionSelectAll->plug( toolBar() );
 
-    initView();
-}
-
-KGetLinkView::~KGetLinkView()
-{
-}
-
-void KGetLinkView::initView()
-{
     m_view = new KListView( this, "listview" );
     m_view->setSelectionMode( QListView::Extended );
     m_view->addColumn( i18n("File Name") );
@@ -64,6 +61,15 @@ void KGetLinkView::initView()
     m_view->setShowSortIndicator( true );
 
     setCentralWidget( m_view );
+
+    // setting a fixed (not floating) toolbar
+    toolBar()->setMovingEnabled( false );
+    // setting Text next to Icons
+    toolBar()->setIconText( KToolBar::IconTextRight );
+}
+
+KGetLinkView::~KGetLinkView()
+{
 }
 
 void KGetLinkView::setLinks( QPtrList<LinkItem>& links )
@@ -98,12 +104,38 @@ void KGetLinkView::slotStartLeech()
                             i18n("You did not select any files to download."),
                             i18n("No Files Selected") );
     else
-        emit leechURLs( urls );
+    {
+        DCOPClient* p_dcopServer = new DCOPClient();
+        p_dcopServer->attach();
+
+        if ( !p_dcopServer->isApplicationRegistered( "kget" ) )
+        {
+            KApplication::startServiceByDesktopName( "kget" );
+        }
+        kapp->updateRemoteUserTimestamp( "kget" );
+
+        QByteArray data;
+        QDataStream stream( data, IO_WriteOnly );
+        stream << urls << QString::null;
+        bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
+                                                  "addTransfers(KURL::List, QString)",
+                                                  data );
+
+        kdDebug() << "*** startDownload: " << ok << endl;
+
+        p_dcopServer->detach();
+        delete p_dcopServer;
+    }
 }
 
 void KGetLinkView::setPageURL( const QString& url )
 {
     setPlainCaption( i18n( "Links in: %1 - KGet" ).arg( url ) );
+}
+
+void KGetLinkView::slotSelectAll()
+{
+    m_view->selectAll( true );
 }
 
 #include "kget_linkview.moc"

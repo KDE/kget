@@ -40,9 +40,9 @@ signals:
 
 private slots:
     void slotStartLeech();
+    void slotSelectAll();
 
 private:
-    void initView();
     void showLinks( const QPtrList<LinkItem>& links );
 
     QPtrList<LinkItem> m_links;

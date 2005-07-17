@@ -18,11 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <kdatastream.h>
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
-#include <kapplication.h>
 #include <kdatastream.h>
 #include <kdebug.h>
 #include <khtml_part.h>
@@ -52,7 +50,7 @@ KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
     QPixmap pix = KGlobal::iconLoader()->loadIcon("khtml_kget",
                                                   KIcon::MainToolbar);
     KActionMenu *menu = new KActionMenu( i18n("Download Manager"), pix,
-					 actionCollection(), "kget_menu" );
+                                         actionCollection(), "kget_menu" );
     menu->setDelayed( false );
     connect( menu->popupMenu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));
 
@@ -60,7 +58,7 @@ KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
                                            KShortcut(),
                                            this, SLOT(slotShowDrop()),
                                            actionCollection(), "show_drop" );
-    m_paToggleDropTarget->setCheckedState(i18n("Hide Drop Target"));
+
     menu->insert( m_paToggleDropTarget );
 
     KAction *action = new KAction(i18n("List All Links"), KShortcut(),
@@ -154,28 +152,9 @@ void KGet_plug_in::slotShowLinks()
     KGetLinkView *view = new KGetLinkView();
     QString url = doc.URL().string();
     view->setPageURL( url );
-    connect( view, SIGNAL( leechURLs( const KURL::List& ) ),
-             SLOT( startDownload( const KURL::List& ) ));
 
     view->setLinks( linkList );
     view->show();
-}
-
-void KGet_plug_in::startDownload( const KURL::List& urls )
-{
-  if (!p_dcopServer->isApplicationRegistered ("kget")) {
-    KApplication::startServiceByDesktopName("kget");
-  }
-
-    kapp->updateRemoteUserTimestamp("kget");
-    QByteArray data;
-    QDataStream stream( data, IO_WriteOnly );
-    stream << urls << QString::null;
-    bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
-                                              "addTransfers(KURL::List, QString)",
-                                              data );
-
-    kdDebug() << "*** startDownload: " << ok << endl;
 }
 
 KPluginFactory::KPluginFactory( QObject* parent, const char* name )
@@ -189,15 +168,17 @@ QObject* KPluginFactory::createObject( QObject* parent, const char* name, const 
     QObject *obj = new KGet_plug_in( parent, name );
     return obj;
 }
-KPluginFactory::~KPluginFactory()
-{ delete s_instance; }
 
+KPluginFactory::~KPluginFactory()
+{
+    delete s_instance;
+}
 
 extern "C"
 {
     KDE_EXPORT void* init_khtml_kget()
     {
-		KGlobal::locale()->insertCatalogue("kget");
+        KGlobal::locale()->insertCatalogue("kget");
         return new KPluginFactory;
     }
 
