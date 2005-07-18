@@ -4,24 +4,32 @@ Comment=KGet
 
 [added]
 Name=TransferAdded
+Name[et]=Ülekanne lisatud
 Comment=A new download has been added
+Comment[et]=Lisati uus allalaadimine
 default_sound=KGet_Added.ogg
 default_presentation=17
 
 [started]
 Name=DownloadStarted
+Name[et]=Allalaadimine alustatud
 Comment=Downloading started
+Comment[et]=Allalaadimine alustatud
 default_sound=KGet_Started.ogg
 default_presentation=16
 
 [finished]
 Name=DownloadFinished
+Name[et]=Allalaadimine lõpetatud
 Comment=Downloading finished
+Comment[et]=Allalaadimine lõpetatud
 default_sound=KGet_Finished.ogg
 default_presentation=16
 
 [finishedall]
 Name=AddDownloadsFinished
+Name[et]=Kõik allalaadimised lõpetatud
 Comment=All downloads finished
+Comment[et]=Kõik allalaadimised lõpetatud
 default_sound=KGet_Finished_All.ogg
 default_presentation=16
