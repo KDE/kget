@@ -102,6 +102,8 @@ DropTarget::DropTarget(KMainWindow * mainWin):QWidget()
     popupMenu->insertSeparator();
     kmain->m_paQuit->plug(popupMenu);
 
+    isdragging = false;
+
     // Enable dropping
     setAcceptDrops(true);
 }
@@ -119,9 +121,11 @@ DropTarget::mousePressEvent(QMouseEvent * e)
     if (e->button() == LeftButton)
     {
         // toggleMinimizeRestore ();
-        oldX = 0;
-        oldY = 0;
-
+//        oldX = 0;
+//        oldY = 0;
+        isdragging = true;
+        dx = QCursor::pos().x() - pos().x();
+        dy = QCursor::pos().y() - pos().y();
     }
     else if (e->button() == RightButton)
     {
@@ -198,14 +202,23 @@ void DropTarget::toggleMinimizeRestore()
 /** No descriptions */
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
+/*
     if (oldX == 0)
     {
         oldX = e->x();
         oldY = e->y();
         return;
     }
++*/
+    if (isdragging)
+        move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
 
-    QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
+//    move(x() + (e->x() - oldX), y() + (e->y() - oldY));  // <<--
+}
+
+void DropTarget::mouseReleaseEvent(QMouseEvent *)
+{
+    isdragging = false;
 }
 
 /** No descriptions */

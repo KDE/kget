@@ -56,6 +56,7 @@ protected:
     /** No descriptions */
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent * e);
+    virtual void mouseReleaseEvent(QMouseEvent *);
 
 private slots:
     void toggleSticky();
@@ -76,8 +77,11 @@ private:
     QBitmap mask;
 public:                      // Public attributes
     /**  */
-    int oldX;
-    int oldY;
+//    int oldX;
+//    int oldY;
+    int dx;
+    int dy;
+    bool isdragging;
 };
 
 #endif                          // _DROPTARGET_H
