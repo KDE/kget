@@ -101,7 +101,7 @@ void
 Transfer::init(const uint _id)
 {
     sDebugIn << endl;
-
+    remainingTimeSec = 0;
     totalSize = 0;
     processedSize = 0;
     percent = 0;
@@ -258,7 +258,8 @@ void Transfer::setSpeed(unsigned long _speed)
     // sDebugIn <<endl;
     speed = _speed;
 
-    remainingTime = KIO::calculateRemaining(totalSize, processedSize, speed);
+    remainingTimeSec = KIO::calculateRemainingSeconds(totalSize, processedSize, speed);
+    remainingTime = KIO::convertSeconds(remainingTimeSec);
     //sDebugOut <<endl;
 }
 
@@ -594,26 +595,31 @@ void Transfer::slotSpeed(unsigned long bytes_per_second)
     if (speed == 0 && status == ST_RUNNING) {
         setText(view->lv_speed, i18n("Stalled"));
         setText(view->lv_remaining, i18n("Stalled"));
+        if(dlgIndividual)
+            dlgIndividual->setSpeed(i18n("Stalled"));
     } else if (speed == 0 && status == ST_FINISHED) {
 
         setText(view->lv_progress, i18n("OK as in 'finished'","OK"));
-        setText(view->lv_speed, i18n("0 MB/s"));
-        setText(view->lv_remaining, i18n("00:00:00"));
+        setText(view->lv_speed, i18n("Finished"));
+        setText(view->lv_remaining, i18n("Finished"));
+        if(dlgIndividual)
+            dlgIndividual->setSpeed(i18n("Finished"));
 
     } else if (speed == 0 && status == ST_STOPPED) {
 
 
-        setText(view->lv_speed, i18n("0 MB/s"));
-        setText(view->lv_remaining, i18n("00:00:00"));
+        setText(view->lv_speed, i18n("Stopped"));
+        setText(view->lv_remaining, i18n("Stopped"));
+        if(dlgIndividual)
+            dlgIndividual->setSpeed(i18n("Stopped"));
 
     } else {
         QString tmps = i18n("%1/s").arg(KIO::convertSize(speed));
         setText(view->lv_speed, tmps);
-        setText(view->lv_remaining, remainingTime.toString());
+        setText(view->lv_remaining, remainingTime);
+        if(dlgIndividual)
+            dlgIndividual->setSpeed(tmps + " ( " + remainingTime  + " ) ");
     }
-
-	if(dlgIndividual)
-    	dlgIndividual->setSpeed(speed, remainingTime);
 
     //sDebugOut<<endl;
 }

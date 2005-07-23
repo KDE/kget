@@ -61,7 +61,7 @@ public slots:
 
     void setProcessedSize(unsigned long bytes);
 
-    void setSpeed(unsigned long bytes_per_second, QTime remaining);
+    void setSpeed(QString speed);
     void setPercent(unsigned long percent);
 
     void setCopying(const KURL & src, const KURL & dest);

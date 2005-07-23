@@ -226,18 +226,10 @@ void DlgIndividual::setProcessedSize(unsigned long bytes)
 }
 
 
-void DlgIndividual::setSpeed(unsigned long bytes_per_second, QTime remaining)
+void DlgIndividual::setSpeed(QString speed)
 {
-    QString msg;
-    if (bytes_per_second == 0 && item->getStatus() < Transfer::ST_RUNNING)
-        msg=i18n("Stalled");
-    else if (bytes_per_second == 0 && item->getStatus() == Transfer::ST_FINISHED)
-        msg=i18n("Finished");
-    else
-        msg=i18n("%1/s ( %2 )").arg(KIO::convertSize(bytes_per_second)).arg(remaining.toString());
-
-    speedLabel->setText(msg);
-    m_pDockIndividual->setTip(msg);
+    speedLabel->setText(speed);
+    m_pDockIndividual->setTip(speed);
 }
 
 

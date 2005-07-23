@@ -82,9 +82,9 @@ public:
     {
         return startTime;
     }
-    QTime getRemainingTime()const
+    unsigned int getRemainingTime()const
     {
-        return remainingTime;
+        return remainingTimeSec;
     }
 
     KIO::filesize_t getTotalSize()const
@@ -216,7 +216,8 @@ private:
     int percent;
 
     int speed;
-    QTime remainingTime;
+    unsigned int remainingTimeSec;
+    QString remainingTime;
 
     TransferStatus status;
     TransferMode mode;

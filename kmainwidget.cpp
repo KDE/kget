@@ -83,6 +83,7 @@
 
 
 #include <kio/authinfo.h>
+#include <kio/global.h>
 #include <qiconset.h>
 
 #include "version.h"
@@ -396,7 +397,7 @@ void KMainWidget::setupGUI()
     statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
     statusBar()->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
     statusBar()->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"), ID_TOTAL_SIZE);
-    statusBar()->insertFixedItem(i18n(" Time: 00:00:00 "), ID_TOTAL_TIME);
+    statusBar()->insertFixedItem(i18n(" Time: %1 ").arg(KIO::convertSeconds(0)) + "            ", ID_TOTAL_TIME); //added some spaces because "2 days 12:12:12" need more place as "12:12:12"
     statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
 
     setAutoSaveSettings( "MainWindow", false /*Settings takes care of size & pos & state */ );
@@ -2049,7 +2050,7 @@ void KMainWidget::updateStatusBar()
     int totalFiles = 0;
     KIO::filesize_t totalSize = 0;
     int totalSpeed = 0;
-    QTime remTime;
+    unsigned int remTime = 0;
 
     TransferIterator it(myTransferList);
 
@@ -2069,14 +2070,15 @@ void KMainWidget::updateStatusBar()
     statusBar()->changeItem(i18n(" Transfers: %1 ").arg(myTransferList->childCount()), ID_TOTAL_TRANSFERS);
     statusBar()->changeItem(i18n(" Files: %1 ").arg(totalFiles), ID_TOTAL_FILES);
     statusBar()->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
-    statusBar()->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
+    statusBar()->changeItem(i18n(" Time: %1 ").arg(KIO::convertSeconds(remTime)), ID_TOTAL_TIME);
     statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
 
     if (kdock) {
-        tmpstr = i18n(" Transfers: %1 ").arg(myTransferList->childCount()) +
-                 i18n(" Files: %1 ").arg(totalFiles)+
-                 i18n(" Size: %1 ").arg(KIO::convertSize(totalSize))+
-                 i18n(" Time: %1 %2/s").arg(remTime.toString()).arg(KIO::convertSize(totalSpeed));
+        tmpstr = i18n("<b>Transfers:</b> %1 ").arg(myTransferList->childCount()) +
+                 i18n("<br /><b>Files:</b> %1 ").arg(totalFiles) +
+                 i18n("<br /><b>Size:</b> %1 ").arg(KIO::convertSize(totalSize)) +
+                 i18n("<br /><b>Time:</b> %1 ").arg(KIO::convertSeconds(remTime)) +
+                 i18n("<br /><b>Speed:</b> %1/s").arg(KIO::convertSize(totalSpeed));
         kdock->updateToolTip( tmpstr );
     }
 #ifdef _DEBUG
