@@ -196,7 +196,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     advanced = ksettings.b_advancedIndividual;
     slotToggleAdvanced();
 
-    resize( sizeHint() );
+    resize( minimumSizeHint() );
 
     //bool keepOpenChecked = false;
     //bool noCaptionYet = true;
