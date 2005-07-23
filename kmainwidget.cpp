@@ -692,7 +692,7 @@ void KMainWidget::slotQuit()
     for (; it.current(); ++it) {
         item = it.current();
         if (item->getStatus() == Transfer::ST_RUNNING && !ksettings.b_expertMode) {
-            if (KMessageBox::warningYesNo(this, i18n("Some transfers are still running.\nAre you sure you want to close KGet?"), i18n("Warning")) != KMessageBox::Yes) {
+            if (KMessageBox::warningContinueCancel(this, i18n("Some transfers are still running.\nAre you sure you want to quit KGet?"), i18n("Warning"), KStdGuiItem::quit()) != KMessageBox::Continue) {
 #ifdef _DEBUG
                 sDebugOut << endl;
 #endif
@@ -1097,7 +1097,7 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
             //check if destination already exists
             if(KIO::NetAccess::exists(destURL, false, this))
             {
-                if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()), QString::null, i18n("Overwrite"), i18n("Do Not Overwrite") )
                                               == KMessageBox::Yes)
                 {
                     bDestisMalformed=false;
@@ -1174,7 +1174,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
                 destURL.setFileName( fileName );
                 if(KIO::NetAccess::exists(destURL, false, this))
                 {
-                    if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()) )
+                    if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL()), QString::null, i18n("Overwrite"), i18n("Do Not Overwrite") )
                         == KMessageBox::Yes)
                     {
                         SafeDelete::deleteFile( destURL );
@@ -1235,7 +1235,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
 
         if(KIO::NetAccess::exists(destURL, false, this))
         {
-            if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ) )
+            if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ), QString::null, i18n("Overwrite"), i18n("Do Not Overwrite") )
                                           == KMessageBox::Yes)
             {
                 SafeDelete::deleteFile( destURL );
@@ -2100,7 +2100,7 @@ void KMainWidget::onlineDisconnect()
     if (!ksettings.b_expertMode) {
         if (KMessageBox::questionYesNo(this, i18n("Do you really want to disconnect?"),
                                        i18n("Question"),
-                                       KStdGuiItem::yes(), KStdGuiItem::no(),
+                                       i18n("Disconnect"), i18n("Stay Connected"),
                                        "kget_AutoOnlineDisconnect")
             != KMessageBox::Yes) {
             return;
@@ -2369,7 +2369,7 @@ bool KMainWidget::sanityChecksSuccessful( const KURL& url )
         else // transfer is finished, ask if we want to download again
         {
             if ( ksettings.b_expertMode ||
-                 (KMessageBox::questionYesNo(this, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()), i18n("Question"))
+                 (KMessageBox::questionYesNo(this, i18n("Already saved URL\n%1\nDownload again?").arg(url.prettyURL()),i18n("Question"),i18n("Download Again"),KStdGuiItem::cancel() )
                      == KMessageBox::Yes) )
             {
                 transfer->slotRequestRemove();

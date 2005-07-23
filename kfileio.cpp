@@ -109,7 +109,7 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
         if (aAskIfExists) {
             QString str = i18n("File %1 exists.\nDo you want to replace it?").arg(aFileName);
 
-            rc = KMessageBox::questionYesNo(qApp->mainWidget(), str);
+            rc = KMessageBox::questionYesNo(qApp->mainWidget(), str, QString::null, i18n("Replace"),KStdGuiItem::cancel());
             if (rc != KMessageBox::Yes)
                 return FALSE;
         }
@@ -124,8 +124,8 @@ static bool kBytesToFile(const char *aBuffer, int len, const QString & aFileName
                 // failed to rename file
                 if (!aVerbose)
                     return FALSE;
-                rc = KMessageBox::warningYesNo(qApp->mainWidget(), i18n("Failed to make a backup copy of %1.\nContinue anyway?").arg(aFileName));
-                if (rc != KMessageBox::Yes)
+                rc = KMessageBox::warningContinueCancel(qApp->mainWidget(), i18n("Failed to make a backup copy of %1.\nContinue anyway?").arg(aFileName));
+                if (rc != KMessageBox::Continue)
                     return FALSE;
             }
         }
