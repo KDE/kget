@@ -4,9 +4,11 @@ Comment=KGet
 
 [added]
 Name=TransferAdded
+Name[bg]=Нов файл за изтегляне
 Name[et]=Ülekanne lisatud
 Name[pt_BR]=TransferênciaAdicionada
 Comment=A new download has been added
+Comment[bg]=Добавен е нов файл за изтегляне
 Comment[et]=Lisati uus allalaadimine
 Comment[pt_BR]=Um novo download foi adicionado
 Comment[tr]=Yeni dosya eklendi
@@ -15,10 +17,12 @@ default_presentation=17
 
 [started]
 Name=DownloadStarted
+Name[bg]=Начало на изтегляне
 Name[et]=Allalaadimine alustatud
 Name[pt_BR]=DownloadIniciado
 Name[tr]=İndirme Başladı
 Comment=Downloading started
+Comment[bg]=Изтеглянето започна
 Comment[et]=Allalaadimine alustatud
 Comment[pt_BR]=Download iniciado
 Comment[tr]=Dosya indirme başladı
@@ -27,10 +31,12 @@ default_presentation=16
 
 [finished]
 Name=DownloadFinished
+Name[bg]=Край на изтегляне
 Name[et]=Allalaadimine lõpetatud
 Name[pt_BR]=DownloadConcluído
 Name[tr]=İndirme Bitti
 Comment=Downloading finished
+Comment[bg]=Изтеглянето завърши
 Comment[et]=Allalaadimine lõpetatud
 Comment[pt_BR]=Download concluído
 Comment[tr]=Dosya indirme tamamlandı
@@ -39,9 +45,11 @@ default_presentation=16
 
 [finishedall]
 Name=AddDownloadsFinished
+Name[bg]=Всички файлове са изтеглени
 Name[et]=Kõik allalaadimised lõpetatud
 Name[pt_BR]=AdicionaraosDonwloadsConcluídos
 Comment=All downloads finished
+Comment[bg]=Изтеглянето на всичките файлове завърши
 Comment[et]=Kõik allalaadimised lõpetatud
 Comment[pt_BR]=Todos os downloads foram concluídos
 Comment[tr]=Tüm dosyaların indirilmesi tamamlandı
