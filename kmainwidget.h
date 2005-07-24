@@ -104,6 +104,7 @@ public slots:
     void slotToggleDropTarget();
     void slotToggleAnimation();
     void slotUpdateActions();
+    void slotKonquerorIntegration();
 
 protected slots:
     void slotQuit();
@@ -218,6 +219,7 @@ private:
     KToggleAction *m_paAutoDisconnect, *m_paAutoShutdown, *m_paAutoPaste;
 
     KAction *m_paDropTarget;
+    KAction *m_paKonquerorIntegration;
     bool m_showDropTarget;
 
 };
