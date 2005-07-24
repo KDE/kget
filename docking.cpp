@@ -103,6 +103,12 @@ void DockWidget::updateToolTip( const QString& _status )
 }
 
 
+void DockWidget::changeIcon( const QString& icon )
+{
+    setPixmap( loadIcon( icon ));
+}
+
+
 DynamicTip::DynamicTip( QWidget * parent )
    : QToolTip( parent )
 {

@@ -2111,6 +2111,15 @@ void KMainWidget::updateStatusBar()
                  i18n("<br /><b>Time:</b> %1 ").arg(KIO::convertSeconds(remTime)) +
                  i18n("<br /><b>Speed:</b> %1/s").arg(KIO::convertSize(totalSpeed));
         kdock->updateToolTip( tmpstr );
+        //trayicon changes if download is in progress
+        if (totalSpeed == 0)
+        {
+            kdock->changeIcon( "kget_dock" );
+        }
+        else
+        {
+            kdock->changeIcon( "kget_dock_download" );
+        }
     }
 #ifdef _DEBUG
     //sDebugOut << endl;
