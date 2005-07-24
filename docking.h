@@ -60,7 +60,7 @@ Q_OBJECT public:
     ~DockWidget();
     /** No descriptions */
     void updateToolTip( const QString& );
-    void changeIcon( const QString& icon );
+    void changeIcon( const QString& );
 
 
 
