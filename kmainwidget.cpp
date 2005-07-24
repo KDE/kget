@@ -1586,7 +1586,7 @@ bool KMainWidget::queryClose()
 {
     if( kapp->sessionSaving())
         return true;
-    //hide();
+    hide();
     return false;
 }
 
