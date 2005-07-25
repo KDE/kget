@@ -183,7 +183,7 @@
                 <cstring>lb_ext</cstring>
             </property>
             <property name="text">
-                <string>Extension:</string>
+                <string>Extension: ( * for all files )</string>
             </property>
         </widget>
         <widget class="KURLRequester" row="2" column="1">
