@@ -196,7 +196,7 @@
                 <cstring>lb_dir</cstring>
             </property>
             <property name="text">
-                <string>Default directory:</string>
+                <string>Default folder:</string>
             </property>
         </widget>
     </grid>
