@@ -197,6 +197,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
     slotToggleAdvanced();
 
     resize( minimumSizeHint() );
+    setMaximumHeight( height() );
 
     //bool keepOpenChecked = false;
     //bool noCaptionYet = true;
