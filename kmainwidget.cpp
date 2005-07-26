@@ -401,7 +401,7 @@ void KMainWidget::setupGUI()
     statusBar()->insertFixedItem(i18n(" Transfers: %1 ").arg(99), ID_TOTAL_TRANSFERS);
     statusBar()->insertFixedItem(i18n(" Files: %1 ").arg(555), ID_TOTAL_FILES);
     statusBar()->insertFixedItem(i18n(" Size: %1 KB ").arg("134.56"), ID_TOTAL_SIZE);
-    statusBar()->insertFixedItem(i18n(" Time: %1 ").arg(KIO::convertSeconds(0)) + "            ", ID_TOTAL_TIME); //added some spaces because "2 days 12:12:12" need more place as "12:12:12"
+    statusBar()->insertFixedItem(i18n(" Time: %1 ").arg(KIO::convertSeconds(0)), ID_TOTAL_TIME);
     statusBar()->insertFixedItem(i18n(" %1 KB/s ").arg("123.34"), ID_TOTAL_SPEED);
 
     setAutoSaveSettings( "MainWindow", false /*Settings takes care of size & pos & state */ );
@@ -2103,6 +2103,12 @@ void KMainWidget::updateStatusBar()
     statusBar()->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
     statusBar()->changeItem(i18n(" Time: %1 ").arg(KIO::convertSeconds(remTime)), ID_TOTAL_TIME);
     statusBar()->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
+    //update size for each statusbar field
+    statusBar()->setItemFixed(ID_TOTAL_TRANSFERS, -1);
+    statusBar()->setItemFixed(ID_TOTAL_FILES, -1);
+    statusBar()->setItemFixed(ID_TOTAL_SIZE, -1);
+    statusBar()->setItemFixed(ID_TOTAL_TIME, -1);
+    statusBar()->setItemFixed(ID_TOTAL_SPEED, -1);
 
     if (kdock) {
         tmpstr = i18n("<b>Transfers:</b> %1 ").arg(myTransferList->childCount()) +
