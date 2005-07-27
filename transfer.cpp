@@ -33,6 +33,7 @@
 #include <kiconloader.h>
 #include <kstandarddirs.h>
 #include <kwin.h>
+#include <kmessagebox.h>
 
 #include <assert.h>
 #include "safedelete.h"
@@ -451,27 +452,33 @@ void Transfer::slotRequestRestart()
 void Transfer::slotRequestRemove()
 {
     sDebugIn << endl;
-    m_paDelete->setEnabled(false);
-    m_paPause->setEnabled(false);
-    if(dlgIndividual)
-                dlgIndividual->close();
-
-
-    if ( status != ST_FINISHED )
+    if (KMessageBox::warningContinueCancel(0, i18n("Are you sure you want to delete this transfer?"),
+                                           i18n("Question"), KStdGuiItem::del(),
+                                           QString("delete_transfer"))
+        == KMessageBox::Continue)
     {
-        KURL file = dest;
-        // delete the partly downloaded file, if any
-        file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
-  
-        if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
+        m_paDelete->setEnabled(false);
+        m_paPause->setEnabled(false);
+        if(dlgIndividual)
+                    dlgIndividual->close();
+
+
+        if ( status != ST_FINISHED )
         {
-            SafeDelete::deleteFile( file ); // ### messagebox on failure?
+            KURL file = dest;
+            // delete the partly downloaded file, if any
+            file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
+  
+            if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
+            {
+                SafeDelete::deleteFile( file ); // ### messagebox on failure?
+            }
         }
+        if (status == ST_RUNNING)
+            m_pSlave->Op(Slave::REMOVE);
+        else
+            emit statusChanged(this, OP_REMOVED);
     }
-    if (status == ST_RUNNING)
-        m_pSlave->Op(Slave::REMOVE);
-    else
-        emit statusChanged(this, OP_REMOVED);
 
     sDebugOut << endl;
 }
