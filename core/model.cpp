@@ -269,7 +269,7 @@ void Model::save( QString filename )
                 i18n("The file %1 Already exists\nOverwrite?").arg(filename),
                 i18n("Overwrite existing file?"), KStdGuiItem::yes(),
                 KStdGuiItem::no(), "QuestionFilenameExists" )
-                == KMessageBox::Yes) )
+                == KMessageBox::No) )
         return;
 
     if(filename.isEmpty())
