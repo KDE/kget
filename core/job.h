@@ -60,7 +60,9 @@ class Job
         //Job commands
         virtual void start()=0;
         virtual void stop()=0;
-        void setDelay(int seconds);
+
+        virtual void setDelay(int seconds)=0;
+        virtual void delayTimerEvent()=0;
 
         JobQueue * jobQueue() {return m_jobQueue;}
 

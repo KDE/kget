@@ -21,9 +21,8 @@
     </Menu>
 </MenuBar>
 <ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
-    <Action name="start_transfer" />
-    <Action name="stop_transfer" />
-    <Action name="remove_transfer" />
+    <Action name="scheduler_start" />
+    <Action name="scheduler_stop" />
     <Separator lineSeparator="true"/>
 </ToolBar>
 </kpartgui>

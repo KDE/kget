@@ -9,15 +9,20 @@
 */
 
 #include <kdebug.h>
+#include <kpopupmenu.h>
+#include <kaction.h>
+#include <klocale.h>
 
 #include "core/transfergrouphandler.h"
 #include "core/transferhandler.h"
 #include "core/transfer.h"
 #include "core/observer.h"
+#include "core/model.h"
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
     : m_group(group),
-      m_scheduler(scheduler)
+      m_scheduler(scheduler),
+      m_qobject(0)
 {
     
 }
@@ -39,6 +44,18 @@ void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
 {
     m_observers.remove(observer);
     m_changesFlags.remove(observer);
+}
+
+void TransferGroupHandler::start()
+{
+    kdDebug() << "TransferGroupHandler::start()" << endl;
+    m_group->setStatus( JobQueue::Running );
+}
+
+void TransferGroupHandler::stop()
+{
+    kdDebug() << "TransferGroupHandler::stop()" << endl;
+    m_group->setStatus( JobQueue::Stopped );
 }
 
 void TransferGroupHandler::move(QValueList<TransferHandler *> transfers, TransferHandler * after)
@@ -72,6 +89,34 @@ TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObse
 
         return 0xFFFFFFFF;
     }
+}
+
+const QValueList<KAction *> & TransferGroupHandler::actions()
+{
+    createActions();
+
+    return m_actions;
+}
+
+KPopupMenu * TransferGroupHandler::popupMenu()
+{
+    KPopupMenu * popup = new KPopupMenu( 0 );
+    popup->insertTitle( name() + " " + i18n("group") );
+
+    createActions();
+
+    Model::actionCollection()->action("transfer_group_start")->plug( popup );
+    Model::actionCollection()->action("transfer_group_stop")->plug( popup );
+
+    return popup;
+}
+
+QObjectInterface * TransferGroupHandler::qObject()
+{
+    if( !m_qobject )
+        m_qobject = new QObjectInterface(this);
+
+    return m_qobject;
 }
 
 void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
@@ -157,3 +202,43 @@ void TransferGroupHandler::postDeleteEvent()
         (*it)->deleteEvent(this);
     }
 }
+
+void TransferGroupHandler::createActions()
+{
+    if( !m_actions.empty() )
+        return;
+
+    //Calling this function we make sure the QObjectInterface object 
+    //has been created (if not it will create it)
+    qObject();
+
+    m_actions.append( new KAction( i18n("Start"), "tool_resume",
+                                   qObject(), SLOT( slotStart() ),
+                                   Model::actionCollection(),
+                                   "transfer_group_start") );
+
+    m_actions.append( new KAction( i18n("Stop"), "tool_pause",
+                                   qObject(), SLOT( slotStop() ),
+                                   Model::actionCollection(),
+                                   "transfer_group_stop") );
+}
+
+
+
+QObjectInterface::QObjectInterface(TransferGroupHandler * handler)
+    : m_handler(handler)
+{
+
+}
+
+void QObjectInterface::slotStart()
+{
+    m_handler->start();
+}
+
+void QObjectInterface::slotStop()
+{
+    m_handler->stop();
+}
+
+#include "transfergrouphandler.moc"

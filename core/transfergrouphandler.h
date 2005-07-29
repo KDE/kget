@@ -11,10 +11,15 @@
 #ifndef _TRANSFERGROUPHANDLER_H
 #define _TRANSFERGROUPHANDLER_H
 
+#include <qobject.h>
 #include <qmap.h>
 
 #include "transfergroup.h"
 
+class KAction;
+class KPopupMenu;
+
+class QObjectInterface;
 class TransferGroupObserver;
 class TransferHandler;
 class Scheduler;
@@ -44,6 +49,13 @@ class TransferGroupHandler
          * @param observer The observer that should be removed
          */
         void delObserver(TransferGroupObserver * observer);
+
+        /**
+         * These are all JobQueue-related functions
+         */
+        void start();
+        void stop();
+        JobQueue::Status status() const {return m_group->status();}
 
         /**
          * Moves a transfer in the group. Note that the transfers in the
@@ -105,6 +117,25 @@ class TransferGroupHandler
          */
         void resetChangesFlags(TransferGroupObserver * observer);
 
+        /**
+         * @returns a pointer to a QObjectInterface object which is a QObject
+         * by means of which you can connect signals and slots for this 
+         * transfer group.
+         */
+        const QValueList<KAction *> & actions();
+
+        /**
+         * @returns a KPopupMenu for this transfer group.
+         */
+        KPopupMenu * popupMenu();
+
+        /**
+         * @returns a pointer to a QObjectInterface object which is a QObject
+         * by means of which you can connect signals and slots for this 
+         * transfer group.
+         */
+        QObjectInterface * qObject();
+
     private:
         /**
          * Sets a change flag in the ChangesFlags variable.
@@ -148,13 +179,36 @@ class TransferGroupHandler
          */
         void postDeleteEvent();
 
+        /**
+         * Creates all the KActions
+         */
+        void createActions();
+
         TransferGroup * m_group;
         Scheduler * m_scheduler;
 
+        QObjectInterface * m_qobject;
+        QValueList<KAction *> m_actions;
+
         QValueList<TransferGroupObserver *> m_observers;
         QMap<TransferGroupObserver *, ChangesFlags> m_changesFlags;
-
 };
 
+
+class QObjectInterface : public QObject
+{
+    Q_OBJECT
+    public:
+        QObjectInterface(TransferGroupHandler * handler);
+
+    public slots:
+        void slotStart();        //Starts the download process
+        void slotStop();         //Stops the download process
+
+    signals:
+
+    private:
+        TransferGroupHandler * m_handler;
+};
 
 #endif

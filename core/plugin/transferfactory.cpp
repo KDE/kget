@@ -22,22 +22,22 @@ TransferFactory::TransferFactory()
     //ActionStart action
     m_actions.append( new ActionStart( i18n("Start"), "tool_resume",
                                        0, Model::actionCollection(),
-                                       "start_transfer" ) );
+                                       "transfer_start" ) );
 
     //ActionStop action
     m_actions.append( new ActionStop( i18n("Stop"), "tool_pause",
                                       0, Model::actionCollection(),
-                                      "stop_transfer" ) );
+                                      "transfer_stop" ) );
 
     //ActionDelete action
     m_actions.append( new ActionDelete( i18n("Delete"), "editdelete",
                                         0, Model::actionCollection(),
-                                        "remove_transfer" ) );
+                                        "transfer_remove" ) );
 
     //ActionOpenDestination action
     m_actions.append( new ActionOpenDestination( i18n("Open Destination"), "folder",
                                                  0, Model::actionCollection(),
-                                                 "open_destination" ) );
+                                                 "transfer_open_destination" ) );
 }
 
 KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> transfers)

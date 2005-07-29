@@ -9,6 +9,8 @@
 */
 
 #include <kdebug.h>
+#include <klocale.h>
+#include <kiconloader.h>
 
 #include <qdom.h>
 
@@ -29,11 +31,34 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
 {
     if( e )
         load( *e );
+    else
+    {
+        setStatus(status(), i18n("Stopped"), SmallIcon("stop"));
+    }
 }
 
 Transfer::~Transfer()
 {
+    if(status() == Job::Delayed)
+        m_scheduler->stopDelayTimer(this);
+
     delete(m_handler);
+}
+
+void Transfer::setDelay(int seconds)
+{
+    m_scheduler->startDelayTimer(this, seconds);
+
+    setStatus(Job::Delayed, i18n("Delayed"), SmallIcon("tool_timer"));
+
+    setTransferChange(Tc_Status, true);
+}
+
+void Transfer::delayTimerEvent()
+{
+    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
+
+    setTransferChange(Tc_Status, true);
 }
 
 TransferHandler * Transfer::handler()
@@ -59,10 +84,42 @@ void Transfer::load(QDomElement e)
     m_totalSize = e.attribute("TotalSize").toInt();
     m_processedSize = e.attribute("ProcessedSize").toInt();
 
-    if(m_totalSize != 0)
+    if( m_totalSize != 0)
         m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
     else
         m_percent = 0;
+
+    if((m_totalSize == m_processedSize) && (m_totalSize != 0))
+    {
+        setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+    }
+    else
+    {
+        setStatus(status(), i18n("Stopped"), SmallIcon("stop"));
+    }
+}
+
+void Transfer::setStatus(Job::Status jobStatus, QString text, QPixmap pix)
+{
+    //If a job is finished don't let it to be changed
+    if((status() == Job::Finished) && (jobStatus != Job::Finished))
+        return;
+
+    m_statusText = text;
+    m_statusPixmap = pix;
+
+    /**
+    * It's important to call job::setStatus AFTER having changed the 
+    * icon or the text or whatever.
+    * This becouse this function also notifies about this change
+    * the scheduler which could also decide to change it another time
+    * as well. For example if a job status is set to Aborted, the scheduler
+    * could mark it to Delayed. This could trigger another icon or text
+    * change which would be the right one since the status of the Job
+    * has changed. If we set the icon or text after calling setStatus(),
+    * we can overwrite the last icon or text change.
+    */
+    Job::setStatus(jobStatus);
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)

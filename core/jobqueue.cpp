@@ -77,6 +77,7 @@ void JobQueue::move(Job * job, Job * after)
     {
         //The job must be inserted in front of the list
         m_jobs.prepend(job);
+        m_scheduler->jobQueueMovedJobEvent(this, job);
         return;
     }
 
@@ -84,6 +85,7 @@ void JobQueue::move(Job * job, Job * after)
     if( it!=m_jobs.end() )
     {
         m_jobs.insert(++it, job);
+        m_scheduler->jobQueueMovedJobEvent(this, job);
     }
 }
 

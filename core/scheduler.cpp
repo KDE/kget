@@ -13,22 +13,34 @@
 #include <kdebug.h>
 
 #include "scheduler.h"
+#include "model.h"
 #include "job.h"
 #include "jobqueue.h"
 
 Scheduler::Scheduler()
 {
-    
 }
 
-void Scheduler::run()
+void Scheduler::start()
 {
-    
+    QValueList<JobQueue *>::iterator it = m_queues.begin();
+    QValueList<JobQueue *>::iterator itEnd = m_queues.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        (*it)->setStatus(JobQueue::Running);
+    }
 }
 
 void Scheduler::stop()
 {
-    
+    QValueList<JobQueue *>::iterator it = m_queues.begin();
+    QValueList<JobQueue *>::iterator itEnd = m_queues.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        (*it)->setStatus(JobQueue::Stopped);
+    }
 }
 
 void Scheduler::addQueue(JobQueue * queue)
@@ -44,12 +56,24 @@ void Scheduler::delQueue(JobQueue * queue)
 
 void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
 {
+    if( status == JobQueue::Stopped )
+    {
+        JobQueue::iterator it = queue->begin();
+        JobQueue::iterator itEnd = queue->end();
 
+        for( ; it!=itEnd ; ++it)
+        {
+            if((*it)->status() != Job::Stopped)
+                (*it)->stop();
+        }
+    }
+    else
+        updateQueue(queue);
 }
 
 void Scheduler::jobQueueMovedJobEvent(JobQueue * queue, Job * job)
 {
-
+    updateQueue(queue);
 }
 
 void Scheduler::jobQueueAddedJobEvent(JobQueue * queue, Job * job)
@@ -64,7 +88,20 @@ void Scheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
 
 void Scheduler::jobChangedEvent(Job * job, Job::Status status)
 {
-    updateQueue( job->jobQueue() );
+    kdDebug() << "Scheduler::jobChangedEvent (" << status <<  ")" << endl;
+
+    //If the Job changed its status to Aborted, set a delay.
+    if (status == Job::Aborted)
+    {
+        job->setDelay(10);
+        //Here it's not necessary to call updateQueue since the setDelay()
+        //function will generate another jobChangedEvent. We will call 
+        //updateQueue then.
+        return;
+    }
+
+    if (status != Job::Running)
+        updateQueue( job->jobQueue() );
 }
 
 void Scheduler::jobChangedEvent(Job * job, Job::Policy policy)
@@ -72,36 +109,69 @@ void Scheduler::jobChangedEvent(Job * job, Job::Policy policy)
     updateQueue( job->jobQueue() );
 }
 
+void Scheduler::startDelayTimer(Job * job, int seconds)
+{
+    stopDelayTimer(job);
+
+    int index = startTimer(seconds * 1000);
+    if(index == 0)
+        return;
+    m_activeTimers[index] = job;
+}
+
+void Scheduler::stopDelayTimer(Job * job)
+{
+    QMap<int, Job *>::iterator it = m_activeTimers.begin();
+    QMap<int, Job *>::iterator itEnd = m_activeTimers.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        if(it.data() == job)
+        {
+            //A timer for this job has been found. Let's stop it.
+            killTimer(it.key());
+            m_activeTimers.remove(it);
+        }
+    }
+}
+
 void Scheduler::updateQueue( JobQueue * queue )
 {
-    int jobs = 0;
+    int runningJobs = 0;
 
     JobQueue::iterator it = queue->begin();
     JobQueue::iterator itEnd = queue->end();
 
-    for( ; it!=itEnd ; ++it )
+    for( int job=0 ; it!=itEnd ; ++it, ++job)
     {
-        if( jobs <= queue->maxSimultaneousJobs() )
+        //kdDebug() << "MaxSimJobs " << queue->maxSimultaneousJobs() << endl;
+        kdDebug() << "Scheduler: Evaluating job " << job << endl;
+        if( runningJobs < queue->maxSimultaneousJobs() )
         {
             if( (*it)->status() == Job::Running )
             {
                 if( !shouldBeRunning(*it) )
                 {
+                    kdDebug() << "Scheduler:    stopping job" << endl;
                     (*it)->stop();
                 }
+                else
+                    runningJobs++;
             }
             else             // != Job::Running
             {
                 if( shouldBeRunning(*it) )
                 {
+                    kdDebug() << "Scheduler:    starting job" << endl;
                     (*it)->start();
-                    jobs++;
+                    runningJobs++;
                 }
             }
         }
         else
         {
             //Stop all the other running downloads
+            kdDebug() << "Scheduler:    stopping job over maxSimJobs limit" << endl;
             (*it)->stop();
         }
     }
@@ -125,3 +195,13 @@ bool Scheduler::shouldBeRunning( Job * job )
                  (status != Job::Finished) );
     }
 }
+
+void Scheduler::timerEvent( QTimerEvent * event )
+{
+    Job * job = m_activeTimers[event->timerId()];
+    stopDelayTimer( job );
+
+    job->delayTimerEvent();
+}
+
+#include "scheduler.moc"

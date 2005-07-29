@@ -77,6 +77,12 @@ Tray::Tray(KGet * parent)
 Tray::~Tray()
 {
     delete blinkTimer;
+    delete baseIcon;
+    delete grayedIcon;
+    delete alternateIcon;
+    delete playOverlay;
+    delete stopOverlay;
+    delete overlay;
 }
 
 // test if dropped thing can be handled (must be an URLlist or a QString)

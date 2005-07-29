@@ -24,8 +24,8 @@
  *
  ***************************************************************************/
 
-#ifndef _KGet_H_
-#define _KGet_H_
+#ifndef _KGET_H_
+#define _KGET_H_
 
 #include <qwidget.h>
 

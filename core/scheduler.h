@@ -12,6 +12,8 @@
 #define _SCHEDULER_H
 
 
+#include <qobject.h>
+
 #include "core/job.h"
 #include "core/jobqueue.h"
 
@@ -24,24 +26,12 @@
  *
  */
 
-class Scheduler
+class Scheduler : public QObject
 {
+    Q_OBJECT
+
     public:
         Scheduler();
-
-        /**
-         * Starts globally the execution of the jobs
-         *
-         * @see stop()
-         */
-        void run();
-
-        /**
-         * Stops globally the execution of the jobs
-         *
-         * @see start()
-         */
-        void stop();
 
         /**
          * Adds a queue to the scheduler.
@@ -69,6 +59,25 @@ class Scheduler
         void jobChangedEvent(Job * job, Job::Status status);
         void jobChangedEvent(Job * job, Job::Policy status);
 
+        //Accessors methods
+        void startDelayTimer(Job * job, int seconds);
+        void stopDelayTimer(Job * job);
+
+    public slots:
+        /**
+         * Starts globally the execution of the jobs
+         *
+         * @see stop()
+         */
+        void start();
+
+        /**
+         * Stops globally the execution of the jobs
+         *
+         * @see start()
+         */
+        void stop();
+
     private:
         /**
          * Updates the given queue, starting the jobs that come first in the queue
@@ -86,7 +95,11 @@ class Scheduler
          */
         bool shouldBeRunning( Job * job );
 
+        //Virtual QObject method
+        void timerEvent ( QTimerEvent * event);
+
         QValueList<JobQueue *> m_queues;
+        QMap<int, Job *> m_activeTimers;
 };
 
 #endif

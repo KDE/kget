@@ -62,9 +62,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     }
 
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
-
-    m_statusText = i18n("Stopped");
-    m_statusPixmap = SmallIcon("stop");
 }
 
 BTTransfer::~BTTransfer()
@@ -80,9 +77,7 @@ bool BTTransfer::isResumable() const
 void BTTransfer::start()
 {
     startTime = QTime::currentTime();
-    m_statusText = i18n("Analizing torrent..");
-    m_statusPixmap = SmallIcon("xmag");
-    setStatus(Job::Running);
+    setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));
     setTransferChange(Tc_Status, true);
 
     resume();
@@ -96,12 +91,9 @@ void BTTransfer::stop()
     {
         download.stop();
         download.hash_save();
-        m_statusText = i18n("Stopped");
-        m_statusPixmap = SmallIcon("stop");
         m_speed = 0;
-        setTransferChange(Tc_Speed);
-        setTransferChange(Tc_Status, true);
-        setStatus(Job::Stopped);
+        setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
+        setTransferChange(Tc_Speed | Tc_Status, true);
 
         startTime = QTime();
     }
@@ -174,8 +166,7 @@ void BTTransfer::resume()
         try 
         {
             kdDebug() << endl << "third turn" << endl << endl;
-            m_statusText = i18n("Connecting..");
-            m_statusPixmap = SmallIcon("connect_creating");
+            setStatus(status(), i18n("Connecting.."), SmallIcon("connect_creating"));
             setTransferChange(Tc_Status, true);
 
             download.start();
@@ -211,8 +202,7 @@ void BTTransfer::trackerMessage(std::string msg)
 void BTTransfer::downloadFinished()
 {
     kdDebug() << "bt transfer done " << endl;
-    m_statusText = i18n("Finished");
-    m_statusPixmap = SmallIcon("ok");
+    setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
     setTransferChange(Tc_Status, true);
 }
 
@@ -255,11 +245,10 @@ void BTTransfer::update()
     //Make sure we are really downloading the torrent before setting the status
     //text to "Downloading.."
     if( m_speed &&
-       (m_statusText != i18n("Downloading..")) &&
+       (statusText() != i18n("Downloading..")) &&
        (status() != Job::Finished) )
     {
-        m_statusText = i18n("Downloading..");
-        m_statusPixmap = SmallIcon("tool_resume");
+        setStatus(status(), i18n("Downloading.."), SmallIcon("tool_resume"));
         setTransferChange(Tc_Status);
     }
 
@@ -269,9 +258,7 @@ void BTTransfer::update()
         setTransferChange(Tc_Percent);
     }
 
-    setTransferChange(Tc_ProcessedSize);
-    setTransferChange(Tc_Speed);
-    setTransferChange(Tc_TotalSize, true);
+    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize, true);
 }
 
 void BTTransfer::save(QDomElement e)

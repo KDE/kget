@@ -23,9 +23,7 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0)
 {
-    m_statusText = i18n("Stopped");
-    //create a starting icon. This must be overwritten by the Transfer
-    m_statusPixmap = SmallIcon("stop");
+
 }
 
 void TransferKio::start()
@@ -35,10 +33,7 @@ void TransferKio::start()
 
     kdDebug() << "TransferKio::start" << endl;
 
-    setStatus(Job::Running);
-    m_statusText = i18n("Connecting..");
-    m_statusPixmap = SmallIcon("connect_creating");
-
+    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect_creating"));
     setTransferChange(Tc_Status, true);
 }
 
@@ -54,9 +49,7 @@ void TransferKio::stop()
     }
 
     kdDebug() << "Stop" << endl;
-    setStatus(Job::Stopped);
-    m_statusText = i18n("Stopped");
-    m_statusPixmap = SmallIcon("stop");
+    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
@@ -117,22 +110,18 @@ void TransferKio::slotResult( KIO::Job * kioJob )
     kdDebug() << "slotResult" << endl;
     switch (kioJob->error())
     {
-        case 0:
-            setStatus(Job::Finished);
-            m_statusText = i18n("Finished");
-            m_statusPixmap = SmallIcon("ok");
+        case 0:                            //The download has finished
+        case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
+            setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
             m_percent = 100;
             m_speed = 0;
             m_processedSize = m_totalSize;
-            setTransferChange(Tc_Percent);
-            setTransferChange(Tc_Speed);
+            setTransferChange(Tc_Percent | Tc_Speed);
             break;
         default:
             //There has been an error
-            setStatus(Job::Aborted);
-            m_statusText = i18n("Aborted");
-            m_statusPixmap = SmallIcon("stop");
-            kdDebug() << "--  E R R O R  --" << endl;
+            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("stop"));
+            kdDebug() << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
@@ -149,9 +138,7 @@ void TransferKio::slotConnected( KIO::Job * kioJob )
 {
 //     kdDebug() << "CONNECTED" <<endl;
 
-    setStatus(Job::Running);
-    m_statusText = i18n("Downloading..");
-    m_statusPixmap = SmallIcon("tool_resume");
+    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("tool_resume"));
     setTransferChange(Tc_Status, true);
 }
 

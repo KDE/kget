@@ -131,12 +131,12 @@ class TransferHandler
         /**
          * @return a string describing the current transfer status
          */
-        const QString & statusText() const {return m_transfer->m_statusText;}
+        QString statusText() const {return m_transfer->statusText();}
 
         /**
          * @return a pixmap associated with the current transfer status
          */
-        const QPixmap & statusPixmap() const {return m_transfer->m_statusPixmap;}
+        QPixmap statusPixmap() const {return m_transfer->statusPixmap();}
 
         /**
          * Returns a KPopupMenu for the given list of transfers, populated with

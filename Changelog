@@ -1,3 +1,29 @@
+2005-07-29 Dario Massarin <nekkar@libero.it>
+        Many changes:
+        * Implement two TransferGroup actions (start and stop) and a popupMenu()
+        function in the TransferGroupHandler function.
+        This means that now we can start the download of a group and all the
+        necessary scheduling operations are handled by the scheduler.
+        * Make it possible to have actions defined in the TransferGroupHandler
+        without having to make the handler a QObject. This was achieved by 
+        creating a QObject object on demand only if necessary. I'm planning
+        to do the same with the TransferHandler class (where this issue becomes 
+        even more critical, especially if the user has lots of transfers).
+        * Right clicking on a TransferGroup in the mainview shows a popup menu
+        populated with the available actions.
+        * Found a way to implement delays in the jobs. Since I don't want a Job to
+        be a QObject, I implemented the timers inside the Scheduler.
+        * When a download switches in the aborted status, delay it.
+        * Now if we move the transfers in a group, they are started or stopped
+        accordingly to their new position. Wow. This finally makes it possible for
+        us to decide in which order to download files!
+        * Implement the start and stop functions in the scheduler, which will
+        start and stop the download in all the available queues.
+        * Hide the m_statusText and m_statusPixmap members in the Transfer class.
+        A Transfer plugin now should call the Transfer::setStatus( ) function to 
+        set them.
+        * Fixed a couple of memory leaks
+
 2005-04-25 Dario Massarin <nekkar@libero.it>
         Lots of changes:
         * Redesign of the TransferAction class.

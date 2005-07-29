@@ -20,6 +20,7 @@
 #include <kstandarddirs.h>
 #include <ktrader.h>
 #include <klibloader.h>
+#include <kiconloader.h>
 
 #include "kget.h"
 #include "core/model.h"
@@ -308,11 +309,11 @@ KActionCollection * Model::actionCollection()
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
-QValueList<TransferGroup *> Model::m_transferGroups = QValueList<TransferGroup *>();
-QValueList<ModelObserver *> Model::m_observers = QValueList<ModelObserver *>();
-QValueList<TransferFactory *> Model::m_transferFactories = QValueList<TransferFactory *>();
-QValueList<KLibrary *> Model::m_pluginKLibraries = QValueList<KLibrary *>();
-Scheduler Model::m_scheduler = Scheduler();
+QValueList<TransferGroup *> Model::m_transferGroups; // = QValueList<TransferGroup *>();
+QValueList<ModelObserver *> Model::m_observers; // = QValueList<ModelObserver *>();
+QValueList<TransferFactory *> Model::m_transferFactories; // = QValueList<TransferFactory *>();
+QValueList<KLibrary *> Model::m_pluginKLibraries;// = QValueList<KLibrary *>();
+Scheduler Model::m_scheduler;
 KGet * Model::m_kget = 0;
 
 // ------ PRIVATE FUNCTIONS ------
@@ -320,6 +321,9 @@ Model::Model()
 {
     //Load all the available plugins
     loadPlugins();
+
+    //Setup all the actions
+    setupActions();
 
     //Create the default group with empty name
     addGroup("");
@@ -546,6 +550,16 @@ Transfer * Model::findTransfer(KURL src)
             return t;
     }
     return 0;
+}
+
+void Model::setupActions()
+{
+    new KAction( i18n("Start Download"), SmallIcon("tool_resume"), 0,
+                 &m_scheduler, SLOT( start() ),
+                 actionCollection(), "scheduler_start" );
+    new KAction( i18n("Stop Download"), SmallIcon("tool_pause"), 0,
+                 &m_scheduler, SLOT( stop() ),
+                 actionCollection(), "scheduler_stop" );
 }
 
 void Model::loadPlugins()

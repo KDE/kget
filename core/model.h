@@ -202,6 +202,8 @@ class Model
         static TransferGroup * findGroup(const QString& groupName);
         static Transfer * findTransfer(KURL url);
 
+        static void setupActions();
+
         //Plugin-related functions
         static void loadPlugins();
         static void unloadPlugins();

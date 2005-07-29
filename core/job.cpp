@@ -23,12 +23,24 @@ Job::Job(JobQueue * parent, Scheduler * scheduler)
 
 void Job::setStatus(Status jobStatus)
 {
+    if(jobStatus == m_status)
+        return;
+
+    if(m_status == Job::Delayed)
+    {
+        //The previous status was Job::Delayed. We must stop all the timers
+        m_scheduler->stopDelayTimer(this);
+    }
+
     m_status = jobStatus;
     m_scheduler->jobChangedEvent(this, m_status);
 }
 
 void Job::setPolicy(Policy jobPolicy)
 {
+    if(jobPolicy == m_policy)
+        return;
+
     m_policy = jobPolicy;
     m_scheduler->jobChangedEvent(this, m_status);
 }

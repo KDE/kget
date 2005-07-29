@@ -64,9 +64,16 @@ class Transfer : public Job
         //Transfer status
         unsigned long totalSize() const     {return m_totalSize;}
         unsigned long processedSize() const {return m_processedSize;}
+        QString statusText() const          {return m_statusText;}
+        QPixmap statusPixmap() const        {return m_statusPixmap;}
 
         int percent() const                 {return m_percent;}
         int speed() const                   {return m_speed;}
+
+        // --- Job virtual functions ---
+        virtual void setDelay(int seconds);
+        virtual void delayTimerEvent();
+
 
         bool isSelected() const             {return m_isSelected;}
 
@@ -108,10 +115,16 @@ class Transfer : public Job
         virtual void load(QDomElement e);
 
         /**
+         * Sets the Job status to jobStatus, the status text to text and
+         * the status pixmap to pix.
+         */
+        void setStatus(Job::Status jobStatus, QString text, QPixmap pix);
+
+        /**
          * Makes the TransferHandler associated with this transfer know that
          * a change in this transfer has occoured.
          *
-         * change: the TransferChange flags to be set
+         * @param change: the TransferChange flags to be set
          */
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
 
@@ -127,10 +140,10 @@ class Transfer : public Job
 
         bool m_isSelected;
 
+    private:
         QString m_statusText;
         QPixmap m_statusPixmap;
 
-    private:
         TransferHandler * m_handler;
         TransferFactory * m_factory;
 };

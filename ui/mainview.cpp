@@ -382,20 +382,31 @@ void MainView::contentsDropEvent ( QDropEvent * e )
     destGroup->move(transfers, destTransfer);
 }
 
-void MainView::slotRightButtonClicked( QListViewItem * /*item*/, const QPoint & pos, int column )
+void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos, int column )
 {
-    QValueList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
-
-    if( selectedTransfers.empty() )
-        return;
-
     if(m_popup)
     {
         delete(m_popup);
         m_popup = 0;
     }
 
-    m_popup = selectedTransfers.first()->popupMenu(selectedTransfers);
+    if(dynamic_cast<TransferItem *> (item))
+    {
+        //Transfer item
+        QValueList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
+
+        if( selectedTransfers.empty() )
+            return;
+
+        m_popup = selectedTransfers.first()->popupMenu(selectedTransfers);
+    }
+    else if(TransferGroupItem * tg = dynamic_cast<TransferGroupItem *> (item))
+    {
+        //TransferGroup item
+        m_popup = tg->group()->popupMenu();
+    }
+    else return;
+
     m_popup->popup( pos );
 }
 
