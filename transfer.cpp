@@ -453,7 +453,7 @@ void Transfer::slotRequestRemove()
 {
     sDebugIn << endl;
     if (KMessageBox::warningContinueCancel(0, i18n("Are you sure you want to delete this transfer?"),
-                                           i18n("Question"), KStdGuiItem::del(),
+                                           QString::null, KStdGuiItem::del(),
                                            QString("delete_transfer"))
         == KMessageBox::Continue)
     {
