@@ -10,6 +10,8 @@
 
 #include <qsizepolicy.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QGridLayout>
 
 #include "core/globals.h"
 
@@ -64,7 +66,7 @@ TestView::TestView(QWidget * parent)
     listView = new KListView(this);
     listView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding, false);
     listView->setAllColumnsShowFocus(true);
-    listView->setSelectionMode(QListView::Extended);
+    listView->setSelectionMode(Q3ListView::Extended);
     listView->setSorting(0);
     initTable();
     
@@ -147,7 +149,7 @@ void TestView::setPriority(int n)
     
     TransferList list;
     
-    QListViewItemIterator it(listView);
+    Q3ListViewItemIterator it(listView);
     
     while ( it.current() ) 
         {
@@ -169,7 +171,7 @@ void TestView::resume()
     
     TransferList list;
     
-    QListViewItemIterator it(listView);
+    Q3ListViewItemIterator it(listView);
     
     while ( it.current() ) 
         {
@@ -191,7 +193,7 @@ void TestView::pause()
     
     TransferList list;
     
-    QListViewItemIterator it(listView);
+    Q3ListViewItemIterator it(listView);
     
     while ( it.current() ) 
         {
@@ -213,7 +215,7 @@ void TestView::remove()
     
     TransferList list;
     
-    QListViewItemIterator it(listView);
+    Q3ListViewItemIterator it(listView);
     
     while ( it.current() ) 
         {
@@ -266,7 +268,7 @@ void TestView::schedulerRemovedItems( const TransferList& list)
     for(; it != endList; ++it)
     {
         //sDebug << "-----" << endl;
-        QListViewItemIterator itemIter(listView);
+        Q3ListViewItemIterator itemIter(listView);
         while(itemIter.current())
         {
             //sDebug << ":::::" << endl;
@@ -294,7 +296,7 @@ void TestView::schedulerChangedItems( const TransferList& list)
     for(; it != endList; ++it)
     {
         //sDebug << "-----" << endl;
-        QListViewItemIterator itemIter(listView);
+        Q3ListViewItemIterator itemIter(listView);
         while(itemIter.current())
         {
             //sDebug << ":::::" << endl;

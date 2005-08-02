@@ -23,7 +23,7 @@
  *
  */
 
-#include <qvaluelist.h>
+#include <QList>
 
 class Job;
 class Scheduler;
@@ -32,7 +32,7 @@ class JobQueue
 {
     public:
         enum Status {Running, Stopped};
-        typedef QValueList<Job *>::iterator iterator;
+        typedef QList<Job *>::iterator iterator;
 
         JobQueue(Scheduler * scheduler);
         virtual ~JobQueue();
@@ -67,7 +67,7 @@ class JobQueue
         /**
          * @return a list with the running Jobs
          */
-        const QValueList<Job *> runningJobs();
+        const QList<Job *> runningJobs();
 
         /**
          * Sets the maximum number of jobs belonging to this queue that 
@@ -121,7 +121,7 @@ class JobQueue
         Scheduler * scheduler()     {return m_scheduler;}
 
     private:
-        QValueList<Job *> m_jobs;
+        QList<Job *> m_jobs;
 
         int m_maxSimultaneousJobs;
 

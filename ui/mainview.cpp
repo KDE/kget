@@ -15,6 +15,9 @@
 #include <qfont.h>
 #include <qimage.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QList>
+#include <QDropEvent>
 
 #include <kactioncollection.h>
 #include <kdebug.h>
@@ -32,7 +35,7 @@
 #include "core/model.h"
 
 TransferGroupItem::TransferGroupItem(MainView * parent, TransferGroupHandler * group)
-    : QListViewItem(parent),
+    : Q3ListViewItem(parent),
       m_group(group),
       m_view(parent),
       m_topGradient( 0 ),
@@ -164,7 +167,7 @@ TransferItem * TransferGroupItem::findTransferItem( TransferHandler * transfer )
     if(!transfer)
         return 0;
 
-    QListViewItemIterator it( this );
+    Q3ListViewItemIterator it( this );
 
     for ( ; it.current() ; ++it )
     {
@@ -175,8 +178,8 @@ TransferItem * TransferGroupItem::findTransferItem( TransferHandler * transfer )
     return 0;
 }
 
-TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfer, QListViewItem * after)
-    : QListViewItem(parent, after),
+TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfer, Q3ListViewItem * after)
+    : Q3ListViewItem(parent, after),
       m_transfer(transfer),
       m_view(parent->view())
 {
@@ -266,7 +269,7 @@ void TransferItem::updateContents(bool updateAll)
     if(updateAll || (transferFlags & Transfer::Tc_Selection) )
     {
         kdDebug() << "UPDATE:  selection    " << m_transfer->isSelected() << endl;
-        QListViewItem::setSelected( m_transfer->isSelected() );
+        Q3ListViewItem::setSelected( m_transfer->isSelected() );
     }
 
     m_transfer->resetChangesFlags(this);
@@ -282,7 +285,7 @@ void TransferItem::setSelected(bool s)
 
 void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
 {
-    QListViewItem::paintCell(p, cg, column, width, align);
+    Q3ListViewItem::paintCell(p, cg, column, width, align);
 
     if(column == 3)
     {
@@ -310,7 +313,7 @@ MainView::MainView( QWidget * parent, const char * name )
 {
     setSorting(-1);
     setAllColumnsShowFocus(true);
-    setSelectionMode(QListView::Extended);
+    setSelectionMode(Q3ListView::Extended);
     setDragEnabled(true);
     setAcceptDrops(true);
 
@@ -319,7 +322,7 @@ MainView::MainView( QWidget * parent, const char * name )
     addColumn(i18n("Size"), 80);
     addColumn(i18n("Progress"), 80);
     addColumn(i18n("Speed"), 80);
-    connect ( this, SIGNAL(rightButtonClicked ( QListViewItem *, const QPoint &, int )), this, SLOT(slotRightButtonClicked(QListViewItem * , const QPoint &, int )) );
+    connect ( this, SIGNAL(rightButtonClicked ( Q3ListViewItem *, const QPoint &, int )), this, SLOT(slotRightButtonClicked(Q3ListViewItem * , const QPoint &, int )) );
 
     Model::addObserver(this);
 }
@@ -342,13 +345,13 @@ void MainView::contentsDropEvent ( QDropEvent * e )
 
     cleanDropVisualizer();
 
-    QValueList<TransferHandler *> transfers = Model::selectedTransfers();
+    QList<TransferHandler *> transfers = Model::selectedTransfers();
 
-    QValueList<TransferHandler *>::iterator it = transfers.end();
-    QValueList<TransferHandler *>::iterator itBegin = transfers.begin();
+    QList<TransferHandler *>::iterator it = transfers.end();
+    QList<TransferHandler *>::iterator itBegin = transfers.begin();
 
-    QListViewItem * parent;
-    QListViewItem * after;
+    Q3ListViewItem * parent;
+    Q3ListViewItem * after;
 
     findDrop(e->pos(), parent, after);
 
@@ -382,7 +385,7 @@ void MainView::contentsDropEvent ( QDropEvent * e )
     destGroup->move(transfers, destTransfer);
 }
 
-void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos, int column )
+void MainView::slotRightButtonClicked( Q3ListViewItem * item, const QPoint & pos, int column )
 {
     if(m_popup)
     {
@@ -393,7 +396,7 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
     if(dynamic_cast<TransferItem *> (item))
     {
         //Transfer item
-        QValueList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
+        QList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
 
         if( selectedTransfers.empty() )
             return;
@@ -412,7 +415,7 @@ void MainView::slotRightButtonClicked( QListViewItem * item, const QPoint & pos,
 
 void MainView::paletteChange()
 {
-    QListViewItemIterator it(this);
+    Q3ListViewItemIterator it(this);
 
     for(;*it != 0; it++)
     {

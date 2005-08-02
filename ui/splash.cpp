@@ -19,15 +19,19 @@
 #include <qimage.h>
 #include <qpainter.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QDesktopWidget>
 
 #include "splash.h"
 
 
 OSDWidget::OSDWidget(const QString& imagePath)
     : QWidget(NULL, "osd",
-              WType_TopLevel | WStyle_StaysOnTop |
-              WStyle_Customize | WStyle_NoBorder |
-              WStyle_Tool | WNoAutoErase | WX11BypassWM)
+              Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
+              Qt::WStyle_Customize | Qt::WStyle_NoBorder |
+              Qt::WStyle_Tool | Qt::WNoAutoErase | Qt::WX11BypassWM)
 {    
     QImage image( imagePath );
     osdBuffer = image;
@@ -36,11 +40,11 @@ OSDWidget::OSDWidget(const QString& imagePath)
     QPainter p( &bm );
     p.drawImage( 0, 0, image.createAlphaMask() );
 
-    QWidget *d = QApplication::desktop();
+    QWidget *d = QApplication::desktop()->screen();
     move( (d->width() - image.width ()) / 2,
           (d->height() - image.height()) / 2 );
     resize( osdBuffer.size() );
-    setFocusPolicy( NoFocus );
+    setFocusPolicy( Qt::NoFocus );
     setMask( bm );
 
     show();

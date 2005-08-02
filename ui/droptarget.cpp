@@ -42,6 +42,13 @@
 #include <qbitmap.h>
 #include <qtimer.h>
 #include <qclipboard.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QCloseEvent>
+#include <QDropEvent>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
+#include <QDesktopWidget>
 
 #include "core/model.h"
 #include "conf/settings.h"
@@ -56,10 +63,12 @@
 
 
 DropTarget::DropTarget(KGet * mw)
-    : QWidget(0, "drop", WType_TopLevel | WStyle_StaysOnTop |
-    WStyle_Customize | WStyle_NoBorder | WStyle_Tool),
+    : QWidget(0, "drop", Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
+    Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool),
     parentWidget((QWidget *)mw), animTimer(0)
 {
+    kdDebug() << "111" << endl;
+
     QRect desk = KGlobalSettings::desktopGeometry(this);
     desk.setRight( desk.right() - TARGET_WIDTH );
     desk.setBottom( desk.bottom() - TARGET_HEIGHT );
@@ -73,18 +82,24 @@ DropTarget::DropTarget(KGet * mw)
     unsigned long state = NET::SkipTaskbar | NET::StaysOnTop;
     KWin::setState(winId(), Settings::dropSticky() ? (state | NET::Sticky) : state );
 
+    kdDebug() << "222" << endl;
+
     // setup mask
     QBitmap mask(TARGET_WIDTH, TARGET_HEIGHT);
-    mask.fill(color0);
+    mask.fill(Qt::color0);
     QPainter p2;
     p2.begin(&mask);
-    p2.setBrush(color1);
+    p2.setBrush(Qt::color1);
     p2.drawChord(0, 0, TARGET_WIDTH, TARGET_HEIGHT, 5760, 5760);
     p2.end();
     setMask( mask );
 
+    kdDebug() << "2222" << endl;
+
     // generate and set background pixmap
     generateBackground();
+
+    kdDebug() << "333" << endl;
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
@@ -107,6 +122,9 @@ DropTarget::DropTarget(KGet * mw)
 
     // Enable dropping
     setAcceptDrops(true);
+
+    kdDebug() << "444" << endl;
+
 }
 
 
@@ -144,7 +162,7 @@ void DropTarget::slotStartStopToggled( bool started )
 
 void DropTarget::mousePressEvent(QMouseEvent * e)
 {
-    if (e->button() == LeftButton)
+    if (e->button() == Qt::LeftButton)
     {
         // toggleMinimizeRestore ();
 //        oldX = 0;
@@ -153,14 +171,14 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         dx = QCursor::pos().x() - pos().x();
         dy = QCursor::pos().y() - pos().y();
     }
-    else if (e->button() == RightButton)
+    else if (e->button() == Qt::RightButton)
     {
         popupMenu->changeItem(pop_show, parentWidget->isHidden() ?
                               i18n("Show main window") :
                               i18n("Hide main window") );
         popupMenu->popup(QCursor::pos());
     }
-    else if (e->button() == MidButton)
+    else if (e->button() == Qt::MidButton)
     {
         //Here we paste the transfer
         QString newtransfer = QApplication::clipboard()->text();
@@ -175,7 +193,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event)
-                  || QTextDrag::canDecode(event));
+                  || Q3TextDrag::canDecode(event));
 }
 
 
@@ -194,7 +212,7 @@ void DropTarget::dropEvent(QDropEvent * event)
     }
     else
     {
-        if (QTextDrag::decode(event, str))
+        if (Q3TextDrag::decode(event, str))
             Model::addTransfer(KURL::fromPathOrURL(str));
         else
             return;
@@ -267,7 +285,7 @@ void DropTarget::mouseReleaseEvent(QMouseEvent *)
 
 void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 {
-    if (e->button() == LeftButton)
+    if (e->button() == Qt::LeftButton)
         toggleMinimizeRestore();
 }
 
@@ -301,6 +319,7 @@ void DropTarget::generateBackground()
     bgnd.fill( Qt::white );
     QPixmap tmp = UserIcon( "target" );
     bitBlt(&bgnd, TARGET_OFFSETX, TARGET_OFFSETY, &tmp );
+
 
     /* The following code was adapted from kdebase/kicker/ui/k_mnu.cpp
      * It paints a tint over the kget arrow taking the tint color from
@@ -336,7 +355,11 @@ void DropTarget::generateBackground()
     QImage image = bgnd.convertToImage();
     KIconEffect::colorize( image, color, 1.0 );
     bgnd.convertFromImage( image );
-    setErasePixmap( bgnd );
+    //TODO The line below triggers a paletteChange() call which in
+    //turn calls the generateBackground. This leads to an infinite loop.
+    //I disable this function until we find a better way to implement this
+    //with qt4
+    //setErasePixmap( bgnd );
 }
 
 
@@ -389,7 +412,7 @@ void DropTarget::playAnimationSync()
 
 void DropTarget::slotAnimate()
 {
-    QWidget *d = QApplication::desktop();
+    QWidget *d = QApplication::desktop()->screen();
     static float dT = TARGET_ANI_MS / 1000.0;
     
     ani_vy -= ani_y * 30 * dT;

@@ -24,7 +24,7 @@
 #include <qstring.h>
 
 #include <qobject.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 namespace KIO {
   class Job;
@@ -50,7 +50,7 @@ private slots:
   void result(KIO::Job* job);
 
 private:
-  QGuardedPtr<KIO::TransferJob> job;
+  QPointer<KIO::TransferJob> job;
 };
 
 #endif

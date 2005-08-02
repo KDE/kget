@@ -27,6 +27,11 @@
 #include <qtooltip.h>
 #include <qtimer.h>
 #include <qclipboard.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
+#include <QDropEvent>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
@@ -89,7 +94,7 @@ Tray::~Tray()
 void Tray::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event)
-                  || QTextDrag::canDecode(event));
+                  || Q3TextDrag::canDecode(event));
 }
 
 // decode the dropped element asking scheduler to download that
@@ -108,7 +113,7 @@ void Tray::dropEvent(QDropEvent * event)
     }
     else
     {
-        if (QTextDrag::decode(event, str))
+        if (Q3TextDrag::decode(event, str))
             Model::addTransfer(KURL::fromPathOrURL(str));
         else
             return;
@@ -118,7 +123,7 @@ void Tray::dropEvent(QDropEvent * event)
 // filter middle mouse clicks to ask scheduler to paste URL
 void Tray::mousePressEvent(QMouseEvent * e)
 {
-    if (e->button() == MidButton)
+    if (e->button() == Qt::MidButton)
     {
         //Here we paste the transfer
         QString newtransfer = QApplication::clipboard()->text();
@@ -232,7 +237,7 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
         opY = sourcePixmap->height() - opH;
 
     // get the rectangle where blending will take place 
-    QPixmap sourceCropped( opW, opH, sourcePixmap->depth() );
+    QPixmap sourceCropped( opW, opH );
     copyBlt( &sourceCropped, 0,0, sourcePixmap, opX,opY, opW,opH );
 
     // blend the overlay image over the cropped rectangle

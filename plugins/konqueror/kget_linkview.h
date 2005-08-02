@@ -8,7 +8,7 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 #include <klistview.h>
 #include <kmainwindow.h>
@@ -16,10 +16,10 @@
 
 #include "links.h"
 
-class LinkViewItem : public QListViewItem
+class LinkViewItem : public Q3ListViewItem
 {
 public:
-    LinkViewItem( QListView *parent, const LinkItem * lnk );
+    LinkViewItem( Q3ListView *parent, const LinkItem * lnk );
     const LinkItem *link;
 };
 
@@ -32,7 +32,7 @@ public:
     KGetLinkView( QWidget *parent = 0L, const char *name = 0L );
     ~KGetLinkView();
 
-    void setLinks( QPtrList<LinkItem>& links );
+    void setLinks( Q3PtrList<LinkItem>& links );
     void setPageURL( const QString& url );
 
 signals:
@@ -43,9 +43,9 @@ private slots:
     void slotSelectAll();
 
 private:
-    void showLinks( const QPtrList<LinkItem>& links );
+    void showLinks( const Q3PtrList<LinkItem>& links );
 
-    QPtrList<LinkItem> m_links;
+    Q3PtrList<LinkItem> m_links;
 
     KListView *m_view;
 

@@ -13,6 +13,8 @@
 
 #include <qobject.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QList>
 
 #include "transfergroup.h"
 
@@ -65,7 +67,7 @@ class TransferGroupHandler
          * @param transfers The transfers to be be moved
          * @param after The transfer after which the given transfers should be moved
          */
-        void move(QValueList<TransferHandler *> transfers, TransferHandler * after);
+        void move(QList<TransferHandler *> transfers, TransferHandler * after);
 
         /**
          * Sets the maximum number of jobs belonging to this queue that 
@@ -118,11 +120,16 @@ class TransferGroupHandler
         void resetChangesFlags(TransferGroupObserver * observer);
 
         /**
+         * @returns a list containing all the transfers belonging to this group.
+         */
+        const QList<TransferHandler *> transfers();
+
+        /**
          * @returns a pointer to a QObjectInterface object which is a QObject
          * by means of which you can connect signals and slots for this 
          * transfer group.
          */
-        const QValueList<KAction *> & actions();
+        const QList<KAction *> & actions();
 
         /**
          * @returns a KPopupMenu for this transfer group.
@@ -188,9 +195,9 @@ class TransferGroupHandler
         Scheduler * m_scheduler;
 
         QObjectInterface * m_qobject;
-        QValueList<KAction *> m_actions;
+        QList<KAction *> m_actions;
 
-        QValueList<TransferGroupObserver *> m_observers;
+        QList<TransferGroupObserver *> m_observers;
         QMap<TransferGroupObserver *, ChangesFlags> m_changesFlags;
 };
 

@@ -19,6 +19,9 @@
 
 #include <qlayout.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "groupspanel.h"
 
@@ -26,7 +29,7 @@
 #include "core/scheduler.h"
 
 GroupItem::GroupItem(KListView * parent, Group * g)
-    : QListViewItem(parent),
+    : Q3ListViewItem(parent),
       group(g)
 {
 
@@ -51,7 +54,7 @@ void GroupItem::updateContents(bool updateAll)
 
 void GroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align)
 {
-    QListViewItem::paintCell(p, cg, column, width, align);
+    Q3ListViewItem::paintCell(p, cg, column, width, align);
     
     if(column == 1)
     {
@@ -76,7 +79,7 @@ GroupsPanel::GroupsPanel( QWidget * parent, const char * name)
     listView->addColumn("Size", 50);
     
     listView->setAllColumnsShowFocus(true);
-    listView->setSelectionMode(QListView::Single);
+    listView->setSelectionMode(Q3ListView::Single);
     listView->setSorting(0);
 
     
@@ -206,7 +209,7 @@ GroupList GroupsPanel::getSelectedList()
     
     GroupList list;
 
-    QListViewItemIterator it(listView);
+    Q3ListViewItemIterator it(listView);
     
     for(; *it != 0; it++)
     {

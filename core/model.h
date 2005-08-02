@@ -16,7 +16,7 @@
 #define _MODEL_H
 
 
-#include <qvaluelist.h>
+#include <QList>
 #include <qstring.h>
 
 #include <kservice.h>
@@ -133,7 +133,7 @@ class Model
         /**
          * @returns the list of selected transfers
          */
-        static QValueList<TransferHandler *> selectedTransfers();
+        static QList<TransferHandler *> selectedTransfers();
 
         /**
          * Imports the transfers and groups included in the provided xml file
@@ -222,14 +222,14 @@ class Model
         static bool safeDeleteFile( const KURL& url );
 
 
-        static QValueList<TransferGroup *> m_transferGroups;
-        static QValueList<ModelObserver *> m_observers;
+        static QList<TransferGroup *> m_transferGroups;
+        static QList<ModelObserver *> m_observers;
 
         //Lists of available plugins
-        static QValueList<TransferFactory *> m_transferFactories;
+        static QList<TransferFactory *> m_transferFactories;
 
         //List of KLibrary objects (used to release the plugins from memory)
-        static QValueList<KLibrary *> m_pluginKLibraries;
+        static QList<KLibrary *> m_pluginKLibraries;
 
         //pointer to the Main window
         static KGet * m_kget;

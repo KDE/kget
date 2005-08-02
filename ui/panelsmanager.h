@@ -15,12 +15,17 @@
 #ifndef _BROWSERBAR_H
 #define _BROWSERBAR_H
 
-#include <qhbox.h>        //baseclass
+#include <q3hbox.h>        //baseclass
 #include <qpushbutton.h>  //baseclass
-#include <qvaluevector.h> //stack allocated
+#include <q3valuevector.h> //stack allocated
+//Added by qt3to4:
+#include <QPixmap>
+#include <QResizeEvent>
+#include <QEvent>
+#include <Q3CString>
 
-typedef QValueVector<QWidget*> BrowserList;
-typedef QValueVector<QWidget*>::ConstIterator BrowserIterator;
+typedef Q3ValueVector<QWidget*> BrowserList;
+typedef Q3ValueVector<QWidget*>::ConstIterator BrowserIterator;
 
 class KMultiTabBar;
 class KMultiTabBarTab;
@@ -31,7 +36,7 @@ class QPixmap;
 class QPushButton;
 class QResizeEvent;
 class QSignalMapper;
-class QVBox;
+class Q3VBox;
 
 class BrowserBar : public QWidget
 {
@@ -41,8 +46,8 @@ public:
     BrowserBar( QWidget *parent );
     ~BrowserBar();
 
-    QVBox   *container() const { return (QVBox*)m_playlist; }
-    QWidget *browser( const QCString& ) const;
+    Q3VBox   *container() const { return (Q3VBox*)m_playlist; }
+    QWidget *browser( const Q3CString& ) const;
     uint     position() const { return m_pos; }
 
     void     addBrowser( QWidget*, const QString&, const QString& );
@@ -63,7 +68,7 @@ private:
     void adjustWidgetSizes();
 
     uint             m_pos; //the x-axis position of m_divider
-    QVBox           *m_playlist; //not the playlist, but parent to the playlist and searchBar
+    Q3VBox           *m_playlist; //not the playlist, but parent to the playlist and searchBar
     QWidget         *m_divider; //a qsplitter like widget
     KMultiTabBar    *m_tabBar;
     BrowserList      m_browsers; //the browsers are stored in this qvaluevector

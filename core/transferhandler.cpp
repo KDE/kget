@@ -16,6 +16,8 @@
 #include "core/transfergroup.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
+//Added by qt3to4:
+#include <QList>
 
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)
@@ -30,12 +32,14 @@ void TransferHandler::addObserver(TransferObserver * observer)
 {
     m_observers.push_back(observer);
     m_changesFlags[observer]=0xFFFFFFFF;
+    kdDebug() << "TransferHandler: OBSERVERS++ = " << m_observers.size() << endl;
 }
 
 void TransferHandler::delObserver(TransferObserver * observer)
 {
     m_observers.remove(observer);
     m_changesFlags.remove(observer);
+    kdDebug() << "TransferHandler: OBSERVERS-- = " << m_observers.size() << endl;
 }
 
 void TransferHandler::start()
@@ -90,7 +94,7 @@ int TransferHandler::speed() const
     return m_transfer->speed();
 }
 
-KPopupMenu * TransferHandler::popupMenu(QValueList<TransferHandler *> transfers)
+KPopupMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)
 {
     return m_transfer->factory()->createPopupMenu(transfers);
 }
@@ -143,26 +147,44 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
 
 void TransferHandler::postTransferChangedEvent()
 {
-    QValueList<TransferObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferObserver *>::iterator itEnd = m_observers.end();
+    kdDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferObserver *> observers = m_observers;
+
+    QList<TransferObserver *>::iterator it = observers.begin();
+    QList<TransferObserver *>::iterator itEnd = observers.end();
 
     //Notify the observers
     for(; it!=itEnd; ++it)
     {
+        kdDebug() << "TransferHandler::111" << endl;
         (*it)->transferChangedEvent(this);
+        kdDebug() << "TransferHandler::222" << endl;
     }
 
     //Notify the group
+    kdDebug() << "TransferHandler::333" << endl;
     m_transfer->group()->transferChangedEvent(m_transfer);
+    kdDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
 }
 
 void TransferHandler::postDeleteEvent()
 {
-    QValueList<TransferObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferObserver *>::iterator itEnd = m_observers.end();
+    kdDebug() << "TransferHandler::postDeleteEvent() ENTERING" << endl;
+
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferObserver *> observers = m_observers;
+
+    QList<TransferObserver *>::iterator it = observers.begin();
+    QList<TransferObserver *>::iterator itEnd = observers.end();
 
     for(; it!=itEnd; ++it)
     {
         (*it)->deleteEvent(this);
     }
+    kdDebug() << "TransferHandler::postDeleteEvent() LEAVING" << endl;
 }

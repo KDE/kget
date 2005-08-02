@@ -1,3 +1,13 @@
+2005-08-02 Dario Massarin <nekkar@libero.it>
+        Big commit:
+        * KGet ported to qt4. Here there are some issues that still need to be
+        resolved. For example I had to disable the bittorrent plugin becouse
+        currently I don't know how to make it compile again.
+        * Started implementing a new sidebar with qt3. Then I switched to qt4 and
+        realized I had to rewrite it, since I made use of the QListBox classes :-(
+        So I did. I used the QVBoxLayout class.
+        More to come..
+
 2005-07-29 Dario Massarin <nekkar@libero.it>
         Many changes:
         * Implement two TransferGroup actions (start and stop) and a popupMenu()

@@ -12,7 +12,9 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
-#include <qdom.h>
+#include <QDomElement>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "core/transfer.h"
 #include "core/transferhandler.h"
@@ -73,8 +75,8 @@ void Transfer::save(QDomElement e)
 {
     e.setAttribute("Source", m_source.url());
     e.setAttribute("Dest", m_dest.url());
-    e.setAttribute("TotalSize", m_totalSize);
-    e.setAttribute("ProcessedSize", m_processedSize);
+    e.setAttribute("TotalSize", (qulonglong) m_totalSize);
+    e.setAttribute("ProcessedSize", (qulonglong) m_processedSize);
 }
 
 void Transfer::load(QDomElement e)

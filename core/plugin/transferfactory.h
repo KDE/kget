@@ -28,7 +28,7 @@
  * @see transfers/kio/kget_kiotransfer.desktop - desktop entry example
  */
 
-#include <qvaluelist.h>
+#include <QList>
 
 #include <kapplication.h>
 
@@ -59,12 +59,12 @@ class TransferFactory : public KGetPlugin
                                            Scheduler * scheduler,
                                            const QDomElement * n = 0 )=0;
 
-        const QValueList<TransferAction *> & actions() {return m_actions;}
+        const QList<TransferAction *> & actions() {return m_actions;}
 
-        KPopupMenu * createPopupMenu(QValueList<TransferHandler *> transfers);
+        KPopupMenu * createPopupMenu(QList<TransferHandler *> transfers);
 
     protected:
-        QValueList<TransferAction *> m_actions;
+        QList<TransferAction *> m_actions;
 };
 
 
@@ -82,10 +82,10 @@ class ActionStart : public TransferAction
             : TransferAction(text, pix, cut, parent, name)
         {}
 
-        void execute(const QValueList<TransferHandler *> & transfers)
+        void execute(const QList<TransferHandler *> & transfers)
         {
-            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
-            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
 
             for( ; it!=itEnd ; ++it )
                 (*it)->start();
@@ -101,10 +101,10 @@ class ActionStop : public TransferAction
             : TransferAction(text, pix, cut, parent, name)
         {}
 
-        void execute(const QValueList<TransferHandler *> & transfers)
+        void execute(const QList<TransferHandler *> & transfers)
         {
-            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
-            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
 
             for( ; it!=itEnd ; ++it )
                 (*it)->stop();
@@ -120,10 +120,10 @@ class ActionDelete : public TransferAction
             : TransferAction(text, pix, cut, parent, name)
         {}
 
-        void execute(const QValueList<TransferHandler *> & transfers)
+        void execute(const QList<TransferHandler *> & transfers)
         {
-            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
-            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
 
             for( ; it!=itEnd ; ++it )
             {
@@ -142,12 +142,12 @@ class ActionOpenDestination : public TransferAction
             : TransferAction(text, pix, cut, parent, name)
         {}
 
-        void execute(const QValueList<TransferHandler *> & transfers)
+        void execute(const QList<TransferHandler *> & transfers)
         {
             QStringList openedDirs;
 
-            QValueList<TransferHandler *>::const_iterator it = transfers.begin();
-            QValueList<TransferHandler *>::const_iterator itEnd = transfers.end();
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
 
             for( ; it!=itEnd ; ++it )
             {

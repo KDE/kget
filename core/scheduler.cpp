@@ -8,7 +8,8 @@
    of the License.
 */
 
-#include <qvaluelist.h>
+#include <QList>
+#include <QTimerEvent>
 
 #include <kdebug.h>
 
@@ -21,10 +22,15 @@ Scheduler::Scheduler()
 {
 }
 
+Scheduler::~Scheduler()
+{
+
+}
+
 void Scheduler::start()
 {
-    QValueList<JobQueue *>::iterator it = m_queues.begin();
-    QValueList<JobQueue *>::iterator itEnd = m_queues.end();
+    QList<JobQueue *>::iterator it = m_queues.begin();
+    QList<JobQueue *>::iterator itEnd = m_queues.end();
 
     for( ; it!=itEnd ; ++it )
     {
@@ -34,8 +40,8 @@ void Scheduler::start()
 
 void Scheduler::stop()
 {
-    QValueList<JobQueue *>::iterator it = m_queues.begin();
-    QValueList<JobQueue *>::iterator itEnd = m_queues.end();
+    QList<JobQueue *>::iterator it = m_queues.begin();
+    QList<JobQueue *>::iterator itEnd = m_queues.end();
 
     for( ; it!=itEnd ; ++it )
     {

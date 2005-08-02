@@ -16,6 +16,8 @@
 #include "model.h"
 #include "transferfactory.h"
 #include "transferaction.h"
+//Added by qt3to4:
+#include <QList>
 
 TransferFactory::TransferFactory()
 {
@@ -40,7 +42,7 @@ TransferFactory::TransferFactory()
                                                  "transfer_open_destination" ) );
 }
 
-KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> transfers)
+KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
 {
     if( transfers.empty() )
         return 0;
@@ -49,8 +51,8 @@ KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> tran
     //transferfactory
     bool sameFactory = true;
 
-    QValueList<TransferHandler *>::iterator it = transfers.begin();
-    QValueList<TransferHandler *>::iterator itEnd = transfers.end();
+    QList<TransferHandler *>::iterator it = transfers.begin();
+    QList<TransferHandler *>::iterator itEnd = transfers.end();
 
     for(; (it!=itEnd) && (sameFactory) ; ++it)
     {
@@ -59,7 +61,7 @@ KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> tran
     }
 
     //Get the right factory for the given list of transfers
-    QValueList<TransferAction *> actionList;
+    QList<TransferAction *> actionList;
     if(sameFactory)
         actionList = transfers.first()->m_transfer->factory()->actions();
     else
@@ -69,8 +71,8 @@ KPopupMenu * TransferFactory::createPopupMenu(QValueList<TransferHandler *> tran
     popup->insertTitle( i18n("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu
-    QValueList<TransferAction *>::iterator it2 = actionList.begin();
-    QValueList<TransferAction *>::iterator itEnd2 = actionList.end();
+    QList<TransferAction *>::iterator it2 = actionList.begin();
+    QList<TransferAction *>::iterator itEnd2 = actionList.end();
 
     for( ; it2!=itEnd2 ; ++it2 )
     {

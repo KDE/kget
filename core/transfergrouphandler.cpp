@@ -18,6 +18,8 @@
 #include "core/transfer.h"
 #include "core/observer.h"
 #include "core/model.h"
+//Added by qt3to4:
+#include <QList>
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
     : m_group(group),
@@ -58,14 +60,14 @@ void TransferGroupHandler::stop()
     m_group->setStatus( JobQueue::Stopped );
 }
 
-void TransferGroupHandler::move(QValueList<TransferHandler *> transfers, TransferHandler * after)
+void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHandler * after)
 {
     //Check that the given transfer (after) belongs to this group
     if( after && (after->group() != this) )
         return;
 
-    QValueList<TransferHandler *>::iterator it = transfers.begin();
-    QValueList<TransferHandler *>::iterator itEnd = transfers.end();
+    QList<TransferHandler *>::iterator it = transfers.begin();
+    QList<TransferHandler *>::iterator itEnd = transfers.end();
 
     for( ; it!=itEnd ; ++it )
     {
@@ -91,7 +93,29 @@ TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObse
     }
 }
 
-const QValueList<KAction *> & TransferGroupHandler::actions()
+void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
+{
+    if( m_changesFlags.find(observer) != m_changesFlags.end() )
+        m_changesFlags[observer] = 0;
+    else
+        kdDebug() << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+}
+
+const QList<TransferHandler *> TransferGroupHandler::transfers()
+{
+    QList<TransferHandler *> transfers;
+
+    TransferGroup::iterator it = m_group->begin();
+    TransferGroup::iterator itEnd = m_group->end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        transfers.append((static_cast<Transfer *>(*it))->handler());
+    }
+    return transfers;
+}
+
+const QList<KAction *> & TransferGroupHandler::actions()
 {
     createActions();
 
@@ -119,14 +143,6 @@ QObjectInterface * TransferGroupHandler::qObject()
     return m_qobject;
 }
 
-void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
-{
-    if( m_changesFlags.find(observer) != m_changesFlags.end() )
-        m_changesFlags[observer] = 0;
-    else
-        kdDebug() << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
-}
-
 void TransferGroupHandler::setGroupChange(ChangesFlags change, bool postEvent)
 {
     QMap<TransferGroupObserver *, ChangesFlags>::Iterator it = m_changesFlags.begin();
@@ -141,8 +157,13 @@ void TransferGroupHandler::setGroupChange(ChangesFlags change, bool postEvent)
 
 void TransferGroupHandler::postGroupChangedEvent()
 {
-    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferGroupObserver *> observers = m_observers;
+
+    QList<TransferGroupObserver *>::iterator it = observers.begin();
+    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
 
     for(; it!=itEnd; ++it)
     {
@@ -155,8 +176,13 @@ void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer 
     kdDebug() << "TransferGroupHandler::postAddedTransferEvent" << endl;
     kdDebug() << "   number of observers = " << m_observers.size() << endl;
 
-    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferGroupObserver *> observers = m_observers;
+
+    QList<TransferGroupObserver *>::iterator it = observers.begin();
+    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
 
     for(; it!=itEnd; ++it)
     {
@@ -169,8 +195,13 @@ void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer 
 
 void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
 {
-    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferGroupObserver *> observers = m_observers;
+
+    QList<TransferGroupObserver *>::iterator it = observers.begin();
+    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
 
     for(; it!=itEnd; ++it)
     {
@@ -180,8 +211,13 @@ void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
 
 void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer * after)
 {
-    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferGroupObserver *> observers = m_observers;
+
+    QList<TransferGroupObserver *>::iterator it = observers.begin();
+    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
 
     for(; it!=itEnd; ++it)
     {
@@ -194,8 +230,13 @@ void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer 
 
 void TransferGroupHandler::postDeleteEvent()
 {
-    QValueList<TransferGroupObserver *>::iterator it = m_observers.begin();
-    QValueList<TransferGroupObserver *>::iterator itEnd = m_observers.end();
+    //Here we have to copy the list and iterate on the copy itself, becouse
+    //a view can remove itself as a view while we are iterating over the
+    //observers list and this leads to crashes.
+    QList<TransferGroupObserver *> observers = m_observers;
+
+    QList<TransferGroupObserver *>::iterator it = observers.begin();
+    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
 
     for(; it!=itEnd; ++it)
     {

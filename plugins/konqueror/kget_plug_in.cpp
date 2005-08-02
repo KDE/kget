@@ -43,6 +43,9 @@
 
 #include "links.h"
 #include "kget_linkview.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3PtrList>
 
 KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
     : Plugin( parent, name )
@@ -122,7 +125,7 @@ void KGet_plug_in::slotShowLinks()
 
     DOM::HTMLCollection links = doc.links();
 
-    QPtrList<LinkItem> linkList;
+    Q3PtrList<LinkItem> linkList;
     std::set<QString> dupeCheck;
     for ( uint i = 0; i < links.length(); i++ )
     {

@@ -12,7 +12,10 @@
 #define _SCHEDULER_H
 
 
-#include <qobject.h>
+#include <QObject>
+#include <QMap>
+#include <QTimerEvent>
+#include <QList>
 
 #include "core/job.h"
 #include "core/jobqueue.h"
@@ -32,6 +35,7 @@ class Scheduler : public QObject
 
     public:
         Scheduler();
+        ~Scheduler();
 
         /**
          * Adds a queue to the scheduler.
@@ -98,7 +102,7 @@ class Scheduler : public QObject
         //Virtual QObject method
         void timerEvent ( QTimerEvent * event);
 
-        QValueList<JobQueue *> m_queues;
+        QList<JobQueue *> m_queues;
         QMap<int, Job *> m_activeTimers;
 };
 

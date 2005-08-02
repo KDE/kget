@@ -27,8 +27,13 @@
 #ifndef _DROPTARGET_H
 #define _DROPTARGET_H
 
-#include <qwidget.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
+#include <QWidget>
+//Added by qt3to4:
+#include <QDragEnterEvent>
+#include <QMouseEvent>
+#include <QDropEvent>
+#include <QCloseEvent>
 
 class QTimer;
 class KPopupMenu;

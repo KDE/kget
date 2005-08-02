@@ -9,7 +9,10 @@
 */
 
 #include <qfileinfo.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <QList>
+#include <QTextStream>
 
 #include <kdebug.h>
 #include <kio/netaccess.h>
@@ -48,8 +51,8 @@ void Model::addObserver(ModelObserver * observer)
     m_observers.append(observer);
 
     //Update the new observer with the TransferGroups objects of the model
-    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
 
     for( ; it!=itEnd ; ++it )
         postAddedTransferGroupEvent(*it, observer);
@@ -188,12 +191,12 @@ void Model::moveTransfer(TransferHandler * transfer, const QString& groupName)
     
 }
 
-QValueList<TransferHandler *> Model::selectedTransfers()
+QList<TransferHandler *> Model::selectedTransfers()
 {
-    QValueList<TransferHandler *> selectedTransfers;
+    QList<TransferHandler *> selectedTransfers;
 
-    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
 
     for( ; it!=itEnd ; ++it )
     {
@@ -225,11 +228,10 @@ void Model::load( QString filename )
     QFile file(tmpFile);
     QDomDocument doc;
 
-    kdDebug() << "111" << endl;
+    kdDebug() << "Model::load file" << filename << endl;
 
     if(doc.setContent(&file))
     {
-        kdDebug() << "222" << endl;
         QDomElement root = doc.documentElement();
 
         QDomNodeList nodeList = root.elementsByTagName("TransferGroup");
@@ -237,8 +239,6 @@ void Model::load( QString filename )
 
         for( int i = 0 ; i < nItems ; i++ )
         {
-            kdDebug() << "333" << endl;
-
             TransferGroup * foundGroup = findGroup( nodeList.item(i).toElement().attribute("Name") );
 
             if( !foundGroup )
@@ -279,8 +279,8 @@ void Model::save( QString filename )
     QDomElement root = doc.createElement("Transfers");
     doc.appendChild(root);
 
-    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
 
     for ( ; it!=itEnd ; ++it )
     {
@@ -289,7 +289,7 @@ void Model::save( QString filename )
         (*it)->save(e);
     }
     QFile file(filename);
-    if ( !file.open( IO_WriteOnly ) )
+    if ( !file.open( QIODevice::WriteOnly ) )
     {
         //kdWarning()<<"Unable to open output file when saving"<< endl;
         KMessageBox::error(0,
@@ -309,10 +309,10 @@ KActionCollection * Model::actionCollection()
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
-QValueList<TransferGroup *> Model::m_transferGroups; // = QValueList<TransferGroup *>();
-QValueList<ModelObserver *> Model::m_observers; // = QValueList<ModelObserver *>();
-QValueList<TransferFactory *> Model::m_transferFactories; // = QValueList<TransferFactory *>();
-QValueList<KLibrary *> Model::m_pluginKLibraries;// = QValueList<KLibrary *>();
+QList<TransferGroup *> Model::m_transferGroups; // = QValueList<TransferGroup *>();
+QList<ModelObserver *> Model::m_observers; // = QValueList<ModelObserver *>();
+QList<TransferFactory *> Model::m_transferFactories; // = QValueList<TransferFactory *>();
+QList<KLibrary *> Model::m_pluginKLibraries;// = QValueList<KLibrary *>();
 Scheduler Model::m_scheduler;
 KGet * Model::m_kget = 0;
 
@@ -343,8 +343,8 @@ void Model::createTransfer(KURL src, KURL dest, const QString& groupName, const 
         group = m_transferGroups.first();
     Transfer * newTransfer;
 
-    QValueList<TransferFactory *>::iterator it = m_transferFactories.begin();
-    QValueList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
+    QList<TransferFactory *>::iterator it = m_transferFactories.begin();
+    QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
 
     for( ; it!=itEnd ; ++it)
     {
@@ -367,8 +367,8 @@ void Model::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * o
         return;
     }
 
-    QValueList<ModelObserver *>::iterator it = m_observers.begin();
-    QValueList<ModelObserver *>::iterator itEnd = m_observers.end();
+    QList<ModelObserver *>::iterator it = m_observers.begin();
+    QList<ModelObserver *>::iterator itEnd = m_observers.end();
 
     for(; it!=itEnd; ++it)
     {
@@ -384,8 +384,8 @@ void Model::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver *
         return;
     }
 
-    QValueList<ModelObserver *>::iterator it = m_observers.begin();
-    QValueList<ModelObserver *>::iterator itEnd = m_observers.end();
+    QList<ModelObserver *>::iterator it = m_observers.begin();
+    QList<ModelObserver *>::iterator itEnd = m_observers.end();
 
     for(; it!=itEnd; ++it)
     {
@@ -526,8 +526,8 @@ KURL Model::getValidDestURL(const QString& destDir, KURL srcURL)
 
 TransferGroup * Model::findGroup(const QString & groupName)
 {
-    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
 
     for(; it!=itEnd ; ++it)
     {
@@ -539,8 +539,8 @@ TransferGroup * Model::findGroup(const QString & groupName)
 
 Transfer * Model::findTransfer(KURL src)
 {
-    QValueList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QValueList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
 
     Transfer * t;
 
@@ -554,12 +554,18 @@ Transfer * Model::findTransfer(KURL src)
 
 void Model::setupActions()
 {
-    new KAction( i18n("Start Download"), SmallIcon("tool_resume"), 0,
-                 &m_scheduler, SLOT( start() ),
-                 actionCollection(), "scheduler_start" );
-    new KAction( i18n("Stop Download"), SmallIcon("tool_pause"), 0,
-                 &m_scheduler, SLOT( stop() ),
-                 actionCollection(), "scheduler_stop" );
+    KRadioAction * a1;
+    KRadioAction * a2;
+
+    a1 = new KRadioAction( i18n("Start Download"), MainBarIcon("tool_resume"),
+                           0, &m_scheduler, SLOT( start() ),
+                           actionCollection(), "scheduler_start" );
+    a2 = new KRadioAction( i18n("Stop Download"), MainBarIcon("tool_pause"),
+                           0, &m_scheduler, SLOT( stop() ),
+                           actionCollection(), "scheduler_stop" );
+
+    a1->setExclusiveGroup("scheduler_commands");
+    a2->setExclusiveGroup("scheduler_commands");
 }
 
 void Model::loadPlugins()
@@ -593,7 +599,7 @@ void Model::loadPlugins()
     //I must fill this pluginList before and my m_transferFactories list after.
     //This becouse calling the KLibLoader::globalLibrary() erases the static
     //members of this class (why?), such as the m_transferFactories list.
-    QValueList<KGetPlugin *> pluginList;
+    QList<KGetPlugin *> pluginList;
 
     for( it = services.begin(); it != services.end(); ++it )
     {
@@ -609,8 +615,8 @@ void Model::loadPlugins()
                       << (*it)->library() << ")" << endl;
     }
 
-    QValueList<KGetPlugin *>::iterator it2 = pluginList.begin();
-    QValueList<KGetPlugin *>::iterator it2End = pluginList.end();
+    QList<KGetPlugin *>::iterator it2 = pluginList.begin();
+    QList<KGetPlugin *>::iterator it2End = pluginList.end();
 
     for( ; it2!=it2End ; ++it2 )
         m_transferFactories.append( static_cast<TransferFactory *>(*it2) );
@@ -620,8 +626,8 @@ void Model::loadPlugins()
 
 void Model::unloadPlugins()
 {
-    QValueList<KLibrary *>::iterator it = m_pluginKLibraries.begin();
-    QValueList<KLibrary *>::iterator itEnd = m_pluginKLibraries.end();
+    QList<KLibrary *>::iterator it = m_pluginKLibraries.begin();
+    QList<KLibrary *>::iterator itEnd = m_pluginKLibraries.end();
 
     for(;it!=itEnd;++it)
     {

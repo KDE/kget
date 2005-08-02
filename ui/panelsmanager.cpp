@@ -16,12 +16,17 @@
 #include "panelsmanager.h"
 
 #include <qcursor.h>       //for resize cursor
-#include <qobjectlist.h>   //coloredObjects()
+#include <qobject.h>   //coloredObjects()
 #include <qpainter.h>      //BrowserBar::TinyButton
 #include <qpixmap.h>       //TinyButtons
 #include <qsignalmapper.h> //m_mapper
 #include <qstyle.h>        //BrowserBar::BrowserBar
 #include <qtooltip.h>      //QToolTip::add()
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QEvent>
+#include <Q3CString>
+#include <QPaintEvent>
 
 #include <kapplication.h>  //kapp
 #include <kconfig.h>
@@ -71,7 +76,7 @@ public:
 
 BrowserBar::BrowserBar( QWidget *parent )
   : QWidget( parent, "BrowserBar" )
-  , m_playlist( new QVBox( this ) )
+  , m_playlist( new Q3VBox( this ) )
   , m_divider( new amaroK::Divider( this ) )
   , m_tabBar( new KMultiTabBar( KMultiTabBar::Vertical, this ) )
   , m_browserHolder( new QWidget( this ) ) //FIXME making this a layout would save mem
@@ -187,7 +192,7 @@ BrowserBar::event( QEvent *e )
 {
   switch( e->type() )
   {
-  case QEvent::LayoutHint:
+  case QEvent::LayoutRequest:
       setMinimumWidth( m_tabBar->minimumWidth() + m_divider->minimumWidth() + m_playlist->minimumWidth() );
       break;
 
@@ -221,7 +226,7 @@ BrowserBar::addBrowser( QWidget *widget, const QString &title, const QString& ic
 
     m_tabBar->appendTab( KGlobal::iconLoader()->loadIcon( icon, KIcon::NoGroup, KIcon::SizeSmall ), id, title );
     QWidget *tab = m_tabBar->tab( id );
-    tab->setFocusPolicy( QWidget::NoFocus ); //FIXME you can focus on the tab, but they respond to no input!
+    tab->setFocusPolicy( Qt::NoFocus ); //FIXME you can focus on the tab, but they respond to no input!
 
     //we use a SignalMapper to show/hide the corresponding browser when tabs are clicked
     connect( tab, SIGNAL( clicked() ), m_mapper, SLOT( map() ) );
@@ -286,7 +291,7 @@ BrowserBar::showHideBrowser( int index )
 }
 
 QWidget*
-BrowserBar::browser( const QCString &widgetName ) const
+BrowserBar::browser( const Q3CString &widgetName ) const
 {
     for( BrowserIterator it = m_browsers.constBegin(), end = m_browsers.constEnd(); it != end; ++it )
         if( widgetName == (*it)->name() )

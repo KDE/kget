@@ -13,6 +13,9 @@
 
 #include <qmap.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QDropEvent>
 
 #include <klistview.h>
 
@@ -25,7 +28,7 @@ class GroupHandler;
 class TransferHandler;
 class TransferGroupHandler;
 
-class TransferGroupItem : public QListViewItem, public TransferGroupObserver
+class TransferGroupItem : public Q3ListViewItem, public TransferGroupObserver
 {
 public:
     TransferGroupItem(MainView * parent, TransferGroupHandler * group);
@@ -55,10 +58,10 @@ private:
     QPixmap * m_bottomGradient;
 };
 
-class TransferItem : public QListViewItem, public TransferObserver
+class TransferItem : public Q3ListViewItem, public TransferObserver
 {
 public:
-    TransferItem(TransferGroupItem * parent, TransferHandler * transfer, QListViewItem * after = 0);
+    TransferItem(TransferGroupItem * parent, TransferHandler * transfer, Q3ListViewItem * after = 0);
     ~TransferItem(){}
 
     //Transfer observer virtual functions
@@ -95,7 +98,7 @@ protected:
     void paletteChange ();
 
 public slots:
-    void slotRightButtonClicked( QListViewItem *, const QPoint &, int);
+    void slotRightButtonClicked( Q3ListViewItem *, const QPoint &, int);
 
 private:
 

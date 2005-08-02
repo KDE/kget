@@ -45,14 +45,19 @@ void TransferGroup::append(Transfer * transfer)
 {
     kdDebug() << "TransferGroup::append" << endl;
 
-    Transfer * after = static_cast<Transfer *> (last());
+    Transfer * after;
+    if(size() == 0) 
+        after = 0;
+    else
+        after = static_cast<Transfer *> (last());
+
+    kdDebug() << "aaa" << endl;
 
     JobQueue::append(transfer);
 
-    if(size() == 1)
-        handler()->postAddedTransferEvent(transfer, 0);
-    else
-        handler()->postAddedTransferEvent(transfer, after);
+    kdDebug() << "bbb" << endl;
+
+    handler()->postAddedTransferEvent(transfer, after);
 }
 
 void TransferGroup::prepend(Transfer * transfer)

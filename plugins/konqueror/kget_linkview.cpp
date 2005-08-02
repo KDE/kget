@@ -8,14 +8,16 @@
 #include <kprocess.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 #define COL_NAME 0
 #define COL_DESC 1
 #define COL_MIME 2
 #define COL_URL  3
 
-LinkViewItem::LinkViewItem( QListView *parent, const LinkItem *lnk )
-    : QListViewItem( parent ),
+LinkViewItem::LinkViewItem( Q3ListView *parent, const LinkItem *lnk )
+    : Q3ListViewItem( parent ),
       link( lnk )
 {
     QString file = link->url.fileName();
@@ -39,7 +41,7 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     setPlainCaption( i18n( "KGet" ) );
 
     KAction* actionDownload = new KAction( i18n("Download Selected Files"),
-                                           "khtml_kget", CTRL+Key_D,
+                                           "khtml_kget", "CTRL+Key_D",
                                            this, SLOT( slotStartLeech() ),
                                            actionCollection(), "startDownload" );
 
@@ -52,7 +54,7 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     actionSelectAll->plug( toolBar() );
 
     m_view = new KListView( this, "listview" );
-    m_view->setSelectionMode( QListView::Extended );
+    m_view->setSelectionMode( Q3ListView::Extended );
     m_view->addColumn( i18n("File Name") );
     m_view->addColumn( i18n("Description") );
     m_view->addColumn( i18n("File Type") );
@@ -71,17 +73,17 @@ KGetLinkView::~KGetLinkView()
 {
 }
 
-void KGetLinkView::setLinks( QPtrList<LinkItem>& links )
+void KGetLinkView::setLinks( Q3PtrList<LinkItem>& links )
 {
     m_links = links; // now we 0wn them
     showLinks( m_links );
 }
 
-void KGetLinkView::showLinks( const QPtrList<LinkItem>& links )
+void KGetLinkView::showLinks( const Q3PtrList<LinkItem>& links )
 {
     m_view->clear();
 
-    QPtrListIterator<LinkItem> it( links );
+    Q3PtrListIterator<LinkItem> it( links );
     for ( ; it.current(); ++it )
         (void) new LinkViewItem( m_view, *it );
 
@@ -90,15 +92,26 @@ void KGetLinkView::showLinks( const QPtrList<LinkItem>& links )
 
 void KGetLinkView::slotStartLeech()
 {
-    KURL::List urls;
-    QListViewItemIterator it( m_view->firstChild() );
+    QByteArray * data;
+    QDataStream stream( data, QIODevice::WriteOnly );
+    bool itemSelected = false;
+
+    QStringList urls;
+
+    Q3ListViewItemIterator it( m_view->firstChild() );
     for ( ; it.current(); ++it )
     {
         if ( it.current()->isSelected() )
-            urls.append( static_cast<LinkViewItem*>( it.current() )->link->url );
+        {
+            QString url = static_cast<LinkViewItem*>( it.current() )->link->url.url();
+
+            stream << url;
+            urls.append( url );
+            itemSelected = true;
+        }
     }
 
-    if ( urls.isEmpty() )
+    if ( !itemSelected )
         KMessageBox::sorry( this,
                             i18n("You did not select any files to download."),
                             i18n("No Files Selected") );
@@ -110,17 +123,15 @@ void KGetLinkView::slotStartLeech()
         if (!p_dcopServer->isApplicationRegistered("kget"))
         {
             KProcess* proc = new KProcess();
-            *proc << "kget" << urls.toStringList();
+            *proc << "kget" << urls;
             proc->start( KProcess::DontCare );
         }
         else
         {
-            QByteArray data;
-            QDataStream stream( data, IO_WriteOnly );
-            stream << urls << QString::null;
+            stream << QString();
             bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
                                                       "addTransfers(KURL::List, QString)",
-                                                      data );
+                                                      *data );
 
             kdDebug() << "*** startDownload: " << ok << endl;
         }

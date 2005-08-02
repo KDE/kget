@@ -11,7 +11,7 @@
 #ifndef _TRANSFERACTION_H
 #define _TRANSFERACTION_H
 
-#include <qvaluelist.h>
+#include <QList>
 
 #include <kaction.h>
 
@@ -25,7 +25,7 @@ class TransferAction : public KAction
                         const char* name );
         ~TransferAction() {}
 
-        virtual void execute(const QValueList<TransferHandler *> & transfers) =0;
+        virtual void execute(const QList<TransferHandler *> & transfers) =0;
 
     public slots:
         void activate();

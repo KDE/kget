@@ -12,8 +12,10 @@
 #ifndef _TRANSFERHANDLER_H
 #define _TRANSFERHANDLER_H
 
-#include <qvaluelist.h>
+#include <QList>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "transfer.h"
 #include "transfergroup.h"
@@ -148,7 +150,7 @@ class TransferHandler
          *
          * @return a KPopupMenu for the given transfers
          */
-        KPopupMenu * popupMenu(QValueList<TransferHandler *> transfers);
+        KPopupMenu * popupMenu(QList<TransferHandler *> transfers);
 
         /**
          * Selects the current transfer. Selecting transfers means that all
@@ -203,7 +205,7 @@ class TransferHandler
         Transfer * m_transfer;
         Scheduler * m_scheduler;
 
-        QValueList<TransferObserver *> m_observers;
+        QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;
 };
 

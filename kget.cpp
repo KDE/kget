@@ -24,6 +24,12 @@
  *
  ***************************************************************************/
 
+#include <qsplitter.h>
+//Added by qt3to4:
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QCloseEvent>
+
 #include <kapplication.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -46,13 +52,12 @@
 #include "core/model.h"
 #include "conf/settings.h"
 #include "conf/preferencesdialog.h"
-#include "ui/panelsmanager.h"
+
 #include "ui/mainview.h"
 #include "ui/tray.h"
 // #include "ui/testview.h"
 #include "ui/droptarget.h"
-// #include "ui/groupspanel.h"
-// #include "ui/sidebar.h"
+#include "ui/sidebar.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
@@ -60,8 +65,7 @@ enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
 
 KGet::KGet( QWidget * parent, const char * name )
     : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
-        m_mainView(0), m_rightWidget(0),
-        m_drop(0),     m_dock(0)
+        m_mainView(0), m_drop(0), m_dock(0)
 {
     // create the model
     Model::self( this );
@@ -71,29 +75,20 @@ KGet::KGet( QWidget * parent, const char * name )
 
     createGUI("kgetui.rc");
 
-    // widgets inserted in the 'body' part
-     m_browserBar = new BrowserBar( this );
-     m_browserBar->hide();
-    // create the 'right view'
-     m_mainView = new MainView( (QWidget *)m_browserBar->container() );
-    //TestView * t = new TestView( (QWidget *)browserBar->container() );
-     m_rightWidget = m_mainView;
-// 
-     setCentralWidget(m_browserBar);
+    m_splitter = new QSplitter(this);
+    m_sidebar = new Sidebar(m_splitter, "sidebar");
+    m_mainView = new MainView(m_splitter);
+    //m_mainView = new TestView(m_splitter);
 
-    // side panel :: Groups
-//     groupsPanel = new GroupsPanel(0,"groups panel");
-//     browserBar->addBrowser( groupsPanel, i18n( "Groups" ), "folder" );
-
-//     sidebar = new Sidebar(0, "sidebar");
-//     browserBar->addBrowser( sidebar, i18n( "Groups" ), "penguin" );
+    setCentralWidget(m_splitter);
 
     // restore position, size and visibility
     // MainWidget (myself)
     move( Settings::mainPosition() );
-    m_rightWidget->show();
+//    m_sidebar->setMinimumWidth(160);
+/*    m_rightWidget->show();
     m_browserBar->show();
-    m_browserBar->setMinimumHeight( 200 );
+    m_browserBar->setMinimumHeight( 200 );*/
     //setEraseColor( palette().active().background().dark(150) );
     setMaximumHeight( 32767 );
 
@@ -132,8 +127,7 @@ KGet::~KGet()
     slotSaveMyself();
     delete m_drop;
     delete m_dock;
-    delete m_mainView;
-// the following call saves options set in above dtors
+    // the following call saves options set in above dtors
     Settings::writeConfig();
 }
 
@@ -145,10 +139,10 @@ void KGet::setupActions()
     KToggleAction * ta;
 
     // local - Shows a dialog asking for a new URL to down
-    new KAction(i18n("&New Download..."), "filenew", CTRL+Key_N, this,
+    new KAction(i18n("&New Download..."), "filenew", "CTRL+Key_N", this,
                 SLOT(slotNewTransfer()), ac, "new_transfer");
 
-    new KAction(i18n("&Open..."), "fileopen", CTRL+Key_O, this,
+    new KAction(i18n("&Open..."), "fileopen", "CTRL+Key_O", this,
                 SLOT(slotOpen()), ac, "open");
 
     // local - Destroys all sub-windows and exits
@@ -299,13 +293,15 @@ void KGet::slotPreferences()
         return;
 
     // we didn't find an instance of this dialog, so lets create it
-    PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
+    //TODO Re-enable this line. I have currently disabled all the settings stuff
+    //becouse of problems with kconfig ported to qt4
+//    PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
 
     // keep us informed when the user changes settings
-    connect( dialog, SIGNAL(settingsChanged()), 
+/*    connect( dialog, SIGNAL(settingsChanged()), 
              this, SLOT(slotNewConfig()) );
 
-    dialog->show();
+    dialog->show();*/
 }
 
 void KGet::slotExportTransfers()
@@ -445,7 +441,7 @@ void KGet::closeEvent( QCloseEvent * e )
 
 void KGet::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURLDrag::canDecode(event) || QTextDrag::canDecode(event));
+    event->accept(KURLDrag::canDecode(event) || Q3TextDrag::canDecode(event));
 }
 
 void KGet::dropEvent(QDropEvent * event)
@@ -455,7 +451,7 @@ void KGet::dropEvent(QDropEvent * event)
 
     if (KURLDrag::decode(event, list))
         Model::addTransfer(list);
-    else if (QTextDrag::decode(event, str))
+    else if (Q3TextDrag::decode(event, str))
         Model::addTransfer(KURL::fromPathOrURL(str));
 }
 

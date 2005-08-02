@@ -45,7 +45,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     QFile file(src.path());
     kdDebug() << "Opening file: " << src.path() << endl;
 
-    if(file.open(IO_ReadOnly))
+    if(file.open(QIODevice::ReadOnly))
     {
         kdDebug() << "***********Bittorrent file opened" << endl;
         QByteArray data = file.readAll();

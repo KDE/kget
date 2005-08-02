@@ -11,109 +11,162 @@
 #ifndef _SIDEBAR_H
 #define _SIDEBAR_H
 
-#include <qlistbox.h>
-#include <qwidget.h>
-#include <qvaluelist.h>
+
 #include <qpixmapcache.h>
 #include <qmap.h>
+#include <QVBoxLayout>
+#include <QWidget>
+#include <QList>
+#include <QPixmap>
+#include <QTimerEvent>
 
-#include "core/viewinterface.h"
+//Temporary!
+#include <QPushButton>
+
+#include "core/observer.h"
 
 class Sidebar;
 
-class SidebarItem : public QListBoxItem
+class SidebarBox : public QWidget
 {
-public:
-    SidebarItem( Sidebar * sidebar );
-    ~SidebarItem();
+    Q_OBJECT
+    public:
+        SidebarBox( Sidebar * sidebar, int itemHeight, bool enableAnimations = false);
+        ~SidebarBox();
 
-    int height(const QListBox * lb) const;
-    int width(const QListBox * lb) const;
+        void addChild(SidebarBox *);
+        void removeChild(SidebarBox *);
 
-    void setText(const QString& string);
+        void showChildren( bool show = true );
 
-    void addChild(SidebarItem *);
-    void removeChild(SidebarItem *);
+        void setHighlighted( bool highlighted = true );
+        void setSelected( bool selected = true );
 
-    void showChildren( bool show = true );
-    void select();
+        /**
+        * This method updates all the pixmaps that are used to draw the items
+        */
+        void updatePixmaps();
 
-    /**
-     * This method updates all the pixmaps that are used to draw the items
-     */
-    void updatePixmaps();
+        void timerEvent(); //This function is called only by the Sidebar
 
-    /**
-     * This is public to be accessed by @see Sidebar::paintCell
-     */
-    void paint ( QPainter * );
+    protected:
+        virtual void paintEvent ( QPaintEvent * event );
 
-protected:
-    void setVisible(bool visible = true);
+        void setShown(bool show = true);
+        void setAnimationEnabled(bool enable = true);
 
-    Sidebar *    m_sidebar;
-    QString      m_text;
-    bool         m_isVisible;
-    bool         m_showChildren;
+        void paletteChange ( const QPalette & oldPalette );
 
-    //Pixmaps
-    QPixmap *    m_pixFunsel;
-    QPixmap *    m_pixFsel;
-    QPixmap *    m_pixTgrad;
-    QPixmap *    m_pixBgrad;
-    QPixmap *    m_pixPlus;
-    QPixmap *    m_pixMinus;
+        Sidebar *    m_sidebar;
+        bool         m_enableAnimations;
+        bool         m_isHighlighted;
+        bool         m_isShown;
+        int          m_itemHeight;    //item height when shown
+        bool         m_showChildren;
 
-private:
-    QValueList<SidebarItem *> * m_childItems;
+        //Pixmaps
+        QPixmap *    m_pixFunsel;
+        QPixmap *    m_pixFsel;
+        QPixmap *    m_pixTgrad;
+        QPixmap *    m_pixBgrad;
+        QPixmap *    m_pixPlus;
+        QPixmap *    m_pixMinus;
+
+        QList<SidebarBox *> m_childBoxes;
 };
 
 
-class DownloadsFolder : public SidebarItem
+class DownloadsBox : public SidebarBox
 {
-public:
-    DownloadsFolder( Sidebar * sidebar );
+    public:
+        DownloadsBox( Sidebar * sidebar );
 
-    /**
-     * This is public to be accessed by @see Sidebar::paintCell
-     */
-    void paint ( QPainter * );
+    protected:
+        virtual void paintEvent ( QPaintEvent * event );
 };
 
-class GroupFolder : public SidebarItem
+class GroupBox : public SidebarBox,
+                 public TransferGroupObserver,
+                 public TransferObserver
 {
-public:
-    GroupFolder( Sidebar * sidebar );
+    Q_OBJECT
+    public:
+        GroupBox( TransferGroupHandler * group, DownloadsBox * dbox, Sidebar * sidebar );
+        ~GroupBox();
 
-    /**
-     * This is public to be accessed by @see Sidebar::paintCell
-     */
-    void paint ( QPainter * );
+        TransferGroupHandler * group() {return m_group;}
+
+        void groupChangedEvent(TransferGroupHandler * group);
+        void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+        void transferChangedEvent(TransferHandler * transfer);
+
+    protected:
+        virtual void paintEvent ( QPaintEvent * event );
+
+    private:
+        DownloadsBox * m_downloadsBox;
+        TransferGroupHandler * m_group;
 };
 
-class Sidebar : public QListBox, public ViewInterface
+class TransferBox : public SidebarBox, public TransferObserver
 {
-Q_OBJECT
+    Q_OBJECT
+    public:
+        TransferBox( TransferHandler * group, GroupBox * gBox, Sidebar * sidebar );
+        ~TransferBox();
 
-    friend class SidebarItem;
+        TransferHandler * transfer() {return m_transfer;}
 
-public:
-    Sidebar( QWidget * parent = 0, const char * name = 0 );
+        //TransferObserver stuff
+        void transferChangedEvent(TransferHandler * transfer);
 
-protected:
-    void paletteChange ( const QPalette & oldPalette );
-    void paintCell ( QPainter * p, int row, int col );
+        GroupBox * m_groupBox;
 
-public slots:
-    void slotItemSelected(QListBoxItem *);
+    protected:
+        virtual void paintEvent ( QPaintEvent * event );
 
-    //Methods reimplemented from the ViewInterface class
-    void schedulerAddedGroups( const GroupList& );
-    void schedulerRemovedGroups( const GroupList& );
+    private:
+        TransferHandler * m_transfer;
+};
 
-private:
-    DownloadsFolder * m_dItem;
-    QMap<QString, GroupFolder *> m_groupsMap;
+class Sidebar : public QWidget, public ModelObserver
+{
+    Q_OBJECT
+    friend class SidebarBox;
+
+    public:
+        Sidebar( QWidget * parent = 0, const char * name = 0 );
+
+        void insertItem( SidebarBox * box, SidebarBox * after=0 );
+        void removeItem( SidebarBox * box );
+
+        void startTimer( SidebarBox * item );
+        void stopTimer( SidebarBox * item );
+
+        //Methods reimplemented from the ModelObserver class
+        void addedTransferGroupEvent(TransferGroupHandler * group);
+        void removedTransferGroupEvent(TransferGroupHandler * group);
+
+        void boxHighlighedEvent(SidebarBox *);
+        void boxSelectedEvent(SidebarBox *);
+
+    private:
+        void timerEvent ( QTimerEvent * );
+
+        int       m_numBoxes;
+
+        int       m_timerId;
+        const int m_timerInterval;
+
+        QList<SidebarBox *> m_activeTimers;
+        //TODO Make sure we need this list with qt4
+        QList<SidebarBox *> m_timersToRemove;
+
+        SidebarBox * m_highlightedBox;
+
+        QVBoxLayout  * m_layout;
+       DownloadsBox * m_downloadsBox;
+       QMap<QString, GroupBox *> m_groupsMap;
 };
 
 #endif

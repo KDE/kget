@@ -12,6 +12,8 @@
 
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
+//Added by qt3to4:
+#include <QList>
 
 JobQueue::JobQueue(Scheduler * scheduler)
     : m_maxSimultaneousJobs(2),
@@ -26,9 +28,9 @@ JobQueue::~JobQueue()
     m_scheduler->delQueue(this);
 }
 
-const QValueList<Job *> JobQueue::runningJobs()
+const QList<Job *> JobQueue::runningJobs()
 {
-    QValueList<Job *> jobs;
+    QList<Job *> jobs;
 
     iterator it = begin();
     iterator itEnd = end();
@@ -81,7 +83,7 @@ void JobQueue::move(Job * job, Job * after)
         return;
     }
 
-    QValueList<Job *>::iterator it = m_jobs.find(after);
+    QList<Job *>::iterator it = m_jobs.find(after);
     if( it!=m_jobs.end() )
     {
         m_jobs.insert(++it, job);
