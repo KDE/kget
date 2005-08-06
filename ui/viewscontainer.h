@@ -16,8 +16,10 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QStackedLayout>
 
 class MainView;
+class TransferHandler;
 
 class ViewsContainer : public QWidget
 {
@@ -25,14 +27,18 @@ class ViewsContainer : public QWidget
     public:
         ViewsContainer(QWidget * parent = 0);
 
+        void showTransferDetails(TransferHandler * transfer);
+        void closeTransferDetails(TransferHandler * transfer);
+
     private:
-        QVBoxLayout * m_VLayout;
-        QHBoxLayout * m_HLayout;
+        QVBoxLayout    * m_VLayout;
+        QHBoxLayout    * m_HLayout;
 
-        MainView    * m_mainView;
+        QStackedLayout * m_SLayout;
+        MainView       * m_mainView;
 
-        QToolButton * m_downloads;
-        QToolButton * m_finished;
+        QToolButton    * m_downloads;
+        QToolButton    * m_finished;
 };
 
 #endif
