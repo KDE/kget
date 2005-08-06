@@ -50,6 +50,7 @@
 
 #include "kget.h"
 #include "core/model.h"
+#include "core/transferhandler.h"
 #include "conf/settings.h"
 #include "conf/preferencesdialog.h"
 
@@ -167,9 +168,29 @@ void KGet::setupActions()
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
 
 /*  m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), ac, "import_text");
-
+*/
     // TRANSFER ACTIONS
+    new KAction( i18n("Start"), "tool_resume", "",
+                 this, SLOT(slotTransfersStart()),
+                 actionCollection(), "transfer_start" );
 
+    new KAction( i18n("Stop"), "tool_pause", "",
+                 this, SLOT(slotTransfersStop()),
+                 actionCollection(), "transfer_stop" );
+
+    new KAction( i18n("Delete"), "editdelete", "",
+                 this, SLOT(slotTransfersDelete()),
+                 actionCollection(), "transfer_remove" );
+
+    new KAction( i18n("Open Destination"), "folder", "",
+                 this, SLOT(slotTransfersOpenDest()),
+                 actionCollection(), "transfer_open_dest" );
+
+    new KAction( i18n("Show Details"), "configure", "",
+                 this, SLOT(slotTransfersShowDetails()),
+                 actionCollection(), "transfer_show_details" );
+
+/*
     m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), ac, "open_individual");
     m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), ac, "move_begin");
     m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), ac, "move_end");
@@ -346,6 +367,157 @@ void KGet::slotConfigureToolbars()
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
 }
+
+void KGet::slotTransfersStart()
+{
+    foreach(TransferHandler * it, Model::selectedTransfers())
+        it->start();
+}
+
+void KGet::slotTransfersStop()
+{
+    foreach(TransferHandler * it, Model::selectedTransfers())
+        it->stop();
+}
+
+/*
+class ActionStart : public TransferAction
+{
+    public:
+        ActionStart( const QString& text, const QString& pix, 
+                     const KShortcut& cut, KActionCollection* parent, 
+                     const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QList<TransferHandler *> & transfers)
+        {
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+                (*it)->start();
+        }
+};
+
+class ActionStop : public TransferAction
+{
+    public:
+        ActionStop( const QString& text, const QString& pix, 
+                    const KShortcut& cut, KActionCollection* parent, 
+                    const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QList<TransferHandler *> & transfers)
+        {
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+                (*it)->stop();
+        }
+};
+
+class ActionDelete : public TransferAction
+{
+    public:
+        ActionDelete( const QString& text, const QString& pix,
+                      const KShortcut& cut, KActionCollection* parent,
+                      const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QList<TransferHandler *> & transfers)
+        {
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+            {
+                (*it)->stop();
+                Model::delTransfer(*it);
+            }
+        }
+};
+
+class ActionOpenDestination : public TransferAction
+{
+    public:
+        ActionOpenDestination( const QString& text, const QString& pix,
+                               const KShortcut& cut, KActionCollection* parent,
+                               const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QList<TransferHandler *> & transfers)
+        {
+            QStringList openedDirs;
+
+            QList<TransferHandler *>::const_iterator it = transfers.begin();
+            QList<TransferHandler *>::const_iterator itEnd = transfers.end();
+
+            for( ; it!=itEnd ; ++it )
+            {
+                QString directory = (*it)->dest().directory();
+                if( !openedDirs.contains( directory ) )
+                {
+                    kapp->invokeBrowser( directory );
+                    openedDirs.append( directory );
+                }
+            }
+        }
+};
+
+class ActionShowDetails : public TransferAction
+{
+    public:
+        ActionShowDetails( const QString& text, const QString& pix,
+                           const KShortcut& cut, KActionCollection* parent,
+                           const char* name )
+            : TransferAction(text, pix, cut, parent, name)
+        {}
+
+        void execute(const QList<TransferHandler *> & transfers)
+        {
+/*            foreach( TransferHandler * it, transfers )
+            {
+                
+            }
+        }
+};
+
+*/
+
+
+void KGet::slotTransfersDelete()
+{
+    foreach(TransferHandler * it, Model::selectedTransfers())
+    {
+        it->stop();
+        Model::delTransfer(it);
+    }
+}
+
+void KGet::slotTransfersOpenDest()
+{
+    QStringList openedDirs;
+    foreach(TransferHandler * it, Model::selectedTransfers())
+    {
+        QString directory = it->dest().directory();
+        if( !openedDirs.contains( directory ) )
+        {
+            kapp->invokeBrowser( directory );
+            openedDirs.append( directory );
+        }
+    }
+}
+
+void KGet::slotTransfersShowDetails()
+{
+//    foreach(TransferHandler * it, Model::selectedTransfers())
+}
+
 
 void KGet::slotSaveMyself()
 {

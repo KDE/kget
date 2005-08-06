@@ -45,3 +45,8 @@ Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
     }
     return 0;
 }
+
+const QList<KAction *> BTTransferFactory::actions()
+{
+    return QList<KAction *>();
+}

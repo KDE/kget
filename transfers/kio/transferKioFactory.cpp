@@ -47,3 +47,8 @@ Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
     }
     return 0;
 }
+
+const QList<KAction *> TransferKioFactory::actions()
+{
+    return QList<KAction *>();
+}

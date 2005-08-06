@@ -90,6 +90,13 @@ private slots:
     void slotConfigureKeys();
     void slotConfigureToolbars();
 
+    // transfers slots
+    void slotTransfersStart();
+    void slotTransfersStop();
+    void slotTransfersDelete();
+    void slotTransfersOpenDest();
+    void slotTransfersShowDetails();
+
     // misc slots
     void slotDelayedInit();
     void slotSaveMyself();

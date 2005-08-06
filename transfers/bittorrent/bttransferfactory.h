@@ -28,6 +28,8 @@ class BTTransferFactory : public TransferFactory
         Transfer * createTransfer( KURL srcURL, KURL destURL,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
+
+        const QList<KAction *> actions()
 };
 
 #endif

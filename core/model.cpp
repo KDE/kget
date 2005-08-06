@@ -65,7 +65,7 @@ void Model::delObserver(ModelObserver * observer)
 
 void Model::addGroup(const QString& groupName)
 {
-    TransferGroup * group = new TransferGroup(&m_scheduler, groupName);
+    TransferGroup * group = new TransferGroup(m_scheduler, groupName);
     m_transferGroups.append(group);
 
     kdDebug() << "Model::addGroup" << endl;
@@ -243,7 +243,7 @@ void Model::load( QString filename )
 
             if( !foundGroup )
             {
-                TransferGroup * newGroup = new TransferGroup(&m_scheduler, nodeList.item(i).toElement());
+                TransferGroup * newGroup = new TransferGroup(m_scheduler, nodeList.item(i).toElement());
                 m_transferGroups.append(newGroup);
                 postAddedTransferGroupEvent(newGroup);
             }
@@ -313,7 +313,7 @@ QList<TransferGroup *> Model::m_transferGroups; // = QValueList<TransferGroup *>
 QList<ModelObserver *> Model::m_observers; // = QValueList<ModelObserver *>();
 QList<TransferFactory *> Model::m_transferFactories; // = QValueList<TransferFactory *>();
 QList<KLibrary *> Model::m_pluginKLibraries;// = QValueList<KLibrary *>();
-Scheduler Model::m_scheduler;
+Scheduler * Model::m_scheduler = new Scheduler();
 KGet * Model::m_kget = 0;
 
 // ------ PRIVATE FUNCTIONS ------
@@ -332,6 +332,7 @@ Model::Model()
 Model::~Model()
 {
     unloadPlugins();
+    delete(m_scheduler);
 }
 
 void Model::createTransfer(KURL src, KURL dest, const QString& groupName, const QDomElement * e)
@@ -349,7 +350,7 @@ void Model::createTransfer(KURL src, KURL dest, const QString& groupName, const 
     for( ; it!=itEnd ; ++it)
     {
         kdDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
-        if((newTransfer = (*it)->createTransfer(src, dest, group, &m_scheduler, e)))
+        if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
         {
             group->append(newTransfer);
             return;
@@ -558,10 +559,10 @@ void Model::setupActions()
     KRadioAction * a2;
 
     a1 = new KRadioAction( i18n("Start Download"), MainBarIcon("tool_resume"),
-                           0, &m_scheduler, SLOT( start() ),
+                           0, m_scheduler, SLOT( start() ),
                            actionCollection(), "scheduler_start" );
     a2 = new KRadioAction( i18n("Stop Download"), MainBarIcon("tool_pause"),
-                           0, &m_scheduler, SLOT( stop() ),
+                           0, m_scheduler, SLOT( stop() ),
                            actionCollection(), "scheduler_stop" );
 
     a1->setExclusiveGroup("scheduler_commands");

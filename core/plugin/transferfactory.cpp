@@ -21,25 +21,7 @@
 
 TransferFactory::TransferFactory()
 {
-    //ActionStart action
-    m_actions.append( new ActionStart( i18n("Start"), "tool_resume",
-                                       0, Model::actionCollection(),
-                                       "transfer_start" ) );
 
-    //ActionStop action
-    m_actions.append( new ActionStop( i18n("Stop"), "tool_pause",
-                                      0, Model::actionCollection(),
-                                      "transfer_stop" ) );
-
-    //ActionDelete action
-    m_actions.append( new ActionDelete( i18n("Delete"), "editdelete",
-                                        0, Model::actionCollection(),
-                                        "transfer_remove" ) );
-
-    //ActionOpenDestination action
-    m_actions.append( new ActionOpenDestination( i18n("Open Destination"), "folder",
-                                                 0, Model::actionCollection(),
-                                                 "transfer_open_destination" ) );
 }
 
 KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
@@ -61,7 +43,8 @@ KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers
     }
 
     //Get the right factory for the given list of transfers
-    QList<TransferAction *> actionList;
+    QList<KAction *> actionList;
+
     if(sameFactory)
         actionList = transfers.first()->m_transfer->factory()->actions();
     else
@@ -71,14 +54,23 @@ KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers
     popup->insertTitle( i18n("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu
-    QList<TransferAction *>::iterator it2 = actionList.begin();
-    QList<TransferAction *>::iterator itEnd2 = actionList.end();
+    Model::actionCollection()->action("transfer_start")->plug( popup );
+    Model::actionCollection()->action("transfer_stop")->plug( popup );
+    popup->insertSeparator();
+    Model::actionCollection()->action("transfer_remove")->plug( popup );
+    popup->insertSeparator();
 
-    for( ; it2!=itEnd2 ; ++it2 )
+    foreach(KAction * it, actionList)
     {
         //Plug each action in the popup menu
-        (*it2)->plug( popup );
+        it->plug( popup );
     }
+
+    if(!actionList.isEmpty())
+        popup->insertSeparator();
+
+    Model::actionCollection()->action("transfer_open_dest")->plug( popup );
+    Model::actionCollection()->action("transfer_show_details")->plug( popup );
 
     return popup;
 }

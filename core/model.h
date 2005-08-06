@@ -235,7 +235,7 @@ class Model
         static KGet * m_kget;
 
         //Scheduler object
-        static Scheduler m_scheduler;
+        static Scheduler * m_scheduler;
 };
 
 

@@ -12,6 +12,7 @@
 #include <qimage.h>
 #include <qtoolbutton.h>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPaintEvent>
 #include <QPixmap>
 #include <QTimerEvent>
@@ -28,28 +29,63 @@
 #include "core/transferhandler.h"
 #include "sidebar.h"
 
-SidebarBox::SidebarBox( Sidebar * sidebar, int itemHeight, bool enableAnimations )
+Button::Button(QWidget * w)
+    : QToolButton(w)
+{
+
+}
+
+void Button::paintEvent ( QPaintEvent * event )
+{
+    QPainter p(this);
+
+    p.setBackgroundMode(Qt::TransparentMode);
+    p.drawPixmap(0, 0, SmallIcon("tool_resume"));
+}
+
+
+SidebarBox::SidebarBox( Sidebar * sidebar, int headerHeight,
+                        int footerHeight, bool enableAnimations )
     : QWidget( sidebar ),
-      m_sidebar(sidebar),
       m_enableAnimations( enableAnimations ),
       m_isHighlighted( false ),
       m_isShown( true ),
-      m_itemHeight( itemHeight ),
       m_showChildren( true ),
+      m_headerHeight( headerHeight ),
+      m_footerHeight( footerHeight ),
       m_pixFunsel( 0 ),
       m_pixFsel( 0 ),
       m_pixTgrad( 0 ),
       m_pixBgrad( 0 ),
       m_pixPlus( 0 ),
-      m_pixMinus( 0 )
+      m_pixMinus( 0 ),
+      m_sidebar(sidebar)
 {
-    setFixedHeight(0);
-    setMinimumWidth(150);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    setUpdatesEnabled(true);
-    show();
+    m_layout = new QVBoxLayout(this);
+    m_layout->setMargin(0);
+    m_layout->setSpacing(0);
+    m_layout->setEnabled(true);
+    setLayout(m_layout);
 
-    setShown(m_isShown);
+    m_headerSpacer = new QWidget(this);
+    m_footerSpacer = new QWidget(this);
+
+    m_headerSpacer->setFixedSize(0,0);
+    m_footerSpacer->setFixedSize(0,0);
+
+    m_headerSpacer->setUpdatesEnabled(false);
+    m_footerSpacer->setUpdatesEnabled(false);
+
+    m_layout->addWidget(m_headerSpacer);
+    m_layout->addWidget(m_footerSpacer);
+
+    m_layout->update();
+
+    //setAttribute(Qt::WA_ContentsPropagated);
+    setMouseTracking(true);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setMinimumWidth(150);
+
     updatePixmaps();
 }
 
@@ -65,23 +101,26 @@ SidebarBox::~SidebarBox()
 
 void SidebarBox::addChild( SidebarBox * child )
 {
-    if(m_childBoxes.empty())
-        m_sidebar->insertItem( child, this );
-    else
-        m_sidebar->insertItem( child, m_childBoxes.last() );
+    m_layout->insertWidget(m_childBoxes.size()+1, child);
 
     child->setShown(m_showChildren);
-    m_childBoxes.push_back(child);
+    m_childBoxes.append(child);
 }
 
 void SidebarBox::removeChild( SidebarBox * child )
 {
-    m_sidebar->removeItem(child);
+    m_layout->removeWidget(child);
+
     m_childBoxes.remove(child);
+    m_sidebar->stopTimer(child);
+    delete(child);
 }
 
 void SidebarBox::showChildren( bool show )
 {
+    kdDebug() << "SidebarBox::showChildren" << endl;
+    m_showChildren = show;
+
     QList<SidebarBox *>::iterator it = m_childBoxes.begin();
     QList<SidebarBox *>::iterator itEnd = m_childBoxes.end();
 
@@ -93,13 +132,29 @@ void SidebarBox::showChildren( bool show )
 
 void SidebarBox::setHighlighted(bool highlighted)
 {
-    m_isHighlighted = highlighted;
+    if(m_isHighlighted != highlighted)
+    {
+        m_isHighlighted = highlighted;
+
+        if(m_isHighlighted)
+            setBackgroundRole(QPalette::Highlight);
+        else
+            setBackgroundRole(QPalette::NoRole);
+
+        foreach(SidebarBox * it, m_childBoxes)
+        {
+            repaintChildren();
+        }
+    }
 }
 
-void SidebarBox::setSelected(bool selected)
+void SidebarBox::repaintChildren()
 {
-    m_showChildren = selected;
-    showChildren(m_showChildren);
+    foreach(SidebarBox * it, m_childBoxes)
+    {
+        it->repaintChildren();
+    }
+    repaint();
 }
 
 void SidebarBox::setShown( bool show )
@@ -113,9 +168,15 @@ void SidebarBox::setShown( bool show )
     else
     {
         if(show)
-            setFixedHeight(m_itemHeight);
+        {
+            m_headerSpacer->setFixedSize(0, m_headerHeight);
+            m_footerSpacer->setFixedSize(0, m_footerHeight);
+        }
         else
-            setFixedHeight(0);
+        {
+            m_headerSpacer->setFixedSize(0, 0);
+            m_footerSpacer->setFixedSize(0, 0);
+        }
     }
 }
 
@@ -176,65 +237,146 @@ void SidebarBox::paintEvent( QPaintEvent * event )
     QPainter p(this);
     p.setClipRegion(event->region());
 
-    if(!m_isHighlighted)
-        p.fillRect(0,0,w,h, QBrush(m_sidebar->palette().active().base()));
-    else
+    if(m_isHighlighted)
     {
-        QColor c = m_sidebar->palette().active().highlight();
+//         QColor c = palette().active().highlight();
+// 
+//         QLinearGradient gr(w-20, 0, 20, h);
+//         gr.setColorAt(0,c/*.light()*/);
+// //        gr.setColorAt(0.2, c );
+// //        gr.setColorAt(0.8, c);
+//         gr.setColorAt(1, c.light(120));
+//         QBrush br(gr);
+// 
+//         p.setBrush(br);
+//         p.setPen(Qt::NoPen);
+//         p.drawRect(w-20, 0, 20, h);
 
-        p.fillRect(0,5,w, h-5-4, c);
-        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
+/*        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
         p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
         p.setPen(QPen(c.dark(130),1));
         p.drawLine(0,0,w, 0);
-        p.drawLine(0,h-1,w, h-1);
+        p.drawLine(0,h-1,w, h-1);*/
     }
 }
 
 void SidebarBox::timerEvent()
 {
-    kdDebug() << "SidebarBox::timerEvent " << endl;
+    int headerHeight = m_headerSpacer->height();
+    int footerHeight = m_footerSpacer->height();
+
+    int newHeaderHeight = 0;
+    int newFooterHeight = 0;
+
     if( m_isShown )
     {
-        if( (height() + 3) > m_itemHeight )
-        {
-            setFixedHeight(m_itemHeight);
-            m_sidebar->stopTimer(this);
-        }
+        bool headerIncrement = (headerHeight + 4) < m_headerHeight;
+        bool footerIncrement = (footerHeight + 4) < m_footerHeight;
+
+        if(headerIncrement)
+            newHeaderHeight = headerHeight + 4;
         else
-            setFixedHeight( height() + 3 );
+            newHeaderHeight = m_headerHeight;
+
+        if(footerIncrement)
+            newFooterHeight = footerHeight + 4;
+        else
+            newFooterHeight = m_footerHeight;
+
+        if((!headerIncrement) && (!footerIncrement))
+            m_sidebar->stopTimer(this);
     }
     else
     {
-        if( (height() - 3) < 0)
-        {
-            setFixedHeight(0);
-            m_sidebar->stopTimer(this);
-        }
+        bool headerDecrement = (headerHeight - 4) > 0;
+        bool footerDecrement = (footerHeight - 4) > 0;
+
+        if(headerDecrement)
+            newHeaderHeight = headerHeight - 4;
         else
-            setFixedHeight( height() - 3 );
+            newHeaderHeight = 0;
+
+        if(footerDecrement)
+            newFooterHeight = footerHeight - 4;
+        else
+            newFooterHeight = 0;
+
+        if((!headerDecrement) && (!footerDecrement))
+            m_sidebar->stopTimer(this);
     }
-    repaint();
-    kdDebug() << "height = " << height() << endl; 
+
+    m_headerSpacer->setFixedSize(0, newHeaderHeight);
+    m_footerSpacer->setFixedSize(0, newFooterHeight);
+}
+
+void SidebarBox::mouseMoveEvent ( QMouseEvent * event )
+{
+    kdDebug() << "MouseMoveEvent" << endl;
+    if(!m_isHighlighted)
+        m_sidebar->boxHighlightedEvent(this);
+/*    if(!m_isHighlighted)
+        m_sidebar->boxHighlightedEvent(this);*/
+}
+
+void SidebarBox::mousePressEvent ( QMouseEvent * event )
+{
+    kdDebug() << "MousePressEvent" << endl;
+    if(!m_isHighlighted)
+        m_sidebar->boxHighlightedEvent(this);
+}
+
+void SidebarBox::mouseReleaseEvent ( QMouseEvent * event )
+{
+    kdDebug() << "MouseReleaseEvent" << endl;
+}
+
+void SidebarBox::mouseDoubleClickEvent ( QMouseEvent * event )
+{
+    kdDebug() << "MouseDoubleClickEvent" << endl;
+    m_showChildren=!m_showChildren;
+    m_sidebar->boxSelectedEvent(this, m_showChildren);
+}
+
+void SidebarBox::enterEvent ( QEvent * event )
+{
+    kdDebug() << "enterEvent" << endl;
+//    m_sidebar->boxHighlightedEvent(this);
+}
+
+void SidebarBox::leaveEvent ( QEvent * event )
+{
+    kdDebug() << "leaveEvent" << endl;
 }
 
 DownloadsBox::DownloadsBox( Sidebar * sidebar )
-    : SidebarBox( sidebar, 38, false)
+    : SidebarBox( sidebar, 34, 4, false)
 {
-    m_sidebar->boxHighlighedEvent(this);
+    m_sidebar->boxHighlightedEvent(this);
+    setShown(true);
+    showChildren(true);
 }
 
 void DownloadsBox::paintEvent ( QPaintEvent * event )
 {
-//     kdDebug() << "DownloadsBox paint event" << endl;
-
-    SidebarBox::paintEvent( event );
+    kdDebug() << "DownloadsBox paint event" << endl;
 
     QPainter p(this);
+
     p.setClipRegion(event->region());
 
     if(m_isHighlighted)
+    {
+        int w = width();
+        int h = height();
+
+        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
+        p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
+        p.setPen(QPen(palette().active().highlight().dark(130),1));
+        p.drawLine(0,0,w, 0);
+        p.drawLine(0,h-1,w, h-1);
+
         p.drawPixmap(10, 2, *m_pixFsel);
+    }
     else
         p.drawPixmap(10, 2, *m_pixFunsel);
 
@@ -254,17 +396,17 @@ void DownloadsBox::paintEvent ( QPaintEvent * event )
 }
 
 GroupBox::GroupBox( TransferGroupHandler * group, DownloadsBox * dbox, Sidebar * sidebar )
-    : SidebarBox( sidebar, 38, true ),
+    : SidebarBox( sidebar, 38, 0, true ),
       m_downloadsBox( dbox ),
       m_group( group )
 {
+/*    Button * t = new Button(this);
+    t->setGeometry(10, 10, 30, 30);*/
+//     t->setIcon(SmallIcon("tool_resume"));
+    
+
     m_group->addObserver(this);
     m_downloadsBox->addChild(this);
-/*    QToolButton * bt = new QToolButton( sidebar->viewport() );
-    QRect area = sidebar->itemRect(this);
-    kdDebug() << "x, y = " << area.x() << " " << area.y() << endl;
-    bt->setGeometry(area.x()+10, area.y()+8, 64, 64);
-    bt->setIcon(SmallIcon("tool_resume"));*/
 }
 
 GroupBox::~GroupBox()
@@ -274,13 +416,26 @@ GroupBox::~GroupBox()
 
 void GroupBox::paintEvent ( QPaintEvent * event )
 {
+    kdDebug() << "GroupBox::paintEvent   " << m_group->name() << endl;
+
     SidebarBox::paintEvent( event );
 
     QPainter p(this);
     p.setClipRegion(event->region());
 
     if(m_isHighlighted)
+    {
+        int w = width();
+        int h = height();
+
+        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
+        p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
+        p.setPen(QPen(palette().active().highlight().dark(130),1));
+        p.drawLine(0,0,w, 0);
+        p.drawLine(0,h-1,w, h-1);
+
         p.drawPixmap(30, 2, *m_pixFsel);
+    }
     else
         p.drawPixmap(30, 2, *m_pixFunsel);
 
@@ -318,15 +473,11 @@ void GroupBox::transferChangedEvent(TransferHandler * transfer)
                       << transfer->statusText() << endl;
 
             //Better check if we already created the TransferBox for this transfer
-            QList<SidebarBox *>::iterator it = m_childBoxes.begin();
-            QList<SidebarBox *>::iterator itEnd = m_childBoxes.end();
-
-            for( ; it!=itEnd ; ++it )
+            foreach(SidebarBox * it, m_childBoxes)
             {
-                if(static_cast<TransferBox *>(*it)->transfer() == transfer)
+                if(static_cast<TransferBox *>(it)->transfer() == transfer)
                     return;
             }
-
             TransferBox * g = new TransferBox(transfer, this, m_sidebar);
         }
     }
@@ -338,7 +489,7 @@ void GroupBox::transferChangedEvent(TransferHandler * transfer)
 }
 
 TransferBox::TransferBox( TransferHandler * transfer, GroupBox * gBox, Sidebar * sidebar )
-    : SidebarBox( sidebar, 20, true ),
+    : SidebarBox( sidebar, 20, 0, true ),
       m_groupBox( gBox ),
       m_transfer( transfer )
 {
@@ -358,20 +509,8 @@ void TransferBox::paintEvent ( QPaintEvent * event )
     QPainter p(this);
     p.setClipRegion(event->region());
 
-/*    if(isSelected())
-        p.drawPixmap(30, 2, *m_pixFsel);
-    else
-        p.drawPixmap(30, 2, *m_pixFunsel);
-
-    QFont f(p.font());
-    f.setBold(isSelected());
-    p.setFont( f );
-    if(isSelected())
-        p.setPen( m_sidebar->palette().active().highlightedText());
-    else
-        p.setPen( m_sidebar->palette().active().foreground());
-    p.drawText(70, 11, width(m_sidebar), height(m_sidebar)-7, Qt::AlignLeft, m_text);*/
-    p.drawText(80, 1, width(), height()-7, Qt::AlignLeft, m_transfer->source().filename());
+    p.drawPixmap(20, 1, m_transfer->statusPixmap());
+    p.drawText(40, 1, width(), height()-7, Qt::AlignLeft, m_transfer->source().filename());
 }
 
 void TransferBox::transferChangedEvent(TransferHandler * transfer)
@@ -383,9 +522,13 @@ void TransferBox::transferChangedEvent(TransferHandler * transfer)
         {
             m_transfer->delObserver(this);
             kdDebug() << "###############  OBSERVER DELETED" << endl;
-            m_groupBox->removeChild(this);
+            //m_groupBox->removeChild(this);
             kdDebug() << "TransferBox::transferChangedEvent() LEAVING1" << endl;
             return;
+        }
+        else
+        {
+            repaint();
         }
     }
     m_transfer->resetChangesFlags(this);
@@ -395,9 +538,7 @@ void TransferBox::transferChangedEvent(TransferHandler * transfer)
 
 Sidebar::Sidebar( QWidget * parent, const char * name )
     : QWidget( parent, name ),
-      m_numBoxes(0),
-      m_timerInterval(10),
-      m_highlightedBox(0)
+      m_timerInterval(20)
 {
     setUpdatesEnabled(true);
 
@@ -407,36 +548,13 @@ Sidebar::Sidebar( QWidget * parent, const char * name )
     setLayout(m_layout);
 
     m_downloadsBox = new DownloadsBox(this);
-    insertItem(m_downloadsBox);
+    m_layout->insertWidget( 0, m_downloadsBox );
 
     m_layout->addStretch(1);
-    m_numBoxes++;
 
     show();
 
     Model::addObserver(this);
-}
-
-void Sidebar::insertItem( SidebarBox * box, SidebarBox * after )
-{
-    int index;
-
-    if(after == 0)
-        index = m_numBoxes;
-    else
-        index = m_layout->indexOf(after) + 1;
-
-    if( index != -1 )
-        m_layout->insertWidget( index, box );
-
-    m_numBoxes++;
-}
-
-void Sidebar::removeItem( SidebarBox * box )
-{
-    m_layout->removeWidget( box );
-
-    m_numBoxes--;
 }
 
 void Sidebar::startTimer( SidebarBox * item )
@@ -450,44 +568,32 @@ void Sidebar::startTimer( SidebarBox * item )
 
 void Sidebar::stopTimer( SidebarBox * item )
 {
-    kdDebug() << "Sidebar::stopTimer 111" << endl;
     m_timersToRemove.append( item );
-    kdDebug() << "Sidebar::stopTimer 222" << endl;
 }
 
-// void Sidebar::paintCell( QPainter * p, int row, int /*col*/ )
-// {
-//     SidebarBox * i = (SidebarBox *)item( row );
-//     int itemWidth = viewport()->width();
-//     int itemHeight = i->height( this );
-// 
-//     // paint pixmap on a back buffer
-//     QPixmap backMap( itemWidth, itemHeight );
-//     QPainter backPainter( &backMap );
-//     i->paint( &backPainter );
-//     backPainter.end();
-// 
-//     // blit the backMap to the screen
-//     p->drawPixmap( 0, 0, backMap );
-// }
-
-void Sidebar::boxHighlighedEvent(SidebarBox * item)
+void Sidebar::boxHighlightedEvent(SidebarBox * item)
 {
-    if(m_highlightedBox)
-        m_highlightedBox->setHighlighted(false);
+//     setUpdatesEnabled(false);
 
-    m_highlightedBox = item;
-    m_highlightedBox->setHighlighted( true );
+    //TODO Possible problems with this list that lead to crashes
+
+    foreach(SidebarBox * box, m_highlightedBoxes)
+    {
+        box->setHighlighted(false);
+    }
+
+    m_highlightedBoxes.clear();
+
     item->setHighlighted( true );
+    m_highlightedBoxes.append(item);
+
+//     setUpdatesEnabled(true);
 }
 
-void Sidebar::boxSelectedEvent(SidebarBox * item)
+void Sidebar::boxSelectedEvent(SidebarBox * item, bool selected)
 {
-    if(m_highlightedBox)
-        m_highlightedBox->setSelected(false);
-
-    m_highlightedBox = item;
-    m_highlightedBox->setSelected( true );
+    kdDebug() << "box selected " << selected << endl;
+    item->showChildren(selected);
 }
 
 void Sidebar::addedTransferGroupEvent(TransferGroupHandler * group)
@@ -507,6 +613,8 @@ void Sidebar::removedTransferGroupEvent(TransferGroupHandler * group)
 
 void Sidebar::timerEvent( QTimerEvent * e )
 {
+    kdDebug() << "timerEvent" << endl;
+
     //Here I have to make a copy of the list to assure that an asyncronous
     //call to stopTimer() doesn't make all crash
     QList<SidebarBox *> timersToRemove = m_timersToRemove;
@@ -523,13 +631,15 @@ void Sidebar::timerEvent( QTimerEvent * e )
     if( m_activeTimers.size() == 0 )
         killTimer(m_timerId);
 
-    it = m_activeTimers.begin();
-    itEnd = m_activeTimers.end();
+    layout()->setEnabled(false);
 
-    for( ; it!=itEnd ; ++it )
+    foreach(SidebarBox * it, m_activeTimers)
     {
-        (*it)->timerEvent();
+        it->timerEvent();
     }
+
+    layout()->setEnabled(true);
+    layout()->update();
 }
 
 #include "sidebar.moc"

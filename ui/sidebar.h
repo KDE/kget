@@ -15,6 +15,7 @@
 #include <qpixmapcache.h>
 #include <qmap.h>
 #include <QVBoxLayout>
+#include <QSpacerItem>
 #include <QWidget>
 #include <QList>
 #include <QPixmap>
@@ -23,24 +24,35 @@
 //Temporary!
 #include <QPushButton>
 
+#include <QToolButton>
+
 #include "core/observer.h"
 
 class Sidebar;
+
+class Button : public QToolButton
+{
+    Q_OBJECT
+    public:
+        Button(QWidget * w);
+
+        void paintEvent ( QPaintEvent * event );
+};
 
 class SidebarBox : public QWidget
 {
     Q_OBJECT
     public:
-        SidebarBox( Sidebar * sidebar, int itemHeight, bool enableAnimations = false);
+        SidebarBox(Sidebar * sidebar, int headerHeight, int footerHeight, bool enableAnimations = false);
         ~SidebarBox();
 
         void addChild(SidebarBox *);
         void removeChild(SidebarBox *);
 
         void showChildren( bool show = true );
-
         void setHighlighted( bool highlighted = true );
-        void setSelected( bool selected = true );
+
+        void repaintChildren();
 
         /**
         * This method updates all the pixmaps that are used to draw the items
@@ -51,18 +63,24 @@ class SidebarBox : public QWidget
 
     protected:
         virtual void paintEvent ( QPaintEvent * event );
+        void mouseMoveEvent ( QMouseEvent * event );
+        void mousePressEvent ( QMouseEvent * event );
+        void mouseReleaseEvent ( QMouseEvent * event );
+        void mouseDoubleClickEvent ( QMouseEvent * event );
+        void enterEvent ( QEvent * event );
+        void leaveEvent ( QEvent * event );
 
         void setShown(bool show = true);
         void setAnimationEnabled(bool enable = true);
 
         void paletteChange ( const QPalette & oldPalette );
 
-        Sidebar *    m_sidebar;
         bool         m_enableAnimations;
         bool         m_isHighlighted;
         bool         m_isShown;
-        int          m_itemHeight;    //item height when shown
         bool         m_showChildren;
+        int          m_headerHeight;    //item's header height when shown
+        int          m_footerHeight;    //item's footer height when shown
 
         //Pixmaps
         QPixmap *    m_pixFunsel;
@@ -71,6 +89,13 @@ class SidebarBox : public QWidget
         QPixmap *    m_pixBgrad;
         QPixmap *    m_pixPlus;
         QPixmap *    m_pixMinus;
+
+        Sidebar *    m_sidebar;
+
+        QPainter *    m_painter;
+        QWidget * m_headerSpacer;
+        QWidget * m_footerSpacer;
+        QVBoxLayout  * m_layout;
 
         QList<SidebarBox *> m_childBoxes;
 };
@@ -101,7 +126,7 @@ class GroupBox : public SidebarBox,
         void transferChangedEvent(TransferHandler * transfer);
 
     protected:
-        virtual void paintEvent ( QPaintEvent * event );
+        void paintEvent ( QPaintEvent * event );
 
     private:
         DownloadsBox * m_downloadsBox;
@@ -123,7 +148,7 @@ class TransferBox : public SidebarBox, public TransferObserver
         GroupBox * m_groupBox;
 
     protected:
-        virtual void paintEvent ( QPaintEvent * event );
+        void paintEvent ( QPaintEvent * event );
 
     private:
         TransferHandler * m_transfer;
@@ -137,9 +162,6 @@ class Sidebar : public QWidget, public ModelObserver
     public:
         Sidebar( QWidget * parent = 0, const char * name = 0 );
 
-        void insertItem( SidebarBox * box, SidebarBox * after=0 );
-        void removeItem( SidebarBox * box );
-
         void startTimer( SidebarBox * item );
         void stopTimer( SidebarBox * item );
 
@@ -147,13 +169,11 @@ class Sidebar : public QWidget, public ModelObserver
         void addedTransferGroupEvent(TransferGroupHandler * group);
         void removedTransferGroupEvent(TransferGroupHandler * group);
 
-        void boxHighlighedEvent(SidebarBox *);
-        void boxSelectedEvent(SidebarBox *);
+        void boxHighlightedEvent(SidebarBox *);
+        void boxSelectedEvent(SidebarBox *, bool selected);
 
     private:
         void timerEvent ( QTimerEvent * );
-
-        int       m_numBoxes;
 
         int       m_timerId;
         const int m_timerInterval;
@@ -162,11 +182,11 @@ class Sidebar : public QWidget, public ModelObserver
         //TODO Make sure we need this list with qt4
         QList<SidebarBox *> m_timersToRemove;
 
-        SidebarBox * m_highlightedBox;
+        QList<SidebarBox *> m_highlightedBoxes;
 
         QVBoxLayout  * m_layout;
-       DownloadsBox * m_downloadsBox;
-       QMap<QString, GroupBox *> m_groupsMap;
+        DownloadsBox * m_downloadsBox;
+        QMap<QString, GroupBox *> m_groupsMap;
 };
 
 #endif
