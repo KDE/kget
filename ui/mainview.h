@@ -22,6 +22,8 @@
 #include "core/observer.h"
 
 class KActionCollection;
+class KPopupMenu;
+
 class MainView;
 class TransferItem;
 class GroupHandler;
@@ -87,7 +89,7 @@ class MainView : public KListView, public ModelObserver
     Q_OBJECT
 
 public:
-    MainView( QWidget * parent, const char * name = 0 );
+    MainView( QWidget * parent = 0, const char * name = 0 );
     ~MainView();
 
     //Model observer virtual functions

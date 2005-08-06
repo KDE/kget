@@ -54,11 +54,10 @@
 #include "conf/settings.h"
 #include "conf/preferencesdialog.h"
 
-#include "ui/mainview.h"
-#include "ui/tray.h"
-// #include "ui/testview.h"
-#include "ui/droptarget.h"
 #include "ui/sidebar.h"
+#include "ui/viewscontainer.h"
+#include "ui/tray.h"
+#include "ui/droptarget.h"
 
 // local defs.
 enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
@@ -66,7 +65,7 @@ enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
 
 KGet::KGet( QWidget * parent, const char * name )
     : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
-        m_mainView(0), m_drop(0), m_dock(0)
+        m_drop(0), m_dock(0)
 {
     // create the model
     Model::self( this );
@@ -78,8 +77,7 @@ KGet::KGet( QWidget * parent, const char * name )
 
     m_splitter = new QSplitter(this);
     m_sidebar = new Sidebar(m_splitter, "sidebar");
-    m_mainView = new MainView(m_splitter);
-    //m_mainView = new TestView(m_splitter);
+    m_viewsContainer = new ViewsContainer(m_splitter);
 
     setCentralWidget(m_splitter);
 

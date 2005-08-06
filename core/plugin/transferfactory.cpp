@@ -15,7 +15,6 @@
 
 #include "model.h"
 #include "transferfactory.h"
-#include "transferaction.h"
 //Added by qt3to4:
 #include <QList>
 

@@ -28,10 +28,11 @@
 #define _KGET_H_
 
 #include <qwidget.h>
-//Added by qt3to4:
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QCloseEvent>
+#include <QHBoxLayout>
+#include <QToolButton>
 
 #include <kaction.h>
 #include <kmainwindow.h>
@@ -46,9 +47,9 @@ class KURL::List;
 
 class KGetModel;
 
-class DropTarget;
-class MainView;
 class Sidebar;
+class ViewsContainer;
+class DropTarget;
 class Tray;
 
 /**
@@ -116,8 +117,8 @@ private:
     QSplitter * m_splitter;
 
     // internal widgets
-    Sidebar     * m_sidebar;
-    MainView    * m_mainView;
+    Sidebar        * m_sidebar;
+    ViewsContainer * m_viewsContainer;
 
     // separated widgets
     DropTarget * m_drop;

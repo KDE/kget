@@ -1,3 +1,7 @@
+2005-08-06 Dario Massarin <nekkar@libero.it>
+        * Change the way we handle the Transfer actions
+        * Reoganize the gui, introducing a new ViewsContainer class.
+
 2005-08-02 Dario Massarin <nekkar@libero.it>
         Big commit:
         * KGet ported to qt4. Here there are some issues that still need to be

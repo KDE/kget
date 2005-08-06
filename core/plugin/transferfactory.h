@@ -31,12 +31,12 @@
 #include <QList>
 
 #include <kapplication.h>
+#include <kaction.h>
 
 #include "core/plugin/plugin.h"
 #include "core/model.h"
 #include "core/transfer.h"
 #include "core/transferhandler.h"
-#include "core/transferaction.h"
 
 class KURL;
 class KPopupMenu;
