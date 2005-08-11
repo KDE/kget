@@ -216,29 +216,18 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     showDownloadsWindow();
 }
 
-QWidget * ViewsContainer::transferWidget(TransferHandler * transfer)
-{
-    foreach(TransferItem it, m_transferItems)
-        if(it.transfer == transfer)
-            return it.widget;
-
-    return 0;
-}
-
 void ViewsContainer::showTransferDetails(TransferHandler * transfer)
 {
     //First check if we already inserted this widget
-    QWidget * widget = transferWidget(transfer);
-    if( !widget )
+    QMap<TransferHandler *, QWidget *>::iterator it;
+    it = m_transfersMap.find(transfer);
+
+    if( it == m_transfersMap.end() )
     {
         //Create the transfer widget
-        widget = Model::factory(transfer)->createDetailsWidget(transfer);
-        //Create a TransferItem struct
-        TransferItem newItem;
-        newItem.transfer = transfer;
-        newItem.widget = widget;
+        QWidget * widget = Model::factory(transfer)->createDetailsWidget(transfer);
         //Add it to the m_transferItems list
-        m_transferItems.append(newItem);
+        m_transfersMap[transfer] = widget;
         //Add the widget to the qstackedlayout
         m_SLayout->addWidget( widget );
         //Insert a new transfer in the m_transfersBt button
@@ -276,7 +265,7 @@ void ViewsContainer::slotTransferSelected(TransferHandler * transfer)
 {
     kdDebug() << "SlotTransferSelected" << endl;
 
-    m_SLayout->setCurrentWidget( transferWidget(transfer) );
+    m_SLayout->setCurrentWidget( m_transfersMap[transfer] );
 
     //TitleBar update
     m_titleBar->setTransfer(transfer);

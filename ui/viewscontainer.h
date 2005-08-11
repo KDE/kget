@@ -80,8 +80,6 @@ class ViewsContainer : public QWidget
     public:
         ViewsContainer(QWidget * parent = 0);
 
-        QWidget *        transferWidget(TransferHandler * transfer);
-
     public slots:
         void showTransferDetails(TransferHandler * transfer);
         void closeTransferDetails(TransferHandler * transfer);
@@ -93,12 +91,6 @@ class ViewsContainer : public QWidget
         void slotTransferSelected(TransferHandler * transfer);
 
     private:
-        typedef struct TransferItem
-        {
-            TransferHandler * transfer;
-            QWidget         * widget;
-        };
-
         QVBoxLayout     * m_VLayout;
         QHBoxLayout     * m_HLayout;
         QStackedLayout  * m_SLayout;
@@ -112,7 +104,7 @@ class ViewsContainer : public QWidget
         ButtonBase      * m_finishedBt;
         TransfersButton * m_transfersBt;
 
-        QList<TransferItem> m_transferItems;
+        QMap<TransferHandler *, QWidget *> m_transfersMap;
 };
 
 #endif
