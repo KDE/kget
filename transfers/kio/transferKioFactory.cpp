@@ -51,6 +51,7 @@ Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
 
 QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
+  Q_UNUSED(transfer);
     return new QWidget();   //Temporary!!
 }
 
@@ -58,3 +59,4 @@ const QList<KAction *> TransferKioFactory::actions()
 {
     return QList<KAction *>();
 }
+

@@ -131,6 +131,7 @@ void TransferKio::slotResult( KIO::Job * kioJob )
 
 void TransferKio::slotInfoMessage( KIO::Job * kioJob, const QString & msg )
 {
+  Q_UNUSED(kioJob);
     m_log.append(QString(msg));
 }
 
@@ -138,6 +139,7 @@ void TransferKio::slotConnected( KIO::Job * kioJob )
 {
 //     kdDebug() << "CONNECTED" <<endl;
 
+  Q_UNUSED(kioJob);
     setStatus(Job::Running, i18n("Downloading.."), SmallIcon("tool_resume"));
     setTransferChange(Tc_Status, true);
 }
@@ -145,7 +147,7 @@ void TransferKio::slotConnected( KIO::Job * kioJob )
 void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
 {
     kdDebug() << "slotPercent" << endl;
-
+    Q_UNUSED(kioJob);
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
 }

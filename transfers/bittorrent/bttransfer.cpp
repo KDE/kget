@@ -22,6 +22,7 @@
 #include <sigc++/bind.h>
 #include <torrent/torrent.h>
 #include <torrent/bencode.h>
+#include <torrent/rate.h>
 
 #include <qdom.h>
 #include <qfile.h>
@@ -90,7 +91,7 @@ void BTTransfer::stop()
     if (download.is_valid()) 
     {
         download.stop();
-        download.hash_save();
+//          download.hash_save();
         m_speed = 0;
         setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
         setTransferChange(Tc_Speed | Tc_Status, true);
@@ -119,7 +120,7 @@ void BTTransfer::resume()
     {
         try
         {
-            download = torrent::download_create(&bencodeStream);
+            download = torrent::download_add(&bencodeStream);
             // deallocate stream
             bencodeStream.str(std::string());
             // set directory
@@ -239,7 +240,7 @@ void BTTransfer::update()
     BTThread::lock();
     m_totalSize = download.get_bytes_total();
     m_processedSize = download.get_bytes_done();
-    m_speed = download.get_rate_down();
+    m_speed = download.get_read_rate().rate();
     BTThread::unlock();
 
     //Make sure we are really downloading the torrent before setting the status
@@ -271,7 +272,7 @@ void BTTransfer::save(QDomElement e)
         QDomElement bencode(doc.createElement("bencode"));
         e.appendChild(bencode);
         std::stringstream s;
-        s << torrent::download_bencode(download.get_hash());
+        s << download.get_bencode();
         bencode.appendChild(doc.createTextNode(s.str().c_str()));
     }
 }

@@ -19,12 +19,12 @@
 
 #include <kdebug.h>
 
-#include <qfile.h>
-#include <QWidget>
-
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
 #include "bttransferfactory.h"
+
+#include <qfile.h>
+#include <QWidget>
 
 KGET_EXPORT_PLUGIN(BTTransferFactory)
 
@@ -47,9 +47,10 @@ Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
     return 0;
 }
 
-QWidget * createDetailsWidget( TransferHandler * transfer )
+QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
-    return 
+  Q_UNUSED(transfer);
+  return  0;
 }
 
 const QList<KAction *> BTTransferFactory::actions()

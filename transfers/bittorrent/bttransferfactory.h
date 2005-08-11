@@ -26,12 +26,13 @@ class BTTransferFactory : public TransferFactory
 {
     public:
         Transfer * createTransfer( KURL srcURL, KURL destURL,
-                                   TransferGroup * parent, Scheduler * scheduler,
+                                   TransferGroup * parent,
+				   Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<KAction *> actions()
+        const QList<KAction *> actions();
 };
 
 #endif

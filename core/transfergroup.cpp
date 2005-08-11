@@ -120,7 +120,7 @@ TransferGroupHandler * TransferGroup::handler()
 
 void TransferGroup::transferChangedEvent(Transfer * transfer)
 {
-    
+  Q_UNUSED(transfer);
 }
 
 void TransferGroup::save(QDomElement e)

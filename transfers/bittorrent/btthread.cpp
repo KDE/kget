@@ -88,8 +88,8 @@ void BTThread::run()
 
         torrent::mark(&rd, &wr, &er, &max_fd);
 
-        uint64_t t = torrent::get(torrent::TIME_SELECT);
-
+        uint64_t t = torrent::get_next_timeout();
+	// TODO check if values make sense and we sleep enough on select
         if (t > 1000000)
             t = 1000000;
 

@@ -188,7 +188,8 @@ void Model::delTransfer(TransferHandler * transfer)
 
 void Model::moveTransfer(TransferHandler * transfer, const QString& groupName)
 {
-    
+  Q_UNUSED(transfer);
+  Q_UNUSED(groupName);
 }
 
 QList<TransferHandler *> Model::selectedTransfers()
