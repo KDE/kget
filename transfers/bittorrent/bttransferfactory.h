@@ -29,6 +29,8 @@ class BTTransferFactory : public TransferFactory
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
+        QWidget * createDetailsWidget( TransferHandler * transfer );
+
         const QList<KAction *> actions()
 };
 

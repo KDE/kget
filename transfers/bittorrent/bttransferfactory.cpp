@@ -20,6 +20,7 @@
 #include <kdebug.h>
 
 #include <qfile.h>
+#include <QWidget>
 
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
@@ -44,6 +45,11 @@ Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
         return new BTTransfer(parent, this, scheduler, srcURL, destURL, e);
     }
     return 0;
+}
+
+QWidget * createDetailsWidget( TransferHandler * transfer )
+{
+    return 
 }
 
 const QList<KAction *> BTTransferFactory::actions()

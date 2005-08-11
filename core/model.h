@@ -150,6 +150,13 @@ class Model
         static void save( QString filename="" );
 
         /**
+         * @returns The factory of a given transfer
+         *
+         * @param transfer the transfer about which we want to have the factory
+         */
+        static TransferFactory * factory(TransferHandler * transfer);
+
+        /**
          * @return a pointer to the KActionCollection objects
          */
         static KActionCollection * actionCollection();

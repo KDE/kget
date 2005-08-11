@@ -97,10 +97,10 @@ KGet::KGet( QWidget * parent, const char * name )
         hide();
 
     // setting up status bar
-    statusBar()->show();
-    statusBar()->insertItem( "", 0 );
-    statusBar()->insertItem( "", 1 );
-    updateStatusBar();
+//     statusBar()->show();
+//     statusBar()->insertItem( "", 0 );
+//     statusBar()->insertItem( "", 1 );
+//     updateStatusBar();
 
     // other (external) widgets creation 
 
@@ -403,7 +403,10 @@ void KGet::slotTransfersOpenDest()
 
 void KGet::slotTransfersShowDetails()
 {
-//    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, Model::selectedTransfers())
+    {
+        m_viewsContainer->showTransferDetails(it);
+    }
 }
 
 

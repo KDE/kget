@@ -303,6 +303,11 @@ void Model::save( QString filename )
     file.close();
 }
 
+TransferFactory * Model::factory(TransferHandler * transfer)
+{
+    return transfer->m_transfer->factory();
+}
+
 KActionCollection * Model::actionCollection()
 {
     return m_kget->actionCollection();

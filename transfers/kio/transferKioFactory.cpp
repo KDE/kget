@@ -9,6 +9,7 @@
 */
 
 #include <qstring.h>
+#include <QWidget>
 
 #include <kdebug.h>
 #include <kurl.h>
@@ -46,6 +47,11 @@ Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
         return new TransferKio(parent, this, scheduler, srcURL, destURL, e);
     }
     return 0;
+}
+
+QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
+{
+    return new QWidget();   //Temporary!!
 }
 
 const QList<KAction *> TransferKioFactory::actions()

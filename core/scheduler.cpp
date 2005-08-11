@@ -172,6 +172,11 @@ void Scheduler::updateQueue( JobQueue * queue )
                     (*it)->start();
                     runningJobs++;
                 }
+                else if( (*it)->status() == Job::Delayed )
+                {
+                    stopDelayTimer(*it);
+                    (*it)->stop();
+                }
             }
         }
         else

@@ -38,6 +38,8 @@
 #include "core/transfer.h"
 #include "core/transferhandler.h"
 
+class QWidget;
+
 class KURL;
 class KPopupMenu;
 
@@ -58,6 +60,8 @@ class TransferFactory : public KGetPlugin
                                            TransferGroup * parent,
                                            Scheduler * scheduler,
                                            const QDomElement * n = 0 )=0;
+
+        virtual QWidget * createDetailsWidget( TransferHandler * transfer )=0;
 
         virtual const QList<KAction *> actions()=0;
 

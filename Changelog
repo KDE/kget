@@ -1,3 +1,10 @@
+2005-08-11 Dario Massarin <nekkar@libero.it>
+        * More work on the ViewsContainer class. Now we have 3 buttons:
+        "Downloads", "Finished" and "Transfer Details" one. The last one
+        is associated with a QMenu that lets you select which transfer to 
+        visualize.
+        * Fixed problem when stopping delayed transfers.
+
 2005-08-06 Dario Massarin <nekkar@libero.it>
         * Change the way we handle the Transfer actions
         * Reoganize the gui, introducing a new ViewsContainer class.
