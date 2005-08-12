@@ -74,7 +74,7 @@ void DlgDirectories::updateButtons()
 
 void DlgDirectories::le_ext_textChanged( const QString & ext )
 {
-    QListViewItem * item = lv_entries->selectedItem();
+    Q3ListViewItem * item = lv_entries->selectedItem();
     if ( !item )
     {
 	updateButtons();
@@ -87,7 +87,7 @@ void DlgDirectories::le_ext_textChanged( const QString & ext )
 
 void DlgDirectories::folderRequest_textChanged( const QString & dir )
 {
-    QListViewItem * item = lv_entries->selectedItem();
+    Q3ListViewItem * item = lv_entries->selectedItem();
     if ( !item )
     {
 	updateButtons();
@@ -97,7 +97,7 @@ void DlgDirectories::folderRequest_textChanged( const QString & dir )
     saveData();
 }
 
-void DlgDirectories::lv_entries_currentChanged( QListViewItem * lvi )
+void DlgDirectories::lv_entries_currentChanged( Q3ListViewItem * lvi )
 {
     updateButtons();
     if ( lvi )
@@ -117,18 +117,18 @@ void DlgDirectories::pb_add_clicked()
     if ( text.length() > 0 )
 	dir = text;
     //check if already added an item
-    QListViewItem * item = lv_entries->selectedItem();
+    Q3ListViewItem * item = lv_entries->selectedItem();
     if ( item && item->text(0) == ext && item->text(1) == dir )
 	return;
     
-    item = new QListViewItem(lv_entries, ext, dir);
+    item = new Q3ListViewItem(lv_entries, ext, dir);
     lv_entries->setSelected( item, true );
     lv_entries_currentChanged( item );
 }
 
 void DlgDirectories::pb_delete_clicked()
 {
-    QListViewItem *item = lv_entries->selectedItem();
+    Q3ListViewItem *item = lv_entries->selectedItem();
     if ( item )
 	delete item;
     lv_entries->sort();
@@ -167,17 +167,17 @@ void DlgDirectories::loadData()
 	++it;
 	QString path = *it;
 	++it;
-	new QListViewItem(lv_entries, rexp, path);
+	new Q3ListViewItem(lv_entries, rexp, path);
     }
 }
 
 void DlgDirectories::saveData()
 {
     QStringList list;
-    QListViewItemIterator it(lv_entries);
+    Q3ListViewItemIterator it(lv_entries);
 
     for (; it.current(); ++it) {
-        QListViewItem *item = it.current();
+        Q3ListViewItem *item = it.current();
 	QString rexp = item->text(0);
         if (rexp.contains(",") || rexp.isEmpty())
 	    continue;

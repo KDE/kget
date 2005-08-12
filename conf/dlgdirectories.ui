@@ -1,402 +1,46 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>DlgDirectories</class>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>DlgDirectories</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>354</width>
-            <height>320</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>DlgDirectories</string>
-    </property>
-    <grid>
-        <property name="name">
-            <cstring>unnamed</cstring>
-        </property>
-        <property name="margin">
-            <number>0</number>
-        </property>
-        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>kcfg_AlwaysAskDirectory</cstring>
-            </property>
-            <property name="text">
-                <string>Ask for download folder on each added item</string>
-            </property>
-        </widget>
-        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>kcfg_UseDefaultDirectory</cstring>
-            </property>
-            <property name="text">
-                <string>Place downloaded files inside default folders</string>
-            </property>
-        </widget>
-        <spacer row="2" column="0">
-            <property name="name">
-                <cstring>spacer21_3</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Fixed</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>16</width>
-                    <height>100</height>
-                </size>
-            </property>
-        </spacer>
-        <spacer row="3" column="1">
-            <property name="name">
-                <cstring>spacer21</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Fixed</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>230</width>
-                    <height>4</height>
-                </size>
-            </property>
-        </spacer>
-        <widget class="QLayoutWidget" row="4" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>layout17</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>txtLabel</cstring>
-                    </property>
-                    <property name="backgroundMode">
-                        <enum>PaletteBackground</enum>
-                    </property>
-                    <property name="text">
-                        <string>Current behavior:</string>
-                    </property>
-                    <property name="alignment">
-                        <set>AlignVCenter</set>
-                    </property>
-                </widget>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>bhLabel</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>3</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="text">
-                        <string>...</string>
-                    </property>
-                    <property name="alignment">
-                        <set>AlignVCenter</set>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <spacer row="5" column="1">
-            <property name="name">
-                <cstring>spacer21_2</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>240</width>
-                    <height>16</height>
-                </size>
-            </property>
-        </spacer>
-        <widget class="QFrame" row="2" column="1">
-            <property name="name">
-                <cstring>frame6</cstring>
-            </property>
-            <property name="enabled">
-                <bool>false</bool>
-            </property>
-            <property name="frameShape">
-                <enum>StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-                <enum>Raised</enum>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
-                    <property name="name">
-                        <cstring>lb_autoDisconnect</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Default folder:</string>
-                    </property>
-                    <property name="alignment">
-                        <set>AlignVCenter</set>
-                    </property>
-                    <property name="buddy" stdset="0">
-                        <cstring>kcfg_DefaultDirectory</cstring>
-                    </property>
-                </widget>
-                <widget class="KURLRequester" row="1" column="0" rowspan="1" colspan="3">
-                    <property name="name">
-                        <cstring>kcfg_DefaultDirectory</cstring>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="2" column="0" rowspan="1" colspan="3">
-                    <property name="name">
-                        <cstring>lb_autoDisconnect_2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Move into folders matching extension:</string>
-                    </property>
-                    <property name="alignment">
-                        <set>AlignVCenter</set>
-                    </property>
-                </widget>
-                <widget class="QLayoutWidget" row="4" column="0" rowspan="1" colspan="3">
-                    <property name="name">
-                        <cstring>layout21</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>lb_ext</cstring>
-                            </property>
-                            <property name="text">
-                                <string>&amp;Extension:</string>
-                            </property>
-                            <property name="buddy" stdset="0">
-                                <cstring>le_ext</cstring>
-                            </property>
-                        </widget>
-                        <widget class="KLineEdit">
-                            <property name="name">
-                                <cstring>le_ext</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>0</hsizetype>
-                                    <vsizetype>0</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                        </widget>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>lb_dir</cstring>
-                            </property>
-                            <property name="text">
-                                <string>&amp;Folder:</string>
-                            </property>
-                            <property name="buddy" stdset="0">
-                                <cstring>folderRequest</cstring>
-                            </property>
-                        </widget>
-                        <widget class="KURLRequester">
-                            <property name="name">
-                                <cstring>folderRequest</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>7</hsizetype>
-                                    <vsizetype>5</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                        </widget>
-                    </hbox>
-                </widget>
-                <widget class="QPushButton" row="5" column="0">
-                    <property name="name">
-                        <cstring>pb_add</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Add</string>
-                    </property>
-                    <property name="accel">
-                        <string>Alt+A</string>
-                    </property>
-                </widget>
-                <widget class="QPushButton" row="5" column="1">
-                    <property name="name">
-                        <cstring>pb_delete</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Remove</string>
-                    </property>
-                    <property name="accel">
-                        <string>Alt+R</string>
-                    </property>
-                </widget>
-                <spacer row="5" column="2">
-                    <property name="name">
-                        <cstring>spacer22</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>435</width>
-                            <height>21</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QListView" row="3" column="0" rowspan="1" colspan="3">
-                    <column>
-                        <property name="text">
-                            <string>Extension</string>
-                        </property>
-                        <property name="clickable">
-                            <bool>false</bool>
-                        </property>
-                        <property name="resizable">
-                            <bool>true</bool>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Destination Folder</string>
-                        </property>
-                        <property name="clickable">
-                            <bool>false</bool>
-                        </property>
-                        <property name="resizable">
-                            <bool>true</bool>
-                        </property>
-                    </column>
-                    <property name="name">
-                        <cstring>lv_entries</cstring>
-                    </property>
-                    <property name="hScrollBarMode">
-                        <enum>AlwaysOff</enum>
-                    </property>
-                    <property name="allColumnsShowFocus">
-                        <bool>true</bool>
-                    </property>
-                    <property name="showSortIndicator">
-                        <bool>true</bool>
-                    </property>
-                    <property name="resizeMode">
-                        <enum>LastColumn</enum>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-    </grid>
-</widget>
-<customwidgets>
-</customwidgets>
-<connections>
-    <connection>
-        <sender>kcfg_AlwaysAskDirectory</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>kcfg_AlwaysAskDirectory_toggled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>kcfg_UseDefaultDirectory</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>frame6</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>kcfg_UseDefaultDirectory</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>kcfg_UseDefaultDirectory_toggled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>pb_add</sender>
-        <signal>clicked()</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>pb_add_clicked()</slot>
-    </connection>
-    <connection>
-        <sender>pb_delete</sender>
-        <signal>clicked()</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>pb_delete_clicked()</slot>
-    </connection>
-    <connection>
-        <sender>le_ext</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>le_ext_textChanged(const QString&amp;)</slot>
-    </connection>
-    <connection>
-        <sender>folderRequest</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>folderRequest_textChanged(const QString&amp;)</slot>
-    </connection>
-    <connection>
-        <sender>lv_entries</sender>
-        <signal>selectionChanged(QListViewItem*)</signal>
-        <receiver>DlgDirectories</receiver>
-        <slot>lv_entries_currentChanged(QListViewItem*)</slot>
-    </connection>
-</connections>
-<includes>
-    <include location="global" impldecl="in implementation">kdialog.h</include>
-    <include location="global" impldecl="in implementation">kiconloader.h</include>
-    <include location="local" impldecl="in implementation">dlgdirectories.ui.h</include>
-</includes>
-<slots>
-    <slot specifier="non virtual">kcfg_AlwaysAskDirectory_toggled( bool e )</slot>
-    <slot specifier="non virtual">kcfg_UseDefaultDirectory_toggled( bool e )</slot>
-    <slot specifier="non virtual">le_ext_textChanged( const QString &amp; ext )</slot>
-    <slot specifier="non virtual">folderRequest_textChanged( const QString &amp; dir )</slot>
-    <slot specifier="non virtual">lv_entries_currentChanged( QListViewItem * lvi )</slot>
-    <slot specifier="non virtual">pb_add_clicked()</slot>
-    <slot specifier="non virtual">pb_delete_clicked()</slot>
-</slots>
-<functions>
-    <function access="private">init()</function>
-    <function access="private">checkBehavior()</function>
-    <function>updateButtons()</function>
-    <function access="private">loadData()</function>
-    <function access="private">saveData()</function>
-</functions>
-<pixmapfunction>SmallIconSet</pixmapfunction>
-<layoutdefaults spacing="6" margin="11"/>
-<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
-<includehints>
-    <includehint>kurlrequester.h</includehint>
-    <includehint>kurlrequester.h</includehint>
-</includehints>
-</UI>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>DlgDirectories</class>
+ <widget class="QWidget" name="DlgDirectories" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>354</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>DlgDirectories</string>
+  </property>
+  <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item row="0" column="0" colspan="2" >
+    <widget class="QCheckBox" name="kcfg_AlwaysAskDirectory" >
+     <property name="text" >
+      <string>Ask for download folder on each added item</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QCheckBox" name="kcfg_UseDefaultDirectory" >
+     <property name="text" >
+      <string>Place downloaded files inside default folders</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
+ <pixmapfunction>SmallIconSet</pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

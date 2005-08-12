@@ -312,9 +312,7 @@ void KGet::slotPreferences()
         return;
 
     // we didn't find an instance of this dialog, so lets create it
-    //TODO Re-enable this line. I have currently disabled all the settings stuff
-    //becouse of problems with kconfig ported to qt4
-//    PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
+    PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
 
     // keep us informed when the user changes settings
 /*    connect( dialog, SIGNAL(settingsChanged()), 

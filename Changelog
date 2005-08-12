@@ -1,4 +1,10 @@
 2005-08-11 Dario Massarin <nekkar@libero.it>
+        * Make the configuration dialogs compile again, but we have to 
+        completely redesign them, since they usually refer to settings
+        that are not available anymore.
+        * Fix a problem in the scheduler introduced with the last commit.
+
+2005-08-11 Dario Massarin <nekkar@libero.it>
         * More work on the ViewsContainer class. Now we have 3 buttons:
         "Downloads", "Finished" and "Transfer Details" one. The last one
         is associated with a QMenu that lets you select which transfer to 

@@ -172,8 +172,13 @@ void Scheduler::updateQueue( JobQueue * queue )
                     (*it)->start();
                     runningJobs++;
                 }
-                else if( (*it)->status() == Job::Delayed )
+                else if( ((*it)->status() == Job::Delayed )
+                      && ((*it)->policy() == Job::Stop ) )
                 {
+                    kdDebug() << "Scheduler:     Delayed transfer that should be stopped" << endl;
+                    //This is a special case that we have to handle separately:
+                    //if the download status is Delayed, but the current policy
+                    //is Stopped, we must stop immediately the transfer.
                     stopDelayTimer(*it);
                     (*it)->stop();
                 }

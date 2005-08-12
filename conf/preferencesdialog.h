@@ -12,32 +12,34 @@
 
 #include <kconfigdialog.h>
 
+// single config pages
+#include "dlgappearance.h"
+#include "dlgnetwork.h"
+#include "dlgdirectories.h"
+#include "dlgadvanced.h"
+
+using namespace Ui;
+
 class QWidget;
 class KConfigSkeleton;
 
-class DlgAppearance;
-class DlgNetwork;
-class DlgDirectories;
-class DlgAdvanced;
-
 class PreferencesDialog : public KConfigDialog
 {
-
     public:
-	PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
+        PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
 
     protected:
-// 	void updateSettings(); // Called when OK/Apply is pressed.
-// 	void updateWidgets(); // Called upon construction or when Reset is pressed
-// 	void updateWidgetsDefault(); // Called when Defaults button is pressed
-// 	bool hasChanged(); // In order to correctly disable/enable Apply button
-// 	bool isDefault(); //  In order to correctly disable/enable Defaults button
+    // 	void updateSettings(); // Called when OK/Apply is pressed.
+    // 	void updateWidgets(); // Called upon construction or when Reset is pressed
+    // 	void updateWidgetsDefault(); // Called when Defaults button is pressed
+    // 	bool hasChanged(); // In order to correctly disable/enable Apply button
+    // 	bool isDefault(); //  In order to correctly disable/enable Defaults button
 
     private:
-	DlgAppearance * appearance;
-	DlgNetwork * network;
-	DlgDirectories * directories;
-	DlgAdvanced * advanced;
+        QWidget * appearance;
+        QWidget * network;
+        QWidget * directories;
+        QWidget * advanced;
 };
 
 #endif

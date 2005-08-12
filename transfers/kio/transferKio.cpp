@@ -107,7 +107,7 @@ void TransferKio::createJob()
 
 void TransferKio::slotResult( KIO::Job * kioJob )
 {
-    kdDebug() << "slotResult" << endl;
+    kdDebug() << "slotResult  (" << kioJob->error() << ")" << endl;
     switch (kioJob->error())
     {
         case 0:                            //The download has finished
@@ -120,8 +120,8 @@ void TransferKio::slotResult( KIO::Job * kioJob )
             break;
         default:
             //There has been an error
-            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("stop"));
             kdDebug() << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
+            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("stop"));
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!

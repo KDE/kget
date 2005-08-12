@@ -9,23 +9,27 @@
 
 #include <klocale.h>
 
-// single config pages
-#include "dlgappearance.h"
-#include "dlgnetwork.h"
-#include "dlgdirectories.h"
-#include "dlgadvanced.h"
-
 // reimplementing this
 #include "preferencesdialog.h"
 
 PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skeleton )
     : KConfigDialog( parent, "preferences", skeleton )
 {
-    appearance = new DlgAppearance(0);
-    network = new DlgNetwork(0);
-    directories = new DlgDirectories(0);
-    advanced = new DlgAdvanced(0);
-     
+    appearance = new QWidget(this);
+    network = new QWidget(this);
+    directories = new QWidget(this);
+    advanced = new QWidget(this);
+
+    DlgAppearance dlgApp;
+    DlgNetwork dlgNet;
+    DlgDirectories dlgDir;
+    DlgAdvanced dlgAdv;
+
+    dlgApp.setupUi(appearance);
+    dlgNet.setupUi(network);
+    dlgDir.setupUi(directories);
+    dlgAdv.setupUi(advanced);
+
     addPage( appearance, i18n("Appearance"), "looknfeel", i18n("Look and feel") );
     addPage( directories, i18n("Folders"), "folder_open", i18n("Default download folders") );
     addPage( network, i18n("Network"), "network", i18n("Network and downloads") );

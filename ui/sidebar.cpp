@@ -522,7 +522,7 @@ void TransferBox::transferChangedEvent(TransferHandler * transfer)
         {
             m_transfer->delObserver(this);
             kdDebug() << "###############  OBSERVER DELETED" << endl;
-            //m_groupBox->removeChild(this);
+            m_groupBox->removeChild(this);
             kdDebug() << "TransferBox::transferChangedEvent() LEAVING1" << endl;
             return;
         }
