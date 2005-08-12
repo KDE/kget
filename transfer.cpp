@@ -452,33 +452,35 @@ void Transfer::slotRequestRestart()
 void Transfer::slotRequestRemove()
 {
     sDebugIn << endl;
-    if (KMessageBox::warningContinueCancel(0, i18n("Are you sure you want to delete this transfer?"),
+    if (dlgIndividual && !ksettings.b_expertMode)
+    {
+        if (KMessageBox::warningContinueCancel(0, i18n("Are you sure you want to delete this transfer?"),
                                            QString::null, KStdGuiItem::del(),
                                            QString("delete_transfer"))
-        == KMessageBox::Continue)
-    {
-        m_paDelete->setEnabled(false);
-        m_paPause->setEnabled(false);
-        if(dlgIndividual)
-                    dlgIndividual->close();
-
-
-        if ( status != ST_FINISHED )
-        {
-            KURL file = dest;
-            // delete the partly downloaded file, if any
-            file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
-  
-            if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
-            {
-                SafeDelete::deleteFile( file ); // ### messagebox on failure?
-            }
-        }
-        if (status == ST_RUNNING)
-            m_pSlave->Op(Slave::REMOVE);
-        else
-            emit statusChanged(this, OP_REMOVED);
+            != KMessageBox::Continue)
+            return;
     }
+    m_paDelete->setEnabled(false);
+    m_paPause->setEnabled(false);
+    if (dlgIndividual)
+        dlgIndividual->close();
+
+
+    if ( status != ST_FINISHED )
+    {
+        KURL file = dest;
+        // delete the partly downloaded file, if any
+        file.setFileName( dest.fileName() + ".part" ); // ### get it from the job?
+  
+        if ( KIO::NetAccess::exists( file, false, view ) ) // don't pollute user with warnings
+        {
+            SafeDelete::deleteFile( file ); // ### messagebox on failure?
+        }
+    }
+    if (status == ST_RUNNING)
+        m_pSlave->Op(Slave::REMOVE);
+    else
+        emit statusChanged(this, OP_REMOVED);
 
     sDebugOut << endl;
 }

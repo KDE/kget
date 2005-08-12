@@ -387,7 +387,7 @@ void KMainWidget::setupGUI()
     m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), coll, "toggle_log");
     m_paShowLog->setCheckedState(i18n("Hide &Log Window"));
     m_paDropTarget   = new KAction(i18n("Show Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), coll, "drop_target");
-    m_paKonquerorIntegration = new KAction(i18n("Enable &KGet as Konqueror Download Manager"), 0, 0, this, SLOT(slotKonquerorIntegration()), coll, "konqueror_integration");
+    m_paKonquerorIntegration = new KAction(i18n("Enable &KGet as Konqueror Download Manager"), "konqueror", 0, this, SLOT(slotKonquerorIntegration()), coll, "konqueror_integration");
     if (ksettings.b_KonquerorIntegration) {
         m_paKonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
     }
