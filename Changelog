@@ -1,4 +1,4 @@
-2005-08-11 Dario Massarin <nekkar@libero.it>
+2005-08-12 Dario Massarin <nekkar@libero.it>
         * Make the configuration dialogs compile again, but we have to 
         completely redesign them, since they usually refer to settings
         that are not available anymore.
