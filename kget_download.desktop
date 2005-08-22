@@ -10,6 +10,7 @@ Exec=kget %U
 Icon=kget
 Name=Download with KGet
 Name[bg]=Изтегляне с KGet
+Name[cs]=Stáhnout pomocí KGet
 Name[da]=Download med KGet
 Name[de]=Mit KGet herunterladen
 Name[et]=Laadi alla KGeti abil
