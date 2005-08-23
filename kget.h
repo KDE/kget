@@ -90,6 +90,7 @@ private slots:
     void slotConfigureNotifications();
     void slotConfigureKeys();
     void slotConfigureToolbars();
+    void slotShowDropTarget();
 
     // transfers slots
     void slotTransfersStart();
@@ -123,6 +124,7 @@ private:
     // separated widgets
     DropTarget * m_drop;
     Tray       * m_dock;
+    KToggleAction *m_showDropTarget;
 };
 
 #endif

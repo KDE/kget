@@ -50,7 +50,7 @@ KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers
         actionList = this->actions();
 
     KPopupMenu * popup = new KPopupMenu( 0 );
-    popup->insertTitle( i18n("%n download", "%n downloads", transfers.count()) );
+    popup->addTitle( i18n("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu
     Model::actionCollection()->action("transfer_start")->plug( popup );

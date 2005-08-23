@@ -1,3 +1,11 @@
+2005-08-23 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Better KGet mime icon (forwardport)
+        * Remove artifacts from images (forwardport)
+        * Add action to show / hide drop target
+        * Add some actions to maintoolbar (new download, show / hide drop target)
+        * Fix a problem with the configuration dialog (wasn't shown the first call)
+        * Remove some compiler warnings
+
 2005-08-12 Dario Massarin <nekkar@libero.it>
         * Make the configuration dialogs compile again, but we have to 
         completely redesign them, since they usually refer to settings

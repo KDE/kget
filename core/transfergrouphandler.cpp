@@ -125,7 +125,7 @@ const QList<KAction *> & TransferGroupHandler::actions()
 KPopupMenu * TransferGroupHandler::popupMenu()
 {
     KPopupMenu * popup = new KPopupMenu( 0 );
-    popup->insertTitle( name() + " " + i18n("group") );
+    popup->addTitle( name() + " " + i18n("group") );
 
     createActions();
 

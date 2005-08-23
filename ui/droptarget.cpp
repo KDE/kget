@@ -103,7 +103,7 @@ DropTarget::DropTarget(KGet * mw)
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
-    popupMenu->insertTitle(mw->caption());
+    popupMenu->addTitle(mw->caption());
     popupMenu->setCheckable(true);
 
     KToggleAction * downloadAction = (KToggleAction *)mw->actionCollection()->action("download");

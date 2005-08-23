@@ -16,13 +16,18 @@
         <Action name="configure_toolbars"/>
         <Separator/>
         <Action name="preferences"/>
+        <Separator/>
+        <Action name="show_drop_target" />
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
     </Menu>
 </MenuBar>
 <ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
+    <Action name="new_transfer" />
+    <Separator lineSeparator="true" />
     <Action name="scheduler_start" />
     <Action name="scheduler_stop" />
-    <Separator lineSeparator="true"/>
+    <Separator lineSeparator="true" />
+    <Action name="show_drop_target" />
 </ToolBar>
 </kpartgui>

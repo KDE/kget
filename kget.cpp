@@ -159,6 +159,9 @@ void KGet::setupActions()
 #endif
     ta->setChecked( Settings::downloadAtStartup() );
 
+    m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "target", 0, this,
+                SLOT(slotShowDropTarget()), ac, "show_drop_target");
+
     // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
     KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
@@ -233,6 +236,8 @@ void KGet::slotDelayedInit()
         m_drop->show();
     if ( Settings::firstRun() )
         m_drop->playAnimation();
+
+    m_showDropTarget->setChecked( m_drop->isVisible() );
 
     // DockWidget
     m_dock = new Tray(this);
@@ -315,10 +320,10 @@ void KGet::slotPreferences()
     PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
 
     // keep us informed when the user changes settings
-/*    connect( dialog, SIGNAL(settingsChanged()), 
+    connect( dialog, SIGNAL(settingsChanged()), 
              this, SLOT(slotNewConfig()) );
 
-    dialog->show();*/
+    dialog->show();
 }
 
 void KGet::slotExportTransfers()
@@ -428,7 +433,16 @@ void KGet::slotNewConfig()
     // PreferencesDialog, this function is called.
 
     if ( m_drop )
+    {
+        m_showDropTarget->setChecked( !m_drop->isVisible() );
         m_drop->setShown( Settings::showDropTarget(), false );
+    }
+}
+
+void KGet::slotShowDropTarget()
+{
+    m_showDropTarget->setChecked( !m_drop->isVisible() );
+    m_drop->setShown( !m_drop->isVisible() );
 }
 
 void KGet::updateStatusBar()
