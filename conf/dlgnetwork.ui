@@ -31,6 +31,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_LimitDownloads" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
      <property name="text" >
       <string>Limit maximum downloads</string>
      </property>
@@ -84,6 +87,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_ReconnectOnBroken" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
      <property name="text" >
       <string>Reconnect on error or broken connection</string>
      </property>
@@ -106,22 +112,6 @@
         <string>Retry after:</string>
        </property>
       </widget>
-     </item>
-     <item rowspan="2" row="0" column="2" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>90</width>
-         <height>50</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item row="0" column="1" >
       <widget class="QLabel" name="lb_retries_2" >
@@ -149,15 +139,28 @@
        </property>
       </spacer>
      </item>
+     <item rowspan="2" row="0" column="2" >
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>90</width>
+         <height>50</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
    <item>
-    <widget class="Q3GroupBox" name="groupBox5" >
+    <widget class="QGroupBox" name="groupBox5" >
      <property name="title" >
       <string>After completing downloads</string>
-     </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
@@ -193,8 +196,8 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>180</width>
-       <height>16</height>
+       <width>200</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -202,16 +205,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends></extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-   <pixmap></pixmap>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

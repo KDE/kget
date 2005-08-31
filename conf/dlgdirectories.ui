@@ -15,32 +15,70 @@
   <property name="windowTitle" >
    <string>DlgDirectories</string>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QVBoxLayout" >
    <property name="margin" >
     <number>0</number>
    </property>
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item row="0" column="0" colspan="2" >
-    <widget class="QCheckBox" name="kcfg_AlwaysAskDirectory" >
+   <item>
+    <widget class="QCheckBox" name="kcfg_UseDefaultDirectory" >
      <property name="text" >
-      <string>Ask for download folder on each added item</string>
+      <string>Automatically save downloads to:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2" >
-    <widget class="QCheckBox" name="kcfg_UseDefaultDirectory" >
-     <property name="text" >
-      <string>Place downloaded files inside default folders</string>
+   <item>
+    <widget class="KURLRequester" name="kcfg_DefaultDirectory" />
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
      </property>
-    </widget>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>200</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>SmallIconSet</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KURLRequester</class>
+   <extends>QWidget</extends>
+   <header>kurlrequester.h</header>
+   <container>1</container>
+   <pixmap></pixmap>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_UseDefaultDirectory</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_DefaultDirectory</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

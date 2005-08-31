@@ -15,39 +15,29 @@
   <property name="windowTitle" >
    <string>DlgAppearance</string>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QVBoxLayout" >
    <property name="margin" >
     <number>0</number>
    </property>
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item row="0" column="0" >
+   <item>
     <widget class="QCheckBox" name="kcfg_ShowMain" >
      <property name="text" >
       <string>Show main window at startup</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <layout class="QGridLayout" >
+   <item>
+    <layout class="QHBoxLayout" >
      <property name="margin" >
-      <number>11</number>
+      <number>0</number>
      </property>
      <property name="spacing" >
-      <number>6</number>
+      <number>0</number>
      </property>
-     <item row="0" column="1" >
-      <widget class="QCheckBox" name="kcfg_ShowMainLarge" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Use the large traditional window</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" >
+     <item>
       <spacer>
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
@@ -63,105 +53,35 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QCheckBox" name="kcfg_ShowMainLarge" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="text" >
+        <string>Use the large traditional window</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
-   <item row="2" column="0" >
+   <item>
     <widget class="QCheckBox" name="kcfg_ShowIndividual" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
      <property name="text" >
       <string>Open each download in a separate window</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" >
+   <item>
     <layout class="QHBoxLayout" >
      <property name="margin" >
-      <number>11</number>
+      <number>0</number>
      </property>
      <property name="spacing" >
-      <number>6</number>
-     </property>
-     <item>
-      <widget class="QCheckBox" name="kcfg_ShowDropTarget" >
-       <property name="text" >
-        <string>Show drop target</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="pixLabel" >
-       <property name="sizePolicy" >
-        <sizepolicy>
-         <hsizetype>0</hsizetype>
-         <vsizetype>0</vsizetype>
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize" >
-        <size>
-         <width>18</width>
-         <height>18</height>
-        </size>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>18</width>
-         <height>18</height>
-        </size>
-       </property>
-       <property name="text" >
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>91</width>
-         <height>16</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item row="7" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>190</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="6" column="0" >
-    <widget class="QCheckBox" name="kcfg_ShowSplashscreen" >
-     <property name="text" >
-      <string>Show splashscreen</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>11</number>
-     </property>
-     <property name="spacing" >
-      <number>6</number>
+      <number>0</number>
      </property>
      <item>
       <spacer>
@@ -191,13 +111,20 @@
      </item>
     </layout>
    </item>
-   <item row="5" column="0" >
+   <item>
+    <widget class="QCheckBox" name="kcfg_ShowDropTarget" >
+     <property name="text" >
+      <string>Show drop target</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" >
      <property name="margin" >
-      <number>11</number>
+      <number>0</number>
      </property>
      <property name="spacing" >
-      <number>6</number>
+      <number>0</number>
      </property>
      <item>
       <spacer>
@@ -224,11 +151,83 @@
      </item>
     </layout>
    </item>
+   <item>
+    <widget class="QCheckBox" name="kcfg_ShowSplashscreen" >
+     <property name="text" >
+      <string>Show splashscreen</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>190</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_ShowDropTarget</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_AnimateDropTarget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ShowMain</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_ShowMainLarge</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ShowIndividual</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_DockifyIndividual</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -1,3 +1,7 @@
+2005-08-31 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Icons in smaller sizes (forwardport)
+        * Work on configuration dialogs. Not finished yet.
+
 2005-08-23 Urs Wolfer <u.wolfer @ bluewin.ch>
         * Better KGet mime icon (forwardport)
         * Remove artifacts from images (forwardport)

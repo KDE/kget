@@ -30,12 +30,9 @@
     </widget>
    </item>
    <item>
-    <widget class="Q3GroupBox" name="groupBox4" >
+    <widget class="QGroupBox" name="groupBox4" >
      <property name="title" >
       <string>Integration</string>
-     </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
@@ -72,7 +69,7 @@
      <property name="sizeHint" >
       <size>
        <width>200</width>
-       <height>50</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -82,15 +79,6 @@
  <layoutdefault spacing="6" margin="11" />
  <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends></extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-   <pixmap></pixmap>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
