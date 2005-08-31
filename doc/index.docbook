@@ -34,8 +34,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-11-11</date>
-<releaseinfo>0.01.00</releaseinfo>
+<date>2005-08-31</date>
+<releaseinfo>0.8.4</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -51,7 +51,7 @@ downloads even if you shutdown your computer before the downloads have completed
 <keyword>kdeutils</keyword>
 <keyword>kget</keyword>
 <keyword>kppp</keyword>
-<keyword>nothing else</keyword>
+<keyword>download</keyword>
 </keywordset>
 
 </bookinfo>
@@ -168,6 +168,86 @@ download the two highlighted items.
 </sect1>
 </chapter>
 
+<chapter id="configuration">
+<title>Special Configurations</title>
+<sect1 id="configuration-auto-disconnect">
+<title>Configuration of Auto-Disconnect</title>
+
+<para>
+This feature is used for automatically disconnecting your modem once a
+download has been completed. To configure &kget; for auto-disconnect do:
+</para>
+
+<itemizedlist>
+<listitem><para>
+Go to <menuchoice><guimenu>Options</guimenu><guimenuitem>Auto-Disconnect Mode
+</guimenuitem></menuchoice>
+<action> to disconnect the modem.</action> Usually this
+would be &kppp;. Expert Mode must be on to use this feature.</para>
+</listitem>
+
+<listitem><para>
+For &SuSE; users the command <userinput><command>cinternet
+<option>-i</option>
+<parameter>ppp0</parameter> <option>-0</option></command></userinput> must be
+substituted for <userinput><command>kppp <option>-k</option></command></userinput>
+in the <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
+<guilabel> Automations</guilabel> menu.</para>
+</listitem>
+
+<listitem><para>
+ For Fedora Core users the command should be 
+<userinput><command>/usr/sbin/usernetctl 
+<parameter>ppp0</parameter> <option>down</option></command></userinput></para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="configuration-downloading-in-folders">
+<title>Downloading Into Designated Folders</title>
+
+<para>
+To download <acronym>JPEG</acronym> files into a designated folder do:
+</para>
+<itemizedlist>
+<listitem><para>
+ Go to <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
+<guilabel>Folders</guilabel> menu.</para>
+</listitem>
+
+<listitem><para>
+Enter the files you wish to download using the extensions
+<literal role="extension">.jpg</literal> and <literal
+role="extension">.jpeg</literal> as shown below:
+</para>
+<screenshot>
+<screeninfo>Screenshot of Kget</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget5.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Downloading into designated files</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</listitem>
+
+<listitem>
+<para>Click on <interface>Apply</interface> and
+<interface>OK</interface>. When you download any
+<literal role="extension">.jpeg</literal> files they will be stored in
+<filename>/home/kdecvs/pics/JPEG</filename>.</para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+</chapter>
+
 <chapter id="commands">
 <title>Command Reference</title>
 
@@ -205,10 +285,10 @@ transfer window.</action></para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Export Transfer List ...</guimenuitem>
+<guimenuitem>Export Transfer List...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens a Save As window </action> that allows you to save
-highlighted &URL;'s to a <filename>.kget</filename> file. To use this feature:
+highlighted &URL;'s to a <literal role="extension">.kget</literal> file. To use this feature:
 </para>
 <itemizedlist>
 <listitem><para>
@@ -242,7 +322,7 @@ key and click on the bottom &URL; to highlight the entries like so:
 <listitem><para>
 Now click on <menuchoice><guimenu>File</guimenu>
 <guimenuitem>Export Transfer List...</guimenuitem></menuchoice> and enter the name of the
-<filename>.kget</filename> file for your downloads.
+<literal role="extension">.kget</literal> file for your downloads.
 </para></listitem>
 </itemizedlist>
 
@@ -257,18 +337,18 @@ regular basis, such as the &kde; snapshots above.
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Import Transfer List ...</guimenuitem>
+<guimenuitem>Import Transfer List...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Loads <filename>.kget</filename> files that were created with
+<listitem><para><action>Loads <literal role="extension">.kget</literal> files that were created with
 <menuchoice><guimenu>File</guimenu>
-<guimenuitem>Export Transfer List ...</guimenuitem></menuchoice>
+<guimenuitem>Export Transfer List...</guimenuitem></menuchoice>
 </action></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Import Text File ...</guimenuitem>
+<guimenuitem>Import Text File...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>
 Imports &URL;'s that are in text files.</action> This is a powerful feature that allows
@@ -412,7 +492,7 @@ button.</action></para></listitem>
 <guimenuitem>Queue</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Causes the highlighted entries in &kget; to begin 
-downloading. </action></para></listitem>
+downloading.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -422,8 +502,7 @@ downloading. </action></para></listitem>
 </menuchoice></term>
 <listitem><para><action>Delays the download of the highlighted items by one
 minute. This is useful if you need to pause the download to check email or go
-to a website. 
-</action></para></listitem>
+to a website.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -505,18 +584,9 @@ without them being downloaded immediately.</action></para></listitem>
 <guimenuitem>Auto-Disconnect Mode</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Causes &kget; to disconnect the modem.</action> Usually this
-would be &kppp;. Expert Mode must be on to use this feature.
-<note><para>
-For &SuSE; users the command  <userinput><command>cinternet
-<option>-i</option>
-<parameter>ppp0</parameter> <option>-0</option></command></userinput> must be
-substituted for <userinput><command>kppp <option>-k </option></command></userinput>in the <menuchoice><guimenu>Settings</guimenu>
-<guimenuitem>Configure KGet...</guimenuitem></menuchoice>
-<guilabel> Automations</guilabel> menu. For Fedora Core users the command
-should be <userinput><command>/usr/sbin/usernetctl 
-<parameter>ppp0</parameter> <option>down</option></command></userinput>
-</para>
-</note>
+would be &kppp;. Expert Mode must be on to use this feature.</para>
+<para>
+You can find more information about the Auto-Disconnect Mode in <xref linkend="configuration-auto-disconnect" />.
 </para></listitem>
 </varlistentry>
 
@@ -549,7 +619,7 @@ clipboard.</para></listitem>
 <guimenu>Settings</guimenu>
 <guimenuitem>Hide Statusbar</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Hide the statusbar</action>.  The statusbar normally
+<listitem><para><action>Hide the statusbar</action>. The statusbar normally
 displays statistics about the currently downloading files.</para>
 </listitem>
 </varlistentry>
@@ -624,9 +694,9 @@ Program copyright 1998 Matej Moss
 <para>
 Contributors:
 <itemizedlist>
-<listitem><para>Patrick Charbonnier<email>pch@freeshell.org</email></para>
+<listitem><para>Patrick Charbonnier <email>pch@freeshell.org</email></para>
 </listitem>
-<listitem><para>Carsten Pfeiffer<email>pfeiffer@kde.org</email></para>
+<listitem><para>Carsten Pfeiffer <email>pfeiffer@kde.org</email></para>
 </listitem>
 </itemizedlist>
 </para>
@@ -659,86 +729,8 @@ Documentation Copyright &copy; 2003 Jonathan Drews <email>j.e.drews@att.net</ema
 <sect1 id="compilation">
 <title>Compilation and Installation</title>
 
-
 &install.compile.documentation;
 
-</sect1>
-
-<sect1 id="configuration">
-<title>Special Configurations</title>
-<sect2>
-<title>Configuration of Auto-Disconnect</title>
-
-<para>
-This feature is used for automatically disconnecting your modem once a
-download has been completed. To configure &kget; for auto-disconnect do:
-</para>
-
-<itemizedlist>
-<listitem><para>
-Go to <menuchoice><guimenu>Options</guimenu><guimenuitem>Auto-Disconnect Mode
-</guimenuitem></menuchoice>
-<action> to disconnect the modem.</action> Usually this
-would be &kppp;. Expert Mode must be on to use this feature.</para>
-</listitem>
-
-<listitem><para>
-For &SuSE; users the command  <userinput><command>cinternet
-<option>-i</option>
-<parameter>ppp0</parameter> <option>-0</option></command></userinput> must be
-substituted for <userinput><command>kppp <option>-k </option></command></userinput>in the <menuchoice><guimenu>Settings</guimenu>
-<guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
-<guilabel> Automations</guilabel> menu.</para>
-</listitem>
-
-<listitem><para>
- For Fedora Core users the command should be 
-<userinput><command>/usr/sbin/usernetctl 
-<parameter>ppp0</parameter> <option>down</option></command></userinput></para>
-</listitem>
-</itemizedlist>
-
-</sect2>
-
-<sect2>
-<title> Downloading Into Designated Folders</title>
-
-<para>
-To download jpeg files into a designated folder do:
-</para>
-<itemizedlist>
-<listitem><para>
- Go to <menuchoice><guimenu>Settings</guimenu>
-<guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
-<guilabel> Folders</guilabel> menu.</para>
-</listitem>
-
-<listitem><para>
-Enter the files you wish to download using the extensions
-<filename>.jpg</filename> and <filename>.jpeg</filename> as shown below:
-</para>
-<screenshot>
-<screeninfo>Screenshot of Kget</screeninfo>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="kget5.png" format="PNG"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Downloading into designated files</phrase>
-	  </textobject>
-	</mediaobject>
-</screenshot>
-</listitem>
-
-<listitem>
-<para>Click on <interface>Apply</interface> and
-<interface>OK</interface>. When you  download any
-<filename>.jpeg</filename> files they will be stored in
-<filename>/home/kdecvs/pics/JPEG</filename>. </para>
-</listitem>
-</itemizedlist>
-
-</sect2>
 </sect1>
 
 </appendix>
