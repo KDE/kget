@@ -34,6 +34,7 @@
 #include <kconfig.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
+#include <kmessagebox.h>
 #include <kwin.h>
 #include <kurl.h>
 #include <kurldrag.h>
@@ -82,14 +83,10 @@ KGet::KGet( QWidget * parent, const char * name )
     setCentralWidget(m_splitter);
 
     // restore position, size and visibility
-    // MainWidget (myself)
     move( Settings::mainPosition() );
-//    m_sidebar->setMinimumWidth(160);
-/*    m_rightWidget->show();
-    m_browserBar->show();
-    m_browserBar->setMinimumHeight( 200 );*/
-    //setEraseColor( palette().active().background().dark(150) );
     setMaximumHeight( 32767 );
+    setAutoSaveSettings();
+    setPlainCaption(i18n("KGet"));
 
     if ( Settings::showMain() )
         show();
@@ -102,19 +99,7 @@ KGet::KGet( QWidget * parent, const char * name )
 //     statusBar()->insertItem( "", 1 );
 //     updateStatusBar();
 
-    // other (external) widgets creation 
-
     //Some of the widgets are initialized in slotDelayedInit()    
-
-    // LogWindow
-    //logWindow = new LogWindow();
-    //log(i18n("Welcome to KGet2"));
-    setAutoSaveSettings();
-
-    // set window title
-//    setCaption(KGETVERSION);
-    setPlainCaption(i18n("KGet"));
-
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
 
@@ -134,8 +119,6 @@ KGet::~KGet()
 void KGet::setupActions()
 {
     KActionCollection * ac = actionCollection();
-    //KAction * a;
-    KToggleAction * ta;
 
     // local - Shows a dialog asking for a new URL to down
     new KAction(i18n("&New Download..."), "filenew", "CTRL+Key_N", this,
@@ -144,33 +127,31 @@ void KGet::setupActions()
     new KAction(i18n("&Open..."), "fileopen", "CTRL+Key_O", this,
                 SLOT(slotOpen()), ac, "open");
 
-    // local - Destroys all sub-windows and exits
-    KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
-
     new KAction(i18n("Export &Transfers List..."), 0, this,
                 SLOT(slotExportTransfers()), ac, "export_transfers");
 
-    ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this, 
+    KToggleAction * ta;
+    ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this,
                            SLOT(slotDownloadToggled()), ac, "download");
     ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));
 #if KDE_IS_VERSION(3,2,91)
     KGuiItem checkedDownloadAction(i18n("Stop Downloading"), "stop");
-    ta->setCheckedState( checkedDownloadAction );    
+    ta->setCheckedState( checkedDownloadAction );
 #endif
     ta->setChecked( Settings::downloadAtStartup() );
 
     m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "target", 0, this,
                 SLOT(slotShowDropTarget()), ac, "show_drop_target");
 
+    // local - Destroys all sub-windows and exits
+    KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
     // local - Standard configure actions
     KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
     KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
     KStdAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
 
-/*  m_paImportText = new KAction(i18n("Import Text &File..."), 0, this, SLOT(slotImportTextFile()), ac, "import_text");
-*/
-    // TRANSFER ACTIONS
+    // Transfer related actions
     new KAction( i18n("Start"), "tool_resume", "",
                  this, SLOT(slotTransfersStart()),
                  actionCollection(), "transfer_start" );
@@ -190,39 +171,6 @@ void KGet::setupActions()
     new KAction( i18n("Show Details"), "configure", "",
                  this, SLOT(slotTransfersShowDetails()),
                  actionCollection(), "transfer_show_details" );
-
-/*
-    m_paIndividual = new KAction(i18n("&Open Individual Window"), 0, this, SLOT(slotOpenIndividual()), ac, "open_individual");
-    m_paMoveToBegin = new KAction(i18n("Move to &Beginning"), 0, this, SLOT(slotMoveToBegin()), ac, "move_begin");
-    m_paMoveToEnd = new KAction(i18n("Move to &End"), 0, this, SLOT(slotMoveToEnd()), ac, "move_end");
-
-    m_paDelete = new KAction(i18n("&Delete"),"tool_delete", 0, this, SLOT(slotDeleteCurrent()), ac, "delete");
-    m_paDelete->setWhatsThis(i18n("<b>Delete</b> button removes selected transfers\n" "from the list."));
-    m_paRestart = new KAction(i18n("Re&start"),"tool_restart", 0, this, SLOT(slotRestartCurrent()), ac, "restart");
-    m_paRestart->setWhatsThis(i18n("<b>Restart</b> button is a convenience button\n" "that simply does Pause and Resume."));
-
-    // OPTIONS ACTIONS
-
-    m_paExpertMode     =  new KToggleAction(i18n("&Expert Mode"),"tool_expert", 0, this, SLOT(slotToggleExpertMode()), ac, "expert_mode");
-    m_paExpertMode->setWhatsThis(i18n("<b>Expert mode</b> button toggles the expert mode\n" "on and off.\n" "\n" "Expert mode is recommended for experienced users.\n" "When set, you will not be \"bothered\" by confirmation\n" "messages.\n" "<b>Important!</b>\n" "Turn it on if you are using auto-disconnect or\n" "auto-shutdown features and you want KGet to disconnect \n" "or shut down without asking."));
-    m_paAutoShutdown   =  new KToggleAction(i18n("Auto-S&hutdown Mode"), "tool_shutdown", 0, this, SLOT(slotToggleAutoShutdown()), ac, "auto_shutdown");
-    m_paAutoShutdown->setWhatsThis(i18n("<b>Auto shutdown</b> button toggles the auto-shutdown\n" "mode on and off.\n" "\n" "When set, KGet will quit automatically\n" "after all queued transfers are finished.\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to quit without asking."));
-
-    // VIEW ACTIONS
-    
-    createStandardStatusBarAction();
-
-    m_paShowLog      = new KToggleAction(i18n("Show &Log Window"),"tool_logwindow", 0, this, SLOT(slotToggleLogWindow()), ac, "toggle_log");
-    m_paShowLog->setWhatsThis(i18n("<b>Log window</b> button opens a log window.\n" "The log window records all program events that occur\n" "while KGet is running."));
-    m_paDropTarget   = new KToggleAction(i18n("Drop &Target"),"tool_drop_target", 0, this, SLOT(slotToggleDropTarget()), ac, "drop_target");
-    m_paDropTarget->setWhatsThis(i18n("<b>Drop target</b> button toggles the window style\n" "between a normal window and a drop target.\n" "\n" "When set, the main window will be hidden and\n" "instead a small shaped window will appear.\n" "\n" "You can show/hide a normal window with a simple click\n" "on a shaped window."));
-
-    menuHelp = new KHelpMenu(this, KGlobal::instance()->aboutData());
-    KStdAction::whatsThis(menuHelp, SLOT(contextHelpActivated()), ac, "whats_this");
-
-    // m_paDockWindow->setWhatsThis(i18n("<b>Dock widget</b> button toggles the window style\n" "between a normal window and a docked widget.\n" "\n" "When set, the main window will be hidden and\n" "instead a docked widget will appear on the panel.\n" "\n" "You can show/hide a normal window by simply clicking\n" "on a docked widget."));
-    // m_paNormal->setWhatsThis(i18n("<b>Normal window</b> button sets\n" "\n" "the window style to normal window"));    
-*/
 }
 
 void KGet::slotDelayedInit()
@@ -289,22 +237,16 @@ void KGet::slotOpen()
 
 void KGet::slotQuit()
 {
-/*
-    // TODO check if items in ST_RUNNING state and ask for confirmation before quitting
-    if (scheduler->countRunning() > 0) {
-	//include <kmessagebox.h>
-        if (KMessageBox::warningYesNo(this,
-                i18n("Some transfers are still running.\n"
-                     "Are you sure you want to close KGet?"),
-                i18n("Warning"), KStdGuiItem::yes(), KStdGuiItem::no(),
-                "ExitWithActiveTransfers") == KMessageBox::No)
-            return;
-    }
+//     if (m_scheduler->countRunningJobs() > 0) 
+//     {
+//         if (KMessageBox::warningYesNo(this,
+//                 i18n("Some transfers are still running.\n"
+//                      "Are you sure you want to close KGet?"),
+//                 i18n("Warning"), KStdGuiItem::yes(), KStdGuiItem::no(),
+//                 "ExitWithActiveTransfers") == KMessageBox::No)
+//             return;
+//     }
 
-    log(i18n("Quitting..."));
-
-    // TODO the user want to exit, so we should save our state...
-*/
     Settings::writeConfig();
     kapp->quit();
 }
@@ -411,7 +353,6 @@ void KGet::slotTransfersShowDetails()
         m_viewsContainer->showTransferDetails(it);
     }
 }
-
 
 void KGet::slotSaveMyself()
 {

@@ -115,16 +115,15 @@ private:
     // one-time functions
     void setupActions();
 
-    QSplitter * m_splitter;
-
     // internal widgets
+    QSplitter      * m_splitter;
     Sidebar        * m_sidebar;
     ViewsContainer * m_viewsContainer;
 
     // separated widgets
-    DropTarget * m_drop;
-    Tray       * m_dock;
-    KToggleAction *m_showDropTarget;
+    DropTarget    * m_drop;
+    Tray          * m_dock;
+    KToggleAction * m_showDropTarget;
 };
 
 #endif

@@ -53,6 +53,11 @@ class Scheduler : public QObject
          */
         void delQueue(JobQueue * queue);
 
+        /**
+         * @returns the number of jobs that are currently in a Running state
+         */
+        int countRunningJobs();
+
         //JobQueue notifications
         void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);
         void jobQueueMovedJobEvent(JobQueue * queue, Job * job);

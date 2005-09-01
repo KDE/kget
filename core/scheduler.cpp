@@ -27,28 +27,6 @@ Scheduler::~Scheduler()
 
 }
 
-void Scheduler::start()
-{
-    QList<JobQueue *>::iterator it = m_queues.begin();
-    QList<JobQueue *>::iterator itEnd = m_queues.end();
-
-    for( ; it!=itEnd ; ++it )
-    {
-        (*it)->setStatus(JobQueue::Running);
-    }
-}
-
-void Scheduler::stop()
-{
-    QList<JobQueue *>::iterator it = m_queues.begin();
-    QList<JobQueue *>::iterator itEnd = m_queues.end();
-
-    for( ; it!=itEnd ; ++it )
-    {
-        (*it)->setStatus(JobQueue::Stopped);
-    }
-}
-
 void Scheduler::addQueue(JobQueue * queue)
 {
     if(!m_queues.contains(queue))
@@ -58,6 +36,25 @@ void Scheduler::addQueue(JobQueue * queue)
 void Scheduler::delQueue(JobQueue * queue)
 {
     m_queues.remove(queue);
+}
+
+int Scheduler::countRunningJobs()
+{
+    int count = 0;
+
+    foreach(JobQueue * queue, m_queues)
+    {
+        JobQueue::iterator it = queue->begin();
+        JobQueue::iterator itEnd = queue->end();
+
+        for( ; it!=itEnd ; ++it )
+        {
+            if((*it)->status() == Job::Running)
+                count++;
+        }
+    }
+
+    return count;
 }
 
 void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
@@ -138,6 +135,28 @@ void Scheduler::stopDelayTimer(Job * job)
             killTimer(it.key());
             m_activeTimers.remove(it);
         }
+    }
+}
+
+void Scheduler::start()
+{
+    QList<JobQueue *>::iterator it = m_queues.begin();
+    QList<JobQueue *>::iterator itEnd = m_queues.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        (*it)->setStatus(JobQueue::Running);
+    }
+}
+
+void Scheduler::stop()
+{
+    QList<JobQueue *>::iterator it = m_queues.begin();
+    QList<JobQueue *>::iterator itEnd = m_queues.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        (*it)->setStatus(JobQueue::Stopped);
     }
 }
 
