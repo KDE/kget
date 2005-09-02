@@ -10,15 +10,15 @@
 
 #include <dcopobject.h>
 #include <kurl.h>
-//Added by qt3to4:
-#include <Q3CString>
+
+#include <QByteArray>
 
 class DCOPIface : public DCOPObject
 {
     K_DCOP
 
 protected:
-    DCOPIface( Q3CString objId ) : DCOPObject( objId ) {}
+    DCOPIface( QByteArray objId ) : DCOPObject( objId ) {}
 
 k_dcop:
     /**

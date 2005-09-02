@@ -37,12 +37,10 @@
 #include <kmessagebox.h>
 #include <stdlib.h>
 #include <math.h>
-#include <qcursor.h>
-#include <qpainter.h>
-#include <qbitmap.h>
-#include <qtimer.h>
-#include <qclipboard.h>
-//Added by qt3to4:
+
+#include <QBitmap>
+#include <QTimer>
+#include <QClipboard>
 #include <QPixmap>
 #include <QCloseEvent>
 #include <QDropEvent>
@@ -55,11 +53,9 @@
 #include "ui/droptarget.h"
 #include "kget.h"
 
-#define TARGET_WIDTH   68
-#define TARGET_HEIGHT  67
-#define TARGET_OFFSETX -11
-#define TARGET_OFFSETY -6
-#define TARGET_ANI_MS  30
+#define TARGET_WIDTH   80
+#define TARGET_HEIGHT  80
+#define TARGET_ANI_MS  20
 
 
 DropTarget::DropTarget(KGet * mw)
@@ -67,8 +63,6 @@ DropTarget::DropTarget(KGet * mw)
     Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool),
     parentWidget((QWidget *)mw), animTimer(0)
 {
-    kdDebug() << "111" << endl;
-
     QRect desk = KGlobalSettings::desktopGeometry(this);
     desk.setRight( desk.right() - TARGET_WIDTH );
     desk.setBottom( desk.bottom() - TARGET_HEIGHT );
@@ -82,24 +76,14 @@ DropTarget::DropTarget(KGet * mw)
     unsigned long state = NET::SkipTaskbar | NET::StaysOnTop;
     KWin::setState(winId(), Settings::dropSticky() ? (state | NET::Sticky) : state );
 
-    kdDebug() << "222" << endl;
+    // set background pixmap
+    QPixmap bgnd = UserIcon( "target" );
+    if (!bgnd.mask())
+        kdError(5001) << "Drop target pixmap has no mask!\n";
+    else
+        bgnd.setMask(bgnd.mask());
 
-    // setup mask
-    QBitmap mask(TARGET_WIDTH, TARGET_HEIGHT);
-    mask.fill(Qt::color0);
-    QPainter p2;
-    p2.begin(&mask);
-    p2.setBrush(Qt::color1);
-    p2.drawChord(0, 0, TARGET_WIDTH, TARGET_HEIGHT, 5760, 5760);
-    p2.end();
-    setMask( mask );
-
-    kdDebug() << "2222" << endl;
-
-    // generate and set background pixmap
-    generateBackground();
-
-    kdDebug() << "333" << endl;
+    setBackgroundPixmap( bgnd );
 
     // popup menu for right mouse button
     popupMenu = new KPopupMenu();
@@ -122,9 +106,6 @@ DropTarget::DropTarget(KGet * mw)
 
     // Enable dropping
     setAcceptDrops(true);
-
-    kdDebug() << "444" << endl;
-
 }
 
 
@@ -164,9 +145,6 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == Qt::LeftButton)
     {
-        // toggleMinimizeRestore ();
-//        oldX = 0;
-//        oldY = 0;
         isdragging = true;
         dx = QCursor::pos().x() - pos().x();
         dy = QCursor::pos().y() - pos().y();
@@ -229,13 +207,6 @@ void DropTarget::closeEvent( QCloseEvent * e )
         e->ignore();
     else
         setShown( false );
-}
-
-
-void DropTarget::paletteChange( const QPalette & )
-{
-    // generate and set background pixmap
-    generateBackground();
 }
 
 
@@ -312,56 +283,6 @@ void DropTarget::setShown( bool shown, bool internal )
             playAnimation();
     }
 }
-
-void DropTarget::generateBackground()
-{
-    QPixmap bgnd = QPixmap(TARGET_WIDTH, TARGET_HEIGHT);
-    bgnd.fill( Qt::white );
-    QPixmap tmp = UserIcon( "target" );
-    bitBlt(&bgnd, TARGET_OFFSETX, TARGET_OFFSETY, &tmp );
-
-
-    /* The following code was adapted from kdebase/kicker/ui/k_mnu.cpp
-     * It paints a tint over the kget arrow taking the tint color from
-     * active or inactive window title colors
-     */
-    KConfig *config = KGlobal::config();
-    QColor color = palette().active().highlight();
-
-    config->setGroup("WM");
-    QColor activeTitle = config->readColorEntry("activeBackground", &color);
-    QColor inactiveTitle = config->readColorEntry("inactiveBackground", &color);
-
-    // figure out which color is most suitable for recoloring to
-    int h1, s1, v1, h2, s2, v2, h3, s3, v3;
-    activeTitle.hsv(&h1, &s1, &v1);
-    inactiveTitle.hsv(&h2, &s2, &v2);
-    palette().active().background().hsv(&h3, &s3, &v3);
-
-    if ( (abs(h1-h3)+abs(s1-s3)+abs(v1-v3) < abs(h2-h3)+abs(s2-s3)+abs(v2-v3)) &&
-         ((abs(h1-h3)+abs(s1-s3)+abs(v1-v3) < 32) || (s1 < 32)) && (s2 > s1))
-        color = inactiveTitle;
-    else
-        color = activeTitle;
-
-    // limit max/min brightness
-    int h, s, v;
-    color.getHsv( &h, &s, &v );
-    if (v > 180)
-        color.setHsv( h, s, 180 );
-    else if (v < 76 )
-        color.setHsv( h, s, 76 );
-
-    QImage image = bgnd.convertToImage();
-    KIconEffect::colorize( image, color, 1.0 );
-    bgnd.convertFromImage( image );
-    //TODO The line below triggers a paletteChange() call which in
-    //turn calls the generateBackground. This leads to an infinite loop.
-    //I disable this function until we find a better way to implement this
-    //with qt4
-    //setErasePixmap( bgnd );
-}
-
 
 /** widget animations */
 

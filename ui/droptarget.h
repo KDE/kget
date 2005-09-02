@@ -27,9 +27,7 @@
 #ifndef _DROPTARGET_H
 #define _DROPTARGET_H
 
-#include <q3dragobject.h>
 #include <QWidget>
-//Added by qt3to4:
 #include <QDragEnterEvent>
 #include <QMouseEvent>
 #include <QDropEvent>
@@ -62,8 +60,6 @@ protected:
 
     // handle quit events as hide events
     virtual void closeEvent( QCloseEvent * );
-    // recolor the droptarget when palette changes
-    virtual void paletteChange ( const QPalette & oldPalette );
 
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent * e);
@@ -79,7 +75,6 @@ private slots:
     void slotClose();
 
 private:
-    void generateBackground();
     KPopupMenu * popupMenu;
     QWidget * parentWidget;
     QTimer * animTimer;
@@ -87,12 +82,10 @@ private:
     int pop_sticky;
     int pop_show;
 
-//    int oldX;
-//    int oldY;
     int dx;
     int dy;
     bool isdragging;
-    
+
     float ani_y, ani_vy;
 };
 
