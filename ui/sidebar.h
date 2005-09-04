@@ -12,8 +12,8 @@
 #define _SIDEBAR_H
 
 
-#include <qpixmapcache.h>
-#include <qmap.h>
+#include <QPixmapCache>
+#include <QMap>
 #include <QVBoxLayout>
 #include <QSpacerItem>
 #include <QWidget>

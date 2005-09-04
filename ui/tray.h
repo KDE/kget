@@ -27,12 +27,11 @@
 #ifndef _TRAY_H
 #define _TRAY_H
 
-#include <q3dragobject.h>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QDragEnterEvent>
 #include <QMouseEvent>
 #include <QDropEvent>
+
 #include <ksystemtray.h>
 
 #include "core/observer.h"

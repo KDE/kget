@@ -14,12 +14,11 @@
   (at your option) any later version.
 */
 
-#include <qapplication.h>
-#include <qbitmap.h>
-#include <qimage.h>
-#include <qpainter.h>
-#include <qtimer.h>
-//Added by qt3to4:
+#include <QApplication>
+#include <QBitmap>
+#include <QImage>
+#include <QPainter>
+#include <QTimer>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QDesktopWidget>

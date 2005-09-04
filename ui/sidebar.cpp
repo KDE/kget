@@ -9,8 +9,8 @@
 */
 
 
-#include <qimage.h>
-#include <qtoolbutton.h>
+#include <QImage>
+#include <QToolButton>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPaintEvent>

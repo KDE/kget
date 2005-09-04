@@ -24,7 +24,7 @@
  *
  ***************************************************************************/
 
-#include <qtooltip.h>
+#include <QToolTip>
 
 #include <kpopupmenu.h>
 

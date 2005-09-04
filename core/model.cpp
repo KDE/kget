@@ -8,9 +8,7 @@
    of the License.
 */
 
-#include <qfileinfo.h>
-#include <q3valuevector.h>
-//Added by qt3to4:
+#include <QFileInfo>
 #include <QList>
 #include <QTextStream>
 

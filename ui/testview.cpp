@@ -8,9 +8,8 @@
    of the License.
 */
 
-#include <qsizepolicy.h>
-#include <qstring.h>
-//Added by qt3to4:
+#include <QSizePolicy>
+#include <QString>
 #include <QGridLayout>
 
 #include "core/globals.h"

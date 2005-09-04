@@ -11,9 +11,8 @@
 #ifndef _MAINVIEW_H
 #define _MAINVIEW_H
 
-#include <qmap.h>
-#include <qwidget.h>
-//Added by qt3to4:
+#include <QMap>
+#include <QWidget>
 #include <QPixmap>
 #include <QDropEvent>
 

@@ -24,10 +24,9 @@
  *
  ***************************************************************************/
 
-#include <qtooltip.h>
-#include <qtimer.h>
-#include <qclipboard.h>
-//Added by qt3to4:
+#include <QToolTip>
+#include <QTimer>
+#include <QClipboard>
 #include <QPixmap>
 #include <QDragEnterEvent>
 #include <QMouseEvent>

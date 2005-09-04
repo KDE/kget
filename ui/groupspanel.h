@@ -14,11 +14,11 @@
 
 #include "core/viewinterface.h"
 
-#include <qwidget.h>
-#include <qmap.h>
-//Added by qt3to4:
+#include <QWidget>
+#include <QMap>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+
 #include <klistview.h>
 #include <kiconloader.h>
 

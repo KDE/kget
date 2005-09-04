@@ -12,10 +12,9 @@
 #ifndef _TESTVIEW_H
 #define _TESTVIEW_H
 
-#include <qwidget.h>
-#include <qlayout.h>
-#include <qobject.h>
-//Added by qt3to4:
+#include <QWidget>
+#include <QLayout>
+#include <QObject>
 #include <QGridLayout>
 
 #include <kpushbutton.h>

@@ -27,7 +27,7 @@
 #ifndef _KGET_H_
 #define _KGET_H_
 
-#include <qwidget.h>
+#include <QWidget>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QCloseEvent>

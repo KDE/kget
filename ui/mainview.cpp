@@ -8,14 +8,13 @@
    of the License.
 */
 
-#include <qstring.h>
-#include <qstyle.h>
-#include <qpainter.h>
-#include <qpalette.h>
-#include <qfont.h>
-#include <qimage.h>
-#include <qpixmap.h>
-//Added by qt3to4:
+#include <QString>
+#include <QStyle>
+#include <QPainter>
+#include <QPalette>
+#include <QFont>
+#include <QImage>
+#include <QPixmap>
 #include <QList>
 #include <QDropEvent>
 
