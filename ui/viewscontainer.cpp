@@ -6,7 +6,7 @@
    modify it under the terms of the GNU General Public
    License as published by the Free Software Foundation; version 2
    of the License.
-*/
+// */
 
 
 #include <QMenu>
@@ -21,6 +21,7 @@
 #include "core/transferhandler.h"
 #include "mainview.h"
 #include "viewscontainer.h"
+#include "transferdetails.h"
 
 
 TitleBar::TitleBar(QWidget * parent)
@@ -40,7 +41,7 @@ TitleBar::TitleBar(QWidget * parent)
 
 void TitleBar::setTransfer(TransferHandler * transfer)
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"> " + i18n("Details for file: \t") + transfer->source().filename());
+    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"> " + i18n("Details for file: \t") + transfer->source().fileName());
 }
 
 void TitleBar::setDownloadsWindow()
@@ -89,7 +90,7 @@ TransfersButton::TransfersButton()
 
 void TransfersButton::addTransfer(TransferHandler * transfer)
 {
-    QString filename = transfer->source().filename();
+    QString filename = transfer->source().fileName();
 
     QAction * action = m_menu->addAction(KMimeType::pixmapForURL( transfer->source(), 0, KIcon::Desktop, 16, 0, 0L), filename);
     m_transfersMap[action] = transfer;
@@ -127,7 +128,7 @@ void TransfersButton::removeTransfer(TransferHandler * transfer)
         if(m_selectedTransfer == transfer)
         {
             m_selectedTransfer = m_transfersMap.begin().value();
-            setText(m_selectedTransfer->source().filename());
+            setText(m_selectedTransfer->source().fileName());
             if(isChecked())
                 emit selectedTransfer(m_selectedTransfer);
         }
@@ -137,7 +138,7 @@ void TransfersButton::removeTransfer(TransferHandler * transfer)
 void TransfersButton::setTransfer(TransferHandler * transfer)
 {
     m_selectedTransfer = transfer;
-    setText(transfer->source().filename());
+    setText(transfer->source().fileName());
     setIcon(KMimeType::pixmapForURL( transfer->source(), 0, KIcon::Desktop, 16, 0, 0L));
     setChecked(true);
 }
@@ -225,7 +226,7 @@ void ViewsContainer::showTransferDetails(TransferHandler * transfer)
     if( it == m_transfersMap.end() )
     {
         //Create the transfer widget
-        QWidget * widget = Model::factory(transfer)->createDetailsWidget(transfer);
+        QWidget * widget = new TransferDetails(transfer); Model::factory(transfer)->createDetailsWidget(transfer);
         //Add it to the m_transferItems list
         m_transfersMap[transfer] = widget;
         //Add the widget to the qstackedlayout

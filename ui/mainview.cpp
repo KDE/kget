@@ -306,8 +306,8 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
     }
 }
 
-MainView::MainView( QWidget * parent, const char * name )
-    : KListView( parent, name ), 
+MainView::MainView( QWidget * parent )
+    : KListView( parent ),
       m_popup(0)
 {
     setSorting(-1);

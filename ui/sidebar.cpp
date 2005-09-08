@@ -510,7 +510,7 @@ void TransferBox::paintEvent ( QPaintEvent * event )
     p.setClipRegion(event->region());
 
     p.drawPixmap(20, 1, m_transfer->statusPixmap());
-    p.drawText(40, 1, width(), height()-7, Qt::AlignLeft, m_transfer->source().filename());
+    p.drawText(40, 1, width(), height()-7, Qt::AlignLeft, m_transfer->source().fileName());
 }
 
 void TransferBox::transferChangedEvent(TransferHandler * transfer)

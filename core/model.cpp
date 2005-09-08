@@ -505,7 +505,7 @@ KURL Model::getValidDestURL(const QString& destDir, KURL srcURL)
 
     // create a proper destination file from destDir
     KURL destURL = KURL::fromPathOrURL( destDir );
-    QString filename = srcURL.filename();
+    QString filename = srcURL.fileName();
 
     if ( filename.isEmpty() )
     {

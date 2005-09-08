@@ -44,7 +44,7 @@ class KPluginFactory : public KLibFactory
 {
     Q_OBJECT
 public:
-    KPluginFactory( QObject *parent = 0, const char *name = 0 );
+    KPluginFactory( QObject *parent = 0 );
     ~KPluginFactory() ;
 
     virtual QObject* createObject( QObject* parent = 0, const char* pname = 0,

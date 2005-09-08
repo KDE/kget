@@ -160,8 +160,8 @@ void KGet_plug_in::slotShowLinks()
     view->show();
 }
 
-KPluginFactory::KPluginFactory( QObject* parent, const char* name )
-        : KLibFactory( parent, name )
+KPluginFactory::KPluginFactory( QObject* parent )
+        : KLibFactory( parent )
 {
     s_instance = new KInstance("KPluginFactory");
 }

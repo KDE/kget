@@ -40,6 +40,15 @@ class BTTransfer : public QObject, public Transfer
     Q_OBJECT
 
     public:
+        /**
+         * Here we define the Bittorrent specific flags.
+         */
+        enum BTTransferChange
+        {
+            Tc_ChunksTotal      = 0x00010000,
+            Tc_ChunksDownloaded = 0x00020000
+        };
+
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
                     Scheduler* scheduler, const KURL& src, const KURL& dest,
                     const QDomElement * e = 0 );
@@ -51,6 +60,10 @@ class BTTransfer : public QObject, public Transfer
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
+
+        //Bittorrent specific functions
+        int chunksTotal();
+        int chunksDownloaded();
 
         void save(QDomElement e);
 
@@ -72,6 +85,9 @@ class BTTransfer : public QObject, public Transfer
         QTimer timer;
         std::stringstream bencodeStream;
         torrent::Download download;
+
+        int m_chunksTotal;
+        int m_chunksDownloaded;
 
         sigc::connection trackerSucceeded;
         sigc::connection trackerFailed;

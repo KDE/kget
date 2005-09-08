@@ -1,14 +1,14 @@
 if HAVE_LIBTORRENT
 kde_module_LTLIBRARIES = libkget_bittorrentfactory.la
 
-libkget_bittorrentfactory_la_SOURCES =  bttransfer.cpp http.cpp btthread.cpp \
+libkget_bittorrentfactory_la_SOURCES =  bttransfer.cpp http.cpp btthread.cpp bttransferhandler.cpp\
 	bttransferfactory.cpp
 libkget_bittorrentfactory_la_LIBADD = $(LIB_KIO) $(TORRENT_LIBS) ../../core/libcore.la \
 	../../conf/libconf.la
 libkget_bittorrentfactory_la_LDFLAGS = -module -no-undefined $(KDE_PLUGIN) \
 	$(all_libraries)
 
-noinst_HEADERS = bttransfer.h http.h btthread.h bttransferfactory.h
+noinst_HEADERS = bttransfer.h http.h btthread.h bttransferfactory.h bttransferhandler.h
 
 INCLUDES = $(TORRENT_CFLAGS) $(all_includes) -I$(srcdir)/../.. 
 

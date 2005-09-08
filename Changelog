@@ -1,3 +1,11 @@
+2005-09-08 Dario Massarin <nekkar@libero.it>
+        * Start to implement properly the detailsWidgets for each transfer.
+        Now we have a basic widget available with all the plugins and the 
+        next step is to add at the bottom of it another widget provided
+        by each plugin's factory with the createTransferDetails() function.
+        * Start to implement a BTTransferHandler class, reimplementation 
+        of the generic TransferHandler class.
+
 2005-09-02 Urs Wolfer <u.wolfer @ bluewin.ch>
         * *Replace the old droptarget icon with the nuvola one
 

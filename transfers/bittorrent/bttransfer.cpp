@@ -37,7 +37,8 @@
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KURL& src, const KURL& dest,
                const QDomElement * e)
-  : Transfer(parent, factory, scheduler, src, dest, e)
+  : Transfer(parent, factory, scheduler, src, dest, e),
+    m_chunksTotal(0), m_chunksDownloaded(0)
 {
     BTThread::initialize(); //check: is this thread active always?? :-O
     kdDebug() << "new bt transfer" << endl;
@@ -73,6 +74,16 @@ BTTransfer::~BTTransfer()
 bool BTTransfer::isResumable() const
 {
     return true;
+}
+
+int BTTransfer::chunksTotal()
+{
+    return download.get_chunks_total();
+}
+
+int BTTransfer::chunksDownloaded()
+{
+    return download.get_chunks_done();
 }
 
 void BTTransfer::start()
@@ -257,6 +268,18 @@ void BTTransfer::update()
     {
         m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
         setTransferChange(Tc_Percent);
+    }
+
+    if (m_chunksTotal != chunksTotal())
+    {
+        m_chunksTotal = chunksTotal();
+        setTransferChange(Tc_ChunksTotal);
+    }
+
+    if (m_chunksDownloaded != chunksDownloaded())
+    {
+        m_chunksDownloaded = chunksDownloaded();
+        setTransferChange(Tc_ChunksDownloaded);
     }
 
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize, true);

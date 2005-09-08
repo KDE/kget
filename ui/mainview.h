@@ -88,7 +88,7 @@ class MainView : public KListView, public ModelObserver
     Q_OBJECT
 
 public:
-    MainView( QWidget * parent = 0, const char * name = 0 );
+    MainView( QWidget * parent = 0 );
     ~MainView();
 
     //Model observer virtual functions
