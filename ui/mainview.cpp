@@ -289,19 +289,25 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
     if(column == 3)
     {
         int rectWidth = (int)((width-6) * m_transfer->percent() / 100);
+        int height = this->height();
+
+//         p->drawRect(0,0,2/*width*/, 2/*height*/);
+//         p->fillRect(0,0,2/*width*/, 2/*height*/, cg.brush(QColorGroup::Highlight));
 
         p->setPen(cg.background().dark());
-        p->drawRect(2,2,width-4, height()-4);
+        p->drawRect(2,2,width-5, height-5);
 
         p->setPen(cg.background());
-        p->fillRect(3,3,width-6, height()-6, cg.brush(QColorGroup::Background));
+        p->fillRect(3,3,width-6, height-6, cg.brush(QColorGroup::Background));
 
         p->setPen(cg.brush(QColorGroup::Highlight).color().light(105));
-        p->drawRect(3,3,rectWidth, height()-6);
-        p->fillRect(4,4,rectWidth-2, height()-8, cg.brush(QColorGroup::Highlight));
+        if(rectWidth-1 >= 0)
+            p->drawRect(3,3,rectWidth-1, height-7);
+        if(rectWidth-2 >= 0)
+            p->fillRect(4,4,rectWidth-2, height-8, cg.brush(QColorGroup::Highlight));
 
         p->setPen(cg.foreground());
-        p->drawText(2,2,width-4, height()-4, Qt::AlignCenter, 
+        p->drawText(2,2,width-4, height-4, Qt::AlignCenter, 
                     QString::number(m_transfer->percent()) + "%");
     }
 }
