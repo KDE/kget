@@ -27,8 +27,11 @@ class BTTransferFactory : public TransferFactory
     public:
         Transfer * createTransfer( KURL srcURL, KURL destURL,
                                    TransferGroup * parent,
-				   Scheduler * scheduler,
+                                   Scheduler * scheduler,
                                    const QDomElement * e = 0 );
+
+        TransferHandler * createTransferHandler(Transfer * transfer,
+                                                Scheduler * scheduler);
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 

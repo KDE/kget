@@ -30,6 +30,9 @@ class TransferKioFactory : public TransferFactory
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
+        TransferHandler * createTransferHandler(Transfer * transfer,
+                                                Scheduler * scheduler);
+
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
         const QList<KAction *> actions();

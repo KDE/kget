@@ -38,7 +38,8 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KURL& src, const KURL& dest,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
-    m_chunksTotal(0), m_chunksDownloaded(0)
+    m_chunksTotal(0), m_chunksDownloaded(0),
+    m_peersConnected(0), m_peersNotConnected(0)
 {
     BTThread::initialize(); //check: is this thread active always?? :-O
     kdDebug() << "new bt transfer" << endl;
@@ -78,12 +79,35 @@ bool BTTransfer::isResumable() const
 
 int BTTransfer::chunksTotal()
 {
-    return download.get_chunks_total();
+    if (download.is_valid() && download.is_active())
+        return download.get_chunks_total();
+    else
+        return -1;
 }
 
 int BTTransfer::chunksDownloaded()
 {
-    return download.get_chunks_done();
+    if (download.is_valid() && download.is_active())
+        return download.get_chunks_done();
+    else
+        return -1;
+}
+
+int BTTransfer::peersConnected()
+{
+    if (download.is_valid() && download.is_active())
+        return download.get_peers_connected();
+    else
+        return -1;
+
+}
+
+int BTTransfer::peersNotConnected()
+{
+    if (download.is_valid() && download.is_active())
+        return download.get_peers_not_connected();
+    else
+        return -1;
 }
 
 void BTTransfer::start()
@@ -280,6 +304,18 @@ void BTTransfer::update()
     {
         m_chunksDownloaded = chunksDownloaded();
         setTransferChange(Tc_ChunksDownloaded);
+    }
+
+    if (m_peersConnected != peersConnected())
+    {
+        m_peersConnected = peersConnected();
+        setTransferChange(Tc_PeersConnected);
+    }
+
+    if (m_peersNotConnected != peersNotConnected())
+    {
+        m_peersNotConnected = peersNotConnected();
+        setTransferChange(Tc_PeersNotConnected);
     }
 
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize, true);

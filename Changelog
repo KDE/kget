@@ -1,3 +1,15 @@
+2005-09-10 Dario Massarin <nekkar@libero.it>
+        * Now a TransferHandler object is created always bt the TransferFactory.
+        This allows to easily reimplement the TransferHandler class, just by
+        creating your own class and returning it when the createTransferHandler()
+        function gets called.
+        * More work on the BTTransferHandler class.
+        * The transfer plugins can now provide its details widget that is 
+        displayed automatically at the bottom of the TransferDetails widget.
+        * Implementation of a first bittorrent details widget. 
+        * Note that the bittorrent plugin currently has some problems related 
+        to threads. It seems that Qt4 is quite different from Qt3 in these regards.
+
 2005-09-08 Dario Massarin <nekkar@libero.it>
         * Start to implement properly the detailsWidgets for each transfer.
         Now we have a basic widget available with all the plugins and the 

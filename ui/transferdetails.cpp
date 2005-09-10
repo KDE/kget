@@ -8,8 +8,12 @@
    of the License.
 */
 
+#include <QVBoxLayout>
+
 #include <klocale.h>
 #include <kio/global.h>
+
+#include "core/model.h"
 
 #include "transferdetails.h"
 #include "transferdetailsfrm.h"
@@ -17,8 +21,17 @@
 TransferDetails::TransferDetails(TransferHandler * transfer)
     : m_transfer(transfer)
 {
+    m_genericWidget = new QWidget(this);
+
     Ui::TransferDetailsFrm frm;
-    frm.setupUi(this);
+    frm.setupUi(m_genericWidget);
+
+    m_detailsWidget = Model::factory(transfer)->createDetailsWidget(transfer);
+
+    m_layout = new QVBoxLayout(this);
+    m_layout->addWidget(m_genericWidget);
+    m_layout->addWidget(m_detailsWidget);
+    setLayout(m_layout);
 
     findChild<QLabel *>("sourceLabel")->setText(i18n("Source:"));
     findChild<QLabel *>("destLabel")->setText(i18n("Saving to:"));
@@ -33,6 +46,7 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_speedLabel = findChild<QLabel *>("speedContentLabel");
     m_progressBar = findChild<QProgressBar *>("progressBar");
 
+    transfer->addObserver(this);
     //This updates the widget with the right values
     transferChangedEvent(transfer);
 }

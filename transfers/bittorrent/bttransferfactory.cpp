@@ -21,7 +21,9 @@
 
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
+#include "bttransferhandler.h"
 #include "bttransferfactory.h"
+#include "btdetailswidget.h"
 
 #include <qfile.h>
 #include <QWidget>
@@ -47,10 +49,25 @@ Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
     return 0;
 }
 
+
+TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
+{
+    BTTransfer * bttransfer = dynamic_cast<BTTransfer *>(transfer);
+
+    if(!bttransfer)
+    {
+        kdError() << "BTTransferFactory::createTransferHandler: WARNING!\n"
+                      "passing a non-BTTransfer pointer!!" << endl;
+        return 0;
+    }
+
+    return new BTTransferHandler(bttransfer, scheduler);
+}
+
 QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
-  Q_UNUSED(transfer);
-  return  0;
+    BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(transfer);
+    return new BTDetailsWidget(bttransfer);
 }
 
 const QList<KAction *> BTTransferFactory::actions()

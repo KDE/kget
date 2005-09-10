@@ -478,7 +478,7 @@ void GroupBox::transferChangedEvent(TransferHandler * transfer)
                 if(static_cast<TransferBox *>(it)->transfer() == transfer)
                     return;
             }
-            TransferBox * g = new TransferBox(transfer, this, m_sidebar);
+            //TransferBox * g = new TransferBox(transfer, this, m_sidebar);
         }
     }
 

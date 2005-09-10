@@ -19,6 +19,7 @@
 
 #include "core/transfer.h"
 #include "core/transferhandler.h"
+#include "core/plugin/transferfactory.h"
 #include "core/transfergroup.h"
 #include "core/scheduler.h"
 
@@ -67,7 +68,7 @@ void Transfer::delayTimerEvent()
 TransferHandler * Transfer::handler()
 {
     if(!m_handler)
-        m_handler = new TransferHandler(this, scheduler());
+        m_handler = m_factory->createTransferHandler(this, scheduler());
 
     return m_handler;
 }

@@ -45,8 +45,10 @@ class BTTransfer : public QObject, public Transfer
          */
         enum BTTransferChange
         {
-            Tc_ChunksTotal      = 0x00010000,
-            Tc_ChunksDownloaded = 0x00020000
+            Tc_ChunksTotal       = 0x00010000,
+            Tc_ChunksDownloaded  = 0x00020000,
+            Tc_PeersConnected    = 0x00040000,
+            Tc_PeersNotConnected = 0x00080000
         };
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
@@ -64,6 +66,8 @@ class BTTransfer : public QObject, public Transfer
         //Bittorrent specific functions
         int chunksTotal();
         int chunksDownloaded();
+        int peersConnected();
+        int peersNotConnected();
 
         void save(QDomElement e);
 
@@ -88,6 +92,8 @@ class BTTransfer : public QObject, public Transfer
 
         int m_chunksTotal;
         int m_chunksDownloaded;
+        int m_peersConnected;
+        int m_peersNotConnected;
 
         sigc::connection trackerSucceeded;
         sigc::connection trackerFailed;

@@ -15,9 +15,11 @@
 
 #include "core/observer.h"
 #include "core/transferhandler.h"
+#include "core/plugin/transferfactory.h"
 
 class QLabel;
 class QProgressBar;
+class QVBoxLayout;
 
 class TransferDetails : public QWidget, public TransferObserver
 {
@@ -29,6 +31,8 @@ class TransferDetails : public QWidget, public TransferObserver
 
     private:
         TransferHandler * m_transfer;
+        QVBoxLayout     * m_layout;
+        QWidget         * m_genericWidget;
         QWidget         * m_detailsWidget;
 
         QLabel          * m_statusPixmapLabel;

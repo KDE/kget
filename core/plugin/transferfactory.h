@@ -61,6 +61,9 @@ class TransferFactory : public KGetPlugin
                                            Scheduler * scheduler,
                                            const QDomElement * n = 0 )=0;
 
+        virtual TransferHandler * createTransferHandler(Transfer * transfer,
+                                                        Scheduler * scheduler)=0;
+
         virtual QWidget * createDetailsWidget( TransferHandler * transfer )=0;
 
         virtual const QList<KAction *> actions()=0;

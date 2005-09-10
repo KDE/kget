@@ -49,6 +49,11 @@ Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
     return 0;
 }
 
+TransferHandler * TransferKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
+{
+    return new TransferHandler(transfer, scheduler);
+}
+
 QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
   Q_UNUSED(transfer);

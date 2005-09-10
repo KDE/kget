@@ -11,9 +11,9 @@
 #ifndef _BTTRANSFERHANDLER_H
 #define _BTTRANSFERHANDLER_H
 
+#include "bttransfer.h"
 #include "core/transferhandler.h"
 
-class BTTransfer;
 class Scheduler;
 
 class BTTransferHandler : public TransferHandler
@@ -23,6 +23,8 @@ class BTTransferHandler : public TransferHandler
 
         int chunksTotal()       {return m_transfer->chunksTotal();}
         int chunksDownloaded()  {return m_transfer->chunksDownloaded();}
+        int peersConnected()    {return m_transfer->peersConnected();}
+        int peersNotConnected() {return m_transfer->peersNotConnected();}
 
     private:
         BTTransfer * m_transfer;

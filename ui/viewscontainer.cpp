@@ -10,6 +10,7 @@
 
 
 #include <QMenu>
+#include <QFrame>
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -195,8 +196,15 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_titleBar = new TitleBar();
     m_SLayout = new QStackedLayout();
 
+    QFrame * horizontalLine = new QFrame();
+    horizontalLine->setFrameShape(QFrame::HLine);
+    horizontalLine->setFrameShadow(QFrame::Sunken);
+
     m_VLayout->addWidget(m_titleBar);
     m_VLayout->addLayout(m_SLayout);
+    m_VLayout->addSpacing(3);
+    m_VLayout->addWidget(horizontalLine);
+    m_VLayout->addSpacing(3);
     m_VLayout->addLayout(m_HLayout);
 
     m_mainView = new MainView();

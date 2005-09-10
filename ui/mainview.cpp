@@ -291,9 +291,6 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
         int rectWidth = (int)((width-6) * m_transfer->percent() / 100);
         int height = this->height();
 
-//         p->drawRect(0,0,2/*width*/, 2/*height*/);
-//         p->fillRect(0,0,2/*width*/, 2/*height*/, cg.brush(QColorGroup::Highlight));
-
         p->setPen(cg.background().dark());
         p->drawRect(2,2,width-5, height-5);
 
