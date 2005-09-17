@@ -1,3 +1,8 @@
+2005-09-17 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Konqueror integration implementation.
+        Note: Konqueror freezes at download start if integration is enabled.
+        But I think it's more a Konqueror than a KGet problem. I hope I'll find a solution.
+
 2005-09-10 Dario Massarin <nekkar@libero.it>
         * Now a TransferHandler object is created always bt the TransferFactory.
         This allows to easily reimplement the TransferHandler class, just by

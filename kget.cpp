@@ -28,6 +28,7 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QCloseEvent>
+#include <QTimer>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -45,8 +46,7 @@
 #include <knotifyclient.h>
 #include <knotifydialog.h>
 #include <kfiledialog.h>
-
-#include <qtimer.h>
+#include <kmessagebox.h>
 
 #include "kget.h"
 #include "core/model.h"
@@ -110,6 +110,8 @@ KGet::~KGet()
     slotSaveMyself();
     delete m_drop;
     delete m_dock;
+    // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
+    slotKonquerorIntegration( Settings::konquerorIntegration() );
     // the following call saves options set in above dtors
     Settings::writeConfig();
 }
@@ -133,14 +135,20 @@ void KGet::setupActions()
     ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this,
                            SLOT(slotDownloadToggled()), ac, "download");
     ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));
-#if KDE_IS_VERSION(3,2,91)
+
     KGuiItem checkedDownloadAction(i18n("Stop Downloading"), "stop");
     ta->setCheckedState( checkedDownloadAction );
-#endif
+
     ta->setChecked( Settings::downloadAtStartup() );
 
     m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "target", 0, this,
                 SLOT(slotShowDropTarget()), ac, "show_drop_target");
+
+    m_KonquerorIntegration = new KAction(i18n("Enable &KGet as Konqueror Download Manager"), "konqueror", 0, this,
+                SLOT(slotTrayKonquerorIntegration()), ac, "konqueror_integration");
+    if ( Settings::konquerorIntegration() )
+        m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
+    slotKonquerorIntegration( Settings::konquerorIntegration() );
 
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
@@ -286,10 +294,6 @@ void KGet::slotDownloadToggled()
     bool downloading = action->isChecked();
     //TODO find an alternative way of doing this with the model
     //schedRequestOperation( downloading ? OpRun : OpStop );
-#if ! KDE_IS_VERSION(3,2,91)
-    action->setText( downloading ? i18n("Stop Downloading") : i18n("Start Downloading") );
-    action->setIcon( downloading ? "stop" : "down" );
-#endif
     m_dock->setDownloading( downloading );
 }
 
@@ -377,12 +381,41 @@ void KGet::slotNewConfig()
         m_showDropTarget->setChecked( !m_drop->isVisible() );
         m_drop->setShown( Settings::showDropTarget(), false );
     }
+    slotKonquerorIntegration( Settings::konquerorIntegration() );
 }
 
 void KGet::slotShowDropTarget()
 {
     m_showDropTarget->setChecked( !m_drop->isVisible() );
     m_drop->setShown( !m_drop->isVisible() );
+}
+
+void KGet::slotTrayKonquerorIntegration()
+{
+    static bool tempIntegration = Settings::konquerorIntegration();
+    tempIntegration = !tempIntegration;
+    slotKonquerorIntegration( tempIntegration );
+    if ( !tempIntegration && Settings::konquerorIntegration() )
+    {
+        KMessageBox::information(0,
+            i18n("KGet has been temporarily disabled as download manager for Konqueror. "
+            "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
+            "as download manager for Konqueror\"."),
+            i18n("Konqueror Integration disabled"),
+            "KonquerorIntegrationDisabled");
+    }
+}
+
+void KGet::slotKonquerorIntegration(bool konquerorIntegration)
+{
+    KConfig cfgKonqueror("konquerorrc", false, false);
+    cfgKonqueror.setGroup("HTML Settings");
+    cfgKonqueror.writePathEntry("DownloadManager",QString(konquerorIntegration?"kget":""));
+    cfgKonqueror.sync();
+    if ( konquerorIntegration )
+        m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
+    else
+        m_KonquerorIntegration->setText(i18n("Enable &KGet as Konqueror Download Manager"));
 }
 
 void KGet::updateStatusBar()

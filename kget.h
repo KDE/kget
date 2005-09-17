@@ -91,6 +91,8 @@ private slots:
     void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotShowDropTarget();
+    void slotTrayKonquerorIntegration();
+    void slotKonquerorIntegration( bool );
 
     // transfers slots
     void slotTransfersStart();
@@ -124,6 +126,7 @@ private:
     DropTarget    * m_drop;
     Tray          * m_dock;
     KToggleAction * m_showDropTarget;
+    KAction       * m_KonquerorIntegration;
 };
 
 #endif

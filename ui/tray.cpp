@@ -66,6 +66,7 @@ Tray::Tray(KGet * parent)
     // add preferences action to the context menu
     parent->actionCollection()->action("new_transfer")->plug(contextMenu());
     parent->actionCollection()->action("preferences")->plug(contextMenu());
+    parent->actionCollection()->action("konqueror_integration")->plug(contextMenu());
 
     // enable dropping
     setAcceptDrops(true);

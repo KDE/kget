@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
                          I18N_NOOP("(C) 2001 - 2002, Patrick Charbonnier\n"
                                    "(C) 2002, Carsten Pfeiffer\n"
                                    "(C) 1998 - 2000, Matej Koss"),
-                         0, "http://kget.sourceforge.net");
+                         "kget@kde.org", 0);
 
     aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
     aboutData.addAuthor("Carsten Pfeiffer", 0, "pfeiffer@kde.org");
