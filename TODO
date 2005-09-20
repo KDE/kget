@@ -90,15 +90,28 @@ LONG-TERM:
   ADD <kget> make the TestView able to make intensive tests on kget by
       giving commands to the Scheduler and looking if what happens is what should
       happen.
-  CHG <dario> usability enhancements as in #79519
+  CHG <dario> usability enhancements as in #79519, #89379, #111407
   ADD <dario> sidebar for transfer statistics and more (bandwidth
       graph, alternative urls, connection status/type, virtual folders,
       ...)
-  ADD <kget> add bandwidth limiting
-  ADD <kget> splits download in N segments
-  ADD <kget> support for mirrors
+  ADD <kget> add bandwidth limiting (#87600)
+  ADD <kget> splits download in N segments (#62371)
+  ADD <kget> support for mirrors (#62371)
   ADD <dario> 'low priority downloads' as in br #50776.
   ADD <kget> add Help & Guide
+  ADD <uwolfer> show average transfer speed when finished (#49219)
+  ADD <uwolfer> resume option when there is a file with the same name (#51450)
+  ADD <uwolfer> preserve timestamp of downloaded files (as option) (#55511)
+  ADD <uwolfer> recursion and other wget features (#57105)
+  ADD <uwolfer> make KGets handling of many downloads smarter 
+      (maximum number of open connections per server) (#57248)
+  ADD <uwolfer> check there is enough space left before downloading file (#57373)
+  ADD <uwolfer> save referer page for downloads (#60946)
+  ADD <uwolfer> built-in signature verification support (#61397)
+  ADD <uwolfer> right-click menu to change file properties 
+      (filename, destination directory, url) (#72534, 82923)
+  ADD <uwolfer> add support for mms:// protocol (#96386)
+  ADD <uwolfer> add valid download time frame, global or individual (#109377)
 
 
         DONE
