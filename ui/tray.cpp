@@ -31,6 +31,7 @@
 #include <QDragEnterEvent>
 #include <QMouseEvent>
 #include <QDropEvent>
+#include <QMimeData>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
@@ -94,7 +95,7 @@ Tray::~Tray()
 void Tray::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event)
-                  || Q3TextDrag::canDecode(event));
+                  || event->mimeData()->hasText());
 }
 
 // decode the dropped element asking scheduler to download that
@@ -113,10 +114,8 @@ void Tray::dropEvent(QDropEvent * event)
     }
     else
     {
-        if (Q3TextDrag::decode(event, str))
-            Model::addTransfer(KURL::fromPathOrURL(str));
-        else
-            return;
+        str = event->mimeData()->text();
+        Model::addTransfer(KURL::fromPathOrURL(str));
     }
 }
 

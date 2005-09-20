@@ -29,6 +29,7 @@
 #include <QDropEvent>
 #include <QCloseEvent>
 #include <QTimer>
+#include <QMimeData>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -489,7 +490,8 @@ void KGet::closeEvent( QCloseEvent * e )
 
 void KGet::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURLDrag::canDecode(event) || Q3TextDrag::canDecode(event));
+    event->accept(KURLDrag::canDecode(event)
+                  || event->mimeData()->hasText());
 }
 
 void KGet::dropEvent(QDropEvent * event)
@@ -499,8 +501,11 @@ void KGet::dropEvent(QDropEvent * event)
 
     if (KURLDrag::decode(event, list))
         Model::addTransfer(list);
-    else if (Q3TextDrag::decode(event, str))
+    else
+    {
+        str = event->mimeData()->text();
         Model::addTransfer(KURL::fromPathOrURL(str));
+    }
 }
 
 

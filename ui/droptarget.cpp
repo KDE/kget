@@ -24,6 +24,17 @@
  *
  ***************************************************************************/
 
+#include <QBitmap>
+#include <QTimer>
+#include <QClipboard>
+#include <QPixmap>
+#include <QCloseEvent>
+#include <QDropEvent>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
+#include <QDesktopWidget>
+#include <QMimeData>
+
 #include <kapplication.h>
 #include <kaction.h>
 #include <kiconloader.h>
@@ -37,16 +48,6 @@
 #include <kmessagebox.h>
 #include <stdlib.h>
 #include <math.h>
-
-#include <QBitmap>
-#include <QTimer>
-#include <QClipboard>
-#include <QPixmap>
-#include <QCloseEvent>
-#include <QDropEvent>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QDesktopWidget>
 
 #include "core/model.h"
 #include "conf/settings.h"
@@ -171,7 +172,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
     event->accept(KURLDrag::canDecode(event)
-                  || Q3TextDrag::canDecode(event));
+                  || event->mimeData()->hasText());
 }
 
 
@@ -190,10 +191,8 @@ void DropTarget::dropEvent(QDropEvent * event)
     }
     else
     {
-        if (Q3TextDrag::decode(event, str))
-            Model::addTransfer(KURL::fromPathOrURL(str));
-        else
-            return;
+        str = event->mimeData()->text();
+        Model::addTransfer(KURL::fromPathOrURL(str));
     }
 
     if ( Settings::animateDropTarget() )
