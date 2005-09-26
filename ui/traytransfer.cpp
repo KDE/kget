@@ -24,8 +24,6 @@
  *
  ***************************************************************************/
 
-#include <QToolTip>
-
 #include <kpopupmenu.h>
 
 #include "traytransfer.h"
@@ -38,7 +36,7 @@ TrayTransfer::TrayTransfer(QWidget *parent, const char *name ) : KSystemTray(par
 
 TrayTransfer::~TrayTransfer()
 {
-    QToolTip::remove(this);
+
 }
 
 
@@ -84,8 +82,7 @@ void TrayTransfer::setTip(const QString & _tip)
     //sDebugIn<<"_tip="<<_tip<<endl;
 #endif
 
-
-    QToolTip::add( this, _tip );
+    this->setToolTip( _tip );
 
 #ifdef _DEBUG
     //sDebugOut<<endl;

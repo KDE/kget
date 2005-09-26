@@ -13,19 +13,15 @@
 // Description: The SideBar/MultTabBar/BrowserBar all-in-one spectacular!
 //
 
-#include "panelsmanager.h"
-
-#include <qcursor.h>       //for resize cursor
-#include <qobject.h>   //coloredObjects()
-#include <qpainter.h>      //BrowserBar::TinyButton
-#include <qpixmap.h>       //TinyButtons
-#include <qsignalmapper.h> //m_mapper
-#include <qstyle.h>        //BrowserBar::BrowserBar
-#include <qtooltip.h>      //QToolTip::add()
-//Added by qt3to4:
+#include <QCursor>       //for resize cursor
+#include <QObject>   //coloredObjects()
+#include <QPainter>      //BrowserBar::TinyButton
+#include <QPixmap>       //TinyButtons
+#include <QSignalMapper> //m_mapper
+#include <QStyle>        //BrowserBar::BrowserBar
 #include <QVBoxLayout>
 #include <QEvent>
-#include <Q3CString>
+#include <QByteArray>
 #include <QPaintEvent>
 
 #include <kapplication.h>  //kapp
@@ -35,6 +31,7 @@
 #include <klocale.h>
 #include <kmultitabbar.h>  //m_tabBar
 
+#include "panelsmanager.h"
 
 //USAGE
 // 1. create a widget, NAME THE WIDGET!
@@ -291,7 +288,7 @@ BrowserBar::showHideBrowser( int index )
 }
 
 QWidget*
-BrowserBar::browser( const Q3CString &widgetName ) const
+BrowserBar::browser( const QByteArray &widgetName ) const
 {
     for( BrowserIterator it = m_browsers.constBegin(), end = m_browsers.constEnd(); it != end; ++it )
         if( widgetName == (*it)->name() )

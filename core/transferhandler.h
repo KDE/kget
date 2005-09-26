@@ -13,8 +13,7 @@
 #define _TRANSFERHANDLER_H
 
 #include <QList>
-#include <qmap.h>
-//Added by qt3to4:
+#include <QMap>
 #include <QPixmap>
 
 #include "transfer.h"

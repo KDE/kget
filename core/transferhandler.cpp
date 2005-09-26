@@ -8,6 +8,8 @@
    of the License.
 */
 
+#include <QList>
+
 #include <kdebug.h>
 
 #include "core/job.h"
@@ -16,8 +18,6 @@
 #include "core/transfergroup.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
-//Added by qt3to4:
-#include <QList>
 
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)

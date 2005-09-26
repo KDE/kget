@@ -1,3 +1,5 @@
+#include <Q3PtrList>
+
 #include "kget_linkview.h"
 
 #include <dcopclient.h>
@@ -8,8 +10,6 @@
 #include <kprocess.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 
 #define COL_NAME 0
 #define COL_DESC 1

@@ -12,7 +12,8 @@
 #ifndef _TRANSFER_H
 #define _TRANSFER_H
 
-#include <qpixmap.h>
+#include <QPixmap>
+
 #include <kurl.h>
 
 #include "job.h"

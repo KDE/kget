@@ -813,7 +813,7 @@ void KGet::setAutoSave()
 
 //BEGIN clipboard check
 /*
-    QString lastClipboard (in header) = QApplication::clipboard()->text( QClipboard::Clipboard ).stripWhiteSpace();
+    QString lastClipboard (in header) = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
 
     // Setup clipboard timer
 #include <qclipboard.h>
@@ -863,7 +863,7 @@ void KGet::slotCheckClipboard()
     //sDebugIn << endl;
 #endif
 
-    QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).stripWhiteSpace();
+    QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
 
     if (clipData != lastClipboard) {
         sDebug << "New clipboard event" << endl;

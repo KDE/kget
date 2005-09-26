@@ -8,6 +8,8 @@
    of the License.
 */
 
+#include <QList>
+
 #include <kpopupmenu.h>
 #include <klocale.h>
 #include <kiconloader.h>
@@ -15,8 +17,6 @@
 
 #include "model.h"
 #include "transferfactory.h"
-//Added by qt3to4:
-#include <QList>
 
 TransferFactory::TransferFactory()
 {

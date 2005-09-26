@@ -8,7 +8,7 @@
    of the License.
 */
 
-#include <qdom.h>
+#include <QDomElement>
 
 #include <kurl.h>
 #include <kdebug.h>

@@ -15,17 +15,16 @@
 #ifndef _BROWSERBAR_H
 #define _BROWSERBAR_H
 
-#include <q3hbox.h>        //baseclass
-#include <qpushbutton.h>  //baseclass
-#include <q3valuevector.h> //stack allocated
-//Added by qt3to4:
+#include <Q3VBox>        //baseclass
+#include <QPushButton>  //baseclass
+#include <QVector> //stack allocated
 #include <QPixmap>
 #include <QResizeEvent>
 #include <QEvent>
-#include <Q3CString>
+#include <QByteArray>
 
-typedef Q3ValueVector<QWidget*> BrowserList;
-typedef Q3ValueVector<QWidget*>::ConstIterator BrowserIterator;
+typedef QVector<QWidget*> BrowserList;
+typedef QVector<QWidget*>::ConstIterator BrowserIterator;
 
 class KMultiTabBar;
 class KMultiTabBarTab;
@@ -47,7 +46,7 @@ public:
     ~BrowserBar();
 
     Q3VBox   *container() const { return (Q3VBox*)m_playlist; }
-    QWidget *browser( const Q3CString& ) const;
+    QWidget *browser( const QByteArray& ) const;
     uint     position() const { return m_pos; }
 
     void     addBrowser( QWidget*, const QString&, const QString& );

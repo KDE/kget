@@ -24,7 +24,6 @@
  *
  ***************************************************************************/
 
-#include <QToolTip>
 #include <QTimer>
 #include <QClipboard>
 #include <QPixmap>
@@ -73,7 +72,7 @@ Tray::Tray(KGet * parent)
     setAcceptDrops(true);
 
     // add tooltip telling "I'm kget"
-    QToolTip::add( this, kapp->aboutData()->shortDescription() );
+    this->setToolTip( kapp->aboutData()->shortDescription() );
 
     // connecting the "Exit" menu item to the quit() of our app
     connect( this, SIGNAL( quitSelected() ), kapp, SLOT(quit()));
@@ -126,7 +125,7 @@ void Tray::mousePressEvent(QMouseEvent * e)
     {
         //Here we paste the transfer
         QString newtransfer = QApplication::clipboard()->text();
-        newtransfer = newtransfer.stripWhiteSpace();
+        newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
             Model::addTransfer(KURL::fromPathOrURL(newtransfer),"");

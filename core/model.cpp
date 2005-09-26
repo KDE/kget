@@ -593,7 +593,7 @@ void Model::loadPlugins()
     QMap<int, KService::Ptr> services;
     QMap<int, KService::Ptr>::iterator it;
 
-    for ( uint i = 0; i < offers.count(); ++i )
+    for ( int i = 0; i < offers.count(); ++i )
     {
         services[ offers[i]->property( "X-KDE-KGet-rank" ).toInt() ] = offers[i];
         kdDebug() << " TransferFactory plugin found:" << endl <<

@@ -8,7 +8,7 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <q3ptrlist.h>
+#include <Q3PtrList>
 
 #include <klistview.h>
 #include <kmainwindow.h>

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <QPixmap>
+#include <Q3PtrList>
+
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
@@ -43,9 +46,6 @@
 
 #include "links.h"
 #include "kget_linkview.h"
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3PtrList>
 
 KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
     : Plugin( parent, name )

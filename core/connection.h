@@ -12,7 +12,8 @@
 #ifndef _CONNECTION_H
 #define _CONNECTION_H
 
-#include <qobject.h>
+#include <QObject>
+
 #include "globals.h"
 
 /**

@@ -17,7 +17,7 @@
 
 
 #include <QList>
-#include <qstring.h>
+#include <QString>
 
 #include <kservice.h>
 #include <kurl.h>

@@ -8,12 +8,12 @@
    of the License.
 */
 
+#include <QList>
+
 #include <kdebug.h>
 
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
-//Added by qt3to4:
-#include <QList>
 
 JobQueue::JobQueue(Scheduler * scheduler)
     : m_maxSimultaneousJobs(2),

@@ -11,10 +11,9 @@
 #ifndef _TRANSFERGROUPHANDLER_H
 #define _TRANSFERGROUPHANDLER_H
 
-#include <qobject.h>
-#include <qmap.h>
-//Added by qt3to4:
 #include <QList>
+#include <QObject>
+#include <QMap>
 
 #include "transfergroup.h"
 

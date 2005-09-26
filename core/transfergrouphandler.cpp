@@ -8,6 +8,8 @@
    of the License.
 */
 
+#include <QList>
+
 #include <kdebug.h>
 #include <kpopupmenu.h>
 #include <kaction.h>
@@ -18,8 +20,6 @@
 #include "core/transfer.h"
 #include "core/observer.h"
 #include "core/model.h"
-//Added by qt3to4:
-#include <QList>
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
     : m_group(group),

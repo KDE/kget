@@ -161,7 +161,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
     {
         //Here we paste the transfer
         QString newtransfer = QApplication::clipboard()->text();
-        newtransfer = newtransfer.stripWhiteSpace();
+        newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
             Model::addTransfer(KURL::fromPathOrURL(newtransfer),"");

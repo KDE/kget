@@ -141,7 +141,7 @@
       <default>true</default>
     </entry>
     <entry name="LastDirectory" type="Path">
-      <default code="true">QDir::currentDirPath()</default>
+      <default code="true">QDir::currentPath()</default>
     </entry>
   </group>
 
