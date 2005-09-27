@@ -42,7 +42,6 @@
 #include <kaction.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
-#include <kstatusbar.h>
 #include <kiconloader.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
@@ -59,10 +58,6 @@
 #include "ui/viewscontainer.h"
 #include "ui/tray.h"
 #include "ui/droptarget.h"
-
-// local defs.
-enum StatusbarFields { ID_TOTAL_TRANSFERS = 1, ID_TOTAL_FILES, ID_TOTAL_SIZE,
-                       ID_TOTAL_TIME         , ID_TOTAL_SPEED  };
 
 KGet::KGet( QWidget * parent, const char * name )
     : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
@@ -92,12 +87,6 @@ KGet::KGet( QWidget * parent, const char * name )
         show();
     else
         hide();
-
-    // setting up status bar
-//     statusBar()->show();
-//     statusBar()->insertItem( "", 0 );
-//     statusBar()->insertItem( "", 1 );
-//     updateStatusBar();
 
     //Some of the widgets are initialized in slotDelayedInit()    
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
@@ -419,63 +408,11 @@ void KGet::slotKonquerorIntegration(bool konquerorIntegration)
         m_KonquerorIntegration->setText(i18n("Enable &KGet as Konqueror Download Manager"));
 }
 
-void KGet::updateStatusBar()
-{
-//     QString transfers = i18n("Downloading %1 transfers (%2) at %3");
-//     QString time = i18n("%1 remaining");
-//
-//     transfers = transfers.arg( 2 ).arg( "23.1MB" ).arg( "4.2kb/s" );
-//     time = time.arg( "1 min 2 sec" );
-//
-//     statusBar()->changeItem( transfers, 0 );
-//     statusBar()->changeItem( time, 1 );
-
-/*  Transfer *item;
-    QString tmpstr;
-
-    int totalFiles = 0;
-    int totalSize = 0;
-    int totalSpeed = 0;
-    QTime remTime;
-
-    //FOR EACH TRANSFER ON THE TRANSFER LIST {
-        item = it.current();
-        if (item->getTotalSize() != 0) {
-            totalSize += (item->getTotalSize() - item->getProcessedSize());
-        }
-        totalFiles++;
-        totalSpeed += item->getSpeed();
-
-        if (item->getRemainingTime() > remTime) {
-            remTime = item->getRemainingTime();
-        }
-    }
-
-    statusBar->changeItem(i18n(" Transfers: %1 ").arg( ASK TO SCHEDULER FOR NUMBER ), ID_TOTAL_TRANSFERS);
-    statusBar->changeItem(i18n(" Files: %1 ").arg(totalFiles), ID_TOTAL_FILES);
-    statusBar->changeItem(i18n(" Size: %1 ").arg(KIO::convertSize(totalSize)), ID_TOTAL_SIZE);
-    statusBar->changeItem(i18n(" Time: %1 ").arg(remTime.toString()), ID_TOTAL_TIME);
-    statusBar->changeItem(i18n(" %1/s ").arg(KIO::convertSize(totalSpeed)), ID_TOTAL_SPEED);
-*/
-}
-
 void KGet::log(const QString & message, bool sb)
 {
-#ifdef _DEBUG
-    sDebugIn <<" message= "<< message << endl;
-#endif
-
     //The logWindow has been removed. Maybe we could implement 
     //a new one. The old one was used as follows:
     //logWindow->logGeneral(message);
-
-    if (sb) {
-        statusBar()->message(message, 1000);
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
 
 /** widget events */

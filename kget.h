@@ -112,7 +112,6 @@ signals:
 
 private:
     // some functions
-    void updateStatusBar();
     void log( const QString &, bool sbar = true );
     // one-time functions
     void setupActions();
