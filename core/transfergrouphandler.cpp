@@ -11,7 +11,7 @@
 #include <QList>
 
 #include <kdebug.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kaction.h>
 #include <klocale.h>
 
@@ -122,9 +122,9 @@ const QList<KAction *> & TransferGroupHandler::actions()
     return m_actions;
 }
 
-KPopupMenu * TransferGroupHandler::popupMenu()
+KMenu * TransferGroupHandler::popupMenu()
 {
-    KPopupMenu * popup = new KPopupMenu( 0 );
+    KMenu * popup = new KMenu( 0 );
     popup->addTitle( name() + " " + i18n("group") );
 
     createActions();

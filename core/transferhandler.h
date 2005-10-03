@@ -19,7 +19,7 @@
 #include "transfer.h"
 #include "transfergroup.h"
 
-class KPopupMenu;
+class KMenu;
 
 class TransferObserver;
 
@@ -140,16 +140,16 @@ class TransferHandler
         QPixmap statusPixmap() const {return m_transfer->statusPixmap();}
 
         /**
-         * Returns a KPopupMenu for the given list of transfers, populated with
+         * Returns a KMenu for the given list of transfers, populated with
          * the actions that can be executed on each transfer in the list.
-         * If the list is null, it returns the KPopupMenu associated with the 
+         * If the list is null, it returns the KMenu associated with the 
          * this transfer.
          *
          * @param transfers the transfer list
          *
-         * @return a KPopupMenu for the given transfers
+         * @return a KMenu for the given transfers
          */
-        KPopupMenu * popupMenu(QList<TransferHandler *> transfers);
+        KMenu * popupMenu(QList<TransferHandler *> transfers);
 
         /**
          * Selects the current transfer. Selecting transfers means that all

@@ -33,7 +33,7 @@
 #include <kinstance.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <krun.h>
 
 #include <dom/html_document.h>

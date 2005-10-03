@@ -32,7 +32,7 @@
 
 #include "core/globals.h"
 
-class KPopupMenu;
+class KMenu;
 
 class TrayTransfer : public KSystemTray  {
     Q_OBJECT
@@ -43,7 +43,7 @@ public:
     void setTip(const QString &);
     void setValue(int value);
     /** No descriptions */
-    virtual void contextMenuAboutToShow ( KPopupMenu* menu );
+    virtual void contextMenuAboutToShow ( KMenu* menu );
 };
 
 #endif

@@ -21,7 +21,7 @@
 #include "core/observer.h"
 
 class KActionCollection;
-class KPopupMenu;
+class KMenu;
 
 class MainView;
 class TransferItem;
@@ -103,7 +103,7 @@ public slots:
 
 private:
 
-    KPopupMenu * m_popup;
+    KMenu * m_popup;
 };
 
 #endif

@@ -41,7 +41,7 @@
 class QWidget;
 
 class KURL;
-class KPopupMenu;
+class KMenu;
 
 class TransferGroup;
 class Scheduler;
@@ -68,7 +68,7 @@ class TransferFactory : public KGetPlugin
 
         virtual const QList<KAction *> actions()=0;
 
-        KPopupMenu * createPopupMenu(QList<TransferHandler *> transfers);
+        KMenu * createPopupMenu(QList<TransferHandler *> transfers);
 };
 
 #endif

@@ -42,7 +42,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kconfig.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kurldrag.h>
 #include <kiconeffect.h>
 #include <kmessagebox.h>
@@ -87,7 +87,7 @@ DropTarget::DropTarget(KGet * mw)
     setBackgroundPixmap( bgnd );
 
     // popup menu for right mouse button
-    popupMenu = new KPopupMenu();
+    popupMenu = new KMenu();
     popupMenu->addTitle(mw->caption());
     popupMenu->setCheckable(true);
 

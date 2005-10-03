@@ -10,7 +10,7 @@
 
 #include <QList>
 
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kdebug.h>
@@ -23,7 +23,7 @@ TransferFactory::TransferFactory()
 
 }
 
-KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
+KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
 {
     if( transfers.empty() )
         return 0;
@@ -49,7 +49,7 @@ KPopupMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers
     else
         actionList = this->actions();
 
-    KPopupMenu * popup = new KPopupMenu( 0 );
+    KMenu * popup = new KMenu( 0 );
     popup->addTitle( i18n("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu

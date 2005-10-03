@@ -94,7 +94,7 @@ int TransferHandler::speed() const
     return m_transfer->speed();
 }
 
-KPopupMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)
+KMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)
 {
     return m_transfer->factory()->createPopupMenu(transfers);
 }

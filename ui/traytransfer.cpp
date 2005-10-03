@@ -24,7 +24,7 @@
  *
  ***************************************************************************/
 
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 #include "traytransfer.h"
 
@@ -90,7 +90,7 @@ void TrayTransfer::setTip(const QString & _tip)
 }
 
 /** No descriptions */
-void TrayTransfer::contextMenuAboutToShow ( KPopupMenu* menu )
+void TrayTransfer::contextMenuAboutToShow ( KMenu* menu )
 {
     menu->removeItemAt (3);
 }

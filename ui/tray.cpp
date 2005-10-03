@@ -37,7 +37,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kiconeffect.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kurldrag.h>
 #include <kaction.h>
 

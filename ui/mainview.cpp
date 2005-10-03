@@ -21,7 +21,7 @@
 #include <kactioncollection.h>
 #include <kdebug.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kiconloader.h>
 #include <kio/global.h>
 #include <kimageeffect.h>

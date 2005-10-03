@@ -18,7 +18,7 @@
 #include "transfergroup.h"
 
 class KAction;
-class KPopupMenu;
+class KMenu;
 
 class QObjectInterface;
 class TransferGroupObserver;
@@ -131,9 +131,9 @@ class TransferGroupHandler
         const QList<KAction *> & actions();
 
         /**
-         * @returns a KPopupMenu for this transfer group.
+         * @returns a KMenu for this transfer group.
          */
-        KPopupMenu * popupMenu();
+        KMenu * popupMenu();
 
         /**
          * @returns a pointer to a QObjectInterface object which is a QObject

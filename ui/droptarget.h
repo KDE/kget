@@ -34,7 +34,7 @@
 #include <QCloseEvent>
 
 class QTimer;
-class KPopupMenu;
+class KMenu;
 
 class KGet;
 
@@ -75,7 +75,7 @@ private slots:
     void slotClose();
 
 private:
-    KPopupMenu * popupMenu;
+    KMenu * popupMenu;
     QWidget * parentWidget;
     QTimer * animTimer;
 
