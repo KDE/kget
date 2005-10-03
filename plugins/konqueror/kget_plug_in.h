@@ -28,7 +28,7 @@ class KGet_plug_in : public KParts::Plugin
 {
     Q_OBJECT
 public:
-    KGet_plug_in( QObject* parent = 0, const char* name = 0 );
+    KGet_plug_in( QObject* parent = 0 );
     KToggleAction *m_paToggleDropTarget ;
     DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();

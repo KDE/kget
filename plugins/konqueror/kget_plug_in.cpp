@@ -47,8 +47,8 @@
 #include "links.h"
 #include "kget_linkview.h"
 
-KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
-    : Plugin( parent, name )
+KGet_plug_in::KGet_plug_in( QObject* parent )
+    : Plugin( parent )
 {
     QPixmap pix = KGlobal::iconLoader()->loadIcon("khtml_kget",
                                                   KIcon::MainToolbar);
@@ -168,7 +168,7 @@ KPluginFactory::KPluginFactory( QObject* parent )
 
 QObject* KPluginFactory::createObject( QObject* parent, const char* name, const char*, const QStringList & )
 {
-    QObject *obj = new KGet_plug_in( parent, name );
+    QObject *obj = new KGet_plug_in( parent );
     return obj;
 }
 
@@ -181,7 +181,7 @@ extern "C"
 {
     KDE_EXPORT void* init_khtml_kget()
     {
-        KGlobal::locale()->insertCatalogue("kget");
+        KGlobal::locale()->insertCatalog("kget");
         return new KPluginFactory;
     }
 
