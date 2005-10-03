@@ -43,7 +43,6 @@
 #include <kglobal.h>
 #include <kconfig.h>
 #include <kmenu.h>
-#include <kurldrag.h>
 #include <kiconeffect.h>
 #include <kmessagebox.h>
 #include <stdlib.h>
@@ -171,17 +170,17 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURLDrag::canDecode(event)
+    event->accept(KURL::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 
 
 void DropTarget::dropEvent(QDropEvent * event)
 {
-    KURL::List list;
+    KURL::List list = KURL::List::fromMimeData(event->mimeData());
     QString str;
 
-    if (KURLDrag::decode(event, list))
+    if (!list.isEmpty())
     {
         KURL::List::Iterator it = list.begin();
         KURL::List::Iterator itEnd = list.end();

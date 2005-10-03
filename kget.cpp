@@ -38,7 +38,6 @@
 #include <kmessagebox.h>
 #include <kwin.h>
 #include <kurl.h>
-#include <kurldrag.h>
 #include <kaction.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
@@ -47,6 +46,7 @@
 #include <knotifydialog.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
+#include <ktoolinvocation.h>
 
 #include "kget.h"
 #include "core/model.h"
@@ -333,7 +333,7 @@ void KGet::slotTransfersOpenDest()
         QString directory = it->dest().directory();
         if( !openedDirs.contains( directory ) )
         {
-            kapp->invokeBrowser( directory );
+            KToolInvocation::invokeBrowser( directory );
             openedDirs.append( directory );
         }
     }
@@ -427,16 +427,16 @@ void KGet::closeEvent( QCloseEvent * e )
 
 void KGet::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURLDrag::canDecode(event)
+    event->accept(KURL::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 
 void KGet::dropEvent(QDropEvent * event)
 {
-    KURL::List list;
+    KURL::List list = KURL::List::fromMimeData(event->mimeData());
     QString str;
 
-    if (KURLDrag::decode(event, list))
+    if (!list.isEmpty())
         Model::addTransfer(list);
     else
     {
