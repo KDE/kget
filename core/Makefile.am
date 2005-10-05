@@ -9,6 +9,6 @@ libcore_la_SOURCES = model.cpp scheduler.cpp \
 
 libcore_la_LIBADD = plugin/libplugin.la
 
-INCLUDES = $(all_includes) -I$(srcdir)/..
+INCLUDES = $(all_includes) -I$(qt_includes)/QtXml -I$(srcdir)/.. 
 
 METASOURCES = AUTO

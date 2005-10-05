@@ -35,8 +35,8 @@ LinkViewItem::LinkViewItem( Q3ListView *parent, const LinkItem *lnk )
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
-KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
-    : KMainWindow( parent, name )
+KGetLinkView::KGetLinkView( QWidget *parent )
+    : KMainWindow( parent )
 {
     setPlainCaption( i18n( "KGet" ) );
 

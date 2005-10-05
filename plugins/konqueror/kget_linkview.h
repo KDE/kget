@@ -29,7 +29,7 @@ class KGetLinkView : public KMainWindow
     Q_OBJECT
 
 public:
-    KGetLinkView( QWidget *parent = 0L, const char *name = 0L );
+    KGetLinkView( QWidget *parent = 0L );
     ~KGetLinkView();
 
     void setLinks( Q3PtrList<LinkItem>& links );

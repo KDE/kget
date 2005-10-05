@@ -56,6 +56,7 @@ class Job
         enum Policy {Start, Stop, None};
 
         Job(JobQueue * parent, Scheduler * scheduler);
+        virtual ~Job();
 
         //Job commands
         virtual void start()=0;

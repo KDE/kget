@@ -21,6 +21,10 @@ Job::Job(JobQueue * parent, Scheduler * scheduler)
 
 }
 
+Job::~Job()
+{
+}
+
 void Job::setStatus(Status jobStatus)
 {
     if(jobStatus == m_status)

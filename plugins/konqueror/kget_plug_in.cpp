@@ -166,7 +166,7 @@ KPluginFactory::KPluginFactory( QObject* parent )
     s_instance = new KInstance("KPluginFactory");
 }
 
-QObject* KPluginFactory::createObject( QObject* parent, const char* name, const char*, const QStringList & )
+QObject* KPluginFactory::createObject( QObject* parent, const char*, const char*, const QStringList & )
 {
     QObject *obj = new KGet_plug_in( parent );
     return obj;
