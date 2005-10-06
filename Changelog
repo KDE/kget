@@ -1,3 +1,6 @@
+2005-10-06 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Make commandline option --showDropTarget working
+
 2005-09-17 Urs Wolfer <u.wolfer @ bluewin.ch>
         * Konqueror integration implementation.
         Note: Konqueror freezes at download start if integration is enabled.

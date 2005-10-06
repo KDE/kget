@@ -48,13 +48,11 @@ static const char version[] = KGETVERSION;
 
 static KCmdLineOptions option[] = {
     { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
-    { "+[URL(s)]", I18N_NOOP("URL(s) to download."), 0},
+    { "+[URL(s)]", I18N_NOOP("URL(s) to download"), 0},
     KCmdLineLastOption
 };
 
-//-----------------------------------------------------------------------------
 // Crash recovery signal handling routines
-
 static void setSignalHandler(void (*handler) (int))
 {
     signal(SIGSEGV, handler);
@@ -128,7 +126,7 @@ public:
         KWin::activateWindow(kget->winId());
 
         if (args->isSet("showDropTarget"))
-        { /*FIXME kget->activateDropTarget();*/ }
+            Settings::setShowDropTarget( true );
 
         KURL::List l;
         for (int i = 0; i < args->count(); i++)
@@ -166,8 +164,6 @@ private:
 };
 
 
-/////////////////////////////////////////////////////////////////
- 
 int main(int argc, char *argv[])
 {
     KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description,
