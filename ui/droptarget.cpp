@@ -124,11 +124,14 @@ DropTarget::~DropTarget()
 void DropTarget::slotClose()
 {
     setShown( false );
-    KMessageBox::information(parentWidget,
-        i18n("Drop target has been hidden. If you want to show it "
-             "again, go to Settings->Configure KGet->Look & Feel."),
-        i18n("Hiding drop target"),
-        "CloseDroptarget");
+    if (!Settings::expertMode())
+    {
+        KMessageBox::information(parentWidget,
+            i18n("Drop target has been hidden. If you want to show it "
+                 "again, go to Settings->Configure KGet->Look & Feel."),
+            i18n("Hiding drop target"),
+            "CloseDroptarget");
+    }
 }
 
 
@@ -232,19 +235,9 @@ void DropTarget::toggleMinimizeRestore()
 
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
-/*
-    if (oldX == 0)
-    {
-        oldX = e->x();
-        oldY = e->y();
-        return;
-    }
-*/
-    if (isdragging)
+    Q_UNUSED(e);
+    if ( isdragging && !Settings::dropSticky() )
         move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
-
-//    QWidget::move(x() + (e->x() - oldX), y() + (e->y() - oldY));
-//    move(x() + (e->x() - oldX), y() + (e->y() - oldY));  // <<--
 }
 
 void DropTarget::mouseReleaseEvent(QMouseEvent *)
@@ -331,15 +324,15 @@ void DropTarget::playAnimationSync()
 
 void DropTarget::slotAnimate()
 {
-    QWidget *d = QApplication::desktop()->screen();
+//     QWidget *d = QApplication::desktop()->screen();
     static float dT = TARGET_ANI_MS / 1000.0;
-    
+
     ani_vy -= ani_y * 30 * dT;
     ani_vy *= 0.95;
     ani_y += ani_vy * dT;
-    
-    move( x(), (int)(d->height()/3 * (1 + ani_y)) );
-//    move( x(), (int)(Settings::dropPosition().y() * (1 + ani_y)) );
+
+//     move( x(), (int)(d->height()/3 * (1 + ani_y)) );
+    move( x(), (int)(Settings::dropPosition().y() * (1 + ani_y)) );
 
     if ( fabsf(ani_y) < 0.01 && fabsf(ani_vy) < 0.01 && animTimer )
     {
@@ -352,7 +345,7 @@ void DropTarget::slotAnimate()
 void DropTarget::slotAnimateHide()
 {
     static float dT = TARGET_ANI_MS / 1000.0;
-    
+
     ani_vy += -2000 * dT;
     float new_y = y() + ani_vy * dT;
 

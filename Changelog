@@ -1,3 +1,9 @@
+2005-10-07 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Work on configuration dialogs
+        * Make droptarget-sticky function working
+        * Start implementing expert-mode
+        * (Re-)implement clipboard-autopaste function
+
 2005-10-06 Urs Wolfer <u.wolfer @ bluewin.ch>
         * Make commandline option --showDropTarget working
 

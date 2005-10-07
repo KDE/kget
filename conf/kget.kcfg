@@ -5,9 +5,9 @@
 
 <!-- backward compatibility -->
 
-  <include>qdir.h</include>
-  <include>qsize.h</include>
-  <include>qdatetime.h</include>
+  <include>QDir</include>
+  <include>QSize</include>
+  <include>QDateTime</include>
 
   <group name="Appearance">
     <entry name="ShowMain" type="Bool">
@@ -126,7 +126,7 @@
       <default>Permanent</default>
     </entry>
   </group>
-    
+
   <group name="Internal">
     <!-- NOT CONFIGURABLE -->
     <entry name="MainPosition" type="Point"/>

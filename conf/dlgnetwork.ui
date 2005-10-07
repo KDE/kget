@@ -171,6 +171,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="kcfg_AutoShutdown" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
         <property name="text" >
          <string>Auto shutdown</string>
         </property>
@@ -178,6 +181,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="kcfg_AutoDisconnect" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
         <property name="text" >
          <string>Auto disconnect</string>
         </property>

@@ -90,6 +90,7 @@ private slots:
     void slotConfigureNotifications();
     void slotConfigureKeys();
     void slotConfigureToolbars();
+    void slotToggleAutoPaste();
     void slotShowDropTarget();
     void slotTrayKonquerorIntegration();
     void slotKonquerorIntegration( bool );
@@ -106,13 +107,14 @@ private slots:
     void slotSaveMyself();
     void slotNewToolbarConfig();
     void slotNewConfig();
+    void slotCheckClipboard();
 
 signals:
     void viewModeChanged( int );
 
 private:
     // some functions
-    void log( const QString &, bool sbar = true );
+    void log( const QString & );
     // one-time functions
     void setupActions();
 
@@ -125,7 +127,13 @@ private:
     DropTarget    * m_drop;
     Tray          * m_dock;
     KToggleAction * m_showDropTarget;
+    KToggleAction * m_AutoPaste;
     KAction       * m_KonquerorIntegration;
+
+    // for autopaste function
+    QString lastClipboard;
+    // timer for checking clipboard - autopaste function
+    QTimer *clipboardTimer;
 };
 
 #endif

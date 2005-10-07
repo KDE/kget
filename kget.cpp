@@ -30,6 +30,7 @@
 #include <QCloseEvent>
 #include <QTimer>
 #include <QMimeData>
+#include <QClipboard>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -45,7 +46,6 @@
 #include <knotifyclient.h>
 #include <knotifydialog.h>
 #include <kfiledialog.h>
-#include <kmessagebox.h>
 #include <ktoolinvocation.h>
 
 #include "kget.h"
@@ -98,6 +98,7 @@ KGet::~KGet()
     Model::save();
 
     slotSaveMyself();
+    delete clipboardTimer;
     delete m_drop;
     delete m_dock;
     // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
@@ -131,14 +132,21 @@ void KGet::setupActions()
 
     ta->setChecked( Settings::downloadAtStartup() );
 
+    m_AutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this,
+                SLOT(slotToggleAutoPaste()), ac, "auto_paste");
+    m_AutoPaste->setChecked(Settings::autoPaste());
+    m_AutoPaste->setWhatsThis(i18n("<b>Auto paste</b> button toggles the auto-paste mode "
+                                   "on and off.\nWhen set, KGet will periodically scan the clipboard "
+                                   "for URLs and paste them automatically."));
+
     m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "target", 0, this,
                 SLOT(slotShowDropTarget()), ac, "show_drop_target");
 
     m_KonquerorIntegration = new KAction(i18n("Enable &KGet as Konqueror Download Manager"), "konqueror", 0, this,
                 SLOT(slotTrayKonquerorIntegration()), ac, "konqueror_integration");
-    if ( Settings::konquerorIntegration() )
+    if (Settings::konquerorIntegration())
         m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
-    slotKonquerorIntegration( Settings::konquerorIntegration() );
+    slotKonquerorIntegration(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
     KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
@@ -206,6 +214,13 @@ void KGet::slotDelayedInit()
 
     // reset the FirstRun config option
     Settings::setFirstRun(false);
+
+    //auto paste stuff
+    lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
+    clipboardTimer = new QTimer(this);
+    connect(clipboardTimer, SIGNAL(timeout()), SLOT(slotCheckClipboard()));
+    if ( Settings::autoPaste() )
+        clipboardTimer->start(1000);
 }
 
 void KGet::slotNewTransfer()
@@ -259,7 +274,7 @@ void KGet::slotPreferences()
     PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
 
     // keep us informed when the user changes settings
-    connect( dialog, SIGNAL(settingsChanged()), 
+    connect( dialog, SIGNAL(settingsChanged(const QString&)),
              this, SLOT(slotNewConfig()) );
 
     dialog->show();
@@ -363,15 +378,48 @@ void KGet::slotNewToolbarConfig()
 void KGet::slotNewConfig()
 {
     // Update here properties modified in the config dialog and not
-    // parsed often by the code.. When clicking Ok or Apply of
+    // parsed often by the code. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
-    if ( m_drop )
+    m_drop->setShown(Settings::showDropTarget(), false);
+    m_showDropTarget->setChecked(Settings::showDropTarget());
+
+    slotKonquerorIntegration(Settings::konquerorIntegration());
+
+    if (Settings::autoPaste())
+        clipboardTimer->start(1000);
+    else
+        clipboardTimer->stop();
+    m_AutoPaste->setChecked(Settings::autoPaste());
+}
+
+void KGet::slotToggleAutoPaste()
+{
+    bool autoPaste = !Settings::autoPaste();
+    Settings::setAutoPaste( autoPaste );
+
+    if (autoPaste)
+        clipboardTimer->start(1000);
+    else
+        clipboardTimer->stop();
+    m_AutoPaste->setChecked(autoPaste);
+}
+
+void KGet::slotCheckClipboard()
+{
+    QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
+
+    if (clipData != lastClipboard)
     {
-        m_showDropTarget->setChecked( !m_drop->isVisible() );
-        m_drop->setShown( Settings::showDropTarget(), false );
+        lastClipboard = clipData;
+        if (lastClipboard.isEmpty())
+            return;
+
+        KURL url = KURL::fromPathOrURL(lastClipboard);
+
+        if (url.isValid() && !url.isLocalFile())
+            Model::addTransfer( url );
     }
-    slotKonquerorIntegration( Settings::konquerorIntegration() );
 }
 
 void KGet::slotShowDropTarget()
@@ -384,8 +432,8 @@ void KGet::slotTrayKonquerorIntegration()
 {
     static bool tempIntegration = Settings::konquerorIntegration();
     tempIntegration = !tempIntegration;
-    slotKonquerorIntegration( tempIntegration );
-    if ( !tempIntegration && Settings::konquerorIntegration() )
+    slotKonquerorIntegration(tempIntegration);
+    if (!tempIntegration && Settings::konquerorIntegration() && !Settings::expertMode())
     {
         KMessageBox::information(0,
             i18n("KGet has been temporarily disabled as download manager for Konqueror. "
@@ -408,8 +456,9 @@ void KGet::slotKonquerorIntegration(bool konquerorIntegration)
         m_KonquerorIntegration->setText(i18n("Enable &KGet as Konqueror Download Manager"));
 }
 
-void KGet::log(const QString & message, bool sb)
+void KGet::log(const QString & message)
 {
+    Q_UNUSED(message);
     //The logWindow has been removed. Maybe we could implement 
     //a new one. The old one was used as follows:
     //logWindow->logGeneral(message);
@@ -466,13 +515,14 @@ void KGet::setDropTargetVisible( bool setVisible )
 
 void KGet::setOfflineMode( bool offline )
 {
-    //TODO Re-enable this    
+    Q_UNUSED(offline);
+    //TODO Re-enable this
 //     schedRequestOperation( offline ? OpStop : OpRun );
 }
 
 bool KGet::isOfflineMode() const
 {
-    //TODO Re-enable this 
+    //TODO Re-enable this
 //     return scheduler->isRunning();
     return false;
 }
@@ -493,10 +543,6 @@ KToggleAction *m_paAutoDisconnect,
 
 void KGet::slotToggleAutoDisconnect()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
     Settings::setAutoDisconnect( !Settings::autoDisconnect() );
 
     if (Settings::autoDisconnect()) {
@@ -505,90 +551,12 @@ void KGet::slotToggleAutoDisconnect()
         log(i18n("Auto disconnect off."));
     }
     m_paAutoDisconnect->setChecked(Settings::autoDisconnect());
-    
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
 
 void KGet::setAutoDisconnect()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
     // disable action when we are connected permanently
     //m_paAutoDisconnect->setEnabled(Settings::connectionType() != Settings::Permanent);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-*/
-//END 
-
-//BEGIN animations 
-/*
-
-    // Setup animation timer
-    animTimer = new QTimer(this);
-    animCounter = 0;
-    connect(animTimer, SIGNAL(timeout()), SLOT(slotAnimTimeout()));
-    
-    if (Settings::useAnimation()) {
-        animTimer->start(400);
-    } else {
-        animTimer->start(1000);
-    }
-
-    KToggleAction *m_paUseAnimation
-    m_paUseAnimation->setChecked(Settings::useAnimation());
-    m_paUseAnimation   =  new KToggleAction(i18n("Use &Animation"), 0, this, SLOT(slotToggleAnimation()), ac, "toggle_animation");
-
-void KGet::slotToggleAnimation()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    Settings::setUseAnimation( !Settings::useAnimation() );
-
-    if (!Settings::useAnimation() && animTimer->isActive()) {
-        animTimer->stop();
-        animTimer->start(1000);
-        animCounter = 0;
-    } else {
-        animTimer->stop();
-        animTimer->start(400);
-    }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void KGet::slotAnimTimeout()
-{
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
-    bool isTransfer;
-
-    animCounter++;
-    if (animCounter == $myTransferList$->getPhasesNum()) {
-        animCounter = 0;
-    }
-    // update status of all items of transferList
-    isTransfer = $myTransferList$->updateStatus(animCounter);
-
-    if (this->isVisible()) {
-        updateStatusBar();
-    }
-#ifdef _DEBUG
-    //sDebugOut << endl;
-#endif
-
 }
 */
 //END 
@@ -602,10 +570,6 @@ void KGet::slotAnimTimeout()
 
 void KGet::slotCopyToClipboard()
 {
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
     Transfer *item = CURRENT ITEM!;
 
     if (item) {
@@ -614,12 +578,8 @@ void KGet::slotCopyToClipboard()
         cb->setText( url, QClipboard::Selection );
         cb->setText( url, QClipboard::Clipboard);
     }
-    
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
-*/  
+*/
 //END
 
 //BEGIN Auto saving transfer list 
@@ -632,31 +592,15 @@ void KGet::slotCopyToClipboard()
 
 void KGet::slotAutosaveTimeout()
 {
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
     schedRequestOperation( OpExportTransfers );
-
-#ifdef _DEBUG
-    //sDebugOut << endl;
-#endif
 }
 
 void KGet::setAutoSave()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
     autosaveTimer->stop();
     if (Settings::autoSave()) {
         autosaveTimer->start(Settings::autoSaveInterval() * 60000);
     }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
 }
 */
 //END 
@@ -712,21 +656,12 @@ void KGet::setAutoSave()
 
                     switch (item->getMode()) {
                     case Transfer::MD_QUEUED:
-#ifdef _DEBUG
-                        sDebug << "....................THE MODE  IS  MD_QUEUED " << item->getMode() << endl;
-#endif
                         m_paQueue->setChecked(true);
                         break;
                     case Transfer::MD_SCHEDULED:
-#ifdef _DEBUG
-                        sDebug << "....................THE MODE  IS  MD_SCHEDULED " << item->getMode() << endl;
-#endif
                         m_paTimer->setChecked(true);
                         break;
                     case Transfer::MD_DELAYED:
-#ifdef _DEBUG
-                        sDebug << "....................THE MODE  IS  MD_DELAYED " << item->getMode() << endl;
-#endif
                         m_paDelay->setChecked(true);
                         break;
                     }
@@ -741,84 +676,10 @@ void KGet::setAutoSave()
                 m_paDelay->setEnabled(false);
             }
        }
-    // enale all signals    
+    // enale all signals
     m_paQueue->blockSignals(false);
     m_paTimer->blockSignals(false);
-    m_paDelay->blockSignals(false);    
-*/
-//END 
-
-//BEGIN clipboard check
-/*
-    QString lastClipboard (in header) = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
-
-    // Setup clipboard timer
-#include <qclipboard.h>
-    QTimer *clipboardTimer;     // timer for checking clipboard - autopaste function
-    clipboardTimer = new QTimer(this);
-    connect(clipboardTimer, SIGNAL(timeout()), SLOT(slotCheckClipboard()));
-    if (Settings::autoPaste())
-        clipboardTimer->start(1000);
-
-    KToggleAction *m_paAutoPaste;   
-    m_paAutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this, SLOT(slotToggleAutoPaste()), ac, "auto_paste");
-    tmp = i18n("<b>Auto paste</b> button toggles the auto-paste mode\n" "on and off.\n" "\n" "When set, KGet will periodically scan the clipboard\n" "for URLs and paste them automatically.");
-    m_paAutoPaste->setWhatsThis(tmp);
-    //m_paAutoPaste->setChecked(Settings::autoPaste());
-
-    KAction *m_paPasteTransfer;
-    (### CHG WITH schedReqOp) m_paPasteTransfer = KStdAction::paste($scheduler$, SLOT(slotPasteTransfer()), ac, "paste_transfer");
-    tmp = i18n("<b>Paste transfer</b> button adds a URL from\n" "the clipboard as a new transfer.\n" "\n" "This way you can easily copy&paste URLs between\n" "applications.");
-    m_paPasteTransfer->setWhatsThis(tmp);
-
-void KGet::slotToggleAutoPaste()
-{
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
-    bool autoPaste = !Settings::autoPaste();
-    Settings::setAutoPaste( autoPaste );
-
-    if (autoPaste) {
-        log(i18n("Auto paste on."));
-        clipboardTimer->start(1000);
-    } else {
-        log(i18n("Auto paste off."));
-        clipboardTimer->stop();
-    }
-    m_paAutoPaste->setChecked(autoPaste);
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-
-void KGet::slotCheckClipboard()
-{
-#ifdef _DEBUG
-    //sDebugIn << endl;
-#endif
-
-    QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
-
-    if (clipData != lastClipboard) {
-        sDebug << "New clipboard event" << endl;
-
-        lastClipboard = clipData;
-        if ( lastClipboard.isEmpty() )
-            return;
-
-        KURL url = KURL::fromPathOrURL( lastClipboard );
-
-        if (url.isValid() && !url.isLocalFile())
-            schedRequestOperation( OpPasteTransfer );
-    }
-
-#ifdef _DEBUG
-    //sDebugOut << endl;
-#endif
-}
+    m_paDelay->blockSignals(false);
 */
 //END 
 
@@ -833,10 +694,6 @@ void slotToggleUseLastDir();
 
 void KGet::slotToggleUseLastDir()
 {
-#ifdef _DEBUG
-    sDebugIn << endl;
-#endif
-
     Settings::setUseLastDirectory( !Settings::useLastDirectory() );
 
     if (Settings::useLastDirectory()) {
@@ -844,27 +701,6 @@ void KGet::slotToggleUseLastDir()
     } else {
         log(i18n("Use last folder off."));
     }
-
-#ifdef _DEBUG
-    sDebugOut << endl;
-#endif
-}
-*/
-//END 
-
-//BEGIN slotToggle<T> 
-/*
-void KGet::slotToggle<T>()
-{
-    bool value = !Settings::<T>();
-    Settings::set<T>( value );
-
-    if (value) {
-        log(i18n("<T> mode on."));
-    } else {
-        log(i18n("<T> mode off."));
-    }
-//    m_paExpertMode->setChecked(expert);
 }
 */
 //END 
