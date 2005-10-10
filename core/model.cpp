@@ -562,10 +562,10 @@ void Model::setupActions()
     KRadioAction * a1;
     KRadioAction * a2;
 
-    a1 = new KRadioAction( i18n("Start Download"), MainBarIcon("tool_resume"),
+    a1 = new KRadioAction( i18n("Start Download"), MainBarIcon("player_play"),
                            0, m_scheduler, SLOT( start() ),
                            actionCollection(), "scheduler_start" );
-    a2 = new KRadioAction( i18n("Stop Download"), MainBarIcon("tool_pause"),
+    a2 = new KRadioAction( i18n("Stop Download"), MainBarIcon("player_pause"),
                            0, m_scheduler, SLOT( stop() ),
                            actionCollection(), "scheduler_stop" );
 

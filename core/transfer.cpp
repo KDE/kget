@@ -51,7 +51,7 @@ void Transfer::setDelay(int seconds)
 {
     m_scheduler->startDelayTimer(this, seconds);
 
-    setStatus(Job::Delayed, i18n("Delayed"), SmallIcon("tool_timer"));
+    setStatus(Job::Delayed, i18n("Delayed"), SmallIcon("history"));
 
     setTransferChange(Tc_Status, true);
 }

@@ -253,12 +253,12 @@ void TransferGroupHandler::createActions()
     //has been created (if not it will create it)
     qObject();
 
-    m_actions.append( new KAction( i18n("Start"), "tool_resume",
+    m_actions.append( new KAction( i18n("Start"), "player_play",
                                    qObject(), SLOT( slotStart() ),
                                    Model::actionCollection(),
                                    "transfer_group_start") );
 
-    m_actions.append( new KAction( i18n("Stop"), "tool_pause",
+    m_actions.append( new KAction( i18n("Stop"), "player_pause",
                                    qObject(), SLOT( slotStop() ),
                                    Model::actionCollection(),
                                    "transfer_group_stop") );

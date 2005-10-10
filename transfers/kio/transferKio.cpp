@@ -140,7 +140,7 @@ void TransferKio::slotConnected( KIO::Job * kioJob )
 //     kdDebug() << "CONNECTED" <<endl;
 
   Q_UNUSED(kioJob);
-    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("tool_resume"));
+    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
     setTransferChange(Tc_Status, true);
 }
 

@@ -70,6 +70,7 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
 
     Model::actionCollection()->action("transfer_open_dest")->plug( popup );
     Model::actionCollection()->action("transfer_show_details")->plug( popup );
+    Model::actionCollection()->action("transfer_copy_source_url")->plug( popup );
 
     return popup;
 }

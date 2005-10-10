@@ -40,7 +40,7 @@ void Button::paintEvent ( QPaintEvent * event )
     QPainter p(this);
 
     p.setBackgroundMode(Qt::TransparentMode);
-    p.drawPixmap(0, 0, SmallIcon("tool_resume"));
+    p.drawPixmap(0, 0, SmallIcon("player_play"));
 }
 
 
@@ -222,11 +222,11 @@ void SidebarBox::updatePixmaps()
 
     //m_pixPlus: plus simbol
     delete m_pixPlus;
-    m_pixPlus = new QPixmap(SmallIcon("edit_add", 16));
+    m_pixPlus = new QPixmap(SmallIcon("viewmag+", 16));
 
     //m_pixMinus: minus simbol
     delete m_pixMinus;
-    m_pixMinus = new QPixmap(SmallIcon("edit_remove", 16));
+    m_pixMinus = new QPixmap(SmallIcon("viewmag+", 16));
 }
 
 void SidebarBox::paintEvent( QPaintEvent * event )
@@ -402,7 +402,7 @@ GroupBox::GroupBox( TransferGroupHandler * group, DownloadsBox * dbox, Sidebar *
 {
 /*    Button * t = new Button(this);
     t->setGeometry(10, 10, 30, 30);*/
-//     t->setIcon(SmallIcon("tool_resume"));
+//     t->setIcon(SmallIcon("player_play"));
     
 
     m_group->addObserver(this);

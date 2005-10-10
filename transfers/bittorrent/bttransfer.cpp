@@ -284,7 +284,7 @@ void BTTransfer::update()
        (statusText() != i18n("Downloading..")) &&
        (status() != Job::Finished) )
     {
-        setStatus(status(), i18n("Downloading.."), SmallIcon("tool_resume"));
+        setStatus(status(), i18n("Downloading.."), SmallIcon("player_play"));
         setTransferChange(Tc_Status);
     }
 

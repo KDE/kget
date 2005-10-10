@@ -139,7 +139,7 @@ void KGet::setupActions()
                                    "on and off.\nWhen set, KGet will periodically scan the clipboard "
                                    "for URLs and paste them automatically."));
 
-    m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "target", 0, this,
+    m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "tool_drop_target", 0, this,
                 SLOT(slotShowDropTarget()), ac, "show_drop_target");
 
     m_KonquerorIntegration = new KAction(i18n("Enable &KGet as Konqueror Download Manager"), "konqueror", 0, this,
@@ -157,11 +157,11 @@ void KGet::setupActions()
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
 
     // Transfer related actions
-    new KAction( i18n("Start"), "tool_resume", "",
+    new KAction( i18n("Start"), "player_play", "",
                  this, SLOT(slotTransfersStart()),
                  actionCollection(), "transfer_start" );
 
-    new KAction( i18n("Stop"), "tool_pause", "",
+    new KAction( i18n("Stop"), "player_pause", "",
                  this, SLOT(slotTransfersStop()),
                  actionCollection(), "transfer_stop" );
 
@@ -176,6 +176,10 @@ void KGet::setupActions()
     new KAction( i18n("Show Details"), "configure", "",
                  this, SLOT(slotTransfersShowDetails()),
                  actionCollection(), "transfer_show_details" );
+
+    new KAction( i18n("Copy URL to Clipboard"), "tool_clipboard", "",
+                 this, SLOT(slotTransfersCopySourceURL()),
+                 actionCollection(), "transfer_copy_source_url" );
 }
 
 void KGet::slotDelayedInit()
@@ -362,6 +366,17 @@ void KGet::slotTransfersShowDetails()
     }
 }
 
+void KGet::slotTransfersCopySourceURL()
+{
+    foreach(TransferHandler * it, Model::selectedTransfers())
+    {
+        QString sourceurl = it->source().url();
+        QClipboard *cb = QApplication::clipboard();
+        cb->setText(sourceurl, QClipboard::Selection);
+        cb->setText(sourceurl, QClipboard::Clipboard);
+    }
+}
+
 void KGet::slotSaveMyself()
 {
     // save last parameters ..
@@ -532,7 +547,7 @@ bool KGet::isOfflineMode() const
 //BEGIN auto-disconnection 
 /*
 KToggleAction *m_paAutoDisconnect,
-    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"tool_disconnect", 0, this, SLOT(slotToggleAutoDisconnect()), ac, "auto_disconnect");
+    m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"connect_creating", 0, this, SLOT(slotToggleAutoDisconnect()), ac, "auto_disconnect");
     tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
     m_paAutoDisconnect->setWhatsThis(tmp);
 
@@ -560,27 +575,6 @@ void KGet::setAutoDisconnect()
 }
 */
 //END 
-
-//BEGIN copy URL to clipboard 
-/*
-    KAction *m_paCopy,
-    m_paCopy = new KAction(i18n("&Copy URL to Clipboard"), 0, this, SLOT(slotCopyToClipboard()), ac, "copy_url");
-    //on updateActions() set to true if an url is selected else set to false
-    m_paCopy->setEnabled(false);
-
-void KGet::slotCopyToClipboard()
-{
-    Transfer *item = CURRENT ITEM!;
-
-    if (item) {
-        QString url = item->getSrc().url();
-        QClipboard *cb = QApplication::clipboard();
-        cb->setText( url, QClipboard::Selection );
-        cb->setText( url, QClipboard::Clipboard);
-    }
-}
-*/
-//END
 
 //BEGIN Auto saving transfer list 
 /*
@@ -610,8 +604,8 @@ void KGet::setAutoSave()
 //construct actions
     KRadioAction *m_paQueue, *m_paTimer, *m_paDelay;
     m_paQueue = new KRadioAction(i18n("&Queue"),"tool_queue", 0, this, SLOT(slotQueueCurrent()), ac, "queue");
-    m_paTimer = new KRadioAction(i18n("&Timer"),"tool_timer", 0, this, SLOT(slotTimerCurrent()), ac, "timer");
-    m_paDelay = new KRadioAction(i18n("De&lay"),"tool_delay", 0, this, SLOT(slotDelayCurrent()), ac, "delay");
+    m_paTimer = new KRadioAction(i18n("&Timer"),"history", 0, this, SLOT(slotTimerCurrent()), ac, "timer");
+    m_paDelay = new KRadioAction(i18n("De&lay"),"button_cancel", 0, this, SLOT(slotDelayCurrent()), ac, "delay");
     m_paQueue->setExclusiveGroup("TransferMode");
     m_paTimer->setExclusiveGroup("TransferMode");
     m_paDelay->setExclusiveGroup("TransferMode");
@@ -686,7 +680,7 @@ void KGet::setAutoSave()
 //BEGIN use last directory Action 
 /*
 KToggleAction *m_paExpertMode, *m_paUseLastDir
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"tool_uselastdir", 0, this, SLOT(slotToggleUseLastDir()), ac, "use_last_dir");
+    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"folder", 0, this, SLOT(slotToggleUseLastDir()), ac, "use_last_dir");
     m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
     m_paUseLastDir->setChecked(Settings::useLastDir());
 

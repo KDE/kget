@@ -1,3 +1,11 @@
+2005-10-10 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Icon updates: Remove a lot icons. Most icons are part of
+          kdelibs. cr22-{app-kget}/{mime-kget_list}.png  icons were 32x32.
+          Resized to 22x22. edit_add / edit_remove icons (used in sidebar)
+          aren't in kdelibs. Replaced with viewmag+/-. I know they are not
+          very suitable. But we have to do a lot of work on the sidebar.
+        * (Re-)implement "Copy URL to Clipboard" transfer action.
+
 2005-10-07 Urs Wolfer <u.wolfer @ bluewin.ch>
         * Work on configuration dialogs
         * Make droptarget-sticky function working

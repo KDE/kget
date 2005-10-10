@@ -56,7 +56,7 @@ Tray::Tray(KGet * parent)
       overlay( 0 ),
       overlayVisible( false )
 {
-    baseIcon = new QPixmap( KSystemTray::loadIcon("dock") );
+    baseIcon = new QPixmap( KSystemTray::loadIcon("tool_drop_target") );
     playOverlay = new QPixmap( SmallIcon( "dock_overlay_run" ) );
     stopOverlay = new QPixmap( SmallIcon( "dock_overlay_stop" ) );
 
