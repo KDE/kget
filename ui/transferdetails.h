@@ -11,7 +11,7 @@
 #ifndef _TRANSFERDETAILS_H
 #define _TRANSFERDETAILS_H
 
-#include <qwidget.h>
+#include <QWidget>
 
 #include "core/observer.h"
 #include "core/transferhandler.h"
