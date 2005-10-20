@@ -14,14 +14,12 @@
 #include <dcopobject.h>
 #include <kurl.h>
 
-#include <QByteArray>
-
 class DCOPIface : public DCOPObject
 {
     K_DCOP
 
 protected:
-    DCOPIface( QByteArray objId ) : DCOPObject( objId ) {}
+    DCOPIface( DCOPCString objId ) : DCOPObject( objId ) {}
 
 k_dcop:
     /**
