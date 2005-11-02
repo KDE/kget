@@ -46,6 +46,7 @@ DockWidget::DockWidget(KMainWidget * _parent):KSystemTray(_parent)
 
     // popup menu for right mouse button
     KPopupMenu *popupMenu = contextMenu();
+    parent->action("paste_transfer")->plug(popupMenu);
     parent->action("drop_target")->plug(popupMenu);
     parent->action("konqueror_integration")->plug(popupMenu);
     popupMenu->insertSeparator();
