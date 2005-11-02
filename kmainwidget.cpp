@@ -257,6 +257,8 @@ KMainWidget::KMainWidget(bool bStartDocked)
 
     KNotifyClient::startDaemon();
 
+    setStandardToolBarMenuEnabled(true);
+
 #ifdef _DEBUG
     sDebugOut << endl;
 #endif
