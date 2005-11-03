@@ -1,3 +1,6 @@
+2005-11-03 Urs Wolfer <u.wolfer @ bluewin.ch>
+        * Add option to show / hide menubar and toolbar (forwardport)
+
 2005-10-10 Urs Wolfer <u.wolfer @ bluewin.ch>
         * Icon updates: Remove a lot icons. Most icons are part of
           kdelibs. cr22-{app-kget}/{mime-kget_list}.png  icons were 32x32.

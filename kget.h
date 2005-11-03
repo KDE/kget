@@ -79,6 +79,7 @@ private slots:
     void slotShowDropTarget();
     void slotTrayKonquerorIntegration();
     void slotKonquerorIntegration( bool );
+    void slotShowMenubar();
 
     // transfers slots
     void slotTransfersStart();
@@ -115,6 +116,7 @@ private:
     KToggleAction * m_showDropTarget;
     KToggleAction * m_AutoPaste;
     KAction       * m_KonquerorIntegration;
+    KToggleAction * m_menubarAction;
 
     // for autopaste function
     QString lastClipboard;

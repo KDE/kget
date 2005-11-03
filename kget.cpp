@@ -33,6 +33,7 @@
 #include <knotifydialog.h>
 #include <kfiledialog.h>
 #include <ktoolinvocation.h>
+#include <kmenubar.h>
 
 #include "kget.h"
 #include "core/model.h"
@@ -141,6 +142,8 @@ void KGet::setupActions()
     KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
     KStdAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
+    m_menubarAction = KStdAction::showMenubar(this, SLOT(slotShowMenubar()), ac, "settings_showmenubar" );
+    m_menubarAction->setChecked( !menuBar()->isHidden() );
 
     // Transfer related actions
     new KAction( i18n("Start"), "player_play", "",
@@ -188,6 +191,9 @@ void KGet::slotDelayedInit()
 
     // enable dropping
     setAcceptDrops(true);
+
+    // enable hide toolbar
+    setStandardToolBarMenuEnabled(true);
 
     // session management stuff
     connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveMyself()));
@@ -455,6 +461,14 @@ void KGet::slotKonquerorIntegration(bool konquerorIntegration)
         m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
     else
         m_KonquerorIntegration->setText(i18n("Enable &KGet as Konqueror Download Manager"));
+}
+
+void KGet::slotShowMenubar()
+{
+    if(m_menubarAction->isChecked())
+        menuBar()->show();
+    else
+        menuBar()->hide();
 }
 
 void KGet::log(const QString & message)
