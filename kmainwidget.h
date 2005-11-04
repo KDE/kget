@@ -82,6 +82,7 @@ public:
 
     // Actions
     KToggleAction *m_paShowLog;
+    KToggleAction *m_menubarAction;
     KAction *m_paPreferences;
     KAction *m_paQuit;
     bool b_viewLogWindow;
@@ -143,6 +144,7 @@ protected slots:
 
     void slotConfigureToolbars();
     void slotNewToolbarConfig();
+    void slotShowMenubar();
 
     void slotPopupMenu(Transfer * item);
 

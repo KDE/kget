@@ -67,6 +67,7 @@
 #include <kio/netaccess.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
+#include <kmenubar.h>
 
 #include "safedelete.h"
 #include "settings.h"
@@ -382,6 +383,9 @@ void KMainWidget::setupGUI()
     KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), coll);
     KStdAction::configureToolbars(this, SLOT(slotConfigureToolbars()), coll);
     KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), coll);
+
+    m_menubarAction = KStdAction::showMenubar(this, SLOT(slotShowMenubar()), coll, "settings_showmenubar" );
+    m_menubarAction->setChecked( !menuBar()->isHidden() );
 
     // view actions
     createStandardStatusBarAction();
@@ -2469,6 +2473,14 @@ bool KMainWidget::isOfflineMode() const
 void KMainWidget::activateDropTarget()
 {
     setDropTargetVisible( true );
+}
+
+void KMainWidget::slotShowMenubar()
+{
+    if(m_menubarAction->isChecked())
+        menuBar()->show();
+    else
+        menuBar()->hide();
 }
 
 #include "kmainwidget.moc"
