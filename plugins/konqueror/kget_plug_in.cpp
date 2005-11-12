@@ -9,9 +9,6 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <QPixmap>
-#include <Q3PtrList>
-
 #include "kget_plug_in.h"
 
 #include <dcopref.h>
@@ -116,7 +113,7 @@ void KGet_plug_in::slotShowLinks()
 
     DOM::HTMLCollection links = doc.links();
 
-    Q3PtrList<LinkItem> linkList;
+    QList<LinkItem*> linkList;
     std::set<QString> dupeCheck;
     for ( uint i = 0; i < links.length(); i++ )
     {

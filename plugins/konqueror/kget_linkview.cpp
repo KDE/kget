@@ -8,8 +8,6 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <Q3PtrList>
-
 #include "kget_linkview.h"
 
 #include <dcopclient.h>
@@ -55,7 +53,6 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     KAction* actionSelectAll = KStdAction::selectAll( this, SLOT( slotSelectAll() ),
                                                       actionCollection() );
 
-    m_links.setAutoDelete( true );
     actionDownload->plug( toolBar() );
     toolBar()->insertLineSeparator();
     actionSelectAll->plug( toolBar() );
@@ -78,21 +75,21 @@ KGetLinkView::KGetLinkView( QWidget *parent )
 
 KGetLinkView::~KGetLinkView()
 {
+    qDeleteAll(m_links);
 }
 
-void KGetLinkView::setLinks( Q3PtrList<LinkItem>& links )
+void KGetLinkView::setLinks( QList<LinkItem*>& links )
 {
     m_links = links; // now we 0wn them
     showLinks( m_links );
 }
 
-void KGetLinkView::showLinks( const Q3PtrList<LinkItem>& links )
+void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 {
     m_view->clear();
 
-    Q3PtrListIterator<LinkItem> it( links );
-    for ( ; it.current(); ++it )
-        (void) new LinkViewItem( m_view, *it );
+    foreach (LinkItem* linkitem, links)
+        (void) new LinkViewItem( m_view, linkitem );
 
     m_view->sort();
 }
