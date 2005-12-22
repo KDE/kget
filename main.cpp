@@ -165,10 +165,21 @@ public:
                 kmain->addTransferEx( KURL::fromPathOrURL( txt ),
                                       KURL());
         }
-        else if(args->count()==2)
-            kmain->addTransferEx( KURL::fromPathOrURL( args->arg(0) ),
-                                  KURL::fromPathOrURL( args->arg(1) ));
-
+        else if(args->count()>=2)
+		{
+			KURL::List urls;
+			QString dest;
+			for( int i=0; i < args->count(); ++i){
+				urls.append(KURL::fromPathOrURL( args->arg(i)));
+			}
+			if ( args->count()==2 & urls.last().protocol() == "file" )
+			{
+				dest=urls.last().path();
+				kmain->addTransferEx( urls.first(), dest );
+			}
+			else
+				kmain->addTransfers( urls, dest );
+		}
         args->clear();
 
 #ifdef _DEBUG
