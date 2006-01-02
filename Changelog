@@ -1,7 +1,7 @@
-2005-11-03 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-11-03 Urs Wolfer <uwolfer @ fwo.ch>
         * Add option to show / hide menubar and toolbar (forwardport)
 
-2005-10-10 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-10-10 Urs Wolfer <uwolfer @ fwo.ch>
         * Icon updates: Remove a lot icons. Most icons are part of
           kdelibs. cr22-{app-kget}/{mime-kget_list}.png  icons were 32x32.
           Resized to 22x22. edit_add / edit_remove icons (used in sidebar)
@@ -9,16 +9,16 @@
           very suitable. But we have to do a lot of work on the sidebar.
         * (Re-)implement "Copy URL to Clipboard" transfer action.
 
-2005-10-07 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-10-07 Urs Wolfer <uwolfer @ fwo.ch>
         * Work on configuration dialogs
         * Make droptarget-sticky function working
         * Start implementing expert-mode
         * (Re-)implement clipboard-autopaste function
 
-2005-10-06 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-10-06 Urs Wolfer <uwolfer @ fwo.ch>
         * Make commandline option --showDropTarget working
 
-2005-09-17 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-09-17 Urs Wolfer <uwolfer @ fwo.ch>
         * Konqueror integration implementation.
         Note: Konqueror freezes at download start if integration is enabled.
         But I think it's more a Konqueror than a KGet problem. I hope I'll find a solution.
@@ -43,14 +43,14 @@
         * Start to implement a BTTransferHandler class, reimplementation 
         of the generic TransferHandler class.
 
-2005-09-02 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-09-02 Urs Wolfer <uwolfer @ fwo.ch>
         * *Replace the old droptarget icon with the nuvola one
 
-2005-08-31 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-08-31 Urs Wolfer <uwolfer @ fwo.ch>
         * Icons in smaller sizes (forwardport)
         * Work on configuration dialogs. Not finished yet.
 
-2005-08-23 Urs Wolfer <u.wolfer @ bluewin.ch>
+2005-08-23 Urs Wolfer <uwolfer @ fwo.ch>
         * Better KGet mime icon (forwardport)
         * Remove artifacts from images (forwardport)
         * Add action to show / hide drop target

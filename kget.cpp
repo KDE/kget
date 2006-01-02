@@ -200,7 +200,7 @@ void KGet::slotDelayedInit()
 
     // set auto-resume in kioslaverc (is there a cleaner way?)
     KConfig cfg( "kioslaverc", false, false);
-    cfg.setGroup(QString::null);
+    cfg.setGroup(QString());
     cfg.writeEntry("AutoResume", true);
     cfg.sync();
 
@@ -491,7 +491,7 @@ void KGet::closeEvent( QCloseEvent * e )
 
 void KGet::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURL::List::canDecode(event->mimeData())
+    event->setAccepted(KURL::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 

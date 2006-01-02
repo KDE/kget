@@ -106,7 +106,7 @@ public:
         if (!kget)
         {
             kget = new KGet();
-            setMainWidget(kget);
+//             setMainWidget(kget); //Qt4 deprecated. i am not aware of equivalent in Qt4. still necessary?
         }
         KWin::activateWindow(kget->winId());
 
@@ -117,7 +117,7 @@ public:
         for (int i = 0; i < args->count(); i++)
 	    {
             QString txt(args->arg(i));
-            if ( txt.endsWith( ".kgt", false ) )
+            if ( txt.endsWith( ".kgt", Qt::CaseInsensitive ) )
                 Model::load( txt );
             else
                 l.push_back(args->arg(i));

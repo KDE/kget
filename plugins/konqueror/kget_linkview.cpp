@@ -96,7 +96,7 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 
 void KGetLinkView::slotStartLeech()
 {
-    QByteArray * data;
+    QByteArray * data(0);
     QDataStream stream( data, QIODevice::WriteOnly );
     bool itemSelected = false;
 

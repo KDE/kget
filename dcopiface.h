@@ -26,9 +26,9 @@ k_dcop:
      * Add new transfers via DCOP.
      *
      * @param src The urls to download
-     * @param destDir The destination direction or QString::null if unspecified
+     * @param destDir The destination direction or QString() if unspecified
      */
-    virtual ASYNC addTransfers( const KURL::List& src, const QString& destDir = QString::null ) = 0;
+    virtual ASYNC addTransfers( const KURL::List& src, const QString& destDir = QString() ) = 0;
 
     virtual bool isDropTargetVisible() const = 0;
 

@@ -31,7 +31,6 @@ LinkItem::LinkItem( DOM::Element link )
     url = KURL::fromPathOrURL( urlString );
     if ( !KProtocolInfo::supportsReading( url ) )
         return;
-    
 
     // somehow getElementsByTagName("#text") doesn't work :(
     DOM::NodeList children = link.childNodes();
@@ -44,8 +43,8 @@ LinkItem::LinkItem( DOM::Element link )
 
     // force "local file" mimetype determination
     KMimeType::Ptr mt = KMimeType::findByURL( url, 0, true, true);
-    icon = mt->icon( QString::null, false ); // dummy parameters
+    icon = mt->icon( QString(), false ); // dummy parameters
     mimeType = mt->comment();
-    
+
     m_valid = true;
 }

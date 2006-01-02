@@ -51,7 +51,7 @@ public:
 
 protected:
     // from the DCOP interface
-    virtual void addTransfers( const KURL::List& src, const QString& destDir = QString::null );
+    virtual void addTransfers( const KURL::List& src, const QString& destDir = QString() );
     virtual bool isDropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );
     virtual void setOfflineMode( bool online );
