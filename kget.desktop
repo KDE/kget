@@ -59,5 +59,6 @@ GenericName[tr]=İndirme Yöneticisi
 GenericName[uk]=Менеджер звантажень
 GenericName[uz]=Ёзиб олиш бошқарувчиси
 GenericName[zh_CN]=下载管理器
+GenericName[zh_HK]=下載管理員
 Categories=Qt;KDE;Network;
 X-DCOP-ServiceType=Unique
