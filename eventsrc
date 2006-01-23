@@ -1,6 +1,7 @@
 [!Global!]
 IconName=kget
 Comment=KGet
+Comment[bn]=কে-গেট
 Comment[sv]=Kget
 
 [added]
@@ -31,6 +32,7 @@ Name[zh_CN]=添加了任务
 Name[zh_HK]=傳輸已新增
 Comment=A new download has been added
 Comment[bg]=Добавен е нов файл за изтегляне
+Comment[bn]=একটি নতুন ডাউনলোড যোগ করা হয়েছে
 Comment[ca]=S'ha afegit una descàrrega nova
 Comment[cs]=Byl přidán nový přenos
 Comment[da]=En ny download er blevet tilføjet
@@ -66,6 +68,7 @@ default_presentation=17
 [started]
 Name=DownloadStarted
 Name[bg]=Начало на изтегляне
+Name[bn]=ডাউনলোড আরম্ভ
 Name[ca]=S'ha iniciat la descàrrega
 Name[cs]=Stahování zahájeno
 Name[el]=Εκκίνηση λήψης αρχείου
@@ -92,6 +95,7 @@ Name[zh_CN]=开始下载
 Name[zh_HK]=下載已開始
 Comment=Downloading started
 Comment[bg]=Изтеглянето започна
+Comment[bn]=ডাউনলোড আরম্ভ করল
 Comment[ca]=S'ha iniciat la descàrrega
 Comment[cs]=Bylo zahájeno stahování
 Comment[da]=Nedtagning startet
@@ -128,6 +132,7 @@ default_presentation=16
 [finished]
 Name=DownloadFinished
 Name[bg]=Край на изтегляне
+Name[bn]=ডাউনলোড শেষ
 Name[ca]=Ha acabat la descàrrega
 Name[cs]=Stahování ukončeno
 Name[el]=Η λήψη ολοκληρώθηκε
@@ -156,6 +161,7 @@ Name[zh_CN]=下载完成
 Name[zh_HK]=下載已完成
 Comment=Downloading finished
 Comment[bg]=Изтеглянето завърши
+Comment[bn]=ডাউনলোড শেষ করল
 Comment[ca]=Ha acabat la descàrrega
 Comment[cs]=Stahování bylo dokončeno
 Comment[da]=Nedtagning afsluttet
@@ -217,6 +223,7 @@ Name[zh_CN]=添加下载完成
 Name[zh_HK]=新增的下載已完成
 Comment=All downloads finished
 Comment[bg]=Изтеглянето на всичките файлове завърши
+Comment[bn]=সব ডাউনলোড শেষ করল
 Comment[ca]=Han acabat totes les descàrregues
 Comment[cs]=Všechna stahování byla dokončena
 Comment[da]=Alle nedtagninger afsluttet

@@ -10,6 +10,7 @@ Exec=kget %U
 Icon=kget
 Name=Download with KGet
 Name[bg]=Изтегляне с KGet
+Name[bn]=কে-গেট দিয়ে ডাউনলোড
 Name[ca]=Descarrega amb el KGet
 Name[cs]=Stáhnout pomocí KGet
 Name[da]=Download med KGet
