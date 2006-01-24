@@ -172,7 +172,9 @@ public:
 			for( int i=0; i < args->count(); ++i){
 				urls.append(KURL::fromPathOrURL( args->arg(i)));
 			}
-			if ( args->count()==2 & urls.last().protocol() == "file" )
+			
+			// Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as unvalid then
+			if ( args->count()==2 & ( urls.last().isLocalFile() | !urls.last().isValid()))
 			{
 				dest=urls.last().path();
 				kmain->addTransferEx( urls.first(), dest );
