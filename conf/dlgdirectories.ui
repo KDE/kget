@@ -30,7 +30,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KURLRequester" name="kcfg_DefaultDirectory" />
+    <widget class="KUrlRequester" name="kcfg_DefaultDirectory" />
    </item>
    <item>
     <spacer>
@@ -55,7 +55,7 @@
  <pixmapfunction>SmallIconSet</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>KURLRequester</class>
+   <class>KUrlRequester</class>
    <extends>QWidget</extends>
    <header>kurlrequester.h</header>
    <container>1</container>

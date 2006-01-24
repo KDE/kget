@@ -82,12 +82,12 @@ void Model::delGroup(const QString& groupName)
     }
 }
 
-void Model::addTransfer( KURL srcURL, QString destDir,
+void Model::addTransfer( KUrl srcURL, QString destDir,
                          const QString& groupName )
 {
     kdDebug() << " addTransfer:  " << srcURL.url() << endl;
 
-    KURL destURL;
+    KUrl destURL;
 
     if ( srcURL.isEmpty() )
     {
@@ -113,8 +113,8 @@ void Model::addTransfer(const QDomElement& e, const QString& groupName)
 {
     //We need to read these attributes now in order to know which transfer
     //plugin to use.
-    KURL srcURL = KURL::fromPathOrURL( e.attribute("Source") );
-    KURL destURL = KURL::fromPathOrURL( e.attribute("Dest") );
+    KUrl srcURL = KUrl::fromPathOrURL( e.attribute("Source") );
+    KUrl destURL = KUrl::fromPathOrURL( e.attribute("Dest") );
 
     kdDebug() << "Model::addTransfer  src= " << srcURL.url()
               << " dest= " << destURL.url() << endl;
@@ -126,13 +126,13 @@ void Model::addTransfer(const QDomElement& e, const QString& groupName)
     createTransfer(srcURL, destURL, groupName, &e);
 }
 
-void Model::addTransfer(KURL::List srcURLs, QString destDir,
+void Model::addTransfer(KUrl::List srcURLs, QString destDir,
                         const QString& groupName)
 {
-    KURL::List urlsToDownload;
+    KUrl::List urlsToDownload;
 
-    KURL::List::ConstIterator it = srcURLs.begin();
-    KURL::List::ConstIterator itEnd = srcURLs.end();
+    KUrl::List::ConstIterator it = srcURLs.begin();
+    KUrl::List::ConstIterator itEnd = srcURLs.end();
 
     for(; it!=itEnd ; ++it)
     {
@@ -150,7 +150,7 @@ void Model::addTransfer(KURL::List srcURLs, QString destDir,
         return;
     }
 
-    KURL destURL;
+    KUrl destURL;
 
     // multiple files -> ask for directory, not for every single filename
     if ( !isValidDestDirectory(destDir) )
@@ -339,7 +339,7 @@ Model::~Model()
     delete(m_scheduler);
 }
 
-void Model::createTransfer(KURL src, KURL dest, const QString& groupName, const QDomElement * e)
+void Model::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
 {
     kdDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
 
@@ -398,7 +398,7 @@ void Model::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver *
     }
 }
 
-KURL Model::urlInputDialog()
+KUrl Model::urlInputDialog()
 {
     QString newtransfer;
     bool ok = false;
@@ -410,16 +410,16 @@ KURL Model::urlInputDialog()
         if (!ok)
         {
             //user pressed cancel
-            return KURL();
+            return KUrl();
         }
 
-        KURL src = KURL::fromPathOrURL(newtransfer);
+        KUrl src = KUrl::fromPathOrURL(newtransfer);
         if( isValidSource(src) )
             return src;
         else
             ok = false;
     }
-    return KURL();
+    return KUrl();
 }
 
 QString Model::destInputDialog()
@@ -431,7 +431,7 @@ QString Model::destInputDialog()
     return destDir;
 }
 
-bool Model::isValidSource(KURL source)
+bool Model::isValidSource(KUrl source)
 {
     if (!source.isValid())
     {
@@ -477,7 +477,7 @@ bool Model::isValidDestDirectory(const QString & destDir)
     return (!destDir.isEmpty() && QFileInfo( destDir ).isDir());
 }
 
-bool Model::isValidDestURL(KURL destURL)
+bool Model::isValidDestURL(KUrl destURL)
 {
     if(KIO::NetAccess::exists(destURL, false, 0))
     {
@@ -498,19 +498,19 @@ bool Model::isValidDestURL(KURL destURL)
    */
 }
 
-KURL Model::getValidDestURL(const QString& destDir, KURL srcURL)
+KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
 {
     if ( !isValidDestDirectory(destDir) )
-        return KURL();
+        return KUrl();
 
     // create a proper destination file from destDir
-    KURL destURL = KURL::fromPathOrURL( destDir );
+    KUrl destURL = KUrl::fromPathOrURL( destDir );
     QString filename = srcURL.fileName();
 
     if ( filename.isEmpty() )
     {
         // simply use the full url as filename
-        filename = KURL::encode_string_no_slash( srcURL.prettyURL() );
+        filename = KUrl::encode_string_no_slash( srcURL.prettyURL() );
         kdDebug() << " Filename is empty. Setting to  " << filename << endl;
         kdDebug() << "   srcURL = " << srcURL.url() << endl;
         kdDebug() << "   prettyURL = " << srcURL.prettyURL() << endl;
@@ -523,7 +523,7 @@ KURL Model::getValidDestURL(const QString& destDir, KURL srcURL)
         if (!isValidDestURL(destURL))
         {
             kdDebug() << "   destURL " << destURL.path() << " is not valid" << endl;
-            return KURL();
+            return KUrl();
         }
     }
     return destURL;
@@ -542,7 +542,7 @@ TransferGroup * Model::findGroup(const QString & groupName)
     return 0;
 }
 
-Transfer * Model::findTransfer(KURL src)
+Transfer * Model::findTransfer(KUrl src)
 {
     QList<TransferGroup *>::iterator it = m_transferGroups.begin();
     QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
@@ -672,7 +672,7 @@ KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
     return create_plugin();
 }
 
-bool Model::safeDeleteFile( const KURL& url )
+bool Model::safeDeleteFile( const KUrl& url )
 {
     if ( url.isLocalFile() )
     {

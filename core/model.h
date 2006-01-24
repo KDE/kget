@@ -93,7 +93,7 @@ class Model
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KURL srcURL, QString destDir = "",
+        static void addTransfer(KUrl srcURL, QString destDir = "",
                                 const QString& groupName = "");
 
         /**
@@ -112,7 +112,7 @@ class Model
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KURL::List srcURLs, QString destDir = "",
+        static void addTransfer(KUrl::List srcURLs, QString destDir = "",
                                 const QString& groupName = "");
 
         /**
@@ -173,7 +173,7 @@ class Model
          * @param dest the destination url
          * @param groupName the group name
          */
-        static void createTransfer(KURL src, KURL dest, const QString& groupName = "", const QDomElement * e = 0);
+        static void createTransfer(KUrl src, KUrl dest, const QString& groupName = "", const QDomElement * e = 0);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers
@@ -189,10 +189,10 @@ class Model
          */
         static void postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer = 0);
 
-        static KURL urlInputDialog();
+        static KUrl urlInputDialog();
         static QString destInputDialog();
 
-        static bool isValidSource(KURL source);
+        static bool isValidSource(KUrl source);
         static bool isValidDestDirectory(const QString& destDir);
 
         /**
@@ -202,12 +202,12 @@ class Model
          * @param destFile the url of the destination file
          * @return true if the destination file is ok, otherwise returns false
          */
-        static bool isValidDestURL(KURL destURL);
+        static bool isValidDestURL(KUrl destURL);
 
-        static KURL getValidDestURL(const QString& destDir, KURL srcURL);
+        static KUrl getValidDestURL(const QString& destDir, KUrl srcURL);
 
         static TransferGroup * findGroup(const QString& groupName);
-        static Transfer * findTransfer(KURL url);
+        static Transfer * findTransfer(KUrl url);
 
         static void setupActions();
 
@@ -226,7 +226,7 @@ class Model
          * is a directory or if it is not local it returns false and shows a
          * warning message.
          */
-        static bool safeDeleteFile( const KURL& url );
+        static bool safeDeleteFile( const KUrl& url );
 
 
         static QList<TransferGroup *> m_transferGroups;

@@ -130,7 +130,7 @@
   <group name="Internal">
     <!-- NOT CONFIGURABLE -->
     <entry name="MainPosition" type="Point"/>
-    <entry name="MainState" type="UInt64">
+    <entry name="MainState" type="Int">
       <default>0</default>
     </entry>
     <entry name="DropPosition" type="Point"/>

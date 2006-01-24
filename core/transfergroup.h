@@ -96,7 +96,7 @@ class TransferGroup : public JobQueue
          * @return the transfer pointer if the transfer has been found. Otherwise
          * it returns 0
          */
-        Transfer * findTransfer(KURL src);
+        Transfer * findTransfer(KUrl src);
 
         /**
          * @return the group name

@@ -41,7 +41,7 @@
 
 class QWidget;
 
-class KURL;
+class KUrl;
 class KMenu;
 
 class TransferGroup;
@@ -57,7 +57,7 @@ class TransferFactory : public KGetPlugin
     public:
         TransferFactory();
 
-        virtual Transfer * createTransfer( KURL srcURL, KURL destURL,
+        virtual Transfer * createTransfer( KUrl srcURL, KUrl destURL,
                                            TransferGroup * parent,
                                            Scheduler * scheduler,
                                            const QDomElement * n = 0 )=0;
