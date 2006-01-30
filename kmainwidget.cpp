@@ -68,6 +68,7 @@
 #include <knotifyclient.h>
 #include <knotifydialog.h>
 #include <kmenubar.h>
+#include <kio/renamedlg.h>
 
 #include "safedelete.h"
 #include "settings.h"
@@ -91,6 +92,11 @@
 #include "slave.h"
 #include "slaveevent.h"
 
+struct KURLPair
+{
+	KURL dest;
+	KURL src;
+};
 
 KMainWidget *kmain = 0L;
 
@@ -1151,21 +1157,22 @@ void KMainWidget::addTransferEx(const KURL& url, const KURL& destFile)
 
 void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
 {
-    KURL::List urlsToDownload;
+    QValueList<KURLPair> urls_orig;
 
     for ( KURL::List::ConstIterator it = src.begin(); it != src.end(); ++it )
     {
-        KURL url = *it;
-        if ( url.fileName().endsWith( ".kgt" ) )
-            readTransfersEx(url);
+        KURLPair url;
+        url.src = *it;
+        if ( url.src.fileName().endsWith( ".kgt" ) )
+            readTransfersEx(url.src);
         else
-            urlsToDownload.append( url );
+            urls_orig.append( url );
     }
 
-    if ( urlsToDownload.isEmpty() )
+    if ( urls_orig.isEmpty() )
         return;
 
-    if ( urlsToDownload.count() == 1 ) // just one file -> ask for filename
+    if ( urls_orig.count() == 1 ) // just one file -> ask for filename
     {
         KURL destFile;
 
@@ -1173,7 +1180,7 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
         {
             // create a proper destination file from destDir
             KURL destURL = KURL::fromPathOrURL( destDir );
-            QString fileName = urlsToDownload.first().fileName();
+            QString fileName = urls_orig.first().src.fileName();
 
             // in case the fileName is empty, we simply ask for a filename in
             // addTransferEx. Do NOT attempt to use an empty filename, that
@@ -1198,65 +1205,118 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
             }
         }
 
-        addTransferEx( urlsToDownload.first(), destFile );
+        addTransferEx( urls_orig.first().src, destFile );
         return;
     }
 
     // multiple files -> ask for directory, not for every single filename
-    KURL dest;
-    if ( destDir.isEmpty() || !QFileInfo( destDir ).isDir() )
-    {
-        if ( !destDir.isEmpty()  )
-            dest.setPath( destDir );
-        else
-            dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
+	
+	bool dir_accepted = false;
+	QValueList<KURLPair>::Iterator it;
+	QValueList<KURLPair> urls;
+	KURL::List urlsToDelete;
+	while ( !dir_accepted )
+	{
+		urlsToDelete.clear();
+		urls = urls_orig;	// copy the list here, urls might be changed, yet when we return here (Cancel),
+							// we want to start again with the original list 
+		dir_accepted = true; //Set to false later when Cancel is pressed
+		KURL dest;
+		if ( destDir.isEmpty() || !QFileInfo( destDir ).isDir() )
+		{
+			if ( !destDir.isEmpty()  )
+				dest.setPath( destDir );
+			else
+				dest.setPath( getSaveDirectoryFor( src.first().fileName() ) );
 
-        // ask in any case, when destDir is empty
-        if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
-        {
-            QString dir = KFileDialog::getExistingDirectory( dest.path() );
-            if ( dir.isEmpty() ) // aborted
-                return;
+            // ask in any case, when destDir is empty
+			if ( destDir.isEmpty() || !QFileInfo( dest.path() ).isDir() )
+			{
+				QString dir = KFileDialog::getExistingDirectory( dest.path() );
+				if ( dir.isEmpty() ) // aborted
+					return;
 
-            dest.setPath( dir );
-            ksettings.lastDirectory = dir;
-        }
-    }
+				dest.setPath( dir );
+				ksettings.lastDirectory = dir;
+			}
+		}
 
-    // dest is now finally the real destination directory for all the files
-    dest.adjustPath(+1);
+        // dest is now finally the real destination directory for all the files
+		dest.adjustPath(+1);
 
-    int numdl = 0;
-    // create new transfer items
-    KURL::List::ConstIterator it = urlsToDownload.begin();
-    for ( ; it != urlsToDownload.end(); ++it )
-    {
-        KURL srcURL = *it;
+        // create new transfer items
+		bool skip_all = false;
+		bool overwrite_all = false;
+		it = urls.begin();
+		KIO::RenameDlg_Result result;
+		while ( it != urls.end() )
+		{
+			
+			if ( !sanityChecksSuccessful( (*it).src ) )
+			{
+				it = urls.erase( it );
+				continue; // shouldn't we notify the user??
+			}
+			
+			(*it).dest = dest;
+			QString fileName = (*it).src.fileName();
+			if ( fileName.isEmpty() ) // simply use the full url as filename
+				fileName = KURL::encode_string_no_slash( (*it).src.prettyURL() );
 
-        if ( !sanityChecksSuccessful( *it ) )
-            continue;
+			(*it).dest.setFileName( fileName );
 
-        KURL destURL = dest;
-        QString fileName = (*it).fileName();
-        if ( fileName.isEmpty() ) // simply use the full url as filename
-            fileName = KURL::encode_string_no_slash( (*it).prettyURL() );
+			if( KIO::NetAccess::exists((*it).dest, false, this))
+			{
+				QString newdest;
+				if (skip_all)
+					result = KIO::R_SKIP;
+				else if( overwrite_all )
+					result = KIO::R_OVERWRITE;
+				else
+				{
+					QString caption = i18n( "File Already exists" ) + " - KGet";
+					result = KIO::open_RenameDlg( caption, (*it).src.url(), (*it).dest.url(), KIO::RenameDlg_Mode(KIO::M_OVERWRITE|KIO::M_SKIP|KIO::M_MULTI), newdest);
+				}
+				switch (result)
+				{
+					case KIO::R_RENAME:
+						(*it).dest = KURL::fromPathOrURL( newdest );
+						break;
+					case KIO::R_OVERWRITE_ALL:
+						overwrite_all = true; //fall through
+					case KIO::R_OVERWRITE:
+						urlsToDelete.append( (*it).dest );
+						break;
+					case KIO::R_AUTO_SKIP:
+						skip_all = true;	
+					case KIO::R_SKIP:			//fall through
+						it = urls.erase( it );
+						continue;
+						break;
+					default:               // Cancel, ask again for directory
+						dir_accepted = false;
+				}
+				if ( !dir_accepted )
+					break;
+			}   // if(KIO::NetAccess::exists
+			++it;
+		} //  while ( it != urls.end() )
+	} //  while ( !dir_accepted )
 
-        destURL.setFileName( fileName );
-
-        if(KIO::NetAccess::exists(destURL, false, this))
-        {
-            if (KMessageBox::warningYesNo(this,i18n("Destination file \n%1\nalready exists.\nDo you want to overwrite it?").arg( destURL.prettyURL() ), QString::null, i18n("Overwrite"), i18n("Do Not Overwrite") )
-                                          == KMessageBox::Yes)
-            {
-                SafeDelete::deleteFile( destURL );
-            }
-        }
-
-        Transfer *item = myTransferList->addTransfer(*it, destURL);
-        item->updateAll(); // update the remaining fields
-
-        numdl++;
-    }
+	KURL::List::Iterator it_1 = urlsToDelete.begin();
+	for ( ; it_1 != urlsToDelete.end(); ++it_1 )
+	{
+		SafeDelete::deleteFile( *it_1 );
+	}
+	
+	int numdl = 0;
+	it = urls.begin();
+	for ( ; it != urls.end(); ++it )
+	{
+		Transfer *item = myTransferList->addTransfer((*it).src, (*it).dest);
+		item->updateAll(); // update the remaining fields
+		numdl++;
+	}
 
     KNotifyClient::event(kdock->winId(), "added", i18n("1 download has been added.", "%n downloads have been added.", numdl));
 
