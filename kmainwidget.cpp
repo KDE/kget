@@ -46,6 +46,7 @@
 #include <qtimer.h>
 #include <qdropsite.h>
 #include <qpopupmenu.h>
+#include <qfileinfo.h>
 #include <kinputdialog.h>
 
 #include <kprotocolinfo.h>
@@ -1274,8 +1275,9 @@ void KMainWidget::addTransfers( const KURL::List& src, const QString& destDir )
 					result = KIO::R_OVERWRITE;
 				else
 				{
+					QFileInfo finfo( (*it).dest.path() );
 					QString caption = i18n( "File Already exists" ) + " - KGet";
-					result = KIO::open_RenameDlg( caption, (*it).src.url(), (*it).dest.url(), KIO::RenameDlg_Mode(KIO::M_OVERWRITE|KIO::M_SKIP|KIO::M_MULTI), newdest);
+					result = KIO::open_RenameDlg( caption, (*it).src.url(), (*it).dest.url(), KIO::RenameDlg_Mode(KIO::M_OVERWRITE|KIO::M_SKIP|KIO::M_MULTI), newdest, (KIO::filesize_t) -1, (KIO::filesize_t)finfo.size(), (time_t) -1, (time_t) -1, (time_t) -1, finfo.lastModified().toTime_t());
 				}
 				switch (result)
 				{
