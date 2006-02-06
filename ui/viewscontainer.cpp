@@ -67,7 +67,7 @@ ButtonBase::ButtonBase(QWidget * parent)
 
 void ButtonBase::slotToggled(bool checked)
 {
-    kdDebug() << "ButtonBase::slotToggled" << endl;
+    kDebug() << "ButtonBase::slotToggled" << endl;
     if(checked)
     {
         emit activated();
@@ -113,7 +113,7 @@ void TransfersButton::removeTransfer(TransferHandler * transfer)
     {
         if(it.value() == transfer)
         {
-            m_transfersMap.remove(it);
+            m_transfersMap.erase(it);
             //Delete the QAction
             delete(it.key());
         }
@@ -146,7 +146,7 @@ void TransfersButton::setTransfer(TransferHandler * transfer)
 
 void TransfersButton::slotToggled(bool checked)
 {
-    kdDebug() << "TransfersButton::slotToggled" << endl;
+    kDebug() << "TransfersButton::slotToggled" << endl;
     if(checked)
     {
         if(m_selectedTransfer)
@@ -156,7 +156,7 @@ void TransfersButton::slotToggled(bool checked)
 
 void TransfersButton::slotActionTriggered(QAction * action)
 {
-    kdDebug() << "Slot action triggered" << endl;
+    kDebug() << "Slot action triggered" << endl;
 
     emit selectedTransfer(m_transfersMap[action]);
 }
@@ -254,7 +254,7 @@ void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
 
 void ViewsContainer::showDownloadsWindow()
 {
-    kdDebug() << "ViewsContainer::showDownloadsWindow" << endl;
+    kDebug() << "ViewsContainer::showDownloadsWindow" << endl;
     m_SLayout->setCurrentWidget( m_mainView );
 
     //TitleBar update
@@ -263,7 +263,7 @@ void ViewsContainer::showDownloadsWindow()
 
 void ViewsContainer::showFinishedWindow()
 {
-    kdDebug() << "ViewsContainer::showFinishedWindow" << endl;
+    kDebug() << "ViewsContainer::showFinishedWindow" << endl;
     m_SLayout->setCurrentWidget( m_finishedView );
 
     //TitleBar update
@@ -272,7 +272,7 @@ void ViewsContainer::showFinishedWindow()
 
 void ViewsContainer::slotTransferSelected(TransferHandler * transfer)
 {
-    kdDebug() << "SlotTransferSelected" << endl;
+    kDebug() << "SlotTransferSelected" << endl;
 
     m_SLayout->setCurrentWidget( m_transfersMap[transfer] );
 

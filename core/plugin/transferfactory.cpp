@@ -8,12 +8,8 @@
    of the License.
 */
 
-#include <QList>
-
 #include <kmenu.h>
 #include <klocale.h>
-#include <kiconloader.h>
-#include <kdebug.h>
 
 #include "model.h"
 #include "transferfactory.h"
@@ -55,9 +51,9 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     //Plug all the actions in the popup menu
     Model::actionCollection()->action("transfer_start")->plug( popup );
     Model::actionCollection()->action("transfer_stop")->plug( popup );
-    popup->insertSeparator();
+    popup->addSeparator();
     Model::actionCollection()->action("transfer_remove")->plug( popup );
-    popup->insertSeparator();
+    popup->addSeparator();
 
     foreach(KAction * it, actionList)
     {
@@ -66,7 +62,7 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     }
 
     if(!actionList.isEmpty())
-        popup->insertSeparator();
+        popup->addSeparator();
 
     Model::actionCollection()->action("transfer_open_dest")->plug( popup );
     Model::actionCollection()->action("transfer_show_details")->plug( popup );

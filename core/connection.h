@@ -9,15 +9,15 @@
 */
 
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef CONNECTION_H
+#define CONNECTION_H
 
 #include <QObject>
 
 #include "globals.h"
 
 /**
-  * This class 
+  * This class
   *
   * @short ...
   **/
@@ -25,15 +25,14 @@
 class Connection : public QObject
 {
     public:
-	Connection( QObject * parent, const char * name = "" );
-	~Connection();
+    Connection( QObject * parent );
+    ~Connection();
 
-	bool isOnline();
+    bool isOnline();
 
     private slots:
-	void slotCheckConnections();
+    void slotCheckConnections();
 
 };
 
 #endif
-

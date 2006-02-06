@@ -106,14 +106,13 @@ public:
         if (!kget)
         {
             kget = new KGet();
-//             setMainWidget(kget); //Qt4 deprecated. i am not aware of equivalent in Qt4. still necessary?
         }
         KWin::activateWindow(kget->winId());
 
         if (args->isSet("showDropTarget"))
             Settings::setShowDropTarget( true );
 
-        KURL::List l;
+        KUrl::List l;
         for (int i = 0; i < args->count(); i++)
 	    {
             QString txt(args->arg(i));
@@ -129,10 +128,10 @@ public:
         // the last arg read (when we have more than 1 arg) is considered
         // as destination dir for the previous downloads
         if (l.count() == 1)
-            kget->addTransfersEx( l, KURL());
+            kget->addTransfersEx( l, KUrl());
         else if (l.count() > 1)
         {
-            KURL last = l.last();
+            KUrl last = l.last();
             l.pop_back();
             kget->addTransfersEx(l, last);
         }

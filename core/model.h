@@ -12,12 +12,8 @@
    of the License.
 */
 
-#ifndef _MODEL_H
-#define _MODEL_H
-
-
-#include <QList>
-#include <QString>
+#ifndef MODEL_H
+#define MODEL_H
 
 #include <kservice.h>
 #include <kurl.h>

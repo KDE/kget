@@ -13,7 +13,6 @@
 
 #include <klistview.h>
 #include <kmainwindow.h>
-#include <kurl.h>
 
 #include "links.h"
 
@@ -37,7 +36,7 @@ public:
     void setPageURL( const QString& url );
 
 signals:
-    void leechURLs( const KURL::List& urls );
+    void leechURLs( const KUrl::List& urls );
 
 private slots:
     void slotStartLeech();

@@ -29,20 +29,12 @@
  * @see transfers/kio/kget_kiotransfer.desktop - desktop entry example
  */
 
-#include <QList>
-
-#include <kapplication.h>
 #include <kaction.h>
 
 #include "core/plugin/plugin.h"
 #include "core/model.h"
 #include "core/transfer.h"
 #include "core/transferhandler.h"
-
-class QWidget;
-
-class KUrl;
-class KMenu;
 
 class TransferGroup;
 class Scheduler;

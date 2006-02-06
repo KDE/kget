@@ -8,8 +8,6 @@
    of the License.
 */
 
-#include <QList>
-
 #include <kdebug.h>
 
 #include "core/job.h"
@@ -32,14 +30,14 @@ void TransferHandler::addObserver(TransferObserver * observer)
 {
     m_observers.push_back(observer);
     m_changesFlags[observer]=0xFFFFFFFF;
-    kdDebug() << "TransferHandler: OBSERVERS++ = " << m_observers.size() << endl;
+    kDebug() << "TransferHandler: OBSERVERS++ = " << m_observers.size() << endl;
 }
 
 void TransferHandler::delObserver(TransferObserver * observer)
 {
-    m_observers.remove(observer);
+    m_observers.removeAll(observer);
     m_changesFlags.remove(observer);
-    kdDebug() << "TransferHandler: OBSERVERS-- = " << m_observers.size() << endl;
+    kDebug() << "TransferHandler: OBSERVERS-- = " << m_observers.size() << endl;
 }
 
 void TransferHandler::start()
@@ -119,7 +117,7 @@ Transfer::ChangesFlags TransferHandler::changesFlags(TransferObserver * observer
         return m_changesFlags[observer];
     else
     {
-        kdDebug() << " TransferHandler::changesFlags() doesn't see you as an observer! " << endl;
+        kDebug() << " TransferHandler::changesFlags() doesn't see you as an observer! " << endl;
 
         return 0xFFFFFFFF;
     }
@@ -130,7 +128,7 @@ void TransferHandler::resetChangesFlags(TransferObserver * observer)
     if( m_changesFlags.find(observer) != m_changesFlags.end() )
         m_changesFlags[observer] = 0;
     else
-        kdDebug() << " TransferHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+        kDebug() << " TransferHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
 }
 
 void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
@@ -147,7 +145,7 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
 
 void TransferHandler::postTransferChangedEvent()
 {
-    kdDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
+    kDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
     //Here we have to copy the list and iterate on the copy itself, becouse
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.
@@ -159,20 +157,20 @@ void TransferHandler::postTransferChangedEvent()
     //Notify the observers
     for(; it!=itEnd; ++it)
     {
-        kdDebug() << "TransferHandler::111" << endl;
+        kDebug() << "TransferHandler::111" << endl;
         (*it)->transferChangedEvent(this);
-        kdDebug() << "TransferHandler::222" << endl;
+        kDebug() << "TransferHandler::222" << endl;
     }
 
     //Notify the group
-    kdDebug() << "TransferHandler::333" << endl;
+    kDebug() << "TransferHandler::333" << endl;
     m_transfer->group()->transferChangedEvent(m_transfer);
-    kdDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
+    kDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
 }
 
 void TransferHandler::postDeleteEvent()
 {
-    kdDebug() << "TransferHandler::postDeleteEvent() ENTERING" << endl;
+    kDebug() << "TransferHandler::postDeleteEvent() ENTERING" << endl;
 
     //Here we have to copy the list and iterate on the copy itself, becouse
     //a view can remove itself as a view while we are iterating over the
@@ -186,5 +184,5 @@ void TransferHandler::postDeleteEvent()
     {
         (*it)->deleteEvent(this);
     }
-    kdDebug() << "TransferHandler::postDeleteEvent() LEAVING" << endl;
+    kDebug() << "TransferHandler::postDeleteEvent() LEAVING" << endl;
 }

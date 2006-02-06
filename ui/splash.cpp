@@ -24,7 +24,7 @@
 
 
 OSDWidget::OSDWidget(const QString& imagePath)
-    : QWidget(NULL, "osd",
+    : QWidget(NULL,
               Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
               Qt::WStyle_Customize | Qt::WStyle_NoBorder |
               Qt::WStyle_Tool | Qt::WNoAutoErase | Qt::WX11BypassWM)

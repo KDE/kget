@@ -160,7 +160,7 @@ class Sidebar : public QWidget, public ModelObserver
     friend class SidebarBox;
 
     public:
-        Sidebar( QWidget * parent = 0, const char * name = 0 );
+        Sidebar( QWidget * parent = 0 );
 
         void startTimer( SidebarBox * item );
         void stopTimer( SidebarBox * item );

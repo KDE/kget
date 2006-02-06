@@ -23,9 +23,8 @@
 #include <torrent/torrent.h>
 #include <sstream>
 
-#include <qobject.h>
-#include <qtimer.h>
-#include <qdatetime.h>
+#include <QTimer>
+#include <QDateTime>
 
 #include "core/transfer.h"
 
@@ -52,7 +51,7 @@ class BTTransfer : public QObject, public Transfer
         };
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
-                    Scheduler* scheduler, const KURL& src, const KURL& dest,
+                    Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                     const QDomElement * e = 0 );
         ~BTTransfer();
 

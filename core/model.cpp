@@ -8,11 +8,6 @@
    of the License.
 */
 
-#include <QFileInfo>
-#include <QList>
-#include <QTextStream>
-
-#include <kdebug.h>
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
 #include <kfiledialog.h>
@@ -44,7 +39,7 @@
 
 void Model::addObserver(ModelObserver * observer)
 {
-    kdDebug() << "Model::addObserver" << endl;
+    kDebug() << "Model::addObserver" << endl;
 
     m_observers.append(observer);
 
@@ -58,7 +53,7 @@ void Model::addObserver(ModelObserver * observer)
 
 void Model::delObserver(ModelObserver * observer)
 {
-    m_observers.remove(observer);
+    m_observers.removeAll(observer);
 }
 
 void Model::addGroup(const QString& groupName)
@@ -66,7 +61,7 @@ void Model::addGroup(const QString& groupName)
     TransferGroup * group = new TransferGroup(m_scheduler, groupName);
     m_transferGroups.append(group);
 
-    kdDebug() << "Model::addGroup" << endl;
+    kDebug() << "Model::addGroup" << endl;
     postAddedTransferGroupEvent(group);
 }
 
@@ -76,7 +71,7 @@ void Model::delGroup(const QString& groupName)
 
     if(group)
     {
-        m_transferGroups.remove(group);
+        m_transferGroups.removeAll(group);
         postRemovedTransferGroupEvent(group);
         delete(group);
     }
@@ -85,7 +80,7 @@ void Model::delGroup(const QString& groupName)
 void Model::addTransfer( KUrl srcURL, QString destDir,
                          const QString& groupName )
 {
-    kdDebug() << " addTransfer:  " << srcURL.url() << endl;
+    kDebug() << " addTransfer:  " << srcURL.url() << endl;
 
     KUrl destURL;
 
@@ -116,7 +111,7 @@ void Model::addTransfer(const QDomElement& e, const QString& groupName)
     KUrl srcURL = KUrl::fromPathOrURL( e.attribute("Source") );
     KUrl destURL = KUrl::fromPathOrURL( e.attribute("Dest") );
 
-    kdDebug() << "Model::addTransfer  src= " << srcURL.url()
+    kDebug() << "Model::addTransfer  src= " << srcURL.url()
               << " dest= " << destURL.url() << endl;
 
     if ( srcURL.isEmpty() || !isValidSource(srcURL) 
@@ -227,7 +222,7 @@ void Model::load( QString filename )
     QFile file(tmpFile);
     QDomDocument doc;
 
-    kdDebug() << "Model::load file" << filename << endl;
+    kDebug() << "Model::load file" << filename << endl;
 
     if(doc.setContent(&file))
     {
@@ -256,7 +251,7 @@ void Model::load( QString filename )
     }
     else
     {
-        kdWarning() << "Error reading the transfers file" << endl;
+        kWarning() << "Error reading the transfers file" << endl;
     }
 }
 
@@ -290,7 +285,7 @@ void Model::save( QString filename )
     QFile file(filename);
     if ( !file.open( QIODevice::WriteOnly ) )
     {
-        //kdWarning()<<"Unable to open output file when saving"<< endl;
+        //kWarning()<<"Unable to open output file when saving"<< endl;
         KMessageBox::error(0,
                            i18n("Unable to save to: %1").arg(filename),
                            i18n("Error"));
@@ -341,7 +336,7 @@ Model::~Model()
 
 void Model::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
 {
-    kdDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
+    kDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
 
     TransferGroup * group = findGroup(groupName);
     if (group==0)
@@ -353,19 +348,19 @@ void Model::createTransfer(KUrl src, KUrl dest, const QString& groupName, const 
 
     for( ; it!=itEnd ; ++it)
     {
-        kdDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
+        kDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
         if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
         {
             group->append(newTransfer);
             return;
         }
     }
-    kdDebug() << "createTransfer: Warning! No plugin found to handle the given url" << endl;
+    kDebug() << "createTransfer: Warning! No plugin found to handle the given url" << endl;
 }
 
 void Model::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
 {
-    kdDebug() << "Model::postAddedTransferGroupEvent" << endl;
+    kDebug() << "Model::postAddedTransferGroupEvent" << endl;
     if(observer)
     {
         observer->addedTransferGroupEvent(group->handler());
@@ -511,18 +506,18 @@ KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
     {
         // simply use the full url as filename
         filename = KUrl::encode_string_no_slash( srcURL.prettyURL() );
-        kdDebug() << " Filename is empty. Setting to  " << filename << endl;
-        kdDebug() << "   srcURL = " << srcURL.url() << endl;
-        kdDebug() << "   prettyURL = " << srcURL.prettyURL() << endl;
+        kDebug() << " Filename is empty. Setting to  " << filename << endl;
+        kDebug() << "   srcURL = " << srcURL.url() << endl;
+        kDebug() << "   prettyURL = " << srcURL.prettyURL() << endl;
     }
     else
     {
-        kdDebug() << " Filename is not empty" << endl;
+        kDebug() << " Filename is not empty" << endl;
         destURL.adjustPath( +1 );
         destURL.setFileName( filename );
         if (!isValidDestURL(destURL))
         {
-            kdDebug() << "   destURL " << destURL.path() << " is not valid" << endl;
+            kDebug() << "   destURL " << destURL.path() << " is not valid" << endl;
             return KUrl();
         }
     }
@@ -596,7 +591,7 @@ void Model::loadPlugins()
     for ( int i = 0; i < offers.count(); ++i )
     {
         services[ offers[i]->property( "X-KDE-KGet-rank" ).toInt() ] = offers[i];
-        kdDebug() << " TransferFactory plugin found:" << endl <<
+        kDebug() << " TransferFactory plugin found:" << endl <<
          "  rank = " << offers[i]->property( "X-KDE-KGet-rank" ).toInt() << endl <<
          "  plugintype = " << offers[i]->property( "X-KDE-KGet-plugintype" ) << endl;
     }
@@ -612,11 +607,11 @@ void Model::loadPlugins()
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
             pluginList.prepend(plugin);
-            kdDebug() << "TransferFactory plugin (" << (*it)->library() 
+            kDebug() << "TransferFactory plugin (" << (*it)->library() 
                       << ") found and added to the list of available plugins" << endl;
         }
         else
-            kdDebug() << "Error loading TransferFactory plugin (" 
+            kDebug() << "Error loading TransferFactory plugin (" 
                       << (*it)->library() << ")" << endl;
     }
 
@@ -626,7 +621,7 @@ void Model::loadPlugins()
     for( ; it2!=it2End ; ++it2 )
         m_transferFactories.append( static_cast<TransferFactory *>(*it2) );
 
-    kdDebug() << "Number of factories = " << m_transferFactories.size() << endl;
+    kDebug() << "Number of factories = " << m_transferFactories.size() << endl;
 }
 
 void Model::unloadPlugins()
@@ -663,7 +658,7 @@ KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
 
     if ( !create_plugin ) 
     {
-        kdDebug() << "create_plugin == NULL" << endl;
+        kDebug() << "create_plugin == NULL" << endl;
         return 0;
     }
 

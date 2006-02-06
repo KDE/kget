@@ -8,14 +8,13 @@
    of the License.
 */
 
-#ifndef _SCHEDULER_H
-#define _SCHEDULER_H
+#ifndef SCHEDULER_H
+#define SCHEDULER_H
 
 
 #include <QObject>
 #include <QMap>
 #include <QTimerEvent>
-#include <QList>
 
 #include "core/job.h"
 #include "core/jobqueue.h"

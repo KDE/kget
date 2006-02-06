@@ -8,8 +8,6 @@
    of the License.
 */
 
-#include <QList>
-
 #include <kdebug.h>
 #include <kmenu.h>
 #include <kaction.h>
@@ -36,27 +34,27 @@ TransferGroupHandler::~TransferGroupHandler()
 
 void TransferGroupHandler::addObserver(TransferGroupObserver * observer)
 {
-    kdDebug() << "TransferGroupHandler::addObserver" << endl;
+    kDebug() << "TransferGroupHandler::addObserver" << endl;
     m_observers.push_back(observer);
     m_changesFlags[observer]=0xFFFFFFFF;
-    kdDebug() << "   Now we have " << m_observers.size() << " observers" << endl;
+    kDebug() << "   Now we have " << m_observers.size() << " observers" << endl;
 }
 
 void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
 {
-    m_observers.remove(observer);
+    m_observers.removeAll(observer);
     m_changesFlags.remove(observer);
 }
 
 void TransferGroupHandler::start()
 {
-    kdDebug() << "TransferGroupHandler::start()" << endl;
+    kDebug() << "TransferGroupHandler::start()" << endl;
     m_group->setStatus( JobQueue::Running );
 }
 
 void TransferGroupHandler::stop()
 {
-    kdDebug() << "TransferGroupHandler::stop()" << endl;
+    kDebug() << "TransferGroupHandler::stop()" << endl;
     m_group->setStatus( JobQueue::Stopped );
 }
 
@@ -87,7 +85,7 @@ TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObse
         return m_changesFlags[observer];
     else
     {
-        kdDebug() << " TransferGroupHandler::changesFlags() doesn't see you as an observer! " << endl;
+        kDebug() << " TransferGroupHandler::changesFlags() doesn't see you as an observer! " << endl;
 
         return 0xFFFFFFFF;
     }
@@ -98,7 +96,7 @@ void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
     if( m_changesFlags.find(observer) != m_changesFlags.end() )
         m_changesFlags[observer] = 0;
     else
-        kdDebug() << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+        kDebug() << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
 }
 
 const QList<TransferHandler *> TransferGroupHandler::transfers()
@@ -173,8 +171,8 @@ void TransferGroupHandler::postGroupChangedEvent()
 
 void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer * after)
 {
-    kdDebug() << "TransferGroupHandler::postAddedTransferEvent" << endl;
-    kdDebug() << "   number of observers = " << m_observers.size() << endl;
+    kDebug() << "TransferGroupHandler::postAddedTransferEvent" << endl;
+    kDebug() << "   number of observers = " << m_observers.size() << endl;
 
     //Here we have to copy the list and iterate on the copy itself, becouse
     //a view can remove itself as a view while we are iterating over the

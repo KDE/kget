@@ -8,15 +8,12 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef __plugin_kget_plug_in_h
-#define __plugin_kget_plug_in_h
+#ifndef PLUGIN_KGET_PLUG_IN_H
+#define PLUGIN_KGET_PLUG_IN_H
 
 #include <kparts/plugin.h>
 #include <klibloader.h>
 #include <dcopclient.h>
-#include <kurl.h>
-
-class KInstance;
 
 class KGet_plug_in : public KParts::Plugin
 {

@@ -20,16 +20,15 @@ class LinkItem
 public:
     LinkItem( DOM::Element link );
 
-    KURL url;
+    KUrl url;
     QString icon;
     QString text;
     QString mimeType;
-    
+
     bool isValid() const { return m_valid; }
-    
+
 private:
     bool m_valid : 1;
 };
-
 
 #endif // LINKS_H

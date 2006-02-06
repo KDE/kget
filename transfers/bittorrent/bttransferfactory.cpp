@@ -25,17 +25,16 @@
 #include "bttransferfactory.h"
 #include "btdetailswidget.h"
 
-#include <qfile.h>
-#include <QWidget>
+#include <QFile>
 
 KGET_EXPORT_PLUGIN(BTTransferFactory)
 
-Transfer * BTTransferFactory::createTransfer( KURL srcURL, KURL destURL,
+Transfer * BTTransferFactory::createTransfer( KUrl srcURL, KUrl destURL,
                                               TransferGroup * parent,
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
 {
-    kdDebug() << "BTTransferFactory::createTransfer" << endl;
+    kDebug() << "BTTransferFactory::createTransfer" << endl;
 
     if (srcURL.fileName().endsWith(".torrent") && srcURL.isLocalFile())
     {
@@ -56,7 +55,7 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 
     if(!bttransfer)
     {
-        kdError() << "BTTransferFactory::createTransferHandler: WARNING!\n"
+        kError() << "BTTransferFactory::createTransferHandler: WARNING!\n"
                       "passing a non-BTTransfer pointer!!" << endl;
         return 0;
     }

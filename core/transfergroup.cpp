@@ -10,7 +10,6 @@
 
 #include <QDomElement>
 
-#include <kurl.h>
 #include <kdebug.h>
 
 #include "core/transfer.h"
@@ -43,7 +42,7 @@ TransferGroup::~TransferGroup()
 
 void TransferGroup::append(Transfer * transfer)
 {
-    kdDebug() << "TransferGroup::append" << endl;
+    kDebug() << "TransferGroup::append" << endl;
 
     Transfer * after;
     if(size() == 0) 
@@ -51,11 +50,11 @@ void TransferGroup::append(Transfer * transfer)
     else
         after = static_cast<Transfer *> (last());
 
-    kdDebug() << "aaa" << endl;
+    kDebug() << "aaa" << endl;
 
     JobQueue::append(transfer);
 
-    kdDebug() << "bbb" << endl;
+    kDebug() << "bbb" << endl;
 
     handler()->postAddedTransferEvent(transfer, after);
 }
@@ -97,7 +96,7 @@ int TransferGroup::size() const
     return JobQueue::size();
 }
 
-Transfer * TransferGroup::findTransfer(KURL src)
+Transfer * TransferGroup::findTransfer(KUrl src)
 {
     iterator it = begin();
     iterator itEnd = end();
@@ -140,7 +139,7 @@ void TransferGroup::save(QDomElement e)
 
 void TransferGroup::load(const QDomElement & e)
 {
-    kdDebug() << "TransferGroup::load" << endl;
+    kDebug() << "TransferGroup::load" << endl;
 
     m_name = e.attribute("Name");
 
@@ -149,7 +148,7 @@ void TransferGroup::load(const QDomElement & e)
 
     for(int i=0; i<nItems; i++)
     {
-        kdDebug() << "TransferGroup::load -> addTransfer" << endl;
+        kDebug() << "TransferGroup::load -> addTransfer" << endl;
         Model::addTransfer( nodeList.item(i).toElement(), name() );
     }
 }

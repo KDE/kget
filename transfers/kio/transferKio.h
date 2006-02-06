@@ -9,14 +9,12 @@
 */
 
 
-#ifndef _TRANSFER_KIO_H
-#define _TRANSFER_KIO_H
+#ifndef TRANSFER_KIO_H
+#define TRANSFER_KIO_H
 
 #include <kio/job.h>
 
 #include "core/transfer.h"
-
-class QDomNode;
 
 /**
  * This transfer uses the KIO class to download files
@@ -28,7 +26,7 @@ class TransferKio : public QObject, public Transfer
 
     public:
         TransferKio(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KURL & src, const KURL & dest,
+                    Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
 
     public slots:

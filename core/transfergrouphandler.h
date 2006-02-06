@@ -8,12 +8,8 @@
    of the License.
 */
 
-#ifndef _TRANSFERGROUPHANDLER_H
-#define _TRANSFERGROUPHANDLER_H
-
-#include <QList>
-#include <QObject>
-#include <QMap>
+#ifndef TRANSFERGROUPHANDLER_H
+#define TRANSFERGROUPHANDLER_H
 
 #include "transfergroup.h"
 

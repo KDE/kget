@@ -11,22 +11,15 @@
 
 #include "kget_plug_in.h"
 
-#include <dcopref.h>
-#include <kdatastream.h>
-#include <kdebug.h>
 #include <khtml_part.h>
 #include <kiconloader.h>
-#include <kglobal.h>
-#include <kaction.h>
 #include <kinstance.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmenu.h>
 #include <krun.h>
 
-#include <dom/html_document.h>
 #include <dom/html_misc.h>
-#include <dom/dom_element.h>
 
 #include <kparts/partmanager.h>
 

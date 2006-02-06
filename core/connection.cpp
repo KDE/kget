@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   
+
    Copyright (C) 2004 Enrico Ros <eros.kde@email.it>
 
    This program is free software; you can redistribute it and/or
@@ -35,8 +35,8 @@ QString ConnectionDevices[6] = {
     "isdn"
 };
 
-Connection::Connection( QObject * parent, const char * name )
-    : QObject( parent, name )
+Connection::Connection( QObject * parent )
+    : QObject( parent )
 {
  /*
     // Setup connection timer

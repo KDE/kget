@@ -8,10 +8,10 @@
    of the License.
 */
 
-#ifndef _BTDETAILSWIDGET_H
-#define _BTDETAILSWIDGET_H
+#ifndef BTDETAILSWIDGET_H
+#define BTDETAILSWIDGET_H
 
-#include <qwidget.h>
+#include <QWidget>
 
 #include "core/observer.h"
 

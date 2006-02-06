@@ -25,7 +25,7 @@
 class BTTransferFactory : public TransferFactory
 {
     public:
-        Transfer * createTransfer( KURL srcURL, KURL destURL,
+        Transfer * createTransfer( KUrl srcURL, KUrl destURL,
                                    TransferGroup * parent,
                                    Scheduler * scheduler,
                                    const QDomElement * e = 0 );

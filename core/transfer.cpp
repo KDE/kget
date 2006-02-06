@@ -9,9 +9,7 @@
 */
 
 #include <QDomElement>
-#include <QPixmap>
 
-#include <kdebug.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
@@ -22,7 +20,7 @@
 #include "core/scheduler.h"
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
-                   Scheduler * scheduler, const KURL & source, const KURL & dest,
+                   Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                    const QDomElement * e)
     : Job(parent, scheduler),
       m_source(source), m_dest(dest),
@@ -81,8 +79,8 @@ void Transfer::save(QDomElement e)
 
 void Transfer::load(QDomElement e)
 {
-    m_source = KURL::fromPathOrURL(e.attribute("Source"));
-    m_dest = KURL::fromPathOrURL(e.attribute("Dest"));
+    m_source = KUrl::fromPathOrURL(e.attribute("Source"));
+    m_dest = KUrl::fromPathOrURL(e.attribute("Dest"));
     m_totalSize = e.attribute("TotalSize").toInt();
     m_processedSize = e.attribute("ProcessedSize").toInt();
 

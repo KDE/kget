@@ -9,15 +9,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _KGET_H_
-#define _KGET_H_
-
-#include <QWidget>
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QCloseEvent>
-#include <QHBoxLayout>
-#include <QToolButton>
+#ifndef KGET_H
+#define KGET_H
 
 #include <kaction.h>
 #include <kmainwindow.h>
@@ -27,11 +20,7 @@
 
 class QSplitter;
 
-class KUrl;
-class KUrl::List;
-
 class KGetModel;
-
 class Sidebar;
 class ViewsContainer;
 class DropTarget;
@@ -46,7 +35,7 @@ class KGet : public KMainWindow, virtual public DCOPIface
 {
 Q_OBJECT
 public:
-    KGet( QWidget * = 0, const char * = 0 );
+    KGet( QWidget * = 0 );
     ~KGet();
 
 protected:

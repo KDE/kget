@@ -21,10 +21,9 @@
 #define HTTP_H
 
 #include <torrent/http.h>
-#include <qstring.h>
 
-#include <qobject.h>
-#include <qpointer.h>
+#include <QObject>
+#include <QPointer>
 
 namespace KIO {
   class Job;

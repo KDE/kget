@@ -25,7 +25,6 @@
 
 #include <kio/job.h>
 #include <kio/scheduler.h>
-#include <klocale.h>
 #include <kdebug.h>
 
 void signalDone(torrent::Http* http);
@@ -40,9 +39,9 @@ void Http::start()
 {
   if (job) {
     // throw torrent::internal_error("Tried to start already running http job");
-    kdDebug() << "Tried to start already running http job" << endl;
+    kDebug() << "Tried to start already running http job" << endl;
   }
-  job = KIO::get(KURL(get_url().c_str()), false, false);
+  job = KIO::get(KUrl(get_url().c_str()), false, false);
   connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)),
 	  SLOT(data(KIO::Job*, const QByteArray&)));
   connect(job, SIGNAL(result(KIO::Job*)), SLOT(result(KIO::Job*)));

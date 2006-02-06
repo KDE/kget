@@ -10,26 +10,15 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <QSplitter>
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QCloseEvent>
-#include <QTimer>
-#include <QMimeData>
 #include <QClipboard>
+#include <QSplitter>
+#include <QTimer>
 
 #include <kapplication.h>
-#include <kconfig.h>
-#include <klocale.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
-#include <kwin.h>
-#include <kurl.h>
-#include <kaction.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
-#include <kiconloader.h>
-#include <knotifyclient.h>
 #include <knotifydialog.h>
 #include <kfiledialog.h>
 #include <ktoolinvocation.h>
@@ -46,8 +35,8 @@
 #include "ui/tray.h"
 #include "ui/droptarget.h"
 
-KGet::KGet( QWidget * parent, const char * name )
-    : DCOPIface( "KGet-Interface" ), KMainWindow( parent, name ),
+KGet::KGet( QWidget * parent )
+    : DCOPIface( "KGet-Interface" ), KMainWindow( parent ),
         m_drop(0), m_dock(0)
 {
     // create the model
@@ -59,7 +48,7 @@ KGet::KGet( QWidget * parent, const char * name )
     createGUI("kgetui.rc");
 
     m_splitter = new QSplitter(this);
-    m_sidebar = new Sidebar(m_splitter, "sidebar");
+    m_sidebar = new Sidebar(m_splitter);
     m_viewsContainer = new ViewsContainer(m_splitter);
 
     setCentralWidget(m_splitter);
@@ -75,7 +64,7 @@ KGet::KGet( QWidget * parent, const char * name )
     else
         hide();
 
-    //Some of the widgets are initialized in slotDelayedInit()    
+    //Some of the widgets are initialized in slotDelayedInit()
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
 
@@ -221,7 +210,7 @@ void KGet::slotDelayedInit()
 
 void KGet::slotNewTransfer()
 {
-    Model::addTransfer(KURL());
+    Model::addTransfer(KUrl());
 }
 
 void KGet::slotOpen()
@@ -240,7 +229,7 @@ void KGet::slotOpen()
     }
 
     if(!filename.isEmpty())
-        Model::addTransfer( KURL::fromPathOrURL( filename ) );
+        Model::addTransfer( KUrl::fromPathOrURL( filename ) );
 }
 
 void KGet::slotQuit()
@@ -422,7 +411,7 @@ void KGet::slotCheckClipboard()
         if (lastClipboard.isEmpty())
             return;
 
-        KURL url = KURL::fromPathOrURL(lastClipboard);
+        KUrl url = KUrl::fromPathOrURL(lastClipboard);
 
         if (url.isValid() && !url.isLocalFile())
             Model::addTransfer( url );
@@ -491,13 +480,13 @@ void KGet::closeEvent( QCloseEvent * e )
 
 void KGet::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->setAccepted(KURL::List::canDecode(event->mimeData())
+    event->setAccepted(KUrl::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 
 void KGet::dropEvent(QDropEvent * event)
 {
-    KURL::List list = KURL::List::fromMimeData(event->mimeData());
+    KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
     QString str;
 
     if (!list.isEmpty())
@@ -505,14 +494,14 @@ void KGet::dropEvent(QDropEvent * event)
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KURL::fromPathOrURL(str));
+        Model::addTransfer(KUrl::fromPathOrURL(str));
     }
 }
 
 
 /** DCOP interface */
 
-void KGet::addTransfers( const KURL::List& src, const QString& dest)
+void KGet::addTransfers( const KUrl::List& src, const QString& dest)
 {
     Model::addTransfer( src, dest );
 }

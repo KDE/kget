@@ -28,7 +28,7 @@ k_dcop:
      * @param src The urls to download
      * @param destDir The destination direction or QString() if unspecified
      */
-    virtual ASYNC addTransfers( const KURL::List& src, const QString& destDir = QString() ) = 0;
+    virtual ASYNC addTransfers( const KUrl::List& src, const QString& destDir = QString() ) = 0;
 
     virtual bool isDropTargetVisible() const = 0;
 

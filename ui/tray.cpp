@@ -11,19 +11,12 @@
 
 #include <QTimer>
 #include <QClipboard>
-#include <QPixmap>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QDropEvent>
-#include <QMimeData>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
-#include <klocale.h>
 #include <kiconloader.h>
 #include <kiconeffect.h>
 #include <kmenu.h>
-#include <kaction.h>
 
 #include "core/model.h"
 #include "ui/tray.h"
@@ -77,20 +70,20 @@ Tray::~Tray()
 // test if dropped thing can be handled (must be an URLlist or a QString)
 void Tray::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURL::List::canDecode(event->mimeData())
+    event->setAccepted(KUrl::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 
 // decode the dropped element asking scheduler to download that
 void Tray::dropEvent(QDropEvent * event)
 {
-    KURL::List list = KURL::List::fromMimeData(event->mimeData());
+    KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
     QString str;
 
     if (!list.isEmpty())
     {
-        KURL::List::Iterator it = list.begin();
-        KURL::List::Iterator itEnd = list.end();
+        KUrl::List::Iterator it = list.begin();
+        KUrl::List::Iterator itEnd = list.end();
 
         for( ; it!=itEnd ; ++it )
             Model::addTransfer(*it);
@@ -98,7 +91,7 @@ void Tray::dropEvent(QDropEvent * event)
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KURL::fromPathOrURL(str));
+        Model::addTransfer(KUrl::fromPathOrURL(str));
     }
 }
 
@@ -112,7 +105,7 @@ void Tray::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            Model::addTransfer(KURL::fromPathOrURL(newtransfer),"");
+            Model::addTransfer(KUrl::fromPathOrURL(newtransfer),"");
     }
     else
         KSystemTray::mousePressEvent(e);
@@ -174,7 +167,7 @@ void Tray::paintIcon( int mergePixels, bool force )
     // make up the grayed icon
     if ( !grayedIcon )
     {
-        QImage tmpTrayIcon = baseIcon->convertToImage();
+        QImage tmpTrayIcon = baseIcon->toImage();
         KIconEffect::semiTransparent( tmpTrayIcon );
         grayedIcon = new QPixmap( tmpTrayIcon );
     }
@@ -184,11 +177,11 @@ void Tray::paintIcon( int mergePixels, bool force )
     // make up the alternate icon (use hilight color but more saturated)
     if ( !alternateIcon )
     {
-        QImage tmpTrayIcon = baseIcon->convertToImage();
+        QImage tmpTrayIcon = baseIcon->toImage();
         // eros: this looks cool with dark red blue or green but sucks with
         // other colors (such as kde default's pale pink..). maybe the effect
         // or the blended color has to be changed..
-        QColor saturatedColor = palette().active().highlight();
+        QColor saturatedColor = palette().color(QPalette::Active, QPalette::Highlight);
         int hue, sat, value;
         saturatedColor.getHsv( &hue, &sat, &value );
         saturatedColor.setHsv( hue, (sat + 510) / 3, value );
@@ -223,10 +216,10 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
     copyBlt( &sourceCropped, 0,0, sourcePixmap, opX,opY, opW,opH );
 
     // blend the overlay image over the cropped rectangle
-    QImage blendedImage = sourceCropped.convertToImage();
-    QImage overlayImage = overlay->convertToImage();
+    QImage blendedImage = sourceCropped.toImage();
+    QImage overlayImage = overlay->toImage();
     KIconEffect::overlay( blendedImage, overlayImage );
-    sourceCropped.convertFromImage( blendedImage );
+    sourceCropped.fromImage( blendedImage );
     
     // put back the blended rectangle to the original image
     QPixmap sourcePixmapCopy = *sourcePixmap;

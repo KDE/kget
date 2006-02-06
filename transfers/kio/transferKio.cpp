@@ -8,17 +8,16 @@
    of the License.
 */
 
-#include <qdom.h>
+#include <QDomElement>
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kio/job.h>
 #include <kdebug.h>
 
 #include "transferKio.h"
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KURL & source, const KURL & dest,
+                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0)
@@ -31,7 +30,7 @@ void TransferKio::start()
     if(!m_copyjob)
         createJob();
 
-    kdDebug() << "TransferKio::start" << endl;
+    kDebug() << "TransferKio::start" << endl;
 
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect_creating"));
     setTransferChange(Tc_Status, true);
@@ -48,7 +47,7 @@ void TransferKio::stop()
         m_copyjob=0;
     }
 
-    kdDebug() << "Stop" << endl;
+    kDebug() << "Stop" << endl;
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
@@ -107,7 +106,7 @@ void TransferKio::createJob()
 
 void TransferKio::slotResult( KIO::Job * kioJob )
 {
-    kdDebug() << "slotResult  (" << kioJob->error() << ")" << endl;
+    kDebug() << "slotResult  (" << kioJob->error() << ")" << endl;
     switch (kioJob->error())
     {
         case 0:                            //The download has finished
@@ -120,7 +119,7 @@ void TransferKio::slotResult( KIO::Job * kioJob )
             break;
         default:
             //There has been an error
-            kdDebug() << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
+            kDebug() << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
             setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("stop"));
             break;
     }
@@ -137,7 +136,7 @@ void TransferKio::slotInfoMessage( KIO::Job * kioJob, const QString & msg )
 
 void TransferKio::slotConnected( KIO::Job * kioJob )
 {
-//     kdDebug() << "CONNECTED" <<endl;
+//     kDebug() << "CONNECTED" <<endl;
 
   Q_UNUSED(kioJob);
     setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
@@ -146,7 +145,7 @@ void TransferKio::slotConnected( KIO::Job * kioJob )
 
 void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
 {
-    kdDebug() << "slotPercent" << endl;
+    kDebug() << "slotPercent" << endl;
     Q_UNUSED(kioJob);
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -154,7 +153,7 @@ void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
 
 void TransferKio::slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size )
 {
-    kdDebug() << "slotTotalSize" << endl;
+    kDebug() << "slotTotalSize" << endl;
 
     slotConnected(kioJob);
 
@@ -164,7 +163,7 @@ void TransferKio::slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size )
 
 void TransferKio::slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size )
 {
-    kdDebug() << "slotProcessedSize" << endl; 
+    kDebug() << "slotProcessedSize" << endl; 
 
     if(status() != Job::Running)
         slotConnected(kioJob);
@@ -175,7 +174,7 @@ void TransferKio::slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size )
 
 void TransferKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second )
 {
-//     kdDebug() << "slotSpeed" << endl;
+//     kDebug() << "slotSpeed" << endl;
 
     if(status() != Job::Running)
         slotConnected(kioJob);

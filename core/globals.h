@@ -1,8 +1,8 @@
 /* This file is part of the KDE project
-   
+
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2004 Enrico Ros <eros.kde@email.it>
-   
+
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
    License as published by the Free Software Foundation; version 2
@@ -10,11 +10,8 @@
 */
 
 
-#ifndef _KGET_GLOBALS_H
-#define _KGET_GLOBALS_H
-
-//remove this include
-#include <kdebug.h>
+#ifndef KGET_GLOBALS_H
+#define KGET_GLOBALS_H
 
 #define mDebugIn mDebug << ">>>>Entering "
 #define mDebugOut mDebug << ">>>>Leaving "
@@ -22,8 +19,8 @@
 #define sDebugIn sDebug << ">>>>Entering "
 #define sDebugOut sDebug << ">>>>Leaving "
 
-#define mDebug   kdDebug(DKGET)<<k_funcinfo << THREAD_ID
-#define sDebug   kdDebug(DKGET)<<k_funcinfo << "|--( GUI )--| "
+#define mDebug   kDebug(DKGET)<<k_funcinfo << THREAD_ID
+#define sDebug   kDebug(DKGET)<<k_funcinfo << "|--( GUI )--| "
 #define DKGET 0
 #define THREAD_ID "|--TH_ID ( "<< currentThread()<<" )--| "
 
@@ -31,9 +28,6 @@
 #define KGET_APP_NAME "kget"
 
 // Try to pre-declare as much as you can, do not include headers here!
-class KMainWidget;
-class QString;
-
 class Scheduler;
 class Connection;
 class GlobalStatus;

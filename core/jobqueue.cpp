@@ -8,8 +8,6 @@
    of the License.
 */
 
-#include <QList>
-
 #include <kdebug.h>
 
 #include "core/jobqueue.h"
@@ -61,14 +59,14 @@ void JobQueue::prepend(Job * job)
 
 void JobQueue::remove(Job * job)
 {
-    m_jobs.remove(job);
+    m_jobs.removeAll(job);
 }
 
 void JobQueue::move(Job * job, Job * after)
 {
-    kdDebug() << "JobQueue::move" << endl;
+    kDebug() << "JobQueue::move" << endl;
 
-    if( (m_jobs.remove(job) == 0) || (job == after) )
+    if( (m_jobs.removeAll(job) == 0) || (job == after) )
     {
         //The job doesn't belong to this JobQueue or the requested
         //operations doesn't make any sense since job==after

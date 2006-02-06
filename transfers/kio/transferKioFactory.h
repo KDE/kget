@@ -8,11 +8,8 @@
    of the License.
 */
 
-#ifndef _KIO_FACTORY_H
-#define _KIO_FACTORY_H
-
-#include <qstring.h>
-#include <kurl.h>
+#ifndef KIO_FACTORY_H
+#define KIO_FACTORY_H
 
 #include "core/plugin/transferfactory.h"
 
@@ -26,7 +23,7 @@ class TransferKioFactory : public TransferFactory
         TransferKioFactory();
         ~TransferKioFactory();
 
-        Transfer * createTransfer( KURL srcURL, KURL destURL,
+        Transfer * createTransfer( KUrl srcURL, KUrl destURL,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 

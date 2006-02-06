@@ -16,7 +16,6 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
-#include <kstdaction.h>
 #include <ktoolbar.h>
 
 #define COL_NAME 0
@@ -134,10 +133,10 @@ void KGetLinkView::slotStartLeech()
         {
             stream << QString();
             bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
-                                                      "addTransfers(KURL::List, QString)",
+                                                      "addTransfers(KUrl::List, QString)",
                                                       *data );
 
-            kdDebug() << "*** startDownload: " << ok << endl;
+            kDebug() << "*** startDownload: " << ok << endl;
         }
 
         p_dcopServer->detach();

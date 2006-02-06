@@ -20,8 +20,8 @@
 #ifndef BTTHREAD_H
 #define BTTHREAD_H
 
-#include <qthread.h>
-#include <qmutex.h>
+#include <QThread>
+#include <QMutex>
 
 /**
  * Singleton thread for the bittorrent library. Waits in a select for the

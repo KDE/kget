@@ -9,8 +9,8 @@
 */
 
 
-#ifndef _TRANSFER_H
-#define _TRANSFER_H
+#ifndef TRANSFER_H
+#define TRANSFER_H
 
 #include <QPixmap>
 
@@ -18,8 +18,6 @@
 
 #include "job.h"
 
-class QStringList;
-class QDomNode;
 class QDomElement;
 
 class TransferHandler;
@@ -54,13 +52,13 @@ class Transfer : public Job
         typedef int ChangesFlags;
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
-                 Scheduler * scheduler, const KURL & src, const KURL & dest,
+                 Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                  const QDomElement * e = 0);
 
         virtual ~Transfer();
 
-        const KURL & source() const         {return m_source;}
-        const KURL & dest() const           {return m_dest;}
+        const KUrl & source() const         {return m_source;}
+        const KUrl & dest() const           {return m_dest;}
 
         //Transfer status
         unsigned long totalSize() const     {return m_totalSize;}
@@ -130,8 +128,8 @@ class Transfer : public Job
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
 
         // --- Transfer informations ---
-        KURL m_source;
-        KURL m_dest;
+        KUrl m_source;
+        KUrl m_dest;
 
         QStringList   m_log;
         unsigned long m_totalSize;

@@ -13,7 +13,6 @@
 #include <kmimetype.h>
 #include <kprotocolinfo.h>
 
-#include <dom/html_misc.h>
 #include <dom/html_document.h>
 
 LinkItem::LinkItem( DOM::Element link )
@@ -28,7 +27,7 @@ LinkItem::LinkItem( DOM::Element link )
     if ( urlString.isEmpty() )
         return;
 
-    url = KURL::fromPathOrURL( urlString );
+    url = KUrl::fromPathOrURL( urlString );
     if ( !KProtocolInfo::supportsReading( url ) )
         return;
 

@@ -8,17 +8,8 @@
    of the License.
 */
 
-#include <QString>
-#include <QStyle>
 #include <QPainter>
-#include <QPalette>
-#include <QFont>
-#include <QImage>
-#include <QPixmap>
-#include <QList>
-#include <QDropEvent>
 
-#include <kactioncollection.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmenu.h>
@@ -26,7 +17,6 @@
 #include <kio/global.h>
 #include <kimageeffect.h>
 #include <kmimetype.h>
-#include <kiconeffect.h>
 
 #include "ui/mainview.h"
 #include "core/transferhandler.h"
@@ -62,8 +52,8 @@ void TransferGroupItem::groupChangedEvent(TransferGroupHandler * group)
 
 void TransferGroupItem::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
-    kdDebug() << "TransferGroupItem::addedTransferEvent" << endl;
-    kdDebug() << " source = " << transfer->source().url() << endl;
+    kDebug() << "TransferGroupItem::addedTransferEvent" << endl;
+    kDebug() << " source = " << transfer->source().url() << endl;
 
     new TransferItem(this, transfer, findTransferItem(after));
 
@@ -95,7 +85,7 @@ void TransferGroupItem::updateContents(bool updateAll)
 // 
 //     if( updateAll || (groupFlags & TransferGroup::Gc_TotalSize) )
 //     {
-//         kdDebug() << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroup::Gc_TotalSize) << ")" << endl;
+//         kDebug() << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroup::Gc_TotalSize) << ")" << endl;
 //         setText(1, m_group->name());
 //         if(m_group->totalSize() != 0)
 //             setText(3, KIO::convertSize(m_group->totalSize()));
@@ -112,15 +102,15 @@ void TransferGroupItem::updatePixmaps()
     delete m_topGradient;
     m_topGradient = new QPixmap( KImageEffect::gradient(
             QSize( 1, 8 ),
-            m_view->palette().active().background().light(110),
-            m_view->palette().active().background(),
+            m_view->palette().color(QPalette::Active, QPalette::Background).light(110),
+            m_view->palette().color(QPalette::Active, QPalette::Background),
             KImageEffect::VerticalGradient ) );
 
     delete m_bottomGradient;
     m_bottomGradient = new QPixmap( KImageEffect::gradient(
             QSize( 1, 5 ),
-            m_view->palette().active().background().dark(150),
-            m_view->palette().active().base(),
+            m_view->palette().color(QPalette::Active, QPalette::Background).dark(150),
+            m_view->palette().color(QPalette::Active, QPalette::Base),
             KImageEffect::VerticalGradient ) );
 }
 
@@ -203,7 +193,7 @@ void TransferItem::updateContents(bool updateAll)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    kdDebug() << " TransferFlags = " << transferFlags << endl;
+    kDebug() << " TransferFlags = " << transferFlags << endl;
 
     if(updateAll)
     {
@@ -234,15 +224,15 @@ void TransferItem::updateContents(bool updateAll)
 
     if(updateAll || (transferFlags & Transfer::Tc_Status) )
     {
-//         kdDebug() << "UPDATE:  status" << endl;
+//         kDebug() << "UPDATE:  status" << endl;
         setText( 1, m_transfer->statusText() );
         setPixmap( 1, m_transfer->statusPixmap() );
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_TotalSize) )
     {
-//         kdDebug() << "UPDATE:  totalSize" << endl;
-        kdDebug() << "totalSize = " << m_transfer->totalSize();
+//         kDebug() << "UPDATE:  totalSize" << endl;
+        kDebug() << "totalSize = " << m_transfer->totalSize();
         if (m_transfer->totalSize() != 0)
             setText(2, KIO::convertSize( m_transfer->totalSize() ));
         else
@@ -251,7 +241,7 @@ void TransferItem::updateContents(bool updateAll)
 
     if(updateAll || (transferFlags & Transfer::Tc_Speed) )
     {
-//         kdDebug() << "UPDATE:  speed" << endl;
+//         kDebug() << "UPDATE:  speed" << endl;
         int speed = m_transfer->speed();
 
         if(speed==0)
@@ -267,7 +257,7 @@ void TransferItem::updateContents(bool updateAll)
 
     if(updateAll || (transferFlags & Transfer::Tc_Selection) )
     {
-        kdDebug() << "UPDATE:  selection    " << m_transfer->isSelected() << endl;
+        kDebug() << "UPDATE:  selection    " << m_transfer->isSelected() << endl;
         Q3ListViewItem::setSelected( m_transfer->isSelected() );
     }
 
@@ -276,7 +266,7 @@ void TransferItem::updateContents(bool updateAll)
 
 void TransferItem::setSelected(bool s)
 {
-    kdDebug() << "TransferItem::setSelected  -> " << isSelected()
+    kDebug() << "TransferItem::setSelected  -> " << isSelected()
               << "  " << m_transfer->isSelected() << endl;
 
     m_transfer->setSelected( s );
@@ -291,10 +281,10 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
         int rectWidth = (int)((width-6) * m_transfer->percent() / 100);
         int height = this->height();
 
-        p->setPen(cg.background().dark());
+        p->setPen(cg.color(QPalette::Background).dark());
         p->drawRect(2,2,width-5, height-5);
 
-        p->setPen(cg.background());
+        p->setPen(cg.color(QPalette::Background));
         p->fillRect(3,3,width-6, height-6, cg.brush(QColorGroup::Background));
 
         p->setPen(cg.brush(QColorGroup::Highlight).color().light(105));
@@ -303,7 +293,7 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
         if(rectWidth-2 >= 0)
             p->fillRect(4,4,rectWidth-2, height-8, cg.brush(QColorGroup::Highlight));
 
-        p->setPen(cg.foreground());
+        p->setPen(cg.color(QPalette::Foreground));
         p->drawText(2,2,width-4, height-4, Qt::AlignCenter, 
                     QString::number(m_transfer->percent()) + "%");
     }
@@ -335,7 +325,7 @@ MainView::~MainView()
 
 void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
 {
-    kdDebug() << "MainView::addedTransferGroupEvent" << endl;
+    kDebug() << "MainView::addedTransferGroupEvent" << endl;
 
     TransferGroupItem * newGroupItem = new TransferGroupItem(this, group);
     newGroupItem->setVisible(false);
@@ -343,7 +333,7 @@ void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
 
 void MainView::contentsDropEvent ( QDropEvent * e )
 {
-    kdDebug() << "MainView::contentsDropEvent" << endl;
+    kDebug() << "MainView::contentsDropEvent" << endl;
 
     cleanDropVisualizer();
 
@@ -357,7 +347,7 @@ void MainView::contentsDropEvent ( QDropEvent * e )
 
     findDrop(e->pos(), parent, after);
 
-    kdDebug() << "parent=" << parent << "  " << "after=" << after << endl;
+    kDebug() << "parent=" << parent << "  " << "after=" << after << endl;
 
     //The item has been dropped outside the available groups
     if(parent==0)
@@ -366,7 +356,7 @@ void MainView::contentsDropEvent ( QDropEvent * e )
     TransferGroupHandler * destGroup;
     destGroup = static_cast<TransferGroupItem *>(parent)->group();
 
-    kdDebug() << "destGroup = " << destGroup << endl;
+    kDebug() << "destGroup = " << destGroup << endl;
 
     TransferHandler * destTransfer;
     if(after)
@@ -376,12 +366,12 @@ void MainView::contentsDropEvent ( QDropEvent * e )
 
     if(destTransfer)
     {
-        kdDebug() << "Item dropped on the transfer:" << endl;
-        kdDebug() << "(" << destTransfer->source().url() << ")" << endl;
+        kDebug() << "Item dropped on the transfer:" << endl;
+        kDebug() << "(" << destTransfer->source().url() << ")" << endl;
     }
     else
     {
-        kdDebug() << "destTransfer == NULL" << endl;
+        kDebug() << "destTransfer == NULL" << endl;
     }
 
     destGroup->move(transfers, destTransfer);

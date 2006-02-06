@@ -8,11 +8,7 @@
    of the License.
 */
 
-#include <qstring.h>
-#include <QWidget>
-
 #include <kdebug.h>
-#include <kurl.h>
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
@@ -23,23 +19,21 @@ KGET_EXPORT_PLUGIN( TransferKioFactory )
 
 TransferKioFactory::TransferKioFactory()
 {
-    
 }
 
 TransferKioFactory::~TransferKioFactory()
 {
-    
 }
 
-Transfer * TransferKioFactory::createTransfer( KURL srcURL, KURL destURL,
+Transfer * TransferKioFactory::createTransfer( KUrl srcURL, KUrl destURL,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
-    kdDebug() << "TransferKioFactory::createTransfer" << endl;
+    kDebug() << "TransferKioFactory::createTransfer" << endl;
 
     QString prot = srcURL.protocol();
-    kdDebug() << "Protocol = " << prot << endl;
+    kDebug() << "Protocol = " << prot << endl;
     if(    prot == "http" || prot == "https" 
         || prot == "ftp"  || prot == "sftp"
         || prot == "file")

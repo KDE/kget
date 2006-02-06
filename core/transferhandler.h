@@ -9,12 +9,8 @@
 */
 
 
-#ifndef _TRANSFERHANDLER_H
-#define _TRANSFERHANDLER_H
-
-#include <QList>
-#include <QMap>
-#include <QPixmap>
+#ifndef TRANSFERHANDLER_H
+#define TRANSFERHANDLER_H
 
 #include "transfer.h"
 #include "transfergroup.h"
@@ -102,12 +98,12 @@ class TransferHandler
         /**
          * @return the source url
          */
-        const KURL & source() const {return m_transfer->source();}
+        const KUrl & source() const {return m_transfer->source();}
 
         /**
          * @return the dest url
          */
-        const KURL & dest() const {return m_transfer->dest();}
+        const KUrl & dest() const {return m_transfer->dest();}
 
         /**
          * @return the total size of the transfer in bytes

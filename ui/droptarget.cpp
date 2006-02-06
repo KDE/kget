@@ -10,27 +10,15 @@
 */
 
 #include <QBitmap>
-#include <QTimer>
 #include <QClipboard>
-#include <QPixmap>
-#include <QCloseEvent>
-#include <QDropEvent>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QDesktopWidget>
-#include <QMimeData>
+#include <QTimer>
 
 #include <kapplication.h>
-#include <kaction.h>
 #include <kiconloader.h>
 #include <kwin.h>
 #include <klocale.h>
-#include <kglobal.h>
-#include <kconfig.h>
 #include <kmenu.h>
-#include <kiconeffect.h>
 #include <kmessagebox.h>
-#include <stdlib.h>
 #include <math.h>
 
 #include "core/model.h"
@@ -42,9 +30,8 @@
 #define TARGET_HEIGHT  80
 #define TARGET_ANI_MS  20
 
-
 DropTarget::DropTarget(KGet * mw)
-    : QWidget(0, "drop", Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
+    : QWidget(0, Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
     Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool),
     parentWidget((QWidget *)mw), animTimer(0)
 {
@@ -64,26 +51,27 @@ DropTarget::DropTarget(KGet * mw)
     // set background pixmap
     QPixmap bgnd = UserIcon( "target" );
     if (!bgnd.mask())
-        kdError(5001) << "Drop target pixmap has no mask!\n";
+        kError(5001) << "Drop target pixmap has no mask!\n";
     else
         bgnd.setMask(bgnd.mask());
 
-    setBackgroundPixmap( bgnd );
+    QPalette palette;
+    palette.setBrush(backgroundRole(), QBrush(bgnd));
+    setPalette(palette);
 
     // popup menu for right mouse button
     popupMenu = new KMenu();
-    popupMenu->addTitle(mw->caption());
-    popupMenu->setCheckable(true);
+    popupMenu->addTitle(mw->windowTitle());
 
     KToggleAction * downloadAction = (KToggleAction *)mw->actionCollection()->action("download");
     downloadAction->plug(popupMenu);
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
-    popupMenu->insertSeparator();
+    popupMenu->addSeparator();
     pop_show = popupMenu->insertItem("", this, SLOT(toggleMinimizeRestore()));
     popupMenu->insertItem(i18n("Hide me"), this, SLOT(slotClose()));
     pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
     popupMenu->setItemChecked(pop_sticky, Settings::dropSticky());
-    popupMenu->insertSeparator();
+    popupMenu->addSeparator();
     mw->actionCollection()->action("preferences")->plug(popupMenu);
     mw->actionCollection()->action("quit")->plug(popupMenu);
 
@@ -97,7 +85,7 @@ DropTarget::DropTarget(KGet * mw)
 DropTarget::~DropTarget()
 {
     Settings::setDropPosition( pos() );
-    Settings::setShowDropTarget( isShown() );
+    Settings::setShowDropTarget( !isHidden() );
 //    unsigned long state = KWin::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
 //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE ); 
@@ -151,27 +139,27 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            Model::addTransfer(KURL::fromPathOrURL(newtransfer),"");
+            Model::addTransfer(KUrl::fromPathOrURL(newtransfer),"");
     }
 }
 
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->accept(KURL::List::canDecode(event->mimeData())
+    event->setAccepted(KUrl::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 
 
 void DropTarget::dropEvent(QDropEvent * event)
 {
-    KURL::List list = KURL::List::fromMimeData(event->mimeData());
+    KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
     QString str;
 
     if (!list.isEmpty())
     {
-        KURL::List::Iterator it = list.begin();
-        KURL::List::Iterator itEnd = list.end();
+        KUrl::List::Iterator it = list.begin();
+        KUrl::List::Iterator itEnd = list.end();
 
         for( ; it!=itEnd ; ++it )
             Model::addTransfer(*it);
@@ -179,7 +167,7 @@ void DropTarget::dropEvent(QDropEvent * event)
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KURL::fromPathOrURL(str));
+        Model::addTransfer(KUrl::fromPathOrURL(str));
     }
 
     if ( Settings::animateDropTarget() )
@@ -215,7 +203,7 @@ void DropTarget::toggleMinimizeRestore()
 {
     bool nextState = parentWidget->isHidden();
     Settings::setShowMain( nextState );
-    parentWidget->setShown( nextState );
+    parentWidget->setVisible( nextState );
 }
 
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
@@ -238,7 +226,7 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 
 void DropTarget::setShown( bool shown, bool internal )
 {
-    if (shown == isShown())
+    if (shown == !isHidden())
         return;
 
     if ( internal )
