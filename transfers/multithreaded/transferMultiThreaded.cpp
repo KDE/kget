@@ -24,15 +24,19 @@ TransferMultiThreaded::TransferMultiThreaded(TransferGroup * parent, TransferFac
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_Mtjob(0)
 {
-
+    kDebug() << "TransferMultiThreaded::TransferMultiThreaded" << endl;
+    if( e )
+    {
+        load( *e );
+    }
 }
 
 void TransferMultiThreaded::start()
 {
+    kDebug() << "TransferMultiThreaded::start" << endl;
+
     if(!m_Mtjob)
         createJob();
-
-    kDebug() << "TransferMultiThreaded::start" << endl;
 
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect_creating"));
     setTransferChange(Tc_Status, true);
@@ -40,15 +44,16 @@ void TransferMultiThreaded::start()
 
 void TransferMultiThreaded::stop()
 {
+    kDebug() << "TransferMultiThreaded::stop" << endl;
+
     if(status() == Stopped)
         return;
 
     if(m_Mtjob)
     {
-        m_Mtjob->quit();
+        m_Mtjob->kill(true);
     }
 
-    kDebug() << "Stop" << endl;
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
@@ -71,8 +76,8 @@ bool TransferMultiThreaded::isResumable() const
 
 void TransferMultiThreaded::load(QDomElement e)
 {
-    Transfer::load(e);
 
+    kDebug() << "TransferMultiThreaded::load" << endl;
     struct connd data;
     QDomNodeList threads = e.elementsByTagName ("Thread");
     QDomNode node;
@@ -84,13 +89,17 @@ void TransferMultiThreaded::load(QDomElement e)
         data.src = KUrl::fromPathOrURL(thread.attribute("Source"));
         data.bytes = thread.attribute("Bytes").toULongLong();
         data.offSet = thread.attribute("OffSet").toULongLong();
+        kDebug() << "TransferMultiThreaded::load: adding thread " << i << endl;
         tdata << data;
     }
+
 }
 
 void TransferMultiThreaded::save(QDomElement e)
 {
     Transfer::save(e);
+
+    kDebug() << "TransferMultiThreaded::save" << endl;
 
     QDomDocument doc(e.ownerDocument());
     QDomElement thread;
@@ -127,7 +136,8 @@ void TransferMultiThreaded::createJob()
         }
         else
         {
-            m_Mtjob->createThreads(tdata);
+            kDebug() << "TransferMultiThreaded::createJob: restarting saved transfer" << endl;
+            m_Mtjob->createThreads(m_totalSize, m_processedSize, tdata);
         }
     }
 }
@@ -176,7 +186,7 @@ void TransferMultiThreaded::slotTotalSize( KIO::filesize_t size )
 {
     kDebug() << "slotTotalSize" << endl;
 
-    if(status() != Job::Running)
+//     if(status() != Job::Running)
         slotConnected();
 
     m_totalSize = size;
@@ -186,6 +196,9 @@ void TransferMultiThreaded::slotTotalSize( KIO::filesize_t size )
 void TransferMultiThreaded::slotProcessedSize( KIO::filesize_t size )
 {
     kDebug() << "slotProcessedSize" << endl; 
+
+    if(status() != Job::Running)
+        slotConnected();
 
     m_processedSize = size;
     setTransferChange(Tc_ProcessedSize, true);

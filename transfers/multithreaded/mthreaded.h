@@ -89,8 +89,9 @@ class Mtget : public QThread
     public:
         Mtget(KUrl src, KUrl dst, int n);
         void run();
+        void kill(bool bekilled);
         void getRemoteFileInfo();
-        void createThreads(QList<struct connd> tdata);
+        void createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSize, QList<struct connd> tdata);
         QList<struct connd> getThreadsData();
 
     signals:
@@ -107,6 +108,7 @@ class Mtget : public QThread
         KUrl m_src;
         KUrl m_dst;
         uint m_n;
+        bool m_stoped;
         QFile *m_file;
         QFtp *m_ftpInfo;
         QHttp *m_httpInfo;

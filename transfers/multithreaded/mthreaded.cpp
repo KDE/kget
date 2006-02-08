@@ -217,12 +217,13 @@ void Connection::slotRestart()
 **/
 
 Mtget::Mtget(KUrl src, KUrl dst, int n)
-:m_src(src),
- m_dst(dst),
- m_n(n),
-m_file(0),
-m_totalSize(0),
-m_ProcessedSize(0)
+    :m_src(src),
+    m_dst(dst),
+    m_n(n),
+    m_stoped(false),
+    m_file(0),
+    m_totalSize(0),
+    m_ProcessedSize(0)
 {
     kDebug() << "Mtget::Mtget" << endl;
 }
@@ -231,6 +232,20 @@ void Mtget::run()
 {
     kDebug () << "Mtget::run()" << endl;
     exec();
+}
+
+void Mtget::kill(bool bekilled)
+{
+    if(bekilled)
+    {
+        m_stoped = true;
+        QList<Connection*>::const_iterator it = m_threads.begin();
+        QList<Connection*>::const_iterator itEnd = m_threads.end();
+        for ( ; it!=itEnd ; ++it )
+        {
+            (*it)->quit();
+        }
+    }
 }
 
 void Mtget::getRemoteFileInfo()
@@ -256,13 +271,15 @@ void Mtget::getRemoteFileInfo()
     }
 }
 
-void Mtget::createThreads(QList<struct connd> tdata)
+void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSize, QList<struct connd> tdata)
 {
     openFile();
     if(!m_file)
     {
         return;
     }
+    m_totalSize = totalSize;
+    m_ProcessedSize = ProcessedSize;
     QList<struct connd>::const_iterator it = tdata.begin();
     QList<struct connd>::const_iterator itEnd = tdata.end();
     for ( ; it!=itEnd ; ++it )
@@ -273,6 +290,7 @@ void Mtget::createThreads(QList<struct connd> tdata)
 
 QList<struct connd> Mtget::getThreadsData()
 {
+    kDebug () << "Mtget::getThreadsData" << endl;
     QList<struct connd> tdata;
     QList<Connection*>::const_iterator it = m_threads.begin();
     QList<Connection*>::const_iterator itEnd = m_threads.end();
@@ -431,13 +449,21 @@ void Mtget::slotConnectionFinished()
     m_threads.removeAt( m_threads.indexOf( (Connection*)sender() ) );
     delete sender();
     kDebug() << m_threads.size() << " threads left"<<endl;
-    relocateThread();
-    if ( m_ProcessedSize==m_totalSize && !m_threads.size() )
+
+    if(!m_stoped)
     {
-        emit update();
-        kDebug() << "Download completed" << endl;
+        relocateThread();
+    }
+
+    if(m_threads.empty())
+    {
         m_file->close();
-        QFile::rename ( m_file->fileName(), m_dst.path() );
+        if ( m_ProcessedSize==m_totalSize)
+       {
+            emit update();
+            QFile::rename ( m_file->fileName(), m_dst.path() );
+            kDebug() << "Download completed" << endl;
+       }
         quit();
     }
 }
