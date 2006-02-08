@@ -15,7 +15,7 @@ in order to restart a broken download.
       int list(const QString &dir = QString());
       int cd(const QString &dir);
       int get(const QString &file, QIODevice *dev=0, TransferType type = Binary);
-+     int get(const QString &file, uint offSet, QIODevice *dev=0, TransferType type = Binary);
++     int get(const QString &file, qulonglong offSet, QIODevice *dev=0, TransferType type = Binary);
       int put(const QByteArray &data, const QString &file, TransferType type = Binary);
       int put(QIODevice *dev, const QString &file, TransferType type = Binary);
       int remove(const QString &file);
@@ -30,7 +30,7 @@ in order to restart a broken download.
 + get remote file starting at offSet
 + */
 + 
-+ int QFtp::get(const QString &file, uint offSet, QIODevice *dev, TransferType type)
++ int QFtp::get(const QString &file, qulonglong offSet, QIODevice *dev, TransferType type)
 + {
 +     QStringList cmds;
 +     cmds << ("SIZE " + file + "\r\n");
