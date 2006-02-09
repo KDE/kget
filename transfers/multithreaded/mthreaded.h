@@ -97,6 +97,7 @@ class Mtget : public QThread
     signals:
         void totalSize(KIO::filesize_t);
         void processedSize(KIO::filesize_t);
+        void speed(unsigned long);
         void update();
 
     private:
@@ -109,6 +110,7 @@ class Mtget : public QThread
         KUrl m_dst;
         uint m_n;
         bool m_stoped;
+        QTime *m_speed_timer;
         QFile *m_file;
         QFtp *m_ftpInfo;
         QHttp *m_httpInfo;

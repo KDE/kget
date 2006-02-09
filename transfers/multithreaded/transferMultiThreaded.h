@@ -43,17 +43,15 @@ class TransferMultiThreaded : public QObject, public Transfer
         void load(QDomElement e);
 
     private:
-        void createJob();
+        void startJob();
 
         Mtget * m_Mtjob;
         QList<struct connd> tdata;
 
     private slots:
-        void slotSave();
+        void slotUpdate();
         void slotResult();
 //         void slotInfoMessage( KIO::Job * kioJob, const QString & msg );
-        void slotConnected( );
-        void slotPercent( unsigned long percent );
         void slotTotalSize( KIO::filesize_t Size );
         void slotProcessedSize( KIO::filesize_t Size );
         void slotSpeed( unsigned long bytes_per_second );

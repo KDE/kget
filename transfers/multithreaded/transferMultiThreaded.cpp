@@ -36,7 +36,15 @@ void TransferMultiThreaded::start()
     kDebug() << "TransferMultiThreaded::start" << endl;
 
     if(!m_Mtjob)
-        createJob();
+    {
+        m_Mtjob = new Mtget(m_source, m_dest, 10);
+        connect(m_Mtjob, SIGNAL(update()), this, SLOT(slotUpdate()));
+        connect(m_Mtjob, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(slotTotalSize(KIO::filesize_t)));
+        connect(m_Mtjob, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotProcessedSize(KIO::filesize_t)));
+        connect(m_Mtjob, SIGNAL(speed( unsigned long )), this, SLOT(slotSpeed( unsigned long )));
+        connect(m_Mtjob, SIGNAL(finished ()), this, SLOT(slotResult()));
+    }
+    startJob();
 
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect_creating"));
     setTransferChange(Tc_Status, true);
@@ -118,39 +126,33 @@ void TransferMultiThreaded::save(QDomElement e)
 
 //NOTE: INTERNAL METHODS
 
-void TransferMultiThreaded::createJob()
+void TransferMultiThreaded::startJob()
 {
-    if(!m_Mtjob)
+    if(m_Mtjob)
     {
-        m_Mtjob = new Mtget(m_source, m_dest, 10);
-        connect(m_Mtjob, SIGNAL(update()), this, SLOT(slotSave()));
-        connect(m_Mtjob, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(slotTotalSize(KIO::filesize_t)));
-        connect(m_Mtjob, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotProcessedSize(KIO::filesize_t)));
-        connect(m_Mtjob, SIGNAL(finished ()), this, SLOT(slotResult()));
-
         m_Mtjob->start();
-
         if( tdata.empty())
         {
             m_Mtjob->getRemoteFileInfo();
         }
         else
         {
-            kDebug() << "TransferMultiThreaded::createJob: restarting saved transfer" << endl;
+            kDebug() << "TransferMultiThreaded::startJob: restarting saved transfer" << endl;
             m_Mtjob->createThreads(m_totalSize, m_processedSize, tdata);
         }
     }
 }
 
-void TransferMultiThreaded::slotSave()
+void TransferMultiThreaded::slotUpdate()
 {
     tdata.clear();
     tdata = m_Mtjob->getThreadsData();
-//     save(e);
 }
 
 void TransferMultiThreaded::slotResult()
 {
+    delete m_Mtjob;
+    m_Mtjob = 0;
     if( m_processedSize == m_totalSize )
     {
         setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
@@ -166,28 +168,12 @@ void TransferMultiThreaded::slotResult()
 //     m_log.append(QString(msg));
 // }
 
-void TransferMultiThreaded::slotConnected( )
-{
-//     kDebug() << "CONNECTED" <<endl;
-
-    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
-    setTransferChange(Tc_Status, true);
-}
-
-void TransferMultiThreaded::slotPercent( unsigned long percent )
-{
-    kDebug() << "slotPercent" << endl;
-
-    m_percent = percent;
-    setTransferChange(Tc_Percent, true);
-}
-
 void TransferMultiThreaded::slotTotalSize( KIO::filesize_t size )
 {
     kDebug() << "slotTotalSize" << endl;
 
-//     if(status() != Job::Running)
-        slotConnected();
+    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+    setTransferChange(Tc_Status, true);
 
     m_totalSize = size;
     setTransferChange(Tc_TotalSize, true);
@@ -198,18 +184,25 @@ void TransferMultiThreaded::slotProcessedSize( KIO::filesize_t size )
     kDebug() << "slotProcessedSize" << endl; 
 
     if(status() != Job::Running)
-        slotConnected();
+    {
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+        setTransferChange(Tc_Status, true);
+    }
 
     m_processedSize = size;
+    slotUpdate();
     setTransferChange(Tc_ProcessedSize, true);
+
+    if (m_totalSize > 0) 
+    {
+        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
+        setTransferChange(Tc_Percent, true);
+    }
+
 }
 
 void TransferMultiThreaded::slotSpeed( unsigned long bytes_per_second )
 {
-
-    if(status() != Job::Running)
-        slotConnected();
-
     m_speed = bytes_per_second;
     setTransferChange(Tc_Speed, true);
 }

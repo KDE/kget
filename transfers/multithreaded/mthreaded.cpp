@@ -226,6 +226,8 @@ Mtget::Mtget(KUrl src, KUrl dst, int n)
     m_ProcessedSize(0)
 {
     kDebug() << "Mtget::Mtget" << endl;
+    m_speed_timer = new QTime();
+    m_speed_timer->start();
 }
 
 void Mtget::run()
@@ -286,6 +288,7 @@ void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSi
     {
         createThread((*it).src, (*it).bytes, (*it).offSet);
     }
+    m_stoped = false;
 }
 
 QList<struct connd> Mtget::getThreadsData()
@@ -397,8 +400,11 @@ void Mtget::relocateThread()
 void Mtget::slotProcessedSize(KIO::filesize_t bytes)
 {
     m_ProcessedSize += bytes;
+    int time = m_speed_timer->restart();
 //     kDebug() <<  m_ProcessedSize <<" bytes downloaded" << endl;
     emit processedSize(m_ProcessedSize);
+    if(time)
+        emit speed( bytes/(time) );
 }
 
 void Mtget::httpFileInfo(const QHttpResponseHeader & resp)
