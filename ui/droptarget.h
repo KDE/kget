@@ -50,6 +50,9 @@ protected:
     virtual void mousePressEvent(QMouseEvent * e);
     virtual void mouseReleaseEvent(QMouseEvent *);
 
+    // paint the drop target
+    virtual void paintEvent(QPaintEvent*);
+
 private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
@@ -63,6 +66,7 @@ private:
     KMenu * popupMenu;
     QWidget * parentWidget;
     QTimer * animTimer;
+    QPixmap targetBuffer;
 
     int pop_sticky;
     int pop_show;

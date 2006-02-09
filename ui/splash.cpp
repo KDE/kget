@@ -24,13 +24,10 @@
 
 
 OSDWidget::OSDWidget(const QString& imagePath)
-    : QWidget(NULL,
-              Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
-              Qt::WStyle_Customize | Qt::WStyle_NoBorder |
-              Qt::WStyle_Tool | Qt::WNoAutoErase | Qt::WX11BypassWM)
+    : QWidget(0, Qt::SplashScreen | Qt::X11BypassWindowManagerHint)
 {
     QImage image( imagePath );
-    osdBuffer = image;
+    osdBuffer = QPixmap::fromImage(image);
 
     QBitmap bm( image.size() );
     QPainter p( &bm );

@@ -11,14 +11,16 @@
 
 #include <QBitmap>
 #include <QClipboard>
+#include <QPainter>
 #include <QTimer>
 
 #include <kapplication.h>
-#include <kiconloader.h>
 #include <kwin.h>
 #include <klocale.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
+#include <kstandarddirs.h>
+
 #include <math.h>
 
 #include "core/model.h"
@@ -31,8 +33,7 @@
 #define TARGET_ANI_MS  20
 
 DropTarget::DropTarget(KGet * mw)
-    : QWidget(0, Qt::WType_TopLevel | Qt::WStyle_StaysOnTop |
-    Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool),
+    : QWidget(0, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint),
     parentWidget((QWidget *)mw), animTimer(0)
 {
     QRect desk = KGlobalSettings::desktopGeometry(this);
@@ -45,19 +46,21 @@ DropTarget::DropTarget(KGet * mw)
         move(desk.x()+200, desk.y()+200);
     resize(TARGET_WIDTH, TARGET_HEIGHT);
 
-    unsigned long state = NET::SkipTaskbar | NET::StaysOnTop;
-    KWin::setState(winId(), Settings::dropSticky() ? (state | NET::Sticky) : state );
+    if(Settings::dropSticky())
+        KWin::setState(winId(), NET::Sticky);
 
     // set background pixmap
-    QPixmap bgnd = UserIcon( "target" );
-    if (!bgnd.mask())
-        kError(5001) << "Drop target pixmap has no mask!\n";
-    else
-        bgnd.setMask(bgnd.mask());
+    QImage image( locate( "data", "kget/pics/target.png" ) );
+    targetBuffer = QPixmap::fromImage(image);
 
-    QPalette palette;
-    palette.setBrush(backgroundRole(), QBrush(bgnd));
-    setPalette(palette);
+    QBitmap bm( image.size() );
+    QPainter p( &bm );
+    p.drawImage( 0, 0, image.createAlphaMask() );
+
+    setMask( bm );
+
+    show();
+    update();
 
     // popup menu for right mouse button
     popupMenu = new KMenu();
@@ -116,6 +119,16 @@ void DropTarget::slotStartStopToggled( bool started )
 
 
 /** widget events */
+
+
+void DropTarget::paintEvent( QPaintEvent * e )
+{
+    QPainter p( this );
+    QRect rect = e->rect();
+    p.drawPixmap( rect.topLeft(), targetBuffer, rect );
+    p.end();
+}
+
 
 void DropTarget::mousePressEvent(QMouseEvent * e)
 {
