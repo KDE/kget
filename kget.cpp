@@ -472,10 +472,8 @@ void KGet::log(const QString & message)
 
 void KGet::closeEvent( QCloseEvent * e )
 {
-    if( kapp->sessionSaving() )
-        e->ignore();
-    else
-        hide();
+    e->ignore();
+    hide();
 }
 
 void KGet::dragEnterEvent(QDragEnterEvent * event)

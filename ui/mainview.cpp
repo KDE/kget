@@ -100,18 +100,18 @@ void TransferGroupItem::updateContents(bool updateAll)
 void TransferGroupItem::updatePixmaps()
 {
     delete m_topGradient;
-    m_topGradient = new QPixmap( KImageEffect::gradient(
+    m_topGradient = new QPixmap( QPixmap::fromImage( KImageEffect::gradient(
             QSize( 1, 8 ),
             m_view->palette().color(QPalette::Active, QPalette::Background).light(110),
             m_view->palette().color(QPalette::Active, QPalette::Background),
-            KImageEffect::VerticalGradient ) );
+            KImageEffect::VerticalGradient ) ) );
 
     delete m_bottomGradient;
-    m_bottomGradient = new QPixmap( KImageEffect::gradient(
+    m_bottomGradient = new QPixmap( QPixmap::fromImage( KImageEffect::gradient(
             QSize( 1, 5 ),
             m_view->palette().color(QPalette::Active, QPalette::Background).dark(150),
             m_view->palette().color(QPalette::Active, QPalette::Base),
-            KImageEffect::VerticalGradient ) );
+            KImageEffect::VerticalGradient ) ) );
 }
 
 void TransferGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int /*align*/)

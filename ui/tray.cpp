@@ -119,9 +119,9 @@ void Tray::setDownloading( bool running )
         blinkTimer = new QTimer;
         connect( blinkTimer, SIGNAL( timeout() ), this, SLOT( slotTimeout() ) );
     }
-    
+
     overlayVisible = true;
-    
+
     if(running)
     {
         overlay = playOverlay;
@@ -129,7 +129,7 @@ void Tray::setDownloading( bool running )
         paintIcon( 50, true );
     }
     else
-    {        
+    {
         overlay = stopOverlay;
         blinkTimer->start( 1500 );  // start 'hide' timer
         paintIcon( 50, true );
@@ -163,17 +163,17 @@ void Tray::paintIcon( int mergePixels, bool force )
 
     if ( mergePixels < 0 )
         return blendOverlay( baseIcon );
-        
+
     // make up the grayed icon
     if ( !grayedIcon )
     {
         QImage tmpTrayIcon = baseIcon->toImage();
         KIconEffect::semiTransparent( tmpTrayIcon );
-        grayedIcon = new QPixmap( tmpTrayIcon );
+        grayedIcon = new QPixmap( QPixmap::fromImage( tmpTrayIcon ) );
     }
     if ( mergePixels == 0 )
         return blendOverlay( grayedIcon );
-    
+
     // make up the alternate icon (use hilight color but more saturated)
     if ( !alternateIcon )
     {
@@ -186,14 +186,14 @@ void Tray::paintIcon( int mergePixels, bool force )
         saturatedColor.getHsv( &hue, &sat, &value );
         saturatedColor.setHsv( hue, (sat + 510) / 3, value );
         KIconEffect::colorize( tmpTrayIcon, saturatedColor/* Qt::blue */, 0.9 );
-        alternateIcon = new QPixmap( tmpTrayIcon );
+        alternateIcon = new QPixmap( QPixmap::fromImage( tmpTrayIcon ) );
     }
     if ( mergePixels >= alternateIcon->height() )
         return blendOverlay( alternateIcon );
 
     // mix [ grayed <-> colored ] icons
     QPixmap tmpTrayPixmap( *alternateIcon );
-   copyBlt( &tmpTrayPixmap, 0,0, grayedIcon, 0,0,
+    copyBlt( &tmpTrayPixmap, 0,0, grayedIcon, 0,0,
             alternateIcon->width(), alternateIcon->height() - mergePixels );
     blendOverlay( &tmpTrayPixmap );
 }
@@ -202,7 +202,7 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
 {
     if ( !overlayVisible || !overlay || overlay->isNull() )
         return setPixmap( *sourcePixmap ); // @since 3.2
-    
+
     // here comes the tricky part.. no kdefx functions are helping here.. :-(
     // we have to blend pixmaps with different sizes (blending will be done in
     // the bottom-left corner of source pixmap with a smaller overlay pixmap)
@@ -220,7 +220,7 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
     QImage overlayImage = overlay->toImage();
     KIconEffect::overlay( blendedImage, overlayImage );
     sourceCropped.fromImage( blendedImage );
-    
+
     // put back the blended rectangle to the original image
     QPixmap sourcePixmapCopy = *sourcePixmap;
     copyBlt( &sourcePixmapCopy, opX,opY, &sourceCropped, 0,0, opW,opH );

@@ -195,23 +195,23 @@ void SidebarBox::updatePixmaps()
     QImage  img = DesktopIcon("folder_open", 32).toImage();
     KIconEffect::toGamma(img, 0);
     delete m_pixFsel;
-    m_pixFsel = new QPixmap(img);
+    m_pixFsel = new QPixmap(QPixmap::fromImage(img));
 
     //m_pixTgrad: top gradient
     delete m_pixTgrad;
-    m_pixTgrad = new QPixmap( KImageEffect::gradient( 
+    m_pixTgrad = new QPixmap( QPixmap::fromImage( KImageEffect::gradient(
                  QSize( 1, 5 ),
                  m_sidebar->palette().color(QPalette::Active, QPalette::Highlight).light(150),
                  m_sidebar->palette().color(QPalette::Active, QPalette::Highlight),
-                 KImageEffect::VerticalGradient ) );
+                 KImageEffect::VerticalGradient ) ) );
 
     //m_pixBgrad: bottom gradient
     delete m_pixBgrad;
-    m_pixBgrad = new QPixmap( KImageEffect::gradient( 
+    m_pixBgrad = new QPixmap( QPixmap::fromImage( KImageEffect::gradient(
                  QSize( 1, 5 ),
                  m_sidebar->palette().color(QPalette::Active, QPalette::Highlight),
                  m_sidebar->palette().color(QPalette::Active, QPalette::Highlight).light(150),
-                 KImageEffect::VerticalGradient ) );
+                 KImageEffect::VerticalGradient ) ) );
 
     //m_pixPlus: plus simbol
     delete m_pixPlus;
@@ -357,11 +357,15 @@ void DownloadsBox::paintEvent ( QPaintEvent * event )
 
     p.setClipRegion(event->region());
 
+    int w = width();
+    int h = height();
+
+    //draw background
+    p.setPen(QPen(palette().color(QPalette::Active, QPalette::Highlight), h));
+    p.drawRect(0, 0, w, h);
+
     if(m_isHighlighted)
     {
-        int w = width();
-        int h = height();
-
         p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
         p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
         p.setPen(QPen(palette().color(QPalette::Active, QPalette::Highlight).dark(130),1));
