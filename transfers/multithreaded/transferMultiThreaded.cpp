@@ -17,6 +17,7 @@
 #include <kdebug.h>
 
 #include "transferMultiThreaded.h"
+#include "transferMultiThreaded.moc"
 
 TransferMultiThreaded::TransferMultiThreaded(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,

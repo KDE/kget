@@ -24,6 +24,8 @@ class TransferGroupHandler;
 class ModelObserver
 {
     public:
+        virtual ~ModelObserver(){}
+
         /**
          * Notifies that a new "transfer group" has been added to the model
          *
@@ -44,6 +46,8 @@ class ModelObserver
 class TransferGroupObserver
 {
     public:
+        virtual ~TransferGroupObserver(){}
+
         /**
          * Notifies that a transfer has changed (status, progress, etc...)
          *
@@ -88,6 +92,8 @@ class TransferGroupObserver
 class TransferObserver
 {
     public:
+        virtual ~TransferObserver(){}
+
         /**
          * Notifies that a transfer has changed (status, progress, ...)
          * 

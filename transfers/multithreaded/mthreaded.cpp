@@ -10,6 +10,7 @@
 
 
 #include"mthreaded.h"
+#include"mthreaded.moc"
 
 Connection::Connection(QFile *file, KUrl src, KIO::filesize_t bytes, KIO::fileoffset_t offSet)
 :
