@@ -492,7 +492,8 @@ void TransferBox::transferChangedEvent(TransferHandler * transfer)
 
 Sidebar::Sidebar( QWidget * parent )
     : QWidget( parent ),
-      m_timerInterval(20)
+      m_timerInterval(20),
+      m_highlightedBox( 0 )
 {
     setUpdatesEnabled(true);
 
@@ -529,7 +530,8 @@ void Sidebar::boxHighlightedEvent(SidebarBox * item)
 {
     item->setHighlighted( true );
 
-    m_highlightedBox->setHighlighted(false);
+    if ( m_highlightedBox )
+        m_highlightedBox->setHighlighted(false);
 
     m_highlightedBox = item;
 }
