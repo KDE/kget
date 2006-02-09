@@ -134,10 +134,7 @@ void SidebarBox::setHighlighted(bool highlighted)
         else
             setBackgroundRole(QPalette::NoRole);
 
-        foreach(SidebarBox * it, m_childBoxes)
-        {
-            repaintChildren();
-        }
+        repaintChildren();
     }
 }
 
