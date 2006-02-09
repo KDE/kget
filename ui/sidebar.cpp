@@ -214,11 +214,13 @@ void SidebarBox::updatePixmaps()
 
     //m_pixPlus: plus simbol
     delete m_pixPlus;
-    m_pixPlus = new QPixmap(SmallIcon("viewmag+", 16));
+//    m_pixPlus = new QPixmap(SmallIcon("viewmag+", 16));
+    m_pixPlus = new QPixmap(SmallIcon("1rightarrow", 16));
 
     //m_pixMinus: minus simbol
     delete m_pixMinus;
-    m_pixMinus = new QPixmap(SmallIcon("viewmag+", 16));
+//    m_pixMinus = new QPixmap(SmallIcon("viewmag-", 16));
+    m_pixMinus = new QPixmap(SmallIcon("1downarrow", 16));
 }
 
 void SidebarBox::paintEvent( QPaintEvent * event )
