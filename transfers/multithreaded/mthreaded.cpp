@@ -164,7 +164,7 @@ void Connection::slotStart()
 {
     kDebug() << "Connection::slotStart()" << endl;
     m_timer.setSingleShot(true);
-    m_timer.setInterval(120000);
+    m_timer.setInterval(60000);
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(slotRestart()));
     if (m_data.src.protocol() == "ftp")
     {
@@ -222,13 +222,14 @@ Mtget::Mtget(KUrl src, KUrl dst, int n)
     m_dst(dst),
     m_n(n),
     m_stoped(false),
+    m_speedbytes(0),
     m_file(0),
     m_totalSize(0),
     m_ProcessedSize(0)
 {
     kDebug() << "Mtget::Mtget" << endl;
-    m_speed_timer = new QTime();
-    m_speed_timer->start();
+    connect(&m_speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
+    m_speed_timer.start(1000);
 }
 
 void Mtget::run()
@@ -398,14 +399,19 @@ void Mtget::relocateThread()
     }
 }
 
+void Mtget::calcSpeed()
+{
+    emit speed( m_speedbytes );
+    kDebug() << "Mtget::calcSpeed " << endl;
+    m_speedbytes = 0;
+}
+
 void Mtget::slotProcessedSize(KIO::filesize_t bytes)
 {
     m_ProcessedSize += bytes;
-    int time = m_speed_timer->restart();
+    m_speedbytes += bytes;
 //     kDebug() <<  m_ProcessedSize <<" bytes downloaded" << endl;
     emit processedSize(m_ProcessedSize);
-    if(time)
-        emit speed( bytes/(time) );
 }
 
 void Mtget::httpFileInfo(const QHttpResponseHeader & resp)

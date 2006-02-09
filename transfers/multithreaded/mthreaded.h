@@ -110,7 +110,8 @@ class Mtget : public QThread
         KUrl m_dst;
         uint m_n;
         bool m_stoped;
-        QTime *m_speed_timer;
+        QTimer m_speed_timer;
+        unsigned long m_speedbytes;
         QFile *m_file;
         QFtp *m_ftpInfo;
         QHttp *m_httpInfo;
@@ -119,6 +120,7 @@ class Mtget : public QThread
         QList<Connection*> m_threads;
 
     private slots:
+        void calcSpeed();
         void slotProcessedSize(KIO::filesize_t bytes);
         void httpFileInfo(const QHttpResponseHeader & resp);
         void ftpFileInfo(const QUrlInfo & i);
