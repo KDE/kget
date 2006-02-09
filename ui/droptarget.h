@@ -18,6 +18,7 @@
 #include <QDropEvent>
 #include <QCloseEvent>
 
+class QAction;
 class QTimer;
 class KMenu;
 
@@ -68,8 +69,8 @@ private:
     QTimer * animTimer;
     QPixmap targetBuffer;
 
-    int pop_sticky;
-    int pop_show;
+    QAction * pop_sticky;
+    QAction * pop_show;
 
     int dx;
     int dy;

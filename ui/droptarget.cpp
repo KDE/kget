@@ -70,10 +70,11 @@ DropTarget::DropTarget(KGet * mw)
     downloadAction->plug(popupMenu);
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();
-    pop_show = popupMenu->insertItem("", this, SLOT(toggleMinimizeRestore()));
-    popupMenu->insertItem(i18n("Hide me"), this, SLOT(slotClose()));
-    pop_sticky = popupMenu->insertItem(i18n("Sticky"), this, SLOT(toggleSticky()));
-    popupMenu->setItemChecked(pop_sticky, Settings::dropSticky());
+    pop_show = popupMenu->addAction( "", this, SLOT( toggleMinimizeRestore() ) );
+    popupMenu->addAction(i18n("Hide me"), this, SLOT(slotClose()));
+    pop_sticky = popupMenu->addAction(i18n("Sticky"), this, SLOT(toggleSticky()));
+    pop_sticky->setCheckable(true);
+    pop_sticky->setChecked(Settings::dropSticky());
     popupMenu->addSeparator();
     mw->actionCollection()->action("preferences")->plug(popupMenu);
     mw->actionCollection()->action("quit")->plug(popupMenu);
@@ -140,7 +141,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
     }
     else if (e->button() == Qt::RightButton)
     {
-        popupMenu->changeItem(pop_show, parentWidget->isHidden() ?
+        pop_show->setText(parentWidget->isHidden() ?
                               i18n("Show main window") :
                               i18n("Hide main window") );
         popupMenu->popup(e->globalPos());
@@ -203,7 +204,7 @@ void DropTarget::closeEvent( QCloseEvent * e )
 void DropTarget::toggleSticky()
 {
     Settings::setDropSticky( !Settings::dropSticky() );
-    popupMenu->setItemChecked(pop_sticky, Settings::dropSticky());
+    pop_sticky->setChecked(Settings::dropSticky());
     updateStickyState();
 }
 
