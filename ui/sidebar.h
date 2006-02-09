@@ -182,7 +182,7 @@ class Sidebar : public QWidget, public ModelObserver
         //TODO Make sure we need this list with qt4
         QList<SidebarBox *> m_timersToRemove;
 
-        QList<SidebarBox *> m_highlightedBoxes;
+        SidebarBox * m_highlightedBox;
 
         QVBoxLayout  * m_layout;
         DownloadsBox * m_downloadsBox;

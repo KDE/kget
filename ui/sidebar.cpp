@@ -10,6 +10,7 @@
 
 #include <QPainter>
 #include <QPaintEvent>
+#include <QDebug>
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -76,6 +77,7 @@ SidebarBox::SidebarBox( Sidebar * sidebar, int headerHeight,
 
     //setAttribute(Qt::WA_ContentsPropagated);
     setMouseTracking(true);
+
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setMinimumWidth(150);
 
@@ -134,7 +136,7 @@ void SidebarBox::setHighlighted(bool highlighted)
         else
             setBackgroundRole(QPalette::NoRole);
 
-        repaintChildren();
+        repaint();
     }
 }
 
@@ -221,33 +223,25 @@ void SidebarBox::updatePixmaps()
 
 void SidebarBox::paintEvent( QPaintEvent * event )
 {
-    int w = width();
-    int h = height();
-
     QPainter p(this);
     p.setClipRegion(event->region());
 
     if(m_isHighlighted)
     {
-//         QColor c = palette().active().highlight();
-// 
-//         QLinearGradient gr(w-20, 0, 20, h);
-//         gr.setColorAt(0,c/*.light()*/);
-// //        gr.setColorAt(0.2, c );
-// //        gr.setColorAt(0.8, c);
-//         gr.setColorAt(1, c.light(120));
-//         QBrush br(gr);
-// 
-//         p.setBrush(br);
-//         p.setPen(Qt::NoPen);
-//         p.drawRect(w-20, 0, 20, h);
+        int w = width();
+        int h = height();
 
-/*        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
+        p.fillRect(QRect(0,5,w, h-9), QBrush(palette().color(QPalette::Active, QPalette::Highlight)));
+        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
         p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
-        p.setPen(QPen(c.dark(130),1));
+        p.setPen(QPen(palette().color(QPalette::Active, QPalette::Highlight).dark(130),1));
         p.drawLine(0,0,w, 0);
-        p.drawLine(0,h-1,w, h-1);*/
+        p.drawLine(0,h-1,w, h-1);
+
+        p.drawPixmap(30, 2, *m_pixFsel);
     }
+    else
+        p.drawPixmap(30, 2, *m_pixFunsel);
 }
 
 void SidebarBox::timerEvent()
@@ -301,11 +295,9 @@ void SidebarBox::timerEvent()
 
 void SidebarBox::mouseMoveEvent ( QMouseEvent * event )
 {
-    kDebug() << "MouseMoveEvent" << endl;
+//     kDebug() << "SidebarBox::MouseMoveEvent" << endl;
     if(!m_isHighlighted)
         m_sidebar->boxHighlightedEvent(this);
-/*    if(!m_isHighlighted)
-        m_sidebar->boxHighlightedEvent(this);*/
 }
 
 void SidebarBox::mousePressEvent ( QMouseEvent * event )
@@ -350,29 +342,13 @@ void DownloadsBox::paintEvent ( QPaintEvent * event )
 {
     kDebug() << "DownloadsBox paint event" << endl;
 
-    QPainter p(this);
+    SidebarBox::paintEvent( event );
 
+    QPainter p(this);
     p.setClipRegion(event->region());
 
     int w = width();
     int h = height();
-
-    //draw background
-    p.setPen(QPen(palette().color(QPalette::Active, QPalette::Highlight), h));
-    p.drawRect(0, 0, w, h);
-
-    if(m_isHighlighted)
-    {
-        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
-        p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
-        p.setPen(QPen(palette().color(QPalette::Active, QPalette::Highlight).dark(130),1));
-        p.drawLine(0,0,w, 0);
-        p.drawLine(0,h-1,w, h-1);
-
-        p.drawPixmap(10, 2, *m_pixFsel);
-    }
-    else
-        p.drawPixmap(10, 2, *m_pixFunsel);
 
     if(m_showChildren)
         p.drawPixmap(25, 20, *m_pixMinus);
@@ -416,22 +392,6 @@ void GroupBox::paintEvent ( QPaintEvent * event )
 
     QPainter p(this);
     p.setClipRegion(event->region());
-
-    if(m_isHighlighted)
-    {
-        int w = width();
-        int h = height();
-
-        p.drawTiledPixmap(0,0, w, 5, *m_pixTgrad);
-        p.drawTiledPixmap(0,h-4, w, 4, *m_pixBgrad);
-        p.setPen(QPen(palette().color(QPalette::Active, QPalette::Highlight).dark(130),1));
-        p.drawLine(0,0,w, 0);
-        p.drawLine(0,h-1,w, h-1);
-
-        p.drawPixmap(30, 2, *m_pixFsel);
-    }
-    else
-        p.drawPixmap(30, 2, *m_pixFunsel);
 
     QFont f(p.font());
     f.setBold(m_isHighlighted);
@@ -567,21 +527,11 @@ void Sidebar::stopTimer( SidebarBox * item )
 
 void Sidebar::boxHighlightedEvent(SidebarBox * item)
 {
-//     setUpdatesEnabled(false);
-
-    //TODO Possible problems with this list that lead to crashes
-
-    foreach(SidebarBox * box, m_highlightedBoxes)
-    {
-        box->setHighlighted(false);
-    }
-
-    m_highlightedBoxes.clear();
-
     item->setHighlighted( true );
-    m_highlightedBoxes.append(item);
 
-//     setUpdatesEnabled(true);
+    m_highlightedBox->setHighlighted(false);
+
+    m_highlightedBox = item;
 }
 
 void Sidebar::boxSelectedEvent(SidebarBox * item, bool selected)
