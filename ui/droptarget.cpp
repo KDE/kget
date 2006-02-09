@@ -96,7 +96,7 @@ DropTarget::~DropTarget()
 
 void DropTarget::slotClose()
 {
-    setShown( false );
+    setVisible( false );
     if (!Settings::expertMode())
     {
         KMessageBox::information(parentWidget,
@@ -122,15 +122,15 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
     if (e->button() == Qt::LeftButton)
     {
         isdragging = true;
-        dx = QCursor::pos().x() - pos().x();
-        dy = QCursor::pos().y() - pos().y();
+        dx = e->globalPos().x() - pos().x();
+        dy = e->globalPos().y() - pos().y();
     }
     else if (e->button() == Qt::RightButton)
     {
         popupMenu->changeItem(pop_show, parentWidget->isHidden() ?
                               i18n("Show main window") :
                               i18n("Hide main window") );
-        popupMenu->popup(QCursor::pos());
+        popupMenu->popup(e->globalPos());
     }
     else if (e->button() == Qt::MidButton)
     {
@@ -180,7 +180,10 @@ void DropTarget::closeEvent( QCloseEvent * e )
     if( kapp->sessionSaving() )
         e->ignore();
     else
-        setShown( false );
+    {
+        setVisible( false );
+        e->accept();
+    }
 }
 
 
@@ -210,7 +213,10 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
     Q_UNUSED(e);
     if ( isdragging && !Settings::dropSticky() )
+    {
         move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
+        e->accept();
+    }
 }
 
 void DropTarget::mouseReleaseEvent(QMouseEvent *)
@@ -224,7 +230,7 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
         toggleMinimizeRestore();
 }
 
-void DropTarget::setShown( bool shown, bool internal )
+void DropTarget::setVisible( bool shown, bool internal )
 {
     if (shown == !isHidden())
         return;

@@ -377,7 +377,7 @@ void KGet::slotNewConfig()
     // parsed often by the code. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
-    m_drop->setShown(Settings::showDropTarget(), false);
+    m_drop->setVisible(Settings::showDropTarget(), false);
     m_showDropTarget->setChecked(Settings::showDropTarget());
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
@@ -421,7 +421,7 @@ void KGet::slotCheckClipboard()
 void KGet::slotShowDropTarget()
 {
     m_showDropTarget->setChecked( !m_drop->isVisible() );
-    m_drop->setShown( !m_drop->isVisible() );
+    m_drop->setVisible( !m_drop->isVisible() );
 }
 
 void KGet::slotTrayKonquerorIntegration()

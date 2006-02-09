@@ -556,7 +556,7 @@ void Sidebar::startTimer( SidebarBox * item )
     if( m_activeTimers.size() == 0 )
         m_timerId = QWidget::startTimer( m_timerInterval );
 
-    if(m_activeTimers.find(item) == m_activeTimers.end())
+    if(m_activeTimers.indexOf(item) == -1)
         m_activeTimers.append( item );
 }
 

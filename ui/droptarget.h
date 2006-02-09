@@ -35,7 +35,7 @@ public:
     void playAnimation();
     void playAnimationHide();
     void playAnimationSync();
-    void setShown( bool shown, bool internal = true );
+    void setVisible( bool shown, bool internal = true );
 
 protected:
     // drag and drop
