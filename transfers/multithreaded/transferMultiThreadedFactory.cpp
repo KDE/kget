@@ -15,6 +15,7 @@
 #include "core/transfergroup.h"
 #include "transferMultiThreadedFactory.h"
 #include "transferMultiThreaded.h"
+#include "mtdetailswidget.h"
 
 KGET_EXPORT_PLUGIN( TransferMultiThreadedFactory )
 
@@ -50,7 +51,7 @@ TransferHandler * TransferMultiThreadedFactory::createTransferHandler(Transfer *
 QWidget * TransferMultiThreadedFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer);
-    return new QWidget();   //Temporary!!
+    return new MTDetailsWidget();   //Temporary!!
 }
 
 const QList<KAction *> TransferMultiThreadedFactory::actions()
