@@ -48,6 +48,8 @@ class TransferMultiThreaded : public QObject, public Transfer
         Mtget * m_Mtjob;
         QList<struct connd> tdata;
 
+        QTime m_elapsedTime;
+
     private slots:
         void slotUpdate();
         void slotResult();

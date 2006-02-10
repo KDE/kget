@@ -512,7 +512,7 @@ bool KGet::isDropTargetVisible() const
 void KGet::setDropTargetVisible( bool setVisible )
 {
     if ( setVisible != Settings::showDropTarget() )
-        m_drop->setShown( setVisible );
+        m_drop->setVisible( setVisible );
 }
 
 void KGet::setOfflineMode( bool offline )

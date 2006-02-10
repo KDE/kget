@@ -9,8 +9,8 @@
 */
 
 
-#ifndef _OBSERVER_H
-#define _OBSERVER_H
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
 class TransferHandler;
 class TransferGroupHandler;
@@ -31,14 +31,14 @@ class ModelObserver
          *
          * @param group The "transfer group" that has just been added
          */
-        virtual void addedTransferGroupEvent(TransferGroupHandler * group){}
+        virtual void addedTransferGroupEvent(TransferGroupHandler * group){ Q_UNUSED(group); }
 
         /**
          * Notifies that a new "transfer group" has been removed from the model
          *
          * @param group The "transfer group" that has just been removed
          */
-        virtual void removedTransferGroupEvent(TransferGroupHandler * group){}
+        virtual void removedTransferGroupEvent(TransferGroupHandler * group){ Q_UNUSED(group); }
 
         // In the future we will have also notifications about new searches..
 };
@@ -53,7 +53,7 @@ class TransferGroupObserver
          *
          * @param group The group that has changed
          */
-        virtual void groupChangedEvent(TransferGroupHandler * group){}
+        virtual void groupChangedEvent(TransferGroupHandler * group){ Q_UNUSED(group); }
 
         /**
          * Notifies that a new transfer has been added to this group
@@ -61,7 +61,7 @@ class TransferGroupObserver
          * @param transfer The transfer that has just been added
          * @param after The transfer after which it has been added
          */
-        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after){}
+        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after){ Q_UNUSED(transfer); Q_UNUSED(after); }
 
         /**
          * Notifies that a new transfer has been removed from this group.
@@ -70,7 +70,7 @@ class TransferGroupObserver
          *
          * @param transfer The transfer that has just been removed
          */
-        virtual void removedTransferEvent(TransferHandler * transfer){}
+        virtual void removedTransferEvent(TransferHandler * transfer){ Q_UNUSED(transfer); }
 
         /**
          * Notifies that a transfer previously belonging to this group
@@ -79,14 +79,14 @@ class TransferGroupObserver
          * @param transfer The transfer that has just been moved
          * @param after The transfer after which it has been moved
          */
-        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after){}
+        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after){ Q_UNUSED(transfer); Q_UNUSED(after); }
 
         /**
          * Notifies that this group has been deleted
          *
          * @param group This group's handler
          */
-        virtual void deleteEvent(TransferGroupHandler * group){}
+        virtual void deleteEvent(TransferGroupHandler * group){ Q_UNUSED(group); }
 };
 
 class TransferObserver
@@ -99,14 +99,14 @@ class TransferObserver
          * 
          * @param transfer The transfer that has changed
          */
-        virtual void transferChangedEvent(TransferHandler * transfer){}
+        virtual void transferChangedEvent(TransferHandler * transfer){ Q_UNUSED(transfer); }
 
         /**
          * Notifies that this transfer has been deleted
          *
          * @param transfer This transfer's handler
          */
-        virtual void deleteEvent(TransferHandler * transfer){}
+        virtual void deleteEvent(TransferHandler * transfer){ Q_UNUSED(transfer); }
 };
 
 
