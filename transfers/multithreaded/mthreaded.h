@@ -32,6 +32,7 @@
 
 struct connd
 {
+    int id;
     KUrl src;
     KIO::fileoffset_t offSet;
     KIO::filesize_t bytes;
@@ -47,7 +48,7 @@ class Connection : public QThread
 {
     Q_OBJECT
     public:
-        Connection(QFile *file, KUrl src, KIO::filesize_t bytes, KIO::fileoffset_t offSet);
+        Connection(QFile *file, struct connd tdata);
         void run();
         struct connd getThreadData();
         void setBytes(KIO::filesize_t bytes);
@@ -89,7 +90,7 @@ class Mtget : public QThread
     public:
         Mtget(KUrl src, KUrl dst, int n);
         void run();
-        void kill(bool bekilled);
+        void kill();
         void getRemoteFileInfo();
         void createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSize, QList<struct connd> tdata);
         QList<struct connd> getThreadsData();
@@ -103,7 +104,7 @@ class Mtget : public QThread
     private:
         void openFile();
         void createThreads();
-        void createThread(KUrl src, KIO::filesize_t bytes, KIO::fileoffset_t offSet);
+        void createThread(struct connd tdata);
         void relocateThread();
 
         KUrl m_src;

@@ -12,14 +12,14 @@
 #include"mthreaded.h"
 #include"mthreaded.moc"
 
-Connection::Connection(QFile *file, KUrl src, KIO::filesize_t bytes, KIO::fileoffset_t offSet)
-:
-m_file(file)
+Connection::Connection(QFile *file, struct connd tdata)
+    : m_file ( file ) ,
+      m_data ( tdata )
 {
     kDebug() << "Connection::Connection" << endl;
-    m_data.src=src;
+/*    m_data.src=src;
     m_data.bytes=bytes;
-    m_data.offSet=offSet;
+    m_data.offSet=offSet;*/
     connect (this, SIGNAL(started()), this, SLOT(slotStart()));
 }
 
@@ -238,10 +238,8 @@ void Mtget::run()
     exec();
 }
 
-void Mtget::kill(bool bekilled)
+void Mtget::kill()
 {
-    if(bekilled)
-    {
         m_stoped = true;
         QList<Connection*>::const_iterator it = m_threads.begin();
         QList<Connection*>::const_iterator itEnd = m_threads.end();
@@ -249,7 +247,6 @@ void Mtget::kill(bool bekilled)
         {
             (*it)->quit();
         }
-    }
 }
 
 void Mtget::getRemoteFileInfo()
@@ -277,6 +274,11 @@ void Mtget::getRemoteFileInfo()
 
 void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSize, QList<struct connd> tdata)
 {
+    if(m_threads.size()!=0)
+    {
+        kDebug () << "Mtget::createThreads(,,,): there already threads working" << endl;
+        return;
+    }
     openFile();
     if(!m_file)
     {
@@ -288,7 +290,7 @@ void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSi
     QList<struct connd>::const_iterator itEnd = tdata.end();
     for ( ; it!=itEnd ; ++it )
     {
-        createThread((*it).src, (*it).bytes, (*it).offSet);
+        createThread( (*it) );
     }
     m_stoped = false;
 }
@@ -334,6 +336,8 @@ void Mtget::openFile()
 
 void Mtget::createThreads()
 {
+    struct connd tdata;
+
     openFile();
     if(!m_file)
     {
@@ -356,19 +360,27 @@ void Mtget::createThreads()
         if(i == m_n - 1)
 
         {
-            createThread(m_src, rest_size, i*conn_size);
+            tdata.id = i;
+            tdata.src = m_src;
+            tdata.offSet = i*conn_size;
+            tdata.bytes = rest_size;
+            createThread(tdata);
     kDebug () << "threads data: " << i*conn_size << " "<< rest_size<< endl;
             continue;
         }
-    createThread(m_src, conn_size, i*conn_size);
+    tdata.id = i;
+    tdata.src = m_src;
+    tdata.offSet = i*conn_size;
+    tdata.bytes = conn_size;
+    createThread(tdata);
     kDebug () << "threads data: " << i*conn_size << " "<< conn_size << endl;
     }
     emit update();
 }
 
-void Mtget::createThread(KUrl src, KIO::filesize_t bytes, KIO::fileoffset_t offSet)
+void Mtget::createThread(struct connd tdata)
 {
-    Connection* thread = new Connection(m_file, src, bytes, offSet);
+    Connection* thread = new Connection(m_file, tdata);
     int id = m_threads.size();
     kDebug() << "Mtget::createThread: " << id << endl;
     m_threads << thread;
@@ -393,7 +405,9 @@ void Mtget::relocateThread()
             bytes = tdata.bytes/2;
             (*it)->setBytes(bytes);
         kDebug() <<" Mtget::relocateThread() -- realocating tread: " << bytes << endl;
-            createThread(tdata.src.url(), bytes + tdata.bytes%2, tdata.offSet + bytes);
+            tdata.offSet += bytes;
+            tdata.bytes = bytes + tdata.bytes%2;
+            createThread(tdata);
             break;
         }
     }
