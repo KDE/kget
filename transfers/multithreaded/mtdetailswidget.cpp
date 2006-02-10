@@ -9,6 +9,7 @@
 */
 
 #include "mtdetailswidget.h"
+#include "mtdetailswidget.moc"
 
 MTDetailsWidget::MTDetailsWidget()
 {
