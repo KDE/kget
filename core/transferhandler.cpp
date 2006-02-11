@@ -44,6 +44,7 @@ void TransferHandler::start()
 {
     if(m_transfer->group()->status() == JobQueue::Running)
     {
+	m_transfer->setPolicy(Job::None);
         m_transfer->group()->move(m_transfer, 0);
     }
     else
@@ -54,7 +55,14 @@ void TransferHandler::start()
 
 void TransferHandler::stop()
 {
-    m_transfer->setPolicy(Job::Stop);
+    if(m_transfer->group()->status() == JobQueue::Stopped)
+    {
+        m_transfer->setPolicy(Job::None);
+    }
+    else
+    {
+	m_transfer->setPolicy(Job::Stop);
+    }
 }
 
 int TransferHandler::elapsedTime() const
@@ -145,27 +153,25 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
 
 void TransferHandler::postTransferChangedEvent()
 {
-    kDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
-    //Here we have to copy the list and iterate on the copy itself, becouse
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
+    //kDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
+    
+    // Here we have to copy the list and iterate on the copy itself, becouse
+    // a view can remove itself as a view while we are iterating over the
+    // observers list and this leads to crashes.
     QList<TransferObserver *> observers = m_observers;
 
     QList<TransferObserver *>::iterator it = observers.begin();
     QList<TransferObserver *>::iterator itEnd = observers.end();
 
-    //Notify the observers
+    // Notify the observers
     for(; it!=itEnd; ++it)
     {
-        kDebug() << "TransferHandler::111" << endl;
         (*it)->transferChangedEvent(this);
-        kDebug() << "TransferHandler::222" << endl;
     }
 
-    //Notify the group
-    kDebug() << "TransferHandler::333" << endl;
+    // Notify the group
     m_transfer->group()->transferChangedEvent(m_transfer);
-    kDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
+    //kDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
 }
 
 void TransferHandler::postDeleteEvent()

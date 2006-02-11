@@ -417,12 +417,10 @@ void GroupBox::addedTransferEvent(TransferHandler * transfer, TransferHandler * 
 
 void GroupBox::transferChangedEvent(TransferHandler * transfer)
 {
-    kDebug() << "GroupBox::transferChangedEvent -> ENTERING" << endl;
+    //kDebug() << "GroupBox::transferChangedEvent -> ENTERING" << endl;
 
     if(transfer->changesFlags(this) & Transfer::Tc_Status)
     {
-        kDebug() << "GroupBox: aaa" << endl;
-
         if(transfer->status() == Job::Running)
         {
             kDebug() << "Creating TransferBox: transfer status = "
@@ -438,10 +436,9 @@ void GroupBox::transferChangedEvent(TransferHandler * transfer)
         }
     }
 
-    kDebug() << "GroupBox: bbb" << endl;
     transfer->resetChangesFlags(this);
 
-    kDebug() << "GroupBox::transferChangedEvent -> LEAVING" << endl;
+    //kDebug() << "GroupBox::transferChangedEvent -> LEAVING" << endl;
 }
 
 TransferBox::TransferBox( TransferHandler * transfer, GroupBox * gBox, Sidebar * sidebar )

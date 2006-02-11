@@ -80,14 +80,16 @@ void Scheduler::jobQueueMovedJobEvent(JobQueue * queue, Job * job)
 
 void Scheduler::jobQueueAddedJobEvent(JobQueue * queue, Job * job)
 {
-    Q_UNUSED(queue);
     Q_UNUSED(job);
+
+    updateQueue(queue);
 }
 
 void Scheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
 {
-    Q_UNUSED(queue);
     Q_UNUSED(job);
+
+    updateQueue(queue);
 }
 
 void Scheduler::jobChangedEvent(Job * job, Job::Status status)

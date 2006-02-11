@@ -8,6 +8,8 @@
    of the License.
 */
 
+#include <kdebug.h>
+
 #include "core/job.h"
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
@@ -45,6 +47,8 @@ void Job::setPolicy(Policy jobPolicy)
     if(jobPolicy == m_policy)
         return;
 
+    kDebug() << "Job::setPolicy(" << jobPolicy << ")" << endl;
+
     m_policy = jobPolicy;
-    m_scheduler->jobChangedEvent(this, m_status);
+    m_scheduler->jobChangedEvent(this, m_policy);
 }

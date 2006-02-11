@@ -44,22 +44,49 @@ const QList<Job *> JobQueue::runningJobs()
 void JobQueue::setStatus(Status queueStatus)
 {
     m_status = queueStatus;
+    
+    // Now make sure to reset all the job policy that shouldn't
+    // be applied anymore.
+    iterator it = begin();
+    iterator itEnd = end();
+    
+    for( ; it!=itEnd  ; ++it )
+    {
+	if( ( m_status == JobQueue::Running ) &&
+	    ( (*it)->status() == Job::Running ) )
+	{
+	    (*it)->setPolicy(Job::None);
+	}
+	
+	if( ( m_status == JobQueue::Stopped ) &&
+	    ( (*it)->status() == Job::Stopped ) )
+	{
+	    (*it)->setPolicy(Job::None);
+	}
+    }
+    
     m_scheduler->jobQueueChangedEvent(this, m_status);
 }
 
 void JobQueue::append(Job * job)
 {
     m_jobs.append(job);
+
+    m_scheduler->jobQueueAddedJobEvent(this, job);    
 }
 
 void JobQueue::prepend(Job * job)
 {
     m_jobs.prepend(job);
+    
+    m_scheduler->jobQueueAddedJobEvent(this, job);
 }
 
 void JobQueue::remove(Job * job)
 {
     m_jobs.removeAll(job);
+    
+    m_scheduler->jobQueueRemovedJobEvent(this, job);
 }
 
 void JobQueue::move(Job * job, Job * after)
