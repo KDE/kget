@@ -25,7 +25,7 @@ class TransferObserver;
  * --- Overview ---
  * This class is the rapresentation of a Transfer object from the views'
  * perspective (proxy pattern). In fact the views never handle directly the 
- * Transfer objects themselves (becouse this would break the model/view policy).
+ * Transfer objects themselves (because this would break the model/view policy).
  * As a general rule, all the code strictly related to the views should placed 
  * here (and not in the transfer implementation).
  * Here we provide the same api available in the transfer class, but we change

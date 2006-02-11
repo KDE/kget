@@ -155,7 +155,7 @@ void TransferGroupHandler::setGroupChange(ChangesFlags change, bool postEvent)
 
 void TransferGroupHandler::postGroupChangedEvent()
 {
-    //Here we have to copy the list and iterate on the copy itself, becouse
+    //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.
     QList<TransferGroupObserver *> observers = m_observers;
@@ -174,7 +174,7 @@ void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer 
     kDebug() << "TransferGroupHandler::postAddedTransferEvent" << endl;
     kDebug() << "   number of observers = " << m_observers.size() << endl;
 
-    //Here we have to copy the list and iterate on the copy itself, becouse
+    //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.
     QList<TransferGroupObserver *> observers = m_observers;
@@ -193,7 +193,7 @@ void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer 
 
 void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
 {
-    //Here we have to copy the list and iterate on the copy itself, becouse
+    //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.
     QList<TransferGroupObserver *> observers = m_observers;
@@ -209,7 +209,7 @@ void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
 
 void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer * after)
 {
-    //Here we have to copy the list and iterate on the copy itself, becouse
+    //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.
     QList<TransferGroupObserver *> observers = m_observers;
@@ -228,7 +228,7 @@ void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer 
 
 void TransferGroupHandler::postDeleteEvent()
 {
-    //Here we have to copy the list and iterate on the copy itself, becouse
+    //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.
     QList<TransferGroupObserver *> observers = m_observers;

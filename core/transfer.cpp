@@ -111,7 +111,7 @@ void Transfer::setStatus(Job::Status jobStatus, QString text, QPixmap pix)
     /**
     * It's important to call job::setStatus AFTER having changed the 
     * icon or the text or whatever.
-    * This becouse this function also notifies about this change
+    * This because this function also notifies about this change
     * the scheduler which could also decide to change it another time
     * as well. For example if a job status is set to Aborted, the scheduler
     * could mark it to Delayed. This could trigger another icon or text

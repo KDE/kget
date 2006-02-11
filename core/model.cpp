@@ -597,7 +597,7 @@ void Model::loadPlugins()
     }
 
     //I must fill this pluginList before and my m_transferFactories list after.
-    //This becouse calling the KLibLoader::globalLibrary() erases the static
+    //This because calling the KLibLoader::globalLibrary() erases the static
     //members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 

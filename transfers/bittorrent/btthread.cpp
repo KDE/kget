@@ -44,7 +44,7 @@ void BTThread::stop()
     kDebug() << "initialized2 = " << initialized << endl;
     if (!--initialized)
     {
-        //I've disabled this line becouse we can't delete the instance
+        //I've disabled this line because we can't delete the instance
         //if we have a QMutexLocker. Felix, is this mutex necessary?
         //(removing it solves some crashes when deleting bittorrent transfers)
         //QMutexLocker locker(&instance->mutex);

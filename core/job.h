@@ -38,7 +38,7 @@ class Job
          *                not start it until it exits from the delayed state
          * @param Stopped The job is stopped
          * @param Aborted The job is stopped, but this also indicates that it
-         *                stopped becouse an error occoured
+         *                stopped because an error occoured
          * @param Finished The job exited from its Running state successfully
          */
         enum Status {Running, Delayed, Stopped, Aborted, Finished};
