@@ -165,8 +165,8 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 {
     //Bottom bar layout
     m_HLayout = new QHBoxLayout();
-    m_HLayout->setSpacing(1);
-    m_HLayout->setMargin(0);
+    m_HLayout->setSpacing(2);
+    m_HLayout->setMargin(2);
 
     m_downloadsBt = new ButtonBase();
     m_downloadsBt->setText(i18n("Downloads"));
