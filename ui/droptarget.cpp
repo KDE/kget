@@ -59,7 +59,6 @@ DropTarget::DropTarget(KGet * mw)
 
     setMask( bm );
 
-    show();
     update();
 
     // popup menu for right mouse button

@@ -169,6 +169,7 @@ void KGet::slotDelayedInit()
     m_drop = new DropTarget(this);
     if ( Settings::showDropTarget() || Settings::firstRun() )
         m_drop->show();
+
     if ( Settings::firstRun() )
         m_drop->playAnimation();
 
