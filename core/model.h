@@ -156,6 +156,12 @@ class Model
          * @return a pointer to the KActionCollection objects
          */
         static KActionCollection * actionCollection();
+	
+	/**
+	 * if running == true starts the scheduler
+	 * if running == false stops the scheduler
+	 */
+	static void setSchedulerRunning(bool running=true);
 
     private:
         Model();
@@ -204,8 +210,6 @@ class Model
 
         static TransferGroup * findGroup(const QString& groupName);
         static Transfer * findTransfer(KUrl url);
-
-        static void setupActions();
 
         //Plugin-related functions
         static void loadPlugins();

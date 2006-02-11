@@ -23,6 +23,7 @@
 #include <kfiledialog.h>
 #include <ktoolinvocation.h>
 #include <kmenubar.h>
+#include <kiconloader.h>
 
 #include "kget.h"
 #include "core/model.h"
@@ -98,15 +99,22 @@ void KGet::setupActions()
     new KAction(i18n("Export &Transfers List..."), 0, this,
                 SLOT(slotExportTransfers()), ac, "export_transfers");
 
-    KToggleAction * ta;
-    ta = new KToggleAction(i18n("Start Downloading"), "down", 0, this,
-                           SLOT(slotDownloadToggled()), ac, "download");
-    ta->setWhatsThis(i18n("<b>Start/Stop</b> the automatic download of files."));
+    KRadioAction * r1;
+    KRadioAction * r2;
+    
+    r1 = new KRadioAction( i18n("Start download"), MainBarIcon("player_play"),
+			   0, this, SLOT( slotStartDownload() ),
+			   ac, "start_download" );
+			   
+    r2 = new KRadioAction( i18n("Stop download"), MainBarIcon("player_pause"),
+			   0, this, SLOT( slotStopDownload() ),
+			   ac, "stop_download" );
 
-    KGuiItem checkedDownloadAction(i18n("Stop Downloading"), "stop");
-    ta->setCheckedState( checkedDownloadAction );
+    r1->setExclusiveGroup("scheduler_commands");
+    r2->setExclusiveGroup("scheduler_commands");
 
-    ta->setChecked( Settings::downloadAtStartup() );
+    r1->setChecked( Settings::downloadAtStartup() );
+    r2->setChecked( !Settings::downloadAtStartup() );
 
     m_AutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this,
                 SLOT(slotToggleAutoPaste()), ac, "auto_paste");
@@ -167,6 +175,7 @@ void KGet::slotDelayedInit()
 
     // DropTarget
     m_drop = new DropTarget(this);
+
     if ( Settings::showDropTarget() || Settings::firstRun() )
         m_drop->show();
 
@@ -196,7 +205,7 @@ void KGet::slotDelayedInit()
 
     // immediately start downloading if configured this way
     if ( Settings::downloadAtStartup() )
-        slotDownloadToggled();
+        slotStartDownload();
 
     // reset the FirstRun config option
     Settings::setFirstRun(false);
@@ -279,13 +288,18 @@ void KGet::slotExportTransfers()
         Model::save(filename);
 }
 
-void KGet::slotDownloadToggled()
+void KGet::slotStartDownload()
 {
-    KToggleAction * action = (KToggleAction *)actionCollection()->action("download");
-    bool downloading = action->isChecked();
-    //TODO find an alternative way of doing this with the model
-    //schedRequestOperation( downloading ? OpRun : OpStop );
-    m_dock->setDownloading( downloading );
+    m_dock->setDownloading(true);    
+    
+    Model::setSchedulerRunning(true);
+}
+
+void KGet::slotStopDownload()
+{
+    m_dock->setDownloading(false);    
+    
+    Model::setSchedulerRunning(false);
 }
 
 void KGet::slotConfigureNotifications()

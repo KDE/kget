@@ -11,7 +11,6 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
-
 #include <QObject>
 #include <QMap>
 #include <QTimerEvent>
@@ -35,6 +34,20 @@ class Scheduler : public QObject
     public:
         Scheduler();
         ~Scheduler();
+
+        /* 
+	 * Starts globally the execution of the jobs
+         *
+         * @see stop()
+         */
+        void start();
+
+        /**
+         * Stops globally the execution of the jobs
+         *
+         * @see start()
+         */
+        void stop();
 
         /**
          * Adds a queue to the scheduler.
@@ -70,21 +83,6 @@ class Scheduler : public QObject
         //Accessors methods
         void startDelayTimer(Job * job, int seconds);
         void stopDelayTimer(Job * job);
-
-    public slots:
-        /**
-         * Starts globally the execution of the jobs
-         *
-         * @see stop()
-         */
-        void start();
-
-        /**
-         * Stops globally the execution of the jobs
-         *
-         * @see start()
-         */
-        void stop();
 
     private:
         /**

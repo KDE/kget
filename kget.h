@@ -60,7 +60,8 @@ private slots:
     void slotQuit();
     void slotPreferences();
     void slotExportTransfers();
-    void slotDownloadToggled();
+    void slotStartDownload();
+    void slotStopDownload();
     void slotConfigureNotifications();
     void slotConfigureKeys();
     void slotConfigureToolbars();

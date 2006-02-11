@@ -18,6 +18,7 @@
 #include <kiconloader.h>
 #include <kiconeffect.h>
 #include <kmenu.h>
+#include <kdebug.h>
 
 #include "core/model.h"
 #include "ui/tray.h"
@@ -115,6 +116,8 @@ void Tray::mousePressEvent(QMouseEvent * e)
 // display blinking icon when downloading
 void Tray::setDownloading( bool running )
 {
+    kDebug() << "Tray::setDownloading" << endl;
+
     if(!blinkTimer)
     {
         blinkTimer = new QTimer;
@@ -218,6 +221,7 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
 
     // get the rectangle where blending will take place 
     QPixmap sourceCropped( opW, opH );
+    sourceCropped.fill(Qt::transparent);
     QPainter paint;
     paint.begin( &sourceCropped );
     paint.drawPixmap( 0, 0, *sourcePixmap, opX, opY, opW,opH );
@@ -227,14 +231,13 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
     QImage blendedImage = sourceCropped.toImage();
     QImage overlayImage = overlay->toImage();
     KIconEffect::overlay( blendedImage, overlayImage );
-    sourceCropped.fromImage( blendedImage );
+    sourceCropped = QPixmap().fromImage( blendedImage );
 
     // put back the blended rectangle to the original image
     QPixmap sourcePixmapCopy = *sourcePixmap;
     paint.begin( &sourcePixmapCopy );
     paint.drawPixmap( opX, opY, sourceCropped, 0, 0, opW,opH );
     paint.end();
-
 
     setPixmap( sourcePixmapCopy ); // @since 3.2
 }

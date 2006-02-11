@@ -307,6 +307,14 @@ KActionCollection * Model::actionCollection()
     return m_kget->actionCollection();
 }
 
+void Model::setSchedulerRunning(bool running)
+{
+    if(running)
+	m_scheduler->start();
+    else
+	m_scheduler->stop();
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<TransferGroup *> Model::m_transferGroups; // = QValueList<TransferGroup *>();
 QList<ModelObserver *> Model::m_observers; // = QValueList<ModelObserver *>();
@@ -320,9 +328,6 @@ Model::Model()
 {
     //Load all the available plugins
     loadPlugins();
-
-    //Setup all the actions
-    setupActions();
 
     //Create the default group with empty name
     addGroup("");
@@ -550,22 +555,6 @@ Transfer * Model::findTransfer(KUrl src)
             return t;
     }
     return 0;
-}
-
-void Model::setupActions()
-{
-    KRadioAction * a1;
-    KRadioAction * a2;
-
-    a1 = new KRadioAction( i18n("Start Download"), MainBarIcon("player_play"),
-                           0, m_scheduler, SLOT( start() ),
-                           actionCollection(), "scheduler_start" );
-    a2 = new KRadioAction( i18n("Stop Download"), MainBarIcon("player_pause"),
-                           0, m_scheduler, SLOT( stop() ),
-                           actionCollection(), "scheduler_stop" );
-
-    a1->setExclusiveGroup("scheduler_commands");
-    a2->setExclusiveGroup("scheduler_commands");
 }
 
 void Model::loadPlugins()

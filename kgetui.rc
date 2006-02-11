@@ -27,8 +27,8 @@
 <ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
     <Action name="new_transfer" />
     <Separator lineSeparator="true" />
-    <Action name="scheduler_start" />
-    <Action name="scheduler_stop" />
+    <Action name="start_download" />
+    <Action name="stop_download" />
     <Separator lineSeparator="true" />
     <Action name="show_drop_target" />
 </ToolBar>
