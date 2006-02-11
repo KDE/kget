@@ -181,11 +181,13 @@ TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfe
 
 void TransferItem::transferChangedEvent(TransferHandler * transfer)
 {
+    kDebug() << "TransferItem::transferChangedEvent" << endl;
     updateContents();
 }
 
 void TransferItem::deleteEvent(TransferHandler * transfer)
 {
+    kDebug() << "TransferItem::deleteEvent" << endl;
     delete(this);
 }
 

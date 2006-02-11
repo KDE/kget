@@ -32,19 +32,19 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_layout->addWidget(m_genericWidget);
     m_layout->addWidget(m_detailsWidget);
     setLayout(m_layout);
+    
+    frm.sourceLabel->setText(i18n("Source:"));
+    frm.destLabel->setText(i18n("Saving to:"));
+    frm.statusLabel->setText(i18n("Status:"));
 
-    findChild<QLabel *>("sourceLabel")->setText(i18n("Source:"));
-    findChild<QLabel *>("destLabel")->setText(i18n("Saving to:"));
-    findChild<QLabel *>("statusLabel")->setText(i18n("Status:"));
+    frm.sourceContentEdit->setText(transfer->source().url());
+    frm.destContentEdit->setText(transfer->dest().url());
 
-    findChild<QLabel *>("sourceContentLabel")->setText(transfer->source().url());
-    findChild<QLabel *>("destContentLabel")->setText(transfer->dest().url());
-
-    m_statusPixmapLabel = findChild<QLabel *>("statusPixmapContentLabel");
-    m_statusTextLabel = findChild<QLabel *>("statusTextContentLabel");
-    m_completedLabel = findChild<QLabel *>("completedContentLabel");
-    m_speedLabel = findChild<QLabel *>("speedContentLabel");
-    m_progressBar = findChild<QProgressBar *>("progressBar");
+    m_statusPixmapLabel = frm.statusPixmapContentLabel;
+    m_statusTextLabel = frm.statusTextContentLabel;
+    m_completedLabel = frm.completedContentLabel;
+    m_speedLabel = frm.speedContentLabel;
+    m_progressBar = frm.progressBar;
 
     transfer->addObserver(this);
     //This updates the widget with the right values

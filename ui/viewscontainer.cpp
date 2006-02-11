@@ -27,7 +27,6 @@
 
 TitleBar::TitleBar(QWidget * parent)
 {
-    setBackgroundRole(QPalette::Highlight);
     setMaximumHeight(40);
 
     m_layout = new QHBoxLayout();
