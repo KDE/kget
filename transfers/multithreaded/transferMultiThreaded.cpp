@@ -157,7 +157,8 @@ void TransferMultiThreaded::slotResult()
 {
     delete m_Mtjob;
     m_Mtjob = 0;
-    if( m_processedSize == m_totalSize )
+    if( (m_totalSize != 0) &&
+	(m_processedSize == m_totalSize) )
     {
         setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
         m_percent = 100;
