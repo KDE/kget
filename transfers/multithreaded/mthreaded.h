@@ -32,7 +32,6 @@
 
 struct connd
 {
-    int id;
     KUrl src;
     KIO::fileoffset_t offSet;
     KIO::filesize_t bytes;

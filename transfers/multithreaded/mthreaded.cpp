@@ -17,9 +17,6 @@ Connection::Connection(QFile *file, struct connd tdata)
       m_data ( tdata )
 {
     kDebug() << "Connection::Connection" << endl;
-/*    m_data.src=src;
-    m_data.bytes=bytes;
-    m_data.offSet=offSet;*/
     connect (this, SIGNAL(started()), this, SLOT(slotStart()));
 }
 
@@ -42,12 +39,17 @@ void Connection::setBytes(KIO::filesize_t bytes)
 void Connection::ftpGet()
 {
     kDebug() << "Connection::ftpGet()" <<  endl;
+    if( m_ftp->state() != QFtp::Unconnected )
+    {
+        m_ftp->abort();
+        return;
+    }
     m_ftp->connectToHost(m_data.src.host());
     m_ftp->login();
     #warning "!!!WARNING!!! we need a patched qt-copy for mulithreaded ftp with an offset. patch: ftp-offset.diff in this dir. if your qt is patched, enable the following line!"
 //     m_ftp->get(m_data.src.path(), m_data.offSet);
     //and disable the following line in order to use QFtp with an offset
-    m_ftp->get(m_data.src.path());
+//     m_ftp->get(m_data.src.path());
     m_ftp->close();
     connect(m_ftp, SIGNAL(readyRead()), this, SLOT(ftpWriteBuffer()));
     connect(m_ftp, SIGNAL(done(bool)), this, SLOT(slotFtpClose(bool)));
@@ -163,6 +165,12 @@ void Connection::httpWriteBuffer(const QHttpResponseHeader & resp)
 void Connection::slotStart()
 {
     kDebug() << "Connection::slotStart()" << endl;
+
+    if( m_data.bytes == 0 )
+   {
+    quit();
+    return;
+    }
     m_timer.setSingleShot(true);
     m_timer.setInterval(60000);
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(slotRestart()));
@@ -183,12 +191,12 @@ void Connection::slotFtpClose(bool err)
 {
     Q_UNUSED(err);
     QFtp*pftp;
-        kDebug() << "Connection::slotFtpClose" << endl;
-            pftp=(QFtp*)sender();
-//             if( pftp->currentCommand() == QFtp::Get)
-            pftp->abort();
-            emit stat(closed);
-            kDebug() << pftp->currentCommand() << " Connection::slotFtpClose -- error: " << pftp->errorString () << endl;
+    kDebug() << "Connection::slotFtpClose" << endl;
+    pftp=(QFtp*)sender();
+    if( pftp->state() != QFtp::Unconnected)
+        pftp->abort();
+    emit stat(closed);
+    kDebug() << pftp->currentCommand() << " Connection::slotFtpClose -- error: " << pftp->errorString () << endl;
 }
 
 void Connection::slotHttpClose(bool err)
@@ -229,7 +237,7 @@ Mtget::Mtget(KUrl src, KUrl dst, int n)
 {
     kDebug() << "Mtget::Mtget" << endl;
     connect(&m_speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
-    m_speed_timer.start(1000);
+    m_speed_timer.start(2000);
 }
 
 void Mtget::run()
@@ -360,7 +368,6 @@ void Mtget::createThreads()
         if(i == m_n - 1)
 
         {
-            tdata.id = i;
             tdata.src = m_src;
             tdata.offSet = i*conn_size;
             tdata.bytes = rest_size;
@@ -368,7 +375,6 @@ void Mtget::createThreads()
     kDebug () << "threads data: " << i*conn_size << " "<< rest_size<< endl;
             continue;
         }
-    tdata.id = i;
     tdata.src = m_src;
     tdata.offSet = i*conn_size;
     tdata.bytes = conn_size;
@@ -415,7 +421,7 @@ void Mtget::relocateThread()
 
 void Mtget::calcSpeed()
 {
-    emit speed( m_speedbytes );
+    emit speed( m_speedbytes/2 );
     kDebug() << "Mtget::calcSpeed " << endl;
     m_speedbytes = 0;
 }

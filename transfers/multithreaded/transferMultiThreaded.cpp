@@ -96,7 +96,6 @@ void TransferMultiThreaded::load(QDomElement e)
     {
         node = threads.item(i);
         thread = node.toElement ();
-        data.id = thread.attribute("Id").toInt();
         data.src = KUrl::fromPathOrURL(thread.attribute("Source"));
         data.bytes = thread.attribute("Bytes").toULongLong();
         data.offSet = thread.attribute("OffSet").toULongLong();
@@ -120,7 +119,6 @@ void TransferMultiThreaded::save(QDomElement e)
     {
         thread = doc.createElement("Thread");
         e.appendChild(thread);
-        thread.setAttribute("Id", (*it).id);
         thread.setAttribute("Source", (*it).src.url());
         thread.setAttribute("Bytes", (*it).bytes); 
         thread.setAttribute("OffSet", (*it).offSet);
