@@ -11,6 +11,7 @@
 
 #include <QTimer>
 #include <QClipboard>
+#include <QPainter>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
@@ -193,8 +194,12 @@ void Tray::paintIcon( int mergePixels, bool force )
 
     // mix [ grayed <-> colored ] icons
     QPixmap tmpTrayPixmap( *alternateIcon );
-    copyBlt( &tmpTrayPixmap, 0,0, grayedIcon, 0,0,
-            alternateIcon->width(), alternateIcon->height() - mergePixels );
+    QPainter paint;
+    paint.begin( &tmpTrayPixmap );
+    paint.drawPixmap( 0, 0, *grayedIcon, 0, 0,
+        alternateIcon->width(), alternateIcon->height() - mergePixels );
+    paint.end();
+
     blendOverlay( &tmpTrayPixmap );
 }
 
@@ -213,7 +218,10 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
 
     // get the rectangle where blending will take place 
     QPixmap sourceCropped( opW, opH );
-    copyBlt( &sourceCropped, 0,0, sourcePixmap, opX,opY, opW,opH );
+    QPainter paint;
+    paint.begin( &sourceCropped );
+    paint.drawPixmap( 0, 0, *sourcePixmap, opX, opY, opW,opH );
+    paint.end();
 
     // blend the overlay image over the cropped rectangle
     QImage blendedImage = sourceCropped.toImage();
@@ -223,7 +231,10 @@ void Tray::blendOverlay( QPixmap * sourcePixmap )
 
     // put back the blended rectangle to the original image
     QPixmap sourcePixmapCopy = *sourcePixmap;
-    copyBlt( &sourcePixmapCopy, opX,opY, &sourceCropped, 0,0, opW,opH );
+    paint.begin( &sourcePixmapCopy );
+    paint.drawPixmap( opX, opY, sourceCropped, 0, 0, opW,opH );
+    paint.end();
+
 
     setPixmap( sourcePixmapCopy ); // @since 3.2
 }
