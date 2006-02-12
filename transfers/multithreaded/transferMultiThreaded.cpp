@@ -16,6 +16,8 @@
 #include <kio/job.h>
 #include <kdebug.h>
 
+#include "conf/settings.h"
+
 #include "transferMultiThreaded.h"
 #include "transferMultiThreaded.moc"
 
@@ -38,7 +40,7 @@ void TransferMultiThreaded::start()
 
     if(!m_Mtjob)
     {
-        m_Mtjob = new Mtget(m_source, m_dest, 10);
+        m_Mtjob = new Mtget(m_source, m_dest, Settings::mtThreads());
         connect(m_Mtjob, SIGNAL(update()), this, SLOT(slotUpdate()));
         connect(m_Mtjob, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(slotTotalSize(KIO::filesize_t)));
         connect(m_Mtjob, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotProcessedSize(KIO::filesize_t)));

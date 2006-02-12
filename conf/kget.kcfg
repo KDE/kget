@@ -95,6 +95,9 @@
     <entry name="DisconnectCommand" type="String">
       <default>kppp -k</default>
     </entry>
+    <entry name="MtThreads" type="Int">
+      <default>1</default>
+    </entry>
   </group>
 
   <group name="Directories">

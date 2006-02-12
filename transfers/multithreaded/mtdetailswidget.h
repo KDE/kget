@@ -13,6 +13,7 @@
 
 #include <QWidget>
 
+#include "conf/settings.h"
 #include "mtdetailswidgetfrm.h"
 
 class MTDetailsWidget : public QWidget
@@ -20,6 +21,12 @@ class MTDetailsWidget : public QWidget
     Q_OBJECT
     public:
         MTDetailsWidget();
+
+    private:
+        Ui::MTDetails frm;
+
+    private slots:
+        void slotSetThreads();
 };
 
 #endif // MTDETAILSWIDGET_H

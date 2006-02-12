@@ -13,6 +13,14 @@
 
 MTDetailsWidget::MTDetailsWidget()
 {
-    Ui::MTDetails frm;
     frm.setupUi(this);
+    frm.numberThreadSpinBox->setValue(Settings::mtThreads());
+    connect(frm.pushButton, SIGNAL(clicked()),SLOT(slotSetThreads()));
+}
+
+void MTDetailsWidget::slotSetThreads()
+{
+    QVariant value(frm.numberThreadSpinBox->value());
+    int nt = value.toInt();
+    Settings::setMtThreads( nt );
 }
