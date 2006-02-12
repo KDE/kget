@@ -48,11 +48,11 @@ KGet::KGet( QWidget * parent )
 
     createGUI("kgetui.rc");
 
-    m_splitter = new QSplitter(this);
-    m_sidebar = new Sidebar(m_splitter);
-    m_viewsContainer = new ViewsContainer(m_splitter);
+//    m_splitter = new QSplitter(this);
+//    m_sidebar = new Sidebar(m_splitter);
+    m_viewsContainer = new ViewsContainer(this);
 
-    setCentralWidget(m_splitter);
+    setCentralWidget(m_viewsContainer);
 
     // restore position, size and visibility
     move( Settings::mainPosition() );
