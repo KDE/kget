@@ -12,6 +12,9 @@
 #include"mthreaded.h"
 #include"mthreaded.moc"
 
+#warning "!!!WARNING!!! we need a patched qt-copy for mulithreaded ftp with an offset. patch: ftp-offset.diff in this dir. if your qt is patched, enable the following line!"
+//#define KGET_HAVE_PATCHED_QFTP
+
 Connection::Connection(QFile *file, struct connd tdata)
     : m_file ( file ) ,
       m_data ( tdata )
@@ -44,10 +47,11 @@ void Connection::ftpGet()
     m_ftp = new QFtp(this);
     m_ftp->connectToHost(m_data.src.host());
     m_ftp->login();
-    #warning "!!!WARNING!!! we need a patched qt-copy for mulithreaded ftp with an offset. patch: ftp-offset.diff in this dir. if your qt is patched, enable the following line!"
+#ifdef KGET_HAVE_PATCHED_QFTP
     m_ftp->get(m_data.src.path(), m_data.offSet);
-    //and disable the following line in order to use QFtp with an offset
-//     m_ftp->get(m_data.src.path());
+#else
+     m_ftp->get(m_data.src.path());
+#endif
     m_ftp->close();
     connect(m_ftp, SIGNAL(readyRead()), this, SLOT(ftpWriteBuffer()));
 }
