@@ -101,14 +101,14 @@ void KGet::setupActions()
 
     KRadioAction * r1;
     KRadioAction * r2;
-    
-    r1 = new KRadioAction( i18n("Start download"), MainBarIcon("player_play"),
-			   0, this, SLOT( slotStartDownload() ),
-			   ac, "start_download" );
-			   
-    r2 = new KRadioAction( i18n("Stop download"), MainBarIcon("player_pause"),
-			   0, this, SLOT( slotStopDownload() ),
-			   ac, "stop_download" );
+
+    r1 = new KRadioAction( i18n("Start All"), MainBarIcon("player_play"),
+                            0, this, SLOT( slotStartDownload() ),
+                            ac, "start_download" );
+
+    r2 = new KRadioAction( i18n("Stop All"), MainBarIcon("player_pause"),
+                            0, this, SLOT( slotStopDownload() ),
+                            ac, "stop_download" );
 
     r1->setExclusiveGroup("scheduler_commands");
     r2->setExclusiveGroup("scheduler_commands");

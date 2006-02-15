@@ -510,7 +510,7 @@ KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
     if ( filename.isEmpty() )
     {
         // simply use the full url as filename
-        filename = KUrl::encode_string_no_slash( srcURL.prettyURL() );
+        filename = QUrl::toPercentEncoding( srcURL.prettyURL(), "/" );
         kDebug() << " Filename is empty. Setting to  " << filename << endl;
         kDebug() << "   srcURL = " << srcURL.url() << endl;
         kDebug() << "   prettyURL = " << srcURL.prettyURL() << endl;

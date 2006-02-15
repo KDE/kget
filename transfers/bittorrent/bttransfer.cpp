@@ -159,7 +159,7 @@ void BTTransfer::resume()
             // deallocate stream
             bencodeStream.str(std::string());
             // set directory
-            download.set_root_dir(std::string(dest().directory(false).ascii()));
+            download.set_root_dir(std::string(qPrintable(dest().directory(false))));
 
             if (download.get_entry_size() == 1) 
             {
@@ -345,7 +345,7 @@ void BTTransfer::load(QDomElement e)
         QDomElement first(e.firstChild().toElement());
         if (!first.isNull() &&  (first.tagName() == "bencode") )
         {
-            bencodeStream << first.text().ascii();
+            bencodeStream << qPrintable(first.text());
         }
     }
 }
