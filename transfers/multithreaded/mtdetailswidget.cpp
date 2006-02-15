@@ -14,13 +14,14 @@
 MTDetailsWidget::MTDetailsWidget()
 {
     frm.setupUi(this);
-    frm.numberThreadSpinBox->setValue(Settings::mtThreads());
+    frm.checkBox->setText(i18n("Search for mirrors"));
+    frm.threadSpinBox->setPrefix(i18n("Threads: "));
+    frm.pushButton->setText(i18n("Save as default"));
+    frm.threadSpinBox->setValue(Settings::mtThreads());
     connect(frm.pushButton, SIGNAL(clicked()),SLOT(slotSetThreads()));
 }
 
 void MTDetailsWidget::slotSetThreads()
 {
-    QVariant value(frm.numberThreadSpinBox->value());
-    int nt = value.toInt();
-    Settings::setMtThreads( nt );
+    Settings::setMtThreads( frm.threadSpinBox->value() );
 }

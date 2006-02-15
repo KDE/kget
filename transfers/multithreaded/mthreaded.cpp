@@ -17,7 +17,9 @@ Connection::Connection(QFile *file, struct connd tdata)
       m_data ( tdata )
 {
     kDebug() << "Connection::Connection" << endl;
-    connect (this, SIGNAL(started()), this, SLOT(slotStart()));
+    isFtp = false;
+    isHttp = false;
+    connect (this, SIGNAL(started()), SLOT(slotStart()));
 }
 
 void Connection::run()
@@ -39,20 +41,15 @@ void Connection::setBytes(KIO::filesize_t bytes)
 void Connection::ftpGet()
 {
     kDebug() << "Connection::ftpGet()" <<  endl;
-    if( m_ftp->state() != QFtp::Unconnected )
-    {
-        m_ftp->abort();
-        return;
-    }
+    m_ftp = new QFtp(this);
     m_ftp->connectToHost(m_data.src.host());
     m_ftp->login();
     #warning "!!!WARNING!!! we need a patched qt-copy for mulithreaded ftp with an offset. patch: ftp-offset.diff in this dir. if your qt is patched, enable the following line!"
-//     m_ftp->get(m_data.src.path(), m_data.offSet);
+    m_ftp->get(m_data.src.path(), m_data.offSet);
     //and disable the following line in order to use QFtp with an offset
 //     m_ftp->get(m_data.src.path());
     m_ftp->close();
     connect(m_ftp, SIGNAL(readyRead()), this, SLOT(ftpWriteBuffer()));
-    connect(m_ftp, SIGNAL(done(bool)), this, SLOT(slotFtpClose(bool)));
 }
 
 void Connection::httpGet()
@@ -62,21 +59,21 @@ void Connection::httpGet()
     header.setValue("Host", m_data.src.host());
     header.setValue("Range","bytes=" + QString::number(m_data.offSet) + "-");
     header.setValue("Connection","close");
+    m_http = new QHttp(this);
     m_http->setHost(m_data.src.host());
     m_http->request(header);
     connect(m_http,SIGNAL(readyRead(const QHttpResponseHeader & )),this,SLOT(httpWriteBuffer(const QHttpResponseHeader &)));
-    connect(m_http,SIGNAL(done(bool)),this,SLOT(slotHttpClose(bool)));
 }
 
 void Connection::getDst()
 {
     kDebug() << "Connection::getDst: starting download" << endl;
-    if (m_ftp && !m_http)
+    if (isFtp)
     {
         ftpGet();
         return;
     }
-    if (!m_ftp && m_http)
+    if (isHttp)
     {
         httpGet();
         return;
@@ -118,7 +115,9 @@ void Connection::ftpWriteBuffer()
     {
         disconnect(m_ftp,SIGNAL(readyRead()),this,SLOT(ftpWriteBuffer()));
         m_ftp->abort();
+        m_ftp->deleteLater();
         kDebug() << "Connection::ftpWriteBuffer: Clossing connection" <<  endl;
+        emit stat(closed);
     }
 }
 
@@ -158,7 +157,9 @@ void Connection::httpWriteBuffer(const QHttpResponseHeader & resp)
     {
         disconnect(m_http,SIGNAL(readyRead(const QHttpResponseHeader &)),this,SLOT(httpWriteBuffer(const QHttpResponseHeader &)));
         m_http->abort();
+        m_http->deleteLater();
         kDebug() << "Connection::httpWriteBuffer: Clossing connection" << endl;
+        emit stat(closed);
     }
 }
 
@@ -173,45 +174,25 @@ void Connection::slotStart()
     }
     m_timer.setSingleShot(true);
     m_timer.setInterval(60000);
-    connect(&m_timer, SIGNAL(timeout()), this, SLOT(slotRestart()));
-    if (m_data.src.protocol() == "ftp")
-    {
-        m_ftp=new QFtp(this);
-        m_http = 0;
-    }
-    if (m_data.src.protocol()=="http")
-    {
-        m_http = new QHttp(this);
-        m_ftp = 0;
-    }
+    connect(&m_timer, SIGNAL(timeout()), SLOT(slotTimeout()));
+    isFtp = (m_data.src.protocol() == "ftp");
+    isHttp = (m_data.src.protocol()=="http");
     getDst();
 }
 
-void Connection::slotFtpClose(bool err)
+void Connection::slotTimeout()
 {
-    Q_UNUSED(err);
-    QFtp*pftp;
-    kDebug() << "Connection::slotFtpClose" << endl;
-    pftp=(QFtp*)sender();
-    if( pftp->state() != QFtp::Unconnected)
-        pftp->abort();
+    if(isFtp && m_ftp)
+    {
+        m_ftp->abort();
+        m_ftp->deleteLater();
+    }
+    if(isHttp && m_http)
+    {
+        m_http->abort();
+        m_http->deleteLater();
+    }
     emit stat(closed);
-    kDebug() << pftp->currentCommand() << " Connection::slotFtpClose -- error: " << pftp->errorString () << endl;
-}
-
-void Connection::slotHttpClose(bool err)
-{
-    Q_UNUSED(err);
-    QHttp*phttp;
-        kDebug() << "Connection::slotHttpClose" << endl;
-            phttp=(QHttp*)sender();
-            if ( phttp->error ()== 7 )
-            {
-                emit stat(closed);
-                return;
-             }
-            phttp->abort();
-            kDebug() << "Connection::slotHttpClose -- error: " << phttp->error () << " -- " <<phttp->errorString () << endl;
 }
 
 void Connection::slotRestart()
@@ -237,7 +218,6 @@ Mtget::Mtget(KUrl src, KUrl dst, int n)
 {
     kDebug() << "Mtget::Mtget" << endl;
     connect(&m_speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
-    m_speed_timer.start(2000);
 }
 
 void Mtget::run()
@@ -301,6 +281,7 @@ void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSi
         createThread( (*it) );
     }
     m_stoped = false;
+    m_speed_timer.start(2000);
 }
 
 QList<struct connd> Mtget::getThreadsData()
@@ -382,6 +363,7 @@ void Mtget::createThreads()
     kDebug () << "threads data: " << i*conn_size << " "<< conn_size << endl;
     }
     emit update();
+    m_speed_timer.start(2000);
 }
 
 void Mtget::createThread(struct connd tdata)
@@ -438,6 +420,7 @@ void Mtget::httpFileInfo(const QHttpResponseHeader & resp)
 {
     disconnect(m_httpInfo,SIGNAL(responseHeaderReceived(const QHttpResponseHeader &)),this,SLOT(httpFileInfo(const QHttpResponseHeader &)));
     m_totalSize = resp.contentLength();
+    m_httpInfo->deleteLater();
     emit totalSize(m_totalSize);
     kDebug() << "httpFileInfo: " << m_totalSize << endl;
     createThreads();
@@ -446,6 +429,7 @@ void Mtget::httpFileInfo(const QHttpResponseHeader & resp)
 void Mtget::ftpFileInfo(const QUrlInfo & i)
 {
     disconnect(m_ftpInfo,SIGNAL(listInfo (const QUrlInfo &)),this,SLOT(ftpFileInfo(const QUrlInfo &)));
+    m_ftpInfo->deleteLater();
     m_totalSize = i.size();
     emit totalSize(m_totalSize);
     kDebug() << "ftpFileInfo: " << m_totalSize << endl;

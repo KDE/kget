@@ -68,6 +68,7 @@ class Connection : public QThread
         QHttp *m_http;
         QFtp  *m_ftp;
         QFile *m_file;
+        bool isFtp, isHttp;
         struct connd m_data;
         KIO::fileoffset_t bytes;
 
@@ -75,8 +76,7 @@ class Connection : public QThread
         void ftpWriteBuffer();
         void httpWriteBuffer(const QHttpResponseHeader & resp);
         void slotStart();
-        void slotFtpClose(bool err);
-        void slotHttpClose(bool err);
+        void slotTimeout();
         void slotRestart();
 };
 
