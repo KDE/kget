@@ -119,7 +119,7 @@ public:
             if ( txt.endsWith( ".kgt", Qt::CaseInsensitive ) )
                 Model::load( txt );
             else
-                l.push_back(args->arg(i));
+                l.push_back(KUrl::fromPathOrURL(args->arg(i)));
         }
         // all the args read from command line are downloads
         if (l.count() >= 1)
