@@ -216,7 +216,7 @@ void Model::load( QString filename )
     QString tmpFile;
 
     //Try to save the transferlist to a temporary location
-    if(!KIO::NetAccess::download(filename, tmpFile, 0))
+    if(!KIO::NetAccess::download(KUrl::fromPathOrURL(filename), tmpFile, 0))
         return;
 
     QFile file(tmpFile);
