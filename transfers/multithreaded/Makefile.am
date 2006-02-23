@@ -1,7 +1,7 @@
 
 kde_module_LTLIBRARIES = libkget_multithreadedfactory.la
 
-libkget_multithreadedfactory_la_SOURCES = transferMultiThreadedFactory.cpp transferMultiThreaded.cpp mthreaded.cpp mtdetailswidget.cpp mtdetailswidgetfrm.ui
+libkget_multithreadedfactory_la_SOURCES = transferMultiThreadedFactory.cpp transferMultiThreaded.cpp mthreaded.cpp thread.cpp mtdetailswidget.cpp mtdetailswidgetfrm.ui
 
 libkget_multithreadedfactory_la_LIBADD = ../../conf/libconf.la ../../core/libcore.la -lkdeui -lkdecore -lkio
 

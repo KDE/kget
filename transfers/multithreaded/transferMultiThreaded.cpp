@@ -90,7 +90,7 @@ void TransferMultiThreaded::load(QDomElement e)
 {
 
     kDebug() << "TransferMultiThreaded::load" << endl;
-    struct connd data;
+    struct data d;
     QDomNodeList threads = e.elementsByTagName ("Thread");
     QDomNode node;
     QDomElement thread;
@@ -98,11 +98,11 @@ void TransferMultiThreaded::load(QDomElement e)
     {
         node = threads.item(i);
         thread = node.toElement ();
-        data.src = KUrl::fromPathOrURL(thread.attribute("Source"));
-        data.bytes = thread.attribute("Bytes").toULongLong();
-        data.offSet = thread.attribute("OffSet").toULongLong();
+        d.src = KUrl::fromPathOrURL(thread.attribute("Source"));
+        d.bytes = thread.attribute("Bytes").toULongLong();
+        d.offSet = thread.attribute("OffSet").toULongLong();
         kDebug() << "TransferMultiThreaded::load: adding thread " << i << endl;
-        tdata << data;
+        tdata << d;
     }
 
 }
@@ -115,8 +115,8 @@ void TransferMultiThreaded::save(QDomElement e)
 
     QDomDocument doc(e.ownerDocument());
     QDomElement thread;
-    QList<struct connd>::iterator it = tdata.begin();
-    QList<struct connd>::iterator itEnd = tdata.end();
+    QList<struct data>::iterator it = tdata.begin();
+    QList<struct data>::iterator itEnd = tdata.end();
     for ( ; it!=itEnd ; ++it )
     {
         thread = doc.createElement("Thread");
@@ -132,6 +132,7 @@ void TransferMultiThreaded::save(QDomElement e)
 
 void TransferMultiThreaded::startJob()
 {
+    kDebug() << "TransferMultiThreaded::startJob" << endl;
     if(m_Mtjob)
     {
         m_Mtjob->start();

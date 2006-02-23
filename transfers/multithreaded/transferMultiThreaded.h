@@ -46,7 +46,7 @@ class TransferMultiThreaded : public QObject, public Transfer
         void startJob();
 
         Mtget * m_Mtjob;
-        QList<struct connd> tdata;
+        QList<struct data> tdata;
 
         QTime m_elapsedTime;
 
