@@ -50,35 +50,9 @@ class RemoteFileInfo : public QObject
         void size(KIO::filesize_t);
 };
 
-class Thread : public QThread
-{
-    Q_OBJECT
+Iface *newTransferThread(QFile *file, struct data tdata);
 
-    public:
-        Thread(QFile *file, struct data tdata);
-        void run();
-        struct data getThreadData();
-        void setBytes(KIO::filesize_t bytes);
-
-    signals:
-        void totalSize(KIO::filesize_t);
-        void speed(unsigned long);
-        void processedSize(KIO::filesize_t);
-        void stat(status);
-
-    public slots:
-        void slotRestart();
-
-    private:
-
-        /** vars **/
-        Iface *m_iface;
-
-    private slots:
-        void slotStart();
-};
-
-class Iface : public QObject
+class Iface : public QThread
 {
     Q_OBJECT
 
@@ -87,8 +61,9 @@ class Iface : public QObject
         Iface() {};
         struct data getThreadData();
         void setBytes(KIO::filesize_t bytes);
+        void run();
         virtual void setup()=0;
-        virtual void start()=0;
+        virtual void startDownload()=0;
         virtual void getRemoteFileInfo(KUrl src)=0;
 
         /** vars **/
@@ -105,6 +80,8 @@ class Iface : public QObject
         void processedSize(KIO::filesize_t);
         void stat(status);
 
+    private slots:
+        void slotStart();
 };
 
 class Ftpiface : public Iface
@@ -115,7 +92,7 @@ class Ftpiface : public Iface
         Ftpiface(QFile *file, struct data tdata);
         Ftpiface();
         void setup();
-        void start();
+        void startDownload();
         void getRemoteFileInfo(KUrl src);
 
     private:
@@ -135,7 +112,7 @@ class Httpiface: public Iface
         Httpiface(QFile *file, struct data tdata);
         Httpiface();
         void setup();
-        void start();
+        void startDownload();
         void getRemoteFileInfo(KUrl src);
 
     private:

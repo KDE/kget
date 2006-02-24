@@ -39,8 +39,8 @@ void Mtget::run()
 void Mtget::kill()
 {
         m_stoped = true;
-        QList<Thread*>::const_iterator it = m_threads.begin();
-        QList<Thread*>::const_iterator itEnd = m_threads.end();
+        QList<Iface*>::const_iterator it = m_threads.begin();
+        QList<Iface*>::const_iterator itEnd = m_threads.end();
         for ( ; it!=itEnd ; ++it )
         {
             (*it)->quit();
@@ -81,8 +81,8 @@ QList<struct data> Mtget::getThreadsData()
 {
     kDebug () << "Mtget::getThreadsData" << endl;
     QList<struct data> tdata;
-    QList<Thread*>::const_iterator it = m_threads.begin();
-    QList<Thread*>::const_iterator itEnd = m_threads.end();
+    QList<Iface*>::const_iterator it = m_threads.begin();
+    QList<Iface*>::const_iterator itEnd = m_threads.end();
     for ( ; it!=itEnd ; ++it )
     {
         tdata << (*it)->getThreadData();
@@ -161,7 +161,7 @@ void Mtget::createThreads()
 
 void Mtget::createThread(struct data tdata)
 {
-    Thread* thread = new Thread(m_file, tdata);
+    Iface* thread = newTransferThread(m_file, tdata);
     int id = m_threads.size();
     kDebug() << "Mtget::createThread: " << id << endl;
     m_threads << thread;
@@ -175,8 +175,8 @@ void Mtget::relocateThread()
 {
     struct data tdata;
     KIO::filesize_t bytes;
-    QList<Thread*>::const_iterator it = m_threads.begin();
-    QList<Thread*>::const_iterator itEnd = m_threads.end();
+    QList<Iface*>::const_iterator it = m_threads.begin();
+    QList<Iface*>::const_iterator itEnd = m_threads.end();
     for ( ; it!=itEnd ; ++it )
     {
         tdata = (*it)->getThreadData();
@@ -219,7 +219,7 @@ void Mtget::slotProcessedSize(KIO::filesize_t bytes)
 
 void Mtget::threadsControl(status stat)
 {
-    Thread* thread = (Thread*) sender();
+    Iface* thread = (Iface*) sender();
     struct data tdata;
     switch(stat)
     {
@@ -244,7 +244,7 @@ void Mtget::threadsControl(status stat)
 
 void Mtget::slotThreadFinished()
 {
-    m_threads.removeAt( m_threads.indexOf( (Thread*)sender() ) );
+    m_threads.removeAt( m_threads.indexOf( (Iface*)sender() ) );
     delete sender();
     kDebug() << m_threads.size() << " threads left"<<endl;
 

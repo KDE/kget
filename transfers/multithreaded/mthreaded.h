@@ -66,7 +66,7 @@ class Mtget : public QThread
         QHttp *m_httpInfo;
         KIO::filesize_t m_totalSize;
         KIO::filesize_t m_ProcessedSize;
-        QList<Thread*> m_threads;
+        QList<Iface*> m_threads;
 
     private slots:
         void calcSpeed();

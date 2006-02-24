@@ -34,60 +34,18 @@ RemoteFileInfo::RemoteFileInfo(KUrl src)
     }
 }
 
-Thread::Thread(QFile *file, struct data tdata)
+Iface *newTransferThread(QFile *file, struct data tdata)
 {
-    kDebug() << "Thread::Thread" << endl;
+    kDebug() << "newTransferThread()" << endl;
 
     if(tdata.src.protocol() == "ftp")
     {
-        m_iface = static_cast<Iface *> (new Ftpiface(file, tdata));
+        return static_cast<Iface *> (new Ftpiface(file, tdata));
     }
     if(tdata.src.protocol()=="http")
     {
-        m_iface = static_cast<Iface *> (new Httpiface(file, tdata));
+        return static_cast<Iface *> (new Httpiface(file, tdata));
     }
-    if(m_iface)
-    {
-        connect (m_iface, SIGNAL(totalSize(KIO::filesize_t)),  SIGNAL(totalSize(KIO::filesize_t)));
-        connect (m_iface, SIGNAL(speed(unsigned long)),  SIGNAL(speed(unsigned long)));
-        connect (m_iface, SIGNAL(processedSize(KIO::filesize_t)),  SIGNAL(processedSize(KIO::filesize_t)));
-        connect (m_iface, SIGNAL(stat(status)),  SIGNAL(stat(status)));
-    }
-    connect (this, SIGNAL(started()), SLOT(slotStart()));
-}
-
-void Thread::run()
-{
-    exec();
-}
-
-struct data Thread::getThreadData()
-{
-    return m_iface->getThreadData();
-}
-
-void Thread::setBytes(KIO::filesize_t bytes)
-{
-    m_iface->setBytes(bytes);
-}
-
-void Thread::slotRestart()
-{
-    kDebug() << "Thread::slotRestart" << endl;
-
-}
-
-void Thread::slotStart()
-{
-    kDebug() << "Thread::slotStart" << endl;
-
-    if( m_iface->m_data.bytes == 0 )
-   {
-    quit();
-    return;
-    }
-    m_iface->setup();
-    m_iface->start();
 }
 
 /**
@@ -98,7 +56,12 @@ Iface::Iface(QFile *file, struct data tdata)
     : m_file ( file ) ,
       m_data ( tdata )
 {
+    connect (this, SIGNAL(started()), SLOT(slotStart()));
+}
 
+void Iface::run()
+{
+    exec();
 }
 
 struct data Iface::getThreadData()
@@ -109,6 +72,19 @@ struct data Iface::getThreadData()
 void Iface::setBytes(KIO::filesize_t bytes)
 {
     m_data.bytes = bytes;
+}
+
+void Iface::slotStart()
+{
+    kDebug() << "Iface::slotStart" << endl;
+
+    if( m_data.bytes == 0 )
+   {
+    quit();
+    return;
+    }
+    setup();
+    startDownload();
 }
 
 /**
@@ -147,7 +123,7 @@ void Ftpiface::setup()
                 this, SLOT(slotDataTransferProgress(qint64, qint64)));
 }
 
-void Ftpiface::start()
+void Ftpiface::startDownload()
 {
     kDebug() << "Ftpiface::run" <<  endl;
     ftp->connectToHost(m_data.src.host());
@@ -251,9 +227,9 @@ void Httpiface::setup()
                 this, SLOT(slotResponseHeader(const QHttpResponseHeader &)));
 }
 
-void Httpiface::start()
+void Httpiface::startDownload()
 {
-    kDebug() << "Httpiface::run" <<  endl;
+    kDebug() << "Httpiface::startDownload" <<  endl;
     QHttpRequestHeader header("GET", m_data.src.path());
     header.setValue("Host", m_data.src.host());
     header.setValue("Range","bytes=" + QString::number(m_data.offSet) + "-");
@@ -265,9 +241,9 @@ void Httpiface::start()
 void Httpiface::getRemoteFileInfo(KUrl src)
 {
     kDebug() << "Httpiface::getRemoteFileInfo" <<  endl;
-        http->setHost(src.host());
-        http->head(src.path());
-        http->close();
+    http->setHost(src.host());
+    http->head(src.path());
+    http->close();
 }
 
 void Httpiface::slotWriteBuffer(const QHttpResponseHeader &)
@@ -290,21 +266,21 @@ void Httpiface::slotWriteBuffer(const QHttpResponseHeader &)
         m_file->write(buff,bytesReaded);
         m_data.offSet += bytesReaded;
         m_data.bytes -= bytesReaded;
-        bytes += bytesReaded;
+//         bytes += bytesReaded;
         m_mutex.unlock();
         emit processedSize(bytesReaded);
     }
 //     kDebug() << "Offset: " << m_data.offSet << " Bytes: " << m_data.bytes <<  endl;
-    if(bytes > BUFFER_SIZE)
+/*    if(bytes > BUFFER_SIZE)
     {
         bytes = 0;
-//         emit stat(buffer_ready);
-    }
+        emit stat(buffer_ready);
+    }*/
     if( m_data.bytes == 0 )
     {
         disconnect(http,SIGNAL(readyRead(const QHttpResponseHeader &)),this,SLOT(slotWriteBuffer(const QHttpResponseHeader &)));
         http->abort();
-        http->deleteLater();
+//         http->deleteLater();
         kDebug() << "Httpiface::slotWriteBuffer: Clossing connection" << endl;
         emit stat(closed);
     }
@@ -317,4 +293,5 @@ void Httpiface::slotResponseHeader(const QHttpResponseHeader & resp)
 
 void Httpiface::slotRequestFinished(int, bool)
 {
+
 }
