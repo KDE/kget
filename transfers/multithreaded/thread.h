@@ -66,10 +66,8 @@ class Iface : public QThread
         virtual void startDownload()=0;
         virtual void getRemoteFileInfo(KUrl src)=0;
 
-        /** vars **/
-        struct data m_data;
-
     protected:
+        struct data m_data;
         QFile *m_file;
         QMutex m_mutex;
         KIO::fileoffset_t bytes;
