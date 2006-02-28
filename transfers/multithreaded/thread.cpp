@@ -46,6 +46,7 @@ Iface *newTransferThread(QFile *file, struct data tdata)
     {
         return static_cast<Iface *> (new Httpiface(file, tdata));
     }
+    return 0;
 }
 
 /**
@@ -83,8 +84,23 @@ void Iface::slotStart()
     quit();
     return;
     }
+    m_timer.setSingleShot(true);
+    m_timer.setInterval(60000);
+    connect(&m_timer, SIGNAL(timeout()), SLOT(slotTimeout()));
     setup();
     startDownload();
+}
+
+void Iface::slotRestart()
+{
+    setup();
+    startDownload();
+}
+
+void Iface::slotTimeout()
+{
+    m_timer.stop();
+    emit stat(timeout);
 }
 
 /**
@@ -147,6 +163,7 @@ void Ftpiface::getRemoteFileInfo(KUrl src)
 
 void Ftpiface::slotWriteBuffer()
 {
+    m_timer.start();
     KIO::fileoffset_t bytesReaded=0, len=0;
     char buff[BUFFER_SIZE];
     if(m_data.bytes>BUFFER_SIZE)
@@ -248,6 +265,7 @@ void Httpiface::getRemoteFileInfo(KUrl src)
 
 void Httpiface::slotWriteBuffer(const QHttpResponseHeader &)
 {
+    m_timer.start();
     KIO::fileoffset_t bytesReaded=0, len=0;
     char buff[BUFFER_SIZE];
     if( m_data.bytes > BUFFER_SIZE )

@@ -161,7 +161,8 @@ void Mtget::createThreads()
 
 void Mtget::createThread(struct data tdata)
 {
-    Iface* thread = newTransferThread(m_file, tdata);
+    if (Iface* thread = newTransferThread(m_file, tdata))
+    {
     int id = m_threads.size();
     kDebug() << "Mtget::createThread: " << id << endl;
     m_threads << thread;
@@ -169,6 +170,9 @@ void Mtget::createThread(struct data tdata)
     connect(thread, SIGNAL(finished ()), this, SLOT(slotThreadFinished()));
     connect(thread, SIGNAL(processedSize(KIO::filesize_t)),  this, SLOT(slotProcessedSize(KIO::filesize_t)));
     thread->start();
+    }
+    else
+    kWarning() << "Mtget::createThread: unable to create thread!!!"<< endl;
 }
 
 void Mtget::relocateThread()
@@ -225,19 +229,14 @@ void Mtget::threadsControl(status stat)
     {
     case closed:
         emit update();
-        tdata = thread->getThreadData();
-        if(tdata.bytes == 0)
-        {
-            thread->quit();
-        }
-        else
-        {
-            kDebug() << "Waiting 5 seg..." << endl;
-            QTimer::singleShot(5000, thread, SLOT(slotRestart()));
-        }
+        thread->quit();
         break;
     case buffer_ready:
         emit update();
+        break;
+    case timeout:
+            kDebug() << "Waiting 5 seg..." << endl;
+            QTimer::singleShot(5000, thread, SLOT(slotRestart()));
         break;
     }
 }

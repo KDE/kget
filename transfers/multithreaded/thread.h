@@ -37,7 +37,8 @@ struct data
 enum status
 {
     closed = 0,
-    buffer_ready
+    buffer_ready,
+    timeout
 };
 
 class RemoteFileInfo : public QObject
@@ -66,20 +67,25 @@ class Iface : public QThread
         virtual void startDownload()=0;
         virtual void getRemoteFileInfo(KUrl src)=0;
 
-    protected:
-        struct data m_data;
-        QFile *m_file;
-        QMutex m_mutex;
-        KIO::fileoffset_t bytes;
-
     signals:
         void totalSize(KIO::filesize_t);
         void speed(unsigned long);
         void processedSize(KIO::filesize_t);
         void stat(status);
 
+    public slots:
+        void slotRestart();
+
+    protected:
+        struct data m_data;
+        QFile *m_file;
+        QTimer m_timer;
+        QMutex m_mutex;
+        KIO::fileoffset_t bytes;
+
     private slots:
         void slotStart();
+        void slotTimeout();
 };
 
 class Ftpiface : public Iface
