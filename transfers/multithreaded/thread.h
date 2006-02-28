@@ -77,8 +77,8 @@ class Iface : public QThread
         void slotRestart();
 
     protected:
-        struct data m_data;
         QFile *m_file;
+        struct data m_data;
         QTimer m_timer;
         QMutex m_mutex;
         KIO::fileoffset_t bytes;

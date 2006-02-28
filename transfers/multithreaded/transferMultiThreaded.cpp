@@ -94,7 +94,7 @@ void TransferMultiThreaded::load(QDomElement e)
     QDomNodeList threads = e.elementsByTagName ("Thread");
     QDomNode node;
     QDomElement thread;
-    for( uint i=0 ; i < threads.length () ; i++ )
+    for( uint i=0 ; i < threads.length () ; ++i )
     {
         node = threads.item(i);
         thread = node.toElement ();

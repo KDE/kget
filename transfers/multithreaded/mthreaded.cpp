@@ -16,7 +16,7 @@
 *
 **/
 
-Mtget::Mtget(KUrl src, KUrl dst, int n)
+Mtget::Mtget(const KUrl& src, const KUrl& dst, int n)
     :m_src(src),
     m_dst(dst),
     m_n(n),
@@ -264,3 +264,5 @@ void Mtget::slotThreadFinished()
         quit();
     }
 }
+
+#include "mthreaded.moc"

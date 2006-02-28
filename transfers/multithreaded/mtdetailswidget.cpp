@@ -11,6 +11,8 @@
 #include "mtdetailswidget.h"
 #include "mtdetailswidget.moc"
 
+#include "conf/settings.h"
+
 MTDetailsWidget::MTDetailsWidget()
 {
     frm.setupUi(this);

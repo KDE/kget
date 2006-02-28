@@ -36,7 +36,7 @@ class Mtget : public QThread
 {
     Q_OBJECT
     public:
-        Mtget(KUrl src, KUrl dst, int n);
+        Mtget(const KUrl& src, const KUrl& dst, int n);
         void run();
         void kill();
         void getRemoteFileInfo();

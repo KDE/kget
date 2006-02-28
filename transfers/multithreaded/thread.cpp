@@ -21,11 +21,11 @@ RemoteFileInfo::RemoteFileInfo(KUrl src)
 
     if(src.protocol() == "ftp")
     {
-        m_iface = static_cast<Iface *> (new Ftpiface());
+        m_iface = new Ftpiface();
     }
     if(src.protocol()=="http")
     {
-        m_iface = static_cast<Iface *> (new Httpiface());
+        m_iface = new Httpiface();
     }
     if(m_iface)
     {
@@ -40,11 +40,11 @@ Iface *newTransferThread(QFile *file, struct data tdata)
 
     if(tdata.src.protocol() == "ftp")
     {
-        return static_cast<Iface *> (new Ftpiface(file, tdata));
+        return new Ftpiface(file, tdata);
     }
     if(tdata.src.protocol()=="http")
     {
-        return static_cast<Iface *> (new Httpiface(file, tdata));
+        return new Httpiface(file, tdata);
     }
     return 0;
 }
@@ -313,3 +313,5 @@ void Httpiface::slotRequestFinished(int, bool)
 {
 
 }
+
+#include "thread.moc"

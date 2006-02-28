@@ -9,6 +9,6 @@ libkget_multithreadedfactory_la_LDFLAGS = -module -no-undefined $(KDE_PLUGIN) $(
 
 kde_services_DATA = kget_multithreadedfactory.desktop
 
-INCLUDES = $(all_includes) -I$(srcdir)/../..
+INCLUDES = $(all_includes) -I$(qt_includes)/QtNetwork -I$(srcdir)/../..
 
 METASOURCES = AUTO
