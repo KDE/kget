@@ -302,7 +302,7 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
 }
 
 MainView::MainView( QWidget * parent )
-    : KListView( parent ),
+    : K3ListView( parent ),
       m_popup(0)
 {
     setSorting(-1);

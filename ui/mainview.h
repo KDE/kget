@@ -16,7 +16,7 @@
 #include <QPixmap>
 #include <QDropEvent>
 
-#include <klistview.h>
+#include <k3listview.h>
 
 #include "core/observer.h"
 
@@ -83,7 +83,7 @@ private:
     MainView * m_view;
 };
 
-class MainView : public KListView, public ModelObserver
+class MainView : public K3ListView, public ModelObserver
 {
     Q_OBJECT
 

@@ -11,7 +11,7 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <klistview.h>
+#include <k3listview.h>
 #include <kmainwindow.h>
 
 #include "links.h"
@@ -47,7 +47,7 @@ private:
 
     QList<LinkItem*> m_links;
 
-    KListView *m_view;
+    K3ListView *m_view;
 
 };
 
