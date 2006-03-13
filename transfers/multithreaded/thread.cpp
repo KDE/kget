@@ -11,7 +11,6 @@
 
 #include"thread.h"
 
-#warning "!!!WARNING!!! we need a patched qt-copy for mulithreaded ftp with an offset. patch: ftp-offset.diff in this dir. if your qt is patched, enable the following line!"
 //#define KGET_HAVE_PATCHED_QFTP
 
 RemoteFileInfo::RemoteFileInfo(KUrl src)
@@ -147,6 +146,7 @@ void Ftpiface::startDownload()
 #ifdef KGET_HAVE_PATCHED_QFTP
     ftp->get(m_data.src.path(), m_data.offSet);
 #else
+    #warning "!!!WARNING!!! we need a patched qt-copy for mulithreaded ftp with an offset. patch: ftp-offset.diff in this dir. if your qt is patched, enable #define KGET_HAVE_PATCHED_QFTP"
     ftp->get(m_data.src.path());
 #endif
     ftp->close();
