@@ -65,7 +65,7 @@ DropTarget::DropTarget(KGet * mw)
     popupMenu = new KMenu();
     popupMenu->addTitle(mw->windowTitle());
 
-    KRadioAction * downloadAction = (KRadioAction *)mw->actionCollection()->action("start_download");
+    KAction * downloadAction = (KAction *)mw->actionCollection()->action("start_download");
     downloadAction->plug(popupMenu);
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();

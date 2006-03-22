@@ -32,8 +32,9 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     : Plugin( parent )
 {
     QPixmap pix = KGlobal::iconLoader()->loadIcon("khtml_kget",
-                                                  KIcon::MainToolbar);
-    KActionMenu *menu = new KActionMenu( i18n("Download Manager"), pix,
+                                                  K3Icon::MainToolbar);
+#warning: icon disabled
+    KActionMenu *menu = new KActionMenu( i18n("Download Manager"), /*pix,*/
                                          actionCollection(), "kget_menu" );
     menu->setDelayed( false );
     connect( menu->popupMenu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));

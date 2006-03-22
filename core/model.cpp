@@ -8,6 +8,8 @@
    of the License.
 */
 
+#include <QTextStream>
+
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
 #include <kfiledialog.h>

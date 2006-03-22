@@ -99,19 +99,19 @@ void KGet::setupActions()
     new KAction(i18n("Export &Transfers List..."), 0, this,
                 SLOT(slotExportTransfers()), ac, "export_transfers");
 
-    KRadioAction * r1;
-    KRadioAction * r2;
+    KAction * r1;
+    KAction * r2;
 
-    r1 = new KRadioAction( i18n("Start All"), MainBarIcon("player_play"),
+    r1 = new KAction( i18n("Start All"), MainBarIcon("player_play"),
                             0, this, SLOT( slotStartDownload() ),
                             ac, "start_download" );
 
-    r2 = new KRadioAction( i18n("Stop All"), MainBarIcon("player_pause"),
+    r2 = new KAction( i18n("Stop All"), MainBarIcon("player_pause"),
                             0, this, SLOT( slotStopDownload() ),
                             ac, "stop_download" );
 
-    r1->setExclusiveGroup("scheduler_commands");
-    r2->setExclusiveGroup("scheduler_commands");
+//     r1->setExclusiveGroup("scheduler_commands");
+//     r2->setExclusiveGroup("scheduler_commands");
 
     r1->setChecked( Settings::downloadAtStartup() );
     r2->setChecked( !Settings::downloadAtStartup() );

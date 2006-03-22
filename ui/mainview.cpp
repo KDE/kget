@@ -221,7 +221,7 @@ void TransferItem::updateContents(bool updateAll)
 
             setPixmap(0, QPixmap(priorityIcon));
         }*/
-        setPixmap(0, KMimeType::pixmapForURL( m_transfer->source(), 0, KIcon::Desktop, 16, 0, 0L));
+        setPixmap(0, KMimeType::pixmapForURL( m_transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L));
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_Status) )
