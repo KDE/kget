@@ -53,7 +53,7 @@ KGetLinkView::KGetLinkView( QWidget *parent )
                                                       actionCollection() );
 
     actionDownload->plug( toolBar() );
-//     toolBar()->insertLineSeparator();
+    toolBar()->insertSeparator(actionSelectAll);
     actionSelectAll->plug( toolBar() );
 
     m_view = new K3ListView( this );
@@ -67,9 +67,9 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     setCentralWidget( m_view );
 
     // setting a fixed (not floating) toolbar
-//     toolBar()->setMovingEnabled(false);
+    toolBar()->setMovable(false);
     // setting Text next to Icons
-//     toolBar()->setIconText( KToolBar::IconTextRight );
+     toolBar()->setToolButtonStyle( Qt::ToolButtonTextBesideIcon );
 }
 
 KGetLinkView::~KGetLinkView()

@@ -110,8 +110,10 @@ void KGet::setupActions()
                             0, this, SLOT( slotStopDownload() ),
                             ac, "stop_download" );
 
-//     r1->setExclusiveGroup("scheduler_commands");
-//     r2->setExclusiveGroup("scheduler_commands");
+    QActionGroup* scheduler_commands = new QActionGroup(this);
+    scheduler_commands->setExclusive(true);
+    r1->setActionGroup(scheduler_commands);
+    r2->setActionGroup(scheduler_commands);
 
     r1->setChecked( Settings::downloadAtStartup() );
     r2->setChecked( !Settings::downloadAtStartup() );
