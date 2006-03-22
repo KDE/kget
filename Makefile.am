@@ -4,7 +4,7 @@ INCLUDES = $(all_includes) -Iconf
 bin_PROGRAMS = kget
 
 kget_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kget_LDADD   = $(LIB_KFILE) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_KUTILS) conf/libconf.la core/libcore.la ui/libui.la transfers/kio/libtkio.la
+kget_LDADD   = $(LIB_QTCORE) $(LIB_QTGUI) $(LIB_KIO) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_KUTILS) conf/libconf.la core/libcore.la ui/libui.la transfers/kio/libtkio.la
 kget_SOURCES = dcopiface.skel kget.cpp main.cpp
 
 noinst_HEADERS = kget.h

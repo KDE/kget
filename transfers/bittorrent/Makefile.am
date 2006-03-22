@@ -3,7 +3,7 @@ kde_module_LTLIBRARIES = libkget_bittorrentfactory.la
 
 libkget_bittorrentfactory_la_SOURCES =  bttransfer.cpp http.cpp btthread.cpp bttransferhandler.cpp\
 	bttransferfactory.cpp btdetailswidgetfrm.ui btdetailswidget.cpp
-libkget_bittorrentfactory_la_LIBADD = $(LIB_KIO) $(TORRENT_LIBS) ../../core/libcore.la \
+libkget_bittorrentfactory_la_LIBADD = $(LIB_QTCORE) $(LIB_QTGUI) $(LIB_QT3SUPPORT) $(LIB_KDEUI) $(LIB_KDECORE) $(LIB_KIO) $(TORRENT_LIBS) ../../core/libcore.la \
 	../../conf/libconf.la
 libkget_bittorrentfactory_la_LDFLAGS = -module -no-undefined $(KDE_PLUGIN) \
 	$(all_libraries)

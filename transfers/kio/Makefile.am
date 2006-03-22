@@ -7,7 +7,7 @@ libtkio_la_LIBADD = ../../core/libcore.la
 kde_module_LTLIBRARIES = libkget_kiofactory.la
 
 libkget_kiofactory_la_SOURCES = transferKioFactory.cpp
-libkget_kiofactory_la_LIBADD = libtkio.la ../../conf/libconf.la -lkdeui -lkdecore -lkio
+libkget_kiofactory_la_LIBADD = $(LIB_QTCORE) $(LIB_QTGUI) $(LIB_QT3SUPPORT) $(LIB_KIO) $(LIB_KDEUI) $(LIB_KDECORE) libtkio.la ../../conf/libconf.la
 libkget_kiofactory_la_LDFLAGS = -module -no-undefined $(KDE_PLUGIN) $(all_libraries)
 
 ## Install plugin definition
