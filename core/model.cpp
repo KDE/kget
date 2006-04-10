@@ -262,7 +262,7 @@ void Model::save( QString filename )
     if ( !filename.isEmpty()
         && QFile::exists( filename )
         && (KMessageBox::questionYesNo(0,
-                i18n("The file %1 Already exists\nOverwrite?").arg(filename),
+                i18n("The file %1 Already exists\nOverwrite?", filename),
                 i18n("Overwrite existing file?"), KStdGuiItem::yes(),
                 KStdGuiItem::no(), "QuestionFilenameExists" )
                 == KMessageBox::No) )
@@ -289,7 +289,7 @@ void Model::save( QString filename )
     {
         //kWarning()<<"Unable to open output file when saving"<< endl;
         KMessageBox::error(0,
-                           i18n("Unable to save to: %1").arg(filename),
+                           i18n("Unable to save to: %1", filename),
                            i18n("Error"));
         return;
     }
@@ -438,7 +438,7 @@ bool Model::isValidSource(KUrl source)
     if (!source.isValid())
     {
         KMessageBox::error(0,
-                           i18n("Malformed URL:\n%1").arg(source.prettyURL()),
+                           i18n("Malformed URL:\n%1", source.prettyURL()),
                            i18n("Error"));
         return false;
     }
@@ -450,7 +450,7 @@ bool Model::isValidSource(KUrl source)
         {
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNo(0,
-                i18n("URL already saved:\n%1\nDownload again?").arg(source.prettyURL()),
+                i18n("URL already saved:\n%1\nDownload again?", source.prettyURL()),
                 i18n("Download URL Again?"), KStdGuiItem::yes(),
                 KStdGuiItem::no(), "QuestionURLAlreadySaved" )
                 == KMessageBox::Yes)
@@ -465,7 +465,7 @@ bool Model::isValidSource(KUrl source)
         {
             //transfer is not finished. Give an error message.
             KMessageBox::error(0,
-                               i18n("Already saving URL\n%1").arg(source.prettyURL()),
+                               i18n("Already saving URL\n%1", source.prettyURL()),
                                i18n("Error"));
             return false;
         }
@@ -485,7 +485,7 @@ bool Model::isValidDestURL(KUrl destURL)
     {
         if (KMessageBox::warningYesNo(0,
             i18n("Destination file \n%1\nalready exists.\n"
-                 "Do you want to overwrite it?").arg( destURL.prettyURL()) )
+                 "Do you want to overwrite it?", destURL.prettyURL()))
             == KMessageBox::Yes)
         {
             safeDeleteFile( destURL );
@@ -639,9 +639,7 @@ KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
     if ( !lib ) 
     {
         KMessageBox::error( 0, i18n( "<p>KLibLoader could not load the plugin:<br/><i>%1</i></p>"
-                "<p>Error message:<br/><i>%2</i></p>" )
-                        .arg( service->library() )
-                        .arg( loader->lastErrorMessage() ) );
+                "<p>Error message:<br/><i>%2</i></p>", service->library(), loader->lastErrorMessage() ) );
         return 0;
     }
 
@@ -666,7 +664,7 @@ bool Model::safeDeleteFile( const KUrl& url )
         if ( info.isDir() )
         {
             KMessageBox::information(0L,i18n("Not deleting\n%1\nas it is a "
-                                     "directory.").arg( url.prettyURL() ),
+                                     "directory.", url.prettyURL()),
                                      i18n("Not Deleted"));
             return false;
         }
@@ -677,7 +675,7 @@ bool Model::safeDeleteFile( const KUrl& url )
     else
         KMessageBox::information( 0L,
                                   i18n("Not deleting\n%1\nas it is not a local"
-                                          " file.").arg( url.prettyURL() ),
+                                          " file.", url.prettyURL()),
                                   i18n("Not Deleted") );
     return false;
 }

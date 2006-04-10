@@ -238,7 +238,7 @@ void TransferItem::updateContents(bool updateAll)
         if (m_transfer->totalSize() != 0)
             setText(2, KIO::convertSize( m_transfer->totalSize() ));
         else
-            setText(2, i18n("not available", "n/a"));
+            setText(2, i18nc("not available", "n/a"));
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_Speed) )
@@ -254,7 +254,7 @@ void TransferItem::updateContents(bool updateAll)
                 setText(4, "" );
         }
         else
-            setText(4, i18n("%1/s").arg(KIO::convertSize( speed )) );
+            setText(4, i18n("%1/s", KIO::convertSize(speed)));
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_Selection) )

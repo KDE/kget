@@ -46,7 +46,7 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
         actionList = this->actions();
 
     KMenu * popup = new KMenu( 0 );
-    popup->addTitle( i18n("%n download", "%n downloads", transfers.count()) );
+    popup->addTitle( i18np("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu
     Model::actionCollection()->action("transfer_start")->plug( popup );

@@ -1,1 +1,1 @@
-SUBDIRS = konqueror
+#SUBDIRS = konqueror

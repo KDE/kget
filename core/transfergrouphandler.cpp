@@ -247,16 +247,16 @@ void TransferGroupHandler::createActions()
     if( !m_actions.empty() )
         return;
 
-    //Calling this function we make sure the QObjectInterface object 
+    //Calling this function we make sure the QObjectInterface object
     //has been created (if not it will create it)
     qObject();
 
-    m_actions.append( new KAction( i18n("Start"), "player_play",
+    m_actions.append( new KAction( i18n("Start"), "player_play", 0,
                                    qObject(), SLOT( slotStart() ),
                                    Model::actionCollection(),
                                    "transfer_group_start") );
 
-    m_actions.append( new KAction( i18n("Stop"), "player_pause",
+    m_actions.append( new KAction( i18n("Stop"), "player_pause", 0,
                                    qObject(), SLOT( slotStop() ),
                                    Model::actionCollection(),
                                    "transfer_group_stop") );

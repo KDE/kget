@@ -148,7 +148,7 @@ void DlgDirectories::pb_delete_clicked()
         QDir f(dir);
 
         if (!f.exists()) {
-            KMessageBox::error(this, i18n("Folder does not exist:\n%1").arg(dir), i18n("Error"));
+            KMessageBox::error(this, i18n("Folder does not exist:\n%1", dir), i18n("Error"));
             return;
         }
 */

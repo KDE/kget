@@ -90,10 +90,10 @@ void KGet::setupActions()
     KActionCollection * ac = actionCollection();
 
     // local - Shows a dialog asking for a new URL to down
-    new KAction(i18n("&New Download..."), "filenew", "CTRL+Key_N", this,
+    new KAction(i18n("&New Download..."), "filenew", KShortcut("CTRL+Key_N"), this,
                 SLOT(slotNewTransfer()), ac, "new_transfer");
 
-    new KAction(i18n("&Open..."), "fileopen", "CTRL+Key_O", this,
+    new KAction(i18n("&Open..."), "fileopen", KShortcut("CTRL+Key_O"), this,
                 SLOT(slotOpen()), ac, "open");
 
     new KAction(i18n("Export &Transfers List..."), 0, this,
@@ -145,27 +145,27 @@ void KGet::setupActions()
     m_menubarAction->setChecked( !menuBar()->isHidden() );
 
     // Transfer related actions
-    new KAction( i18n("Start"), "player_play", "",
+    new KAction( i18n("Start"), "player_play", 0,
                  this, SLOT(slotTransfersStart()),
                  actionCollection(), "transfer_start" );
 
-    new KAction( i18n("Stop"), "player_pause", "",
+    new KAction( i18n("Stop"), "player_pause", 0,
                  this, SLOT(slotTransfersStop()),
                  actionCollection(), "transfer_stop" );
 
-    new KAction( i18n("Delete"), "editdelete", "",
+    new KAction( i18n("Delete"), "editdelete", 0,
                  this, SLOT(slotTransfersDelete()),
                  actionCollection(), "transfer_remove" );
 
-    new KAction( i18n("Open Destination"), "folder", "",
+    new KAction( i18n("Open Destination"), "folder", 0,
                  this, SLOT(slotTransfersOpenDest()),
                  actionCollection(), "transfer_open_dest" );
 
-    new KAction( i18n("Show Details"), "configure", "",
+    new KAction( i18n("Show Details"), "configure", 0,
                  this, SLOT(slotTransfersShowDetails()),
                  actionCollection(), "transfer_show_details" );
 
-    new KAction( i18n("Copy URL to Clipboard"), "tool_clipboard", "",
+    new KAction( i18n("Copy URL to Clipboard"), "tool_clipboard", 0,
                  this, SLOT(slotTransfersCopySourceURL()),
                  actionCollection(), "transfer_copy_source_url" );
 }

@@ -32,7 +32,7 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_layout->addWidget(m_genericWidget);
     m_layout->addWidget(m_detailsWidget);
     setLayout(m_layout);
-    
+
     frm.sourceLabel->setText(i18n("Source:"));
     frm.destLabel->setText(i18n("Saving to:"));
     frm.statusLabel->setText(i18n("Status:"));
@@ -92,7 +92,7 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
                 m_speedLabel->setText("");
         }
         else
-            m_speedLabel->setText(i18n("%1/s").arg(KIO::convertSize( speed )) );
+            m_speedLabel->setText(i18n("%1/s", KIO::convertSize(speed)));
     }
 
 
