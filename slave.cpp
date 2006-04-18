@@ -70,7 +70,7 @@ void Slave::Op(SlaveCommand _cmd)
 }
 
 /** No descriptions */
-void Slave::PostMessage(SlaveResult _event, unsigned long _data)
+void Slave::PostMessage(SlaveResult _event, Q_ULLONG _data)
 {
     SlaveEvent *e1 = new SlaveEvent(m_parent, _event, _data);
 
@@ -297,7 +297,7 @@ void Slave::slotSpeed(KIO::Job *, unsigned long lSpeed)
 
 void Slave::slotTotalSize(KIO::Job *, KIO::filesize_t _total_size)
 {
-    mDebugIn << "= " << (unsigned long) _total_size << endl;
+    mDebugIn << "= " << _total_size << endl;
 
     if ((int)_total_size == 0)//shouldn't happen, but does
         return;

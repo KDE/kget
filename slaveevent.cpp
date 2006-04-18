@@ -28,7 +28,7 @@
 
 #define EVENT_TYPE (QEvent::User + 252)
 
-SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, unsigned long _ldata):QCustomEvent(EVENT_TYPE)
+SlaveEvent::SlaveEvent(Transfer * _item, unsigned int _event, Q_ULLONG _ldata):QCustomEvent(EVENT_TYPE)
 {
     m_event = _event;
     m_item = _item;
@@ -61,7 +61,7 @@ Transfer *SlaveEvent::getItem() const
     return m_item;
 }
 
-unsigned long SlaveEvent::getData() const
+Q_ULLONG SlaveEvent::getData() const
 {
     return m_ldata;
 }

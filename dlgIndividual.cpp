@@ -43,6 +43,7 @@
 #include <klocale.h>
 #include <ktoolbar.h>
 #include <krun.h>
+#include <kio/global.h>
 #include "common.h"
 
 #include "transfer.h"
@@ -207,7 +208,7 @@ DlgIndividual::DlgIndividual(Transfer * _item)
 }
 
 
-void DlgIndividual::setTotalSize(unsigned long bytes)
+void DlgIndividual::setTotalSize(KIO::filesize_t bytes)
 {
     m_iTotalSize = bytes;
 }
@@ -221,7 +222,7 @@ void DlgIndividual::setPercent(unsigned long percent)
 }
 
 
-void DlgIndividual::setProcessedSize(unsigned long bytes)
+void DlgIndividual::setProcessedSize(KIO::filesize_t bytes)
 {
     sizeLabel->setText(i18n("%1 of %2").arg(KIO::convertSize(bytes)).arg(KIO::convertSize(m_iTotalSize)));
 }

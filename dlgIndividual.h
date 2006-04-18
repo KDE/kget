@@ -31,6 +31,8 @@
 
 #include <qwidget.h>
 
+#include <kio/global.h>
+
 class Transfer;
 
 class QLabel;
@@ -57,9 +59,9 @@ public:
     void enableOpenFile();
 
 public slots:
-    void setTotalSize(unsigned long bytes);
+    void setTotalSize(KIO::filesize_t bytes);
 
-    void setProcessedSize(unsigned long bytes);
+    void setProcessedSize(KIO::filesize_t bytes);
 
     void setSpeed(QString speed);
     void setPercent(unsigned long percent);
@@ -103,7 +105,7 @@ protected:
 
     bool bKeepDlgOpen;
 
-    unsigned long m_iTotalSize;
+    KIO::filesize_t m_iTotalSize;
     
     bool advanced;
 }
