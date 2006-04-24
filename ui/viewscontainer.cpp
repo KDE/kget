@@ -15,7 +15,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kdebug.h>
-#include <kmimetype.h>
+#include <kio/global.h>
 
 #include "core/model.h"
 #include "core/plugin/transferfactory.h"
@@ -92,7 +92,7 @@ void TransfersButton::addTransfer(TransferHandler * transfer)
 {
     QString filename = transfer->source().fileName();
 
-    QAction * action = m_menu->addAction(KMimeType::pixmapForURL( transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L), filename);
+    QAction * action = m_menu->addAction(KIO::pixmapForURL( transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L), filename);
     m_transfersMap[action] = transfer;
 
     if(!m_selectedTransfer)
@@ -139,7 +139,7 @@ void TransfersButton::setTransfer(TransferHandler * transfer)
 {
     m_selectedTransfer = transfer;
     setText(transfer->source().fileName());
-    setIcon(KMimeType::pixmapForURL( transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L));
+    setIcon(KIO::pixmapForURL( transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L));
     setChecked(true);
 }
 

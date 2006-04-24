@@ -16,7 +16,6 @@
 #include <kiconloader.h>
 #include <kio/global.h>
 #include <kimageeffect.h>
-#include <kmimetype.h>
 
 #include "ui/mainview.h"
 #include "core/transferhandler.h"
@@ -221,7 +220,7 @@ void TransferItem::updateContents(bool updateAll)
 
             setPixmap(0, QPixmap(priorityIcon));
         }*/
-        setPixmap(0, KMimeType::pixmapForURL( m_transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L));
+        setPixmap(0, KIO::pixmapForURL( m_transfer->source(), 0, K3Icon::Desktop, 16, 0, 0L));
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_Status) )
