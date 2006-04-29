@@ -24,7 +24,7 @@
 #include <math.h>
 
 #include "core/model.h"
-#include "conf/settings.h"
+#include "settings.h"
 #include "ui/droptarget.h"
 #include "kget.h"
 

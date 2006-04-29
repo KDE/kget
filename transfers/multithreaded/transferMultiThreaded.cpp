@@ -16,7 +16,7 @@
 #include <kio/job.h>
 #include <kdebug.h>
 
-#include "conf/settings.h"
+#include "settings.h"
 
 #include "transferMultiThreaded.h"
 #include "transferMultiThreaded.moc"

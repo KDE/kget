@@ -16,7 +16,7 @@
 #include "core/model.h"
 
 #include "transferdetails.h"
-#include "transferdetailsfrm.h"
+#include "ui_transferdetailsfrm.h"
 
 TransferDetails::TransferDetails(TransferHandler * transfer)
     : m_transfer(transfer)

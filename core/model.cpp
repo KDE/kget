@@ -27,7 +27,7 @@
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
-#include "conf/settings.h"
+#include "settings.h"
 
 /**
  * This is our Model class. This is where the user's transfers and searches are

@@ -28,7 +28,7 @@
 #include "kget.h"
 #include "core/model.h"
 #include "core/transferhandler.h"
-#include "conf/settings.h"
+#include "settings.h"
 #include "conf/preferencesdialog.h"
 
 #include "ui/sidebar.h"

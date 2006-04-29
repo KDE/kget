@@ -11,7 +11,7 @@
 #include "mtdetailswidget.h"
 #include "mtdetailswidget.moc"
 
-#include "conf/settings.h"
+#include "settings.h"
 
 MTDetailsWidget::MTDetailsWidget()
 {

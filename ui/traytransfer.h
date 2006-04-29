@@ -20,7 +20,7 @@ class KMenu;
 class TrayTransfer : public KSystemTray  {
     Q_OBJECT
 public:
-    TrayTransfer(QWidget *parent=0, const char *name=0);
+    TrayTransfer(QWidget *parent=0);
     ~TrayTransfer();
     int nPic;
     void setTip(const QString &);

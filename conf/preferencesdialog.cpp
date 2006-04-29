@@ -12,6 +12,12 @@
 // reimplementing this
 #include "preferencesdialog.h"
 
+// single config pages
+#include "ui_dlgappearance.h"
+#include "ui_dlgnetwork.h"
+#include "ui_dlgdirectories.h"
+#include "ui_dlgadvanced.h"
+
 PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skeleton )
     : KConfigDialog( parent, "preferences", skeleton )
 {
@@ -20,10 +26,10 @@ PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skelet
     directories = new QWidget(this);
     advanced = new QWidget(this);
 
-    DlgAppearance dlgApp;
-    DlgNetwork dlgNet;
-    DlgDirectories dlgDir;
-    DlgAdvanced dlgAdv;
+    Ui::DlgAppearance dlgApp;
+    Ui::DlgNetwork dlgNet;
+    Ui::DlgDirectories dlgDir;
+    Ui::DlgAdvanced dlgAdv;
 
     dlgApp.setupUi(appearance);
     dlgNet.setupUi(network);

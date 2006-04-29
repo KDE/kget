@@ -12,7 +12,7 @@
 
 #include "traytransfer.h"
 
-TrayTransfer::TrayTransfer(QWidget *parent, const char *name ) : KSystemTray(parent,name)
+TrayTransfer::TrayTransfer(QWidget *parent) : KSystemTray(parent)
 {
     nPic=0;
     setPixmap( loadIcon("bar0") );

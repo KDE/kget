@@ -12,14 +12,6 @@
 
 #include <kconfigdialog.h>
 
-// single config pages
-#include "dlgappearance.h"
-#include "dlgnetwork.h"
-#include "dlgdirectories.h"
-#include "dlgadvanced.h"
-
-using namespace Ui;
-
 class QWidget;
 class KConfigSkeleton;
 

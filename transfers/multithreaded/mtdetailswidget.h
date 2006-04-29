@@ -13,7 +13,7 @@
 
 #include <QWidget>
 
-#include "mtdetailswidgetfrm.h"
+#include "ui_mtdetailswidgetfrm.h"
 
 class MTDetailsWidget : public QWidget
 {

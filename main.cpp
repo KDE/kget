@@ -23,7 +23,7 @@
 #include <stdlib.h>
 
 #include "core/model.h"
-#include "conf/settings.h"
+#include "settings.h"
 #include "ui/splash.h"
 #include "kget.h"
 
