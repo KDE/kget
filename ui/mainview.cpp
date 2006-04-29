@@ -233,7 +233,7 @@ void TransferItem::updateContents(bool updateAll)
     if(updateAll || (transferFlags & Transfer::Tc_TotalSize) )
     {
 //         kDebug() << "UPDATE:  totalSize" << endl;
-        kDebug() << "totalSize = " << m_transfer->totalSize();
+        kDebug() << "totalSize = " << m_transfer->totalSize() << endl;
         if (m_transfer->totalSize() != 0)
             setText(2, KIO::convertSize( m_transfer->totalSize() ));
         else

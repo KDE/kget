@@ -49,24 +49,24 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     popup->addTitle( i18np("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu
-    Model::actionCollection()->action("transfer_start")->plug( popup );
-    Model::actionCollection()->action("transfer_stop")->plug( popup );
+    popup->addAction( Model::actionCollection()->action("transfer_start") );
+    popup->addAction( Model::actionCollection()->action("transfer_stop") );
     popup->addSeparator();
-    Model::actionCollection()->action("transfer_remove")->plug( popup );
+    popup->addAction( Model::actionCollection()->action("transfer_remove") );
     popup->addSeparator();
 
     foreach(KAction * it, actionList)
     {
         //Plug each action in the popup menu
-        it->plug( popup );
+        popup->addAction( it );
     }
 
     if(!actionList.isEmpty())
         popup->addSeparator();
 
-    Model::actionCollection()->action("transfer_open_dest")->plug( popup );
-    Model::actionCollection()->action("transfer_show_details")->plug( popup );
-    Model::actionCollection()->action("transfer_copy_source_url")->plug( popup );
+    popup->addAction( Model::actionCollection()->action("transfer_open_dest") );
+    popup->addAction( Model::actionCollection()->action("transfer_show_details") );
+    popup->addAction( Model::actionCollection()->action("transfer_copy_source_url") );
 
     return popup;
 }

@@ -53,9 +53,9 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     KAction* actionSelectAll = KStdAction::selectAll( this, SLOT( slotSelectAll() ),
                                                       actionCollection() );
 
-    actionDownload->plug( toolBar() );
+    toolBar()->addAction( actionDownload );
     toolBar()->insertSeparator(actionSelectAll);
-    actionSelectAll->plug( toolBar() );
+    toolBar()->addAction( actionSelectAll );
 
     m_view = new K3ListView( this );
     m_view->setSelectionMode( Q3ListView::Extended );

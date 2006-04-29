@@ -66,7 +66,7 @@ void TrayTransfer::setTip(const QString & _tip)
     //sDebugIn<<"_tip="<<_tip<<endl;
 #endif
 
-    this->setToolTip( _tip );
+    setToolTip( _tip );
 
 #ifdef _DEBUG
     //sDebugOut<<endl;

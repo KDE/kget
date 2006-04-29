@@ -65,8 +65,8 @@ DropTarget::DropTarget(KGet * mw)
     popupMenu = new KMenu();
     popupMenu->addTitle(mw->windowTitle());
 
-    KAction * downloadAction = (KAction *)mw->actionCollection()->action("start_download");
-    downloadAction->plug(popupMenu);
+    KAction * downloadAction = mw->actionCollection()->action("start_download");
+    popupMenu->addAction( downloadAction );
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();
     pop_show = popupMenu->addAction( "", this, SLOT( toggleMinimizeRestore() ) );
@@ -75,8 +75,8 @@ DropTarget::DropTarget(KGet * mw)
     pop_sticky->setCheckable(true);
     pop_sticky->setChecked(Settings::dropSticky());
     popupMenu->addSeparator();
-    mw->actionCollection()->action("preferences")->plug(popupMenu);
-    mw->actionCollection()->action("quit")->plug(popupMenu);
+    popupMenu->addAction( mw->actionCollection()->action("preferences") );
+    popupMenu->addAction( mw->actionCollection()->action("quit") );
 
     isdragging = false;
 

@@ -43,15 +43,16 @@ Tray::Tray(KGet * parent)
     paintIcon();
 
     // add preferences action to the context menu
-    parent->actionCollection()->action("new_transfer")->plug(contextMenu());
-    parent->actionCollection()->action("preferences")->plug(contextMenu());
-    parent->actionCollection()->action("konqueror_integration")->plug(contextMenu());
+    KMenu * cm = contextMenu();
+    cm->addAction( parent->actionCollection()->action("new_transfer") );
+    cm->addAction( parent->actionCollection()->action("preferences") );
+    cm->addAction( parent->actionCollection()->action("konqueror_integration") );
 
     // enable dropping
     setAcceptDrops(true);
 
     // add tooltip telling "I'm kget"
-    this->setToolTip( kapp->aboutData()->shortDescription() );
+    setToolTip( kapp->aboutData()->shortDescription() );
 
     // connecting the "Exit" menu item to the quit() of our app
     connect( this, SIGNAL( quitSelected() ), kapp, SLOT(quit()));

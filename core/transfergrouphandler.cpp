@@ -123,12 +123,12 @@ const QList<KAction *> & TransferGroupHandler::actions()
 KMenu * TransferGroupHandler::popupMenu()
 {
     KMenu * popup = new KMenu( 0 );
-    popup->addTitle( name() + " " + i18n("group") );
+    popup->addTitle( i18nc( "%1 is the name of the group", "%1 Group", name() ) );
 
     createActions();
 
-    Model::actionCollection()->action("transfer_group_start")->plug( popup );
-    Model::actionCollection()->action("transfer_group_stop")->plug( popup );
+    popup->addAction( Model::actionCollection()->action("transfer_group_start") );
+    popup->addAction( Model::actionCollection()->action("transfer_group_stop") );
 
     return popup;
 }
@@ -251,15 +251,15 @@ void TransferGroupHandler::createActions()
     //has been created (if not it will create it)
     qObject();
 
-    m_actions.append( new KAction( i18n("Start"), "player_play", 0,
-                                   qObject(), SLOT( slotStart() ),
-                                   Model::actionCollection(),
-                                   "transfer_group_start") );
+    KAction * a = new KAction( KIcon("player_start"), i18n("Start"),
+                               Model::actionCollection(), "transfer_group_start" );
+    QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStart() ) );
+    m_actions.append( a );
 
-    m_actions.append( new KAction( i18n("Stop"), "player_pause", 0,
-                                   qObject(), SLOT( slotStop() ),
-                                   Model::actionCollection(),
-                                   "transfer_group_stop") );
+    a = new KAction( KIcon("player_pause"), i18n("Stop"),
+                     Model::actionCollection(), "transfer_group_stop" );
+    QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStop() ) );
+    m_actions.append( a );
 }
 
 

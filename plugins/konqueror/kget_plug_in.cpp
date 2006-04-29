@@ -34,19 +34,18 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     KActionMenu *menu = new KActionMenu( KIcon("khtml_kget"), i18n("Download Manager"),
                                          actionCollection(), "kget_menu" );
     menu->setDelayed( false );
-    connect( menu->popupMenu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));
+    connect( menu->kMenu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));
 
     m_paToggleDropTarget=new KToggleAction(i18n("Show Drop Target"),
-                                           KShortcut(),
-                                           this, SLOT(slotShowDrop()),
                                            actionCollection(), "show_drop" );
+    connect( m_paToggleDropTarget, SIGNAL( triggered() ), this, SLOT( slotShowDrop() ) );
 
-    menu->insert( m_paToggleDropTarget );
+    menu->addAction( m_paToggleDropTarget );
 
-    KAction *action = new KAction(i18n("List All Links"), KShortcut(),
-                                  this, SLOT( slotShowLinks() ),
+    KAction *action = new KAction(i18n("List All Links"),
                                   actionCollection(), "show_links");
-    menu->insert( action );
+    connect( action, SIGNAL( triggered() ), this, SLOT( slotShowLinks() ) );
+    menu->addAction( action );
 
     p_dcopServer= new DCOPClient();
     p_dcopServer->attach ();
