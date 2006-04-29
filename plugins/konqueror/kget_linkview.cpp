@@ -44,10 +44,11 @@ KGetLinkView::KGetLinkView( QWidget *parent )
 {
     setPlainCaption( i18n( "KGet" ) );
 
-    KAction* actionDownload = new KAction( i18n("Download Selected Files"),
-                                           "khtml_kget", "CTRL+Key_D",
-                                           this, SLOT( slotStartLeech() ),
+    KAction* actionDownload = new KAction( KIcon("khtml_kget"),
+                                           i18n("Download Selected Files"),
                                            actionCollection(), "startDownload" );
+    actionDownload->setShortcut( KShortcut( Qt::CTRL + Qt::Key_D ) );
+    connect( actionDownload, SIGNAL( triggered() ), this, SLOT( slotStartLeech() ) );
 
     KAction* actionSelectAll = KStdAction::selectAll( this, SLOT( slotSelectAll() ),
                                                       actionCollection() );

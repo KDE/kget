@@ -42,7 +42,7 @@ LinkItem::LinkItem( DOM::Element link )
 
     // force "local file" mimetype determination
     KMimeType::Ptr mt = KMimeType::findByURL( url, 0, true, true);
-    icon = mt->icon( QString(), false ); // dummy parameters
+    icon = mt->icon();
     mimeType = mt->comment();
 
     m_valid = true;

@@ -4,11 +4,10 @@ add_subdirectory(conf)
 add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(transfers)
-#add_subdirectory(plugins)
+add_subdirectory(plugins)
 add_subdirectory(sounds)
 
 include_directories(
-   ${CMAKE_SOURCE_DIR}/kget/conf/
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${KDE4_INCLUDE_DIR}
    ${QT_INCLUDES}
