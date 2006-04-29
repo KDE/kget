@@ -78,7 +78,7 @@ kde4_add_dcop_skels(kget_SRCS dcopiface.h)
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} kgetcore)
+target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} kgetcore)
 
 install_targets(/bin kget)
 
