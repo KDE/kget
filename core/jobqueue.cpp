@@ -108,10 +108,10 @@ void JobQueue::move(Job * job, Job * after)
         return;
     }
 
-    QList<Job *>::iterator it = m_jobs.find(after);
-    if( it!=m_jobs.end() )
+    int position = m_jobs.indexOf(after);
+    if( position != -1 )
     {
-        m_jobs.insert(++it, job);
+        m_jobs.insert(++position, job);
         m_scheduler->jobQueueMovedJobEvent(this, job);
     }
 }
