@@ -88,27 +88,34 @@ KGet::~KGet()
 void KGet::setupActions()
 {
     KActionCollection * ac = actionCollection();
+    KAction * action;
 
     // local - Shows a dialog asking for a new URL to down
-    new KAction(i18n("&New Download..."), "filenew", KShortcut("CTRL+Key_N"), this,
-                SLOT(slotNewTransfer()), ac, "new_transfer");
+    action = new KAction( KIcon("filenew"), i18n("&New Download..."), 
+                          ac, "new_transfer" );
+    action->setShortcut(KShortcut("CTRL+Key_N"));
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotNewTransfer()));
 
-    new KAction(i18n("&Open..."), "fileopen", KShortcut("CTRL+Key_O"), this,
-                SLOT(slotOpen()), ac, "open");
+    action = new KAction( KIcon("fileopen"), i18n("&Open..."), 
+                          ac, "open" );
+    action->setShortcut(KShortcut("CTRL+Key_O"));
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotOpen()));
 
-    new KAction(i18n("Export &Transfers List..."), 0, this,
-                SLOT(slotExportTransfers()), ac, "export_transfers");
+    action = new KAction( i18n("&Export Transfers List..."), 
+                          ac, "export_transfers" );
+    action->setShortcut(KShortcut("CTRL+Key_E"));
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotExportTransfers()));
 
     KAction * r1;
     KAction * r2;
 
-    r1 = new KAction( i18n("Start All"), MainBarIcon("player_play"),
-                            0, this, SLOT( slotStartDownload() ),
-                            ac, "start_download" );
+    r1 = new KAction( KIcon("player_play"), i18n("Start All"),
+                      ac, "start_downloads" );
+    connect(r1, SIGNAL(triggered(bool)), SLOT(slotStartDownload()));
 
-    r2 = new KAction( i18n("Stop All"), MainBarIcon("player_pause"),
-                            0, this, SLOT( slotStopDownload() ),
-                            ac, "stop_download" );
+    r2 = new KAction( KIcon("player_pause"), i18n("Stop All"),
+                      ac, "stop_downloads" );
+    connect(r2, SIGNAL(triggered(bool)), SLOT(slotStopDownload()));
 
     QActionGroup* scheduler_commands = new QActionGroup(this);
     scheduler_commands->setExclusive(true);
@@ -118,18 +125,21 @@ void KGet::setupActions()
     r1->setChecked( Settings::downloadAtStartup() );
     r2->setChecked( !Settings::downloadAtStartup() );
 
-    m_AutoPaste =  new KToggleAction(i18n("Auto-Pas&te Mode"),"tool_clipboard", 0, this,
-                SLOT(slotToggleAutoPaste()), ac, "auto_paste");
+    m_AutoPaste =  new KToggleAction( KIcon("tool_clipboard"), i18n("Auto-Paste Mode"),
+                                      ac, "auto_paste" );
+    connect(m_AutoPaste, SIGNAL(triggered(bool)), SLOT(slotToggleAutoPaste()));
     m_AutoPaste->setChecked(Settings::autoPaste());
     m_AutoPaste->setWhatsThis(i18n("<b>Auto paste</b> button toggles the auto-paste mode "
                                    "on and off.\nWhen set, KGet will periodically scan the clipboard "
                                    "for URLs and paste them automatically."));
 
-    m_showDropTarget = new KToggleAction(i18n("Show Drop Target"), "tool_drop_target", 0, this,
-                SLOT(slotShowDropTarget()), ac, "show_drop_target");
+    m_showDropTarget =  new KToggleAction( KIcon("tool_drop_target"), i18n("Show Drop Target"),
+                                           ac, "show_drop_target" );
+    connect(m_showDropTarget, SIGNAL(triggered(bool)), SLOT(slotShowDropTarget()));
 
-    m_KonquerorIntegration = new KAction(i18n("Enable &KGet as Konqueror Download Manager"), "konqueror", 0, this,
-                SLOT(slotTrayKonquerorIntegration()), ac, "konqueror_integration");
+    m_KonquerorIntegration =  new KAction( KIcon("konqueror"), i18n("Enable KGet as Konqueror Download Manager"),
+                                           ac, "konqueror_integration" );
+    connect(m_KonquerorIntegration, SIGNAL(triggered(bool)), SLOT(slotTrayKonquerorIntegration()));
     if (Settings::konquerorIntegration())
         m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
     slotKonquerorIntegration(Settings::konquerorIntegration());
@@ -145,29 +155,39 @@ void KGet::setupActions()
     m_menubarAction->setChecked( !menuBar()->isHidden() );
 
     // Transfer related actions
-    new KAction( i18n("Start"), "player_play", 0,
-                 this, SLOT(slotTransfersStart()),
-                 actionCollection(), "transfer_start" );
+// KAction *newAct = new KAction("filenew", i18n("&New"), actionCollection(), "new");
 
-    new KAction( i18n("Stop"), "player_pause", 0,
-                 this, SLOT(slotTransfersStop()),
-                 actionCollection(), "transfer_stop" );
+//     new KAction( i18n("Start"), "player_play", 0,
+//                  this, SLOT(slotTransfersStart()),
+//                  actionCollection(), "transfer_start" );
 
-    new KAction( i18n("Delete"), "editdelete", 0,
-                 this, SLOT(slotTransfersDelete()),
-                 actionCollection(), "transfer_remove" );
+//  newAct->setShortcut(KStdAccel::shortcut(KStdAccel::New));
+//  connect(newAct, SIGNAL(triggered(bool)), SLOT(fileNew()));
 
-    new KAction( i18n("Open Destination"), "folder", 0,
-                 this, SLOT(slotTransfersOpenDest()),
-                 actionCollection(), "transfer_open_dest" );
 
-    new KAction( i18n("Show Details"), "configure", 0,
-                 this, SLOT(slotTransfersShowDetails()),
-                 actionCollection(), "transfer_show_details" );
+    action = new KAction( KIcon("player_play"), i18n("Start"), 
+                          ac, "transfer_start" );
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersStart()));
 
-    new KAction( i18n("Copy URL to Clipboard"), "tool_clipboard", 0,
-                 this, SLOT(slotTransfersCopySourceURL()),
-                 actionCollection(), "transfer_copy_source_url" );
+    action = new KAction( KIcon("player_pause"), i18n("Stop"), 
+                          ac, "transfer_stop" );
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersStop()));
+
+    action = new KAction( KIcon("editdelete"), i18n("Delete"), 
+                          ac, "transfer_remove" );
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersDelete()));
+
+    action = new KAction( KIcon("folder"), i18n("Open Destination"), 
+                          ac, "transfer_open_dest" );
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersOpenDest()));
+
+    action = new KAction( KIcon("configure"), i18n("Show Details"), 
+                          ac, "transfer_show_details" );
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersShowDetails()));
+
+    action = new KAction( KIcon("tool_clipboard"), i18n("Copy URL to Clipboard"), 
+                          ac, "transfer_copy_source_url" );
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersCopySourceURL()));
 }
 
 void KGet::slotDelayedInit()
