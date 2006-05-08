@@ -5,14 +5,13 @@ http://edu.kde.org/development/port2kde4.php
 
 How to download and install KGet2:
 
-svn co -N svn://anonsvn.kde.org/home/kde/trunk/KDE/kdenetwork
-cd kdenetwork
-svn co svn://anonsvn.kde.org/home/kde/branches/work/make_kget_cool/kget
-svn co svn://anonsvn.kde.org/home/kde/trunk/KDE/kde-common/admin
-unsermake -f Makefile.cvs
-./configure
-unsermake
-unsermake install
+svn co svn://anonsvn.kde.org/home/kde/branches/work/make_kget_cool
+cd make_kget_cool
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/path/to/kde4 ..
+make
+make install
 
 
 kget @ kde.org

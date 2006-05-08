@@ -111,11 +111,11 @@ void KGet::setupActions()
     KAction * r2;
 
     r1 = new KAction( KIcon("player_play"), i18n("Start All"),
-                      ac, "start_downloads" );
+                      ac, "start_download" );
     connect(r1, SIGNAL(triggered(bool)), SLOT(slotStartDownload()));
 
     r2 = new KAction( KIcon("player_pause"), i18n("Stop All"),
-                      ac, "stop_downloads" );
+                      ac, "stop_download" );
     connect(r2, SIGNAL(triggered(bool)), SLOT(slotStopDownload()));
 
     QActionGroup* scheduler_commands = new QActionGroup(this);
