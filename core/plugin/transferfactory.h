@@ -44,7 +44,7 @@ class Scheduler;
  *
  * desc to come...
  */
-class TransferFactory : public KGetPlugin
+class KDE_EXPORT TransferFactory : public KGetPlugin
 {
     public:
         TransferFactory();

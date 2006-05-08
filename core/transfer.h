@@ -25,7 +25,7 @@ class TransferFactory;
 class TransferGroup;
 class Scheduler;
 
-class Transfer : public Job
+class KDE_EXPORT Transfer : public Job
 {
     friend class TransferHandler;
 

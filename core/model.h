@@ -44,7 +44,7 @@ class KGet;
  * it in the group named "Not grouped" (better name?).
  **/
 
-class Model
+class KDE_EXPORT Model
 {
     public:
         static Model& self( KGet * kget )

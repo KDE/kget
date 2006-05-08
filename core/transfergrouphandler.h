@@ -21,7 +21,7 @@ class TransferGroupObserver;
 class TransferHandler;
 class Scheduler;
 
-class TransferGroupHandler
+class KDE_EXPORT TransferGroupHandler
 {
     friend class TransferGroup;
 

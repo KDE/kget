@@ -13,6 +13,7 @@
 
 #include <kparts/plugin.h>
 #include <klibloader.h>
+#include <ktoggleaction.h>
 #include <dcopclient.h>
 
 class KGet_plug_in : public KParts::Plugin
@@ -39,7 +40,6 @@ public:
     ~KPluginFactory() ;
 
     virtual QObject* createObject( QObject* parent = 0, const char* pname = 0,
-                                   const char* name = "QObject",
                                    const QStringList &args = QStringList() );
 
 private:

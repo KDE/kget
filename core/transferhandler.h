@@ -50,7 +50,7 @@ class TransferObserver;
  * can ask to the TransferHandler for the ChangesFlags.
  */
 
-class TransferHandler
+class KDE_EXPORT TransferHandler
 {
     friend class Model;
     friend class Transfer;

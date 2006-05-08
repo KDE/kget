@@ -60,6 +60,8 @@
         KDE_EXPORT KGetPlugin * create_plugin() { return new classname; } \
     }
 
+#include <kdemacros.h>
+
 /**
  * Bump this number whenever the plugin framework gets 
  * incompatible with older versions 
@@ -70,7 +72,7 @@
  * @short Base class for kget plugins.
  * ...
  */
-class KGetPlugin
+class KDE_EXPORT KGetPlugin
 {
     public:
         KGetPlugin();

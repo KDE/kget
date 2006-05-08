@@ -12,11 +12,15 @@
 
 #include <dcopclient.h>
 #include <kaction.h>
+#include <kstdaction.h>
 #include <kiconloader.h>
+#include <kicon.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
 #include <ktoolbar.h>
+
+#include <QPixmap>
 
 #define COL_NAME 0
 #define COL_DESC 1

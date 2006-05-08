@@ -15,7 +15,7 @@
 class QWidget;
 class KConfigSkeleton;
 
-class PreferencesDialog : public KConfigDialog
+class KDE_EXPORT PreferencesDialog : public KConfigDialog
 {
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
