@@ -520,7 +520,7 @@ KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
     else
     {
         kDebug() << " Filename is not empty" << endl;
-        destURL.adjustPath( +1 );
+        destURL.adjustPath( KUrl::AddTrailingSlash );
         destURL.setFileName( filename );
         if (!isValidDestURL(destURL))
         {

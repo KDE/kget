@@ -15,6 +15,7 @@
 
 #include <kapplication.h>
 #include <kaboutdata.h>
+#include <kactioncollection.h>
 #include <kiconloader.h>
 #include <kiconeffect.h>
 #include <kmenu.h>

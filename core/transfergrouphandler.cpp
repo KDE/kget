@@ -11,6 +11,7 @@
 #include <kdebug.h>
 #include <kmenu.h>
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <klocale.h>
 
 #include "core/transfergrouphandler.h"

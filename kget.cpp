@@ -24,6 +24,7 @@
 #include <ktoolinvocation.h>
 #include <kmenubar.h>
 #include <kiconloader.h>
+#include <kstdaction.h>
 
 #include "kget.h"
 #include "core/model.h"

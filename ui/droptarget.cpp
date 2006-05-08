@@ -20,6 +20,7 @@
 #include <kmenu.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
+#include <kactioncollection.h>
 
 #include <math.h>
 

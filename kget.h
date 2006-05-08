@@ -12,7 +12,7 @@
 #ifndef KGET_H
 #define KGET_H
 
-#include <kaction.h>
+#include <ktoggleaction.h>
 #include <kmainwindow.h>
 
 #include "dcopiface.h"
