@@ -1,5 +1,3 @@
-kde4_header()
-
 add_subdirectory(conf)
 add_subdirectory(core)
 add_subdirectory(ui)
@@ -11,8 +9,6 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${KDE4_INCLUDE_DIR}
    ${QT_INCLUDES}
-   ${CMAKE_CURRENT_SOURCE_DIR}
-   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 ########### next target ###############
@@ -50,9 +46,9 @@ kde4_automoc(${kgetcore_SRCS})
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
-target_link_libraries(kgetcore ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
+target_link_libraries(kgetcore ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 
-install_targets(${LIB_INSTALL_DIR} kgetcore )
+install_targets(${LIB_INSTALL_DIR} kgetcore)
 
 
 set(kget_SRCS
@@ -64,8 +60,8 @@ set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/tray.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/traytransfer.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/viewscontainer.cpp
-   kget.cpp
-   main.cpp
+   ${CMAKE_SOURCE_DIR}/kget/kget.cpp
+   ${CMAKE_SOURCE_DIR}/kget/main.cpp
 )
 
 kde4_add_ui_files(kget_SRCS
@@ -88,5 +84,3 @@ install_files(${XDG_APPS_DIR} FILES kget.desktop)
 install_files(${DATA_INSTALL_DIR}/kget FILES kgetui.rc)
 
 kde4_install_icons(${ICON_INSTALL_DIR} hicolor)
-
-kde4_footer()

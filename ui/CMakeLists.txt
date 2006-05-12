@@ -1,9 +1,5 @@
-kde4_header()
-
 add_subdirectory(icons)
 add_subdirectory(pics)
-
-kde4_footer()
 
 #original Makefile.am contents follow:
 
