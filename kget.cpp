@@ -262,7 +262,7 @@ void KGet::slotOpen()
     }
 
     if(!filename.isEmpty())
-        Model::addTransfer( KUrl::fromPathOrURL( filename ) );
+        Model::addTransfer( KUrl( filename ) );
 }
 
 void KGet::slotQuit()
@@ -449,7 +449,7 @@ void KGet::slotCheckClipboard()
         if (lastClipboard.isEmpty())
             return;
 
-        KUrl url = KUrl::fromPathOrURL(lastClipboard);
+        KUrl url = KUrl(lastClipboard);
 
         if (url.isValid() && !url.isLocalFile())
             Model::addTransfer( url );
@@ -530,7 +530,7 @@ void KGet::dropEvent(QDropEvent * event)
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KUrl::fromPathOrURL(str));
+        Model::addTransfer(KUrl(str));
     }
 }
 

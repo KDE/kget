@@ -79,8 +79,8 @@ void Transfer::save(QDomElement e)
 
 void Transfer::load(QDomElement e)
 {
-    m_source = KUrl::fromPathOrURL(e.attribute("Source"));
-    m_dest = KUrl::fromPathOrURL(e.attribute("Dest"));
+    m_source = KUrl(e.attribute("Source"));
+    m_dest = KUrl(e.attribute("Dest"));
     m_totalSize = e.attribute("TotalSize").toInt();
     m_processedSize = e.attribute("ProcessedSize").toInt();
 

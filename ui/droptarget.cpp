@@ -153,7 +153,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            Model::addTransfer(KUrl::fromPathOrURL(newtransfer),"");
+            Model::addTransfer(KUrl(newtransfer),"");
     }
 }
 
@@ -181,7 +181,7 @@ void DropTarget::dropEvent(QDropEvent * event)
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KUrl::fromPathOrURL(str));
+        Model::addTransfer(KUrl(str));
     }
 
     if ( Settings::animateDropTarget() )

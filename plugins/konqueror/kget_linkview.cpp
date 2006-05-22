@@ -40,7 +40,7 @@ LinkViewItem::LinkViewItem( Q3ListView *parent, const LinkItem *lnk )
 
     setText( COL_DESC, link->text );
     setText( COL_MIME, link->mimeType );
-    setText( COL_URL,  link->url.prettyURL() );
+    setText( COL_URL,  link->url.prettyUrl() );
 }
 
 KGetLinkView::KGetLinkView( QWidget *parent )

@@ -98,7 +98,7 @@ void TransferMultiThreaded::load(QDomElement e)
     {
         node = threads.item(i);
         thread = node.toElement ();
-        d.src = KUrl::fromPathOrURL(thread.attribute("Source"));
+        d.src = KUrl(thread.attribute("Source"));
         d.bytes = thread.attribute("Bytes").toULongLong();
         d.offSet = thread.attribute("OffSet").toULongLong();
         kDebug() << "TransferMultiThreaded::load: adding thread " << i << endl;

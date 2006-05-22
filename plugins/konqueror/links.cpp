@@ -11,7 +11,7 @@
 #include "links.h"
 
 #include <kmimetype.h>
-#include <kprotocolinfo.h>
+#include <kprotocolmanager.h>
 
 #include <dom/html_document.h>
 
@@ -27,8 +27,8 @@ LinkItem::LinkItem( DOM::Element link )
     if ( urlString.isEmpty() )
         return;
 
-    url = KUrl::fromPathOrURL( urlString );
-    if ( !KProtocolInfo::supportsReading( url ) )
+    url = KUrl( urlString );
+    if ( !KProtocolManager::supportsReading( url ) )
         return;
 
     // somehow getElementsByTagName("#text") doesn't work :(

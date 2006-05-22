@@ -16,7 +16,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
-#include <ktrader.h>
+#include <kservicetypetrader.h>
 #include <klibloader.h>
 #include <kiconloader.h>
 
@@ -110,8 +110,8 @@ void Model::addTransfer(const QDomElement& e, const QString& groupName)
 {
     //We need to read these attributes now in order to know which transfer
     //plugin to use.
-    KUrl srcURL = KUrl::fromPathOrURL( e.attribute("Source") );
-    KUrl destURL = KUrl::fromPathOrURL( e.attribute("Dest") );
+    KUrl srcURL = KUrl( e.attribute("Source") );
+    KUrl destURL = KUrl( e.attribute("Dest") );
 
     kDebug() << "Model::addTransfer  src= " << srcURL.url()
               << " dest= " << destURL.url() << endl;
@@ -218,7 +218,7 @@ void Model::load( QString filename )
     QString tmpFile;
 
     //Try to save the transferlist to a temporary location
-    if(!KIO::NetAccess::download(KUrl::fromPathOrURL(filename), tmpFile, 0))
+    if(!KIO::NetAccess::download(KUrl(filename), tmpFile, 0))
         return;
 
     QFile file(tmpFile);
@@ -415,7 +415,7 @@ KUrl Model::urlInputDialog()
             return KUrl();
         }
 
-        KUrl src = KUrl::fromPathOrURL(newtransfer);
+        KUrl src = KUrl(newtransfer);
         if( isValidSource(src) )
             return src;
         else
@@ -438,7 +438,7 @@ bool Model::isValidSource(KUrl source)
     if (!source.isValid())
     {
         KMessageBox::error(0,
-                           i18n("Malformed URL:\n%1", source.prettyURL()),
+                           i18n("Malformed URL:\n%1", source.prettyUrl()),
                            i18n("Error"));
         return false;
     }
@@ -450,7 +450,7 @@ bool Model::isValidSource(KUrl source)
         {
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNo(0,
-                i18n("URL already saved:\n%1\nDownload again?", source.prettyURL()),
+                i18n("URL already saved:\n%1\nDownload again?", source.prettyUrl()),
                 i18n("Download URL Again?"), KStdGuiItem::yes(),
                 KStdGuiItem::no(), "QuestionURLAlreadySaved" )
                 == KMessageBox::Yes)
@@ -465,7 +465,7 @@ bool Model::isValidSource(KUrl source)
         {
             //transfer is not finished. Give an error message.
             KMessageBox::error(0,
-                               i18n("Already saving URL\n%1", source.prettyURL()),
+                               i18n("Already saving URL\n%1", source.prettyUrl()),
                                i18n("Error"));
             return false;
         }
@@ -485,7 +485,7 @@ bool Model::isValidDestURL(KUrl destURL)
     {
         if (KMessageBox::warningYesNo(0,
             i18n("Destination file \n%1\nalready exists.\n"
-                 "Do you want to overwrite it?", destURL.prettyURL()))
+                 "Do you want to overwrite it?", destURL.prettyUrl()))
             == KMessageBox::Yes)
         {
             safeDeleteFile( destURL );
@@ -506,16 +506,16 @@ KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
         return KUrl();
 
     // create a proper destination file from destDir
-    KUrl destURL = KUrl::fromPathOrURL( destDir );
+    KUrl destURL = KUrl( destDir );
     QString filename = srcURL.fileName();
 
     if ( filename.isEmpty() )
     {
         // simply use the full url as filename
-        filename = QUrl::toPercentEncoding( srcURL.prettyURL(), "/" );
+        filename = QUrl::toPercentEncoding( srcURL.prettyUrl(), "/" );
         kDebug() << " Filename is empty. Setting to  " << filename << endl;
         kDebug() << "   srcURL = " << srcURL.url() << endl;
-        kDebug() << "   prettyURL = " << srcURL.prettyURL() << endl;
+        kDebug() << "   prettyURL = " << srcURL.prettyUrl() << endl;
     }
     else
     {
@@ -570,10 +570,10 @@ void Model::loadPlugins()
     str += " and ";
     str += "[X-KDE-KGet-plugintype] == ";
 
-    KTrader::OfferList offers;
+    KService::List offers;
 
     //TransferFactory plugins
-    offers = KTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
+    offers = KServiceTypeTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
 
     //Here we use a QMap only to easily sort the plugins by rank
     QMap<int, KService::Ptr> services;
@@ -664,7 +664,7 @@ bool Model::safeDeleteFile( const KUrl& url )
         if ( info.isDir() )
         {
             KMessageBox::information(0L,i18n("Not deleting\n%1\nas it is a "
-                                     "directory.", url.prettyURL()),
+                                     "directory.", url.prettyUrl()),
                                      i18n("Not Deleted"));
             return false;
         }
@@ -675,7 +675,7 @@ bool Model::safeDeleteFile( const KUrl& url )
     else
         KMessageBox::information( 0L,
                                   i18n("Not deleting\n%1\nas it is not a local"
-                                          " file.", url.prettyURL()),
+                                          " file.", url.prettyUrl()),
                                   i18n("Not Deleted") );
     return false;
 }
