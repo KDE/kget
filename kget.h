@@ -15,7 +15,6 @@
 #include <ktoggleaction.h>
 #include <kmainwindow.h>
 
-#include "dcopiface.h"
 #include "core/globals.h"
 
 class QSplitter;
@@ -31,7 +30,7 @@ class Tray;
  *
  * Can be collapsed or expanded.
  */
-class KGet : public KMainWindow, virtual public DCOPIface
+class KGet : public KMainWindow
 {
 Q_OBJECT
 public:

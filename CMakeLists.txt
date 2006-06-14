@@ -9,6 +9,7 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${KDE4_INCLUDE_DIR}
    ${QT_INCLUDES}
+   ${QDBUS_INCLUDE_DIRS}
 )
 
 ########### next target ###############
@@ -62,6 +63,7 @@ set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/viewscontainer.cpp
    ${CMAKE_SOURCE_DIR}/kget/kget.cpp
    ${CMAKE_SOURCE_DIR}/kget/main.cpp
+   ${CMAKE_SOURCE_DIR}/kget/kgetadaptor.cpp
 )
 
 kde4_add_ui_files(kget_SRCS
@@ -69,8 +71,6 @@ kde4_add_ui_files(kget_SRCS
 )
 
 kde4_automoc(${kget_SRCS})
-
-kde4_add_dcop_skels(kget_SRCS dcopiface.h)
 
 kde4_add_executable(kget ${kget_SRCS})
 

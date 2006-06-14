@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "kgetadaptor.h"
 #include "core/model.h"
 #include "settings.h"
 #include "ui/splash.h"

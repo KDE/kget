@@ -14,7 +14,6 @@
 #include <kparts/plugin.h>
 #include <klibloader.h>
 #include <ktoggleaction.h>
-#include <dcopclient.h>
 
 class KGet_plug_in : public KParts::Plugin
 {
@@ -22,7 +21,7 @@ class KGet_plug_in : public KParts::Plugin
 public:
     KGet_plug_in( QObject* parent = 0 );
     KToggleAction *m_paToggleDropTarget ;
-    DCOPClient* p_dcopServer;
+//     DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();
 
 private slots:

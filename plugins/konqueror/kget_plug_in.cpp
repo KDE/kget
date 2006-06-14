@@ -48,15 +48,15 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     connect( action, SIGNAL( triggered() ), this, SLOT( slotShowLinks() ) );
     menu->addAction( action );
 
-    p_dcopServer= new DCOPClient();
-    p_dcopServer->attach ();
+//     p_dcopServer= new DCOPClient();
+//     p_dcopServer->attach ();
 }
 
 
 KGet_plug_in::~KGet_plug_in()
 {
-    p_dcopServer->detach();
-    delete p_dcopServer;
+//     p_dcopServer->detach();
+//     delete p_dcopServer;
 }
 
 
@@ -64,24 +64,24 @@ void KGet_plug_in::showPopup()
 {
     bool hasDropTarget = false;
 
-    if (p_dcopServer->isApplicationRegistered ("kget"))
-    {
-        DCOPRef kget( "kget", "KGet-Interface" );
-        hasDropTarget = kget.call( "isDropTargetVisible" );
-    }
+//     if (p_dcopServer->isApplicationRegistered ("kget"))
+//     {
+//         DCOPRef kget( "kget", "KGet-Interface" );
+//         hasDropTarget = kget.call( "isDropTargetVisible" );
+//     }
 
     m_paToggleDropTarget->setChecked( hasDropTarget );
 }
 
 void KGet_plug_in::slotShowDrop()
 {
-    if (!p_dcopServer->isApplicationRegistered ("kget"))
-        KRun::runCommand("kget --showDropTarget");
-    else
-    {
-        DCOPRef kget( "kget", "KGet-Interface" );
-        kget.send( "setDropTargetVisible", m_paToggleDropTarget->isChecked());
-    }
+//     if (!p_dcopServer->isApplicationRegistered ("kget"))
+//         KRun::runCommand("kget --showDropTarget");
+//     else
+//     {
+//         DCOPRef kget( "kget", "KGet-Interface" );
+//         kget.send( "setDropTargetVisible", m_paToggleDropTarget->isChecked());
+//     }
 }
 
 void KGet_plug_in::slotShowLinks()

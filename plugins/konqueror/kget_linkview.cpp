@@ -10,7 +10,6 @@
 
 #include "kget_linkview.h"
 
-#include <dcopclient.h>
 #include <kaction.h>
 #include <kstdaction.h>
 #include <kiconloader.h>
@@ -125,27 +124,27 @@ void KGetLinkView::slotStartLeech()
                             i18n("No Files Selected") );
     else
     {
-        DCOPClient* p_dcopServer = new DCOPClient();
-        p_dcopServer->attach();
-
-        if (!p_dcopServer->isApplicationRegistered("kget"))
-        {
-            KProcess* proc = new KProcess();
-            *proc << "kget" << urls;
-            proc->start( KProcess::DontCare );
-        }
-        else
-        {
-            stream << QString();
-            bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
-                                                      "addTransfers(KUrl::List, QString)",
-                                                      *data );
-
-            kDebug() << "*** startDownload: " << ok << endl;
-        }
-
-        p_dcopServer->detach();
-        delete p_dcopServer;
+//         DCOPClient* p_dcopServer = new DCOPClient();
+//         p_dcopServer->attach();
+// 
+//         if (!p_dcopServer->isApplicationRegistered("kget"))
+//         {
+//             KProcess* proc = new KProcess();
+//             *proc << "kget" << urls;
+//             proc->start( KProcess::DontCare );
+//         }
+//         else
+//         {
+//             stream << QString();
+//             bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
+//                                                       "addTransfers(KUrl::List, QString)",
+//                                                       *data );
+// 
+//             kDebug() << "*** startDownload: " << ok << endl;
+//         }
+// 
+//         p_dcopServer->detach();
+//         delete p_dcopServer;
     }
 }
 

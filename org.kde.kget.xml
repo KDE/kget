@@ -1,0 +1,18 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.kget">
+    <method name="isDropTargetVisible">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="setDropTargetVisible">
+      <arg type="b" direction="in"/>
+    </method>
+    <method name="isOfflineMode">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="setOfflineMode">
+      <arg type="b" direction="in"/>
+    </method>
+  </interface>
+</node>

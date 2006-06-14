@@ -38,7 +38,7 @@
 #include "ui/droptarget.h"
 
 KGet::KGet( QWidget * parent )
-    : DCOPIface( "KGet-Interface" ), KMainWindow( parent ),
+    : KMainWindow( parent ),
         m_drop(0), m_dock(0)
 {
     // create the model
