@@ -9,6 +9,7 @@
 */
 
 #include <QTextStream>
+#include <QDomElement>
 
 #include <kio/netaccess.h>
 #include <kinputdialog.h>

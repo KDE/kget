@@ -55,11 +55,11 @@ install_targets(${LIB_INSTALL_DIR} kgetcore)
 set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/droptarget.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
+#    ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/splash.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetails.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/tray.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/traytransfer.cpp
+#    ${CMAKE_SOURCE_DIR}/kget/ui/traytransfer.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/viewscontainer.cpp
    ${CMAKE_SOURCE_DIR}/kget/kget.cpp
    ${CMAKE_SOURCE_DIR}/kget/main.cpp

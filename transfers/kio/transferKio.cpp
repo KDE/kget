@@ -43,7 +43,7 @@ void TransferKio::stop()
 
     if(m_copyjob)
     {
-        m_copyjob->kill(true);
+        m_copyjob->kill(KJob::Quietly);
         m_copyjob=0;
     }
 

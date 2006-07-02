@@ -249,7 +249,7 @@ void KGet::slotNewTransfer()
 void KGet::slotOpen()
 {
     QString filename = KFileDialog::getOpenFileName
-        (0,
+        (KUrl(),
          "*.kgt *.torrent|" + i18n("All openable files") + " (*.kgt *.torrent)",
          this,
          i18n("Open file")
@@ -301,7 +301,7 @@ void KGet::slotPreferences()
 void KGet::slotExportTransfers()
 {
     QString filename = KFileDialog::getSaveFileName
-        (0,
+        (KUrl(),
          "*.kgt|" + i18n("KGet transfer list") + " (*.kgt)",
          this,
          i18n("Export transfers")
