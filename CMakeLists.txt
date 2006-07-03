@@ -63,8 +63,9 @@ set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/viewscontainer.cpp
    ${CMAKE_SOURCE_DIR}/kget/kget.cpp
    ${CMAKE_SOURCE_DIR}/kget/main.cpp
-   ${CMAKE_SOURCE_DIR}/kget/kgetadaptor.cpp
 )
+
+qt4_add_dbus_adaptors(kget_SRCS org.kde.kget.xml)
 
 kde4_add_ui_files(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetailsfrm.ui
