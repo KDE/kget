@@ -94,7 +94,7 @@ public:
             return;
 
         // getting splash-screen path
-        QString path = locate( "data", "kget/pics/kget_splash.png" );
+        QString path = KStandardDirs::locate( "data", "kget/pics/kget_splash.png" );
 
         if ( !path.isEmpty() )
             osd = new OSDWidget( path );

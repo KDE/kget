@@ -51,7 +51,7 @@ DropTarget::DropTarget(KGet * mw)
         KWin::setState(winId(), NET::Sticky);
 
     // set background pixmap
-    QImage image( locate( "data", "kget/pics/target.png" ) );
+    QImage image( KStandardDirs::locate( "data", "kget/pics/target.png" ) );
     targetBuffer = QPixmap::fromImage(image);
 
     QBitmap bm( image.size() );

@@ -194,7 +194,7 @@ void KGet::setupActions()
 void KGet::slotDelayedInit()
 {
     //Here we import the user's transfers.
-    Model::load( locateLocal("appdata", "transfers.kgt") );
+    Model::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
     // DropTarget
     m_drop = new DropTarget(this);

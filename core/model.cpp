@@ -214,7 +214,7 @@ QList<TransferHandler *> Model::selectedTransfers()
 void Model::load( QString filename )
 {
     if(filename.isEmpty())
-        filename = locateLocal("appdata", "transfers.kgt");
+        filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
     QString tmpFile;
 
@@ -270,7 +270,7 @@ void Model::save( QString filename )
         return;
 
     if(filename.isEmpty())
-        filename = locateLocal("appdata", "transfers.kgt");
+        filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
     QDomDocument doc(QString("KGetTransfers"));
     QDomElement root = doc.createElement("Transfers");
