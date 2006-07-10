@@ -19,12 +19,12 @@ kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} kget_kiofactory)
 
 target_link_libraries(kget_kiofactory ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} kgetcore)
 
-install_targets(${LIB_INSTALL_DIR}/kde4 kget_kiofactory)
+install(TARGETS kget_kiofactory DESTINATION ${LIB_INSTALL_DIR}/kde4)
 
 
 ########### install files ###############
 
-install_files( ${SERVICES_INSTALL_DIR} FILES  kget_kiofactory.desktop )
+install(FILES kget_kiofactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 
 #original Makefile.am contents follow:
 

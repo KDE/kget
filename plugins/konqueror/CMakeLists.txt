@@ -19,12 +19,12 @@ kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} khtml_kget)
 
 target_link_libraries(khtml_kget ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KHTML_LIBS} ${KDE4_DCOP_LIBRARY})
 
-install_targets(${LIB_INSTALL_DIR}/kde4 khtml_kget)
+install(TARGETS khtml_kget DESTINATION ${LIB_INSTALL_DIR}/kde4)
 
 
 ########### install files ###############
 
-install_files(${DATA_INSTALL_DIR}/khtml/kpartplugins FILES kget_plug_in.rc)
+install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/khtml/kpartplugins)
 
 kde4_install_icons(${ICON_INSTALL_DIR} hicolor)
 

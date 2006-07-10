@@ -49,7 +49,7 @@ kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
 target_link_libraries(kgetcore ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 
-install_targets(${LIB_INSTALL_DIR} kgetcore)
+install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
 
 set(kget_SRCS
@@ -77,11 +77,11 @@ kde4_add_executable(kget ${kget_SRCS})
 
 target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} kgetcore)
 
-install_targets(/bin kget)
+install(TARGETS kget DESTINATION ${BIN_INSTALL_DIR})
 
 ########### install files ###############
 
-install_files(${XDG_APPS_DIR} FILES kget.desktop)
-install_files(${DATA_INSTALL_DIR}/kget FILES kgetui.rc)
+install(FILES kget.desktop DESTINATION ${XDG_APPS_DIR})
+install(FILES kgetui.rc DESTINATION ${DATA_INSTALL_DIR}/kget)
 
 kde4_install_icons(${ICON_INSTALL_DIR} hicolor)

@@ -1,4 +1,4 @@
-install_files(${KCFG_INSTALL_DIR} FILES kget.kcfg)
+install(FILES kget.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 #original Makefile.am contents follow:
 

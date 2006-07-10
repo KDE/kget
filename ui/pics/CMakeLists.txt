@@ -1,4 +1,4 @@
-install_files(${DATA_INSTALL_DIR}/kget/pics FILES
+install(FILES
    kget_splash.png
    target.png
-)
+DESTINATION ${DATA_INSTALL_DIR}/kget/pics)

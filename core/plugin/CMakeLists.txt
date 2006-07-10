@@ -1,4 +1,4 @@
-install_files(${SERVICETYPES_INSTALL_DIR} FILES kget_plugin.desktop)
+install(FILES kget_plugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
 #original Makefile.am contents follow:
 
