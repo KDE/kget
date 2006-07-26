@@ -9,15 +9,10 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _TRAY_H
-#define _TRAY_H
+#ifndef TRAY_H
+#define TRAY_H
 
-#include <QPixmap>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QDropEvent>
-
-#include <ksystemtray.h>
+#include <ksystemtrayicon.h>
 
 #include "core/observer.h"
 
@@ -28,13 +23,12 @@ class QPixmap;
 /**
   * This class implements the main tray icon for kget. It has a popup
   * from which the user can open a new transfer, configure kget, 
-  * minimize/restore or quit the app (default behavior) and drop
-  * links to download.
+  * minimize/restore or quit the app (default behavior).
   *
-  * @short KGet's system tray widget.
+  * @short KGet's system tray icon.
   **/
 
-class Tray : public KSystemTray, public ModelObserver
+class Tray : public KSystemTrayIcon, public ModelObserver
 {
 Q_OBJECT
 public:
@@ -42,11 +36,6 @@ public:
     ~Tray();
 
     void setDownloading( bool );
-
-protected:
-    // drag and drop
-    void dragEnterEvent( QDragEnterEvent * );
-    void dropEvent( QDropEvent * );
 
 private:
     /**
@@ -57,7 +46,7 @@ private:
      * Blend an overlay icon over 'sourcePixmap' and repaint trayIcon
      */
     void blendOverlay( QPixmap * sourcePixmap );
-    
+
     QTimer * blinkTimer;
     QPixmap *baseIcon, *grayedIcon, *alternateIcon;
     QPixmap *playOverlay, *stopOverlay;
@@ -66,9 +55,8 @@ private:
     bool overlayVisible;
 
 private slots:
-    void mousePressEvent( QMouseEvent * e );
+    void slotActivated( QSystemTrayIcon::ActivationReason reason );
     void slotTimeout();
 };
 
 #endif
-
