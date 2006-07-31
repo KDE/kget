@@ -25,7 +25,7 @@ class DropTarget;
 class Tray;
 
 /**
- * The main window of MainWindow.
+ * The main window of KGet.
  *
  * Can be collapsed or expanded.
  */
@@ -37,7 +37,7 @@ public:
     ~MainWindow();
 
 protected:
-    // from the DCOP interface
+    // from the DBUS interface
     virtual void addTransfers( const KUrl::List& src, const QString& destDir = QString() );
     virtual bool isDropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );

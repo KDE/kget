@@ -21,7 +21,7 @@ Sound=KGet_Finished.ogg
 Action=Sound
 
 [Event/finishedall]
-Name=AddDownloadsFinished
+Name=AllDownloadsFinished
 Comment=All downloads finished
 Sound=KGet_Finished_All.ogg
 Action=Sound

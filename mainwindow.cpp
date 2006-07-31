@@ -132,18 +132,18 @@ void MainWindow::setupActions()
     connect(m_AutoPaste, SIGNAL(triggered(bool)), SLOT(slotToggleAutoPaste()));
     m_AutoPaste->setChecked(Settings::autoPaste());
     m_AutoPaste->setWhatsThis(i18n("<b>Auto paste</b> button toggles the auto-paste mode "
-                                   "on and off.\nWhen set, MainWindow will periodically scan the clipboard "
+                                   "on and off.\nWhen set, KGet will periodically scan the clipboard "
                                    "for URLs and paste them automatically."));
 
     m_showDropTarget =  new KToggleAction( KIcon("tool_drop_target"), i18n("Show Drop Target"),
                                            ac, "show_drop_target" );
     connect(m_showDropTarget, SIGNAL(triggered(bool)), SLOT(slotShowDropTarget()));
 
-    m_KonquerorIntegration =  new KAction( KIcon("konqueror"), i18n("Enable MainWindow as Konqueror Download Manager"),
+    m_KonquerorIntegration =  new KAction( KIcon("konqueror"), i18n("Enable KGet as Konqueror Download Manager"),
                                            ac, "konqueror_integration" );
     connect(m_KonquerorIntegration, SIGNAL(triggered(bool)), SLOT(slotTrayKonquerorIntegration()));
     if (Settings::konquerorIntegration())
-        m_KonquerorIntegration->setText(i18n("Disable &MainWindow as Konqueror Download Manager"));
+        m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
     slotKonquerorIntegration(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
@@ -275,7 +275,7 @@ void MainWindow::slotQuit()
 //     {
 //         if (KMessageBox::warningYesNo(this,
 //                 i18n("Some transfers are still running.\n"
-//                      "Are you sure you want to close MainWindow?"),
+//                      "Are you sure you want to close KGet?"),
 //                 i18n("Warning"), KStdGuiItem::yes(), KStdGuiItem::no(),
 //                 "ExitWithActiveTransfers") == KMessageBox::No)
 //             return;
@@ -306,7 +306,7 @@ void MainWindow::slotExportTransfers()
 {
     QString filename = KFileDialog::getSaveFileName
         (KUrl(),
-         "*.kgt|" + i18n("MainWindow transfer list") + " (*.kgt)",
+         "*.kgt|" + i18n("KGet transfer list") + " (*.kgt)",
          this,
          i18n("Export transfers")
         );
@@ -474,7 +474,7 @@ void MainWindow::slotTrayKonquerorIntegration()
     if (!tempIntegration && Settings::konquerorIntegration() && !Settings::expertMode())
     {
         KMessageBox::information(0,
-            i18n("MainWindow has been temporarily disabled as download manager for Konqueror. "
+            i18n("KGet has been temporarily disabled as download manager for Konqueror. "
             "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
             "as download manager for Konqueror\"."),
             i18n("Konqueror Integration disabled"),
@@ -489,9 +489,9 @@ void MainWindow::slotKonquerorIntegration(bool konquerorIntegration)
     cfgKonqueror.writePathEntry("DownloadManager",QString(konquerorIntegration?"kget":""));
     cfgKonqueror.sync();
     if ( konquerorIntegration )
-        m_KonquerorIntegration->setText(i18n("Disable &MainWindow as Konqueror Download Manager"));
+        m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
     else
-        m_KonquerorIntegration->setText(i18n("Enable &MainWindow as Konqueror Download Manager"));
+        m_KonquerorIntegration->setText(i18n("Enable &KGet as Konqueror Download Manager"));
 }
 
 void MainWindow::slotShowMenubar()
@@ -577,7 +577,7 @@ bool MainWindow::isOfflineMode() const
 /*
 KToggleAction *m_paAutoDisconnect,
     m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"connect_creating", 0, this, SLOT(slotToggleAutoDisconnect()), ac, "auto_disconnect");
-    tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, MainWindow will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want MainWindow\n" "to disconnect without asking.");
+    tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
     m_paAutoDisconnect->setWhatsThis(tmp);
 
     if (Settings::connectionType() != Settings::Permanent) {
@@ -710,7 +710,7 @@ void MainWindow::setAutoSave()
 /*
 KToggleAction *m_paExpertMode, *m_paUseLastDir
     m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"folder", 0, this, SLOT(slotToggleUseLastDir()), ac, "use_last_dir");
-    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, MainWindow will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
+    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
     m_paUseLastDir->setChecked(Settings::useLastDir());
 
 void slotToggleUseLastDir();

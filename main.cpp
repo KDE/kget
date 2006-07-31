@@ -33,7 +33,7 @@ static const char description[] = I18N_NOOP("An advanced download manager for KD
 static const char version[] = KGETVERSION;
 
 static KCmdLineOptions option[] = {
-    { "showDropTarget", I18N_NOOP("Start MainWindow with drop target"), 0 },
+    { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
     { "+[URL(s)]", I18N_NOOP("URL(s) to download"), 0},
     KCmdLineLastOption
 };
@@ -58,10 +58,10 @@ static void cleanup(void)
 
 static void signalHandler(int sigId)
 {
-    fprintf(stderr, "*** MainWindow got signal %d\n", sigId);
+    fprintf(stderr, "*** KGet got signal %d\n", sigId);
 
     if (sigId != SIGSEGV) {
-        fprintf(stderr, "*** MainWindow saving data\n");
+        fprintf(stderr, "*** KGet saving data\n");
         //FIXME delete kmain;
     }
     // If Kget crashes again below this line we consider the data lost :-|
@@ -72,16 +72,16 @@ static void signalHandler(int sigId)
 }
 
 
-class MainWindowApp : public KUniqueApplication
+class KGetApp : public KUniqueApplication
 {
 public:
-    MainWindowApp()
+    KGetApp()
         : KUniqueApplication(), kget( 0 ), osd( 0 )
     {
         showSplash();
     }
 
-    ~MainWindowApp()
+    ~KGetApp()
     {
         delete osd;
         delete kget;
@@ -151,7 +151,7 @@ private:
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("MainWindow"), version, description,
+    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description,
                          KAboutData::License_GPL,
                          I18N_NOOP("(C) 2001 - 2002, Patrick Charbonnier\n"
                                    "(C) 2002, Carsten Pfeiffer\n"
@@ -165,14 +165,14 @@ int main(int argc, char *argv[])
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineArgs::addCmdLineOptions(option);
 
-    MainWindowApp::addCmdLineOptions();
+    KGetApp::addCmdLineOptions();
 
-    if (!MainWindowApp::start()) {
+    if (!KGetApp::start()) {
         fprintf(stderr, "kget is already running!\n");
         exit(0);
     }
 
-    MainWindowApp kApp;
+    KGetApp kApp;
 
     //setSignalHandler(signalHandler);
 
