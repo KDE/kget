@@ -12,19 +12,21 @@
    of the License.
 */
 
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef KGET_H
+#define KGET_H
 
-#include <kactioncollection.h>
 #include <kservice.h>
 #include <kurl.h>
+#include <kactioncollection.h>
 
 #include "scheduler.h"
+#include "transfertreemodel.h"
+#include "kget_export.h"
 
 class QDomElement;
+class QAbstractItemView;
 
 class KLibrary;
-class KActionCollection;
 
 class Transfer;
 class TransferGroup;
@@ -32,10 +34,10 @@ class TransferHandler;
 class TransferFactory;
 class ModelObserver;
 class KGetPlugin;
-class KGet;
+class MainWindow;
 
 /**
- * This is our Model class. This is where the user's transfers and searches are
+ * This is our KGet class. This is where the user's transfers and searches are
  * stored and organized.
  * Use this class from the views to add or remove transfers or searches 
  * In order to organize the transfers inside categories we have a TransferGroup
@@ -44,46 +46,50 @@ class KGet;
  * it in the group named "Not grouped" (better name?).
  **/
 
-class KDE_EXPORT Model
+class KGET_EXPORT KGet
 {
     public:
-        static Model& self( KGet * kget )
+        static KGet& self( MainWindow * mainWindow=0 )
         {
-            m_kget = kget;
-            static Model m;
+            if(mainWindow)
+            {
+                m_mainWindow = mainWindow;
+            }
+
+            static KGet m;
             return m;
         }
 
         /**
-         * Adds a new observer of the Model. See observer.h for more info about it.
+         * Adds a new observer of the KGet. See observer.h for more info about it.
          *
          * @param observer The new observer
          */
         static void addObserver(ModelObserver * observer);
 
         /**
-         * Removes an observer of the Model. See observer.h for more info about it.
+         * Removes an observer of the KGet. See observer.h for more info about it.
          *
          * @param observer The observer to remove
          */
         static void delObserver(ModelObserver * observer);
 
         /**
-         * Adds a new group to the Model.
+         * Adds a new group to the KGet.
          *
          * @param groupName The name of the new group
          */
         static void addGroup(const QString& groupName);
 
         /**
-         * Removes a group from the Model.
+         * Removes a group from the KGet.
          *
          * @param groupName The name of the group to be deleted
          */
         static void delGroup(const QString& groupName);
 
         /**
-         * Adds a new transfer to the Model
+         * Adds a new transfer to the KGet
          *
          * @param srcURL The url to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
@@ -94,7 +100,7 @@ class KDE_EXPORT Model
                                 const QString& groupName = "");
 
         /**
-         * Adds a new transfer to the Model
+         * Adds a new transfer to the KGet
          *
          * @param e The transfer's dom element
          * @param groupName The name of the group the new transfer will belong to
@@ -102,7 +108,7 @@ class KDE_EXPORT Model
         static void addTransfer(const QDomElement& e, const QString& groupName = "");
 
         /**
-         * Adds new transfers to the Model
+         * Adds new transfers to the KGet
          *
          * @param srcURLs The urls to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
@@ -113,7 +119,7 @@ class KDE_EXPORT Model
                                 const QString& groupName = "");
 
         /**
-         * Removes a transfer from the Model
+         * Removes a transfer from the KGet
          *
          * @param transfer The transfer to be removed
          */
@@ -164,9 +170,14 @@ class KDE_EXPORT Model
 	 */
 	static void setSchedulerRunning(bool running=true);
 
+        /**
+         * Sets the given view to the TransferTreeModel object
+         */
+        static void addTransferTreeView(QAbstractItemView * view);
+
     private:
-        Model();
-        ~Model();
+        KGet();
+        ~KGet();
 
         /**
          * Scans for all the available plugins and creates the proper
@@ -233,6 +244,9 @@ class KDE_EXPORT Model
         static QList<TransferGroup *> m_transferGroups;
         static QList<ModelObserver *> m_observers;
 
+        //Interview models
+        static TransferTreeModel * m_transferTreeModel;
+
         //Lists of available plugins
         static QList<TransferFactory *> m_transferFactories;
 
@@ -240,7 +254,7 @@ class KDE_EXPORT Model
         static QList<KLibrary *> m_pluginKLibraries;
 
         //pointer to the Main window
-        static KGet * m_kget;
+        static MainWindow * m_mainWindow;
 
         //Scheduler object
         static Scheduler * m_scheduler;

@@ -47,7 +47,7 @@ class JobQueue
         /**
          * @return the jobQueue status
          */
-        Status status()     {return m_status;}
+        Status status() const   {return m_status;}
 
         /**
          * @return the begin of the job's list
@@ -63,6 +63,24 @@ class JobQueue
          * @return the last job in the job's list
          */
         Job * last()        {return m_jobs.last();}
+
+        /**
+         * @return the number of jobs in the queue
+         */
+        int size() const    {return m_jobs.size();}
+
+        /**
+         * @param job The job for which we want to find the index
+         *
+         * @return the job index for the given job. If the given
+         *         job can't be found, it returns -1
+         */
+        int indexOf(Job * job) const    {return m_jobs.indexOf(job);}
+
+        /**
+         * @returns the Job in the queue at the given index i
+         */
+        Job * operator[] (int i) const;
 
         /**
          * @return a list with the running Jobs
@@ -112,11 +130,6 @@ class JobQueue
          * @param position The job after which we have to move the given job
          */
         void move(Job * job, Job * after);
-
-        /**
-         * @return the number of jobs in the queue
-         */
-        int size() const;
 
         Scheduler * scheduler()     {return m_scheduler;}
 

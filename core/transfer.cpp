@@ -69,6 +69,11 @@ TransferHandler * Transfer::handler()
     return m_handler;
 }
 
+TransferTreeModel * Transfer::model()
+{
+    return group()->model();
+}
+
 void Transfer::save(QDomElement e)
 {
     e.setAttribute("Source", m_source.url());
@@ -81,6 +86,7 @@ void Transfer::load(QDomElement e)
 {
     m_source = KUrl(e.attribute("Source"));
     m_dest = KUrl(e.attribute("Dest"));
+
     m_totalSize = e.attribute("TotalSize").toInt();
     m_processedSize = e.attribute("ProcessedSize").toInt();
 

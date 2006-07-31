@@ -18,14 +18,20 @@
 #include "core/transferhandler.h"
 #include "core/transfer.h"
 #include "core/observer.h"
-#include "core/model.h"
+#include "core/kget.h"
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
     : m_group(group),
       m_scheduler(scheduler),
       m_qobject(0)
 {
-    
+    int numChilds = m_group->model()->rowCount(QModelIndex());
+
+    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 0 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 1 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 2 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 3 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 4 ,this)));
 }
 
 TransferGroupHandler::~TransferGroupHandler()
@@ -80,6 +86,43 @@ void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHand
     }
 }
 
+TransferHandler * TransferGroupHandler::operator[] (int i)
+{
+//     kDebug() << "TransferGroupHandler::operator[" << i << "]" << endl;
+
+    return (*m_group)[i]->handler();
+}
+
+QVariant TransferGroupHandler::data(int column)
+{
+    kDebug() << "TransferGroupHandler::data(" << column << ")" << endl;
+
+    if(column==0)
+    {
+//         if(name()=="" || name().isEmpty() || name().isNull())
+//             return QVariant("empty name");
+        return QVariant("_"+name()+"_");
+    }
+    else if(column==2)
+        return QVariant(totalSize());
+    else if(column==3)
+        return QVariant(percent());
+    else if(column==4)
+        return QVariant(speed());
+
+    return QVariant();
+}
+
+QModelIndex TransferGroupHandler::index(int column)
+{
+    kDebug() << "TransferGroupHandler::index(" << column << ")" << endl;
+
+    if(column < columnCount())
+        return QModelIndex(*m_indexes[column]);
+    else
+        return QModelIndex();
+}
+
 TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObserver * observer)
 {
     if( m_changesFlags.find(observer) != m_changesFlags.end() )
@@ -98,6 +141,11 @@ void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
         m_changesFlags[observer] = 0;
     else
         kDebug() << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+}
+
+int TransferGroupHandler::indexOf(TransferHandler * transfer)
+{
+    return m_group->indexOf(transfer->m_transfer);
 }
 
 const QList<TransferHandler *> TransferGroupHandler::transfers()
@@ -128,8 +176,8 @@ KMenu * TransferGroupHandler::popupMenu()
 
     createActions();
 
-    popup->addAction( Model::actionCollection()->action("transfer_group_start") );
-    popup->addAction( Model::actionCollection()->action("transfer_group_stop") );
+    popup->addAction( KGet::actionCollection()->action("transfer_group_start") );
+    popup->addAction( KGet::actionCollection()->action("transfer_group_stop") );
 
     return popup;
 }
@@ -168,6 +216,8 @@ void TransferGroupHandler::postGroupChangedEvent()
     {
         (*it)->groupChangedEvent(this);
     }
+
+    m_group->model()->dataChanged(index(0), index(4));
 }
 
 void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer * after)
@@ -253,12 +303,12 @@ void TransferGroupHandler::createActions()
     qObject();
 
     KAction * a = new KAction( KIcon("player_start"), i18n("Start"),
-                               Model::actionCollection(), "transfer_group_start" );
+                               KGet::actionCollection(), "transfer_group_start" );
     QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStart() ) );
     m_actions.append( a );
 
     a = new KAction( KIcon("player_pause"), i18n("Stop"),
-                     Model::actionCollection(), "transfer_group_stop" );
+                     KGet::actionCollection(), "transfer_group_stop" );
     QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStop() ) );
     m_actions.append( a );
 }

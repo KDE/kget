@@ -18,7 +18,7 @@
 #include <kiconeffect.h>
 #include <kdebug.h>
 
-#include "core/model.h"
+#include "core/kget.h"
 #include "core/transfergrouphandler.h"
 #include "core/transferhandler.h"
 #include "sidebar.h"
@@ -508,7 +508,7 @@ Sidebar::Sidebar( QWidget * parent )
 
     show();
 
-    Model::addObserver(this);
+    KGet::addObserver(this);
 }
 
 void Sidebar::startTimer( SidebarBox * item )

@@ -11,7 +11,11 @@
 #ifndef TRANSFERGROUPHANDLER_H
 #define TRANSFERGROUPHANDLER_H
 
+#include <QVariant>
+#include <QPersistentModelIndex>
+
 #include "transfergroup.h"
+#include "kget_export.h"
 
 class KAction;
 class KMenu;
@@ -21,7 +25,7 @@ class TransferGroupObserver;
 class TransferHandler;
 class Scheduler;
 
-class KDE_EXPORT TransferGroupHandler
+class KGET_EXPORT TransferGroupHandler
 {
     friend class TransferGroup;
 
@@ -73,6 +77,16 @@ class KDE_EXPORT TransferGroupHandler
         void setMaxSimultaneousJobs(int n);
 
         /**
+         * @returns the Job in the queue at the given index i
+         */
+        TransferHandler * operator[] (int i);
+
+        /**
+         * @returns the number of Transfers owned by this object
+         */
+        int size()     {return m_group->size();}
+
+        /**
          * @return the group name
          */
         const QString & name()    {return m_group->name();}
@@ -101,6 +115,22 @@ class KDE_EXPORT TransferGroupHandler
         int speed() const         {return m_group->speed();}
 
         /**
+         * @returns the data associated to this TransferGroup item. This is
+         * necessary to make the interview model/view work
+         */
+        QVariant data(int column);
+
+        /**
+         * @returns the number of columns associated to the group's data
+         */
+        int columnCount() const     {return 5;}
+
+        /**
+         * @returns the QModelIndex associated with this item
+         */
+        QModelIndex index(int column);
+
+        /**
          * Returns the changes flags
          *
          * @param observer The observer that makes this request
@@ -113,6 +143,12 @@ class KDE_EXPORT TransferGroupHandler
          * @param observer The observer that makes this request
          */
         void resetChangesFlags(TransferGroupObserver * observer);
+
+        /**
+         * @returns the index for the given transfer. If the transfer can't
+         *          be found, it returns -1
+         */
+        int indexOf(TransferHandler * transfer);
 
         /**
          * @returns a list containing all the transfers belonging to this group.
@@ -191,6 +227,8 @@ class KDE_EXPORT TransferGroupHandler
 
         QObjectInterface * m_qobject;
         QList<KAction *> m_actions;
+
+        QList<QPersistentModelIndex *> m_indexes;
 
         QList<TransferGroupObserver *> m_observers;
         QMap<TransferGroupObserver *, ChangesFlags> m_changesFlags;

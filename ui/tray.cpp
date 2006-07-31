@@ -22,15 +22,15 @@
 #include <kmenu.h>
 #include <kdebug.h>
 
-#include "core/model.h"
+#include "core/kget.h"
 #include "ui/tray.h"
-#include "kget.h"
+#include "mainwindow.h"
 
 /** class Tray
   * Reimplmentation of the system tray class adding drag/drop
   * capabilities and the quit action.
   */
-Tray::Tray(KGet * parent)
+Tray::Tray(MainWindow * parent)
     : KSystemTrayIcon(parent),
       blinkTimer( 0 ),
       grayedIcon( 0 ),
@@ -81,7 +81,7 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            Model::addTransfer(KUrl(newtransfer), QString());
+            KGet::addTransfer(KUrl(newtransfer),"");
     }
 }
 

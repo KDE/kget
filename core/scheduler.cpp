@@ -11,7 +11,7 @@
 #include <kdebug.h>
 
 #include "scheduler.h"
-#include "model.h"
+#include "kget.h"
 #include "job.h"
 #include "jobqueue.h"
 

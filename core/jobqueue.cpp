@@ -26,6 +26,11 @@ JobQueue::~JobQueue()
     m_scheduler->delQueue(this);
 }
 
+Job * JobQueue::operator[] (int i) const
+{
+    return m_jobs[i];
+}
+
 const QList<Job *> JobQueue::runningJobs()
 {
     QList<Job *> jobs;
@@ -116,8 +121,4 @@ void JobQueue::move(Job * job, Job * after)
     }
 }
 
-int JobQueue::size() const
-{
-    return m_jobs.size();
-}
 

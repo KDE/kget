@@ -91,7 +91,7 @@ public:
     MainView( QWidget * parent = 0 );
     ~MainView();
 
-    //Model observer virtual functions
+    //KGet observer virtual functions
     void addedTransferGroupEvent(TransferGroupHandler * group);
     void contentsDropEvent ( QDropEvent * );
 

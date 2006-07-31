@@ -15,24 +15,16 @@
 #include "core/transfer.h"
 #include "core/transfergroup.h"
 #include "core/transfergrouphandler.h"
-#include "core/model.h"
+#include "core/kget.h"
 
-TransferGroup::TransferGroup(Scheduler * scheduler, const QString & name)
+
+TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name)
     : JobQueue(scheduler),
-      m_handler(0), m_name(name),
+      m_model(model), m_handler(0), m_name(name),
       m_totalSize(0), m_processedSize(0),
       m_percent(0), m_speed(0)
 {
 
-}
-
-TransferGroup::TransferGroup(Scheduler * scheduler, const QDomElement & e)
-    : JobQueue(scheduler),
-      m_handler(0),
-      m_totalSize(0), m_processedSize(0),
-      m_percent(0), m_speed(0)
-{
-    load( e );
 }
 
 TransferGroup::~TransferGroup()
@@ -50,11 +42,7 @@ void TransferGroup::append(Transfer * transfer)
     else
         after = static_cast<Transfer *> (last());
 
-    kDebug() << "aaa" << endl;
-
     JobQueue::append(transfer);
-
-    kDebug() << "bbb" << endl;
 
     handler()->postAddedTransferEvent(transfer, after);
 }
@@ -91,11 +79,6 @@ void TransferGroup::move(Transfer * transfer, Transfer * after)
     }
 }
 
-int TransferGroup::size() const
-{
-    return JobQueue::size();
-}
-
 Transfer * TransferGroup::findTransfer(KUrl src)
 {
     iterator it = begin();
@@ -110,10 +93,19 @@ Transfer * TransferGroup::findTransfer(KUrl src)
     return 0;
 }
 
+Transfer * TransferGroup::operator[] (int i) const
+{
+//     kDebug() << "TransferGroup::operator[]" << endl;
+
+    return (Transfer *)((* (JobQueue *)this)[i]);
+}
+
 TransferGroupHandler * TransferGroup::handler()
 {
     if(!m_handler)
+    {
         m_handler = new TransferGroupHandler(this, scheduler());
+    }
     return m_handler;
 }
 
@@ -124,6 +116,8 @@ void TransferGroup::transferChangedEvent(Transfer * transfer)
 
 void TransferGroup::save(QDomElement e)
 {
+    kDebug() << "TransferGroup::save()  -->  " << name() << endl;
+
     e.setAttribute("Name", m_name);
 
     iterator it = begin();
@@ -131,6 +125,7 @@ void TransferGroup::save(QDomElement e)
 
     for( ; it!=itEnd; ++it )
     {
+        kDebug() << "TransferGroup::save()  -->" << name() << "  transfer: " << ((Transfer *) *it)->source() << endl;
         QDomElement t = e.ownerDocument().createElement("Transfer");
         e.appendChild(t);
         ((Transfer *) *it)->save(t);
@@ -149,6 +144,6 @@ void TransferGroup::load(const QDomElement & e)
     for(int i=0; i<nItems; i++)
     {
         kDebug() << "TransferGroup::load -> addTransfer" << endl;
-        Model::addTransfer( nodeList.item(i).toElement(), name() );
+        KGet::addTransfer( nodeList.item(i).toElement(), name() );
     }
 }

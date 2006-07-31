@@ -20,7 +20,7 @@
 #include "ui/mainview.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
-#include "core/model.h"
+#include "core/kget.h"
 
 TransferGroupItem::TransferGroupItem(MainView * parent, TransferGroupHandler * group)
     : Q3ListViewItem(parent),
@@ -317,7 +317,7 @@ MainView::MainView( QWidget * parent )
     addColumn(i18n("Speed"), 80);
     connect ( this, SIGNAL(rightButtonClicked ( Q3ListViewItem *, const QPoint &, int )), this, SLOT(slotRightButtonClicked(Q3ListViewItem * , const QPoint &, int )) );
 
-    Model::addObserver(this);
+    KGet::addObserver(this);
 }
 
 MainView::~MainView()
@@ -338,7 +338,7 @@ void MainView::contentsDropEvent ( QDropEvent * e )
 
     cleanDropVisualizer();
 
-    QList<TransferHandler *> transfers = Model::selectedTransfers();
+    QList<TransferHandler *> transfers = KGet::selectedTransfers();
 
     QList<TransferHandler *>::iterator it = transfers.end();
     QList<TransferHandler *>::iterator itBegin = transfers.begin();
@@ -389,7 +389,7 @@ void MainView::slotRightButtonClicked( Q3ListViewItem * item, const QPoint & pos
     if(dynamic_cast<TransferItem *> (item))
     {
         //Transfer item
-        QList<TransferHandler *> selectedTransfers = Model::selectedTransfers();
+        QList<TransferHandler *> selectedTransfers = KGet::selectedTransfers();
 
         if( selectedTransfers.empty() )
             return;

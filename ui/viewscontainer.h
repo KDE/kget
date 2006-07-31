@@ -19,6 +19,7 @@
 #include <QHBoxLayout>
 #include <QStackedLayout>
 
+class TransfersView;
 class MainView;
 class TransferHandler;
 
@@ -97,7 +98,7 @@ class ViewsContainer : public QWidget
 
         TitleBar        * m_titleBar;
 
-        MainView        * m_mainView;
+        TransfersView   * m_transfersView;
         QWidget         * m_finishedView;  //This view has still to be created.
 
         ButtonBase      * m_downloadsBt;

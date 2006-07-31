@@ -11,7 +11,7 @@
 #include <kmenu.h>
 #include <klocale.h>
 
-#include "model.h"
+#include "kget.h"
 #include "transferfactory.h"
 
 TransferFactory::TransferFactory()
@@ -49,10 +49,10 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     popup->addTitle( i18np("%n download", "%n downloads", transfers.count()) );
 
     //Plug all the actions in the popup menu
-    popup->addAction( Model::actionCollection()->action("transfer_start") );
-    popup->addAction( Model::actionCollection()->action("transfer_stop") );
+    popup->addAction( KGet::actionCollection()->action("transfer_start") );
+    popup->addAction( KGet::actionCollection()->action("transfer_stop") );
     popup->addSeparator();
-    popup->addAction( Model::actionCollection()->action("transfer_remove") );
+    popup->addAction( KGet::actionCollection()->action("transfer_remove") );
     popup->addSeparator();
 
     foreach(KAction * it, actionList)
@@ -64,9 +64,9 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     if(!actionList.isEmpty())
         popup->addSeparator();
 
-    popup->addAction( Model::actionCollection()->action("transfer_open_dest") );
-    popup->addAction( Model::actionCollection()->action("transfer_show_details") );
-    popup->addAction( Model::actionCollection()->action("transfer_copy_source_url") );
+    popup->addAction( KGet::actionCollection()->action("transfer_open_dest") );
+    popup->addAction( KGet::actionCollection()->action("transfer_show_details") );
+    popup->addAction( KGet::actionCollection()->action("transfer_copy_source_url") );
 
     return popup;
 }

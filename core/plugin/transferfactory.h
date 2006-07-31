@@ -32,9 +32,10 @@
 #include <kaction.h>
 
 #include "core/plugin/plugin.h"
-#include "core/model.h"
+#include "core/kget.h"
 #include "core/transfer.h"
 #include "core/transferhandler.h"
+#include "kget_export.h"
 
 class TransferGroup;
 class Scheduler;
@@ -44,7 +45,7 @@ class Scheduler;
  *
  * desc to come...
  */
-class KDE_EXPORT TransferFactory : public KGetPlugin
+class KGET_EXPORT TransferFactory : public KGetPlugin
 {
     public:
         TransferFactory();

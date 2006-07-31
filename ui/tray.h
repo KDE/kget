@@ -32,7 +32,7 @@ class Tray : public KSystemTrayIcon, public ModelObserver
 {
 Q_OBJECT
 public:
-    Tray( KGet * parent );
+    Tray( MainWindow * parent );
     ~Tray();
 
     void setDownloading( bool );

@@ -17,9 +17,10 @@
 #include <kdebug.h>
 #include <kio/global.h>
 
-#include "core/model.h"
+#include "core/kget.h"
 #include "core/plugin/transferfactory.h"
 #include "core/transferhandler.h"
+#include "transfersview.h"
 #include "mainview.h"
 #include "viewscontainer.h"
 #include "transferdetails.h"
@@ -174,7 +175,7 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_downloadsBt->setChecked(true);
 
     m_finishedBt = new ButtonBase();
-    m_finishedBt->setText(i18n("Finished"));
+    m_finishedBt->setText(i18n("Old Mainview"));
     m_finishedBt->setIcon(SmallIcon("ok"));
 
     m_transfersBt = new TransfersButton();
@@ -206,12 +207,14 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_VLayout->addSpacing(3);
     m_VLayout->addLayout(m_HLayout);
 
-    m_mainView = new MainView();
-    m_SLayout->addWidget(m_mainView);
+    m_transfersView = new TransfersView();
+    KGet::addTransferTreeView(m_transfersView);
+
+    m_SLayout->addWidget(m_transfersView);
 
     //This view hasn't been coded yet. For the moment,
-    //I set it to an empty QWidget.
-    m_finishedView = new QWidget();
+    //I set it to the old MainView.
+    m_finishedView = new MainView();
     m_SLayout->addWidget(m_finishedView);
 
     connect(m_downloadsBt, SIGNAL(activated()),
@@ -233,7 +236,7 @@ void ViewsContainer::showTransferDetails(TransferHandler * transfer)
     if( it == m_transfersMap.end() )
     {
         //Create the transfer widget
-        QWidget * widget = new TransferDetails(transfer); Model::factory(transfer)->createDetailsWidget(transfer);
+        QWidget * widget = new TransferDetails(transfer); KGet::factory(transfer)->createDetailsWidget(transfer);
         //Add it to the m_transferItems list
         m_transfersMap[transfer] = widget;
         //Add the widget to the qstackedlayout
@@ -254,7 +257,7 @@ void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
 void ViewsContainer::showDownloadsWindow()
 {
     kDebug() << "ViewsContainer::showDownloadsWindow" << endl;
-    m_SLayout->setCurrentWidget( m_mainView );
+    m_SLayout->setCurrentWidget( m_transfersView );
 
     //TitleBar update
     m_titleBar->setDownloadsWindow();

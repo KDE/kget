@@ -12,10 +12,16 @@
 #ifndef TRANSFERHANDLER_H
 #define TRANSFERHANDLER_H
 
+#include <QVariant>
+
 #include "transfer.h"
 #include "transfergroup.h"
+#include "kget_export.h"
 
 class KMenu;
+
+class QModelIndex;
+class QPersistentModelIndex;
 
 class TransferObserver;
 
@@ -50,9 +56,9 @@ class TransferObserver;
  * can ask to the TransferHandler for the ChangesFlags.
  */
 
-class KDE_EXPORT TransferHandler
+class KGET_EXPORT TransferHandler
 {
-    friend class Model;
+    friend class KGet;
     friend class Transfer;
     friend class TransferFactory;
     friend class TransferGroupHandler;
@@ -136,6 +142,22 @@ class KDE_EXPORT TransferHandler
         QPixmap statusPixmap() const {return m_transfer->statusPixmap();}
 
         /**
+         * @returns the data associated to this Transfer item. This is
+         * necessary to make the interview model/view work
+         */
+        QVariant data(int column);
+
+        /**
+         * @returns the number of columns associated to the transfer's data
+         */
+        int columnCount() const     {return 5;}
+
+        /**
+         * @returns the QModelIndex associated with this item
+         */
+        QModelIndex index(int column);
+
+        /**
          * Returns a KMenu for the given list of transfers, populated with
          * the actions that can be executed on each transfer in the list.
          * If the list is null, it returns the KMenu associated with the 
@@ -199,6 +221,8 @@ class KDE_EXPORT TransferHandler
 
         Transfer * m_transfer;
         Scheduler * m_scheduler;
+
+        QList<QPersistentModelIndex *> m_indexes;
 
         QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;

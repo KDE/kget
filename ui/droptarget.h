@@ -22,14 +22,14 @@ class QAction;
 class QTimer;
 class KMenu;
 
-class KGet;
+class MainWindow;
 
 class DropTarget : public QWidget
 {
 Q_OBJECT
 
 public:
-    DropTarget(KGet * parent);
+    DropTarget(MainWindow * parent);
     ~DropTarget();
 
     void updateStickyState();

@@ -10,16 +10,26 @@
 
 #include <kdebug.h>
 
+#include <QVariant>
+
 #include "core/job.h"
 #include "core/jobqueue.h"
 #include "core/transferhandler.h"
 #include "core/transfergroup.h"
+#include "core/transfergrouphandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
 
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)
 {
+    int column = m_transfer->group()->indexOf(m_transfer);
+
+    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 0 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 1 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 2 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 3 ,this)));
+    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 4 ,this)));
 }
 
 TransferHandler::~TransferHandler()
@@ -100,6 +110,31 @@ int TransferHandler::speed() const
     return m_transfer->speed();
 }
 
+QVariant TransferHandler::data(int column)
+{
+    kDebug() << "TransferHandler::data(" << column << ")" << endl;
+
+    if(column==0)
+        return QVariant(source().fileName());
+    else if(column==1)
+        return QVariant(statusText());
+    else if(column==2)
+        return QVariant((qulonglong) totalSize());
+    else if(column==3)
+        return QVariant(percent());
+    else if(column==4)
+        return QVariant(speed());
+
+    return QVariant();
+}
+
+QModelIndex TransferHandler::index(int column)
+{
+    kDebug() << "TransferHandler::index(" << column << ")" << endl;
+
+    return QModelIndex(*m_indexes[column]);
+}
+
 KMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)
 {
     return m_transfer->factory()->createPopupMenu(transfers);
@@ -153,7 +188,7 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
 
 void TransferHandler::postTransferChangedEvent()
 {
-    //kDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
+    kDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
     
     // Here we have to copy the list and iterate on the copy itself, because
     // a view can remove itself as a view while we are iterating over the
@@ -171,6 +206,10 @@ void TransferHandler::postTransferChangedEvent()
 
     // Notify the group
     m_transfer->group()->transferChangedEvent(m_transfer);
+
+    // Notify the TransferTreeModel
+    m_transfer->model()->dataChanged(index(0), index(5));
+
     //kDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
 }
 

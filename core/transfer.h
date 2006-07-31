@@ -17,6 +17,7 @@
 #include <kurl.h>
 
 #include "job.h"
+#include "kget_export.h"
 
 class QDomElement;
 
@@ -24,8 +25,9 @@ class TransferHandler;
 class TransferFactory;
 class TransferGroup;
 class Scheduler;
+class TransferTreeModel;
 
-class KDE_EXPORT Transfer : public Job
+class KGET_EXPORT Transfer : public Job
 {
     friend class TransferHandler;
 
@@ -95,6 +97,11 @@ class KDE_EXPORT Transfer : public Job
          * @return the associated TransferHandler
          */
         TransferHandler * handler();
+
+        /**
+         * @returns the TransferTreeModel that owns this group
+         */
+        TransferTreeModel * model();
 
         /**
          * @returns a pointer to the TransferFactory object

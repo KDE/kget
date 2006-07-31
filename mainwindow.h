@@ -9,8 +9,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef KGET_H
-#define KGET_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <ktoggleaction.h>
 #include <kmainwindow.h>
@@ -19,23 +19,22 @@
 
 class QSplitter;
 
-class KGetModel;
 class Sidebar;
 class ViewsContainer;
 class DropTarget;
 class Tray;
 
 /**
- * The main window of KGet.
+ * The main window of MainWindow.
  *
  * Can be collapsed or expanded.
  */
-class KGet : public KMainWindow
+class MainWindow : public KMainWindow
 {
 Q_OBJECT
 public:
-    KGet( QWidget * = 0 );
-    ~KGet();
+    MainWindow( QWidget * = 0 );
+    ~MainWindow();
 
 protected:
     // from the DCOP interface

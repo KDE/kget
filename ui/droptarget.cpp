@@ -24,16 +24,16 @@
 
 #include <math.h>
 
-#include "core/model.h"
+#include "core/kget.h"
 #include "settings.h"
 #include "ui/droptarget.h"
-#include "kget.h"
+#include "mainwindow.h"
 
 #define TARGET_WIDTH   80
 #define TARGET_HEIGHT  80
 #define TARGET_ANI_MS  20
 
-DropTarget::DropTarget(KGet * mw)
+DropTarget::DropTarget(MainWindow * mw)
     : QWidget(0, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint),
     parentWidget((QWidget *)mw), animTimer(0)
 {
@@ -105,7 +105,7 @@ void DropTarget::slotClose()
     {
         KMessageBox::information(parentWidget,
             i18n("Drop target has been hidden. If you want to show it "
-                 "again, go to Settings->Configure KGet->Look & Feel."),
+                 "again, go to Settings->Configure MainWindow->Look & Feel."),
             i18n("Hiding drop target"),
             "CloseDroptarget");
     }
@@ -153,7 +153,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            Model::addTransfer(KUrl(newtransfer),"");
+            KGet::addTransfer(KUrl(newtransfer),"");
     }
 }
 
@@ -176,12 +176,12 @@ void DropTarget::dropEvent(QDropEvent * event)
         KUrl::List::Iterator itEnd = list.end();
 
         for( ; it!=itEnd ; ++it )
-            Model::addTransfer(*it);
+            KGet::addTransfer(*it);
     }
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KUrl(str));
+        KGet::addTransfer(KUrl(str));
     }
 
     if ( Settings::animateDropTarget() )

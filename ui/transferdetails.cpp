@@ -13,7 +13,7 @@
 #include <klocale.h>
 #include <kio/global.h>
 
-#include "core/model.h"
+#include "core/kget.h"
 
 #include "transferdetails.h"
 #include "ui_transferdetailsfrm.h"
@@ -26,7 +26,7 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     Ui::TransferDetailsFrm frm;
     frm.setupUi(m_genericWidget);
 
-    m_detailsWidget = Model::factory(transfer)->createDetailsWidget(transfer);
+    m_detailsWidget = KGet::factory(transfer)->createDetailsWidget(transfer);
 
     m_layout = new QVBoxLayout(this);
     m_layout->addWidget(m_genericWidget);

@@ -8,8 +8,11 @@
    of the License.
 */
 
+#include <QDirModel>
 #include <QTextStream>
 #include <QDomElement>
+
+#include <QAbstractItemView>
 
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
@@ -20,9 +23,10 @@
 #include <kservicetypetrader.h>
 #include <klibloader.h>
 #include <kiconloader.h>
+#include <kactioncollection.h>
 
-#include "kget.h"
-#include "core/model.h"
+#include "mainwindow.h"
+#include "core/kget.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
 #include "core/plugin/plugin.h"
@@ -31,7 +35,7 @@
 #include "settings.h"
 
 /**
- * This is our Model class. This is where the user's transfers and searches are
+ * This is our KGet class. This is where the user's transfers and searches are
  * stored and organized.
  * Use this class from the views to add or remove transfers or searches 
  * In order to organize the transfers inside categories we have a TransferGroup
@@ -40,9 +44,9 @@
  * it in the group named "Not grouped" (better name?).
  **/
 
-void Model::addObserver(ModelObserver * observer)
+void KGet::addObserver(ModelObserver * observer)
 {
-    kDebug() << "Model::addObserver" << endl;
+    kDebug() << "KGet::addObserver" << endl;
 
     m_observers.append(observer);
 
@@ -54,21 +58,25 @@ void Model::addObserver(ModelObserver * observer)
         postAddedTransferGroupEvent(*it, observer);
 }
 
-void Model::delObserver(ModelObserver * observer)
+void KGet::delObserver(ModelObserver * observer)
 {
     m_observers.removeAll(observer);
 }
 
-void Model::addGroup(const QString& groupName)
+void KGet::addGroup(const QString& groupName)
 {
-    TransferGroup * group = new TransferGroup(m_scheduler, groupName);
+    kDebug() << "KGet::addGroup" << endl;
+
+    TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
+
     m_transferGroups.append(group);
 
-    kDebug() << "Model::addGroup" << endl;
+    //post notifications
     postAddedTransferGroupEvent(group);
+    m_transferTreeModel->layoutChanged();
 }
 
-void Model::delGroup(const QString& groupName)
+void KGet::delGroup(const QString& groupName)
 {
     TransferGroup * group = findGroup(groupName);
 
@@ -80,7 +88,7 @@ void Model::delGroup(const QString& groupName)
     }
 }
 
-void Model::addTransfer( KUrl srcURL, QString destDir,
+void KGet::addTransfer( KUrl srcURL, QString destDir,
                          const QString& groupName )
 {
     kDebug() << " addTransfer:  " << srcURL.url() << endl;
@@ -107,15 +115,16 @@ void Model::addTransfer( KUrl srcURL, QString destDir,
     createTransfer(srcURL, destURL, groupName);
 }
 
-void Model::addTransfer(const QDomElement& e, const QString& groupName)
+void KGet::addTransfer(const QDomElement& e, const QString& groupName)
 {
     //We need to read these attributes now in order to know which transfer
     //plugin to use.
     KUrl srcURL = KUrl( e.attribute("Source") );
     KUrl destURL = KUrl( e.attribute("Dest") );
 
-    kDebug() << "Model::addTransfer  src= " << srcURL.url()
-              << " dest= " << destURL.url() << endl;
+    kDebug() << "KGet::addTransfer  src= " << srcURL.url()
+              << " dest= " << destURL.url() 
+              << " group= "<< groupName << endl;
 
     if ( srcURL.isEmpty() || !isValidSource(srcURL) 
          || !isValidDestDirectory(destURL.directory()) )
@@ -124,7 +133,7 @@ void Model::addTransfer(const QDomElement& e, const QString& groupName)
     createTransfer(srcURL, destURL, groupName, &e);
 }
 
-void Model::addTransfer(KUrl::List srcURLs, QString destDir,
+void KGet::addTransfer(KUrl::List srcURLs, QString destDir,
                         const QString& groupName)
 {
     KUrl::List urlsToDownload;
@@ -169,7 +178,7 @@ void Model::addTransfer(KUrl::List srcURLs, QString destDir,
 }
 
 
-void Model::delTransfer(TransferHandler * transfer)
+void KGet::delTransfer(TransferHandler * transfer)
 {
     Transfer * t = transfer->m_transfer;
     t->group()->remove( t );
@@ -182,13 +191,13 @@ void Model::delTransfer(TransferHandler * transfer)
     delete( t );
 }
 
-void Model::moveTransfer(TransferHandler * transfer, const QString& groupName)
+void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 {
   Q_UNUSED(transfer);
   Q_UNUSED(groupName);
 }
 
-QList<TransferHandler *> Model::selectedTransfers()
+QList<TransferHandler *> KGet::selectedTransfers()
 {
     QList<TransferHandler *> selectedTransfers;
 
@@ -211,8 +220,25 @@ QList<TransferHandler *> Model::selectedTransfers()
     return selectedTransfers;
 }
 
-void Model::load( QString filename )
+void KGet::addTransferTreeView(QAbstractItemView * view)
 {
+//     QDirModel* model = new QDirModel();
+
+    view->setModel(m_transferTreeModel);
+}
+
+void KGet::load( QString filename )
+{
+    kDebug() << "KGet::load(" << filename << ")" << endl;
+
+    if(!findGroup("0"))
+    {
+//         addGroup("");
+        addGroup("0");
+        addGroup("1");
+        addGroup("2");
+    }
+
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
@@ -225,7 +251,7 @@ void Model::load( QString filename )
     QFile file(tmpFile);
     QDomDocument doc;
 
-    kDebug() << "Model::load file" << filename << endl;
+    kDebug() << "KGet::load file" << filename << endl;
 
     if(doc.setContent(&file))
     {
@@ -238,17 +264,30 @@ void Model::load( QString filename )
         {
             TransferGroup * foundGroup = findGroup( nodeList.item(i).toElement().attribute("Name") );
 
+            kDebug() << "KGet::load  -> group = " << nodeList.item(i).toElement().attribute("Name") << endl;
+
             if( !foundGroup )
             {
-                TransferGroup * newGroup = new TransferGroup(m_scheduler, nodeList.item(i).toElement());
+                kDebug() << "KGet::load  -> group not found" << endl;
+
+                TransferGroup * newGroup = new TransferGroup(m_transferTreeModel, m_scheduler);
+                newGroup->load(nodeList.item(i).toElement());
+
                 m_transferGroups.append(newGroup);
+
+                //Post notifications
                 postAddedTransferGroupEvent(newGroup);
+                m_transferTreeModel->layoutChanged();
             }
             else
             {
+                kDebug() << "KGet::load  -> group found" << endl;
+
                 //A group with this name already exists.
                 //Integrate the group's transfers with the ones read from file
                 foundGroup->load(nodeList.item(i).toElement());
+
+                m_transferTreeModel->layoutChanged();
             }
         }
     }
@@ -258,7 +297,7 @@ void Model::load( QString filename )
     }
 }
 
-void Model::save( QString filename )
+void KGet::save( QString filename )
 {
     if ( !filename.isEmpty()
         && QFile::exists( filename )
@@ -272,7 +311,7 @@ void Model::save( QString filename )
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
-    QDomDocument doc(QString("KGetTransfers"));
+    QDomDocument doc(QString("MainWindowTransfers"));
     QDomElement root = doc.createElement("Transfers");
     doc.appendChild(root);
 
@@ -300,17 +339,17 @@ void Model::save( QString filename )
     file.close();
 }
 
-TransferFactory * Model::factory(TransferHandler * transfer)
+TransferFactory * KGet::factory(TransferHandler * transfer)
 {
     return transfer->m_transfer->factory();
 }
 
-KActionCollection * Model::actionCollection()
+KActionCollection * KGet::actionCollection()
 {
-    return m_kget->actionCollection();
+    return m_mainWindow->actionCollection();
 }
 
-void Model::setSchedulerRunning(bool running)
+void KGet::setSchedulerRunning(bool running)
 {
     if(running)
 	m_scheduler->start();
@@ -319,36 +358,44 @@ void Model::setSchedulerRunning(bool running)
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
-QList<TransferGroup *> Model::m_transferGroups; // = QValueList<TransferGroup *>();
-QList<ModelObserver *> Model::m_observers; // = QValueList<ModelObserver *>();
-QList<TransferFactory *> Model::m_transferFactories; // = QValueList<TransferFactory *>();
-QList<KLibrary *> Model::m_pluginKLibraries;// = QValueList<KLibrary *>();
-Scheduler * Model::m_scheduler = new Scheduler();
-KGet * Model::m_kget = 0;
+QList<TransferGroup *> KGet::m_transferGroups;
+QList<ModelObserver *> KGet::m_observers;
+TransferTreeModel * KGet::m_transferTreeModel;
+QList<TransferFactory *> KGet::m_transferFactories;
+QList<KLibrary *> KGet::m_pluginKLibraries;
+Scheduler * KGet::m_scheduler = new Scheduler();
+MainWindow * KGet::m_mainWindow = 0;
 
 // ------ PRIVATE FUNCTIONS ------
-Model::Model()
+KGet::KGet()
 {
+    m_transferTreeModel = new TransferTreeModel(&m_transferGroups, m_scheduler);
+
     //Load all the available plugins
     loadPlugins();
 
     //Create the default group with empty name
-    addGroup("");
+//     addGroup("");
 }
 
-Model::~Model()
+KGet::~KGet()
 {
     unloadPlugins();
     delete(m_scheduler);
 }
 
-void Model::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
+void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
 {
-    kDebug() << "createTransfer: srcURL=" << src.url() << "  " << "destURL=" << dest.url() << endl;
+    kDebug() << "createTransfer: srcURL= " << src.url() << "  " 
+                             << "destURL= " << dest.url() 
+                             << "group= _" << groupName << "_" << endl;
 
     TransferGroup * group = findGroup(groupName);
     if (group==0)
+    {
+        kDebug() << "KGet::createTransfer  -> group not found" << endl;
         group = m_transferGroups.first();
+    }
     Transfer * newTransfer;
 
     QList<TransferFactory *>::iterator it = m_transferFactories.begin();
@@ -359,16 +406,18 @@ void Model::createTransfer(KUrl src, KUrl dest, const QString& groupName, const 
         kDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
         if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
         {
+//             kDebug() << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_" << endl;
             group->append(newTransfer);
+            m_transferTreeModel->layoutChanged();
             return;
         }
     }
     kDebug() << "createTransfer: Warning! No plugin found to handle the given url" << endl;
 }
 
-void Model::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
+void KGet::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
 {
-    kDebug() << "Model::postAddedTransferGroupEvent" << endl;
+    kDebug() << "KGet::postAddedTransferGroupEvent" << endl;
     if(observer)
     {
         observer->addedTransferGroupEvent(group->handler());
@@ -380,11 +429,13 @@ void Model::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * o
 
     for(; it!=itEnd; ++it)
     {
+        kDebug() << "message posted" << endl;
+
         (*it)->addedTransferGroupEvent(group->handler());
     }
 }
 
-void Model::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
+void KGet::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
 {
     if(observer)
     {
@@ -401,7 +452,7 @@ void Model::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver *
     }
 }
 
-KUrl Model::urlInputDialog()
+KUrl KGet::urlInputDialog()
 {
     QString newtransfer;
     bool ok = false;
@@ -425,7 +476,7 @@ KUrl Model::urlInputDialog()
     return KUrl();
 }
 
-QString Model::destInputDialog()
+QString KGet::destInputDialog()
 {
     //TODO Somehow, using KFIleDialog::getExistingDirectory() makes kget crash
     //when we close the application. Why?
@@ -434,7 +485,7 @@ QString Model::destInputDialog()
     return destDir;
 }
 
-bool Model::isValidSource(KUrl source)
+bool KGet::isValidSource(KUrl source)
 {
     if (!source.isValid())
     {
@@ -475,12 +526,12 @@ bool Model::isValidSource(KUrl source)
     return true;
 }
 
-bool Model::isValidDestDirectory(const QString & destDir)
+bool KGet::isValidDestDirectory(const QString & destDir)
 {
     return (!destDir.isEmpty() && QFileInfo( destDir ).isDir());
 }
 
-bool Model::isValidDestURL(KUrl destURL)
+bool KGet::isValidDestURL(KUrl destURL)
 {
     if(KIO::NetAccess::exists(destURL, false, 0))
     {
@@ -501,7 +552,7 @@ bool Model::isValidDestURL(KUrl destURL)
    */
 }
 
-KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
+KUrl KGet::getValidDestURL(const QString& destDir, KUrl srcURL)
 {
     if ( !isValidDestDirectory(destDir) )
         return KUrl();
@@ -516,7 +567,7 @@ KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
         filename = QUrl::toPercentEncoding( srcURL.prettyUrl(), "/" );
         kDebug() << " Filename is empty. Setting to  " << filename << endl;
         kDebug() << "   srcURL = " << srcURL.url() << endl;
-        kDebug() << "   prettyURL = " << srcURL.prettyUrl() << endl;
+        kDebug() << "   prettyUrl = " << srcURL.prettyUrl() << endl;
     }
     else
     {
@@ -532,7 +583,7 @@ KUrl Model::getValidDestURL(const QString& destDir, KUrl srcURL)
     return destURL;
 }
 
-TransferGroup * Model::findGroup(const QString & groupName)
+TransferGroup * KGet::findGroup(const QString & groupName)
 {
     QList<TransferGroup *>::iterator it = m_transferGroups.begin();
     QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
@@ -540,12 +591,14 @@ TransferGroup * Model::findGroup(const QString & groupName)
     for(; it!=itEnd ; ++it)
     {
         if( (*it)->name() == groupName )
+        {
             return *it;
+        }
     }
     return 0;
 }
 
-Transfer * Model::findTransfer(KUrl src)
+Transfer * KGet::findTransfer(KUrl src)
 {
     QList<TransferGroup *>::iterator it = m_transferGroups.begin();
     QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
@@ -560,7 +613,7 @@ Transfer * Model::findTransfer(KUrl src)
     return 0;
 }
 
-void Model::loadPlugins()
+void KGet::loadPlugins()
 {
     // Add versioning constraint
     QString
@@ -616,7 +669,7 @@ void Model::loadPlugins()
     kDebug() << "Number of factories = " << m_transferFactories.size() << endl;
 }
 
-void Model::unloadPlugins()
+void KGet::unloadPlugins()
 {
     QList<KLibrary *>::iterator it = m_pluginKLibraries.begin();
     QList<KLibrary *>::iterator itEnd = m_pluginKLibraries.end();
@@ -628,7 +681,7 @@ void Model::unloadPlugins()
     m_transferFactories.clear();
 }
 
-KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
+KGetPlugin * KGet::createPluginFromService( const KService::Ptr service )
 {
     //get the library loader instance
     KLibLoader *loader = KLibLoader::self();
@@ -657,7 +710,7 @@ KGetPlugin * Model::createPluginFromService( const KService::Ptr service )
     return create_plugin();
 }
 
-bool Model::safeDeleteFile( const KUrl& url )
+bool KGet::safeDeleteFile( const KUrl& url )
 {
     if ( url.isLocalFile() )
     {

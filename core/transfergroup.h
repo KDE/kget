@@ -12,12 +12,15 @@
 #ifndef _GROUP_H
 #define _GROUP_H
 
+#include <kio/netaccess.h>
+
 #include "jobqueue.h"
 
 class QDomElement;
 
 class Transfer;
 class TransferGroupHandler;
+class TransferTreeModel;
 
 /**
  * class TransferGroup:
@@ -46,8 +49,7 @@ class TransferGroup : public JobQueue
 
         typedef int ChangesFlags;
 
-        TransferGroup(Scheduler * scheduler, const QString & name);
-        TransferGroup(Scheduler * scheduler, const QDomElement & e);
+        TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name="");
 
         virtual ~TransferGroup();
 
@@ -84,11 +86,6 @@ class TransferGroup : public JobQueue
         void move(Transfer * transfer, Transfer * after);
 
         /**
-         * @return the number of jobs in the queue
-         */
-        int size() const;
-
-        /**
          * Finds the first transfer with source src
          *
          * @param src the url of the source location
@@ -97,6 +94,11 @@ class TransferGroup : public JobQueue
          * it returns 0
          */
         Transfer * findTransfer(KUrl src);
+
+        /**
+         * @returns the Job in the queue at the given index i
+         */
+        Transfer * operator[] (int i) const;
 
         /**
          * @return the group name
@@ -132,6 +134,11 @@ class TransferGroup : public JobQueue
         TransferGroupHandler * handler();
 
         /**
+         * @returns the TransferTreeModel that owns this group
+         */
+        TransferTreeModel * model()     {return m_model;}
+
+        /**
          * Notifies that the given transfer has changed
          *
          * @param transfer The transfer that has changed
@@ -153,6 +160,7 @@ class TransferGroup : public JobQueue
         void load(const QDomElement & e);
 
     private:
+        TransferTreeModel * m_model;
         TransferGroupHandler * m_handler;
 
         //TransferGroup info

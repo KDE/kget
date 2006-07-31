@@ -22,18 +22,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "core/kget.h"
 #include "kgetadaptor.h"
-#include "core/model.h"
 #include "settings.h"
 #include "ui/splash.h"
-#include "kget.h"
+#include "mainwindow.h"
 
 static const char description[] = I18N_NOOP("An advanced download manager for KDE");
 
 static const char version[] = KGETVERSION;
 
 static KCmdLineOptions option[] = {
-    { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
+    { "showDropTarget", I18N_NOOP("Start MainWindow with drop target"), 0 },
     { "+[URL(s)]", I18N_NOOP("URL(s) to download"), 0},
     KCmdLineLastOption
 };
@@ -58,10 +58,10 @@ static void cleanup(void)
 
 static void signalHandler(int sigId)
 {
-    fprintf(stderr, "*** KGet got signal %d\n", sigId);
+    fprintf(stderr, "*** MainWindow got signal %d\n", sigId);
 
     if (sigId != SIGSEGV) {
-        fprintf(stderr, "*** KGet saving data\n");
+        fprintf(stderr, "*** MainWindow saving data\n");
         //FIXME delete kmain;
     }
     // If Kget crashes again below this line we consider the data lost :-|
@@ -72,16 +72,16 @@ static void signalHandler(int sigId)
 }
 
 
-class KGetApp : public KUniqueApplication
+class MainWindowApp : public KUniqueApplication
 {
 public:
-    KGetApp()
+    MainWindowApp()
         : KUniqueApplication(), kget( 0 ), osd( 0 )
     {
         showSplash();
     }
 
-    ~KGetApp()
+    ~MainWindowApp()
     {
         delete osd;
         delete kget;
@@ -106,7 +106,7 @@ public:
 
         if (!kget)
         {
-            kget = new KGet();
+            kget = new MainWindow();
         }
         KWin::activateWindow(kget->winId());
 
@@ -118,13 +118,13 @@ public:
 	    {
             QString txt(args->arg(i));
             if ( txt.endsWith( ".kgt", Qt::CaseInsensitive ) )
-                Model::load( txt );
+                KGet::load( txt );
             else
                 l.push_back(KUrl(args->arg(i)));
         }
         // all the args read from command line are downloads
         if (l.count() >= 1)
-            Model::addTransfer( l );
+            KGet::addTransfer( l );
 /*
         // the last arg read (when we have more than 1 arg) is considered
         // as destination dir for the previous downloads
@@ -144,14 +144,14 @@ public:
     }
 
 private:
-    KGet * kget;
+    MainWindow * kget;
     OSDWidget * osd;
 };
 
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description,
+    KAboutData aboutData("kget", I18N_NOOP("MainWindow"), version, description,
                          KAboutData::License_GPL,
                          I18N_NOOP("(C) 2001 - 2002, Patrick Charbonnier\n"
                                    "(C) 2002, Carsten Pfeiffer\n"
@@ -165,14 +165,14 @@ int main(int argc, char *argv[])
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineArgs::addCmdLineOptions(option);
 
-    KGetApp::addCmdLineOptions();
+    MainWindowApp::addCmdLineOptions();
 
-    if (!KGetApp::start()) {
+    if (!MainWindowApp::start()) {
         fprintf(stderr, "kget is already running!\n");
         exit(0);
     }
 
-    KGetApp kApp;
+    MainWindowApp kApp;
 
     //setSignalHandler(signalHandler);
 

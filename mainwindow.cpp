@@ -27,8 +27,8 @@
 #include <kstdaction.h>
 #include <klocale.h>
 
-#include "kget.h"
-#include "core/model.h"
+#include "mainwindow.h"
+#include "core/kget.h"
 #include "core/transferhandler.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
@@ -38,12 +38,12 @@
 #include "ui/tray.h"
 #include "ui/droptarget.h"
 
-KGet::KGet( QWidget * parent )
+MainWindow::MainWindow( QWidget * parent )
     : KMainWindow( parent ),
-        m_drop(0), m_dock(0)
+      m_drop(0), m_dock(0)
 {
     // create the model
-    Model::self( this );
+    KGet::self( this );
 
     // create actions
     setupActions();
@@ -71,10 +71,10 @@ KGet::KGet( QWidget * parent )
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
 
-KGet::~KGet()
+MainWindow::~MainWindow()
 {
     //Save the user's transfers
-    Model::save();
+    KGet::save();
 
     slotSaveMyself();
     delete clipboardTimer;
@@ -87,7 +87,7 @@ KGet::~KGet()
 }
 
 
-void KGet::setupActions()
+void MainWindow::setupActions()
 {
     KActionCollection * ac = actionCollection();
     KAction * action;
@@ -132,18 +132,18 @@ void KGet::setupActions()
     connect(m_AutoPaste, SIGNAL(triggered(bool)), SLOT(slotToggleAutoPaste()));
     m_AutoPaste->setChecked(Settings::autoPaste());
     m_AutoPaste->setWhatsThis(i18n("<b>Auto paste</b> button toggles the auto-paste mode "
-                                   "on and off.\nWhen set, KGet will periodically scan the clipboard "
+                                   "on and off.\nWhen set, MainWindow will periodically scan the clipboard "
                                    "for URLs and paste them automatically."));
 
     m_showDropTarget =  new KToggleAction( KIcon("tool_drop_target"), i18n("Show Drop Target"),
                                            ac, "show_drop_target" );
     connect(m_showDropTarget, SIGNAL(triggered(bool)), SLOT(slotShowDropTarget()));
 
-    m_KonquerorIntegration =  new KAction( KIcon("konqueror"), i18n("Enable KGet as Konqueror Download Manager"),
+    m_KonquerorIntegration =  new KAction( KIcon("konqueror"), i18n("Enable MainWindow as Konqueror Download Manager"),
                                            ac, "konqueror_integration" );
     connect(m_KonquerorIntegration, SIGNAL(triggered(bool)), SLOT(slotTrayKonquerorIntegration()));
     if (Settings::konquerorIntegration())
-        m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
+        m_KonquerorIntegration->setText(i18n("Disable &MainWindow as Konqueror Download Manager"));
     slotKonquerorIntegration(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
@@ -192,10 +192,10 @@ void KGet::setupActions()
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersCopySourceURL()));
 }
 
-void KGet::slotDelayedInit()
+void MainWindow::slotDelayedInit()
 {
     //Here we import the user's transfers.
-    Model::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
+    KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
     // DropTarget
     m_drop = new DropTarget(this);
@@ -207,6 +207,9 @@ void KGet::slotDelayedInit()
         m_drop->playAnimation();
 
     m_showDropTarget->setChecked( m_drop->isVisible() );
+
+    kDebug() << "***" << endl;
+
 
     // DockWidget
     m_dock = new Tray(this);
@@ -242,12 +245,12 @@ void KGet::slotDelayedInit()
         clipboardTimer->start(1000);
 }
 
-void KGet::slotNewTransfer()
+void MainWindow::slotNewTransfer()
 {
-    Model::addTransfer(KUrl());
+    KGet::addTransfer(KUrl());
 }
 
-void KGet::slotOpen()
+void MainWindow::slotOpen()
 {
     QString filename = KFileDialog::getOpenFileName
         (KUrl(),
@@ -258,21 +261,21 @@ void KGet::slotOpen()
 
     if(filename.endsWith(".kgt"))
     {
-        Model::load(filename);
+        KGet::load(filename);
         return;
     }
 
     if(!filename.isEmpty())
-        Model::addTransfer( KUrl( filename ) );
+        KGet::addTransfer( KUrl( filename ) );
 }
 
-void KGet::slotQuit()
+void MainWindow::slotQuit()
 {
 //     if (m_scheduler->countRunningJobs() > 0) 
 //     {
 //         if (KMessageBox::warningYesNo(this,
 //                 i18n("Some transfers are still running.\n"
-//                      "Are you sure you want to close KGet?"),
+//                      "Are you sure you want to close MainWindow?"),
 //                 i18n("Warning"), KStdGuiItem::yes(), KStdGuiItem::no(),
 //                 "ExitWithActiveTransfers") == KMessageBox::No)
 //             return;
@@ -282,7 +285,7 @@ void KGet::slotQuit()
     kapp->quit();
 }
 
-void KGet::slotPreferences()
+void MainWindow::slotPreferences()
 {
     // an instance the dialog could be already created and could be cached, 
     // in which case you want to display the cached dialog
@@ -299,75 +302,75 @@ void KGet::slotPreferences()
     dialog->show();
 }
 
-void KGet::slotExportTransfers()
+void MainWindow::slotExportTransfers()
 {
     QString filename = KFileDialog::getSaveFileName
         (KUrl(),
-         "*.kgt|" + i18n("KGet transfer list") + " (*.kgt)",
+         "*.kgt|" + i18n("MainWindow transfer list") + " (*.kgt)",
          this,
          i18n("Export transfers")
         );
 
     if(!filename.isEmpty())
-        Model::save(filename);
+        KGet::save(filename);
 }
 
-void KGet::slotStartDownload()
+void MainWindow::slotStartDownload()
 {
     m_dock->setDownloading(true);    
 
-    Model::setSchedulerRunning(true);
+    KGet::setSchedulerRunning(true);
 }
 
-void KGet::slotStopDownload()
+void MainWindow::slotStopDownload()
 {
     m_dock->setDownloading(false);    
 
-    Model::setSchedulerRunning(false);
+    KGet::setSchedulerRunning(false);
 }
 
-void KGet::slotConfigureNotifications()
+void MainWindow::slotConfigureNotifications()
 {
     KNotifyConfigWidget::configure(this);
 }
 
-void KGet::slotConfigureKeys()
+void MainWindow::slotConfigureKeys()
 {
     KKeyDialog::configure(actionCollection());
 }
 
-void KGet::slotConfigureToolbars()
+void MainWindow::slotConfigureToolbars()
 {
     KEditToolbar edit( "kget_toolbar", actionCollection() );
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
 }
 
-void KGet::slotTransfersStart()
+void MainWindow::slotTransfersStart()
 {
-    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, KGet::selectedTransfers())
         it->start();
 }
 
-void KGet::slotTransfersStop()
+void MainWindow::slotTransfersStop()
 {
-    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, KGet::selectedTransfers())
         it->stop();
 }
 
-void KGet::slotTransfersDelete()
+void MainWindow::slotTransfersDelete()
 {
-    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, KGet::selectedTransfers())
     {
         it->stop();
-        Model::delTransfer(it);
+        KGet::delTransfer(it);
     }
 }
 
-void KGet::slotTransfersOpenDest()
+void MainWindow::slotTransfersOpenDest()
 {
     QStringList openedDirs;
-    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, KGet::selectedTransfers())
     {
         QString directory = it->dest().directory();
         if( !openedDirs.contains( directory ) )
@@ -378,17 +381,17 @@ void KGet::slotTransfersOpenDest()
     }
 }
 
-void KGet::slotTransfersShowDetails()
+void MainWindow::slotTransfersShowDetails()
 {
-    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, KGet::selectedTransfers())
     {
         m_viewsContainer->showTransferDetails(it);
     }
 }
 
-void KGet::slotTransfersCopySourceURL()
+void MainWindow::slotTransfersCopySourceURL()
 {
-    foreach(TransferHandler * it, Model::selectedTransfers())
+    foreach(TransferHandler * it, KGet::selectedTransfers())
     {
         QString sourceurl = it->source().url();
         QClipboard *cb = QApplication::clipboard();
@@ -397,7 +400,7 @@ void KGet::slotTransfersCopySourceURL()
     }
 }
 
-void KGet::slotSaveMyself()
+void MainWindow::slotSaveMyself()
 {
     // save last parameters ..
     Settings::setMainPosition( pos() );
@@ -405,12 +408,12 @@ void KGet::slotSaveMyself()
     Settings::writeConfig();
 }
 
-void KGet::slotNewToolbarConfig()
+void MainWindow::slotNewToolbarConfig()
 {
     createGUI();
 }
 
-void KGet::slotNewConfig()
+void MainWindow::slotNewConfig()
 {
     // Update here properties modified in the config dialog and not
     // parsed often by the code. When clicking Ok or Apply of
@@ -428,7 +431,7 @@ void KGet::slotNewConfig()
     m_AutoPaste->setChecked(Settings::autoPaste());
 }
 
-void KGet::slotToggleAutoPaste()
+void MainWindow::slotToggleAutoPaste()
 {
     bool autoPaste = !Settings::autoPaste();
     Settings::setAutoPaste( autoPaste );
@@ -440,7 +443,7 @@ void KGet::slotToggleAutoPaste()
     m_AutoPaste->setChecked(autoPaste);
 }
 
-void KGet::slotCheckClipboard()
+void MainWindow::slotCheckClipboard()
 {
     QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
 
@@ -453,17 +456,17 @@ void KGet::slotCheckClipboard()
         KUrl url = KUrl(lastClipboard);
 
         if (url.isValid() && !url.isLocalFile())
-            Model::addTransfer( url );
+            KGet::addTransfer( url );
     }
 }
 
-void KGet::slotShowDropTarget()
+void MainWindow::slotShowDropTarget()
 {
     m_showDropTarget->setChecked( !m_drop->isVisible() );
     m_drop->setVisible( !m_drop->isVisible() );
 }
 
-void KGet::slotTrayKonquerorIntegration()
+void MainWindow::slotTrayKonquerorIntegration()
 {
     static bool tempIntegration = Settings::konquerorIntegration();
     tempIntegration = !tempIntegration;
@@ -471,7 +474,7 @@ void KGet::slotTrayKonquerorIntegration()
     if (!tempIntegration && Settings::konquerorIntegration() && !Settings::expertMode())
     {
         KMessageBox::information(0,
-            i18n("KGet has been temporarily disabled as download manager for Konqueror. "
+            i18n("MainWindow has been temporarily disabled as download manager for Konqueror. "
             "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
             "as download manager for Konqueror\"."),
             i18n("Konqueror Integration disabled"),
@@ -479,19 +482,19 @@ void KGet::slotTrayKonquerorIntegration()
     }
 }
 
-void KGet::slotKonquerorIntegration(bool konquerorIntegration)
+void MainWindow::slotKonquerorIntegration(bool konquerorIntegration)
 {
     KConfig cfgKonqueror("konquerorrc", false, false);
     cfgKonqueror.setGroup("HTML Settings");
     cfgKonqueror.writePathEntry("DownloadManager",QString(konquerorIntegration?"kget":""));
     cfgKonqueror.sync();
     if ( konquerorIntegration )
-        m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));
+        m_KonquerorIntegration->setText(i18n("Disable &MainWindow as Konqueror Download Manager"));
     else
-        m_KonquerorIntegration->setText(i18n("Enable &KGet as Konqueror Download Manager"));
+        m_KonquerorIntegration->setText(i18n("Enable &MainWindow as Konqueror Download Manager"));
 }
 
-void KGet::slotShowMenubar()
+void MainWindow::slotShowMenubar()
 {
     if(m_menubarAction->isChecked())
         menuBar()->show();
@@ -499,7 +502,7 @@ void KGet::slotShowMenubar()
         menuBar()->hide();
 }
 
-void KGet::log(const QString & message)
+void MainWindow::log(const QString & message)
 {
     Q_UNUSED(message);
     //The logWindow has been removed. Maybe we could implement 
@@ -509,72 +512,72 @@ void KGet::log(const QString & message)
 
 /** widget events */
 
-void KGet::closeEvent( QCloseEvent * e )
+void MainWindow::closeEvent( QCloseEvent * e )
 {
     e->ignore();
     hide();
 }
 
-void KGet::dragEnterEvent(QDragEnterEvent * event)
+void MainWindow::dragEnterEvent(QDragEnterEvent * event)
 {
     event->setAccepted(KUrl::List::canDecode(event->mimeData())
                   || event->mimeData()->hasText());
 }
 
-void KGet::dropEvent(QDropEvent * event)
+void MainWindow::dropEvent(QDropEvent * event)
 {
     KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
     QString str;
 
     if (!list.isEmpty())
-        Model::addTransfer(list);
+        KGet::addTransfer(list);
     else
     {
         str = event->mimeData()->text();
-        Model::addTransfer(KUrl(str));
+        KGet::addTransfer(KUrl(str));
     }
 }
 
 
 /** DCOP interface */
 
-void KGet::addTransfers( const KUrl::List& src, const QString& dest)
+void MainWindow::addTransfers( const KUrl::List& src, const QString& dest)
 {
-    Model::addTransfer( src, dest );
+    KGet::addTransfer( src, dest );
 }
 
-bool KGet::isDropTargetVisible() const
+bool MainWindow::isDropTargetVisible() const
 {
     return m_drop->isVisible();
 }
 
-void KGet::setDropTargetVisible( bool setVisible )
+void MainWindow::setDropTargetVisible( bool setVisible )
 {
     if ( setVisible != Settings::showDropTarget() )
         m_drop->setVisible( setVisible );
 }
 
-void KGet::setOfflineMode( bool offline )
+void MainWindow::setOfflineMode( bool offline )
 {
     Q_UNUSED(offline);
     //TODO Re-enable this
 //     schedRequestOperation( offline ? OpStop : OpRun );
 }
 
-bool KGet::isOfflineMode() const
+bool MainWindow::isOfflineMode() const
 {
     //TODO Re-enable this
 //     return scheduler->isRunning();
     return false;
 }
 
-#include "kget.moc"
+#include "mainwindow.moc"
 
 //BEGIN auto-disconnection 
 /*
 KToggleAction *m_paAutoDisconnect,
     m_paAutoDisconnect =  new KToggleAction(i18n("Auto-&Disconnect Mode"),"connect_creating", 0, this, SLOT(slotToggleAutoDisconnect()), ac, "auto_disconnect");
-    tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, KGet will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want KGet\n" "to disconnect without asking.");
+    tmp = i18n("<b>Auto disconnect</b> button toggles the auto-disconnect\n" "mode on and off.\n" "\n" "When set, MainWindow will disconnect automatically\n" "after all queued transfers are finished.\n" "\n" "<b>Important!</b>\n" "Also turn on the expert mode when you want MainWindow\n" "to disconnect without asking.");
     m_paAutoDisconnect->setWhatsThis(tmp);
 
     if (Settings::connectionType() != Settings::Permanent) {
@@ -582,7 +585,7 @@ KToggleAction *m_paAutoDisconnect,
     }
     setAutoDisconnect();
 
-void KGet::slotToggleAutoDisconnect()
+void MainWindow::slotToggleAutoDisconnect()
 {
     Settings::setAutoDisconnect( !Settings::autoDisconnect() );
 
@@ -594,7 +597,7 @@ void KGet::slotToggleAutoDisconnect()
     m_paAutoDisconnect->setChecked(Settings::autoDisconnect());
 }
 
-void KGet::setAutoDisconnect()
+void MainWindow::setAutoDisconnect()
 {
     // disable action when we are connected permanently
     //m_paAutoDisconnect->setEnabled(Settings::connectionType() != Settings::Permanent);
@@ -610,12 +613,12 @@ void KGet::setAutoDisconnect()
     connect(autosaveTimer, SIGNAL(timeout()), SLOT(slotAutosaveTimeout()));
     setAutoSave();
 
-void KGet::slotAutosaveTimeout()
+void MainWindow::slotAutosaveTimeout()
 {
     schedRequestOperation( OpExportTransfers );
 }
 
-void KGet::setAutoSave()
+void MainWindow::setAutoSave()
 {
     autosaveTimer->stop();
     if (Settings::autoSave()) {
@@ -707,12 +710,12 @@ void KGet::setAutoSave()
 /*
 KToggleAction *m_paExpertMode, *m_paUseLastDir
     m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"folder", 0, this, SLOT(slotToggleUseLastDir()), ac, "use_last_dir");
-    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
+    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, MainWindow will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
     m_paUseLastDir->setChecked(Settings::useLastDir());
 
 void slotToggleUseLastDir();
 
-void KGet::slotToggleUseLastDir()
+void MainWindow::slotToggleUseLastDir()
 {
     Settings::setUseLastDirectory( !Settings::useLastDirectory() );
 

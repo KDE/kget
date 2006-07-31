@@ -33,8 +33,9 @@ set(kgetcore_SRCS
    ${CMAKE_SOURCE_DIR}/kget/core/connection.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/job.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/jobqueue.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/model.cpp
+   ${CMAKE_SOURCE_DIR}/kget/core/kget.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/scheduler.cpp
+   ${CMAKE_SOURCE_DIR}/kget/core/transfertreemodel.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfer.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfergroup.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfergrouphandler.cpp
@@ -51,7 +52,7 @@ kde4_automoc(${kgetcore_SRCS})
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
-target_link_libraries(kgetcore ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+target_link_libraries(kgetcore ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
 
 install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
@@ -59,13 +60,14 @@ install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/droptarget.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
+   ${CMAKE_SOURCE_DIR}/kget/ui/transfersview.cpp
 #    ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/splash.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetails.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/tray.cpp
 #    ${CMAKE_SOURCE_DIR}/kget/ui/traytransfer.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/viewscontainer.cpp
-   ${CMAKE_SOURCE_DIR}/kget/kget.cpp
+   ${CMAKE_SOURCE_DIR}/kget/mainwindow.cpp
    ${CMAKE_SOURCE_DIR}/kget/main.cpp
 )
 

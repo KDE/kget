@@ -43,24 +43,7 @@
  * @see: other headers in the dir - for plugin types definition.
  */
 
-/**
- * @short Declares a class as plugin.
- *
- * Exports a common symbol in a shared library used as an entry point for
- * the creation of an istance of the class.
- *
- * Usage example:
- *     KGET_EXPORT_PLUGIN( CoolKgetPlugin );
- *     class CoolKgetPlugin : public KGetPlugin {
- *         ....
- *     }
- */
-#define KGET_EXPORT_PLUGIN( classname ) \
-    extern "C" { \
-        KDE_EXPORT KGetPlugin * create_plugin() { return new classname; } \
-    }
-
-#include <kdemacros.h>
+#include "kget_export.h"
 
 /**
  * Bump this number whenever the plugin framework gets 
@@ -72,7 +55,7 @@
  * @short Base class for kget plugins.
  * ...
  */
-class KDE_EXPORT KGetPlugin
+class KGET_EXPORT KGetPlugin
 {
     public:
         KGetPlugin();
