@@ -19,12 +19,13 @@
 #include <kmessagebox.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
-#include <knotifydialog.h>
+#include <knotifyconfigwidget.h>
 #include <kfiledialog.h>
 #include <ktoolinvocation.h>
 #include <kmenubar.h>
 #include <kiconloader.h>
 #include <kstdaction.h>
+#include <klocale.h>
 
 #include "kget.h"
 #include "core/model.h"
@@ -314,20 +315,20 @@ void KGet::slotExportTransfers()
 void KGet::slotStartDownload()
 {
     m_dock->setDownloading(true);    
-    
+
     Model::setSchedulerRunning(true);
 }
 
 void KGet::slotStopDownload()
 {
     m_dock->setDownloading(false);    
-    
+
     Model::setSchedulerRunning(false);
 }
 
 void KGet::slotConfigureNotifications()
 {
-    KNotifyDialog::configure(this);
+    KNotifyConfigWidget::configure(this);
 }
 
 void KGet::slotConfigureKeys()
