@@ -132,7 +132,7 @@ QModelIndex TransferHandler::index(int column)
 {
     kDebug() << "TransferHandler::index(" << column << ")" << endl;
 
-    return QModelIndex(*m_indexes[column]);
+    return QModelIndex(*m_indexes.value(column));
 }
 
 KMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)

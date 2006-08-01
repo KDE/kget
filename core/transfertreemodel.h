@@ -39,9 +39,6 @@ class TransferTreeModel : public QAbstractItemModel
 
         void dataChanged(const QModelIndex & indexFrom, const QModelIndex & indexTo);
 
-//         bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
-//         bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
-
         //QAbstractItemModel functions
         int rowCount(const QModelIndex & parent) const;
         int columnCount(const QModelIndex & parent) const;

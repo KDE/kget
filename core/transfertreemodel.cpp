@@ -51,26 +51,7 @@ void TransferTreeModel::dataChanged(const QModelIndex & indexFrom, const QModelI
     QAbstractItemModel::dataChanged(indexFrom, indexTo);
 }
 
-// bool TransferTreeModel::insertRows(int position, int rows, const QModelIndex &index)
-// {
-//     kDebug() << "TransferTreeModel::insertRows" << endl;
-//     int numChilds = rowCount(QModelIndex());
-//     kDebug() << "aaa" << endl;
-//     beginInsertRows(QModelIndex(), numChilds, numChilds);
-//     kDebug() << "bbb" << endl;
-// 
-//     endInsertRows();
-//     kDebug() << "ccc" << endl;
-//     return true;
-// }
-
-// bool TransferTreeModel::removeRows(int position, int rows, const QModelIndex &index)
-// {
-// 
-// }
-
-int TransferTreeModel::rowCount(const QModelIndex & parent) const
-{
+int TransferTreeModel::rowCount(const QModelIndex & parent) const{
     kDebug() << "TransferTreeModel::rowCount()" << endl;
 
     if(!parent.isValid())
@@ -185,9 +166,9 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
 
     if(!parent.isValid())
     {
-        kDebug() << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )" << endl;
+        kDebug() << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )   Groups=" << m_transferGroups->size() << endl;
         //Look for the specific group
-        if(row < m_transferGroups->size())
+        if(row < m_transferGroups->size() && row >= 0)
             return (*m_transferGroups)[row]->handler()->index(column);
 //             return createIndex(row, column, (*m_transferGroups)[row]);
         else

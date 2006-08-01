@@ -231,14 +231,6 @@ void KGet::load( QString filename )
 {
     kDebug() << "KGet::load(" << filename << ")" << endl;
 
-    if(!findGroup("0"))
-    {
-//         addGroup("");
-        addGroup("0");
-        addGroup("1");
-        addGroup("2");
-    }
-
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
@@ -375,7 +367,7 @@ KGet::KGet()
     loadPlugins();
 
     //Create the default group with empty name
-//     addGroup("");
+    addGroup("");
 }
 
 KGet::~KGet()
