@@ -105,7 +105,7 @@ void DropTarget::slotClose()
     {
         KMessageBox::information(parentWidget,
             i18n("Drop target has been hidden. If you want to show it "
-                 "again, go to Settings->Configure MainWindow->Look & Feel."),
+                 "again, go to Settings->Configure KGet->Look & Feel."),
             i18n("Hiding drop target"),
             "CloseDroptarget");
     }

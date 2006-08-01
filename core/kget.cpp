@@ -311,7 +311,7 @@ void KGet::save( QString filename )
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
-    QDomDocument doc(QString("MainWindowTransfers"));
+    QDomDocument doc(QString("KGetTransfers"));
     QDomElement root = doc.createElement("Transfers");
     doc.appendChild(root);
 
