@@ -89,7 +89,7 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
             if(m_transfer->status() == Job::Running)
                 m_speedLabel->setText(i18n("Stalled") );
             else
-                m_speedLabel->setText("");
+                m_speedLabel->setText(QString());
         }
         else
             m_speedLabel->setText(i18n("%1/s", KIO::convertSize(speed)));

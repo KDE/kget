@@ -19,6 +19,7 @@
 #include <kmessagebox.h>
 #include <kmenu.h>
 #include <krun.h>
+#include <kicon.h>
 
 #include <dom/html_misc.h>
 

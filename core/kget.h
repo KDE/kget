@@ -96,8 +96,8 @@ class KGET_EXPORT KGet
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KUrl srcURL, QString destDir = "",
-                                const QString& groupName = "");
+        static void addTransfer(KUrl srcURL, QString destDir = QString(),
+                                const QString& groupName = QString());
 
         /**
          * Adds a new transfer to the KGet
@@ -105,7 +105,7 @@ class KGET_EXPORT KGet
          * @param e The transfer's dom element
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(const QDomElement& e, const QString& groupName = "");
+        static void addTransfer(const QDomElement& e, const QString& groupName = QString());
 
         /**
          * Adds new transfers to the KGet
@@ -115,8 +115,8 @@ class KGET_EXPORT KGet
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KUrl::List srcURLs, QString destDir = "",
-                                const QString& groupName = "");
+        static void addTransfer(KUrl::List srcURLs, QString destDir = QString(),
+                                const QString& groupName = QString());
 
         /**
          * Removes a transfer from the KGet
@@ -143,14 +143,14 @@ class KGET_EXPORT KGet
          *
          * @param filename the file name to 
          */
-        static void load( QString filename="" );
+        static void load( QString filename=QString() );
 
         /**
          * Exports all the transfers and groups to the given file
          *
          * @param filename the file name
          */
-        static void save( QString filename="" );
+        static void save( QString filename=QString() );
 
         /**
          * @returns The factory of a given transfer
@@ -187,7 +187,7 @@ class KGET_EXPORT KGet
          * @param dest the destination url
          * @param groupName the group name
          */
-        static void createTransfer(KUrl src, KUrl dest, const QString& groupName = "", const QDomElement * e = 0);
+        static void createTransfer(KUrl src, KUrl dest, const QString& groupName = QString(), const QDomElement * e = 0);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers

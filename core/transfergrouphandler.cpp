@@ -13,6 +13,7 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <klocale.h>
+#include <kicon.h>
 
 #include "core/transfergrouphandler.h"
 #include "core/transferhandler.h"

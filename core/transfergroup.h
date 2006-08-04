@@ -9,8 +9,8 @@
 */
 
 
-#ifndef _GROUP_H
-#define _GROUP_H
+#ifndef GROUP_H
+#define GROUP_H
 
 #include <kio/netaccess.h>
 
@@ -49,7 +49,7 @@ class TransferGroup : public JobQueue
 
         typedef int ChangesFlags;
 
-        TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name="");
+        TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name=QString());
 
         virtual ~TransferGroup();
 

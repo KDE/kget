@@ -26,6 +26,7 @@
 #include <kiconloader.h>
 #include <kstdaction.h>
 #include <klocale.h>
+#include <kicon.h>
 
 #include "mainwindow.h"
 #include "core/kget.h"
@@ -486,7 +487,7 @@ void MainWindow::slotKonquerorIntegration(bool konquerorIntegration)
 {
     KConfig cfgKonqueror("konquerorrc", false, false);
     cfgKonqueror.setGroup("HTML Settings");
-    cfgKonqueror.writePathEntry("DownloadManager",QString(konquerorIntegration?"kget":""));
+    cfgKonqueror.writePathEntry("DownloadManager", QString(konquerorIntegration?"kget":QString()));
     cfgKonqueror.sync();
     if ( konquerorIntegration )
         m_KonquerorIntegration->setText(i18n("Disable &KGet as Konqueror Download Manager"));

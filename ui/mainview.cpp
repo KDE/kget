@@ -248,9 +248,9 @@ void TransferItem::updateContents(bool updateAll)
         if(speed==0)
         {
             if(m_transfer->status() == Job::Running)
-                setText(4, i18n("Stalled") );
+                setText(4, i18n("Stalled"));
             else
-                setText(4, "" );
+                setText(4, QString());
         }
         else
             setText(4, i18n("%1/s", KIO::convertSize(speed)));

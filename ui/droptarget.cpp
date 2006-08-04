@@ -70,7 +70,7 @@ DropTarget::DropTarget(MainWindow * mw)
     popupMenu->addAction( downloadAction );
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();
-    pop_show = popupMenu->addAction( "", this, SLOT( toggleMinimizeRestore() ) );
+    pop_show = popupMenu->addAction( QString(), this, SLOT( toggleMinimizeRestore() ) );
     popupMenu->addAction(i18n("Hide me"), this, SLOT(slotClose()));
     pop_sticky = popupMenu->addAction(i18n("Sticky"), this, SLOT(toggleSticky()));
     pop_sticky->setCheckable(true);
@@ -153,7 +153,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer),"");
+            KGet::addTransfer(KUrl(newtransfer), QString());
     }
 }
 

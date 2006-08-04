@@ -49,7 +49,7 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         if(chunksTotal!=-1)
             m_chunksTotalLabel->setText(QString(chunksTotal));
         else
-            m_chunksTotalLabel->setText("");
+            m_chunksTotalLabel->setText(QString());
     }
 
     if(transferFlags & BTTransfer::Tc_ChunksDownloaded)
@@ -59,7 +59,7 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         if(chunksDownloaded!=-1)
             m_chunksDownloadedLabel->setText(QString(chunksDownloaded));
         else
-            m_chunksDownloadedLabel->setText("");
+            m_chunksDownloadedLabel->setText(QString());
     }
 
     if(transferFlags & BTTransfer::Tc_PeersConnected)
@@ -69,7 +69,7 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         if(peersConnected!=-1)
             m_peersConnectedLabel->setText(QString(peersConnected));
         else
-            m_peersConnectedLabel->setText("");
+            m_peersConnectedLabel->setText(QString());
     }
 
     if(transferFlags & BTTransfer::Tc_PeersNotConnected)
@@ -79,7 +79,7 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         if(peersNotConnected!=-1)
             m_peersNotConnectedLabel->setText(QString(peersNotConnected));
         else
-            m_peersNotConnectedLabel->setText("");
+            m_peersNotConnectedLabel->setText(QString());
     }
 
     m_transfer->resetChangesFlags(this);

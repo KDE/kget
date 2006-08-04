@@ -122,7 +122,7 @@ void TransfersButton::removeTransfer(TransferHandler * transfer)
     if(m_transfersMap.count() == 0)
     {
         setEnabled(false);
-        setText("");
+        setText(QString());
     }
     else
     {
