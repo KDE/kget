@@ -11,6 +11,7 @@
 #include <QDirModel>
 #include <QTextStream>
 #include <QDomElement>
+#include <QFileDialog>  // temporarily replace the bugged kfiledialog
 
 #include <QAbstractItemView>
 
@@ -472,7 +473,11 @@ QString KGet::destInputDialog()
 {
     //TODO Somehow, using KFIleDialog::getExistingDirectory() makes kget crash
     //when we close the application. Why?
-    QString destDir = KFileDialog::getExistingDirectory( Settings::lastDirectory() );
+//     QString destDir = KFileDialog::getExistingDirectory( Settings::lastDirectory() );
+    QString destDir = QFileDialog::getExistingDirectory(m_mainWindow,
+                                                        i18n("Choose a directory"),
+                                                        Settings::lastDirectory());
+
     Settings::setLastDirectory( destDir );
     return destDir;
 }
