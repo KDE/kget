@@ -132,6 +132,9 @@ QModelIndex TransferHandler::index(int column)
 {
     kDebug() << "TransferHandler::index(" << column << ")" << endl;
 
+    if(column < 0 || column >= columnCount())
+        return QModelIndex();
+
     return QModelIndex(*m_indexes.value(column));
 }
 
