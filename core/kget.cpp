@@ -52,11 +52,15 @@ void KGet::addObserver(ModelObserver * observer)
     m_observers.append(observer);
 
     //Update the new observer with the TransferGroups objects of the model
-    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
+    QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
 
     for( ; it!=itEnd ; ++it )
+    {
         postAddedTransferGroupEvent(*it, observer);
+    }
+
+    kDebug() << "KGet::addObserver   >>> EXITING" << endl;
 }
 
 void KGet::delObserver(ModelObserver * observer)
@@ -70,20 +74,19 @@ void KGet::addGroup(const QString& groupName)
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
 
-    m_transferGroups.append(group);
+    m_transferTreeModel->addGroup(group);
 
     //post notifications
     postAddedTransferGroupEvent(group);
-    m_transferTreeModel->layoutChanged();
 }
 
 void KGet::delGroup(const QString& groupName)
 {
-    TransferGroup * group = findGroup(groupName);
+    TransferGroup * group = m_transferTreeModel->findGroup(groupName);
 
     if(group)
     {
-        m_transferGroups.removeAll(group);
+        m_transferTreeModel->delGroup(group);
         postRemovedTransferGroupEvent(group);
         delete(group);
     }
@@ -182,7 +185,8 @@ void KGet::addTransfer(KUrl::List srcURLs, QString destDir,
 void KGet::delTransfer(TransferHandler * transfer)
 {
     Transfer * t = transfer->m_transfer;
-    t->group()->remove( t );
+
+    m_transferTreeModel->delTransfer(t);
 
     //Here I delete the Transfer. The other possibility is to move it to a list
     //and to delete all these transfers when kget gets closed. Obviously, after
@@ -202,8 +206,8 @@ QList<TransferHandler *> KGet::selectedTransfers()
 {
     QList<TransferHandler *> selectedTransfers;
 
-    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
+    QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
 
     for( ; it!=itEnd ; ++it )
     {
@@ -255,7 +259,7 @@ void KGet::load( QString filename )
 
         for( int i = 0 ; i < nItems ; i++ )
         {
-            TransferGroup * foundGroup = findGroup( nodeList.item(i).toElement().attribute("Name") );
+            TransferGroup * foundGroup = m_transferTreeModel->findGroup( nodeList.item(i).toElement().attribute("Name") );
 
             kDebug() << "KGet::load  -> group = " << nodeList.item(i).toElement().attribute("Name") << endl;
 
@@ -266,11 +270,10 @@ void KGet::load( QString filename )
                 TransferGroup * newGroup = new TransferGroup(m_transferTreeModel, m_scheduler);
                 newGroup->load(nodeList.item(i).toElement());
 
-                m_transferGroups.append(newGroup);
+                m_transferTreeModel->addGroup(newGroup);
 
                 //Post notifications
                 postAddedTransferGroupEvent(newGroup);
-                m_transferTreeModel->layoutChanged();
             }
             else
             {
@@ -279,8 +282,6 @@ void KGet::load( QString filename )
                 //A group with this name already exists.
                 //Integrate the group's transfers with the ones read from file
                 foundGroup->load(nodeList.item(i).toElement());
-
-                m_transferTreeModel->layoutChanged();
             }
         }
     }
@@ -308,8 +309,8 @@ void KGet::save( QString filename )
     QDomElement root = doc.createElement("Transfers");
     doc.appendChild(root);
 
-    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
+    QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
 
     for ( ; it!=itEnd ; ++it )
     {
@@ -351,7 +352,6 @@ void KGet::setSchedulerRunning(bool running)
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
-QList<TransferGroup *> KGet::m_transferGroups;
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
 QList<TransferFactory *> KGet::m_transferFactories;
@@ -362,7 +362,7 @@ MainWindow * KGet::m_mainWindow = 0;
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()
 {
-    m_transferTreeModel = new TransferTreeModel(&m_transferGroups, m_scheduler);
+    m_transferTreeModel = new TransferTreeModel(m_scheduler);
 
     //Load all the available plugins
     loadPlugins();
@@ -383,11 +383,11 @@ void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const Q
                              << "destURL= " << dest.url() 
                              << "group= _" << groupName << "_" << endl;
 
-    TransferGroup * group = findGroup(groupName);
+    TransferGroup * group = m_transferTreeModel->findGroup(groupName);
     if (group==0)
     {
         kDebug() << "KGet::createTransfer  -> group not found" << endl;
-        group = m_transferGroups.first();
+        group = m_transferTreeModel->transferGroups().first();
     }
     Transfer * newTransfer;
 
@@ -400,8 +400,7 @@ void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const Q
         if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
         {
 //             kDebug() << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_" << endl;
-            group->append(newTransfer);
-            m_transferTreeModel->layoutChanged();
+            m_transferTreeModel->addTransfer(newTransfer, group);
             return;
         }
     }
@@ -492,7 +491,7 @@ bool KGet::isValidSource(KUrl source)
         return false;
     }
     // Check if a transfer with the same url already exists
-    Transfer * transfer = findTransfer( source );
+    Transfer * transfer = m_transferTreeModel->findTransfer( source );
     if ( transfer )
     {
         if ( transfer->status() == Job::Finished )
@@ -578,36 +577,6 @@ KUrl KGet::getValidDestURL(const QString& destDir, KUrl srcURL)
         }
     }
     return destURL;
-}
-
-TransferGroup * KGet::findGroup(const QString & groupName)
-{
-    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
-
-    for(; it!=itEnd ; ++it)
-    {
-        if( (*it)->name() == groupName )
-        {
-            return *it;
-        }
-    }
-    return 0;
-}
-
-Transfer * KGet::findTransfer(KUrl src)
-{
-    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
-    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
-
-    Transfer * t;
-
-    for(; it!=itEnd ; ++it)
-    {
-        if( ( t = (*it)->findTransfer(src) ) )
-            return t;
-    }
-    return 0;
 }
 
 void KGet::loadPlugins()

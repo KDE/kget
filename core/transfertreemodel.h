@@ -14,7 +14,10 @@
 #include <QAbstractItemModel>
 #include <QList>
 
+class KUrl;
+
 class TransferGroup;
+class Transfer;
 class Scheduler;
 
 class TransferTreeModel : public QAbstractItemModel
@@ -27,17 +30,24 @@ class TransferTreeModel : public QAbstractItemModel
     friend class Transfer;
 
     public:
-        TransferTreeModel(QList<TransferGroup *> * transferGroups, Scheduler * scheduler);
+        TransferTreeModel(Scheduler * scheduler);
         ~TransferTreeModel();
 
-        void layoutChanged();
+        void addTransfer(Transfer * transfer, TransferGroup * group);
+        void delTransfer(Transfer * transfer);
+
+        void addGroup(TransferGroup * group);
+        void delGroup(TransferGroup * group);
+
+        const QList<TransferGroup *> & transferGroups();
+
+        TransferGroup * findGroup(const QString & groupName);
+        Transfer * findTransfer(KUrl src);
 
         /**
          * 
          */
         QModelIndex createIndex(int row, int column, void * ptr = 0) const;
-
-        void dataChanged(const QModelIndex & indexFrom, const QModelIndex & indexTo);
 
         //QAbstractItemModel functions
         int rowCount(const QModelIndex & parent) const;
@@ -52,7 +62,7 @@ class TransferTreeModel : public QAbstractItemModel
     private:
         bool isTransferGroup(void * pointer) const;
 
-        QList<TransferGroup *> * m_transferGroups;
+        QList<TransferGroup *> m_transferGroups;
         Scheduler * m_scheduler;
 };
 

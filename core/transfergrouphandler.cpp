@@ -117,7 +117,7 @@ QModelIndex TransferGroupHandler::index(int column)
 {
     kDebug() << "TransferGroupHandler::index(" << column << ")" << endl;
 
-    if(column < columnCount())
+    if(column < columnCount() && column >=0)
         return QModelIndex(*m_indexes[column]);
     else
         return QModelIndex();

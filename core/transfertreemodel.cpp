@@ -10,6 +10,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kio/netaccess.h>
 
 #include "transfertreemodel.h"
 #include "core/transfergrouphandler.h"
@@ -17,9 +18,8 @@
 #include "core/transferhandler.h"
 #include "core/transfer.h"
 
-TransferTreeModel::TransferTreeModel(QList<TransferGroup *> * transferGroups, Scheduler * scheduler)
+TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
     : QAbstractItemModel(),
-      m_transferGroups(transferGroups),
       m_scheduler(scheduler)
 {
     
@@ -30,9 +30,85 @@ TransferTreeModel::~TransferTreeModel()
 
 }
 
-void TransferTreeModel::layoutChanged()
+void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
 {
-    QAbstractItemModel::layoutChanged();
+    beginInsertRows(group->handler()->index(0), group->size(), group->size());
+
+    group->append(transfer);
+
+    endInsertRows();
+
+    layoutChanged();
+}
+
+void TransferTreeModel::delTransfer(Transfer * transfer)
+{
+    TransferGroup * group = transfer->group();
+
+    beginRemoveRows(group->handler()->index(0), group->size()-1, group->size()-1);
+
+    transfer->group()->remove( transfer );
+
+    endRemoveRows();
+
+    layoutChanged();
+}
+
+void TransferTreeModel::addGroup(TransferGroup * group)
+{
+    beginInsertRows(QModelIndex(), m_transferGroups.size(), m_transferGroups.size());
+
+    m_transferGroups.append(group);
+
+    endInsertRows();
+
+    layoutChanged();
+}
+
+void TransferTreeModel::delGroup(TransferGroup * group)
+{
+    beginRemoveRows(QModelIndex(), m_transferGroups.size()-1, m_transferGroups.size()-1);
+
+    m_transferGroups.removeAll(group);
+
+    endRemoveRows();
+
+    layoutChanged();
+}
+
+const QList<TransferGroup *> & TransferTreeModel::transferGroups()
+{
+    return m_transferGroups;
+}
+
+TransferGroup * TransferTreeModel::findGroup(const QString & groupName)
+{
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+
+    for(; it!=itEnd ; ++it)
+    {
+        if( (*it)->name() == groupName )
+        {
+            return *it;
+        }
+    }
+    return 0;
+}
+
+Transfer * TransferTreeModel::findTransfer(KUrl src)
+{
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+
+    Transfer * t;
+
+    for(; it!=itEnd ; ++it)
+    {
+        if( ( t = (*it)->findTransfer(src) ) )
+            return t;
+    }
+    return 0;
 }
 
 QModelIndex TransferTreeModel::createIndex(int row, int column, void * ptr) const
@@ -46,18 +122,13 @@ QModelIndex TransferTreeModel::createIndex(int row, int column, void * ptr) cons
     return QAbstractItemModel::createIndex(row, column, ptr);
 }
 
-void TransferTreeModel::dataChanged(const QModelIndex & indexFrom, const QModelIndex & indexTo)
-{
-    QAbstractItemModel::dataChanged(indexFrom, indexTo);
-}
-
 int TransferTreeModel::rowCount(const QModelIndex & parent) const{
     kDebug() << "TransferTreeModel::rowCount()" << endl;
 
     if(!parent.isValid())
     {
-        kDebug() << "      (ROOT)  -> return " << m_transferGroups->size() << endl;
-        return m_transferGroups->size();
+        kDebug() << "      (ROOT)  -> return " << m_transferGroups.size() << endl;
+        return m_transferGroups.size();
     }
 
     void * pointer = parent.internalPointer();
@@ -162,14 +233,14 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 
 QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & parent) const
 {
-//     kDebug() << "TransferTreeModel::index()  ( " << row << " , " << column << " )" << endl;
+    kDebug() << "TransferTreeModel::index()  ( " << row << " , " << column << " )" << endl;
 
     if(!parent.isValid())
     {
-        kDebug() << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )   Groups=" << m_transferGroups->size() << endl;
+        kDebug() << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )   Groups=" << m_transferGroups.size() << endl;
         //Look for the specific group
-        if(row < m_transferGroups->size() && row >= 0)
-            return (*m_transferGroups)[row]->handler()->index(column);
+        if(row < m_transferGroups.size() && row >= 0)
+            return m_transferGroups[row]->handler()->index(column);
 //             return createIndex(row, column, (*m_transferGroups)[row]);
         else
             return QModelIndex();
@@ -221,7 +292,7 @@ QModelIndex TransferTreeModel::parent(const QModelIndex & index ) const
 //         TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
 // 
 //         TransferGroupHandler * group = transfer->group();
-//         return createIndex(m_transferGroups->indexOf(group), 0, group);
+//         return createIndex(m_transferGroups.indexOf(group), 0, group);
     }
 
 //     kDebug() << "555" << endl;
@@ -232,7 +303,7 @@ bool TransferTreeModel::isTransferGroup(void * pointer) const
 {
     kDebug() << "TransferTreeModel::isTransferGroup()" << endl;
 
-    foreach(TransferGroup * group, *m_transferGroups)
+    foreach(TransferGroup * group, m_transferGroups)
     {
 //         kDebug() << "TransferTreeModel::isTransferGroup   -> ITERATION" << endl;
         if(group->handler() == pointer)

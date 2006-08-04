@@ -240,8 +240,6 @@ class KGET_EXPORT KGet
          */
         static bool safeDeleteFile( const KUrl& url );
 
-
-        static QList<TransferGroup *> m_transferGroups;
         static QList<ModelObserver *> m_observers;
 
         //Interview models
