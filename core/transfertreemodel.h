@@ -16,7 +16,9 @@
 
 class KUrl;
 
+class TransferGroupHandler;
 class TransferGroup;
+class TransferHandler;
 class Transfer;
 class Scheduler;
 
@@ -43,6 +45,9 @@ class TransferTreeModel : public QAbstractItemModel
 
         TransferGroup * findGroup(const QString & groupName);
         Transfer * findTransfer(KUrl src);
+
+        void postDataChangedEvent(TransferHandler * transfer);
+        void postDataChangedEvent(TransferGroupHandler * group);
 
         /**
          * 

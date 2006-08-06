@@ -12,7 +12,6 @@
 #define TRANSFERGROUPHANDLER_H
 
 #include <QVariant>
-#include <QPersistentModelIndex>
 
 #include "transfergroup.h"
 #include "kget_export.h"
@@ -28,6 +27,7 @@ class Scheduler;
 class KGET_EXPORT TransferGroupHandler
 {
     friend class TransferGroup;
+    friend class TransferTreeModel;
 
     public:
 
@@ -126,11 +126,6 @@ class KGET_EXPORT TransferGroupHandler
         int columnCount() const     {return 5;}
 
         /**
-         * @returns the QModelIndex associated with this item
-         */
-        QModelIndex index(int column);
-
-        /**
          * Returns the changes flags
          *
          * @param observer The observer that makes this request
@@ -227,8 +222,6 @@ class KGET_EXPORT TransferGroupHandler
 
         QObjectInterface * m_qobject;
         QList<KAction *> m_actions;
-
-        QList<QPersistentModelIndex *> m_indexes;
 
         QList<TransferGroupObserver *> m_observers;
         QMap<TransferGroupObserver *, ChangesFlags> m_changesFlags;

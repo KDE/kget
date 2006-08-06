@@ -21,7 +21,6 @@
 class KMenu;
 
 class QModelIndex;
-class QPersistentModelIndex;
 
 class TransferObserver;
 
@@ -59,6 +58,7 @@ class TransferObserver;
 class KGET_EXPORT TransferHandler
 {
     friend class KGet;
+    friend class TransferTreeModel;
     friend class Transfer;
     friend class TransferFactory;
     friend class TransferGroupHandler;
@@ -153,11 +153,6 @@ class KGET_EXPORT TransferHandler
         int columnCount() const     {return 5;}
 
         /**
-         * @returns the QModelIndex associated with this item
-         */
-        QModelIndex index(int column);
-
-        /**
          * Returns a KMenu for the given list of transfers, populated with
          * the actions that can be executed on each transfer in the list.
          * If the list is null, it returns the KMenu associated with the 
@@ -221,8 +216,6 @@ class KGET_EXPORT TransferHandler
 
         Transfer * m_transfer;
         Scheduler * m_scheduler;
-
-        QList<QPersistentModelIndex *> m_indexes;
 
         QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;

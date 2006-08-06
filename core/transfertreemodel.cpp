@@ -32,26 +32,22 @@ TransferTreeModel::~TransferTreeModel()
 
 void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
 {
-    beginInsertRows(group->handler()->index(0), group->size(), group->size());
+    beginInsertRows(createIndex(m_transferGroups.indexOf(group), 0, group->handler()), group->size(), group->size());
 
     group->append(transfer);
 
     endInsertRows();
-
-    layoutChanged();
 }
 
 void TransferTreeModel::delTransfer(Transfer * transfer)
 {
     TransferGroup * group = transfer->group();
 
-    beginRemoveRows(group->handler()->index(0), group->size()-1, group->size()-1);
+    beginRemoveRows(createIndex(m_transferGroups.indexOf(group), 0, group->handler()), group->size()-1, group->size()-1);
 
     transfer->group()->remove( transfer );
 
     endRemoveRows();
-
-    layoutChanged();
 }
 
 void TransferTreeModel::addGroup(TransferGroup * group)
@@ -61,8 +57,6 @@ void TransferTreeModel::addGroup(TransferGroup * group)
     m_transferGroups.append(group);
 
     endInsertRows();
-
-    layoutChanged();
 }
 
 void TransferTreeModel::delGroup(TransferGroup * group)
@@ -72,8 +66,6 @@ void TransferTreeModel::delGroup(TransferGroup * group)
     m_transferGroups.removeAll(group);
 
     endRemoveRows();
-
-    layoutChanged();
 }
 
 const QList<TransferGroup *> & TransferTreeModel::transferGroups()
@@ -109,6 +101,20 @@ Transfer * TransferTreeModel::findTransfer(KUrl src)
             return t;
     }
     return 0;
+}
+
+void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
+{
+    TransferGroupHandler * group = transfer->group();
+
+    emit dataChanged(createIndex(group->indexOf(transfer), 0, transfer),
+                     createIndex(group->indexOf(transfer), transfer->columnCount(), transfer));
+}
+
+void TransferTreeModel::postDataChangedEvent(TransferGroupHandler * group)
+{
+    emit dataChanged(createIndex(m_transferGroups.indexOf(group->m_group), 0, group),
+                     createIndex(m_transferGroups.indexOf(group->m_group), group->columnCount(), group));
 }
 
 QModelIndex TransferTreeModel::createIndex(int row, int column, void * ptr) const
@@ -240,8 +246,11 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
         kDebug() << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )   Groups=" << m_transferGroups.size() << endl;
         //Look for the specific group
         if(row < m_transferGroups.size() && row >= 0)
-            return m_transferGroups[row]->handler()->index(column);
-//             return createIndex(row, column, (*m_transferGroups)[row]);
+        {
+//             return m_transferGroups[row]->handler()->index(column);
+            return createIndex(row, column, m_transferGroups[row]->handler());
+
+        }
         else
             return QModelIndex();
     }
@@ -254,12 +263,13 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
 
         //Look for the specific transfer
-        if(row < group->size())
+        if(row < group->size() && row >= 0)
         {
             kDebug() << "aa      row=" << row << endl;
             (*group)[row];
             kDebug() << "bb" << endl;
-            return (*group)[row]->index(column); // createIndex(row, column, (*group)[row]);
+//             return (*group)[row]->index(column); 
+            return createIndex(row, column, (*group)[row]);
         }
         else
             return QModelIndex();
@@ -286,13 +296,11 @@ QModelIndex TransferTreeModel::parent(const QModelIndex & index ) const
     {
 //         kDebug() << "333" << endl;
         //The given index refers to a Transfer item
-        TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
-//         kDebug() << "444" << endl;
-        return transfer->group()->index(0);
 //         TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
-// 
-//         TransferGroupHandler * group = transfer->group();
-//         return createIndex(m_transferGroups.indexOf(group), 0, group);
+        TransferGroupHandler * group = static_cast<TransferHandler *>(pointer)->group();
+//         kDebug() << "444" << endl;
+//         return transfer->group()->index(0);
+        return createIndex(m_transferGroups.indexOf(group->m_group), 0, group);
     }
 
 //     kDebug() << "555" << endl;

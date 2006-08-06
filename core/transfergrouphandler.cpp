@@ -26,13 +26,7 @@ TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * sc
       m_scheduler(scheduler),
       m_qobject(0)
 {
-    int numChilds = m_group->model()->rowCount(QModelIndex());
 
-    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 0 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 1 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 2 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 3 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_group->model()->createIndex(numChilds, 4 ,this)));
 }
 
 TransferGroupHandler::~TransferGroupHandler()
@@ -112,16 +106,6 @@ QVariant TransferGroupHandler::data(int column)
         return QVariant(speed());
 
     return QVariant();
-}
-
-QModelIndex TransferGroupHandler::index(int column)
-{
-    kDebug() << "TransferGroupHandler::index(" << column << ")" << endl;
-
-    if(column < columnCount() && column >=0)
-        return QModelIndex(*m_indexes[column]);
-    else
-        return QModelIndex();
 }
 
 TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObserver * observer)
@@ -218,7 +202,7 @@ void TransferGroupHandler::postGroupChangedEvent()
         (*it)->groupChangedEvent(this);
     }
 
-    m_group->model()->dataChanged(index(0), index(4));
+    m_group->model()->postDataChangedEvent(this);
 }
 
 void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer * after)

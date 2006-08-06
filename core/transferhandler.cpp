@@ -23,13 +23,7 @@
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)
 {
-    int column = m_transfer->group()->indexOf(m_transfer);
 
-    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 0 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 1 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 2 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 3 ,this)));
-    m_indexes.append(new QPersistentModelIndex(m_transfer->model()->createIndex(column, 4 ,this)));
 }
 
 TransferHandler::~TransferHandler()
@@ -128,16 +122,6 @@ QVariant TransferHandler::data(int column)
     return QVariant();
 }
 
-QModelIndex TransferHandler::index(int column)
-{
-    kDebug() << "TransferHandler::index(" << column << ")" << endl;
-
-    if(column < 0 || column >= columnCount())
-        return QModelIndex();
-
-    return QModelIndex(*m_indexes.value(column));
-}
-
 KMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)
 {
     return m_transfer->factory()->createPopupMenu(transfers);
@@ -211,7 +195,7 @@ void TransferHandler::postTransferChangedEvent()
     m_transfer->group()->transferChangedEvent(m_transfer);
 
     // Notify the TransferTreeModel
-    m_transfer->model()->dataChanged(index(0), index(5));
+    m_transfer->model()->postDataChangedEvent(this);
 
     //kDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
 }
