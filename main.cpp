@@ -76,14 +76,14 @@ class KGetApp : public KUniqueApplication
 {
 public:
     KGetApp()
-        : KUniqueApplication(), kget( 0 ), osd( 0 )
+        : KUniqueApplication(), kget( 0 ), splash( 0 )
     {
         showSplash();
     }
 
     ~KGetApp()
     {
-        delete osd;
+        delete splash;
         delete kget;
     }
 
@@ -97,7 +97,7 @@ public:
         QString path = KStandardDirs::locate( "data", "kget/pics/kget_splash.png" );
 
         if ( !path.isEmpty() )
-            osd = new OSDWidget( path );
+            splash = new Splash( path );
     }
 
     int newInstance()
@@ -138,14 +138,14 @@ public:
         }
 */
         args->clear();
-        if ( osd )
-            osd->removeOSD();
+        if ( splash )
+            splash->removeSplash();
         return 0;
     }
 
 private:
     MainWindow * kget;
-    OSDWidget * osd;
+    Splash * splash;
 };
 
 

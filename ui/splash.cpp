@@ -23,22 +23,28 @@
 #include "splash.h"
 
 
-OSDWidget::OSDWidget(const QString& imagePath)
+Splash::Splash(const QString& imagePath)
     : QWidget(0, Qt::SplashScreen | Qt::X11BypassWindowManagerHint)
 {
-    QImage image( imagePath );
-    osdBuffer = QPixmap::fromImage(image);
-
-    QBitmap bm( image.size() );
-    QPainter p( &bm );
-    p.drawImage( 0, 0, image.createAlphaMask() );
+    cachedPixmap = QPixmap(imagePath);
+    if (!cachedPixmap.mask().isNull())
+    {
+        QBitmap mask(cachedPixmap.size());
+        mask.fill(Qt::color0);
+        QBitmap pixMask = cachedPixmap.mask();
+        QPainter p(&mask);
+        p.drawPixmap((mask.width() - pixMask.width())/2, (mask.height() - pixMask.height())/2,
+                     pixMask);
+        setMask(mask);
+    }
+    else
+        setMask(QBitmap());
 
     QWidget *d = QApplication::desktop()->screen();
-    move( (d->width() - image.width ()) / 2,
-          (d->height() - image.height()) / 2 );
-    resize( osdBuffer.size() );
+    move( (d->width() - cachedPixmap.width ()) / 2,
+          (d->height() - cachedPixmap.height()) / 2 );
+    resize( cachedPixmap.size() );
     setFocusPolicy( Qt::NoFocus );
-    setMask( bm );
 
     show();
     update();
@@ -46,22 +52,23 @@ OSDWidget::OSDWidget(const QString& imagePath)
     QTimer::singleShot( SPLASH_DURATION, this, SLOT(hide()) );
 }
 
-void OSDWidget::removeOSD( int timeout )
+void Splash::removeSplash( int timeout )
 {
     QTimer::singleShot( timeout, this, SLOT(hide()) );
 }
 
-void OSDWidget::paintEvent( QPaintEvent * e )
+void Splash::paintEvent( QPaintEvent * )
 {
-    QPainter p( this );
-    QRect rect = e->rect();
-    p.drawPixmap( rect.topLeft(), osdBuffer, rect );
-    p.end();
+    QPainter p(this);
+    const QRect r = rect();
+    p.drawPixmap(r.x() + (r.width() - cachedPixmap.width())/2,
+                 r.y() + (r.height() - cachedPixmap.height())/2,
+                 cachedPixmap);
 }
 
-void OSDWidget::mousePressEvent( QMouseEvent* )
+void Splash::mousePressEvent( QMouseEvent* )
 {
-    removeOSD(100);
+    removeSplash(100);
 }
 
 #include "splash.moc"

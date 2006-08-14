@@ -19,23 +19,23 @@
 #include <QMouseEvent>
 #include <QPaintEvent>
 
-class OSDWidget : public QWidget
+class Splash : public QWidget
 {
     Q_OBJECT
 
       public:
-        OSDWidget(const QString& imagePath);
+        Splash(const QString& imagePath);
 
       public slots:
-        void removeOSD(int timeout = 500);
+        void removeSplash(int timeout = 500);
 
       protected:
         void paintEvent(QPaintEvent*);
         void mousePressEvent(QMouseEvent*);
 
-        static const int SPLASH_DURATION = 15000; 
+        static const int SPLASH_DURATION = 15000;
 
-        QPixmap osdBuffer;
+        QPixmap cachedPixmap;
 };
 
 #endif
