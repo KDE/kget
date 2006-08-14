@@ -21,6 +21,7 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <kactioncollection.h>
+#include <kiconloader.h>
 
 #include <math.h>
 
@@ -29,36 +30,39 @@
 #include "ui/droptarget.h"
 #include "mainwindow.h"
 
-#define TARGET_WIDTH   80
-#define TARGET_HEIGHT  80
-#define TARGET_ANI_MS  20
+#define TARGET_SIZE   64
+#define TARGET_ANI_MS 20
 
 DropTarget::DropTarget(MainWindow * mw)
     : QWidget(0, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint),
     parentWidget((QWidget *)mw), animTimer(0)
 {
     QRect desk = KGlobalSettings::desktopGeometry(this);
-    desk.setRight( desk.right() - TARGET_WIDTH );
-    desk.setBottom( desk.bottom() - TARGET_HEIGHT );
+    desk.setRight( desk.right() - TARGET_SIZE );
+    desk.setBottom( desk.bottom() - TARGET_SIZE );
 
     if ( desk.contains(Settings::dropPosition()) )
         move(Settings::dropPosition());
     else
         move(desk.x()+200, desk.y()+200);
-    resize(TARGET_WIDTH, TARGET_HEIGHT);
+    resize(TARGET_SIZE, TARGET_SIZE);
 
     if(Settings::dropSticky())
         KWin::setState(winId(), NET::Sticky);
 
-    // set background pixmap
-    QImage image( KStandardDirs::locate( "data", "kget/pics/target.png" ) );
-    targetBuffer = QPixmap::fromImage(image);
-
-    QBitmap bm( image.size() );
-    QPainter p( &bm );
-    p.drawImage( 0, 0, image.createAlphaMask() );
-
-    setMask( bm );
+    cachedPixmap = DesktopIcon("kget", TARGET_SIZE);
+    if (!cachedPixmap.mask().isNull())
+    {
+        QBitmap mask(size());
+        mask.fill(Qt::color0);
+        QBitmap pixMask = cachedPixmap.mask();
+        QPainter p(&mask);
+        p.drawPixmap((mask.width() - pixMask.width())/2, (mask.height() - pixMask.height())/2,
+                     pixMask);
+        setMask(mask);
+    }
+    else
+        setMask(QBitmap());
 
     update();
 
@@ -92,7 +96,7 @@ DropTarget::~DropTarget()
     Settings::setShowDropTarget( !isHidden() );
 //    unsigned long state = KWin::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
-//    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE ); 
+//    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );
     delete popupMenu;
     delete animTimer;
 }
@@ -122,12 +126,13 @@ void DropTarget::slotStartStopToggled( bool started )
 /** widget events */
 
 
-void DropTarget::paintEvent( QPaintEvent * e )
+void DropTarget::paintEvent( QPaintEvent * )
 {
-    QPainter p( this );
-    QRect rect = e->rect();
-    p.drawPixmap( rect.topLeft(), targetBuffer, rect );
-    p.end();
+    QPainter p(this);
+    const QRect r = rect();
+    p.drawPixmap(r.x() + (r.width() - cachedPixmap.width())/2,
+                 r.y() + (r.height() - cachedPixmap.height())/2,
+                 cachedPixmap);
 }
 
 
@@ -277,7 +282,7 @@ void DropTarget::playAnimation()
     animTimer = new QTimer;
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimate() ));
-    move( Settings::dropPosition().x(), -TARGET_HEIGHT );
+    move( Settings::dropPosition().x(), -TARGET_SIZE );
     ani_y = -1;
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);

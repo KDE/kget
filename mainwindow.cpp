@@ -136,7 +136,7 @@ void MainWindow::setupActions()
                                    "on and off.\nWhen set, KGet will periodically scan the clipboard "
                                    "for URLs and paste them automatically."));
 
-    m_showDropTarget =  new KToggleAction( KIcon("tool_drop_target"), i18n("Show Drop Target"),
+    m_showDropTarget =  new KToggleAction( KIcon("kget"), i18n("Show Drop Target"),
                                            ac, "show_drop_target" );
     connect(m_showDropTarget, SIGNAL(triggered(bool)), SLOT(slotShowDropTarget()));
 

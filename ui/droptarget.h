@@ -67,7 +67,7 @@ private:
     KMenu * popupMenu;
     QWidget * parentWidget;
     QTimer * animTimer;
-    QPixmap targetBuffer;
+    QPixmap cachedPixmap;
 
     QAction * pop_sticky;
     QAction * pop_show;
