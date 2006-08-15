@@ -11,6 +11,8 @@
 #include <QDirModel>
 #include <QTextStream>
 #include <QDomElement>
+#include <QApplication>
+#include <QClipboard>
 #include <QFileDialog>  // temporarily replace the bugged kfiledialog
 
 #include <QAbstractItemView>
@@ -449,7 +451,11 @@ KUrl KGet::urlInputDialog()
     QString newtransfer;
     bool ok = false;
 
-    while (!ok) 
+    KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+    if (clipboardUrl.isValid())
+        newtransfer = clipboardUrl.toString();
+
+    while (!ok)
     {
         newtransfer = KInputDialog::getText(i18n("New Download"), i18n("Enter URL:"), newtransfer, &ok, 0);
 
