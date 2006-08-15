@@ -34,7 +34,7 @@ Transfer * BTTransferFactory::createTransfer( KUrl srcURL, KUrl destURL,
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
 {
-    kDebug() << "BTTransferFactory::createTransfer" << endl;
+    kDebug(5001) << "BTTransferFactory::createTransfer" << endl;
 
     if (srcURL.fileName().endsWith(".torrent") && srcURL.isLocalFile())
     {
@@ -55,7 +55,7 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 
     if(!bttransfer)
     {
-        kError() << "BTTransferFactory::createTransferHandler: WARNING!\n"
+        kError(5001) << "BTTransferFactory::createTransferHandler: WARNING!\n"
                       "passing a non-BTTransfer pointer!!" << endl;
         return 0;
     }

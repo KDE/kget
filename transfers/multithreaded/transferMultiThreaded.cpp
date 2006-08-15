@@ -27,7 +27,7 @@ TransferMultiThreaded::TransferMultiThreaded(TransferGroup * parent, TransferFac
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_Mtjob(0)
 {
-    kDebug() << "TransferMultiThreaded::TransferMultiThreaded" << endl;
+    kDebug(5001) << "TransferMultiThreaded::TransferMultiThreaded" << endl;
     if( e )
     {
         load( *e );
@@ -36,7 +36,7 @@ TransferMultiThreaded::TransferMultiThreaded(TransferGroup * parent, TransferFac
 
 void TransferMultiThreaded::start()
 {
-    kDebug() << "TransferMultiThreaded::start" << endl;
+    kDebug(5001) << "TransferMultiThreaded::start" << endl;
 
     if(!m_Mtjob)
     {
@@ -56,7 +56,7 @@ void TransferMultiThreaded::start()
 
 void TransferMultiThreaded::stop()
 {
-    kDebug() << "TransferMultiThreaded::stop" << endl;
+    kDebug(5001) << "TransferMultiThreaded::stop" << endl;
 
     if(status() == Stopped)
         return;
@@ -89,7 +89,7 @@ bool TransferMultiThreaded::isResumable() const
 void TransferMultiThreaded::load(QDomElement e)
 {
 
-    kDebug() << "TransferMultiThreaded::load" << endl;
+    kDebug(5001) << "TransferMultiThreaded::load" << endl;
     struct data d;
     QDomNodeList threads = e.elementsByTagName ("Thread");
     QDomNode node;
@@ -101,7 +101,7 @@ void TransferMultiThreaded::load(QDomElement e)
         d.src = KUrl(thread.attribute("Source"));
         d.bytes = thread.attribute("Bytes").toULongLong();
         d.offSet = thread.attribute("OffSet").toULongLong();
-        kDebug() << "TransferMultiThreaded::load: adding thread " << i << endl;
+        kDebug(5001) << "TransferMultiThreaded::load: adding thread " << i << endl;
         tdata << d;
     }
 
@@ -111,7 +111,7 @@ void TransferMultiThreaded::save(QDomElement e)
 {
     Transfer::save(e);
 
-    kDebug() << "TransferMultiThreaded::save" << endl;
+    kDebug(5001) << "TransferMultiThreaded::save" << endl;
 
     QDomDocument doc(e.ownerDocument());
     QDomElement thread;
@@ -132,7 +132,7 @@ void TransferMultiThreaded::save(QDomElement e)
 
 void TransferMultiThreaded::startJob()
 {
-    kDebug() << "TransferMultiThreaded::startJob" << endl;
+    kDebug(5001) << "TransferMultiThreaded::startJob" << endl;
     if(m_Mtjob)
     {
         m_Mtjob->start();
@@ -142,7 +142,7 @@ void TransferMultiThreaded::startJob()
         }
         else
         {
-            kDebug() << "TransferMultiThreaded::startJob: restarting saved transfer" << endl;
+            kDebug(5001) << "TransferMultiThreaded::startJob: restarting saved transfer" << endl;
             m_Mtjob->createThreads(m_totalSize, m_processedSize, tdata);
         }
     }
@@ -176,7 +176,7 @@ void TransferMultiThreaded::slotResult()
 
 void TransferMultiThreaded::slotTotalSize( KIO::filesize_t size )
 {
-    kDebug() << "slotTotalSize" << endl;
+    kDebug(5001) << "slotTotalSize" << endl;
 
     setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
     setTransferChange(Tc_Status, true);
@@ -187,7 +187,7 @@ void TransferMultiThreaded::slotTotalSize( KIO::filesize_t size )
 
 void TransferMultiThreaded::slotProcessedSize( KIO::filesize_t size )
 {
-    kDebug() << "slotProcessedSize" << endl; 
+    kDebug(5001) << "slotProcessedSize" << endl; 
 
     if(status() != Job::Running)
     {

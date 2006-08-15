@@ -96,7 +96,7 @@ void JobQueue::remove(Job * job)
 
 void JobQueue::move(Job * job, Job * after)
 {
-    kDebug() << "JobQueue::move" << endl;
+    kDebug(5001) << "JobQueue::move" << endl;
 
     if( (m_jobs.removeAll(job) == 0) || (job == after) )
     {

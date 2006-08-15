@@ -199,7 +199,7 @@ void MainWindow::slotDelayedInit()
 
     m_showDropTarget->setChecked( m_drop->isVisible() );
 
-    kDebug() << "***" << endl;
+    kDebug(5001) << "***" << endl;
 
 
     // DockWidget

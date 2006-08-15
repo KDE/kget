@@ -49,7 +49,7 @@
 
 void KGet::addObserver(ModelObserver * observer)
 {
-    kDebug() << "KGet::addObserver" << endl;
+    kDebug(5001) << "KGet::addObserver" << endl;
 
     m_observers.append(observer);
 
@@ -62,7 +62,7 @@ void KGet::addObserver(ModelObserver * observer)
         postAddedTransferGroupEvent(*it, observer);
     }
 
-    kDebug() << "KGet::addObserver   >>> EXITING" << endl;
+    kDebug(5001) << "KGet::addObserver   >>> EXITING" << endl;
 }
 
 void KGet::delObserver(ModelObserver * observer)
@@ -72,7 +72,7 @@ void KGet::delObserver(ModelObserver * observer)
 
 void KGet::addGroup(const QString& groupName)
 {
-    kDebug() << "KGet::addGroup" << endl;
+    kDebug(5001) << "KGet::addGroup" << endl;
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
 
@@ -97,7 +97,7 @@ void KGet::delGroup(const QString& groupName)
 void KGet::addTransfer( KUrl srcURL, QString destDir,
                          const QString& groupName )
 {
-    kDebug() << " addTransfer:  " << srcURL.url() << endl;
+    kDebug(5001) << " addTransfer:  " << srcURL.url() << endl;
 
     KUrl destURL;
 
@@ -128,7 +128,7 @@ void KGet::addTransfer(const QDomElement& e, const QString& groupName)
     KUrl srcURL = KUrl( e.attribute("Source") );
     KUrl destURL = KUrl( e.attribute("Dest") );
 
-    kDebug() << "KGet::addTransfer  src= " << srcURL.url()
+    kDebug(5001) << "KGet::addTransfer  src= " << srcURL.url()
               << " dest= " << destURL.url() 
               << " group= "<< groupName << endl;
 
@@ -236,7 +236,7 @@ void KGet::addTransferTreeView(QAbstractItemView * view)
 
 void KGet::load( QString filename )
 {
-    kDebug() << "KGet::load(" << filename << ")" << endl;
+    kDebug(5001) << "KGet::load(" << filename << ")" << endl;
 
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
@@ -250,7 +250,7 @@ void KGet::load( QString filename )
     QFile file(tmpFile);
     QDomDocument doc;
 
-    kDebug() << "KGet::load file" << filename << endl;
+    kDebug(5001) << "KGet::load file" << filename << endl;
 
     if(doc.setContent(&file))
     {
@@ -263,11 +263,11 @@ void KGet::load( QString filename )
         {
             TransferGroup * foundGroup = m_transferTreeModel->findGroup( nodeList.item(i).toElement().attribute("Name") );
 
-            kDebug() << "KGet::load  -> group = " << nodeList.item(i).toElement().attribute("Name") << endl;
+            kDebug(5001) << "KGet::load  -> group = " << nodeList.item(i).toElement().attribute("Name") << endl;
 
             if( !foundGroup )
             {
-                kDebug() << "KGet::load  -> group not found" << endl;
+                kDebug(5001) << "KGet::load  -> group not found" << endl;
 
                 TransferGroup * newGroup = new TransferGroup(m_transferTreeModel, m_scheduler);
                 newGroup->load(nodeList.item(i).toElement());
@@ -279,7 +279,7 @@ void KGet::load( QString filename )
             }
             else
             {
-                kDebug() << "KGet::load  -> group found" << endl;
+                kDebug(5001) << "KGet::load  -> group found" << endl;
 
                 //A group with this name already exists.
                 //Integrate the group's transfers with the ones read from file
@@ -289,7 +289,7 @@ void KGet::load( QString filename )
     }
     else
     {
-        kWarning() << "Error reading the transfers file" << endl;
+        kWarning(5001) << "Error reading the transfers file" << endl;
     }
 }
 
@@ -323,7 +323,7 @@ void KGet::save( QString filename )
     QFile file(filename);
     if ( !file.open( QIODevice::WriteOnly ) )
     {
-        //kWarning()<<"Unable to open output file when saving"<< endl;
+        //kWarning(5001)<<"Unable to open output file when saving"<< endl;
         KMessageBox::error(0,
                            i18n("Unable to save to: %1", filename),
                            i18n("Error"));
@@ -381,14 +381,14 @@ KGet::~KGet()
 
 void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
 {
-    kDebug() << "createTransfer: srcURL= " << src.url() << "  " 
+    kDebug(5001) << "createTransfer: srcURL= " << src.url() << "  " 
                              << "destURL= " << dest.url() 
                              << "group= _" << groupName << "_" << endl;
 
     TransferGroup * group = m_transferTreeModel->findGroup(groupName);
     if (group==0)
     {
-        kDebug() << "KGet::createTransfer  -> group not found" << endl;
+        kDebug(5001) << "KGet::createTransfer  -> group not found" << endl;
         group = m_transferTreeModel->transferGroups().first();
     }
     Transfer * newTransfer;
@@ -398,20 +398,20 @@ void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const Q
 
     for( ; it!=itEnd ; ++it)
     {
-        kDebug() << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
+        kDebug(5001) << "Trying plugin   n.plugins=" << m_transferFactories.size() << endl;
         if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
         {
-//             kDebug() << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_" << endl;
+//             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_" << endl;
             m_transferTreeModel->addTransfer(newTransfer, group);
             return;
         }
     }
-    kDebug() << "createTransfer: Warning! No plugin found to handle the given url" << endl;
+    kDebug(5001) << "createTransfer: Warning! No plugin found to handle the given url" << endl;
 }
 
 void KGet::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
 {
-    kDebug() << "KGet::postAddedTransferGroupEvent" << endl;
+    kDebug(5001) << "KGet::postAddedTransferGroupEvent" << endl;
     if(observer)
     {
         observer->addedTransferGroupEvent(group->handler());
@@ -423,7 +423,7 @@ void KGet::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * ob
 
     for(; it!=itEnd; ++it)
     {
-        kDebug() << "message posted" << endl;
+        kDebug(5001) << "message posted" << endl;
 
         (*it)->addedTransferGroupEvent(group->handler());
     }
@@ -567,18 +567,18 @@ KUrl KGet::getValidDestURL(const QString& destDir, KUrl srcURL)
     {
         // simply use the full url as filename
         filename = QUrl::toPercentEncoding( srcURL.prettyUrl(), "/" );
-        kDebug() << " Filename is empty. Setting to  " << filename << endl;
-        kDebug() << "   srcURL = " << srcURL.url() << endl;
-        kDebug() << "   prettyUrl = " << srcURL.prettyUrl() << endl;
+        kDebug(5001) << " Filename is empty. Setting to  " << filename << endl;
+        kDebug(5001) << "   srcURL = " << srcURL.url() << endl;
+        kDebug(5001) << "   prettyUrl = " << srcURL.prettyUrl() << endl;
     }
     else
     {
-        kDebug() << " Filename is not empty" << endl;
+        kDebug(5001) << " Filename is not empty" << endl;
         destURL.adjustPath( KUrl::AddTrailingSlash );
         destURL.setFileName( filename );
         if (!isValidDestURL(destURL))
         {
-            kDebug() << "   destURL " << destURL.path() << " is not valid" << endl;
+            kDebug(5001) << "   destURL " << destURL.path() << " is not valid" << endl;
             return KUrl();
         }
     }
@@ -608,7 +608,7 @@ void KGet::loadPlugins()
     for ( int i = 0; i < offers.count(); ++i )
     {
         services[ offers[i]->property( "X-KDE-KGet-rank" ).toInt() ] = offers[i];
-        kDebug() << " TransferFactory plugin found:" << endl <<
+        kDebug(5001) << " TransferFactory plugin found:" << endl <<
          "  rank = " << offers[i]->property( "X-KDE-KGet-rank" ).toInt() << endl <<
          "  plugintype = " << offers[i]->property( "X-KDE-KGet-plugintype" ) << endl;
     }
@@ -624,11 +624,11 @@ void KGet::loadPlugins()
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
             pluginList.prepend(plugin);
-            kDebug() << "TransferFactory plugin (" << (*it)->library() 
+            kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
                       << ") found and added to the list of available plugins" << endl;
         }
         else
-            kDebug() << "Error loading TransferFactory plugin (" 
+            kDebug(5001) << "Error loading TransferFactory plugin (" 
                       << (*it)->library() << ")" << endl;
     }
 
@@ -638,7 +638,7 @@ void KGet::loadPlugins()
     for( ; it2!=it2End ; ++it2 )
         m_transferFactories.append( static_cast<TransferFactory *>(*it2) );
 
-    kDebug() << "Number of factories = " << m_transferFactories.size() << endl;
+    kDebug(5001) << "Number of factories = " << m_transferFactories.size() << endl;
 }
 
 void KGet::unloadPlugins()
@@ -673,7 +673,7 @@ KGetPlugin * KGet::createPluginFromService( const KService::Ptr service )
 
     if ( !create_plugin ) 
     {
-        kDebug() << "create_plugin == NULL" << endl;
+        kDebug(5001) << "create_plugin == NULL" << endl;
         return 0;
     }
 

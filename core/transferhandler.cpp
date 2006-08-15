@@ -34,14 +34,14 @@ void TransferHandler::addObserver(TransferObserver * observer)
 {
     m_observers.push_back(observer);
     m_changesFlags[observer]=0xFFFFFFFF;
-    kDebug() << "TransferHandler: OBSERVERS++ = " << m_observers.size() << endl;
+    kDebug(5001) << "TransferHandler: OBSERVERS++ = " << m_observers.size() << endl;
 }
 
 void TransferHandler::delObserver(TransferObserver * observer)
 {
     m_observers.removeAll(observer);
     m_changesFlags.remove(observer);
-    kDebug() << "TransferHandler: OBSERVERS-- = " << m_observers.size() << endl;
+    kDebug(5001) << "TransferHandler: OBSERVERS-- = " << m_observers.size() << endl;
 }
 
 void TransferHandler::start()
@@ -106,7 +106,7 @@ int TransferHandler::speed() const
 
 QVariant TransferHandler::data(int column)
 {
-    kDebug() << "TransferHandler::data(" << column << ")" << endl;
+    kDebug(5001) << "TransferHandler::data(" << column << ")" << endl;
 
     if(column==0)
         return QVariant(source().fileName());
@@ -147,7 +147,7 @@ Transfer::ChangesFlags TransferHandler::changesFlags(TransferObserver * observer
         return m_changesFlags[observer];
     else
     {
-        kDebug() << " TransferHandler::changesFlags() doesn't see you as an observer! " << endl;
+        kDebug(5001) << " TransferHandler::changesFlags() doesn't see you as an observer! " << endl;
 
         return 0xFFFFFFFF;
     }
@@ -158,7 +158,7 @@ void TransferHandler::resetChangesFlags(TransferObserver * observer)
     if( m_changesFlags.find(observer) != m_changesFlags.end() )
         m_changesFlags[observer] = 0;
     else
-        kDebug() << " TransferHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+        kDebug(5001) << " TransferHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
 }
 
 void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
@@ -175,7 +175,7 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
 
 void TransferHandler::postTransferChangedEvent()
 {
-    kDebug() << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
+    kDebug(5001) << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
     
     // Here we have to copy the list and iterate on the copy itself, because
     // a view can remove itself as a view while we are iterating over the
@@ -197,12 +197,12 @@ void TransferHandler::postTransferChangedEvent()
     // Notify the TransferTreeModel
     m_transfer->model()->postDataChangedEvent(this);
 
-    //kDebug() << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
+    //kDebug(5001) << "TransferHandler::postTransferChangedEvent() LEAVING" << endl;
 }
 
 void TransferHandler::postDeleteEvent()
 {
-    kDebug() << "TransferHandler::postDeleteEvent() ENTERING" << endl;
+    kDebug(5001) << "TransferHandler::postDeleteEvent() ENTERING" << endl;
 
     //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
@@ -216,5 +216,5 @@ void TransferHandler::postDeleteEvent()
     {
         (*it)->deleteEvent(this);
     }
-    kDebug() << "TransferHandler::postDeleteEvent() LEAVING" << endl;
+    kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING" << endl;
 }

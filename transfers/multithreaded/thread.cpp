@@ -15,7 +15,7 @@
 
 RemoteFileInfo::RemoteFileInfo(KUrl src)
 {
-   kDebug() << "RemoteFileInfo::RemoteFileInfo" << endl; 
+   kDebug(5001) << "RemoteFileInfo::RemoteFileInfo" << endl; 
    Iface * m_iface = 0;
 
     if(src.protocol() == "ftp")
@@ -35,7 +35,7 @@ RemoteFileInfo::RemoteFileInfo(KUrl src)
 
 Iface *newTransferThread(QFile *file, struct data tdata)
 {
-    kDebug() << "newTransferThread()" << endl;
+    kDebug(5001) << "newTransferThread()" << endl;
 
     if(tdata.src.protocol() == "ftp")
     {
@@ -76,7 +76,7 @@ void Iface::setBytes(KIO::filesize_t bytes)
 
 void Iface::slotStart()
 {
-    kDebug() << "Iface::slotStart" << endl;
+    kDebug(5001) << "Iface::slotStart" << endl;
 
     if( m_data.bytes == 0 )
    {
@@ -110,19 +110,19 @@ Ftpiface::Ftpiface(QFile *file, struct data tdata)
     :Iface(file, tdata),
      ftp(0)
 {
-    kDebug() << "Ftpiface::Ftpiface" << endl;
+    kDebug(5001) << "Ftpiface::Ftpiface" << endl;
 }
 
 Ftpiface::Ftpiface()
     :ftp(0)
 {
-    kDebug() << "Ftpiface::Ftpiface" << endl;
+    kDebug(5001) << "Ftpiface::Ftpiface" << endl;
     setup();
 }
 
 void Ftpiface::setup()
 {
-    kDebug() << "Ftpiface::setup" << endl;
+    kDebug(5001) << "Ftpiface::setup" << endl;
     if(ftp)
     {
         ftp->abort();
@@ -140,7 +140,7 @@ void Ftpiface::setup()
 
 void Ftpiface::startDownload()
 {
-    kDebug() << "Ftpiface::run" <<  endl;
+    kDebug(5001) << "Ftpiface::run" <<  endl;
     ftp->connectToHost(m_data.src.host());
     ftp->login();
 #ifdef KGET_HAVE_PATCHED_QFTP
@@ -154,7 +154,7 @@ void Ftpiface::startDownload()
 
 void Ftpiface::getRemoteFileInfo(KUrl src)
 {
-    kDebug() << "Ftpiface::getRemoteFileInfo" <<  endl;
+    kDebug(5001) << "Ftpiface::getRemoteFileInfo" <<  endl;
     ftp->connectToHost(src.host());
     ftp->login();
     ftp->list(src.path());
@@ -186,7 +186,7 @@ void Ftpiface::slotWriteBuffer()
         m_mutex.unlock();
         emit processedSize(bytesReaded);
     }
-    kDebug() << "Offset: " << m_data.offSet << " Bytes: " << m_data.bytes <<  endl;
+    kDebug(5001) << "Offset: " << m_data.offSet << " Bytes: " << m_data.bytes <<  endl;
     if ( bytes > BUFFER_SIZE )
     {
         bytes = 0;
@@ -197,7 +197,7 @@ void Ftpiface::slotWriteBuffer()
         disconnect(ftp,SIGNAL(readyRead()),this,SLOT(slotWriteBuffer()));
         ftp->abort();
         ftp->deleteLater();
-        kDebug() << "Ftpiface::slotWriteBuffer: Clossing connection" <<  endl;
+        kDebug(5001) << "Ftpiface::slotWriteBuffer: Clossing connection" <<  endl;
         emit stat(closed);
     }
 }
@@ -215,19 +215,19 @@ Httpiface::Httpiface(QFile *file, struct data tdata)
     :Iface(file, tdata),
      http(0)
 {
-    kDebug() << "Httpiface::Httpiface" <<  endl;
+    kDebug(5001) << "Httpiface::Httpiface" <<  endl;
 }
 
 Httpiface::Httpiface()
     :http(0)
 {
-    kDebug() << "Httpiface::Httpiface" <<  endl;
+    kDebug(5001) << "Httpiface::Httpiface" <<  endl;
     setup();
 }
 
 void Httpiface::setup()
 {
-    kDebug() << "Httpiface::setup" << endl;
+    kDebug(5001) << "Httpiface::setup" << endl;
     if(http)
     {
         http->abort();
@@ -246,7 +246,7 @@ void Httpiface::setup()
 
 void Httpiface::startDownload()
 {
-    kDebug() << "Httpiface::startDownload" <<  endl;
+    kDebug(5001) << "Httpiface::startDownload" <<  endl;
     QHttpRequestHeader header("GET", m_data.src.path());
     header.setValue("Host", m_data.src.host());
     header.setValue("Range","bytes=" + QString::number(m_data.offSet) + "-");
@@ -257,7 +257,7 @@ void Httpiface::startDownload()
 
 void Httpiface::getRemoteFileInfo(KUrl src)
 {
-    kDebug() << "Httpiface::getRemoteFileInfo" <<  endl;
+    kDebug(5001) << "Httpiface::getRemoteFileInfo" <<  endl;
     http->setHost(src.host());
     http->head(src.path());
     http->close();
@@ -288,7 +288,7 @@ void Httpiface::slotWriteBuffer(const QHttpResponseHeader &)
         m_mutex.unlock();
         emit processedSize(bytesReaded);
     }
-//     kDebug() << "Offset: " << m_data.offSet << " Bytes: " << m_data.bytes <<  endl;
+//     kDebug(5001) << "Offset: " << m_data.offSet << " Bytes: " << m_data.bytes <<  endl;
 /*    if(bytes > BUFFER_SIZE)
     {
         bytes = 0;
@@ -299,7 +299,7 @@ void Httpiface::slotWriteBuffer(const QHttpResponseHeader &)
         disconnect(http,SIGNAL(readyRead(const QHttpResponseHeader &)),this,SLOT(slotWriteBuffer(const QHttpResponseHeader &)));
         http->abort();
 //         http->deleteLater();
-        kDebug() << "Httpiface::slotWriteBuffer: Clossing connection" << endl;
+        kDebug(5001) << "Httpiface::slotWriteBuffer: Clossing connection" << endl;
         emit stat(closed);
     }
 }

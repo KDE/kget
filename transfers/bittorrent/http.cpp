@@ -39,7 +39,7 @@ void Http::start()
 {
   if (job) {
     // throw torrent::internal_error("Tried to start already running http job");
-    kDebug() << "Tried to start already running http job" << endl;
+    kDebug(5001) << "Tried to start already running http job" << endl;
   }
   job = KIO::get(KUrl(get_url().c_str()), false, false);
   connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)),

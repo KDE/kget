@@ -26,13 +26,13 @@ Mtget::Mtget(const KUrl& src, const KUrl& dst, int n)
     m_totalSize(0),
     m_ProcessedSize(0)
 {
-    kDebug() << "Mtget::Mtget" << endl;
+    kDebug(5001) << "Mtget::Mtget" << endl;
     connect(&m_speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
 }
 
 void Mtget::run()
 {
-    kDebug () << "Mtget::run()" << endl;
+    kDebug(5001) << "Mtget::run()" << endl;
     exec();
 }
 
@@ -57,7 +57,7 @@ void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSi
 {
     if(m_threads.size()!=0)
     {
-        kDebug () << "Mtget::createThreads(,,,): there already threads working" << endl;
+        kDebug(5001) << "Mtget::createThreads(,,,): there already threads working" << endl;
         return;
     }
     openFile();
@@ -79,7 +79,7 @@ void Mtget::createThreads(KIO::filesize_t totalSize, KIO::filesize_t ProcessedSi
 
 QList<struct data> Mtget::getThreadsData()
 {
-    kDebug () << "Mtget::getThreadsData" << endl;
+    kDebug(5001) << "Mtget::getThreadsData" << endl;
     QList<struct data> tdata;
     QList<Iface*>::const_iterator it = m_threads.begin();
     QList<Iface*>::const_iterator itEnd = m_threads.end();
@@ -100,16 +100,16 @@ void Mtget::openFile()
     dst_part += QLatin1String(".part");
     if(QFile::exists(dst_part))
     {
-        kDebug() << "Warning file exist: " << m_dst.path() << endl;
+        kDebug(5001) << "Warning file exist: " << m_dst.path() << endl;
     }
     m_file = new QFile(dst_part);
     if ( m_file->open( QIODevice::ReadWrite ) )
     {
-        kDebug() << "local file: " << dst_part << endl;
+        kDebug(5001) << "local file: " << dst_part << endl;
     }
     else
     {
-        kDebug() << "Error: " << m_file->error() << " Opening: " << dst_part << endl;
+        kDebug(5001) << "Error: " << m_file->error() << " Opening: " << dst_part << endl;
         delete m_file;
         m_file=0;
         exit();
@@ -136,7 +136,7 @@ void Mtget::createThreads()
     }
     KIO::filesize_t conn_size = m_totalSize/m_n;
     KIO::fileoffset_t rest_size = conn_size + (m_totalSize%m_n);
-    kDebug () << "Mtget::createThreads: threads:" << m_n << endl;
+    kDebug(5001) << "Mtget::createThreads: threads:" << m_n << endl;
     for(uint i = 0; i < m_n; i++)
     {
         if(i == m_n - 1)
@@ -146,14 +146,14 @@ void Mtget::createThreads()
             tdata.offSet = i*conn_size;
             tdata.bytes = rest_size;
             createThread(tdata);
-    kDebug () << "threads data: " << i*conn_size << " "<< rest_size<< endl;
+    kDebug(5001) << "threads data: " << i*conn_size << " "<< rest_size<< endl;
             continue;
         }
     tdata.src = m_src;
     tdata.offSet = i*conn_size;
     tdata.bytes = conn_size;
     createThread(tdata);
-    kDebug () << "threads data: " << i*conn_size << " "<< conn_size << endl;
+    kDebug(5001) << "threads data: " << i*conn_size << " "<< conn_size << endl;
     }
     emit update();
     m_speed_timer.start(2000);
@@ -164,7 +164,7 @@ void Mtget::createThread(struct data tdata)
     if (Iface* thread = newTransferThread(m_file, tdata))
     {
     int id = m_threads.size();
-    kDebug() << "Mtget::createThread: " << id << endl;
+    kDebug(5001) << "Mtget::createThread: " << id << endl;
     m_threads << thread;
     connect(thread, SIGNAL(stat(status)), this, SLOT(threadsControl(status)));
     connect(thread, SIGNAL(finished ()), this, SLOT(slotThreadFinished()));
@@ -172,7 +172,7 @@ void Mtget::createThread(struct data tdata)
     thread->start();
     }
     else
-    kWarning() << "Mtget::createThread: unable to create thread!!!"<< endl;
+    kWarning(5001) << "Mtget::createThread: unable to create thread!!!"<< endl;
 }
 
 void Mtget::relocateThread()
@@ -184,12 +184,12 @@ void Mtget::relocateThread()
     for ( ; it!=itEnd ; ++it )
     {
         tdata = (*it)->getThreadData();
-        kDebug() <<"Mtget::relocateThread() -- Bytes: " <<  tdata.bytes << endl;
+        kDebug(5001) <<"Mtget::relocateThread() -- Bytes: " <<  tdata.bytes << endl;
         if ( tdata.bytes > MIN_SIZE )
         {
             bytes = tdata.bytes/2;
             (*it)->setBytes(bytes);
-        kDebug() <<" Mtget::relocateThread() -- realocating tread: " << bytes << endl;
+        kDebug(5001) <<" Mtget::relocateThread() -- realocating tread: " << bytes << endl;
             tdata.offSet += bytes;
             tdata.bytes = bytes + tdata.bytes%2;
             createThread(tdata);
@@ -201,7 +201,7 @@ void Mtget::relocateThread()
 void Mtget::calcSpeed()
 {
     emit speed( m_speedbytes/2 );
-//     kDebug() << "Mtget::calcSpeed " << endl;
+//     kDebug(5001) << "Mtget::calcSpeed " << endl;
     m_speedbytes = 0;
 }
 
@@ -217,7 +217,7 @@ void Mtget::slotProcessedSize(KIO::filesize_t bytes)
 {
     m_ProcessedSize += bytes;
     m_speedbytes += bytes;
-//     kDebug() <<  m_ProcessedSize <<" bytes downloaded" << endl;
+//     kDebug(5001) <<  m_ProcessedSize <<" bytes downloaded" << endl;
     emit processedSize(m_ProcessedSize);
 }
 
@@ -235,7 +235,7 @@ void Mtget::threadsControl(status stat)
         emit update();
         break;
     case timeout:
-            kDebug() << "Waiting 5 seg..." << endl;
+            kDebug(5001) << "Waiting 5 seg..." << endl;
             QTimer::singleShot(5000, thread, SLOT(slotRestart()));
         break;
     }
@@ -245,7 +245,7 @@ void Mtget::slotThreadFinished()
 {
     m_threads.removeAt( m_threads.indexOf( (Iface*)sender() ) );
     delete sender();
-    kDebug() << m_threads.size() << " threads left"<<endl;
+    kDebug(5001) << m_threads.size() << " threads left"<<endl;
 
     if(!m_stoped)
     {
@@ -259,7 +259,7 @@ void Mtget::slotThreadFinished()
        {
             emit update();
             QFile::rename ( m_file->fileName(), m_dst.path() );
-            kDebug() << "Download completed" << endl;
+            kDebug(5001) << "Download completed" << endl;
        }
         quit();
     }

@@ -123,17 +123,17 @@ QModelIndex TransferTreeModel::createIndex(int row, int column, void * ptr) cons
 
     i++;
 
-    kDebug() << "TransferTreeModel::createIndex() " << i << endl;
+    kDebug(5001) << "TransferTreeModel::createIndex() " << i << endl;
 
     return QAbstractItemModel::createIndex(row, column, ptr);
 }
 
 int TransferTreeModel::rowCount(const QModelIndex & parent) const{
-    kDebug() << "TransferTreeModel::rowCount()" << endl;
+    kDebug(5001) << "TransferTreeModel::rowCount()" << endl;
 
     if(!parent.isValid())
     {
-        kDebug() << "      (ROOT)  -> return " << m_transferGroups.size() << endl;
+        kDebug(5001) << "      (ROOT)  -> return " << m_transferGroups.size() << endl;
         return m_transferGroups.size();
     }
 
@@ -143,7 +143,7 @@ int TransferTreeModel::rowCount(const QModelIndex & parent) const{
     {
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
 
-        kDebug() << "      (GROUP:" << group->name() << ") -> return " << group->size() << endl;
+        kDebug(5001) << "      (GROUP:" << group->name() << ") -> return " << group->size() << endl;
 
         return group->size();
     }
@@ -153,7 +153,7 @@ int TransferTreeModel::rowCount(const QModelIndex & parent) const{
 
 int TransferTreeModel::columnCount(const QModelIndex & parent) const
 {
-    kDebug() << "TransferTreeModel::columnCount()" << endl;
+    kDebug(5001) << "TransferTreeModel::columnCount()" << endl;
 
     if(!parent.isValid())
     {
@@ -179,7 +179,7 @@ int TransferTreeModel::columnCount(const QModelIndex & parent) const
 
 Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
 {
-    kDebug() << "TransferTreeModel::flags()" << endl;
+    kDebug(5001) << "TransferTreeModel::flags()" << endl;
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
@@ -206,17 +206,17 @@ QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation,
 
 QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 {
-    kDebug() << "TransferTreeModel::data()" << endl;
+    kDebug(5001) << "TransferTreeModel::data()" << endl;
 
     if (!index.isValid())
     {
-        kDebug() << "           (ROOT)" << endl;
+        kDebug(5001) << "           (ROOT)" << endl;
         return QVariant();
     }
 
     if (role != Qt::DisplayRole)
     {
-        kDebug() << "           not display role" << endl;
+        kDebug(5001) << "           not display role" << endl;
         return QVariant();
     }
 
@@ -224,13 +224,13 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 
     if(isTransferGroup(pointer))
     {
-        kDebug() << "           (GROUP)" << endl;
+        kDebug(5001) << "           (GROUP)" << endl;
         //The given index refers to a group object
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
         return group->data(index.column());
     }
 
-    kDebug() << "           (TRANSFER)" << endl;
+    kDebug(5001) << "           (TRANSFER)" << endl;
 
     //The given index refers to a transfer object
     TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
@@ -239,11 +239,11 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 
 QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & parent) const
 {
-    kDebug() << "TransferTreeModel::index()  ( " << row << " , " << column << " )" << endl;
+    kDebug(5001) << "TransferTreeModel::index()  ( " << row << " , " << column << " )" << endl;
 
     if(!parent.isValid())
     {
-        kDebug() << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )   Groups=" << m_transferGroups.size() << endl;
+        kDebug(5001) << "TransferTreeModel::index() -> group ( " << row << " , " << column << " )   Groups=" << m_transferGroups.size() << endl;
         //Look for the specific group
         if(row < m_transferGroups.size() && row >= 0)
         {
@@ -265,9 +265,9 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
         //Look for the specific transfer
         if(row < group->size() && row >= 0)
         {
-            kDebug() << "aa      row=" << row << endl;
+            kDebug(5001) << "aa      row=" << row << endl;
             (*group)[row];
-            kDebug() << "bb" << endl;
+            kDebug(5001) << "bb" << endl;
 //             return (*group)[row]->index(column); 
             return createIndex(row, column, (*group)[row]);
         }
@@ -281,47 +281,47 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
 
 QModelIndex TransferTreeModel::parent(const QModelIndex & index ) const
 {
-    kDebug() << "TransferTreeModel::parent()" << endl;
+    kDebug(5001) << "TransferTreeModel::parent()" << endl;
 
-//     kDebug() << "111" << endl;
+//     kDebug(5001) << "111" << endl;
 
     if(!index.isValid())
         return QModelIndex();
 
-//     kDebug() << "222" << endl;
+//     kDebug(5001) << "222" << endl;
 
     void * pointer = index.internalPointer();
 
     if(!isTransferGroup(pointer))
     {
-//         kDebug() << "333" << endl;
+//         kDebug(5001) << "333" << endl;
         //The given index refers to a Transfer item
 //         TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
         TransferGroupHandler * group = static_cast<TransferHandler *>(pointer)->group();
-//         kDebug() << "444" << endl;
+//         kDebug(5001) << "444" << endl;
 //         return transfer->group()->index(0);
         return createIndex(m_transferGroups.indexOf(group->m_group), 0, group);
     }
 
-//     kDebug() << "555" << endl;
+//     kDebug(5001) << "555" << endl;
     return QModelIndex();
 }
 
 bool TransferTreeModel::isTransferGroup(void * pointer) const
 {
-    kDebug() << "TransferTreeModel::isTransferGroup()" << endl;
+    kDebug(5001) << "TransferTreeModel::isTransferGroup()" << endl;
 
     foreach(TransferGroup * group, m_transferGroups)
     {
-//         kDebug() << "TransferTreeModel::isTransferGroup   -> ITERATION" << endl;
+//         kDebug(5001) << "TransferTreeModel::isTransferGroup   -> ITERATION" << endl;
         if(group->handler() == pointer)
         {
-            kDebug() << "TransferTreeModel::isTransferGroup   -> return TRUE" << endl;
+            kDebug(5001) << "TransferTreeModel::isTransferGroup   -> return TRUE" << endl;
             return true;
         }
     }
 
-    kDebug() << "TransferTreeModel::isTransferGroup   -> return FALSE" << endl;
+    kDebug(5001) << "TransferTreeModel::isTransferGroup   -> return FALSE" << endl;
     return false;
 }
 

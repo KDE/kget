@@ -42,26 +42,26 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_peersConnected(0), m_peersNotConnected(0)
 {
     BTThread::initialize(); //check: is this thread active always?? :-O
-    kDebug() << "new bt transfer" << endl;
+    kDebug(5001) << "new bt transfer" << endl;
 
     //We already know that the file is local (the check is in the Factory)
     QFile file(src.path());
-    kDebug() << "Opening file: " << src.path() << endl;
+    kDebug(5001) << "Opening file: " << src.path() << endl;
 
     if(file.open(QIODevice::ReadOnly))
     {
-        kDebug() << "***********Bittorrent file opened" << endl;
+        kDebug(5001) << "***********Bittorrent file opened" << endl;
         QByteArray data = file.readAll();
-        kDebug() << "Stream of size: " << data.size() << endl; 
-        kDebug() << "Stream of data: " << endl << data.data()  << endl;
+        kDebug(5001) << "Stream of size: " << data.size() << endl; 
+        kDebug(5001) << "Stream of data: " << endl << data.data()  << endl;
         bencodeStream.write(data.data(), data.size());
 
         file.close();
     }
     else
     {
-        kDebug() << "***********Unable to open bittorrent file!" << endl;
-        kDebug() << file.errorString() << endl;
+        kDebug(5001) << "***********Unable to open bittorrent file!" << endl;
+        kDebug(5001) << file.errorString() << endl;
     }
 
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
@@ -121,7 +121,7 @@ void BTTransfer::start()
 
 void BTTransfer::stop()
 {
-    kDebug() << endl << "bt stopped" << endl << endl;
+    kDebug(5001) << endl << "bt stopped" << endl << endl;
     timer.stop();
     if (download.is_valid()) 
     {
@@ -150,7 +150,7 @@ int BTTransfer::remainingTime() const
 
 void BTTransfer::resume()
 {
-    kDebug() << endl << "resume dl" << endl << endl;
+    kDebug(5001) << endl << "resume dl" << endl << endl;
     if (!download.is_valid())
     {
         try
@@ -181,17 +181,17 @@ void BTTransfer::resume()
         catch (std::exception& e)
         {
             // line below only compiles with exceptions activated
-            // kDebug() << "exception " << e.what() << endl;
+            // kDebug(5001) << "exception " << e.what() << endl;
             return;
         }
-        kDebug() << "still alive" << endl;
+        kDebug(5001) << "still alive" << endl;
     }
 
     if(!download.is_active())
     {
         if (!download.is_open()) 
         {
-            kDebug() << endl << "second turn" << endl << endl;
+            kDebug(5001) << endl << "second turn" << endl << endl;
             download.open();
         }
         if (!download.is_hash_checked()) 
@@ -201,7 +201,7 @@ void BTTransfer::resume()
         }
         try 
         {
-            kDebug() << endl << "third turn" << endl << endl;
+            kDebug(5001) << endl << "third turn" << endl << endl;
             setStatus(status(), i18n("Connecting.."), SmallIcon("connect_creating"));
             setTransferChange(Tc_Status, true);
 
@@ -210,7 +210,7 @@ void BTTransfer::resume()
         catch (std::exception& e)
         {
         // the line below only compiles with exceptions activated
-        // kDebug() << "Resume exception " << e.what() << endl << endl;
+        // kDebug(5001) << "Resume exception " << e.what() << endl << endl;
         }
         timer.start(1 * 1000);
         return;
@@ -219,7 +219,7 @@ void BTTransfer::resume()
 
 void BTTransfer::remove()
 {
-    kDebug() << endl << "bt removed" << endl << endl;
+    kDebug(5001) << endl << "bt removed" << endl << endl;
     timer.stop();
     if (download.is_valid() && download.is_active()) 
     {
@@ -231,20 +231,20 @@ void BTTransfer::remove()
 
 void BTTransfer::trackerMessage(std::string msg)
 {
-    kDebug() << "trackerMessage" << endl;
-    kDebug() << msg.c_str() << endl;
+    kDebug(5001) << "trackerMessage" << endl;
+    kDebug(5001) << msg.c_str() << endl;
 }
 
 void BTTransfer::downloadFinished()
 {
-    kDebug() << "bt transfer done " << endl;
+    kDebug(5001) << "bt transfer done " << endl;
     setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
     setTransferChange(Tc_Status, true);
 }
 
 void BTTransfer::hashingFinished()
 {
-    kDebug() << "hashing finished " << endl;
+    kDebug(5001) << "hashing finished " << endl;
 
     setTransferChange(Tc_Status, true);
     resume();
@@ -252,25 +252,25 @@ void BTTransfer::hashingFinished()
 
 void BTTransfer::update()
 {
-    kDebug() << "update" << endl;
+    kDebug(5001) << "update" << endl;
     if (!download.is_valid() || !download.is_active()) 
     {
-        kDebug() << "timer running on invalid or inactive download" << endl;
+        kDebug(5001) << "timer running on invalid or inactive download" << endl;
         timer.stop();
         return;
     }
   
-//   kDebug() << "dl name " << download.get_name().c_str() << endl;
-//   kDebug() << "processedSize " << download.get_bytes_done() << endl;
-//   kDebug() << "rate down " << download.get_rate_down() << endl;
-//   kDebug() << "rate up " << download.get_rate_up() << endl;
-//   kDebug() << "bytes up " << download.get_bytes_up() << endl;
-//   kDebug() << "bytes down " << download.get_bytes_down() << endl;
-//   kDebug() << "chunk size " << download.get_chunks_size() << endl;
-//   kDebug() << "chunks done " << download.get_chunks_done() << endl;
-//   kDebug() << "chunks total " << download.get_chunks_total() << endl;
-//   kDebug() << "peers conn " << download.get_peers_connected() << endl;
-//   kDebug() << "handshakes " << torrent::get(torrent::HANDSHAKES_TOTAL) << endl;
+//   kDebug(5001) << "dl name " << download.get_name().c_str() << endl;
+//   kDebug(5001) << "processedSize " << download.get_bytes_done() << endl;
+//   kDebug(5001) << "rate down " << download.get_rate_down() << endl;
+//   kDebug(5001) << "rate up " << download.get_rate_up() << endl;
+//   kDebug(5001) << "bytes up " << download.get_bytes_up() << endl;
+//   kDebug(5001) << "bytes down " << download.get_bytes_down() << endl;
+//   kDebug(5001) << "chunk size " << download.get_chunks_size() << endl;
+//   kDebug(5001) << "chunks done " << download.get_chunks_done() << endl;
+//   kDebug(5001) << "chunks total " << download.get_chunks_total() << endl;
+//   kDebug(5001) << "peers conn " << download.get_peers_connected() << endl;
+//   kDebug(5001) << "handshakes " << torrent::get(torrent::HANDSHAKES_TOTAL) << endl;
 
     BTThread::lock();
     m_totalSize = download.get_bytes_total();

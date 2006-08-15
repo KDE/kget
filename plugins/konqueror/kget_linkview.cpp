@@ -140,7 +140,7 @@ void KGetLinkView::slotStartLeech()
 //                                                       "addTransfers(KUrl::List, QString)",
 //                                                       *data );
 // 
-//             kDebug() << "*** startDownload: " << ok << endl;
+//             kDebug(5001) << "*** startDownload: " << ok << endl;
 //         }
 // 
 //         p_dcopServer->detach();

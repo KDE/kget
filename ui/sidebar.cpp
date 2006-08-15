@@ -113,7 +113,7 @@ void SidebarBox::removeChild( SidebarBox * child )
 
 void SidebarBox::showChildren( bool show )
 {
-    kDebug() << "SidebarBox::showChildren" << endl;
+    kDebug(5001) << "SidebarBox::showChildren" << endl;
     m_showChildren = show;
 
     QList<SidebarBox *>::iterator it = m_childBoxes.begin();
@@ -297,39 +297,39 @@ void SidebarBox::timerEvent()
 
 void SidebarBox::mouseMoveEvent ( QMouseEvent * event )
 {
-//     kDebug() << "SidebarBox::MouseMoveEvent" << endl;
+//     kDebug(5001) << "SidebarBox::MouseMoveEvent" << endl;
     if(!m_isHighlighted)
         m_sidebar->boxHighlightedEvent(this);
 }
 
 void SidebarBox::mousePressEvent ( QMouseEvent * event )
 {
-    kDebug() << "MousePressEvent" << endl;
+    kDebug(5001) << "MousePressEvent" << endl;
     if(!m_isHighlighted)
         m_sidebar->boxHighlightedEvent(this);
 }
 
 void SidebarBox::mouseReleaseEvent ( QMouseEvent * event )
 {
-    kDebug() << "MouseReleaseEvent" << endl;
+    kDebug(5001) << "MouseReleaseEvent" << endl;
 }
 
 void SidebarBox::mouseDoubleClickEvent ( QMouseEvent * event )
 {
-    kDebug() << "MouseDoubleClickEvent" << endl;
+    kDebug(5001) << "MouseDoubleClickEvent" << endl;
     m_showChildren=!m_showChildren;
     m_sidebar->boxSelectedEvent(this, m_showChildren);
 }
 
 void SidebarBox::enterEvent ( QEvent * event )
 {
-    kDebug() << "enterEvent" << endl;
+    kDebug(5001) << "enterEvent" << endl;
 //    m_sidebar->boxHighlightedEvent(this);
 }
 
 void SidebarBox::leaveEvent ( QEvent * event )
 {
-    kDebug() << "leaveEvent" << endl;
+    kDebug(5001) << "leaveEvent" << endl;
 }
 
 DownloadsBox::DownloadsBox( Sidebar * sidebar )
@@ -342,7 +342,7 @@ DownloadsBox::DownloadsBox( Sidebar * sidebar )
 
 void DownloadsBox::paintEvent ( QPaintEvent * event )
 {
-    kDebug() << "DownloadsBox paint event" << endl;
+    kDebug(5001) << "DownloadsBox paint event" << endl;
 
     SidebarBox::paintEvent( event );
 
@@ -388,7 +388,7 @@ GroupBox::~GroupBox()
 
 void GroupBox::paintEvent ( QPaintEvent * event )
 {
-    kDebug() << "GroupBox::paintEvent   " << m_group->name() << endl;
+    kDebug(5001) << "GroupBox::paintEvent   " << m_group->name() << endl;
 
     SidebarBox::paintEvent( event );
 
@@ -417,13 +417,13 @@ void GroupBox::addedTransferEvent(TransferHandler * transfer, TransferHandler * 
 
 void GroupBox::transferChangedEvent(TransferHandler * transfer)
 {
-    //kDebug() << "GroupBox::transferChangedEvent -> ENTERING" << endl;
+    //kDebug(5001) << "GroupBox::transferChangedEvent -> ENTERING" << endl;
 
     if(transfer->changesFlags(this) & Transfer::Tc_Status)
     {
         if(transfer->status() == Job::Running)
         {
-            kDebug() << "Creating TransferBox: transfer status = "
+            kDebug(5001) << "Creating TransferBox: transfer status = "
                       << transfer->statusText() << endl;
 
             //Better check if we already created the TransferBox for this transfer
@@ -438,7 +438,7 @@ void GroupBox::transferChangedEvent(TransferHandler * transfer)
 
     transfer->resetChangesFlags(this);
 
-    //kDebug() << "GroupBox::transferChangedEvent -> LEAVING" << endl;
+    //kDebug(5001) << "GroupBox::transferChangedEvent -> LEAVING" << endl;
 }
 
 TransferBox::TransferBox( TransferHandler * transfer, GroupBox * gBox, Sidebar * sidebar )
@@ -468,15 +468,15 @@ void TransferBox::paintEvent ( QPaintEvent * event )
 
 void TransferBox::transferChangedEvent(TransferHandler * transfer)
 {
-    kDebug() << "TransferBox::transferChangedEvent() ENTERING" << endl;
+    kDebug(5001) << "TransferBox::transferChangedEvent() ENTERING" << endl;
     if(transfer->changesFlags(this) & Transfer::Tc_Status)
     {
         if(transfer->status() != Job::Running)
         {
             m_transfer->delObserver(this);
-            kDebug() << "###############  OBSERVER DELETED" << endl;
+            kDebug(5001) << "###############  OBSERVER DELETED" << endl;
             m_groupBox->removeChild(this);
-            kDebug() << "TransferBox::transferChangedEvent() LEAVING1" << endl;
+            kDebug(5001) << "TransferBox::transferChangedEvent() LEAVING1" << endl;
             return;
         }
         else
@@ -485,7 +485,7 @@ void TransferBox::transferChangedEvent(TransferHandler * transfer)
         }
     }
     m_transfer->resetChangesFlags(this);
-    kDebug() << "TransferBox::transferChangedEvent() LEAVING2" << endl;
+    kDebug(5001) << "TransferBox::transferChangedEvent() LEAVING2" << endl;
 }
 
 
@@ -537,7 +537,7 @@ void Sidebar::boxHighlightedEvent(SidebarBox * item)
 
 void Sidebar::boxSelectedEvent(SidebarBox * item, bool selected)
 {
-    kDebug() << "box selected " << selected << endl;
+    kDebug(5001) << "box selected " << selected << endl;
     item->showChildren(selected);
 }
 
@@ -558,7 +558,7 @@ void Sidebar::removedTransferGroupEvent(TransferGroupHandler * group)
 
 void Sidebar::timerEvent( QTimerEvent * e )
 {
-    kDebug() << "timerEvent" << endl;
+    kDebug(5001) << "timerEvent" << endl;
 
     //Here I have to make a copy of the list to assure that an asyncronous
     //call to stopTimer() doesn't make all crash
