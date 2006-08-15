@@ -15,7 +15,7 @@ kde4_automoc(${khtml_kget_SRCS})
 
 kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})
 
-kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} khtml_kget)
+kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} khtml_kget)
 
 target_link_libraries(khtml_kget ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KHTML_LIBS} ${KDE4_DCOP_LIBRARY})
 
@@ -26,7 +26,7 @@ install(TARGETS khtml_kget DESTINATION ${LIB_INSTALL_DIR}/kde4)
 
 install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/khtml/kpartplugins)
 
-kde4_install_icons(${ICON_INSTALL_DIR} hicolor)
+kde4_install_icons(${ICON_INSTALL_DIR})
 
 #original Makefile.am contents follow:
 

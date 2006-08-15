@@ -1,1 +1,0 @@
-SUBDIRS = kio bittorrent multithreaded
