@@ -8,6 +8,7 @@ add_subdirectory(ui)
 add_subdirectory(transfers)
 add_subdirectory(plugins)
 add_subdirectory(sounds)
+add_subdirectory(desktop)
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
@@ -87,7 +88,4 @@ install(TARGETS kget DESTINATION ${BIN_INSTALL_DIR})
 
 ########### install files ###############
 
-install(FILES kget.desktop DESTINATION ${XDG_APPS_DIR})
 install(FILES kgetui.rc DESTINATION ${DATA_INSTALL_DIR}/kget)
-
-kde4_install_icons(${ICON_INSTALL_DIR})
