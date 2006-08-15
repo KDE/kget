@@ -3,6 +3,7 @@
    Copyright (C) 2002 by Patrick Charbonnier <pch@freeshell.org>
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
+   Copyright (C) 2006 Urs Wolfer <uwolfer @ fwo.ch>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,7 +12,7 @@
 */
 
 #include <QClipboard>
-#include <QSplitter>
+// #include <QSplitter>
 #include <QTimer>
 
 #include <kapplication.h>
@@ -34,7 +35,7 @@
 #include "settings.h"
 #include "conf/preferencesdialog.h"
 
-#include "ui/sidebar.h"
+// #include "ui/sidebar.h"
 #include "ui/viewscontainer.h"
 #include "ui/tray.h"
 #include "ui/droptarget.h"
@@ -59,7 +60,6 @@ MainWindow::MainWindow( QWidget * parent )
 
     // restore position, size and visibility
     move( Settings::mainPosition() );
-    setMaximumHeight( 32767 );
     setAutoSaveSettings();
     setPlainCaption(i18n("KGet"));
 
@@ -94,19 +94,19 @@ void MainWindow::setupActions()
     KAction * action;
 
     // local - Shows a dialog asking for a new URL to down
-    action = new KAction( KIcon("filenew"), i18n("&New Download..."), 
+    action = new KAction( KIcon("filenew"), i18n("&New Download..."),
                           ac, "new_transfer" );
-    action->setShortcut(KShortcut("CTRL+Key_N"));
+    action->setShortcut(KShortcut("Ctrl+N"));
     connect(action, SIGNAL(triggered(bool)), SLOT(slotNewTransfer()));
 
-    action = new KAction( KIcon("fileopen"), i18n("&Open..."), 
+    action = new KAction( KIcon("fileopen"), i18n("&Open..."),
                           ac, "open" );
-    action->setShortcut(KShortcut("CTRL+Key_O"));
+    action->setShortcut(KShortcut("Ctrl+O"));
     connect(action, SIGNAL(triggered(bool)), SLOT(slotOpen()));
 
-    action = new KAction( i18n("&Export Transfers List..."), 
+    action = new KAction( i18n("&Export Transfers List..."),
                           ac, "export_transfers" );
-    action->setShortcut(KShortcut("CTRL+Key_E"));
+    action->setShortcut(KShortcut("Ctrl+E"));
     connect(action, SIGNAL(triggered(bool)), SLOT(slotExportTransfers()));
 
     KAction * r1;
@@ -158,37 +158,27 @@ void MainWindow::setupActions()
     m_menubarAction->setChecked( !menuBar()->isHidden() );
 
     // Transfer related actions
-// KAction *newAct = new KAction("filenew", i18n("&New"), actionCollection(), "new");
-
-//     new KAction( i18n("Start"), "player_play", 0,
-//                  this, SLOT(slotTransfersStart()),
-//                  actionCollection(), "transfer_start" );
-
-//  newAct->setShortcut(KStdAccel::shortcut(KStdAccel::New));
-//  connect(newAct, SIGNAL(triggered(bool)), SLOT(fileNew()));
-
-
-    action = new KAction( KIcon("player_play"), i18n("Start"), 
+    action = new KAction( KIcon("player_play"), i18n("Start"),
                           ac, "transfer_start" );
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersStart()));
 
-    action = new KAction( KIcon("player_pause"), i18n("Stop"), 
+    action = new KAction( KIcon("player_pause"), i18n("Stop"),
                           ac, "transfer_stop" );
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersStop()));
 
-    action = new KAction( KIcon("editdelete"), i18n("Delete"), 
+    action = new KAction( KIcon("editdelete"), i18n("Delete"),
                           ac, "transfer_remove" );
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersDelete()));
 
-    action = new KAction( KIcon("folder"), i18n("Open Destination"), 
+    action = new KAction( KIcon("folder"), i18n("Open Destination"),
                           ac, "transfer_open_dest" );
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersOpenDest()));
 
-    action = new KAction( KIcon("configure"), i18n("Show Details"), 
+    action = new KAction( KIcon("configure"), i18n("Show Details"),
                           ac, "transfer_show_details" );
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersShowDetails()));
 
-    action = new KAction( KIcon("tool_clipboard"), i18n("Copy URL to Clipboard"), 
+    action = new KAction( KIcon("tool_clipboard"), i18n("Copy URL to Clipboard"),
                           ac, "transfer_copy_source_url" );
     connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersCopySourceURL()));
 }
@@ -272,7 +262,7 @@ void MainWindow::slotOpen()
 
 void MainWindow::slotQuit()
 {
-//     if (m_scheduler->countRunningJobs() > 0) 
+//     if (m_scheduler->countRunningJobs() > 0)
 //     {
 //         if (KMessageBox::warningYesNo(this,
 //                 i18n("Some transfers are still running.\n"
@@ -288,9 +278,9 @@ void MainWindow::slotQuit()
 
 void MainWindow::slotPreferences()
 {
-    // an instance the dialog could be already created and could be cached, 
+    // an instance the dialog could be already created and could be cached,
     // in which case you want to display the cached dialog
-    if ( PreferencesDialog::showDialog( "preferences" ) ) 
+    if ( PreferencesDialog::showDialog( "preferences" ) )
         return;
 
     // we didn't find an instance of this dialog, so lets create it
@@ -318,14 +308,14 @@ void MainWindow::slotExportTransfers()
 
 void MainWindow::slotStartDownload()
 {
-    m_dock->setDownloading(true);    
+    m_dock->setDownloading(true);
 
     KGet::setSchedulerRunning(true);
 }
 
 void MainWindow::slotStopDownload()
 {
-    m_dock->setDownloading(false);    
+    m_dock->setDownloading(false);
 
     KGet::setSchedulerRunning(false);
 }
@@ -506,7 +496,7 @@ void MainWindow::slotShowMenubar()
 void MainWindow::log(const QString & message)
 {
     Q_UNUSED(message);
-    //The logWindow has been removed. Maybe we could implement 
+    //The logWindow has been removed. Maybe we could implement
     //a new one. The old one was used as follows:
     //logWindow->logGeneral(message);
 }
@@ -544,6 +534,7 @@ void MainWindow::dropEvent(QDropEvent * event)
 
 void MainWindow::addTransfers( const KUrl::List& src, const QString& dest)
 {
+    //TODO Implement it in the dbus interface
     KGet::addTransfer( src, dest );
 }
 
@@ -704,27 +695,5 @@ void MainWindow::setAutoSave()
     m_paQueue->blockSignals(false);
     m_paTimer->blockSignals(false);
     m_paDelay->blockSignals(false);
-*/
-//END 
-
-//BEGIN use last directory Action 
-/*
-KToggleAction *m_paExpertMode, *m_paUseLastDir
-    m_paUseLastDir     =  new KToggleAction(i18n("&Use-Last-Folder Mode"),"folder", 0, this, SLOT(slotToggleUseLastDir()), ac, "use_last_dir");
-    m_paUseLastDir->setWhatsThis(i18n("<b>Use last folder</b> button toggles the\n" "use-last-folder feature on and off.\n" "\n" "When set, KGet will ignore the folder settings\n" "and put all new added transfers into the folder\n" "where the last transfer was put."));
-    m_paUseLastDir->setChecked(Settings::useLastDir());
-
-void slotToggleUseLastDir();
-
-void MainWindow::slotToggleUseLastDir()
-{
-    Settings::setUseLastDirectory( !Settings::useLastDirectory() );
-
-    if (Settings::useLastDirectory()) {
-        log(i18n("Use last folder on."));
-    } else {
-        log(i18n("Use last folder off."));
-    }
-}
 */
 //END 
