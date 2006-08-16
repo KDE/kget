@@ -115,7 +115,7 @@ public:
 
         KUrl::List l;
         for (int i = 0; i < args->count(); i++)
-	    {
+        {
             QString txt(args->arg(i));
             if ( txt.endsWith( ".kgt", Qt::CaseInsensitive ) )
                 KGet::load( txt );

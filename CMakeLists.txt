@@ -85,7 +85,3 @@ kde4_add_executable(kget ${kget_SRCS})
 target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} knotifyconfig kgetcore)
 
 install(TARGETS kget DESTINATION ${BIN_INSTALL_DIR})
-
-########### install files ###############
-
-install(FILES kgetui.rc DESTINATION ${DATA_INSTALL_DIR}/kget)
