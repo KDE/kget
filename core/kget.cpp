@@ -369,8 +369,8 @@ KGet::KGet()
     //Load all the available plugins
     loadPlugins();
 
-    //Create the default group with empty name
-    addGroup(QString());
+    //Create the default group
+    addGroup(i18n("Default Group"));
 }
 
 KGet::~KGet()

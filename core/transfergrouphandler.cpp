@@ -96,7 +96,7 @@ QVariant TransferGroupHandler::data(int column)
     {
 //         if(name()=="" || name().isEmpty() || name().isNull())
 //             return QVariant("empty name");
-        return QVariant("_"+name()+"_");
+        return QVariant(name());
     }
     else if(column==2)
         return QVariant(totalSize());

@@ -188,18 +188,22 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
 
 QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    switch (section)
-    {
-        case 0:
-            return QVariant(i18n("File"));
-        case 1:
-            return QVariant(i18n("Status"));
-        case 2:
-            return QVariant(i18n("Size"));
-        case 3:
-            return QVariant(i18n("Progress"));
-        case 4:
-            return QVariant(i18n("Speed"));
+    if (orientation == Qt::Horizontal) {
+        if (role != Qt::DisplayRole)
+            return QVariant();
+        switch (section)
+        {
+            case 0:
+                return i18n("Name");
+            case 1:
+                return i18n("Status");
+            case 2:
+                return i18n("Size");
+            case 3:
+                return i18n("Progress");
+            case 4:
+                return i18n("Speed");
+        }
     }
 }
 
