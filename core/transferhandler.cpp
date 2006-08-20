@@ -108,18 +108,21 @@ QVariant TransferHandler::data(int column)
 {
     kDebug(5001) << "TransferHandler::data(" << column << ")" << endl;
 
-    if(column==0)
-        return QVariant(source().fileName());
-    else if(column==1)
-        return QVariant(statusText());
-    else if(column==2)
-        return QVariant((qulonglong) totalSize());
-    else if(column==3)
-        return QVariant(percent());
-    else if(column==4)
-        return QVariant(speed());
-
-    return QVariant();
+    switch(column)
+    {
+        case 0:
+            return source().fileName();
+        case 1:
+            return statusText();
+        case 2:
+            return KIO::convertSize(totalSize());
+        case 3:
+            return QString::number(percent())+"%";
+        case 4:
+            return KIO::convertSize(speed());
+        default:
+            return QVariant();
+    }
 }
 
 KMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)

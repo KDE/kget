@@ -92,20 +92,19 @@ QVariant TransferGroupHandler::data(int column)
 {
     kDebug(5001) << "TransferGroupHandler::data(" << column << ")" << endl;
 
-    if(column==0)
+    switch(column)
     {
-//         if(name()=="" || name().isEmpty() || name().isNull())
-//             return QVariant("empty name");
-        return QVariant(name());
+        case 0:
+            return name();
+        case 2:
+            return KIO::convertSize(totalSize());
+        case 3:
+            return QString::number(percent())+"%";
+        case 4:
+            return KIO::convertSize(speed());
+        default:
+            return QVariant();
     }
-    else if(column==2)
-        return QVariant(totalSize());
-    else if(column==3)
-        return QVariant(percent());
-    else if(column==4)
-        return QVariant(speed());
-
-    return QVariant();
 }
 
 TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObserver * observer)

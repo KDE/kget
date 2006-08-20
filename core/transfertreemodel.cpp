@@ -11,6 +11,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kio/netaccess.h>
+#include <kiconloader.h>
 
 #include "transfertreemodel.h"
 #include "core/transfergrouphandler.h"
@@ -188,9 +189,7 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
 
 QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal) {
-        if (role != Qt::DisplayRole)
-            return QVariant();
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section)
         {
             case 0:
@@ -203,10 +202,12 @@ QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation,
                 return i18n("Progress");
             case 4:
                 return i18n("Speed");
+            default:
+                return QVariant();
         }
     }
+    return QVariant();
 }
-
 
 QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 {
@@ -218,27 +219,53 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
         return QVariant();
     }
 
-    if (role != Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == Qt::DecorationRole)
     {
-        kDebug(5001) << "           not display role" << endl;
-        return QVariant();
+        void * pointer = index.internalPointer();
+
+        if(isTransferGroup(pointer))
+        {
+            if (role == Qt::DisplayRole)
+            {
+                kDebug(5001) << "           (GROUP)" << endl;
+                //The given index refers to a group object
+                TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
+                return group->data(index.column());
+            }
+            else //Qt::DecorationRole -> icon
+            {
+                if (index.column() == 0)
+                    return SmallIcon("folder", 22);
+                else
+                    return QVariant();
+            }
+        }
+
+        kDebug(5001) << "           (TRANSFER)" << endl;
+
+        //The given index refers to a transfer object
+        TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
+
+        if (role == Qt::DisplayRole)
+            return transfer->data(index.column());
+        else //Qt::DecorationRole -> icon
+        {
+            switch (index.column())
+            {
+                case 0:
+                    return KIO::pixmapForURL(transfer->source(), 0, K3Icon::Desktop, 16);
+                case 1:
+                    return transfer->statusPixmap();
+                default:
+                    return QVariant();
+            }
+        }
     }
 
-    void * pointer = index.internalPointer();
+    if ((index.column() == 2 || index.column() == 4) && Qt::TextAlignmentRole == role) //numbers right aligned
+        return Qt::AlignRight;
 
-    if(isTransferGroup(pointer))
-    {
-        kDebug(5001) << "           (GROUP)" << endl;
-        //The given index refers to a group object
-        TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
-        return group->data(index.column());
-    }
-
-    kDebug(5001) << "           (TRANSFER)" << endl;
-
-    //The given index refers to a transfer object
-    TransferHandler * transfer = static_cast<TransferHandler *>(pointer);
-    return transfer->data(index.column());
+    return QVariant();
 }
 
 QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & parent) const
