@@ -97,11 +97,22 @@ QVariant TransferGroupHandler::data(int column)
         case 0:
             return name();
         case 2:
-            return KIO::convertSize(totalSize());
+            if (totalSize() != 0)
+                return KIO::convertSize(totalSize());
+            else
+                return i18nc("not available", "n/a");
         case 3:
             return QString::number(percent())+"%";
         case 4:
-            return KIO::convertSize(speed());
+            if (speed()==0)
+            {
+                if (status() == JobQueue::Running)
+                    return i18n("Stalled");
+                else
+                    return QString();
+            }
+            else
+                return i18n("%1/s", KIO::convertSize(speed()));
         default:
             return QVariant();
     }
@@ -286,7 +297,7 @@ void TransferGroupHandler::createActions()
     //has been created (if not it will create it)
     qObject();
 
-    KAction * a = new KAction( KIcon("player_start"), i18n("Start"),
+    KAction * a = new KAction( KIcon("player_play"), i18n("Start"),
                                KGet::actionCollection(), "transfer_group_start" );
     QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStart() ) );
     m_actions.append( a );

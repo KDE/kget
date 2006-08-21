@@ -9,6 +9,7 @@
 */
 
 #include <kdebug.h>
+#include <klocale.h>
 
 #include <QVariant>
 
@@ -115,11 +116,22 @@ QVariant TransferHandler::data(int column)
         case 1:
             return statusText();
         case 2:
-            return KIO::convertSize(totalSize());
+            if (totalSize() != 0)
+                return KIO::convertSize(totalSize());
+            else
+                return i18nc("not available", "n/a");
         case 3:
             return QString::number(percent())+"%";
         case 4:
-            return KIO::convertSize(speed());
+            if (speed()==0)
+            {
+                if (status() == Job::Running)
+                    return i18n("Stalled");
+                else
+                    return QString();
+            }
+            else
+                return i18n("%1/s", KIO::convertSize(speed()));
         default:
             return QVariant();
     }
