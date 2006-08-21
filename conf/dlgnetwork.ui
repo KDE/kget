@@ -1,15 +1,12 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>DlgNetwork</class>
  <widget class="QWidget" name="DlgNetwork" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
-    <height>354</height>
+    <width>367</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +14,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -40,50 +37,55 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" >
-     <property name="margin" >
-      <number>11</number>
+    <widget class="QGroupBox" name="groupBoxMaximumDownload" >
+     <property name="enabled" >
+      <bool>false</bool>
      </property>
-     <property name="spacing" >
-      <number>6</number>
+     <property name="title" >
+      <string>Maximum Downloads</string>
      </property>
-     <item rowspan="2" row="0" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>16</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="1" >
-      <widget class="QLabel" name="lbl_maxnum_2" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Downloads from the same server:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" >
-      <widget class="QLabel" name="lbl_maxnum" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Total downloads number:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lbl_maxnum_2" >
+        <property name="text" >
+         <string>Downloads from the same server:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lbl_maxnum" >
+        <property name="text" >
+         <string>Total downloads number:</string>
+        </property>
+       </widget>
+      </item>
+      <item rowspan="2" row="0" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>71</width>
+          <height>48</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QSpinBox" name="kcfg_MaxConnections" />
+      </item>
+      <item row="1" column="2" >
+       <widget class="QSpinBox" name="kcfg_MaxConnectionsServer" />
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_ReconnectOnBroken" >
@@ -96,69 +98,68 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" >
-     <property name="margin" >
-      <number>11</number>
+    <widget class="QGroupBox" name="groupBoxRetries" >
+     <property name="enabled" >
+      <bool>false</bool>
      </property>
-     <property name="spacing" >
-      <number>6</number>
+     <property name="title" >
+      <string>Retries</string>
      </property>
-     <item row="1" column="1" >
-      <widget class="QLabel" name="lb_after_2" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Retry after:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" >
-      <widget class="QLabel" name="lb_retries_2" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Number of retries:</string>
-       </property>
-      </widget>
-     </item>
-     <item rowspan="2" row="0" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>16</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item rowspan="2" row="0" column="2" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>90</width>
-         <height>50</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lb_after_2" >
+        <property name="text" >
+         <string>Retry after:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lb_retries_2" >
+        <property name="text" >
+         <string>Number of retries:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QSpinBox" name="kcfg_ReconnectRetries" />
+      </item>
+      <item rowspan="2" row="0" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>115</width>
+          <height>56</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QSpinBox" name="kcfg_ReconnectDelay" >
+        <property name="suffix" >
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox5" >
+    <widget class="QGroupBox" name="groupBoxCompleted" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
      <property name="title" >
       <string>After completing downloads</string>
      </property>
@@ -171,9 +172,6 @@
       </property>
       <item>
        <widget class="QCheckBox" name="kcfg_AutoShutdown" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
         <property name="text" >
          <string>Auto shutdown</string>
         </property>
@@ -181,9 +179,6 @@
       </item>
       <item>
        <widget class="QCheckBox" name="kcfg_AutoDisconnect" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
         <property name="text" >
          <string>Auto disconnect</string>
         </property>
@@ -203,7 +198,7 @@
      <property name="sizeHint" >
       <size>
        <width>200</width>
-       <height>20</height>
+       <height>16</height>
       </size>
      </property>
     </spacer>
@@ -214,5 +209,38 @@
  <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_LimitDownloads</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBoxMaximumDownload</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>165</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>164</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ReconnectOnBroken</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBoxRetries</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>165</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>165</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

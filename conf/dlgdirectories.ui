@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>DlgDirectories</class>
  <widget class="QWidget" name="DlgDirectories" >
   <property name="geometry" >
@@ -17,7 +14,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -30,7 +27,11 @@
     </widget>
    </item>
    <item>
-    <widget class="KUrlRequester" name="kcfg_DefaultDirectory" />
+    <widget class="KUrlRequester" name="kcfg_DefaultDirectory">
+     <property name="mode" >
+      <enum>KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer>
@@ -56,10 +57,8 @@
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QWidget</extends>
+   <extends>QFrame</extends>
    <header>kurlrequester.h</header>
-   <container>1</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,15 +1,12 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>DlgAdvanced</class>
  <widget class="QWidget" name="DlgAdvanced" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
-    <height>416</height>
+    <width>367</width>
+    <height>262</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +14,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -36,7 +33,7 @@
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
-       <number>10</number>
+       <number>9</number>
       </property>
       <property name="spacing" >
        <number>6</number>

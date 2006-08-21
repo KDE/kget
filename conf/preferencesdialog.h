@@ -7,8 +7,8 @@
    of the License.
 */
 
-#ifndef _PREFERENCESDIALOG_H
-#define _PREFERENCESDIALOG_H
+#ifndef PREFERENCESDIALOG_H
+#define PREFERENCESDIALOG_H
 
 #include <kconfigdialog.h>
 
@@ -19,13 +19,6 @@ class KDE_EXPORT PreferencesDialog : public KConfigDialog
 {
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
-
-    protected:
-    // 	void updateSettings(); // Called when OK/Apply is pressed.
-    // 	void updateWidgets(); // Called upon construction or when Reset is pressed
-    // 	void updateWidgetsDefault(); // Called when Defaults button is pressed
-    // 	bool hasChanged(); // In order to correctly disable/enable Apply button
-    // 	bool isDefault(); //  In order to correctly disable/enable Defaults button
 
     private:
         QWidget * appearance;

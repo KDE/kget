@@ -9,7 +9,6 @@
 
 #include <klocale.h>
 
-// reimplementing this
 #include "preferencesdialog.h"
 
 // single config pages
@@ -36,8 +35,10 @@ PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skelet
     dlgDir.setupUi(directories);
     dlgAdv.setupUi(advanced);
 
-    addPage( appearance, i18n("Appearance"), "looknfeel", i18n("Look and feel") );
-    addPage( directories, i18n("Folders"), "folder_open", i18n("Default download folders") );
-    addPage( network, i18n("Network"), "network", i18n("Network and downloads") );
-    addPage( advanced, i18n("Advanced"), "exec", i18n("Advanced options") );
+    addPage( appearance, i18n("Appearance"), "looknfeel", i18n("Look and Feel") );
+    addPage( directories, i18n("Folders"), "folder_open", i18n("Default Download Folders") );
+    addPage( network, i18n("Network"), "network", i18n("Network and Downloads") );
+    addPage( advanced, i18n("Advanced"), "kget", i18n("Advanced Options") );
+
+    resize(500, 500); //FIXME ugly fix to get a better size. the config dialog is too small because the appearance page has a small size
 }

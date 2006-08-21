@@ -262,8 +262,19 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
         }
     }
 
-    if ((index.column() == 2 || index.column() == 4) && Qt::TextAlignmentRole == role) //numbers right aligned
-        return Qt::AlignRight;
+    if (role == Qt::TextAlignmentRole)
+    {
+        switch (index.column())
+        {
+            case 2: // size
+            case 4: // speed
+                return Qt::AlignRight;
+            case 3: //progress
+                return Qt::AlignCenter;
+            default:
+                return Qt::AlignLeft;
+        }
+    }
 
     return QVariant();
 }

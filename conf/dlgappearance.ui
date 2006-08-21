@@ -1,14 +1,11 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>DlgAppearance</class>
  <widget class="QWidget" name="DlgAppearance" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
+    <width>367</width>
     <height>299</height>
    </rect>
   </property>
@@ -17,7 +14,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -28,42 +25,6 @@
       <string>Show main window at startup</string>
      </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
-      <number>0</number>
-     </property>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>16</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="kcfg_ShowMainLarge" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Use the large traditional window</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_ShowIndividual" >
@@ -185,22 +146,6 @@
    <sender>kcfg_ShowDropTarget</sender>
    <signal>toggled(bool)</signal>
    <receiver>kcfg_AnimateDropTarget</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kcfg_ShowMain</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcfg_ShowMainLarge</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> 
-  <kcfgfile name="kgetrc"/> 
-
-<!-- backward compatibility -->
+<kcfg>
+  <kcfgfile name="kgetrc"/>
 
   <include>QDir</include>
   <include>QSize</include>
@@ -11,9 +9,6 @@
 
   <group name="Appearance">
     <entry name="ShowMain" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="ShowMainLarge" type="Bool">
       <default>true</default>
     </entry>
     <entry name="ShowIndividual" type="Bool">
@@ -29,7 +24,7 @@
       <default>true</default>
     </entry>
     <entry name="ShowSplashscreen" type="Bool">
-      <label>Sets to show the splashscreen while kget is loading</label>
+      <label>Sets to show the splashscreen while KGet is loading</label>
       <default>true</default>
     </entry>
   </group>
@@ -55,12 +50,6 @@
     </entry>
     <entry name="TimedDisconnectDateTime" type="DateTime">
       <default code="true">QDateTime::currentDateTime()</default>
-    </entry>
-    <entry name="AutoSave" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="AutoSaveInterval" type="Int">
-      <default>10</default>
     </entry>
   </group>
 
@@ -92,9 +81,6 @@
     <entry name="AutoDisconnect" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="DisconnectCommand" type="String">
-      <default>kppp -k</default>
-    </entry>
     <entry name="MtThreads" type="Int">
       <default>1</default>
     </entry>
@@ -112,21 +98,6 @@
     </entry>
     <entry name="MimeDirList" type="StringList" key="Items">
       <label>extRegExp, defaultDir, extR..</label>
-    </entry>
-  </group>
-
-  <!-- ObsOl3te --> 
-  <group name="Connection">
-    <entry name="ConnectionType" type="Enum">
-      <choices>
-        <choice name="Permanent"/>
-        <choice name="Ethernet"/>
-        <choice name="PLIP"/>
-        <choice name="SLIP"/>
-        <choice name="PPP"/>
-        <choice name="ISDN"/>
-      </choices>
-      <default>Permanent</default>
     </entry>
   </group>
 
