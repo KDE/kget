@@ -27,6 +27,7 @@
 
 
 TitleBar::TitleBar(QWidget * parent)
+    : QWidget(parent)
 {
     setMaximumHeight(40);
 
@@ -56,6 +57,7 @@ void TitleBar::setFinishedWindow()
 }
 
 ButtonBase::ButtonBase(QWidget * parent)
+    : QToolButton(parent)
 {
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     setAutoExclusive(true);

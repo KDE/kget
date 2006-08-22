@@ -11,6 +11,7 @@
 #include "transfersview.h"
 
 TransfersView::TransfersView(QWidget * parent)
+    : QTreeView(parent)
 {
 
 }
