@@ -180,7 +180,7 @@ void MainWindow::setupActions()
 
     action = new KAction( KIcon("tool_clipboard"), i18n("Copy URL to Clipboard"),
                           ac, "transfer_copy_source_url" );
-    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersCopySourceURL()));
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersCopySourceUrl()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -380,7 +380,7 @@ void MainWindow::slotTransfersShowDetails()
     }
 }
 
-void MainWindow::slotTransfersCopySourceURL()
+void MainWindow::slotTransfersCopySourceUrl()
 {
     foreach(TransferHandler * it, KGet::selectedTransfers())
     {

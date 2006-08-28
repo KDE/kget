@@ -24,7 +24,7 @@ class TransferMultiThreadedFactory : public TransferFactory
         TransferMultiThreadedFactory();
         ~TransferMultiThreadedFactory();
 
-        Transfer * createTransfer( KUrl srcURL, KUrl destURL,
+        Transfer * createTransfer( KUrl srcUrl, KUrl destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 

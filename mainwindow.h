@@ -75,7 +75,7 @@ private slots:
     void slotTransfersDelete();
     void slotTransfersOpenDest();
     void slotTransfersShowDetails();
-    void slotTransfersCopySourceURL();
+    void slotTransfersCopySourceUrl();
 
     // misc slots
     void slotDelayedInit();

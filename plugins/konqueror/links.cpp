@@ -41,8 +41,8 @@ LinkItem::LinkItem( DOM::Element link )
     }
 
     // force "local file" mimetype determination
-    KMimeType::Ptr mt = KMimeType::findByURL( url, 0, true, true);
-    icon = mt->icon();
+    KMimeType::Ptr mt = KMimeType::findByUrl( url, 0, true, true);
+    icon = mt->iconName();
     mimeType = mt->comment();
 
     m_valid = true;

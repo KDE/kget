@@ -27,18 +27,18 @@ TransferMultiThreadedFactory::~TransferMultiThreadedFactory()
 {
 }
 
-Transfer * TransferMultiThreadedFactory::createTransfer( KUrl srcURL, KUrl destURL,
+Transfer * TransferMultiThreadedFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
     kDebug(5001) << "TransferMultiThreadedFactory::createTransfer" << endl;
 
-    QString prot = srcURL.protocol();
+    QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot << endl;
     if( prot == "http" || prot == "ftp" )
     {
-        return new TransferMultiThreaded(parent, this, scheduler, srcURL, destURL, e);
+        return new TransferMultiThreaded(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }

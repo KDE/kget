@@ -134,7 +134,7 @@ void KGet_plug_in::slotShowLinks()
 
     KGetLinkView *view = new KGetLinkView();
     QString url = doc.URL().string();
-    view->setPageURL( url );
+    view->setPageUrl( url );
 
     view->setLinks( linkList );
     view->show();

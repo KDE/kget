@@ -29,21 +29,21 @@
 
 KGET_EXPORT_PLUGIN(BTTransferFactory)
 
-Transfer * BTTransferFactory::createTransfer( KUrl srcURL, KUrl destURL,
+Transfer * BTTransferFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
                                               TransferGroup * parent,
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
 {
     kDebug(5001) << "BTTransferFactory::createTransfer" << endl;
 
-    if (srcURL.fileName().endsWith(".torrent") && srcURL.isLocalFile())
+    if (srcUrl.fileName().endsWith(".torrent") && srcUrl.isLocalFile())
     {
         //Make sure that the given url points to an existing torrent file
-        QFile torrentFile(srcURL.path());
+        QFile torrentFile(srcUrl.path());
         if(!torrentFile.exists())
             return 0;
 
-        return new BTTransfer(parent, this, scheduler, srcURL, destURL, e);
+        return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }

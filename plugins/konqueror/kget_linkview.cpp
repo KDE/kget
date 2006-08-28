@@ -148,7 +148,7 @@ void KGetLinkView::slotStartLeech()
     }
 }
 
-void KGetLinkView::setPageURL( const QString& url )
+void KGetLinkView::setPageUrl( const QString& url )
 {
     setPlainCaption( i18n( "Links in: %1 - KGet", url ) );
 }

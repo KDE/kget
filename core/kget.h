@@ -91,12 +91,12 @@ class KGET_EXPORT KGet
         /**
          * Adds a new transfer to the KGet
          *
-         * @param srcURL The url to be downloaded
+         * @param srcUrl The url to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KUrl srcURL, QString destDir = QString(),
+        static void addTransfer(KUrl srcUrl, QString destDir = QString(),
                                 const QString& groupName = QString());
 
         /**
@@ -110,12 +110,12 @@ class KGET_EXPORT KGet
         /**
          * Adds new transfers to the KGet
          *
-         * @param srcURLs The urls to be downloaded
+         * @param srcUrls The urls to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(KUrl::List srcURLs, QString destDir = QString(),
+        static void addTransfer(KUrl::List srcUrls, QString destDir = QString(),
                                 const QString& groupName = QString());
 
         /**
@@ -216,9 +216,9 @@ class KGET_EXPORT KGet
          * @param destFile the url of the destination file
          * @return true if the destination file is ok, otherwise returns false
          */
-        static bool isValidDestURL(KUrl destURL);
+        static bool isValidDestUrl(KUrl destUrl);
 
-        static KUrl getValidDestURL(const QString& destDir, KUrl srcURL);
+        static KUrl getValidDestUrl(const QString& destDir, KUrl srcUrl);
 
         static TransferGroup * findGroup(const QString& groupName);
         static Transfer * findTransfer(KUrl url);

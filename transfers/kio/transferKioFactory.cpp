@@ -25,20 +25,20 @@ TransferKioFactory::~TransferKioFactory()
 {
 }
 
-Transfer * TransferKioFactory::createTransfer( KUrl srcURL, KUrl destURL,
+Transfer * TransferKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
     kDebug(5001) << "TransferKioFactory::createTransfer" << endl;
 
-    QString prot = srcURL.protocol();
+    QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot << endl;
     if(    prot == "http" || prot == "https" 
         || prot == "ftp"  || prot == "sftp"
         || prot == "file")
     {
-        return new TransferKio(parent, this, scheduler, srcURL, destURL, e);
+        return new TransferKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }

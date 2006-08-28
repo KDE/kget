@@ -94,58 +94,58 @@ void KGet::delGroup(const QString& groupName)
     }
 }
 
-void KGet::addTransfer( KUrl srcURL, QString destDir,
+void KGet::addTransfer( KUrl srcUrl, QString destDir,
                          const QString& groupName )
 {
-    kDebug(5001) << " addTransfer:  " << srcURL.url() << endl;
+    kDebug(5001) << " addTransfer:  " << srcUrl.url() << endl;
 
-    KUrl destURL;
+    KUrl destUrl;
 
-    if ( srcURL.isEmpty() )
+    if ( srcUrl.isEmpty() )
     {
         //No src location: we let the user insert it manually
-        srcURL = urlInputDialog();
-        if( srcURL.isEmpty() )
+        srcUrl = urlInputDialog();
+        if( srcUrl.isEmpty() )
             return;
     }
 
-    if ( !isValidSource( srcURL ) )
+    if ( !isValidSource( srcUrl ) )
         return;
 
     if ( !isValidDestDirectory( destDir ) )
         destDir = destInputDialog();
 
-    if( (destURL = getValidDestURL( destDir, srcURL )).isEmpty() )
+    if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
         return;
 
-    createTransfer(srcURL, destURL, groupName);
+    createTransfer(srcUrl, destUrl, groupName);
 }
 
 void KGet::addTransfer(const QDomElement& e, const QString& groupName)
 {
     //We need to read these attributes now in order to know which transfer
     //plugin to use.
-    KUrl srcURL = KUrl( e.attribute("Source") );
-    KUrl destURL = KUrl( e.attribute("Dest") );
+    KUrl srcUrl = KUrl( e.attribute("Source") );
+    KUrl destUrl = KUrl( e.attribute("Dest") );
 
-    kDebug(5001) << "KGet::addTransfer  src= " << srcURL.url()
-              << " dest= " << destURL.url() 
+    kDebug(5001) << "KGet::addTransfer  src= " << srcUrl.url()
+              << " dest= " << destUrl.url() 
               << " group= "<< groupName << endl;
 
-    if ( srcURL.isEmpty() || !isValidSource(srcURL) 
-         || !isValidDestDirectory(destURL.directory()) )
+    if ( srcUrl.isEmpty() || !isValidSource(srcUrl) 
+         || !isValidDestDirectory(destUrl.directory()) )
         return;
 
-    createTransfer(srcURL, destURL, groupName, &e);
+    createTransfer(srcUrl, destUrl, groupName, &e);
 }
 
-void KGet::addTransfer(KUrl::List srcURLs, QString destDir,
+void KGet::addTransfer(KUrl::List srcUrls, QString destDir,
                         const QString& groupName)
 {
     KUrl::List urlsToDownload;
 
-    KUrl::List::ConstIterator it = srcURLs.begin();
-    KUrl::List::ConstIterator itEnd = srcURLs.end();
+    KUrl::List::ConstIterator it = srcUrls.begin();
+    KUrl::List::ConstIterator itEnd = srcUrls.end();
 
     for(; it!=itEnd ; ++it)
     {
@@ -159,11 +159,11 @@ void KGet::addTransfer(KUrl::List srcURLs, QString destDir,
     if ( urlsToDownload.count() == 1 )
     {
         // just one file -> ask for filename
-        addTransfer(srcURLs.first(), destDir, groupName);
+        addTransfer(srcUrls.first(), destDir, groupName);
         return;
     }
 
-    KUrl destURL;
+    KUrl destUrl;
 
     // multiple files -> ask for directory, not for every single filename
     if ( !isValidDestDirectory(destDir) )
@@ -174,12 +174,12 @@ void KGet::addTransfer(KUrl::List srcURLs, QString destDir,
 
     for ( ; it != itEnd; ++it )
     {
-        destURL = getValidDestURL( destDir, *it );
+        destUrl = getValidDestUrl( destDir, *it );
 
-        if(!isValidDestURL(destURL))
+        if(!isValidDestUrl(destUrl))
             continue;
 
-        createTransfer(*it, destURL, groupName);
+        createTransfer(*it, destUrl, groupName);
     }
 }
 
@@ -381,8 +381,8 @@ KGet::~KGet()
 
 void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
 {
-    kDebug(5001) << "createTransfer: srcURL= " << src.url() << "  " 
-                             << "destURL= " << dest.url() 
+    kDebug(5001) << "createTransfer: srcUrl= " << src.url() << "  " 
+                             << "destUrl= " << dest.url() 
                              << "group= _" << groupName << "_" << endl;
 
     TransferGroup * group = m_transferTreeModel->findGroup(groupName);
@@ -505,8 +505,8 @@ bool KGet::isValidSource(KUrl source)
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNo(0,
                 i18n("URL already saved:\n%1\nDownload again?", source.prettyUrl()),
-                i18n("Download URL Again?"), KStdGuiItem::yes(),
-                KStdGuiItem::no(), "QuestionURLAlreadySaved" )
+                i18n("Download URL again?"), KStdGuiItem::yes(),
+                KStdGuiItem::no(), "QuestionUrlAlreadySaved" )
                 == KMessageBox::Yes)
             {
                 //TODO reimplement this
@@ -533,56 +533,56 @@ bool KGet::isValidDestDirectory(const QString & destDir)
     return (!destDir.isEmpty() && QFileInfo( destDir ).isDir());
 }
 
-bool KGet::isValidDestURL(KUrl destURL)
+bool KGet::isValidDestUrl(KUrl destUrl)
 {
-    if(KIO::NetAccess::exists(destURL, false, 0))
+    if(KIO::NetAccess::exists(destUrl, false, 0))
     {
         if (KMessageBox::warningYesNo(0,
             i18n("Destination file \n%1\nalready exists.\n"
-                 "Do you want to overwrite it?", destURL.prettyUrl()))
+                 "Do you want to overwrite it?", destUrl.prettyUrl()))
             == KMessageBox::Yes)
         {
-            safeDeleteFile( destURL );
+            safeDeleteFile( destUrl );
             return true;
         }
     }
     return true;
    /*
     KIO::open_RenameDlg(i18n("File already exists"), 
-    (*it).url(), destURL.url(),
+    (*it).url(), destUrl.url(),
     KIO::M_MULTI);
    */
 }
 
-KUrl KGet::getValidDestURL(const QString& destDir, KUrl srcURL)
+KUrl KGet::getValidDestUrl(const QString& destDir, KUrl srcUrl)
 {
     if ( !isValidDestDirectory(destDir) )
         return KUrl();
 
     // create a proper destination file from destDir
-    KUrl destURL = KUrl( destDir );
-    QString filename = srcURL.fileName();
+    KUrl destUrl = KUrl( destDir );
+    QString filename = srcUrl.fileName();
 
     if ( filename.isEmpty() )
     {
         // simply use the full url as filename
-        filename = QUrl::toPercentEncoding( srcURL.prettyUrl(), "/" );
+        filename = QUrl::toPercentEncoding( srcUrl.prettyUrl(), "/" );
         kDebug(5001) << " Filename is empty. Setting to  " << filename << endl;
-        kDebug(5001) << "   srcURL = " << srcURL.url() << endl;
-        kDebug(5001) << "   prettyUrl = " << srcURL.prettyUrl() << endl;
+        kDebug(5001) << "   srcUrl = " << srcUrl.url() << endl;
+        kDebug(5001) << "   prettyUrl = " << srcUrl.prettyUrl() << endl;
     }
     else
     {
         kDebug(5001) << " Filename is not empty" << endl;
-        destURL.adjustPath( KUrl::AddTrailingSlash );
-        destURL.setFileName( filename );
-        if (!isValidDestURL(destURL))
+        destUrl.adjustPath( KUrl::AddTrailingSlash );
+        destUrl.setFileName( filename );
+        if (!isValidDestUrl(destUrl))
         {
-            kDebug(5001) << "   destURL " << destURL.path() << " is not valid" << endl;
+            kDebug(5001) << "   destUrl " << destUrl.path() << " is not valid" << endl;
             return KUrl();
         }
     }
-    return destURL;
+    return destUrl;
 }
 
 void KGet::loadPlugins()
