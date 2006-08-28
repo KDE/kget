@@ -27,22 +27,15 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_LimitDownloads" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="text" >
-      <string>Limit maximum downloads</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBoxMaximumDownload" >
+    <widget class="QGroupBox" name="kcfg_LimitDownloads" >
      <property name="enabled" >
       <bool>false</bool>
      </property>
      <property name="title" >
-      <string>Maximum Downloads</string>
+      <string>Limit maximum downloads</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
@@ -88,22 +81,15 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_ReconnectOnBroken" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="text" >
-      <string>Reconnect on error or broken connection</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBoxRetries" >
+    <widget class="QGroupBox" name="kcfg_ReconnectOnBroken" >
      <property name="enabled" >
       <bool>false</bool>
      </property>
      <property name="title" >
-      <string>Retries</string>
+      <string>Reconnect on error or broken connection</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
@@ -209,38 +195,5 @@
  <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
- <connections>
-  <connection>
-   <sender>kcfg_LimitDownloads</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>groupBoxMaximumDownload</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>165</x>
-     <y>34</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>164</x>
-     <y>94</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kcfg_ReconnectOnBroken</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>groupBoxRetries</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>165</x>
-     <y>137</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>165</x>
-     <y>215</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
