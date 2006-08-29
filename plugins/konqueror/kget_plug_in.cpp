@@ -33,7 +33,7 @@
 KGet_plug_in::KGet_plug_in( QObject* parent )
     : Plugin( parent )
 {
-    KActionMenu *menu = new KActionMenu( KIcon("khtml_kget"), i18n("Download Manager"),
+    KActionMenu *menu = new KActionMenu( KIcon("kget"), i18n("Download Manager"),
                                          actionCollection(), "kget_menu" );
     menu->setDelayed( false );
     connect( menu->menu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));

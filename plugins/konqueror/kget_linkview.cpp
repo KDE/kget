@@ -47,7 +47,7 @@ KGetLinkView::KGetLinkView( QWidget *parent )
 {
     setPlainCaption( i18n( "KGet" ) );
 
-    KAction* actionDownload = new KAction( KIcon("khtml_kget"),
+    KAction* actionDownload = new KAction( KIcon("kget"),
                                            i18n("Download Selected Files"),
                                            actionCollection(), "startDownload" );
     actionDownload->setShortcut( KShortcut( Qt::CTRL + Qt::Key_D ) );
