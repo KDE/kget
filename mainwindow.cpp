@@ -195,9 +195,6 @@ void MainWindow::slotDelayedInit()
     if ( Settings::showDropTarget() || Settings::firstRun() )
         m_drop->show();
 
-//     if ( Settings::firstRun() )
-//         m_drop->playAnimation();
-
     m_showDropTarget->setChecked( m_drop->isVisible() );
 
     kDebug(5001) << "***" << endl;

@@ -153,14 +153,18 @@ int main(int argc, char *argv[])
 {
     KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description,
                          KAboutData::License_GPL,
-                         I18N_NOOP("(C) 2001 - 2002, Patrick Charbonnier\n"
-                                   "(C) 2002, Carsten Pfeiffer\n"
-                                   "(C) 1998 - 2000, Matej Koss"),
+                         "(C) 2005 - 2006, The KGet developers\n"
+                         "(C) 2001 - 2002, Patrick Charbonnier\n"
+                         "(C) 2002, Carsten Pfeiffer\n"
+                         "(C) 1998 - 2000, Matej Koss\n",
                          "kget@kde.org", 0);
 
-    aboutData.addAuthor("Patrick  Charbonnier", 0, "pch@freeshell.org");
-    aboutData.addAuthor("Carsten Pfeiffer", 0, "pfeiffer@kde.org");
-    aboutData.addAuthor("Matej Koss", 0);
+    aboutData.addAuthor("Dario Massarin", I18N_NOOP("Maintainer"), "nekkar@libero.it");
+    aboutData.addAuthor("Urs Wolfer", I18N_NOOP("Core Developer"), "uwolfer@fwo.ch");
+    aboutData.addAuthor("Manolo Valdes", I18N_NOOP("Multithreaded Plugin Author"), "nolis71cu@gmail.com");
+    aboutData.addAuthor("Patrick  Charbonnier", I18N_NOOP("Former KGet Developer"), "pch@freeshell.org");
+    aboutData.addAuthor("Carsten Pfeiffer", I18N_NOOP("Former KGet Developer"), "pfeiffer@kde.org");
+    aboutData.addAuthor("Matej Koss", I18N_NOOP("Former KGet Developer"));
 
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineArgs::addCmdLineOptions(option);
