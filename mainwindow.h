@@ -2,6 +2,7 @@
 
    Copyright (C) 2002 by Patrick Charbonnier <pch@freeshell.org>
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+   Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public

@@ -87,6 +87,9 @@ DropTarget::DropTarget(MainWindow * mw)
 
     // Enable dropping
     setAcceptDrops(true);
+
+    if ( Settings::showDropTarget() && Settings::firstRun() )
+       playAnimationShow();
 }
 
 
@@ -101,20 +104,74 @@ DropTarget::~DropTarget()
     delete animTimer;
 }
 
-
-void DropTarget::slotClose()
+void DropTarget::setVisible( bool shown, bool internal )
 {
-    setVisible( false );
-    if (!Settings::expertMode())
+    if (shown == !isHidden())
+        return;
+
+    if ( internal )
+        Settings::setShowDropTarget( shown );
+
+    if (!shown)
     {
-        KMessageBox::information(parentWidget,
-            i18n("Drop target has been hidden. If you want to show it "
-                 "again, go to Settings->Configure KGet->Look & Feel."),
-            i18n("Hiding drop target"),
-            "CloseDroptarget");
+        Settings::setDropPosition( pos() );
+        if ( Settings::animateDropTarget() )
+            playAnimationHide();
+        else
+            hide();
+    }
+    else
+    {
+        show();
+        if ( Settings::animateDropTarget() )
+            playAnimationShow();
     }
 }
 
+void DropTarget::playAnimationShow()
+{
+    if ( animTimer )
+        delete animTimer;
+    animTimer = new QTimer;
+    connect( animTimer, SIGNAL( timeout() ),
+        this, SLOT( slotAnimateShow() ));
+    move( Settings::dropPosition().x(), -TARGET_SIZE );
+    ani_y = -1;
+    ani_vy = 0;
+    animTimer->start(TARGET_ANI_MS);
+}
+
+void DropTarget::playAnimationHide()
+{
+    if ( animTimer )
+    {
+        if ( animTimer->isActive() )
+            move( x(), (int)(ani_y) );
+        delete animTimer;
+    }
+    animTimer = new QTimer;
+    connect( animTimer, SIGNAL( timeout() ),
+        this, SLOT( slotAnimateHide() ));
+    ani_y = (float)y();
+    ani_vy = 0;
+    animTimer->start(TARGET_ANI_MS);
+}
+
+void DropTarget::playAnimationSync()
+{
+    if ( animTimer )
+    {
+        if ( animTimer->isActive() )
+            move( x(), (int)(ani_y) );
+        delete animTimer;
+    }
+    animTimer = new QTimer;
+    connect( animTimer, SIGNAL( timeout() ),
+        this, SLOT( slotAnimateSync() ));
+    ani_y = (float)y();
+    ani_vy = -1;
+    animTimer->start(TARGET_ANI_MS);
+}
 
 void DropTarget::slotStartStopToggled( bool started )
 {
@@ -124,44 +181,6 @@ void DropTarget::slotStartStopToggled( bool started )
 
 
 /** widget events */
-
-
-void DropTarget::paintEvent( QPaintEvent * )
-{
-    QPainter p(this);
-    const QRect r = rect();
-    p.drawPixmap(r.x() + (r.width() - cachedPixmap.width())/2,
-                 r.y() + (r.height() - cachedPixmap.height())/2,
-                 cachedPixmap);
-}
-
-
-void DropTarget::mousePressEvent(QMouseEvent * e)
-{
-    if (e->button() == Qt::LeftButton)
-    {
-        isdragging = true;
-        dx = e->globalPos().x() - pos().x();
-        dy = e->globalPos().y() - pos().y();
-    }
-    else if (e->button() == Qt::RightButton)
-    {
-        pop_show->setText(parentWidget->isHidden() ?
-                              i18n("Show main window") :
-                              i18n("Hide main window") );
-        popupMenu->popup(e->globalPos());
-    }
-    else if (e->button() == Qt::MidButton)
-    {
-        //Here we paste the transfer
-        QString newtransfer = QApplication::clipboard()->text();
-        newtransfer = newtransfer.trimmed();
-
-        if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer), QString());
-    }
-}
-
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
@@ -205,36 +224,37 @@ void DropTarget::closeEvent( QCloseEvent * e )
     }
 }
 
-
-void DropTarget::toggleSticky()
+void DropTarget::mousePressEvent(QMouseEvent * e)
 {
-    Settings::setDropSticky( !Settings::dropSticky() );
-    pop_sticky->setChecked(Settings::dropSticky());
-    updateStickyState();
-}
-
-void DropTarget::updateStickyState()
-{
-    if ( Settings::dropSticky() )
-        KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop | NET::Sticky);
-    else
-        KWin::clearState(winId(), NET::Sticky);
-}
-
-void DropTarget::toggleMinimizeRestore()
-{
-    bool nextState = parentWidget->isHidden();
-    Settings::setShowMain( nextState );
-    parentWidget->setVisible( nextState );
-}
-
-void DropTarget::mouseMoveEvent(QMouseEvent * e)
-{
-    Q_UNUSED(e);
-    if ( isdragging && !Settings::dropSticky() )
+    // If the user click on the droptarget, stop any animation that is going on
+    if(animTimer)
     {
-        move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
-        e->accept();
+        animTimer->stop();
+        delete animTimer;
+        animTimer = 0;
+    }
+
+    if (e->button() == Qt::LeftButton)
+    {
+        isdragging = true;
+        dx = e->globalPos().x() - pos().x();
+        dy = e->globalPos().y() - pos().y();
+    }
+    else if (e->button() == Qt::RightButton)
+    {
+        pop_show->setText(parentWidget->isHidden() ?
+                              i18n("Show main window") :
+                              i18n("Hide main window") );
+        popupMenu->popup(e->globalPos());
+    }
+    else if (e->button() == Qt::MidButton)
+    {
+        //Here we paste the transfer
+        QString newtransfer = QApplication::clipboard()->text();
+        newtransfer = newtransfer.trimmed();
+
+        if(!newtransfer.isEmpty())
+            KGet::addTransfer(KUrl(newtransfer), QString());
     }
 }
 
@@ -249,78 +269,45 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
         toggleMinimizeRestore();
 }
 
-void DropTarget::setVisible( bool shown, bool internal )
+void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
-    if (shown == !isHidden())
-        return;
-
-    if ( internal )
-        Settings::setShowDropTarget( shown );
-
-    if (!shown)
+    Q_UNUSED(e);
+    if ( isdragging && !Settings::dropSticky() )
     {
-        Settings::setDropPosition( pos() );
-        if ( Settings::animateDropTarget() )
-            playAnimationHide();
-        else
-            hide();
+        move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
+        e->accept();
     }
+}
+
+void DropTarget::paintEvent( QPaintEvent * )
+{
+    QPainter p(this);
+    const QRect r = rect();
+    p.drawPixmap(r.x() + (r.width() - cachedPixmap.width())/2,
+                 r.y() + (r.height() - cachedPixmap.height())/2,
+                 cachedPixmap);
+}
+
+void DropTarget::toggleSticky()
+{
+    Settings::setDropSticky( !Settings::dropSticky() );
+    pop_sticky->setChecked(Settings::dropSticky());
+
+    if ( Settings::dropSticky() )
+        KWin::setState(winId(), NET::SkipTaskbar | NET::StaysOnTop | NET::Sticky);
     else
-    {
-        show();
-        if ( Settings::animateDropTarget() )
-            playAnimation();
-    }
+        KWin::clearState(winId(), NET::Sticky);
+}
+
+void DropTarget::toggleMinimizeRestore()
+{
+    bool nextState = parentWidget->isHidden();
+    Settings::setShowMain( nextState );
+    parentWidget->setVisible( nextState );
 }
 
 /** widget animations */
-
-void DropTarget::playAnimation()
-{
-    if ( animTimer )
-        delete animTimer;
-    animTimer = new QTimer;
-    connect( animTimer, SIGNAL( timeout() ),
-        this, SLOT( slotAnimate() ));
-    move( Settings::dropPosition().x(), -TARGET_SIZE );
-    ani_y = -1;
-    ani_vy = 0;
-    animTimer->start(TARGET_ANI_MS);
-}
-
-void DropTarget::playAnimationHide()
-{
-    if ( animTimer )
-    {
-        if ( animTimer->isActive() )
-            move( x(), (int)(ani_y) );
-        delete animTimer;
-    }
-    animTimer = new QTimer;
-    connect( animTimer, SIGNAL( timeout() ),
-        this, SLOT( slotAnimateHide() ));
-    ani_y = (float)y();
-    ani_vy = 0;
-    animTimer->start(TARGET_ANI_MS);
-}
-
-void DropTarget::playAnimationSync()
-{
-    if ( animTimer )
-    {
-        if ( animTimer->isActive() )
-            move( x(), (int)(ani_y) );
-        delete animTimer;
-    }
-    animTimer = new QTimer;
-    connect( animTimer, SIGNAL( timeout() ),
-        this, SLOT( slotAnimateSync() ));
-    ani_y = (float)y();
-    ani_vy = -1;
-    animTimer->start(TARGET_ANI_MS);
-}
-
-void DropTarget::slotAnimate()
+void DropTarget::slotAnimateShow()
 {
 //     QWidget *d = QApplication::desktop()->screen();
     static float dT = TARGET_ANI_MS / 1000.0;
@@ -374,6 +361,19 @@ void DropTarget::slotAnimateSync()
         move( x(), (int)(ani_y) );
     } else
         move( x(), (int)(ani_y + 6*j) );
+}
+
+void DropTarget::slotClose()
+{
+    setVisible( false );
+    if (!Settings::expertMode())
+    {
+        KMessageBox::information(parentWidget,
+            i18n("Drop target has been hidden. If you want to show it "
+                 "again, go to Settings->Configure KGet->Look & Feel."),
+            i18n("Hiding drop target"),
+            "CloseDroptarget");
+    }
 }
 
 #include "droptarget.moc"

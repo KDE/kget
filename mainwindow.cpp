@@ -4,6 +4,7 @@
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
    Copyright (C) 2006 Urs Wolfer <uwolfer @ fwo.ch>
+   Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -194,8 +195,8 @@ void MainWindow::slotDelayedInit()
     if ( Settings::showDropTarget() || Settings::firstRun() )
         m_drop->show();
 
-    if ( Settings::firstRun() )
-        m_drop->playAnimation();
+//     if ( Settings::firstRun() )
+//         m_drop->playAnimation();
 
     m_showDropTarget->setChecked( m_drop->isVisible() );
 

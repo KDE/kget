@@ -32,33 +32,32 @@ public:
     DropTarget(MainWindow * parent);
     ~DropTarget();
 
-    void updateStickyState();
-    void playAnimation();
+    void playAnimationShow();
     void playAnimationHide();
     void playAnimationSync();
     void setVisible( bool shown, bool internal = true );
 
 protected:
     // drag and drop
-    virtual void dragEnterEvent(QDragEnterEvent *);
-    virtual void mouseDoubleClickEvent(QMouseEvent * e);
-    virtual void dropEvent(QDropEvent *);
+    void dragEnterEvent(QDragEnterEvent *);
+    void dropEvent(QDropEvent *);
 
     // handle quit events as hide events
-    virtual void closeEvent( QCloseEvent * );
+    void closeEvent( QCloseEvent * );
 
-    virtual void mouseMoveEvent(QMouseEvent *);
-    virtual void mousePressEvent(QMouseEvent * e);
-    virtual void mouseReleaseEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent * e);
+    void mouseReleaseEvent(QMouseEvent * e);
+    void mouseDoubleClickEvent(QMouseEvent * e);
+    void mouseMoveEvent(QMouseEvent * e);
 
     // paint the drop target
-    virtual void paintEvent(QPaintEvent*);
+    void paintEvent(QPaintEvent*);
 
 private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
     void slotStartStopToggled( bool );
-    void slotAnimate();
+    void slotAnimateShow();
     void slotAnimateHide();
     void slotAnimateSync();
     void slotClose();
