@@ -107,7 +107,7 @@ int TransferHandler::speed() const
 
 QVariant TransferHandler::data(int column)
 {
-    kDebug(5001) << "TransferHandler::data(" << column << ")" << endl;
+//     kDebug(5001) << "TransferHandler::data(" << column << ")" << endl;
 
     switch(column)
     {

@@ -90,7 +90,7 @@ TransferHandler * TransferGroupHandler::operator[] (int i)
 
 QVariant TransferGroupHandler::data(int column)
 {
-    kDebug(5001) << "TransferGroupHandler::data(" << column << ")" << endl;
+//     kDebug(5001) << "TransferGroupHandler::data(" << column << ")" << endl;
 
     switch(column)
     {
