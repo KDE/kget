@@ -20,7 +20,6 @@
 #include <kactioncollection.h>
 
 #include "scheduler.h"
-#include "transfertreemodel.h"
 #include "kget_export.h"
 
 class QDomElement;
@@ -32,6 +31,8 @@ class Transfer;
 class TransferGroup;
 class TransferHandler;
 class TransferFactory;
+class TransferTreeModel;
+class TransferTreeSelectionModel;
 class ModelObserver;
 class KGetPlugin;
 class MainWindow;
@@ -139,6 +140,11 @@ class KGET_EXPORT KGet
         static QList<TransferHandler *> selectedTransfers();
 
         /**
+         * @returns a pointer to the QItemSelectionModel object
+         */
+        static TransferTreeSelectionModel * selectionModel();
+
+        /**
          * Imports the transfers and groups included in the provided xml file
          *
          * @param filename the file name to 
@@ -244,6 +250,7 @@ class KGET_EXPORT KGet
 
         //Interview models
         static TransferTreeModel * m_transferTreeModel;
+        static TransferTreeSelectionModel * m_selectionModel;
 
         //Lists of available plugins
         static QList<TransferFactory *> m_transferFactories;

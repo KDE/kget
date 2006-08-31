@@ -20,6 +20,7 @@
 #include <QStackedLayout>
 
 class TransfersView;
+class TransfersViewDelegate;
 class MainView;
 class TransferHandler;
 
@@ -99,6 +100,8 @@ class ViewsContainer : public QWidget
         TitleBar        * m_titleBar;
 
         TransfersView   * m_transfersView;
+        TransfersViewDelegate * m_transfersViewDelegate;
+
         QWidget         * m_finishedView;  //This view has still to be created.
 
         ButtonBase      * m_downloadsBt;

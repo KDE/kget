@@ -37,6 +37,7 @@ set(kgetcore_SRCS
    ${CMAKE_SOURCE_DIR}/kget/core/kget.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/scheduler.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfertreemodel.cpp
+   ${CMAKE_SOURCE_DIR}/kget/core/transfertreeselectionmodel.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfer.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfergroup.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/transfergrouphandler.cpp
@@ -62,6 +63,7 @@ set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/droptarget.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transfersview.cpp
+   ${CMAKE_SOURCE_DIR}/kget/ui/transfersviewdelegate.cpp
 #    ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/splash.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetails.cpp

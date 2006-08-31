@@ -13,6 +13,7 @@
 #include <QDomElement>
 #include <QApplication>
 #include <QClipboard>
+#include <QItemSelectionModel>
 #include <QFileDialog>  // temporarily replace the bugged kfiledialog
 
 #include <QAbstractItemView>
@@ -32,6 +33,8 @@
 #include "core/kget.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
+#include "core/transfertreemodel.h"
+#include "core/transfertreeselectionmodel.h"
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
@@ -206,9 +209,23 @@ void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 
 QList<TransferHandler *> KGet::selectedTransfers()
 {
+    kDebug() << "KGet::selectedTransfers" << endl;
+
     QList<TransferHandler *> selectedTransfers;
 
-    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
+    QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
+
+    foreach(QModelIndex currentIndex, selectedIndexes)
+    {
+        if(!m_transferTreeModel->isTransferGroup(currentIndex))
+            selectedTransfers.append(static_cast<TransferHandler *> (currentIndex.internalPointer()));
+    }
+
+    return selectedTransfers;
+
+
+// This is the code that was used in the old selectedTransfers function
+/*    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
     QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
 
     for( ; it!=itEnd ; ++it )
@@ -224,13 +241,16 @@ QList<TransferHandler *> KGet::selectedTransfers()
                 selectedTransfers.append( transfer->handler() );
         }
     }
-    return selectedTransfers;
+    return selectedTransfers;*/
+}
+
+TransferTreeSelectionModel * KGet::selectionModel()
+{
+    return m_selectionModel;
 }
 
 void KGet::addTransferTreeView(QAbstractItemView * view)
 {
-//     QDirModel* model = new QDirModel();
-
     view->setModel(m_transferTreeModel);
 }
 
@@ -356,6 +376,7 @@ void KGet::setSchedulerRunning(bool running)
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
+TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
 QList<KLibrary *> KGet::m_pluginKLibraries;
 Scheduler * KGet::m_scheduler = new Scheduler();
@@ -365,6 +386,7 @@ MainWindow * KGet::m_mainWindow = 0;
 KGet::KGet()
 {
     m_transferTreeModel = new TransferTreeModel(m_scheduler);
+    m_selectionModel = new TransferTreeSelectionModel(m_transferTreeModel);
 
     //Load all the available plugins
     loadPlugins();

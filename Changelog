@@ -1,3 +1,12 @@
+2006-08-31 Dario Massarin <nekkar@libero.it>
+        * Add the TransfersViewDelegate and TransferTreeSelectionModel classes.
+        * The former will be used to redesign the TransfersView look & feel,
+          now it is used just to catch the mouse events.
+        * The latter was introduced to have more control over the
+          items that can be selected by the user. In this way it was possible
+          to inhibit the selection of group objects.
+        * Show the KMenu when the user right clicks on a selection of transfers.
+
 2005-11-03 Urs Wolfer <uwolfer @ fwo.ch>
         * Add option to show / hide menubar and toolbar (forwardport)
 

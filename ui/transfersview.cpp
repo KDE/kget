@@ -8,15 +8,19 @@
    of the License.
 */
 
+#include "core/kget.h"
+#include "core/transfertreeselectionmodel.h"
+
 #include "transfersview.h"
 
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent)
 {
-
 }
 
 TransfersView::~TransfersView()
 {
 
 }
+
+#include "transfersview.moc"

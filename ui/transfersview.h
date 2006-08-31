@@ -8,11 +8,18 @@
    of the License.
 */
 
+#ifndef _TRANSFERSVIEW_H
+#define _TRANSFERSVIEW_H
+
 #include <QTreeView>
 
 class TransfersView : public QTreeView
 {
+    Q_OBJECT
+
     public:
         TransfersView(QWidget * parent = 0);
         ~TransfersView();
 };
+
+#endif

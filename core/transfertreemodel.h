@@ -46,6 +46,8 @@ class TransferTreeModel : public QAbstractItemModel
         TransferGroup * findGroup(const QString & groupName);
         Transfer * findTransfer(KUrl src);
 
+        bool isTransferGroup(const QModelIndex & index) const;
+
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);
 
@@ -65,8 +67,6 @@ class TransferTreeModel : public QAbstractItemModel
         QModelIndex parent ( const QModelIndex & index ) const;
 
     private:
-        bool isTransferGroup(void * pointer) const;
-
         QList<TransferGroup *> m_transferGroups;
         Scheduler * m_scheduler;
 };

@@ -20,7 +20,9 @@
 #include "core/kget.h"
 #include "core/plugin/transferfactory.h"
 #include "core/transferhandler.h"
+#include "core/transfertreeselectionmodel.h"
 #include "transfersview.h"
+#include "transfersviewdelegate.h"
 #include "mainview.h"
 #include "viewscontainer.h"
 #include "transferdetails.h"
@@ -210,7 +212,11 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_VLayout->addLayout(m_HLayout);
 
     m_transfersView = new TransfersView();
+    m_transfersViewDelegate = new TransfersViewDelegate();
+    m_transfersView->setItemDelegate(m_transfersViewDelegate);
     KGet::addTransferTreeView(m_transfersView);
+    m_transfersView->setSelectionModel(KGet::selectionModel());
+    m_transfersView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     m_SLayout->addWidget(m_transfersView);
 

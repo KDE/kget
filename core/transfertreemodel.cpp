@@ -23,7 +23,7 @@ TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
     : QAbstractItemModel(),
       m_scheduler(scheduler)
 {
-    
+
 }
 
 TransferTreeModel::~TransferTreeModel()
@@ -104,6 +104,23 @@ Transfer * TransferTreeModel::findTransfer(KUrl src)
     return 0;
 }
 
+bool TransferTreeModel::isTransferGroup(const QModelIndex & index) const
+{
+//     kDebug(5001) << "TransferTreeModel::isTransferGroup()" << endl;
+
+    void * pointer = index.internalPointer();
+
+    foreach(TransferGroup * group, m_transferGroups)
+    {
+        if(group->handler() == pointer)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
 {
     TransferGroupHandler * group = transfer->group();
@@ -138,10 +155,10 @@ int TransferTreeModel::rowCount(const QModelIndex & parent) const{
         return m_transferGroups.size();
     }
 
-    void * pointer = parent.internalPointer();
-
-    if(isTransferGroup(pointer))
+    if(isTransferGroup(parent))
     {
+        void * pointer = parent.internalPointer();
+
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
 
 //         kDebug(5001) << "      (GROUP:" << group->name() << ") -> return " << group->size() << endl;
@@ -165,7 +182,7 @@ int TransferTreeModel::columnCount(const QModelIndex & parent) const
 
     void * pointer = parent.internalPointer();
 
-    if(isTransferGroup(pointer))
+    if(isTransferGroup(parent))
     {
         //The given index refers to a group object
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
@@ -223,7 +240,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
     {
         void * pointer = index.internalPointer();
 
-        if(isTransferGroup(pointer))
+        if(isTransferGroup(index))
         {
             if (role == Qt::DisplayRole)
             {
@@ -297,11 +314,10 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
             return QModelIndex();
     }
 
-    void * pointer = parent.internalPointer();
-
-    if(isTransferGroup(pointer))
+    if(isTransferGroup(parent))
     {
         //The given parent refers to a TransferGroup object
+        void * pointer = parent.internalPointer();
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
 
         //Look for the specific transfer
@@ -328,34 +344,15 @@ QModelIndex TransferTreeModel::parent(const QModelIndex & index ) const
     if(!index.isValid())
         return QModelIndex();
 
-    void * pointer = index.internalPointer();
-
-    if(!isTransferGroup(pointer))
+    if(!isTransferGroup(index))
     {
         //The given index refers to a Transfer item
+        void * pointer = index.internalPointer();
         TransferGroupHandler * group = static_cast<TransferHandler *>(pointer)->group();
         return createIndex(m_transferGroups.indexOf(group->m_group), 0, group);
     }
 
     return QModelIndex();
-}
-
-bool TransferTreeModel::isTransferGroup(void * pointer) const
-{
-//     kDebug(5001) << "TransferTreeModel::isTransferGroup()" << endl;
-
-    foreach(TransferGroup * group, m_transferGroups)
-    {
-//         kDebug(5001) << "TransferTreeModel::isTransferGroup   -> ITERATION" << endl;
-        if(group->handler() == pointer)
-        {
-//             kDebug(5001) << "TransferTreeModel::isTransferGroup   -> return TRUE" << endl;
-            return true;
-        }
-    }
-
-//     kDebug(5001) << "TransferTreeModel::isTransferGroup   -> return FALSE" << endl;
-    return false;
 }
 
 #include "transfertreemodel.moc"

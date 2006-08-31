@@ -15,6 +15,7 @@
 #include <klocale.h>
 #include <kicon.h>
 
+#include "core/transfertreemodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/transferhandler.h"
 #include "core/transfer.h"

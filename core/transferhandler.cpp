@@ -18,6 +18,7 @@
 #include "core/transferhandler.h"
 #include "core/transfergroup.h"
 #include "core/transfergrouphandler.h"
+#include "core/transfertreemodel.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
 

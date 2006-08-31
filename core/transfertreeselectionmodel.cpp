@@ -1,0 +1,53 @@
+/* This file is part of the KDE project
+
+   Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; version 2
+   of the License.
+*/
+
+#include <kdebug.h>
+
+#include "core/transfertreemodel.h"
+#include "core/transfertreeselectionmodel.h"
+
+TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel * model)
+    : QItemSelectionModel(model)
+{
+}
+
+TransferTreeSelectionModel::~TransferTreeSelectionModel()
+{
+
+}
+
+void TransferTreeSelectionModel::select(const QItemSelection & selection, QItemSelectionModel::SelectionFlags command)
+{
+    kDebug() << "TransferTreeSelectionModel::select()" << endl;
+
+    const TransferTreeModel * transfersModel = static_cast<const TransferTreeModel *>(model());
+
+    QModelIndexList indexList = selection.indexes();
+    QItemSelection newSelection;
+
+//     kDebug() << "selection of items: " << indexList.size() << endl;
+
+    foreach(QModelIndex index, indexList)
+    {
+//         kDebug() << "iteration" << endl;
+
+        if(!transfersModel->isTransferGroup(index))
+        {
+
+            newSelection.select(index, index);
+        }
+    }
+
+    QItemSelectionModel::select(newSelection, command);
+}
+
+
+#include "transfertreeselectionmodel.moc"
+
