@@ -14,8 +14,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QItemSelectionModel>
-#include <QFileDialog>  // temporarily replace the bugged kfiledialog
-
 #include <QAbstractItemView>
 
 #include <kio/netaccess.h>
@@ -317,11 +315,11 @@ void KGet::save( QString filename )
 {
     if ( !filename.isEmpty()
         && QFile::exists( filename )
-        && (KMessageBox::questionYesNo(0,
-                i18n("The file %1 Already exists\nOverwrite?", filename),
+        && (KMessageBox::questionYesNoCancel(0,
+                i18n("The file %1 already exists.\nOverwrite?", filename),
                 i18n("Overwrite existing file?"), KStdGuiItem::yes(),
                 KStdGuiItem::no(), "QuestionFilenameExists" )
-                == KMessageBox::No) )
+                != KMessageBox::Yes) )
         return;
 
     if(filename.isEmpty())
@@ -488,7 +486,7 @@ KUrl KGet::urlInputDialog()
         }
 
         KUrl src = KUrl(newtransfer);
-        if( isValidSource(src) )
+        if(src.isValid())
             return src;
         else
             ok = false;
@@ -498,12 +496,7 @@ KUrl KGet::urlInputDialog()
 
 QString KGet::destInputDialog()
 {
-    //TODO Somehow, using KFIleDialog::getExistingDirectory() makes kget crash
-    //when we close the application. Why?
-//     QString destDir = KFileDialog::getExistingDirectory( Settings::lastDirectory() );
-    QString destDir = QFileDialog::getExistingDirectory(m_mainWindow,
-                                                        i18n("Choose a directory"),
-                                                        Settings::lastDirectory());
+    QString destDir = KFileDialog::getExistingDirectory(Settings::lastDirectory());
 
     Settings::setLastDirectory( destDir );
     return destDir;
@@ -525,7 +518,7 @@ bool KGet::isValidSource(KUrl source)
         if ( transfer->status() == Job::Finished )
         {
             // transfer is finished, ask if we want to download again
-            if (KMessageBox::questionYesNo(0,
+            if (KMessageBox::questionYesNoCancel(0,
                 i18n("URL already saved:\n%1\nDownload again?", source.prettyUrl()),
                 i18n("Download URL again?"), KStdGuiItem::yes(),
                 KStdGuiItem::no(), "QuestionUrlAlreadySaved" )
@@ -559,7 +552,7 @@ bool KGet::isValidDestUrl(KUrl destUrl)
 {
     if(KIO::NetAccess::exists(destUrl, false, 0))
     {
-        if (KMessageBox::warningYesNo(0,
+        if (KMessageBox::warningYesNoCancel(0,
             i18n("Destination file \n%1\nalready exists.\n"
                  "Do you want to overwrite it?", destUrl.prettyUrl()))
             == KMessageBox::Yes)
@@ -567,6 +560,8 @@ bool KGet::isValidDestUrl(KUrl destUrl)
             safeDeleteFile( destUrl );
             return true;
         }
+        else
+            return false;
     }
     return true;
    /*

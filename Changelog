@@ -1,3 +1,9 @@
+2006-08-31 Urs Wolfer <uwolfer @ fwo.ch>
+        * Enable again FileDialog::getExistingDirectory. It is now fixed.
+        * YesNo messageboxes are bad for usability. Replace with YesNoCancel.
+        * Fix the messagebox order in the add download process (do not show the
+          same box twice).
+
 2006-08-31 Dario Massarin <nekkar@libero.it>
         * Add the TransfersViewDelegate and TransferTreeSelectionModel classes.
         * The former will be used to redesign the TransfersView look & feel,
