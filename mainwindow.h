@@ -15,6 +15,7 @@
 
 #include <ktoggleaction.h>
 #include <kmainwindow.h>
+#include <kurl.h>
 
 #include "core/globals.h"
 
@@ -37,7 +38,6 @@ public:
     MainWindow( QWidget * = 0 );
     ~MainWindow();
 
-protected:
     // from the DBUS interface
     virtual void addTransfers( const KUrl::List& src, const QString& destDir = QString() );
     virtual bool isDropTargetVisible() const;
@@ -45,6 +45,7 @@ protected:
     virtual void setOfflineMode( bool online );
     virtual bool isOfflineMode() const;
 
+protected:
     // ignore/accept quit events
     virtual void closeEvent( QCloseEvent * );
 

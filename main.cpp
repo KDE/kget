@@ -9,6 +9,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+#include <QtDBus>
+
 #include <kwin.h>
 #include <klocale.h>
 #include <kaboutdata.h>
@@ -107,6 +109,8 @@ public:
         if (!kget)
         {
             kget = new MainWindow();
+            new KgetAdaptor(kget);
+            QDBusConnection::sessionBus().registerObject("/KGet", kget);
         }
         KWin::activateWindow(kget->winId());
 
