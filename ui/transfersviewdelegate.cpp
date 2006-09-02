@@ -21,7 +21,7 @@
 #include "ui/transfersviewdelegate.h"
 
 TransfersViewDelegate::TransfersViewDelegate()
-    : m_popup(0)
+    : QItemDelegate(), m_popup(0)
 {
 
 }
