@@ -124,7 +124,7 @@ void transferMultiSegKio::createJob()
         }
         else
         {
-        m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, 5);
+        m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, tdata);
         }
         connect(m_copyjob, SIGNAL(result(KIO::Job *)), 
                 this, SLOT(slotResult(KIO::Job *)));
