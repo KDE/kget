@@ -14,5 +14,9 @@
     <method name="setOfflineMode">
       <arg type="b" direction="in"/>
     </method>
+    <method name="addTransfer">
+      <arg type="s" direction="in"/>
+      <arg type="s" direction="in"/>
+    </method>
   </interface>
 </node>

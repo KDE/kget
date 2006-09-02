@@ -536,6 +536,11 @@ void MainWindow::addTransfers( const KUrl::List& src, const QString& dest)
     KGet::addTransfer( src, dest );
 }
 
+void MainWindow::addTransfer( const KUrl& src, const QString& dest)
+{
+    KGet::addTransfer( src, dest );
+}
+
 bool MainWindow::isDropTargetVisible() const
 {
     return m_drop->isVisible();
