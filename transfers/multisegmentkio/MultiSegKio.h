@@ -118,7 +118,7 @@ class GetJobManager :public QObject
 
    MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
 
-   MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
+   MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
 
 }
 
