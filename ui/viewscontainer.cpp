@@ -23,7 +23,7 @@
 #include "core/transfertreeselectionmodel.h"
 #include "transfersview.h"
 #include "transfersviewdelegate.h"
-#include "mainview.h"
+// #include "mainview.h"
 #include "viewscontainer.h"
 #include "transferdetails.h"
 
@@ -222,7 +222,8 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 
     //This view hasn't been coded yet. For the moment,
     //I set it to the old MainView.
-    m_finishedView = new MainView();
+//     m_finishedView = new MainView();
+    m_finishedView = new QWidget();
     m_SLayout->addWidget(m_finishedView);
 
     connect(m_downloadsBt, SIGNAL(activated()),

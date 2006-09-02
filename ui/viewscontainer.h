@@ -21,7 +21,6 @@
 
 class TransfersView;
 class TransfersViewDelegate;
-class MainView;
 class TransferHandler;
 
 class TitleBar : public QWidget

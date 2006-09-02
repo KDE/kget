@@ -1,6 +1,6 @@
 project(kget)
 
-#remove_definitions(-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
+remove_definitions(-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
 
 add_subdirectory(conf)
 add_subdirectory(core)
@@ -61,7 +61,7 @@ install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
 set(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/droptarget.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
+#    ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transfersview.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transfersviewdelegate.cpp
 #    ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
