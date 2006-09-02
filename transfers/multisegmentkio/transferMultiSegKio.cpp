@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2006 Manolo Valdes <nolis71cu@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -70,12 +71,44 @@ bool transferMultiSegKio::isResumable() const
 
 void transferMultiSegKio::load(QDomElement e)
 {
+    kDebug(5001) << "TransferMultiSegKio::load" << endl;
+
     Transfer::load(e);
+
+    struct KIO::MultiSegData d;
+    QDomNodeList segments = e.elementsByTagName ("Segment");
+    QDomNode node;
+    QDomElement segment;
+    for( uint i=0 ; i < segments.length () ; ++i )
+    {
+        node = segments.item(i);
+        segment = node.toElement ();
+        d.src = KUrl(segment.attribute("Source"));
+        d.bytes = segment.attribute("Bytes").toULongLong();
+        d.offSet = segment.attribute("OffSet").toULongLong();
+        kDebug(5001) << "TransferMultiSegKio::load: adding Segment " << i << endl;
+        tdata << d;
+    }
 }
 
 void transferMultiSegKio::save(QDomElement e)
 {
+    kDebug(5001) << "TransferMultiSegKio::save" << endl;
+
     Transfer::save(e);
+
+    QDomDocument doc(e.ownerDocument());
+    QDomElement segment;
+    QList<struct KIO::MultiSegData>::iterator it = tdata.begin();
+    QList<struct KIO::MultiSegData>::iterator itEnd = tdata.end();
+    for ( ; it!=itEnd ; ++it )
+    {
+        segment = doc.createElement("Segment");
+        e.appendChild(segment);
+        segment.setAttribute("Source", (*it).src.url());
+        segment.setAttribute("Bytes", (*it).bytes); 
+        segment.setAttribute("OffSet", (*it).offSet);
+     }
 }
 
 
@@ -85,7 +118,14 @@ void transferMultiSegKio::createJob()
 {
     if(!m_copyjob)
     {
+        if(tdata.empty())
+        {
         m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, 5);
+        }
+        else
+        {
+        m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, 5);
+        }
         connect(m_copyjob, SIGNAL(result(KIO::Job *)), 
                 this, SLOT(slotResult(KIO::Job *)));
         connect(m_copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), 

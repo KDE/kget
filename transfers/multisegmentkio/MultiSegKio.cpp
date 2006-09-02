@@ -41,6 +41,18 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int
    QTimer::singleShot(0, this, SLOT(slotStart()));
 }
 
+MultiSegmentCopyJob::MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments)
+    : Job(showProgressInfo), m_src(src), m_dest(dest), m_permissions(permissions)
+{
+   if (showProgressInfo)
+      Observer::self()->slotCopying( this, src, dest );
+
+   kDebug(7007) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
+   blockWrite = false;
+   m_getJob = 0;
+   m_putJob = 0;
+}
+
 void MultiSegmentCopyJob::add( FileJob* job, KIO::filesize_t offset, KIO::filesize_t bytes)
 {
    GetJobManager *jobManager = new GetJobManager();
@@ -211,6 +223,11 @@ void GetJobManager::slotData( KIO::Job *job, const QByteArray &data)
 
 
 MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
+{
+   return new MultiSegmentCopyJob( src, dest, permissions, showProgressInfo, segments);
+}
+
+MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments)
 {
    return new MultiSegmentCopyJob( src, dest, permissions, showProgressInfo, segments);
 }

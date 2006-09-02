@@ -21,6 +21,13 @@ namespace KIO
 
 #define	MIN_SIZE	1024*100
 
+struct MultiSegData
+{
+    KUrl src;
+    KIO::fileoffset_t offSet;
+    KIO::filesize_t bytes;
+};
+
 class GetJobManager;
 
 class KIO_EXPORT MultiSegmentCopyJob : public Job
@@ -37,6 +44,9 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       * @param showProgressInfo true to show progress information to the user
       */
       MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
+
+      MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
+
       ~MultiSegmentCopyJob() {};
       void add( FileJob *job, KIO::filesize_t offset, KIO::filesize_t bytes);
 
@@ -107,6 +117,8 @@ class GetJobManager :public QObject
 };
 
    MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
+
+   MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
 
 }
 
