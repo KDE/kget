@@ -23,11 +23,11 @@ kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} kget_MultiSegKiofactory)
 
 target_link_libraries(kget_MultiSegKiofactory ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} kgetcore)
 
-install_targets(TARGETS kget_MultiSegKiofactory DESTINATION ${LIB_INSTALL_DIR}/kde4)
+install(TARGETS kget_MultiSegKiofactory DESTINATION  ${LIB_INSTALL_DIR}/kde4)
 
 ########### install files ###############
 
-install_files(FILES  kget_MultiSegKiofactory.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
+install(FILES  kget_MultiSegKiofactory.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
 
 add_subdirectory(test)
 
