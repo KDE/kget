@@ -8,21 +8,25 @@
    of the License.
 */
 
-
-#include "MultiSegKio.h"
 #include <kio/observer.h>
 #include <kio/slave.h>
 #include <kio/global.h>
 
 #include <klocale.h>
+#include <kde_file.h>
 
 #include <qtimer.h>
 #include <QDateTime>
+#include <QFile>
 #include <assert.h>
+#include <fcntl.h>
+#include <errno.h>
 
 #ifdef Q_OS_UNIX
 #include <utime.h>
 #endif
+
+#include "MultiSegKio.h"
 
 using namespace KIO;
 
@@ -36,6 +40,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int
 
    kDebug(7007) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
    blockWrite = false;
+   bcopycompleted = false;
    m_getJob = 0;
    m_putJob = 0;
    QTimer::singleShot(0, this, SLOT(slotStart()));
@@ -49,6 +54,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int
 
    kDebug(7007) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
    blockWrite = false;
+   bcopycompleted = false;
    m_getJob = 0;
    m_putJob = 0;
 }
@@ -60,6 +66,7 @@ void MultiSegmentCopyJob::add( FileJob* job, KIO::filesize_t offset, KIO::filesi
    jobManager->offset = offset;
    jobManager->bytes = bytes;
    m_jobs.append(jobManager);
+   connect( job, SIGNAL(result(KJob *)), jobManager, SLOT(slotResult( KJob *job )));
    connect( job, SIGNAL(data( KIO::Job *, const QByteArray & )), jobManager, SLOT(slotData( KIO::Job *, const QByteArray &)));
    connect( jobManager, SIGNAL(hasData( GetJobManager * )), SLOT(slotDataReq( GetJobManager *)));
 }
@@ -67,9 +74,14 @@ void MultiSegmentCopyJob::add( FileJob* job, KIO::filesize_t offset, KIO::filesi
 void MultiSegmentCopyJob::slotStart()
 {
    kDebug(7007) << "MultiSegmentCopyJob::slotStart()" << endl;
-   m_putJob = KIO::open(m_dest, 3);
+   if( !checkLocalFile() )
+      emitResult();
+
+   kDebug(7007) << "MultiSegmentCopyJob::slotStart() opening: " << m_dest_part << endl;
+   m_putJob = KIO::open(m_dest_part, 3);
    connect( m_putJob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
    connect( m_putJob, SIGNAL(written(KIO::Job * ,KIO::filesize_t )), SLOT(slotWritten( KIO::Job * ,KIO::filesize_t )));
+   connect( m_putJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
    addSubjob( m_putJob );
 }
 
@@ -80,6 +92,8 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
       kDebug(7007) << "MultiSegmentCopyJob::slotOpen() putjob" << endl;
       FileJob* getjob = KIO::open(m_src, 1);
       connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
+      connect(getjob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
+      connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
       addSubjob( getjob );
    }
    else
@@ -108,16 +122,29 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
             getjob = KIO::open(m_src, 1);
             add( getjob, i*segment, rest_size);
             connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpenGetJob(KIO::Job *)));
-            addSubjob( getjob );
+            connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
+addSubjob( getjob );
             continue;
          }
             getjob = KIO::open(m_src, 1);
             add( getjob, i*segment, segment);
             connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpenGetJob(KIO::Job *)));
+            connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
             addSubjob( getjob );
       }
    }
 
+}
+
+void MultiSegmentCopyJob::slotClose( KIO::Job * )
+{
+   kDebug(7007) << "MultiSegmentCopyJob::slotClose() putjob" << endl;
+   if( bcopycompleted )
+   {
+      QString dest_orig = m_dest.path();
+      QString dest_part = m_dest_part.path();
+      QFile::rename ( dest_part, dest_orig );
+   }
 }
 
 void MultiSegmentCopyJob::slotOpenGetJob(KIO::Job * job)
@@ -154,8 +181,20 @@ void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
    {
       m_getJob->offset = m_getJob->offset + bytesWritten;
       m_getJob->bytes = m_getJob->bytes - bytesWritten;
+   kDebug(7007) << "MultiSegmentCopyJob::slotWritten() bytes left: " << m_getJob->bytes << endl;
+      if(m_getJob->bytes == 0)
+      {
+         m_jobs.removeAll(m_getJob);
+         kDebug(7007) << "Segments left: " << m_jobs.size() << endl;
+      }
       m_getJob = 0;
       blockWrite = false;
+   }
+   if(m_jobs.isEmpty())
+   {
+      bcopycompleted = true;
+   kDebug(7007) << "Download completed.. closing putjob " << endl;
+      m_putJob->close();
    }
 }
 
@@ -182,7 +221,9 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
    }
 
    if ( !hasSubjobs() )
-       emitResult();
+   {
+      emitResult();
+   }
 }
 
 void MultiSegmentCopyJob::slotProcessedSize( KJob *job, qulonglong size )
@@ -197,6 +238,46 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 
 void MultiSegmentCopyJob::slotPercent( KJob *job, unsigned long pct )
 {
+}
+
+bool MultiSegmentCopyJob::checkLocalFile()
+{
+   QString dest_orig = m_dest.path();
+   QString dest_part( dest_orig );
+   dest_part += QLatin1String(".part");
+   QByteArray _dest_part( QFile::encodeName(dest_part));
+
+   KDE_struct_stat buff_part;
+   bool bPartExists = (KDE_stat( _dest_part.data(), &buff_part ) != -1);
+   if(!bPartExists)
+   {
+      QByteArray _dest = QFile::encodeName(dest_part);
+      int fd = -1;
+      mode_t initialMode;
+      if (m_permissions != -1)
+         initialMode = m_permissions | S_IWUSR | S_IRUSR;
+      else
+         initialMode = 0666;
+
+      fd = KDE_open(_dest.data(), O_CREAT | O_TRUNC | O_WRONLY, initialMode);
+      if ( fd < 0 )
+      {
+          kDebug(7007) << "GetJobManager::checkLocalFile() error" << endl;
+ /*         if ( errno == EACCES )
+            error( KIO::ERR_WRITE_ACCESS_DENIED, dest_part );
+         else
+            error( KIO::ERR_CANNOT_OPEN_FOR_WRITING, dest_part );*/
+         return false;
+      }
+      else
+      {
+         close(fd);
+      }
+   }
+   m_dest_part = m_dest;
+   m_dest_part.setPath(dest_part);
+   kDebug(7007) << "GetJobManager::checkLocalFile() success" << endl;
+   return true;
 }
 
 GetJobManager::GetJobManager()
@@ -221,6 +302,9 @@ void GetJobManager::slotData( KIO::Job *job, const QByteArray &data)
    emit hasData (this);
 }
 
+void GetJobManager::slotResult( KJob *job )
+{
+}
 
 MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
 {

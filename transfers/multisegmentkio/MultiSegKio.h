@@ -42,9 +42,18 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       * @param dest the destination URL
       * @param permissions the permissions of the resulting resource
       * @param showProgressInfo true to show progress information to the user
+      * @param segments number of segments
       */
       MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
 
+      /**
+      * Do not create a MultiSegmentCopyJob directly. Use KIO::MultiSegfile_copy() instead.
+      * @param src the source URL
+      * @param dest the destination URL
+      * @param permissions the permissions of the resulting resource
+      * @param showProgressInfo true to show progress information to the user
+      * @param segments a QList with segments data to resume a started copy
+      */
       MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
 
       ~MultiSegmentCopyJob() {};
@@ -52,6 +61,7 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
 
     public Q_SLOTS:
         void slotOpen( KIO::Job * );
+        void slotClose( KIO::Job * );
         void slotStart();
         void slotDataReq( GetJobManager *jobManager);
         void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
@@ -87,12 +97,17 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
 
       KUrl m_src;
       KUrl m_dest;
+      KUrl m_dest_part;
       int m_permissions;
       uint m_segments;
       bool blockWrite;
+      bool bcopycompleted;
       FileJob* m_putJob;
       GetJobManager* m_getJob;
       QList <GetJobManager*> m_jobs;
+
+   private:
+      bool checkLocalFile();
 };
 
 class GetJobManager :public QObject
@@ -105,6 +120,7 @@ class GetJobManager :public QObject
 
    public Q_SLOTS:
       void slotData( KIO::Job *, const QByteArray &data);
+      void slotResult( KJob *job );
 
    Q_SIGNALS:
       void hasData (GetJobManager *);
