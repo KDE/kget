@@ -66,8 +66,8 @@ void MultiSegmentCopyJob::add( FileJob* job, KIO::filesize_t offset, KIO::filesi
    jobManager->offset = offset;
    jobManager->bytes = bytes;
    m_jobs.append(jobManager);
-   connect( job, SIGNAL(result(KJob *)), jobManager, SLOT(slotResult( KJob *job )));
    connect( job, SIGNAL(data( KIO::Job *, const QByteArray & )), jobManager, SLOT(slotData( KIO::Job *, const QByteArray &)));
+   connect( job, SIGNAL(result(KJob *)), jobManager, SLOT(slotResult( KJob *)));
    connect( jobManager, SIGNAL(hasData( GetJobManager * )), SLOT(slotDataReq( GetJobManager *)));
 }
 
@@ -81,7 +81,7 @@ void MultiSegmentCopyJob::slotStart()
    m_putJob = KIO::open(m_dest_part, 3);
    connect( m_putJob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
    connect( m_putJob, SIGNAL(written(KIO::Job * ,KIO::filesize_t )), SLOT(slotWritten( KIO::Job * ,KIO::filesize_t )));
-   connect( m_putJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
+   connect( m_putJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
    addSubjob( m_putJob );
 }
 
@@ -93,7 +93,7 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
       FileJob* getjob = KIO::open(m_src, 1);
       connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
       connect(getjob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
-      connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
+      connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
       addSubjob( getjob );
    }
    else
@@ -122,14 +122,14 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
             getjob = KIO::open(m_src, 1);
             add( getjob, i*segment, rest_size);
             connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpenGetJob(KIO::Job *)));
-            connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
+            connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
 addSubjob( getjob );
             continue;
          }
             getjob = KIO::open(m_src, 1);
             add( getjob, i*segment, segment);
             connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpenGetJob(KIO::Job *)));
-            connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *job )));
+            connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
             addSubjob( getjob );
       }
    }
@@ -285,6 +285,7 @@ GetJobManager::GetJobManager()
    job = 0;
    offset = 0;
    bytes = 0;
+   doKill = false;
 };
 
 QByteArray GetJobManager::getData()
@@ -304,6 +305,10 @@ void GetJobManager::slotData( KIO::Job *job, const QByteArray &data)
 
 void GetJobManager::slotResult( KJob *job )
 {
+   if ( !doKill )
+   {
+   //Restart the transfer
+   }
 }
 
 MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)

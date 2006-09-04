@@ -130,6 +130,7 @@ class GetJobManager :public QObject
       KIO::filesize_t offset;
       KIO::filesize_t bytes;
       QQueue<QByteArray> chunks;
+      bool doKill;
 };
 
    MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
