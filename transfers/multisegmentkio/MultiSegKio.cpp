@@ -80,6 +80,7 @@ void MultiSegmentCopyJob::slotStart()
    kDebug(7007) << "MultiSegmentCopyJob::slotStart() opening: " << m_dest_part << endl;
    m_putJob = KIO::open(m_dest_part, 3);
    connect( m_putJob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
+   connect(m_putJob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
    connect( m_putJob, SIGNAL(written(KIO::Job * ,KIO::filesize_t )), SLOT(slotWritten( KIO::Job * ,KIO::filesize_t )));
    connect( m_putJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
    addSubjob( m_putJob );
@@ -92,7 +93,6 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
       kDebug(7007) << "MultiSegmentCopyJob::slotOpen() putjob" << endl;
       FileJob* getjob = KIO::open(m_src, 1);
       connect(getjob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
-      connect(getjob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
       connect( getjob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
       addSubjob( getjob );
    }
