@@ -473,7 +473,7 @@ KUrl KGet::urlInputDialog()
 
     KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
     if (clipboardUrl.isValid())
-        newtransfer = clipboardUrl.toString();
+        newtransfer = clipboardUrl.url();
 
     while (!ok)
     {
