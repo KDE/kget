@@ -85,7 +85,7 @@ void transferMultiSegKio::load(QDomElement e)
         segment = node.toElement ();
         d.src = KUrl(segment.attribute("Source"));
         d.bytes = segment.attribute("Bytes").toULongLong();
-        d.offSet = segment.attribute("OffSet").toULongLong();
+        d.offset = segment.attribute("OffSet").toULongLong();
         kDebug(5001) << "TransferMultiSegKio::load: adding Segment " << i << endl;
         tdata << d;
     }
@@ -107,7 +107,7 @@ void transferMultiSegKio::save(QDomElement e)
         e.appendChild(segment);
         segment.setAttribute("Source", (*it).src.url());
         segment.setAttribute("Bytes", (*it).bytes); 
-        segment.setAttribute("OffSet", (*it).offSet);
+        segment.setAttribute("OffSet", (*it).offset);
      }
 }
 
@@ -126,24 +126,24 @@ void transferMultiSegKio::createJob()
         {
         m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, tdata);
         }
-        connect(m_copyjob, SIGNAL(result(KIO::Job *)), 
-                this, SLOT(slotResult(KIO::Job *)));
-        connect(m_copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), 
-                this, SLOT(slotInfoMessage(KIO::Job *, const QString &)));
+        connect(m_copyjob, SIGNAL(result(KJob *)), 
+                this, SLOT(slotResult(KJob *)));
+        connect(m_copyjob, SIGNAL(infoMessage(KJob *, const QString &)), 
+                this, SLOT(slotInfoMessage(KJob *, const QString &)));
         connect(m_copyjob, SIGNAL(connected(KIO::Job *)), 
                 this, SLOT(slotConnected(KIO::Job *)));
-        connect(m_copyjob, SIGNAL(percent(KIO::Job *, unsigned long)), 
-                this, SLOT(slotPercent(KIO::Job *, unsigned long)));
-        connect(m_copyjob, SIGNAL(totalSize(KIO::Job *, KIO::filesize_t)), 
-                this, SLOT(slotTotalSize(KIO::Job *, KIO::filesize_t)));
-        connect(m_copyjob, SIGNAL(processedSize(KIO::Job *, KIO::filesize_t)), 
-                this, SLOT(slotProcessedSize(KIO::Job *, KIO::filesize_t)));
+        connect(m_copyjob, SIGNAL(percent(KJob *, unsigned long)), 
+                this, SLOT(slotPercent(KJob *, unsigned long)));
+        connect(m_copyjob, SIGNAL(totalSize(KJob *, qulonglong)), 
+                this, SLOT(slotTotalSize(KJob *, qulonglong)));
+        connect(m_copyjob, SIGNAL(processedSize(KJob *, qulonglong)), 
+                this, SLOT(slotProcessedSize(KJob *, qulonglong)));
         connect(m_copyjob, SIGNAL(speed(KIO::Job *, unsigned long)), 
                 this, SLOT(slotSpeed(KIO::Job *, unsigned long)));
     }
 }
 
-void transferMultiSegKio::slotResult( KIO::Job * kioJob )
+void transferMultiSegKio::slotResult( KJob *kioJob )
 {
     kDebug() << "slotResult  (" << kioJob->error() << ")" << endl;
     switch (kioJob->error())
@@ -167,7 +167,7 @@ void transferMultiSegKio::slotResult( KIO::Job * kioJob )
     setTransferChange(Tc_Status, true);
 }
 
-void transferMultiSegKio::slotInfoMessage( KIO::Job * kioJob, const QString & msg )
+void transferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 {
   Q_UNUSED(kioJob);
     m_log.append(QString(msg));
@@ -182,7 +182,7 @@ void transferMultiSegKio::slotConnected( KIO::Job * kioJob )
     setTransferChange(Tc_Status, true);
 }
 
-void transferMultiSegKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
+void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
     kDebug() << "slotPercent" << endl;
     Q_UNUSED(kioJob);
@@ -190,22 +190,22 @@ void transferMultiSegKio::slotPercent( KIO::Job * kioJob, unsigned long percent 
     setTransferChange(Tc_Percent, true);
 }
 
-void transferMultiSegKio::slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size )
+void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 {
     kDebug() << "slotTotalSize" << endl;
 
-    slotConnected(kioJob);
+    slotConnected(static_cast<KIO::Job*>(kioJob));
 
     m_totalSize = size;
     setTransferChange(Tc_TotalSize, true);
 }
 
-void transferMultiSegKio::slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size )
+void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 {
     kDebug() << "slotProcessedSize" << endl; 
 
     if(status() != Job::Running)
-        slotConnected(kioJob);
+        slotConnected(static_cast<KIO::Job*>(kioJob));
 
     m_processedSize = size;
     setTransferChange(Tc_ProcessedSize, true);

@@ -24,7 +24,7 @@ namespace KIO
 struct MultiSegData
 {
     KUrl src;
-    KIO::fileoffset_t offSet;
+    KIO::fileoffset_t offset;
     KIO::filesize_t bytes;
 };
 
@@ -57,17 +57,17 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
 
       ~MultiSegmentCopyJob() {};
-      void add( FileJob *job, KIO::filesize_t offset, KIO::filesize_t bytes);
+      void addGetJobManagers( QList<struct MultiSegData> segments);
+      void addFisrtGetJobManager( FileJob* job, KIO::filesize_t offset, KIO::filesize_t bytes);
 
     public Q_SLOTS:
+        void slotStart();
         void slotOpen( KIO::Job * );
         void slotClose( KIO::Job * );
-        void slotStart();
         void slotDataReq( GetJobManager *jobManager);
         void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
 
     protected Q_SLOTS:
-        void slotOpenGetJob(KIO::Job * );
         /**
          * Called whenever a subjob finishes.
 	 * @param job the job that emitted this signal
@@ -102,6 +102,7 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       uint m_segments;
       bool blockWrite;
       bool bcopycompleted;
+      bool bstartsaved;
       FileJob* m_putJob;
       GetJobManager* m_getJob;
       QList <GetJobManager*> m_jobs;
@@ -119,6 +120,7 @@ class GetJobManager :public QObject
       QByteArray getData();
 
    public Q_SLOTS:
+      void slotOpen( KIO::Job * );
       void slotData( KIO::Job *, const QByteArray &data);
       void slotResult( KJob *job );
 

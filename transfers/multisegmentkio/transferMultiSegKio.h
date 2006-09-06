@@ -51,12 +51,12 @@ class transferMultiSegKio : public QObject, public Transfer
         QList<struct KIO::MultiSegData> tdata;
 
     private slots:
-        void slotResult( KIO::Job * kioJob );
-        void slotInfoMessage( KIO::Job * kioJob, const QString & msg );
+        void slotResult( KJob *kioJob );
+        void slotInfoMessage( KJob * kioJob, const QString & msg );
         void slotConnected( KIO::Job * kioJob );
-        void slotPercent( KIO::Job * kioJob, unsigned long percent );
-        void slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size );
-        void slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size );
+        void slotPercent( KJob *kioJob, unsigned long percent );
+        void slotTotalSize( KJob *kioJob, qulonglong size );
+        void slotProcessedSize( KJob *kioJob, qulonglong size );
         void slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second );
 };
 
