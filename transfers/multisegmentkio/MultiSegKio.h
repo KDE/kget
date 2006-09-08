@@ -60,38 +60,39 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       void addGetJobManagers( QList<struct MultiSegData> segments);
       void addFisrtGetJobManager( FileJob* job, KIO::filesize_t offset, KIO::filesize_t bytes);
 
-    public Q_SLOTS:
-        void slotStart();
-        void slotOpen( KIO::Job * );
-        void slotClose( KIO::Job * );
-        void slotDataReq( GetJobManager *jobManager);
-        void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
+   public Q_SLOTS:
+      void slotStart();
+      void slotOpen( KIO::Job * );
+      void slotClose( KIO::Job * );
+      void slotDataReq( GetJobManager *jobManager);
+      void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
+      void slotaddGetJobManager(struct MultiSegData segment);
 
-    protected Q_SLOTS:
+   protected Q_SLOTS:
         /**
          * Called whenever a subjob finishes.
 	 * @param job the job that emitted this signal
          */
-        virtual void slotResult( KJob *job );
+      virtual void slotResult( KJob *job );
 
         /**
          * Forward signal from subjob
 	 * @param job the job that emitted this signal
 	 * @param size the processed size in bytes
          */
-        void slotProcessedSize( KJob *job, qulonglong size );
+//         void slotProcessedSize( KJob *job, qulonglong size );
         /**
          * Forward signal from subjob
 	 * @param job the job that emitted this signal
 	 * @param size the total size
          */
-        void slotTotalSize( KJob *job, qulonglong size );
+      void slotTotalSize( KJob *job, qulonglong size );
         /**
          * Forward signal from subjob
 	 * @param job the job that emitted this signal
 	 * @param pct the percentage
          */
-        void slotPercent( KJob *job, unsigned long pct );
+      void slotPercent( KJob *job, unsigned long pct );
 
    protected:
 
@@ -99,6 +100,7 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       KUrl m_dest;
       KUrl m_dest_part;
       int m_permissions;
+      qulonglong m_ProcessedSize;
       uint m_segments;
       bool blockWrite;
       bool bcopycompleted;
@@ -126,9 +128,11 @@ class GetJobManager :public QObject
 
    Q_SIGNALS:
       void hasData (GetJobManager *);
+      void segmentData(struct MultiSegData);
 
    public:
       FileJob *job;
+      KUrl src;
       KIO::filesize_t offset;
       KIO::filesize_t bytes;
       QQueue<QByteArray> chunks;
