@@ -51,6 +51,7 @@ class transferMultiSegKio : public QObject, public Transfer
         QList<struct KIO::MultiSegData> tdata;
 
     private slots:
+        void slotUpdateSegmentsData();
         void slotResult( KJob *kioJob );
         void slotInfoMessage( KJob * kioJob, const QString & msg );
         void slotConnected( KIO::Job * kioJob );

@@ -52,13 +52,20 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       * @param dest the destination URL
       * @param permissions the permissions of the resulting resource
       * @param showProgressInfo true to show progress information to the user
+      * @param ProcessedSize
+      * @param totalSize
       * @param segments a QList with segments data to resume a started copy
       */
-      MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
+      MultiSegmentCopyJob( const KUrl& src, const KUrl& dest,
+                           int permissions, bool showProgressInfo,
+                           qulonglong ProcessedSize,
+                           KIO::filesize_t totalSize,
+                           QList<struct MultiSegData> segments);
 
       ~MultiSegmentCopyJob() {};
       void addGetJobManagers( QList<struct MultiSegData> segments);
-      void addFisrtGetJobManager( FileJob* job, KIO::filesize_t offset, KIO::filesize_t bytes);
+      void addFisrtGetJobManager( FileJob* job, struct MultiSegData segment);
+      QList<struct MultiSegData> getSegmentsData();
 
    public Q_SLOTS:
       void slotStart();
@@ -67,6 +74,9 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       void slotDataReq( GetJobManager *jobManager);
       void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
       void slotaddGetJobManager(struct MultiSegData segment);
+
+   Q_SIGNALS:
+      void updateSegmentsData();
 
    protected Q_SLOTS:
         /**
@@ -101,6 +111,7 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       KUrl m_dest_part;
       int m_permissions;
       qulonglong m_ProcessedSize;
+      KIO::filesize_t m_totalSize;
       uint m_segments;
       bool blockWrite;
       bool bcopycompleted;
@@ -132,16 +143,21 @@ class GetJobManager :public QObject
 
    public:
       FileJob *job;
-      KUrl src;
-      KIO::filesize_t offset;
-      KIO::filesize_t bytes;
+      struct MultiSegData data;
       QQueue<QByteArray> chunks;
       bool doKill;
 };
 
    MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
 
-   MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, QList<struct MultiSegData> segments);
+   MultiSegmentCopyJob *MultiSegfile_copy(
+                           const KUrl& src,
+                           const KUrl& dest,
+                           int permissions,
+                           bool showProgressInfo,
+                           qulonglong ProcessedSize,
+                           KIO::filesize_t totalSize,
+                           QList<struct MultiSegData> segments);
 
 }
 
