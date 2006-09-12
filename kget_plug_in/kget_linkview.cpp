@@ -40,7 +40,7 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     setPlainCaption( i18n( "KGet" ) );
 
     KAction* actionDownload = new KAction( i18n("Download Selected Files"),
-                                           "khtml_kget", CTRL+Key_D,
+                                           "kget", CTRL+Key_D,
                                            this, SLOT( slotStartLeech() ),
                                            actionCollection(), "startDownload" );
 
