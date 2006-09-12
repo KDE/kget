@@ -47,7 +47,7 @@
 KGet_plug_in::KGet_plug_in( QObject* parent, const char* name )
     : Plugin( parent, name )
 {
-    QPixmap pix = KGlobal::iconLoader()->loadIcon("khtml_kget",
+    QPixmap pix = KGlobal::iconLoader()->loadIcon("kget",
                                                   KIcon::MainToolbar);
     KActionMenu *menu = new KActionMenu( i18n("Download Manager"), pix,
                                          actionCollection(), "kget_menu" );
