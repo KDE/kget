@@ -47,7 +47,7 @@ void transferMultiSegKio::stop()
     if(m_copyjob)
     {
         m_copyjob->doKill();
-        m_copyjob=0;
+//         m_copyjob=0;
     }
 
     kDebug(5001) << "transferMultiSegKio::Stop" << endl;
@@ -166,7 +166,7 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
             break;
         default:
             //There has been an error
-            kDebug() << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
+            kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
             setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("stop"));
             break;
     }
@@ -183,7 +183,7 @@ void transferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 
 void transferMultiSegKio::slotConnected( KIO::Job * kioJob )
 {
-//     kDebug() << "CONNECTED" <<endl;
+    kDebug(5001) << "CONNECTED" <<endl;
 
   Q_UNUSED(kioJob);
     setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
@@ -221,7 +221,7 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 
 void transferMultiSegKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second )
 {
-//     kDebug() << "slotSpeed" << endl;
+    kDebug(5001) << "slotSpeed" << endl;
 
    if(status() != Job::Running)
       slotConnected(kioJob);

@@ -77,6 +77,7 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
 
    Q_SIGNALS:
       void updateSegmentsData();
+      void canWrite();
 
    protected Q_SLOTS:
         /**
@@ -103,7 +104,12 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
 	 * @param pct the percentage
          */
       void slotPercent( KJob *job, unsigned long pct );
-
+        /**
+         * Forward signal from subjob
+	 * @param job the job that emitted this signal
+	 * @param bytes_per_second the speed
+         */
+      void slotSpeed( KIO::Job*, unsigned long bytes_per_second );
    protected:
 
       KUrl m_src;
@@ -135,6 +141,7 @@ class GetJobManager :public QObject
    public Q_SLOTS:
       void slotOpen( KIO::Job * );
       void slotData( KIO::Job *, const QByteArray &data);
+      void slotCanWrite();
       void slotResult( KJob *job );
 
    Q_SIGNALS:
@@ -145,7 +152,7 @@ class GetJobManager :public QObject
       FileJob *job;
       struct MultiSegData data;
       QQueue<QByteArray> chunks;
-      bool doKill;
+      bool    restarting;
 };
 
    MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);

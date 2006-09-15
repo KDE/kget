@@ -97,6 +97,8 @@ void MultiSegmentCopyJob::slotaddGetJobManager(struct MultiSegData segment)
 
    connect( job, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
 
+   connect( this, SIGNAL(canWrite()), jobManager, SLOT(slotCanWrite()));
+
    connect( jobManager, SIGNAL(hasData( GetJobManager * )), SLOT(slotDataReq( GetJobManager *)));
    connect( jobManager, SIGNAL(segmentData(struct MultiSegData)), SLOT(slotaddGetJobManager(struct MultiSegData)));
 
@@ -115,6 +117,8 @@ void MultiSegmentCopyJob::addFisrtGetJobManager( FileJob* job, struct MultiSegDa
    jobManager->data.src = segment.src;
    jobManager->data.offset = segment.offset;
    jobManager->data.bytes = segment.bytes;
+
+   connect( this, SIGNAL(canWrite()), jobManager, SLOT(slotCanWrite()));
 
    connect( jobManager, SIGNAL(hasData( GetJobManager * )), SLOT(slotDataReq( GetJobManager *)));
    connect( jobManager, SIGNAL(segmentData(struct MultiSegData)), SLOT(slotaddGetJobManager(struct MultiSegData)));
@@ -236,10 +240,13 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
 
 void MultiSegmentCopyJob::slotDataReq( GetJobManager *jobManager)
 {
-   kDebug(7007) << "MultiSegmentCopyJob::slotDataReq()" << endl;
+   kDebug(7007) << "MultiSegmentCopyJob::slotDataReq() " << jobManager->job << endl;
    if ( blockWrite )
+   {
+   kDebug(7007) << "MultiSegmentCopyJob::slotDataReq() the putjob is busy trying... next time " << jobManager->job << endl;
       return;
-   kDebug(7007) << "MultiSegmentCopyJob::slotDataReq() putjob writing..." << endl;
+   }
+   kDebug(7007) << "MultiSegmentCopyJob::slotDataReq() putjob writing from: " << jobManager->job << endl;
    blockWrite = true;
    m_getJob = jobManager;
    m_putJob->seek( jobManager->data.offset );
@@ -248,7 +255,7 @@ void MultiSegmentCopyJob::slotDataReq( GetJobManager *jobManager)
 
 void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
 {
-   kDebug(7007) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten << endl;
+   kDebug(7007) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten << " from: " << m_getJob->job << endl;
    m_ProcessedSize += bytesWritten;
    emit processedSize(this, m_ProcessedSize);
    emitPercent( m_ProcessedSize, m_totalSize );
@@ -257,7 +264,7 @@ void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
       m_getJob->data.offset = m_getJob->data.offset + bytesWritten;
       m_getJob->data.bytes = m_getJob->data.bytes - bytesWritten;
       kDebug(7007) << "MultiSegmentCopyJob::slotWritten() bytes left: " << m_getJob->data.bytes << endl;
-      if(!m_getJob->data.bytes && !bytesWritten)
+      if(!m_getJob->data.bytes)
       {
          m_getJob->deleteLater();
          m_jobs.removeAll(m_getJob);
@@ -265,6 +272,7 @@ void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
       }
       m_getJob = 0;
       blockWrite = false;
+      emit canWrite();
    }
    if(m_jobs.isEmpty())
    {
@@ -314,6 +322,12 @@ void MultiSegmentCopyJob::slotPercent( KJob *job, unsigned long pct )
 {
 }
 
+void MultiSegmentCopyJob::slotSpeed( KIO::Job* job, unsigned long bytes_per_second )
+{
+   if(job == m_putJob)
+     emit speed( this, bytes_per_second );
+}
+
 bool MultiSegmentCopyJob::checkLocalFile()
 {
    QString dest_orig = m_dest.path();
@@ -337,11 +351,11 @@ bool MultiSegmentCopyJob::checkLocalFile()
       if ( fd < 0 )
       {
           kDebug(7007) << "MultiSegmentCopyJob::checkLocalFile() error" << endl;
- /*         if ( errno == EACCES )
-            error( KIO::ERR_WRITE_ACCESS_DENIED, dest_part );
-         else
-            error( KIO::ERR_CANNOT_OPEN_FOR_WRITING, dest_part );*/
-         return false;
+/*          if ( errno == EACCES )
+            error( ERR_WRITE_ACCESS_DENIED, dest_part );
+          else
+            error( ERR_CANNOT_OPEN_FOR_WRITING, dest_part );*/
+          return false;
       }
       else
       {
@@ -359,7 +373,7 @@ GetJobManager::GetJobManager()
    job = 0;
    data.offset = 0;
    data.bytes = 0;
-   doKill = false;
+   restarting = false;
 }
 
 QByteArray GetJobManager::getData()
@@ -367,6 +381,7 @@ QByteArray GetJobManager::getData()
    QByteArray _data;
    while (!chunks.isEmpty())
       _data.append( chunks.dequeue() );
+   kDebug(7007) << "GetJobManager::getData() " << _data.size() << endl;
    return _data;
 }
 
@@ -384,13 +399,23 @@ void GetJobManager::slotData( KIO::Job *job, const QByteArray &data)
    emit hasData (this);
 }
 
+void GetJobManager::slotCanWrite()
+{
+   if(!chunks.isEmpty())
+      emit hasData (this);
+
+   if(data.bytes && !job && !restarting)
+   {
+   kDebug(7007) << "emiting segment data: " << data.src << " offset: " << data.offset << " bytes: "<< data.bytes << endl;
+   emit segmentData(data);
+   restarting = true;
+   }
+}
+
 void GetJobManager::slotResult( KJob * )
 {
-
+   disconnect(job);
    job = 0;
-
-   kDebug(7007) << "emiting segment data: " << data.src << " offset: " << data.offset << " bytes: "<< data.bytes << endl;
-//    emit segmentData(data);
 }
 
 MultiSegmentCopyJob *KIO::MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
