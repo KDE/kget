@@ -146,7 +146,7 @@ class GetJobManager :public QObject
 
    Q_SIGNALS:
       void hasData (GetJobManager *);
-      void segmentData(struct MultiSegData);
+      void segmentData(struct MultiSegData segmentData);
 
    public:
       FileJob *job;

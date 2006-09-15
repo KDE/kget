@@ -221,7 +221,7 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 
 void transferMultiSegKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second )
 {
-    kDebug(5001) << "slotSpeed" << endl;
+    kDebug(5001) << "slotSpeed: " << bytes_per_second << endl;
 
    if(status() != Job::Running)
       slotConnected(kioJob);

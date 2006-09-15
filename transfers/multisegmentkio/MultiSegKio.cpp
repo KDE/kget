@@ -290,8 +290,8 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
    {
       setError( job->error() );
       setErrorText( job->errorText() );
-      emitResult();
-      return;
+/*      emitResult();
+      return;*/
    }
    if (job == m_putJob )
    {
@@ -388,6 +388,12 @@ QByteArray GetJobManager::getData()
 void GetJobManager::slotOpen(KIO::Job *)
 {
    kDebug(7007) << "GetJobManager::slotOpen() getjob: " << job << " offset: " << data.offset <<" bytes: "<< data.bytes << endl;
+   if(job->size() < data.bytes)
+   {
+      kDebug(7007) << "the remote file size difers " << job->size() << " " << data.bytes << endl;
+      job->kill();
+      return;
+   }
    job->seek( data.offset);
    job->read( data.bytes);
 }
@@ -412,8 +418,9 @@ void GetJobManager::slotCanWrite()
    }
 }
 
-void GetJobManager::slotResult( KJob * )
+void GetJobManager::slotResult( KJob * _job)
 {
+   kDebug(7007) << "GetJobManager::slotResult :" << _job << " -- "<< job << endl;
    disconnect(job);
    job = 0;
 }
