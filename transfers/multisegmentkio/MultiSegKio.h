@@ -21,11 +21,12 @@ namespace KIO
 
 #define	MIN_SIZE	1024*100
 
-struct MultiSegData
+class MultiSegData
 {
-    KUrl src;
-    KIO::fileoffset_t offset;
-    KIO::filesize_t bytes;
+   public:
+      KUrl src;
+      KIO::fileoffset_t offset;
+      KIO::filesize_t bytes;
 };
 
 class GetJobManager;
@@ -60,11 +61,11 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
                            int permissions, bool showProgressInfo,
                            qulonglong ProcessedSize,
                            KIO::filesize_t totalSize,
-                           QList<struct MultiSegData> segments);
+                           QList<MultiSegData> segments);
 
       ~MultiSegmentCopyJob() {};
       void addGetJobManagers( QList<struct MultiSegData> segments);
-      void addFisrtGetJobManager( FileJob* job, struct MultiSegData segment);
+      void addFisrtGetJobManager( FileJob* job, MultiSegData segment);
       QList<struct MultiSegData> getSegmentsData();
 
    public Q_SLOTS:
@@ -73,13 +74,19 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       void slotClose( KIO::Job * );
       void slotDataReq( GetJobManager *jobManager);
       void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
-      void slotaddGetJobManager(struct MultiSegData segment);
+      void slotaddGetJobManager(MultiSegData segment);
 
    Q_SIGNALS:
       void updateSegmentsData();
       void canWrite();
 
    protected Q_SLOTS:
+        /**
+         * Called whenever a job Manager finishes.
+	 * @param jobManager the job Manager that emitted this signal
+         */
+      virtual void slotGetJobManagerResult( GetJobManager *jobManager );
+
         /**
          * Called whenever a subjob finishes.
 	 * @param job the job that emitted this signal
@@ -125,7 +132,7 @@ class KIO_EXPORT MultiSegmentCopyJob : public Job
       FileJob* m_putJob;
       GetJobManager* m_getJob;
       QList <GetJobManager*> m_jobs;
-
+      QHash <KIO::Job*, unsigned long>speedHash;
    private:
       bool checkLocalFile();
 };
@@ -137,6 +144,7 @@ class GetJobManager :public QObject
    public:
       GetJobManager();
       QByteArray getData();
+      void emitResult();
 
    public Q_SLOTS:
       void slotOpen( KIO::Job * );
@@ -145,8 +153,9 @@ class GetJobManager :public QObject
       void slotResult( KJob *job );
 
    Q_SIGNALS:
-      void hasData (GetJobManager *);
-      void segmentData(struct MultiSegData segmentData);
+      void hasData ( GetJobManager * );
+      void result ( GetJobManager * );
+      void segmentData (MultiSegData);
 
    public:
       FileJob *job;
@@ -164,7 +173,7 @@ class GetJobManager :public QObject
                            bool showProgressInfo,
                            qulonglong ProcessedSize,
                            KIO::filesize_t totalSize,
-                           QList<struct MultiSegData> segments);
+                           QList<MultiSegData> segments);
 
 }
 
