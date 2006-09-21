@@ -163,8 +163,8 @@ int main(int argc, char *argv[])
                          "(C) 1998 - 2000, Matej Koss\n",
                          "kget@kde.org", 0);
 
-    aboutData.addAuthor("Dario Massarin", I18N_NOOP("Maintainer"), "nekkar@libero.it");
-    aboutData.addAuthor("Urs Wolfer", I18N_NOOP("Core Developer"), "uwolfer@fwo.ch");
+    aboutData.addAuthor("Dario Massarin", I18N_NOOP("Maintainer, Core Developer"), "nekkar@libero.it");
+    aboutData.addAuthor("Urs Wolfer", I18N_NOOP("Core Developer"), "uwolfer@kde.org");
     aboutData.addAuthor("Manolo Valdes", I18N_NOOP("Multithreaded Plugin Author"), "nolis71cu@gmail.com");
     aboutData.addAuthor("Patrick  Charbonnier", I18N_NOOP("Former KGet Developer"), "pch@freeshell.org");
     aboutData.addAuthor("Carsten Pfeiffer", I18N_NOOP("Former KGet Developer"), "pfeiffer@kde.org");

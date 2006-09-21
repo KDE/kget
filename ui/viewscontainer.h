@@ -101,10 +101,10 @@ class ViewsContainer : public QWidget
         TransfersView   * m_transfersView;
         TransfersViewDelegate * m_transfersViewDelegate;
 
-        QWidget         * m_finishedView;  //This view has still to be created.
+//         QWidget         * m_finishedView;  //TODO: This view has still to be created.
 
         ButtonBase      * m_downloadsBt;
-        ButtonBase      * m_finishedBt;
+//         ButtonBase      * m_finishedBt;
         TransfersButton * m_transfersBt;
 
         QMap<TransferHandler *, QWidget *> m_transfersMap;

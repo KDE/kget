@@ -39,7 +39,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
     {
         if(mouseEvent->button() == Qt::RightButton)
         {
-            kDebug() << "TransfersViewDelegate::editorEvent() -> rightClick" << endl;
+//             kDebug(5001) << "TransfersViewDelegate::editorEvent() -> rightClick" << endl;
 
             if(m_popup)
             {
@@ -51,11 +51,11 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
             if(transferTreeModel->isTransferGroup(index))
             {
-                kDebug() << "isTransferGroup = true" << endl;
+//                 kDebug(5001) << "isTransferGroup = true" << endl;
             }
             else
             {
-                kDebug() << "isTransferGroup = false" << endl;
+//                 kDebug(5001) << "isTransferGroup = false" << endl;
 
                 TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
 

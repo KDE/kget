@@ -46,7 +46,7 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
         actionList = this->actions();
 
     KMenu * popup = new KMenu( 0 );
-    popup->addTitle( i18np("%n download", "%n downloads", transfers.count()) );
+    popup->addTitle( i18np("%n Download selected", "%n Downloads selected", transfers.count()) );
 
     //Plug all the actions in the popup menu
     popup->addAction( KGet::actionCollection()->action("transfer_start") );

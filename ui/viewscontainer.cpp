@@ -45,17 +45,17 @@ TitleBar::TitleBar(QWidget * parent)
 
 void TitleBar::setTransfer(TransferHandler * transfer)
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"> " + i18n("Details for file: \t") + transfer->source().fileName());
+    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"></span>" + i18n("Details for file: \t") + transfer->source().fileName());
 }
 
 void TitleBar::setDownloadsWindow()
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"> " + i18n("All downloads"));
+    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"></span>" + i18n("All downloads"));
 }
 
 void TitleBar::setFinishedWindow()
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"> " + i18n("Finished downloads"));
+    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"></span>" + i18n("Finished downloads"));
 }
 
 ButtonBase::ButtonBase(QWidget * parent)
@@ -178,14 +178,14 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_downloadsBt->setIcon(SmallIcon("kget"));
     m_downloadsBt->setChecked(true);
 
-    m_finishedBt = new ButtonBase();
-    m_finishedBt->setText(i18n("Old Mainview"));
-    m_finishedBt->setIcon(SmallIcon("ok"));
+//     m_finishedBt = new ButtonBase();
+//     m_finishedBt->setText(i18n("Old Mainview"));
+//     m_finishedBt->setIcon(SmallIcon("ok"));
 
     m_transfersBt = new TransfersButton();
 
     m_HLayout->addWidget(m_downloadsBt);
-    m_HLayout->addWidget(m_finishedBt);
+//     m_HLayout->addWidget(m_finishedBt);
     m_HLayout->addSpacing(20);
     m_HLayout->addStretch(1);
     m_HLayout->addWidget(new QLabel(i18n("Transfer details:"), this));
@@ -223,13 +223,13 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     //This view hasn't been coded yet. For the moment,
     //I set it to the old MainView.
 //     m_finishedView = new MainView();
-    m_finishedView = new QWidget();
-    m_SLayout->addWidget(m_finishedView);
+//     m_finishedView = new QWidget();
+//     m_SLayout->addWidget(m_finishedView);
 
     connect(m_downloadsBt, SIGNAL(activated()),
             this,          SLOT(showDownloadsWindow()));
-    connect(m_finishedBt,  SIGNAL(activated()),
-            this,          SLOT(showFinishedWindow()));
+//     connect(m_finishedBt,  SIGNAL(activated()),
+//             this,          SLOT(showFinishedWindow()));
     connect(m_transfersBt, SIGNAL(selectedTransfer(TransferHandler *)),
             this,          SLOT(slotTransferSelected(TransferHandler *)));
 
@@ -275,7 +275,7 @@ void ViewsContainer::showDownloadsWindow()
 void ViewsContainer::showFinishedWindow()
 {
     kDebug(5001) << "ViewsContainer::showFinishedWindow" << endl;
-    m_SLayout->setCurrentWidget( m_finishedView );
+//     m_SLayout->setCurrentWidget( m_finishedView );
 
     //TitleBar update
     m_titleBar->setFinishedWindow();

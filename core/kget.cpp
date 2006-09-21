@@ -207,7 +207,7 @@ void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 
 QList<TransferHandler *> KGet::selectedTransfers()
 {
-    kDebug() << "KGet::selectedTransfers" << endl;
+//     kDebug(5001) << "KGet::selectedTransfers" << endl;
 
     QList<TransferHandler *> selectedTransfers;
 
