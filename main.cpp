@@ -168,19 +168,19 @@ public:
         else if(args->count()>=2)
 		{
 			KURL::List urls;
-			QString dest;
 			for( int i=0; i < args->count(); ++i){
 				urls.append(KURL::fromPathOrURL( args->arg(i)));
 			}
 			
-			// Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as unvalid then
-			if ( args->count()==2 & ( urls.last().isLocalFile() | !urls.last().isValid()))
+			// Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
+			if ( args->count()==2 && ( urls.last().isLocalFile() || !urls.last().isValid()))
 			{
-				dest=urls.last().path();
-				kmain->addTransferEx( urls.first(), dest );
+				kmain->addTransferEx( urls.first(), urls.last() );
 			}
 			else
-				kmain->addTransfers( urls, dest );
+			{
+				kmain->addTransfers( urls, QString() );
+			}
 		}
         args->clear();
 
