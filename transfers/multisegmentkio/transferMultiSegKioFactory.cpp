@@ -25,20 +25,22 @@ TransferMultiSegKioFactory::~TransferMultiSegKioFactory()
 {
 }
 
-Transfer * TransferMultiSegKioFactory::createTransfer( KUrl srcURL, KUrl destURL,
+Transfer * TransferMultiSegKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
                                                TransferGroup * parent,
-                                               Scheduler * scheduler, 
+                                               Scheduler * scheduler,
                                                const QDomElement * e )
 {
     kDebug(5001) << "TransferMultiSegKioFactory::createTransfer" << endl;
 
-    QString prot = srcURL.protocol();
+    QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot << endl;
-    if(    prot == "http" || prot == "https" 
-        || prot == "ftp"  || prot == "sftp"
-        || prot == "file")
+    if(    prot == "http" || prot == "https"
+// TODO enable the following protocols again when they work with this plugin
+//         || prot == "ftp"  || prot == "sftp"
+//         || prot == "file"
+        )
     {
-        return new transferMultiSegKio(parent, this, scheduler, srcURL, destURL, e);
+        return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }

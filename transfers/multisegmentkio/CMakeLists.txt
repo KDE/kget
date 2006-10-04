@@ -19,8 +19,6 @@ kde4_automoc(${kget_MultiSegKiofactory_PART_SRCS})
 
 kde4_add_plugin(kget_MultiSegKiofactory WITH_PREFIX ${kget_MultiSegKiofactory_PART_SRCS})
 
-kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} kget_MultiSegKiofactory)
-
 target_link_libraries(kget_MultiSegKiofactory ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} kgetcore)
 
 install(TARGETS kget_MultiSegKiofactory DESTINATION  ${LIB_INSTALL_DIR}/kde4)

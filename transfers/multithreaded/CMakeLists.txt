@@ -24,8 +24,6 @@ kde4_add_ui_files(kget_multithreadedfactory_SRCS
 
 kde4_add_plugin(kget_multithreadedfactory WITH_PREFIX ${kget_multithreadedfactory_SRCS})
 
-kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} kget_multithreadedfactory)
-
 target_link_libraries(kget_multithreadedfactory ${QT_QTNETWORK_LIBRARY} ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} kgetcore)
 
 install(TARGETS kget_multithreadedfactory DESTINATION ${LIB_INSTALL_DIR}/kde4)
