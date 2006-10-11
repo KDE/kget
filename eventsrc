@@ -2,7 +2,6 @@
 IconName=kget
 Comment=KGet
 Comment[bn]=কে-গেট
-Comment[fa]=KGet‌
 Comment[sv]=Kget
 
 [added]
@@ -50,7 +49,7 @@ Comment[el]=Προστέθηκε μια νέα λήψη αρχείου
 Comment[es]=Se ha añadido una nueva descarga
 Comment[et]=Lisati uus allalaadimine
 Comment[eu]=Deskarga berri bat gehitu da
-Comment[fa]=یک باگیری جدید اضافه شد‌
+Comment[fa]=بارگیری جدیدی اضافه شده است
 Comment[fi]=Uusi tiedoston haku lisätty
 Comment[fr]=Un nouveau téléchargement a été ajouté
 Comment[gl]=Engadiuse unha nova descarga
