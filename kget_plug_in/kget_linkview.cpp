@@ -1,9 +1,12 @@
 #include "kget_linkview.h"
 
+#include <qlayout.h>
+
 #include <dcopclient.h>
 #include <kaction.h>
 #include <kapplication.h>
 #include <kiconloader.h>
+#include <klistviewsearchline.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
@@ -52,7 +55,11 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     toolBar()->insertLineSeparator();
     actionSelectAll->plug( toolBar() );
 
-    m_view = new KListView( this, "listview" );
+    QWidget *mainWidget = new QWidget( this );
+    QVBoxLayout *layout = new QVBoxLayout( mainWidget );
+    setCentralWidget( mainWidget );
+
+    m_view = new KListView( mainWidget, "listview" );
     m_view->setSelectionMode( QListView::Extended );
     m_view->addColumn( i18n("File Name") );
     m_view->addColumn( i18n("Description") );
@@ -60,7 +67,9 @@ KGetLinkView::KGetLinkView( QWidget *parent, const char *name )
     m_view->addColumn( i18n("Location (URL)") );
     m_view->setShowSortIndicator( true );
 
-    setCentralWidget( m_view );
+    KListViewSearchLineWidget *line = new KListViewSearchLineWidget( m_view, mainWidget, "search line" );
+    layout->addWidget( line );
+    layout->addWidget( m_view );
 
     // setting a fixed (not floating) toolbar
     toolBar()->setMovingEnabled( false );
