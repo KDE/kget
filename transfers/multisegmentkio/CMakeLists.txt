@@ -10,6 +10,7 @@ include_directories(
 ########### next target ###############
 
 set(kget_MultiSegKiofactory_PART_SRCS
+  segmentfactory.cpp
   MultiSegKio.cpp
   transferMultiSegKio.cpp
   transferMultiSegKioFactory.cpp
@@ -26,6 +27,4 @@ install(TARGETS kget_MultiSegKiofactory DESTINATION  ${LIB_INSTALL_DIR}/kde4)
 ########### install files ###############
 
 install(FILES  kget_MultiSegKiofactory.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
-
-add_subdirectory(test)
 

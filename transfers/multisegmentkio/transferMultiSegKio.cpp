@@ -75,19 +75,28 @@ void transferMultiSegKio::load(QDomElement e)
 {
    kDebug(5001) << "TransferMultiSegKio::load" << endl;
 
-   struct KIO::MultiSegData d;
+   SegData d;
    QDomNodeList segments = e.elementsByTagName ("Segment");
+   QDomNodeList urls = e.elementsByTagName ("Urls");
    QDomNode node;
    QDomElement segment;
+   QDomElement url;
    for( uint i=0 ; i < segments.length () ; ++i )
    {
       node = segments.item(i);
       segment = node.toElement ();
-      d.src = KUrl(segment.attribute("Source"));
+//       d.src = KUrl(segment.attribute("Source"));
       d.bytes = segment.attribute("Bytes").toULongLong();
       d.offset = segment.attribute("OffSet").toULongLong();
       kDebug(5001) << "TransferMultiSegKio::load: adding Segment " << i << endl;
-      tdata << d;
+      SegmentsData << d;
+   }
+   for( uint i=0 ; i < urls.length () ; ++i )
+   {
+      node = urls.item(i);
+      url = node.toElement ();
+      kDebug(5001) << "TransferMultiSegKio::load: adding Url " << i << endl;
+      m_Urls << KUrl( url.attribute("url") );
    }
 }
 
@@ -99,15 +108,26 @@ void transferMultiSegKio::save(QDomElement e)
 
    QDomDocument doc(e.ownerDocument());
    QDomElement segment;
-   QList<struct KIO::MultiSegData>::iterator it = tdata.begin();
-   QList<struct KIO::MultiSegData>::iterator itEnd = tdata.end();
+   QList<SegData>::iterator it = SegmentsData.begin();
+   QList<SegData>::iterator itEnd = SegmentsData.end();
    for ( ; it!=itEnd ; ++it )
    {
       segment = doc.createElement("Segment");
       e.appendChild(segment);
-      segment.setAttribute("Source", (*it).src.url());
       segment.setAttribute("Bytes", (*it).bytes); 
       segment.setAttribute("OffSet", (*it).offset);
+   }
+   if( m_Urls.size() > 1 )
+   {
+      QDomElement url;
+      QList<KUrl>::iterator it = m_Urls.begin();
+      QList<KUrl>::iterator itEnd = m_Urls.end();
+      for ( ; it!=itEnd ; ++it )
+      {
+         url = doc.createElement("Urls");
+         e.appendChild(url);
+         url.setAttribute("Url", (*it).url()); 
+      }
    }
 }
 
@@ -118,13 +138,18 @@ void transferMultiSegKio::createJob()
 {
    if(!m_copyjob)
    {
-      if(tdata.empty())
+      if(m_Urls.empty())
       {
-      m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, 5);
+      // Call a search funtion to fill the Urls list. to be coded :)
+         m_Urls << m_source;
+      }
+      if(SegmentsData.empty())
+      {
+         m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false, 5);
       }
       else
       {
-      m_copyjob = KIO::MultiSegfile_copy( m_source, m_dest, -1, false, m_processedSize, m_totalSize, tdata);
+      m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false, m_processedSize, m_totalSize, SegmentsData, 5);
       }
       connect(m_copyjob, SIGNAL(updateSegmentsData()),
       SLOT(slotUpdateSegmentsData()));
@@ -147,8 +172,8 @@ void transferMultiSegKio::createJob()
 
 void transferMultiSegKio::slotUpdateSegmentsData()
 {
-   tdata.clear();
-   tdata = m_copyjob->getSegmentsData();
+   SegmentsData.clear();
+   SegmentsData = m_copyjob->SegmentsData();
 }
 
 void transferMultiSegKio::slotResult( KJob *kioJob )

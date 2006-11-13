@@ -47,8 +47,9 @@ class transferMultiSegKio : public QObject, public Transfer
     private:
         void createJob();
 
-        KIO::MultiSegmentCopyJob *m_copyjob;
-        QList<struct KIO::MultiSegData> tdata;
+        MultiSegmentCopyJob *m_copyjob;
+        QList<SegData> SegmentsData;
+        QList<KUrl> m_Urls;
 
     private slots:
         void slotUpdateSegmentsData();

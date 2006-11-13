@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2006 Manolo Valdes <nolis71cu@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -35,9 +36,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl
     QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot << endl;
     if(    prot == "http" || prot == "https"
-// TODO enable the following protocols again when they work with this plugin
-//         || prot == "ftp"  || prot == "sftp"
-//         || prot == "file"
+        || prot == "ftp"  || prot == "sftp"
         )
     {
         return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);

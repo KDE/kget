@@ -8,173 +8,119 @@
    of the License.
 */
 
+
 #ifndef MULTISEGKIO_H
 #define MULTISEGKIO_H
 
 #include <kio/filejob.h>
 #include <kio/job.h>
 
-#include <QQueue>
+#include "segmentfactory.h"
 
-namespace KIO
-{
+/**
+  * class MultiSegmentCopyJob
+  */
 
-#define	MIN_SIZE	1024*100
-
-class MultiSegData
-{
-   public:
-      KUrl src;
-      KIO::fileoffset_t offset;
-      KIO::filesize_t bytes;
-};
-
-class GetJobManager;
-
-class KIO_EXPORT MultiSegmentCopyJob : public Job
+class KIO_EXPORT MultiSegmentCopyJob : public KIO::Job
 {
    Q_OBJECT
 
-   public:
+public:
 
-      /**
-      * Do not create a MultiSegmentCopyJob directly. Use KIO::MultiSegfile_copy() instead.
-      * @param src the source URL
-      * @param dest the destination URL
-      * @param permissions the permissions of the resulting resource
-      * @param showProgressInfo true to show progress information to the user
-      * @param segments number of segments
-      */
-      MultiSegmentCopyJob( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
+   /**
+    * Do not create a MultiSegmentCopyJob directly. Use MultiSegfile_copy() instead.
+    * @param src the source URL
+    * @param dest the destination URL
+    * @param permissions the permissions of the resulting resource
+    * @param showProgressInfo true to show progress information to the user
+    * @param segments number of segments
+    */
+   MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
 
-      /**
-      * Do not create a MultiSegmentCopyJob directly. Use KIO::MultiSegfile_copy() instead.
-      * @param src the source URL
-      * @param dest the destination URL
-      * @param permissions the permissions of the resulting resource
-      * @param showProgressInfo true to show progress information to the user
-      * @param ProcessedSize
-      * @param totalSize
-      * @param segments a QList with segments data to resume a started copy
-      */
-      MultiSegmentCopyJob( const KUrl& src, const KUrl& dest,
-                           int permissions, bool showProgressInfo,
-                           qulonglong ProcessedSize,
-                           KIO::filesize_t totalSize,
-                           QList<MultiSegData> segments);
+   /**
+    * Do not create a MultiSegmentCopyJob directly. Use MultiSegfile_copy() instead.
+    * @param src the source URL
+    * @param dest the destination URL
+    * @param permissions the permissions of the resulting resource
+    * @param showProgressInfo true to show progress information to the user
+    * @param ProcessedSize
+    * @param totalSize
+    * @param segments a QList with segments data to resume a started copy
+    */
+   MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest,
+                          int permissions, bool showProgressInfo,
+                          qulonglong ProcessedSize,
+                          KIO::filesize_t totalSize,
+                          QList<SegData> SegmentsData,
+                          uint segments);
 
-      ~MultiSegmentCopyJob() {};
-      void addGetJobManagers( QList<struct MultiSegData> segments);
-      void addFisrtGetJobManager( FileJob* job, MultiSegData segment);
-      QList<struct MultiSegData> getSegmentsData();
+   QList<SegData> SegmentsData();
 
-   public Q_SLOTS:
-      void slotStart();
-      void slotOpen( KIO::Job * );
-      void slotClose( KIO::Job * );
-      void slotDataReq( GetJobManager *jobManager);
-      void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
-      void slotaddGetJobManager(MultiSegData segment);
+Q_SIGNALS:
+   void updateSegmentsData();
 
-   Q_SIGNALS:
-      void updateSegmentsData();
-      void canWrite();
+public Q_SLOTS:
+   void slotDataReq( Segment *, const QByteArray &data, bool &result);
 
-   protected Q_SLOTS:
-        /**
-         * Called whenever a job Manager finishes.
-	 * @param jobManager the job Manager that emitted this signal
-         */
-      virtual void slotGetJobManagerResult( GetJobManager *jobManager );
+private Q_SLOTS:
 
-        /**
-         * Called whenever a subjob finishes.
-	 * @param job the job that emitted this signal
-         */
-      virtual void slotResult( KJob *job );
+   void slotStart();
+   void slotOpen( KIO::Job * );
+   void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
+   void slotClose( KIO::Job * );
 
-        /**
-         * Forward signal from subjob
-	 * @param job the job that emitted this signal
-	 * @param size the processed size in bytes
-         */
-//         void slotProcessedSize( KJob *job, qulonglong size );
-        /**
-         * Forward signal from subjob
-	 * @param job the job that emitted this signal
-	 * @param size the total size
-         */
-      void slotTotalSize( KJob *job, qulonglong size );
-        /**
-         * Forward signal from subjob
-	 * @param job the job that emitted this signal
-	 * @param pct the percentage
-         */
-      void slotPercent( KJob *job, unsigned long pct );
-        /**
-         * Forward signal from subjob
-	 * @param job the job that emitted this signal
-	 * @param bytes_per_second the speed
-         */
-      void slotSpeed( KIO::Job*, unsigned long bytes_per_second );
-   protected:
+   /**
+    * Called whenever a subjob finishes.
+    * @param job the job that emitted this signal
+    */
+   void slotResult( KJob *job );
 
-      KUrl m_src;
-      KUrl m_dest;
-      KUrl m_dest_part;
-      int m_permissions;
-      qulonglong m_ProcessedSize;
-      KIO::filesize_t m_totalSize;
-      uint m_segments;
-      bool blockWrite;
-      bool bcopycompleted;
-      bool bstartsaved;
-      FileJob* m_putJob;
-      GetJobManager* m_getJob;
-      QList <GetJobManager*> m_jobs;
-      QHash <KIO::Job*, unsigned long>speedHash;
-   private:
-      bool checkLocalFile();
+   /**
+    * Forward signal from subjob
+    * @param job the job that emitted this signal
+    * @param size the total size
+    */
+   void slotTotalSize( KJob *job, qulonglong size );
+
+   /**
+    * Forward signal from subjob
+    * @param job the job that emitted this signal
+    * @param pct the percentage
+    */
+   void slotPercent( KJob *job, unsigned long pct );
+
+   /**
+    * Forward signal from subjob
+    * @param job the job that emitted this signal
+    * @param bytes_per_second the speed
+    */
+   void slotSpeed( KIO::Job*, unsigned long bytes_per_second );
+
+private:
+   KUrl m_src;
+   KUrl m_dest;
+   KUrl m_dest_part;
+   int m_permissions;
+   SegmentFactory *SegFactory;
+   KIO::FileJob* m_putJob;
+   bool m_writeBlocked;
+   QHash <KIO::Job*, unsigned long>speedHash;
+
+private:
+   bool checkLocalFile();
 };
 
-class GetJobManager :public QObject
-{
-   Q_OBJECT
-
-   public:
-      GetJobManager();
-      QByteArray getData();
-      void emitResult();
-
-   public Q_SLOTS:
-      void slotOpen( KIO::Job * );
-      void slotData( KIO::Job *, const QByteArray &data);
-      void slotCanWrite();
-      void slotResult( KJob *job );
-
-   Q_SIGNALS:
-      void hasData ( GetJobManager * );
-      void result ( GetJobManager * );
-      void segmentData (MultiSegData);
-
-   public:
-      FileJob *job;
-      struct MultiSegData data;
-      QQueue<QByteArray> chunks;
-      bool    restarting;
-};
-
-   MultiSegmentCopyJob *MultiSegfile_copy( const KUrl& src, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
+   MultiSegmentCopyJob *MultiSegfile_copy( const QList<KUrl> Urls, const KUrl& dest, int permissions, bool showProgressInfo, uint segments);
 
    MultiSegmentCopyJob *MultiSegfile_copy(
-                           const KUrl& src,
+                           const QList<KUrl> Urls,
                            const KUrl& dest,
                            int permissions,
                            bool showProgressInfo,
-                           qulonglong ProcessedSize,
+                           KIO::filesize_t ProcessedSize,
                            KIO::filesize_t totalSize,
-                           QList<MultiSegData> segments);
+                           QList<SegData> SegmentsData,
+                           uint segments);
 
-}
 
-#endif //MULTISEGKIO_H
+#endif // MULTISEGKIO_H
