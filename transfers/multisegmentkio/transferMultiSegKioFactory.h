@@ -30,7 +30,7 @@ class TransferMultiSegKioFactory : public TransferFactory
       TransferHandler * createTransferHandler(Transfer * transfer,
                                               Scheduler * scheduler);
 
-      QWidget * TransferMultiSegKioFactory::dlgSettings();
+      QWidget * dlgSettings();
 
       QWidget * createDetailsWidget( TransferHandler * transfer );
 
