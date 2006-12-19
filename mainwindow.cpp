@@ -26,7 +26,7 @@
 #include <ktoolinvocation.h>
 #include <kmenubar.h>
 #include <kiconloader.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <klocale.h>
 #include <kicon.h>
 
@@ -149,13 +149,13 @@ void MainWindow::setupActions()
     slotKonquerorIntegration(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
-    KStdAction::quit(this, SLOT(slotQuit()), ac, "quit");
+    KStandardAction::quit(this, SLOT(slotQuit()), ac, "quit");
     // local - Standard configure actions
-    KStdAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
-    KStdAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
-    KStdAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
-    KStdAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
-    m_menubarAction = KStdAction::showMenubar(this, SLOT(slotShowMenubar()), ac, "settings_showmenubar" );
+    KStandardAction::preferences(this, SLOT(slotPreferences()), ac, "preferences");
+    KStandardAction::configureToolbars(this, SLOT( slotConfigureToolbars() ), ac, "configure_toolbars");
+    KStandardAction::keyBindings(this, SLOT( slotConfigureKeys() ), ac, "configure_keys");
+    KStandardAction::configureNotifications(this, SLOT(slotConfigureNotifications()), ac, "configure_notifications" );
+    m_menubarAction = KStandardAction::showMenubar(this, SLOT(slotShowMenubar()), ac, "settings_showmenubar" );
     m_menubarAction->setChecked( !menuBar()->isHidden() );
 
     // Transfer related actions
@@ -243,7 +243,7 @@ void MainWindow::slotOpen()
 {
     QString filename = KFileDialog::getOpenFileName
         (KUrl(),
-         "*.kgt *.torrent|" + i18n("All openable files") + " (*.kgt *.torrent)",
+         "*.kgt *.torrent *.metalink|" + i18n("All openable files") + " (*.kgt *.torrent *.metalink)",
          this,
          i18n("Open file")
         );
