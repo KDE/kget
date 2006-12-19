@@ -11,7 +11,7 @@
 #include "kget_linkview.h"
 
 #include <kaction.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kiconloader.h>
 #include <kicon.h>
 #include <klocale.h>
@@ -53,7 +53,7 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     actionDownload->setShortcut( KShortcut( Qt::CTRL + Qt::Key_D ) );
     connect( actionDownload, SIGNAL( triggered() ), this, SLOT( slotStartLeech() ) );
 
-    KAction* actionSelectAll = KStdAction::selectAll( this, SLOT( slotSelectAll() ),
+    KAction* actionSelectAll = KStandardAction::selectAll( this, SLOT( slotSelectAll() ),
                                                       actionCollection() );
 
     toolBar()->addAction( actionDownload );
