@@ -25,6 +25,7 @@ class KDE_EXPORT PreferencesDialog : public KConfigDialog
         QWidget * network;
         QWidget * directories;
         QWidget * advanced;
+        QWidget * plugins;
 };
 
 #endif
