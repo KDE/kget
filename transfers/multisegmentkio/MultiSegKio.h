@@ -55,6 +55,7 @@ public:
                           uint segments);
 
    QList<SegData> SegmentsData();
+   void stop();
 
 Q_SIGNALS:
    void updateSegmentsData();
@@ -97,7 +98,6 @@ private Q_SLOTS:
    void slotSpeed( KIO::Job*, unsigned long bytes_per_second );
 
 private:
-   KUrl m_src;
    KUrl m_dest;
    KUrl m_dest_part;
    int m_permissions;

@@ -117,6 +117,10 @@ private Q_SLOTS:
 
 private:
 
+   bool writeBuffer();
+
+private:
+
    bool m_stoped;
    SegData m_segData;
    KIO::filesize_t m_bytesWritten;
@@ -131,6 +135,8 @@ class SegmentFactory
 public:
 //    SegmentFactory(uint n, QList<KUrl> Urls);
    SegmentFactory( uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData );
+   bool startTransfer ( );
+   bool stopTransfer ( );
    QList<SegData> SegmentsData();
    QList<KUrl> Urls() {return m_Urls;};
    QList<Segment *> Segments() {return m_Segments;};

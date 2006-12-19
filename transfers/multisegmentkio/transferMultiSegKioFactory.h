@@ -19,20 +19,22 @@ class Scheduler;
 
 class TransferMultiSegKioFactory : public TransferFactory
 {
-    public:
-        TransferMultiSegKioFactory();
-        ~TransferMultiSegKioFactory();
+   public:
+      TransferMultiSegKioFactory();
+      ~TransferMultiSegKioFactory();
 
-        Transfer * createTransfer( KUrl srcUrl, KUrl destUrl,
-                                   TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
+      Transfer * createTransfer( KUrl srcUrl, KUrl destUrl,
+                                 TransferGroup * parent, Scheduler * scheduler,
+                                 const QDomElement * e = 0 );
 
-        TransferHandler * createTransferHandler(Transfer * transfer,
-                                                Scheduler * scheduler);
+      TransferHandler * createTransferHandler(Transfer * transfer,
+                                              Scheduler * scheduler);
 
-        QWidget * createDetailsWidget( TransferHandler * transfer );
+      QWidget * TransferMultiSegKioFactory::dlgSettings();
 
-        const QList<KAction *> actions();
+      QWidget * createDetailsWidget( TransferHandler * transfer );
+
+      const QList<KAction *> actions();
 };
 
 #endif

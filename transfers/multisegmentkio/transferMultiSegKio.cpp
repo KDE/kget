@@ -15,7 +15,9 @@
 #include <klocale.h>
 #include <kdebug.h>
 
+#include "MultiSegKioSettings.h"
 #include "transferMultiSegKio.h"
+#include "mirrors.h"
 
 transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -46,7 +48,7 @@ void transferMultiSegKio::stop()
 
     if(m_copyjob)
     {
-        m_copyjob->doKill();
+        m_copyjob->stop();
 //         m_copyjob=0;
     }
 
@@ -140,16 +142,18 @@ void transferMultiSegKio::createJob()
    {
       if(m_Urls.empty())
       {
-      // Call a search funtion to fill the Urls list. to be coded :)
-         m_Urls << m_source;
+         if(MultiSegKioSettings::useSearchEngines())
+            m_Urls = MirrorSearch (m_source);
+         else
+            m_Urls << m_source;
       }
       if(SegmentsData.empty())
       {
-         m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false, 5);
+         m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false,  MultiSegKioSettings::segments());
       }
       else
       {
-      m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false, m_processedSize, m_totalSize, SegmentsData, 5);
+      m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false, m_processedSize, m_totalSize, SegmentsData, MultiSegKioSettings::segments());
       }
       connect(m_copyjob, SIGNAL(updateSegmentsData()),
       SLOT(slotUpdateSegmentsData()));

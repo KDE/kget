@@ -13,6 +13,8 @@
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
+#include "MultiSegKioSettings.h"
+#include "ui_dlgmultisegkio.h"
 #include "transfers/multisegmentkio/transferMultiSegKioFactory.h"
 #include "transfers/multisegmentkio/transferMultiSegKio.h"
 
@@ -31,31 +33,40 @@ Transfer * TransferMultiSegKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001) << "TransferMultiSegKioFactory::createTransfer" << endl;
+   kDebug(5001) << "TransferMultiSegKioFactory::createTransfer" << endl;
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot << endl;
-    if(    prot == "http" || prot == "https"
-        || prot == "ftp"  || prot == "sftp"
-        )
-    {
-        return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
-    }
-    return 0;
+   QString prot = srcUrl.protocol();
+   kDebug(5001) << "Protocol = " << prot << endl;
+   if( prot == "http" || prot == "https" ||
+       prot == "ftp"  || prot == "sftp"  &&
+       MultiSegKioSettings::segments() > 1
+     )
+   {
+      return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
+   }
+   return 0;
 }
 
 TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
 {
-    return new TransferHandler(transfer, scheduler);
+   return new TransferHandler(transfer, scheduler);
+}
+
+QWidget * TransferMultiSegKioFactory::dlgSettings()
+{
+   QWidget *dlg = new QWidget();
+   Ui::DlgMultiSeg DlgMultiSeg;
+   DlgMultiSeg.setupUi(dlg);
+   return dlg;
 }
 
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
-  Q_UNUSED(transfer);
-    return new QWidget();   //Temporary!!
+   Q_UNUSED(transfer);
+   return new QWidget();   //Temporary!!
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions()
 {
-    return QList<KAction *>();
+   return QList<KAction *>();
 }

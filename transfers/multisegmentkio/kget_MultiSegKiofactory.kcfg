@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+ <group name="Segments">
+  <entry name="UseSearchEngines" type="Bool">
+   <default>false</default>
+  </entry>
+  <entry name="Segments" type="Int">
+   <default>5</default>
+  </entry>
+ </group>
+</kcfg>

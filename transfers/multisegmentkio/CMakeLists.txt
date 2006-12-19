@@ -12,9 +12,14 @@ include_directories(
 set(kget_MultiSegKiofactory_PART_SRCS
   segmentfactory.cpp
   MultiSegKio.cpp
+  mirrors.cpp
   transferMultiSegKio.cpp
   transferMultiSegKioFactory.cpp
 )
+
+kde4_add_ui_files(kget_MultiSegKiofactory_PART_SRCS dlgmultisegkio.ui)
+
+kde4_add_kcfg_files(kget_MultiSegKiofactory_PART_SRCS MultiSegKioSettings.kcfgc)
 
 kde4_automoc(${kget_MultiSegKiofactory_PART_SRCS})
 
@@ -27,4 +32,5 @@ install(TARGETS kget_MultiSegKiofactory DESTINATION  ${LIB_INSTALL_DIR}/kde4)
 ########### install files ###############
 
 install(FILES  kget_MultiSegKiofactory.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
+install(FILES kget_MultiSegKiofactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
