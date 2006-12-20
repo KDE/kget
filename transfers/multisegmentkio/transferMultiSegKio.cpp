@@ -49,7 +49,7 @@ void transferMultiSegKio::stop()
     if(m_copyjob)
     {
         m_copyjob->stop();
-//         m_copyjob=0;
+        m_copyjob=0;
     }
 
     kDebug(5001) << "transferMultiSegKio::Stop" << endl;
@@ -79,10 +79,8 @@ void transferMultiSegKio::load(QDomElement e)
 
    SegData d;
    QDomNodeList segments = e.elementsByTagName ("Segment");
-   QDomNodeList urls = e.elementsByTagName ("Urls");
    QDomNode node;
    QDomElement segment;
-   QDomElement url;
    for( uint i=0 ; i < segments.length () ; ++i )
    {
       node = segments.item(i);
@@ -93,6 +91,8 @@ void transferMultiSegKio::load(QDomElement e)
       kDebug(5001) << "TransferMultiSegKio::load: adding Segment " << i << endl;
       SegmentsData << d;
    }
+   QDomNodeList urls = e.elementsByTagName ("Urls");
+   QDomElement url;
    for( uint i=0 ; i < urls.length () ; ++i )
    {
       node = urls.item(i);
@@ -112,6 +112,7 @@ void transferMultiSegKio::save(QDomElement e)
    QDomElement segment;
    QList<SegData>::iterator it = SegmentsData.begin();
    QList<SegData>::iterator itEnd = SegmentsData.end();
+   kDebug(5001) << "TransferMultiSegKio::saveing: " << SegmentsData.size() << " segments" << endl;
    for ( ; it!=itEnd ; ++it )
    {
       segment = doc.createElement("Segment");
@@ -124,6 +125,7 @@ void transferMultiSegKio::save(QDomElement e)
       QDomElement url;
       QList<KUrl>::iterator it = m_Urls.begin();
       QList<KUrl>::iterator itEnd = m_Urls.end();
+      kDebug(5001) << "TransferMultiSegKio::saveing: " << m_Urls.size() << " urls" << endl;
       for ( ; it!=itEnd ; ++it )
       {
          url = doc.createElement("Urls");

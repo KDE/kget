@@ -62,6 +62,11 @@ bool Segment::stopTransfer ()
    if( m_getJob )
    {
       m_stoped = true;
+      if ( !m_buffer.isEmpty() )
+      {
+         kDebug(5001) << "Looping until write the buffer ..." << endl;
+         while(writeBuffer());
+      }
       m_getJob->kill( KJob::EmitResult );
       return true;
    }
@@ -72,11 +77,6 @@ void Segment::slotResult( KJob *job )
 {
    kDebug(5001) << "Segment::slotResult() job: " << job << endl;
    m_getJob = 0;
-   if ( !m_buffer.isEmpty() )
-   {
-      kDebug(5001) << "Looping until write the buffer ..." << endl;
-      while(writeBuffer());
-   }
    if( m_stoped || !m_segData.bytes )
    {
       emit updateSegmentData();
@@ -120,13 +120,6 @@ bool Segment::writeBuffer()
          m_chunkSize =0;
       }
    }
-/*   else
-   {
-      kDebug(5001) << "Segment::writeBuffer() " << m_buffer.size() <<" bytes still left in buffer"<< endl;
-      if( !m_getJob )
-         QTimer::singleShot (1000, this, SLOT( writeBuffer()));
-      return rest;
-   }*/
    if (!m_segData.bytes)
    {
       kDebug(5001) << "Segment::writeBuffer() closing transfer ..." << endl;
@@ -188,8 +181,10 @@ QList<SegData> SegmentFactory::SegmentsData()
    {
       if( (*it)->data().bytes )
          tdata << (*it)->data();
-      if( !(*it)->job() )
+      else
          m_Segments.erase(it);
+/*      if( !(*it)->job() )
+         m_Segments.erase(it);*/
    }
    return tdata;
 }
