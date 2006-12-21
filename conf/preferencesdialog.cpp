@@ -16,7 +16,6 @@
 #include "ui_dlgnetwork.h"
 #include "ui_dlgdirectories.h"
 #include "ui_dlgadvanced.h"
-#include "ui_dlgplugins.h"
 
 PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skeleton )
     : KConfigDialog( parent, "preferences", skeleton )
@@ -25,19 +24,17 @@ PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skelet
     network = new QWidget(this);
     directories = new QWidget(this);
     advanced = new QWidget(this);
-    plugins = new QWidget(this);
+    plugins = new KTabWidget(this);
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
     Ui::DlgDirectories dlgDir;
     Ui::DlgAdvanced dlgAdv;
-    Ui::DlgPlugins dlgPlugins;
 
     dlgApp.setupUi(appearance);
     dlgNet.setupUi(network);
     dlgDir.setupUi(directories);
     dlgAdv.setupUi(advanced);
-    dlgPlugins.setupUi(plugins);
 
     addPage(appearance, i18n("Appearance"), "looknfeel", i18n("Look and Feel"));
     addPage(directories, i18n("Folders"), "folder_open", i18n("Default Download Folders"));

@@ -11,6 +11,7 @@
 #define PREFERENCESDIALOG_H
 
 #include <kconfigdialog.h>
+#include <ktabwidget.h>
 
 class QWidget;
 class KConfigSkeleton;
@@ -19,13 +20,13 @@ class KDE_EXPORT PreferencesDialog : public KConfigDialog
 {
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
-
+        KTabWidget * pluginsWidget(){return plugins;};
     private:
         QWidget * appearance;
         QWidget * network;
         QWidget * directories;
         QWidget * advanced;
-        QWidget * plugins;
+        KTabWidget * plugins;
 };
 
 #endif

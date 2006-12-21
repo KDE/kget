@@ -28,7 +28,6 @@ kde4_add_ui_files(kgetconf_SRCS
    ${CMAKE_SOURCE_DIR}/kget/conf/dlgappearance.ui
    ${CMAKE_SOURCE_DIR}/kget/conf/dlgdirectories.ui
    ${CMAKE_SOURCE_DIR}/kget/conf/dlgnetwork.ui
-   ${CMAKE_SOURCE_DIR}/kget/conf/dlgplugins.ui
 )
 
 set(kgetcore_SRCS

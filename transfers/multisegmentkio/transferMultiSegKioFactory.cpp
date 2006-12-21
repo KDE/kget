@@ -14,7 +14,7 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 #include "MultiSegKioSettings.h"
-#include "ui_dlgmultisegkio.h"
+#include "dlgmultisegkio.h"
 #include "transfers/multisegmentkio/transferMultiSegKioFactory.h"
 #include "transfers/multisegmentkio/transferMultiSegKio.h"
 
@@ -54,10 +54,7 @@ TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * t
 
 QWidget * TransferMultiSegKioFactory::dlgSettings()
 {
-   QWidget *dlg = new QWidget();
-   Ui::DlgMultiSeg DlgMultiSeg;
-   DlgMultiSeg.setupUi(dlg);
-   return dlg;
+   return new dlgSettingsWidget();
 }
 
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )

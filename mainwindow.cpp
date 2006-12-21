@@ -283,7 +283,7 @@ void MainWindow::slotPreferences()
 
     // we didn't find an instance of this dialog, so lets create it
     PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
-
+    KGet::setPluginsSettingsWidget( dialog->pluginsWidget() );
     // keep us informed when the user changes settings
     connect( dialog, SIGNAL(settingsChanged(const QString&)),
              this, SLOT(slotNewConfig()) );

@@ -18,6 +18,7 @@
 #include <kservice.h>
 #include <kurl.h>
 #include <kactioncollection.h>
+#include <ktabwidget.h>
 
 #include "scheduler.h"
 #include "kget_export.h"
@@ -180,6 +181,12 @@ class KGET_EXPORT KGet
          * Sets the given view to the TransferTreeModel object
          */
         static void addTransferTreeView(QAbstractItemView * view);
+
+        /**
+         * Adds a Settings tab for every plugins that needs one
+         * to the KTabWidget.
+         */
+        static void setPluginsSettingsWidget(KTabWidget * widget);
 
     private:
         KGet();

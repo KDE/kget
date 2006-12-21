@@ -6,11 +6,8 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>319</height>
    </rect>
-  </property>
-  <property name="windowTitle" >
-   <string>Form</string>
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
@@ -58,6 +55,11 @@
         </property>
         <item>
          <widget class="QLabel" name="label" >
+          <property name="font" >
+           <font>
+            <family>Sans Serif</family>
+           </font>
+          </property>
           <property name="text" >
            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
@@ -194,22 +196,5 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>checkBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>searchEngineGroupBox</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>31</x>
-     <y>73</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>39</x>
-     <y>103</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

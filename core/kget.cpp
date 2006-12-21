@@ -371,6 +371,20 @@ void KGet::setSchedulerRunning(bool running)
 	m_scheduler->stop();
 }
 
+void KGet::setPluginsSettingsWidget(KTabWidget * widget)
+{
+    QList<TransferFactory *>::iterator it = m_transferFactories.begin();
+    QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
+
+    QWidget * _w;
+    for( ; it!=itEnd ; ++it)
+    {
+        _w = (*it)->dlgSettings();
+        if(_w)
+            widget->addTab( _w, "Plugin Name" );
+    }
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;

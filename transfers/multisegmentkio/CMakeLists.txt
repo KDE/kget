@@ -10,6 +10,7 @@ include_directories(
 ########### next target ###############
 
 set(kget_MultiSegKiofactory_PART_SRCS
+  dlgmultisegkio.cpp
   segmentfactory.cpp
   MultiSegKio.cpp
   mirrors.cpp
