@@ -381,7 +381,7 @@ void KGet::setPluginsSettingsWidget(KTabWidget * widget)
     {
         _w = (*it)->dlgSettings();
         if(_w)
-            widget->addTab( _w, "Plugin Name" );
+            widget->addTab( _w, (*it)->displayName() );
     }
 }
 

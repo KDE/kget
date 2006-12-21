@@ -40,5 +40,5 @@ PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skelet
     addPage(directories, i18n("Folders"), "folder_open", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network", i18n("Network and Downloads"));
     addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));
-    addPage(plugins, i18n("Plugins"), "usbpendrive_mount", i18n("Plugins Options"));
+    addPage(plugins, i18n("Plugins"), "usbpendrive_unmount", i18n("Plugins Options"));
 }

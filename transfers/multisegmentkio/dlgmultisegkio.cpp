@@ -17,7 +17,7 @@ dlgSettingsWidget::dlgSettingsWidget(QWidget *parent)
    ui.setupUi(this);
    init();
    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
-   connect(ui.checkBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
+   connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
 };
 
 dlgSettingsWidget::~dlgSettingsWidget()
@@ -28,8 +28,8 @@ dlgSettingsWidget::~dlgSettingsWidget()
 void dlgSettingsWidget::init()
 {
    ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
-   ui.checkBox->setChecked(MultiSegKioSettings::useSearchEngines());
-   ui.searchEngineGroupBox->setEnabled( ui.checkBox->isChecked() );
+   ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
+   ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
 }
 
 void dlgSettingsWidget::slotSetSegments(int seg)
@@ -39,8 +39,8 @@ void dlgSettingsWidget::slotSetSegments(int seg)
 
 void dlgSettingsWidget::slotSetUseSearchEngines(bool)
 {
-   MultiSegKioSettings::setUseSearchEngines( ui.checkBox->isChecked() );
-   ui.searchEngineGroupBox->setEnabled( ui.checkBox->isChecked() );
+   MultiSegKioSettings::setUseSearchEngines( ui.enginesCheckBox->isChecked() );
+   ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
 }
 
 #include "dlgmultisegkio.moc"
