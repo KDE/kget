@@ -81,9 +81,6 @@
     <entry name="AutoDisconnect" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="MtThreads" type="Int">
-      <default>1</default>
-    </entry>
   </group>
 
   <group name="Directories">

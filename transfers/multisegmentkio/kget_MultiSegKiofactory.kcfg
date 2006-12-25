@@ -11,5 +11,9 @@
     <entry name="UseSearchEngines" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="SearchEnginesList" type="StringList" key="Items">
+      <label>Engines</label>
+      <default>filemirrors@http://www.filemirrors.com/search.src?</default>
+    </entry>
   </group>
 </kcfg>

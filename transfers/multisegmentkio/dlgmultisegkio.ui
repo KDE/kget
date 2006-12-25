@@ -91,7 +91,7 @@
        <number>6</number>
       </property>
       <item row="2" column="0" >
-       <widget class="QTableWidget" name="tableWidget" >
+       <widget class="QTableWidget" name="enginesTableWidget" >
         <column>
          <property name="text" >
           <string>Search engine</string>

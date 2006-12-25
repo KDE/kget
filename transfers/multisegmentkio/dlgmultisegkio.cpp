@@ -18,18 +18,12 @@ dlgSettingsWidget::dlgSettingsWidget(QWidget *parent)
    init();
    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
+   connect(ui.urlAddButton, SIGNAL(clicked()), SLOT(slotAddUrl()));
 };
 
 dlgSettingsWidget::~dlgSettingsWidget()
 {
    MultiSegKioSettings::writeConfig();
-}
-
-void dlgSettingsWidget::init()
-{
-   ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
-   ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
-   ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
 }
 
 void dlgSettingsWidget::slotSetSegments(int seg)
@@ -41,6 +35,33 @@ void dlgSettingsWidget::slotSetUseSearchEngines(bool)
 {
    MultiSegKioSettings::setUseSearchEngines( ui.enginesCheckBox->isChecked() );
    ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
+}
+
+void dlgSettingsWidget::slotAddUrl()
+{
+   if(ui.engineNameLineEdit->text().isEmpty() || ui.urlLineEdit->text().isEmpty())
+      return;
+   addSearchEngineItem(ui.engineNameLineEdit->text(), ui.urlLineEdit->text());
+}
+
+void dlgSettingsWidget::init()
+{
+   ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
+   ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
+   ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
+}
+
+void dlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
+{
+   QTableWidgetItem *_nameItem = new QTableWidgetItem(name);
+   _nameItem->setFlags(Qt::ItemIsEnabled);
+   QTableWidgetItem *_urlItem = new QTableWidgetItem(url);
+   _urlItem->setFlags(Qt::ItemIsEnabled);
+
+   int row = ui.enginesTableWidget->rowCount();
+   ui.enginesTableWidget->insertRow(row);
+   ui.enginesTableWidget->setItem (row, 0, _nameItem);
+   ui.enginesTableWidget->setItem (row, 1, _urlItem);
 }
 
 #include "dlgmultisegkio.moc"

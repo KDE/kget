@@ -62,6 +62,7 @@ bool Segment::stopTransfer ()
    if( m_getJob )
    {
       m_stoped = true;
+      m_getJob->internalSuspend();
       if ( !m_buffer.isEmpty() )
       {
          kDebug(5001) << "Looping until write the buffer ..." << endl;
@@ -76,6 +77,11 @@ bool Segment::stopTransfer ()
 void Segment::slotResult( KJob *job )
 {
    kDebug(5001) << "Segment::slotResult() job: " << job << endl;
+   if ( !m_buffer.isEmpty() )
+   {
+      kDebug(5001) << "Looping until write the buffer ..." << endl;
+      while(writeBuffer());
+   }
    m_getJob = 0;
    if( m_stoped || !m_segData.bytes )
    {

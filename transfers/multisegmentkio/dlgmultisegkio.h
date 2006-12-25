@@ -24,10 +24,11 @@ public:
 private Q_SLOTS:
    void slotSetSegments(int seg);
    void slotSetUseSearchEngines(bool b);
+   void slotAddUrl();
 
 private:
    void init();
-
+   void addSearchEngineItem(const QString &name, const QString &url);
 private:
    Ui::DlgMultiSeg ui;
 };
