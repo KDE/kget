@@ -14,6 +14,8 @@
 #include <QAbstractItemModel>
 #include <QList>
 
+#include <kget_export.h>
+
 class KUrl;
 
 class TransferGroupHandler;
@@ -46,7 +48,7 @@ class TransferTreeModel : public QAbstractItemModel
         TransferGroup * findGroup(const QString & groupName);
         Transfer * findTransfer(KUrl src);
 
-        bool isTransferGroup(const QModelIndex & index) const;
+        bool KGET_EXPORT isTransferGroup(const QModelIndex & index) const;
 
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);

@@ -8,6 +8,7 @@
 */
 
 #include <klocale.h>
+#include <ktabwidget.h>
 
 #include "preferencesdialog.h"
 
@@ -20,6 +21,8 @@
 PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skeleton )
     : KConfigDialog( parent, "preferences", skeleton )
 {
+    qRegisterMetaType<KUrl>("KUrl");
+
     appearance = new QWidget(this);
     network = new QWidget(this);
     directories = new QWidget(this);

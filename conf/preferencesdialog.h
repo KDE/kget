@@ -11,10 +11,10 @@
 #define PREFERENCESDIALOG_H
 
 #include <kconfigdialog.h>
-#include <ktabwidget.h>
 
 class QWidget;
 class KConfigSkeleton;
+class KTabWidget;
 
 class KDE_EXPORT PreferencesDialog : public KConfigDialog
 {

@@ -14,7 +14,6 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${KDE4_INCLUDE_DIR}
    ${QT_INCLUDES}
-   ${QDBUS_INCLUDE_DIRS}
 )
 
 ########### next target ###############
@@ -54,7 +53,7 @@ kde4_automoc(${kgetcore_SRCS})
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
-target_link_libraries(kgetcore ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
+target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
 
 install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
@@ -84,6 +83,6 @@ kde4_automoc(${kget_SRCS})
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} knotifyconfig kgetcore)
+target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} kgetcore)
 
 install(TARGETS kget DESTINATION ${BIN_INSTALL_DIR})
