@@ -98,7 +98,7 @@ void transferMultiSegKio::load(QDomElement e)
       node = urls.item(i);
       url = node.toElement ();
       kDebug(5001) << "TransferMultiSegKio::load: adding Url " << i << endl;
-      m_Urls << KUrl( url.attribute("url") );
+      m_Urls << KUrl( url.attribute("Url") );
    }
 }
 

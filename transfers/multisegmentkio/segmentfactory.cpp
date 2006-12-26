@@ -47,7 +47,7 @@ bool Segment::createTransfer ( KUrl src )
 bool Segment::startTransfer ()
 {
    kDebug(5001) << "Segment::startTransfer()"<< endl;
-   if( m_getJob )
+   if( m_getJob && m_stoped )
    {
       m_stoped = false;
       m_getJob->internalResume();
@@ -59,7 +59,7 @@ bool Segment::startTransfer ()
 bool Segment::stopTransfer ()
 {
    kDebug(5001) << "Segment::stopTransfer()"<< endl;
-   if( m_getJob )
+   if( m_getJob && !m_stoped )
    {
       m_stoped = true;
       m_getJob->internalSuspend();
@@ -91,6 +91,7 @@ void Segment::slotResult( KJob *job )
    else
    {
 //       restart tranfer
+   kDebug(5001) << "Segment::slotResult() job: Conection broken " << job << " -- " << endl;
    }
 }
 
@@ -243,7 +244,7 @@ Segment *SegmentFactory::createSegment( SegData data, KUrl src )
 
 const KUrl SegmentFactory::nextUrl()
 {
-   kDebug(5001) << "SegmentFactory::nextUrl() " << m_Urls.size() << endl;
+   kDebug(5001) << "SegmentFactory::nextUrl() " << endl;
    if ( it_Urls == m_Urls.end() )
    {
       it_Urls = m_Urls.begin();

@@ -80,6 +80,8 @@ void MultiSegmentCopyJob::stop()
    kDebug(5001) << "MultiSegmentCopyJob::stop()" << endl;
    if (SegFactory)
       SegFactory->stopTransfer();
+/*   if (m_putJob)
+      m_putJob->close();*/
    doKill();
 }
 
@@ -172,12 +174,7 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
       m_putJob = 0;
       removeSubjob(job);
    }
-/*   else //is a get job
-   {
-      kDebug(5001) << "MultiSegmentCopyJob: getJob finished " << endl;
-      removeSubjob(job);
-   }
-*/
+
    if ( !hasSubjobs() )
    {
       kDebug(5001) << "MultiSegmentCopyJob: finished " << endl;

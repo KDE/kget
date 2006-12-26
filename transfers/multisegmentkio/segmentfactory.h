@@ -133,7 +133,6 @@ class SegmentFactory
 {
 
 public:
-//    SegmentFactory(uint n, QList<KUrl> Urls);
    SegmentFactory( uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData );
    bool startTransfer ( );
    bool stopTransfer ( );
