@@ -52,15 +52,15 @@ TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * t
    return new TransferHandler(transfer, scheduler);
 }
 
-QWidget * TransferMultiSegKioFactory::dlgSettings()
-{
-   return new dlgSettingsWidget();
-}
-
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
    Q_UNUSED(transfer);
    return new QWidget();   //Temporary!!
+}
+
+QWidget * TransferMultiSegKioFactory::createSettingsWidget()
+{
+   return new dlgSettingsWidget();
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions()

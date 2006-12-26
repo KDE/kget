@@ -376,12 +376,12 @@ void KGet::setPluginsSettingsWidget(KTabWidget * widget)
     QList<TransferFactory *>::iterator it = m_transferFactories.begin();
     QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
 
-    QWidget * _w;
+    QWidget * settingsWidget;
     for( ; it!=itEnd ; ++it)
     {
-        _w = (*it)->dlgSettings();
-        if(_w)
-            widget->addTab( _w, (*it)->displayName() );
+        settingsWidget = (*it)->createSettingsWidget();
+        if(settingsWidget)
+            widget->addTab( settingsWidget, (*it)->displayName() );
     }
 }
 

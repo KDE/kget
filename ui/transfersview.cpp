@@ -8,19 +8,23 @@
    of the License.
 */
 
-#include "core/kget.h"
-#include "core/transfertreeselectionmodel.h"
-
 #include "transfersview.h"
 
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent)
 {
+//     setRootIsDecorated(false);
+//     setAnimated(true);
 }
 
 TransfersView::~TransfersView()
 {
 
+}
+
+int TransfersView::sizeHintForRow ( int row ) const
+{
+    return 20;
 }
 
 #include "transfersview.moc"

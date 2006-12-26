@@ -30,11 +30,11 @@ class TransferKioFactory : public TransferFactory
         TransferHandler * createTransferHandler(Transfer * transfer,
                                                 Scheduler * scheduler);
 
-        QWidget * dlgSettings();
+        QWidget * createDetailsWidget( TransferHandler * transfer );
+
+        QWidget * createSettingsWidget();
 
         QString displayName(){return "HTTP(s) / FTP(s)";};
-
-        QWidget * createDetailsWidget( TransferHandler * transfer );
 
         const QList<KAction *> actions();
 };

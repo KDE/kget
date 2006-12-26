@@ -48,15 +48,15 @@ TransferHandler * TransferKioFactory::createTransferHandler(Transfer * transfer,
     return new TransferHandler(transfer, scheduler);
 }
 
-QWidget * TransferKioFactory::dlgSettings()
-{
-    return 0; // if there is no settings widget then returns 0
-}
-
 QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
   Q_UNUSED(transfer);
     return new QWidget();   //Temporary!!
+}
+
+QWidget * TransferKioFactory::createSettingsWidget()
+{
+    return 0; // if there is no settings widget we must return 0
 }
 
 const QList<KAction *> TransferKioFactory::actions()

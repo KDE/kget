@@ -58,11 +58,11 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
         virtual TransferHandler * createTransferHandler(Transfer * transfer,
                                                         Scheduler * scheduler)=0;
 
-        virtual QWidget * dlgSettings()=0;
+        virtual QWidget * createDetailsWidget( TransferHandler * transfer )=0;
+
+        virtual QWidget * createSettingsWidget()=0;
 
         virtual QString displayName()=0;
-
-        virtual QWidget * createDetailsWidget( TransferHandler * transfer )=0;
 
         virtual const QList<KAction *> actions()=0;
 

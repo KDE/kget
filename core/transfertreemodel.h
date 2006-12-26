@@ -66,7 +66,7 @@ class TransferTreeModel : public QAbstractItemModel
                             int role = Qt::DisplayRole) const;
         QVariant data (const QModelIndex & index, int role) const;
         QModelIndex index(int row, int column, const QModelIndex & parent) const;
-        QModelIndex parent ( const QModelIndex & index ) const;
+        QModelIndex parent(const QModelIndex & index) const;
 
     private:
         QList<TransferGroup *> m_transferGroups;
