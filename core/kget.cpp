@@ -317,8 +317,8 @@ void KGet::save( QString filename )
         && QFile::exists( filename )
         && (KMessageBox::questionYesNoCancel(0,
                 i18n("The file %1 already exists.\nOverwrite?", filename),
-                i18n("Overwrite existing file?"), KStdGuiItem::yes(),
-                KStdGuiItem::no(), "QuestionFilenameExists" )
+                i18n("Overwrite existing file?"), KStandardGuiItem::yes(),
+                KStandardGuiItem::no(), "QuestionFilenameExists" )
                 != KMessageBox::Yes) )
         return;
 
@@ -534,8 +534,8 @@ bool KGet::isValidSource(KUrl source)
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNoCancel(0,
                 i18n("URL already saved:\n%1\nDownload again?", source.prettyUrl()),
-                i18n("Download URL again?"), KStdGuiItem::yes(),
-                KStdGuiItem::no(), "QuestionUrlAlreadySaved" )
+                i18n("Download URL again?"), KStandardGuiItem::yes(),
+                KStandardGuiItem::no(), "QuestionUrlAlreadySaved" )
                 == KMessageBox::Yes)
             {
                 //TODO reimplement this
