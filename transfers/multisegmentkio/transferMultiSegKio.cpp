@@ -112,7 +112,7 @@ void transferMultiSegKio::save(QDomElement e)
    QDomElement segment;
    QList<SegData>::iterator it = SegmentsData.begin();
    QList<SegData>::iterator itEnd = SegmentsData.end();
-   kDebug(5001) << "TransferMultiSegKio::saveing: " << SegmentsData.size() << " segments" << endl;
+   kDebug(5001) << "TransferMultiSegKio::saving: " << SegmentsData.size() << " segments" << endl;
    for ( ; it!=itEnd ; ++it )
    {
       segment = doc.createElement("Segment");
@@ -125,7 +125,7 @@ void transferMultiSegKio::save(QDomElement e)
       QDomElement url;
       QList<KUrl>::iterator it = m_Urls.begin();
       QList<KUrl>::iterator itEnd = m_Urls.end();
-      kDebug(5001) << "TransferMultiSegKio::saveing: " << m_Urls.size() << " urls" << endl;
+      kDebug(5001) << "TransferMultiSegKio::saving: " << m_Urls.size() << " urls" << endl;
       for ( ; it!=itEnd ; ++it )
       {
          url = doc.createElement("Urls");

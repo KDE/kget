@@ -1,4 +1,7 @@
 <ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
  <class>DlgMultiSeg</class>
  <widget class="QWidget" name="DlgMultiSeg" >
   <property name="geometry" >
@@ -9,14 +12,100 @@
     <height>329</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QGridLayout" >
    <property name="margin" >
     <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item>
+   <item row="2" column="0" >
+    <widget class="QGroupBox" name="searchEngineGroupBox" >
+     <property name="title" >
+      <string>Search Engines</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="2" column="0" >
+       <widget class="QTreeWidget" name="enginesTreeWidget" >
+        <property name="rootIsDecorated" >
+         <bool>false</bool>
+        </property>
+        <column>
+         <property name="text" >
+          <string>Engine name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Url</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="engineNameLabel" >
+          <property name="text" >
+           <string>Search engine name:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="engineNameLineEdit" >
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="urlLabel" >
+          <property name="text" >
+           <string>URL:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="urlLineEdit" />
+        </item>
+        <item>
+         <widget class="QPushButton" name="urlAddButton" >
+          <property name="text" >
+           <string>Add</string>
+          </property>
+          <property name="icon" >
+           <iconset/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" >
     <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
       <string>Threads</string>
@@ -71,95 +160,16 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0" >
     <widget class="QCheckBox" name="enginesCheckBox" >
      <property name="text" >
       <string>Use search engines</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QGroupBox" name="searchEngineGroupBox" >
-     <property name="title" >
-      <string>Search Engines</string>
-     </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="2" column="0" >
-       <widget class="QTableWidget" name="enginesTableWidget" >
-        <column>
-         <property name="text" >
-          <string>Search engine</string>
-         </property>
-        </column>
-        <column>
-         <property name="text" >
-          <string>URL</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="urlLabel" >
-          <property name="text" >
-           <string>URL:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="urlLineEdit" />
-        </item>
-        <item>
-         <widget class="QPushButton" name="urlAddButton" >
-          <property name="text" >
-           <string>Add</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0" >
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="engineNameLabel" >
-          <property name="text" >
-           <string>Search engine name:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="engineNameLineEdit" >
-          <property name="text" >
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
   </layout>
  </widget>
+ <pixmapfunction></pixmapfunction>
  <resources/>
  <connections/>
 </ui>

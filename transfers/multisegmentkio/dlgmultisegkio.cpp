@@ -41,7 +41,9 @@ void dlgSettingsWidget::slotAddUrl()
 {
    if(ui.engineNameLineEdit->text().isEmpty() || ui.urlLineEdit->text().isEmpty())
       return;
+
    addSearchEngineItem(ui.engineNameLineEdit->text(), ui.urlLineEdit->text());
+   saveSearchEnginesSettings();
 }
 
 void dlgSettingsWidget::init()
@@ -49,19 +51,41 @@ void dlgSettingsWidget::init()
    ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
    ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
    ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
+
+   loadSearchEnginesSettings();
 }
 
 void dlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
 {
-   QTableWidgetItem *_nameItem = new QTableWidgetItem(name);
-   _nameItem->setFlags(Qt::ItemIsEnabled);
-   QTableWidgetItem *_urlItem = new QTableWidgetItem(url);
-   _urlItem->setFlags(Qt::ItemIsEnabled);
+   ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
+}
 
-   int row = ui.enginesTableWidget->rowCount();
-   ui.enginesTableWidget->insertRow(row);
-   ui.enginesTableWidget->setItem (row, 0, _nameItem);
-   ui.enginesTableWidget->setItem (row, 1, _urlItem);
+void dlgSettingsWidget::loadSearchEnginesSettings()
+{
+    QStringList enginesNames = MultiSegKioSettings::self()->findItem("SearchEnginesNameList")->property().toStringList();
+    QStringList enginesUrls = MultiSegKioSettings::self()->findItem("SearchEnginesUrlList")->property().toStringList();
+
+    for(int i = 0; i < enginesNames.size(); i++)
+    {
+        addSearchEngineItem(enginesNames[i], enginesUrls[i]);
+    }
+}
+
+void dlgSettingsWidget::saveSearchEnginesSettings()
+{
+    QStringList enginesNames;
+    QStringList enginesUrls;
+
+    for(int i = 0; i < ui.enginesTreeWidget->topLevelItemCount(); i++)
+    {
+        enginesNames.append(ui.enginesTreeWidget->topLevelItem(i)->text(0));
+        enginesUrls.append(ui.enginesTreeWidget->topLevelItem(i)->text(1));
+    }
+
+    MultiSegKioSettings::self()->findItem("SearchEnginesNameList")->setProperty(QVariant(enginesNames));
+    MultiSegKioSettings::self()->findItem("SearchEnginesUrlList")->setProperty(QVariant(enginesUrls));
+
+    MultiSegKioSettings::writeConfig();
 }
 
 #include "dlgmultisegkio.moc"

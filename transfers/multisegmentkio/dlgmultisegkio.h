@@ -29,7 +29,10 @@ private Q_SLOTS:
 private:
    void init();
    void addSearchEngineItem(const QString &name, const QString &url);
-private:
+
+   void loadSearchEnginesSettings();
+   void saveSearchEnginesSettings();
+
    Ui::DlgMultiSeg ui;
 };
 
