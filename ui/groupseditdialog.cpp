@@ -8,8 +8,8 @@
    of the License.
 */
 
-#include <QInputDialog>
-#include <QMessageBox>
+#include <kinputdialog.h>
+#include <kmessagebox.h>
 
 #include "core/kget.h"
 #include "groupseditdialog.h"
@@ -17,6 +17,8 @@
 GroupsEditDialog::GroupsEditDialog(QWidget *parent)
 {
     ui.setupUi(this);
+
+    setParent(parent);
 
     setModal(true);
 
@@ -45,24 +47,17 @@ void GroupsEditDialog::slotAddGroup()
 
     while (ok)
     {
-        groupName = QInputDialog::getText(this, i18n("Enter the group name"),
-                                          i18n("Group name:"), QLineEdit::Normal,
-                                          "", &ok);
+        groupName = KInputDialog::getText(i18n("Enter the group name"),
+                                          i18n("Group name:"), QString(), &ok, this);
 
-        if(!ok)
-            return;
-
-        if (groupName.isEmpty())
-            QMessageBox::warning(this, i18n("Warning!"),
-                                 i18n("Please enter a non empty name!\n"));
-        else
+        if(ok)
         {
             if (KGet::addGroup(groupName))
                 return;
             else
-                QMessageBox::warning(this, i18n("Warning!"),
-                                     i18n("A group with that name already exists!\n") +
-                                     i18n("Please change the group name"));
+                KMessageBox::sorry(this,
+                                   i18n("A group with that name already exists!\n"
+                                        "Please change the group name."));
         }
     }
 }
@@ -80,20 +75,14 @@ void GroupsEditDialog::slotDeleteGroup()
 
         if(groupName == i18n("Default Group"))
         {
-            QMessageBox::warning(this, i18n("Warning!"),
-                                    i18n("You can't delete the default group!"));
+            KMessageBox::sorry(this, i18n("You can't delete the default group!"));
             continue;
         }
 
-        QMessageBox::StandardButton bt;
-
-        bt = QMessageBox::question(this, i18n("Are you sure?"),
-                                   i18n("Are you sure that you want to remove\n") +
-                                   i18n("the group named ") + groupName + "?",
-                                   QMessageBox::Yes | QMessageBox::Yes,
-                                   QMessageBox::No);
-
-        if(bt == QMessageBox::Yes)
+        if(KMessageBox::questionYesNoCancel(this,
+                                            i18n("Are you sure that you want to remove\n"
+                                                 "the group named %1?", groupName))
+            == KMessageBox::Yes)
             KGet::delGroup(groupName);
     }
 }
