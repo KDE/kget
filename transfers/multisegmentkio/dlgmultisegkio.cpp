@@ -11,56 +11,93 @@
 #include "dlgmultisegkio.h"
 #include "MultiSegKioSettings.h"
 
-dlgSettingsWidget::dlgSettingsWidget(QWidget *parent)
-: QWidget(parent)
+DlgEngineEditing::DlgEngineEditing(QWidget *parent)
+{
+    setWindowTitle(i18n("Insert Engine"));
+
+    ui.setupUi(this);
+    setModal(true);
+
+    ui.engineNameLabel->setText(i18n("Engine name:"));
+    ui.urlLabel->setText(i18n("Url:"));
+}
+
+DlgEngineEditing::~DlgEngineEditing()
+{
+
+}
+
+DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
+    : QWidget(parent)
 {
    ui.setupUi(this);
    init();
    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
-   connect(ui.urlAddButton, SIGNAL(clicked()), SLOT(slotAddUrl()));
+   connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
+   connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
 };
 
-dlgSettingsWidget::~dlgSettingsWidget()
+DlgSettingsWidget::~DlgSettingsWidget()
 {
-   MultiSegKioSettings::writeConfig();
+    MultiSegKioSettings::writeConfig();
 }
 
-void dlgSettingsWidget::slotSetSegments(int seg)
+QString DlgEngineEditing::engineName()
 {
-   MultiSegKioSettings::setSegments(seg);
+    return ui.engineNameEdit->text();
 }
 
-void dlgSettingsWidget::slotSetUseSearchEngines(bool)
+QString DlgEngineEditing::engineUrl()
 {
-   MultiSegKioSettings::setUseSearchEngines( ui.enginesCheckBox->isChecked() );
-   ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
+    return ui.urlEdit->text();
 }
 
-void dlgSettingsWidget::slotAddUrl()
+void DlgSettingsWidget::slotSetSegments(int seg)
 {
-   if(ui.engineNameLineEdit->text().isEmpty() || ui.urlLineEdit->text().isEmpty())
-      return;
-
-   addSearchEngineItem(ui.engineNameLineEdit->text(), ui.urlLineEdit->text());
-   saveSearchEnginesSettings();
+    MultiSegKioSettings::setSegments(seg);
 }
 
-void dlgSettingsWidget::init()
+void DlgSettingsWidget::slotSetUseSearchEngines(bool)
 {
-   ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
-   ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
-   ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
-
-   loadSearchEnginesSettings();
+    MultiSegKioSettings::setUseSearchEngines( ui.enginesCheckBox->isChecked() );
+    ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
 }
 
-void dlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
+void DlgSettingsWidget::slotNewEngine()
 {
-   ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
+    DlgEngineEditing dialog;
+    if(dialog.exec())
+        addSearchEngineItem(dialog.engineName(), dialog.engineUrl());
+
+    saveSearchEnginesSettings();
 }
 
-void dlgSettingsWidget::loadSearchEnginesSettings()
+void DlgSettingsWidget::slotRemoveEngine()
+{
+    QList<QTreeWidgetItem *> selectedItems = ui.enginesTreeWidget->selectedItems();
+
+    foreach(QTreeWidgetItem * selectedItem, selectedItems)
+        delete(selectedItem);
+
+    saveSearchEnginesSettings();
+}
+
+void DlgSettingsWidget::init()
+{
+    ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
+    ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
+    ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
+
+    loadSearchEnginesSettings();
+}
+
+void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
+{
+    ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
+}
+
+void DlgSettingsWidget::loadSearchEnginesSettings()
 {
     QStringList enginesNames = MultiSegKioSettings::self()->findItem("SearchEnginesNameList")->property().toStringList();
     QStringList enginesUrls = MultiSegKioSettings::self()->findItem("SearchEnginesUrlList")->property().toStringList();
@@ -71,7 +108,7 @@ void dlgSettingsWidget::loadSearchEnginesSettings()
     }
 }
 
-void dlgSettingsWidget::saveSearchEnginesSettings()
+void DlgSettingsWidget::saveSearchEnginesSettings()
 {
     QStringList enginesNames;
     QStringList enginesUrls;

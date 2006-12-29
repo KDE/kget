@@ -11,29 +11,46 @@
 #ifndef DLGMULTISEGKIO_H
 #define DLGMULTISEGKIO_H
 
+#include "ui_dlgengineediting.h"
 #include "ui_dlgmultisegkio.h"
 
-class dlgSettingsWidget : public QWidget
+class DlgEngineEditing : public QDialog
 {
-   Q_OBJECT
+    Q_OBJECT
 
 public:
-   dlgSettingsWidget(QWidget *parent = 0);
-   ~dlgSettingsWidget();
+    DlgEngineEditing(QWidget *parent = 0);
+    ~DlgEngineEditing();
 
-private Q_SLOTS:
-   void slotSetSegments(int seg);
-   void slotSetUseSearchEngines(bool b);
-   void slotAddUrl();
+    QString engineName();
+    QString engineUrl();
 
 private:
-   void init();
-   void addSearchEngineItem(const QString &name, const QString &url);
+    Ui::DlgEngineEditing ui;
+};
 
-   void loadSearchEnginesSettings();
-   void saveSearchEnginesSettings();
+class DlgSettingsWidget : public QWidget
+{
+    Q_OBJECT
 
-   Ui::DlgMultiSeg ui;
+public:
+    DlgSettingsWidget(QWidget *parent = 0);
+    ~DlgSettingsWidget();
+
+private Q_SLOTS:
+    void slotSetSegments(int seg);
+    void slotSetUseSearchEngines(bool b);
+    void slotNewEngine();
+    void slotRemoveEngine();
+
+private:
+    void init();
+    void addSearchEngineItem(const QString &name, const QString &url);
+
+    void loadSearchEnginesSettings();
+    void saveSearchEnginesSettings();
+
+    Ui::DlgMultiSeg ui;
 };
 
 #endif // DLGMULTISEGKIO_H

@@ -60,7 +60,7 @@ QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * tra
 
 QWidget * TransferMultiSegKioFactory::createSettingsWidget()
 {
-   return new dlgSettingsWidget();
+   return new DlgSettingsWidget();
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions()

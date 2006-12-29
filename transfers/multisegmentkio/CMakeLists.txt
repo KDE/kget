@@ -18,7 +18,7 @@ set(kget_MultiSegKiofactory_PART_SRCS
   transferMultiSegKioFactory.cpp
 )
 
-kde4_add_ui_files(kget_MultiSegKiofactory_PART_SRCS dlgmultisegkio.ui)
+kde4_add_ui_files(kget_MultiSegKiofactory_PART_SRCS dlgmultisegkio.ui dlgengineediting.ui)
 
 kde4_add_kcfg_files(kget_MultiSegKiofactory_PART_SRCS MultiSegKioSettings.kcfgc)
 

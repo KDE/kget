@@ -31,7 +31,44 @@
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item row="2" column="0" >
+      <item row="1" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>91</width>
+          <height>32</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="newEngineBt" >
+          <property name="text" >
+           <string>New engine..</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeEngineBt" >
+          <property name="text" >
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0" colspan="2" >
        <widget class="QTreeWidget" name="enginesTreeWidget" >
         <property name="rootIsDecorated" >
          <bool>false</bool>
@@ -48,61 +85,14 @@
         </column>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="engineNameLabel" >
-          <property name="text" >
-           <string>Search engine name:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="engineNameLineEdit" >
-          <property name="text" >
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0" >
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="urlLabel" >
-          <property name="text" >
-           <string>URL:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="urlLineEdit" />
-        </item>
-        <item>
-         <widget class="QPushButton" name="urlAddButton" >
-          <property name="text" >
-           <string>Add</string>
-          </property>
-          <property name="icon" >
-           <iconset/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
      </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QCheckBox" name="enginesCheckBox" >
+     <property name="text" >
+      <string>Use search engines</string>
+     </property>
     </widget>
    </item>
    <item row="0" column="0" >
@@ -158,13 +148,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" >
-    <widget class="QCheckBox" name="enginesCheckBox" >
-     <property name="text" >
-      <string>Use search engines</string>
-     </property>
     </widget>
    </item>
   </layout>
