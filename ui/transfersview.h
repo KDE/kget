@@ -21,7 +21,7 @@ class TransfersView : public QTreeView
         TransfersView(QWidget * parent = 0);
         ~TransfersView();
 
-        int sizeHintForRow ( int row ) const;
+        void setModel(QAbstractItemModel * model);
 
     private:
 };

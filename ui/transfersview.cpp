@@ -22,9 +22,11 @@ TransfersView::~TransfersView()
 
 }
 
-int TransfersView::sizeHintForRow ( int row ) const
+void TransfersView::setModel(QAbstractItemModel * model)
 {
-    return 20;
+    QTreeView::setModel(model);
+
+    setColumnWidth(0, 250);
 }
 
 #include "transfersview.moc"

@@ -22,7 +22,11 @@ class TransfersViewDelegate : public QItemDelegate
     public:
         TransfersViewDelegate();
 
-//         void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+        void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+
+        void drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect);
+
+        QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
         bool editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index);
 

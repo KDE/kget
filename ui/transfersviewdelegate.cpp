@@ -26,10 +26,54 @@ TransfersViewDelegate::TransfersViewDelegate()
 
 }
 
-// void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
-// {
-//     painter->drawLine(0,0,100, 300);
-// }
+void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
+{
+    TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+
+    if(transferTreeModel->isTransferGroup(index))
+    {
+        painter->save();
+
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.highlight());
+//             painter->setBrush(option.palette.highlightedText());
+        }
+        else
+        {
+            painter->fillRect(option.rect, option.palette.alternateBase());
+//             painter->setBrush(option.palette.text());
+        }
+
+//         painter->setRenderHint(QPainter::Antialiasing, true);
+//         painter->setPen(Qt::NoPen);
+//         painter->drawText(option.rect, Qt::AlignLeft | Qt::AlignBottom,
+//                           transferTreeModel->headerData());
+
+        QItemDelegate::paint(painter, option, index);
+
+        painter->restore();
+    }
+    else
+        QItemDelegate::paint(painter, option, index);
+}
+
+void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect)
+{
+    
+}
+
+QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
+{
+    TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+
+    if(transferTreeModel->isTransferGroup(index))
+    {
+        return QSize(0, 35);
+    }
+
+    return QSize(0, 24);
+}
 
 bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {

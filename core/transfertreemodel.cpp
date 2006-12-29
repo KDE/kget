@@ -206,7 +206,8 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
 
 QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) 
+    {
         switch (section)
         {
             case 0:
@@ -223,6 +224,7 @@ QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation,
                 return QVariant();
         }
     }
+
     return QVariant();
 }
 
@@ -252,7 +254,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             else //Qt::DecorationRole -> icon
             {
                 if (index.column() == 0)
-                    return SmallIcon("folder", 22);
+                    return SmallIcon("transfers_list", 32);
                 else
                     return QVariant();
             }
@@ -281,15 +283,29 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::TextAlignmentRole)
     {
+        if(isTransferGroup(index))
+        {
+            switch (index.column())
+            {
+                case 2: // size
+                case 4: // speed
+                    return QVariant(Qt::AlignRight  | Qt::AlignBottom);
+                case 3: //progress
+                    return QVariant(Qt::AlignHCenter  | Qt::AlignBottom);
+                default:
+                    return QVariant(Qt::AlignLeft | Qt::AlignBottom);
+            }
+        }
+
         switch (index.column())
         {
             case 2: // size
             case 4: // speed
-                return Qt::AlignRight;
+                return QVariant(Qt::AlignRight | Qt::AlignVCenter);
             case 3: //progress
                 return Qt::AlignCenter;
             default:
-                return Qt::AlignLeft;
+                return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
         }
     }
 
