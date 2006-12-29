@@ -15,6 +15,11 @@ TransfersView::TransfersView(QWidget * parent)
 {
 //     setRootIsDecorated(false);
 //     setAnimated(true);
+
+    setSelectionMode(QAbstractItemView::ExtendedSelection);
+    setDragEnabled(true);
+    setAcceptDrops(true);
+    setDropIndicatorShown(true);
 }
 
 TransfersView::~TransfersView()

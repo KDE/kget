@@ -68,6 +68,13 @@ class TransferTreeModel : public QAbstractItemModel
         QModelIndex index(int row, int column, const QModelIndex & parent) const;
         QModelIndex parent(const QModelIndex & index) const;
 
+        //Drag & drop functions
+        Qt::DropActions supportedDropActions() const;
+        bool dropMimeData(const QMimeData *data,
+                          Qt::DropAction action, int row, int column, 
+                          const QModelIndex &parent);
+
+
     private:
         QList<TransferGroup *> m_transferGroups;
         Scheduler * m_scheduler;

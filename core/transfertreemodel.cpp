@@ -201,7 +201,10 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    if(isTransferGroup(index))
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDropEnabled;
+    else
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;
 }
 
 QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -369,6 +372,16 @@ QModelIndex TransferTreeModel::parent(const QModelIndex & index ) const
     }
 
     return QModelIndex();
+}
+
+Qt::DropActions TransferTreeModel::supportedDropActions() const
+{
+    return Qt::CopyAction | Qt::MoveAction;
+}
+
+bool TransferTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+    
 }
 
 #include "transfertreemodel.moc"
