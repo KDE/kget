@@ -9,7 +9,7 @@
         <Separator/>
         <Action name="quit"/>
     </Menu>
-        <Menu noMerge="1" name="Transfers"><text>&amp;Transfers</text>
+        <Menu noMerge="1" name="Downloads"><text>&amp;Downloads</text>
         <Action name="start_download"/>
         <Action name="stop_download"/>
         <Separator/>
