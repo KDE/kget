@@ -71,9 +71,13 @@ void KGet::delObserver(ModelObserver * observer)
     m_observers.removeAll(observer);
 }
 
-void KGet::addGroup(const QString& groupName)
+bool KGet::addGroup(const QString& groupName)
 {
     kDebug(5001) << "KGet::addGroup" << endl;
+
+    // Check if a group with that name already exists
+    if(m_transferTreeModel->findGroup(groupName))
+        return false;
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
 
@@ -81,6 +85,8 @@ void KGet::addGroup(const QString& groupName)
 
     //post notifications
     postAddedTransferGroupEvent(group);
+
+    return true;
 }
 
 void KGet::delGroup(const QString& groupName)
@@ -247,7 +253,7 @@ TransferTreeSelectionModel * KGet::selectionModel()
     return m_selectionModel;
 }
 
-void KGet::addTransferTreeView(QAbstractItemView * view)
+void KGet::addTransferView(QAbstractItemView * view)
 {
     view->setModel(m_transferTreeModel);
 }

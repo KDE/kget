@@ -40,6 +40,7 @@
 #include "ui/viewscontainer.h"
 #include "ui/tray.h"
 #include "ui/droptarget.h"
+#include "ui/groupseditdialog.h"
 
 MainWindow::MainWindow( QWidget * parent )
     : KMainWindow( parent ),
@@ -128,6 +129,10 @@ void MainWindow::setupActions()
 
     r1->setChecked( Settings::downloadAtStartup() );
     r2->setChecked( !Settings::downloadAtStartup() );
+
+    KAction * r3 = new KAction( KIcon("transfers_list"), i18n("Edit Groups.."),
+                                ac, "edit_groups");
+    connect(r3, SIGNAL(triggered(bool)), SLOT(slotEditGroups()));
 
     m_AutoPaste =  new KToggleAction( KIcon("tool_clipboard"), i18n("Auto-Paste Mode"),
                                       ac, "auto_paste" );
@@ -302,6 +307,13 @@ void MainWindow::slotExportTransfers()
 
     if(!filename.isEmpty())
         KGet::save(filename);
+}
+
+void MainWindow::slotEditGroups()
+{
+    GroupsEditDialog dialog;
+
+    dialog.exec();
 }
 
 void MainWindow::slotStartDownload()

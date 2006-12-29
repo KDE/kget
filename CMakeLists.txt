@@ -63,6 +63,7 @@ set(kget_SRCS
 #    ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transfersview.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transfersviewdelegate.cpp
+   ${CMAKE_SOURCE_DIR}/kget/ui/groupseditdialog.cpp
 #    ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/splash.cpp
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetails.cpp
@@ -77,6 +78,7 @@ qt4_add_dbus_adaptor(kget_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
 kde4_add_ui_files(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetailsfrm.ui
+   ${CMAKE_SOURCE_DIR}/kget/ui/groupseditdialog.ui
 )
 
 kde4_automoc(${kget_SRCS})

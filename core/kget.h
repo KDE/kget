@@ -80,8 +80,12 @@ class KGET_EXPORT KGet
          * Adds a new group to the KGet.
          *
          * @param groupName The name of the new group
+         *
+         * @returns true if the group has been successully added, otherwise
+         *          it returns false, probably because a group with that named
+         *          already exists
          */
-        static void addGroup(const QString& groupName);
+        static bool addGroup(const QString& groupName);
 
         /**
          * Removes a group from the KGet.
@@ -180,7 +184,7 @@ class KGET_EXPORT KGet
         /**
          * Sets the given view to the TransferTreeModel object
          */
-        static void addTransferTreeView(QAbstractItemView * view);
+        static void addTransferView(QAbstractItemView * view);
 
         /**
          * Adds a Settings tab for every plugins that needs one

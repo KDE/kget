@@ -9,6 +9,12 @@
         <Separator/>
         <Action name="quit"/>
     </Menu>
+        <Menu noMerge="1" name="Transfers"><text>&amp;Transfers</text>
+        <Action name="start_download"/>
+        <Action name="stop_download"/>
+        <Separator/>
+        <Action name="edit_groups"/>
+    </Menu>
    <Menu name="settings"><text>&amp;Settings</text>
         <Separator/>
         <Action name="configure_notifications"/>

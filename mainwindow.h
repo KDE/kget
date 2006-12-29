@@ -61,6 +61,7 @@ private slots:
     void slotQuit();
     void slotPreferences();
     void slotExportTransfers();
+    void slotEditGroups();
     void slotStartDownload();
     void slotStopDownload();
     void slotConfigureNotifications();
@@ -104,6 +105,8 @@ private:
     // separated widgets
     DropTarget    * m_drop;
     Tray          * m_dock;
+
+    // actions
     KToggleAction * m_showDropTarget;
     KToggleAction * m_AutoPaste;
     KAction       * m_KonquerorIntegration;
