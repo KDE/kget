@@ -49,10 +49,13 @@ void GroupsEditDialog::slotAddGroup()
                                           i18n("Group name:"), QLineEdit::Normal,
                                           "", &ok);
 
+        if(!ok)
+            return;
+
         if (groupName.isEmpty())
             QMessageBox::warning(this, i18n("Warning!"),
                                  i18n("Please enter a non empty name!\n"));
-        else if(ok)
+        else
         {
             if (KGet::addGroup(groupName))
                 return;
