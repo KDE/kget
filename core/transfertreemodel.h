@@ -37,11 +37,13 @@ class TransferTreeModel : public QAbstractItemModel
         TransferTreeModel(Scheduler * scheduler);
         ~TransferTreeModel();
 
+        void addGroup(TransferGroup * group);
+        void delGroup(TransferGroup * group);
+
         void addTransfer(Transfer * transfer, TransferGroup * group);
         void delTransfer(Transfer * transfer);
 
-        void addGroup(TransferGroup * group);
-        void delGroup(TransferGroup * group);
+        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after=0);
 
         const QList<TransferGroup *> & transferGroups();
 
@@ -53,9 +55,6 @@ class TransferTreeModel : public QAbstractItemModel
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);
 
-        /**
-         * 
-         */
         QModelIndex createIndex(int row, int column, void * ptr = 0) const;
 
         //QAbstractItemModel functions
@@ -70,7 +69,9 @@ class TransferTreeModel : public QAbstractItemModel
 
         //Drag & drop functions
         Qt::DropActions supportedDropActions() const;
-        bool dropMimeData(const QMimeData *data,
+        QStringList mimeTypes() const;
+        QMimeData * mimeData(const QModelIndexList &indexes) const;
+        bool dropMimeData(const QMimeData *mdata,
                           Qt::DropAction action, int row, int column, 
                           const QModelIndex &parent);
 

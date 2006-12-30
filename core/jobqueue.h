@@ -117,6 +117,14 @@ class JobQueue
         void prepend(Job * job);
 
         /**
+         * inserts a job to the current queue after the given job
+         *
+         * @param job The job to add in the current queue
+         * @param after The job after which to add the job
+         */
+        void insert(Job * job, Job * after);
+
+        /**
          * removes a job from the current queue
          *
          * @param job The job to remove from the current queue

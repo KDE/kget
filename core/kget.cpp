@@ -294,9 +294,10 @@ void KGet::load( QString filename )
                 kDebug(5001) << "KGet::load  -> group not found" << endl;
 
                 TransferGroup * newGroup = new TransferGroup(m_transferTreeModel, m_scheduler);
-                newGroup->load(nodeList.item(i).toElement());
 
                 m_transferTreeModel->addGroup(newGroup);
+
+                newGroup->load(nodeList.item(i).toElement());
 
                 //Post notifications
                 postAddedTransferGroupEvent(newGroup);

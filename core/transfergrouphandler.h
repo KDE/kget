@@ -59,9 +59,9 @@ class KGET_EXPORT TransferGroupHandler
         JobQueue::Status status() const {return m_group->status();}
 
         /**
-         * Moves a transfer in the group. Note that the transfers in the
-         * list can belong to different groups, while the transfer named
-         * "after" must belong to this group.
+         * Moves a list of transfers belonging to this group to a new position,
+         * after the transfer named "after". All the transfers must belong to
+         * this group
          *
          * @param transfers The transfers to be be moved
          * @param after The transfer after which the given transfers should be moved

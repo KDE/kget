@@ -54,6 +54,13 @@ void TransferGroup::prepend(Transfer * transfer)
     handler()->postAddedTransferEvent(transfer, 0);
 }
 
+void TransferGroup::insert(Transfer * transfer, Transfer * after)
+{
+    JobQueue::insert(transfer, after);
+
+    handler()->postAddedTransferEvent(transfer, after);
+}
+
 void TransferGroup::remove(Transfer * transfer)
 {
     JobQueue::remove(transfer);

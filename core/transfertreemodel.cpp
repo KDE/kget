@@ -13,6 +13,8 @@
 #include <kio/netaccess.h>
 #include <kiconloader.h>
 
+#include <qmimedata.h>
+
 #include "transfertreemodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfergroup.h"
@@ -29,6 +31,24 @@ TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
 TransferTreeModel::~TransferTreeModel()
 {
 
+}
+
+void TransferTreeModel::addGroup(TransferGroup * group)
+{
+    beginInsertRows(QModelIndex(), m_transferGroups.size(), m_transferGroups.size());
+
+    m_transferGroups.append(group);
+
+    endInsertRows();
+}
+
+void TransferTreeModel::delGroup(TransferGroup * group)
+{
+    beginRemoveRows(QModelIndex(), m_transferGroups.size()-1, m_transferGroups.size()-1);
+
+    m_transferGroups.removeAll(group);
+
+    endRemoveRows();
 }
 
 void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
@@ -51,21 +71,37 @@ void TransferTreeModel::delTransfer(Transfer * transfer)
     endRemoveRows();
 }
 
-void TransferTreeModel::addGroup(TransferGroup * group)
+void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after)
 {
-    beginInsertRows(QModelIndex(), m_transferGroups.size(), m_transferGroups.size());
+    if( (after) && (destGroup != after->group()) )
+        return;
 
-    m_transferGroups.append(group);
+    int removePosition = transfer->group()->indexOf(transfer);
+    int insertPosition = destGroup->size();
+    int groupIndex = m_transferGroups.indexOf(destGroup);
+
+    beginRemoveRows(createIndex(groupIndex, 0, destGroup->handler()), removePosition, removePosition);
+
+    beginInsertRows(createIndex(m_transferGroups.indexOf(destGroup), 0, destGroup->handler()), insertPosition, insertPosition);
+
+    if(destGroup == transfer->group())
+    {
+        if(after)
+            destGroup->move(transfer, after);
+        else
+            destGroup->move(transfer, static_cast<Transfer *>(destGroup->last()));
+    }
+    else
+    {
+        transfer->group()->remove(transfer);
+
+        if(destGroup->size() != 0)
+            destGroup->insert(transfer, static_cast<Transfer *>(destGroup->last()));
+        else
+            destGroup->append(transfer);
+    }
 
     endInsertRows();
-}
-
-void TransferTreeModel::delGroup(TransferGroup * group)
-{
-    beginRemoveRows(QModelIndex(), m_transferGroups.size()-1, m_transferGroups.size()-1);
-
-    m_transferGroups.removeAll(group);
-
     endRemoveRows();
 }
 
@@ -201,7 +237,7 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
-    if(isTransferGroup(index))
+    if(isTransferGroup(index) && index.column() == 0)
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDropEnabled;
     else
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;
@@ -379,9 +415,80 @@ Qt::DropActions TransferTreeModel::supportedDropActions() const
     return Qt::CopyAction | Qt::MoveAction;
 }
 
-bool TransferTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+QStringList TransferTreeModel::mimeTypes() const
 {
-    
+    QStringList types;
+    types << "application/vnd.text.list";
+    return types;
+}
+
+QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
+{
+    QMimeData * mimeData = new QMimeData();
+    QByteArray encodedData;
+
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
+
+    foreach (QModelIndex index, indexes) 
+    {
+        if (index.isValid())
+        {
+            if(index.column() == 0 && index.parent().isValid())
+            {
+                stream << data(index.parent(), Qt::DisplayRole).toString();
+                stream << QString::number((qulonglong) index.internalPointer(),16);
+            }
+        }
+    }
+
+    mimeData->setData("application/vnd.text.list", encodedData);
+    return mimeData;
+}
+
+bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+    if (action == Qt::IgnoreAction)
+        return true;
+
+    if (!mdata->hasFormat("application/vnd.text.list"))
+        return false;
+
+    if (column > 0)
+        return false;
+
+    if (parent.isValid())
+        kDebug(5001) << "TransferTreeModel::dropMimeData" << " " << row << " " 
+                                                          << column << endl;
+
+    QByteArray encodedData = mdata->data("application/vnd.text.list");
+    QDataStream stream(&encodedData, QIODevice::ReadOnly);
+    QStringList stringList;
+    int rows = 0;
+
+    while (!stream.atEnd()) 
+    {
+        QString text;
+        stream >> text;
+        stringList << text;
+        ++rows;
+    }
+
+    kDebug() << "TransferTreeModel::dropMimeData    DATA:" << endl;
+    kDebug() << stringList << endl;
+
+
+    for(int i=0; i < rows; i++)
+    {
+        TransferGroup * group = findGroup(stringList[i]);
+
+//         TransferGroup * destGroup = static_cast<TransferGroup *>(index(row, column, parent).internalPointer());
+
+        TransferGroup * destGroup = findGroup(data(parent, Qt::DisplayRole).toString());
+
+        TransferHandler * transferHandler = (TransferHandler *) stringList[++i].toInt(0, 16);
+
+        moveTransfer(transferHandler->m_transfer, destGroup);
+    }
 }
 
 #include "transfertreemodel.moc"

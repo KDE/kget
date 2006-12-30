@@ -83,14 +83,23 @@ void JobQueue::append(Job * job)
 void JobQueue::prepend(Job * job)
 {
     m_jobs.prepend(job);
-    
+
+    m_scheduler->jobQueueAddedJobEvent(this, job);
+}
+
+void JobQueue::insert(Job * job, Job * after)
+{
+    if((job->jobQueue() == this) || ((after) && (after->jobQueue() != this)))
+        return;
+
+    m_jobs.insert(m_jobs.indexOf(after) +1, job);
     m_scheduler->jobQueueAddedJobEvent(this, job);
 }
 
 void JobQueue::remove(Job * job)
 {
     m_jobs.removeAll(job);
-    
+
     m_scheduler->jobQueueRemovedJobEvent(this, job);
 }
 
@@ -98,7 +107,8 @@ void JobQueue::move(Job * job, Job * after)
 {
     kDebug(5001) << "JobQueue::move" << endl;
 
-    if( (m_jobs.removeAll(job) == 0) || (job == after) )
+    if( (m_jobs.removeAll(job) == 0) || (job == after)  ||
+        ((after) && (after->jobQueue() != this)) )
     {
         //The job doesn't belong to this JobQueue or the requested
         //operations doesn't make any sense since job==after
@@ -109,16 +119,13 @@ void JobQueue::move(Job * job, Job * after)
     {
         //The job must be inserted in front of the list
         m_jobs.prepend(job);
-        m_scheduler->jobQueueMovedJobEvent(this, job);
-        return;
+    }
+    else
+    {
+        m_jobs.insert(m_jobs.indexOf(after) +1, job);
     }
 
-    int position = m_jobs.indexOf(after);
-    if( position != -1 )
-    {
-        m_jobs.insert(++position, job);
-        m_scheduler->jobQueueMovedJobEvent(this, job);
-    }
+    m_scheduler->jobQueueMovedJobEvent(this, job);
 }
 
 

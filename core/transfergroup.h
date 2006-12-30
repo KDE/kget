@@ -68,6 +68,14 @@ class TransferGroup : public JobQueue
         void prepend(Transfer * transfer);
 
         /**
+         * inserts a transfer to the current group after the given transfer
+         *
+         * @param transfer The transfer to add in the current Group
+         * @param after The transfer after which to add the transfer
+         */
+        void insert(Transfer * transfer, Transfer * after);
+
+        /**
          * Removes the given transfer from the list of the transfers
          *
          * @param transfer the transfer to remove
@@ -79,7 +87,7 @@ class TransferGroup : public JobQueue
          *
          * @param transfer The transfer to move. Note that this transfer can
          *                  belong to other groups. In this situation this
-         *                  transfer are deleted from the previous group and
+         *                  transfer is deleted from the previous group and
          *                  moved inside this one.
          * @param after The transfer after which we have to move the given one
          */
