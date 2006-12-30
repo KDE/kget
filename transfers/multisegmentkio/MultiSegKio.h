@@ -105,6 +105,7 @@ private:
    KIO::FileJob* m_putJob;
    bool m_writeBlocked;
    QHash <KIO::Job*, unsigned long>speedHash;
+   unsigned long m_speed;
 
 private:
    bool checkLocalFile();

@@ -24,7 +24,8 @@
 MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
    : Job(showProgressInfo), m_dest(dest),
      m_permissions(permissions),
-     m_writeBlocked(false)
+     m_writeBlocked(false),
+     m_speed(0)
 {
    kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
    QList<SegData> emptySegData;
@@ -45,7 +46,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
 
    : Job(showProgressInfo), m_dest(dest),
      m_permissions(permissions),
-     m_writeBlocked(false)
+     m_writeBlocked(false),
+     m_speed(0)
 {
    kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
    SegFactory = new SegmentFactory( segments, Urls, SegmentsData );
@@ -126,8 +128,6 @@ void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
    kDebug(5001) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten << endl;
    m_writeBlocked = false;
    setProcessedSize(processedSize()+bytesWritten);
-   emit processedSize(this, processedSize());
-   emitPercent( processedSize(), totalSize() );
    if( processedSize() == totalSize() )
       m_putJob->close();
 }
@@ -185,7 +185,6 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
 void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 {
    kDebug(5001) << "MultiSegmentCopyJob::slotTotalSize() from job: " << job << " -- " << size << endl;
-   emit totalSize(this, size);
    setTotalSize (size);
    QList<Segment *> segments = SegFactory->Segments();
    Segment *seg = segments.takeFirst();
@@ -217,15 +216,17 @@ void MultiSegmentCopyJob::slotSpeed( KIO::Job* job, unsigned long bytes_per_seco
    speedHash.insert(job, bytes_per_second);
 
    unsigned long _speed = 0;
-   QHashIterator<KIO::Job* , unsigned long> i(speedHash);
+   QHash<KIO::Job* , unsigned long>::iterator i = speedHash.begin();
 
-   while (i.hasNext())
+   while (i != speedHash.end())
    {
-      i.next();
-      _speed += i.value();
+      if( i.value() == 0 )
+         speedHash.erase(i);
+      else
+         _speed += i.value();
+      ++i;
    }
-
-   emit speed( this, _speed );
+   m_speed = _speed;
 }
 
 bool MultiSegmentCopyJob::checkLocalFile()
