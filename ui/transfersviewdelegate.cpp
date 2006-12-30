@@ -28,7 +28,7 @@ TransfersViewDelegate::TransfersViewDelegate()
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-    TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+    const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
 
     if(transferTreeModel->isTransferGroup(index))
     {
@@ -65,7 +65,7 @@ void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionView
 
 QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-    TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+    const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
 
     if(transferTreeModel->isTransferGroup(index))
     {

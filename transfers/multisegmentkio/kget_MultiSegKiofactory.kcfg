@@ -17,7 +17,7 @@
     </entry>
     <entry name="SearchEnginesUrlList" type="StringList" key="UrlItems">
       <label>Urls list of the available search engines</label>
-      <default>filemirrors@http://www.filemirrors.com/search.src?</default>
+      <default>http://www.filemirrors.com/search.src?type</default>
     </entry>
   </group>
 </kcfg>
