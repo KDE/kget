@@ -70,7 +70,7 @@ DropTarget::DropTarget(MainWindow * mw)
     popupMenu = new KMenu();
     popupMenu->addTitle(mw->windowTitle());
 
-    QAction * downloadAction = mw->actionCollection()->action("start_download");
+    QAction * downloadAction = mw->actionCollection()->action("start_all_download");
     popupMenu->addAction( downloadAction );
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();

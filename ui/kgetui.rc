@@ -10,8 +10,10 @@
         <Action name="quit"/>
     </Menu>
         <Menu noMerge="1" name="Downloads"><text>&amp;Downloads</text>
-        <Action name="start_download"/>
-        <Action name="stop_download"/>
+        <Action name="start_all_download"/>
+        <Action name="start_selected_download"/>
+        <Action name="stop_all_download"/>
+        <Action name="stop_selected_download"/>
         <Separator/>
         <Action name="edit_groups"/>
     </Menu>
@@ -33,7 +35,7 @@
 <ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
     <Action name="new_transfer"/>
     <Separator lineSeparator="true"/>
-    <Action name="start_download"/>
-    <Action name="stop_download"/>
+    <Action name="start_menu"/>
+    <Action name="stop_menu"/>
 </ToolBar>
 </kpartgui>

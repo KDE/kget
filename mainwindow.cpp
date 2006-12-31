@@ -29,6 +29,7 @@
 #include <kstandardaction.h>
 #include <klocale.h>
 #include <kicon.h>
+#include <kactionmenu.h>
 
 #include "mainwindow.h"
 #include "core/kget.h"
@@ -111,28 +112,49 @@ void MainWindow::setupActions()
     action->setShortcut(KShortcut("Ctrl+E"));
     connect(action, SIGNAL(triggered(bool)), SLOT(slotExportTransfers()));
 
-    KAction * r1;
-    KAction * r2;
+    KAction * startAllAction = new KAction(KIcon("player_fwd"), i18n("Start All"),
+                                           ac, "start_all_download");
+    connect(startAllAction, SIGNAL(triggered(bool)), SLOT(slotStartAllDownload()));
 
-    r1 = new KAction( KIcon("player_play"), i18n("Start All"),
-                      ac, "start_download" );
-    connect(r1, SIGNAL(triggered(bool)), SLOT(slotStartDownload()));
+    KAction * startSelectedAction = new KAction(KIcon("player_play"), i18n("Start Selected"),
+                                                ac, "start_selected_download");
+    connect(startSelectedAction, SIGNAL(triggered(bool)), SLOT(slotStartSelectedDownload()));
 
-    r2 = new KAction( KIcon("player_pause"), i18n("Stop All"),
-                      ac, "stop_download" );
-    connect(r2, SIGNAL(triggered(bool)), SLOT(slotStopDownload()));
+    KAction * stopAllAction = new KAction(KIcon("player_pause"), i18n("Stop All"),
+                                          ac, "stop_all_download");
+    connect(stopAllAction, SIGNAL(triggered(bool)), SLOT(slotStopAllDownload()));
+
+    KAction * stopSelectedAction = new KAction(KIcon("player_pause"), i18n("Stop Selected"),
+                                               ac, "stop_selected_download" );
+    connect(startSelectedAction, SIGNAL(triggered(bool)), SLOT(slotStopSelectedDownload()));
+
+    KActionMenu * startActionMenu = new KActionMenu(KIcon("player_play"), i18n("Start"),
+                                                    ac, "start_menu");
+    connect(startActionMenu, SIGNAL(triggered(bool)), SLOT(slotStartDownload()));
+    startActionMenu->setDelayed(true);
+    startActionMenu->addAction(startAllAction);
+    startActionMenu->addAction(startSelectedAction);
+
+    KActionMenu * stopActionMenu = new KActionMenu(KIcon("player_pause"), i18n("Stop"),
+                                                   ac, "stop_menu");
+    connect(stopActionMenu, SIGNAL(triggered(bool)), SLOT(slotStopDownload()));
+    stopActionMenu->setDelayed(true);
+    stopActionMenu->addAction(stopAllAction);
+    stopActionMenu->addAction(stopSelectedAction);
 
     QActionGroup* scheduler_commands = new QActionGroup(this);
     scheduler_commands->setExclusive(true);
-    r1->setActionGroup(scheduler_commands);
-    r2->setActionGroup(scheduler_commands);
+    startAllAction->setActionGroup(scheduler_commands);
+    startSelectedAction->setActionGroup(scheduler_commands);
+    stopAllAction->setActionGroup(scheduler_commands);
+    stopSelectedAction->setActionGroup(scheduler_commands);
 
-    r1->setChecked( Settings::downloadAtStartup() );
-    r2->setChecked( !Settings::downloadAtStartup() );
+    startAllAction->setChecked( Settings::downloadAtStartup() );
+    stopAllAction->setChecked( !Settings::downloadAtStartup() );
 
-    KAction * r3 = new KAction( KIcon("transfers_list"), i18n("Edit Groups.."),
-                                ac, "edit_groups");
-    connect(r3, SIGNAL(triggered(bool)), SLOT(slotEditGroups()));
+    KAction * editGroupAction = new KAction( KIcon("transfers_list"), i18n("Edit Groups.."),
+                                             ac, "edit_groups");
+    connect(editGroupAction, SIGNAL(triggered(bool)), SLOT(slotEditGroups()));
 
     m_AutoPaste =  new KToggleAction( KIcon("tool_clipboard"), i18n("Auto-Paste Mode"),
                                       ac, "auto_paste" );
@@ -318,6 +340,22 @@ void MainWindow::slotEditGroups()
 
 void MainWindow::slotStartDownload()
 {
+    //IMPLEMENT: if one/more transfer(s) is/are selected, start this/that one(s); else start all tranfers
+    m_dock->setDownloading(true);
+
+    KGet::setSchedulerRunning(true);
+}
+
+void MainWindow::slotStartAllDownload()
+{
+    m_dock->setDownloading(true);
+
+    KGet::setSchedulerRunning(true);
+}
+
+void MainWindow::slotStartSelectedDownload()
+{
+    //IMPLEMENT: start only the selected transfer(s)
     m_dock->setDownloading(true);
 
     KGet::setSchedulerRunning(true);
@@ -325,6 +363,22 @@ void MainWindow::slotStartDownload()
 
 void MainWindow::slotStopDownload()
 {
+    //IMPLEMENT: if one/more transfer(s) is/are selected, stop this/that one(s); else stop all tranfers
+    m_dock->setDownloading(false);
+
+    KGet::setSchedulerRunning(false);
+}
+
+void MainWindow::slotStopAllDownload()
+{
+    m_dock->setDownloading(false);
+
+    KGet::setSchedulerRunning(false);
+}
+
+void MainWindow::slotStopSelectedDownload()
+{
+    //IMPLEMENT: stop only the selected transfer(s)
     m_dock->setDownloading(false);
 
     KGet::setSchedulerRunning(false);
