@@ -27,15 +27,6 @@ Job::~Job()
 {
 }
 
-// void Job::moveToQueue(JobQueue * queue, Job * after)
-// {
-//     if(after && (queue != after->jobQueue()))
-//         return;
-// 
-//     m_jobQueue->remove(this);
-//     queue->
-// }
-
 void Job::setStatus(Status jobStatus)
 {
     if(jobStatus == m_status)

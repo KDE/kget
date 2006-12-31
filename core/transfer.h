@@ -30,6 +30,7 @@ class TransferTreeModel;
 class KGET_EXPORT Transfer : public Job
 {
     friend class TransferHandler;
+    friend class TransferTreeModel;
 
     public:
 

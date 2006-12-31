@@ -66,7 +66,6 @@ class Job
         virtual void delayTimerEvent()=0;
 
         JobQueue * jobQueue() {return m_jobQueue;}
-//         void moveToQueue(JobQueue * queue, Job * after=0);
 
         //Job properties
         void setStatus(Status jobStatus);

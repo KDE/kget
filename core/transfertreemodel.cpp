@@ -100,6 +100,8 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
             destGroup->insert(transfer, static_cast<Transfer *>(destGroup->last()));
         else
             destGroup->append(transfer);
+
+        transfer->m_jobQueue = destGroup;
     }
 
     endInsertRows();
