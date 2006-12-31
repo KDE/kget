@@ -188,11 +188,11 @@ void MainWindow::setupActions()
     // Transfer related actions
     action = new KAction( KIcon("player_play"), i18n("Start"),
                           ac, "transfer_start" );
-    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersStart()));
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotStartSelectedDownload()));
 
     action = new KAction( KIcon("player_pause"), i18n("Stop"),
                           ac, "transfer_stop" );
-    connect(action, SIGNAL(triggered(bool)), SLOT(slotTransfersStop()));
+    connect(action, SIGNAL(triggered(bool)), SLOT(slotStopSelectedDownload()));
 
     action = new KAction( KIcon("editdelete"), i18n("Delete"),
                           ac, "transfer_remove" );
@@ -340,10 +340,10 @@ void MainWindow::slotEditGroups()
 
 void MainWindow::slotStartDownload()
 {
-    //IMPLEMENT: if one/more transfer(s) is/are selected, start this/that one(s); else start all tranfers
-    m_dock->setDownloading(true);
-
-    KGet::setSchedulerRunning(true);
+    if(KGet::selectedTransfers().size() == 0)
+        slotStartAllDownload();
+    else
+        slotStartSelectedDownload();
 }
 
 void MainWindow::slotStartAllDownload()
@@ -355,18 +355,18 @@ void MainWindow::slotStartAllDownload()
 
 void MainWindow::slotStartSelectedDownload()
 {
-    //IMPLEMENT: start only the selected transfer(s)
     m_dock->setDownloading(true);
 
-    KGet::setSchedulerRunning(true);
+    foreach(TransferHandler * it, KGet::selectedTransfers())
+        it->start();
 }
 
 void MainWindow::slotStopDownload()
 {
-    //IMPLEMENT: if one/more transfer(s) is/are selected, stop this/that one(s); else stop all tranfers
-    m_dock->setDownloading(false);
-
-    KGet::setSchedulerRunning(false);
+    if(KGet::selectedTransfers().size() == 0)
+        slotStopAllDownload();
+    else
+        slotStopSelectedDownload();
 }
 
 void MainWindow::slotStopAllDownload()
@@ -378,10 +378,10 @@ void MainWindow::slotStopAllDownload()
 
 void MainWindow::slotStopSelectedDownload()
 {
-    //IMPLEMENT: stop only the selected transfer(s)
     m_dock->setDownloading(false);
 
-    KGet::setSchedulerRunning(false);
+    foreach(TransferHandler * it, KGet::selectedTransfers())
+        it->stop();
 }
 
 void MainWindow::slotConfigureNotifications()
@@ -399,18 +399,6 @@ void MainWindow::slotConfigureToolbars()
     KEditToolbar edit( "kget_toolbar", actionCollection() );
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
-}
-
-void MainWindow::slotTransfersStart()
-{
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-        it->start();
-}
-
-void MainWindow::slotTransfersStop()
-{
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-        it->stop();
 }
 
 void MainWindow::slotTransfersDelete()

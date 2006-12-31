@@ -63,11 +63,7 @@ private slots:
     void slotExportTransfers();
     void slotEditGroups();
     void slotStartDownload();
-    void slotStartAllDownload();
-    void slotStartSelectedDownload();
     void slotStopDownload();
-    void slotStopAllDownload();
-    void slotStopSelectedDownload();
     void slotConfigureNotifications();
     void slotConfigureKeys();
     void slotConfigureToolbars();
@@ -78,8 +74,10 @@ private slots:
     void slotShowMenubar();
 
     // transfers slots
-    void slotTransfersStart();
-    void slotTransfersStop();
+    void slotStopAllDownload();
+    void slotStopSelectedDownload();
+    void slotStartAllDownload();
+    void slotStartSelectedDownload();
     void slotTransfersDelete();
     void slotTransfersOpenDest();
     void slotTransfersShowDetails();
