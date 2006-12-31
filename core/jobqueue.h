@@ -99,7 +99,7 @@ class JobQueue
          * @return the maximum number of jobs the scheduler should ever
          * execute simultaneously (in this queue).
          */
-        int maxSimultaneousJobs() const     {return m_maxSimultaneousJobs;}
+        int maxSimultaneousJobs() const;
 
     protected:
         /**

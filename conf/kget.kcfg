@@ -58,7 +58,7 @@
       <default>false</default>
     </entry>
     <entry name="LimitDownloads" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="MaxConnections" type="Int">
       <default>2</default>

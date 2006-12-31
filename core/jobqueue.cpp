@@ -12,6 +12,7 @@
 
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
+#include "settings.h"
 
 JobQueue::JobQueue(Scheduler * scheduler)
     : m_maxSimultaneousJobs(2),
@@ -71,6 +72,14 @@ void JobQueue::setStatus(Status queueStatus)
     }
     
     m_scheduler->jobQueueChangedEvent(this, m_status);
+}
+
+int JobQueue::maxSimultaneousJobs() const
+{
+    if(Settings::limitDownloads())
+        return Settings::maxConnections();
+    else
+        return 1000;    // High value just to indicate no limit
 }
 
 void JobQueue::append(Job * job)
