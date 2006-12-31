@@ -23,7 +23,8 @@
 
 TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
     : QAbstractItemModel(),
-      m_scheduler(scheduler)
+      m_scheduler(scheduler),
+      m_timerId(-1)
 {
 
 }
@@ -159,16 +160,18 @@ bool TransferTreeModel::isTransferGroup(const QModelIndex & index) const
 
 void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
 {
-    TransferGroupHandler * group = transfer->group();
+    if(m_timerId == -1)
+        m_timerId = startTimer(200);
 
-    emit dataChanged(createIndex(group->indexOf(transfer), 0, transfer),
-                     createIndex(group->indexOf(transfer), transfer->columnCount(), transfer));
+    m_changedTransfers.append(transfer);
 }
 
 void TransferTreeModel::postDataChangedEvent(TransferGroupHandler * group)
 {
-    emit dataChanged(createIndex(m_transferGroups.indexOf(group->m_group), 0, group),
-                     createIndex(m_transferGroups.indexOf(group->m_group), group->columnCount(), group));
+    if(m_timerId == -1)
+        m_timerId = startTimer(200);
+
+    m_changedGroups.append(group);
 }
 
 QModelIndex TransferTreeModel::createIndex(int row, int column, void * ptr) const
@@ -489,6 +492,31 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
         moveTransfer(transferHandler->m_transfer, destGroup);
     }
+}
+
+void TransferTreeModel::timerEvent(QTimerEvent *event)
+{
+//     kDebug(5001) << "TransferTreeModel::timerEvent" << endl;
+
+    foreach(TransferHandler * transfer, m_changedTransfers)
+    {
+        TransferGroupHandler * group = transfer->group();
+
+        emit dataChanged(createIndex(group->indexOf(transfer), 0, transfer),
+                        createIndex(group->indexOf(transfer), transfer->columnCount(), transfer));
+    }
+
+    foreach(TransferGroupHandler * group, m_changedGroups)
+    {
+        emit dataChanged(createIndex(m_transferGroups.indexOf(group->m_group), 0, group),
+                        createIndex(m_transferGroups.indexOf(group->m_group), group->columnCount(), group));
+    }
+
+    m_changedTransfers.clear();
+    m_changedGroups.clear();
+
+    killTimer(m_timerId);
+    m_timerId = -1;
 }
 
 #include "transfertreemodel.moc"

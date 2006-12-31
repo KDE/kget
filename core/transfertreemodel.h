@@ -77,8 +77,16 @@ class TransferTreeModel : public QAbstractItemModel
 
 
     private:
+        void timerEvent(QTimerEvent *event);
+
         QList<TransferGroup *> m_transferGroups;
         Scheduler * m_scheduler;
+
+        // Timer related variables
+        QList<TransferHandler *> m_changedTransfers;
+        QList<TransferGroupHandler *> m_changedGroups;
+
+        int m_timerId;
 };
 
 #endif
