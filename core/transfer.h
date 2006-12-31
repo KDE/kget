@@ -128,7 +128,7 @@ class KGET_EXPORT Transfer : public Job
 
         /**
          * Makes the TransferHandler associated with this transfer know that
-         * a change in this transfer has occoured.
+         * a change in this transfer has occured.
          *
          * @param change: the TransferChange flags to be set
          */

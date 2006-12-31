@@ -10,10 +10,11 @@
 
 #include <kdebug.h>
 
-#include "scheduler.h"
-#include "kget.h"
-#include "job.h"
-#include "jobqueue.h"
+#include "core/scheduler.h"
+#include "core/kget.h"
+#include "core/job.h"
+#include "core/jobqueue.h"
+#include "settings.h"
 
 Scheduler::Scheduler()
 {
@@ -99,7 +100,8 @@ void Scheduler::jobChangedEvent(Job * job, Job::Status status)
     //If the Job changed its status to Aborted, set a delay.
     if (status == Job::Aborted)
     {
-        job->setDelay(10);
+        if(Settings::reconnectOnBroken())
+            job->setDelay(Settings::reconnectDelay());
         //Here it's not necessary to call updateQueue since the setDelay()
         //function will generate another jobChangedEvent. We will call 
         //updateQueue then.
