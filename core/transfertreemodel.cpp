@@ -16,6 +16,8 @@
 #include <qmimedata.h>
 
 #include "transfertreemodel.h"
+#include "core/kget.h"
+#include "core/transfertreeselectionmodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfergroup.h"
 #include "core/transferhandler.h"
@@ -106,6 +108,8 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
 
     endInsertRows();
     endRemoveRows();
+
+    KGet::selectionModel()->clearSelection();
 }
 
 const QList<TransferGroup *> & TransferTreeModel::transferGroups()

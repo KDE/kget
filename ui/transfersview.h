@@ -24,6 +24,7 @@ class TransfersView : public QTreeView
         void setModel(QAbstractItemModel * model);
 
     private:
+        void dropEvent(QDropEvent * event);
 };
 
 #endif
