@@ -504,18 +504,31 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
 {
 //     kDebug(5001) << "TransferTreeModel::timerEvent" << endl;
 
+    QList<TransferHandler *> updatedTransfers;
+    QList<TransferGroupHandler *> updatedGroups;
+
     foreach(TransferHandler * transfer, m_changedTransfers)
     {
-        TransferGroupHandler * group = transfer->group();
+        if(!updatedTransfers.contains(transfer))
+        {
+            TransferGroupHandler * group = transfer->group();
 
-        emit dataChanged(createIndex(group->indexOf(transfer), 0, transfer),
-                        createIndex(group->indexOf(transfer), transfer->columnCount(), transfer));
+            emit dataChanged(createIndex(group->indexOf(transfer), 0, transfer),
+                            createIndex(group->indexOf(transfer), transfer->columnCount(), transfer));
+
+            updatedTransfers.append(transfer);
+        }
     }
 
     foreach(TransferGroupHandler * group, m_changedGroups)
     {
-        emit dataChanged(createIndex(m_transferGroups.indexOf(group->m_group), 0, group),
-                        createIndex(m_transferGroups.indexOf(group->m_group), group->columnCount(), group));
+        if(!updatedGroups.contains(group))
+        {
+            emit dataChanged(createIndex(m_transferGroups.indexOf(group->m_group), 0, group),
+                            createIndex(m_transferGroups.indexOf(group->m_group), group->columnCount(), group));
+
+            updatedGroups.append(group);
+        }
     }
 
     m_changedTransfers.clear();
