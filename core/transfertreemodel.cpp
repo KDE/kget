@@ -50,6 +50,7 @@ void TransferTreeModel::delGroup(TransferGroup * group)
     beginRemoveRows(QModelIndex(), m_transferGroups.size()-1, m_transferGroups.size()-1);
 
     m_transferGroups.removeAll(group);
+    m_changedGroups.removeAll(group->handler());
 
     endRemoveRows();
 }
@@ -69,7 +70,8 @@ void TransferTreeModel::delTransfer(Transfer * transfer)
 
     beginRemoveRows(createIndex(m_transferGroups.indexOf(group), 0, group->handler()), group->size()-1, group->size()-1);
 
-    transfer->group()->remove( transfer );
+    group->remove(transfer);
+    m_changedTransfers.removeAll(transfer->handler());
 
     endRemoveRows();
 }
