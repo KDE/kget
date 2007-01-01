@@ -248,10 +248,17 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
-    if(isTransferGroup(index) && index.column() == 0)
-        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDropEnabled;
+    Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+
+    if(isTransferGroup(index))
+    {
+        if(index.column() == 0)
+            flags |= Qt::ItemIsDropEnabled;
+    }
     else
-        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;
+        flags |= Qt::ItemIsDragEnabled;
+
+    return flags;
 }
 
 QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
