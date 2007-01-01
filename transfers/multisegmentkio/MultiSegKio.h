@@ -54,17 +54,17 @@ public:
                           QList<SegData> SegmentsData,
                           uint segments);
 
+    ~MultiSegmentCopyJob();
     QList<SegData> SegmentsData();
     void stop();
 
 Q_SIGNALS:
     void updateSegmentsData();
 
-public Q_SLOTS:
-    void slotDataReq( Segment *, const QByteArray &data, bool &result);
-
 private Q_SLOTS:
 
+    void slotDataReq( Segment *, const QByteArray &data, bool &result);
+    void slotStatusChanged( Segment *seg );
     void slotStart();
     void slotOpen( KIO::Job * );
     void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);
@@ -105,7 +105,6 @@ private:
     KIO::FileJob* m_putJob;
     bool m_writeBlocked;
     QHash <KIO::Job*, unsigned long>speedHash;
-    unsigned long m_speed;
 
 private:
     bool checkLocalFile();

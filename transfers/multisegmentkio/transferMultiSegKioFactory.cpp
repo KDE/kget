@@ -33,37 +33,37 @@ Transfer * TransferMultiSegKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-   kDebug(5001) << "TransferMultiSegKioFactory::createTransfer" << endl;
+    kDebug(5001) << "TransferMultiSegKioFactory::createTransfer" << endl;
 
-   QString prot = srcUrl.protocol();
-   kDebug(5001) << "Protocol = " << prot << endl;
-   if( prot == "http" || prot == "https" ||
-       prot == "ftp"  || prot == "sftp"  &&
-       MultiSegKioSettings::segments() > 1
-     )
-   {
-      return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
-   }
-   return 0;
+    QString prot = srcUrl.protocol();
+    kDebug(5001) << "Protocol = " << prot << endl;
+    if( prot == "http" || prot == "https" ||
+         prot == "ftp"  || prot == "sftp"  &&
+         MultiSegKioSettings::segments() > 1
+      )
+    {
+       return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
+    }
+    return 0;
 }
 
 TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
 {
-   return new TransferHandler(transfer, scheduler);
+    return new TransferHandler(transfer, scheduler);
 }
 
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
-   Q_UNUSED(transfer);
-   return new QWidget();   //Temporary!!
+    Q_UNUSED(transfer);
+    return new QWidget();   //Temporary!!
 }
 
 QWidget * TransferMultiSegKioFactory::createSettingsWidget()
 {
-   return new DlgSettingsWidget();
+    return new DlgSettingsWidget();
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions()
 {
-   return QList<KAction *>();
+    return QList<KAction *>();
 }

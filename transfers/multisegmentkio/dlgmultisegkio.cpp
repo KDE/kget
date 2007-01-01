@@ -30,12 +30,12 @@ DlgEngineEditing::~DlgEngineEditing()
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
     : QWidget(parent)
 {
-   ui.setupUi(this);
-   init();
-   connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
-   connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
-   connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
-   connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
+    ui.setupUi(this);
+    init();
+    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
+    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
+    connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
+    connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
 };
 
 DlgSettingsWidget::~DlgSettingsWidget()

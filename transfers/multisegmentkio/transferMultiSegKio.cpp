@@ -23,7 +23,7 @@ transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(0)
+      m_copyjob(0), m_isDownloading(false)
 {
     kDebug(5001) << "transferMultiSegKio::transferMultiSegKio" << endl;
     if( e )
@@ -43,18 +43,19 @@ void transferMultiSegKio::start()
 
 void transferMultiSegKio::stop()
 {
+    kDebug(5001) << "transferMultiSegKio::Stop" << endl;
+
     if(status() == Stopped)
         return;
 
     if(m_copyjob)
     {
         m_copyjob->stop();
-        m_copyjob=0;
     }
 
-    kDebug(5001) << "transferMultiSegKio::Stop" << endl;
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
     m_speed = 0;
+    m_isDownloading = false;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
 
@@ -85,7 +86,6 @@ void transferMultiSegKio::load(QDomElement e)
     {
         node = segments.item(i);
         segment = node.toElement ();
-//       d.src = KUrl(segment.attribute("Source"));
         d.bytes = segment.attribute("Bytes").toULongLong();
         d.offset = segment.attribute("OffSet").toULongLong();
         kDebug(5001) << "TransferMultiSegKio::load: adding Segment " << i << endl;
@@ -163,8 +163,6 @@ void transferMultiSegKio::createJob()
            SLOT(slotResult(KJob *)));
         connect(m_copyjob, SIGNAL(infoMessage(KJob *, const QString &)),
            SLOT(slotInfoMessage(KJob *, const QString &)));
-        connect(m_copyjob, SIGNAL(connected(KIO::Job *)),
-           SLOT(slotConnected(KIO::Job *)));
         connect(m_copyjob, SIGNAL(percent(KJob *, unsigned long)),
            SLOT(slotPercent(KJob *, unsigned long)));
         connect(m_copyjob, SIGNAL(totalSize(KJob *, qulonglong)),
@@ -212,18 +210,9 @@ void transferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
     m_log.append(QString(msg));
 }
 
-void transferMultiSegKio::slotConnected( KIO::Job * kioJob )
-{
-    kDebug(5001) << "CONNECTED" <<endl;
-
-    Q_UNUSED(kioJob);
-    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
-    setTransferChange(Tc_Status, true);
-}
-
 void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
-    kDebug(5001) << "slotPercent" << endl;
+    kDebug(5001) << "transferMultiSegKio::slotPercent" << endl;
     Q_UNUSED(kioJob);
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -231,9 +220,14 @@ void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 
 void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 {
-    kDebug(5001) << "slotTotalSize" << endl;
+    kDebug(5001) << "transferMultiSegKio::slotTotalSize" << endl;
 
-    slotConnected(static_cast<KIO::Job*>(kioJob));
+    if (!m_isDownloading)
+    {
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+        m_isDownloading = true;
+        setTransferChange(Tc_Status , true);
+    }
 
     m_totalSize = size;
     setTransferChange(Tc_TotalSize, true);
@@ -243,8 +237,12 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 {
     kDebug(5001) << "slotProcessedSize" << endl; 
 
-    if(status() != Job::Running)
-        slotConnected(static_cast<KIO::Job*>(kioJob));
+    if (!m_isDownloading)
+    {
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+        m_isDownloading = true;
+        setTransferChange(Tc_Status , true);
+    }
 
     m_processedSize = size;
     setTransferChange(Tc_ProcessedSize, true);
@@ -254,8 +252,12 @@ void transferMultiSegKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_
 {
     kDebug(5001) << "slotSpeed: " << bytes_per_second << endl;
 
-    if(status() != Job::Running)
-        slotConnected(kioJob);
+    if (!m_isDownloading)
+    {
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+        m_isDownloading = true;
+        setTransferChange(Tc_Status , true);
+    }
 
     m_speed = bytes_per_second;
     setTransferChange(Tc_Speed, true);

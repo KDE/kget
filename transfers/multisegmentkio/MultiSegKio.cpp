@@ -24,8 +24,7 @@
 MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
    : Job(showProgressInfo), m_dest(dest),
      m_permissions(permissions),
-     m_writeBlocked(false),
-     m_speed(0)
+     m_writeBlocked(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
     QList<SegData> emptySegData;
@@ -46,8 +45,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
 
    : Job(showProgressInfo), m_dest(dest),
      m_permissions(permissions),
-     m_writeBlocked(false),
-     m_speed(0)
+     m_writeBlocked(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
     SegFactory = new SegmentFactory( segments, Urls, SegmentsData );
@@ -61,6 +59,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
         connect( (*it)->job(), SIGNAL(speed( KIO::Job*, unsigned long )),
                  SLOT(slotSpeed( KIO::Job*, unsigned long )));
+        connect( (*it), SIGNAL(statusChanged( Segment *)),
+                 SLOT(slotStatusChanged( Segment *)));
         connect( (*it), SIGNAL(updateSegmentData()),
                  SIGNAL(updateSegmentsData()));
     }
@@ -69,6 +69,12 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
     setProcessedSize(ProcessedSize);
     setTotalSize(totalSize);
     QTimer::singleShot(0, this, SLOT(slotStart()));
+}
+
+MultiSegmentCopyJob::~MultiSegmentCopyJob()
+{
+    kDebug(5001) << "MultiSegmentCopyJob::destructor()" << endl;
+    delete SegFactory;
 }
 
 QList<SegData> MultiSegmentCopyJob::SegmentsData()
@@ -82,9 +88,7 @@ void MultiSegmentCopyJob::stop()
     kDebug(5001) << "MultiSegmentCopyJob::stop()" << endl;
     if (SegFactory)
         SegFactory->stopTransfer();
-/*   if (m_putJob)
-      m_putJob->close();*/
-    doKill();
+    kill( KJob::EmitResult );
 }
 
 void MultiSegmentCopyJob::slotStart()
@@ -116,10 +120,12 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
     connect( seg, SIGNAL(updateSegmentData()),
                  SIGNAL(updateSegmentsData()));
+    connect( seg, SIGNAL(statusChanged( Segment *)),
+                 SLOT(slotStatusChanged( Segment *)));
     connect( seg->job(), SIGNAL(speed( KIO::Job*, unsigned long )),
                  SLOT(slotSpeed( KIO::Job*, unsigned long )));
-    connect( seg->job(), SIGNAL(totalSize( KJob *, qulonglong )), 
-                           SLOT(slotTotalSize( KJob *, qulonglong )));
+    connect( seg->job(), SIGNAL(totalSize( KJob *, qulonglong )),
+                      SLOT(slotTotalSize( KJob *, qulonglong )));
     seg->startTransfer();
 }
 
@@ -156,6 +162,21 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
     m_putJob->seek(seg->offset());
     m_putJob->write(data);
     result = true;
+}
+
+void MultiSegmentCopyJob::slotStatusChanged( Segment *seg)
+{
+    kDebug(5001) << "MultiSegmentCopyJob::slotStatusChanged() " << seg->status() << endl;
+    switch (seg->status())
+    {
+    case Segment::Timeout :
+        seg->createTransfer(SegFactory->nextUrl());
+        seg->startTransfer();
+    break;
+    case Segment::Finished :
+        SegFactory->deleteSegment(seg);
+    break;
+    }
 }
 
 void MultiSegmentCopyJob::slotResult( KJob *job )
@@ -198,6 +219,8 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
         connect( (*it)->job(), SIGNAL(speed( KIO::Job*, unsigned long )),
                  SLOT(slotSpeed( KIO::Job*, unsigned long )));
+        connect( (*it), SIGNAL(statusChanged( Segment *)),
+                 SLOT(slotStatusChanged( Segment *)));
         connect( (*it), SIGNAL(updateSegmentData()),
                  SIGNAL(updateSegmentsData()));
         (*it)->startTransfer();
@@ -226,7 +249,7 @@ void MultiSegmentCopyJob::slotSpeed( KIO::Job* job, unsigned long bytes_per_seco
             _speed += i.value();
         ++i;
     }
-    m_speed = _speed;
+    emitSpeed(_speed);
 }
 
 bool MultiSegmentCopyJob::checkLocalFile()

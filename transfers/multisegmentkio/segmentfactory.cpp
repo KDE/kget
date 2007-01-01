@@ -20,7 +20,7 @@ SegData::SegData ()
 
 Segment::Segment ()
 {
-    m_stoped = true;
+    m_status = Stopped;
     m_bytesWritten = 0;
     m_chunkSize =0;
     m_getJob = 0;
@@ -47,9 +47,9 @@ bool Segment::createTransfer ( KUrl src )
 bool Segment::startTransfer ()
 {
     kDebug(5001) << "Segment::startTransfer()"<< endl;
-    if( m_getJob && m_stoped )
+    if( m_getJob && m_status == Stopped )
     {
-        m_stoped = false;
+        setStatus( Running, false );
         m_getJob->internalResume();
         return true;
     }
@@ -59,9 +59,9 @@ bool Segment::startTransfer ()
 bool Segment::stopTransfer ()
 {
     kDebug(5001) << "Segment::stopTransfer()"<< endl;
-    if( m_getJob && !m_stoped )
+    if( m_getJob && m_status == Running )
     {
-        m_stoped = true;
+        setStatus( Stopped, false );
         m_getJob->internalSuspend();
         if ( !m_buffer.isEmpty() )
         {
@@ -77,20 +77,21 @@ bool Segment::stopTransfer ()
 void Segment::slotResult( KJob *job )
 {
     kDebug(5001) << "Segment::slotResult() job: " << job << endl;
+    m_getJob = 0;
     if ( !m_buffer.isEmpty() )
     {
         kDebug(5001) << "Looping until write the buffer ..." << endl;
         while(writeBuffer());
     }
-    m_getJob = 0;
-    if( m_stoped || !m_segData.bytes )
+    if( m_status == Stopped || !m_segData.bytes )
     {
         deleteLater();
+        setStatus(Finished);
     }
     else
     {
-//       restart tranfer
-        kDebug(5001) << "Segment::slotResult() job: Conection broken " << job << " -- " << endl;
+        kDebug(5001) << "Segment::slotResult() Conection broken " << job << " -- restarting..." << endl;
+        setStatus(Timeout);
     }
 }
 
@@ -136,6 +137,13 @@ bool Segment::writeBuffer()
         emit updateSegmentData();
     }
     return rest;
+}
+
+void Segment::setStatus(Status stat, bool doEmit)
+{
+    m_status = stat;
+    if (doEmit)
+        emit statusChanged(this);
 }
 
 SegmentFactory::SegmentFactory(uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData)
@@ -240,6 +248,12 @@ Segment *SegmentFactory::createSegment( SegData data, KUrl src )
     seg->createTransfer( src );
     m_Segments.append(seg);
     return seg;
+}
+
+void SegmentFactory::deleteSegment(Segment *seg)
+{
+    kDebug(5001) << "SegmentFactory::deleteSegment()" << endl;
+    m_Segments.removeAll(seg);
 }
 
 const KUrl SegmentFactory::nextUrl()

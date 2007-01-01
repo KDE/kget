@@ -50,12 +50,12 @@ class transferMultiSegKio : public QObject, public Transfer
         MultiSegmentCopyJob *m_copyjob;
         QList<SegData> SegmentsData;
         QList<KUrl> m_Urls;
+        bool m_isDownloading;
 
     private slots:
         void slotUpdateSegmentsData();
         void slotResult( KJob *kioJob );
         void slotInfoMessage( KJob * kioJob, const QString & msg );
-        void slotConnected( KIO::Job * kioJob );
         void slotPercent( KJob *kioJob, unsigned long percent );
         void slotTotalSize( KJob *kioJob, qulonglong size );
         void slotProcessedSize( KJob *kioJob, qulonglong size );
