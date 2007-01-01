@@ -54,6 +54,13 @@ class TransferGroup : public JobQueue
         virtual ~TransferGroup();
 
         /**
+         * This function is reimplemented by JobQueue::setStatus
+         *
+         * @param queueStatus the new JobQueue status
+         */
+        void setStatus(Status queueStatus);
+
+        /**
          * Appends a new transfer to the list of the transfers
          *
          * @param transfer the transfer to append

@@ -25,6 +25,7 @@ class TransfersView : public QTreeView
 
     private:
         void dropEvent(QDropEvent * event);
+        void rowsInserted(const QModelIndex &, int, int);
 };
 
 #endif

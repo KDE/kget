@@ -32,6 +32,13 @@ TransferGroup::~TransferGroup()
     handler()->postDeleteEvent();
 }
 
+void TransferGroup::setStatus(Status queueStatus)
+{
+    JobQueue::setStatus(queueStatus);
+
+    handler()->postGroupChangedEvent();
+}
+
 void TransferGroup::append(Transfer * transfer)
 {
     kDebug(5001) << "TransferGroup::append" << endl;

@@ -42,7 +42,7 @@ class JobQueue
          *
          * @param queueStatus the new JobQueue status
          */
-        void setStatus(Status queueStatus);
+        virtual void setStatus(Status queueStatus);
 
         /**
          * @return the jobQueue status

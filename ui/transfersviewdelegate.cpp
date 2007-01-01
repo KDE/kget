@@ -11,14 +11,76 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QModelIndex>
+#include <QToolButton>
+#include <QButtonGroup>
+#include <QHBoxLayout>
 
 #include <kdebug.h>
+#include <klocale.h>
 #include <kmenu.h>
+#include <kicon.h>
 
 #include "core/kget.h"
 #include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "ui/transfersviewdelegate.h"
+
+GroupStatusEditor::GroupStatusEditor(const TransfersViewDelegate * delegate, QWidget * parent)
+    : QWidget(parent),
+      m_delegate(delegate)
+{
+    m_layout = new QHBoxLayout();
+    m_layout->addStretch();
+    setLayout(m_layout);
+
+    m_btGroup = new QButtonGroup(this);
+    m_btGroup->setExclusive(true);
+
+    m_startBt = new QToolButton(this);
+    m_startBt->setCheckable(true);
+    m_startBt->setAutoRaise(true);
+    m_startBt->setIcon(KIcon("dock_overlay_run"));
+    m_startBt->setFixedSize(20, 20);
+    m_startBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
+    m_layout->addWidget(m_startBt);
+    m_btGroup->addButton(m_startBt);
+
+    m_stopBt = new QToolButton(this);
+    m_stopBt->setCheckable(true);
+    m_stopBt->setAutoRaise(true);
+    m_stopBt->setIcon(KIcon("dock_overlay_stop"));
+    m_stopBt->setFixedSize(20, 20);
+    m_stopBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
+    m_layout->addWidget(m_stopBt);
+    m_btGroup->addButton(m_stopBt);
+
+    m_stopBt->setChecked(true);
+
+    m_layout->addStretch();
+    m_layout->setMargin(1);
+
+    connect(m_startBt, SIGNAL(toggled(bool)),
+            this,      SLOT(slotStatusChanged(bool)));
+}
+
+void GroupStatusEditor::setRunning(bool running)
+{
+    if(running)
+        m_startBt->setChecked(true);
+    else
+        m_stopBt->setChecked(true);
+}
+
+bool GroupStatusEditor::isRunning()
+{
+    return m_startBt->isChecked();
+}
+
+void GroupStatusEditor::slotStatusChanged(bool running)
+{
+    emit const_cast<TransfersViewDelegate *>(m_delegate)->commitData(this);
+}
 
 TransfersViewDelegate::TransfersViewDelegate()
     : QItemDelegate(), m_popup(0)
@@ -75,6 +137,13 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
     return QSize(0, 24);
 }
 
+QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem & option , const QModelIndex & index) const
+{
+    GroupStatusEditor * groupsStatusEditor = new GroupStatusEditor(this, parent);
+
+    return groupsStatusEditor;
+}
+
 bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
     QMouseEvent * mouseEvent = dynamic_cast<QMouseEvent *>(event);
@@ -113,5 +182,25 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
     return false;
 }
+
+void TransfersViewDelegate::setEditorData(QWidget * editor, const QModelIndex & index) const
+{
+    GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
+
+    groupEditor->setRunning((static_cast<TransferGroupHandler *>(index.internalPointer())->status()) == JobQueue::Running);
+}
+
+void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const
+{
+    GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
+
+    TransferGroupHandler * groupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());
+
+    if(groupEditor->isRunning())
+        groupHandler->start();
+    else
+        groupHandler->stop();
+}
+
 
 #include "transfersviewdelegate.moc"

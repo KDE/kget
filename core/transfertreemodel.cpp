@@ -372,7 +372,6 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
         //Look for the specific group
         if(row < m_transferGroups.size() && row >= 0)
         {
-//             return m_transferGroups[row]->handler()->index(column);
             return createIndex(row, column, m_transferGroups[row]->handler());
 
         }
