@@ -98,10 +98,14 @@ QVariant TransferGroupHandler::data(int column)
         case 0:
             return name();
         case 2:
-            if (totalSize() != 0)
+            if(m_group->size())
+                return i18np("1 item", "%n items", m_group->size());
+            else
+                return QString();
+/*            if (totalSize() != 0)
                 return KIO::convertSize(totalSize());
             else
-                return i18nc("not available", "n/a");
+                return i18nc("not available", "n/a");*/
         case 3:
             return QString::number(percent())+"%";
         case 4:
