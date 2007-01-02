@@ -22,6 +22,7 @@
 #include <kstandarddirs.h>
 #include <kactioncollection.h>
 #include <kiconloader.h>
+#include <KGlobalSettings>
 
 #include <math.h>
 

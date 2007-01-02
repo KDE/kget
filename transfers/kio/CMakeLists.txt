@@ -1,6 +1,6 @@
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/
-   ${KDE4_INCLUDE_DIR}
+   ${KDE4_INCLUDES}
    ${QT_INCLUDES}
 )
 
@@ -19,30 +19,6 @@ target_link_libraries(kget_kiofactory ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${KD
 
 install(TARGETS kget_kiofactory DESTINATION ${LIB_INSTALL_DIR}/kde4)
 
-
 ########### install files ###############
 
 install(FILES kget_kiofactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-
-#original Makefile.am contents follow:
-
-#noinst_LTLIBRARIES = libtkio.la
-#libtkio_la_SOURCES = transferKio.cpp
-#libtkio_la_LIBADD = ../../core/libcore.la
-#
-### ---- KIO PLUGIN ----
-### Create plugin library
-#kde_module_LTLIBRARIES = libkget_kiofactory.la
-#
-#libkget_kiofactory_la_SOURCES = transferKioFactory.cpp
-#libkget_kiofactory_la_LIBADD = $(LIB_QTCORE) $(LIB_QTGUI) $(LIB_QT3SUPPORT) $(LIB_KIO) $(LIB_KDEUI) $(LIB_KDECORE) libtkio.la ../../conf/libconf.la
-#libkget_kiofactory_la_LDFLAGS = -module -no-undefined $(KDE_PLUGIN) $(all_libraries)
-#
-### Install plugin definition
-#kde_services_DATA = kget_kiofactory.desktop
-### --------------------
-#
-#
-#INCLUDES = $(all_includes) -I$(srcdir)/../..
-#
-#METASOURCES = AUTO

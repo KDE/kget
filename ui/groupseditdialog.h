@@ -13,20 +13,19 @@
 
 #include "ui_groupseditdialog.h"
 
-class GroupsEditDialog : public QDialog
+class GroupsEditDialog : public KDialog
 {
     Q_OBJECT
 
     public:
         GroupsEditDialog(QWidget *parent = 0);
-        ~GroupsEditDialog();
 
     private slots:
         void slotAddGroup();
         void slotDeleteGroup();
 
     private:
-        Ui::GroupsEditDialog ui;
+        QListView *groupList;
 };
 
 #endif

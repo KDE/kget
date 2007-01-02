@@ -15,14 +15,8 @@
 #include <klocale.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
-#include <kurl.h>
 #include <kuniqueapplication.h>
 #include <kstandarddirs.h>
-
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "core/kget.h"
 #include "kgetadaptor.h"
@@ -30,49 +24,11 @@
 #include "ui/splash.h"
 #include "mainwindow.h"
 
-static const char description[] = I18N_NOOP("An advanced download manager for KDE");
-
-static const char version[] = KGETVERSION;
-
 static KCmdLineOptions option[] = {
     { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
     { "+[URL(s)]", I18N_NOOP("URL(s) to download"), 0},
     KCmdLineLastOption
 };
-
-// Crash recovery signal handling routines
-static void setSignalHandler(void (*handler) (int))
-{
-    signal(SIGSEGV, handler);
-    signal(SIGKILL, handler);
-    signal(SIGTERM, handler);
-    signal(SIGHUP, handler);
-    signal(SIGFPE, handler);
-    signal(SIGABRT, handler);
-    // catch also the keyboard interrupt
-    signal(SIGINT, handler);
-}
-
-static void cleanup(void)
-{
-    qInstallMsgHandler(0L /*oldMsgHandler*/);
-}
-
-static void signalHandler(int sigId)
-{
-    fprintf(stderr, "*** KGet got signal %d\n", sigId);
-
-    if (sigId != SIGSEGV) {
-        fprintf(stderr, "*** KGet saving data\n");
-        //FIXME delete kmain;
-    }
-    // If Kget crashes again below this line we consider the data lost :-|
-    // Otherwise Kget will end in an infinite loop.
-    setSignalHandler(SIG_DFL);
-    cleanup();
-    exit(1);
-}
-
 
 class KGetApp : public KUniqueApplication
 {
@@ -155,13 +111,14 @@ private:
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("KGet"), version, description,
+    KAboutData aboutData("kget", I18N_NOOP("KGet"), KGETVERSION,
+                         I18N_NOOP("An advanced download manager for KDE"),
                          KAboutData::License_GPL,
-                         "(C) 2005 - 2006, The KGet developers\n"
+                         "(C) 2005 - 2007, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
                          "(C) 1998 - 2000, Matej Koss\n",
-                         "kget@kde.org", 0);
+                         "kget@kde.org");
 
     aboutData.addAuthor("Dario Massarin", I18N_NOOP("Maintainer, Core Developer"), "nekkar@libero.it");
     aboutData.addAuthor("Urs Wolfer", I18N_NOOP("Core Developer"), "uwolfer@kde.org");
@@ -175,16 +132,13 @@ int main(int argc, char *argv[])
 
     KGetApp::addCmdLineOptions();
 
-    if (!KGetApp::start()) {
+    if (!KGetApp::start())
+    {
         fprintf(stderr, "kget is already running!\n");
         exit(0);
     }
 
     KGetApp kApp;
 
-    //setSignalHandler(signalHandler);
-
-    kApp.exec();
-
-    cleanup();
+    return kApp.exec();
 }

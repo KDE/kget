@@ -1,7 +1,7 @@
 add_definitions(-DQT3_SUPPORT)
 
 include_directories(
-   ${KDE4_INCLUDE_DIR}
+   ${KDE4_INCLUDES}
    ${QT_INCLUDES}
 )
 
@@ -20,7 +20,6 @@ kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})
 target_link_libraries(khtml_kget ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KHTML_LIBS})
 
 install(TARGETS khtml_kget DESTINATION ${LIB_INSTALL_DIR}/kde4)
-
 
 ########### install files ###############
 

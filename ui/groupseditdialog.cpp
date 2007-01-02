@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -8,42 +9,53 @@
    of the License.
 */
 
-#include <kinputdialog.h>
-#include <kmessagebox.h>
+#include <QListView>
+
+#include <KInputDialog>
+#include <KMessageBox>
+#include <KPushButton>
 
 #include "core/kget.h"
 #include "groupseditdialog.h"
 
 GroupsEditDialog::GroupsEditDialog(QWidget *parent)
+    : KDialog(parent)
 {
-    ui.setupUi(this);
+    setCaption(i18n("Edit groups"));
 
-    setParent(parent);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    QVBoxLayout *buttonLayout = new QVBoxLayout;
 
-    setModal(true);
+    KPushButton *addGroupBt = new KPushButton(i18n("Add Group"));
+    connect(addGroupBt, SIGNAL(clicked()), SLOT(slotAddGroup()));
+    buttonLayout->addWidget(addGroupBt);
 
-    setWindowTitle(i18n("Edit your groups"));
+    KPushButton *deleteGroupBt = new KPushButton(i18n("Delete Group"));
+    connect(deleteGroupBt, SIGNAL(clicked()), SLOT(slotDeleteGroup()));
+    buttonLayout->addWidget(deleteGroupBt);
 
-    connect(ui.addGroupBt, SIGNAL(clicked()), SLOT(slotAddGroup()));
-    connect(ui.deleteGroupBt, SIGNAL(clicked()), SLOT(slotDeleteGroup()));
+    buttonLayout->addStretch();
 
-    KGet::addTransferView(ui.groupList);
+    groupList = new QListView();
+    mainLayout->addWidget(groupList);
+    mainLayout->addLayout(buttonLayout);
 
-    ui.groupList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    QWidget *mainWidget = new QWidget(this);
+    mainWidget->setLayout(mainLayout);
+    setMainWidget(mainWidget);
+
+    KGet::addTransferView(groupList);
+
+    groupList->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // Mmmm.. Is sharing the selection model cool? If yes enable this
-//     ui.groupList->setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
-}
-
-GroupsEditDialog::~GroupsEditDialog()
-{
-
+//     groupList->setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
 }
 
 void GroupsEditDialog::slotAddGroup()
 {
     bool ok = true;
-    QString groupName(" ");
+    QString groupName;
 
     while (ok)
     {
@@ -64,8 +76,8 @@ void GroupsEditDialog::slotAddGroup()
 
 void GroupsEditDialog::slotDeleteGroup()
 {
-    QItemSelectionModel * selModel = ui.groupList->selectionModel();
-    QAbstractItemModel * dataModel = ui.groupList->model();
+    QItemSelectionModel * selModel = groupList->selectionModel();
+    QAbstractItemModel * dataModel = groupList->model();
 
     QModelIndexList indexList = selModel->selectedRows();
 

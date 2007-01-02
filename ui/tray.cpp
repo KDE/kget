@@ -39,8 +39,8 @@ Tray::Tray(MainWindow * parent)
       overlayVisible( false )
 {
     baseIcon = new QPixmap( KSystemTrayIcon::loadIcon("kget").pixmap(22) );
-    playOverlay = new QPixmap( SmallIcon( "dock_overlay_run" ) );
-    stopOverlay = new QPixmap( SmallIcon( "dock_overlay_stop" ) );
+    playOverlay = new QPixmap( SmallIcon( "player_play" ) );
+    stopOverlay = new QPixmap( SmallIcon( "player_pause" ) );
 
     paintIcon();
 

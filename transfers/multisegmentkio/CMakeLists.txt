@@ -1,7 +1,7 @@
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/
-   ${KDE4_INCLUDE_DIR}
+   ${KDE4_INCLUDES}
    ${QT_INCLUDES}
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_BINARY_DIR}
@@ -32,6 +32,5 @@ install(TARGETS kget_MultiSegKiofactory DESTINATION  ${LIB_INSTALL_DIR}/kde4)
 
 ########### install files ###############
 
-install(FILES  kget_MultiSegKiofactory.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
+install(FILES kget_MultiSegKiofactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 install(FILES kget_MultiSegKiofactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-

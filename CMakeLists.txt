@@ -12,7 +12,7 @@ add_subdirectory(desktop)
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
-   ${KDE4_INCLUDE_DIR}
+   ${KDE4_INCLUDES}
    ${QT_INCLUDES}
 )
 
@@ -78,7 +78,6 @@ qt4_add_dbus_adaptor(kget_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
 kde4_add_ui_files(kget_SRCS
    ${CMAKE_SOURCE_DIR}/kget/ui/transferdetailsfrm.ui
-   ${CMAKE_SOURCE_DIR}/kget/ui/groupseditdialog.ui
 )
 
 kde4_automoc(${kget_SRCS})
