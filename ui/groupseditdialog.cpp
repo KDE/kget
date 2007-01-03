@@ -10,10 +10,12 @@
 */
 
 #include <QListView>
+#include <QHBoxLayout>
 
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KPushButton>
+#include <KLocale>
 
 #include "core/kget.h"
 #include "groupseditdialog.h"

@@ -11,7 +11,7 @@
 #ifndef _GROUPSEDITDIALOG_H
 #define _GROUPSEDITDIALOG_H
 
-#include "ui_groupseditdialog.h"
+class QListView;
 
 class GroupsEditDialog : public KDialog
 {
