@@ -14,6 +14,7 @@
         <Action name="start_selected_download"/>
         <Action name="stop_all_download"/>
         <Action name="stop_selected_download"/>
+        <Action name="delete_selected_download"/>
         <Separator/>
         <Action name="edit_groups"/>
     </Menu>

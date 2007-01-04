@@ -3,7 +3,7 @@
    Copyright (C) 2002 by Patrick Charbonnier <pch@freeshell.org>
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
-   Copyright (C) 2006 Urs Wolfer <uwolfer @ fwo.ch>
+   Copyright (C) 2006, 2007 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
@@ -111,6 +111,11 @@ void MainWindow::setupActions()
                           ac, "export_transfers" );
     action->setShortcut(KShortcut("Ctrl+E"));
     connect(action, SIGNAL(triggered(bool)), SLOT(slotExportTransfers()));
+
+    KAction * deleteSelectedAction = new KAction(KIcon("editdelete"), i18n("Delete Selected"),
+                                                 ac, "delete_selected_download" );
+    deleteSelectedAction->setShortcut(KShortcut("Del"));
+    connect(deleteSelectedAction, SIGNAL(triggered(bool)), SLOT(slotTransfersDelete()));
 
     KAction * startAllAction = new KAction(KIcon("player_fwd"), i18n("Start All"),
                                            ac, "start_all_download");
@@ -223,9 +228,6 @@ void MainWindow::slotDelayedInit()
         m_drop->show();
 
     m_showDropTarget->setChecked( m_drop->isVisible() );
-
-    kDebug(5001) << "***" << endl;
-
 
     // DockWidget
     m_dock = new Tray(this);
