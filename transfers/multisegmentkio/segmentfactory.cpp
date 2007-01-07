@@ -32,6 +32,8 @@ bool Segment::createTransfer ( KUrl src )
     if ( m_getJob )
         return false;
     m_getJob = KIO::get(src, false, false);
+    m_getJob->addMetaData( "errorPage", "false" );
+    m_getJob->addMetaData( "AllowCompressedPage", "false" );
     m_getJob->internalSuspend();
     if ( m_segData.offset )
     {
@@ -252,8 +254,8 @@ Segment *SegmentFactory::createSegment( SegData data, KUrl src )
 
 void SegmentFactory::deleteSegment(Segment *seg)
 {
-    kDebug(5001) << "SegmentFactory::deleteSegment()" << endl;
     m_Segments.removeAll(seg);
+    kDebug(5001) << "SegmentFactory::deleteSegment() " << m_Segments.size() << " segments left." << endl;
 }
 
 const KUrl SegmentFactory::nextUrl()

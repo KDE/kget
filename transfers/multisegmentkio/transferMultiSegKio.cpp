@@ -43,7 +43,7 @@ void transferMultiSegKio::start()
 
 void transferMultiSegKio::stop()
 {
-    kDebug(5001) << "transferMultiSegKio::Stop" << endl;
+    kDebug(5001) << "transferMultiSegKio::Stop()" << endl;
 
     if(status() == Stopped)
         return;

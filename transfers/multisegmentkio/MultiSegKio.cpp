@@ -86,9 +86,10 @@ QList<SegData> MultiSegmentCopyJob::SegmentsData()
 void MultiSegmentCopyJob::stop()
 {
     kDebug(5001) << "MultiSegmentCopyJob::stop()" << endl;
+    setError(KIO::ERR_USER_CANCELED);
     if (SegFactory)
         SegFactory->stopTransfer();
-    kill( KJob::EmitResult );
+    m_putJob->close();
 }
 
 void MultiSegmentCopyJob::slotStart()
@@ -143,6 +144,7 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
     kDebug(5001) << "MultiSegmentCopyJob::slotClose() putjob" << endl;
     if( processedSize() == totalSize() )
     {
+        kDebug(5001) << "Renaming local file." << endl;
        QString dest_orig = m_dest.path();
        QString dest_part = m_dest_part.path();
        QFile::rename ( dest_part, dest_orig );
