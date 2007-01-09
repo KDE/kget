@@ -71,6 +71,8 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
     }
 
     QTreeView::rowsInserted(parent, start, end);
+
+    setExpanded(parent, true);
 }
 
 #include "transfersview.moc"

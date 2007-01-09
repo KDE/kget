@@ -16,7 +16,7 @@
 #include "transfergroup.h"
 #include "kget_export.h"
 
-class KAction;
+class QAction;
 class KMenu;
 
 class QObjectInterface;
@@ -155,7 +155,7 @@ class KGET_EXPORT TransferGroupHandler
          * by means of which you can connect signals and slots for this 
          * transfer group.
          */
-        const QList<KAction *> & actions();
+        const QList<QAction *> & actions();
 
         /**
          * @returns a KMenu for this transfer group.
@@ -213,7 +213,7 @@ class KGET_EXPORT TransferGroupHandler
         void postDeleteEvent();
 
         /**
-         * Creates all the KActions
+         * Creates all the QActions
          */
         void createActions();
 
@@ -221,7 +221,7 @@ class KGET_EXPORT TransferGroupHandler
         Scheduler * m_scheduler;
 
         QObjectInterface * m_qobject;
-        QList<KAction *> m_actions;
+        QList<QAction *> m_actions;
 
         QList<TransferGroupObserver *> m_observers;
         QMap<TransferGroupObserver *, ChangesFlags> m_changesFlags;

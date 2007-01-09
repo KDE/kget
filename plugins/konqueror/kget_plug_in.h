@@ -13,14 +13,15 @@
 
 #include <kparts/plugin.h>
 #include <klibloader.h>
-#include <ktoggleaction.h>
+
+class KToggleAction;
 
 class KGet_plug_in : public KParts::Plugin
 {
     Q_OBJECT
 public:
     KGet_plug_in( QObject* parent = 0 );
-    KToggleAction *m_paToggleDropTarget ;
+    KToggleAction *m_dropTargetAction;
 //     DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();
 

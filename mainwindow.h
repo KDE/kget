@@ -19,9 +19,6 @@
 
 #include "core/globals.h"
 
-class QSplitter;
-
-class Sidebar;
 class ViewsContainer;
 class DropTarget;
 class Tray;
@@ -68,7 +65,6 @@ private slots:
     void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotToggleAutoPaste();
-    void slotShowDropTarget();
     void slotTrayKonquerorIntegration();
     void slotKonquerorIntegration( bool );
     void slotShowMenubar();
@@ -78,7 +74,7 @@ private slots:
     void slotStopSelectedDownload();
     void slotStartAllDownload();
     void slotStartSelectedDownload();
-    void slotTransfersDelete();
+    void slotDeleteSelected();
     void slotTransfersOpenDest();
     void slotTransfersShowDetails();
     void slotTransfersCopySourceUrl();
@@ -90,18 +86,11 @@ private slots:
     void slotNewConfig();
     void slotCheckClipboard();
 
-signals:
-    void viewModeChanged( int );
-
 private:
-    // some functions
-    void log( const QString & );
     // one-time functions
     void setupActions();
 
     // internal widgets
-    QSplitter      * m_splitter;
-    Sidebar        * m_sidebar;
     ViewsContainer * m_viewsContainer;
 
     // separated widgets
@@ -109,9 +98,7 @@ private:
     Tray          * m_dock;
 
     // actions
-    KToggleAction * m_showDropTarget;
-    KToggleAction * m_AutoPaste;
-    KAction       * m_KonquerorIntegration;
+    KToggleAction * m_autoPasteAction;
     KToggleAction * m_menubarAction;
 
     // for autopaste function

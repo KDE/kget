@@ -162,7 +162,7 @@ const QList<TransferHandler *> TransferGroupHandler::transfers()
     return transfers;
 }
 
-const QList<KAction *> & TransferGroupHandler::actions()
+const QList<QAction *> & TransferGroupHandler::actions()
 {
     createActions();
 
@@ -302,15 +302,17 @@ void TransferGroupHandler::createActions()
     //has been created (if not it will create it)
     qObject();
 
-    KAction * a = new KAction( KIcon("player_play"), i18n("Start"),
-                               KGet::actionCollection(), "transfer_group_start" );
-    QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStart() ) );
-    m_actions.append( a );
+    QAction *startAction = KGet::actionCollection()->addAction("transfer_group_start");
+    startAction->setText(i18n("Start"));
+    startAction->setIcon(KIcon("player_play"));
+    QObject::connect(startAction, SIGNAL(triggered()), qObject(), SLOT(slotStart()));
+    m_actions.append(startAction);
 
-    a = new KAction( KIcon("player_pause"), i18n("Stop"),
-                     KGet::actionCollection(), "transfer_group_stop" );
-    QObject::connect( a, SIGNAL( triggered() ), qObject(), SLOT( slotStop() ) );
-    m_actions.append( a );
+    QAction *stopAction = KGet::actionCollection()->addAction("transfer_group_stop");
+    stopAction->setText(i18n("Stop"));
+    stopAction->setIcon(KIcon("player_pause"));
+    QObject::connect(stopAction, SIGNAL(triggered()), qObject(), SLOT(slotStop()));
+    m_actions.append(stopAction);
 }
 
 

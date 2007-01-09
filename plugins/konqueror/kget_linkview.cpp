@@ -10,7 +10,8 @@
 
 #include "kget_linkview.h"
 
-#include <kaction.h>
+#include <KActionCollection>
+#include <KShortcut>
 #include <kstandardaction.h>
 #include <kiconloader.h>
 #include <kicon.h>
@@ -19,6 +20,7 @@
 #include <kprocess.h>
 #include <ktoolbar.h>
 
+#include <QAction>
 #include <QPixmap>
 
 #define COL_NAME 0
@@ -47,18 +49,18 @@ KGetLinkView::KGetLinkView( QWidget *parent )
 {
     setPlainCaption( i18n( "KGet" ) );
 
-    KAction* actionDownload = new KAction( KIcon("kget"),
-                                           i18n("Download Selected Files"),
-                                           actionCollection(), "startDownload" );
-    actionDownload->setShortcut( KShortcut( Qt::CTRL + Qt::Key_D ) );
-    connect( actionDownload, SIGNAL( triggered() ), this, SLOT( slotStartLeech() ) );
+    QAction *downloadAction = actionCollection()->addAction("startDownload");
+    downloadAction->setText(i18n("Download Selected Files"));
+    downloadAction->setIcon(KIcon("kget"));
+    downloadAction->setShortcuts(KShortcut(Qt::CTRL + Qt::Key_D));
+    connect(downloadAction, SIGNAL(triggered()), this, SLOT(slotStartLeech()));
 
-    KAction* actionSelectAll = KStandardAction::selectAll( this, SLOT( slotSelectAll() ),
-                                                      actionCollection() );
+    QAction *selectAllAction = (QAction*)KStandardAction::selectAll(this, SLOT(slotSelectAll()),
+                                                                    actionCollection());
 
-    toolBar()->addAction( actionDownload );
-    toolBar()->insertSeparator(actionSelectAll);
-    toolBar()->addAction( actionSelectAll );
+    toolBar()->addAction(downloadAction);
+    toolBar()->insertSeparator(selectAllAction);
+    toolBar()->addAction(selectAllAction);
 
     m_view = new K3ListView( this );
     m_view->setSelectionMode( Q3ListView::Extended );
@@ -73,7 +75,7 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     // setting a fixed (not floating) toolbar
     toolBar()->setMovable(false);
     // setting Text next to Icons
-     toolBar()->setToolButtonStyle( Qt::ToolButtonTextBesideIcon );
+    toolBar()->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 }
 
 KGetLinkView::~KGetLinkView()

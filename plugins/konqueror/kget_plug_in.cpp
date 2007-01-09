@@ -11,6 +11,8 @@
 
 #include "kget_plug_in.h"
 
+#include <KActionCollection>
+#include <KToggleAction>
 #include <kactionmenu.h>
 #include <khtml_part.h>
 #include <kiconloader.h>
@@ -33,21 +35,23 @@
 KGet_plug_in::KGet_plug_in( QObject* parent )
     : Plugin( parent )
 {
-    KActionMenu *menu = new KActionMenu( KIcon("kget"), i18n("Download Manager"),
-                                         actionCollection(), "kget_menu" );
+    KActionMenu *menu = new KActionMenu(KIcon("kget"), i18n("Download Manager"),
+                                        actionCollection());
+    actionCollection()->addAction("kget_menu", menu);
+
     menu->setDelayed( false );
     connect( menu->menu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));
 
-    m_paToggleDropTarget=new KToggleAction(i18n("Show Drop Target"),
-                                           actionCollection(), "show_drop" );
-    connect( m_paToggleDropTarget, SIGNAL( triggered() ), this, SLOT( slotShowDrop() ) );
+    m_dropTargetAction = new KToggleAction(i18n("Show Drop Target"), actionCollection());
 
-    menu->addAction( m_paToggleDropTarget );
+    connect(m_dropTargetAction, SIGNAL(triggered()), this, SLOT(slotShowDrop()));
+    actionCollection()->addAction("show_drop", m_dropTargetAction);
+    menu->addAction(m_dropTargetAction);
 
-    KAction *action = new KAction(i18n("List All Links"),
-                                  actionCollection(), "show_links");
-    connect( action, SIGNAL( triggered() ), this, SLOT( slotShowLinks() ) );
-    menu->addAction( action );
+    QAction *showLinksAction = actionCollection()->addAction("show_links");
+    showLinksAction->setText(i18n("List All Links"));
+    connect(showLinksAction, SIGNAL(triggered()), SLOT(slotShowLinks()));
+    menu->addAction(showLinksAction);
 
 //     p_dcopServer= new DCOPClient();
 //     p_dcopServer->attach ();
@@ -71,7 +75,7 @@ void KGet_plug_in::showPopup()
 //         hasDropTarget = kget.call( "isDropTargetVisible" );
 //     }
 
-    m_paToggleDropTarget->setChecked( hasDropTarget );
+    m_dropTargetAction->setChecked(hasDropTarget);
 }
 
 void KGet_plug_in::slotShowDrop()
