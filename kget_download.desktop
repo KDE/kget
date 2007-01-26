@@ -9,6 +9,7 @@ ExcludeServiceTypes=kdedevice/*
 Exec=kget %U
 Icon=kget
 Name=Download with KGet
+Name[be]=Сцягнуць праз KGet
 Name[bg]=Изтегляне с KGet
 Name[bn]=কে-গেট দিয়ে ডাউনলোড
 Name[br]=Enkargañ gant KGet
