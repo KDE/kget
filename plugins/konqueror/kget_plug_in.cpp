@@ -16,7 +16,7 @@
 #include <kactionmenu.h>
 #include <khtml_part.h>
 #include <kiconloader.h>
-#include <kinstance.h>
+#include <KComponentData>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmenu.h>
@@ -147,7 +147,7 @@ void KGet_plug_in::slotShowLinks()
 KPluginFactory::KPluginFactory( QObject* parent )
         : KLibFactory( parent )
 {
-    s_instance = new KInstance("KPluginFactory");
+    s_instance = new KComponentData("KPluginFactory");
 }
 
 QObject* KPluginFactory::createObject( QObject* parent, const char*, const QStringList & )
@@ -171,6 +171,6 @@ extern "C"
 
 }
 
-KInstance* KPluginFactory::s_instance = 0L;
+KComponentData* KPluginFactory::s_instance = 0L;
 
 #include "kget_plug_in.moc"

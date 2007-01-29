@@ -43,7 +43,7 @@ public:
                                    const QStringList &args = QStringList() );
 
 private:
-    static KInstance* s_instance;
+    static KComponentData* s_instance;
 };
 
 #endif

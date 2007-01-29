@@ -51,7 +51,7 @@ Tray::Tray(MainWindow * parent)
     cm->addAction( parent->actionCollection()->action("konqueror_integration") );
 
     // add tooltip telling "I'm kget"
-    setToolTip( kapp->aboutData()->shortDescription() );
+    setToolTip( KGlobal::mainComponent().aboutData()->shortDescription() );
 
     // connecting the "Exit" menu item to the quit() of our app
     connect( this, SIGNAL( quitSelected() ), kapp, SLOT(quit()));
