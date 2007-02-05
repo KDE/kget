@@ -43,7 +43,7 @@ void TransferKio::stop()
 
     if(m_copyjob)
     {
-        m_copyjob->kill(KJob::Quietly);
+        m_copyjob->kill(KJob::EmitResult);
         m_copyjob=0;
     }
 
@@ -87,24 +87,22 @@ void TransferKio::createJob()
     {
         m_copyjob = KIO::file_copy(m_source, m_dest, -1, false, false, false);
 
-        connect(m_copyjob, SIGNAL(result(KIO::Job *)), 
-                this, SLOT(slotResult(KIO::Job *)));
-        connect(m_copyjob, SIGNAL(infoMessage(KIO::Job *, const QString &)), 
-                this, SLOT(slotInfoMessage(KIO::Job *, const QString &)));
-        connect(m_copyjob, SIGNAL(connected(KIO::Job *)), 
-                this, SLOT(slotConnected(KIO::Job *)));
-        connect(m_copyjob, SIGNAL(percent(KIO::Job *, unsigned long)), 
-                this, SLOT(slotPercent(KIO::Job *, unsigned long)));
-        connect(m_copyjob, SIGNAL(totalSize(KIO::Job *, KIO::filesize_t)), 
-                this, SLOT(slotTotalSize(KIO::Job *, KIO::filesize_t)));
-        connect(m_copyjob, SIGNAL(processedSize(KIO::Job *, KIO::filesize_t)), 
-                this, SLOT(slotProcessedSize(KIO::Job *, KIO::filesize_t)));
-        connect(m_copyjob, SIGNAL(speed(KIO::Job *, unsigned long)), 
-                this, SLOT(slotSpeed(KIO::Job *, unsigned long)));
+        connect(m_copyjob, SIGNAL(result(KJob *)), 
+                this, SLOT(slotResult(KJob *)));
+        connect(m_copyjob, SIGNAL(infoMessage(KJob *, const QString &)), 
+                this, SLOT(slotInfoMessage(KJob *, const QString &)));
+        connect(m_copyjob, SIGNAL(percent(KJob *, unsigned long)), 
+                this, SLOT(slotPercent(KJob *, unsigned long)));
+        connect(m_copyjob, SIGNAL(totalSize(KJob *, KIO::filesize_t)), 
+                this, SLOT(slotTotalSize(KJob *, KIO::filesize_t)));
+        connect(m_copyjob, SIGNAL(processedSize(KJob *, KIO::filesize_t)), 
+                this, SLOT(slotProcessedSize(KJob *, KIO::filesize_t)));
+        connect(m_copyjob, SIGNAL(speed(KJob *, unsigned long)), 
+                this, SLOT(slotSpeed(KJob *, unsigned long)));
     }
 }
 
-void TransferKio::slotResult( KIO::Job * kioJob )
+void TransferKio::slotResult( KJob * kioJob )
 {
     kDebug(5001) << "slotResult  (" << kioJob->error() << ")" << endl;
     switch (kioJob->error())
@@ -128,22 +126,13 @@ void TransferKio::slotResult( KIO::Job * kioJob )
     setTransferChange(Tc_Status, true);
 }
 
-void TransferKio::slotInfoMessage( KIO::Job * kioJob, const QString & msg )
+void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 {
   Q_UNUSED(kioJob);
     m_log.append(QString(msg));
 }
 
-void TransferKio::slotConnected( KIO::Job * kioJob )
-{
-//     kDebug(5001) << "CONNECTED" <<endl;
-
-  Q_UNUSED(kioJob);
-    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
-    setTransferChange(Tc_Status, true);
-}
-
-void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
+void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
     kDebug(5001) << "slotPercent" << endl;
     Q_UNUSED(kioJob);
@@ -151,33 +140,40 @@ void TransferKio::slotPercent( KIO::Job * kioJob, unsigned long percent )
     setTransferChange(Tc_Percent, true);
 }
 
-void TransferKio::slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size )
+void TransferKio::slotTotalSize( KJob * kioJob, KIO::filesize_t size )
 {
     kDebug(5001) << "slotTotalSize" << endl;
 
-    slotConnected(kioJob);
+    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
 
     m_totalSize = size;
-    setTransferChange(Tc_TotalSize, true);
+    setTransferChange(Tc_Status | Tc_TotalSize, true);
 }
 
-void TransferKio::slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size )
+void TransferKio::slotProcessedSize( KJob * kioJob, KIO::filesize_t size )
 {
     kDebug(5001) << "slotProcessedSize" << endl; 
 
     if(status() != Job::Running)
-        slotConnected(kioJob);
+    {
+        setStatus(Job::Running, i18n("Downloading.."),  SmallIcon("player_play"));
+        setTransferChange(Tc_Status, true);
 
+    }
     m_processedSize = size;
     setTransferChange(Tc_ProcessedSize, true);
 }
 
-void TransferKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second )
+void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
 //     kDebug(5001) << "slotSpeed" << endl;
 
     if(status() != Job::Running)
-        slotConnected(kioJob);
+    {
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+        setTransferChange(Tc_Status, true);
+
+    }
 
     m_speed = bytes_per_second;
     setTransferChange(Tc_Speed, true);

@@ -59,7 +59,7 @@ class transferMultiSegKio : public QObject, public Transfer
         void slotPercent( KJob *kioJob, unsigned long percent );
         void slotTotalSize( KJob *kioJob, qulonglong size );
         void slotProcessedSize( KJob *kioJob, qulonglong size );
-        void slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second );
+        void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
 };
 
 #endif

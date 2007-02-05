@@ -169,8 +169,8 @@ void transferMultiSegKio::createJob()
            SLOT(slotTotalSize(KJob *, qulonglong)));
         connect(m_copyjob, SIGNAL(processedSize(KJob *, qulonglong)),
            SLOT(slotProcessedSize(KJob *, qulonglong)));
-        connect(m_copyjob, SIGNAL(speed(KIO::Job *, unsigned long)),
-           SLOT(slotSpeed(KIO::Job *, unsigned long)));
+        connect(m_copyjob, SIGNAL(speed(KJob *, unsigned long)),
+           SLOT(slotSpeed(KJob *, unsigned long)));
     }
 }
 
@@ -248,7 +248,7 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
     setTransferChange(Tc_ProcessedSize, true);
 }
 
-void transferMultiSegKio::slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second )
+void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
     kDebug(5001) << "slotSpeed: " << bytes_per_second << endl;
 

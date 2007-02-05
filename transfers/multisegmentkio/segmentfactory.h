@@ -19,155 +19,154 @@
 
 #define	MIN_SIZE	1024*100
 
-/**
-  * class MultiSegData
-  */
-
-class SegData
-{
-public:
-    SegData();
-    KIO::fileoffset_t offset;
-    KIO::filesize_t bytes;
-};
-
-/**
-  * class Segment
-  */
-
-class Segment : public QObject
-{
-    Q_OBJECT
-
-public:
-
     /**
-    * The status property describes the current segment status
-    *
-    * @param Running The transfer is being executed
-    * @param Stopped The transfer is stopped
-    * @param Timeout The transfer is broken because an error occoured
-    * @param Finished The transfer exited successfully
+    * class MultiSegData
     */
-    enum Status {Running, Stopped, Timeout, Finished};
+
+    class SegData
+    {
+        public:
+            SegData();
+            KIO::fileoffset_t offset;
+            KIO::filesize_t bytes;
+    };
 
     /**
-    * Empty Constructor
+    * class Segment
     */
-    Segment ();
 
-    /**
-    * Create the segment transfer
-    * @param url the remote url
-    */
-    bool createTransfer ( KUrl src );
+    class Segment : public QObject
+    {
+        Q_OBJECT
 
-    /**
-    * start the segment transfer
-    * @param url the remote url
-    */
-    bool startTransfer ( );
+    public:
 
-    /**
-    * stop the segment transfer
-    * @param url the remote url
-    */
-    bool stopTransfer ( );
+        /**
+        * The status property describes the current segment status
+        *
+        * @param Running The transfer is being executed
+        * @param Stopped The transfer is stopped
+        * @param Timeout The transfer is broken because an error ocoured
+        * @param Finished The transfer exited successfully
+        */
+        enum Status {Running, Stopped, Timeout, Finished};
 
-    /**
-    * Set the value of m_bytes
-    * @param bytes the new value of m_bytes
-    */
-    void setBytes ( KIO::filesize_t bytes ){ m_segData.bytes = bytes - m_bytesWritten; };
+        /**
+        * Empty Constructor
+        */
+        Segment ();
 
-    /**
-    * Set the segment data
-    * @param the value of m_segData
-    */
-    void setData (SegData data ){ m_segData = data; };
+        /**
+        * Create the segment transfer
+        * @param url the remote url
+        */
+        bool createTransfer ( KUrl src );
 
-    /**
-    * Get the segment data
-    * @return the value of m_segData
-    */
-    SegData data ( ){ return m_segData; };
+        /**
+        * start the segment transfer
+        */
+        bool startTransfer ( );
 
-    /**
-     * Get the value of m_offset set
-     */
-    KIO::filesize_t offset ( ){ return m_segData.offset; };
+        /**
+        * stop the segment transfer
+        */
+        bool stopTransfer ( );
 
-    /**
-     * Get the value of m_bytesWritten
-     * @return the value of m_bytesWritten
-     */
-    KIO::filesize_t BytesWritten ( ){ return m_bytesWritten; };
+        /**
+        * Set the value of m_bytes
+        * @param bytes the new value of m_bytes
+        */
+        void setBytes ( KIO::filesize_t bytes ){ m_segData.bytes = bytes - m_bytesWritten; };
 
-    /**
-     * Get the job
-     * @return the value of m_getJob
-     */
-    KIO::TransferJob *job(){ return m_getJob; };
+        /**
+        * Set the segment data
+        * @param the value of m_segData
+        */
+        void setData (SegData data ){ m_segData = data; };
 
-    /**
-     * Get the segment status
-     * @return the value of m_status
-     */
-    Status status() const {return m_status;}
+        /**
+        * Get the segment data
+        * @return the value of m_segData
+        */
+        SegData data ( ){ return m_segData; };
 
-public Q_SLOTS:
+        /**
+        * Get the value of m_offset set
+        */
+        KIO::filesize_t offset ( ){ return m_segData.offset; };
 
-    /**
-    * Called whenever a subjob finishes
-    * @param job the job that emitted this signal
-    */
-    void slotResult( KJob *job );
+        /**
+        * Get the value of m_bytesWritten
+        * @return the value of m_bytesWritten
+        */
+        KIO::filesize_t BytesWritten ( ){ return m_bytesWritten; };
 
-Q_SIGNALS:
-    void data( Segment*, const QByteArray&, bool&);
-    void updateSegmentData();
-    void statusChanged( Segment*);
+        /**
+        * Get the job
+        * @return the value of m_getJob
+        */
+        KIO::TransferJob *job(){ return m_getJob; };
 
-private Q_SLOTS:
+        /**
+        * Get the segment status
+        * @return the value of m_status
+        */
+        Status status() const {return m_status;}
 
-    void slotData(KIO::Job *, const QByteArray& data);
+    public Q_SLOTS:
 
-private:
+        /**
+        * Called whenever a subjob finishes
+        * @param job the job that emitted this signal
+        */
+        void slotResult( KJob *job );
 
-    bool writeBuffer();
-    void setStatus(Status stat, bool doEmit=true);
-private:
+    Q_SIGNALS:
+        void data( Segment*, const QByteArray&, bool&);
+        void updateSegmentData();
+        void statusChanged( Segment*);
 
-    Status m_status;
-    SegData m_segData;
-    KIO::filesize_t m_bytesWritten;
-    KIO::filesize_t m_chunkSize;
-    KIO::TransferJob *m_getJob;
-    QByteArray m_buffer;
-};
+    private Q_SLOTS:
 
-class SegmentFactory
-{
+        void slotData(KIO::Job *, const QByteArray& data);
 
-public:
-    SegmentFactory( uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData );
-    bool startTransfer ( );
-    bool stopTransfer ( );
-    QList<SegData> SegmentsData();
-    QList<KUrl> Urls() {return m_Urls;};
-    QList<Segment *> Segments() {return m_Segments;};
-    uint nunOfSegments(){return m_segments;};
-    QList<Segment *> splitSegment( Segment *Seg, int n );
-    Segment *createSegment( SegData data, KUrl src );
-    void deleteSegment(Segment *);
-    const KUrl nextUrl();
+    private:
 
-private:
+        bool writeBuffer();
+        void setStatus(Status stat, bool doEmit=true);
 
-    uint m_segments;
-    QList<Segment *> m_Segments;
-    QList<KUrl>::const_iterator it_Urls;
-    QList<KUrl> m_Urls;
-};
+    private:
+
+        Status m_status;
+        SegData m_segData;
+        KIO::filesize_t m_bytesWritten;
+        KIO::filesize_t m_chunkSize;
+        KIO::TransferJob *m_getJob;
+        QByteArray m_buffer;
+    };
+
+    class SegmentFactory
+    {
+    public:
+        SegmentFactory( uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData );
+        ~SegmentFactory();
+        bool startTransfer ();
+        bool stopTransfer ();
+        QList<SegData> SegmentsData();
+        QList<KUrl> Urls() {return m_Urls;};
+        QList<Segment *> Segments() {return m_Segments;};
+        uint nunOfSegments(){return m_segments;};
+        QList<Segment *> splitSegment( Segment *Seg, int n );
+        Segment *createSegment( SegData data, KUrl src );
+        void deleteSegment(Segment *);
+        const KUrl nextUrl();
+
+    private:
+
+        uint m_segments;
+        QList<Segment *> m_Segments;
+        QList<KUrl>::const_iterator it_Urls;
+        QList<KUrl> m_Urls;
+    };
 
 #endif // SEGMENTFACTORY_H

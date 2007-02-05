@@ -49,13 +49,12 @@ class TransferKio : public QObject, public Transfer
         KIO::FileCopyJob * m_copyjob;
 
     private slots:
-        void slotResult( KIO::Job * kioJob );
-        void slotInfoMessage( KIO::Job * kioJob, const QString & msg );
-        void slotConnected( KIO::Job * kioJob );
-        void slotPercent( KIO::Job * kioJob, unsigned long percent );
-        void slotTotalSize( KIO::Job * kioJob, KIO::filesize_t size );
-        void slotProcessedSize( KIO::Job * kioJob, KIO::filesize_t size );
-        void slotSpeed( KIO::Job * kioJob, unsigned long bytes_per_second );
+        void slotResult( KJob * kioJob );
+        void slotInfoMessage( KJob * kioJob, const QString & msg );
+        void slotPercent( KJob * kioJob, unsigned long percent );
+        void slotTotalSize( KJob * kioJob, KIO::filesize_t size );
+        void slotProcessedSize( KJob * kioJob, KIO::filesize_t size );
+        void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
 };
 
 #endif

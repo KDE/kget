@@ -57,8 +57,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
         kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob() conecting job Signals" << endl;
         connect( (*it), SIGNAL(data( Segment*, const QByteArray&, bool &)),
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
-        connect( (*it)->job(), SIGNAL(speed( KIO::Job*, unsigned long )),
-                 SLOT(slotSpeed( KIO::Job*, unsigned long )));
+        connect( (*it)->job(), SIGNAL(speed( KJob*, unsigned long )),
+                 SLOT(slotSpeed( KJob*, unsigned long )));
         connect( (*it), SIGNAL(statusChanged( Segment *)),
                  SLOT(slotStatusChanged( Segment *)));
         connect( (*it), SIGNAL(updateSegmentData()),
@@ -123,8 +123,8 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
                  SIGNAL(updateSegmentsData()));
     connect( seg, SIGNAL(statusChanged( Segment *)),
                  SLOT(slotStatusChanged( Segment *)));
-    connect( seg->job(), SIGNAL(speed( KIO::Job*, unsigned long )),
-                 SLOT(slotSpeed( KIO::Job*, unsigned long )));
+    connect( seg->job(), SIGNAL(speed( KJob*, unsigned long )),
+                 SLOT(slotSpeed( KJob*, unsigned long )));
     connect( seg->job(), SIGNAL(totalSize( KJob *, qulonglong )),
                       SLOT(slotTotalSize( KJob *, qulonglong )));
     seg->startTransfer();
@@ -132,7 +132,7 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
 
 void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten << endl;
+//     kDebug(5001) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten << endl;
     m_writeBlocked = false;
     setProcessedSize(processedSize()+bytesWritten);
     if( processedSize() == totalSize() )
@@ -154,7 +154,7 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
 
 void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, bool &result)
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotDataReq() " << endl;
+//     kDebug(5001) << "MultiSegmentCopyJob::slotDataReq() " << endl;
     if ( m_writeBlocked )
     {
         result = false;
@@ -219,8 +219,8 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
     {
         connect( (*it), SIGNAL(data( Segment*, const QByteArray&, bool &)),
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
-        connect( (*it)->job(), SIGNAL(speed( KIO::Job*, unsigned long )),
-                 SLOT(slotSpeed( KIO::Job*, unsigned long )));
+        connect( (*it)->job(), SIGNAL(speed( KJob*, unsigned long )),
+                 SLOT(slotSpeed( KJob*, unsigned long )));
         connect( (*it), SIGNAL(statusChanged( Segment *)),
                  SLOT(slotStatusChanged( Segment *)));
         connect( (*it), SIGNAL(updateSegmentData()),
@@ -233,7 +233,7 @@ void MultiSegmentCopyJob::slotPercent( KJob *job, unsigned long pct )
 {
 }
 
-void MultiSegmentCopyJob::slotSpeed( KIO::Job* job, unsigned long bytes_per_second )
+void MultiSegmentCopyJob::slotSpeed( KJob* job, unsigned long bytes_per_second )
 {
     if(job == m_putJob)
         return;
@@ -241,7 +241,7 @@ void MultiSegmentCopyJob::slotSpeed( KIO::Job* job, unsigned long bytes_per_seco
     speedHash.insert(job, bytes_per_second);
 
     unsigned long _speed = 0;
-    QHash<KIO::Job* , unsigned long>::iterator i = speedHash.begin();
+    QHash<KJob* , unsigned long>::iterator i = speedHash.begin();
 
     while (i != speedHash.end())
     {
