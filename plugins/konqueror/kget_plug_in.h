@@ -22,7 +22,6 @@ class KGet_plug_in : public KParts::Plugin
 public:
     KGet_plug_in( QObject* parent = 0 );
     KToggleAction *m_dropTargetAction;
-//     DCOPClient* p_dcopServer;
     virtual ~KGet_plug_in();
 
 private slots:

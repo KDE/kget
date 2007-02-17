@@ -552,15 +552,10 @@ void MainWindow::dropEvent(QDropEvent * event)
 
 /** DBUS interface */
 
-void MainWindow::addTransfers( const KUrl::List& src, const QString& dest)
+void MainWindow::addTransfers(const QString& src, const QString& dest)
 {
-    //TODO Implement it in the dbus interface
-    KGet::addTransfer( src, dest );
-}
-
-void MainWindow::addTransfer( const KUrl& src, const QString& dest)
-{
-    KGet::addTransfer( src, dest );
+    // split src for the case it is a QStringList (e.g. from konqueror plugin)
+    KGet::addTransfer(src.split(";"), dest);
 }
 
 bool MainWindow::isDropTargetVisible() const

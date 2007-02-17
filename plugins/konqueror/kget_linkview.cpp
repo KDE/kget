@@ -22,6 +22,7 @@
 
 #include <QAction>
 #include <QPixmap>
+#include <QtDBus>
 
 #define COL_NAME 0
 #define COL_DESC 1
@@ -101,8 +102,6 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 
 void KGetLinkView::slotStartLeech()
 {
-    QByteArray * data(0);
-    QDataStream stream( data, QIODevice::WriteOnly );
     bool itemSelected = false;
 
     QStringList urls;
@@ -114,7 +113,6 @@ void KGetLinkView::slotStartLeech()
         {
             QString url = static_cast<LinkViewItem*>( it.current() )->link->url.url();
 
-            stream << url;
             urls.append( url );
             itemSelected = true;
         }
@@ -126,27 +124,17 @@ void KGetLinkView::slotStartLeech()
                             i18n("No Files Selected") );
     else
     {
-//         DCOPClient* p_dcopServer = new DCOPClient();
-//         p_dcopServer->attach();
-// 
-//         if (!p_dcopServer->isApplicationRegistered("kget"))
-//         {
-//             KProcess* proc = new KProcess();
-//             *proc << "kget" << urls;
-//             proc->start( KProcess::DontCare );
-//         }
-//         else
-//         {
-//             stream << QString();
-//             bool ok = DCOPClient::mainClient()->send( "kget", "KGet-Interface",
-//                                                       "addTransfers(KUrl::List, QString)",
-//                                                       *data );
-// 
-//             kDebug(5001) << "*** startDownload: " << ok << endl;
-//         }
-// 
-//         p_dcopServer->detach();
-//         delete p_dcopServer;
+        if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
+        {
+            KProcess *proc = new KProcess();
+            *proc << "kget" << urls;
+            proc->start( KProcess::DontCare );
+        }
+        else
+        {
+            QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
+            kget.call("addTransfers", urls.join(";"), QString());
+        }
     }
 }
 

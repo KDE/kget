@@ -2,6 +2,7 @@
 
    Copyright (C) 2002 Patrick Charbonnier <pch@valleeurpe.net>
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
+   Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -10,6 +11,8 @@
 */
 
 #include "kget_plug_in.h"
+
+#include <QtDBus>
 
 #include <KActionCollection>
 #include <KToggleAction>
@@ -52,16 +55,11 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     showLinksAction->setText(i18n("List All Links"));
     connect(showLinksAction, SIGNAL(triggered()), SLOT(slotShowLinks()));
     menu->addAction(showLinksAction);
-
-//     p_dcopServer= new DCOPClient();
-//     p_dcopServer->attach ();
 }
 
 
 KGet_plug_in::~KGet_plug_in()
 {
-//     p_dcopServer->detach();
-//     delete p_dcopServer;
 }
 
 
@@ -69,24 +67,26 @@ void KGet_plug_in::showPopup()
 {
     bool hasDropTarget = false;
 
-//     if (p_dcopServer->isApplicationRegistered ("kget"))
-//     {
-//         DCOPRef kget( "kget", "KGet-Interface" );
-//         hasDropTarget = kget.call( "isDropTargetVisible" );
-//     }
+    if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
+    {
+        QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
+        QDBusReply<bool> reply = kget.call("isDropTargetVisible");
+        if (reply.isValid())
+            hasDropTarget = reply.value();
+    }
 
     m_dropTargetAction->setChecked(hasDropTarget);
 }
 
 void KGet_plug_in::slotShowDrop()
 {
-//     if (!p_dcopServer->isApplicationRegistered ("kget"))
-//         KRun::runCommand("kget --showDropTarget");
-//     else
-//     {
-//         DCOPRef kget( "kget", "KGet-Interface" );
-//         kget.send( "setDropTargetVisible", m_paToggleDropTarget->isChecked());
-//     }
+    if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
+        KRun::runCommand("kget --showDropTarget");
+    else
+    {
+        QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
+        kget.call("setDropTargetVisible", m_dropTargetAction->isChecked());
+    }
 }
 
 void KGet_plug_in::slotShowLinks()
@@ -168,7 +168,6 @@ extern "C"
         KGlobal::locale()->insertCatalog("kget");
         return new KPluginFactory;
     }
-
 }
 
 KComponentData* KPluginFactory::s_instance = 0L;
