@@ -18,7 +18,7 @@
       <default>false</default>
     </entry>
     <entry name="ShowDropTarget" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="AnimateDropTarget" type="Bool">
       <default>true</default>
@@ -106,7 +106,7 @@
     </entry>
     <entry name="DropPosition" type="Point"/>
     <entry name="DropSticky" type="Bool">
-      <default>false</default>
+      <default>0</default>
     </entry>
     <entry name="FirstRun" type="Bool">
       <default>true</default>

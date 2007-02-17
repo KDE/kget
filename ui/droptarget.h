@@ -71,6 +71,8 @@ private:
     QAction * pop_sticky;
     QAction * pop_show;
 
+    QPoint position;
+
     int dx;
     int dy;
     bool isdragging;

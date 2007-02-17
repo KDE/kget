@@ -211,7 +211,7 @@ void MainWindow::slotDelayedInit()
     m_drop = new DropTarget(this);
 
     if ( Settings::showDropTarget() || Settings::firstRun() )
-        m_drop->show();
+        m_drop->setVisible(true);
 
     // DockWidget
     m_dock = new Tray(this);

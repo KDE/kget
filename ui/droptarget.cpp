@@ -36,16 +36,18 @@
 
 DropTarget::DropTarget(MainWindow * mw)
     : QWidget(0, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint),
-    parentWidget((QWidget *)mw), animTimer(0)
+    parentWidget(mw), animTimer(0)
 {
     QRect desk = KGlobalSettings::desktopGeometry(this);
     desk.setRight( desk.right() - TARGET_SIZE );
     desk.setBottom( desk.bottom() - TARGET_SIZE );
 
-    if ( desk.contains(Settings::dropPosition()) )
-        move(Settings::dropPosition());
+    if (desk.contains(Settings::dropPosition())
+            && ((Settings::dropPosition().x() != 0) || (Settings::dropPosition().y() != 0)))
+        position = QPoint(Settings::dropPosition());
     else
-        move(desk.x()+200, desk.y()+200);
+        position = QPoint((int)desk.width() / 2, (int)desk.height() / 2);
+
     resize(TARGET_SIZE, TARGET_SIZE);
 
     if(Settings::dropSticky())
@@ -126,6 +128,8 @@ void DropTarget::setVisible( bool shown, bool internal )
         show();
         if ( Settings::animateDropTarget() )
             playAnimationShow();
+        else
+            move(position);
     }
 }
 
@@ -136,7 +140,9 @@ void DropTarget::playAnimationShow()
     animTimer = new QTimer;
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimateShow() ));
-    move( Settings::dropPosition().x(), -TARGET_SIZE );
+
+    move(position.x(), -TARGET_SIZE);
+
     ani_y = -1;
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
@@ -310,15 +316,13 @@ void DropTarget::toggleMinimizeRestore()
 /** widget animations */
 void DropTarget::slotAnimateShow()
 {
-//     QWidget *d = QApplication::desktop()->screen();
     static float dT = TARGET_ANI_MS / 1000.0;
 
     ani_vy -= ani_y * 30 * dT;
     ani_vy *= 0.95;
     ani_y += ani_vy * dT;
 
-//     move( x(), (int)(d->height()/3 * (1 + ani_y)) );
-    move( x(), (int)(Settings::dropPosition().y() * (1 + ani_y)) );
+    move(x(), (int)(position.y() * (1 + ani_y)));
 
     if ( fabsf(ani_y) < 0.01 && fabsf(ani_vy) < 0.01 && animTimer )
     {
