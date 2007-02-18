@@ -12,8 +12,8 @@
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
-#include "transfers/kio/transferKioFactory.h"
-#include "transfers/kio/transferKio.h"
+#include "transferKioFactory.h"
+#include "transferKio.h"
 
 KGET_EXPORT_PLUGIN( TransferKioFactory )
 

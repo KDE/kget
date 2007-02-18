@@ -1,5 +1,4 @@
 add_subdirectory(kio)
 add_subdirectory(multisegmentkio)
-#add_subdirectory(multithreaded)
 #add_subdirectory(metalink)
 #add_subdirectory(bittorrent)

@@ -15,8 +15,8 @@
 #include "core/transfergroup.h"
 #include "MultiSegKioSettings.h"
 #include "dlgmultisegkio.h"
-#include "transfers/multisegmentkio/transferMultiSegKioFactory.h"
-#include "transfers/multisegmentkio/transferMultiSegKio.h"
+#include "transferMultiSegKioFactory.h"
+#include "transferMultiSegKio.h"
 
 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
 
