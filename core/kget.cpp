@@ -202,7 +202,9 @@ void KGet::delTransfer(TransferHandler * transfer)
     //the notification to the views that the transfer has been removed, all the
     //pointers to it are invalid.
     transfer->postDeleteEvent();
-    delete( t );
+// TODO: why does it crash if a download is going to be deleted which is not the last in the list?
+// there are always no problems with the last download.
+//     delete( t );
 }
 
 void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
