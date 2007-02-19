@@ -46,7 +46,7 @@ Tray::Tray(MainWindow * parent)
 
     // add preferences action to the context menu
     QMenu * cm = contextMenu();
-    cm->addAction( parent->actionCollection()->action("new_transfer") );
+    cm->addAction( parent->actionCollection()->action("new_download") );
     cm->addAction( parent->actionCollection()->action("preferences") );
     cm->addAction( parent->actionCollection()->action("konqueror_integration") );
 

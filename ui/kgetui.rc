@@ -37,5 +37,6 @@
     <Separator lineSeparator="true"/>
     <Action name="start_menu"/>
     <Action name="stop_menu"/>
+    <Action name="delete_selected_download"/>
 </ToolBar>
 </kpartgui>

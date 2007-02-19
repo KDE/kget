@@ -99,7 +99,7 @@ QVariant TransferGroupHandler::data(int column)
             return name();
         case 2:
             if(m_group->size())
-                return i18np("1 item", "%n items", m_group->size());
+                return i18np("1 Item", "%1 Items", m_group->size());
             else
                 return QString();
 /*            if (totalSize() != 0)

@@ -103,6 +103,7 @@ void MainWindow::setupActions()
 
     QAction *exportAction = actionCollection()->addAction("export_downloads");
     exportAction->setText(i18n("&Export Transfers List..."));
+    exportAction->setIcon(KIcon("fileexport"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
@@ -111,7 +112,7 @@ void MainWindow::setupActions()
     editGroupAction->setIcon(KIcon("transfers_list"));
     connect(editGroupAction, SIGNAL(triggered()), SLOT(slotEditGroups()));
 
-    m_autoPasteAction = new KToggleAction(KIcon("tool_clipboard"),
+    m_autoPasteAction = new KToggleAction(KIcon("klipper"),
                                           i18n("Auto-Paste Mode"), actionCollection());
     actionCollection()->addAction("auto_paste", m_autoPasteAction);
     m_autoPasteAction->setChecked(Settings::autoPaste());
@@ -151,12 +152,12 @@ void MainWindow::setupActions()
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     QAction *startAllAction = actionCollection()->addAction("start_all_download");
-    startAllAction->setText(i18n("Start All"));
+    startAllAction->setText(i18n("Start / Resume All"));
     startAllAction->setIcon(KIcon("player_fwd"));
     connect(startAllAction, SIGNAL(triggered()), SLOT(slotStartAllDownload()));
 
     QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
-    startSelectedAction->setText(i18n("Start Selected"));
+    startSelectedAction->setText(i18n("Start / Resume Selected"));
     startSelectedAction->setIcon(KIcon("player_play"));
     connect(startSelectedAction, SIGNAL(triggered()), SLOT(slotStartSelectedDownload()));
 
@@ -170,7 +171,7 @@ void MainWindow::setupActions()
     stopSelectedAction->setIcon(KIcon("player_pause"));
     connect(stopSelectedAction, SIGNAL(triggered()), SLOT(slotStopSelectedDownload()));
 
-    KActionMenu *startActionMenu = new KActionMenu(KIcon("player_play"), i18n("Start"),
+    KActionMenu *startActionMenu = new KActionMenu(KIcon("player_play"), i18n("Start / Resume"),
                                                      actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
     startActionMenu->setDelayed(true);

@@ -17,8 +17,9 @@
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent)
 {
-//     setRootIsDecorated(false);
-//     setAnimated(true);
+    setRootIsDecorated(false);
+    setAnimated(true);
+    setAllColumnsShowFocus(true);
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
