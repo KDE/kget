@@ -311,7 +311,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             else //Qt::DecorationRole -> icon
             {
                 if (index.column() == 0)
-                    return SmallIcon("transfers_list", 32);
+                    return SmallIcon("todolist", 32);
                 else
                     return QVariant();
             }

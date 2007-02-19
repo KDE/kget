@@ -55,6 +55,7 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     m_treeWidget->setAlternatingRowColors(true);
     m_treeWidget->setRootIsDecorated(false);
     m_treeWidget->setSortingEnabled(true);
+    m_treeWidget->setAllColumnsShowFocus(true);
 
     setCentralWidget(m_treeWidget);
 

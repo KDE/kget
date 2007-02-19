@@ -109,7 +109,7 @@ void MainWindow::setupActions()
 
     QAction *editGroupAction = actionCollection()->addAction("edit_groups");
     editGroupAction->setText(i18n("Edit Groups.."));
-    editGroupAction->setIcon(KIcon("transfers_list"));
+    editGroupAction->setIcon(KIcon("todolist"));
     connect(editGroupAction, SIGNAL(triggered()), SLOT(slotEditGroups()));
 
     m_autoPasteAction = new KToggleAction(KIcon("klipper"),
@@ -199,7 +199,7 @@ void MainWindow::setupActions()
 
     QAction *copyUrlAction = actionCollection()->addAction("transfer_copy_source_url");
     copyUrlAction->setText(i18n("Copy URL to Clipboard"));
-    copyUrlAction->setIcon(KIcon("tool_clipboard"));
+    copyUrlAction->setIcon(KIcon("klipper"));
     connect(copyUrlAction, SIGNAL(triggered()), SLOT(slotTransfersCopySourceUrl()));
 }
 
