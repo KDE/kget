@@ -11,18 +11,11 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <k3listview.h>
 #include <kmainwindow.h>
 
 #include "links.h"
 
-class LinkViewItem : public Q3ListViewItem
-{
-public:
-    LinkViewItem( Q3ListView *parent, const LinkItem * lnk );
-    const LinkItem *link;
-};
-
+class QTreeWidget;
 
 class KGetLinkView : public KMainWindow
 {
@@ -47,8 +40,7 @@ private:
 
     QList<LinkItem*> m_links;
 
-    K3ListView *m_view;
-
+    QTreeWidget *m_treeWidget;
 };
 
 #endif // KGET_LINKVIEW_H

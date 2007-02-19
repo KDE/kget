@@ -1,5 +1,3 @@
-add_definitions(-DQT3_SUPPORT)
-
 include_directories(
    ${KDE4_INCLUDES}
    ${QT_INCLUDES}

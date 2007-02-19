@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
+   Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,28 +23,8 @@
 
 #include <QAction>
 #include <QPixmap>
+#include <QTreeWidget>
 #include <QtDBus>
-
-#define COL_NAME 0
-#define COL_DESC 1
-#define COL_MIME 2
-#define COL_URL  3
-
-LinkViewItem::LinkViewItem( Q3ListView *parent, const LinkItem *lnk )
-    : Q3ListViewItem( parent ),
-      link( lnk )
-{
-    QString file = link->url.fileName();
-    if ( file.isEmpty() )
-        file = link->url.host();
-
-    setPixmap( COL_NAME, SmallIcon( link->icon ) );
-    setText( COL_NAME, file );
-
-    setText( COL_DESC, link->text );
-    setText( COL_MIME, link->mimeType );
-    setText( COL_URL,  link->url.prettyUrl() );
-}
 
 KGetLinkView::KGetLinkView( QWidget *parent )
     : KMainWindow( parent )
@@ -63,20 +44,26 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     toolBar()->insertSeparator(selectAllAction);
     toolBar()->addAction(selectAllAction);
 
-    m_view = new K3ListView( this );
-    m_view->setSelectionMode( Q3ListView::Extended );
-    m_view->addColumn( i18n("File Name") );
-    m_view->addColumn( i18n("Description") );
-    m_view->addColumn( i18n("File Type") );
-    m_view->addColumn( i18n("Location (URL)") );
-    m_view->setShowSortIndicator( true );
+    QStringList headers;
+    headers << i18n("File Name") << i18n("Description")
+            << i18n("File Type") << i18n("Location (URL)");
 
-    setCentralWidget( m_view );
+    m_treeWidget = new QTreeWidget(this);
+    m_treeWidget->setHeaderLabels(headers);
+    m_treeWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_treeWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_treeWidget->setAlternatingRowColors(true);
+    m_treeWidget->setRootIsDecorated(false);
+    m_treeWidget->setSortingEnabled(true);
+
+    setCentralWidget(m_treeWidget);
 
     // setting a fixed (not floating) toolbar
     toolBar()->setMovable(false);
     // setting Text next to Icons
     toolBar()->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    resize(600, 300);
 }
 
 KGetLinkView::~KGetLinkView()
@@ -92,12 +79,24 @@ void KGetLinkView::setLinks( QList<LinkItem*>& links )
 
 void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 {
-    m_view->clear();
+    m_treeWidget->clear();
 
-    foreach (LinkItem* linkitem, links)
-        (void) new LinkViewItem( m_view, linkitem );
+    QList<QTreeWidgetItem *> items;
+    foreach (LinkItem* linkitem, links) {
+        QString file = linkitem->url.fileName();
+        if ( file.isEmpty() )
+            file = linkitem->url.host();
 
-    m_view->sort();
+        QStringList itemStringList;
+        itemStringList << file << linkitem->text
+                       << linkitem->mimeType << linkitem->url.prettyUrl();
+        QTreeWidgetItem *treeWidgetItem = new QTreeWidgetItem(m_treeWidget, itemStringList);
+        treeWidgetItem->setIcon(0, KIcon(linkitem->icon));
+        items.append(treeWidgetItem);
+    }
+    m_treeWidget->insertTopLevelItems(0, items);
+
+    m_treeWidget->sortItems(0, Qt::AscendingOrder);
 }
 
 void KGetLinkView::slotStartLeech()
@@ -106,16 +105,14 @@ void KGetLinkView::slotStartLeech()
 
     QStringList urls;
 
-    Q3ListViewItemIterator it( m_view->firstChild() );
-    for ( ; it.current(); ++it )
-    {
-        if ( it.current()->isSelected() )
-        {
-            QString url = static_cast<LinkViewItem*>( it.current() )->link->url.url();
-
-            urls.append( url );
+    QTreeWidgetItemIterator it(m_treeWidget);
+    while (*it) {
+        if ((*it)->isSelected()) {
+            QString url = (*it)->text(3);
+            urls.append(url);
             itemSelected = true;
         }
+        ++it;
     }
 
     if ( !itemSelected )
@@ -145,7 +142,7 @@ void KGetLinkView::setPageUrl( const QString& url )
 
 void KGetLinkView::slotSelectAll()
 {
-    m_view->selectAll( true );
+    m_treeWidget->selectAll();
 }
 
 #include "kget_linkview.moc"
