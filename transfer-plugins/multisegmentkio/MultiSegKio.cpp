@@ -14,22 +14,47 @@
 #include <QFile>
 #include <qtimer.h>
 
+#include <sys/time.h>
 #include <fcntl.h>
 
 #include "MultiSegKio.h"
 
+static const unsigned int max_nums = 8;
+class MultiSegmentCopyJob::MultiSegmentCopyJobPrivate
+{
+public:
+    MultiSegmentCopyJobPrivate() {
+        start_time.tv_sec = 0;
+        start_time.tv_usec = 0;
+        last_time = 0;
+        nums = 0;
+        bytes = 0;
+    }
+    struct timeval start_time;
+    uint nums;
+    long times[max_nums];
+    KIO::filesize_t sizes[max_nums];
+    size_t last_time;
+    KIO::filesize_t bytes;
+
+    QTimer speed_timer;
+};
+
+
 /**
   * class MultiSegmentCopyJob
   */
-MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
-   : Job(showProgressInfo), m_dest(dest),
-     m_permissions(permissions),
-     m_writeBlocked(false)
+MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest, int permissions, uint segments)
+   :d(new MultiSegmentCopyJobPrivate),
+    KJob(0), m_dest(dest),
+    m_permissions(permissions),
+    m_writeBlocked(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
     QList<SegData> emptySegData;
     SegFactory = new SegmentFactory( segments, Urls, emptySegData );
     m_putJob = 0;
+    connect(&d->speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
     QTimer::singleShot(0, this, SLOT(slotStart()));
 }
 
@@ -37,15 +62,15 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
                            const QList<KUrl> Urls,
                            const KUrl& dest,
                            int permissions,
-                           bool showProgressInfo,
                            qulonglong ProcessedSize,
                            KIO::filesize_t totalSize,
                            QList<SegData> SegmentsData,
                            uint segments)
 
-   : Job(showProgressInfo), m_dest(dest),
-     m_permissions(permissions),
-     m_writeBlocked(false)
+   :d(new MultiSegmentCopyJobPrivate),
+    KJob(0), m_dest(dest),
+    m_permissions(permissions),
+    m_writeBlocked(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
     SegFactory = new SegmentFactory( segments, Urls, SegmentsData );
@@ -66,6 +91,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
     }
 
     m_putJob = 0;
+    connect(&d->speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
     setProcessedSize(ProcessedSize);
     setTotalSize(totalSize);
     QTimer::singleShot(0, this, SLOT(slotStart()));
@@ -104,7 +130,6 @@ void MultiSegmentCopyJob::slotStart()
     connect(m_putJob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
     connect( m_putJob, SIGNAL(written(KIO::Job * ,KIO::filesize_t )), SLOT(slotWritten( KIO::Job * ,KIO::filesize_t )));
     connect( m_putJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
-    addSubjob( m_putJob );
 }
 
 void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
@@ -112,6 +137,14 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
     kDebug(5001) << "MultiSegmentCopyJob::slotOpen()" << endl;
     if( SegFactory->startTransfer() )
     {
+
+        gettimeofday(&d->start_time, 0);
+        d->last_time = 0;
+        d->sizes[0] = processedSize() - d->bytes;
+        d->times[0] = 0;
+        d->nums = 1;
+        d->speed_timer.start(1000);
+
         return;
     }
     SegData data;
@@ -150,6 +183,39 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
        QFile::rename ( dest_part, dest_orig );
     }
     emit updateSegmentsData();
+}
+
+// tooked from SlaveInterface.cpp
+void MultiSegmentCopyJob::calcSpeed()
+{
+    struct timeval tv;
+    gettimeofday(&tv, 0);
+
+    long diff = ((tv.tv_sec - d->start_time.tv_sec) * 1000000 +
+	         tv.tv_usec - d->start_time.tv_usec) / 1000;
+    if (diff - d->last_time >= 900) {
+        d->last_time = diff;
+    if (d->nums == max_nums) {
+      // let's hope gcc can optimize that well enough
+      // otherwise I'd try memcpy :)
+        for (unsigned int i = 1; i < max_nums; ++i) {
+	   d->times[i-1] = d->times[i];
+	   d->sizes[i-1] = d->sizes[i];
+        }
+        d->nums--;
+    }
+    d->times[d->nums] = diff;
+    d->sizes[d->nums++] = processedSize() - d->bytes;
+
+    KIO::filesize_t lspeed = 1000 * (d->sizes[d->nums-1] - d->sizes[0]) / (d->times[d->nums-1] - d->times[0]);
+
+    if (!lspeed) {
+      d->nums = 1;
+      d->times[0] = diff;
+      d->sizes[0] = processedSize() - d->bytes;
+    }
+    emit speed(this, lspeed);
+  }
 }
 
 void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, bool &result)
@@ -194,13 +260,8 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
     if (job == m_putJob )
     {
         kDebug(5001) << "MultiSegmentCopyJob: m_putJob finished " << endl;
-        m_putJob = 0;
-        removeSubjob(job);
-    }
-
-    if ( !hasSubjobs() )
-    {
         kDebug(5001) << "MultiSegmentCopyJob: finished " << endl;
+        m_putJob = 0;
         emitResult();
     }
 }
@@ -209,6 +270,14 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 {
     kDebug(5001) << "MultiSegmentCopyJob::slotTotalSize() from job: " << job << " -- " << size << endl;
     setTotalSize (size);
+
+    gettimeofday(&d->start_time, 0);
+    d->last_time = 0;
+    d->sizes[0] = processedSize() - d->bytes;
+    d->times[0] = 0;
+    d->nums = 1;
+    d->speed_timer.start(1000);
+
     QList<Segment *> segments = SegFactory->Segments();
     Segment *seg = segments.takeFirst();
     seg->setBytes(size);
@@ -235,23 +304,6 @@ void MultiSegmentCopyJob::slotPercent( KJob *job, unsigned long pct )
 
 void MultiSegmentCopyJob::slotSpeed( KJob* job, unsigned long bytes_per_second )
 {
-    if(job == m_putJob)
-        return;
-    kDebug(5001) << "MultiSegmentCopyJob::slotSpeed() " << job << " -- " << bytes_per_second << endl;
-    speedHash.insert(job, bytes_per_second);
-
-    unsigned long _speed = 0;
-    QHash<KJob* , unsigned long>::iterator i = speedHash.begin();
-
-    while (i != speedHash.end())
-    {
-        if( i.value() == 0 )
-            speedHash.erase(i);
-        else
-            _speed += i.value();
-        ++i;
-    }
-    emitSpeed(_speed);
 }
 
 bool MultiSegmentCopyJob::checkLocalFile()
@@ -294,22 +346,21 @@ bool MultiSegmentCopyJob::checkLocalFile()
     return true;
 }
 
-MultiSegmentCopyJob *MultiSegfile_copy( const QList<KUrl> Urls, const KUrl& dest, int permissions, bool showProgressInfo, uint segments)
+MultiSegmentCopyJob *MultiSegfile_copy( const QList<KUrl> Urls, const KUrl& dest, int permissions, uint segments)
 {
-    return new MultiSegmentCopyJob( Urls, dest, permissions, showProgressInfo, segments);
+    return new MultiSegmentCopyJob( Urls, dest, permissions, segments);
 }
 
 MultiSegmentCopyJob *MultiSegfile_copy(
                            const QList<KUrl> Urls,
                            const KUrl& dest,
                            int permissions,
-                           bool showProgressInfo,
                            qulonglong ProcessedSize,
                            KIO::filesize_t totalSize,
                            QList<SegData> SegmentsData,
                            uint segments)
 {
-    return new MultiSegmentCopyJob( Urls, dest, permissions, showProgressInfo, ProcessedSize, totalSize,SegmentsData , segments);
+    return new MultiSegmentCopyJob( Urls, dest, permissions,  ProcessedSize, totalSize,SegmentsData , segments);
 }
 
 #include "MultiSegKio.moc"

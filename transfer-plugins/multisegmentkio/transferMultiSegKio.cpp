@@ -151,11 +151,11 @@ void transferMultiSegKio::createJob()
         }
         if(SegmentsData.empty())
         {
-            m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false,  MultiSegKioSettings::segments());
+            m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1,  MultiSegKioSettings::segments());
         }
         else
         {
-            m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, false, m_processedSize, m_totalSize, SegmentsData, MultiSegKioSettings::segments());
+            m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, m_processedSize, m_totalSize, SegmentsData, MultiSegKioSettings::segments());
         }
         connect(m_copyjob, SIGNAL(updateSegmentsData()),
            SLOT(slotUpdateSegmentsData()));

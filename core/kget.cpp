@@ -101,6 +101,19 @@ void KGet::delGroup(const QString& groupName)
     }
 }
 
+void KGet::addMetaLink(KUrl srcUrl)
+{
+    kDebug(5001) << " addMetaLink:  " << srcUrl.url() << endl;
+
+    if ( !isValidSource( srcUrl ) )
+        return;
+
+    QString destDir = destInputDialog();
+    KUrl destUrl(destDir);
+
+    createTransfer(srcUrl, destUrl, QString("MetaLinks"));
+}
+
 void KGet::addTransfer( KUrl srcUrl, QString destDir,
                          const QString& groupName )
 {
