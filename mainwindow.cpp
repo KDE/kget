@@ -228,9 +228,8 @@ void MainWindow::slotDelayedInit()
     connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveMyself()));
 
     // set auto-resume in kioslaverc (is there a cleaner way?)
-    KConfig cfg( "kioslaverc", false, false);
-    cfg.setGroup(QString());
-    cfg.writeEntry("AutoResume", true);
+    KConfig cfg("kioslaverc", KConfig::NoGlobals);
+    cfg.group(QString()).writeEntry("AutoResume", true);
     cfg.sync();
 
     // immediately start downloading if configured this way
@@ -514,9 +513,9 @@ void MainWindow::slotTrayKonquerorIntegration()
 
 void MainWindow::slotKonquerorIntegration(bool konquerorIntegration)
 {
-    KConfig cfgKonqueror("konquerorrc", false, false);
-    cfgKonqueror.setGroup("HTML Settings");
-    cfgKonqueror.writePathEntry("DownloadManager", QString(konquerorIntegration?"kget":QString()));
+    KConfig cfgKonqueror("konquerorrc", KConfig::NoGlobals);
+    cfgKonqueror.group("HTML Settings").writeEntry("DownloadManager",
+                                                   QString(konquerorIntegration ? "kget" : QString()));
     cfgKonqueror.sync();
 }
 
