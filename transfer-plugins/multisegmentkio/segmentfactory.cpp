@@ -224,7 +224,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     QList<Segment *> Segments;
 
     KIO::filesize_t bytes = Seg->data().bytes;
-    uint min = bytes/MIN_SIZE;
+    int min = bytes/MIN_SIZE;
 
     if( min < n )
     {
@@ -238,7 +238,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     KIO::fileoffset_t rest_size = segment + ( bytes%n );
     Seg->setBytes( segment );
     SegData data;
-    for( uint i = 1; i < n; i++)
+    for(int i = 1; i < n; i++)
     {
         if(i == n - 1)
         {

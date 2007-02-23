@@ -496,7 +496,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
     for(int i=0; i < rows; i++)
     {
-        TransferGroup * group = findGroup(stringList[i]);
+//         TransferGroup * group = findGroup(stringList[i]);
 
 //         TransferGroup * destGroup = static_cast<TransferGroup *>(index(row, column, parent).internalPointer());
 
@@ -506,10 +506,12 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
         moveTransfer(transferHandler->m_transfer, destGroup);
     }
+    return true;
 }
 
 void TransferTreeModel::timerEvent(QTimerEvent *event)
 {
+    Q_UNUSED(event);
 //     kDebug(5001) << "TransferTreeModel::timerEvent" << endl;
 
     QList<TransferHandler *> updatedTransfers;

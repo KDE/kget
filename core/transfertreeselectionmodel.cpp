@@ -27,24 +27,24 @@ void TransferTreeSelectionModel::select(const QItemSelection & selection, QItemS
 {
 //     kDebug(5001) << "TransferTreeSelectionModel::select()" << endl;
 
-    const TransferTreeModel * transfersModel = static_cast<const TransferTreeModel *>(model());
+//     const TransferTreeModel * transfersModel = static_cast<const TransferTreeModel *>(model());
 
 //     QModelIndexList indexList = selection.indexes();
 //     QItemSelection newSelection;
-// 
-// //     kDebug(5001) << "selection of items: " << indexList.size() << endl;
-// 
+
+//     kDebug(5001) << "selection of items: " << indexList.size() << endl;
+
 //     foreach(QModelIndex index, indexList)
 //     {
-// //         kDebug(5001) << "iteration" << endl;
-// 
+//         kDebug(5001) << "iteration" << endl;
+
 //         if(!transfersModel->isTransferGroup(index))
 //         {
-// 
+
 //             newSelection.select(index, index);
 //         }
 //     }
-// 
+
 //     QItemSelectionModel::select(newSelection, command);
 
     QItemSelectionModel::select(selection, command);
