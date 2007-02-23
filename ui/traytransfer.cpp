@@ -25,9 +25,6 @@ TrayTransfer::~TrayTransfer()
 
 
 void TrayTransfer::setValue(int value){
-#ifdef _DEBUG
-    //sDebugIn<<" value ="<<value<<endl;
-#endif
     int tmpPic=0;
     if (value<20)
         tmpPic=1;
@@ -52,25 +49,13 @@ void TrayTransfer::setValue(int value){
         QString str = "bar" + QString::number( nPic );
         setPixmap( loadIcon( str ) );
     }
-
-#ifdef _DEBUG
-    //sDebugOut<<endl;
-#endif
 }
 
 
 
 void TrayTransfer::setTip(const QString & _tip)
 {
-#ifdef _DEBUG
-    //sDebugIn<<"_tip="<<_tip<<endl;
-#endif
-
     setToolTip( _tip );
-
-#ifdef _DEBUG
-    //sDebugOut<<endl;
-#endif
 }
 
 /** No descriptions */

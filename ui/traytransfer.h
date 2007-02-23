@@ -8,12 +8,10 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _TRAYTRANSFER_H
-#define _TRAYTRANSFER_H
+#ifndef TRAYTRANSFER_H
+#define TRAYTRANSFER_H
 
-#include <ksystemtray.h>
-
-#include "core/globals.h"
+#include <KSystemTray>
 
 class KMenu;
 
@@ -25,7 +23,6 @@ public:
     int nPic;
     void setTip(const QString &);
     void setValue(int value);
-    /** No descriptions */
     virtual void contextMenuAboutToShow ( KMenu* menu );
 };
 

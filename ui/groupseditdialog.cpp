@@ -51,9 +51,7 @@ GroupsEditDialog::GroupsEditDialog(QWidget *parent)
     KGet::addTransferView(groupList);
 
     groupList->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-    // Mmmm.. Is sharing the selection model cool? If yes enable this
-//     groupList->setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
+    groupList->setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
 }
 
 void GroupsEditDialog::slotAddGroup()

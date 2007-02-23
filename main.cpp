@@ -111,7 +111,7 @@ private:
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("KGet"), KGETVERSION,
+    KAboutData aboutData("kget", I18N_NOOP("KGet"), "2dev",
                          I18N_NOOP("An advanced download manager for KDE"),
                          KAboutData::License_GPL,
                          "(C) 2005 - 2007, The KGet developers\n"

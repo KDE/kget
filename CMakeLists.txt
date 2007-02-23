@@ -30,7 +30,6 @@ kde4_add_ui_files(kgetconf_SRCS
 )
 
 set(kgetcore_SRCS
-   ${CMAKE_SOURCE_DIR}/kget/core/connection.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/job.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/jobqueue.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/kget.cpp

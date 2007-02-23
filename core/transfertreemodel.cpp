@@ -490,8 +490,8 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         ++rows;
     }
 
-    kDebug() << "TransferTreeModel::dropMimeData    DATA:" << endl;
-    kDebug() << stringList << endl;
+    kDebug(5001) << "TransferTreeModel::dropMimeData    DATA:" << endl;
+    kDebug(5001) << stringList << endl;
 
 
     for(int i=0; i < rows; i++)

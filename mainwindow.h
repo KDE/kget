@@ -17,8 +17,6 @@
 #include <kmainwindow.h>
 #include <kurl.h>
 
-#include "core/globals.h"
-
 class ViewsContainer;
 class DropTarget;
 class Tray;

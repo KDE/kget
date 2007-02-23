@@ -12,10 +12,10 @@
 #include "MultiSegKioSettings.h"
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
+    : QDialog(parent)
 {
-    setWindowTitle(i18n("Insert Engine"));
-
     ui.setupUi(this);
+    setWindowTitle(i18n("Insert Engine"));
     setModal(true);
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
@@ -24,7 +24,6 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
 DlgEngineEditing::~DlgEngineEditing()
 {
-
 }
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)

@@ -40,7 +40,7 @@ void TransfersView::setModel(QAbstractItemModel * model)
 
     for(int i = 0; i < nGroups; i++)
     {
-        kDebug() << "openEditor for row " << i << endl;
+        kDebug(5001) << "openEditor for row " << i << endl;
         openPersistentEditor(model->index(i, 1, QModelIndex()));
     }
 
@@ -58,15 +58,15 @@ void TransfersView::dropEvent(QDropEvent * event)
 
 void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 {
-    kDebug() << "TransfersView::rowsInserted" << endl;
+    kDebug(5001) << "TransfersView::rowsInserted" << endl;
 
     if(!parent.isValid())
     {
-        kDebug() << "parent is not valid " << start << "  " << end << endl;
+        kDebug(5001) << "parent is not valid " << start << "  " << end << endl;
 
         for(int i = start; i <= end; i++)
         {
-            kDebug() << "openEditor for row " << i << endl;
+            kDebug(5001) << "openEditor for row " << i << endl;
             openPersistentEditor(model()->index(i, 1, parent));
         }
     }
