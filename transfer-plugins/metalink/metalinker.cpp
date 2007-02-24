@@ -12,7 +12,7 @@
 #include <QFile>
 
 #include <kio/job.h>
-#include "Metalinker.h"
+#include "metalinker.h"
 
 Metalinker::Metalinker()
 {
