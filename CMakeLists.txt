@@ -14,11 +14,13 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${KDE4_INCLUDES}
    ${QT_INCLUDES}
+   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 ########### next target ###############
 
 set(kgetconf_SRCS
+   ${CMAKE_SOURCE_DIR}/kget/conf/dlgdirectories.cpp
    ${CMAKE_SOURCE_DIR}/kget/conf/preferencesdialog.cpp
 )
 

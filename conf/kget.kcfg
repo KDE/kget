@@ -84,17 +84,14 @@
   </group>
 
   <group name="Directories">
-    <entry name="AlwaysAskDirectory" type="Bool">
-      <default>false</default>
-    </entry>
     <entry name="UseDefaultDirectory" type="Bool">
       <default>true</default>
     </entry>
     <entry name="DefaultDirectory" type="Path">
       <default>$HOME</default>
     </entry>
-    <entry name="MimeDirList" type="StringList" key="Items">
-      <label>extRegExp, defaultDir, extR..</label>
+    <entry name="ExtensionsFolderList" type="StringList" key="Items">
+      <label>extRegExp, defaultFolder</label>
     </entry>
   </group>
 

@@ -132,8 +132,11 @@ void KGet::addTransfer( KUrl srcUrl, QString destDir,
     if ( !isValidSource( srcUrl ) )
         return;
 
-    if ( !isValidDestDirectory( destDir ) )
+    if (!isValidDestDirectory(destDir) && !Settings::useDefaultDirectory())
         destDir = destInputDialog();
+
+    if (Settings::useDefaultDirectory())
+        destDir = getSaveDirectoryFromDefault(srcUrl);
 
     if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
         return;
@@ -186,7 +189,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir,
     KUrl destUrl;
 
     // multiple files -> ask for directory, not for every single filename
-    if ( !isValidDestDirectory(destDir) )
+    if (!isValidDestDirectory(destDir) && !Settings::useDefaultDirectory())
         destDir = destInputDialog();
 
     it = urlsToDownload.begin();
@@ -194,7 +197,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir,
 
     for ( ; it != itEnd; ++it )
     {
-        destUrl = getValidDestUrl( destDir, *it );
+        destUrl = getValidDestUrl(destDir.isEmpty() ? getSaveDirectoryFromDefault(*it) : destDir, *it);
 
         if(!isValidDestUrl(destUrl))
             continue;
@@ -536,6 +539,37 @@ QString KGet::destInputDialog()
 
     Settings::setLastDirectory( destDir );
     return destDir;
+}
+
+QString KGet::getSaveDirectoryFromDefault(const KUrl &filename)
+{
+// use global default folder as default.
+// if extension is matching with one in the list, overwrite it below.
+    QString destDir = Settings::defaultDirectory();
+
+    QStringList list = Settings::extensionsFolderList();
+    QStringList::Iterator it = list.begin();
+    QStringList::Iterator end = list.end();
+    while (it != end) {
+        // odd list items are regular expressions for extensions
+        QString ext = *it;
+        ++it;
+        QString path = *it;
+        ++it;
+
+        if (!ext.startsWith('*'))
+            ext = '*' + ext;
+
+        QRegExp rexp(ext);
+        rexp.setPatternSyntax(QRegExp::Wildcard);
+
+        if (rexp.exactMatch(filename.url())) {
+            destDir = path;
+            break;
+        }
+    }
+
+    return destDir.replace("file://", "");
 }
 
 bool KGet::isValidSource(KUrl source)

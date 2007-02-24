@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2004 KGet Developers < >
+   Copyright (C) 2004 - 2007 KGet Developers <kget@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -12,36 +12,31 @@
 
 #include "preferencesdialog.h"
 
-// single config pages
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
-#include "ui_dlgdirectories.h"
+#include "dlgdirectories.h"
 #include "ui_dlgadvanced.h"
 
-PreferencesDialog::PreferencesDialog( QWidget * parent, KConfigSkeleton * skeleton )
-    : KConfigDialog( parent, "preferences", skeleton )
+PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
+    : KConfigDialog(parent, "preferences", skeleton)
 {
-    qRegisterMetaType<KUrl>("KUrl");
-
     appearance = new QWidget(this);
+    DlgDirectories *directories = new DlgDirectories(this);
     network = new QWidget(this);
-    directories = new QWidget(this);
     advanced = new QWidget(this);
     plugins = new KTabWidget(this);
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
-    Ui::DlgDirectories dlgDir;
     Ui::DlgAdvanced dlgAdv;
 
     dlgApp.setupUi(appearance);
     dlgNet.setupUi(network);
-    dlgDir.setupUi(directories);
     dlgAdv.setupUi(advanced);
 
     addPage(appearance, i18n("Appearance"), "screen", i18n("Look and Feel"));
     addPage(directories, i18n("Folders"), "folder_open", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network", i18n("Network and Downloads"));
     addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));
-    addPage(plugins, i18n("Plugins"), "usbpendrive_unmount", i18n("Plugins Options"));
+    addPage(plugins, i18n("Plugins"), "usbpendrive_unmount", i18n("Transfer Plugin Options"));
 }

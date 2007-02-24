@@ -229,6 +229,7 @@ class KGET_EXPORT KGet
 
         static KUrl urlInputDialog();
         static QString destInputDialog();
+        static QString getSaveDirectoryFromDefault(const KUrl &filename);
 
         static bool isValidSource(KUrl source);
         static bool isValidDestDirectory(const QString& destDir);

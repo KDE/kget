@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>354</width>
-    <height>320</height>
+    <height>416</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -20,17 +20,154 @@
     <number>6</number>
    </property>
    <item>
-    <widget class="QCheckBox" name="kcfg_UseDefaultDirectory" >
+    <widget class="QRadioButton" name="askRadioButton" >
      <property name="text" >
-      <string>Automatically save downloads to:</string>
+      <string>Ask save location for every new download</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="KUrlRequester" name="kcfg_DefaultDirectory">
-     <property name="mode" >
-      <enum>KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly</enum>
+    <widget class="QRadioButton" name="kcfg_UseDefaultDirectory" >
+     <property name="text" >
+      <string>Place new downloads inside default folders</string>
      </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="defaultFolderGroupBox" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="title" >
+      <string/>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="defaultFolderLabel" >
+        <property name="text" >
+         <string>Default folder:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KUrlRequester" name="defaultFolderRequester" />
+      </item>
+      <item>
+       <widget class="QLabel" name="matchingExtensionLabel" >
+        <property name="text" >
+         <string>Move downloads inside matching folder for extension:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTreeWidget" name="folderForExtensionList" >
+        <property name="rootIsDecorated" >
+         <bool>false</bool>
+        </property>
+        <property name="allColumnsShowFocus" >
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text" >
+          <string>Extension</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Default Folder</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="extensionLabel" >
+          <property name="text" >
+           <string>Extension:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="extensionLineEdit" >
+          <property name="sizePolicy" >
+           <sizepolicy>
+            <hsizetype>1</hsizetype>
+            <vsizetype>0</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="folderLabel" >
+          <property name="text" >
+           <string>Folder:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KUrlRequester" name="folderForExtensionRequester" >
+          <property name="sizePolicy" >
+           <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>0</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="addButton" >
+          <property name="text" >
+           <string>Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeButton" >
+          <property name="text" >
+           <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="changeButton" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="text" >
+           <string>Change</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -43,8 +180,8 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>200</width>
-       <height>20</height>
+       <width>336</width>
+       <height>16</height>
       </size>
      </property>
     </spacer>
@@ -62,22 +199,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>kcfg_UseDefaultDirectory</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcfg_DefaultDirectory</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
