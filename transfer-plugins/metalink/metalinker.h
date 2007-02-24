@@ -9,18 +9,18 @@
 */
 
 
-#ifndef METALINKER_H
-#define METALINKER_H
+#ifndef Metalinker_H
+#define Metalinker_H
 
 class QDomElement;
 
-class metalinker
+class Metalinker
 {
     public:
-        metalinker();
+        Metalinker();
         void parseMetalinkFile(const KUrl& url);
     private:
         QDomElement readMetalinkFile(const KUrl& url);
 };
 
-#endif // METALINKER_H
+#endif // Metalinker_H

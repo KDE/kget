@@ -12,18 +12,18 @@
 #include <QFile>
 
 #include <kio/job.h>
-#include "metalinker.h"
+#include "Metalinker.h"
 
-metalinker::metalinker()
+Metalinker::Metalinker()
 {
 }
 
-void metalinker::parseMetalinkFile(const KUrl& url)
+void Metalinker::parseMetalinkFile(const KUrl& url)
 {
     QDomNodeList nodelist = readMetalinkFile(url).elementsByTagName("metalink");
 }
 
-QDomElement metalinker::readMetalinkFile(const KUrl& url)
+QDomElement Metalinker::readMetalinkFile(const KUrl& url)
 {
     if(url.protocol() == "file")
     {
