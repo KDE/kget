@@ -14,38 +14,66 @@
 #include <kio/job.h>
 #include "metalinker.h"
 
+class MlinkFileData
+{
+    public:
+        MlinkFileData() {};
+        QString fileName;
+        QString md5;
+        QString sha256;
+        KUrl::List urls;
+};
+
+
 Metalinker::Metalinker()
 {
 }
 
-void Metalinker::parseMetalinkFile(const KUrl& url)
+QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
 {
-    QDomNodeList nodelist = readMetalinkFile(url).elementsByTagName("metalink");
-}
+    QList<MlinkFileData> fileData;
+    QFile file( url.fileName() );
+    QDomDocument doc;
 
-QDomElement Metalinker::readMetalinkFile(const KUrl& url)
-{
-    if(url.protocol() == "file")
+    if(!doc.setContent(&file))
+        return fileData;
+
+    QDomNodeList files = doc.documentElement().
+        elementsByTagName("metalink").
+        item(0).toElement().elementsByTagName("files").
+        item(0).toElement().elementsByTagName("file");
+
+    for( uint i=0 ; i < files.length() ; ++i )
     {
-        QFile file( url.fileName() );
-        QDomDocument doc;
+        QDomNode file = files.item(i);
+        MlinkFileData data;
+        data.fileName = file.toElement().attribute("name");
 
-        if(doc.setContent(&file))
+        QDomNodeList hashes = file.toElement().
+            elementsByTagName("verification").
+            item(0).toElement().elementsByTagName("hash");
+
+        for( uint j=0 ; i < hashes.length() ; ++j )
         {
-            return doc.documentElement();
+            QDomNode hash = hashes.item(i);
+            if (hash.toElement().attribute("type") == "md5")
+                data.md5 = hash.toElement().text();
+            if (hash.toElement().attribute("type") == "sha256")
+                data.sha256 = hash.toElement().text();
         }
-    }
-    else
-    {
-// i need to check the way konqueror plugin works.
-// maybe it already give me the remote .metalink file or
-// maybe i have to download it my self
-// for now i'll comment the following code
 
-//         KIO::TransferJob *job = KIO::get(url, false, false);
-//         connect(job,SIGNAL(data(KIO::Job*,const QByteArray &)),
-//                SLOT(slotData(KIO::Job*, const QByteArray& )));
+        QDomNodeList urls = file.toElement().
+            elementsByTagName("resources").
+            item(0).toElement().elementsByTagName("url");
 
-        return QDomElement();
+        for( uint j=0 ; i < urls.length() ; ++j )
+        {
+            QDomNode url = urls.item(i);
+            data.urls << KUrl(url.toElement().text());
+        }
+
+        fileData << data;
     }
+
+    return fileData;
 }

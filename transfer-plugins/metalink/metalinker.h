@@ -13,14 +13,13 @@
 #define Metalinker_H
 
 class QDomElement;
+class MlinkFileData;
 
 class Metalinker
 {
     public:
         Metalinker();
-        void parseMetalinkFile(const KUrl& url);
-    private:
-        QDomElement readMetalinkFile(const KUrl& url);
+        QList<MlinkFileData> parseMetalinkFile(const KUrl& url);
 };
 
 #endif // Metalinker_H
