@@ -31,55 +31,47 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
     if(!doc.setContent(&file))
         return fileData;
 
-    QDomNodeList metalink = doc.documentElement().
-        elementsByTagName("metalink");
-    kDebug(5001) << metalink.length() << " <metalink> tags found" << endl;
+    QDomNodeList files = doc.documentElement().
+        elementsByTagName("files").
+        item(0).toElement().elementsByTagName("file");
 
-    QDomNodeList files = metalink.item(0).toElement().
-        elementsByTagName("files");
-    kDebug(5001) << files.length() << " <files> tags found" << endl;
-
-    QDomNodeList _file = files.item(0).toElement().
-        elementsByTagName("file");
-    kDebug(5001) << _file.length() << " <file> tags found" << endl;
-
-//     QDomNodeList files = doc.documentElement().
-//         elementsByTagName("metalink").
-//         item(0).toElement().elementsByTagName("files").
-//         item(0).toElement().elementsByTagName("file");
-
-//     kDebug(5001) << files.length() << " <file> tags found" << endl;
+    kDebug(5001) << files.length() << " <file> tags found" << endl;
 
     for( uint i=0 ; i < files.length() ; ++i )
     {
         QDomNode file = files.item(i);
         MlinkFileData data;
         data.fileName = file.toElement().attribute("name");
+        kDebug(5001) << "filename: "<< data.fileName << endl;
 
         QDomNodeList hashes = file.toElement().
             elementsByTagName("verification").
             item(0).toElement().elementsByTagName("hash");
 
-        for( uint j=0 ; i < hashes.length() ; ++j )
+        for( uint j=0 ; j < hashes.length() ; ++j )
         {
             QDomNode hash = hashes.item(i);
             if (hash.toElement().attribute("type") == "md5")
                 data.md5 = hash.toElement().text();
             if (hash.toElement().attribute("type") == "sha256")
                 data.sha256 = hash.toElement().text();
+        kDebug(5001) << "md5 hash: "<< data.md5 << endl;
+        kDebug(5001) << "sha256 hash: "<< data.sha256 << endl;
+
         }
 
         QDomNodeList urls = file.toElement().
             elementsByTagName("resources").
             item(0).toElement().elementsByTagName("url");
 
-        for( uint j=0 ; i < urls.length() ; ++j )
+        for( uint k=0 ; k < urls.length() ; ++k )
         {
             QDomNode url = urls.item(i);
             data.urls << KUrl(url.toElement().text());
         }
 
         fileData << data;
+        kDebug(5001) << fileData.size() << " files Data" << endl;
     }
 
     return fileData;
