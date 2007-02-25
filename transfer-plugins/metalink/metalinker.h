@@ -13,7 +13,17 @@
 #define Metalinker_H
 
 class QDomElement;
-class MlinkFileData;
+
+class MlinkFileData
+{
+    public:
+        MlinkFileData() {};
+        QString fileName;
+        QString md5;
+        QString sha256;
+        KUrl::List urls;
+};
+
 
 class Metalinker
 {

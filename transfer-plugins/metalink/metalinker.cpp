@@ -11,18 +11,10 @@
 #include <QDomElement>
 #include <QFile>
 
+#include <kdebug.h>
 #include <kio/job.h>
-#include "metalinker.h"
 
-class MlinkFileData
-{
-    public:
-        MlinkFileData() {};
-        QString fileName;
-        QString md5;
-        QString sha256;
-        KUrl::List urls;
-};
+#include "metalinker.h"
 
 
 Metalinker::Metalinker()
@@ -31,6 +23,7 @@ Metalinker::Metalinker()
 
 QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
 {
+    kDebug(5001) << "Metalinker::parseMetalinkFile " << url << endl;
     QList<MlinkFileData> fileData;
     QFile file( url.fileName() );
     QDomDocument doc;
@@ -38,10 +31,24 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
     if(!doc.setContent(&file))
         return fileData;
 
-    QDomNodeList files = doc.documentElement().
-        elementsByTagName("metalink").
-        item(0).toElement().elementsByTagName("files").
-        item(0).toElement().elementsByTagName("file");
+    QDomNodeList metalink = doc.documentElement().
+        elementsByTagName("metalink");
+    kDebug(5001) << metalink.length() << " <metalink> tags found" << endl;
+
+    QDomNodeList files = metalink.item(0).toElement().
+        elementsByTagName("files");
+    kDebug(5001) << files.length() << " <files> tags found" << endl;
+
+    QDomNodeList _file = files.item(0).toElement().
+        elementsByTagName("file");
+    kDebug(5001) << _file.length() << " <file> tags found" << endl;
+
+//     QDomNodeList files = doc.documentElement().
+//         elementsByTagName("metalink").
+//         item(0).toElement().elementsByTagName("files").
+//         item(0).toElement().elementsByTagName("file");
+
+//     kDebug(5001) << files.length() << " <file> tags found" << endl;
 
     for( uint i=0 ; i < files.length() ; ++i )
     {

@@ -7,6 +7,8 @@ include_directories(
 ########### next target ###############
 
 set(kget_metalinkfactory_PART_SRCS
+  ../multisegmentkio/segmentfactory.cpp
+  ../multisegmentkio/MultiSegKio.cpp
   metalinkFactory.cpp
   metalink.cpp
   metalinker.cpp

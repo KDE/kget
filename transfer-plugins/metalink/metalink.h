@@ -16,7 +16,9 @@
 
 #include "core/transfer.h"
 
- 
+class MultiSegmentCopyJob;
+class SegData;
+
 class metalink : public QObject, public Transfer
 {
     Q_OBJECT
@@ -39,6 +41,13 @@ class metalink : public QObject, public Transfer
 
     protected:
         void load(QDomElement e);
+
+    private:
+        void createJob();
+
+        MultiSegmentCopyJob *m_copyjob;
+        QList<SegData> SegmentsData;
+        bool m_isDownloading;
 };
 
 #endif
