@@ -95,9 +95,10 @@ void metalink::createJob()
             return;
         MlinkFileData ml = mldata.takeFirst();
 
+        kDebug(5001) <<  m_dest << endl;
         m_dest.adjustPath( KUrl::AddTrailingSlash );
         m_dest.setFileName( ml.fileName );
-        kDebug(5001) <<  ml.fileName << endl;
+        kDebug(5001) <<  m_dest << endl;
 
         if(SegmentsData.empty())
         {

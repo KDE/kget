@@ -50,7 +50,7 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
 
         for( uint j=0 ; j < hashes.length() ; ++j )
         {
-            QDomNode hash = hashes.item(i);
+            QDomNode hash = hashes.item(j);
             if (hash.toElement().attribute("type") == "md5")
                 data.md5 = hash.toElement().text();
             if (hash.toElement().attribute("type") == "sha256")
@@ -66,8 +66,9 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
 
         for( uint k=0 ; k < urls.length() ; ++k )
         {
-            QDomNode url = urls.item(i);
+            QDomNode url = urls.item(k);
             data.urls << KUrl(url.toElement().text());
+            kDebug(5001) << "url: "<< url.toElement().text() << endl;
         }
 
         fileData << data;
