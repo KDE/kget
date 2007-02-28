@@ -30,6 +30,7 @@ class Metalinker
     public:
         Metalinker();
         QList<MlinkFileData> parseMetalinkFile(const KUrl& url);
+        bool verifyMD5(QIODevice& file, const QString& md5);
 };
 
 #endif // Metalinker_H

@@ -12,6 +12,7 @@
 #include <QFile>
 
 #include <kdebug.h>
+#include <kcodecs.h>
 #include <kio/job.h>
 
 #include "metalinker.h"
@@ -76,4 +77,11 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
     }
 
     return fileData;
+}
+
+bool Metalinker::verifyMD5(QIODevice& file, const QString& md5)
+{
+    KMD5 context;
+    context.update(file);
+    return context.verify( md5.toAscii() );
 }
