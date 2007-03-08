@@ -9,7 +9,6 @@
 */
 
 #include <kde_file.h>
-#include <kio/observer.h>
 
 #include <QFile>
 #include <qtimer.h>
