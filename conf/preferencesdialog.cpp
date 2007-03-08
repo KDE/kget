@@ -35,8 +35,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgAdv.setupUi(advanced);
 
     addPage(appearance, i18n("Appearance"), "screen", i18n("Look and Feel"));
-    addPage(directories, i18n("Folders"), "folder_open", i18n("Default Download Folders"));
-    addPage(network, i18n("Network"), "network", i18n("Network and Downloads"));
+    addPage(directories, i18n("Folders"), "folder-open", i18n("Default Download Folders"));
+    addPage(network, i18n("Network"), "network-wired", i18n("Network and Downloads"));
     addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));
-    addPage(plugins, i18n("Plugins"), "usbpendrive_unmount", i18n("Transfer Plugin Options"));
+    addPage(plugins, i18n("Plugins"), "usbpendrive-unmount", i18n("Transfer Plugin Options"));
 }

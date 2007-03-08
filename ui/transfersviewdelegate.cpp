@@ -40,7 +40,7 @@ GroupStatusEditor::GroupStatusEditor(const TransfersViewDelegate * delegate, QWi
     m_startBt = new QToolButton(this);
     m_startBt->setCheckable(true);
     m_startBt->setAutoRaise(true);
-    m_startBt->setIcon(KIcon("player_play"));
+    m_startBt->setIcon(KIcon("media-playback-start"));
     m_startBt->setFixedSize(20, 20);
     m_startBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
     m_layout->addWidget(m_startBt);
@@ -49,7 +49,7 @@ GroupStatusEditor::GroupStatusEditor(const TransfersViewDelegate * delegate, QWi
     m_stopBt = new QToolButton(this);
     m_stopBt->setCheckable(true);
     m_stopBt->setAutoRaise(true);
-    m_stopBt->setIcon(KIcon("player_pause"));
+    m_stopBt->setIcon(KIcon("media-playback-pause"));
     m_stopBt->setFixedSize(20, 20);
     m_stopBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
     m_layout->addWidget(m_stopBt);

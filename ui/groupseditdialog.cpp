@@ -29,12 +29,12 @@ GroupsEditDialog::GroupsEditDialog(QWidget *parent)
     QVBoxLayout *buttonLayout = new QVBoxLayout;
 
     KPushButton *addGroupBt = new KPushButton(i18n("Add Group"));
-    addGroupBt->setIcon(KIcon("add"));
+    addGroupBt->setIcon(KIcon("list-add"));
     connect(addGroupBt, SIGNAL(clicked()), SLOT(slotAddGroup()));
     buttonLayout->addWidget(addGroupBt);
 
     KPushButton *deleteGroupBt = new KPushButton(i18n("Delete Group"));
-    deleteGroupBt->setIcon(KIcon("remove"));
+    deleteGroupBt->setIcon(KIcon("list-remove"));
     connect(deleteGroupBt, SIGNAL(clicked()), SLOT(slotDeleteGroup()));
     buttonLayout->addWidget(deleteGroupBt);
 

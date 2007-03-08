@@ -49,7 +49,7 @@ void metalink::stop()
         m_copyjob->stop();
     }
 
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
+    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
     m_isDownloading = false;
     setTransferChange(Tc_Status | Tc_Speed, true);

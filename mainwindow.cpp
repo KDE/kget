@@ -91,13 +91,13 @@ void MainWindow::setupActions()
 {
     QAction *newDownloadAction = actionCollection()->addAction("new_download");
     newDownloadAction->setText(i18n("&New Download..."));
-    newDownloadAction->setIcon(KIcon("filenew"));
+    newDownloadAction->setIcon(KIcon("document-new"));
     newDownloadAction->setShortcuts(KShortcut("Ctrl+N"));
     connect(newDownloadAction, SIGNAL(triggered()), SLOT(slotNewTransfer()));
 
     QAction *openAction = actionCollection()->addAction("open");
     openAction->setText(i18n("&Open..."));
-    openAction->setIcon(KIcon("fileopen"));
+    openAction->setIcon(KIcon("document-open"));
     openAction->setShortcuts(KShortcut("Ctrl+O"));
     connect(openAction, SIGNAL(triggered()), SLOT(slotOpen()));
 
@@ -147,31 +147,31 @@ void MainWindow::setupActions()
     // Transfer related actions
     QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
     deleteSelectedAction->setText(i18n("Delete Selected"));
-    deleteSelectedAction->setIcon(KIcon("editdelete"));
+    deleteSelectedAction->setIcon(KIcon("edit-delete"));
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     QAction *startAllAction = actionCollection()->addAction("start_all_download");
     startAllAction->setText(i18n("Start / Resume All"));
-    startAllAction->setIcon(KIcon("player_fwd"));
+    startAllAction->setIcon(KIcon("media-seek-forward"));
     connect(startAllAction, SIGNAL(triggered()), SLOT(slotStartAllDownload()));
 
     QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
     startSelectedAction->setText(i18n("Start / Resume Selected"));
-    startSelectedAction->setIcon(KIcon("player_play"));
+    startSelectedAction->setIcon(KIcon("media-playback-start"));
     connect(startSelectedAction, SIGNAL(triggered()), SLOT(slotStartSelectedDownload()));
 
     QAction *stopAllAction = actionCollection()->addAction("stop_all_download");
     stopAllAction->setText(i18n("Stop All"));
-    stopAllAction->setIcon(KIcon("player_pause"));
+    stopAllAction->setIcon(KIcon("media-playback-pause"));
     connect(stopAllAction, SIGNAL(triggered()), SLOT(slotStopAllDownload()));
 
     QAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
     stopSelectedAction->setText(i18n("Stop Selected"));
-    stopSelectedAction->setIcon(KIcon("player_pause"));
+    stopSelectedAction->setIcon(KIcon("media-playback-pause"));
     connect(stopSelectedAction, SIGNAL(triggered()), SLOT(slotStopSelectedDownload()));
 
-    KActionMenu *startActionMenu = new KActionMenu(KIcon("player_play"), i18n("Start / Resume"),
+    KActionMenu *startActionMenu = new KActionMenu(KIcon("media-playback-start"), i18n("Start / Resume"),
                                                      actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
     startActionMenu->setDelayed(true);
@@ -179,7 +179,7 @@ void MainWindow::setupActions()
     startActionMenu->addAction(startSelectedAction);
     connect(startActionMenu, SIGNAL(triggered()), SLOT(slotStartDownload()));
 
-    KActionMenu *stopActionMenu = new KActionMenu(KIcon("player_pause"), i18n("Stop"),
+    KActionMenu *stopActionMenu = new KActionMenu(KIcon("media-playback-pause"), i18n("Stop"),
                                                     actionCollection());
     actionCollection()->addAction("stop_menu", stopActionMenu);
     stopActionMenu->setDelayed(true);

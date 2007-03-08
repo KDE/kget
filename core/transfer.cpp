@@ -33,7 +33,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
         load( *e );
     else
     {
-        setStatus(status(), i18n("Stopped"), SmallIcon("stop"));
+        setStatus(status(), i18n("Stopped"), SmallIcon("process-stop"));
     }
 }
 
@@ -56,7 +56,7 @@ void Transfer::setDelay(int seconds)
 
 void Transfer::delayTimerEvent()
 {
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
+    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
 
     setTransferChange(Tc_Status, true);
 }
@@ -101,7 +101,7 @@ void Transfer::load(QDomElement e)
     }
     else
     {
-        setStatus(status(), i18n("Stopped"), SmallIcon("stop"));
+        setStatus(status(), i18n("Stopped"), SmallIcon("process-stop"));
     }
 }
 

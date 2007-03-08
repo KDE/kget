@@ -304,13 +304,13 @@ void TransferGroupHandler::createActions()
 
     QAction *startAction = KGet::actionCollection()->addAction("transfer_group_start");
     startAction->setText(i18n("Start"));
-    startAction->setIcon(KIcon("player_play"));
+    startAction->setIcon(KIcon("media-playback-start"));
     QObject::connect(startAction, SIGNAL(triggered()), qObject(), SLOT(slotStart()));
     m_actions.append(startAction);
 
     QAction *stopAction = KGet::actionCollection()->addAction("transfer_group_stop");
     stopAction->setText(i18n("Stop"));
-    stopAction->setIcon(KIcon("player_pause"));
+    stopAction->setIcon(KIcon("media-playback-pause"));
     QObject::connect(stopAction, SIGNAL(triggered()), qObject(), SLOT(slotStop()));
     m_actions.append(stopAction);
 }

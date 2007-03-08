@@ -48,7 +48,7 @@ void TransferKio::stop()
     }
 
     kDebug(5001) << "Stop" << endl;
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
+    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
@@ -118,7 +118,7 @@ void TransferKio::slotResult( KJob * kioJob )
         default:
             //There has been an error
             kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--" << endl;
-            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("stop"));
+            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
@@ -144,7 +144,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, KIO::filesize_t size )
 {
     kDebug(5001) << "slotTotalSize" << endl;
 
-    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
 
     m_totalSize = size;
     setTransferChange(Tc_Status | Tc_TotalSize, true);
@@ -156,7 +156,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, KIO::filesize_t size )
 
     if(status() != Job::Running)
     {
-        setStatus(Job::Running, i18n("Downloading.."),  SmallIcon("player_play"));
+        setStatus(Job::Running, i18n("Downloading.."),  SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status, true);
 
     }
@@ -170,7 +170,7 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 
     if(status() != Job::Running)
     {
-        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("player_play"));
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status, true);
 
     }

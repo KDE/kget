@@ -128,7 +128,7 @@ void BTTransfer::stop()
         download.stop();
 //          download.hash_save();
         m_speed = 0;
-        setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("stop"));
+        setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
         setTransferChange(Tc_Speed | Tc_Status, true);
 
         startTime = QTime();
@@ -284,7 +284,7 @@ void BTTransfer::update()
        (statusText() != i18n("Downloading..")) &&
        (status() != Job::Finished) )
     {
-        setStatus(status(), i18n("Downloading.."), SmallIcon("player_play"));
+        setStatus(status(), i18n("Downloading.."), SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status);
     }
 

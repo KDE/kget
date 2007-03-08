@@ -17,9 +17,9 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
-    addButton->setIcon(KIcon("add"));
-    removeButton->setIcon(KIcon("remove"));
-    changeButton->setIcon(KIcon("redo"));
+    addButton->setIcon(KIcon("list-add"));
+    removeButton->setIcon(KIcon("list-remove"));
+    changeButton->setIcon(KIcon("edit-redo"));
 
     defaultFolderRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     folderForExtensionRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);

@@ -34,7 +34,7 @@ void Button::paintEvent ( QPaintEvent * event )
     QPainter p(this);
 
     p.setBackgroundMode(Qt::TransparentMode);
-    p.drawPixmap(0, 0, SmallIcon("player_play"));
+    p.drawPixmap(0, 0, SmallIcon("media-playback-start"));
 }
 
 
@@ -191,7 +191,7 @@ void SidebarBox::updatePixmaps()
     m_pixFunsel = new QPixmap(DesktopIcon("folder", 32));
 
     //m_pixFsel: selected folder
-    QImage  img = DesktopIcon("folder_open", 32).toImage();
+    QImage  img = DesktopIcon("folder-open", 32).toImage();
     KIconEffect::toGamma(img, 0);
     delete m_pixFsel;
     m_pixFsel = new QPixmap(QPixmap::fromImage(img));
@@ -214,13 +214,13 @@ void SidebarBox::updatePixmaps()
 
     //m_pixPlus: plus simbol
     delete m_pixPlus;
-//    m_pixPlus = new QPixmap(SmallIcon("viewmag+", 16));
-    m_pixPlus = new QPixmap(SmallIcon("1rightarrow", 16));
+//    m_pixPlus = new QPixmap(SmallIcon("zoom-in", 16));
+    m_pixPlus = new QPixmap(SmallIcon("arrow-right", 16));
 
     //m_pixMinus: minus simbol
     delete m_pixMinus;
-//    m_pixMinus = new QPixmap(SmallIcon("viewmag-", 16));
-    m_pixMinus = new QPixmap(SmallIcon("1downarrow", 16));
+//    m_pixMinus = new QPixmap(SmallIcon("zoom-out", 16));
+    m_pixMinus = new QPixmap(SmallIcon("arrow-down", 16));
 }
 
 void SidebarBox::paintEvent( QPaintEvent * event )
@@ -374,7 +374,7 @@ GroupBox::GroupBox( TransferGroupHandler * group, DownloadsBox * dbox, Sidebar *
 {
 /*    Button * t = new Button(this);
     t->setGeometry(10, 10, 30, 30);*/
-//     t->setIcon(SmallIcon("player_play"));
+//     t->setIcon(SmallIcon("media-playback-start"));
     
 
     m_group->addObserver(this);
