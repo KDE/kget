@@ -77,7 +77,6 @@
     private Q_SLOTS:
         void calcSpeed();
         void slotDataReq( Segment *, const QByteArray &data, bool &result);
-        void slotStatusChanged( Segment *seg );
         void slotStart();
         void slotOpen( KIO::Job * );
         void slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten);

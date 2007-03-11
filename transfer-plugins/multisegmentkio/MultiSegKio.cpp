@@ -83,8 +83,6 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
         connect( (*it)->job(), SIGNAL(speed( KJob*, unsigned long )),
                  SLOT(slotSpeed( KJob*, unsigned long )));
-        connect( (*it), SIGNAL(statusChanged( Segment *)),
-                 SLOT(slotStatusChanged( Segment *)));
         connect( (*it), SIGNAL(updateSegmentData()),
                  SIGNAL(updateSegmentsData()));
     }
@@ -99,7 +97,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
 MultiSegmentCopyJob::~MultiSegmentCopyJob()
 {
     kDebug(5001) << "MultiSegmentCopyJob::destructor()" << endl;
-    delete SegFactory;
+    SegFactory->deleteLater();
 }
 
 QList<SegData> MultiSegmentCopyJob::SegmentsData()
@@ -153,8 +151,6 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
     connect( seg, SIGNAL(updateSegmentData()),
                  SIGNAL(updateSegmentsData()));
-    connect( seg, SIGNAL(statusChanged( Segment *)),
-                 SLOT(slotStatusChanged( Segment *)));
     connect( seg->job(), SIGNAL(speed( KJob*, unsigned long )),
                  SLOT(slotSpeed( KJob*, unsigned long )));
     connect( seg->job(), SIGNAL(totalSize( KJob *, qulonglong )),
@@ -231,21 +227,6 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
     result = true;
 }
 
-void MultiSegmentCopyJob::slotStatusChanged( Segment *seg)
-{
-    kDebug(5001) << "MultiSegmentCopyJob::slotStatusChanged() " << seg->status() << endl;
-    switch (seg->status())
-    {
-    case Segment::Timeout :
-        seg->createTransfer(SegFactory->nextUrl());
-        seg->startTransfer();
-    break;
-    case Segment::Finished :
-        SegFactory->deleteSegment(seg);
-    break;
-    }
-}
-
 void MultiSegmentCopyJob::slotResult( KJob *job )
 {
     kDebug(5001) << "MultiSegmentCopyJob::slotResult()" << job <<endl;
@@ -289,8 +270,6 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
         connect( (*it)->job(), SIGNAL(speed( KJob*, unsigned long )),
                  SLOT(slotSpeed( KJob*, unsigned long )));
-        connect( (*it), SIGNAL(statusChanged( Segment *)),
-                 SLOT(slotStatusChanged( Segment *)));
         connect( (*it), SIGNAL(updateSegmentData()),
                  SIGNAL(updateSegmentsData()));
         (*it)->startTransfer();

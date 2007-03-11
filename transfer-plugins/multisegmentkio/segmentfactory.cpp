@@ -18,7 +18,8 @@ SegData::SegData ()
     bytes = (KIO::filesize_t)-1;
 }
 
-Segment::Segment ()
+Segment::Segment (QObject* parent)
+  :QObject(parent)
 {
     m_status = Stopped;
     m_bytesWritten = 0;
@@ -257,7 +258,10 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
 Segment *SegmentFactory::createSegment( SegData data, KUrl src )
 {
     kDebug(5001) << "SegmentFactory::createSegment()" << endl;
-    Segment *seg = new Segment();
+    Segment *seg = new Segment(this);
+    connect( seg, SIGNAL(statusChanged( Segment *)),
+                  SLOT(slotStatusChanged( Segment *)));
+
     seg->setData(data);
     seg->createTransfer( src );
     m_Segments.append(seg);
@@ -268,6 +272,21 @@ void SegmentFactory::deleteSegment(Segment *seg)
 {
     m_Segments.removeAll(seg);
     kDebug(5001) << "SegmentFactory::deleteSegment() " << m_Segments.size() << " segments left." << endl;
+}
+
+void SegmentFactory::slotStatusChanged( Segment *seg)
+{
+    kDebug(5001) << "SegmentFactory::slotStatusChanged() " << seg->status() << endl;
+    switch (seg->status())
+    {
+    case Segment::Timeout :
+        seg->createTransfer(nextUrl());
+        seg->startTransfer();
+    break;
+    case Segment::Finished :
+        deleteSegment(seg);
+    break;
+    }
 }
 
 const KUrl SegmentFactory::nextUrl()

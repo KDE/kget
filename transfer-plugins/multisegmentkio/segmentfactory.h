@@ -54,7 +54,7 @@
         /**
         * Empty Constructor
         */
-        Segment ();
+        Segment (QObject* parent);
 
         /**
         * Create the segment transfer
@@ -80,7 +80,7 @@
 
         /**
         * Set the segment data
-        * @param the value of m_segData
+        * @param data the value of m_segData
         */
         void setData (SegData data ){ m_segData = data; };
 
@@ -145,8 +145,10 @@
         QByteArray m_buffer;
     };
 
-    class SegmentFactory
+    class SegmentFactory: public QObject
     {
+        Q_OBJECT
+
     public:
         SegmentFactory( uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData );
         ~SegmentFactory();
@@ -161,8 +163,10 @@
         void deleteSegment(Segment *);
         const KUrl nextUrl();
 
-    private:
+    private Q_SLOTS:
+        void slotStatusChanged( Segment *seg);
 
+    private:
         uint m_segments;
         QList<Segment *> m_Segments;
         QList<KUrl>::const_iterator it_Urls;
