@@ -102,7 +102,6 @@ MultiSegmentCopyJob::~MultiSegmentCopyJob()
 
 QList<SegData> MultiSegmentCopyJob::SegmentsData()
 {
-    kDebug(5001) << "MultiSegmentCopyJob::SegmentsData()" << endl;
     return SegFactory->SegmentsData();
 }
 
@@ -112,7 +111,8 @@ void MultiSegmentCopyJob::stop()
     setError(KIO::ERR_USER_CANCELED);
     if (SegFactory)
         SegFactory->stopTransfer();
-    m_putJob->close();
+    if (m_putJob)
+        m_putJob->close();
 }
 
 void MultiSegmentCopyJob::slotStart()

@@ -191,7 +191,7 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
 
 void TransferHandler::postTransferChangedEvent()
 {
-    kDebug(5001) << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
+//     kDebug(5001) << "TransferHandler::postTransferChangedEvent() ENTERING" << endl;
     
     // Here we have to copy the list and iterate on the copy itself, because
     // a view can remove itself as a view while we are iterating over the

@@ -212,7 +212,7 @@ void transferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 
 void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
-    kDebug(5001) << "transferMultiSegKio::slotPercent" << endl;
+//     kDebug(5001) << "transferMultiSegKio::slotPercent" << endl;
     Q_UNUSED(kioJob);
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -235,7 +235,7 @@ void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 
 void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 {
-    kDebug(5001) << "slotProcessedSize" << endl; 
+//     kDebug(5001) << "slotProcessedSize" << endl; 
 
     if (!m_isDownloading)
     {
@@ -250,7 +250,7 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 
 void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
-    kDebug(5001) << "slotSpeed: " << bytes_per_second << endl;
+//     kDebug(5001) << "slotSpeed: " << bytes_per_second << endl;
 
     if (!m_isDownloading)
     {

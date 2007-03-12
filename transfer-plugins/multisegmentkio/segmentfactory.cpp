@@ -50,7 +50,7 @@ bool Segment::createTransfer ( KUrl src )
 bool Segment::startTransfer ()
 {
     kDebug(5001) << "Segment::startTransfer()"<< endl;
-    if( m_getJob && m_status == Stopped )
+    if( m_getJob && m_status != Running )
     {
         setStatus( Running, false );
         m_getJob->internalResume();
@@ -61,7 +61,7 @@ bool Segment::startTransfer ()
 
 bool Segment::stopTransfer ()
 {
-    kDebug(5001) << "Segment::stopTransfer()"<< endl;
+    kDebug(5001) << "Segment::stopTransfer()" << endl;
     if( m_getJob && m_status == Running )
     {
         setStatus( Stopped, false );
@@ -94,7 +94,7 @@ void Segment::slotResult( KJob *job )
     }
     if( m_status == Running )
     {
-        kDebug(5001) << "Segment::slotResult() Conection broken " << job << " -- restarting..." << endl;
+        kDebug(5001) << "Segment::slotResult() Conection broken " << job << " --restarting--" << endl;
         setStatus(Timeout);
     }
 }
@@ -126,7 +126,7 @@ bool Segment::writeBuffer()
         m_bytesWritten += m_buffer.size();
         m_chunkSize += m_buffer.size();
         m_buffer = QByteArray();
-        kDebug(5001) << "Segment::writeBuffer() updating segment record of job: " << m_getJob << " -- " << m_segData.bytes <<" bytes left"<< endl;
+//         kDebug(5001) << "Segment::writeBuffer() updating segment record of job: " << m_getJob << " -- " << m_segData.bytes <<" bytes left"<< endl;
         if( m_chunkSize > 50*1024)
         {
             emit updateSegmentData();
