@@ -9,7 +9,7 @@
 */
 
 #include "dlgmultisegkio.h"
-#include "MultiSegKioSettings.h"
+#include "multisegkiosettings.h"
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
     : QDialog(parent)

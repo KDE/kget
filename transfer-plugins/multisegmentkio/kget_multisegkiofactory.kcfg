@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg>
-  <kcfgfile name="kget_MultiSegKiofactory.rc"/>
+  <kcfgfile name="kget_multisegkiofactory.rc"/>
   <group name="Segments">
     <entry name="Segments" type="Int">
       <default>5</default>

@@ -16,7 +16,7 @@
 #include <kio/job.h>
 
 #include "core/transfer.h"
-#include "MultiSegKio.h"
+#include "multisegkio.h"
 /**
  * This transfer uses the KIO class to download files
  */

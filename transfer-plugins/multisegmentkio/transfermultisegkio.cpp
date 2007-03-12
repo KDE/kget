@@ -15,8 +15,8 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-#include "MultiSegKioSettings.h"
-#include "transferMultiSegKio.h"
+#include "multisegkiosettings.h"
+#include "transfermultisegkio.h"
 #include "mirrors.h"
 
 transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
@@ -263,4 +263,4 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
     setTransferChange(Tc_Speed, true);
 }
 
-#include "transferMultiSegKio.moc"
+#include "transfermultisegkio.moc"

@@ -13,7 +13,7 @@
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
-#include "metalinkFactory.h"
+#include "metalinkfactory.h"
 #include "metalink.h"
 
 KGET_EXPORT_PLUGIN( metalinkFactory )

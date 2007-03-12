@@ -17,7 +17,7 @@
 
 #include "metalink.h"
 #include "metalinker.h"
-#include "../multisegmentkio/MultiSegKio.h"
+#include "../multisegmentkio/multisegkio.h"
 
 metalink::metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,

@@ -16,7 +16,7 @@
 #include <sys/time.h>
 #include <fcntl.h>
 
-#include "MultiSegKio.h"
+#include "multisegkio.h"
 
 static const unsigned int max_nums = 8;
 class MultiSegmentCopyJob::MultiSegmentCopyJobPrivate
@@ -341,4 +341,4 @@ MultiSegmentCopyJob *MultiSegfile_copy(
     return new MultiSegmentCopyJob( Urls, dest, permissions,  ProcessedSize, totalSize,SegmentsData , segments);
 }
 
-#include "MultiSegKio.moc"
+#include "multisegkio.moc"

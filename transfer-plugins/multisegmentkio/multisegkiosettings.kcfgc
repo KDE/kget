@@ -1,5 +1,5 @@
 ClassName=MultiSegKioSettings
-File=kget_MultiSegKiofactory.kcfg
+File=kget_multisegkiofactory.kcfg
 Mutators=true
 Singleton=true
 Visibility=KDE_EXPORT

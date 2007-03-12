@@ -13,10 +13,10 @@
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
-#include "MultiSegKioSettings.h"
+#include "multisegkiosettings.h"
 #include "dlgmultisegkio.h"
-#include "transferMultiSegKioFactory.h"
-#include "transferMultiSegKio.h"
+#include "transfermultisegkiofactory.h"
+#include "transfermultisegkio.h"
 
 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
 

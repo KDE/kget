@@ -8,8 +8,8 @@ include_directories(
 
 set(kget_metalinkfactory_PART_SRCS
   ../multisegmentkio/segmentfactory.cpp
-  ../multisegmentkio/MultiSegKio.cpp
-  metalinkFactory.cpp
+  ../multisegmentkio/multisegkio.cpp
+  metalinkfactory.cpp
   metalink.cpp
   metalinker.cpp
 )
