@@ -89,8 +89,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
 
     m_putJob = 0;
     connect(&d->speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
-    setProcessedSize(ProcessedSize);
-    setTotalSize(totalSize);
+    setProcessedAmount(Bytes, ProcessedSize);
+    setTotalAmount(Bytes, totalSize);
     QTimer::singleShot(0, this, SLOT(slotStart()));
 }
 
@@ -137,7 +137,7 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
 
         gettimeofday(&d->start_time, 0);
         d->last_time = 0;
-        d->sizes[0] = processedSize() - d->bytes;
+        d->sizes[0] = processedAmount(Bytes) - d->bytes;
         d->times[0] = 0;
         d->nums = 1;
         d->speed_timer.start(1000);
@@ -162,15 +162,15 @@ void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
 {
 //     kDebug(5001) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten << endl;
     m_writeBlocked = false;
-    setProcessedSize(processedSize()+bytesWritten);
-    if( processedSize() == totalSize() )
+    setProcessedAmount(Bytes, processedAmount(Bytes)+bytesWritten);
+    if( processedAmount(Bytes) == totalAmount(Bytes) )
         m_putJob->close();
 }
 
 void MultiSegmentCopyJob::slotClose( KIO::Job * )
 {
     kDebug(5001) << "MultiSegmentCopyJob::slotClose() putjob" << endl;
-    if( processedSize() == totalSize() )
+    if( processedAmount(Bytes) == totalAmount(Bytes) )
     {
         kDebug(5001) << "Renaming local file." << endl;
        QString dest_orig = m_dest.path();
@@ -200,14 +200,14 @@ void MultiSegmentCopyJob::calcSpeed()
         d->nums--;
     }
     d->times[d->nums] = diff;
-    d->sizes[d->nums++] = processedSize() - d->bytes;
+    d->sizes[d->nums++] = processedAmount(Bytes) - d->bytes;
 
     KIO::filesize_t lspeed = 1000 * (d->sizes[d->nums-1] - d->sizes[0]) / (d->times[d->nums-1] - d->times[0]);
 
     if (!lspeed) {
       d->nums = 1;
       d->times[0] = diff;
-      d->sizes[0] = processedSize() - d->bytes;
+      d->sizes[0] = processedAmount(Bytes) - d->bytes;
     }
     emit speed(this, lspeed);
   }
@@ -249,11 +249,11 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
 void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 {
     kDebug(5001) << "MultiSegmentCopyJob::slotTotalSize() from job: " << job << " -- " << size << endl;
-    setTotalSize (size);
+    setTotalAmount (Bytes, size);
 
     gettimeofday(&d->start_time, 0);
     d->last_time = 0;
-    d->sizes[0] = processedSize() - d->bytes;
+    d->sizes[0] = processedAmount(Bytes) - d->bytes;
     d->times[0] = 0;
     d->nums = 1;
     d->speed_timer.start(1000);

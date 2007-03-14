@@ -9,7 +9,7 @@ Name=Multi Segments KIO TransferFactory
 Comment=Transfer plugin for KGet
 
 # options for library loader
-X-KDE-Library=libkget_MultiSegKiofactory
+X-KDE-Library=libkget_multisegkiofactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=70
 X-KDE-KGet-framework-version=1
