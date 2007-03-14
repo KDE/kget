@@ -15,6 +15,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 
+#include "core/kget.h"
 #include "multisegkiosettings.h"
 #include "transfermultisegkio.h"
 #include "mirrors.h"
@@ -178,6 +179,7 @@ void transferMultiSegKio::slotUpdateSegmentsData()
 {
     SegmentsData.clear();
     SegmentsData = m_copyjob->SegmentsData();
+    KGet::save();
 }
 
 void transferMultiSegKio::slotResult( KJob *kioJob )
