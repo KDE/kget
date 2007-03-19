@@ -6,6 +6,12 @@
     <entry name="Segments" type="Int">
       <default>5</default>
     </entry>
+    <entry name="SplitSize" type="Int">
+      <default>50</default>
+    </entry>
+    <entry name="SaveSegEvery" type="Int">
+      <default>200</default>
+    </entry>
   </group>
   <group name="SearchEngines">
     <entry name="UseSearchEngines" type="Bool">

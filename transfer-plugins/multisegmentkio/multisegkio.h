@@ -116,6 +116,7 @@
         SegmentFactory *SegFactory;
         KIO::FileJob* m_putJob;
         bool m_writeBlocked;
+        KIO::filesize_t m_chunkSize;
         class MultiSegmentCopyJobPrivate;
         MultiSegmentCopyJobPrivate* const d;
 

@@ -23,7 +23,6 @@ Segment::Segment (QObject* parent)
 {
     m_status = Stopped;
     m_bytesWritten = 0;
-    m_chunkSize = 0;
     m_getJob = 0;
 }
 
@@ -124,14 +123,8 @@ bool Segment::writeBuffer()
         m_segData.bytes -= m_buffer.size();
         m_segData.offset += m_buffer.size();
         m_bytesWritten += m_buffer.size();
-        m_chunkSize += m_buffer.size();
         m_buffer = QByteArray();
 //         kDebug(5001) << "Segment::writeBuffer() updating segment record of job: " << m_getJob << " -- " << m_segData.bytes <<" bytes left"<< endl;
-        if( m_chunkSize > 50*1024)
-        {
-            emit updateSegmentData();
-            m_chunkSize =0;
-        }
     }
     if (!m_segData.bytes)
     {

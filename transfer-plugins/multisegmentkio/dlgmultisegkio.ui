@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>DlgMultiSeg</class>
  <widget class="QWidget" name="DlgMultiSeg" >
   <property name="geometry" >
@@ -9,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>373</height>
+    <height>375</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
@@ -19,58 +16,6 @@
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item row="0" column="0" >
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
-      <string>Threads</string>
-     </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="0" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>111</width>
-          <height>27</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QSpinBox" name="numSegSpinBox" >
-        <property name="maximum" >
-         <number>20</number>
-        </property>
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
-         <string>Number of Threads:</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" >
-    <widget class="QCheckBox" name="enginesCheckBox" >
-     <property name="text" >
-      <string>Use search engines</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0" >
     <widget class="QGroupBox" name="searchEngineGroupBox" >
      <property name="sizePolicy" >
@@ -91,19 +36,6 @@
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item row="1" column="0" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>91</width>
-          <height>32</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="1" >
        <layout class="QHBoxLayout" >
         <property name="margin" >
@@ -128,6 +60,19 @@
         </item>
        </layout>
       </item>
+      <item row="1" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>91</width>
+          <height>32</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item row="0" column="0" colspan="2" >
        <widget class="QTreeWidget" name="enginesTreeWidget" >
         <property name="rootIsDecorated" >
@@ -148,9 +93,171 @@
      </layout>
     </widget>
    </item>
+   <item row="1" column="0" >
+    <widget class="QCheckBox" name="enginesCheckBox" >
+     <property name="text" >
+      <string>Use search engines</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Threads</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="2" column="0" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="saveDataLabel" >
+          <property name="text" >
+           <string>Save Data Every:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>111</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="saveDataSpinBox" >
+          <property name="suffix" >
+           <string>kBi</string>
+          </property>
+          <property name="maximum" >
+           <number>500</number>
+          </property>
+          <property name="singleStep" >
+           <number>10</number>
+          </property>
+          <property name="value" >
+           <number>200</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label" >
+          <property name="text" >
+           <string>Number of Threads:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>111</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="numSegSpinBox" >
+          <property name="maximum" >
+           <number>20</number>
+          </property>
+          <property name="minimum" >
+           <number>1</number>
+          </property>
+          <property name="value" >
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="segmentSizeLabel" >
+          <property name="text" >
+           <string>Minimal Segment Size:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>111</width>
+            <height>27</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="minSegSizeSpinBox" >
+          <property name="suffix" >
+           <string>kBi</string>
+          </property>
+          <property name="prefix" >
+           <string/>
+          </property>
+          <property name="maximum" >
+           <number>500</number>
+          </property>
+          <property name="minimum" >
+           <number>0</number>
+          </property>
+          <property name="singleStep" >
+           <number>10</number>
+          </property>
+          <property name="value" >
+           <number>50</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <resources/>
  <connections/>
 </ui>

@@ -225,6 +225,13 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
     m_putJob->seek(seg->offset());
     m_putJob->write(data);
     result = true;
+
+    m_chunkSize += data.size();
+    if( m_chunkSize > 200*1024)
+    {
+        emit updateSegmentsData();
+        m_chunkSize =0;
+    }
 }
 
 void MultiSegmentCopyJob::slotResult( KJob *job )

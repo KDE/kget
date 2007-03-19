@@ -140,7 +140,6 @@
         Status m_status;
         SegData m_segData;
         KIO::filesize_t m_bytesWritten;
-        KIO::filesize_t m_chunkSize;
         KIO::TransferJob *m_getJob;
         QByteArray m_buffer;
     };
