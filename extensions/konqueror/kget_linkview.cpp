@@ -18,11 +18,11 @@
 #include <kicon.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
 #include <ktoolbar.h>
 
 #include <QAction>
 #include <QPixmap>
+#include <QProcess>
 #include <QTreeWidget>
 #include <QtDBus>
 
@@ -124,9 +124,8 @@ void KGetLinkView::slotStartLeech()
     {
         if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
         {
-            KProcess *proc = new KProcess();
-            *proc << "kget" << urls;
-            proc->start( KProcess::DontCare );
+            QProcess *kgetProcess = new QProcess(this);
+            kgetProcess->startDetached("kget", urls);
         }
         else
         {
