@@ -34,7 +34,7 @@ class TransferMultiSegKioFactory : public TransferFactory
 
         QWidget * createSettingsWidget();
 
-        QString displayName(){return "Multithreaded HTTP(s) / FTP(s)";};
+        QString displayName(){return "Multithreaded HTTP(s) / FTP(s)";}
 
         const QList<KAction *> actions();
 };

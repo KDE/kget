@@ -34,7 +34,7 @@ class metalinkFactory : public TransferFactory
 
         QWidget * createSettingsWidget();
 
-        QString displayName(){return "MetaLink";};
+        QString displayName(){return "MetaLink";}
 
         const QList<KAction *> actions();
 };

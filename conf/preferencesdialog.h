@@ -20,7 +20,7 @@ class KDE_EXPORT PreferencesDialog : public KConfigDialog
 {
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
-        KTabWidget * pluginsWidget(){return plugins;};
+        KTabWidget * pluginsWidget(){return plugins;}
     private:
         QWidget * appearance;
         QWidget * network;

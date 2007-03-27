@@ -34,7 +34,7 @@ class TransferKioFactory : public TransferFactory
 
         QWidget * createSettingsWidget();
 
-        QString displayName(){return "HTTP(s) / FTP(s)";};
+        QString displayName(){return "HTTP(s) / FTP(s)";}
 
         const QList<KAction *> actions();
 };

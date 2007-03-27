@@ -54,7 +54,7 @@
 
         ~MultiSegmentCopyJob();
         QList<SegData> SegmentsData();
-        virtual void start() {};
+        virtual void start() {}
         void stop();
 
     Q_SIGNALS:

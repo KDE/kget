@@ -17,7 +17,7 @@ class QDomElement;
 class MlinkFileData
 {
     public:
-        MlinkFileData() {};
+        MlinkFileData() {}
         QString fileName;
         QString md5;
         QString sha256;

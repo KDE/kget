@@ -76,36 +76,36 @@
         * Set the value of m_bytes
         * @param bytes the new value of m_bytes
         */
-        void setBytes ( KIO::filesize_t bytes ){ m_segData.bytes = bytes - m_bytesWritten; };
+        void setBytes ( KIO::filesize_t bytes ){ m_segData.bytes = bytes - m_bytesWritten; }
 
         /**
         * Set the segment data
         * @param data the value of m_segData
         */
-        void setData (SegData data ){ m_segData = data; };
+        void setData (SegData data ){ m_segData = data; }
 
         /**
         * Get the segment data
         * @return the value of m_segData
         */
-        SegData data ( ){ return m_segData; };
+        SegData data ( ){ return m_segData; }
 
         /**
         * Get the value of m_offset set
         */
-        KIO::filesize_t offset ( ){ return m_segData.offset; };
+        KIO::filesize_t offset ( ){ return m_segData.offset; }
 
         /**
         * Get the value of m_bytesWritten
         * @return the value of m_bytesWritten
         */
-        KIO::filesize_t BytesWritten ( ){ return m_bytesWritten; };
+        KIO::filesize_t BytesWritten ( ){ return m_bytesWritten; }
 
         /**
         * Get the job
         * @return the value of m_getJob
         */
-        KIO::TransferJob *job(){ return m_getJob; };
+        KIO::TransferJob *job(){ return m_getJob; }
 
         /**
         * Get the segment status
@@ -154,9 +154,9 @@
         bool startTransfer ();
         bool stopTransfer ();
         QList<SegData> SegmentsData();
-        QList<KUrl> Urls() {return m_Urls;};
-        QList<Segment *> Segments() {return m_Segments;};
-        uint nunOfSegments(){return m_segments;};
+        QList<KUrl> Urls() {return m_Urls;}
+        QList<Segment *> Segments() {return m_Segments;}
+        uint nunOfSegments(){return m_segments;}
         QList<Segment *> splitSegment( Segment *Seg, int n );
         Segment *createSegment( SegData data, KUrl src );
         void deleteSegment(Segment *);
