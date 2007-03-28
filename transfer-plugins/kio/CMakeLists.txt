@@ -15,9 +15,9 @@ kde4_automoc(${kget_kiofactory_PART_SRCS})
 
 kde4_add_plugin(kget_kiofactory WITH_PREFIX ${kget_kiofactory_PART_SRCS})
 
-target_link_libraries(kget_kiofactory ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} kgetcore)
+target_link_libraries(kget_kiofactory ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} kgetcore)
 
-install(TARGETS kget_kiofactory DESTINATION ${LIB_INSTALL_DIR}/kde4)
+install(TARGETS kget_kiofactory DESTINATION ${PLUGIN_INSTALL_DIR})
 
 ########### install files ###############
 

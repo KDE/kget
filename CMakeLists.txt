@@ -85,6 +85,6 @@ kde4_automoc(${kget_SRCS})
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} kgetcore)
+target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} kgetcore)
 
 install(TARGETS kget DESTINATION ${BIN_INSTALL_DIR})
