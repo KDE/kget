@@ -55,7 +55,7 @@ kde4_automoc(${kgetcore_SRCS})
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
 target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
-
+set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
 
