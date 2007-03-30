@@ -19,12 +19,14 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <ktoolbar.h>
+#include <KTreeWidgetSearchLine>
 
 #include <QAction>
 #include <QPixmap>
 #include <QProcess>
 #include <QTreeWidget>
 #include <QtDBus>
+#include <QVBoxLayout>
 
 KGetLinkView::KGetLinkView( QWidget *parent )
     : KMainWindow( parent )
@@ -56,11 +58,18 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     m_treeWidget->setRootIsDecorated(false);
     m_treeWidget->setSortingEnabled(true);
     m_treeWidget->setAllColumnsShowFocus(true);
+    m_treeWidget->setColumnWidth(0, 200); // make the filename column bigger by default
 
-    setCentralWidget(m_treeWidget);
+    KTreeWidgetSearchLine *searchLine = new KTreeWidgetSearchLine(this, m_treeWidget);
 
-    // setting a fixed (not floating) toolbar
-    toolBar()->setMovable(false);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(searchLine);
+    mainLayout->addWidget(m_treeWidget);
+
+    QWidget *mainWidget = new QWidget(this);
+    mainWidget->setLayout(mainLayout);
+    setCentralWidget(mainWidget);
+
     // setting Text next to Icons
     toolBar()->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
