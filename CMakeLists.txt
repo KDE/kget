@@ -44,6 +44,7 @@ set(kgetcore_SRCS
    ${CMAKE_SOURCE_DIR}/kget/core/transferhandler.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/plugin/plugin.cpp
    ${CMAKE_SOURCE_DIR}/kget/core/plugin/transferfactory.cpp
+   ${CMAKE_SOURCE_DIR}/kget/core/transfercontainer.cpp
 )
 
 set(kgetcore_SRCS ${kgetconf_SRCS} ${kgetcore_SRCS})
