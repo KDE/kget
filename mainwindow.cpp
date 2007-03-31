@@ -18,7 +18,7 @@
 #include <kapplication.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
-#include <kkeydialog.h>
+#include <kshortcutsdialog.h>
 #include <kedittoolbar.h>
 #include <knotifyconfigwidget.h>
 #include <kfiledialog.h>
@@ -425,7 +425,7 @@ void MainWindow::slotConfigureNotifications()
 
 void MainWindow::slotConfigureKeys()
 {
-    KKeyDialog::configure(actionCollection());
+    KShortcutsDialog::configure(actionCollection());
 }
 
 void MainWindow::slotConfigureToolbars()
