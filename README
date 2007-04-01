@@ -1,17 +1,18 @@
 KGET README
 
-A KDE4 environment is required for KGet2.
-http://edu.kde.org/development/port2kde4.php
+KGet is included in the kdenetwork module.
+If you just want to install KGet alone, please read
+the instructions below.
 
-How to download and install KGet2:
-
-svn co svn://anonsvn.kde.org/home/kde/branches/work/make_kget_cool
-cd make_kget_cool
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=/path/to/kde4 ..
-make
-make install
+* Install kdelibs from trunk.
+* svn co -N svn://anonsvn.kde.org/home/kde/trunk/KDE/kdenetwork
+* cd kdenetwork
+* svn up cmake kget
+* mkdir build
+* cd build
+* cmake -DCMAKE_INSTALL_PREFIX=/path/to/kde4 ..
+* make
+* make install
 
 
 kget @ kde.org
