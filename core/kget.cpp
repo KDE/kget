@@ -343,7 +343,7 @@ void KGet::save( QString filename )
         && (KMessageBox::questionYesNoCancel(0,
                 i18n("The file %1 already exists.\nOverwrite?", filename),
                 i18n("Overwrite existing file?"), KStandardGuiItem::yes(),
-                KStandardGuiItem::no(), "QuestionFilenameExists" )
+                KStandardGuiItem::no(), KStandardGuiItem::cancel(), "QuestionFilenameExists" )
                 != KMessageBox::Yes) )
         return;
 
@@ -591,7 +591,7 @@ bool KGet::isValidSource(KUrl source)
             if (KMessageBox::questionYesNoCancel(0,
                 i18n("URL already saved:\n%1\nDownload again?", source.prettyUrl()),
                 i18n("Download URL again?"), KStandardGuiItem::yes(),
-                KStandardGuiItem::no(), "QuestionUrlAlreadySaved" )
+                KStandardGuiItem::no(), KStandardGuiItem::cancel(), "QuestionUrlAlreadySaved" )
                 == KMessageBox::Yes)
             {
                 //TODO reimplement this
