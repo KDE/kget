@@ -6,7 +6,9 @@ ServiceTypes=KGet/Plugin
 
 # standard fields
 Name=KIO TransferFactory
+Name[sv]=I/O-slav överföringsgenerering
 Comment=Transfer plugin for KGet
+Comment[sv]=Överföringsinsticksprogram för Kget
 
 # options for library loader
 X-KDE-Library=libkget_kiofactory
