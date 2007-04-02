@@ -430,7 +430,7 @@ void MainWindow::slotConfigureKeys()
 
 void MainWindow::slotConfigureToolbars()
 {
-    KEditToolbar edit( "kget_toolbar", actionCollection() );
+    KEditToolBar edit( "kget_toolbar", actionCollection() );
     connect(&edit, SIGNAL( newToolbarConfig() ), this, SLOT( slotNewToolbarConfig() ));
     edit.exec();
 }
