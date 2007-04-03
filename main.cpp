@@ -11,7 +11,7 @@
 
 #include <QtDBus>
 
-#include <kwin.h>
+#include <kwm.h>
 #include <klocale.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
@@ -68,7 +68,7 @@ public:
             new KgetAdaptor(kget);
             QDBusConnection::sessionBus().registerObject("/KGet", kget);
         }
-        KWin::activateWindow(kget->winId());
+        KWM::activateWindow(kget->winId());
 
         if (args->isSet("showDropTarget"))
             Settings::setShowDropTarget( true );
