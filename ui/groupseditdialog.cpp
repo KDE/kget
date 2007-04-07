@@ -89,7 +89,7 @@ void GroupsEditDialog::slotDeleteGroup()
 
         if(groupName == i18n("Default Group"))
         {
-            KMessageBox::sorry(this, i18n("You can't delete the default group!"));
+            KMessageBox::sorry(this, i18n("You can not delete the default group!"));
             continue;
         }
 

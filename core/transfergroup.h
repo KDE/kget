@@ -28,7 +28,7 @@ class TransferTreeModel;
  * This class abstracts the concept of transfer group by means of which
  * the user can sort his transfers into categories.
  * By definition, we want each TransferGroup (transfer group) to be a JobQueue.
- * Moreover this class calculates informations such as:
+ * Moreover this class calculates information such as:
  * - the size obtained by the sum of all the transfer's size
  * - the size obtained by the sum of all the transfer's processed size
  * - the global progress percentage within the group
@@ -108,7 +108,7 @@ class TransferGroup : public JobQueue
          * @return the transfer pointer if the transfer has been found. Otherwise
          * it returns 0
          */
-        Transfer * findTransfer(KUrl src);
+        Transfer * findTransfer(const KUrl &src);
 
         /**
          * @returns the Job in the queue at the given index i

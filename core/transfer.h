@@ -125,17 +125,17 @@ class KGET_EXPORT Transfer : public Job
          * Sets the Job status to jobStatus, the status text to text and
          * the status pixmap to pix.
          */
-        void setStatus(Job::Status jobStatus, QString text, QPixmap pix);
+        void setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix);
 
         /**
          * Makes the TransferHandler associated with this transfer know that
-         * a change in this transfer has occured.
+         * a change in this transfer has occurred.
          *
          * @param change: the TransferChange flags to be set
          */
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
 
-        // --- Transfer informations ---
+        // --- Transfer information ---
         KUrl m_source;
         KUrl m_dest;
 

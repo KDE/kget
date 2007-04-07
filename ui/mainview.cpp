@@ -146,7 +146,7 @@ void TransferGroupItem::paintCell(QPainter * p, const QColorGroup & cg, int colu
     else if(column == 3)
     {
         p->drawText(0,2,width, height()-4, Qt::AlignCenter, 
-                    QString::number(m_group->percent()) + "%");
+                    QString::number(m_group->percent()) + '%');
     }
 }
 
@@ -296,7 +296,7 @@ void TransferItem::paintCell(QPainter * p, const QColorGroup & cg, int column, i
 
         p->setPen(cg.color(QPalette::Foreground));
         p->drawText(2,2,width-4, height-4, Qt::AlignCenter, 
-                    QString::number(m_transfer->percent()) + "%");
+                    QString::number(m_transfer->percent()) + '%');
     }
 }
 

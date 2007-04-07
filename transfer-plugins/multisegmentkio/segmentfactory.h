@@ -60,7 +60,7 @@
         * Create the segment transfer
         * @param url the remote url
         */
-        bool createTransfer ( KUrl src );
+        bool createTransfer ( const KUrl &src );
 
         /**
         * start the segment transfer

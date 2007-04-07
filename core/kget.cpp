@@ -101,7 +101,7 @@ void KGet::delGroup(const QString& groupName)
     }
 }
 
-void KGet::addMetaLink(KUrl srcUrl)
+void KGet::addMetaLink(const KUrl &srcUrl)
 {
     kDebug(5001) << " addMetaLink:  " << srcUrl.url() << endl;
 
@@ -438,7 +438,7 @@ KGet::~KGet()
     delete(m_scheduler);
 }
 
-void KGet::createTransfer(KUrl src, KUrl dest, const QString& groupName, const QDomElement * e)
+void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, const QDomElement * e)
 {
     kDebug(5001) << "createTransfer: srcUrl= " << src.url() << "  " 
                              << "destUrl= " << dest.url() 
@@ -641,7 +641,7 @@ bool KGet::isValidDestUrl(KUrl destUrl)
    */
 }
 
-KUrl KGet::getValidDestUrl(const QString& destDir, KUrl srcUrl)
+KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
 {
     if ( !isValidDestDirectory(destDir) )
         return KUrl();

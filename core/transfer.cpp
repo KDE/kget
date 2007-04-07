@@ -105,7 +105,7 @@ void Transfer::load(QDomElement e)
     }
 }
 
-void Transfer::setStatus(Job::Status jobStatus, QString text, QPixmap pix)
+void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix)
 {
     //If a job is finished don't let it to be changed
     if((status() == Job::Finished) && (jobStatus != Job::Finished))

@@ -26,7 +26,7 @@ class GroupStatusEditor : public QWidget
     Q_OBJECT
 
     public:
-        GroupStatusEditor(const TransfersViewDelegate * delegate, QWidget * parent=0);
+        explicit GroupStatusEditor(const TransfersViewDelegate * delegate, QWidget * parent=0);
 
         void setRunning(bool running);
         bool isRunning();

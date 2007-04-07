@@ -99,7 +99,7 @@ class KGET_EXPORT KGet
          *
          * @param srcUrl The url to be downloaded
          */
-        static void addMetaLink(KUrl srcUrl);
+        static void addMetaLink(const KUrl &srcUrl);
 
         /**
          * Adds a new transfer to the KGet
@@ -211,7 +211,7 @@ class KGET_EXPORT KGet
          * @param dest the destination url
          * @param groupName the group name
          */
-        static void createTransfer(KUrl src, KUrl dest, const QString& groupName = QString(), const QDomElement * e = 0);
+        static void createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), const QDomElement * e = 0);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers
@@ -243,7 +243,7 @@ class KGET_EXPORT KGet
          */
         static bool isValidDestUrl(KUrl destUrl);
 
-        static KUrl getValidDestUrl(const QString& destDir, KUrl srcUrl);
+        static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl);
 
         static TransferGroup * findGroup(const QString& groupName);
         static Transfer * findTransfer(KUrl url);

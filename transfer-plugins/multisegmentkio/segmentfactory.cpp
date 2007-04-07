@@ -26,7 +26,7 @@ Segment::Segment (QObject* parent)
     m_getJob = 0;
 }
 
-bool Segment::createTransfer ( KUrl src )
+bool Segment::createTransfer ( const KUrl &src )
 {
     kDebug(5001) << "Segment::createTransfer() -- " << src << endl;
     if ( m_getJob )

@@ -560,7 +560,7 @@ void Sidebar::timerEvent( QTimerEvent * e )
 {
     kDebug(5001) << "timerEvent" << endl;
 
-    //Here I have to make a copy of the list to assure that an asyncronous
+    //Here I have to make a copy of the list to assure that an asynchronous
     //call to stopTimer() doesn't make all crash
     QList<SidebarBox *> timersToRemove = m_timersToRemove;
 

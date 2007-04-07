@@ -48,7 +48,7 @@ class TransferTreeModel : public QAbstractItemModel
         const QList<TransferGroup *> & transferGroups();
 
         TransferGroup * findGroup(const QString & groupName);
-        Transfer * findTransfer(KUrl src);
+        Transfer * findTransfer(const KUrl &src);
 
         bool KGET_EXPORT isTransferGroup(const QModelIndex & index) const;
 

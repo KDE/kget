@@ -122,7 +122,7 @@ QVariant TransferHandler::data(int column)
             else
                 return i18nc("not available", "n/a");
         case 3:
-            return QString::number(percent())+"%";
+            return QString::number(percent())+'%';
         case 4:
             if (speed()==0)
             {

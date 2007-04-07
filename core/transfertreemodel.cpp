@@ -134,7 +134,7 @@ TransferGroup * TransferTreeModel::findGroup(const QString & groupName)
     return 0;
 }
 
-Transfer * TransferTreeModel::findTransfer(KUrl src)
+Transfer * TransferTreeModel::findTransfer(const KUrl &src)
 {
     QList<TransferGroup *>::iterator it = m_transferGroups.begin();
     QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();

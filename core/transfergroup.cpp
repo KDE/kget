@@ -93,7 +93,7 @@ void TransferGroup::move(Transfer * transfer, Transfer * after)
     }
 }
 
-Transfer * TransferGroup::findTransfer(KUrl src)
+Transfer * TransferGroup::findTransfer(const KUrl &src)
 {
     iterator it = begin();
     iterator itEnd = end();

@@ -88,15 +88,15 @@ QList<KUrl> MirrorSearch ( const KUrl &url )
 QList<KUrl> Urls( QDomElement root )
 {
     QList<KUrl> _Urls;
-    QDomNodeList childs = root.childNodes ();
+    QDomNodeList children = root.childNodes ();
     QDomNode child;
     QDomNodeList links;
     QDomNode link;
     QDomElement e;
-    for( uint i=0 ; i < childs.length () ; ++i )
+    for( uint i=0 ; i < children.length () ; ++i )
     {
-        child = childs.item(i);
-        kDebug(5001) << "Procesing tag: " << child.toElement().tagName() <<" whith "<< child.childNodes ().length() << " childs" << endl;
+        child = children.item(i);
+        kDebug(5001) << "Procesing tag: " << child.toElement().tagName() <<" whith "<< child.childNodes ().length() << " children" << endl;
 
         links = child.toElement().elementsByTagName ("a");
         for( uint i=0 ; i < links.length () ; ++i )
