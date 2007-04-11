@@ -96,7 +96,7 @@ QList<KUrl> Urls( QDomElement root )
     for( uint i=0 ; i < children.length () ; ++i )
     {
         child = children.item(i);
-        kDebug(5001) << "Procesing tag: " << child.toElement().tagName() <<" whith "<< child.childNodes ().length() << " children" << endl;
+        kDebug(5001) << "Processing tag: " << child.toElement().tagName() <<" whith "<< child.childNodes ().length() << " children" << endl;
 
         links = child.toElement().elementsByTagName ("a");
         for( uint i=0 ; i < links.length () ; ++i )
