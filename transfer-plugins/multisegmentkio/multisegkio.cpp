@@ -98,6 +98,7 @@ MultiSegmentCopyJob::~MultiSegmentCopyJob()
 {
     kDebug(5001) << "MultiSegmentCopyJob::destructor()" << endl;
     SegFactory->deleteLater();
+    delete d;
 }
 
 QList<SegData> MultiSegmentCopyJob::SegmentsData()

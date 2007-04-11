@@ -248,7 +248,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     return Segments;
 }
 
-Segment *SegmentFactory::createSegment( SegData data, KUrl src )
+Segment *SegmentFactory::createSegment( SegData data, const KUrl &src )
 {
     kDebug(5001) << "SegmentFactory::createSegment()" << endl;
     Segment *seg = new Segment(this);
