@@ -9,12 +9,13 @@
    of the License.
 */
 
-#include <kdebug.h>
+#include "metalinkfactory.h"
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
-#include "metalinkfactory.h"
 #include "metalink.h"
+
+#include <kdebug.h>
 
 KGET_EXPORT_PLUGIN( metalinkFactory )
 

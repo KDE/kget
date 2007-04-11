@@ -8,20 +8,21 @@
    of the License.
 */
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kio/netaccess.h>
-#include <kiconloader.h>
+#include "core/transfertreemodel.h"
 
-#include <qmimedata.h>
-
-#include "transfertreemodel.h"
 #include "core/kget.h"
 #include "core/transfertreeselectionmodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfergroup.h"
 #include "core/transferhandler.h"
 #include "core/transfer.h"
+
+#include <kdebug.h>
+#include <klocale.h>
+#include <kio/netaccess.h>
+#include <kiconloader.h>
+
+#include <qmimedata.h>
 
 TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
     : QAbstractItemModel(),

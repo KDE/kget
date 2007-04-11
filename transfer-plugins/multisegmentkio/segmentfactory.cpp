@@ -8,9 +8,9 @@
    of the License.
 */
 
-#include<QtCore/QTimer>
-
 #include "segmentfactory.h"
+
+#include <QtCore/QTimer>
 
 SegData::SegData ()
 {

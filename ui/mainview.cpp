@@ -8,7 +8,11 @@
    of the License.
 */
 
-#include <QPainter>
+#include "ui/mainview.h"
+
+#include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
+#include "core/kget.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -17,10 +21,7 @@
 #include <kio/global.h>
 #include <kimageeffect.h>
 
-#include "ui/mainview.h"
-#include "core/transferhandler.h"
-#include "core/transfergrouphandler.h"
-#include "core/kget.h"
+#include <QPainter>
 
 TransferGroupItem::TransferGroupItem(MainView * parent, TransferGroupHandler * group)
     : Q3ListViewItem(parent),

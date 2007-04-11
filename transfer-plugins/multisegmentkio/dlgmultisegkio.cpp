@@ -9,6 +9,7 @@
 */
 
 #include "dlgmultisegkio.h"
+
 #include "multisegkiosettings.h"
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)

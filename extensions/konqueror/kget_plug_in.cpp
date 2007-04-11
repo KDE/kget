@@ -12,7 +12,8 @@
 
 #include "kget_plug_in.h"
 
-#include <QtDBus>
+#include "links.h"
+#include "kget_linkview.h"
 
 #include <KActionCollection>
 #include <KToggleAction>
@@ -25,15 +26,12 @@
 #include <kmenu.h>
 #include <krun.h>
 #include <kicon.h>
-
 #include <dom/html_misc.h>
-
 #include <kparts/partmanager.h>
 
-#include <set>
+#include <QtDBus>
 
-#include "links.h"
-#include "kget_linkview.h"
+#include <set>
 
 KGet_plug_in::KGet_plug_in( QObject* parent )
     : Plugin( parent )

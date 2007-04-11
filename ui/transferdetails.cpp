@@ -7,16 +7,15 @@
    License as published by the Free Software Foundation; version 2
    of the License.
 */
+#include "transferdetails.h"
 
-#include <QVBoxLayout>
+#include "ui_transferdetailsfrm.h"
+#include "core/kget.h"
 
 #include <klocale.h>
 #include <kio/global.h>
 
-#include "core/kget.h"
-
-#include "transferdetails.h"
-#include "ui_transferdetailsfrm.h"
+#include <QVBoxLayout>
 
 TransferDetails::TransferDetails(TransferHandler * transfer)
     : m_transfer(transfer)

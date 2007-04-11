@@ -8,11 +8,13 @@
    of the License.
 */
 
-#include <kdebug.h>
 
 #include "core/jobqueue.h"
+
 #include "core/scheduler.h"
 #include "settings.h"
+
+#include <kdebug.h>
 
 JobQueue::JobQueue(Scheduler * scheduler)
     : m_maxSimultaneousJobs(2),

@@ -8,13 +8,14 @@
    of the License.
 */
 
-#include <kdebug.h>
-
 #include "core/scheduler.h"
+
 #include "core/kget.h"
 #include "core/job.h"
 #include "core/jobqueue.h"
 #include "settings.h"
+
+#include <kdebug.h>
 
 Scheduler::Scheduler()
 {

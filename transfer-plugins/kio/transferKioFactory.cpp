@@ -8,12 +8,13 @@
    of the License.
 */
 
-#include <kdebug.h>
+#include "transferKioFactory.h"
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
-#include "transferKioFactory.h"
 #include "transferKio.h"
+
+#include <kdebug.h>
 
 KGET_EXPORT_PLUGIN( TransferKioFactory )
 

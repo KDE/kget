@@ -8,9 +8,11 @@
    of the License.
 */
 
-#include <QPainter>
-#include <QPaintEvent>
-#include <QDebug>
+#include "sidebar.h"
+
+#include "core/kget.h"
+#include "core/transfergrouphandler.h"
+#include "core/transferhandler.h"
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -18,10 +20,8 @@
 #include <kiconeffect.h>
 #include <kdebug.h>
 
-#include "core/kget.h"
-#include "core/transfergrouphandler.h"
-#include "core/transferhandler.h"
-#include "sidebar.h"
+#include <QPainter>
+#include <QPaintEvent>
 
 Button::Button(QWidget * w)
     : QToolButton(w)

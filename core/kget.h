@@ -3,7 +3,8 @@
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
 
    Based on:
-       kmainwidget.{h,cpp} Copyright (C) 2002 by Patrick Charbonnier
+       kmainwidget.{h,cpp}
+       Copyright (C) 2002 by Patrick Charbonnier <pch@freeshell.org>
        that was based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
 
    This program is free software; you can redistribute it and/or

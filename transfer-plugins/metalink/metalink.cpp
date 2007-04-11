@@ -9,15 +9,16 @@
    of the License.
 */
 
-#include <QDomElement>
+#include "metalink.h"
+
+#include "metalinker.h"
+#include "../multisegmentkio/multisegkio.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kdebug.h>
 
-#include "metalink.h"
-#include "metalinker.h"
-#include "../multisegmentkio/multisegkio.h"
+#include <QDomElement>
 
 metalink::metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,

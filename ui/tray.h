@@ -16,6 +16,7 @@
 
 #include "core/observer.h"
 
+class MainWindow;
 class KGet;
 class QTimer;
 class QPixmap;

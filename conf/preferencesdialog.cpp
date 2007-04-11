@@ -7,15 +7,15 @@
    of the License.
 */
 
-#include <klocale.h>
-#include <ktabwidget.h>
-
 #include "preferencesdialog.h"
 
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
 #include "dlgdirectories.h"
 #include "ui_dlgadvanced.h"
+
+#include <klocale.h>
+#include <ktabwidget.h>
 
 PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
     : KConfigDialog(parent, "preferences", skeleton)

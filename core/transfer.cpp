@@ -8,16 +8,17 @@
    of the License.
 */
 
-#include <QDomElement>
-
-#include <klocale.h>
-#include <kiconloader.h>
-
 #include "core/transfer.h"
+
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/transfergroup.h"
 #include "core/scheduler.h"
+
+#include <klocale.h>
+#include <kiconloader.h>
+
+#include <QDomElement>
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,

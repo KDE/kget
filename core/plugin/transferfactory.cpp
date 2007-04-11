@@ -8,11 +8,12 @@
    of the License.
 */
 
-#include <kmenu.h>
-#include <klocale.h>
+#include "transferfactory.h"
 
 #include "kget.h"
-#include "transferfactory.h"
+
+#include <kmenu.h>
+#include <klocale.h>
 
 TransferFactory::TransferFactory()
 {

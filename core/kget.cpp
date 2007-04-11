@@ -8,13 +8,17 @@
    of the License.
 */
 
-#include <QDirModel>
-#include <QTextStream>
-#include <QDomElement>
-#include <QApplication>
-#include <QClipboard>
-#include <QItemSelectionModel>
-#include <QAbstractItemView>
+#include "core/kget.h"
+
+#include "mainwindow.h"
+#include "core/transfer.h"
+#include "core/transfergroup.h"
+#include "core/transfertreemodel.h"
+#include "core/transfertreeselectionmodel.h"
+#include "core/plugin/plugin.h"
+#include "core/plugin/transferfactory.h"
+#include "core/observer.h"
+#include "settings.h"
 
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
@@ -27,16 +31,13 @@
 #include <kiconloader.h>
 #include <kactioncollection.h>
 
-#include "mainwindow.h"
-#include "core/kget.h"
-#include "core/transfer.h"
-#include "core/transfergroup.h"
-#include "core/transfertreemodel.h"
-#include "core/transfertreeselectionmodel.h"
-#include "core/plugin/plugin.h"
-#include "core/plugin/transferfactory.h"
-#include "core/observer.h"
-#include "settings.h"
+#include <QDirModel>
+#include <QTextStream>
+#include <QDomElement>
+#include <QApplication>
+#include <QClipboard>
+#include <QItemSelectionModel>
+#include <QAbstractItemView>
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are

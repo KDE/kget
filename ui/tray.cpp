@@ -9,10 +9,10 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <QTimer>
-#include <QClipboard>
-#include <QPainter>
-#include <QLabel>
+#include "ui/tray.h"
+
+#include "core/kget.h"
+#include "mainwindow.h"
 
 #include <kapplication.h>
 #include <kaboutdata.h>
@@ -22,9 +22,10 @@
 #include <kmenu.h>
 #include <kdebug.h>
 
-#include "core/kget.h"
-#include "ui/tray.h"
-#include "mainwindow.h"
+#include <QTimer>
+#include <QClipboard>
+#include <QPainter>
+#include <QLabel>
 
 /** class Tray
   * Reimplmentation of the system tray class adding drag/drop

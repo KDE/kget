@@ -8,8 +8,10 @@
    of the License.
 */
 
-#ifndef _GROUPSEDITDIALOG_H
-#define _GROUPSEDITDIALOG_H
+#ifndef GROUPSEDITDIALOG_H
+#define GROUPSEDITDIALOG_H
+
+#include <KDialog>
 
 class QListView;
 

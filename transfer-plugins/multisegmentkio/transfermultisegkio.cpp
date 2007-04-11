@@ -9,16 +9,17 @@
    of the License.
 */
 
-#include <QDomElement>
+#include "transfermultisegkio.h"
+
+#include "multisegkiosettings.h"
+#include "core/kget.h"
+#include "mirrors.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kdebug.h>
 
-#include "core/kget.h"
-#include "multisegkiosettings.h"
-#include "transfermultisegkio.h"
-#include "mirrors.h"
+#include <QDomElement>
 
 transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,

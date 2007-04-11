@@ -8,8 +8,9 @@
    of the License.
 */
 
-#include "bttransfer.h"
 #include "bttransferhandler.h"
+
+#include "bttransfer.h"
 
 #include "core/scheduler.h"
 

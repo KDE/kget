@@ -8,6 +8,14 @@
    of the License.
 */
 
+#include "core/transferhandler.h"
+
+#include "core/transfertreemodel.h"
+#include "core/transfergrouphandler.h"
+#include "core/transfer.h"
+#include "core/observer.h"
+#include "core/kget.h"
+
 #include <kdebug.h>
 #include <kmenu.h>
 #include <kaction.h>
@@ -15,24 +23,15 @@
 #include <klocale.h>
 #include <kicon.h>
 
-#include "core/transfertreemodel.h"
-#include "core/transfergrouphandler.h"
-#include "core/transferhandler.h"
-#include "core/transfer.h"
-#include "core/observer.h"
-#include "core/kget.h"
-
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
     : m_group(group),
       m_scheduler(scheduler),
       m_qobject(0)
 {
-
 }
 
 TransferGroupHandler::~TransferGroupHandler()
 {
-    
 }
 
 void TransferGroupHandler::addObserver(TransferGroupObserver * observer)

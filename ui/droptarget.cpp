@@ -9,10 +9,11 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <QBitmap>
-#include <QClipboard>
-#include <QPainter>
-#include <QTimer>
+#include "ui/droptarget.h"
+
+#include "core/kget.h"
+#include "settings.h"
+#include "mainwindow.h"
 
 #include <kapplication.h>
 #include <kwm.h>
@@ -24,12 +25,12 @@
 #include <kiconloader.h>
 #include <KGlobalSettings>
 
-#include <math.h>
+#include <QBitmap>
+#include <QClipboard>
+#include <QPainter>
+#include <QTimer>
 
-#include "core/kget.h"
-#include "settings.h"
-#include "ui/droptarget.h"
-#include "mainwindow.h"
+#include <math.h>
 
 #define TARGET_SIZE   64
 #define TARGET_ANI_MS 20

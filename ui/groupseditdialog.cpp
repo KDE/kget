@@ -9,16 +9,17 @@
    of the License.
 */
 
-#include <QListView>
-#include <QHBoxLayout>
+#include "groupseditdialog.h"
+
+#include "core/kget.h"
 
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KPushButton>
 #include <KLocale>
 
-#include "core/kget.h"
-#include "groupseditdialog.h"
+#include <QListView>
+#include <QHBoxLayout>
 
 GroupsEditDialog::GroupsEditDialog(QWidget *parent)
     : KDialog(parent)

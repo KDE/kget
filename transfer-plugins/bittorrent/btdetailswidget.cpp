@@ -8,13 +8,12 @@
    of the License.
 */
 
-#include <kdebug.h>
-
-//It's important to include first this header.
 #include "bttransferhandler.h"
 
 #include "btdetailswidget.h"
 #include "btdetailswidgetfrm.h"
+
+#include <kdebug.h>
 
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     : m_transfer(transfer)

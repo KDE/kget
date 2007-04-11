@@ -8,11 +8,11 @@
    of the License.
 */
 
-#include <QDropEvent>
+#include "transfersview.h"
 
 #include <kdebug.h>
 
-#include "transfersview.h"
+#include <QDropEvent>
 
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent)

@@ -9,14 +9,15 @@
    of the License.
 */
 
-#include <kdebug.h>
+#include "transfermultisegkiofactory.h"
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 #include "multisegkiosettings.h"
 #include "dlgmultisegkio.h"
-#include "transfermultisegkiofactory.h"
 #include "transfermultisegkio.h"
+
+#include <kdebug.h>
 
 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
 

@@ -8,9 +8,9 @@
    of the License.
 */
 
-#include <KDebug>
-
 #include "core/transfercontainer.h"
+
+#include <KDebug>
 
 TransferContainer::TransferContainer()
 {

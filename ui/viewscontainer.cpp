@@ -8,14 +8,7 @@
    of the License.
 */
 
-
-#include <QMenu>
-#include <QFrame>
-
-#include <klocale.h>
-#include <kiconloader.h>
-#include <kdebug.h>
-#include <kio/global.h>
+#include "viewscontainer.h"
 
 #include "core/kget.h"
 #include "core/plugin/transferfactory.h"
@@ -24,9 +17,15 @@
 #include "transfersview.h"
 #include "transfersviewdelegate.h"
 // #include "mainview.h"
-#include "viewscontainer.h"
 #include "transferdetails.h"
 
+#include <klocale.h>
+#include <kiconloader.h>
+#include <kdebug.h>
+#include <kio/global.h>
+
+#include <QMenu>
+#include <QFrame>
 
 TitleBar::TitleBar(QWidget * parent)
     : QWidget(parent)

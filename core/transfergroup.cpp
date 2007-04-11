@@ -8,14 +8,15 @@
    of the License.
 */
 
-#include <QDomElement>
+#include "core/transfergroup.h"
+
+#include "core/transfer.h"
+#include "core/transfergrouphandler.h"
+#include "core/kget.h"
 
 #include <kdebug.h>
 
-#include "core/transfer.h"
-#include "core/transfergroup.h"
-#include "core/transfergrouphandler.h"
-#include "core/kget.h"
+#include <QDomElement>
 
 
 TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name)

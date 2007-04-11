@@ -8,9 +8,9 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <kmenu.h>
-
 #include "traytransfer.h"
+
+#include <kmenu.h>
 
 TrayTransfer::TrayTransfer(QWidget *parent) : KSystemTray(parent)
 {

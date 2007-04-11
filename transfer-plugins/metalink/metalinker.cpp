@@ -8,15 +8,14 @@
    of the License.
 */
 
-#include <QDomElement>
-#include <QFile>
+#include "metalinker.h"
 
 #include <kdebug.h>
 #include <kcodecs.h>
 #include <kio/job.h>
 
-#include "metalinker.h"
-
+#include <QDomElement>
+#include <QFile>
 
 Metalinker::Metalinker()
 {

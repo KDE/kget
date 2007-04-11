@@ -8,10 +8,11 @@
    of the License.
 */
 
-#include <kdebug.h>
+#include "core/transfertreeselectionmodel.h"
 
 #include "core/transfertreemodel.h"
-#include "core/transfertreeselectionmodel.h"
+
+#include <kdebug.h>
 
 TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel * model)
     : QItemSelectionModel(model)

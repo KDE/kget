@@ -21,7 +21,7 @@
   * class MultiSegmentCopyJob
   */
 
-    class KIO_EXPORT MultiSegmentCopyJob : public KJob
+    class MultiSegmentCopyJob : public KJob
     {
         Q_OBJECT
 

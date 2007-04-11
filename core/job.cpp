@@ -8,11 +8,12 @@
    of the License.
 */
 
-#include <kdebug.h>
-
 #include "core/job.h"
+
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
+
+#include <kdebug.h>
 
 Job::Job(JobQueue * parent, Scheduler * scheduler)
     : m_jobQueue(parent),

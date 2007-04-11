@@ -8,10 +8,11 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <KMessageBox>
-
 #include "dlgdirectories.h"
+
 #include "settings.h"
+
+#include <KMessageBox>
 
 DlgDirectories::DlgDirectories(QWidget *parent)
     : QWidget(parent)

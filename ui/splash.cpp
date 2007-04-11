@@ -11,6 +11,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+#include "splash.h"
+
 #include <QApplication>
 #include <QBitmap>
 #include <QImage>
@@ -19,9 +21,6 @@
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QDesktopWidget>
-
-#include "splash.h"
-
 
 Splash::Splash(const QString& imagePath)
     : QWidget(0, Qt::SplashScreen | Qt::X11BypassWindowManagerHint)

@@ -8,13 +8,13 @@
    of the License.
 */
 
-#include <QDomElement>
+#include "transferKio.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kdebug.h>
 
-#include "transferKio.h"
+#include <QDomElement>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,

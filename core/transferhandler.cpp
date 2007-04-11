@@ -8,19 +8,20 @@
    of the License.
 */
 
-#include <kdebug.h>
-#include <klocale.h>
-
-#include <QVariant>
+#include "core/transferhandler.h"
 
 #include "core/job.h"
 #include "core/jobqueue.h"
-#include "core/transferhandler.h"
 #include "core/transfergroup.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
+
+#include <kdebug.h>
+#include <klocale.h>
+
+#include <QVariant>
 
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)

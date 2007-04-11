@@ -8,23 +8,24 @@
    of the License.
 */
 
-#include <QPainter>
-#include <QMouseEvent>
-#include <QModelIndex>
-#include <QToolButton>
-#include <QButtonGroup>
-#include <QHBoxLayout>
+#include "ui/transfersviewdelegate.h"
+
+#include "core/kget.h"
+#include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
+#include "core/transfertreemodel.h"
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmenu.h>
 #include <kicon.h>
 
-#include "core/kget.h"
-#include "core/transferhandler.h"
-#include "core/transfergrouphandler.h"
-#include "core/transfertreemodel.h"
-#include "ui/transfersviewdelegate.h"
+#include <QPainter>
+#include <QMouseEvent>
+#include <QModelIndex>
+#include <QToolButton>
+#include <QButtonGroup>
+#include <QHBoxLayout>
 
 GroupStatusEditor::GroupStatusEditor(const TransfersViewDelegate * delegate, QWidget * parent)
     : QWidget(parent),

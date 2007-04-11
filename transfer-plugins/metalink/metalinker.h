@@ -12,6 +12,10 @@
 #ifndef Metalinker_H
 #define Metalinker_H
 
+#include <KUrl>
+
+#include <QString>
+
 class QDomElement;
 
 class MlinkFileData

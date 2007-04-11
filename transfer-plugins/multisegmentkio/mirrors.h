@@ -14,10 +14,11 @@
 #include <QtCore/QObject>
 #include <QtCore/QEventLoop>
 
-#include <kdebug.h>
 #include <kio/job.h>
 
-class KIO_EXPORT mirror : public QObject
+class QDomElement;
+
+class mirror : public QObject
 {
    Q_OBJECT
 

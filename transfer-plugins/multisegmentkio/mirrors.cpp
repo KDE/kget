@@ -8,9 +8,11 @@
    of the License.
 */
 
-#include <QDomElement>
-
 #include "mirrors.h"
+
+#include <KDebug>
+
+#include <QDomElement>
 
 mirror::mirror()
 {

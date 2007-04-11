@@ -17,13 +17,14 @@
  *
  */
 
-#include <kdebug.h>
+#include "bttransferfactory.h"
 
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
 #include "bttransferhandler.h"
-#include "bttransferfactory.h"
 #include "btdetailswidget.h"
+
+#include <kdebug.h>
 
 #include <QFile>
 

@@ -18,6 +18,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QStackedLayout>
+#include <QMap>
 
 class TransfersView;
 class TransfersViewDelegate;

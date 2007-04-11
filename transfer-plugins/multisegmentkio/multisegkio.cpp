@@ -8,6 +8,8 @@
    of the License.
 */
 
+#include "multisegkio.h"
+
 #include <kde_file.h>
 
 #include <QFile>
@@ -15,8 +17,6 @@
 
 #include <sys/time.h>
 #include <fcntl.h>
-
-#include "multisegkio.h"
 
 static const unsigned int max_nums = 8;
 class MultiSegmentCopyJob::MultiSegmentCopyJobPrivate
