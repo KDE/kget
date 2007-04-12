@@ -52,16 +52,7 @@ class MainWindow;
 class KGET_EXPORT KGet
 {
     public:
-        static KGet& self( MainWindow * mainWindow=0 )
-        {
-            if(mainWindow)
-            {
-                m_mainWindow = mainWindow;
-            }
-
-            static KGet m;
-            return m;
-        }
+        static KGet& self( MainWindow * mainWindow=0 );
 
         /**
          * Adds a new observer of the KGet. See observer.h for more info about it.

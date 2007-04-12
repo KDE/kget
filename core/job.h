@@ -22,12 +22,14 @@
  *  By definition a job must always belong to a JobQueue (see jobqueue.h).
  **/
 
+#include "kget_export.h"
+
 class QDomNode;
 
 class Scheduler;
 class JobQueue;
 
-class Job
+class KGET_EXPORT Job
 {
     public:
         /**

@@ -15,6 +15,7 @@
 #include <kio/netaccess.h>
 
 #include "jobqueue.h"
+#include "kget_export.h"
 
 class QDomElement;
 
@@ -34,7 +35,7 @@ class TransferTreeModel;
  * - the global progress percentage within the group
  * - the global speed within the group
  */
-class TransferGroup : public JobQueue
+class KGET_EXPORT TransferGroup : public JobQueue
 {
     public:
         enum GroupChange

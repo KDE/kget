@@ -24,11 +24,12 @@
  */
 
 #include <QList>
+#include "kget_export.h"
 
 class Job;
 class Scheduler;
 
-class JobQueue
+class KGET_EXPORT JobQueue
 {
     public:
         enum Status {Running, Stopped};

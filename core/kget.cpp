@@ -49,6 +49,17 @@
  * it in the group named "Not grouped" (better name?).
  **/
 
+KGet& KGet::self( MainWindow * mainWindow )
+{
+    if(mainWindow)
+    {
+        m_mainWindow = mainWindow;
+    }
+
+    static KGet m;
+    return m;
+}
+
 void KGet::addObserver(ModelObserver * observer)
 {
     kDebug(5001) << "KGet::addObserver" << endl;
