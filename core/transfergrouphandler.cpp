@@ -8,10 +8,10 @@
    of the License.
 */
 
-#include "core/transferhandler.h"
-
-#include "core/transfertreemodel.h"
 #include "core/transfergrouphandler.h"
+
+#include "core/transferhandler.h"
+#include "core/transfertreemodel.h"
 #include "core/transfer.h"
 #include "core/observer.h"
 #include "core/kget.h"

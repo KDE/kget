@@ -8,9 +8,9 @@
    of the License.
 */
 
-#include "bttransferhandler.h"
-
 #include "btdetailswidget.h"
+
+#include "bttransferhandler.h"
 #include "btdetailswidgetfrm.h"
 
 #include <kdebug.h>

@@ -29,7 +29,7 @@ TransferMultiSegKioFactory::~TransferMultiSegKioFactory()
 {
 }
 
-Transfer * TransferMultiSegKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
+Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * e )

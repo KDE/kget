@@ -27,9 +27,9 @@ metalinkFactory::~metalinkFactory()
 {
 }
 
-Transfer * metalinkFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
+Transfer * metalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                                TransferGroup * parent,
-                                               Scheduler * scheduler, 
+                                               Scheduler * scheduler,
                                                const QDomElement * e )
 {
     kDebug(5001) << "metalinkFactory::createTransfer" << endl;

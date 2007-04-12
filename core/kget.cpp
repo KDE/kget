@@ -126,7 +126,7 @@ void KGet::addMetaLink(const KUrl &srcUrl)
     createTransfer(srcUrl, destUrl, QString("MetaLinks"));
 }
 
-void KGet::addTransfer( KUrl srcUrl, QString destDir,
+void KGet::addTransfer( KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalue
                          const QString& groupName )
 {
     kDebug(5001) << " addTransfer:  " << srcUrl.url() << endl;
@@ -174,7 +174,7 @@ void KGet::addTransfer(const QDomElement& e, const QString& groupName)
     createTransfer(srcUrl, destUrl, groupName, &e);
 }
 
-void KGet::addTransfer(KUrl::List srcUrls, QString destDir,
+void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=passbyvalue
                         const QString& groupName)
 {
     KUrl::List urlsToDownload;
@@ -288,7 +288,7 @@ void KGet::addTransferView(QAbstractItemView * view)
     view->setModel(m_transferTreeModel);
 }
 
-void KGet::load( QString filename )
+void KGet::load( QString filename ) // krazy:exclude=passbyvalue
 {
     kDebug(5001) << "KGet::load(" << filename << ")" << endl;
 
@@ -348,7 +348,7 @@ void KGet::load( QString filename )
     }
 }
 
-void KGet::save( QString filename )
+void KGet::save( QString filename ) // krazy:exclude=passbyvalue
 {
     if ( !filename.isEmpty()
         && QFile::exists( filename )

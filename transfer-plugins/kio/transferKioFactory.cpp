@@ -26,7 +26,7 @@ TransferKioFactory::~TransferKioFactory()
 {
 }
 
-Transfer * TransferKioFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
+Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )

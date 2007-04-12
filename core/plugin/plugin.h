@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 by Enrico Ros <eros.kde@email.it>
-   based on amarok code by Mark Kretschmann <markey@web.de> (C) Copyright 2004
+   based on amarok code Copyright (C) 2004 by Mark Kretschmann <markey@web.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public

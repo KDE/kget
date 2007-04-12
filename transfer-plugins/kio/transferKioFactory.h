@@ -23,7 +23,7 @@ class TransferKioFactory : public TransferFactory
         TransferKioFactory();
         ~TransferKioFactory();
 
-        Transfer * createTransfer( KUrl srcUrl, KUrl destUrl,
+        Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 

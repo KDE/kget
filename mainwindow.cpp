@@ -12,8 +12,16 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include <QClipboard>
-#include <QTimer>
+#include "mainwindow.h"
+
+#include "core/kget.h"
+#include "core/transferhandler.h"
+#include "settings.h"
+#include "conf/preferencesdialog.h"
+#include "ui/viewscontainer.h"
+#include "ui/tray.h"
+#include "ui/droptarget.h"
+#include "ui/groupseditdialog.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -30,16 +38,8 @@
 #include <kicon.h>
 #include <kactionmenu.h>
 
-#include "mainwindow.h"
-#include "core/kget.h"
-#include "core/transferhandler.h"
-#include "settings.h"
-#include "conf/preferencesdialog.h"
-
-#include "ui/viewscontainer.h"
-#include "ui/tray.h"
-#include "ui/droptarget.h"
-#include "ui/groupseditdialog.h"
+#include <QClipboard>
+#include <QTimer>
 
 MainWindow::MainWindow( QWidget * parent )
     : KMainWindow( parent ),
