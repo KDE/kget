@@ -9,14 +9,13 @@
 */
 
 #include "mirrors.h"
+#include "multisegkiosettings.h"
 
 #include <KDebug>
 
-#include <QDomElement>
-
 mirror::mirror()
 {
-    m_search_engine = "http://www.filemirrors.com/search.src?type=begins&file=${filename}&action=Find";
+    m_search_engine = MultiSegKioSettings::searchEnginesUrlList().takeFirst();
 }
 
 void mirror::slotData(KIO::Job *, const QByteArray& data)
@@ -49,35 +48,30 @@ void mirror::URLRequest(const KUrl &url)
 
 QList<KUrl>  mirror::search(const KUrl &url)
 {
-    kDebug(5001) << "mirror::search()" << endl;
+    kDebug(5001) << "mirror::search() " << endl;
+
     m_Urls << url;
     URLRequest (url);
+
     EventLoop.exec();
-    QDomDocument doc;
-    doc.setContent( m_data );
 
-    kDebug(5001) << "doc has " << doc.childNodes().length()
-        << " nodes " << doc.childNodes().item(0).toElement().tagName()
-        << endl;
+    QString str(m_data);
 
-    QDomElement root = doc.documentElement();
-    QDomNodeList body = root.elementsByTagName ("body");
-    kDebug(5001) << "has " << root.childNodes().length()
-        << " nodes " << root.childNodes().item(0).toElement().tagName()
-        << endl;
-    kDebug(5001) << body.length() << " <body> tags found" << endl;
-    if(!body.isEmpty())
-//       QList<KUrl> tmpUrlList = Urls (body.item(0).toElement());
-        m_Urls << Urls (body.item(0).toElement());
+    int start = 0, posOfTagA = 0, posOfTagHref = 0, hrefEnd = 0;
 
-/*   for( uint i=0 ; i < link.length () ; ++i )
-   {
-      node = link.item(i);
-      href = node.toElement ();
-      KUrl tUrl( href.attribute("href") );
-      if ( tUrl.fileName() == url.fileName() )
-         m_Urls << tUrl;
-   }*/
+    while ((posOfTagA = str.indexOf("<a" , start, Qt::CaseInsensitive)) != -1 )
+    {
+    posOfTagHref = str.indexOf("href=\"", posOfTagA, Qt::CaseInsensitive);
+    hrefEnd = str.indexOf("\"",posOfTagHref + 6,Qt::CaseInsensitive);
+    QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref -6));
+    start = hrefEnd + 1;
+        if ( u.endsWith( url.fileName() ) )
+        {
+            m_Urls << KUrl(u);
+            kDebug(5001) << "url: " << u << endl;
+        }
+    }
+
     return m_Urls;
 }
 
@@ -85,32 +79,6 @@ QList<KUrl> MirrorSearch ( const KUrl &url )
 {
     mirror searcher;
     return searcher.search(url);
-}
-
-QList<KUrl> Urls( QDomElement root )
-{
-    QList<KUrl> _Urls;
-    QDomNodeList children = root.childNodes ();
-    QDomNode child;
-    QDomNodeList links;
-    QDomNode link;
-    QDomElement e;
-    for( uint i=0 ; i < children.length () ; ++i )
-    {
-        child = children.item(i);
-        kDebug(5001) << "Processing tag: " << child.toElement().tagName() <<" with "<< child.childNodes ().length() << " children" << endl;
-
-        links = child.toElement().elementsByTagName ("a");
-        for( uint i=0 ; i < links.length () ; ++i )
-        {
-            e = link.toElement();
-            kDebug(5001) << e.attribute("href") << endl;
-//          KUrl Url( e.attribute("href") );
-//          _Urls << Url;
-        }
-        _Urls << Urls(child.toElement());
-    }
-    return _Urls;
 }
 
 #include "mirrors.moc"
