@@ -133,15 +133,15 @@ void Scheduler::startDelayTimer(Job * job, int seconds)
 void Scheduler::stopDelayTimer(Job * job)
 {
     QMap<int, Job *>::iterator it = m_activeTimers.begin();
-    QMap<int, Job *>::iterator itEnd = m_activeTimers.end();
-
-    for( ; it!=itEnd ; ++it )
+    while (it != m_activeTimers.end())
     {
-        if(it.value() == job)
+        QMap<int, Job *>::iterator prev = it;
+        ++it;
+        if(prev.value() == job)
         {
             //A timer for this job has been found. Let's stop it.
-            killTimer(it.key());
-            m_activeTimers.erase(it);
+            killTimer(prev.key());
+            m_activeTimers.erase(prev);
         }
     }
 }

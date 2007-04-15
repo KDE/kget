@@ -110,15 +110,15 @@ void TransfersButton::addTransfer(TransferHandler * transfer)
 void TransfersButton::removeTransfer(TransferHandler * transfer)
 {
     QMap<QAction *, TransferHandler *>::iterator it = m_transfersMap.begin();
-    QMap<QAction *, TransferHandler *>::iterator itEnd = m_transfersMap.end();
-
-    for( ; it!=itEnd ; ++it )
+    while (it != m_transfersMap.end())
     {
-        if(it.value() == transfer)
+        QMap<QAction *, TransferHandler *>::iterator prev = it;
+        ++it;
+        if (prev.value() == transfer)
         {
-            m_transfersMap.erase(it);
+            m_transfersMap.erase(prev);
             //Delete the QAction
-            delete(it.key());
+            delete(prev.key());
         }
     }
 
