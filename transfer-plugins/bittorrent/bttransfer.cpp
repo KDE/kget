@@ -200,7 +200,7 @@ void BTTransfer::resume()
         try 
         {
             kDebug(5001) << endl << "third turn" << endl << endl;
-            setStatus(status(), i18n("Connecting.."), SmallIcon("connect_creating"));
+            setStatus(status(), i18n("Connecting.."), SmallIcon("connect-creating"));
             setTransferChange(Tc_Status, true);
 
             download.start();

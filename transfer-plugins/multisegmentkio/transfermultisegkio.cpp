@@ -39,7 +39,7 @@ void transferMultiSegKio::start()
 
     kDebug(5001) << "transferMultiSegKio::start" << endl;
 
-    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect_creating"));
+    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect-creating"));
     setTransferChange(Tc_Status, true);
 }
 
