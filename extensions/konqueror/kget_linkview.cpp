@@ -29,7 +29,7 @@
 #include <QVBoxLayout>
 
 KGetLinkView::KGetLinkView( QWidget *parent )
-    : KMainWindow( parent )
+    : KXmlGuiWindow( parent )
 {
     setPlainCaption( i18n( "KGet" ) );
 

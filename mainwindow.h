@@ -14,7 +14,7 @@
 #define MAINWINDOW_H
 
 #include <ktoggleaction.h>
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 #include <kurl.h>
 
 class ViewsContainer;
@@ -26,7 +26,7 @@ class Tray;
  *
  * Can be collapsed or expanded.
  */
-class MainWindow : public KMainWindow
+class MainWindow : public KXmlGuiWindow
 {
 Q_OBJECT
 public:

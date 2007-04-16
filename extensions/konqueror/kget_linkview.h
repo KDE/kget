@@ -11,13 +11,13 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 
 #include "links.h"
 
 class QTreeWidget;
 
-class KGetLinkView : public KMainWindow
+class KGetLinkView : public KXmlGuiWindow
 {
     Q_OBJECT
 

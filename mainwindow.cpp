@@ -42,7 +42,7 @@
 #include <QTimer>
 
 MainWindow::MainWindow( QWidget * parent )
-    : KMainWindow( parent ),
+    : KXmlGuiWindow( parent ),
       m_drop(0), m_dock(0)
 {
     resize(720, 380); // have a reasonable inital size, will be overwritten later if the user changes it
