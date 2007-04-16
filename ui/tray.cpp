@@ -14,9 +14,9 @@
 #include "core/kget.h"
 #include "mainwindow.h"
 
-#include <kapplication.h>
 #include <kaboutdata.h>
 #include <kactioncollection.h>
+#include <kapplication.h>
 #include <kiconloader.h>
 #include <kiconeffect.h>
 #include <kmenu.h>

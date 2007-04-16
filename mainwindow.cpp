@@ -292,7 +292,7 @@ void MainWindow::slotQuit()
 //     }
 
     Settings::writeConfig();
-    kapp->quit();
+    qApp->quit();
 }
 
 void MainWindow::slotPreferences()

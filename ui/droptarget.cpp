@@ -15,13 +15,13 @@
 #include "settings.h"
 #include "mainwindow.h"
 
-#include <kapplication.h>
 #include <kwm.h>
 #include <klocale.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <kactioncollection.h>
+#include <kapplication.h>
 #include <kiconloader.h>
 #include <KGlobalSettings>
 
