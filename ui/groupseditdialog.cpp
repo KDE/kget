@@ -29,7 +29,7 @@ GroupsEditDialog::GroupsEditDialog(QWidget *parent)
     QHBoxLayout *mainLayout = new QHBoxLayout;
     QVBoxLayout *buttonLayout = new QVBoxLayout;
 
-    KPushButton *addGroupBt = new KPushButton(i18n("Add Group"));
+    KPushButton *addGroupBt = new KPushButton(i18n("Add Group..."));
     addGroupBt->setIcon(KIcon("list-add"));
     connect(addGroupBt, SIGNAL(clicked()), SLOT(slotAddGroup()));
     buttonLayout->addWidget(addGroupBt);
@@ -62,7 +62,7 @@ void GroupsEditDialog::slotAddGroup()
 
     while (ok)
     {
-        groupName = KInputDialog::getText(i18n("Enter the group name"),
+        groupName = KInputDialog::getText(i18n("Enter Group Name"),
                                           i18n("Group name:"), QString(), &ok, this);
 
         if(ok)

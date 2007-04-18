@@ -171,7 +171,7 @@
       <bool>false</bool>
      </property>
      <property name="title" >
-      <string>After completing downloads</string>
+      <string>After Completing Downloads</string>
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >

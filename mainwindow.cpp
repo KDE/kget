@@ -110,7 +110,7 @@ void MainWindow::setupActions()
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
     QAction *editGroupAction = actionCollection()->addAction("edit_groups");
-    editGroupAction->setText(i18n("Edit Groups.."));
+    editGroupAction->setText(i18n("Edit Groups..."));
     editGroupAction->setIcon(KIcon("todolist"));
     connect(editGroupAction, SIGNAL(triggered()), SLOT(slotEditGroups()));
 
@@ -258,9 +258,9 @@ void MainWindow::slotOpen()
 {
     QString filename = KFileDialog::getOpenFileName
         (KUrl(),
-         "*.kgt *.torrent *.metalink|" + i18n("All openable files") + " (*.kgt *.torrent *.metalink)",
+         "*.kgt *.torrent *.metalink|" + i18n("All Openable Files") + " (*.kgt *.torrent *.metalink)",
          this,
-         i18n("Open file")
+         i18n("Open File")
         );
 
     if(filename.endsWith(".kgt"))
@@ -316,9 +316,9 @@ void MainWindow::slotExportTransfers()
 {
     QString filename = KFileDialog::getSaveFileName
         (KUrl(),
-         "*.kgt|" + i18n("KGet transfer list") + " (*.kgt)",
+         "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)",
          this,
-         i18n("Export transfers")
+         i18n("Export Transfers")
         );
 
     if(!filename.isEmpty())

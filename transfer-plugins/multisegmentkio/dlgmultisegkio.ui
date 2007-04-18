@@ -47,7 +47,7 @@
         <item>
          <widget class="QPushButton" name="newEngineBt" >
           <property name="text" >
-           <string>New engine..</string>
+           <string>New Engine...</string>
           </property>
          </widget>
         </item>
@@ -123,7 +123,7 @@
         <item>
          <widget class="QLabel" name="saveDataLabel" >
           <property name="text" >
-           <string>Save Data Every:</string>
+           <string>Save data every:</string>
           </property>
          </widget>
         </item>
@@ -169,7 +169,7 @@
         <item>
          <widget class="QLabel" name="label" >
           <property name="text" >
-           <string>Number of Threads:</string>
+           <string>Number of threads:</string>
           </property>
          </widget>
         </item>
@@ -212,7 +212,7 @@
         <item>
          <widget class="QLabel" name="segmentSizeLabel" >
           <property name="text" >
-           <string>Minimal Segment Size:</string>
+           <string>Minimal segment size:</string>
           </property>
          </widget>
         </item>
