@@ -238,8 +238,19 @@ void MainWindow::slotDelayedInit()
     if ( Settings::downloadAtStartup() )
         slotStartDownload();
 
-    // reset the FirstRun config option
-    Settings::setFirstRun(false);
+    if (Settings::firstRun()) {
+        if (KMessageBox::questionYesNoCancel(this ,i18n("This is the first time you have run KGet.\n"
+                                             "Would you like to use KGet as the download manager for Konqueror?"),
+                                             i18n("Konqueror Integration"), KGuiItem(i18n("Enable")),
+                                             KGuiItem(i18n("Do Not Enable")))
+                                             == KMessageBox::Yes) {
+            Settings::setKonquerorIntegration(true);
+            slotKonquerorIntegration(true);
+        }
+
+        // reset the FirstRun config option
+        Settings::setFirstRun(false);
+    }
 
     //auto paste stuff
     lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
