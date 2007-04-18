@@ -2,13 +2,13 @@
 "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
   <interface name="org.kde.kget">
-    <method name="isDropTargetVisible">
+    <method name="dropTargetVisible">
       <arg type="b" direction="out"/>
     </method>
     <method name="setDropTargetVisible">
       <arg type="b" direction="in"/>
     </method>
-    <method name="isOfflineMode">
+    <method name="offlineMode">
       <arg type="b" direction="out"/>
     </method>
     <method name="setOfflineMode">

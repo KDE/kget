@@ -180,6 +180,11 @@ class KGET_EXPORT KGet
 	 */
 	static void setSchedulerRunning(bool running=true);
 
+       /**
+        * Returns true if the scheduler has running jobs.
+        */
+        static bool schedulerRunning();
+
         /**
          * Sets the given view to the TransferTreeModel object
          */

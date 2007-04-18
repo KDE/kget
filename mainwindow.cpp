@@ -123,11 +123,10 @@ void MainWindow::setupActions()
                                          "the clipboard for URLs and paste them automatically."));
     connect(m_autoPasteAction, SIGNAL(triggered()), SLOT(slotToggleAutoPaste()));
 
-    KToggleAction *m_konquerorIntegration = new KToggleAction(KIcon("konqueror"),
-                                                              i18n("Use KGet as Konqueror Download Manager"),
-                                                              actionCollection());
+    m_konquerorIntegration = new KToggleAction(KIcon("konqueror"),
+                                               i18n("Use KGet as Konqueror Download Manager"), actionCollection());
     actionCollection()->addAction("konqueror_integration", m_konquerorIntegration);
-    connect(m_konquerorIntegration, SIGNAL(triggered()), SLOT(slotTrayKonquerorIntegration()));
+    connect(m_konquerorIntegration, SIGNAL(triggered(bool)), SLOT(slotTrayKonquerorIntegration(bool)));
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
@@ -471,6 +470,7 @@ void MainWindow::slotNewConfig()
     m_drop->setVisible(Settings::showDropTarget(), false);
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
+    m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
 
     if (Settings::autoPaste())
         clipboardTimer->start(1000);
@@ -508,12 +508,10 @@ void MainWindow::slotCheckClipboard()
     }
 }
 
-void MainWindow::slotTrayKonquerorIntegration()
+void MainWindow::slotTrayKonquerorIntegration(bool enable)
 {
-    static bool tempIntegration = Settings::konquerorIntegration();
-    tempIntegration = !tempIntegration;
-    slotKonquerorIntegration(tempIntegration);
-    if (!tempIntegration && Settings::konquerorIntegration() && !Settings::expertMode())
+    slotKonquerorIntegration(enable);
+    if (!enable && Settings::konquerorIntegration() && !Settings::expertMode())
     {
         KMessageBox::information(this,
             i18n("KGet has been temporarily disabled as download manager for Konqueror. "
@@ -577,7 +575,7 @@ void MainWindow::addTransfers(const QString& src, const QString& dest)
     KGet::addTransfer(src.split(";"), dest);
 }
 
-bool MainWindow::isDropTargetVisible() const
+bool MainWindow::dropTargetVisible() const
 {
     return m_drop->isVisible();
 }
@@ -590,16 +588,12 @@ void MainWindow::setDropTargetVisible( bool setVisible )
 
 void MainWindow::setOfflineMode( bool offline )
 {
-    Q_UNUSED(offline);
-    //TODO Re-enable this
-//     schedRequestOperation( offline ? OpStop : OpRun );
+    KGet::setSchedulerRunning(offline);
 }
 
-bool MainWindow::isOfflineMode() const
+bool MainWindow::offlineMode() const
 {
-    //TODO Re-enable this
-//     return scheduler->isRunning();
-    return false;
+    return !KGet::schedulerRunning();
 }
 
 #include "mainwindow.moc"

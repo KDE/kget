@@ -408,6 +408,11 @@ void KGet::setSchedulerRunning(bool running)
 	m_scheduler->stop();
 }
 
+bool KGet::schedulerRunning()
+{
+    return (m_scheduler->countRunningJobs() > 0);
+}
+
 void KGet::setPluginsSettingsWidget(KTabWidget * widget)
 {
     QList<TransferFactory *>::iterator it = m_transferFactories.begin();

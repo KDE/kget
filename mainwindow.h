@@ -35,10 +35,10 @@ public:
 
     // from the DBUS interface
     virtual void addTransfers(const QString& src, const QString& destDir = QString());
-    virtual bool isDropTargetVisible() const;
+    virtual bool dropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );
     virtual void setOfflineMode( bool online );
-    virtual bool isOfflineMode() const;
+    virtual bool offlineMode() const;
 
 protected:
     // ignore/accept quit events
@@ -62,7 +62,7 @@ private slots:
     void slotConfigureKeys();
     void slotConfigureToolbars();
     void slotToggleAutoPaste();
-    void slotTrayKonquerorIntegration();
+    void slotTrayKonquerorIntegration(bool);
     void slotKonquerorIntegration( bool );
     void slotShowMenubar();
 
@@ -97,6 +97,7 @@ private:
     // actions
     KToggleAction * m_autoPasteAction;
     KToggleAction * m_menubarAction;
+    KToggleAction * m_konquerorIntegration;
 
     // for autopaste function
     QString lastClipboard;
