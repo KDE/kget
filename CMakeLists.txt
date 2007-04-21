@@ -12,44 +12,29 @@ add_subdirectory(desktop)
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
-   ${KDE4_INCLUDES}
-   ${QT_INCLUDES}
    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-########### next target ###############
 
-set(kgetconf_SRCS
-   ${CMAKE_SOURCE_DIR}/kget/conf/dlgdirectories.cpp
-   ${CMAKE_SOURCE_DIR}/kget/conf/preferencesdialog.cpp
-)
-
-kde4_add_ui_files(kgetconf_SRCS
-   ${CMAKE_SOURCE_DIR}/kget/conf/dlgadvanced.ui
-   ${CMAKE_SOURCE_DIR}/kget/conf/dlgappearance.ui
-   ${CMAKE_SOURCE_DIR}/kget/conf/dlgdirectories.ui
-   ${CMAKE_SOURCE_DIR}/kget/conf/dlgnetwork.ui
-)
+# kgetcore
 
 set(kgetcore_SRCS
-   ${CMAKE_SOURCE_DIR}/kget/core/job.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/jobqueue.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/kget.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/scheduler.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transfertreemodel.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transfertreeselectionmodel.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transfer.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transfergroup.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transfergrouphandler.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transferhandler.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/plugin/plugin.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/plugin/transferfactory.cpp
-   ${CMAKE_SOURCE_DIR}/kget/core/transfercontainer.cpp
+   core/job.cpp
+   core/jobqueue.cpp
+   core/kget.cpp
+   core/scheduler.cpp
+   core/transfertreemodel.cpp
+   core/transfertreeselectionmodel.cpp
+   core/transfer.cpp
+   core/transfergroup.cpp
+   core/transfergrouphandler.cpp
+   core/transferhandler.cpp
+   core/plugin/plugin.cpp
+   core/plugin/transferfactory.cpp
+   core/transfercontainer.cpp
 )
 
-set(kgetcore_SRCS ${kgetconf_SRCS} ${kgetcore_SRCS})
-
-kde4_add_kcfg_files(kgetcore_SRCS ${CMAKE_SOURCE_DIR}/kget/conf/settings.kcfgc)
+kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
 kde4_automoc(${kgetcore_SRCS})
 
@@ -60,26 +45,34 @@ set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSI
 install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
 
+# kget
+
 set(kget_SRCS
-   ${CMAKE_SOURCE_DIR}/kget/ui/droptarget.cpp
-#    ${CMAKE_SOURCE_DIR}/kget/ui/mainview.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/transfersview.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/transfersviewdelegate.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/groupseditdialog.cpp
-#    ${CMAKE_SOURCE_DIR}/kget/ui/sidebar.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/splash.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/transferdetails.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/tray.cpp
-#    ${CMAKE_SOURCE_DIR}/kget/ui/traytransfer.cpp
-   ${CMAKE_SOURCE_DIR}/kget/ui/viewscontainer.cpp
-   ${CMAKE_SOURCE_DIR}/kget/mainwindow.cpp
-   ${CMAKE_SOURCE_DIR}/kget/main.cpp
+   conf/dlgdirectories.cpp
+   conf/preferencesdialog.cpp
+   ui/droptarget.cpp
+#    ui/mainview.cpp
+   ui/transfersview.cpp
+   ui/transfersviewdelegate.cpp
+   ui/groupseditdialog.cpp
+#    ui/sidebar.cpp
+   ui/splash.cpp
+   ui/transferdetails.cpp
+   ui/tray.cpp
+#    ui/traytransfer.cpp
+   ui/viewscontainer.cpp
+   mainwindow.cpp
+   main.cpp
 )
 
 qt4_add_dbus_adaptor(kget_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
 kde4_add_ui_files(kget_SRCS
-   ${CMAKE_SOURCE_DIR}/kget/ui/transferdetailsfrm.ui
+   conf/dlgadvanced.ui
+   conf/dlgappearance.ui
+   conf/dlgdirectories.ui
+   conf/dlgnetwork.ui
+   ui/transferdetailsfrm.ui
 )
 
 kde4_automoc(${kget_SRCS})
