@@ -68,7 +68,7 @@ void KGet_plug_in::showPopup()
     if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
     {
         QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
-        QDBusReply<bool> reply = kget.call("isDropTargetVisible");
+        QDBusReply<bool> reply = kget.call("dropTargetVisible");
         if (reply.isValid())
             hasDropTarget = reply.value();
     }
