@@ -240,8 +240,8 @@ void MainWindow::slotDelayedInit()
     if (Settings::firstRun()) {
         if (KMessageBox::questionYesNoCancel(this ,i18n("This is the first time you have run KGet.\n"
                                              "Would you like to use KGet as the download manager for Konqueror?"),
-                                             i18n("Konqueror Integration"), KGuiItem(i18n("Enable")),
-                                             KGuiItem(i18n("Do Not Enable")))
+                                             i18n("Konqueror Integration"), KGuiItem(i18n("Enable"), KIcon("dialog-apply")),
+                                             KGuiItem(i18n("Do Not Enable"), KIcon("edit-delete")))
                                              == KMessageBox::Yes) {
             Settings::setKonquerorIntegration(true);
             slotKonquerorIntegration(true);
