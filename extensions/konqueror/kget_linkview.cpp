@@ -10,6 +10,7 @@
 */
 
 #include "kget_linkview.h"
+#include "kget_interface.h"
 
 #include <KActionCollection>
 #include <KShortcut>
@@ -138,8 +139,8 @@ void KGetLinkView::slotStartLeech()
         }
         else
         {
-            QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
-            kget.call("addTransfers", urls.join(";"), QString());
+	    OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+            kgetInterface.addTransfers(urls.join(";"), QString());
         }
     }
 }

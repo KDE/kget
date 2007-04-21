@@ -14,6 +14,7 @@
 
 #include "links.h"
 #include "kget_linkview.h"
+#include "kget_interface.h"
 
 #include <KActionCollection>
 #include <KToggleAction>
@@ -67,8 +68,8 @@ void KGet_plug_in::showPopup()
 
     if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
     {
-        QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
-        QDBusReply<bool> reply = kget.call("dropTargetVisible");
+	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
         if (reply.isValid())
             hasDropTarget = reply.value();
     }
@@ -82,8 +83,8 @@ void KGet_plug_in::slotShowDrop()
         KRun::runCommand("kget --showDropTarget");
     else
     {
-        QDBusInterface kget("org.kde.kget", "/KGet", "org.kde.kget");
-        kget.call("setDropTargetVisible", m_dropTargetAction->isChecked());
+	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+	kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
 
