@@ -44,8 +44,8 @@ public:
   * class MultiSegmentCopyJob
   */
 MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& dest, int permissions, uint segments)
-   :d(new MultiSegmentCopyJobPrivate),
-    KJob(0), m_dest(dest),
+   :KJob(0), d(new MultiSegmentCopyJobPrivate),
+    m_dest(dest),
     m_permissions(permissions),
     m_writeBlocked(false)
 {
@@ -66,8 +66,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
                            QList<SegData> SegmentsData,
                            uint segments)
 
-   :d(new MultiSegmentCopyJobPrivate),
-    KJob(0), m_dest(dest),
+   :KJob(0), d(new MultiSegmentCopyJobPrivate),
+    m_dest(dest),
     m_permissions(permissions),
     m_writeBlocked(false)
 {

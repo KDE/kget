@@ -110,6 +110,8 @@
         void slotSpeed( KJob*, unsigned long bytes_per_second );
 
     private:
+        class MultiSegmentCopyJobPrivate;
+        MultiSegmentCopyJobPrivate* const d;
         KUrl m_dest;
         KUrl m_dest_part;
         int m_permissions;
@@ -117,8 +119,6 @@
         KIO::FileJob* m_putJob;
         bool m_writeBlocked;
         KIO::filesize_t m_chunkSize;
-        class MultiSegmentCopyJobPrivate;
-        MultiSegmentCopyJobPrivate* const d;
 
     private:
         bool checkLocalFile();
