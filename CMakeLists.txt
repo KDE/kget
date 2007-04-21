@@ -1,7 +1,5 @@
 project(kget)
 
-remove_definitions(-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
-
 add_subdirectory(conf)
 add_subdirectory(core)
 add_subdirectory(ui)
