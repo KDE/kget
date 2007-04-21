@@ -291,15 +291,17 @@ void MainWindow::slotOpen()
 
 void MainWindow::slotQuit()
 {
-//     if (m_scheduler->countRunningJobs() > 0)
-//     {
-//         if (KMessageBox::warningYesNo(this,
-//                 i18n("Some transfers are still running.\n"
-//                      "Are you sure you want to close KGet?"),
-//                 i18n("Warning"), KStdGuiItem::yes(), KStdGuiItem::no(),
-//                 "ExitWithActiveTransfers") == KMessageBox::No)
-//             return;
-//     }
+    if (KGet::schedulerRunning()) {
+        if (KMessageBox::warningYesNoCancel(this,
+                i18n("Some transfers are still running.\n"
+                     "Are you sure you want to close KGet?"),
+                i18n("Confirm Quit"),
+                KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
+                "ExitWithActiveTransfers") != KMessageBox::Yes)
+            return;
+
+        KGet::setSchedulerRunning(false);
+    }
 
     Settings::writeConfig();
     qApp->quit();
