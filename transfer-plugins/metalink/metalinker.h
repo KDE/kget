@@ -14,7 +14,7 @@
 
 #include <KUrl>
 
-#include <QString>
+
 
 class QDomElement;
 
