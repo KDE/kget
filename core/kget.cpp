@@ -586,7 +586,10 @@ QString KGet::getSaveDirectoryFromDefault(const KUrl &filename)
         }
     }
 
-    return destDir.replace("file://", "");
+#ifdef Q_OS_WIN
+    destDir = destDir.remove("file:///");
+#endif
+    return destDir.remove("file://");
 }
 
 bool KGet::isValidSource(KUrl source)
