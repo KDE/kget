@@ -116,6 +116,12 @@
     public Q_SLOTS:
 
         /**
+        * Restart the segment transfer
+        * @param url the remote url
+        */
+        bool restartTransfer ( const KUrl &url );
+
+        /**
         * Called whenever a subjob finishes
         * @param job the job that emitted this signal
         */
@@ -155,6 +161,7 @@
         bool stopTransfer ();
         QList<SegData> SegmentsData();
         QList<KUrl> Urls() {return m_Urls;}
+        void setUrls(QList<KUrl> &Urls) {m_Urls = Urls;}
         QList<Segment *> Segments() {return m_Segments;}
         uint nunOfSegments(){return m_segments;}
         QList<Segment *> splitSegment( Segment *Seg, int n );

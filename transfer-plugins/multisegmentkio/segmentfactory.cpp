@@ -76,6 +76,14 @@ bool Segment::stopTransfer ()
     return false;
 }
 
+bool Segment::restartTransfer ( const KUrl &url )
+{
+    bool rest;
+    rest = createTransfer( url );
+    rest |= startTransfer();
+    return rest;
+}
+
 void Segment::slotResult( KJob *job )
 {
     kDebug(5001) << "Segment::slotResult() job: " << job << endl;
@@ -273,8 +281,7 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
     switch (seg->status())
     {
     case Segment::Timeout :
-        seg->createTransfer(nextUrl());
-        seg->startTransfer();
+        seg->restartTransfer( nextUrl() );
     break;
     case Segment::Finished :
         deleteSegment(seg);
@@ -293,4 +300,5 @@ const KUrl SegmentFactory::nextUrl()
     it_Urls++;
     return url;
 }
+
 #include "segmentfactory.moc"

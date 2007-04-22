@@ -12,40 +12,34 @@
 #define MIRROR_H
 
 #include <QtCore/QObject>
-#include <QtCore/QEventLoop>
-
 #include <kio/job.h>
-
-class QDomElement;
 
 class mirror : public QObject
 {
-   Q_OBJECT
+    Q_OBJECT
 
-public:
-   mirror();
-   QList<KUrl> search(const KUrl &url);
+    public:
+        mirror();
+        void search(const KUrl &url, QObject *receiver, const char *member);
 
-private Q_SLOTS:
+    Q_SIGNALS:
 
-   void slotData(KIO::Job *, const QByteArray& data);
-   void slotResult( KJob *job );
+        void urls (QList<KUrl>&);
 
-private:
+    private Q_SLOTS:
 
-   void URLRequest(const KUrl &url);
+        void slotData(KIO::Job *, const QByteArray& data);
+        void slotResult( KJob *job );
 
-private:
+    private:
 
-   QString m_search_engine;
-   KIO::TransferJob *m_job;
-   QList<KUrl> m_Urls;
-   QByteArray m_data;
-   QEventLoop EventLoop;
+        QString m_search_engine;
+        KIO::TransferJob *m_job;
+        KUrl m_url;
+        QList<KUrl> m_Urls;
+        QByteArray m_data;
 };
 
-QList<KUrl> MirrorSearch ( const KUrl &url );
-
-QList<KUrl> Urls( QDomElement root );
+void MirrorSearch ( const KUrl &url, QObject *receiver, const char *member );
 
 #endif // MIRROR_H

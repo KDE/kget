@@ -74,6 +74,9 @@
          */
         void segmentSpeed( KJob *job, unsigned long speed );
 
+    public Q_SLOTS:
+        void slotUrls(QList<KUrl>&);
+
     private Q_SLOTS:
         void calcSpeed();
         void slotDataReq( Segment *, const QByteArray &data, bool &result);

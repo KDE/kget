@@ -142,14 +142,16 @@ void transferMultiSegKio::save(QDomElement e)
 
 void transferMultiSegKio::createJob()
 {
+    mirror* searchjob = 0;
     if(!m_copyjob)
     {
         if(m_Urls.empty())
         {
             if(MultiSegKioSettings::useSearchEngines())
-                m_Urls = MirrorSearch (m_source);
-            else
-                m_Urls << m_source;
+            {
+                MirrorSearch (m_source, this, SLOT(slotSearchUrls(QList<KUrl>&)));
+            }
+            m_Urls << m_source;
         }
         if(SegmentsData.empty())
         {
@@ -264,6 +266,12 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
 
     m_speed = bytes_per_second;
     setTransferChange(Tc_Speed, true);
+}
+
+void transferMultiSegKio::slotSearchUrls(QList<KUrl> &Urls)
+{
+    if (m_copyjob)
+        m_copyjob->slotUrls(Urls);
 }
 
 #include "transfermultisegkio.moc"

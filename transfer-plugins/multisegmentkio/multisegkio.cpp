@@ -116,6 +116,11 @@ void MultiSegmentCopyJob::stop()
         m_putJob->close();
 }
 
+void MultiSegmentCopyJob::slotUrls(QList<KUrl>& Urls)
+{
+    SegFactory->setUrls(Urls);
+}
+
 void MultiSegmentCopyJob::slotStart()
 {
     kDebug(5001) << "MultiSegmentCopyJob::slotStart()" << endl;

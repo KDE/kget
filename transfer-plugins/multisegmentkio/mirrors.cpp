@@ -18,8 +18,26 @@ mirror::mirror()
     m_search_engine = MultiSegKioSettings::searchEnginesUrlList().takeFirst();
 }
 
+void mirror::search(const KUrl &url, QObject *receiver, const char *member)
+{
+    kDebug(5001) << "mirror::search() " << endl;
+
+    m_url = url;
+    m_Urls << m_url;
+
+    KUrl search(m_search_engine.replace("${filename}",m_url.fileName()));
+    m_job = KIO::get(search,false,false);
+    connect(m_job,SIGNAL(data(KIO::Job*,const QByteArray &)),
+               SLOT(slotData(KIO::Job*, const QByteArray& )));
+    connect(m_job,SIGNAL(result(KJob *)),
+               SLOT(slotResult(KJob * )));
+    connect(this,SIGNAL(urls(QList<KUrl>&)),receiver,member);
+
+}
+
 void mirror::slotData(KIO::Job *, const QByteArray& data)
 {
+    kDebug(5001) << "mirror::slotData() " << endl;
     if (data.size() == 0)
         return;
     m_data.append(data);
@@ -28,33 +46,12 @@ void mirror::slotData(KIO::Job *, const QByteArray& data)
 void mirror::slotResult( KJob *job )
 {
     kDebug(5001) << "mirror::slotResult() " << endl;
-    if (job->error())
-        return;
     m_job = 0;
-    if ( EventLoop.isRunning() )
-        EventLoop.quit();
-}
-
-void mirror::URLRequest(const KUrl &url)
-{
-    KUrl search(m_search_engine.replace("${filename}",url.fileName()));
-    m_job = KIO::get(search,false,false);
-    connect(m_job,SIGNAL(data(KIO::Job*,const QByteArray &)),
-               SLOT(slotData(KIO::Job*, const QByteArray& )));
-    connect(m_job,SIGNAL(result(KJob *)),
-               SLOT(slotResult(KJob * )));
-}
-
-
-QList<KUrl>  mirror::search(const KUrl &url)
-{
-    kDebug(5001) << "mirror::search() " << endl;
-
-    m_Urls << url;
-    URLRequest (url);
-
-    EventLoop.exec();
-
+    if( job->error() )
+    {
+        deleteLater();
+        return;
+    }
     QString str(m_data);
 
     int start = 0, posOfTagA = 0, posOfTagHref = 0, hrefEnd = 0;
@@ -65,20 +62,21 @@ QList<KUrl>  mirror::search(const KUrl &url)
     hrefEnd = str.indexOf("\"",posOfTagHref + 6,Qt::CaseInsensitive);
     QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref -6));
     start = hrefEnd + 1;
-        if ( u.endsWith( url.fileName() ) )
+        if ( u.endsWith( m_url.fileName() ) )
         {
             m_Urls << KUrl(u);
             kDebug(5001) << "url: " << u << endl;
         }
     }
 
-    return m_Urls;
+    emit urls(m_Urls);
+    deleteLater();
 }
 
-QList<KUrl> MirrorSearch ( const KUrl &url )
+void MirrorSearch ( const KUrl &url, QObject *receiver, const char *member )
 {
-    mirror searcher;
-    return searcher.search(url);
+    mirror *searcher = new mirror();
+    searcher->search(url, receiver, member);
 }
 
 #include "mirrors.moc"
