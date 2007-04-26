@@ -7,8 +7,10 @@ ServiceTypes=KGet/Plugin
 # standard fields
 Name=MetaLink TransferFactory
 Name[sv]=Metalink-överföringsgenerering
+Name[zh_TW]=MetaLink 傳輸工廠
 Comment=Transfer plugin for KGet
 Comment[sv]=Överföringsinsticksprogram för Kget
+Comment[zh_TW]=KGet 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=libkget_metalinkfactory

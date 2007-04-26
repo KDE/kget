@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
 Comment=Plugin for KGet
 Comment[sv]=Insticksprogram för Kget
+Comment[zh_TW]=KGet 外掛程式
 
 # Type of plugin, e.g. "TransferFactory".
 [PropertyDef::X-KDE-KGet-plugintype]
