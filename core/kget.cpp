@@ -776,7 +776,7 @@ KGetPlugin * KGet::createPluginFromService( const KService::Ptr service )
         return 0;
     }
 
-    KGetPlugin* (*create_plugin)() = ( KGetPlugin* (*)() ) lib->resolveSymbol( "create_plugin" );
+    KGetPlugin* (*create_plugin)() = ( KGetPlugin* (*)() ) lib->resolveFunction( "create_plugin" );
 
     if ( !create_plugin ) 
     {
