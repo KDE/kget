@@ -50,8 +50,9 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& de
     m_writeBlocked(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
-    QList<SegData> emptySegData;
-    SegFactory = new SegmentFactory( segments, Urls, emptySegData );
+    SegFactory = new SegmentFactory( segments, Urls );
+    connect(SegFactory, SIGNAL(createdSegment(Segment *)), SLOT(slotConnectSegment( Segment *)));
+
     m_putJob = 0;
     connect(&d->speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
     QTimer::singleShot(0, this, SLOT(slotStart()));
@@ -72,19 +73,17 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
     m_writeBlocked(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
-    SegFactory = new SegmentFactory( segments, Urls, SegmentsData );
-    QList<Segment *> Segments = SegFactory->Segments();
-    QList<Segment *>::iterator it = Segments.begin();
-    QList<Segment *>::iterator itEnd = Segments.end();
-    for ( ; it!=itEnd ; ++it )
+    SegFactory = new SegmentFactory( segments, Urls );
+    connect(SegFactory, SIGNAL(createdSegment(Segment *)), SLOT(slotConnectSegment( Segment *)));
+
+    if ( !SegmentsData.isEmpty() )
     {
-        kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob() conecting job Signals" << endl;
-        connect( (*it), SIGNAL(data( Segment*, const QByteArray&, bool &)),
-                 SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
-        connect( (*it)->job(), SIGNAL(speed( KJob*, unsigned long )),
-                 SLOT(slotSpeed( KJob*, unsigned long )));
-        connect( (*it), SIGNAL(updateSegmentData()),
-                 SIGNAL(updateSegmentsData()));
+        QList<SegData>::const_iterator it = SegmentsData.begin();
+        QList<SegData>::const_iterator itEnd = SegmentsData.end();
+        for ( ; it!=itEnd ; ++it )
+        {
+            SegFactory->createSegment( (*it), SegFactory->nextUrl() );
+        }
     }
 
     m_putJob = 0;
@@ -152,13 +151,6 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
     }
     SegData data;
     Segment *seg = SegFactory->createSegment(data, SegFactory->nextUrl() );
-
-    connect( seg, SIGNAL(data( Segment*, const QByteArray&, bool &)), 
-                 SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
-    connect( seg, SIGNAL(updateSegmentData()),
-                 SIGNAL(updateSegmentsData()));
-    connect( seg->job(), SIGNAL(speed( KJob*, unsigned long )),
-                 SLOT(slotSpeed( KJob*, unsigned long )));
     connect( seg->job(), SIGNAL(totalSize( KJob *, qulonglong )),
                       SLOT(slotTotalSize( KJob *, qulonglong )));
     seg->startTransfer();
@@ -219,6 +211,17 @@ void MultiSegmentCopyJob::calcSpeed()
   }
 }
 
+void MultiSegmentCopyJob::slotConnectSegment( Segment *seg)
+{
+    kDebug(5001) << "MultiSegmentCopyJob::slotConnectSegment()" << endl;
+    connect( seg, SIGNAL(data( Segment*, const QByteArray&, bool &)),
+                 SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
+    connect( seg->job(), SIGNAL(speed( KJob*, unsigned long )),
+                 SLOT(slotSpeed( KJob*, unsigned long )));
+    connect( seg, SIGNAL(updateSegmentData()),
+                 SIGNAL(updateSegmentsData()));
+}
+
 void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, bool &result)
 {
 //     kDebug(5001) << "MultiSegmentCopyJob::slotDataReq() " << endl;
@@ -273,18 +276,12 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 
     QList<Segment *> segments = SegFactory->Segments();
     Segment *seg = segments.takeFirst();
-    seg->setBytes(size);
+    seg->setBytes( size - seg->BytesWritten() );
     segments = SegFactory->splitSegment( seg ,SegFactory->nunOfSegments() );
     QList<Segment *>::iterator it = segments.begin();
     QList<Segment *>::iterator itEnd = segments.end();
     for ( ; it!=itEnd ; ++it )
     {
-        connect( (*it), SIGNAL(data( Segment*, const QByteArray&, bool &)),
-                 SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
-        connect( (*it)->job(), SIGNAL(speed( KJob*, unsigned long )),
-                 SLOT(slotSpeed( KJob*, unsigned long )));
-        connect( (*it), SIGNAL(updateSegmentData()),
-                 SIGNAL(updateSegmentsData()));
         (*it)->startTransfer();
     }
 }

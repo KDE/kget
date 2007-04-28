@@ -76,7 +76,7 @@
         * Set the value of m_bytes
         * @param bytes the new value of m_bytes
         */
-        void setBytes ( KIO::filesize_t bytes ){ m_segData.bytes = bytes - m_bytesWritten; }
+        void setBytes ( KIO::filesize_t bytes ){ m_segData.bytes = bytes; }
 
         /**
         * Set the segment data
@@ -155,7 +155,7 @@
         Q_OBJECT
 
     public:
-        SegmentFactory( uint n, const QList<KUrl> Urls, QList<SegData> SegmentsData );
+        SegmentFactory( uint n, const QList<KUrl> Urls );
         ~SegmentFactory();
         bool startTransfer ();
         bool stopTransfer ();
@@ -169,12 +169,21 @@
         void deleteSegment(Segment *);
         const KUrl nextUrl();
 
+    Q_SIGNALS:
+        void createdSegment(Segment *);
+
     private Q_SLOTS:
         void slotStatusChanged( Segment *seg);
+        void slotSegmentTimeOut();
+
+    private:
+        Segment *takeLongest();
 
     private:
         uint m_segments;
+        bool m_split;
         QList<Segment *> m_Segments;
+        QList<Segment *> m_TimeOutSegments;
         QList<KUrl>::const_iterator it_Urls;
         QList<KUrl> m_Urls;
     };

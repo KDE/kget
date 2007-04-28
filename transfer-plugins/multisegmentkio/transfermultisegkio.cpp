@@ -270,8 +270,12 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
 
 void transferMultiSegKio::slotSearchUrls(QList<KUrl> &Urls)
 {
+    kDebug(5001) << "transferMultiSegKio::slotSearchUrls got " << Urls.size() << " Urls." << endl;
+    m_Urls = Urls;
     if (m_copyjob)
+    {
         m_copyjob->slotUrls(Urls);
+    }
 }
 
 #include "transfermultisegkio.moc"
