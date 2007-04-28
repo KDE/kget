@@ -8,8 +8,8 @@
    of the License.
 */
 
-#ifndef _JOB_H
-#define _JOB_H
+#ifndef JOB_H
+#define JOB_H
 
 /**
  *  @brief Job class
@@ -34,28 +34,27 @@ class KGET_EXPORT Job
     public:
         /**
          * The status property describes the current job status
-         *
-         * @param Running The job is being executed
-         * @param Delayed The job is delayed. This means that the scheduler should
-         *                not start it until it exits from the delayed state
-         * @param Stopped The job is stopped
-         * @param Aborted The job is stopped, but this also indicates that it
-         *                stopped because an error occurred
-         * @param Finished The job exited from its Running state successfully
          */
-        enum Status {Running, Delayed, Stopped, Aborted, Finished};
+        enum Status {
+            Running, ///< The job is being executed
+            Delayed, ///< The job is delayed. This means that the scheduler should
+            /// not start it until it exits from the delayed state
+            Stopped, ///< The job is stopped
+            Aborted, ///< The job is stopped, but this also indicates that it
+            /// stopped because an error occurred
+            Finished ///< The job exited from its Running state successfully
+        };
 
         /**
          * The policy property describes how the scheduler should manage this job.
-         *
-         * @param Start The scheduler should start this job even if its queue 
-         *              isn't in a Running status
-         * @param Stop The scheduler shouldn't never start this job, even if
-         *             if its queue is in a Running status
-         * @param None The scheduler should start this job depending on its
-         *             queue status
          */
-        enum Policy {Start, Stop, None};
+        enum Policy {Start, ///< The scheduler should start this job even if its queue
+            /// isn't in a Running status
+            Stop, ///< The scheduler shouldn't never start this job, even if
+            /// if its queue is in a Running status
+            None ///< The scheduler should start this job depending on its
+            /// queue status
+        };
 
         Job(JobQueue * parent, Scheduler * scheduler);
         virtual ~Job();

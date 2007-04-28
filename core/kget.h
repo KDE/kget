@@ -228,7 +228,7 @@ class KGET_EXPORT KGet
         static QString destInputDialog();
         static QString getSaveDirectoryFromDefault(const KUrl &filename);
 
-        static bool isValidSource(KUrl source);
+        static bool isValidSource(const KUrl &source);
         static bool isValidDestDirectory(const QString& destDir);
 
         /**
@@ -238,7 +238,7 @@ class KGET_EXPORT KGet
          * @param destFile the url of the destination file
          * @return true if the destination file is ok, otherwise returns false
          */
-        static bool isValidDestUrl(KUrl destUrl);
+        static bool isValidDestUrl(const KUrl &destUrl);
 
         static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl);
 

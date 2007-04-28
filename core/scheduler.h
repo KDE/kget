@@ -35,8 +35,8 @@ class Scheduler : public QObject
         Scheduler();
         ~Scheduler();
 
-        /* 
-	 * Starts globally the execution of the jobs
+        /**
+         * Starts globally the execution of the jobs
          *
          * @see stop()
          */

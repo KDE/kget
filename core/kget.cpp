@@ -592,7 +592,7 @@ QString KGet::getSaveDirectoryFromDefault(const KUrl &filename)
     return destDir.remove("file://");
 }
 
-bool KGet::isValidSource(KUrl source)
+bool KGet::isValidSource(const KUrl &source)
 {
     if (!source.isValid())
     {
@@ -638,7 +638,7 @@ bool KGet::isValidDestDirectory(const QString & destDir)
     return (!destDir.isEmpty() && QFileInfo( destDir ).isDir());
 }
 
-bool KGet::isValidDestUrl(KUrl destUrl)
+bool KGet::isValidDestUrl(const KUrl &destUrl)
 {
     if(KIO::NetAccess::exists(destUrl, false, 0))
     {
@@ -673,7 +673,7 @@ KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
     if ( filename.isEmpty() )
     {
         // simply use the full url as filename
-        filename = QUrl::toPercentEncoding( srcUrl.prettyUrl(), "/" );
+        filename = KUrl::toPercentEncoding( srcUrl.prettyUrl(), "/" );
         kDebug(5001) << " Filename is empty. Setting to  " << filename << endl;
         kDebug(5001) << "   srcUrl = " << srcUrl.url() << endl;
         kDebug(5001) << "   prettyUrl = " << srcUrl.prettyUrl() << endl;
