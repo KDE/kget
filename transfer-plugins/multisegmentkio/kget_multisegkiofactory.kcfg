@@ -9,7 +9,7 @@
     <entry name="SplitSize" type="Int">
       <default>50</default>
     </entry>
-    <entry name="SaveSegEvery" type="Int">
+    <entry name="SaveSegSize" type="Int">
       <default>200</default>
     </entry>
   </group>

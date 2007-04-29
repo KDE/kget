@@ -9,6 +9,7 @@
 */
 
 #include "multisegkio.h"
+#include "multisegkiosettings.h"
 
 #include <kde_file.h>
 
@@ -236,7 +237,7 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
     result = true;
 
     m_chunkSize += data.size();
-    if( m_chunkSize > 200*1024)
+    if( m_chunkSize > MultiSegKioSettings::saveSegSize()*1024)
     {
         emit updateSegmentsData();
         m_chunkSize =0;

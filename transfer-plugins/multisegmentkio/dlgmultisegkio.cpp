@@ -33,6 +33,8 @@ DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
     ui.setupUi(this);
     init();
     connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
+    connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetMinSegSize(int)));
+    connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSaveDataSize(int)));
     connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
     connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
     connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
@@ -56,6 +58,16 @@ QString DlgEngineEditing::engineUrl()
 void DlgSettingsWidget::slotSetSegments(int seg)
 {
     MultiSegKioSettings::setSegments(seg);
+}
+
+void DlgSettingsWidget::slotSetMinSegSize(int size)
+{
+    MultiSegKioSettings::setSplitSize(size);
+}
+
+void DlgSettingsWidget::slotSetSaveDataSize(int size)
+{
+    MultiSegKioSettings::setSaveSegSize(size);
 }
 
 void DlgSettingsWidget::slotSetUseSearchEngines(bool)
@@ -85,7 +97,10 @@ void DlgSettingsWidget::slotRemoveEngine()
 
 void DlgSettingsWidget::init()
 {
-    ui.numSegSpinBox->setValue(MultiSegKioSettings::segments());
+    ui.numSegSpinBox->setValue( MultiSegKioSettings::segments() );
+    ui.minSegSizeSpinBox->setValue( MultiSegKioSettings::splitSize() );
+    ui.saveDataSizeSpinBox->setValue( MultiSegKioSettings::saveSegSize() );
+
     ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
     ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
 

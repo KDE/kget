@@ -9,6 +9,7 @@
 */
 
 #include "segmentfactory.h"
+#include "multisegkiosettings.h"
 
 #include <QtCore/QTimer>
 
@@ -226,9 +227,8 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
 
     KIO::filesize_t bytes = Seg->data().bytes;
     KIO::filesize_t offset = Seg->data().offset;
-    kDebug(5001) << "Segment has: " << bytes << " bytes at offset: " << offset << " and " << Seg->BytesWritten() << " bytes writtens." << endl;
 
-    int min = bytes/MIN_SIZE;
+    int min = bytes/MultiSegKioSettings::splitSize()*1024;
 
     if( min < n )
     {
@@ -335,8 +335,10 @@ void SegmentFactory::slotSegmentTimeOut()
 Segment *SegmentFactory::takeLongest()
 {
     kDebug(5001) << "SegmentFactory::takeLongest()" << endl;
+
     Segment *longest = 0;
-    KIO::filesize_t bytes = MIN_SIZE;
+    KIO::filesize_t bytes = MultiSegKioSettings::splitSize()*1024;
+
     QList<Segment*>::const_iterator it = m_Segments.begin();
     QList<Segment*>::const_iterator itEnd = m_Segments.end();
     for ( ; it!=itEnd ; ++it )
@@ -347,8 +349,10 @@ Segment *SegmentFactory::takeLongest()
             bytes = (*it)->data().bytes;
         }
     }
+
     if(longest)
         kDebug(5001) << "the longest segment has: " << longest->data().bytes << endl;
+
     return longest;
 }
 

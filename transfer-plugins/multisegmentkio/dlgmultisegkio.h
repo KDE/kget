@@ -39,6 +39,8 @@ public:
 
 private Q_SLOTS:
     void slotSetSegments(int seg);
+    void slotSetMinSegSize(int size);
+    void slotSetSaveDataSize(int size);
     void slotSetUseSearchEngines(bool b);
     void slotNewEngine();
     void slotRemoveEngine();
