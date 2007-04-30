@@ -15,7 +15,7 @@
 #include "settings.h"
 #include "mainwindow.h"
 
-#include <kwm.h>
+#include <kwindowsystem.h>
 #include <klocale.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
@@ -52,7 +52,7 @@ DropTarget::DropTarget(MainWindow * mw)
     resize(TARGET_SIZE, TARGET_SIZE);
 
     if(Settings::dropSticky())
-        KWM::setState(winId(), KWM::Sticky);
+        KWindowSystem::setState(winId(), KWindowSystem::Sticky);
 
     cachedPixmap = DesktopIcon("kget", TARGET_SIZE);
     if (!cachedPixmap.mask().isNull())
@@ -101,7 +101,7 @@ DropTarget::~DropTarget()
 {
     Settings::setDropPosition( pos() );
     Settings::setShowDropTarget( !isHidden() );
-//    unsigned long state = KWM::windowInfo(kdrop->winId()).state();
+//    unsigned long state = KWindowSystem::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
 //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );
     delete popupMenu;
@@ -302,9 +302,9 @@ void DropTarget::toggleSticky()
     pop_sticky->setChecked(Settings::dropSticky());
 
     if ( Settings::dropSticky() )
-        KWM::setState(winId(), KWM::SkipTaskbar | KWM::StaysOnTop | KWM::Sticky);
+        KWindowSystem::setState(winId(), KWindowSystem::SkipTaskbar | KWindowSystem::StaysOnTop | KWindowSystem::Sticky);
     else
-        KWM::clearState(winId(), KWM::Sticky);
+        KWindowSystem::clearState(winId(), KWindowSystem::Sticky);
 }
 
 void DropTarget::toggleMinimizeRestore()
