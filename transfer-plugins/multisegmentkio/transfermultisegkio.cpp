@@ -205,7 +205,7 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
-    m_copyjob=0;
+    m_copyjob = 0;
     setTransferChange(Tc_Status, true);
 }
 

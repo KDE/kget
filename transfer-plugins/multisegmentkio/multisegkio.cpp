@@ -48,7 +48,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& de
    :KJob(0), d(new MultiSegmentCopyJobPrivate),
     m_dest(dest),
     m_permissions(permissions),
-    m_writeBlocked(false)
+    m_writeBlocked(false),
+    m_segSplited(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
     SegFactory = new SegmentFactory( segments, Urls );
@@ -71,7 +72,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
    :KJob(0), d(new MultiSegmentCopyJobPrivate),
     m_dest(dest),
     m_permissions(permissions),
-    m_writeBlocked(false)
+    m_writeBlocked(false),
+    m_segSplited(false)
 {
     kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()" << endl;
     SegFactory = new SegmentFactory( segments, Urls );
@@ -119,6 +121,7 @@ void MultiSegmentCopyJob::stop()
 void MultiSegmentCopyJob::slotUrls(QList<KUrl>& Urls)
 {
     SegFactory->setUrls(Urls);
+    slotSplitSegment();
 }
 
 void MultiSegmentCopyJob::slotStart()
@@ -150,11 +153,15 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
 
         return;
     }
+
     SegData data;
-    Segment *seg = SegFactory->createSegment(data, SegFactory->nextUrl() );
-    connect( seg->job(), SIGNAL(totalSize( KJob *, qulonglong )),
+    m_firstSeg = SegFactory->createSegment(data, SegFactory->nextUrl() );
+    connect( m_firstSeg->job(), SIGNAL(totalSize( KJob *, qulonglong )),
                       SLOT(slotTotalSize( KJob *, qulonglong )));
-    seg->startTransfer();
+    m_firstSeg->startTransfer();
+
+    if(MultiSegKioSettings::useSearchEngines())
+        QTimer::singleShot(30000, this, SLOT(slotSplitSegment()));
 }
 
 void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
@@ -223,6 +230,20 @@ void MultiSegmentCopyJob::slotConnectSegment( Segment *seg)
                  SIGNAL(updateSegmentsData()));
 }
 
+void MultiSegmentCopyJob::slotSplitSegment()
+{
+    if(m_segSplited)
+        return;
+    QList<Segment *> segments = SegFactory->splitSegment( m_firstSeg ,SegFactory->nunOfSegments() );
+    QList<Segment *>::iterator it = segments.begin();
+    QList<Segment *>::iterator itEnd = segments.end();
+    for ( ; it!=itEnd ; ++it )
+    {
+        (*it)->startTransfer();
+    }
+    m_segSplited = true;
+}
+
 void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, bool &result)
 {
 //     kDebug(5001) << "MultiSegmentCopyJob::slotDataReq() " << endl;
@@ -267,7 +288,8 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 {
     kDebug(5001) << "MultiSegmentCopyJob::slotTotalSize() from job: " << job << " -- " << size << endl;
     setTotalAmount (Bytes, size);
-
+    Q_ASSERT( m_firstSeg );
+    m_firstSeg->setBytes( size - m_firstSeg->BytesWritten() );
     gettimeofday(&d->start_time, 0);
     d->last_time = 0;
     d->sizes[0] = processedAmount(Bytes) - d->bytes;
@@ -275,15 +297,10 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
     d->nums = 1;
     d->speed_timer.start(1000);
 
-    QList<Segment *> segments = SegFactory->Segments();
-    Segment *seg = segments.takeFirst();
-    seg->setBytes( size - seg->BytesWritten() );
-    segments = SegFactory->splitSegment( seg ,SegFactory->nunOfSegments() );
-    QList<Segment *>::iterator it = segments.begin();
-    QList<Segment *>::iterator itEnd = segments.end();
-    for ( ; it!=itEnd ; ++it )
+    if(!MultiSegKioSettings::useSearchEngines())
     {
-        (*it)->startTransfer();
+        kDebug(5001) << "slotSplitSegment() now" << endl;
+        slotSplitSegment();
     }
 }
 

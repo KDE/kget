@@ -80,6 +80,7 @@
     private Q_SLOTS:
         void calcSpeed();
         void slotConnectSegment( Segment *seg);
+        void slotSplitSegment();
         void slotDataReq( Segment *, const QByteArray &data, bool &result);
         void slotStart();
         void slotOpen( KIO::Job * );
@@ -120,6 +121,8 @@
         KUrl m_dest_part;
         int m_permissions;
         SegmentFactory *SegFactory;
+        Segment *m_firstSeg;
+        bool m_segSplited;
         KIO::FileJob* m_putJob;
         bool m_writeBlocked;
         KIO::filesize_t m_chunkSize;
