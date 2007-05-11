@@ -23,14 +23,18 @@ Metalinker::Metalinker()
 
 QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
 {
-    kDebug(5001) << "Metalinker::parseMetalinkFile " << url << endl;
+    kDebug(5001) << "Metalinker::parseMetalinkFile " << url.pathOrUrl() << endl;
+
     QList<MlinkFileData> fileData;
-    QFile file( url.fileName() );
+    QFile file( url.pathOrUrl() );
+
     QDomDocument doc;
 
     if(!doc.setContent(&file))
+    {
+        kDebug(5001) << "Metalinker::parseMetalinkFile: unable to read the xml file"<< endl;
         return fileData;
-
+    }
     QDomNodeList files = doc.documentElement().
         elementsByTagName("files").
         item(0).toElement().elementsByTagName("file");

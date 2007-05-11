@@ -38,7 +38,6 @@ public:
 
     TransferContainer();
     ~TransferContainer();
-
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(TransferContainer::TransferFlags)
