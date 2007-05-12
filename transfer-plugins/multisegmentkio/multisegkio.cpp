@@ -160,8 +160,11 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
                       SLOT(slotTotalSize( KJob *, qulonglong )));
     m_firstSeg->startTransfer();
 
-    if(MultiSegKioSettings::useSearchEngines())
+    if( MultiSegKioSettings::useSearchEngines() && !(SegFactory->Urls().size() > 1) )
+    {
+        kDebug(5001) << "waiting 30 seg for the mirror search result..." << endl;
         QTimer::singleShot(30000, this, SLOT(slotSplitSegment()));
+    }
 }
 
 void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
@@ -235,6 +238,8 @@ void MultiSegmentCopyJob::slotSplitSegment()
     if(m_segSplited)
         return;
     QList<Segment *> segments = SegFactory->splitSegment( m_firstSeg ,SegFactory->nunOfSegments() );
+    if(segments.isEmpty())
+        return;
     QList<Segment *>::iterator it = segments.begin();
     QList<Segment *>::iterator itEnd = segments.end();
     for ( ; it!=itEnd ; ++it )
@@ -297,7 +302,7 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
     d->nums = 1;
     d->speed_timer.start(1000);
 
-    if(!MultiSegKioSettings::useSearchEngines())
+    if(!MultiSegKioSettings::useSearchEngines() || (SegFactory->Urls().size() > 1))
     {
         kDebug(5001) << "slotSplitSegment() now" << endl;
         slotSplitSegment();
