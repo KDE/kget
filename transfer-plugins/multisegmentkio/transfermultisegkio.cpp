@@ -76,7 +76,7 @@ bool transferMultiSegKio::isResumable() const
     return true;
 }
 
-void transferMultiSegKio::load(QDomElement e)
+void transferMultiSegKio::load(const QDomElement &e)
 {
     kDebug(5001) << "TransferMultiSegKio::load" << endl;
 
@@ -104,7 +104,7 @@ void transferMultiSegKio::load(QDomElement e)
     }
 }
 
-void transferMultiSegKio::save(QDomElement e)
+void transferMultiSegKio::save(QDomElement e) // krazy:exclude=passbyvalue
 {
     kDebug(5001) << "TransferMultiSegKio::save" << endl;
 

@@ -334,7 +334,7 @@ void BTTransfer::save(QDomElement e)
     }
 }
 
-void BTTransfer::load(QDomElement e)
+void BTTransfer::load(const QDomElement &e)
 {
     if (!e.isNull())
     {

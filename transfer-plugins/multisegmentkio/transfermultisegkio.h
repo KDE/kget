@@ -42,7 +42,7 @@ class transferMultiSegKio : public QObject, public Transfer
         void save(QDomElement e);
 
     protected:
-        void load(QDomElement e);
+        void load(const QDomElement &e);
 
     private:
         void createJob();

@@ -129,7 +129,7 @@ void TransferGroup::transferChangedEvent(Transfer * transfer)
   Q_UNUSED(transfer);
 }
 
-void TransferGroup::save(QDomElement e)
+void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 {
     kDebug(5001) << "TransferGroup::save()  -->  " << name() << endl;
 

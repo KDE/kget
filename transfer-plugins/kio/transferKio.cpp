@@ -68,12 +68,12 @@ bool TransferKio::isResumable() const
     return true;
 }
 
-void TransferKio::load(QDomElement e)
+void TransferKio::load(const QDomElement &e)
 {
     Transfer::load(e);
 }
 
-void TransferKio::save(QDomElement e)
+void TransferKio::save(const QDomElement &e)
 {
     Transfer::save(e);
 }

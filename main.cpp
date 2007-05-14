@@ -117,8 +117,8 @@ int main(int argc, char *argv[])
                          "(C) 2005 - 2007, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
-                         "(C) 1998 - 2000, Matej Koss\n",
-                         "kget@kde.org");
+                         "(C) 1998 - 2000, Matej Koss",
+                         "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>");
 
     aboutData.addAuthor("Dario Massarin", I18N_NOOP("Maintainer, Core Developer"), "nekkar@libero.it");
     aboutData.addAuthor("Urs Wolfer", I18N_NOOP("Core Developer"), "uwolfer@kde.org");

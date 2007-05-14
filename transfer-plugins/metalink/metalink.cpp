@@ -11,7 +11,7 @@
 
 #include "metalink.h"
 
-#include "metalinker.h"
+#include "../../core/metalinker.h"
 #include "../multisegmentkio/multisegkio.h"
 
 #include <kiconloader.h>
@@ -71,12 +71,12 @@ bool metalink::isResumable() const
     return true;
 }
 
-void metalink::load(QDomElement e)
+void metalink::load(const QDomElement &e)
 {
     Transfer::load(e);
 }
 
-void metalink::save(QDomElement e)
+void metalink::save(const QDomElement &e)
 {
     Transfer::save(e);
 }

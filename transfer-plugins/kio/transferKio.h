@@ -38,10 +38,10 @@ class TransferKio : public QObject, public Transfer
         int remainingTime() const;
         bool isResumable() const;
 
-        void save(QDomElement e);
+        void save(const QDomElement &e);
 
     protected:
-        void load(QDomElement e);
+        void load(const QDomElement &e);
 
     private:
         void createJob();

@@ -68,10 +68,10 @@ class BTTransfer : public QObject, public Transfer
         int peersConnected();
         int peersNotConnected();
 
-        void save(QDomElement e);
+        void save(QDomElement e); // krazy:exclude=passbyvalue
 
     protected:
-        void load(QDomElement e);
+        void load(const QDomElement &e);
 
     private slots:
         void update();

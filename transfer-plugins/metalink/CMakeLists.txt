@@ -11,7 +11,7 @@ set(kget_metalinkfactory_PART_SRCS
   ../multisegmentkio/multisegkio.cpp
   metalinkfactory.cpp
   metalink.cpp
-  metalinker.cpp
+  ../../core/metalinker.cpp
 )
 
 kde4_automoc(${kget_metalinkfactory_PART_SRCS})

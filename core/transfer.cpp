@@ -75,7 +75,7 @@ TransferTreeModel * Transfer::model()
     return group()->model();
 }
 
-void Transfer::save(QDomElement e)
+void Transfer::save(QDomElement e) // krazy:exclude=passbyvalue
 {
     e.setAttribute("Source", m_source.url());
     e.setAttribute("Dest", m_dest.url());
@@ -83,7 +83,7 @@ void Transfer::save(QDomElement e)
     e.setAttribute("ProcessedSize", (qulonglong) m_processedSize);
 }
 
-void Transfer::load(QDomElement e)
+void Transfer::load(const QDomElement &e)
 {
     m_source = KUrl(e.attribute("Source"));
     m_dest = KUrl(e.attribute("Dest"));

@@ -119,7 +119,7 @@ class KGET_EXPORT Transfer : public Job
 
     protected:
         //Function used to load and save the transfer's info from xml
-        virtual void load(QDomElement e);
+        virtual void load(const QDomElement &e);
 
         /**
          * Sets the Job status to jobStatus, the status text to text and
