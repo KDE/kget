@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -12,13 +13,14 @@
 #ifndef _VIEWSCONTAINER_H
 #define _VIEWSCONTAINER_H
 
-#include <QLabel>
 #include <QWidget>
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QStackedLayout>
 #include <QMap>
+
+class KTitleWidget;
 
 class TransfersView;
 class TransfersViewDelegate;
@@ -35,8 +37,7 @@ class TitleBar : public QWidget
         void setFinishedWindow();
 
     private:
-        QLabel * m_label;
-        QHBoxLayout * m_layout;
+        KTitleWidget *m_titleWidget;
 };
 
 class ButtonBase : public QToolButton

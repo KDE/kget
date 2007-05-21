@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,45 +17,40 @@
 #include "core/transfertreeselectionmodel.h"
 #include "transfersview.h"
 #include "transfersviewdelegate.h"
-// #include "mainview.h"
 #include "transferdetails.h"
 
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kdebug.h>
 #include <kio/global.h>
+#include <KTitleWidget>
 
 #include <QMenu>
 #include <QFrame>
+#include <QLabel>
 
 TitleBar::TitleBar(QWidget * parent)
     : QWidget(parent)
 {
-    setMaximumHeight(40);
+    m_titleWidget = new KTitleWidget(this);
 
-    m_layout = new QHBoxLayout();
-    setLayout(m_layout);
-
-    m_label = new QLabel(this);
-    m_label->setScaledContents(true);
-    m_label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-    m_layout->addWidget(m_label);
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->addWidget(m_titleWidget);
 }
 
 void TitleBar::setTransfer(TransferHandler * transfer)
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"></span>" + i18n("Details for file: \t") + transfer->source().fileName());
+    m_titleWidget->setText(i18n("Details for: %1", transfer->source().fileName()), Qt::AlignCenter);
 }
 
 void TitleBar::setDownloadsWindow()
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"></span>" + i18n("All downloads"));
+    m_titleWidget->setText(i18n("All downloads"), Qt::AlignCenter);
 }
 
 void TitleBar::setFinishedWindow()
 {
-    m_label->setText("<span style= \"font-size:13pt; font-weight:600;\"></span>" + i18n("Finished downloads"));
+    m_titleWidget->setText(i18n("Finished downloads"), Qt::AlignCenter);
 }
 
 ButtonBase::ButtonBase(QWidget * parent)
