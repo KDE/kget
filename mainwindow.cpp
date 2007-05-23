@@ -85,7 +85,7 @@ MainWindow::~MainWindow()
     // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
     slotKonquerorIntegration( Settings::konquerorIntegration() );
     // the following call saves options set in above dtors
-    Settings::writeConfig();
+    Settings::self()->writeConfig();
 }
 
 
@@ -303,7 +303,7 @@ void MainWindow::slotQuit()
         KGet::setSchedulerRunning(false);
     }
 
-    Settings::writeConfig();
+    Settings::self()->writeConfig();
     qApp->quit();
 }
 
@@ -455,7 +455,7 @@ void MainWindow::slotSaveMyself()
     // save last parameters ..
     Settings::setMainPosition( pos() );
     // .. and write config to disk
-    Settings::writeConfig();
+    Settings::self()->writeConfig();
 }
 
 void MainWindow::slotNewToolbarConfig()

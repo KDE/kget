@@ -75,7 +75,7 @@ void DlgDirectories::saveSettings()
     }
     Settings::setExtensionsFolderList(list);
 
-    Settings::writeConfig();
+    Settings::self()->writeConfig();
 }
 
 void DlgDirectories::addButtonClicked()

@@ -42,7 +42,7 @@ DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
 
 DlgSettingsWidget::~DlgSettingsWidget()
 {
-    MultiSegKioSettings::writeConfig();
+    MultiSegKioSettings::self()->writeConfig();
 }
 
 QString DlgEngineEditing::engineName()
@@ -137,7 +137,7 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
     MultiSegKioSettings::self()->findItem("SearchEnginesNameList")->setProperty(QVariant(enginesNames));
     MultiSegKioSettings::self()->findItem("SearchEnginesUrlList")->setProperty(QVariant(enginesUrls));
 
-    MultiSegKioSettings::writeConfig();
+    MultiSegKioSettings::self()->writeConfig();
 }
 
 #include "dlgmultisegkio.moc"
