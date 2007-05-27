@@ -62,4 +62,4 @@ GenericName[x-test]=xxDownload Managerxx
 GenericName[zh_HK]=下載管理員
 GenericName[zh_TW]=下載管理員
 Categories=Qt;KDE;Network;
-X-DCOP-ServiceType=Unique
+X-DBUS-ServiceType=Unique
