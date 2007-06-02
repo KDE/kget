@@ -319,7 +319,7 @@ void BTTransfer::update()
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize, true);
 }
 
-void BTTransfer::save(QDomElement e)
+void BTTransfer::save(QDomElement e) // krazy:exclude=passbyvalue
 {
     Transfer::save(e);
 

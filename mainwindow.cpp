@@ -105,7 +105,7 @@ void MainWindow::setupActions()
 
     QAction *exportAction = actionCollection()->addAction("export_downloads");
     exportAction->setText(i18n("&Export Transfers List..."));
-    exportAction->setIcon(KIcon("fileexport"));
+    exportAction->setIcon(KIcon("file-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
