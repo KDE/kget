@@ -121,7 +121,8 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         QItemDelegate::paint(painter, option, index);
 }
 
-void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect)
+void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const
+        QRect & rect) const
 {
     
 }

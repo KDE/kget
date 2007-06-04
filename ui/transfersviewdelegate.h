@@ -55,7 +55,7 @@ class TransfersViewDelegate : public QItemDelegate
 
         void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
-        void drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect);
+        void drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect) const;
 
         QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
