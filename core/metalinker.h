@@ -16,7 +16,6 @@
 
 
 
-class QDomElement;
 
 class MlinkFileData
 {

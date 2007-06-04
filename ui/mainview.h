@@ -20,7 +20,6 @@
 
 #include "core/observer.h"
 
-class KActionCollection;
 class KMenu;
 
 class MainView;
