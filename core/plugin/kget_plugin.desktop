@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
 Comment=Plugin for KGet
+Comment[el]=Πρόσθετο για το KGet
 Comment[es]=Complemento para KGet
 Comment[sv]=Insticksprogram för Kget
 Comment[x-test]=xxPlugin for KGetxx

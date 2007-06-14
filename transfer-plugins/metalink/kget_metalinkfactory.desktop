@@ -6,10 +6,12 @@ ServiceTypes=KGet/Plugin
 
 # standard fields
 Name=MetaLink TransferFactory
+Name[el]=Εργοστάσιο μεταφοράς MetaLink
 Name[sv]=Metalink-överföringsgenerering
 Name[x-test]=xxMetaLink TransferFactoryxx
 Name[zh_TW]=MetaLink 傳輸工廠
 Comment=Transfer plugin for KGet
+Comment[el]=Πρόσθετο μεταφοράς για το KGet
 Comment[sv]=Överföringsinsticksprogram för Kget
 Comment[x-test]=xxTransfer plugin for KGetxx
 Comment[zh_TW]=KGet 傳輸外掛程式
