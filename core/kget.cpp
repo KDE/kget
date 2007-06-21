@@ -624,7 +624,7 @@ QString KGet::getSaveDirectoryFromDefault(const KUrl &filename)
         }
     }
 
-#ifdef Q_OS_WIN
+#ifdef Q_OS_WIN //krazy:exclude=cpp
     destDir = destDir.remove("file:///");
 #endif
     return destDir.remove("file://");
