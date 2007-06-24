@@ -69,7 +69,7 @@ Tray::~Tray()
     delete alternateIcon;
     delete playOverlay;
     delete stopOverlay;
-    delete overlay;
+//    delete overlay;   // deleting overlay is wrong - it's either playOverlay or stopOverlay
 }
 
 // filter middle mouse clicks to ask scheduler to paste URL
