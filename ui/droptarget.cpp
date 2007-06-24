@@ -290,10 +290,7 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
 void DropTarget::paintEvent( QPaintEvent * )
 {
     QPainter p(this);
-    const QRect r = rect();
-    p.drawPixmap(r.x() + (r.width() - cachedPixmap.width())/2,
-                 r.y() + (r.height() - cachedPixmap.height())/2,
-                 cachedPixmap);
+    p.drawPixmap(0, 0, cachedPixmap);
 }
 
 void DropTarget::toggleSticky()
