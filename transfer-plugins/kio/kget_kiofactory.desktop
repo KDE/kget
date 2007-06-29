@@ -14,6 +14,7 @@ Name[zh_TW]=KIO 傳輸工廠
 Comment=Transfer plugin for KGet
 Comment[de]=Übertragungs-Modul für KGet
 Comment[el]=Πρόσθετο μεταφοράς για το KGet
+Comment[ja]=KGet の転送プラグイン
 Comment[sv]=Överföringsinsticksprogram för Kget
 Comment[x-test]=xxTransfer plugin for KGetxx
 Comment[zh_TW]=KGet 傳輸外掛程式
