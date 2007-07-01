@@ -181,11 +181,11 @@
 
     private:
         uint m_segments;
-        bool m_split;
         QList<Segment *> m_Segments;
         QList<Segment *> m_TimeOutSegments;
-        QList<KUrl>::const_iterator it_Urls;
         QList<KUrl> m_Urls;
+        QList<KUrl>::const_iterator it_Urls;
+        bool m_split;
     };
 
 #endif // SEGMENTFACTORY_H

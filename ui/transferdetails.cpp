@@ -52,6 +52,8 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
 
 void TransferDetails::transferChangedEvent(TransferHandler * transfer)
 {
+    Q_UNUSED(transfer);
+
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
     if(transferFlags & Transfer::Tc_Status)

@@ -122,9 +122,9 @@
         int m_permissions;
         SegmentFactory *SegFactory;
         Segment *m_firstSeg;
+        bool m_writeBlocked;
         bool m_segSplited;
         KIO::FileJob* m_putJob;
-        bool m_writeBlocked;
         KIO::filesize_t m_chunkSize;
 
     private:

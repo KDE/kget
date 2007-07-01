@@ -142,7 +142,7 @@ void transferMultiSegKio::save(QDomElement e) // krazy:exclude=passbyvalue
 
 void transferMultiSegKio::createJob()
 {
-    mirror* searchjob = 0;
+//     mirror* searchjob = 0;
     if(!m_copyjob)
     {
         if(m_Urls.empty())
@@ -225,6 +225,8 @@ void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 
 void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 {
+    Q_UNUSED(kioJob);
+
     kDebug(5001) << "transferMultiSegKio::slotTotalSize" << endl;
 
     if (!m_isDownloading)
@@ -242,6 +244,8 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 {
 //     kDebug(5001) << "slotProcessedSize" << endl; 
 
+    Q_UNUSED(kioJob);
+
     if (!m_isDownloading)
     {
         setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
@@ -256,6 +260,8 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
 //     kDebug(5001) << "slotSpeed: " << bytes_per_second << endl;
+
+    Q_UNUSED(kioJob);
 
     if (!m_isDownloading)
     {

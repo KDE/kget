@@ -111,7 +111,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
 {
 //     kDebug(5001) << "Segment::slotData()" << endl;
     m_buffer.append(_data);
-    if ( m_buffer.size() > m_segData.bytes )
+    if ( (uint)m_buffer.size() > m_segData.bytes )
     {
 //         kDebug(5001) << "Segment::slotData() buffer full. stoping transfer..." << endl;
         m_buffer.truncate( m_segData.bytes );
@@ -320,6 +320,8 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
             if( !segl.isEmpty() )
                 segl.takeFirst()->startTransfer();
         }
+    break;
+    default:
     break;
     }
 }

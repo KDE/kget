@@ -80,6 +80,8 @@ bool GroupStatusEditor::isRunning()
 
 void GroupStatusEditor::slotStatusChanged(bool running)
 {
+    Q_UNUSED(running);
+
     emit const_cast<TransfersViewDelegate *>(m_delegate)->commitData(this);
 }
 
@@ -124,11 +126,15 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const
         QRect & rect) const
 {
-    
+    Q_UNUSED(painter);
+    Q_UNUSED(option);
+    Q_UNUSED(rect);
 }
 
 QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
+    Q_UNUSED(option);
+
     const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
 
     if(transferTreeModel->isTransferGroup(index))
@@ -141,6 +147,9 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
 
 QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem & option , const QModelIndex & index) const
 {
+    Q_UNUSED(option);
+    Q_UNUSED(index);
+
     GroupStatusEditor * groupsStatusEditor = new GroupStatusEditor(this, parent);
 
     return groupsStatusEditor;
@@ -148,6 +157,8 @@ QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptio
 
 bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
+    Q_UNUSED(option);
+
     QMouseEvent * mouseEvent = dynamic_cast<QMouseEvent *>(event);
 
     if(mouseEvent)
@@ -194,6 +205,8 @@ void TransfersViewDelegate::setEditorData(QWidget * editor, const QModelIndex & 
 
 void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const
 {
+    Q_UNUSED(model);
+
     GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
 
     TransferGroupHandler * groupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());

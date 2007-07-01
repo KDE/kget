@@ -140,6 +140,8 @@ void MultiSegmentCopyJob::slotStart()
 
 void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
 {
+    Q_UNUSED(job);
+
     kDebug(5001) << "MultiSegmentCopyJob::slotOpen()" << endl;
     if( SegFactory->startTransfer() )
     {
@@ -263,10 +265,10 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
     result = true;
 
     m_chunkSize += data.size();
-    if( m_chunkSize > MultiSegKioSettings::saveSegSize()*1024)
+    if( m_chunkSize > (uint)MultiSegKioSettings::saveSegSize() * 1024)
     {
         emit updateSegmentsData();
-        m_chunkSize =0;
+        m_chunkSize = 0;
     }
 }
 
@@ -311,10 +313,14 @@ void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 
 void MultiSegmentCopyJob::slotPercent( KJob *job, unsigned long pct )
 {
+    Q_UNUSED(job);
+    Q_UNUSED(pct);
 }
 
 void MultiSegmentCopyJob::slotSpeed( KJob* job, unsigned long bytes_per_second )
 {
+    Q_UNUSED(job);
+    Q_UNUSED(bytes_per_second);
 }
 
 bool MultiSegmentCopyJob::checkLocalFile()

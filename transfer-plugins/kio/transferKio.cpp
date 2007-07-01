@@ -142,6 +142,8 @@ void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
 
 void TransferKio::slotTotalSize( KJob * kioJob, KIO::filesize_t size )
 {
+    Q_UNUSED(kioJob);
+
     kDebug(5001) << "slotTotalSize" << endl;
 
     setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
@@ -152,6 +154,8 @@ void TransferKio::slotTotalSize( KJob * kioJob, KIO::filesize_t size )
 
 void TransferKio::slotProcessedSize( KJob * kioJob, KIO::filesize_t size )
 {
+    Q_UNUSED(kioJob);
+
     kDebug(5001) << "slotProcessedSize" << endl; 
 
     if(status() != Job::Running)
@@ -166,6 +170,8 @@ void TransferKio::slotProcessedSize( KJob * kioJob, KIO::filesize_t size )
 
 void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
+    Q_UNUSED(kioJob);
+
 //     kDebug(5001) << "slotSpeed" << endl;
 
     if(status() != Job::Running)
