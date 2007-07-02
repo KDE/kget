@@ -24,12 +24,6 @@
 #include "ui/splash.h"
 #include "mainwindow.h"
 
-static KCmdLineOptions option[] = {
-    { "showDropTarget", I18N_NOOP("Start KGet with drop target"), 0 },
-    { "+[URL(s)]", I18N_NOOP("URL(s) to download"), 0},
-    KCmdLineLastOption
-};
-
 class KGetApp : public KUniqueApplication
 {
 public:
@@ -111,23 +105,27 @@ private:
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", I18N_NOOP("KGet"), "2dev",
-                         I18N_NOOP("An advanced download manager for KDE"),
+    KAboutData aboutData("kget", 0, ki18n("KGet"), "2dev",
+                         ki18n("An advanced download manager for KDE"),
                          KAboutData::License_GPL,
-                         "(C) 2005 - 2007, The KGet developers\n"
+                         ki18n("(C) 2005 - 2007, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
-                         "(C) 1998 - 2000, Matej Koss",
-                         "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>");
+                         "(C) 1998 - 2000, Matej Koss"),
+                         ki18n("<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"));
 
-    aboutData.addAuthor("Dario Massarin", I18N_NOOP("Maintainer, Core Developer"), "nekkar@libero.it");
-    aboutData.addAuthor("Urs Wolfer", I18N_NOOP("Core Developer"), "uwolfer@kde.org");
-    aboutData.addAuthor("Manolo Valdes", I18N_NOOP("Multithreaded Plugin Author"), "nolis71cu@gmail.com");
-    aboutData.addAuthor("Patrick  Charbonnier", I18N_NOOP("Former KGet Developer"), "pch@freeshell.org");
-    aboutData.addAuthor("Carsten Pfeiffer", I18N_NOOP("Former KGet Developer"), "pfeiffer@kde.org");
-    aboutData.addAuthor("Matej Koss", I18N_NOOP("Former KGet Developer"));
+    aboutData.addAuthor(ki18n("Dario Massarin"), ki18n("Maintainer, Core Developer"), "nekkar@libero.it");
+    aboutData.addAuthor(ki18n("Urs Wolfer"), ki18n("Core Developer"), "uwolfer@kde.org");
+    aboutData.addAuthor(ki18n("Manolo Valdes"), ki18n("Multithreaded Plugin Author"), "nolis71cu@gmail.com");
+    aboutData.addAuthor(ki18n("Patrick  Charbonnier"), ki18n("Former KGet Developer"), "pch@freeshell.org");
+    aboutData.addAuthor(ki18n("Carsten Pfeiffer"), ki18n("Former KGet Developer"), "pfeiffer@kde.org");
+    aboutData.addAuthor(ki18n("Matej Koss"), ki18n("Former KGet Developer"));
 
     KCmdLineArgs::init(argc, argv, &aboutData);
+
+    KCmdLineOptions option;
+    option.add("showDropTarget", ki18n("Start KGet with drop target"));
+    option.add("+[URL(s)]", ki18n("URL(s) to download"));
     KCmdLineArgs::addCmdLineOptions(option);
 
     KGetApp::addCmdLineOptions();
