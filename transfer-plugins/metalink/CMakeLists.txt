@@ -20,7 +20,7 @@ kde4_add_kcfg_files(kget_metalinkfactory_PART_SRCS ../multisegmentkio/multisegki
 
 kde4_add_plugin(kget_metalinkfactory WITH_PREFIX ${kget_metalinkfactory_PART_SRCS})
 
-target_link_libraries(kget_metalinkfactory ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} kgetcore)
+target_link_libraries(kget_metalinkfactory ${KDE4_KIO_LIBS}  kgetcore)
 
 install(TARGETS kget_metalinkfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 
