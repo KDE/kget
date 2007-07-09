@@ -56,20 +56,22 @@ void mirror::slotResult( KJob *job )
 
     int start = 0, posOfTagA = 0, posOfTagHref = 0, hrefEnd = 0;
 
-    while ((posOfTagA = str.indexOf("<a" , start, Qt::CaseInsensitive)) != -1 )
+    while ((posOfTagA = str.indexOf("<a " , start, Qt::CaseInsensitive)) != -1 )
     {
-    posOfTagHref = str.indexOf("href=\"", posOfTagA, Qt::CaseInsensitive);
-    hrefEnd = str.indexOf("\"",posOfTagHref + 6,Qt::CaseInsensitive);
-    QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref -6));
-    start = hrefEnd + 1;
-        if ( u.endsWith( m_url.fileName() ) )
-        {
-            m_Urls << KUrl(u);
-            kDebug(5001) << "url: " << u << endl;
-        }
+        posOfTagHref = str.indexOf("href=\"", posOfTagA, Qt::CaseInsensitive);
+        hrefEnd = str.indexOf("\"",posOfTagHref + 6,Qt::CaseInsensitive);
+        QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref -6));
+
+        start = hrefEnd + 1;
+            if ( u.endsWith( m_url.fileName() ) )
+            {
+                m_Urls << KUrl(u);
+                kDebug(5001) << "url: " << u << endl;
+            }
     }
 
-    emit urls(m_Urls);
+    if (m_Urls.size() > 1)
+        emit urls(m_Urls);
     deleteLater();
 }
 
