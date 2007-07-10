@@ -13,7 +13,6 @@ set(khtml_kget_SRCS
 
 QT4_ADD_DBUS_INTERFACE(khtml_kget_SRCS ${CMAKE_SOURCE_DIR}/kget/org.kde.kget.xml kget_interface )
 
-kde4_automoc(${khtml_kget_SRCS})
 
 kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})
 

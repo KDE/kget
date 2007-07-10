@@ -35,7 +35,6 @@ set(kgetcore_SRCS
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
-kde4_automoc(${kgetcore_SRCS})
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 

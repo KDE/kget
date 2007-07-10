@@ -11,7 +11,6 @@ set(kget_kiofactory_PART_SRCS
   transferKioFactory.cpp
 )
 
-kde4_automoc(${kget_kiofactory_PART_SRCS})
 
 kde4_add_plugin(kget_kiofactory WITH_PREFIX ${kget_kiofactory_PART_SRCS})
 
