@@ -14,8 +14,6 @@ set(kget_metalinkfactory_PART_SRCS
   ../../core/metalinker.cpp
 )
 
-kde4_automoc(${kget_metalinkfactory_PART_SRCS})
-
 kde4_add_kcfg_files(kget_metalinkfactory_PART_SRCS ../multisegmentkio/multisegkiosettings.kcfgc)
 
 kde4_add_plugin(kget_metalinkfactory WITH_PREFIX ${kget_metalinkfactory_PART_SRCS})

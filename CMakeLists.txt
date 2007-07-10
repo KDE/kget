@@ -74,8 +74,6 @@ kde4_add_ui_files(kget_SRCS
    ui/transferdetailsfrm.ui
 )
 
-kde4_automoc(${kget_SRCS})
-
 kde4_add_executable(kget ${kget_SRCS})
 
 target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} kgetcore)

@@ -22,8 +22,6 @@ kde4_add_ui_files(kget_multisegkiofactory_PART_SRCS dlgmultisegkio.ui dlgenginee
 
 kde4_add_kcfg_files(kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
 
-kde4_automoc(${kget_multisegkiofactory_PART_SRCS})
-
 kde4_add_plugin(kget_multisegkiofactory WITH_PREFIX ${kget_multisegkiofactory_PART_SRCS})
 
 target_link_libraries(kget_multisegkiofactory ${KDE4_KIO_LIBS}  kgetcore)
