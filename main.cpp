@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
     aboutData.addAuthor(ki18n("Dario Massarin"), ki18n("Maintainer, Core Developer"), "nekkar@libero.it");
     aboutData.addAuthor(ki18n("Urs Wolfer"), ki18n("Core Developer"), "uwolfer@kde.org");
     aboutData.addAuthor(ki18n("Manolo Valdes"), ki18n("Multithreaded Plugin Author"), "nolis71cu@gmail.com");
-    aboutData.addAuthor(ki18n("Patrick  Charbonnier"), ki18n("Former KGet Developer"), "pch@freeshell.org");
+    aboutData.addAuthor(ki18n("Patrick Charbonnier"), ki18n("Former KGet Developer"), "pch@freeshell.org");
     aboutData.addAuthor(ki18n("Carsten Pfeiffer"), ki18n("Former KGet Developer"), "pfeiffer@kde.org");
     aboutData.addAuthor(ki18n("Matej Koss"), ki18n("Former KGet Developer"));
 
