@@ -8,8 +8,8 @@
    of the License.
 */
 
-#ifndef _TRANSFERVIEWDELEGATE_H
-#define _TRANSFERVIEWDELEGATE_H
+#ifndef TRANSFERSVIEWDELEGATE_H
+#define TRANSFERSVIEWDELEGATE_H
 
 #include <QItemDelegate>
 
