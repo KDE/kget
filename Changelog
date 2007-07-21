@@ -1,3 +1,9 @@
+2007-02-21 Manolo Valdes <nolis71cu @ gmail.com>
+        * Add Metalink suport.
+
+2006-09-02 Manolo Valdes <nolis71cu @ gmail.com>
+        * Add Multisegments kio based transfers.
+
 2006-09-01 Urs Wolfer <uwolfer @ kde.org>
         * Make DBUS really working.
 
