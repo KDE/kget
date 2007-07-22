@@ -18,7 +18,6 @@
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
-#include "core/metalinker.h"
 #include "settings.h"
 
 #include <kio/netaccess.h>
@@ -111,56 +110,6 @@ void KGet::delGroup(const QString& groupName)
         m_transferTreeModel->delGroup(group);
         postRemovedTransferGroupEvent(group);
         delete(group);
-    }
-}
-
-void KGet::addMetaLink(const KUrl &srcUrl)
-{
-    kDebug(5001) << " addMetaLink:  " << srcUrl.url() << endl;
-
-    if ( !isValidSource( srcUrl ) )
-        return;
-
-    QString destDir = destInputDialog();
-
-    Metalinker mlink;
-    QList<MlinkFileData> mldata = mlink.parseMetalinkFile( srcUrl );
-    if(mldata.isEmpty())
-        return;
-
-    addGroup(srcUrl.fileName());
-
-    QDomDocument doc;
-    QDomElement e;
-    QDomElement url;
-    QList<MlinkFileData>::iterator it = mldata.begin();
-    QList<MlinkFileData>::iterator itEnd = mldata.end();
-
-    for ( ; it!=itEnd ; ++it )
-    {
-        KUrl destUrl(destDir);
-        destUrl.adjustPath( KUrl::AddTrailingSlash );
-        destUrl.setFileName( (*it).fileName );
-        e = doc.createElement("Transfer");
-        e.setAttribute("Dest", destUrl.url());
-
-        if( (*it).urls.size() > 1 )
-        {
-            kDebug(5001) << "urls:  " << (*it).urls.size() << endl;
-            KUrl::List::iterator KUrlit = (*it).urls.begin();
-            KUrl::List::iterator KUrlitEnd = (*it).urls.end();
-            for ( ; KUrlit!=KUrlitEnd ; ++KUrlit )
-            {
-                url = doc.createElement("Urls");
-                e.appendChild(url);
-                url.setAttribute("Url", (*KUrlit).url()); 
-            }
-        }
-        KUrl src = (*it).urls.takeFirst();
-        e.setAttribute("Source", src.url());
-        createTransfer(src, destUrl, srcUrl.fileName(), &e);
-        url.clear();
-        e.clear();
     }
 }
 

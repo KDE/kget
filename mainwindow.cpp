@@ -276,12 +276,6 @@ void MainWindow::slotOpen()
         return;
     }
 
-    if(filename.endsWith(".metalink"))
-    {
-        KGet::addMetaLink( KUrl( filename ) );
-        return;
-    }
-
     if(!filename.isEmpty())
         KGet::addTransfer( KUrl( filename ) );
 }

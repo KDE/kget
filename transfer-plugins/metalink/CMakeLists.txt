@@ -7,14 +7,10 @@ include_directories(
 ########### next target ###############
 
 set(kget_metalinkfactory_PART_SRCS
-  ../multisegmentkio/segmentfactory.cpp
-  ../multisegmentkio/multisegkio.cpp
   metalinkfactory.cpp
   metalink.cpp
-  ../../core/metalinker.cpp
+  metalinker.cpp
 )
-
-kde4_add_kcfg_files(kget_metalinkfactory_PART_SRCS ../multisegmentkio/multisegkiosettings.kcfgc)
 
 kde4_add_plugin(kget_metalinkfactory WITH_PREFIX ${kget_metalinkfactory_PART_SRCS})
 

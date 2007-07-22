@@ -14,9 +14,6 @@
 
 #include <KUrl>
 
-
-
-
 class MlinkFileData
 {
     public:
@@ -32,7 +29,7 @@ class Metalinker
 {
     public:
         Metalinker();
-        static QList<MlinkFileData> parseMetalinkFile(const KUrl& url);
+        static QList<MlinkFileData> parseMetalinkFile(const QByteArray& data);
         static bool verifyMD5(QIODevice& file, const QString& md5);
 };
 

@@ -15,22 +15,17 @@
 #include <kio/job.h>
 
 #include <QDomElement>
-#include <QFile>
 
 Metalinker::Metalinker()
 {
 }
 
-QList<MlinkFileData> Metalinker::parseMetalinkFile(const KUrl& url)
+QList<MlinkFileData> Metalinker::parseMetalinkFile(const QByteArray &data)
 {
-    kDebug(5001) << "Metalinker::parseMetalinkFile " << url.pathOrUrl() << endl;
-
     QList<MlinkFileData> fileData;
-    QFile file( url.pathOrUrl() );
-
     QDomDocument doc;
 
-    if(!doc.setContent(&file))
+    if(!doc.setContent( data ))
     {
         kDebug(5001) << "Metalinker::parseMetalinkFile: unable to read the xml file"<< endl;
         return fileData;

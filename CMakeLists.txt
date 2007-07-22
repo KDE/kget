@@ -30,7 +30,6 @@ set(kgetcore_SRCS
    core/plugin/plugin.cpp
    core/plugin/transferfactory.cpp
    core/transfercontainer.cpp
-   core/metalinker.cpp
 )
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)

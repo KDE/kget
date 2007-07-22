@@ -16,9 +16,6 @@
 
 #include "core/transfer.h"
 
-class MultiSegmentCopyJob;
-class SegData;
-
 class metalink : public QObject, public Transfer
 {
     Q_OBJECT
@@ -28,7 +25,7 @@ class metalink : public QObject, public Transfer
                     Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
 
-    public slots:
+    public Q_SLOTS:
         // --- Job virtual functions ---
         void start();
         void stop();
@@ -42,12 +39,15 @@ class metalink : public QObject, public Transfer
     protected:
         void load(const QDomElement &e);
 
-    private:
-        void createJob();
+    private Q_SLOTS:
+        void slotData(KIO::Job *, const QByteArray& data);
+        void slotResult(KJob * job);
 
-        MultiSegmentCopyJob *m_copyjob;
-        QList<SegData> SegmentsData;
-        bool m_isDownloading;
+    private :
+        void createJob();
+        KIO::TransferJob *m_copyjob;
+        QByteArray m_data;
+
 };
 
 #endif

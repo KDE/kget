@@ -87,13 +87,6 @@ class KGET_EXPORT KGet
         static void delGroup(const QString& groupName);
 
         /**
-         * Adds a new metalink to the KGet
-         *
-         * @param srcUrl The url to be downloaded
-         */
-        static void addMetaLink(const KUrl &srcUrl);
-
-        /**
          * Adds a new transfer to the KGet
          *
          * @param srcUrl The url to be downloaded

@@ -10,9 +10,8 @@
 */
 
 #include "metalink.h"
-
-#include "../../core/metalinker.h"
-#include "../multisegmentkio/multisegkio.h"
+#include "metalinker.h"
+#include "core/kget.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -47,12 +46,12 @@ void metalink::stop()
 
     if(m_copyjob)
     {
-        m_copyjob->stop();
+        m_copyjob->kill(KJob::EmitResult);
+        m_copyjob=0;
     }
 
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
-    m_isDownloading = false;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
 
@@ -68,7 +67,7 @@ int metalink::remainingTime() const
 
 bool metalink::isResumable() const
 {
-    return true;
+    return false;
 }
 
 void metalink::load(const QDomElement &e)
@@ -90,39 +89,80 @@ void metalink::createJob()
 
     if(!m_copyjob)
     {
-        Metalinker mlink;
-        QList<MlinkFileData> mldata = mlink.parseMetalinkFile(m_source);
-        if(mldata.empty())
-            return;
-        MlinkFileData ml = mldata.takeFirst();
-
-        kDebug(5001) <<  m_dest << endl;
-        m_dest.adjustPath( KUrl::AddTrailingSlash );
-        m_dest.setFileName( ml.fileName );
-        kDebug(5001) <<  m_dest << endl;
-
-        if(SegmentsData.empty())
-        {
-            m_copyjob = MultiSegfile_copy( ml.urls, m_dest, -1, ml.urls.size() );
-        }
-        else
-        {
-            m_copyjob = MultiSegfile_copy( ml.urls, m_dest, -1, m_processedSize, m_totalSize, SegmentsData, SegmentsData.size());
-        }
-/*        connect(m_copyjob, SIGNAL(updateSegmentsData()),
-           SLOT(slotUpdateSegmentsData()));
+        m_copyjob = KIO::get(m_source , false, false);
+        connect(m_copyjob,SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray& )));
         connect(m_copyjob, SIGNAL(result(KJob *)),
-           SLOT(slotResult(KJob *)));
-        connect(m_copyjob, SIGNAL(infoMessage(KJob *, const QString &)),
-           SLOT(slotInfoMessage(KJob *, const QString &)));
-        connect(m_copyjob, SIGNAL(percent(KJob *, unsigned long)),
-           SLOT(slotPercent(KJob *, unsigned long)));
-        connect(m_copyjob, SIGNAL(totalSize(KJob *, qulonglong)),
-           SLOT(slotTotalSize(KJob *, qulonglong)));
-        connect(m_copyjob, SIGNAL(processedSize(KJob *, qulonglong)),
-           SLOT(slotProcessedSize(KJob *, qulonglong)));
-        connect(m_copyjob, SIGNAL(speed(KJob *, unsigned long)),
-           SLOT(slotSpeed(KJob *, unsigned long)));*/
+                this, SLOT(slotResult(KJob * )));
+    }
+}
+
+void metalink::slotData(KIO::Job *, const QByteArray& data)
+{
+    kDebug(5001) << "metalink::slotData() " << endl;
+    if (data.size() == 0)
+        return;
+    m_data.append(data);
+}
+
+void metalink::slotResult(KJob * job)
+{
+    switch (job->error())
+    {
+        case 0:                            //The download has finished
+        case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
+            setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+            m_percent = 100;
+            m_speed = 0;
+            m_processedSize = m_totalSize;
+            setTransferChange(Tc_Percent | Tc_Speed);
+            break;
+        default:
+            //There has been an error
+            kDebug(5001) << "--  E R R O R  (" << job->error() << ")--" << endl;
+            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
+            break;
+    }
+    m_copyjob=0;
+    setTransferChange(Tc_Status, true);
+
+    QList<MlinkFileData> mldata =     Metalinker::parseMetalinkFile( m_data );
+    if(mldata.isEmpty())
+        return;
+
+    KGet::addGroup(m_source.fileName());
+
+    QDomDocument doc;
+    QDomElement e;
+    QDomElement url;
+    QList<MlinkFileData>::iterator it = mldata.begin();
+    QList<MlinkFileData>::iterator itEnd = mldata.end();
+
+    for ( ; it!=itEnd ; ++it )
+    {
+//         m_dest.adjustPath( KUrl::AddTrailingSlash );
+        m_dest.setFileName( (*it).fileName );
+        e = doc.createElement("Transfer");
+        e.setAttribute("Dest", m_dest.url());
+
+        if( (*it).urls.size() > 1 )
+        {
+            kDebug(5001) << "urls:  " << (*it).urls.size() << endl;
+            KUrl::List::iterator KUrlit = (*it).urls.begin();
+            KUrl::List::iterator KUrlitEnd = (*it).urls.end();
+            for ( ; KUrlit!=KUrlitEnd ; ++KUrlit )
+            {
+                url = doc.createElement("Urls");
+                e.appendChild(url);
+                url.setAttribute("Url", (*KUrlit).url()); 
+            }
+        }
+        KUrl src = (*it).urls.takeFirst();
+        e.setAttribute("Source", src.url());
+
+        KGet::addTransfer(e, m_source.fileName());
+
+        url.clear();
+        e.clear();
     }
 }
 
