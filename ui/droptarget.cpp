@@ -322,7 +322,7 @@ void DropTarget::slotAnimateShow()
 
     move(x(), (int)(position.y() * (1 + ani_y)));
 
-    if ( fabsf(ani_y) < 0.01 && fabsf(ani_vy) < 0.01 && animTimer )
+    if ( fabs(ani_y) < 0.01 && fabs(ani_vy) < 0.01 && animTimer )
     {
         animTimer->stop();
         delete animTimer;
