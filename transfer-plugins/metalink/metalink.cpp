@@ -12,6 +12,7 @@
 #include "metalink.h"
 #include "metalinker.h"
 #include "core/kget.h"
+#include "core/transfergroup.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -35,7 +36,6 @@ void metalink::start()
 
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect-creating"));
     setTransferChange(Tc_Status, true);
-
 }
 
 void metalink::stop()
@@ -129,6 +129,7 @@ void metalink::slotResult(KJob * job)
     if(mldata.isEmpty())
         return;
 
+//     KGet::addGroup(m_source.fileName(), group()->name());
     KGet::addGroup(m_source.fileName());
 
     QDomDocument doc;
@@ -139,7 +140,6 @@ void metalink::slotResult(KJob * job)
 
     for ( ; it!=itEnd ; ++it )
     {
-//         m_dest.adjustPath( KUrl::AddTrailingSlash );
         m_dest.setFileName( (*it).fileName );
         e = doc.createElement("Transfer");
         e.setAttribute("Dest", m_dest.url());
@@ -163,6 +163,7 @@ void metalink::slotResult(KJob * job)
 
         url.clear();
         e.clear();
+        KGet::delTransfer(handler());
     }
 }
 
