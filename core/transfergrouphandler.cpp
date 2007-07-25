@@ -171,12 +171,15 @@ const QList<QAction *> & TransferGroupHandler::actions()
 KMenu * TransferGroupHandler::popupMenu()
 {
     KMenu * popup = new KMenu( 0 );
-    popup->addTitle( i18nc( "%1 is the name of the group", "%1 Group", name() ) );
+//     popup->addTitle( i18nc( "%1 is the name of the group", "%1 Group", name() ) );
 
     createActions();
 
     popup->addAction( KGet::actionCollection()->action("transfer_group_start") );
     popup->addAction( KGet::actionCollection()->action("transfer_group_stop") );
+    popup->addSeparator();
+    popup->addAction( KGet::actionCollection()->action("delete_groups") );
+    popup->addAction( KGet::actionCollection()->action("rename_groups") );
 
     return popup;
 }
@@ -312,6 +315,7 @@ void TransferGroupHandler::createActions()
     stopAction->setIcon(KIcon("media-playback-pause"));
     QObject::connect(stopAction, SIGNAL(triggered()), qObject(), SLOT(slotStop()));
     m_actions.append(stopAction);
+
 }
 
 

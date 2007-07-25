@@ -86,6 +86,11 @@ class KGET_EXPORT TransferGroupHandler
          */
         int size()     {return m_group->size();}
 
+        /**Set the group name
+         * @param name group name
+         */
+        void  setName(QString &name)    {m_group->setName(name);}
+
         /**
          * @return the group name
          */

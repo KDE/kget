@@ -32,6 +32,7 @@ class KLibrary;
 class Transfer;
 class TransferGroup;
 class TransferHandler;
+class TransferGroupHandler;
 class TransferFactory;
 class TransferTreeModel;
 class TransferTreeSelectionModel;
@@ -135,6 +136,12 @@ class KGET_EXPORT KGet
          * @returns the list of selected transfers
          */
         static QList<TransferHandler *> selectedTransfers();
+
+        /**
+         * @returns the list of selected groups
+         */
+        static QList<TransferGroupHandler *>
+        selectedTransferGroups();
 
         /**
          * @returns a pointer to the QItemSelectionModel object

@@ -92,7 +92,6 @@ bool KGet::addGroup(const QString& groupName)
         return false;
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
-
     m_transferTreeModel->addGroup(group);
 
     //post notifications
@@ -263,6 +262,21 @@ QList<TransferHandler *> KGet::selectedTransfers()
         }
     }
     return selectedTransfers;*/
+}
+
+QList<TransferGroupHandler *> KGet::selectedTransferGroups()
+{
+    QList<TransferGroupHandler *> selectedTransferGroups;
+
+    QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
+
+    foreach(QModelIndex currentIndex, selectedIndexes)
+    {
+        if(m_transferTreeModel->isTransferGroup(currentIndex))
+            selectedTransferGroups.append(static_cast<TransferGroupHandler *> (currentIndex.internalPointer()));
+    }
+
+    return selectedTransferGroups;
 }
 
 TransferTreeSelectionModel * KGet::selectionModel()

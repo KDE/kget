@@ -116,6 +116,11 @@ class KGET_EXPORT TransferGroup : public JobQueue
          */
         Transfer * operator[] (int i) const;
 
+        /**Set the group name
+         * @param name group name
+         */
+        void  setName(QString &name)    {m_name=name;}
+
         /**
          * @return the group name
          */

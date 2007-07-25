@@ -178,6 +178,10 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
             if(transferTreeModel->isTransferGroup(index))
             {
 //                 kDebug(5001) << "isTransferGroup = true" << endl;
+                TransferGroupHandler * transferGroupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());
+
+                m_popup = transferGroupHandler->popupMenu();
+
             }
             else
             {

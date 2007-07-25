@@ -16,6 +16,7 @@
 
 #include "core/kget.h"
 #include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
 #include "ui/viewscontainer.h"
@@ -25,6 +26,7 @@
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
+#include <KInputDialog>
 #include <kmessagebox.h>
 #include <kshortcutsdialog.h>
 #include <kedittoolbar.h>
@@ -113,6 +115,16 @@ void MainWindow::setupActions()
     editGroupAction->setText(i18n("Edit Groups..."));
     editGroupAction->setIcon(KIcon("todolist"));
     connect(editGroupAction, SIGNAL(triggered()), SLOT(slotEditGroups()));
+
+    QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
+    deleteGroupAction->setText(i18n("Delete Group."));
+    deleteGroupAction->setIcon(KIcon("edit-delete"));
+    connect(deleteGroupAction, SIGNAL(triggered()), SLOT(slotDeleteGroup()));
+
+    QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
+    renameGroupAction->setText(i18n("Rename Group."));
+    editGroupAction->setIcon(KIcon("todolist"));
+    connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
 
     m_autoPasteAction = new KToggleAction(KIcon("klipper"),
                                           i18n("Auto-Paste Mode"), actionCollection());
@@ -333,6 +345,29 @@ void MainWindow::slotEditGroups()
     GroupsEditDialog dialog(this);
 
     dialog.exec();
+}
+
+void MainWindow::slotDeleteGroup()
+{
+    foreach(TransferGroupHandler * it, KGet::selectedTransferGroups())
+    {
+        it->stop();
+        KGet::delGroup(it->name());
+    }
+}
+
+void MainWindow::slotRenameGroup()
+{
+    bool ok = true;
+    QString groupName;
+
+    foreach(TransferGroupHandler * it, KGet::selectedTransferGroups())
+    {
+        groupName = KInputDialog::getText(i18n("Enter Group Name"),
+                                          i18n("Group name:"), QString(), &ok, this);
+        if(ok)
+            it->setName(groupName);
+    }
 }
 
 void MainWindow::slotStartDownload()
