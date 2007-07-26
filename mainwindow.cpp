@@ -117,12 +117,12 @@ void MainWindow::setupActions()
     connect(editGroupAction, SIGNAL(triggered()), SLOT(slotEditGroups()));
 
     QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
-    deleteGroupAction->setText(i18n("Delete Group."));
+    deleteGroupAction->setText(i18n("Delete Group"));
     deleteGroupAction->setIcon(KIcon("edit-delete"));
     connect(deleteGroupAction, SIGNAL(triggered()), SLOT(slotDeleteGroup()));
 
     QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
-    renameGroupAction->setText(i18n("Rename Group."));
+    renameGroupAction->setText(i18n("Rename Group"));
     editGroupAction->setIcon(KIcon("todolist"));
     connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
 
