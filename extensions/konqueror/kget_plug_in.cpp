@@ -80,7 +80,7 @@ void KGet_plug_in::showPopup()
 void KGet_plug_in::slotShowDrop()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
-        KRun::runCommand("kget --showDropTarget", "kget", "kget", parent() && parent()->inherits( "KHTMLPart" )
+        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parent() && parent()->inherits("KHTMLPart")
             ? static_cast<KHTMLPart*>(parent())->widget() : NULL );
     else
     {

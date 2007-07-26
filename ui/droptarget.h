@@ -76,6 +76,7 @@ private:
     int dx;
     int dy;
     bool isdragging;
+    bool showInformation;
 
     float ani_y, ani_vy;
 };

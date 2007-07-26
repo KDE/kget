@@ -43,7 +43,7 @@
 #include <QClipboard>
 #include <QTimer>
 
-MainWindow::MainWindow( QWidget * parent )
+MainWindow::MainWindow(bool showMainwindow, QWidget *parent)
     : KXmlGuiWindow( parent ),
       m_drop(0), m_dock(0)
 {
@@ -66,7 +66,7 @@ MainWindow::MainWindow( QWidget * parent )
     setAutoSaveSettings();
     setPlainCaption(i18n("KGet"));
 
-    if ( Settings::showMain() )
+    if ( Settings::showMain() && showMainwindow)
         show();
     else
         hide();
@@ -221,12 +221,6 @@ void MainWindow::slotDelayedInit()
     //Here we import the user's transfers.
     KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
-    // DropTarget
-    m_drop = new DropTarget(this);
-
-    if ( Settings::showDropTarget() || Settings::firstRun() )
-        m_drop->setVisible(true);
-
     // DockWidget
     m_dock = new Tray(this);
     m_dock->show();
@@ -249,9 +243,12 @@ void MainWindow::slotDelayedInit()
     if ( Settings::downloadAtStartup() )
         slotStartDownload();
 
+    // DropTarget
+    m_drop = new DropTarget(this);
+
     if (Settings::firstRun()) {
         if (KMessageBox::questionYesNoCancel(this ,i18n("This is the first time you have run KGet.\n"
-                                             "Would you like to use KGet as the download manager for Konqueror?"),
+                                             "Would you like to enable KGet as the download manager for Konqueror?"),
                                              i18n("Konqueror Integration"), KGuiItem(i18n("Enable"), KIcon("dialog-apply")),
                                              KGuiItem(i18n("Do Not Enable"), KIcon("edit-delete")))
                                              == KMessageBox::Yes) {
@@ -259,9 +256,14 @@ void MainWindow::slotDelayedInit()
             slotKonquerorIntegration(true);
         }
 
+        m_drop->setVisible(true);
+
         // reset the FirstRun config option
         Settings::setFirstRun(false);
     }
+
+    if (Settings::showDropTarget())
+        m_drop->setVisible(true);
 
     //auto paste stuff
     lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();

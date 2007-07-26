@@ -19,6 +19,7 @@
 #include <klocale.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
+#include <KPassivePopup>
 #include <kstandarddirs.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
@@ -37,7 +38,7 @@
 
 DropTarget::DropTarget(MainWindow * mw)
     : QWidget(0, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint),
-    parentWidget(mw), animTimer(0)
+    parentWidget(mw), animTimer(0), showInformation(false)
 {
     QRect desk = KGlobalSettings::desktopGeometry(this);
     desk.setRight( desk.right() - TARGET_SIZE );
@@ -79,12 +80,13 @@ DropTarget::DropTarget(MainWindow * mw)
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();
     pop_show = popupMenu->addAction( QString(), this, SLOT( toggleMinimizeRestore() ) );
-    popupMenu->addAction(i18n("Hide Me"), this, SLOT(slotClose()));
+    popupMenu->addAction(i18n("Hide Drop Target"), this, SLOT(slotClose()));
     pop_sticky = popupMenu->addAction(i18n("Sticky"), this, SLOT(toggleSticky()));
     pop_sticky->setCheckable(true);
     pop_sticky->setChecked(Settings::dropSticky());
     popupMenu->addSeparator();
     popupMenu->addAction( mw->actionCollection()->action("preferences") );
+
     popupMenu->addAction( mw->actionCollection()->action("quit") );
 
     isdragging = false;
@@ -92,8 +94,12 @@ DropTarget::DropTarget(MainWindow * mw)
     // Enable dropping
     setAcceptDrops(true);
 
-    if ( Settings::showDropTarget() && Settings::firstRun() )
-       playAnimationShow();
+    if ( Settings::showDropTarget() && Settings::firstRun() ) {
+        playAnimationShow();
+
+        showInformation = true;
+    }
+
 }
 
 
@@ -327,6 +333,10 @@ void DropTarget::slotAnimateShow()
         animTimer->stop();
         delete animTimer;
         animTimer = 0;
+
+        if (showInformation)
+            KPassivePopup::message(i18n("Drop Target"),
+                                   i18n("You can drag download links into the drop target."), this);
     }
 }
 
