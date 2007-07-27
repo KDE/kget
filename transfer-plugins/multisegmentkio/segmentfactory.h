@@ -161,7 +161,7 @@
         bool stopTransfer ();
         QList<SegData> SegmentsData();
         QList<KUrl> Urls() {return m_Urls;}
-        void setUrls(QList<KUrl> &Urls) {m_Urls = Urls;}
+        void setUrls(QList<KUrl> &Urls) {m_Urls = Urls;it_Urls=m_Urls.begin();}
         QList<Segment *> Segments() {return m_Segments;}
         uint nunOfSegments(){return m_segments;}
         QList<Segment *> splitSegment( Segment *Seg, int n );

@@ -239,6 +239,11 @@ void MultiSegmentCopyJob::slotSplitSegment()
 {
     if(m_segSplited)
         return;
+    if(!m_firstSeg->data().bytes)
+    {
+        QTimer::singleShot(10000, this, SLOT(slotSplitSegment()));
+        return;
+    }
     QList<Segment *> segments = SegFactory->splitSegment( m_firstSeg ,SegFactory->nunOfSegments() );
     if(segments.isEmpty())
         return;

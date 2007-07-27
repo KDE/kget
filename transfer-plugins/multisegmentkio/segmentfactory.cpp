@@ -68,8 +68,7 @@ bool Segment::stopTransfer ()
         m_getJob->internalSuspend();
         if ( !m_buffer.isEmpty() )
         {
-            kDebug(5001) << "Looping until write the buffer ..." << endl;
-            while(writeBuffer());
+            writeBuffer();
         }
         m_getJob->kill( KJob::EmitResult );
         return true;
