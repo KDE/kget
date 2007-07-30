@@ -33,7 +33,7 @@ bool Segment::createTransfer ( const KUrl &src )
     if ( m_getJob )
         return false;
     m_getJob = KIO::get(src, false, false);
-    m_getJob->internalSuspend();
+    m_getJob->suspend();
     m_getJob->addMetaData( "errorPage", "false" );
     m_getJob->addMetaData( "AllowCompressedPage", "false" );
     if ( m_segData.offset )
@@ -53,7 +53,7 @@ bool Segment::startTransfer ()
     if( m_getJob && m_status != Running )
     {
         setStatus( Running, false );
-        m_getJob->internalResume();
+        m_getJob->resume();
         return true;
     }
     return false;
@@ -65,7 +65,7 @@ bool Segment::stopTransfer ()
     if( m_getJob && m_status == Running )
     {
         setStatus( Stopped, false );
-        m_getJob->internalSuspend();
+        m_getJob->suspend();
         if ( !m_buffer.isEmpty() )
         {
             writeBuffer();
@@ -114,7 +114,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     {
 //         kDebug(5001) << "Segment::slotData() buffer full. stoping transfer..." << endl;
         m_buffer.truncate( m_segData.bytes );
-        m_getJob->internalSuspend();
+        m_getJob->suspend();
         m_getJob->kill( KJob::EmitResult );
     }
     if ( m_buffer.size() )
@@ -220,7 +220,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     KIO::TransferJob *Job = Seg->job();
     if(Job)
     {
-        Job->internalSuspend();
+        Job->suspend();
         kDebug(5001) << "job Suspended..." << endl;
     }
 
@@ -239,7 +239,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
         kDebug(5001) << "Segment can't be splited." << endl;
         if(Job)
         {
-            Job->internalResume();
+            Job->resume();
             kDebug(5001) << "Resuming Job..." << endl;
         }
         return Segments;
@@ -255,7 +255,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
 
     if(Job)
     {
-        Job->internalResume();
+        Job->resume();
         kDebug(5001) << "Resuming Job..." << endl;
     }
 
