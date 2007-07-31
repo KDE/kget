@@ -3,6 +3,7 @@ Encoding=UTF-8
 Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
 Comment=Plugin for KGet
+Comment[bg]=Приставка за KGet
 Comment[de]=Modul für KGet
 Comment[el]=Πρόσθετο για το KGet
 Comment[es]=Complemento para KGet

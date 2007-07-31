@@ -14,6 +14,7 @@ Name[sv]=Metalink-överföringsgenerering
 Name[x-test]=xxMetaLink TransferFactoryxx
 Name[zh_TW]=MetaLink 傳輸工廠
 Comment=Transfer plugin for KGet
+Comment[bg]=Приставка за трансфер - KGet
 Comment[de]=Übertragungsmodul für KGet
 Comment[el]=Πρόσθετο μεταφοράς για το KGet
 Comment[ja]=KGet の転送プラグイン
