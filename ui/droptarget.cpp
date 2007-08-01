@@ -87,7 +87,11 @@ DropTarget::DropTarget(MainWindow * mw)
     popupMenu->addSeparator();
     popupMenu->addAction( mw->actionCollection()->action("preferences") );
 
-    popupMenu->addAction( mw->actionCollection()->action("quit") );
+    QAction *quitAction = new QAction(this);
+    quitAction->setText(i18n("Quit KGet"));
+    quitAction->setIcon(KIcon("system-log-out"));
+    connect(quitAction, SIGNAL(triggered()), mw, SLOT(slotQuit()));
+    popupMenu->addAction(quitAction);
 
     isdragging = false;
 

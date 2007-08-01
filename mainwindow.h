@@ -40,6 +40,9 @@ public:
     virtual void setOfflineMode( bool online );
     virtual bool offlineMode() const;
 
+public slots:
+    void slotQuit();
+
 protected:
     // ignore/accept quit events
     virtual void closeEvent( QCloseEvent * );
@@ -52,7 +55,6 @@ private slots:
     // slots connected to actions
     void slotNewTransfer();
     void slotOpen();
-    void slotQuit();
     void slotPreferences();
     void slotExportTransfers();
     void slotEditGroups();
