@@ -95,8 +95,6 @@ DropTarget::DropTarget(MainWindow * mw)
     setAcceptDrops(true);
 
     if ( Settings::showDropTarget() && Settings::firstRun() ) {
-        playAnimationShow();
-
         showInformation = true;
     }
 
