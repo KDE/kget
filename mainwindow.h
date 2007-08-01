@@ -30,7 +30,7 @@ class MainWindow : public KXmlGuiWindow
 {
 Q_OBJECT
 public:
-    MainWindow(bool showMainwindow = true, QWidget *parent = 0);
+    explicit MainWindow(bool showMainwindow = true, QWidget *parent = 0);
     ~MainWindow();
 
     // from the DBUS interface

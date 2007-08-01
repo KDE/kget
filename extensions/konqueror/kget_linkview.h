@@ -11,18 +11,18 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <kxmlguiwindow.h>
+#include <KDialog>
 
 #include "links.h"
 
 class QTreeWidget;
 
-class KGetLinkView : public KXmlGuiWindow
+class KGetLinkView : public KDialog
 {
     Q_OBJECT
 
 public:
-    KGetLinkView( QWidget *parent = 0L );
+    KGetLinkView(QWidget *parent = 0);
     ~KGetLinkView();
 
     void setLinks( QList<LinkItem*>& links );
@@ -33,7 +33,8 @@ signals:
 
 private slots:
     void slotStartLeech();
-    void slotSelectAll();
+    void selectionChanged();
+    void updateSelectAllText(const QString &text);
 
 private:
     void showLinks( const QList<LinkItem*>& links );

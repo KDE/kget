@@ -29,23 +29,10 @@
 #include <QtDBus>
 #include <QVBoxLayout>
 
-KGetLinkView::KGetLinkView( QWidget *parent )
-    : KXmlGuiWindow( parent )
+KGetLinkView::KGetLinkView(QWidget *parent)
+  : KDialog(parent)
 {
-    setPlainCaption( i18n( "KGet" ) );
-
-    QAction *downloadAction = actionCollection()->addAction("startDownload");
-    downloadAction->setText(i18n("Download Selected Files"));
-    downloadAction->setIcon(KIcon("kget"));
-    downloadAction->setShortcuts(KShortcut(Qt::CTRL + Qt::Key_D));
-    connect(downloadAction, SIGNAL(triggered()), this, SLOT(slotStartLeech()));
-
-    QAction *selectAllAction = (QAction*)KStandardAction::selectAll(this, SLOT(slotSelectAll()),
-                                                                    actionCollection());
-
-    toolBar()->addAction(downloadAction);
-    toolBar()->insertSeparator(selectAllAction);
-    toolBar()->addAction(selectAllAction);
+    setPlainCaption(i18n("KGet"));
 
     QStringList headers;
     headers << i18n("File Name") << i18n("Description")
@@ -61,18 +48,33 @@ KGetLinkView::KGetLinkView( QWidget *parent )
     m_treeWidget->setAllColumnsShowFocus(true);
     m_treeWidget->setColumnWidth(0, 200); // make the filename column bigger by default
 
+    connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotStartLeech()));
+    connect(m_treeWidget, SIGNAL(itemSelectionChanged()), SLOT(selectionChanged()));
+
     KTreeWidgetSearchLine *searchLine = new KTreeWidgetSearchLine(this, m_treeWidget);
+    searchLine->setClickMessage(i18n("Filter files here..."));
+    connect(searchLine, SIGNAL(textChanged(QString)), SLOT(updateSelectAllText(QString)));
+
+    setButtons(KDialog::Cancel | KDialog::User1 | KDialog::User2);
+
+    setButtonText(KDialog::User1, i18n("Download selected"));
+    setButtonIcon(KDialog::User1, KIcon("kget"));
+    enableButton(KDialog::User1, false);
+    connect(this, SIGNAL(user1Clicked()), SLOT(slotStartLeech()));
+
+    setButtonText(KDialog::User2, i18n("Select all"));
+    connect(this, SIGNAL(user2Clicked()), m_treeWidget, SLOT(selectAll()));
+
+    setDefaultButton(KDialog::User1);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
     mainLayout->addWidget(searchLine);
     mainLayout->addWidget(m_treeWidget);
 
     QWidget *mainWidget = new QWidget(this);
     mainWidget->setLayout(mainLayout);
-    setCentralWidget(mainWidget);
-
-    // setting Text next to Icons
-    toolBar()->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    setMainWidget(mainWidget);
 
     resize(600, 300);
 }
@@ -112,8 +114,6 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 
 void KGetLinkView::slotStartLeech()
 {
-    bool itemSelected = false;
-
     QStringList urls;
 
     QTreeWidgetItemIterator it(m_treeWidget);
@@ -121,28 +121,22 @@ void KGetLinkView::slotStartLeech()
         if ((*it)->isSelected()) {
             QString url = (*it)->text(3);
             urls.append(url);
-            itemSelected = true;
         }
         ++it;
     }
 
-    if ( !itemSelected )
-        KMessageBox::sorry( this,
-                            i18n("You did not select any files to download."),
-                            i18n("No Files Selected") );
+    if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
+    {
+        QProcess *kgetProcess = new QProcess(this);
+        kgetProcess->startDetached("kget", urls);
+    }
     else
     {
-        if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
-        {
-            QProcess *kgetProcess = new QProcess(this);
-            kgetProcess->startDetached("kget", urls);
-        }
-        else
-        {
-	    OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-            kgetInterface.addTransfers(urls.join(";"), QString());
-        }
+        OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        kgetInterface.addTransfers(urls.join(";"), QString());
     }
+
+    accept(); // close the dialog
 }
 
 void KGetLinkView::setPageUrl( const QString& url )
@@ -150,9 +144,14 @@ void KGetLinkView::setPageUrl( const QString& url )
     setPlainCaption( i18n( "Links in: %1 - KGet", url ) );
 }
 
-void KGetLinkView::slotSelectAll()
+void KGetLinkView::selectionChanged()
 {
-    m_treeWidget->selectAll();
+    enableButton(KDialog::User1, !m_treeWidget->selectedItems().isEmpty());
+}
+
+void KGetLinkView::updateSelectAllText(const QString &text)
+{
+    setButtonText(KDialog::User2, text.isEmpty() ? i18n("Select all") : i18n("Select all filtered"));
 }
 
 #include "kget_linkview.moc"
