@@ -641,7 +641,7 @@ bool KGet::isValidDestDirectory(const QString & destDir)
 
 bool KGet::isValidDestUrl(const KUrl &destUrl)
 {
-    if(KIO::NetAccess::exists(destUrl, false, 0))
+    if(KIO::NetAccess::exists(destUrl, KIO::NetAccess::DestinationSide, 0))
     {
         if (KMessageBox::warningYesNoCancel(0,
             i18n("Destination file \n%1\nalready exists.\n"
