@@ -48,15 +48,12 @@ set(kget_SRCS
    conf/dlgdirectories.cpp
    conf/preferencesdialog.cpp
    ui/droptarget.cpp
-#    ui/mainview.cpp
    ui/transfersview.cpp
    ui/transfersviewdelegate.cpp
    ui/groupseditdialog.cpp
-#    ui/sidebar.cpp
    ui/splash.cpp
    ui/transferdetails.cpp
    ui/tray.cpp
-#    ui/traytransfer.cpp
    ui/viewscontainer.cpp
    mainwindow.cpp
    main.cpp
