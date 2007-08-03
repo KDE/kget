@@ -31,10 +31,10 @@ Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
-    kDebug(5001) << "TransferKioFactory::createTransfer" << endl;
+    kDebug(5001) << "TransferKioFactory::createTransfer";
 
     QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot << endl;
+    kDebug(5001) << "Protocol = " << prot;
     if(    prot == "http" || prot == "https" 
         || prot == "ftp"  || prot == "sftp"
         || prot == "file")

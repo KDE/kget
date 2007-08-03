@@ -66,7 +66,7 @@ ButtonBase::ButtonBase(QWidget * parent)
 
 void ButtonBase::slotToggled(bool checked)
 {
-    kDebug(5001) << "ButtonBase::slotToggled" << endl;
+    kDebug(5001) << "ButtonBase::slotToggled";
     if(checked)
     {
         emit activated();
@@ -145,7 +145,7 @@ void TransfersButton::setTransfer(TransferHandler * transfer)
 
 void TransfersButton::slotToggled(bool checked)
 {
-    kDebug(5001) << "TransfersButton::slotToggled" << endl;
+    kDebug(5001) << "TransfersButton::slotToggled";
     if(checked)
     {
         if(m_selectedTransfer)
@@ -155,7 +155,7 @@ void TransfersButton::slotToggled(bool checked)
 
 void TransfersButton::slotActionTriggered(QAction * action)
 {
-    kDebug(5001) << "Slot action triggered" << endl;
+    kDebug(5001) << "Slot action triggered";
 
     emit selectedTransfer(m_transfersMap[action]);
 }
@@ -260,7 +260,7 @@ void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
 
 void ViewsContainer::showDownloadsWindow()
 {
-    kDebug(5001) << "ViewsContainer::showDownloadsWindow" << endl;
+    kDebug(5001) << "ViewsContainer::showDownloadsWindow";
     m_SLayout->setCurrentWidget( m_transfersView );
 
     //TitleBar update
@@ -269,7 +269,7 @@ void ViewsContainer::showDownloadsWindow()
 
 void ViewsContainer::showFinishedWindow()
 {
-    kDebug(5001) << "ViewsContainer::showFinishedWindow" << endl;
+    kDebug(5001) << "ViewsContainer::showFinishedWindow";
 //     m_SLayout->setCurrentWidget( m_finishedView );
 
     //TitleBar update
@@ -278,7 +278,7 @@ void ViewsContainer::showFinishedWindow()
 
 void ViewsContainer::slotTransferSelected(TransferHandler * transfer)
 {
-    kDebug(5001) << "SlotTransferSelected" << endl;
+    kDebug(5001) << "SlotTransferSelected";
 
     m_SLayout->setCurrentWidget( m_transfersMap[transfer] );
 

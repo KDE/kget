@@ -35,7 +35,7 @@ Transfer * BTTransferFactory::createTransfer( KUrl srcUrl, KUrl destUrl,
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
 {
-    kDebug(5001) << "BTTransferFactory::createTransfer" << endl;
+    kDebug(5001) << "BTTransferFactory::createTransfer";
 
     if (srcUrl.fileName().endsWith(".torrent") && srcUrl.isLocalFile())
     {

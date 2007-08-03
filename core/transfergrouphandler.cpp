@@ -36,10 +36,10 @@ TransferGroupHandler::~TransferGroupHandler()
 
 void TransferGroupHandler::addObserver(TransferGroupObserver * observer)
 {
-    kDebug(5001) << "TransferGroupHandler::addObserver" << endl;
+    kDebug(5001) << "TransferGroupHandler::addObserver";
     m_observers.push_back(observer);
     m_changesFlags[observer]=0xFFFFFFFF;
-    kDebug(5001) << "   Now we have " << m_observers.size() << " observers" << endl;
+    kDebug(5001) << "   Now we have " << m_observers.size() << " observers";
 }
 
 void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
@@ -50,13 +50,13 @@ void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
 
 void TransferGroupHandler::start()
 {
-    kDebug(5001) << "TransferGroupHandler::start()" << endl;
+    kDebug(5001) << "TransferGroupHandler::start()";
     m_group->setStatus( JobQueue::Running );
 }
 
 void TransferGroupHandler::stop()
 {
-    kDebug(5001) << "TransferGroupHandler::stop()" << endl;
+    kDebug(5001) << "TransferGroupHandler::stop()";
     m_group->setStatus( JobQueue::Stopped );
 }
 
@@ -83,14 +83,14 @@ void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHand
 
 TransferHandler * TransferGroupHandler::operator[] (int i)
 {
-//     kDebug(5001) << "TransferGroupHandler::operator[" << i << "]" << endl;
+//     kDebug(5001) << "TransferGroupHandler::operator[" << i << "]";
 
     return (*m_group)[i]->handler();
 }
 
 QVariant TransferGroupHandler::data(int column)
 {
-//     kDebug(5001) << "TransferGroupHandler::data(" << column << ")" << endl;
+//     kDebug(5001) << "TransferGroupHandler::data(" << column << ")";
 
     switch(column)
     {
@@ -128,7 +128,7 @@ TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObse
         return m_changesFlags[observer];
     else
     {
-        kDebug(5001) << " TransferGroupHandler::changesFlags() doesn't see you as an observer! " << endl;
+        kDebug(5001) << " TransferGroupHandler::changesFlags() doesn't see you as an observer! ";
 
         return 0xFFFFFFFF;
     }
@@ -139,7 +139,7 @@ void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
     if( m_changesFlags.find(observer) != m_changesFlags.end() )
         m_changesFlags[observer] = 0;
     else
-        kDebug(5001) << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! " << endl;
+        kDebug(5001) << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! ";
 }
 
 int TransferGroupHandler::indexOf(TransferHandler * transfer)
@@ -224,8 +224,8 @@ void TransferGroupHandler::postGroupChangedEvent()
 
 void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer * after)
 {
-    kDebug(5001) << "TransferGroupHandler::postAddedTransferEvent" << endl;
-    kDebug(5001) << "   number of observers = " << m_observers.size() << endl;
+    kDebug(5001) << "TransferGroupHandler::postAddedTransferEvent";
+    kDebug(5001) << "   number of observers = " << m_observers.size();
 
     //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the

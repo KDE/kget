@@ -20,7 +20,7 @@ mirror::mirror()
 
 void mirror::search(const KUrl &url, QObject *receiver, const char *member)
 {
-    kDebug(5001) << "mirror::search() " << endl;
+    kDebug(5001) << "mirror::search() ";
 
     m_url = url;
     m_Urls << m_url;
@@ -37,7 +37,7 @@ void mirror::search(const KUrl &url, QObject *receiver, const char *member)
 
 void mirror::slotData(KIO::Job *, const QByteArray& data)
 {
-    kDebug(5001) << "mirror::slotData() " << endl;
+    kDebug(5001) << "mirror::slotData() ";
     if (data.size() == 0)
         return;
     m_data.append(data);
@@ -45,7 +45,7 @@ void mirror::slotData(KIO::Job *, const QByteArray& data)
 
 void mirror::slotResult( KJob *job )
 {
-    kDebug(5001) << "mirror::slotResult() " << endl;
+    kDebug(5001) << "mirror::slotResult() ";
     m_job = 0;
     if( job->error() )
     {
@@ -66,7 +66,7 @@ void mirror::slotResult( KJob *job )
             if ( u.endsWith( m_url.fileName() ) )
             {
                 m_Urls << KUrl(u);
-                kDebug(5001) << "url: " << u << endl;
+                kDebug(5001) << "url: " << u;
             }
     }
 

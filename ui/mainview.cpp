@@ -52,8 +52,8 @@ void TransferGroupItem::groupChangedEvent(TransferGroupHandler * group)
 
 void TransferGroupItem::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
-    kDebug(5001) << "TransferGroupItem::addedTransferEvent" << endl;
-    kDebug(5001) << " source = " << transfer->source().url() << endl;
+    kDebug(5001) << "TransferGroupItem::addedTransferEvent";
+    kDebug(5001) << " source = " << transfer->source().url();
 
     new TransferItem(this, transfer, findTransferItem(after));
 
@@ -85,7 +85,7 @@ void TransferGroupItem::updateContents(bool updateAll)
 // 
 //     if( updateAll || (groupFlags & TransferGroup::Gc_TotalSize) )
 //     {
-//         kDebug(5001) << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroup::Gc_TotalSize) << ")" << endl;
+//         kDebug(5001) << "TransferGroupItem::updateContents (" << (groupFlags & TransferGroup::Gc_TotalSize) << ")";
 //         setText(1, m_group->name());
 //         if(m_group->totalSize() != 0)
 //             setText(3, KIO::convertSize(m_group->totalSize()));
@@ -181,13 +181,13 @@ TransferItem::TransferItem(TransferGroupItem * parent, TransferHandler * transfe
 
 void TransferItem::transferChangedEvent(TransferHandler * transfer)
 {
-    kDebug(5001) << "TransferItem::transferChangedEvent" << endl;
+    kDebug(5001) << "TransferItem::transferChangedEvent";
     updateContents();
 }
 
 void TransferItem::deleteEvent(TransferHandler * transfer)
 {
-    kDebug(5001) << "TransferItem::deleteEvent" << endl;
+    kDebug(5001) << "TransferItem::deleteEvent";
     delete(this);
 }
 
@@ -195,7 +195,7 @@ void TransferItem::updateContents(bool updateAll)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    kDebug(5001) << " TransferFlags = " << transferFlags << endl;
+    kDebug(5001) << " TransferFlags = " << transferFlags;
 
     if(updateAll)
     {
@@ -226,15 +226,15 @@ void TransferItem::updateContents(bool updateAll)
 
     if(updateAll || (transferFlags & Transfer::Tc_Status) )
     {
-//         kDebug(5001) << "UPDATE:  status" << endl;
+//         kDebug(5001) << "UPDATE:  status";
         setText( 1, m_transfer->statusText() );
         setPixmap( 1, m_transfer->statusPixmap() );
     }
 
     if(updateAll || (transferFlags & Transfer::Tc_TotalSize) )
     {
-//         kDebug(5001) << "UPDATE:  totalSize" << endl;
-        kDebug(5001) << "totalSize = " << m_transfer->totalSize() << endl;
+//         kDebug(5001) << "UPDATE:  totalSize";
+        kDebug(5001) << "totalSize = " << m_transfer->totalSize();
         if (m_transfer->totalSize() != 0)
             setText(2, KIO::convertSize( m_transfer->totalSize() ));
         else
@@ -243,7 +243,7 @@ void TransferItem::updateContents(bool updateAll)
 
     if(updateAll || (transferFlags & Transfer::Tc_Speed) )
     {
-//         kDebug(5001) << "UPDATE:  speed" << endl;
+//         kDebug(5001) << "UPDATE:  speed";
         int speed = m_transfer->speed();
 
         if(speed==0)
@@ -259,7 +259,7 @@ void TransferItem::updateContents(bool updateAll)
 
     if(updateAll || (transferFlags & Transfer::Tc_Selection) )
     {
-        kDebug(5001) << "UPDATE:  selection    " << m_transfer->isSelected() << endl;
+        kDebug(5001) << "UPDATE:  selection    " << m_transfer->isSelected();
         Q3ListViewItem::setSelected( m_transfer->isSelected() );
     }
 
@@ -327,7 +327,7 @@ MainView::~MainView()
 
 void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
 {
-    kDebug(5001) << "MainView::addedTransferGroupEvent" << endl;
+    kDebug(5001) << "MainView::addedTransferGroupEvent";
 
     TransferGroupItem * newGroupItem = new TransferGroupItem(this, group);
     newGroupItem->setVisible(false);
@@ -335,7 +335,7 @@ void MainView::addedTransferGroupEvent(TransferGroupHandler * group)
 
 void MainView::contentsDropEvent ( QDropEvent * e )
 {
-    kDebug(5001) << "MainView::contentsDropEvent" << endl;
+    kDebug(5001) << "MainView::contentsDropEvent";
 
     cleanDropVisualizer();
 
@@ -349,7 +349,7 @@ void MainView::contentsDropEvent ( QDropEvent * e )
 
     findDrop(e->pos(), parent, after);
 
-    kDebug(5001) << "parent=" << parent << "  " << "after=" << after << endl;
+    kDebug(5001) << "parent=" << parent << "  " << "after=" << after;
 
     //The item has been dropped outside the available groups
     if(parent==0)
@@ -358,7 +358,7 @@ void MainView::contentsDropEvent ( QDropEvent * e )
     TransferGroupHandler * destGroup;
     destGroup = static_cast<TransferGroupItem *>(parent)->group();
 
-    kDebug(5001) << "destGroup = " << destGroup << endl;
+    kDebug(5001) << "destGroup = " << destGroup;
 
     TransferHandler * destTransfer;
     if(after)
@@ -368,12 +368,12 @@ void MainView::contentsDropEvent ( QDropEvent * e )
 
     if(destTransfer)
     {
-        kDebug(5001) << "Item dropped on the transfer:" << endl;
-        kDebug(5001) << "(" << destTransfer->source().url() << ")" << endl;
+        kDebug(5001) << "Item dropped on the transfer:";
+        kDebug(5001) << "(" << destTransfer->source().url() << ")";
     }
     else
     {
-        kDebug(5001) << "destTransfer == NULL" << endl;
+        kDebug(5001) << "destTransfer == NULL";
     }
 
     destGroup->move(transfers, destTransfer);

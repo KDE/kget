@@ -96,7 +96,7 @@ void Scheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
 
 void Scheduler::jobChangedEvent(Job * job, Job::Status status)
 {
-    kDebug(5001) << "Scheduler::jobChangedEvent (" << status <<  ")" << endl;
+    kDebug(5001) << "Scheduler::jobChangedEvent (" << status <<  ")";
 
     //If the Job changed its status to Aborted, set a delay.
     if (status == Job::Aborted)
@@ -177,15 +177,15 @@ void Scheduler::updateQueue( JobQueue * queue )
 
     for( int job=0 ; it!=itEnd ; ++it, ++job)
     {
-        //kDebug(5001) << "MaxSimJobs " << queue->maxSimultaneousJobs() << endl;
-        kDebug(5001) << "Scheduler: Evaluating job " << job << endl;
+        //kDebug(5001) << "MaxSimJobs " << queue->maxSimultaneousJobs();
+        kDebug(5001) << "Scheduler: Evaluating job " << job;
         if( runningJobs < queue->maxSimultaneousJobs() )
         {
             if( (*it)->status() == Job::Running )
             {
                 if( !shouldBeRunning(*it) )
                 {
-                    kDebug(5001) << "Scheduler:    stopping job" << endl;
+                    kDebug(5001) << "Scheduler:    stopping job";
                     (*it)->stop();
                 }
                 else
@@ -195,14 +195,14 @@ void Scheduler::updateQueue( JobQueue * queue )
             {
                 if( shouldBeRunning(*it) )
                 {
-                    kDebug(5001) << "Scheduler:    starting job" << endl;
+                    kDebug(5001) << "Scheduler:    starting job";
                     (*it)->start();
                     runningJobs++;
                 }
                 else if( ((*it)->status() == Job::Delayed )
                       && ((*it)->policy() == Job::Stop ) )
                 {
-                    kDebug(5001) << "Scheduler:     Delayed transfer that should be stopped" << endl;
+                    kDebug(5001) << "Scheduler:     Delayed transfer that should be stopped";
                     //This is a special case that we have to handle separately:
                     //if the download status is Delayed, but the current policy
                     //is Stopped, we must stop immediately the transfer.
@@ -214,7 +214,7 @@ void Scheduler::updateQueue( JobQueue * queue )
         else
         {
             //Stop all the other running downloads
-            kDebug(5001) << "Scheduler:    stopping job over maxSimJobs limit" << endl;
+            kDebug(5001) << "Scheduler:    stopping job over maxSimJobs limit";
             (*it)->stop();
         }
     }

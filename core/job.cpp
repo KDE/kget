@@ -48,7 +48,7 @@ void Job::setPolicy(Policy jobPolicy)
     if(jobPolicy == m_policy)
         return;
 
-    kDebug(5001) << "Job::setPolicy(" << jobPolicy << ")" << endl;
+    kDebug(5001) << "Job::setPolicy(" << jobPolicy << ")";
 
     m_policy = jobPolicy;
     m_scheduler->jobChangedEvent(this, m_policy);

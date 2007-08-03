@@ -32,7 +32,7 @@ Transfer * metalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &dest
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001) << "metalinkFactory::createTransfer" << endl;
+    kDebug(5001) << "metalinkFactory::createTransfer";
 
     if( srcUrl.fileName().endsWith (".metalink") )
     {

@@ -89,7 +89,7 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
 // display blinking icon when downloading
 void Tray::setDownloading( bool running )
 {
-    kDebug(5001) << "Tray::setDownloading" << endl;
+    kDebug(5001) << "Tray::setDownloading";
 
     if(!blinkTimer)
     {

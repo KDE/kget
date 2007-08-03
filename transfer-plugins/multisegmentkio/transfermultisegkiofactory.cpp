@@ -34,10 +34,10 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001) << "TransferMultiSegKioFactory::createTransfer" << endl;
+    kDebug(5001) << "TransferMultiSegKioFactory::createTransfer";
 
     QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot << endl;
+    kDebug(5001) << "Protocol = " << prot;
     if( prot == "http" || prot == "https" ||
          prot == "ftp"  || prot == "sftp"  &&
          MultiSegKioSettings::segments() > 1

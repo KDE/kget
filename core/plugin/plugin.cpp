@@ -15,12 +15,12 @@
 
 KGetPlugin::KGetPlugin()
 {
-    kDebug(5001) << k_funcinfo << endl;
+    kDebug(5001) << k_funcinfo;
 }
 
 KGetPlugin::~KGetPlugin()
 {
-    kDebug(5001) << k_funcinfo << endl;
+    kDebug(5001) << k_funcinfo;
 }
 
 /*

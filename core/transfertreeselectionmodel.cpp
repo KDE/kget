@@ -26,18 +26,18 @@ TransferTreeSelectionModel::~TransferTreeSelectionModel()
 
 void TransferTreeSelectionModel::select(const QItemSelection & selection, QItemSelectionModel::SelectionFlags command)
 {
-//     kDebug(5001) << "TransferTreeSelectionModel::select()" << endl;
+//     kDebug(5001) << "TransferTreeSelectionModel::select()";
 
 //     const TransferTreeModel * transfersModel = static_cast<const TransferTreeModel *>(model());
 
 //     QModelIndexList indexList = selection.indexes();
 //     QItemSelection newSelection;
 
-//     kDebug(5001) << "selection of items: " << indexList.size() << endl;
+//     kDebug(5001) << "selection of items: " << indexList.size();
 
 //     foreach(QModelIndex index, indexList)
 //     {
-//         kDebug(5001) << "iteration" << endl;
+//         kDebug(5001) << "iteration";
 
 //         if(!transfersModel->isTransferGroup(index))
 //         {

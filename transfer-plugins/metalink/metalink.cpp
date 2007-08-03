@@ -30,7 +30,7 @@ metalink::metalink(TransferGroup * parent, TransferFactory * factory,
 
 void metalink::start()
 {
-    kDebug(5001) << "metalink::start" << endl;
+    kDebug(5001) << "metalink::start";
     if(!m_copyjob)
         createJob();
 
@@ -40,7 +40,7 @@ void metalink::start()
 
 void metalink::stop()
 {
-    kDebug(5001) << "metalink::Stop" << endl;
+    kDebug(5001) << "metalink::Stop";
     if(status() == Stopped)
         return;
 
@@ -85,7 +85,7 @@ void metalink::save(const QDomElement &e)
 
 void metalink::createJob()
 {
-    kDebug(5001) << "metalink::createJob()" << endl;
+    kDebug(5001) << "metalink::createJob()";
 
     if(!m_copyjob)
     {
@@ -98,7 +98,7 @@ void metalink::createJob()
 
 void metalink::slotData(KIO::Job *, const QByteArray& data)
 {
-    kDebug(5001) << "metalink::slotData() " << endl;
+    kDebug(5001) << "metalink::slotData() ";
     if (data.size() == 0)
         return;
     m_data.append(data);
@@ -118,7 +118,7 @@ void metalink::slotResult(KJob * job)
             break;
         default:
             //There has been an error
-            kDebug(5001) << "--  E R R O R  (" << job->error() << ")--" << endl;
+            kDebug(5001) << "--  E R R O R  (" << job->error() << ")--";
             setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
             break;
     }
@@ -146,7 +146,7 @@ void metalink::slotResult(KJob * job)
 
         if( (*it).urls.size() > 1 )
         {
-            kDebug(5001) << "urls:  " << (*it).urls.size() << endl;
+            kDebug(5001) << "urls:  " << (*it).urls.size();
             KUrl::List::iterator KUrlit = (*it).urls.begin();
             KUrl::List::iterator KUrlitEnd = (*it).urls.end();
             for ( ; KUrlit!=KUrlitEnd ; ++KUrlit )

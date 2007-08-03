@@ -27,21 +27,21 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const QByteArray &data)
 
     if(!doc.setContent( data ))
     {
-        kDebug(5001) << "Metalinker::parseMetalinkFile: unable to read the xml file"<< endl;
+        kDebug(5001) << "Metalinker::parseMetalinkFile: unable to read the xml file";
         return fileData;
     }
     QDomNodeList files = doc.documentElement().
         elementsByTagName("files").
         item(0).toElement().elementsByTagName("file");
 
-    kDebug(5001) << files.length() << " <file> tags found" << endl;
+    kDebug(5001) << files.length() << " <file> tags found";
 
     for( uint i=0 ; i < files.length() ; ++i )
     {
         QDomNode file = files.item(i);
         MlinkFileData data;
         data.fileName = file.toElement().attribute("name");
-        kDebug(5001) << "filename: "<< data.fileName << endl;
+        kDebug(5001) << "filename: "<< data.fileName;
 
         QDomNodeList hashes = file.toElement().
             elementsByTagName("verification").
@@ -54,8 +54,8 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const QByteArray &data)
                 data.md5 = hash.toElement().text();
             if (hash.toElement().attribute("type") == "sha256")
                 data.sha256 = hash.toElement().text();
-        kDebug(5001) << "md5 hash: "<< data.md5 << endl;
-        kDebug(5001) << "sha256 hash: "<< data.sha256 << endl;
+        kDebug(5001) << "md5 hash: "<< data.md5;
+        kDebug(5001) << "sha256 hash: "<< data.sha256;
 
         }
 
@@ -67,11 +67,11 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const QByteArray &data)
         {
             QDomNode url = urls.item(k);
             data.urls << KUrl(url.toElement().text());
-            kDebug(5001) << "url: "<< url.toElement().text() << endl;
+            kDebug(5001) << "url: "<< url.toElement().text();
         }
 
         fileData << data;
-        kDebug(5001) << fileData.size() << " files Data" << endl;
+        kDebug(5001) << fileData.size() << " files Data";
     }
 
     return fileData;

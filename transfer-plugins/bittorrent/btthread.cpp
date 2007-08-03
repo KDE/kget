@@ -37,12 +37,12 @@ void BTThread::initialize()
         instance = new BTThread();
         instance->start();
     }
-    kDebug(5001) << "initialized1 = " << initialized << endl;
+    kDebug(5001) << "initialized1 = " << initialized;
 }
 
 void BTThread::stop()
 {
-    kDebug(5001) << "initialized2 = " << initialized << endl;
+    kDebug(5001) << "initialized2 = " << initialized;
     if (!--initialized)
     {
         //I've disabled this line because we can't delete the instance
