@@ -9,9 +9,6 @@
     <height>262</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>DlgAdvanced</string>
-  </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
     <number>9</number>
