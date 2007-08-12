@@ -3,25 +3,25 @@ IconName=kget
 Comment=KGet
 
 [Event/added]
-Name=TransferAdded
+Name=Transfer Added
 Comment=A new download has been added
 Sound=KGet_Added.ogg
 Action=Sound
 
 [Event/started]
-Name=DownloadStarted
+Name=Download Started
 Comment=Downloading started
 Sound=KGet_Started.ogg
 Action=Sound
 
 [Event/finished]
-Name=DownloadFinished
+Name=Download Finished
 Comment=Downloading finished
 Sound=KGet_Finished.ogg
 Action=Sound
 
 [Event/finishedall]
-Name=AllDownloadsFinished
+Name=All Downloads Finished
 Comment=All downloads finished
 Sound=KGet_Finished_All.ogg
 Action=Sound
