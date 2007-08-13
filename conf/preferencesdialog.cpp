@@ -34,7 +34,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgNet.setupUi(network);
     dlgAdv.setupUi(advanced);
 
-    addPage(appearance, i18n("Appearance"), "video-display", i18n("Look and Feel"));
+    addPage(appearance, i18n("Appearance"), "video-display", i18n("Change appearance settings"));
     addPage(directories, i18n("Folders"), "folder-open", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network-wired", i18n("Network and Downloads"));
     addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));

@@ -1,119 +1,51 @@
 <ui version="4.0" >
  <class>DlgAppearance</class>
  <widget class="QWidget" name="DlgAppearance" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>367</width>
-    <height>299</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
    <item>
-    <widget class="QCheckBox" name="kcfg_ShowMain" >
-     <property name="text" >
-      <string>Show main window at startup</string>
+    <widget class="QGroupBox" name="startupGroup" >
+     <property name="title" >
+      <string>Startup</string>
      </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QCheckBox" name="kcfg_ShowMain" >
+        <property name="text" >
+         <string>Show main window at startup</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_ShowSplashscreen" >
+        <property name="text" >
+         <string>Show splashscreen</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_ShowIndividual" >
-     <property name="enabled" >
-      <bool>false</bool>
+    <widget class="QGroupBox" name="dropTargetGroup" >
+     <property name="title" >
+      <string>Drop Target</string>
      </property>
-     <property name="text" >
-      <string>Open each download in a separate window</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
-      <number>0</number>
-     </property>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>16</width>
-         <height>18</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="kcfg_DockifyIndividual" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Docked</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="kcfg_ShowDropTarget" >
-     <property name="text" >
-      <string>Show drop target</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
-      <number>0</number>
-     </property>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>16</width>
-         <height>18</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="kcfg_AnimateDropTarget" >
-       <property name="text" >
-        <string>Enable animations</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="kcfg_ShowSplashscreen" >
-     <property name="text" >
-      <string>Show splashscreen</string>
-     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QCheckBox" name="kcfg_ShowDropTarget" >
+        <property name="text" >
+         <string>Show drop target</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_AnimateDropTarget" >
+        <property name="text" >
+         <string>Enable animations</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -126,8 +58,8 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>190</width>
-       <height>20</height>
+       <width>349</width>
+       <height>21</height>
       </size>
      </property>
     </spacer>
@@ -143,22 +75,6 @@
    <sender>kcfg_ShowDropTarget</sender>
    <signal>toggled(bool)</signal>
    <receiver>kcfg_AnimateDropTarget</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kcfg_ShowIndividual</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcfg_DockifyIndividual</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
