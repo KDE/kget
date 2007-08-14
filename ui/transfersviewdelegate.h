@@ -12,21 +12,46 @@
 #define TRANSFERSVIEWDELEGATE_H
 
 #include <QItemDelegate>
+#include <QToolButton>
+#include <QModelIndex>
 
 class QHBoxLayout;
 class QButtonGroup;
-class QToolButton;
 
 class KMenu;
 
 class TransfersViewDelegate;
+
+class GroupStatusButton : public QToolButton
+{
+    Q_OBJECT
+
+    public:
+        GroupStatusButton(const QModelIndex & index, QWidget * parent=0);
+
+    protected:
+        void nextCheckState();
+        void enterEvent(QEvent * event);
+        void leaveEvent(QEvent * event);
+        void paintEvent(QPaintEvent * event);
+        void timerEvent(QTimerEvent *event);
+
+    private:
+        enum {None, Selecting, Deselecting, Blinking, BlinkingExiting} m_status;
+        QModelIndex m_index;
+
+        int m_timerId;
+        int m_iconSize;
+
+        float m_gradientId;
+};
 
 class GroupStatusEditor : public QWidget
 {
     Q_OBJECT
 
     public:
-        explicit GroupStatusEditor(const TransfersViewDelegate * delegate, QWidget * parent=0);
+        explicit GroupStatusEditor(const QModelIndex & index, const TransfersViewDelegate * delegate, QWidget * parent=0);
 
         void setRunning(bool running);
         bool isRunning();
@@ -37,11 +62,13 @@ class GroupStatusEditor : public QWidget
     private:
         const TransfersViewDelegate * m_delegate;
 
+        QModelIndex m_index;
+
         QHBoxLayout * m_layout;
 
         QButtonGroup * m_btGroup;
-        QToolButton * m_startBt;
-        QToolButton * m_stopBt;
+        GroupStatusButton * m_startBt;
+        GroupStatusButton * m_stopBt;
 };
 
 class TransfersViewDelegate : public QItemDelegate

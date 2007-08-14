@@ -259,6 +259,8 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
     else
         flags |= Qt::ItemIsDragEnabled;
 
+    flags |= Qt::ItemIsDropEnabled;
+
     return flags;
 }
 
@@ -312,7 +314,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             else //Qt::DecorationRole -> icon
             {
                 if (index.column() == 0)
-                    return SmallIcon("todolist", 32);
+                    return SmallIcon("bookmark-new-list", 32);
                 else
                     return QVariant();
             }
@@ -345,11 +347,14 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
         {
             switch (index.column())
             {
+                case 0: // name
+                    return QVariant(Qt::AlignVCenter);
                 case 2: // size
+                    return QVariant(Qt::AlignCenter);
                 case 4: // speed
-                    return QVariant(Qt::AlignRight  | Qt::AlignBottom);
+                    return QVariant(Qt::AlignCenter);
                 case 3: //progress
-                    return QVariant(Qt::AlignHCenter  | Qt::AlignBottom);
+                    return QVariant(Qt::AlignCenter);
                 default:
                     return QVariant(Qt::AlignLeft | Qt::AlignBottom);
             }
@@ -357,13 +362,16 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 
         switch (index.column())
         {
+            case 0: // name
+                return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
             case 2: // size
+                return Qt::AlignCenter;
             case 4: // speed
-                return QVariant(Qt::AlignRight | Qt::AlignVCenter);
+                return Qt::AlignCenter;
             case 3: //progress
                 return Qt::AlignCenter;
             default:
-                return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
+                return QVariant(Qt::AlignCenter);
         }
     }
 

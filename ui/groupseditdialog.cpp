@@ -88,9 +88,9 @@ void GroupsEditDialog::slotDeleteGroup()
     {
         QString groupName = dataModel->data(index, Qt::DisplayRole).toString();
 
-        if(groupName == i18n("Default Group"))
+        if(groupName == i18n("My Downloads"))
         {
-            KMessageBox::sorry(this, i18n("You can not delete the default group!"));
+            KMessageBox::sorry(this, i18n("You can not delete this group!"));
             continue;
         }
 

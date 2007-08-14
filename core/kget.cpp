@@ -447,7 +447,7 @@ KGet::KGet()
     loadPlugins();
 
     //Create the default group
-    addGroup(i18n("Default Group"));
+    addGroup(i18n("My Downloads"));
 }
 
 KGet::~KGet()

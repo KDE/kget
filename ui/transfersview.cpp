@@ -13,6 +13,7 @@
 #include <kdebug.h>
 
 #include <QDropEvent>
+#include <QHeaderView>
 
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent)
@@ -20,6 +21,7 @@ TransfersView::TransfersView(QWidget * parent)
     setRootIsDecorated(false);
     setAnimated(true);
     setAllColumnsShowFocus(true);
+    header()->setDefaultAlignment(Qt::AlignCenter);
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);

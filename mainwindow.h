@@ -54,9 +54,9 @@ protected:
 private slots:
     // slots connected to actions
     void slotNewTransfer();
-    void slotOpen();
-    void slotPreferences();
+    void slotImportTransfers();
     void slotExportTransfers();
+    void slotPreferences();
     void slotEditGroups();
     void slotDeleteGroup();
     void slotRenameGroup();

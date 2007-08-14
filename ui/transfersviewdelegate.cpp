@@ -14,6 +14,7 @@
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
+#include "core/transfertreeselectionmodel.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -23,12 +24,167 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QModelIndex>
-#include <QToolButton>
 #include <QButtonGroup>
 #include <QHBoxLayout>
 
-GroupStatusEditor::GroupStatusEditor(const TransfersViewDelegate * delegate, QWidget * parent)
+GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
+    : QToolButton(parent),
+      m_index(index),
+      m_timerId(-1),
+      m_iconSize(22),
+      m_gradientId(0)
+{
+
+}
+
+void GroupStatusButton::nextCheckState()
+{
+//     kDebug(5001) << "GroupStatusButton::nextCheckState";
+
+    setChecked(!isChecked());
+    if(isChecked())
+    {
+        m_gradientId = 0.7;
+        m_status = Selecting;
+    }
+    else
+    {
+        m_gradientId = 1;
+        m_status = Deselecting;
+    }
+
+    setMouseTracking(!isChecked());
+
+    if(m_timerId == -1)
+        m_timerId = startTimer(25);
+}
+
+void GroupStatusButton::enterEvent(QEvent * event)
+{
+    if(!isChecked())
+    {
+        m_status = Blinking;
+
+        if(m_timerId == -1)
+        {
+            m_timerId = startTimer(25);
+
+            if(m_status == !BlinkingExiting)
+                m_gradientId = 1;
+        }
+    }
+}
+
+void GroupStatusButton::leaveEvent(QEvent * event)
+{
+    if(m_status == Blinking)
+        m_status = BlinkingExiting;
+}
+
+void GroupStatusButton::paintEvent(QPaintEvent * event)
+{
+//     kDebug() << "GroupStatusButton::paintEvent";
+
+    QPainter p(this);
+
+    int offset = (event->rect().width() - m_iconSize) / 2;
+
+    if(m_gradientId == 0)
+        m_gradientId = isChecked() ? 1 : 0.7;
+
+    QRadialGradient gradient(event->rect().topLeft() + QPoint(event->rect().width() / 2, event->rect().height() / 2), event->rect().width() / 2);
+
+    QPen pen;
+
+    if(KGet::selectionModel()->isSelected(m_index))
+    {
+        gradient.setColorAt(0, QColor(palette().color(QPalette::AlternateBase)));
+        gradient.setColorAt(m_gradientId, QColor(palette().color(QPalette::Highlight)));
+        gradient.setColorAt(1, palette().color(QPalette::Highlight));
+        pen.setColor(palette().color(QPalette::AlternateBase));
+    }
+    else
+    {
+        gradient.setColorAt(0, QColor(palette().color(QPalette::Highlight)));
+        gradient.setColorAt(m_gradientId, QColor(palette().color(QPalette::AlternateBase)));
+        gradient.setColorAt(1, palette().color(QPalette::AlternateBase));
+        pen.setColor(palette().color(QPalette::Highlight));
+    }
+
+    QRect r = event->rect();
+    r.adjust(0,0,0,-1);
+
+    p.fillRect(r, gradient);
+
+    p.setRenderHint(QPainter::Antialiasing);
+
+    if(isChecked())
+    {
+        pen.setWidth(1);
+        p.setPen(pen);
+        p.drawEllipse(event->rect().x()+5, event->rect().y()+5, event->rect().width()-10, event->rect().width()-10);
+    }
+
+    p.drawPixmap(event->rect().topLeft() + QPoint(offset, offset),
+                 icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ?
+                                           QIcon::Normal : QIcon::Disabled));
+}
+
+void GroupStatusButton::timerEvent(QTimerEvent *event)
+{
+
+    if(m_status == Selecting)
+    {
+        m_gradientId+=0.05;
+
+        if(m_gradientId >= 1)
+        {
+            m_status = None;
+            m_gradientId = 1;
+            killTimer(m_timerId);
+            m_timerId = -1;
+        }
+    }
+    else if(m_status == Deselecting)
+    {
+        m_gradientId-=0.05;
+
+        if(m_gradientId <= 0.7)
+        {
+            m_status = None;
+            m_gradientId = 0.7;
+            killTimer(m_timerId);
+            m_timerId = -1;
+        }
+    }
+    else if(m_status == Blinking)
+    {
+        m_gradientId-=0.01;
+
+        if(m_gradientId <= 0.7)
+        {
+            m_gradientId = 1;
+        }
+    }
+    else if(m_status == BlinkingExiting)
+    {
+        m_gradientId-=0.01;
+
+        if(m_gradientId <= 0.7)
+        {
+            m_status = None;
+            m_gradientId = 0.7;
+            killTimer(m_timerId);
+            m_timerId = -1;
+        }
+    }
+
+    update();
+}
+
+GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersViewDelegate * delegate, QWidget * parent)
     : QWidget(parent),
+      m_index(index),
       m_delegate(delegate)
 {
     m_layout = new QHBoxLayout();
@@ -38,20 +194,22 @@ GroupStatusEditor::GroupStatusEditor(const TransfersViewDelegate * delegate, QWi
     m_btGroup = new QButtonGroup(this);
     m_btGroup->setExclusive(true);
 
-    m_startBt = new QToolButton(this);
+    m_startBt = new GroupStatusButton(m_index, this);
     m_startBt->setCheckable(true);
     m_startBt->setAutoRaise(true);
     m_startBt->setIcon(KIcon("media-playback-start"));
-    m_startBt->setFixedSize(20, 20);
+    m_startBt->setFixedSize(36, 36);
+    m_startBt->setIconSize(QSize(22, 22));
     m_startBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
     m_layout->addWidget(m_startBt);
     m_btGroup->addButton(m_startBt);
 
-    m_stopBt = new QToolButton(this);
+    m_stopBt = new GroupStatusButton(m_index, this);
     m_stopBt->setCheckable(true);
     m_stopBt->setAutoRaise(true);
     m_stopBt->setIcon(KIcon("media-playback-pause"));
-    m_stopBt->setFixedSize(20, 20);
+    m_stopBt->setFixedSize(36, 36);
+    m_stopBt->setIconSize(QSize(22, 22));
     m_stopBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
     m_layout->addWidget(m_stopBt);
     m_btGroup->addButton(m_stopBt);
@@ -101,7 +259,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 
         if (option.state & QStyle::State_Selected)
         {
-            painter->fillRect(option.rect, option.palette.highlight());
+            //painter->fillRect(option.rect, option.palette.highlight());
 //             painter->setBrush(option.palette.highlightedText());
         }
         else
@@ -150,7 +308,7 @@ QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptio
     Q_UNUSED(option);
     Q_UNUSED(index);
 
-    GroupStatusEditor * groupsStatusEditor = new GroupStatusEditor(this, parent);
+    GroupStatusEditor * groupsStatusEditor = new GroupStatusEditor(index, this, parent);
 
     return groupsStatusEditor;
 }

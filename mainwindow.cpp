@@ -99,13 +99,13 @@ void MainWindow::setupActions()
     newDownloadAction->setShortcuts(KShortcut("Ctrl+N"));
     connect(newDownloadAction, SIGNAL(triggered()), SLOT(slotNewTransfer()));
 
-    QAction *openAction = actionCollection()->addAction("open");
-    openAction->setText(i18n("&Open..."));
+    QAction *openAction = actionCollection()->addAction("import_transfers");
+    openAction->setText(i18n("&Import Transfers..."));
     openAction->setIcon(KIcon("document-open"));
-    openAction->setShortcuts(KShortcut("Ctrl+O"));
-    connect(openAction, SIGNAL(triggered()), SLOT(slotOpen()));
+    openAction->setShortcuts(KShortcut("Ctrl+I"));
+    connect(openAction, SIGNAL(triggered()), SLOT(slotImportTransfers()));
 
-    QAction *exportAction = actionCollection()->addAction("export_downloads");
+    QAction *exportAction = actionCollection()->addAction("export_transfers");
     exportAction->setText(i18n("&Export Transfers List..."));
     exportAction->setIcon(KIcon("file-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
@@ -278,7 +278,7 @@ void MainWindow::slotNewTransfer()
     KGet::addTransfer(KUrl());
 }
 
-void MainWindow::slotOpen()
+void MainWindow::slotImportTransfers()
 {
     QString filename = KFileDialog::getOpenFileName(KUrl(),
                                                     "*.kgt *.metalink|" + i18n("All Openable Files") +
