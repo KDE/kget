@@ -37,19 +37,22 @@ GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent
 
 }
 
-void GroupStatusButton::nextCheckState()
+void GroupStatusButton::checkStateSet()
 {
-//     kDebug(5001) << "GroupStatusButton::nextCheckState";
+//     kDebug(5001) << "GroupStatusButton::checkStateSet";
 
-    setChecked(!isChecked());
+    QToolButton::checkStateSet();
+
     if(isChecked())
     {
-        m_gradientId = 0.7;
+        if(m_status = None)
+            m_gradientId = 0.7;
         m_status = Selecting;
     }
     else
     {
-        m_gradientId = 1;
+        if(m_status = None)
+            m_gradientId = 1;
         m_status = Deselecting;
     }
 
@@ -187,6 +190,8 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersV
       m_index(index),
       m_delegate(delegate)
 {
+    setMinimumWidth(80);
+
     m_layout = new QHBoxLayout();
     m_layout->addStretch();
     setLayout(m_layout);

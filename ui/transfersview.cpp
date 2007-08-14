@@ -22,6 +22,7 @@ TransfersView::TransfersView(QWidget * parent)
     setAnimated(true);
     setAllColumnsShowFocus(true);
     header()->setDefaultAlignment(Qt::AlignCenter);
+    header()->setMinimumSectionSize(80);
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);

@@ -30,7 +30,7 @@ class GroupStatusButton : public QToolButton
         GroupStatusButton(const QModelIndex & index, QWidget * parent=0);
 
     protected:
-        void nextCheckState();
+        void checkStateSet();
         void enterEvent(QEvent * event);
         void leaveEvent(QEvent * event);
         void paintEvent(QPaintEvent * event);
@@ -67,7 +67,7 @@ class GroupStatusEditor : public QWidget
         QHBoxLayout * m_layout;
 
         QButtonGroup * m_btGroup;
-        GroupStatusButton * m_startBt;
+        QToolButton * m_startBt;
         GroupStatusButton * m_stopBt;
 };
 
@@ -98,3 +98,4 @@ class TransfersViewDelegate : public QItemDelegate
 };
 
 #endif
+
