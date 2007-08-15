@@ -366,7 +366,7 @@ void MainWindow::slotRenameGroup()
     foreach(TransferGroupHandler * it, KGet::selectedTransferGroups())
     {
         groupName = KInputDialog::getText(i18n("Enter Group Name"),
-                                          i18n("Group name:"), QString(), &ok, this);
+                                          i18n("Group name:"), it->name(), &ok, this);
         if(ok)
             it->setName(groupName);
     }
