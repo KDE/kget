@@ -35,7 +35,8 @@
 #include <set>
 
 KGet_plug_in::KGet_plug_in( QObject* parent )
-    : Plugin( parent )
+  : Plugin(parent),
+    view(0)
 {
     KActionMenu *menu = new KActionMenu(KIcon("kget"), i18n("Download Manager"),
                                         actionCollection());
@@ -136,12 +137,15 @@ void KGet_plug_in::slotShowLinks()
         return;
     }
 
-    KGetLinkView *view = new KGetLinkView();
+    if (!view)
+        view = new KGetLinkView();
+
     QString url = doc.URL().string();
     view->setPageUrl( url );
 
     view->setLinks( linkList );
     view->show();
+    view->raise();
 }
 
 KPluginFactory::KPluginFactory( QObject* parent )

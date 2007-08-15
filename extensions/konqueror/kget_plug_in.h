@@ -16,6 +16,8 @@
 
 class KToggleAction;
 
+class KGetLinkView;
+
 class KGet_plug_in : public KParts::Plugin
 {
     Q_OBJECT
@@ -23,6 +25,9 @@ public:
     KGet_plug_in( QObject* parent = 0 );
     KToggleAction *m_dropTargetAction;
     virtual ~KGet_plug_in();
+
+private:
+    KGetLinkView *view;
 
 private slots:
     void slotShowDrop();
