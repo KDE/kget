@@ -216,12 +216,12 @@ void DropTarget::dropEvent(QDropEvent * event)
         KUrl::List::Iterator itEnd = list.end();
 
         for( ; it!=itEnd ; ++it )
-            KGet::addTransfer(*it);
+            KGet::addTransfer(*it, QString(), QString(), true);
     }
     else
     {
         str = event->mimeData()->text();
-        KGet::addTransfer(KUrl(str));
+        KGet::addTransfer(KUrl(str), QString(), QString(), true);
     }
 
     if ( Settings::animateDropTarget() )
@@ -270,7 +270,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer), QString());
+            KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
     }
 }
 

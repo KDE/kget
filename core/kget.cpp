@@ -112,8 +112,8 @@ void KGet::delGroup(const QString& groupName)
     }
 }
 
-void KGet::addTransfer( KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalue
-                         const QString& groupName )
+void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalue
+                       const QString& groupName, bool start)
 {
     kDebug(5001) << " addTransfer:  " << srcUrl.url();
 
@@ -139,7 +139,7 @@ void KGet::addTransfer( KUrl srcUrl, QString destDir, // krazy:exclude=passbyval
     if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
         return;
 
-    createTransfer(srcUrl, destUrl, groupName);
+    createTransfer(srcUrl, destUrl, groupName, start);
 }
 
 void KGet::addTransfer(const QDomElement& e, const QString& groupName)
@@ -157,11 +157,11 @@ void KGet::addTransfer(const QDomElement& e, const QString& groupName)
          || !isValidDestDirectory(destUrl.directory()) )
         return;
 
-    createTransfer(srcUrl, destUrl, groupName, &e);
+    createTransfer(srcUrl, destUrl, groupName, false, &e);
 }
 
 void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=passbyvalue
-                        const QString& groupName)
+                       const QString& groupName, bool start)
 {
     KUrl::List urlsToDownload;
 
@@ -180,7 +180,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
     if ( urlsToDownload.count() == 1 )
     {
         // just one file -> ask for filename
-        addTransfer(srcUrls.first(), destDir, groupName);
+        addTransfer(srcUrls.first(), destDir, groupName, start);
         return;
     }
 
@@ -200,7 +200,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
         if(!isValidDestUrl(destUrl))
             continue;
 
-        createTransfer(*it, destUrl, groupName);
+        createTransfer(*it, destUrl, groupName, start);
     }
 }
 
@@ -456,7 +456,8 @@ KGet::~KGet()
     delete(m_scheduler);
 }
 
-void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, const QDomElement * e)
+void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
+                          bool start, const QDomElement * e)
 {
     kDebug(5001) << "createTransfer: srcUrl= " << src.url() << "  " 
                              << "destUrl= " << dest.url() 
@@ -480,6 +481,10 @@ void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
         {
 //             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
             m_transferTreeModel->addTransfer(newTransfer, group);
+
+            if(start)
+                newTransfer->handler()->start();
+
             return;
         }
     }

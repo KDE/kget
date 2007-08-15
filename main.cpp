@@ -78,7 +78,7 @@ public:
         }
         // all the args read from command line are downloads
         if (l.count() >= 1)
-            KGet::addTransfer( l );
+            KGet::addTransfer(l, QString(), QString(), true);
 /*
         // the last arg read (when we have more than 1 arg) is considered
         // as destination dir for the previous downloads

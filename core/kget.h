@@ -94,9 +94,11 @@ class KGET_EXPORT KGet
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
+         * @param start Specifies if the newly added transfers should be started.
+         * If the group queue is already in a running state, this flag does nothing
          */
         static void addTransfer(KUrl srcUrl, QString destDir = QString(),
-                                const QString& groupName = QString());
+                                const QString& groupName = QString(), bool start=false);
 
         /**
          * Adds a new transfer to the KGet
@@ -113,9 +115,11 @@ class KGET_EXPORT KGet
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
          * @param groupName The name of the group the new transfer will belong to
+         * @param start Specifies if the newly added transfers should be started.
+         * If the group queue is already in a running state, this flag does nothing
          */
         static void addTransfer(KUrl::List srcUrls, QString destDir = QString(),
-                                const QString& groupName = QString());
+                                const QString& groupName = QString(), bool start=false);
 
         /**
          * Removes a transfer from the KGet
@@ -207,8 +211,9 @@ class KGET_EXPORT KGet
          * @param src the source url
          * @param dest the destination url
          * @param groupName the group name
+         * @param start Specifies if the newly added transfers should be started.
          */
-        static void createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), const QDomElement * e = 0);
+        static void createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers

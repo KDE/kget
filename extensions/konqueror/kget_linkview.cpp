@@ -133,7 +133,7 @@ void KGetLinkView::slotStartLeech()
     else
     {
         OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-        kgetInterface.addTransfers(urls.join(";"), QString());
+        kgetInterface.addTransfers(urls.join(";"), QString(), true);
     }
 
     accept(); // close the dialog

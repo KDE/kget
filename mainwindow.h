@@ -34,7 +34,8 @@ public:
     ~MainWindow();
 
     // from the DBUS interface
-    virtual void addTransfers(const QString& src, const QString& destDir = QString());
+    virtual void addTransfers(const QString& src, const QString& destDir = QString(), 
+                              bool start = false);
     virtual bool dropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );
     virtual void setOfflineMode( bool online );

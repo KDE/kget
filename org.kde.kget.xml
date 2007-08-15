@@ -17,6 +17,7 @@
     <method name="addTransfers">
       <arg type="s" direction="in"/>
       <arg type="s" direction="in"/>
-    </method>
+      <arg type="b" direction="in"/>
+  </method>
   </interface>
 </node>

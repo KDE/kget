@@ -36,24 +36,25 @@ class KGET_EXPORT Job
          * The status property describes the current job status
          */
         enum Status {
-            Running, ///< The job is being executed
-            Delayed, ///< The job is delayed. This means that the scheduler should
-            /// not start it until it exits from the delayed state
-            Stopped, ///< The job is stopped
-            Aborted, ///< The job is stopped, but this also indicates that it
-            /// stopped because an error occurred
-            Finished ///< The job exited from its Running state successfully
+            Running, /// The job is being executed
+            Delayed, /// The job is delayed. This means that the scheduler should
+                     /// not start it until it exits from the delayed state
+            Stopped, /// The job is stopped
+            Aborted, /// The job is stopped, but this also indicates that it
+                     /// stopped because an error occurred
+            Finished /// The job exited from its Running state successfully
         };
 
         /**
          * The policy property describes how the scheduler should manage this job.
          */
-        enum Policy {Start, ///< The scheduler should start this job even if its queue
-            /// isn't in a Running status
-            Stop, ///< The scheduler shouldn't never start this job, even if
-            /// if its queue is in a Running status
-            None ///< The scheduler should start this job depending on its
-            /// queue status
+        enum Policy {
+            Start, /// The scheduler should start this job even if its queue
+                   /// isn't in a Running status
+            Stop,  /// The scheduler shouldn't never start this job, even if
+                   /// if its queue is in a Running status
+            None   /// The scheduler should start this job depending on its
+                   /// queue status
         };
 
         Job(JobQueue * parent, Scheduler * scheduler);

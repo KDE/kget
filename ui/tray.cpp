@@ -82,7 +82,7 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer), QString());
+            KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
     }
 }
 
