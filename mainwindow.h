@@ -30,7 +30,7 @@ class MainWindow : public KXmlGuiWindow
 {
 Q_OBJECT
 public:
-    explicit MainWindow(bool showMainwindow = true, QWidget *parent = 0);
+    explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, QWidget *parent = 0);
     ~MainWindow();
 
     // from the DBUS interface
@@ -108,6 +108,8 @@ private:
     QString lastClipboard;
     // timer for checking clipboard - autopaste function
     QTimer *clipboardTimer;
+
+    bool m_startWithoutAnimation;
 };
 
 #endif

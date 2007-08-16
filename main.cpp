@@ -58,7 +58,7 @@ public:
 
         if (!kget)
         {
-            kget = new MainWindow(!args->isSet("showDropTarget"));
+            kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"));
             new KgetAdaptor(kget);
             QDBusConnection::sessionBus().registerObject("/KGet", kget);
         }
@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
     KCmdLineOptions option;
     option.add("showDropTarget", ki18n("Start KGet with drop target"));
     option.add("hideMainWindow", ki18n("Start KGet with hidden main window"));
+    option.add("startWithoutAnimation", ki18n("Start KGet without drop target animation"));
     option.add("+[URL(s)]", ki18n("URL(s) to download"));
     KCmdLineArgs::addCmdLineOptions(option);
 

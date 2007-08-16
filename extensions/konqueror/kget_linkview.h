@@ -15,13 +15,27 @@
 
 #include "links.h"
 
-class QTreeWidget;
+class QTreeView;
+class QModelIndex;
+class QAbstractButton;
+class QButtonGroup;
+class QSortFilterProxyModel;
+
+static const QString WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.asp|\\.aspx|\\.jsp)).)*$)";
+static const QString MEDIA_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg|\\.avi|\\.mpeg|\\.mpg))";
+static const QString COMPRESSED_FILES_REGEXP = "(.(?:\\.zip|\\.tar|\\.tar.bz|\\.tar.gz|\\.rar))";
 
 class KGetLinkView : public KDialog
 {
     Q_OBJECT
 
 public:
+    enum DownloadFilterType {
+        NoFilter = 0,
+        MediaFiles=1,
+        CompressedFiles=2
+    };
+
     KGetLinkView(QWidget *parent = 0);
     ~KGetLinkView();
 
@@ -35,13 +49,25 @@ private slots:
     void slotStartLeech();
     void selectionChanged();
     void updateSelectAllText(const QString &text);
+    void doFilter(int id, const QString &textFilter = QString());
+    void checkAll();
+    void slotShowWebContent(int mode);
+    void uncheckItem(const QModelIndex &index);
 
 private:
     void showLinks( const QList<LinkItem*>& links );
-
+    QAbstractButton *createFilterButton(const char*, const char*, 
+                            QButtonGroup *group, int filterType, bool checked = false);
+    
     QList<LinkItem*> m_links;
 
-    QTreeWidget *m_treeWidget;
+    QTreeView *m_treeWidget;
+    QSortFilterProxyModel *m_proxyModel;
+    bool m_showWebContent;
+
+    QButtonGroup *filterButtonsGroup;
+    QPushButton *downloadCheckedButton;
+    QPushButton *checkAllButton;
 };
 
 #endif // KGET_LINKVIEW_H

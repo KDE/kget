@@ -43,9 +43,9 @@
 #include <QClipboard>
 #include <QTimer>
 
-MainWindow::MainWindow(bool showMainwindow, QWidget *parent)
+MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget *parent)
     : KXmlGuiWindow( parent ),
-      m_drop(0), m_dock(0)
+      m_drop(0), m_dock(0), m_startWithoutAnimation(startWithoutAnimation)
 {
     resize(720, 380); // have a reasonable initial size, will be overwritten later if the user changes it
 
@@ -262,7 +262,7 @@ void MainWindow::slotDelayedInit()
         Settings::setFirstRun(false);
     }
 
-    if (Settings::showDropTarget())
+    if (Settings::showDropTarget() && !m_startWithoutAnimation)
         m_drop->setVisible(true);
 
     //auto paste stuff
