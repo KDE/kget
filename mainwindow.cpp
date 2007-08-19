@@ -123,7 +123,7 @@ void MainWindow::setupActions()
 
     QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
     renameGroupAction->setText(i18n("Rename Group"));
-    editGroupAction->setIcon(KIcon("todolist"));
+    renameGroupAction->setIcon(KIcon("todolist"));
     connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
 
     m_autoPasteAction = new KToggleAction(KIcon("klipper"),
