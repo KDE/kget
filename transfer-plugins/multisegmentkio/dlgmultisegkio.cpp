@@ -21,10 +21,18 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("Url:"));
+    connect(ui.urlEdit,SIGNAL(textChanged(const QString &)),SLOT(slotChangeText()));
+    connect(ui.engineNameEdit,SIGNAL(textChanged(const QString &)),SLOT(slotChangeText()));
+    slotChangeText();
 }
 
 DlgEngineEditing::~DlgEngineEditing()
 {
+}
+
+void DlgEngineEditing::slotChangeText()
+{
+  ui.okButton->setEnabled(!ui.urlEdit->text().isEmpty());
 }
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
@@ -45,12 +53,12 @@ DlgSettingsWidget::~DlgSettingsWidget()
     MultiSegKioSettings::self()->writeConfig();
 }
 
-QString DlgEngineEditing::engineName()
+QString DlgEngineEditing::engineName() const
 {
     return ui.engineNameEdit->text();
 }
 
-QString DlgEngineEditing::engineUrl()
+QString DlgEngineEditing::engineUrl() const
 {
     return ui.urlEdit->text();
 }

@@ -22,8 +22,10 @@ public:
     DlgEngineEditing(QWidget *parent = 0);
     ~DlgEngineEditing();
 
-    QString engineName();
-    QString engineUrl();
+    QString engineName() const;
+    QString engineUrl() const;
+private slots:
+    void slotChangeText();
 
 private:
     Ui::DlgEngineEditing ui;
