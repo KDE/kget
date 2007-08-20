@@ -32,7 +32,7 @@
     <Menu name="help"><text>&amp;Help</text>
     </Menu>
 </MenuBar>
-<ToolBar fullWidth="true" name="kget_toolbar"><text>Main Toolbar</text>
+<ToolBar fullWidth="true" name="kget_toolbar" iconText="icontextright"><text>Main Toolbar</text>
     <Action name="new_download"/>
     <Separator lineSeparator="true"/>
     <Action name="start_menu"/>

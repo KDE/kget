@@ -20,6 +20,7 @@
 class ViewsContainer;
 class DropTarget;
 class Tray;
+class DBusModelObserver;
 
 /**
  * The main window of KGet.
@@ -40,6 +41,7 @@ public:
     virtual void setDropTargetVisible( bool setVisible );
     virtual void setOfflineMode( bool online );
     virtual bool offlineMode() const;
+    virtual QVariantMap transfers() const;
 
 public slots:
     void slotQuit();
@@ -94,6 +96,8 @@ private:
 
     // internal widgets
     ViewsContainer * m_viewsContainer;
+    // dbus modelObserver to export the transfer percents
+    DBusModelObserver *m_dbusModelObserver;
 
     // separated widgets
     DropTarget    * m_drop;

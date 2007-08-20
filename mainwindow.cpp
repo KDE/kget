@@ -17,6 +17,7 @@
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "dbus/dbusmodelobserver.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
 #include "ui/viewscontainer.h"
@@ -40,6 +41,7 @@
 #include <kicon.h>
 #include <kactionmenu.h>
 
+#include <QtDBus>
 #include <QClipboard>
 #include <QTimer>
 
@@ -58,6 +60,8 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
     createGUI("kgetui.rc");
 
     m_viewsContainer = new ViewsContainer(this);
+    // intialize the model observer to export percents over dbus
+    m_dbusModelObserver = new DBusModelObserver();
 
     setCentralWidget(m_viewsContainer);
 
@@ -624,6 +628,11 @@ void MainWindow::setOfflineMode( bool offline )
 bool MainWindow::offlineMode() const
 {
     return !KGet::schedulerRunning();
+}
+
+QVariantMap MainWindow::transfers() const
+{
+    return m_dbusModelObserver->transfers();
 }
 
 #include "mainwindow.moc"

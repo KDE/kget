@@ -18,6 +18,10 @@
       <arg type="s" direction="in"/>
       <arg type="s" direction="in"/>
       <arg type="b" direction="in"/>
-  </method>
+    </method>
+    <method name="transfers">
+       <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap"/> 
+       <arg name="out" type="a{sas}" direction="out"/>
+    </method>
   </interface>
 </node>
