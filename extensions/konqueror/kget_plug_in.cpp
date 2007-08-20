@@ -28,6 +28,7 @@
 #include <krun.h>
 #include <kicon.h>
 #include <dom/html_misc.h>
+#include <dom/html_document.h>
 #include <kparts/partmanager.h>
 
 #include <QtDBus>
