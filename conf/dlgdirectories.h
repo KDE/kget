@@ -31,7 +31,6 @@ private Q_SLOTS:
     void addButtonClicked();
     void removeButtonClicked();
     void changeButtonClicked();
-    void radioButtonClicked();
     void listItemClicked(QTreeWidgetItem *item);
     void addFolderForExtensionItem(const QString &extension, const QString &folder);
 };

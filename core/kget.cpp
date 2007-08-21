@@ -130,11 +130,19 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if ( !isValidSource( srcUrl ) )
         return;
 
-    if (!isValidDestDirectory(destDir) && !Settings::useDefaultDirectory())
-        destDir = destInputDialog();
-
     if (Settings::useDefaultDirectory())
-        destDir = getSaveDirectoryFromDefault(srcUrl);
+#ifdef Q_OS_WIN //krazy:exclude=cpp
+        destDir = Settings::defaultDirectory().remove("file:///");
+#else
+        destDir = Settings::defaultDirectory().remove("file://");
+#endif
+
+    QString checkExceptions = getSaveDirectoryFromExceptions(srcUrl);
+    if (Settings::enableExceptions() && !checkExceptions.isEmpty())
+        destDir = checkExceptions;
+
+    if (!isValidDestDirectory(destDir))
+        destDir = destInputDialog();
 
     if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
         return;
@@ -195,7 +203,19 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
 
     for ( ; it != itEnd; ++it )
     {
-        destUrl = getValidDestUrl(destDir.isEmpty() ? getSaveDirectoryFromDefault(*it) : destDir, *it);
+        if (Settings::useDefaultDirectory())
+#ifdef Q_OS_WIN //krazy:exclude=cpp
+            destDir = Settings::defaultDirectory().remove("file:///");
+#else
+            destDir = Settings::defaultDirectory().remove("file://");
+#endif
+        destDir = destDir.remove("file://");
+
+        QString checkExceptions = getSaveDirectoryFromExceptions(*it);
+        if (Settings::enableExceptions() && !checkExceptions.isEmpty())
+            destDir = checkExceptions;
+
+        destUrl = getValidDestUrl(destDir, *it);
 
         if(!isValidDestUrl(destUrl))
             continue;
@@ -564,11 +584,9 @@ QString KGet::destInputDialog()
     return destDir;
 }
 
-QString KGet::getSaveDirectoryFromDefault(const KUrl &filename)
+QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
 {
-// use global default folder as default.
-// if extension is matching with one in the list, overwrite it below.
-    QString destDir = Settings::defaultDirectory();
+    QString destDir;
 
     QStringList list = Settings::extensionsFolderList();
     QStringList::Iterator it = list.begin();

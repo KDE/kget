@@ -28,8 +28,8 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     connect(addButton, SIGNAL(clicked()), SLOT(addButtonClicked()));
     connect(removeButton, SIGNAL(clicked()), SLOT(removeButtonClicked()));
     connect(changeButton, SIGNAL(clicked()), SLOT(changeButtonClicked()));
-    connect(askRadioButton, SIGNAL(clicked()), SLOT(radioButtonClicked()));
-    connect(kcfg_UseDefaultDirectory, SIGNAL(clicked()), SLOT(radioButtonClicked()));
+    connect(kcfg_EnableExceptions, SIGNAL(toggled(bool)), defaultFolderGroupBox, SLOT(setEnabled(bool)));
+    connect(kcfg_UseDefaultDirectory, SIGNAL(toggled(bool)), defaultFolderRequester, SLOT(setEnabled(bool)));
     connect(folderForExtensionList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), SLOT(listItemClicked(QTreeWidgetItem*)));
 
     readConfig();
@@ -104,11 +104,6 @@ void DlgDirectories::changeButtonClicked()
     removeButtonClicked();
 
     addButtonClicked();
-}
-
-void DlgDirectories::radioButtonClicked()
-{
-    defaultFolderGroupBox->setEnabled(kcfg_UseDefaultDirectory->isChecked());
 }
 
 void DlgDirectories::listItemClicked(QTreeWidgetItem *item)

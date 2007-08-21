@@ -90,6 +90,9 @@
     <entry name="DefaultDirectory" type="Path">
       <default>$HOME</default>
     </entry>
+    <entry name="EnableExceptions" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="ExtensionsFolderList" type="StringList" key="Items">
       <label>extRegExp, defaultFolder</label>
     </entry>

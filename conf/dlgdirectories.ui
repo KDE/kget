@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>364</width>
-    <height>369</height>
+    <width>357</width>
+    <height>391</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -20,7 +20,41 @@
    <item>
     <widget class="QRadioButton" name="kcfg_UseDefaultDirectory" >
      <property name="text" >
-      <string>Place new downloads inside default folders</string>
+      <string>Place new downloads inside default folder:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>10</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="KUrlRequester" name="defaultFolderRequester" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="kcfg_EnableExceptions" >
+     <property name="text" >
+      <string>Except for specific file types</string>
      </property>
     </widget>
    </item>
@@ -30,26 +64,9 @@
       <bool>false</bool>
      </property>
      <property name="title" >
-      <string/>
+      <string>Specify extension and target folder:</string>
      </property>
      <layout class="QVBoxLayout" >
-      <item>
-       <widget class="QLabel" name="defaultFolderLabel" >
-        <property name="text" >
-         <string>Default folder:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="KUrlRequester" name="defaultFolderRequester" />
-      </item>
-      <item>
-       <widget class="QLabel" name="matchingExtensionLabel" >
-        <property name="text" >
-         <string>Move downloads inside matching folder for extension:</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QTreeWidget" name="folderForExtensionList" >
         <property name="rootIsDecorated" >
@@ -190,7 +207,7 @@
      <property name="sizeHint" >
       <size>
        <width>336</width>
-       <height>16</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
