@@ -171,6 +171,7 @@ void MainWindow::setupActions()
     QAction *startAllAction = actionCollection()->addAction("start_all_download");
     startAllAction->setText(i18n("Start / Resume All"));
     startAllAction->setIcon(KIcon("media-seek-forward"));
+    startAllAction->setShortcuts(KShortcut("Ctrl+R"));
     connect(startAllAction, SIGNAL(triggered()), SLOT(slotStartAllDownload()));
 
     QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
@@ -181,6 +182,7 @@ void MainWindow::setupActions()
     QAction *stopAllAction = actionCollection()->addAction("stop_all_download");
     stopAllAction->setText(i18n("Stop All"));
     stopAllAction->setIcon(KIcon("media-playback-pause"));
+    stopAllAction->setShortcuts(KShortcut("Ctrl+P"));
     connect(stopAllAction, SIGNAL(triggered()), SLOT(slotStopAllDownload()));
 
     QAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
