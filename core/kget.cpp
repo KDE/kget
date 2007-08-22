@@ -13,6 +13,7 @@
 #include "mainwindow.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
+#include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 #include "core/plugin/plugin.h"
@@ -109,6 +110,16 @@ void KGet::delGroup(const QString& groupName)
         m_transferTreeModel->delGroup(group);
         postRemovedTransferGroupEvent(group);
         delete(group);
+    }
+}
+
+void KGet::renameGroup(const QString& oldName, const QString& newName)
+{
+    TransferGroup *group = m_transferTreeModel->findGroup(oldName);
+
+    if(group)
+    {
+        group->handler()->setName(newName);
     }
 }
 

@@ -88,6 +88,12 @@ TransferHandler * TransferGroupHandler::operator[] (int i)
     return (*m_group)[i]->handler();
 }
 
+void TransferGroupHandler::setName(const QString &name)
+{
+    m_group->setName(name);
+    postGroupChangedEvent();
+}
+
 QVariant TransferGroupHandler::data(int column)
 {
 //     kDebug(5001) << "TransferGroupHandler::data(" << column << ")";

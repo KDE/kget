@@ -89,7 +89,7 @@ class KGET_EXPORT TransferGroupHandler
         /**Set the group name
          * @param name group name
          */
-        void  setName(QString &name)    {m_group->setName(name);}
+        void  setName(const QString &name);
 
         /**
          * @return the group name

@@ -23,6 +23,7 @@ class PreferencesDialog : public KConfigDialog
         KTabWidget * pluginsWidget(){return plugins;}
     private:
         QWidget * appearance;
+        QWidget * groups;
         QWidget * network;
         QWidget * directories;
         QWidget * advanced;

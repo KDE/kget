@@ -47,12 +47,12 @@ install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 set(kget_SRCS
    conf/dlgdirectories.cpp
    conf/preferencesdialog.cpp
+   conf/transfersgroupwidget.cpp
    dbus/dbusmodelobserver.cpp
    dbus/dbustransfergroupobserver.cpp
    ui/droptarget.cpp
    ui/transfersview.cpp
    ui/transfersviewdelegate.cpp
-   ui/groupseditdialog.cpp
    ui/splash.cpp
    ui/transferdetails.cpp
    ui/tray.cpp

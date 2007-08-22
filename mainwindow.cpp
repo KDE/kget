@@ -23,7 +23,6 @@
 #include "ui/viewscontainer.h"
 #include "ui/tray.h"
 #include "ui/droptarget.h"
-#include "ui/groupseditdialog.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -114,11 +113,6 @@ void MainWindow::setupActions()
     exportAction->setIcon(KIcon("file-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
-
-    QAction *editGroupAction = actionCollection()->addAction("edit_groups");
-    editGroupAction->setText(i18n("Edit Groups..."));
-    editGroupAction->setIcon(KIcon("todolist"));
-    connect(editGroupAction, SIGNAL(triggered()), SLOT(slotEditGroups()));
 
     QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18n("Delete Group"));
@@ -346,13 +340,6 @@ void MainWindow::slotExportTransfers()
 
     if(!filename.isEmpty())
         KGet::save(filename);
-}
-
-void MainWindow::slotEditGroups()
-{
-    GroupsEditDialog dialog(this);
-
-    dialog.exec();
 }
 
 void MainWindow::slotDeleteGroup()

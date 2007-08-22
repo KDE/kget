@@ -60,7 +60,6 @@ private slots:
     void slotImportTransfers();
     void slotExportTransfers();
     void slotPreferences();
-    void slotEditGroups();
     void slotDeleteGroup();
     void slotRenameGroup();
     void slotStartDownload();

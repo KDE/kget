@@ -48,7 +48,7 @@ void TransferTreeModel::addGroup(TransferGroup * group)
 
 void TransferTreeModel::delGroup(TransferGroup * group)
 {
-    beginRemoveRows(QModelIndex(), m_transferGroups.size()-1, m_transferGroups.size()-1);
+    beginRemoveRows(QModelIndex(), m_transferGroups.indexOf(group), m_transferGroups.indexOf(group));
 
     m_transferGroups.removeAll(group);
     m_changedGroups.removeAll(group->handler());
@@ -260,6 +260,11 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
         flags |= Qt::ItemIsDragEnabled;
 
     flags |= Qt::ItemIsDropEnabled;
+
+    // We can edit all the groups but the default one
+    if(index.row() > 0) {
+        flags |= Qt::ItemIsEditable;
+    }
 
     return flags;
 }

@@ -13,6 +13,7 @@
 #include "ui_dlgnetwork.h"
 #include "dlgdirectories.h"
 #include "ui_dlgadvanced.h"
+#include "transfersgroupwidget.h"
 
 #include <klocale.h>
 #include <ktabwidget.h>
@@ -21,10 +22,13 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     : KConfigDialog(parent, "preferences", skeleton)
 {
     appearance = new QWidget(this);
+    groups = new QWidget(this);
     DlgDirectories *directories = new DlgDirectories(this);
     network = new QWidget(this);
     advanced = new QWidget(this);
     plugins = new KTabWidget(this);
+
+    groups->setLayout(new TransfersGroupWidget());
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
@@ -35,6 +39,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgAdv.setupUi(advanced);
 
     addPage(appearance, i18n("Appearance"), "video-display", i18n("Change appearance settings"));
+    addPage(groups, i18n("Groups"), "bookmark", i18n("Manage the groups"));
     addPage(directories, i18n("Folders"), "folder-open", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network-wired", i18n("Network and Downloads"));
     addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));

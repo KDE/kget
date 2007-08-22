@@ -88,6 +88,14 @@ class KGET_EXPORT KGet
         static void delGroup(const QString& groupName);
 
         /**
+         * Changes the name of the group
+         * 
+         * @param oldName the name of the group to be changed
+         * @param newName the new name of the group
+         */
+         static void renameGroup(const QString& oldName, const QString& newName);
+
+        /**
          * Adds a new transfer to the KGet
          *
          * @param srcUrl The url to be downloaded
