@@ -214,6 +214,15 @@ void MainWindow::setupActions()
     copyUrlAction->setText(i18n("Copy URL to Clipboard"));
     copyUrlAction->setIcon(KIcon("klipper"));
     connect(copyUrlAction, SIGNAL(triggered()), SLOT(slotTransfersCopySourceUrl()));
+
+    // show the drop target
+    QString message = !Settings::showDropTarget() ? i18n("Show drop target") 
+                                          : i18n("Hide drop target");
+
+    QAction *showDropTargetAction = actionCollection()->addAction("show_drop_target");
+    showDropTargetAction->setText(message);
+    showDropTargetAction->setIcon(KIcon("kget"));
+    connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -271,6 +280,16 @@ void MainWindow::slotDelayedInit()
     connect(clipboardTimer, SIGNAL(timeout()), SLOT(slotCheckClipboard()));
     if ( Settings::autoPaste() )
         clipboardTimer->start(1000);
+}
+
+void MainWindow::slotToggleDropTarget()
+{
+    // show_drop_target
+    QString message = m_drop->isVisible() ? i18n("Show drop target") 
+                                          : i18n("Hide drop target");
+    
+    m_drop->setVisible(!m_drop->isVisible());
+    actionCollection()->action("show_drop_target")->setText(message);
 }
 
 void MainWindow::slotNewTransfer()

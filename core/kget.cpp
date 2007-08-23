@@ -657,10 +657,7 @@ bool KGet::isValidSource(const KUrl &source)
         }
         else
         {
-            //transfer is not finished. Give an error message.
-            KMessageBox::error(0,
-                               i18n("Already saving URL\n%1", source.prettyUrl()),
-                               i18n("Error"));
+            //Transfer is already in list and not finished, ...
             return false;
         }
         return false;

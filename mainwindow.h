@@ -56,6 +56,7 @@ protected:
 
 private slots:
     // slots connected to actions
+    void slotToggleDropTarget();
     void slotNewTransfer();
     void slotImportTransfers();
     void slotExportTransfers();

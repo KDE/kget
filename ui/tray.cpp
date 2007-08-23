@@ -50,6 +50,7 @@ Tray::Tray(MainWindow * parent)
     cm->addAction( parent->actionCollection()->action("new_download") );
     cm->addAction( parent->actionCollection()->action("preferences") );
     cm->addAction( parent->actionCollection()->action("konqueror_integration") );
+    cm->addAction( parent->actionCollection()->action("show_drop_target") );
 
     // add tooltip telling "I'm kget"
     setToolTip( KGlobal::mainComponent().aboutData()->shortDescription() );

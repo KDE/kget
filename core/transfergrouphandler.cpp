@@ -183,10 +183,11 @@ KMenu * TransferGroupHandler::popupMenu()
 
     popup->addAction( KGet::actionCollection()->action("transfer_group_start") );
     popup->addAction( KGet::actionCollection()->action("transfer_group_stop") );
-    popup->addSeparator();
-    popup->addAction( KGet::actionCollection()->action("delete_groups") );
-    popup->addAction( KGet::actionCollection()->action("rename_groups") );
-
+    if(m_group->name() != i18n("My Downloads")) {
+        popup->addSeparator();
+        popup->addAction( KGet::actionCollection()->action("delete_groups") );
+        popup->addAction( KGet::actionCollection()->action("rename_groups") );
+    }
     return popup;
 }
 
