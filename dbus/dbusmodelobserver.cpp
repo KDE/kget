@@ -13,6 +13,7 @@
 #include "core/kget.h"
 #include "core/transfergrouphandler.h"
 #include "core/transferhandler.h"
+#include "core/job.h"
 
 #include <QObject>
 
@@ -77,9 +78,12 @@ void DBusModelObserver::slotTransferGroupChanged(TransferGroupHandler *handler)
 QStringList DBusModelObserver::getAttributesFromTransfer(TransferHandler *handler)
 {
     QStringList attributes;
+    QString status = (handler->status () == Job::Running) ? "1" : "0";
+
     attributes << handler->source().fileName();
     attributes << QString::number(handler->percent());
     attributes << QString::number(handler->totalSize());
+    attributes << status;
 
     return attributes;
 }
