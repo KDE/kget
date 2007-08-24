@@ -28,6 +28,7 @@ TransfersView::TransfersView(QWidget * parent)
     setDragEnabled(true);
     setAcceptDrops(true);
     setDropIndicatorShown(true);
+    setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 TransfersView::~TransfersView()
