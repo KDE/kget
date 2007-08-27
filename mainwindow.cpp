@@ -59,7 +59,7 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
     createGUI("kgetui.rc");
 
     m_viewsContainer = new ViewsContainer(this);
-    // intialize the model observer to export percents over dbus
+    // initialize the model observer to export percents over dbus
     m_dbusModelObserver = new DBusModelObserver();
 
     setCentralWidget(m_viewsContainer);
