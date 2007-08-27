@@ -10,8 +10,8 @@
    of the License.
 */
 
-#ifndef TRANSFER_GROUPS_WIDGET_H
-#define TRANSFER_GROUPS_WIDGET_H
+#ifndef TRANSFERS_GROUP_WIDGET_H
+#define TRANSFERS_GROUP_WIDGET_H
 
 #include <QVBoxLayout>
 #include <QTreeView>
@@ -32,6 +32,7 @@ public:
 public slots:
     void addGroup();
     void deleteSelectedGroup();
+    void openEditMode();
     void commitData(QWidget *editor);
 };
 
@@ -49,6 +50,7 @@ private:
     
     QPushButton *addButton;
     QPushButton *deleteButton;
+    QPushButton *renameButton;
 };
 
 #endif

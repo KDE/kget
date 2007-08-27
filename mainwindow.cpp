@@ -219,10 +219,10 @@ void MainWindow::setupActions()
     QString message = !Settings::showDropTarget() ? i18n("Show drop target") 
                                           : i18n("Hide drop target");
 
-    QAction *showDropTargetAction = actionCollection()->addAction("show_drop_target");
-    showDropTargetAction->setText(message);
-    showDropTargetAction->setIcon(KIcon("kget"));
-    connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
+    KActionMenu *showDropTargetActionMenu = new KActionMenu(KIcon("kget"), message,
+                                                    actionCollection());
+    actionCollection()->addAction("show_drop_target", showDropTargetActionMenu);
+    connect(showDropTargetActionMenu, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 }
 
 void MainWindow::slotDelayedInit()

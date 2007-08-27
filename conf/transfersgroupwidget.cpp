@@ -46,6 +46,7 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     header()->hideSection(3);
     header()->hideSection(4);
 
+    setItemsExpandable(false);
     setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
 }
 
@@ -84,6 +85,17 @@ void TransfersGroupTree::addGroup()
     }
 }
 
+void TransfersGroupTree::openEditMode()
+{
+    QItemSelectionModel *selModel = selectionModel();
+
+    QModelIndexList indexList = selModel->selectedRows();
+
+    foreach(QModelIndex index, indexList)
+    {
+        edit(index);
+    }
+}
 
 void TransfersGroupTree::deleteSelectedGroup()
 {
@@ -120,9 +132,13 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     deleteButton = new QPushButton(i18n("Delete"));
     deleteButton->setIcon(KIcon("list-remove"));
     deleteButton->setEnabled(false);
+    renameButton = new QPushButton(i18n("Rename"));
+    renameButton->setIcon(KIcon("editinput"));
+    renameButton->setEnabled(false);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
     buttonsLayout->addWidget(addButton);
+    buttonsLayout->addWidget(renameButton);
     buttonsLayout->addWidget(deleteButton);
 
     addWidget(m_view);
@@ -130,6 +146,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
 
     connect(addButton, SIGNAL(clicked()), m_view, SLOT(addGroup()));
     connect(deleteButton, SIGNAL(clicked()), m_view, SLOT(deleteSelectedGroup()));
+    connect(renameButton, SIGNAL(clicked()), m_view, SLOT(openEditMode()));
     connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
                 this, SLOT(slotSelectionChanged(const QItemSelection &, const QItemSelection &)));
 }
@@ -147,6 +164,7 @@ void TransfersGroupWidget::slotSelectionChanged(const QItemSelection &newSelecti
         }
     }
 
+    renameButton->setEnabled(canDelete);
     deleteButton->setEnabled(canDelete);
 }
 
