@@ -36,12 +36,12 @@ private slots:
 };
 
 
-class KPluginFactory : public KLibFactory
+class KGetPluginFactory : public KLibFactory
 {
     Q_OBJECT
 public:
-    KPluginFactory( QObject *parent = 0 );
-    ~KPluginFactory() ;
+    KGetPluginFactory( QObject *parent = 0 );
+    ~KGetPluginFactory() ;
 
     virtual QObject* createObject( QObject* parent = 0, const char* pname = 0,
                                    const QStringList &args = QStringList() );

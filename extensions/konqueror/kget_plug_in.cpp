@@ -149,19 +149,19 @@ void KGet_plug_in::slotShowLinks()
     view->raise();
 }
 
-KPluginFactory::KPluginFactory( QObject* parent )
+KGetPluginFactory::KGetPluginFactory( QObject* parent )
         : KLibFactory( parent )
 {
     s_instance = new KComponentData("KPluginFactory");
 }
 
-QObject* KPluginFactory::createObject( QObject* parent, const char*, const QStringList & )
+QObject* KGetPluginFactory::createObject( QObject* parent, const char*, const QStringList & )
 {
     QObject *obj = new KGet_plug_in( parent );
     return obj;
 }
 
-KPluginFactory::~KPluginFactory()
+KGetPluginFactory::~KGetPluginFactory()
 {
     delete s_instance;
 }
@@ -171,10 +171,10 @@ extern "C"
     KDE_EXPORT void* init_khtml_kget()
     {
         KGlobal::locale()->insertCatalog("kget");
-        return new KPluginFactory;
+        return new KGetPluginFactory;
     }
 }
 
-KComponentData* KPluginFactory::s_instance = 0L;
+KComponentData* KGetPluginFactory::s_instance = 0L;
 
 #include "kget_plug_in.moc"
