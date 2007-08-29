@@ -14,6 +14,7 @@
 #include <KDebug>
 
 DBusTransferGroupObserver::DBusTransferGroupObserver(QObject *parent)
+  : QObject(parent)
 {
 }
 
@@ -24,6 +25,7 @@ void DBusTransferGroupObserver::groupChangedEvent(TransferGroupHandler *group)
 
 void DBusTransferGroupObserver::addedTransferEvent(TransferHandler *transfer, TransferHandler *after)
 {
+    Q_UNUSED(after);
     emit transferAdded(transfer);
 }
 

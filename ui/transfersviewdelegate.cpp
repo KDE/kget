@@ -45,13 +45,13 @@ void GroupStatusButton::checkStateSet()
 
     if(isChecked())
     {
-        if(m_status = None)
+        if(m_status == None)
             m_gradientId = 0.7;
         m_status = Selecting;
     }
     else
     {
-        if(m_status = None)
+        if(m_status == None)
             m_gradientId = 1;
         m_status = Deselecting;
     }
@@ -64,6 +64,7 @@ void GroupStatusButton::checkStateSet()
 
 void GroupStatusButton::enterEvent(QEvent * event)
 {
+    Q_UNUSED(event);
     if(!isChecked())
     {
         m_status = Blinking;
@@ -80,13 +81,14 @@ void GroupStatusButton::enterEvent(QEvent * event)
 
 void GroupStatusButton::leaveEvent(QEvent * event)
 {
+    Q_UNUSED(event);
     if(m_status == Blinking)
         m_status = BlinkingExiting;
 }
 
 void GroupStatusButton::paintEvent(QPaintEvent * event)
 {
-//     kDebug() << "GroupStatusButton::paintEvent";
+    Q_UNUSED(event);
 
     QPainter p(this);
 
@@ -135,6 +137,7 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
 
 void GroupStatusButton::timerEvent(QTimerEvent *event)
 {
+    Q_UNUSED(event);
 
     if(m_status == Selecting)
     {
@@ -187,8 +190,8 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
 
 GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersViewDelegate * delegate, QWidget * parent)
     : QWidget(parent),
-      m_index(index),
-      m_delegate(delegate)
+      m_delegate(delegate),
+      m_index(index)
 {
     setMinimumWidth(80);
 

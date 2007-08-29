@@ -12,7 +12,7 @@
 #define PLUGIN_KGET_PLUG_IN_H
 
 #include <kparts/plugin.h>
-#include <klibloader.h>
+#include <KPluginFactory>
 
 class KToggleAction;
 
@@ -36,7 +36,7 @@ private slots:
 };
 
 
-class KGetPluginFactory : public KLibFactory
+class KGetPluginFactory : public KPluginFactory
 {
     Q_OBJECT
 public:
@@ -45,9 +45,6 @@ public:
 
     virtual QObject* createObject( QObject* parent = 0, const char* pname = 0,
                                    const QStringList &args = QStringList() );
-
-private:
-    static KComponentData* s_instance;
 };
 
 #endif

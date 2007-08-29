@@ -150,9 +150,8 @@ void KGet_plug_in::slotShowLinks()
 }
 
 KGetPluginFactory::KGetPluginFactory( QObject* parent )
-        : KLibFactory( parent )
+  : KPluginFactory("kget", "kget", parent)
 {
-    s_instance = new KComponentData("KPluginFactory");
 }
 
 QObject* KGetPluginFactory::createObject( QObject* parent, const char*, const QStringList & )
@@ -163,7 +162,6 @@ QObject* KGetPluginFactory::createObject( QObject* parent, const char*, const QS
 
 KGetPluginFactory::~KGetPluginFactory()
 {
-    delete s_instance;
 }
 
 extern "C"
@@ -174,7 +172,5 @@ extern "C"
         return new KGetPluginFactory;
     }
 }
-
-KComponentData* KGetPluginFactory::s_instance = 0L;
 
 #include "kget_plug_in.moc"

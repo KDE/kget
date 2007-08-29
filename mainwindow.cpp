@@ -215,14 +215,11 @@ void MainWindow::setupActions()
     copyUrlAction->setIcon(KIcon("klipper"));
     connect(copyUrlAction, SIGNAL(triggered()), SLOT(slotTransfersCopySourceUrl()));
 
-    // show the drop target
-    QString message = !Settings::showDropTarget() ? i18n("Show drop target") 
-                                          : i18n("Hide drop target");
-
-    KActionMenu *showDropTargetActionMenu = new KActionMenu(KIcon("kget"), message,
-                                                    actionCollection());
-    actionCollection()->addAction("show_drop_target", showDropTargetActionMenu);
-    connect(showDropTargetActionMenu, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
+    KToggleAction *showDropTargetAction = new KToggleAction(KIcon("kget"),
+                                          i18n("Show Drop Target"), actionCollection());
+    actionCollection()->addAction("show_drop_target", showDropTargetAction);
+    showDropTargetAction->setChecked(Settings::showDropTarget());
+    connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -284,12 +281,9 @@ void MainWindow::slotDelayedInit()
 
 void MainWindow::slotToggleDropTarget()
 {
-    // show_drop_target
-    QString message = m_drop->isVisible() ? i18n("Show drop target") 
-                                          : i18n("Hide drop target");
-    
+    actionCollection()->action("show_drop_target")->setChecked(!m_drop->isVisible());
+
     m_drop->setVisible(!m_drop->isVisible());
-    actionCollection()->action("show_drop_target")->setText(message);
 }
 
 void MainWindow::slotNewTransfer()
@@ -614,7 +608,7 @@ void MainWindow::dropEvent(QDropEvent * event)
 void MainWindow::addTransfers(const QString& src, const QString& dest, bool start)
 {
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    KGet::addTransfer(src.split(";"), dest, QString(), true);
+    KGet::addTransfer(src.split(";"), dest, QString(), start);
 }
 
 bool MainWindow::dropTargetVisible() const

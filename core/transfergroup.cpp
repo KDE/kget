@@ -126,6 +126,7 @@ TransferGroupHandler * TransferGroup::handler()
 
 void TransferGroup::transferChangedEvent(Transfer * transfer)
 {
+    Q_UNUSED(transfer);
     m_handler->postGroupChangedEvent();
 }
 
