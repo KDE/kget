@@ -48,6 +48,7 @@ set(kget_SRCS
    conf/dlgdirectories.cpp
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
+   conf/selectdirectoryitemdelegate.cpp
    dbus/dbusmodelobserver.cpp
    dbus/dbustransfergroupobserver.cpp
    ui/droptarget.cpp

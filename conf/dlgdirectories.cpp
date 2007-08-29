@@ -9,8 +9,11 @@
 */
 
 #include "dlgdirectories.h"
+#include "selectdirectoryitemdelegate.h"
 
 #include "settings.h"
+
+#include <QHeaderView>
 
 #include <KMessageBox>
 
@@ -22,15 +25,23 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     removeButton->setIcon(KIcon("list-remove"));
     changeButton->setIcon(KIcon("edit-redo"));
 
-    defaultFolderRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
-    folderForExtensionRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+    folderForExtensionList->verticalHeader()->setVisible(false);
+    folderForExtensionList->horizontalHeader()->setClickable(false);
+    folderForExtensionList->horizontalHeader()->setMovable(false);
+    folderForExtensionList->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
+    folderForExtensionList->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
+    folderForExtensionList->setItemDelegateForColumn(1, new SelectDirectoryItemDelegate(parent));
+
 
     connect(addButton, SIGNAL(clicked()), SLOT(addButtonClicked()));
     connect(removeButton, SIGNAL(clicked()), SLOT(removeButtonClicked()));
     connect(changeButton, SIGNAL(clicked()), SLOT(changeButtonClicked()));
     connect(kcfg_EnableExceptions, SIGNAL(toggled(bool)), defaultFolderGroupBox, SLOT(setEnabled(bool)));
     connect(kcfg_UseDefaultDirectory, SIGNAL(toggled(bool)), defaultFolderRequester, SLOT(setEnabled(bool)));
-    connect(folderForExtensionList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), SLOT(listItemClicked(QTreeWidgetItem*)));
+    connect(folderForExtensionList->selectionModel(),
+                        SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection&)),
+                        SLOT(listItemClicked(const QItemSelection &, const QItemSelection&)));
+    connect(folderForExtensionList, SIGNAL(cellChanged(int, int)), SLOT(slotExtensionDataChanged(int, int)));
 
     readConfig();
 }
@@ -67,51 +78,60 @@ void DlgDirectories::saveSettings()
     Settings::setDefaultDirectory(defaultFolderRequester->url().url());
 
     QStringList list;
-    QTreeWidgetItemIterator it(folderForExtensionList);
-    while (*it) {
-        list.append((*it)->text(0));
-        list.append((*it)->text(1));
-        ++it;
-    }
-    Settings::setExtensionsFolderList(list);
 
+    for(int row=0;row<folderForExtensionList->rowCount();row++) {
+        QString extension = folderForExtensionList->item(row, 0)->text();
+        QString path = folderForExtensionList->item(row, 1)->text();
+
+        if(QString::compare(QString(""), extension) != 0 &&
+                    QString::compare(QString(""), path) != 0) {
+
+            list.append(extension);
+            list.append(path);
+        }
+    }
+
+    Settings::setExtensionsFolderList(list);
     Settings::self()->writeConfig();
 }
 
 void DlgDirectories::addButtonClicked()
 {
-    addFolderForExtensionItem(extensionLineEdit->text(), folderForExtensionRequester->url().url());
-    extensionLineEdit->clear();
-    folderForExtensionRequester->clear();
-    extensionLineEdit->setFocus();
+    int newRow = folderForExtensionList->rowCount();
+    folderForExtensionList->setRowCount(newRow + 1);
 
-    saveSettings();
+    folderForExtensionList->setItem(newRow, 0, new QTableWidgetItem("*.*"));
+    folderForExtensionList->setItem(newRow, 1, new QTableWidgetItem(""));
+
+    folderForExtensionList->edit(folderForExtensionList->model()->index(newRow, 0));
+    folderForExtensionList->selectRow(newRow);
 }
 
 void DlgDirectories::removeButtonClicked()
 {
-    QList<QTreeWidgetItem *> selectedItems = folderForExtensionList->selectedItems();
-
-    foreach(QTreeWidgetItem *selectedItem, selectedItems)
-        delete(selectedItem);
-
+    int row = folderForExtensionList->currentRow();
+    folderForExtensionList->removeRow(row);
     saveSettings();
+
+    folderForExtensionList->clearSelection();
+    changeButton->setEnabled(false);
+    removeButton->setEnabled(false);
 }
 
 void DlgDirectories::changeButtonClicked()
 {
-// it works this way, but it could be improved with really update item; not just remove and add the item
-    removeButtonClicked();
-
-    addButtonClicked();
+    int row = folderForExtensionList->currentRow();
+    int column = folderForExtensionList->currentColumn();
+    folderForExtensionList->edit(folderForExtensionList->model()->index(row, column));
 }
 
-void DlgDirectories::listItemClicked(QTreeWidgetItem *item)
+void DlgDirectories::listItemClicked(const QItemSelection &selected, const QItemSelection &deselected)
 {
-    extensionLineEdit->setText(item->text(0));
-    folderForExtensionRequester->setUrl(item->text(1));
-    extensionLineEdit->setFocus();
+    Q_UNUSED(selected)
+    Q_UNUSED(deselected)
+
     changeButton->setEnabled(true);
+    removeButton->setEnabled(true);
 }
 
 void DlgDirectories::addFolderForExtensionItem(const QString &extension, const QString &folder)
@@ -121,11 +141,31 @@ void DlgDirectories::addFolderForExtensionItem(const QString &extension, const Q
         return;
     }
 
-    folderForExtensionList->addTopLevelItem(new QTreeWidgetItem(QStringList() << extension << folder));
+    int newRow = folderForExtensionList->rowCount();
+    folderForExtensionList->setRowCount(newRow + 1);
+
+    folderForExtensionList->setItem(newRow, 0, new QTableWidgetItem(extension));
+    folderForExtensionList->setItem(newRow, 1, new QTableWidgetItem(folder));
+
     folderForExtensionList->clearSelection();
     folderForExtensionList->sortItems(0, Qt::AscendingOrder);
 
     changeButton->setEnabled(false);
+}
+
+void DlgDirectories::slotExtensionDataChanged(int row, int column)
+{
+    Q_UNUSED(column)
+
+    if(folderForExtensionList->item(row, 0) && folderForExtensionList->item(row, 1)) {
+        // we check if the extension isn't empty and the path is correct before call saveSettings
+        QString extension = folderForExtensionList->item(row, 0)->text();
+        QString path = folderForExtensionList->item(row, 1)->text();
+
+        if(QString::compare(QString(""), extension) != 0 && QString::compare(QString(""), path) != 0) {
+            saveSettings();
+        }
+    }
 }
 
 #include "dlgdirectories.moc"

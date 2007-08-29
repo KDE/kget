@@ -68,12 +68,24 @@
      </property>
      <layout class="QVBoxLayout" >
       <item>
-       <widget class="QTreeWidget" name="folderForExtensionList" >
-        <property name="rootIsDecorated" >
+       <widget class="QTableWidget" name="folderForExtensionList" >
+        <property name="editTriggers" >
+         <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="tabKeyNavigation" >
          <bool>false</bool>
         </property>
-        <property name="allColumnsShowFocus" >
+        <property name="alternatingRowColors" >
          <bool>true</bool>
+        </property>
+        <property name="selectionMode" >
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior" >
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="showGrid" >
+         <bool>false</bool>
         </property>
         <column>
          <property name="text" >
@@ -86,59 +98,6 @@
          </property>
         </column>
        </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="extensionLabel" >
-          <property name="text" >
-           <string>Extension:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="extensionLineEdit" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="folderLabel" >
-          <property name="text" >
-           <string>Folder:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="KUrlRequester" name="folderForExtensionRequester" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
       <item>
        <widget class="QLabel" name="extensionDescriptionLabel" >

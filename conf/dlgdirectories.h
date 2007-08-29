@@ -15,7 +15,7 @@
 
 #include "ui_dlgdirectories.h"
 
-class QTreeWidgetItem;
+class QItemSelection;
 
 class DlgDirectories : public QWidget, public Ui::DlgDirectories
 {
@@ -31,8 +31,9 @@ private Q_SLOTS:
     void addButtonClicked();
     void removeButtonClicked();
     void changeButtonClicked();
-    void listItemClicked(QTreeWidgetItem *item);
+    void listItemClicked(const QItemSelection &selected, const QItemSelection &deselected);
     void addFolderForExtensionItem(const QString &extension, const QString &folder);
+    void slotExtensionDataChanged(int row, int column);
 };
 
 #endif
