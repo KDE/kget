@@ -58,6 +58,7 @@ set(kget_SRCS
    ui/transferdetails.cpp
    ui/tray.cpp
    ui/viewscontainer.cpp
+   ui/newtransferdialog.cpp
    mainwindow.cpp
    main.cpp
 )
@@ -70,6 +71,7 @@ kde4_add_ui_files(kget_SRCS
    conf/dlgdirectories.ui
    conf/dlgnetwork.ui
    ui/transferdetailsfrm.ui
+   ui/newtransferdialog.ui
 )
 
 kde4_add_executable(kget ${kget_SRCS})

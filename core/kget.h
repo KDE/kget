@@ -39,6 +39,7 @@ class TransferTreeSelectionModel;
 class ModelObserver;
 class KGetPlugin;
 class MainWindow;
+class NewTransferDialog;
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are
@@ -52,6 +53,8 @@ class MainWindow;
 
 class KGET_EXPORT KGet
 {
+    friend class NewTransferDialog;
+
     public:
         static KGet& self( MainWindow * mainWindow=0 );
 
@@ -93,7 +96,12 @@ class KGET_EXPORT KGet
          * @param oldName the name of the group to be changed
          * @param newName the new name of the group
          */
-         static void renameGroup(const QString& oldName, const QString& newName);
+        static void renameGroup(const QString& oldName, const QString& newName);
+
+        /**
+         * @returns the name of the available transfers groups
+         */
+        static QStringList transferGroupNames();
 
         /**
          * Adds a new transfer to the KGet

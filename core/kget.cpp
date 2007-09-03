@@ -123,6 +123,17 @@ void KGet::renameGroup(const QString& oldName, const QString& newName)
     }
 }
 
+QStringList KGet::transferGroupNames()
+{
+    QStringList names;
+
+    foreach(TransferGroup *group, m_transferTreeModel->transferGroups()) {
+        names << group->name();
+    }
+
+    return names;
+}
+
 void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalue
                        const QString& groupName, bool start)
 {

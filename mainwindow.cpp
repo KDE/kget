@@ -23,6 +23,7 @@
 #include "ui/viewscontainer.h"
 #include "ui/tray.h"
 #include "ui/droptarget.h"
+#include "ui/newtransferdialog.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -288,7 +289,7 @@ void MainWindow::slotToggleDropTarget()
 
 void MainWindow::slotNewTransfer()
 {
-    KGet::addTransfer(KUrl());
+    NewTransferDialog::showNewTransferDialog();
 }
 
 void MainWindow::slotImportTransfers()
