@@ -37,7 +37,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     KTitleWidget *title = new KTitleWidget(this);
 
     title->setText(i18n("New Download"));
-    title->setPixmap(KIcon("kget").pixmap(22, 22), KTitleWidget::ImageLeft);
+    title->setPixmap(KIcon("document-new").pixmap(22), KTitleWidget::ImageLeft);
     layout->addWidget(title);
     layout->addWidget(m_transferWidget);
     mainWidget->setLayout(layout);

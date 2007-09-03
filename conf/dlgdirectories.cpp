@@ -25,6 +25,8 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     removeButton->setIcon(KIcon("list-remove"));
     changeButton->setIcon(KIcon("edit-redo"));
 
+    defaultFolderRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+
     folderForExtensionList->verticalHeader()->setVisible(false);
     folderForExtensionList->horizontalHeader()->setClickable(false);
     folderForExtensionList->horizontalHeader()->setMovable(false);
