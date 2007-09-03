@@ -119,7 +119,9 @@ NewTransferWidget::NewTransferWidget(QWidget *parent)
     groupComboBox->setCurrentIndex(0);
 
     // common usefull folders for the combobox of the url requester
-    folderRequester->comboBox()->addItem(Settings::lastDirectory());
+    if(!Settings::lastDirectory().isEmpty()) {
+        folderRequester->comboBox()->addItem(Settings::lastDirectory());
+    }
     folderRequester->comboBox()->addItem(QDir::homePath());
 }
 
