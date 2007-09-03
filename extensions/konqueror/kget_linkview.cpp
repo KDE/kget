@@ -175,7 +175,7 @@ void KGetLinkView::slotStartLeech()
         QStandardItem *checkeableItem = model->item(row, 1);
 
         if(checkeableItem->checkState() == Qt::Checked) {
-            urls.append(model->data(model->index(row, 3)).toString());
+            urls.append(model->data(model->index(row, 4)).toString());
         }
     }
 

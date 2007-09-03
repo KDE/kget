@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>357</width>
+    <width>436</width>
     <height>391</height>
    </rect>
   </property>
@@ -100,16 +100,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="extensionDescriptionLabel" >
-        <property name="text" >
-         <string>Use a regexp expression for the extension. Example: *.tar.gz</string>
-        </property>
-        <property name="wordWrap" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" >
         <property name="spacing" >
          <number>6</number>
@@ -134,23 +124,43 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="changeButton" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="text" >
+           <string>Edit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="removeButton" >
           <property name="text" >
            <string>Remove</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="changeButton" >
-          <property name="enabled" >
-           <bool>false</bool>
-          </property>
-          <property name="text" >
-           <string>Change</string>
-          </property>
-         </widget>
-        </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Use a regexp expression for the extension. 
+Example: *.tar.gz</string>
+        </property>
+        <property name="textFormat" >
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="scaledContents" >
+         <bool>false</bool>
+        </property>
+        <property name="alignment" >
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap" >
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
