@@ -21,6 +21,7 @@ set(kgetcore_SRCS
    core/jobqueue.cpp
    core/kget.cpp
    core/scheduler.cpp
+   core/speedlimiter.cpp
    core/transfertreemodel.cpp
    core/transfertreeselectionmodel.cpp
    core/transfer.cpp

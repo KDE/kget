@@ -62,6 +62,22 @@ void Transfer::delayTimerEvent()
     setTransferChange(Tc_Status, true);
 }
 
+void Transfer::setLog(const QString& message, LogLevel level)
+{
+    QString msg("<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : ");
+    if (level == error)
+    {
+        msg += "<font color=\"red\">" + message + "</font>";
+    }
+    if (level == warning)
+    {
+        msg += "<font color=\"yellow\">" + message + "</font>";
+    } else {
+        msg += message;
+    }
+    m_log << msg;
+}
+
 TransferHandler * Transfer::handler()
 {
     if(!m_handler)

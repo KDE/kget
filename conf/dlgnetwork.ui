@@ -1,6 +1,14 @@
 <ui version="4.0" >
  <class>DlgNetwork</class>
  <widget class="QWidget" name="DlgNetwork" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>346</width>
+    <height>429</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" >
    <property name="spacing" >
     <number>6</number>
@@ -69,6 +77,77 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="kcfg_SpeedLimit" >
+     <property name="title" >
+      <string>Speed limit</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lb_per_transfer" >
+        <property name="text" >
+         <string>Per Transfer:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lb_global" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="text" >
+         <string>Global:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QSpinBox" name="kcfg_GlobalSpeedLimit" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="suffix" >
+         <string>kBi/s</string>
+        </property>
+        <property name="maximum" >
+         <number>100000</number>
+        </property>
+       </widget>
+      </item>
+      <item rowspan="2" row="0" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>115</width>
+          <height>56</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QSpinBox" name="kcfg_TransferSpeedLimit" >
+        <property name="suffix" >
+         <string>kBi/s</string>
+        </property>
+        <property name="minimum" >
+         <number>0</number>
+        </property>
+        <property name="maximum" >
+         <number>100000</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="kcfg_ReconnectOnBroken" >
      <property name="title" >
       <string>Reconnect on error or broken connection</string>
@@ -86,9 +165,6 @@
       </item>
       <item row="0" column="0" >
        <widget class="QLabel" name="lb_retries_2" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
         <property name="text" >
          <string>Number of retries:</string>
         </property>
@@ -97,7 +173,7 @@
       <item row="0" column="2" >
        <widget class="QSpinBox" name="kcfg_ReconnectRetries" >
         <property name="enabled" >
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>

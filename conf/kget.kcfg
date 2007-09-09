@@ -66,6 +66,15 @@
     <entry name="MaxConnectionsServer" type="Int">
       <default>2</default>
     </entry>
+    <entry name="SpeedLimit" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="GlobalSpeedLimit" type="Int">
+      <default>50</default>
+    </entry>
+    <entry name="TransferSpeedLimit" type="Int">
+      <default>20</default>
+    </entry>
     <entry name="ReconnectOnBroken" type="Bool">
       <default>true</default>
     </entry>

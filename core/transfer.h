@@ -52,6 +52,12 @@ class KGET_EXPORT Transfer : public Job
             Tc_Selection     = 0x00000100
         };
 
+        enum LogLevel
+        {
+            info,
+            warning,
+            error
+        };
         typedef int ChangesFlags;
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
@@ -83,6 +89,11 @@ class KGET_EXPORT Transfer : public Job
          * Transfer history
          */
         const QStringList log() const;
+
+        /**
+         * Set Transfer history
+         */
+         void setLog(const QString& message, LogLevel level = info);
 
         /**
          * Defines the order between transfers
