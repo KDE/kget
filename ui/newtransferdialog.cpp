@@ -99,6 +99,10 @@ void NewTransferDialog::showNewTransferDialog()
 #endif
         destDir = destDir.remove("file://");
 
+        if(dialog.transferWidget()->setAsDefaultFolder()) {
+            Settings::setDefaultDirectory(destDir);
+            Settings::self()->writeConfig();
+        }
         KGet::addTransfer(srcUrl, destDir, dialog.transferWidget()->groupName());
     }
 }
@@ -119,9 +123,16 @@ NewTransferWidget::NewTransferWidget(QWidget *parent)
     groupComboBox->setCurrentIndex(0);
 
     // common usefull folders for the combobox of the url requester
+    if(!Settings::defaultDirectory().isEmpty()) {
+#ifdef Q_OS_WIN //krazy:exclude=cpp
+        folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file:///"));
+#endif
+        folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file://"));
+    }
     if(!Settings::lastDirectory().isEmpty()) {
         folderRequester->comboBox()->addItem(Settings::lastDirectory());
     }
+
     folderRequester->comboBox()->addItem(QDir::homePath());
 }
 
@@ -150,4 +161,9 @@ QString NewTransferWidget::url() const
 QString NewTransferWidget::groupName() const
 {
     return groupComboBox->currentText();
+}
+
+bool NewTransferWidget::setAsDefaultFolder() const
+{
+    return (defaultFolderButton->checkState() == Qt::Checked);
 }

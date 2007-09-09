@@ -30,6 +30,7 @@ public:
     QString folderPath() const;
     QString url() const;
     QString groupName() const;
+    bool setAsDefaultFolder() const;
 };
 
 class NewTransferDialog : public KDialog
