@@ -21,6 +21,7 @@
 #include <kmenu.h>
 #include <kicon.h>
 
+#include <QApplication>
 #include <QPainter>
 #include <QMouseEvent>
 #include <QModelIndex>
@@ -34,7 +35,6 @@ GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent
       m_iconSize(22),
       m_gradientId(0)
 {
-
 }
 
 void GroupStatusButton::checkStateSet()
@@ -103,16 +103,16 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
 
     if(KGet::selectionModel()->isSelected(m_index))
     {
-        gradient.setColorAt(0, QColor(palette().color(QPalette::AlternateBase)));
-        gradient.setColorAt(m_gradientId, QColor(palette().color(QPalette::Highlight)));
+        gradient.setColorAt(0, palette().color(QPalette::AlternateBase));
+        gradient.setColorAt(m_gradientId, palette().color(QPalette::Highlight));
         gradient.setColorAt(1, palette().color(QPalette::Highlight));
         pen.setColor(palette().color(QPalette::AlternateBase));
     }
     else
     {
-        gradient.setColorAt(0, QColor(palette().color(QPalette::Highlight)));
-        gradient.setColorAt(m_gradientId, QColor(palette().color(QPalette::AlternateBase)));
-        gradient.setColorAt(1, palette().color(QPalette::AlternateBase));
+        gradient.setColorAt(0, palette().color(QPalette::Highlight));
+        gradient.setColorAt(m_gradientId, Qt::transparent);
+        gradient.setColorAt(1, Qt::transparent);
         pen.setColor(palette().color(QPalette::Highlight));
     }
 
@@ -267,23 +267,43 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 
         if (option.state & QStyle::State_Selected)
         {
-            //painter->fillRect(option.rect, option.palette.highlight());
-//             painter->setBrush(option.palette.highlightedText());
         }
         else
         {
-            painter->fillRect(option.rect, option.palette.alternateBase());
-//             painter->setBrush(option.palette.text());
-        }
+            QLinearGradient gradient(option.rect.x(), option.rect.y(),
+                                     option.rect.x(), (option.rect.y() + option.rect.height()));
+            gradient.setColorAt(0, QApplication::palette().color(QPalette::Base));
+            gradient.setColorAt(0.5, QApplication::palette().color(QPalette::AlternateBase).darker(110));
+            gradient.setColorAt(1, QApplication::palette().color(QPalette::Base));
 
-//         painter->setRenderHint(QPainter::Antialiasing, true);
-//         painter->setPen(Qt::NoPen);
-//         painter->drawText(option.rect, Qt::AlignLeft | Qt::AlignBottom,
-//                           transferTreeModel->headerData());
+            painter->fillRect(option.rect, gradient);
+        }
 
         QItemDelegate::paint(painter, option, index);
 
         painter->restore();
+    }
+    else if (index.column () == 3) { // the percent column
+        TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
+
+        painter->setPen(QApplication::palette().color(QPalette::Text));
+        painter->setBrush(QApplication::palette().color(QPalette::QPalette::Base));
+
+        QLinearGradient gradient(option.rect.x(), option.rect.y(),
+                                 option.rect.x(), (option.rect.y() + option.rect.height()));
+        gradient.setColorAt(0, QApplication::palette().color(QPalette::Highlight).darker(60));
+        gradient.setColorAt(0.5, QApplication::palette().color(QPalette::Highlight).darker(110));
+        gradient.setColorAt(1, QApplication::palette().color(QPalette::Highlight).darker(60));
+
+        QRect percentRect(option.rect.x() + 5, option.rect.y() + 5,
+                (int) transferHandler->percent() * option.rect.width() / 100, option.rect.height() - 9);
+        if (KGet::selectionModel()->isSelected(index))
+            painter->fillRect(option.rect, QApplication::palette().color(QPalette::Highlight));
+        painter->drawRect(option.rect.x() + 4, option.rect.y() + 4,
+                option.rect.width () - 8, option.rect.height() - 8);
+        painter->fillRect(percentRect, gradient);
+        painter->drawText(option.rect, Qt::AlignCenter,
+                QString::number(transferHandler->percent()) + "%");
     }
     else
         QItemDelegate::paint(painter, option, index);
