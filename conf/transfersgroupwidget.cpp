@@ -65,8 +65,9 @@ void TransfersGroupTree::addGroup()
 {
     QString groupName;
 
-    if (KGet::addGroup(groupName)) {
-        QModelIndex index = model()->index(model()->rowCount() - 1, 0); // the last item added to the model
+    if(KGet::addGroup(groupName)) {
+        QModelIndex index = model()->index(model()->rowCount() - 1, 0);
+        setCurrentIndex(index);
         edit(index);
         return;
     }
