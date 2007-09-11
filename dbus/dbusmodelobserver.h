@@ -28,6 +28,7 @@ public:
     void removedTransferGroupEvent(TransferGroupHandler *group);
 
     QVariantMap transfers() const;
+    int transfersSpeed() const;
 
 private slots:
     void addTransferHandler(TransferHandler *handler);
@@ -40,6 +41,7 @@ private:
     QVariantMap m_transfers;
     DBusTransferGroupObserver m_transferGroupObserver;
     QList<TransferGroupHandler *> m_transferGroupHandlers;
+    int m_speed;
 };
 
 

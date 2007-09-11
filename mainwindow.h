@@ -42,6 +42,7 @@ public:
     virtual void setOfflineMode( bool online );
     virtual bool offlineMode() const;
     virtual QVariantMap transfers() const;
+    virtual int transfersSpeed() const;
 
 public slots:
     void slotQuit();

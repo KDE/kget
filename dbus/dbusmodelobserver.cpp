@@ -54,6 +54,11 @@ QVariantMap DBusModelObserver::transfers() const
     return m_transfers;
 }
 
+int DBusModelObserver::transfersSpeed() const
+{
+    return m_speed;
+}
+
 void DBusModelObserver::addTransferHandler(TransferHandler *handler)
 {
     m_transfers[handler->source().pathOrUrl()] = getAttributesFromTransfer(handler);
@@ -72,6 +77,7 @@ void DBusModelObserver::slotTransferGroupChanged(TransferGroupHandler *handler)
         m_transfers[t_handler->source().pathOrUrl()] = getAttributesFromTransfer(t_handler);
     }
 
+    m_speed = handler->speed();
 //    emit transfersChanged(m_transfers);
 }
 

@@ -53,35 +53,22 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
 void TransfersGroupTree::commitData(QWidget *editor)
 {
     QLineEdit *lineEdit = static_cast<QLineEdit*>(editor);
-    
+
     if(QString::compare(lineEdit->text(), QString("")) != 0) { 
         QModelIndex currentIndex = selectionModel()->currentIndex();
-        
+
         KGet::renameGroup(model()->data(currentIndex).toString(), lineEdit->text());
     }
 }
 
 void TransfersGroupTree::addGroup()
 {
-    bool ok = true;
     QString groupName;
 
-    while (ok)
-    {
-        groupName = KInputDialog::getText(i18n("Enter Group Name"),
-                                          i18n("Group name:"), QString(), &ok, this);
-
-        if(ok)
-        {
-            if (KGet::addGroup(groupName)) {
-                return;
-            }
-            else {
-                KMessageBox::sorry(this,
-                                   i18n("A group with that name already exists!\n"
-                                        "Please change the group name."));
-            }
-        }
+    if (KGet::addGroup(groupName)) {
+        QModelIndex index = model()->index(model()->rowCount() - 1, 0); // the last item added to the model
+        edit(index);
+        return;
     }
 }
 
@@ -127,12 +114,12 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
 {
     m_view = new TransfersGroupTree(parent);
 
-    addButton = new QPushButton(i18n("Add"));   
+    addButton = new QPushButton(i18n("Add"));
     addButton->setIcon(KIcon("list-add"));
     deleteButton = new QPushButton(i18n("Delete"));
     deleteButton->setIcon(KIcon("list-remove"));
     deleteButton->setEnabled(false);
-    renameButton = new QPushButton(i18n("Rename"));
+    renameButton = new QPushButton(i18n("Edit"));
     renameButton->setIcon(KIcon("editinput"));
     renameButton->setEnabled(false);
 
@@ -167,4 +154,3 @@ void TransfersGroupWidget::slotSelectionChanged(const QItemSelection &newSelecti
     renameButton->setEnabled(canDelete);
     deleteButton->setEnabled(canDelete);
 }
-

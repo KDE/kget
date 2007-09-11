@@ -120,10 +120,9 @@ NewTransferWidget::NewTransferWidget(QWidget *parent)
 
     // transfer groups
     groupComboBox->addItems(KGet::transferGroupNames());
-    groupComboBox->setCurrentIndex(0);
 
     // common usefull folders for the combobox of the url requester
-    if(!Settings::defaultDirectory().isEmpty()) {
+    if(!Settings::defaultDirectory().isEmpty() && !Settings::defaultDirectory().endsWith(QDir::homePath())) {
 #ifdef Q_OS_WIN //krazy:exclude=cpp
         folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file:///"));
 #endif
@@ -134,6 +133,9 @@ NewTransferWidget::NewTransferWidget(QWidget *parent)
     }
 
     folderRequester->comboBox()->addItem(QDir::homePath());
+
+    groupComboBox->setCurrentIndex(0);
+    folderRequester->comboBox()->setCurrentIndex(0);
 }
 
 void NewTransferWidget::setFolderPath(QString path)

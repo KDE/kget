@@ -638,4 +638,9 @@ QVariantMap MainWindow::transfers() const
     return m_dbusModelObserver->transfers();
 }
 
+int MainWindow::transfersSpeed() const
+{
+    return m_dbusModelObserver->transfersSpeed();
+}
+
 #include "mainwindow.moc"

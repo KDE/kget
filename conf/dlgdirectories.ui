@@ -136,7 +136,7 @@
         <item>
          <widget class="QPushButton" name="removeButton" >
           <property name="text" >
-           <string>Remove</string>
+           <string>Delete</string>
           </property>
          </widget>
         </item>
