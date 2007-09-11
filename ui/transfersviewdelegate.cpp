@@ -296,7 +296,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         gradient.setColorAt(1, QApplication::palette().color(QPalette::Highlight).darker(60));
 
         QRect percentRect(option.rect.x() + 5, option.rect.y() + 5,
-                (int) transferHandler->percent() * option.rect.width() / 100, option.rect.height() - 9);
+                (int) transferHandler->percent() * (option.rect.width() - 9) / 100, option.rect.height() - 9);
         if (KGet::selectionModel()->isSelected(index))
             painter->fillRect(option.rect, QApplication::palette().color(QPalette::Highlight));
         painter->drawRect(option.rect.x() + 4, option.rect.y() + 4,
