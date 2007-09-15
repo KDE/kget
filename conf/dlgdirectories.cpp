@@ -23,7 +23,7 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     setupUi(this);
     addButton->setIcon(KIcon("list-add"));
     removeButton->setIcon(KIcon("list-remove"));
-    changeButton->setIcon(KIcon("edit-redo"));
+    changeButton->setIcon(KIcon("editinput"));
 
     defaultFolderRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
@@ -85,8 +85,7 @@ void DlgDirectories::saveSettings()
         QString extension = folderForExtensionList->item(row, 0)->text();
         QString path = folderForExtensionList->item(row, 1)->text();
 
-        if(QString::compare(QString(""), extension) != 0 &&
-                    QString::compare(QString(""), path) != 0) {
+        if (!extension.isEmpty() && path.isEmpty()) {
 
             list.append(extension);
             list.append(path);
@@ -153,6 +152,7 @@ void DlgDirectories::addFolderForExtensionItem(const QString &extension, const Q
     folderForExtensionList->sortItems(0, Qt::AscendingOrder);
 
     changeButton->setEnabled(false);
+    removeButton->setEnabled(false);
 }
 
 void DlgDirectories::slotExtensionDataChanged(int row, int column)
@@ -164,7 +164,7 @@ void DlgDirectories::slotExtensionDataChanged(int row, int column)
         QString extension = folderForExtensionList->item(row, 0)->text();
         QString path = folderForExtensionList->item(row, 1)->text();
 
-        if(QString::compare(QString(""), extension) != 0 && QString::compare(QString(""), path) != 0) {
+        if (!extension.isEmpty() && path.isEmpty()) {
             saveSettings();
         }
     }

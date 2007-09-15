@@ -14,21 +14,12 @@
 
 #include "core/kget.h"
 
-#include <KInputDialog>
 #include <KMessageBox>
-#include <KLocale>
-#include <KDebug>
 
 #include <QTreeView>
-#include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QStandardItemModel>
-#include <QItemSelectionModel>
-#include <QItemSelection>
 #include <QHeaderView>
-#include <QStandardItem>
-#include <QLabel>
 #include <QLineEdit>
 
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
@@ -54,7 +45,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
 {
     QLineEdit *lineEdit = static_cast<QLineEdit*>(editor);
 
-    if(QString::compare(lineEdit->text(), QString("")) != 0) { 
+    if (!lineEdit->text().isEmpty()) {
         QModelIndex currentIndex = selectionModel()->currentIndex();
 
         KGet::renameGroup(model()->data(currentIndex).toString(), lineEdit->text());
@@ -63,13 +54,10 @@ void TransfersGroupTree::commitData(QWidget *editor)
 
 void TransfersGroupTree::addGroup()
 {
-    QString groupName;
-
-    if(KGet::addGroup(groupName)) {
+    if (KGet::addGroup(QString())) {
         QModelIndex index = model()->index(model()->rowCount() - 1, 0);
         setCurrentIndex(index);
         edit(index);
-        return;
     }
 }
 
@@ -120,7 +108,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     deleteButton = new QPushButton(i18n("Delete"));
     deleteButton->setIcon(KIcon("list-remove"));
     deleteButton->setEnabled(false);
-    renameButton = new QPushButton(i18n("Edit"));
+    renameButton = new QPushButton(i18n("Rename"));
     renameButton->setIcon(KIcon("editinput"));
     renameButton->setEnabled(false);
 

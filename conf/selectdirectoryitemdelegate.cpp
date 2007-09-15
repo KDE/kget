@@ -21,7 +21,7 @@ SelectDirectoryItemDelegate::SelectDirectoryItemDelegate(QObject *parent)
 {
 }
 
-QWidget *SelectDirectoryItemDelegate::createEditor(QWidget *parent, 
+QWidget *SelectDirectoryItemDelegate::createEditor(QWidget *parent,
             const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     Q_UNUSED(option)
@@ -48,7 +48,7 @@ void SelectDirectoryItemDelegate::setModelData(QWidget *editor, QAbstractItemMod
     KUrlRequester *fileWidget = static_cast<KUrlRequester*>(editor);
     QString path = fileWidget->url().pathOrUrl();
 
-    if(QString::compare(path, "") != 0) {
+    if (!path.isEmpty()) {
         model->setData(index, path);
     }
 }

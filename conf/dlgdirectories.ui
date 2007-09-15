@@ -135,6 +135,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="removeButton" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
           <property name="text" >
            <string>Delete</string>
           </property>
