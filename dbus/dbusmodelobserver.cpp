@@ -73,7 +73,6 @@ void DBusModelObserver::slotTransferGroupChanged(TransferGroupHandler *handler)
 {
     // TODO: update the this transfers in the  transfers map
     foreach(TransferHandler *t_handler, handler->transfers()) {
-        kDebug() << "Transfer changed in " << t_handler->source().pathOrUrl() << endl;
         m_transfers[t_handler->source().pathOrUrl()] = getAttributesFromTransfer(t_handler);
     }
 
@@ -90,6 +89,7 @@ QStringList DBusModelObserver::getAttributesFromTransfer(TransferHandler *handle
     attributes << QString::number(handler->percent());
     attributes << QString::number(handler->totalSize());
     attributes << status;
+    attributes << QString::number(handler->speed());
 
     return attributes;
 }
