@@ -16,6 +16,7 @@ Comment[pt_BR]=Plugin do KGet
 Comment[sv]=Insticksprogram för Kget
 Comment[vi]=Phần bổ sung cho KGet
 Comment[x-test]=xxPlugin for KGetxx
+Comment[zh_CN]=KGet 插件
 Comment[zh_TW]=KGet 外掛程式
 
 # Type of plugin, e.g. "TransferFactory".

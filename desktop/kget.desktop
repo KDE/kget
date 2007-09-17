@@ -60,6 +60,7 @@ GenericName[tr]=İndirme Yöneticisi
 GenericName[uz]=Ёзиб олиш бошқарувчиси
 GenericName[vi]=Trình quản lý việc tải tập tin
 GenericName[x-test]=xxDownload Managerxx
+GenericName[zh_CN]=下载管理器
 GenericName[zh_HK]=下載管理員
 GenericName[zh_TW]=下載管理員
 Categories=Qt;KDE;Network;FileTransfer;

@@ -13,6 +13,7 @@ Name[pt]=Factory de Transferências do MetaLink
 Name[pt_BR]=Factory de Transferências do MetaLink
 Name[sv]=Metalink-överföringsgenerering
 Name[x-test]=xxMetaLink TransferFactoryxx
+Name[zh_CN]=MetaLink 传输工厂
 Name[zh_TW]=MetaLink 傳輸工廠
 Comment=Transfer plugin for KGet
 Comment[bg]=Приставка за трансфер - KGet
@@ -27,6 +28,7 @@ Comment[pt_BR]='Plugin' de transferências para o KGet
 Comment[sv]=Överföringsinsticksprogram för Kget
 Comment[vi]=Phần bổ sung truyền cho KGet
 Comment[x-test]=xxTransfer plugin for KGetxx
+Comment[zh_CN]=KGet 传输插件
 Comment[zh_TW]=KGet 傳輸外掛程式
 
 # options for library loader
