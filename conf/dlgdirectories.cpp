@@ -85,8 +85,7 @@ void DlgDirectories::saveSettings()
         QString extension = folderForExtensionList->item(row, 0)->text();
         QString path = folderForExtensionList->item(row, 1)->text();
 
-        if (!extension.isEmpty() && path.isEmpty()) {
-
+        if (!extension.isEmpty() && !path.isEmpty()) {
             list.append(extension);
             list.append(path);
         }
@@ -164,7 +163,7 @@ void DlgDirectories::slotExtensionDataChanged(int row, int column)
         QString extension = folderForExtensionList->item(row, 0)->text();
         QString path = folderForExtensionList->item(row, 1)->text();
 
-        if (!extension.isEmpty() && path.isEmpty()) {
+        if (!extension.isEmpty() && !path.isEmpty()) {
             saveSettings();
         }
     }
