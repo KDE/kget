@@ -150,6 +150,21 @@ Transfer * TransferTreeModel::findTransfer(const KUrl &src)
     return 0;
 }
 
+Transfer *TransferTreeModel::findTransferByDestination(const KUrl &dest)
+{
+    QList<TransferGroup *>::iterator it = m_transferGroups.begin();
+    QList<TransferGroup *>::iterator itEnd = m_transferGroups.end();
+
+    Transfer *t;
+    for(; it!=itEnd; ++it) {
+        if((t = (*it)->findTransferByDestination(dest))) {
+            return t;
+        }
+    }
+
+    return 0;
+}
+
 bool TransferTreeModel::isTransferGroup(const QModelIndex & index) const
 {
 //     kDebug(5001) << "TransferTreeModel::isTransferGroup()";
@@ -337,7 +352,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             switch (index.column())
             {
                 case 0:
-                    return KIO::pixmapForUrl(transfer->source(), 0, K3Icon::Desktop, 16);
+                    return KIO::pixmapForUrl(transfer->dest(), 0, K3Icon::Desktop, 16);
                 case 1:
                     return transfer->statusPixmap();
                 default:

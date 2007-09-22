@@ -108,6 +108,20 @@ Transfer * TransferGroup::findTransfer(const KUrl &src)
     return 0;
 }
 
+Transfer *TransferGroup::findTransferByDestination(const KUrl &dest)
+{
+    iterator it = begin();
+    iterator itEnd = end();
+
+    for(; it!=itEnd ; ++it) {
+        Transfer *t = (Transfer *) *it;
+        if(t->dest().url() == dest.url()) {
+            return t;
+        }
+    }
+    return 0;
+}
+
 Transfer * TransferGroup::operator[] (int i) const
 {
 //     kDebug(5001) << "TransferGroup::operator[]";

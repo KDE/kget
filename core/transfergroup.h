@@ -111,6 +111,15 @@ class KGET_EXPORT TransferGroup : public JobQueue
          */
         Transfer * findTransfer(const KUrl &src);
 
+        /***
+         * Finds the first transfer with destination dest
+         *
+         * @param dest the url of the destination location
+         *
+         * @return the transfer pointer if the transfer has been found, else return 0
+         */
+         Transfer *findTransferByDestination(const KUrl &dest);
+
         /**
          * @returns the Job in the queue at the given index i
          */

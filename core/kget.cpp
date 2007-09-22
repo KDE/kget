@@ -31,6 +31,7 @@
 #include <klibloader.h>
 #include <kiconloader.h>
 #include <kactioncollection.h>
+#include <kio/renamedialog.h>
 
 #include <QDirModel>
 #include <QTextStream>
@@ -169,6 +170,11 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
         return;
 
+    if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || QFile::exists(destUrl.url())) {
+        QString newDestination;
+        KIO::RenameDialog::open(i18n("Rename transfer"), srcUrl, destUrl, KIO::M_MULTI, newDestination);
+        destUrl.setPath(newDestination);
+    }
     createTransfer(srcUrl, destUrl, groupName, start);
 }
 

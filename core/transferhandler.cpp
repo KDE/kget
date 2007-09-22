@@ -114,7 +114,7 @@ QVariant TransferHandler::data(int column)
     switch(column)
     {
         case 0:
-            return source().fileName();
+            return dest().fileName();
         case 1:
             return statusText();
         case 2:
