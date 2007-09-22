@@ -228,9 +228,11 @@ void MainWindow::slotDelayedInit()
     //Here we import the user's transfers.
     KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
-    // DockWidget
     m_dock = new Tray(this);
-    m_dock->show();
+    if(Settings::enableSystemTray()) {
+        // DockWidget
+        m_dock->show();
+    }
 
     // enable dropping
     setAcceptDrops(true);
@@ -505,6 +507,7 @@ void MainWindow::slotNewConfig()
     // PreferencesDialog, this function is called.
 
     m_drop->setVisible(Settings::showDropTarget(), false);
+    m_dock->setVisible(Settings::enableSystemTray());
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());

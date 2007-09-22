@@ -51,6 +51,9 @@
     <entry name="TimedDisconnectDateTime" type="DateTime">
       <default code="true">QDateTime::currentDateTime()</default>
     </entry>
+    <entry name="EnableSystemTray" type="Bool">
+        <default>true</default>
+    </entry>
   </group>
 
   <group name="Network">

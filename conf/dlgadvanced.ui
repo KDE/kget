@@ -1,11 +1,26 @@
 <ui version="4.0" >
  <class>DlgAdvanced</class>
  <widget class="QWidget" name="DlgAdvanced" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>405</width>
+    <height>350</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QCheckBox" name="kcfg_ExpertMode" >
      <property name="text" >
       <string>Disable confirmation dialogs (less verbosity)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="kcfg_EnableSystemTray" >
+     <property name="text" >
+      <string>Enable system tray icon</string>
      </property>
     </widget>
    </item>
