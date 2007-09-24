@@ -15,7 +15,8 @@
 
 mirror::mirror()
 {
-    m_search_engine = MultiSegKioSettings::searchEnginesUrlList().takeFirst();
+    if( !MultiSegKioSettings::searchEnginesUrlList().isEmpty())
+       m_search_engine = MultiSegKioSettings::searchEnginesUrlList().takeFirst();
 }
 
 void mirror::search(const KUrl &url, QObject *receiver, const char *member)
