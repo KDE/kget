@@ -508,6 +508,7 @@ void MainWindow::slotNewConfig()
 
     m_drop->setVisible(Settings::showDropTarget(), false);
     m_dock->setVisible(Settings::enableSystemTray());
+    if(!Settings::enableSystemTray()) setVisible(true);
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
@@ -583,7 +584,12 @@ void MainWindow::slotShowMenubar()
 void MainWindow::closeEvent( QCloseEvent * e )
 {
     e->ignore();
-    hide();
+    if(!Settings::enableSystemTray()) {
+        slotQuit();
+    }
+    else {
+        hide();
+    }
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent * event)
