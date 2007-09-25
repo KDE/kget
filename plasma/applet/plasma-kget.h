@@ -31,12 +31,12 @@ class KDialog;
 
 namespace Plasma
 {
-	class Svg;
+    class Svg;
 }
 
 class PlasmaKGet : public Plasma::Applet
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
     enum TransferGraphType {
         BarChartType = 0x01,
@@ -45,17 +45,17 @@ public:
     };
 
     PlasmaKGet(QObject *parent, const QVariantList &args);
-	~PlasmaKGet();
+    ~PlasmaKGet();
 
-	QSizeF contentSizeHint() const;
+    QSizeF contentSizeHint() const;
 
-	void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option, 
-							const QRect &contentsRect);
-	void constraintsUpdated();
+    void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                        const QRect &contentsRect);
+    void constraintsUpdated();
 
 
 public slots:
-	void updated(const QString &name, const Plasma::DataEngine::Data &data);
+    void updated(const QString &name, const Plasma::DataEngine::Data &data);
     void showConfigurationInterface();
 
 protected slots:
@@ -64,15 +64,14 @@ protected slots:
 private:
     void loadTransferGraph(uint type);
 
-	Plasma::Svg *m_kgetTheme;
+    Plasma::Svg *m_kgetTheme;
     Plasma::DataEngine *m_engine;
     TransferGraph *m_transferGraph;
+    bool m_error;
+    QString m_errorMessage;
+    QSizeF m_size;
     KDialog *m_dialog;
-
     bool m_updatePaint;
-	bool m_error;
-	QString m_errorMessage;
-	QSizeF m_size;
 
     Ui::KGetConfig ui;
 };
