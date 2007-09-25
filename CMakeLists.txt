@@ -7,6 +7,9 @@ add_subdirectory(transfer-plugins)
 add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
+if(PLASMA_FOUND)
+    add_subdirectory(plasma)
+endif(PLASMA_FOUND)
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/

@@ -1,0 +1,55 @@
+<ui version="4.0" >
+ <class>KGetConfig</class>
+ <widget class="QWidget" name="KGetConfig" >
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Graph type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QComboBox" name="graphType" />
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Refresh time</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QSpinBox" name="refreshTime" >
+     <property name="suffix" >
+      <string>ms</string>
+     </property>
+     <property name="minimum" >
+      <number>500</number>
+     </property>
+     <property name="maximum" >
+      <number>5000</number>
+     </property>
+     <property name="singleStep" >
+      <number>100</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>221</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

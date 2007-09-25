@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KGet Data Engine
+Name[bg]=Ядро за KGet 
+Name[es]=Motor de datos KGet
+Name[nl]=KGet-gegevensengine
+Name[pt]=Motor de Dados do KGet
+Name[pt_BR]=Motor de Dados do KGet
+Name[sv]=Datagränssnitt för Kget
+ServiceTypes=Plasma/DataEngine
+Type=Service
+Icon=kget
+X-KDE-Library=plasma_engine_kget
+X-EngineName=kget
