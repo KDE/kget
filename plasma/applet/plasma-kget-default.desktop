@@ -1,7 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet
+Name[cy]=KNôl
+Name[eo]=Prenilo
+Name[ne]=केडीई गेट
 Name[sv]=Kget
+Name[ta]=கேகெட்
+Name[x-test]=xxKGetxx
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet
