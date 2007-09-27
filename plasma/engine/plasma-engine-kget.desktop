@@ -1,6 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet Data Engine
+Name[el]=Μηχανή δεδομένων του KGet
+Name[pt]=Motor de Dados do KGet
+Name[pt_BR]=Motor de Dados do KGet
+Name[sv]=Datagränssnitt för Kget
 ServiceTypes=Plasma/DataEngine
 Type=Service
 Icon=kget
