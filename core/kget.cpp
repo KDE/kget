@@ -170,10 +170,12 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
         return;
 
-    if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || QFile::exists(destUrl.url())) {
+    if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || (destUrl.isLocalFile() && QFile::exists(destUrl.path()))) {
         QString newDestination;
-        KIO::RenameDialog::open(i18n("Rename transfer"), srcUrl, destUrl, KIO::M_MULTI, newDestination);
-        destUrl.setPath(newDestination);
+        KIO::RenameDialog dlg( m_mainWindow, i18n("Rename transfer"), srcUrl,
+                               destUrl, KIO::M_MULTI);
+        if (dlg.exec() == KIO::R_RENAME)
+            destUrl = dlg.newDestUrl();
     }
     createTransfer(srcUrl, destUrl, groupName, start);
 }
