@@ -17,9 +17,10 @@
 #include <kxmlguiwindow.h>
 #include <kurl.h>
 
+#include "ui/tray.h"
+
 class ViewsContainer;
 class DropTarget;
-class Tray;
 class DBusModelObserver;
 
 /**
@@ -43,6 +44,8 @@ public:
     virtual bool offlineMode() const;
     virtual QVariantMap transfers() const;
     virtual int transfersSpeed() const;
+
+    KSystemTrayIcon *systemTray() const { return m_dock;};
 
 public slots:
     void slotQuit();

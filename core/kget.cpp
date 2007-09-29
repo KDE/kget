@@ -32,6 +32,8 @@
 #include <kiconloader.h>
 #include <kactioncollection.h>
 #include <kio/renamedialog.h>
+#include <KPassivePopup>
+#include <KSystemTrayIcon>
 
 #include <QDirModel>
 #include <QTextStream>
@@ -534,6 +536,8 @@ void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
             if(start)
                 newTransfer->handler()->start();
 
+            newTransfer->handler()->addObserver(new TransferFinishedObserver());
+
             return;
         }
     }
@@ -861,4 +865,49 @@ bool KGet::safeDeleteFile( const KUrl& url )
                                           " file.", url.prettyUrl()),
                                   i18n("Not Deleted") );
     return false;
+}
+
+TransferFinishedObserver::TransferFinishedObserver()
+     : TransferObserver()
+{
+}
+
+void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
+{
+    if(transfer->status() == Job::Finished && Settings::quitAfterCompletedTransfer()) {
+        checkAndFinish();
+    }
+}
+
+void TransferFinishedObserver::checkAndFinish()
+{
+    bool quitFlag = true;
+    foreach(TransferGroup *transferGroup, KGet::m_transferTreeModel->transferGroups()) {
+        foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
+            if(transfer->status() != Job::Finished) {
+                quitFlag = false;
+            }
+        }
+    }
+
+    // check if there is some unfinished transfer in scheduler queues
+    if(quitFlag) {
+        KPassivePopup *message;
+        // we have to call diferent message from kpassivePopup
+        // one with parent as QWidget for the mainWindow
+        // and another with parent as QSystemTrayIcon if the parent is a systemTray
+        // so passing the QSystemTrayIcon as QWidget don't work
+        if(Settings::enableSystemTray()) {
+            message = KPassivePopup::message(5000, KGET_QUIT_MESSAGE_TITLE,
+                    KGET_QUIT_MESSAGE,
+                    KGet::m_mainWindow->systemTray());
+        }
+        else {
+            message = KPassivePopup::message(5000, KGET_QUIT_MESSAGE_TITLE,
+                    KGET_QUIT_MESSAGE,
+                    KGet::m_mainWindow);
+        }
+
+        QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
+    }
 }

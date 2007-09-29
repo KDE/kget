@@ -23,6 +23,7 @@
 
 #include "scheduler.h"
 #include "kget_export.h"
+#include "observer.h"
 
 class QDomElement;
 class QAbstractItemView;
@@ -51,9 +52,13 @@ class NewTransferDialog;
  * it in the group named "Not grouped" (better name?).
  **/
 
+static const QString KGET_QUIT_MESSAGE_TITLE = i18n("Quit KGet");
+static const QString KGET_QUIT_MESSAGE = i18n("KGet quits now because all downloads have been completed.");
+
 class KGET_EXPORT KGet
 {
     friend class NewTransferDialog;
+    friend class TransferFinishedObserver;
 
     public:
         static KGet& self( MainWindow * mainWindow=0 );
@@ -302,5 +307,16 @@ class KGET_EXPORT KGet
         static Scheduler * m_scheduler;
 };
 
+
+class TransferFinishedObserver : public TransferObserver
+{
+    public:
+        TransferFinishedObserver();
+
+        void transferChangedEvent(TransferHandler * transfer);
+
+    private:
+        void checkAndFinish();
+};
 
 #endif
