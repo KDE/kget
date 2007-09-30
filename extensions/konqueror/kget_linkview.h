@@ -12,6 +12,7 @@
 #define KGET_LINKVIEW_H
 
 #include <KDialog>
+#include <KLocale>
 
 #include "links.h"
 
@@ -22,8 +23,16 @@ class QButtonGroup;
 class QSortFilterProxyModel;
 
 static const QString WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.asp|\\.aspx|\\.jsp)).)*$)";
-static const QString MEDIA_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg|\\.avi|\\.mpeg|\\.mpg))";
+static const QString VIDEO_FILES_REGEXP = "(.(?:\\.avi|\\.mpeg|\\.mpg))";
+static const QString AUDIO_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg))";
 static const QString COMPRESSED_FILES_REGEXP = "(.(?:\\.zip|\\.tar|\\.tar.bz|\\.tar.gz|\\.rar))";
+
+struct filterDefinition {
+    QString icon;
+    QString name;
+    uint type;
+    bool defaultFilter;
+};
 
 class KGetLinkView : public KDialog
 {
@@ -32,8 +41,9 @@ class KGetLinkView : public KDialog
 public:
     enum DownloadFilterType {
         NoFilter = 0,
-        MediaFiles=1,
-        CompressedFiles=2
+        VideoFiles = 1,
+        AudioFiles = 2,
+        CompressedFiles = 3
     };
 
     KGetLinkView(QWidget *parent = 0);
@@ -56,9 +66,9 @@ private slots:
 
 private:
     void showLinks( const QList<LinkItem*>& links );
-    QAbstractButton *createFilterButton(const char*, const char*, 
-                            QButtonGroup *group, int filterType, bool checked = false);
-    
+    QAbstractButton *createFilterButton(const QString &icon, const QString &name,
+                            QButtonGroup *group, uint filterType, bool checked = false);
+
     QList<LinkItem*> m_links;
 
     QTreeView *m_treeWidget;
@@ -68,6 +78,15 @@ private:
     QButtonGroup *filterButtonsGroup;
     QPushButton *downloadCheckedButton;
     QPushButton *checkAllButton;
+};
+
+// icon, name, regular expression, and default of the filter buttons
+static const filterDefinition filters [] = {
+    {QString("fileview-icon"), i18n("All"), KGetLinkView::NoFilter, true},
+    {QString("video"), i18n("Videos"), KGetLinkView::VideoFiles, false},
+    {QString("audio-basic"), i18n("Audio"), KGetLinkView::AudioFiles, false},
+    {QString("application-x-archive"), i18n("Archives"), KGetLinkView::CompressedFiles, false},
+    {QString(""), QString(""), 0, false}
 };
 
 #endif // KGET_LINKVIEW_H

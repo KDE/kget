@@ -74,19 +74,21 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     // filter buttons and filter line text box
     QHBoxLayout *filterLayout = new QHBoxLayout;
     filterLayout->addWidget(new QLabel(i18n("Show:")));
-    filterLayout->addWidget(createFilterButton("fileview-icon", "All", filterButtonsGroup, 
-                        KGetLinkView::NoFilter, true));
-    filterLayout->addWidget(createFilterButton("video", "Videos", filterButtonsGroup, 
-                        KGetLinkView::MediaFiles));
-    filterLayout->addWidget(createFilterButton("application-x-archive", "Archives", 
-                        filterButtonsGroup, KGetLinkView::CompressedFiles));
+
+    const filterDefinition *filter = filters;
+    while(!filter->icon.isEmpty()) {
+        filterLayout->addWidget(createFilterButton(filter->icon, filter->name,
+                        filterButtonsGroup, filter->type, filter->defaultFilter));
+        ++filter;
+    }
+
     filterLayout->addWidget(searchLine);
-    
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->addLayout(filterLayout);
     mainLayout->addWidget(m_treeWidget);
-    
+
     // Bottoms buttons
     QHBoxLayout *bottomButtonsLayout = new QHBoxLayout(this);
 
@@ -95,7 +97,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     downloadCheckedButton = new QPushButton( KIcon("kget"), i18n("Download checked"));
     downloadCheckedButton->setEnabled(false);
     QPushButton *cancelButton = new QPushButton(KIcon("dialog-cancel"), i18n("Cancel"));
- 
+
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
     connect(checkAllButton, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
@@ -135,7 +137,7 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
     model->setHeaderData(2, Qt::Horizontal, i18n("Description"));
     model->setHeaderData(3, Qt::Horizontal, i18n("File Type"));
     model->setHeaderData(4, Qt::Horizontal, i18n("Location (URL)"));
-    
+
     foreach (LinkItem* linkitem, links) {
         QString file = linkitem->url.fileName();
         if ( file.isEmpty() )
@@ -146,7 +148,7 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
         QStandardItem *item = new QStandardItem(file);
         item->setIcon(KIcon(linkitem->icon));
         item->setCheckable(true);
-        
+
         items << new QStandardItem(QString::number(model->rowCount()));
         items << item;
         items << new QStandardItem(linkitem->text);
@@ -155,13 +157,12 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 
         model->insertRow(model->rowCount(), items);
     }
-    
+
     connect(model, SIGNAL(itemChanged(QStandardItem *)), this, SLOT(selectionChanged()));
     m_proxyModel->setSourceModel(model);
     m_proxyModel->setFilterKeyColumn(1);
-    
-    m_treeWidget->header()->hideSection(0);
 
+    m_treeWidget->header()->hideSection(0);
 
     slotShowWebContent(false);
 }
@@ -224,8 +225,11 @@ void KGetLinkView::doFilter(int id, const QString &textFilter)
 {
     QString filter;
     switch(id) {
-        case KGetLinkView::MediaFiles:
-            filter = MEDIA_FILES_REGEXP;
+        case KGetLinkView::AudioFiles:
+            filter = AUDIO_FILES_REGEXP;
+            break;
+        case KGetLinkView::VideoFiles:
+            filter = VIDEO_FILES_REGEXP;
             break;
         case KGetLinkView::CompressedFiles:
             filter = COMPRESSED_FILES_REGEXP;
@@ -244,7 +248,6 @@ void KGetLinkView::doFilter(int id, const QString &textFilter)
         }
     }
 
-    
     checkAllButton->setText((textFilter.isEmpty() && id == KGetLinkView::NoFilter) 
                     ? i18n("Select all") : i18n("Select all filtered"));
     m_proxyModel->setFilterRegExp(QRegExp(filter, Qt::CaseInsensitive));
@@ -258,7 +261,6 @@ void KGetLinkView::checkAll()
         QStandardItem *item = itemsModel->item(index.row(), 1);
         item->setCheckState(Qt::Checked);
     }
-
 }
 
 void KGetLinkView::uncheckItem(const QModelIndex &index)
@@ -270,10 +272,10 @@ void KGetLinkView::uncheckItem(const QModelIndex &index)
     }
 }
 
-QAbstractButton *KGetLinkView::createFilterButton(const char *icon, const char *description, 
-                            QButtonGroup *group, int filterType, bool checked)
+QAbstractButton *KGetLinkView::createFilterButton(const QString &icon, const QString &description,
+                            QButtonGroup *group, uint filterType, bool checked)
 {
-    QPushButton *filterButton = new QPushButton(KIcon(icon), i18n(description));
+    QPushButton *filterButton = new QPushButton(KIcon(icon), description);
     filterButton->setCheckable(true);
     filterButton->setChecked(checked);
 
