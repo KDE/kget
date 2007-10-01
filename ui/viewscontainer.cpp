@@ -92,7 +92,7 @@ void TransfersButton::addTransfer(TransferHandler * transfer)
 {
     QString filename = transfer->source().fileName();
 
-    QAction * action = m_menu->addAction(KIO::pixmapForUrl( transfer->source(), 0, K3Icon::Desktop, 16 ), filename);
+    QAction * action = m_menu->addAction(KIO::pixmapForUrl( transfer->source(), 0, KIconLoader::Desktop, 16 ), filename);
     m_transfersMap[action] = transfer;
 
     if(!m_selectedTransfer)
@@ -139,7 +139,7 @@ void TransfersButton::setTransfer(TransferHandler * transfer)
 {
     m_selectedTransfer = transfer;
     setText(transfer->source().fileName());
-    setIcon(KIO::pixmapForUrl( transfer->source(), 0, K3Icon::Desktop, 16 ));
+    setIcon(KIO::pixmapForUrl( transfer->source(), 0, KIconLoader::Desktop, 16 ));
     setChecked(true);
 }
 

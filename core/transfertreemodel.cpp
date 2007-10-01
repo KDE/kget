@@ -352,7 +352,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             switch (index.column())
             {
                 case 0:
-                    return KIO::pixmapForUrl(transfer->dest(), 0, K3Icon::Desktop, 16);
+                    return KIO::pixmapForUrl(transfer->dest(), 0, KIconLoader::Desktop, 16);
                 case 1:
                     return transfer->statusPixmap();
                 default:
