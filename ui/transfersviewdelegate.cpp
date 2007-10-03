@@ -287,7 +287,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
 
         painter->setPen(QApplication::palette().color(QPalette::Text));
-        painter->setBrush(QApplication::palette().color(QPalette::QPalette::Base));
+        painter->setBrush(QApplication::palette().color(QPalette::Base));
 
         QLinearGradient gradient(option.rect.x(), option.rect.y(),
                                  option.rect.x(), (option.rect.y() + option.rect.height()));
