@@ -7,6 +7,7 @@ Name[pt]=Motor de Dados do KGet
 Name[pt_BR]=Motor de Dados do KGet
 Name[sv]=Datagränssnitt för Kget
 Name[x-test]=xxKGet Data Enginexx
+Name[zh_TW]=KGet 資料引擎
 ServiceTypes=Plasma/DataEngine
 Type=Service
 Icon=kget
