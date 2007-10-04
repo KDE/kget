@@ -1,5 +1,9 @@
 project(kget)
 
+set(kget_adaptor_SRCS) 
+
+qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
+
 add_subdirectory(conf)
 add_subdirectory(core)
 add_subdirectory(ui)
@@ -48,7 +52,7 @@ install(TARGETS kgetcore DESTINATION ${LIB_INSTALL_DIR})
 
 # kget
 
-set(kget_SRCS
+set(kget_SRCS ${kget_adaptor_SRCS}
    conf/dlgdirectories.cpp
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
@@ -66,8 +70,6 @@ set(kget_SRCS
    mainwindow.cpp
    main.cpp
 )
-
-qt4_add_dbus_adaptor(kget_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui

@@ -17,7 +17,7 @@
  */
 
 #include "kgetengine.h"
-#include "kgetdbus.h"
+#include "kget_interface.h"
 
 #include <QtDBus/QDBusConnectionInterface>
 #include <QTimer>

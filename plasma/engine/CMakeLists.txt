@@ -1,9 +1,10 @@
-include_directories(${PLASMA_INCLUDE_DIR})
+include_directories(${PLASMA_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/kget)
 
 set(kget_engine_SRCS
     kgetengine.cpp
-    kgetdbus.cpp
 )
+
+qt4_add_dbus_interface(kget_engine_SRCS ../../../kget/org.kde.kget.xml kget_interface)
 
 kde4_add_plugin(plasma_engine_kget ${kget_engine_SRCS})
 target_link_libraries(plasma_engine_kget ${KDE4_KDECORE_LIBS} ${PLASMA_LIBS})
