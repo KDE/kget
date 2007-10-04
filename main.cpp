@@ -76,21 +76,23 @@ public:
             else
                 l.push_back(KUrl(args->arg(i)));
         }
+
+	// the last arg read (when we have more than 1 arg) is considered
+	// as destination dir for the previous downloads
+        // if there is a valid local file
+        QString destUrl;
+        if (l.count() >= 2 && l.last().isLocalFile()) {
+            if (!QFileInfo(l.last().path()).isDir())
+                destUrl = l.last().directory();
+            else 
+                destUrl = l.last().path();
+
+            l.removeLast();
+        }
         // all the args read from command line are downloads
         if (l.count() >= 1)
-            KGet::addTransfer(l, QString(), QString(), true);
-/*
-        // the last arg read (when we have more than 1 arg) is considered
-        // as destination dir for the previous downloads
-        if (l.count() == 1)
-            kget->addTransfersEx( l, KUrl());
-        else if (l.count() > 1)
-        {
-            KUrl last = l.last();
-            l.pop_back();
-            kget->addTransfersEx(l, last);
-        }
-*/
+            KGet::addTransfer(l, destUrl, QString(), true);
+
         args->clear();
         if ( splash )
             splash->removeSplash();
