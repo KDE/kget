@@ -89,7 +89,7 @@ void metalink::createJob()
 
     if(!m_copyjob)
     {
-        m_copyjob = KIO::get(m_source , false, false);
+        m_copyjob = KIO::get(m_source , KIO::NoReload, KIO::HideProgressInfo);
         connect(m_copyjob,SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray& )));
         connect(m_copyjob, SIGNAL(result(KJob *)),
                 this, SLOT(slotResult(KJob * )));

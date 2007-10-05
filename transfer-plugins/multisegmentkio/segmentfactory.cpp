@@ -32,7 +32,7 @@ bool Segment::createTransfer ( const KUrl &src )
     kDebug(5001) << "Segment::createTransfer() -- " << src;
     if ( m_getJob )
         return false;
-    m_getJob = KIO::get(src, false, false);
+    m_getJob = KIO::get(src, KIO::NoReload, KIO::HideProgressInfo);
     m_getJob->suspend();
     m_getJob->addMetaData( "errorPage", "false" );
     m_getJob->addMetaData( "AllowCompressedPage", "false" );

@@ -41,7 +41,7 @@ void Http::start()
     // throw torrent::internal_error("Tried to start already running http job");
     kDebug(5001) << "Tried to start already running http job";
   }
-  job = KIO::get(KUrl(get_url().c_str()), false, false);
+  job = KIO::get(KUrl(get_url().c_str()), KIO::NoReload, KIO::HideProgressInfo);
   connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)),
 	  SLOT(data(KIO::Job*, const QByteArray&)));
   connect(job, SIGNAL(result(KIO::Job*)), SLOT(result(KIO::Job*)));

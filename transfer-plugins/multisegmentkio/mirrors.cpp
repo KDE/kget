@@ -27,7 +27,7 @@ void mirror::search(const KUrl &url, QObject *receiver, const char *member)
     m_Urls << m_url;
 
     KUrl search(m_search_engine.replace("${filename}",m_url.fileName()));
-    m_job = KIO::get(search,false,false);
+    m_job = KIO::get(search, KIO::NoReload, KIO::HideProgressInfo);
     connect(m_job,SIGNAL(data(KIO::Job*,const QByteArray &)),
                SLOT(slotData(KIO::Job*, const QByteArray& )));
     connect(m_job,SIGNAL(result(KJob *)),

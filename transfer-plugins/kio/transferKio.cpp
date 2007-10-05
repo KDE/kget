@@ -85,7 +85,7 @@ void TransferKio::createJob()
 {
     if(!m_copyjob)
     {
-        m_copyjob = KIO::file_copy(m_source, m_dest, -1, false, false, false);
+        m_copyjob = KIO::file_copy(m_source, m_dest, -1, KIO::HideProgressInfo);
 
         connect(m_copyjob, SIGNAL(result(KJob *)), 
                 this, SLOT(slotResult(KJob *)));
