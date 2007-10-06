@@ -25,6 +25,7 @@
 #include <QVariant>
 #include <QSizeF>
 #include <QColor>
+#include <QRect>
 
 class QPainter;
 class QRect;

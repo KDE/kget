@@ -19,6 +19,7 @@
 #include <kiconloader.h>
 
 #include <QDomElement>
+#include <QTime>
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,

@@ -21,6 +21,7 @@
 #include <KIcon>
 #include <KDebug>
 #include <KLocale>
+#include <KGlobal>
 
 #include <QObject>
 #include <QMap>

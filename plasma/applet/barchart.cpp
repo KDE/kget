@@ -20,6 +20,7 @@
 
 #include <KIcon>
 #include <KLocale>
+#include <KGlobal>
 
 #include <QObject>
 #include <QSizeF>
