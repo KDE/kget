@@ -4,6 +4,7 @@ Actions=KGetDownload;
 Icon=
 ServiceTypes=all/allfiles
 ExcludeServiceTypes=kdedevice/*
+X-KDE-Protocol=!file
 
 [Desktop Action KGetDownload]
 Exec=kget %U
