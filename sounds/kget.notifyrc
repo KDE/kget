@@ -6,6 +6,7 @@ Comment[x-test]=xxKGetxx
 
 [Event/added]
 Name=Transfer Added
+Name[ca]=Transferència afegida
 Name[el]=Προστέθηκε μεταφορά
 Name[ja]=ダウンロード追加
 Name[pt]=Transferência Adicionada
@@ -47,6 +48,7 @@ Action=Sound
 
 [Event/started]
 Name=Download Started
+Name[ca]=S'ha iniciat la descàrrega
 Name[el]=Η μεταφορά εκκινήθηκε
 Name[ja]=ダウンロード開始
 Name[pt]=Transferência Iniciada
@@ -89,6 +91,7 @@ Action=Sound
 
 [Event/finished]
 Name=Download Finished
+Name[ca]=Ha acabat la descàrrega
 Name[el]=Η μεταφορά ολοκληρώθηκε
 Name[ja]=ダウンロード完了
 Name[pt]=Transferência Terminada
@@ -130,6 +133,7 @@ Action=Sound
 
 [Event/finishedall]
 Name=All Downloads Finished
+Name[ca]=Han acabat totes les descàrregues
 Name[el]=Όλες οι λήψεις αρχείων ολοκληρώθηκαν
 Name[ja]=全ダウンロード完了
 Name[pt]=Todas as Transferências Terminaram
