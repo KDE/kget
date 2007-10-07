@@ -13,40 +13,59 @@
 
 #include <kio/job.h>
 
-class QTimer;
+#include <QtCore/QTime>
 
-namespace KIO {
+class KJobSpeedLimiter;
 
 /**
  *  The KSpeedLimiter is designed to throtle the speed in kio jobs
  */
 
-class KSpeedLimiter : public QObject
+class KSpeedLimiter
 {
-Q_OBJECT
 
 public:
-    KSpeedLimiter();
+    KSpeedLimiter(unsigned long speed);
     ~KSpeedLimiter();
 
     void setSpeedLimit(unsigned long speed);
     unsigned long speedLimit();
 
     void addJob(KJob *job);
-    void start();
-    void stop();
-
-private Q_SLOTS:
-    void slotTimer();
-    void slotResult(KJob *job);
 
 private:
     unsigned long m_speedLimit;
-    QTimer *m_timer;
-    QList<KJob *> m_jobs;
+    QList<KJobSpeedLimiter *> m_JobSpeedLimiters;
 
 };
 
-} // namespace
+class KJobSpeedLimiter : public QObject
+{
+Q_OBJECT
+
+public:
+    KJobSpeedLimiter(KJob *job, unsigned long speedLimit);
+    ~KJobSpeedLimiter();
+
+private Q_SLOTS:
+    void slotOnTimer();
+    void slotOffTimer();
+    void slotResult(KJob *job);
+
+private:
+    bool isSuspended();
+    void suspend();
+    void resume();
+
+private:
+    unsigned long m_speedLimit;
+    unsigned long m_channelSpeed;
+    KJob *m_job;
+    qulonglong m_bytes;
+    QTime m_time;
+    bool m_isSuspended;
+    int m_OnTime;
+    int m_OffTime;
+};
 
 #endif
