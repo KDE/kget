@@ -114,10 +114,13 @@
          <string>kBi/s</string>
         </property>
         <property name="minimum" >
-         <number>0</number>
+         <number>10</number>
         </property>
         <property name="maximum" >
          <number>100000</number>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
         </property>
        </widget>
       </item>
