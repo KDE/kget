@@ -38,8 +38,8 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
 
     QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot;
-    if( prot == "http" || prot == "https" ||
-         prot == "ftp"  || prot == "sftp"  &&
+    if( (prot == "http" || prot == "https" ||
+         prot == "ftp"  || prot == "sftp")  &&
          MultiSegKioSettings::segments() > 1
       )
     {
