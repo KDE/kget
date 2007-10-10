@@ -1,8 +1,3 @@
-include_directories(
-   ${KDE4_INCLUDES}
-   ${QT_INCLUDES}
-)
-
 ########### next target ###############
 
 set(khtml_kget_SRCS
@@ -11,7 +6,7 @@ set(khtml_kget_SRCS
    links.cpp
 )
 
-QT4_ADD_DBUS_INTERFACE(khtml_kget_SRCS ${CMAKE_SOURCE_DIR}/kget/org.kde.kget.xml kget_interface )
+QT4_ADD_DBUS_INTERFACE(khtml_kget_SRCS ../../org.kde.kget.xml kget_interface )
 
 
 kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})

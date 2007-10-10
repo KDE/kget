@@ -1,4 +1,4 @@
-include_directories(${PLASMA_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/kget)
+include_directories(${PLASMA_INCLUDE_DIR} ../../)
 
 set(kget_engine_SRCS
     kgetengine.cpp

@@ -1,8 +1,6 @@
 
 include_directories(
-   ${CMAKE_SOURCE_DIR}/kget/
-   ${KDE4_INCLUDES}
-   ${QT_INCLUDES}
+   ../../
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_BINARY_DIR}
 )
