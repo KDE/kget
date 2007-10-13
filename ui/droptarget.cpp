@@ -223,7 +223,7 @@ void DropTarget::dropEvent(QDropEvent * event)
     }
     else
     {
-        NewTransferDialog::showNewTransferDialog(str);
+        NewTransferDialog::showNewTransferDialog();
     }
 
     if ( Settings::animateDropTarget() )

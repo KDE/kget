@@ -185,17 +185,11 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
                 Settings::setDefaultDirectory(destDir);
                 Settings::self()->writeConfig();
             }
-
-            QMutableListIterator <KUrl> it(srcUrls);
-            while (it.hasNext())
-            {
-                KUrl url = it.next();
-                if (!KGet::isValidSource(url))
-                {
-                    srcUrls.removeAll(url);
-                }
-            }
-            KGet::addTransfer(srcUrls, destDir, dialog->transferGroup());
+            kDebug(5001) << srcUrls;
+            if (srcUrls.count() == 1)
+                KGet::addTransfer(srcUrls.takeFirst(), destDir, dialog->transferGroup());
+            else
+                KGet::addTransfer(srcUrls, destDir, dialog->transferGroup());
         }
     }
 }

@@ -154,16 +154,19 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if ( !isValidSource( srcUrl ) )
         return;
 
-    if (Settings::useDefaultDirectory())
+    if (destDir.isEmpty())
+    {
+        if (Settings::useDefaultDirectory())
 #ifdef Q_OS_WIN //krazy:exclude=cpp
-        destDir = Settings::defaultDirectory().remove("file:///");
+            destDir = Settings::defaultDirectory().remove("file:///");
 #else
-        destDir = Settings::defaultDirectory().remove("file://");
+            destDir = Settings::defaultDirectory().remove("file://");
 #endif
 
-    QString checkExceptions = getSaveDirectoryFromExceptions(srcUrl);
-    if (Settings::enableExceptions() && !checkExceptions.isEmpty())
-        destDir = checkExceptions;
+        QString checkExceptions = getSaveDirectoryFromExceptions(srcUrl);
+        if (Settings::enableExceptions() && !checkExceptions.isEmpty())
+            destDir = checkExceptions;
+    }
 
     if (!isValidDestDirectory(destDir))
         destDir = destInputDialog();
@@ -176,6 +179,8 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
                                destUrl, KIO::M_MULTI);
         if (dlg.exec() == KIO::R_RENAME)
             destUrl = dlg.newDestUrl();
+        else
+            return;
     }
     createTransfer(srcUrl, destUrl, groupName, start);
 }
@@ -233,18 +238,19 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
 
     for ( ; it != itEnd; ++it )
     {
-        if (Settings::useDefaultDirectory())
+        if (destDir.isEmpty())
+        {
+            if (Settings::useDefaultDirectory())
 #ifdef Q_OS_WIN //krazy:exclude=cpp
-            destDir = Settings::defaultDirectory().remove("file:///");
+                destDir = Settings::defaultDirectory().remove("file:///");
 #else
-            destDir = Settings::defaultDirectory().remove("file://");
+                destDir = Settings::defaultDirectory().remove("file://");
 #endif
-        destDir = destDir.remove("file://");
 
-        QString checkExceptions = getSaveDirectoryFromExceptions(*it);
-        if (Settings::enableExceptions() && !checkExceptions.isEmpty())
-            destDir = checkExceptions;
-
+            QString checkExceptions = getSaveDirectoryFromExceptions(*it);
+            if (Settings::enableExceptions() && !checkExceptions.isEmpty())
+                destDir = checkExceptions;
+        }
         destUrl = getValidDestUrl(destDir, *it);
 
         if(!isValidDestUrl(destUrl))
