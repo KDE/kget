@@ -23,6 +23,7 @@
 #include "settings.h"
 #include "ui/splash.h"
 #include "mainwindow.h"
+#include "ui/newtransferdialog.h"
 
 class KGetApp : public KUniqueApplication
 {
@@ -77,25 +78,29 @@ public:
                 l.push_back(KUrl(args->arg(i)));
         }
 
-	// the last arg read (when we have more than 1 arg) is considered
-	// as destination dir for the previous downloads
+        args->clear();
+        if (splash)
+            splash->removeSplash();
+
+        // the last arg read (when we have more than 1 arg) is considered
+        // as destination dir for the previous downloads
         // if there is a valid local file
         QString destUrl;
         if (l.count() >= 2 && l.last().isLocalFile()) {
             if (!QFileInfo(l.last().path()).isDir())
                 destUrl = l.last().directory();
-            else 
+            else
                 destUrl = l.last().path();
 
             l.removeLast();
+            KGet::addTransfer(l, destUrl, QString(), true);
+            return 0;
         }
         // all the args read from command line are downloads
-        if (l.count() >= 1)
-            KGet::addTransfer(l, destUrl, QString(), true);
-
-        args->clear();
-        if ( splash )
-            splash->removeSplash();
+        if (l.count() == 1)
+            NewTransferDialog::showNewTransferDialog(l.takeFirst().url());
+        if (l.count() > 1 && !l.last().isLocalFile())
+            NewTransferDialog::showNewTransferDialog(l);
         return 0;
     }
 

@@ -14,6 +14,7 @@
 #include "core/kget.h"
 #include "settings.h"
 #include "mainwindow.h"
+#include "ui/newtransferdialog.h"
 
 #include <kwindowsystem.h>
 #include <klocale.h>
@@ -212,16 +213,17 @@ void DropTarget::dropEvent(QDropEvent * event)
 
     if (!list.isEmpty())
     {
-        KUrl::List::Iterator it = list.begin();
-        KUrl::List::Iterator itEnd = list.end();
-
-        for( ; it!=itEnd ; ++it )
-            KGet::addTransfer(*it, QString(), QString(), true);
+        if (list.count() == 1)
+        {
+            str = event->mimeData()->text();
+            NewTransferDialog::showNewTransferDialog(str);
+        }
+        else
+            NewTransferDialog::showNewTransferDialog(list);
     }
     else
     {
-        str = event->mimeData()->text();
-        KGet::addTransfer(KUrl(str), QString(), QString(), true);
+        NewTransferDialog::showNewTransferDialog(str);
     }
 
     if ( Settings::animateDropTarget() )

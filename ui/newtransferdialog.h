@@ -12,43 +12,47 @@
 #ifndef NEW_TRANSFER_DIALOG_H
 #define NEW_TRANSFER_DIALOG_H
 
-#include <QWidget>
 #include <KDialog>
+#include <KUrl>
 
-#include "ui_newtransferdialog.h"
+#include "ui_newtransferwidget.h"
 
-class NewTransferWidget : public QWidget, Ui::NewTransferWidget
+class KListWidget;
+
+class NewTransferDialog : public KDialog, Ui::NewTransferWidget
 {
     Q_OBJECT
 
 public:
-    NewTransferWidget(QWidget *parent=0);
+    NewTransferDialog(QWidget *parent = 0);
 
-    void setFolderPath(QString folder);
-    void setUrl(QString url);
+    static void showNewTransferDialog(const QString &srcUrl = QString());
+    static void showNewTransferDialog(const KUrl::List &list);
 
-    QString folderPath() const;
-    QString url() const;
-    QString groupName() const;
-    bool setAsDefaultFolder() const;
-};
+    void setSource(const QString &srcUrl = QString());
+    void setSource(const KUrl::List &list);
+    KUrl::List source() const;
+    void setDestination(const QString &destUrl);
+    QString destination() const;
+    QString transferGroup() const;
 
-class NewTransferDialog : public KDialog
-{
-    Q_OBJECT
-
-public:
-    NewTransferDialog(QWidget *parent=0);
-    ~NewTransferDialog();
-
-    static void showNewTransferDialog();
-    NewTransferWidget *transferWidget();
-
-protected slots:
-    void slotButtonClicked(int button);
+    void setMultiple(bool multiple);
+    bool multiple() const;
 
 private:
-    NewTransferWidget *m_transferWidget;
+    static void showNewTransferDialog(NewTransferDialog *dialog);
+    void prepareGui();
+
+    bool m_multiple;
+
+    KListWidget *listWidget;
+    KLineEdit *urlRequester;
+    QGridLayout *m_gridLayout;
+    KTitleWidget *m_titleWidget;
+    QGridLayout *m_gridLayout1;
+    KUrlComboRequester *m_folderRequester;
+    QComboBox *m_groupComboBox;
+    QCheckBox *m_defaultFolderButton;
 };
 
 #endif

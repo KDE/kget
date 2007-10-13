@@ -604,11 +604,18 @@ void MainWindow::dropEvent(QDropEvent * event)
     QString str;
 
     if (!list.isEmpty())
-        KGet::addTransfer(list);
+    {
+        if (list.count() == 1)
+        {
+            str = event->mimeData()->text();
+            NewTransferDialog::showNewTransferDialog(str);
+        }
+        else
+            NewTransferDialog::showNewTransferDialog(list);
+    }
     else
     {
-        str = event->mimeData()->text();
-        KGet::addTransfer(KUrl(str));
+        NewTransferDialog::showNewTransferDialog();
     }
 }
 

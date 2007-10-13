@@ -16,62 +16,139 @@
 #include "settings.h"
 
 #include <QWidget>
-#include <QVBoxLayout>
 #include <QApplication>
 #include <QClipboard>
 
-#include <KUrl>
 #include <KLocale>
+#include <KListWidget>
+#include <QListWidgetItem>
+#include <KLineEdit>
 #include <KComboBox>
-#include <KTitleWidget>
+#include <KDebug>
 
 NewTransferDialog::NewTransferDialog(QWidget *parent)
-    : KDialog(parent)
+    : KDialog(parent),
+      m_multiple(false)
 {
     setCaption(i18n("New Download"));
+    setMinimumSize(400, 300);
+    showButtonSeparator(true);
 
-    m_transferWidget = new NewTransferWidget();
+    QWidget *mainWidget = new QWidget(this);
 
-    QVBoxLayout *layout = new QVBoxLayout();
-    QWidget *mainWidget = new QWidget();
-    KTitleWidget *title = new KTitleWidget(this);
+    Ui::NewTransferWidget widget;
+    widget.setupUi(mainWidget);
 
-    title->setText(i18n("New Download"));
-    title->setPixmap(KIcon("document-new").pixmap(22), KTitleWidget::ImageLeft);
-    layout->addWidget(title);
-    layout->addWidget(m_transferWidget);
-    mainWidget->setLayout(layout);
-
+    m_gridLayout = widget.gridLayout;
+    m_titleWidget = widget.titleWidget;
+    m_folderRequester = widget.folderRequester;
+    m_groupComboBox = widget.groupComboBox;
+    m_defaultFolderButton = widget.defaultFolderButton;
     setMainWidget(mainWidget);
+    prepareGui();
 }
 
-NewTransferDialog::~NewTransferDialog()
+void NewTransferDialog::showNewTransferDialog(const QString &srcUrl)
 {
+    NewTransferDialog *dialog = new NewTransferDialog();
+    dialog->setMultiple(false);
+    dialog->setSource(srcUrl);
+
+    NewTransferDialog::showNewTransferDialog(dialog);
 }
 
-NewTransferWidget *NewTransferDialog::transferWidget()
+void NewTransferDialog::showNewTransferDialog(const KUrl::List &list)
 {
-    return m_transferWidget;
+    NewTransferDialog *dialog = new NewTransferDialog();
+    dialog->setMultiple(true);
+    dialog->setSource(list);
+
+    NewTransferDialog::showNewTransferDialog(dialog);
 }
 
-void NewTransferDialog::slotButtonClicked(int button)
+bool NewTransferDialog::multiple() const 
 {
-    if(button == KDialog::Cancel) {
-        transferWidget()->setUrl(QString());
-        transferWidget()->setFolderPath(QString());
+    return m_multiple;
+}
+
+void NewTransferDialog::setMultiple(bool value)
+{
+    m_multiple = value;
+    if (multiple())
+    {
+        listWidget = new KListWidget();
+        m_gridLayout->addWidget(listWidget, 0, 1, 1, 1);
     }
-
-    KDialog::slotButtonClicked(button);
+    else
+    {
+        urlRequester = new KLineEdit();
+        m_gridLayout->addWidget(urlRequester, 0, 1, 1, 1);
+    }
 }
 
-void NewTransferDialog::showNewTransferDialog()
+void NewTransferDialog::setSource(const QString &srcUrl)
 {
-    QString srcUrl;
-    QString destDir;
+    urlRequester->clear();
+    if (srcUrl.isEmpty()) 
+    {
+        KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+        if (clipboardUrl.isValid())
+            urlRequester->insert(clipboardUrl.url());
+    }
+    else 
+    {
+        urlRequester->insert(srcUrl);
+    }
+}
 
-    KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
-    if (clipboardUrl.isValid())
-        srcUrl = clipboardUrl.url();
+void NewTransferDialog::setSource(const KUrl::List &list)
+{
+    KUrl::List::const_iterator it = list.begin();
+    KUrl::List::const_iterator itEnd = list.end();
+
+    for (; it!=itEnd ; ++it)
+    {
+        QListWidgetItem *newItem = new QListWidgetItem(it->url(), listWidget);
+        newItem->setCheckState(Qt::Checked);
+    }
+}
+
+KUrl::List NewTransferDialog::source() const
+{
+    KUrl::List list;
+    if (multiple())
+    {
+        foreach (QListWidgetItem *item, listWidget->findItems(QString('*'), Qt::MatchWrap | Qt::MatchWildcard))
+        {
+            if (item->checkState() == Qt::Checked)
+                list.append(KUrl(item->text()));
+        }
+    }
+    else
+    {
+        list.append(KUrl(urlRequester->text()));
+    }
+    return list;
+}
+
+void NewTransferDialog::setDestination(const QString &destination)
+{
+    m_folderRequester->comboBox()->addItem(destination);
+}
+
+QString NewTransferDialog::destination() const
+{
+    return m_folderRequester->url().url();
+}
+
+QString NewTransferDialog::transferGroup() const
+{
+    return m_groupComboBox->currentText();
+}
+
+void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
+{
+    QString destDir;
 
     if (Settings::useDefaultDirectory())
 #ifdef Q_OS_WIN //krazy:exclude=cpp
@@ -80,93 +157,79 @@ void NewTransferDialog::showNewTransferDialog()
         destDir = Settings::defaultDirectory().remove("file://");
 #endif
 
-    QString checkExceptions = KGet::getSaveDirectoryFromExceptions(srcUrl);
+    if (!dialog->source().isEmpty())
+    {
+        QString checkExceptions;
+        KGet::getSaveDirectoryFromExceptions(dialog->source().takeFirst());
+
     if (Settings::enableExceptions() && !checkExceptions.isEmpty())
         destDir = checkExceptions;
+    }
 
-    NewTransferDialog dialog;
-    dialog.transferWidget()->setFolderPath(destDir);
-    dialog.transferWidget()->setUrl(srcUrl);
+    dialog->setDestination(destDir);
+    dialog->exec();
 
-    dialog.exec();
+    KUrl::List srcUrls = dialog->source();
+    destDir = dialog->destination();
 
-    srcUrl = dialog.transferWidget()->url();
-    destDir = dialog.transferWidget()->folderPath();
-
-    if(!srcUrl.isEmpty() && !destDir.isEmpty() && KGet::isValidSource(srcUrl)) {
+    if (dialog->result() == KDialog::Accepted)
+    {
+        if (!srcUrls.isEmpty() && !destDir.isEmpty()) {
 #ifdef Q_OS_WIN //krazy:exclude=cpp
-        destDir = destDir.remove("file:///");
+            destDir = destDir.remove("file:///");
+#else
+            destDir = destDir.remove("file://");
 #endif
-        destDir = destDir.remove("file://");
+            if(dialog->m_defaultFolderButton->checkState() == Qt::Checked)
+            {
+                Settings::setDefaultDirectory(destDir);
+                Settings::self()->writeConfig();
+            }
 
-        if(dialog.transferWidget()->setAsDefaultFolder()) {
-            Settings::setDefaultDirectory(destDir);
-            Settings::self()->writeConfig();
+            QMutableListIterator <KUrl> it(srcUrls);
+            while (it.hasNext())
+            {
+                KUrl url = it.next();
+                if (!KGet::isValidSource(url))
+                {
+                    srcUrls.removeAll(url);
+                }
+            }
+            KGet::addTransfer(srcUrls, destDir, dialog->transferGroup());
         }
-        KGet::addTransfer(srcUrl, destDir, dialog.transferWidget()->groupName());
     }
 }
 
-NewTransferWidget::NewTransferWidget(QWidget *parent)
-    : QWidget(parent)
+void NewTransferDialog::prepareGui()
 {
-    setupUi(this);
-
     // Only select directories
-    folderRequester->setMode(KFile::Directory);
+    m_folderRequester->setMode(KFile::Directory);
 
-    // properties of the folderRequester combobox
-    folderRequester->comboBox()->setDuplicatesEnabled(false);
+    // properties of the m_folderRequester combobox
+    m_folderRequester->comboBox()->setDuplicatesEnabled(false);
 
     // transfer groups
-    groupComboBox->addItems(KGet::transferGroupNames());
+    m_groupComboBox->addItems(KGet::transferGroupNames());
 
     // common usefull folders for the combobox of the url requester
-    if(!Settings::defaultDirectory().isEmpty()) {
+    if (!Settings::defaultDirectory().isEmpty())
+    {
 #ifdef Q_OS_WIN //krazy:exclude=cpp
-        folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file:///"));
+        m_folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file:///"));
 #else
-        folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file://"));
+        m_folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file://"));
 #endif
     }
 
-    if(!Settings::lastDirectory().isEmpty() && 
-        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0) {
-        folderRequester->comboBox()->addItem(Settings::lastDirectory());
+    if (!Settings::lastDirectory().isEmpty() &&
+        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
+    {
+        m_folderRequester->comboBox()->addItem(Settings::lastDirectory());
     }
 
-    groupComboBox->setCurrentIndex(0);
-    folderRequester->comboBox()->setCurrentIndex(0);
+    m_groupComboBox->setCurrentIndex(0);
+    m_folderRequester->comboBox()->setCurrentIndex(0);
+    m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
 }
 
-void NewTransferWidget::setFolderPath(QString path)
-{
-    if(!path.isEmpty()) {
-        folderRequester->setPath(path);
-    }
-}
-
-void NewTransferWidget::setUrl(QString url)
-{
-    urlRequester->setText(url);
-}
-
-QString NewTransferWidget::folderPath() const
-{
-    return folderRequester->url().url();
-}
-
-QString NewTransferWidget::url() const
-{
-    return urlRequester->text();
-}
-
-QString NewTransferWidget::groupName() const
-{
-    return groupComboBox->currentText();
-}
-
-bool NewTransferWidget::setAsDefaultFolder() const
-{
-    return (defaultFolderButton->checkState() == Qt::Checked);
-}
+#include "newtransferdialog.moc"
