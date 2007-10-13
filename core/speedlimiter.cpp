@@ -63,7 +63,6 @@ KJobSpeedLimiter::~KJobSpeedLimiter()
 
 void KJobSpeedLimiter::slotOnTimer()
 {
-    int sleep;
     qulonglong bytes = m_job->processedAmount(KJob::Bytes);
     int expected = 1000.0 * (bytes - m_bytes) / m_speedLimit;
     m_bytes = bytes;
@@ -98,6 +97,7 @@ void KJobSpeedLimiter::slotOffTimer()
 
 void KJobSpeedLimiter::slotResult(KJob *job)
 {
+    Q_UNUSED(job);
     m_job = 0;
     deleteLater();
 }

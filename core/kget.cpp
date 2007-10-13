@@ -28,7 +28,6 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kservicetypetrader.h>
-#include <klibloader.h>
 #include <kiconloader.h>
 #include <kactioncollection.h>
 #include <kio/renamedialog.h>
@@ -816,17 +815,14 @@ void KGet::unloadPlugins()
 
 KGetPlugin * KGet::createPluginFromService( const KService::Ptr service )
 {
-    //get the library loader instance
-    KLibLoader *loader = KLibLoader::self();
-
     //try to load the specified library
-    //Warning! This line seems to erase my m_transferFactories list!!
-    KLibrary *lib = loader->library( QFile::encodeName( service->library() ) );
+    KLibrary *lib = new KLibrary(QFile::encodeName(service->library()));
 
-    if ( !lib ) 
+    if (!lib)
     {
-        KMessageBox::error( 0, i18n( "<p>KLibLoader could not load the plugin:<br/><i>%1</i></p>"
-                "<p>Error message:<br/><i>%2</i></p>", service->library(), loader->lastErrorMessage() ) );
+        KMessageBox::error(0, i18n("<html><p>KLibLoader could not load the plugin:<br/><i>%1</i></p></html>",
+                                   service->library()));
+        kError(5001) << "KLibLoader could not load the plugin:" << service->library();
         return 0;
     }
 
