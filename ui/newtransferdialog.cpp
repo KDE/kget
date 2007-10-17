@@ -133,7 +133,8 @@ KUrl::List NewTransferDialog::source() const
 
 void NewTransferDialog::setDestination(const QString &destination)
 {
-    m_folderRequester->comboBox()->addItem(destination);
+    m_folderRequester->comboBox()->insertItem(0, destination);
+    m_folderRequester->comboBox()->setCurrentIndex(0);
 }
 
 QString NewTransferDialog::destination() const
@@ -159,14 +160,21 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 
     if (!dialog->source().isEmpty())
     {
-        QString checkExceptions;
-        KGet::getSaveDirectoryFromExceptions(dialog->source().takeFirst());
+        QString checkExceptions = KGet::getSaveDirectoryFromExceptions(dialog->source().takeFirst());
 
-    if (Settings::enableExceptions() && !checkExceptions.isEmpty())
-        destDir = checkExceptions;
+        if (Settings::enableExceptions() && !checkExceptions.isEmpty())
+            destDir = checkExceptions;
     }
 
-    dialog->setDestination(destDir);
+    if (!Settings::lastDirectory().isEmpty() &&
+        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
+    {
+        dialog->setDestination(Settings::lastDirectory());
+    }
+    
+    if (!destDir.isEmpty())
+        dialog->setDestination(destDir);
+
     dialog->exec();
 
     KUrl::List srcUrls = dialog->source();
@@ -183,6 +191,12 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
             if(dialog->m_defaultFolderButton->checkState() == Qt::Checked)
             {
                 Settings::setDefaultDirectory(destDir);
+                Settings::setUseDefaultDirectory(true);
+                Settings::self()->writeConfig();
+            }
+            else
+            {
+                Settings::setLastDirectory(destDir);
                 Settings::self()->writeConfig();
             }
             kDebug(5001) << srcUrls;
@@ -205,24 +219,7 @@ void NewTransferDialog::prepareGui()
     // transfer groups
     m_groupComboBox->addItems(KGet::transferGroupNames());
 
-    // common usefull folders for the combobox of the url requester
-    if (!Settings::defaultDirectory().isEmpty())
-    {
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-        m_folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file:///"));
-#else
-        m_folderRequester->comboBox()->addItem(Settings::defaultDirectory().remove("file://"));
-#endif
-    }
-
-    if (!Settings::lastDirectory().isEmpty() &&
-        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
-    {
-        m_folderRequester->comboBox()->addItem(Settings::lastDirectory());
-    }
-
     m_groupComboBox->setCurrentIndex(0);
-    m_folderRequester->comboBox()->setCurrentIndex(0);
     m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
 }
 

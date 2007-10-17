@@ -48,7 +48,7 @@ private:
      */
     void blendOverlay( QPixmap * sourcePixmap );
 
-    QTimer * blinkTimer;
+    QTimer *blinkTimer;
     QPixmap *baseIcon, *grayedIcon, *alternateIcon;
     QPixmap *playOverlay, *stopOverlay;
     QPixmap *overlay;   //!< The current overlay (may be NULL)
