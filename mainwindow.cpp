@@ -432,6 +432,7 @@ void MainWindow::slotDeleteSelected()
     foreach(TransferHandler * it, KGet::selectedTransfers())
     {
         it->stop();
+        m_viewsContainer->closeTransferDetails(it);
         KGet::delTransfer(it);
     }
 }
@@ -506,6 +507,7 @@ void MainWindow::slotNewConfig()
     // parsed often by the code. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
+    m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
     m_drop->setVisible(Settings::showDropTarget(), false);
     m_dock->setVisible(Settings::enableSystemTray());
     if(!Settings::enableSystemTray()) setVisible(true);

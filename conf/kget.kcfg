@@ -27,6 +27,9 @@
       <label>Sets to show the splashscreen while KGet is loading</label>
       <default>true</default>
     </entry>
+    <entry name="ShowExpandableTransferDetails" type="Bool">
+      <default>false</default>
+    </entry>
   </group>
 
   <group name="Advanced">

@@ -16,6 +16,7 @@
 #include "core/transfergroup.h"
 #include "core/transferhandler.h"
 #include "core/transfer.h"
+#include "settings.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -316,6 +317,17 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
     {
 //         kDebug(5001) << "           (ROOT)";
         return QVariant();
+    }
+
+    // the KextendableItemDelegate::ShowExtensionIndicatorRole
+    // tell the KExtendableItemDelegate wich column has the extender icon
+    if (role == Qt::UserRole + 200 && !isTransferGroup(index)) {
+        if (index.column () == 0 && Settings::showExpandableTransferDetails()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     if (role == Qt::DisplayRole || role == Qt::DecorationRole)

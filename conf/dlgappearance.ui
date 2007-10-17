@@ -1,6 +1,14 @@
 <ui version="4.0" >
  <class>DlgAppearance</class>
  <widget class="QWidget" name="DlgAppearance" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>508</width>
+    <height>381</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QGroupBox" name="startupGroup" >
@@ -42,6 +50,22 @@
        <widget class="QCheckBox" name="kcfg_AnimateDropTarget" >
         <property name="text" >
          <string>Enable animations</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Transfer List</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="kcfg_ShowExpandableTransferDetails" >
+        <property name="text" >
+         <string>Expandable transfer details instead of separate tabs</string>
         </property>
        </widget>
       </item>

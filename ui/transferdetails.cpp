@@ -50,6 +50,11 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     transferChangedEvent(transfer);
 }
 
+TransferDetails::~TransferDetails()
+{
+    m_transfer->delObserver(this);
+}
+
 void TransferDetails::transferChangedEvent(TransferHandler * transfer)
 {
     Q_UNUSED(transfer);

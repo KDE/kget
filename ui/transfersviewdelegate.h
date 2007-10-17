@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Adapt the kshortcutdialog use of the kextendableitemdelegate in kdelibs/kdeui/dialogs/
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,6 +12,8 @@
 #ifndef TRANSFERSVIEWDELEGATE_H
 #define TRANSFERSVIEWDELEGATE_H
 
+#include "kextendableitemdelegate.h"
+
 #include <QItemDelegate>
 #include <QToolButton>
 #include <QModelIndex>
@@ -20,7 +23,24 @@ class QButtonGroup;
 
 class KMenu;
 
+class TransferHandler;
 class TransfersViewDelegate;
+
+static const uint TRANSFER_PROGRESS_BAR_HEIGHT = 25;
+static const QString EXPANDABLE_TRANSFER_DETAILS_STYLE =
+                        "QGroupBox{"
+                            "border-width:1px;margin:6px;margin-left:30px;margin-right:50px;"
+                            "border-style:solid;border-color:black;border-radius:10;"
+                            "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FEFEFE, stop: 0.5 #CECECE, stop:1 #FEFEFE);"
+                        "}"
+                        "QGroupBox QLineEdit{"
+                            "border: 1px solid #cecece;border-radius:1;background-color:#F2F2F2;"
+                        "}";
+static const QString EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE =
+                        "QLabel{"
+                            "color:#343434;width:100%;font-weight:bold;"
+                            "subcontrol-position: top center;"
+                        "}";
 
 class GroupStatusButton : public QToolButton
 {
@@ -71,14 +91,14 @@ class GroupStatusEditor : public QWidget
         GroupStatusButton * m_stopBt;
 };
 
-class TransfersViewDelegate : public QItemDelegate
+class TransfersViewDelegate : public KExtendableItemDelegate
 {
     Q_OBJECT
 
     friend class GroupStatusEditor;
 
     public:
-        TransfersViewDelegate();
+        TransfersViewDelegate(QAbstractItemView *parent);
 
         void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
@@ -93,8 +113,16 @@ class TransfersViewDelegate : public QItemDelegate
         void setEditorData(QWidget * editor, const QModelIndex & index) const;
         void setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const;
 
+    public slots:
+        void closeExpandableDetails(const QModelIndex &index = QModelIndex());
+        void itemActivated(QModelIndex index);
+
     private:
+        QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
+
         KMenu * m_popup;
+        QList<QModelIndex> m_editingIndexes;
+        // QMap<TransferHandler *, QWidget *> m_transfersMap;
 };
 
 #endif

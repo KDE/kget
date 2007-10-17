@@ -26,6 +26,7 @@ class TransferDetails : public QWidget, public TransferObserver
     Q_OBJECT
     public:
         TransferDetails(TransferHandler * transfer);
+        ~TransferDetails();
 
         void transferChangedEvent(TransferHandler * transfer);
 

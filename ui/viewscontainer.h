@@ -84,6 +84,7 @@ class ViewsContainer : public QWidget
         ViewsContainer(QWidget * parent = 0);
 
     public slots:
+        void setExpandableDetails(bool show);
         void showTransferDetails(TransferHandler * transfer);
         void closeTransferDetails(TransferHandler * transfer);
 
@@ -94,6 +95,7 @@ class ViewsContainer : public QWidget
         void slotTransferSelected(TransferHandler * transfer);
 
     private:
+        QWidget         * m_bottomBar;
         QVBoxLayout     * m_VLayout;
         QHBoxLayout     * m_HLayout;
         QStackedLayout  * m_SLayout;

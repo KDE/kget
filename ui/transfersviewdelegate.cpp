@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Adapt the kshortcutdialog use of the kextendableitemdelegate in kdelibs/kdeui/dialogs/
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -10,11 +11,13 @@
 
 #include "ui/transfersviewdelegate.h"
 
+#include "transferdetails.h"
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
+#include "settings.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -27,6 +30,9 @@
 #include <QModelIndex>
 #include <QButtonGroup>
 #include <QHBoxLayout>
+#include <QGroupBox>
+#include <QLabel>
+#include <QAbstractItemView>
 
 GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
     : QToolButton(parent),
@@ -251,10 +257,13 @@ void GroupStatusEditor::slotStatusChanged(bool running)
     emit const_cast<TransfersViewDelegate *>(m_delegate)->commitData(this);
 }
 
-TransfersViewDelegate::TransfersViewDelegate()
-    : QItemDelegate(), m_popup(0)
+TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
+    : KExtendableItemDelegate(parent), m_popup(0)
 {
-
+    Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
+    setExtendIcon(SmallIcon("arrow-right"));
+    setContractIcon(SmallIcon("arrow-down"));
+    connect(parent, SIGNAL(clicked(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
 }
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
@@ -283,32 +292,40 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 
         painter->restore();
     }
-    else if (index.column () == 3) { // the percent column
-        TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
-
-        painter->setPen(QApplication::palette().color(QPalette::Text));
-        painter->setBrush(QApplication::palette().color(QPalette::Base));
-
-        QLinearGradient gradient(option.rect.x(), option.rect.y(),
-                                 option.rect.x(), (option.rect.y() + option.rect.height()));
-        gradient.setColorAt(0, QApplication::palette().color(QPalette::Highlight).darker(60));
-        gradient.setColorAt(0.5, QApplication::palette().color(QPalette::Highlight).darker(110));
-        gradient.setColorAt(1, QApplication::palette().color(QPalette::Highlight).darker(60));
-
-        QRect percentRect(option.rect.x() + 5, option.rect.y() + 5,
-                (int) transferHandler->percent() * (option.rect.width() - 9) / 100, option.rect.height() - 9);
+    else {
         if (KGet::selectionModel()->isSelected(index))
-            painter->fillRect(option.rect, QApplication::palette().color(option.state & QStyle::QStyle::State_Active ?
-                                                                         QPalette::Active : QPalette::Inactive,
-                                                                         QPalette::Highlight));
-        painter->drawRect(option.rect.x() + 4, option.rect.y() + 4,
-                option.rect.width () - 8, option.rect.height() - 8);
-        painter->fillRect(percentRect, gradient);
-        painter->drawText(option.rect, Qt::AlignCenter,
-                QString::number(transferHandler->percent()) + "%");
+                painter->fillRect(option.rect, QApplication::palette().color(option.state & QStyle::QStyle::State_Active ?
+                                                                            QPalette::Active : QPalette::Inactive,
+                                                                            QPalette::Highlight));
+
+        KExtendableItemDelegate::paint(painter, option, index);
+
+        if(index.column() == 3) { // the percent column
+            TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
+
+            painter->setPen(QApplication::palette().color(QPalette::Text));
+            painter->setBrush(QApplication::palette().color(QPalette::Base));
+
+            QRect pbRect(option.rect.x(), option.rect.y(),
+                    option.rect.width(), TRANSFER_PROGRESS_BAR_HEIGHT);
+
+            QLinearGradient gradient(pbRect.x(), pbRect.y(),
+                                    pbRect.x(), pbRect.y() + TRANSFER_PROGRESS_BAR_HEIGHT);
+            gradient.setColorAt(0, QApplication::palette().color(QPalette::Highlight).darker(60));
+            gradient.setColorAt(0.5, QApplication::palette().color(QPalette::Highlight).darker(110));
+            gradient.setColorAt(1, QApplication::palette().color(QPalette::Highlight).darker(60));
+
+            QRect percentRect(pbRect.x() + 5, pbRect.y() + 5,
+                    (int) transferHandler->percent() * (pbRect.width() - 9) / 100, pbRect.height() - 9);
+
+
+            painter->drawRect(pbRect.x() + 4, pbRect.y() + 4,
+                pbRect.width () - 8, pbRect.height() - 8);
+            painter->fillRect(percentRect, gradient);
+            painter->drawText(pbRect, Qt::AlignCenter,
+                    QString::number(transferHandler->percent()) + "%");
+        }
     }
-    else
-        QItemDelegate::paint(painter, option, index);
 }
 
 void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const
@@ -329,8 +346,11 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
     {
         return QSize(0, 35);
     }
-
-    return QSize(0, 24);
+    else {
+        QSize ret(KExtendableItemDelegate::sizeHint(option, index));
+        ret.rheight() += 8;
+        return ret;
+    }
 }
 
 QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem & option , const QModelIndex & index) const
@@ -409,5 +429,59 @@ void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * 
         groupHandler->stop();
 }
 
+void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIndex)
+{
+    if(transferIndex.isValid()) {
+        contractItem(transferIndex);
+        m_editingIndexes.removeAll(transferIndex);
+    }
+    else {
+        foreach(const QModelIndex &index, m_editingIndexes) {
+            contractItem(index);
+        }
+
+        m_editingIndexes.clear();
+    }
+}
+
+QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *handler)
+{
+    QGroupBox *widget = new QGroupBox(QString());
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    QLabel *title = new QLabel(i18n("Transfer details"));
+
+    layout->addWidget(title);
+    layout->addWidget(new TransferDetails(handler));
+    widget->setAutoFillBackground(false);
+    title->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE);
+    title->setAlignment(Qt::AlignHCenter);
+    widget->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_STYLE);
+    widget->setLayout(layout);
+
+    return widget;
+}
+
+void TransfersViewDelegate::itemActivated(QModelIndex index)
+{
+    const TransferTreeModel * transferTreeModel = static_cast <const TransferTreeModel *> (index.model());
+
+    if(!transferTreeModel->isTransferGroup(index) && Settings::showExpandableTransferDetails()) {
+        if(!isExtended(index)) {
+            TransferHandler *handler = static_cast <TransferHandler *> (index.internalPointer());
+            QWidget *widget = getDetailsWidgetForTransfer(handler);
+
+            m_editingIndexes.append(index);
+            extendItem(widget, index);
+        }
+        else {
+            m_editingIndexes.removeAll(index);
+            contractItem(index);
+        }
+    }
+    else {
+        closeExpandableDetails(QModelIndex());
+    }
+}
 
 #include "transfersviewdelegate.moc"

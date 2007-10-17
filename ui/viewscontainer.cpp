@@ -18,6 +18,7 @@
 #include "transfersview.h"
 #include "transfersviewdelegate.h"
 #include "transferdetails.h"
+#include "settings.h"
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -164,9 +165,21 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     : QWidget(parent)
 {
     //Bottom bar layout
+    m_bottomBar = new QWidget(this);
+    QVBoxLayout *bbVBox = new QVBoxLayout();
+
+    QFrame * horizontalLine = new QFrame();
+    horizontalLine->setFrameShape(QFrame::HLine);
+    horizontalLine->setFrameShadow(QFrame::Sunken);
+
     m_HLayout = new QHBoxLayout();
-    m_HLayout->setSpacing(2);
-    m_HLayout->setMargin(2);
+
+    bbVBox->addWidget(horizontalLine);
+    bbVBox->addSpacing(1);
+    bbVBox->addLayout(m_HLayout);
+
+    m_bottomBar->setLayout(bbVBox);
+    m_bottomBar->setVisible(!Settings::showExpandableTransferDetails());
 
     m_downloadsBt = new ButtonBase();
     m_downloadsBt->setText(i18n("Downloads"));
@@ -181,10 +194,8 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 
     m_HLayout->addWidget(m_downloadsBt);
 //     m_HLayout->addWidget(m_finishedBt);
-    m_HLayout->addSpacing(20);
     m_HLayout->addStretch(1);
     m_HLayout->addWidget(new QLabel(i18n("Transfer details:"), this));
-    m_HLayout->addSpacing(10);
     m_HLayout->addWidget(m_transfersBt);
 
     m_VLayout = new QVBoxLayout();
@@ -195,19 +206,12 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_titleBar = new TitleBar();
     m_SLayout = new QStackedLayout();
 
-    QFrame * horizontalLine = new QFrame();
-    horizontalLine->setFrameShape(QFrame::HLine);
-    horizontalLine->setFrameShadow(QFrame::Sunken);
-
     m_VLayout->addWidget(m_titleBar);
     m_VLayout->addLayout(m_SLayout);
-    m_VLayout->addSpacing(3);
-    m_VLayout->addWidget(horizontalLine);
-    m_VLayout->addSpacing(3);
-    m_VLayout->addLayout(m_HLayout);
+    m_VLayout->addWidget(m_bottomBar);
 
     m_transfersView = new TransfersView();
-    m_transfersViewDelegate = new TransfersViewDelegate();
+    m_transfersViewDelegate = new TransfersViewDelegate(m_transfersView);
     m_transfersView->setItemDelegate(m_transfersViewDelegate);
     KGet::addTransferView(m_transfersView);
     m_transfersView->setSelectionModel(KGet::selectionModel());
@@ -231,31 +235,53 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     showDownloadsWindow();
 }
 
+void ViewsContainer::setExpandableDetails(bool show)
+{
+    m_bottomBar->setVisible(!show);
+    if(show) {
+        showDownloadsWindow();
+    }
+    else {
+        m_transfersViewDelegate->closeExpandableDetails();
+    }
+}
+
 void ViewsContainer::showTransferDetails(TransferHandler * transfer)
 {
-    //First check if we already inserted this widget
-    QMap<TransferHandler *, QWidget *>::iterator it;
-    it = m_transfersMap.find(transfer);
-
-    if( it == m_transfersMap.end() )
-    {
-        //Create the transfer widget
-        QWidget * widget = new TransferDetails(transfer); KGet::factory(transfer)->createDetailsWidget(transfer);
-        //Add it to the m_transferItems list
-        m_transfersMap[transfer] = widget;
-        //Add the widget to the qstackedlayout
-        m_SLayout->addWidget( widget );
-        //Insert a new transfer in the m_transfersBt button
-        m_transfersBt->addTransfer(transfer);
+    if(Settings::showExpandableTransferDetails()) {
+        m_transfersViewDelegate->itemActivated(m_transfersView->indexFromTransferHandler(transfer));
     }
+    else {
+        //First check if we already inserted this widget
+        QMap<TransferHandler *, QWidget *>::iterator it;
+        it = m_transfersMap.find(transfer);
 
-    //Select the new transfer
-    slotTransferSelected(transfer);
+        if( it == m_transfersMap.end() )
+        {
+            //Create the transfer widget
+            QWidget * widget = new TransferDetails(transfer); KGet::factory(transfer)->createDetailsWidget(transfer);
+            //Add it to the m_transferItems list
+            m_transfersMap[transfer] = widget;
+            //Add the widget to the qstackedlayout
+            m_SLayout->addWidget( widget );
+            //Insert a new transfer in the m_transfersBt button
+            m_transfersBt->addTransfer(transfer);
+        }
+
+        //Select the new transfer
+        slotTransferSelected(transfer);
+    }
 }
 
 void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
 {
-    m_transfersBt->removeTransfer(transfer);
+    if(Settings::showExpandableTransferDetails()) {
+        m_transfersViewDelegate->closeExpandableDetails(m_transfersView->indexFromTransferHandler(transfer));
+    }
+    else {
+        m_transfersBt->removeTransfer(transfer);
+    }
+    m_transfersMap.remove(transfer);
 }
 
 void ViewsContainer::showDownloadsWindow()

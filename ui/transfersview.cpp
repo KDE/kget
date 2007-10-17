@@ -51,6 +51,22 @@ void TransfersView::setModel(QAbstractItemModel * model)
     setColumnWidth(0, 250);
 }
 
+QModelIndex TransfersView::indexFromTransferHandler(TransferHandler *handler)
+{
+    for(int groupRow = 0; groupRow < model()->rowCount(); groupRow ++) {
+        QModelIndex groupIndex = model()->index(groupRow, 0, QModelIndex());
+        for(int transferRow = 0; transferRow < model()->rowCount(groupIndex); transferRow ++) {
+            QModelIndex index = model()->index(transferRow, 0, groupIndex);
+
+            TransferHandler *indexHandler = static_cast <TransferHandler *> (index.internalPointer());
+            if(indexHandler == handler) {
+                return index;
+            }
+        }
+    }
+    return QModelIndex();
+}
+
 void TransfersView::dropEvent(QDropEvent * event)
 {
     QModelIndex dropIndex = indexAt(event->pos());
