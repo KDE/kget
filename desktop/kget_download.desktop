@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Actions=KGetDownload;
+Type=Service
 Icon=
 ServiceTypes=all/allfiles
 ExcludeServiceTypes=kdedevice/*
