@@ -149,17 +149,17 @@ void SpeedGraph::drawTimeline(QQueue <uint> *transfer, QPainter *p, const QRect 
     p->save();
     p->setPen(color);
 
-    QPoint *previous = NULL;
+    QPoint previous;
 
     for(int i=0;i<transfer->size();i++) {
         uint x = i * ((contentsRect.width() - TRANSFER_MARGIN - 40) / MAX_ITEMS) + TRANSFER_MARGIN + 40;
         uint y = transfer->at(transfer->size() - 1 - i) * GRAPH_HEIGHT / m_maxSpeed;
 
         p->drawPoint(x, VERTICAL_MARGIN + GRAPH_HEIGHT - y);
-        if(previous != NULL) {
-            p->drawLine(x, VERTICAL_MARGIN + GRAPH_HEIGHT - y, previous->x(), previous->y());
-        }
-        previous = new QPoint(x, VERTICAL_MARGIN + GRAPH_HEIGHT - y);
+        if(!previous.isNull())
+            p->drawLine(x, VERTICAL_MARGIN + GRAPH_HEIGHT - y, previous.x(), previous.y());
+        previous.setX(x);
+        previous.setY(VERTICAL_MARGIN + GRAPH_HEIGHT - y);
     }
 
     p->restore();
