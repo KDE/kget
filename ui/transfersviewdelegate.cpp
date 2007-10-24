@@ -294,7 +294,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
     }
     else {
         if (KGet::selectionModel()->isSelected(index))
-                painter->fillRect(option.rect, QApplication::palette().color(option.state & QStyle::QStyle::State_Active ?
+                painter->fillRect(option.rect, QApplication::palette().color(option.state & QStyle::State_Active ?
                                                                             QPalette::Active : QPalette::Inactive,
                                                                             QPalette::Highlight));
 
