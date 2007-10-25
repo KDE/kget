@@ -204,7 +204,7 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     setLayout(m_VLayout);
 
     m_titleBar = new TitleBar();
-    m_titleBar->setVisible(!show);
+    m_titleBar->setVisible(!Settings::showExpandableTransferDetails());
     m_SLayout = new QStackedLayout();
 
     m_VLayout->addWidget(m_titleBar);
