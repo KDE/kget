@@ -238,6 +238,7 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 void ViewsContainer::setExpandableDetails(bool show)
 {
     m_bottomBar->setVisible(!show);
+    m_titleBar->setVisible(!show);
     if(show) {
         showDownloadsWindow();
     }
