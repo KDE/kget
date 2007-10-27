@@ -275,7 +275,7 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
     else
         flags |= Qt::ItemIsDragEnabled;
 
-    flags |= Qt::ItemIsDropEnabled;
+    //flags |= Qt::ItemIsDropEnabled;
 
     // We can edit all the groups but the default one
     if(index.row() > 0) {
