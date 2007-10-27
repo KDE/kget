@@ -319,8 +319,8 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
         return QVariant();
     }
 
-    // the KextendableItemDelegate::ShowExtensionIndicatorRole
-    // tell the KExtendableItemDelegate wich column has the extender icon
+    // KextendableItemDelegate::ShowExtensionIndicatorRole
+    // tells the KExtendableItemDelegate which column contains the extender icon
     if (role == Qt::UserRole + 200 && !isTransferGroup(index)) {
         if (index.column () == 0 && Settings::showExpandableTransferDetails()) {
             return true;

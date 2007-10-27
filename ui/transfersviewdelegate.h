@@ -47,7 +47,7 @@ class GroupStatusButton : public QToolButton
     Q_OBJECT
 
     public:
-        GroupStatusButton(const QModelIndex & index, QWidget * parent=0);
+        explicit GroupStatusButton(const QModelIndex & index, QWidget * parent=0);
 
     protected:
         void checkStateSet();

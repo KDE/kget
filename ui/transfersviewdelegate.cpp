@@ -323,7 +323,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
                 pbRect.width () - 8, pbRect.height() - 8);
             painter->fillRect(percentRect, gradient);
             painter->drawText(pbRect, Qt::AlignCenter,
-                    QString::number(transferHandler->percent()) + "%");
+                    QString::number(transferHandler->percent()) + '%');
         }
     }
 }

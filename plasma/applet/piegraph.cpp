@@ -18,6 +18,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#include "piegraph.h"
+
 #include <KIcon>
 #include <KDebug>
 #include <KLocale>
@@ -29,8 +31,6 @@
 #include <QPainter>
 
 #include <math.h>
-
-#include "piegraph.h"
 
 PieGraph::PieGraph(QObject *parent) 
     : TransferGraph(parent),
@@ -52,7 +52,7 @@ void PieGraph::paint(QPainter *p, const QRect &contentsRect)
     // search for the downloads with size attribute not empty
     foreach(QString url, m_transfers.keys()) {
         QVariantList attributes = m_transfers[url].toList();
-        if (QString::compare(attributes[2].toString(), "") != 0 && 
+        if (!attributes[2].toString().isNull() &&
                             attributes[2].toString().toDouble() > 0) {
             m_totalFiles ++;
             downloads.insert(url, attributes[2].toString().toDouble());
@@ -140,7 +140,7 @@ void PieGraph::drawLegend(QPainter *p, int y, const QString &name, int percent, 
 
     // the download size
     p->drawText(QRect(220, y + 1, 78, 20), Qt::AlignLeft,
-                "[" + KGlobal::locale()->formatByteSize(size) + "]");
+                '[' + KGlobal::locale()->formatByteSize(size) + ']');
 
     // the download percent
     if(percent >= 100) {
@@ -148,7 +148,7 @@ void PieGraph::drawLegend(QPainter *p, int y, const QString &name, int percent, 
     }
     else {
         p->setOpacity(0.5);
-        p->drawText(QRect(300, y + 1, 40, 20), Qt::AlignLeft, QString::number(percent) + "%");
+        p->drawText(QRect(300, y + 1, 40, 20), Qt::AlignLeft, QString::number(percent) + '%');
     }
     p->restore();
 }

@@ -18,14 +18,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#include "transfergraph.h"
+
 #include <QObject>
 #include <QVariant>
 #include <QPainter>
 
 #include <KLocale>
 #include <KIcon>
-
-#include "transfergraph.h"
 
 TransferGraph::TransferGraph(QObject *parent)
 {

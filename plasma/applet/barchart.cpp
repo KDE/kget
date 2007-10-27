@@ -18,6 +18,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#include "barchart.h"
+
 #include <KIcon>
 #include <KLocale>
 #include <KGlobal>
@@ -27,8 +29,6 @@
 #include <QPainter>
 #include <QPalette>
 #include <QApplication>
-
-#include "barchart.h"
 
 BarChart::BarChart(QObject *parent) 
     : TransferGraph(parent)
@@ -75,12 +75,12 @@ void BarChart::paint(QPainter *p, const QRect &contentsRect)
                     contentsRect.width() - HORIZONTAL_MARGIN * 2, TRANSFER_LINE_HEIGHT - 10,
                     Qt::AlignLeft,
                     p->fontMetrics().elidedText(attributes[0].toString(),
-                            Qt::ElideLeft,  contentsRect.width() - HORIZONTAL_MARGIN * 2 - 140) + 
-                    " (" + KGlobal::locale()->formatByteSize(attributes[2].toInt()) + ")");
+                            Qt::ElideLeft,  contentsRect.width() - HORIZONTAL_MARGIN * 2 - 140) +
+                    " (" + KGlobal::locale()->formatByteSize(attributes[2].toInt()) + ')');
         // draw the transfer size information
         p->drawText(contentsRect.width() - 130, (int) transferRect.y() + 5,
                     120, TRANSFER_LINE_HEIGHT - 10,
-                    Qt::AlignRight, attributes[1].toString() + "%");
+                    Qt::AlignRight, attributes[1].toString() + '%');
 
         p->restore();
         y += TRANSFER_LINE_HEIGHT;

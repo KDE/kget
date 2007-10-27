@@ -18,6 +18,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#include "speedgraph.h"
+#include "transfergraph.h"
+
 #include <KIcon>
 #include <KDebug>
 #include <KLocale>
@@ -28,9 +31,6 @@
 #include <QSizeF>
 #include <QPainter>
 #include <QQueue>
-
-#include "speedgraph.h"
-#include "transfergraph.h"
 
 SpeedGraph::SpeedGraph(QObject *parent)
     : TransferGraph(parent),
@@ -131,7 +131,7 @@ void SpeedGraph::drawLegend(const QVariantList &transfer, QPainter *p, const QCo
 
     // the download size
     p->drawText(QRect(220, y + 1, 78, 20), Qt::AlignLeft,
-                "[" + KGlobal::locale()->formatByteSize(size) + "]");
+                '[' + KGlobal::locale()->formatByteSize(size) + ']');
 
     // the download percent
     if(percent >= 100) {
@@ -139,7 +139,7 @@ void SpeedGraph::drawLegend(const QVariantList &transfer, QPainter *p, const QCo
     }
     else {
         p->setOpacity(0.5);
-        p->drawText(QRect(300, y + 1, 40, 20), Qt::AlignLeft, QString::number(percent) + "%");
+        p->drawText(QRect(300, y + 1, 40, 20), Qt::AlignLeft, QString::number(percent) + '%');
     }
     p->restore();
 }
