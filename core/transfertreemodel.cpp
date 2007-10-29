@@ -380,13 +380,13 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             switch (index.column())
             {
                 case 0: // name
-                    return QVariant(Qt::AlignVCenter);
+                    return Qt::AlignVCenter;
                 case 2: // size
-                    return QVariant(Qt::AlignCenter);
+                    return Qt::AlignCenter;
                 case 4: // speed
-                    return QVariant(Qt::AlignCenter);
+                    return Qt::AlignCenter;
                 case 3: //progress
-                    return QVariant(Qt::AlignCenter);
+                    return Qt::AlignCenter;
                 default:
                     return QVariant(Qt::AlignLeft | Qt::AlignBottom);
             }
@@ -403,7 +403,7 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
             case 3: //progress
                 return Qt::AlignCenter;
             default:
-                return QVariant(Qt::AlignCenter);
+                return Qt::AlignCenter;
         }
     }
 

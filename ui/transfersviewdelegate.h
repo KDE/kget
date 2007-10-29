@@ -26,7 +26,6 @@ class KMenu;
 class TransferHandler;
 class TransfersViewDelegate;
 
-static const uint TRANSFER_PROGRESS_BAR_HEIGHT = 25;
 static const QString EXPANDABLE_TRANSFER_DETAILS_STYLE =
                         "QGroupBox{"
                             "border-width:1px;margin:6px;margin-left:30px;margin-right:50px;"

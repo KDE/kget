@@ -300,30 +300,37 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 
         KExtendableItemDelegate::paint(painter, option, index);
 
-        if(index.column() == 3) { // the percent column
-            TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
+        if (index.column() == 3 && !isExtended(index)) { // the percent column
+            TransferHandler *transferHandler = static_cast<TransferHandler *>(index.internalPointer());
 
-            painter->setPen(QApplication::palette().color(QPalette::Text));
-            painter->setBrush(QApplication::palette().color(QPalette::Base));
+            // following progressbar code has mostly been taken from Qt4 examples/network/torrent/mainview.cpp
+            // Set up a QStyleOptionProgressBar to precisely mimic the
+            // environment of a progress bar.
+            QStyleOptionProgressBar progressBarOption;
+            progressBarOption.state = QStyle::State_Enabled;
+            progressBarOption.direction = QApplication::layoutDirection();
+            progressBarOption.rect = option.rect;
+            progressBarOption.fontMetrics = QApplication::fontMetrics();
+            progressBarOption.minimum = 0;
+            progressBarOption.maximum = 100;
+            progressBarOption.textAlignment = Qt::AlignCenter;
+            progressBarOption.textVisible = true;
 
-            QRect pbRect(option.rect.x(), option.rect.y(),
-                    option.rect.width(), TRANSFER_PROGRESS_BAR_HEIGHT);
+            // Set the progress and text values of the style option.
+            int progress = transferHandler->percent();
+            if (progress >= 0 && progress <= 100) {
+                progressBarOption.progress = progress;
+                progressBarOption.text = QString().sprintf("%d%%", progressBarOption.progress);
+            } else {
+                progressBarOption.text = i18nc("not available", "n/a");
+            }
 
-            QLinearGradient gradient(pbRect.x(), pbRect.y(),
-                                    pbRect.x(), pbRect.y() + TRANSFER_PROGRESS_BAR_HEIGHT);
-            gradient.setColorAt(0, QApplication::palette().color(QPalette::Highlight).darker(60));
-            gradient.setColorAt(0.5, QApplication::palette().color(QPalette::Highlight).darker(110));
-            gradient.setColorAt(1, QApplication::palette().color(QPalette::Highlight).darker(60));
+            progressBarOption.rect.setY(progressBarOption.rect.y() +
+                                        (option.rect.height() - QApplication::fontMetrics().height()) / 2);
+            progressBarOption.rect.setHeight(QApplication::fontMetrics().height());
 
-            QRect percentRect(pbRect.x() + 5, pbRect.y() + 5,
-                    (int) transferHandler->percent() * (pbRect.width() - 9) / 100, pbRect.height() - 9);
-
-
-            painter->drawRect(pbRect.x() + 4, pbRect.y() + 4,
-                pbRect.width () - 8, pbRect.height() - 8);
-            painter->fillRect(percentRect, gradient);
-            painter->drawText(pbRect, Qt::AlignCenter,
-                    QString::number(transferHandler->percent()) + '%');
+            // Draw the progress bar onto the view.
+            QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
         }
     }
 }
@@ -446,20 +453,19 @@ void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIn
 
 QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *handler)
 {
-    QGroupBox *widget = new QGroupBox(QString());
+    QGroupBox *groupBox = new QGroupBox();
 
-    QVBoxLayout *layout = new QVBoxLayout();
+    QVBoxLayout *layout = new QVBoxLayout(groupBox);
     QLabel *title = new QLabel(i18n("Transfer details"));
 
     layout->addWidget(title);
     layout->addWidget(new TransferDetails(handler));
-    widget->setAutoFillBackground(false);
+    groupBox->setAutoFillBackground(false);
     title->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE);
     title->setAlignment(Qt::AlignHCenter);
-    widget->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_STYLE);
-    widget->setLayout(layout);
+    groupBox->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_STYLE);
 
-    return widget;
+    return groupBox;
 }
 
 void TransfersViewDelegate::itemActivated(QModelIndex index)

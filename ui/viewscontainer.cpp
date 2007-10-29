@@ -166,7 +166,9 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 {
     //Bottom bar layout
     m_bottomBar = new QWidget(this);
-    QVBoxLayout *bbVBox = new QVBoxLayout();
+    QVBoxLayout *bbVBox = new QVBoxLayout(m_bottomBar);
+    bbVBox->setMargin(2);
+    bbVBox->setSpacing(2);
 
     QFrame * horizontalLine = new QFrame();
     horizontalLine->setFrameShape(QFrame::HLine);
@@ -178,7 +180,6 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     bbVBox->addSpacing(1);
     bbVBox->addLayout(m_HLayout);
 
-    m_bottomBar->setLayout(bbVBox);
     m_bottomBar->setVisible(!Settings::showExpandableTransferDetails());
 
     m_downloadsBt = new ButtonBase();
