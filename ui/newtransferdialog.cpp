@@ -182,7 +182,6 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 
     if (dialog->result() == KDialog::Accepted)
     {
-        if (!srcUrls.isEmpty() && !destDir.isEmpty()) {
 #ifdef Q_OS_WIN //krazy:exclude=cpp
             destDir = destDir.remove("file:///");
 #else
@@ -204,7 +203,6 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
                 KGet::addTransfer(srcUrls.takeFirst(), destDir, dialog->transferGroup());
             else
                 KGet::addTransfer(srcUrls, destDir, dialog->transferGroup());
-        }
     }
 }
 
