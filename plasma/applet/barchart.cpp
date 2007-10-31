@@ -29,6 +29,7 @@
 #include <QPainter>
 #include <QPalette>
 #include <QApplication>
+#include <QAbstractItemView>
 
 BarChart::BarChart(QObject *parent) 
     : TransferGraph(parent)
@@ -49,27 +50,35 @@ void BarChart::paint(QPainter *p, const QRect &contentsRect)
         float percent = attributes[1].toString().toFloat();
         p->save();
 
-        QRectF transferRect(contentsRect.x() + HORIZONTAL_MARGIN,
+        QRect transferRect(contentsRect.x() + HORIZONTAL_MARGIN,
                             contentsRect.y() + y,
                             contentsRect.width() - HORIZONTAL_MARGIN * 2,
                             TRANSFER_LINE_HEIGHT - 7);
-        // the percent rectangle background
-        p->fillRect(transferRect, QBrush(PERCENT_BACKGROUND_COLOR));
-        // draw the current percent background
-        p->setOpacity(PERCENT_OPACITY);
-        QLinearGradient gradient(transferRect.x(), transferRect.y(), 
-                transferRect.x(), (transferRect.y() + transferRect.height()));
-        gradient.setColorAt(0, QApplication::palette().color(QPalette::Highlight).darker(60));
-        gradient.setColorAt(0.5, QApplication::palette().color(QPalette::Highlight).darker(110));
-        gradient.setColorAt(1, QApplication::palette().color(QPalette::Highlight).darker(60));
 
-        p->fillRect((int) transferRect.x(), (int) transferRect.y(),
-                    (int) (transferRect.width() * percent / 100), (int) transferRect.height(),
-                    QBrush(gradient));
-        p->setOpacity(1);
-        // draw the percent rectangle
-        p->drawRect(transferRect);
-        // draw the download file name
+        // following progressbar code has mostly been taken from Qt4 examples/network/torrent/mainview.cpp and the kget/ui/transfersviewdelegate.cpp
+        // Set up a QStyleOptionProgressBar to precisely mimic the
+        // environment of a progress bar.
+        QStyleOptionProgressBar progressBarOption;
+        progressBarOption.state = QStyle::State_Enabled;
+        progressBarOption.direction = QApplication::layoutDirection();
+        progressBarOption.rect = transferRect;
+        progressBarOption.fontMetrics = QApplication::fontMetrics();
+        progressBarOption.minimum = 0;
+        progressBarOption.maximum = 100;
+        progressBarOption.textAlignment = Qt::AlignRight;
+        progressBarOption.textVisible = true;
+
+        // Set the progress and text values of the style option.
+        progressBarOption.progress = percent;
+        progressBarOption.text = QString().sprintf("%d%%   ", progressBarOption.progress);
+
+        progressBarOption.rect.setY(progressBarOption.rect.y() +
+                                        (transferRect.height() - QApplication::fontMetrics().height()) / 2);
+        progressBarOption.rect.setHeight(QApplication::fontMetrics().height());
+
+            // Draw the progress bar onto the view.
+        QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, p);
+
         p->setPen(TRANSFER_NAME_COLOR);
         p->drawText((int) transferRect.x() + HORIZONTAL_MARGIN, (int) transferRect.y() + 5,
                     contentsRect.width() - HORIZONTAL_MARGIN * 2, TRANSFER_LINE_HEIGHT - 10,
@@ -77,10 +86,6 @@ void BarChart::paint(QPainter *p, const QRect &contentsRect)
                     p->fontMetrics().elidedText(attributes[0].toString(),
                             Qt::ElideLeft,  contentsRect.width() - HORIZONTAL_MARGIN * 2 - 140) +
                     " (" + KGlobal::locale()->formatByteSize(attributes[2].toInt()) + ')');
-        // draw the transfer size information
-        p->drawText(contentsRect.width() - 130, (int) transferRect.y() + 5,
-                    120, TRANSFER_LINE_HEIGHT - 10,
-                    Qt::AlignRight, attributes[1].toString() + '%');
 
         p->restore();
         y += TRANSFER_LINE_HEIGHT;
