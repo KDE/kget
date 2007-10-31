@@ -472,7 +472,7 @@ void TransfersViewDelegate::itemActivated(QModelIndex index)
 {
     const TransferTreeModel * transferTreeModel = static_cast <const TransferTreeModel *> (index.model());
 
-    if(!transferTreeModel->isTransferGroup(index) && Settings::showExpandableTransferDetails()) {
+    if(!transferTreeModel->isTransferGroup(index) && Settings::showExpandableTransferDetails() && index.column() == 0) {
         if(!isExtended(index)) {
             TransferHandler *handler = static_cast <TransferHandler *> (index.internalPointer());
             QWidget *widget = getDetailsWidgetForTransfer(handler);
