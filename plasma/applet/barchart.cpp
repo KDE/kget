@@ -29,7 +29,7 @@
 #include <QPainter>
 #include <QPalette>
 #include <QApplication>
-#include <QAbstractItemView>
+#include <QStyleOptionProgressBar>
 
 BarChart::BarChart(QObject *parent) 
     : TransferGraph(parent)
