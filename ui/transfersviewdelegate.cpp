@@ -485,9 +485,6 @@ void TransfersViewDelegate::itemActivated(QModelIndex index)
             contractItem(index);
         }
     }
-    else {
-        closeExpandableDetails(QModelIndex());
-    }
 }
 
 #include "transfersviewdelegate.moc"
