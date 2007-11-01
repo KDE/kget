@@ -48,8 +48,7 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
     setHasConfigurationInterface(true);
     setDrawStandardBackground(true);
 
-    m_kgetTheme = new Plasma::Svg("widgets/background", this);
-
+    m_transferGraph = 0;
     // the default transfer graph
     KConfigGroup cg = config();
     loadTransferGraph(cg.readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
@@ -157,6 +156,10 @@ void PlasmaKGet::configAccepted()
 
 void PlasmaKGet::loadTransferGraph(uint type)
 {
+    if(m_transferGraph) {
+        delete m_transferGraph;
+    }
+
     switch(type)
     {
         case PlasmaKGet::PieGraphType :

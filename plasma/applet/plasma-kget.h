@@ -64,7 +64,6 @@ protected slots:
 private:
     void loadTransferGraph(uint type);
 
-    Plasma::Svg *m_kgetTheme;
     Plasma::DataEngine *m_engine;
     TransferGraph *m_transferGraph;
     bool m_error;
