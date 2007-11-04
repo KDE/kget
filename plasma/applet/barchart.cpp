@@ -19,92 +19,106 @@
  ***************************************************************************/
 
 #include "barchart.h"
+#include "transfergraph.h"
 
-#include <KIcon>
+#include <plasma/widgets/label.h>
+#include <plasma/widgets/boxlayout.h>
+#include <plasma/widgets/progressbar.h>
+//#include <plasma/widgets/layoutanimator.h>
+
 #include <KLocale>
-#include <KGlobal>
+//#include <QTimeLine>
 
-#include <QObject>
-#include <QSizeF>
-#include <QPainter>
-#include <QPalette>
-#include <QApplication>
-#include <QStyleOptionProgressBar>
-
-BarChart::BarChart(QObject *parent) 
+BarChart::BarChart(Plasma::Applet *parent)
     : TransferGraph(parent)
 {
+    m_titleLabel = 0;
+    m_totalSizeLabel = 0;
+    m_layout = new Plasma::VBoxLayout(m_applet);
+    m_applet->setLayout(m_layout);
+
+    // Layout animator
+  /*  Plasma::LayoutAnimator *animator = new Plasma::LayoutAnimator();
+    QTimeLine * timeLine = new QTimeLine();
+
+    animator->setTimeLine(timeLine);
+    animator->setEffect(Plasma::LayoutAnimator::InsertedState, Plasma::LayoutAnimator::FadeInMoveEffect);
+    animator->setEffect(Plasma::LayoutAnimator::StandardState, Plasma::LayoutAnimator::MoveEffect);
+    animator->setEffect(Plasma::LayoutAnimator::RemovedState, Plasma::LayoutAnimator::FadeOutMoveEffect);
+    m_layout->setAnimator(animator);
+*/
+   // Title
+    m_titleLabel = new Plasma::Label(m_applet);
+    m_titleLabel->setText("KGet downloads");
+    m_titleLabel->setPen(QPen(Qt::white));
+    m_titleLabel->setAlignment(Qt::AlignLeft);
+
+    // Total size
+    m_totalSizeLabel = new Plasma::Label(m_applet);
+    m_totalSizeLabel->setPen(QPen(Qt::white));
+    m_totalSizeLabel->setAlignment(Qt::AlignRight);
 }
 
-void BarChart::paint(QPainter *p, const QRect &contentsRect)
+BarChart::~BarChart()
 {
-    p->save();
-    p->setPen(Qt::white);
-    uint y = (uint) VERTICAL_MARGIN - 2;
+    delete m_titleLabel;
+    delete m_totalSizeLabel;
+    delete m_layout;
+    foreach(const QString &key, m_progressBars.keys()) {
+        delete m_progressBars[key];
+    }
+}
+
+void BarChart::setTransfers(const QVariantMap &transfers)
+{
+    TransferGraph::setTransfers(transfers);
     uint totalSize = 0;
 
-    TransferGraph::drawTitle(p, contentsRect);
-
-    foreach(QString url, m_transfers.keys()) {
-        QVariantList attributes = m_transfers[url].toList();
-        float percent = attributes[1].toString().toFloat();
-        p->save();
-
-        QRect transferRect(contentsRect.x() + HORIZONTAL_MARGIN,
-                            contentsRect.y() + y,
-                            contentsRect.width() - HORIZONTAL_MARGIN * 2,
-                            TRANSFER_LINE_HEIGHT - 7);
-
-        // following progressbar code has mostly been taken from Qt4 examples/network/torrent/mainview.cpp and the kget/ui/transfersviewdelegate.cpp
-        // Set up a QStyleOptionProgressBar to precisely mimic the
-        // environment of a progress bar.
-        QStyleOptionProgressBar progressBarOption;
-        progressBarOption.state = QStyle::State_Enabled;
-        progressBarOption.direction = QApplication::layoutDirection();
-        progressBarOption.rect = transferRect;
-        progressBarOption.fontMetrics = QApplication::fontMetrics();
-        progressBarOption.minimum = 0;
-        progressBarOption.maximum = 100;
-        progressBarOption.textAlignment = Qt::AlignRight;
-        progressBarOption.textVisible = true;
-
-        // Set the progress and text values of the style option.
-        progressBarOption.progress = percent;
-        progressBarOption.text = QString().sprintf("%d%%   ", progressBarOption.progress);
-
-        progressBarOption.rect.setY(progressBarOption.rect.y() +
-                                        (transferRect.height() - QApplication::fontMetrics().height()) / 2);
-        progressBarOption.rect.setHeight(QApplication::fontMetrics().height());
-
-            // Draw the progress bar onto the view.
-        QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, p);
-
-        p->setPen(TRANSFER_NAME_COLOR);
-        p->drawText((int) transferRect.x() + HORIZONTAL_MARGIN, (int) transferRect.y() + 5,
-                    contentsRect.width() - HORIZONTAL_MARGIN * 2, TRANSFER_LINE_HEIGHT - 10,
-                    Qt::AlignLeft,
-                    p->fontMetrics().elidedText(attributes[0].toString(),
-                            Qt::ElideLeft,  contentsRect.width() - HORIZONTAL_MARGIN * 2 - 140) +
-                    " (" + KGlobal::locale()->formatByteSize(attributes[2].toInt()) + ')');
-
-        p->restore();
-        y += TRANSFER_LINE_HEIGHT;
-        totalSize += attributes[2].toInt();
+    foreach(QString key, m_transfers.keys()) {
+        if(m_progressBars.count(key) <= 0) {
+            Plasma::ProgressBar *bar = new Plasma::ProgressBar(m_applet);
+            bar->setFormat(m_transfers[key].toList().at(0).toString() + " %v%");
+            m_progressBars [key] = bar;
+        }
+        m_progressBars [key]->setValue(m_transfers[key].toList().at(1).toString().toInt());
+        totalSize += m_transfers[key].toList().at(2).toInt();
     }
 
-    // draw a line under the transfers downloads graphs
-    p->drawLine(contentsRect.x() + HORIZONTAL_MARGIN, contentsRect.y() + y + 5,
-            contentsRect.width() - HORIZONTAL_MARGIN, contentsRect.y() + y + 5);
-    // draw the totalSize legend
-    p->setPen(QColor(220, 220, 220));
-    p->drawText(contentsRect.x(), (int) contentsRect.y() + y + 7,
-            contentsRect.width() - HORIZONTAL_MARGIN * 2, TRANSFER_LINE_HEIGHT - 10,
-            Qt::AlignRight, i18n("Total size: %1", KGlobal::locale()->formatByteSize(totalSize)));
-    p->restore();
+    m_totalSizeLabel->setText(i18n("Total size: %1", KGlobal::locale()->formatByteSize(totalSize)));
+    if(m_layout->indexOf(m_totalSizeLabel) != m_layout->count() - 1) {
+        m_layout->removeItem(m_totalSizeLabel);
+        m_layout->insertItem(m_layout->count(), m_totalSizeLabel);
+    }
+
+    // remove the progressbars for the deleted transfers
+    foreach(QString key, m_progressBars.keys()) {
+        if(!m_transfers.keys().contains(key)) {
+            Plasma::ProgressBar *bar = m_progressBars [key];
+            m_progressBars.remove(key);
+            m_layout->removeItem(bar);
+            delete bar;
+        }
+    }
 }
 
 QSizeF BarChart::contentSizeHint()
 {
-    return QSizeF(TransferGraph::contentSizeHint().width(),
-                    TransferGraph::contentSizeHint().height() + VERTICAL_MARGIN * 2);
+    return QSizeF(TransferGraph::contentSizeHint().width() + 130,
+                    TransferGraph::contentSizeHint().height() + 60 +
+                    (TRANSFER_LINE_HEIGHT) * m_transfers.keys().size());
+}
+
+void BarChart::setVisible(bool visible)
+{
+    m_titleLabel->setVisible(visible);
+    m_totalSizeLabel->setVisible(visible);
+
+    if (!visible) {
+        foreach(QString key, m_progressBars.keys()) {
+            Plasma::ProgressBar *bar = m_progressBars [key];
+            m_progressBars.remove(key);
+            m_layout->removeItem(bar);
+            delete bar;
+        }
+    }
 }

@@ -34,7 +34,8 @@ class SpeedGraph : public TransferGraph
     Q_OBJECT
 
 public:
-    SpeedGraph(QObject *parent = 0);
+    SpeedGraph(Plasma::Applet *parent);
+    ~SpeedGraph();
 
     void paint(QPainter *p, const QRect &contentsRect);
     QSizeF contentSizeHint();

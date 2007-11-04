@@ -27,6 +27,9 @@
 #define TRANSFER_PIEGRAPH_WIDTH 140
 #define TRANSFER_PIEGRAPH_HEIGHT 140
 
+namespace Plasma {
+    class Applet;
+};
 class QBrush;
 
 class PieGraph : public TransferGraph
@@ -34,7 +37,8 @@ class PieGraph : public TransferGraph
     Q_OBJECT
 
 public:
-    PieGraph(QObject *parent = 0);
+    PieGraph(Plasma::Applet *parent);
+    ~PieGraph();
 
     void paint(QPainter *p, const QRect &contentsRect);
     QSizeF contentSizeHint();

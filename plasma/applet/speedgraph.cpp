@@ -21,6 +21,8 @@
 #include "speedgraph.h"
 #include "transfergraph.h"
 
+#include <plasma/applet.h>
+
 #include <KIcon>
 #include <KDebug>
 #include <KLocale>
@@ -32,9 +34,13 @@
 #include <QPainter>
 #include <QQueue>
 
-SpeedGraph::SpeedGraph(QObject *parent)
+SpeedGraph::SpeedGraph(Plasma::Applet *parent)
     : TransferGraph(parent),
     m_maxSpeed(1000)
+{
+}
+
+SpeedGraph::~SpeedGraph()
 {
 }
 

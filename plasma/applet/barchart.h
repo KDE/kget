@@ -18,29 +18,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#ifndef KGET_BARCHART_H
-#define KGET_BARCHART_H
+#ifndef BARCHART_H
+#define BARCHART_H
 
 #include "transfergraph.h"
 
-#include <QColor>
+#include <QMap>
 
-static const float PERCENT_OPACITY = 0.6;
-static const QColor PERCENT_BACKGROUND_COLOR = QColor(222, 222, 222);
-static const QColor PERCENT_COLOR = QColor(40, 0, 0);
-static const QColor PERCENT_COLOR2 = QColor(200, 20, 20);
-static const int TRANSFER_SIZE_WIDTH = 100;
-static const QColor TRANSFER_NAME_COLOR = QColor(33, 33, 33);
-
+namespace Plasma {
+    class VBoxLayout;
+    class ProgressBar;
+    class Label;
+};
+class QString;
 
 class BarChart : public TransferGraph
 {
-    Q_OBJECT
 public:
-    BarChart(QObject *parent = 0);
+    BarChart(Plasma::Applet *parent);
+    ~BarChart();
 
-    void paint(QPainter *p, const QRect &contentsRect);
+    void setTransfers(const QVariantMap &transfers);
     QSizeF contentSizeHint();
+    void setVisible(bool visible);
+
+private:
+    Plasma::VBoxLayout *m_layout;
+    Plasma::Label *m_titleLabel;
+    Plasma::Label *m_totalSizeLabel;
+    QMap <QString, Plasma::ProgressBar *> m_progressBars;
 };
 
 #endif

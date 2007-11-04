@@ -21,6 +21,8 @@
 #ifndef TRANSFERGRAPH_H
 #define TRANSFERGRAPH_H
 
+#include <plasma/applet.h>
+
 #include <QObject>
 #include <QVariant>
 #include <QSizeF>
@@ -48,7 +50,8 @@ class TransferGraph : public QObject
 {
     Q_OBJECT
 public:
-    TransferGraph(QObject *parent = 0);
+    TransferGraph(Plasma::Applet *m_applet);
+    ~TransferGraph();
 
     virtual void setTransfers(const QVariantMap &percents);
 
@@ -57,17 +60,19 @@ public:
         return m_transfers;
     };
 
-    virtual void paint(QPainter *p, const QRect &contentsRect) 
+    virtual void paint(QPainter *p, const QRect &contentsRect)
     {
         Q_UNUSED(p)
         Q_UNUSED(contentsRect)
     };
     virtual QSizeF contentSizeHint();
+    virtual void setVisible(bool visible);
 
 protected:
     virtual void drawTitle(QPainter *p, const QRect &contentsRect);
 
     QVariantMap m_transfers;
+    Plasma::Applet *m_applet;
 };
 
 #endif

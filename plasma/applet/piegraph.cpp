@@ -32,11 +32,14 @@
 
 #include <math.h>
 
-PieGraph::PieGraph(QObject *parent) 
+PieGraph::PieGraph(Plasma::Applet *parent)
     : TransferGraph(parent),
         m_totalFiles(0)
 {
 }
+
+PieGraph::~PieGraph()
+{}
 
 void PieGraph::paint(QPainter *p, const QRect &contentsRect)
 {

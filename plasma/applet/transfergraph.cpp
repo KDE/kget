@@ -20,6 +20,8 @@
 
 #include "transfergraph.h"
 
+#include <plasma/applet.h>
+
 #include <QObject>
 #include <QVariant>
 #include <QPainter>
@@ -27,9 +29,13 @@
 #include <KLocale>
 #include <KIcon>
 
-TransferGraph::TransferGraph(QObject *parent)
+TransferGraph::TransferGraph(Plasma::Applet *parent)
 {
-    Q_UNUSED(parent)
+    m_applet = parent;
+}
+
+TransferGraph::~TransferGraph()
+{
 }
 
 void TransferGraph::setTransfers(const QVariantMap &transfers) 
@@ -40,6 +46,11 @@ void TransferGraph::setTransfers(const QVariantMap &transfers)
 QSizeF TransferGraph::contentSizeHint()
 {
     return QSizeF(TRANSFER_APPLET_WIDTH, m_transfers.size() * TRANSFER_LINE_HEIGHT + TRANSFER_MARGIN);
+}
+
+void TransferGraph::setVisible(bool visible)
+{
+    Q_UNUSED(visible)
 }
 
 void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)

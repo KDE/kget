@@ -70,7 +70,7 @@ void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *opt
                                 const QRect &contentsRect)
 {
     Q_UNUSED(option)
-    kDebug() << "Update the graph " << endl;
+
     if(m_error) {
         p->save();
         p->setPen(Qt::white);
@@ -119,7 +119,11 @@ void PlasmaKGet::updated(const QString &source, const Plasma::DataEngine::Data &
     }
     m_error = data["error"].toBool();
     m_errorMessage = data["errorMessage"].toString();
-    m_transferGraph->setTransfers(data["transfers"].toMap());
+
+    m_transferGraph->setVisible(!m_error);
+    if(!m_error) {
+        m_transferGraph->setTransfers(data["transfers"].toMap());
+    }
 
     constraintsUpdated();
 }
@@ -163,14 +167,14 @@ void PlasmaKGet::loadTransferGraph(uint type)
     switch(type)
     {
         case PlasmaKGet::PieGraphType :
-            m_transferGraph = new PieGraph();
+            m_transferGraph = new PieGraph(this);
             break;
         case PlasmaKGet::SpeedGraphType :
-            m_transferGraph = new SpeedGraph();
+            m_transferGraph = new SpeedGraph(this);
             break;
         case PlasmaKGet::BarChartType :
         default:
-            m_transferGraph = new BarChart();
+            m_transferGraph = new BarChart(this);
     }
 }
 
