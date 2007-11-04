@@ -82,6 +82,7 @@ void NewTransferDialog::setMultiple(bool value)
     else
     {
         urlRequester = new KLineEdit();
+        urlRequester->setClearButtonShown(true);
         m_gridLayout->addWidget(urlRequester, 0, 1, 1, 1);
     }
 }
