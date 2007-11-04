@@ -461,9 +461,9 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
     layout->addWidget(title);
     layout->addWidget(new TransferDetails(handler));
     groupBox->setAutoFillBackground(false);
-    title->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE);
+    title->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE.arg(QApplication::palette().color(QPalette::Foreground).name()));
     title->setAlignment(Qt::AlignHCenter);
-    groupBox->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_STYLE);
+    groupBox->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_STYLE.arg(QApplication::palette().color(QPalette::Background).lighter(200).name(), QApplication::palette().color(QPalette::Background).name()));
 
     return groupBox;
 }

@@ -30,14 +30,14 @@ static const QString EXPANDABLE_TRANSFER_DETAILS_STYLE =
                         "QGroupBox{"
                             "border-width:1px;margin:6px;margin-left:30px;margin-right:50px;"
                             "border-style:solid;border-color:black;border-radius:10;"
-                            "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FEFEFE, stop: 0.5 #CECECE, stop:1 #FEFEFE);"
+                            "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 0.5 %2, stop:1 %1);"
                         "}"
                         "QGroupBox QLineEdit{"
-                            "border: 1px solid #cecece;border-radius:1;background-color:#F2F2F2;"
+                            "border: 1px solid #cecece;border-radius:1;background-color:%1;"
                         "}";
 static const QString EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE =
                         "QLabel{"
-                            "color:#343434;width:100%;font-weight:bold;"
+                            "color:%1;width:100%;font-weight:bold;"
                             "subcontrol-position: top center;"
                         "}";
 
