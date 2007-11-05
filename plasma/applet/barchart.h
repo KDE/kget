@@ -29,7 +29,7 @@ namespace Plasma {
     class VBoxLayout;
     class ProgressBar;
     class Label;
-};
+}
 class QString;
 
 class BarChart : public TransferGraph
