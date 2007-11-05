@@ -29,7 +29,7 @@
 
 namespace Plasma {
     class Applet;
-};
+}
 class QBrush;
 
 class PieGraph : public TransferGraph
