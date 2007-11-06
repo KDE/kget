@@ -110,7 +110,7 @@ void PlasmaKGet::constraintsUpdated()
     m_updatePaint = false;
 }
 
-void PlasmaKGet::updated(const QString &source, const Plasma::DataEngine::Data &data)
+void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
 {
     Q_UNUSED(source)
 
