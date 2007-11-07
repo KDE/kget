@@ -1,6 +1,7 @@
 [Global]
 IconName=kget
 Comment=KGet
+Comment[eo]=Prenilo
 Comment[sv]=Kget
 Comment[x-test]=xxKGetxx
 
