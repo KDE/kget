@@ -35,10 +35,9 @@ BarChart::BarChart(Plasma::Applet *parent)
     m_titleLabel = 0;
     m_totalSizeLabel = 0;
     m_layout = new Plasma::VBoxLayout(m_applet);
-    m_applet->setLayout(m_layout);
-
+/*
     // Layout animator
-  /*  Plasma::LayoutAnimator *animator = new Plasma::LayoutAnimator();
+    Plasma::LayoutAnimator *animator = new Plasma::LayoutAnimator();
     QTimeLine * timeLine = new QTimeLine();
 
     animator->setTimeLine(timeLine);
@@ -63,10 +62,11 @@ BarChart::~BarChart()
 {
     delete m_titleLabel;
     delete m_totalSizeLabel;
-    delete m_layout;
+
     foreach(const QString &key, m_progressBars.keys()) {
         delete m_progressBars[key];
     }
+    delete m_layout;
 }
 
 void BarChart::setTransfers(const QVariantMap &transfers)
@@ -103,22 +103,7 @@ void BarChart::setTransfers(const QVariantMap &transfers)
 
 QSizeF BarChart::contentSizeHint()
 {
-    return QSizeF(TransferGraph::contentSizeHint().width() + 130,
-                    TransferGraph::contentSizeHint().height() + 60 +
+    return QSizeF(TransferGraph::contentSizeHint().width(),
+                    TransferGraph::contentSizeHint().height() + 80 +
                     (TRANSFER_LINE_HEIGHT) * m_transfers.keys().size());
-}
-
-void BarChart::setVisible(bool visible)
-{
-    m_titleLabel->setVisible(visible);
-    m_totalSizeLabel->setVisible(visible);
-
-    if (!visible) {
-        foreach(QString key, m_progressBars.keys()) {
-            Plasma::ProgressBar *bar = m_progressBars [key];
-            m_progressBars.remove(key);
-            m_layout->removeItem(bar);
-            delete bar;
-        }
-    }
 }

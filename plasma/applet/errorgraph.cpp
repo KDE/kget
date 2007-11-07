@@ -18,48 +18,49 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#include "errorgraph.h"
 #include "transfergraph.h"
 
-#include <plasma/applet.h>
+#include <plasma/widgets/icon.h>
+#include <plasma/widgets/label.h>
+#include <plasma/widgets/boxlayout.h>
+#include <plasma/widgets/pushbutton.h>
 
-#include <QObject>
-#include <QVariant>
-#include <QPainter>
-
-#include <KLocale>
 #include <KIcon>
+#include <QProcess>
 
-TransferGraph::TransferGraph(Plasma::Applet *parent)
+ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
+    : TransferGraph(parent)
 {
-    m_applet = parent;
+    m_layout = new Plasma::HBoxLayout(m_applet);
+
+    m_errorLabel = new Plasma::Label(m_applet);
+    m_errorLabel->setText(message);
+    m_errorLabel->setPen(QPen(Qt::white));
+    m_errorLabel->setAlignment(Qt::AlignLeft);
+
+    m_launchButton = new Plasma::PushButton(KIcon("kget"), "Launch KGet", m_applet);
+
+    m_layout->addItem(m_errorLabel);
+    m_layout->addItem(m_launchButton);
+
+    connect(m_launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
 }
 
-TransferGraph::~TransferGraph()
+ErrorGraph::~ErrorGraph()
 {
+    delete m_layout;
+    delete m_errorLabel;
+    delete m_launchButton;
 }
 
-void TransferGraph::setTransfers(const QVariantMap &transfers) 
+QSizeF ErrorGraph::contentSizeHint()
 {
-    m_transfers = transfers;
-
-    m_applet->updateConstraints(Plasma::AllConstraints);
+    return QSizeF(TransferGraph::contentSizeHint().width(), 80);
 }
 
-QSizeF TransferGraph::contentSizeHint()
+void ErrorGraph::launchKGet()
 {
-    return QSizeF(TRANSFER_APPLET_WIDTH, TRANSFER_LINE_HEIGHT + TRANSFER_MARGIN);
-}
-
-void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)
-{
-    // draw the kget icon
-    p->drawPixmap(contentsRect.x() + HORIZONTAL_MARGIN, contentsRect.y() + 10,
-            KIcon("kget").pixmap(20, 20));
-    // draw the title 
-    p->drawText(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + 10,
-            contentsRect.width() - 100, TRANSFER_LINE_HEIGHT - 10,
-            Qt::AlignLeft, i18n("KGet downloads"));
-    // draw a line under the title
-    p->drawLine(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + TRANSFER_LINE_HEIGHT,
-            contentsRect.width() - HORIZONTAL_MARGIN, contentsRect.y() + TRANSFER_LINE_HEIGHT);
+    QProcess *kgetProcess = new QProcess(this);
+    kgetProcess->startDetached("kget");
 }

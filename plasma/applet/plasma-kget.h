@@ -39,9 +39,10 @@ class PlasmaKGet : public Plasma::Applet
     Q_OBJECT
 public:
     enum TransferGraphType {
-        BarChartType = 0x01,
-        PieGraphType = 0x02,
-        SpeedGraphType = 0x04
+        ErrorGraphType = 1,
+        BarChartType = 2,
+        PieGraphType = 3,
+        SpeedGraphType = 4
     };
 
     PlasmaKGet(QObject *parent, const QVariantList &args);
@@ -51,8 +52,7 @@ public:
 
     void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         const QRect &contentsRect);
-    void constraintsUpdated();
-
+    void constraintsUpdated(Plasma::Constraints constraints);
 
 public slots:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
@@ -71,6 +71,7 @@ private:
     QSizeF m_size;
     KDialog *m_dialog;
     bool m_updatePaint;
+    uint m_graphType;
 
     Ui::KGetConfig ui;
 };

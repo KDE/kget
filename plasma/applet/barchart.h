@@ -40,7 +40,6 @@ public:
 
     void setTransfers(const QVariantMap &transfers);
     QSizeF contentSizeHint();
-    void setVisible(bool visible);
 
 private:
     Plasma::VBoxLayout *m_layout;

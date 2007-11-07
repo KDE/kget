@@ -18,48 +18,36 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+#ifndef ERRORGRAPH_H
+#define ERRORGRAPH_H
+
 #include "transfergraph.h"
 
-#include <plasma/applet.h>
-
-#include <QObject>
-#include <QVariant>
-#include <QPainter>
-
-#include <KLocale>
-#include <KIcon>
-
-TransferGraph::TransferGraph(Plasma::Applet *parent)
-{
-    m_applet = parent;
+namespace Plasma {
+    class HBoxLayout;
+    class PushButton;
+    class Applet;
+    class Label;
+    class Icon;
 }
 
-TransferGraph::~TransferGraph()
+class ErrorGraph : public TransferGraph
 {
-}
+    Q_OBJECT
+public:
+    ErrorGraph(Plasma::Applet *parent, const QString &message);
+    ~ErrorGraph();
 
-void TransferGraph::setTransfers(const QVariantMap &transfers) 
-{
-    m_transfers = transfers;
+    QSizeF contentSizeHint();
 
-    m_applet->updateConstraints(Plasma::AllConstraints);
-}
+private slots:
+    void launchKGet();
 
-QSizeF TransferGraph::contentSizeHint()
-{
-    return QSizeF(TRANSFER_APPLET_WIDTH, TRANSFER_LINE_HEIGHT + TRANSFER_MARGIN);
-}
+private:
+    Plasma::HBoxLayout *m_layout;
+    Plasma::Label *m_errorLabel;
+    Plasma::PushButton *m_launchButton;
+    Plasma::Icon *m_icon;
+};
 
-void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)
-{
-    // draw the kget icon
-    p->drawPixmap(contentsRect.x() + HORIZONTAL_MARGIN, contentsRect.y() + 10,
-            KIcon("kget").pixmap(20, 20));
-    // draw the title 
-    p->drawText(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + 10,
-            contentsRect.width() - 100, TRANSFER_LINE_HEIGHT - 10,
-            Qt::AlignLeft, i18n("KGet downloads"));
-    // draw a line under the title
-    p->drawLine(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + TRANSFER_LINE_HEIGHT,
-            contentsRect.width() - HORIZONTAL_MARGIN, contentsRect.y() + TRANSFER_LINE_HEIGHT);
-}
+#endif

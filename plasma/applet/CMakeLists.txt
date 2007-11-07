@@ -4,6 +4,7 @@ set(kget_SRCS
     piegraph.cpp
     transfergraph.cpp
     speedgraph.cpp
+    errorgraph.cpp
 )
 
 kde4_add_ui_files(kget_SRCS kgetConfig.ui)
