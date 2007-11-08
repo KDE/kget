@@ -29,11 +29,6 @@
 
 class KDialog;
 
-namespace Plasma
-{
-    class Svg;
-}
-
 class PlasmaKGet : public Plasma::Applet
 {
     Q_OBJECT

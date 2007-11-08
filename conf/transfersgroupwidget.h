@@ -16,10 +16,6 @@
 #include <QVBoxLayout>
 #include <QTreeView>
 
-class QAbstractItemModel;
-class QStandardItemModel;
-class QModelIndex;
-class QStandardItem;
 class QPushButton;
 class QItemSelection;
 
