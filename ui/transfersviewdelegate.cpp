@@ -36,6 +36,7 @@
 
 GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
     : QToolButton(parent),
+      m_status(None),
       m_index(index),
       m_timerId(-1),
       m_iconSize(22),
