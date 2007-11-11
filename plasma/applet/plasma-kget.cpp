@@ -78,7 +78,7 @@ void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *opt
 {
     Q_UNUSED(option)
 
-    if(!m_error && m_transferGraph) {
+    if(m_transferGraph) {
         m_transferGraph->paint(p, contentsRect);
     }
 }
@@ -110,17 +110,14 @@ void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Da
         m_errorMessage = data["errorMessage"].toString();
         loadTransferGraph(PlasmaKGet::ErrorGraphType);
     }
-    else if(data["error"].toBool() != m_error) {
+    else if(!data["error"].toBool()) {
         loadTransferGraph(config().readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
     }
     if (m_transferGraph) {
-      if(m_error != data["error"].toBool() || m_transferGraph->transfers() != data["transfers"].toMap()) {
+      if(!data["error"].toBool() || m_transferGraph->transfers() != data["transfers"].toMap()) {
 	  m_updatePaint = true;
 	  m_transferGraph->setTransfers(data["transfers"].toMap());
       }
-    }
-    else {
-      loadTransferGraph(PlasmaKGet::BarChartType);
     }
     m_error = data["error"].toBool();
 }
@@ -151,6 +148,7 @@ void PlasmaKGet::configAccepted()
     cg.config()->sync();
     loadTransferGraph(ui.graphType->itemData(ui.graphType->currentIndex()).toUInt());
     m_engine->setProperty("refreshTime", ui.refreshTime->value());
+    cg.writeEntry("graphType", ui.graphType->itemData(ui.graphType->currentIndex()).toUInt());
 }
 
 void PlasmaKGet::loadTransferGraph(uint type)
