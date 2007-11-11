@@ -54,8 +54,13 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
     KConfigGroup cg = config();
 
     m_engine = dataEngine("kget");
-    m_engine->connectSource("KGet", this, 2000);
-    m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 1000));
+    if (m_engine) {
+      m_engine->connectSource("KGet", this, 2000);
+      m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 1000));
+    }
+    else {
+      kDebug()<<"KGet Engine could not be loaded";
+    }
 }
 
 PlasmaKGet::~PlasmaKGet()
@@ -73,7 +78,7 @@ void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *opt
 {
     Q_UNUSED(option)
 
-    if(!m_error) {
+    if(!m_error && m_transferGraph) {
         m_transferGraph->paint(p, contentsRect);
     }
 }
@@ -84,8 +89,9 @@ void PlasmaKGet::constraintsUpdated(Plasma::Constraints constraints)
     prepareGeometryChange();
     QSizeF newSize;
 
-    newSize = m_transferGraph->contentSizeHint();
-
+    if(m_transferGraph) {
+      newSize = m_transferGraph->contentSizeHint();
+    }
     if((size() != newSize)) {
         m_size = newSize;
         resize(m_size);
@@ -107,12 +113,15 @@ void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Da
     else if(data["error"].toBool() != m_error) {
         loadTransferGraph(config().readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
     }
-
-    if(m_error != data["error"].toBool() || m_transferGraph->transfers() != data["transfers"].toMap()) {
-        m_updatePaint = true;
-        m_transferGraph->setTransfers(data["transfers"].toMap());
+    if (m_transferGraph) {
+      if(m_error != data["error"].toBool() || m_transferGraph->transfers() != data["transfers"].toMap()) {
+	  m_updatePaint = true;
+	  m_transferGraph->setTransfers(data["transfers"].toMap());
+      }
     }
-
+    else {
+      loadTransferGraph(PlasmaKGet::BarChartType);
+    }
     m_error = data["error"].toBool();
 }
 
