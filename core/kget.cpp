@@ -460,7 +460,10 @@ KActionCollection * KGet::actionCollection()
 void KGet::setSchedulerRunning(bool running)
 {
     if(running)
+    {
+        m_scheduler->stop(); //stopall first, to have a clean startingpoint
 	m_scheduler->start();
+    }
     else
 	m_scheduler->stop();
 }

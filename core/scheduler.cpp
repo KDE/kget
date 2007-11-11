@@ -63,9 +63,9 @@ void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
         JobQueue::iterator it = queue->begin();
         JobQueue::iterator itEnd = queue->end();
 
-        for( ; it!=itEnd ; ++it)
+        for ( ; it!=itEnd ; ++it)
         {
-            if((*it)->status() != Job::Stopped)
+            if ((*it)->status() != Job::Stopped)
                 (*it)->stop();
         }
     }
