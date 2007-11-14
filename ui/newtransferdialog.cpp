@@ -39,7 +39,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     Ui::NewTransferWidget widget;
     widget.setupUi(mainWidget);
 
-    m_gridLayout = widget.gridLayout;
+    m_gridLayout1 = widget.gridLayout1;
     m_titleWidget = widget.titleWidget;
     m_folderRequester = widget.folderRequester;
     m_groupComboBox = widget.groupComboBox;
@@ -77,13 +77,13 @@ void NewTransferDialog::setMultiple(bool value)
     if (multiple())
     {
         listWidget = new KListWidget();
-        m_gridLayout->addWidget(listWidget, 0, 1, 1, 1);
+        m_gridLayout1->addWidget(listWidget, 0, 1, 1, 1);
     }
     else
     {
         urlRequester = new KLineEdit();
         urlRequester->setClearButtonShown(true);
-        m_gridLayout->addWidget(urlRequester, 0, 1, 1, 1);
+        m_gridLayout1->addWidget(urlRequester, 0, 1, 1, 1);
     }
 }
 

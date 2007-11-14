@@ -5,96 +5,96 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>395</width>
-    <height>224</height>
+    <width>400</width>
+    <height>200</height>
    </rect>
   </property>
-  <widget class="QWidget" name="layoutWidget" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>365</width>
-     <height>201</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" >
-    <item>
-     <widget class="KTitleWidget" name="titleWidget" >
-      <property name="text" >
-       <string>New Download</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QGridLayout" >
-      <property name="horizontalSpacing" >
-       <number>2</number>
-      </property>
-      <property name="verticalSpacing" >
-       <number>2</number>
-      </property>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
-         <string>Url</string>
-        </property>
-        <property name="alignment" >
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
-         <string>Download Folder</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="KUrlComboRequester" name="folderRequester" />
-      </item>
-      <item row="3" column="0" >
-       <widget class="QLabel" name="label_3" >
-        <property name="text" >
-         <string>Transfer Group</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" >
-       <widget class="QComboBox" name="groupComboBox" >
-        <property name="minimumSize" >
-         <size>
-          <width>250</width>
-          <height>0</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QCheckBox" name="defaultFolderButton" >
-        <property name="text" >
-         <string>Set as default folder</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
+  <property name="minimumSize" >
+   <size>
+    <width>400</width>
+    <height>200</height>
+   </size>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="KTitleWidget" native="1" name="titleWidget" >
+       <property name="text" stdset="0" >
+        <string>New Download</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QGridLayout" >
+       <property name="horizontalSpacing" >
+        <number>2</number>
+       </property>
+       <property name="verticalSpacing" >
+        <number>2</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Url</string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>Download Folder</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="KUrlComboRequester" native="1" name="folderRequester" />
+       </item>
+       <item row="3" column="0" >
+        <widget class="QLabel" name="label_3" >
+         <property name="text" >
+          <string>Transfer Group</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <widget class="QComboBox" name="groupComboBox" >
+         <property name="minimumSize" >
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QCheckBox" name="defaultFolderButton" >
+         <property name="text" >
+          <string>Set as default folder</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
@@ -104,7 +104,7 @@
   </customwidget>
   <customwidget>
    <class>KUrlComboRequester</class>
-   <extends>KUrlRequester</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
