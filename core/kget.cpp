@@ -697,7 +697,11 @@ bool KGet::isValidSource(const KUrl &source)
 
 bool KGet::isValidDestDirectory(const QString & destDir)
 {
-    return (!destDir.isEmpty() && QFileInfo( destDir ).isDir());
+    if (QFileInfo( destDir ).isWritable())
+        return (!destDir.isEmpty() && QFileInfo( destDir ).isDir() && QFileInfo( destDir ).isWritable());
+    if (!QFileInfo( destDir ).isWritable() && !destDir.isEmpty())
+         KMessageBox::error(0, "Directory is not writable");
+    return false;
 }
 
 bool KGet::isValidDestUrl(const KUrl &destUrl)
