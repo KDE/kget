@@ -700,7 +700,7 @@ bool KGet::isValidDestDirectory(const QString & destDir)
     if (QFileInfo( destDir ).isWritable())
         return (!destDir.isEmpty() && QFileInfo( destDir ).isDir() && QFileInfo( destDir ).isWritable());
     if (!QFileInfo( destDir ).isWritable() && !destDir.isEmpty())
-         KMessageBox::error(0, "Directory is not writable");
+         KMessageBox::error(0, i18n("Directory is not writable"));
     return false;
 }
 
