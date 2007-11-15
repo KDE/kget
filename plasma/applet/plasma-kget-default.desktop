@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=KGet
 Name[cy]=KNôl
 Name[eo]=Prenilo
@@ -9,7 +8,7 @@ Name[ta]=கேகெட்
 Name[x-test]=xxKGetxx
 Icon=kget
 Type=Service
-ServiceTypes=Plasma/Applet
+X-KDE-ServiceTypes=Plasma/Applet
 
 X-KDE-Library=plasma_applet_kget
 X-KDE-PluginInfo-Author=Javier Goday

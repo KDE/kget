@@ -1,8 +1,7 @@
 [Desktop Entry]
-Encoding=UTF-8
 # service definition
 Type=Service
-ServiceTypes=KGet/Plugin
+X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
 Name=KIO TransferFactory
