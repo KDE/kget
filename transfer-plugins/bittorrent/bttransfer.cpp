@@ -119,7 +119,7 @@ void BTTransfer::start()
 
 void BTTransfer::stop()
 {
-    kDebug(5001) << endl << "bt stopped" << endl;
+    kDebug(5001) << endl << "bt stopped";
     timer.stop();
     if (download.is_valid()) 
     {
@@ -148,7 +148,7 @@ int BTTransfer::remainingTime() const
 
 void BTTransfer::resume()
 {
-    kDebug(5001) << endl << "resume dl" << endl;
+    kDebug(5001) << endl << "resume dl";
     if (!download.is_valid())
     {
         try
@@ -189,7 +189,7 @@ void BTTransfer::resume()
     {
         if (!download.is_open()) 
         {
-            kDebug(5001) << endl << "second turn" << endl;
+            kDebug(5001) << endl << "second turn";
             download.open();
         }
         if (!download.is_hash_checked()) 
@@ -199,7 +199,7 @@ void BTTransfer::resume()
         }
         try 
         {
-            kDebug(5001) << endl << "third turn" << endl;
+            kDebug(5001) << endl << "third turn";
             setStatus(status(), i18n("Connecting.."), SmallIcon("connect-creating"));
             setTransferChange(Tc_Status, true);
 
@@ -208,7 +208,7 @@ void BTTransfer::resume()
         catch (std::exception& e)
         {
         // the line below only compiles with exceptions activated
-        // kDebug(5001) << "Resume exception " << e.what() << endl;
+        // kDebug(5001) << "Resume exception " << e.what();
         }
         timer.start(1 * 1000);
         return;
@@ -217,7 +217,7 @@ void BTTransfer::resume()
 
 void BTTransfer::remove()
 {
-    kDebug(5001) << endl << "bt removed" << endl;
+    kDebug(5001) << endl << "bt removed";
     timer.stop();
     if (download.is_valid() && download.is_active()) 
     {

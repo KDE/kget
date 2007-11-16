@@ -40,7 +40,7 @@ void KSpeedLimiter::addJob(KJob *job)
     if(!m_speedLimit)
         return;
     m_JobSpeedLimiters << new KJobSpeedLimiter(job, m_speedLimit);
-    kDebug(5001) << "Limiting job:" << job << " speed to: " << m_speedLimit << endl;
+    kDebug(5001) << "Limiting job:" << job << " speed to: " << m_speedLimit;
 }
 
 
@@ -69,19 +69,19 @@ void KJobSpeedLimiter::slotOnTimer()
     int elapsed = m_time.restart();
 
     QString status = isSuspended() ? QString("suspended") : QString("running");
-    kDebug(5001) << "Status: " << status << " expected time: " << expected << " elapsed time: " << elapsed << endl;
+    kDebug(5001) << "Status: " << status << " expected time: " << expected << " elapsed time: " << elapsed;
 
     if (expected > elapsed)
     {
         m_OnTime = (elapsed * 4500)/expected;
         m_OffTime = 4500 - m_OnTime;
         suspend();
-        kDebug(5001) << "sleeping for: " << m_OffTime << " msegs." << endl;
+        kDebug(5001) << "sleeping for: " << m_OffTime << " msegs.";
         QTimer::singleShot(m_OffTime, this, SLOT(slotOffTimer()));
     }
     else
     {
-        kDebug(5001) << "speed below limit, checking in 500 msegs " << endl;
+        kDebug(5001) << "speed below limit, checking in 500 msegs ";
         resume();
         QTimer::singleShot(500, this, SLOT(slotOnTimer()));
     }
@@ -91,7 +91,7 @@ void KJobSpeedLimiter::slotOffTimer()
 {
     resume();
     m_time.restart();
-    kDebug(5001) << "resuming for: " << m_OnTime << " msegs." << endl;
+    kDebug(5001) << "resuming for: " << m_OnTime << " msegs.";
     QTimer::singleShot(m_OnTime, this, SLOT(slotOnTimer()));
 }
 
