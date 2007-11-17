@@ -280,7 +280,7 @@ void transferMultiSegKio::slotSearchUrls(QList<KUrl> &Urls)
     m_Urls = Urls;
     if (m_copyjob)
     {
-        m_copyjob->slotUrls(Urls);
+        m_copyjob->slotUrls(m_Urls);
     }
 }
 

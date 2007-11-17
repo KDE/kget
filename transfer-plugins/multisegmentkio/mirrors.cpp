@@ -64,7 +64,7 @@ void mirror::slotResult( KJob *job )
         QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref -6));
 
         start = hrefEnd + 1;
-            if ( u.endsWith( m_url.fileName() ) )
+            if ( u.endsWith( '/' + m_url.fileName() ) )
             {
                 m_Urls << KUrl(u);
                 kDebug(5001) << "url: " << u;
