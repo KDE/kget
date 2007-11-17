@@ -13,11 +13,16 @@
 #include "multisegkiosettings.h"
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
-    : QDialog(parent)
+    : KDialog(parent)
 {
-    ui.setupUi(this);
+    QWidget *mainWidget = new QWidget(this);
+    ui.setupUi(mainWidget);
+    setMainWidget(mainWidget);
+
     setWindowTitle(i18n("Insert Engine"));
     setModal(true);
+    setButtons(KDialog::Ok | KDialog::Cancel);
+    showButtonSeparator(true);
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("Url:"));
@@ -32,13 +37,17 @@ DlgEngineEditing::~DlgEngineEditing()
 
 void DlgEngineEditing::slotChangeText()
 {
-  ui.okButton->setEnabled(!ui.urlEdit->text().isEmpty());
+  enableButton(KDialog::Ok, !ui.urlEdit->text().isEmpty());
 }
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
     : QWidget(parent)
 {
     ui.setupUi(this);
+
+    ui.newEngineBt->setIcon(KIcon("list-add"));
+    ui.removeEngineBt->setIcon(KIcon("list-remove"));
+
     init();
     connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
     connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetMinSegSize(int)));

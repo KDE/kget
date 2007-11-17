@@ -38,6 +38,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgNet.setupUi(network);
     dlgAdv.setupUi(advanced);
 
+    // TODO: remove the following lines as soon as these features are ready
+    dlgNet.kcfg_SpeedLimit->setVisible(false);
+    dlgNet.groupBoxCompleted->setVisible(false);
+    dlgNet.lbl_maxnum_2->setVisible(false);
+    dlgNet.kcfg_MaxConnectionsServer->setVisible(false);
+
     addPage(appearance, i18n("Appearance"), "video-display", i18n("Change appearance settings"));
     addPage(groups, i18n("Groups"), "bookmark", i18n("Manage the groups"));
     addPage(directories, i18n("Folders"), "folder-open", i18n("Default Download Folders"));

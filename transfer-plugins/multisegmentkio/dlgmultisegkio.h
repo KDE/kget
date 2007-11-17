@@ -14,7 +14,7 @@
 #include "ui_dlgengineediting.h"
 #include "ui_dlgmultisegkio.h"
 
-class DlgEngineEditing : public QDialog
+class DlgEngineEditing : public KDialog
 {
     Q_OBJECT
 

@@ -19,11 +19,11 @@
     </entry>
     <entry name="SearchEnginesNameList" type="StringList" key="NameItems">
       <label>List of the available search engines</label>
-      <default>filemirrors</default>
+      <default>FindFiles.com</default>
     </entry>
     <entry name="SearchEnginesUrlList" type="StringList" key="UrlItems">
       <label>Urls list of the available search engines</label>
-      <default>http://www.filemirrors.com/search.src?type=begins&amp;file=${filename}&amp;action=Find</default>
+      <default>http://www.findfiles.com/list.php?db=Mirrors&amp;string=${filename}</default>
     </entry>
   </group>
 </kcfg>
