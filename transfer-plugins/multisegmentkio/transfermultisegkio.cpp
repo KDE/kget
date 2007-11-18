@@ -191,6 +191,7 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
     switch (kioJob->error())
     {
         case 0:                            //The download has finished
+        case 1:                            // we kill the job after close
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
             setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
             m_percent = 100;

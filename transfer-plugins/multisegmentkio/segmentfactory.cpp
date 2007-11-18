@@ -10,6 +10,7 @@
 
 #include "segmentfactory.h"
 #include "multisegkiosettings.h"
+#include "../../settings.h"
 
 #include <QtCore/QTimer>
 
@@ -29,7 +30,7 @@ Segment::Segment (QObject* parent)
 
 bool Segment::createTransfer ( const KUrl &src )
 {
-    kDebug(5001) << "Segment::createTransfer() -- " << src;
+    kDebug(5001) << " -- " << src;
     if ( m_getJob )
         return false;
     m_getJob = KIO::get(src, KIO::NoReload, KIO::HideProgressInfo);
@@ -49,7 +50,7 @@ bool Segment::createTransfer ( const KUrl &src )
 
 bool Segment::startTransfer ()
 {
-    kDebug(5001) << "Segment::startTransfer()";
+    kDebug(5001);
     if( m_getJob && m_status != Running )
     {
         setStatus( Running, false );
@@ -61,7 +62,7 @@ bool Segment::startTransfer ()
 
 bool Segment::stopTransfer ()
 {
-    kDebug(5001) << "Segment::stopTransfer()";
+    kDebug(5001);
     if( m_getJob && m_status == Running )
     {
         setStatus( Stopped, false );
@@ -86,7 +87,7 @@ bool Segment::restartTransfer ( const KUrl &url )
 
 void Segment::slotResult( KJob *job )
 {
-    kDebug(5001) << "Segment::slotResult() job: " << job;
+    kDebug(5001) << "job: " << job;
     m_getJob = 0;
     if ( !m_buffer.isEmpty() )
     {
@@ -101,7 +102,7 @@ void Segment::slotResult( KJob *job )
     }
     if( m_status == Running )
     {
-        kDebug(5001) << "Segment::slotResult() Conection broken " << job << " --restarting--";
+        kDebug(5001) << "Conection broken " << job << " --restarting--";
         setStatus(Timeout);
     }
 }
@@ -136,7 +137,7 @@ bool Segment::writeBuffer()
     }
     if (!m_segData.bytes)
     {
-        kDebug(5001) << "Segment::writeBuffer() closing transfer ...";
+        kDebug(5001) << "Closing transfer ...";
         if( m_getJob )
             m_getJob->kill( KJob::EmitResult );
         emit updateSegmentData();
@@ -155,13 +156,13 @@ SegmentFactory::SegmentFactory(uint n, const QList<KUrl> Urls)
    : m_segments( n ), m_Urls( Urls ), m_split(true)
 
 {
-    kDebug(5001) << "SegmentFactory::SegmentFactory()";
+    kDebug(5001);
     it_Urls = m_Urls.begin();
 }
 
 SegmentFactory::~SegmentFactory()
 {
-    kDebug(5001) << "SegmentFactory::destructor()";
+    kDebug(5001);
     QList<Segment *>::iterator it = m_Segments.begin();
     QList<Segment *>::iterator itEnd = m_Segments.end();
     for ( ; it!=itEnd ; ++it )
@@ -174,7 +175,7 @@ SegmentFactory::~SegmentFactory()
 
 bool SegmentFactory::startTransfer()
 {
-    kDebug(5001) << "SegmentFactory::startTransfer()";
+    kDebug(5001);
     bool rest = false;
     QList<Segment *>::iterator it = m_Segments.begin();
     QList<Segment *>::iterator itEnd = m_Segments.end();
@@ -187,7 +188,7 @@ bool SegmentFactory::startTransfer()
 
 bool SegmentFactory::stopTransfer()
 {
-    kDebug(5001) << "SegmentFactory::stopTransfer()";
+    kDebug(5001);
     bool rest = false;
     QList<Segment *>::iterator it = m_Segments.begin();
     QList<Segment *>::iterator itEnd = m_Segments.end();
@@ -200,7 +201,7 @@ bool SegmentFactory::stopTransfer()
 
 QList<SegData> SegmentFactory::SegmentsData()
 {
-    kDebug(5001) << "SegmentFactory::getSegmentsData";
+    kDebug(5001);
     QList<SegData> tdata;
     QList<Segment *>::iterator it = m_Segments.begin();
     QList<Segment *>::iterator itEnd = m_Segments.end();
@@ -214,7 +215,7 @@ QList<SegData> SegmentFactory::SegmentsData()
 
 QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
 {
-    kDebug(5001) << "SegmentFactory::splitSegment() " << Seg;
+    kDebug(5001) << "Spliting " << Seg << "in " << n;
     QList<Segment *> Segments;
 
     KIO::TransferJob *Job = Seg->job();
@@ -281,7 +282,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
 
 Segment *SegmentFactory::createSegment( SegData data, const KUrl &src )
 {
-    kDebug(5001) << "SegmentFactory::createSegment()";
+    kDebug(5001);
     Segment *seg = new Segment(this);
     connect( seg, SIGNAL(statusChanged( Segment *)),
                   SLOT(slotStatusChanged( Segment *)));
@@ -295,12 +296,12 @@ Segment *SegmentFactory::createSegment( SegData data, const KUrl &src )
 void SegmentFactory::deleteSegment(Segment *seg)
 {
     m_Segments.removeAll(seg);
-    kDebug(5001) << "SegmentFactory::deleteSegment() " << m_Segments.size() << " segments left.";
+    kDebug(5001) << m_Segments.size() << " segments left.";
 }
 
 void SegmentFactory::slotStatusChanged( Segment *seg)
 {
-    kDebug(5001) << "SegmentFactory::slotStatusChanged() " << seg->status();
+    kDebug(5001) << seg->status();
     switch (seg->status())
     {
     case Segment::Timeout :
@@ -327,7 +328,7 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
 
 void SegmentFactory::slotSegmentTimeOut()
 {
-    kDebug(5001) << "SegmentFactory::slotSegmentTimeOut() " <<  m_TimeOutSegments.size();
+    kDebug(5001) <<  m_TimeOutSegments.size();
     if(m_TimeOutSegments.isEmpty())
         return;
     m_TimeOutSegments.takeFirst()->restartTransfer( nextUrl() );
@@ -335,7 +336,7 @@ void SegmentFactory::slotSegmentTimeOut()
 
 Segment *SegmentFactory::takeLongest()
 {
-    kDebug(5001) << "SegmentFactory::takeLongest()";
+    kDebug(5001);
 
     Segment *longest = 0;
     KIO::filesize_t bytes = MultiSegKioSettings::splitSize()*1024;
@@ -359,7 +360,7 @@ Segment *SegmentFactory::takeLongest()
 
 const KUrl SegmentFactory::nextUrl()
 {
-    kDebug(5001) << "SegmentFactory::nextUrl() ";
+    kDebug(5001);
     if ( it_Urls == m_Urls.end() )
     {
         it_Urls = m_Urls.begin();

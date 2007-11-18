@@ -111,7 +111,7 @@ QList<SegData> MultiSegmentCopyJob::SegmentsData()
 void MultiSegmentCopyJob::stop()
 {
     kDebug(5001) << "MultiSegmentCopyJob::stop()";
-    setError(KIO::ERR_USER_CANCELED);
+    setError(KIO::ERR_ABORTED);
     if (SegFactory)
         SegFactory->stopTransfer();
     if (m_putJob)
@@ -189,6 +189,7 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
        QFile::rename ( dest_part, dest_orig );
     }
     emit updateSegmentsData();
+    m_putJob->kill();
 }
 
 // tooked from SlaveInterface.cpp
