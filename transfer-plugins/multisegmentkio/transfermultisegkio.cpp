@@ -104,9 +104,11 @@ void transferMultiSegKio::load(const QDomElement &e)
     }
 }
 
-void transferMultiSegKio::save(QDomElement e) // krazy:exclude=passbyvalue
+void transferMultiSegKio::save(const QDomElement &element)
 {
     kDebug(5001) << "TransferMultiSegKio::save";
+
+    QDomElement e = element;
 
     Transfer::save(e);
 

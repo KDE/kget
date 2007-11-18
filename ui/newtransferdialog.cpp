@@ -31,7 +31,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
       m_multiple(false)
 {
     setCaption(i18n("New Download"));
-    setMinimumSize(400, 300);
+    setMinimumSize(420, 300);
     showButtonSeparator(true);
 
     QWidget *mainWidget = new QWidget(this);

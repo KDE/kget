@@ -39,7 +39,7 @@ class transferMultiSegKio : public QObject, public Transfer
         int remainingTime() const;
         bool isResumable() const;
 
-        void save(QDomElement e);
+        void save(const QDomElement &element);
 
     protected:
         void load(const QDomElement &e);

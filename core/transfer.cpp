@@ -92,8 +92,9 @@ TransferTreeModel * Transfer::model()
     return group()->model();
 }
 
-void Transfer::save(QDomElement e) // krazy:exclude=passbyvalue
+void Transfer::save(const QDomElement &element)
 {
+    QDomElement e = element;
     e.setAttribute("Source", m_source.url());
     e.setAttribute("Dest", m_dest.url());
     e.setAttribute("TotalSize", (qulonglong) m_totalSize);

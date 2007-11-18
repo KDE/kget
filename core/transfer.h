@@ -126,7 +126,7 @@ class KGET_EXPORT Transfer : public Job
          * @param n The pointer to the QDomNode where the transfer will be saved
          * @return  The created QDomElement
          */
-        virtual void save(QDomElement e);
+        virtual void save(const QDomElement &element);
 
     protected:
         //Function used to load and save the transfer's info from xml
