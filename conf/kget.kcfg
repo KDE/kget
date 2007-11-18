@@ -130,5 +130,11 @@
       <default code="true">QDir::currentPath()</default>
     </entry>
   </group>
+ 
+  <group name="Geometry">
+    <entry name="ColumnWidths" type="IntList">
+      <label>The width of the columns in the main wiew</label>
+    </entry>
+  </group>
 
 </kcfg>

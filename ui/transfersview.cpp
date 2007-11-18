@@ -9,6 +9,7 @@
 */
 
 #include "transfersview.h"
+#include "settings.h"
 
 #include <kdebug.h>
 
@@ -33,7 +34,13 @@ TransfersView::TransfersView(QWidget * parent)
 
 TransfersView::~TransfersView()
 {
-
+    QList<int>  list;
+    for (int i = 0; i<5; i++)
+    {
+        list.append(columnWidth(i));
+    }
+    Settings::setColumnWidths( list );
+    Settings::self()->writeConfig();
 }
 
 void TransfersView::setModel(QAbstractItemModel * model)
@@ -48,7 +55,21 @@ void TransfersView::setModel(QAbstractItemModel * model)
         openPersistentEditor(model->index(i, 1, QModelIndex()));
     }
 
-    setColumnWidth(0, 250);
+    QList<int> sizeList = Settings::columnWidths();
+
+    if (!sizeList.isEmpty())
+    {
+        int j = 0;
+        foreach(int i, sizeList)
+        {
+            setColumnWidth( j, i );
+            j++;
+        }
+    }
+    else
+    {
+        setColumnWidth(0 , 250);
+    }
 }
 
 QModelIndex TransfersView::indexFromTransferHandler(TransferHandler *handler)
