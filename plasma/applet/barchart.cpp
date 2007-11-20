@@ -22,7 +22,7 @@
 #include "transfergraph.h"
 
 #include <plasma/widgets/label.h>
-#include <plasma/widgets/boxlayout.h>
+#include <plasma/layouts/boxlayout.h>
 #include <plasma/widgets/progressbar.h>
 //#include <plasma/widgets/layoutanimator.h>
 

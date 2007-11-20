@@ -23,7 +23,7 @@
 
 #include <plasma/widgets/icon.h>
 #include <plasma/widgets/label.h>
-#include <plasma/widgets/boxlayout.h>
+#include <plasma/layouts/boxlayout.h>
 #include <plasma/widgets/pushbutton.h>
 
 #include <KIcon>
@@ -41,7 +41,10 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
     m_launchButton = new Plasma::PushButton(KIcon("kget"), "Launch KGet", m_applet);
 
     //m_layout->addItem(m_errorLabel);
-    m_layout->addItem(m_launchButton);
+    //m_layout->addItem(m_launchButton);
+
+    m_applet->updateGeometry();
+    m_errorLabel->updateGeometry();
 
 
     connect(m_launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
