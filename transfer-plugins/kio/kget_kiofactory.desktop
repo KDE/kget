@@ -37,7 +37,7 @@ Comment[zh_CN]=KGet 传输插件
 Comment[zh_TW]=KGet 傳輸外掛程式
 
 # options for library loader
-X-KDE-Library=libkget_kiofactory
+X-KDE-Library=kget_kiofactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=50
 X-KDE-KGet-framework-version=1
