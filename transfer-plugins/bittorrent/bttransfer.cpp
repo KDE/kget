@@ -39,12 +39,14 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         connect(m_copyjob, SIGNAL(result(KJob *)), this, SLOT(slotResult(KJob * )));
     }**/
 
- /**   Uint16 i = 0;
+
+/**
+    Uint16 i = 0;
     do
     {
-        Globals::instance().initServer(port + i);
-        i++;
-    }while (!Globals::instance().getServer().isOK() && i < 10);
+        Globals::instance().initServer(6881 + i);
+        i++;
+    }while (!Globals::instance().getServer().isOk && i < 10)
 
     if (!Globals::instance().getServer().isOK())
         return;**/
@@ -55,9 +57,9 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         torrent = new bt::TorrentControl();
         torrent->init(0, m_source.url().remove("file://"), m_dest.url().remove("file://"), m_dest.url().remove("file://"), 0);
     }
-    catch (...)
+    catch (bt::Error &err)
     {
-        kDebug(5001) << "Error";
+        kDebug(5001) << err.toString();
     }
 
     connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), this, SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
