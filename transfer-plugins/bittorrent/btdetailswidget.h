@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,8 +15,6 @@
 
 #include "core/observer.h"
 
-class QLabel;
-
 class BTTransferHandler;
 
 class BTDetailsWidget : public QWidget, public TransferObserver
@@ -29,11 +27,6 @@ class BTDetailsWidget : public QWidget, public TransferObserver
 
     private:
         BTTransferHandler * m_transfer;
-
-        QLabel * m_chunksTotalLabel;
-        QLabel * m_chunksDownloadedLabel;
-        QLabel * m_peersConnectedLabel;
-        QLabel * m_peersNotConnectedLabel;
 };
 
 #endif

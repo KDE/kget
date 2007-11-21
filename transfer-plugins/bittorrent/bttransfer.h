@@ -1,38 +1,24 @@
-/*
- *  Copyright (C) 2005 Felix Berger <felixberger@beldesign.de>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
- */
+/* This file is part of the KDE project
+
+   Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+*/
 
 #ifndef BTTRANSFER_H
 #define BTTRANSFER_H
 
-#include <torrent/torrent.h>
-#include <sstream>
-
 #include <QTimer>
 #include <QDateTime>
+#include <QByteArray>
 
 #include "core/transfer.h"
+#include "torrentcontrol.h"
 
-
-namespace KIO
-{
-    class Job;
-}
+#include <kio/job.h>
 
 class BTTransfer : public QObject, public Transfer
 {
@@ -52,7 +38,7 @@ class BTTransfer : public QObject, public Transfer
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
                     Scheduler* scheduler, const KUrl& src, const KUrl& dest,
-                    const QDomElement * e = 0 );
+                    const QDomElement * e = 0);
         ~BTTransfer();
 
         //Job virtual functions
@@ -75,29 +61,25 @@ class BTTransfer : public QObject, public Transfer
 
     private slots:
         void update();
+        void slotData(KIO::Job *, const QByteArray& data);
+        void slotResult(KJob * job);
+        void slotStoppedByError(bt::TorrentInterface* error, QString errormsg);
 
     private:
-        void resume();
-        void remove(); //Now I put this functions here. Shouldn't it
-                       //be integrated in the destructor?
-        void trackerMessage(std::string msg);
+        //TODO: are all these functions necessary??
         void downloadFinished();
         void hashingFinished();
 
-        QTime startTime;
         QTimer timer;
-        std::stringstream bencodeStream;
-        torrent::Download download;
 
         int m_chunksTotal;
         int m_chunksDownloaded;
         int m_peersConnected;
         int m_peersNotConnected;
 
-        sigc::connection trackerSucceeded;
-        sigc::connection trackerFailed;
-        sigc::connection downloadDone;
-        sigc::connection hashingDone;
+        bt::TorrentControl *torrent;
+
+        QByteArray m_data;
 };
 
 #endif
