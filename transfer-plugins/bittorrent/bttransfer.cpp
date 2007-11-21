@@ -12,8 +12,10 @@
 
 #include <torrent.h>
 #include <peermanager.h>
-#include <globals.h>
 #include <error.h>
+#include <globals.h>
+#include <server.h>
+#include <util/constants.h>
 
 #include <KDebug>
 #include <KLocale>
@@ -40,16 +42,16 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     }**/
 
 
-/**
-    Uint16 i = 0;
+
+    bt::Uint16 i = 0;
     do
     {
-        Globals::instance().initServer(6881 + i);
+        bt::Globals::instance().initServer(6881 + i);
         i++;
-    }while (!Globals::instance().getServer().isOk && i < 10)
+    }while (!bt::Globals::instance().getServer().isOK() && i < 10);
 
-    if (!Globals::instance().getServer().isOK())
-        return;**/
+    if (!bt::Globals::instance().getServer().isOK())
+        return;
 
     kDebug(5001) << m_source.url().remove("file://");
     try
