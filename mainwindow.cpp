@@ -40,6 +40,7 @@
 #include <klocale.h>
 #include <kicon.h>
 #include <kactionmenu.h>
+#include <krun.h>
 
 #include <QtDBus>
 #include <QClipboard>
@@ -445,7 +446,7 @@ void MainWindow::slotTransfersOpenDest()
         QString directory = it->dest().directory();
         if( !openedDirs.contains( directory ) )
         {
-            KToolInvocation::invokeBrowser( directory );
+            new KRun(directory, this, 0, true, false);
             openedDirs.append( directory );
         }
     }
