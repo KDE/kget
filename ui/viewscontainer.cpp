@@ -113,9 +113,9 @@ void TransfersButton::removeTransfer(TransferHandler * transfer)
         ++it;
         if (prev.value() == transfer)
         {
+            delete(prev.key());
             m_transfersMap.erase(prev);
             //Delete the QAction
-            delete(prev.key());
         }
     }
 
@@ -285,6 +285,7 @@ void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
         m_transfersBt->removeTransfer(transfer);
     }
     m_transfersMap.remove(transfer);
+    showDownloadsWindow();
 }
 
 void ViewsContainer::showDownloadsWindow()
