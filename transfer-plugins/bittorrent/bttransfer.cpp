@@ -16,6 +16,9 @@
 #include <globals.h>
 #include <server.h>
 #include <util/constants.h>
+#include <util/functions.h>
+#include <util/log.h>
+#include <peer/authenticationmonitor.h>
 
 #include <KDebug>
 #include <KLocale>
@@ -23,6 +26,7 @@
 #include <KStandardDirs>
 #include <QFile>
 #include <QDomElement>
+#include <QFileInfo>
 
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
@@ -33,15 +37,21 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_peersConnected(0), 
     m_peersNotConnected(0)
 {
- /**   QFile srcFile(m_source.url());
-    if (!srcFile.isLocalFile() && !m_source.isEmpty())
+    kDebug(5001);
+    if (m_source.isEmpty())
+        return;
+
+        bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
+
+/**    kDebug(5001) << "DownloadFile";
+    if (!m_source.isLocalFile())
     {
-        KIO::TransferJob *m_copyjob = KIO::get(m_source , KIO::NoReload, KIO::HideProgressInfo);
-        connect(m_copyjob,SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray& )));
-        connect(m_copyjob, SIGNAL(result(KJob *)), this, SLOT(slotResult(KJob * )));
-    }**/
-
-
+        KIO::TransferJob *m_copyJob = KIO::get(m_source , KIO::NoReload, KIO::HideProgressInfo);
+        connect(m_copyJob,SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray&)));
+        connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
+    }
+    else
+        torrentFileDownloaded = true;**/
 
     bt::Uint16 i = 0;
     do
@@ -57,7 +67,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     try
     {
         torrent = new bt::TorrentControl();
-        torrent->init(0, m_source.url().remove("file://"), m_dest.url().remove("file://"), m_dest.url().remove("file://"), 0);
+        torrent->init(0, m_source.url().remove("file://"), m_dest.url().remove("file://"), KStandardDirs::locateLocal("appdata", "tmp/"), 0);
     }
     catch (bt::Error &err)
     {
@@ -75,7 +85,6 @@ BTTransfer::~BTTransfer()
 bool BTTransfer::isResumable() const
 {
     kDebug(5001);
-    //FIXME
     return true;
 }
 
@@ -104,11 +113,15 @@ int BTTransfer::peersNotConnected()
 void BTTransfer::start()
 {
     kDebug(5001);
-    setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));
-    setTransferChange(Tc_Status, true);
 
-    torrent->start();
-    timer.start(500);
+    if (torrent)
+    {
+        kDebug(5001) << "Going to download that stuff :-0";
+        setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));
+        torrent->start();
+        timer.start(250);
+        setTransferChange(Tc_Status, true);
+    }
 }
 
 void BTTransfer::stop()
@@ -116,6 +129,7 @@ void BTTransfer::stop()
     kDebug(5001);
     torrent->stop(true);
     m_speed = 0;
+    timer.stop();
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     setTransferChange(Tc_Speed | Tc_Status, true);
 }
@@ -152,6 +166,8 @@ void BTTransfer::update()
     kDebug(5001);
 
     torrent->update();
+    bt::UpdateCurrentTime();
+    bt::AuthenticationMonitor::instance().update();
 
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize, true);
 }
@@ -164,27 +180,43 @@ void BTTransfer::load(const QDomElement &e)
 {
 }
 
-void BTTransfer::slotData(KIO::Job *, const QByteArray& data) //stolen from Metalink-plugin
+void BTTransfer::slotData(KIO::Job *job, const QByteArray& data)
 {
     kDebug(5001);
     if (data.size() == 0)
+    {
+        slotResult(job);
         return;
+    }
     m_data.append(data);
 }
 
 void BTTransfer::slotResult(KJob * job)
 {
-/**    switch (job->error())
+    kDebug(5001);
+    switch (job->error())
     {
-        case 0:                      //The download has finished
-            QFile torrentFile(KStandardDirs::locateLocal("appdata", "/tmp/" + m_source.fileName()));
+        case 0://The download has finished
+        {
+            kDebug(5001) << "Downloading successfully finished";
+            QFile torrentFile(KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
             torrentFile.write(m_data);
             torrentFile.close();
-            m_source = KStandardDirs::locateLocal("appdata", "/tmp/") + torrentFile.fileName();
-            break;
-        case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
+            m_source = KStandardDirs::locateLocal("appdata", "tmp/") + torrentFile.fileName();
             m_data = 0;
-    }**/
+            torrentFileDownloaded = true;
+            break;
+        }
+        case KIO::ERR_FILE_ALREADY_EXIST:
+            kDebug(5001) << "ERROR - File already exists";
+            m_data = 0;
+            torrentFileDownloaded = true;
+        default:
+            kDebug(5001) << "That sucks";
+            m_data = 0;
+            torrentFileDownloaded = false;
+            break;
+    }
 }
 
 void BTTransfer::slotStoppedByError(bt::TorrentInterface* error, QString errormsg)
