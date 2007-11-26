@@ -15,6 +15,7 @@
 #include <QPixmap>
 
 #include <kurl.h>
+#include <kio/global.h>
 
 #include "job.h"
 #include "kget_export.h"
@@ -70,8 +71,8 @@ class KGET_EXPORT Transfer : public Job
         const KUrl & dest() const           {return m_dest;}
 
         //Transfer status
-        unsigned long totalSize() const     {return m_totalSize;}
-        unsigned long processedSize() const {return m_processedSize;}
+        KIO::filesize_t totalSize() const     {return m_totalSize;}
+        KIO::filesize_t processedSize() const {return m_processedSize;}
         QString statusText() const          {return m_statusText;}
         QPixmap statusPixmap() const        {return m_statusPixmap;}
 
@@ -151,8 +152,8 @@ class KGET_EXPORT Transfer : public Job
         KUrl m_dest;
 
         QStringList   m_log;
-        unsigned long m_totalSize;
-        unsigned long m_processedSize;
+        KIO::filesize_t m_totalSize;
+        KIO::filesize_t m_processedSize;
         int           m_percent;
         int           m_speed;
 

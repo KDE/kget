@@ -51,7 +51,7 @@ void TransferHandler::start()
 {
     if(m_transfer->group()->status() == JobQueue::Running)
     {
-	m_transfer->setPolicy(Job::None);
+        m_transfer->setPolicy(Job::None);
         m_transfer->group()->move(m_transfer, 0);
     }
     else
@@ -68,7 +68,7 @@ void TransferHandler::stop()
     }
     else
     {
-	m_transfer->setPolicy(Job::Stop);
+        m_transfer->setPolicy(Job::Stop);
     }
 }
 
@@ -87,12 +87,12 @@ bool TransferHandler::isResumable() const
     return m_transfer->isResumable();
 }
 
-unsigned long TransferHandler::totalSize() const
+KIO::filesize_t TransferHandler::totalSize() const
 {
     return m_transfer->totalSize();
 }
 
-unsigned long TransferHandler::processedSize() const
+KIO::filesize_t TransferHandler::processedSize() const
 {
     return m_transfer->processedSize();
 }

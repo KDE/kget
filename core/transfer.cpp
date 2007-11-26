@@ -97,8 +97,8 @@ void Transfer::save(const QDomElement &element)
     QDomElement e = element;
     e.setAttribute("Source", m_source.url());
     e.setAttribute("Dest", m_dest.url());
-    e.setAttribute("TotalSize", (qulonglong) m_totalSize);
-    e.setAttribute("ProcessedSize", (qulonglong) m_processedSize);
+    e.setAttribute("TotalSize", m_totalSize);
+    e.setAttribute("ProcessedSize", m_processedSize);
 }
 
 void Transfer::load(const QDomElement &e)
@@ -106,8 +106,8 @@ void Transfer::load(const QDomElement &e)
     m_source = KUrl(e.attribute("Source"));
     m_dest = KUrl(e.attribute("Dest"));
 
-    m_totalSize = e.attribute("TotalSize").toInt();
-    m_processedSize = e.attribute("ProcessedSize").toInt();
+    m_totalSize = e.attribute("TotalSize").toULongLong();
+    m_processedSize = e.attribute("ProcessedSize").toULongLong();
 
     if( m_totalSize != 0)
         m_percent = (int)((100.0 * m_processedSize) / m_totalSize);

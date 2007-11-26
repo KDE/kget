@@ -113,12 +113,12 @@ class KGET_EXPORT TransferHandler
         /**
          * @return the total size of the transfer in bytes
          */
-        unsigned long totalSize() const;
+        KIO::filesize_t totalSize() const;
 
         /**
          * @return the downloaded size of the transfer in bytes
          */
-        unsigned long processedSize() const;
+        KIO::filesize_t processedSize() const;
 
         /**
          * @return the progress percentage of the transfer
