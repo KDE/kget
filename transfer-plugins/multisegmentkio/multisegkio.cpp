@@ -189,7 +189,7 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
        QFile::rename ( dest_part, dest_orig );
     }
     emit updateSegmentsData();
-    m_putJob->kill();
+//     m_putJob->kill(); //FIXME: this does not work corectly; it shows 100% progress after pause a download
 }
 
 // tooked from SlaveInterface.cpp
