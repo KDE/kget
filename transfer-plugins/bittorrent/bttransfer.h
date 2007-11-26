@@ -16,9 +16,7 @@
 #include <QByteArray>
 
 #include "core/transfer.h"
-#include "torrentcontrol.h"
-
-#include <kio/job.h>
+#include "torrent/torrentcontrol.h"
 
 class BTTransfer : public QObject, public Transfer
 {
@@ -42,6 +40,7 @@ class BTTransfer : public QObject, public Transfer
         ~BTTransfer();
 
         //Job virtual functions
+        void start();
         void stop();
         int elapsedTime() const;
         int remainingTime() const;
@@ -55,21 +54,15 @@ class BTTransfer : public QObject, public Transfer
 
         void save(QDomElement e); // krazy:exclude=passbyvalue
 
-    public slots:
-        void start();
-
     protected:
         void load(const QDomElement &e);
 
     private slots:
         void update();
-        void slotData(KIO::Job *, const QByteArray& data);
-        void slotResult(KJob * job);
         void slotStoppedByError(bt::TorrentInterface* error, QString errormsg);
 
     private:
         //TODO: are all these functions necessary??
-        void delayedInit();
         void downloadFinished();
         void hashingFinished();
 
@@ -81,9 +74,6 @@ class BTTransfer : public QObject, public Transfer
         bt::TorrentControl *torrent;
 
         QTimer timer;
-        QByteArray m_data;
-
-        bool torrentFileDownloaded;
 };
 
 #endif

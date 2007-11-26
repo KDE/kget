@@ -16,6 +16,7 @@
 #include "btdetailswidget.h"
 
 #include <kdebug.h>
+#include <KStandardDirs>
 
 #include <QFile>
 
@@ -36,14 +37,37 @@ Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &des
 {
     kDebug(5001) << "BTTransferFactory::createTransfer";
 
+    //if (!m_srcUrl.isEmpty() || !destUrl.isEmpty() || !parent || !scheduler)
+     //   return 0;
+
     if (srcUrl.fileName().endsWith(".torrent"))
     {
-        if (!srcUrl.isEmpty() && !destUrl.isEmpty() && parent && scheduler)
-            return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
+        return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }
 
+/**void BTTransferFactory::downloadTorrent()
+{
+    kDebug(5001);
+    if (src.isLocalFile())
+    {
+        init();
+    }
+    else
+    {
+        kDebug(5001) << "DownloadFile:" << src.url();
+        KIO::TransferJob *m_copyJob = KIO::get(src, KIO::NoReload, KIO::HideProgressInfo);
+        connect(m_copyJob, SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray&)));
+        connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
+        connect(m_copyJob, SIGNAL(finished()), SLOT(init()));
+    }
+}
+
+
+void BTTransferFactory::init()
+{
+}**/
 
 TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
 {
@@ -69,3 +93,43 @@ const QList<KAction *> BTTransferFactory::actions()
 {
     return QList<KAction *>();
 }
+
+/**void BTTransferFactory::slotData(KIO::Job *job, const QByteArray& data)
+{
+    kDebug(5001);
+    if (data.size() == 0)
+    {
+        slotResult(job);
+        return;
+    }
+    m_data.append(data);
+}
+
+void BTTransferFactory::slotResult(KJob * job)
+{
+    kDebug(5001);
+    switch (job->error())
+    {
+        case 0://The download has finished
+        {
+            kDebug(5001) << "Downloading successfully finished";
+            QFile torrentFile(KStandardDirs::locateLocal("appdata", "tmp/") + m_srcUrl.fileName());
+            torrentFile.write(m_data);
+            torrentFile.close();
+            m_downloadTorrent = KStandardDirs::locateLocal("appdata", "tmp/") + torrentFile.fileName();
+            m_data = 0;
+            torrentDownloaded = true;
+            break;
+        }
+        case KIO::ERR_FILE_ALREADY_EXIST:
+            kDebug(5001) << "ERROR - File already exists";
+            m_data = 0;
+            torrentDownloaded = true;
+        default:
+            kDebug(5001) << "That sucks";
+            m_data = 0;
+            torrentDownloaded = false;
+            break;
+    }
+}
+**/

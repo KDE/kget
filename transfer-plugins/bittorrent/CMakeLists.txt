@@ -1,6 +1,7 @@
 
 find_package(BTCore REQUIRED)
 if(BTCORE_FOUND)
+find_package(QCA2 REQUIRED)
 include_directories(
    ../../
    ${CMAKE_CURRENT_SOURCE_DIR}
