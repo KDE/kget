@@ -37,9 +37,6 @@ Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &des
 {
     kDebug(5001) << "BTTransferFactory::createTransfer";
 
-    //if (!m_srcUrl.isEmpty() || !destUrl.isEmpty() || !parent || !scheduler)
-     //   return 0;
-
     if (srcUrl.fileName().endsWith(".torrent"))
     {
         return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);

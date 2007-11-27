@@ -33,22 +33,6 @@ class BTTransferFactory : public QObject, public TransferFactory
         QWidget * createSettingsWidget() { return 0;}
 
         QString displayName(){return "Bittorrent";}
-
-    private: 
-        //void downloadTorrent(const KUrl &src) const
-
-        void init(const KUrl &srcUrl, const KUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = 0 );
-
-        bool torrentDownloaded;
-        QString m_downloadTorrent;
-        QByteArray m_data;
-
-        KUrl m_srcUrl;
-
-    private slots:
-        //void slotData(KIO::Job *, const QByteArray& data);
-        //void slotResult(KJob * job);
-
 };
 
 #endif
