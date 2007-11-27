@@ -51,7 +51,6 @@ void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
 void TransferGroupHandler::start()
 {
     kDebug(5001) << "TransferGroupHandler::start()";
-    m_group->setStatus( JobQueue::Stopped );
     m_group->setStatus( JobQueue::Running );
 }
 

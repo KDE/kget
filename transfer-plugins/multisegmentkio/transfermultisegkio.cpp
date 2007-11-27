@@ -25,7 +25,7 @@ transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(0), m_isDownloading(false)
+      m_copyjob(0), m_isDownloading(false), stopped(true)
 {
     kDebug(5001) << "transferMultiSegKio::transferMultiSegKio";
     if( e )
@@ -41,10 +41,12 @@ void transferMultiSegKio::start()
 
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect-creating"));
     setTransferChange(Tc_Status, true);
+    stopped = false;
 }
 
 void transferMultiSegKio::stop()
 {
+    stopped = true;
     kDebug(5001) << "transferMultiSegKio::Stop()";
 
     if(status() == Stopped)
@@ -204,7 +206,8 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
         default:
             //There has been an error
             kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
-            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
+            if (!stopped)
+                setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!

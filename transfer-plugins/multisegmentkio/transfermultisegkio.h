@@ -51,6 +51,7 @@ class transferMultiSegKio : public QObject, public Transfer
         QList<SegData> SegmentsData;
         QList<KUrl> m_Urls;
         bool m_isDownloading;
+        bool stopped;
 
     private slots:
         void slotUpdateSegmentsData();
