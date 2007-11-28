@@ -28,10 +28,15 @@ class BTTransfer : public QObject, public Transfer
          */
         enum BTTransferChange
         {
-            Tc_ChunksTotal       = 0x00010000,
-            Tc_ChunksDownloaded  = 0x00020000,
-            Tc_PeersConnected    = 0x00040000,
-            Tc_PeersNotConnected = 0x00080000
+            Tc_ChunksTotal            = 0x00010000,
+            Tc_ChunksDownloaded       = 0x00020000,
+            Tc_PeersConnected         = 0x00040000,
+            Tc_PeersNotConnected      = 0x00080000,
+            Tc_DlRate                 = 0x00160000,
+            Tc_UlRate                 = 0x00320000,
+            Tc_SessionBytesDownloaded = 0x00640000,
+            Tc_SessionBytesUploaded   = 0x01280000,
+            Tc_TrackersList           = 0x02560000
         };
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
@@ -46,12 +51,19 @@ class BTTransfer : public QObject, public Transfer
         int remainingTime() const;
         bool isResumable() const;
 
-        //Bittorrent specific functions
+        //Bittorrent specific functions (connected with TransferFlags
         int chunksTotal();
         int chunksDownloaded();
         int peersConnected();
         int peersNotConnected();
+        int dlRate();
+        int ulRate();
+	int sessionBytesDownloaded();
+	int sessionBytesUploaded();
+        KUrl::List trackersList();
 
+        //More Bittorrent-Functions
+        void setPort(int port);
         void save(QDomElement e); // krazy:exclude=passbyvalue
 
     protected:
@@ -60,10 +72,10 @@ class BTTransfer : public QObject, public Transfer
     private slots:
         void update();
         void slotStoppedByError(bt::TorrentInterface* error, QString errormsg);
+        void slotDownloadFinished(bt::TorrentInterface* ti);
 
     private:
         //TODO: are all these functions necessary??
-        void downloadFinished();
         void hashingFinished();
 
         int m_chunksTotal;
@@ -72,6 +84,7 @@ class BTTransfer : public QObject, public Transfer
         int m_peersNotConnected;
 
         bt::TorrentControl *torrent;
+        bt::TorrentStats   *stats;
 
         QTimer timer;
 };

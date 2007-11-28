@@ -24,6 +24,8 @@
 #include <KLocale>
 #include <KIconLoader>
 #include <KStandardDirs>
+#include <KUrl>
+
 #include <QFile>
 #include <QDomElement>
 #include <QFileInfo>
@@ -62,6 +64,9 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         torrent->init(0, m_source.url().remove("file://"), KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName(), 
                                                              m_dest.url().remove("file://").remove(".torrent"), 0);
         torrent->createFiles();
+        //torrent->setPreallocateDiskSpace(true);//TODO: Make this configurable
+        //torrent->setMaxShareRatio(1); //TODO: Make configurable...
+        stats = new bt::TorrentStats(torrent->getStats());
     }
     catch (bt::Error &err)
     {
@@ -69,6 +74,8 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     }
 
     connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
+    connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(downloadFinished(bt::TorrentInterface* )));
+    //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
 
@@ -96,9 +103,33 @@ int BTTransfer::chunksDownloaded()
     //FIXME
 }
 
+int BTTransfer::dlRate()
+{
+    return stats->download_rate;
+}
+
+int BTTransfer::ulRate()
+{
+    return stats->upload_rate;
+}
+
+int BTTransfer::sessionBytesDownloaded()
+{
+    return stats->session_bytes_downloaded;
+}
+
+int BTTransfer::sessionBytesUploaded()
+{
+    return stats->session_bytes_uploaded;
+}
+/**
+TrackersList* torrent->getTrackersList();
+**/
+
 int BTTransfer::peersConnected()
 {
     kDebug(5001);
+    return -1;
 }
 
 int BTTransfer::peersNotConnected()
@@ -113,13 +144,14 @@ void BTTransfer::start()
     if (torrent)
     {
         kDebug(5001) << "Going to download that stuff :-0";
-        //setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));//FIXME
+        setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));//FIXME
         kDebug(5001) << "Here we are";
         torrent->start();
         kDebug(5001) << "Got started??";
         timer.start(250);
         kDebug(5001) << "Jepp, it does";
-        //setTransferChange(Tc_Status, true);
+        setTransferChange(Tc_TrackersList, true);
+        kDebug(5001) << "Completely";
     }
 }
 
@@ -145,9 +177,10 @@ int BTTransfer::remainingTime() const
     return torrent->getETA();
 }
 
-void BTTransfer::downloadFinished()
+void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
     kDebug(5001);
+    timer.stop();
     setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
     setTransferChange(Tc_Status, true);
 }
@@ -184,5 +217,15 @@ void BTTransfer::slotStoppedByError(bt::TorrentInterface* error, QString errorms
     kDebug(5001) << errormsg;
 }
 
+void BTTransfer::setPort(int port)
+{
+    bt::Globals::instance().getServer().changePort(port);
+}
+
+KUrl::List BTTransfer::trackersList()
+{
+    const KUrl::List trackers = torrent->getTrackersList()->getTrackerURLs();
+    return trackers;
+}
 
 #include "bttransfer.moc"
