@@ -33,11 +33,7 @@
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
-  : Transfer(parent, factory, scheduler, src, dest, e),
-    m_chunksTotal(0), 
-    m_chunksDownloaded(0),
-    m_peersConnected(0), 
-    m_peersNotConnected(0)
+  : Transfer(parent, factory, scheduler, src, dest, e) 
 {
     kDebug(5001);
     if (m_source.url().isEmpty())
@@ -122,9 +118,6 @@ int BTTransfer::sessionBytesUploaded()
 {
     return stats->session_bytes_uploaded;
 }
-/**
-TrackersList* torrent->getTrackersList();
-**/
 
 int BTTransfer::peersConnected()
 {

@@ -78,11 +78,6 @@ class BTTransfer : public QObject, public Transfer
         //TODO: are all these functions necessary??
         void hashingFinished();
 
-        int m_chunksTotal;
-        int m_chunksDownloaded;
-        int m_peersConnected;
-        int m_peersNotConnected;
-
         bt::TorrentControl *torrent;
         bt::TorrentStats   *stats;
 

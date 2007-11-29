@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+  <kcfgfile name="kget_bittorrentfactory.rc"/>
+  <group name="General">
+    <entry name="UploadRate" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="DownloadRate" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="Port" type="Int">
+      <default>6881</default>
+    </entry>
+  </group>
+  <group name="Folders">
+    <entry name="TorrentFolder" type="String">
+      <default></default>
+    </entry>
+    <entry name="SearchEnginesUrlList" type="String">
+      <default></default>
+    </entry>
+  </group>
+</kcfg>
