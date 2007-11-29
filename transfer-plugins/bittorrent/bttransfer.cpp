@@ -109,6 +109,11 @@ int BTTransfer::ulRate()
     return stats->upload_rate;
 }
 
+int BTTransfer::totalSize()
+{
+    return stats->total_bytes_to_download;
+}
+
 int BTTransfer::sessionBytesDownloaded()
 {
     return stats->session_bytes_downloaded;
@@ -155,7 +160,8 @@ void BTTransfer::stop()
     m_speed = 0;
     timer.stop();
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
-    setTransferChange(Tc_Speed | Tc_Status, true);
+    m_speed = 0;
+    setTransferChange(Tc_Status | Tc_Speed, true);
 }
 
 int BTTransfer::elapsedTime() const
@@ -195,7 +201,7 @@ void BTTransfer::update()
     bt::AuthenticationMonitor::instance().update();
 
     m_speed = dlRate();
-    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed, true);
+    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize, true);
 }
 
 void BTTransfer::save(QDomElement e) // krazy:exclude=passbyvalue

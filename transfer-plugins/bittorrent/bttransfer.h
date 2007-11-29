@@ -58,6 +58,7 @@ class BTTransfer : public QObject, public Transfer
         int peersNotConnected();
         int dlRate();
         int ulRate();
+        int totalSize();
 	int sessionBytesDownloaded();
 	int sessionBytesUploaded();
         KUrl::List trackersList();
