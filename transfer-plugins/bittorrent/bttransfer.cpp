@@ -101,7 +101,7 @@ int BTTransfer::chunksDownloaded()
 
 int BTTransfer::dlRate()
 {
-    return stats->download_rate;
+    return torrent->getStats().download_rate;
 }
 
 int BTTransfer::ulRate()
@@ -137,13 +137,13 @@ void BTTransfer::start()
     if (torrent)
     {
         kDebug(5001) << "Going to download that stuff :-0";
-        setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));//FIXME
         kDebug(5001) << "Here we are";
         torrent->start();
         kDebug(5001) << "Got started??";
         timer.start(250);
+        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
         kDebug(5001) << "Jepp, it does";
-        setTransferChange(Tc_TrackersList, true);
+        setTransferChange(Tc_Status | Tc_TrackersList | Tc_Percent, true);
         kDebug(5001) << "Completely";
     }
 }
@@ -194,7 +194,8 @@ void BTTransfer::update()
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
 
-    //setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize, true);
+    m_speed = dlRate();
+    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed, true);
 }
 
 void BTTransfer::save(QDomElement e) // krazy:exclude=passbyvalue
