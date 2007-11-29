@@ -19,7 +19,14 @@ class BTSettingsWidget : public QWidget, public Ui::BTSettingsWidget
 {
     Q_OBJECT
     public:
-        BTSettingsWidget(QWidget * parent);
+        BTSettingsWidget();
+
+    private slots:
+        void setPort(int port);
+        void setUploadRate(int uploadRate);
+        void setDownloadRate(int downloadRate);
+        void setDefaultTorrentDir(QString torrentDir);
+        void setDefaultTempDir(QString tmpDir);
 };
 
 #endif

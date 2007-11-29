@@ -13,11 +13,11 @@
       <default>6881</default>
     </entry>
   </group>
-  <group name="Folders">
-    <entry name="TorrentFolder" type="String">
+  <group name="Dirs">
+    <entry name="TorrentDir" type="String">
       <default></default>
     </entry>
-    <entry name="SearchEnginesUrlList" type="String">
+    <entry name="TmpDir" type="String">
       <default></default>
     </entry>
   </group>

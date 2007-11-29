@@ -12,6 +12,7 @@
 #define BTTRANSFERFACTORY_H
 
 #include "core/plugin/transferfactory.h"
+#include "btsettingswidget.h"
 
 #include <kio/job.h>
 
@@ -30,7 +31,7 @@ class BTTransferFactory : public QObject, public TransferFactory
 
         const QList<KAction *> actions();
 
-        QWidget * createSettingsWidget() { return 0;}
+        QWidget * createSettingsWidget() { return new BTSettingsWidget();}
 
         QString displayName(){return "Bittorrent";}
 };
