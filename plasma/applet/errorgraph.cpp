@@ -29,10 +29,10 @@
 #include <KIcon>
 #include <QProcess>
 
-ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
+ErrorGraph::ErrorGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout, const QString &message)
     : TransferGraph(parent)
 {
-    m_layout = new Plasma::HBoxLayout(m_applet);
+    m_layout = mainlayout;
 
     m_errorLabel = new Plasma::Label(m_applet);
     m_errorLabel->setText(message);
@@ -40,26 +40,18 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
     m_errorLabel->setAlignment(Qt::AlignLeft);
     m_launchButton = new Plasma::PushButton(KIcon("kget"), "Launch KGet", m_applet);
 
-    //m_layout->addItem(m_errorLabel);
-    //m_layout->addItem(m_launchButton);
+    m_layout->addItem(m_errorLabel);
+    m_layout->addItem(m_launchButton);
 
-    m_applet->updateGeometry();
-    m_errorLabel->updateGeometry();
-
+    m_applet->resize(QSize(500, 700));
 
     connect(m_launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
 }
 
 ErrorGraph::~ErrorGraph()
 {
-    delete m_layout;
     delete m_errorLabel;
     delete m_launchButton;
-}
-
-QSizeF ErrorGraph::contentSizeHint()
-{
-    return QSizeF(TransferGraph::contentSizeHint().width(), 80);
 }
 
 void ErrorGraph::launchKGet()

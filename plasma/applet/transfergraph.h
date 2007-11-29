@@ -65,7 +65,7 @@ public:
         Q_UNUSED(p)
         Q_UNUSED(contentsRect)
     };
-    virtual QSizeF contentSizeHint();
+    //virtual QSizeF contentSizeHint();
 
 protected:
     virtual void drawTitle(QPainter *p, const QRect &contentsRect);

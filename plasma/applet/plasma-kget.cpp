@@ -32,31 +32,32 @@
 #include <plasma/applet.h>
 #include <plasma/theme.h>
 #include <plasma/dataengine.h>
+#include <plasma/layouts/boxlayout.h>
 
 #include "transfergraph.h"
 #include "barchart.h"
-#include "piegraph.h"
-#include "speedgraph.h"
 #include "errorgraph.h"
 
 PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Applet(parent, args),
-                            m_error(false),
-                            m_errorMessage(QString()),
-                            m_size(QSizeF()),
                             m_dialog(0),
-                            m_updatePaint(false),
+                            m_errorMessage(QString()),
+                            m_error(false),
                             m_graphType(0)
 {
     setHasConfigurationInterface(true);
     setDrawStandardBackground(true);
+
+    m_layout = new Plasma::VBoxLayout(this);
+    // setGeometry(QRectF(0, 0, 400, 500));
+    //resize(QSizeF(400, 600));
 
     m_transferGraph = 0;
     KConfigGroup cg = config();
 
     m_engine = dataEngine("kget");
     if (m_engine) {
-      m_engine->connectSource("KGet", this, 2000);
-      m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 1000));
+      m_engine->connectSource("KGet", this);
+      m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 2000));
     }
     else {
       kDebug()<<"KGet Engine could not be loaded";
@@ -68,57 +69,22 @@ PlasmaKGet::~PlasmaKGet()
     delete m_transferGraph;
 }
 
-QSizeF PlasmaKGet::contentSizeHint() const
-{
-    return m_size;
-}
-
-void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option,
-                                const QRect &contentsRect)
-{
-    Q_UNUSED(option)
-
-    if(m_transferGraph) {
-        m_transferGraph->paint(p, contentsRect);
-    }
-}
-
-void PlasmaKGet::constraintsUpdated(Plasma::Constraints constraints)
-{
-    Q_UNUSED(constraints)
-    prepareGeometryChange();
-    QSizeF newSize;
-
-    if(m_transferGraph) {
-      newSize = m_transferGraph->contentSizeHint();
-    }
-    if((size() != newSize)) {
-        m_size = newSize;
-        resize(m_size);
-    }
-
-    update();
-
-    m_updatePaint = false;
-}
-
 void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
 {
     Q_UNUSED(source)
 
-    if(data["error"].toBool()) {
+    if(data["error"].toBool() && !m_error) {
         m_errorMessage = data["errorMessage"].toString();
         loadTransferGraph(PlasmaKGet::ErrorGraphType);
     }
     else if(!data["error"].toBool()) {
         loadTransferGraph(config().readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
+
+        if(m_transferGraph->transfers() != data["transfers"].toMap()) {
+            m_transferGraph->setTransfers(data["transfers"].toMap());
+        }
     }
-    if (m_transferGraph) {
-      if(!data["error"].toBool() || m_transferGraph->transfers() != data["transfers"].toMap()) {
-	  m_updatePaint = true;
-	  m_transferGraph->setTransfers(data["transfers"].toMap());
-      }
-    }
+
     m_error = data["error"].toBool();
 }
 
@@ -159,17 +125,17 @@ void PlasmaKGet::loadTransferGraph(uint type)
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :
-                m_transferGraph = new ErrorGraph(this, m_errorMessage);
-                break;
+                m_transferGraph = new ErrorGraph(this, m_layout, m_errorMessage);
+                break;/*
             case PlasmaKGet::PieGraphType :
                 m_transferGraph = new PieGraph(this);
                 break;
             case PlasmaKGet::SpeedGraphType :
                 m_transferGraph = new SpeedGraph(this);
-                break;
+                break;*/
             case PlasmaKGet::BarChartType :
             default:
-                m_transferGraph = new BarChart(this);
+                m_transferGraph = new BarChart(this, m_layout);
         }
 
         m_graphType = type;

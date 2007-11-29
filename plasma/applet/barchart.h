@@ -26,7 +26,7 @@
 #include <QMap>
 
 namespace Plasma {
-    class VBoxLayout;
+    class BoxLayout;
     class ProgressBar;
     class Label;
 }
@@ -35,14 +35,13 @@ class QString;
 class BarChart : public TransferGraph
 {
 public:
-    BarChart(Plasma::Applet *parent);
+    BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout);
     ~BarChart();
 
     void setTransfers(const QVariantMap &transfers);
-    QSizeF contentSizeHint();
 
 private:
-    Plasma::VBoxLayout *m_layout;
+    Plasma::BoxLayout *m_layout;
     Plasma::Label *m_titleLabel;
     Plasma::Label *m_totalSizeLabel;
     QMap <QString, Plasma::ProgressBar *> m_progressBars;

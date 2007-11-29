@@ -29,12 +29,13 @@
 #include <KLocale>
 //#include <QTimeLine>
 
-BarChart::BarChart(Plasma::Applet *parent)
+BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
     : TransferGraph(parent)
 {
     m_titleLabel = 0;
     m_totalSizeLabel = 0;
-    m_layout = new Plasma::VBoxLayout(m_applet);
+    m_layout = mainlayout;
+
 /*
     // Layout animator
     Plasma::LayoutAnimator *animator = new Plasma::LayoutAnimator();
@@ -66,11 +67,11 @@ BarChart::~BarChart()
     foreach(const QString &key, m_progressBars.keys()) {
         delete m_progressBars[key];
     }
-    delete m_layout;
 }
 
 void BarChart::setTransfers(const QVariantMap &transfers)
 {
+
     TransferGraph::setTransfers(transfers);
     uint totalSize = 0;
 
@@ -79,6 +80,8 @@ void BarChart::setTransfers(const QVariantMap &transfers)
             Plasma::ProgressBar *bar = new Plasma::ProgressBar(m_applet);
             bar->setFormat(m_transfers[key].toList().at(0).toString() + " %v%");
             m_progressBars [key] = bar;
+
+            m_layout->addItem(bar);
         }
         m_progressBars [key]->setValue(m_transfers[key].toList().at(1).toString().toInt());
         totalSize += m_transfers[key].toList().at(2).toInt();
@@ -99,11 +102,6 @@ void BarChart::setTransfers(const QVariantMap &transfers)
             delete bar;
         }
     }
-}
 
-QSizeF BarChart::contentSizeHint()
-{
-    return QSizeF(TransferGraph::contentSizeHint().width(),
-                    TransferGraph::contentSizeHint().height() + 80 +
-                    (TRANSFER_LINE_HEIGHT) * m_transfers.keys().size());
+    m_applet->updateGeometry();
 }

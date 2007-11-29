@@ -1,9 +1,7 @@
 set(kget_SRCS
     plasma-kget.cpp
     barchart.cpp
-    piegraph.cpp
     transfergraph.cpp
-    speedgraph.cpp
     errorgraph.cpp
 )
 

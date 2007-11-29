@@ -27,6 +27,10 @@
 #include "transfergraph.h"
 #include "ui_kgetConfig.h"
 
+namespace Plasma {
+    class VBoxLayout;
+}
+
 class KDialog;
 
 class PlasmaKGet : public Plasma::Applet
@@ -43,12 +47,6 @@ public:
     PlasmaKGet(QObject *parent, const QVariantList &args);
     ~PlasmaKGet();
 
-    QSizeF contentSizeHint() const;
-
-    void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                        const QRect &contentsRect);
-    void constraintsUpdated(Plasma::Constraints constraints);
-
 public slots:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
     void showConfigurationInterface();
@@ -60,12 +58,11 @@ private:
     void loadTransferGraph(uint type);
 
     Plasma::DataEngine *m_engine;
+    Plasma::VBoxLayout *m_layout;
     TransferGraph *m_transferGraph;
-    bool m_error;
-    QString m_errorMessage;
-    QSizeF m_size;
     KDialog *m_dialog;
-    bool m_updatePaint;
+    QString m_errorMessage;
+    bool m_error;
     uint m_graphType;
 
     Ui::KGetConfig ui;

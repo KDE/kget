@@ -42,14 +42,14 @@ void TransferGraph::setTransfers(const QVariantMap &transfers)
 {
     m_transfers = transfers;
 
-    m_applet->updateConstraints(Plasma::AllConstraints);
+    //m_applet->updateConstraints(Plasma::AllConstraints);
 }
-
+/*
 QSizeF TransferGraph::contentSizeHint()
 {
     return QSizeF(TRANSFER_APPLET_WIDTH, TRANSFER_LINE_HEIGHT + TRANSFER_MARGIN);
 }
-
+*/
 void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)
 {
     // draw the kget icon

@@ -24,7 +24,7 @@
 #include "transfergraph.h"
 
 namespace Plasma {
-    class HBoxLayout;
+    class BoxLayout;
     class PushButton;
     class Applet;
     class Label;
@@ -35,16 +35,14 @@ class ErrorGraph : public TransferGraph
 {
     Q_OBJECT
 public:
-    ErrorGraph(Plasma::Applet *parent, const QString &message);
+    ErrorGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout, const QString &message);
     ~ErrorGraph();
-
-    QSizeF contentSizeHint();
 
 private slots:
     void launchKGet();
 
 private:
-    Plasma::HBoxLayout *m_layout;
+    Plasma::BoxLayout *m_layout;
     Plasma::Label *m_errorLabel;
     Plasma::PushButton *m_launchButton;
     Plasma::Icon *m_icon;
