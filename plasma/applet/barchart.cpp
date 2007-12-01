@@ -53,6 +53,8 @@ BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
     m_titleLabel->setPen(QPen(Qt::white));
     m_titleLabel->setAlignment(Qt::AlignLeft);
 
+    m_layout->addItem(m_titleLabel);
+
     // Total size
     m_totalSizeLabel = new Plasma::Label(m_applet);
     m_totalSizeLabel->setPen(QPen(Qt::white));

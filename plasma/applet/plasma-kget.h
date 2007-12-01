@@ -47,6 +47,8 @@ public:
     PlasmaKGet(QObject *parent, const QVariantList &args);
     ~PlasmaKGet();
 
+    void init();
+
 public slots:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
     void showConfigurationInterface();

@@ -34,22 +34,29 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout, co
 {
     m_layout = mainlayout;
 
+    m_icon = new Plasma::Icon(KIcon("dialog-warning"), "", m_applet);
+    m_icon->setAlignment(Qt::AlignCenter);
+
+
     m_errorLabel = new Plasma::Label(m_applet);
     m_errorLabel->setText(message);
     m_errorLabel->setPen(QPen(Qt::white));
-    m_errorLabel->setAlignment(Qt::AlignLeft);
+    m_errorLabel->setAlignment(Qt::AlignCenter);
+
     m_launchButton = new Plasma::PushButton(KIcon("kget"), "Launch KGet", m_applet);
 
+    m_layout->addItem(m_icon);
     m_layout->addItem(m_errorLabel);
     m_layout->addItem(m_launchButton);
 
-    m_applet->resize(QSize(500, 700));
+    m_applet->updateGeometry();
 
     connect(m_launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
 }
 
 ErrorGraph::~ErrorGraph()
 {
+    delete m_icon;
     delete m_errorLabel;
     delete m_launchButton;
 }

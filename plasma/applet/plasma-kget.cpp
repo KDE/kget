@@ -46,10 +46,18 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
 {
     setHasConfigurationInterface(true);
     setDrawStandardBackground(true);
+}
 
+PlasmaKGet::~PlasmaKGet()
+{
+    delete m_transferGraph;
+}
+
+void PlasmaKGet::init()
+{
     m_layout = new Plasma::VBoxLayout(this);
-    // setGeometry(QRectF(0, 0, 400, 500));
-    //resize(QSizeF(400, 600));
+
+    setMinimumSize(QSize(330, 100));
 
     m_transferGraph = 0;
     KConfigGroup cg = config();
@@ -62,11 +70,6 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
     else {
       kDebug()<<"KGet Engine could not be loaded";
     }
-}
-
-PlasmaKGet::~PlasmaKGet()
-{
-    delete m_transferGraph;
 }
 
 void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
