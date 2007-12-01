@@ -30,13 +30,17 @@ class BTTransfer : public QObject, public Transfer
         {
             Tc_ChunksTotal            = 0x00010000,
             Tc_ChunksDownloaded       = 0x00020000,
-            Tc_PeersConnected         = 0x00040000,
-            Tc_PeersNotConnected      = 0x00080000,
-            Tc_DlRate                 = 0x00160000,
-            Tc_UlRate                 = 0x00320000,
-            Tc_SessionBytesDownloaded = 0x00640000,
-            Tc_SessionBytesUploaded   = 0x01280000,
-            Tc_TrackersList           = 0x02560000
+            Tc_ChunksExcluded         = 0x00040000,
+            Tc_ChunksLeft             = 0x00080000,
+            Tc_SeedsConnected         = 0x00160000,
+            Tc_SeedsDisconnected      = 0x00320000,
+            Tc_LeechesConnected       = 0x00640000,
+            Tc_LeechesDisconnected    = 0x01280000,
+            Tc_DlRate                 = 0x02560000,
+            Tc_UlRate                 = 0x05120000,
+            Tc_SessionBytesDownloaded = 0x10240000,
+            Tc_SessionBytesUploaded   = 0x20480000,
+            Tc_TrackersList           = 0x40960000
         };
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
@@ -52,16 +56,20 @@ class BTTransfer : public QObject, public Transfer
         bool isResumable() const;
 
         //Bittorrent specific functions (connected with TransferFlags
-        int chunksTotal();
-        int chunksDownloaded();
-        int peersConnected();
-        int peersNotConnected();
-        int dlRate();
-        int ulRate();
-        int totalSize();
-	int sessionBytesDownloaded();
-	int sessionBytesUploaded();
-        KUrl::List trackersList();
+        int chunksTotal() const;
+        int chunksDownloaded() const;
+        int chunksExcluded() const;
+        int chunksLeft() const;
+        int seedsConnected() const;
+        int seedsDisconnected() const;
+        int leechesConnected() const;
+        int leechesDisconnected() const;
+        int dlRate() const;
+        int ulRate() const;
+        int totalSize() const;
+	int sessionBytesDownloaded() const;
+	int sessionBytesUploaded() const;
+        KUrl::List trackersList() const;
 
         //More Bittorrent-Functions
         void setPort(int port);

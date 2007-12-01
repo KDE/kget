@@ -18,6 +18,11 @@
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     : m_transfer(transfer)
 {
+    setupUi(this);
+
+    srcEdit->setText(transfer->source().url());
+    destEdit->setText(transfer->dest().url());
+
     transfer->addObserver(this);
     //This updates the widget with the right values
     transferChangedEvent(transfer);
@@ -25,6 +30,15 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
 
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
+    /**seederLabel->setText(transfer->seedsConnected() + "(" + transfer->seedsDisconnected() + ")");
+    leecherLabel->setText(transfer->leechesConnected() + "(" + transfer->leechesDisconnected() + ")");
+    dlSpeedLabel->setText(transfer->dlRate());
+    ulSpeedLabel->setText(transfer->ulRate());
+    chunksDownloadedLabel->setText(transfer->chunksDownloaded());
+    chunksExcludedLabel->setText(transfer->chunksExcluded());
+    chunksAllLabel->setText(transfer->chunksTotal());
+    chunksLeftLabel->setText(transfer->chunksLeft());**/
+
     m_transfer->resetChangesFlags(this);
 }
 

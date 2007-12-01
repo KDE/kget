@@ -11,13 +11,15 @@
 #ifndef BTDETAILSWIDGET_H
 #define BTDETAILSWIDGET_H
 
+#include "ui_btdetailswidgetfrm.h"
+
 #include <QWidget>
 
 #include "core/observer.h"
 
 class BTTransferHandler;
 
-class BTDetailsWidget : public QWidget, public TransferObserver
+class BTDetailsWidget : public QWidget, public TransferObserver, public Ui::BTDetailsWidgetFrm
 {
     Q_OBJECT
     public:

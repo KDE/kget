@@ -102,54 +102,6 @@ bool BTTransfer::isResumable() const
     return true;
 }
 
-int BTTransfer::chunksTotal()
-{
-    kDebug(5001);
-    return torrent->getTorrent().getNumChunks();
-}
-
-int BTTransfer::chunksDownloaded()
-{
-    kDebug(5001);
-    //FIXME
-}
-
-int BTTransfer::dlRate()
-{
-    return torrent->getStats().download_rate;
-}
-
-int BTTransfer::ulRate()
-{
-    return stats->upload_rate;
-}
-
-int BTTransfer::totalSize()
-{
-    return stats->total_bytes_to_download;
-}
-
-int BTTransfer::sessionBytesDownloaded()
-{
-    return stats->session_bytes_downloaded;
-}
-
-int BTTransfer::sessionBytesUploaded()
-{
-    return stats->session_bytes_uploaded;
-}
-
-int BTTransfer::peersConnected()
-{
-    kDebug(5001);
-    return -1;
-}
-
-int BTTransfer::peersNotConnected()
-{
-    kDebug(5001);
-}
-
 void BTTransfer::start()
 {
     kDebug(5001);
@@ -177,34 +129,6 @@ void BTTransfer::stop()
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
-}
-
-int BTTransfer::elapsedTime() const
-{
-    kDebug(5001);
-    return torrent->getRunningTimeDL();
-}
-
-int BTTransfer::remainingTime() const
-{
-    kDebug(5001);
-    return torrent->getETA();
-}
-
-void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
-{
-    kDebug(5001);
-    timer.stop();
-    setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
-    setTransferChange(Tc_Status, true);
-}
-
-void BTTransfer::hashingFinished()
-{
-    kDebug(5001);
-
-    setTransferChange(Tc_Status, true);
-    start();
 }
 
 void BTTransfer::update()
@@ -237,10 +161,98 @@ void BTTransfer::setPort(int port)
     bt::Globals::instance().getServer().changePort(port);
 }
 
-KUrl::List BTTransfer::trackersList()
+
+void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
+{
+    kDebug(5001);
+    timer.stop();
+    setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+    setTransferChange(Tc_Status, true);
+}
+
+/**Property-Functions**/
+KUrl::List BTTransfer::trackersList() const
 {
     const KUrl::List trackers = torrent->getTrackersList()->getTrackerURLs();
     return trackers;
+}
+
+int BTTransfer::dlRate() const
+{
+    return torrent->getStats().download_rate;
+}
+
+int BTTransfer::ulRate() const
+{
+    return stats->upload_rate;
+}
+
+int BTTransfer::totalSize() const
+{
+    return stats->total_bytes_to_download;
+}
+
+int BTTransfer::sessionBytesDownloaded() const
+{
+    return stats->session_bytes_downloaded;
+}
+
+int BTTransfer::sessionBytesUploaded() const
+{
+    return stats->session_bytes_uploaded;
+}
+
+int BTTransfer::chunksTotal() const
+{
+    return torrent->getTorrent().getNumChunks();
+}
+
+int BTTransfer::chunksDownloaded() const
+{
+    //torrent->downloadedChunks.getNumBytes() / torrent->chunkSize();
+    return -1;
+}
+
+int BTTransfer::chunksExcluded() const
+{
+    return -1;
+}
+
+int BTTransfer::chunksLeft() const
+{
+    return -1;
+}
+
+int BTTransfer::seedsConnected() const
+{
+    return -1;
+}
+
+int BTTransfer::seedsDisconnected() const
+{
+    return -1;
+}
+
+int BTTransfer::leechesConnected() const
+{
+    return -1;
+}
+
+int BTTransfer::leechesDisconnected() const
+{
+    return -1;
+}
+
+int BTTransfer::elapsedTime() const
+{
+    kDebug(5001);
+    return torrent->getRunningTimeDL();
+}
+
+int BTTransfer::remainingTime() const
+{
+    kDebug(5001);
+    return torrent->getETA();
 }
 
 #include "bttransfer.moc"
