@@ -27,7 +27,7 @@ transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0), m_isDownloading(false), stopped(true)
 {
-    kDebug(5001) << "transferMultiSegKio::transferMultiSegKio";
+    kDebug(5001);
     if( e )
         load( *e );
 }
@@ -37,7 +37,7 @@ void transferMultiSegKio::start()
     if(!m_copyjob)
         createJob();
 
-    kDebug(5001) << "transferMultiSegKio::start";
+    kDebug(5001);
 
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect-creating"));
     setTransferChange(Tc_Status, true);
@@ -46,9 +46,9 @@ void transferMultiSegKio::start()
 
 void transferMultiSegKio::stop()
 {
-    stopped = true;
-    kDebug(5001) << "transferMultiSegKio::Stop()";
+    kDebug(5001);
 
+    stopped = true;
     if(status() == Stopped)
         return;
 
@@ -80,7 +80,7 @@ bool transferMultiSegKio::isResumable() const
 
 void transferMultiSegKio::load(const QDomElement &e)
 {
-    kDebug(5001) << "TransferMultiSegKio::load";
+    kDebug(5001);
 
     SegData d;
     QDomNodeList segments = e.elementsByTagName ("Segment");
@@ -92,7 +92,7 @@ void transferMultiSegKio::load(const QDomElement &e)
         segment = node.toElement ();
         d.bytes = segment.attribute("Bytes").toULongLong();
         d.offset = segment.attribute("OffSet").toULongLong();
-        kDebug(5001) << "TransferMultiSegKio::load: adding Segment " << i;
+        kDebug(5001) << "adding Segment " << i;
         SegmentsData << d;
     }
     QDomNodeList urls = e.elementsByTagName ("Urls");
@@ -101,14 +101,14 @@ void transferMultiSegKio::load(const QDomElement &e)
     {
         node = urls.item(i);
         url = node.toElement ();
-        kDebug(5001) << "TransferMultiSegKio::load: adding Url " << i;
+        kDebug(5001) << "adding Url " << i;
         m_Urls << KUrl( url.attribute("Url") );
     }
 }
 
 void transferMultiSegKio::save(const QDomElement &element)
 {
-    kDebug(5001) << "TransferMultiSegKio::save";
+    kDebug(5001);
 
     QDomElement e = element;
 
@@ -118,7 +118,7 @@ void transferMultiSegKio::save(const QDomElement &element)
     QDomElement segment;
     QList<SegData>::iterator it = SegmentsData.begin();
     QList<SegData>::iterator itEnd = SegmentsData.end();
-    kDebug(5001) << "TransferMultiSegKio::saving: " << SegmentsData.size() << " segments";
+    kDebug(5001) << "saving: " << SegmentsData.size() << " segments";
     for ( ; it!=itEnd ; ++it )
     {
         segment = doc.createElement("Segment");
@@ -131,7 +131,7 @@ void transferMultiSegKio::save(const QDomElement &element)
         QDomElement url;
         QList<KUrl>::iterator it = m_Urls.begin();
         QList<KUrl>::iterator itEnd = m_Urls.end();
-        kDebug(5001) << "TransferMultiSegKio::saving: " << m_Urls.size() << " urls";
+        kDebug(5001) << "saving: " << m_Urls.size() << " urls";
         for ( ; it!=itEnd ; ++it )
         {
             url = doc.createElement("Urls");
@@ -191,11 +191,10 @@ void transferMultiSegKio::slotUpdateSegmentsData()
 
 void transferMultiSegKio::slotResult( KJob *kioJob )
 {
-    kDebug(5001) << "transferMultiSegKio::slotResult  (" << kioJob->error() << ")";
+    kDebug(5001) << "(" << kioJob->error() << ")";
     switch (kioJob->error())
     {
         case 0:                            //The download has finished
-        case 1:                            // we kill the job after close
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
             setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
             m_percent = 100;
@@ -223,7 +222,7 @@ void transferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 
 void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
-//     kDebug(5001) << "transferMultiSegKio::slotPercent";
+//     kDebug(5001);
     Q_UNUSED(kioJob);
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -233,7 +232,7 @@ void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob);
 
-    kDebug(5001) << "transferMultiSegKio::slotTotalSize";
+    kDebug(5001);
 
     if (!m_isDownloading)
     {
@@ -282,7 +281,7 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
 
 void transferMultiSegKio::slotSearchUrls(QList<KUrl> &Urls)
 {
-    kDebug(5001) << "transferMultiSegKio::slotSearchUrls got " << Urls.size() << " Urls.";
+    kDebug(5001) << "got: " << Urls.size() << " Urls.";
     m_Urls = Urls;
     if (m_copyjob)
     {

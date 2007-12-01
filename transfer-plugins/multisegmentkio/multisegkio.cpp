@@ -51,7 +51,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& de
     m_writeBlocked(false),
     m_segSplited(false)
 {
-    kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()";
+    kDebug(5001);
     SegFactory = new SegmentFactory( segments, Urls );
     connect(SegFactory, SIGNAL(createdSegment(Segment *)), SLOT(slotConnectSegment( Segment *)));
 
@@ -75,7 +75,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
     m_writeBlocked(false),
     m_segSplited(false)
 {
-    kDebug(5001) << "MultiSegmentCopyJob::MultiSegmentCopyJob()";
+    kDebug(5001);
     SegFactory = new SegmentFactory( segments, Urls );
     connect(SegFactory, SIGNAL(createdSegment(Segment *)), SLOT(slotConnectSegment( Segment *)));
 
@@ -98,7 +98,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
 
 MultiSegmentCopyJob::~MultiSegmentCopyJob()
 {
-    kDebug(5001) << "MultiSegmentCopyJob::destructor()";
+    kDebug(5001);
     SegFactory->deleteLater();
     delete d;
 }
@@ -110,8 +110,8 @@ QList<SegData> MultiSegmentCopyJob::SegmentsData()
 
 void MultiSegmentCopyJob::stop()
 {
-    kDebug(5001) << "MultiSegmentCopyJob::stop()";
-    setError(KIO::ERR_ABORTED);
+    kDebug(5001);
+    setError(KIO::ERR_USER_CANCELED);
     if (SegFactory)
         SegFactory->stopTransfer();
     if (m_putJob)
@@ -126,11 +126,11 @@ void MultiSegmentCopyJob::slotUrls(QList<KUrl>& Urls)
 
 void MultiSegmentCopyJob::slotStart()
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotStart()";
+    kDebug(5001);
     if( !checkLocalFile() )
         emitResult();
 
-    kDebug(5001) << "MultiSegmentCopyJob::slotStart() opening: " << m_dest_part;
+    kDebug(5001) << " opening: " << m_dest_part;
     m_putJob = KIO::open(m_dest_part, QIODevice::WriteOnly);
     connect( m_putJob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
     connect(m_putJob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
@@ -142,7 +142,7 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
 {
     Q_UNUSED(job);
 
-    kDebug(5001) << "MultiSegmentCopyJob::slotOpen()";
+    kDebug(5001);
     if( SegFactory->startTransfer() )
     {
 
@@ -180,7 +180,7 @@ void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
 
 void MultiSegmentCopyJob::slotClose( KIO::Job * )
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotClose() putjob";
+    kDebug(5001) << " putjob";
     if( processedAmount(Bytes) == totalAmount(Bytes) )
     {
         kDebug(5001) << "Renaming local file.";
@@ -189,7 +189,6 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
        QFile::rename ( dest_part, dest_orig );
     }
     emit updateSegmentsData();
-//     m_putJob->kill(); //FIXME: this does not work corectly; it shows 100% progress after pause a download
 }
 
 // tooked from SlaveInterface.cpp
@@ -227,7 +226,7 @@ void MultiSegmentCopyJob::calcSpeed()
 
 void MultiSegmentCopyJob::slotConnectSegment( Segment *seg)
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotConnectSegment()";
+    kDebug(5001);
     connect( seg, SIGNAL(data( Segment*, const QByteArray&, bool &)),
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
     connect( seg->job(), SIGNAL(speed( KJob*, unsigned long )),
@@ -280,7 +279,7 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
 
 void MultiSegmentCopyJob::slotResult( KJob *job )
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotResult()" << job;
+    kDebug(5001) << job;
 
     if( job->error() )
     {
@@ -290,8 +289,7 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
 
     if (job == m_putJob )
     {
-        kDebug(5001) << "MultiSegmentCopyJob: m_putJob finished ";
-        kDebug(5001) << "MultiSegmentCopyJob: finished ";
+        kDebug(5001) << "m_putJob finished";
         m_putJob = 0;
         emitResult();
     }
@@ -299,7 +297,7 @@ void MultiSegmentCopyJob::slotResult( KJob *job )
 
 void MultiSegmentCopyJob::slotTotalSize( KJob *job, qulonglong size )
 {
-    kDebug(5001) << "MultiSegmentCopyJob::slotTotalSize() from job: " << job << " -- " << size;
+    kDebug(5001) << " from job: " << job << " -- " << size;
     setTotalAmount (Bytes, size);
     Q_ASSERT( m_firstSeg );
     m_firstSeg->setBytes( size - m_firstSeg->BytesWritten() );
@@ -351,7 +349,7 @@ bool MultiSegmentCopyJob::checkLocalFile()
         fd = KDE_open(_dest.data(), O_CREAT | O_TRUNC | O_WRONLY, initialMode);
         if ( fd < 0 )
         {
-             kDebug(5001) << "MultiSegmentCopyJob::checkLocalFile() error";
+             kDebug(5001) << " error";
 /*          if ( errno == EACCES )
             error( ERR_WRITE_ACCESS_DENIED, dest_part );
           else
@@ -365,7 +363,7 @@ bool MultiSegmentCopyJob::checkLocalFile()
     }
     m_dest_part = m_dest;
     m_dest_part.setPath(dest_part);
-    kDebug(5001) << "MultiSegmentCopyJob::checkLocalFile() success";
+    kDebug(5001) << "success";
     return true;
 }
 
