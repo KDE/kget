@@ -23,8 +23,8 @@ class BTSettingsWidget : public QWidget, public Ui::BTSettingsWidget
 
     private slots:
         void setPort(int port);
-        void setUploadRate(int uploadRate);
-        void setDownloadRate(int downloadRate);
+        void setUploadLimit(int uploadLimit);
+        void setDownloadLimit(int downloadLimit);
         void setDefaultTorrentDir(QString torrentDir);
         void setDefaultTempDir(QString tmpDir);
 };

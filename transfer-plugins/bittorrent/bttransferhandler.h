@@ -13,6 +13,7 @@
 
 #include "bttransfer.h"
 #include "core/transferhandler.h"
+#include <torrent/torrentcontrol.h>
 
 class Scheduler;
 
@@ -21,16 +22,22 @@ class BTTransferHandler : public TransferHandler
     public:
         BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler);
 
-        int chunksTotal()           {return m_transfer->chunksTotal();}
-        int chunksDownloaded()      {return m_transfer->chunksDownloaded();}
-        int chunksExcluded()        {return m_transfer->chunksExcluded();}
-        int chunksLeft()            {return m_transfer->chunksLeft();}
-        int seedsConnected()        {return m_transfer->seedsConnected();}
-        int seedsDisconnected()     {return m_transfer->seedsDisconnected();}
-        int leechesConnected()      {return m_transfer->leechesConnected();}
-        int leechesDisconnected()   {return m_transfer->leechesDisconnected();}
-        int ulRate()                {return m_transfer->ulRate();}
-        int dlRate()                {return m_transfer->dlRate();}
+        int chunksTotal()                      {return m_transfer->chunksTotal();}
+        int chunksDownloaded()                 {return m_transfer->chunksDownloaded();}
+        int chunksExcluded()                   {return m_transfer->chunksExcluded();}
+        int chunksLeft()                       {return m_transfer->chunksLeft();}
+        int seedsConnected()                   {return m_transfer->seedsConnected();}
+        int seedsDisconnected()                {return m_transfer->seedsDisconnected();}
+        int leechesConnected()                 {return m_transfer->leechesConnected();}
+        int leechesDisconnected()              {return m_transfer->leechesDisconnected();}
+        int ulRate()                           {return m_transfer->ulRate();}
+        int dlRate()                           {return m_transfer->dlRate();}
+        bt::TorrentControl * torrentControl()  {return m_transfer->torrentControl();}
+        int ulLimit()                          {return m_transfer->ulLimit();}
+        int dlLimit()                          {return m_transfer->dlLimit();}
+
+        void setUlLimit(int ulRate)            {m_transfer->setUlLimit(ulRate);}
+        void setDlLimit(int dlRate)            {m_transfer->setDlLimit(dlRate);}
 
     private:
         BTTransfer * m_transfer;

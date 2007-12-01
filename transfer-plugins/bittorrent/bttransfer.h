@@ -38,6 +38,8 @@ class BTTransfer : public QObject, public Transfer
             Tc_LeechesDisconnected    = 0x01280000,
             Tc_DlRate                 = 0x02560000,
             Tc_UlRate                 = 0x05120000,
+            Tc_UlLimit                = 0x07860000,
+            Tc_DlLimit                = 0x09840000,
             Tc_SessionBytesDownloaded = 0x10240000,
             Tc_SessionBytesUploaded   = 0x20480000,
             Tc_TrackersList           = 0x40960000
@@ -70,9 +72,14 @@ class BTTransfer : public QObject, public Transfer
 	int sessionBytesDownloaded() const;
 	int sessionBytesUploaded() const;
         KUrl::List trackersList() const;
+        bt::TorrentControl * torrentControl();
+        int ulLimit() const;
+        int dlLimit() const;
 
         //More Bittorrent-Functions
         void setPort(int port);
+        void setUlLimit(int ulRate);
+        void setDlLimit(int dlRate);
         void save(QDomElement e); // krazy:exclude=passbyvalue
 
     protected:
@@ -90,6 +97,8 @@ class BTTransfer : public QObject, public Transfer
         bt::TorrentControl *torrent;
         bt::TorrentStats   *stats;
 
+        int m_dlLimit;
+        int m_ulLimit;
         QTimer timer;
 };
 

@@ -17,8 +17,8 @@ BTSettingsWidget::BTSettingsWidget()
     setupUi(this);
 
     connect(portBox, SIGNAL(valueChanged(int)), SLOT(setPort(int)));
-    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(setUploadRate(int)));
-    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(setDownloadRate(int)));
+    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(setUploadLimit(int)));
+    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(setDownloadLimit(int)));
     connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(setDefaultTorrentDir(QString)));
     connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(setDefaultTempDir(QString)));
 }
@@ -28,14 +28,14 @@ void BTSettingsWidget::setPort(int port)
     BittorrentSettings::setPort(port);
 }
 
-void BTSettingsWidget::setUploadRate(int uploadRate)
+void BTSettingsWidget::setUploadLimit(int uploadLimit)
 {
-    BittorrentSettings::setUploadRate(uploadRate);
+    BittorrentSettings::setUploadLimit(uploadLimit);
 }
 
-void BTSettingsWidget::setDownloadRate(int downloadRate)
+void BTSettingsWidget::setDownloadLimit(int downloadLimit)
 {
-    BittorrentSettings::setDownloadRate(downloadRate);
+    BittorrentSettings::setDownloadLimit(downloadLimit);
 }
 
 void BTSettingsWidget::setDefaultTorrentDir(QString torrentDir)

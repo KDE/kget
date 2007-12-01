@@ -36,7 +36,9 @@
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
-  : Transfer(parent, factory, scheduler, src, dest, e) 
+  : Transfer(parent, factory, scheduler, src, dest, e),
+    m_dlLimit(0),
+    m_ulLimit(0)
 {
     kDebug(5001);
     if (m_source.url().isEmpty())
@@ -72,6 +74,12 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName(), 
                                                              m_dest.url().remove("file://").remove(".torrent"), 0);
         torrent->createFiles();
+
+        if (BittorrentSettings::downloadLimit() != 0)
+            setDlLimit(BittorrentSettings::downloadLimit());
+        if (BittorrentSettings::uploadLimit() != 0)
+            setUlLimit(BittorrentSettings::uploadLimit());
+      
         //torrent->setPreallocateDiskSpace(true);//TODO: Make this configurable
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
         stats = new bt::TorrentStats(torrent->getStats());
@@ -161,6 +169,17 @@ void BTTransfer::setPort(int port)
     bt::Globals::instance().getServer().changePort(port);
 }
 
+void BTTransfer::setUlLimit(int ulLimit)
+{
+    m_ulLimit = ulLimit;
+    torrent->setTrafficLimits(m_ulLimit, m_dlLimit);
+}
+
+void BTTransfer::setDlLimit(int dlLimit)
+{
+    m_dlLimit = dlLimit;
+    torrent->setTrafficLimits(m_ulLimit, m_dlLimit);
+}
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
@@ -253,6 +272,19 @@ int BTTransfer::remainingTime() const
 {
     kDebug(5001);
     return torrent->getETA();
+}
+
+int BTTransfer::ulLimit() const
+{
+}
+
+int BTTransfer::dlLimit() const
+{
+}
+
+bt::TorrentControl * BTTransfer::torrentControl()
+{
+    return torrent;
 }
 
 #include "bttransfer.moc"

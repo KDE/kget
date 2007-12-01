@@ -3,10 +3,10 @@
 <kcfg>
   <kcfgfile name="kget_bittorrentfactory.rc"/>
   <group name="General">
-    <entry name="UploadRate" type="Int">
+    <entry name="UploadLimit" type="Int">
       <default>0</default>
     </entry>
-    <entry name="DownloadRate" type="Int">
+    <entry name="DownloadLimit" type="Int">
       <default>0</default>
     </entry>
     <entry name="Port" type="Int">

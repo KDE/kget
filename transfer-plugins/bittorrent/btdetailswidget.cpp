@@ -30,14 +30,14 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
 
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
-    /**seederLabel->setText(transfer->seedsConnected() + "(" + transfer->seedsDisconnected() + ")");
-    leecherLabel->setText(transfer->leechesConnected() + "(" + transfer->leechesDisconnected() + ")");
-    dlSpeedLabel->setText(transfer->dlRate());
-    ulSpeedLabel->setText(transfer->ulRate());
-    chunksDownloadedLabel->setText(transfer->chunksDownloaded());
-    chunksExcludedLabel->setText(transfer->chunksExcluded());
-    chunksAllLabel->setText(transfer->chunksTotal());
-    chunksLeftLabel->setText(transfer->chunksLeft());**/
+    seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + "(" + QString().setNum(m_transfer->seedsDisconnected()) + ")");
+    leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + "(" + QString().setNum(m_transfer->leechesDisconnected()) + ")");
+    dlSpeedLabel->setText(QString().setNum(m_transfer->dlRate()));
+    ulSpeedLabel->setText(QString().setNum(m_transfer->ulRate()));
+    chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
+    chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
+    chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));
+    chunksLeftLabel->setText(QString().setNum(m_transfer->chunksLeft()));
 
     m_transfer->resetChangesFlags(this);
 }
