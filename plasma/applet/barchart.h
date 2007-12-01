@@ -25,26 +25,48 @@
 
 #include <QMap>
 
+#define MAX_DOWNLOADS_PER_PAGE 5
+
 namespace Plasma {
     class BoxLayout;
     class ProgressBar;
     class Label;
+    class PushButton;
 }
 class QString;
 
 class BarChart : public TransferGraph
 {
+Q_OBJECT
+
 public:
     BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout);
     ~BarChart();
 
     void setTransfers(const QVariantMap &transfers);
 
+public slots:
+    void nextPage();
+    void previousPage();
+
+private slots:
+    void populate();
+
+private:
+    void clear();
+
 private:
     Plasma::BoxLayout *m_layout;
+    Plasma::BoxLayout *m_progressBarsLayout;
+    Plasma::BoxLayout *m_pagerLayout;
+    Plasma::PushButton *m_nextPageButton;
+    Plasma::PushButton *m_previousPageButton;
     Plasma::Label *m_titleLabel;
     Plasma::Label *m_totalSizeLabel;
+    Plasma::Label *m_pageLabel;
     QMap <QString, Plasma::ProgressBar *> m_progressBars;
+
+    int m_actualPage;
 };
 
 #endif
