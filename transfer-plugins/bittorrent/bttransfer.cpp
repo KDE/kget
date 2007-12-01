@@ -9,6 +9,9 @@
 */
 
 #include "bttransfer.h"
+#include "bittorrentsettings.h"
+
+#include "core/kget.h"
 
 #include <torrent/torrent.h>
 #include <peer/peermanager.h>
@@ -44,25 +47,37 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     bt::Uint16 i = 0;
     do
     {
-        bt::Globals::instance().initServer(6881 + i);
+        kDebug(5001) << "Trying to set port to" << BittorrentSettings::port() + i;
+        bt::Globals::instance().initServer(BittorrentSettings::port() + i);
         i++;
     }while (!bt::Globals::instance().getServer().isOK() && i < 10);
 
     if (!bt::Globals::instance().getServer().isOK())
         return;
 
-    kDebug(5001) << "Source:" << m_source.url().remove("file://");
-    kDebug(5001) << "Dest:" << m_dest.url().remove("file://").remove(".torrent");
-    kDebug(5001) << "Temp:" << KStandardDirs::locateLocal("appdata", "tmp/");
     try
     {
         torrent = new bt::TorrentControl();
-        torrent->init(0, m_source.url().remove("file://"), KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName(), 
+        QString tmpDir;
+        if (!BittorrentSettings::tmpDir().isEmpty())
+        {
+            tmpDir = BittorrentSettings::tmpDir();
+            kDebug(5001) << "Trying to set" << tmpDir << " as tmpDir";
+            if (!QFileInfo(tmpDir).isDir())
+                tmpDir = KStandardDirs::locateLocal("appdata", "tmp/");
+        }
+        else
+            tmpDir = KStandardDirs::locateLocal("appdata", "tmp/");
+            
+        torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName(), 
                                                              m_dest.url().remove("file://").remove(".torrent"), 0);
         torrent->createFiles();
         //torrent->setPreallocateDiskSpace(true);//TODO: Make this configurable
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
         stats = new bt::TorrentStats(torrent->getStats());
+        kDebug(5001) << "Source:" << m_source.url().remove("file://");
+        kDebug(5001) << "Dest:" << m_dest.url().remove("file://").remove(".torrent");
+        kDebug(5001) << "Temp:" << tmpDir;
     }
     catch (bt::Error &err)
     {
@@ -70,7 +85,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     }
 
     connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
-    connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(downloadFinished(bt::TorrentInterface* )));
+    connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
     //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
