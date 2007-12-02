@@ -30,10 +30,17 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
 
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
+    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
+
+
+    if(transferFlags & Transfer::Tc_Speed)
+    {
+        dlSpeedLabel->setText(QString().setNum(m_transfer->dlRate()));
+        ulSpeedLabel->setText(QString().setNum(m_transfer->ulRate()));
+    }
+
     seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + "(" + QString().setNum(m_transfer->seedsDisconnected()) + ")");
     leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + "(" + QString().setNum(m_transfer->leechesDisconnected()) + ")");
-    dlSpeedLabel->setText(QString().setNum(m_transfer->dlRate()));
-    ulSpeedLabel->setText(QString().setNum(m_transfer->ulRate()));
     chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
     chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
     chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));

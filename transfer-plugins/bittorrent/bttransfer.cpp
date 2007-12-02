@@ -123,7 +123,8 @@ void BTTransfer::start()
         timer.start(250);
         setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
         kDebug(5001) << "Jepp, it does";
-        setTransferChange(Tc_Status | Tc_TrackersList | Tc_Percent, true);
+        m_totalSize = totalSize();
+        setTransferChange(Tc_Status | Tc_TrackersList | Tc_Percent | Tc_TotalSize, true);
         kDebug(5001) << "Completely";
     }
 }
@@ -135,7 +136,6 @@ void BTTransfer::stop()
     m_speed = 0;
     timer.stop();
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
-    m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
 
@@ -203,12 +203,12 @@ int BTTransfer::dlRate() const
 
 int BTTransfer::ulRate() const
 {
-    return stats->upload_rate;
+    return torrent->getStats().upload_rate;
 }
 
 int BTTransfer::totalSize() const
 {
-    return stats->total_bytes_to_download;
+    return torrent->getStats().total_bytes_to_download;
 }
 
 int BTTransfer::sessionBytesDownloaded() const
