@@ -123,10 +123,10 @@ void MainWindow::setupActions()
 
     QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
     renameGroupAction->setText(i18n("Rename Group"));
-    renameGroupAction->setIcon(KIcon("editinput"));
+    renameGroupAction->setIcon(KIcon("edit-rename"));
     connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
 
-    m_autoPasteAction = new KToggleAction(KIcon("klipper"),
+    m_autoPasteAction = new KToggleAction(KIcon("edit-paste"),
                                           i18n("Auto-Paste Mode"), actionCollection());
     actionCollection()->addAction("auto_paste", m_autoPasteAction);
     m_autoPasteAction->setChecked(Settings::autoPaste());
@@ -204,17 +204,17 @@ void MainWindow::setupActions()
 
     QAction *openDestAction = actionCollection()->addAction("transfer_open_dest");
     openDestAction->setText(i18n("Open Destination"));
-    openDestAction->setIcon(KIcon("folder"));
+    openDestAction->setIcon(KIcon("document-open"));
     connect(openDestAction, SIGNAL(triggered()), SLOT(slotTransfersOpenDest()));
 
     QAction *showDetailsAction = actionCollection()->addAction("transfer_show_details");
     showDetailsAction->setText(i18n("Show Details"));
-    showDetailsAction->setIcon(KIcon("configure"));
+    showDetailsAction->setIcon(KIcon("document-properties"));
     connect(showDetailsAction, SIGNAL(triggered()), SLOT(slotTransfersShowDetails()));
 
     QAction *copyUrlAction = actionCollection()->addAction("transfer_copy_source_url");
     copyUrlAction->setText(i18n("Copy URL to Clipboard"));
-    copyUrlAction->setIcon(KIcon("klipper"));
+    copyUrlAction->setIcon(KIcon("edit-copy"));
     connect(copyUrlAction, SIGNAL(triggered()), SLOT(slotTransfersCopySourceUrl()));
 
     KToggleAction *showDropTargetAction = new KToggleAction(KIcon("kget"),
@@ -259,8 +259,8 @@ void MainWindow::slotDelayedInit()
     if (Settings::firstRun()) {
         if (KMessageBox::questionYesNoCancel(this ,i18n("This is the first time you have run KGet.\n"
                                              "Would you like to enable KGet as the download manager for Konqueror?"),
-                                             i18n("Konqueror Integration"), KGuiItem(i18n("Enable"), KIcon("dialog-apply")),
-                                             KGuiItem(i18n("Do Not Enable"), KIcon("edit-delete")))
+                                             i18n("Konqueror Integration"), KGuiItem(i18n("Enable")),
+                                             KGuiItem(i18n("Do Not Enable")))
                                              == KMessageBox::Yes) {
             Settings::setKonquerorIntegration(true);
             slotKonquerorIntegration(true);

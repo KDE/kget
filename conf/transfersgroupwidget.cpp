@@ -109,7 +109,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     deleteButton->setIcon(KIcon("list-remove"));
     deleteButton->setEnabled(false);
     renameButton = new QPushButton(i18n("Rename"));
-    renameButton->setIcon(KIcon("editinput"));
+    renameButton->setIcon(KIcon("edit-rename"));
     renameButton->setEnabled(false);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();

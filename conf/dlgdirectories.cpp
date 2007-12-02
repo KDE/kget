@@ -23,7 +23,7 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     setupUi(this);
     addButton->setIcon(KIcon("list-add"));
     removeButton->setIcon(KIcon("list-remove"));
-    changeButton->setIcon(KIcon("editinput"));
+    changeButton->setIcon(KIcon("edit-rename"));
 
     defaultFolderRequester->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
