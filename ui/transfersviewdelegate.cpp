@@ -301,7 +301,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 
         KExtendableItemDelegate::paint(painter, option, index);
 
-        if (index.column() == 3 && !isExtended(index)) { // the percent column
+        if (index.column() == 3 && !isExtended(transferTreeModel->index(index.row(), 0, index.parent()))) { // the percent column
             TransferHandler *transferHandler = static_cast<TransferHandler *>(index.internalPointer());
 
             // following progressbar code has mostly been taken from Qt4 examples/network/torrent/mainview.cpp
