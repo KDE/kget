@@ -15,9 +15,10 @@ set(kget_bittorrentfactory_PART_SRCS
   bttransferhandler.cpp
   btdetailswidget.cpp
   btsettingswidget.cpp
+  btadvanceddetailswidget.cpp
 )
 
-kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui)
+kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui)
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 
