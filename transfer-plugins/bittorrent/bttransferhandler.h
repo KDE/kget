@@ -35,6 +35,7 @@ class BTTransferHandler : public TransferHandler
         bt::TorrentControl * torrentControl()  {return m_transfer->torrentControl();}
         int ulLimit()                          {return m_transfer->ulLimit();}
         int dlLimit()                          {return m_transfer->dlLimit();}
+        int percent()                          {return m_transfer->percent();}
 
         void setUlLimit(int ulRate)            {m_transfer->setUlLimit(ulRate);}
         void setDlLimit(int dlRate)            {m_transfer->setDlLimit(dlRate);}

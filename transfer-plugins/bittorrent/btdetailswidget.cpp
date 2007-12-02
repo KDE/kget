@@ -40,24 +40,8 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     if(transferFlags & Transfer::Tc_Speed)
     {
         kDebug(5001) << m_transfer->dlRate();
-        if (m_transfer->dlRate() >= 1024)
-            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate() / 1024) + "KB/s");
-        if (m_transfer->dlRate() >= 1024 * 1024)
-            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate() / (1024 * 1024)) + "MB/s");
-        if (m_transfer->dlRate() >= 1024 * 1024 * 1024)
-            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate() / (1024 * 1024 * 1024)) + "GB/s");
-        if (m_transfer->dlRate() < 1024)
-            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate()) + "B/s");
-
-
-        if (m_transfer->dlRate() >= 1024)
-            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate() / 1024) + "KB/s");
-        if (m_transfer->dlRate() >= 1024 * 1024)
-            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate() / (1024 * 1024)) + "MB/s");
-        if (m_transfer->dlRate() >= 1024 * 1024 * 1024)
-            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate() / (1024 * 1024 * 1024)) + "GB/s");
-        if (m_transfer->dlRate() < 1024)
-            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate()) + "B/s");
+        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->dlRate()));
+        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->ulRate()));
     }
 
     seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + "(" + QString().setNum(m_transfer->seedsDisconnected()) + ")");
@@ -66,6 +50,7 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
     chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));
     chunksLeftLabel->setText(QString().setNum(m_transfer->chunksLeft()));
+    progressBar->setValue(m_transfer->percent());
 
     m_transfer->resetChangesFlags(this);
 }

@@ -75,6 +75,7 @@ class BTTransfer : public QObject, public Transfer
         bt::TorrentControl * torrentControl();
         int ulLimit() const;
         int dlLimit() const;
+        int percent() const;
 
         //More Bittorrent-Functions
         void setPort(int port);

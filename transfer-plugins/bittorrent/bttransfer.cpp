@@ -149,7 +149,10 @@ void BTTransfer::update()
 
     m_speed = dlRate();
 
-    m_percent = chunksDownloaded() / chunksTotal() * 100;
+    kDebug(5001) << chunksDownloaded();
+    kDebug(5001) << chunksTotal();
+
+    m_percent = percent();
 
     kDebug(5001) << m_percent;
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize | Tc_Percent, true);
@@ -288,6 +291,11 @@ int BTTransfer::dlLimit() const
 bt::TorrentControl * BTTransfer::torrentControl()
 {
     return torrent;
+}
+
+int BTTransfer::percent() const
+{
+    return ((float) chunksDownloaded() / (float) chunksTotal()) * 100;
 }
 
 #include "bttransfer.moc"

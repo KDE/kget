@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>606</width>
-    <height>188</height>
+    <height>195</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
@@ -18,12 +18,31 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font" >
+      <font>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="title" >
       <string>Stats</string>
+     </property>
+     <property name="alignment" >
+      <set>Qt::AlignHCenter</set>
+     </property>
+     <property name="flat" >
+      <bool>false</bool>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
        <widget class="QLabel" name="label_7" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>Seeders:</string>
         </property>
@@ -31,6 +50,12 @@
       </item>
       <item row="0" column="1" >
        <widget class="QLabel" name="seederLabel" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>&lt;n></string>
         </property>
@@ -38,6 +63,12 @@
       </item>
       <item row="0" column="3" >
        <widget class="QLabel" name="label_9" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>Download-Speed:</string>
         </property>
@@ -45,6 +76,12 @@
       </item>
       <item row="0" column="4" >
        <widget class="QLabel" name="dlSpeedLabel" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>&lt;n></string>
         </property>
@@ -52,6 +89,12 @@
       </item>
       <item row="1" column="0" >
        <widget class="QLabel" name="label_8" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>Leechers:</string>
         </property>
@@ -59,6 +102,12 @@
       </item>
       <item row="1" column="1" >
        <widget class="QLabel" name="leecherLabel" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>&lt;n></string>
         </property>
@@ -66,6 +115,12 @@
       </item>
       <item row="1" column="3" >
        <widget class="QLabel" name="label_10" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>Upload-Speed:</string>
         </property>
@@ -73,6 +128,12 @@
       </item>
       <item row="1" column="4" >
        <widget class="QLabel" name="ulSpeedLabel" >
+        <property name="font" >
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text" >
          <string>&lt;n></string>
         </property>
@@ -91,6 +152,9 @@
      </property>
      <property name="title" >
       <string>Chunks</string>
+     </property>
+     <property name="alignment" >
+      <set>Qt::AlignHCenter</set>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" colspan="2" >
