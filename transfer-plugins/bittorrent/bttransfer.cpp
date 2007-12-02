@@ -227,20 +227,17 @@ int BTTransfer::sessionBytesUploaded() const
 
 int BTTransfer::chunksTotal() const
 {
-    kDebug(5001) << torrent->getTorrent().getNumChunks();
     return torrent->getTorrent().getNumChunks();
 }
 
 int BTTransfer::chunksDownloaded() const
 {
-    kDebug(5001) << torrent->getTorrent().getChunkSize();
-    kDebug(5001) << torrent->downloadedChunksBitSet().getNumBytes();
-    return torrent->downloadedChunksBitSet().getNumBytes();
+    return torrent->downloadedChunksBitSet().numOnBits();
 }
 
 int BTTransfer::chunksExcluded() const
 {
-    return torrent->excludedChunksBitSet().getNumBytes();
+    return torrent->excludedChunksBitSet().numOnBits();
 }
 
 int BTTransfer::chunksLeft() const

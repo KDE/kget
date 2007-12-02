@@ -157,10 +157,18 @@
      <item>
       <layout class="QGridLayout" >
        <item row="1" column="1" >
-        <widget class="QLineEdit" name="destEdit" />
+        <widget class="QLineEdit" name="destEdit" >
+         <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="0" column="1" >
-        <widget class="QLineEdit" name="srcEdit" />
+        <widget class="QLineEdit" name="srcEdit" >
+         <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="0" column="0" >
         <widget class="QLabel" name="label_11" >

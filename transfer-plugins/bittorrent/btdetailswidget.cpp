@@ -37,11 +37,27 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-
     if(transferFlags & Transfer::Tc_Speed)
     {
-        dlSpeedLabel->setText(QString().setNum(m_transfer->dlRate()));
-        ulSpeedLabel->setText(QString().setNum(m_transfer->ulRate()));
+        kDebug(5001) << m_transfer->dlRate();
+        if (m_transfer->dlRate() >= 1024)
+            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate() / 1024) + "KB/s");
+        if (m_transfer->dlRate() >= 1024 * 1024)
+            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate() / (1024 * 1024)) + "MB/s");
+        if (m_transfer->dlRate() >= 1024 * 1024 * 1024)
+            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate() / (1024 * 1024 * 1024)) + "GB/s");
+        if (m_transfer->dlRate() < 1024)
+            dlSpeedLabel->setText(QString().setNum((float) m_transfer->dlRate()) + "B/s");
+
+
+        if (m_transfer->dlRate() >= 1024)
+            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate() / 1024) + "KB/s");
+        if (m_transfer->dlRate() >= 1024 * 1024)
+            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate() / (1024 * 1024)) + "MB/s");
+        if (m_transfer->dlRate() >= 1024 * 1024 * 1024)
+            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate() / (1024 * 1024 * 1024)) + "GB/s");
+        if (m_transfer->dlRate() < 1024)
+            ulSpeedLabel->setText(QString().setNum((float) m_transfer->ulRate()) + "B/s");
     }
 
     seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + "(" + QString().setNum(m_transfer->seedsDisconnected()) + ")");
