@@ -475,13 +475,18 @@ bool KGet::schedulerRunning()
 
 void KGet::setPluginsSettingsWidget(KTabWidget * widget)
 {
+    kDebug(5001);
     QList<TransferFactory *>::iterator it = m_transferFactories.begin();
     QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
 
     QWidget * settingsWidget;
     for( ; it!=itEnd ; ++it)
     {
-        settingsWidget = (*it)->createSettingsWidget();
+        KDialog *dialog = static_cast<KDialog*>(widget->parent()->parent());
+        if (!dialog)
+            return;
+
+        settingsWidget = (*it)->createSettingsWidget(dialog);
         if(settingsWidget)
             widget->addTab( settingsWidget, (*it)->displayName() );
     }

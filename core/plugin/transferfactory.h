@@ -39,6 +39,7 @@
 
 class TransferGroup;
 class Scheduler;
+class KDialog;
 
 /**
  * @short TransferFactory
@@ -56,15 +57,15 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
                                            const QDomElement * n = 0 )=0;
 
         virtual TransferHandler * createTransferHandler(Transfer * transfer,
-                                                        Scheduler * scheduler)=0;
+                                                        Scheduler * scheduler) = 0;
 
-        virtual QWidget * createDetailsWidget( TransferHandler * transfer )=0;
+        virtual QWidget * createDetailsWidget( TransferHandler * transfer ) = 0;
 
-        virtual QWidget * createSettingsWidget()=0;
+        virtual QWidget * createSettingsWidget(KDialog * parent) = 0;
 
-        virtual QString displayName()=0;
+        virtual QString displayName() = 0;
 
-        virtual const QList<KAction *> actions()=0;
+        virtual const QList<KAction *> actions() = 0;
 
         KMenu * createPopupMenu(QList<TransferHandler *> transfers);
 };

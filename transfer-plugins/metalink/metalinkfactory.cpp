@@ -52,7 +52,7 @@ QWidget * metalinkFactory::createDetailsWidget( TransferHandler * transfer )
     return new QWidget();   //Temporary!!
 }
 
-QWidget * metalinkFactory::createSettingsWidget()
+QWidget * metalinkFactory::createSettingsWidget(KDialog * parent)
 {
     return 0; // if there is no settings widget we must return 0
 }

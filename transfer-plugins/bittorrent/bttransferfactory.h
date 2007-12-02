@@ -31,7 +31,7 @@ class BTTransferFactory : public QObject, public TransferFactory
 
         const QList<KAction *> actions();
 
-        QWidget * createSettingsWidget() { return new BTSettingsWidget();}
+        QWidget * createSettingsWidget(KDialog * parent) { return new BTSettingsWidget(parent);}
 
         QString displayName(){return "Bittorrent";}
 };

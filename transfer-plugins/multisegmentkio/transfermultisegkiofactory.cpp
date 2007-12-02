@@ -59,9 +59,9 @@ QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * tra
     return new QWidget();   //Temporary!!
 }
 
-QWidget * TransferMultiSegKioFactory::createSettingsWidget()
+QWidget * TransferMultiSegKioFactory::createSettingsWidget(KDialog * parent)
 {
-    return new DlgSettingsWidget();
+    return new DlgSettingsWidget(parent);
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions()

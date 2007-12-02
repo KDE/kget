@@ -36,23 +36,29 @@ class DlgSettingsWidget : public QWidget
     Q_OBJECT
 
 public:
-    DlgSettingsWidget(QWidget *parent = 0);
+    DlgSettingsWidget(KDialog *parent = 0);
     ~DlgSettingsWidget();
 
-private Q_SLOTS:
+private slots:
     void slotSetSegments(int seg);
     void slotSetMinSegSize(int size);
     void slotSetSaveDataSize(int size);
     void slotSetUseSearchEngines(bool b);
     void slotNewEngine();
     void slotRemoveEngine();
+    void slotSave();
+    void init();
 
 private:
-    void init();
     void addSearchEngineItem(const QString &name, const QString &url);
 
     void loadSearchEnginesSettings();
     void saveSearchEnginesSettings();
+
+    int m_segments;
+    int m_minsegsize;
+    int m_savesegsize;
+    bool m_searchengines;
 
     Ui::DlgMultiSeg ui;
 };

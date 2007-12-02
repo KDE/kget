@@ -40,11 +40,14 @@ void DlgEngineEditing::slotChangeText()
   enableButton(KDialog::Ok, !ui.urlEdit->text().isEmpty());
 }
 
-DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
-    : QWidget(parent)
+DlgSettingsWidget::DlgSettingsWidget(KDialog *parent)
+    : QWidget(parent),
+    m_segments(0),
+    m_minsegsize(0),
+    m_savesegsize(0),
+    m_searchengines(false)
 {
     ui.setupUi(this);
-
     ui.newEngineBt->setIcon(KIcon("list-add"));
     ui.removeEngineBt->setIcon(KIcon("list-remove"));
 
@@ -55,11 +58,12 @@ DlgSettingsWidget::DlgSettingsWidget(QWidget *parent)
     connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
     connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
     connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
+    connect(parent, SIGNAL(accepted()), SLOT(slotSave()));
+    connect(parent, SIGNAL(rejected()), SLOT(init()));
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()
 {
-    MultiSegKioSettings::self()->writeConfig();
 }
 
 QString DlgEngineEditing::engineName() const
@@ -74,23 +78,23 @@ QString DlgEngineEditing::engineUrl() const
 
 void DlgSettingsWidget::slotSetSegments(int seg)
 {
-    MultiSegKioSettings::setSegments(seg);
+     m_segments = seg;
 }
 
 void DlgSettingsWidget::slotSetMinSegSize(int size)
 {
-    MultiSegKioSettings::setSplitSize(size);
+    m_minsegsize = size;
 }
 
 void DlgSettingsWidget::slotSetSaveDataSize(int size)
 {
-    MultiSegKioSettings::setSaveSegSize(size);
+    m_savesegsize = size;
 }
 
 void DlgSettingsWidget::slotSetUseSearchEngines(bool)
 {
-    MultiSegKioSettings::setUseSearchEngines( ui.enginesCheckBox->isChecked() );
-    ui.searchEngineGroupBox->setEnabled( ui.enginesCheckBox->isChecked() );
+    m_searchengines = ui.enginesCheckBox->isChecked();
+    ui.searchEngineGroupBox->setEnabled(ui.enginesCheckBox->isChecked());
 }
 
 void DlgSettingsWidget::slotNewEngine()
@@ -154,6 +158,16 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
     MultiSegKioSettings::self()->findItem("SearchEnginesNameList")->setProperty(QVariant(enginesNames));
     MultiSegKioSettings::self()->findItem("SearchEnginesUrlList")->setProperty(QVariant(enginesUrls));
 
+    MultiSegKioSettings::self()->writeConfig();
+}
+
+void DlgSettingsWidget::slotSave()
+{
+    kDebug(5001) << "Saving Multithreaded config";
+    MultiSegKioSettings::setSegments(m_segments);
+    MultiSegKioSettings::setSplitSize(m_minsegsize);
+    MultiSegKioSettings::setSaveSegSize(m_savesegsize);
+    MultiSegKioSettings::setUseSearchEngines(m_searchengines);
     MultiSegKioSettings::self()->writeConfig();
 }
 

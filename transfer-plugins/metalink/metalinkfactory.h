@@ -32,7 +32,7 @@ class metalinkFactory : public TransferFactory
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        QWidget * createSettingsWidget();
+        QWidget * createSettingsWidget(KDialog * parent);
 
         QString displayName(){return "MetaLink";}
 

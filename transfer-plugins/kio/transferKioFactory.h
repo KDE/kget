@@ -32,7 +32,7 @@ class TransferKioFactory : public TransferFactory
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        QWidget * createSettingsWidget();
+        QWidget * createSettingsWidget(KDialog * parent);
 
         QString displayName(){return "HTTP(s) / FTP(s)";}
 
