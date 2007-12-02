@@ -148,7 +148,11 @@ void BTTransfer::update()
     bt::AuthenticationMonitor::instance().update();
 
     m_speed = dlRate();
-    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize, true);
+
+    m_percent = chunksDownloaded() / chunksTotal() * 100;
+
+    kDebug(5001) << m_percent;
+    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize | Tc_Percent, true);
 }
 
 void BTTransfer::save(QDomElement e) // krazy:exclude=passbyvalue
@@ -213,53 +217,55 @@ int BTTransfer::totalSize() const
 
 int BTTransfer::sessionBytesDownloaded() const
 {
-    return stats->session_bytes_downloaded;
+    return torrent->getStats().session_bytes_downloaded;
 }
 
 int BTTransfer::sessionBytesUploaded() const
 {
-    return stats->session_bytes_uploaded;
+    return torrent->getStats().session_bytes_uploaded;
 }
 
 int BTTransfer::chunksTotal() const
 {
+    kDebug(5001) << torrent->getTorrent().getNumChunks();
     return torrent->getTorrent().getNumChunks();
 }
 
 int BTTransfer::chunksDownloaded() const
 {
-    //torrent->downloadedChunks.getNumBytes() / torrent->chunkSize();
-    return -1;
+    kDebug(5001) << torrent->getTorrent().getChunkSize();
+    kDebug(5001) << torrent->downloadedChunksBitSet().getNumBytes();
+    return torrent->downloadedChunksBitSet().getNumBytes();
 }
 
 int BTTransfer::chunksExcluded() const
 {
-    return -1;
+    return torrent->excludedChunksBitSet().getNumBytes();
 }
 
 int BTTransfer::chunksLeft() const
 {
-    return -1;
+    return chunksTotal() - chunksDownloaded();
 }
 
 int BTTransfer::seedsConnected() const
 {
-    return -1;
+    return torrent->getStats().seeders_connected_to;
 }
 
 int BTTransfer::seedsDisconnected() const
 {
-    return -1;
+    return torrent->getStats().seeders_total;
 }
 
 int BTTransfer::leechesConnected() const
 {
-    return -1;
+    return torrent->getStats().leechers_connected_to;
 }
 
 int BTTransfer::leechesDisconnected() const
 {
-    return -1;
+    return torrent->getStats().leechers_total;
 }
 
 int BTTransfer::elapsedTime() const

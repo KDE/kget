@@ -24,6 +24,7 @@ class BTDetailsWidget : public QWidget, public TransferObserver, public Ui::BTDe
     Q_OBJECT
     public:
         BTDetailsWidget(BTTransferHandler * transfer);
+        ~BTDetailsWidget();
 
         void transferChangedEvent(TransferHandler * transfer);
 

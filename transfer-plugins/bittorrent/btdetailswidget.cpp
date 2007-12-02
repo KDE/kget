@@ -28,6 +28,11 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     transferChangedEvent(transfer);
 }
 
+BTDetailsWidget::~BTDetailsWidget()
+{
+    m_transfer->delObserver(this);
+}
+
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
