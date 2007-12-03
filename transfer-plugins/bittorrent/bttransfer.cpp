@@ -37,8 +37,8 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
-    m_dlLimit(0),
-    m_ulLimit(0)
+    m_dlLimit(BittorrentSettings::downloadLimit()),
+    m_ulLimit(BittorrentSettings::uploadLimit())
 {
     kDebug(5001);
     if (m_source.url().isEmpty())
@@ -59,6 +59,9 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 
     try
     {
+        m_dlLimit = BittorrentSettings::downloadLimit();
+        m_ulLimit = BittorrentSettings::uploadLimit();
+
         torrent = new bt::TorrentControl();
         QString tmpDir;
         if (!BittorrentSettings::tmpDir().isEmpty())
@@ -73,12 +76,13 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
             
         torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName(), 
                                                              m_dest.url().remove("file://").remove(".torrent"), 0);
+        torrent->setTrafficLimits(bt::Uint32(5), bt::Uint32(5));
         torrent->createFiles();
 
-        if (BittorrentSettings::downloadLimit() != 0)
-            setDlLimit(BittorrentSettings::downloadLimit());
-        if (BittorrentSettings::uploadLimit() != 0)
-            setUlLimit(BittorrentSettings::uploadLimit());
+        bt::Uint32 dl;
+        bt::Uint32 ul;
+        torrent->getTrafficLimits(ul, dl);
+        kDebug(5001) <<"Speedlimits" << ul<< dl;
       
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
@@ -126,6 +130,7 @@ void BTTransfer::start()
         m_totalSize = totalSize();
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_Percent | Tc_TotalSize, true);
         kDebug(5001) << "Completely";
+        setTrafficLimits(m_ulLimit, m_dlLimit);
     }
 }
 
@@ -144,17 +149,13 @@ void BTTransfer::update()
     kDebug(5001);
 
     torrent->update();
+
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
 
     m_speed = dlRate();
-
-    kDebug(5001) << chunksDownloaded();
-    kDebug(5001) << chunksTotal();
-
     m_percent = percent();
 
-    kDebug(5001) << m_percent;
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize | Tc_Percent, true);
 }
 
@@ -176,24 +177,19 @@ void BTTransfer::setPort(int port)
     bt::Globals::instance().getServer().changePort(port);
 }
 
-void BTTransfer::setUlLimit(int ulLimit)
-{
-    m_ulLimit = ulLimit;
-    torrent->setTrafficLimits(m_ulLimit, m_dlLimit);
-}
-
-void BTTransfer::setDlLimit(int dlLimit)
-{
-    m_dlLimit = dlLimit;
-    torrent->setTrafficLimits(m_ulLimit, m_dlLimit);
-}
-
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
     kDebug(5001);
     timer.stop();
     setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
     setTransferChange(Tc_Status, true);
+}
+
+void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
+{
+    torrent->setTrafficLimits(ulLimit * 1000, dlLimit * 1000);
+    m_dlLimit = dlLimit;
+    m_ulLimit = ulLimit;
 }
 
 /**Property-Functions**/

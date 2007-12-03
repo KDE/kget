@@ -79,8 +79,7 @@ class BTTransfer : public QObject, public Transfer
 
         //More Bittorrent-Functions
         void setPort(int port);
-        void setUlLimit(int ulRate);
-        void setDlLimit(int dlRate);
+        void setTrafficLimits(int ulLimit, int dlLimit);
         void save(QDomElement e); // krazy:exclude=passbyvalue
 
     protected:
