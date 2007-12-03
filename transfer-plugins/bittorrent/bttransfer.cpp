@@ -59,9 +59,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 
     try
     {
-        m_dlLimit = BittorrentSettings::downloadLimit();
-        m_ulLimit = BittorrentSettings::uploadLimit();
-
         torrent = new bt::TorrentControl();
         QString tmpDir;
         if (!BittorrentSettings::tmpDir().isEmpty())
@@ -76,13 +73,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
             
         torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName(), 
                                                              m_dest.url().remove("file://").remove(".torrent"), 0);
-        torrent->setTrafficLimits(bt::Uint32(5), bt::Uint32(5));
         torrent->createFiles();
-
-        bt::Uint32 dl;
-        bt::Uint32 ul;
-        torrent->getTrafficLimits(ul, dl);
-        kDebug(5001) <<"Speedlimits" << ul<< dl;
       
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
