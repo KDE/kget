@@ -13,6 +13,7 @@
 #include <kdebug.h>
 
 BTSettingsWidget::BTSettingsWidget(KDialog * parent)
+  : QWidget(parent)
 {
     setupUi(this);
 
