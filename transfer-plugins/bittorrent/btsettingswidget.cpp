@@ -12,68 +12,37 @@
 
 #include <kdebug.h>
 
-BTSettingsWidget::BTSettingsWidget(QWidget * parent)
-  : QWidget(parent),
-    m_port(BittorrentSettings::port()),
-    m_uploadLimit(BittorrentSettings::uploadLimit()),
-    m_downloadLimit(BittorrentSettings::downloadLimit()),
-    m_torrentDir(BittorrentSettings::torrentDir()),
-    m_tmpDir(BittorrentSettings::tmpDir())
+BTSettingsWidget::BTSettingsWidget(KDialog * parent)
 {
     setupUi(this);
 
-    init();
-}
+    setDefault();
 
-void BTSettingsWidget::init()
-{
-    portBox->setValue(m_port);
-    uploadBox->setValue(m_uploadLimit);
-    downloadBox->setValue(m_downloadLimit);
-    torrentEdit->setUrl(m_torrentDir);
-    tempEdit->setUrl(m_tmpDir);
-
-    connect(portBox, SIGNAL(valueChanged(int)), SLOT(setPort(int)));
-    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(setUploadLimit(int)));
-    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(setDownloadLimit(int)));
-    connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(setDefaultTorrentDir(QString)));
-    connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(setDefaultTempDir(QString)));
-}
-
-void BTSettingsWidget::setPort(int port)
-{
-    m_port = port;
-}
-
-void BTSettingsWidget::setUploadLimit(int uploadLimit)
-{
-    m_uploadLimit = uploadLimit;
-}
-
-void BTSettingsWidget::setDownloadLimit(int downloadLimit)
-{
-    m_downloadLimit = downloadLimit;
-}
-
-void BTSettingsWidget::setDefaultTorrentDir(QString torrentDir)
-{
-    m_torrentDir = torrentDir;
-}
-
-void BTSettingsWidget::setDefaultTempDir(QString tmpDir)
-{
-    m_tmpDir = tmpDir;
+    connect(parent, SIGNAL(accepted()), SLOT(dialogAccepted()));
+    connect(parent, SIGNAL(rejected()), SLOT(setDefault()));
 }
 
 void BTSettingsWidget::dialogAccepted()
 {
-    BittorrentSettings::setPort(m_port);
-    BittorrentSettings::setUploadLimit(m_uploadLimit);
-    BittorrentSettings::setDownloadLimit(m_downloadLimit);
-    BittorrentSettings::setTorrentDir(m_torrentDir);
-    BittorrentSettings::setTmpDir(m_tmpDir);
+    kDebug(5001) << "Save Bittorrent-config";
+    BittorrentSettings::setPort(portBox->value());
+    BittorrentSettings::setUploadLimit(uploadBox->value());
+    BittorrentSettings::setDownloadLimit(downloadBox->value());
+    BittorrentSettings::setTorrentDir(torrentEdit->url().url());
+    BittorrentSettings::setTmpDir(tempEdit->url().url());
+    BittorrentSettings::setPreAlloc(preallocBox->isChecked());
 
     BittorrentSettings::self()->writeConfig();
+}
+
+void BTSettingsWidget::setDefault()
+{
+    portBox->setValue(BittorrentSettings::port());
+    uploadBox->setValue(BittorrentSettings::uploadLimit());
+    downloadBox->setValue(BittorrentSettings::downloadLimit());
+    torrentEdit->setUrl(BittorrentSettings::torrentDir());
+    tempEdit->setUrl(BittorrentSettings::tmpDir());
+    preallocBox->setChecked(BittorrentSettings::preAlloc());
 }
 
 #include "btsettingswidget.moc"

@@ -80,7 +80,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         if (BittorrentSettings::uploadLimit() != 0)
             setUlLimit(BittorrentSettings::uploadLimit());
       
-        //torrent->setPreallocateDiskSpace(true);//TODO: Make this configurable
+        torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
         stats = new bt::TorrentStats(torrent->getStats());
         kDebug(5001) << "Source:" << m_source.url().remove("file://");

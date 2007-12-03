@@ -19,23 +19,11 @@ class BTSettingsWidget : public QWidget, public Ui::BTSettingsWidget
 {
     Q_OBJECT
     public:
-        BTSettingsWidget(QWidget * parent);
+        BTSettingsWidget(KDialog * parent);
 
     private slots:
-        void setPort(int port);
-        void setUploadLimit(int uploadLimit);
-        void setDownloadLimit(int downloadLimit);
-        void setDefaultTorrentDir(QString torrentDir);
-        void setDefaultTempDir(QString tmpDir);
         void dialogAccepted();
-        void init();
-
-    private:
-        int m_port;
-        int m_uploadLimit;
-        int m_downloadLimit;
-        QString m_torrentDir;
-        QString m_tmpDir;   
+        void setDefault();
 };
 
 #endif

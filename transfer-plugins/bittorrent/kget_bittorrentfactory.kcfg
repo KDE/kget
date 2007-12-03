@@ -20,5 +20,8 @@
     <entry name="TmpDir" type="String">
       <default></default>
     </entry>
+    <entry name="PreAlloc" type="Bool">
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>

@@ -123,6 +123,13 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="1" >
+       <widget class="QCheckBox" name="preallocBox" >
+        <property name="text" >
+         <string>Preallocate disk-space</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
