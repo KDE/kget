@@ -382,7 +382,6 @@ void DropTarget::slotAnimateSync()
 
 void DropTarget::slotClose()
 {
-    setVisible( false );
     if (!Settings::expertMode())
     {
         KMessageBox::information(parentWidget,
@@ -391,6 +390,7 @@ void DropTarget::slotClose()
             i18n("Hiding drop target"),
             "CloseDroptarget");
     }
+    setVisible( false );
 }
 
 #include "droptarget.moc"
