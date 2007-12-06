@@ -176,7 +176,7 @@
       <item row="1" column="2" >
        <widget class="QSpinBox" name="kcfg_ReconnectDelay" >
         <property name="suffix" >
-         <string/>
+         <string>sec</string>
         </property>
         <property name="maximum" >
          <number>100</number>
