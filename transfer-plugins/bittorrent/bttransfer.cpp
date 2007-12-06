@@ -22,6 +22,7 @@
 #include <util/functions.h>
 #include <util/log.h>
 #include <peer/authenticationmonitor.h>
+#include <btdownload.h>
 
 #include <KDebug>
 #include <KLocale>
@@ -44,6 +45,14 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     if (m_source.url().isEmpty())
         return;
 
+    kDebug(5001) << m_dest.path();
+    BTDownload *download = new BTDownload(m_source);
+    m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
+    connect(download, SIGNAL(finishedSuccessfully()), SLOT(init()));
+}
+
+void BTTransfer::init()
+{
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
     bt::Uint16 i = 0;
@@ -70,10 +79,15 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         }
         else
             tmpDir = KStandardDirs::locateLocal("appdata", "tmp/");
+
             
-        torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName(), 
-                                                             m_dest.url().remove("file://").remove(".torrent"), 0);
+        torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName().remove(".torrent"),
+                                                             m_dest.directory().remove("file://"), 0);
+        kDebug(5001) << "Here1";
+        kDebug(5001) << m_dest.directory().remove("file://");
+
         torrent->createFiles();
+        kDebug(5001) << "Here2";
       
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
@@ -81,16 +95,16 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         kDebug(5001) << "Source:" << m_source.url().remove("file://");
         kDebug(5001) << "Dest:" << m_dest.url().remove("file://").remove(".torrent");
         kDebug(5001) << "Temp:" << tmpDir;
+
+        connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
+        connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
+        //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));
+        connect(&timer, SIGNAL(timeout()), SLOT(update()));
     }
     catch (bt::Error &err)
     {
         kDebug(5001) << err.toString();
     }
-
-    connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
-    connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
-    //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));
-    connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
 
 BTTransfer::~BTTransfer()
@@ -128,11 +142,14 @@ void BTTransfer::start()
 void BTTransfer::stop()
 {
     kDebug(5001);
-    torrent->stop(true);
-    m_speed = 0;
-    timer.stop();
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
-    setTransferChange(Tc_Status | Tc_Speed, true);
+    if (torrent)
+    {
+        torrent->stop(true);
+        m_speed = 0;
+        timer.stop();
+        setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+        setTransferChange(Tc_Status | Tc_Speed, true);
+    }
 }
 
 void BTTransfer::update()

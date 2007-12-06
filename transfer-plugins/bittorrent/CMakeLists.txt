@@ -16,6 +16,7 @@ set(kget_bittorrentfactory_PART_SRCS
   btdetailswidget.cpp
   btsettingswidget.cpp
   btadvanceddetailswidget.cpp
+  btdownload.cpp
 )
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui)

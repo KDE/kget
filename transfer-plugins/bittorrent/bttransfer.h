@@ -86,6 +86,7 @@ class BTTransfer : public QObject, public Transfer
         void load(const QDomElement &e);
 
     private slots:
+        void init();
         void update();
         void slotStoppedByError(bt::TorrentInterface* error, QString errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);

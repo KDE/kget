@@ -14,8 +14,6 @@
 #include "core/plugin/transferfactory.h"
 #include "btsettingswidget.h"
 
-#include <kio/job.h>
-
 class BTTransferFactory : public QObject, public TransferFactory
 {
     Q_OBJECT
