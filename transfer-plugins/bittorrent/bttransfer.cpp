@@ -156,15 +156,20 @@ void BTTransfer::update()
 {
     kDebug(5001);
 
-    torrent->update();
+    if (torrent)
+    {
+        torrent->update();
 
-    bt::UpdateCurrentTime();
-    bt::AuthenticationMonitor::instance().update();
+        bt::UpdateCurrentTime();
+        bt::AuthenticationMonitor::instance().update();
 
-    m_speed = dlRate();
-    m_percent = percent();
+        m_speed = dlRate();
+        m_percent = percent();
 
-    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize | Tc_Percent, true);
+        setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_TotalSize | Tc_Speed | Tc_TotalSize | Tc_Percent, true);
+    }
+    else
+        timer.stop();
 }
 
 void BTTransfer::save(QDomElement e) // krazy:exclude=passbyvalue
@@ -195,6 +200,9 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 
 void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
 {
+    if (!torrent)
+        return;
+
     torrent->setTrafficLimits(ulLimit * 1000, dlLimit * 1000);
     m_dlLimit = dlLimit;
     m_ulLimit = ulLimit;
@@ -203,93 +211,145 @@ void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
 /**Property-Functions**/
 KUrl::List BTTransfer::trackersList() const
 {
+    if (!torrent)
+        return KUrl::List();
+
     const KUrl::List trackers = torrent->getTrackersList()->getTrackerURLs();
     return trackers;
 }
 
 int BTTransfer::dlRate() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().download_rate;
 }
 
 int BTTransfer::ulRate() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().upload_rate;
 }
 
 int BTTransfer::totalSize() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().total_bytes_to_download;
 }
 
 int BTTransfer::sessionBytesDownloaded() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().session_bytes_downloaded;
 }
 
 int BTTransfer::sessionBytesUploaded() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().session_bytes_uploaded;
 }
 
 int BTTransfer::chunksTotal() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getTorrent().getNumChunks();
 }
 
 int BTTransfer::chunksDownloaded() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->downloadedChunksBitSet().numOnBits();
 }
 
 int BTTransfer::chunksExcluded() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->excludedChunksBitSet().numOnBits();
 }
 
 int BTTransfer::chunksLeft() const
-{
+{    
+    if (!torrent)
+        return -1;
+
     return chunksTotal() - chunksDownloaded();
 }
 
 int BTTransfer::seedsConnected() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().seeders_connected_to;
 }
 
 int BTTransfer::seedsDisconnected() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().seeders_total;
 }
 
 int BTTransfer::leechesConnected() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().leechers_connected_to;
 }
 
 int BTTransfer::leechesDisconnected() const
 {
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().leechers_total;
 }
 
 int BTTransfer::elapsedTime() const
 {
+    if (!torrent)
+        return -1;
+
     kDebug(5001);
     return torrent->getRunningTimeDL();
 }
 
 int BTTransfer::remainingTime() const
 {
+    if (!torrent)
+        return -1;
+
     kDebug(5001);
     return torrent->getETA();
 }
 
 int BTTransfer::ulLimit() const
 {
+    if (!torrent)
+        return -1;
 }
 
 int BTTransfer::dlLimit() const
 {
+    if (!torrent)
+        return -1;
 }
 
 bt::TorrentControl * BTTransfer::torrentControl()
@@ -299,6 +359,9 @@ bt::TorrentControl * BTTransfer::torrentControl()
 
 int BTTransfer::percent() const
 {
+    if (!torrent)
+        return -1;
+
     return ((float) chunksDownloaded() / (float) chunksTotal()) * 100;
 }
 
