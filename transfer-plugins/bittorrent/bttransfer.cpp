@@ -45,14 +45,26 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     if (m_source.url().isEmpty())
         return;
 
-    kDebug(5001) << m_dest.path();
-    BTDownload *download = new BTDownload(m_source);
-    m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-    connect(download, SIGNAL(finishedSuccessfully()), SLOT(init()));
+    if (!m_source.isLocalFile())
+    {
+        kDebug(5001) << m_dest.path();
+        BTDownload *download = new BTDownload(m_source);
+
+        setStatus(Job::Stopped, i18n("Downloading Torrent-File"), SmallIcon("process-stop"));
+        setTransferChange(Tc_Status, true);
+
+        m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
+        connect(download, SIGNAL(finishedSuccessfully()), SLOT(init()));
+    }
+    else
+        init();
 }
 
 void BTTransfer::init()
 {
+    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+    setTransferChange(Tc_Status, true);
+
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
     bt::Uint16 i = 0;
