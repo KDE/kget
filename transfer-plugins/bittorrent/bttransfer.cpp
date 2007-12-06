@@ -50,7 +50,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         kDebug(5001) << m_dest.path();
         BTDownload *download = new BTDownload(m_source);
 
-        setStatus(Job::Stopped, i18n("Downloading Torrent-File"), SmallIcon("process-stop"));
+        setStatus(Job::Stopped, i18n("Downloading Torrent-File.."), SmallIcon("document-save"));
         setTransferChange(Tc_Status, true);
 
         m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
