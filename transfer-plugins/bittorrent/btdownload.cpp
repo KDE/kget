@@ -51,16 +51,16 @@ void BTDownload::slotResult(KJob * job)
             torrentFile.write(m_data);
             torrentFile.close();
             kDebug(5001) << m_data;
-            if (QFileInfo(m_destUrl.url() + m_srcUrl.fileName()).exists())
-                kDebug(5001) << QFileInfo(m_destUrl.url() + m_srcUrl.fileName()).filePath();
             m_data = 0;
-            emit finishedSuccessfully();
+            m_destUrl = QFileInfo(torrentFile).absoluteFilePath();
+            kDebug(5001) << m_destUrl;
+            emit finishedSuccessfully(m_destUrl);
             break;
         }
         case KIO::ERR_FILE_ALREADY_EXIST:
             kDebug(5001) << "ERROR - File already exists";
             m_data = 0;
-            emit finishedSuccessfully();
+            emit finishedSuccessfully(m_destUrl);
         default:
             kDebug(5001) << "That sucks";
             m_data = 0;

@@ -25,7 +25,7 @@ class BTDownload : public QObject
         BTDownload(const KUrl &srcUrl);
 
     Q_SIGNALS:
-        void finishedSuccessfully();
+        void finishedSuccessfully(KUrl dest);
         void finishedWithError();
 
     private slots:

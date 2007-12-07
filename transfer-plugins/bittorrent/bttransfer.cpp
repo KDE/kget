@@ -38,8 +38,10 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
+    m_tmp(0),
     m_dlLimit(BittorrentSettings::downloadLimit()),
-    m_ulLimit(BittorrentSettings::uploadLimit())
+    m_ulLimit(BittorrentSettings::uploadLimit()),
+    torrent(0)
 {
     kDebug(5001);
     if (m_source.url().isEmpty())
@@ -54,14 +56,17 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
         setTransferChange(Tc_Status, true);
 
         m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-        connect(download, SIGNAL(finishedSuccessfully()), SLOT(init()));
+        connect(download, SIGNAL(finishedSuccessfully(KUrl)), SLOT(init(KUrl)));
     }
     else
         init();
 }
 
-void BTTransfer::init()
+void BTTransfer::init(KUrl src)
 {
+    if (src != m_source && !src.isEmpty())
+        m_source = src;
+
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     setTransferChange(Tc_Status, true);
 
@@ -81,42 +86,42 @@ void BTTransfer::init()
     try
     {
         torrent = new bt::TorrentControl();
-        QString tmpDir;
+
         if (!BittorrentSettings::tmpDir().isEmpty())
         {
-            tmpDir = BittorrentSettings::tmpDir();
-            kDebug(5001) << "Trying to set" << tmpDir << " as tmpDir";
-            if (!QFileInfo(tmpDir).isDir())
-                tmpDir = KStandardDirs::locateLocal("appdata", "tmp/");
+            m_tmp = BittorrentSettings::tmpDir();
+            kDebug(5001) << "Trying to set" << m_tmp << " as tmpDir";
+            if (!QFileInfo(m_tmp).isDir())
+                m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
         }
         else
-            tmpDir = KStandardDirs::locateLocal("appdata", "tmp/");
+            m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
 
-            
-        torrent->init(0, m_source.url().remove("file://"), tmpDir + m_source.fileName().remove(".torrent"),
+        torrent->init(0, m_source.url().remove("file://"), m_tmp + m_source.fileName().remove(".torrent"),
                                                              m_dest.directory().remove("file://"), 0);
-        kDebug(5001) << "Here1";
-        kDebug(5001) << m_dest.directory().remove("file://");
+
+        if (torrent->getStats().multi_file_torrent)
+            m_dest = torrent->getStats().output_path;
+        else
+            m_dest = torrent->getDataDir() + torrent->getStats().torrent_name;
 
         torrent->createFiles();
-        kDebug(5001) << "Here2";
       
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
         //torrent->setMaxShareRatio(1); //TODO: Make configurable...
-        stats = new bt::TorrentStats(torrent->getStats());
-        kDebug(5001) << "Source:" << m_source.url().remove("file://");
-        kDebug(5001) << "Dest:" << m_dest.url().remove("file://").remove(".torrent");
-        kDebug(5001) << "Temp:" << tmpDir;
+        kDebug(5001) << "Source:" << m_source.url();
+        kDebug(5001) << "Dest:" << m_dest.url();
+        kDebug(5001) << "Temp:" << m_tmp;
 
         connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
         connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
         //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));
-        connect(&timer, SIGNAL(timeout()), SLOT(update()));
     }
     catch (bt::Error &err)
     {
         kDebug(5001) << err.toString();
     }
+    connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
 
 BTTransfer::~BTTransfer()
