@@ -608,7 +608,7 @@ void MainWindow::dropEvent(QDropEvent * event)
 
     if (!list.isEmpty())
     {
-        if (list.count() == 1 && list.first().url().endsWith(".kgt"))
+        /**if (list.count() == 1 && list.first().url().endsWith(".kgt"))
         {
             int msgBoxResult = KMessageBox::questionYesNoCancel(this, "The dropped file is a KGet-Transferlist", "KGet",
                                       KGuiItem("Download", KIcon("document-save")), KGuiItem("Load", KIcon("list-add")), KStandardGuiItem::cancel());
@@ -619,7 +619,7 @@ void MainWindow::dropEvent(QDropEvent * event)
                 KGet::load(list.first().url());
         }
         else
-        {
+        {**/
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
@@ -627,7 +627,7 @@ void MainWindow::dropEvent(QDropEvent * event)
             }
             else
                 NewTransferDialog::showNewTransferDialog(list);
-        }
+        //}
     }
     else
     {
