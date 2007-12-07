@@ -611,7 +611,7 @@ void MainWindow::dropEvent(QDropEvent * event)
         /**if (list.count() == 1 && list.first().url().endsWith(".kgt"))
         {
             int msgBoxResult = KMessageBox::questionYesNoCancel(this, "The dropped file is a KGet-Transferlist", "KGet",
-                                      KGuiItem(i18n("Download"), KIcon("document-save")), KGuiItem(i18n("Load"), KIcon("list-add")), KStandardGuiItem::cancel());
+                                    KGuiItem(i18n("&Download"), KIcon("document-save")), KGuiItem(i18n("&Load transferlist"), KIcon("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
                 NewTransferDialog::showNewTransferDialog(list.first().url());
