@@ -608,13 +608,20 @@ void MainWindow::dropEvent(QDropEvent * event)
 
     if (!list.isEmpty())
     {
-        if (list.count() == 1)
+        if (list.count() == 1 && list.first().url().endsWith(".kgt"))
         {
-            str = event->mimeData()->text();
-            NewTransferDialog::showNewTransferDialog(str);
+            KGet::load(list.first().url());
         }
         else
-            NewTransferDialog::showNewTransferDialog(list);
+        {
+            if (list.count() == 1)
+            {
+                str = event->mimeData()->text();
+                NewTransferDialog::showNewTransferDialog(str);
+            }
+            else
+                NewTransferDialog::showNewTransferDialog(list);
+        }
     }
     else
     {
