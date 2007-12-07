@@ -213,13 +213,26 @@ void DropTarget::dropEvent(QDropEvent * event)
 
     if (!list.isEmpty())
     {
-        if (list.count() == 1)
+        if (list.count() == 1 && list.first().url().endsWith(".kgt"))
         {
-            str = event->mimeData()->text();
-            NewTransferDialog::showNewTransferDialog(str);
+            int msgBoxResult = KMessageBox::questionYesNoCancel(this, "The dropped file is a KGet-Transferlist", "KGet",
+                                    KGuiItem("Download", KIcon("document-save")), KGuiItem("Load", KIcon("list-add")), KStandardGuiItem::cancel());
+
+            if (msgBoxResult == 3) //Download
+                NewTransferDialog::showNewTransferDialog(list.first().url());
+            if (msgBoxResult == 4) //Load
+                KGet::load(list.first().url());
         }
         else
-            NewTransferDialog::showNewTransferDialog(list);
+        {
+            if (list.count() == 1)
+            {
+                str = event->mimeData()->text();
+                NewTransferDialog::showNewTransferDialog(str);
+            }
+            else
+                NewTransferDialog::showNewTransferDialog(list);
+        }
     }
     else
     {
