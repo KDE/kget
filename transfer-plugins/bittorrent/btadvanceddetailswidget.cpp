@@ -14,6 +14,7 @@
 #include <interfaces/trackerslist.h>
 
 #include "bttransferhandler.h"
+#include "torrentfiletreemodel.h"
 
 #include <kdebug.h>
 #include <kmessagebox.h>
@@ -55,6 +56,9 @@ void BTAdvancedDetailsWidget::init()
             trackerList->addItem(u.prettyUrl());
     }
     updateTracker();
+
+    kt::TorrentFileTreeModel *fileTree = new kt::TorrentFileTreeModel(tc,kt::TorrentFileTreeModel::DeselectMode(1),this);
+    fileTreeView->setModel(fileTree);
 
     connect(deleteTrackerButton, SIGNAL(clicked()), SLOT(deleteTracker()));
     connect(updateTrackerButton, SIGNAL(clicked()), SLOT(updateTracker()));

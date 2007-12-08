@@ -13,7 +13,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -21,33 +21,7 @@
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
-        <widget class="QTreeWidget" name="filesTreeWidget" >
-         <column>
-          <property name="text" >
-           <string>File</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Size</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Download</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Preview</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>% downloaded</string>
-          </property>
-         </column>
-        </widget>
+        <widget class="QTreeView" name="fileTreeView" />
        </item>
       </layout>
      </widget>
@@ -299,7 +273,7 @@
          <item>
           <widget class="QPushButton" name="defaultTrackerButton" >
            <property name="text" >
-            <string>Default Tracker</string>
+            <string>Default Trackers</string>
            </property>
           </widget>
          </item>
