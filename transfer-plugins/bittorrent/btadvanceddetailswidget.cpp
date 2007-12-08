@@ -19,6 +19,7 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <kurl.h>
+#include <kglobal.h>
 
 BTAdvancedDetailsWidget::BTAdvancedDetailsWidget(BTTransferHandler * transfer)
     : m_transfer(transfer)
@@ -60,6 +61,10 @@ void BTAdvancedDetailsWidget::init()
     kt::TorrentFileTreeModel *fileTree = new kt::TorrentFileTreeModel(tc,kt::TorrentFileTreeModel::DeselectMode(1),this);
     fileTreeView->setModel(fileTree);
 
+    const bt::TorrentStats & s = tc->getStats();
+    totalChunksLabel->setText(QString::number(s.total_chunks));
+    sizeChunkLabel->setText(KGlobal::locale()->formatByteSize(s.chunk_size));
+
     connect(deleteTrackerButton, SIGNAL(clicked()), SLOT(deleteTracker()));
     connect(updateTrackerButton, SIGNAL(clicked()), SLOT(updateTracker()));
     connect(addTrackerButton, SIGNAL(clicked()), SLOT(addTracker()));
@@ -70,6 +75,7 @@ void BTAdvancedDetailsWidget::init()
 void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     peersTreeWidget->update();
+    updateChunkView();
 
     m_transfer->resetChangesFlags(this);
 }
@@ -155,5 +161,37 @@ void BTAdvancedDetailsWidget::peerRemoved(bt::PeerInterface* peer)
 {
     peersTreeWidget->peerRemoved(peer);
 }
+
+void BTAdvancedDetailsWidget::downloadStarted(bt::ChunkDownloadInterface* chunk)
+{
+    items.insert(chunk, new ChunkDownloadViewItem(chunkTreeWidget,chunk));
+}
+
+void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
+{
+    ChunkDownloadViewItem* v = items.find(chunk);
+    if (v)
+    {
+        items.erase(chunk);
+        delete v;
+    }
+}
+
+void BTAdvancedDetailsWidget::updateChunkView()
+{
+    bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
+    while (i != items.end())
+    {
+        i->second->update(false);
+        i++;
+    }
+
+    const bt::TorrentStats & s = tc->getStats();
+    downloadingChunksLabel->setText(QString::number(s.num_chunks_downloading));
+    downloadedChunksLabel->setText(QString::number(s.num_chunks_downloaded));
+    excludedChunksLabel->setText(QString::number(s.num_chunks_excluded));
+    leftChunksLabel->setText(QString::number(s.num_chunks_left));
+}
+
 #include "btadvanceddetailswidget.moc"
  

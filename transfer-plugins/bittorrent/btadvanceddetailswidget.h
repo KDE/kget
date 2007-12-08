@@ -13,12 +13,13 @@
 
 #include "ui_btadvanceddetailswidget.h"
 
+#include "chunkdownloadviewitem.h"
+#include "core/observer.h"
+
 #include <interfaces/monitorinterface.h>
 #include <torrent/torrentcontrol.h>
 
 #include <QWidget>
-
-#include "core/observer.h"
 
 class BTTransferHandler;
 
@@ -42,9 +43,11 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         //PeerView
         void peerAdded(bt::PeerInterface* peer);
         void peerRemoved(bt::PeerInterface* peer);
+        //ChunkView
+        void updateChunkView();
 
-        void downloadStarted(bt::ChunkDownloadInterface* chunk) {}
-        void downloadRemoved(bt::ChunkDownloadInterface* chunk) {}
+        void downloadStarted(bt::ChunkDownloadInterface* chunk);
+        void downloadRemoved(bt::ChunkDownloadInterface* chunk);
         void stopped() {}
         void destroyed() {}
 
@@ -53,6 +56,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         BTTransferHandler * m_transfer;
 
         bt::TorrentControl * tc;
+
+        bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem> items;
 };
 
 #endif

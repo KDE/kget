@@ -19,6 +19,7 @@ set(kget_bittorrentfactory_PART_SRCS
   btdownload.cpp
   peerview.cpp
   torrentfiletreemodel.cpp
+  chunkdownloadviewitem.cpp
 )
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui)

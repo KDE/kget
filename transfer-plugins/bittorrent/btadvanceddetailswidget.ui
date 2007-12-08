@@ -13,7 +13,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -185,12 +185,12 @@
             </sizepolicy>
            </property>
            <property name="text" >
-            <string>To Download:</string>
+            <string>Left:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="todownloadChunksLabel" >
+          <widget class="QLabel" name="leftChunksLabel" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
              <horstretch>0</horstretch>
