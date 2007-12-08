@@ -129,8 +129,8 @@ void BTAdvancedDetailsWidget::deleteTracker()
     KUrl url(current->text());
     if(tc->getTrackersList()->removeTracker(url))
         delete current;
-    //else
-        //KMessageBox::sorry(0, i18n("Cannot remove torrent default tracker."));
+    else
+        KMessageBox::sorry(0, i18n("Cannot remove torrent default tracker."));
 }
 
 void BTAdvancedDetailsWidget::setDefaultTracker()
