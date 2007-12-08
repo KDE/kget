@@ -45,6 +45,7 @@ BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
 
 void BTAdvancedDetailsWidget::init()
 {
+    setWindowTitle("Advanced-Details for" + m_transfer->source().fileName());
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
     if (trackers.empty())
@@ -74,7 +75,16 @@ void BTAdvancedDetailsWidget::init()
 
 void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
-    peersTreeWidget->update();
+    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
+
+    if(transferFlags && Transfer::Tc_Status)
+    {
+        if (m_transfer->statusText() != "Stopped")
+            peersTreeWidget->update();
+        if (m_transfer->statusText() == "Stopped")
+            peersTreeWidget->removeAll();
+    }
+
     updateChunkView();
 
     m_transfer->resetChangesFlags(this);
@@ -155,7 +165,7 @@ void BTAdvancedDetailsWidget::changeTracker()
 void BTAdvancedDetailsWidget::peerAdded(bt::PeerInterface* peer)
 {
     peersTreeWidget->peerAdded(peer);
-}	
+}
 
 void BTAdvancedDetailsWidget::peerRemoved(bt::PeerInterface* peer)
 {
