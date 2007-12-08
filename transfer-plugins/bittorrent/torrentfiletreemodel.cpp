@@ -230,8 +230,8 @@ namespace kt
 		 
 		switch (section)
 		{
-			case 0: return i18n("File");
-			case 1: return i18n("Size");
+			//case 0: return i18n("File");
+			//case 1: return i18n("Size");
 			default:
 				return QVariant();
 		}

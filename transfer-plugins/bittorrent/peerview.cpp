@@ -162,28 +162,28 @@ namespace kt
 		}
 
 		if (init || s.choked != stats.choked)
-			setText(5,s.choked ? i18n("Yes") : i18n("No"));
+			//setText(5,s.choked ? i18n("Yes") : i18n("No"));
 
 		if (init || s.snubbed != stats.snubbed)
-			setText(6,s.snubbed ? i18n("Yes") : i18n("No"));
+			//setText(6,s.snubbed ? i18n("Yes") : i18n("No"));
 
 		if (init || s.perc_of_file != stats.perc_of_file)
-			setText(7,QString("%1 %").arg(loc->formatNumber(s.perc_of_file,2)));
+			//setText(7,QString("%1 %").arg(loc->formatNumber(s.perc_of_file,2)));
 
 		if (init || s.aca_score != stats.aca_score)
-			setText(9,loc->formatNumber(s.aca_score,2));
+			//setText(9,loc->formatNumber(s.aca_score,2));
 
 		if (init || s.has_upload_slot != stats.has_upload_slot)
-			setIcon(10,s.has_upload_slot ? yes : KIcon());
+			//setIcon(10,s.has_upload_slot ? yes : KIcon());
 
 		if (init || s.num_down_requests != stats.num_down_requests || s.num_up_requests != stats.num_up_requests)
-			setText(11,QString("%1 / %2").arg(s.num_down_requests).arg(s.num_up_requests));
+			//setText(11,QString("%1 / %2").arg(s.num_down_requests).arg(s.num_up_requests));
 
 		if (init || s.bytes_downloaded != stats.bytes_downloaded)
-			setText(12,BytesToString(s.bytes_downloaded));
+			//setText(12,BytesToString(s.bytes_downloaded));
 
 		if (init || s.bytes_uploaded != stats.bytes_uploaded)
-			setText(13,BytesToString(s.bytes_uploaded));
+			//setText(13,BytesToString(s.bytes_uploaded));
 
 		stats = s;
 	}
@@ -196,7 +196,7 @@ namespace kt
 		setAlternatingRowColors(true);
 
 		QStringList columns;
-		columns << i18n("IP Address")
+		/**columns << i18n("IP Address")
 			<< i18n("Country")
 			<< i18n("Client")
 			<< i18n("Down Speed")
@@ -209,15 +209,15 @@ namespace kt
 			<< i18n("Upload Slot")
 			<< i18n("Requests")
 			<< i18n("Downloaded")
-			<< i18n("Uploaded");
+			<< i18n("Uploaded");**/
 
 		setHeaderLabels(columns);
 		
 		context_menu = new KMenu(this);
-		context_menu->addAction(KIcon("user-remove"),i18n("Kick Peer"),this,SLOT(kickPeer()));
+		/**context_menu->addAction(KIcon("user-remove"),i18n("Kick Peer"),this,SLOT(kickPeer()));
 		context_menu->addAction(KIcon("view-filter"),i18n("Ban Peer"),this,SLOT(banPeer()));
 		connect(this,SIGNAL(customContextMenuRequested(const QPoint & )),
-				this,SLOT(showContextMenu(const QPoint& )));
+				this,SLOT(showContextMenu(const QPoint& )));**/
 	}
 
 	PeerView::~PeerView()
