@@ -13,7 +13,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -57,48 +57,7 @@
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
-        <widget class="QTreeWidget" name="peersTreeWidget" >
-         <column>
-          <property name="text" >
-           <string>IP</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Country</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Client</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Download-Speed</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Upload-Speed</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>New Column</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Downloaded</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Uploaded</string>
-          </property>
-         </column>
-        </widget>
+        <widget class="kt::PeerView" name="peersTreeWidget" />
        </item>
       </layout>
      </widget>
@@ -339,6 +298,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>kt::PeerView</class>
+   <extends>QTreeWidget</extends>
+   <header>peerview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

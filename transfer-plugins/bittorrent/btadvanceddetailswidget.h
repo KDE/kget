@@ -13,13 +13,15 @@
 
 #include "ui_btadvanceddetailswidget.h"
 
+#include <interfaces/monitorinterface.h>
+
 #include <QWidget>
 
 #include "core/observer.h"
 
 class BTTransferHandler;
 
-class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public Ui::BTAdvancedDetailsWidget
+class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public Ui::BTAdvancedDetailsWidget, bt::MonitorInterface
 {
     Q_OBJECT
     public:
@@ -27,6 +29,15 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         ~BTAdvancedDetailsWidget();
 
         void transferChangedEvent(TransferHandler * transfer);
+
+        void peerAdded(bt::PeerInterface* peer);
+        void peerRemoved(bt::PeerInterface* peer);
+
+        void downloadStarted(bt::ChunkDownloadInterface* chunk) {}
+        void downloadRemoved(bt::ChunkDownloadInterface* chunk) {}
+        void stopped() {}
+        void destroyed() {}
+
 
     private:
         BTTransferHandler * m_transfer;

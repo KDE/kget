@@ -19,6 +19,8 @@ BTAdvancedDetailsWidget::BTAdvancedDetailsWidget(BTTransferHandler * transfer)
 {
     setupUi(this);
 
+    m_transfer->torrentControl()->setMonitor(this);
+
     transfer->addObserver(this);
     //This updates the widget with the right values
     transferChangedEvent(transfer);
@@ -31,8 +33,19 @@ BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
 
 void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
+    peersTreeWidget->update();
+
     m_transfer->resetChangesFlags(this);
 }
 
+void BTAdvancedDetailsWidget::peerAdded(bt::PeerInterface* peer)
+{
+    peersTreeWidget->peerAdded(peer);
+}	
+
+void BTAdvancedDetailsWidget::peerRemoved(bt::PeerInterface* peer)
+{
+    peersTreeWidget->peerRemoved(peer);
+}
 #include "btadvanceddetailswidget.moc"
  

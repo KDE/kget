@@ -14,6 +14,7 @@
 #include "bttransfer.h"
 #include "bttransferhandler.h"
 #include "btdetailswidget.h"
+#include "btadvanceddetailswidget.h"
 
 #include <kdebug.h>
 
@@ -58,6 +59,10 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
     BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(transfer);
+
+    BTAdvancedDetailsWidget * details = new BTAdvancedDetailsWidget(bttransfer);
+    details->show();
+
     return new BTDetailsWidget(bttransfer);
 }
 
