@@ -14,6 +14,7 @@
 #include "ui_btadvanceddetailswidget.h"
 
 #include <interfaces/monitorinterface.h>
+#include <torrent/torrentcontrol.h>
 
 #include <QWidget>
 
@@ -29,7 +30,16 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         ~BTAdvancedDetailsWidget();
 
         void transferChangedEvent(TransferHandler * transfer);
+        void init();
 
+     private slots:
+        //TrackerView
+        void updateTracker();
+        void addTracker(const QString &url);
+        void deleteTracker();
+        void setDefaultTracker();
+        void changeTracker();
+        //PeerView
         void peerAdded(bt::PeerInterface* peer);
         void peerRemoved(bt::PeerInterface* peer);
 
@@ -41,6 +51,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
 
     private:
         BTTransferHandler * m_transfer;
+
+        bt::TorrentControl * tc;
 };
 
 #endif
