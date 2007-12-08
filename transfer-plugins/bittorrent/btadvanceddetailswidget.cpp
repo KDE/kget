@@ -80,12 +80,16 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     if(transferFlags && Transfer::Tc_Status)
     {
         if (m_transfer->statusText() != "Stopped")
+        {
+            updateChunkView();
             peersTreeWidget->update();
+        }
         if (m_transfer->statusText() == "Stopped")
+        {
             peersTreeWidget->removeAll();
+            chunkTreeWidget->clear();
+        }
     }
-
-    updateChunkView();
 
     m_transfer->resetChangesFlags(this);
 }
@@ -192,7 +196,8 @@ void BTAdvancedDetailsWidget::updateChunkView()
     bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
     while (i != items.end())
     {
-        i->second->update(false);
+        if (i->second)
+            i->second->update(false);
         i++;
     }
 
