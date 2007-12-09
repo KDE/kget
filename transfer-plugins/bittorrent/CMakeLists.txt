@@ -4,6 +4,8 @@ macro_log_feature(BTCORE_FOUND "BTCore" "KTorrent core library" "http://ktorrent
 if (BTCORE_FOUND)
 add_definitions(${KDE4_ENABLE_EXCEPTIONS})
 
+add_subdirectory(geoip)
+
 include_directories(
    ../../
    ${BTCORE_INCLUDE_DIR}
@@ -20,6 +22,8 @@ set(kget_bittorrentfactory_PART_SRCS
   peerview.cpp
   torrentfiletreemodel.cpp
   chunkdownloadviewitem.cpp
+  flagdb.cpp
+  GeoIP.c
 )
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui)

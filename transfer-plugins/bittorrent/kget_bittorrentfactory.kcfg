@@ -24,4 +24,12 @@
       <default>true</default>
     </entry>
   </group>
+  <group name="AdvancedDetails">
+    <entry name="FileColumnWidths" type="IntList">
+    </entry>
+    <entry name="PeersColumnWidths" type="IntList">
+    </entry>
+    <entry name="ChunksColumnWidths" type="IntList">
+    </entry>
+  </group>  
 </kcfg>

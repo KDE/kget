@@ -23,7 +23,7 @@
 
 class BTTransferHandler;
 
-class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public Ui::BTAdvancedDetailsWidget, bt::MonitorInterface
+class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public Ui::BTAdvancedDetailsWidget, public bt::MonitorInterface
 {
     Q_OBJECT
     public:
@@ -53,6 +53,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
 
 
     private:
+        void hideEvent(QHideEvent * event);
+
         BTTransferHandler * m_transfer;
 
         bt::TorrentControl * tc;

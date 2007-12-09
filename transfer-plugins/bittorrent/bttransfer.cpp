@@ -165,7 +165,7 @@ void BTTransfer::stop()
         m_speed = 0;
         timer.stop();
         setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
-        setTransferChange(Tc_Status | Tc_Speed, true);
+        setTransferChange(Tc_Status, true);
     }
 }
 

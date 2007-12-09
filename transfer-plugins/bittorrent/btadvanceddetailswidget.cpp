@@ -15,6 +15,7 @@
 
 #include "bttransferhandler.h"
 #include "torrentfiletreemodel.h"
+#include "bittorrentsettings.h"
 
 #include <kdebug.h>
 #include <kmessagebox.h>
@@ -45,7 +46,7 @@ BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
 
 void BTAdvancedDetailsWidget::init()
 {
-    setWindowTitle("Advanced-Details for" + m_transfer->source().fileName());
+    setWindowTitle(i18n("Advanced-Details for") + m_transfer->source().fileName());
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
     if (trackers.empty())
@@ -66,6 +67,53 @@ void BTAdvancedDetailsWidget::init()
     totalChunksLabel->setText(QString::number(s.total_chunks));
     sizeChunkLabel->setText(KGlobal::locale()->formatByteSize(s.chunk_size));
 
+    /**Set Column-widths**/
+
+    QList<int> fileColumnWidths = BittorrentSettings::fileColumnWidths();
+    if (!fileColumnWidths.isEmpty())
+    {
+        int j = 0;
+        foreach(int i, fileColumnWidths)
+        {
+            fileTreeView->setColumnWidth(j, i);
+            j++;
+        }
+    }
+    else
+    {
+        fileTreeView->setColumnWidth(0 , 250);
+    }
+
+    QList<int> peersColumnWidths = BittorrentSettings::peersColumnWidths();
+    if (!peersColumnWidths.isEmpty())
+    {
+        int j = 0;
+        foreach(int i, peersColumnWidths)
+        {
+            peersTreeWidget->setColumnWidth(j, i);
+            j++;
+        }
+    }
+    else
+    {
+        peersTreeWidget->setColumnWidth(0 , 250);
+    }
+
+    QList<int> chunksColumnWidths = BittorrentSettings::chunksColumnWidths();
+    if (!chunksColumnWidths.isEmpty())
+    {
+        int j = 0;
+        foreach(int i, chunksColumnWidths)
+        {
+            chunkTreeWidget->setColumnWidth(j, i);
+            j++;
+        }
+    }
+    else
+    {
+        chunkTreeWidget->setColumnWidth(0 , 250);
+    }
+
     connect(deleteTrackerButton, SIGNAL(clicked()), SLOT(deleteTracker()));
     connect(updateTrackerButton, SIGNAL(clicked()), SLOT(updateTracker()));
     connect(addTrackerButton, SIGNAL(clicked()), SLOT(addTracker()));
@@ -77,7 +125,7 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    if(transferFlags && Transfer::Tc_Status)
+    if (transferFlags && Transfer::Tc_Status)
     {
         if (m_transfer->statusText() != "Stopped")
         {
@@ -88,6 +136,7 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         {
             peersTreeWidget->removeAll();
             chunkTreeWidget->clear();
+            items.clear();
         }
     }
 
@@ -206,6 +255,32 @@ void BTAdvancedDetailsWidget::updateChunkView()
     downloadedChunksLabel->setText(QString::number(s.num_chunks_downloaded));
     excludedChunksLabel->setText(QString::number(s.num_chunks_excluded));
     leftChunksLabel->setText(QString::number(s.num_chunks_left));
+}
+
+void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
+{
+    kDebug(5001) << "Save config";
+    QList<int>  fileColumnWidths;
+    for (int i = 0; i<1; i++)
+    {
+        fileColumnWidths.append(fileTreeView->columnWidth(i));
+    }
+    BittorrentSettings::setFileColumnWidths(fileColumnWidths);
+
+    QList<int>  peersColumnWidths;
+    for (int i = 0; i<13; i++)
+    {
+        peersColumnWidths.append(peersTreeWidget->columnWidth(i));
+    }
+    BittorrentSettings::setPeersColumnWidths(peersColumnWidths);
+
+    QList<int>  chunksColumnWidths;
+    for (int i = 0; i<3; i++)
+    {
+        chunksColumnWidths.append(chunkTreeWidget->columnWidth(i));
+    }
+    BittorrentSettings::setChunksColumnWidths(chunksColumnWidths);
+    BittorrentSettings::self()->writeConfig();
 }
 
 #include "btadvanceddetailswidget.moc"
