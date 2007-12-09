@@ -13,7 +13,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -31,7 +31,13 @@
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
-        <widget class="kt::PeerView" name="peersTreeWidget" />
+        <widget class="kt::PeerView" name="peersTreeWidget" >
+         <column>
+          <property name="text" >
+           <string>1</string>
+          </property>
+         </column>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -42,6 +48,15 @@
       <layout class="QGridLayout" >
        <item row="2" column="0" >
         <widget class="QTreeWidget" name="chunkTreeWidget" >
+         <property name="rootIsDecorated" >
+          <bool>false</bool>
+         </property>
+         <property name="sortingEnabled" >
+          <bool>true</bool>
+         </property>
+         <property name="animated" >
+          <bool>true</bool>
+         </property>
          <column>
           <property name="text" >
            <string>Chunk</string>
