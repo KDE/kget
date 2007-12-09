@@ -46,7 +46,7 @@ BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
 
 void BTAdvancedDetailsWidget::init()
 {
-    setWindowTitle(i18n("Advanced-Details for ") + m_transfer->source().fileName());
+    setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
     if (trackers.empty())
