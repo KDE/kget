@@ -36,7 +36,7 @@ public:
     Tray( MainWindow * parent );
     ~Tray();
 
-    void setDownloading( bool );
+    void setDownloading(bool running);
 
 private:
     /**

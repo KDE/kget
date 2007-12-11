@@ -392,17 +392,40 @@ void MainWindow::slotStartDownload()
 
 void MainWindow::slotStartAllDownload()
 {
-    m_dock->setDownloading(true);
+    bool running;
+    foreach (TransferHandler *handler, KGet::allTransfers())
+    {
+        if (handler->statusText() == "Running")
+            running = true;
+
+        if (running)
+        {
+            kDebug(5001);
+            setTrayDownloading(true);
+            continue;
+        }
+    }
 
     KGet::setSchedulerRunning(true);
 }
 
 void MainWindow::slotStartSelectedDownload()
 {
-    m_dock->setDownloading(true);
+    if (KGet::selectedTransfers().isEmpty())
+         return;
 
+    bool downloading = false;
     foreach(TransferHandler * it, KGet::selectedTransfers())
-        it->start();
+    {
+        if (it->status() != Job::Finished)
+        {
+            it->start();
+            downloading = true;
+        }
+    }
+
+    if (downloading)
+        m_dock->setDownloading(true);
 }
 
 void MainWindow::slotStopDownload()
@@ -580,6 +603,11 @@ void MainWindow::slotShowMenubar()
         menuBar()->show();
     else
         menuBar()->hide();
+}
+
+void MainWindow::setTrayDownloading(bool running)
+{
+    m_dock->setDownloading(running);
 }
 
 /** widget events */

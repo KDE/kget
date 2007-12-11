@@ -492,6 +492,23 @@ void KGet::setPluginsSettingsWidget(KTabWidget * widget)
     }
 }
 
+QList<TransferHandler*> KGet::allTransfers()
+{
+    QList<TransferHandler*> transfers;
+
+    foreach (TransferGroup *group, KGet::m_transferTreeModel->transferGroups())
+    {
+        transfers << group->handler()->transfers();
+        
+    }
+    return transfers;
+}
+
+void KGet::setTrayDownloading(bool running)
+{
+    m_mainWindow->setTrayDownloading(running);
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
@@ -888,8 +905,16 @@ TransferFinishedObserver::TransferFinishedObserver()
 
 void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
 {
-    if(transfer->status() == Job::Finished && Settings::quitAfterCompletedTransfer()) {
-        checkAndFinish();
+    kDebug(5001);
+    if (transfer->status() == Job::Stopped)
+        checkAndUpdateSystemTray();
+
+    if(transfer->status() == Job::Finished) 
+    {
+        if (Settings::quitAfterCompletedTransfer())
+            checkAndFinish();
+        else
+            checkAndUpdateSystemTray();
     }
 }
 
@@ -911,12 +936,14 @@ void TransferFinishedObserver::checkAndFinish()
         // one with parent as QWidget for the mainWindow
         // and another with parent as QSystemTrayIcon if the parent is a systemTray
         // so passing the QSystemTrayIcon as QWidget don't work
-        if(Settings::enableSystemTray()) {
+        if(Settings::enableSystemTray()) 
+        {
             message = KPassivePopup::message(5000, KGET_QUIT_MESSAGE_TITLE,
                     KGET_QUIT_MESSAGE,
                     KGet::m_mainWindow->systemTray());
         }
-        else {
+        else 
+        {
             message = KPassivePopup::message(5000, KGET_QUIT_MESSAGE_TITLE,
                     KGET_QUIT_MESSAGE,
                     KGet::m_mainWindow);
@@ -924,4 +951,26 @@ void TransferFinishedObserver::checkAndFinish()
 
         QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
     }
+}
+
+void TransferFinishedObserver::checkAndUpdateSystemTray()
+{
+    kDebug(5001);
+    bool running = false;
+
+    foreach (TransferHandler *handler, KGet::allTransfers())
+    {
+        if (handler->status() == Job::Running)
+            running = true;
+
+        if (running)
+        {
+            kDebug(5001) << "Set downloading";
+            KGet::m_mainWindow->setTrayDownloading(true);
+            continue;
+        }
+    }
+
+    if (!running)
+        KGet::m_mainWindow->setTrayDownloading(false);
 }

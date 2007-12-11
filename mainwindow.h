@@ -44,6 +44,7 @@ public:
     virtual bool offlineMode() const;
     virtual QVariantMap transfers() const;
     virtual int transfersSpeed() const;
+    virtual void setTrayDownloading(bool running);
 
     KSystemTrayIcon *systemTray() const { return m_dock;};
 

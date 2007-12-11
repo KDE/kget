@@ -221,6 +221,13 @@ class KGET_EXPORT KGet
          */
         static void setPluginsSettingsWidget(KTabWidget * widget);
 
+        /**
+         * Gets all transfers which are running
+         */
+        static QList<TransferHandler*> allTransfers();
+
+        static void setTrayDownloading(bool running);
+
     private:
         KGet();
         ~KGet();
@@ -317,6 +324,7 @@ class TransferFinishedObserver : public TransferObserver
 
     private:
         void checkAndFinish();
+        void checkAndUpdateSystemTray();
 };
 
 #endif
