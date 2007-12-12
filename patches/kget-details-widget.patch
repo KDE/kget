@@ -1,0 +1,99 @@
+Index: ui/transferdetails.cpp
+===================================================================
+--- ui/transferdetails.cpp	(revisión: 747723)
++++ ui/transferdetails.cpp	(copia de trabajo)
+@@ -106,4 +106,15 @@
+     m_transfer->resetChangesFlags(this);
+ }
+ 
++QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
++{
++    QWidget *details = KGet::factory(handler)->createDetailsWidget(handler);
++
++    if (!details) { // the transfer factory doesn't override the details widget so use the generic one
++        details = new TransferDetails(handler);
++    }
++
++    return  details;
++}
++
+ #include "transferdetails.moc"
+Index: ui/transferdetails.h
+===================================================================
+--- ui/transferdetails.h	(revisión: 747723)
++++ ui/transferdetails.h	(copia de trabajo)
+@@ -30,6 +30,8 @@
+ 
+         void transferChangedEvent(TransferHandler * transfer);
+ 
++        // gets the generic details widget if the transfer factory doesn't override it
++        static QWidget *detailsWidget(TransferHandler *transfer);
+     private:
+         TransferHandler * m_transfer;
+         QVBoxLayout     * m_layout;
+Index: ui/transfersviewdelegate.cpp
+===================================================================
+--- ui/transfersviewdelegate.cpp	(revisión: 747723)
++++ ui/transfersviewdelegate.cpp	(copia de trabajo)
+@@ -469,7 +469,7 @@
+     QLabel *title = new QLabel(i18n("Transfer details"));
+ 
+     layout->addWidget(title);
+-    layout->addWidget(new TransferDetails(handler));
++    layout->addWidget(TransferDetails::detailsWidget(handler));
+     groupBox->setAutoFillBackground(false);
+     title->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE.arg(QApplication::palette().color(QPalette::Foreground).name()));
+     title->setAlignment(Qt::AlignHCenter);
+Index: ui/viewscontainer.cpp
+===================================================================
+--- ui/viewscontainer.cpp	(revisión: 747723)
++++ ui/viewscontainer.cpp	(copia de trabajo)
+@@ -262,7 +262,8 @@
+         if( it == m_transfersMap.end() )
+         {
+             //Create the transfer widget
+-            QWidget * widget = new TransferDetails(transfer); KGet::factory(transfer)->createDetailsWidget(transfer);
++            QWidget * widget = TransferDetails::detailsWidget(transfer);
++
+             //Add it to the m_transferItems list
+             m_transfersMap[transfer] = widget;
+             //Add the widget to the qstackedlayout
+Index: transfer-plugins/kio/transferKioFactory.cpp
+===================================================================
+--- transfer-plugins/kio/transferKioFactory.cpp	(revisión: 747723)
++++ transfer-plugins/kio/transferKioFactory.cpp	(copia de trabajo)
+@@ -52,7 +52,7 @@
+ QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
+ {
+     Q_UNUSED(transfer);
+-    return new QWidget();   //Temporary!!
++    return 0;   //Temporary!!
+ }
+ 
+ QWidget * TransferKioFactory::createSettingsWidget(KDialog * parent)
+Index: transfer-plugins/metalink/metalinkfactory.cpp
+===================================================================
+--- transfer-plugins/metalink/metalinkfactory.cpp	(revisión: 747723)
++++ transfer-plugins/metalink/metalinkfactory.cpp	(copia de trabajo)
+@@ -49,7 +49,7 @@
+ QWidget * metalinkFactory::createDetailsWidget( TransferHandler * transfer )
+ {
+     Q_UNUSED(transfer);
+-    return new QWidget();   //Temporary!!
++    return 0;   //Temporary!!
+ }
+ 
+ QWidget * metalinkFactory::createSettingsWidget(KDialog * parent)
+Index: transfer-plugins/multisegmentkio/transfermultisegkiofactory.cpp
+===================================================================
+--- transfer-plugins/multisegmentkio/transfermultisegkiofactory.cpp	(revisión: 747723)
++++ transfer-plugins/multisegmentkio/transfermultisegkiofactory.cpp	(copia de trabajo)
+@@ -56,7 +56,7 @@
+ QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
+ {
+     Q_UNUSED(transfer);
+-    return new QWidget();   //Temporary!!
++    return 0;   //Temporary!!
+ }
+ 
+ QWidget * TransferMultiSegKioFactory::createSettingsWidget(KDialog * parent)
