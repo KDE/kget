@@ -176,7 +176,7 @@ void BarChart::populate()
     }
 
     // activate or deactivate the navigation buttons
-    if(m_transfers.size() >= ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE))
+    if(m_transfers.size() > ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE))
         m_nextPageButton->setEnabled(true);
     else
         m_nextPageButton->setEnabled(false);

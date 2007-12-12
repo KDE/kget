@@ -56,6 +56,10 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout, co
 
 ErrorGraph::~ErrorGraph()
 {
+    /*m_layout->removeItem(m_icon);
+    m_layout->removeItem(m_errorLabel);
+    m_layout->removeItem(m_launchButton);
+*/
     delete m_icon;
     delete m_errorLabel;
     delete m_launchButton;

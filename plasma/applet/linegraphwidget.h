@@ -18,37 +18,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#ifndef SPEEDGRAPH_H
-#define SPEEDGRAPH_H
+#ifndef LINEGRAPHWIDGET_H
+#define LINEGRAPHWIDGET_H
 
-#include "transfergraph.h"
+#include <QMap>
 
-static const int MAX_ITEMS = 10;
-static const int GRAPH_HEIGHT = 200;
+#include <plasma/plasma_export.h>
+#include <plasma/widgets/widget.h>
 
-class LineGraphWidget;
-namespace Plasma {
-    class BoxLayout;
-    class Label;
-};
 
-class SpeedGraph : public TransferGraph
+class LineGraphWidget : public Plasma::Widget
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    SpeedGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout);
-    ~SpeedGraph();
+    LineGraphWidget(Widget *parent);
+    ~LineGraphWidget();
 
-    void setTransfers(const QVariantMap &percents);
+    void remove(const QString &key);
+    void addData(const QString &key, int data);
+    void addData(const QMap <QString, int> &data);
+    void updateView();
 
-private slots:
-    void updateGeometry();
+    QSizeF sizeHint() const;
+    void paintWidget(QPainter *painter, const QStyleOptionGraphicsItem *option, 
+                        QWidget *widget);
+
+signals:
+    // emited when the geometry of the applet who contains the widget needs to be updated (new data to display ...)
+    void geometryChanged();
 
 private:
-    Plasma::BoxLayout *m_layout;
-    LineGraphWidget *m_lineGraph;
-    Plasma::Label *m_label;
+    class Private;
+    Private * const d;
 };
 
 #endif

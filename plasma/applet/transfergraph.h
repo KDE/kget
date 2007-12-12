@@ -26,20 +26,11 @@
 #include <QObject>
 #include <QVariant>
 #include <QSizeF>
-#include <QColor>
 #include <QRect>
 
 class QPainter;
 class QRect;
 
-static const QColor MyColors[] = {
-    QColor(Qt::yellow),
-    QColor(Qt::blue),
-    QColor(Qt::darkMagenta),
-    QColor(Qt::red),
-    QColor(Qt::green),
-    QColor(Qt::darkYellow)
-};
 static const int TRANSFER_MARGIN = 30;
 static const int TRANSFER_APPLET_WIDTH = 380;
 static const int TRANSFER_LINE_HEIGHT = 32;

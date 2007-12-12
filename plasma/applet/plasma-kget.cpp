@@ -37,6 +37,8 @@
 #include "transfergraph.h"
 #include "barchart.h"
 #include "errorgraph.h"
+#include "speedgraph.h"
+#include "piegraph.h"
 
 PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Applet(parent, args),
                             m_dialog(0),
@@ -50,14 +52,17 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
 
 PlasmaKGet::~PlasmaKGet()
 {
+    prepareGeometryChange();
+
     delete m_transferGraph;
 }
 
 void PlasmaKGet::init()
 {
     m_layout = new Plasma::VBoxLayout(this);
+    // setLayout(m_layout);
 
-    setMinimumSize(QSize(330, 100));
+    //setMinimumSize(QSize(330, 100));
 
     m_transferGraph = 0;
     KConfigGroup cg = config();
@@ -83,7 +88,7 @@ void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Da
     else if(!data["error"].toBool()) {
         loadTransferGraph(config().readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
 
-        if(m_transferGraph->transfers() != data["transfers"].toMap()) {
+        if(m_transferGraph->transfers() != data["transfers"].toMap() || true) {
             m_transferGraph->setTransfers(data["transfers"].toMap());
         }
     }
@@ -123,19 +128,20 @@ void PlasmaKGet::configAccepted()
 void PlasmaKGet::loadTransferGraph(uint type)
 {
     if(type != m_graphType) {
+        prepareGeometryChange();
         delete m_transferGraph;
 
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :
                 m_transferGraph = new ErrorGraph(this, m_layout, m_errorMessage);
-                break;/*
+                break;
             case PlasmaKGet::PieGraphType :
-                m_transferGraph = new PieGraph(this);
+                m_transferGraph = new PieGraph(this, m_layout);
                 break;
             case PlasmaKGet::SpeedGraphType :
-                m_transferGraph = new SpeedGraph(this);
-                break;*/
+                m_transferGraph = new SpeedGraph(this, m_layout);
+                break;
             case PlasmaKGet::BarChartType :
             default:
                 m_transferGraph = new BarChart(this, m_layout);

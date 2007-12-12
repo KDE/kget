@@ -21,33 +21,31 @@
 #ifndef KGET_PIEGRAPH_H
 #define KGET_PIEGRAPH_H
 
-#include <QColor>
 #include "transfergraph.h"
-
-#define TRANSFER_PIEGRAPH_WIDTH 140
-#define TRANSFER_PIEGRAPH_HEIGHT 140
+#include "piechartwidget.h"
 
 namespace Plasma {
     class Applet;
+    class BoxLayout;
 }
-class QBrush;
 
 class PieGraph : public TransferGraph
 {
     Q_OBJECT
 
 public:
-    PieGraph(Plasma::Applet *parent);
+    PieGraph(Plasma::Applet *parent, Plasma::BoxLayout *main_layout);
     ~PieGraph();
 
-    void paint(QPainter *p, const QRect &contentsRect);
-    QSizeF contentSizeHint();
+    void setTransfers(const QVariantMap &percents);
+
+private slots:
+    void updateGeometry();
 
 private:
-    int drawPie(QPainter *, const QRect &, int angle, int percent, const QBrush &brush);
-    void drawLegend(QPainter *p, int y, const QString &name, int percent, double size, const QColor &color);
+    Plasma::BoxLayout *m_layout;
+    PieChartWidget *m_chart;
 
-    int m_totalFiles;
 };
 
 #endif
