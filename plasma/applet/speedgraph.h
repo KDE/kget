@@ -30,7 +30,7 @@ class LineGraphWidget;
 namespace Plasma {
     class BoxLayout;
     class Label;
-};
+}
 
 class SpeedGraph : public TransferGraph
 {
