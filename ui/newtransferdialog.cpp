@@ -89,17 +89,13 @@ void NewTransferDialog::setMultiple(bool value)
 
 void NewTransferDialog::setSource(const QString &srcUrl)
 {
+    KUrl m_srcUrl = srcUrl;
     urlRequester->clear();
-    if (srcUrl.isEmpty()) 
-    {
-        KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
-        if (clipboardUrl.isValid())
-            urlRequester->insert(clipboardUrl.url());
-    }
-    else 
-    {
-        urlRequester->insert(srcUrl);
-    }
+    if (m_srcUrl.isEmpty())
+        m_srcUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+
+    if (m_srcUrl.isValid())
+        urlRequester->insert(m_srcUrl.url());
 }
 
 void NewTransferDialog::setSource(const KUrl::List &list)
@@ -109,8 +105,12 @@ void NewTransferDialog::setSource(const KUrl::List &list)
 
     for (; it!=itEnd ; ++it)
     {
-        QListWidgetItem *newItem = new QListWidgetItem(it->url(), listWidget);
-        newItem->setCheckState(Qt::Checked);
+        if (it->url() != KUrl(it->url()).fileName())
+        {
+            kDebug(5001) << "Insert " + it->url();
+            QListWidgetItem *newItem = new QListWidgetItem(it->url(), listWidget);
+            newItem->setCheckState(Qt::Checked);
+        }
     }
 }
 
