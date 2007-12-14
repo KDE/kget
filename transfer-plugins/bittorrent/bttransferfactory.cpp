@@ -60,8 +60,11 @@ QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
     BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(transfer);
 
-    BTAdvancedDetailsWidget * details = new BTAdvancedDetailsWidget(bttransfer);
-    details->show();
+    if (bttransfer->ready())
+    {
+        BTAdvancedDetailsWidget * details = new BTAdvancedDetailsWidget(bttransfer);
+        details->show();
+    }
 
     return new BTDetailsWidget(bttransfer);
 }

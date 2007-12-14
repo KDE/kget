@@ -36,6 +36,7 @@ class BTTransferHandler : public TransferHandler
         int ulLimit()                                   {return m_transfer->ulLimit();}
         int dlLimit()                                   {return m_transfer->dlLimit();}
         int percent()                                   {return m_transfer->percent();}
+        bool ready()                                    {return m_transfer->ready();}
 
         void setTrafficLimits(int ulLimit, int dlLimit) {m_transfer->setTrafficLimits(ulLimit, dlLimit);}
 

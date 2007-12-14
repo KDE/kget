@@ -41,7 +41,8 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_tmp(0),
     m_dlLimit(BittorrentSettings::downloadLimit()),
     m_ulLimit(BittorrentSettings::uploadLimit()),
-    torrent(0)
+    torrent(0),
+    m_ready(false)
 {
     kDebug(5001);
     if (m_source.url().isEmpty())
@@ -97,6 +98,8 @@ void BTTransfer::init(KUrl src)
         else
             m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
 
+        m_ready = true;
+
         torrent->init(0, m_source.url().remove("file://"), m_tmp + m_source.fileName().remove(".torrent"),
                                                              m_dest.directory().remove("file://"), 0);
 
@@ -140,7 +143,7 @@ void BTTransfer::start()
 {
     kDebug(5001);
 
-    if (torrent)
+    if (m_ready)
     {
         kDebug(5001) << "Going to download that stuff :-0";
         kDebug(5001) << "Here we are";
@@ -159,7 +162,7 @@ void BTTransfer::start()
 void BTTransfer::stop()
 {
     kDebug(5001);
-    if (torrent)
+    if (m_ready)
     {
         torrent->stop(true);
         m_speed = 0;
@@ -380,6 +383,11 @@ int BTTransfer::percent() const
         return -1;
 
     return ((float) chunksDownloaded() / (float) chunksTotal()) * 100;
+}
+
+bool BTTransfer::ready()
+{
+    return m_ready;
 }
 
 #include "bttransfer.moc"

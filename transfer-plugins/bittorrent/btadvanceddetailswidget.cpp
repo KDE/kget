@@ -127,16 +127,16 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 
     if (transferFlags && Transfer::Tc_Status)
     {
-        if (m_transfer->statusText() != "Stopped")
-        {
-            updateChunkView();
-            peersTreeWidget->update();
-        }
         if (m_transfer->statusText() == "Stopped")
         {
             peersTreeWidget->removeAll();
             chunkTreeWidget->clear();
             items.clear();
+        }
+        else
+        {
+            updateChunkView();
+            peersTreeWidget->update();
         }
     }
 

@@ -82,6 +82,8 @@ class BTTransfer : public QObject, public Transfer
         void setTrafficLimits(int ulLimit, int dlLimit);
         void save(QDomElement e); // krazy:exclude=passbyvalue
 
+        bool ready();
+
     protected:
         void load(const QDomElement &e);
 
@@ -101,6 +103,7 @@ class BTTransfer : public QObject, public Transfer
         int m_ulLimit;
         QString m_tmp;
         QTimer timer;
+        bool m_ready;
 };
 
 #endif
