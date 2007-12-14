@@ -39,5 +39,3 @@ class BTDownload : public QObject
 };
 
 #endif
-
- 

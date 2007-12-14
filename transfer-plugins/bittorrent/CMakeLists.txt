@@ -19,6 +19,7 @@ set(kget_bittorrentfactory_PART_SRCS
   btsettingswidget.cpp
   btadvanceddetailswidget.cpp
   btdownload.cpp
+  btspeedlimits.cpp
   peerview.cpp
   torrentfiletreemodel.cpp
   chunkdownloadviewitem.cpp
@@ -26,7 +27,7 @@ set(kget_bittorrentfactory_PART_SRCS
   GeoIP.c
 )
 
-kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui)
+kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui btspeedlimits.ui)
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 
