@@ -19,11 +19,7 @@
       <attribute name="title" >
        <string>Files</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <item row="0" column="0" >
-        <widget class="QTreeView" name="fileTreeView" />
-       </item>
-      </layout>
+      <layout class="QGridLayout" />
      </widget>
      <widget class="QWidget" name="tab_2" >
       <attribute name="title" >

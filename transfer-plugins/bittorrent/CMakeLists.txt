@@ -21,10 +21,13 @@ set(kget_bittorrentfactory_PART_SRCS
   btdownload.cpp
   btspeedlimits.cpp
   peerview.cpp
+  iwfiletreemodel.cpp
   torrentfiletreemodel.cpp
+  torrentfilemodel.cpp
   chunkdownloadviewitem.cpp
   flagdb.cpp
   GeoIP.c
+  btfiletreeview.cpp
 )
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui btspeedlimits.ui)

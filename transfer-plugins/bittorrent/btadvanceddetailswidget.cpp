@@ -14,7 +14,7 @@
 #include <interfaces/trackerslist.h>
 
 #include "bttransferhandler.h"
-#include "torrentfiletreemodel.h"
+#include "btfiletreeview.h"
 #include "bittorrentsettings.h"
 
 #include <kdebug.h>
@@ -49,6 +49,9 @@ void BTAdvancedDetailsWidget::init()
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
+    BTFileTreeView *fileTreeView = new BTFileTreeView(tc, tabWidget->widget(0));
+    tabWidget->widget(0)->layout()->addWidget(fileTreeView);
+
     if (trackers.empty())
     {
         trackerList->addItem(tc->getTrackersList()->getTrackerURL().prettyUrl());
@@ -59,9 +62,6 @@ void BTAdvancedDetailsWidget::init()
             trackerList->addItem(u.prettyUrl());
     }
     updateTracker();
-
-    kt::TorrentFileTreeModel *fileTree = new kt::TorrentFileTreeModel(tc,kt::TorrentFileTreeModel::DeselectMode(1),this);
-    fileTreeView->setModel(fileTree);
 
     const bt::TorrentStats & s = tc->getStats();
     totalChunksLabel->setText(QString::number(s.total_chunks));
@@ -75,13 +75,13 @@ void BTAdvancedDetailsWidget::init()
         int j = 0;
         foreach(int i, fileColumnWidths)
         {
-            fileTreeView->setColumnWidth(j, i);
+            //fileTreeView->setColumnWidth(j, i);
             j++;
         }
     }
     else
     {
-        fileTreeView->setColumnWidth(0 , 250);
+        //fileTreeView->setColumnWidth(0 , 250);
     }
 
     QList<int> peersColumnWidths = BittorrentSettings::peersColumnWidths();
@@ -263,7 +263,7 @@ void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
     QList<int>  fileColumnWidths;
     for (int i = 0; i<1; i++)
     {
-        fileColumnWidths.append(fileTreeView->columnWidth(i));
+        //fileColumnWidths.append(fileTreeView->columnWidth(i));
     }
     BittorrentSettings::setFileColumnWidths(fileColumnWidths);
 
