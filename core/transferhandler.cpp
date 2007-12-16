@@ -62,7 +62,7 @@ void TransferHandler::start()
 
 void TransferHandler::stop()
 {
-    if(m_transfer->group()->status() == JobQueue::Stopped)
+    if (m_transfer->group()->status() == JobQueue::Stopped)
     {
         m_transfer->setPolicy(Job::None);
     }
