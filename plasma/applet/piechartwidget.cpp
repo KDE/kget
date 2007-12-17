@@ -215,6 +215,12 @@ void PieChartWidget::addData(QString name, int length, int activeLength, bool ac
     d->totalSize += length;
 }
 
+void PieChartWidget::removeData(const QString &key)
+{
+    d->data.remove(key);
+    emit geometryChanged();
+}
+
 void PieChartWidget::clear()
 {
     d->totalSize = 0;
@@ -228,9 +234,7 @@ void PieChartWidget::updateView()
        d->emitUpdateGeometrySignal = false;
        emit geometryChanged();
     }
-    else {
-        d->updateGeometry();
-    }
+    d->updateGeometry();
 }
 
 QSizeF PieChartWidget::sizeHint() const

@@ -59,6 +59,13 @@ void PieGraph::updateGeometry()
 
 void PieGraph::setTransfers(const QVariantMap &transfers)
 {
+    // drop the deleted transfers
+    foreach (QString key, m_transfers.keys()) {
+        if (!transfers.contains(key)) {
+            m_chart->removeData(key);
+        }
+    }
+
     TransferGraph::setTransfers(transfers);
 
     m_chart->clear();

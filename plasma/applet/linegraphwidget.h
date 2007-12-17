@@ -35,9 +35,9 @@ public:
     LineGraphWidget(Widget *parent);
     ~LineGraphWidget();
 
-    void remove(const QString &key);
     void addData(const QString &key, int data);
     void addData(const QMap <QString, int> &data);
+    void removeData(const QString &key);
     void updateView();
 
     QSizeF sizeHint() const;

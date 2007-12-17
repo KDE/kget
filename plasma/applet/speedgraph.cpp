@@ -52,6 +52,13 @@ void SpeedGraph::updateGeometry()
 
 void SpeedGraph::setTransfers(const QVariantMap &percents)
 {
+    // drop the deleted transfers
+    foreach (QString key, m_transfers.keys()) {
+        if (!percents.contains(key)) {
+            m_lineGraph->removeData(key);
+        }
+    }
+
     TransferGraph::setTransfers(percents);
 
     // a map with the name of the transfer and the speed

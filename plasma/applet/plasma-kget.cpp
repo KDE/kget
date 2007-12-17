@@ -88,7 +88,7 @@ void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Da
     else if(!data["error"].toBool()) {
         loadTransferGraph(config().readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
 
-        if(m_transferGraph->transfers() != data["transfers"].toMap() || true) {
+        if(m_transferGraph->transfers() != data["transfers"].toMap()) {
             m_transferGraph->setTransfers(data["transfers"].toMap());
         }
     }

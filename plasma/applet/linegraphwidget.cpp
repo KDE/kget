@@ -46,7 +46,7 @@ public:
     Private(Plasma::Widget *parent) : Plasma::Widget(parent),
             m_colors("Oxygen.colors"),
             size(QSize(300, 180)),
-            maximumY(200 * 1024),
+            maximumY(20 * 1024),
             minimumY(0),
             bottomMargin(10)
     {
@@ -186,11 +186,6 @@ LineGraphWidget::~LineGraphWidget()
     delete d;
 }
 
-void LineGraphWidget::remove(const QString &key)
-{
-    d->data.remove(key);
-}
-
 void LineGraphWidget::addData(const QString &key, int data)
 {
     if(!d->data.contains(key)) {
@@ -207,10 +202,9 @@ void LineGraphWidget::addData(const QString &key, int data)
     }
 
     // TODO: if the maximum bound is reached then update the maxiumumY and updateGeometry() to repaint the axis
-    // m_maxSpeed = (speed > m_maxSpeed) ? speed : m_maxSpeed; // update the max speed
     if (data > d->maximumY) {
-        d->maximumY = data;
-        emit geometryChanged();
+        d->maximumY = data + 20 * 1024;
+        updateGeometry();
     }
     d->data [key].enqueue(data);
 }
@@ -233,10 +227,16 @@ void LineGraphWidget::addData(const QMap <QString, int> &data)
         d->data [key].enqueue(data[key]);
 
         if (data [key] > d->maximumY) {
-            d->maximumY = data [key];
-            emit geometryChanged();
+            d->maximumY = data [key] + 20 * 1024;
+            updateGeometry();
         }
     }
+}
+
+void LineGraphWidget::removeData(const QString &key)
+{
+    d->data.remove(key);
+    emit geometryChanged();
 }
 
 void LineGraphWidget::updateView()

@@ -37,6 +37,7 @@ public:
     void addData(QString name, int length);
     void addData(QString name, int length, int activeLength);
     void addData(QString name, int length, int activeLength, bool active);
+    void removeData(const QString &name);
     void clear();
     void updateView();
 

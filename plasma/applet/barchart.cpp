@@ -194,8 +194,8 @@ void BarChart::clear()
 {
     foreach(QString key, m_progressBars.keys()) {
         Plasma::ProgressBar *bar = m_progressBars [key];
-        m_progressBars.remove(key);
         m_progressBarsLayout->removeItem(bar);
+        m_progressBars.remove(key);
         delete bar;
     }
 }
