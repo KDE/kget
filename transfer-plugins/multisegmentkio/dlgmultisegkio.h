@@ -40,14 +40,12 @@ public:
     ~DlgSettingsWidget();
 
 private slots:
-    void slotSetSegments(int seg);
-    void slotSetMinSegSize(int size);
-    void slotSetSaveDataSize(int size);
     void slotSetUseSearchEngines(bool b);
     void slotNewEngine();
     void slotRemoveEngine();
     void slotSave();
     void init();
+    void enableButtonApply();
 
 private:
     void addSearchEngineItem(const QString &name, const QString &url);
@@ -55,12 +53,8 @@ private:
     void loadSearchEnginesSettings();
     void saveSearchEnginesSettings();
 
-    int m_segments;
-    int m_minsegsize;
-    int m_savesegsize;
-    bool m_searchengines;
-
     Ui::DlgMultiSeg ui;
+    KDialog *m_parent;
 };
 
 #endif // DLGMULTISEGKIO_H

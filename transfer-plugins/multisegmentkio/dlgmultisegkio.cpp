@@ -26,7 +26,7 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("Url:"));
-    connect(ui.urlEdit,SIGNAL(textChanged(const QString &)),SLOT(slotChangeText()));
+    connect(ui.urlEdit,SIGNAL(textChanged(const QString &)), SLOT(slotChangeText()));
     connect(ui.engineNameEdit,SIGNAL(textChanged(const QString &)),SLOT(slotChangeText()));
     slotChangeText();
 }
@@ -40,32 +40,6 @@ void DlgEngineEditing::slotChangeText()
   enableButton(KDialog::Ok, !ui.urlEdit->text().isEmpty());
 }
 
-DlgSettingsWidget::DlgSettingsWidget(KDialog *parent)
-    : QWidget(parent),
-    m_segments(0),
-    m_minsegsize(0),
-    m_savesegsize(0),
-    m_searchengines(false)
-{
-    ui.setupUi(this);
-    ui.newEngineBt->setIcon(KIcon("list-add"));
-    ui.removeEngineBt->setIcon(KIcon("list-remove"));
-
-    init();
-    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSegments(int)));
-    connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetMinSegSize(int)));
-    connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetSaveDataSize(int)));
-    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
-    connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
-    connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
-    connect(parent, SIGNAL(accepted()), SLOT(slotSave()));
-    connect(parent, SIGNAL(rejected()), SLOT(init()));
-}
-
-DlgSettingsWidget::~DlgSettingsWidget()
-{
-}
-
 QString DlgEngineEditing::engineName() const
 {
     return ui.engineNameEdit->text();
@@ -76,24 +50,34 @@ QString DlgEngineEditing::engineUrl() const
     return ui.urlEdit->text();
 }
 
-void DlgSettingsWidget::slotSetSegments(int seg)
+DlgSettingsWidget::DlgSettingsWidget(KDialog *parent)
+    : QWidget(parent),
+      m_parent(parent)
 {
-     m_segments = seg;
+    ui.setupUi(this);
+    ui.newEngineBt->setIcon(KIcon("list-add"));
+    ui.removeEngineBt->setIcon(KIcon("list-remove"));
+
+    init();
+
+    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(slotSetUseSearchEngines(bool)));
+    connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
+    connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
+    connect(parent, SIGNAL(accepted()), SLOT(slotSave()));
+    connect(parent, SIGNAL(rejected()), SLOT(init()));
+
+    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), m_parent, SLOT(enableButtonApply()));
+    connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(ui.enginesCheckBox, SIGNAL(stateChanged(int)), SLOT(enableButtonApply()));
 }
 
-void DlgSettingsWidget::slotSetMinSegSize(int size)
+DlgSettingsWidget::~DlgSettingsWidget()
 {
-    m_minsegsize = size;
-}
-
-void DlgSettingsWidget::slotSetSaveDataSize(int size)
-{
-    m_savesegsize = size;
 }
 
 void DlgSettingsWidget::slotSetUseSearchEngines(bool)
 {
-    m_searchengines = ui.enginesCheckBox->isChecked();
     ui.searchEngineGroupBox->setEnabled(ui.enginesCheckBox->isChecked());
 }
 
@@ -102,8 +86,6 @@ void DlgSettingsWidget::slotNewEngine()
     DlgEngineEditing dialog;
     if(dialog.exec())
         addSearchEngineItem(dialog.engineName(), dialog.engineUrl());
-
-    saveSearchEnginesSettings();
 }
 
 void DlgSettingsWidget::slotRemoveEngine()
@@ -112,8 +94,6 @@ void DlgSettingsWidget::slotRemoveEngine()
 
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
         delete(selectedItem);
-
-    saveSearchEnginesSettings();
 }
 
 void DlgSettingsWidget::init()
@@ -135,6 +115,8 @@ void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &
 
 void DlgSettingsWidget::loadSearchEnginesSettings()
 {
+    ui.enginesTreeWidget->clear();//Cleanup things first
+
     QStringList enginesNames = MultiSegKioSettings::self()->findItem("SearchEnginesNameList")->property().toStringList();
     QStringList enginesUrls = MultiSegKioSettings::self()->findItem("SearchEnginesUrlList")->property().toStringList();
 
@@ -164,11 +146,19 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
 void DlgSettingsWidget::slotSave()
 {
     kDebug(5001) << "Saving Multithreaded config";
-    MultiSegKioSettings::setSegments(m_segments);
-    MultiSegKioSettings::setSplitSize(m_minsegsize);
-    MultiSegKioSettings::setSaveSegSize(m_savesegsize);
-    MultiSegKioSettings::setUseSearchEngines(m_searchengines);
+    MultiSegKioSettings::setSegments(ui.numSegSpinBox->value());
+    MultiSegKioSettings::setSplitSize(ui.minSegSizeSpinBox->value());
+    MultiSegKioSettings::setSaveSegSize(ui.saveDataSizeSpinBox->value());
+    MultiSegKioSettings::setUseSearchEngines(ui.enginesCheckBox->isChecked());
+
+    saveSearchEnginesSettings();
+
     MultiSegKioSettings::self()->writeConfig();
+}
+
+void DlgSettingsWidget::enableButtonApply()
+{
+    m_parent->enableButtonApply(true);
 }
 
 #include "dlgmultisegkio.moc"
