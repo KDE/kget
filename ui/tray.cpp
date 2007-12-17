@@ -94,6 +94,10 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
 // display blinking icon when downloading
 void Tray::setDownloading( bool running )
 {
+    if (running == m_running)
+        return;
+
+    m_running = running;
     kDebug(5001) << "Tray::setDownloading";
 
     if(!blinkTimer)
@@ -116,6 +120,11 @@ void Tray::setDownloading( bool running )
         blinkTimer->start( 1500 );  // start 'hide' timer
         paintIcon( 50, true );
     }
+}
+
+bool Tray::isDownloading()
+{
+    return m_running;
 }
 
 // slot executed every 1s: toggle icon pixmap

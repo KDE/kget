@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -512,9 +513,21 @@ QList<TransferHandler*> KGet::allTransfers()
     return transfers;
 }
 
-void KGet::setTrayDownloading(bool running)
+void KGet::checkSystemTray()
 {
-    m_mainWindow->setTrayDownloading(running);
+    kDebug(5001);
+    bool running = false;
+
+    foreach (TransferHandler *handler, KGet::allTransfers())
+    {
+        if (handler->status() == Job::Running)
+            running = true;
+
+        if (running)
+            continue;
+    }
+
+    m_mainWindow->setSystemTrayDownloading(running);
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
@@ -914,16 +927,13 @@ TransferFinishedObserver::TransferFinishedObserver()
 void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
 {
     kDebug(5001);
-    if (transfer->status() == Job::Stopped)
-        checkAndUpdateSystemTray();
 
-    if(transfer->status() == Job::Finished) 
+    if (transfer->status() == Job::Finished && Settings::quitAfterCompletedTransfer()) 
     {
-        if (Settings::quitAfterCompletedTransfer())
-            checkAndFinish();
-        else
-            checkAndUpdateSystemTray();
+        checkAndFinish();
     }
+
+    KGet::checkSystemTray();
 }
 
 void TransferFinishedObserver::checkAndFinish()
@@ -959,26 +969,4 @@ void TransferFinishedObserver::checkAndFinish()
 
         QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
     }
-}
-
-void TransferFinishedObserver::checkAndUpdateSystemTray()
-{
-    kDebug(5001);
-    bool running = false;
-
-    foreach (TransferHandler *handler, KGet::allTransfers())
-    {
-        if (handler->status() == Job::Running)
-            running = true;
-
-        if (running)
-        {
-            kDebug(5001) << "Set downloading";
-            KGet::m_mainWindow->setTrayDownloading(true);
-            continue;
-        }
-    }
-
-    if (!running)
-        KGet::m_mainWindow->setTrayDownloading(false);
 }

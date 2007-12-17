@@ -435,15 +435,6 @@ void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * 
         groupHandler->start();
     else
         groupHandler->stop();
-
-    bool downloading = false;
-    foreach (TransferHandler *transfer, groupHandler->transfers())
-    {
-        if (transfer->status() == Job::Running)
-            downloading = true;
-    }
-    if (downloading)
-        KGet::setTrayDownloading(true);
 }
 
 void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIndex)

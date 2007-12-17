@@ -226,7 +226,11 @@ class KGET_EXPORT KGet
          */
         static QList<TransferHandler*> allTransfers();
 
-        static void setTrayDownloading(bool running);
+        /**
+         * Run this function for enabling the systemTray 
+         * (will be automatically done, if there is download running)
+         */
+        static void checkSystemTray();
 
     private:
         KGet();

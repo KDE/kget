@@ -38,6 +38,8 @@ public:
 
     void setDownloading(bool running);
 
+    bool isDownloading();
+
 private:
     /**
      * Repaints trayIcon showing progress (and overlay if present)
@@ -54,6 +56,7 @@ private:
     QPixmap *overlay;   //!< The current overlay (may be NULL)
     bool iconOn;
     bool overlayVisible;
+    bool m_running;
 
 private slots:
     void slotActivated( QSystemTrayIcon::ActivationReason reason );
