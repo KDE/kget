@@ -66,7 +66,7 @@ DlgSettingsWidget::DlgSettingsWidget(KDialog *parent)
     connect(parent, SIGNAL(accepted()), SLOT(slotSave()));
     connect(parent, SIGNAL(rejected()), SLOT(init()));
 
-    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), m_parent, SLOT(enableButtonApply()));
+    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(ui.enginesCheckBox, SIGNAL(stateChanged(int)), SLOT(enableButtonApply()));

@@ -166,7 +166,7 @@ void BTAdvancedDetailsWidget::deleteTracker()
     QListWidgetItem* current = trackerList->currentItem();
     if(!current)
         return;
-    
+
     KUrl url(current->text());
     if(tc->getTrackersList()->removeTracker(url))
         delete current;
@@ -179,14 +179,14 @@ void BTAdvancedDetailsWidget::setDefaultTracker()
     kDebug(5001);
     tc->getTrackersList()->restoreDefault();
     tc->updateTracker();
-		
+
     // update the list of trackers
     trackerList->clear();
-		
+
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
     if(trackers.empty())
         return;
-		
+
     foreach (KUrl u,trackers)
         trackerList->addItem(u.prettyUrl());
 }
@@ -230,6 +230,7 @@ void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
 
 void BTAdvancedDetailsWidget::stopped()
 {
+     //Cleanup Chunk- and Peers-View when a transfer stops
      peersTreeWidget->removeAll();
      chunkTreeWidget->clear();
      items.clear();

@@ -13,12 +13,19 @@
 #include <kdebug.h>
 
 BTSettingsWidget::BTSettingsWidget(KDialog * parent)
-  : QWidget(parent)
+  : QWidget(parent),
+    m_parent(parent)
 {
     setupUi(this);
 
     setDefault();
 
+    connect(portBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(enableButtonApply()));
+    connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
+    connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
     connect(parent, SIGNAL(accepted()), SLOT(dialogAccepted()));
     connect(parent, SIGNAL(rejected()), SLOT(setDefault()));
 }
@@ -44,6 +51,11 @@ void BTSettingsWidget::setDefault()
     torrentEdit->setUrl(BittorrentSettings::torrentDir());
     tempEdit->setUrl(BittorrentSettings::tmpDir());
     preallocBox->setChecked(BittorrentSettings::preAlloc());
+}
+
+void BTSettingsWidget::enableButtonApply()
+{
+    m_parent->enableButtonApply(true);
 }
 
 #include "btsettingswidget.moc"

@@ -50,4 +50,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(network, i18n("Network"), "network-wired", i18n("Network and Downloads"));
     addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));
     addPage(plugins, i18n("Plugins"), "drive-removable-media-usb-pendrive", i18n("Transfer Plugin Options"));
+
+    connect(this, SIGNAL(accepted()), SLOT(disableButtonApply()));
+    connect(this, SIGNAL(rejected()), SLOT(disableButtonApply()));
+}
+
+void PreferencesDialog::disableButtonApply()
+{
+    enableButtonApply(false);
 }

@@ -15,6 +15,8 @@
 
 #include <QWidget>
 
+class KDialog;
+
 class BTSettingsWidget : public QWidget, public Ui::BTSettingsWidget
 {
     Q_OBJECT
@@ -24,6 +26,10 @@ class BTSettingsWidget : public QWidget, public Ui::BTSettingsWidget
     private slots:
         void dialogAccepted();
         void setDefault();
+        void enableButtonApply();
+
+    private:
+        KDialog * m_parent;
 };
 
 #endif

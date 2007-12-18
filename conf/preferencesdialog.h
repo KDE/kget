@@ -18,9 +18,14 @@ class KTabWidget;
 
 class PreferencesDialog : public KConfigDialog
 {
+    Q_OBJECT
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
         KTabWidget * pluginsWidget(){return plugins;}
+
+    private slots:
+        void disableButtonApply();
+
     private:
         QWidget * appearance;
         QWidget * groups;
