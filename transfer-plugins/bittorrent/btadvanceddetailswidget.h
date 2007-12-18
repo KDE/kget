@@ -22,6 +22,7 @@
 #include <QWidget>
 
 class BTTransferHandler;
+class BTFileTreeView;
 
 class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public Ui::BTAdvancedDetailsWidget, public bt::MonitorInterface
 {
@@ -48,7 +49,7 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
 
         void downloadStarted(bt::ChunkDownloadInterface* chunk);
         void downloadRemoved(bt::ChunkDownloadInterface* chunk);
-        void stopped() {}
+        void stopped();
         void destroyed() {}
 
 
@@ -60,6 +61,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         bt::TorrentControl * tc;
 
         bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem> items;
+
+        BTFileTreeView *fileTreeView;
 };
 
 #endif

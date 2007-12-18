@@ -61,6 +61,9 @@ bool ChunkDownloadViewItem::operator < (const QTreeWidgetItem & other) const
 
 void ChunkDownloadViewItem::update(bool init)
 {
+    if (!cd)
+        return;
+
     ChunkDownloadInterface::Stats s;
     cd->getStats(s);
 

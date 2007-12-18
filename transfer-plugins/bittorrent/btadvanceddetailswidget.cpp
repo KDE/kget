@@ -49,7 +49,7 @@ void BTAdvancedDetailsWidget::init()
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
-    BTFileTreeView *fileTreeView = new BTFileTreeView(tc, tabWidget->widget(0));
+    fileTreeView = new BTFileTreeView(tc, tabWidget->widget(0));
     tabWidget->widget(0)->layout()->addWidget(fileTreeView);
 
     if (trackers.empty())
@@ -75,13 +75,13 @@ void BTAdvancedDetailsWidget::init()
         int j = 0;
         foreach(int i, fileColumnWidths)
         {
-            //fileTreeView->setColumnWidth(j, i);
+            fileTreeView->setColumnWidth(j, i);
             j++;
         }
     }
     else
     {
-        //fileTreeView->setColumnWidth(0 , 250);
+        fileTreeView->setColumnWidth(0 , 250);
     }
 
     QList<int> peersColumnWidths = BittorrentSettings::peersColumnWidths();
@@ -125,20 +125,8 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    if (transferFlags && Transfer::Tc_Status)
-    {
-        if (m_transfer->statusText() == "Stopped")
-        {
-            peersTreeWidget->removeAll();
-            chunkTreeWidget->clear();
-            items.clear();
-        }
-        else
-        {
-            updateChunkView();
-            peersTreeWidget->update();
-        }
-    }
+    updateChunkView();
+    peersTreeWidget->update();
 
     m_transfer->resetChangesFlags(this);
 }
@@ -240,6 +228,13 @@ void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
     }
 }
 
+void BTAdvancedDetailsWidget::stopped()
+{
+     peersTreeWidget->removeAll();
+     chunkTreeWidget->clear();
+     items.clear();
+}
+
 void BTAdvancedDetailsWidget::updateChunkView()
 {
     bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
@@ -263,7 +258,7 @@ void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
     QList<int>  fileColumnWidths;
     for (int i = 0; i<1; i++)
     {
-        //fileColumnWidths.append(fileTreeView->columnWidth(i));
+        fileColumnWidths.append(fileTreeView->columnWidth(i));
     }
     BittorrentSettings::setFileColumnWidths(fileColumnWidths);
 
