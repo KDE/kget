@@ -21,15 +21,34 @@
 #include "chunkdownloadviewitem.h"
 
 #include <util/functions.h>
+#include <interfaces/torrentfileinterface.h>
 
 using namespace bt;
 
-ChunkDownloadViewItem::ChunkDownloadViewItem(QTreeWidget* cdv,ChunkDownloadInterface* cd) 
+ChunkDownloadViewItem::ChunkDownloadViewItem(QTreeWidget* cdv,ChunkDownloadInterface* cd,bt::TorrentInterface* tc) 
     : QTreeWidgetItem(cdv,QTreeWidgetItem::UserType),cd(cd)
 {
     cd->getStats(stats);
     setText(0,QString::number(stats.chunk_index));
     update(true);
+    QString files;
+    if (tc->getStats().multi_file_torrent)
+    {
+	int n = 0;
+	for (Uint32 i = 0;i < tc->getNumFiles();i++)
+	{
+	    const bt::TorrentFileInterface & tf = tc->getTorrentFile(i);
+	    if (stats.chunk_index >= tf.getFirstChunk() && stats.chunk_index <= tf.getLastChunk())
+	    {
+		if (n > 0)
+		    files += "\n";
+		
+		files += tf.getPath();
+		n++;
+	    }
+	}
+	    setText(5,files);
+    }
 }
 
 ChunkDownloadViewItem::~ChunkDownloadViewItem()
@@ -43,18 +62,14 @@ bool ChunkDownloadViewItem::operator < (const QTreeWidgetItem & other) const
     const ChunkDownloadInterface::Stats & os = cdvi.stats;
     switch (treeWidget()->sortColumn())
     {
-    case 0: 
-        return s.chunk_index < os.chunk_index;
-    case 1: 
-        return s.pieces_downloaded < os.pieces_downloaded;
-    case 2: 
-        return s.current_peer_id < os.current_peer_id;
-    case 3: 
-        return s.download_speed < os.download_speed;
-    case 4: 
-        return s.num_downloaders < os.num_downloaders;
+    case 0: return s.chunk_index < os.chunk_index;
+    case 1: return s.pieces_downloaded < os.pieces_downloaded;
+    case 2: return s.current_peer_id < os.current_peer_id;
+    case 3: return s.download_speed < os.download_speed;
+    case 4: return s.num_downloaders < os.num_downloaders;
+    case 5: return text(5) < other.text(5);
     default:
-	    return false;
+        return false;
     }
 }
 
@@ -80,4 +95,4 @@ void ChunkDownloadViewItem::update(bool init)
 	setText(2,s.current_peer_id);
 
     stats = s;
-} 
+}

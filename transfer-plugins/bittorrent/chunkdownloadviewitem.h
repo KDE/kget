@@ -17,22 +17,26 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
+#ifndef CHUNKDOWNLOADVIEWITEM_H
+#define CHUNKDOWNLOADVIEWITEM_H
 
 #include <interfaces/chunkdownloadinterface.h>
+#include <interfaces/torrentinterface.h>
 
 #include <QTreeWidgetItem>
 
 class ChunkDownloadViewItem : public QTreeWidgetItem
 {
     public:
-	    ChunkDownloadViewItem(QTreeWidget* cdv,bt::ChunkDownloadInterface* cd);
-	    virtual ~ChunkDownloadViewItem();
+        ChunkDownloadViewItem(QTreeWidget* cdv,bt::ChunkDownloadInterface* cd,bt::TorrentInterface* tc);
+        virtual ~ChunkDownloadViewItem();
 
-	    void update(bool init = false);
+        void update(bool init = false);
 
-	    bool operator < (const QTreeWidgetItem & other) const;
+        bool operator < (const QTreeWidgetItem & other) const;
 
     private:
-	    bt::ChunkDownloadInterface* cd;
-	    bt::ChunkDownloadInterface::Stats stats;
+        bt::ChunkDownloadInterface* cd;
+        bt::ChunkDownloadInterface::Stats stats;
 };
+#endif

@@ -144,9 +144,9 @@ void BTAdvancedDetailsWidget::updateTracker()
     }
 
     //Update manual annunce button
-    updateTrackerButton->setEnabled(s.running);  // && tc->announceAllowed()
+    updateTrackerButton->setEnabled(s.running && tc->announceAllowed());  
     // only enable change when we can actually change and the torrent is running
-    changeTrackerButton->setEnabled(s.running); // && tc->getTrackersList(). > 1
+    changeTrackerButton->setEnabled(s.running && tc->getTrackersList()->getTrackerURLs().size() > 1);
 
     trackerStatus->setText("<b>" + s.trackerstatus + "</b>");
 
@@ -215,7 +215,7 @@ void BTAdvancedDetailsWidget::peerRemoved(bt::PeerInterface* peer)
 
 void BTAdvancedDetailsWidget::downloadStarted(bt::ChunkDownloadInterface* chunk)
 {
-    items.insert(chunk, new ChunkDownloadViewItem(chunkTreeWidget,chunk));
+    items.insert(chunk, new ChunkDownloadViewItem(chunkTreeWidget, chunk, tc));
 }
 
 void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
@@ -230,10 +230,13 @@ void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
 
 void BTAdvancedDetailsWidget::stopped()
 {
-     //Cleanup Chunk- and Peers-View when a transfer stops
-     peersTreeWidget->removeAll();
-     chunkTreeWidget->clear();
-     items.clear();
+    kDebug(5001);
+    if (m_transfer->status() != Job::Running)
+    { //Cleanup Chunk- and Peers-View when a transfer stops
+    peersTreeWidget->removeAll();
+    chunkTreeWidget->clear();
+    items.clear();
+    }
 }
 
 void BTAdvancedDetailsWidget::updateChunkView()
