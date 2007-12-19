@@ -248,9 +248,9 @@ void BTAdvancedDetailsWidget::stopped()
     kDebug(5001);
     if (m_transfer->status() != Job::Running)
     { //Cleanup Chunk- and Peers-View when a transfer stops
-        /**peersTreeWidget->removeAll();
+        peersTreeWidget->removeAll();
         chunkTreeWidget->clear();
-        items.clear();**/
+        items.clear();
     }
 }
 
