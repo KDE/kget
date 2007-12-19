@@ -65,6 +65,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 
 void BTTransfer::init(KUrl src)
 {
+    kDebug(5001);
     if (src != m_source && !src.isEmpty())
         m_source = src;
 
@@ -179,6 +180,13 @@ void BTTransfer::update()
 
     if (torrent)
     {
+        QStringList files;
+        if (torrent->hasMissingFiles(files))
+        {
+            kDebug(5001) << "Recreate Missing Files";
+            torrent->recreateMissingFiles();
+        }
+
         kDebug(5001) << "Update torrent";
         bt::UpdateCurrentTime();
         bt::AuthenticationMonitor::instance().update();
