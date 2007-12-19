@@ -125,13 +125,23 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    updateChunkView();
-    peersTreeWidget->update();
+    if (m_transfer->status() == Job::Running)
+    {
+        updateChunkView();
+        peersTreeWidget->update();
+        updateTrackerGUI();
+    }
 
     m_transfer->resetChangesFlags(this);
 }
 
 void BTAdvancedDetailsWidget::updateTracker()
+{
+    kDebug(5001);
+    tc->updateTracker();
+}
+
+void BTAdvancedDetailsWidget::updateTrackerGUI()
 {
     kDebug(5001);
     const bt::TorrentStats & s = tc->getStats();
@@ -233,9 +243,9 @@ void BTAdvancedDetailsWidget::stopped()
     kDebug(5001);
     if (m_transfer->status() != Job::Running)
     { //Cleanup Chunk- and Peers-View when a transfer stops
-    peersTreeWidget->removeAll();
-    chunkTreeWidget->clear();
-    items.clear();
+        peersTreeWidget->removeAll();
+        chunkTreeWidget->clear();
+        items.clear();
     }
 }
 

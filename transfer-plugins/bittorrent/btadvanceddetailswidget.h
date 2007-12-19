@@ -37,6 +37,7 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
      private slots:
         //TrackerView
         void updateTracker();
+        void updateTrackerGUI();
         void addTracker(const QString &url);
         void deleteTracker();
         void setDefaultTracker();
