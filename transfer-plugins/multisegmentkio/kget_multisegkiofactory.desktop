@@ -26,6 +26,7 @@ Name[zh_TW]=多段式 KIO 傳輸工廠
 Comment=Transfer plugin for KGet
 Comment[bg]=Приставка за трансфер - KGet
 Comment[ca]=Connector de transferències pel KGet
+Comment[cs]=Přenosový modul pro KGet
 Comment[de]=Übertragungsmodul für KGet
 Comment[el]=Πρόσθετο μεταφοράς για το KGet
 Comment[eo]=Transmetada kromaĵo por KGet
