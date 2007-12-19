@@ -81,7 +81,7 @@ DropTarget::DropTarget(MainWindow * mw)
     connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
     popupMenu->addSeparator();
     pop_show = popupMenu->addAction( QString(), this, SLOT( toggleMinimizeRestore() ) );
-    popupMenu->addAction(i18n("Hide Drop Target"), this, SLOT(slotClose()));
+    popupMenu->addAction(parentWidget->actionCollection()->action("show_drop_target"));
     pop_sticky = popupMenu->addAction(i18n("Sticky"), this, SLOT(toggleSticky()));
     pop_sticky->setCheckable(true);
     pop_sticky->setChecked(Settings::dropSticky());

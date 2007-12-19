@@ -64,7 +64,7 @@ private slots:
 
 private:
     KMenu * popupMenu;
-    QWidget * parentWidget;
+    MainWindow * parentWidget;
     QTimer * animTimer;
     QPixmap cachedPixmap;
 

@@ -568,7 +568,7 @@ void MainWindow::slotKonquerorIntegration(bool konquerorIntegration)
 
 void MainWindow::slotShowMenubar()
 {
-    if(m_menubarAction->isChecked())
+    if (m_menubarAction->isChecked())
         menuBar()->show();
     else
         menuBar()->hide();
