@@ -123,6 +123,7 @@ void BTAdvancedDetailsWidget::init()
 
 void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
+    kDebug(5001);
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
     if (m_transfer->status() == Job::Running)
@@ -215,21 +216,25 @@ void BTAdvancedDetailsWidget::changeTracker()
 
 void BTAdvancedDetailsWidget::peerAdded(bt::PeerInterface* peer)
 {
+    kDebug(5001);
     peersTreeWidget->peerAdded(peer);
 }
 
 void BTAdvancedDetailsWidget::peerRemoved(bt::PeerInterface* peer)
 {
+    kDebug(5001);
     peersTreeWidget->peerRemoved(peer);
 }
 
 void BTAdvancedDetailsWidget::downloadStarted(bt::ChunkDownloadInterface* chunk)
 {
+    kDebug(5001);
     items.insert(chunk, new ChunkDownloadViewItem(chunkTreeWidget, chunk, tc));
 }
 
 void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
 {
+    kDebug(5001);
     ChunkDownloadViewItem* v = items.find(chunk);
     if (v)
     {
@@ -243,15 +248,17 @@ void BTAdvancedDetailsWidget::stopped()
     kDebug(5001);
     if (m_transfer->status() != Job::Running)
     { //Cleanup Chunk- and Peers-View when a transfer stops
-        peersTreeWidget->removeAll();
+        /**peersTreeWidget->removeAll();
         chunkTreeWidget->clear();
-        items.clear();
+        items.clear();**/
     }
 }
 
 void BTAdvancedDetailsWidget::updateChunkView()
 {
+    kDebug(5001);
     bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
+
     while (i != items.end())
     {
         if (i->second)
