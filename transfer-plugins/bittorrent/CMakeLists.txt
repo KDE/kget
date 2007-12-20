@@ -4,7 +4,7 @@ macro_log_feature(BTCORE_FOUND "BTCore" "KTorrent core library" "http://ktorrent
 if (BTCORE_FOUND)
 add_definitions(${KDE4_ENABLE_EXCEPTIONS})
 
-add_subdirectory(geoip)
+#add_subdirectory(geoip)
 
 include_directories(
    ../../
@@ -25,8 +25,8 @@ set(kget_bittorrentfactory_PART_SRCS
   torrentfiletreemodel.cpp
   torrentfilemodel.cpp
   chunkdownloadviewitem.cpp
-  flagdb.cpp
-  GeoIP.c
+#  flagdb.cpp
+#  GeoIP.c
   btfiletreeview.cpp
 )
 

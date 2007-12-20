@@ -23,17 +23,18 @@
 #include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
+#include <QHeaderView>
 #include <interfaces/peerinterface.h>
 #include <torrent/ipblocklist.h>
 #include <util/functions.h>
 #include "peerview.h"
-#include "flagdb.h"
+//#include "flagdb.h"
 
-#ifdef USE_SYSTEM_GEOIP
+/**#ifdef USE_SYSTEM_GEOIP
 #include <GeoIP.h>
 #else
 #include "GeoIP.h"
-#endif
+#endif**/
 
 using namespace bt;
 
@@ -41,14 +42,14 @@ namespace kt
 {
 	static KIcon yes,no;
 	static bool icons_loaded = false;
-	static GeoIP* geo_ip = 0;
-	static FlagDB flagDB(22, 18);
-	static bool geoip_db_exists = true;
-	static QString geoip_data_file;
+//	static GeoIP* geo_ip = 0;
+//	static FlagDB flagDB(22, 18);
+//	static bool geoip_db_exists = true;
+//	static QString geoip_data_file;
 	
 	PeerViewItem::PeerViewItem(PeerView* pv,PeerInterface* peer) : QTreeWidgetItem(pv,QTreeWidgetItem::UserType),peer(peer)
 	{
-		if (!icons_loaded)
+/**		if (!icons_loaded)
 		{
 			yes = KIcon("dialog-ok");
 			no = KIcon("dialog-cancel");
@@ -71,9 +72,9 @@ namespace kt
 					geoip_data_file = "ktorrent/GeoIP.dat";
 			}
 #endif
-		}
+		}**/
 		const PeerInterface::Stats & s = peer->getStats();
-		
+		/**
 		// open GeoIP if necessaryt
 		if (!geo_ip && geoip_db_exists) 
 		{
@@ -94,7 +95,7 @@ namespace kt
 		{
 			setText(1,"N/A");
 		}	
-		
+**/		
 		// stuff that doesn't change
 		setText(0,s.ip_address);
 		setText(2,s.client);
