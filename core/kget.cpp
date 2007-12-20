@@ -931,7 +931,10 @@ void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
         checkAndFinish();
     }
 
-    KGet::checkSystemTray();
+    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
+
+    if(transferFlags & Transfer::Tc_Status)
+        KGet::checkSystemTray();
 }
 
 void TransferFinishedObserver::checkAndFinish()
