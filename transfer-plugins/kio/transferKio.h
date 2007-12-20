@@ -52,8 +52,8 @@ class TransferKio : public QObject, public Transfer
         void slotResult( KJob * kioJob );
         void slotInfoMessage( KJob * kioJob, const QString & msg );
         void slotPercent( KJob * kioJob, unsigned long percent );
-        void slotTotalSize( KJob * kioJob, KIO::filesize_t size );
-        void slotProcessedSize( KJob * kioJob, KIO::filesize_t size );
+        void slotTotalSize( KJob * kioJob, qulonglong size );
+        void slotProcessedSize( KJob * kioJob, qulonglong size );
         void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
 };
 
