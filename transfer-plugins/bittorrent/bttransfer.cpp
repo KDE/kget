@@ -23,6 +23,7 @@
 #include <util/log.h>
 #include <peer/authenticationmonitor.h>
 #include <btdownload.h>
+#include <btversion.h>
 
 #include <KDebug>
 #include <KLocale>
@@ -73,6 +74,8 @@ void BTTransfer::init(KUrl src)
     setTransferChange(Tc_Status, true);
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
+
+    bt::SetClientInfo("KGet",2,0,1,bt::BETA,"KG");
 
     bt::Uint16 i = 0;
     do

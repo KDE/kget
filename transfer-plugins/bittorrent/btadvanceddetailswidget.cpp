@@ -257,6 +257,7 @@ void BTAdvancedDetailsWidget::stopped()
 void BTAdvancedDetailsWidget::updateChunkView()
 {
     kDebug(5001);
+
     bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
 
     while (i != items.end())
