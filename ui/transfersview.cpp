@@ -70,6 +70,9 @@ void TransfersView::setModel(QAbstractItemModel * model)
     {
         setColumnWidth(0 , 250);
     }
+
+    toggleMainGroup();
+    connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT (toggleMainGroup()));
 }
 
 QModelIndex TransfersView::indexFromTransferHandler(TransferHandler *handler)
@@ -91,7 +94,6 @@ QModelIndex TransfersView::indexFromTransferHandler(TransferHandler *handler)
 void TransfersView::dropEvent(QDropEvent * event)
 {
     QModelIndex dropIndex = indexAt(event->pos());
-
     QTreeView::dropEvent(event);
 
     setExpanded(dropIndex, true);
@@ -115,6 +117,20 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
     QTreeView::rowsInserted(parent, start, end);
 
     setExpanded(parent, true);
+    toggleMainGroup();
+}
+
+void TransfersView::toggleMainGroup()
+{
+   // show or hide the first group header if there's only one download group
+    int nGroups = model()->rowCount(QModelIndex());
+
+    if(nGroups <= 1) {
+        setRootIndex(model()->index(0, 0, QModelIndex()));
+    }
+    else {
+        setRootIndex(QModelIndex());
+    }
 }
 
 #include "transfersview.moc"

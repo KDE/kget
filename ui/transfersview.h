@@ -29,6 +29,9 @@ class TransfersView : public QTreeView
     private:
         void dropEvent(QDropEvent * event);
         void rowsInserted(const QModelIndex &, int, int);
+
+    private slots:
+        void toggleMainGroup();// show or hide the first group header if there's only one download group
 };
 
 #endif
