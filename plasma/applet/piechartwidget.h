@@ -21,7 +21,6 @@
 #ifndef PIECHARTWIDGET_H
 #define PIECHARTWIDGET_H
 
-#include <QMap>
 
 #include <plasma/plasma_export.h>
 #include <plasma/widgets/widget.h>

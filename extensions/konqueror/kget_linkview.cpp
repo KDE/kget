@@ -21,20 +21,17 @@
 #include <kmessagebox.h>
 #include <KLineEdit>
 
-#include <QAction>
-#include <QPixmap>
 #include <QProcess>
 #include <QTreeView>
-#include <QtDBus>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QButtonGroup>
 #include <QPushButton>
 #include <QCheckBox>
-#include <QHeaderView>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
+#include <QHeaderView>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
   : KDialog(parent),

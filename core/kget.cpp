@@ -35,12 +35,10 @@
 #include <KPassivePopup>
 #include <KSystemTrayIcon>
 
-#include <QDirModel>
 #include <QTextStream>
 #include <QDomElement>
 #include <QApplication>
 #include <QClipboard>
-#include <QItemSelectionModel>
 #include <QAbstractItemView>
 
 /**

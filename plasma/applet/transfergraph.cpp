@@ -22,7 +22,6 @@
 
 #include <plasma/applet.h>
 
-#include <QObject>
 #include <QVariant>
 #include <QPainter>
 

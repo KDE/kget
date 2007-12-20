@@ -42,7 +42,6 @@
 #include <kactionmenu.h>
 #include <krun.h>
 
-#include <QtDBus>
 #include <QClipboard>
 #include <QTimer>
 

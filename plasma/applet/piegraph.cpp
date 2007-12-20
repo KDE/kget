@@ -26,9 +26,6 @@
 #include <KGlobal>
 
 #include <QObject>
-#include <QMap>
-#include <QSizeF>
-#include <QPainter>
 #include <QVariant>
 
 #include <math.h>

@@ -18,7 +18,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.             *
  ***************************************************************************/
 
-#include <QHeaderView>
 #include <klocale.h>
 #include <kicon.h>
 #include <kmenu.h>

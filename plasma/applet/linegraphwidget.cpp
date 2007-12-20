@@ -23,7 +23,6 @@
 #include <QMap>
 #include <QQueue>
 #include <QPainter>
-#include <QFontMetrics>
 #include <QStyleOptionGraphicsItem>
 
 #include <KDebug>

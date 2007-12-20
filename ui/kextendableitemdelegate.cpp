@@ -23,8 +23,6 @@
 #include <QPersistentModelIndex>
 #include <QTreeView>
 #include <QPainter>
-#include <QEvent>
-#include <QMouseEvent>
 #include <QApplication>
 
 #include <kdebug.h>

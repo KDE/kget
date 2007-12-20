@@ -19,8 +19,8 @@
 #include <QTreeView>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QHeaderView>
 #include <QLineEdit>
+#include <QHeaderView>
 
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     : QTreeView(parent)

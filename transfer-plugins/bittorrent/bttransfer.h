@@ -12,8 +12,6 @@
 #define BTTRANSFER_H
 
 #include <QTimer>
-#include <QDateTime>
-#include <QByteArray>
 
 #include "core/transfer.h"
 #include "torrent/torrentcontrol.h"

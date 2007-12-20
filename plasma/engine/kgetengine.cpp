@@ -20,7 +20,6 @@
 #include "kget_interface.h"
 
 #include <QtDBus/QDBusConnectionInterface>
-#include <QTimer>
 #include <KDebug>
 
 #include "plasma/datacontainer.h"

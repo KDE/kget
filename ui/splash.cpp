@@ -15,7 +15,6 @@
 
 #include <QApplication>
 #include <QBitmap>
-#include <QImage>
 #include <QPainter>
 #include <QTimer>
 #include <QMouseEvent>

@@ -11,8 +11,6 @@
 
 #include "selectdirectoryitemdelegate.h"
 
-#include <QHBoxLayout>
-#include <QLabel>
 
 #include <KUrlRequester>
 

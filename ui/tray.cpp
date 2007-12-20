@@ -23,9 +23,9 @@
 #include <kdebug.h>
 
 #include <QTimer>
-#include <QClipboard>
 #include <QPainter>
 #include <QLabel>
+#include <QClipboard>
 
 /** class Tray
   * Reimplmentation of the system tray class adding drag/drop

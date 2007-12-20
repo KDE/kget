@@ -24,9 +24,6 @@
 #include <KDebug>
 #include <KIcon>
 
-#include <QApplication>
-#include <QPainter>
-#include <QFontMetrics>
 
 #include <plasma/svg.h>
 #include <plasma/applet.h>

@@ -31,7 +31,6 @@
 #include <dom/html_document.h>
 #include <kparts/partmanager.h>
 
-#include <QtDBus>
 
 #include <set>
 

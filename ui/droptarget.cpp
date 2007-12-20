@@ -28,9 +28,9 @@
 #include <KGlobalSettings>
 
 #include <QBitmap>
-#include <QClipboard>
 #include <QPainter>
 #include <QTimer>
+#include <QClipboard>
 
 #include <math.h>
 

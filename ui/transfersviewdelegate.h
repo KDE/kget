@@ -14,7 +14,6 @@
 
 #include "kextendableitemdelegate.h"
 
-#include <QItemDelegate>
 #include <QToolButton>
 #include <QModelIndex>
 

@@ -23,7 +23,6 @@
 #include <math.h>
 
 #include <QPainter>
-#include <QFontMetrics>
 #include <QStyleOptionGraphicsItem>
 
 #include <KDebug>
