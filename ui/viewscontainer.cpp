@@ -67,7 +67,7 @@ ButtonBase::ButtonBase(QWidget * parent)
 
 void ButtonBase::slotToggled(bool checked)
 {
-    kDebug(5001) << "ButtonBase::slotToggled";
+    kDebug(5001);
     if(checked)
     {
         emit activated();
@@ -146,7 +146,7 @@ void TransfersButton::setTransfer(TransferHandler * transfer)
 
 void TransfersButton::slotToggled(bool checked)
 {
-    kDebug(5001) << "TransfersButton::slotToggled";
+    kDebug(5001);
     if(checked)
     {
         if(m_selectedTransfer)

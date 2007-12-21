@@ -64,7 +64,7 @@ KGet& KGet::self( MainWindow * mainWindow )
 
 void KGet::addObserver(ModelObserver * observer)
 {
-    kDebug(5001) << "KGet::addObserver";
+    kDebug(5001);
 
     m_observers.append(observer);
 
@@ -77,7 +77,7 @@ void KGet::addObserver(ModelObserver * observer)
         postAddedTransferGroupEvent(*it, observer);
     }
 
-    kDebug(5001) << "KGet::addObserver   >>> EXITING";
+    kDebug(5001) << " >>> EXITING";
 }
 
 void KGet::delObserver(ModelObserver * observer)
@@ -87,7 +87,7 @@ void KGet::delObserver(ModelObserver * observer)
 
 bool KGet::addGroup(const QString& groupName)
 {
-    kDebug(5001) << "KGet::addGroup";
+    kDebug(5001);
 
     // Check if a group with that name already exists
     if(m_transferTreeModel->findGroup(groupName))
@@ -138,7 +138,7 @@ QStringList KGet::transferGroupNames()
 void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalue
                        const QString& groupName, bool start)
 {
-    kDebug(5001) << " addTransfer:  " << srcUrl.url();
+    kDebug(5001) << "Source:" << srcUrl.url();
 
     KUrl destUrl;
 
@@ -191,7 +191,7 @@ void KGet::addTransfer(const QDomElement& e, const QString& groupName)
     KUrl srcUrl = KUrl( e.attribute("Source") );
     KUrl destUrl = KUrl( e.attribute("Dest") );
 
-    kDebug(5001) << "KGet::addTransfer  src= " << srcUrl.url()
+    kDebug(5001) << " src= " << srcUrl.url()
               << " dest= " << destUrl.url() 
               << " group= "<< groupName << endl;
 
@@ -354,7 +354,7 @@ void KGet::addTransferView(QAbstractItemView * view)
 
 void KGet::load( QString filename ) // krazy:exclude=passbyvalue
 {
-    kDebug(5001) << "KGet::load(" << filename << ")";
+    kDebug(5001) << "(" << filename << ")";
 
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
@@ -368,7 +368,7 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     QFile file(tmpFile);
     QDomDocument doc;
 
-    kDebug(5001) << "KGet::load file" << filename;
+    kDebug(5001) << "file:" << filename;
 
     if(doc.setContent(&file))
     {
@@ -559,7 +559,7 @@ KGet::~KGet()
 void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
                           bool start, const QDomElement * e)
 {
-    kDebug(5001) << "createTransfer: srcUrl= " << src.url() << "  " 
+    kDebug(5001) << "srcUrl= " << src.url() << "  " 
                              << "destUrl= " << dest.url() 
                              << "group= _" << groupName << "_" << endl;
 
@@ -590,12 +590,12 @@ void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
             return;
         }
     }
-    kDebug(5001) << "createTransfer: Warning! No plugin found to handle the given url";
+    kDebug(5001) << "Warning! No plugin found to handle the given url";
 }
 
 void KGet::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
 {
-    kDebug(5001) << "KGet::postAddedTransferGroupEvent";
+    kDebug(5001);
     if(observer)
     {
         observer->addedTransferGroupEvent(group->handler());
