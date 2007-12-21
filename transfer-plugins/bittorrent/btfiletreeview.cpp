@@ -30,6 +30,9 @@ BTFileTreeView::BTFileTreeView(bt::TorrentInterface *tc, QWidget * parent)
     fileTreeModel = new kt::IWFileTreeModel(tc, this);
     setModel(fileTreeModel);
 
+    if (!m_tc->getStats().multi_file_torrent)
+        setRootIsDecorated(false);
+
     contextMenu = new KMenu(this);
     open_action = contextMenu->addAction(KIcon("document-open"),i18n("Open"),this,SLOT(open()));
     contextMenu->addSeparator();

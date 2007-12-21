@@ -13,7 +13,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -27,13 +27,7 @@
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
-        <widget class="kt::PeerView" name="peersTreeWidget" >
-         <column>
-          <property name="text" >
-           <string>1</string>
-          </property>
-         </column>
-        </widget>
+        <widget class="kt::PeerView" name="peersTreeWidget" />
        </item>
       </layout>
      </widget>
