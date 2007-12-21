@@ -38,6 +38,7 @@ class BTTransferHandler : public TransferHandler
         int percent()                                   {return m_transfer->percent();}
         bool ready()                                    {return m_transfer->ready();}
 
+        void addTracker(QString url)                    {m_transfer->addTracker(url);}
         void setTrafficLimits(int ulLimit, int dlLimit) {m_transfer->setTrafficLimits(ulLimit, dlLimit);}
 
     private:

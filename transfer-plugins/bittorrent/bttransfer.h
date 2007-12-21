@@ -78,6 +78,7 @@ class BTTransfer : public QObject, public Transfer
         //More Bittorrent-Functions
         void setPort(int port);
         void setTrafficLimits(int ulLimit, int dlLimit);
+        void addTracker(QString url);
         void save(QDomElement e); // krazy:exclude=passbyvalue
 
         bool ready();
@@ -92,9 +93,6 @@ class BTTransfer : public QObject, public Transfer
         void slotDownloadFinished(bt::TorrentInterface* ti);
 
     private:
-        //TODO: are all these functions necessary??
-        void hashingFinished();
-
         bt::TorrentControl *torrent;
 
         int m_dlLimit;

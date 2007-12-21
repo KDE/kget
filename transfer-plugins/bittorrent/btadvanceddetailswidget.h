@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007 Joris Guisson   <joris.guisson@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -12,6 +13,7 @@
 #define BTADVANCEDDETAILSWIDGET_H
 
 #include "ui_btadvanceddetailswidget.h"
+#include "ui_btaddtrackerwidget.h"
 
 #include "chunkdownloadviewitem.h"
 #include "core/observer.h"
@@ -23,6 +25,7 @@
 
 class BTTransferHandler;
 class BTFileTreeView;
+class KDialog;
 
 class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public Ui::BTAdvancedDetailsWidget, public bt::MonitorInterface
 {
@@ -38,7 +41,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         //TrackerView
         void updateTracker();
         void updateTrackerGUI();
-        void addTracker(const QString &url);
+        void updateTrackerList();
+        void addTracker();
         void deleteTracker();
         void setDefaultTracker();
         void changeTracker();
@@ -64,6 +68,10 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem> items;
 
         BTFileTreeView *fileTreeView;
+
+        //Add Tracker Dialog
+        KDialog *addTrackerDialog;
+        Ui::BTAddTrackerWidget addTrackerWidget;
 };
 
 #endif

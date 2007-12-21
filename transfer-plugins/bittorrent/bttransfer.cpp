@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007 Joris Guisson   <joris.guisson@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -30,6 +31,7 @@
 #include <KIconLoader>
 #include <KStandardDirs>
 #include <KUrl>
+#include <KMessageBox>
 
 #include <QFile>
 #include <QDomElement>
@@ -195,7 +197,7 @@ void BTTransfer::update()
         bt::AuthenticationMonitor::instance().update();
         kDebug(5001) << "Ignore this ;)";
         torrent->update();
-        kDebug(5001) << "Hhmpf";
+        kDebug(5001) << "Done";
         m_speed = dlRate();
         m_percent = percent();
 
@@ -241,6 +243,24 @@ void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
     torrent->setTrafficLimits(ulLimit * 1000, dlLimit * 1000);
     m_dlLimit = dlLimit;
     m_ulLimit = ulLimit;
+}
+
+void BTTransfer::addTracker(QString url)
+{
+    kDebug(5001) << "YOU TOOOOOOOOOOOOOOOOOOOOOOOOO" << url;
+    if(torrent->getStats().priv_torrent)
+    {
+	KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
+	return;
+    }
+
+    if(!KUrl(url).isValid())
+    {
+	KMessageBox::error(0, i18n("Malformed URL."));
+	return;
+    }
+
+    torrent->getTrackersList()->addTracker(url,true);
 }
 
 /**Property-Functions**/
@@ -394,6 +414,8 @@ int BTTransfer::ulLimit() const
     kDebug(5001);
     if (!torrent)
         return -1;
+    else
+        return m_ulLimit;
 }
 
 int BTTransfer::dlLimit() const
@@ -401,6 +423,8 @@ int BTTransfer::dlLimit() const
     kDebug(5001);
     if (!torrent)
         return -1;
+    else
+        return m_dlLimit;
 }
 
 bt::TorrentControl * BTTransfer::torrentControl()

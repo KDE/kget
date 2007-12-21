@@ -30,7 +30,7 @@ set(kget_bittorrentfactory_PART_SRCS
   btfiletreeview.cpp
 )
 
-kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui btspeedlimits.ui)
+kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui btspeedlimits.ui btaddtrackerwidget.ui)
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 

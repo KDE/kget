@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007 Joris Guisson   <joris.guisson@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -21,6 +22,8 @@
 #include <kmessagebox.h>
 #include <kurl.h>
 #include <kglobal.h>
+#include <kdialog.h>
+#include <QTimer>
 
 BTAdvancedDetailsWidget::BTAdvancedDetailsWidget(BTTransferHandler * transfer)
     : m_transfer(transfer)
@@ -47,21 +50,11 @@ BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
 void BTAdvancedDetailsWidget::init()
 {
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
-    const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
     fileTreeView = new BTFileTreeView(tc, tabWidget->widget(0));
     tabWidget->widget(0)->layout()->addWidget(fileTreeView);
 
-    if (trackers.empty())
-    {
-        trackerList->addItem(tc->getTrackersList()->getTrackerURL().prettyUrl());
-    }
-    else
-    {
-        foreach (KUrl u,trackers)
-            trackerList->addItem(u.prettyUrl());
-    }
-    updateTracker();
+    updateTrackerList();
 
     const bt::TorrentStats & s = tc->getStats();
     totalChunksLabel->setText(QString::number(s.total_chunks));
@@ -140,6 +133,10 @@ void BTAdvancedDetailsWidget::updateTracker()
 {
     kDebug(5001);
     tc->updateTracker();
+    if (tc->getStats().trackerstatus != "Ok")
+        QTimer::singleShot(1000, this, SLOT(updateTracker()));
+    else
+        QTimer::singleShot(1000, this, SLOT(updateTrackerGUI()));
 }
 
 void BTAdvancedDetailsWidget::updateTrackerGUI()
@@ -155,7 +152,7 @@ void BTAdvancedDetailsWidget::updateTrackerGUI()
     }
 
     //Update manual annunce button
-    updateTrackerButton->setEnabled(s.running && tc->announceAllowed());  
+    updateTrackerButton->setEnabled(s.running); // && tc->announceAllowed()
     // only enable change when we can actually change and the torrent is running
     changeTrackerButton->setEnabled(s.running && tc->getTrackersList()->getTrackerURLs().size() > 1);
 
@@ -167,8 +164,40 @@ void BTAdvancedDetailsWidget::updateTrackerGUI()
         trackerUrl->clear();
 }
 
-void BTAdvancedDetailsWidget::addTracker(const QString &url)
+void BTAdvancedDetailsWidget::addTracker()
 {
+    kDebug(5001);
+    addTrackerDialog = new KDialog(this);
+    QWidget * widget = new QWidget(this);
+    addTrackerWidget.setupUi(widget);
+    addTrackerDialog->setMainWidget(widget);
+    addTrackerDialog->setButtons(KDialog::Ok | KDialog::Cancel);
+    addTrackerDialog->exec();
+    
+    if (addTrackerDialog->result() == 1)//Dialog accepted
+    {
+        m_transfer->addTracker(addTrackerWidget.lineEdit->text());
+    }
+
+    QTimer::singleShot(1000, this, SLOT(updateTrackerList()));
+}
+
+void BTAdvancedDetailsWidget::updateTrackerList()
+{
+    kDebug(5001);
+    trackerList->clear();
+    const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
+
+    if (trackers.empty())
+    {
+        trackerList->addItem(tc->getTrackersList()->getTrackerURL().prettyUrl());
+    }
+    else
+    {
+        foreach (KUrl u,trackers)
+            trackerList->addItem(u.prettyUrl());
+    }
+    updateTracker();
 }
 
 void BTAdvancedDetailsWidget::deleteTracker()
