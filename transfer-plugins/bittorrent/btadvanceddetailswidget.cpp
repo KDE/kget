@@ -252,19 +252,22 @@ void BTAdvancedDetailsWidget::stopped()
         chunkTreeWidget->clear();
         items.clear();
     }
+    deleteLater();
 }
 
 void BTAdvancedDetailsWidget::updateChunkView()
 {
     kDebug(5001);
 
+    if (items.count() == 0 || !tc)
+        return;
+
     bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
 
-    while (i != items.end())
+    for (i;  i != items.end(); i++)
     {
         if (i->second)
             i->second->update(false);
-        i++;
     }
 
     const bt::TorrentStats & s = tc->getStats();
