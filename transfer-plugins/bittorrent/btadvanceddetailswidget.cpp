@@ -302,9 +302,9 @@ void BTAdvancedDetailsWidget::updateChunkView()
     if (items.count() == 0 || !tc)
         return;
 
-    bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i = items.begin();
+    bt::PtrMap<bt::ChunkDownloadInterface*,ChunkDownloadViewItem>::iterator i;
 
-    for (i;  i != items.end(); i++)
+    for (i = items.begin();  i != items.end(); i++)
     {
         if (i->second)
             i->second->update(false);

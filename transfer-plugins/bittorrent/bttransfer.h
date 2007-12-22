@@ -67,8 +67,8 @@ class BTTransfer : public QObject, public Transfer
         int dlRate() const;
         int ulRate() const;
         int totalSize() const;
-	int sessionBytesDownloaded() const;
-	int sessionBytesUploaded() const;
+        int sessionBytesDownloaded() const;
+        int sessionBytesUploaded() const;
         KUrl::List trackersList() const;
         bt::TorrentControl * torrentControl();
         int ulLimit() const;
@@ -79,7 +79,7 @@ class BTTransfer : public QObject, public Transfer
         void setPort(int port);
         void setTrafficLimits(int ulLimit, int dlLimit);
         void addTracker(QString url);
-        void save(QDomElement e); // krazy:exclude=passbyvalue
+        void save(const QDomElement &element);
 
         bool ready();
 
@@ -95,9 +95,9 @@ class BTTransfer : public QObject, public Transfer
     private:
         bt::TorrentControl *torrent;
 
+        QString m_tmp;
         int m_dlLimit;
         int m_ulLimit;
-        QString m_tmp;
         QTimer timer;
         bool m_ready;
 };

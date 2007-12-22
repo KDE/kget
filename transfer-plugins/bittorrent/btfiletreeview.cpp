@@ -42,7 +42,7 @@ BTFileTreeView::BTFileTreeView(bt::TorrentInterface *tc, QWidget * parent)
     contextMenu->addSeparator();
     dnd_action = contextMenu->addAction(i18n("Do Not Download"),this,SLOT(doNotDownload()));
     delete_action = contextMenu->addAction(i18n("Delete File(s)"),this,SLOT(deleteFiles()));
-		
+
     //connect(this, SIGNAL(customContextMenuRequested(const QPoint & )), this, SLOT(showContextMenu(const QPoint& )));
 }
 
@@ -50,21 +50,21 @@ void BTFileTreeView::contextMenuEvent(QContextMenuEvent * e)
 {
     kDebug(5001);
     const TorrentStats & s = m_tc->getStats();
-    
+
     QModelIndexList sel = selectionModel()->selectedRows();
     if (sel.count() == 0)
-	return;
-    
+        return;
+
     if (sel.count() > 1)
     {
-	download_first_action->setEnabled(true);
-	download_normal_action->setEnabled(true);
-	download_last_action->setEnabled(true);
-	open_action->setEnabled(false);
-	dnd_action->setEnabled(true);
-	delete_action->setEnabled(true);
-	contextMenu->popup(QCursor::pos());
-	return;
+        download_first_action->setEnabled(true);
+        download_normal_action->setEnabled(true);
+        download_last_action->setEnabled(true);
+        open_action->setEnabled(false);
+        dnd_action->setEnabled(true);
+        delete_action->setEnabled(true);
+        contextMenu->popup(QCursor::pos());
+        return;
     }
 
     QModelIndex item = sel.front();
@@ -75,39 +75,39 @@ void BTFileTreeView::contextMenuEvent(QContextMenuEvent * e)
     download_normal_action->setEnabled(false);
     dnd_action->setEnabled(false);
     delete_action->setEnabled(false);
-    
+
     if (!s.multi_file_torrent)
     {
-	open_action->setEnabled(true);
-	preview_path = m_tc->getStats().output_path;
+        open_action->setEnabled(true);
+        preview_path = m_tc->getStats().output_path;
     }
     else if (file)
     {
-	if (!file->isNull())
-	{
-	    open_action->setEnabled(true);
-	    preview_path = file->getPathOnDisk();
-		    
-	    download_first_action->setEnabled(file->getPriority() != FIRST_PRIORITY);
-	    download_normal_action->setEnabled(file->getPriority() != NORMAL_PRIORITY);
-	    download_last_action->setEnabled(file->getPriority() != LAST_PRIORITY);
-	    dnd_action->setEnabled(file->getPriority() != ONLY_SEED_PRIORITY);
-	    delete_action->setEnabled(file->getPriority() != EXCLUDED);
-	}
-	else
-	{
+        if (!file->isNull())
+        {
+            open_action->setEnabled(true);
+            preview_path = file->getPathOnDisk();
+
+            download_first_action->setEnabled(file->getPriority() != FIRST_PRIORITY);
+            download_normal_action->setEnabled(file->getPriority() != NORMAL_PRIORITY);
+            download_last_action->setEnabled(file->getPriority() != LAST_PRIORITY);
+            dnd_action->setEnabled(file->getPriority() != ONLY_SEED_PRIORITY);
+            delete_action->setEnabled(file->getPriority() != EXCLUDED);
+        }
+        else
+        {
             open_action->setEnabled(false);
-	}
+        }
     }
     else
     {
-	download_first_action->setEnabled(true);
-	download_normal_action->setEnabled(true);
-	download_last_action->setEnabled(true);
-	dnd_action->setEnabled(true);
-	delete_action->setEnabled(true);
-	open_action->setEnabled(true);
-	preview_path = m_tc->getDataDir() + fileTreeModel->dirPath(item);
+        download_first_action->setEnabled(true);
+        download_normal_action->setEnabled(true);
+        download_last_action->setEnabled(true);
+        dnd_action->setEnabled(true);
+        delete_action->setEnabled(true);
+        open_action->setEnabled(true);
+        preview_path = m_tc->getDataDir() + fileTreeModel->dirPath(item);
     }
 
     contextMenu->popup(QCursor::pos());
@@ -149,13 +149,13 @@ void BTFileTreeView::deleteFiles()
     Uint32 n = sel.count();
     if (n == 1) // single item can be a directory
     {
-	    if (!fileTreeModel->indexToFile(sel.front()))
-		    n++;
-    } 
-	    
-    QString msg = n > 1 ? i18n("You will lose all data in this file, are you sure you want to do this ?") :
-		    i18n("You will lose all data in these files, are you sure you want to do this ?");
-			    
-    if (KMessageBox::warningYesNo(0,msg) == KMessageBox::Yes)
-	    changePriority(EXCLUDED);
+        if (!fileTreeModel->indexToFile(sel.front()))
+            n++;
+    }
+
+    QString msg = n > 1 ? i18n("You will lose all data in this file, are you sure you want to do this?") :
+                          i18n("You will lose all data in these files, are you sure you want to do this?");
+
+    if (KMessageBox::warningYesNo(0, msg) == KMessageBox::Yes)
+            changePriority(EXCLUDED);
 }

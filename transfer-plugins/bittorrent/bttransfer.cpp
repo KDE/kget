@@ -41,10 +41,10 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
+    torrent(0),
     m_tmp(0),
     m_dlLimit(BittorrentSettings::downloadLimit()),
     m_ulLimit(BittorrentSettings::uploadLimit()),
-    torrent(0),
     m_ready(false)
 {
     kDebug(5001);
@@ -207,7 +207,7 @@ void BTTransfer::update()
         timer.stop();
 }
 
-void BTTransfer::save(QDomElement e) // krazy:exclude=passbyvalue
+void BTTransfer::save(const QDomElement &element)
 {
 }
 

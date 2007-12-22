@@ -1,3 +1,6 @@
+/** IMPORTANT: please keep PARTS of this file in sync with ktorrent! *******/
+/** chunkdownloadview in ktorrent **/
+
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson   <joris.guisson@gmail.com>       *
  *   Copyright (C) 2007 by Lukas Appelhans <l.appelhans@gmx.de>            *
