@@ -135,8 +135,8 @@ void BTAdvancedDetailsWidget::updateTracker()
     tc->updateTracker();
     if (tc->getStats().trackerstatus != "Ok")
         QTimer::singleShot(1000, this, SLOT(updateTracker()));
-    else
-        QTimer::singleShot(1000, this, SLOT(updateTrackerGUI()));
+
+    QTimer::singleShot(1000, this, SLOT(updateTrackerGUI()));
 }
 
 void BTAdvancedDetailsWidget::updateTrackerGUI()
@@ -281,6 +281,7 @@ void BTAdvancedDetailsWidget::stopped()
         chunkTreeWidget->clear();
         items.clear();
     }
+    tc->setMonitor(0);
     deleteLater();
 }
 
