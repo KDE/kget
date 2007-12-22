@@ -1,0 +1,30 @@
+<ui version="4.0" >
+ <class>BTAddTrackerWidget</class>
+ <widget class="QWidget" name="BTAddTrackerWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>424</width>
+    <height>39</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Add Tracker</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Tracker-Url:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="lineEdit" />
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
