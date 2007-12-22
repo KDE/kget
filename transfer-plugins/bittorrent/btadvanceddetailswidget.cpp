@@ -285,6 +285,16 @@ void BTAdvancedDetailsWidget::stopped()
     deleteLater();
 }
 
+void BTAdvancedDetailsWidget::destroyed()
+{
+    kDebug(5001);
+    peersTreeWidget->removeAll();
+    chunkTreeWidget->clear();
+    items.clear();
+    tc->setMonitor(0);
+    deleteLater();
+}
+
 void BTAdvancedDetailsWidget::updateChunkView()
 {
     kDebug(5001);

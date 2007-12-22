@@ -55,7 +55,7 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver, public 
         void downloadStarted(bt::ChunkDownloadInterface* chunk);
         void downloadRemoved(bt::ChunkDownloadInterface* chunk);
         void stopped();
-        void destroyed() {}
+        void destroyed();
 
 
     private:
