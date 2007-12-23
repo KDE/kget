@@ -6,14 +6,11 @@
     <x>0</x>
     <y>0</y>
     <width>454</width>
-    <height>312</height>
+    <height>355</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Bittorrent Settings</string>
-  </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" >
+  <layout class="QVBoxLayout" >
+   <item>
     <widget class="QGroupBox" name="networkGroupBox" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
@@ -79,7 +76,7 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0" >
+   <item>
     <widget class="QGroupBox" name="folderGroupBox" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
@@ -141,13 +138,26 @@
      </layout>
     </widget>
    </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QLineEdit</extends>
-   <header location="global" >KUrlRequester</header>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
