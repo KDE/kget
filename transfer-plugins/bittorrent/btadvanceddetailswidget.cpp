@@ -51,15 +51,18 @@ void BTAdvancedDetailsWidget::init()
 {
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
 
+    chunkTreeWidget->setRootIsDecorated(false);
+    chunkTreeWidget->setSortingEnabled(true);
+    chunkTreeWidget->setAlternatingRowColors(true);
+
     fileTreeView = new BTFileTreeView(tc, tabWidget->widget(0));
     tabWidget->widget(0)->layout()->addWidget(fileTreeView);
-
-    updateTrackerList();
 
     const bt::TorrentStats & s = tc->getStats();
     totalChunksLabel->setText(QString::number(s.total_chunks));
     sizeChunkLabel->setText(KGlobal::locale()->formatByteSize(s.chunk_size));
 
+    updateTrackerList();
     /**Set Column-widths**/
 
     QList<int> fileColumnWidths = BittorrentSettings::fileColumnWidths();
@@ -107,10 +110,6 @@ void BTAdvancedDetailsWidget::init()
         chunkTreeWidget->setColumnWidth(0 , 250);
     }
 
-    chunkTreeWidget->setRootIsDecorated(false);
-    chunkTreeWidget->setSortingEnabled(true);
-    chunkTreeWidget->setAlternatingRowColors(true);
-
     connect(deleteTrackerButton, SIGNAL(clicked()), SLOT(deleteTracker()));
     connect(updateTrackerButton, SIGNAL(clicked()), SLOT(updateTracker()));
     connect(addTrackerButton, SIGNAL(clicked()), SLOT(addTracker()));
@@ -129,6 +128,12 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         peersTreeWidget->update();
         updateTrackerGUI();
     }
+    else
+    {
+        peersTreeWidget->removeAll();
+        chunkTreeWidget->clear();
+        items.clear();
+    }
 
     m_transfer->resetChangesFlags(this);
 }
@@ -137,10 +142,6 @@ void BTAdvancedDetailsWidget::updateTracker()
 {
     kDebug(5001);
     tc->updateTracker();
-    if (tc->getStats().trackerstatus != "Ok")
-        QTimer::singleShot(1000, this, SLOT(updateTracker()));
-
-    QTimer::singleShot(1000, this, SLOT(updateTrackerGUI()));
 }
 
 void BTAdvancedDetailsWidget::updateTrackerGUI()
@@ -189,6 +190,7 @@ void BTAdvancedDetailsWidget::addTracker()
 void BTAdvancedDetailsWidget::updateTrackerList()
 {
     kDebug(5001);
+    updateTracker();
     trackerList->clear();
     const KUrl::List trackers = tc->getTrackersList()->getTrackerURLs();
 
@@ -201,7 +203,6 @@ void BTAdvancedDetailsWidget::updateTrackerList()
         foreach (KUrl u,trackers)
             trackerList->addItem(u.prettyUrl());
     }
-    updateTracker();
 }
 
 void BTAdvancedDetailsWidget::deleteTracker()
@@ -279,14 +280,6 @@ void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
 void BTAdvancedDetailsWidget::stopped()
 {
     kDebug(5001);
-    if (m_transfer->status() != Job::Running)
-    { //Cleanup Chunk- and Peers-View when a transfer stops
-        peersTreeWidget->removeAll();
-        chunkTreeWidget->clear();
-        items.clear();
-    }
-    tc->setMonitor(0);
-    deleteLater();
 }
 
 void BTAdvancedDetailsWidget::destroyed()
@@ -295,8 +288,7 @@ void BTAdvancedDetailsWidget::destroyed()
     peersTreeWidget->removeAll();
     chunkTreeWidget->clear();
     items.clear();
-    tc->setMonitor(0);
-    deleteLater();
+    hideEvent(0);
 }
 
 void BTAdvancedDetailsWidget::updateChunkView()
@@ -345,6 +337,9 @@ void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
     }
     BittorrentSettings::setChunksColumnWidths(chunksColumnWidths);
     BittorrentSettings::self()->writeConfig();
+
+    tc->setMonitor(0);
+    deleteLater();
 }
 
 #include "btadvanceddetailswidget.moc"
