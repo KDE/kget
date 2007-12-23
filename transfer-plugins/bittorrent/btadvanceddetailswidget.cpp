@@ -107,6 +107,10 @@ void BTAdvancedDetailsWidget::init()
         chunkTreeWidget->setColumnWidth(0 , 250);
     }
 
+    chunkTreeWidget->setRootIsDecorated(false);
+    chunkTreeWidget->setSortingEnabled(true);
+    chunkTreeWidget->setAlternatingRowColors(true);
+
     connect(deleteTrackerButton, SIGNAL(clicked()), SLOT(deleteTracker()));
     connect(updateTrackerButton, SIGNAL(clicked()), SLOT(updateTracker()));
     connect(addTrackerButton, SIGNAL(clicked()), SLOT(addTracker()));

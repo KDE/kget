@@ -51,8 +51,11 @@
          <property name="rootIsDecorated" >
           <bool>false</bool>
          </property>
+         <property name="itemsExpandable" >
+          <bool>false</bool>
+         </property>
          <property name="sortingEnabled" >
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="animated" >
           <bool>true</bool>
@@ -75,6 +78,11 @@
          <column>
           <property name="text" >
            <string>Download-Speed</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>Assigned Peers</string>
           </property>
          </column>
          <column>
@@ -389,7 +397,6 @@
    <header>peerview.h</header>
   </customwidget>
  </customwidgets>
- <includes/>
  <resources/>
  <connections/>
  <designerdata>
