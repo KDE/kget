@@ -931,10 +931,11 @@ void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
         checkAndFinish();
     }
 
-    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
-
-    if(transferFlags & Transfer::Tc_Status)
+    if (prevStatus != transfer->statusText())//FIXME: HACK: better: check statusFlags if it contains Tc_Status (flags & Transfer::Tc_Status <-doesn't work)
+    {
+        prevStatus = transfer->statusText();
         KGet::checkSystemTray();
+    }
 }
 
 void TransferFinishedObserver::checkAndFinish()

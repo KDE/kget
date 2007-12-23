@@ -329,6 +329,8 @@ class TransferFinishedObserver : public TransferObserver
     private:
         void checkAndFinish();
         void checkAndUpdateSystemTray();
+
+        QString prevStatus;
 };
 
 #endif
