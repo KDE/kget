@@ -207,14 +207,15 @@ void BTTransfer::update()
     else
         timer.stop();
 }
-
+/**
 void BTTransfer::save(const QDomElement &element)
 {
+    //FIXME: we need next to the normal things: Tmp-Dir, traffic-limits, port
 }
 
 void BTTransfer::load(const QDomElement &e)
 {
-}
+}**/
 
 void BTTransfer::slotStoppedByError(bt::TorrentInterface* error, QString errormsg)
 {
@@ -248,7 +249,7 @@ void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
 
 void BTTransfer::addTracker(QString url)
 {
-    kDebug(5001) << "YOU TOOOOOOOOOOOOOOOOOOOOOOOOO" << url;
+    kDebug(5001);
     if(torrent->getStats().priv_torrent)
     {
 	KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));

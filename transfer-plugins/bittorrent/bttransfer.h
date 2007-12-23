@@ -79,12 +79,12 @@ class BTTransfer : public QObject, public Transfer
         void setPort(int port);
         void setTrafficLimits(int ulLimit, int dlLimit);
         void addTracker(QString url);
-        void save(const QDomElement &element);
+        //void save(const QDomElement &element);
 
         bool ready();
 
     protected:
-        void load(const QDomElement &e);
+        //void load(const QDomElement &e);
 
     private slots:
         void init(KUrl src = KUrl());
