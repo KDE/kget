@@ -129,6 +129,7 @@ void BTTransfer::init(KUrl src)
     catch (bt::Error &err)
     {
         kDebug(5001) << err.toString();
+        m_ready = false;
     }
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
