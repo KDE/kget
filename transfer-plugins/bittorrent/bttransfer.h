@@ -79,6 +79,7 @@ class BTTransfer : public QObject, public Transfer
         //More Bittorrent-Functions
         void setPort(int port);
         void setTrafficLimits(int ulLimit, int dlLimit);
+        void setMaxShareRatio(float ratio);
         void addTracker(QString url);
         void save(const QDomElement &element);
 
@@ -102,6 +103,7 @@ class BTTransfer : public QObject, public Transfer
         QString m_tmp;
         int m_dlLimit;
         int m_ulLimit;
+        float m_ratio;
         QTimer timer;
         bool m_ready;
 };

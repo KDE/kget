@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>192</width>
-    <height>112</height>
+    <width>244</width>
+    <height>147</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -48,6 +48,16 @@
       <string>Speed-Limits</string>
      </property>
     </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QLabel" name="label_3" >
+     <property name="text" >
+      <string>Maximum Shared-Ratio:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <widget class="QDoubleSpinBox" name="shareRatioSpin" />
    </item>
   </layout>
  </widget>

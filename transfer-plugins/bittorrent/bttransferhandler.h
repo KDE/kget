@@ -40,6 +40,7 @@ class BTTransferHandler : public TransferHandler
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
         void setTrafficLimits(int ulLimit, int dlLimit) {m_transfer->setTrafficLimits(ulLimit, dlLimit);}
+        void setMaxShareRatio(float ratio)             {m_transfer->setMaxShareRatio(ratio);}
 
     private:
         BTTransfer * m_transfer;

@@ -12,7 +12,7 @@
     <entry name="Port" type="Int">
       <default>6881</default>
     </entry>
-    <entry name="MaxSharedRatio" type="Double">
+    <entry name="MaxShareRatio" type="Double">
       <default>0</default>
     </entry>
   </group>

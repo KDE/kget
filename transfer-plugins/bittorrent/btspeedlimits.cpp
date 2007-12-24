@@ -21,4 +21,5 @@ BTSpeedLimits::BTSpeedLimits(BTTransferHandler * handler, QWidget * parent)
 void BTSpeedLimits::setSpeedLimits()
 {
     m_handler->setTrafficLimits(dlBox->value(), ulBox->value());
+    m_handler->setMaxShareRatio(shareRatioSpin->value());
 }

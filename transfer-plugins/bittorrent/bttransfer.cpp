@@ -45,6 +45,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_tmp(0),
     m_dlLimit(BittorrentSettings::downloadLimit()),
     m_ulLimit(BittorrentSettings::uploadLimit()),
+    m_ratio(BittorrentSettings::maxShareRatio()),
     m_ready(false)
 {
     kDebug(5001);
@@ -177,6 +178,15 @@ void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
     m_ulLimit = ulLimit;
 }
 
+void BTTransfer::setMaxShareRatio(float ratio)
+{
+    if (m_ratio != ratio)
+        m_ratio = ratio;
+
+    if (m_ratio != 0)
+        torrent->setMaxShareRatio(m_ratio);
+}
+
 void BTTransfer::addTracker(QString url)
 {
     kDebug(5001);
@@ -292,12 +302,8 @@ void BTTransfer::init(KUrl src)
       
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
-        if (BittorrentSettings::maxSharedRatio() != 0)
-            torrent->setMaxShareRatio(BittorrentSettings::maxSharedRatio());
-
-        kDebug(5001) << "Source:" << m_source.url();
-        kDebug(5001) << "Dest:" << m_dest.url();
-        kDebug(5001) << "Temp:" << m_tmp;
+        setMaxShareRatio(m_ratio);
+        setTrafficLimits(m_ulLimit, m_dlLimit);
 
         connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
         connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
