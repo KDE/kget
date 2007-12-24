@@ -291,7 +291,10 @@ void BTTransfer::init(KUrl src)
         torrent->createFiles();
       
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
-        //torrent->setMaxShareRatio(1); //TODO: Make configurable...
+
+        if (BittorrentSettings::maxSharedRatio() != 0)
+            torrent->setMaxShareRatio(BittorrentSettings::maxSharedRatio());
+
         kDebug(5001) << "Source:" << m_source.url();
         kDebug(5001) << "Dest:" << m_dest.url();
         kDebug(5001) << "Temp:" << m_tmp;

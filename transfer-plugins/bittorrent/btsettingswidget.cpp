@@ -24,6 +24,7 @@ BTSettingsWidget::BTSettingsWidget(KDialog * parent)
     connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(enableButtonApply()));
+    connect(sharedRatioSpin, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
     connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
     connect(parent, SIGNAL(accepted()), SLOT(dialogAccepted()));
@@ -39,6 +40,7 @@ void BTSettingsWidget::dialogAccepted()
     BittorrentSettings::setTorrentDir(torrentEdit->url().url());
     BittorrentSettings::setTmpDir(tempEdit->url().url());
     BittorrentSettings::setPreAlloc(preallocBox->isChecked());
+    BittorrentSettings::setMaxSharedRatio(sharedRatioSpin->value());
 
     BittorrentSettings::self()->writeConfig();
 }
@@ -48,6 +50,7 @@ void BTSettingsWidget::setDefault()
     portBox->setValue(BittorrentSettings::port());
     uploadBox->setValue(BittorrentSettings::uploadLimit());
     downloadBox->setValue(BittorrentSettings::downloadLimit());
+    sharedRatioSpin->setValue(BittorrentSettings::maxSharedRatio());
     torrentEdit->setUrl(BittorrentSettings::torrentDir());
     tempEdit->setUrl(BittorrentSettings::tmpDir());
     preallocBox->setChecked(BittorrentSettings::preAlloc());
