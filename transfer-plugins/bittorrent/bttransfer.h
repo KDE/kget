@@ -93,8 +93,11 @@ class BTTransfer : public QObject, public Transfer
         void slotDownloadFinished(bt::TorrentInterface* ti);
 
     private:
-        bt::TorrentControl *torrent;
+        void startTorrent();
+        void stopTorrent();
+        void updateTorrent();
 
+        bt::TorrentControl *torrent;
         QString m_tmp;
         int m_dlLimit;
         int m_ulLimit;
