@@ -201,6 +201,7 @@ void BTTransfer::updateTorrent()
     kDebug(5001) << "Done";
     m_speed = dlRate();
     m_percent = percent();
+    m_processedSize = processedSize();
 
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_Percent, true);
 }
@@ -316,13 +317,18 @@ int BTTransfer::ulRate() const
     return torrent->getStats().upload_rate;
 }
 
-int BTTransfer::totalSize() const
+float BTTransfer::totalSize() const
 {
     kDebug(5001);
     if (!torrent)
         return -1;
 
     return torrent->getStats().total_bytes_to_download;
+}
+
+float BTTransfer::processedSize() const
+{
+    return torrent->getStats().bytes_downloaded;
 }
 
 int BTTransfer::sessionBytesDownloaded() const

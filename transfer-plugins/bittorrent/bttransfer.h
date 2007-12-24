@@ -66,7 +66,8 @@ class BTTransfer : public QObject, public Transfer
         int leechesDisconnected() const;
         int dlRate() const;
         int ulRate() const;
-        int totalSize() const;
+        float totalSize() const;
+        float processedSize() const;
         int sessionBytesDownloaded() const;
         int sessionBytesUploaded() const;
         KUrl::List trackersList() const;
