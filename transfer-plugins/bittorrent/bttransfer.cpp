@@ -50,6 +50,9 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     kDebug(5001);
     if (m_source.url().isEmpty())
         return;
+
+    if (e)
+        load(*e);
 }
 
 BTTransfer::~BTTransfer()
@@ -115,15 +118,45 @@ void BTTransfer::update()
     else
         timer.stop();
 }
-/**
-void BTTransfer::save(const QDomElement &element)
-{
-    //FIXME: we need next to the normal things: Tmp-Dir, traffic-limits, port
-}
 
 void BTTransfer::load(const QDomElement &e)
 {
-}**/
+    kDebug(5001);
+    m_source = KUrl(e.attribute("Source"));
+    m_dest = KUrl(e.attribute("Dest"));
+
+    m_totalSize = e.attribute("TotalSize").toULongLong();
+    m_processedSize = e.attribute("ProcessedSize").toULongLong();
+
+    if( m_totalSize != 0)
+        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
+    else
+        m_percent = 0;
+
+    m_ulLimit = e.attribute("Upload-Limit").toInt();
+    m_dlLimit = e.attribute("Download-Limit").toInt();
+
+    if((m_totalSize == m_processedSize) && (m_totalSize != 0))
+    {
+        setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+    }
+    else
+    {
+        setStatus(status(), i18n("Stopped"), SmallIcon("process-stop"));
+    }
+}
+
+void BTTransfer::save(const QDomElement &element)
+{
+    kDebug(5001);
+
+    QDomElement e = element;
+
+    Transfer::save(e);
+
+    e.setAttribute("Upload-Limit", ulLimit());
+    e.setAttribute("Download-Limit", dlLimit());
+}
 
 /**Public functions of BTTransfer**/
 
@@ -169,6 +202,7 @@ void BTTransfer::startTorrent()
     if (m_ready)
     {
         kDebug(5001) << "Going to download that stuff :-0";
+        setTrafficLimits(m_ulLimit, m_dlLimit);//Set traffic-limits before starting
         kDebug(5001) << "Here we are";
         torrent->start();
         kDebug(5001) << "Got started??";
@@ -328,6 +362,10 @@ float BTTransfer::totalSize() const
 
 float BTTransfer::processedSize() const
 {
+    kDebug(5001);
+    if (!torrent)
+        return -1;
+
     return torrent->getStats().bytes_downloaded;
 }
 
