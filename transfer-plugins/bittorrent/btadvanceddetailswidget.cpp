@@ -127,6 +127,7 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         updateChunkView();
         peersTreeWidget->update();
         updateTrackerGUI();
+        fileTreeView->update();
     }
     else
     {

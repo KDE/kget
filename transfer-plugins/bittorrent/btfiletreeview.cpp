@@ -46,6 +46,11 @@ BTFileTreeView::BTFileTreeView(bt::TorrentInterface *tc, QWidget * parent)
     //connect(this, SIGNAL(customContextMenuRequested(const QPoint & )), this, SLOT(showContextMenu(const QPoint& )));
 }
 
+void BTFileTreeView::update()
+{
+    fileTreeModel->update();
+}
+
 void BTFileTreeView::contextMenuEvent(QContextMenuEvent * e)
 {
     kDebug(5001);

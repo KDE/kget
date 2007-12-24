@@ -31,6 +31,8 @@ class BTFileTreeView : public QTreeView
     Q_OBJECT
     public:
         BTFileTreeView(bt::TorrentInterface *tc, QWidget * parent);
+        
+        void update();
 
     private slots:
         void contextMenuEvent(QContextMenuEvent * e);
