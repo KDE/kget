@@ -87,7 +87,7 @@ Index: kget/mainwindow.cpp
 +
 +    QAction *transferHistoryAction = actionCollection()->addAction("Transfer History");
 +    transferHistoryAction->setText(i18n("&Transfer History"));
-+    transferHistoryAction->setIcon(KIcon("history"));
++    transferHistoryAction->setIcon(KIcon("view-history"));
 +    transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));
 +    connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
  }

@@ -51,7 +51,7 @@ void Transfer::setDelay(int seconds)
 {
     m_scheduler->startDelayTimer(this, seconds);
 
-    setStatus(Job::Delayed, i18n("Delayed"), SmallIcon("history"));
+    setStatus(Job::Delayed, i18n("Delayed"), SmallIcon("view-history"));
 
     setTransferChange(Tc_Status, true);
 }
@@ -116,7 +116,7 @@ void Transfer::load(const QDomElement &e)
 
     if((m_totalSize == m_processedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+        setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
     }
     else
     {
