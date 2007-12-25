@@ -158,7 +158,7 @@ void BTAdvancedDetailsWidget::updateTrackerGUI()
     }
 
     //Update manual annunce button
-    updateTrackerButton->setEnabled(s.running); // && tc->announceAllowed()
+    updateTrackerButton->setEnabled(s.running && tc->announceAllowed());
     // only enable change when we can actually change and the torrent is running
     changeTrackerButton->setEnabled(s.running && tc->getTrackersList()->getTrackerURLs().size() > 1);
 
@@ -264,7 +264,11 @@ void BTAdvancedDetailsWidget::peerRemoved(bt::PeerInterface* peer)
 void BTAdvancedDetailsWidget::downloadStarted(bt::ChunkDownloadInterface* chunk)
 {
     kDebug(5001);
-    items.insert(chunk, new ChunkDownloadViewItem(chunkTreeWidget, chunk, tc));
+
+    if (items.contains(chunk))
+        items.find(chunk)->update(false);
+    else
+        items.insert(chunk, new ChunkDownloadViewItem(chunkTreeWidget, chunk, tc));
 }
 
 void BTAdvancedDetailsWidget::downloadRemoved(bt::ChunkDownloadInterface* chunk)
