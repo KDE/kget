@@ -222,7 +222,6 @@ void BTTransfer::startTorrent()
         m_totalSize = totalSize();
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
         kDebug(5001) << "Completely";
-        setTrafficLimits(m_ulLimit, m_dlLimit);
     }
 }
 
