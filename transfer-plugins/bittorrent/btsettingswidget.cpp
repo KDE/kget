@@ -24,7 +24,7 @@ BTSettingsWidget::BTSettingsWidget(KDialog * parent)
     connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
     connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(enableButtonApply()));
-    connect(shareRatioSpin, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(shareRatioSpin, SIGNAL(valueChanged(double)), SLOT(enableButtonApply()));
     connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
     connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
     connect(parent, SIGNAL(accepted()), SLOT(dialogAccepted()));
