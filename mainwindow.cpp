@@ -49,8 +49,6 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
     : KXmlGuiWindow( parent ),
       m_drop(0), m_dock(0), m_startWithoutAnimation(startWithoutAnimation)
 {
-    resize(720, 380); // have a reasonable initial size, will be overwritten later if the user changes it
-
     // create the model
     KGet::self( this );
 
@@ -94,6 +92,10 @@ MainWindow::~MainWindow()
     Settings::self()->writeConfig();
 }
 
+QSize MainWindow::sizeHint() const
+{
+    return QSize(720, 380);
+}
 
 void MainWindow::setupActions()
 {

@@ -59,6 +59,9 @@ protected:
     virtual void dragEnterEvent(QDragEnterEvent *);
     virtual void dropEvent(QDropEvent *);
 
+    // set sensitive initial size
+    virtual QSize sizeHint() const;
+
 private slots:
     // slots connected to actions
     void slotToggleDropTarget();
