@@ -121,9 +121,18 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         m_buffer.truncate( m_segData.bytes );
         m_getJob->suspend();
         m_getJob->kill( KJob::EmitResult );
-    }
-    if ( m_buffer.size() )
         writeBuffer();
+    }
+    else
+    { 
+    /* 
+     write to the local file only if the buffer has more than 8kbytes
+     this hack try to avoid too much cpu usage. it seems to be due KIO::Filejob
+     so remove it when it works property
+    */
+    if ( m_buffer.size() > 8*1024)
+        writeBuffer();
+    }
 }
 
 bool Segment::writeBuffer()
