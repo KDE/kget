@@ -35,7 +35,6 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout, co
     m_layout = mainlayout;
 
     m_icon = new Plasma::Icon(KIcon("dialog-warning"), "", m_applet);
-    m_icon->setAlignment(Qt::AlignCenter);
 
 
     m_errorLabel = new Plasma::Label(m_applet);
