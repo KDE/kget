@@ -131,7 +131,7 @@ void MultiSegmentCopyJob::slotStart()
         emitResult();
 
     kDebug(5001) << " opening: " << m_dest_part;
-    m_putJob = KIO::open(m_dest_part, QIODevice::WriteOnly);
+    m_putJob = KIO::open(m_dest_part, QIODevice::WriteOnly | QIODevice::ReadOnly);
     connect( m_putJob, SIGNAL(open(KIO::Job *)), SLOT(slotOpen(KIO::Job *)));
     connect(m_putJob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
     connect( m_putJob, SIGNAL(written(KIO::Job * ,KIO::filesize_t )), SLOT(slotWritten( KIO::Job * ,KIO::filesize_t )));

@@ -34,7 +34,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001) << "TransferMultiSegKioFactory::createTransfer";
+    kDebug(5001);
 
     QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot;
