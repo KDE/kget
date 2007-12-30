@@ -458,8 +458,6 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
 
     QVBoxLayout *layout = new QVBoxLayout(groupBox);
 
-    layout->addWidget(TransferDetails::detailsWidget(handler));
-
     return groupBox;
 }
 
