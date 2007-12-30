@@ -25,21 +25,6 @@ class KMenu;
 class TransferHandler;
 class TransfersViewDelegate;
 
-static const QString EXPANDABLE_TRANSFER_DETAILS_STYLE =
-                        "QGroupBox{"
-                            "border-width:1px;margin:6px;margin-left:30px;margin-right:50px;"
-                            "border-style:solid;border-color:black;border-radius:10;"
-                            "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 0.5 %2, stop:1 %1);"
-                        "}"
-                        "QGroupBox QLineEdit{"
-                            "border: 1px solid #cecece;border-radius:1;background-color:%1;"
-                        "}";
-static const QString EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE =
-                        "QLabel{"
-                            "color:%1;width:100%;font-weight:bold;"
-                            "subcontrol-position: top center;"
-                        "}";
-
 class GroupStatusButton : public QToolButton
 {
     Q_OBJECT

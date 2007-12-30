@@ -454,17 +454,11 @@ void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIn
 
 QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *handler)
 {
-    QGroupBox *groupBox = new QGroupBox();
+    QGroupBox *groupBox = new QGroupBox(i18n("Transfer details"));
 
     QVBoxLayout *layout = new QVBoxLayout(groupBox);
-    QLabel *title = new QLabel(i18n("Transfer details"));
 
-    layout->addWidget(title);
-    layout->addWidget(new TransferDetails(handler));
-    groupBox->setAutoFillBackground(false);
-    title->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_TITLE_STYLE.arg(QApplication::palette().color(QPalette::Foreground).name()));
-    title->setAlignment(Qt::AlignHCenter);
-    groupBox->setStyleSheet(EXPANDABLE_TRANSFER_DETAILS_STYLE.arg(QApplication::palette().color(QPalette::Background).lighter(200).name(), QApplication::palette().color(QPalette::Background).name()));
+    layout->addWidget(TransferDetails::detailsWidget(handler));
 
     return groupBox;
 }
