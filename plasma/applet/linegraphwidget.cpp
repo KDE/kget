@@ -36,7 +36,6 @@
 #define LEFT_MARGIN 75
 #define RIGHT_MARGIN 10
 #define MAX_ITEMS 30
-#define MAX_Y_STEPS 10
 #define MAX_X_STEPS 15
 
 class LineGraphWidget::Private : public Plasma::Widget
@@ -52,6 +51,13 @@ public:
         setGeometry(QRect(LEFT_MARGIN, TOP_MARGIN,
                                     size.width() - LEFT_MARGIN - RIGHT_MARGIN,
                                     size.height() - TOP_MARGIN - 2));
+    }
+
+    void resize(int width, int height)
+    {
+        size.setWidth(width);
+        size.setHeight(height);
+        setGeometry(QRect(LEFT_MARGIN, TOP_MARGIN, width - LEFT_MARGIN - RIGHT_MARGIN, height - TOP_MARGIN - 2));
     }
 
     // Paint the private widget, who cares to draw only the line items representing the data
@@ -75,17 +81,18 @@ public:
     }
 
     // Draw the graph legend with the names of the data
-    void drawLegend(const QString &title, QPainter *p, const QColor &color, int count)
+    void drawLegend(const QString &title, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count)
     {
+        int textLength = option->rect.width() - 30;
         p->save();
         p->setPen(Qt::NoPen);
         p->setBrush(QBrush(color));
-        p->drawRoundRect(QRect(LEFT_MARGIN, count * 20 + size.height() - bottomMargin + TOP_MARGIN, 10, 10));
+        p->drawRoundRect(QRect(LEFT_MARGIN, count * 20 + option->rect.height() - bottomMargin + TOP_MARGIN, 10, 10));
         p->setPen(Qt::SolidLine);
         p->setPen(Qt::white);
 
         // the data name
-        p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + size.height () - bottomMargin + TOP_MARGIN - 5, 180, 20), Qt::AlignLeft, p->fontMetrics().elidedText(title, Qt::ElideLeft, 180));
+        p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + option->rect.height () - bottomMargin + TOP_MARGIN - 5, textLength, 20), Qt::AlignLeft, p->fontMetrics().elidedText(title, Qt::ElideMiddle, textLength));
         p->restore();
     }
 
@@ -108,9 +115,13 @@ public:
         p->save();
         p->setOpacity(0.10);
 
+        // the height for each y axis item
+        int maxNumbers = size.height() / 30;
+
         // draw the y line items
-        for(int i=0; i< MAX_Y_STEPS; i++) {
-            int y = (i * ((size.height() - bottomMargin - TOP_MARGIN) / MAX_Y_STEPS)) + TOP_MARGIN;
+        for(int i=0; i<maxNumbers; i++) {
+            int number = maximumY - i * maximumY / maxNumbers;
+            int y = (i * ((size.height() - bottomMargin - TOP_MARGIN) / maxNumbers)) + TOP_MARGIN;
 
             p->drawLine(QPoint(LEFT_MARGIN, y),
                     QPoint(size.width() - RIGHT_MARGIN, y));
@@ -118,8 +129,9 @@ public:
             p->save();
             p->setOpacity(0.40);
             p->drawText(2, y + 4,
-                            KGlobal::locale()->formatByteSize(((MAX_Y_STEPS - i) * maximumY) / 10));
+                            KGlobal::locale()->formatByteSize(number));
             p->restore();
+
         }
 
         // draw the x line items
@@ -136,7 +148,7 @@ public:
     // returns the size of the private inner widget
     QSizeF sizeHint() const
     {
-        return QSizeF(size.width() - LEFT_MARGIN - RIGHT_MARGIN, 170);
+        return size;
     }
 
     KColorCollection m_colors;
@@ -251,11 +263,12 @@ QSizeF LineGraphWidget::sizeHint() const
 
 void LineGraphWidget::paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    d->resize(option->rect.width(), option->rect.height());
     d->drawAxis(p, option);
+
     for(int i = 0; i < d->data.size(); i++) {
-        d->drawLegend(d->data.keys().at(i), p, d->m_colors.color(i*6 + 4), i);
+        d->drawLegend(d->data.keys().at(i), p, option, d->m_colors.color(i*6 + 4), i);
     }
 }

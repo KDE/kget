@@ -61,7 +61,6 @@ private:
     Plasma::BoxLayout *m_pagerLayout;
     Plasma::PushButton *m_nextPageButton;
     Plasma::PushButton *m_previousPageButton;
-    Plasma::Label *m_titleLabel;
     Plasma::Label *m_totalSizeLabel;
     Plasma::Label *m_pageLabel;
     QMap <QString, Plasma::ProgressBar *> m_progressBars;

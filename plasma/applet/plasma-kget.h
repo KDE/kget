@@ -29,6 +29,7 @@
 
 namespace Plasma {
     class VBoxLayout;
+    class Svg;
 }
 
 class KDialog;
@@ -48,6 +49,8 @@ public:
     ~PlasmaKGet();
 
     void init();
+    void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                            const QRect &contentsRect);
 
 public slots:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
@@ -59,6 +62,7 @@ protected slots:
 private:
     void loadTransferGraph(uint type);
 
+    Plasma::Svg *m_theme;
     Plasma::DataEngine *m_engine;
     Plasma::VBoxLayout *m_layout;
     TransferGraph *m_transferGraph;

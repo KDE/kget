@@ -20,10 +20,11 @@
 
 #include "plasma-kget.h"
 
+#include <QPainter>
+
 #include <KDialog>
 #include <KDebug>
 #include <KIcon>
-
 
 #include <plasma/svg.h>
 #include <plasma/applet.h>
@@ -45,33 +46,44 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
 {
     setHasConfigurationInterface(true);
     setDrawStandardBackground(true);
+
+    m_theme = new Plasma::Svg("widgets/kget", this);
 }
 
 PlasmaKGet::~PlasmaKGet()
 {
-    prepareGeometryChange();
-
     delete m_transferGraph;
 }
 
 void PlasmaKGet::init()
 {
     m_layout = new Plasma::VBoxLayout(this);
-    // setLayout(m_layout);
+    m_layout->setMargin(Plasma::Layout::TopMargin, 40);
+    m_layout->setSpacing(10);
 
-    //setMinimumSize(QSize(330, 100));
+    setMinimumSize(QSize(240, 190));
 
     m_transferGraph = 0;
     KConfigGroup cg = config();
 
     m_engine = dataEngine("kget");
     if (m_engine) {
-      m_engine->connectSource("KGet", this);
-      m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 2000));
+        m_engine->connectSource("KGet", this);
+        m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 4000));
     }
     else {
-      kDebug()<<"KGet Engine could not be loaded";
+        kDebug()<<"KGet Engine could not be loaded";
     }
+}
+
+void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)
+{
+    Q_UNUSED(option);
+
+    p->setRenderHint(QPainter::SmoothPixmapTransform);
+
+    m_theme->paint(p, QRect(contentsRect.x() , contentsRect.y(), 111, 30), "title");
+    m_theme->paint(p, QRect(contentsRect.x() + 36, contentsRect.y() + 28, contentsRect.width() - 62, 1), "line");
 }
 
 void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
@@ -125,7 +137,7 @@ void PlasmaKGet::configAccepted()
 void PlasmaKGet::loadTransferGraph(uint type)
 {
     if(type != m_graphType) {
-        prepareGeometryChange();
+
         delete m_transferGraph;
 
         switch(type)

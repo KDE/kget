@@ -30,7 +30,7 @@
 #include <KGlobal>
 #include <KColorCollection>
 
-#define TOP_MARGIN 10
+#define TOP_MARGIN 5
 #define LEFT_MARGIN 15
 #define PIE_SIZE 140
 
@@ -42,8 +42,8 @@ public:
 
     QString name;
     bool isActive;
-    int length;
-    int activeLength;
+    float length;
+    float activeLength;
 };
 
 class PieChartWidget::Private : public Plasma::Widget
@@ -56,20 +56,37 @@ public:
                 totalSize(0),
                 emitUpdateGeometrySignal(false)
     {
-        setGeometry(QRect((size.width()/2 - PIE_SIZE/2), TOP_MARGIN, PIE_SIZE + 2, PIE_SIZE + 2));
+        setGeometry(QRect(0, TOP_MARGIN, PIE_SIZE + 2, PIE_SIZE + 2));
+    }
+
+    void resize(int width, int height)
+    {
+        size.setWidth(width);
+        size.setHeight(height);
+        setGeometry(QRect(width/4, TOP_MARGIN, width/2, height/2));
     }
 
     // returns the size of the private inner widget
     QSizeF sizeHint() const
     {
-        return QSizeF(PIE_SIZE + 2, PIE_SIZE + 2);
+        return size;
+    }
+
+    inline double roundNumber (float number)
+    {
+        double intPart;
+        if (modf(number, &intPart) > 0.5) {
+            return intPart + 1;
+        }
+        else {
+            return intPart;
+        }
     }
 
     // Paint the private widget, who cares to draw only the line items representing the data
     void paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
     {
-        Q_UNUSED(option)
         Q_UNUSED(widget)
 
         if(totalSize > 0) {
@@ -78,7 +95,7 @@ public:
             p->save();
             p->setRenderHint(QPainter::Antialiasing);
 
-            QRect rect(2, 2, PIE_SIZE -2, PIE_SIZE - 2);
+            QRect rect(1, 1, size.width()/2 - 2, size.width()/2 - 2);
             int angle = 90 * 16; // 0
 
             QPen totalPen;
@@ -113,7 +130,7 @@ public:
 
                 p->setOpacity(pieOpacity);
 
-                int totalPercent = (int) portion.length * 100/ totalSize;
+                int totalPercent = (int) roundNumber(portion.length * 100/ totalSize);
                 angle = drawPie(p, rect, angle, totalPercent, brush);
                 p->restore();
 
@@ -121,7 +138,7 @@ public:
                 // draw the active length
                 p->setOpacity(activePieOpacity);
                 p->setPen(Qt::NoPen);
-                int activePercent = (int) portion.activeLength * 100/ totalSize;
+                int activePercent = (int) roundNumber(portion.activeLength * 100/ totalSize);
                 drawPie(p, QRect(rect.x() + 15, rect.y() + 15, rect.width() - 30, rect.height() - 30),
                                 current_angle, activePercent, brush);
 
@@ -132,7 +149,7 @@ public:
         }
         else {
             p->setPen(Qt::white);
-            p->drawText(QRect(2, 2, PIE_SIZE -2, PIE_SIZE - 2), Qt::AlignCenter, i18n("n/a"));
+            p->drawText(QRect(2, 2, size.width()/2 -2, size.width()/2 - 2), Qt::AlignCenter, i18n("n/a"));
         }
     }
 
@@ -147,19 +164,20 @@ public:
     }
 
     // Draw the graph legend with the names of the data
-    void drawLegend(const QString &name, QPainter *p, const QColor &color, int count)
+    void drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count)
     {
+        int textLength = option->rect.width() - 100;
         p->save();
         p->setPen(Qt::NoPen);
         p->setBrush(QBrush(color));
-        p->drawRoundRect(QRect(LEFT_MARGIN, count * 20 + size.height() - bottomMargin + TOP_MARGIN, 10, 10));
+        p->drawRoundRect(QRect(LEFT_MARGIN, count * 20 + option->rect.height() - bottomMargin + TOP_MARGIN, 10, 10));
         p->setPen(Qt::SolidLine);
         p->setPen(Qt::white);
 
         // the data name
-        p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + size.height () - bottomMargin + TOP_MARGIN - 5, 200, 20), Qt::AlignLeft, p->fontMetrics().elidedText(name, Qt::ElideLeft, 200));
+        p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + option->rect.height () - bottomMargin + TOP_MARGIN - 5, textLength, 20), Qt::AlignLeft, p->fontMetrics().elidedText(name, Qt::ElideLeft, textLength));
         // the data percent
-        p->drawText(QRect(LEFT_MARGIN + 236, count * 20 + size.height () - bottomMargin + TOP_MARGIN - 5, 70, 20), Qt::AlignLeft,
+        p->drawText(QRect(LEFT_MARGIN + 14 + textLength, count * 20 + option->rect.height () - bottomMargin + TOP_MARGIN - 5, 150, 20), Qt::AlignLeft,
         KGlobal::locale()->formatByteSize(data [name].length));
 
         p->restore();
@@ -169,7 +187,7 @@ public:
     QSize size;
     QMap <QString, PrivateData> data;
     int bottomMargin;
-    int totalSize;
+    float totalSize;
     bool emitUpdateGeometrySignal;
 };
 
@@ -243,12 +261,13 @@ QSizeF PieChartWidget::sizeHint() const
 
 void PieChartWidget::paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option)
     Q_UNUSED(widget)
+
+    d->resize(option->rect.width(), option->rect.height());
 
     kDebug() << "About to draw the parent widget" ;
 
     for(int i = 0; i < d->data.size(); i++) {
-        d->drawLegend(d->data.keys().at(i), p, d->m_colors.color(i*6 + 4), i);
+        d->drawLegend(d->data.keys().at(i), p, option, d->m_colors.color(i*6 + 4), i);
     }
 }

@@ -34,7 +34,6 @@ BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
     : TransferGraph(parent),
     m_actualPage(0)
 {
-    m_titleLabel = 0;
     m_totalSizeLabel = 0;
     m_layout = mainlayout;
 
@@ -49,13 +48,6 @@ BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
     animator->setEffect(Plasma::LayoutAnimator::RemovedState, Plasma::LayoutAnimator::FadeOutMoveEffect);
     m_layout->setAnimator(animator);
 */
-   // Title
-    m_titleLabel = new Plasma::Label(m_applet);
-    m_titleLabel->setText("KGet downloads");
-    m_titleLabel->setPen(QPen(Qt::white));
-    m_titleLabel->setAlignment(Qt::AlignLeft);
-    m_layout->addItem(m_titleLabel);
-
     // the progress bars layout
     m_progressBarsLayout = new Plasma::VBoxLayout(m_layout);
     m_progressBarsLayout->setMargin(0);
@@ -91,7 +83,6 @@ BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
 
 BarChart::~BarChart()
 {
-    delete m_titleLabel;
     delete m_pageLabel;
     delete m_totalSizeLabel;
     delete m_nextPageButton;
@@ -186,7 +177,6 @@ void BarChart::populate()
     else
         m_previousPageButton->setEnabled(false);
 
-    m_layout->updateGeometry();
     m_applet->updateGeometry();
 }
 
