@@ -261,7 +261,7 @@ void BTTransfer::init(KUrl src)
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
-    bt::SetClientInfo("KGet",2,0,1,bt::RELEASE_CANDIDATE,"KG");//Set client info to KGet, WARNING: Pls change this for every release
+    bt::SetClientInfo("KGet",2,0,0,bt::NORMAL,"KG");//Set client info to KGet, WARNING: Pls change this for every release
 
     bt::Uint16 i = 0;
     do
