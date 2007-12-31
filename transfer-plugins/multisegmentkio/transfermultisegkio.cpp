@@ -59,7 +59,6 @@ void transferMultiSegKio::stop()
 
     setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
-    m_isDownloading = false;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
 
@@ -212,6 +211,7 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
     m_copyjob = 0;
+    m_isDownloading = false;
     setTransferChange(Tc_Status, true);
 }
 
