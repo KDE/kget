@@ -39,7 +39,7 @@ void transferMultiSegKio::start()
 
     kDebug(5001);
 
-    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect-creating"));
+    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
     stopped = false;
 }
@@ -196,7 +196,8 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
     {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
-            setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+            setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
+            // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
             m_percent = 100;
             m_speed = 0;
             m_processedSize = m_totalSize;
@@ -206,7 +207,7 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
             //There has been an error
             kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
             if (!stopped)
-                setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
+                setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!

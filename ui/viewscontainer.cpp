@@ -189,7 +189,7 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 
 //     m_finishedBt = new ButtonBase();
 //     m_finishedBt->setText(i18n("Old Mainview"));
-//     m_finishedBt->setIcon(SmallIcon("ok"));
+//     m_finishedBt->setIcon(SmallIcon("dialog-ok"));
 
     m_transfersBt = new TransfersButton();
 

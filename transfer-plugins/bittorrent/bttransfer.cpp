@@ -139,7 +139,8 @@ void BTTransfer::load(const QDomElement &e)
 
     if((m_totalSize == m_processedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+        setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
+        // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
     }
     else
     {
@@ -255,7 +256,7 @@ void BTTransfer::init(KUrl src)
     if (src != m_source && !src.isEmpty())
         m_source = src;
 
-    setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("xmag"));
+    setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
@@ -326,7 +327,7 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
     kDebug(5001);
     timer.stop();
-    setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+    setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
     setTransferChange(Tc_Status, true);
 }
 
