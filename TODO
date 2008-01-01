@@ -26,6 +26,7 @@ Main Window
 
     IN PROGRESS
 ---------------------
+  ADD <kget> bitTorrent support
 
         TODO
 ---------------------
@@ -53,16 +54,6 @@ SHORT-TERM (URGENT):
       it should display "Downloads - <groupname>"
   ADD <dario> handle the situation when we remove a group which has transfers.
 
-  -- BITTORRENT PLUGIN --
-  FIX <dario> when stopping a transfer immediately after having started it, the
-      plugin crashes.
-  FIX <dario> sometimes, the bittorrent plugin blocks all the kget gui for
-      some seconds.
-  FIX <dario> if we have a torrent file and we make some copies of it with
-      different names, and then we add all the torrents to kget, kget crashes
-  FIX <dario> the transfer should switch its status to finished when we start
-      an already downloaded file.
-
   -- MISCELLANEOUS --
   ADD <dario> implement the GlobalStatus object and make the
       systray to update using the ViewInterface slots instead of the actual hack.
@@ -88,7 +79,6 @@ MID-TERM:
   ADD <dario> use KPassivePopups to notify when all the transfers have been
       downloaded.
   CHG <dario> profile kget and look for possible optimizations.
-  ADD <kget> bitTorrent support
   CHG <kget> setup a decent gui with a decent toolbars.
   CHG <kget> sync the configuration options with what has currently been 
       implemented.
@@ -111,8 +101,6 @@ LONG-TERM:
       graph, alternative urls, connection status/type, virtual folders,
       ...)
   ADD <kget> add bandwidth limiting (#87600)
-  ADD <kget> splits download in N segments (#62371)
-  ADD <kget> support for mirrors (#62371)
   ADD <dario> 'low priority downloads' as in br #50776.
   ADD <kget> add Help & Guide
   ADD <uwolfer> show average transfer speed when finished (#49219)
