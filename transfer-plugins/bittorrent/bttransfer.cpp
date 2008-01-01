@@ -46,7 +46,8 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_dlLimit(BittorrentSettings::downloadLimit()),
     m_ulLimit(BittorrentSettings::uploadLimit()),
     m_ratio(BittorrentSettings::maxShareRatio()),
-    m_ready(false)
+    m_ready(false),
+    m_downloadFinished(false)
 {
     kDebug(5001);
     if (m_source.url().isEmpty())
@@ -231,7 +232,13 @@ void BTTransfer::stopTorrent()
     torrent->stop(true);
     m_speed = 0;
     timer.stop();
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+
+    if (m_downloadFinished)
+    {
+        setStatus(Job::Stopped, i18n("Finished"), SmallIcon("dialog-ok"));
+    }
+    else
+        setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
     setTransferChange(Tc_Status, true);
 }
 
@@ -326,8 +333,9 @@ void BTTransfer::slotStoppedByError(bt::TorrentInterface* error, QString errorms
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
     kDebug(5001);
+    m_downloadFinished = true;
     timer.stop();
-    setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
+    setStatus(Job::Running, i18n("Seeding"), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
 }
 

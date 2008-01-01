@@ -106,6 +106,7 @@ class BTTransfer : public QObject, public Transfer
         float m_ratio;
         QTimer timer;
         bool m_ready;
+        bool m_downloadFinished;
 };
 
 #endif
