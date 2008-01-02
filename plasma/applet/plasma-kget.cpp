@@ -82,8 +82,8 @@ void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *opt
 
     p->setRenderHint(QPainter::SmoothPixmapTransform);
 
-    m_theme->paint(p, QRect(contentsRect.x() , contentsRect.y(), 111, 30), "title");
-    m_theme->paint(p, QRect(contentsRect.x() + 36, contentsRect.y() + 28, contentsRect.width() - 62, 1), "line");
+    m_theme->paint(p, QRect(contentsRect.x() , contentsRect.y(), 111, 35), "title");
+    m_theme->paint(p, QRect(contentsRect.x() + 36, contentsRect.y() + 33, contentsRect.width() - 67, 1), "line");
 }
 
 void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
