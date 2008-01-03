@@ -27,11 +27,11 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
 
 void TransferKio::start()
 {
+    m_stopped = false;
     if(!m_copyjob)
         createJob();
 
     kDebug(5001) << "TransferKio::start";
-
     setStatus(Job::Running, i18n("Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
 }
@@ -40,6 +40,8 @@ void TransferKio::stop()
 {
     if(status() == Stopped)
         return;
+
+    m_stopped = true;
 
     if(m_copyjob)
     {
@@ -119,7 +121,8 @@ void TransferKio::slotResult( KJob * kioJob )
         default:
             //There has been an error
             kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
-            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
+            if (!m_stopped)
+                setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!

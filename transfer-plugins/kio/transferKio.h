@@ -47,6 +47,7 @@ class TransferKio : public QObject, public Transfer
         void createJob();
 
         KIO::FileCopyJob * m_copyjob;
+        bool m_stopped;
 
     private slots:
         void slotResult( KJob * kioJob );
