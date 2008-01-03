@@ -64,6 +64,7 @@ QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
     {
         BTAdvancedDetailsWidget * details = new BTAdvancedDetailsWidget(bttransfer);
         details->show();
+        details->resize(500, 400);
     }
 
     return new BTDetailsWidget(bttransfer);
