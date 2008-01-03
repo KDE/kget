@@ -1,8 +1,6 @@
-/** IMPORTANT: please keep PARTS of this file in sync with ktorrent! *******/
-
 /***************************************************************************
- *   Copyright (C) 2005 by Joris Guisson   <joris.guisson@gmail.com>       *
- *   Copyright (C) 2007 by Lukas Appelhans <l.appelhans@gmx.de>            *
+ *   Copyright (C) 2007 by Joris Guisson                                   *
+ *   joris.guisson@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,72 +17,55 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#ifndef KT_PEERVIEW_HH
-#define KT_PEERVIEW_HH
+#ifndef KT_CHUNKDOWNLOADVIEW_HH
+#define KT_CHUNKDOWNLOADVIEW_HH
 
 
 #include <QTreeWidget>
-#include <util/ptrmap.h>
-#include <interfaces/peerinterface.h>
 #include <ksharedconfig.h>
+#include <interfaces/chunkdownloadinterface.h>
+#include "ui_chunkdownloadview.h"
 
-class KMenu;
+namespace bt
+{
+	class TorrentInterface;
+}
 
 namespace kt
 {
-	class PeerView;
-
-	/**
-	 * Item for the PeerView
-	 * */
-	class PeerViewItem : public QTreeWidgetItem
-	{
-	public:
-		PeerViewItem(PeerView* pv,bt::PeerInterface* peer);
-		virtual ~PeerViewItem();
-
-		void update(bool init = false);
-
-		bool operator < (const QTreeWidgetItem & other) const;
-		
-		bt::PeerInterface* peer;
-		bt::PeerInterface::Stats stats;
-	};
+	class ChunkDownloadModel;
 
 
 	/**
-	 * View which shows a list of peers, of a torrent.
+	 * View which shows a list of downloading chunks, of a torrent.
 	 * */
-	class PeerView : public QTreeWidget
+	class ChunkDownloadView : public QWidget,public Ui_ChunkDownloadView
 	{
 		Q_OBJECT
 	public:
-		PeerView(QWidget* parent);
-		virtual ~PeerView();
+		ChunkDownloadView(QWidget* parent);
+		virtual ~ChunkDownloadView();
 
 		/// A peer has been added
-		void peerAdded(bt::PeerInterface* peer);
+		void downloadAdded(bt::ChunkDownloadInterface* cd);
 
-		/// A peer has been removed
-		void peerRemoved(bt::PeerInterface* peer);
+		/// A download has been removed
+		void downloadRemoved(bt::ChunkDownloadInterface* cd);
 
 		/// Check to see if the GUI needs to be updated
 		void update();
+
+		/// Change the torrent to display
+		void changeTC(bt::TorrentInterface* tc);
 
 		/// Remove all items
 		void removeAll();
 		
 		void saveState(KSharedConfigPtr cfg);
 		void loadState(KSharedConfigPtr cfg);
-		
-	private slots: 
-		void showContextMenu(const QPoint& pos);
-		void banPeer();
-		void kickPeer();
-				
 	private:
-		bt::PtrMap<bt::PeerInterface*,PeerViewItem> items;
-		KMenu* context_menu;
+		bt::TorrentInterface* curr_tc;
+		ChunkDownloadModel* model;
 	};
 }
 

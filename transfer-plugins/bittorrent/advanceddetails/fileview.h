@@ -1,9 +1,6 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
- *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
+ *   Copyright (C) 2005-2007 by Joris Guisson                              *
  *   joris.guisson@gmail.com                                               *
- *   ivasic@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -20,44 +17,75 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#ifndef KTIWFILETREEMODEL_H
-#define KTIWFILETREEMODEL_H
+#ifndef KTFILEVIEW_H
+#define KTFILEVIEW_H
 
-#include <torrentfiletreemodel.h>
+#include <QTreeView>
+#include <util/constants.h>
+#include <ksharedconfig.h>
+
+class KMenu;
+
+namespace bt
+{
+	class TorrentInterface;
+}
 
 namespace kt
 {
+	class TorrentFileModel;
 
 	/**
-	 * 
-	 * @author Joris Guisson
-	 * 
-	 * Expands the standard TorrentFileTreeModel to show more information.
+		@author Joris Guisson <joris.guisson@gmail.com>
 	*/
-	class IWFileTreeModel : public TorrentFileTreeModel
+	class FileView : public QTreeView
 	{
 		Q_OBJECT
 	public:
-		IWFileTreeModel(bt::TorrentInterface* tc,QObject* parent);
-		virtual ~IWFileTreeModel();
+		FileView(QWidget *parent);
+		virtual ~FileView();
 
-		virtual int columnCount(const QModelIndex & parent) const;
-		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const;
-		virtual QVariant data(const QModelIndex & index, int role) const;
-		virtual bool setData(const QModelIndex & index, const QVariant & value, int role); 
-		virtual void update();
-		
+		void changeTC(bt::TorrentInterface* tc,KSharedConfigPtr cfg);
+		void setShowListOfFiles(bool on,KSharedConfigPtr cfg);
+		void saveState(KSharedConfigPtr cfg);
+		void loadState(KSharedConfigPtr cfg);
+		void update();
+	public slots:
+		void onTorrentRemoved(bt::TorrentInterface* tc);
+
 	private slots:
-		void onPercentageUpdated(float p);
-		void onPreviewAvailable(bool av);
+		void showContextMenu(const QPoint & p);
+		void onDoubleClicked(const QModelIndex & index);
+		void onMissingFileMarkedDND(bt::TorrentInterface* tc);
 		
 	private:
-		void update(const QModelIndex & index,bt::TorrentFileInterface* file,int col);
-		
+		void changePriority(bt::Priority newpriority);
+
+	private slots:
+		void open();
+		void downloadFirst();
+		void downloadLast();
+		void downloadNormal();
+		void doNotDownload();
+		void deleteFiles();
+		void moveFiles();
+
 	private:
-		bool preview;
-		bool mmfile;
-		double percentage;
+		bt::TorrentInterface* curr_tc;
+		TorrentFileModel* model;
+
+		KMenu* context_menu;
+		QAction* open_action;
+		QAction* download_first_action;
+		QAction* download_normal_action;
+		QAction* download_last_action;
+		QAction* dnd_action;
+		QAction* delete_action;
+		QAction* move_files_action;
+
+		QString preview_path;
+		bool show_list_of_files;
+		QMap<bt::TorrentInterface*,QByteArray> expanded_state_map;
 	};
 
 }

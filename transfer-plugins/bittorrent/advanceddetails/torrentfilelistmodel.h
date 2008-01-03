@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -20,35 +18,45 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#include <interfaces/torrentinterface.h>
-#include <interfaces/torrentfileinterface.h>
+#ifndef KTTORRENTFILELISTMODEL_H
+#define KTTORRENTFILELISTMODEL_H
+
 #include "torrentfilemodel.h"
 
 namespace kt
 {
-	TorrentFileModel::TorrentFileModel(bt::TorrentInterface* tc,DeselectMode mode,QObject* parent)
-		: QAbstractItemModel(parent),tc(tc),mode(mode)
-	{}
 
-	TorrentFileModel::~TorrentFileModel()
-	{}
-	
-	QByteArray TorrentFileModel::saveExpandedState(QTreeView* )
+	/**
+	 * Model for displaying file trees of a torrent
+	 * @author Joris Guisson
+	*/
+	class TorrentFileListModel : public TorrentFileModel
 	{
-		return QByteArray();
-	}
+		Q_OBJECT
+	public:
+		TorrentFileListModel(bt::TorrentInterface* tc,DeselectMode mode,QObject* parent);
+		virtual ~TorrentFileListModel();
 		
-	void TorrentFileModel::loadExpandedState(QTreeView* ,const QByteArray &)
-	{}
+		virtual int rowCount(const QModelIndex & parent) const;
+		virtual int columnCount(const QModelIndex & parent) const;
+		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const;
+		virtual QVariant data(const QModelIndex & index, int role) const;
+		virtual QModelIndex parent(const QModelIndex & index) const;
+		virtual QModelIndex index(int row,int column,const QModelIndex & parent) const;
+		virtual Qt::ItemFlags flags(const QModelIndex & index) const;
+		virtual bool setData(const QModelIndex & index, const QVariant & value, int role);
+		virtual void checkAll();
+		virtual void uncheckAll();
+		virtual void invertCheck();
+		virtual bt::Uint64 bytesToDownload();
+		virtual bt::TorrentFileInterface* indexToFile(const QModelIndex & idx);
+		virtual QString dirPath(const QModelIndex & idx);
+		virtual void changePriority(const QModelIndexList & indexes,bt::Priority newpriority);
 
-	void TorrentFileModel::missingFilesMarkedDND()
-	{
-		reset();
-	}
-
-	void TorrentFileModel::update()
-	{}
+	private: 
+		void invertCheck(const QModelIndex & idx);
+	};
 
 }
 
-#include "torrentfilemodel.moc"
+#endif

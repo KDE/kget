@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -476,7 +474,6 @@ namespace kt
 		BNode* n = dec.decode();
 		if (n && n->getType() == BNode::DICT)
 		{
-			n->printDebugInfo();
 			root->loadExpandedState(index(0,0,QModelIndex()),tv,n);
 		}
 		delete n;

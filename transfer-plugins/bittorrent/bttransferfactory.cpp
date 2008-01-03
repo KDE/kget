@@ -14,7 +14,7 @@
 #include "bttransfer.h"
 #include "bttransferhandler.h"
 #include "btdetailswidget.h"
-#include "btadvanceddetailswidget.h"
+#include "advanceddetails/btadvanceddetailswidget.h"
 
 #include <kdebug.h>
 

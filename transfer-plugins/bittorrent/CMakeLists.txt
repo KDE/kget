@@ -17,20 +17,23 @@ set(kget_bittorrentfactory_PART_SRCS
   bttransferhandler.cpp
   btdetailswidget.cpp
   btsettingswidget.cpp
-  btadvanceddetailswidget.cpp
   btdownload.cpp
   btspeedlimits.cpp
-  peerview.cpp
-  iwfiletreemodel.cpp
-  torrentfiletreemodel.cpp
-  torrentfilemodel.cpp
-  chunkdownloadviewitem.cpp
-#  flagdb.cpp
-#  GeoIP.c
-  btfiletreeview.cpp
+  advanceddetails/btadvanceddetailswidget.cpp
+  advanceddetails/chunkdownloadmodel.cpp
+  advanceddetails/chunkdownloadview.cpp
+  advanceddetails/fileview.cpp
+  advanceddetails/iwfilelistmodel.cpp
+  advanceddetails/iwfiletreemodel.cpp
+  advanceddetails/peerview.cpp
+  advanceddetails/torrentfilelistmodel.cpp
+  advanceddetails/torrentfilemodel.cpp
+  advanceddetails/torrentfiletreemodel.cpp
+  advanceddetails/monitor.cpp
+  advanceddetails/trackerview.cpp
 )
 
-kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btadvanceddetailswidget.ui btspeedlimits.ui btaddtrackerwidget.ui)
+kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btspeedlimits.ui advanceddetails/btaddtrackerwidget.ui advanceddetails/chunkdownloadview.ui advanceddetails/trackerview.ui)
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 

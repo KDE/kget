@@ -1,10 +1,8 @@
-/** IMPORTANT: please keep PARTS of this file in sync with ktorrent! *******/
-/** chunkdownloadview in ktorrent **/
-
 /***************************************************************************
- *   Copyright (C) 2007 by Joris Guisson   <joris.guisson@gmail.com>       *
- *   Copyright (C) 2007 by Lukas Appelhans <l.appelhans@gmx.de>            *
- *                                                                         *
+ *   Copyright (C) 2006-2007 by Joris Guisson, Ivan Vasic                  *
+ *   joris.guisson@gmail.com                                               *
+ *	 ivasic@gmail.com                                                  *
+ *									   *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -20,26 +18,49 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#ifndef CHUNKDOWNLOADVIEWITEM_H
-#define CHUNKDOWNLOADVIEWITEM_H
+#ifndef TRACKERVIEW_H
+#define TRACKERVIEW_H
 
-#include <interfaces/chunkdownloadinterface.h>
-#include <interfaces/torrentinterface.h>
+#include "ui_trackerview.h"
+#include "ui_btaddtrackerwidget.h"
 
-#include <QTreeWidgetItem>
-
-class ChunkDownloadViewItem : public QTreeWidgetItem
+namespace bt
 {
-    public:
-        ChunkDownloadViewItem(QTreeWidget* cdv,bt::ChunkDownloadInterface* cd,bt::TorrentInterface* tc);
-        virtual ~ChunkDownloadViewItem();
+	class TorrentInterface;
+	class TorrentFileInterface;
+}
 
-        void update(bool init = false);
-
-        bool operator < (const QTreeWidgetItem & other) const;
-
-    private:
-        bt::ChunkDownloadInterface* cd;
-        bt::ChunkDownloadInterface::Stats stats;
-};
+namespace kt
+{
+	
+	/**
+	 * @author Ivan Vasic <ivan@ktorrent.org>
+	 */
+	class TrackerView: public QWidget, public Ui_TrackerView
+	{
+		Q_OBJECT
+	public:
+		TrackerView(QWidget *parent);			
+		virtual ~TrackerView();
+			
+		void update();
+		void changeTC(bt::TorrentInterface* ti);
+			
+	public slots:
+		virtual void btnUpdateClicked();
+		virtual void btnRestoreClicked();
+		virtual void btnChangeClicked();
+		virtual void btnRemoveClicked();
+		virtual void btnAddClicked();
+			
+	private:
+		void torrentChanged(bt::TorrentInterface* ti);
+			
+	private:
+		bt::TorrentInterface* tc;
+                //Add Tracker Dialog
+                KDialog *addTrackerDialog;
+		Ui::BTAddTrackerWidget addTrackerWidget;
+	};
+}
 #endif

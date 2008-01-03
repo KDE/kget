@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -114,7 +112,7 @@ namespace kt
 		 * Update gui if necessary
 		 */
 		virtual void update();
-        signals:
+signals:
 		/**
 		 * Emitted whenever one or more items changes check state
 		 */
