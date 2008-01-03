@@ -27,9 +27,7 @@ Main Window
     IN PROGRESS
 ---------------------
   ADD <kget> bitTorrent support
-  CHG <boom1992> Use an AbstractItemModel for ChunkView
   ADD <boom1992> CheckFiles-action for BT-Plugin
-  FIX <boom1992> Sometimes the TrackerStatus is not displayed correctly
 
         TODO
 ---------------------
