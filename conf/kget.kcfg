@@ -64,7 +64,7 @@
 
   <group name="Network">
     <entry name="DownloadAtStartup" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="LimitDownloads" type="Bool">
       <default>true</default>
