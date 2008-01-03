@@ -44,12 +44,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgNet.lbl_maxnum_2->setVisible(false);
     dlgNet.kcfg_MaxConnectionsServer->setVisible(false);
 
-    addPage(appearance, i18n("Appearance"), "video-display", i18n("Change appearance settings"));
-    addPage(groups, i18n("Groups"), "bookmark", i18n("Manage the groups"));
-    addPage(directories, i18n("Folders"), "folder-open", i18n("Default Download Folders"));
-    addPage(network, i18n("Network"), "network-wired", i18n("Network and Downloads"));
-    addPage(advanced, i18n("Advanced"), "kget", i18n("Advanced Options"));
-    addPage(plugins, i18n("Plugins"), "drive-removable-media-usb-pendrive", i18n("Transfer Plugin Options"));
+    addPage(appearance, i18n("Appearance"), "preferences-desktop-theme", i18n("Change appearance settings"));
+    addPage(groups, i18n("Groups"), "bookmarks", i18n("Manage the groups"));
+    addPage(directories, i18n("Folders"), "folder", i18n("Default Download Folders"));
+    addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
+    addPage(advanced, i18n("Advanced"), "preferences-other", i18n("Advanced Options"));
+    addPage(plugins, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugin Options"));
 
     connect(this, SIGNAL(accepted()), SLOT(disableButtonApply()));
     connect(this, SIGNAL(rejected()), SLOT(disableButtonApply()));
