@@ -117,9 +117,9 @@ void PlasmaKGet::showConfigurationInterface()
         connect(m_dialog, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
         connect(m_dialog, SIGNAL(okClicked()), this, SLOT(configAccepted()));
 
-        ui.graphType->addItem(i18n("Bar chart"), QVariant(PlasmaKGet::BarChartType));
-        ui.graphType->addItem(i18n("Pie graph"), QVariant(PlasmaKGet::PieGraphType));
-        ui.graphType->addItem(i18n("Speed graph"), QVariant(PlasmaKGet::SpeedGraphType));
+        ui.graphType->addItem(i18n("Bar Chart"), QVariant(PlasmaKGet::BarChartType));
+        ui.graphType->addItem(i18n("Pie Graph"), QVariant(PlasmaKGet::PieGraphType));
+        ui.graphType->addItem(i18n("Speed Graph"), QVariant(PlasmaKGet::SpeedGraphType));
     }
     m_dialog->show();
 }
