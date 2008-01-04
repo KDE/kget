@@ -10,9 +10,7 @@
 */
 
 #include "bttransfer.h"
-#include "bttransferhandler.h"
 #include "bittorrentsettings.h"
-#include "advanceddetails/btadvanceddetailswidget.h"
 
 #include "core/kget.h"
 
@@ -52,7 +50,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_downloadFinished(false)
 {
     kDebug(5001);
-    advancedDetails = 0;
     if (m_source.url().isEmpty())
         return;
 
@@ -340,29 +337,6 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
     timer.stop();
     setStatus(Job::Running, i18n("Seeding"), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
-}
-
-void BTTransfer::createAdvancedDetails()
-{
-    kDebug(5001);
-
-    if (!advancedDetails)
-    {
-        kDebug(5001) << "Going to create AdvancedDetails";
-        BTTransferHandler *transferhandler = static_cast<BTTransferHandler*>(handler());
-        if (transferhandler)
-        {
-            advancedDetails = new BTAdvancedDetailsWidget(transferhandler);
-            advancedDetails->show();
-            connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
-        }
-    }
-}
-
-void BTTransfer::removeAdvancedDetails()
-{
-    advancedDetails->close();
-    advancedDetails = 0;
 }
 
 /**Property-Functions**/

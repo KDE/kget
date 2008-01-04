@@ -75,6 +75,12 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
          connect(openAdvancedDetailsAction, SIGNAL(triggered()), bttransfer, SLOT(createAdvancedDetails()));
  
          actions.append(openAdvancedDetailsAction);
+
+         KAction *openSpeedSettingsAction = new KAction(KIcon("document-open"), i18n("&Speed Limits"), this);
+ 
+         connect(openSpeedSettingsAction, SIGNAL(triggered()), bttransfer, SLOT(createSpeedLimits()));
+ 
+         actions.append(openSpeedSettingsAction);
      }
  
      if (bttransfer)

@@ -9,17 +9,35 @@
 */
 #include "btspeedlimits.h"
 
+#include "ui_btspeedlimits.h"
+
 #include <KDebug>
 
 BTSpeedLimits::BTSpeedLimits(BTTransferHandler * handler, QWidget * parent)
   : KDialog(parent),
     m_handler(handler)
 {
-    connect(this, SIGNAL(accepted()), SLOT(setSpeedLimits()));
+    Ui::BTSpeedLimits ui;
+    QWidget *widget = new QWidget();
+    ui.setupUi(widget);
+    setMainWidget(widget);
+
+    m_dlBox = ui.dlBox;
+    m_ulBox = ui.ulBox;
+    m_shareRatioSpin = ui.shareRatioSpin;
+
+    connect(this, SIGNAL(accepted()), SLOT(setSpeedLimitsAndClose()));
+    connect(this, SIGNAL(accepted()), SLOT(onlyClose()));
 }
 
-void BTSpeedLimits::setSpeedLimits()
+void BTSpeedLimits::setSpeedLimitsAndClose()
 {
-    m_handler->setTrafficLimits(dlBox->value(), ulBox->value());
-    m_handler->setMaxShareRatio(shareRatioSpin->value());
+    m_handler->setTrafficLimits(m_dlBox->value(), m_ulBox->value());
+    m_handler->setMaxShareRatio(m_shareRatioSpin->value());
+    emit aboutToClose();
+}
+
+void BTSpeedLimits::onlyClose()
+{
+    emit aboutToClose();
 }

@@ -536,6 +536,8 @@ void MainWindow::slotNewConfig()
     else
         clipboardTimer->stop();
     m_autoPasteAction->setChecked(Settings::autoPaste());
+
+    KGet::settingsChanged();
 }
 
 void MainWindow::slotToggleAutoPaste()

@@ -529,6 +529,19 @@ void KGet::checkSystemTray()
     m_mainWindow->setSystemTrayDownloading(running);
 }
 
+void KGet::settingsChanged()
+{
+    kDebug(5001);
+
+    QList<TransferFactory*>::const_iterator it = m_transferFactories.begin();
+    QList<TransferFactory*>::const_iterator itEnd = m_transferFactories.end();
+
+    for( ; it!=itEnd ; ++it )
+    {
+        (*it)->settingsChanged();
+    }
+}
+
 void KGet::registerKJob(KJob *job)
 {
     m_jobManager->registerJob(job);

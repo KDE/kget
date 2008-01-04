@@ -11,14 +11,56 @@
 #include "bttransferhandler.h"
 
 #include "bttransfer.h"
+#include "advanceddetails/btadvanceddetailswidget.h"
+#include "btspeedlimits.h"
 
 #include "core/scheduler.h"
+
+#include <KDebug>
 
 BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler)
     : TransferHandler(transfer, scheduler),
       m_transfer(transfer)
 {
-
+    advancedDetails = 0;
+    speedLimits = 0;
 }
 
+void BTTransferHandler::createAdvancedDetails()
+{
+    kDebug(5001);
 
+    if (!advancedDetails)
+    {
+        kDebug(5001) << "Going to create AdvancedDetails";
+        advancedDetails = new BTAdvancedDetailsWidget(this);
+        advancedDetails->show();
+        connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
+    }
+}
+
+void BTTransferHandler::removeAdvancedDetails()
+{
+    advancedDetails->close();
+    advancedDetails = 0;
+}
+
+void BTTransferHandler::createSpeedLimits()
+{
+    kDebug(5001);
+    if (!speedLimits)
+    {
+        kDebug(5001) << "Going to create SpeedLimits";
+        speedLimits = new BTSpeedLimits(this);
+        speedLimits->show();
+        connect(speedLimits, SIGNAL(aboutToClose()), SLOT(removeSpeedLimits()));
+    }
+}
+
+void BTTransferHandler::removeSpeedLimits()
+{
+    if (speedLimits)
+        speedLimits->close();
+
+    speedLimits = 0;
+}

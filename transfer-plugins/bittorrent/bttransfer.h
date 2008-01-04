@@ -16,8 +16,6 @@
 
 #include <QTimer>
 
-class BTAdvancedDetailsWidget;
-
 class BTTransfer : public QObject, public Transfer
 {
     Q_OBJECT
@@ -84,7 +82,6 @@ class BTTransfer : public QObject, public Transfer
         void setMaxShareRatio(float ratio);
         void addTracker(QString url);
         void save(const QDomElement &element);
-        void createAdvancedDetails();
 
         bool ready();
 
@@ -96,7 +93,6 @@ class BTTransfer : public QObject, public Transfer
         void update();
         void slotStoppedByError(bt::TorrentInterface* error, QString errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);
-        void removeAdvancedDetails();
 
     private:
         void startTorrent();
@@ -111,7 +107,6 @@ class BTTransfer : public QObject, public Transfer
         QTimer timer;
         bool m_ready;
         bool m_downloadFinished;
-        BTAdvancedDetailsWidget *advancedDetails;
 };
 
 #endif

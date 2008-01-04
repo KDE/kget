@@ -17,6 +17,10 @@
 
 class Scheduler;
 
+class BTAdvancedDetailsWidget;
+
+class BTSpeedLimits;
+
 class BTTransferHandler : public QObject, public TransferHandler
 {
     Q_OBJECT
@@ -44,10 +48,17 @@ class BTTransferHandler : public QObject, public TransferHandler
         void setMaxShareRatio(float ratio)             {m_transfer->setMaxShareRatio(ratio);}
 
     public slots:
-        void createAdvancedDetails()                    {m_transfer->createAdvancedDetails();}
+        void createAdvancedDetails();
+        void createSpeedLimits();
+
+    private slots:
+        void removeAdvancedDetails();
+        void removeSpeedLimits();
 
     private:
         BTTransfer * m_transfer;
+        BTAdvancedDetailsWidget *advancedDetails;
+        BTSpeedLimits *speedLimits;
 };
 
 #endif

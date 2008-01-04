@@ -11,23 +11,31 @@
 #ifndef BTSPEEDLIMITS_H
 #define BTSPEEDLIMITS_H
 
-#include "ui_btspeedlimits.h"
-
 #include "bttransferhandler.h"
 
 #include <KDialog>
 
-class BTSpeedLimits : public KDialog, public Ui::BTSpeedLimits
+class QSpinBox;
+class QDoubleSpinBox;
+
+class BTSpeedLimits : public KDialog
 {
     Q_OBJECT
     public:
         BTSpeedLimits(BTTransferHandler * handler, QWidget *parent = 0);
 
+    signals:
+        void aboutToClose();
+
     private slots:
-        void setSpeedLimits();
+        void setSpeedLimitsAndClose();
+        void onlyClose();
 
     private:
         BTTransferHandler * m_handler;
+        QSpinBox *m_dlBox;
+        QSpinBox *m_ulBox;
+        QDoubleSpinBox *m_shareRatioSpin;
 };
 
 #endif

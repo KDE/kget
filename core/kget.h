@@ -234,6 +234,11 @@ class KGET_EXPORT KGet
         static void checkSystemTray();
 
         /**
+         * This will be called when the settings have been changed
+         */
+        static void settingsChanged();
+
+        /**
          * Returns the kget kuiserver jobs manager
          *
          */
