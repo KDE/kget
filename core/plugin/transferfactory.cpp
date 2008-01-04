@@ -14,6 +14,7 @@
 
 #include <kmenu.h>
 #include <klocale.h>
+#include <kdebug.h>
 
 TransferFactory::TransferFactory()
 {
@@ -41,7 +42,9 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     //Get the right factory for the given list of transfers
     QList<KAction *> actionList;
 
-    if(sameFactory)
+    if (transfers.size() == 1)
+        actionList = transfers.first()->m_transfer->factory()->actions(transfers.first());
+    else if(sameFactory)
         actionList = transfers.first()->m_transfer->factory()->actions();
     else
         actionList = this->actions();

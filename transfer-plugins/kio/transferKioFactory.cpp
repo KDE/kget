@@ -61,7 +61,7 @@ QWidget * TransferKioFactory::createSettingsWidget(KDialog * parent)
     return 0; // if there is no settings widget we must return 0
 }
 
-const QList<KAction *> TransferKioFactory::actions()
+const QList<KAction *> TransferKioFactory::actions(TransferHandler *handler)
 {
     return QList<KAction *>();
 }

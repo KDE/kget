@@ -58,7 +58,7 @@ QWidget * metalinkFactory::createSettingsWidget(KDialog * parent)
     return 0; // if there is no settings widget we must return 0
 }
 
-const QList<KAction *> metalinkFactory::actions()
+const QList<KAction *> metalinkFactory::actions(TransferHandler *handler)
 {
     return QList<KAction *>();
 }

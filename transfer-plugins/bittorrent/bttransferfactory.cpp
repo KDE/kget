@@ -60,21 +60,26 @@ QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
     BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(transfer);
 
-    if (bttransfer->ready())
-    {
-        BTAdvancedDetailsWidget * details = new BTAdvancedDetailsWidget(bttransfer);
-        details->show();
-        details->resize(500, 400);
-    }
-
     return new BTDetailsWidget(bttransfer);
 }
 
-const QList<KAction *> BTTransferFactory::actions()
+const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
 {
-    /**if (!handler)
-        return QList<KAction *>();
-    else**/
-        return QList<KAction *>();
+     BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(handler);
+
+     QList<KAction*> actions;
+     if (bttransfer)
+     {
+         KAction *openAdvancedDetailsAction = new KAction(KIcon("document-open"), i18n("&Advanced Details"), this);
+ 
+         connect(openAdvancedDetailsAction, SIGNAL(triggered()), bttransfer, SLOT(createAdvancedDetails()));
+ 
+         actions.append(openAdvancedDetailsAction);
+     }
+ 
+     if (bttransfer)
+         return actions;
+     else
+         return QList<KAction *>();
 }
 

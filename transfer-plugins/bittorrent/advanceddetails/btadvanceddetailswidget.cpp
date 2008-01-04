@@ -49,6 +49,7 @@ BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
 void BTAdvancedDetailsWidget::init()
 {
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
+    resize(500, 400);
     QGridLayout *layout = new QGridLayout();
     QTabWidget *tabWidget = new QTabWidget(this);
     layout->addWidget(tabWidget);
@@ -88,6 +89,7 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
 {
     tc->setMonitor(0);
+    emit aboutToClose();
     deleteLater();
 }
 

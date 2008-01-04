@@ -36,7 +36,7 @@ class metalinkFactory : public TransferFactory
 
         QString displayName(){return "MetaLink";}
 
-        const QList<KAction *> actions();
+        const QList<KAction *> actions(TransferHandler *handler = 0);
 };
 
 #endif

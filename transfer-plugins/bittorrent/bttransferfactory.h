@@ -21,13 +21,13 @@ class BTTransferFactory : public QObject, public TransferFactory
         BTTransferFactory();
         ~BTTransferFactory();
 
-        Transfer * createTransfer(const KUrl &srcUrl, const KUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = 0 );
+        Transfer * createTransfer(const KUrl &srcUrl, const KUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = 0);
 
         TransferHandler * createTransferHandler(Transfer * transfer, Scheduler * scheduler);
 
-        QWidget * createDetailsWidget( TransferHandler * transfer );
+        QWidget * createDetailsWidget(TransferHandler * transfer);
 
-        const QList<KAction *> actions();
+        const QList<KAction *> actions(TransferHandler * handler = 0);
 
         QWidget * createSettingsWidget(KDialog * parent) { return new BTSettingsWidget(parent);}
 

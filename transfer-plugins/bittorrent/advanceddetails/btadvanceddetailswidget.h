@@ -40,6 +40,10 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
         void deleteEvent(TransferHandler * transfer){/**FIXME: Implement this^^**/ Q_UNUSED(transfer); }
         void init();
 
+    signals:
+         void aboutToClose();
+
+
     private:
         void hideEvent(QHideEvent * event);
 

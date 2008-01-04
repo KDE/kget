@@ -36,7 +36,7 @@ class TransferMultiSegKioFactory : public TransferFactory
 
         QString displayName(){return "Multithreaded HTTP(s) / FTP(s)";}
 
-        const QList<KAction *> actions();
+        const QList<KAction *> actions(TransferHandler *handler = 0);
 };
 
 #endif

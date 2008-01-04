@@ -65,7 +65,7 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual QString displayName() = 0;
 
-        virtual const QList<KAction *> actions() = 0;
+        virtual const QList<KAction *> actions(TransferHandler *handler = 0) = 0;
 
         KMenu * createPopupMenu(QList<TransferHandler *> transfers);
 };

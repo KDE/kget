@@ -17,8 +17,9 @@
 
 class Scheduler;
 
-class BTTransferHandler : public TransferHandler
+class BTTransferHandler : public QObject, public TransferHandler
 {
+    Q_OBJECT
     public:
         BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler);
 
@@ -41,6 +42,9 @@ class BTTransferHandler : public TransferHandler
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
         void setTrafficLimits(int ulLimit, int dlLimit) {m_transfer->setTrafficLimits(ulLimit, dlLimit);}
         void setMaxShareRatio(float ratio)             {m_transfer->setMaxShareRatio(ratio);}
+
+    public slots:
+        void createAdvancedDetails()                    {m_transfer->createAdvancedDetails();}
 
     private:
         BTTransfer * m_transfer;
