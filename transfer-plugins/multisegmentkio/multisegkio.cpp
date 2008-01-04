@@ -11,6 +11,8 @@
 #include "multisegkio.h"
 #include "multisegkiosettings.h"
 
+#include "core/kget.h"
+
 #include <kde_file.h>
 
 #include <QFile>
@@ -58,6 +60,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& de
     m_putJob = 0;
     connect(&d->speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
     QTimer::singleShot(0, this, SLOT(slotStart()));
+
+    KGet::registerKJob(this);
 }
 
 MultiSegmentCopyJob::MultiSegmentCopyJob(

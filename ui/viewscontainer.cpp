@@ -262,7 +262,8 @@ void ViewsContainer::showTransferDetails(TransferHandler * transfer)
         if( it == m_transfersMap.end() )
         {
             //Create the transfer widget
-            QWidget * widget = new TransferDetails(transfer); KGet::factory(transfer)->createDetailsWidget(transfer);
+            QWidget * widget = TransferDetails::detailsWidget(transfer);
+
             //Add it to the m_transferItems list
             m_transfersMap[transfer] = widget;
             //Add the widget to the qstackedlayout

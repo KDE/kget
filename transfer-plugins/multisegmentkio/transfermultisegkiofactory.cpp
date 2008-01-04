@@ -56,7 +56,7 @@ TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * t
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer);
-    return new QWidget();   //Temporary!!
+    return 0;   //Temporary!!
 }
 
 QWidget * TransferMultiSegKioFactory::createSettingsWidget(KDialog * parent)

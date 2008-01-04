@@ -21,6 +21,7 @@
 #include <kactioncollection.h>
 #include <ktabwidget.h>
 
+#include "kuiserverjobs.h"
 #include "scheduler.h"
 #include "kget_export.h"
 #include "observer.h"
@@ -232,6 +233,14 @@ class KGET_EXPORT KGet
          */
         static void checkSystemTray();
 
+        /**
+         * Returns the kget kuiserver jobs manager
+         *
+         */
+         static void registerKJob(KJob *);
+         static void unregisterKJob(KJob *);
+         static void reloadKJobs();
+
     private:
         KGet();
         ~KGet();
@@ -316,6 +325,9 @@ class KGET_EXPORT KGet
 
         //Scheduler object
         static Scheduler * m_scheduler;
+
+        //pointer to the kget uiserver jobs manager
+        static KUiServerJobs *m_jobManager;
 };
 
 

@@ -65,6 +65,7 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
         popup->addSeparator();
 
     popup->addAction( KGet::actionCollection()->action("transfer_open_dest") );
+    popup->addAction( KGet::actionCollection()->action("transfer_open_file") );
     popup->addAction( KGet::actionCollection()->action("transfer_show_details") );
     popup->addAction( KGet::actionCollection()->action("transfer_copy_source_url") );
 

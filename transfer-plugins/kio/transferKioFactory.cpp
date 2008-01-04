@@ -52,7 +52,7 @@ TransferHandler * TransferKioFactory::createTransferHandler(Transfer * transfer,
 QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer);
-    return new QWidget();   //Temporary!!
+    return 0;   //Temporary!!
 }
 
 QWidget * TransferKioFactory::createSettingsWidget(KDialog * parent)

@@ -14,9 +14,14 @@
 #include "core/transfergrouphandler.h"
 #include "core/kget.h"
 
-#include <kdebug.h>
+#include <KDebug>
+#include <KMessageBox>
+#include <KLocale>
+#include <KStandardDirs>
 
 #include <QDomElement>
+#include <QFile>
+#include <QDateTime>
 
 
 TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name)
@@ -71,6 +76,49 @@ void TransferGroup::insert(Transfer * transfer, Transfer * after)
 
 void TransferGroup::remove(Transfer * transfer)
 {
+
+    QString filename = KStandardDirs::locateLocal("appdata", "transferhistory.kgt");
+    QFile file(filename);
+    QDomDocument *doc;
+    QDomElement root;
+
+    if (!file.exists())
+    {
+        doc = new QDomDocument("Transfers");
+        root = doc->createElement("Transfers");
+        doc->appendChild(root);
+    }
+    else
+    {
+        doc = new QDomDocument();
+        doc->setContent(&file);
+        file.close();
+        root = doc->documentElement();
+        doc->appendChild(root);
+    }
+
+    QDomElement e = doc->createElement("Transfer");
+    root.appendChild(e);
+
+    e.setAttribute("Source", transfer->source().url());
+    e.setAttribute("Dest", transfer->dest().url());
+    e.setAttribute("Time", QDateTime::currentDateTime().toString());
+    
+    kDebug(5001) << transfer->statusText();
+
+    if (transfer->statusText() == "Finished")
+        e.setAttribute("State", "Finished");
+    else
+        e.setAttribute("State", "Aborted");
+
+    if (!file.open(QIODevice::ReadWrite))
+        KMessageBox::error(0, i18n("History-File cannot be opened correctly!"), i18n("Error"), 0);
+
+    QTextStream stream( &file );
+    doc->save( stream, 0 );
+    file.close();
+    kDebug(5001) << "remove Transfer:" << transfer->source().url();
+
     JobQueue::remove(transfer);
 
     handler()->postRemovedTransferEvent(transfer);

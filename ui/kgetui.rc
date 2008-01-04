@@ -7,6 +7,8 @@
         <Action name="import_transfers"/>
         <Action name="export_transfers"/>
         <Separator/>
+        <Action name="Transfer History" />
+        <Separator/>
         <Action name="quit"/>
     </Menu>
         <Menu noMerge="1" name="Downloads"><text>&amp;Downloads</text>

@@ -24,6 +24,7 @@
 #include "ui/tray.h"
 #include "ui/droptarget.h"
 #include "ui/newtransferdialog.h"
+#include "ui/transferhistory.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -208,6 +209,11 @@ void MainWindow::setupActions()
     openDestAction->setIcon(KIcon("document-open"));
     connect(openDestAction, SIGNAL(triggered()), SLOT(slotTransfersOpenDest()));
 
+    QAction *openFileAction = actionCollection()->addAction("transfer_open_file");
+    openFileAction->setText(i18n("Open File"));
+    openFileAction->setIcon(KIcon("document-open"));
+    connect(openFileAction, SIGNAL(triggered()), SLOT(slotTransfersOpenFile()));
+
     QAction *showDetailsAction = actionCollection()->addAction("transfer_show_details");
     showDetailsAction->setText(i18n("Show Details"));
     showDetailsAction->setIcon(KIcon("document-properties"));
@@ -223,6 +229,12 @@ void MainWindow::setupActions()
     actionCollection()->addAction("show_drop_target", showDropTargetAction);
     showDropTargetAction->setChecked(Settings::showDropTarget());
     connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
+
+    QAction *transferHistoryAction = actionCollection()->addAction("Transfer History");
+    transferHistoryAction->setText(i18n("&Transfer History"));
+    transferHistoryAction->setIcon(KIcon("view-history"));
+    transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));
+    connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -445,6 +457,14 @@ void MainWindow::slotTransfersOpenDest()
     }
 }
 
+void MainWindow::slotTransfersOpenFile()
+{
+    foreach(TransferHandler * it, KGet::selectedTransfers())
+    {
+        new KRun(it->dest(), this, 0, true, false);
+    }
+}
+
 void MainWindow::slotTransfersShowDetails()
 {
     foreach(TransferHandler * it, KGet::selectedTransfers())
@@ -508,6 +528,8 @@ void MainWindow::slotNewConfig()
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
+
+    KGet::reloadKJobs();
 
     if (Settings::autoPaste())
         clipboardTimer->start(1000);
@@ -580,6 +602,12 @@ void MainWindow::setSystemTrayDownloading(bool running)
     kDebug(5001);
 
     m_dock->setDownloading(running);
+}
+
+void MainWindow::slotTransferHistory()
+{
+    TransferHistory *history = new TransferHistory();
+    history->show();
 }
 
 /** widget events */

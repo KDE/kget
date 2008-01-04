@@ -106,4 +106,15 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
     m_transfer->resetChangesFlags(this);
 }
 
+QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
+{
+    QWidget *details = KGet::factory(handler)->createDetailsWidget(handler);
+
+    if (!details) { // the transfer factory doesn't override the details widget so use the generic one
+        details = new TransferDetails(handler);
+    }
+
+    return  details;
+}
+
 #include "transferdetails.moc"

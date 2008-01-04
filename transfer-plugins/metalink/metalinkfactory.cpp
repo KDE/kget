@@ -49,7 +49,7 @@ TransferHandler * metalinkFactory::createTransferHandler(Transfer * transfer, Sc
 QWidget * metalinkFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer);
-    return new QWidget();   //Temporary!!
+    return 0;   //Temporary!!
 }
 
 QWidget * metalinkFactory::createSettingsWidget(KDialog * parent)

@@ -88,6 +88,7 @@ private slots:
     void slotStartSelectedDownload();
     void slotDeleteSelected();
     void slotTransfersOpenDest();
+    void slotTransfersOpenFile();
     void slotTransfersShowDetails();
     void slotTransfersCopySourceUrl();
 
@@ -97,6 +98,7 @@ private slots:
     void slotNewToolbarConfig();
     void slotNewConfig();
     void slotCheckClipboard();
+    void slotTransferHistory();
 
 private:
     // one-time functions

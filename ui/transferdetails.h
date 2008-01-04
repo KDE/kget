@@ -30,6 +30,8 @@ class TransferDetails : public QWidget, public TransferObserver
 
         void transferChangedEvent(TransferHandler * transfer);
 
+        // gets the generic details widget if the transfer factory doesn't override it
+        static QWidget *detailsWidget(TransferHandler *transfer);
     private:
         TransferHandler * m_transfer;
         QVBoxLayout     * m_layout;

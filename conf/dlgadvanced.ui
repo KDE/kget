@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>405</width>
-    <height>350</height>
+    <height>425</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -60,6 +60,41 @@
        <widget class="QCheckBox" name="kcfg_AutoPaste" >
         <property name="text" >
          <string>Monitor clipboard for files to download</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="kcfg_EnableKUIServerIntegration" >
+     <property name="minimumSize" >
+      <size>
+       <width>0</width>
+       <height>41</height>
+      </size>
+     </property>
+     <property name="title" >
+      <string>Enable KDE global progress tracking</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+     <property name="checked" >
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QRadioButton" name="kcfg_ExportSingleTransfer" >
+        <property name="text" >
+         <string>Show every single download </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="kcfg_ExportGlobalJob" >
+        <property name="text" >
+         <string>Show overall progress</string>
         </property>
        </widget>
       </item>

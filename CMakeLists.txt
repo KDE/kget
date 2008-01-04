@@ -38,6 +38,8 @@ set(kgetcore_SRCS
    core/plugin/plugin.cpp
    core/plugin/transferfactory.cpp
    core/transfercontainer.cpp
+   core/kuiserverjobs.cpp
+   core/kgetglobaljob.cpp
 )
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
@@ -68,6 +70,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/viewscontainer.cpp
    ui/newtransferdialog.cpp
    ui/kextendableitemdelegate.cpp
+   ui/transferhistory.cpp
    mainwindow.cpp
    main.cpp
 )
@@ -79,6 +82,7 @@ kde4_add_ui_files(kget_SRCS
    conf/dlgnetwork.ui
    ui/transferdetailsfrm.ui
    ui/newtransferwidget.ui
+   ui/transferhistory.ui
 )
 
 kde4_add_executable(kget ${kget_SRCS})

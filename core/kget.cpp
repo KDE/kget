@@ -20,6 +20,7 @@
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
+#include "core/kuiserverjobs.h"
 #include "settings.h"
 
 #include <kio/netaccess.h>
@@ -528,6 +529,21 @@ void KGet::checkSystemTray()
     m_mainWindow->setSystemTrayDownloading(running);
 }
 
+void KGet::registerKJob(KJob *job)
+{
+    m_jobManager->registerJob(job);
+}
+
+void KGet::unregisterKJob(KJob *job)
+{
+    m_jobManager->unregisterJob(job);
+}
+
+void KGet::reloadKJobs()
+{
+    m_jobManager->reload();
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
@@ -536,6 +552,7 @@ QList<TransferFactory *> KGet::m_transferFactories;
 QList<KLibrary *> KGet::m_pluginKLibraries;
 Scheduler * KGet::m_scheduler = new Scheduler();
 MainWindow * KGet::m_mainWindow = 0;
+KUiServerJobs * KGet::m_jobManager = new KUiServerJobs();
 
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()

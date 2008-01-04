@@ -60,6 +60,15 @@
     <entry name="QuitAfterCompletedTransfer" type="Bool">
         <default>false</default>
     </entry>
+    <entry name="EnableKUIServerIntegration" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="ExportSingleTransfer" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="ExportGlobalJob" type="Bool">
+        <default>false</default>
+    </entry>
   </group>
 
   <group name="Network">
