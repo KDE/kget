@@ -609,7 +609,7 @@ void MainWindow::setSystemTrayDownloading(bool running)
 void MainWindow::slotTransferHistory()
 {
     TransferHistory *history = new TransferHistory();
-    history->show();
+    history->exec();
 }
 
 /** widget events */

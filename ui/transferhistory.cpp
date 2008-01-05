@@ -66,8 +66,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     connect(m_openFile, SIGNAL(triggered()), this, SLOT(slotOpenFile()));
     connect(m_clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
     connect(watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotAddTransfers()));
-    connect(this, SIGNAL(accepted()), this, SLOT(slotSave()));
-    connect(this, SIGNAL(rejected()), this, SLOT(slotWriteDefault()));
+    connect(this, SIGNAL(destroyed()), this, SLOT(slotSave()));
+    //connect(this, SIGNAL(rejected()), this, SLOT(slotWriteDefault()));
 }
 
 void TransferHistory::slotDeleteTransfer()
@@ -134,6 +134,7 @@ void TransferHistory::slotClear()
 
 void TransferHistory::slotWriteDefault()
 {
+    kDebug(5001);
     if (!save)
     {
         QString filename = KStandardDirs::locateLocal("appdata", "transferhistory.kgt");
@@ -174,6 +175,7 @@ void TransferHistory::slotWriteDefault()
 
 void TransferHistory::slotSave()
 {
+    kDebug(5001);
     QString filename = KStandardDirs::locateLocal("appdata", "transferhistory.kgt");
     QFile file(filename);
     file.remove();
@@ -223,8 +225,8 @@ void TransferHistory::slotDownload()
 {
     if (m_treeWidget->indexOfTopLevelItem(m_treeWidget->currentItem()) == -1)
         return;
-    NewTransferDialog::showNewTransferDialog(m_treeWidget->currentItem()->text(0));
     slotSave();
+    NewTransferDialog::showNewTransferDialog(m_treeWidget->currentItem()->text(0));
 }
 
 void TransferHistory::contextMenuEvent(QContextMenuEvent *event)
@@ -243,4 +245,11 @@ void TransferHistory::contextMenuEvent(QContextMenuEvent *event)
 void TransferHistory::slotOpenFile()
 {
     new KRun(m_treeWidget->currentItem()->text(1), this, true, false);
+}
+
+void TransferHistory::hideEvent(QHideEvent *event)
+{
+    disconnect(watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotAddTransfers()));//Prevent reloading of TransferHistory when saving
+    slotSave();
+    deleteLater();
 }

@@ -27,6 +27,7 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         TransferHistory(QWidget *parent = 0);
 
     private:
+        void hideEvent(QHideEvent *event);
         QList<QDomElement> defaultItems;
         bool save;
         QFileSystemWatcher *watcher;
