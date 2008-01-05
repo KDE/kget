@@ -62,15 +62,15 @@ void BTAdvancedDetailsWidget::init()
     setLayout(layout);
     file_view = new FileView(this);
     file_view->changeTC(tc, KGlobal::config());
-    tabWidget->insertTab(0, file_view, i18n("Files"));
+    tabWidget->insertTab(0, file_view, KIcon("inode-directory"), i18n("Files"));
     peer_view = new PeerView(this);
-    tabWidget->insertTab(1, peer_view, i18n("Peers"));
+    tabWidget->insertTab(1, peer_view, KIcon("users"), i18n("Peers"));
     cd_view = new ChunkDownloadView(this);
     cd_view->changeTC(tc);
-    tabWidget->insertTab(2, cd_view, i18n("Chunks"));
+    tabWidget->insertTab(2, cd_view, KIcon("preferences-plugin"), i18n("Chunks"));
     tracker_view = new TrackerView(this);
     tracker_view->changeTC(tc);
-    tabWidget->insertTab(3, tracker_view, i18n("Trackers"));
+    tabWidget->insertTab(3, tracker_view, KIcon("network-server"), i18n("Trackers"));
     monitor = new Monitor(tc,peer_view,cd_view);
 }
 
