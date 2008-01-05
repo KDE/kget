@@ -21,35 +21,6 @@ TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel * mode
 
 TransferTreeSelectionModel::~TransferTreeSelectionModel()
 {
-
 }
-
-void TransferTreeSelectionModel::select(const QItemSelection & selection, QItemSelectionModel::SelectionFlags command)
-{
-//     kDebug(5001) << "TransferTreeSelectionModel::select()";
-
-//     const TransferTreeModel * transfersModel = static_cast<const TransferTreeModel *>(model());
-
-//     QModelIndexList indexList = selection.indexes();
-//     QItemSelection newSelection;
-
-//     kDebug(5001) << "selection of items: " << indexList.size();
-
-//     foreach(QModelIndex index, indexList)
-//     {
-//         kDebug(5001) << "iteration";
-
-//         if(!transfersModel->isTransferGroup(index))
-//         {
-
-//             newSelection.select(index, index);
-//         }
-//     }
-
-//     QItemSelectionModel::select(newSelection, command);
-
-    QItemSelectionModel::select(selection, command);
-}
-
 
 #include "transfertreeselectionmodel.moc"

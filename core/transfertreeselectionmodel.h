@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _TRANSFERTREESELECTIONMODEL_H
-#define _TRANSFERTREESELECTIONMODEL_H
+#ifndef TRANSFERTREESELECTIONMODEL_H
+#define TRANSFERTREESELECTIONMODEL_H
 
 #include <QItemSelectionModel>
 
@@ -20,9 +20,6 @@ class TransferTreeSelectionModel : public QItemSelectionModel
     public:
         TransferTreeSelectionModel(QAbstractItemModel * model);
         virtual ~TransferTreeSelectionModel();
-
-    public slots:
-        void select(const QItemSelection & selection, QItemSelectionModel::SelectionFlags command);
 };
 
 #endif
