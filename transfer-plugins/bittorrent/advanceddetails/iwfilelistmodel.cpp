@@ -88,7 +88,7 @@ namespace kt
 			case EXCLUDED: 
 			case PREVIEW_PRIORITY: 
 				return QString();
-			default:return i18nc("Download Normal (not as first or last", "Normal");
+			default:return i18nc("Download Normal (not as first or last)", "Normal");
 		}
 	}
 	
