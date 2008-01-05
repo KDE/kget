@@ -105,8 +105,6 @@ void BTTransfer::stop()
 
 void BTTransfer::update()
 {
-    kDebug(5001);
-
     if (torrent)
     {
         QStringList files;
@@ -245,11 +243,12 @@ void BTTransfer::stopTorrent()
 void BTTransfer::updateTorrent()
 {
     kDebug(5001) << "Update torrent";
+    if (chunksTotal() == chunksDownloaded())
+        slotDownloadFinished(torrent);
+
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
-    kDebug(5001) << "Ignore this ;)";
     torrent->update();
-    kDebug(5001) << "Done";
     m_speed = dlRate();
     m_percent = percent();
     m_processedSize = processedSize();
@@ -333,11 +332,12 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
+    kDebug(5001) << "Start seeding *********************************************************************";
     Q_UNUSED(ti);
     kDebug(5001);
     m_downloadFinished = true;
     timer.stop();
-    setStatus(Job::Running, i18n("Seeding"), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding.."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
 }
 
