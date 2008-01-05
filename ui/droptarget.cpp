@@ -117,7 +117,7 @@ DropTarget::~DropTarget()
     delete animTimer;
 }
 
-void DropTarget::setVisible( bool shown, bool internal )
+void DropTarget::setDropTargetVisible( bool shown, bool internal )
 {
     if (shown == !isHidden())
         return;

@@ -279,14 +279,14 @@ void MainWindow::slotDelayedInit()
             slotKonquerorIntegration(true);
         }
 
-        m_drop->setVisible(true);
+        m_drop->setDropTargetVisible(true);
 
         // reset the FirstRun config option
         Settings::setFirstRun(false);
     }
 
     if (Settings::showDropTarget() && !m_startWithoutAnimation)
-        m_drop->setVisible(true);
+        m_drop->setDropTargetVisible(true);
 
     //auto paste stuff
     lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
@@ -300,7 +300,7 @@ void MainWindow::slotToggleDropTarget()
 {
     actionCollection()->action("show_drop_target")->setChecked(!m_drop->isVisible());
 
-    m_drop->setVisible(!m_drop->isVisible());
+    m_drop->setDropTargetVisible(!m_drop->isVisible());
 }
 
 void MainWindow::slotNewTransfer()
@@ -522,7 +522,7 @@ void MainWindow::slotNewConfig()
     // PreferencesDialog, this function is called.
 
     m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
-    m_drop->setVisible(Settings::showDropTarget(), false);
+    m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
     m_dock->setVisible(Settings::enableSystemTray());
     if(!Settings::enableSystemTray()) setVisible(true);
 
@@ -682,7 +682,7 @@ bool MainWindow::dropTargetVisible() const
 void MainWindow::setDropTargetVisible( bool setVisible )
 {
     if ( setVisible != Settings::showDropTarget() )
-        m_drop->setVisible( setVisible );
+        m_drop->setDropTargetVisible( setVisible );
 }
 
 void MainWindow::setOfflineMode( bool offline )
