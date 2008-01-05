@@ -33,7 +33,7 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_layout->addWidget(m_detailsWidget);
     setLayout(m_layout);
 
-    frm.sourceLabel->setText(i18n("Source:"));
+    frm.sourceLabel->setText(i18nc("@label transfer source", "Source:"));
     frm.destLabel->setText(i18n("Saving to:"));
     frm.statusLabel->setText(i18n("Status:"));
 

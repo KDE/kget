@@ -39,7 +39,7 @@ void transferMultiSegKio::start()
 
     kDebug(5001);
 
-    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
     stopped = false;
 }
@@ -57,7 +57,7 @@ void transferMultiSegKio::stop()
         m_copyjob->stop();
     }
 
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
@@ -195,7 +195,7 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
     {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
-            setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
+            setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
             // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
             m_percent = 100;
             m_speed = 0;

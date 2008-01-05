@@ -161,7 +161,7 @@ void MainWindow::setupActions()
 
     // Transfer related actions
     QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
-    deleteSelectedAction->setText(i18n("Delete Selected"));
+    deleteSelectedAction->setText(i18nc("delete selected transfer item", "Delete Selected"));
     deleteSelectedAction->setIcon(KIcon("edit-delete"));
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));

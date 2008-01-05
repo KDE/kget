@@ -34,7 +34,7 @@ void metalink::start()
     if(!m_copyjob)
         createJob();
 
-    setStatus(Job::Running, i18n("Connecting.."), SmallIcon("connect-creating"));
+    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting.."), SmallIcon("connect-creating"));
     setTransferChange(Tc_Status, true);
 }
 
@@ -50,7 +50,7 @@ void metalink::stop()
         m_copyjob=0;
     }
 
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     m_speed = 0;
     setTransferChange(Tc_Status | Tc_Speed, true);
 }
@@ -110,7 +110,7 @@ void metalink::slotResult(KJob * job)
     {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
-            setStatus(Job::Finished, i18n("Finished"), SmallIcon("ok"));
+            setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("ok"));
             m_percent = 100;
             m_speed = 0;
             m_processedSize = m_totalSize;
@@ -119,7 +119,7 @@ void metalink::slotResult(KJob * job)
         default:
             //There has been an error
             kDebug(5001) << "--  E R R O R  (" << job->error() << ")--";
-            setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("process-stop"));
+            setStatus(Job::Aborted, i18nc("transfer state: aborted", "Aborted"), SmallIcon("process-stop"));
             break;
     }
     m_copyjob=0;

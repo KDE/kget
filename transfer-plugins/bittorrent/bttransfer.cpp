@@ -140,12 +140,12 @@ void BTTransfer::load(const QDomElement &e)
 
     if((m_totalSize == m_processedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
         // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
     }
     else
     {
-        setStatus(status(), i18n("Stopped"), SmallIcon("process-stop"));
+        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
 }
 
@@ -219,7 +219,7 @@ void BTTransfer::startTorrent()
         torrent->start();
         kDebug(5001) << "Got started??";
         timer.start(250);
-        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading.."), SmallIcon("media-playback-start"));
         kDebug(5001) << "Jepp, it does";
         m_totalSize = totalSize();
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
@@ -235,10 +235,10 @@ void BTTransfer::stopTorrent()
 
     if (m_downloadFinished)
     {
-        setStatus(Job::Stopped, i18n("Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
     else
-        setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+        setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     setTransferChange(Tc_Status, true);
 }
 

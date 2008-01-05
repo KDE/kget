@@ -44,8 +44,8 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->ulRate()));
     }
 
-    seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + "(" + QString().setNum(m_transfer->seedsDisconnected()) + ")");
-    leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + "(" + QString().setNum(m_transfer->leechesDisconnected()) + ")");
+    seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');
+    leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + '(' + QString().setNum(m_transfer->leechesDisconnected()) + ')');
     chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
     chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
     chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));

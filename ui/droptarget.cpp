@@ -82,7 +82,7 @@ DropTarget::DropTarget(MainWindow * mw)
     popupMenu->addSeparator();
     pop_show = popupMenu->addAction( QString(), this, SLOT( toggleMinimizeRestore() ) );
     popupMenu->addAction(parentWidget->actionCollection()->action("show_drop_target"));
-    pop_sticky = popupMenu->addAction(i18n("Sticky"), this, SLOT(toggleSticky()));
+    pop_sticky = popupMenu->addAction(i18nc("fix position for droptarget", "Sticky"), this, SLOT(toggleSticky()));
     pop_sticky->setCheckable(true);
     pop_sticky->setChecked(Settings::dropSticky());
     popupMenu->addSeparator();

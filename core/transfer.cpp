@@ -35,7 +35,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
         load( *e );
     else
     {
-        setStatus(status(), i18n("Stopped"), SmallIcon("process-stop"));
+        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
 }
 
@@ -51,14 +51,14 @@ void Transfer::setDelay(int seconds)
 {
     m_scheduler->startDelayTimer(this, seconds);
 
-    setStatus(Job::Delayed, i18n("Delayed"), SmallIcon("view-history"));
+    setStatus(Job::Delayed, i18nc("transfer state: delayed", "Delayed"), SmallIcon("view-history"));
 
     setTransferChange(Tc_Status, true);
 }
 
 void Transfer::delayTimerEvent()
 {
-    setStatus(Job::Stopped, i18n("Stopped"), SmallIcon("process-stop"));
+    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
 
     setTransferChange(Tc_Status, true);
 }
@@ -116,11 +116,11 @@ void Transfer::load(const QDomElement &e)
 
     if((m_totalSize == m_processedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Finished, i18n("Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
     else
     {
-        setStatus(status(), i18n("Stopped"), SmallIcon("process-stop"));
+        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
 }
 

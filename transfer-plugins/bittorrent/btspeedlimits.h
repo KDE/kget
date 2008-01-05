@@ -22,7 +22,7 @@ class BTSpeedLimits : public KDialog
 {
     Q_OBJECT
     public:
-        BTSpeedLimits(BTTransferHandler * handler, QWidget *parent = 0);
+        explicit BTSpeedLimits(BTTransferHandler * handler, QWidget *parent = 0);
 
     signals:
         void aboutToClose();

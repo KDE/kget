@@ -203,17 +203,17 @@ PieChartWidget::~PieChartWidget()
     delete d;
 }
 
-void PieChartWidget::addData(QString name, int length)
+void PieChartWidget::addData(const QString &name, int length)
 {
     addData(name, length, 0, false);
 }
 
-void PieChartWidget::addData(QString name, int length, int activeLength)
+void PieChartWidget::addData(const QString &name, int length, int activeLength)
 {
     addData(name, length, activeLength, false);
 }
 
-void PieChartWidget::addData(QString name, int length, int activeLength, bool active)
+void PieChartWidget::addData(const QString &name, int length, int activeLength, bool active)
 {
     if (!d->data.contains(name)) {
         d->data [name] = PrivateData ();

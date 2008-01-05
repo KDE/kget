@@ -82,7 +82,7 @@ private:
 
 // icon, name, regular expression, and default of the filter buttons
 static const filterDefinition filters [] = {
-    {QString("view-list-icons"), i18n("All"), KGetLinkView::NoFilter, true},
+    {QString("view-list-icons"), i18nc("filter: show all file types", "All"), KGetLinkView::NoFilter, true},
     {QString("video-x-generic"), i18n("Videos"), KGetLinkView::VideoFiles, false},
     {QString("audio-x-generic"), i18n("Audio"), KGetLinkView::AudioFiles, false},
     {QString("package-x-generic"), i18n("Archives"), KGetLinkView::CompressedFiles, false},

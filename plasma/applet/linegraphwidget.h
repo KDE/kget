@@ -45,7 +45,7 @@ public:
                         QWidget *widget);
 
 signals:
-    // emited when the geometry of the applet who contains the widget needs to be updated (new data to display ...)
+    // emitted when the geometry of the applet who contains the widget needs to be updated (new data to display ...)
     void geometryChanged();
 
 private:

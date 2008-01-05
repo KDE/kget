@@ -132,7 +132,7 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
     model->setHeaderData(0, Qt::Horizontal, i18n("Auxiliar header"));
     model->setHeaderData(1, Qt::Horizontal, i18n("File Name"));
     model->setHeaderData(2, Qt::Horizontal, i18n("Description"));
-    model->setHeaderData(3, Qt::Horizontal, i18n("File Type"));
+    model->setHeaderData(3, Qt::Horizontal, i18nc("list header: type of file", "File Type"));
     model->setHeaderData(4, Qt::Horizontal, i18n("Location (URL)"));
 
     foreach (LinkItem* linkitem, links) {

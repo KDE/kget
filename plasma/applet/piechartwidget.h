@@ -33,9 +33,9 @@ public:
     PieChartWidget(Widget *parent);
     ~PieChartWidget();
 
-    void addData(QString name, int length);
-    void addData(QString name, int length, int activeLength);
-    void addData(QString name, int length, int activeLength, bool active);
+    void addData(const QString &name, int length);
+    void addData(const QString &name, int length, int activeLength);
+    void addData(const QString &name, int length, int activeLength, bool active);
     void removeData(const QString &name);
     void clear();
     void updateView();
@@ -45,7 +45,7 @@ public:
                         QWidget *widget);
 
 signals:
-    // emited when the geometry of the applet who contains the widget needs to be updated (new data to display ...)
+    // emitted when the geometry of the applet who contains the widget needs to be updated (new data to display ...)
     void geometryChanged();
 
 private:

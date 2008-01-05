@@ -52,7 +52,7 @@ void KUiServerJobs::unregisterJob(KJob *job)
     }
 }
 
-// every time the configuration changed, check the registered jobs and the state throught the ui server
+// every time the configuration changed, check the registered jobs and the state through the ui server
 void KUiServerJobs::reload()
 {
     if(m_globalJob && !Settings::exportGlobalJob()) {

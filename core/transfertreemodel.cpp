@@ -292,15 +292,15 @@ QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation,
         switch (section)
         {
             case 0:
-                return i18n("Name");
+                return i18nc("name of download", "Name");
             case 1:
-                return i18n("Status");
+                return i18nc("status of download", "Status");
             case 2:
-                return i18n("Size");
+                return i18nc("size of download", "Size");
             case 3:
-                return i18n("Progress");
+                return i18nc("progress of download", "Progress");
             case 4:
-                return i18n("Speed");
+                return i18nc("speed of download", "Speed");
             default:
                 return QVariant();
         }
