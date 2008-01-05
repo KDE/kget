@@ -28,6 +28,7 @@ BTDownload::BTDownload(const KUrl &srcUrl)
 
 void BTDownload::slotData(KIO::Job *job, const QByteArray& data)
 {
+    Q_UNUSED(job);
     kDebug(5001);
     /**if (data.size() == 0)
     {

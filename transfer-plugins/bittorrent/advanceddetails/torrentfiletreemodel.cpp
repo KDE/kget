@@ -365,7 +365,7 @@ namespace kt
 				emit_check_state_change = false;
 			}
 			
-			for (Uint32 i = 0;i < n->children.count();i++)
+			for (int i = 0;i < n->children.count();i++)
 			{
 				// recurse down the tree
 				setData(index.child(i,0),value,role);
@@ -431,7 +431,7 @@ namespace kt
 		
 		if (!n->file)
 		{
-			for (Uint32 i = 0;i < n->children.count();i++)
+			for (int i = 0;i < n->children.count();i++)
 			{
 				// recurse down the tree
 				invertCheck(idx.child(i,0));

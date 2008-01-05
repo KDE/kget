@@ -35,6 +35,7 @@ BTDetailsWidget::~BTDetailsWidget()
 
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
+    Q_UNUSED(transfer);
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
     if(transferFlags && Transfer::Tc_Speed)

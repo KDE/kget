@@ -71,6 +71,7 @@ void BTAdvancedDetailsWidget::init()
 
 void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
+    Q_UNUSED(transfer);
     kDebug(5001);
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
@@ -89,6 +90,7 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 
 void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
 {
+    Q_UNUSED(event);
     tc->setMonitor(0);
     emit aboutToClose();
     deleteLater();

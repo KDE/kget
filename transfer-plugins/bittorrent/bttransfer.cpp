@@ -327,11 +327,13 @@ void BTTransfer::init(const KUrl &src)
 
 void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
 {
+    Q_UNUSED(error);
     kDebug(5001) << errormsg;
 }
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
+    Q_UNUSED(ti);
     kDebug(5001);
     m_downloadFinished = true;
     timer.stop();
