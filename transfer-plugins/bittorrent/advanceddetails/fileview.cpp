@@ -19,6 +19,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
+#include "fileview.h"
+
 #include <QHeaderView>
 #include <QItemSelectionModel>
 #include <klocale.h>
@@ -38,7 +40,6 @@
 #include <interfaces/torrentfileinterface.h>
 #include <qfileinfo.h>
 #include <util/log.h>
-#include "fileview.h"
 #include "iwfiletreemodel.h"
 #include "iwfilelistmodel.h"
 	

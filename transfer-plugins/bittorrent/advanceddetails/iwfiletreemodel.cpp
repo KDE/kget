@@ -20,13 +20,14 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
+#include "iwfiletreemodel.h"
+
 #include <math.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <util/functions.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
-#include "iwfiletreemodel.h"
 
 using namespace bt;
 
@@ -83,7 +84,7 @@ namespace kt
 			case ONLY_SEED_PRIORITY: 
 			case EXCLUDED: 
 			case PREVIEW_PRIORITY: 
-				return QString::null;
+				return QString();
 			default:return i18n("Normal");
 		}
 	}

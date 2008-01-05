@@ -20,12 +20,13 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
+#include "chunkdownloadmodel.h"
+
 #include <klocale.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
 #include <interfaces/chunkdownloadinterface.h>
 #include <util/functions.h>
-#include "chunkdownloadmodel.h"
 
 using namespace bt;
 

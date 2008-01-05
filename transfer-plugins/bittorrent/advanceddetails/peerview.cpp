@@ -20,6 +20,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
+#include "advanceddetails/peerview.h"
+
 #include <QHeaderView>
 #include <klocale.h>
 #include <kicon.h>
@@ -29,7 +31,6 @@
 #include <interfaces/peerinterface.h>
 #include <torrent/ipblocklist.h>
 #include <util/functions.h>
-#include "advanceddetails/peerview.h"
 
 using namespace bt;
 

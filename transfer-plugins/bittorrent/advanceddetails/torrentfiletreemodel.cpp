@@ -20,6 +20,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
+#include "torrentfiletreemodel.h"
+
 #include <klocale.h>
 #include <kicon.h>
 #include <kmimetype.h>
@@ -31,7 +33,6 @@
 #include <interfaces/torrentfileinterface.h>
 #include <util/functions.h>
 #include <util/log.h>
-#include "torrentfiletreemodel.h"
 
 using namespace bt;
 
@@ -496,11 +497,11 @@ namespace kt
 	QString TorrentFileTreeModel::dirPath(const QModelIndex & idx)
 	{
 		if (!idx.isValid())
-			return QString::null;
+			return QString();
 		
 		Node* n = (Node*)idx.internalPointer();
 		if (!n || n == root)
-			return QString::null;
+			return QString();
 		
 		QString ret = n->name;
 		do 
