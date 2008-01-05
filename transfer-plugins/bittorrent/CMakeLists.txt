@@ -4,8 +4,6 @@ macro_log_feature(BTCORE_FOUND "BTCore" "KTorrent core library" "http://ktorrent
 if (BTCORE_FOUND)
 add_definitions(${KDE4_ENABLE_EXCEPTIONS})
 
-#add_subdirectory(geoip)
-
 include_directories(
    ../../
    ${BTCORE_INCLUDE_DIR}
@@ -33,7 +31,14 @@ set(kget_bittorrentfactory_PART_SRCS
   advanceddetails/trackerview.cpp
 )
 
-kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS btdetailswidgetfrm.ui btsettingswidget.ui btspeedlimits.ui advanceddetails/btaddtrackerwidget.ui advanceddetails/chunkdownloadview.ui advanceddetails/trackerview.ui)
+kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
+  btdetailswidgetfrm.ui
+  btsettingswidget.ui
+  btspeedlimits.ui
+  advanceddetails/btaddtrackerwidget.ui
+  advanceddetails/chunkdownloadview.ui
+  advanceddetails/trackerview.ui
+)
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 
