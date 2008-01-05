@@ -55,7 +55,7 @@ namespace kt
 		m_status->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
 		m_next_update->setTextFormat(Qt::RichText);
                 m_update_tracker->setIcon(KIcon("system-software-update"));
-		m_add_tracker->setIcon(KIcon("edit-add"));
+		m_add_tracker->setIcon(KIcon("list-add"));
                 m_remove_tracker->setIcon(KIcon("list-remove"));
 
 		setEnabled(false);

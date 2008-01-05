@@ -64,7 +64,7 @@ void BTAdvancedDetailsWidget::init()
     file_view->changeTC(tc, KGlobal::config());
     tabWidget->insertTab(0, file_view, KIcon("inode-directory"), i18n("Files"));
     peer_view = new PeerView(this);
-    tabWidget->insertTab(1, peer_view, KIcon("users"), i18n("Peers"));
+    tabWidget->insertTab(1, peer_view, KIcon("system-users"), i18n("Peers"));
     cd_view = new ChunkDownloadView(this);
     cd_view->changeTC(tc);
     tabWidget->insertTab(2, cd_view, KIcon("preferences-plugin"), i18n("Chunks"));
