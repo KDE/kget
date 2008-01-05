@@ -189,7 +189,7 @@ void BTTransfer::setMaxShareRatio(float ratio)
         torrent->setMaxShareRatio(m_ratio);
 }
 
-void BTTransfer::addTracker(QString url)
+void BTTransfer::addTracker(const QString &url)
 {
     kDebug(5001);
     if(torrent->getStats().priv_torrent)
@@ -257,7 +257,7 @@ void BTTransfer::updateTorrent()
     setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_Percent, true);
 }
 
-void BTTransfer::init(KUrl src)
+void BTTransfer::init(const KUrl &src)
 {
     kDebug(5001);
     if (src != m_source && !src.isEmpty())
@@ -325,7 +325,7 @@ void BTTransfer::init(KUrl src)
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
 
-void BTTransfer::slotStoppedByError(bt::TorrentInterface* error, QString errormsg)
+void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
 {
     kDebug(5001) << errormsg;
 }

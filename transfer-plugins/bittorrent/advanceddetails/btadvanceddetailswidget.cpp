@@ -25,6 +25,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kdialog.h>
+#include <ktabwidget.h>
 #include <QGridLayout>
 
 using namespace kt;
@@ -51,7 +52,7 @@ void BTAdvancedDetailsWidget::init()
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
     resize(500, 400);
     QGridLayout *layout = new QGridLayout();
-    QTabWidget *tabWidget = new QTabWidget(this);
+    KTabWidget *tabWidget = new KTabWidget(this);
     layout->addWidget(tabWidget);
     setLayout(layout);
     file_view = new FileView(this);

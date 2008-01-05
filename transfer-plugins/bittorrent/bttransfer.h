@@ -81,7 +81,7 @@ class BTTransfer : public QObject, public Transfer
         void setPort(int port);
         void setTrafficLimits(int ulLimit, int dlLimit);
         void setMaxShareRatio(float ratio);
-        void addTracker(QString url);
+        void addTracker(const QString &url);
         void save(const QDomElement &element);
 
         bool ready();
@@ -90,9 +90,9 @@ class BTTransfer : public QObject, public Transfer
         void load(const QDomElement &e);
 
     private slots:
-        void init(KUrl src = KUrl());
+        void init(const KUrl &src = KUrl());
         void update();
-        void slotStoppedByError(bt::TorrentInterface* error, QString errormsg);
+        void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);
 
     private:
