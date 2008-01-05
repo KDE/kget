@@ -342,7 +342,6 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 /**Property-Functions**/
 KUrl::List BTTransfer::trackersList() const
 {
-    kDebug(5001);
     if (!torrent)
         return KUrl::List();
 
@@ -352,7 +351,6 @@ KUrl::List BTTransfer::trackersList() const
 
 int BTTransfer::dlRate() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -361,7 +359,6 @@ int BTTransfer::dlRate() const
 
 int BTTransfer::ulRate() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -370,7 +367,6 @@ int BTTransfer::ulRate() const
 
 float BTTransfer::totalSize() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -379,7 +375,6 @@ float BTTransfer::totalSize() const
 
 float BTTransfer::processedSize() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -388,7 +383,6 @@ float BTTransfer::processedSize() const
 
 int BTTransfer::sessionBytesDownloaded() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -397,7 +391,6 @@ int BTTransfer::sessionBytesDownloaded() const
 
 int BTTransfer::sessionBytesUploaded() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -406,7 +399,6 @@ int BTTransfer::sessionBytesUploaded() const
 
 int BTTransfer::chunksTotal() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -415,7 +407,6 @@ int BTTransfer::chunksTotal() const
 
 int BTTransfer::chunksDownloaded() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -424,7 +415,6 @@ int BTTransfer::chunksDownloaded() const
 
 int BTTransfer::chunksExcluded() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -432,8 +422,7 @@ int BTTransfer::chunksExcluded() const
 }
 
 int BTTransfer::chunksLeft() const
-{    
-    kDebug(5001);
+{
     if (!torrent)
         return -1;
 
@@ -442,7 +431,6 @@ int BTTransfer::chunksLeft() const
 
 int BTTransfer::seedsConnected() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -451,7 +439,6 @@ int BTTransfer::seedsConnected() const
 
 int BTTransfer::seedsDisconnected() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -460,7 +447,6 @@ int BTTransfer::seedsDisconnected() const
 
 int BTTransfer::leechesConnected() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -469,7 +455,6 @@ int BTTransfer::leechesConnected() const
 
 int BTTransfer::leechesDisconnected() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -481,7 +466,6 @@ int BTTransfer::elapsedTime() const
     if (!torrent)
         return -1;
 
-    kDebug(5001);
     return torrent->getRunningTimeDL();
 }
 
@@ -490,13 +474,11 @@ int BTTransfer::remainingTime() const
     if (!torrent)
         return -1;
 
-    kDebug(5001);
     return torrent->getETA();
 }
 
 int BTTransfer::ulLimit() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
     else
@@ -505,7 +487,6 @@ int BTTransfer::ulLimit() const
 
 int BTTransfer::dlLimit() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
     else
@@ -514,13 +495,11 @@ int BTTransfer::dlLimit() const
 
 bt::TorrentControl * BTTransfer::torrentControl()
 {
-    kDebug(5001);
     return torrent;
 }
 
 int BTTransfer::percent() const
 {
-    kDebug(5001);
     if (!torrent)
         return -1;
 
@@ -529,8 +508,12 @@ int BTTransfer::percent() const
 
 bool BTTransfer::ready()
 {
-    kDebug(5001);
     return m_ready;
+}
+
+float BTTransfer::maxShareRatio() const
+{
+    return m_ratio;
 }
 
 #include "bttransfer.moc"

@@ -75,6 +75,7 @@ class BTTransfer : public QObject, public Transfer
         int ulLimit() const;
         int dlLimit() const;
         int percent() const;
+        float maxShareRatio() const;
 
         //More Bittorrent-Functions
         void setPort(int port);

@@ -42,10 +42,11 @@ class BTTransferHandler : public QObject, public TransferHandler
         int dlLimit()                                   {return m_transfer->dlLimit();}
         int percent()                                   {return m_transfer->percent();}
         bool ready()                                    {return m_transfer->ready();}
+        float maxShareRatio()                           {return m_transfer->maxShareRatio();}
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
         void setTrafficLimits(int ulLimit, int dlLimit) {m_transfer->setTrafficLimits(ulLimit, dlLimit);}
-        void setMaxShareRatio(float ratio)             {m_transfer->setMaxShareRatio(ratio);}
+        void setMaxShareRatio(float ratio)              {m_transfer->setMaxShareRatio(ratio);}
 
     public slots:
         void createAdvancedDetails();
