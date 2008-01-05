@@ -26,6 +26,7 @@
 #include <kglobal.h>
 #include <kdialog.h>
 #include <ktabwidget.h>
+#include <ktitlewidget.h>
 #include <QGridLayout>
 
 using namespace kt;
@@ -52,6 +53,10 @@ void BTAdvancedDetailsWidget::init()
     setWindowTitle(i18n("Advanced-Details for %1", m_transfer->source().fileName()));
     resize(500, 400);
     QGridLayout *layout = new QGridLayout();
+    KTitleWidget *titleWidget = new KTitleWidget(this);
+    titleWidget->setText(i18n("Advanced Details for %1", m_transfer->source().fileName()));
+    titleWidget->setPixmap(KIcon("dialog-information"));
+    layout->addWidget(titleWidget);
     KTabWidget *tabWidget = new KTabWidget(this);
     layout->addWidget(tabWidget);
     setLayout(layout);
@@ -90,7 +95,9 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
 {
     Q_UNUSED(event);
-    tc->setMonitor(0);
+
+    if (tc)
+        tc->setMonitor(0);
     emit aboutToClose();
     deleteLater();
 }
