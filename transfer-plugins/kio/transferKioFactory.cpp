@@ -63,6 +63,7 @@ QWidget * TransferKioFactory::createSettingsWidget(KDialog * parent)
 
 const QList<KAction *> TransferKioFactory::actions(TransferHandler *handler)
 {
+    Q_UNUSED(handler);
     return QList<KAction *>();
 }
 

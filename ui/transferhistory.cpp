@@ -27,6 +27,8 @@
 TransferHistory::TransferHistory(QWidget *parent)
     : KDialog(parent)
 {
+    setCaption(i18n("Transfer History"));
+    setButtons(KDialog::Close);
     //Setup Ui-Parts from Designer
     QWidget *mainWidget = new QWidget(this);
 
@@ -41,7 +43,6 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_treeWidget->setColumnWidth(2, 180);
     m_treeWidget->setColumnWidth(3, 64);
     m_hboxLayout = widget.hboxLayout;
-    m_searchLabel = widget.searchLabel;
     m_searchBar = widget.searchBar;
     m_searchBar->setTreeWidget(m_treeWidget);
     m_clearButton = widget.clearButton;
@@ -60,12 +61,11 @@ TransferHistory::TransferHistory(QWidget *parent)
     watcher->addPath(KStandardDirs::locateLocal("appdata", QString()));
     kDebug(5001) << watcher->directories();
 
-    /**connect(actionReloadHistory, SIGNAL(triggered()), this, SLOT(slotAddTransfers()));**/
     connect(m_actionDelete_Selected, SIGNAL(triggered()), this, SLOT(slotDeleteTransfer()));
     connect(m_actionDownload, SIGNAL(triggered()), this, SLOT(slotDownload()));
     connect(m_openFile, SIGNAL(triggered()), this, SLOT(slotOpenFile()));
     connect(m_clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
-    connect(watcher, SIGNAL(directoryChanged()), this, SLOT(addTransfers()));
+    connect(watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotAddTransfers()));
     connect(this, SIGNAL(accepted()), this, SLOT(slotSave()));
     connect(this, SIGNAL(rejected()), this, SLOT(slotWriteDefault()));
 }
@@ -79,7 +79,6 @@ void TransferHistory::slotDeleteTransfer()
 void TransferHistory::slotAddTransfers()
 {
     QString filename = KStandardDirs::locateLocal("appdata", "transferhistory.kgt");
-    bool errorbool;
     QString error;
     int line;
     int column;
@@ -88,7 +87,7 @@ void TransferHistory::slotAddTransfers()
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly))
         return;
-    if (!doc.setContent(&file, &errorbool, &error, &line, &column)) 
+    if (!doc.setContent(&file, &error, &line, &column)) 
     {
         kDebug(5001) << "Error1" << error << line << column;
         file.close();
@@ -230,6 +229,7 @@ void TransferHistory::slotDownload()
 
 void TransferHistory::contextMenuEvent(QContextMenuEvent *event)
 {
+    Q_UNUSED(event);
     if (m_treeWidget->indexOfTopLevelItem(m_treeWidget->currentItem()) == -1)
         return;
     QMenu *contextMenu = new QMenu(this);

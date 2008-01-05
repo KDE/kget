@@ -246,7 +246,7 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     {
         splitSize = MultiSegKioSettings::splitSize();
     }
-    uint min = bytes/(splitSize*1024);
+    int min = bytes/(splitSize*1024);
 	
     if( min < n )
     {

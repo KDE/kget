@@ -87,7 +87,8 @@ public:
     void paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
     {
-        Q_UNUSED(widget)
+        Q_UNUSED(widget);
+        Q_UNUSED(option);
 
         if(totalSize > 0) {
             kDebug() << "About to repaint the inner widget" << endl;

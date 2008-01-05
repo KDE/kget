@@ -60,6 +60,7 @@ QWidget * metalinkFactory::createSettingsWidget(KDialog * parent)
 
 const QList<KAction *> metalinkFactory::actions(TransferHandler *handler)
 {
+    Q_UNUSED(handler);
     return QList<KAction *>();
 }
 

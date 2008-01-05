@@ -66,5 +66,6 @@ QWidget * TransferMultiSegKioFactory::createSettingsWidget(KDialog * parent)
 
 const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
 {
+    Q_UNUSED(handler);
     return QList<KAction *>();
 }

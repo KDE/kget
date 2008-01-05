@@ -34,7 +34,6 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         QGridLayout *m_gridLayout;
         QTreeWidget *m_treeWidget;
         QHBoxLayout *m_hboxLayout;
-        QLabel *m_searchLabel;
         KTreeWidgetSearchLine *m_searchBar;
         QAction *m_actionDelete_Selected;
         QAction *m_actionClear;
