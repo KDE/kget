@@ -58,7 +58,7 @@ namespace kt
 		setSelectionBehavior(QAbstractItemView::SelectRows);
 		
 		context_menu = new KMenu(this);
-		open_action = context_menu->addAction(KIcon("document-open"),i18n("Open"),this,SLOT(open()));
+		open_action = context_menu->addAction(KIcon("document-open"),i18nc("Open file", "Open"),this,SLOT(open()));
 		context_menu->addSeparator();
 		download_first_action = context_menu->addAction(i18n("Download first"),this,SLOT(downloadFirst()));
 		download_normal_action = context_menu->addAction(i18n("Download normally"),this,SLOT(downloadNormal()));

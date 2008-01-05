@@ -111,7 +111,7 @@ namespace kt
 				if (stats.chunk_index >= tf.getFirstChunk() && stats.chunk_index <= tf.getLastChunk())
 				{
 					if (n > 0)
-						files += "\n";
+						files += '\n';
 						
 					files += tf.getPath();
 					n++;

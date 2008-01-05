@@ -111,12 +111,12 @@ namespace kt
 					if (file->isMultimedia())
 					{
 						if (tc->readyForPreview(file->getFirstChunk(), file->getFirstChunk()+1) )
-							return i18n("Available");
+							return i18nc("preview available", "Available");
 						else
-							return i18n("Pending");
+							return i18nc("Preview pending", "Pending");
 					}
 					else
-						return i18n("No");
+						return i18nc("No preview available", "No");
 				case 4: 
 				{
 					float percent = file->getDownloadPercentage();
@@ -135,12 +135,12 @@ namespace kt
 					if (mmfile)
 					{
 						if (tc->readyForPreview(0,1))
-							return i18n("Available");
+							return i18nc("Preview available", "Available");
 						else
-							return i18n("Pending");
+							return i18nc("Preview pending", "Pending");
 					}
 					else
-						return i18n("No");
+						return i18nc("No preview available", "No");
 				case 4: 
 				{
 					double percent = bt::Percentage(tc->getStats());
