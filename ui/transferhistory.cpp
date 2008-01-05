@@ -249,6 +249,7 @@ void TransferHistory::slotOpenFile()
 
 void TransferHistory::hideEvent(QHideEvent *event)
 {
+    Q_UNUSED(event);
     disconnect(watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotAddTransfers()));//Prevent reloading of TransferHistory when saving
     slotSave();
     deleteLater();
