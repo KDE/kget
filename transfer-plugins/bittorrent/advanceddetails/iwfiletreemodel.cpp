@@ -70,7 +70,7 @@ namespace kt
 		{
 			case 2: return i18n("Priority");
 			case 3: return i18n("Preview");
-			case 4: return i18n("% Complete");
+			case 4: return i18nc("Percent of File Downloaded", "% Complete");
 			default: return QVariant();
 		}
 	}
@@ -79,13 +79,13 @@ namespace kt
 	{
 		switch(file->getPriority())
 		{
-			case FIRST_PRIORITY: return i18n("First");
-			case LAST_PRIORITY:	return i18n("Last");
+			case FIRST_PRIORITY: return i18nc("Download first", "First");
+			case LAST_PRIORITY:	return i18nc("Download last", "Last");
 			case ONLY_SEED_PRIORITY: 
 			case EXCLUDED: 
 			case PREVIEW_PRIORITY: 
 				return QString();
-			default:return i18n("Normal");
+			default:return i18nc("Download normally(not as first or last", "Normal");
 		}
 	}
 	
@@ -120,8 +120,7 @@ namespace kt
 				case 4: 
 				{
 					float percent = file->getDownloadPercentage();
-					KLocale* loc = KGlobal::locale();
-					return i18n("%1 %",loc->formatNumber(percent,2));
+					return ki18n("%1 %").subs(percent, 0, 'g', 2).toString();
 				}
 				default: return QVariant();
 			}	
@@ -144,8 +143,7 @@ namespace kt
 				case 4: 
 				{
 					double percent = bt::Percentage(tc->getStats());
-					KLocale* loc = KGlobal::locale();
-					return i18n("%1 %",loc->formatNumber(percent,2));
+					return ki18n("%1 %").subs(percent, 0, 'g', 2).toString();
 				}
 				default: return QVariant();
 			}

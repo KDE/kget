@@ -122,8 +122,7 @@ namespace kt
 				case 4: 
 				{
 					float percent = file->getDownloadPercentage();
-					KLocale* loc = KGlobal::locale();
-					return i18n("%1 %",loc->formatNumber(percent,2));
+					return ki18n("%1 %").subs(percent, 0, 'g', 2).toString();
 				}
 				default: return QVariant();
 			}	
@@ -146,8 +145,7 @@ namespace kt
 				case 4: 
 				{
 					double percent = bt::Percentage(tc->getStats());
-					KLocale* loc = KGlobal::locale();
-					return i18n("%1 %",loc->formatNumber(percent,2));
+					return ki18n("%1 %").subs(percent, 0, 'g', 2).toString();
 				}
 				default: return QVariant();
 			}
