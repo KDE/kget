@@ -28,7 +28,7 @@ Main Window
 ---------------------
   ADD <kget> bitTorrent support
   ADD <boom1992> CheckFiles-action for BT-Plugin
-
+  ADD <boom1992> Cleanup when Transfer removed, perhaps we should require a function which does it for every Transfer-Plugin
         TODO
 ---------------------
 
