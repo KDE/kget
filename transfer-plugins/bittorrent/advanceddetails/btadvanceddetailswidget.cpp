@@ -73,7 +73,6 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     Q_UNUSED(transfer);
     kDebug(5001);
-    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
     if (m_transfer->status() == Job::Running)
     {

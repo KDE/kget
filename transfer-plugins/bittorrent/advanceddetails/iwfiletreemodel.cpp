@@ -168,7 +168,7 @@ namespace kt
 		
 		if (!n->file)
 		{
-			for (Uint32 i = 0;i < n->children.count();i++)
+			for (int i = 0;i < n->children.count();i++)
 			{
 				// recurse down the tree
 				setData(index.child(i,0),value,role);
@@ -217,7 +217,7 @@ namespace kt
 		}
 		else
 		{
-			for (Uint32 i = 0;i < n->children.count();i++)
+			for (int i = 0;i < n->children.count();i++)
 			{
 				// recurse down the tree
 				update(idx.child(i,0),file,col);
