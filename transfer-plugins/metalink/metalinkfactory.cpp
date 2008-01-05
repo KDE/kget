@@ -19,7 +19,8 @@
 
 KGET_EXPORT_PLUGIN( metalinkFactory )
 
-metalinkFactory::metalinkFactory()
+metalinkFactory::metalinkFactory(QObject *parent, const QVariantList &args)
+  : TransferFactory(parent, args)
 {
 }
 

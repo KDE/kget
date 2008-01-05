@@ -45,6 +45,9 @@
 
 #include "kget_export.h"
 
+#include <QObject>
+#include <QVariantList>
+
 /**
  * Bump this number whenever the plugin framework gets 
  * incompatible with older versions 
@@ -55,10 +58,11 @@
  * @short Base class for kget plugins.
  * ...
  */
-class KGET_EXPORT KGetPlugin
+class KGET_EXPORT KGetPlugin : public QObject
 {
+    Q_OBJECT
     public:
-        KGetPlugin();
+        KGetPlugin(QObject *parent, const QVariantList &args);
         virtual ~KGetPlugin();
 
         /*

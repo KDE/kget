@@ -31,9 +31,7 @@
  *     }
  */
 #define KGET_EXPORT_PLUGIN( classname ) \
-    extern "C" { \
-        KDE_EXPORT KGetPlugin * create_plugin() { return new classname; } \
-    }
-
+    K_PLUGIN_FACTORY( classname ## Factory, registerPlugin< classname >(); ) \
+    K_EXPORT_PLUGIN( classname ## Factory() )
 
 #endif

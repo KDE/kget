@@ -19,8 +19,9 @@ class Scheduler;
 
 class TransferKioFactory : public TransferFactory
 {
+    Q_OBJECT
     public:
-        TransferKioFactory();
+        TransferKioFactory(QObject *parent, const QVariantList &args);
         ~TransferKioFactory();
 
         Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,

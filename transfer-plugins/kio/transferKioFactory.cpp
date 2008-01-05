@@ -18,7 +18,8 @@
 
 KGET_EXPORT_PLUGIN( TransferKioFactory )
 
-TransferKioFactory::TransferKioFactory()
+TransferKioFactory::TransferKioFactory(QObject *parent, const QVariantList &args)
+  : TransferFactory(parent, args)
 {
 }
 

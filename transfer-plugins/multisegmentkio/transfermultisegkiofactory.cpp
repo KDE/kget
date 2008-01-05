@@ -21,7 +21,8 @@
 
 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
 
-TransferMultiSegKioFactory::TransferMultiSegKioFactory()
+TransferMultiSegKioFactory::TransferMultiSegKioFactory(QObject *parent, const QVariantList &args)
+  : TransferFactory(parent, args)
 {
 }
 

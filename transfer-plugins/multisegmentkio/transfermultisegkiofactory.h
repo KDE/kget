@@ -19,8 +19,9 @@ class Scheduler;
 
 class TransferMultiSegKioFactory : public TransferFactory
 {
+    Q_OBJECT
     public:
-        TransferMultiSegKioFactory();
+        TransferMultiSegKioFactory(QObject *parent, const QVariantList &args);
         ~TransferMultiSegKioFactory();
 
         Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,

@@ -20,7 +20,8 @@
 
 KGET_EXPORT_PLUGIN(BTTransferFactory)
 
-BTTransferFactory::BTTransferFactory()
+BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
+  : TransferFactory(parent, args)
 {
 }
 

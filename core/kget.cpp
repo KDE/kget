@@ -2,6 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -562,7 +563,6 @@ QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
-QList<KLibrary *> KGet::m_pluginKLibraries;
 Scheduler * KGet::m_scheduler = new Scheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = new KUiServerJobs();
@@ -582,8 +582,7 @@ KGet::KGet()
 
 KGet::~KGet()
 {
-    unloadPlugins();
-    delete(m_scheduler);
+    delete m_scheduler;
 }
 
 void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
@@ -885,42 +884,21 @@ void KGet::loadPlugins()
     kDebug(5001) << "Number of factories = " << m_transferFactories.size();
 }
 
-void KGet::unloadPlugins()
-{
-    QList<KLibrary *>::iterator it = m_pluginKLibraries.begin();
-    QList<KLibrary *>::iterator itEnd = m_pluginKLibraries.end();
-
-    for(;it!=itEnd;++it)
-    {
-        (*it)->unload();
-    }
-    m_transferFactories.clear();
-}
-
-KGetPlugin * KGet::createPluginFromService( const KService::Ptr service )
+KGetPlugin * KGet::createPluginFromService( const KService::Ptr &service )
 {
     //try to load the specified library
-    KLibrary *lib = new KLibrary(QFile::encodeName(service->library()));
+    KPluginFactory *factory = KPluginLoader(service->library()).factory();
 
-    if (!lib)
+    if (!factory)
     {
-        KMessageBox::error(0, i18n("<html><p>KLibLoader could not load the plugin:<br/><i>%1</i></p></html>",
+        KMessageBox::error(0, i18n("<html><p>KPluginFactory could not load the plugin:<br/><i>%1</i></p></html>",
                                    service->library()));
-        kError(5001) << "KLibLoader could not load the plugin:" << service->library();
+        kError(5001) << "KPluginFactory could not load the plugin:" << service->library();
         return 0;
     }
+    KGetPlugin * plugin = factory->create< TransferFactory >(0);
 
-    KGetPlugin* (*create_plugin)() = ( KGetPlugin* (*)() ) lib->resolveFunction( "create_plugin" );
-
-    if ( !create_plugin ) 
-    {
-        kDebug(5001) << "create_plugin == NULL";
-        return 0;
-    }
-
-    m_pluginKLibraries.append(lib);
-
-    return create_plugin();
+    return plugin;
 }
 
 bool KGet::safeDeleteFile( const KUrl& url )

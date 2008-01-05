@@ -14,11 +14,11 @@
 #include "core/plugin/transferfactory.h"
 #include "btsettingswidget.h"
 
-class BTTransferFactory : public QObject, public TransferFactory
+class BTTransferFactory : public TransferFactory
 {
     Q_OBJECT
     public:
-        BTTransferFactory();
+        BTTransferFactory(QObject *parent, const QVariantList &args);
         ~BTTransferFactory();
 
         Transfer * createTransfer(const KUrl &srcUrl, const KUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = 0);

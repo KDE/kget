@@ -48,8 +48,9 @@ class KDialog;
  */
 class KGET_EXPORT TransferFactory : public KGetPlugin
 {
+    Q_OBJECT
     public:
-        TransferFactory();
+        TransferFactory(QObject *parent, const QVariantList &args);
 
         virtual Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                            TransferGroup * parent,

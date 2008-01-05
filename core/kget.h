@@ -29,8 +29,6 @@
 class QDomElement;
 class QAbstractItemView;
 
-class KLibrary;
-
 class Transfer;
 class TransferGroup;
 class TransferHandler;
@@ -299,7 +297,7 @@ class KGET_EXPORT KGet
         //Plugin-related functions
         static void loadPlugins();
         static void unloadPlugins();
-        static KGetPlugin * createPluginFromService( const KService::Ptr service );
+        static KGetPlugin * createPluginFromService( const KService::Ptr &service );
 
 
         /**
@@ -321,9 +319,6 @@ class KGET_EXPORT KGet
 
         //Lists of available plugins
         static QList<TransferFactory *> m_transferFactories;
-
-        //List of KLibrary objects (used to release the plugins from memory)
-        static QList<KLibrary *> m_pluginKLibraries;
 
         //pointer to the Main window
         static MainWindow * m_mainWindow;

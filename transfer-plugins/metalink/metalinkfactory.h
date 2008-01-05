@@ -19,8 +19,9 @@ class Scheduler;
 
 class metalinkFactory : public TransferFactory
 {
+    Q_OBJECT
     public:
-        metalinkFactory();
+        metalinkFactory(QObject *parent, const QVariantList &args);
         ~metalinkFactory();
 
         Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,

@@ -16,7 +16,8 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-TransferFactory::TransferFactory()
+TransferFactory::TransferFactory(QObject *parent, const QVariantList &args)
+  : KGetPlugin(parent, args)
 {
 
 }
