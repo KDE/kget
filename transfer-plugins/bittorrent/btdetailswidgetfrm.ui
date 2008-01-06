@@ -174,7 +174,7 @@
       <item row="0" column="3" >
        <widget class="QLabel" name="label_5" >
         <property name="text" >
-         <string>Left:</string>
+         <string comment="chunks left" >Left:</string>
         </property>
        </widget>
       </item>
@@ -188,7 +188,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="label_4" >
         <property name="text" >
-         <string>All:</string>
+         <string comment="all chunks" >All:</string>
         </property>
        </widget>
       </item>
@@ -237,7 +237,7 @@
        <item row="0" column="0" >
         <widget class="QLabel" name="label_11" >
          <property name="text" >
-          <string>Source:</string>
+          <string comment="source-file" >Source:</string>
          </property>
         </widget>
        </item>
