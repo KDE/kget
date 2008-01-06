@@ -68,7 +68,7 @@
      <item row="0" column="0" >
       <widget class="QLabel" name="sourceLabel" >
        <property name="text" >
-        <string>Source:</string>
+        <string comment="source-file" >Source:</string>
        </property>
       </widget>
      </item>

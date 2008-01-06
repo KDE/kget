@@ -1,6 +1,14 @@
 <ui version="4.0" >
  <class>TransferHistory</class>
  <widget class="QWidget" name="TransferHistory" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>579</width>
+    <height>278</height>
+   </rect>
+  </property>
   <layout class="QGridLayout" >
    <item row="1" column="0" >
     <widget class="QTreeWidget" name="treeWidget" >
@@ -102,7 +110,7 @@
   </layout>
   <action name="actionDelete_Selected" >
    <property name="text" >
-    <string>Delete Selected</string>
+    <string comment="delete selected transfer" >Delete Selected</string>
    </property>
   </action>
   <action name="actionDownload" >
