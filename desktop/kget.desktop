@@ -4,6 +4,7 @@ Type=Application
 Exec=kget -caption "%c" %i
 Icon=kget
 Terminal=false
+MimeType=application/x-bittorrent;application/x-torrent;application/metalink+xml;
 Name=KGet
 Name[bn]=কে-গেট
 Name[cy]=KNôl

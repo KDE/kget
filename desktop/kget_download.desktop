@@ -2,8 +2,9 @@
 Actions=KGetDownload;
 Type=Service
 Icon=
+Name=
 X-KDE-ServiceTypes=KonqPopupMenu/Plugin,all/allfiles
-ExcludeServiceTypes=kdedevice/*
+X-KDE-ExcludeServiceTypes=kdedevice/*
 X-KDE-Protocol=!file
 
 [Desktop Action KGetDownload]
