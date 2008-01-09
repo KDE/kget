@@ -16,6 +16,8 @@
 #include <QDomNodeList>
 #include <QMenu>
 #include <QFileSystemWatcher>
+#include <QFontMetrics>
+#include <QDateTime>
 
 #include <KDebug>
 #include <KStandardDirs>
@@ -23,6 +25,7 @@
 #include <KToolBar>
 #include <KTreeWidgetSearchLine>
 #include <KRun>
+#include <KGlobalSettings>
 
 TransferHistory::TransferHistory(QWidget *parent)
     : KDialog(parent)
@@ -38,11 +41,15 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_gridLayout = widget.gridLayout;
     m_treeWidget = widget.treeWidget;
     m_treeWidget->setRootIsDecorated(false);
+
+    QFontMetrics *font = new QFontMetrics(KGlobalSettings::generalFont());
+    kDebug(5001) << font->width(QDateTime::currentDateTime().toString()) << font->width(" 150 MiB ") << font->width("Finished");
+
     m_treeWidget->setColumnWidth(0, 265);
     m_treeWidget->setColumnWidth(1, 200);
-    m_treeWidget->setColumnWidth(2, 165);
-    m_treeWidget->setColumnWidth(3, 70);
-    m_treeWidget->setColumnWidth(4, 60);
+    m_treeWidget->setColumnWidth(2, font->width(QDateTime::currentDateTime().toString()));
+    m_treeWidget->setColumnWidth(3, font->width("150 MiB"));
+    m_treeWidget->setColumnWidth(4, font->width("Finished"));
     m_hboxLayout = widget.hboxLayout;
     m_searchBar = widget.searchBar;
     m_searchBar->setTreeWidget(m_treeWidget);
