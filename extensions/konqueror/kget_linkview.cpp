@@ -72,11 +72,9 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     QHBoxLayout *filterLayout = new QHBoxLayout;
     filterLayout->addWidget(new QLabel(i18n("Show:")));
 
-    const filterDefinition *filter = filters;
-    while(!filter->icon.isEmpty()) {
-        filterLayout->addWidget(createFilterButton(filter->icon, filter->name,
-                        filterButtonsGroup, filter->type, filter->defaultFilter));
-        ++filter;
+    for (uint i = 0; i < sizeof(filters) / sizeof(*filters); ++i) {
+        filterLayout->addWidget(createFilterButton(filters[i].icon, filters[i].name,
+                                filterButtonsGroup, filters[i].type, filters[i].defaultFilter));
     }
 
     filterLayout->addWidget(searchLine);
