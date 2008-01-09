@@ -150,7 +150,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 
     kDebug(5001) << "slotTotalSize";
 
-    setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18n("Downloading..."), SmallIcon("media-playback-start"));
 
     m_totalSize = size;
     setTransferChange(Tc_Status | Tc_TotalSize, true);
