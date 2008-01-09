@@ -49,7 +49,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_treeWidget->setColumnWidth(1, 200);
     m_treeWidget->setColumnWidth(2, font->width(QDateTime::currentDateTime().toString()));
     m_treeWidget->setColumnWidth(3, font->width("150 MiB"));
-    m_treeWidget->setColumnWidth(4, font->width("Finished"));
+    m_treeWidget->setColumnWidth(4, font->width(i18nc("the transfer is finished", "Finished")));
     m_hboxLayout = widget.hboxLayout;
     m_searchBar = widget.searchBar;
     m_searchBar->setTreeWidget(m_treeWidget);

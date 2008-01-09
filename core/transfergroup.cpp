@@ -109,9 +109,9 @@ void TransferGroup::remove(Transfer * transfer)
     kDebug(5001) << transfer->statusText();
 
     if (transfer->statusText() == "Finished")
-        e.setAttribute("State", "Finished");
+        e.setAttribute("State", i18nc("the transfer is finished", "Finished"));
     else
-        e.setAttribute("State", "Aborted");
+        e.setAttribute("State", i18nc("the transfer is aborted", "Aborted"));
 
     if (!file.open(QIODevice::ReadWrite))
         KMessageBox::error(0, i18n("History-File cannot be opened correctly!"), i18n("Error"), 0);
