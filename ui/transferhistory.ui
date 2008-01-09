@@ -44,7 +44,7 @@
      </property>
      <column>
       <property name="text" >
-       <string>Source</string>
+       <string>Source-File</string>
       </property>
      </column>
      <column>
@@ -59,7 +59,12 @@
      </column>
      <column>
       <property name="text" >
-       <string>State</string>
+       <string>File-Size</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Status</string>
       </property>
      </column>
     </widget>

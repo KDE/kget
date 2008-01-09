@@ -38,10 +38,11 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_gridLayout = widget.gridLayout;
     m_treeWidget = widget.treeWidget;
     m_treeWidget->setRootIsDecorated(false);
-    m_treeWidget->setColumnWidth(0, 310);
-    m_treeWidget->setColumnWidth(1, 214);
-    m_treeWidget->setColumnWidth(2, 180);
-    m_treeWidget->setColumnWidth(3, 64);
+    m_treeWidget->setColumnWidth(0, 265);
+    m_treeWidget->setColumnWidth(1, 200);
+    m_treeWidget->setColumnWidth(2, 165);
+    m_treeWidget->setColumnWidth(3, 70);
+    m_treeWidget->setColumnWidth(4, 60);
     m_hboxLayout = widget.hboxLayout;
     m_searchBar = widget.searchBar;
     m_searchBar->setTreeWidget(m_treeWidget);
@@ -113,6 +114,7 @@ void TransferHistory::slotAddTransfers()
         attributeList.append(dom.attribute("Source"));
         attributeList.append(dom.attribute("Dest"));
         attributeList.append(dom.attribute("Time"));
+        attributeList.append(dom.attribute("Size"));
         attributeList.append(dom.attribute("State"));
         QTreeWidgetItem *item = new QTreeWidgetItem(attributeList);
         m_treeWidget->addTopLevelItem(item);
@@ -205,7 +207,8 @@ void TransferHistory::slotSave()
         e.setAttribute("Source", item->text(0));
         e.setAttribute("Dest", item->text(1));
         e.setAttribute("Time", item->text(2));
-        e.setAttribute("State", item->text(3));
+        e.setAttribute("Size", item->text(3));
+        e.setAttribute("State", item->text(4));
 
         kDebug(5001) << e.attribute("Source");
     }
@@ -237,7 +240,7 @@ void TransferHistory::contextMenuEvent(QContextMenuEvent *event)
     QMenu *contextMenu = new QMenu(this);
     contextMenu->addAction(m_actionDownload);
     contextMenu->addAction(m_actionDelete_Selected);
-    if (m_treeWidget->currentItem()->text(3) == "Finished")
+    if (m_treeWidget->currentItem()->text(4) == "Finished")
         contextMenu->addAction(m_openFile);
     contextMenu->exec(QCursor::pos());
 }

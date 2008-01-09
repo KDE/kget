@@ -18,6 +18,7 @@
 #include <KMessageBox>
 #include <KLocale>
 #include <KStandardDirs>
+#include <kio/global.h>
 
 #include <QDomElement>
 #include <QFile>
@@ -103,6 +104,7 @@ void TransferGroup::remove(Transfer * transfer)
     e.setAttribute("Source", transfer->source().url());
     e.setAttribute("Dest", transfer->dest().url());
     e.setAttribute("Time", QDateTime::currentDateTime().toString());
+    e.setAttribute("Size", KIO::convertSize(transfer->totalSize()));
     
     kDebug(5001) << transfer->statusText();
 
