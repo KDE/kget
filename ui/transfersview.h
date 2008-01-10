@@ -30,6 +30,9 @@ class TransfersView : public QTreeView
         void dropEvent(QDropEvent * event);
         void rowsInserted(const QModelIndex &, int, int);
 
+    protected:
+        void dragMoveEvent ( QDragMoveEvent * event );
+
     private slots:
         void toggleMainGroup();// show or hide the first group header if there's only one download group
 };

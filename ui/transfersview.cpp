@@ -10,6 +10,7 @@
 
 #include "transfersview.h"
 #include "settings.h"
+#include "transfersviewdelegate.h"
 
 #include <kdebug.h>
 
@@ -118,6 +119,13 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 
     setExpanded(parent, true);
     toggleMainGroup();
+}
+
+void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
+{
+    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+
+    view_delegate->closeExpandableDetails();
 }
 
 void TransfersView::toggleMainGroup()
