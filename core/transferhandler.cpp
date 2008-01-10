@@ -222,6 +222,8 @@ void TransferHandler::postDeleteEvent()
 {
     kDebug(5001) << "TransferHandler::postDeleteEvent() ENTERING";
 
+    m_transfer->postDeleteEvent();//First inform the transfer itself
+
     //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.

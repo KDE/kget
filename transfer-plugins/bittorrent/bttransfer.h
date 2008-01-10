@@ -54,6 +54,7 @@ class BTTransfer : public QObject, public Transfer
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
+        void postDeleteEvent();
 
         //Bittorrent specific functions (connected with TransferFlags
         int chunksTotal() const;
