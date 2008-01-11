@@ -14,6 +14,7 @@
 
 #include "mainwindow.h"
 #include "core/transfer.h"
+#include "core/transferdatasource.h"
 #include "core/transfergroup.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
@@ -620,6 +621,22 @@ void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
         }
     }
     kDebug(5001) << "Warning! No plugin found to handle the given url";
+}
+
+TransferDataSource * KGet::createTransferDataSource(const KUrl &src)
+{
+    kDebug(5001);
+    QList<TransferFactory *>::iterator it = m_transferFactories.begin();
+    QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
+
+    TransferDataSource *dataSource;
+    for( ; it!=itEnd ; ++it)
+    {
+        dataSource = (*it)->createTransferDataSource(src);
+        if(dataSource)
+            return dataSource;
+    }
+    return 0;
 }
 
 void KGet::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)

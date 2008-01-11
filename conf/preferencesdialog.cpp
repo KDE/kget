@@ -39,7 +39,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgAdv.setupUi(advanced);
 
     // TODO: remove the following lines as soon as these features are ready
-    dlgNet.kcfg_SpeedLimit->setVisible(false);
+//     dlgNet.kcfg_SpeedLimit->setVisible(false);
     dlgNet.groupBoxCompleted->setVisible(false);
     dlgNet.lbl_maxnum_2->setVisible(false);
     dlgNet.kcfg_MaxConnectionsServer->setVisible(false);

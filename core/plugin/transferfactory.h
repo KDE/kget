@@ -35,6 +35,7 @@
 #include "core/kget.h"
 #include "core/transfer.h"
 #include "core/transferhandler.h"
+#include "core/transferdatasource.h"
 #include "kget_export.h"
 
 class TransferGroup;
@@ -62,8 +63,15 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual QWidget * createDetailsWidget( TransferHandler * transfer ) = 0;
 
+/**
+ * Returns the Transfer Settings Widget if any.
+ * otherwise returns 0
+ */
         virtual QWidget * createSettingsWidget(KDialog * parent) = 0;
 
+/**
+ * Returns the Transfer Name
+ */
         virtual QString displayName() = 0;
 
         virtual const QList<KAction *> actions(TransferHandler *handler = 0) = 0;
@@ -71,6 +79,12 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
         virtual void settingsChanged() {}
 
         KMenu * createPopupMenu(QList<TransferHandler *> transfers);
+
+/**
+ * Returns a Data Source. needed for Transfers Containers if any.
+ * otherwise returns 0
+ */
+        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl) = 0;
 };
 
 #endif

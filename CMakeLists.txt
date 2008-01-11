@@ -28,7 +28,6 @@ set(kgetcore_SRCS
    core/jobqueue.cpp
    core/kget.cpp
    core/scheduler.cpp
-   core/speedlimiter.cpp
    core/transfertreemodel.cpp
    core/transfertreeselectionmodel.cpp
    core/transfer.cpp
@@ -37,7 +36,7 @@ set(kgetcore_SRCS
    core/transferhandler.cpp
    core/plugin/plugin.cpp
    core/plugin/transferfactory.cpp
-   core/transfercontainer.cpp
+   core/transferdatasource.cpp
    core/kuiserverjobs.cpp
    core/kgetglobaljob.cpp
 )

@@ -6,6 +6,7 @@ set(kget_multisegkiofactory_PART_SRCS
   dlgmultisegkio.cpp
   segmentfactory.cpp
   multisegkio.cpp
+  multisegkiodatasource.cpp
   mirrors.cpp
   transfermultisegkio.cpp
   transfermultisegkiofactory.cpp

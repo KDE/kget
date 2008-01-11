@@ -16,6 +16,7 @@
 #include "multisegkiosettings.h"
 #include "dlgmultisegkio.h"
 #include "transfermultisegkio.h"
+#include "multisegkiodatasource.h"
 
 #include <kdebug.h>
 
@@ -69,4 +70,18 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
 {
     Q_UNUSED(handler);
     return QList<KAction *>();
+}
+
+ TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl)
+{
+   kDebug(5001);
+
+    QString prot = srcUrl.protocol();
+    kDebug(5001) << "Protocol = " << prot;
+    if( prot == "http" || prot == "https" ||
+        prot == "ftp"  || prot == "sftp"
+      )
+    {
+        return new MultiSegKioDataSource();
+    }
 }

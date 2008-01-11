@@ -32,6 +32,9 @@ class BTTransferFactory : public TransferFactory
         QWidget * createSettingsWidget(KDialog * parent) { return new BTSettingsWidget(parent);}
 
         QString displayName(){return "Bittorrent";}
+
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {return 0;}
+
 };
 
 #endif
