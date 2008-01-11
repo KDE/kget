@@ -15,6 +15,7 @@
 #include <kdebug.h>
 
 #include <QDomElement>
+#include <QFile>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -68,6 +69,21 @@ int TransferKio::remainingTime() const
 bool TransferKio::isResumable() const
 {
     return true;
+}
+
+void TransferKio::postDeleteEvent()
+{
+    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
+    {
+        QString dest = m_dest.url() + ".part";
+        kDebug(5001) << dest;
+#ifdef Q_OS_WIN //krazy:exclude=cpp //TODO: Think about a portable sollution...
+        QFile destFile(dest.remove("file:///"));
+#else
+        QFile destFile(dest.remove("file://"));
+#endif
+        destFile.remove();
+    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
 void TransferKio::load(const QDomElement &e)

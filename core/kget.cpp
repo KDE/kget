@@ -269,14 +269,6 @@ void KGet::delTransfer(TransferHandler * transfer)
 
     m_transferTreeModel->delTransfer(t);
 
-    if (t->status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
-    {
-        QString dest = t->dest().url() + ".part";
-        kDebug(5001) << dest;
-        QFile destFile(dest.remove("file://"));
-        destFile.remove();
-    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
-
     //Here I delete the Transfer. The other possibility is to move it to a list
     //and to delete all these transfers when kget gets closed. Obviously, after
     //the notification to the views that the transfer has been removed, all the

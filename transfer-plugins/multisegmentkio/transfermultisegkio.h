@@ -38,6 +38,7 @@ class transferMultiSegKio : public QObject, public Transfer
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
+        void postDeleteEvent();
 
         void save(const QDomElement &element);
 
