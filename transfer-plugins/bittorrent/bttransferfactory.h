@@ -33,7 +33,7 @@ class BTTransferFactory : public TransferFactory
 
         QString displayName(){return "Bittorrent";}
 
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {return 0;}
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return 0;}
 
 };
 

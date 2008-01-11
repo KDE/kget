@@ -12,11 +12,13 @@
 #ifndef KGET_TRANSFERDATASOURCE_H
 #define KGET_TRANSFERDATASOURCE_H
 
+#include "kget_export.h"
+
 #include <QObject>
 
 #include <kio/job.h>
 
-class TransferDataSource : public QObject
+class KGET_EXPORT TransferDataSource : public QObject
 {
     Q_OBJECT
     public:

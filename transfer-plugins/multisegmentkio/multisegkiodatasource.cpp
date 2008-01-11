@@ -29,6 +29,9 @@ void MultiSegKioDataSource::stop()
 
 void MultiSegKioDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes)
 {
+   Q_UNUSED(srcUrl);
+   Q_UNUSED(offset);
+   Q_UNUSED(bytes);
    kDebug(5001);
 }
 

@@ -38,7 +38,7 @@ class TransferKioFactory : public TransferFactory
         QString displayName(){return "HTTP(s) / FTP(s)";}
 
         const QList<KAction *> actions(TransferHandler *handler = 0);
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {return 0;}
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return 0;}
 };
 
 #endif

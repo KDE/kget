@@ -38,7 +38,7 @@ class metalinkFactory : public TransferFactory
         QString displayName(){return "MetaLink";}
 
         const QList<KAction *> actions(TransferHandler *handler = 0);
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {return 0;}
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return 0;}
 };
 
 #endif

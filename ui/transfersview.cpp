@@ -123,6 +123,7 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
 {
+    Q_UNUSED(event);
     TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
 
     view_delegate->closeExpandableDetails();
