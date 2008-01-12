@@ -70,7 +70,6 @@ SHORT-TERM (URGENT):
       function to the transfer that makes the transfer retrieve all the necessary
       informations. Then we should also create a Job, returned by the Transfer 
       factory, to be added to the scheduler ( that's the new scheduler power ;-) ).
-  ADD <boom1992> NewTransferDialog: don't let the user choose a dir, better use a file, which can be renamed too :) 
   ADD <boom1992> let the user add new download-sources to a multithreaded transfer manually
 
 MID-TERM:
