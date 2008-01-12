@@ -51,6 +51,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(advanced, i18n("Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(plugins, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugin Options"));
 
+    setHelp(QString(),"kget");
     connect(this, SIGNAL(accepted()), SLOT(disableButtonApply()));
     connect(this, SIGNAL(rejected()), SLOT(disableButtonApply()));
 }
