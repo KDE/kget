@@ -26,17 +26,20 @@
 #include <plasma/widgets/label.h>
 #include <plasma/layouts/boxlayout.h>
 
-SpeedGraph::SpeedGraph(Plasma::Applet *parent, Plasma::BoxLayout *main_layout)
+SpeedGraph::SpeedGraph(Plasma::Applet *parent)
     : TransferGraph(parent)
 {
-    m_layout = main_layout;
-    m_lineGraph = new LineGraphWidget(parent);
-    m_layout->addItem(m_lineGraph);
-
-    QObject::connect(m_lineGraph, SIGNAL(geometryChanged()),
-                SLOT(updateGeometry()));
-
-    m_applet->updateGeometry();
+    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    if (m_layout)
+    {
+	m_lineGraph = new LineGraphWidget(parent);
+	m_layout->addItem(m_lineGraph);
+    
+	QObject::connect(m_lineGraph, SIGNAL(geometryChanged()),
+		    SLOT(updateGeometry()));
+    
+	m_applet->updateGeometry();
+    }
 }
 
 SpeedGraph::~SpeedGraph()

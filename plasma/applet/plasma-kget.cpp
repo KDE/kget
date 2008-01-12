@@ -143,17 +143,17 @@ void PlasmaKGet::loadTransferGraph(uint type)
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :
-                m_transferGraph = new ErrorGraph(this, m_layout, m_errorMessage);
+                m_transferGraph = new ErrorGraph(this, m_errorMessage);
                 break;
             case PlasmaKGet::PieGraphType :
-                m_transferGraph = new PieGraph(this, m_layout);
+                m_transferGraph = new PieGraph(this);
                 break;
             case PlasmaKGet::SpeedGraphType :
-                m_transferGraph = new SpeedGraph(this, m_layout);
+                m_transferGraph = new SpeedGraph(this);
                 break;
             case PlasmaKGet::BarChartType :
             default:
-                m_transferGraph = new BarChart(this, m_layout);
+                m_transferGraph = new BarChart(this);
         }
 
         m_graphType = type;

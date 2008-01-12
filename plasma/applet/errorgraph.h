@@ -35,7 +35,7 @@ class ErrorGraph : public TransferGraph
 {
     Q_OBJECT
 public:
-    ErrorGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout, const QString &message);
+    ErrorGraph(Plasma::Applet *parent, const QString &message);
     ~ErrorGraph();
 
 private slots:

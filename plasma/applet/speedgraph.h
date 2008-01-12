@@ -37,7 +37,7 @@ class SpeedGraph : public TransferGraph
     Q_OBJECT
 
 public:
-    SpeedGraph(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout);
+    SpeedGraph(Plasma::Applet *parent);
     ~SpeedGraph();
 
     void setTransfers(const QVariantMap &percents);

@@ -32,15 +32,18 @@
 
 #include <plasma/layouts/boxlayout.h>
 
-PieGraph::PieGraph(Plasma::Applet *parent, Plasma::BoxLayout *main_layout)
+PieGraph::PieGraph(Plasma::Applet *parent)
     : TransferGraph(parent)
 {
-    m_layout = main_layout;
-    m_chart = new PieChartWidget(parent);
-    main_layout->addItem(m_chart);
+    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    if (m_layout)
+    {
+      m_chart = new PieChartWidget(parent);
+      m_layout->addItem(m_chart);
 
-    QObject::connect(m_chart, SIGNAL(geometryChanged()),
+      QObject::connect(m_chart, SIGNAL(geometryChanged()),
                 SLOT(updateGeometry()));
+    }
 }
 
 PieGraph::~PieGraph()

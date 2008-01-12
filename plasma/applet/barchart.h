@@ -40,7 +40,7 @@ class BarChart : public TransferGraph
 Q_OBJECT
 
 public:
-    BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout);
+    BarChart(Plasma::Applet *parent);
     ~BarChart();
 
     void setTransfers(const QVariantMap &transfers);

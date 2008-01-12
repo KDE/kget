@@ -34,7 +34,7 @@ class PieGraph : public TransferGraph
     Q_OBJECT
 
 public:
-    PieGraph(Plasma::Applet *parent, Plasma::BoxLayout *main_layout);
+    PieGraph(Plasma::Applet *parent);
     ~PieGraph();
 
     void setTransfers(const QVariantMap &percents);

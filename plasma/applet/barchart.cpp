@@ -30,12 +30,14 @@
 #include <KLocale>
 //#include <QTimeLine>
 
-BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
+BarChart::BarChart(Plasma::Applet *parent)
     : TransferGraph(parent),
     m_actualPage(0)
 {
     m_totalSizeLabel = 0;
-    m_layout = mainlayout;
+    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    if (m_layout)
+    {
 
 /*
     // Layout animator
@@ -79,6 +81,7 @@ BarChart::BarChart(Plasma::Applet *parent, Plasma::BoxLayout *mainlayout)
     // connect the clicked signal of the next and previous buttons
     QObject::connect(m_previousPageButton, SIGNAL(clicked()), SLOT(previousPage()));
     QObject::connect(m_nextPageButton, SIGNAL(clicked()), SLOT(nextPage()));
+   }
 }
 
 BarChart::~BarChart()
