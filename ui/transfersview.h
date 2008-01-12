@@ -32,6 +32,7 @@ class TransfersView : public QTreeView
 
     protected:
         void dragMoveEvent ( QDragMoveEvent * event );
+        void rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end);
 
     private slots:
         void toggleMainGroup();// show or hide the first group header if there's only one download group

@@ -225,7 +225,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
     if ( urlsToDownload.count() == 1 )
     {
         // just one file -> ask for filename
-        addTransfer(srcUrls.first(), destDir, groupName, start);
+        addTransfer(srcUrls.first(), destDir + srcUrls.first().fileName(), groupName, start);
         return;
     }
 
@@ -578,7 +578,7 @@ KGet::~KGet()
     delete m_scheduler;
 }
 
-void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
+bool KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
                           bool start, const QDomElement * e)
 {
     kDebug(5001) << "srcUrl= " << src.url() << "  " 
@@ -609,10 +609,11 @@ void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
 
             newTransfer->handler()->addObserver(new TransferFinishedObserver());
 
-            return;
+            return true;
         }
     }
     kDebug(5001) << "Warning! No plugin found to handle the given url";
+    return false;
 }
 
 TransferDataSource * KGet::createTransferDataSource(const KUrl &src)
@@ -776,10 +777,21 @@ bool KGet::isValidSource(const KUrl &source)
 
 bool KGet::isValidDestDirectory(const QString & destDir)
 {
-    if (QFileInfo( destDir ).isWritable())
-        return (!destDir.isEmpty() && QFileInfo( destDir ).isDir() && QFileInfo( destDir ).isWritable());
-    if (!QFileInfo( destDir ).isWritable() && !destDir.isEmpty())
-         KMessageBox::error(0, i18n("Directory is not writable"));
+    kDebug(5001) << destDir;
+    if (!QFileInfo(destDir).isDir())
+    {
+        if (QFileInfo(KUrl(destDir).directory()).isWritable())
+            return (!destDir.isEmpty());
+        if (!QFileInfo(KUrl(destDir).directory()).isWritable() && !destDir.isEmpty())
+            KMessageBox::error(0, i18n("Directory is not writable"));
+    }
+    else
+    {
+        if (QFileInfo(destDir).isWritable())
+            return (!destDir.isEmpty());
+        if (!QFileInfo(destDir).isWritable() && !destDir.isEmpty())
+            KMessageBox::error(0, i18n("Directory is not writable"));
+    }
     return false;
 }
 
@@ -798,6 +810,9 @@ bool KGet::isValidDestUrl(const KUrl &destUrl)
         else
             return false;
     }
+    if (m_transferTreeModel->findTransferByDestination(destUrl) || destUrl.isEmpty())
+        return false;
+
     return true;
    /*
     KIO::open_RenameDlg(i18n("File already exists"), 
@@ -823,16 +838,16 @@ KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
         kDebug(5001) << "   srcUrl = " << srcUrl.url();
         kDebug(5001) << "   prettyUrl = " << srcUrl.prettyUrl();
     }
-    else
+    if (QFileInfo(destUrl.path()).isDir())
     {
         kDebug(5001) << " Filename is not empty";
         destUrl.adjustPath( KUrl::AddTrailingSlash );
         destUrl.setFileName( filename );
-        if (!isValidDestUrl(destUrl))
-        {
-            kDebug(5001) << "   destUrl " << destUrl.path() << " is not valid";
-            return KUrl();
-        }
+    }
+    if (!isValidDestUrl(destUrl))
+    {
+        kDebug(5001) << "   destUrl " << destUrl.path() << " is not valid";
+        return KUrl();
     }
     return destUrl;
 }

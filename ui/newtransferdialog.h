@@ -50,7 +50,7 @@ private:
     QGridLayout *m_gridLayout;
     KTitleWidget *m_titleWidget;
     QGridLayout *m_gridLayout1;
-    KUrlComboRequester *m_folderRequester;
+    KUrlComboRequester *m_destRequester;
     QComboBox *m_groupComboBox;
     QCheckBox *m_defaultFolderButton;
 };

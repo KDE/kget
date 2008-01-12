@@ -41,7 +41,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     m_gridLayout1 = widget.gridLayout1;
     m_titleWidget = widget.titleWidget;
-    m_folderRequester = widget.folderRequester;
+    m_destRequester = widget.destRequester;
     m_groupComboBox = widget.groupComboBox;
     m_defaultFolderButton = widget.defaultFolderButton;
     setMainWidget(mainWidget);
@@ -78,12 +78,14 @@ void NewTransferDialog::setMultiple(bool value)
     {
         listWidget = new KListWidget();
         m_gridLayout1->addWidget(listWidget, 0, 1, 1, 1);
+        m_destRequester->setMode(KFile::Directory);
     }
     else
     {
         urlRequester = new KLineEdit();
         urlRequester->setClearButtonShown(true);
         m_gridLayout1->addWidget(urlRequester, 0, 1, 1, 1);
+        m_destRequester->setMode(KFile::File);
     }
 }
 
@@ -134,13 +136,16 @@ KUrl::List NewTransferDialog::source() const
 
 void NewTransferDialog::setDestination(const QString &destination)
 {
-    m_folderRequester->comboBox()->insertItem(0, destination);
-    m_folderRequester->comboBox()->setCurrentIndex(0);
+    if (!QUrl(destination).isValid())
+        return;
+
+    m_destRequester->comboBox()->insertItem(0, destination);
+    m_destRequester->comboBox()->setCurrentIndex(0);
 }
 
 QString NewTransferDialog::destination() const
 {
-    return m_folderRequester->url().url();
+    return m_destRequester->url().url();
 }
 
 QString NewTransferDialog::transferGroup() const
@@ -161,20 +166,30 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 
     if (!dialog->source().isEmpty())
     {
-        QString checkExceptions = KGet::getSaveDirectoryFromExceptions(dialog->source().takeFirst());
+        QString checkExceptions = KGet::getSaveDirectoryFromExceptions(dialog->source().first());
 
         if (Settings::enableExceptions() && !checkExceptions.isEmpty())
+        {
             destDir = checkExceptions;
+        }
     }
 
     if (!Settings::lastDirectory().isEmpty() &&
         QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
     {
-        dialog->setDestination(Settings::lastDirectory());
+        if (dialog->multiple())
+            dialog->setDestination(Settings::lastDirectory());
+        else
+            dialog->setDestination(Settings::lastDirectory() + "/" + dialog->source().first().fileName());
     }
     
     if (!destDir.isEmpty())
-        dialog->setDestination(destDir);
+    {
+        if (dialog->multiple())
+            dialog->setDestination(destDir);
+        else
+            dialog->setDestination(destDir + "/" + dialog->source().first().fileName());
+    }
 
     dialog->exec();
 
@@ -188,15 +203,21 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 #else
             destDir = destDir.remove("file://");
 #endif
+            QString dir;
+            if (dialog->multiple())
+                dir = destDir; 
+            else
+                dir = KUrl(destDir).directory();
+
             if(dialog->m_defaultFolderButton->checkState() == Qt::Checked)
             {
-                Settings::setDefaultDirectory(destDir);
+                Settings::setDefaultDirectory(dir);
                 Settings::setUseDefaultDirectory(true);
                 Settings::self()->writeConfig();
             }
             else
             {
-                Settings::setLastDirectory(destDir);
+                Settings::setLastDirectory(dir);
                 Settings::self()->writeConfig();
             }
             kDebug(5001) << srcUrls;
@@ -209,11 +230,8 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 
 void NewTransferDialog::prepareGui()
 {
-    // Only select directories
-    m_folderRequester->setMode(KFile::Directory);
-
-    // properties of the m_folderRequester combobox
-    m_folderRequester->comboBox()->setDuplicatesEnabled(false);
+    // properties of the m_destRequester combobox
+    m_destRequester->comboBox()->setDuplicatesEnabled(false);
 
     // transfer groups
     m_groupComboBox->addItems(KGet::transferGroupNames());
