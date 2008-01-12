@@ -144,6 +144,9 @@ void TransfersView::toggleMainGroup()
 
 void TransfersView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end)
 {
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
     TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
     view_delegate->closeExpandableDetails(currentIndex());
 }
