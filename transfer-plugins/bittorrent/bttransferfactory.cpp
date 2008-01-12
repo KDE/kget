@@ -82,6 +82,12 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
          connect(openSpeedSettingsAction, SIGNAL(triggered()), bttransfer, SLOT(createSpeedLimits()));
  
          actions.append(openSpeedSettingsAction);
+
+         KAction *openScanDlg = new KAction(KIcon("document-open"), i18n("&Scan Files"), this);
+ 
+         connect(openScanDlg, SIGNAL(triggered()), bttransfer, SLOT(createScanDlg()));
+ 
+         actions.append(openScanDlg);
      }
  
      if (bttransfer)

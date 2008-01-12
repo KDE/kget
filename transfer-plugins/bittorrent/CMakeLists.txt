@@ -17,6 +17,7 @@ set(kget_bittorrentfactory_PART_SRCS
   btsettingswidget.cpp
   btdownload.cpp
   btspeedlimits.cpp
+  scandlg.cpp
   advanceddetails/btadvanceddetailswidget.cpp
   advanceddetails/chunkdownloadmodel.cpp
   advanceddetails/chunkdownloadview.cpp
@@ -35,6 +36,7 @@ kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
   btdetailswidgetfrm.ui
   btsettingswidget.ui
   btspeedlimits.ui
+  scandlg.ui
   advanceddetails/btaddtrackerwidget.ui
   advanceddetails/chunkdownloadview.ui
   advanceddetails/trackerview.ui

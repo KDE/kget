@@ -13,6 +13,7 @@
 #include "bttransfer.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
 #include "btspeedlimits.h"
+#include "scandlg.h"
 
 #include "core/scheduler.h"
 
@@ -24,6 +25,7 @@ BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * schedule
 {
     advancedDetails = 0;
     speedLimits = 0;
+    scanDlg = 0;
 }
 
 void BTTransferHandler::createAdvancedDetails()
@@ -63,4 +65,25 @@ void BTTransferHandler::removeSpeedLimits()
         speedLimits->close();
 
     speedLimits = 0;
+}
+
+void BTTransferHandler::createScanDlg()
+{
+    kDebug(5001);
+    if (scanDlg)
+    {
+        scanDlg->stop();
+        scanDlg->close();
+    }
+        
+    scanDlg = new kt::ScanDlg(false, 0);
+    scanDlg->show();
+    scanDlg->execute(torrentControl(), false);
+    connect(scanDlg, SIGNAL(finished(int)), SLOT(removeSpeedLimits()));
+}
+
+void BTTransferHandler::removeScanDlg()
+{
+    kDebug(5001);
+    scanDlg = 0;
 }
