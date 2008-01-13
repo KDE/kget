@@ -13,6 +13,7 @@
 
 #include "core/plugin/transferfactory.h"
 #include "btsettingswidget.h"
+#include "btdatasource.h"
 
 class BTTransferFactory : public TransferFactory
 {
@@ -33,7 +34,7 @@ class BTTransferFactory : public TransferFactory
 
         QString displayName(){return "Bittorrent";}
 
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return 0;}
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return new BTDataSource();}
 
 };
 
