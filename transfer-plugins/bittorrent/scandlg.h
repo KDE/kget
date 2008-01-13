@@ -27,6 +27,11 @@
 #include <datachecker/datacheckerlistener.h>
 #include "ui_scandlg.h"
 
+namespace bt
+{
+       class TorrentInterface;
+}
+
 namespace kt
 {
 	class TorrentInterface;

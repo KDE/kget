@@ -101,7 +101,7 @@
         </property>
         <column>
          <property name="text" >
-          <string>Extension</string>
+          <string>File-Extension</string>
          </property>
         </column>
         <column>

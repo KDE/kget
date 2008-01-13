@@ -180,7 +180,7 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
         if (dialog->multiple())
             dialog->setDestination(Settings::lastDirectory());
         else
-            dialog->setDestination(Settings::lastDirectory() + "/" + dialog->source().first().fileName());
+            dialog->setDestination(Settings::lastDirectory() + '/' + dialog->source().first().fileName());
     }
     
     if (!destDir.isEmpty())
@@ -188,7 +188,7 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
         if (dialog->multiple())
             dialog->setDestination(destDir);
         else
-            dialog->setDestination(destDir + "/" + dialog->source().first().fileName());
+            dialog->setDestination(destDir + '/' + dialog->source().first().fileName());
     }
 
     dialog->exec();
