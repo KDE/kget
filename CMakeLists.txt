@@ -39,6 +39,7 @@ set(kgetcore_SRCS
    core/transferdatasource.cpp
    core/kuiserverjobs.cpp
    core/kgetglobaljob.cpp
+   core/bitset.cpp
 )
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)

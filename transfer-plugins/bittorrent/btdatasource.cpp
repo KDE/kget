@@ -15,6 +15,7 @@ BTDataSource::BTDataSource()
   :TransferDataSource(0)
 {
    kDebug(5001);
+    m_bitset = new BitSet();
 }
 
 void BTDataSource::start()

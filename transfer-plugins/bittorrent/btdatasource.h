@@ -19,10 +19,15 @@ class BTDataSource : public TransferDataSource
 {
     public:
         BTDataSource();
+        ~BTDataSource();
 
         void start();
 	void stop();
         void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes);
+        BitSet* bitset() {return m_bitset;}
+
+    private:
+        BitSet *m_bitset;
 };
 
 #endif

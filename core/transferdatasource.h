@@ -18,6 +18,8 @@
 
 #include <kio/job.h>
 
+#include "core/bitset.h"
+
 class KGET_EXPORT TransferDataSource : public QObject
 {
     Q_OBJECT
@@ -28,6 +30,7 @@ class KGET_EXPORT TransferDataSource : public QObject
 	virtual void start() = 0;
 	virtual void stop() = 0;
         virtual void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes) = 0;
+        virtual BitSet* bitset() {return 0;}
 
     signals:
         void data( const KIO::fileoffset_t &offset,const QByteArray &data );
