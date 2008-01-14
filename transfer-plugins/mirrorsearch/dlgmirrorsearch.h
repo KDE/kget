@@ -44,7 +44,7 @@ private slots:
     void slotRemoveEngine();
     void slotSave();
     void init();
-    void enableButtonApply();
+    //void enableButtonApply();
 
 private:
     void addSearchEngineItem(const QString &name, const QString &url);
