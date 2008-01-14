@@ -1,0 +1,5 @@
+ClassName=MirrorSearchSettings
+File=kget_mirrorsearchfactory.kcfg
+Mutators=true
+Singleton=true
+Visibility=KDE_EXPORT

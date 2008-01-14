@@ -1,0 +1,50 @@
+<ui version="4.0" >
+ <class>DlgEngineEditing</class>
+ <widget class="QWidget" name="DlgEngineEditing" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>419</width>
+    <height>132</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="engineNameLabel" >
+     <property name="text" >
+      <string>Engine name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="engineNameEdit" />
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="urlLabel" >
+     <property name="text" >
+      <string>Url:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QLineEdit" name="urlEdit" />
+   </item>
+   <item row="2" column="0" colspan="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>361</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
