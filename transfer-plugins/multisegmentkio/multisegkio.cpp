@@ -184,9 +184,13 @@ void MultiSegmentCopyJob::slotClose( KIO::Job * )
     if( processedAmount(Bytes) == totalAmount(Bytes) )
     {
         kDebug(5001) << "Renaming local file.";
-       QString dest_orig = m_dest.path();
-       QString dest_part = m_dest_part.path();
-       QFile::rename ( dest_part, dest_orig );
+        QString dest_orig = m_dest.path();
+        QString dest_part = m_dest_part.path();
+        if ( QFile::exists (dest_orig) )
+        {
+            QFile::remove (dest_orig);
+        }
+        QFile::rename ( dest_part, dest_orig );
     }
     emit updateSegmentsData();
 }
