@@ -18,8 +18,10 @@
 
 #include <kio/job.h>
 
-#include "core/bitset.h"
-
+/**
+This Class is an interface for inter-plugins data change.
+allowing to use already implemented features from others plugins
+*/
 class KGET_EXPORT TransferDataSource : public QObject
 {
     Q_OBJECT
@@ -32,8 +34,21 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes) = 0;
 
     signals:
+/**
+Returns data in the forms of chucks
+*/
         void data( const KIO::fileoffset_t &offset,const QByteArray &data );
+/**
+Returns data in the forms of URL List
+*/
+        void data( const QList<KUrl> &data );
+/**
+emited when there is no more data
+*/
         void finished();
+/**
+Alert that datasource is no able to send any data
+*/
         void broken();
 };
 #endif
