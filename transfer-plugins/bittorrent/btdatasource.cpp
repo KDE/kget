@@ -15,7 +15,6 @@ BTDataSource::BTDataSource()
   :TransferDataSource(0)
 {
    kDebug(5001);
-    m_bitset = new BitSet();
 }
 
 void BTDataSource::start()
@@ -36,3 +35,4 @@ void BTDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset
    kDebug(5001);
 }
 
+#include "btdatasource.moc"

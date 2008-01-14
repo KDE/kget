@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
  
-#ifndef KGET_BTDATASOURCE_H
-#define KGET_BTDATASOURCE_H
+#ifndef BTDATASOURCE_H
+#define BTDATASOURCE_H
 
 #include "core/transferdatasource.h"
 
@@ -19,15 +19,11 @@ class BTDataSource : public TransferDataSource
 {
     public:
         BTDataSource();
-        ~BTDataSource();
 
         void start();
 	void stop();
         void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes);
-        BitSet* bitset() {return m_bitset;}
 
-    private:
-        BitSet *m_bitset;
 };
 
 #endif
