@@ -45,5 +45,5 @@ Comment[zh_TW]=KGet 傳輸外掛程式
 # options for library loader
 X-KDE-Library=kget_mirrorsearchfactory
 X-KDE-KGet-plugintype=TransferFactory
-X-KDE-KGet-rank=50
+X-KDE-KGet-rank=40
 X-KDE-KGet-framework-version=1
