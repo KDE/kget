@@ -5,6 +5,8 @@ X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
 Name=MirrorSearch TransferFactory
+Name[ga]=TransferFactory MirrorSearch
+Name[zh_TW]=MirrorSearch 傳輸工廠
 
 Comment=Transfer plugin for KGet
 Comment[bg]=Приставка за трансфер - KGet
