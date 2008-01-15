@@ -311,8 +311,8 @@ void MainWindow::slotNewTransfer()
 void MainWindow::slotImportTransfers()
 {
     QString filename = KFileDialog::getOpenFileName(KUrl(),
-                                                    "*.kgt *.metalink|" + i18n("All Openable Files") +
-                                                    " (*.kgt *.metalink)", this, i18n("Open File"));
+                                                    "*.kgt *.metalink *.torrent|" + i18n("All Openable Files") +
+                                                    " (*.kgt *.metalink *.torrent)", this, i18n("Open File"));
 
     if(filename.endsWith(".kgt"))
     {
