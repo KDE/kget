@@ -27,6 +27,7 @@ Main Window
     IN PROGRESS
 ---------------------
   ADD <kget> bitTorrent support
+  ADD <boom1992> Multi-Source downloading
 
         TODO
 ---------------------
@@ -121,7 +122,8 @@ LONG-TERM:
   ADD <boom1992> write a ML-Donkey-plugin
   ADD <boom1992> Proxy-support, not global, only for kget (we need to wait for kdelibs)
   ADD <boom1992> Various small improvements: #134456, #81219, #150391, #150447, #121318(we should add it to transfer-history), searchbar for mainwindow, Nepomuk integration??, strigi integration (with transfer-history)??
-  ADD <boom1992> Multi-Source downloading
+  ADD <boom1992> DC++-Plugin
+  ADD <boom1992> GUI to create Metalinks 
 
         DONE
 ---------------------
