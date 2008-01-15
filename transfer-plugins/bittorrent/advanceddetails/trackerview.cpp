@@ -79,6 +79,7 @@ namespace kt
 		addTrackerDialog = new KDialog(this);
 	        QWidget * widget = new QWidget(this);
 		addTrackerWidget.setupUi(widget);
+                addTrackerWidget.ktitlewidget->setPixmap(KIcon("list-add"));
 		addTrackerDialog->setMainWidget(widget);
 		addTrackerDialog->setButtons(KDialog::Ok | KDialog::Cancel);
 		addTrackerDialog->exec();
