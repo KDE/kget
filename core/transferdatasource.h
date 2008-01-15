@@ -9,8 +9,8 @@
 */
 
 
-#ifndef KGET_TRANSFERDATASOURCE_H
-#define KGET_TRANSFERDATASOURCE_H
+#ifndef TRANSFERDATASOURCE_H
+#define TRANSFERDATASOURCE_H
 
 #include "kget_export.h"
 
@@ -45,7 +45,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         void data( const QList<KUrl> &data );
 
 	/**
-	emited when there is no more data
+	emitted when there is no more data
 	*/
         void finished();
 

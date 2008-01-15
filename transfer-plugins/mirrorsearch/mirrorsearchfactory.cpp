@@ -34,8 +34,13 @@ Transfer * MirrorSearchFactory::createTransfer( const KUrl &srcUrl, const KUrl &
                                                const QDomElement * e )
 {
     kDebug(5001);
+    Q_UNUSED(srcUrl);
+    Q_UNUSED(destUrl);
+    Q_UNUSED(parent);
+    Q_UNUSED(scheduler);
+    Q_UNUSED(e);
 /**
-*We dont implement the transfer interface
+*We do not implement the transfer interface
 **/
     return 0;
 }
