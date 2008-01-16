@@ -85,7 +85,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     mainLayout->addWidget(m_treeWidget);
 
     // Bottoms buttons
-    QHBoxLayout *bottomButtonsLayout = new QHBoxLayout(this);
+    QHBoxLayout *bottomButtonsLayout = new QHBoxLayout;
 
     checkAllButton = new QPushButton(i18n("Select all"));
     QCheckBox *showWebContentButton = new QCheckBox(i18n("Show web content"));
