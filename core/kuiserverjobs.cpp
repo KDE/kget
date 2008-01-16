@@ -16,7 +16,7 @@
 #include <kuiserverjobtracker.h>
 
 KUiServerJobs::KUiServerJobs(QObject *parent)
-    : QObject(parent), m_jobs()
+    : QObject(parent), m_jobs(), m_globalJob(0)
 {
 }
 
@@ -58,6 +58,7 @@ void KUiServerJobs::reload()
     if(m_globalJob && !Settings::exportGlobalJob()) {
         KIO::getJobTracker()->unregisterJob(globalJob());
         delete m_globalJob;
+        m_globalJob = 0;
     }
 
     if(Settings::exportGlobalJob()) {
