@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
  
-#ifndef KGET_MIRRORSEARCHDATASOURCE_H
-#define KGET_MIRRORSEARCHDATASOURCE_H
+#ifndef MIRRORSEARCHTRANSFERDATASOURCE_H
+#define MIRRORSEARCHTRANSFERDATASOURCE_H
 
 #include "core/transferdatasource.h"
 

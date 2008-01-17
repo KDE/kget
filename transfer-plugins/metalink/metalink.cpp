@@ -110,7 +110,7 @@ void metalink::slotResult(KJob * job)
     {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
-            setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("ok"));
+            setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
             m_percent = 100;
             m_speed = 0;
             m_processedSize = m_totalSize;
