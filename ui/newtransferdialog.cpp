@@ -18,6 +18,7 @@
 #include <QWidget>
 #include <QApplication>
 #include <QClipboard>
+#include <QDir>
 
 #include <KLocale>
 #include <KListWidget>
@@ -190,6 +191,9 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
         else
             dialog->setDestination(destDir + '/' + dialog->source().first().fileName());
     }
+    
+    if (dialog->destination().isEmpty())
+        dialog->setDestination(QDir::home().path() + '/' + dialog->source().first().fileName());
 
     dialog->exec();
 
