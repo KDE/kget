@@ -13,11 +13,24 @@
 #ifndef TRANSFERS_GROUP_WIDGET_H
 #define TRANSFERS_GROUP_WIDGET_H
 
+#include <QItemDelegate>
 #include <QVBoxLayout>
 #include <QTreeView>
 
 class QPushButton;
 class QItemSelection;
+
+class TransfersGroupDelegate : public QItemDelegate
+{
+    Q_OBJECT
+public:
+    TransfersGroupDelegate(QObject * parent=0);
+//     QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
+    void updateEditorGeometry(QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+
+
+    QWidget * createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+};
 
 class TransfersGroupTree : public QTreeView
 {
