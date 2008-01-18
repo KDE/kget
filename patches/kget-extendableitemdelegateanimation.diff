@@ -1,0 +1,144 @@
+Index: ui/kextendableitemdelegateanimation.cpp
+===================================================================
+--- ui/kextendableitemdelegateanimation.cpp	(revision 0)
++++ ui/kextendableitemdelegateanimation.cpp	(revision 0)
+@@ -0,0 +1,62 @@
++/* This file is part of the KDE project
++
++   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
++
++   This program is free software; you can redistribute it and/or
++   modify it under the terms of the GNU General Public
++   License as published by the Free Software Foundation; either
++   version 2 of the License, or (at your option) any later version.
++*/
++
++#include "kextendableitemdelegateanimation.h"
++
++#include "kextendableitemdelegate.h"
++
++#include <QStyleOptionViewItem>
++#include <KDebug>
++
++KExtendableItemDelegateAnimation::KExtendableItemDelegateAnimation(QObject *parent, KExtendableItemDelegate *itemDelegate, 
++										      QWidget *widget, const QModelIndex &index)
++  : QObject(parent),
++    m_itemDelegate(itemDelegate),
++    m_widget(widget),
++    m_index(index)
++{
++    kDebug(5001);
++    timeLine = new QTimeLine(500, this);
++    timeLine->setFrameRange(0, 50);
++    start();
++}
++
++KExtendableItemDelegateAnimation::~KExtendableItemDelegateAnimation()
++{
++    kDebug(5001);
++    if (timeLine)
++         delete timeLine;
++    timeLine = 0;
++}
++
++void KExtendableItemDelegateAnimation::start()
++{
++    kDebug(5001);
++    connect(timeLine, SIGNAL(frameChanged(int)), this, SLOT(nextFrame(int)));
++    connect(timeLine, SIGNAL(finished()), this, SLOT(stop()));
++    timeLine->start();
++}
++
++void KExtendableItemDelegateAnimation::stop()
++{
++    timeLine->stop();
++    deleteLater();
++}
++
++void KExtendableItemDelegateAnimation::nextFrame(int frame)
++{
++    kDebug(5001);
++    QStyleOptionViewItem option;
++    m_widget->setGeometry(0, 0, 800, frame * 4);
++    QStyleOption styleOption;
++    styleOption.initFrom(m_widget);
++    option.rect = styleOption.rect;
++    m_itemDelegate->updateExtenderGeometry(m_widget, option, m_index);
++}
+Index: ui/kextendableitemdelegateanimation.h
+===================================================================
+--- ui/kextendableitemdelegateanimation.h	(revision 0)
++++ ui/kextendableitemdelegateanimation.h	(revision 0)
+@@ -0,0 +1,40 @@
++/* This file is part of the KDE project
++
++   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
++
++   This program is free software; you can redistribute it and/or
++   modify it under the terms of the GNU General Public
++   License as published by the Free Software Foundation; either
++   version 2 of the License, or (at your option) any later version.
++*/ 
++#ifndef KEXTENDABLEITEMDELEGATEANIMATION_H
++#define KEXTENDABLEITEMDELEGATEANIMATION_H
++
++#include <QObject>
++#include <QTimeLine>
++#include <QModelIndex>
++
++class QWidget;
++class KExtendableItemDelegate;
++
++class KExtendableItemDelegateAnimation : public QObject
++{
++    Q_OBJECT
++    public:
++        KExtendableItemDelegateAnimation(QObject *parent, KExtendableItemDelegate *itemDelegate, QWidget *widget, const QModelIndex &index);
++        ~KExtendableItemDelegateAnimation();
++
++    public slots:
++        void start();
++        void stop();
++        void nextFrame(int);
++
++    private:
++        QTimeLine *timeLine;
++
++        const QModelIndex &m_index;
++        KExtendableItemDelegate *m_itemDelegate;
++        QWidget *m_widget;
++};
++
++#endif
+Index: ui/transfersviewdelegate.cpp
+===================================================================
+--- ui/transfersviewdelegate.cpp	(revision 762997)
++++ ui/transfersviewdelegate.cpp	(working copy)
+@@ -12,6 +12,7 @@
+ #include "ui/transfersviewdelegate.h"
+ 
+ #include "transferdetails.h"
++#include "kextendableitemdelegateanimation.h"
+ #include "core/kget.h"
+ #include "core/transferhandler.h"
+ #include "core/transfergrouphandler.h"
+@@ -473,6 +474,7 @@
+ 
+             m_editingIndexes.append(index);
+             extendItem(widget, index);
++            new KExtendableItemDelegateAnimation(this, this, widget, index);
+         }
+         else {
+             m_editingIndexes.removeAll(index);
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 762997)
++++ CMakeLists.txt	(working copy)
+@@ -70,6 +70,7 @@
+    ui/viewscontainer.cpp
+    ui/newtransferdialog.cpp
+    ui/kextendableitemdelegate.cpp
++   ui/kextendableitemdelegateanimation.cpp
+    ui/transferhistory.cpp
+    mainwindow.cpp
+    main.cpp
