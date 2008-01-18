@@ -16,6 +16,7 @@
 #include <QDomElement>
 
 #include "ui_transferhistory.h"
+#include "rangetreewidget.h"
 
 class QFileSystemWatcher;
 
@@ -27,13 +28,18 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         TransferHistory(QWidget *parent = 0);
 
     private:
+        enum RangeType {
+            Date = 0,
+            Size = 1
+        };
         void hideEvent(QHideEvent *event);
         QList<QDomElement> defaultItems;
         bool save;
         QFileSystemWatcher *watcher;
-
-        QGridLayout *m_gridLayout;
-        QTreeWidget *m_treeWidget;
+        int m_rangeType;
+        RangeTreeWidget *m_treeWidget;
+        QVBoxLayout *m_verticalLayout;
+        QComboBox *m_rangeTypeCombobox;
         QHBoxLayout *m_hboxLayout;
         KTreeWidgetSearchLine *m_searchBar;
         QAction *m_actionDelete_Selected;
@@ -47,12 +53,10 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         void slotAddTransfers();
         void slotClear();
         void slotWriteDefault();
-        void slotSave();
         void slotDownload();
         void slotOpenFile();
         void contextMenuEvent(QContextMenuEvent *event);
-
+        void slotLoadRangeType(int type = -1);
 };
 
 #endif
- 

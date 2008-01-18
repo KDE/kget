@@ -9,106 +9,65 @@
     <height>278</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <item row="1" column="0" >
-    <widget class="QTreeWidget" name="treeWidget" >
-     <property name="windowModality" >
-      <enum>Qt::NonModal</enum>
-     </property>
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="verticalScrollBarPolicy" >
-      <enum>Qt::ScrollBarAsNeeded</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy" >
-      <enum>Qt::ScrollBarAsNeeded</enum>
-     </property>
-     <property name="dragEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="dragDropMode" >
-      <enum>QAbstractItemView::DragOnly</enum>
-     </property>
-     <property name="alternatingRowColors" >
-      <bool>true</bool>
-     </property>
-     <property name="sortingEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="animated" >
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text" >
-       <string>Source-File</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>Destination</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>Time</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>File-Size</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>Status</string>
-      </property>
-     </column>
-    </widget>
-   </item>
-   <item row="0" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <layout class="QVBoxLayout" >
      <item>
-      <widget class="QPushButton" name="clearButton" >
-       <property name="text" >
-        <string>Clear History</string>
+      <layout class="QHBoxLayout" >
+       <property name="topMargin" >
+        <number>0</number>
        </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
+       <property name="rightMargin" >
+        <number>0</number>
        </property>
-       <property name="sizeHint" >
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KTreeWidgetSearchLine" name="searchBar" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="clickMessage" >
-        <string>Filter history...</string>
-       </property>
-      </widget>
+       <item>
+        <widget class="QPushButton" name="clearButton" >
+         <property name="text" >
+          <string>Clear History</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QComboBox" name="rangeType" >
+         <item>
+          <property name="text" >
+           <string>Date</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Size</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="KTreeWidgetSearchLine" name="searchBar" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="clickMessage" >
+          <string>Filter history...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

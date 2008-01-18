@@ -104,8 +104,8 @@ void TransferGroup::remove(Transfer * transfer)
     e.setAttribute("Source", transfer->source().url());
     e.setAttribute("Dest", transfer->dest().url());
     e.setAttribute("Time", QDateTime::currentDateTime().toString());
-    e.setAttribute("Size", KIO::convertSize(transfer->totalSize()));
-    
+    e.setAttribute("Size", QString::number(transfer->totalSize()));
+
     kDebug(5001) << transfer->statusText();
 
     if (transfer->statusText() == "Finished")
