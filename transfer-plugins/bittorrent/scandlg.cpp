@@ -32,9 +32,18 @@ using namespace bt;
 namespace kt
 {
 	ScanDlg::ScanDlg(bool auto_import,QWidget* parent) 
-		: QDialog(parent),bt::DataCheckerListener(auto_import),mutex(QMutex::Recursive)
+		: KDialog(parent),bt::DataCheckerListener(auto_import),mutex(QMutex::Recursive)
 	{
-		setupUi(this);
+                setButtons(KDialog::None);
+                Ui::ScanDlgBase ui;
+                QWidget *widget = new QWidget(this);
+		ui.setupUi(widget);
+                setMainWidget(widget);
+                m_torrent_label = ui.torrent_label;
+                m_chunks_found = ui.chunks_found;
+                m_chunks_failed = ui.chunks_failed;
+                m_progress = ui.progress;
+                m_cancel = ui.cancel;
 		m_cancel->setGuiItem(KStandardGuiItem::cancel());
 		connect(m_cancel,SIGNAL(clicked()),this,SLOT(onCancelPressed()));
 		connect(&timer,SIGNAL(timeout()),this,SLOT(update()));
