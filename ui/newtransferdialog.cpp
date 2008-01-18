@@ -2,6 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+   Copyright (C) 2008 by Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -32,7 +33,6 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
       m_multiple(false)
 {
     setCaption(i18n("New Download"));
-    setMinimumSize(420, 300);
     showButtonSeparator(true);
 
     QWidget *mainWidget = new QWidget(this);
@@ -45,6 +45,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     m_destRequester = widget.destRequester;
     m_groupComboBox = widget.groupComboBox;
     m_defaultFolderButton = widget.defaultFolderButton;
+    m_groupLabel = widget.groupLabel;
     setMainWidget(mainWidget);
     prepareGui();
 }
@@ -239,6 +240,15 @@ void NewTransferDialog::prepareGui()
 
     // transfer groups
     m_groupComboBox->addItems(KGet::transferGroupNames());
+
+    if (KGet::transferGroupNames().count() < 2)
+    {
+        m_groupComboBox->hide();
+        m_groupLabel->hide();
+        setMinimumSize(420, 250);
+    }
+    else
+        setMinimumSize(420, 300);
 
     m_groupComboBox->setCurrentIndex(0);
     m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);

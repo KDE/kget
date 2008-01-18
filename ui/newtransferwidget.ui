@@ -46,7 +46,7 @@
        <item row="1" column="0" >
         <widget class="QLabel" name="label_2" >
          <property name="text" >
-          <string>Download Folder</string>
+          <string>Destination</string>
          </property>
         </widget>
        </item>
@@ -54,7 +54,7 @@
         <widget class="KUrlComboRequester" name="destRequester" />
        </item>
        <item row="3" column="0" >
-        <widget class="QLabel" name="label_3" >
+        <widget class="QLabel" name="groupLabel" >
          <property name="text" >
           <string>Transfer Group</string>
          </property>
