@@ -136,6 +136,7 @@ void PlasmaKGet::configAccepted()
 
 void PlasmaKGet::loadTransferGraph(uint type)
 {
+    QSizeF size = contentSize();
     if(type != m_graphType) {
 
         delete m_transferGraph;
@@ -158,6 +159,7 @@ void PlasmaKGet::loadTransferGraph(uint type)
 
         m_graphType = type;
     }
+    setContentSize(size);
 }
 
 #include "plasma-kget.moc"
