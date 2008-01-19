@@ -142,7 +142,10 @@
  
   <group name="Geometry">
     <entry name="ColumnWidths" type="IntList">
-      <label>The width of the columns in the main wiew</label>
+      <label>The width of the columns in the main view</label>
+    </entry>
+    <entry name="HistoryColumnWidths" type="IntList">
+      <label>The width of the columns in the history view</label>
     </entry>
   </group>
 

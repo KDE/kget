@@ -10,6 +10,7 @@
 
 #include "transferhistory.h"
 #include "ui/newtransferdialog.h"
+#include "settings.h"
 
 #include <QFile>
 #include <QDomElement>
@@ -19,6 +20,7 @@
 #include <QFontMetrics>
 #include <QDateTime>
 #include <QStandardItem>
+#include <QFontMetrics>
 
 #include <KDebug>
 #include <KStandardDirs>
@@ -274,11 +276,11 @@ void TransferHistory::slotLoadRangeType(int type)
     switch(m_rangeType)
     {
         case TransferHistory::Size :
-            m_treeWidget->addRange(0, 1024 * 1024, i18n("Less than 1Mb"));
-            m_treeWidget->addRange(1024 * 1024, 1024 * 1024 * 10, i18n("Between 1Mb-10Mb"));
-            m_treeWidget->addRange(1024 * 1024 * 10, 1024 * 1024 * 100, i18n("Between 10Mb-100Mb"));
-            m_treeWidget->addRange(1024 * 1024 * 100, 1024 * 1024 *1024, i18n("Between 100Mb-1Gb"));
-            m_treeWidget->addRange(1024 * 1024 * 1024, 1024 * 1024 * 1024 * 10, i18n("More than 1Gb"));
+            m_treeWidget->addRange(0, 1024 * 1024, i18n("Less than 1MiB"));
+            m_treeWidget->addRange(1024 * 1024, 1024 * 1024 * 10, i18n("Between 1MiB-10MiB"));
+            m_treeWidget->addRange(1024 * 1024 * 10, 1024 * 1024 * 100, i18n("Between 10MiB-100MiB"));
+            m_treeWidget->addRange(1024 * 1024 * 100, 1024 * 1024 *1024, i18n("Between 100MiB-1GiB"));
+            m_treeWidget->addRange(1024 * 1024 * 1024, 1024 * 1024 * 1024 * 10, i18n("More than 1GiB"));
             break;
         default:
             m_treeWidget->addRange(0, 1, i18n("Today"));
@@ -287,11 +289,26 @@ void TransferHistory::slotLoadRangeType(int type)
             m_treeWidget->addRange(30, -1, i18n("A long time ago"));
     }
 
-    m_treeWidget->setColumnWidth(0, 200);
-    m_treeWidget->setColumnWidth(1, 250);
-    m_treeWidget->setColumnWidth(2, font->width(QDate::currentDate().toString()));
-    m_treeWidget->setColumnWidth(3, font->width("1500000 KiB"));
-    m_treeWidget->setColumnWidth(4, font->width(i18nc("the transfer has been finished", "Finished")));
+    QList<int> list = Settings::historyColumnWidths();
+
+    if (!list.isEmpty())
+    {
+        int j = 0;
+        foreach (int i, list)
+        {
+            m_treeWidget->setColumnWidth(j, i);
+            j++;
+        }
+    }
+    else
+    {
+        kDebug(5001);
+        m_treeWidget->setColumnWidth(0, 200);
+        m_treeWidget->setColumnWidth(1, 250);
+        m_treeWidget->setColumnWidth(2, font->width(QDate::currentDate().toString()));
+        m_treeWidget->setColumnWidth(3, font->width("1500000 KiB"));
+        m_treeWidget->setColumnWidth(4, font->width(i18nc("the transfer has been finished", "Finished")));
+    }
 
     slotAddTransfers();
 }

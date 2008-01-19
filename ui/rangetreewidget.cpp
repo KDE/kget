@@ -9,6 +9,7 @@
 */
 
 #include "rangetreewidget.h"
+#include "settings.h"
 
 #include <KIcon>
 #include <KDebug>
@@ -20,6 +21,7 @@
 #include <QItemDelegate>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QList>
 
 class RangeTreeWidget::Range
 {
@@ -61,6 +63,13 @@ RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
 
 RangeTreeWidget::~RangeTreeWidget()
 {
+    QList<int>  list;
+    for (int i = 0; i < 5; i++)
+    {
+        list.append(columnWidth(i));
+    }
+    Settings::setHistoryColumnWidths(list);
+    Settings::self()->writeConfig();
     clear();
 }
 
