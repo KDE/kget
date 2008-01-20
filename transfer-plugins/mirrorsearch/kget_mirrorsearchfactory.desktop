@@ -7,6 +7,7 @@ X-KDE-ServiceTypes=KGet/Plugin
 Name=MirrorSearch TransferFactory
 Name[ga]=TransferFactory MirrorSearch
 Name[nds]=Spegelsöök-Överdregenmoduul
+Name[sv]=Mirrorsearch-överföringsgenerering
 Name[zh_CN]=镜像搜索传输工厂
 Name[zh_TW]=MirrorSearch 傳輸工廠
 
