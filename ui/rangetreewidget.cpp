@@ -47,10 +47,10 @@ public:
 RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     m_data(), m_ranges()
 {
-    setDragEnabled(FALSE);
-    setAlternatingRowColors(TRUE);
+    setDragEnabled(false);
+    setAlternatingRowColors(true);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
-    header()->setMovable(FALSE);
+    header()->setMovable(false);
 
     // initialize the standard item model of the tree
     m_model = new QStandardItemModel();
@@ -86,12 +86,12 @@ void RangeTreeWidget::addRange(int min, int max, const QString &title)
 
     m_data [row] = new QStandardItem(title);
     m_model->insertRow(row, m_data [row]);
-    setFirstColumnSpanned(row, QModelIndex(), TRUE);
+    setFirstColumnSpanned(row, QModelIndex(), true);
     openPersistentEditor(model()->index(row, 0, QModelIndex()));
 
     // expand the first row
     if(row == 0) {
-        setExpanded(model()->index(row, 0, QModelIndex()), TRUE);
+        setExpanded(model()->index(row, 0, QModelIndex()), true);
     }
 }
 
@@ -120,7 +120,7 @@ void RangeTreeWidget::add(int data, const QVariantList &columns)
     }
 
     parent->appendRow(list);
-    // TODO: need to find a better way to update rangetitlewidget count from the QStandardItem childs count
+    // TODO: need to find a better way to update rangetitlewidget count from the QStandardItem children count
     closePersistentEditor(parent->index());
     openPersistentEditor(parent->index());
 }
@@ -234,17 +234,17 @@ RangeTitleWidget::RangeTitleWidget(const QString &title, int count, QWidget *par
     m_layout = new QHBoxLayout(this);
     setLayout(m_layout);
 
-    setAutoFillBackground(TRUE);
+    setAutoFillBackground(true);
     setMinimumWidth(80);
     setObjectName("rangeTitle");
     setStyleSheet("#rangeTitle {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.5, stop: 0 white, stop: 1 palette(Midlight));margin:2px;}");
 
-    m_titleLabel = new QLabel(title + " ("+QString::number(count)+")", this);
+    m_titleLabel = new QLabel(QString("%1 (%2)").arg(title).arg(QString::number(count)), this);
 
     m_layout->addWidget(m_titleLabel);
 }
 
 void RangeTitleWidget::setTitle(const QString &title, int count)
 {
-    m_titleLabel->setText(title + " ("+QString::number(count)+")");
+    m_titleLabel->setText(QString("%1 (%2)").arg(title).arg(QString::number(count)));
 }

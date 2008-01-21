@@ -15,11 +15,11 @@
 #include "core/kget.h"
 
 #include <KMessageBox>
+#include <KLineEdit>
 
 #include <QTreeView>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QLineEdit>
 #include <QHeaderView>
 
 TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
@@ -37,7 +37,8 @@ void TransfersGroupDelegate::updateEditorGeometry(QWidget * editor, const QStyle
 QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem & option,
                                                 const QModelIndex & index) const
 {
-    return new QLineEdit(index.model()->data(index, Qt::DisplayRole).toString(), parent);
+    Q_UNUSED(option);
+    return new KLineEdit(index.model()->data(index, Qt::DisplayRole).toString(), parent);
 }
 
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
@@ -63,7 +64,7 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
 
 void TransfersGroupTree::commitData(QWidget *editor)
 {
-    QLineEdit *lineEdit = static_cast<QLineEdit*>(editor);
+    KLineEdit *lineEdit = static_cast<KLineEdit*>(editor);
 
     if (!lineEdit->text().isEmpty()) {
         QModelIndex currentIndex = selectionModel()->currentIndex();

@@ -20,7 +20,6 @@
 #include <QFontMetrics>
 #include <QDateTime>
 #include <QStandardItem>
-#include <QFontMetrics>
 
 #include <KDebug>
 #include <KStandardDirs>
