@@ -607,7 +607,8 @@ bool KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
             if(start)
                 newTransfer->handler()->start();
 
-            newTransfer->handler()->addObserver(new TransferFinishedObserver());
+            if (newTransfer->percent() != 100) //Don't add a finished observer if the Transfer has already been finished
+                newTransfer->handler()->addObserver(new TransferFinishedObserver());
 
             return true;
         }
@@ -963,8 +964,8 @@ void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
         checkAndFinish();
     }
 
-    if (prevStatus != transfer->statusText())//FIXME: HACK: better: check statusFlags if it contains Tc_Status (flags & Transfer::Tc_Status <-doesn't work)
-    {
+    if (prevStatus != transfer->statusText())//FIXME: HACK: better: check statusFlags if it 
+    {                                                                 //contains Tc_Status (flags & Transfer::Tc_Status <-doesn't work)
         prevStatus = transfer->statusText();
         KGet::checkSystemTray();
     }
