@@ -55,6 +55,11 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     showLinksAction->setText(i18n("List All Links"));
     connect(showLinksAction, SIGNAL(triggered()), SLOT(slotShowLinks()));
     menu->addAction(showLinksAction);
+
+    QAction *showSelectedLinksAction = actionCollection()->addAction("show_selected_links");
+    showSelectedLinksAction->setText(i18n("List Selected Links"));
+    connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
+    menu->addAction(showSelectedLinksAction);
 }
 
 
@@ -76,6 +81,21 @@ void KGet_plug_in::showPopup()
     }
 
     m_dropTargetAction->setChecked(hasDropTarget);
+
+    if ( parent() && parent()->inherits( "KHTMLPart" ) )
+    {
+        KHTMLPart *htmlPart = static_cast<KHTMLPart*>( parent() );
+
+        const QString selectedHtml = htmlPart->selectedTextAsHTML();
+
+        DOM::HTMLDocument document;
+        document.open();
+        document.write( selectedHtml );
+        document.close();
+
+        bool enabled = (document.getElementsByTagName("a").length() != 0);
+        actionCollection()->action("show_selected_links")->setEnabled(enabled);
+    }
 }
 
 void KGet_plug_in::slotShowDrop()
@@ -83,14 +103,23 @@ void KGet_plug_in::slotShowDrop()
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parent() && parent()->inherits("KHTMLPart")
             ? static_cast<KHTMLPart*>(parent())->widget() : NULL );
-    else
-    {
+    else {
 	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
 	kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
 
 void KGet_plug_in::slotShowLinks()
+{
+    showLinks(false);
+}
+
+void KGet_plug_in::slotShowSelectedLinks()
+{
+    showLinks(true);
+}
+
+void KGet_plug_in::showLinks( bool selectedOnly )
 {
     if ( !parent() || !parent()->inherits( "KHTMLPart" ) )
         return;
@@ -104,7 +133,21 @@ void KGet_plug_in::slotShowLinks()
             htmlPart = static_cast<KHTMLPart*>( activePart );
     }
 
-    DOM::HTMLDocument doc = htmlPart->htmlDocument();
+    DOM::HTMLDocument doc;
+
+    if ( selectedOnly )
+    {
+        const QString selectedHtml = htmlPart->selectedTextAsHTML();
+
+        doc.open();
+        doc.write( selectedHtml );
+        doc.close();
+    }
+    else
+    {
+        doc = htmlPart->htmlDocument();
+    }
+
     if ( doc.isNull() )
         return;
 

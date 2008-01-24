@@ -27,11 +27,13 @@ public:
     virtual ~KGet_plug_in();
 
 private:
+    void showLinks( bool );
     KGetLinkView *view;
 
 private slots:
     void slotShowDrop();
     void slotShowLinks();
+    void slotShowSelectedLinks();
     void showPopup();
 };
 
