@@ -585,7 +585,8 @@ void KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
             if(start)
                 newTransfer->handler()->start();
 
-            newTransfer->handler()->addObserver(new TransferFinishedObserver());
+            if (newTransfer->percent() != 100) //Don't add a finished observer if the Transfer has already been finished
+                newTransfer->handler()->addObserver(new TransferFinishedObserver());
 
             return;
         }
