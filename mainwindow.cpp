@@ -49,6 +49,10 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
     : KXmlGuiWindow( parent ),
       m_drop(0), m_dock(0), m_startWithoutAnimation(startWithoutAnimation)
 {
+    // do not quit the app when it has been minimized to system tray and a new transfer dialog
+    // gets opened and closed again.
+    qApp->setQuitOnLastWindowClosed(false);
+
     // create the model
     KGet::self( this );
 
