@@ -69,7 +69,6 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/tray.cpp
    ui/viewscontainer.cpp
    ui/newtransferdialog.cpp
-   ui/kextendableitemdelegate.cpp
    ui/transferhistory.cpp
    ui/rangetreewidget.cpp
    mainwindow.cpp

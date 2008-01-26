@@ -30,7 +30,8 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
 
     m_layout = new QVBoxLayout(this);
     m_layout->addWidget(m_genericWidget);
-    m_layout->addWidget(m_detailsWidget);
+    if (m_detailsWidget)
+        m_layout->addWidget(m_detailsWidget);
     setLayout(m_layout);
 
     frm.sourceLabel->setText(i18nc("@label transfer source", "Source:"));

@@ -1,7 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
-   Adapt the kshortcutdialog use of the kextendableitemdelegate in kdelibs/kdeui/dialogs/
+   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -262,9 +261,9 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     : KExtendableItemDelegate(parent), m_popup(0)
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
-    setExtendIcon(SmallIcon("arrow-right"));
-    setContractIcon(SmallIcon("arrow-down"));
-    connect(parent, SIGNAL(clicked(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
+    setExtendPixmap(SmallIcon("arrow-right"));
+    setContractPixmap(SmallIcon("arrow-down"));
+    connect(parent, SIGNAL(activated(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
 }
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const

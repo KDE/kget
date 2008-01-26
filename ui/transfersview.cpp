@@ -31,6 +31,8 @@ TransfersView::TransfersView(QWidget * parent)
     setAcceptDrops(true);
     setDropIndicatorShown(true);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
+    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 }
 
 TransfersView::~TransfersView()
