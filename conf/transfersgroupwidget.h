@@ -25,9 +25,8 @@ class TransfersGroupDelegate : public QItemDelegate
     Q_OBJECT
 public:
     TransfersGroupDelegate(QObject * parent=0);
-//     QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
-    void updateEditorGeometry(QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
+    void updateEditorGeometry(QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
     QWidget * createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
 };
@@ -39,10 +38,14 @@ public:
     TransfersGroupTree(QWidget *parent=0);
 
 public slots:
+    void editCurrent();
     void addGroup();
     void deleteSelectedGroup();
     void openEditMode();
     void commitData(QWidget *editor);
+
+private:
+    QModelIndex m_currentIndex;
 };
 
 class TransfersGroupWidget : public QVBoxLayout
@@ -56,7 +59,7 @@ private slots:
 
 private:
     TransfersGroupTree *m_view;
-    
+
     QPushButton *addButton;
     QPushButton *deleteButton;
     QPushButton *renameButton;

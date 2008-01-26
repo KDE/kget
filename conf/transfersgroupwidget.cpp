@@ -13,6 +13,7 @@
 #include "transfersgroupwidget.h"
 
 #include "core/kget.h"
+#include "core/transfergrouphandler.h"
 
 #include <KMessageBox>
 #include <KLineEdit>
@@ -21,6 +22,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QHeaderView>
+#include <QTimer>
 
 TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
     : QItemDelegate(parent)
@@ -65,12 +67,34 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
 void TransfersGroupTree::commitData(QWidget *editor)
 {
     KLineEdit *lineEdit = static_cast<KLineEdit*>(editor);
+    m_currentIndex = selectionModel()->currentIndex();
 
-    if (!lineEdit->text().isEmpty()) {
-        QModelIndex currentIndex = selectionModel()->currentIndex();
-
-        KGet::renameGroup(model()->data(currentIndex).toString(), lineEdit->text());
+    if (lineEdit->text().isEmpty())
+    {
+        QMessageBox::warning( this, i18n("The group name is empty"), i18n("A group can't have an empty name\nPlease select a new one") );
+        QTimer::singleShot( 0, this, SLOT(editCurrent()) );
+        return;
     }
+    else
+    {
+        foreach(QString groupName, KGet::transferGroupNames())
+        {
+            if(groupName == lineEdit->text() && 
+               groupName != ((TransferGroupHandler *) m_currentIndex.internalPointer())->name() )
+            {
+                QMessageBox::warning( this, i18n("Group name already in use"), i18n("Another group with this name already exists\nPlease select a different name") );
+                QTimer::singleShot( 0, this, SLOT(editCurrent()) );
+                return;
+            }
+        }
+
+        KGet::renameGroup(model()->data(m_currentIndex).toString(), lineEdit->text());
+    }
+}
+
+void TransfersGroupTree::editCurrent()
+{
+    QTreeView::edit(m_currentIndex);
 }
 
 void TransfersGroupTree::addGroup()
