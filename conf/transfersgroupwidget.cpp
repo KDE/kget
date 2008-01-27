@@ -16,7 +16,6 @@
 #include "core/transfergrouphandler.h"
 
 #include <KMessageBox>
-#include <KLineEdit>
 
 #include <QTreeView>
 #include <QHBoxLayout>
@@ -40,7 +39,7 @@ QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOpt
                                                 const QModelIndex & index) const
 {
     Q_UNUSED(option);
-    return new KLineEdit(index.model()->data(index, Qt::DisplayRole).toString(), parent);
+    return new GroupEditor(index, index.model()->data(index, Qt::DisplayRole).toString(), parent);
 }
 
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
@@ -66,43 +65,54 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
 
 void TransfersGroupTree::commitData(QWidget *editor)
 {
-    KLineEdit *lineEdit = static_cast<KLineEdit*>(editor);
-    m_currentIndex = selectionModel()->currentIndex();
+    GroupEditor * groupEditor = static_cast<GroupEditor *>(editor);
 
-    if (lineEdit->text().isEmpty())
+    if(groupEditor->groupIndex() != currentIndex())
+        return;
+
+    if (groupEditor->text().isEmpty())
     {
-        QMessageBox::warning( this, i18n("The group name is empty"), i18n("A group can't have an empty name\nPlease select a new one") );
+        KMessageBox::error( this, i18n("The group name is empty"), i18n("A group can't have an empty name\nPlease select a new one") );
         QTimer::singleShot( 0, this, SLOT(editCurrent()) );
         return;
     }
-    else
+    else 
     {
         foreach(QString groupName, KGet::transferGroupNames())
         {
-            if(groupName == lineEdit->text() && 
-               groupName != ((TransferGroupHandler *) m_currentIndex.internalPointer())->name() )
+            if(groupName == groupEditor->text() && 
+               groupName != ((TransferGroupHandler *) currentIndex().internalPointer())->name() )
             {
-                QMessageBox::warning( this, i18n("Group name already in use"), i18n("Another group with this name already exists\nPlease select a different name") );
+                KMessageBox::error( this, i18n("Group name already in use"), i18n("Another group with this name already exists\nPlease select a different name") );
                 QTimer::singleShot( 0, this, SLOT(editCurrent()) );
                 return;
             }
         }
 
-        KGet::renameGroup(model()->data(m_currentIndex).toString(), lineEdit->text());
+        KGet::renameGroup(model()->data(currentIndex()).toString(), groupEditor->text());
+        setCurrentIndex(QModelIndex());
     }
 }
 
 void TransfersGroupTree::editCurrent()
 {
-    QTreeView::edit(m_currentIndex);
+    QTreeView::edit(currentIndex());
 }
 
 void TransfersGroupTree::addGroup()
 {
-    if (KGet::addGroup(QString())) {
+    QString groupName(i18n("New Group"));
+    int i=0;
+
+    while(KGet::transferGroupNames().contains(groupName))
+    {
+        groupName = i18n("New Group") + QString::number(++i);
+    }
+
+    if (KGet::addGroup(groupName)) {
         QModelIndex index = model()->index(model()->rowCount() - 1, 0);
         setCurrentIndex(index);
-        edit(index);
+        editCurrent();
     }
 }
 
@@ -114,7 +124,7 @@ void TransfersGroupTree::openEditMode()
 
     foreach(QModelIndex index, indexList)
     {
-        edit(index);
+        editCurrent();
     }
 }
 
@@ -144,7 +154,7 @@ void TransfersGroupTree::deleteSelectedGroup()
 
 
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
-    : QVBoxLayout() 
+    : QVBoxLayout()
 {
     m_view = new TransfersGroupTree(parent);
 

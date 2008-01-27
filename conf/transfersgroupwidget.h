@@ -13,12 +13,29 @@
 #ifndef TRANSFERS_GROUP_WIDGET_H
 #define TRANSFERS_GROUP_WIDGET_H
 
+#include <KLineEdit>
+
 #include <QItemDelegate>
 #include <QVBoxLayout>
 #include <QTreeView>
 
 class QPushButton;
 class QItemSelection;
+
+class GroupEditor : public KLineEdit
+{
+    Q_OBJECT
+public:
+    GroupEditor(QModelIndex group, const QString contents, QWidget * parent=0)
+        : KLineEdit(contents, parent), m_groupIndex(group)
+    {
+    }
+
+    QModelIndex groupIndex() const  {return m_groupIndex;}
+
+private:
+    QModelIndex m_groupIndex;
+};
 
 class TransfersGroupDelegate : public QItemDelegate
 {
@@ -43,9 +60,6 @@ public slots:
     void deleteSelectedGroup();
     void openEditMode();
     void commitData(QWidget *editor);
-
-private:
-    QModelIndex m_currentIndex;
 };
 
 class TransfersGroupWidget : public QVBoxLayout
