@@ -32,6 +32,7 @@ public:
     void setSource(const QString &srcUrl = QString());
     void setSource(const KUrl::List &list);
     KUrl::List source() const;
+    void setDestination(QStringList list);
     QString destination() const;
     QString transferGroup() const;
 
@@ -39,7 +40,7 @@ public:
     bool multiple() const;
 
 public slots:
-    void setDestination();
+    void setDefaultDestination();
 
 private:
     static void showNewTransferDialog(NewTransferDialog *dialog);

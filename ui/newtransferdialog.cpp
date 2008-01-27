@@ -138,22 +138,19 @@ KUrl::List NewTransferDialog::source() const
     return list;
 }
 
-void NewTransferDialog::setDestination()
+void NewTransferDialog::setDestination(QStringList list)
 {
+    kDebug(5001) << list;
     QString filename = KUrl(destination()).fileName();
     if (filename.isEmpty())
         filename = source().first().fileName();
 
-    foreach(QString url, KGet::defaultFolders(source().first().path(), transferGroup()))
-    {
-        if (KUrl(url).isValid() && !m_destRequester->comboBox()->contains(url + filename))//FIXME: The last check doesn't work :(
-        {
-            if (multiple())
-                m_destRequester->comboBox()->addUrl(url);
-            else
-                m_destRequester->comboBox()->addUrl(url + '/' + filename);
-        }
-    }
+    m_destRequester->comboBox()->insertItems(0, list);
+}
+
+void NewTransferDialog::setDefaultDestination()
+{
+    setDestination(KGet::defaultFolders(source().first().path(), transferGroup()));
 }
 
 QString NewTransferDialog::destination() const
@@ -170,7 +167,7 @@ void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 {
     QString destDir;
     
-    dialog->setDestination();
+    dialog->setDefaultDestination();
 
     //if (dialog->destination().isEmpty())
     //    dialog->setDestination(QDir::home().path() + '/' + dialog->source().first().fileName());
@@ -216,6 +213,7 @@ void NewTransferDialog::prepareGui()
 {
     // properties of the m_destRequester combobox
     m_destRequester->comboBox()->setDuplicatesEnabled(false);
+    m_destRequester->comboBox()->setUrlDropsEnabled(true);
 
     // transfer groups
     m_groupComboBox->addItems(KGet::transferGroupNames());
@@ -232,7 +230,7 @@ void NewTransferDialog::prepareGui()
     m_groupComboBox->setCurrentIndex(0);
     m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
 
-    connect(m_groupComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setDestination()));
+    connect(m_groupComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setDefaultDestination()));
 }
 
 #include "newtransferdialog.moc"

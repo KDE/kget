@@ -556,7 +556,7 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
     kDebug(5001) << filename << groupname;
 
     QStringList list;
-    if (Settings::enableExceptions())
+    if (Settings::enableExceptions() && !KGet::getSaveDirectoryFromExceptions(filename).isEmpty())
         list.append(KGet::getSaveDirectoryFromExceptions(filename));
 
     TransferGroup * group = KGet::m_transferTreeModel->findGroup(groupname);
