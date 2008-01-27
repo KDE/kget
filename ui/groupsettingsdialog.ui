@@ -1,0 +1,141 @@
+<ui version="4.0" >
+ <class>GroupSettingsDialog</class>
+ <widget class="QWidget" name="GroupSettingsDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>415</width>
+    <height>149</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <property name="layoutDirection" >
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="1" column="2" >
+    <widget class="KUrlRequester" name="defaultFolderRequester" >
+     <property name="enabled" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3" >
+    <widget class="KTitleWidget" name="ktitlewidget" >
+     <property name="text" >
+      <string>Group-Settings</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2" >
+    <widget class="QCheckBox" name="downloadCheck" >
+     <property name="text" >
+      <string>Max download Speed</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2" >
+    <widget class="QSpinBox" name="downloadBox" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="suffix" >
+      <string>KiB</string>
+     </property>
+     <property name="maximum" >
+      <number>10000</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2" >
+    <widget class="QCheckBox" name="uploadCheck" >
+     <property name="text" >
+      <string>Max upload Speed</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" >
+    <widget class="QSpinBox" name="uploadBox" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="suffix" >
+      <string>KiB</string>
+     </property>
+     <property name="maximum" >
+      <number>10000</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Default folder:</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KTitleWidget</class>
+   <extends>QWidget</extends>
+   <header>ktitlewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>downloadCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>downloadBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>87</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>205</x>
+     <y>95</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uploadCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>uploadBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>87</x>
+     <y>122</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>205</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

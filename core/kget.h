@@ -245,6 +245,11 @@ class KGET_EXPORT KGet
          static void unregisterKJob(KJob *);
          static void reloadKJobs();
 
+         /**
+          * @return a list of the defaultFolders for a transfer
+          */
+         static QStringList defaultFolders(const KUrl &filename, const QString &groupname);
+
     private:
         KGet();
         ~KGet();

@@ -336,17 +336,17 @@ QVariant TransferTreeModel::data(const QModelIndex & index, int role) const
 
         if(isTransferGroup(index))
         {
+            TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
             if (role == Qt::DisplayRole)
             {
 //                 kDebug(5001) << "           (GROUP)";
                 //The given index refers to a group object
-                TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
                 return group->data(index.column());
             }
             else //Qt::DecorationRole -> icon
             {
                 if (index.column() == 0)
-                    return SmallIcon("bookmark-new-list", 32);
+                    return group->pixmap();
                 else
                     return QVariant();
             }

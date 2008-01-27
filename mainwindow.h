@@ -80,6 +80,7 @@ private slots:
     void slotTrayKonquerorIntegration(bool);
     void slotKonquerorIntegration( bool );
     void slotShowMenubar();
+    void slotTransferGroupSettings();
 
     // transfers slots
     void slotStopAllDownload();

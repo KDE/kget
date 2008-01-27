@@ -551,6 +551,38 @@ void KGet::reloadKJobs()
     m_jobManager->reload();
 }
 
+QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
+{
+    kDebug(5001) << filename << groupname;
+
+    QStringList list;
+    if (Settings::enableExceptions())
+        list.append(KGet::getSaveDirectoryFromExceptions(filename));
+
+    TransferGroup * group = KGet::m_transferTreeModel->findGroup(groupname);
+
+    if (!group->defaultFolder().isEmpty())
+        list.append(group->defaultFolder());
+
+    if (Settings::useDefaultDirectory())
+        list.append(Settings::defaultDirectory());
+
+    if (!Settings::lastDirectory().isEmpty() &&
+        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
+        list.append(Settings::lastDirectory());
+
+    foreach(QString string, list)
+    {
+#ifdef Q_OS_WIN //krazy:exclude=cpp
+        string.remove("file:///");
+#else
+        string.remove("file://");
+#endif
+    }
+
+    return list;
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;

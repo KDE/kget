@@ -32,12 +32,14 @@ public:
     void setSource(const QString &srcUrl = QString());
     void setSource(const KUrl::List &list);
     KUrl::List source() const;
-    void setDestination(const QString &destUrl);
     QString destination() const;
     QString transferGroup() const;
 
     void setMultiple(bool multiple);
     bool multiple() const;
+
+public slots:
+    void setDestination();
 
 private:
     static void showNewTransferDialog(NewTransferDialog *dialog);

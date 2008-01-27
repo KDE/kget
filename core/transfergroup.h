@@ -13,6 +13,7 @@
 #define GROUP_H
 
 #include <kio/netaccess.h>
+#include <KIcon>
 
 #include "jobqueue.h"
 #include "kget_export.h"
@@ -159,6 +160,52 @@ class KGET_EXPORT TransferGroup : public JobQueue
         int speed() const         {return m_speed;}
 
         /**
+         * Set a default Folder for the group
+         * @param folder the new default folder
+         */
+        void setDefaultFolder(QString folder) {m_defaultFolder = folder;}
+
+        /**
+         * @return the groups default folder
+         */
+        QString defaultFolder() {return m_defaultFolder;}
+
+        /**
+         * Set a Download-Limit for the group
+         * @param limit the new download-limit
+         * @note if limit is 0, no download-limit is set
+         */
+         void setDownloadLimit(int limit) {m_dlLimit = limit;}
+
+        /**
+         * @return the group's Download-Limit
+         */
+         int downloadLimit() {return m_dlLimit;}
+
+        /**
+         * Set a Upload-Limit for the group
+         * @param limit the new upload-limit
+         * @note if limit is 0, no upload-limit is set
+         */
+         void setUploadLimit(int limit) {m_ulLimit = limit;}
+
+        /**
+         * @return the group's Upload-Limit
+         */
+         int uploadLimit() {return m_ulLimit;}
+
+        /**
+         * Set the group's icon
+         * @param name the icon's name
+         */
+        void setIconName(QString name) {m_iconName = name;}
+
+        /**
+         * @return the group's icon
+         */
+        QPixmap pixmap() {return KIcon(m_iconName).pixmap(32);}
+
+        /**
          * @return the handler associated with this group
          */
         TransferGroupHandler * handler();
@@ -199,6 +246,10 @@ class KGET_EXPORT TransferGroup : public JobQueue
         int m_processedSize;
         int m_percent;
         int m_speed;
+        int m_dlLimit;
+        int m_ulLimit;
+        QString m_iconName;
+        QString m_defaultFolder;
 };
 
 #endif

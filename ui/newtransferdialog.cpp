@@ -100,6 +100,8 @@ void NewTransferDialog::setSource(const QString &srcUrl)
 
     if (m_srcUrl.isValid())
         urlRequester->insert(m_srcUrl.url());
+
+    connect(urlRequester, SIGNAL(textChanged(const QString &)), SLOT(setDestination()));
 }
 
 void NewTransferDialog::setSource(const KUrl::List &list)
@@ -136,13 +138,22 @@ KUrl::List NewTransferDialog::source() const
     return list;
 }
 
-void NewTransferDialog::setDestination(const QString &destination)
+void NewTransferDialog::setDestination()
 {
-    if (!QUrl(destination).isValid())
-        return;
+    QString filename = KUrl(destination()).fileName();
+    if (filename.isEmpty())
+        filename = source().first().fileName();
 
-    m_destRequester->comboBox()->insertItem(0, destination);
-    m_destRequester->comboBox()->setCurrentIndex(0);
+    foreach(QString url, KGet::defaultFolders(source().first().path(), transferGroup()))
+    {
+        if (KUrl(url).isValid() && !m_destRequester->comboBox()->contains(url + filename))//FIXME: The last check doesn't work :(
+        {
+            if (multiple())
+                m_destRequester->comboBox()->addUrl(url);
+            else
+                m_destRequester->comboBox()->addUrl(url + '/' + filename);
+        }
+    }
 }
 
 QString NewTransferDialog::destination() const
@@ -158,43 +169,11 @@ QString NewTransferDialog::transferGroup() const
 void NewTransferDialog::showNewTransferDialog(NewTransferDialog *dialog)
 {
     QString destDir;
-
-    if (Settings::useDefaultDirectory())
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-        destDir = Settings::defaultDirectory().remove("file:///");
-#else
-        destDir = Settings::defaultDirectory().remove("file://");
-#endif
-
-    if (!dialog->source().isEmpty())
-    {
-        QString checkExceptions = KGet::getSaveDirectoryFromExceptions(dialog->source().first());
-
-        if (Settings::enableExceptions() && !checkExceptions.isEmpty())
-        {
-            destDir = checkExceptions;
-        }
-    }
-
-    if (!Settings::lastDirectory().isEmpty() &&
-        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
-    {
-        if (dialog->multiple())
-            dialog->setDestination(Settings::lastDirectory());
-        else
-            dialog->setDestination(Settings::lastDirectory() + '/' + dialog->source().first().fileName());
-    }
     
-    if (!destDir.isEmpty())
-    {
-        if (dialog->multiple())
-            dialog->setDestination(destDir);
-        else
-            dialog->setDestination(destDir + '/' + dialog->source().first().fileName());
-    }
-    
-    if (dialog->destination().isEmpty())
-        dialog->setDestination(QDir::home().path() + '/' + dialog->source().first().fileName());
+    dialog->setDestination();
+
+    //if (dialog->destination().isEmpty())
+    //    dialog->setDestination(QDir::home().path() + '/' + dialog->source().first().fileName());
 
     dialog->exec();
 
@@ -252,6 +231,8 @@ void NewTransferDialog::prepareGui()
 
     m_groupComboBox->setCurrentIndex(0);
     m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
+
+    connect(m_groupComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setDestination()));
 }
 
 #include "newtransferdialog.moc"

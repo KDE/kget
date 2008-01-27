@@ -5,6 +5,7 @@
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
    Copyright (C) 2006, 2007 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,6 +26,7 @@
 #include "ui/droptarget.h"
 #include "ui/newtransferdialog.h"
 #include "ui/transferhistory.h"
+#include "ui/groupsettingsdialog.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -239,6 +241,12 @@ void MainWindow::setupActions()
     transferHistoryAction->setIcon(KIcon("view-history"));
     transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));
     connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
+
+    QAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
+    transferGroupSettingsAction->setText(i18n("&Group Settings"));
+    transferGroupSettingsAction->setIcon(KIcon("preferences-system"));
+    transferGroupSettingsAction->setShortcuts(KShortcut("Ctrl+G"));
+    connect(transferGroupSettingsAction, SIGNAL(triggered()), SLOT(slotTransferGroupSettings()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -614,6 +622,17 @@ void MainWindow::slotTransferHistory()
 {
     TransferHistory *history = new TransferHistory();
     history->exec();
+}
+
+void MainWindow::slotTransferGroupSettings()
+{
+    kDebug(5001);
+    QList<TransferGroupHandler*> list = KGet::selectedTransferGroups();
+    foreach(TransferGroupHandler* group, list)
+    {
+        GroupSettingsDialog *settings = new GroupSettingsDialog(this, group);
+        settings->exec();
+    }
 }
 
 /** widget events */

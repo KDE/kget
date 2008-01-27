@@ -71,6 +71,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/newtransferdialog.cpp
    ui/transferhistory.cpp
    ui/rangetreewidget.cpp
+   ui/groupsettingsdialog.cpp
    mainwindow.cpp
    main.cpp
 )
@@ -83,6 +84,7 @@ kde4_add_ui_files(kget_SRCS
    ui/transferdetailsfrm.ui
    ui/newtransferwidget.ui
    ui/transferhistory.ui
+   ui/groupsettingsdialog.ui
 )
 
 kde4_add_executable(kget ${kget_SRCS})

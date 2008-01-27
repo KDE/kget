@@ -29,7 +29,9 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, c
     : JobQueue(scheduler),
       m_model(model), m_handler(0), m_name(name),
       m_totalSize(0), m_processedSize(0),
-      m_percent(0), m_speed(0)
+      m_percent(0), m_speed(0),
+      m_dlLimit(0), m_ulLimit(0),
+      m_iconName("bookmark-new-list"), m_defaultFolder(0)
 {
 
 }
@@ -199,6 +201,10 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     kDebug(5001) << "TransferGroup::save()  -->  " << name();
 
     e.setAttribute("Name", m_name);
+    e.setAttribute("Default_folder", m_defaultFolder);
+    e.setAttribute("Download_Limit", m_dlLimit);
+    e.setAttribute("Upload_Limit", m_ulLimit);
+    e.setAttribute("Icon", m_iconName);
 
     iterator it = begin();
     iterator itEnd = end();
@@ -217,6 +223,11 @@ void TransferGroup::load(const QDomElement & e)
     kDebug(5001) << "TransferGroup::load";
 
     m_name = e.attribute("Name");
+    m_defaultFolder = e.attribute("Default_folder");
+    m_dlLimit = e.attribute("Download_Limit").toInt();
+    m_ulLimit = e.attribute("Upload_Limit").toInt();
+    if (!e.attribute("Icon").isEmpty())
+        m_iconName = e.attribute("Icon");
 
     QDomNodeList nodeList = e.elementsByTagName("Transfer");
     int nItems = nodeList.length();

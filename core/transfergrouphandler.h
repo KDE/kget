@@ -120,6 +120,52 @@ class KGET_EXPORT TransferGroupHandler
         int speed() const         {return m_group->speed();}
 
         /**
+         * Set a default Folder for the group
+         * @param folder the new default folder
+         */
+        void setDefaultFolder(QString folder) {m_group->setDefaultFolder(folder);}
+
+        /**
+         * @return the groups default folder
+         */
+        QString defaultFolder() {return m_group->defaultFolder();}
+
+        /**
+         * Set a Download-Limit for the group
+         * @param limit the new download-limit
+         * @note if limit is 0, no download-limit is set
+         */
+         void setDownloadLimit(int limit) {m_group->setDownloadLimit(limit);}
+
+        /**
+         * @return the group's Download-Limit
+         */
+         int downloadLimit() {return m_group->downloadLimit();}
+
+        /**
+         * Set a Upload-Limit for the group
+         * @param limit the new upload-limit
+         * @note if limit is 0, no upload-limit is set
+         */
+         void setUploadLimit(int limit) {m_group->setUploadLimit(limit);}
+
+        /**
+         * @return the group's Upload-Limit
+         */
+         int uploadLimit() {return m_group->uploadLimit();}
+
+        /**
+         * Set the group's icon
+         * @param name the icon's name
+         */
+        void setIconName(QString name) {m_group->setIconName(name);}
+
+        /**
+         * @return the group's icon
+         */
+        QPixmap pixmap() {return m_group->pixmap();}
+
+        /**
          * @returns the data associated to this TransferGroup item. This is
          * necessary to make the interview model/view work
          */
