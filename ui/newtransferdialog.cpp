@@ -138,14 +138,21 @@ KUrl::List NewTransferDialog::source() const
     return list;
 }
 
-void NewTransferDialog::setDestination(QStringList list)
+void NewTransferDialog::setDestination(const QStringList &list)
 {
-    kDebug(5001) << list;
+    QStringList m_list = list;
+    kDebug(5001) << m_list;
     QString filename = KUrl(destination()).fileName();
     if (filename.isEmpty())
         filename = source().first().fileName();
 
-    m_destRequester->comboBox()->insertItems(0, list);
+    for (int i=0;i<list.count();i++)
+    {
+        m_list[i].append('/' + filename);
+    }
+    kDebug(5001) << m_list;
+
+    m_destRequester->comboBox()->insertItems(0, m_list);
 }
 
 void NewTransferDialog::setDefaultDestination()

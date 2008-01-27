@@ -32,7 +32,7 @@ public:
     void setSource(const QString &srcUrl = QString());
     void setSource(const KUrl::List &list);
     KUrl::List source() const;
-    void setDestination(QStringList list);
+    void setDestination(const QStringList &list);
     QString destination() const;
     QString transferGroup() const;
 
