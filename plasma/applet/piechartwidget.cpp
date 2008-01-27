@@ -56,14 +56,14 @@ public:
                 totalSize(0),
                 emitUpdateGeometrySignal(false)
     {
-        setGeometry(QRect(0, TOP_MARGIN, PIE_SIZE + 2, PIE_SIZE + 2));
+        setGeometry(chartGeometry());
     }
 
     void resize(int width, int height)
     {
         size.setWidth(width);
         size.setHeight(height);
-        setGeometry(QRect(width/4, TOP_MARGIN, width/2, height/2));
+        setGeometry(chartGeometry());
     }
 
     // returns the size of the private inner widget
@@ -72,7 +72,18 @@ public:
         return size;
     }
 
-    inline double roundNumber (float number)
+    QRect legendGeometry() const
+    {
+        return QRect(0, chartGeometry().height() + 20,
+                        size.width(), data.size() * 30);
+    }
+
+    QRect chartGeometry() const
+    {
+        return QRect(0, 0, size.width(), size.height() - data.size() * 30);
+    }
+
+    inline double roundNumber(float number)
     {
         double intPart;
         if (modf(number, &intPart) > 0.5) {
@@ -95,19 +106,21 @@ public:
 
             p->save();
             p->setRenderHint(QPainter::Antialiasing);
-
-            QRect rect(1, 1, size.width()/2 - 2, size.width()/2 - 2);
+            // the rect of the pie chart
+            // we draw the pie chart with width = height
+            QRect rect = QRect(chartGeometry().width()/2 - chartGeometry().height()/2, 0, 
+                        chartGeometry().height(), chartGeometry().height());
             int angle = 90 * 16; // 0
 
             QPen totalPen;
             QPen activePen;
 
             // total pen
-            totalPen.setWidth(2);
+            totalPen.setWidth(1);
             totalPen.setColor(Qt::darkGray);
             totalPen.setStyle(Qt::SolidLine);
-
-            activePen.setWidth(2);
+            // active transfer pen
+            activePen.setWidth(1);
             activePen.setColor(Qt::white);
             activePen.setStyle(Qt::SolidLine);
 
@@ -154,6 +167,7 @@ public:
         }
     }
 
+    // draw a portion of the pie chart and returns his end angle
     int drawPie(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush)
     {
         int end_angle = -1 * percent * 36/10 * 16;
@@ -171,15 +185,17 @@ public:
         p->save();
         p->setPen(Qt::NoPen);
         p->setBrush(QBrush(color));
-        p->drawRoundRect(QRect(LEFT_MARGIN, count * 20 + option->rect.height() - bottomMargin + TOP_MARGIN, 10, 10));
+        p->drawRoundRect(QRect(LEFT_MARGIN, count * 20 + legendGeometry().y(), 10, 10));
         p->setPen(Qt::SolidLine);
         p->setPen(Qt::white);
 
         // the data name
-        p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + option->rect.height () - bottomMargin + TOP_MARGIN - 5, textLength, 20), Qt::AlignLeft, p->fontMetrics().elidedText(name, Qt::ElideLeft, textLength));
+        p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + legendGeometry().y() - 5, textLength, 20), Qt::AlignLeft,
+                        p->fontMetrics().elidedText(name, Qt::ElideLeft, textLength));
+
         // the data percent
-        p->drawText(QRect(LEFT_MARGIN + 14 + textLength, count * 20 + option->rect.height () - bottomMargin + TOP_MARGIN - 5, 150, 20), Qt::AlignLeft,
-        KGlobal::locale()->formatByteSize(data [name].length));
+        p->drawText(QRect(LEFT_MARGIN + 14 + textLength, count * 20 + legendGeometry().y() - 5, 150, 20),
+                        Qt::AlignLeft, KGlobal::locale()->formatByteSize(data [name].length));
 
         p->restore();
     }

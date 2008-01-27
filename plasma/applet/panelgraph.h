@@ -18,63 +18,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#ifndef PLASMA_KGET_H
-#define PLASMA_KGET_H
-
-#include <plasma/applet.h>
-#include <plasma/dataengine.h>
+#ifndef PANELGRAPH_H
+#define PANELGRAPH_H
 
 #include "transfergraph.h"
-#include "ui_kgetConfig.h"
 
 namespace Plasma {
-    class VBoxLayout;
-    class Svg;
+    class BoxLayout;
+    class Applet;
+    class ProgressBar;
 }
 
-class KDialog;
-
-class PlasmaKGet : public Plasma::Applet
+class PanelGraph : public TransferGraph
 {
     Q_OBJECT
 public:
-    enum TransferGraphType {
-        ErrorGraphType = 1,
-        BarChartType = 2,
-        PieGraphType = 3,
-        SpeedGraphType = 4,
-        PanelGraphType = 5
-    };
+    PanelGraph(Plasma::Applet *parent);
+    ~PanelGraph();
 
-    PlasmaKGet(QObject *parent, const QVariantList &args);
-    ~PlasmaKGet();
-
-    void init();
-    void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                            const QRect &contentsRect);
-
-public slots:
-    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
-    void showConfigurationInterface();
-
-protected slots:
-    void configAccepted();
+    void setTransfers(const QVariantMap &transfers);
 
 private:
-    void loadTransferGraph(uint type);
-
-    Plasma::Svg *m_theme;
-    Plasma::DataEngine *m_engine;
-    Plasma::VBoxLayout *m_layout;
-    TransferGraph *m_transferGraph;
-    KDialog *m_dialog;
-    QString m_errorMessage;
-    bool m_error;
-    uint m_graphType;
-
-    Ui::KGetConfig ui;
+    Plasma::ProgressBar *m_bar;
+    Plasma::BoxLayout *m_layout;
 };
-
-K_EXPORT_PLASMA_APPLET(kget, PlasmaKGet)
 
 #endif

@@ -37,19 +37,18 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
     {
 
       m_icon = new Plasma::Icon(KIcon("dialog-warning"), "", m_applet);
-  
-  
+
       m_errorLabel = new Plasma::Label(m_applet);
       m_errorLabel->setText(message);
       m_errorLabel->setPen(QPen(Qt::white));
       m_errorLabel->setAlignment(Qt::AlignCenter);
-  
+
       m_launchButton = new Plasma::PushButton(KIcon("kget"), "Launch KGet", m_applet);
-  
+
       m_layout->addItem(m_icon);
       m_layout->addItem(m_errorLabel);
       m_layout->addItem(m_launchButton);
-  
+
       connect(m_launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
     }
 }

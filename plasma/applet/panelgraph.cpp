@@ -18,63 +18,47 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#ifndef PLASMA_KGET_H
-#define PLASMA_KGET_H
+#include "panelgraph.h"
 
-#include <plasma/applet.h>
-#include <plasma/dataengine.h>
+#include <plasma/widgets/progressbar.h>
+#include <plasma/layouts/boxlayout.h>
 
-#include "transfergraph.h"
-#include "ui_kgetConfig.h"
+PanelGraph::PanelGraph(Plasma::Applet *parent)
+    : TransferGraph(parent)
+{
+    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    if (m_layout) {
+        m_bar = new Plasma::ProgressBar(m_applet);
+        m_bar->setMinimumSize(QSizeF(80, 40));
+        m_bar->setValue(0);
 
-namespace Plasma {
-    class VBoxLayout;
-    class Svg;
+        m_layout->addItem(m_bar);
+    }
 }
 
-class KDialog;
-
-class PlasmaKGet : public Plasma::Applet
+PanelGraph::~PanelGraph()
 {
-    Q_OBJECT
-public:
-    enum TransferGraphType {
-        ErrorGraphType = 1,
-        BarChartType = 2,
-        PieGraphType = 3,
-        SpeedGraphType = 4,
-        PanelGraphType = 5
-    };
+    delete m_bar;
+}
 
-    PlasmaKGet(QObject *parent, const QVariantList &args);
-    ~PlasmaKGet();
+void PanelGraph::setTransfers(const QVariantMap &transfers)
+{
+    int totalSize = 0;
+    int completedSize = 0;
 
-    void init();
-    void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                            const QRect &contentsRect);
+    TransferGraph::setTransfers(transfers);
 
-public slots:
-    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
-    void showConfigurationInterface();
+    foreach(QString key, transfers.keys()) {
+        QVariantList attributes = transfers [key].toList();
 
-protected slots:
-    void configAccepted();
+        // only show the percent of the active transfers
+        if(attributes.at(3).toUInt() == 1) {
+            totalSize += attributes.at(2).toInt();
+            completedSize += (attributes.at(1).toInt() * attributes.at(2).toInt()) / 100.0;
+        }
+    }
 
-private:
-    void loadTransferGraph(uint type);
-
-    Plasma::Svg *m_theme;
-    Plasma::DataEngine *m_engine;
-    Plasma::VBoxLayout *m_layout;
-    TransferGraph *m_transferGraph;
-    KDialog *m_dialog;
-    QString m_errorMessage;
-    bool m_error;
-    uint m_graphType;
-
-    Ui::KGetConfig ui;
-};
-
-K_EXPORT_PLASMA_APPLET(kget, PlasmaKGet)
-
-#endif
+    if(totalSize > 0) {
+        m_bar->setValue((int) ((completedSize * 100) / totalSize));
+    }
+}

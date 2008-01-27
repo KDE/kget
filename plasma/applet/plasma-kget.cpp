@@ -29,6 +29,7 @@
 #include <plasma/svg.h>
 #include <plasma/applet.h>
 #include <plasma/theme.h>
+#include <plasma/widgets/label.h>
 #include <plasma/dataengine.h>
 #include <plasma/layouts/boxlayout.h>
 
@@ -37,6 +38,7 @@
 #include "errorgraph.h"
 #include "speedgraph.h"
 #include "piegraph.h"
+#include "panelgraph.h"
 
 PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Applet(parent, args),
                             m_dialog(0),
@@ -58,11 +60,20 @@ PlasmaKGet::~PlasmaKGet()
 void PlasmaKGet::init()
 {
     m_layout = new Plasma::VBoxLayout(this);
-    m_layout->setMargin(Plasma::Layout::TopMargin, 40);
-    m_layout->setSpacing(10);
 
-    setMinimumSize(QSize(240, 190));
+    if(formFactor() == Plasma::Vertical || formFactor() == Plasma::Horizontal) {
+        setMinimumContentSize(QSize(20, 15));
+        setMaximumContentSize(QSize(80, 40));
+        m_layout->setSpacing(0);
+        m_layout->setMargin(0);
+        m_layout->setMargin(Plasma::Layout::TopMargin, 5);
+    }
+    else {
+        m_layout->setMargin(Plasma::Layout::TopMargin, 40);
+        m_layout->setSpacing(10);
 
+        setMinimumSize(QSize(240, 190));
+    }
     m_transferGraph = 0;
     KConfigGroup cg = config();
 
@@ -79,11 +90,12 @@ void PlasmaKGet::init()
 void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)
 {
     Q_UNUSED(option);
+    if(formFactor() == Plasma::Planar || formFactor() == Plasma::MediaCenter) {
+        p->setRenderHint(QPainter::SmoothPixmapTransform);
 
-    p->setRenderHint(QPainter::SmoothPixmapTransform);
-
-    m_theme->paint(p, QRect(contentsRect.x() , contentsRect.y(), 111, 35), "title");
-    m_theme->paint(p, QRect(contentsRect.x() + 36, contentsRect.y() + 33, contentsRect.width() - 67, 1), "line");
+        m_theme->paint(p, QRect(contentsRect.x() , contentsRect.y(), 111, 35), "title");
+        m_theme->paint(p, QRect(contentsRect.x() + 36, contentsRect.y() + 33, contentsRect.width() - 67, 1), "line");
+    }
 }
 
 void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
@@ -137,10 +149,18 @@ void PlasmaKGet::configAccepted()
 void PlasmaKGet::loadTransferGraph(uint type)
 {
     QSizeF size = contentSize();
+    kDebug() << "FORM FACTOR " << formFactor();
+    kDebug() << Plasma::Horizontal;
+
+    if(formFactor() == Plasma::Horizontal || formFactor() == Plasma::Vertical) {
+        type = PlasmaKGet::PanelGraphType;
+        kDebug() << "Chaging the type to " << type;
+    }
+
     if(type != m_graphType) {
 
         delete m_transferGraph;
-
+        kDebug() << "About to create the applet with the type : " << type;
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :
@@ -151,6 +171,9 @@ void PlasmaKGet::loadTransferGraph(uint type)
                 break;
             case PlasmaKGet::SpeedGraphType :
                 m_transferGraph = new SpeedGraph(this);
+                break;
+            case PlasmaKGet::PanelGraphType :
+                m_transferGraph = new PanelGraph(this);
                 break;
             case PlasmaKGet::BarChartType :
             default:

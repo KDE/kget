@@ -7,6 +7,7 @@ set(kget_SRCS
     linegraphwidget.cpp
     piechartwidget.cpp
     errorgraph.cpp
+    panelgraph.cpp
 )
 
 kde4_add_ui_files(kget_SRCS kgetConfig.ui)
