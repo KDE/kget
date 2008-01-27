@@ -38,7 +38,7 @@
          </sizepolicy>
         </property>
         <property name="maximum" >
-         <number>33000</number>
+         <number>99000</number>
         </property>
         <property name="value" >
          <number>6881</number>
@@ -57,6 +57,9 @@
         <property name="suffix" >
          <string>KiB</string>
         </property>
+        <property name="maximum" >
+         <number>10000</number>
+        </property>
        </widget>
       </item>
       <item row="2" column="0" >
@@ -71,6 +74,9 @@
         <property name="suffix" >
          <string>KiB</string>
         </property>
+        <property name="maximum" >
+         <number>100000</number>
+        </property>
        </widget>
       </item>
       <item row="3" column="0" >
@@ -81,7 +87,11 @@
        </widget>
       </item>
       <item row="3" column="1" >
-       <widget class="QDoubleSpinBox" name="shareRatioSpin" />
+       <widget class="QDoubleSpinBox" name="shareRatioSpin" >
+        <property name="maximum" >
+         <double>999.990000000000009</double>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
