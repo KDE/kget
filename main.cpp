@@ -111,10 +111,10 @@ private:
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", 0, ki18n("KGet"), "2.0",
+    KAboutData aboutData("kget", 0, ki18n("KGet"), "2.0.80",
                          ki18n("An advanced download manager for KDE"),
                          KAboutData::License_GPL,
-                         ki18n("(C) 2005 - 2007, The KGet developers\n"
+                         ki18n("(C) 2005 - 2008, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
                          "(C) 1998 - 2000, Matej Koss"),
@@ -124,6 +124,7 @@ int main(int argc, char *argv[])
     aboutData.addAuthor(ki18n("Urs Wolfer"), ki18n("Core Developer"), "uwolfer@kde.org");
     aboutData.addAuthor(ki18n("Manolo Valdes"), ki18n("Core Developer, Multithreaded Plugin Author"), "nolis71cu@gmail.com");
     aboutData.addAuthor(ki18n("Javier Goday"), ki18n("Developer"), "jgoday@gmail.com");
+    aboutData.addAuthor(ki18n("Lukas Appelhans"), ki18n("Developer"), "l.appelhans@gmx.de");
     aboutData.addAuthor(ki18n("Patrick Charbonnier"), ki18n("Former Developer"), "pch@freeshell.org");
     aboutData.addAuthor(ki18n("Carsten Pfeiffer"), ki18n("Former Developer"), "pfeiffer@kde.org");
     aboutData.addAuthor(ki18n("Matej Koss"), ki18n("Former Developer"));
