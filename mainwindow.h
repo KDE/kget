@@ -88,6 +88,7 @@ private slots:
     void slotStartAllDownload();
     void slotStartSelectedDownload();
     void slotDeleteSelected();
+    void slotRedownloadSelected();
     void slotTransfersOpenDest();
     void slotTransfersOpenFile();
     void slotTransfersShowDetails();

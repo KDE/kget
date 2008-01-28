@@ -263,9 +263,10 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
 }
 
 
-void KGet::delTransfer(TransferHandler * transfer)
+bool KGet::delTransfer(TransferHandler * transfer)
 {
     Transfer * t = transfer->m_transfer;
+    t->stop();
 
     m_transferTreeModel->delTransfer(t);
 
@@ -277,12 +278,26 @@ void KGet::delTransfer(TransferHandler * transfer)
 // TODO: why does it crash if a download is going to be deleted which is not the last in the list?
 // there are always no problems with the last download.
 //     delete( t );
+    return true;
 }
 
 void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 {
   Q_UNUSED(transfer);
   Q_UNUSED(groupName);
+}
+
+void KGet::redownloadTransfer(TransferHandler * transfer)
+{
+     QString group = transfer->group()->name();
+     QString src = transfer->source().url();
+     QString dest = transfer->dest().url();
+     bool running = false;
+     if (transfer->status() == Job::Running)
+         running = true;
+
+     KGet::delTransfer(transfer);
+     KGet::addTransfer(src, dest, group, running);
 }
 
 QList<TransferHandler *> KGet::selectedTransfers()

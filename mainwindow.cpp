@@ -172,6 +172,11 @@ void MainWindow::setupActions()
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
+    QAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
+    redownloadSelectedAction->setText(i18nc("redownload selected transfer item", "Redownload Selected"));
+    redownloadSelectedAction->setIcon(KIcon("view-refresh"));
+    connect(redownloadSelectedAction, SIGNAL(triggered()), SLOT(slotRedownloadSelected()));
+
     QAction *startAllAction = actionCollection()->addAction("start_all_download");
     startAllAction->setText(i18n("Start / Resume All"));
     startAllAction->setIcon(KIcon("media-seek-forward"));
@@ -452,6 +457,14 @@ void MainWindow::slotDeleteSelected()
         it->stop();
         m_viewsContainer->closeTransferDetails(it);
         KGet::delTransfer(it);
+    }
+}
+
+void MainWindow::slotRedownloadSelected()
+{
+    foreach(TransferHandler * it, KGet::selectedTransfers())
+    {
+        KGet::redownloadTransfer(it);
     }
 }
 

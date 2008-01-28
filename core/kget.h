@@ -147,7 +147,7 @@ class KGET_EXPORT KGet
          *
          * @param transfer The transfer to be removed
          */
-        static void delTransfer(TransferHandler * transfer);
+        static bool delTransfer(TransferHandler * transfer);
 
         /**
          * Moves a transfer to a new group
@@ -156,6 +156,12 @@ class KGET_EXPORT KGet
          * @param groupName The name of the new transfer's group
          */
         static void moveTransfer(TransferHandler * transfer, const QString& groupName);
+
+        /**
+         * Redownload a transfer
+         * @param transfer the transfer to redownload
+         */
+        static void redownloadTransfer(TransferHandler * transfer);
 
         /**
          * @returns the list of selected transfers
