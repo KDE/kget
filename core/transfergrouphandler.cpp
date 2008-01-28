@@ -117,10 +117,7 @@ QVariant TransferGroupHandler::data(int column)
         case 4:
             if (speed()==0)
             {
-                if (status() == JobQueue::Running)
-                    return i18n("Stalled");
-                else
-                    return QString();
+                return QString();
             }
             else
                 return i18n("%1/s", KIO::convertSize(speed()));
