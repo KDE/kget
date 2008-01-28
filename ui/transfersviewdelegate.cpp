@@ -240,6 +240,9 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersV
 
 void GroupStatusEditor::setRunning(bool running)
 {
+    if(running == m_startBt->isChecked())
+        return;
+
     if(running)
         m_startBt->setChecked(true);
     else

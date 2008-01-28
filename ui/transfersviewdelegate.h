@@ -70,7 +70,7 @@ class GroupStatusEditor : public QWidget
         QHBoxLayout * m_layout;
 
         QButtonGroup * m_btGroup;
-        QToolButton * m_startBt;
+        GroupStatusButton * m_startBt;
         GroupStatusButton * m_stopBt;
 };
 
