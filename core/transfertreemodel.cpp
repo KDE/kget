@@ -545,7 +545,8 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
         TransferHandler * transferHandler = (TransferHandler *) stringList[++i].toInt(0, 16);
 
-        moveTransfer(transferHandler->m_transfer, destGroup);
+        if(destGroup)
+            moveTransfer(transferHandler->m_transfer, destGroup);
     }
     return true;
 }
