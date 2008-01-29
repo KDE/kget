@@ -63,9 +63,6 @@ private slots:
     void slotClose();
 
 private:
-    void setVisible( bool )
-        { /* prevent wrong use, use setDropTargetVisible instead.
-             needed because of "..was hidden.." compiler warning */ }
     KMenu * popupMenu;
     MainWindow * parentWidget;
     QTimer * animTimer;
