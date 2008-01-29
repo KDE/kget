@@ -66,7 +66,7 @@ void GroupStatusButton::checkStateSet()
     setMouseTracking(!isChecked());
 
     if(m_timerId == -1)
-        m_timerId = startTimer(25);
+        m_timerId = startTimer(100);
 }
 
 void GroupStatusButton::enterEvent(QEvent * event)
@@ -78,7 +78,7 @@ void GroupStatusButton::enterEvent(QEvent * event)
 
         if(m_timerId == -1)
         {
-            m_timerId = startTimer(25);
+            m_timerId = startTimer(100);
 
             if(m_status == !BlinkingExiting)
                 m_gradientId = 1;
@@ -123,8 +123,7 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
         pen.setColor(palette().color(QPalette::Highlight));
     }
 
-    QRect r = event->rect();
-    r.adjust(0,0,0,-1);
+    QRect r = event->rect().adjusted(0,0,0,1);
 
     p.fillRect(r, gradient);
 
@@ -134,10 +133,10 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
     {
         pen.setWidth(1);
         p.setPen(pen);
-        p.drawEllipse(event->rect().x()+5, event->rect().y()+5, event->rect().width()-10, event->rect().width()-10);
+        p.drawEllipse(event->rect().x()+5, event->rect().y()+4, event->rect().width()-10, event->rect().width()-10);
     }
 
-    p.drawPixmap(event->rect().topLeft() + QPoint(offset, offset),
+    p.drawPixmap(event->rect().topLeft() + QPoint(offset, offset-1),
                  icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ?
                                            QIcon::Normal : QIcon::Disabled));
 }
@@ -148,7 +147,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
 
     if(m_status == Selecting)
     {
-        m_gradientId+=0.05;
+        m_gradientId+=0.2;
 
         if(m_gradientId >= 1)
         {
@@ -160,7 +159,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     }
     else if(m_status == Deselecting)
     {
-        m_gradientId-=0.05;
+        m_gradientId-=0.2;
 
         if(m_gradientId <= 0.7)
         {
@@ -172,7 +171,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     }
     else if(m_status == Blinking)
     {
-        m_gradientId-=0.01;
+        m_gradientId-=0.04;
 
         if(m_gradientId <= 0.7)
         {
@@ -181,7 +180,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     }
     else if(m_status == BlinkingExiting)
     {
-        m_gradientId-=0.01;
+        m_gradientId-=0.04;
 
         if(m_gradientId <= 0.7)
         {
