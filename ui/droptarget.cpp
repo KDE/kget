@@ -38,9 +38,11 @@
 #define TARGET_ANI_MS 20
 
 DropTarget::DropTarget(MainWindow * mw)
-    : QWidget(0, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint),
+    : QWidget(0, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
     parentWidget(mw), animTimer(0), showInformation(false)
 {
+    KWindowSystem::setState(winId(), NET::SkipTaskbar);
+
     QRect desk = KGlobalSettings::desktopGeometry(this);
     desk.setRight( desk.right() - TARGET_SIZE );
     desk.setBottom( desk.bottom() - TARGET_SIZE );
