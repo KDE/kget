@@ -113,7 +113,7 @@ void TransfersButton::removeTransfer(TransferHandler * transfer)
         ++it;
         if (prev.value() == transfer)
         {
-            delete(prev.key());
+            prev.key()->deleteLater();
             m_transfersMap.erase(prev);
             //Delete the QAction
         }
