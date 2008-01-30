@@ -27,25 +27,25 @@
 
 TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name)
     : JobQueue(scheduler),
-      m_model(model), m_handler(0), m_name(name),
+      m_model(model), m_name(name),
       m_totalSize(0), m_processedSize(0),
       m_percent(0), m_speed(0),
       m_dlLimit(0), m_ulLimit(0),
       m_iconName("bookmark-new-list"), m_defaultFolder(0)
 {
-
+    m_handler = new TransferGroupHandler(this, scheduler);
 }
 
 TransferGroup::~TransferGroup()
 {
-    handler()->postDeleteEvent();
+    m_handler->postDeleteEvent();
 }
 
 void TransferGroup::setStatus(Status queueStatus)
 {
     JobQueue::setStatus(queueStatus);
 
-    handler()->postGroupChangedEvent();
+    m_handler->postGroupChangedEvent();
 }
 
 void TransferGroup::append(Transfer * transfer)
@@ -60,21 +60,21 @@ void TransferGroup::append(Transfer * transfer)
 
     JobQueue::append(transfer);
 
-    handler()->postAddedTransferEvent(transfer, after);
+    m_handler->postAddedTransferEvent(transfer, after);
 }
 
 void TransferGroup::prepend(Transfer * transfer)
 {
     JobQueue::prepend(transfer);
 
-    handler()->postAddedTransferEvent(transfer, 0);
+    m_handler->postAddedTransferEvent(transfer, 0);
 }
 
 void TransferGroup::insert(Transfer * transfer, Transfer * after)
 {
     JobQueue::insert(transfer, after);
 
-    handler()->postAddedTransferEvent(transfer, after);
+    m_handler->postAddedTransferEvent(transfer, after);
 }
 
 void TransferGroup::remove(Transfer * transfer)
@@ -125,7 +125,7 @@ void TransferGroup::remove(Transfer * transfer)
 
     JobQueue::remove(transfer);
 
-    handler()->postRemovedTransferEvent(transfer);
+    m_handler->postRemovedTransferEvent(transfer);
 }
 
 void TransferGroup::move(Transfer * transfer, Transfer * after)
@@ -138,10 +138,10 @@ void TransferGroup::move(Transfer * transfer, Transfer * after)
     JobQueue::move(transfer, after);
 
     if(oldTransferGroup == this)
-        handler()->postMovedTransferEvent(transfer, after);
+        m_handler->postMovedTransferEvent(transfer, after);
     else
     {
-        handler()->postAddedTransferEvent(transfer, after);
+        m_handler->postAddedTransferEvent(transfer, after);
         oldTransferGroup->handler()->postRemovedTransferEvent(transfer);
     }
 }
@@ -181,12 +181,8 @@ Transfer * TransferGroup::operator[] (int i) const
     return (Transfer *)((* (JobQueue *)this)[i]);
 }
 
-TransferGroupHandler * TransferGroup::handler()
+TransferGroupHandler * TransferGroup::handler() const
 {
-    if(!m_handler)
-    {
-        m_handler = new TransferGroupHandler(this, scheduler());
-    }
     return m_handler;
 }
 

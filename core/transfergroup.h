@@ -208,7 +208,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @return the handler associated with this group
          */
-        TransferGroupHandler * handler();
+        TransferGroupHandler * handler() const;
 
         /**
          * @returns the TransferTreeModel that owns this group
