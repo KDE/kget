@@ -53,7 +53,7 @@ void GroupStatusButton::checkStateSet()
     if(isChecked())
     {
         if(m_status == None)
-            m_gradientId = 0.7;
+            m_gradientId = 0.9;
         m_status = Selecting;
     }
     else
@@ -147,7 +147,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
 
     if(m_status == Selecting)
     {
-        m_gradientId+=0.2;
+        m_gradientId+=0.04;
 
         if(m_gradientId >= 1)
         {
@@ -159,7 +159,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     }
     else if(m_status == Deselecting)
     {
-        m_gradientId-=0.2;
+        m_gradientId-=0.04;
 
         if(m_gradientId <= 0.7)
         {
@@ -171,6 +171,13 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     }
     else if(m_status == Blinking)
     {
+        if(isChecked())
+        {
+            m_status = Selecting;
+            m_gradientId = 0.9;
+            return;
+        }
+
         m_gradientId-=0.04;
 
         if(m_gradientId <= 0.7)
