@@ -39,6 +39,8 @@ class KGET_EXPORT TransferGroupHandler
 
         /**
          * Adds an observer to this TransferGroup
+         * Note that the observer with pointer == 0 is added by default, and
+         * it's used by the TransferTreeModel class
          *
          * @param observer The new observer that should be added
          */

@@ -28,6 +28,8 @@ TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * sc
       m_scheduler(scheduler),
       m_qobject(0)
 {
+    m_observers.push_back(0);
+    m_changesFlags[0]=0xFFFFFFFF;
 }
 
 TransferGroupHandler::~TransferGroupHandler()
@@ -223,7 +225,8 @@ void TransferGroupHandler::postGroupChangedEvent()
 
     for(; it!=itEnd; ++it)
     {
-        (*it)->groupChangedEvent(this);
+        if(*it)
+            (*it)->groupChangedEvent(this);
     }
 
     m_group->model()->postDataChangedEvent(this);
@@ -244,10 +247,13 @@ void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer 
 
     for(; it!=itEnd; ++it)
     {
-        if(after)
-            (*it)->addedTransferEvent(transfer->handler(), after->handler());
-        else
-            (*it)->addedTransferEvent(transfer->handler(), 0);
+        if(*it)
+        {
+            if(after)
+                (*it)->addedTransferEvent(transfer->handler(), after->handler());
+            else
+                (*it)->addedTransferEvent(transfer->handler(), 0);
+        }
     }
 }
 
@@ -263,7 +269,8 @@ void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
 
     for(; it!=itEnd; ++it)
     {
-        (*it)->removedTransferEvent(transfer->handler());
+        if(*it)
+            (*it)->removedTransferEvent(transfer->handler());
     }
 }
 
@@ -279,10 +286,13 @@ void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer 
 
     for(; it!=itEnd; ++it)
     {
-        if(after)
-            (*it)->movedTransferEvent(transfer->handler(), after->handler());
-        else
-            (*it)->movedTransferEvent(transfer->handler(), 0);
+        if(*it)
+        {
+            if(after)
+                (*it)->movedTransferEvent(transfer->handler(), after->handler());
+            else
+                (*it)->movedTransferEvent(transfer->handler(), 0);
+        }
     }
 }
 
@@ -298,7 +308,8 @@ void TransferGroupHandler::postDeleteEvent()
 
     for(; it!=itEnd; ++it)
     {
-        (*it)->deleteEvent(this);
+        if(*it)
+            (*it)->deleteEvent(this);
     }
 }
 

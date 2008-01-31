@@ -564,10 +564,18 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         if(!updatedTransfers.contains(transfer))
         {
             TransferGroupHandler * group = transfer->group();
+            Transfer::ChangesFlags changesFlags = transfer->changesFlags(0);
 
-            emit dataChanged(createIndex(group->indexOf(transfer), 0, transfer),
-                            createIndex(group->indexOf(transfer), transfer->columnCount(), transfer));
+            for(int i=0; i<16; i++)
+            {
+                if(((changesFlags >> i) & 0x00000001) == 1)
+                {
+                    QModelIndex index = createIndex(group->indexOf(transfer), i, transfer);
+                    emit dataChanged(index,index);
+                }
+            }
 
+            transfer->resetChangesFlags(0);
             updatedTransfers.append(transfer);
         }
     }
@@ -576,9 +584,18 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     {
         if(!updatedGroups.contains(group))
         {
-            emit dataChanged(createIndex(m_transferGroups.indexOf(group->m_group), 0, group),
-                            createIndex(m_transferGroups.indexOf(group->m_group), group->columnCount(), group));
+            TransferGroup::ChangesFlags changesFlags = group->changesFlags(0);
 
+            for(int i=0; i<16; i++)
+            {
+                if(((changesFlags >> i) & 0x00000001) == 1)
+                {
+                    QModelIndex index = createIndex(m_transferGroups.indexOf(group->m_group), i, group);
+                    emit dataChanged(index,index);
+                }
+            }
+
+            group->resetChangesFlags(0);
             updatedGroups.append(group);
         }
     }

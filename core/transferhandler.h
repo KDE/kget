@@ -72,8 +72,10 @@ class KGET_EXPORT TransferHandler
 
         /**
          * Adds an observer to this Transfer
+         * Note that the observer with pointer == 0 is added by default, and
+         * it's used by the TransferTreeModel class
          *
-         * @param observer Tthe new observer that should be added
+         * @param observer The new observer that should be added
          */
         void addObserver(TransferObserver * observer);
 

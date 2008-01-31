@@ -42,15 +42,18 @@ class KGET_EXPORT Transfer : public Job
         enum TransferChange
         {
             Tc_None          = 0x00000000,
-            Tc_Status        = 0x00000001,
-            Tc_CanResume     = 0x00000002,
+            // These flags respect the Model columns order
+            Tc_FileName      = 0x00000001,
+            Tc_Status        = 0x00000002,
             Tc_TotalSize     = 0x00000004,
-            Tc_ProcessedSize = 0x00000008,
-            Tc_Percent       = 0x00000010,
-            Tc_Speed         = 0x00000020,
-            Tc_Log           = 0x00000040,
-            Tc_Group         = 0x00000080,
-            Tc_Selection     = 0x00000100
+            Tc_Percent       = 0x00000008,
+            Tc_Speed         = 0x00000010,
+            // Misc
+            Tc_CanResume     = 0x00010000,
+            Tc_ProcessedSize = 0x00020000,
+            Tc_Log           = 0x00040000,
+            Tc_Group         = 0x00080000,
+            Tc_Selection     = 0x00100000
         };
 
         enum LogLevel

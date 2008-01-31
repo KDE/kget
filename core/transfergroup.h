@@ -42,11 +42,14 @@ class KGET_EXPORT TransferGroup : public JobQueue
         enum GroupChange
         {
             Gc_None          = 0x00000000,
-            Gc_Status        = 0x00000001,
-            Gc_TotalSize     = 0x00000002,
-            Gc_ProcessedSize = 0x00000004,
+            // These flags respect the Model columns order
+            Gc_GroupName     = 0x00000001,
+            Gc_Status        = 0x00000002,
+            Gc_TotalSize     = 0x00000004,
             Gc_Percent       = 0x00000008,
-            Gc_Speed         = 0x00000010
+            Gc_Speed         = 0x00000010,
+            // Misc
+            Gc_ProcessedSize = 0x00010000
         };
 
         typedef int ChangesFlags;

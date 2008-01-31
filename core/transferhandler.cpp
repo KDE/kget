@@ -26,7 +26,8 @@
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)
 {
-
+    m_observers.push_back(0);
+    m_changesFlags[0]=0xFFFFFFFF;
 }
 
 TransferHandler::~TransferHandler()
@@ -206,7 +207,8 @@ void TransferHandler::postTransferChangedEvent()
     // Notify the observers
     for(; it!=itEnd; ++it)
     {
-        (*it)->transferChangedEvent(this);
+        if(*it)
+            (*it)->transferChangedEvent(this);
     }
 
     // Notify the group
@@ -234,7 +236,8 @@ void TransferHandler::postDeleteEvent()
 
     for(; it!=itEnd; ++it)
     {
-        (*it)->deleteEvent(this);
+        if(*it)
+            (*it)->deleteEvent(this);
     }
     kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";
 }

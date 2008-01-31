@@ -42,6 +42,7 @@ GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent
       m_iconSize(22),
       m_gradientId(0)
 {
+    setAttribute(Qt::WA_NoSystemBackground);
 }
 
 void GroupStatusButton::checkStateSet()
@@ -279,6 +280,13 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
     const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+
+///    These lines are just for testing purposes. Uncomment them to show on the view the repaint events.
+//     static int i=0;
+//     kDebug(5001) << "paint!!! " << i++;
+// 
+//     painter->drawRect(option.rect);
+//     painter->drawText(option.rect.topLeft(), QString::number(i));
 
     if(transferTreeModel->isTransferGroup(index))
     {
