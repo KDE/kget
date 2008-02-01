@@ -14,6 +14,7 @@
 
 #include <kio/netaccess.h>
 #include <KIcon>
+#include <KDebug>
 
 #include "jobqueue.h"
 #include "kget_export.h"
@@ -174,11 +175,40 @@ class KGET_EXPORT TransferGroup : public JobQueue
         QString defaultFolder() {return m_defaultFolder;}
 
         /**
+         * @return true if the group supports SpeedLimits
+         */
+        bool supportsSpeedLimits();
+
+        /**
+         * Set a Upload-Limit for the group
+         * @param limit the new upload-limit
+         * @note use this instead of setUploadLimit(int) for manually change the dlLimit (from the GUI f.e.)
+         */
+         void setVisibleUploadLimit(int limit) {m_visibleUlLimit = limit;/*TODO:Call setUploadLimit here*/}
+
+        /**
+         * @return the group's visible Upload-Limit
+         */
+         int visibleUploadLimit() {kDebug(5001) << m_visibleUlLimit; return m_visibleUlLimit;}
+
+        /**
+         * Set a Visible Download-Limit for the group
+         * @param limit the new download-limit
+         * @note use this instead of setDownloadLimit(int); for manually change the dlLimit (from the GUI f.e.)
+         */
+         void setVisibleDownloadLimit(int limit) {m_visibleDlLimit = limit;/*TODO: Call setDownloadLimit here*/}
+
+        /**
+         * @return the group's visible DownloadLimit
+         */
+         int visibleDownloadLimit() {return m_visibleDlLimit;}
+
+        /**
          * Set a Download-Limit for the group
          * @param limit the new download-limit
          * @note if limit is 0, no download-limit is set
          */
-         void setDownloadLimit(int limit) {m_dlLimit = limit;}
+         void setDownloadLimit(int limit) {m_dlLimit = limit;/*TODO: The implementation ;)*/}
 
         /**
          * @return the group's Download-Limit
@@ -190,7 +220,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param limit the new upload-limit
          * @note if limit is 0, no upload-limit is set
          */
-         void setUploadLimit(int limit) {m_ulLimit = limit;}
+         void setUploadLimit(int limit) {m_ulLimit = limit;/*TODO: The implementation ;)*/}
 
         /**
          * @return the group's Upload-Limit
@@ -217,6 +247,21 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @returns the TransferTreeModel that owns this group
          */
         TransferTreeModel * model()     {return m_model;}
+
+        /**
+         * Calculates the whole SpeedLimits
+         */
+        void calculateSpeedLimits();
+
+        /**
+         * Calculates the DownloadLimits
+         */
+        void calculateDownloadLimit();
+
+        /**
+         * Calculates the DownloadLimits
+         */
+        void calculateUploadLimit();
 
         /**
          * Notifies that the given transfer has changed
@@ -251,6 +296,8 @@ class KGET_EXPORT TransferGroup : public JobQueue
         int m_speed;
         int m_dlLimit;
         int m_ulLimit;
+        int m_visibleDlLimit;
+        int m_visibleUlLimit;
         QString m_iconName;
         QString m_defaultFolder;
 };

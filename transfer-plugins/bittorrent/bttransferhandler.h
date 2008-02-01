@@ -43,14 +43,11 @@ class BTTransferHandler : public QObject, public TransferHandler
         int ulRate()                                    {return m_transfer->ulRate();}
         int dlRate()                                    {return m_transfer->dlRate();}
         bt::TorrentControl * torrentControl()           {return m_transfer->torrentControl();}
-        int ulLimit()                                   {return m_transfer->ulLimit();}
-        int dlLimit()                                   {return m_transfer->dlLimit();}
         int percent()                                   {return m_transfer->percent();}
         bool ready()                                    {return m_transfer->ready();}
         float maxShareRatio()                           {return m_transfer->maxShareRatio();}
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
-        void setTrafficLimits(int ulLimit, int dlLimit) {m_transfer->setTrafficLimits(ulLimit, dlLimit);}
         void setMaxShareRatio(float ratio)              {m_transfer->setMaxShareRatio(ratio);}
 
     public slots:

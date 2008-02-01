@@ -36,8 +36,6 @@ class BTTransfer : public QObject, public Transfer
             Tc_LeechesDisconnected    = 0x01280000,
             Tc_DlRate                 = 0x02560000,
             Tc_UlRate                 = 0x05120000,
-            Tc_UlLimit                = 0x07860000,
-            Tc_DlLimit                = 0x09840000,
             Tc_SessionBytesDownloaded = 0x10240000,
             Tc_SessionBytesUploaded   = 0x20480000,
             Tc_TrackersList           = 0x40960000
@@ -73,22 +71,21 @@ class BTTransfer : public QObject, public Transfer
         int sessionBytesUploaded() const;
         KUrl::List trackersList() const;
         bt::TorrentControl * torrentControl();
-        int ulLimit() const;
-        int dlLimit() const;
         int percent() const;
         float maxShareRatio() const;
 
         //More Bittorrent-Functions
         void setPort(int port);
-        void setTrafficLimits(int ulLimit, int dlLimit);
+        void setDownloadLimit(int dlLimit);
+        void setUploadLimit(int ulLimit);
         void setMaxShareRatio(float ratio);
         void addTracker(const QString &url);
-        void save(const QDomElement &element);
+        //void save(const QDomElement &element);
 
         bool ready();
 
     protected:
-        void load(const QDomElement &e);
+        //void load(const QDomElement &e);
 
     private slots:
         void init(const KUrl &src = KUrl());
@@ -100,11 +97,10 @@ class BTTransfer : public QObject, public Transfer
         void startTorrent();
         void stopTorrent();
         void updateTorrent();
+        void setSpeedLimits(int ulLimit, int dlLimit);
 
         bt::TorrentControl *torrent;
         QString m_tmp;
-        int m_dlLimit;
-        int m_ulLimit;
         float m_ratio;
         QTimer timer;
         bool m_ready;

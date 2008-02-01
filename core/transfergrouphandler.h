@@ -147,7 +147,7 @@ class KGET_EXPORT TransferGroupHandler
         /**
          * Set a Upload-Limit for the group
          * @param limit the new upload-limit
-         * @note if limit is 0, no upload-limit is set
+         * @note this will not be displayed in the GUI
          */
          void setUploadLimit(int limit) {m_group->setUploadLimit(limit);}
 
@@ -155,6 +155,30 @@ class KGET_EXPORT TransferGroupHandler
          * @return the group's Upload-Limit
          */
          int uploadLimit() {return m_group->uploadLimit();}
+
+        /**
+         * Set a Download-Limit for the group
+         * @param limit the new download-limit
+         * @note this will be displayed in the GUI
+         */
+         void setVisibleDownloadLimit(int limit) {m_group->setVisibleDownloadLimit(limit);}
+
+        /**
+         * @return the group's Download-Limit
+         */
+         int visibleDownloadLimit() {return m_group->visibleDownloadLimit();}
+
+        /**
+         * Set a Upload-Limit for the group
+         * @param limit the new upload-limit
+         * @note this will be displayed in the GUI
+         */
+         void setVisibleUploadLimit(int limit) {m_group->setVisibleUploadLimit(limit);}
+
+        /**
+         * @return the group's Upload-Limit
+         */
+         int visibleUploadLimit() {return m_group->visibleUploadLimit();}
 
         /**
          * Set the group's icon

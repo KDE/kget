@@ -7,7 +7,7 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
+//TODO: Do the same for groups (visible and invisible SpeedLimits)
 
 #ifndef TRANSFER_H
 #define TRANSFER_H
@@ -49,6 +49,8 @@ class KGET_EXPORT Transfer : public Job
             Tc_Percent       = 0x00000008,
             Tc_Speed         = 0x00000010,
             // Misc
+            Tc_UploadLimit   = 0x00008000,
+            Tc_DownloadLimit = 0x00009000,
             Tc_CanResume     = 0x00010000,
             Tc_ProcessedSize = 0x00020000,
             Tc_Log           = 0x00040000,
@@ -81,6 +83,56 @@ class KGET_EXPORT Transfer : public Job
 
         int percent() const                 {return m_percent;}
         int speed() const                   {return m_speed;}
+
+        virtual bool supportsSpeedLimits() const {return false;}
+
+        /**
+         * Set the Transfer's UploadLimit
+         * @note this is not displayed in any GUI, use setVisibleUploadLimit(int) instead
+         * @param visibleUlLimit upload Limit
+         */
+        virtual void setUploadLimit(int ulLimit) {Q_UNUSED(ulLimit);}
+
+        /**
+         * Set the Transfer's UploadLimit, which are displayed in the GUI
+         * @note this is not displayed in any GUI, use setVisibleDownloadLimit(int) instead
+         * @param visibleUlLimit upload Limit
+         */
+        virtual void setDownloadLimit(int dlLimit) {Q_UNUSED(dlLimit);}
+
+        /**
+         * @return the UploadLimit, which is invisible in the GUI
+         */
+        int uploadLimit() const {return m_ulLimit;}
+
+        /**
+         * @return the DownloadLimit, which is invisible in the GUI
+         */
+        int downloadLimit() const {return m_dlLimit;}
+
+        /**
+         * Set the Transfer's UploadLimit, which are displayed in the GUI
+         * @note use this, when a user changes the UploadLimit manually
+         * @param visibleUlLimit upload Limit
+         */
+        void setVisibleUploadLimit(int visibleUlLimit);
+
+        /**
+         * Set the Transfer's UploadLimit, which are displayed in the GUI
+         * @note use this, when a user changes the UploadLimit manually
+         * @param visibleUlLimit upload Limit
+         */
+        void setVisibleDownloadLimit(int visibleDlLimit);
+
+        /**
+         * @return the visible UploadLimit
+         */
+        int visibleUploadLimit() const {return m_visibleUlLimit;}
+
+        /**
+         * @return the visible DownloadLimit
+         */
+        int visibleDownloadLimit() const {return m_visibleDlLimit;}
 
         // --- Job virtual functions ---
         virtual void setDelay(int seconds);
@@ -160,9 +212,15 @@ class KGET_EXPORT Transfer : public Job
         int           m_percent;
         int           m_speed;
 
+        int           m_dlLimit;
+        int	      m_ulLimit;
+
         bool m_isSelected;
 
     private:
+        int m_visibleUlLimit;
+        int m_visibleDlLimit;
+
         QString m_statusText;
         QPixmap m_statusPixmap;
 

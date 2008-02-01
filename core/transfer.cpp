@@ -47,6 +47,20 @@ Transfer::~Transfer()
     delete(m_handler);
 }
 
+void Transfer::setVisibleUploadLimit(int visibleUlLimit)
+{
+    m_visibleUlLimit = visibleUlLimit;
+
+    setUploadLimit(m_visibleUlLimit);
+}
+
+void Transfer::setVisibleDownloadLimit(int visibleDlLimit)
+{
+    m_visibleDlLimit = visibleDlLimit;
+
+    setDownloadLimit(m_visibleDlLimit);
+}
+
 void Transfer::setDelay(int seconds)
 {
     m_scheduler->startDelayTimer(this, seconds);
@@ -99,6 +113,8 @@ void Transfer::save(const QDomElement &element)
     e.setAttribute("Dest", m_dest.url());
     e.setAttribute("TotalSize", m_totalSize);
     e.setAttribute("ProcessedSize", m_processedSize);
+    e.setAttribute("DownloadLimit", m_visibleDlLimit);
+    e.setAttribute("UploadLimit", m_visibleUlLimit);
 }
 
 void Transfer::load(const QDomElement &e)
@@ -122,6 +138,8 @@ void Transfer::load(const QDomElement &e)
     {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
+    setVisibleUploadLimit(e.attribute("UploadLimit").toInt());
+    setVisibleDownloadLimit(e.attribute("DownloadLimit").toInt());
 }
 
 void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix)

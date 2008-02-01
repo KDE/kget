@@ -31,6 +31,7 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, c
       m_totalSize(0), m_processedSize(0),
       m_percent(0), m_speed(0),
       m_dlLimit(0), m_ulLimit(0),
+      m_visibleDlLimit(0), m_visibleUlLimit(0),
       m_iconName("bookmark-new-list"), m_defaultFolder(0)
 {
     m_handler = new TransferGroupHandler(this, scheduler);
@@ -39,6 +40,18 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, c
 TransferGroup::~TransferGroup()
 {
     m_handler->postDeleteEvent();
+}
+
+bool TransferGroup::supportsSpeedLimits()
+{
+    bool b = true;
+    foreach (Job * job, runningJobs())
+    {
+        Transfer * transfer = static_cast<Transfer*>(job);
+        if (!transfer->supportsSpeedLimits())
+            b = false;
+    }
+    return b;
 }
 
 void TransferGroup::setStatus(Status queueStatus)
@@ -60,6 +73,7 @@ void TransferGroup::append(Transfer * transfer)
 
     JobQueue::append(transfer);
 
+    calculateSpeedLimits();
     m_handler->postAddedTransferEvent(transfer, after);
 }
 
@@ -68,6 +82,7 @@ void TransferGroup::prepend(Transfer * transfer)
     JobQueue::prepend(transfer);
 
     m_handler->postAddedTransferEvent(transfer, 0);
+    calculateSpeedLimits();
 }
 
 void TransferGroup::insert(Transfer * transfer, Transfer * after)
@@ -75,6 +90,7 @@ void TransferGroup::insert(Transfer * transfer, Transfer * after)
     JobQueue::insert(transfer, after);
 
     m_handler->postAddedTransferEvent(transfer, after);
+    calculateSpeedLimits();
 }
 
 void TransferGroup::remove(Transfer * transfer)
@@ -126,6 +142,7 @@ void TransferGroup::remove(Transfer * transfer)
     JobQueue::remove(transfer);
 
     m_handler->postRemovedTransferEvent(transfer);
+    calculateSpeedLimits();
 }
 
 void TransferGroup::move(Transfer * transfer, Transfer * after)
@@ -186,6 +203,43 @@ TransferGroupHandler * TransferGroup::handler() const
     return m_handler;
 }
 
+void TransferGroup::calculateSpeedLimits()
+{
+    kDebug(5001) << "*************************** HERE WE ARE";
+    calculateDownloadLimit();
+    calculateUploadLimit();
+}
+
+void TransferGroup::calculateDownloadLimit()
+{
+    kDebug(5001);
+    if (supportsSpeedLimits())
+    {
+        int n = runningJobs().count();
+        foreach (Job * job, runningJobs())
+        {
+            Transfer * transfer = static_cast<Transfer*>(job);
+            if (transfer)
+                transfer->setDownloadLimit(downloadLimit() / n);
+        }
+    }
+}
+
+void TransferGroup::calculateUploadLimit()
+{
+    kDebug(5001);
+    if (supportsSpeedLimits())
+    {
+        int n = runningJobs().count();
+        foreach (Job * job, runningJobs())
+        {
+            Transfer * transfer = static_cast<Transfer*>(job);
+            if (transfer)
+                transfer->setUploadLimit(uploadLimit() / n);
+        }
+    }
+}
+
 void TransferGroup::transferChangedEvent(Transfer * transfer)
 {
     Q_UNUSED(transfer);
@@ -197,9 +251,9 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     kDebug(5001) << "TransferGroup::save()  -->  " << name();
 
     e.setAttribute("Name", m_name);
-    e.setAttribute("Default_folder", m_defaultFolder);
-    e.setAttribute("Download_Limit", m_dlLimit);
-    e.setAttribute("Upload_Limit", m_ulLimit);
+    e.setAttribute("DefaultFolder", m_defaultFolder);
+    e.setAttribute("DownloadLimit", m_dlLimit);
+    e.setAttribute("UploadLimit", m_ulLimit);
     e.setAttribute("Icon", m_iconName);
 
     iterator it = begin();
@@ -219,9 +273,9 @@ void TransferGroup::load(const QDomElement & e)
     kDebug(5001) << "TransferGroup::load";
 
     m_name = e.attribute("Name");
-    m_defaultFolder = e.attribute("Default_folder");
-    m_dlLimit = e.attribute("Download_Limit").toInt();
-    m_ulLimit = e.attribute("Upload_Limit").toInt();
+    m_defaultFolder = e.attribute("DefaultFolder");
+    m_dlLimit = e.attribute("DownloadLimit").toInt();
+    m_ulLimit = e.attribute("UploadLimit").toInt();
     if (!e.attribute("Icon").isEmpty())
         m_iconName = e.attribute("Icon");
 

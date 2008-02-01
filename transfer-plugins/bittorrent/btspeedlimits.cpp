@@ -25,8 +25,8 @@ BTSpeedLimits::BTSpeedLimits(BTTransferHandler * handler, QWidget * parent)
     m_dlBox = ui.dlBox;
     m_ulBox = ui.ulBox;
     m_shareRatioSpin = ui.shareRatioSpin;
-    m_dlBox->setValue(m_handler->dlLimit());
-    m_ulBox->setValue(m_handler->ulLimit());
+    m_dlBox->setValue(m_handler->visibleDownloadLimit());
+    m_ulBox->setValue(m_handler->visibleUploadLimit());
     m_shareRatioSpin->setValue((double) m_handler->maxShareRatio());
 
     connect(this, SIGNAL(accepted()), SLOT(setSpeedLimitsAndClose()));
@@ -35,7 +35,8 @@ BTSpeedLimits::BTSpeedLimits(BTTransferHandler * handler, QWidget * parent)
 
 void BTSpeedLimits::setSpeedLimitsAndClose()
 {
-    m_handler->setTrafficLimits(m_ulBox->value(), m_dlBox->value());
+    m_handler->setVisibleUploadLimit(m_ulBox->value());
+    m_handler->setVisibleDownloadLimit(m_dlBox->value());
     m_handler->setMaxShareRatio(m_shareRatioSpin->value());
     emit aboutToClose();
 }

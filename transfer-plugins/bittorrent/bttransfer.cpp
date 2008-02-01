@@ -44,8 +44,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
   : Transfer(parent, factory, scheduler, src, dest, e),
     torrent(0),
     m_tmp(0),
-    m_dlLimit(BittorrentSettings::downloadLimit()),
-    m_ulLimit(BittorrentSettings::uploadLimit()),
     m_ratio(BittorrentSettings::maxShareRatio()),
     m_ready(false),
     m_downloadFinished(false)
@@ -140,7 +138,7 @@ void BTTransfer::postDeleteEvent()
     torrentFile->remove();
 }
 
-void BTTransfer::load(const QDomElement &e)
+/**void BTTransfer::load(const QDomElement &e)
 {
     kDebug(5001);
     m_source = KUrl(e.attribute("Source"));
@@ -153,9 +151,6 @@ void BTTransfer::load(const QDomElement &e)
         m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
     else
         m_percent = 0;
-
-    m_ulLimit = e.attribute("Upload-Limit").toInt();
-    m_dlLimit = e.attribute("Download-Limit").toInt();
 
     if((m_totalSize == m_processedSize) && (m_totalSize != 0))
     {
@@ -175,10 +170,7 @@ void BTTransfer::save(const QDomElement &element)
     QDomElement e = element;
 
     Transfer::save(e);
-
-    e.setAttribute("Upload-Limit", ulLimit());
-    e.setAttribute("Download-Limit", dlLimit());
-}
+}**/
 
 /**Public functions of BTTransfer**/
 
@@ -188,7 +180,17 @@ void BTTransfer::setPort(int port)
     bt::Globals::instance().getServer().changePort(port);
 }
 
-void BTTransfer::setTrafficLimits(int ulLimit, int dlLimit)
+void BTTransfer::setDownloadLimit(int dlLimit)
+{
+    setSpeedLimits(m_ulLimit, dlLimit);
+}
+
+void BTTransfer::setUploadLimit(int ulLimit)
+{
+    setSpeedLimits(ulLimit, m_dlLimit);
+}
+
+void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
 {
     kDebug(5001);
     if (!torrent)
@@ -232,8 +234,8 @@ void BTTransfer::startTorrent()
 {
     if (m_ready)
     {
-        kDebug(5001) << "Going to download that stuff :-0";
-        setTrafficLimits(m_ulLimit, m_dlLimit);//Set traffic-limits before starting
+        //kDebug(5001) << "Going to download that stuff :-0";
+        setSpeedLimits(visibleUploadLimit(), visibleDownloadLimit());//Set traffic-limits before starting
         kDebug(5001) << "Here we are";
         torrent->start();
         kDebug(5001) << "Got started??";
@@ -330,7 +332,6 @@ void BTTransfer::init(const KUrl &src)
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
         setMaxShareRatio(m_ratio);
-        setTrafficLimits(m_ulLimit, m_dlLimit);
 
         connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
         connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
@@ -498,22 +499,6 @@ int BTTransfer::remainingTime() const
         return -1;
 
     return torrent->getETA();
-}
-
-int BTTransfer::ulLimit() const
-{
-    if (!torrent)
-        return -1;
-    else
-        return m_ulLimit;
-}
-
-int BTTransfer::dlLimit() const
-{
-    if (!torrent)
-        return -1;
-    else
-        return m_dlLimit;
 }
 
 bt::TorrentControl * BTTransfer::torrentControl()
