@@ -16,6 +16,7 @@
 #include "core/transfergrouphandler.h"
 
 #include <KMessageBox>
+#include <KIconDialog>
 
 #include <QTreeView>
 #include <QHBoxLayout>
@@ -152,6 +153,25 @@ void TransfersGroupTree::deleteSelectedGroup()
     }
 }
 
+void TransfersGroupTree::changeIcon()
+{
+    dialog = new KIconDialog(this);
+    QString iconName = dialog->getIcon();
+    QItemSelectionModel *selModel = selectionModel();
+
+    QModelIndexList indexList = selModel->selectedRows();
+
+    if (!iconName.isEmpty())
+    {
+        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups())
+        {
+            group->setIconName(iconName);
+        }
+    }
+    emit dataChanged(indexList.first(),indexList.last());
+    dialog = 0;
+}
+
 
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
     : QVBoxLayout()
@@ -166,11 +186,14 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     renameButton = new QPushButton(i18n("Rename"));
     renameButton->setIcon(KIcon("edit-rename"));
     renameButton->setEnabled(false);
+    iconButton = new QPushButton(i18n("Select Icon"));
+    iconButton->setIcon(KIcon("edit-rename"));//FIXME
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
     buttonsLayout->addWidget(addButton);
     buttonsLayout->addWidget(renameButton);
     buttonsLayout->addWidget(deleteButton);
+    buttonsLayout->addWidget(iconButton);
 
     addWidget(m_view);
     addLayout(buttonsLayout);
@@ -178,6 +201,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     connect(addButton, SIGNAL(clicked()), m_view, SLOT(addGroup()));
     connect(deleteButton, SIGNAL(clicked()), m_view, SLOT(deleteSelectedGroup()));
     connect(renameButton, SIGNAL(clicked()), m_view, SLOT(openEditMode()));
+    connect(iconButton, SIGNAL(clicked()), m_view, SLOT(changeIcon()));
     connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
                 this, SLOT(slotSelectionChanged(const QItemSelection &, const QItemSelection &)));
 }

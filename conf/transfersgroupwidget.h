@@ -21,6 +21,7 @@
 
 class QPushButton;
 class QItemSelection;
+class KIconDialog;
 
 class GroupEditor : public KLineEdit
 {
@@ -58,8 +59,12 @@ public slots:
     void editCurrent();
     void addGroup();
     void deleteSelectedGroup();
+    void changeIcon();
     void openEditMode();
     void commitData(QWidget *editor);
+
+private:
+    KIconDialog *dialog;
 };
 
 class TransfersGroupWidget : public QVBoxLayout
@@ -77,6 +82,7 @@ private:
     QPushButton *addButton;
     QPushButton *deleteButton;
     QPushButton *renameButton;
+    QPushButton *iconButton;
 };
 
 #endif
