@@ -421,7 +421,7 @@ void MainWindow::slotRenameGroup()
 
 void MainWindow::slotSetIconGroup()
 {
-    KIconDialog dialog;
+    KIconDialog dialog(this);
     QString iconName = dialog.getIcon();
     TransferTreeSelectionModel *selModel = KGet::selectionModel();
 

@@ -155,7 +155,7 @@ void TransfersGroupTree::deleteSelectedGroup()
 
 void TransfersGroupTree::changeIcon()
 {
-    KIconDialog dialog;
+    KIconDialog dialog(this);
     QString iconName = dialog.getIcon();
     QItemSelectionModel *selModel = selectionModel();
 
