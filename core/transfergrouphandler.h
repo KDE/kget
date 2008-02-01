@@ -135,30 +135,6 @@ class KGET_EXPORT TransferGroupHandler
         /**
          * Set a Download-Limit for the group
          * @param limit the new download-limit
-         * @note if limit is 0, no download-limit is set
-         */
-         void setDownloadLimit(int limit) {m_group->setDownloadLimit(limit);}
-
-        /**
-         * @return the group's Download-Limit
-         */
-         int downloadLimit() {return m_group->downloadLimit();}
-
-        /**
-         * Set a Upload-Limit for the group
-         * @param limit the new upload-limit
-         * @note this will not be displayed in the GUI
-         */
-         void setUploadLimit(int limit) {m_group->setUploadLimit(limit);}
-
-        /**
-         * @return the group's Upload-Limit
-         */
-         int uploadLimit() {return m_group->uploadLimit();}
-
-        /**
-         * Set a Download-Limit for the group
-         * @param limit the new download-limit
          * @note this will be displayed in the GUI
          */
          void setVisibleDownloadLimit(int limit) {m_group->setVisibleDownloadLimit(limit);}
@@ -179,6 +155,30 @@ class KGET_EXPORT TransferGroupHandler
          * @return the group's Upload-Limit
          */
          int visibleUploadLimit() {return m_group->visibleUploadLimit();}
+
+        /**
+         * Set a Download-Limit for the group
+         * @param limit the new download-limit
+         * @note if limit is 0, no download-limit is set
+         */
+         void setDownloadLimit(int limit) {m_group->setDownloadLimit(limit);}
+
+        /**
+         * @return the group's Download-Limit
+         */
+         int downloadLimit() {return m_group->downloadLimit();}
+
+        /**
+         * Set a Upload-Limit for the group
+         * @param limit the new upload-limit
+         * @note this will not be displayed in the GUI
+         */
+         void setUploadLimit(int limit) {m_group->setUploadLimit(limit);}
+
+        /**
+         * @return the group's Upload-Limit
+         */
+         int uploadLimit() {return m_group->uploadLimit();}
 
         /**
          * Set the group's icon

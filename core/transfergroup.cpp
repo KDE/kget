@@ -203,6 +203,30 @@ TransferGroupHandler * TransferGroup::handler() const
     return m_handler;
 }
 
+void TransferGroup::setVisibleUploadLimit(int limit) 
+{
+    m_visibleUlLimit = limit;
+    setUploadLimit(m_visibleUlLimit);
+}
+
+void TransferGroup::setVisibleDownloadLimit(int limit) 
+{
+    m_visibleDlLimit = limit;
+    setDownloadLimit(m_visibleDlLimit);
+}
+
+void TransferGroup::setDownloadLimit(int limit) 
+{
+    m_dlLimit = limit;
+    calculateDownloadLimit();
+}
+
+void TransferGroup::setUploadLimit(int limit) 
+{
+    m_ulLimit = limit;
+    calculateUploadLimit();
+}
+
 void TransferGroup::calculateSpeedLimits()
 {
     kDebug(5001) << "*************************** HERE WE ARE";
@@ -220,7 +244,12 @@ void TransferGroup::calculateDownloadLimit()
         {
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
-                transfer->setDownloadLimit(downloadLimit() / n);
+            {
+                if (visibleDownloadLimit() < downloadLimit())
+                    transfer->setDownloadLimit(visibleDownloadLimit() / n);
+                else
+                    transfer->setDownloadLimit(downloadLimit() / n);
+            }
         }
     }
 }
@@ -235,7 +264,12 @@ void TransferGroup::calculateUploadLimit()
         {
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
-                transfer->setUploadLimit(uploadLimit() / n);
+            {
+                if (visibleUploadLimit() < uploadLimit())
+                    transfer->setUploadLimit(visibleUploadLimit() / n);
+                else
+                    transfer->setUploadLimit(uploadLimit() / n);
+            }
         }
     }
 }

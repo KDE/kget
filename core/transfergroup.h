@@ -184,7 +184,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param limit the new upload-limit
          * @note use this instead of setUploadLimit(int) for manually change the dlLimit (from the GUI f.e.)
          */
-         void setVisibleUploadLimit(int limit) {m_visibleUlLimit = limit;/*TODO:Call setUploadLimit here*/}
+         void setVisibleUploadLimit(int limit);
 
         /**
          * @return the group's visible Upload-Limit
@@ -196,7 +196,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param limit the new download-limit
          * @note use this instead of setDownloadLimit(int); for manually change the dlLimit (from the GUI f.e.)
          */
-         void setVisibleDownloadLimit(int limit) {m_visibleDlLimit = limit;/*TODO: Call setDownloadLimit here*/}
+         void setVisibleDownloadLimit(int limit);
 
         /**
          * @return the group's visible DownloadLimit
@@ -208,7 +208,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param limit the new download-limit
          * @note if limit is 0, no download-limit is set
          */
-         void setDownloadLimit(int limit) {m_dlLimit = limit;/*TODO: The implementation ;)*/}
+         void setDownloadLimit(int limit);
 
         /**
          * @return the group's Download-Limit
@@ -220,7 +220,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param limit the new upload-limit
          * @note if limit is 0, no upload-limit is set
          */
-         void setUploadLimit(int limit) {m_ulLimit = limit;/*TODO: The implementation ;)*/}
+         void setUploadLimit(int limit);
 
         /**
          * @return the group's Upload-Limit

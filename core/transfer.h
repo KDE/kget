@@ -7,7 +7,6 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-//TODO: Do the same for groups (visible and invisible SpeedLimits)
 
 #ifndef TRANSFER_H
 #define TRANSFER_H
