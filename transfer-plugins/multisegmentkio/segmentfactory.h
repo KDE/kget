@@ -156,6 +156,7 @@
 
     public:
         SegmentFactory( uint n, const QList<KUrl> Urls );
+        SegmentFactory();
         ~SegmentFactory();
         bool startTransfer ();
         bool stopTransfer ();

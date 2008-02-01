@@ -16,7 +16,7 @@
 #include <kde_file.h>
 
 #include <QFile>
-#include <qtimer.h>
+#include <QTimer>
 
 #include <sys/time.h>
 #include <fcntl.h>

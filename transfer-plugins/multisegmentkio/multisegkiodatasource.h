@@ -15,6 +15,8 @@
 
 #include <kio/job.h>
 
+class SegmentFactory;
+
 class MultiSegKioDataSource : public TransferDataSource
 {
     public:
@@ -23,6 +25,9 @@ class MultiSegKioDataSource : public TransferDataSource
         void start();
 	void stop();
         void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes);
+
+    private:
+        SegmentFactory * m_SegFactory;
 };
 
 #endif

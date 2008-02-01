@@ -173,6 +173,11 @@ SegmentFactory::SegmentFactory(uint n, const QList<KUrl> Urls)
     it_Urls = m_Urls.begin();
 }
 
+SegmentFactory::SegmentFactory()
+{
+    kDebug(5001);
+}
+
 SegmentFactory::~SegmentFactory()
 {
     kDebug(5001);

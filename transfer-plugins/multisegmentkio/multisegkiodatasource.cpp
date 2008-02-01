@@ -9,29 +9,34 @@
 */
  
 #include "multisegkiodatasource.h"
+#include "segmentfactory.h"
+
 #include <kdebug.h>
 
 MultiSegKioDataSource::MultiSegKioDataSource()
-:TransferDataSource(0)
+:TransferDataSource(0) , m_SegFactory(new SegmentFactory)
 {
-   kDebug(5001);
+    kDebug(5001);
 }
 
 void MultiSegKioDataSource::start()
 {
-   kDebug(5001);
+    kDebug(5001);
 }
 
 void MultiSegKioDataSource::stop()
 {
-   kDebug(5001);
+    kDebug(5001);
 }
 
 void MultiSegKioDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes)
 {
-   Q_UNUSED(srcUrl);
-   Q_UNUSED(offset);
-   Q_UNUSED(bytes);
-   kDebug(5001);
+    kDebug(5001);
+    SegData data;
+    data.offset = offset;
+    data.bytes = bytes;
+    Segment *seg = m_SegFactory->createSegment(data, srcUrl );
+    connect( seg, SIGNAL(data( Segment*, const QByteArray&, bool &)),
+                 SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
 }
 
