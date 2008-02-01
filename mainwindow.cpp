@@ -18,6 +18,7 @@
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "core/transfertreeselectionmodel.h"
 #include "dbus/dbusmodelobserver.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
@@ -44,6 +45,7 @@
 #include <kicon.h>
 #include <kactionmenu.h>
 #include <krun.h>
+#include <kicondialog.h>
 
 #include <QClipboard>
 #include <QTimer>
@@ -133,6 +135,11 @@ void MainWindow::setupActions()
     renameGroupAction->setText(i18n("Rename Group"));
     renameGroupAction->setIcon(KIcon("edit-rename"));
     connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
+
+    QAction *setIconGroupAction = actionCollection()->addAction("seticon_groups");
+    setIconGroupAction->setText(i18n("Set Icon"));
+    setIconGroupAction->setIcon(KIcon("preferences-desktop-icons"));
+    connect(setIconGroupAction, SIGNAL(triggered()), SLOT(slotSetIconGroup()));
 
     m_autoPasteAction = new KToggleAction(KIcon("edit-paste"),
                                           i18n("Auto-Paste Mode"), actionCollection());
@@ -410,6 +417,24 @@ void MainWindow::slotRenameGroup()
         if(ok)
             it->setName(groupName);
     }
+}
+
+void MainWindow::slotSetIconGroup()
+{
+    KIconDialog dialog;
+    QString iconName = dialog.getIcon();
+    TransferTreeSelectionModel *selModel = KGet::selectionModel();
+
+    QModelIndexList indexList = selModel->selectedRows();
+
+    if (!iconName.isEmpty())
+    {
+        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups())
+        {
+            group->setIconName(iconName);
+        }
+    }
+    //emit dataChanged(indexList.first(),indexList.last());
 }
 
 void MainWindow::slotStartDownload()

@@ -155,8 +155,8 @@ void TransfersGroupTree::deleteSelectedGroup()
 
 void TransfersGroupTree::changeIcon()
 {
-    dialog = new KIconDialog(this);
-    QString iconName = dialog->getIcon();
+    KIconDialog dialog;
+    QString iconName = dialog.getIcon();
     QItemSelectionModel *selModel = selectionModel();
 
     QModelIndexList indexList = selModel->selectedRows();
@@ -169,7 +169,6 @@ void TransfersGroupTree::changeIcon()
         }
     }
     emit dataChanged(indexList.first(),indexList.last());
-    dialog = 0;
 }
 
 
@@ -187,7 +186,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     renameButton->setIcon(KIcon("edit-rename"));
     renameButton->setEnabled(false);
     iconButton = new QPushButton(i18n("Select Icon"));
-    iconButton->setIcon(KIcon("edit-rename"));//FIXME
+    iconButton->setIcon(KIcon("preferences-desktop-icons"));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
     buttonsLayout->addWidget(addButton);

@@ -71,6 +71,7 @@ private slots:
     void slotPreferences();
     void slotDeleteGroup();
     void slotRenameGroup();
+    void slotSetIconGroup();
     void slotStartDownload();
     void slotStopDownload();
     void slotConfigureNotifications();

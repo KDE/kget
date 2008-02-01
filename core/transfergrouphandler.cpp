@@ -188,11 +188,12 @@ KMenu * TransferGroupHandler::popupMenu()
     popup->addAction( KGet::actionCollection()->action("transfer_group_stop") );
     popup->addSeparator();
     popup->addAction(KGet::actionCollection()->action("transfer_group_settings"));
+    popup->addSeparator();
     if(m_group->name() != i18n("My Downloads")) {
-        popup->addSeparator();
         popup->addAction( KGet::actionCollection()->action("delete_groups") );
         popup->addAction( KGet::actionCollection()->action("rename_groups") );
     }
+    popup->addAction( KGet::actionCollection()->action("seticon_groups") );
     return popup;
 }
 

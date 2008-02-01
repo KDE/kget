@@ -62,9 +62,6 @@ public slots:
     void changeIcon();
     void openEditMode();
     void commitData(QWidget *editor);
-
-private:
-    KIconDialog *dialog;
 };
 
 class TransfersGroupWidget : public QVBoxLayout
