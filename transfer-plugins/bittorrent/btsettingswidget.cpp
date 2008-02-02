@@ -17,6 +17,8 @@ BTSettingsWidget::BTSettingsWidget(KDialog * parent)
     m_parent(parent)
 {
     setupUi(this);
+    torrentEdit->setMode(KFile::Directory);
+    tempEdit->setMode(KFile::Directory);
 
     setDefault();
 
