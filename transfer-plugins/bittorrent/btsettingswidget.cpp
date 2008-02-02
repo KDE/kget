@@ -11,6 +11,7 @@
 #include "bittorrentsettings.h"
 
 #include <kdebug.h>
+#include <kfiledialog.h>
 
 BTSettingsWidget::BTSettingsWidget(KDialog * parent)
   : QWidget(parent),
@@ -18,7 +19,9 @@ BTSettingsWidget::BTSettingsWidget(KDialog * parent)
 {
     setupUi(this);
     torrentEdit->setMode(KFile::Directory);
+    torrentEdit->fileDialog()->setCaption(i18n("Select a default Torrent-Folder"));
     tempEdit->setMode(KFile::Directory);
+    tempEdit->fileDialog()->setCaption(i18n("Select a default Temporary-Folder"));
 
     setDefault();
 

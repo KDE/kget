@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Bittorrent-Settings</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -131,6 +131,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="filter" >
+         <string/>
         </property>
        </widget>
       </item>
