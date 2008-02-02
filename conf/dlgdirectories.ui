@@ -160,7 +160,7 @@
       <item>
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>Use a regexp expression for the extension. 
+         <string>Use a regular expression for the extension. 
 Example: *.tar.gz</string>
         </property>
         <property name="textFormat" >
