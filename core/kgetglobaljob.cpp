@@ -66,7 +66,10 @@ qulonglong KGetGlobalJob::totalAmount(Unit unit) const
 
 unsigned long KGetGlobalJob::percent() const
 {
-    return 100 * processedAmount(KJob::Bytes) / totalAmount(KJob::Bytes);
+    if (totalAmount(KJob::Bytes) > 0) 
+        return 100 * processedAmount(KJob::Bytes) / totalAmount(KJob::Bytes);
+    else
+        return 0;
 }
 
 void KGetGlobalJob::update()

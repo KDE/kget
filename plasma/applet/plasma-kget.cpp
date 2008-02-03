@@ -62,11 +62,9 @@ void PlasmaKGet::init()
     m_layout = new Plasma::VBoxLayout(this);
 
     if(formFactor() == Plasma::Vertical || formFactor() == Plasma::Horizontal) {
-        setMinimumContentSize(QSize(20, 15));
-        setMaximumContentSize(QSize(80, 40));
+        setMaximumSize(QSize(80, 80));
         m_layout->setSpacing(0);
         m_layout->setMargin(0);
-        m_layout->setMargin(Plasma::Layout::TopMargin, 5);
     }
     else {
         m_layout->setMargin(Plasma::Layout::TopMargin, 40);
@@ -149,18 +147,15 @@ void PlasmaKGet::configAccepted()
 void PlasmaKGet::loadTransferGraph(uint type)
 {
     QSizeF size = contentSize();
-    kDebug() << "FORM FACTOR " << formFactor();
     kDebug() << Plasma::Horizontal;
 
     if(formFactor() == Plasma::Horizontal || formFactor() == Plasma::Vertical) {
         type = PlasmaKGet::PanelGraphType;
-        kDebug() << "Chaging the type to " << type;
     }
 
     if(type != m_graphType) {
 
         delete m_transferGraph;
-        kDebug() << "About to create the applet with the type : " << type;
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :

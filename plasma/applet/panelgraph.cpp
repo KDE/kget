@@ -29,7 +29,7 @@ PanelGraph::PanelGraph(Plasma::Applet *parent)
     m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
     if (m_layout) {
         m_bar = new Plasma::ProgressBar(m_applet);
-        m_bar->setMinimumSize(QSizeF(80, 40));
+        m_bar->resize(m_applet->contentSize());
         m_bar->setValue(0);
 
         m_layout->addItem(m_bar);
@@ -43,8 +43,8 @@ PanelGraph::~PanelGraph()
 
 void PanelGraph::setTransfers(const QVariantMap &transfers)
 {
-    int totalSize = 0;
-    int completedSize = 0;
+    double totalSize = 0;
+    double completedSize = 0;
 
     TransferGraph::setTransfers(transfers);
 
@@ -53,12 +53,15 @@ void PanelGraph::setTransfers(const QVariantMap &transfers)
 
         // only show the percent of the active transfers
         if(attributes.at(3).toUInt() == 1) {
-            totalSize += attributes.at(2).toInt();
-            completedSize += (attributes.at(1).toInt() * attributes.at(2).toInt()) / 100.0;
+            totalSize += attributes.at(2).toDouble();
+            completedSize += ((attributes.at(1).toDouble() * attributes.at(2).toDouble()) / 100);
         }
     }
 
     if(totalSize > 0) {
         m_bar->setValue((int) ((completedSize * 100) / totalSize));
+    }
+    else {
+         m_bar->setValue(0);
     }
 }
