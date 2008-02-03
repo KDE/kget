@@ -63,10 +63,14 @@ void KUiServerJobs::reload()
 
     if(Settings::exportGlobalJob()) {
         KIO::getJobTracker()->registerJob(globalJob());
+
+        foreach(KJob *job, m_jobs) {
+            KIO::getJobTracker()->unregisterJob(job);
+        }
     }
     else {
         foreach(KJob *job, m_jobs) {
-            if(Settings::enableKUIServerIntegration()) {
+            if(Settings::enableKUIServerIntegration() && job && job->percent() < 100) {
                 KIO::getJobTracker()->registerJob(job);
             }
             else {
@@ -81,7 +85,10 @@ KGetGlobalJob *KUiServerJobs::globalJob()
 {
     if(!m_globalJob) {
         m_globalJob = new KGetGlobalJob();
-        KIO::getJobTracker()->registerJob(m_globalJob);
+
+        foreach(KJob *job, m_jobs) {
+            m_globalJob->registerJob(job);
+        }
     }
 
     return m_globalJob;

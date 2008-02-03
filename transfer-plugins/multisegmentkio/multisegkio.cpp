@@ -98,6 +98,7 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
     setProcessedAmount(Bytes, ProcessedSize);
     setTotalAmount(Bytes, totalSize);
     QTimer::singleShot(0, this, SLOT(slotStart()));
+    KGet::registerKJob(this);
 }
 
 MultiSegmentCopyJob::~MultiSegmentCopyJob()
@@ -140,6 +141,10 @@ void MultiSegmentCopyJob::slotStart()
     connect(m_putJob, SIGNAL(close(KIO::Job *)), SLOT(slotClose(KIO::Job *)));
     connect( m_putJob, SIGNAL(written(KIO::Job * ,KIO::filesize_t )), SLOT(slotWritten( KIO::Job * ,KIO::filesize_t )));
     connect( m_putJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
+
+    emit description(this, "multiSegmentCopyJob", 
+                    qMakePair(QString("source"), SegFactory->Urls().at(0).url()),
+                    qMakePair(QString("destination"), m_dest.url()));
 }
 
 void MultiSegmentCopyJob::slotOpen( KIO::Job * job)

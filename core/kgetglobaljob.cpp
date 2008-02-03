@@ -27,10 +27,12 @@ KGetGlobalJob::~KGetGlobalJob()
 
 void KGetGlobalJob::registerJob(KJob *job)
 {
-    if(m_jobs.size() <= 0) {
-        m_timer->start(DEFAULT_UPDATE_TIME);
+    if(!m_jobs.contains(job)) {
+        if(m_jobs.size() <= 0) {
+            m_timer->start(DEFAULT_UPDATE_TIME);
+        }
+        m_jobs.append(job);
     }
-    m_jobs.append(job);
 }
 
 void KGetGlobalJob::unregisterJob(KJob *job)

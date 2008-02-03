@@ -318,6 +318,9 @@ void MainWindow::slotDelayedInit()
     connect(clipboardTimer, SIGNAL(timeout()), SLOT(slotCheckClipboard()));
     if ( Settings::autoPaste() )
         clipboardTimer->start(1000);
+
+    // kget kuiserver integration
+    KGet::reloadKJobs();
 }
 
 void MainWindow::slotToggleDropTarget()

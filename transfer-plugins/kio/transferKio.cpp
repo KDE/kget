@@ -10,6 +10,8 @@
 
 #include "transferKio.h"
 
+#include "core/kget.h"
+
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -35,6 +37,7 @@ void TransferKio::start()
     kDebug(5001) << "TransferKio::start";
     setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
+    KGet::registerKJob(m_copyjob);
 }
 
 void TransferKio::stop()
