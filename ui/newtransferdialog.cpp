@@ -101,7 +101,7 @@ void NewTransferDialog::setSource(const QString &srcUrl)
     if (m_srcUrl.isValid())
         urlRequester->insert(m_srcUrl.url());
 
-    connect(urlRequester, SIGNAL(textChanged(const QString &)), SLOT(setDestination()));
+    connect(urlRequester, SIGNAL(textChanged(const QString &)), SLOT(setDefaultDestination()));
 }
 
 void NewTransferDialog::setSource(const KUrl::List &list)
