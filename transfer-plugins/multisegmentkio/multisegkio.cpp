@@ -121,6 +121,7 @@ void MultiSegmentCopyJob::stop()
         SegFactory->stopTransfer();
     if (m_putJob)
         m_putJob->close();
+    KGet::unregisterKJob(this);
 }
 
 void MultiSegmentCopyJob::slotUrls(QList<KUrl>& Urls)
