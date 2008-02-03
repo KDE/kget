@@ -21,10 +21,15 @@
 #include "panelgraph.h"
 
 #include <plasma/widgets/progressbar.h>
+#include <plasma/widgets/widget.h>
 #include <plasma/layouts/boxlayout.h>
 
+#include <KIcon>
+#include <KIconLoader>
+
 PanelGraph::PanelGraph(Plasma::Applet *parent)
-    : TransferGraph(parent)
+    : TransferGraph(parent),
+    m_tooltip()
 {
     m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
     if (m_layout) {
@@ -34,6 +39,10 @@ PanelGraph::PanelGraph(Plasma::Applet *parent)
 
         m_layout->addItem(m_bar);
     }
+
+    // create the tooltip of the panel graph
+    m_tooltip.mainText = "KGet active transfers";
+    m_tooltip.image = KIcon("kget").pixmap(IconSize(KIconLoader::Desktop));
 }
 
 PanelGraph::~PanelGraph()
@@ -45,6 +54,7 @@ void PanelGraph::setTransfers(const QVariantMap &transfers)
 {
     double totalSize = 0;
     double completedSize = 0;
+    QString tooltipTransfers;
 
     TransferGraph::setTransfers(transfers);
 
@@ -55,6 +65,11 @@ void PanelGraph::setTransfers(const QVariantMap &transfers)
         if(attributes.at(3).toUInt() == 1) {
             totalSize += attributes.at(2).toDouble();
             completedSize += ((attributes.at(1).toDouble() * attributes.at(2).toDouble()) / 100);
+
+            tooltipTransfers += "<font size='small'>" + attributes.at(0).toString() + "</font> ";
+            tooltipTransfers += "<font color='green'>" + attributes.at(1).toString() + "% </font> ";
+            tooltipTransfers += "<font color='red'>" + KGlobal::locale()->formatByteSize( attributes.at(2).toDouble()) + "</font>";
+            tooltipTransfers += "<br/>";
         }
     }
 
@@ -64,4 +79,8 @@ void PanelGraph::setTransfers(const QVariantMap &transfers)
     else {
          m_bar->setValue(0);
     }
+
+    // set the tooltip for the applet with the active transfers
+    m_tooltip.subText = tooltipTransfers;
+    m_applet->setToolTip(m_tooltip);
 }

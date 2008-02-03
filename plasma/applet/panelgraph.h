@@ -27,6 +27,7 @@ namespace Plasma {
     class BoxLayout;
     class Applet;
     class ProgressBar;
+    struct ToolTipData;
 }
 
 class PanelGraph : public TransferGraph
@@ -39,6 +40,7 @@ public:
     void setTransfers(const QVariantMap &transfers);
 
 private:
+    Plasma::ToolTipData m_tooltip;
     Plasma::ProgressBar *m_bar;
     Plasma::BoxLayout *m_layout;
 };
