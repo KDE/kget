@@ -14,9 +14,10 @@
 
 #include "core/kget.h"
 #include "core/transfergrouphandler.h"
+#include "core/transfertreeselectionmodel.h"
 
 #include <KMessageBox>
-#include <KIconDialog>
+#include <KIconButton>
 
 #include <QTreeView>
 #include <QHBoxLayout>
@@ -153,19 +154,18 @@ void TransfersGroupTree::deleteSelectedGroup()
     }
 }
 
-void TransfersGroupTree::changeIcon()
+void TransfersGroupTree::changeIcon(const QString &icon)
 {
-    KIconDialog dialog(this);
-    QString iconName = dialog.getIcon();
-    QItemSelectionModel *selModel = selectionModel();
+    kDebug(5001);
+    TransferTreeSelectionModel *selModel = KGet::selectionModel();
 
     QModelIndexList indexList = selModel->selectedRows();
 
-    if (!iconName.isEmpty())
+    if (!icon.isEmpty())
     {
         foreach (TransferGroupHandler *group, KGet::selectedTransferGroups())
         {
-            group->setIconName(iconName);
+            group->setIconName(icon);
         }
     }
     emit dataChanged(indexList.first(),indexList.last());
@@ -185,7 +185,10 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     renameButton = new QPushButton(i18n("Rename"));
     renameButton->setIcon(KIcon("edit-rename"));
     renameButton->setEnabled(false);
-    iconButton = new QPushButton(i18n("Select Icon"));
+    iconButton = new KIconButton(dynamic_cast<QWidget*>(this));
+    iconButton->setIconSize(32);
+    iconButton->setButtonIconSize(16);
+    iconButton->setText(i18n("Select Icon"));
     iconButton->setIcon(KIcon("preferences-desktop-icons"));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
@@ -200,7 +203,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     connect(addButton, SIGNAL(clicked()), m_view, SLOT(addGroup()));
     connect(deleteButton, SIGNAL(clicked()), m_view, SLOT(deleteSelectedGroup()));
     connect(renameButton, SIGNAL(clicked()), m_view, SLOT(openEditMode()));
-    connect(iconButton, SIGNAL(clicked()), m_view, SLOT(changeIcon()));
+    connect(iconButton, SIGNAL(iconChanged(const QString &)), m_view, SLOT(changeIcon(const QString &)));
     connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
                 this, SLOT(slotSelectionChanged(const QItemSelection &, const QItemSelection &)));
 }
