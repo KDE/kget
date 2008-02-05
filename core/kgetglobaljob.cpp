@@ -40,6 +40,7 @@ void KGetGlobalJob::unregisterJob(KJob *job)
     m_jobs.removeAll(job);
 
     if(m_jobs.size() <= 0) {
+        update();
         m_timer->stop();
     }
 }

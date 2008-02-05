@@ -105,6 +105,7 @@ MultiSegmentCopyJob::~MultiSegmentCopyJob()
 {
     kDebug(5001);
     SegFactory->deleteLater();
+    KGet::unregisterKJob(this);
     delete d;
 }
 
