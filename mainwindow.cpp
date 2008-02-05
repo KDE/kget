@@ -28,6 +28,7 @@
 #include "ui/newtransferdialog.h"
 #include "ui/transferhistory.h"
 #include "ui/groupsettingsdialog.h"
+#include "extensions/webinterface/httpserver.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -52,7 +53,10 @@
 
 MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget *parent)
     : KXmlGuiWindow( parent ),
-      m_drop(0), m_dock(0), m_startWithoutAnimation(startWithoutAnimation)
+      m_drop(0),
+      m_dock(0),
+      m_startWithoutAnimation(startWithoutAnimation),
+      m_webinterface(0)
 {
     // do not quit the app when it has been minimized to system tray and a new transfer dialog
     // gets opened and closed again.
@@ -321,6 +325,9 @@ void MainWindow::slotDelayedInit()
 
     // kget kuiserver integration
     KGet::reloadKJobs();
+
+    if (Settings::webinterfaceEnabled())
+        m_webinterface = new HttpServer(this);
 }
 
 void MainWindow::slotToggleDropTarget()
@@ -589,6 +596,13 @@ void MainWindow::slotNewConfig()
     else
         clipboardTimer->stop();
     m_autoPasteAction->setChecked(Settings::autoPaste());
+
+    if (Settings::webinterfaceEnabled() && !m_webinterface) {
+        m_webinterface = new HttpServer(this);
+    } else if (m_webinterface) {
+        delete m_webinterface;
+        m_webinterface = 0;
+    }
 
     KGet::settingsChanged();
 }

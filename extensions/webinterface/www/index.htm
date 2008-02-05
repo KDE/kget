@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Copyright 2008 Urs Wolfer <uwolfer @ kde.org>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of 
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>KGet Webinterface</title>
+<script type="text/javascript" src="mootools.js"></script>
+<script type="text/javascript">
+window.addEvent('domready', function() {
+    function refreshList() {
+        var request = new Request.JSON({url: 'data.json',
+                secure: false,
+                onComplete: function(jsonObj) {
+                        listDownloads(jsonObj.downloads);
+                }
+        }).send();
+    }
+    refreshList(); // load it at start
+
+    var listDownloads = function(downloads) {
+        var downloadsList = $('downloadsList').empty();
+        var table = new Element('table', {'id': 'downloadList'});
+        downloads.each(function(download) {
+                var tr = new Element('tr').injectInside(table);
+                var name = new Element('td').setHTML(download.name).injectInside(tr);
+                var desc = new Element('td', {'class': 'center'}).setHTML(download.status).injectAfter(name);
+                var size = new Element('td', {'class': 'center'}).setHTML(download.size).injectAfter(desc);
+                var progress = new Element('td', {'class': 'center'}).setHTML(download.progress).injectAfter(size);
+        });
+        table.inject(downloadsList);
+    }
+
+    $('loadDownloads').addEvent('click', function(e) {
+        e = new Event(e).stop();
+        refreshList();
+    });
+
+    $('newDownloadForm').addEvent('submit', function(e) {
+        new Event(e).stop();
+        var log = $('log_res').empty().addClass('ajax-loading');
+        var addRequest = new Request.HTML({url: 'add',
+                update: log,
+                onComplete: function() {
+                log.removeClass('ajax-loading');
+                $('url').value = '';
+                var slide = new Fx.Slide('newDownloadFormContainer').toggle();
+                refreshList();
+            }}).get({'url': $('url').value})
+    });
+
+    $('newDownload').addEvent('click', function(e) {
+        e = new Event(e).stop();
+        var slide = new Fx.Slide('newDownloadFormContainer').toggle();
+    });
+    var slide = new Fx.Slide('newDownloadFormContainer').hide(); // hide it at startup
+});
+</script>
+<style type="text/css">
+body {
+    font-family: sans-serif;
+}
+#newDownloadFormContainer {
+    padding: 10px;
+}
+#downloadList {
+    width: 100%;
+    font-size: 0.8em;
+}
+#downloadList .center {
+    text-align: center;
+    white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<h2>KGet Webinterface</h2>
+<p><a href="#" title="Refresh List" id="loadDownloads">Refresh List</a> | <a href="#" title="New" id="newDownload">New Download</a></p>
+
+<div id="newDownloadFormContainer">
+    <form id="newDownloadForm" action="add" method="post">
+        <div id="form_box">
+            <div>
+                <p>URL:</p>
+                <input type="text" name="url" id="url" value="" />
+            </div>
+            <!--div>
+                <p>Group:</p>
+                <select name="new">
+                    <option value="yes" selected="selected">yes</option>
+                    <option value="no">no</option>
+                </select>
+            </div-->
+            <input type="submit" />
+        </div>
+    </form>
+    <div id="log">
+        <div id="log_res"></div>
+    </div>
+</div>
+
+<h3>Downloads</h3>
+<div id="downloadsList"></div>
+
+</body>
+</html>

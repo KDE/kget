@@ -22,6 +22,7 @@
 class ViewsContainer;
 class DropTarget;
 class DBusModelObserver;
+class HttpServer;
 
 /**
  * The main window of KGet.
@@ -127,6 +128,8 @@ private:
     QTimer *clipboardTimer;
 
     bool m_startWithoutAnimation;
+
+    HttpServer *m_webinterface;
 };
 
 #endif

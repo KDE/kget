@@ -27,11 +27,6 @@ class PreferencesDialog : public KConfigDialog
         void disableButtonApply();
 
     private:
-        QWidget * appearance;
-        QWidget * groups;
-        QWidget * network;
-        QWidget * directories;
-        QWidget * advanced;
         KTabWidget * plugins;
 };
 

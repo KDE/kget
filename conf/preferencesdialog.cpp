@@ -12,6 +12,7 @@
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
 #include "dlgdirectories.h"
+#include "dlgwebinterface.h"
 #include "ui_dlgadvanced.h"
 #include "transfersgroupwidget.h"
 
@@ -21,11 +22,12 @@
 PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
     : KConfigDialog(parent, "preferences", skeleton)
 {
-    appearance = new QWidget(this);
-    groups = new QWidget(this);
+    QWidget *appearance = new QWidget(this);
+    QWidget *groups = new QWidget(this);
     DlgDirectories *directories = new DlgDirectories(this);
-    network = new QWidget(this);
-    advanced = new QWidget(this);
+    DlgWebinterface *webinterface = new DlgWebinterface(this);
+    QWidget *network = new QWidget(this);
+    QWidget *advanced = new QWidget(this);
     plugins = new KTabWidget(this);
 
     groups->setLayout(new TransfersGroupWidget());
@@ -48,6 +50,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(groups, i18n("Groups"), "bookmarks", i18n("Manage the groups"));
     addPage(directories, i18n("Folders"), "folder", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
+    addPage(webinterface, i18n("Webinterface"), "network-workgroup", i18n("Control KGet over Network or Internet"));
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(plugins, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugin Options"));
 
