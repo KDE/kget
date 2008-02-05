@@ -33,9 +33,9 @@ public:
     PieChartWidget(Widget *parent);
     ~PieChartWidget();
 
-    void addData(const QString &name, int length);
-    void addData(const QString &name, int length, int activeLength);
-    void addData(const QString &name, int length, int activeLength, bool active);
+    void addData(const QString &name, double length);
+    void addData(const QString &name, double length, double activeLength);
+    void addData(const QString &name, double length, double activeLength, bool active);
     void removeData(const QString &name);
     void clear();
     void updateView();

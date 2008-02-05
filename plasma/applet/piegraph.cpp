@@ -73,8 +73,8 @@ void PieGraph::setTransfers(const QVariantMap &transfers)
     foreach(QString name, transfers.keys()) {
         QVariantList attributes = transfers[name].toList();
 
-        m_chart->addData(name, attributes[2].toInt(),
-                        attributes[1].toInt() * attributes[2].toInt() / 100,
+        m_chart->addData(name, attributes[2].toDouble(),
+                        attributes[1].toInt() * attributes[2].toDouble() / 100,
                         attributes[3].toBool());
     }
 
