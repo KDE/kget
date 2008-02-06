@@ -67,7 +67,7 @@ void PlasmaKGet::init()
         m_layout->setMargin(0);
     }
     else {
-        m_layout->setMargin(Plasma::Layout::TopMargin, 40);
+        m_layout->setMargin(Plasma::TopMargin, 40);
         m_layout->setSpacing(10);
 
         setMinimumSize(QSize(240, 190));
