@@ -285,7 +285,7 @@ void BTTransfer::init(const KUrl &src)
     if (src != m_source && !src.isEmpty())
         m_source = src;
 
-    setStatus(Job::Running, i18n("Analizing torrent.."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
+    setStatus(Job::Running, i18n("Analyzing torrent.."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
