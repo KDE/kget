@@ -11,13 +11,13 @@
 #ifndef TRANSFER_H
 #define TRANSFER_H
 
+#include "job.h"
+#include "kget_export.h"
+
 #include <QPixmap>
 
 #include <kurl.h>
 #include <kio/global.h>
-
-#include "job.h"
-#include "kget_export.h"
 
 class QDomElement;
 
@@ -226,6 +226,5 @@ class KGET_EXPORT Transfer : public Job
         TransferHandler * m_handler;
         TransferFactory * m_factory;
 };
-
 
 #endif

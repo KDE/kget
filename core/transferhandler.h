@@ -17,6 +17,7 @@
 #include "transfer.h"
 #include "transfergroup.h"
 #include "kget_export.h"
+#include "observer.h"
 
 class KMenu;
 
@@ -268,6 +269,21 @@ class KGET_EXPORT TransferHandler
 
         QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;
+};
+
+
+class GenericTransferObserver : public TransferObserver
+{
+    public:
+        GenericTransferObserver();
+
+        void transferChangedEvent(TransferHandler * transfer);
+
+    private:
+        void checkAndFinish();
+        void checkAndUpdateSystemTray();
+
+        QString prevStatus;
 };
 
 #endif

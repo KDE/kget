@@ -52,13 +52,10 @@ class NewTransferDialog;
  * it in the group named "Not grouped" (better name?).
  **/
 
-static const QString KGET_QUIT_MESSAGE_TITLE = i18n("Quit KGet");
-static const QString KGET_QUIT_MESSAGE = i18n("KGet quits now because all downloads have been completed.");
-
 class KGET_EXPORT KGet
 {
     friend class NewTransferDialog;
-    friend class TransferFinishedObserver;
+    friend class GenericTransferObserver;
 
     public:
         static KGet& self( MainWindow * mainWindow=0 );
@@ -348,21 +345,6 @@ class KGET_EXPORT KGet
 
         //pointer to the kget uiserver jobs manager
         static KUiServerJobs *m_jobManager;
-};
-
-
-class TransferFinishedObserver : public TransferObserver
-{
-    public:
-        TransferFinishedObserver();
-
-        void transferChangedEvent(TransferHandler * transfer);
-
-    private:
-        void checkAndFinish();
-        void checkAndUpdateSystemTray();
-
-        QString prevStatus;
 };
 
 #endif

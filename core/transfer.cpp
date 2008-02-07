@@ -12,11 +12,10 @@
 
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
-#include "core/transfergroup.h"
 #include "core/scheduler.h"
 
-#include <klocale.h>
 #include <kiconloader.h>
+#include <klocale.h>
 
 #include <QDomElement>
 #include <QTime>

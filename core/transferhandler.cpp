@@ -17,9 +17,13 @@
 #include "core/transfertreemodel.h"
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
+#include "settings.h"
+#include "core/transfertreemodel.h"
+#include "mainwindow.h"
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <KPassivePopup>
 
 #include <QVariant>
 
@@ -241,3 +245,61 @@ void TransferHandler::postDeleteEvent()
     }
     kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";
 }
+
+
+GenericTransferObserver::GenericTransferObserver()
+     : TransferObserver()
+{
+}
+
+void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
+{
+    kDebug(5001);
+
+    if (transfer->status() == Job::Finished && Settings::quitAfterCompletedTransfer()) 
+    {
+        checkAndFinish();
+    }
+
+    if (prevStatus != transfer->statusText())//FIXME: HACK: better: check statusFlags if it 
+    {                                                                 //contains Tc_Status (flags & Transfer::Tc_Status <-doesn't work)
+        prevStatus = transfer->statusText();
+        KGet::checkSystemTray();
+    }
+}
+
+void GenericTransferObserver::checkAndFinish()
+{
+    bool quitFlag = true;
+    foreach(TransferGroup *transferGroup, KGet::m_transferTreeModel->transferGroups()) {
+        foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
+            if(transfer->status() != Job::Finished) {
+                quitFlag = false;
+            }
+        }
+    }
+
+    // check if there is some unfinished transfer in scheduler queues
+    if(quitFlag) {
+        KPassivePopup *message;
+        // we have to call diferent message from kpassivePopup
+        // one with parent as QWidget for the mainWindow
+        // and another with parent as QSystemTrayIcon if the parent is a systemTray
+        // so passing the QSystemTrayIcon as QWidget don't work
+        if(Settings::enableSystemTray()) 
+        {
+            message = KPassivePopup::message(5000, i18n("Quit KGet"),
+                    i18n("KGet quits now because all downloads have been completed."),
+                    KGet::m_mainWindow->systemTray());
+        }
+        else 
+        {
+            message = KPassivePopup::message(5000, i18n("Quit KGet"),
+                    i18n("KGet quits now because all downloads have been completed."),
+                    KGet::m_mainWindow);
+        }
+
+        QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
+    }
+}
+

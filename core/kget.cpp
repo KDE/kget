@@ -35,7 +35,6 @@
 #include <kiconloader.h>
 #include <kactioncollection.h>
 #include <kio/renamedialog.h>
-#include <KPassivePopup>
 #include <KSystemTrayIcon>
 
 #include <QTextStream>
@@ -655,7 +654,7 @@ bool KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
                 newTransfer->handler()->start();
 
             if (newTransfer->percent() != 100) //Don't add a finished observer if the Transfer has already been finished
-                newTransfer->handler()->addObserver(new TransferFinishedObserver());
+                newTransfer->handler()->addObserver(new GenericTransferObserver());
 
             return true;
         }
@@ -997,58 +996,3 @@ bool KGet::safeDeleteFile( const KUrl& url )
     return false;
 }
 
-TransferFinishedObserver::TransferFinishedObserver()
-     : TransferObserver()
-{
-}
-
-void TransferFinishedObserver::transferChangedEvent(TransferHandler * transfer)
-{
-    kDebug(5001);
-
-    if (transfer->status() == Job::Finished && Settings::quitAfterCompletedTransfer()) 
-    {
-        checkAndFinish();
-    }
-
-    if (prevStatus != transfer->statusText())//FIXME: HACK: better: check statusFlags if it 
-    {                                                                 //contains Tc_Status (flags & Transfer::Tc_Status <-doesn't work)
-        prevStatus = transfer->statusText();
-        KGet::checkSystemTray();
-    }
-}
-
-void TransferFinishedObserver::checkAndFinish()
-{
-    bool quitFlag = true;
-    foreach(TransferGroup *transferGroup, KGet::m_transferTreeModel->transferGroups()) {
-        foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
-            if(transfer->status() != Job::Finished) {
-                quitFlag = false;
-            }
-        }
-    }
-
-    // check if there is some unfinished transfer in scheduler queues
-    if(quitFlag) {
-        KPassivePopup *message;
-        // we have to call diferent message from kpassivePopup
-        // one with parent as QWidget for the mainWindow
-        // and another with parent as QSystemTrayIcon if the parent is a systemTray
-        // so passing the QSystemTrayIcon as QWidget don't work
-        if(Settings::enableSystemTray()) 
-        {
-            message = KPassivePopup::message(5000, KGET_QUIT_MESSAGE_TITLE,
-                    KGET_QUIT_MESSAGE,
-                    KGet::m_mainWindow->systemTray());
-        }
-        else 
-        {
-            message = KPassivePopup::message(5000, KGET_QUIT_MESSAGE_TITLE,
-                    KGET_QUIT_MESSAGE,
-                    KGet::m_mainWindow);
-        }
-
-        QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
-    }
-}
