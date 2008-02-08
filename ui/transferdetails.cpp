@@ -69,18 +69,9 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
         m_statusTextLabel->setText(m_transfer->statusText());
     }
 
-    if(transferFlags & Transfer::Tc_TotalSize)
+    if((transferFlags & Transfer::Tc_TotalSize) || (transferFlags & Transfer::Tc_ProcessedSize))
     {
-        m_completedLabel->setText(KIO::convertSize(m_transfer->processedSize())
-                                  + i18n(" of ") +
-                                  KIO::convertSize(m_transfer->totalSize()));
-    }
-
-    if(transferFlags & Transfer::Tc_ProcessedSize)
-    {
-        m_completedLabel->setText(KIO::convertSize(m_transfer->processedSize())
-                                  + i18n(" of ") +
-                                  KIO::convertSize(m_transfer->totalSize()));
+        m_completedLabel->setText(i18n("%1 of %2", KIO::convertSize(m_transfer->processedSize()), KIO::convertSize(m_transfer->totalSize())));
     }
 
     if(transferFlags & Transfer::Tc_Percent)
