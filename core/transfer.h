@@ -211,8 +211,8 @@ class KGET_EXPORT Transfer : public Job
         int           m_percent;
         int           m_speed;
 
-        int           m_dlLimit;
         int	      m_ulLimit;
+        int           m_dlLimit;
 
         bool m_isSelected;
 

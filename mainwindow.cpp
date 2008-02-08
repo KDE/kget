@@ -28,6 +28,7 @@
 #include "ui/newtransferdialog.h"
 #include "ui/transferhistory.h"
 #include "ui/groupsettingsdialog.h"
+#include "ui/transfersettingsdialog.h"
 #include "extensions/webinterface/httpserver.h"
 
 #include <kapplication.h>
@@ -263,6 +264,12 @@ void MainWindow::setupActions()
     transferGroupSettingsAction->setIcon(KIcon("preferences-system"));
     transferGroupSettingsAction->setShortcuts(KShortcut("Ctrl+G"));
     connect(transferGroupSettingsAction, SIGNAL(triggered()), SLOT(slotTransferGroupSettings()));
+
+    QAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
+    transferSettingsAction->setText(i18n("&Transfer Settings"));
+    transferSettingsAction->setIcon(KIcon("preferences-system"));
+    transferSettingsAction->setShortcuts(KShortcut("Ctrl+T"));
+    connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -686,6 +693,17 @@ void MainWindow::slotTransferGroupSettings()
     foreach(TransferGroupHandler* group, list)
     {
         GroupSettingsDialog *settings = new GroupSettingsDialog(this, group);
+        settings->exec();
+    }
+}
+
+void MainWindow::slotTransferSettings()
+{
+    kDebug(5001);
+    QList<TransferHandler*> list = KGet::selectedTransfers();
+    foreach(TransferHandler* transfer, list)
+    {
+        TransferSettingsDialog *settings = new TransferSettingsDialog(this, transfer);
         settings->exec();
     }
 }

@@ -71,6 +71,8 @@ class KGET_EXPORT TransferHandler
 
         virtual ~TransferHandler();
 
+        bool supportsSpeedLimits() {return m_transfer->supportsSpeedLimits();}
+
         /**
          * Adds an observer to this Transfer
          * Note that the observer with pointer == 0 is added by default, and
@@ -174,12 +176,12 @@ class KGET_EXPORT TransferHandler
         /**
          * @return the visible upload Limit of the transfer in KiB
          */
-        int visibleUploadLimit() const {return m_transfer->uploadLimit();}
+        int visibleUploadLimit() const {return m_transfer->visibleUploadLimit();}
 
         /**
          * @return the visible download Limit of the transfer in KiB
          */
-        int visibleDownloadLimit() const {return m_transfer->downloadLimit();}
+        int visibleDownloadLimit() const {return m_transfer->visibleDownloadLimit();}
 
         /**
          * @return a string describing the current transfer status

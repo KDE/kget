@@ -59,6 +59,8 @@ KMenu * TransferFactory::createPopupMenu(QList<TransferHandler *> transfers)
     popup->addAction( KGet::actionCollection()->action("delete_selected_download") );
     popup->addAction( KGet::actionCollection()->action("redownload_selected_download") );
     popup->addSeparator();
+    popup->addAction( KGet::actionCollection()->action("transfer_settings") );
+    popup->addSeparator();
 
     foreach(KAction * it, actionList)
     {
