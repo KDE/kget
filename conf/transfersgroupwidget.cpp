@@ -74,7 +74,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
 
     if (groupEditor->text().isEmpty())
     {
-        KMessageBox::error( this, i18n("The group name is empty"), i18n("A group can't have an empty name\nPlease select a new one") );
+        KMessageBox::error( this, i18n("The group name is empty"), i18n("A group can not have an empty name\nPlease select a new one") );
         QTimer::singleShot( 0, this, SLOT(editCurrent()) );
         return;
     }

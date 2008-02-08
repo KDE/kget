@@ -18,7 +18,6 @@
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
 #include "settings.h"
-#include "core/transfertreemodel.h"
 #include "mainwindow.h"
 
 #include <kdebug.h>

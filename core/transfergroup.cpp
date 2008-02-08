@@ -236,7 +236,7 @@ void TransferGroup::calculateSpeedLimits()
 
 void TransferGroup::calculateDownloadLimit()
 {
-    kDebug(5001);
+    kDebug(5001);//FIXME: Perhaps anyone has a better calculation/algorithm for that and calculateUploadLimit() ?
     if (supportsSpeedLimits())
     {
         int n = runningJobs().count();
