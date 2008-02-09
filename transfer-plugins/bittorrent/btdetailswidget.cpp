@@ -45,13 +45,26 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->ulRate()));
     }
 
-    seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');
-    leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + '(' + QString().setNum(m_transfer->leechesDisconnected()) + ')');
-    chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
-    chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
-    chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));
-    chunksLeftLabel->setText(QString().setNum(m_transfer->chunksLeft()));
-    progressBar->setValue(m_transfer->percent());
+//     if(transferFlags & BTTransfer::Tc_SeedsConnected)
+        seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');
+
+//     if(transferFlags & BTTransfer::Tc_LeechesConnected)
+        leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + '(' + QString().setNum(m_transfer->leechesDisconnected()) + ')');
+
+//     if(transferFlags & BTTransfer::Tc_ChunksDownloaded)
+        chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
+
+//     if(transferFlags & BTTransfer::Tc_ChunksExcluded)
+        chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
+
+//     if(transferFlags & BTTransfer::Tc_ChunksTotal)
+        chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));
+
+//     if(transferFlags & BTTransfer::Tc_ChunksLeft)
+        chunksLeftLabel->setText(QString().setNum(m_transfer->chunksLeft()));
+
+    if(transferFlags & Transfer::Tc_Percent)
+        progressBar->setValue(m_transfer->percent());
 
     m_transfer->resetChangesFlags(this);
 }

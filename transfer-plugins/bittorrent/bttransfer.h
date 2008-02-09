@@ -14,9 +14,11 @@
 #include "core/transfer.h"
 #include "torrent/torrentcontrol.h"
 
+#include <interfaces/monitorinterface.h>
+
 #include <QTimer>
 
-class BTTransfer : public QObject, public Transfer
+class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
 {
     Q_OBJECT
 
@@ -98,6 +100,14 @@ class BTTransfer : public QObject, public Transfer
         void stopTorrent();
         void updateTorrent();
         void setSpeedLimits(int ulLimit, int dlLimit);
+
+        // bt::MonitorInterface functions
+        virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);
+        virtual void downloadStarted(bt::ChunkDownloadInterface* cd);
+        virtual void peerAdded(bt::PeerInterface* peer);
+        virtual void peerRemoved(bt::PeerInterface* peer);
+        virtual void stopped();
+        virtual void destroyed();
 
         bt::TorrentControl *torrent;
         QString m_tmp;

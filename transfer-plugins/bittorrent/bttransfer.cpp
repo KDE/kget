@@ -49,6 +49,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_downloadFinished(false)
 {
     kDebug(5001);
+
     if (m_source.url().isEmpty())
         return;
 
@@ -59,6 +60,10 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 BTTransfer::~BTTransfer()
 {
     kDebug(5001);
+
+    if(torrent)
+        torrent->setMonitor(0);
+
     if (torrent)
         delete torrent;
 }
@@ -329,6 +334,7 @@ void BTTransfer::init(const KUrl &src)
 
         torrent->init(0, m_source.url().remove("file://"), m_tmp + m_source.fileName().remove(".torrent"),
                                                              m_dest.directory().remove("file://"), 0);
+        torrent->setMonitor(this);
 
         if (torrent->getStats().multi_file_torrent)
             m_dest = torrent->getStats().output_path;
@@ -336,7 +342,7 @@ void BTTransfer::init(const KUrl &src)
             m_dest = torrent->getDataDir() + torrent->getStats().torrent_name;
 
         torrent->createFiles();
-      
+
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
         setMaxShareRatio(m_ratio);
@@ -531,5 +537,43 @@ float BTTransfer::maxShareRatio() const
 {
     return m_ratio;
 }
+
+void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
+{
+    Q_UNUSED(cd)
+    //Not used yet
+}
+
+void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
+{
+    Q_UNUSED(cd)
+    //Not used yet
+}
+
+void BTTransfer::peerAdded(bt::PeerInterface* peer)
+{
+    Q_UNUSED(peer)
+    //TODO: Lukas, please review this
+    setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
+}
+
+void BTTransfer::peerRemoved(bt::PeerInterface* peer)
+{
+    Q_UNUSED(peer)
+    //TODO: Lukas, please review this
+    setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
+}
+
+void BTTransfer::stopped()
+{
+    //Not used yet
+}
+
+void BTTransfer::destroyed()
+{
+    //Not used yet
+}
+
+
 
 #include "bttransfer.moc"
