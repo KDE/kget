@@ -20,12 +20,19 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
 {
     setupUi(this);
 
+    // Update the view with the correct values
     srcEdit->setText(transfer->source().url());
     destEdit->setText(transfer->dest().url());
 
+    seederLabel->setText(i18nc("not available", "n/a"));
+    leecherLabel->setText(i18nc("not available", "n/a"));
+    chunksDownloadedLabel->setText(i18nc("not available", "n/a"));
+    chunksExcludedLabel->setText(i18nc("not available", "n/a"));
+    chunksAllLabel->setText(i18nc("not available", "n/a"));
+    chunksLeftLabel->setText(i18nc("not available", "n/a"));
+
+    progressBar->setValue(m_transfer->percent());
     transfer->addObserver(this);
-    //This updates the widget with the right values
-    transferChangedEvent(transfer);
 }
 
 BTDetailsWidget::~BTDetailsWidget()
