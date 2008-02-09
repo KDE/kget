@@ -38,7 +38,7 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     Q_UNUSED(transfer);
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    if(transferFlags && Transfer::Tc_Speed)
+    if(transferFlags & Transfer::Tc_Speed)
     {
         kDebug(5001) << m_transfer->dlRate();
         dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->dlRate()));
