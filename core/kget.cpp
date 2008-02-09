@@ -520,6 +520,11 @@ QList<TransferHandler*> KGet::allTransfers()
     return transfers;
 }
 
+TransferHandler * KGet::findTransfer(const KUrl &src)
+{
+    return KGet::m_transferTreeModel->findTransfer(src)->handler();
+}
+
 void KGet::checkSystemTray()
 {
     kDebug(5001);
@@ -585,15 +590,14 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
         QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
         list.append(Settings::lastDirectory());
 
-    foreach(QString string, list)
+    for (int i = 0; i < list.size(); i++)
     {
 #ifdef Q_OS_WIN //krazy:exclude=cpp
-        string.remove("file:///");
+        list[i] = list[i].remove("file:///");
 #else
-        string.remove("file://");
+        list[i] = list[i].remove("file://");
 #endif
     }
-
     return list;
 }
 

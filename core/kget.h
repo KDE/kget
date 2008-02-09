@@ -230,6 +230,12 @@ class KGET_EXPORT KGet
         static QList<TransferHandler*> allTransfers();
 
         /**
+         * Get the transfer with the given url
+         * @param src the url
+         */
+	static TransferHandler * findTransfer(const KUrl &src);
+
+        /**
          * Run this function for enabling the systemTray 
          * (will be automatically done, if there is download running)
          */
