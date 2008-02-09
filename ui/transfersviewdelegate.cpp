@@ -281,13 +281,6 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 {
     const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
 
-///    These lines are just for testing purposes. Uncomment them to show on the view the repaint events.
-//     static int i=0;
-//     kDebug(5001) << "paint!!! " << i++;
-// 
-//     painter->drawRect(option.rect);
-//     painter->drawText(option.rect.topLeft(), QString::number(i));
-
     if(transferTreeModel->isTransferGroup(index))
     {
         painter->save();
@@ -351,6 +344,13 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
             QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
         }
     }
+
+///    These lines are just for testing purposes. Uncomment them to show on the view the repaint events.
+//     static int i=0;
+//     kDebug(5001) << "paint!!! " << i++ << " " << index.internalPointer() << " " << index.column();
+//
+//     painter->drawRect(option.rect);
+//     painter->drawText(option.rect.topLeft(), QString::number(i));
 }
 
 void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const

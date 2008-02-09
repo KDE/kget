@@ -272,11 +272,19 @@ void BTTransfer::updateTorrent()
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
     torrent->update();
-    m_speed = dlRate();
-    m_percent = percent();
-    m_processedSize = processedSize();
 
-    setTransferChange(Tc_ProcessedSize | Tc_Speed | Tc_Percent, true);
+    ChangesFlags changesFlags = 0;
+
+    if(m_processedSize != (m_processedSize = processedSize()) )
+        changesFlags |= Tc_ProcessedSize;
+
+    if(m_speed != (m_speed = dlRate()) )
+        changesFlags |= Tc_Speed;
+
+    if(m_percent != (m_percent = percent()) )
+        changesFlags |= Tc_Percent;
+
+    setTransferChange(changesFlags, true);
 }
 
 void BTTransfer::init(const KUrl &src)
