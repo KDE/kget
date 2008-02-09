@@ -233,7 +233,7 @@ class KGET_EXPORT KGet
          * Get the transfer with the given url
          * @param src the url
          */
-	static TransferHandler * findTransfer(const KUrl &src);
+        static TransferHandler * findTransfer(const KUrl &src);
 
         /**
          * Run this function for enabling the systemTray 
@@ -315,7 +315,6 @@ class KGET_EXPORT KGet
         static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl);
 
         static TransferGroup * findGroup(const QString& groupName);
-        static Transfer * findTransfer(KUrl url);
 
         //Plugin-related functions
         static void loadPlugins();

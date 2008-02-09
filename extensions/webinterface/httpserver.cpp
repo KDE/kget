@@ -77,25 +77,48 @@ void HttpServer::handleRequest()
             if (needsToBeClosed)
                 data.append(","); // close the last line
             data.append(QString("{\"name\":\"" + transfer->source().fileName() +
+                             "\", \"src\":\"" + transfer->source().url() +
+                             "\", \"dest\":\"" + transfer->dest().url()  +
                              "\", \"status\":\"" + transfer->statusText() +
                              "\", \"size\":\"" + KIO::convertSize(transfer->totalSize()) +
                              "\", \"progress\":\"" + QString::number(transfer->percent()) + "%\"}").toUtf8());
             needsToBeClosed = true;
         }
         data.append("]}");
-    } else if (header.path().startsWith("/add")) {
+    } else if (header.path().startsWith("/do")) {
         kDebug(5001) << request;
 
-        QString args = header.path().right(header.path().length() - 5);
+        QString args = header.path().right(header.path().length() - 4);
 
         if (!args.isEmpty()) {
+            QString action;
+            QString data;
             QStringList argList = args.split('&');
-            foreach(const QString &s, argList) {
+            foreach (const QString &s, argList) {
                 QStringList map = s.split('=');
-                QString url = QUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
-                kDebug() << url;
-                KGet::addTransfer(url, QDir::homePath(), "My Downloads"); //TODO: folders and groups..
-                data.append(QString("Ok, %1 added!").arg(url).toUtf8());
+                if (map.at(0) == "action")
+                    action = map.at(1);
+                else if (map.at(0) == "data")
+                    data = KUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
+            }
+            kDebug(5001) << action << data;
+            if (action == "add") {
+                KGet::addTransfer(data, QDir::homePath(), "My Downloads"); //TODO: folders and groups..
+                data.append(QString("Ok, %1 added!").arg(data).toUtf8());
+            } else if (action == "start") {
+                TransferHandler *transfer = KGet::findTransfer(data);
+                if (transfer)
+                    transfer->start();
+            } else if (action == "stop") {
+                TransferHandler *transfer = KGet::findTransfer(data);
+                if (transfer)
+                    transfer->stop();
+            } else if (action == "remove") {
+                TransferHandler *transfer = KGet::findTransfer(data);
+                if (transfer)
+                    KGet::delTransfer(transfer);
+            } else {
+                kWarning(5001) << "not implemented action" << action << data;
             }
         }
     } else { // read it from filesystem

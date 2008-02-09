@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <script type="text/javascript" src="mootools.js"></script>
 <script type="text/javascript">
 window.addEvent('domready', function() {
+    var slide = new Fx.Slide('newDownloadFormContainer').hide(); // hide it at startup
     function refreshList() {
         var request = new Request.JSON({url: 'data.json',
                 secure: false,
@@ -33,12 +34,40 @@ window.addEvent('domready', function() {
     }
     refreshList(); // load it at start
 
+    function doAction(action, data) {
+        var log = $('log_res').empty().addClass('ajax-loading');
+        var addRequest = new Request.HTML({url: 'do',
+                update: log,
+                onComplete: function() {
+                log.removeClass('ajax-loading');
+                refreshList();
+            }}).get({'action': action, 'data': data})
+    }
+
     var listDownloads = function(downloads) {
         var downloadsList = $('downloadsList').empty();
         var table = new Element('table', {'id': 'downloadList'});
         downloads.each(function(download) {
                 var tr = new Element('tr').injectInside(table);
-                var name = new Element('td').setHTML(download.name).injectInside(tr);
+                var actions = new Element('td').injectInside(tr);
+                var start = new Element('a', {'href': '#'}).setHTML('start').injectInside(actions);
+                start.addEvent('click', function(e) {
+                    e = new Event(e).stop();
+                    doAction('start', download.src);
+                });
+                var separator = new Element('span').setHTML('&nbsp;|&nbsp;').injectAfter(start);
+                var stop = new Element('a', {'href': '#'}).setHTML('stop').injectAfter(separator);
+                stop.addEvent('click', function(e) {
+                    e = new Event(e).stop();
+                    doAction('stop', download.src);
+                });
+                separator = new Element('span').setHTML('&nbsp;|&nbsp;').injectAfter(stop);
+                var remove = new Element('a', {'href': '#'}).setHTML('remove').injectAfter(separator);
+                remove.addEvent('click', function(e) {
+                    e = new Event(e).stop();
+                    doAction('remove', download.src);
+                });
+                var name = new Element('td').setHTML(download.name).injectAfter(actions);
                 var desc = new Element('td', {'class': 'center'}).setHTML(download.status).injectAfter(name);
                 var size = new Element('td', {'class': 'center'}).setHTML(download.size).injectAfter(desc);
                 var progress = new Element('td', {'class': 'center'}).setHTML(download.progress).injectAfter(size);
@@ -53,22 +82,15 @@ window.addEvent('domready', function() {
 
     $('newDownloadForm').addEvent('submit', function(e) {
         new Event(e).stop();
-        var log = $('log_res').empty().addClass('ajax-loading');
-        var addRequest = new Request.HTML({url: 'add',
-                update: log,
-                onComplete: function() {
-                log.removeClass('ajax-loading');
-                $('url').value = '';
-                var slide = new Fx.Slide('newDownloadFormContainer').toggle();
-                refreshList();
-            }}).get({'url': $('url').value})
+        doAction('add', $('url').value);
+        $('url').value = '';
+        var slide = new Fx.Slide('newDownloadFormContainer').toggle();
     });
 
     $('newDownload').addEvent('click', function(e) {
         e = new Event(e).stop();
         var slide = new Fx.Slide('newDownloadFormContainer').toggle();
     });
-    var slide = new Fx.Slide('newDownloadFormContainer').hide(); // hide it at startup
 });
 </script>
 <style type="text/css">
