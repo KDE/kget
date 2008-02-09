@@ -186,7 +186,7 @@ bool TransferTreeModel::isTransferGroup(const QModelIndex & index) const
 void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
 {
     if(m_timerId == -1)
-        m_timerId = startTimer(200);
+        m_timerId = startTimer(500);
 
     m_changedTransfers.append(transfer);
 }
@@ -194,7 +194,7 @@ void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
 void TransferTreeModel::postDataChangedEvent(TransferGroupHandler * group)
 {
     if(m_timerId == -1)
-        m_timerId = startTimer(200);
+        m_timerId = startTimer(500);
 
     m_changedGroups.append(group);
 }
