@@ -85,7 +85,7 @@ Comment[x-test]=xxA new download has been addedxx
 Comment[zh_CN]=添加了新下载
 Comment[zh_HK]=已新增新的下載
 Comment[zh_TW]=已新增新的傳輸
-Sound=KGet_Added.ogg
+Sound=KDE-K3B-Insert-Medium.ogg
 Action=Sound
 
 [Event/started]
@@ -167,7 +167,7 @@ Comment[x-test]=xxDownloading startedxx
 Comment[zh_CN]=下载已开始
 Comment[zh_HK]=下載已開始
 Comment[zh_TW]=下載已開始
-Sound=KGet_Started.ogg
+Sound=KDE-K3B-Insert-Medium.ogg
 Action=Sound
 
 [Event/finished]
@@ -248,7 +248,7 @@ Comment[x-test]=xxDownloading finishedxx
 Comment[zh_CN]=下载已完成
 Comment[zh_HK]=下載已完成
 Comment[zh_TW]=下載已完成
-Sound=KGet_Finished.ogg
+Sound=KDE-K3B-Finish-Success.ogg
 Action=Sound
 
 [Event/finishedall]
@@ -328,5 +328,5 @@ Comment[x-test]=xxAll downloads finishedxx
 Comment[zh_CN]=所有下载都已完成
 Comment[zh_HK]=所有下載已完成
 Comment[zh_TW]=所有下載均已完成
-Sound=KGet_Finished_All.ogg
+Sound=KDE-K3B-Finish-Success.ogg
 Action=Sound
