@@ -32,20 +32,20 @@ class BTTransferHandler : public QObject, public TransferHandler
     public:
         BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler);
 
-        int chunksTotal()                               {return m_transfer->chunksTotal();}
-        int chunksDownloaded()                          {return m_transfer->chunksDownloaded();}
-        int chunksExcluded()                            {return m_transfer->chunksExcluded();}
-        int chunksLeft()                                {return m_transfer->chunksLeft();}
-        int seedsConnected()                            {return m_transfer->seedsConnected();}
-        int seedsDisconnected()                         {return m_transfer->seedsDisconnected();}
-        int leechesConnected()                          {return m_transfer->leechesConnected();}
-        int leechesDisconnected()                       {return m_transfer->leechesDisconnected();}
-        int ulRate()                                    {return m_transfer->ulRate();}
-        int dlRate()                                    {return m_transfer->dlRate();}
-        bt::TorrentControl * torrentControl()           {return m_transfer->torrentControl();}
-        int percent()                                   {return m_transfer->percent();}
-        bool ready()                                    {return m_transfer->ready();}
-        float maxShareRatio()                           {return m_transfer->maxShareRatio();}
+        int chunksTotal() const                         {return m_transfer->chunksTotal();}
+        int chunksDownloaded() const                    {return m_transfer->chunksDownloaded();}
+        int chunksExcluded() const                      {return m_transfer->chunksExcluded();}
+        int chunksLeft() const                          {return m_transfer->chunksLeft();}
+        int seedsConnected() const                      {return m_transfer->seedsConnected();}
+        int seedsDisconnected() const                   {return m_transfer->seedsDisconnected();}
+        int leechesConnected() const                    {return m_transfer->leechesConnected();}
+        int leechesDisconnected() const                 {return m_transfer->leechesDisconnected();}
+        int ulRate() const                              {return m_transfer->ulRate();}
+        int dlRate() const                              {return m_transfer->dlRate();}
+        bt::TorrentControl * torrentControl() const     {return m_transfer->torrentControl();}
+        int percent() const                             {return m_transfer->percent();}
+        bool ready() const                              {return m_transfer->ready();}
+        float maxShareRatio() const                     {return m_transfer->maxShareRatio();}
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
         void setMaxShareRatio(float ratio)              {m_transfer->setMaxShareRatio(ratio);}
