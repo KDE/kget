@@ -153,7 +153,7 @@ void HttpServer::handleRequest()
                                                  .toString("ddd, dd MMM yyyy hh:mm:ss")).toUtf8());
     block.append(QString("Server: KGet\r\n").toUtf8()); //TODO: add KGet version
     if (responseCode == 401)
-        block.append(QString("WWW-Authenticate: Basic realm=\"KGet Webinterface Authorization\"").toUtf8());
+        block.append(QString("WWW-Authenticate: Basic realm=\"KGet Webinterface Authorization\"\r\n").toUtf8());
     if (header.path().endsWith(".png") && responseCode == 200)
         block.append(QString("Content-Type: image/png\r\n").toUtf8());
     else if (header.path().endsWith(".json") && responseCode == 200)
