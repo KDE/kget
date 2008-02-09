@@ -48,13 +48,13 @@ class KGET_EXPORT Transfer : public Job
             Tc_Percent       = 0x00000008,
             Tc_Speed         = 0x00000010,
             // Misc
-            Tc_UploadLimit   = 0x00008000,
-            Tc_DownloadLimit = 0x00009000,
-            Tc_CanResume     = 0x00010000,
-            Tc_ProcessedSize = 0x00020000,
-            Tc_Log           = 0x00040000,
-            Tc_Group         = 0x00080000,
-            Tc_Selection     = 0x00100000
+            Tc_UploadLimit   = 0x00000100,
+            Tc_DownloadLimit = 0x00000200,
+            Tc_CanResume     = 0x00000400,
+            Tc_ProcessedSize = 0x00000800,
+            Tc_Log           = 0x00001000,
+            Tc_Group         = 0x00002000,
+            Tc_Selection     = 0x00004000
         };
 
         enum LogLevel

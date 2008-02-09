@@ -566,7 +566,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             TransferGroupHandler * group = transfer->group();
             Transfer::ChangesFlags changesFlags = transfer->changesFlags(0);
 
-            for(int i=0; i<16; i++)
+            for(int i=0; i<8; i++)
             {
                 if(((changesFlags >> i) & 0x00000001) == 1)
                 {
@@ -586,7 +586,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         {
             TransferGroup::ChangesFlags changesFlags = group->changesFlags(0);
 
-            for(int i=0; i<16; i++)
+            for(int i=0; i<8; i++)
             {
                 if(((changesFlags >> i) & 0x00000001) == 1)
                 {

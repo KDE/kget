@@ -30,15 +30,15 @@ class BTTransfer : public QObject, public Transfer
             Tc_ChunksDownloaded       = 0x00020000,
             Tc_ChunksExcluded         = 0x00040000,
             Tc_ChunksLeft             = 0x00080000,
-            Tc_SeedsConnected         = 0x00160000,
-            Tc_SeedsDisconnected      = 0x00320000,
-            Tc_LeechesConnected       = 0x00640000,
-            Tc_LeechesDisconnected    = 0x01280000,
-            Tc_DlRate                 = 0x02560000,
-            Tc_UlRate                 = 0x05120000,
-            Tc_SessionBytesDownloaded = 0x10240000,
-            Tc_SessionBytesUploaded   = 0x20480000,
-            Tc_TrackersList           = 0x40960000
+            Tc_SeedsConnected         = 0x00100000,
+            Tc_SeedsDisconnected      = 0x00200000,
+            Tc_LeechesConnected       = 0x00400000,
+            Tc_LeechesDisconnected    = 0x00800000,
+            Tc_DlRate                 = 0x01000000,
+            Tc_UlRate                 = 0x02000000,
+            Tc_SessionBytesDownloaded = 0x04000000,
+            Tc_SessionBytesUploaded   = 0x08000000,
+            Tc_TrackersList           = 0x10000000
         };
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
