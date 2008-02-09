@@ -55,6 +55,21 @@ void HttpServer::handleRequest()
 
     QByteArray data;
 
+    // for HTTP authorization informations see: http://www.governmentsecurity.org/articles/OverviewofHTTPAuthentication.php
+    QString auth = header.value("Authorization");
+    if (auth.length() < 6 || QByteArray::fromBase64(auth.right(auth.length() - 6).toUtf8()) !=
+            QString(Settings::webinterfaceUser() + ':' + Settings::webinterfacePassword())) {
+        responseCode = 401;
+        responseText = "Authorization Required";
+        // DO NOT TRANSLATE THE FOLLOWING MESSAGE! webserver messages are never translated.
+        QString authRequiredText = QString("<html><head><title>401 Authorization Required</title></head><body>"
+                                           "<h1>Authorization Required</h1>This server could not verify that you "
+                                           "are authorized to access the document requested. Either you supplied "
+                                           "the wrong credentials (e.g., bad password), or your browser does "
+                                           "not understand how to supply the credentials required.</body></html>");
+        data.append(authRequiredText.toUtf8());
+    } else {
+
     if (header.path().endsWith("data.json")) {
         data.append("{\"downloads\":[");
         bool needsToBeClosed = false;
@@ -94,7 +109,7 @@ void HttpServer::handleRequest()
         if (path.isEmpty() || !file.open(QIODevice::ReadOnly)) {
             responseCode = 404;
             responseText = "Not Found";
-             // DO NOT TRANSLATE THE FOLLOWING MESSAGE! webserver messages are never translated.
+            // DO NOT TRANSLATE THE FOLLOWING MESSAGE! webserver messages are never translated.
             QString notfoundText = QString("<html><head><title>404 Not Found</title></head><body>"
                                            "<h1>Not Found</h1>The requested URL <code>%1</code> "
                                            "was not found on this server.</body></html>")
@@ -106,6 +121,7 @@ void HttpServer::handleRequest()
             }
         }
     }
+    }
 
     // for HTTP informations see: http://www.jmarshall.com/easy/http/
     QByteArray block;
@@ -113,6 +129,8 @@ void HttpServer::handleRequest()
     block.append(QString("Date: %1 GMT\r\n").arg(QDateTime(QDateTime::currentDateTime())
                                                  .toString("ddd, dd MMM yyyy hh:mm:ss")).toUtf8());
     block.append(QString("Server: KGet\r\n").toUtf8()); //TODO: add KGet version
+    if (responseCode == 401)
+        block.append(QString("WWW-Authenticate: Basic realm=\"KGet Webinterface Authorization\"").toUtf8());
     if (header.path().endsWith(".png") && responseCode == 200)
         block.append(QString("Content-Type: image/png\r\n").toUtf8());
     else if (header.path().endsWith(".json") && responseCode == 200)
