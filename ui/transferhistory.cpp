@@ -214,7 +214,7 @@ void TransferHistory::slotWriteDefault()
             doc->appendChild(root);
         }
 
-        foreach (QDomElement e, defaultItems)
+        foreach (const QDomElement &e, defaultItems)
         {
             kDebug(5001) << e.attribute("Source");
             root.appendChild(e);

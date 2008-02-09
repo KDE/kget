@@ -134,7 +134,7 @@ namespace kt
 		if(trackers.empty())
 			return;
 		
-		foreach (KUrl u,trackers)
+		foreach (const KUrl &u,trackers)
 			m_tracker_list->addItem(u.prettyUrl());
 	}
 
@@ -223,7 +223,7 @@ namespace kt
 		}
 		else
 		{
-			foreach (KUrl u,trackers)
+			foreach (const KUrl &u,trackers)
 				m_tracker_list->addItem(u.prettyUrl());
 		}
 		

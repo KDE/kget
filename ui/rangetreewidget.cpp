@@ -30,7 +30,7 @@ public:
     {
     };
 
-    bool check(int data)
+    bool check(int data) const
     {
         if (data >= min && (data <= max || max < 0)) { // the last range ends with -1
             return true;
@@ -115,7 +115,7 @@ void RangeTreeWidget::add(int data, const QVariantList &columns)
     QStandardItem *parent = getRange(data);
 
     QList <QStandardItem *> list;
-    foreach(QVariant item, columns) {
+    foreach(const QVariant &item, columns) {
         list << new QStandardItem(item.toString());
     }
 
@@ -144,7 +144,7 @@ void RangeTreeWidget::setLabels(const QStringList &labels)
 QList <QVariantList> RangeTreeWidget::data()
 {
     QList <QVariantList> list;
-    foreach(Range range, m_ranges) {
+    foreach(const Range &range, m_ranges) {
         QStandardItem *parent = m_model->itemFromIndex(model()->index(range.id, 0, QModelIndex()));
 
         for(int y=0; y<parent->rowCount(); y++) {
@@ -184,7 +184,7 @@ void RangeTreeWidget::removeRow(int row, const QModelIndex &parent)
 
 QStandardItem *RangeTreeWidget::getRange(int data)
 {
-    foreach (Range range, m_ranges) {
+    foreach (const Range &range, m_ranges) {
         if(range.check(data)) {
             return m_data [range.id];
         }

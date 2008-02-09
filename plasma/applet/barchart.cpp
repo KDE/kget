@@ -160,7 +160,7 @@ void BarChart::populate()
         m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, m_transfers.size()));
 
     // remove the progressbars for the deleted transfers
-    foreach(QString key, m_progressBars.keys()) {
+    foreach(const QString &key, m_progressBars.keys()) {
         if(!m_transfers.keys().contains(key)) {
             Plasma::ProgressBar *bar = m_progressBars [key];
             m_progressBars.remove(key);
@@ -185,7 +185,7 @@ void BarChart::populate()
 
 void BarChart::clear()
 {
-    foreach(QString key, m_progressBars.keys()) {
+    foreach(const QString &key, m_progressBars.keys()) {
         Plasma::ProgressBar *bar = m_progressBars [key];
         m_progressBarsLayout->removeItem(bar);
         m_progressBars.remove(key);

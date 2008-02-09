@@ -60,7 +60,7 @@ void PieGraph::updateGeometry()
 void PieGraph::setTransfers(const QVariantMap &transfers)
 {
     // drop the deleted transfers
-    foreach (QString key, m_transfers.keys()) {
+    foreach (const QString &key, m_transfers.keys()) {
         if (!transfers.contains(key)) {
             m_chart->removeData(key);
         }
@@ -70,7 +70,7 @@ void PieGraph::setTransfers(const QVariantMap &transfers)
 
     m_chart->clear();
 
-    foreach(QString name, transfers.keys()) {
+    foreach(const QString &name, transfers.keys()) {
         QVariantList attributes = transfers[name].toList();
 
         m_chart->addData(name, attributes[2].toDouble(),

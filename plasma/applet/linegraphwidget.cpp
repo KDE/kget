@@ -222,7 +222,7 @@ void LineGraphWidget::addData(const QString &key, int data)
 
 void LineGraphWidget::addData(const QMap <QString, int> &data)
 {
-    foreach(QString key, data.keys()) {
+    foreach(const QString &key, data.keys()) {
         if(!d->data.contains(key)) {
             d->data [key] = QQueue <int> ();
             d->bottomMargin += 20;

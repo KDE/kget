@@ -90,7 +90,7 @@ void HttpServer::handleRequest()
 
         if (!args.isEmpty()) {
             QStringList argList = args.split('&');
-            foreach(QString s, argList) {
+            foreach(const QString &s, argList) {
                 QStringList map = s.split('=');
                 QString url = QUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
                 kDebug() << url;

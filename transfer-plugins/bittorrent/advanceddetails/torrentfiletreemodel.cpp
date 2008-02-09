@@ -516,7 +516,7 @@ namespace kt
 	
 	void TorrentFileTreeModel::changePriority(const QModelIndexList & indexes,bt::Priority newpriority)
 	{
-		foreach (QModelIndex idx,indexes)
+		foreach (const QModelIndex &idx,indexes)
 		{
 			Node* n = (Node*)idx.internalPointer();
 			if (!n)

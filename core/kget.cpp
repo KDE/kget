@@ -307,7 +307,7 @@ QList<TransferHandler *> KGet::selectedTransfers()
 
     QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
 
-    foreach(QModelIndex currentIndex, selectedIndexes)
+    foreach(const QModelIndex &currentIndex, selectedIndexes)
     {
         if(!m_transferTreeModel->isTransferGroup(currentIndex))
             selectedTransfers.append(static_cast<TransferHandler *> (currentIndex.internalPointer()));
@@ -342,7 +342,7 @@ QList<TransferGroupHandler *> KGet::selectedTransferGroups()
 
     QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
 
-    foreach(QModelIndex currentIndex, selectedIndexes)
+    foreach(const QModelIndex &currentIndex, selectedIndexes)
     {
         if(m_transferTreeModel->isTransferGroup(currentIndex))
             selectedTransferGroups.append(static_cast<TransferGroupHandler *> (currentIndex.internalPointer()));

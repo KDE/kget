@@ -80,7 +80,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
     }
     else 
     {
-        foreach(QString groupName, KGet::transferGroupNames())
+        foreach(const QString &groupName, KGet::transferGroupNames())
         {
             if(groupName == groupEditor->text() && 
                groupName != ((TransferGroupHandler *) currentIndex().internalPointer())->name() )
@@ -124,7 +124,7 @@ void TransfersGroupTree::openEditMode()
 
     QModelIndexList indexList = selModel->selectedRows();
 
-    foreach(QModelIndex index, indexList)
+    foreach(const QModelIndex &index, indexList)
     {
         editCurrent();
     }
@@ -137,7 +137,7 @@ void TransfersGroupTree::deleteSelectedGroup()
 
     QModelIndexList indexList = selModel->selectedRows();
 
-    foreach(QModelIndex index, indexList)
+    foreach(const QModelIndex &index, indexList)
     {
         QString groupName = dataModel->data(index, Qt::DisplayRole).toString();
 
@@ -215,7 +215,7 @@ void TransfersGroupWidget::slotSelectionChanged(const QItemSelection &newSelecti
 
     bool canDelete = true;
 
-    foreach(QModelIndex index, newSelection.indexes()) {
+    foreach(const QModelIndex &index, newSelection.indexes()) {
         if(index.row() == 0) {
             canDelete = false;
         }

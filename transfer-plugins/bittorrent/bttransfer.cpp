@@ -126,7 +126,7 @@ void BTTransfer::postDeleteEvent()
     tmpDir->cd(m_source.fileName().remove(".torrent"));
     QStringList list = tmpDir->entryList();
 
-    foreach (QString file, list)
+    foreach (const QString &file, list)
     {
         tmpDir->remove(file);
     }

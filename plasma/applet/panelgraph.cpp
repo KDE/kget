@@ -58,7 +58,7 @@ void PanelGraph::setTransfers(const QVariantMap &transfers)
 
     TransferGraph::setTransfers(transfers);
 
-    foreach(QString key, transfers.keys()) {
+    foreach(const QString &key, transfers.keys()) {
         QVariantList attributes = transfers [key].toList();
 
         // only show the percent of the active transfers
