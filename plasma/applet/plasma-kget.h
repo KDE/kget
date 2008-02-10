@@ -28,7 +28,7 @@
 #include "ui_kgetConfig.h"
 
 namespace Plasma {
-    class VBoxLayout;
+    class BoxLayout;
     class Svg;
 }
 
@@ -65,7 +65,7 @@ private:
 
     Plasma::Svg *m_theme;
     Plasma::DataEngine *m_engine;
-    Plasma::VBoxLayout *m_layout;
+    Plasma::BoxLayout *m_layout;
     TransferGraph *m_transferGraph;
     KDialog *m_dialog;
     QString m_errorMessage;

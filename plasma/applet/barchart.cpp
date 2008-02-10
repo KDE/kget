@@ -38,7 +38,6 @@ BarChart::BarChart(Plasma::Applet *parent)
     m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
     if (m_layout)
     {
-
 /*
     // Layout animator
     Plasma::LayoutAnimator *animator = new Plasma::LayoutAnimator();
@@ -51,9 +50,6 @@ BarChart::BarChart(Plasma::Applet *parent)
     m_layout->setAnimator(animator);
 */
     // the progress bars layout
-    m_progressBarsLayout = new Plasma::VBoxLayout(m_layout);
-    m_progressBarsLayout->setMargin(0);
-    m_layout->addItem(m_progressBarsLayout);
 
     // Pager layout and next, previous buttons
     m_pagerLayout = new Plasma::HBoxLayout(m_layout);
@@ -96,7 +92,6 @@ BarChart::~BarChart()
     }
 
     delete m_pagerLayout;
-    delete m_progressBarsLayout;
 }
 
 void BarChart::setTransfers(const QVariantMap &transfers)
@@ -145,7 +140,7 @@ void BarChart::populate()
             bar->setMinimumSize(QSizeF(100, 20));
             m_progressBars [key] = bar;
 
-            m_progressBarsLayout->addItem(bar);
+            m_layout->insertItem(0, bar);
         }
         // set the progress bar opacity to 1 if the transfer is active
         qreal opacity = (m_transfers [key].toList().at(3).toUInt() == 1) ? 1.0 : 0.6;
@@ -164,7 +159,7 @@ void BarChart::populate()
         if(!m_transfers.keys().contains(key)) {
             Plasma::ProgressBar *bar = m_progressBars [key];
             m_progressBars.remove(key);
-            m_progressBarsLayout->removeItem(bar);
+            m_layout->removeItem(bar);
             delete bar;
         }
     }
@@ -187,7 +182,7 @@ void BarChart::clear()
 {
     foreach(const QString &key, m_progressBars.keys()) {
         Plasma::ProgressBar *bar = m_progressBars [key];
-        m_progressBarsLayout->removeItem(bar);
+        m_layout->removeItem(bar);
         m_progressBars.remove(key);
         delete bar;
     }

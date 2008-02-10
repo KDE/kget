@@ -55,6 +55,7 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
 PlasmaKGet::~PlasmaKGet()
 {
     delete m_transferGraph;
+    delete m_layout;
 }
 
 void PlasmaKGet::init()
@@ -107,7 +108,7 @@ void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Da
     else if(!data["error"].toBool()) {
         loadTransferGraph(config().readEntry("graphType", QVariant(PlasmaKGet::BarChartType)).toUInt());
 
-        if(m_transferGraph->transfers() != data["transfers"].toMap()) {
+        if(m_transferGraph && m_transferGraph->transfers() != data["transfers"].toMap()) {
             m_transferGraph->setTransfers(data["transfers"].toMap());
         }
     }
@@ -147,7 +148,6 @@ void PlasmaKGet::configAccepted()
 void PlasmaKGet::loadTransferGraph(uint type)
 {
     QSizeF size = contentSize();
-    kDebug() << Plasma::Horizontal;
 
     if(formFactor() == Plasma::Horizontal || formFactor() == Plasma::Vertical) {
         type = PlasmaKGet::PanelGraphType;

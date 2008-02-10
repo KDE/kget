@@ -57,7 +57,6 @@ private:
 
 private:
     Plasma::BoxLayout *m_layout;
-    Plasma::BoxLayout *m_progressBarsLayout;
     Plasma::BoxLayout *m_pagerLayout;
     Plasma::PushButton *m_nextPageButton;
     Plasma::PushButton *m_previousPageButton;

@@ -48,6 +48,7 @@ PieGraph::PieGraph(Plasma::Applet *parent)
 
 PieGraph::~PieGraph()
 {
+    m_layout->removeItem(m_chart);
     delete m_chart;
 }
 
