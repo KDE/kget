@@ -49,7 +49,8 @@ window.addEvent('domready', function() {
         var downloadsList = $('downloadsList').empty();
         var table = new Element('table', {'id': 'downloadList'});
         downloads.each(function(download) {
-                var tr = new Element('tr').injectInside(table);
+                var toolTipText = download.name + ' :: Source: ' + download.src + '<br />Saving to: ' + download.dest;
+                var tr = new Element('tr', {'class': 'toolTip', 'title': toolTipText}).injectInside(table);
                 var actions = new Element('td').injectInside(tr);
                 var start = new Element('a', {'href': '#'}).setHTML('start').injectInside(actions);
                 start.addEvent('click', function(e) {
@@ -69,12 +70,18 @@ window.addEvent('domready', function() {
                     doAction('remove', download.src);
                 });
                 var name = new Element('td').setHTML(download.name).injectAfter(actions);
-                var desc = new Element('td', {'class': 'center'}).setHTML(download.status).injectAfter(name);
-                var size = new Element('td', {'class': 'center'}).setHTML(download.size).injectAfter(desc);
+                var status = new Element('td', {'class': 'center'}).setHTML(download.status).injectAfter(name);
+                var size = new Element('td', {'class': 'center'}).setHTML(download.size).injectAfter(status);
                 var progress = new Element('td', {'class': 'center'}).setHTML(download.progress).injectAfter(size);
+                var speed = new Element('td', {'class': 'center'}).setHTML(download.speed).injectAfter(progress);
         });
         table.inject(downloadsList);
+
+        var toolTips = new Tips($$('.toolTip'), {
+            maxTitleChars: 80
+        });
     }
+
 
     $('loadDownloads').addEvent('click', function(e) {
         e = new Event(e).stop();
@@ -113,15 +120,24 @@ window.addEvent('domready', function() {
 body {
     font-family: sans-serif;
 }
+a, a:active, a:hover, a:visited {
+    color: #323232;
+    text-decoration: none;
+}
+h1, h2, h3 {
+    border-bottom: 1px solid #DDDDDD;
+}
 #newDownloadFormContainer, #settingsContainer {
     padding: 10px;
 }
 #downloadList {
     width: 100%;
     font-size: 0.8em;
+    background-color: #F9F9F9;
+    border: 1px solid #DDDDDD;
 }
 #downloadList tr:hover {
-    background-color: #F0F0F0;
+    background-color: #DDDDDD;
 }
 #downloadList .center {
     text-align: center;
@@ -129,6 +145,25 @@ body {
 }
 #interval {
     width: 40px;
+}
+.tool-tip {
+    color: #000000;
+    z-index: 13000;
+    border: 1px solid #B8B8B8;
+}
+.tool-title {
+    font-weight: bold;
+    font-size: 0.8em;
+    margin: 0;
+    color: #323232;
+    padding: 8px 8px 4px;
+    background: #DDDDDD;
+    border-bottom: 1px solid #B8B8B8;
+}
+.tool-text {
+    font-size: 0.8em;
+    padding: 4px 8px 8px;
+    background: #F9F9F9;
 }
 </style>
 </head>

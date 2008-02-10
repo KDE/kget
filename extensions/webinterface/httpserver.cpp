@@ -81,7 +81,8 @@ void HttpServer::handleRequest()
                              "\", \"dest\":\"" + transfer->dest().url()  +
                              "\", \"status\":\"" + transfer->statusText() +
                              "\", \"size\":\"" + KIO::convertSize(transfer->totalSize()) +
-                             "\", \"progress\":\"" + QString::number(transfer->percent()) + "%\"}").toUtf8());
+                             "\", \"progress\":\"" + QString::number(transfer->percent()) + "%"
+                             "\", \"speed\":\"" + i18n("%1/s", KIO::convertSize(transfer->speed())) + "\"}").toUtf8());
             needsToBeClosed = true;
         }
         data.append("]}");
