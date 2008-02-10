@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <script type="text/javascript">
 window.addEvent('domready', function() {
     var slide = new Fx.Slide('newDownloadFormContainer').hide(); // hide it at startup
+    var slide = new Fx.Slide('settingsContainer').hide();
     function refreshList() {
         var request = new Request.JSON({url: 'data.json',
                 secure: false,
@@ -91,13 +92,28 @@ window.addEvent('domready', function() {
         e = new Event(e).stop();
         var slide = new Fx.Slide('newDownloadFormContainer').toggle();
     });
+
+    $('settingsForm').addEvent('submit', function(e) {
+        new Event(e).stop();
+        $clear(updateTimer);
+        var interval = parseInt($('interval').value);
+        if ($('enableUpdates').checked && interval >= 1)
+            updateTimer = refreshList.periodical(interval * 1000);
+        var slide = new Fx.Slide('settingsContainer').toggle();
+    });
+
+    $('settings').addEvent('click', function(e) {
+        e = new Event(e).stop();
+        var slide = new Fx.Slide('settingsContainer').toggle();
+    });
+    var updateTimer = refreshList.periodical(10000);
 });
 </script>
 <style type="text/css">
 body {
     font-family: sans-serif;
 }
-#newDownloadFormContainer {
+#newDownloadFormContainer, #settingsContainer {
     padding: 10px;
 }
 #downloadList {
@@ -111,14 +127,21 @@ body {
     text-align: center;
     white-space: nowrap;
 }
+#interval {
+    width: 40px;
+}
 </style>
 </head>
 <body>
 <h2>KGet Webinterface</h2>
-<p><a href="#" title="Refresh List" id="loadDownloads">Refresh List</a> | <a href="#" title="New" id="newDownload">New Download</a></p>
+<p>
+<a href="#" title="Refresh List" id="loadDownloads">Refresh List</a> | 
+<a href="#" title="New Download" id="newDownload">New Download</a> | 
+<a href="#" title="Settings" id="settings">Settings</a>
+</p>
 
 <div id="newDownloadFormContainer">
-    <form id="newDownloadForm" action="add" method="post">
+    <form id="newDownloadForm" action="do" method="post">
         <div id="form_box">
             <div>
                 <p>URL:</p>
@@ -131,12 +154,27 @@ body {
                     <option value="no">no</option>
                 </select>
             </div-->
-            <input type="submit" />
+            <input type="submit" value="OK" />
         </div>
     </form>
     <div id="log">
         <div id="log_res"></div>
     </div>
+</div>
+
+<div id="settingsContainer">
+    <form id="settingsForm" action="#" method="post">
+        <div id="form_box">
+            <div>
+                <p>Interval updates:</p>
+                <input type="text" name="interval" id="interval" value="10" /> sec
+                <input type="checkbox" name="enableUpdates" id="enableUpdates" checked="checked" />
+                <label for="enableUpdates">Enable interval updates</label>
+            </div>
+
+            <input type="submit" value="OK" />
+        </div>
+    </form>
 </div>
 
 <h3>Downloads</h3>
