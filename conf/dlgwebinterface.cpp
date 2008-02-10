@@ -16,9 +16,6 @@ DlgWebinterface::DlgWebinterface(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
-    changePasswordButton->setIcon(KIcon("dialog-password"));
-
-    connect(changePasswordButton, SIGNAL(clicked()), SLOT(changePasswordButtonClicked()));
 
     readConfig();
 }
@@ -33,11 +30,6 @@ void DlgWebinterface::readConfig()
 
 void DlgWebinterface::saveSettings()
 {
-}
-
-void DlgWebinterface::changePasswordButtonClicked()
-{
-//TODO: implement
 }
 
 #include "dlgwebinterface.moc"

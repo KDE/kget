@@ -26,7 +26,6 @@ public:
 private Q_SLOTS:
     void readConfig();
     void saveSettings();
-    void changePasswordButtonClicked();
 };
 
 #endif

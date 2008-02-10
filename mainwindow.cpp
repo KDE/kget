@@ -606,7 +606,7 @@ void MainWindow::slotNewConfig()
 
     if (Settings::webinterfaceEnabled() && !m_webinterface) {
         m_webinterface = new HttpServer(this);
-    } else if (m_webinterface) {
+    } else if (m_webinterface && !Settings::webinterfaceEnabled()) {
         delete m_webinterface;
         m_webinterface = 0;
     }
