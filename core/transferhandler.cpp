@@ -253,7 +253,7 @@ GenericTransferObserver::GenericTransferObserver()
 
 void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
 {
-    kDebug(5001);
+//     kDebug(5001);
 
     if (transfer->status() == Job::Finished && Settings::quitAfterCompletedTransfer()) 
     {

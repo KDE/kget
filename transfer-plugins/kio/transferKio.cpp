@@ -179,12 +179,12 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob);
 
-    kDebug(5001) << "slotProcessedSize"; 
+//     kDebug(5001) << "slotProcessedSize";
 
     if(status() != Job::Running)
     {
         setStatus(Job::Running, i18n("Downloading.."),  SmallIcon("media-playback-start"));
-        setTransferChange(Tc_Status, true);
+        setTransferChange(Tc_Status);
     }
     m_processedSize = size;
     setTransferChange(Tc_ProcessedSize, true);
@@ -199,7 +199,7 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
     if(status() != Job::Running)
     {
         setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
-        setTransferChange(Tc_Status, true);
+        setTransferChange(Tc_Status);
 
     }
 
