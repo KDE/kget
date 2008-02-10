@@ -118,18 +118,6 @@ void TransfersGroupTree::addGroup()
     }
 }
 
-void TransfersGroupTree::openEditMode()
-{
-    QItemSelectionModel *selModel = selectionModel();
-
-    QModelIndexList indexList = selModel->selectedRows();
-
-    foreach(const QModelIndex &index, indexList)
-    {
-        editCurrent();
-    }
-}
-
 void TransfersGroupTree::deleteSelectedGroup()
 {
     QItemSelectionModel *selModel = selectionModel();
@@ -152,6 +140,12 @@ void TransfersGroupTree::deleteSelectedGroup()
                                                  "the group named %1?", groupName)) == KMessageBox::Yes)
             KGet::delGroup(groupName);
     }
+}
+
+void TransfersGroupTree::renameSelectedGroup()
+{
+    if(currentIndex().isValid())
+        editCurrent();
 }
 
 void TransfersGroupTree::changeIcon(const QString &icon)
@@ -202,7 +196,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
 
     connect(addButton, SIGNAL(clicked()), m_view, SLOT(addGroup()));
     connect(deleteButton, SIGNAL(clicked()), m_view, SLOT(deleteSelectedGroup()));
-    connect(renameButton, SIGNAL(clicked()), m_view, SLOT(openEditMode()));
+    connect(renameButton, SIGNAL(clicked()), m_view, SLOT(renameSelectedGroup()));
     connect(iconButton, SIGNAL(iconChanged(const QString &)), m_view, SLOT(changeIcon(const QString &)));
     connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
                 this, SLOT(slotSelectionChanged(const QItemSelection &, const QItemSelection &)));

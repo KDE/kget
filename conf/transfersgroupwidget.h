@@ -59,8 +59,8 @@ public slots:
     void editCurrent();
     void addGroup();
     void deleteSelectedGroup();
+    void renameSelectedGroup();
     void changeIcon(const QString &icon);
-    void openEditMode();
     void commitData(QWidget *editor);
 };
 
