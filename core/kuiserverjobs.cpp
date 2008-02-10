@@ -61,7 +61,7 @@ void KUiServerJobs::reload()
         m_globalJob = 0;
     }
 
-    if(Settings::exportGlobalJob()) {
+    if(Settings::exportGlobalJob() && Settings::enableKUIServerIntegration()) {
         KIO::getJobTracker()->registerJob(globalJob());
 
         foreach(KJob *job, m_jobs) {
