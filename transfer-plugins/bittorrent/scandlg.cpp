@@ -148,7 +148,7 @@ namespace kt
 				tc->start();
 			}
 			
-			QDialog::reject();
+			KDialog::reject();
 		}
 	}
 		 
@@ -166,14 +166,14 @@ namespace kt
 			stop();
 		else
 		{
-			QDialog::reject();
+			KDialog::reject();
 			deleteLater();
 		}
 	}
 
 	void ScanDlg::accept()
 	{
-		QDialog::accept();
+		KDialog::accept();
 		deleteLater();
 	}
 
