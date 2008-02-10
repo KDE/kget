@@ -277,7 +277,8 @@ void TransferGroup::calculateUploadLimit()
 void TransferGroup::transferChangedEvent(Transfer * transfer)
 {
     Q_UNUSED(transfer);
-    m_handler->postGroupChangedEvent();
+//     Disable this line for now, since as of now we don't do nothing with this event.
+//     m_handler->postGroupChangedEvent();
 }
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
