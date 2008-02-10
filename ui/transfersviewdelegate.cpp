@@ -290,13 +290,27 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         }
         else
         {
-            QLinearGradient gradient(option.rect.x(), option.rect.y(),
-                                     option.rect.x(), (option.rect.y() + option.rect.height()));
-            gradient.setColorAt(0, QApplication::palette().color(QPalette::Base));
-            gradient.setColorAt(0.5, QApplication::palette().color(QPalette::AlternateBase).darker(110));
-            gradient.setColorAt(1, QApplication::palette().color(QPalette::Base));
+            static bool backgroundInitialized = false;
+            static QPixmap groupBackground(64, 35);
+            static QPalette palette(QApplication::palette());
 
-            painter->fillRect(option.rect, gradient);
+            if(!backgroundInitialized || palette!= QApplication::palette())
+            {
+                const QRect rect = groupBackground.rect();
+                QPainter p(&groupBackground);
+
+                QLinearGradient gradient(rect.x(), rect.y(),
+                                        rect.x(), (rect.y() + rect.height()));
+
+                gradient.setColorAt(0, QApplication::palette().color(QPalette::Base));
+                gradient.setColorAt(0.5, QApplication::palette().color(QPalette::AlternateBase).darker(110));
+                gradient.setColorAt(1, QApplication::palette().color(QPalette::Base));
+
+                p.fillRect(rect, gradient);
+                backgroundInitialized = true;
+            }
+
+            painter->drawTiledPixmap(option.rect, groupBackground);
         }
 
         QItemDelegate::paint(painter, option, index);
