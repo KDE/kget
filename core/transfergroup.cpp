@@ -58,7 +58,7 @@ void TransferGroup::setStatus(Status queueStatus)
 {
     JobQueue::setStatus(queueStatus);
 
-    m_handler->postGroupChangedEvent();
+    m_handler->setGroupChange(Gc_Status, true);
 }
 
 void TransferGroup::append(Transfer * transfer)
