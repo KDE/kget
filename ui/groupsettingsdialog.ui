@@ -9,9 +9,6 @@
     <height>149</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string/>
-  </property>
   <property name="layoutDirection" >
    <enum>Qt::LeftToRight</enum>
   </property>
