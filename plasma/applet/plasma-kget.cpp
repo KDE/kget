@@ -58,7 +58,7 @@ PlasmaKGet::~PlasmaKGet()
 void PlasmaKGet::init()
 {
     m_layout = new Plasma::VBoxLayout(this);
-    m_layout->setMargin(Plasma::Layout::TopMargin, 40);
+    m_layout->setMargin(Plasma::TopMargin, 40);
     m_layout->setSpacing(10);
 
     setMinimumSize(QSize(240, 190));
