@@ -74,8 +74,7 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
 
  TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl)
 {
-   Q_UNUSED(srcUrl);
-   kDebug(5001);
+    kDebug(5001);
 
     QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot;

@@ -70,7 +70,6 @@ const QList<KAction *> MirrorSearchFactory::actions(TransferHandler *handler)
 
 TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl)
 {
-    Q_UNUSED(srcUrl);
     kDebug(5001);
 
     QString prot = srcUrl.protocol();

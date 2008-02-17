@@ -259,6 +259,14 @@ class KGET_EXPORT KGet
           */
          static QStringList defaultFolders(const KUrl &filename, const QString &groupname);
 
+        /**
+         * Scans for all the available plugins and creates the proper
+         * transfer DataSource object for transfers Containers
+         *
+         * @param src Source Url
+         */
+        static TransferDataSource * createTransferDataSource(const KUrl &src);
+
     private:
         KGet();
         ~KGet();
@@ -273,14 +281,6 @@ class KGET_EXPORT KGet
          * @param start Specifies if the newly added transfers should be started.
          */
         static bool createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
-
-        /**
-         * Scans for all the available plugins and creates the proper
-         * transfer DataSource object for transfers Containers
-         *
-         * @param src Source Url
-         */
-        static TransferDataSource * createTransferDataSource(const KUrl &src);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers

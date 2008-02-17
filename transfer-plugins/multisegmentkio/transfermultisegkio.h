@@ -62,7 +62,7 @@ class transferMultiSegKio : public QObject, public Transfer
         void slotTotalSize( KJob *kioJob, qulonglong size );
         void slotProcessedSize( KJob *kioJob, qulonglong size );
         void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
-        void slotSearchUrls(QList<KUrl> &Urls);
+        void slotSearchUrls(const QList<KUrl> &Urls);
 };
 
 #endif

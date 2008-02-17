@@ -11,25 +11,7 @@
 #ifndef DLGMULTISEGKIO_H
 #define DLGMULTISEGKIO_H
 
-#include "ui_dlgengineediting.h"
 #include "ui_dlgmultisegkio.h"
-
-class DlgEngineEditing : public KDialog
-{
-    Q_OBJECT
-
-public:
-    DlgEngineEditing(QWidget *parent = 0);
-    ~DlgEngineEditing();
-
-    QString engineName() const;
-    QString engineUrl() const;
-private slots:
-    void slotChangeText();
-
-private:
-    Ui::DlgEngineEditing ui;
-};
 
 class DlgSettingsWidget : public QWidget
 {
@@ -41,18 +23,11 @@ public:
 
 private slots:
     void slotSetUseSearchEngines(bool b);
-    void slotNewEngine();
-    void slotRemoveEngine();
     void slotSave();
     void init();
     void enableButtonApply();
 
 private:
-    void addSearchEngineItem(const QString &name, const QString &url);
-
-    void loadSearchEnginesSettings();
-    void saveSearchEnginesSettings();
-
     Ui::DlgMultiSeg ui;
     KDialog *m_parent;
 };

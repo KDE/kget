@@ -20,8 +20,8 @@ MirrorSearchTransferDataSource::MirrorSearchTransferDataSource()
 MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const KUrl &srcUrl)
 :TransferDataSource(0)
 {
-    kDebug(5001);
     m_filename = srcUrl.fileName();
+    kDebug(5001) << m_filename;
 }
 
 void MirrorSearchTransferDataSource::start()

@@ -13,7 +13,8 @@
 
 #include "multisegkiosettings.h"
 #include "core/kget.h"
-#include "mirrors.h"
+#include "core/transferdatasource.h"
+// #include "mirrors.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -168,7 +169,12 @@ void transferMultiSegKio::createJob()
         {
             if(MultiSegKioSettings::useSearchEngines())
             {
-                MirrorSearch (m_source, this, SLOT(slotSearchUrls(QList<KUrl>&)));
+                KUrl searchUrl(m_source);
+                searchUrl.setProtocol("search");
+                TransferDataSource * mirrorSearch = KGet::createTransferDataSource(searchUrl);
+                connect(mirrorSearch, SIGNAL(data(const QList<KUrl>&)),
+                   SLOT(slotSearchUrls(const QList<KUrl>&)));
+                mirrorSearch->start();
             }
             m_Urls << m_source;
         }
@@ -296,7 +302,7 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
     setTransferChange(Tc_Speed, true);
 }
 
-void transferMultiSegKio::slotSearchUrls(QList<KUrl> &Urls)
+void transferMultiSegKio::slotSearchUrls(const QList<KUrl> &Urls)
 {
     kDebug(5001) << "got: " << Urls.size() << " Urls.";
     m_Urls = Urls;

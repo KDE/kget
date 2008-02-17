@@ -7,12 +7,11 @@ set(kget_multisegkiofactory_PART_SRCS
   segmentfactory.cpp
   multisegkio.cpp
   multisegkiodatasource.cpp
-  mirrors.cpp
   transfermultisegkio.cpp
   transfermultisegkiofactory.cpp
 )
 
-kde4_add_ui_files(kget_multisegkiofactory_PART_SRCS dlgmultisegkio.ui dlgengineediting.ui)
+kde4_add_ui_files(kget_multisegkiofactory_PART_SRCS dlgmultisegkio.ui)
 
 kde4_add_kcfg_files(kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
 
