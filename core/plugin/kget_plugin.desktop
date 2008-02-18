@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
+Name=KGet Plugin
 Comment=Plugin for KGet
 Comment[bg]=Приставка за KGet
 Comment[ca]=Connector pel KGet
