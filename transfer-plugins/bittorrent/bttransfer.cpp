@@ -11,7 +11,8 @@
 
 #include "bttransfer.h"
 #include "bittorrentsettings.h"
-
+#include "bttransferhandler.h"
+#include "advanceddetails/monitor.h"
 #include "core/kget.h"
 
 #include <torrent/torrent.h>
@@ -241,6 +242,7 @@ void BTTransfer::startTorrent()
     {
         //kDebug(5001) << "Going to download that stuff :-0";
         setSpeedLimits(visibleUploadLimit(), visibleDownloadLimit());//Set traffic-limits before starting
+        torrent->setMonitor(this);
         kDebug(5001) << "Here we are";
         torrent->start();
         kDebug(5001) << "Got started??";
@@ -256,6 +258,9 @@ void BTTransfer::startTorrent()
 void BTTransfer::stopTorrent()
 {
     torrent->stop(true);
+    torrent->setMonitor(0);
+    peersList.clear();
+    chunksList.clear();
     m_speed = 0;
     timer.stop();
 
@@ -270,7 +275,7 @@ void BTTransfer::stopTorrent()
 
 void BTTransfer::updateTorrent()
 {
-    kDebug(5001) << "Update torrent";
+    //kDebug(5001) << "Update torrent";
     if (chunksTotal() == chunksDownloaded())
         slotDownloadFinished(torrent);
 
@@ -334,7 +339,6 @@ void BTTransfer::init(const KUrl &src)
 
         torrent->init(0, m_source.url().remove("file://"), m_tmp + m_source.fileName().remove(".torrent"),
                                                              m_dest.directory().remove("file://"), 0);
-        torrent->setMonitor(this);
 
         if (torrent->getStats().multi_file_torrent)
             m_dest = torrent->getStats().output_path;
@@ -540,40 +544,65 @@ float BTTransfer::maxShareRatio() const
 
 void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
 {
-    Q_UNUSED(cd)
-    //Not used yet
+    kDebug(5001) << "Download removed**************************************************************+";
+    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadRemoved(cd);
+    //else
+        chunksList.removeAll(cd);
+
+    setTransferChange(Tc_ChunksTotal | Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
 void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
 {
-    Q_UNUSED(cd)
-    //Not used yet
+    kDebug(5001) << "Download Started*************************************************************************";
+    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadStarted(cd);
+    //else
+        chunksList.append(cd);
+    setTransferChange(Tc_ChunksTotal | Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
 void BTTransfer::peerAdded(bt::PeerInterface* peer)
 {
-    Q_UNUSED(peer)
-    //TODO: Lukas, please review this
+    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->peerAdded(peer);
+    //else
+        peersList.append(peer);
+
     setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
 }
 
 void BTTransfer::peerRemoved(bt::PeerInterface* peer)
 {
-    Q_UNUSED(peer)
-    //TODO: Lukas, please review this
+    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->peerRemoved(peer);
+    //else
+        peersList.removeAll(peer);
+
     setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
 }
 
 void BTTransfer::stopped()
 {
-    //Not used yet
+    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->stopped();
 }
 
 void BTTransfer::destroyed()
 {
-    //Not used yet
+    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->destroyed();
 }
 
+QList<bt::ChunkDownloadInterface*> BTTransfer::chunks()
+{
+    return chunksList;
+}
 
+QList<bt::PeerInterface*> BTTransfer::peers()
+{
+    return peersList;
+}
 
 #include "bttransfer.moc"

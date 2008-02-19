@@ -11,6 +11,7 @@
 #include "bttransferhandler.h"
 
 #include "bttransfer.h"
+#include "advanceddetails/monitor.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
 #include "btspeedlimits.h"
 #include "scandlg.h"
@@ -38,6 +39,20 @@ void BTTransferHandler::createAdvancedDetails()
         advancedDetails = new BTAdvancedDetailsWidget(this);
         advancedDetails->show();
         connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
+	kt::Monitor *monitor = advancedDetails->torrentMonitor();
+	kDebug(5001) << "We will add peers and chunks now";
+        foreach (bt::ChunkDownloadInterface *cd, m_transfer->chunks())
+        {
+	    kDebug(5001) << "Add chunk";
+            if (cd)
+                monitor->downloadStarted(cd);
+        }
+        foreach (bt::PeerInterface *peer, m_transfer->peers())
+        {
+	    kDebug(5001) << "Add peer";
+            if (peer)
+                monitor->peerAdded(peer);
+        }
     }
 }
 
@@ -45,6 +60,14 @@ void BTTransferHandler::removeAdvancedDetails()
 {
     advancedDetails->close();
     advancedDetails = 0;
+}
+
+kt::Monitor* BTTransferHandler::torrentMonitor() const
+{
+    if (advancedDetails)
+        return advancedDetails->torrentMonitor();
+    else
+        return 0;
 }
 
 void BTTransferHandler::createSpeedLimits()

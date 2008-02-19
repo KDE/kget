@@ -173,6 +173,7 @@ namespace kt
 
 	PeerView::~PeerView()
 	{
+		removeAll();
 	}
 	
 	void PeerView::showContextMenu(const QPoint& pos)

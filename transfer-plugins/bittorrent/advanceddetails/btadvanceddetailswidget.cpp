@@ -78,16 +78,16 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
 {
     Q_UNUSED(transfer);
     kDebug(5001);
-
-    if (m_transfer->status() == Job::Running)
+    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
+    if (transferFlags & BTTransfer::Tc_ChunksTotal || transferFlags & BTTransfer::Tc_ChunksDownloaded || transferFlags & BTTransfer::Tc_ChunksExcluded || transferFlags & BTTransfer::Tc_ChunksLeft || transferFlags & Transfer::Tc_Speed)
     {
         peer_view->update();
         cd_view->update();
         tracker_view->update();
     }
-    else
+    /**else
     {
-    }
+    }**/
 
     m_transfer->resetChangesFlags(this);
 }
@@ -100,6 +100,14 @@ void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
         tc->setMonitor(0);
     emit aboutToClose();
     deleteLater();
+}
+ 
+kt::Monitor* BTAdvancedDetailsWidget::torrentMonitor() const
+{
+    if (monitor)
+        return monitor;
+    else
+        return 0;
 }
 
 #include "btadvanceddetailswidget.moc"

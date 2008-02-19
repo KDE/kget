@@ -39,6 +39,7 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
         void transferChangedEvent(TransferHandler * transfer);
         void deleteEvent(TransferHandler * transfer){/**FIXME: Implement this^^**/ Q_UNUSED(transfer); }
         void init();
+	kt::Monitor* torrentMonitor() const;
 
     signals:
          void aboutToClose();

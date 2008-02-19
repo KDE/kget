@@ -53,6 +53,7 @@ namespace kt
 
 	ChunkDownloadView::~ChunkDownloadView()
 	{
+		model->clear();
 	}
 
 	void ChunkDownloadView::downloadAdded(ChunkDownloadInterface* cd)

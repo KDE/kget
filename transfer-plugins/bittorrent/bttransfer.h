@@ -18,6 +18,12 @@
 
 #include <QTimer>
 
+namespace bt
+{
+    class ChunkDownloadInterface;
+    class PeerInterface;
+}
+
 class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
 {
     Q_OBJECT
@@ -75,6 +81,8 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         bt::TorrentControl * torrentControl();
         int percent() const;
         float maxShareRatio() const;
+        QList<bt::ChunkDownloadInterface*> chunks();
+        QList<bt::PeerInterface*> peers();
 
         //More Bittorrent-Functions
         void setPort(int port);
@@ -115,6 +123,9 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         QTimer timer;
         bool m_ready;
         bool m_downloadFinished;
+
+        QList<bt::ChunkDownloadInterface*> chunksList;
+        QList<bt::PeerInterface*> peersList;
 };
 
 #endif

@@ -24,6 +24,7 @@ class BTSpeedLimits;
 namespace kt
 {
     class ScanDlg;
+    class Monitor;
 }
 
 class BTTransferHandler : public QObject, public TransferHandler
@@ -49,6 +50,7 @@ class BTTransferHandler : public QObject, public TransferHandler
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
         void setMaxShareRatio(float ratio)              {m_transfer->setMaxShareRatio(ratio);}
+	kt::Monitor* torrentMonitor() const;
 
     public slots:
         void createAdvancedDetails();

@@ -40,6 +40,9 @@ namespace kt
 			
 	bool ChunkDownloadModel::Item::changed() const
 	{
+		if (!cd)
+			return false;
+
 		ChunkDownloadInterface::Stats s;
 		cd->getStats(s);
 

@@ -22,11 +22,11 @@
 #ifndef KTMONITOR_H
 #define KTMONITOR_H
 
-#include <interfaces/monitorinterface.h>
-
 namespace bt
 {
 	class TorrentInterface;
+        class ChunkDownloadInterface;
+        class PeerInterface;
 }
 
 namespace kt
@@ -37,7 +37,7 @@ namespace kt
 	/**
 	@author Joris Guisson
 	*/
-	class Monitor : public bt::MonitorInterface
+	class Monitor
 	{
 		bt::TorrentInterface* tc;
 		PeerView* pv;
@@ -46,12 +46,12 @@ namespace kt
 		Monitor(bt::TorrentInterface* tc,PeerView* pv ,ChunkDownloadView* cdv);
 		virtual ~Monitor();
 	
-		virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);
-		virtual void downloadStarted(bt::ChunkDownloadInterface* cd);
-		virtual void peerAdded(bt::PeerInterface* peer);
-		virtual void peerRemoved(bt::PeerInterface* peer);
-		virtual void stopped();
-		virtual void destroyed();
+		void downloadRemoved(bt::ChunkDownloadInterface* cd);
+		void downloadStarted(bt::ChunkDownloadInterface* cd);
+		void peerAdded(bt::PeerInterface* peer);
+		void peerRemoved(bt::PeerInterface* peer);
+		void stopped();
+		void destroyed();
 	};
 }
 
