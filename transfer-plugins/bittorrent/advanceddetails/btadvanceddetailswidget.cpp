@@ -57,7 +57,7 @@ void BTAdvancedDetailsWidget::init()
     titleWidget->setText(i18n("Advanced Details for %1", m_transfer->source().fileName()));
     titleWidget->setPixmap(KIcon("dialog-information"));
     layout->addWidget(titleWidget);
-    KTabWidget *tabWidget = new KTabWidget(this);
+    tabWidget = new KTabWidget(this);
     layout->addWidget(tabWidget);
     setLayout(layout);
     file_view = new FileView(this);
@@ -81,13 +81,18 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
     if (transferFlags & BTTransfer::Tc_ChunksTotal || transferFlags & BTTransfer::Tc_ChunksDownloaded || transferFlags & BTTransfer::Tc_ChunksExcluded || transferFlags & BTTransfer::Tc_ChunksLeft || transferFlags & Transfer::Tc_Speed)
     {
-        peer_view->update();
-        cd_view->update();
-        tracker_view->update();
+        if (tabWidget->currentIndex() == 1)
+                peer_view->update();
+        else if (tabWidget->currentIndex() == 2)
+                cd_view->update();
+        else if (tabWidget->currentIndex() == 3)
+                tracker_view->update();
     }
-    /**else
+    else if (m_transfer->status() == Job::Stopped)
     {
-    }**/
+        peer_view->removeAll();
+        cd_view->removeAll();
+    }
 
     m_transfer->resetChangesFlags(this);
 }

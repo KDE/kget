@@ -19,6 +19,7 @@
 #include "core/observer.h"
 
 class BTTransferHandler;
+class KTabWidget;
 
 namespace kt
 {
@@ -47,6 +48,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
 
     private:
         void hideEvent(QHideEvent * event);
+
+        KTabWidget *tabWidget;
 
         BTTransferHandler * m_transfer;
         kt::PeerView* peer_view;
