@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
 Name=KGet Plugin
 Name[ga]=Breiseán KGet
+Name[km]=កម្មវិធី​ជំនួយ KGet
 Name[pt]='Plugin' do KGet
 Name[pt_BR]='Plugin' do KGet
 Name[zh_TW]=KGet 外掛程式
