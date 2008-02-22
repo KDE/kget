@@ -33,6 +33,11 @@ Main Window
 ---------------------
 
 SHORT-TERM (URGENT):
+  -- MULTISOURCEDOWNLOAD --
+  ADD <boom1992> For each Transfer-Plugin, which supports speedlimits, there should be a button for "Add source", not sure if for 4.1
+  ADD <boom1992> Move some kind of AdvancedDetails to core, with "Peer-View", "Chunks-View", "File-View" and perhaps that status of sources (that will come with 4.2 hopefully)
+  ADD <boom1992> New DataSourceFactory class for core/, which downloads from datasources to a file, with support for speedlimits
+  ADD <boom1992> Speedlimits support for every DataSource, which is able to do that
 
   -- MAINWINDOW --
 
