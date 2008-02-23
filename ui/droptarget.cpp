@@ -92,7 +92,7 @@ DropTarget::DropTarget(MainWindow * mw)
 
     QAction *quitAction = new QAction(this);
     quitAction->setText(i18n("Quit KGet"));
-    quitAction->setIcon(KIcon("system-log-out"));
+    quitAction->setIcon(KIcon("system-shutdown"));
     connect(quitAction, SIGNAL(triggered()), mw, SLOT(slotQuit()));
     popupMenu->addAction(quitAction);
 
