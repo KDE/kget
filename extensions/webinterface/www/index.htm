@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <title>KGet Webinterface</title>
 <script type="text/javascript" src="mootools.js"></script>
 <script type="text/javascript">
+//<![CDATA[
 window.addEvent('domready', function() {
     var slide = new Fx.Slide('newDownloadFormContainer').hide(); // hide it at startup
     var slide = new Fx.Slide('settingsContainer').hide();
@@ -82,7 +83,6 @@ window.addEvent('domready', function() {
         });
     }
 
-
     $('loadDownloads').addEvent('click', function(e) {
         e = new Event(e).stop();
         refreshList();
@@ -115,6 +115,7 @@ window.addEvent('domready', function() {
     });
     var updateTimer = refreshList.periodical(10000);
 });
+//]]>
 </script>
 <style type="text/css">
 body {
@@ -177,7 +178,7 @@ h1, h2, h3 {
 
 <div id="newDownloadFormContainer">
     <form id="newDownloadForm" action="do" method="post">
-        <div id="form_box">
+        <div id="newDownloadFormBox">
             <div>
                 <p>URL:</p>
                 <input type="text" name="url" id="url" value="" />
@@ -199,7 +200,7 @@ h1, h2, h3 {
 
 <div id="settingsContainer">
     <form id="settingsForm" action="#" method="post">
-        <div id="form_box">
+        <div id="settingsFormBox">
             <div>
                 <p>Interval updates:</p>
                 <input type="text" name="interval" id="interval" value="10" /> sec
