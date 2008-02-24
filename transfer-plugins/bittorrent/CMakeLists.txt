@@ -19,6 +19,7 @@ set(kget_bittorrentfactory_PART_SRCS
   btspeedlimits.cpp
   scandlg.cpp
   btdatasource.cpp
+  btchunkselector.cpp
   advanceddetails/btadvanceddetailswidget.cpp
   advanceddetails/chunkdownloadmodel.cpp
   advanceddetails/chunkdownloadview.cpp
