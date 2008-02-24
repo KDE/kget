@@ -144,6 +144,30 @@ void HttpServer::handleRequest()
                 data.append(file.readLine());
             }
         }
+        if (fileName == "index.htm") { // translations
+            data.replace("#{KGet Webinterface}", i18nc("Title", "KGet Webinterface").toUtf8());
+            data.replace("#{Nr}", i18nc("Number", "Nr").toUtf8());
+            data.replace("#{File name}", i18n("File name").toUtf8());
+            data.replace("#{Finished}", i18nc("Progress of transfer", "Finished").toUtf8());
+            data.replace("#{Speed}", i18nc("Speed of transfer", "Speed").toUtf8());
+            data.replace("#{Status}", i18nc("Status of transfer", "Status").toUtf8());
+            data.replace("#{Start}", i18nc("@action", "Start").toUtf8());
+            data.replace("#{Stop}", i18nc("@action", "Stop").toUtf8());
+            data.replace("#{Remove}", i18nc("@action", "Remove").toUtf8());
+            data.replace("#{Source:}", i18nc("Download from", "Source:").toUtf8());
+            data.replace("#{Saving to:}", i18nc("Save download to", "Saving to:").toUtf8());
+            data.replace("#{Webinterface}", i18nc("Title in header", "Webinterface").toUtf8());
+            data.replace("#{Settings}", i18nc("@action", "Settings").toUtf8());
+            data.replace("#{Refresh}", i18nc("@action", "Refresh").toUtf8());
+            data.replace("#{Enter URL: }", i18n("Enter URL: ").toUtf8());
+            data.replace("#{OK}", i18nc("@action:button", "OK").toUtf8());
+            data.replace("#{Refresh every}", i18nc("Refresh very x (seconds)", "Refresh every").toUtf8());
+            data.replace("#{seconds}", i18nc("(Refresh very x )seconds", "seconds").toUtf8());
+            data.replace("#{Save Settings}", i18nc("@action:button", "Save Settings").toUtf8());
+            data.replace("#{Downloads}", i18nc("@title", "Downloads").toUtf8());
+            data.replace("#{KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS}",
+                         i18nc("text in footer", "KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS").toUtf8());
+        }
     }
     }
 

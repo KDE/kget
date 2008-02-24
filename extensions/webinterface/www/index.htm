@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="icon" href="favicon.ico" />
-<title>KGet Webinterface</title>
+<title>#{KGet Webinterface}</title>
 <script type="text/javascript" src="mootools.js"></script>
 <script type="text/javascript">
 //<![CDATA[
@@ -52,20 +52,20 @@ window.addEvent('domready', function() {
 
         // header
         var headertr = new Element('tr', {'id': 'download-list-table-header'}).injectInside(table);
-        var headernumber = new Element('td', {'class': 'download-left'}).setHTML('Nr').injectInside(headertr);
-        var headername = new Element('td', {'class': 'download-left'}).setHTML('File name').injectAfter(headernumber);
+        var headernumber = new Element('td', {'class': 'download-left'}).setHTML('#{Nr}').injectInside(headertr);
+        var headername = new Element('td', {'class': 'download-left'}).setHTML('#{File name}').injectAfter(headernumber);
         var headersize = new Element('td').setHTML('Size').injectAfter(headername);
-        var headerprogress = new Element('td', {'class': 'download-center'}).setHTML('Finished').injectAfter(headersize);
-        var headerspeed = new Element('td', {'class': 'download-center'}).setHTML('Speed').injectAfter(headerprogress);
-        var headerstatus = new Element('td', {'class': 'download-center'}).setHTML('Status').injectAfter(headerspeed);
-        var headerstartaction = new Element('td').setHTML('Start').injectAfter(headerstatus);
-        var headerstopaction = new Element('td').setHTML('Stop').injectAfter(headerstartaction);
-        var headerremoveaction = new Element('td').setHTML('Remove').injectAfter(headerstopaction);
+        var headerprogress = new Element('td', {'class': 'download-center'}).setHTML('#{Finished}').injectAfter(headersize);
+        var headerspeed = new Element('td', {'class': 'download-center'}).setHTML('#{Speed}').injectAfter(headerprogress);
+        var headerstatus = new Element('td', {'class': 'download-center'}).setHTML('#{Status}').injectAfter(headerspeed);
+        var headerstartaction = new Element('td').setHTML('#{Start}').injectAfter(headerstatus);
+        var headerstopaction = new Element('td').setHTML('#{Stop}').injectAfter(headerstartaction);
+        var headerremoveaction = new Element('td').setHTML('#{Remove}').injectAfter(headerstopaction);
 
         var i = 0;
         downloads.each(function(download) {
             i++;
-            var toolTipText = download.name + ' :: Source: ' + download.src + '<br />Saving to: ' + download.dest;
+            var toolTipText = download.name + ' :: #{Source:} ' + download.src + '<br />#{Saving to:} ' + download.dest;
             var tr = new Element('tr', {'class': 'toolTip download-list-table-item', 'title': toolTipText}).injectInside(table);
             var number = new Element('td', {'class': 'download-number'}).setHTML((i < 10) ? '0' + i : i).injectInside(tr);
             var name = new Element('td', {'class': 'download-left'}).setHTML(download.name).injectAfter(number);
@@ -74,19 +74,19 @@ window.addEvent('domready', function() {
             var speed = new Element('td', {'class': 'download-center'}).setHTML(download.speed).injectAfter(progress);
             var status = new Element('td', {'class': 'download-center'}).setHTML(download.status).injectAfter(speed);
             var startaction = new Element('td').injectAfter(status);
-            var start = new Element('a', {'href': '#'}).setHTML('Start').injectInside(startaction);
+            var start = new Element('a', {'href': '#'}).setHTML('#{Start}').injectInside(startaction);
             start.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('start', download.src);
             });
             var stopaction = new Element('td').injectAfter(startaction);
-            var stop = new Element('a', {'href': '#'}).setHTML('Stop').injectInside(stopaction);
+            var stop = new Element('a', {'href': '#'}).setHTML('#{Stop}').injectInside(stopaction);
             stop.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('stop', download.src);
             });
             var removeaction = new Element('td').injectAfter(stopaction);
-            var remove = new Element('a', {'href': '#'}).setHTML('Remove').injectInside(removeaction);
+            var remove = new Element('a', {'href': '#'}).setHTML('#{Remove}').injectInside(removeaction);
             remove.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('remove', download.src);
@@ -348,16 +348,16 @@ if (navigator.userAgent.toLowerCase().indexOf('msie') >= 1) {
             <img src="hi64-apps-kget.png" alt="KGet" />
         </div>
         <div id="logo-text">
-            <p>KGet<br /><small>Webinterface</small></p>
+            <p>KGet<br /><small>#{Webinterface}</small></p>
         </div>
         <div id="header-actions">
-            <div class="header-action" id="settings"><img src="preferences-system.png" alt="Settings" /><br />Settings</div>
-            <div class="header-action" id="load-downloads"><img src="view-refresh.png" alt="Refresh" /><br />Refresh</div>
+            <div class="header-action" id="settings"><img src="preferences-system.png" alt="#{Settings}" /><br />Settings</div>
+            <div class="header-action" id="load-downloads"><img src="view-refresh.png" alt="#{Refresh}" /><br />Refresh</div>
         </div>
     </div>
     <div id="new-download">
         <form id="new-download-form" action="do" method="post">
-            <p><label for="url">Enter URL: </label><input type="text" name="url" id="url" value="" />&nbsp;<input type="submit" value="OK" class="input-button" /></p>
+            <p><label for="url">#{Enter URL: }</label><input type="text" name="url" id="url" value="" />&nbsp;<input type="submit" value="#{OK}" class="input-button" /></p>
         </form>
         <div id="log">
             <div id="log-res"></div>
@@ -365,24 +365,24 @@ if (navigator.userAgent.toLowerCase().indexOf('msie') >= 1) {
     </div>
     <div id="download-list">
         <div id="settings-container">
-        <h2 id="h2-settings">Settings</h2>
+        <h2 id="h2-settings">#{Settings}</h2>
             <form id="settings-form" action="#" method="post">
                 <div id="settings-form-box">
                         <input type="checkbox" name="enable-refresh" id="enable-refresh" checked="checked" class="input-checkox" />
-                        <label for="enable-refresh"> Refresh every </label>
+                        <label for="enable-refresh"> #{Refresh every} </label>
                         <input type="text" name="interval" id="interval" value="10" />
-                        <label for="interval"> seconds</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="submit" value="Save Settings" class="input-button" />
+                        <label for="interval"> #{seconds}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="#{Save Settings}" class="input-button" />
                 </div>
             </form>
         </div>
 
-    <h2 id="h2-downloads">Downloads</h2>
+    <h2 id="h2-downloads">#{Downloads}</h2>
     <div id="downloads-list">
     </div>
     </div>
     <div id="footer">
-        KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS
+        #{KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS}
     </div>
 </div>
 </body>
