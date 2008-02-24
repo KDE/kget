@@ -159,6 +159,12 @@ void HttpServer::handleRequest()
         block.append(QString("Content-Type: image/png\r\n").toUtf8());
     else if (header.path().endsWith(".json") && responseCode == 200)
         block.append(QString("Content-Type: application/x-json\r\n").toUtf8());
+    else if (header.path().endsWith(".gif") && responseCode == 200)
+        block.append(QString("Content-Type: image/gif\r\n").toUtf8());
+    else if (header.path().endsWith(".js") && responseCode == 200)
+        block.append(QString("Content-Type: text/javascript\r\n").toUtf8());
+    else if (header.path().endsWith(".htc") && responseCode == 200)
+        block.append(QString("Content-Type: text/x-component\r\n").toUtf8());
     else
         block.append(QString("Content-Type: text/html; charset=UTF-8\r\n").toUtf8());
     block.append(QString("Content-Length: " + QString::number(data.length())+"\r\n").toUtf8());

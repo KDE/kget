@@ -127,6 +127,8 @@ int main(int argc, char *argv[])
     aboutData.addAuthor(ki18n("Patrick Charbonnier"), ki18n("Former Developer"), "pch@freeshell.org");
     aboutData.addAuthor(ki18n("Carsten Pfeiffer"), ki18n("Former Developer"), "pfeiffer@kde.org");
     aboutData.addAuthor(ki18n("Matej Koss"), ki18n("Former Developer"));
+    aboutData.addCredit(ki18n("Joris Guisson"), ki18n("BTCore (KTorrent) Developer"), "joris.guisson@gmail.com");
+    aboutData.addCredit(ki18n("Mensur Zahirovic (Nookie)"), ki18n("Design of Webinterface"), "linuxsajten@gmail.com");
 
     KCmdLineArgs::init(argc, argv, &aboutData);
 
