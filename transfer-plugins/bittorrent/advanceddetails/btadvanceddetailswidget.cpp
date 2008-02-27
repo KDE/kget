@@ -79,7 +79,7 @@ void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     Q_UNUSED(transfer);
     kDebug(5001);
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
-    if (transferFlags & BTTransfer::Tc_ChunksTotal || transferFlags & BTTransfer::Tc_ChunksDownloaded || transferFlags & BTTransfer::Tc_ChunksExcluded || transferFlags & BTTransfer::Tc_ChunksLeft || transferFlags & Transfer::Tc_Speed)
+    if (transferFlags & BTTransfer::Tc_ChunksTotal || transferFlags & BTTransfer::Tc_ChunksDownloaded || transferFlags & BTTransfer::Tc_ChunksExcluded || transferFlags & BTTransfer::Tc_ChunksLeft || transferFlags & Transfer::Tc_DownloadSpeed || transferFlags & Transfer::Tc_UploadSpeed)
     {
         if (tabWidget->currentIndex() == 1)
                 peer_view->update();

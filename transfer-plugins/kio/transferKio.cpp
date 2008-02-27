@@ -55,8 +55,8 @@ void TransferKio::stop()
 
     kDebug(5001) << "Stop";
     setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
-    m_speed = 0;
-    setTransferChange(Tc_Status | Tc_Speed, true);
+    m_downloadSpeed = 0;
+    setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
 int TransferKio::elapsedTime() const
@@ -133,9 +133,9 @@ void TransferKio::slotResult( KJob * kioJob )
             setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
         // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
             m_percent = 100;
-            m_speed = 0;
-            m_processedSize = m_totalSize;
-            setTransferChange(Tc_Percent | Tc_Speed);
+            m_downloadSpeed = 0;
+            m_downloadedSize = m_totalSize;
+            setTransferChange(Tc_Percent | Tc_DownloadSpeed);
             break;
         default:
             //There has been an error
@@ -186,8 +186,8 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
         setStatus(Job::Running, i18n("Downloading.."),  SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status);
     }
-    m_processedSize = size;
-    setTransferChange(Tc_ProcessedSize, true);
+    m_downloadedSize = size;
+    setTransferChange(Tc_DownloadedSize, true);
 }
 
 void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
@@ -203,8 +203,8 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 
     }
 
-    m_speed = bytes_per_second;
-    setTransferChange(Tc_Speed, true);
+    m_downloadSpeed = bytes_per_second;
+    setTransferChange(Tc_DownloadSpeed, true);
 }
 
 #include "transferKio.moc"

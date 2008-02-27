@@ -42,8 +42,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
             Tc_SeedsDisconnected      = 0x00200000,
             Tc_LeechesConnected       = 0x00400000,
             Tc_LeechesDisconnected    = 0x00800000,
-            Tc_DlRate                 = 0x01000000,
-            Tc_UlRate                 = 0x02000000,
             Tc_SessionBytesDownloaded = 0x04000000,
             Tc_SessionBytesUploaded   = 0x08000000,
             Tc_TrackersList           = 0x10000000
@@ -71,8 +69,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         int seedsDisconnected() const;
         int leechesConnected() const;
         int leechesDisconnected() const;
-        int dlRate() const;
-        int ulRate() const;
         float totalSize() const;
         float processedSize() const;
         int sessionBytesDownloaded() const;

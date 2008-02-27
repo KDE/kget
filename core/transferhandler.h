@@ -123,7 +123,12 @@ class KGET_EXPORT TransferHandler
         /**
          * @return the downloaded size of the transfer in bytes
          */
-        KIO::filesize_t processedSize() const;
+        KIO::filesize_t downloadedSize() const;
+
+        /**
+         * @return the uploaded size of the transfer in bytes
+         */
+        KIO::filesize_t uploadedSize() const;
 
         /**
          * @return the progress percentage of the transfer
@@ -133,7 +138,12 @@ class KGET_EXPORT TransferHandler
         /**
          * @return the download speed of the transfer in bytes/sec
          */
-        int speed() const;
+        int downloadSpeed() const;
+
+        /**
+         * @return the upload speed of the transfer in bytes/sec
+         */
+        int uploadSpeed() const;
 
         /**
          * Set an UploadLimit for the transfer

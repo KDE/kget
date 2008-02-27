@@ -41,8 +41,6 @@ class BTTransferHandler : public QObject, public TransferHandler
         int seedsDisconnected() const                   {return m_transfer->seedsDisconnected();}
         int leechesConnected() const                    {return m_transfer->leechesConnected();}
         int leechesDisconnected() const                 {return m_transfer->leechesDisconnected();}
-        int ulRate() const                              {return m_transfer->ulRate();}
-        int dlRate() const                              {return m_transfer->dlRate();}
         bt::TorrentControl * torrentControl() const     {return m_transfer->torrentControl();}
         int percent() const                             {return m_transfer->percent();}
         bool ready() const                              {return m_transfer->ready();}

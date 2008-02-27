@@ -25,8 +25,8 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    const QDomElement * e)
     : Job(parent, scheduler),
       m_source(source), m_dest(dest),
-      m_totalSize(0), m_processedSize(0),
-      m_percent(0), m_speed(0),
+      m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
+      m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
       m_ulLimit(0), m_dlLimit(0),
       m_isSelected(false),
       m_visibleUlLimit(0), m_visibleDlLimit(0),
@@ -113,7 +113,8 @@ void Transfer::save(const QDomElement &element)
     e.setAttribute("Source", m_source.url());
     e.setAttribute("Dest", m_dest.url());
     e.setAttribute("TotalSize", m_totalSize);
-    e.setAttribute("ProcessedSize", m_processedSize);
+    e.setAttribute("DownloadedSize", m_downloadedSize);
+    e.setAttribute("UploadedSize", m_uploadedSize);
     e.setAttribute("DownloadLimit", m_visibleDlLimit);
     e.setAttribute("UploadLimit", m_visibleUlLimit);
 }
@@ -124,14 +125,15 @@ void Transfer::load(const QDomElement &e)
     m_dest = KUrl(e.attribute("Dest"));
 
     m_totalSize = e.attribute("TotalSize").toULongLong();
-    m_processedSize = e.attribute("ProcessedSize").toULongLong();
+    m_downloadedSize = e.attribute("DownloadedSize").toULongLong();
+    m_uploadedSize = e.attribute("UploadedSize").toULongLong();
 
     if( m_totalSize != 0)
-        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
+        m_percent = (int)((100.0 * m_downloadedSize) / m_totalSize);
     else
         m_percent = 0;
 
-    if((m_totalSize == m_processedSize) && (m_totalSize != 0))
+    if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
         setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }

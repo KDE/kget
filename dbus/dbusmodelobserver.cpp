@@ -89,7 +89,7 @@ QStringList DBusModelObserver::getAttributesFromTransfer(TransferHandler *handle
     attributes << QString::number(handler->percent());
     attributes << QString::number(handler->totalSize());
     attributes << status;
-    attributes << QString::number(handler->speed());
+    attributes << QString::number(handler->downloadSpeed());
 
     return attributes;
 }

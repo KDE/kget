@@ -51,8 +51,8 @@ void metalink::stop()
     }
 
     setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
-    m_speed = 0;
-    setTransferChange(Tc_Status | Tc_Speed, true);
+    m_downloadSpeed = 0;
+    setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
 int metalink::elapsedTime() const
@@ -112,9 +112,9 @@ void metalink::slotResult(KJob * job)
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
             setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
             m_percent = 100;
-            m_speed = 0;
-            m_processedSize = m_totalSize;
-            setTransferChange(Tc_Percent | Tc_Speed);
+            m_downloadSpeed = 0;
+            m_downloadedSize = m_totalSize;
+            setTransferChange(Tc_Percent | Tc_DownloadSpeed);
             break;
         default:
             //There has been an error

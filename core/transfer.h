@@ -40,21 +40,23 @@ class KGET_EXPORT Transfer : public Job
          */
         enum TransferChange
         {
-            Tc_None          = 0x00000000,
+            Tc_None           = 0x00000000,
             // These flags respect the Model columns order
-            Tc_FileName      = 0x00000001,
-            Tc_Status        = 0x00000002,
-            Tc_TotalSize     = 0x00000004,
-            Tc_Percent       = 0x00000008,
-            Tc_Speed         = 0x00000010,
+            Tc_FileName       = 0x00000001,
+            Tc_Status         = 0x00000002,
+            Tc_TotalSize      = 0x00000004,
+            Tc_Percent        = 0x00000008,
+            Tc_DownloadSpeed  = 0x00000010,
+            Tc_UploadSpeed    = 0x00000016,
             // Misc
-            Tc_UploadLimit   = 0x00000100,
-            Tc_DownloadLimit = 0x00000200,
-            Tc_CanResume     = 0x00000400,
-            Tc_ProcessedSize = 0x00000800,
-            Tc_Log           = 0x00001000,
-            Tc_Group         = 0x00002000,
-            Tc_Selection     = 0x00004000
+            Tc_UploadLimit    = 0x00000100,
+            Tc_DownloadLimit  = 0x00000200,
+            Tc_CanResume      = 0x00000400,
+            Tc_DownloadedSize = 0x00000800,
+            Tc_UploadedSize   = 0x00001000,
+            Tc_Log            = 0x00002000,
+            Tc_Group          = 0x00004000,
+            Tc_Selection      = 0x00006000
         };
 
         enum LogLevel
@@ -71,17 +73,19 @@ class KGET_EXPORT Transfer : public Job
 
         virtual ~Transfer();
 
-        const KUrl & source() const         {return m_source;}
-        const KUrl & dest() const           {return m_dest;}
+        const KUrl & source() const            {return m_source;}
+        const KUrl & dest() const              {return m_dest;}
 
         //Transfer status
-        KIO::filesize_t totalSize() const     {return m_totalSize;}
-        KIO::filesize_t processedSize() const {return m_processedSize;}
-        QString statusText() const          {return m_statusText;}
-        QPixmap statusPixmap() const        {return m_statusPixmap;}
+        KIO::filesize_t totalSize() const      {return m_totalSize;}
+        KIO::filesize_t downloadedSize() const {return m_downloadedSize;}
+        KIO::filesize_t uploadedSize() const   {return m_uploadedSize;}
+        QString statusText() const             {return m_statusText;}
+        QPixmap statusPixmap() const           {return m_statusPixmap;}
 
-        int percent() const                 {return m_percent;}
-        int speed() const                   {return m_speed;}
+        int percent() const                    {return m_percent;}
+        int downloadSpeed() const              {return m_downloadSpeed;}
+        int uploadSpeed() const                {return m_uploadSpeed;}
 
         virtual bool supportsSpeedLimits() const {return false;}
 
@@ -207,9 +211,11 @@ class KGET_EXPORT Transfer : public Job
 
         QStringList   m_log;
         KIO::filesize_t m_totalSize;
-        KIO::filesize_t m_processedSize;
+        KIO::filesize_t m_downloadedSize;
+        KIO::filesize_t m_uploadedSize;
         int           m_percent;
-        int           m_speed;
+        int           m_downloadSpeed;
+        int           m_uploadSpeed;
 
         int	      m_ulLimit;
         int           m_dlLimit;

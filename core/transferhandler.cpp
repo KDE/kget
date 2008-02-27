@@ -96,9 +96,14 @@ KIO::filesize_t TransferHandler::totalSize() const
     return m_transfer->totalSize();
 }
 
-KIO::filesize_t TransferHandler::processedSize() const
+KIO::filesize_t TransferHandler::downloadedSize() const
 {
-    return m_transfer->processedSize();
+    return m_transfer->downloadedSize();
+}
+
+KIO::filesize_t TransferHandler::uploadedSize() const
+{
+    return m_transfer->uploadedSize();
 }
 
 int TransferHandler::percent() const
@@ -106,9 +111,14 @@ int TransferHandler::percent() const
     return m_transfer->percent();
 }
 
-int TransferHandler::speed() const
+int TransferHandler::downloadSpeed() const
 {
-    return m_transfer->speed();
+    return m_transfer->downloadSpeed();
+}
+
+int TransferHandler::uploadSpeed() const
+{
+    return m_transfer->uploadSpeed();
 }
 
 QVariant TransferHandler::data(int column)
@@ -130,7 +140,7 @@ QVariant TransferHandler::data(int column)
 //             return QString::number(percent())+'%'; // display progressbar instead
             return QVariant();
         case 4:
-            if (speed()==0)
+            if (downloadSpeed()==0)
             {
                 if (status() == Job::Running)
                     return i18n("Stalled");
@@ -138,7 +148,7 @@ QVariant TransferHandler::data(int column)
                     return QString();
             }
             else
-                return i18n("%1/s", KIO::convertSize(speed()));
+                return i18n("%1/s", KIO::convertSize(downloadSpeed()));
         default:
             return QVariant();
     }

@@ -262,7 +262,7 @@ void BTTransfer::stopTorrent()
     torrent->setMonitor(0);
     peersList.clear();
     chunksList.clear();
-    m_speed = 0;
+    m_downloadSpeed = 0;
     timer.stop();
 
     if (m_downloadFinished)
@@ -286,11 +286,20 @@ void BTTransfer::updateTorrent()
 
     ChangesFlags changesFlags = 0;
 
-    if(m_processedSize != (m_processedSize = processedSize()) )
-        changesFlags |= Tc_ProcessedSize;
+    if(m_downloadedSize != (m_downloadedSize = processedSize()) )
+        changesFlags |= Tc_DownloadedSize;
 
-    if(m_speed != (m_speed = dlRate()) )
-        changesFlags |= Tc_Speed;
+    if(m_uploadSpeed != torrent->getStats().upload_rate )
+    {
+        m_uploadSpeed = torrent->getStats().upload_rate;
+        changesFlags |= Tc_UploadSpeed;
+    }
+
+    if(m_downloadSpeed != torrent->getStats().download_rate )
+    {
+        m_downloadSpeed = torrent->getStats().download_rate;
+        changesFlags |= Tc_DownloadSpeed;
+    }
 
     if(m_percent != (m_percent = percent()) )
         changesFlags |= Tc_Percent;
@@ -391,22 +400,6 @@ KUrl::List BTTransfer::trackersList() const
 
     const KUrl::List trackers = torrent->getTrackersList()->getTrackerURLs();
     return trackers;
-}
-
-int BTTransfer::dlRate() const
-{
-    if (!torrent)
-        return -1;
-
-    return torrent->getStats().download_rate;
-}
-
-int BTTransfer::ulRate() const
-{
-    if (!torrent)
-        return -1;
-
-    return torrent->getStats().upload_rate;
 }
 
 float BTTransfer::totalSize() const

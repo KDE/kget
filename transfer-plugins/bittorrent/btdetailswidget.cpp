@@ -45,12 +45,11 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
     Q_UNUSED(transfer);
     TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
 
-    if(transferFlags & Transfer::Tc_Speed)
-    {
-        kDebug(5001) << m_transfer->dlRate();
-        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->dlRate()));
-        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->ulRate()));
-    }
+    if(transferFlags & Transfer::Tc_DownloadSpeed)
+        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->downloadSpeed()));
+
+    if(transferFlags & Transfer::Tc_UploadSpeed)
+        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()));
 
      if(transferFlags & BTTransfer::Tc_SeedsConnected)
         seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');

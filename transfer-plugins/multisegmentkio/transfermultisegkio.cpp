@@ -60,8 +60,8 @@ void transferMultiSegKio::stop()
     }
 
     setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
-    m_speed = 0;
-    setTransferChange(Tc_Status | Tc_Speed, true);
+    m_downloadSpeed = 0;
+    setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
 int transferMultiSegKio::elapsedTime() const
@@ -184,7 +184,7 @@ void transferMultiSegKio::createJob()
         }
         else
         {
-            m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, m_processedSize, m_totalSize, SegmentsData, MultiSegKioSettings::segments());
+            m_copyjob = MultiSegfile_copy( m_Urls, m_dest, -1, m_downloadedSize, m_totalSize, SegmentsData, MultiSegKioSettings::segments());
         }
         connect(m_copyjob, SIGNAL(updateSegmentsData()),
            SLOT(slotUpdateSegmentsData()));
@@ -220,9 +220,9 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
             setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
             // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
             m_percent = 100;
-            m_speed = 0;
-            m_processedSize = m_totalSize;
-            setTransferChange(Tc_Percent | Tc_Speed);
+            m_downloadSpeed = 0;
+            m_downloadedSize = m_totalSize;
+            setTransferChange(Tc_Percent | Tc_DownloadSpeed);
             break;
         default:
             //There has been an error
@@ -281,8 +281,8 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
         setTransferChange(Tc_Status , true);
     }
 
-    m_processedSize = size;
-    setTransferChange(Tc_ProcessedSize, true);
+    m_downloadedSize = size;
+    setTransferChange(Tc_DownloadedSize, true);
 }
 
 void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
@@ -298,8 +298,8 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
         setTransferChange(Tc_Status , true);
     }
 
-    m_speed = bytes_per_second;
-    setTransferChange(Tc_Speed, true);
+    m_downloadSpeed = bytes_per_second;
+    setTransferChange(Tc_DownloadSpeed, true);
 }
 
 void transferMultiSegKio::slotSearchUrls(const QList<KUrl> &Urls)

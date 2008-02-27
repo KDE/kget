@@ -69,9 +69,9 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
         m_statusTextLabel->setText(m_transfer->statusText());
     }
 
-    if((transferFlags & Transfer::Tc_TotalSize) || (transferFlags & Transfer::Tc_ProcessedSize))
+    if((transferFlags & Transfer::Tc_TotalSize) || (transferFlags & Transfer::Tc_DownloadedSize))
     {
-        m_completedLabel->setText(i18n("%1 of %2", KIO::convertSize(m_transfer->processedSize()), KIO::convertSize(m_transfer->totalSize())));
+        m_completedLabel->setText(i18n("%1 of %2", KIO::convertSize(m_transfer->downloadedSize()), KIO::convertSize(m_transfer->totalSize())));
     }
 
     if(transferFlags & Transfer::Tc_Percent)
@@ -79,9 +79,9 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
         m_progressBar->setValue(m_transfer->percent());
     }
 
-    if(transferFlags & Transfer::Tc_Speed)
+    if(transferFlags & Transfer::Tc_DownloadSpeed)
     {
-        int speed = m_transfer->speed();
+        int speed = m_transfer->downloadSpeed();
 
         if(speed==0)
         {
