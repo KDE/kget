@@ -50,8 +50,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_ready(false),
     m_downloadFinished(false)
 {
-    kDebug(5001);
-
     if (m_source.url().isEmpty())
         return;
 
@@ -61,8 +59,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 
 BTTransfer::~BTTransfer()
 {
-    kDebug(5001);
-
     if(torrent)
         torrent->setMonitor(0);
 
@@ -73,19 +69,17 @@ BTTransfer::~BTTransfer()
 /**Reimplemented functions from Transfer-Class (transfer.cpp)**/
 bool BTTransfer::isResumable() const
 {
-    kDebug(5001);
     return true;
 }
 
 void BTTransfer::start()
 {
-    kDebug(5001);
     if (!torrent)
     {
         if (!m_source.isLocalFile())
         {
             kDebug(5001) << m_dest.path();
-             BTDownload *download = new BTDownload(m_source);
+            BTDownload *download = new BTDownload(m_source);
 
             setStatus(Job::Stopped, i18n("Downloading Torrent-File.."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
@@ -102,7 +96,6 @@ void BTTransfer::start()
 
 void BTTransfer::stop()
 {
-    kDebug(5001);
     if (m_ready)
     {
         stopTorrent();
@@ -244,15 +237,12 @@ void BTTransfer::startTorrent()
         //kDebug(5001) << "Going to download that stuff :-0";
         setSpeedLimits(visibleUploadLimit(), visibleDownloadLimit());//Set traffic-limits before starting
         torrent->setMonitor(this);
-        kDebug(5001) << "Here we are";
         torrent->start();
         kDebug(5001) << "Got started??";
         timer.start(250);
         setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading.."), SmallIcon("media-playback-start"));
-        kDebug(5001) << "Jepp, it does";
         m_totalSize = totalSize();
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
-        kDebug(5001) << "Completely";
     }
 }
 
@@ -318,7 +308,7 @@ void BTTransfer::init(const KUrl &src)
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
-    bt::SetClientInfo("KGet",2,0,0,bt::NORMAL,"KG");//Set client info to KGet, WARNING: Pls change this for every release
+    bt::SetClientInfo("KGet",2,1,0,bt::NORMAL,"KG");//Set client info to KGet, WARNING: Pls change this for every release
 
     bt::Uint16 i = 0;
     do
@@ -385,7 +375,6 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
     kDebug(5001) << "Start seeding *********************************************************************";
     Q_UNUSED(ti);
-    kDebug(5001);
     m_downloadFinished = true;
     timer.stop();
     setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding.."), SmallIcon("media-playback-start"));
