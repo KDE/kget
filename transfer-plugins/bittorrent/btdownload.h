@@ -22,7 +22,7 @@ class BTDownload : public QObject
 {
     Q_OBJECT
     public:
-        BTDownload(const KUrl &srcUrl);
+        BTDownload(const KUrl &srcUrl, const KUrl &destUrl);
 
     Q_SIGNALS:
         void finishedSuccessfully(KUrl dest);
@@ -35,6 +35,7 @@ class BTDownload : public QObject
     private:
         KUrl m_srcUrl;
         KUrl m_destUrl;
+        KUrl m_destFile;
         QByteArray m_data;
 };
 

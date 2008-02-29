@@ -13,17 +13,15 @@
 #include <QFileInfo>
 
 #include <KDebug>
-#include <KStandardDirs>
 
-BTDownload::BTDownload(const KUrl &srcUrl)
+BTDownload::BTDownload(const KUrl &srcUrl, const KUrl &destUrl)
   : m_srcUrl(srcUrl),
-    m_destUrl(KStandardDirs::locateLocal("appdata", "tmp/"))
+    m_destUrl(destUrl)
 {
-        kDebug(5001) << "DownloadFile:" << m_srcUrl.url();
-        KIO::TransferJob *m_copyJob = KIO::get(m_srcUrl, KIO::NoReload, KIO::HideProgressInfo);
-        connect(m_copyJob, SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray&)));
-        connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
-        connect(m_copyJob, SIGNAL(finished()), SLOT(setTorrentFileDownloaded()));
+    kDebug(5001) << "DownloadFile: " << m_srcUrl.url() << " to dest: " << m_destUrl.url();
+    KIO::TransferJob *m_copyJob = KIO::get(m_srcUrl, KIO::NoReload, KIO::HideProgressInfo);
+    connect(m_copyJob, SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray&)));
+    connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
 }
 
 void BTDownload::slotData(KIO::Job *job, const QByteArray& data)
@@ -46,15 +44,13 @@ void BTDownload::slotResult(KJob * job)
         case 0://The download has finished
         {
             kDebug(5001) << "Downloading successfully finished" << m_destUrl.url().remove("file://") + m_srcUrl.fileName();
-            QFile torrentFile(m_destUrl.url().remove("file://") + m_srcUrl.fileName());
-            if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text))
-                kDebug(5001) << "Thanks uwolfer";
+            QFile torrentFile(m_destUrl.url().remove("file://"));
+            if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text)) {}
+                //TODO: Do a Message box here
             torrentFile.write(m_data);
             torrentFile.close();
             kDebug(5001) << m_data;
             m_data = 0;
-            m_destUrl = QFileInfo(torrentFile).absoluteFilePath();
-            kDebug(5001) << m_destUrl;
             emit finishedSuccessfully(m_destUrl);
             break;
         }

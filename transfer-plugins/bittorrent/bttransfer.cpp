@@ -79,12 +79,12 @@ void BTTransfer::start()
         if (!m_source.isLocalFile())
         {
             kDebug(5001) << m_dest.path();
-            BTDownload *download = new BTDownload(m_source);
+            BTDownload *download = new BTDownload(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
 
             setStatus(Job::Stopped, i18n("Downloading Torrent-File.."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
 
-            m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
+            //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
             connect(download, SIGNAL(finishedSuccessfully(KUrl)), SLOT(init(KUrl)));
         }
         else
