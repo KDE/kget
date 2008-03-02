@@ -161,7 +161,7 @@
        <widget class="QLabel" name="label" >
         <property name="text" >
          <string>Use a regular expression for the extension. 
-Example: *.tar.gz</string>
+Examples: *.tar.gz or *movies*.zip</string>
         </property>
         <property name="textFormat" >
          <enum>Qt::PlainText</enum>
