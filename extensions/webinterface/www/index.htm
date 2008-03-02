@@ -65,7 +65,7 @@ window.addEvent('domready', function() {
         var i = 0;
         downloads.each(function(download) {
             i++;
-            var toolTipText = download.name + ' :: #{Source:} ' + download.src + '<br />#{Saving to:} ' + download.dest;
+            var toolTipText = '<h1>' + download.name + '</h1>#{Source:} ' + download.src + '<br />#{Saving to:} ' + download.dest;
             var tr = new Element('tr', {'class': 'toolTip download-list-table-item', 'title': toolTipText}).injectInside(table);
             var number = new Element('td', {'class': 'download-number'}).setHTML((i < 10) ? '0' + i : i).injectInside(tr);
             var name = new Element('td', {'class': 'download-left'}).setHTML(download.name).injectAfter(number);
@@ -97,7 +97,7 @@ window.addEvent('domready', function() {
         table.inject(downloadsList);
 
         var toolTips = new Tips($$('.toolTip'), {
-            maxTitleChars: 80
+            className: 'tool-tip'
         });
     }
 
@@ -144,24 +144,20 @@ a, a:active, a:hover, a:visited {
     width: 30px;
     text-align: center;
 }
-.tool-tip {
+.tool-tip{
     color: #000000;
     z-index: 13000;
     border: 1px solid #B8B8B8;
+    background: #F9F9F9;
 }
-.tool-title {
+.tool-tip h1 {
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 1.3em;
     margin: 0;
     color: #323232;
-    padding: 8px 8px 4px;
+    padding: 2px;
     background: #DDDDDD;
     border-bottom: 1px solid #B8B8B8;
-}
-.tool-text {
-    font-size: 0.8em;
-    padding: 4px 8px 8px;
-    background: #F9F9F9;
 }
 #background-top-left, #background-top-right {
     position: absolute;
@@ -369,7 +365,7 @@ if (navigator.userAgent.toLowerCase().indexOf('msie') >= 1) {
             <form id="settings-form" action="#" method="post">
                 <div id="settings-form-box">
                         <input type="checkbox" name="enable-refresh" id="enable-refresh" checked="checked" class="input-checkox" />
-                        <label for="enable-refresh"> #{Refresh every} </label>
+                        <label for="enable-refresh"> #{Refresh download list every} </label>
                         <input type="text" name="interval" id="interval" value="10" />
                         <label for="interval"> #{seconds}</label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="submit" value="#{Save Settings}" class="input-button" />
