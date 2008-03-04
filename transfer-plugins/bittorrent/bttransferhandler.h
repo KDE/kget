@@ -19,8 +19,6 @@ class Scheduler;
 
 class BTAdvancedDetailsWidget;
 
-class BTSpeedLimits;
-
 namespace kt
 {
     class ScanDlg;
@@ -52,18 +50,15 @@ class BTTransferHandler : public QObject, public TransferHandler
 
     public slots:
         void createAdvancedDetails();
-        void createSpeedLimits();
         void createScanDlg();
 
     private slots:
         void removeAdvancedDetails();
-        void removeSpeedLimits();
         void removeScanDlg();
 
     private:
         BTTransfer * m_transfer;
         BTAdvancedDetailsWidget *advancedDetails;
-        BTSpeedLimits *speedLimits;
         kt::ScanDlg *scanDlg;
 };
 
