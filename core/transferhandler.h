@@ -194,6 +194,22 @@ class KGET_EXPORT TransferHandler
         int visibleDownloadLimit() const {return m_transfer->visibleDownloadLimit();}
 
         /**
+         * Set the maximum share-ratio
+         * @param ratio the new maximum share-ratio
+         */
+        void setMaximumShareRatio(double ratio) {m_transfer->setMaximumShareRatio(ratio);}
+
+        /**
+         * @return the maximum share-ratio
+         */
+        double maximumShareRatio() {return m_transfer->maximumShareRatio();}
+
+        /**
+         * Recalculate the share ratio
+         */
+        void checkShareRatio() {m_transfer->checkShareRatio();}
+
+        /**
          * @return a string describing the current transfer status
          */
         QString statusText() const {return m_transfer->statusText();}

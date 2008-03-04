@@ -27,7 +27,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_source(source), m_dest(dest),
       m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
-      m_ulLimit(0), m_dlLimit(0),
+      m_ulLimit(0), m_dlLimit(0), m_ratio(0),
       m_isSelected(false),
       m_visibleUlLimit(0), m_visibleDlLimit(0),
       m_handler(0), m_factory(factory)
@@ -60,6 +60,23 @@ void Transfer::setVisibleDownloadLimit(int visibleDlLimit)
     m_visibleDlLimit = visibleDlLimit;
 
     setDownloadLimit(m_visibleDlLimit);
+}
+
+void Transfer::setMaximumShareRatio(double ratio)
+{
+    m_ratio = ratio;
+    checkShareRatio();
+}
+
+void Transfer::checkShareRatio()
+{
+    if (m_downloadedSize == 0 || m_ratio == 0)
+        return;
+
+    if (m_uploadedSize / m_downloadedSize >= m_ratio)
+        setDownloadLimit(1);//If we set it to 0 we would have no limit xD
+    else
+        setDownloadLimit(0);
 }
 
 void Transfer::setDelay(int seconds)

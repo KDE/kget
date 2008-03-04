@@ -137,6 +137,22 @@ class KGET_EXPORT Transfer : public Job
          */
         int visibleDownloadLimit() const {return m_visibleDlLimit;}
 
+        /**
+         * Set the maximum share-ratio
+         * @param ratio the new maximum share-ratio
+         */
+        void setMaximumShareRatio(double ratio);
+
+        /**
+         * @return the maximum share-ratio
+         */
+        double maximumShareRatio() {return m_ratio;}
+
+        /**
+         * Recalculate the share ratio
+         */
+        void checkShareRatio();
+
         // --- Job virtual functions ---
         virtual void setDelay(int seconds);
         virtual void delayTimerEvent();
@@ -225,6 +241,7 @@ class KGET_EXPORT Transfer : public Job
     private:
         int m_visibleUlLimit;
         int m_visibleDlLimit;
+        double m_ratio;
 
         QString m_statusText;
         QPixmap m_statusPixmap;

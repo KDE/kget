@@ -5,20 +5,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>250</width>
-    <height>114</height>
+    <width>262</width>
+    <height>112</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" colspan="2" >
-    <widget class="KTitleWidget" name="ktitlewidget" >
+    <widget class="KTitleWidget" native="1" name="ktitlewidget" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="text" >
+     <property name="text" stdset="0" >
       <string>Transfer-Settings</string>
      </property>
     </widget>
@@ -69,6 +69,20 @@
      </property>
     </widget>
    </item>
+   <item row="3" column="0" >
+    <widget class="QCheckBox" name="ratioCheck" >
+     <property name="text" >
+      <string>Maximum Share Ratio</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <widget class="QDoubleSpinBox" name="ratioSpin" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -109,6 +123,22 @@
     <hint type="destinationlabel" >
      <x>235</x>
      <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ratioCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>ratioSpin</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>84</x>
+     <y>89</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>203</x>
+     <y>90</y>
     </hint>
    </hints>
   </connection>

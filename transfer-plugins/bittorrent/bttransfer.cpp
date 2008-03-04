@@ -182,11 +182,13 @@ void BTTransfer::setPort(int port)
 
 void BTTransfer::setDownloadLimit(int dlLimit)
 {
+    kDebug(5001) << "New Download Limit is: " << dlLimit;
     setSpeedLimits(m_ulLimit, dlLimit);
 }
 
 void BTTransfer::setUploadLimit(int ulLimit)
 {
+    kDebug(5001) << "New Upload Limit is: " << ulLimit;
     setSpeedLimits(ulLimit, m_dlLimit);
 }
 

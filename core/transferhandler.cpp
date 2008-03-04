@@ -275,6 +275,7 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
         prevStatus = transfer->statusText();
         KGet::checkSystemTray();
     }
+    transfer->checkShareRatio();
 }
 
 void GenericTransferObserver::checkAndFinish()

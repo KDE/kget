@@ -58,6 +58,7 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;
+        bool supportsSpeedLimits() const {return true;}
         void postDeleteEvent();
 
         //Bittorrent specific functions (connected with TransferFlags

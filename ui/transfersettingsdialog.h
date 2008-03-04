@@ -31,8 +31,10 @@ class TransferSettingsDialog : public KDialog
 
         QCheckBox *m_downloadCheck;
         QCheckBox *m_uploadCheck;
+        QCheckBox *m_ratioCheck;
         QSpinBox *m_downloadSpin;
         QSpinBox *m_uploadSpin;
+        QDoubleSpinBox *m_ratioSpin;
 };
 
 #endif
