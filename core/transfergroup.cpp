@@ -245,9 +245,9 @@ void TransferGroup::calculateDownloadLimit()
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {
-                if (visibleDownloadLimit() < downloadLimit())
+                if (visibleDownloadLimit() < downloadLimit() && transfer->visibleDownloadLimit() < downloadLimit())
                     transfer->setDownloadLimit(visibleDownloadLimit() / n);
-                else
+                else if (visibleDownloadLimit() < downloadLimit())
                     transfer->setDownloadLimit(downloadLimit() / n);
             }
         }
