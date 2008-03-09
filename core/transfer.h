@@ -233,7 +233,7 @@ class KGET_EXPORT Transfer : public Job
         int           m_downloadSpeed;
         int           m_uploadSpeed;
 
-        int	      m_ulLimit;
+        int           m_ulLimit;
         int           m_dlLimit;
 
         bool m_isSelected;
