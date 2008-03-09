@@ -33,6 +33,7 @@ public:
     void setSource(const KUrl::List &list);
     KUrl::List source() const;
     void setDestination(const QStringList &list);
+    void setDestinationFileName(const QString &filename);
     QString destination() const;
     QString transferGroup() const;
 
