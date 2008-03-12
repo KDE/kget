@@ -313,7 +313,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
             painter->drawTiledPixmap(option.rect, groupBackground);
         }
 
-        QItemDelegate::paint(painter, option, index);
+        KExtendableItemDelegate::paint(painter, option, index);
 
         painter->restore();
     }

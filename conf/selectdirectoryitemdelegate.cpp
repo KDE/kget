@@ -15,7 +15,7 @@
 #include <KUrlRequester>
 
 SelectDirectoryItemDelegate::SelectDirectoryItemDelegate(QObject *parent)
-    : QItemDelegate(parent)
+    : QStyledItemDelegate(parent)
 {
 }
 

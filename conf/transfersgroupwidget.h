@@ -15,7 +15,7 @@
 
 #include <KLineEdit>
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 #include <QVBoxLayout>
 #include <QTreeView>
 
@@ -38,7 +38,7 @@ private:
     QModelIndex m_groupIndex;
 };
 
-class TransfersGroupDelegate : public QItemDelegate
+class TransfersGroupDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:

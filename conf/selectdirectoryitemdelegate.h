@@ -12,9 +12,9 @@
 #ifndef SELECT_DIRECTORY_ITEM_DELEGATE_H
 #define SELECT_DIRECTORY_ITEM_DELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class SelectDirectoryItemDelegate : public QItemDelegate
+class SelectDirectoryItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
