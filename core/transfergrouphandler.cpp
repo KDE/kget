@@ -219,6 +219,7 @@ void TransferGroupHandler::setGroupChange(ChangesFlags change, bool postEvent)
 
 void TransferGroupHandler::postGroupChangedEvent()
 {
+    m_group->calculateSpeedLimits();
     //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.

@@ -236,40 +236,84 @@ void TransferGroup::calculateSpeedLimits()
 
 void TransferGroup::calculateDownloadLimit()
 {
-    kDebug(5001);//FIXME: Perhaps anyone has a better calculation/algorithm for that and calculateUploadLimit() ?
+    kDebug(5001) << "Now we are calculating download Limits =)";
     if (supportsSpeedLimits())
     {
+        kDebug(5001) << "We are supporting speedlimits =)";
         int n = runningJobs().count();
+        int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
+        QList<Transfer*> transfersNeedSpeed;
         foreach (Job * job, runningJobs())
         {
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {
-                if (visibleDownloadLimit() < downloadLimit() && transfer->visibleDownloadLimit() < downloadLimit())
-                    transfer->setDownloadLimit(visibleDownloadLimit() / n);
-                else if (visibleDownloadLimit() < downloadLimit())
+                kDebug(5001) << "Cast was ok =)";
+                if (transfer->visibleDownloadLimit() < downloadLimit() / n && transfer->visibleDownloadLimit() != 0)
+                        /*If the transfer's visible download limit is under the new one, 
+                                       we move the KiB/s which are different to the pool*/
+                    pool = pool + (downloadLimit() / n - transfer->visibleDownloadLimit());       
+                else if (transfer->downloadSpeed() + 10 < downloadLimit() / n)
+                {
+                    kDebug(5001) << "Ok the download speed man is tooooo low, so we have a small buffer";
+                        /*When the downloadSpeed of the transfer is under the new downloadLimit + 10 then we 
+                            set the downloadLimit to the downloadSpeed + 10*/
+                    pool = pool + downloadLimit() / n - transfer->downloadSpeed() + 10;
+                    transfer->setDownloadLimit(transfer->downloadSpeed() + 10);
+                }
+                else
+                {
+                    kDebug(5001) << "Ok the generic sollution xD";
                     transfer->setDownloadLimit(downloadLimit() / n);
+                    transfersNeedSpeed.append(transfer);
+                }
             }
+        }
+        foreach (Transfer *transfer, transfersNeedSpeed)
+        {
+            transfer->setDownloadLimit(downloadLimit() / n + pool / transfersNeedSpeed.count());
         }
     }
 }
 
 void TransferGroup::calculateUploadLimit()
 {
-    kDebug(5001);
+    kDebug(5001) << "Now we are calculating upload Limits =)";
     if (supportsSpeedLimits())
     {
+        kDebug(5001) << "We are supporting speedlimits =)";
         int n = runningJobs().count();
+        int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
+        QList<Transfer*> transfersNeedSpeed;
         foreach (Job * job, runningJobs())
         {
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {
-                if (visibleUploadLimit() < uploadLimit())
-                    transfer->setUploadLimit(visibleUploadLimit() / n);
+                kDebug(5001) << "Cast was ok =)";
+                if (transfer->visibleUploadLimit() < uploadLimit() / n && transfer->visibleUploadLimit() != 0)
+                        /*If the transfer's visible upload limit is under the new one, 
+                                       we move the KiB/s which are different to the pool*/
+                    pool = pool + (uploadLimit() / n - transfer->visibleUploadLimit());       
+                else if (transfer->uploadSpeed() + 10 < uploadLimit() / n)
+                {
+                    kDebug(5001) << "Ok the upload speed man is tooooo low, so we have a small buffer";
+                        /*When the uploadSpeed of the transfer is under the new uploadLimit + 10 then we 
+                            set the uploadLimit to the uploadSpeed + 10*/
+                    pool = pool + uploadLimit() / n - transfer->uploadSpeed() + 10;
+                    transfer->setUploadLimit(transfer->uploadSpeed() + 10);
+                }
                 else
+                {
+                    kDebug(5001) << "Ok the generic sollution xD";
                     transfer->setUploadLimit(uploadLimit() / n);
+                    transfersNeedSpeed.append(transfer);
+                }
             }
+        }
+        foreach (Transfer *transfer, transfersNeedSpeed)
+        {
+            transfer->setUploadLimit(uploadLimit() / n + pool / transfersNeedSpeed.count());
         }
     }
 }
