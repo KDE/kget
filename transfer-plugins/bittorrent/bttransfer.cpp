@@ -326,7 +326,6 @@ void BTTransfer::init(const KUrl &src)
     try
     {
         torrent = new bt::TorrentControl();
-        torrent->setChunkSelectorFactory(new BTChunkSelectorFactory());
 
         if (!BittorrentSettings::tmpDir().isEmpty())
         {

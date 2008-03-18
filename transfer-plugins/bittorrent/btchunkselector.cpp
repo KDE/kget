@@ -271,6 +271,18 @@ void BTChunkSelector::reinsert(Uint32 chunk)
         chunks.push_back(chunk);
 }
 
+void BTChunkSelector::excludeAll()
+{
+    chunks.clear();
+}
+
+void BTChunkSelector::exclude(Uint32 chunk)
+{
+    bool in_chunks = std::find(chunks.begin(),chunks.end(),chunk) != chunks.end();
+    if (in_chunks)
+        chunks.remove(chunk);
+}
+
 BTChunkSelectorFactory::BTChunkSelectorFactory()
 {
 }
@@ -281,7 +293,9 @@ BTChunkSelectorFactory::~BTChunkSelectorFactory()
 
 bt::ChunkSelectorInterface* BTChunkSelectorFactory::createChunkSelector(bt::ChunkManager & cman, bt::Downloader & downer, bt::PeerManager & pman)
 {
-    return new BTChunkSelector(cman, downer, pman);
+    BTChunkSelector *selector = new BTChunkSelector(cman, downer, pman);
+    emit selectorAdded(selector);
+    return selector;
 }
 
 #include "btchunkselector.moc"

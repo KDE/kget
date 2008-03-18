@@ -19,6 +19,7 @@ set(kget_bittorrentfactory_PART_SRCS
   scandlg.cpp
   btdatasource.cpp
   btchunkselector.cpp
+  btcache.cpp
   advanceddetails/btadvanceddetailswidget.cpp
   advanceddetails/chunkdownloadmodel.cpp
   advanceddetails/chunkdownloadview.cpp
