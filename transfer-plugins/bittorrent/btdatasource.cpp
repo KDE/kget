@@ -19,6 +19,7 @@
 #include <torrent/server.h>
 #include <btversion.h>
 #include <util/log.h>
+#include <util/bitset.h>
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -80,10 +81,25 @@ void BTDataSource::start()
     }
 
     cs->excludeAll();
+    const BitSet & bits = tc->availableChunksBitSet();
+    bool av = true;
     Uint32 firstChunk = m_offset / tc->getStats().chunk_size;
     Uint32 lastChunk = ((m_offset + m_bytes) / tc->getStats().chunk_size) + 1;//The +1 is only a workaround for rounding up, but I dunno how to do it ;)
-    cs->reincluded(firstChunk, lastChunk);
-    tc->start();
+    for (int i = firstChunk * tc->getStats().chunk_size * 8; i <= lastChunk * tc->getStats().chunk_size * 8; i++)
+    {
+        if (!bits.get(i))
+        {
+            emit broken();
+            av = false;
+            continue;
+        }
+    }
+
+    if (av)
+    {
+        cs->reincluded(firstChunk, lastChunk);
+        tc->start();
+    }
 }
 
 void BTDataSource::stop()
@@ -97,7 +113,6 @@ void BTDataSource::init(const KUrl &torrentSource)
     try
     {
         tc->init(0, m_torrentSource.url(), QString(), QString(), 0);
-        tc->createFiles();
     }
     catch (bt::Error &err)
     {
@@ -147,6 +162,9 @@ void BTDataSource::getData(const KIO::fileoffset_t &off, const QByteArray &dataA
         splittedData = dataArray;
         
     emit data(off, splittedData);
+
+    if (m_offset + m_bytes == off + dataArray.size())
+        emit finished();
 }
 
 #include "btdatasource.moc"
