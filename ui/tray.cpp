@@ -57,7 +57,7 @@ Tray::Tray(MainWindow * parent)
     cm->addAction( parent->actionCollection()->action("show_drop_target") );
 
     // add tooltip telling "I'm kget"
-    setToolTip( KGlobal::mainComponent().aboutData()->shortDescription() );
+    setToolTip(i18n("KGet - Download Manager"));
 
     // connecting the "Exit" menu item to the quit() of our app
     connect( this, SIGNAL( quitSelected() ), kapp, SLOT(quit()));

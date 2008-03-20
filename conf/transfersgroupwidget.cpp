@@ -31,12 +31,6 @@ TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
 
 }
 
-void TransfersGroupDelegate::updateEditorGeometry(QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index) const
-{
-    QStyledItemDelegate::updateEditorGeometry(editor, option, index);
-    editor->setGeometry(editor->geometry().adjusted(0,0,0,0));
-}
-
 QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem & option,
                                                 const QModelIndex & index) const
 {
