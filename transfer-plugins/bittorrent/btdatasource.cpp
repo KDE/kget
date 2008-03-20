@@ -32,7 +32,8 @@ BTDataSource::BTDataSource()
   : TransferDataSource(0),
     m_offset(0),
     m_bytes(0),
-    m_source(KUrl())
+    m_source(KUrl()),
+    m_torrentSource(KUrl())
 {
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
@@ -77,7 +78,7 @@ void BTDataSource::selectorAdded(BTChunkSelector* selector)
 
 void BTDataSource::start()
 {
-    if (!m_source.isLocalFile())
+    if (m_torrentSource.isEmpty())
     {
         BTDownload *download = new BTDownload(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
         connect(download, SIGNAL(finishedSuccessfully(KUrl)), SLOT(init(KUrl)));
