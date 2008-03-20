@@ -93,7 +93,7 @@ void BTDataSource::start()
     {
         if (!bits.get(i))
         {
-            emit broken();
+            emit broken(this);
             av = false;
             continue;
         }
@@ -177,7 +177,7 @@ void BTDataSource::getData(const KIO::fileoffset_t &off, const QByteArray &dataA
     emit data(off, splittedData);
 
     if (m_offset + m_bytes == off + dataArray.size())
-        emit finished();
+        emit finished(this);
 }
 
 #include "btdatasource.moc"

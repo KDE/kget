@@ -37,6 +37,7 @@ set(kgetcore_SRCS
    core/plugin/plugin.cpp
    core/plugin/transferfactory.cpp
    core/transferdatasource.cpp
+   core/datasourcefactory.cpp
    core/kuiserverjobs.cpp
    core/kgetglobaljob.cpp
    core/bitset.cpp
