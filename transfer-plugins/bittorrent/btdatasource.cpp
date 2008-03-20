@@ -20,6 +20,8 @@
 #include <btversion.h>
 #include <util/log.h>
 #include <util/bitset.h>
+#include <peer/authenticationmonitor.h>
+#include <util/functions.h>
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -53,6 +55,7 @@ BTDataSource::BTDataSource()
     connect(csf, SIGNAL(selectorAdded(BTChunkSelector*)), SLOT(selectorAdded(BTChunkSelector*)));
     tc->setChunkSelectorFactory(csf);
     tc->setCacheFactory(cf);
+    connect(&timer, SIGNAL(timeout()), SLOT(update()));
 }
 
 BTDataSource::~BTDataSource()
@@ -99,12 +102,21 @@ void BTDataSource::start()
     {
         cs->reincluded(firstChunk, lastChunk);
         tc->start();
+        timer.start(250);
     }
 }
 
 void BTDataSource::stop()
 {
     tc->stop(true);
+    timer.stop();
+}
+
+void BTDataSource::update()
+{
+    bt::UpdateCurrentTime();
+    bt::AuthenticationMonitor::instance().update();
+    tc->update();
 }
 
 void BTDataSource::init(const KUrl &torrentSource)

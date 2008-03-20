@@ -15,6 +15,7 @@
 
 #include <kio/job.h>
 #include <KUrl>
+#include <QTimer>
 
 namespace bt
 {
@@ -42,6 +43,7 @@ class BTDataSource : public TransferDataSource
         void init(const KUrl &torrentSource);
         void cacheAdded(BTCache *cache);
         void selectorAdded(BTChunkSelector *selector);
+        void update();
 
     private:
         bt::TorrentControl *tc;
@@ -53,6 +55,7 @@ class BTDataSource : public TransferDataSource
         KIO::fileoffset_t m_bytes;
         KUrl m_source;
         KUrl m_torrentSource;
+        QTimer timer;
 };
 
 #endif
