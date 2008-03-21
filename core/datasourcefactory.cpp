@@ -38,8 +38,8 @@ void DataSourceFactory::addDataSource(TransferDataSource *source)
 {
     m_dataSources.insert(source, qMakePair(KIO::fileoffset_t(-1), KIO::fileoffset_t(-1)));
     assignSegment(source);
-    connect(source, SIGNAL(broken(TransferDataSource*)), SLOT(assignSegment(source)));
-    connect(source, SIGNAL(finished(TransferDataSource*)), SLOT(assignSegment(source)));
+    connect(source, SIGNAL(broken()), SLOT(assignSegment()));
+    connect(source, SIGNAL(finished()), SLOT(assignSegment()));
     connect(source, SIGNAL(data(const KIO::fileoffset_t&, const QByteArray&)), SLOT(writeData(const KIO::fileoffset_t&, const QByteArray&)));
 }
 
@@ -52,6 +52,12 @@ void DataSourceFactory::removeDataSource(TransferDataSource *source)
 
 void DataSourceFactory::assignSegment(TransferDataSource *source)
 {
+    if (!source)
+    {
+        source = qobject_cast<TransferDataSource*>(QObject::sender());
+        if (!source)
+            return;
+    }
     //TODO: Grep a _random_ chunk
     if (m_chunks->allOn())
     {

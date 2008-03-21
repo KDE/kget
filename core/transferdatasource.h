@@ -48,12 +48,12 @@ class KGET_EXPORT TransferDataSource : public QObject
 	emitted when there is no more data
         @param source the datasource, sending the signal
 	*/
-        void finished(TransferDataSource *source);
+        void finished();
 
 	/**
 	Alert that datasource is no able to send any data
         @param source the datasource, sending the signal
 	*/
-        void broken(TransferDataSource *source);
+        void broken();
 };
 #endif

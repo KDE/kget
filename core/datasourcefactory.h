@@ -34,7 +34,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void removeDataSource(TransferDataSource *source);
 
     private slots:
-        void assignSegment(TransferDataSource *source);
+        void assignSegment(TransferDataSource *source = 0);
         void writeData(const KIO::fileoffset_t &offset, const QByteArray &data);
 
     private:
