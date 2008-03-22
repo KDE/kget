@@ -8,6 +8,7 @@
 */
 
 #include "preferencesdialog.h"
+#include "core/transferhistorystore.h"
 
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
@@ -39,6 +40,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     dlgApp.setupUi(appearance);
     dlgNet.setupUi(network);
     dlgAdv.setupUi(advanced);
+
+    // history backend entries
+    dlgAdv.kcfg_HistoryBackend->addItem(i18n("Xml"), QVariant(TransferHistoryStore::Xml));
+#ifdef HAVE_SQLITE
+    dlgAdv.kcfg_HistoryBackend->addItem(i18n("Sqlite"), QVariant(TransferHistoryStore::SQLite));
+#endif
 
     // TODO: remove the following lines as soon as these features are ready
 //     dlgNet.kcfg_SpeedLimit->setVisible(false);

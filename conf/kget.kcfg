@@ -69,6 +69,9 @@
     <entry name="ExportGlobalJob" type="Bool">
         <default>false</default>
     </entry>
+    <entry name="HistoryBackend" type="Int">
+        <default>1</default>
+    </entry>
   </group>
 
   <group name="Network">

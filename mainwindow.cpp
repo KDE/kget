@@ -26,7 +26,7 @@
 #include "ui/tray.h"
 #include "ui/droptarget.h"
 #include "ui/newtransferdialog.h"
-#include "ui/transferhistory.h"
+#include "ui/history/transferhistory.h"
 #include "ui/groupsettingsdialog.h"
 #include "ui/transfersettingsdialog.h"
 #include "extensions/webinterface/httpserver.h"

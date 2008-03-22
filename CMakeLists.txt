@@ -20,6 +20,10 @@ include_directories(
    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+find_package(Sqlite)
+if(SQLITE_FOUND)
+    add_definitions(-DHAVE_SQLITE)
+endif(SQLITE_FOUND)
 
 # kgetcore
 
@@ -41,6 +45,7 @@ set(kgetcore_SRCS
    core/kuiserverjobs.cpp
    core/kgetglobaljob.cpp
    core/bitset.cpp
+   core/transferhistorystore.cpp
 )
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
@@ -49,6 +54,10 @@ kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
 target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
+if (SQLITE_FOUND)
+  target_link_libraries(kgetcore ${KDE4_KIO_LIBS} ${QT_QTSQL_LIBRARY})
+endif (SQLITE_FOUND)
+
 set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -71,10 +80,14 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/tray.cpp
    ui/viewscontainer.cpp
    ui/newtransferdialog.cpp
-   ui/transferhistory.cpp
-   ui/rangetreewidget.cpp
    ui/groupsettingsdialog.cpp
    ui/transfersettingsdialog.cpp
+   ui/history/rangetreewidget.cpp
+   ui/history/transferhistory.cpp
+   ui/history/transferhistoryitemwidget.cpp
+   ui/history/transferhistoryitemdelegate.cpp
+   ui/history/transferhistorycategorizeddelegate.cpp
+   ui/history/transferhistorycategorizedview.cpp
    mainwindow.cpp
    main.cpp
 
@@ -89,7 +102,7 @@ kde4_add_ui_files(kget_SRCS
    conf/dlgnetwork.ui
    ui/transferdetailsfrm.ui
    ui/newtransferwidget.ui
-   ui/transferhistory.ui
+   ui/history/transferhistory.ui
    ui/groupsettingsdialog.ui
    ui/transfersettingsdialog.ui
 )

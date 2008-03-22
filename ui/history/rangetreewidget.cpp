@@ -30,7 +30,7 @@ public:
     {
     };
 
-    bool check(int data) const
+    bool check(long data) const
     {
         if (data >= min && (data <= max || max < 0)) { // the last range ends with -1
             return true;
@@ -39,8 +39,8 @@ public:
     }
 
     int id;
-    int min;
-    int max;
+    long min;
+    long max;
     QString title;
 };
 
@@ -73,7 +73,7 @@ RangeTreeWidget::~RangeTreeWidget()
     clear();
 }
 
-void RangeTreeWidget::addRange(int min, int max, const QString &title)
+void RangeTreeWidget::addRange(long min, long max, const QString &title)
 {
     int row = m_data.size();
 
@@ -102,7 +102,7 @@ void RangeTreeWidget::clear()
     m_ranges.clear();
 }
 
-void RangeTreeWidget::add(int data, const QString &column)
+void RangeTreeWidget::add(long data, const QString &column)
 {
     QVariantList list;
     list << QVariant(column);
@@ -110,7 +110,7 @@ void RangeTreeWidget::add(int data, const QString &column)
     add(data, column);
 }
 
-void RangeTreeWidget::add(int data, const QVariantList &columns)
+void RangeTreeWidget::add(long data, const QVariantList &columns)
 {
     QStandardItem *parent = getRange(data);
 
@@ -182,7 +182,7 @@ void RangeTreeWidget::removeRow(int row, const QModelIndex &parent)
     m_model->removeRow(row, parent);
 }
 
-QStandardItem *RangeTreeWidget::getRange(int data)
+QStandardItem *RangeTreeWidget::getRange(long data)
 {
     foreach (const Range &range, m_ranges) {
         if(range.check(data)) {
@@ -248,3 +248,5 @@ void RangeTitleWidget::setTitle(const QString &title, int count)
 {
     m_titleLabel->setText(QString("%1 (%2)").arg(title).arg(QString::number(count)));
 }
+
+#include "rangetreewidget.moc"

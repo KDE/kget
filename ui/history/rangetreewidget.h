@@ -29,11 +29,11 @@ public:
     RangeTreeWidget(QWidget *parent = 0);
     ~RangeTreeWidget();
 
-    void addRange(int min, int max, const QString &title);
+    void addRange(long min, long max, const QString &title);
     void clear();
 
-    void add(int data, const QString &column);
-    void add(int data, const QVariantList &columns);
+    void add(long data, const QString &column);
+    void add(long data, const QVariantList &columns);
     void addLabel(const QString &title);
     void setLabels(const QStringList &labels);
 
@@ -45,7 +45,7 @@ public slots:
     void removeRow(int row, const QModelIndex &parent = QModelIndex());
 
 private:
-    QStandardItem *getRange(int data);
+    QStandardItem *getRange(long data);
 
 private:
     class Range;

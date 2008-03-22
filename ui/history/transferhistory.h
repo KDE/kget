@@ -11,14 +11,19 @@
 #ifndef TRANSFERHISTORY_H
 #define TRANSFERHISTORY_H
 
-#include <KDialog>
 #include <QList>
-#include <QDomElement>
+#include <KDialog>
 
 #include "ui_transferhistory.h"
-#include "rangetreewidget.h"
 
 class QFileSystemWatcher;
+class QLineEdit;
+class QModelIndex;
+class QProgressBar;
+class KPushButton;
+class TransferHistoryStore;
+class TransferHistoryItem;
+class TransferHistoryCategorizedView;
 
 class TransferHistory : public KDialog, Ui::TransferHistory
 {
@@ -26,27 +31,36 @@ class TransferHistory : public KDialog, Ui::TransferHistory
 
     public:
         TransferHistory(QWidget *parent = 0);
+        ~TransferHistory();
 
     private:
         enum RangeType {
             Date = 0,
-            Size = 1
+            Size = 1,
+            Host = 2
         };
         void hideEvent(QHideEvent *event);
-        QList<QDomElement> defaultItems;
         bool save;
         QFileSystemWatcher *watcher;
         int m_rangeType;
-        RangeTreeWidget *m_treeWidget;
+        QWidget *m_view;
+        QProgressBar *m_progressBar;
         QVBoxLayout *m_verticalLayout;
         QComboBox *m_rangeTypeCombobox;
         QHBoxLayout *m_hboxLayout;
-        KTreeWidgetSearchLine *m_searchBar;
+        QLineEdit *m_searchBar;
         QAction *m_actionDelete_Selected;
         QAction *m_actionClear;
         QAction *m_actionDownload;
         QAction *m_openFile;
         QPushButton *m_clearButton;
+        KPushButton *m_iconView;
+        KPushButton *m_listView;
+        bool m_iconModeEnabled;
+        TransferHistoryStore *m_store;
+
+    public slots:
+        void slotDeleteTransfer(const QString &url, const QModelIndex &index = QModelIndex());
 
     private slots:
         void slotDeleteTransfer();
@@ -56,7 +70,11 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         void slotDownload();
         void slotOpenFile();
         void contextMenuEvent(QContextMenuEvent *event);
-        void slotLoadRangeType(int type = -1);
+        void slotLoadRangeType(int type);
+        void slotSetListMode();
+        void slotSetIconMode();
+        void slotElementLoaded(int number, int total, const TransferHistoryItem &item);
+        void slotLoadFinished();
 };
 
 #endif
