@@ -20,7 +20,6 @@ include_directories(
    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-find_package(Sqlite)
 if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
 endif(SQLITE_FOUND)
