@@ -56,7 +56,6 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     header()->hideSection(4);
 
     setItemsExpandable(false);
-    setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
 }
 
 void TransfersGroupTree::commitData(QWidget *editor)
