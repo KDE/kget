@@ -18,7 +18,7 @@
 #include <QLabel>
 #include <QHeaderView>
 #include <QHBoxLayout>
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QList>
@@ -194,13 +194,13 @@ QStandardItem *RangeTreeWidget::getRange(long data)
     return m_data [m_data.size() - 1];
 }
 
-RangeTreeWidgetItemDelegate::RangeTreeWidgetItemDelegate(QAbstractItemView *parent) : QItemDelegate(parent)
+RangeTreeWidgetItemDelegate::RangeTreeWidgetItemDelegate(QAbstractItemView *parent) : QStyledItemDelegate(parent)
 {
 }
 
 void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QItemDelegate::paint(painter, option, index);
+    QStyledItemDelegate::paint(painter, option, index);
 }
 
 QSize RangeTreeWidgetItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

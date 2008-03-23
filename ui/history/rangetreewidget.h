@@ -12,7 +12,7 @@
 #define RANGETREEWIDGET_H
 
 #include <QMap>
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 #include <QTreeView>
 
 class QDate;
@@ -55,7 +55,7 @@ private:
     QList <RangeTreeWidget::Range> m_ranges;
 };
 
-class RangeTreeWidgetItemDelegate : public QItemDelegate
+class RangeTreeWidgetItemDelegate : public QStyledItemDelegate
 {
 public:
     RangeTreeWidgetItemDelegate(QAbstractItemView *parent);
