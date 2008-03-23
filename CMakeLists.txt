@@ -83,7 +83,6 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/transfersettingsdialog.cpp
    ui/history/rangetreewidget.cpp
    ui/history/transferhistory.cpp
-   ui/history/transferhistoryitemwidget.cpp
    ui/history/transferhistoryitemdelegate.cpp
    ui/history/transferhistorycategorizeddelegate.cpp
    ui/history/transferhistorycategorizedview.cpp

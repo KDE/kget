@@ -33,7 +33,7 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_model = new QStandardItemModel();
 
     // the kcategoryizedview list
-    TransferHistoryItemDelegate *item_delegate = new TransferHistoryItemDelegate();
+    TransferHistoryItemDelegate *item_delegate = new TransferHistoryItemDelegate(this);
     m_drawer = new KCategoryDrawer();
     m_view = new KCategorizedView(this);
     m_view->setCategoryDrawer(m_drawer);
@@ -53,8 +53,8 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_proxyModel->setSourceModel(m_model);
     m_view->setModel(m_proxyModel);
 
-    connect(item_delegate, SIGNAL(deletedTransfer(const QString &, const QModelIndex &index)),
-                           SIGNAL(deletedTransfer(const QString &, const QModelIndex &index)));
+    connect(item_delegate, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
+                           SIGNAL(deletedTransfer(const QString &, const QModelIndex &)));
 
     setLayout(layout);
 }
@@ -73,7 +73,6 @@ void TransferHistoryCategorizedView::addData(const QDate &date, const QString &u
 
     m_delegate->categorizeItem(item);
     m_model->appendRow(item);
-    m_view->openPersistentEditor(m_model->indexFromItem(item));
 }
 
 void TransferHistoryCategorizedView::clear()
@@ -112,11 +111,6 @@ void TransferHistoryCategorizedView::update()
     m_proxyModel->sort(0);
     m_proxyModel->setSourceModel(m_model);
     m_view->setModel(m_proxyModel);
-
-    for(int i=0; i<m_model->rowCount(); i++) {
-        QStandardItem *item = m_model->item(i, 0);
-        m_view->openPersistentEditor(m_model->indexFromItem(item));
-    }
 }
 
 #include "transferhistorycategorizedview.moc"

@@ -43,7 +43,7 @@
        <item>
         <widget class="KButtonGroup" name="viewmodesgroup" >
          <property name="title" >
-          <string comment="View modes" >view modes</string>
+          <string comment="View modes" >View Modes</string>
          </property>
          <property name="flat" >
           <bool>false</bool>
@@ -96,7 +96,7 @@
        <item>
         <widget class="KButtonGroup" name="kbuttongroup_2" >
          <property name="title" >
-          <string>select ranges</string>
+          <string>Select ranges</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2" >
           <property name="spacing" >
@@ -133,7 +133,7 @@
        <item>
         <widget class="KButtonGroup" name="kbuttongroup_3" >
          <property name="title" >
-          <string>filter history</string>
+          <string>Filter history</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3" >
           <property name="spacing" >

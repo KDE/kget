@@ -126,7 +126,6 @@ void TransferHistory::slotDeleteTransfer(const QString &transferName, const QMod
 {
     TransferHistoryItem item;
     item.setSource(transferName);
-
     m_store->deleteItem(item);
 
     if (m_iconModeEnabled && index.isValid()) {
