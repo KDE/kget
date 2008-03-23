@@ -26,6 +26,7 @@
 #include <QModelIndex>
 #include <QProgressBar>
 #include <QStandardItem>
+#include <QVariant>
 
 #include <KDebug>
 #include <KStandardDirs>
@@ -215,22 +216,30 @@ void TransferHistory::slotLoadRangeType(int type)
         range_view->clear();
 
         range_view->setLabels(QStringList() << i18n("Source-File") << i18n("Destination") << i18n("Time") << i18n("File Size") << i18n("Status"));
+        range_view->setRangeDelegate(0);
 
         switch(m_rangeType)
         {
+            case TransferHistory::Host :
+                range_view->setRangeDelegate(new HostRangeDelegate(this));
+                break;
             case TransferHistory::Size :
-                range_view->addRange(0, 1024 * 1024, i18n("Less than 1MiB"));
-                range_view->addRange(1024 * 1024, 1024 * 1024 * 10, i18n("Between 1MiB-10MiB"));
-                range_view->addRange(1024 * 1024 * 10, 1024 * 1024 * 100, i18n("Between 10MiB-100MiB"));
-                range_view->addRange(1024 * 1024 * 100, 1024 * 1024 *1024, i18n("Between 100MiB-1GiB"));
-                range_view->addRange((long) 1024 * 1024 * 1024, (long) 1024 * 1024 * 1024 * 10, i18n("More than 1GiB"));
-                // TODO : Fix that integer overflow..
+                range_view->addRange(QVariant(0), QVariant(1024 * 1024),
+                                                  i18n("Less than 1MiB"));
+                range_view->addRange(QVariant(1024 * 1024), QVariant(1024 * 1024 * 10),
+                                                  i18n("Between 1MiB-10MiB"));
+                range_view->addRange(QVariant(1024 * 1024 * 10), QVariant(1024 * 1024 * 100),
+                                                  i18n("Between 10MiB-100MiB"));
+                range_view->addRange(QVariant(1024 * 1024 * 100), QVariant(1024 * 1024 *1024),
+                                                  i18n("Between 100MiB-1GiB"));
+                range_view->addRange(QVariant((double) 1024 * 1024 * 1024), QVariant((double) 1024 * 1024 * 1024 * 10),
+                                                  i18n("More than 1GiB"));
                 break;
             default:
-                range_view->addRange(0, 1, i18n("Today"));
-                range_view->addRange(1, 7, i18n("Last week"));
-                range_view->addRange(7, 30, i18n("Last month"));
-                range_view->addRange(30, -1, i18n("A long time ago"));
+                range_view->addRange(QVariant(0), QVariant(1), i18n("Today"));
+                range_view->addRange(QVariant(1), QVariant(7), i18n("Last week"));
+                range_view->addRange(QVariant(7), QVariant(30), i18n("Last month"));
+                range_view->addRange(QVariant(30), QVariant(-1), i18n("A long time ago"));
         }
 
         QList<int> list = Settings::historyColumnWidths();
@@ -291,13 +300,16 @@ void TransferHistory::slotElementLoaded(int number, int total, const TransferHis
         attributeList.append(KIO::convertSize(item.size()));
         attributeList.append(item.state());
 
-        int data = 0;
+        QVariant data;
         if(m_rangeType == TransferHistory::Date) {
             QDate date = item.dateTime().date();
-            data = date.daysTo(QDate::currentDate());
+            data = QVariant(date.daysTo(QDate::currentDate()));
+        }
+        else if(m_rangeType == TransferHistory::Host) {
+            data = QVariant(item.source());
         }
         else {
-            data = item.size();
+            data = QVariant(item.size());
         }
         ((RangeTreeWidget *) m_view)->add(data, attributeList);
     }

@@ -15,13 +15,15 @@
 #include <KDebug>
 
 #include <QDate>
-#include <QLabel>
 #include <QHeaderView>
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QList>
 #include <QStyledItemDelegate>
 #include <QStandardItem>
 #include <QStandardItemModel>
-#include <QList>
+#include <QVariant>
+#include <QUrl>
 
 class RangeTreeWidget::Range
 {
@@ -30,22 +32,31 @@ public:
     {
     };
 
-    bool check(long data) const
+    bool check(const QVariant data) const
     {
-        if (data >= min && (data <= max || max < 0)) { // the last range ends with -1
-            return true;
+        if (data.type() == QVariant::String) {
+            return (QString::compare(data.toString(), min.toString()) == 0);
         }
+        else if (data.type() == QVariant::Int || data.type() == QVariant::Double) {
+            if (data.toDouble() >= min.toDouble() && (data.toDouble() <= max.toDouble() || max.toDouble() < 0)) {
+                // the last range ends with -1
+                return true;
+            }
+        }
+
         return false;
     }
 
     int id;
-    long min;
-    long max;
+    QVariant min;
+    QVariant max;
     QString title;
 };
 
 RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
-    m_data(), m_ranges()
+    m_data(),
+    m_ranges(),
+    m_rangeDelegate(0)
 {
     setDragEnabled(false);
     setAlternatingRowColors(true);
@@ -71,9 +82,11 @@ RangeTreeWidget::~RangeTreeWidget()
     Settings::setHistoryColumnWidths(list);
     Settings::self()->writeConfig();
     clear();
+
+    delete m_rangeDelegate;
 }
 
-void RangeTreeWidget::addRange(long min, long max, const QString &title)
+int RangeTreeWidget::addRange(const QVariant &min, const QVariant &max, const QString &title)
 {
     int row = m_data.size();
 
@@ -93,6 +106,8 @@ void RangeTreeWidget::addRange(long min, long max, const QString &title)
     if(row == 0) {
         setExpanded(model()->index(row, 0, QModelIndex()), true);
     }
+
+    return row;
 }
 
 void RangeTreeWidget::clear()
@@ -102,7 +117,7 @@ void RangeTreeWidget::clear()
     m_ranges.clear();
 }
 
-void RangeTreeWidget::add(long data, const QString &column)
+void RangeTreeWidget::add(const QVariant &data, const QString &column)
 {
     QVariantList list;
     list << QVariant(column);
@@ -110,7 +125,7 @@ void RangeTreeWidget::add(long data, const QString &column)
     add(data, column);
 }
 
-void RangeTreeWidget::add(long data, const QVariantList &columns)
+void RangeTreeWidget::add(const QVariant &data, const QVariantList &columns)
 {
     QStandardItem *parent = getRange(data);
 
@@ -139,6 +154,14 @@ void RangeTreeWidget::setLabels(const QStringList &labels)
     for(int i=0; i<labels.size(); i++) {
         m_model->setHeaderData(i, Qt::Horizontal, labels.at(i));
     }
+}
+
+void RangeTreeWidget::setRangeDelegate(RangeDelegate *delegate)
+{
+    if (m_rangeDelegate) {
+        delete m_rangeDelegate;
+    }
+    m_rangeDelegate = delegate;
 }
 
 QList <QVariantList> RangeTreeWidget::data()
@@ -182,16 +205,48 @@ void RangeTreeWidget::removeRow(int row, const QModelIndex &parent)
     m_model->removeRow(row, parent);
 }
 
-QStandardItem *RangeTreeWidget::getRange(long data)
+QStandardItem *RangeTreeWidget::getRange(const QVariant &data)
 {
+    QVariant rangeData = data;
+    if (m_rangeDelegate) {
+        rangeData = m_rangeDelegate->getRangeData(data);
+    }
+
     foreach (const Range &range, m_ranges) {
-        if(range.check(data)) {
+        if(range.check(rangeData)) {
             return m_data [range.id];
         }
     }
 
-    // if no range found, return the last one
-    return m_data [m_data.size() - 1];
+    if (m_rangeDelegate) {
+        int id = addRange(rangeData, rangeData, rangeData.toString());
+        return m_data [id];
+    }
+    else {
+        // if no range found, return the last one
+        return m_data [m_data.size() - 1];
+    }
+}
+
+RangeDelegate::RangeDelegate(QObject *parent) : QObject(parent)
+{
+}
+
+RangeDelegate::~RangeDelegate()
+{
+}
+
+HostRangeDelegate::HostRangeDelegate(QObject *parent) : RangeDelegate(parent)
+{
+}
+
+HostRangeDelegate::~HostRangeDelegate()
+{
+}
+
+QVariant HostRangeDelegate::getRangeData(const QVariant &data)
+{
+    return QUrl(data.toString()).host();
 }
 
 RangeTreeWidgetItemDelegate::RangeTreeWidgetItemDelegate(QAbstractItemView *parent) : QStyledItemDelegate(parent)

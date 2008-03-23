@@ -20,6 +20,8 @@ class QLabel;
 class QLayout;
 class QStandardItem;
 class QStandardItemModel;
+class QVariant;
+class RangeDelegate;
 
 class RangeTreeWidget : public QTreeView
 {
@@ -29,13 +31,17 @@ public:
     RangeTreeWidget(QWidget *parent = 0);
     ~RangeTreeWidget();
 
-    void addRange(long min, long max, const QString &title);
+    int addRange(const QVariant &min, const QVariant &max, const QString &title);
     void clear();
 
-    void add(long data, const QString &column);
-    void add(long data, const QVariantList &columns);
+    void add(const QVariant &data, const QString &column);
+    void add(const QVariant &data, const QVariantList &columns);
     void addLabel(const QString &title);
     void setLabels(const QStringList &labels);
+
+    /**
+    */
+    void setRangeDelegate(RangeDelegate *delegate);
 
     QList <QVariantList> data();
     QStandardItem *currentItem(int column = -1);
@@ -45,7 +51,7 @@ public slots:
     void removeRow(int row, const QModelIndex &parent = QModelIndex());
 
 private:
-    QStandardItem *getRange(long data);
+    QStandardItem *getRange(const QVariant &data);
 
 private:
     class Range;
@@ -53,6 +59,26 @@ private:
     QStandardItemModel *m_model;
     QMap <int,  QStandardItem *> m_data;
     QList <RangeTreeWidget::Range> m_ranges;
+
+    RangeDelegate *m_rangeDelegate;
+};
+
+class RangeDelegate : public QObject
+{
+    public:
+        RangeDelegate(QObject *parent = 0);
+        ~RangeDelegate();
+
+        virtual QVariant getRangeData(const QVariant &data) = 0;
+};
+
+class HostRangeDelegate : public RangeDelegate
+{
+    public:
+        HostRangeDelegate(QObject *parent = 0);
+        ~HostRangeDelegate();
+
+        QVariant getRangeData(const QVariant &data);
 };
 
 class RangeTreeWidgetItemDelegate : public QStyledItemDelegate
