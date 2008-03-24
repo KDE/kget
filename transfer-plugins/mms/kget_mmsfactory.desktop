@@ -1,0 +1,13 @@
+[Desktop Entry]
+# service definition
+Type=Service
+X-KDE-ServiceTypes=KGet/Plugin
+
+# standard fields
+Name=MMS TransferFactory
+
+# options for library loader
+X-KDE-Library=kget_mmsfactory
+X-KDE-KGet-plugintype=TransferFactory
+X-KDE-KGet-rank=80
+X-KDE-KGet-framework-version=1
