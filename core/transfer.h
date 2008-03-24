@@ -15,6 +15,7 @@
 #include "kget_export.h"
 
 #include <QPixmap>
+#include <QTime>
 
 #include <kurl.h>
 #include <kio/global.h>
@@ -86,6 +87,7 @@ class KGET_EXPORT Transfer : public Job
         int percent() const                    {return m_percent;}
         int downloadSpeed() const              {return m_downloadSpeed;}
         int uploadSpeed() const                {return m_uploadSpeed;}
+        virtual int remainingTime() const      {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
 
         virtual bool supportsSpeedLimits() const {return false;}
 

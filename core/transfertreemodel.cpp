@@ -241,7 +241,7 @@ int TransferTreeModel::columnCount(const QModelIndex & parent) const
     {
         //Here we should return rootItem->columnCount(); .. but we don't
         //have a root Item... bah
-        return 5;
+        return 6;
     }
 
     void * pointer = parent.internalPointer();
@@ -301,6 +301,8 @@ QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation,
                 return i18nc("progress of download", "Progress");
             case 4:
                 return i18nc("speed of download", "Speed");
+            case 5:
+                return i18nc("remaining time of download", "Remaining Time");
             default:
                 return QVariant();
         }

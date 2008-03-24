@@ -149,6 +149,11 @@ QVariant TransferHandler::data(int column)
             }
             else
                 return i18n("%1/s", KIO::convertSize(downloadSpeed()));
+        case 5:
+            if (status() == Job::Running)
+                return KIO::convertSeconds(remainingTime());
+            else
+                return QString();
         default:
             return QVariant();
     }

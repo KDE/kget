@@ -228,7 +228,7 @@ class KGET_EXPORT TransferHandler
         /**
          * @returns the number of columns associated to the transfer's data
          */
-        int columnCount() const     {return 5;}
+        int columnCount() const     {return 6;}
 
         /**
          * Returns a KMenu for the given list of transfers, populated with

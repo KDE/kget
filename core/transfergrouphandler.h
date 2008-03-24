@@ -200,7 +200,7 @@ class KGET_EXPORT TransferGroupHandler
         /**
          * @returns the number of columns associated to the group's data
          */
-        int columnCount() const     {return 5;}
+        int columnCount() const     {return 6;}
 
         /**
          * Returns the changes flags
