@@ -14,11 +14,16 @@
 #include <KIcon>
 #include <KDebug>
 
+#include <QApplication>
 #include <QDate>
+#include <QFont>
 #include <QHeaderView>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QLinearGradient>
 #include <QList>
+#include <QPainter>
+#include <QPalette>
 #include <QStyledItemDelegate>
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -100,7 +105,7 @@ int RangeTreeWidget::addRange(const QVariant &min, const QVariant &max, const QS
     m_data [row] = new QStandardItem(title);
     m_model->insertRow(row, m_data [row]);
     setFirstColumnSpanned(row, QModelIndex(), true);
-    openPersistentEditor(model()->index(row, 0, QModelIndex()));
+    // openPersistentEditor(model()->index(row, 0, QModelIndex()));
 
     // expand the first row
     if(row == 0) {
@@ -136,8 +141,8 @@ void RangeTreeWidget::add(const QVariant &data, const QVariantList &columns)
 
     parent->appendRow(list);
     // TODO: need to find a better way to update rangetitlewidget count from the QStandardItem children count
-    closePersistentEditor(parent->index());
-    openPersistentEditor(parent->index());
+    // closePersistentEditor(parent->index());
+    // openPersistentEditor(parent->index());
 }
 
 void RangeTreeWidget::addLabel(const QString &title)
@@ -255,7 +260,46 @@ RangeTreeWidgetItemDelegate::RangeTreeWidgetItemDelegate(QAbstractItemView *pare
 
 void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QStyledItemDelegate::paint(painter, option, index);
+    if(index.parent().isValid()) {
+        QStyledItemDelegate::paint(painter, option, index);
+    }
+    else {
+        QStyleOptionViewItemV4 opt(option);
+        QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
+        style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
+
+        const QStandardItemModel *model = static_cast<const QStandardItemModel *> (index.model());
+        QStandardItem *item = model->itemFromIndex(index);
+
+        // draw the range title
+        painter->save();
+        QFont font;
+        font.setBold(true);
+        painter->setFont(font);
+        painter->drawText(option.rect.left() + 10,
+                      option.rect.top() + 5,
+                      option.rect.width() - 20, 15,
+                      Qt::AlignLeft, 
+                      item->data(Qt::DisplayRole).toString() +
+                      " (" + QString::number(item->rowCount())  + ")");
+        painter->restore();
+
+        // Draw the line under the title
+        QColor color = option.palette.color(QPalette::Text);
+        if (option.state & QStyle::State_Selected) {
+            color = option.palette.color(QPalette::HighlightedText);
+        }
+
+        QRect lineRect(option.rect.left() + 10, option.rect.bottom() - 2,
+                   500, 1);
+
+        QLinearGradient gradient(option.rect.left() + 10, option.rect.top(),
+                                500, option.rect.height());
+        gradient.setColorAt(0, color);
+        gradient.setColorAt(1, Qt::transparent);
+
+        painter->fillRect(lineRect, gradient);
+    }
 }
 
 QSize RangeTreeWidgetItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -264,44 +308,6 @@ QSize RangeTreeWidgetItemDelegate::sizeHint(const QStyleOptionViewItem &option, 
     Q_UNUSED(index)
 
     return QSize(0, 30);
-}
-
-QWidget *RangeTreeWidgetItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem & option, const QModelIndex & index) const
-{
-    Q_UNUSED(option)
-
-    const QStandardItemModel *model = static_cast<const QStandardItemModel *> (index.model());
-    QStandardItem *item = model->itemFromIndex(index);
-    return new RangeTitleWidget(item->data(Qt::DisplayRole).toString(), item->rowCount(), parent);
-}
-
-void RangeTreeWidgetItemDelegate::setEditorData(QWidget * editor, const QModelIndex & index) const
-{
-    RangeTitleWidget *title = static_cast<RangeTitleWidget *> (editor);
-    const QStandardItemModel *model = static_cast<const QStandardItemModel *> (index.model());
-    QStandardItem *item = model->itemFromIndex(index);
-
-    title->setTitle(item->data(Qt::DisplayRole).toString(), item->rowCount());
-}
-
-RangeTitleWidget::RangeTitleWidget(const QString &title, int count, QWidget *parent) : QWidget(parent)
-{
-    m_layout = new QHBoxLayout(this);
-    setLayout(m_layout);
-
-    setAutoFillBackground(true);
-    setMinimumWidth(80);
-    setObjectName("rangeTitle");
-    setStyleSheet("#rangeTitle {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.5, stop: 0 white, stop: 1 palette(Midlight));margin:2px;}");
-
-    m_titleLabel = new QLabel(QString("%1 (%2)").arg(title).arg(QString::number(count)), this);
-
-    m_layout->addWidget(m_titleLabel);
-}
-
-void RangeTitleWidget::setTitle(const QString &title, int count)
-{
-    m_titleLabel->setText(QString("%1 (%2)").arg(title).arg(QString::number(count)));
 }
 
 #include "rangetreewidget.moc"

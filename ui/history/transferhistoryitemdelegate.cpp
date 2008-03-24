@@ -60,20 +60,32 @@ TransferHistoryItemDelegate::~TransferHistoryItemDelegate()
 void TransferHistoryItemDelegate::paint(QPainter *painter,
         const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    if (!option.state.testFlag(QStyle::State_Selected) && !option.state.testFlag(QStyle::State_MouseOver)) {
+        // draw a separator
+        painter->save();
+
+        QRect roundRect(option.rect.left() + 1, option.rect.top() + 1,
+                        option.rect.width() - 2, option.rect.height() - 2);
+
+        QPainterPath path;
+        path.addRoundRect(roundRect, 2, 2);
+        QLinearGradient gradient(roundRect.left(), roundRect.top(),
+                                 roundRect.left(), roundRect.bottom());
+        gradient.setColorAt(0, Qt::transparent);
+        gradient.setColorAt(0.95, option.palette.color(QPalette::AlternateBase).darker(130));
+        QBrush brush(gradient);
+
+        painter->fillPath(path, brush);
+
+        painter->setPen(option.palette.color(QPalette::AlternateBase).darker(190));
+        painter->drawRoundRect(roundRect, 2, 2);
+        painter->restore();
+    }
+
     QStyleOptionViewItemV4 opt(option);
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
-    // draw a separator
-/*
-    QStyleOptionViewItem separatorOption(option);
-    int height = 110;
-    separatorOption.state &= !(QStyle::State_Selected
-                | QStyle::State_MouseOver | QStyle::State_HasFocus);
-    separatorOption.rect.setTop(separatorOption.rect.top() + separatorOption.rect.height() - height);
-    separatorOption.rect.setHeight(height);
-    QStyledItemDelegate::paint(painter, separatorOption, index);
-*/
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (index.model());
     QUrl url(model->data(index, TransferHistoryCategorizedDelegate::RoleUrl).toString());
     QString name = url.path().mid(url.path().lastIndexOf("/") + 1);
@@ -85,10 +97,14 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
     QString host = url.host();
 
     // draw the host
+    painter->save();
+    painter->setPen(option.palette.color(QPalette::Link));
+    // draw the host
     painter->drawText(option.rect.left() + PADDING,
                       option.rect.top() + PADDING,
-                      160 - PADDING * 2, 30,
+                      option.rect.width() - PADDING * 2, 15,
                       Qt::AlignTop | Qt::AlignLeft, host);
+    painter->restore();
 
     // draw the transfer icon
     icon.paint(painter,
@@ -96,17 +112,29 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
             option.rect.top() + option.rect.height() / 2 - ICON_SIZE / 2 - PADDING * 2,
             ICON_SIZE, ICON_SIZE, Qt::AlignCenter, QIcon::Active);
 
-    // draw the size
-    painter->drawText(option.rect.right() - PADDING - 100,
-                      option.rect.bottom() + PADDING - 30,
-                      100 - PADDING * 2, 30,
-                      Qt::AlignTop | Qt::AlignRight, size);
+    painter->save();
+    QColor subcolor = (option.state.testFlag(QStyle::State_Selected) || (option.state.testFlag(QStyle::State_MouseOver))) ?
+                    option.palette.color(QPalette::Text) :
+                    option.palette.color(QPalette::BrightText);
 
-    // draw the date
+    // draw a separator line between the file name and his size and date
+    painter->setPen(option.palette.color(QPalette::AlternateBase).darker(190));
+    painter->drawLine(option.rect.left() + 2, option.rect.bottom() + PADDING - 27,
+                      option.rect.right() - 2, option.rect.bottom() + PADDING - 27);
+    painter->setPen(subcolor);
+     // draw the size
+    painter->drawText(option.rect.right() - PADDING - 100,
+                       option.rect.bottom() + PADDING - 25,
+                       100 - PADDING * 2, 25,
+                       Qt::AlignTop | Qt::AlignRight, size);
+
+     // draw the date
     painter->drawText(option.rect.left() + PADDING,
-                      option.rect.bottom() + PADDING - 30,
-                      100 - PADDING * 2, 30,
-                      Qt::AlignTop | Qt::AlignLeft, date);
+                       option.rect.bottom() + PADDING - 25,
+                       100 - PADDING * 2, 25,
+                       Qt::AlignTop | Qt::AlignLeft, date);
+
+    painter->restore();
 
     // draw the filenamne
     painter->save();

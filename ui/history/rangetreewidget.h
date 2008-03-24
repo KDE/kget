@@ -88,21 +88,5 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     QSize sizeHint (const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
-
-    void setEditorData(QWidget * editor, const QModelIndex & index) const;
 };
-
-class RangeTitleWidget : public QWidget
-{
-public:
-    RangeTitleWidget(const QString &title, int count, QWidget *parent=0);
-
-    void setTitle(const QString &title, int count = 0);
-
-private:
-    QLayout *m_layout;
-    QLabel *m_titleLabel;
-};
-
 #endif
