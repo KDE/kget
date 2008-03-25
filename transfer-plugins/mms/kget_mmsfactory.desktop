@@ -5,6 +5,11 @@ X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
 Name=MMS TransferFactory
+Name[ga]=TransferFactory MMS
+Name[pt]=Factory de Transferências de MMS
+Name[pt_BR]=Factory de Transferências de MMS
+Name[x-test]=xxMMS TransferFactoryxx
+Name[zh_TW]=MMS 傳輸工廠
 
 # options for library loader
 X-KDE-Library=kget_mmsfactory

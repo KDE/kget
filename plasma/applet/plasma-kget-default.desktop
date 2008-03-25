@@ -19,6 +19,7 @@ Comment[ro]=Monitor descărcări KGet
 Comment[sv]=Kget-nerladdningsövervakare
 Comment[tr]=KGet indirme izleyici
 Comment[uk]=Монітор звантажень KGet
+Comment[x-test]=xxKGet downloads monitorxx
 Comment[zh_CN]=KGet 下载监视器
 Comment[zh_TW]=KGet 下載監視器
 Icon=kget
