@@ -18,7 +18,7 @@
 #ifdef HAVE_NEPOMUK
 #include <Soprano/Vocabulary/Xesam>
 #include <Soprano/Vocabulary/NAO>
-#include <variant.h>
+#include <nepomuk/variant.h>
 #endif
 
 #include <kiconloader.h>
