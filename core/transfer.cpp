@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -13,6 +14,12 @@
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
+
+#ifdef HAVE_NEPOMUK
+#include <Soprano/Vocabulary/Xesam>
+#include <Soprano/Vocabulary/NAO>
+#include <variant.h>
+#endif
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -169,7 +176,8 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 
     m_statusText = text;
     m_statusPixmap = pix;
-
+    if (jobStatus == Job::Finished)
+        saveNepomuk();
     /**
     * It's important to call job::setStatus AFTER having changed the 
     * icon or the text or whatever.
@@ -187,4 +195,21 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
 {
     handler()->setTransferChange(change, postEvent);
+}
+
+void Transfer::saveNepomuk()
+{
+#ifdef HAVE_NEPOMUK
+    Nepomuk::Resource file(m_dest, Soprano::Vocabulary::Xesam::File());
+    saveNepomuk(&file);
+#endif
+}
+
+void Transfer::saveNepomuk(Nepomuk::Resource *res)
+{
+#ifdef HAVE_NEPOMUK
+    res->setProperty(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_source));
+    res->setProperty(Soprano::Vocabulary::Xesam::size(), Nepomuk::Variant(m_totalSize));
+    res->setProperty(Soprano::Vocabulary::NAO::Tag(), Nepomuk::Variant("Downloads"));
+#endif
 }

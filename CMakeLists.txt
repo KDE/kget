@@ -1,6 +1,8 @@
 project(kget)
 
-set(kget_adaptor_SRCS) 
+set(kget_adaptor_SRCS)
+
+macro_bool_to_01(Nepomuk_FOUND HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
@@ -19,6 +21,13 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${CMAKE_CURRENT_BINARY_DIR}
 )
+if(Nepomuk_FOUND)
+    include_directories(
+        ${SOPRANO_INCLUDE_DIR}
+        ${NEPOMUK_INCLUDE_DIR}
+    )
+    add_definitions(-DHAVE_NEPOMUK)
+endif(Nepomuk_FOUND)
 
 if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
@@ -53,8 +62,13 @@ kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
 target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
+
+if (Nepomuk_FOUND)
+  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
+endif (Nepomuk_FOUND)
+
 if (SQLITE_FOUND)
-  target_link_libraries(kgetcore ${KDE4_KIO_LIBS} ${QT_QTSQL_LIBRARY})
+  target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
 set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )

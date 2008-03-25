@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -27,6 +28,11 @@ class TransferFactory;
 class TransferGroup;
 class Scheduler;
 class TransferTreeModel;
+
+namespace Nepomuk
+{
+    class Resource;
+}
 
 class KGET_EXPORT Transfer : public Job
 {
@@ -205,6 +211,11 @@ class KGET_EXPORT Transfer : public Job
          */
         virtual void save(const QDomElement &element);
 
+        /**
+         * Save the file-properties to nepomuk
+         */
+        virtual void saveNepomuk();
+
     protected:
         //Function used to load and save the transfer's info from xml
         virtual void load(const QDomElement &e);
@@ -222,6 +233,12 @@ class KGET_EXPORT Transfer : public Job
          * @param change: the TransferChange flags to be set
          */
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
+
+        /**
+         * Save the file-properties to Nepomuk
+         * @param res The Nepomuk::Resource, where we set properties
+         */
+        virtual void saveNepomuk(Nepomuk::Resource *res);
 
         // --- Transfer information ---
         KUrl m_source;
