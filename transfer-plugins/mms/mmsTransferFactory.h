@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef MMSFACTORY_H
-#define MMSFACTORY_H
+#ifndef MMSTRANSFERFACTORY_H
+#define MMSTRANSFERFACTORY_H
 
 #include "core/plugin/transferfactory.h"
 #include "core/transferhandler.h"

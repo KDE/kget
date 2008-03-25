@@ -17,6 +17,7 @@ class QStandardItem;
 
 class TransferHistoryCategorizedDelegate : public QObject
 {
+Q_OBJECT
 public:
     enum AlternativeRoles {
         RoleSize = 0xFF,
