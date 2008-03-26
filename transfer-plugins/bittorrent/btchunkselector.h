@@ -24,7 +24,7 @@ namespace bt
     class Downloader;
     class PeerManager;
     class PieceDownloader;
-};
+}
 
 class BTChunkSelector : public bt::ChunkSelectorInterface 
 {
