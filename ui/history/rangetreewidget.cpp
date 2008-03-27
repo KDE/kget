@@ -27,6 +27,7 @@
 #include <QStyledItemDelegate>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QSortFilterProxyModel>
 #include <QVariant>
 #include <QUrl>
 
@@ -58,6 +59,25 @@ public:
     QString title;
 };
 
+RangeSortFilterProxyModel::RangeSortFilterProxyModel(QObject *parent):
+    QSortFilterProxyModel(parent)
+{
+}
+
+RangeSortFilterProxyModel::~RangeSortFilterProxyModel()
+{
+}
+
+bool RangeSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+{
+    // if the row is a range row, we include in the filter always
+    if(source_parent.isValid()) {
+        return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+    }
+
+    return true;
+}
+
 RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     m_data(),
     m_ranges(),
@@ -69,8 +89,11 @@ RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     header()->setMovable(false);
 
     // initialize the standard item model of the tree
-    m_model = new QStandardItemModel();
-    setModel(m_model);
+    m_model = new QStandardItemModel(this);
+    m_proxyModel = new RangeSortFilterProxyModel(this);
+
+    m_proxyModel->setSourceModel(m_model);
+    setModel(m_proxyModel);
 
     // delegate for the range title
     RangeTreeWidgetItemDelegate *delegate = new RangeTreeWidgetItemDelegate(this);
@@ -192,22 +215,29 @@ QStandardItem *RangeTreeWidget::currentItem(int column)
 {
     QStandardItem *item = 0;
     if (column >= 0) {
-        item = m_model->itemFromIndex(model()->index(currentIndex().row(), column, currentIndex().parent()));
+        item = m_model->itemFromIndex(m_model->index(m_proxyModel->mapToSource(currentIndex()).row(), 
+                                      column, 
+                                      m_proxyModel->mapToSource(currentIndex()).parent()));
     }
     else {
-        item = m_model->itemFromIndex(currentIndex());
+        item = m_model->itemFromIndex(m_proxyModel->mapToSource(currentIndex()));
     }
     return item;
 }
 
 QStandardItem *RangeTreeWidget::item(const QModelIndex &index, int column)
 {
-    return m_model->itemFromIndex(model()->index(index.row(), column, index.parent()));
+    return m_model->item(m_proxyModel->mapToSource(index).row(), column);
 }
 
 void RangeTreeWidget::removeRow(int row, const QModelIndex &parent)
 {
     m_model->removeRow(row, parent);
+}
+
+void RangeTreeWidget::setFilterRegExp(const QString &text)
+{
+    m_proxyModel->setFilterRegExp(text);
 }
 
 QStandardItem *RangeTreeWidget::getRange(const QVariant &data)
@@ -263,14 +293,14 @@ void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionVie
     if(index.parent().isValid()) {
         QStyledItemDelegate::paint(painter, option, index);
     }
-    else {
+    else if(index.isValid()) {
         QStyleOptionViewItemV4 opt(option);
         QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
         style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
-        const QStandardItemModel *model = static_cast<const QStandardItemModel *> (index.model());
-        QStandardItem *item = model->itemFromIndex(index);
-
+        const QSortFilterProxyModel *model = static_cast <const QSortFilterProxyModel *>(index.model());
+        const QStandardItemModel *s_model  = static_cast <const QStandardItemModel *>(model->sourceModel());
+        QStandardItem *item = s_model->itemFromIndex(model->mapToSource(index));
         // draw the range title
         painter->save();
         QFont font;
@@ -281,7 +311,7 @@ void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionVie
                       option.rect.width() - 20, 15,
                       Qt::AlignLeft, 
                       item->data(Qt::DisplayRole).toString() +
-                      " (" + QString::number(item->rowCount())  + ")");
+                      " (" + QString::number(model->rowCount(index))  + ")");
         painter->restore();
 
         // Draw the line under the title

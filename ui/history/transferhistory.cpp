@@ -96,12 +96,12 @@ TransferHistory::TransferHistory(QWidget *parent)
     connect(m_openFile, SIGNAL(triggered()), this, SLOT(slotOpenFile()));
     connect(m_clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
     connect(m_rangeTypeCombobox, SIGNAL(activated(int)), this, SLOT(slotLoadRangeType(int)));
-    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
     connect(m_view, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
                     SLOT(slotDeleteTransfer(const QString &, const QModelIndex &)));
     connect(m_store, SIGNAL(loadFinished()), SLOT(slotLoadFinished()));
     connect(m_store, SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)),
                      SLOT(slotElementLoaded(int, int, const TransferHistoryItem &)));
+    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
     slotAddTransfers();
 }
 
@@ -272,6 +272,8 @@ void TransferHistory::slotSetListMode()
     m_view = new RangeTreeWidget(this);
     m_verticalLayout->insertWidget(1, m_view);
     slotLoadRangeType(m_rangeType);
+
+    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
 }
 
 void TransferHistory::slotSetIconMode()
@@ -281,6 +283,8 @@ void TransferHistory::slotSetIconMode()
     m_view = new TransferHistoryCategorizedView(this);
     m_verticalLayout->insertWidget(1, m_view);
     slotLoadRangeType(m_rangeType);
+
+    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
 }
 
 void TransferHistory::slotElementLoaded(int number, int total, const TransferHistoryItem &item)
