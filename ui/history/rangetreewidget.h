@@ -99,6 +99,7 @@ private:
 */
 class RangeDelegate : public QObject
 {
+Q_OBJECT
     public:
         RangeDelegate(QObject *parent = 0);
         ~RangeDelegate();

@@ -65,8 +65,8 @@ void DataSourceFactory::assignSegment(TransferDataSource *source)
         return;
     }
 
-    int newchunk;
-    for (int i = 0; i != m_chunks->getNumBits(); i++)
+    int newchunk = 0;
+    for (uint i = 0; i != m_chunks->getNumBits(); i++)
     {
         if (m_chunks->get(i) == 0)
         {

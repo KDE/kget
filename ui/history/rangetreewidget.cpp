@@ -38,7 +38,7 @@ public:
     {
     };
 
-    bool check(const QVariant data) const
+    bool check(const QVariant &data) const
     {
         if (data.type() == QVariant::String) {
             return (QString::compare(data.toString(), min.toString()) == 0);
@@ -311,7 +311,7 @@ void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionVie
                       option.rect.width() - 20, 15,
                       Qt::AlignLeft, 
                       item->data(Qt::DisplayRole).toString() +
-                      " (" + QString::number(model->rowCount(index))  + ")");
+                      " (" + QString::number(model->rowCount(index))  + ')');
         painter->restore();
 
         // Draw the line under the title
