@@ -194,7 +194,7 @@ void TransferGroup::calculateSpeedLimits()
 
 void TransferGroup::calculateDownloadLimit()
 {
-    kDebug(5001) << "Now we are calculating download Limits =)";
+    kDebug(5001) << "Now we are calculating download Limits =): " + QString::number(downloadLimit());
     if (supportsSpeedLimits())
     {
         kDebug(5001) << "We are supporting speedlimits =)";
@@ -207,6 +207,10 @@ void TransferGroup::calculateDownloadLimit()
             if (transfer)
             {
                 kDebug(5001) << "Cast was ok =)";
+                if (downloadLimit() == 0 && transfer->visibleDownloadLimit() != 0)
+                    continue;
+                if (downloadLimit() == 0 && transfer->visibleDownloadLimit() == 0)
+                    transfer->setDownloadLimit(0);
                 if (transfer->visibleDownloadLimit() < downloadLimit() / n && transfer->visibleDownloadLimit() != 0)
                         /*If the transfer's visible download limit is under the new one, 
                                        we move the KiB/s which are different to the pool*/
@@ -249,6 +253,10 @@ void TransferGroup::calculateUploadLimit()
             if (transfer)
             {
                 kDebug(5001) << "Cast was ok =)";
+                if (uploadLimit() == 0 && transfer->visibleUploadLimit() != 0)
+                    continue;
+                if (uploadLimit() == 0 && transfer->visibleUploadLimit() == 0)
+                    transfer->setUploadLimit(0);
                 if (transfer->visibleUploadLimit() < uploadLimit() / n && transfer->visibleUploadLimit() != 0)
                         /*If the transfer's visible upload limit is under the new one, 
                                        we move the KiB/s which are different to the pool*/

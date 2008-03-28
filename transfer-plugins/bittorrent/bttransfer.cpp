@@ -46,7 +46,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
   : Transfer(parent, factory, scheduler, src, dest, e),
     torrent(0),
     m_tmp(0),
-    m_ratio(BittorrentSettings::maxShareRatio()),
     m_ready(false),
     m_downloadFinished(false)
 {
@@ -113,6 +112,7 @@ void BTTransfer::update()
             torrent->recreateMissingFiles();
         }
         updateTorrent();
+        kDebug(5001) << "Limits are " + QString::number(downloadLimit()) + " and " + QString::number(uploadLimit());
     }
     else
         timer.stop();
@@ -183,12 +183,14 @@ void BTTransfer::setPort(int port)
 void BTTransfer::setDownloadLimit(int dlLimit)
 {
     kDebug(5001) << "New Download Limit is: " << dlLimit;
+    m_dlLimit = dlLimit;
     setSpeedLimits(m_ulLimit, dlLimit);
 }
 
 void BTTransfer::setUploadLimit(int ulLimit)
 {
     kDebug(5001) << "New Upload Limit is: " << ulLimit;
+    m_ulLimit = ulLimit;
     setSpeedLimits(ulLimit, m_dlLimit);
 }
 
@@ -199,17 +201,6 @@ void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
         return;
 
     torrent->setTrafficLimits(ulLimit * 1000, dlLimit * 1000);
-    m_dlLimit = dlLimit;
-    m_ulLimit = ulLimit;
-}
-
-void BTTransfer::setMaxShareRatio(float ratio)
-{
-    if (m_ratio != ratio)
-        m_ratio = ratio;
-
-    if (m_ratio != 0)
-        torrent->setMaxShareRatio(m_ratio);
 }
 
 void BTTransfer::addTracker(const QString &url)
@@ -243,7 +234,7 @@ void BTTransfer::startTorrent()
         kDebug(5001) << "Got started??";
         timer.start(250);
         setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading.."), SmallIcon("media-playback-start"));
-        m_totalSize = totalSize();
+        m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
     }
 }
@@ -278,7 +269,7 @@ void BTTransfer::updateTorrent()
 
     ChangesFlags changesFlags = 0;
 
-    if(m_downloadedSize != (m_downloadedSize = processedSize()) )
+    if(m_downloadedSize != (m_downloadedSize = torrent->getStats().bytes_downloaded) )
         changesFlags |= Tc_DownloadedSize;
 
     if(m_uploadSpeed != torrent->getStats().upload_rate )
@@ -293,7 +284,7 @@ void BTTransfer::updateTorrent()
         changesFlags |= Tc_DownloadSpeed;
     }
 
-    if(m_percent != (m_percent = percent()) )
+    if(m_percent != (m_percent = ((float) chunksDownloaded() / (float) chunksTotal()) * 100) )
         changesFlags |= Tc_Percent;
 
     setTransferChange(changesFlags, true);
@@ -351,7 +342,7 @@ void BTTransfer::init(const KUrl &src)
 
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
-        setMaxShareRatio(m_ratio);
+        setMaximumShareRatio(BittorrentSettings::maxShareRatio());
 
         connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
         connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
@@ -390,22 +381,6 @@ KUrl::List BTTransfer::trackersList() const
 
     const KUrl::List trackers = torrent->getTrackersList()->getTrackerURLs();
     return trackers;
-}
-
-float BTTransfer::totalSize() const
-{
-    if (!torrent)
-        return -1;
-
-    return torrent->getStats().total_bytes_to_download;
-}
-
-float BTTransfer::processedSize() const
-{
-    if (!torrent)
-        return -1;
-
-    return torrent->getStats().bytes_downloaded;
 }
 
 int BTTransfer::sessionBytesDownloaded() const
@@ -499,7 +474,7 @@ int BTTransfer::elapsedTime() const
 int BTTransfer::remainingTime() const
 {
     if (!torrent)
-        return -1;
+        return Transfer::remainingTime();
 
     return torrent->getETA();
 }
@@ -509,22 +484,9 @@ bt::TorrentControl * BTTransfer::torrentControl()
     return torrent;
 }
 
-int BTTransfer::percent() const
-{
-    if (!torrent)
-        return -1;
-
-    return ((float) chunksDownloaded() / (float) chunksTotal()) * 100;
-}
-
 bool BTTransfer::ready()
 {
     return m_ready;
-}
-
-float BTTransfer::maxShareRatio() const
-{
-    return m_ratio;
 }
 
 void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)

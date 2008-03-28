@@ -40,12 +40,9 @@ class BTTransferHandler : public QObject, public TransferHandler
         int leechesConnected() const                    {return m_transfer->leechesConnected();}
         int leechesDisconnected() const                 {return m_transfer->leechesDisconnected();}
         bt::TorrentControl * torrentControl() const     {return m_transfer->torrentControl();}
-        int percent() const                             {return m_transfer->percent();}
         bool ready() const                              {return m_transfer->ready();}
-        float maxShareRatio() const                     {return m_transfer->maxShareRatio();}
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
-        void setMaxShareRatio(float ratio)              {m_transfer->setMaxShareRatio(ratio);}
 	kt::Monitor* torrentMonitor() const;
 
     public slots:

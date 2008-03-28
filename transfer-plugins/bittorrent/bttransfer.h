@@ -70,14 +70,10 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         int seedsDisconnected() const;
         int leechesConnected() const;
         int leechesDisconnected() const;
-        float totalSize() const;
-        float processedSize() const;
         int sessionBytesDownloaded() const;
         int sessionBytesUploaded() const;
         KUrl::List trackersList() const;
         bt::TorrentControl * torrentControl();
-        int percent() const;
-        float maxShareRatio() const;
         QList<bt::ChunkDownloadInterface*> chunks();
         QList<bt::PeerInterface*> peers();
 
@@ -85,7 +81,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         void setPort(int port);
         void setDownloadLimit(int dlLimit);
         void setUploadLimit(int ulLimit);
-        void setMaxShareRatio(float ratio);
         void addTracker(const QString &url);
         //void save(const QDomElement &element);
 
