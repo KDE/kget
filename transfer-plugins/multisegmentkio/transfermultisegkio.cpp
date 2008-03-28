@@ -69,11 +69,6 @@ int transferMultiSegKio::elapsedTime() const
     return -1; //TODO
 }
 
-int transferMultiSegKio::remainingTime() const
-{
-    return -1; //TODO
-}
-
 bool transferMultiSegKio::isResumable() const
 {
     return true;

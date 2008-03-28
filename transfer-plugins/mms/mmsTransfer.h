@@ -39,7 +39,6 @@ class MmsTransfer : public QObject, public Transfer
         void stop();
 
         int elapsedTime() const;
-        int remainingTime() const;
         bool isResumable() const;
         void postDeleteEvent();
 

@@ -59,11 +59,6 @@ int MmsTransfer::elapsedTime() const
     return -1; //TODO
 }
 
-int MmsTransfer::remainingTime() const
-{
-    return -1; //TODO
-}
-
 bool MmsTransfer::isResumable() const
 {
     return true;

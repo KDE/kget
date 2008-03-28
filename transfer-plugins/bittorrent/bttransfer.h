@@ -56,7 +56,7 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         void start();
         void stop();
         int elapsedTime() const;
-        int remainingTime() const;
+        virtual int remainingTime() const;
         bool isResumable() const;
         bool supportsSpeedLimits() const {return true;}
         void postDeleteEvent();

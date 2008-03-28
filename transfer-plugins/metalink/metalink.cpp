@@ -60,11 +60,6 @@ int metalink::elapsedTime() const
     return -1; //TODO
 }
 
-int metalink::remainingTime() const
-{
-    return -1; //TODO
-}
-
 bool metalink::isResumable() const
 {
     return false;

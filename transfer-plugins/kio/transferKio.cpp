@@ -64,11 +64,6 @@ int TransferKio::elapsedTime() const
     return -1; //TODO
 }
 
-int TransferKio::remainingTime() const
-{
-    return -1; //TODO
-}
-
 bool TransferKio::isResumable() const
 {
     return true;
