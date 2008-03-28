@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007-2008 Lukas Appelhans <l.appelhans@gmx.de>
    Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -23,6 +23,7 @@
 #include "core/plugin/transferfactory.h"
 #include "core/observer.h"
 #include "core/kuiserverjobs.h"
+#include "core/transfergroupscheduler.h"
 #include "settings.h"
 
 #include <kio/netaccess.h>
@@ -515,9 +516,19 @@ QList<TransferHandler*> KGet::allTransfers()
     foreach (TransferGroup *group, KGet::m_transferTreeModel->transferGroups())
     {
         transfers << group->handler()->transfers();
-        
     }
     return transfers;
+}
+
+QList<TransferGroupHandler*> KGet::allTransferGroups()
+{
+    QList<TransferGroupHandler*> transfergroups;
+
+    foreach (TransferGroup *group, KGet::m_transferTreeModel->transferGroups())
+    {
+        transfergroups << group->handler();
+    }
+    return transfergroups;
 }
 
 TransferHandler * KGet::findTransfer(const KUrl &src)
@@ -601,12 +612,22 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
     return list;
 }
 
+void KGet::setGlobalDownloadLimit(int limit)
+{
+    m_scheduler->setDownloadLimit(limit);
+}
+
+void KGet::setGlobalUploadLimit(int limit)
+{
+    m_scheduler->setUploadLimit(limit);
+}
+
 // ------ STATIC MEMBERS INITIALIZATION ------
 QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
-Scheduler * KGet::m_scheduler = new Scheduler();
+TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = new KUiServerJobs();
 

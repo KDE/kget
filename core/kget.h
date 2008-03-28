@@ -41,6 +41,7 @@ class ModelObserver;
 class KGetPlugin;
 class MainWindow;
 class NewTransferDialog;
+class TransferGroupScheduler;
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are
@@ -225,9 +226,14 @@ class KGET_EXPORT KGet
         static void setPluginsSettingsWidget(KTabWidget * widget);
 
         /**
-         * Gets all transfers which are running
+         * Gets all transfers
          */
         static QList<TransferHandler*> allTransfers();
+
+        /**
+         * Gets all transfer-groups
+         */
+        static QList<TransferGroupHandler*> allTransferGroups();
 
         /**
          * Get the transfer with the given url
@@ -266,6 +272,18 @@ class KGET_EXPORT KGet
          * @param src Source Url
          */
         static TransferDataSource * createTransferDataSource(const KUrl &src);
+
+        /**
+         * Sets the global download limit
+         * @param limit the new global download limit
+         */
+        static void setGlobalDownloadLimit(int limit);
+
+        /**
+         * Sets the global upload limit
+         * @param limit the new global upload limit
+         */
+        static void setGlobalUploadLimit(int limit);
 
     private:
         KGet();
@@ -346,7 +364,7 @@ class KGET_EXPORT KGet
         static MainWindow * m_mainWindow;
 
         //Scheduler object
-        static Scheduler * m_scheduler;
+        static TransferGroupScheduler * m_scheduler;
 
         //pointer to the kget uiserver jobs manager
         static KUiServerJobs *m_jobManager;

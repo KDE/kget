@@ -228,7 +228,7 @@ void BTTransfer::startTorrent()
     if (m_ready)
     {
         //kDebug(5001) << "Going to download that stuff :-0";
-        setSpeedLimits(visibleUploadLimit(), visibleDownloadLimit());//Set traffic-limits before starting
+        setSpeedLimits(uploadLimit(), downloadLimit());//Set traffic-limits before starting
         torrent->setMonitor(this);
         torrent->start();
         kDebug(5001) << "Got started??";

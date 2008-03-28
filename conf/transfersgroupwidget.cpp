@@ -54,6 +54,7 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     header()->hideSection(2);
     header()->hideSection(3);
     header()->hideSection(4);
+    header()->hideSection(5);
 
     setItemsExpandable(false);
 }

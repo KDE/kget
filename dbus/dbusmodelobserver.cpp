@@ -76,7 +76,7 @@ void DBusModelObserver::slotTransferGroupChanged(TransferGroupHandler *handler)
         m_transfers[t_handler->source().pathOrUrl()] = getAttributesFromTransfer(t_handler);
     }
 
-    m_speed = handler->speed();
+    m_speed = handler->downloadSpeed();
 //    emit transfersChanged(m_transfers);
 }
 

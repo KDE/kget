@@ -29,8 +29,8 @@
 TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name)
     : JobQueue(scheduler),
       m_model(model), m_name(name),
-      m_totalSize(0), m_processedSize(0),
-      m_percent(0), m_speed(0),
+      m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
+      m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
       m_dlLimit(0), m_ulLimit(0),
       m_visibleDlLimit(0), m_visibleUlLimit(0),
       m_iconName("bookmark-new-list"), m_defaultFolder(0)
@@ -41,6 +41,30 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, c
 TransferGroup::~TransferGroup()
 {
     m_handler->postDeleteEvent();
+}
+
+int TransferGroup::downloadSpeed()
+{
+    m_downloadSpeed = 0;
+    foreach(Job *job, runningJobs())
+    {
+        Transfer *transfer = static_cast<Transfer*>(job);
+        if (transfer)
+            m_downloadSpeed += transfer->downloadSpeed();
+    }
+    return m_downloadSpeed;
+}
+
+int TransferGroup::uploadSpeed()
+{
+    m_uploadSpeed = 0;
+    foreach(Job *job, runningJobs())
+    {
+        Transfer *transfer = static_cast<Transfer*>(job);
+        if (transfer)
+            m_uploadSpeed += transfer->uploadSpeed();
+    }
+    return m_uploadSpeed;
 }
 
 bool TransferGroup::supportsSpeedLimits()
@@ -164,13 +188,15 @@ TransferGroupHandler * TransferGroup::handler() const
 void TransferGroup::setVisibleUploadLimit(int limit) 
 {
     m_visibleUlLimit = limit;
-    setUploadLimit(m_visibleUlLimit);
+    if (uploadLimit() > m_visibleUlLimit || uploadLimit() == 0)
+        setUploadLimit(m_visibleUlLimit);
 }
 
 void TransferGroup::setVisibleDownloadLimit(int limit) 
 {
     m_visibleDlLimit = limit;
-    setDownloadLimit(m_visibleDlLimit);
+    if (downloadLimit() > m_visibleDlLimit || downloadLimit() == 0)
+        setDownloadLimit(m_visibleDlLimit);
 }
 
 void TransferGroup::setDownloadLimit(int limit) 
@@ -209,9 +235,9 @@ void TransferGroup::calculateDownloadLimit()
                 kDebug(5001) << "Cast was ok =)";
                 if (downloadLimit() == 0 && transfer->visibleDownloadLimit() != 0)
                     continue;
-                if (downloadLimit() == 0 && transfer->visibleDownloadLimit() == 0)
+                else if (downloadLimit() == 0 && transfer->visibleDownloadLimit() == 0)
                     transfer->setDownloadLimit(0);
-                if (transfer->visibleDownloadLimit() < downloadLimit() / n && transfer->visibleDownloadLimit() != 0)
+                else if (transfer->visibleDownloadLimit() < downloadLimit() / n && transfer->visibleDownloadLimit() != 0)
                         /*If the transfer's visible download limit is under the new one, 
                                        we move the KiB/s which are different to the pool*/
                     pool = pool + (downloadLimit() / n - transfer->visibleDownloadLimit());       
@@ -255,9 +281,9 @@ void TransferGroup::calculateUploadLimit()
                 kDebug(5001) << "Cast was ok =)";
                 if (uploadLimit() == 0 && transfer->visibleUploadLimit() != 0)
                     continue;
-                if (uploadLimit() == 0 && transfer->visibleUploadLimit() == 0)
+                else if (uploadLimit() == 0 && transfer->visibleUploadLimit() == 0)
                     transfer->setUploadLimit(0);
-                if (transfer->visibleUploadLimit() < uploadLimit() / n && transfer->visibleUploadLimit() != 0)
+                else if (transfer->visibleUploadLimit() < uploadLimit() / n && transfer->visibleUploadLimit() != 0)
                         /*If the transfer's visible upload limit is under the new one, 
                                        we move the KiB/s which are different to the pool*/
                     pool = pool + (uploadLimit() / n - transfer->visibleUploadLimit());       

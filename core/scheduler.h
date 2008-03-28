@@ -71,20 +71,20 @@ class Scheduler : public QObject
         int countRunningJobs();
 
         //JobQueue notifications
-        void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);
-        void jobQueueMovedJobEvent(JobQueue * queue, Job * job);
-        void jobQueueAddedJobEvent(JobQueue * queue, Job * job);
-        void jobQueueRemovedJobEvent(JobQueue * queue, Job * job);
+        virtual void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);
+        virtual void jobQueueMovedJobEvent(JobQueue * queue, Job * job);
+        virtual void jobQueueAddedJobEvent(JobQueue * queue, Job * job);
+        virtual void jobQueueRemovedJobEvent(JobQueue * queue, Job * job);
 
         //Job notifications
-        void jobChangedEvent(Job * job, Job::Status status);
-        void jobChangedEvent(Job * job, Job::Policy status);
+        virtual void jobChangedEvent(Job * job, Job::Status status);
+        virtual void jobChangedEvent(Job * job, Job::Policy status);
 
         //Accessors methods
         void startDelayTimer(Job * job, int seconds);
         void stopDelayTimer(Job * job);
 
-    private:
+    protected:
         /**
          * Updates the given queue, starting the jobs that come first in the queue
          * and stopping all the other
@@ -101,6 +101,7 @@ class Scheduler : public QObject
          */
         bool shouldBeRunning( Job * job );
 
+    private:
         //Virtual QObject method
         void timerEvent ( QTimerEvent * event);
 

@@ -93,6 +93,12 @@
     <entry name="TransferSpeedLimit" type="Int">
       <default>20</default>
     </entry>
+    <entry name="GlobalDownloadLimit" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="GlobalUploadLimit" type="Int">
+      <default>0</default>
+    </entry>
     <entry name="ReconnectOnBroken" type="Bool">
       <default>true</default>
     </entry>

@@ -116,7 +116,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          */
         Transfer * findTransfer(const KUrl &src);
 
-        /***
+        /**
          * Finds the first transfer with destination dest
          *
          * @param dest the url of the destination location
@@ -147,10 +147,16 @@ class KGET_EXPORT TransferGroup : public JobQueue
         int totalSize() const     {return m_totalSize;}
 
         /**
-         * @return the sum of the processed sizes of the transfers
+         * @return the sum of the downloaded sizes of the transfers
          * belonging to this group
          */
-        int processedSize() const {return m_processedSize;}
+        int downloadedSize() const {return m_downloadedSize;}
+
+        /**
+         * @return the sum of the uploaded sizes of the transfers
+         * belonging to this group
+         */
+        int uploadedSize() const {return m_uploadedSize;}
 
         /**
          * @return the progress percentage
@@ -161,7 +167,13 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @return the sum of the download speeds of the running transfers 
          * belonging this group
          */
-        int speed() const         {return m_speed;}
+        int downloadSpeed();
+
+        /**
+         * @return the sum of the download speeds of the running transfers 
+         * belonging this group
+         */
+        int uploadSpeed();
 
         /**
          * Set a default Folder for the group
@@ -189,7 +201,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @return the group's visible Upload-Limit
          */
-         int visibleUploadLimit() {kDebug(5001) << m_visibleUlLimit; return m_visibleUlLimit;}
+         int visibleUploadLimit() {return m_visibleUlLimit;}
 
         /**
          * Set a Visible Download-Limit for the group
@@ -291,9 +303,11 @@ class KGET_EXPORT TransferGroup : public JobQueue
         //TransferGroup info
         QString m_name;
         int m_totalSize;
-        int m_processedSize;
+        int m_downloadedSize;
+        int m_uploadedSize;
         int m_percent;
-        int m_speed;
+        int m_downloadSpeed;
+        int m_uploadSpeed;
         int m_dlLimit;
         int m_ulLimit;
         int m_visibleDlLimit;

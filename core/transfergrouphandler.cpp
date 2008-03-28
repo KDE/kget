@@ -120,12 +120,12 @@ QVariant TransferGroupHandler::data(int column)
 //             return QString::number(percent())+'%'; // display progressbar instead
             return QVariant();
         case 4:
-            if (speed()==0)
+            if (downloadSpeed() == 0)
             {
                 return QString();
             }
             else
-                return i18n("%1/s", KIO::convertSize(speed()));
+                return i18n("%1/s", KIO::convertSize(downloadSpeed()));
         default:
             return QVariant();
     }
@@ -219,7 +219,6 @@ void TransferGroupHandler::setGroupChange(ChangesFlags change, bool postEvent)
 
 void TransferGroupHandler::postGroupChangedEvent()
 {
-    m_group->calculateSpeedLimits();
     //Here we have to copy the list and iterate on the copy itself, because
     //a view can remove itself as a view while we are iterating over the
     //observers list and this leads to crashes.

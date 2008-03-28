@@ -105,10 +105,16 @@ class KGET_EXPORT TransferGroupHandler
         int totalSize() const     {return m_group->totalSize();}
 
         /**
-         * @return the sum of the processed sizes of the transfers
+         * @return the sum of the downloaded sizes of the transfers
          * belonging to this group
          */
-        int processedSize() const {return m_group->processedSize();}
+        int downloadedSize() const {return m_group->downloadedSize();}
+
+        /**
+         * @return the sum of the uploaded sizes of the transfers
+         * belonging to this group
+         */
+        int uploadedSize() const {return m_group->uploadedSize();}
 
         /**
          * @return the progress percentage
@@ -119,7 +125,13 @@ class KGET_EXPORT TransferGroupHandler
          * @return the sum of the download speeds of the running transfers 
          * belonging this group
          */
-        int speed() const         {return m_group->speed();}
+        int downloadSpeed() const         {return m_group->downloadSpeed();}
+
+        /**
+         * @return the sum of the upload speeds of the running transfers 
+         * belonging this group
+         */
+        int uploadSpeed() const         {return m_group->uploadSpeed();}
 
         /**
          * Set a default Folder for the group
@@ -245,6 +257,21 @@ class KGET_EXPORT TransferGroupHandler
          * transfer group.
          */
         QObjectInterface * qObject();
+
+        /**
+         * Calculates the whole SpeedLimits
+         */
+        void calculateSpeedLimits() {m_group->calculateSpeedLimits();}
+
+        /**
+         * Calculates the DownloadLimits
+         */
+        void calculateDownloadLimit() {m_group->calculateDownloadLimit();}
+
+        /**
+         * Calculates the DownloadLimits
+         */
+        void calculateUploadLimit() {m_group->calculateUploadLimit();}
 
     private:
         /**
