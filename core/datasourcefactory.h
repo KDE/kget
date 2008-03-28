@@ -16,21 +16,28 @@
 
 #include <kio/job.h>
 #include <QMap>
-#include <QPair>
 
 class TransferDataSource;
 
+namespace KIO
+{
+    class FileJob;
+}
+
 /**
- This class manages multiple DataSources and returns the data
+ This class manages multiple DataSources and saves the data to the file
  */
 class KGET_EXPORT DataSourceFactory : public QObject
 {
     Q_OBJECT
     public:
-        DataSourceFactory(const KUrl &source, const KUrl &dest, const KIO::fileoffset_t &size, const KIO::fileoffset_t &segSize, QObject *parent);
+        DataSourceFactory(const KUrl &dest, const KIO::fileoffset_t &size, const KIO::fileoffset_t &segSize, QObject *parent);
         ~DataSourceFactory();
 
-        void addDataSource(TransferDataSource *source);
+        void start();
+        void stop();
+
+        void addDataSource(TransferDataSource *source, const KUrl &url);
         void removeDataSource(TransferDataSource *source);
 
     private slots:
@@ -38,12 +45,12 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void writeData(const KIO::fileoffset_t &offset, const QByteArray &data);
 
     private:
-        KUrl m_source;
         KUrl m_dest;
         KIO::fileoffset_t m_size;
         KIO::fileoffset_t m_segSize;
-        QMap< TransferDataSource*, QPair<KIO::fileoffset_t, KIO::fileoffset_t> > m_dataSources;//The QPair is <offset, bytes>
+        QMap< TransferDataSource*, KUrl> m_dataSources;//The QPair is <offset, bytes>
         BitSet *m_chunks;
+        KIO::FileJob* m_putJob;
 };
 
 #endif

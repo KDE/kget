@@ -11,8 +11,8 @@
 #include "btdatasource.h"
 #include "btcache.h"
 #include "btchunkselector.h"
-#include "btdownload.h"
 #include "bittorrentsettings.h"
+#include "core/download.h"
 #include <torrent/torrentcontrol.h>
 #include <util/error.h>
 #include <torrent/globals.h>
@@ -80,30 +80,31 @@ void BTDataSource::start()
 {
     if (m_torrentSource.isEmpty())
     {
-        BTDownload *download = new BTDownload(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
-        connect(download, SIGNAL(finishedSuccessfully(KUrl)), SLOT(init(KUrl)));
+        Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
+        connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(init(KUrl, QByteArray)));
     }
-
-    cs->excludeAll();
-    const BitSet & bits = tc->availableChunksBitSet();
-    bool av = true;
-    Uint32 firstChunk = m_offset / tc->getStats().chunk_size;
-    Uint32 lastChunk = ((m_offset + m_bytes) / tc->getStats().chunk_size) + 1;//The +1 is only a workaround for rounding up, but I dunno how to do it ;)
-    for (int i = firstChunk * tc->getStats().chunk_size * 8; i <= lastChunk * tc->getStats().chunk_size * 8; i++)
+    else 
     {
-        if (!bits.get(i))
+        cs->excludeAll();
+        const BitSet & bits = tc->availableChunksBitSet();
+        bool av = true;
+        Uint32 firstChunk = m_offset / tc->getStats().chunk_size;
+        Uint32 lastChunk = ((m_offset + m_bytes) / tc->getStats().chunk_size) + 1;//The +1 is only a workaround for rounding up, but I dunno how to do it ;)
+        for (int i = firstChunk * tc->getStats().chunk_size * 8; i <= lastChunk * tc->getStats().chunk_size * 8; i++)
         {
-            emit broken();
-            av = false;
-            continue;
+            if (!bits.get(i))
+            {
+                emit broken();
+                av = false;
+                continue;
+            }
         }
-    }
-
-    if (av)
-    {
-        cs->reincluded(firstChunk, lastChunk);
-        tc->start();
-        timer.start(250);
+        if (av)
+        {
+            cs->reincluded(firstChunk, lastChunk);
+            tc->start();
+            timer.start(250);
+        }
     }
 }
 
@@ -120,8 +121,9 @@ void BTDataSource::update()
     tc->update();
 }
 
-void BTDataSource::init(const KUrl &torrentSource)
+void BTDataSource::init(const KUrl &torrentSource, const QByteArray &data)
 {
+    Q_UNUSED(data);
     m_torrentSource = torrentSource;
     try
     {
@@ -132,6 +134,7 @@ void BTDataSource::init(const KUrl &torrentSource)
         kDebug(5001) << err.toString();
         //m_ready = false;
     }
+    start();
 }
 
 void BTDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes)

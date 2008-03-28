@@ -90,7 +90,7 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         //void load(const QDomElement &e);
 
     private slots:
-        void init(const KUrl &src = KUrl());
+        void init(const KUrl &src = KUrl(), const QByteArray &data = QByteArray());
         void update();
         void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);

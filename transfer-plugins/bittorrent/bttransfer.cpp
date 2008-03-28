@@ -15,6 +15,7 @@
 #include "btchunkselector.h"
 #include "advanceddetails/monitor.h"
 #include "core/kget.h"
+#include "core/download.h"
 
 #include <torrent/torrent.h>
 #include <peer/peermanager.h>
@@ -25,7 +26,6 @@
 #include <util/functions.h>
 #include <util/log.h>
 #include <peer/authenticationmonitor.h>
-#include <btdownload.h>
 #include <btversion.h>
 
 #include <KDebug>
@@ -78,7 +78,7 @@ void BTTransfer::start()
         if (!m_source.isLocalFile())
         {
             kDebug(5001) << m_dest.path();
-            BTDownload *download = new BTDownload(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
+            Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
 
             setStatus(Job::Stopped, i18n("Downloading Torrent-File.."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
@@ -290,8 +290,9 @@ void BTTransfer::updateTorrent()
     setTransferChange(changesFlags, true);
 }
 
-void BTTransfer::init(const KUrl &src)
+void BTTransfer::init(const KUrl &src, const QByteArray &data)
 {
+    Q_UNUSED(data);
     kDebug(5001);
     if (src != m_source && !src.isEmpty())
         m_source = src;

@@ -54,6 +54,7 @@ set(kgetcore_SRCS
    core/kuiserverjobs.cpp
    core/kgetglobaljob.cpp
    core/bitset.cpp
+   core/download.cpp
    core/transferhistorystore.cpp
 )
 

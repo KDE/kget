@@ -11,17 +11,20 @@
 
 #include "transferdatasource.h"
 
+#include <kio/filejob.h>
+
 #include <KDebug>
 
-DataSourceFactory::DataSourceFactory(const KUrl &source, const KUrl &dest, const KIO::fileoffset_t &size, 
+DataSourceFactory::DataSourceFactory(const KUrl &dest, const KIO::fileoffset_t &size, 
                                                                     const KIO::fileoffset_t &segSize, QObject *parent)
   : QObject(parent),
-    m_source(source),
     m_dest(dest),
     m_size(size),
     m_segSize(segSize),
-    m_chunks(0)
+    m_chunks(0),
+    m_putJob(0)
 {
+    kDebug(5001) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(size) + "SegSize: " + QString::number(segSize);
     if ((float) size / segSize != (int) size / segSize)
         m_chunks = new BitSet((size / segSize) + 1);
     else
@@ -34,9 +37,26 @@ DataSourceFactory::~DataSourceFactory()
 {
 }
 
-void DataSourceFactory::addDataSource(TransferDataSource *source)
+void DataSourceFactory::start()
 {
-    m_dataSources.insert(source, qMakePair(KIO::fileoffset_t(-1), KIO::fileoffset_t(-1)));
+    kDebug(5001) << "Start DataSourceFactory";
+    m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
+    foreach (TransferDataSource *source, m_dataSources.keys())
+        source->start();
+}
+
+void DataSourceFactory::stop()
+{
+    foreach (TransferDataSource *source, m_dataSources.keys())
+        source->stop();
+
+    if (m_putJob)
+        m_putJob->close();
+}
+
+void DataSourceFactory::addDataSource(TransferDataSource *source, const KUrl &url)
+{
+    m_dataSources.insert(source, url);
     assignSegment(source);
     connect(source, SIGNAL(broken()), SLOT(assignSegment()));
     connect(source, SIGNAL(finished()), SLOT(assignSegment()));
@@ -60,10 +80,7 @@ void DataSourceFactory::assignSegment(TransferDataSource *source)
     }
     //TODO: Grep a _random_ chunk
     if (m_chunks->allOn())
-    {
-        m_dataSources.insert(source, qMakePair(KIO::fileoffset_t(-1), KIO::fileoffset_t(-1)));
         return;
-    }
 
     int newchunk = 0;
     for (uint i = 0; i != m_chunks->getNumBits(); i++)
@@ -76,11 +93,12 @@ void DataSourceFactory::assignSegment(TransferDataSource *source)
     }
     KIO::fileoffset_t newoff = KIO::fileoffset_t(newchunk * m_segSize);
     m_chunks->set(newchunk, true);
-    m_dataSources.insert(source, qMakePair(newoff, m_segSize));
-    source->addSegment(m_source, newoff, m_segSize);
+    source->addSegment(m_dataSources.value(source), newoff, m_segSize);
 }
 
 void DataSourceFactory::writeData(const KIO::fileoffset_t &offset, const QByteArray &data)
 {
     kDebug(5001) << "Offset: " << offset << " Data: " << data;
+    m_putJob->seek(offset);
+    m_putJob->write(data);
 }

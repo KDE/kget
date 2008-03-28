@@ -40,7 +40,7 @@ class BTDataSource : public TransferDataSource
         void getData(const KIO::fileoffset_t &off, const QByteArray &dataArray);
 
     private slots:
-        void init(const KUrl &torrentSource);
+        void init(const KUrl &torrentSource, const QByteArray &data);
         void cacheAdded(BTCache *cache);
         void selectorAdded(BTChunkSelector *selector);
         void update();

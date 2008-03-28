@@ -90,3 +90,10 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
          return QList<KAction *>();
 }
 
+TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl)
+{
+    if (srcUrl.fileName().endsWith(".torrent"))
+        return new BTDataSource();
+    return 0;
+}
+
