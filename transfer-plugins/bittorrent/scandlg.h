@@ -82,11 +82,11 @@ namespace kt
 		bool qm_controlled;
 		int qm_priority;
 		bool scanning;
-                QProgressBar *m_progress;
-                KPushButton *m_cancel;
-                QLabel *m_torrent_label;
-                QLabel *m_chunks_failed;
-                QLabel *m_chunks_found;
+		QProgressBar *m_progress;
+		KPushButton *m_cancel;
+		QLabel *m_torrent_label;
+		QLabel *m_chunks_failed;
+		QLabel *m_chunks_found;
 		QLabel *m_chunks_not_downloaded;
 		QLabel *m_chunks_downloaded;
 	};
