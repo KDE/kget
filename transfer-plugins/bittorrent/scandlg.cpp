@@ -42,6 +42,8 @@ namespace kt
                 m_torrent_label = ui.torrent_label;
                 m_chunks_found = ui.chunks_found;
                 m_chunks_failed = ui.chunks_failed;
+		m_chunks_downloaded = ui.chunks_downloaded;
+		m_chunks_not_downloaded = ui.chunks_not_downloaded;
                 m_progress = ui.progress;
                 m_cancel = ui.cancel;
 		m_cancel->setGuiItem(KStandardGuiItem::cancel());
@@ -56,6 +58,8 @@ namespace kt
 		total_chunks = 0;
 		num_downloaded = 0;
 		num_failed = 0;
+		num_found = 0;
+		num_not_downloaded = 0;
 		m_progress->setMaximum(100);
 		m_progress->setValue(0);
 	}
@@ -89,6 +93,8 @@ namespace kt
 		total_chunks = 0;
 		num_downloaded = 0;
 		num_failed = 0;
+		num_found = 0;
+		num_not_downloaded = 0;
 		if (auto_import || tc->getStats().running)
 			restart = true;
 		
@@ -110,11 +116,13 @@ namespace kt
 		total_chunks = total;
 	}
 		 
-	void ScanDlg::status(bt::Uint32 failed,bt::Uint32 downloaded)
+	void ScanDlg::status(bt::Uint32 failed,Uint32 found,Uint32 downloaded,Uint32 not_downloaded)
 	{
 		QMutexLocker lock(&mutex);
 		num_failed = failed;
+		num_found = found;
 		num_downloaded = downloaded;
+		num_not_downloaded = not_downloaded;
 	}
 		
 	void ScanDlg::finished()
@@ -189,6 +197,8 @@ namespace kt
 		m_progress->setValue(num_chunks);
 		m_chunks_found->setText(QString::number(num_downloaded));
 		m_chunks_failed->setText(QString::number(num_failed));
+		m_chunks_downloaded->setText(QString::number(num_downloaded));
+		m_chunks_not_downloaded->setText(QString::number(num_not_downloaded));
 	}		
 }
 

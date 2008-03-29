@@ -37,10 +37,24 @@
        <item>
         <widget class="QLabel" name="textLabel3" >
          <property name="text" >
-          <string>Number of chunks failed / not downloaded :</string>
+          <string>Number of chunks failed :</string>
          </property>
          <property name="wordWrap" >
           <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Number of chunks not downloaded:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>Number of chunks downloaded:</string>
          </property>
         </widget>
        </item>
@@ -95,6 +109,38 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="chunks_not_downloaded" >
+         <property name="minimumSize" >
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape" >
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text" >
+          <string>0</string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="chunks_downloaded" >
+         <property name="frameShape" >
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text" >
+          <string>0</string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -123,7 +169,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>

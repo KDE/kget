@@ -51,7 +51,7 @@ namespace kt
 		virtual void progress(bt::Uint32 num,bt::Uint32 total);
 		 
 		/// Update status info, runs in scan thread
-		virtual void status(bt::Uint32 num_failed,bt::Uint32 num_downloaded);
+		virtual void status(bt::Uint32 failed,bt::Uint32 found,bt::Uint32 downloaded,bt::Uint32 not_downloaded);
 		
 		/// Scan finished, runs in app thread
 		virtual void finished();
@@ -75,6 +75,8 @@ namespace kt
 		bt::Uint32 total_chunks;
 		bt::Uint32 num_downloaded;
 		bt::Uint32 num_failed;
+		bt::Uint32 num_found;
+		bt::Uint32 num_not_downloaded;
 		bool silently;
 		bool restart;
 		bool qm_controlled;
@@ -85,6 +87,8 @@ namespace kt
                 QLabel *m_torrent_label;
                 QLabel *m_chunks_failed;
                 QLabel *m_chunks_found;
+		QLabel *m_chunks_not_downloaded;
+		QLabel *m_chunks_downloaded;
 	};
 }
 
