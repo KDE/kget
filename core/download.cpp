@@ -7,14 +7,14 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-#include "btdownload.h"
+#include "download.h"
 
 #include <QFile>
 #include <QFileInfo>
 
 #include <KDebug>
 
-BTDownload::BTDownload(const KUrl &srcUrl, const KUrl &destUrl)
+Download::Download(const KUrl &srcUrl, const KUrl &destUrl)
   : m_srcUrl(srcUrl),
     m_destUrl(destUrl)
 {
@@ -24,7 +24,7 @@ BTDownload::BTDownload(const KUrl &srcUrl, const KUrl &destUrl)
     connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
 }
 
-void BTDownload::slotData(KIO::Job *job, const QByteArray& data)
+void Download::slotData(KIO::Job *job, const QByteArray& data)
 {
     Q_UNUSED(job);
     kDebug(5001);
@@ -36,30 +36,32 @@ void BTDownload::slotData(KIO::Job *job, const QByteArray& data)
     m_data.append(data);
 }
 
-void BTDownload::slotResult(KJob * job)
+void Download::slotResult(KJob * job)
 {
     kDebug(5001);
     switch (job->error())
     {
         case 0://The download has finished
         {
-            kDebug(5001) << "Downloading successfully finished" << m_destUrl.url().remove("file://") + m_srcUrl.fileName();
+            kDebug(5001) << "Downloading successfully finished" << m_destUrl.url();
             QFile torrentFile(m_destUrl.url().remove("file://"));
             if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text)) {}
                 //TODO: Do a Message box here
             torrentFile.write(m_data);
             torrentFile.close();
-            kDebug(5001) << m_data;
+            emit finishedSuccessfully(m_destUrl, m_data);
             m_data = 0;
-            emit finishedSuccessfully(m_destUrl);
             break;
         }
         case KIO::ERR_FILE_ALREADY_EXIST:
+        {
             kDebug(5001) << "ERROR - File already exists";
+            QFile file(m_destUrl.url().remove("file://"));
+            emit finishedSuccessfully(m_destUrl, file.readAll());
             m_data = 0;
-            emit finishedSuccessfully(m_destUrl);
+        }
         default:
-            kDebug(5001) << "That sucks";
+            kDebug(5001) << "We are sorry to say you, that there were errors while downloading :(";
             m_data = 0;
             emit finishedWithError();
             break;
