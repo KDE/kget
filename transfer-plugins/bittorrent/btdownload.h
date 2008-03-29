@@ -11,8 +11,6 @@
 #ifndef BTDOWNLOAD_H
 #define BTDOWNLOAD_H
 
-#include "kget_export.h"
-
 #include <QObject>
 #include <QByteArray>
 
@@ -20,14 +18,14 @@
 
 #include <kio/job.h>
 
-class KGET_EXPORT Download : public QObject
+class BTDownload : public QObject
 {
     Q_OBJECT
     public:
-        Download(const KUrl &srcUrl, const KUrl &destUrl);
+        BTDownload(const KUrl &srcUrl, const KUrl &destUrl);
 
     Q_SIGNALS:
-        void finishedSuccessfully(KUrl dest, QByteArray data);
+        void finishedSuccessfully(KUrl dest);
         void finishedWithError();
 
     private slots:
