@@ -148,6 +148,7 @@ void Transfer::save(const QDomElement &element)
     e.setAttribute("UploadedSize", m_uploadedSize);
     e.setAttribute("DownloadLimit", m_visibleDlLimit);
     e.setAttribute("UploadLimit", m_visibleUlLimit);
+    e.setAttribute("ElapsedTime", status() == Job::Running ? m_runningTime.elapsed() / 1000 : m_runningSeconds);
 }
 
 void Transfer::load(const QDomElement &e)
@@ -174,6 +175,7 @@ void Transfer::load(const QDomElement &e)
     }
     setVisibleUploadLimit(e.attribute("UploadLimit").toInt());
     setVisibleDownloadLimit(e.attribute("DownloadLimit").toInt());
+    m_runningSeconds = e.attribute("ElapsedTime").toInt();
 }
 
 void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix)
