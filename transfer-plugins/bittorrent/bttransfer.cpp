@@ -84,7 +84,7 @@ void BTTransfer::start()
             setTransferChange(Tc_Status, true);
 
             //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-            connect(download, SIGNAL(finishedSuccessfully(KUrl)), SLOT(init(KUrl)));
+            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(init(KUrl)));
         }
         else
             init();
