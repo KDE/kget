@@ -54,6 +54,14 @@ Transfer::~Transfer()
     delete(m_handler);
 }
 
+int Transfer::elapsedTime() const
+{
+    if (status() == Job::Running)
+        return m_runningTime.elapsed() / 1000;
+
+    return m_runningSeconds;
+}
+
 void Transfer::setVisibleUploadLimit(int visibleUlLimit)
 {
     m_visibleUlLimit = visibleUlLimit;
@@ -178,6 +186,14 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     m_statusPixmap = pix;
     if (jobStatus == Job::Finished)
         saveNepomuk();
+
+    if (jobStatus == Job::Running && status() != Job::Running)
+    {
+        m_runningTime.restart();
+        m_runningTime.addSecs(m_runningSeconds);
+    }
+    if (jobStatus != Job::Running && status() == Job::Running)
+        m_runningSeconds = m_runningTime.elapsed() / 1000;
     /**
     * It's important to call job::setStatus AFTER having changed the 
     * icon or the text or whatever.

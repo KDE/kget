@@ -94,6 +94,7 @@ class KGET_EXPORT Transfer : public Job
         int downloadSpeed() const              {return m_downloadSpeed;}
         int uploadSpeed() const                {return m_uploadSpeed;}
         virtual int remainingTime() const      {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
+        virtual int elapsedTime() const;
 
         virtual bool supportsSpeedLimits() const {return false;}
 
@@ -260,10 +261,12 @@ class KGET_EXPORT Transfer : public Job
     private:
         int m_visibleUlLimit;
         int m_visibleDlLimit;
+        int m_runningSeconds;
         double m_ratio;
 
         QString m_statusText;
         QPixmap m_statusPixmap;
+        QTime m_runningTime;
 
         TransferHandler * m_handler;
         TransferFactory * m_factory;
