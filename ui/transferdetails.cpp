@@ -46,6 +46,7 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_completedLabel = frm.completedContentLabel;
     m_speedLabel = frm.speedContentLabel;
     m_progressBar = frm.progressBar;
+    m_remainingTimeLabel = frm.remainingTimeLabel;
 
     transfer->addObserver(this);
     //This updates the widget with the right values
@@ -93,7 +94,7 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
         else
             m_speedLabel->setText(i18n("%1/s", KIO::convertSize(speed)));
     }
-
+    m_remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));
 
     m_transfer->resetChangesFlags(this);
 }

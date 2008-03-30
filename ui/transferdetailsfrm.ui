@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>366</width>
-    <height>175</height>
+    <width>530</width>
+    <height>211</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -196,6 +196,20 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Remaining Time:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="remainingTimeLabel" >
+       <property name="text" >
+        <string>&lt;remaining time></string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

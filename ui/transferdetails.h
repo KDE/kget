@@ -42,6 +42,7 @@ class TransferDetails : public QWidget, public TransferObserver
         QLabel          * m_statusTextLabel;
         QLabel          * m_completedLabel;
         QLabel          * m_speedLabel;
+        QLabel          * m_remainingTimeLabel;
         QProgressBar    * m_progressBar;
 };
 
