@@ -9,6 +9,7 @@ Name[ga]=TransferFactory MMS
 Name[pt]=Factory de Transferências de MMS
 Name[pt_BR]=Factory de Transferências de MMS
 Name[x-test]=xxMMS TransferFactoryxx
+Name[zh_CN]=MMS 传输工厂
 Name[zh_TW]=MMS 傳輸工廠
 
 # options for library loader
