@@ -54,11 +54,6 @@ void MmsTransfer::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-int MmsTransfer::elapsedTime() const
-{
-    return -1; //TODO
-}
-
 bool MmsTransfer::isResumable() const
 {
     return true;

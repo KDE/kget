@@ -34,7 +34,6 @@ class TransferKio : public QObject, public Transfer
         void start();
         void stop();
 
-        int elapsedTime() const;
         bool isResumable() const;
         void postDeleteEvent();
 

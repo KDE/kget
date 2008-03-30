@@ -55,7 +55,7 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         //Job virtual functions
         void start();
         void stop();
-        int elapsedTime() const;
+        virtual int elapsedTime() const;
         virtual int remainingTime() const;
         bool isResumable() const;
         bool supportsSpeedLimits() const {return true;}

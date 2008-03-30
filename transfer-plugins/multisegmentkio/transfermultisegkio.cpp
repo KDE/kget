@@ -64,11 +64,6 @@ void transferMultiSegKio::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-int transferMultiSegKio::elapsedTime() const
-{
-    return -1; //TODO
-}
-
 bool transferMultiSegKio::isResumable() const
 {
     return true;

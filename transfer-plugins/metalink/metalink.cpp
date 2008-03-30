@@ -55,11 +55,6 @@ void metalink::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-int metalink::elapsedTime() const
-{
-    return -1; //TODO
-}
-
 bool metalink::isResumable() const
 {
     return false;

@@ -59,11 +59,6 @@ void TransferKio::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-int TransferKio::elapsedTime() const
-{
-    return -1; //TODO
-}
-
 bool TransferKio::isResumable() const
 {
     return true;
