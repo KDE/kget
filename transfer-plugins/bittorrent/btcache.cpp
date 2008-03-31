@@ -61,6 +61,7 @@ void BTCache::save(Chunk* c)
 bool BTCache::prep(Chunk* c)
 {
     c->setData(0, Chunk::MMAPPED);
+    return true;
 }
 
 void BTCache::deleteDataFiles()
