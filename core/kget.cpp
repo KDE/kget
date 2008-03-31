@@ -601,6 +601,9 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
         QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
         list.append(Settings::lastDirectory());
 
+    if (list.isEmpty())
+        list.append(QDir::homePath());//If we have no defaultDir, we return the home-dir
+
     for (int i = 0; i < list.size(); i++)
     {
 #ifdef Q_OS_WIN //krazy:exclude=cpp
