@@ -95,6 +95,7 @@ void HttpServer::handleRequest()
         if (!args.isEmpty()) {
             QString action;
             QString data;
+            QString group;
             QStringList argList = args.split('&');
             foreach (const QString &s, argList) {
                 QStringList map = s.split('=');
@@ -102,10 +103,14 @@ void HttpServer::handleRequest()
                     action = map.at(1);
                 else if (map.at(0) == "data")
                     data = KUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
+                // action specific parameters
+                else if (map.at(0) == "group")
+                    group = KUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
             }
             kDebug(5001) << action << data;
             if (action == "add") {
-                KGet::addTransfer(data, QDir::homePath(), "My Downloads"); //TODO: folders and groups..
+                // take first item of default folder list (which should be the best one)
+                KGet::addTransfer(data, KGet::defaultFolders(data, group).at(0), group);
                 data.append(QString("Ok, %1 added!").arg(data).toUtf8());
             } else if (action == "start") {
                 TransferHandler *transfer = KGet::findTransfer(data);
@@ -169,6 +174,14 @@ void HttpServer::handleRequest()
             data.replace("#{Downloads}", i18nc("@title", "Downloads").toUtf8());
             data.replace("#{KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS}",
                          i18nc("@label text in footer", "KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS").toUtf8());
+
+            // delegate group combobox
+            QString groupOptions;
+            QStringList groupsList(KGet::transferGroupNames());
+            QStringList::const_iterator it;
+            for (it = groupsList.constBegin(); it != groupsList.constEnd(); ++it)
+                groupOptions += QString("<option>%1</option>").arg(*it);
+            data.replace("#{groups}", groupOptions.toUtf8());
         }
     }
     }

@@ -38,12 +38,21 @@ window.addEvent('domready', function() {
 
     function doAction(action, data) {
         var log = $('log-res').empty().addClass('ajax-loading');
+        var parameters = new Object();
+
+        if (data.constructor.toString().indexOf('Object') == -1) // a single string
+            parameters['data'] = data;
+        else
+            parameters = data;
+
+        parameters['action'] = action;
+
         var addRequest = new Request.HTML({url: 'do',
                 update: log,
                 onComplete: function() {
                 log.removeClass('ajax-loading');
                 refreshList();
-            }}).get({'action': action, 'data': data})
+            }}).get(parameters)
     }
 
     var listDownloads = function(downloads) {
@@ -108,7 +117,7 @@ window.addEvent('domready', function() {
 
     $('new-download-form').addEvent('submit', function(e) {
         new Event(e).stop();
-        doAction('add', $('url').value);
+        doAction('add', {'data': $('url').value, 'group': $('group').value});
         $('url').value = '';
     });
 
@@ -353,7 +362,7 @@ if (navigator.userAgent.toLowerCase().indexOf('msie') >= 1) {
     </div>
     <div id="new-download">
         <form id="new-download-form" action="do" method="post">
-            <p><label for="url">#{Enter URL: }</label><input type="text" name="url" id="url" value="" />&nbsp;<input type="submit" value="#{OK}" class="input-button" /></p>
+            <p><label for="url">#{Enter URL: }</label><input type="text" name="url" id="url" value="" />&nbsp;<select name="group" id="group">#{groups}</select>&nbsp;<input type="submit" value="#{OK}" class="input-button" /></p>
         </form>
         <div id="log">
             <div id="log-res"></div>

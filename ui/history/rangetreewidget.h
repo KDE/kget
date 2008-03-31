@@ -115,6 +115,7 @@ Q_OBJECT
 */
 class HostRangeDelegate : public RangeDelegate
 {
+Q_OBJECT
     public:
         HostRangeDelegate(QObject *parent = 0);
         ~HostRangeDelegate();
