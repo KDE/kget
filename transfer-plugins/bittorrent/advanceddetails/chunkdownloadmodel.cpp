@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -40,9 +38,6 @@ namespace kt
 			
 	bool ChunkDownloadModel::Item::changed() const
 	{
-		if (!cd)
-			return false;
-
 		ChunkDownloadInterface::Stats s;
 		cd->getStats(s);
 
@@ -155,15 +150,20 @@ namespace kt
 		reset();
 	}
 	
-	void ChunkDownloadModel::update()
+	bool ChunkDownloadModel::update()
 	{
+		bool ret = false;
 		Uint32 idx=0;
 		foreach (const Item & i,items)
 		{
 			if (i.changed())
+			{
+				ret = true;
 				emit dataChanged(createIndex(idx,1),createIndex(idx,4));
+			}
 			idx++;
 		}
+		return ret;
 	}
 
 	int ChunkDownloadModel::rowCount ( const QModelIndex & parent ) const

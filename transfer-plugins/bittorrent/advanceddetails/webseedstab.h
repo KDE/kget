@@ -1,6 +1,7 @@
 /***************************************************************************
- *   Copyright (C) 2005-2007 by Joris Guisson                              *
+ *   Copyright (C) 2008 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
+ *   ivasic@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,68 +18,59 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#include "monitor.h"
+#ifndef KTWEBSEEDSTAB_H
+#define KTWEBSEEDSTAB_H
 
-#include <interfaces/peerinterface.h>
-#include <interfaces/torrentinterface.h>
-#include <interfaces/chunkdownloadinterface.h>
-#include "peerview.h"
-#include "chunkdownloadview.h"
+#include <QWidget>
+#include <QSortFilterProxyModel>
+#include "ui_webseedstab.h"
 
-using namespace bt;
+namespace bt
+{
+	class TorrentInterface;
+}
 
 namespace kt
 {
-	
-	Monitor::Monitor(bt::TorrentInterface* tc,PeerView* pv,ChunkDownloadView* cdv) 
-		: tc(tc),pv(pv),cdv(cdv)
+	class WebSeedsModel;
+
+	/**
+		Tab which displays the list of webseeds of a torrent, and allows you to add or remove them.
+	*/
+	class WebSeedsTab : public QWidget,public Ui_WebSeedsTab
 	{
-	}
-	
-	
-	Monitor::~Monitor()
-	{
-	}
-	
-	
-	void Monitor::downloadRemoved(bt::ChunkDownloadInterface* cd)
-	{
-		if (cdv)
-			cdv->downloadRemoved(cd);
-	}
-	
-	void Monitor::downloadStarted(bt::ChunkDownloadInterface* cd)
-	{
-		if (cdv)
-			cdv->downloadAdded(cd);
-	}
-	
-	void Monitor::peerAdded(bt::PeerInterface* peer)
-	{
-		if (pv)
-			pv->peerAdded(peer);
-	}
-	
-	void Monitor::peerRemoved(bt::PeerInterface* peer)
-	{
-		if (pv)
-			pv->peerRemoved(peer);
-	}
-	
-	void Monitor::stopped()
-	{
-		if (pv)
-			pv->removeAll();
-		if (cdv)
-			cdv->removeAll();
-	}
-	
-	void Monitor::destroyed()
-	{
-		if (pv)
-			pv->removeAll();
-		if (cdv)
-			cdv->removeAll();
-		tc = 0;
-	}
+		Q_OBJECT
+	public:
+		WebSeedsTab(QWidget* parent);
+		virtual ~WebSeedsTab();
+		
+		/**
+		 * Switch to a different torrent.
+		 * @param tc The torrent
+		 */
+		void changeTC(bt::TorrentInterface* tc);
+
+		/// Check to see if the GUI needs to be updated
+		void update();
+		
+		void saveState(KSharedConfigPtr cfg);
+		void loadState(KSharedConfigPtr cfg);
+		
+	private slots:
+		void addWebSeed();
+		void removeWebSeed();
+		void onWebSeedTextChanged(const QString & ws);
+		void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
+		
+	private:
+		void selectionChanged(const QModelIndexList & indexes);
+
+	private:
+		bt::TorrentInterface* curr_tc;
+		WebSeedsModel* model;
+		QSortFilterProxyModel* proxy_model;
+	};
+
 }
+
+#endif

@@ -336,8 +336,16 @@ void MainWindow::slotDelayedInit()
     if (Settings::webinterfaceEnabled())
         m_webinterface = new HttpServer(this);
 
-    KGet::setGlobalDownloadLimit(Settings::globalDownloadLimit());
-    KGet::setGlobalUploadLimit(Settings::globalUploadLimit());
+    if (Settings::speedLimit())
+    {
+        KGet::setGlobalDownloadLimit(Settings::globalDownloadLimit());
+        KGet::setGlobalUploadLimit(Settings::globalUploadLimit());
+    }
+    else
+    {
+        KGet::setGlobalDownloadLimit(0);
+        KGet::setGlobalUploadLimit(0);
+    }
 }
 
 void MainWindow::slotToggleDropTarget()
@@ -614,8 +622,16 @@ void MainWindow::slotNewConfig()
         m_webinterface = 0;
     }
 
-    KGet::setGlobalDownloadLimit(Settings::globalDownloadLimit());
-    KGet::setGlobalUploadLimit(Settings::globalUploadLimit());
+    if (Settings::speedLimit())
+    {
+        KGet::setGlobalDownloadLimit(Settings::globalDownloadLimit());
+        KGet::setGlobalUploadLimit(Settings::globalUploadLimit());
+    }
+    else
+    {
+        KGet::setGlobalDownloadLimit(0);
+        KGet::setGlobalUploadLimit(0);
+    }
 
     KGet::settingsChanged();
 }

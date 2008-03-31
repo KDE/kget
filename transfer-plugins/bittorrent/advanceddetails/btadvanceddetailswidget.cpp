@@ -21,6 +21,7 @@
 #include "peerview.h"
 #include "monitor.h"
 #include "trackerview.h"
+#include "webseedstab.h"
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -71,6 +72,9 @@ void BTAdvancedDetailsWidget::init()
     tracker_view = new TrackerView(this);
     tracker_view->changeTC(tc);
     tabWidget->insertTab(3, tracker_view, KIcon("network-server"), i18n("Trackers"));
+    webseeds_tab = new WebSeedsTab(this);
+    webseeds_tab->changeTC(tc);
+    tabWidget->insertTab(4, webseeds_tab, KIcon("network-server"), i18n("Webseeds"));
     monitor = new Monitor(tc,peer_view,cd_view);
 }
 

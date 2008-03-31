@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2006-2007 by Joris Guisson, Ivan Vasic                  *
  *   joris.guisson@gmail.com                                               *
@@ -54,9 +52,10 @@ namespace kt
 		m_status->setTextFormat(Qt::RichText);
 		m_status->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
 		m_next_update->setTextFormat(Qt::RichText);
-                m_update_tracker->setIcon(KIcon("system-software-update"));
+		
+		m_update_tracker->setIcon(KIcon("system-software-update"));
 		m_add_tracker->setIcon(KIcon("list-add"));
-                m_remove_tracker->setIcon(KIcon("list-remove"));
+		m_remove_tracker->setIcon(KIcon("list-remove"));
 
 		setEnabled(false);
 		torrentChanged(0);
@@ -68,34 +67,34 @@ namespace kt
 
 	void TrackerView::btnAddClicked()
 	{
-		if(!tc)
-			return;
-		
-		if(tc->getStats().priv_torrent)
-		{
-			KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
-			return;
-		}
-		addTrackerDialog = new KDialog(this);
-	        QWidget * widget = new QWidget(this);
-		addTrackerWidget.setupUi(widget);
+                if(!tc)
+                        return;
+                
+                if(tc->getStats().priv_torrent)
+                {
+                        KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
+                        return;
+                }
+                addTrackerDialog = new KDialog(this);
+                QWidget * widget = new QWidget(this);
+                addTrackerWidget.setupUi(widget);
                 addTrackerWidget.ktitlewidget->setPixmap(KIcon("list-add"));
-		addTrackerDialog->setMainWidget(widget);
-		addTrackerDialog->setButtons(KDialog::Ok | KDialog::Cancel);
-		addTrackerDialog->exec();
+                addTrackerDialog->setMainWidget(widget);
+                addTrackerDialog->setButtons(KDialog::Ok | KDialog::Cancel);
+                addTrackerDialog->exec();
     
-		if (addTrackerDialog->result() != 1)//Dialog not accepted
+                if (addTrackerDialog->result() != 1)//Dialog not accepted
                         return;
 
-		KUrl url(addTrackerWidget.lineEdit->text());
-		if(!url.isValid())
-		{
-			KMessageBox::error(0, i18n("Malformed URL."));
-			return;
-		}
-			
-		m_tracker_list->addItem(addTrackerWidget.lineEdit->text());
-		tc->getTrackersList()->addTracker(url,true);
+                KUrl url(addTrackerWidget.lineEdit->text());
+                if(!url.isValid())
+                {
+                        KMessageBox::error(0, i18n("Malformed URL."));
+                        return;
+                }
+                        
+                m_tracker_list->addItem(addTrackerWidget.lineEdit->text());
+                tc->getTrackersList()->addTracker(url,true);
 	}
 
 	void TrackerView::btnRemoveClicked()
@@ -134,7 +133,7 @@ namespace kt
 		if(trackers.empty())
 			return;
 		
-		foreach (const KUrl &u,trackers)
+		foreach (const KUrl u,trackers)
 			m_tracker_list->addItem(u.prettyUrl());
 	}
 
@@ -223,7 +222,7 @@ namespace kt
 		}
 		else
 		{
-			foreach (const KUrl &u,trackers)
+			foreach (KUrl u,trackers)
 				m_tracker_list->addItem(u.prettyUrl());
 		}
 		

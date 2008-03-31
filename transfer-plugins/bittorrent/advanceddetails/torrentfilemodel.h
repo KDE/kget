@@ -25,7 +25,7 @@
 
 #include <QByteArray>
 #include <QAbstractItemModel>
-#include <util/constants.h>
+#include "util/constants.h"
 
 class QTreeView;
 

@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2005-2007 by Joris Guisson                              *
  *   joris.guisson@gmail.com                                               *
@@ -22,11 +20,11 @@
 #ifndef KTMONITOR_H
 #define KTMONITOR_H
 
+#include <interfaces/monitorinterface.h>
+
 namespace bt
 {
 	class TorrentInterface;
-        class ChunkDownloadInterface;
-        class PeerInterface;
 }
 
 namespace kt
@@ -37,7 +35,7 @@ namespace kt
 	/**
 	@author Joris Guisson
 	*/
-	class Monitor
+	class Monitor : public bt::MonitorInterface
 	{
 		bt::TorrentInterface* tc;
 		PeerView* pv;
@@ -46,12 +44,12 @@ namespace kt
 		Monitor(bt::TorrentInterface* tc,PeerView* pv ,ChunkDownloadView* cdv);
 		virtual ~Monitor();
 	
-		void downloadRemoved(bt::ChunkDownloadInterface* cd);
-		void downloadStarted(bt::ChunkDownloadInterface* cd);
-		void peerAdded(bt::PeerInterface* peer);
-		void peerRemoved(bt::PeerInterface* peer);
-		void stopped();
-		void destroyed();
+		virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);
+		virtual void downloadStarted(bt::ChunkDownloadInterface* cd);
+		virtual void peerAdded(bt::PeerInterface* peer);
+		virtual void peerRemoved(bt::PeerInterface* peer);
+		virtual void stopped();
+		virtual void destroyed();
 	};
 }
 

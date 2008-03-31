@@ -193,11 +193,14 @@ set(kget_bittorrentfactory_PART_SRCS
   advanceddetails/iwfilelistmodel.cpp
   advanceddetails/iwfiletreemodel.cpp
   advanceddetails/peerview.cpp
+  advanceddetails/peerviewmodel.cpp
   advanceddetails/torrentfilelistmodel.cpp
   advanceddetails/torrentfilemodel.cpp
   advanceddetails/torrentfiletreemodel.cpp
   advanceddetails/monitor.cpp
   advanceddetails/trackerview.cpp
+  advanceddetails/webseedsmodel.cpp
+  advanceddetails/webseedstab.cpp
 )
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
@@ -207,6 +210,7 @@ kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
   advanceddetails/btaddtrackerwidget.ui
   advanceddetails/chunkdownloadview.ui
   advanceddetails/trackerview.ui
+  advanceddetails/webseedstab.ui
 )
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)

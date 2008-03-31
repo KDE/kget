@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -42,9 +40,9 @@ namespace kt
 	{
 		setupUi(this);
 		model = new ChunkDownloadModel(this);
-		QSortFilterProxyModel* pm = new QSortFilterProxyModel(this);
+		pm = new QSortFilterProxyModel(this);
 		pm->setSourceModel(model);
-                pm->setSortRole(Qt::UserRole);
+		pm->setSortRole(Qt::UserRole);
 		m_chunk_view->setModel(pm);
 		m_chunk_view->setRootIsDecorated(false);
 		m_chunk_view->setSortingEnabled(true);
@@ -53,7 +51,6 @@ namespace kt
 
 	ChunkDownloadView::~ChunkDownloadView()
 	{
-		model->clear();
 	}
 
 	void ChunkDownloadView::downloadAdded(ChunkDownloadInterface* cd)
@@ -71,7 +68,8 @@ namespace kt
 		if (!curr_tc)
 			return;
 
-		model->update();
+		if (model->update())
+			pm->invalidate();
 
 		const TorrentStats & s = curr_tc->getStats();
 		m_chunks_downloading->setText(QString::number(s.num_chunks_downloading));

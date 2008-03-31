@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson                                   *
  *   joris.guisson@gmail.com                                               *
@@ -27,6 +25,8 @@
 #include <ksharedconfig.h>
 #include <interfaces/chunkdownloadinterface.h>
 #include "ui_chunkdownloadview.h"
+
+class QSortFilterProxyModel;
 
 namespace bt
 {
@@ -68,6 +68,7 @@ namespace kt
 	private:
 		bt::TorrentInterface* curr_tc;
 		ChunkDownloadModel* model;
+		QSortFilterProxyModel* pm;
 	};
 }
 

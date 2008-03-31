@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -123,7 +121,7 @@ namespace kt
 				case 4: 
 				{
 					float percent = file->getDownloadPercentage();
-					return ki18n("%1 %").subs(percent, 0, 'g', 2).toString();
+					return i18n("%1 %", KGlobal::locale()->formatNumber(percent, 2));
 				}
 				default: return QVariant();
 			}	
@@ -146,7 +144,7 @@ namespace kt
 				case 4: 
 				{
 					double percent = bt::Percentage(tc->getStats());
-					return ki18n("%1 %").subs(percent, 0, 'g', 2).toString();
+					return i18n("%1 %", KGlobal::locale()->formatNumber(percent, 2));
 				}
 				default: return QVariant();
 			}

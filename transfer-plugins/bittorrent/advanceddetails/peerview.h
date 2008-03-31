@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson                                   *
  *   joris.guisson@gmail.com                                               *
@@ -29,33 +27,16 @@
 #include <ksharedconfig.h>
 
 class KMenu;
+class QSortFilterProxyModel;
 
 namespace kt
 {
-	class PeerView;
-
-	/**
-	 * Item for the PeerView
-	 * */
-	class PeerViewItem : public QTreeWidgetItem
-	{
-	public:
-		PeerViewItem(PeerView* pv,bt::PeerInterface* peer);
-		virtual ~PeerViewItem();
-
-		void update(bool init = false);
-
-		bool operator < (const QTreeWidgetItem & other) const;
-		
-		bt::PeerInterface* peer;
-		bt::PeerInterface::Stats stats;
-	};
-
-
+	class PeerViewModel;
+	
 	/**
 	 * View which shows a list of peers, of a torrent.
 	 * */
-	class PeerView : public QTreeWidget
+	class PeerView : public QTreeView
 	{
 		Q_OBJECT
 	public:
@@ -83,8 +64,9 @@ namespace kt
 		void kickPeer();
 				
 	private:
-		bt::PtrMap<bt::PeerInterface*,PeerViewItem> items;
 		KMenu* context_menu;
+		PeerViewModel* model;
+		QSortFilterProxyModel* pm;
 	};
 }
 

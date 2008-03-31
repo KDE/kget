@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2005 by Joris Guisson                                   *
  *   joris.guisson@gmail.com                                               *
@@ -202,7 +200,7 @@ namespace kt
 	
 	void FileView::open()
 	{
-		new KRun(KUrl(preview_path), 0, true, true);
+		new KRun(KUrl(preview_path), 0, 0, true, true);
 	}
 	
 	void FileView::changePriority(bt::Priority newpriority)
@@ -260,7 +258,7 @@ namespace kt
 			if (dir.isNull())
 				return;
 			
-			foreach (const QModelIndex &idx,sel)
+			foreach (QModelIndex idx,sel)
 			{
 				bt::TorrentFileInterface* tfi = model->indexToFile(idx);
 				if (!tfi)
@@ -298,17 +296,17 @@ namespace kt
 			if (!file)
 			{
 				// directory
-				new KRun(KUrl(curr_tc->getDataDir() + model->dirPath(index)), 0, true, true);
+				new KRun(KUrl(curr_tc->getDataDir() + model->dirPath(index)), 0, 0, true, true);
 			}
 			else
 			{
 				// file
-				new KRun(KUrl(file->getPathOnDisk()), 0, true, true);
+				new KRun(KUrl(file->getPathOnDisk()), 0, 0, true, true);
 			}
 		}
 		else
 		{
-			new KRun(KUrl(curr_tc->getStats().output_path), 0, true, true);
+			new KRun(KUrl(curr_tc->getStats().output_path), 0, 0, true, true);
 		}
 	}
 	

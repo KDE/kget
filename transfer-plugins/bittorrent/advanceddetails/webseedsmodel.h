@@ -1,6 +1,7 @@
 /***************************************************************************
- *   Copyright (C) 2005-2007 by Joris Guisson                              *
+ *   Copyright (C) 2008 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
+ *   ivasic@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,68 +18,59 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#include "monitor.h"
+#ifndef KTWEBSEEDSMODEL_H
+#define KTWEBSEEDSMODEL_H
 
-#include <interfaces/peerinterface.h>
-#include <interfaces/torrentinterface.h>
-#include <interfaces/chunkdownloadinterface.h>
-#include "peerview.h"
-#include "chunkdownloadview.h"
+#include <QAbstractTableModel>
+#include <util/constants.h>
 
-using namespace bt;
+namespace bt
+{
+	class TorrentInterface;
+}
 
 namespace kt
 {
-	
-	Monitor::Monitor(bt::TorrentInterface* tc,PeerView* pv,ChunkDownloadView* cdv) 
-		: tc(tc),pv(pv),cdv(cdv)
+
+	/**
+		@author
+	*/
+	class WebSeedsModel : public QAbstractTableModel
 	{
-	}
+		Q_OBJECT
 	
-	
-	Monitor::~Monitor()
-	{
-	}
-	
-	
-	void Monitor::downloadRemoved(bt::ChunkDownloadInterface* cd)
-	{
-		if (cdv)
-			cdv->downloadRemoved(cd);
-	}
-	
-	void Monitor::downloadStarted(bt::ChunkDownloadInterface* cd)
-	{
-		if (cdv)
-			cdv->downloadAdded(cd);
-	}
-	
-	void Monitor::peerAdded(bt::PeerInterface* peer)
-	{
-		if (pv)
-			pv->peerAdded(peer);
-	}
-	
-	void Monitor::peerRemoved(bt::PeerInterface* peer)
-	{
-		if (pv)
-			pv->peerRemoved(peer);
-	}
-	
-	void Monitor::stopped()
-	{
-		if (pv)
-			pv->removeAll();
-		if (cdv)
-			cdv->removeAll();
-	}
-	
-	void Monitor::destroyed()
-	{
-		if (pv)
-			pv->removeAll();
-		if (cdv)
-			cdv->removeAll();
-		tc = 0;
-	}
+	public:
+		WebSeedsModel(QObject* parent);
+		virtual ~WebSeedsModel();
+		
+		
+		/**
+		 * Change the current torrent.
+		 * @param tc 
+		 */
+		void changeTC(bt::TorrentInterface* tc);
+		
+		/**
+		 *  See if we need to update the model
+		 */
+		bool update();
+		
+		virtual int rowCount(const QModelIndex & parent) const;
+		virtual int columnCount(const QModelIndex & parent) const;
+		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const;
+		virtual QVariant data(const QModelIndex & index, int role) const;
+		
+	private:
+		struct Item
+		{
+			QString status;
+			bt::Uint64 downloaded;
+			bt::Uint32 speed;
+		};
+		bt::TorrentInterface* curr_tc;
+		QList<Item> items;
+	};
+
 }
+
+#endif

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
+ *   Copyright (C) 2008 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
  *   ivasic@gmail.com                                                      *
  *                                                                         *
@@ -18,44 +18,67 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
-#ifndef KTIWFILETREEMODEL_H
-#define KTIWFILETREEMODEL_H
+#ifndef KTPEERVIEWMODEL_H
+#define KTPEERVIEWMODEL_H
 
-#include "torrentfiletreemodel.h"
+#include <kicon.h>
+#include <QAbstractTableModel>
+#include <interfaces/peerinterface.h>
 
 namespace kt
 {
 
 	/**
-	 * 
-	 * @author Joris Guisson
-	 * 
-	 * Expands the standard TorrentFileTreeModel to show more information.
+		@author Joris Guisson
+		Model for the PeerView
 	*/
-	class IWFileTreeModel : public TorrentFileTreeModel
+	class PeerViewModel : public QAbstractTableModel
 	{
 		Q_OBJECT
 	public:
-		IWFileTreeModel(bt::TorrentInterface* tc,QObject* parent);
-		virtual ~IWFileTreeModel();
+		PeerViewModel(QObject* parent);
+		virtual ~PeerViewModel();
+		
+		/// A peer has been added
+		void peerAdded(bt::PeerInterface* peer);
 
+		/// A peer has been removed
+		void peerRemoved(bt::PeerInterface* peer);
+		
+		/**
+		 * Update the model
+		 * @return true if the view needs to be sorted again
+		 */
+		bool update();
+		
+		void clear();
+
+		virtual int rowCount(const QModelIndex & parent) const;
 		virtual int columnCount(const QModelIndex & parent) const;
 		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const;
-		virtual QVariant data(const QModelIndex & index, int role) const;
-		virtual bool setData(const QModelIndex & index, const QVariant & value, int role); 
-		virtual void update();
+		virtual QVariant data(const QModelIndex & index,int role) const;
+		virtual bool removeRows(int row,int count,const QModelIndex & parent);
+		virtual bool insertRows(int row,int count,const QModelIndex & parent);
 		
-	private slots:
-		void onPercentageUpdated(float p);
-		void onPreviewAvailable(bool av);
-		
+		bt::PeerInterface* indexToPeer(const QModelIndex & idx);
 	private:
-		void update(const QModelIndex & index,bt::TorrentFileInterface* file,int col);
 		
-	private:
-		bool preview;
-		bool mmfile;
-		double percentage;
+		struct Item
+		{
+			bt::PeerInterface* peer;
+			mutable bt::PeerInterface::Stats stats;
+			QString country;
+			KIcon flag;
+			
+			Item(bt::PeerInterface* peer);
+			
+			bool changed() const;
+			QVariant data(int col) const;
+			QVariant decoration(int col) const;
+			QVariant dataForSorting(int col) const;
+		};
+		
+		QList<Item> items;
 	};
 
 }

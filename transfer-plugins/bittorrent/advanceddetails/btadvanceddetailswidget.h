@@ -28,6 +28,7 @@ namespace kt
     class FileView;
     class Monitor;
     class TrackerView;
+    class WebSeedsTab;
 }
 
 class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
@@ -57,6 +58,7 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
 	kt::FileView* file_view;
 	kt::Monitor* monitor; 
         kt::TrackerView *tracker_view;
+        kt::WebSeedsTab *webseeds_tab;
 
         bt::TorrentControl * tc;
 };

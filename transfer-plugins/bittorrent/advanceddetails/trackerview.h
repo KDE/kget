@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2006-2007 by Joris Guisson, Ivan Vasic                  *
  *   joris.guisson@gmail.com                                               *
@@ -62,7 +60,7 @@ namespace kt
 		bt::TorrentInterface* tc;
                 //Add Tracker Dialog
                 KDialog *addTrackerDialog;
-		Ui::BTAddTrackerWidget addTrackerWidget;
+                Ui::BTAddTrackerWidget addTrackerWidget;
 	};
 }
 #endif
