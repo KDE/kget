@@ -40,7 +40,7 @@ window.addEvent('domready', function() {
         var log = $('log-res').empty().addClass('ajax-loading');
         var parameters = new Object();
 
-        if (data.constructor.toString().indexOf('Object') == -1) // a single string
+        if ((typeof data).toLowerCase() == 'string')
             parameters['data'] = data;
         else
             parameters = data;
