@@ -97,6 +97,7 @@ bool KGet::addGroup(const QString& groupName)
         return false;
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
+    group->handler()->addObserver(new GenericTransferGroupObserver());
     m_transferTreeModel->addGroup(group);
 
     //post notifications
@@ -623,6 +624,22 @@ void KGet::setGlobalDownloadLimit(int limit)
 void KGet::setGlobalUploadLimit(int limit)
 {
     m_scheduler->setUploadLimit(limit);
+}
+
+void KGet::calculateGlobalSpeedLimits()
+{
+    m_scheduler->calculateDownloadLimit();
+    m_scheduler->calculateUploadLimit();
+}
+
+void KGet::calculateGlobalDownloadLimit()
+{
+    m_scheduler->calculateDownloadLimit();
+}
+
+void KGet::calculateGlobalUploadLimit()
+{
+    m_scheduler->calculateUploadLimit();
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------

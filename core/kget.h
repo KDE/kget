@@ -285,6 +285,21 @@ class KGET_EXPORT KGet
          */
         static void setGlobalUploadLimit(int limit);
 
+        /**
+         * Recalculates the global speedlimits
+         */
+        static void calculateGlobalSpeedLimits();
+
+        /**
+         * Recalculates the global download-limit
+         */
+        static void calculateGlobalDownloadLimit();
+
+        /**
+         * Recalculates the global upload-limit
+         */
+        static void calculateGlobalUploadLimit();
+
     private:
         KGet();
         ~KGet();

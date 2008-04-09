@@ -15,6 +15,8 @@
 
 #include "transfergroup.h"
 #include "kget_export.h"
+#include "observer.h"
+#include "kget.h"
 
 class QAction;
 class KMenu;
@@ -346,6 +348,21 @@ class QObjectInterface : public QObject
 
     private:
         TransferGroupHandler * m_handler;
+};
+
+class GenericTransferGroupObserver : public TransferGroupObserver
+{
+    public:
+        GenericTransferGroupObserver();
+        ~GenericTransferGroupObserver();
+
+        virtual void groupChangedEvent(TransferGroupHandler * group);
+
+        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+
+        virtual void removedTransferEvent(TransferHandler * transfer);
+
+        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
 };
 
 #endif
