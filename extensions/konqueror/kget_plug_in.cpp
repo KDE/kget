@@ -31,9 +31,6 @@
 #include <dom/html_document.h>
 #include <kparts/partmanager.h>
 
-
-#include <set>
-
 KGet_plug_in::KGet_plug_in( QObject* parent )
   : Plugin(parent),
     view(0)
@@ -154,7 +151,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     DOM::HTMLCollection links = doc.links();
 
     QList<LinkItem*> linkList;
-    std::set<QString> dupeCheck;
+    QStringList dupeCheck;
     for ( uint i = 0; i < links.length(); i++ )
     {
         DOM::Node link = links.item( i );
@@ -162,11 +159,10 @@ void KGet_plug_in::showLinks( bool selectedOnly )
             continue;
 
         LinkItem *item = new LinkItem( (DOM::Element) link );
-        if ( item->isValid() &&
-             dupeCheck.find( item->url.url() ) == dupeCheck.end() )
+        if (item->isValid() && !dupeCheck.contains(item->url.url()))
         {
             linkList.append( item );
-            dupeCheck.insert( item->url.url() );
+            dupeCheck << item->url.url();
         }
         else
             delete item;
