@@ -151,7 +151,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     DOM::HTMLCollection links = doc.links();
 
     QList<LinkItem*> linkList;
-    QStringList dupeCheck;
+    QSet<QString> dupeCheck;
     for ( uint i = 0; i < links.length(); i++ )
     {
         DOM::Node link = links.item( i );
@@ -162,7 +162,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
         if (item->isValid() && !dupeCheck.contains(item->url.url()))
         {
             linkList.append( item );
-            dupeCheck << item->url.url();
+            dupeCheck.insert(item->url.url());
         }
         else
             delete item;
