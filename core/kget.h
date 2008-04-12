@@ -167,6 +167,11 @@ class KGET_EXPORT KGet
         static QList<TransferHandler *> selectedTransfers();
 
         /**
+        * @returns the list of the finished transfers
+        */
+        static QList<TransferHandler *> finishedTransfers();
+
+        /**
          * @returns the list of selected groups
          */
         static QList<TransferGroupHandler *>

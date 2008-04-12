@@ -338,6 +338,19 @@ QList<TransferHandler *> KGet::selectedTransfers()
     return selectedTransfers;*/
 }
 
+QList<TransferHandler *> KGet::finishedTransfers()
+{
+    QList<TransferHandler *> finishedTransfers;
+
+    foreach(TransferHandler *transfer, allTransfers())
+    {
+        if (transfer->status() == Job::Finished) {
+            finishedTransfers << transfer;
+        }
+    }
+    return finishedTransfers;
+}
+
 QList<TransferGroupHandler *> KGet::selectedTransferGroups()
 {
     QList<TransferGroupHandler *> selectedTransferGroups;

@@ -184,6 +184,11 @@ void MainWindow::setupActions()
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
+    QAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
+    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Delete all finished"));
+    deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
+    connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
+
     QAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
     redownloadSelectedAction->setText(i18nc("redownload selected transfer item", "Redownload Selected"));
     redownloadSelectedAction->setIcon(KIcon("view-refresh"));
@@ -559,6 +564,16 @@ void MainWindow::slotTransfersCopySourceUrl()
         QClipboard *cb = QApplication::clipboard();
         cb->setText(sourceurl, QClipboard::Selection);
         cb->setText(sourceurl, QClipboard::Clipboard);
+    }
+}
+
+void MainWindow::slotDeleteFinished()
+{
+    foreach(TransferHandler * it, KGet::finishedTransfers())
+    {
+        it->stop();
+        m_viewsContainer->closeTransferDetails(it);
+        KGet::delTransfer(it);
     }
 }
 
