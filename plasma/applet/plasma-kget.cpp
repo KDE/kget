@@ -147,7 +147,7 @@ void PlasmaKGet::configAccepted()
 
 void PlasmaKGet::loadTransferGraph(uint type)
 {
-    QSizeF size = contentSize();
+    QSizeF size = geometry().size();
 
     if(formFactor() == Plasma::Horizontal || formFactor() == Plasma::Vertical) {
         type = PlasmaKGet::PanelGraphType;
@@ -177,7 +177,7 @@ void PlasmaKGet::loadTransferGraph(uint type)
 
         m_graphType = type;
     }
-    setContentSize(size);
+    resize(size);
 }
 
 #include "plasma-kget.moc"
