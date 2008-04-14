@@ -112,8 +112,8 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
     if(KGet::selectionModel()->isSelected(m_index))
     {
         gradient.setColorAt(0, palette().color(QPalette::AlternateBase));
-        gradient.setColorAt(m_gradientId, palette().color(QPalette::Highlight));
-        gradient.setColorAt(1, palette().color(QPalette::Highlight));
+        gradient.setColorAt(m_gradientId, Qt::transparent);
+        gradient.setColorAt(1, Qt::transparent);
         pen.setColor(palette().color(QPalette::AlternateBase));
     }
     else
