@@ -29,9 +29,7 @@
 #include <plasma/svg.h>
 #include <plasma/applet.h>
 #include <plasma/theme.h>
-#include <plasma/widgets/label.h>
 #include <plasma/dataengine.h>
-#include <plasma/layouts/boxlayout.h>
 
 #include "transfergraph.h"
 #include "barchart.h"

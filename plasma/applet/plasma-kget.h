@@ -28,7 +28,6 @@
 #include "ui_kgetConfig.h"
 
 namespace Plasma {
-    class BoxLayout;
     class Svg;
 }
 
