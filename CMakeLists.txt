@@ -14,7 +14,8 @@ add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
 if(PLASMA_FOUND)
-    add_subdirectory(plasma)
+    MESSAGE(STATUS "KGet plasma applet disable until it will port to new API")
+    #add_subdirectory(plasma)
 endif(PLASMA_FOUND)
 
 include_directories(
