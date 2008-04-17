@@ -22,12 +22,12 @@
 #define KGET_PIEGRAPH_H
 
 #include "transfergraph.h"
-#include "piechartwidget.h"
+//#include "piechartwidget.h"
 
 namespace Plasma {
     class Applet;
-    class BoxLayout;
 }
+class QGraphicsLinearLayout;
 
 class PieGraph : public TransferGraph
 {
@@ -43,9 +43,8 @@ private slots:
     void updateGeometry();
 
 private:
-    Plasma::BoxLayout *m_layout;
-    PieChartWidget *m_chart;
-
+    QGraphicsLinearLayout *m_layout;
+   // PieChartWidget *m_chart;
 };
 
 #endif

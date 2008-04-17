@@ -20,34 +20,36 @@
 
 #include "panelgraph.h"
 
-#include <plasma/widgets/progressbar.h>
-#include <plasma/widgets/widget.h>
-#include <plasma/layouts/boxlayout.h>
+#include <QGraphicsLinearLayout>
+#include <QGraphicsProxyWidget>
+#include <QProgressBar>
 
 #include <KIcon>
 #include <KIconLoader>
 
 PanelGraph::PanelGraph(Plasma::Applet *parent)
-    : TransferGraph(parent),
-    m_tooltip()
+    : TransferGraph(parent)
 {
-    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout) {
-        m_bar = new Plasma::ProgressBar(m_applet);
-        m_bar->resize(m_applet->contentSize());
+        m_bar = new QProgressBar();
+        //m_bar->resize(m_applet->contentSize());
         m_bar->setValue(0);
+        m_proxyBar = new QGraphicsProxyWidget(parent);
+        m_proxyBar->setWidget(m_bar);
 
-        m_layout->addItem(m_bar);
+        m_layout->addItem(m_proxyBar);
     }
 
     // create the tooltip of the panel graph
-    m_tooltip.mainText = "KGet active transfers";
-    m_tooltip.image = KIcon("kget").pixmap(IconSize(KIconLoader::Desktop));
+
+//    m_tooltip.mainText = "KGet active transfers";
+  //  m_tooltip.image = KIcon("kget").pixmap(IconSize(KIconLoader::Desktop));
 }
 
 PanelGraph::~PanelGraph()
 {
-    delete m_bar;
+    m_proxyBar->setWidget(0);
 }
 
 void PanelGraph::setTransfers(const QVariantMap &transfers)
@@ -81,6 +83,6 @@ void PanelGraph::setTransfers(const QVariantMap &transfers)
     }
 
     // set the tooltip for the applet with the active transfers
-    m_tooltip.subText = tooltipTransfers;
-    m_applet->setToolTip(m_tooltip);
+    //m_tooltip.subText = tooltipTransfers;
+    //m_applet->setToolTip(m_tooltip);
 }

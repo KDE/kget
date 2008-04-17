@@ -22,42 +22,58 @@
 #include "transfergraph.h"
 
 #include <plasma/widgets/icon.h>
-#include <plasma/widgets/label.h>
-#include <plasma/layouts/boxlayout.h>
-#include <plasma/widgets/pushbutton.h>
+
+#include <QGraphicsLinearLayout>
+#include <QGraphicsProxyWidget>
+#include <QLabel>
+#include <QProcess>
+#include <QPushButton>
 
 #include <KIcon>
-#include <QProcess>
 
 ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
     : TransferGraph(parent)
 {
-    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)
     {
+        m_icon = new Plasma::Icon(KIcon("dialog-warning"), "");
 
-      m_icon = new Plasma::Icon(KIcon("dialog-warning"), "", m_applet);
+        QLabel *errorLabel = new QLabel();
+        errorLabel->setAutoFillBackground(true);
+        errorLabel->setText(message);
+        //errorLabel->setPen(QPen(Qt::white));
+        //errorLabel->setAlignment(Qt::AlignCenter);
 
-      m_errorLabel = new Plasma::Label(m_applet);
-      m_errorLabel->setText(message);
-      m_errorLabel->setPen(QPen(Qt::white));
-      m_errorLabel->setAlignment(Qt::AlignCenter);
+        QPushButton *launchButton = new QPushButton(KIcon("kget"), "Launch KGet");
+        launchButton->setAutoFillBackground(true);
 
-      m_launchButton = new Plasma::PushButton(KIcon("kget"), "Launch KGet", m_applet);
+        m_proxyErrorLabel = new QGraphicsProxyWidget(parent);
+        m_proxyErrorLabel->setWidget(errorLabel);
 
-      m_layout->addItem(m_icon);
-      m_layout->addItem(m_errorLabel);
-      m_layout->addItem(m_launchButton);
+        m_proxyLaunchButton = new QGraphicsProxyWidget(parent);
+        m_proxyLaunchButton->setWidget(launchButton);
 
-      connect(m_launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
+        m_layout->addItem(m_icon);
+        m_layout->addItem(m_proxyErrorLabel);
+        m_layout->addItem(m_proxyLaunchButton);
+
+        connect(launchButton, SIGNAL(clicked()), SLOT(launchKGet()));
     }
 }
 
 ErrorGraph::~ErrorGraph()
 {
+    m_layout->removeItem(m_icon);
+    m_layout->removeItem(m_proxyErrorLabel);
+    m_layout->removeItem(m_proxyLaunchButton);
+
+    m_proxyErrorLabel->setWidget(0);
+    m_proxyLaunchButton->setWidget(0);
+
+    delete m_proxyErrorLabel;
+    delete m_proxyLaunchButton;
     delete m_icon;
-    delete m_errorLabel;
-    delete m_launchButton;
 }
 
 void ErrorGraph::launchKGet()
@@ -65,3 +81,4 @@ void ErrorGraph::launchKGet()
     QProcess *kgetProcess = new QProcess(this);
     kgetProcess->startDetached("kget");
 }
+

@@ -23,12 +23,14 @@
 
 #include "transfergraph.h"
 
+#include <plasma/widgets/widget.h>
+
 namespace Plasma {
-    class BoxLayout;
     class Applet;
-    class ProgressBar;
-    struct ToolTipData;
 }
+class QProgressBar;
+class QGraphicsLinearLayout;
+class QGraphicsProxyWidget;
 
 class PanelGraph : public TransferGraph
 {
@@ -40,9 +42,11 @@ public:
     void setTransfers(const QVariantMap &transfers);
 
 private:
-    Plasma::ToolTipData m_tooltip;
-    Plasma::ProgressBar *m_bar;
-    Plasma::BoxLayout *m_layout;
+//    Plasma::ToolTipData m_tooltip;
+    QProgressBar *m_bar;
+    QGraphicsLinearLayout *m_layout;
+    QGraphicsProxyWidget *m_proxyBar;
 };
 
 #endif
+

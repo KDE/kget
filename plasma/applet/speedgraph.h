@@ -26,16 +26,14 @@
 static const int MAX_ITEMS = 10;
 static const int GRAPH_HEIGHT = 200;
 
-class LineGraphWidget;
-namespace Plasma {
-    class BoxLayout;
-    class Label;
-}
+//class LineGraphWidget;
+
+class QBoxLayout;
+class QGraphicsLinearLayout;
 
 class SpeedGraph : public TransferGraph
 {
     Q_OBJECT
-
 public:
     SpeedGraph(Plasma::Applet *parent);
     ~SpeedGraph();
@@ -46,9 +44,8 @@ private slots:
     void updateGeometry();
 
 private:
-    Plasma::BoxLayout *m_layout;
-    LineGraphWidget *m_lineGraph;
-    Plasma::Label *m_label;
+    QGraphicsLinearLayout *m_layout;
+    //LineGraphWidget *m_lineGraph;
 };
 
 #endif

@@ -20,6 +20,9 @@
 
 #include "plasma-kget.h"
 
+#include <QVBoxLayout>
+#include <QGraphicsLinearLayout>
+#include <QGraphicsLayoutItem>
 #include <QPainter>
 
 #include <KDialog>
@@ -34,9 +37,13 @@
 #include "transfergraph.h"
 #include "barchart.h"
 #include "errorgraph.h"
-#include "speedgraph.h"
-#include "piegraph.h"
+//#include "speedgraph.h"
+//#include "piegraph.h"
 #include "panelgraph.h"
+
+#define TOP_MARGIN 60
+#define MARGIN 10
+#define SPACING 4
 
 PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Applet(parent, args),
                             m_dialog(0),
@@ -53,22 +60,20 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
 PlasmaKGet::~PlasmaKGet()
 {
     delete m_transferGraph;
-    delete m_layout;
 }
 
 void PlasmaKGet::init()
 {
-    m_layout = new Plasma::VBoxLayout(this);
+    m_layout = new QGraphicsLinearLayout(this);
+    m_layout->setOrientation(Qt::Vertical);
+    m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
+    m_layout->setSpacing(SPACING);
 
     if(formFactor() == Plasma::Vertical || formFactor() == Plasma::Horizontal) {
         setMaximumSize(QSize(80, 80));
-        m_layout->setSpacing(0);
-        m_layout->setMargin(0);
+        m_layout->setContentsMargins(MARGIN, MARGIN, MARGIN, MARGIN);
     }
     else {
-        m_layout->setMargin(Plasma::TopMargin, 40);
-        m_layout->setSpacing(10);
-
         setMinimumSize(QSize(240, 190));
     }
     m_transferGraph = 0;
@@ -80,8 +85,10 @@ void PlasmaKGet::init()
         m_engine->setProperty("refreshTime", cg.readEntry("refreshTime", (uint) 4000));
     }
     else {
-        kDebug()<<"KGet Engine could not be loaded";
+        kDebug() << "KGet Engine could not be loaded";
     }
+
+    setLayout(m_layout);
 }
 
 void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)
@@ -90,8 +97,11 @@ void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *opt
     if(formFactor() == Plasma::Planar || formFactor() == Plasma::MediaCenter) {
         p->setRenderHint(QPainter::SmoothPixmapTransform);
 
-        m_theme->paint(p, QRect(contentsRect.x() , contentsRect.y(), 111, 35), "title");
-        m_theme->paint(p, QRect(contentsRect.x() + 36, contentsRect.y() + 33, contentsRect.width() - 67, 1), "line");
+        m_theme->paint(p, QRect(contentsRect.x() + MARGIN +10, 
+                                contentsRect.y() + MARGIN + 10, 111, 35), "title");
+        m_theme->paint(p, QRect(contentsRect.x() + MARGIN + 10, 
+                                contentsRect.y() + MARGIN + 45, 
+                                contentsRect.width() - (MARGIN + 10) * 2, 1), "line");
     }
 }
 
@@ -152,19 +162,19 @@ void PlasmaKGet::loadTransferGraph(uint type)
     }
 
     if(type != m_graphType) {
-
         delete m_transferGraph;
+
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :
                 m_transferGraph = new ErrorGraph(this, m_errorMessage);
                 break;
-            case PlasmaKGet::PieGraphType :
-                m_transferGraph = new PieGraph(this);
-                break;
-            case PlasmaKGet::SpeedGraphType :
-                m_transferGraph = new SpeedGraph(this);
-                break;
+       //     case PlasmaKGet::PieGraphType :
+       //         m_transferGraph = new PieGraph(this);
+       //         break;
+       //     case PlasmaKGet::SpeedGraphType :
+       //         m_transferGraph = new SpeedGraph(this);
+       //         break;
             case PlasmaKGet::PanelGraphType :
                 m_transferGraph = new PanelGraph(this);
                 break;
@@ -175,7 +185,11 @@ void PlasmaKGet::loadTransferGraph(uint type)
 
         m_graphType = type;
     }
-    resize(size);
+//    m_layout->updateGeometry();
+  //  updateGeometry();
+    resize(QSize(m_layout->geometry().width(), m_layout->geometry().height()));
+//    resize(size);
 }
 
 #include "plasma-kget.moc"
+

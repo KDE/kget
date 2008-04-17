@@ -24,12 +24,12 @@
 #include "transfergraph.h"
 
 namespace Plasma {
-    class BoxLayout;
-    class PushButton;
     class Applet;
-    class Label;
     class Icon;
 }
+
+class QGraphicsLinearLayout;
+class QGraphicsProxyWidget;
 
 class ErrorGraph : public TransferGraph
 {
@@ -42,10 +42,11 @@ private slots:
     void launchKGet();
 
 private:
-    Plasma::BoxLayout *m_layout;
-    Plasma::Label *m_errorLabel;
-    Plasma::PushButton *m_launchButton;
+    QGraphicsLinearLayout *m_layout;
+    QGraphicsProxyWidget *m_proxyErrorLabel;
+    QGraphicsProxyWidget *m_proxyLaunchButton;
     Plasma::Icon *m_icon;
 };
 
 #endif
+

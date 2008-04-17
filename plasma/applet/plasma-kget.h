@@ -31,6 +31,7 @@ namespace Plasma {
     class Svg;
 }
 
+class QGraphicsLinearLayout;
 class KDialog;
 
 class PlasmaKGet : public Plasma::Applet
@@ -64,7 +65,7 @@ private:
 
     Plasma::Svg *m_theme;
     Plasma::DataEngine *m_engine;
-    Plasma::BoxLayout *m_layout;
+    QGraphicsLinearLayout *m_layout;
     TransferGraph *m_transferGraph;
     KDialog *m_dialog;
     QString m_errorMessage;

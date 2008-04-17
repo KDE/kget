@@ -25,41 +25,38 @@
 #include <KLocale>
 #include <KGlobal>
 
-#include <QObject>
 #include <QVariant>
+#include <QGraphicsLinearLayout>
 
 #include <math.h>
-
-#include <plasma/layouts/boxlayout.h>
 
 PieGraph::PieGraph(Plasma::Applet *parent)
     : TransferGraph(parent)
 {
-    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)
-    {
-      m_chart = new PieChartWidget(parent);
-      m_layout->addItem(m_chart);
+    {/*
+        m_chart = new PieChartWidget(parent);
+        m_layout->addItem(m_chart);
 
-      QObject::connect(m_chart, SIGNAL(geometryChanged()),
-                SLOT(updateGeometry()));
+        QObject::connect(m_chart, SIGNAL(geometryChanged()), SLOT(updateGeometry()));*/
     }
 }
 
 PieGraph::~PieGraph()
 {
-    m_layout->removeItem(m_chart);
-    delete m_chart;
+    /*m_layout->removeItem(m_chart);
+    delete m_chart;*/
 }
 
 void PieGraph::updateGeometry()
-{
+{/*
     kDebug() << "About to update the widget geometry " << endl;
-    m_applet->updateGeometry();
+    m_applet->updateGeometry();*/
 }
 
 void PieGraph::setTransfers(const QVariantMap &transfers)
-{
+{/*
     // drop the deleted transfers
     foreach (const QString &key, m_transfers.keys()) {
         if (!transfers.contains(key)) {
@@ -79,5 +76,5 @@ void PieGraph::setTransfers(const QVariantMap &transfers)
                         attributes[3].toBool());
     }
 
-    m_chart->updateView();
+    m_chart->updateView();*/
 }

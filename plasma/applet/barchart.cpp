@@ -21,67 +21,67 @@
 #include "barchart.h"
 #include "transfergraph.h"
 
-#include <plasma/widgets/label.h>
-#include <plasma/layouts/boxlayout.h>
-#include <plasma/widgets/pushbutton.h>
-#include <plasma/widgets/progressbar.h>
-//#include <plasma/widgets/layoutanimator.h>
+#include <QHBoxLayout>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsLinearLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QProgressBar>
+#include <QVBoxLayout>
 
+#include <KIcon>
 #include <KLocale>
-//#include <QTimeLine>
 
 BarChart::BarChart(Plasma::Applet *parent)
     : TransferGraph(parent),
     m_actualPage(0)
 {
     m_totalSizeLabel = 0;
-    m_layout = dynamic_cast<Plasma::BoxLayout *>(parent->layout());
+    m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)
     {
-/*
-    // Layout animator
-    Plasma::LayoutAnimator *animator = new Plasma::LayoutAnimator();
-    QTimeLine * timeLine = new QTimeLine();
+        // Pager layout and next, previous buttons
+        QHBoxLayout *pager_layout = new QHBoxLayout();
 
-    animator->setTimeLine(timeLine);
-    animator->setEffect(Plasma::LayoutAnimator::InsertedState, Plasma::LayoutAnimator::FadeInMoveEffect);
-    animator->setEffect(Plasma::LayoutAnimator::StandardState, Plasma::LayoutAnimator::MoveEffect);
-    animator->setEffect(Plasma::LayoutAnimator::RemovedState, Plasma::LayoutAnimator::FadeOutMoveEffect);
-    m_layout->setAnimator(animator);
-*/
-    // the progress bars layout
+        m_pageLabel = new QLabel();
+        //m_pageLabel->setPen(QPen(Qt::gray));
+        //m_pageLabel->setAlignment(Qt::AlignRight);
 
-    // Pager layout and next, previous buttons
-    m_pagerLayout = new Plasma::HBoxLayout(m_layout);
-    m_pagerLayout->setMargin(0);
-    m_pageLabel = new Plasma::Label(m_applet);
-    m_pageLabel->setPen(QPen(Qt::gray));
-    m_pageLabel->setAlignment(Qt::AlignRight);
-    m_previousPageButton = new Plasma::PushButton(KIcon("go-previous"), "", m_applet);
-    m_nextPageButton = new Plasma::PushButton(KIcon("go-next"), "", m_applet);
-    m_previousPageButton->setEnabled(false);
-    m_nextPageButton->setEnabled(false);
+        m_previousPageButton = new QPushButton(KIcon("go-previous"), "");
+        m_nextPageButton = new QPushButton(KIcon("go-next"), "");
+        m_previousPageButton->setEnabled(false);
+        m_nextPageButton->setEnabled(false);
 
-    m_pagerLayout->addItem(m_pageLabel);
-    m_pagerLayout->addItem(m_previousPageButton);
-    m_pagerLayout->addItem(m_nextPageButton);
+        pager_layout->addWidget(m_previousPageButton);
+        pager_layout->addWidget(m_nextPageButton);
 
-    m_layout->addItem(m_pagerLayout);
+        // Total size
+        m_totalSizeLabel = new QLabel(0);
+        //m_totalSizeLabel->setPen(QPen(Qt::white));
+        m_totalSizeLabel->setAlignment(Qt::AlignRight);
 
-    // Total size
-    m_totalSizeLabel = new Plasma::Label(m_applet);
-    m_totalSizeLabel->setPen(QPen(Qt::white));
-    m_totalSizeLabel->setAlignment(Qt::AlignRight);
-    m_layout->addItem(m_totalSizeLabel);
+        m_verticalLayout = new QVBoxLayout();
+        m_verticalLayout->addWidget(m_pageLabel);
+        m_verticalLayout->addLayout(pager_layout);
+        m_verticalLayout->addWidget(m_totalSizeLabel);
 
-    // connect the clicked signal of the next and previous buttons
-    QObject::connect(m_previousPageButton, SIGNAL(clicked()), SLOT(previousPage()));
-    QObject::connect(m_nextPageButton, SIGNAL(clicked()), SLOT(nextPage()));
-   }
+        m_mainWidget = new QWidget();
+        m_mainWidget->setLayout(m_verticalLayout);
+
+        m_proxyMainWidget = new QGraphicsProxyWidget(parent);
+        m_proxyMainWidget->setWidget(m_mainWidget);
+        m_layout->addItem(m_proxyMainWidget);
+
+        // connect the clicked signal of the next and previous buttons
+        QObject::connect(m_previousPageButton, SIGNAL(clicked()), SLOT(previousPage()));
+        QObject::connect(m_nextPageButton, SIGNAL(clicked()), SLOT(nextPage()));
+    }
 }
 
 BarChart::~BarChart()
 {
+    m_proxyMainWidget->setWidget(0);
+
     delete m_pageLabel;
     delete m_totalSizeLabel;
     delete m_nextPageButton;
@@ -91,7 +91,10 @@ BarChart::~BarChart()
         delete m_progressBars[key];
     }
 
-    delete m_pagerLayout;
+    m_layout->removeItem(m_proxyMainWidget);
+
+    delete m_proxyMainWidget;
+    delete m_mainWidget;
 }
 
 void BarChart::setTransfers(const QVariantMap &transfers)
@@ -135,17 +138,17 @@ void BarChart::populate()
         QString key = m_transfers.keys().at(i);
 
         if(m_progressBars.count(key) <= 0) {
-            Plasma::ProgressBar *bar = new Plasma::ProgressBar(m_applet);
+            QProgressBar *bar = new QProgressBar();
             bar->setFormat(m_transfers[key].toList().at(0).toString() + " %v%");
-            bar->setMinimumSize(QSizeF(100, 20));
-            m_progressBars [key] = bar;
+           // bar->setMinimumSize(QSizeF(100, 20));
 
-            m_layout->insertItem(0, bar);
+            m_progressBars [key] = bar;
+            m_verticalLayout->insertWidget(0, bar);
         }
         // set the progress bar opacity to 1 if the transfer is active
         qreal opacity = (m_transfers [key].toList().at(3).toUInt() == 1) ? 1.0 : 0.6;
 
-        m_progressBars [key]->setOpacity(opacity);
+        //m_progressBars [key]->setOpacity(opacity);
         m_progressBars [key]->setValue(m_transfers[key].toList().at(1).toString().toInt());
         totalSize += m_transfers[key].toList().at(2).toInt();
     }
@@ -157,9 +160,9 @@ void BarChart::populate()
     // remove the progressbars for the deleted transfers
     foreach(const QString &key, m_progressBars.keys()) {
         if(!m_transfers.keys().contains(key)) {
-            Plasma::ProgressBar *bar = m_progressBars [key];
+            QProgressBar *bar = m_progressBars [key];
             m_progressBars.remove(key);
-            m_layout->removeItem(bar);
+            m_verticalLayout->removeWidget(bar);
             delete bar;
         }
     }
@@ -174,15 +177,13 @@ void BarChart::populate()
         m_previousPageButton->setEnabled(true);
     else
         m_previousPageButton->setEnabled(false);
-
-    m_applet->updateGeometry();
 }
 
 void BarChart::clear()
 {
     foreach(const QString &key, m_progressBars.keys()) {
-        Plasma::ProgressBar *bar = m_progressBars [key];
-        m_layout->removeItem(bar);
+        QProgressBar *bar = m_progressBars [key];
+        m_verticalLayout->removeWidget(bar);
         m_progressBars.remove(key);
         delete bar;
     }

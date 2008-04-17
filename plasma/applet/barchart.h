@@ -27,13 +27,14 @@
 
 #define MAX_DOWNLOADS_PER_PAGE 5
 
-namespace Plasma {
-    class BoxLayout;
-    class ProgressBar;
-    class Label;
-    class PushButton;
-}
+class QGraphicsLinearLayout;
+class QGraphicsProxyWidget;
+class QLabel;
+class QProgressBar;
+class QPushButton;
 class QString;
+class QVBoxLayout;
+class QWidget;
 
 class BarChart : public TransferGraph
 {
@@ -56,13 +57,16 @@ private:
     void clear();
 
 private:
-    Plasma::BoxLayout *m_layout;
-    Plasma::BoxLayout *m_pagerLayout;
-    Plasma::PushButton *m_nextPageButton;
-    Plasma::PushButton *m_previousPageButton;
-    Plasma::Label *m_totalSizeLabel;
-    Plasma::Label *m_pageLabel;
-    QMap <QString, Plasma::ProgressBar *> m_progressBars;
+    QGraphicsLinearLayout *m_layout;
+    QVBoxLayout *m_verticalLayout;
+    QGraphicsProxyWidget *m_proxyMainWidget;
+
+    QWidget *m_mainWidget;
+    QPushButton *m_nextPageButton;
+    QPushButton *m_previousPageButton;
+    QLabel *m_totalSizeLabel;
+    QLabel *m_pageLabel;
+    QMap <QString, QProgressBar *> m_progressBars;
 
     int m_actualPage;
 };

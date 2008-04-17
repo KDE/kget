@@ -30,8 +30,6 @@
 #include <KLocale>
 #include <KColorCollection>
 
-#include <plasma/layouts/layout.h>
-
 #define TOP_MARGIN 10
 #define LEFT_MARGIN 75
 #define RIGHT_MARGIN 10

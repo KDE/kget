@@ -2,10 +2,10 @@ set(kget_SRCS
     plasma-kget.cpp
     barchart.cpp
     transfergraph.cpp
-    speedgraph.cpp
-    piegraph.cpp
-    linegraphwidget.cpp
-    piechartwidget.cpp
+    #speedgraph.cpp
+    #piegraph.cpp
+    #linegraphwidget.cpp
+    #piechartwidget.cpp
     errorgraph.cpp
     panelgraph.cpp
 )

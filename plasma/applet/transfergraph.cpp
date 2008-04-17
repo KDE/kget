@@ -62,3 +62,4 @@ void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)
     p->drawLine(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + TRANSFER_LINE_HEIGHT,
             contentsRect.width() - HORIZONTAL_MARGIN, contentsRect.y() + TRANSFER_LINE_HEIGHT);
 }
+
