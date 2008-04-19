@@ -21,16 +21,14 @@
 #ifndef PIECHARTWIDGET_H
 #define PIECHARTWIDGET_H
 
+#include <QGraphicsWidget>
 
-#include <plasma/plasma_export.h>
-#include <plasma/widgets/widget.h>
-
-class PieChartWidget : public Plasma::Widget
+class PieChartWidget : public QGraphicsWidget
 {
 Q_OBJECT
 
 public:
-    PieChartWidget(Widget *parent);
+    PieChartWidget(QGraphicsWidget *parent = 0);
     ~PieChartWidget();
 
     void addData(const QString &name, double length);
@@ -40,8 +38,8 @@ public:
     void clear();
     void updateView();
 
-    QSizeF sizeHint() const;
-    void paintWidget(QPainter *painter, const QStyleOptionGraphicsItem *option, 
+    QSizeF sizeHint(Qt::SizeHint, const QSizeF&) const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
                         QWidget *widget);
 
 signals:

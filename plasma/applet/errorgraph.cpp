@@ -40,13 +40,12 @@ ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
         m_icon = new Plasma::Icon(KIcon("dialog-warning"), "");
 
         QLabel *errorLabel = new QLabel();
-        errorLabel->setAutoFillBackground(true);
+        errorLabel->setStyleSheet("background-color: transparent; color: white");
         errorLabel->setText(message);
-        //errorLabel->setPen(QPen(Qt::white));
-        //errorLabel->setAlignment(Qt::AlignCenter);
+        errorLabel->setAlignment(Qt::AlignCenter);
 
         QPushButton *launchButton = new QPushButton(KIcon("kget"), "Launch KGet");
-        launchButton->setAutoFillBackground(true);
+        launchButton->setAutoFillBackground(false);
 
         m_proxyErrorLabel = new QGraphicsProxyWidget(parent);
         m_proxyErrorLabel->setWidget(errorLabel);

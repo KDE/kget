@@ -24,6 +24,7 @@
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
+#include <QGraphicsWidget>
 
 #include <KDebug>
 #include <KLocale>
@@ -46,10 +47,10 @@ public:
     float activeLength;
 };
 
-class PieChartWidget::Private : public Plasma::Widget
+class PieChartWidget::Private : public QGraphicsWidget
 {
 public:
-    Private(Plasma::Widget *parent) : Plasma::Widget(parent),
+    Private(QGraphicsWidget *parent) : QGraphicsWidget(parent),
                 m_colors("Oxygen.colors"),
                 size(QSize(300, 200)),
                 bottomMargin(10),
@@ -67,7 +68,7 @@ public:
     }
 
     // returns the size of the private inner widget
-    QSizeF sizeHint() const
+    QSizeF sizeHint(Qt::SizeHint, const QSizeF&) const
     {
         return size;
     }
@@ -95,7 +96,7 @@ public:
     }
 
     // Paint the private widget, who cares to draw only the line items representing the data
-    void paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option,
+    void paint(QPainter *p, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
     {
         Q_UNUSED(widget);
@@ -208,8 +209,8 @@ public:
     bool emitUpdateGeometrySignal;
 };
 
-PieChartWidget::PieChartWidget(Widget *parent)
-    : Plasma::Widget(parent),
+PieChartWidget::PieChartWidget(QGraphicsWidget *parent)
+    : QGraphicsWidget(parent),
     d(new Private(this))
 {
 }
@@ -268,15 +269,14 @@ void PieChartWidget::updateView()
        d->emitUpdateGeometrySignal = false;
        emit geometryChanged();
     }
-    d->updateGeometry();
 }
 
-QSizeF PieChartWidget::sizeHint() const
+QSizeF PieChartWidget::sizeHint(Qt::SizeHint, const QSizeF&) const
 {
     return d->size;
 }
 
-void PieChartWidget::paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void PieChartWidget::paint(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget)
 
@@ -288,3 +288,4 @@ void PieChartWidget::paintWidget(QPainter *p, const QStyleOptionGraphicsItem *op
         d->drawLegend(d->data.keys().at(i), p, option, d->m_colors.color(i*6 + 4), i);
     }
 }
+

@@ -38,7 +38,7 @@
 #include "barchart.h"
 #include "errorgraph.h"
 //#include "speedgraph.h"
-//#include "piegraph.h"
+#include "piegraph.h"
 #include "panelgraph.h"
 
 #define TOP_MARGIN 60
@@ -155,7 +155,7 @@ void PlasmaKGet::configAccepted()
 
 void PlasmaKGet::loadTransferGraph(uint type)
 {
-    QSizeF size = geometry().size();
+    // QSizeF size = geometry().size();
 
     if(formFactor() == Plasma::Horizontal || formFactor() == Plasma::Vertical) {
         type = PlasmaKGet::PanelGraphType;
@@ -169,10 +169,10 @@ void PlasmaKGet::loadTransferGraph(uint type)
             case PlasmaKGet::ErrorGraphType :
                 m_transferGraph = new ErrorGraph(this, m_errorMessage);
                 break;
-       //     case PlasmaKGet::PieGraphType :
-       //         m_transferGraph = new PieGraph(this);
-       //         break;
-       //     case PlasmaKGet::SpeedGraphType :
+            case PlasmaKGet::PieGraphType :
+                m_transferGraph = new PieGraph(this);
+                break;
+            //case PlasmaKGet::SpeedGraphType :
        //         m_transferGraph = new SpeedGraph(this);
        //         break;
             case PlasmaKGet::PanelGraphType :
@@ -183,11 +183,10 @@ void PlasmaKGet::loadTransferGraph(uint type)
                 m_transferGraph = new BarChart(this);
         }
 
+        resize(QSize(m_layout->geometry().width(), m_layout->geometry().height()));
+        // updateGeometry();
         m_graphType = type;
     }
-//    m_layout->updateGeometry();
-  //  updateGeometry();
-    resize(QSize(m_layout->geometry().width(), m_layout->geometry().height()));
 //    resize(size);
 }
 

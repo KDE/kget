@@ -44,8 +44,6 @@ BarChart::BarChart(Plasma::Applet *parent)
         QHBoxLayout *pager_layout = new QHBoxLayout();
 
         m_pageLabel = new QLabel();
-        //m_pageLabel->setPen(QPen(Qt::gray));
-        //m_pageLabel->setAlignment(Qt::AlignRight);
 
         m_previousPageButton = new QPushButton(KIcon("go-previous"), "");
         m_nextPageButton = new QPushButton(KIcon("go-next"), "");
@@ -57,7 +55,6 @@ BarChart::BarChart(Plasma::Applet *parent)
 
         // Total size
         m_totalSizeLabel = new QLabel(0);
-        //m_totalSizeLabel->setPen(QPen(Qt::white));
         m_totalSizeLabel->setAlignment(Qt::AlignRight);
 
         m_verticalLayout = new QVBoxLayout();
@@ -67,6 +64,7 @@ BarChart::BarChart(Plasma::Applet *parent)
 
         m_mainWidget = new QWidget();
         m_mainWidget->setLayout(m_verticalLayout);
+        m_mainWidget->setStyleSheet("background-color: transparent; color: white");
 
         m_proxyMainWidget = new QGraphicsProxyWidget(parent);
         m_proxyMainWidget->setWidget(m_mainWidget);
@@ -146,7 +144,7 @@ void BarChart::populate()
             m_verticalLayout->insertWidget(0, bar);
         }
         // set the progress bar opacity to 1 if the transfer is active
-        qreal opacity = (m_transfers [key].toList().at(3).toUInt() == 1) ? 1.0 : 0.6;
+        // qreal opacity = (m_transfers [key].toList().at(3).toUInt() == 1) ? 1.0 : 0.6;
 
         //m_progressBars [key]->setOpacity(opacity);
         m_progressBars [key]->setValue(m_transfers[key].toList().at(1).toString().toInt());

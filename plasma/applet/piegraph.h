@@ -22,7 +22,7 @@
 #define KGET_PIEGRAPH_H
 
 #include "transfergraph.h"
-//#include "piechartwidget.h"
+#include "piechartwidget.h"
 
 namespace Plasma {
     class Applet;
@@ -44,7 +44,7 @@ private slots:
 
 private:
     QGraphicsLinearLayout *m_layout;
-   // PieChartWidget *m_chart;
+    PieChartWidget *m_chart;
 };
 
 #endif

@@ -3,9 +3,9 @@ set(kget_SRCS
     barchart.cpp
     transfergraph.cpp
     #speedgraph.cpp
-    #piegraph.cpp
+    piegraph.cpp
     #linegraphwidget.cpp
-    #piechartwidget.cpp
+    piechartwidget.cpp
     errorgraph.cpp
     panelgraph.cpp
 )
