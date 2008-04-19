@@ -104,7 +104,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/history/transferhistoryitemdelegate.cpp
    ui/history/transferhistorycategorizeddelegate.cpp
    ui/history/transferhistorycategorizedview.cpp
-   extensions/konqueror/kget_linkview.cpp
+   ui/linkview/kget_linkview.cpp
    mainwindow.cpp
    main.cpp
 

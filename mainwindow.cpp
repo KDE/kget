@@ -29,7 +29,7 @@
 #include "ui/history/transferhistory.h"
 #include "ui/groupsettingsdialog.h"
 #include "ui/transfersettingsdialog.h"
-#include "extensions/konqueror/kget_linkview.h"
+#include "ui/linkview/kget_linkview.h"
 #include "extensions/webinterface/httpserver.h"
 
 #include <kapplication.h>
