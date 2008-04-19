@@ -14,13 +14,15 @@
 #include <KDialog>
 #include <KLocale>
 
-#include "links.h"
-
 class QTreeView;
 class QModelIndex;
 class QAbstractButton;
 class QButtonGroup;
+class QBoxLayout;
+class QProgressBar;
 class QSortFilterProxyModel;
+class LinkImporter;
+class KUrlRequester;
 
 static const QString WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.asp|\\.aspx|\\.jsp)).)*$)";
 static const QString VIDEO_FILES_REGEXP = "(.(?:\\.avi|\\.mpeg|\\.mpg))";
@@ -49,8 +51,10 @@ public:
     KGetLinkView(QWidget *parent = 0);
     ~KGetLinkView();
 
-    void setLinks( QList<LinkItem*>& links );
+    // void setLinks( QList<LinkItem*>& links );
+    void setLinks(const QList <QString> &links);
     void setPageUrl( const QString& url );
+    void importUrl(const QString &url = QString());
 
 signals:
     void leechUrls( const KUrl::List& urls );
@@ -64,12 +68,17 @@ private slots:
     void slotShowWebContent(int mode);
     void uncheckItem(const QModelIndex &index);
 
+    // import links slots
+    void slotStartImport();
+    void slotImportProgress(int progress);
+    void slotImportFinished();
+
 private:
-    void showLinks( const QList<LinkItem*>& links );
+    void showLinks( const QList<QString>& links );
     QAbstractButton *createFilterButton(const QString &icon, const QString &name,
                             QButtonGroup *group, uint filterType, bool checked = false);
 
-    QList<LinkItem*> m_links;
+    QList<QString> m_links;
 
     QTreeView *m_treeWidget;
     QSortFilterProxyModel *m_proxyModel;
@@ -78,6 +87,12 @@ private:
     QButtonGroup *filterButtonsGroup;
     QPushButton *downloadCheckedButton;
     QPushButton *checkAllButton;
+
+    // import links widgets
+    LinkImporter *m_linkImporter;
+    KUrlRequester *m_urlRequester;
+    QBoxLayout *m_importerLayout;
+    QProgressBar *m_progressBar;
 };
 
 // icon, name, regular expression, and default of the filter buttons

@@ -13,7 +13,6 @@ endif(WEBKITKDE_FOUND)
 
 
 set(khtml_kget_SRCS
-   kget_linkview.cpp
    kget_plug_in.cpp
    links.cpp
 )

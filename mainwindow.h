@@ -46,11 +46,13 @@ public:
     virtual QVariantMap transfers() const;
     virtual int transfersSpeed() const;
     virtual void setSystemTrayDownloading(bool running);
+    virtual void importLinks(const QList <QString> &links);
 
     KSystemTrayIcon *systemTray() const { return m_dock;};
 
 public slots:
     void slotQuit();
+    void slotImportUrl(const QString &url);
 
 protected:
     // ignore/accept quit events
@@ -105,6 +107,9 @@ private slots:
     void slotNewConfig();
     void slotCheckClipboard();
     void slotTransferHistory();
+
+    // import links slots
+    void slotShowListLinks();
 
 private:
     // one-time functions

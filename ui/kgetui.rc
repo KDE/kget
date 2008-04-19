@@ -6,6 +6,7 @@
         <Separator/>
         <Action name="import_transfers"/>
         <Action name="export_transfers"/>
+        <Action name="list_links"/>
         <Separator/>
         <Action name="Transfer History" />
         <Separator/>

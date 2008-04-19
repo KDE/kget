@@ -29,6 +29,7 @@
 #include "ui/history/transferhistory.h"
 #include "ui/groupsettingsdialog.h"
 #include "ui/transfersettingsdialog.h"
+#include "extensions/konqueror/kget_linkview.h"
 #include "extensions/webinterface/httpserver.h"
 
 #include <kapplication.h>
@@ -275,6 +276,12 @@ void MainWindow::setupActions()
     transferSettingsAction->setIcon(KIcon("preferences-system"));
     transferSettingsAction->setShortcuts(KShortcut("Ctrl+T"));
     connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));
+
+    QAction *listLinksAction = actionCollection()->addAction("list_links");
+    listLinksAction->setText(i18n("&List Links"));
+    listLinksAction->setIcon(KIcon("view-list-text"));
+    listLinksAction->setShortcuts(KShortcut("Ctrl+L"));
+    connect(listLinksAction, SIGNAL(triggered()), SLOT(slotShowListLinks()));
 }
 
 void MainWindow::slotDelayedInit()
@@ -717,6 +724,13 @@ void MainWindow::setSystemTrayDownloading(bool running)
     m_dock->setDownloading(running);
 }
 
+void MainWindow::importLinks(const QList <QString> &links)
+{
+    KGetLinkView *link_view = new KGetLinkView(this);
+    link_view->setLinks(links);
+    link_view->show();
+}
+
 void MainWindow::slotTransferHistory()
 {
     TransferHistory *history = new TransferHistory();
@@ -743,6 +757,21 @@ void MainWindow::slotTransferSettings()
         TransferSettingsDialog *settings = new TransferSettingsDialog(this, transfer);
         settings->exec();
     }
+}
+
+/** slots for link list **/
+void MainWindow::slotShowListLinks()
+{
+    KGetLinkView *link_view = new KGetLinkView(this);
+    link_view->importUrl();
+    link_view->show();
+}
+
+void MainWindow::slotImportUrl(const QString &url)
+{
+    KGetLinkView *link_view = new KGetLinkView(this);
+    link_view->importUrl(url);
+    link_view->show();
 }
 
 /** widget events */

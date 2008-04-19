@@ -26,5 +26,8 @@
     <method name="transfersSpeed">
       <arg type="i" direction="out"/>
     </method>
+    <method name="importLinks">
+        <arg name="links" type="as" direction="in" />
+    </method>
   </interface>
 </node>

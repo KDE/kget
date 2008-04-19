@@ -57,6 +57,7 @@ set(kgetcore_SRCS
    core/bitset.cpp
    core/download.cpp
    core/transferhistorystore.cpp
+   core/linkimporter.cpp
 )
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
@@ -103,6 +104,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/history/transferhistoryitemdelegate.cpp
    ui/history/transferhistorycategorizeddelegate.cpp
    ui/history/transferhistorycategorizedview.cpp
+   extensions/konqueror/kget_linkview.cpp
    mainwindow.cpp
    main.cpp
 

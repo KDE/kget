@@ -28,7 +28,6 @@ public:
 
 private:
     void showLinks( bool );
-    KGetLinkView *view;
 
 private slots:
     void slotShowDrop();

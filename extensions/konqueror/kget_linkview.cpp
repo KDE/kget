@@ -10,17 +10,24 @@
 */
 
 #include "kget_linkview.h"
-#include "kget_interface.h"
+#include "core/kget.h"
+#include "core/linkimporter.h"
+#include "ui/newtransferdialog.h"
 
 #include <KActionCollection>
+#include <KDebug>
 #include <KShortcut>
 #include <kstandardaction.h>
+#include <KUrlRequester>
 #include <kiconloader.h>
 #include <kicon.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <KLineEdit>
+#include <KMimeType>
 
+#include <QApplication>
+#include <QClipboard>
 #include <QProcess>
 #include <QTreeView>
 #include <QLabel>
@@ -28,6 +35,7 @@
 #include <QHBoxLayout>
 #include <QButtonGroup>
 #include <QPushButton>
+#include <QProgressBar>
 #include <QCheckBox>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
@@ -79,10 +87,25 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     filterLayout->addWidget(searchLine);
 
+    // import url layout
+    QPushButton *importButton = new QPushButton("Import links", this);
+    m_urlRequester = new KUrlRequester(this);
+    m_importerLayout = new QHBoxLayout;
+    m_importerLayout->addWidget(m_urlRequester);
+    m_importerLayout->addWidget(importButton);
+
+    m_linkImporter = 0;
+
+    // import progressbar
+    m_progressBar = new QProgressBar(this);
+    m_progressBar->hide();
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
+    mainLayout->addLayout(m_importerLayout);
     mainLayout->addLayout(filterLayout);
     mainLayout->addWidget(m_treeWidget);
+    mainLayout->addWidget(m_progressBar);
 
     // Bottoms buttons
     QHBoxLayout *bottomButtonsLayout = new QHBoxLayout;
@@ -97,6 +120,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(checkAllButton, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
     connect(showWebContentButton, SIGNAL(stateChanged(int)), this, SLOT(slotShowWebContent(int)));
+    connect(importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
 
     bottomButtonsLayout->addWidget(checkAllButton);
     bottomButtonsLayout->addWidget(showWebContentButton);
@@ -114,16 +138,20 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
 KGetLinkView::~KGetLinkView()
 {
-    qDeleteAll(m_links);
+    delete(m_linkImporter);
 }
 
-void KGetLinkView::setLinks( QList<LinkItem*>& links )
+void KGetLinkView::setLinks(const QList <QString> &links)
 {
-    m_links = links; // now we 0wn them
-    showLinks( m_links );
+    m_links = QList <QString> ();
+    foreach(QString link, links) {
+        m_links << link;
+    }
+
+    showLinks(m_links);
 }
 
-void KGetLinkView::showLinks( const QList<LinkItem*>& links )
+void KGetLinkView::showLinks( const QList<QString>& links )
 {
     QStandardItemModel *model = new QStandardItemModel(0, 5, this);
 
@@ -133,22 +161,26 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
     model->setHeaderData(3, Qt::Horizontal, i18nc("list header: type of file", "File Type"));
     model->setHeaderData(4, Qt::Horizontal, i18n("Location (URL)"));
 
-    foreach (LinkItem* linkitem, links) {
-        QString file = linkitem->url.fileName();
-        if ( file.isEmpty() )
-            file = QString(linkitem->url.host());
+    foreach (const QString &linkitem, links) {
+        KUrl url(linkitem);
+        QString file = url.fileName();
+        if (file.isEmpty())
+            file = QString(url.host());
+
+        KMimeType::Ptr mt = KMimeType::findByUrl(linkitem, 0, true, true);
 
         QList<QStandardItem*> items;
 
         QStandardItem *item = new QStandardItem(file);
-        item->setIcon(KIcon(linkitem->icon));
+        item->setIcon(KIcon(mt->iconName()));
         item->setCheckable(true);
+        item->setData(QVariant(url.prettyUrl()), Qt::EditRole);
 
         items << new QStandardItem(QString::number(model->rowCount()));
         items << item;
-        items << new QStandardItem(linkitem->text);
-        items << new QStandardItem(linkitem->mimeType);
-        items << new QStandardItem(linkitem->url.prettyUrl());
+        items << new QStandardItem();
+        items << new QStandardItem(mt->comment());
+        items << new QStandardItem(url.prettyUrl());
 
         model->insertRow(model->rowCount(), items);
     }
@@ -165,34 +197,37 @@ void KGetLinkView::showLinks( const QList<LinkItem*>& links )
 void KGetLinkView::slotStartLeech()
 {
     QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
-    QStringList urls;
+    KUrl::List urls;
 
     for(int row=0;row<model->rowCount();row++) {
         QStandardItem *checkeableItem = model->item(row, 1);
 
         if(checkeableItem->checkState() == Qt::Checked) {
-            urls.append(model->data(model->index(row, 4)).toString());
+            urls.append(KUrl(model->data(model->index(row, 1), Qt::EditRole).toString()));
         }
     }
 
-    if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
-    {
-        QProcess *kgetProcess = new QProcess(this);
-        urls << "--startWithoutAnimation" ;
-        kgetProcess->startDetached("kget", urls);
-    }
-    else
-    {
-        OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-        kgetInterface.addTransfers(urls.join(";"), QString(), true);
-    }
-
+    NewTransferDialog::showNewTransferDialog(urls);
     accept(); // close the dialog
 }
 
 void KGetLinkView::setPageUrl( const QString& url )
 {
     setPlainCaption( i18n( "Links in: %1 - KGet", url ) );
+}
+
+void KGetLinkView::importUrl(const QString &url)
+{
+    if(url.isEmpty()) {
+        KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+        if(clipboardUrl.isValid()) {
+            m_urlRequester->setUrl(clipboardUrl);
+        }
+    }
+    else {
+        m_urlRequester->setUrl(KUrl(url));
+        slotStartImport();
+    }
 }
 
 void KGetLinkView::selectionChanged()
@@ -265,6 +300,36 @@ void KGetLinkView::uncheckItem(const QModelIndex &index)
         QStandardItem *item = model->itemFromIndex(model->index(m_proxyModel->mapToSource(index).row(), 1));
         item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked);
     }
+}
+
+void KGetLinkView::slotStartImport()
+{
+    if(m_linkImporter) {
+        delete(m_linkImporter);
+    }
+    m_linkImporter = new LinkImporter(m_urlRequester->url(), this);
+
+    connect(m_linkImporter, SIGNAL(progress(int)), SLOT(slotImportProgress(int)));
+    connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
+
+    if(!m_urlRequester->url().isLocalFile()) {
+        m_linkImporter->copyRemoteFile();
+    }
+
+    m_linkImporter->start();
+    m_progressBar->show();
+}
+
+void KGetLinkView::slotImportProgress(int progress)
+{
+    m_progressBar->setValue(progress);
+}
+
+void KGetLinkView::slotImportFinished()
+{
+    m_progressBar->hide();
+    m_links = QList <QString> (m_linkImporter->links());
+    showLinks(m_links);
 }
 
 QAbstractButton *KGetLinkView::createFilterButton(const QString &icon, const QString &description,

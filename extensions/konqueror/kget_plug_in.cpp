@@ -13,7 +13,6 @@
 #include "kget_plug_in.h"
 
 #include "links.h"
-#include "kget_linkview.h"
 #include "kget_interface.h"
 
 #include <KActionCollection>
@@ -27,6 +26,7 @@
 #include <kmenu.h>
 #include <krun.h>
 #include <kicon.h>
+#include <ktoolinvocation.h>
 #include <dom/html_misc.h>
 #include <dom/html_document.h>
 #include <kparts/partmanager.h>
@@ -38,8 +38,7 @@
 #endif
 
 KGet_plug_in::KGet_plug_in( QObject* parent )
-  : Plugin(parent),
-    view(0)
+  : Plugin(parent)
 {
     KActionMenu *menu = new KActionMenu(KIcon("kget"), i18n("Download Manager"),
                                         actionCollection());
@@ -174,7 +173,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
 
     DOM::HTMLCollection links = doc.links();
 
-    QList<LinkItem*> linkList;
+    QList<QString> linkList;
     QSet<QString> dupeCheck;
     for ( uint i = 0; i < links.length(); i++ )
     {
@@ -185,7 +184,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
         LinkItem *item = new LinkItem( (DOM::Element) link );
         if (item->isValid() && !dupeCheck.contains(item->url.url()))
         {
-            linkList.append( item );
+            linkList.append(item->url.url());
             dupeCheck.insert(item->url.url());
         }
         else
@@ -200,15 +199,13 @@ void KGet_plug_in::showLinks( bool selectedOnly )
         return;
     }
 
-    if (!view)
-        view = new KGetLinkView();
 
-    QString url = doc.URL().string();
-    view->setPageUrl( url );
-
-    view->setLinks( linkList );
-    view->show();
-    view->raise();
+    if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
+    {
+        KToolInvocation::kdeinitExecWait("kget");
+    }
+    OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+    kgetInterface.importLinks(linkList);
 }
 
 KGetPluginFactory::KGetPluginFactory( QObject* parent )
