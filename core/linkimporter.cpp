@@ -55,12 +55,12 @@ void LinkImporter::copyRemoteFile()
     m_tempFile = QString("%1/%2.tmp").arg(QDir::tempPath()).arg("importer_aux");
 
     KUrl aux(m_tempFile);
-    KIO::CopyJob *job = KIO::copy(m_url, aux);
+    KIO::CopyJob *job = KIO::copy(m_url, aux, KIO::HideProgressInfo);
 
     QMap<QString, QString> metaData;
     bool ok = KIO::NetAccess::synchronousRun(job, 0, 0, 0, &metaData);
     if(!ok) {
-        emit error(ki18n("Erro trying to get %1").subs(m_url.url()));
+        emit error(ki18n("Error trying to get %1").subs(m_url.url()));
     }
 }
 
@@ -79,7 +79,7 @@ void LinkImporter::slotReadFile(const QUrl &url)
         QString line = in.readLine(200);
         readed += 200;
 
-        int pos = rx.indexIn(line);
+        rx.indexIn(line);
 
         foreach(const QString &link, rx.capturedTexts()) {
             if(!link.isEmpty() && QUrl(link).isValid()) {

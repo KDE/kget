@@ -72,6 +72,7 @@ private slots:
     void slotStartImport();
     void slotImportProgress(int progress);
     void slotImportFinished();
+    void updateImportButtonStatus(const QString &text);
 
 private:
     void showLinks( const QList<QString>& links );
@@ -87,6 +88,7 @@ private:
     QButtonGroup *filterButtonsGroup;
     QPushButton *downloadCheckedButton;
     QPushButton *checkAllButton;
+    QPushButton *m_importButton;
 
     // import links widgets
     LinkImporter *m_linkImporter;

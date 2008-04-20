@@ -277,8 +277,8 @@ void MainWindow::setupActions()
     transferSettingsAction->setShortcuts(KShortcut("Ctrl+T"));
     connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));
 
-    QAction *listLinksAction = actionCollection()->addAction("list_links");
-    listLinksAction->setText(i18n("&List Links"));
+    QAction *listLinksAction = actionCollection()->addAction("import_links");
+    listLinksAction->setText(i18n("Import &Links"));
     listLinksAction->setIcon(KIcon("view-list-text"));
     listLinksAction->setShortcuts(KShortcut("Ctrl+L"));
     connect(listLinksAction, SIGNAL(triggered()), SLOT(slotShowListLinks()));

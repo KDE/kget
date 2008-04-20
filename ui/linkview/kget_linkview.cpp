@@ -25,6 +25,7 @@
 #include <kmessagebox.h>
 #include <KLineEdit>
 #include <KMimeType>
+#include <KSeparator>
 
 #include <QApplication>
 #include <QClipboard>
@@ -45,7 +46,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
   : KDialog(parent),
     m_showWebContent(false)
 {
-    setPlainCaption(i18n("KGet"));
+    setCaption(i18n("Import Links"));
 
     // proxy model to filter links
     m_proxyModel = new QSortFilterProxyModel();
@@ -88,11 +89,18 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     filterLayout->addWidget(searchLine);
 
     // import url layout
-    QPushButton *importButton = new QPushButton("Import links", this);
+    QLabel *importLabel = new QLabel(this);
+    importLabel->setText(i18n("File with links to import:"));
+    m_importButton = new QPushButton("Import links", this);
+    m_importButton->setIcon(KIcon("document-import"));
+    m_importButton->setEnabled(false);
     m_urlRequester = new KUrlRequester(this);
+    connect(m_urlRequester, SIGNAL(textChanged(const QString &)), SLOT(updateImportButtonStatus(const QString &)));
+
     m_importerLayout = new QHBoxLayout;
+    m_importerLayout->addWidget(importLabel);
     m_importerLayout->addWidget(m_urlRequester);
-    m_importerLayout->addWidget(importButton);
+    m_importerLayout->addWidget(m_importButton);
 
     m_linkImporter = 0;
 
@@ -103,6 +111,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->addLayout(m_importerLayout);
+    mainLayout->addWidget(new KSeparator(this));
     mainLayout->addLayout(filterLayout);
     mainLayout->addWidget(m_treeWidget);
     mainLayout->addWidget(m_progressBar);
@@ -120,7 +129,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(checkAllButton, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
     connect(showWebContentButton, SIGNAL(stateChanged(int)), this, SLOT(slotShowWebContent(int)));
-    connect(importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
+    connect(m_importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
 
     bottomButtonsLayout->addWidget(checkAllButton);
     bottomButtonsLayout->addWidget(showWebContentButton);
@@ -304,9 +313,8 @@ void KGetLinkView::uncheckItem(const QModelIndex &index)
 
 void KGetLinkView::slotStartImport()
 {
-    if(m_linkImporter) {
-        delete(m_linkImporter);
-    }
+    delete m_linkImporter;
+
     m_linkImporter = new LinkImporter(m_urlRequester->url(), this);
 
     connect(m_linkImporter, SIGNAL(progress(int)), SLOT(slotImportProgress(int)));
@@ -348,6 +356,17 @@ void KGetLinkView::slotShowWebContent(int mode)
 {
     m_showWebContent = (mode == Qt::Checked);
     doFilter(filterButtonsGroup->checkedId());
+}
+
+void KGetLinkView::updateImportButtonStatus(const QString &text)
+{
+    bool enabled = false;
+    if (!text.isEmpty()) {
+        KUrl url(text);
+        if (url.isValid())
+            enabled = true;
+    }
+    m_importButton->setEnabled(enabled);
 }
 
 #include "kget_linkview.moc"
