@@ -19,36 +19,29 @@
  ***************************************************************************/
 
 #include "speedgraph.h"
-#include "transfergraph.h"
-//#include "linegraphwidget.h"
+#include "linegraphwidget.h"
+
+#include <QGraphicsLinearLayout>
 
 #include <plasma/applet.h>
-
-#include <QBoxLayout>
-#include <QLabel>
-#include <QGraphicsLinearLayout>
-#include <QGraphicsProxyWidget>
 
 SpeedGraph::SpeedGraph(Plasma::Applet *parent)
     : TransferGraph(parent)
 {
     m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)
-    {/*
+    {
         m_lineGraph = new LineGraphWidget(0);
-        QGraphicsProxyWidget *proxyLineGraph = new QGraphicsProxyWidget(parent);
-        proxyLineGraph->setWidget(m_lineGraph);
-        m_layout->addItem(proxyLineGraph);
+        m_layout->addItem(m_lineGraph);
 
         QObject::connect(m_lineGraph, SIGNAL(geometryChanged()), SLOT(updateGeometry()));
-
-        m_applet->updateGeometry();*/
     }
 }
 
 SpeedGraph::~SpeedGraph()
 {
-    //delete m_lineGraph;
+    m_layout->removeItem(m_lineGraph);
+    delete m_lineGraph;
 }
 
 void SpeedGraph::updateGeometry()
@@ -58,7 +51,7 @@ void SpeedGraph::updateGeometry()
 }
 
 void SpeedGraph::setTransfers(const QVariantMap &percents)
-{/*
+{
     // drop the deleted transfers
     foreach (const QString &key, m_transfers.keys()) {
         if (!percents.contains(key)) {
@@ -77,5 +70,6 @@ void SpeedGraph::setTransfers(const QVariantMap &percents)
 
     m_lineGraph->addData(data);
 
-    m_lineGraph->updateView();*/
+    m_lineGraph->updateView();
 }
+

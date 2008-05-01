@@ -36,10 +36,10 @@
 #define MAX_ITEMS 30
 #define MAX_X_STEPS 15
 
-class LineGraphWidget::Private : public Plasma::Widget
+class LineGraphWidget::Private : public QGraphicsWidget
 {
 public:
-    Private(Plasma::Widget *parent) : Plasma::Widget(parent),
+    Private(QGraphicsWidget *parent) : QGraphicsWidget(parent),
             m_colors("Oxygen.colors"),
             size(QSize(300, 180)),
             maximumY(20 * 1024),
@@ -59,7 +59,7 @@ public:
     }
 
     // Paint the private widget, who cares to draw only the line items representing the data
-    void paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option,
+    void paint(QPainter *p, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
     {
         Q_UNUSED(option)
@@ -144,7 +144,7 @@ public:
     }
 
     // returns the size of the private inner widget
-    QSizeF sizeHint() const
+    QSizeF sizeHint(Qt::SizeHint, const QSizeF&) const
     {
         return size;
     }
@@ -184,8 +184,8 @@ private:
     }
 };
 
-LineGraphWidget::LineGraphWidget(Widget *parent)
-    : Plasma::Widget(parent),
+LineGraphWidget::LineGraphWidget(QGraphicsWidget *parent)
+    : QGraphicsWidget(parent),
     d(new Private(this))
 {
 }
@@ -251,15 +251,15 @@ void LineGraphWidget::removeData(const QString &key)
 void LineGraphWidget::updateView()
 {
     // ensure that only the data points are repainted, called after the setData methods
-    d->updateGeometry();
+//     d->updateGeometry();
 }
 
-QSizeF LineGraphWidget::sizeHint() const
+QSizeF LineGraphWidget::sizeHint(Qt::SizeHint, const QSizeF&) const
 {
     return d->size;
 }
 
-void LineGraphWidget::paintWidget(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void LineGraphWidget::paint(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget);
 
@@ -270,3 +270,4 @@ void LineGraphWidget::paintWidget(QPainter *p, const QStyleOptionGraphicsItem *o
         d->drawLegend(d->data.keys().at(i), p, option, d->m_colors.color(i*6 + 4), i);
     }
 }
+

@@ -22,7 +22,8 @@
 #define KGET_PIEGRAPH_H
 
 #include "transfergraph.h"
-#include "piechartwidget.h"
+
+class PieChartWidget;
 
 namespace Plasma {
     class Applet;

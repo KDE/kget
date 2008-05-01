@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "piegraph.h"
+#include "piechartwidget.h"
 
 #include <KIcon>
 #include <KDebug>
@@ -79,3 +80,4 @@ void PieGraph::setTransfers(const QVariantMap &transfers)
 
     m_chart->updateView();
 }
+

@@ -37,12 +37,14 @@ public:
     KGetEngine(QObject* parent, const QVariantList& args);
     ~KGetEngine();
 
+    QStringList sources() const;
+
     void setRefreshTime(uint time);
     uint refreshTime() const;
 
 protected:
-    bool sourceRequested(const QString &name);
-    bool updateSource(const QString& name);
+    bool sourceRequestEvent(const QString &name);
+    bool updateSourceEvent(const QString& source);
 
 private slots:
     void getKGetData(const QString &name);

@@ -29,17 +29,25 @@ KGetEngine::KGetEngine(QObject* parent, const QVariantList& args)
 {
     Q_UNUSED(args);
 
-	interface = QDBusConnection::sessionBus().interface();
-    setMinimumUpdateInterval(MINIMUM_UPDATE_INTERVAL);
+    interface = QDBusConnection::sessionBus().interface();
+    setMinimumPollingInterval(MINIMUM_UPDATE_INTERVAL);
 }
 
 KGetEngine::~KGetEngine()
 {
 }
 
+QStringList KGetEngine::sources() const
+{
+    QStringList sources;
+    sources << "KGet";
+
+    return sources;
+}
+
 void KGetEngine::setRefreshTime(uint time)
 {
-    setUpdateInterval(time);
+    setPollingInterval(time);
 }
 
 uint KGetEngine::refreshTime() const
@@ -47,13 +55,12 @@ uint KGetEngine::refreshTime() const
     return 1000;
 }
 
-bool KGetEngine::sourceRequested(const QString &name)
+bool KGetEngine::sourceRequestEvent(const QString &name)
 {
-    updateSource(name);
-    return true;
+    return updateSourceEvent(name);
 }
 
-bool KGetEngine::updateSource(const QString &name)
+bool KGetEngine::updateSourceEvent(const QString &name)
 {
     if(QString::compare(name, "KGet") == 0) {
         getKGetData(name);
@@ -63,21 +70,21 @@ bool KGetEngine::updateSource(const QString &name)
 
 void KGetEngine::getKGetData(const QString &name)
 {
-	clearData(name);
+    removeAllData(name);
 
-	if(isDBusServiceRegistered()) {
-		OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
-							QDBusConnection::sessionBus());
+    if(isDBusServiceRegistered()) {
+        OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
+                            QDBusConnection::sessionBus());
 
-		setData(I18N_NOOP(name), I18N_NOOP("error"), false);
-		setData(I18N_NOOP(name), I18N_NOOP("transfers"),
-						kget_interface.transfers().value());
-	}
-	else {
-		setData(I18N_NOOP(name), I18N_NOOP("error"), true);
-		setData(I18N_NOOP(name), I18N_NOOP("errorMessage"),
-				I18N_NOOP("Is KGet up and running?"));
-	}
+        setData(I18N_NOOP(name), I18N_NOOP("error"), false);
+        setData(I18N_NOOP(name), I18N_NOOP("transfers"),
+                                kget_interface.transfers().value());
+    }
+    else {
+        setData(I18N_NOOP(name), I18N_NOOP("error"), true);
+        setData(I18N_NOOP(name), I18N_NOOP("errorMessage"),
+                                I18N_NOOP("Is KGet up and running?"));
+    }
 }
 
 bool KGetEngine::isDBusServiceRegistered()

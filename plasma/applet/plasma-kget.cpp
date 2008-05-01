@@ -37,7 +37,7 @@
 #include "transfergraph.h"
 #include "barchart.h"
 #include "errorgraph.h"
-//#include "speedgraph.h"
+#include "speedgraph.h"
 #include "piegraph.h"
 #include "panelgraph.h"
 
@@ -52,9 +52,10 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
                             m_graphType(0)
 {
     setHasConfigurationInterface(true);
-    setDrawStandardBackground(true);
+    setBackgroundHints(Applet::DefaultBackground);
 
-    m_theme = new Plasma::Svg("widgets/kget", this);
+    m_theme = new Plasma::Svg(this);
+    m_theme->setImagePath("widgets/kget");
 }
 
 PlasmaKGet::~PlasmaKGet()
@@ -172,9 +173,9 @@ void PlasmaKGet::loadTransferGraph(uint type)
             case PlasmaKGet::PieGraphType :
                 m_transferGraph = new PieGraph(this);
                 break;
-            //case PlasmaKGet::SpeedGraphType :
-       //         m_transferGraph = new SpeedGraph(this);
-       //         break;
+            case PlasmaKGet::SpeedGraphType :
+                m_transferGraph = new SpeedGraph(this);
+                break;
             case PlasmaKGet::PanelGraphType :
                 m_transferGraph = new PanelGraph(this);
                 break;

@@ -26,7 +26,7 @@
 static const int MAX_ITEMS = 10;
 static const int GRAPH_HEIGHT = 200;
 
-//class LineGraphWidget;
+class LineGraphWidget;
 
 class QBoxLayout;
 class QGraphicsLinearLayout;
@@ -45,7 +45,8 @@ private slots:
 
 private:
     QGraphicsLinearLayout *m_layout;
-    //LineGraphWidget *m_lineGraph;
+    LineGraphWidget *m_lineGraph;
 };
 
 #endif
+

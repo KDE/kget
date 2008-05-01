@@ -23,16 +23,14 @@
 
 #include <QMap>
 
-#include <plasma/plasma_export.h>
-#include <plasma/widgets/widget.h>
+#include <QGraphicsWidget>
 
-
-class LineGraphWidget : public Plasma::Widget
+class LineGraphWidget : public QGraphicsWidget
 {
 Q_OBJECT
 
 public:
-    LineGraphWidget(Widget *parent);
+    LineGraphWidget(QGraphicsWidget *parent);
     ~LineGraphWidget();
 
     void addData(const QString &key, int data);
@@ -40,8 +38,8 @@ public:
     void removeData(const QString &key);
     void updateView();
 
-    QSizeF sizeHint() const;
-    void paintWidget(QPainter *painter, const QStyleOptionGraphicsItem *option, 
+    QSizeF sizeHint(Qt::SizeHint, const QSizeF&) const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
                         QWidget *widget);
 
 signals:
@@ -54,3 +52,4 @@ private:
 };
 
 #endif
+
