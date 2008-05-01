@@ -24,8 +24,9 @@
 #include <kio/copyjob.h>
 #include <kio/netaccess.h>
 
-// static QString REGULAR_EXPRESSION = "((http|https)+[\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&]*)";
-static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
+//static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
+static QString REGULAR_EXPRESSION = "((http|https)+[\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&]*)";
+
 
 LinkImporter::LinkImporter(const KUrl &url, QObject *parent) : QThread(parent),
     m_url(url),
@@ -82,7 +83,7 @@ void LinkImporter::slotReadFile(const QUrl &url)
         rx.indexIn(line);
 
         foreach(const QString &link, rx.capturedTexts()) {
-            if(!link.isEmpty() && QUrl(link).isValid()) {
+            if(!link.isEmpty() && QUrl(link).isValid() && m_transfers.indexOf(link) < 0) {
                 m_transfers << link;
             }
         }
