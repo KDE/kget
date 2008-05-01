@@ -83,7 +83,10 @@ void LinkImporter::slotReadFile(const QUrl &url)
         rx.indexIn(line);
 
         foreach(const QString &link, rx.capturedTexts()) {
-            if(!link.isEmpty() && QUrl(link).isValid() && m_transfers.indexOf(link) < 0) {
+            QUrl auxUrl(link);
+
+            if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 && 
+                !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
                 m_transfers << link;
             }
         }

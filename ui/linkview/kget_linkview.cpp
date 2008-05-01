@@ -229,7 +229,10 @@ void KGetLinkView::importUrl(const QString &url)
 {
     if(url.isEmpty()) {
         KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
-        if(clipboardUrl.isValid()) {
+        if(clipboardUrl.isValid() && (
+            (!clipboardUrl.scheme().isEmpty() && !clipboardUrl.host().isEmpty())
+                ||
+            (clipboardUrl.isLocalFile()))) {
             m_urlRequester->setUrl(clipboardUrl);
         }
     }
