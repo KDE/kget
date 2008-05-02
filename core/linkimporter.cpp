@@ -1,8 +1,9 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2008 Javier Goday <jgoday @ gmail.com>
-   Url regular expression taken from urlview tool by Michael Elkins <me@cs.hmc.edu>.
-
+   First Url regular expression taken from urlview tool by Michael Elkins <me@cs.hmc.edu>.
+   Regular expression improved by FiNex.
+   
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
    License as published by the Free Software Foundation; either
@@ -25,8 +26,7 @@
 #include <kio/netaccess.h>
 
 //static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
-static QString REGULAR_EXPRESSION = "((http|https)+[\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&]*)";
-
+static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
 
 LinkImporter::LinkImporter(const KUrl &url, QObject *parent) : QThread(parent),
     m_url(url),

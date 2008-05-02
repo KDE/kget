@@ -1,7 +1,6 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2008 Javier Goday <jgoday @ gmail.com>
-   Url regular expression taken from urlview tool by Michael Elkins <me@cs.hmc.edu>.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
