@@ -21,9 +21,9 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.setupUi(widget);
     setMainWidget(widget);
     m_downloadSpin = ui.downloadSpin;
-    m_downloadSpin->setValue(m_transfer->visibleDownloadLimit());
+    m_downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     m_uploadSpin = ui.uploadSpin;
-    m_uploadSpin->setValue(m_transfer->visibleUploadLimit());
+    m_uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     m_ratioSpin = ui.ratioSpin;
     m_ratioSpin->setValue(m_transfer->maximumShareRatio());
     m_downloadCheck = ui.downloadCheck;
@@ -52,14 +52,14 @@ TransferSettingsDialog::~TransferSettingsDialog()
 void TransferSettingsDialog::save()
 {//TODO: Set to -1 when no limit
     if (m_downloadCheck->isChecked())
-        m_transfer->setVisibleDownloadLimit(m_downloadSpin->value());
+        m_transfer->setDownloadLimit(m_downloadSpin->value(), Transfer::VisibleSpeedLimit);
     else
-        m_transfer->setVisibleDownloadLimit(0);
+        m_transfer->setDownloadLimit(0, Transfer::VisibleSpeedLimit);
 
     if (m_uploadCheck->isChecked())
-        m_transfer->setVisibleUploadLimit(m_uploadSpin->value());
+        m_transfer->setUploadLimit(m_uploadSpin->value(), Transfer::VisibleSpeedLimit);
     else
-        m_transfer->setVisibleUploadLimit(0);
+        m_transfer->setUploadLimit(0, Transfer::VisibleSpeedLimit);
 
     if (m_ratioCheck->isChecked())
         m_transfer->setMaximumShareRatio(m_ratioSpin->value());

@@ -112,7 +112,8 @@ void BTTransfer::update()
             torrent->recreateMissingFiles();
         }
         updateTorrent();
-        kDebug(5001) << "Limits are " + QString::number(downloadLimit()) + " and " + QString::number(uploadLimit());
+        kDebug(5001) << "Limits are " + QString::number(downloadLimit(Transfer::InvisibleSpeedLimit)) + 
+                                                  " and " + QString::number(uploadLimit(Transfer::InvisibleSpeedLimit));
     }
     else
         timer.stop();
@@ -180,20 +181,6 @@ void BTTransfer::setPort(int port)
     bt::Globals::instance().getServer().changePort(port);
 }
 
-void BTTransfer::setDownloadLimit(int dlLimit)
-{
-    kDebug(5001) << "New Download Limit is: " << dlLimit;
-    m_dlLimit = dlLimit;
-    setSpeedLimits(m_ulLimit, dlLimit);
-}
-
-void BTTransfer::setUploadLimit(int ulLimit)
-{
-    kDebug(5001) << "New Upload Limit is: " << ulLimit;
-    m_ulLimit = ulLimit;
-    setSpeedLimits(ulLimit, m_dlLimit);
-}
-
 void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
 {
     kDebug(5001);
@@ -228,7 +215,7 @@ void BTTransfer::startTorrent()
     if (m_ready)
     {
         //kDebug(5001) << "Going to download that stuff :-0";
-        setSpeedLimits(uploadLimit(), downloadLimit());//Set traffic-limits before starting
+        setSpeedLimits(uploadLimit(Transfer::InvisibleSpeedLimit), downloadLimit(Transfer::InvisibleSpeedLimit));//Set traffic-limits before starting
         torrent->setMonitor(this);
         torrent->start();
         kDebug(5001) << "Got started??";

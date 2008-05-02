@@ -34,8 +34,8 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_source(source), m_dest(dest),
       m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
-      m_ulLimit(0), m_dlLimit(0), m_isSelected(false),
-      m_visibleUlLimit(0), m_visibleDlLimit(0), m_ratio(0),
+      m_uploadLimit(0), m_downloadLimit(0), m_isSelected(false),
+      m_visibleUploadLimit(0), m_visibleDownloadLimit(0), m_ratio(0),
       m_handler(0), m_factory(factory)
 {
     if( e )
@@ -62,18 +62,44 @@ int Transfer::elapsedTime() const
     return m_runningSeconds;
 }
 
-void Transfer::setVisibleUploadLimit(int visibleUlLimit)
+void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 {
-    m_visibleUlLimit = visibleUlLimit;
+    if (limit == Transfer::VisibleSpeedLimit)
+        m_visibleUploadLimit = ulLimit;
+        if (ulLimit < m_uploadLimit || m_uploadLimit == 0)
+            m_uploadLimit = ulLimit;
+    else
+        m_uploadLimit = ulLimit;
 
-    setUploadLimit(m_visibleUlLimit);
+    setSpeedLimits(m_uploadLimit, m_downloadLimit);
 }
 
-void Transfer::setVisibleDownloadLimit(int visibleDlLimit)
+void Transfer::setDownloadLimit(int dlLimit, SpeedLimit limit)
 {
-    m_visibleDlLimit = visibleDlLimit;
+    if (limit == Transfer::VisibleSpeedLimit)
+        m_visibleDownloadLimit = dlLimit;
+        if (dlLimit < m_downloadLimit || m_downloadLimit == 0)
+            m_downloadLimit = dlLimit;
+    else
+        m_downloadLimit = dlLimit;
 
-    setDownloadLimit(m_visibleDlLimit);
+    setSpeedLimits(m_uploadLimit, m_downloadLimit);
+}
+
+int Transfer::uploadLimit(SpeedLimit limit) const
+{
+    if (limit == Transfer::VisibleSpeedLimit)
+        return m_visibleUploadLimit;
+
+    return m_uploadLimit;
+}
+
+int Transfer::downloadLimit(SpeedLimit limit) const
+{
+    if (limit == Transfer::VisibleSpeedLimit)
+        return m_visibleDownloadLimit;
+
+    return m_downloadLimit;
 }
 
 void Transfer::setMaximumShareRatio(double ratio)
@@ -88,9 +114,9 @@ void Transfer::checkShareRatio()
         return;
 
     if (m_uploadedSize / m_downloadedSize >= m_ratio)
-        setDownloadLimit(1);//If we set it to 0 we would have no limit xD
+        setDownloadLimit(1, Transfer::InvisibleSpeedLimit);//If we set it to 0 we would have no limit xD
     else
-        setDownloadLimit(0);
+        setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
 }
 
 void Transfer::setDelay(int seconds)
@@ -146,8 +172,8 @@ void Transfer::save(const QDomElement &element)
     e.setAttribute("TotalSize", m_totalSize);
     e.setAttribute("DownloadedSize", m_downloadedSize);
     e.setAttribute("UploadedSize", m_uploadedSize);
-    e.setAttribute("DownloadLimit", m_visibleDlLimit);
-    e.setAttribute("UploadLimit", m_visibleUlLimit);
+    e.setAttribute("DownloadLimit", m_visibleDownloadLimit);
+    e.setAttribute("UploadLimit", m_visibleUploadLimit);
     e.setAttribute("ElapsedTime", status() == Job::Running ? m_runningTime.elapsed() / 1000 : m_runningSeconds);
 }
 
@@ -173,8 +199,8 @@ void Transfer::load(const QDomElement &e)
     {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
-    setVisibleUploadLimit(e.attribute("UploadLimit").toInt());
-    setVisibleDownloadLimit(e.attribute("DownloadLimit").toInt());
+    setUploadLimit(e.attribute("UploadLimit").toInt(), Transfer::VisibleSpeedLimit);
+    setDownloadLimit(e.attribute("DownloadLimit").toInt(), Transfer::VisibleSpeedLimit);
     m_runningSeconds = e.attribute("ElapsedTime").toInt();
 }
 

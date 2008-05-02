@@ -10,7 +10,6 @@
 
 #include "core/transfergroup.h"
 
-#include "core/transfer.h"
 #include "core/transfergrouphandler.h"
 #include "core/kget.h"
 #include "core/transferhistorystore.h"
@@ -31,8 +30,8 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, c
       m_model(model), m_name(name),
       m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
-      m_dlLimit(0), m_ulLimit(0),
-      m_visibleDlLimit(0), m_visibleUlLimit(0),
+      m_downloadLimit(0), m_uploadLimit(0),
+      m_visibleDownloadLimit(0), m_visibleUploadLimit(0),
       m_iconName("bookmark-new-list"), m_defaultFolder(0)
 {
     m_handler = new TransferGroupHandler(this, scheduler);
@@ -185,42 +184,56 @@ TransferGroupHandler * TransferGroup::handler() const
     return m_handler;
 }
 
-void TransferGroup::setVisibleUploadLimit(int limit) 
+void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) 
 {
-    m_visibleUlLimit = limit;
-    if (uploadLimit() > m_visibleUlLimit || uploadLimit() == 0)
-        setUploadLimit(m_visibleUlLimit);
+    if (limit == Transfer::VisibleSpeedLimit)
+        m_visibleUploadLimit = ulLimit;
+        if (ulLimit < m_uploadLimit || m_uploadLimit == 0)
+            m_uploadLimit = ulLimit;
+    else
+        m_uploadLimit = ulLimit;
+
+    calculateUploadLimit();
 }
 
-void TransferGroup::setVisibleDownloadLimit(int limit) 
+void TransferGroup::setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) 
 {
-    m_visibleDlLimit = limit;
-    if (downloadLimit() > m_visibleDlLimit || downloadLimit() == 0)
-        setDownloadLimit(m_visibleDlLimit);
-}
+    if (limit == Transfer::VisibleSpeedLimit)
+        m_visibleDownloadLimit = dlLimit;
+        if (dlLimit < m_downloadLimit || m_downloadLimit == 0)
+            m_downloadLimit = dlLimit;
+    else
+        m_downloadLimit = dlLimit;
 
-void TransferGroup::setDownloadLimit(int limit) 
-{
-    m_dlLimit = limit;
     calculateDownloadLimit();
 }
 
-void TransferGroup::setUploadLimit(int limit) 
+int TransferGroup::uploadLimit(Transfer::SpeedLimit limit) const
 {
-    m_ulLimit = limit;
-    calculateUploadLimit();
+    if (limit == Transfer::VisibleSpeedLimit)
+        return m_visibleUploadLimit;
+
+    return m_uploadLimit;
+}
+
+int TransferGroup::downloadLimit(Transfer::SpeedLimit limit) const
+{
+    if (limit == Transfer::VisibleSpeedLimit)
+        return m_visibleDownloadLimit;
+
+    return m_downloadLimit;
 }
 
 void TransferGroup::calculateSpeedLimits()
 {
-    kDebug(5001) << "*************************** HERE WE ARE";
+    kDebug(5001) << "We will calculate the new SpeedLimits now";
     calculateDownloadLimit();
     calculateUploadLimit();
 }
 
 void TransferGroup::calculateDownloadLimit()
 {
-    kDebug(5001) << "Now we are calculating download Limits =): " + QString::number(downloadLimit());
+    kDebug(5001) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
     if (supportsSpeedLimits())
     {
         kDebug(5001) << "We are supporting speedlimits =)";
@@ -233,40 +246,41 @@ void TransferGroup::calculateDownloadLimit()
             if (transfer)
             {
                 kDebug(5001) << "Cast was ok =)";
-                if (downloadLimit() == 0 && transfer->visibleDownloadLimit() != 0)
+                if (m_downloadLimit == 0 && transfer->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
                     continue;
-                else if (downloadLimit() == 0 && transfer->visibleDownloadLimit() == 0)
-                    transfer->setDownloadLimit(0);
-                else if (transfer->visibleDownloadLimit() < downloadLimit() / n && transfer->visibleDownloadLimit() != 0)
+                else if (m_downloadLimit == 0 && transfer->downloadLimit(Transfer::VisibleSpeedLimit) == 0)
+                    transfer->setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
+                else if (transfer->downloadLimit(Transfer::VisibleSpeedLimit) < m_downloadLimit / n 
+                                            && transfer->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
                         /*If the transfer's visible download limit is under the new one, 
                                        we move the KiB/s which are different to the pool*/
-                    pool = pool + (downloadLimit() / n - transfer->visibleDownloadLimit());       
-                else if (transfer->downloadSpeed() + 10 < downloadLimit() / n)
+                    pool = pool + (m_downloadLimit / n - transfer->downloadLimit(Transfer::VisibleSpeedLimit));       
+                else if (transfer->downloadSpeed() + 10 < m_downloadLimit / n)
                 {
                     kDebug(5001) << "Ok the download speed man is tooooo low, so we have a small buffer";
                         /*When the downloadSpeed of the transfer is under the new downloadLimit + 10 then we 
                             set the downloadLimit to the downloadSpeed + 10*/
-                    pool = pool + downloadLimit() / n - transfer->downloadSpeed() + 10;
-                    transfer->setDownloadLimit(transfer->downloadSpeed() + 10);
+                    pool = pool + m_downloadLimit / n - transfer->downloadSpeed() + 10;
+                    transfer->setDownloadLimit(transfer->downloadSpeed() + 10, Transfer::InvisibleSpeedLimit);
                 }
                 else
                 {
                     kDebug(5001) << "Ok the generic sollution xD";
-                    transfer->setDownloadLimit(downloadLimit() / n);
+                    transfer->setDownloadLimit(m_downloadLimit / n, Transfer::InvisibleSpeedLimit);
                     transfersNeedSpeed.append(transfer);
                 }
             }
         }
         foreach (Transfer *transfer, transfersNeedSpeed)
         {
-            transfer->setDownloadLimit(downloadLimit() / n + pool / transfersNeedSpeed.count());
+            transfer->setDownloadLimit(m_downloadLimit / n + pool / transfersNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
         }
     }
 }
 
 void TransferGroup::calculateUploadLimit()
 {
-    kDebug(5001) << "Now we are calculating upload Limits =)";
+    kDebug(5001) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
     if (supportsSpeedLimits())
     {
         kDebug(5001) << "We are supporting speedlimits =)";
@@ -279,33 +293,34 @@ void TransferGroup::calculateUploadLimit()
             if (transfer)
             {
                 kDebug(5001) << "Cast was ok =)";
-                if (uploadLimit() == 0 && transfer->visibleUploadLimit() != 0)
+                if (m_uploadLimit == 0 && transfer->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
                     continue;
-                else if (uploadLimit() == 0 && transfer->visibleUploadLimit() == 0)
-                    transfer->setUploadLimit(0);
-                else if (transfer->visibleUploadLimit() < uploadLimit() / n && transfer->visibleUploadLimit() != 0)
+                else if (m_uploadLimit == 0 && transfer->uploadLimit(Transfer::VisibleSpeedLimit) == 0)
+                    transfer->setUploadLimit(0, Transfer::InvisibleSpeedLimit);
+                else if (transfer->uploadLimit(Transfer::VisibleSpeedLimit) < m_uploadLimit / n 
+                                                        && transfer->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
                         /*If the transfer's visible upload limit is under the new one, 
                                        we move the KiB/s which are different to the pool*/
-                    pool = pool + (uploadLimit() / n - transfer->visibleUploadLimit());       
-                else if (transfer->uploadSpeed() + 10 < uploadLimit() / n)
+                    pool = pool + (m_uploadLimit / n - transfer->uploadLimit(Transfer::VisibleSpeedLimit));       
+                else if (transfer->uploadSpeed() + 10 < m_uploadLimit / n)
                 {
                     kDebug(5001) << "Ok the upload speed man is tooooo low, so we have a small buffer";
                         /*When the uploadSpeed of the transfer is under the new uploadLimit + 10 then we 
                             set the uploadLimit to the uploadSpeed + 10*/
-                    pool = pool + uploadLimit() / n - transfer->uploadSpeed() + 10;
-                    transfer->setUploadLimit(transfer->uploadSpeed() + 10);
+                    pool = pool + m_uploadLimit / n - transfer->uploadSpeed() + 10;
+                    transfer->setUploadLimit(transfer->uploadSpeed() + 10, Transfer::InvisibleSpeedLimit);
                 }
                 else
                 {
                     kDebug(5001) << "Ok the generic sollution xD";
-                    transfer->setUploadLimit(uploadLimit() / n);
+                    transfer->setUploadLimit(m_uploadLimit / n, Transfer::InvisibleSpeedLimit);
                     transfersNeedSpeed.append(transfer);
                 }
             }
         }
         foreach (Transfer *transfer, transfersNeedSpeed)
         {
-            transfer->setUploadLimit(uploadLimit() / n + pool / transfersNeedSpeed.count());
+            transfer->setUploadLimit(m_uploadLimit / n + pool / transfersNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
         }
     }
 }
@@ -324,8 +339,8 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 
     e.setAttribute("Name", m_name);
     e.setAttribute("DefaultFolder", m_defaultFolder);
-    e.setAttribute("DownloadLimit", m_dlLimit);
-    e.setAttribute("UploadLimit", m_ulLimit);
+    e.setAttribute("DownloadLimit", m_visibleDownloadLimit);
+    e.setAttribute("UploadLimit", m_visibleUploadLimit);
     e.setAttribute("Icon", m_iconName);
 
     iterator it = begin();
@@ -346,8 +361,8 @@ void TransferGroup::load(const QDomElement & e)
 
     m_name = e.attribute("Name");
     m_defaultFolder = e.attribute("DefaultFolder");
-    m_dlLimit = e.attribute("DownloadLimit").toInt();
-    m_ulLimit = e.attribute("UploadLimit").toInt();
+    m_visibleDownloadLimit = e.attribute("DownloadLimit").toInt();
+    m_visibleUploadLimit = e.attribute("UploadLimit").toInt();
     if (!e.attribute("Icon").isEmpty())
         m_iconName = e.attribute("Icon");
 

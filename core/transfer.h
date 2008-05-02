@@ -72,6 +72,12 @@ class KGET_EXPORT Transfer : public Job
             warning,
             error
         };
+
+        enum SpeedLimit
+        {
+            VisibleSpeedLimit   = 0x01,
+            InvisibleSpeedLimit = 0x02
+        };
         typedef int ChangesFlags;
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
@@ -103,48 +109,24 @@ class KGET_EXPORT Transfer : public Job
          * @note this is not displayed in any GUI, use setVisibleUploadLimit(int) instead
          * @param visibleUlLimit upload Limit
          */
-        virtual void setUploadLimit(int ulLimit) {Q_UNUSED(ulLimit);}
+        void setUploadLimit(int ulLimit, SpeedLimit limit);
 
         /**
          * Set the Transfer's UploadLimit, which are displayed in the GUI
          * @note this is not displayed in any GUI, use setVisibleDownloadLimit(int) instead
          * @param visibleUlLimit upload Limit
          */
-        virtual void setDownloadLimit(int dlLimit) {Q_UNUSED(dlLimit);}
+        void setDownloadLimit(int dlLimit, SpeedLimit limit);
 
         /**
          * @return the UploadLimit, which is invisible in the GUI
          */
-        int uploadLimit() const {return m_ulLimit;}
+        int uploadLimit(SpeedLimit limit) const;
 
         /**
          * @return the DownloadLimit, which is invisible in the GUI
          */
-        int downloadLimit() const {return m_dlLimit;}
-
-        /**
-         * Set the Transfer's UploadLimit, which are displayed in the GUI
-         * @note use this, when a user changes the UploadLimit manually
-         * @param visibleUlLimit upload Limit
-         */
-        void setVisibleUploadLimit(int visibleUlLimit);
-
-        /**
-         * Set the Transfer's UploadLimit, which are displayed in the GUI
-         * @note use this, when a user changes the UploadLimit manually
-         * @param visibleUlLimit upload Limit
-         */
-        void setVisibleDownloadLimit(int visibleDlLimit);
-
-        /**
-         * @return the visible UploadLimit
-         */
-        int visibleUploadLimit() const {return m_visibleUlLimit;}
-
-        /**
-         * @return the visible DownloadLimit
-         */
-        int visibleDownloadLimit() const {return m_visibleDlLimit;}
+        int downloadLimit(SpeedLimit limit) const;
 
         /**
          * Set the maximum share-ratio
@@ -241,6 +223,11 @@ class KGET_EXPORT Transfer : public Job
          */
         virtual void saveNepomuk(Nepomuk::Resource *res);
 
+        /**
+         * Function used to set the SpeedLimits to the transfer
+         */
+        virtual void setSpeedLimits(int uploadLimit, int downloadLimit) {Q_UNUSED(uploadLimit) Q_UNUSED(downloadLimit) }
+
         // --- Transfer information ---
         KUrl m_source;
         KUrl m_dest;
@@ -253,14 +240,14 @@ class KGET_EXPORT Transfer : public Job
         int           m_downloadSpeed;
         int           m_uploadSpeed;
 
-        int           m_ulLimit;
-        int           m_dlLimit;
+        int           m_uploadLimit;
+        int           m_downloadLimit;
 
         bool m_isSelected;
 
     private:
-        int m_visibleUlLimit;
-        int m_visibleDlLimit;
+        int m_visibleUploadLimit;
+        int m_visibleDownloadLimit;
         int m_runningSeconds;
         double m_ratio;
 

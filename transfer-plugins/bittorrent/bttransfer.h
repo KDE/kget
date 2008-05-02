@@ -79,8 +79,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
 
         //More Bittorrent-Functions
         void setPort(int port);
-        void setDownloadLimit(int dlLimit);
-        void setUploadLimit(int ulLimit);
         void addTracker(const QString &url);
         //void save(const QDomElement &element);
 
@@ -88,6 +86,7 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
 
     protected:
         //void load(const QDomElement &e);
+        void setSpeedLimits(int ulLimit, int dlLimit);
 
     private slots:
         void init(const KUrl &src = KUrl(), const QByteArray &data = QByteArray());
@@ -99,7 +98,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         void startTorrent();
         void stopTorrent();
         void updateTorrent();
-        void setSpeedLimits(int ulLimit, int dlLimit);
 
         // bt::MonitorInterface functions
         virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);

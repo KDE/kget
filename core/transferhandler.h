@@ -150,48 +150,24 @@ class KGET_EXPORT TransferHandler
          * @note this UploadLimit is not visible in the GUI
          * @param ulLimit upload Limit
          */
-        void setUploadLimit(int ulLimit) {m_transfer->setUploadLimit(ulLimit);}
+        void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) {m_transfer->setUploadLimit(ulLimit, limit);}
 
         /**
          * Set a DownloadLimit for the transfer
          * @note this DownloadLimit is not visible in the GUI
          * @param dlLimit download Limit
          */
-        void setDownloadLimit(int dlLimit) {m_transfer->setDownloadLimit(dlLimit);}
+        void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) {m_transfer->setDownloadLimit(dlLimit, limit);}
 
         /**
          * @return the upload Limit of the transfer in KiB
          */
-        int uploadLimit() const {return m_transfer->uploadLimit();}
+        int uploadLimit(Transfer::SpeedLimit limit) const {return m_transfer->uploadLimit(limit);}
 
         /**
          * @return the download Limit of the transfer in KiB
          */
-        int downloadLimit() const {return m_transfer->downloadLimit();}
-
-        /**
-         * Set an UploadLimit for the transfer
-         * @note this UploadLimit is visible in the GUI
-         * @param ulLimit upload Limit
-         */
-        void setVisibleUploadLimit(int ulLimit) {m_transfer->setVisibleUploadLimit(ulLimit);}
-
-        /**
-         * Set an UploadLimit for the transfer
-         * @note this UploadLimit is visible in the GUI
-         * @param ulLimit upload Limit
-         */
-        void setVisibleDownloadLimit(int dlLimit) {m_transfer->setVisibleDownloadLimit(dlLimit);}
-
-        /**
-         * @return the visible upload Limit of the transfer in KiB
-         */
-        int visibleUploadLimit() const {return m_transfer->visibleUploadLimit();}
-
-        /**
-         * @return the visible download Limit of the transfer in KiB
-         */
-        int visibleDownloadLimit() const {return m_transfer->visibleDownloadLimit();}
+        int downloadLimit(Transfer::SpeedLimit limit) const {return m_transfer->downloadLimit(limit);}
 
         /**
          * Set the maximum share-ratio

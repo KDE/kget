@@ -21,9 +21,9 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     ui.setupUi(widget);
     setMainWidget(widget);
     m_downloadBox = ui.downloadBox;
-    m_downloadBox->setValue(group->visibleDownloadLimit());
+    m_downloadBox->setValue(group->downloadLimit(Transfer::VisibleSpeedLimit));
     m_uploadBox = ui.uploadBox;
-    m_uploadBox->setValue(group->visibleUploadLimit());
+    m_uploadBox->setValue(group->uploadLimit(Transfer::VisibleSpeedLimit));
     m_downloadCheck = ui.downloadCheck;
     if (m_downloadBox->value() != 0)
         m_downloadCheck->setChecked(true);
@@ -45,14 +45,14 @@ void GroupSettingsDialog::save()
     m_group->setDefaultFolder(m_defaultFolderRequester->url().path());
 
     if (m_downloadCheck->isChecked())
-        m_group->setVisibleDownloadLimit(m_downloadBox->value());
+        m_group->setDownloadLimit(m_downloadBox->value(), Transfer::VisibleSpeedLimit);
     else
-        m_group->setVisibleDownloadLimit(0);
+        m_group->setDownloadLimit(0, Transfer::VisibleSpeedLimit);
 
     if (m_uploadCheck->isChecked())
-        m_group->setVisibleUploadLimit(m_uploadBox->value());
+        m_group->setUploadLimit(m_uploadBox->value(), Transfer::VisibleSpeedLimit);
     else
-        m_group->setVisibleUploadLimit(0);
+        m_group->setUploadLimit(0, Transfer::VisibleSpeedLimit);
 }
 
 #include "groupsettingsdialog.moc"

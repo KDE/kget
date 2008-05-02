@@ -103,7 +103,8 @@ QVariant TransferGroupHandler::data(int column)
     switch(column)
     {
         case 0:
-            if (!m_group->supportsSpeedLimits() && (m_group->visibleDownloadLimit() != 0 || m_group->visibleUploadLimit() != 0))
+            if (!m_group->supportsSpeedLimits() && 
+                             (m_group->downloadLimit(Transfer::VisibleSpeedLimit) != 0 || m_group->uploadLimit(Transfer::VisibleSpeedLimit) != 0))
                 return name() + " - Does not supports SpeedLimits";//FIXME: Do a better text here
             else
                 return name();
