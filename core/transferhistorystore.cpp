@@ -286,6 +286,11 @@ void XmlStore::load()
     m_loadThread->start();
 }
 
+void XmlStore::clear()
+{
+    QFile::remove(m_storeUrl);
+}
+
 void XmlStore::saveItem(const TransferHistoryItem &item)
 {
     m_saveThread = new XmlStore::SaveThread(this, m_storeUrl, item);
@@ -356,6 +361,11 @@ void SQLiteStore::load()
     sql().close();
 
     emit loadFinished();
+}
+
+void SQLiteStore::clear()
+{
+    QFile::remove(m_dbName);
 }
 
 void SQLiteStore::saveItem(const TransferHistoryItem &item)

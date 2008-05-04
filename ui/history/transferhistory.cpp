@@ -143,7 +143,9 @@ void TransferHistory::slotAddTransfers()
 
 void TransferHistory::slotClear()
 {
-    // TODO
+    m_store->clear();
+
+    slotLoadRangeType(m_rangeType);
 }
 
 void TransferHistory::slotWriteDefault()

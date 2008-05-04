@@ -68,6 +68,7 @@ public:
 
 public slots:
     virtual void load() {};
+    virtual void clear() {};
     virtual void saveItem(const TransferHistoryItem &item)
     {
         Q_UNUSED(item)

@@ -24,6 +24,7 @@ public:
 
 public slots:
     void load();
+    void clear();
     void saveItem(const TransferHistoryItem &item);
     void deleteItem(const TransferHistoryItem &item);
 
