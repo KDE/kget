@@ -202,6 +202,62 @@ void XmlStore::SaveThread::run()
     }
 }
 
+XmlStore::DeleteThread::DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item) : QThread(parent),
+    m_url(url),
+    m_item(item),
+    m_items()
+{
+}
+
+void XmlStore::DeleteThread::run()
+{
+    QDomDocument doc("tempHistory");
+    QFile file(m_url);
+
+    QString error;
+    int line;
+    int column;
+    int total;
+
+    if (!doc.setContent(&file, &error, &line, &column)) 
+    {
+        kDebug(5001) << "Error1" << error << line << column;
+        return;
+    }
+    file.close();
+
+    QDomElement root = doc.documentElement();
+    total = root.childNodes().size();
+
+    QDomNodeList list = root.elementsByTagName("Transfer");
+
+    int nItems = list.length();
+
+    for (int i = 0 ; i < nItems ; i++) {
+        QDomElement element = list.item(i).toElement();
+
+        if(QString::compare(element.attribute("Source"), m_item.source()) == 0) {
+            root.removeChild(element);
+        }
+        else {
+            TransferHistoryItem item;
+            item.setDest(element.attribute("Dest"));
+            item.setSource(element.attribute("Source"));
+            item.setSize(element.attribute("Size").toInt());
+            item.setDateTime(QDateTime::fromTime_t(element.attribute("Time").toUInt()));
+            item.setState(element.attribute("State").toInt());
+            m_items << item;
+        }
+    }
+
+    if (file.open(QFile::WriteOnly | QFile::Truncate)) {
+        QTextStream stream( &file );
+        doc.save(stream, 0);
+        file.close();
+        doc.clear();
+    }
+}
+
 XmlStore::LoadThread::LoadThread(QObject *parent, const QString &url) : QThread(parent),
     m_url(url)
 {
@@ -255,7 +311,8 @@ void XmlStore::LoadThread::run()
 XmlStore::XmlStore(const QString &url) : TransferHistoryStore(),
     m_storeUrl(url),
     m_loadThread(0),
-    m_saveThread(0)
+    m_saveThread(0),
+    m_deleteThread(0)
 {
 }
 
@@ -268,8 +325,14 @@ XmlStore::~XmlStore()
     if(m_saveThread && m_saveThread->isRunning()) {
         m_saveThread->terminate();
     }
+
+    if(m_deleteThread && m_deleteThread->isRunning()) {
+        m_deleteThread->terminate();
+    }
+
     delete m_loadThread;
     delete m_saveThread;
+    delete m_deleteThread;
 }
 
 void XmlStore::load()
@@ -304,7 +367,12 @@ void XmlStore::saveItem(const TransferHistoryItem &item)
 void XmlStore::deleteItem(const TransferHistoryItem &item)
 {
     Q_UNUSED(item)
-    // TODO: not implemented yet
+
+    m_deleteThread = new XmlStore::DeleteThread(this, m_storeUrl, item);
+
+    connect(m_deleteThread, SIGNAL(finished()), SLOT(slotDeleteElement()));
+
+    m_deleteThread->start();
 }
 
 void XmlStore::slotLoadElement(int number, int total, const TransferHistoryItem &item)
@@ -312,6 +380,14 @@ void XmlStore::slotLoadElement(int number, int total, const TransferHistoryItem 
     Q_UNUSED(number)
     Q_UNUSED(total)
     m_items.append(item);
+}
+
+void XmlStore::slotDeleteElement()
+{
+    m_items.clear();
+    m_items << m_deleteThread->items();
+
+    emit loadFinished();
 }
 
 #ifdef HAVE_SQLITE

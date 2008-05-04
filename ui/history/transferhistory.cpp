@@ -117,22 +117,19 @@ void TransferHistory::slotDeleteTransfer()
 
         slotDeleteTransfer(range_view->currentItem(0)->text());
 
-        range_view->removeRow(range_view->currentItem(0)->index().row(),
-                                range_view->currentItem(0)->index().parent());
+        slotLoadRangeType(m_rangeType);
     }
 }
 
 void TransferHistory::slotDeleteTransfer(const QString &transferName, const QModelIndex &index)
 {
+    Q_UNUSED(index)
+
     TransferHistoryItem item;
     item.setSource(transferName);
     m_store->deleteItem(item);
 
-    if (m_iconModeEnabled && index.isValid()) {
-        TransferHistoryCategorizedView *view = qobject_cast <TransferHistoryCategorizedView *> (m_view);
-
-        view->removeRow(index.row(), index.parent());
-    }
+    slotLoadRangeType(m_rangeType);
 }
 
 void TransferHistory::slotAddTransfers()
@@ -306,6 +303,8 @@ void TransferHistory::slotSetIconMode()
     slotLoadRangeType(m_rangeType);
 
     connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
+    connect(m_view, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
+                    SLOT(slotDeleteTransfer(const QString &, const QModelIndex &)));
 }
 
 void TransferHistory::slotElementLoaded(int number, int total, const TransferHistoryItem &item)

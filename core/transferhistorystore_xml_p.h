@@ -30,6 +30,9 @@ public slots:
 
     void slotLoadElement(int number, int total, const TransferHistoryItem &item);
 
+private slots:
+    void slotDeleteElement();
+
 private:
     QString m_storeUrl;
 
@@ -38,6 +41,9 @@ private:
 
     class SaveThread;
     SaveThread *m_saveThread;
+
+    class DeleteThread;
+    DeleteThread *m_deleteThread;
 };
 
 
@@ -72,5 +78,23 @@ private:
     QString m_url;
     QList <TransferHistoryItem> m_items;
     TransferHistoryItem m_item;
+};
+
+class XmlStore::DeleteThread : public QThread
+{
+    Q_OBJECT
+public:
+    DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item);
+
+    void run();
+    QList <TransferHistoryItem> items() const
+    {
+        return m_items;
+    };
+
+private:
+    QString m_url;
+    TransferHistoryItem m_item;
+    QList <TransferHistoryItem> m_items;
 };
 #endif
