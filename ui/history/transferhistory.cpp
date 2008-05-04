@@ -191,6 +191,25 @@ void TransferHistory::hideEvent(QHideEvent *event)
     deleteLater();
 }
 
+QString TransferHistory::statusText(int status) const
+{
+    switch (status)
+    {
+        case Job::Running:
+            return i18n("Running");
+        case Job::Delayed:
+            return i18n("Delayed");
+        case Job::Stopped:
+            return i18n("Stopped");
+        case Job::Aborted:
+            return i18n("Aborted");
+        case Job::Finished:
+            return i18n("Finished");
+        default:
+            return "";
+    }
+}
+
 void TransferHistory::slotLoadRangeType(int type)
 {
     m_rangeType = type;
@@ -301,7 +320,7 @@ void TransferHistory::slotElementLoaded(int number, int total, const TransferHis
         attributeList.append(item.dest());
         attributeList.append(item.dateTime().date().toString());
         attributeList.append(KIO::convertSize(item.size()));
-        attributeList.append(item.state());
+        attributeList.append(statusText(item.state()));
 
         QVariant data;
         if(m_rangeType == TransferHistory::Date) {

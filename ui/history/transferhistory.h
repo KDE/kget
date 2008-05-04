@@ -40,6 +40,8 @@ class TransferHistory : public KDialog, Ui::TransferHistory
             Host = 2
         };
         void hideEvent(QHideEvent *event);
+        QString statusText(int status) const;
+
         bool save;
         QFileSystemWatcher *watcher;
         int m_rangeType;
