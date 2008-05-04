@@ -55,7 +55,7 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
 
     connect(item_delegate, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
                            SIGNAL(deletedTransfer(const QString &, const QModelIndex &)));
-
+    connect(m_view, SIGNAL(doubleClicked(const QModelIndex &)), SIGNAL(doubleClicked(const QModelIndex &)));
     setLayout(layout);
 }
 
@@ -73,6 +73,12 @@ void TransferHistoryCategorizedView::addData(const QDate &date, const QString &u
 
     m_delegate->categorizeItem(item);
     m_model->appendRow(item);
+}
+
+QVariant TransferHistoryCategorizedView::data(const QModelIndex &index, 
+                                             TransferHistoryCategorizedDelegate::AlternativeRoles role) const
+{
+    return m_model->itemFromIndex(m_proxyModel->mapToSource(index))->data(role);
 }
 
 void TransferHistoryCategorizedView::clear()

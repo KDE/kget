@@ -70,7 +70,7 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         void slotClear();
         void slotWriteDefault();
         void slotDownload();
-        void slotOpenFile();
+        void slotOpenFile(const QModelIndex &index = QModelIndex());
         void contextMenuEvent(QContextMenuEvent *event);
         void slotLoadRangeType(int type);
         void slotSetListMode();

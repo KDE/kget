@@ -32,9 +32,11 @@ public:
     ~TransferHistoryCategorizedView();
 
     void addData(const QDate &date, const QString &url, const QString &dest, int size);
+    QVariant data(const QModelIndex &index, TransferHistoryCategorizedDelegate::AlternativeRoles role) const;
 
 signals:
     void deletedTransfer(const QString &url, const QModelIndex &index);
+    void doubleClicked(const QModelIndex &);
 
 public slots:
     void clear();

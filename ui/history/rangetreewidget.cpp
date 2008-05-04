@@ -97,7 +97,7 @@ RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
 
     // delegate for the range title
     RangeTreeWidgetItemDelegate *delegate = new RangeTreeWidgetItemDelegate(this);
-    setItemDelegate(delegate);
+    setItemDelegate(delegate); 
 }
 
 RangeTreeWidget::~RangeTreeWidget()
