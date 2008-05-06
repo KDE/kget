@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -176,26 +177,6 @@ const QList<QAction *> & TransferGroupHandler::actions()
     createActions();
 
     return m_actions;
-}
-
-KMenu * TransferGroupHandler::popupMenu()
-{
-    KMenu * popup = new KMenu( 0 );
-//     popup->addTitle( i18nc( "%1 is the name of the group", "%1 Group", name() ) );
-
-    createActions();
-
-    popup->addAction( KGet::actionCollection()->action("transfer_group_start") );
-    popup->addAction( KGet::actionCollection()->action("transfer_group_stop") );
-    popup->addSeparator();
-    popup->addAction(KGet::actionCollection()->action("transfer_group_settings"));
-    popup->addSeparator();
-    if(m_group->name() != i18n("My Downloads")) {
-        popup->addAction( KGet::actionCollection()->action("delete_groups") );
-        popup->addAction( KGet::actionCollection()->action("rename_groups") );
-    }
-    popup->addAction( KGet::actionCollection()->action("seticon_groups") );
-    return popup;
 }
 
 QObjectInterface * TransferGroupHandler::qObject()

@@ -2,6 +2,7 @@
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -12,6 +13,7 @@
 #include "ui/transfersviewdelegate.h"
 
 #include "transferdetails.h"
+#include "ui/contextmenu.h"
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
@@ -427,7 +429,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 //                 kDebug(5001) << "isTransferGroup = true";
                 TransferGroupHandler * transferGroupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());
 
-                m_popup = transferGroupHandler->popupMenu();
+                m_popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget*>(this));
 
             }
             else
@@ -436,7 +438,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
                 TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
 
-                m_popup = transferHandler->popupMenu(KGet::selectedTransfers());
+                m_popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget*>(this));
             }
 
             if(m_popup)

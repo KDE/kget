@@ -78,8 +78,6 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual void settingsChanged() {}
 
-        KMenu * createPopupMenu(QList<TransferHandler *> transfers);
-
 /**
  * Returns a Data Source. needed for Transfers Containers if any.
  * otherwise returns 0

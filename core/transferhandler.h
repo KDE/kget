@@ -19,8 +19,7 @@
 #include "kget_export.h"
 #include "observer.h"
 
-class KMenu;
-
+class QAction;
 
 class TransferObserver;
 
@@ -207,18 +206,6 @@ class KGET_EXPORT TransferHandler
         int columnCount() const     {return 6;}
 
         /**
-         * Returns a KMenu for the given list of transfers, populated with
-         * the actions that can be executed on each transfer in the list.
-         * If the list is null, it returns the KMenu associated with the 
-         * this transfer.
-         *
-         * @param transfers the transfer list
-         *
-         * @return a KMenu for the given transfers
-         */
-        KMenu * popupMenu(QList<TransferHandler *> transfers);
-
-        /**
          * Selects the current transfer. Selecting transfers means that all
          * the actions executed from the gui will apply also to the current
          * transfer.
@@ -247,6 +234,29 @@ class KGET_EXPORT TransferHandler
          * @param observer The observer that makes this request
          */
         void resetChangesFlags(TransferObserver * observer);
+
+        /**
+         * @returns a list of a actions, which are associated with this TransferHandler
+         */
+        QList<QAction*> contextActions();
+
+        /**
+         * @returns a list of the transfer's factory's actions
+         */
+        QList<QAction*> factoryActions();
+
+#ifdef HAVE_NEPOMUK
+        /**
+         * Sets the NepomukHandler for the transfer
+         * @param handler the new NepomukHandler
+         */
+        void setNepomukHandler(NepomukHandler *handler) {m_transfer->setNepomukHandler(handler);}
+
+        /**
+         * @returns the NepomukHandler of the transfer
+         */
+        NepomukHandler * nepomukHandler() {return m_transfer->nepomukHandler();}
+#endif
 
     private:
         /**

@@ -225,11 +225,6 @@ class KGET_EXPORT TransferGroupHandler
         const QList<QAction *> & actions();
 
         /**
-         * @returns a KMenu for this transfer group.
-         */
-        KMenu * popupMenu();
-
-        /**
          * @returns a pointer to a QObjectInterface object which is a QObject
          * by means of which you can connect signals and slots for this 
          * transfer group.

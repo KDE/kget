@@ -2,7 +2,7 @@ project(kget)
 
 set(kget_adaptor_SRCS)
 
-macro_bool_to_01(Nepomuk_FOUND HAVE_NEPOMUK)
+macro_bool_to_01(FALSE HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
@@ -22,13 +22,13 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${CMAKE_CURRENT_BINARY_DIR}
 )
-if(Nepomuk_FOUND)
+if(HAVE_NEPOMUK)
     include_directories(
         ${SOPRANO_INCLUDE_DIR}
         ${NEPOMUK_INCLUDE_DIR}
     )
     add_definitions(-DHAVE_NEPOMUK)
-endif(Nepomuk_FOUND)
+endif(HAVE_NEPOMUK)
 
 if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
@@ -60,6 +60,13 @@ set(kgetcore_SRCS
    core/linkimporter.cpp
 )
 
+if(HAVE_NEPOMUK)
+    set(kgetcore_SRCS
+       ${kgetcore_SRCS}
+       core/nepomukhandler.cpp
+    )
+endif(HAVE_NEPOMUK)
+
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
 
@@ -67,9 +74,9 @@ kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
 target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
 
-if (Nepomuk_FOUND)
+if (HAVE_NEPOMUK)
   target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
-endif (Nepomuk_FOUND)
+endif (HAVE_NEPOMUK)
 
 if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
@@ -99,6 +106,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/newtransferdialog.cpp
    ui/groupsettingsdialog.cpp
    ui/transfersettingsdialog.cpp
+   ui/contextmenu.cpp
    ui/history/rangetreewidget.cpp
    ui/history/transferhistory.cpp
    ui/history/transferhistoryitemdelegate.cpp
@@ -110,6 +118,13 @@ set(kget_SRCS ${kget_adaptor_SRCS}
 
    extensions/webinterface/httpserver.cpp
 )
+
+if(HAVE_NEPOMUK)
+    set(kget_SRCS 
+        ${kget_SRCS}
+        ui/nepomukwidget.cpp
+    )
+endif(HAVE_NEPOMUK)
 
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui

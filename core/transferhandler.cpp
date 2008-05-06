@@ -23,6 +23,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <KPassivePopup>
+#include <QAction>
 
 #include <QVariant>
 
@@ -159,11 +160,6 @@ QVariant TransferHandler::data(int column)
     }
 }
 
-KMenu * TransferHandler::popupMenu(QList<TransferHandler *> transfers)
-{
-    return m_transfer->factory()->createPopupMenu(transfers);
-}
-
 void TransferHandler::setSelected( bool select )
 {
     if( (select && !isSelected()) || (!select && isSelected()) )
@@ -258,6 +254,25 @@ void TransferHandler::postDeleteEvent()
             (*it)->deleteEvent(this);
     }
     kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";
+}
+
+QList<QAction*> TransferHandler::contextActions()
+{
+    QList<QAction*> actions;
+    actions << KGet::actionCollection()->action("start_selected_download")
+            << KGet::actionCollection()->action("stop_selected_download")
+            << KGet::actionCollection()->action("delete_selected_download")
+            << KGet::actionCollection()->action("redownload_selected_download");
+
+    return actions;
+}
+
+QList<QAction*> TransferHandler::factoryActions()
+{
+    QList<QAction*> actions;
+    foreach(QAction *action, m_transfer->factory()->actions(this))
+        actions.append(action);
+    return actions;
 }
 
 

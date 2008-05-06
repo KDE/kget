@@ -28,11 +28,7 @@ class TransferFactory;
 class TransferGroup;
 class Scheduler;
 class TransferTreeModel;
-
-namespace Nepomuk
-{
-    class Resource;
-}
+class NepomukHandler;
 
 class KGET_EXPORT Transfer : public Job
 {
@@ -186,6 +182,19 @@ class KGET_EXPORT Transfer : public Job
          */
         TransferFactory * factory() const   {return m_factory;}
 
+#ifdef HAVE_NEPOMUK
+        /**
+         * Sets the NepomukHandler for the transfer
+         * @param handler the new NepomukHandler
+         */
+        void setNepomukHandler(NepomukHandler *handler) {m_nepomukHandler = handler;}
+
+        /**
+         * @returns a pointer to the NepomukHandler of this transfer
+         */
+        NepomukHandler * nepomukHandler() const {return m_nepomukHandler;}
+#endif
+
         /**
          * Saves this transfer to the given QDomNode
          *
@@ -193,11 +202,6 @@ class KGET_EXPORT Transfer : public Job
          * @return  The created QDomElement
          */
         virtual void save(const QDomElement &element);
-
-        /**
-         * Save the file-properties to nepomuk
-         */
-        virtual void saveNepomuk();
 
     protected:
         //Function used to load and save the transfer's info from xml
@@ -216,12 +220,6 @@ class KGET_EXPORT Transfer : public Job
          * @param change: the TransferChange flags to be set
          */
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
-
-        /**
-         * Save the file-properties to Nepomuk
-         * @param res The Nepomuk::Resource, where we set properties
-         */
-        virtual void saveNepomuk(Nepomuk::Resource *res);
 
         /**
          * Function used to set the SpeedLimits to the transfer
@@ -257,6 +255,9 @@ class KGET_EXPORT Transfer : public Job
 
         TransferHandler * m_handler;
         TransferFactory * m_factory;
+#ifdef HAVE_NEPOMUK
+        NepomukHandler * m_nepomukHandler;
+#endif
 };
 
 #endif

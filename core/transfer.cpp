@@ -15,17 +15,15 @@
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
 
-#ifdef HAVE_NEPOMUK
-#include <Soprano/Vocabulary/Xesam>
-#include <Soprano/Vocabulary/NAO>
-#include <nepomuk/variant.h>
-#endif
-
 #include <kiconloader.h>
 #include <klocale.h>
 
 #include <QDomElement>
 #include <QTime>
+
+#ifdef HAVE_NEPOMUK
+#include "nepomukhandler.h"
+#endif
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -44,6 +42,10 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
     {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
+
+#ifdef HAVE_NEPOMUK
+    m_nepomukHandler = new NepomukHandler(this, 0);
+#endif
 }
 
 Transfer::~Transfer()
@@ -212,8 +214,11 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 
     m_statusText = text;
     m_statusPixmap = pix;
+
+#ifdef HAVE_NEPOMUK
     if (jobStatus == Job::Finished)
-        saveNepomuk();
+        m_nepomukHandler->saveFileProperties();
+#endif
 
     if (jobStatus == Job::Running && status() != Job::Running)
     {
@@ -239,21 +244,4 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
 {
     handler()->setTransferChange(change, postEvent);
-}
-
-void Transfer::saveNepomuk()
-{
-#ifdef HAVE_NEPOMUK
-    Nepomuk::Resource file(m_dest, Soprano::Vocabulary::Xesam::File());
-    saveNepomuk(&file);
-#endif
-}
-
-void Transfer::saveNepomuk(Nepomuk::Resource *res)
-{
-#ifdef HAVE_NEPOMUK
-    res->setProperty(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_source));
-    res->setProperty(Soprano::Vocabulary::Xesam::size(), Nepomuk::Variant(m_totalSize));
-    res->setProperty(Soprano::Vocabulary::NAO::Tag(), Nepomuk::Variant("Downloads"));
-#endif
 }
