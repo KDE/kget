@@ -29,18 +29,17 @@ using namespace bt;
 
 namespace kt
 {
-	static KIcon yes,no;
-	static bool icons_loaded = false;
-	
-
+	static KIcon yes, no;
 	PeerViewModel::Item::Item(bt::PeerInterface* peer) : peer(peer)
 	{
+		stats = peer->getStats();
+		yes = KIcon("dialog-ok");
+		no = KIcon("dialog-cancel");
 	}
 			
 	bool PeerViewModel::Item::changed() const
 	{
 		const PeerInterface::Stats & s = peer->getStats();
-		
 
 		if (s.download_rate != stats.download_rate || 
 			s.upload_rate != stats.upload_rate || 

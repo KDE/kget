@@ -75,7 +75,7 @@ namespace kt
 		IPBlocklist& filter = IPBlocklist::instance();
 		
 		QModelIndexList indices = selectionModel()->selectedRows();
-		foreach (QModelIndex idx,indices)
+		foreach (const QModelIndex &idx,indices)
 		{
 			bt::PeerInterface* peer = model->indexToPeer(pm->mapToSource(idx));
 			if (peer)
@@ -89,7 +89,7 @@ namespace kt
 	void PeerView::kickPeer()
 	{
 		QModelIndexList indices = selectionModel()->selectedRows();
-		foreach (QModelIndex idx,indices)
+		foreach (const QModelIndex &idx,indices)
 		{
 			bt::PeerInterface* peer = model->indexToPeer(pm->mapToSource(idx));
 			if (peer)
@@ -130,7 +130,11 @@ namespace kt
 		KConfigGroup g = cfg->group("PeerView");
 		QByteArray s = QByteArray::fromBase64(g.readEntry("state",QByteArray()));
 		if (!s.isNull())
-			header()->restoreState(s);
+		{
+			QHeaderView* v = header();
+			v->restoreState(s);
+			sortByColumn(v->sortIndicatorSection(),v->sortIndicatorOrder());
+		}
 	}
 }
 

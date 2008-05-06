@@ -20,7 +20,7 @@
        <item>
         <widget class="QLabel" name="textLabel1" >
          <property name="text" >
-          <string comment="total chunks" >Total:</string>
+          <string>Total:</string>
          </property>
          <property name="wordWrap" >
           <bool>false</bool>
@@ -164,7 +164,7 @@
        <item>
         <widget class="QLabel" name="textLabel1_4_2" >
          <property name="text" >
-          <string comment="chunks left" >Left:</string>
+          <string>Left:</string>
          </property>
          <property name="wordWrap" >
           <bool>false</bool>

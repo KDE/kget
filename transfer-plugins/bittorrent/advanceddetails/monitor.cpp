@@ -33,11 +33,15 @@ namespace kt
 	Monitor::Monitor(bt::TorrentInterface* tc,PeerView* pv,ChunkDownloadView* cdv) 
 		: tc(tc),pv(pv),cdv(cdv)
 	{
+		if (tc)
+			tc->setMonitor(this);
 	}
 	
 	
 	Monitor::~Monitor()
 	{
+		if (tc)
+			tc->setMonitor(0);
 	}
 	
 	

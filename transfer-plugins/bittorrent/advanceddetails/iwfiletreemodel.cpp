@@ -91,15 +91,41 @@ namespace kt
 	QVariant IWFileTreeModel::data(const QModelIndex & index, int role) const
 	{
 		Node* n = 0;
-		if (index.column() < 2)
+		if (index.column() < 2 && role != Qt::ForegroundRole)
 			return TorrentFileTreeModel::data(index,role);
 		
 		if (!index.isValid() || !(n = (Node*)index.internalPointer()))
 			return QVariant();
 		
-		if (role != Qt::DisplayRole)
-			return QVariant();
+		if (role == Qt::ForegroundRole && index.column() == 2 && tc->getStats().multi_file_torrent && n->file)
+		{
+			const bt::TorrentFileInterface* file = n->file;
+			switch (file->getPriority())
+			{
+				/**case FIRST_PRIORITY:
+					return InfoWidgetPluginSettings::firstColor();
+				case LAST_PRIORITY:	
+					return InfoWidgetPluginSettings::lastColor();
+				case NORMAL_PRIORITY:
+					return InfoWidgetPluginSettings::normalColor();
+				case ONLY_SEED_PRIORITY: 
+				case EXCLUDED: 
+				case PREVIEW_PRIORITY: 
+				default:**/
+					return QVariant();
+			}
+		}
+			
+		if (role == Qt::DisplayRole)
+			return displayData(n,index);
+		else if (role == Qt::UserRole)
+			return sortData(n,index);
 		
+		return QVariant();
+	}
+
+	QVariant IWFileTreeModel::displayData(Node* n,const QModelIndex & index) const
+	{
 		if (tc->getStats().multi_file_torrent && n->file)
 		{
 			const bt::TorrentFileInterface* file = n->file;
@@ -147,10 +173,52 @@ namespace kt
 				default: return QVariant();
 			}
 		}
-		
 		return QVariant();
 	}
-
+	
+	QVariant IWFileTreeModel::sortData(Node* n,const QModelIndex & index) const
+	{
+		if (tc->getStats().multi_file_torrent && n->file)
+		{
+			const bt::TorrentFileInterface* file = n->file;
+			switch (index.column())
+			{
+				case 2: return (int)file->getPriority();
+				case 3: 
+					if (file->isMultimedia())
+					{
+						if (file->isPreviewAvailable())
+							return 3;
+						else
+							return 2;
+					}
+					else
+						return 1;
+				case 4: 
+					return file->getDownloadPercentage();
+			}	
+		}
+		else if (!tc->getStats().multi_file_torrent)
+		{
+			switch (index.column())
+			{
+				case 2: return QVariant();
+				case 3: 
+					if (mmfile)
+					{
+						if (tc->readyForPreview())
+							return 3;
+						else
+							return 2;
+					}
+					else
+						return 1;
+				case 4: 
+					return bt::Percentage(tc->getStats());
+			}
+		}
+		return QVariant();
+	}
 	
 	
 	bool IWFileTreeModel::setData(const QModelIndex & index, const QVariant & value, int role)
