@@ -23,8 +23,6 @@
 
 #include "transfergraph.h"
 
-#include <plasma/widgets/widget.h>
-
 namespace Plasma {
     class Applet;
 }
