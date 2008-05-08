@@ -55,7 +55,7 @@ public:
 
 public slots:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
-    void showConfigurationInterface();
+    void createConfigurationInterface(KConfigDialog *parent);
 
 protected slots:
     void configAccepted();

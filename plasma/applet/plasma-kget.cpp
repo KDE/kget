@@ -28,6 +28,7 @@
 #include <KDialog>
 #include <KDebug>
 #include <KIcon>
+#include <KConfigDialog>
 
 #include <plasma/svg.h>
 #include <plasma/applet.h>
@@ -125,23 +126,18 @@ void PlasmaKGet::dataUpdated(const QString &source, const Plasma::DataEngine::Da
     m_error = data["error"].toBool();
 }
 
-void PlasmaKGet::showConfigurationInterface()
+void PlasmaKGet::createConfigurationInterface(KConfigDialog *parent)
 {
-    if(m_dialog == 0) {
-        m_dialog = new KDialog;
-        m_dialog->setCaption(i18n("Configure KGet plasmoid"));
+    QWidget *widget = new QWidget(0);
+    ui.setupUi(widget);
 
-        ui.setupUi(m_dialog->mainWidget());
-        m_dialog->setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply);
+    connect(parent, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
+    connect(parent, SIGNAL(okClicked()), this, SLOT(configAccepted()));
 
-        connect(m_dialog, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
-        connect(m_dialog, SIGNAL(okClicked()), this, SLOT(configAccepted()));
-
-        ui.graphType->addItem(i18n("Bar Chart"), QVariant(PlasmaKGet::BarChartType));
-        ui.graphType->addItem(i18n("Pie Graph"), QVariant(PlasmaKGet::PieGraphType));
-        ui.graphType->addItem(i18n("Speed Graph"), QVariant(PlasmaKGet::SpeedGraphType));
-    }
-    m_dialog->show();
+    ui.graphType->addItem(i18n("Bar Chart"), QVariant(PlasmaKGet::BarChartType));
+    ui.graphType->addItem(i18n("Pie Graph"), QVariant(PlasmaKGet::PieGraphType));
+    ui.graphType->addItem(i18n("Speed Graph"), QVariant(PlasmaKGet::SpeedGraphType));
+    parent->addPage(widget, i18n("Configure KGet-Plasmoid"));
 }
 
 void PlasmaKGet::configAccepted()

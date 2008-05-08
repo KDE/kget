@@ -35,6 +35,7 @@ PanelGraph::PanelGraph(Plasma::Applet *parent)
         m_bar = new QProgressBar();
         //m_bar->resize(m_applet->contentSize());
         m_bar->setValue(0);
+        m_bar->setStyleSheet("background-color: transparent");
         m_proxyBar = new QGraphicsProxyWidget(parent);
         m_proxyBar->setWidget(m_bar);
 
