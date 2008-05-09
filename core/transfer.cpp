@@ -36,16 +36,16 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_visibleUploadLimit(0), m_visibleDownloadLimit(0), m_ratio(0),
       m_handler(0), m_factory(factory)
 {
+#ifdef HAVE_NEPOMUK
+    m_nepomukHandler = new NepomukHandler(this, 0);
+#endif
+
     if( e )
         load( *e );
     else
     {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
-
-#ifdef HAVE_NEPOMUK
-    m_nepomukHandler = new NepomukHandler(this, 0);
-#endif
 }
 
 Transfer::~Transfer()
