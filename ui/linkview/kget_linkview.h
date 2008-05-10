@@ -24,10 +24,7 @@ class QSortFilterProxyModel;
 class LinkImporter;
 class KUrlRequester;
 
-static const QString WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.asp|\\.aspx|\\.jsp)).)*$)";
-static const QString VIDEO_FILES_REGEXP = "(.(?:\\.avi|\\.mpeg|\\.mpg))";
-static const QString AUDIO_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg))";
-static const QString COMPRESSED_FILES_REGEXP = "(.(?:\\.zip|\\.tar|\\.tar.bz|\\.tar.gz|\\.rar))";
+
 
 struct filterDefinition {
     QString icon;
@@ -65,6 +62,7 @@ private slots:
     void updateSelectAllText(const QString &text);
     void doFilter(int id, const QString &textFilter = QString());
     void checkAll();
+    void uncheckAll();
     void slotShowWebContent(int mode);
     void uncheckItem(const QModelIndex &index);
 
@@ -88,6 +86,7 @@ private:
     QButtonGroup *filterButtonsGroup;
     QPushButton *downloadCheckedButton;
     QPushButton *checkAllButton;
+    QPushButton *uncheckAllButton;
     QPushButton *m_importButton;
 
     // import links widgets

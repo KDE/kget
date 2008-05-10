@@ -42,6 +42,11 @@
 #include <QSortFilterProxyModel>
 #include <QHeaderView>
 
+static const char* WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.xhtml|\\.htm|\\.asp|\\.aspx|\\.jsp)).)*$)";
+static const char* VIDEO_FILES_REGEXP = "(.(?=(\\.avi|\\.mpeg|\\.mpg|\\.mov|\\.mp4|\\.wmv)))";
+static const char* AUDIO_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg|\\.wma|\\.wav|\\.mpc|\\.flac))";
+static const char* COMPRESSED_FILES_REGEXP = "(.(?:\\.zip|\\.tar|\\.tar.bz|\\.bz|\\.bz2|\\.tar.gz|\\.rar|\\.arj|\\.7z))";
+
 KGetLinkView::KGetLinkView(QWidget *parent)
   : KDialog(parent),
     m_showWebContent(false)
@@ -63,7 +68,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_treeWidget->setAllColumnsShowFocus(true);
     m_treeWidget->setColumnWidth(0, 200); // make the filename column bigger by default
 
-    connect(m_treeWidget, SIGNAL(doubleClicked(const QModelIndex &)), 
+    connect(m_treeWidget, SIGNAL(doubleClicked(const QModelIndex &)),
                         this, SLOT(uncheckItem(const QModelIndex &)));
 
     KLineEdit *searchLine = new KLineEdit(this);
@@ -120,6 +125,8 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     QHBoxLayout *bottomButtonsLayout = new QHBoxLayout;
 
     checkAllButton = new QPushButton(i18n("Select all"));
+    uncheckAllButton = new QPushButton(i18n("Deselect all"));
+    uncheckAllButton->setEnabled(false);
     QCheckBox *showWebContentButton = new QCheckBox(i18n("Show web content"));
     downloadCheckedButton = new QPushButton( KIcon("kget"), i18n("Download checked"));
     downloadCheckedButton->setEnabled(false);
@@ -127,11 +134,13 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
     connect(checkAllButton, SIGNAL(clicked()), this, SLOT(checkAll()));
+    connect(uncheckAllButton, SIGNAL(clicked()), this, SLOT(uncheckAll()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
     connect(showWebContentButton, SIGNAL(stateChanged(int)), this, SLOT(slotShowWebContent(int)));
     connect(m_importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
 
     bottomButtonsLayout->addWidget(checkAllButton);
+    bottomButtonsLayout->addWidget(uncheckAllButton);
     bottomButtonsLayout->addWidget(showWebContentButton);
     bottomButtonsLayout->addWidget(downloadCheckedButton);
     bottomButtonsLayout->addWidget(cancelButton);
@@ -245,6 +254,7 @@ void KGetLinkView::importUrl(const QString &url)
 void KGetLinkView::selectionChanged()
 {
     bool buttonEnabled = false;
+    int count = 0;
     QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
 
     for(int row=0;row<model->rowCount();row++) {
@@ -252,8 +262,14 @@ void KGetLinkView::selectionChanged()
 
         if(checkeableItem->checkState() == Qt::Checked) {
             buttonEnabled = true;
+            count++;
         }
     }
+
+    const int modelRowCount = m_proxyModel->rowCount();
+    checkAllButton->setEnabled( !(!modelRowCount || count == modelRowCount ) );
+
+    uncheckAllButton->setEnabled( count > 0 );
 
     downloadCheckedButton->setEnabled(buttonEnabled);
 }
@@ -265,43 +281,62 @@ void KGetLinkView::updateSelectAllText(const QString &text)
 
 void KGetLinkView::doFilter(int id, const QString &textFilter)
 {
+    // TODO: escape user input for avoding malicious user input! (FiNEX)
     QString filter;
     switch(id) {
         case KGetLinkView::AudioFiles:
-            filter = AUDIO_FILES_REGEXP;
+            filter = QString(AUDIO_FILES_REGEXP);
             break;
         case KGetLinkView::VideoFiles:
-            filter = VIDEO_FILES_REGEXP;
+            filter = QString(VIDEO_FILES_REGEXP);
             break;
         case KGetLinkView::CompressedFiles:
-            filter = COMPRESSED_FILES_REGEXP;
+            filter = QString(COMPRESSED_FILES_REGEXP);
             break;
         case KGetLinkView::NoFilter:
         default:
-            filter =  m_showWebContent ? QString() : WEB_CONTENT_REGEXP;
+            filter =  m_showWebContent ? QString() : QString(WEB_CONTENT_REGEXP);
     }
 
     if(!textFilter.isEmpty()) {
         if(filter.isEmpty()) {
             filter = textFilter;
         }
-        else {
-            filter.replace(".(", "" + textFilter + "*(");
+        else { // I don't like this code. It should be improved (FiNeX)
+            if ( !m_showWebContent && KGetLinkView::NoFilter == id ) {
+                filter.replace("(^", "(" + textFilter );
+            } else {
+                filter.replace("(.", "(.*" + textFilter + ".*");
+            }
         }
     }
 
-    checkAllButton->setText((textFilter.isEmpty() && id == KGetLinkView::NoFilter) 
-                    ? i18n("Select all") : i18n("Select all filtered"));
+    kDebug() << "Applying filter " << filter;
+
+    const bool isFiltered = textFilter.isEmpty() && id == KGetLinkView::NoFilter;
+    checkAllButton->setText( isFiltered ? i18n("Select all") : i18n("Select all filtered"));
+    uncheckAllButton->setText( isFiltered ? i18n("Deselect all") : i18n("Deselect all filtered"));
+
     m_proxyModel->setFilterRegExp(QRegExp(filter, Qt::CaseInsensitive));
 }
 
 void KGetLinkView::checkAll()
 {
-    QStandardItemModel *itemsModel = (QStandardItemModel *) m_proxyModel->sourceModel();
+    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *> (m_proxyModel->sourceModel());
     for(int row=0;row<m_proxyModel->rowCount();row++) {
-        QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
+        const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
         QStandardItem *item = itemsModel->item(index.row(), 1);
         item->setCheckState(Qt::Checked);
+    }
+}
+
+void KGetLinkView::uncheckAll()
+{
+    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *> (m_proxyModel->sourceModel());
+    for(int row=0;row<m_proxyModel->rowCount();row++) {
+        const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
+        QStandardItem *item = itemsModel->item(index.row(), 1);
+        item->setCheckState(Qt::Unchecked);
     }
 }
 
