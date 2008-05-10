@@ -22,11 +22,12 @@
 #include "linegraphwidget.h"
 
 #include <QGraphicsLinearLayout>
+#include <QGraphicsWidget>
 
 #include <plasma/applet.h>
 
-SpeedGraph::SpeedGraph(Plasma::Applet *parent)
-    : TransferGraph(parent)
+SpeedGraph::SpeedGraph(QGraphicsWidget *parent)
+    : TransferGraph(0)
 {
     m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)

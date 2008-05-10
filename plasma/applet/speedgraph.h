@@ -30,12 +30,13 @@ class LineGraphWidget;
 
 class QBoxLayout;
 class QGraphicsLinearLayout;
+class QGraphicsWidget;
 
 class SpeedGraph : public TransferGraph
 {
     Q_OBJECT
 public:
-    SpeedGraph(Plasma::Applet *parent);
+    SpeedGraph(QGraphicsWidget *parent);
     ~SpeedGraph();
 
     void setTransfers(const QVariantMap &percents);

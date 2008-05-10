@@ -29,12 +29,13 @@ namespace Plasma {
 class QProgressBar;
 class QGraphicsLinearLayout;
 class QGraphicsProxyWidget;
+class QGraphicsWidget;
 
 class PanelGraph : public TransferGraph
 {
     Q_OBJECT
 public:
-    PanelGraph(Plasma::Applet *parent);
+    PanelGraph(QGraphicsWidget *parent);
     ~PanelGraph();
 
     void setTransfers(const QVariantMap &transfers);

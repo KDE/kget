@@ -22,13 +22,15 @@
 
 #include <QGraphicsLinearLayout>
 #include <QGraphicsProxyWidget>
+#include <QGraphicsWidget>
 #include <QProgressBar>
 
 #include <KIcon>
 #include <KIconLoader>
+#include <KLocale>
 
-PanelGraph::PanelGraph(Plasma::Applet *parent)
-    : TransferGraph(parent)
+PanelGraph::PanelGraph(QGraphicsWidget *parent)
+    : TransferGraph(0)
 {
     m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout) {

@@ -25,14 +25,15 @@
 
 #include <QGraphicsLinearLayout>
 #include <QGraphicsProxyWidget>
+#include <QGraphicsWidget>
 #include <QLabel>
 #include <QProcess>
 #include <QPushButton>
 
 #include <KIcon>
 
-ErrorGraph::ErrorGraph(Plasma::Applet *parent, const QString &message)
-    : TransferGraph(parent)
+ErrorGraph::ErrorGraph(QGraphicsWidget *parent, const QString &message)
+    : TransferGraph(0)
 {
     m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)

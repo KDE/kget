@@ -19,11 +19,11 @@
  ***************************************************************************/
 
 #include "barchart.h"
-#include "transfergraph.h"
 
 #include <QHBoxLayout>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsLinearLayout>
+#include <QGraphicsWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QProgressBar>
@@ -32,8 +32,8 @@
 #include <KIcon>
 #include <KLocale>
 
-BarChart::BarChart(Plasma::Applet *parent)
-    : TransferGraph(parent),
+BarChart::BarChart(QGraphicsWidget *parent)
+    : TransferGraph(0),
     m_actualPage(0)
 {
     m_totalSizeLabel = 0;
@@ -73,6 +73,8 @@ BarChart::BarChart(Plasma::Applet *parent)
         // connect the clicked signal of the next and previous buttons
         QObject::connect(m_previousPageButton, SIGNAL(clicked()), SLOT(previousPage()));
         QObject::connect(m_nextPageButton, SIGNAL(clicked()), SLOT(nextPage()));
+
+        //m_layout->updateGeometry();
     }
 }
 
@@ -151,7 +153,7 @@ void BarChart::populate()
         totalSize += m_transfers[key].toList().at(2).toInt();
     }
 
-    m_totalSizeLabel->setText(i18n("Total size: %1", KGlobal::locale()->formatByteSize(totalSize)));
+//     m_totalSizeLabel->setText(i18n("Total size: %1", KGlobal::locale()->formatByteSize(totalSize)));
     m_pageLabel->setText(i18n("Showing %1-%2 of %3 transfers",
         m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, m_transfers.size()));
 

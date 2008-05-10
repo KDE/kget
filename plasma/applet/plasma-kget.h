@@ -32,6 +32,7 @@ namespace Plasma {
 }
 
 class QGraphicsLinearLayout;
+class QGraphicsWidget;
 class KDialog;
 
 class PlasmaKGet : public Plasma::Applet
@@ -50,6 +51,8 @@ public:
     ~PlasmaKGet();
 
     void init();
+    QSizeF contentSizeHint() const;
+    void constraintsEvent(Plasma::Constraints constraints);
     void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
                             const QRect &contentsRect);
 
@@ -66,6 +69,7 @@ private:
     Plasma::Svg *m_theme;
     Plasma::DataEngine *m_engine;
     QGraphicsLinearLayout *m_layout;
+    QGraphicsWidget *m_form;
     TransferGraph *m_transferGraph;
     KDialog *m_dialog;
     QString m_errorMessage;

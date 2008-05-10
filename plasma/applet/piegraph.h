@@ -29,13 +29,14 @@ namespace Plasma {
     class Applet;
 }
 class QGraphicsLinearLayout;
+class QGraphicsWidget;
 
 class PieGraph : public TransferGraph
 {
     Q_OBJECT
 
 public:
-    PieGraph(Plasma::Applet *parent);
+    PieGraph(QGraphicsWidget *parent);
     ~PieGraph();
 
     void setTransfers(const QVariantMap &percents);

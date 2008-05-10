@@ -28,11 +28,12 @@
 
 #include <QVariant>
 #include <QGraphicsLinearLayout>
+#include <QGraphicsWidget>
 
 #include <math.h>
 
-PieGraph::PieGraph(Plasma::Applet *parent)
-    : TransferGraph(parent)
+PieGraph::PieGraph(QGraphicsWidget *parent)
+    : TransferGraph(0)
 {
     m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)

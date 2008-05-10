@@ -30,12 +30,13 @@ namespace Plasma {
 
 class QGraphicsLinearLayout;
 class QGraphicsProxyWidget;
+class QGraphicsWidget;
 
 class ErrorGraph : public TransferGraph
 {
     Q_OBJECT
 public:
-    ErrorGraph(Plasma::Applet *parent, const QString &message);
+    ErrorGraph(QGraphicsWidget *parent, const QString &message);
     ~ErrorGraph();
 
 private slots:

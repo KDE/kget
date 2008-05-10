@@ -20,17 +20,14 @@
 
 #include "transfergraph.h"
 
-#include <plasma/applet.h>
-
 #include <QVariant>
 #include <QPainter>
 
 #include <KLocale>
 #include <KIcon>
 
-TransferGraph::TransferGraph(Plasma::Applet *parent)
+TransferGraph::TransferGraph(QObject *parent) : QObject(parent)
 {
-    m_applet = parent;
 }
 
 TransferGraph::~TransferGraph()
@@ -43,12 +40,7 @@ void TransferGraph::setTransfers(const QVariantMap &transfers)
 
     //m_applet->updateConstraints(Plasma::AllConstraints);
 }
-/*
-QSizeF TransferGraph::contentSizeHint()
-{
-    return QSizeF(TRANSFER_APPLET_WIDTH, TRANSFER_LINE_HEIGHT + TRANSFER_MARGIN);
-}
-*/
+
 void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)
 {
     // draw the kget icon

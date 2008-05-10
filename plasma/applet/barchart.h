@@ -22,13 +22,13 @@
 #define BARCHART_H
 
 #include "transfergraph.h"
-
 #include <QMap>
 
 #define MAX_DOWNLOADS_PER_PAGE 5
 
 class QGraphicsLinearLayout;
 class QGraphicsProxyWidget;
+class QGraphicsWidget;
 class QLabel;
 class QProgressBar;
 class QPushButton;
@@ -41,7 +41,7 @@ class BarChart : public TransferGraph
 Q_OBJECT
 
 public:
-    BarChart(Plasma::Applet *parent);
+    BarChart(QGraphicsWidget *parent);
     ~BarChart();
 
     void setTransfers(const QVariantMap &transfers);
