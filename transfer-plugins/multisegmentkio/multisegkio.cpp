@@ -51,7 +51,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& de
     m_dest(dest),
     m_permissions(permissions),
     m_writeBlocked(false),
-    m_segSplited(false)
+    m_segSplited(false),
+    m_chunkSize(0)
 {
     kDebug(5001);
     SegFactory = new SegmentFactory( segments, Urls );

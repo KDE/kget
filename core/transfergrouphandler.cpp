@@ -30,7 +30,6 @@ TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * sc
       m_qobject(0)
 {
     m_observers.push_back(0);
-    m_changesFlags[0]=0xFFFFFFFF;
 }
 
 TransferGroupHandler::~TransferGroupHandler()

@@ -1025,7 +1025,7 @@ KGetPlugin * KGet::createPluginFromService( const KService::Ptr &service )
         kError(5001) << "KPluginFactory could not load the plugin:" << service->library();
         return 0;
     }
-    KGetPlugin * plugin = factory->create< TransferFactory >(0);
+    KGetPlugin * plugin = factory->create< TransferFactory >(KGet::m_mainWindow);
 
     return plugin;
 }

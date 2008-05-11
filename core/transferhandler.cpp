@@ -31,7 +31,6 @@ TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
     : m_transfer(transfer), m_scheduler(scheduler)
 {
     m_observers.push_back(0);
-    m_changesFlags[0]=0xFFFFFFFF;
 }
 
 TransferHandler::~TransferHandler()

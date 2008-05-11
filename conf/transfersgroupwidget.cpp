@@ -41,7 +41,7 @@ QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOpt
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     : QTreeView(parent)
 {
-    setItemDelegate(new TransfersGroupDelegate());
+    setItemDelegate(new TransfersGroupDelegate(this));
 
     setRootIsDecorated(false);
     setAlternatingRowColors(true);
