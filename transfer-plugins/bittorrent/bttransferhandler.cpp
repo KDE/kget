@@ -37,19 +37,10 @@ void BTTransferHandler::createAdvancedDetails()
         advancedDetails = new BTAdvancedDetailsWidget(this);
         advancedDetails->show();
         connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
-	kt::Monitor *monitor = advancedDetails->torrentMonitor();
-	kDebug(5001) << "We will add peers and chunks now";
-        foreach (bt::ChunkDownloadInterface *cd, m_transfer->chunks())
+        if (m_transfer->torrentControl())
         {
-	    kDebug(5001) << "Add chunk";
-            if (cd)
-                monitor->downloadStarted(cd);
-        }
-        foreach (bt::PeerInterface *peer, m_transfer->peers())
-        {
-	    kDebug(5001) << "Add peer";
-            if (peer)
-                monitor->peerAdded(peer);
+            m_transfer->torrentControl()->setMonitor(0);
+            m_transfer->torrentControl()->setMonitor(m_transfer);
         }
     }
 }
@@ -76,7 +67,7 @@ void BTTransferHandler::createScanDlg()
         scanDlg->stop();
         scanDlg->close();
     }
-        
+
     scanDlg = new kt::ScanDlg(false, 0);
     scanDlg->show();
     scanDlg->execute(torrentControl(), false);

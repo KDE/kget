@@ -74,8 +74,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         int sessionBytesUploaded() const;
         KUrl::List trackersList() const;
         bt::TorrentControl * torrentControl();
-        QList<bt::ChunkDownloadInterface*> chunks();
-        QList<bt::PeerInterface*> peers();
 
         //More Bittorrent-Functions
         void setPort(int port);
@@ -113,9 +111,6 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         QTimer timer;
         bool m_ready;
         bool m_downloadFinished;
-
-        QList<bt::ChunkDownloadInterface*> chunksList;
-        QList<bt::PeerInterface*> peersList;
 };
 
 #endif

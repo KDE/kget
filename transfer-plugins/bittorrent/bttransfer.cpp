@@ -230,8 +230,6 @@ void BTTransfer::stopTorrent()
 {
     torrent->stop(true);
     torrent->setMonitor(0);
-    peersList.clear();
-    chunksList.clear();
     m_downloadSpeed = 0;
     timer.stop();
 
@@ -482,8 +480,6 @@ void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
     kDebug(5001) << "Download removed**************************************************************+";
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadRemoved(cd);
-    //else
-        chunksList.removeAll(cd);
 
     setTransferChange(Tc_ChunksTotal | Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
@@ -493,8 +489,7 @@ void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
     kDebug(5001) << "Download Started*************************************************************************";
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadStarted(cd);
-    //else
-        chunksList.append(cd);
+
     setTransferChange(Tc_ChunksTotal | Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
@@ -502,8 +497,6 @@ void BTTransfer::peerAdded(bt::PeerInterface* peer)
 {
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->peerAdded(peer);
-    //else
-        peersList.append(peer);
 
     setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
 }
@@ -512,8 +505,6 @@ void BTTransfer::peerRemoved(bt::PeerInterface* peer)
 {
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->peerRemoved(peer);
-    //else
-        peersList.removeAll(peer);
 
     setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
 }
@@ -528,16 +519,6 @@ void BTTransfer::destroyed()
 {
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->destroyed();
-}
-
-QList<bt::ChunkDownloadInterface*> BTTransfer::chunks()
-{
-    return chunksList;
-}
-
-QList<bt::PeerInterface*> BTTransfer::peers()
-{
-    return peersList;
 }
 
 #include "bttransfer.moc"

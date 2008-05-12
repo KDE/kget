@@ -167,7 +167,7 @@ namespace kt
 			if (i.changed())
 			{
 				ret = true;
-				emit dataChanged(createIndex(idx,3),createIndex(idx,13));
+				emit dataChanged(createIndex(idx,2),createIndex(idx,12));
 			}
 			idx++;
 		}
@@ -187,7 +187,7 @@ namespace kt
 		if (parent.isValid())
 			return 0;
 		else
-			return 14;
+			return 13;
 	}
 	
 	QVariant PeerViewModel::headerData(int section, Qt::Orientation orientation,int role) const
