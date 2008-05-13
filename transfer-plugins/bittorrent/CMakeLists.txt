@@ -175,6 +175,11 @@ set(libbtcore_SRC
     
     libbtcore/btversion.cpp
 )
+if(WIN32)
+# Compile MinGW stuff on windows
+set(libbtcore_SRC ${libbtcore_SRC} libbtcore/util/mingw.cpp)
+endif(WIN32)
+
 
 set(kget_bittorrentfactory_PART_SRCS
   bttransfer.cpp
