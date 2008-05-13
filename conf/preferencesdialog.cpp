@@ -48,7 +48,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 #endif
 
     // TODO: remove the following lines as soon as these features are ready
-//     dlgNet.kcfg_SpeedLimit->setVisible(false);
+    dlgNet.lb_per_transfer->setVisible(false);
+    dlgNet.kcfg_TransferSpeedLimit->setVisible(false);
     dlgNet.groupBoxCompleted->setVisible(false);
     dlgNet.lbl_maxnum_2->setVisible(false);
     dlgNet.kcfg_MaxConnectionsServer->setVisible(false);

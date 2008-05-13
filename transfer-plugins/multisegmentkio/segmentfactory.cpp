@@ -41,10 +41,12 @@ bool Segment::createTransfer ( const KUrl &src )
     {
         m_getJob->addMetaData( "resume", KIO::number(m_segData.offset) );
     }
+    #if 0 //TODO: we disable that code till it's implemented in kdelibs, also we need to think, which settings we should use
     if(Settings::speedLimit())
     {
                 m_getJob->addMetaData( "speed-limit", KIO::number(Settings::transferSpeedLimit() * 1024) );
     }
+    #endif
     connect( m_getJob, SIGNAL(data(KIO::Job *, const QByteArray&)),
                  SLOT( slotData(KIO::Job *, const QByteArray&)));
     connect( m_getJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
