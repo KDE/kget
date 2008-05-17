@@ -1,5 +1,11 @@
-macro_optional_find_package(GMP)
-macro_log_feature(GMP_FOUND "GMP" "The GNU Multiple Precision Arithmetic Library" "http://gmplib.org/" FALSE "" "Needed to build KGet Torrent support.")
+option(ENABLE_EMBEDDED_TORRENT_SUPPORT "Whether to build KGet torrent support with embedded torrent library or not" true)
+
+if (ENABLE_EMBEDDED_TORRENT_SUPPORT)
+    message(STATUS "Building KGet torrent support with embedded torrent library (libbtcore) (-DENABLE_EMBEDDED_TORRENT_SUPPORT=false to disable)")
+    add_definitions(-DENABLE_EMBEDDED_TORRENT_SUPPORT)
+
+    macro_optional_find_package(GMP)
+    macro_log_feature(GMP_FOUND "GMP" "The GNU Multiple Precision Arithmetic Library" "http://gmplib.org/" FALSE "" "Needed to build KGet Torrent support.")
 
 if (GMP_FOUND AND QCA2_FOUND)
 add_definitions(${KDE4_ENABLE_EXCEPTIONS})
@@ -217,14 +223,27 @@ kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
   advanceddetails/trackerview.ui
   advanceddetails/webseedstab.ui
 )
+endif (GMP_FOUND AND QCA2_FOUND)
+else (ENABLE_EMBEDDED_TORRENT_SUPPORT)
+    find_package(BTCore REQUIRED)
+    macro_log_feature(BTCORE_FOUND "BTCore" "KTorrent core library" "http://ktorrent.org/" FALSE "" "Needed to build Torrent support in KGet. Please install it or pass -DENABLE_EMBEDDED_TORRENT_SUPPORT=true to build embedded torrent support.")
 
-kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
+    include_directories(
+        ../../
+       ${BTCORE_INCLUDE_DIR}
+    )
+endif (ENABLE_EMBEDDED_TORRENT_SUPPORT)
 
-kde4_add_plugin(kget_bittorrentfactory ${kget_bittorrentfactory_PART_SRCS} ${libbtcore_SRC})
-
-target_link_libraries(kget_bittorrentfactory ${KDE4_KDEUI_LIBS} ${GMP_LIBRARIES} ${QCA2_LIBRARIES} kgetcore)
-
-install(TARGETS kget_bittorrentfactory DESTINATION  ${PLUGIN_INSTALL_DIR})
-install(FILES kget_bittorrentfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-
-endif(GMP_FOUND AND QCA2_FOUND)
+if (GMP_FOUND AND QCA2_FOUND AND ENABLE_EMBEDDED_TORRENT_SUPPORT)
+    kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
+    kde4_add_plugin(kget_bittorrentfactory ${kget_bittorrentfactory_PART_SRCS} ${libbtcore_SRC})
+    target_link_libraries(kget_bittorrentfactory ${KDE4_KDEUI_LIBS} ${GMP_LIBRARIES} ${QCA2_LIBRARIES} kgetcore)
+    install(TARGETS kget_bittorrentfactory DESTINATION  ${PLUGIN_INSTALL_DIR})
+    install(FILES kget_bittorrentfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+else (GMP_FOUND AND QCA2_FOUND AND ENABLE_EMBEDDED_TORRENT_SUPPORT)
+    kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
+    kde4_add_plugin(kget_bittorrentfactory ${kget_bittorrentfactory_PART_SRCS})
+    target_link_libraries(kget_bittorrentfactory ${KDE4_KDEUI_LIBS} ${BTCORE_LIBRARIES} kgetcore)
+    install(TARGETS kget_bittorrentfactory DESTINATION  ${PLUGIN_INSTALL_DIR})
+    install(FILES kget_bittorrentfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+endif (GMP_FOUND AND QCA2_FOUND AND ENABLE_EMBEDDED_TORRENT_SUPPORT)
