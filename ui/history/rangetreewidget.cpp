@@ -150,7 +150,7 @@ void RangeTreeWidget::add(const QVariant &data, const QString &column)
     QVariantList list;
     list << QVariant(column);
 
-    add(data, column);
+    add(data, list);
 }
 
 void RangeTreeWidget::add(const QVariant &data, const QVariantList &columns)
