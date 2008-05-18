@@ -16,6 +16,7 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     m_group(group)
 {
     setCaption(i18n("Group-Settings for %1", group->name()));
+    showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     Ui::GroupSettingsDialog ui;
     ui.setupUi(widget);

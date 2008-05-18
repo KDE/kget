@@ -16,6 +16,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     m_transfer(transfer)
 {
     setCaption(i18n("Transfer-Settings for %1", m_transfer->source().fileName()));
+    showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     Ui::TransferSettingsDialog ui;
     ui.setupUi(widget);
