@@ -304,7 +304,7 @@ void KGetLinkView::doFilter(int id, const QString &textFilter)
         }
         else { // I don't like this code. It should be improved (FiNeX)
             if ( !m_showWebContent && KGetLinkView::NoFilter == id ) {
-                filter.replace("(^", "(" + textFilter );
+                filter.replace("(^", '(' + textFilter );
             } else {
                 filter.replace("(.", "(.*" + textFilter + ".*");
             }
