@@ -51,9 +51,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 {
     if (m_source.url().isEmpty())
         return;
-
-    if (e)
-        load(*e);
 }
 
 BTTransfer::~BTTransfer()
@@ -61,8 +58,7 @@ BTTransfer::~BTTransfer()
     if(torrent)
         torrent->setMonitor(0);
 
-    if (torrent)
-        delete torrent;
+    delete torrent;
 }
 
 /**Reimplemented functions from Transfer-Class (transfer.cpp)**/
@@ -101,6 +97,7 @@ void BTTransfer::stop()
     }
 }
 
+/**Own public functions**/
 void BTTransfer::update()
 {
     if (torrent)
@@ -108,7 +105,6 @@ void BTTransfer::update()
         QStringList files;
         if (torrent->hasMissingFiles(files))
         {
-            kDebug(5001) << "Recreate Missing Files";
             torrent->recreateMissingFiles();
         }
         updateTorrent();
@@ -177,7 +173,6 @@ void BTTransfer::save(const QDomElement &element)
 
 void BTTransfer::setPort(int port)
 {
-    kDebug(5001);
     bt::Globals::instance().getServer().changePort(port);
 }
 
@@ -218,7 +213,6 @@ void BTTransfer::startTorrent()
         setSpeedLimits(uploadLimit(Transfer::InvisibleSpeedLimit), downloadLimit(Transfer::InvisibleSpeedLimit));//Set traffic-limits before starting
         torrent->setMonitor(this);
         torrent->start();
-        kDebug(5001) << "Got started??";
         timer.start(250);
         setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading.."), SmallIcon("media-playback-start"));
         m_totalSize = torrent->getStats().total_bytes_to_download;
@@ -292,7 +286,6 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     bt::Uint16 i = 0;
     do
     {
-        kDebug(5001) << "Trying to set port to" << BittorrentSettings::port() + i;
         bt::Globals::instance().initServer(BittorrentSettings::port() + i);
         i++;
     }while (!bt::Globals::instance().getServer().isOK() && i < 10);
@@ -307,7 +300,6 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
         if (!BittorrentSettings::tmpDir().isEmpty())
         {
             m_tmp = BittorrentSettings::tmpDir();
-            kDebug(5001) << "Trying to set" << m_tmp << " as tmpDir";
             if (!QFileInfo(m_tmp).isDir())
                 m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
         }
@@ -477,7 +469,6 @@ bool BTTransfer::ready()
 
 void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
 {
-    kDebug(5001) << "Download removed**************************************************************+";
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadRemoved(cd);
 
@@ -486,7 +477,6 @@ void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
 
 void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
 {
-    kDebug(5001) << "Download Started*************************************************************************";
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadStarted(cd);
 
