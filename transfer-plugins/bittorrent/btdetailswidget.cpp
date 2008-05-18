@@ -30,6 +30,8 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     chunksExcludedLabel->setText(i18nc("not available", "n/a"));
     chunksAllLabel->setText(i18nc("not available", "n/a"));
     chunksLeftLabel->setText(i18nc("not available", "n/a"));
+    dlSpeedLabel->setText(i18nc("not available", "n/a"));
+    ulSpeedLabel->setText(i18nc("not available", "n/a"));
 
     progressBar->setValue(m_transfer->percent());
     transfer->addObserver(this);
