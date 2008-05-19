@@ -78,6 +78,8 @@ SHORT-TERM (URGENT):
       informations. Then we should also create a Job, returned by the Transfer 
       factory, to be added to the scheduler ( that's the new scheduler power ;-) ).
   ADD <boom1992> let the user add new download-sources to a multithreaded transfer manually
+  ADD <boom1992> Ask the user if he/she wants to delete the transfer (or probably if he/she wants to delete the tmp-file)?
+  ADD <boom1992> Move deleting of big tmp-files to a new thread
 
 MID-TERM:
 
