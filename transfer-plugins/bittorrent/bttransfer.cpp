@@ -276,6 +276,10 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     if (src != m_source && !src.isEmpty())
         m_source = src;
 
+    QFile file(m_source.url().remove("file://"));
+    if (!file.exists())
+        return;
+
     setStatus(Job::Running, i18n("Analyzing torrent.."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
