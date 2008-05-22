@@ -14,6 +14,7 @@ include_directories(
    ../../
    libbtcore
    ${QCA2_INCLUDE_DIR}
+   ${GMP_INCLUDE_DIR}
 )
 
 # keep the following list in sync with libbtcore/CMakeLists.txt
