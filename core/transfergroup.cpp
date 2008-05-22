@@ -236,7 +236,6 @@ void TransferGroup::calculateDownloadLimit()
     kDebug(5001) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
     if (supportsSpeedLimits())
     {
-        kDebug(5001) << "We are supporting speedlimits =)";
         int n = runningJobs().count();
         int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
         QList<Transfer*> transfersNeedSpeed;
@@ -245,7 +244,6 @@ void TransferGroup::calculateDownloadLimit()
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {
-                kDebug(5001) << "Cast was ok =)";
                 if (m_downloadLimit == 0 && transfer->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
                     continue;
                 else if (m_downloadLimit == 0 && transfer->downloadLimit(Transfer::VisibleSpeedLimit) == 0)
@@ -257,7 +255,6 @@ void TransferGroup::calculateDownloadLimit()
                     pool = pool + (m_downloadLimit / n - transfer->downloadLimit(Transfer::VisibleSpeedLimit));       
                 else if (transfer->downloadSpeed() + 10 < m_downloadLimit / n)
                 {
-                    kDebug(5001) << "Ok the download speed man is tooooo low, so we have a small buffer";
                         /*When the downloadSpeed of the transfer is under the new downloadLimit + 10 then we 
                             set the downloadLimit to the downloadSpeed + 10*/
                     pool = pool + m_downloadLimit / n - transfer->downloadSpeed() + 10;
@@ -265,7 +262,6 @@ void TransferGroup::calculateDownloadLimit()
                 }
                 else
                 {
-                    kDebug(5001) << "Ok the generic sollution xD";
                     transfer->setDownloadLimit(m_downloadLimit / n, Transfer::InvisibleSpeedLimit);
                     transfersNeedSpeed.append(transfer);
                 }
@@ -283,7 +279,6 @@ void TransferGroup::calculateUploadLimit()
     kDebug(5001) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
     if (supportsSpeedLimits())
     {
-        kDebug(5001) << "We are supporting speedlimits =)";
         int n = runningJobs().count();
         int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
         QList<Transfer*> transfersNeedSpeed;
@@ -292,7 +287,6 @@ void TransferGroup::calculateUploadLimit()
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {
-                kDebug(5001) << "Cast was ok =)";
                 if (m_uploadLimit == 0 && transfer->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
                     continue;
                 else if (m_uploadLimit == 0 && transfer->uploadLimit(Transfer::VisibleSpeedLimit) == 0)
@@ -304,7 +298,6 @@ void TransferGroup::calculateUploadLimit()
                     pool = pool + (m_uploadLimit / n - transfer->uploadLimit(Transfer::VisibleSpeedLimit));       
                 else if (transfer->uploadSpeed() + 10 < m_uploadLimit / n)
                 {
-                    kDebug(5001) << "Ok the upload speed man is tooooo low, so we have a small buffer";
                         /*When the uploadSpeed of the transfer is under the new uploadLimit + 10 then we 
                             set the uploadLimit to the uploadSpeed + 10*/
                     pool = pool + m_uploadLimit / n - transfer->uploadSpeed() + 10;
@@ -312,7 +305,6 @@ void TransferGroup::calculateUploadLimit()
                 }
                 else
                 {
-                    kDebug(5001) << "Ok the generic sollution xD";
                     transfer->setUploadLimit(m_uploadLimit / n, Transfer::InvisibleSpeedLimit);
                     transfersNeedSpeed.append(transfer);
                 }

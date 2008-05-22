@@ -16,13 +16,11 @@
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList &args)
   : QObject(parent)
 {
-    kDebug(5001) ;
     Q_UNUSED(args);
 }
 
 KGetPlugin::~KGetPlugin()
 {
-    kDebug(5001) ;
 }
 
 /*
