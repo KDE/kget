@@ -27,6 +27,7 @@
 #include <KLineEdit>
 #include <KComboBox>
 #include <KDebug>
+#include <KFileDialog>
 
 NewTransferDialog::NewTransferDialog(QWidget *parent)
     : KDialog(parent),
@@ -248,6 +249,7 @@ void NewTransferDialog::prepareGui()
     m_destRequester->comboBox()->setDuplicatesEnabled(false);
     m_destRequester->comboBox()->setUrlDropsEnabled(true);
     m_destRequester->comboBox()->setEditable(true);
+    m_destRequester->fileDialog()->setKeepLocation(true);
 
     // transfer groups
     m_groupComboBox->addItems(KGet::transferGroupNames());
