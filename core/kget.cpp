@@ -844,10 +844,20 @@ QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
 
 bool KGet::isValidSource(const KUrl &source)
 {
+    // Check if the URL is well formed
     if (!source.isValid())
     {
         KMessageBox::error(0,
                            i18n("Malformed URL:\n%1", source.prettyUrl()),
+                           i18n("Error"));
+        return false;
+    }
+    // Check if the URL contains the protocol
+    if ( source.protocol().isEmpty() ){
+        KMessageBox::error(0,
+                           i18n("Malformed URL:\n%1", source.prettyUrl()),
+// TODO: Replace the string for 4.2 BEFORE string freeze
+//                            i18n("Malformed URL, protocol missing:\n%1", source.prettyUrl()),
                            i18n("Error"));
         return false;
     }
@@ -864,9 +874,15 @@ bool KGet::isValidSource(const KUrl &source)
                 KStandardGuiItem::no(), KStandardGuiItem::cancel(), "QuestionUrlAlreadySaved" )
                 == KMessageBox::Yes)
             {
-                //TODO reimplement this
-                //transfer->slotRemove();
-                //checkQueue();
+                transfer->stop();
+                TransferHandler * th = transfer->handler();
+                //TODO If the transfer is expanded, it crash.
+                //     transfer should be collapsed before.
+                //     Is correct close it from the KGet class or should it
+                //     be handled in the viewscontainer?
+                //     KGet class should be generic, it shouldn't 
+                //     interfere with the UI
+                KGet::delTransfer(th);
                 return true;
             }
         }

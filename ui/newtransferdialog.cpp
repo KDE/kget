@@ -114,7 +114,7 @@ void NewTransferDialog::setSource(const QString &srcUrl)
     if (m_srcUrl.isEmpty())
         m_srcUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
 
-    if (m_srcUrl.isValid())
+    if (m_srcUrl.isValid() && !m_srcUrl.protocol().isEmpty())
         urlRequester->insert(m_srcUrl.url());
 
     connect(urlRequester, SIGNAL(textChanged(const QString &)), SLOT(setDefaultDestination()));
