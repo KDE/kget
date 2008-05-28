@@ -19,36 +19,15 @@
    <property name="spacing" >
     <number>6</number>
    </property>
-   <property name="leftMargin" >
-    <number>9</number>
-   </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin" >
     <number>9</number>
    </property>
    <item>
     <layout class="QGridLayout" >
-     <property name="leftMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
-      <number>0</number>
-     </property>
-     <property name="horizontalSpacing" >
-      <number>6</number>
-     </property>
-     <property name="verticalSpacing" >
+     <property name="spacing" >
       <number>6</number>
      </property>
      <item row="1" column="1" >
@@ -89,7 +68,7 @@
      <property name="sizeType" >
       <enum>QSizePolicy::Fixed</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>10</height>
@@ -105,22 +84,13 @@
      <property name="spacing" >
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
       <widget class="QLabel" name="completedContentLabel" >
        <property name="text" >
-        <string>&lt;done> MiB of &lt;todo> MiB</string>
+        <string comment="No need to translate it, just a placeholder" >&lt;done> MiB of &lt;todo> MiB</string>
        </property>
       </widget>
      </item>
@@ -129,7 +99,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
@@ -147,14 +117,14 @@
      <item>
       <widget class="QLabel" name="statusPixmapContentLabel" >
        <property name="text" >
-        <string>&lt;icon></string>
+        <string comment="No need to translate it, just a placeholder" >&lt;icon></string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="statusTextContentLabel" >
        <property name="text" >
-        <string>&lt;status></string>
+        <string comment="No need to translate it, just a placeholder" >&lt;status></string>
        </property>
       </widget>
      </item>
@@ -165,22 +135,13 @@
      <property name="spacing" >
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
       <widget class="QLabel" name="speedContentLabel" >
        <property name="text" >
-        <string>&lt;speed></string>
+        <string comment="No need to translate it, just a placeholder" >&lt;speed></string>
        </property>
       </widget>
      </item>
@@ -189,7 +150,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>211</width>
          <height>20</height>
@@ -207,7 +168,7 @@
      <item>
       <widget class="QLabel" name="remainingTimeLabel" >
        <property name="text" >
-        <string>&lt;remaining time></string>
+        <string comment="No need to translate it, just a placeholder" >&lt;remaining time></string>
        </property>
       </widget>
      </item>
