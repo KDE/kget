@@ -90,7 +90,7 @@
      <item>
       <widget class="QLabel" name="completedContentLabel" >
        <property name="text" >
-        <string comment="No need to translate it, just a placeholder" >&lt;done> MiB of &lt;todo> MiB</string>
+        <string comment="KDE::DoNotExtract" >&lt;done> MiB of &lt;todo> MiB</string>
        </property>
       </widget>
      </item>
@@ -117,14 +117,14 @@
      <item>
       <widget class="QLabel" name="statusPixmapContentLabel" >
        <property name="text" >
-        <string comment="No need to translate it, just a placeholder" >&lt;icon></string>
+        <string comment="KDE::DoNotExtract" >&lt;icon></string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="statusTextContentLabel" >
        <property name="text" >
-        <string comment="No need to translate it, just a placeholder" >&lt;status></string>
+        <string comment="KDE::DoNotExtract" >&lt;status></string>
        </property>
       </widget>
      </item>
@@ -141,7 +141,7 @@
      <item>
       <widget class="QLabel" name="speedContentLabel" >
        <property name="text" >
-        <string comment="No need to translate it, just a placeholder" >&lt;speed></string>
+        <string comment="KDE::DoNotExtract" >&lt;speed></string>
        </property>
       </widget>
      </item>
@@ -168,7 +168,7 @@
      <item>
       <widget class="QLabel" name="remainingTimeLabel" >
        <property name="text" >
-        <string comment="No need to translate it, just a placeholder" >&lt;remaining time></string>
+        <string comment="KDE::DoNotExtract" >&lt;remaining time></string>
        </property>
       </widget>
      </item>
