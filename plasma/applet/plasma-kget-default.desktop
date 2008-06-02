@@ -9,6 +9,7 @@ Name[sv]=Kget
 Name[ta]=கேகெட்
 Name[x-test]=xxKGetxx
 Comment=KGet downloads monitor
+Comment[ca]=Controlador de baixades del KGet
 Comment[da]=KGet downloadovervågning
 Comment[el]=Επόπτης λήψεων KGet
 Comment[et]=KGeti allalaadimise jälgija
