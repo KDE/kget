@@ -77,7 +77,8 @@ bool Segment::stopTransfer ()
         {
             writeBuffer();
         }
-        m_getJob->kill( KJob::EmitResult );
+        if (m_getJob)
+            m_getJob->kill( KJob::EmitResult );
         return true;
     }
     return false;
@@ -98,7 +99,7 @@ void Segment::slotResult( KJob *job )
     if ( !m_buffer.isEmpty() )
     {
         kDebug(5001) << "Looping until write the buffer ...";
-        while(writeBuffer());
+        while(writeBuffer()) ;
     }
     if( !m_segData.bytes )
     {
