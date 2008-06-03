@@ -129,7 +129,7 @@ void HttpServer::handleRequest()
             }
         }
     } else { // read it from filesystem
-        QString fileName = header.path().replace("..", ""); // disallow changing directory
+        QString fileName = header.path().remove(".."); // disallow changing directory
         if (fileName.endsWith('/'))
             fileName = "index.htm";
 
