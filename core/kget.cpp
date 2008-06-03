@@ -632,17 +632,23 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
 void KGet::setGlobalDownloadLimit(int limit)
 {
     m_scheduler->setDownloadLimit(limit);
+    if (!limit)
+        m_scheduler->calculateDownloadLimit();
 }
 
 void KGet::setGlobalUploadLimit(int limit)
 {
     m_scheduler->setUploadLimit(limit);
+    if (!limit)
+        m_scheduler->calculateUploadLimit();
 }
 
 void KGet::calculateGlobalSpeedLimits()
 {
-    m_scheduler->calculateDownloadLimit();
-    m_scheduler->calculateUploadLimit();
+    if (m_scheduler->downloadLimit())//TODO: Remove this and the both other hacks in the 2 upper functions with a better replacement
+        m_scheduler->calculateDownloadLimit();
+    if (m_scheduler->uploadLimit())
+        m_scheduler->calculateUploadLimit();
 }
 
 void KGet::calculateGlobalDownloadLimit()

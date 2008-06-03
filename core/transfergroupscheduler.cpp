@@ -11,6 +11,7 @@
 
 #include "kget.h"
 #include "transfergrouphandler.h"
+#include "settings.h"
 
 TransferGroupScheduler::TransferGroupScheduler()
   : Scheduler(),
@@ -66,7 +67,9 @@ void TransferGroupScheduler::calculateDownloadLimit()
     QList<TransferGroupHandler*> transfergroupsNeedSpeed;
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
     {
-        if (handler->transfers().count() < 1)
+        if (!Settings::speedLimit())
+            handler->setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
+        else if (handler->transfers().count() < 1)
         {
             pool = pool + downloadLimit() / n;
         }
@@ -106,7 +109,9 @@ void TransferGroupScheduler::calculateUploadLimit()
     QList<TransferGroupHandler*> transfergroupsNeedSpeed;
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
     {
-        if (handler->transfers().count() < 1)
+        if (!Settings::speedLimit())
+            handler->setUploadLimit(0, Transfer::InvisibleSpeedLimit);
+        else if (handler->transfers().count() < 1)
             pool = pool + uploadLimit() / n;
         else if (uploadLimit() == 0 && handler->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
             continue;

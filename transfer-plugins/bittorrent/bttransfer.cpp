@@ -108,8 +108,6 @@ void BTTransfer::update()
             torrent->recreateMissingFiles();
         }
         updateTorrent();
-        kDebug(5001) << "Limits are " + QString::number(downloadLimit(Transfer::InvisibleSpeedLimit)) + 
-                                                  " and " + QString::number(uploadLimit(Transfer::InvisibleSpeedLimit));
     }
     else
         timer.stop();
