@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
 Name=KGet Plugin
 Name[ca]=Connector del KGet
+Name[cs]=Modul aplikace KGet
 Name[da]=KGet-plugin
 Name[el]=Πρόσθετο KGet
 Name[et]=KGeti plugin
