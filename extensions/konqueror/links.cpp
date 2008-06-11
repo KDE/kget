@@ -21,6 +21,11 @@ LinkItem::LinkItem( DOM::Element link )
     DOM::NamedNodeMap attrs = link.attributes();
     DOM::Node href = attrs.getNamedItem( "href" );
 
+    // Load source address of images too
+    DOM::Node src = attrs.getNamedItem( "src" );
+    if ( href.nodeValue().string().isEmpty() && !src.nodeValue().string().isEmpty() )
+      href = src;
+
     // qDebug("*** href: %s", href.nodeValue().string().latin1() );
 
     QString urlString = link.ownerDocument().completeURL( href.nodeValue() ).string();

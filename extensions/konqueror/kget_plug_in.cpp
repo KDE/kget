@@ -172,9 +172,11 @@ void KGet_plug_in::showLinks( bool selectedOnly )
         return;
 
     DOM::HTMLCollection links = doc.links();
+    DOM::HTMLCollection images = doc.images();
 
     QList<QString> linkList;
     QSet<QString> dupeCheck;
+
     for ( uint i = 0; i < links.length(); i++ )
     {
         DOM::Node link = links.item( i );
@@ -182,6 +184,23 @@ void KGet_plug_in::showLinks( bool selectedOnly )
             continue;
 
         LinkItem *item = new LinkItem( (DOM::Element) link );
+        if (item->isValid() && !dupeCheck.contains(item->url.url()))
+        {
+            linkList.append(item->url.url());
+            dupeCheck.insert(item->url.url());
+        }
+        else
+            delete item;
+    }
+
+    /* do the same for images */
+    for ( uint i = 0; i < images.length(); i++ )
+    {
+        DOM::Node image  = images.item( i );
+        if ( image.isNull() || image.nodeType() != DOM::Node::ELEMENT_NODE )
+            continue;
+
+        LinkItem *item = new LinkItem( (DOM::Element) image );
         if (item->isValid() && !dupeCheck.contains(item->url.url()))
         {
             linkList.append(item->url.url());
