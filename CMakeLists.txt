@@ -2,7 +2,7 @@ project(kget)
 
 set(kget_adaptor_SRCS)
 
-macro_bool_to_01(FALSE HAVE_NEPOMUK)
+macro_bool_to_01(Nepomuk_FOUND HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
@@ -118,12 +118,12 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    extensions/webinterface/httpserver.cpp
 )
 
-if(HAVE_NEPOMUK)
-    set(kget_SRCS 
-        ${kget_SRCS}
-        ui/nepomukwidget.cpp
-    )
-endif(HAVE_NEPOMUK)
+#if(HAVE_NEPOMUK)
+#    set(kget_SRCS 
+#        ${kget_SRCS}
+#        ui/nepomukwidget.cpp
+#    )
+#endif(HAVE_NEPOMUK)
 
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui

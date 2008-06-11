@@ -61,14 +61,14 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     if(!actionList.isEmpty())
         popup->addSeparator();
 
-#ifdef HAVE_NEPOMUK
+/*#ifdef HAVE_NEPOMUK //TODO: Reenable when Nepomuk is fixed
     KMenu *nepomukMenu = new KMenu(i18n("Semantic desktop"), parent);
     nepomukMenu->setIcon(KIcon("nepomuk"));
     QWidgetAction *nepomukWidget = new QWidgetAction(parent);
     nepomukWidget->setDefaultWidget(new NepomukWidget(transfers.first(), parent));
     nepomukMenu->addAction(nepomukWidget);
     popup->addMenu(nepomukMenu);
-#endif
+#endif*/
 
     popup->addAction( KGet::actionCollection()->action("transfer_open_dest") );
     popup->addAction( KGet::actionCollection()->action("transfer_open_file") );
