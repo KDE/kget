@@ -168,7 +168,7 @@ void NewTransferDialog::setDestination(const QStringList &list)
     if (filename.isEmpty())
         filename = source().first().fileName();
 
-    for (int i=0;i<list.count();i++)
+    for (int i=0;i < list.count();i++)
     {
         m_list[i].append('/' + filename);
     }
@@ -184,7 +184,7 @@ void NewTransferDialog::setDefaultDestination()
 
 void NewTransferDialog::setDestinationFileName(const QString &filename)
 {
-    m_destRequester->setUrl(m_destRequester->url().path() + filename);
+    m_destRequester->setUrl(m_destRequester->url().path(KUrl::AddTrailingSlash) + filename);
 }
 
 QString NewTransferDialog::destination() const
