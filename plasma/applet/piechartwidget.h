@@ -17,39 +17,70 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
-
 #ifndef PIECHARTWIDGET_H
 #define PIECHARTWIDGET_H
 
+#include <math.h>
+
 #include <QGraphicsWidget>
+#include <QMap>
+
+#include <KColorCollection>
+
+class QPainter;
+class QRect;
+class QBrush;
+class QStyleOptionGraphicsItem;
 
 class PieChartWidget : public QGraphicsWidget
 {
 Q_OBJECT
-
 public:
     PieChartWidget(QGraphicsWidget *parent = 0);
     ~PieChartWidget();
 
-    void addData(const QString &name, double length);
-    void addData(const QString &name, double length, double activeLength);
-    void addData(const QString &name, double length, double activeLength, bool active);
-    void removeData(const QString &name);
-    void clear();
-    void updateView();
-
-    QSizeF sizeHint(Qt::SizeHint, const QSizeF&) const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
-                        QWidget *widget);
-
-signals:
-    // emitted when the geometry of the applet who contains the widget needs to be updated (new data to display ...)
-    void geometryChanged();
+    void setTransfers(const QVariantMap &transfers);
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    void update();
 
 private:
-    class PrivateData; // each piece of the pie
-    class Private;
-    Private * const d;
-};
-#endif
+    // draw a portion of the pie chart and returns his end angle
+    int paintPieData(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush);
+     // Draw the graph legend with the names of the data
+    void drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count);
 
+    inline double roundNumber(float number)
+    {
+        double intPart;
+        if (modf(number, &intPart) > 0.5) {
+            return intPart + 1;
+        }
+        else {
+            return intPart;
+        }
+    };
+
+private:
+    class PrivateData;
+
+    QMap <QString, PrivateData> m_data;
+    QVariantMap m_transfers;
+    KColorCollection m_colors;
+
+    int m_totalSize;
+    bool m_needsRepaint;
+};
+
+class PieChartWidget::PrivateData
+{
+public:
+    PrivateData()
+    {};
+
+    QString name;
+    bool isActive;
+    double length;
+    double activeLength;
+};
+
+#endif

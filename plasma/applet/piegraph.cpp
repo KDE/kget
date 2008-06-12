@@ -21,11 +21,6 @@
 #include "piegraph.h"
 #include "piechartwidget.h"
 
-#include <KIcon>
-#include <KDebug>
-#include <KLocale>
-#include <KGlobal>
-
 #include <QVariant>
 #include <QGraphicsLinearLayout>
 #include <QGraphicsWidget>
@@ -38,12 +33,10 @@ PieGraph::PieGraph(QGraphicsWidget *parent)
     m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
     if (m_layout)
     {
-        m_chart = new PieChartWidget();
+        m_chart = new PieChartWidget(parent);
 
         m_layout->addItem(m_chart);
-
-        QObject::connect(m_chart, SIGNAL(geometryChanged()), SLOT(updateGeometry()));
-    }
+   }
 }
 
 PieGraph::~PieGraph()
@@ -52,33 +45,8 @@ PieGraph::~PieGraph()
     delete m_chart;
 }
 
-void PieGraph::updateGeometry()
-{
-    kDebug() << "About to update the widget geometry " << endl;
-    // m_applet->updateGeometry();
-}
-
 void PieGraph::setTransfers(const QVariantMap &transfers)
 {
-    // drop the deleted transfers
-    foreach (const QString &key, m_transfers.keys()) {
-        if (!transfers.contains(key)) {
-            m_chart->removeData(key);
-        }
-    }
-
-    TransferGraph::setTransfers(transfers);
-
-    m_chart->clear();
-
-    foreach(const QString &name, transfers.keys()) {
-        QVariantList attributes = transfers[name].toList();
-
-        m_chart->addData(name, attributes[2].toDouble(),
-                        attributes[1].toInt() * attributes[2].toDouble() / 100,
-                        attributes[3].toBool());
-    }
-
-    m_chart->updateView();
+    m_chart->setTransfers(transfers);
 }
 

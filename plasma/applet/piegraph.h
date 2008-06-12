@@ -41,9 +41,6 @@ public:
 
     void setTransfers(const QVariantMap &percents);
 
-private slots:
-    void updateGeometry();
-
 private:
     QGraphicsLinearLayout *m_layout;
     PieChartWidget *m_chart;

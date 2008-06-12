@@ -72,17 +72,16 @@ void PlasmaKGet::init()
     m_layout->setSpacing(SPACING);
     m_layout->setOrientation(Qt::Vertical);
 
-    m_form = new QGraphicsWidget(this);
-    m_form->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
-    m_form->setLayout(m_layout);
-
     if(formFactor() == Plasma::Vertical || formFactor() == Plasma::Horizontal) {
-        m_form->setContentsMargins(0, 0, 0, 0);
+        m_layout->setContentsMargins(0, 0, 0, 0);
         setBackgroundHints(NoBackground);
     }
     else {
-        resize(QSize(300, 300));
+        m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
+        setMinimumSize(QSize(300, 300));
     }
+    setLayout(m_layout);
+
     m_transferGraph = 0;
     KConfigGroup cg = config();
 
@@ -96,20 +95,11 @@ void PlasmaKGet::init()
     }
 }
 
-QSizeF PlasmaKGet::contentSizeHint() const
-{
-    if (!m_form) {
-        return QSizeF(600, 600);
-    } else {
-        return m_form->effectiveSizeHint(Qt::PreferredSize, geometry().size());
-    }
-}
-
 void PlasmaKGet::constraintsEvent(Plasma::Constraints constraints)
 {
     if (constraints & Plasma::SizeConstraint) {
         if (m_layout) {
-            m_form->resize(geometry().size());
+            resize(geometry().size());
         }
     }
 }
@@ -183,20 +173,20 @@ void PlasmaKGet::loadTransferGraph(uint type)
         switch(type)
         {
             case PlasmaKGet::ErrorGraphType :
-                m_transferGraph = new ErrorGraph(m_form, m_errorMessage);
+                m_transferGraph = new ErrorGraph(this, m_errorMessage);
                 break;
             case PlasmaKGet::PieGraphType :
-                m_transferGraph = new PieGraph(m_form);
+                m_transferGraph = new PieGraph(this);
                 break;
             case PlasmaKGet::SpeedGraphType :
-                m_transferGraph = new SpeedGraph(m_form);
+                m_transferGraph = new SpeedGraph(this);
                 break;
             case PlasmaKGet::PanelGraphType :
-                m_transferGraph = new PanelGraph(m_form);
+                m_transferGraph = new PanelGraph(this);
                 break;
             case PlasmaKGet::BarChartType :
             default:
-                m_transferGraph = new BarChart(m_form);
+                m_transferGraph = new BarChart(this);
         }
 
         m_graphType = type;
