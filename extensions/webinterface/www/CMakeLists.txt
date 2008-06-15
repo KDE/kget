@@ -1,6 +1,7 @@
 set(www_data
     index.htm
-    mootools.js
+    mootools-core-yc.js
+    mootools-more.js
     favicon.ico
     header-background.png
     header-separator.png

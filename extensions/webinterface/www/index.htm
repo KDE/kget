@@ -21,7 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="icon" href="favicon.ico" />
 <title>#{KGet Webinterface}</title>
-<script type="text/javascript" src="mootools.js"></script>
+<script type="text/javascript" src="mootools-core-yc.js"></script>
+<script type="text/javascript" src="mootools-more.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 window.addEvent('domready', function() {
@@ -61,41 +62,41 @@ window.addEvent('domready', function() {
 
         // header
         var headertr = new Element('tr', {'id': 'download-list-table-header'}).injectInside(table);
-        var headernumber = new Element('td', {'class': 'download-left'}).setHTML('#{Nr}').injectInside(headertr);
-        var headername = new Element('td', {'class': 'download-left'}).setHTML('#{File name}').injectAfter(headernumber);
-        var headersize = new Element('td').setHTML('Size').injectAfter(headername);
-        var headerprogress = new Element('td', {'class': 'download-center'}).setHTML('#{Finished}').injectAfter(headersize);
-        var headerspeed = new Element('td', {'class': 'download-center'}).setHTML('#{Speed}').injectAfter(headerprogress);
-        var headerstatus = new Element('td', {'class': 'download-center'}).setHTML('#{Status}').injectAfter(headerspeed);
-        var headerstartaction = new Element('td').setHTML('#{Start}').injectAfter(headerstatus);
-        var headerstopaction = new Element('td').setHTML('#{Stop}').injectAfter(headerstartaction);
-        var headerremoveaction = new Element('td').setHTML('#{Remove}').injectAfter(headerstopaction);
+        var headernumber = new Element('td', {'class': 'download-left', 'html': '#{Nr}'}).injectInside(headertr);
+        var headername = new Element('td', {'class': 'download-left', 'html': '#{File name}'}).injectAfter(headernumber);
+        var headersize = new Element('td', {'html': 'Size'}).injectAfter(headername);
+        var headerprogress = new Element('td', {'class': 'download-center', 'html': '#{Finished}'}).injectAfter(headersize);
+        var headerspeed = new Element('td', {'class': 'download-center', 'html': '#{Speed}'}).injectAfter(headerprogress);
+        var headerstatus = new Element('td', {'class': 'download-center', 'html': '#{Status}'}).injectAfter(headerspeed);
+        var headerstartaction = new Element('td', {'html': '#{Start}'}).injectAfter(headerstatus);
+        var headerstopaction = new Element('td', {'html': '#{Stop}'}).injectAfter(headerstartaction);
+        var headerremoveaction = new Element('td', {'html': '#{Remove}'}).injectAfter(headerstopaction);
 
         var i = 0;
         downloads.each(function(download) {
             i++;
             var toolTipText = '<h1>' + download.name + '</h1>#{Source:} ' + download.src + '<br />#{Saving to:} ' + download.dest;
             var tr = new Element('tr', {'class': 'toolTip download-list-table-item', 'title': toolTipText}).injectInside(table);
-            var number = new Element('td', {'class': 'download-number'}).setHTML((i < 10) ? '0' + i : i).injectInside(tr);
-            var name = new Element('td', {'class': 'download-left'}).setHTML(download.name).injectAfter(number);
-            var size = new Element('td').setHTML(download.size).injectAfter(name);
-            var progress = new Element('td', {'class': 'download-center'}).setHTML(download.progress).injectAfter(size);
-            var speed = new Element('td', {'class': 'download-center'}).setHTML(download.speed).injectAfter(progress);
-            var status = new Element('td', {'class': 'download-center'}).setHTML(download.status).injectAfter(speed);
+            var number = new Element('td', {'class': 'download-number', 'html': ((i < 10) ? '0' + i : i)}).injectInside(tr);
+            var name = new Element('td', {'class': 'download-left', 'html': download.name}).injectAfter(number);
+            var size = new Element('td', {'html': 'download.size'}).injectAfter(name);
+            var progress = new Element('td', {'class': 'download-center', 'html': download.progress}).injectAfter(size);
+            var speed = new Element('td', {'class': 'download-center', 'html': download.speed}).injectAfter(progress);
+            var status = new Element('td', {'class': 'download-center', 'html': download.status}).injectAfter(speed);
             var startaction = new Element('td').injectAfter(status);
-            var start = new Element('a', {'href': '#'}).setHTML('#{Start}').injectInside(startaction);
+            var start = new Element('a', {'href': '#', 'html': '#{Start}'}).injectInside(startaction);
             start.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('start', download.src);
             });
             var stopaction = new Element('td').injectAfter(startaction);
-            var stop = new Element('a', {'href': '#'}).setHTML('#{Stop}').injectInside(stopaction);
+            var stop = new Element('a', {'href': '#', 'html': '#{Stop}'}).injectInside(stopaction);
             stop.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('stop', download.src);
             });
             var removeaction = new Element('td').injectAfter(stopaction);
-            var remove = new Element('a', {'href': '#'}).setHTML('#{Remove}').injectInside(removeaction);
+            var remove = new Element('a', {'href': '#', 'html': '#{Remove}'}).injectInside(removeaction);
             remove.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('remove', download.src);
