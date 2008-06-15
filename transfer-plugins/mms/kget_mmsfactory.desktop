@@ -5,6 +5,7 @@ X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
 Name=MMS TransferFactory
+Name[de]=MMS-Übertragungsmodul
 Name[el]=Εργοστάσιο μεταφοράς MMS
 Name[ga]=TransferFactory MMS
 Name[lt]=MMS siuntimo sistema
