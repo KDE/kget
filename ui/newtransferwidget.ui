@@ -61,7 +61,7 @@
         </widget>
        </item>
        <item row="3" column="1" >
-        <widget class="QComboBox" name="groupComboBox" >
+        <widget class="KComboBox" name="groupComboBox" >
          <property name="minimumSize" >
           <size>
            <width>250</width>

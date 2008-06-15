@@ -50,7 +50,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2" >
         <item>
-         <widget class="QComboBox" name="kcfg_HistoryBackend" />
+         <widget class="KComboBox" name="kcfg_HistoryBackend" />
         </item>
        </layout>
       </item>

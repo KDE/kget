@@ -109,7 +109,7 @@
            <number>2</number>
           </property>
           <item>
-           <widget class="QComboBox" name="rangeType" >
+           <widget class="KComboBox" name="rangeType" >
             <item>
              <property name="text" >
               <string>Date</string>
@@ -146,7 +146,7 @@
            <number>2</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="searchBar" />
+           <widget class="KLineEdit" name="searchBar" />
           </item>
          </layout>
         </widget>
