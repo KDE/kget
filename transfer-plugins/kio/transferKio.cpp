@@ -22,7 +22,8 @@
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
-    : Transfer(parent, factory, scheduler, source, dest, e),
+    : QObject(0),
+      Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0)
 {
 
