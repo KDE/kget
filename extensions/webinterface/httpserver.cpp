@@ -173,14 +173,12 @@ void HttpServer::handleRequest()
             data.replace("#{Save Settings}", i18nc("@action:button", "Save Settings").toUtf8());
             data.replace("#{Downloads}", i18nc("@title", "Downloads").toUtf8());
             data.replace("#{KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS}",
-                         i18nc("@label text in footer", "KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS").toUtf8());
+                         i18nc("@label text in footer", "KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS").toUtf8().replace('&', "&amp;"));
 
             // delegate group combobox
-            QString groupOptions;
-            QStringList groupsList(KGet::transferGroupNames());
-            QStringList::const_iterator it;
-            for (it = groupsList.constBegin(); it != groupsList.constEnd(); ++it)
-                groupOptions += QString("<option>%1</option>").arg(*it);
+            QString groupOptions = "";
+            Q_FOREACH(const QString &group, KGet::transferGroupNames())
+                groupOptions += QString("<option>%1</option>").arg(group);
             data.replace("#{groups}", groupOptions.toUtf8());
         }
     }

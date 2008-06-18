@@ -5,7 +5,7 @@ Copyright 2008 Urs Wolfer <uwolfer @ kde.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
-published by the Free Software Foundation; either version 2 of 
+published by the Free Software Foundation; either version 2 of
 the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="icon" href="favicon.ico" />
 <title>#{KGet Webinterface}</title>
 <script type="text/javascript" src="mootools-core-yc.js"></script>
@@ -29,10 +29,10 @@ window.addEvent('domready', function() {
     var slide = new Fx.Slide('settings-container').hide();
     function refreshList() {
         var request = new Request.JSON({url: 'data.json',
-                secure: false,
-                onComplete: function(jsonObj) {
-                        listDownloads(jsonObj.downloads);
-                }
+            secure: false,
+            onComplete: function(jsonObj) {
+                listDownloads(jsonObj.downloads);
+            }
         }).send();
     }
     refreshList(); // load it at start
@@ -49,8 +49,8 @@ window.addEvent('domready', function() {
         parameters['action'] = action;
 
         var addRequest = new Request.HTML({url: 'do',
-                update: log,
-                onComplete: function() {
+            update: log,
+            onComplete: function() {
                 log.removeClass('ajax-loading');
                 refreshList();
             }}).get(parameters)
@@ -154,7 +154,7 @@ a, a:active, a:hover, a:visited {
     width: 30px;
     text-align: center;
 }
-.tool-tip{
+.tool-tip {
     color: #000000;
     z-index: 13000;
     border: 1px solid #B8B8B8;
@@ -228,8 +228,8 @@ html>body #background-top-left, html>body #background-top-right {
 #new-download {
     height: 27px;
     background: url(new-download-background.png) repeat-x;
-    padding: 3px; 
-    padding-top: 10px; 
+    padding: 3px;
+    padding-top: 10px;
     vertical-align:bottom;
     padding-left: 8px;
     color: #000000;
@@ -278,7 +278,7 @@ html>body #download-list {
 }
 #download-list-table {
     width: 100%;
-    border-collapse:collapse;
+    border-collapse: collapse;
 }
 .download-list-table-item td {
     height: 40px;
