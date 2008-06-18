@@ -4,7 +4,7 @@
   <kcfgfile name="kget_multisegkiofactory.rc"/>
   <group name="Segments">
     <entry name="Segments" type="Int">
-      <default>5</default>
+      <default>1</default>
     </entry>
     <entry name="SplitSize" type="Int">
       <default>50</default>
