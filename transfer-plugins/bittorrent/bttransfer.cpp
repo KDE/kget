@@ -45,7 +45,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
     torrent(0),
-    m_tmp(0),
+    m_tmp(KStandardDirs::locateLocal("appdata", "tmp/")),
     m_ready(false),
     m_downloadFinished(false)
 {
@@ -115,7 +115,7 @@ void BTTransfer::update()
 
 void BTTransfer::postDeleteEvent()
 {
-    /**QDir * tmpDir = new QDir(m_tmp);
+    QDir * tmpDir = new QDir(m_tmp);
     kDebug(5001) << m_tmp + m_source.fileName().remove(".torrent");
     tmpDir->rmdir(m_source.fileName().remove(".torrent") + "/dnd");
     tmpDir->cd(m_source.fileName().remove(".torrent"));
@@ -130,7 +130,7 @@ void BTTransfer::postDeleteEvent()
 
     kDebug(5001) << m_source.url();
     QFile *torrentFile = new QFile(m_source.url().remove("file://"));
-    torrentFile->remove();**/
+    torrentFile->remove();
     //TODO: Reenable that but test well
 }
 
@@ -306,8 +306,6 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
             if (!QFileInfo(m_tmp).isDir())
                 m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
         }
-        else
-            m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
 
         m_ready = true;
 
