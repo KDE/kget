@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007-2008 Lukas Appelhans <l.appelhans@gmx.de>
    Copyright (C) 2007 Joris Guisson   <joris.guisson@gmail.com>
 
    This program is free software; you can redistribute it and/or
@@ -301,9 +301,8 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
 
         if (!BittorrentSettings::tmpDir().isEmpty())
         {
-            m_tmp = BittorrentSettings::tmpDir();
-            if (!QFileInfo(m_tmp).isDir())
-                m_tmp = KStandardDirs::locateLocal("appdata", "tmp/");
+            if (QFileInfo(BittorrentSettings::tmpDir()).isDir())
+                m_tmp = BittorrentSettings::tmpDir();
         }
 
         m_ready = true;
