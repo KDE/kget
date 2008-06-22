@@ -131,7 +131,6 @@ void BTTransfer::postDeleteEvent()
     kDebug(5001) << m_source.url();
     QFile *torrentFile = new QFile(m_source.url().remove("file://"));
     torrentFile->remove();
-    //TODO: Reenable that but test well
 }
 
 /**void BTTransfer::load(const QDomElement &e)
