@@ -45,7 +45,7 @@ ErrorGraph::ErrorGraph(QGraphicsWidget *parent, const QString &message)
         errorLabel->setText(message);
         errorLabel->setAlignment(Qt::AlignCenter);
 
-        QPushButton *launchButton = new QPushButton(KIcon("kget"), "Launch KGet");
+        QPushButton *launchButton = new QPushButton(KIcon("kget"), i18n("Launch KGet"));
         launchButton->setAutoFillBackground(false);
 
         m_proxyErrorLabel = new QGraphicsProxyWidget(parent);
