@@ -96,7 +96,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     // import url layout
     QLabel *importLabel = new QLabel(this);
     importLabel->setText(i18n("File with links to import:"));
-    m_importButton = new QPushButton("Import links", this);
+    m_importButton = new QPushButton(i18n("Import links"), this);
     m_importButton->setIcon(KIcon("document-import"));
     m_importButton->setEnabled(false);
     m_urlRequester = new KUrlRequester(this);
