@@ -136,8 +136,9 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     // Check if the transfer allow resuming...
     if ( m_segData.offset && !m_canResume)
     {
+        kDebug(5001) << "the remote site dont allow resuming ...";
         stopTransfer();
-	setStatus(Killed);
+	setStatus(Killed, false );
         return;
     }
 
