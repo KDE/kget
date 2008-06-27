@@ -21,6 +21,7 @@ class MultiSegKioDataSource : public TransferDataSource
 {
     public:
         MultiSegKioDataSource();
+        ~MultiSegKioDataSource();
 
         void start();
 	void stop();

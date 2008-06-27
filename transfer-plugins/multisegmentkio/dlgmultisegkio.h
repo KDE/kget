@@ -22,7 +22,6 @@ public:
     ~DlgSettingsWidget();
 
 private slots:
-    //void slotSetUseSearchEngines(bool b);
     void slotSave();
     void init();
     void enableButtonApply();

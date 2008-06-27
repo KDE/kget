@@ -19,14 +19,23 @@ MultiSegKioDataSource::MultiSegKioDataSource()
     kDebug(5001);
 }
 
+MultiSegKioDataSource::~MultiSegKioDataSource()
+{
+    kDebug(5001);
+    if (m_SegFactory)
+        m_SegFactory->deleteLater();
+}
+
 void MultiSegKioDataSource::start()
 {
     kDebug(5001);
+    m_SegFactory->startTransfer();
 }
 
 void MultiSegKioDataSource::stop()
 {
     kDebug(5001);
+    m_SegFactory->stopTransfer();
 }
 
 void MultiSegKioDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes)

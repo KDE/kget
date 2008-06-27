@@ -46,10 +46,11 @@
         *
         * @param Running The transfer is being executed
         * @param Stopped The transfer is stopped
+        * @param Killed The transfer have been killed due unhandled errors 
         * @param Timeout The transfer is broken because an error ocoured
         * @param Finished The transfer exited successfully
         */
-        enum Status {Running, Stopped, Timeout, Finished};
+        enum Status {Running, Stopped, Killed ,Timeout, Finished};
 
         /**
         * Empty Constructor
@@ -135,6 +136,7 @@
     private Q_SLOTS:
 
         void slotData(KIO::Job *, const QByteArray& data);
+	void slotCanResume(KIO::Job *, KIO::filesize_t);
 
     private:
 
@@ -148,6 +150,7 @@
         KIO::filesize_t m_bytesWritten;
         KIO::TransferJob *m_getJob;
         QByteArray m_buffer;
+	bool m_canResume;
     };
 
     class SegmentFactory: public QObject
@@ -179,6 +182,7 @@
 
     private:
         Segment *takeLongest();
+        bool DeleteUrl(const KUrl &url );
 
     private:
         uint m_segments;

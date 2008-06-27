@@ -26,6 +26,7 @@ Segment::Segment (QObject* parent)
     m_status = Stopped;
     m_bytesWritten = 0;
     m_getJob = 0;
+    m_canResume = true;
 }
 
 bool Segment::createTransfer ( const KUrl &src )
@@ -39,7 +40,10 @@ bool Segment::createTransfer ( const KUrl &src )
     m_getJob->addMetaData( "AllowCompressedPage", "false" );
     if ( m_segData.offset )
     {
+        m_canResume = false;
         m_getJob->addMetaData( "resume", KIO::number(m_segData.offset) );
+        connect(m_getJob, SIGNAL(canResume(KIO::Job *, KIO::filesize_t)),
+                 SLOT( slotCanResume(KIO::Job *, KIO::filesize_t)));
     }
     #if 0 //TODO: we disable that code till it's implemented in kdelibs, also we need to think, which settings we should use
     if(Settings::speedLimit())
@@ -52,6 +56,12 @@ bool Segment::createTransfer ( const KUrl &src )
     connect( m_getJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
 
     return true;
+}
+
+void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
+{
+    kDebug(5001);
+    m_canResume = true;
 }
 
 bool Segment::startTransfer ()
@@ -107,6 +117,11 @@ void Segment::slotResult( KJob *job )
         deleteLater();
         return;
     }
+    if( m_status == Killed )
+    {
+        deleteLater();
+        return;
+    }
     if( m_status == Running )
     {
         kDebug(5001) << "Conection broken " << job << " --restarting--";
@@ -117,6 +132,15 @@ void Segment::slotResult( KJob *job )
 void Segment::slotData(KIO::Job *, const QByteArray& _data)
 {
 //     kDebug(5001) << "Segment::slotData()";
+
+    // Check if the transfer allow resuming...
+    if ( m_segData.offset && !m_canResume)
+    {
+        stopTransfer();
+	setStatus(Killed);
+        return;
+    }
+
     m_buffer.append(_data);
     if ( (uint)m_buffer.size() > m_segData.bytes )
     {
@@ -330,6 +354,13 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
     kDebug(5001) << seg->status();
     switch (seg->status())
     {
+    case Segment::Killed :
+        //this site dont allow resuming. so its useless for multiseg
+        if ( !DeleteUrl( seg->job()->url() ) )
+        {
+        //TODO: notify that we cant resume or manage this transfer 
+        }
+    break;
     case Segment::Timeout :
         kDebug(5001) << "Restarting Segment in 5 seg... ";
         m_TimeOutSegments << seg;
@@ -394,6 +425,20 @@ const KUrl SegmentFactory::nextUrl()
     KUrl url(*it_Urls);
     it_Urls++;
     return url;
+}
+
+bool SegmentFactory::DeleteUrl(const KUrl &url)
+{
+    if ( m_Urls.count() == 1 )
+    {
+        return false;
+    }
+    if ( m_Urls.contains( url ) )
+    {
+        m_Urls.removeAll( url );
+        return true;
+    }
+    return false;
 }
 
 #include "segmentfactory.moc"
