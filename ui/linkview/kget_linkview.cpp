@@ -304,9 +304,9 @@ void KGetLinkView::doFilter(int id, const QString &textFilter)
         }
         else {
             if ( !m_showWebContent && KGetLinkView::NoFilter == id ) {
-                filter.replace("(^.", "(" + textFilter  );
+                filter.replace("(^.", '(' + textFilter  );
               } else {
-                filter.replace("(.", "(.*" + textFilter + "*");
+                filter.replace("(.", "(.*" + textFilter + '*');
             }
         }
     }

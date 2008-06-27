@@ -22,11 +22,11 @@ SegData::SegData ()
 
 Segment::Segment (QObject* parent)
   :QObject(parent)
+    , m_status(Stopped)
+    , m_bytesWritten(0)
+    , m_getJob(0)
+    , m_canResume(true)
 {
-    m_status = Stopped;
-    m_bytesWritten = 0;
-    m_getJob = 0;
-    m_canResume = true;
 }
 
 bool Segment::createTransfer ( const KUrl &src )
@@ -60,6 +60,8 @@ bool Segment::createTransfer ( const KUrl &src )
 
 void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
 {
+    Q_UNUSED(job);
+    Q_UNUSED(offset);
     kDebug(5001);
     m_canResume = true;
 }
