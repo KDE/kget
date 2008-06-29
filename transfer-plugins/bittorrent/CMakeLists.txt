@@ -8,7 +8,7 @@ if (ENABLE_EMBEDDED_TORRENT_SUPPORT)
     macro_log_feature(GMP_FOUND "GMP" "The GNU Multiple Precision Arithmetic Library" "http://gmplib.org/" FALSE "" "Needed to build KGet Torrent support.")
 
 if (GMP_FOUND AND QCA2_FOUND)
-add_definitions(${KDE4_ENABLE_EXCEPTIONS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS}")
 
 include_directories(
    ../../
