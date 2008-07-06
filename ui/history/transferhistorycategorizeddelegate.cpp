@@ -77,11 +77,11 @@ void SizeCategorizedDelegate::categorizeItem(QStandardItem *item)
         value = QVariant(i18n("Under 10MiB"));
     }
     else if (size >= 10 * 1024 * 1024  && size < 50 * 1024 *  1024) {
-        value = QVariant(i18n("More than 10MiB and 50MiB"));
+        value = QVariant(i18n("Between 10MiB and 50MiB"));
         categorySort = 1;
     }
     else if (size >= 50 * 1024 * 1024  && size < 100 * 1024 *  1024) {
-        value = QVariant(i18n("More than 50MiB and 100MiB"));
+        value = QVariant(i18n("Between 50MiB and 100MiB"));
         categorySort = 2;
     }
     else {
