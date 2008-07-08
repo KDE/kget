@@ -29,8 +29,7 @@ namespace kt
     class Monitor;
     class TrackerView;
     class WebSeedsTab;
-    class StatusTab;
-}
+    }
 
 class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
 {

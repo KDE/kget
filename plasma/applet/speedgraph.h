@@ -28,7 +28,6 @@ static const int GRAPH_HEIGHT = 200;
 
 class LineGraphWidget;
 
-class QBoxLayout;
 class QGraphicsLinearLayout;
 class QGraphicsWidget;
 

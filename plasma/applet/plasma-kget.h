@@ -32,7 +32,6 @@ namespace Plasma {
 }
 
 class QGraphicsLinearLayout;
-class QGraphicsWidget;
 class KDialog;
 
 class PlasmaKGet : public Plasma::Applet

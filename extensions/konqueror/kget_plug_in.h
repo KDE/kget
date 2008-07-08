@@ -16,7 +16,6 @@
 
 class KToggleAction;
 
-class KGetLinkView;
 
 class KGet_plug_in : public KParts::Plugin
 {

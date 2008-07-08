@@ -19,7 +19,6 @@
 #include "kget.h"
 
 class QAction;
-class KMenu;
 
 class QObjectInterface;
 class TransferGroupObserver;

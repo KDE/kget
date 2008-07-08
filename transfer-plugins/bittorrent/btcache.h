@@ -26,7 +26,6 @@ namespace bt
     class TorrentFile;
     class Chunk;
     class PreallocationThread;
-    class TorrentFileInterface;
 }
 
 using namespace bt;

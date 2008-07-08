@@ -16,9 +16,6 @@
 #include <QSortFilterProxyModel>
 #include <QTreeView>
 
-class QDate;
-class QLabel;
-class QLayout;
 class QStandardItem;
 class QStandardItemModel;
 class QSortFilterProxyModel;

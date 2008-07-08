@@ -24,7 +24,6 @@
 #include "transfergraph.h"
 
 namespace Plasma {
-    class Applet;
     class Icon;
 }
 

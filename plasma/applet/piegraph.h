@@ -25,9 +25,6 @@
 
 class PieChartWidget;
 
-namespace Plasma {
-    class Applet;
-}
 class QGraphicsLinearLayout;
 class QGraphicsWidget;
 

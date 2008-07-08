@@ -23,9 +23,6 @@
 
 #include "transfergraph.h"
 
-namespace Plasma {
-    class Applet;
-}
 class QProgressBar;
 class QGraphicsLinearLayout;
 class QGraphicsProxyWidget;

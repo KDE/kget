@@ -17,7 +17,6 @@
 #include <QModelIndex>
 
 class QDate;
-class QLineEdit;
 class QStandardItemModel;
 class KCategorizedView;
 class KCategoryDrawer;

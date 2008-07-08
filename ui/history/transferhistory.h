@@ -23,7 +23,6 @@ class QProgressBar;
 class KPushButton;
 class TransferHistoryStore;
 class TransferHistoryItem;
-class TransferHistoryCategorizedView;
 
 class TransferHistory : public KDialog, Ui::TransferHistory
 {
