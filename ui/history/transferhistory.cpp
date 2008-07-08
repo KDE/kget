@@ -78,7 +78,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
     m_actionDownload = widget.actionDownload;
     m_actionDownload->setIcon(KIcon("document-new"));
-    m_openFile = new QAction(KIcon("document-open"), "&Open File", this);
+    m_openFile = new QAction(KIcon("document-open"), i18n("&Open File"), this);
     setMainWidget(mainWidget);
     setInitialSize(QSize(800, 400));
 
