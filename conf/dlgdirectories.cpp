@@ -31,6 +31,7 @@ DlgDirectories::DlgDirectories(QWidget *parent)
     folderForExtensionList->horizontalHeader()->setClickable(false);
     folderForExtensionList->horizontalHeader()->setMovable(false);
     folderForExtensionList->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
+    folderForExtensionList->resizeColumnToContents (0 );
     folderForExtensionList->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
     folderForExtensionList->setItemDelegateForColumn(1, new SelectDirectoryItemDelegate(parent));
 
