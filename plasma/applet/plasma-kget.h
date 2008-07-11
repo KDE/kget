@@ -62,6 +62,7 @@ protected slots:
     void configAccepted();
 
 private:
+    void doLayout();
     void loadTransferGraph(uint type);
 
     Plasma::Svg *m_theme;

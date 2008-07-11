@@ -48,6 +48,7 @@
 #define SPACING 4
 
 PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Applet(parent, args),
+                            m_layout(0),
                             m_dialog(0),
                             m_errorMessage(QString()),
                             m_error(false),
@@ -56,6 +57,7 @@ PlasmaKGet::PlasmaKGet(QObject *parent, const QVariantList &args) : Plasma::Appl
     setHasConfigurationInterface(true);
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
     setBackgroundHints(Applet::DefaultBackground);
+    setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
     m_theme = new Plasma::Svg(this);
     m_theme->setImagePath("widgets/kget");
@@ -68,19 +70,7 @@ PlasmaKGet::~PlasmaKGet()
 
 void PlasmaKGet::init()
 {
-    m_layout = new QGraphicsLinearLayout();
-    m_layout->setSpacing(SPACING);
-    m_layout->setOrientation(Qt::Vertical);
-
-    if(formFactor() == Plasma::Vertical || formFactor() == Plasma::Horizontal) {
-        m_layout->setContentsMargins(0, 0, 0, 0);
-        setBackgroundHints(NoBackground);
-    }
-    else {
-        m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
-        setMinimumSize(QSize(300, 300));
-    }
-    setLayout(m_layout);
+    doLayout();
 
     m_transferGraph = 0;
     KConfigGroup cg = config();
@@ -97,6 +87,10 @@ void PlasmaKGet::init()
 
 void PlasmaKGet::constraintsEvent(Plasma::Constraints constraints)
 {
+    if (constraints & Plasma::LocationConstraint) {
+        doLayout();
+    }
+
     if (constraints & Plasma::SizeConstraint) {
         if (m_layout) {
             resize(geometry().size());
@@ -110,10 +104,10 @@ void PlasmaKGet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *opt
     if(formFactor() == Plasma::Planar || formFactor() == Plasma::MediaCenter) {
         p->setRenderHint(QPainter::SmoothPixmapTransform);
 
-        m_theme->paint(p, QRect(contentsRect.x() + SPACING + 10, 
+        m_theme->paint(p, QRect(contentsRect.x() + SPACING + 10,
                                 contentsRect.y() + SPACING + 10, 111, 35), "title");
-        m_theme->paint(p, QRect(contentsRect.x() + SPACING + 10, 
-                                contentsRect.y() + SPACING + 45, 
+        m_theme->paint(p, QRect(contentsRect.x() + SPACING + 10,
+                                contentsRect.y() + SPACING + 45,
                                 contentsRect.width() - (SPACING + 10) * 2, 1), "line");
     }
 }
@@ -159,6 +153,31 @@ void PlasmaKGet::configAccepted()
     loadTransferGraph(ui.graphType->itemData(ui.graphType->currentIndex()).toUInt());
     m_engine->setProperty("refreshTime", ui.refreshTime->value());
     cg.writeEntry("graphType", ui.graphType->itemData(ui.graphType->currentIndex()).toUInt());
+}
+
+void PlasmaKGet::doLayout()
+{
+    if (!m_layout) {
+        m_layout = new QGraphicsLinearLayout();
+        m_layout->setSpacing(SPACING);
+        m_layout->setOrientation(Qt::Vertical);
+        setLayout(m_layout);
+    }
+
+    if(formFactor() == Plasma::Vertical || formFactor() == Plasma::Horizontal) {
+        m_layout->setContentsMargins(0, 0, 0, 0);
+        setMaximumSize(QSize(100, 30));
+        setBackgroundHints(NoBackground);
+        resize(QSize(100, 30));
+
+        if (m_graphType != PlasmaKGet::PanelGraphType) {
+            loadTransferGraph(PlasmaKGet::PanelGraphType);
+        }
+    }
+    else {
+        m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
+        setMinimumSize(QSize(300, 300));
+    }
 }
 
 void PlasmaKGet::loadTransferGraph(uint type)
