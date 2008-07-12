@@ -127,10 +127,12 @@ void BTTransfer::postDeleteEvent()
     }
     tmpDir->cdUp();
     tmpDir->rmdir(m_source.fileName().remove(".torrent"));
+    delete tmpDir;
 
     kDebug(5001) << m_source.url();
     QFile *torrentFile = new QFile(m_source.url().remove("file://"));
     torrentFile->remove();
+    delete torrentFile;
 }
 
 /**void BTTransfer::load(const QDomElement &e)
