@@ -38,8 +38,8 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     frm.destLabel->setText(i18n("Saving to:"));
     frm.statusLabel->setText(i18n("Status:"));
 
-    frm.sourceContentEdit->setText(transfer->source().url());
-    frm.destContentEdit->setText(transfer->dest().url());
+    frm.sourceContentEdit->setText(transfer->source().prettyUrl());
+    frm.destContentEdit->setText(transfer->dest().prettyUrl());
 
     m_statusPixmapLabel = frm.statusPixmapContentLabel;
     m_statusTextLabel = frm.statusTextContentLabel;
