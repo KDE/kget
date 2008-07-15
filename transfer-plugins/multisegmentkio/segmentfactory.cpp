@@ -138,7 +138,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     // Check if the transfer allow resuming...
     if ( m_segData.offset && !m_canResume)
     {
-        kDebug(5001) << "the remote site dont allow resuming ...";
+        kDebug(5001) << "the remote site does not allow resuming ...";
         stopTransfer();
 	setStatus(Killed, false );
         return;
@@ -358,7 +358,7 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
     switch (seg->status())
     {
     case Segment::Killed :
-        //this site dont allow resuming. so its useless for multiseg
+        //this site does not allow resuming. so its useless for multiseg
         if ( !DeleteUrl( seg->job()->url() ) )
         {
         //TODO: notify that we cant resume or manage this transfer 
