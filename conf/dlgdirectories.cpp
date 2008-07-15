@@ -57,7 +57,7 @@ void DlgDirectories::readConfig()
 {
     QStringList list = Settings::extensionsFolderList();
     QStringList::Iterator it = list.begin();
-    QStringList::Iterator end = list.end();
+    const QStringList::Iterator end = list.end();
     while (it != end) {
         // odd list items are regular expressions for extensions
         QString rexp = *it;

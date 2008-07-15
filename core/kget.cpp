@@ -508,7 +508,7 @@ void KGet::setPluginsSettingsWidget(KTabWidget * widget)
 {
     kDebug(5001);
     QList<TransferFactory *>::iterator it = m_transferFactories.begin();
-    QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
+    const QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
 
     QWidget * settingsWidget;
     for( ; it!=itEnd ; ++it)
@@ -822,7 +822,7 @@ QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
 
     QStringList list = Settings::extensionsFolderList();
     QStringList::Iterator it = list.begin();
-    QStringList::Iterator end = list.end();
+    const QStringList::Iterator end = list.end();
     while (it != end) {
         // odd list items are regular expressions for extensions
         QString ext = *it;
