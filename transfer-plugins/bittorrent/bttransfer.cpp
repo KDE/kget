@@ -261,8 +261,11 @@ void BTTransfer::updateTorrent()
         changesFlags |= Tc_DownloadSpeed;
     }
 
-    if(m_percent != (m_percent = ((float) chunksDownloaded() / (float) chunksTotal()) * 100) )
+    int percent = (((float) chunksDownloaded() / (float) chunksTotal()) * 100);
+    if (m_percent != percent) {
+        m_percent = percent;
         changesFlags |= Tc_Percent;
+    }
 
     setTransferChange(changesFlags, true);
 }
