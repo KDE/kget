@@ -43,7 +43,7 @@ TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QSty
     connect(m_actionDownload, SIGNAL(triggered()), SLOT(slotDownload()));
 
     m_actionDelete_Selected = new QAction(this);
-    m_actionDelete_Selected->setText(i18n("Delete selected"));
+    m_actionDelete_Selected->setText(i18nc("Delete selected history-item", "Delete selected"));
     m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
     connect(m_actionDelete_Selected, SIGNAL(triggered()), SLOT(slotDeleteTransfer()));
 

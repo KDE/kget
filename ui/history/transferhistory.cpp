@@ -207,17 +207,17 @@ QString TransferHistory::statusText(int status) const
     switch (status)
     {
         case Job::Running:
-            return i18n("Running");
+            return i18nc("The transfer is running", "Running");
         case Job::Delayed:
-            return i18n("Delayed");
+            return i18nc("The transfer is delayed", "Delayed");
         case Job::Stopped:
-            return i18n("Stopped");
+            return i18nc("The transfer is stopped", "Stopped");
         case Job::Aborted:
-            return i18n("Aborted");
+            return i18nc("The transfer is aborted", "Aborted");
         case Job::Finished:
-            return i18n("Finished");
+            return i18nc("The transfer is finished", "Finished");
         default:
-            return "";
+            return QString();
     }
 }
 
