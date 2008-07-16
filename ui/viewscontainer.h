@@ -10,8 +10,8 @@
 */
 
 
-#ifndef _VIEWSCONTAINER_H
-#define _VIEWSCONTAINER_H
+#ifndef VIEWSCONTAINER_H
+#define VIEWSCONTAINER_H
 
 #include <QWidget>
 #include <QToolButton>

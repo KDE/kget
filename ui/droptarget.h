@@ -9,8 +9,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _DROPTARGET_H
-#define _DROPTARGET_H
+#ifndef DROPTARGET_H
+#define DROPTARGET_H
 
 #include <QWidget>
 #include <QDragEnterEvent>

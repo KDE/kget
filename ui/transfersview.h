@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _TRANSFERSVIEW_H
-#define _TRANSFERSVIEW_H
+#ifndef TRANSFERSVIEW_H
+#define TRANSFERSVIEW_H
 
 #include <QTreeView>
 

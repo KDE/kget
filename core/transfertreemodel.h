@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _TRANSFERTREEMODEL_H
-#define _TRANSFERTREEMODEL_H
+#ifndef TRANSFERTREEMODEL_H
+#define TRANSFERTREEMODEL_H
 
 #include <QAbstractItemModel>
 #include <QList>

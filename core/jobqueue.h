@@ -9,8 +9,8 @@
 */
 
 
-#ifndef _JOBQUEUE_H
-#define _JOBQUEUE_H
+#ifndef JOBQUEUE_H
+#define JOBQUEUE_H
 
 /**
  * @brief JobQueue class

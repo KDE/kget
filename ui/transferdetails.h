@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _TRANSFERDETAILS_H
-#define _TRANSFERDETAILS_H
+#ifndef TRANSFERDETAILS_H
+#define TRANSFERDETAILS_H
 
 #include <QWidget>
 
