@@ -14,7 +14,7 @@
 
 #include "links.h"
 #include "kget_interface.h"
-
+#include "config-kgetplugins.h"
 #include <KActionCollection>
 #include <KToggleAction>
 #include <kactionmenu.h>
@@ -33,7 +33,11 @@
 
 #ifdef HAVE_WEBKITKDE
 #include <webkitpart.h>
+#ifdef HAVE_WEBVIEW
+#include <webview.h>
+#else
 #include <webkitview.h>
+#endif
 #include <QWebFrame>
 #endif
 
