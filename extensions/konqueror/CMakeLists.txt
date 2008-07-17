@@ -9,7 +9,11 @@ endif (DEPEND_PACKAGE_WebKitKde)
 if( WEBKITKDE_FOUND)
     add_definitions(-DHAVE_WEBKITKDE)
     include_directories(${WEBKITKDE_INCLUDE_DIR})
+    FIND_PATH(WEBVIEW_PATH webkitkde/webview.h PATH ${WEBKITKDE_INCLUDE_DIR})
+    macro_bool_to_01(WEBVIEW_PATH HAVE_WEBVIEW )
 endif(WEBKITKDE_FOUND)
+
+configure_file(config-kgetplugins.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kgetplugins.h )
 
 
 set(khtml_kget_SRCS
