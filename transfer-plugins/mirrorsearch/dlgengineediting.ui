@@ -9,7 +9,7 @@
     <height>132</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QFormLayout" name="formLayout" >
    <item row="0" column="0" >
     <widget class="QLabel" name="engineNameLabel" >
      <property name="text" >
@@ -18,7 +18,11 @@
     </widget>
    </item>
    <item row="0" column="1" >
-    <widget class="KLineEdit" name="engineNameEdit" />
+    <widget class="KLineEdit" name="engineNameEdit" >
+     <property name="showClearButton" stdset="0" >
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0" >
     <widget class="QLabel" name="urlLabel" >
@@ -28,23 +32,21 @@
     </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="KLineEdit" name="urlEdit" />
-   </item>
-   <item row="2" column="0" colspan="2" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
+    <widget class="KLineEdit" name="urlEdit" >
+     <property name="showClearButton" stdset="0" >
+      <bool>true</bool>
      </property>
-     <property name="sizeHint" >
-      <size>
-       <width>361</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

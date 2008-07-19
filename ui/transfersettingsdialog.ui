@@ -5,89 +5,81 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>262</width>
-    <height>112</height>
+    <width>319</width>
+    <height>141</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" colspan="2" >
-    <widget class="KTitleWidget" native="1" name="ktitlewidget" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="KTitleWidget" name="ktitlewidget" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="text" stdset="0" >
+     <property name="text" >
       <string>Transfer-Settings</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QCheckBox" name="uploadCheck" >
-     <property name="text" >
-      <string>Upload Limit</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" >
-    <widget class="QSpinBox" name="uploadSpin" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="suffix" >
-      <string>KiB</string>
-     </property>
-     <property name="maximum" >
-      <number>100000</number>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" >
-    <widget class="QCheckBox" name="downloadCheck" >
-     <property name="text" >
-      <string>Download Limit</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1" >
-    <widget class="QSpinBox" name="downloadSpin" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="suffix" >
-      <string>KiB</string>
-     </property>
-     <property name="maximum" >
-      <number>100000</number>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" >
-    <widget class="QCheckBox" name="ratioCheck" >
-     <property name="text" >
-      <string>Maximum Share Ratio</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1" >
-    <widget class="QDoubleSpinBox" name="ratioSpin" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-    </widget>
+   <item>
+    <layout class="QFormLayout" name="formLayout" >
+     <item row="0" column="0" >
+      <widget class="QCheckBox" name="uploadCheck" >
+       <property name="text" >
+        <string>Upload Limit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QSpinBox" name="uploadSpin" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="suffix" >
+        <string>KiB</string>
+       </property>
+       <property name="maximum" >
+        <number>100000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QCheckBox" name="downloadCheck" >
+       <property name="text" >
+        <string>Download Limit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QSpinBox" name="downloadSpin" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="suffix" >
+        <string>KiB</string>
+       </property>
+       <property name="maximum" >
+        <number>100000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QCheckBox" name="ratioCheck" >
+       <property name="text" >
+        <string>Maximum Share Ratio</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="QDoubleSpinBox" name="ratioSpin" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

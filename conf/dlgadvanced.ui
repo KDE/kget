@@ -6,10 +6,10 @@
     <x>0</x>
     <y>0</y>
     <width>405</width>
-    <height>425</height>
+    <height>443</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <property name="margin" >
     <number>0</number>
    </property>
@@ -39,20 +39,16 @@
      <property name="title" >
       <string>History</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" >
-      <item>
+     <layout class="QFormLayout" name="formLayout" >
+      <item row="0" column="0" >
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>History backend</string>
+         <string>History backend:</string>
         </property>
        </widget>
       </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" >
-        <item>
-         <widget class="KComboBox" name="kcfg_HistoryBackend" />
-        </item>
-       </layout>
+      <item row="0" column="1" >
+       <widget class="KComboBox" name="kcfg_HistoryBackend" />
       </item>
      </layout>
     </widget>
@@ -82,12 +78,6 @@
    </item>
    <item>
     <widget class="QGroupBox" name="kcfg_EnableKUIServerIntegration" >
-     <property name="minimumSize" >
-      <size>
-       <width>0</width>
-       <height>41</height>
-      </size>
-     </property>
      <property name="title" >
       <string>Enable KDE global progress tracking</string>
      </property>
@@ -136,6 +126,13 @@
  <layoutdefault spacing="6" margin="11" />
  <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

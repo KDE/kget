@@ -12,79 +12,83 @@
   <property name="layoutDirection" >
    <enum>Qt::LeftToRight</enum>
   </property>
-  <layout class="QGridLayout" >
-   <item row="1" column="2" >
-    <widget class="KUrlRequester" name="defaultFolderRequester" >
-     <property name="enabled" >
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="3" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
     <widget class="KTitleWidget" name="ktitlewidget" >
      <property name="text" >
       <string>Group-Settings</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2" >
-    <widget class="QCheckBox" name="downloadCheck" >
-     <property name="text" >
-      <string>Maximum download speed</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2" >
-    <widget class="QSpinBox" name="downloadBox" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="suffix" >
-      <string>KiB</string>
-     </property>
-     <property name="maximum" >
-      <number>10000</number>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2" >
-    <widget class="QCheckBox" name="uploadCheck" >
-     <property name="text" >
-      <string>Maximum upload speed</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2" >
-    <widget class="QSpinBox" name="uploadBox" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="suffix" >
-      <string>KiB</string>
-     </property>
-     <property name="maximum" >
-      <number>10000</number>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="2" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
-      <string>Default folder:</string>
-     </property>
-    </widget>
+   <item>
+    <layout class="QFormLayout" name="formLayout" >
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Default folder:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="KUrlRequester" name="defaultFolderRequester" >
+       <property name="enabled" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QCheckBox" name="downloadCheck" >
+       <property name="text" >
+        <string>Maximum download speed</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QSpinBox" name="downloadBox" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix" >
+        <string>KiB</string>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QCheckBox" name="uploadCheck" >
+       <property name="text" >
+        <string>Maximum upload speed</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="QSpinBox" name="uploadBox" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix" >
+        <string>KiB</string>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

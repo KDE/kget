@@ -5,11 +5,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>239</width>
-    <height>77</height>
+    <width>200</width>
+    <height>68</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QFormLayout" name="formLayout" >
    <item row="0" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
@@ -46,21 +46,15 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>221</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

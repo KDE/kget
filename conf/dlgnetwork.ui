@@ -9,17 +9,8 @@
     <height>488</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="leftMargin" >
-    <number>0</number>
-   </property>
-   <property name="topMargin" >
-    <number>0</number>
-   </property>
-   <property name="rightMargin" >
-    <number>0</number>
-   </property>
-   <property name="bottomMargin" >
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
+   <property name="margin" >
     <number>0</number>
    </property>
    <item>
@@ -37,7 +28,21 @@
      <property name="checkable" >
       <bool>true</bool>
      </property>
-     <layout class="QGridLayout" >
+     <layout class="QFormLayout" name="formLayout_3" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lbl_maxnum" >
+        <property name="text" >
+         <string>Downloads number:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="kcfg_MaxConnections" >
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0" >
        <widget class="QLabel" name="lbl_maxnum_2" >
         <property name="enabled" >
@@ -48,34 +53,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbl_maxnum" >
-        <property name="text" >
-         <string>Downloads number:</string>
-        </property>
-       </widget>
-      </item>
-      <item rowspan="2" row="0" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>71</width>
-          <height>48</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QSpinBox" name="kcfg_MaxConnections" >
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
+      <item row="1" column="1" >
        <widget class="QSpinBox" name="kcfg_MaxConnectionsServer" >
         <property name="enabled" >
          <bool>false</bool>
@@ -93,7 +71,35 @@
      <property name="checkable" >
       <bool>true</bool>
      </property>
-     <layout class="QGridLayout" >
+     <layout class="QFormLayout" name="formLayout_2" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="dllimitlb" >
+        <property name="text" >
+         <string>Global Download-Limit:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="kcfg_GlobalDownloadLimit" >
+        <property name="suffix" >
+         <string>KiB/s</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Global Upload-Limit:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSpinBox" name="kcfg_GlobalUploadLimit" >
+        <property name="suffix" >
+         <string>KiB/s</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="0" >
        <widget class="QLabel" name="lb_per_transfer" >
         <property name="text" >
@@ -102,22 +108,6 @@
        </widget>
       </item>
       <item row="2" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType" >
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>115</width>
-          <height>36</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="2" >
        <widget class="QSpinBox" name="kcfg_TransferSpeedLimit" >
         <property name="suffix" >
          <string>kBi/s</string>
@@ -133,60 +123,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="dllimitlb" >
-        <property name="text" >
-         <string>Global Download-Limit:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
-         <string>Global Upload-Limit:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QSpinBox" name="kcfg_GlobalDownloadLimit" >
-        <property name="suffix" >
-         <string>KiB/s</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QSpinBox" name="kcfg_GlobalUploadLimit" >
-        <property name="suffix" >
-         <string>KiB/s</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
    </item>
@@ -198,14 +134,7 @@
      <property name="checkable" >
       <bool>true</bool>
      </property>
-     <layout class="QGridLayout" >
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lb_after_2" >
-        <property name="text" >
-         <string>Retry after:</string>
-        </property>
-       </widget>
-      </item>
+     <layout class="QFormLayout" name="formLayout" >
       <item row="0" column="0" >
        <widget class="QLabel" name="lb_retries_2" >
         <property name="text" >
@@ -213,30 +142,21 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2" >
+      <item row="0" column="1" >
        <widget class="QSpinBox" name="kcfg_ReconnectRetries" >
         <property name="enabled" >
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item rowspan="2" row="0" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lb_after_2" >
+        <property name="text" >
+         <string>Retry after:</string>
         </property>
-        <property name="sizeType" >
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>115</width>
-          <height>56</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
-      <item row="1" column="2" >
+      <item row="1" column="1" >
        <widget class="QSpinBox" name="kcfg_ReconnectDelay" >
         <property name="suffix" >
          <string>sec</string>
@@ -257,7 +177,7 @@
      <property name="title" >
       <string>After Completing Downloads</string>
      </property>
-     <layout class="QVBoxLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout" >
       <item>
        <widget class="QCheckBox" name="kcfg_AutoShutdown" >
         <property name="text" >
@@ -283,7 +203,7 @@
      <property name="sizeType" >
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>200</width>
        <height>16</height>
