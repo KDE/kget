@@ -260,25 +260,25 @@ void MainWindow::setupActions()
     connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 
     QAction *transferHistoryAction = actionCollection()->addAction("Transfer History");
-    transferHistoryAction->setText(i18n("&Transfer History"));
+    transferHistoryAction->setText(i18n("&Transfer History..."));
     transferHistoryAction->setIcon(KIcon("view-history"));
     transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));
     connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
 
     QAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
-    transferGroupSettingsAction->setText(i18n("&Group Settings"));
+    transferGroupSettingsAction->setText(i18n("&Group Settings..."));
     transferGroupSettingsAction->setIcon(KIcon("preferences-system"));
     transferGroupSettingsAction->setShortcuts(KShortcut("Ctrl+G"));
     connect(transferGroupSettingsAction, SIGNAL(triggered()), SLOT(slotTransferGroupSettings()));
 
     QAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
-    transferSettingsAction->setText(i18n("&Transfer Settings"));
+    transferSettingsAction->setText(i18n("&Transfer Settings..."));
     transferSettingsAction->setIcon(KIcon("preferences-system"));
     transferSettingsAction->setShortcuts(KShortcut("Ctrl+T"));
     connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));
 
     QAction *listLinksAction = actionCollection()->addAction("import_links");
-    listLinksAction->setText(i18n("Import &Links"));
+    listLinksAction->setText(i18n("Import &Links..."));
     listLinksAction->setIcon(KIcon("view-list-text"));
     listLinksAction->setShortcuts(KShortcut("Ctrl+L"));
     connect(listLinksAction, SIGNAL(triggered()), SLOT(slotShowListLinks()));
