@@ -17,60 +17,47 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
-
-#include "speedgraph.h"
-#include "linegraphwidget.h"
-
-#include <QGraphicsLinearLayout>
-#include <QGraphicsWidget>
+#ifndef KGETPIECHART_H
+#define KGETPIECHART_H
 
 #include <plasma/applet.h>
+#include <plasma/dataengine.h>
 
-SpeedGraph::SpeedGraph(QGraphicsWidget *parent)
-    : TransferGraph(0)
-{
-    m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
-    if (m_layout)
-    {
-        m_lineGraph = new LineGraphWidget(0);
-        m_layout->addItem(m_lineGraph);
+class QGraphicsLinearLayout;
+class QGraphicsWidget;
 
-        QObject::connect(m_lineGraph, SIGNAL(geometryChanged()), SLOT(updateGeometry()));
-    }
+namespace Plasma {
+    class Svg;
 }
 
-SpeedGraph::~SpeedGraph()
+class KGetPieChart : public Plasma::Applet
 {
-    m_layout->removeItem(m_lineGraph);
-    delete m_lineGraph;
-}
+    Q_OBJECT
+public:
+    KGetPieChart(QObject *parent, const QVariantList &args);
+    ~KGetPieChart();
 
-void SpeedGraph::updateGeometry()
-{
-    kDebug() << "About to update the widget geometry " << endl;
-    //m_applet->updateGeometry();
-}
+    void init();
+    void constraintsEvent(Plasma::Constraints constraints);
+    void paintInterface(QPainter *painter, 
+                            const QStyleOptionGraphicsItem *option,
+                            const QRect &contentsRect);
 
-void SpeedGraph::setTransfers(const QVariantMap &percents)
-{
-    // drop the deleted transfers
-    foreach (const QString &key, m_transfers.keys()) {
-        if (!percents.contains(key)) {
-            m_lineGraph->removeData(key);
-        }
-    }
+public slots:
+    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
 
-    TransferGraph::setTransfers(percents);
+private:
+    Plasma::Svg *m_theme;
+    Plasma::DataEngine *m_engine;
 
-    // a map with the name of the transfer and the speed
-    QMap <QString, int> data;
+    QGraphicsLinearLayout *m_layout;
+    QGraphicsWidget *m_errorWidget;
 
-    foreach(const QString &name, percents.keys()) {
-        data [name] = percents [name].toList().at(4).toInt();
-    }
+    class PrivateData;
+    class Private;
+    Private *d;
+};
 
-    m_lineGraph->addData(data);
+K_EXPORT_PLASMA_APPLET(kgetpiechart, KGetPieChart)
 
-    m_lineGraph->updateView();
-}
-
+#endif

@@ -17,30 +17,45 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
+#ifndef KGETBARAPPLET_H
+#define KGETBARAPPLET_H
 
-#ifndef KGET_PIEGRAPH_H
-#define KGET_PIEGRAPH_H
+#include <plasma/applet.h>
+#include <plasma/dataengine.h>
 
-#include "transfergraph.h"
+namespace Plasma {
+    class Svg;
+}
 
-class PieChartWidget;
-
+class QGraphicsProxyWidget;
 class QGraphicsLinearLayout;
-class QGraphicsWidget;
 
-class PieGraph : public TransferGraph
+class KGetBarApplet : public Plasma::Applet
 {
     Q_OBJECT
-
 public:
-    PieGraph(QGraphicsWidget *parent);
-    ~PieGraph();
+    KGetBarApplet(QObject *parent, const QVariantList &args);
+    ~KGetBarApplet();
 
-    void setTransfers(const QVariantMap &percents);
+    void init();
+    void paintInterface(QPainter *painter, 
+                            const QStyleOptionGraphicsItem *option,
+                            const QRect &contentsRect);
+
+public slots:
+    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
 
 private:
+    Plasma::Svg *m_theme;
+    Plasma::DataEngine *m_engine;
+
     QGraphicsLinearLayout *m_layout;
-    PieChartWidget *m_chart;
+    QGraphicsWidget *m_errorWidget;
+
+    class Private;
+    Private *d;
 };
+
+K_EXPORT_PLASMA_APPLET(barapplet, KGetBarApplet)
 
 #endif

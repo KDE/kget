@@ -17,41 +17,47 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
+#ifndef KGETBARAPPLET_P_H
+#define KGETBARAPPLET_P_H
 
-#include "transfergraph.h"
+#include <QGraphicsProxyWidget>
+#include <QMap>
 
-#include <QVariant>
-#include <QPainter>
+class QVBoxLayout;
+class QPushButton;
+class QProgressBar;
+class QLabel;
 
-#include <KLocale>
-#include <KIcon>
-
-TransferGraph::TransferGraph(QObject *parent) : QObject(parent)
+class KGetBarApplet::Private : public QGraphicsProxyWidget
 {
-}
+Q_OBJECT
+public:
+    Private(QGraphicsWidget *parent = 0);
+    ~Private();
 
-TransferGraph::~TransferGraph()
-{
-}
+    void setTransfers(const QVariantMap &transfers);
 
-void TransferGraph::setTransfers(const QVariantMap &transfers) 
-{
-    m_transfers = transfers;
+public slots:
+    void nextPage();
+    void previousPage();
 
-    //m_applet->updateConstraints(Plasma::AllConstraints);
-}
+private slots:
+    void populate();
 
-void TransferGraph::drawTitle(QPainter *p, const QRect &contentsRect)
-{
-    // draw the kget icon
-    p->drawPixmap(contentsRect.x() + HORIZONTAL_MARGIN, contentsRect.y() + 10,
-            KIcon("kget").pixmap(20, 20));
-    // draw the title 
-    p->drawText(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + 10,
-            contentsRect.width() - 100, TRANSFER_LINE_HEIGHT - 10,
-            Qt::AlignLeft, i18n("KGet downloads"));
-    // draw a line under the title
-    p->drawLine(contentsRect.x() + HORIZONTAL_MARGIN + 30, contentsRect.y() + TRANSFER_LINE_HEIGHT,
-            contentsRect.width() - HORIZONTAL_MARGIN, contentsRect.y() + TRANSFER_LINE_HEIGHT);
-}
+private:
+    void clear();
 
+private:
+    QVBoxLayout *m_verticalLayout;
+    QVBoxLayout *m_barsLayout;
+    QPushButton *m_nextPageButton;
+    QPushButton *m_previousPageButton;
+    QLabel *m_totalSizeLabel;
+    QLabel *m_pageLabel;
+    QMap <QString, QProgressBar *> m_progressBars;
+    QVariantMap m_transfers;
+
+    int m_actualPage;
+};
+
+#endif

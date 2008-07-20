@@ -17,36 +17,40 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
+#ifndef KGETPANELBAR_P_H
+#define KGETPANELBAR_P_H
 
-#include "piegraph.h"
-#include "piechartwidget.h"
+#include <QGraphicsProxyWidget>
+#include <QList>
+#include <QMap>
 
-#include <QVariant>
-#include <QGraphicsLinearLayout>
-#include <QGraphicsWidget>
+class QProgressBar;
+class QGridLayout;
 
-#include <math.h>
-
-PieGraph::PieGraph(QGraphicsWidget *parent)
-    : TransferGraph(0)
+class KGetPanelBar::Private : public QGraphicsProxyWidget
 {
-    m_layout = static_cast <QGraphicsLinearLayout *> (parent->layout());
-    if (m_layout)
-    {
-        m_chart = new PieChartWidget(parent);
+Q_OBJECT
+public:
+    Private(QGraphicsWidget *parent = 0);
+    ~Private();
 
-        m_layout->addItem(m_chart);
-   }
-}
+    void setTransfers(const QVariantMap &transfers);
+    QGridLayout *dialogLayout() {
+        return m_dialogLayout;
+    };
 
-PieGraph::~PieGraph()
-{
-    m_layout->removeItem(m_chart);
-    delete m_chart;
-}
+private:
+    void showActiveTransfer(const QString &key, const QVariantList &attributes);
+    void clear();
 
-void PieGraph::setTransfers(const QVariantMap &transfers)
-{
-    m_chart->setTransfers(transfers);
-}
+private:
+    QProgressBar *m_bar;
+    QGridLayout *m_dialogLayout;
 
+    QVariantMap m_transfers;
+    QMap <QString, int> m_activeTransfers;
+    QMap <int, QProgressBar *> m_activeBars;
+    QList <QWidget *> m_widgets;
+};
+
+#endif

@@ -17,48 +17,68 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
+#ifndef KGETPIECHART_P_H
+#define KGETPIECHART_P_H
 
-#ifndef TRANSFERGRAPH_H
-#define TRANSFERGRAPH_H
+#include <math.h>
 
-#include <QObject>
-#include <QVariant>
-#include <QSizeF>
-#include <QRect>
+#include <QGraphicsWidget>
+#include <QMap>
+
+#include <KColorCollection>
 
 class QPainter;
 class QRect;
+class QBrush;
+class QStyleOptionGraphicsItem;
 
-static const int TRANSFER_MARGIN = 30;
-static const int TRANSFER_APPLET_WIDTH = 380;
-static const int TRANSFER_LINE_HEIGHT = 32;
-static const int HORIZONTAL_MARGIN = 5;
-static const int VERTICAL_MARGIN = 50;
-
-class TransferGraph : public QObject
+class KGetPieChart::Private : public QGraphicsWidget
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    TransferGraph(QObject *parent = 0);
-    ~TransferGraph();
+    Private(QGraphicsWidget *parent = 0);
+    ~Private();
 
-    virtual void setTransfers(const QVariantMap &percents);
+    void setTransfers(const QVariantMap &transfers);
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    void update();
 
-    QVariantMap transfers() const
+private:
+    // draw a portion of the pie chart and returns his end angle
+    int paintPieData(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush);
+     // Draw the graph legend with the names of the data
+    void drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count);
+
+    inline double roundNumber(float number)
     {
-        return m_transfers;
+        double intPart;
+        if (modf(number, &intPart) > 0.5) {
+            return intPart + 1;
+        }
+        else {
+            return intPart;
+        }
     };
 
-    virtual void paint(QPainter *p, const QRect &contentsRect)
-    {
-        Q_UNUSED(p)
-        Q_UNUSED(contentsRect)
-    };
-
-protected:
-    virtual void drawTitle(QPainter *p, const QRect &contentsRect);
-
+private:
+    QMap <QString, PrivateData> m_data;
     QVariantMap m_transfers;
+    KColorCollection m_colors;
+
+    int m_totalSize;
+    bool m_needsRepaint;
+};
+
+class KGetPieChart::PrivateData
+{
+public:
+    PrivateData()
+    {};
+
+    QString name;
+    bool isActive;
+    double length;
+    double activeLength;
 };
 
 #endif

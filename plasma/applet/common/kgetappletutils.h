@@ -18,66 +18,45 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#ifndef PLASMA_KGET_H
-#define PLASMA_KGET_H
+#ifndef KGETAPPLETUTILS_H
+#define KGETAPPLETUTILS_H
 
-#include <plasma/applet.h>
-#include <plasma/dataengine.h>
+#include <QGraphicsProxyWidget>
 
-#include "transfergraph.h"
-#include "ui_kgetConfig.h"
+class QGraphicsLinearLayout;
+class QGraphicsWidget;
+class QPainter;
+class QRect;
 
 namespace Plasma {
     class Svg;
+    class Label;
+    class Icon;
+    class PushButton;
 }
 
-class QGraphicsLinearLayout;
-class KDialog;
+class KGetAppletUtils
+{
+public:
+    static void paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rect);
+    static QGraphicsWidget *createErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
+};
 
-class PlasmaKGet : public Plasma::Applet
+class ErrorWidget : public QGraphicsProxyWidget
 {
     Q_OBJECT
 public:
-    enum TransferGraphType {
-        ErrorGraphType = 1,
-        BarChartType = 2,
-        PieGraphType = 3,
-        SpeedGraphType = 4,
-        PanelGraphType = 5
-    };
+    ErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
+    ~ErrorWidget();
 
-    PlasmaKGet(QObject *parent, const QVariantList &args);
-    ~PlasmaKGet();
-
-    void init();
-    void constraintsEvent(Plasma::Constraints constraints);
-    void paintInterface(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                            const QRect &contentsRect);
-
-public slots:
-    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
-    void createConfigurationInterface(KConfigDialog *parent);
-
-protected slots:
-    void configAccepted();
+private slots:
+    void launchKGet();
 
 private:
-    void doLayout();
-    void loadTransferGraph(uint type);
-
-    Plasma::Svg *m_theme;
-    Plasma::DataEngine *m_engine;
     QGraphicsLinearLayout *m_layout;
-
-    TransferGraph *m_transferGraph;
-    KDialog *m_dialog;
-    QString m_errorMessage;
-    bool m_error;
-    uint m_graphType;
-
-    Ui::KGetConfig ui;
+    Plasma::Label *m_errorLabel;
+    Plasma::Icon *m_icon;
+    Plasma::PushButton *m_launchButton;
 };
-
-K_EXPORT_PLASMA_APPLET(kget, PlasmaKGet)
 
 #endif

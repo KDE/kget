@@ -1,0 +1,20 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KGet panelbar applet
+Comment=KGet panelbar applet
+Icon=kget
+Type=Service
+ServiceTypes=Plasma/Applet
+
+X-KDE-Library=plasma_kget_panelbar
+
+X-KDE-PluginInfo-Author=Javier Goday
+X-KDE-PluginInfo-Email=
+X-KDE-PluginInfo-Name=kgetpanelbar
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://plasma.kde.org/
+X-KDE-PluginInfo-Category=Misc
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+

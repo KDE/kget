@@ -18,19 +18,41 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-#include "piechartwidget.h"
+#include "piechart/kgetpiechart.h"
+#include "piechart/kgetpiechart_p.h"
+#include "common/kgetappletutils.h"
 
+#include <QVBoxLayout>
+#include <QGraphicsLinearLayout>
+#include <QGraphicsLayoutItem>
 #include <QGraphicsWidget>
 #include <QPainter>
+#include <QHBoxLayout>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsLinearLayout>
 #include <QStyleOptionGraphicsItem>
+#include <QGraphicsWidget>
+#include <QLabel>
+#include <QPushButton>
+#include <QProgressBar>
 
 #include <KDebug>
+#include <KIcon>
 #include <KLocale>
 #include <KGlobal>
 
-const static int LEFT_MARGIN = 15;
+#include <plasma/svg.h>
+#include <plasma/applet.h>
+#include <plasma/theme.h>
+#include <plasma/dataengine.h>
 
-PieChartWidget::PieChartWidget(QGraphicsWidget *parent) : QGraphicsWidget(parent),
+const static int TOP_MARGIN = 55;
+const static int LEFT_MARGIN = 15;
+const static int SPACING = 4;
+const static int MARGIN = 20;
+const static int MAX_DOWNLOADS_PER_PAGE = 5;
+
+KGetPieChart::Private::Private(QGraphicsWidget *parent) : QGraphicsWidget(parent),
     m_data(),
     m_transfers(),
     m_colors("Oxygen.colors"),
@@ -40,11 +62,11 @@ PieChartWidget::PieChartWidget(QGraphicsWidget *parent) : QGraphicsWidget(parent
      setCacheMode(QGraphicsItem::DeviceCoordinateCache, QSize(300, 360));
 }
 
-PieChartWidget::~PieChartWidget()
+KGetPieChart::Private::~Private()
 {
 }
 
-void PieChartWidget::setTransfers(const QVariantMap &transfers)
+void KGetPieChart::Private::setTransfers(const QVariantMap &transfers)
 {
     m_needsRepaint = false;
     m_totalSize = 0;
@@ -88,7 +110,7 @@ void PieChartWidget::setTransfers(const QVariantMap &transfers)
     }
 }
 
-void PieChartWidget::paint(QPainter  *p, const QStyleOptionGraphicsItem * option, QWidget * widget)
+void KGetPieChart::Private::paint(QPainter  *p, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
     Q_UNUSED(widget)
 
@@ -165,13 +187,13 @@ void PieChartWidget::paint(QPainter  *p, const QStyleOptionGraphicsItem * option
     m_needsRepaint = false;
 }
 
-void PieChartWidget::update()
+void KGetPieChart::Private::update()
 {
     m_needsRepaint = true;
     QGraphicsWidget::update();
 }
 
-int PieChartWidget::paintPieData(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush)
+int KGetPieChart::Private::paintPieData(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush)
 {
     int end_angle = -1 * percent * 36/10 * 16;
 
@@ -182,7 +204,7 @@ int PieChartWidget::paintPieData(QPainter *p, const QRect &rect, int angle, int 
 }
 
 // Draw the graph legend with the names of the data
-void PieChartWidget::drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count)
+void KGetPieChart::Private::drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count)
 {
     int textLength = option->rect.width() - 100;
     int y = option->rect.height() / 2 + 10;
@@ -204,4 +226,93 @@ void PieChartWidget::drawLegend(const QString &name, QPainter *p, const QStyleOp
     p->restore();
 }
 
-#include "piechartwidget.moc"
+
+KGetPieChart::KGetPieChart(QObject *parent, const QVariantList &args) 
+        : Plasma::Applet(parent, args),
+        m_errorWidget(0)
+{
+    setAspectRatioMode(Plasma::IgnoreAspectRatio);
+    setBackgroundHints(Applet::DefaultBackground);
+
+    m_theme = new Plasma::Svg(this);
+    m_theme->setImagePath("widgets/kget");
+}
+
+KGetPieChart::~KGetPieChart()
+{
+    delete m_errorWidget;
+    delete d;
+}
+
+void KGetPieChart::init()
+{
+    m_layout = new QGraphicsLinearLayout(this);
+    m_layout->setSpacing(SPACING);
+    m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
+    m_layout->setOrientation(Qt::Vertical);
+
+    d = new KGetPieChart::Private(this);
+    m_layout->addItem(d);
+
+    setLayout(m_layout);
+
+    resize(QSize(300, 360));
+
+    m_engine = dataEngine("kget");
+    if (m_engine) {
+        m_engine->connectSource("KGet", this);
+        m_engine->setProperty("refreshTime", 6000);
+    }
+    else {
+        kDebug() << "KGet Engine could not be loaded";
+    }
+}
+
+void KGetPieChart::constraintsEvent(Plasma::Constraints constraints)
+{
+    if (constraints & Plasma::SizeConstraint) {
+        if (d) {
+            d->update();
+        }
+    }
+}
+
+void KGetPieChart::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)
+{
+    Q_UNUSED(option)
+    if(formFactor() == Plasma::Planar || formFactor() == Plasma::MediaCenter) {
+        KGetAppletUtils::paintTitle(p, m_theme, contentsRect);
+    }
+}
+
+void KGetPieChart::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
+{
+    Q_UNUSED(source)
+
+    if(data["error"].toBool()) {
+        if (!m_errorWidget) {
+            delete d;
+            d = 0;
+            m_layout->removeAt(0);
+
+            m_errorWidget = KGetAppletUtils::createErrorWidget(data["errorMessage"].toString(), this);
+            m_layout->addItem(m_errorWidget);
+        }
+    }
+    else if(!data["error"].toBool()) {
+        if (m_errorWidget) {
+            delete m_errorWidget;
+            m_errorWidget = 0;
+
+            d = new KGetPieChart::Private(this); 
+
+            m_layout->removeAt(0);
+            m_layout->addItem(d);
+        }
+
+        d->setTransfers(data["transfers"].toMap());
+    }
+}
+
+#include "kgetpiechart.moc"
+#include "kgetpiechart_p.moc"

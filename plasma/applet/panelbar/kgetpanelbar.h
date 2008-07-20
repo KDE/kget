@@ -17,32 +17,48 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
+#ifndef KGETPANELBAR_H
+#define KGETPANELBAR_H
 
-#ifndef PANELGRAPH_H
-#define PANELGRAPH_H
+#include <plasma/applet.h>
+#include <plasma/dataengine.h>
 
-#include "transfergraph.h"
-
-class QProgressBar;
-class QGraphicsLinearLayout;
 class QGraphicsProxyWidget;
-class QGraphicsWidget;
+class QGraphicsLinearLayout;
 
-class PanelGraph : public TransferGraph
+namespace Plasma {
+    class Dialog;
+    class Icon;
+};
+
+class KGetPanelBar : public Plasma::Applet
 {
     Q_OBJECT
 public:
-    PanelGraph(QGraphicsWidget *parent);
-    ~PanelGraph();
+    KGetPanelBar(QObject *parent, const QVariantList &args);
+    ~KGetPanelBar();
 
-    void setTransfers(const QVariantMap &transfers);
+    void init();
+    void paintInterface(QPainter *painter,
+                            const QStyleOptionGraphicsItem *option,
+                            const QRect &contentsRect);
+
+public slots:
+    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
+
+private slots:
+    void showDialog();
 
 private:
-//    Plasma::ToolTipData m_tooltip;
-    QProgressBar *m_bar;
+    Plasma::DataEngine *m_engine;
+    Plasma::Dialog *m_dialog;
+    Plasma::Icon *m_icon;
     QGraphicsLinearLayout *m_layout;
-    QGraphicsProxyWidget *m_proxyBar;
+
+    class Private;
+    Private *d;
 };
 
-#endif
+K_EXPORT_PLASMA_APPLET(kgetpanelbar, KGetPanelBar)
 
+#endif
