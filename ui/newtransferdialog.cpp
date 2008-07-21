@@ -189,7 +189,7 @@ void NewTransferDialog::setDestinationFileName(const QString &filename)
 
 QString NewTransferDialog::destination() const
 {
-    return m_destRequester->url().url();
+    return m_destRequester->url().prettyUrl();
 }
 
 QString NewTransferDialog::transferGroup() const
