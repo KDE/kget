@@ -60,8 +60,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_treeWidget = new QTreeView(this);
     m_treeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeWidget->setModel(m_proxyModel);
-    m_treeWidget->setSelectionBehavior(QAbstractItemView::SelectItems);
-    m_treeWidget->setSelectionMode(QAbstractItemView::NoSelection);
+    m_treeWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_treeWidget->setAlternatingRowColors(true);
     m_treeWidget->setRootIsDecorated(false);
     m_treeWidget->setSortingEnabled(true);
@@ -192,7 +191,8 @@ void KGetLinkView::showLinks( const QList<QString>& links )
         QStandardItem *item = new QStandardItem(file);
         item->setIcon(KIcon(mt->iconName()));
         item->setCheckable(true);
-        item->setData(QVariant(url.prettyUrl()), Qt::EditRole);
+        item->setData(QVariant(url.fileName()), Qt::DisplayRole);
+        item->setData(QVariant(url.prettyUrl()), Qt::UserRole);
 
         items << new QStandardItem(QString::number(model->rowCount()));
         items << item;
@@ -221,7 +221,7 @@ void KGetLinkView::slotStartLeech()
         QStandardItem *checkeableItem = model->item(row, 1);
 
         if(checkeableItem->checkState() == Qt::Checked) {
-            urls.append(KUrl(model->data(model->index(row, 1), Qt::EditRole).toString()));
+            urls.append(KUrl(model->data(model->index(row, 1), Qt::UserRole).toString()));
         }
     }
 
