@@ -91,8 +91,8 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
     //Some of the widgets are initialized in slotDelayedInit()
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 
-    // Update the title with the active transfers percent each 5 seconds
-//     KGet::addObserver(new MainWindowModelObserver(this));
+    // Update the title with the active transfers percent using the mainwindowmodelobserver
+    KGet::addObserver(new MainWindowModelObserver(this));
 }
 
 MainWindow::~MainWindow()
@@ -130,7 +130,7 @@ int MainWindow::transfersPercent()
         return percent/activeTransfers;
     }
     else {
-        return 0;
+        return -1;
     }
 }
 
@@ -410,12 +410,11 @@ void MainWindow::slotImportTransfers()
         KGet::addTransfer( KUrl( filename ) );
 }
 
-
 void MainWindow::slotUpdateTitlePercent()
 {
     int percent = transfersPercent();
     if (percent > 0) {
-        setPlainCaption(QString("%1  %2\%").arg(i18n("KGet")).arg(percent));
+        setPlainCaption(QString("%1 - %2\%").arg(i18n("KGet")).arg(percent));
     }
     else {
         setPlainCaption(QString("%1").arg(i18n("KGet")));
