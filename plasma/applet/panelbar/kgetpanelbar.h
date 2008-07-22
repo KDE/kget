@@ -29,7 +29,7 @@ class QGraphicsLinearLayout;
 namespace Plasma {
     class Dialog;
     class Icon;
-};
+}
 
 class KGetPanelBar : public Plasma::Applet
 {
