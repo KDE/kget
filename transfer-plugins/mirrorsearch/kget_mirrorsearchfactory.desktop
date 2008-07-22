@@ -6,6 +6,7 @@ X-KDE-ServiceTypes=KGet/Plugin
 # standard fields
 Name=MirrorSearch TransferFactory
 Name[de]=MirrorSearch-Übertragungsmodul
+Name[es]=Buscador de mirror TransferFactory
 Name[fr]=TransferFactory MirrorSearch
 Name[ga]=TransferFactory MirrorSearch
 Name[lt]=MirrorSearch siuntimo sistema
