@@ -53,6 +53,7 @@ public:
 public slots:
     void slotQuit();
     void slotImportUrl(const QString &url);
+    void slotUpdateTitlePercent();
 
 protected:
     // ignore/accept quit events
@@ -112,6 +113,11 @@ private slots:
     void slotShowListLinks();
 
 private:
+    /**
+    * Returns the completed percents of all active transfers
+    */
+    int transfersPercent();
+
     // one-time functions
     void setupActions();
 
@@ -137,6 +143,42 @@ private:
     bool m_startWithoutAnimation;
 
     HttpServer *m_webinterface;
+};
+
+/**
+* Used to update the mainwindow caption when the groups percents change
+*/
+class MainWindowGroupObserver : public QObject, public TransferGroupObserver
+{
+    public:
+        MainWindowGroupObserver(MainWindow *window);
+        virtual ~MainWindowGroupObserver() {}
+
+        virtual void groupChangedEvent(TransferGroupHandler * group);
+
+        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+
+        virtual void removedTransferEvent(TransferHandler * transfer);
+
+        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+
+    private:
+        MainWindow *m_window;
+};
+
+class MainWindowModelObserver : public QObject, public ModelObserver
+{
+    public:
+        MainWindowModelObserver(MainWindow *window);
+        virtual ~MainWindowModelObserver (){}
+
+        virtual void addedTransferGroupEvent(TransferGroupHandler * group);
+
+        virtual void removedTransferGroupEvent(TransferGroupHandler * group);
+
+    private:
+        MainWindow *m_window;
+        MainWindowGroupObserver *m_groupObserver;
 };
 
 #endif

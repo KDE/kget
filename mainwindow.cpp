@@ -90,6 +90,9 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
 
     //Some of the widgets are initialized in slotDelayedInit()
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
+
+    // Update the title with the active transfers percent each 5 seconds
+//     KGet::addObserver(new MainWindowModelObserver(this));
 }
 
 MainWindow::~MainWindow()
@@ -110,6 +113,25 @@ MainWindow::~MainWindow()
 QSize MainWindow::sizeHint() const
 {
     return QSize(720, 380);
+}
+
+int MainWindow::transfersPercent()
+{
+    int percent = 0;
+    int activeTransfers = 0;
+    foreach (TransferHandler *handler, KGet::allTransfers()) {
+        if (handler->status() == Job::Running) {
+            activeTransfers ++;
+            percent += handler->percent();
+        }
+    }
+
+    if (activeTransfers > 0) {
+        return percent/activeTransfers;
+    }
+    else {
+        return 0;
+    }
 }
 
 void MainWindow::setupActions()
@@ -386,6 +408,18 @@ void MainWindow::slotImportTransfers()
 
     if(!filename.isEmpty())
         KGet::addTransfer( KUrl( filename ) );
+}
+
+
+void MainWindow::slotUpdateTitlePercent()
+{
+    int percent = transfersPercent();
+    if (percent > 0) {
+        setPlainCaption(QString("%1  %2\%").arg(i18n("KGet")).arg(percent));
+    }
+    else {
+        setPlainCaption(QString("%1").arg(i18n("KGet")));
+    }
 }
 
 void MainWindow::slotQuit()
@@ -866,6 +900,54 @@ QVariantMap MainWindow::transfers() const
 int MainWindow::transfersSpeed() const
 {
     return m_dbusModelObserver->transfersSpeed();
+}
+
+MainWindowModelObserver::MainWindowModelObserver(MainWindow *window) 
+    : QObject(window)
+{
+    m_window = window;
+    m_groupObserver = new MainWindowGroupObserver(window);
+}
+
+void MainWindowModelObserver::addedTransferGroupEvent(TransferGroupHandler *group)
+{
+    group->addObserver(m_groupObserver);
+}
+
+void MainWindowModelObserver::removedTransferGroupEvent(TransferGroupHandler *group)
+{
+    group->delObserver(m_groupObserver);
+}
+
+MainWindowGroupObserver::MainWindowGroupObserver(MainWindow *window) 
+    : QObject(window)
+{
+    m_window = window;
+}
+
+void MainWindowGroupObserver::groupChangedEvent(TransferGroupHandler * group)
+{
+    TransferGroupHandler::ChangesFlags transferFlags = group->changesFlags(this);
+    if (transferFlags & TransferGroup::Gc_Percent) {
+        m_window->slotUpdateTitlePercent();
+    }
+}
+
+void MainWindowGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+{ 
+    Q_UNUSED(transfer) 
+    Q_UNUSED(after)
+}
+
+void MainWindowGroupObserver::removedTransferEvent(TransferHandler * transfer)
+{ 
+    Q_UNUSED(transfer)
+}
+
+void MainWindowGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+{
+    Q_UNUSED(transfer)
+    Q_UNUSED(after)
 }
 
 #include "mainwindow.moc"
