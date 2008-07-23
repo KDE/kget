@@ -10,6 +10,8 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
+#include "ui_dlgadvanced.h"
+
 #include <kconfigdialog.h>
 
 class QWidget;
@@ -24,10 +26,13 @@ class PreferencesDialog : public KConfigDialog
         KTabWidget * pluginsWidget(){return plugins;}
 
     private slots:
+        void slotToggleAfterFinishAction(int state);
         void disableButtonApply();
 
     private:
         KTabWidget * plugins;
+
+        Ui::DlgAdvanced dlgAdv;
 };
 
 #endif

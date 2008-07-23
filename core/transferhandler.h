@@ -20,6 +20,7 @@
 #include "observer.h"
 
 class QAction;
+class KPassivePopup;
 
 class TransferObserver;
 
@@ -286,16 +287,30 @@ class KGET_EXPORT TransferHandler
 };
 
 
-class GenericTransferObserver : public TransferObserver
+class GenericTransferObserver : public QObject, public TransferObserver
 {
+    Q_OBJECT
     public:
         GenericTransferObserver();
 
         void transferChangedEvent(TransferHandler * transfer);
 
+#ifdef HAVE_KWORKSPACE
+    private slots:
+        void slotShutdown();
+#endif
+
     private:
+        bool allTransfersFinished();
+        KPassivePopup* showMessage(const QString &title, const QString &message);
+
         void checkAndFinish();
+
+#ifdef HAVE_KWORKSPACE
+        void checkAndShutdown();
+#endif
         void checkAndUpdateSystemTray();
+
 
         QString prevStatus;
 };

@@ -413,7 +413,7 @@ void MainWindow::slotImportTransfers()
 void MainWindow::slotUpdateTitlePercent()
 {
     int percent = transfersPercent();
-    if (percent > 0) {
+    if (percent != -1) {
         setPlainCaption(QString("%1 - %2%").arg(i18n("KGet")).arg(percent));
     }
     else {

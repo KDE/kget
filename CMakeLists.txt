@@ -17,6 +17,15 @@ if(PLASMA_FOUND)
     add_subdirectory(plasma)
 endif(PLASMA_FOUND)
 
+
+find_library(KDE4_KWORKSPACE_LIBRARY NAMES kworkspace PATHS ${KDE4_LIB_INSTALL_DIR} NO_DEFAULT_PATH )
+
+if(KDE4_KWORKSPACE_LIBRARY)
+    set(KDE4_KWORKSPACE_LIBS ${kworkspace_LIB_DEPENDS} ${KDE4_KWORKSPACE_LIBRARY})
+    add_definitions(-DHAVE_KWORKSPACE)
+    set(KWORKSPACE_FOUND true)
+endif(KDE4_KWORKSPACE_LIBRARY)
+
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${CMAKE_CURRENT_BINARY_DIR}
@@ -72,6 +81,10 @@ kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
 target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
+
+if (KWORKSPACE_FOUND)
+    target_link_libraries(kgetcore ${KDE4_KWORKSPACE_LIBS})
+endif (KWORKSPACE_FOUND)
 
 if (HAVE_NEPOMUK)
   target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})

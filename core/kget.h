@@ -59,6 +59,11 @@ class KGET_EXPORT KGet
     friend class GenericTransferObserver;
 
     public:
+        enum AfterFinishAction {
+            Quit = 0,
+            Shutdown = 1
+        };
+
         static KGet& self( MainWindow * mainWindow=0 );
 
         /**

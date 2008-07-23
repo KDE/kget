@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>405</width>
+    <width>549</width>
     <height>443</height>
    </rect>
   </property>
@@ -28,11 +28,24 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_QuitAfterCompletedTransfer" >
-     <property name="text" >
-      <string>Quit when all downloads have been finished</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <widget class="QCheckBox" name="kcfg_AfterFinishActionEnabled" >
+       <property name="text" >
+        <string>Execute action after all downloads have been finished</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="kcfg_AfterFinishAction" >
+       <item>
+        <property name="text" >
+         <string>Quit KGet</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox" >

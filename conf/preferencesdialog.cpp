@@ -8,13 +8,14 @@
 */
 
 #include "preferencesdialog.h"
+#include "core/kget.h"
 #include "core/transferhistorystore.h"
 
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
 #include "dlgdirectories.h"
 #include "dlgwebinterface.h"
-#include "ui_dlgadvanced.h"
+
 #include "transfersgroupwidget.h"
 
 #include <klocale.h>
@@ -35,7 +36,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
-    Ui::DlgAdvanced dlgAdv;
+    
 
     dlgApp.setupUi(appearance);
     dlgNet.setupUi(network);
@@ -46,6 +47,15 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 #ifdef HAVE_SQLITE
     dlgAdv.kcfg_HistoryBackend->addItem(i18n("Sqlite"), QVariant(TransferHistoryStore::SQLite));
 #endif
+
+#ifdef HAVE_KWORKSPACE
+    dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Turn off the computer"), QVariant(KGet::Shutdown));
+#endif
+
+    // enable or disable the AfterFinishAction depends on the AfterFinishActionEnabled checkbox state
+    dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState () == Qt::Checked);
+    connect(dlgAdv.kcfg_AfterFinishActionEnabled, SIGNAL(stateChanged(int)),
+                                                  SLOT(slotToggleAfterFinishAction(int)));
 
     // TODO: remove the following lines as soon as these features are ready
     dlgNet.lb_per_transfer->setVisible(false);
@@ -69,4 +79,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 void PreferencesDialog::disableButtonApply()
 {
     enableButtonApply(false);
+}
+
+void PreferencesDialog::slotToggleAfterFinishAction(int state)
+{
+    dlgAdv.kcfg_AfterFinishAction->setEnabled(state == Qt::Checked);
 }
