@@ -414,7 +414,7 @@ void MainWindow::slotUpdateTitlePercent()
 {
     int percent = transfersPercent();
     if (percent > 0) {
-        setPlainCaption(QString("%1 - %2\%").arg(i18n("KGet")).arg(percent));
+        setPlainCaption(QString("%1 - %2%").arg(i18n("KGet")).arg(percent));
     }
     else {
         setPlainCaption(QString("%1").arg(i18n("KGet")));
