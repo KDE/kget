@@ -78,7 +78,7 @@ ErrorGraph::~ErrorGraph()
 
 void ErrorGraph::launchKGet()
 {
-    QProcess *kgetProcess = new QProcess(this);
-    kgetProcess->startDetached("kget");
+    QProcess kgetProcess;
+    kgetProcess.startDetached("kget");
 }
 
