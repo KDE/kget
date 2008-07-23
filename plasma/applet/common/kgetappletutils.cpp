@@ -93,8 +93,8 @@ ErrorWidget::~ErrorWidget()
 
 void ErrorWidget::launchKGet()
 {
-    QProcess *kgetProcess = new QProcess(this);
-    kgetProcess->startDetached("kget");
+    QProcess kgetProcess;
+    kgetProcess.startDetached("kget");
 }
 
 #include "kgetappletutils.moc"
