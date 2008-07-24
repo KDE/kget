@@ -25,7 +25,7 @@
 namespace Plasma
 {
     class DataEngine;
-};
+}
 
 class QEvent;
 class QDropEvent;
