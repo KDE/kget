@@ -1,7 +1,14 @@
+set(kgetcommonapplet_SRCS
+    common/kgetappletutils.cpp
+    common/kgetapplet.cpp
+)
+
 set(kgetbarapplet_SRCS
     barapplet/kgetbarapplet.cpp
-    common/kgetappletutils.cpp
+    ${kgetcommonapplet_SRCS}
 )
+
+qt4_add_dbus_interface(kgetbarapplet_SRCS ../../../kget/org.kde.kget.xml kget_interface)
 
 kde4_add_plugin(plasma_kget_barapplet ${kgetbarapplet_SRCS})
 target_link_libraries(plasma_kget_barapplet ${PLASMA_LIBS} ${KDE4_KDEUI_LIBS})
@@ -11,8 +18,10 @@ install(TARGETS plasma_kget_barapplet DESTINATION ${PLUGIN_INSTALL_DIR})
 
 set(kgetpanelbar_SRCS
     panelbar/kgetpanelbar.cpp
-    common/kgetappletutils.cpp
+    ${kgetcommonapplet_SRCS}
 )
+
+qt4_add_dbus_interface(kgetpanelbar_SRCS ../../../kget/org.kde.kget.xml kget_interface)
 
 kde4_add_plugin(plasma_kget_panelbar ${kgetpanelbar_SRCS})
 target_link_libraries(plasma_kget_panelbar ${PLASMA_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
@@ -21,8 +30,10 @@ install(TARGETS plasma_kget_panelbar DESTINATION ${PLUGIN_INSTALL_DIR})
 
 set(kgetpiechart_SRCS
     piechart/kgetpiechart.cpp
-    common/kgetappletutils.cpp
+    ${kgetcommonapplet_SRCS}
 )
+
+qt4_add_dbus_interface(kgetpiechart_SRCS ../../../kget/org.kde.kget.xml kget_interface)
 
 kde4_add_plugin(plasma_kget_piechart ${kgetpiechart_SRCS})
 target_link_libraries(plasma_kget_piechart ${PLASMA_LIBS} ${KDE4_KDEUI_LIBS})

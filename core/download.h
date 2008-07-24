@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef BTDOWNLOAD_H
-#define BTDOWNLOAD_H
+#ifndef DOWNLOAD_H
+#define DOWNLOAD_H
 
 #include "kget_export.h"
 
@@ -25,6 +25,7 @@ class KGET_EXPORT Download : public QObject
     Q_OBJECT
     public:
         Download(const KUrl &srcUrl, const KUrl &destUrl);
+        ~Download();
 
     Q_SIGNALS:
         void finishedSuccessfully(KUrl dest, QByteArray data);
@@ -35,6 +36,7 @@ class KGET_EXPORT Download : public QObject
         void slotData(KIO::Job *job, const QByteArray& data);
 
     private:
+        KIO::TransferJob *m_copyJob;
         KUrl m_srcUrl;
         KUrl m_destUrl;
         KUrl m_destFile;

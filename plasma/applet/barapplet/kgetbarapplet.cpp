@@ -183,7 +183,7 @@ void KGetBarApplet::Private::clear()
 
 
 KGetBarApplet::KGetBarApplet(QObject *parent, const QVariantList &args) 
-        : Plasma::Applet(parent, args),
+        : KGetApplet(parent, args),
         m_errorWidget(0),
         d(new KGetBarApplet::Private(0))
 {
@@ -213,14 +213,7 @@ void KGetBarApplet::init()
 
     resize(QSize(300, 360));
 
-    m_engine = dataEngine("kget");
-    if (m_engine) {
-        m_engine->connectSource("KGet", this);
-        m_engine->setProperty("refreshTime", 6000);
-    }
-    else {
-        kDebug() << "KGet Engine could not be loaded";
-    }
+    KGetApplet::init();
 }
 
 void KGetBarApplet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)

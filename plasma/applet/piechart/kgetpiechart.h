@@ -20,7 +20,7 @@
 #ifndef KGETPIECHART_H
 #define KGETPIECHART_H
 
-#include <plasma/applet.h>
+#include "common/kgetapplet.h"
 #include <plasma/dataengine.h>
 
 class QGraphicsLinearLayout;
@@ -30,7 +30,7 @@ namespace Plasma {
     class Svg;
 }
 
-class KGetPieChart : public Plasma::Applet
+class KGetPieChart : public KGetApplet
 {
     Q_OBJECT
 public:

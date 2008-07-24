@@ -864,10 +864,15 @@ void MainWindow::dropEvent(QDropEvent * event)
 
 /** DBUS interface */
 
-void MainWindow::addTransfers(const QString& src, const QString& dest, bool start)
+void MainWindow::addTransfer(const QString& src, const QString& dest, bool start)
 {
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
     KGet::addTransfer(src.split(";"), dest, QString(), start);
+}
+
+void MainWindow::showNewTransferDialog(const QStringList &urls)
+{
+    NewTransferDialog::showNewTransferDialog(urls);
 }
 
 bool MainWindow::dropTargetVisible() const

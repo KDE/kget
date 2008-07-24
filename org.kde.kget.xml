@@ -14,10 +14,13 @@
     <method name="setOfflineMode">
       <arg type="b" direction="in"/>
     </method>
-    <method name="addTransfers">
+    <method name="addTransfer">
       <arg type="s" direction="in"/>
       <arg type="s" direction="in"/>
       <arg type="b" direction="in"/>
+    </method>
+    <method name="showNewTransferDialog">
+      <arg type="as" direction="in"/>
     </method>
     <method name="transfers">
        <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap"/> 

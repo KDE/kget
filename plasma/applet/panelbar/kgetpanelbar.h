@@ -20,7 +20,7 @@
 #ifndef KGETPANELBAR_H
 #define KGETPANELBAR_H
 
-#include <plasma/applet.h>
+#include "common/kgetapplet.h"
 #include <plasma/dataengine.h>
 
 class QGraphicsProxyWidget;
@@ -31,7 +31,7 @@ namespace Plasma {
     class Icon;
 }
 
-class KGetPanelBar : public Plasma::Applet
+class KGetPanelBar : public KGetApplet
 {
     Q_OBJECT
 public:

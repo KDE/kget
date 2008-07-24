@@ -169,7 +169,7 @@ void KGetPanelBar::Private::clear()
 
 
 KGetPanelBar::KGetPanelBar(QObject *parent, const QVariantList &args)
-        : Plasma::Applet(parent, args),
+        : KGetApplet(parent, args),
         m_dialog(0),
         m_icon(0),
         d(new KGetPanelBar::Private(this))
@@ -196,16 +196,9 @@ void KGetPanelBar::init()
 
     setLayout(m_layout);
 
-    m_engine = dataEngine("kget");
-    if (m_engine) {
-        m_engine->connectSource("KGet", this);
-        m_engine->setProperty("refreshTime", 6000);
-    }
-    else {
-        kDebug() << "KGet Engine could not be loaded";
-    }
-
     connect(m_icon, SIGNAL(clicked()), SLOT(showDialog()));
+
+    KGetApplet::init();
 }
 
 void KGetPanelBar::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *
- *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+ *   Copyright (C) 2008 by Lukas Appelhans <l.appelhans@gmx.de>
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -17,45 +17,37 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
-#ifndef KGETBARAPPLET_H
-#define KGETBARAPPLET_H
+#ifndef KGETAPPLET_H
+#define KGETAPPLET_H
 
-#include "common/kgetapplet.h"
-#include <plasma/dataengine.h>
+#include <plasma/applet.h>
 
-namespace Plasma {
-    class Svg;
-}
+namespace Plasma
+{
+    class DataEngine;
+};
 
-class QGraphicsProxyWidget;
-class QGraphicsLinearLayout;
+class QEvent;
+class QDropEvent;
 
-class KGetBarApplet : public KGetApplet
+static const QString KGET_DBUS_SERVICE = "org.kde.kget";
+static const QString KGET_DBUS_PATH = "/KGet";
+
+class KGetApplet : public Plasma::Applet
 {
     Q_OBJECT
 public:
-    KGetBarApplet(QObject *parent, const QVariantList &args);
-    ~KGetBarApplet();
+    KGetApplet(QObject *parent, const QVariantList &args);
+    ~KGetApplet();
 
     void init();
-    void paintInterface(QPainter *painter, 
-                            const QStyleOptionGraphicsItem *option,
-                            const QRect &contentsRect);
 
-public slots:
-    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
+protected:
+    virtual bool sceneEventFilter(QGraphicsItem * watched, QEvent * event);
+    virtual void dropEvent(QGraphicsSceneDragDropEvent * event);
+    virtual void dropEvent(QDropEvent * event);
 
-private:
-    Plasma::Svg *m_theme;
     Plasma::DataEngine *m_engine;
-
-    QGraphicsLinearLayout *m_layout;
-    QGraphicsWidget *m_errorWidget;
-
-    class Private;
-    Private *d;
 };
-
-K_EXPORT_PLASMA_APPLET(barapplet, KGetBarApplet)
 
 #endif

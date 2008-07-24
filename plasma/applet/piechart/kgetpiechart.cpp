@@ -228,7 +228,7 @@ void KGetPieChart::Private::drawLegend(const QString &name, QPainter *p, const Q
 
 
 KGetPieChart::KGetPieChart(QObject *parent, const QVariantList &args) 
-        : Plasma::Applet(parent, args),
+        : KGetApplet(parent, args),
         m_errorWidget(0)
 {
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
@@ -258,14 +258,7 @@ void KGetPieChart::init()
 
     resize(QSize(300, 360));
 
-    m_engine = dataEngine("kget");
-    if (m_engine) {
-        m_engine->connectSource("KGet", this);
-        m_engine->setProperty("refreshTime", 6000);
-    }
-    else {
-        kDebug() << "KGet Engine could not be loaded";
-    }
+    KGetApplet::init();
 }
 
 void KGetPieChart::constraintsEvent(Plasma::Constraints constraints)
