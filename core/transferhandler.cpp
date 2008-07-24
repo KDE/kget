@@ -38,6 +38,7 @@ TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
 
 TransferHandler::~TransferHandler()
 {
+    qDeleteAll(m_observers);
 }
 
 void TransferHandler::addObserver(TransferObserver * observer)
@@ -279,14 +280,15 @@ QList<QAction*> TransferHandler::factoryActions()
 
 
 GenericTransferObserver::GenericTransferObserver()
-     : TransferObserver()
+  : QObject(0),
+    TransferObserver()
 {
 }
 
 void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
 {
 //     kDebug(5001);
-    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
+    //TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
 
     if (transfer->status() == Job::Finished && Settings::afterFinishActionEnabled() 
                                             && Settings::afterFinishAction() == KGet::Quit) 
@@ -307,7 +309,7 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
         KGet::checkSystemTray();
     }
 
-    if (transferFlags & Transfer::Tc_Percent)
+    //if (transferFlags & Transfer::Tc_Percent)
         //transfer->group()->calculateSpeedLimits();
 
     transfer->checkShareRatio();

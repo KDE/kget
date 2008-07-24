@@ -107,7 +107,7 @@ QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
         details = new TransferDetails(handler);
     }
 
-    return  details;
+    return details;
 }
 
 #include "transferdetails.moc"
