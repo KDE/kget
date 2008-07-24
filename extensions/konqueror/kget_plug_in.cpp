@@ -14,7 +14,7 @@
 
 #include "links.h"
 #include "kget_interface.h"
-#include "config-kgetplugins.h"
+#include <config-kgetplugins.h>
 #include <KActionCollection>
 #include <KToggleAction>
 #include <kactionmenu.h>

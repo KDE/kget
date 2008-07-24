@@ -46,7 +46,7 @@ class ErrorWidget : public QGraphicsProxyWidget
 {
     Q_OBJECT
 public:
-    ErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
+    explicit ErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
     ~ErrorWidget();
 
 private slots:

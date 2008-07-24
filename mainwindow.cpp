@@ -867,7 +867,7 @@ void MainWindow::dropEvent(QDropEvent * event)
 void MainWindow::addTransfer(const QString& src, const QString& dest, bool start)
 {
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    KGet::addTransfer(src.split(";"), dest, QString(), start);
+    KGet::addTransfer(src.split(';'), dest, QString(), start);
 }
 
 void MainWindow::showNewTransferDialog(const QStringList &urls)

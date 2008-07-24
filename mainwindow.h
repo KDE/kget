@@ -151,6 +151,7 @@ private:
 */
 class MainWindowGroupObserver : public QObject, public TransferGroupObserver
 {
+    Q_OBJECT
     public:
         MainWindowGroupObserver(MainWindow *window);
         virtual ~MainWindowGroupObserver() {}
@@ -169,6 +170,7 @@ class MainWindowGroupObserver : public QObject, public TransferGroupObserver
 
 class MainWindowModelObserver : public QObject, public ModelObserver
 {
+    Q_OBJECT
     public:
         MainWindowModelObserver(MainWindow *window);
         virtual ~MainWindowModelObserver (){}

@@ -327,7 +327,7 @@ bool GenericTransferObserver::allTransfersFinished()
     return quitFlag;
 }
 
-KPassivePopup* GenericTransferObserver::showMessage(const QString &title, const QString &message)
+KPassivePopup* GenericTransferObserver::popupMessage(const QString &title, const QString &message)
 {
     KPassivePopup *popup;
     // we have to call diferent message from kpassivePopup
@@ -350,7 +350,7 @@ void GenericTransferObserver::checkAndFinish()
 {
     // check if there is some unfinished transfer in scheduler queues
     if(allTransfersFinished()) {
-        KPassivePopup *message = showMessage(i18n("Quit KGet"),
+        KPassivePopup *message = popupMessage(i18n("Quit KGet"),
                                             i18n("KGet quits now because all downloads have been completed."));
         QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
     }
@@ -360,7 +360,7 @@ void GenericTransferObserver::checkAndFinish()
 void GenericTransferObserver::checkAndShutdown()
 {
     if(allTransfersFinished()) {
-        KPassivePopup *message = showMessage(i18n("Quit KGet"),
+        KPassivePopup *message = popupMessage(i18n("Quit KGet"),
                                             i18n("The computer turn off now because all downloads have been completed."));
         QObject::connect(message, SIGNAL(destroyed()), SLOT(slotShutdown()));
         QObject::connect(message, SIGNAL(destroyed()),  KGet::m_mainWindow, SLOT(slotQuit()));

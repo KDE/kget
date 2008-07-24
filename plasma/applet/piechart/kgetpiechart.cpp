@@ -29,9 +29,7 @@
 #include <QPainter>
 #include <QHBoxLayout>
 #include <QGraphicsProxyWidget>
-#include <QGraphicsLinearLayout>
 #include <QStyleOptionGraphicsItem>
-#include <QGraphicsWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QProgressBar>

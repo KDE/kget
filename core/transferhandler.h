@@ -302,7 +302,7 @@ class GenericTransferObserver : public QObject, public TransferObserver
 
     private:
         bool allTransfersFinished();
-        KPassivePopup* showMessage(const QString &title, const QString &message);
+        KPassivePopup* popupMessage(const QString &title, const QString &message);
 
         void checkAndFinish();
 
