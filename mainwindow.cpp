@@ -935,23 +935,24 @@ void MainWindowGroupObserver::groupChangedEvent(TransferGroupHandler * group)
     if (transferFlags & TransferGroup::Gc_Percent) {
         m_window->slotUpdateTitlePercent();
     }
+    group->resetChangesFlags(this);
 }
 
-void MainWindowGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+/**void MainWindowGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 { 
-    Q_UNUSED(transfer) 
-    Q_UNUSED(after)
+    Q_UNUSED(transfer);
+    Q_UNUSED(after);
 }
 
 void MainWindowGroupObserver::removedTransferEvent(TransferHandler * transfer)
 { 
-    Q_UNUSED(transfer)
+    Q_UNUSED(transfer);
 }
 
 void MainWindowGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
-    Q_UNUSED(transfer)
-    Q_UNUSED(after)
-}
+    Q_UNUSED(transfer);
+    Q_UNUSED(after);
+}**/
 
 #include "mainwindow.moc"

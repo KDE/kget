@@ -354,25 +354,26 @@ void GenericTransferGroupObserver::groupChangedEvent(TransferGroupHandler * grou
     TransferGroupHandler::ChangesFlags transferFlags = group->changesFlags(this);
     if (transferFlags & TransferGroup::Gc_Percent)
         KGet::calculateGlobalSpeedLimits();
+    group->resetChangesFlags(this);
 }
 
 void GenericTransferGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 { 
-    Q_UNUSED(transfer) 
-    Q_UNUSED(after) 
+    Q_UNUSED(transfer);
+    Q_UNUSED(after);
     KGet::calculateGlobalSpeedLimits(); 
 }
 
 void GenericTransferGroupObserver::removedTransferEvent(TransferHandler * transfer)
 { 
-    Q_UNUSED(transfer) 
+    Q_UNUSED(transfer);
     KGet::calculateGlobalSpeedLimits(); 
 }
 
 void GenericTransferGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
-    Q_UNUSED(transfer)
-    Q_UNUSED(after)
+    Q_UNUSED(transfer);
+    Q_UNUSED(after);
     KGet::calculateGlobalSpeedLimits(); 
 }
 

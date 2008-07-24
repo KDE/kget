@@ -194,7 +194,7 @@ void TransferHandler::resetChangesFlags(TransferObserver * observer)
     if( m_changesFlags.find(observer) != m_changesFlags.end() )
         m_changesFlags[observer] = 0;
     else
-        kDebug(5001) << " TransferHandler::resetchangesFlags() doesn't see you as an observer! ";
+        kDebug(5001) << " TransferHandler::resetChangesFlags() doesn't see you as an observer! ";
 }
 
 void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
@@ -287,7 +287,7 @@ GenericTransferObserver::GenericTransferObserver()
 
 void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
 {
-//     kDebug(5001);
+    //kDebug(5001);
     //TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
 
     if (transfer->status() == Job::Finished && Settings::afterFinishActionEnabled() 

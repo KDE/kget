@@ -158,11 +158,11 @@ class MainWindowGroupObserver : public QObject, public TransferGroupObserver
 
         virtual void groupChangedEvent(TransferGroupHandler * group);
 
-        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+        /**virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
 
         virtual void removedTransferEvent(TransferHandler * transfer);
 
-        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);**/
 
     private:
         MainWindow *m_window;
