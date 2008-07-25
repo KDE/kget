@@ -3,7 +3,7 @@
    Copyright (C) 2002 by Patrick Charbonnier <pch@freeshell.org>
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
-   Copyright (C) 2006, 2007 Urs Wolfer <uwolfer @ kde.org>
+   Copyright (C) 2006 - 2008 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
@@ -119,7 +119,7 @@ int MainWindow::transfersPercent()
 {
     int percent = 0;
     int activeTransfers = 0;
-    foreach (TransferHandler *handler, KGet::allTransfers()) {
+    foreach (const TransferHandler *handler, KGet::allTransfers()) {
         if (handler->status() == Job::Running) {
             activeTransfers ++;
             percent += handler->percent();
@@ -414,10 +414,9 @@ void MainWindow::slotUpdateTitlePercent()
 {
     int percent = transfersPercent();
     if (percent != -1) {
-        setPlainCaption(QString("%1 - %2%").arg(i18n("KGet")).arg(percent));
-    }
-    else {
-        setPlainCaption(QString("%1").arg(i18n("KGet")));
+        setPlainCaption(i18nc("window title including overall download progress in percent", "KGet - %1%", percent));
+    } else {
+        setPlainCaption(i18n("KGet"));
     }
 }
 

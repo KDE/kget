@@ -258,10 +258,7 @@ void NewTransferDialog::prepareGui()
     {
         m_groupComboBox->hide();
         m_groupLabel->hide();
-        setMinimumSize(420, 250);
     }
-    else
-        setMinimumSize(420, 300);
 
     m_groupComboBox->setCurrentIndex(0);
     m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
