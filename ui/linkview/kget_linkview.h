@@ -65,6 +65,7 @@ private slots:
     void uncheckAll();
     void slotShowWebContent(int mode);
     void uncheckItem(const QModelIndex &index);
+    void slotCheckSelected();
 
     // import links slots
     void slotStartImport();
@@ -88,6 +89,7 @@ private:
     QPushButton *checkAllButton;
     QPushButton *uncheckAllButton;
     QPushButton *m_importButton;
+    QPushButton *m_checkSelectedButton;
 
     // import links widgets
     LinkImporter *m_linkImporter;

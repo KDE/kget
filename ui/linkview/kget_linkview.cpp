@@ -61,6 +61,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_treeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeWidget->setModel(m_proxyModel);
     m_treeWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_treeWidget->setSelectionMode(QAbstractItemView::MultiSelection);
     m_treeWidget->setAlternatingRowColors(true);
     m_treeWidget->setRootIsDecorated(false);
     m_treeWidget->setSortingEnabled(true);
@@ -126,6 +127,8 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     checkAllButton = new QPushButton(i18n("Select all"));
     uncheckAllButton = new QPushButton(i18n("Deselect all"));
     uncheckAllButton->setEnabled(false);
+    m_checkSelectedButton = new QPushButton(i18n("Check selected"));
+    m_checkSelectedButton->setEnabled(false);
     QCheckBox *showWebContentButton = new QCheckBox(i18n("Show web content"));
     downloadCheckedButton = new QPushButton( KIcon("kget"), i18n("Download checked"));
     downloadCheckedButton->setEnabled(false);
@@ -134,10 +137,14 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
     connect(checkAllButton, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(uncheckAllButton, SIGNAL(clicked()), this, SLOT(uncheckAll()));
+    connect(m_checkSelectedButton, SIGNAL(clicked()), this, SLOT(slotCheckSelected()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
     connect(showWebContentButton, SIGNAL(stateChanged(int)), this, SLOT(slotShowWebContent(int)));
     connect(m_importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
+    connect(m_treeWidget->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+                                            SLOT(selectionChanged()));
 
+    bottomButtonsLayout->addWidget(m_checkSelectedButton);
     bottomButtonsLayout->addWidget(checkAllButton);
     bottomButtonsLayout->addWidget(uncheckAllButton);
     bottomButtonsLayout->addWidget(showWebContentButton);
@@ -270,7 +277,7 @@ void KGetLinkView::selectionChanged()
     checkAllButton->setEnabled( !(!modelRowCount || count == modelRowCount ) );
 
     uncheckAllButton->setEnabled( count > 0 );
-
+    m_checkSelectedButton->setEnabled(m_treeWidget->selectionModel()->selectedIndexes().size() > 0);
     downloadCheckedButton->setEnabled(buttonEnabled);
 }
 
@@ -346,6 +353,17 @@ void KGetLinkView::uncheckItem(const QModelIndex &index)
     if(index.column() != 0) {
         QStandardItem *item = model->itemFromIndex(model->index(m_proxyModel->mapToSource(index).row(), 1));
         item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked);
+    }
+}
+
+void KGetLinkView::slotCheckSelected()
+{
+    QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
+    foreach(const QModelIndex &index, m_treeWidget->selectionModel()->selectedIndexes()) {
+        QModelIndex sourceIndex = m_proxyModel->mapToSource(index);
+        QStandardItem *item = model->item(sourceIndex.row(), 1);
+
+        item->setCheckState(Qt::Checked);
     }
 }
 
