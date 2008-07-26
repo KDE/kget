@@ -391,7 +391,7 @@ void MainWindow::slotToggleDropTarget()
 
 void MainWindow::slotNewTransfer()
 {
-    NewTransferDialog::showNewTransferDialog();
+    NewTransferDialog::instance()->showDialog();
 }
 
 void MainWindow::slotImportTransfers()
@@ -839,7 +839,7 @@ void MainWindow::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transferlist"), KIcon("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialog::showNewTransferDialog(list.first().url());
+                NewTransferDialog::instance()->showDialog(list.first().url());
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
@@ -848,15 +848,15 @@ void MainWindow::dropEvent(QDropEvent * event)
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
-                NewTransferDialog::showNewTransferDialog(str);
+                NewTransferDialog::instance()->showDialog(str);
             }
             else
-                NewTransferDialog::showNewTransferDialog(list);
+                NewTransferDialog::instance()->showDialog(list);
         }
     }
     else
     {
-        NewTransferDialog::showNewTransferDialog();
+        NewTransferDialog::instance()->showDialog();
     }
 }
 
@@ -871,7 +871,7 @@ void MainWindow::addTransfer(const QString& src, const QString& dest, bool start
 
 void MainWindow::showNewTransferDialog(const QStringList &urls)
 {
-    NewTransferDialog::showNewTransferDialog(urls);
+    NewTransferDialog::instance()->showDialog(urls);
 }
 
 bool MainWindow::dropTargetVisible() const

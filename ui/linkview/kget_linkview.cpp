@@ -232,7 +232,7 @@ void KGetLinkView::slotStartLeech()
         }
     }
 
-    NewTransferDialog::showNewTransferDialog(urls);
+    NewTransferDialog::instance()->showDialog(urls);
     accept(); // close the dialog
 }
 

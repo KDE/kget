@@ -222,7 +222,7 @@ void DropTarget::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transferlist"), KIcon("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialog::showNewTransferDialog(list.first().url());
+                NewTransferDialog::instance()->showDialog(list.first().url());
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
@@ -231,15 +231,15 @@ void DropTarget::dropEvent(QDropEvent * event)
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
-                NewTransferDialog::showNewTransferDialog(str);
+                NewTransferDialog::instance()->showDialog(str);
             }
             else
-                NewTransferDialog::showNewTransferDialog(list);
+                NewTransferDialog::instance()->showDialog(list);
         }
     }
     else
     {
-        NewTransferDialog::showNewTransferDialog();
+        NewTransferDialog::instance()->showDialog();
     }
 
     if ( Settings::animateDropTarget() )
