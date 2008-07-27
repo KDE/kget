@@ -83,37 +83,38 @@ def extract_step(regexp, data):
 	extracted_data = match.group(1)
 	return extracted_data
 
-# Verify video URL format and convert to "standard" format
-video_url_cmdl = kgetcore.getSourceUrl()
-#video_url_cmdl = 'http://www.youtube.com/watch?v=k6mEirkQN8o&feature=dir'
-video_url_mo = const_video_url_re.match(video_url_cmdl)
-if video_url_mo is None:
-	video_url_mo = const_video_url_re.match(urllib.unquote(video_url_cmdl))
-video_url_id = video_url_mo.group(2)
-video_url = const_video_url_str % video_url_id, video_url_id
-video_url = video_url[0]
+def startDownload():
+	# Verify video URL format and convert to "standard" format
+	video_url_cmdl = kgetcore.getSourceUrl()
+        #video_url_cmdl = 'http://www.youtube.com/watch?v=k6mEirkQN8o&feature=dir'
+	video_url_mo = const_video_url_re.match(video_url_cmdl)
+	if video_url_mo is None:
+		video_url_mo = const_video_url_re.match(urllib.unquote(video_url_cmdl))
+	video_url_id = video_url_mo.group(2)
+	video_url = const_video_url_str % video_url_id, video_url_id
+	video_url = video_url[0]
+	
+	video_format = None
 
-video_format = None
+	#if video_format is not None:
+	#	video_url = [('%s%s' % (x, const_video_url_format_suffix % video_format), y) for (x, y) in video_urls]
 
-#if video_format is not None:
-#	video_url = [('%s%s' % (x, const_video_url_format_suffix % video_format), y) for (x, y) in video_urls]
+        # Install cookie and proxy handlers
+	urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler()))
+	urllib2.install_opener(urllib2.build_opener(urllib2.HTTPCookieProcessor()))
 
-# Install cookie and proxy handlers
-urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler()))
-urllib2.install_opener(urllib2.build_opener(urllib2.HTTPCookieProcessor()))
+        # Download all the given videos
+	print video_url
+        # Retrieve video webpage
+	video_webpage = download_step(True, video_url)
 
-# Download all the given videos
-print video_url
-# Retrieve video webpage
-video_webpage = download_step(True, video_url)
+        # Extract video title if needed
+        # video_title = extract_step(const_video_title_re, video_webpage)
 
-# Extract video title if needed
-# video_title = extract_step(const_video_title_re, video_webpage)
-
-# Extract needed video URL parameters
-video_url_t_param = extract_step(const_url_t_param_re, video_webpage)
-video_url_real = const_video_url_real_str % (video_url_id, video_url_t_param)
-if video_format is not None:
-	video_url_real = '%s%s' % (video_url_real, const_video_url_format_suffix % video_format)
-kgetcore.addTransfer(video_url_real)
-#print video_url_real
+        # Extract needed video URL parameters
+	video_url_t_param = extract_step(const_url_t_param_re, video_webpage)
+	video_url_real = const_video_url_real_str % (video_url_id, video_url_t_param)
+	if video_format is not None:
+		video_url_real = '%s%s' % (video_url_real, const_video_url_format_suffix % video_format)
+	kgetcore.addTransfer(video_url_real)
+        #print video_url_real
