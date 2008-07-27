@@ -59,7 +59,9 @@ QStringList NepomukHandler::tags() const
 
 void NepomukHandler::saveFileProperties()
 {
-   saveFileProperties(m_resource);
+    if (!m_resource.isValid())
+        return;
+    saveFileProperties(m_resource);
 }
 
 void NepomukHandler::saveFileProperties(const Nepomuk::Resource &res)
