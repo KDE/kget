@@ -1,0 +1,18 @@
+[Desktop Entry]
+# service definition
+Type=Service
+X-KDE-ServiceTypes=KGet/Plugin
+
+# standard fields
+Name=ContentFetch TransferFactory
+Name[zh_CN]= 传输工厂
+Name[zh_TW]= 傳輸工廠
+Comment=Transfer plugin for KGet
+Comment[zh_CN]=KGet 传输插件
+Comment[zh_TW]=KGet 傳輸外掛程式
+
+# options for library loader
+X-KDE-Library=kget_contentfetchfactory
+X-KDE-KGet-plugintype=TransferFactory
+X-KDE-KGet-rank=110
+X-KDE-KGet-framework-version=1
