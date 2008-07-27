@@ -457,6 +457,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         KMessageBox::error(0,
                         i18n("Unable to save to: %1", filename),
                         i18n("Error"));
+
         return;
     }
 
@@ -865,15 +866,15 @@ bool KGet::isValidSource(const KUrl &source)
         KMessageBox::error(0,
                            i18n("Malformed URL:\n%1", source.prettyUrl()),
                            i18n("Error"));
+
         return false;
     }
     // Check if the URL contains the protocol
     if ( source.protocol().isEmpty() ){
-        KMessageBox::error(0,
-                           i18n("Malformed URL:\n%1", source.prettyUrl()),
-// TODO: Replace the string for 4.2 BEFORE string freeze
-//                            i18n("Malformed URL, protocol missing:\n%1", source.prettyUrl()),
+
+        KMessageBox::error(0, i18n("Malformed URL, protocol missing:\n%1", source.prettyUrl()),
                            i18n("Error"));
+
         return false;
     }
     // Check if a transfer with the same url already exists
@@ -1051,7 +1052,7 @@ KGetPlugin * KGet::createPluginFromService( const KService::Ptr &service )
 
     if (!factory)
     {
-        KMessageBox::error(0, i18n("<html><p>KPluginFactory could not load the plugin:<br/><i>%1</i></p></html>",
+        KMessageBox::error(0, i18n("<html><p>Plugin loader could not load the plugin:<br/><i>%1</i></p></html>",
                                    service->library()));
         kError(5001) << "KPluginFactory could not load the plugin:" << service->library();
         return 0;
@@ -1068,9 +1069,9 @@ bool KGet::safeDeleteFile( const KUrl& url )
         QFileInfo info( url.path() );
         if ( info.isDir() )
         {
-            KMessageBox::information(0L,i18n("Not deleting\n%1\nas it is a "
-                                     "directory.", url.prettyUrl()),
-                                     i18n("Not Deleted"));
+            KGet::showNotification(m_mainWindow, KNotification::Notification,
+                                   i18n("Not deleting\n%1\nas it is a directory.", url.prettyUrl()),
+                                   "dialog-info");
             return false;
         }
         KIO::NetAccess::del( url, 0L );
@@ -1078,10 +1079,14 @@ bool KGet::safeDeleteFile( const KUrl& url )
     }
 
     else
-        KMessageBox::information( 0L,
-                                  i18n("Not deleting\n%1\nas it is not a local"
-                                          " file.", url.prettyUrl()),
-                                  i18n("Not Deleted") );
+        KGet::showNotification(m_mainWindow, KNotification::Notification,
+                               i18n("Not deleting\n%1\nas it is not a local file.", url.prettyUrl()),
+                               "dialog-info");
     return false;
 }
 
+void KGet::showNotification(QWidget *parent, KNotification::StandardEvent eventId, 
+                            const QString &text, const QString &icon)
+{
+    KNotification::event(eventId, text, KIcon(icon).pixmap(KIconLoader::Small), parent);
+}

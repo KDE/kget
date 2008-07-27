@@ -19,6 +19,7 @@
 #include <kservice.h>
 #include <kurl.h>
 #include <kactioncollection.h>
+#include <KNotification>
 #include <ktabwidget.h>
 
 #include "kuiserverjobs.h"
@@ -311,6 +312,17 @@ class KGET_EXPORT KGet
          */
         static void calculateGlobalUploadLimit();
 
+
+        /**
+        * Shows a knotification 
+        * @param parent QWidget parent of the notification
+        * @param eventId Notification type
+        * @param text Description of the information showed by the notification
+        * @param icon Pixmap showed in the notification, by default 'dialog-error'
+        */
+        static void showNotification(QWidget *parent, KNotification::StandardEvent eventId, 
+                                     const QString &text,
+                                     const QString &icon = QString("dialog-error"));
     private:
         KGet();
         ~KGet();

@@ -745,12 +745,17 @@ void MainWindow::slotTrayKonquerorIntegration(bool enable)
     slotKonquerorIntegration(enable);
     if (!enable && Settings::konquerorIntegration() && !Settings::expertMode())
     {
-        KMessageBox::information(this,
+        KGet::showNotification(this, KNotification::Notification,
+                                     i18n("KGet has been temporarily disabled as download manager for Konqueror. "
+            "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
+            "as download manager for Konqueror\"."),
+                                     "dialog-info");
+        /*KMessageBox::information(this,
             i18n("KGet has been temporarily disabled as download manager for Konqueror. "
             "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
             "as download manager for Konqueror\"."),
             i18n("Konqueror Integration disabled"),
-            "KonquerorIntegrationDisabled");
+            "KonquerorIntegrationDisabled");*/
     }
 }
 
