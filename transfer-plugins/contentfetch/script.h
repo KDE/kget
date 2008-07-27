@@ -34,5 +34,7 @@ class Script: public QThread
     private:
         Kross::Action *m_p_action;
         ScriptDownloadEngine *m_p_kgetcore;
+        KUrl m_source;
+        QString m_fileName;
 };
 #endif // SCRIPT_H

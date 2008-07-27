@@ -11,18 +11,13 @@
 #include <kdebug.h>
 #include "scriptdownloadengine.h"
 #include "script.h"
+#include <QVariant>
 
 Script::Script(QObject* parent, const KUrl &source)
-    :QThread(parent)
+    :QThread(parent), m_source(source)
 {
     kDebug(5002) << "One Script Newed.";
-    m_p_action = new Kross::Action(0, "ContentFetchScript");
-    m_p_kgetcore = new ScriptDownloadEngine(0, source);
-    connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
-	    this, SIGNAL(newTransfer(const QString&)));
-    connect(this, SIGNAL(startDownload()),
-	    m_p_kgetcore, SIGNAL(startDownload()));
-    //connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
+    m_p_kgetcore = new ScriptDownloadEngine(0, m_source);
 }
 
 Script::~Script()
@@ -34,19 +29,28 @@ Script::~Script()
 
 bool Script::setFile(const QString &filename)
 {
-    return m_p_action->setFile(filename);
+    m_fileName = filename;
+    return true;
 }
 
 void Script::run()
 {
+    m_p_action = new Kross::Action(0, "ContentFetchScript");
+    connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
+    connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
+	    this, SIGNAL(newTransfer(const QString&)));
+    connect(this, SIGNAL(startDownload()),
+	    m_p_kgetcore, SIGNAL(startDownload()));
+    m_p_action->setFile(m_fileName);
     // TODO add check
     kDebug(5002) << "KGetCore Added to script at ThreadId " << QThread::currentThreadId();
     m_p_action->addObject(m_p_kgetcore, "kgetcore",
 			  Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
     emit startDownload();
+    //m_p_action->callFunction("startDownload", QVariantList());
     kDebug(5002) << "Script Finished!" << QThread::currentThreadId();
     //delete m_p_kgetcore;
     //delete m_p_action;
-    //exec();
+    exec();
 }
