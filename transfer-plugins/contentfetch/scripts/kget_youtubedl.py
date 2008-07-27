@@ -32,7 +32,6 @@ import string
 import sys
 import urllib
 import urllib2
-import kgetcore
 
 # Global constants
 const_video_url_str = 'http://www.youtube.com/watch?v=%s'
@@ -84,6 +83,7 @@ def extract_step(regexp, data):
 	return extracted_data
 
 def startDownload():
+	import kgetcore
 	# Verify video URL format and convert to "standard" format
 	video_url_cmdl = kgetcore.getSourceUrl()
         #video_url_cmdl = 'http://www.youtube.com/watch?v=k6mEirkQN8o&feature=dir'
