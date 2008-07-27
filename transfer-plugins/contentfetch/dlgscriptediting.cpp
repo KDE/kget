@@ -31,7 +31,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
     setMainWidget(mainWidget);
 
     setWindowTitle(i18n("Edit script"));
-    ui.scriptPathEdit->setText(script[0]);
+    ui.scriptPathRequester->setUrl(KUrl::fromPath(script[0]));
     ui.scriptUrlRegexpEdit->setText(script[1]);
     ui.scriptDescriptionEdit->setText(script[2]);
 
@@ -40,11 +40,12 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
 
 void DlgScriptEditing::init()
 {
+    ui.scriptPathRequester->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
     setModal(true);
     setButtons(KDialog::Ok | KDialog::Cancel);
     showButtonSeparator(true);
 
-    connect(ui.scriptPathEdit,SIGNAL(textChanged(const QString &)),
+    connect(ui.scriptPathRequester,SIGNAL(textChanged(const QString &)),
 	    this, SLOT(slotChangeText()));
     connect(ui.scriptUrlRegexpEdit,SIGNAL(textChanged(const QString &)),
 	    this, SLOT(slotChangeText()));
@@ -58,13 +59,17 @@ DlgScriptEditing::~DlgScriptEditing()
 
 void DlgScriptEditing::slotChangeText()
 {
-    enableButton(KDialog::Ok, !(ui.scriptPathEdit->text().isEmpty() ||
+    enableButton(KDialog::Ok, !(ui.scriptPathRequester->url().isEmpty() ||
 				ui.scriptUrlRegexpEdit->text().isEmpty()));
 }
 
 QString DlgScriptEditing::scriptPath() const
 {
-    return ui.scriptPathEdit->text();
+#ifdef Q_OS_WIN
+    return ui.scriptPathRequester->url().url().remove("file:///");
+#else
+    return ui.scriptPathRequester->url().url().remove("file://");
+#endif
 }
 
 QString DlgScriptEditing::scriptUrlRegexp() const

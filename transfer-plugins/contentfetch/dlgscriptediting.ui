@@ -37,12 +37,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="KLineEdit" name="scriptPathEdit" />
-   </item>
-   <item row="1" column="1" >
-    <widget class="KLineEdit" name="scriptUrlRegexpEdit" />
-   </item>
    <item row="3" column="0" >
     <widget class="QLabel" name="scriptDescriptionLabel" >
      <property name="text" >
@@ -53,19 +47,24 @@
    <item row="3" column="1" >
     <widget class="KLineEdit" name="scriptDescriptionEdit" />
    </item>
+   <item row="1" column="1" >
+    <widget class="KLineEdit" name="scriptUrlRegexpEdit" />
+   </item>
+   <item row="0" column="1" >
+    <widget class="KUrlRequester" name="scriptPathRequester" />
+   </item>
   </layout>
-  <zorder>scriptUrlRegexpLabel</zorder>
-  <zorder>scriptPathLabel</zorder>
-  <zorder>scriptPathEdit</zorder>
-  <zorder>scriptUrlRegexpEdit</zorder>
-  <zorder>scriptDescriptionLabel</zorder>
-  <zorder>scriptDescriptionEdit</zorder>
  </widget>
  <customwidgets>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
