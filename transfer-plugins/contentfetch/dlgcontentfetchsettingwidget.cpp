@@ -46,7 +46,7 @@ void DlgContentFetchSettingWidget::setScriptWidget(QWidget *p_widget)
     }
     // load the widget into a dialog
     KDialog *p_dialog = new KDialog(this);
-    p_dialog->setCaption("Configure Script");
+    p_dialog->setCaption(i18nc("Configure Script", "Configure Script"));
     p_widget->setParent(p_dialog);
     p_dialog->setMainWidget(p_widget);
     p_dialog->setModal(true);

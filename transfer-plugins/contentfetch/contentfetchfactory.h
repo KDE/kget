@@ -49,7 +49,7 @@ class ContentFetchFactory : public TransferFactory
 
         QWidget * createSettingsWidget(KDialog * parent);
 
-        QString displayName(){return "HTTP(s) / FTP(s)";}
+        QString displayName(){return "ContentFetch Script";}
 
         const QList<KAction *> actions(TransferHandler *handler = 0);
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return 0;}
