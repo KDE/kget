@@ -24,7 +24,7 @@ class TransferHandler;
 class Transfer;
 class Scheduler;
 
-class TransferTreeModel : public QAbstractItemModel
+class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
 {
     Q_OBJECT
 
@@ -34,6 +34,15 @@ class TransferTreeModel : public QAbstractItemModel
     friend class Transfer;
 
     public:
+        enum Columns {
+            Name,
+            Status,
+            Size,
+            Progress,
+            Speed,
+            RemainingTime
+        };
+
         TransferTreeModel(Scheduler * scheduler);
         ~TransferTreeModel();
 
@@ -76,6 +85,7 @@ class TransferTreeModel : public QAbstractItemModel
                           Qt::DropAction action, int row, int column, 
                           const QModelIndex &parent);
 
+        static QString columnName(int column);
 
     private:
         void timerEvent(QTimerEvent *event);

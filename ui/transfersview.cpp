@@ -11,11 +11,14 @@
 #include "transfersview.h"
 #include "settings.h"
 #include "transfersviewdelegate.h"
+#include "core/transfertreemodel.h"
 
 #include <kdebug.h>
+#include <KAction>
 
 #include <QDropEvent>
 #include <QHeaderView>
+#include <QSignalMapper>
 
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent)
@@ -24,7 +27,9 @@ TransfersView::TransfersView(QWidget * parent)
     setAnimated(true);
     setAllColumnsShowFocus(true);
     header()->setDefaultAlignment(Qt::AlignCenter);
-    header()->setMinimumSectionSize(80);
+    header()->setMinimumSectionSize(80);    
+    header()->setContextMenuPolicy(Qt::ActionsContextMenu);
+    header()->setClickable(true);
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
@@ -33,6 +38,8 @@ TransfersView::TransfersView(QWidget * parent)
     setEditTriggers(QAbstractItemView::NoEditTriggers);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+
+    populateHeaderActions();
 }
 
 TransfersView::~TransfersView()
@@ -40,7 +47,13 @@ TransfersView::~TransfersView()
     QList<int>  list;
     for (int i = 0; i<5; i++)
     {
-        list.append(columnWidth(i));
+        int width = columnWidth(i);
+
+        if (Settings::columns().at(i) == 0) {
+            width = 90;
+        }
+
+        list.append(width);
     }
     Settings::setColumnWidths( list );
     Settings::self()->writeConfig();
@@ -72,6 +85,11 @@ void TransfersView::setModel(QAbstractItemModel * model)
     else
     {
         setColumnWidth(0 , 250);
+    }
+
+    QList <int> columns = Settings::columns();
+    for (int i=0; i<columns.size(); i++) {
+        setColumnHidden(i, (columns.at(i) == 1) ? false : true);
     }
 
     toggleMainGroup();
@@ -123,6 +141,25 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
     toggleMainGroup();
 }
 
+void TransfersView::populateHeaderActions()
+{
+    QList <int> columns = Settings::columns();
+    QSignalMapper *columnMapper = new QSignalMapper(this);
+    connect(columnMapper, SIGNAL(mapped(int)),
+                           SLOT(slotSetColumnVisible(int)));
+
+    for(uint i=0; i<=TransferTreeModel::RemainingTime; i++) {
+        KAction *action = new KAction(header());
+        action->setText(TransferTreeModel::columnName(i));
+        action->setCheckable(true);
+        action->setChecked((columns.at(i) == 1) ? true : false);
+        header()->addAction(action);
+
+        connect(action, SIGNAL(toggled(bool)), columnMapper, SLOT(map()));
+        columnMapper->setMapping(action, i);
+    }
+}
+
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
 {
     Q_UNUSED(event);
@@ -151,6 +188,23 @@ void TransfersView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, 
     Q_UNUSED(end);
     TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
     view_delegate->closeExpandableDetails(currentIndex());
+}
+
+void TransfersView::slotSetColumnVisible(int column)
+{
+    QList <int> columns = Settings::columns();
+
+    if (columns.size() >= column) {
+        columns.replace(column, (columns.at(column) == 1) ? 0 : 1);
+    }
+    else {
+        columns.insert(column, 0);
+    }
+
+    setColumnHidden(column, (columns.at(column) == 1) ? false : true);
+
+    Settings::setColumns(columns);
+    Settings::self()->writeConfig();
 }
 
 #include "transfersview.moc"

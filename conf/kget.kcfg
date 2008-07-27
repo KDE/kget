@@ -8,6 +8,9 @@
   <include>QDateTime</include>
 
   <group name="Appearance">
+    <entry name="Columns" type="IntList">
+        <default>1,1,1,1,1,0</default>
+    </entry>
     <entry name="ShowMain" type="Bool">
       <default>true</default>
     </entry>

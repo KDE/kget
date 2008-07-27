@@ -553,6 +553,26 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     return true;
 }
 
+QString TransferTreeModel::columnName(int column)
+{
+    switch(column) {
+        case TransferTreeModel::Name:
+            return i18n("Name");
+        case TransferTreeModel::Status:
+            return i18n("Status");
+        case TransferTreeModel::Size:
+            return i18n("Size");
+        case TransferTreeModel::Progress:
+            return i18n("Progress");
+        case TransferTreeModel::Speed:
+            return i18n("Speed");
+        case TransferTreeModel::RemainingTime:
+            return i18n("Remaining Time");
+        default:
+            return QString();
+    }
+}
+
 void TransferTreeModel::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event);
