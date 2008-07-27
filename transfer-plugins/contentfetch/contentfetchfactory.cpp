@@ -25,7 +25,6 @@ ContentFetchFactory::ContentFetchFactory(QObject *parent,
 					 const QVariantList &args)
   : TransferFactory(parent, args)
 {
-    // TODO: Add check to prevent crash when config file corrupted.
     QStringList regexpList = ContentFetchSetting::self()->findItem("UrlRegexpList")->property().toStringList();
     m_scriptPathList = ContentFetchSetting::self()->findItem("PathList")->property().toStringList();
     // TODO: change to notify user without crash
