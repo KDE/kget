@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>422</height>
+    <width>478</width>
+    <height>521</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -34,6 +34,13 @@
          <widget class="QPushButton" name="newScriptButton" >
           <property name="text" >
            <string>New Script...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="configureScriptButton" >
+          <property name="text" >
+           <string>Configure...</string>
           </property>
          </widget>
         </item>

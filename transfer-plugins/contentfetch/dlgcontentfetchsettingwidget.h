@@ -11,6 +11,8 @@
 #ifndef DLG_CONTENT_FETCH_SETTING_H
 #define DLG_CONTENT_FETCH_SETTING_H
 
+#include <kross/core/action.h>
+
 #include "ui_dlgcontentfetchsettingwidget.h"
 
 class DlgContentFetchSettingWidget : public QWidget
@@ -20,13 +22,20 @@ class DlgContentFetchSettingWidget : public QWidget
 public:
     DlgContentFetchSettingWidget(KDialog *p_parent = 0);
     ~DlgContentFetchSettingWidget();
-
+public slots:
+    void setScriptWidget(QWidget *p_widget);
 private slots:
     void slotNewScript();
     void slotEditScript();
+    void slotConfigureScript();
     void slotRemoveScript();
     void slotSave();
+    void slotAccepted();
+    void slotRejected();
 
+signals:
+    void configureScript();
+    void configurationAccepted();
 private:
     void addScriptItem(const QString &path, const QString &regexp,
 		       const QString &description);
@@ -36,6 +45,7 @@ private:
     Ui::DlgContentFetchSettingWidget ui;
     KDialog *m_p_parent;
     bool m_changed;
+    Kross::Action *m_p_action;
 };
 
 #endif // DLG_CONTENT_FETCH_SETTING_H
