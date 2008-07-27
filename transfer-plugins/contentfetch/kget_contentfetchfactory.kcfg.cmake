@@ -9,7 +9,7 @@
     </entry>
     <entry name="UserScriptPathList" type="StringList" key="PathItems">
       <label>Urls list of the available search engines</label>
-      <default>/home/kde-devel/doc/develop/youtubedl/kget_youtubedl.py</default>
+      <default>${DATA_INSTALL_DIR}/kget/content_fetch_scripts/kget_youtubedl.py</default>
     </entry>
   </group>
 </kcfg>
