@@ -134,6 +134,24 @@ int MainWindow::transfersPercent()
     }
 }
 
+void MainWindow::exportTransfers(bool plain)
+{
+    QString filter = "";
+    if (!plain) {
+        filter = "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)";
+    }
+
+    QString filename = KFileDialog::getSaveFileName
+        (KUrl(),
+         filter,
+         this,
+         i18n("Export Transfers")
+        );
+
+    if(!filename.isEmpty())
+        KGet::save(filename, plain);
+}
+
 void MainWindow::setupActions()
 {
     QAction *newDownloadAction = actionCollection()->addAction("new_download");
@@ -153,6 +171,12 @@ void MainWindow::setupActions()
     exportAction->setIcon(KIcon("document-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
+
+    QAction *exportPlainAction = actionCollection()->addAction("export_plain_transfers");
+    exportPlainAction->setText(i18n("&Export Transfers as Plain Text"));
+    exportPlainAction->setIcon(KIcon("document-export"));
+    exportPlainAction->setShortcuts(KShortcut("Ctrl+P"));
+    connect(exportPlainAction, SIGNAL(triggered()), SLOT(slotExportPlainTransfers()));
 
     QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18n("Delete Group"));
@@ -457,15 +481,12 @@ void MainWindow::slotPreferences()
 
 void MainWindow::slotExportTransfers()
 {
-    QString filename = KFileDialog::getSaveFileName
-        (KUrl(),
-         "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)",
-         this,
-         i18n("Export Transfers")
-        );
+    exportTransfers(false);
+}
 
-    if(!filename.isEmpty())
-        KGet::save(filename);
+void MainWindow::slotExportPlainTransfers()
+{
+    exportTransfers(true);
 }
 
 void MainWindow::slotDeleteGroup()

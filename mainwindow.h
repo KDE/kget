@@ -73,6 +73,7 @@ private slots:
     void slotNewTransfer();
     void slotImportTransfers();
     void slotExportTransfers();
+    void slotExportPlainTransfers();
     void slotPreferences();
     void slotDeleteGroup();
     void slotRenameGroup();
@@ -114,6 +115,8 @@ private slots:
     void slotShowListLinks();
 
 private:
+    void exportTransfers(bool plain=false);
+
     /**
     * Returns the completed percents of all active transfers
     */

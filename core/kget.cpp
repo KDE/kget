@@ -436,7 +436,7 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     }
 }
 
-void KGet::save( QString filename ) // krazy:exclude=passbyvalue
+void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
 {
     if ( !filename.isEmpty()
         && QFile::exists( filename )
@@ -450,31 +450,40 @@ void KGet::save( QString filename ) // krazy:exclude=passbyvalue
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
-    QDomDocument doc(QString("KGetTransfers"));
-    QDomElement root = doc.createElement("Transfers");
-    doc.appendChild(root);
-
-    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
-    QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
-
-    for ( ; it!=itEnd ; ++it )
-    {
-        QDomElement e = doc.createElement("TransferGroup");
-        root.appendChild(e);
-        (*it)->save(e);
-    }
     QFile file(filename);
     if ( !file.open( QIODevice::WriteOnly ) )
     {
         //kWarning(5001)<<"Unable to open output file when saving";
         KMessageBox::error(0,
-                           i18n("Unable to save to: %1", filename),
-                           i18n("Error"));
+                        i18n("Unable to save to: %1", filename),
+                        i18n("Error"));
         return;
     }
 
-    QTextStream stream( &file );
-    doc.save( stream, 0 );
+    if (plain) {
+        QTextStream out(&file);
+        foreach(TransferHandler *handler, allTransfers()) {
+            out << handler->source().prettyUrl() << endl;
+        }
+    }
+    else {
+        QDomDocument doc(QString("KGetTransfers"));
+        QDomElement root = doc.createElement("Transfers");
+        doc.appendChild(root);
+
+        QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
+        QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
+
+        for ( ; it!=itEnd ; ++it )
+        {
+            QDomElement e = doc.createElement("TransferGroup");
+            root.appendChild(e);
+            (*it)->save(e);
+        }
+
+        QTextStream stream( &file );
+        doc.save( stream, 0 );
+    }
     file.close();
 }
 

@@ -198,8 +198,9 @@ class KGET_EXPORT KGet
          * Exports all the transfers and groups to the given file
          *
          * @param filename the file name
+         * @param plain should list be in plain mode or kget mode
          */
-        static void save( QString filename=QString() );
+        static void save( QString filename=QString(), bool plain=false );
 
         /**
          * @returns The factory of a given transfer
