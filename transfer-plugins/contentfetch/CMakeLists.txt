@@ -9,9 +9,12 @@ set(kget_contentfetchfactory_PART_SRCS
   scriptdownloadengine.cpp
 )
 
+kde4_add_kcfg_files(kget_contentfetchfactory_PART_SRCS contentfetchsetting.kcfgc)
+
 kde4_add_plugin(kget_contentfetchfactory ${kget_contentfetchfactory_PART_SRCS})
 
 target_link_libraries(kget_contentfetchfactory ${KDE4_KROSSUI_LIBS} kgetcore)
 
 install(TARGETS kget_contentfetchfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES kget_contentfetchfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES kget_contentfetchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})

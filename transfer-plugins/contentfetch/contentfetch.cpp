@@ -26,10 +26,10 @@
 
 ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
 			   Scheduler* scheduler, const KUrl& source,
-			   const KUrl& dest,
+			   const KUrl& dest, const QString &scriptFile,
 			   const QDomElement* e)
     : QObject(0), Transfer(parent, factory, scheduler, source, dest, e),
-      m_p_group(parent), m_dest_dir(dest.directory())
+      m_p_group(parent), m_scriptFile(scriptFile), m_destDir(dest.directory())
 {
     m_p_script = new Script(this, source);
     connect(m_p_script, SIGNAL(newTransfer(const QString&)),
@@ -42,8 +42,8 @@ void ContentFetch::start()
     kDebug(5001) << "ContentFetch::start";
     setStatus(Job::Running, i18nc("transfer state: executing script", "scripting"), SmallIcon("network-connect"));
     setTransferChange(Tc_Status, true);
-    m_p_script->setFile(QString("/home/kde-devel/var/xx.py"));
-    m_p_script->start();
+    m_p_script->setFile(m_scriptFile);
+    m_p_script->start(QThread::LowPriority);
     kDebug(5001) << "ContentFetch::start() finished!";
 }
 
@@ -62,8 +62,7 @@ void ContentFetch::stop()
 
 void ContentFetch::slotAddTransfer(const QString &url)
 {
-    // KGet::addTransfer(KUrl(url), m_dest_dir, m_p_group->name(), true);
-    KMessageBox::information(0, url);
+    KGet::addTransfer(KUrl(url), m_destDir, m_p_group->name(), true);
 }
 
 void ContentFetch::slotFinish()

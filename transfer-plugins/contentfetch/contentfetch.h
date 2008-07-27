@@ -23,7 +23,7 @@ class ContentFetch : public QObject, public Transfer
     public:
         ContentFetch(TransferGroup * parent, TransferFactory * factory,
                      Scheduler * scheduler, const KUrl & src,
-                     const KUrl & dest,
+                     const KUrl & dest, const QString &scriptFile,
                      const QDomElement * e = 0);
 
     public slots:
@@ -42,7 +42,8 @@ class ContentFetch : public QObject, public Transfer
     private:
         Script *m_p_script;
         TransferGroup *m_p_group;
-        QString m_dest_dir;
+        QString m_scriptFile;
+        QString m_destDir;
     private slots:
         void slotFinish();
         void slotAddTransfer(const QString &url);

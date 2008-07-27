@@ -13,8 +13,10 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 #include "contentfetch.h"
-
+#include "contentfetchsetting.h"
 #include <kdebug.h>
+
+#include <QtGlobal>
 
 KGET_EXPORT_PLUGIN( ContentFetchFactory )
 
@@ -22,6 +24,14 @@ ContentFetchFactory::ContentFetchFactory(QObject *parent,
 					 const QVariantList &args)
   : TransferFactory(parent, args)
 {
+    QStringList regexpList = ContentFetchSetting::self()->findItem("UrlRegexpList")->property().toStringList();
+    m_scriptPathList = ContentFetchSetting::self()->findItem("UserScriptPathList")->property().toStringList();
+    // TODO: change to notify user without crash
+    Q_ASSERT_X(m_scriptPathList.size() == regexpList.size(), "kcfg File", "Contentfetch config file corrupted!");
+    for (int i = 0; i < regexpList.size(); ++i)
+    {
+	m_regexpList.push_back(QRegExp(regexpList[i]));
+    }
 }
 
 ContentFetchFactory::~ContentFetchFactory()
@@ -34,11 +44,22 @@ Transfer * ContentFetchFactory::createTransfer( const KUrl &srcUrl,
 						Scheduler * scheduler,
 						const QDomElement * e )
 {
-    // Hardcoded check for test
-    if (srcUrl == KUrl("http://www.ustc.edu.cn/xx.html"))
+    // No user script exists
+    if (m_regexpList.size() == 0)
     {
-	kDebug(5001) << "ContentFetchFactory::createTransfer";
-	return new ContentFetch(parent, this, scheduler, srcUrl, destUrl, e);
+	return 0;
+    }
+    QString url = srcUrl.url();
+    QStringList::iterator fileIter = m_scriptPathList.begin();
+    for(QVector<QRegExp>::iterator iter = m_regexpList.begin();
+	iter!=m_regexpList.end(); ++iter,++fileIter)
+    {
+	if (iter->indexIn(url) != -1)
+	{
+	    kDebug(5001) << url << " match " << iter->pattern();
+	    return new ContentFetch(parent, this, scheduler, srcUrl, destUrl,
+				    *fileIter, e);
+	}
     }
     return 0;
 }
