@@ -168,7 +168,7 @@ KGetLinkView::~KGetLinkView()
 void KGetLinkView::setLinks(const QList <QString> &links)
 {
     m_links = QList <QString> ();
-    foreach(QString link, links) {
+    foreach(const QString &link, links) {
         m_links << link;
     }
 

@@ -32,7 +32,7 @@ NepomukWidget::NepomukWidget(TransferHandler *transfer, QWidget *parent)
     ratingWidget->setRating(m_nepHandler->rating());
     layout->addWidget(ratingWidget);
     Nepomuk::TagCloud *tags = new Nepomuk::TagCloud(this);
-    foreach (QString string, m_nepHandler->tags())
+    foreach (const QString &string, m_nepHandler->tags())
         tags->addTag(string, 4);
 
     layout->addWidget(tags);
