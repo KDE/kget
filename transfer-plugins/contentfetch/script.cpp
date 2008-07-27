@@ -20,6 +20,8 @@ Script::Script(QObject* parent, const KUrl &source)
     m_p_kgetcore = new ScriptDownloadEngine(0, source);
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
 	    this, SIGNAL(newTransfer(const QString&)));
+    connect(this, SIGNAL(startDownload()),
+	    m_p_kgetcore, SIGNAL(startDownload()));
     //connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
 }
 
@@ -39,8 +41,10 @@ void Script::run()
 {
     // TODO add check
     kDebug(5002) << "KGetCore Added to script at ThreadId " << QThread::currentThreadId();
-    m_p_action->addObject(m_p_kgetcore, "kgetcore");
+    m_p_action->addObject(m_p_kgetcore, "kgetcore",
+			  Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
+    emit startDownload();
     kDebug(5002) << "Script Finished!" << QThread::currentThreadId();
     //delete m_p_kgetcore;
     //delete m_p_action;

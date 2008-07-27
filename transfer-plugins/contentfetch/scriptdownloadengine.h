@@ -27,6 +27,7 @@ class ScriptDownloadEngine: public QObject
         void setSourceUrl(const QString &url);
     signals:
         void newTransfer(const QString &url);
+        void startDownload();
     public slots:
         QString getSourceUrl() const;
         bool addTransfer(const QString &url);

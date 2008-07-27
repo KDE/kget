@@ -28,6 +28,7 @@ class Script: public QThread
         bool setFile(const QString &filename);
     signals:
         void newTransfer(const QString &url);
+        void startDownload();
     protected:
         void run();
     private:
