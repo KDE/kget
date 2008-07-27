@@ -56,6 +56,7 @@ void ContentFetch::stop()
     kDebug(5001) << "ContentFetch::stop";
     // kill -9 the script
     m_p_script->terminate();
+    // delete m_p_script to avoid crash?
     setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     setTransferChange(Tc_Status, true);
 }
