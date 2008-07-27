@@ -32,6 +32,8 @@ private slots:
     void slotSave();
     void slotAccepted();
     void slotRejected();
+    void slotCheckConfigurable(QTreeWidgetItem *p_item,
+			       int column);
 
 signals:
     void configureScript();

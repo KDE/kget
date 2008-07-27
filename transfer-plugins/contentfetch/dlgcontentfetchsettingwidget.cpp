@@ -30,6 +30,9 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
     connect(ui.editScriptButton, SIGNAL(clicked()), this, SLOT(slotEditScript()));
     connect(ui.configureScriptButton, SIGNAL(clicked()), this, SLOT(slotConfigureScript()));
     connect(ui.removeScriptButton, SIGNAL(clicked()), this, SLOT(slotRemoveScript()));
+    connect(ui.scriptTreeWidget,
+	    SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+	    this, SLOT(slotCheckConfigurable(QTreeWidgetItem*, int)));
     connect(p_parent, SIGNAL(accepted()), this, SLOT(slotAccepted()));
     connect(p_parent, SIGNAL(rejected()), this, SLOT(slotRejected()));
 }
@@ -206,5 +209,36 @@ void DlgContentFetchSettingWidget::slotRejected()
     if (m_p_action)
     {
 	delete m_p_action;
+    }
+}
+
+void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item,
+							 int column )
+{
+    if (column == -1)
+    {
+	return;
+    }
+    QString filename = p_item->text(0);
+    Kross::Action action(0, "CheckConfig");
+    // TODO add check file
+    action.setFile(filename);
+    // NOTICE: Might need further investigation whether we need this object imported here
+    action.addObject(this, "kgetscriptconfig");
+    action.trigger();
+#ifdef DEBUG
+    QStringList funcs = action.functionNames();
+    for (int i = 0; i < funcs.size() ; ++i)
+    {
+	kDebug(5002) << funcs[i];
+    }
+#endif
+    if (action.functionNames().contains("configureScript"))
+    {
+	ui.configureScriptButton->setEnabled(true);
+    }
+    else
+    {
+	ui.configureScriptButton->setEnabled(false);
     }
 }
