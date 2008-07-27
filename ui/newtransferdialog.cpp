@@ -40,6 +40,21 @@ public:
         urlRequester = 0;
     }
 
+    KUrl::List sources() const
+    {
+        KUrl::List list;
+        if (m_multiple)
+        {
+            for (int i = 0; i != listWidget->count(); i++) {
+                if (listWidget->item(i)->checkState() == Qt::Checked)
+                    list << KUrl(listWidget->item(i)->text());
+            }
+        }
+        else
+            list << KUrl(urlRequester->text());
+        return list;
+    }
+
     QString destination() const
     {
         return m_destRequester->url().prettyUrl();
@@ -271,10 +286,10 @@ void NewTransferDialog::prepareDialog()
 
         KDialog::exec();
 
-        QString destDir = d->destination();
-
         if (result() == KDialog::Accepted)
         {
+            QString destDir = d->destination();
+            m_sources = d->sources();
     #ifdef Q_OS_WIN //krazy:exclude=cpp
             destDir = destDir.remove("file:///");
     #else
@@ -282,7 +297,7 @@ void NewTransferDialog::prepareDialog()
     #endif
             QString dir;
             if (m_sources.size() > 1)
-                dir = destDir; 
+                dir = destDir;
             else
                 dir = KUrl(destDir).directory();
 
