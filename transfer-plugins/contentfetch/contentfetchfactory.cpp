@@ -14,6 +14,7 @@
 #include "core/transfergroup.h"
 #include "contentfetch.h"
 #include "contentfetchsetting.h"
+#include "dlgcontentfetchsettingwidget.h"
 #include <kdebug.h>
 
 #include <QtGlobal>
@@ -24,8 +25,9 @@ ContentFetchFactory::ContentFetchFactory(QObject *parent,
 					 const QVariantList &args)
   : TransferFactory(parent, args)
 {
+    // TODO: Add check to prevent crash when config file corrupted.
     QStringList regexpList = ContentFetchSetting::self()->findItem("UrlRegexpList")->property().toStringList();
-    m_scriptPathList = ContentFetchSetting::self()->findItem("UserScriptPathList")->property().toStringList();
+    m_scriptPathList = ContentFetchSetting::self()->findItem("PathList")->property().toStringList();
     // TODO: change to notify user without crash
     Q_ASSERT_X(m_scriptPathList.size() == regexpList.size(), "kcfg File", "Contentfetch config file corrupted!");
     for (int i = 0; i < regexpList.size(); ++i)
@@ -79,8 +81,7 @@ QWidget * ContentFetchFactory::createDetailsWidget(TransferHandler *transfer)
 
 QWidget * ContentFetchFactory::createSettingsWidget(KDialog *parent)
 {
-    Q_UNUSED(parent);
-    return 0; // if there is no settings widget we must return 0
+    return new DlgContentFetchSettingWidget(parent);
 }
 
 const QList<KAction*> ContentFetchFactory::actions(TransferHandler *handler)

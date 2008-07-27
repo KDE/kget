@@ -7,9 +7,13 @@ set(kget_contentfetchfactory_PART_SRCS
   contentfetchfactory.cpp
   script.cpp
   scriptdownloadengine.cpp
+  dlgcontentfetchsettingwidget.cpp
+  dlgscriptediting.cpp
 )
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/kget_contentfetchfactory.kcfg.cmake ${CMAKE_CURRENT_SOURCE_DIR}/kget_contentfetchfactory.kcfg)
+
+kde4_add_ui_files(kget_contentfetchfactory_PART_SRCS dlgcontentfetchsettingwidget.ui dlgscriptediting.ui)
 
 kde4_add_kcfg_files(kget_contentfetchfactory_PART_SRCS contentfetchsetting.kcfgc)
 

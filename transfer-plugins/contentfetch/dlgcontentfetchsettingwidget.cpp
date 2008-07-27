@@ -1,0 +1,144 @@
+/* This file is part of the KDE project
+
+   Copyright (C) 2008 Ningyu Shi <shiningyu@gmail.com>
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+*/
+
+#include "dlgcontentfetchsettingwidget.h"
+#include "dlgscriptediting.h"
+#include "contentfetchsetting.h"
+
+#include <kdebug.h>
+
+DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
+    : QWidget(p_parent),
+      m_p_parent(p_parent)
+{
+    ui.setupUi(this);
+    ui.newScriptButton->setIcon(KIcon("list-add"));
+    ui.removeScriptButton->setIcon(KIcon("list-remove"));
+
+    loadContentFetchSetting();
+    m_changed = false;
+
+    connect(ui.newScriptButton, SIGNAL(clicked()), this, SLOT(slotNewScript()));
+    connect(ui.editScriptButton, SIGNAL(clicked()), this, SLOT(slotEditScript()));
+    connect(ui.removeScriptButton, SIGNAL(clicked()), this, SLOT(slotRemoveScript()));
+    connect(p_parent, SIGNAL(accepted()), this, SLOT(slotSave()));
+}
+
+DlgContentFetchSettingWidget::~DlgContentFetchSettingWidget()
+{
+}
+
+void DlgContentFetchSettingWidget::slotNewScript()
+{
+    DlgScriptEditing dialog(this);
+    if(dialog.exec())
+    {
+	addScriptItem(dialog.scriptPath(), dialog.scriptUrlRegexp(),
+		      dialog.scriptDescription());
+    }
+    m_changed = true;
+}
+
+void DlgContentFetchSettingWidget::slotEditScript()
+{
+    QList<QTreeWidgetItem *> selectedItems =
+	ui.scriptTreeWidget->selectedItems();
+    // only edit one item at one time
+    if (selectedItems.size()!=1)
+    {
+	return;
+    }
+    QTreeWidgetItem &item = *(selectedItems[0]);
+    DlgScriptEditing dialog(this, (QStringList() << item.text(0)
+				   << item.text(1) << item.text(2)));
+    if(dialog.exec())
+    {
+	if (item.text(0) != dialog.scriptPath())
+	{
+	    // check file existance?
+	    item.setText(0, dialog.scriptPath());
+	    m_changed = true;
+	}
+	if (item.text(1) != dialog.scriptUrlRegexp())
+	{
+	    item.setText(1, dialog.scriptUrlRegexp());
+	    m_changed = true;
+	}
+	if (item.text(2) != dialog.scriptDescription())
+	{
+	    item.setText(2, dialog.scriptDescription());
+	    m_changed = true;
+	}
+    }
+}
+
+void DlgContentFetchSettingWidget::slotRemoveScript()
+{
+    QList<QTreeWidgetItem *> selectedItems =
+	ui.scriptTreeWidget->selectedItems();
+
+    foreach(QTreeWidgetItem * selectedItem, selectedItems)
+	delete(selectedItem);
+}
+
+void DlgContentFetchSettingWidget::addScriptItem(const QString &path, const QString &regexp, const QString &description)
+{
+    ui.scriptTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << path << regexp << description));
+}
+
+void DlgContentFetchSettingWidget::loadContentFetchSetting()
+{
+    ui.scriptTreeWidget->clear();//Cleanup things first
+
+    QStringList paths = ContentFetchSetting::self()
+	->findItem("PathList")->property().toStringList();
+    QStringList regexps = ContentFetchSetting::self()
+	->findItem("UrlRegexpList")->property().toStringList();
+    QStringList descriptions = ContentFetchSetting::self()
+	->findItem("DescriptionList")->property().toStringList();
+    for (int i = 0; i < paths.size(); ++i)
+    {
+	addScriptItem(paths[i], regexps[i], descriptions[i]);
+    }
+}
+
+void DlgContentFetchSettingWidget::saveContentFetchSetting()
+{
+    kDebug(5002);
+    QStringList paths;
+    QStringList regexps;
+    QStringList descriptions;
+
+    for (int i = 0; i < ui.scriptTreeWidget->topLevelItemCount(); ++i)
+    {
+	paths.append(ui.scriptTreeWidget->topLevelItem(i)->text(0));
+	regexps.append(ui.scriptTreeWidget->topLevelItem(i)->text(1));
+	descriptions.append(ui.scriptTreeWidget->topLevelItem(i)->text(2));
+    }
+
+    ContentFetchSetting::self()->findItem("PathList")
+	->setProperty(QVariant(paths));
+    ContentFetchSetting::self()->findItem("UrlRegexpList")
+	->setProperty(QVariant(regexps));
+    ContentFetchSetting::self()->findItem("DescriptionList")
+	->setProperty(QVariant(descriptions));
+
+    ContentFetchSetting::self()->writeConfig();
+}
+
+void DlgContentFetchSettingWidget::slotSave()
+{
+    if (m_changed)
+    {
+	saveContentFetchSetting();
+	ContentFetchSetting::self()->writeConfig();
+	m_changed = false;
+    }
+}
