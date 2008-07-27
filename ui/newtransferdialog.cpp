@@ -121,6 +121,8 @@ public:
 
     void setDestination(const KUrl::List &sources, const QStringList &list)
     {
+        Q_UNUSED(sources)
+
         m_destRequester->comboBox()->clear();
         m_destRequester->clear();
 
