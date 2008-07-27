@@ -358,3 +358,9 @@ Name=Error happens
 Comment=Some error just happens
 Sound=KDE-Sys-App-Error.ogg
 Action=PassivePopup|Sound
+
+[Event/notification]
+Name=Information
+Comment=Some notice happens
+Sound=KDE-Sys-App-Message.ogg
+Action=PassivePopup|Sound
