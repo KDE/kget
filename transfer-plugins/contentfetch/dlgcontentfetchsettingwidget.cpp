@@ -66,7 +66,7 @@ void DlgContentFetchSettingWidget::slotNewScript()
     DlgScriptEditing dialog(this);
     if(dialog.exec())
     {
-	addScriptItem(dialog.scriptPath(), dialog.scriptUrlRegexp(),
+	addScriptItem(true, dialog.scriptPath(), dialog.scriptUrlRegexp(),
 		      dialog.scriptDescription());
     }
     m_changed = true;
@@ -82,14 +82,15 @@ void DlgContentFetchSettingWidget::slotEditScript()
 	return;
     }
     QTreeWidgetItem &item = *(selectedItems[0]);
-    DlgScriptEditing dialog(this, (QStringList() << item.text(0)
+    DlgScriptEditing dialog(this, (QStringList() << item.toolTip(0)
 				   << item.text(1) << item.text(2)));
     if(dialog.exec())
     {
-	if (item.text(0) != dialog.scriptPath())
+	if (item.toolTip(0) != dialog.scriptPath())
 	{
 	    // check file existance?
-	    item.setText(0, dialog.scriptPath());
+	    item.setText(0, QFileInfo(dialog.scriptPath()).fileName());
+	    item.setToolTip(0, dialog.scriptPath());
 	    m_changed = true;
 	}
 	if (item.text(1) != dialog.scriptUrlRegexp())
@@ -114,7 +115,7 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     {
 	return;
     }
-    QString filename = selectedItems[0]->text(0);
+    QString filename = selectedItems[0]->toolTip(0);
     if (m_p_action)
     {
 	delete m_p_action;
@@ -130,18 +131,28 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     KDialog *dialog = new KDialog(this);
     dialog->setObjectName("configure_script");
     dialog->setCaption(i18n("Configure script"));
-    dialog->resize(QSize(400, 300).expandedTo(dialog->minimumSizeHint()));
+    dialog->resize(QSize(400, 100).expandedTo(dialog->minimumSizeHint()));
     dialog->enableButtonOk(false);
 
     dialog->show();
     QWidget *widget = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setSpacing(0);
+    layout->setMargin(0);
+    widget->setLayout(layout);
+
     emit configureScript(widget);
-    if (widget->findChild<QWidget*>())
+
+    if (widget->findChild<QWidget*>()) {
+        layout->addStretch(1);
         dialog->enableButtonOk(true);
+    }
+
     dialog->setMainWidget(widget);
     if (dialog->exec() == QDialog::Accepted)
         emit configurationAccepted(widget);
-    delete dialog;
+
+    dialog->deleteLater();
 }
 
 void DlgContentFetchSettingWidget::slotRemoveScript()
@@ -153,9 +164,12 @@ void DlgContentFetchSettingWidget::slotRemoveScript()
 	delete(selectedItem);
 }
 
-void DlgContentFetchSettingWidget::addScriptItem(const QString &path, const QString &regexp, const QString &description)
+void DlgContentFetchSettingWidget::addScriptItem(bool enabled, const QString &path, const QString &regexp, const QString &description)
 {
-    ui.scriptTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << path << regexp << description));
+    QTreeWidgetItem *item = new QTreeWidgetItem(QStringList() << QFileInfo(path).fileName() << regexp << description);
+    item->setToolTip(0, path);
+    //TODO item->setCheckState(0, enabled ? Qt::Checked : Qt::Unchecked);
+    ui.scriptTreeWidget->addTopLevelItem(item);
 }
 
 void DlgContentFetchSettingWidget::loadContentFetchSetting()
@@ -170,7 +184,7 @@ void DlgContentFetchSettingWidget::loadContentFetchSetting()
 	->findItem("DescriptionList")->property().toStringList();
     for (int i = 0; i < paths.size(); ++i)
     {
-	addScriptItem(paths[i], regexps[i], descriptions[i]);
+	addScriptItem(true, paths[i], regexps[i], descriptions[i]);
     }
 }
 
@@ -183,7 +197,7 @@ void DlgContentFetchSettingWidget::saveContentFetchSetting()
 
     for (int i = 0; i < ui.scriptTreeWidget->topLevelItemCount(); ++i)
     {
-	paths.append(ui.scriptTreeWidget->topLevelItem(i)->text(0));
+	paths.append(ui.scriptTreeWidget->topLevelItem(i)->toolTip(0));
 	regexps.append(ui.scriptTreeWidget->topLevelItem(i)->text(1));
 	descriptions.append(ui.scriptTreeWidget->topLevelItem(i)->text(2));
     }
@@ -234,8 +248,8 @@ void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item
     {
 	return;
     }
-    QString filename = p_item->text(0);
-    Kross::Action action(0, "CheckConfig");
+    QString filename = p_item->toolTip(0);
+    Kross::Action action(0, filename); //"CheckConfig");
     // TODO add check file
     action.setFile(filename);
     // NOTICE: Might need further investigation whether we need this object imported here

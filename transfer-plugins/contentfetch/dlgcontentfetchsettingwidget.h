@@ -39,7 +39,7 @@ signals:
     void configureScript(QWidget*);
     void configurationAccepted(QWidget*);
 private:
-    void addScriptItem(const QString &path, const QString &regexp,
+    void addScriptItem(bool enabled, const QString &path, const QString &regexp,
 		       const QString &description);
     void loadContentFetchSetting();
     void saveContentFetchSetting();
