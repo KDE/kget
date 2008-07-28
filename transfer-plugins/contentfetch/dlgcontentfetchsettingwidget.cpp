@@ -119,14 +119,29 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     {
 	delete m_p_action;
     }
-    m_p_action = new Kross::Action(0, "ContentFetchConfig");
+    m_p_action = new Kross::Action(0, filename);//"ContentFetchConfig");
     // TODO add check file
     m_p_action->setFile(filename);
     m_p_action->addObject(this, "kgetscriptconfig",
 		     Kross::ChildrenInterface::AutoConnectSignals);
     // TODO: check if configurable
     m_p_action->trigger();
-    emit configureScript();
+
+    KDialog *dialog = new KDialog(this);
+    dialog->setObjectName("configure_script");
+    dialog->setCaption(i18n("Configure script"));
+    dialog->resize(QSize(400, 300).expandedTo(dialog->minimumSizeHint()));
+    dialog->enableButtonOk(false);
+
+    dialog->show();
+    QWidget *widget = new QWidget();
+    emit configureScript(widget);
+    if (widget->findChild<QWidget*>())
+        dialog->enableButtonOk(true);
+    dialog->setMainWidget(widget);
+    if (dialog->exec() == QDialog::Accepted)
+        emit configurationAccepted(widget);
+    delete dialog;
 }
 
 void DlgContentFetchSettingWidget::slotRemoveScript()

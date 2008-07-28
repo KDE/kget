@@ -36,8 +36,8 @@ private slots:
 			       int column);
 
 signals:
-    void configureScript();
-    void configurationAccepted();
+    void configureScript(QWidget*);
+    void configurationAccepted(QWidget*);
 private:
     void addScriptItem(const QString &path, const QString &regexp,
 		       const QString &description);

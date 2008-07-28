@@ -35,7 +35,7 @@ bool Script::setFile(const QString &filename)
 
 void Script::run()
 {
-    m_p_action = new Kross::Action(0, "ContentFetchScript");
+    m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
     connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
 	    this, SIGNAL(newTransfer(const QString&)));
