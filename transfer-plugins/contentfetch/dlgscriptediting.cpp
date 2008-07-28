@@ -13,6 +13,7 @@
 
 #include <kross/core/manager.h>
 #include <kross/core/interpreter.h>
+#include <kfiledialog.h>
 
 DlgScriptEditing::DlgScriptEditing(QWidget *p_parent)
     : KDialog(p_parent)
@@ -44,10 +45,11 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
 void DlgScriptEditing::init()
 {
     ui.scriptPathRequester->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
+    ui.scriptPathRequester->fileDialog()->setCaption("Set script file");
 
     QStringList filter;
     foreach(Kross::InterpreterInfo* infos, Kross::Manager::self().interpreterInfos().values())
-        filter << infos->mimeTypes().join(" ");
+	filter << infos->mimeTypes().join(" ");
     ui.scriptPathRequester->setFilter(filter.join(" "));
 
     setModal(true);
