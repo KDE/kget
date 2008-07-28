@@ -13,22 +13,25 @@
 #include "transfersviewdelegate.h"
 #include "core/transfertreemodel.h"
 
-#include <kdebug.h>
+#include <KDebug>
 #include <KAction>
+#include <KLocale>
+#include <KMenu>
 
 #include <QDropEvent>
 #include <QHeaderView>
 #include <QSignalMapper>
 
 TransfersView::TransfersView(QWidget * parent)
-    : QTreeView(parent)
+    : QTreeView(parent),
+        m_headerMenu(0)
 {
     setRootIsDecorated(false);
     setAnimated(true);
     setAllColumnsShowFocus(true);
     header()->setDefaultAlignment(Qt::AlignCenter);
     header()->setMinimumSectionSize(80);    
-    header()->setContextMenuPolicy(Qt::ActionsContextMenu);
+    header()->setContextMenuPolicy(Qt::CustomContextMenu);
     header()->setClickable(true);
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -40,6 +43,8 @@ TransfersView::TransfersView(QWidget * parent)
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 
     populateHeaderActions();
+    connect(header(), SIGNAL(customContextMenuRequested(const QPoint &)),
+                      SLOT(slotShowHeaderMenu(const QPoint &)));
 }
 
 TransfersView::~TransfersView()
@@ -143,17 +148,20 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 
 void TransfersView::populateHeaderActions()
 {
+    m_headerMenu = new KMenu(header());
+    m_headerMenu->addTitle(i18n("Select columns"));
+
     QList <int> columns = Settings::columns();
     QSignalMapper *columnMapper = new QSignalMapper(this);
     connect(columnMapper, SIGNAL(mapped(int)),
                            SLOT(slotSetColumnVisible(int)));
 
     for(uint i=0; i<=TransferTreeModel::RemainingTime; i++) {
-        KAction *action = new KAction(header());
+        KAction *action = new KAction(this);
         action->setText(TransferTreeModel::columnName(i));
         action->setCheckable(true);
         action->setChecked((columns.at(i) == 1) ? true : false);
-        header()->addAction(action);
+        m_headerMenu->addAction(action);
 
         connect(action, SIGNAL(toggled(bool)), columnMapper, SLOT(map()));
         columnMapper->setMapping(action, i);
@@ -205,6 +213,11 @@ void TransfersView::slotSetColumnVisible(int column)
 
     Settings::setColumns(columns);
     Settings::self()->writeConfig();
+}
+
+void TransfersView::slotShowHeaderMenu(const QPoint &point)
+{
+    m_headerMenu->popup(header()->mapToGlobal(point));
 }
 
 #include "transfersview.moc"

@@ -13,6 +13,7 @@
 
 #include <QTreeView>
 
+class KMenu;
 class TransferHandler;
 
 class TransfersView : public QTreeView
@@ -38,6 +39,10 @@ class TransfersView : public QTreeView
     private slots:
         void toggleMainGroup();// show or hide the first group header if there's only one download group
         void slotSetColumnVisible(int column);
+        void slotShowHeaderMenu(const QPoint &point);
+
+    private:
+        KMenu *m_headerMenu;
 };
 
 #endif
