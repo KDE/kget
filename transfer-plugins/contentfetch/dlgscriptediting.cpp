@@ -11,6 +11,9 @@
 #include "dlgscriptediting.h"
 #include "contentfetchsetting.h"
 
+#include <kross/core/manager.h>
+#include <kross/core/interpreter.h>
+
 DlgScriptEditing::DlgScriptEditing(QWidget *p_parent)
     : KDialog(p_parent)
 {
@@ -41,6 +44,12 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
 void DlgScriptEditing::init()
 {
     ui.scriptPathRequester->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
+
+    QStringList filter;
+    foreach(Kross::InterpreterInfo* infos, Kross::Manager::self().interpreterInfos().values())
+        filter << infos->mimeTypes().join(" ");
+    ui.scriptPathRequester->setFilter(filter.join(" "));
+
     setModal(true);
     setButtons(KDialog::Ok | KDialog::Cancel);
     showButtonSeparator(true);
