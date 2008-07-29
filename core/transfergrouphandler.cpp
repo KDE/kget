@@ -343,10 +343,12 @@ void QObjectInterface::slotStop()
 
 GenericTransferGroupObserver::GenericTransferGroupObserver()
 {
+    m_transferObserver = new GenericTransferObserver();
 }
 
 GenericTransferGroupObserver::~GenericTransferGroupObserver()
 {
+    delete m_transferObserver;
 }
 
 void GenericTransferGroupObserver::groupChangedEvent(TransferGroupHandler * group)
@@ -362,19 +364,31 @@ void GenericTransferGroupObserver::addedTransferEvent(TransferHandler * transfer
     Q_UNUSED(transfer);
     Q_UNUSED(after);
     KGet::calculateGlobalSpeedLimits(); 
+
+    if (transfer->percent() != 100) {
+        transfer->addObserver(m_transferObserver);
+    
+        KGet::save();
+    }
 }
 
 void GenericTransferGroupObserver::removedTransferEvent(TransferHandler * transfer)
 { 
     Q_UNUSED(transfer);
     KGet::calculateGlobalSpeedLimits(); 
+
+    transfer->delObserver(m_transferObserver);
+
+    KGet::save();
 }
 
 void GenericTransferGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
     Q_UNUSED(transfer);
     Q_UNUSED(after);
-    KGet::calculateGlobalSpeedLimits(); 
+    KGet::calculateGlobalSpeedLimits();
+
+    KGet::save();
 }
 
 #include "transfergrouphandler.moc"

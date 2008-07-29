@@ -38,7 +38,7 @@ TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
 
 TransferHandler::~TransferHandler()
 {
-    qDeleteAll(m_observers);
+//    qDeleteAll(m_observers);
 }
 
 void TransferHandler::addObserver(TransferObserver * observer)

@@ -408,4 +408,18 @@ class KGET_EXPORT KGet
         static KUiServerJobs *m_jobManager;
 };
 
+class GenericModelObserver : public QObject, public ModelObserver
+{
+    Q_OBJECT
+    public:
+        GenericModelObserver(QObject *parent = 0);
+        virtual ~GenericModelObserver ();
+
+        virtual void addedTransferGroupEvent(TransferGroupHandler * group);
+
+        virtual void removedTransferGroupEvent(TransferGroupHandler * group);
+
+    private:
+        TransferGroupObserver *m_groupObserver;
+};
 #endif

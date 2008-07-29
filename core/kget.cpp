@@ -97,7 +97,6 @@ bool KGet::addGroup(const QString& groupName)
         return false;
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
-    group->handler()->addObserver(new GenericTransferGroupObserver());
     m_transferTreeModel->addGroup(group);
 
     //post notifications
@@ -434,6 +433,8 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     {
         kWarning(5001) << "Error reading the transfers file";
     }
+
+    addObserver(new GenericModelObserver());
 }
 
 void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
@@ -726,10 +727,10 @@ bool KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
 
             if(start)
                 newTransfer->handler()->start();
-
+/*
             if (newTransfer->percent() != 100) //Don't add a finished observer if the Transfer has already been finished
                 newTransfer->handler()->addObserver(new GenericTransferObserver());
-
+*/
             return true;
         }
     }
@@ -1089,4 +1090,29 @@ void KGet::showNotification(QWidget *parent, KNotification::StandardEvent eventI
                             const QString &text, const QString &icon)
 {
     KNotification::event(eventId, text, KIcon(icon).pixmap(KIconLoader::Small), parent);
+}
+
+GenericModelObserver::GenericModelObserver(QObject *parent) : QObject(parent)
+{
+    m_groupObserver = new GenericTransferGroupObserver();
+}
+
+GenericModelObserver::~GenericModelObserver()
+{
+    delete m_groupObserver;
+}
+
+void GenericModelObserver::addedTransferGroupEvent(TransferGroupHandler * group)
+{
+    Q_UNUSED(group)
+    kDebug() << "OBSERVER :: Adding group " << group;
+    group->addObserver(m_groupObserver);
+    KGet::save();
+}
+
+void GenericModelObserver::removedTransferGroupEvent(TransferGroupHandler * group)
+{
+    Q_UNUSED(group)
+    group->delObserver(m_groupObserver);
+    KGet::save();
 }

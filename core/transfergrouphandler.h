@@ -21,6 +21,7 @@
 class QAction;
 
 class QObjectInterface;
+class GenericTransferObserver;
 class TransferGroupObserver;
 class TransferHandler;
 class Scheduler;
@@ -333,6 +334,9 @@ class GenericTransferGroupObserver : public TransferGroupObserver
         virtual void removedTransferEvent(TransferHandler * transfer);
 
         virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+
+    private:
+        GenericTransferObserver *m_transferObserver;
 };
 
 #endif
