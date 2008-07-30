@@ -39,3 +39,9 @@ bool ScriptDownloadEngine::addTransfer(const QString &url)
     return true;
 }
 
+void ScriptDownloadEngine::setPercent(int percent)
+{
+    emit percentUpdated(percent);
+}
+
+

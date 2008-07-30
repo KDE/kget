@@ -28,9 +28,11 @@ class ScriptDownloadEngine: public QObject
     signals:
         void newTransfer(const QString &url);
         void startDownload();
+        void percentUpdated(int percent);
     public slots:
         QString getSourceUrl() const;
         bool addTransfer(const QString &url);
+        void setPercent(int percent);
     private:
         QString m_source_url;
 };

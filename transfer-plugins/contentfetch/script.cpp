@@ -40,6 +40,8 @@ void Script::run()
     connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
 	    this, SIGNAL(newTransfer(const QString&)));
+    connect(m_p_kgetcore, SIGNAL(percentUpdated(int)),
+            this, SIGNAL(percentUpdated(int)));
     connect(this, SIGNAL(startDownload()),
 	    m_p_kgetcore, SIGNAL(startDownload()));
     m_p_action->setFile(m_fileName);

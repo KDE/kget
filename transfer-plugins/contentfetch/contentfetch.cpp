@@ -35,6 +35,7 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
     connect(m_p_script, SIGNAL(newTransfer(const QString&)),
 	    this, SLOT(slotAddTransfer(const QString&)));
     connect(m_p_script, SIGNAL(finished()), this, SLOT(slotFinish()));
+    connect(m_p_script, SIGNAL(percentUpdated(int)), this, SLOT(setPercent(int)));
 }
 
 void ContentFetch::start()
@@ -96,3 +97,8 @@ void ContentFetch::save(const QDomElement &e)
     Transfer::save(e);
 }
 
+void ContentFetch::setPercent(int percent)
+{
+    m_percent = percent;
+    setTransferChange( Transfer::Tc_Percent, true );
+}

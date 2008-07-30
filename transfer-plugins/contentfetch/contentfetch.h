@@ -35,6 +35,7 @@ class ContentFetch : public QObject, public Transfer
         void postDeleteEvent();
 
         void save(const QDomElement &e);
+        void setPercent(int percent);
 
     protected:
         void load(const QDomElement &e);

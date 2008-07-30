@@ -30,6 +30,7 @@ class Script: public QThread
     signals:
         void newTransfer(const QString &url);
         void startDownload();
+        void percentUpdated(int percent);
     protected:
         void run();
     private:
