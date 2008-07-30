@@ -13,6 +13,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QPointer>
 #include <KUrl>
 #include <kross/core/action.h>
 
@@ -34,7 +35,7 @@ class Script: public QThread
     protected:
         void run();
     private:
-        Kross::Action *m_p_action;
+        QPointer<Kross::Action> m_p_action;
         ScriptDownloadEngine *m_p_kgetcore;
         KUrl m_source;
         QString m_fileName;

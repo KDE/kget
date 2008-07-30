@@ -13,6 +13,8 @@
 
 #include "ui_dlgcontentfetchsettingwidget.h"
 #include "scriptconfigadaptor.h"
+
+#include <QPointer>
 #include <kross/core/action.h>
 
 
@@ -44,9 +46,9 @@ private:
     void saveContentFetchSetting();
 
     Ui::DlgContentFetchSettingWidget ui;
-    KDialog *m_p_parent;
+    QPointer<KDialog> m_p_parent;
     bool m_changed;
-    Kross::Action *m_p_action;
+    QPointer<Kross::Action> m_p_action;
 };
 
 class SettingWidgetAdaptor : public QWidget
