@@ -70,7 +70,6 @@ void DlgContentFetchSettingWidget::slotEditScript()
     {
 	if (item.toolTip(0) != dialog.scriptPath())
 	{
-	    // check file existance?
 	    item.setText(0, QFileInfo(dialog.scriptPath()).fileName());
 	    item.setToolTip(0, dialog.scriptPath());
 	    m_changed = true;
@@ -141,6 +140,7 @@ void DlgContentFetchSettingWidget::slotRemoveScript()
 
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
 	delete(selectedItem);
+    m_changed = true;
 }
 
 void DlgContentFetchSettingWidget::addScriptItem(bool enabled, const QString &path, const QString &regexp, const QString &description)
