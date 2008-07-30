@@ -11,9 +11,8 @@
 #ifndef DLG_CONTENT_FETCH_SETTING_H
 #define DLG_CONTENT_FETCH_SETTING_H
 
-#include <kross/core/action.h>
-
 #include "ui_dlgcontentfetchsettingwidget.h"
+#include <kross/core/action.h>
 
 class DlgContentFetchSettingWidget : public QWidget
 {
@@ -22,8 +21,6 @@ class DlgContentFetchSettingWidget : public QWidget
 public:
     DlgContentFetchSettingWidget(KDialog *p_parent = 0);
     ~DlgContentFetchSettingWidget();
-public slots:
-    void setScriptWidget(QWidget *p_widget);
 private slots:
     void slotNewScript();
     void slotEditScript();
@@ -48,6 +45,22 @@ private:
     KDialog *m_p_parent;
     bool m_changed;
     Kross::Action *m_p_action;
+};
+
+class SettingWidgetAdaptor : public QWidget
+{
+    Q_OBJECT
+    public:
+        explicit SettingWidgetAdaptor(QWidget* parent = 0) : QWidget(parent) {}
+        virtual ~SettingWidgetAdaptor() {}
+    public slots:
+        void setWidget(QWidget* widget)
+        {
+            widget->setParent(this);
+            // make this widget same size as the user supplied one
+            // this will make resize easier from outside.
+            resize(widget->size());
+        }
 };
 
 #endif // DLG_CONTENT_FETCH_SETTING_H

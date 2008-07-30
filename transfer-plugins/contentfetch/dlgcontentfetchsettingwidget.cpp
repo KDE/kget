@@ -12,6 +12,8 @@
 #include "dlgscriptediting.h"
 #include "contentfetchsetting.h"
 
+#include <QSize>
+
 #include <kdialog.h>
 #include <kdebug.h>
 
@@ -39,26 +41,6 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
 
 DlgContentFetchSettingWidget::~DlgContentFetchSettingWidget()
 {
-}
-
-void DlgContentFetchSettingWidget::setScriptWidget(QWidget *p_widget)
-{
-    if (!p_widget)
-    {
-	return;
-    }
-    // load the widget into a dialog
-    KDialog *p_dialog = new KDialog(this);
-    p_dialog->setCaption(i18nc("Configure Script", "Configure Script"));
-    p_widget->setParent(p_dialog);
-    p_dialog->setMainWidget(p_widget);
-    p_dialog->setModal(true);
-    p_dialog->setButtons(KDialog::Ok | KDialog::Cancel);
-    p_dialog->showButtonSeparator(true);
-
-    connect(p_dialog, SIGNAL(okClicked()),
-	    this, SIGNAL(configurationAccepted()));
-    p_dialog->show();
 }
 
 void DlgContentFetchSettingWidget::slotNewScript()
@@ -125,30 +107,27 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     m_p_action->setFile(filename);
     m_p_action->addObject(this, "kgetscriptconfig",
 		     Kross::ChildrenInterface::AutoConnectSignals);
-    // TODO: check if configurable
     m_p_action->trigger();
 
     KDialog *dialog = new KDialog(this);
     dialog->setObjectName("configure_script");
-    dialog->setCaption(i18n("Configure script"));
-    dialog->resize(QSize(400, 100).expandedTo(dialog->minimumSizeHint()));
+    dialog->setCaption(i18nc("Configure script", "Configure script"));
     dialog->enableButtonOk(false);
+    dialog->setModal(true);
 
-    dialog->show();
-    QWidget *widget = new QWidget();
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->setSpacing(0);
-    layout->setMargin(0);
-    widget->setLayout(layout);
-
+    SettingWidgetAdaptor *widget = new SettingWidgetAdaptor(dialog);
     emit configureScript(widget);
 
-    if (widget->findChild<QWidget*>()) {
-        layout->addStretch(1);
+    if (widget->findChild<QWidget*>())
+    {
         dialog->enableButtonOk(true);
     }
 
     dialog->setMainWidget(widget);
+    dialog->showButtonSeparator(true);
+    // dirty hack, add the ok/canel button size manually
+    dialog->resize(widget->size()+QSize(0,30));
+    dialog->show();
     if (dialog->exec() == QDialog::Accepted)
         emit configurationAccepted(widget);
 
