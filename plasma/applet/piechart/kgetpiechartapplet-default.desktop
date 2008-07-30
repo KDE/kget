@@ -1,7 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet piechart applet
+Name[uk]=Аплет кругової діаграми KGet
 Comment=KGet piechart applet
+Comment[uk]=Аплек кругової діаграми KGet
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet

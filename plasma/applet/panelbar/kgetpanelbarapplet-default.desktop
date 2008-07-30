@@ -1,7 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet panelbar applet
+Name[uk]=Аплет стовпчикової діаграми KGet
 Comment=KGet panelbar applet
+Comment[uk]=Аплет стовпчикової діаграми KGet
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet

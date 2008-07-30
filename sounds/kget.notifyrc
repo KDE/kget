@@ -357,12 +357,18 @@ Action=Sound
 
 [Event/error]
 Name=Error happens
+Name[uk]=Сталися помилки
 Comment=Some error just happens
+Comment[uk]=Сталося декілька помилок
 Sound=KDE-Sys-App-Error.ogg
 Action=PassivePopup|Sound
 
 [Event/notification]
 Name=Information
+Name[pt]=Informação
+Name[pt_BR]=Informação
+Name[uk]=Інформація
 Comment=Some notice happens
+Comment[uk]=Було декілька сповіщень
 Sound=KDE-Sys-App-Message.ogg
 Action=PassivePopup|Sound

@@ -1,7 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet barchart applet
+Name[uk]=Аплет гістограми KGet
 Comment=KGet barchart applet
+Comment[uk]=Аплет гістограми KGet
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet
