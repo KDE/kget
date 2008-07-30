@@ -237,8 +237,6 @@ void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item
     Kross::Action action(this, QString("%1_CheckConfig").arg(filename));
     // TODO add check file
     action.setFile(filename);
-    // NOTICE: Might need further investigation whether we need this object imported here
-    action.addObject(this, "kgetscriptconfig");
     action.trigger();
 #ifdef DEBUG
     QStringList funcs = action.functionNames();
