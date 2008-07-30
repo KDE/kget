@@ -27,7 +27,7 @@ class ScriptDownloadEngine: public QObject
         void setSourceUrl(const QString &url);
     signals:
         void newTransfer(const QString &url);
-        void startDownload();
+        void startDownload(QObject* configadaptor);
         void percentUpdated(int percent);
     public slots:
         QString getSourceUrl() const;

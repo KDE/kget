@@ -115,7 +115,8 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     dialog->setModal(true);
 
     SettingWidgetAdaptor *widget = new SettingWidgetAdaptor(dialog);
-    emit configureScript(widget);
+    ScriptConfigAdaptor config(selectedItems[0]->text(0));
+    emit configureScript(widget, &config);
 
     if (widget->findChild<QWidget*>())
     {
@@ -127,8 +128,11 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     // dirty hack, add the ok/canel button size manually
     dialog->resize(widget->size()+QSize(0,30));
     dialog->show();
+
     if (dialog->exec() == QDialog::Accepted)
-        emit configurationAccepted(widget);
+    {
+        emit configurationAccepted(widget, &config);
+    }
 
     dialog->deleteLater();
 }

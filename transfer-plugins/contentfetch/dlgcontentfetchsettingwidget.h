@@ -12,7 +12,9 @@
 #define DLG_CONTENT_FETCH_SETTING_H
 
 #include "ui_dlgcontentfetchsettingwidget.h"
+#include "scriptconfigadaptor.h"
 #include <kross/core/action.h>
+
 
 class DlgContentFetchSettingWidget : public QWidget
 {
@@ -33,8 +35,8 @@ private slots:
 			       int column);
 
 signals:
-    void configureScript(QWidget*);
-    void configurationAccepted(QWidget*);
+    void configureScript(QWidget* widget, QObject* configadaptor);
+    void configurationAccepted(QWidget* widget, QObject* configadaptor);
 private:
     void addScriptItem(bool enabled, const QString &path, const QString &regexp,
 		       const QString &description);

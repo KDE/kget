@@ -9,9 +9,10 @@
 */
 
 #include "script.h"
-#include <kdebug.h>
 #include "scriptdownloadengine.h"
+#include "scriptconfigadaptor.h"
 #include <QVariant>
+#include <KDebug>
 
 Script::Script(QObject* parent, const KUrl &source)
     :QThread(parent), m_p_kgetcore(0), m_source(source)
@@ -42,15 +43,17 @@ void Script::run()
 	    this, SIGNAL(newTransfer(const QString&)));
     connect(m_p_kgetcore, SIGNAL(percentUpdated(int)),
             this, SIGNAL(percentUpdated(int)));
-    connect(this, SIGNAL(startDownload()),
-	    m_p_kgetcore, SIGNAL(startDownload()));
+    connect(this, SIGNAL(startDownload(QObject*)),
+	    m_p_kgetcore, SIGNAL(startDownload(QObject*)));
     m_p_action->setFile(m_fileName);
     // TODO add check
     kDebug(5002) << "KGetCore Added to script at ThreadId " << QThread::currentThreadId();
     m_p_action->addObject(m_p_kgetcore, "kgetcore",
 			  Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
-    emit startDownload();
+    ScriptConfigAdaptor config(QFileInfo(m_fileName).fileName());
+    emit startDownload(&config);
+
     //m_p_action->callFunction("startDownload", QVariantList());
     kDebug(5002) << "Script Finished!" << QThread::currentThreadId();
     //delete m_p_kgetcore;

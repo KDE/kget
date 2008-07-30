@@ -82,7 +82,7 @@ def extract_step(regexp, data):
 	extracted_data = match.group(1)
 	return extracted_data
 
-def startDownload():
+def startDownload(kconfig):
 	import kgetcore
 	# Verify video URL format and convert to "standard" format
 	video_url_cmdl = kgetcore.getSourceUrl()
