@@ -101,7 +101,7 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     {
 	delete m_p_action;
     }
-    m_p_action = new Kross::Action(0, filename);//"ContentFetchConfig");
+    m_p_action = new Kross::Action(this, QString("%1_ContentFetchConfig").arg(filename));
     // TODO add check file
     m_p_action->setFile(filename);
     m_p_action->addObject(this, "kgetscriptconfig",
@@ -212,6 +212,7 @@ void DlgContentFetchSettingWidget::slotAccepted()
     if (m_p_action)
     {
 	delete m_p_action;
+        m_p_action = 0;
     }
 }
 
@@ -221,6 +222,7 @@ void DlgContentFetchSettingWidget::slotRejected()
     if (m_p_action)
     {
 	delete m_p_action;
+        m_p_action = 0;
     }
 }
 
@@ -232,7 +234,7 @@ void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item
 	return;
     }
     QString filename = p_item->toolTip(0);
-    Kross::Action action(0, filename); //"CheckConfig");
+    Kross::Action action(this, QString("%1_CheckConfig").arg(filename));
     // TODO add check file
     action.setFile(filename);
     // NOTICE: Might need further investigation whether we need this object imported here
