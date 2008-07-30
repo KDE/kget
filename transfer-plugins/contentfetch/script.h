@@ -13,8 +13,9 @@
 
 #include <QObject>
 #include <QThread>
-#include <kross/core/action.h>
 #include <KUrl>
+#include <kross/core/action.h>
+
 
 class ScriptDownloadEngine;
 class TransferGroup;

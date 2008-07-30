@@ -8,13 +8,13 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+#include "script.h"
 #include <kdebug.h>
 #include "scriptdownloadengine.h"
-#include "script.h"
 #include <QVariant>
 
 Script::Script(QObject* parent, const KUrl &source)
-    :QThread(parent), m_source(source)
+    :QThread(parent), m_p_kgetcore(0), m_source(source)
 {
     kDebug(5002) << "One Script Newed.";
     m_p_kgetcore = new ScriptDownloadEngine(0, m_source);
@@ -35,6 +35,7 @@ bool Script::setFile(const QString &filename)
 
 void Script::run()
 {
+    setPriority(QThread::LowPriority);
     m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
     connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
@@ -52,5 +53,12 @@ void Script::run()
     kDebug(5002) << "Script Finished!" << QThread::currentThreadId();
     //delete m_p_kgetcore;
     //delete m_p_action;
-    exec();
+    if (m_p_action->hadError())
+    {
+        kDebug(5002) << "Error:" << m_p_action->errorMessage() << m_p_action->errorTrace();
+    }
+    else
+    {
+       exec();
+    }
 }

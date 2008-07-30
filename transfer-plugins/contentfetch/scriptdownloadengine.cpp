@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#include "core/transfergroup.h"
 #include "scriptdownloadengine.h"
+#include "core/transfergroup.h"
 #include <kdebug.h>
 
 ScriptDownloadEngine::ScriptDownloadEngine(QObject *parent,

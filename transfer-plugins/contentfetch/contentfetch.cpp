@@ -8,10 +8,10 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+#include "contentfetch.h"
 #include "core/kget.h"
 #include "core/transfergroup.h"
 #include "script.h"
-#include "contentfetch.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -43,7 +43,7 @@ void ContentFetch::start()
     setStatus(Job::Running, i18nc("transfer state: executing script", "scripting"), SmallIcon("network-connect"));
     setTransferChange(Tc_Status, true);
     m_p_script->setFile(m_scriptFile);
-    m_p_script->start(QThread::LowPriority);
+    m_p_script->start();
     kDebug(5001) << "ContentFetch::start() finished!";
 }
 
