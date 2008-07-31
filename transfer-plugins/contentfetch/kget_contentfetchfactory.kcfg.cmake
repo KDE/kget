@@ -9,7 +9,7 @@
     </entry>
     <entry name="PathList" type="StringList" key="PathItems">
       <label>Urls list of the available search engines</label>
-      <default>${DATA_INSTALL_DIR}/kget/content_fetch_scripts/kget_youtubedl.py</default>
+      <default>${DATA_INSTALL_DIR}/kget/content_fetch_scripts/youtubedl/kget_youtubedl.py</default>
     </entry>
     <entry name="DescriptionList" type="StringList" key="DescriptionItems">
       <label>List of descriptions for user scripts</label>

@@ -1,3 +1,5 @@
+add_subdirectory(scripts)
+
 include_directories(
    ../../
 )
@@ -26,4 +28,3 @@ target_link_libraries(kget_contentfetchfactory ${KDE4_KROSSUI_LIBS} kgetcore)
 install(TARGETS kget_contentfetchfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES kget_contentfetchfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 install(FILES kget_contentfetchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-install(FILES scripts/kget_youtubedl.py DESTINATION ${DATA_INSTALL_DIR}/kget/content_fetch_scripts/)
