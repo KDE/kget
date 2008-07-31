@@ -288,7 +288,7 @@ GenericTransferObserver::GenericTransferObserver()
 void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
 {
     //kDebug(5001);
-    //TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
+    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
 
     if (transfer->status() == Job::Finished && Settings::afterFinishActionEnabled() 
                                             && Settings::afterFinishAction() == KGet::Quit) 
@@ -309,9 +309,11 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
         KGet::checkSystemTray();
     }
 
-    //if (transferFlags & Transfer::Tc_Percent)
-        //transfer->group()->calculateSpeedLimits();
+    if (transferFlags & Transfer::Tc_Percent) {
+        transfer->group()->setGroupChange(TransferGroup::Gc_Percent);
+    }
 
+    transfer->resetChangesFlags(this);
     transfer->checkShareRatio();
 }
 

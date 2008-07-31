@@ -1107,6 +1107,10 @@ void GenericModelObserver::addedTransferGroupEvent(TransferGroupHandler * group)
     Q_UNUSED(group)
     kDebug() << "OBSERVER :: Adding group " << group;
     group->addObserver(m_groupObserver);
+
+    // we need to do this to add the genericTransfer to all the transfers under the group
+    m_groupObserver->addTransferGroup(group);
+
     KGet::save();
 }
 

@@ -391,4 +391,11 @@ void GenericTransferGroupObserver::movedTransferEvent(TransferHandler * transfer
     KGet::save();
 }
 
+void GenericTransferGroupObserver::addTransferGroup(TransferGroupHandler *group)
+{
+    foreach(TransferHandler *handler, group->transfers()) {
+        handler->addObserver(m_transferObserver);
+    }
+}
+
 #include "transfergrouphandler.moc"

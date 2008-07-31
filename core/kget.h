@@ -43,6 +43,7 @@ class KGetPlugin;
 class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
+class GenericTransferGroupObserver;
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are
@@ -420,6 +421,6 @@ class GenericModelObserver : public QObject, public ModelObserver
         virtual void removedTransferGroupEvent(TransferGroupHandler * group);
 
     private:
-        TransferGroupObserver *m_groupObserver;
+        GenericTransferGroupObserver *m_groupObserver;
 };
 #endif

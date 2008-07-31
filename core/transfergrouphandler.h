@@ -28,6 +28,7 @@ class Scheduler;
 
 class KGET_EXPORT TransferGroupHandler
 {
+    friend class GenericTransferObserver;
     friend class TransferGroup;
     friend class TransferTreeModel;
 
@@ -334,6 +335,8 @@ class GenericTransferGroupObserver : public TransferGroupObserver
         virtual void removedTransferEvent(TransferHandler * transfer);
 
         virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+
+        void addTransferGroup(TransferGroupHandler *group);
 
     private:
         GenericTransferObserver *m_transferObserver;
