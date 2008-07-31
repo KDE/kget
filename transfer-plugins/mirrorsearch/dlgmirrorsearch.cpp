@@ -99,8 +99,8 @@ void DlgSettingsWidget::loadSearchEnginesSettings()
 {
     ui.enginesTreeWidget->clear();//Cleanup things first
 
-    QStringList enginesNames = MirrorSearchSettings::self()->findItem("SearchEnginesNameList")->property().toStringList();
-    QStringList enginesUrls = MirrorSearchSettings::self()->findItem("SearchEnginesUrlList")->property().toStringList();
+    QStringList enginesNames = MirrorSearchSettings::self()->searchEnginesNameList();
+    QStringList enginesUrls = MirrorSearchSettings::self()->searchEnginesUrlList();
 
     for(int i = 0; i < enginesNames.size(); i++)
     {
@@ -119,8 +119,8 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
         enginesUrls.append(ui.enginesTreeWidget->topLevelItem(i)->text(1));
     }
 
-    MirrorSearchSettings::self()->findItem("SearchEnginesNameList")->setProperty(QVariant(enginesNames));
-    MirrorSearchSettings::self()->findItem("SearchEnginesUrlList")->setProperty(QVariant(enginesUrls));
+    MirrorSearchSettings::self()->setSearchEnginesNameList(enginesNames);
+    MirrorSearchSettings::self()->setSearchEnginesUrlList(enginesUrls);
 
     MirrorSearchSettings::self()->writeConfig();
 }
