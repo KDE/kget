@@ -232,6 +232,8 @@ void DlgContentFetchSettingWidget::slotRejected()
         delete m_p_action;
         m_p_action = 0;
     }
+    // this class is never destroyed, so reload the rc file into ui to sync
+    loadContentFetchSetting();
 }
 
 void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item,
