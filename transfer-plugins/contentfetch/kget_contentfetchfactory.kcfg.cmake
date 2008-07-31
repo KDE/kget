@@ -15,5 +15,9 @@
       <label>List of descriptions for user scripts</label>
       <default>A youtube flash video downloader</default>
     </entry>
+    <entry name="EnableList" type="IntList" key="EnableItems">
+      <label>List of whether the script is enabled</label>
+      <default>1</default>
+    </entry>
   </group>
 </kcfg>

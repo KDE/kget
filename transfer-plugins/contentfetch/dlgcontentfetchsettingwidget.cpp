@@ -35,6 +35,9 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
     connect(ui.scriptTreeWidget,
 	    SIGNAL(itemClicked(QTreeWidgetItem*, int)),
 	    this, SLOT(slotCheckConfigurable(QTreeWidgetItem*, int)));
+    connect(ui.scriptTreeWidget,
+            SIGNAL(itemChanged(QTreeWidgetItem* , int)),
+            this, SLOT(slotEnableChanged(QTreeWidgetItem*, int)));
     connect(p_parent, SIGNAL(accepted()), this, SLOT(slotAccepted()));
     connect(p_parent, SIGNAL(rejected()), this, SLOT(slotRejected()));
 }
@@ -151,7 +154,7 @@ void DlgContentFetchSettingWidget::addScriptItem(bool enabled, const QString &pa
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(QStringList() << QFileInfo(path).fileName() << regexp << description);
     item->setToolTip(0, path);
-    //TODO item->setCheckState(0, enabled ? Qt::Checked : Qt::Unchecked);
+    item->setCheckState(0, enabled ? Qt::Checked : Qt::Unchecked);
     ui.scriptTreeWidget->addTopLevelItem(item);
 }
 
@@ -159,15 +162,13 @@ void DlgContentFetchSettingWidget::loadContentFetchSetting()
 {
     ui.scriptTreeWidget->clear();//Cleanup things first
 
-    QStringList paths = ContentFetchSetting::self()
-	->findItem("PathList")->property().toStringList();
-    QStringList regexps = ContentFetchSetting::self()
-	->findItem("UrlRegexpList")->property().toStringList();
-    QStringList descriptions = ContentFetchSetting::self()
-	->findItem("DescriptionList")->property().toStringList();
+    QStringList paths = ContentFetchSetting::self()->pathList();
+    QStringList regexps = ContentFetchSetting::self()->urlRegexpList();
+    QStringList descriptions = ContentFetchSetting::self()->descriptionList();
+    QList<int> enables = ContentFetchSetting::self()->enableList();
     for (int i = 0; i < paths.size(); ++i)
     {
-	addScriptItem(true, paths[i], regexps[i], descriptions[i]);
+        addScriptItem(bool(enables[i]), paths[i], regexps[i], descriptions[i]);
     }
 }
 
@@ -177,20 +178,27 @@ void DlgContentFetchSettingWidget::saveContentFetchSetting()
     QStringList paths;
     QStringList regexps;
     QStringList descriptions;
+    QList<int> enables;
 
     for (int i = 0; i < ui.scriptTreeWidget->topLevelItemCount(); ++i)
     {
 	paths.append(ui.scriptTreeWidget->topLevelItem(i)->toolTip(0));
 	regexps.append(ui.scriptTreeWidget->topLevelItem(i)->text(1));
 	descriptions.append(ui.scriptTreeWidget->topLevelItem(i)->text(2));
+        if (ui.scriptTreeWidget->topLevelItem(i)->checkState(0) == Qt::Unchecked)
+        {
+            enables.append(0);
+        }
+        else
+        {
+            enables.append(1);
+        }
     }
 
-    ContentFetchSetting::self()->findItem("PathList")
-	->setProperty(QVariant(paths));
-    ContentFetchSetting::self()->findItem("UrlRegexpList")
-	->setProperty(QVariant(regexps));
-    ContentFetchSetting::self()->findItem("DescriptionList")
-	->setProperty(QVariant(descriptions));
+    ContentFetchSetting::self()->setPathList(paths);
+    ContentFetchSetting::self()->setUrlRegexpList(regexps);
+    ContentFetchSetting::self()->setDescriptionList(descriptions);
+    ContentFetchSetting::self()->setEnableList(enables);
 
     ContentFetchSetting::self()->writeConfig();
 }
@@ -253,4 +261,15 @@ void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item
     {
 	ui.configureScriptButton->setEnabled(false);
     }
+}
+
+void DlgContentFetchSettingWidget::slotEnableChanged(QTreeWidgetItem* p_item,
+                                                     int column)
+{
+    Q_UNUSED(p_item);
+    if (column != 0)
+    {
+        return;
+    }
+    m_changed = true;
 }

@@ -24,8 +24,7 @@
 #include "core/plugin/transferfactory.h"
 
 #include <QStringList>
-#include <QRegExp>
-#include <QVector>
+#include <QList>
 
 class Transfer;
 class TransferGroup;
@@ -53,9 +52,6 @@ class ContentFetchFactory : public TransferFactory
 
         const QList<KAction *> actions(TransferHandler *handler = 0);
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl) {Q_UNUSED(srcUrl); return 0;}
-    private:
-        QStringList m_scriptPathList;
-        QVector<QRegExp> m_regexpList;
 };
 
 #endif // CONTENT_FETCH_FACTORY_H

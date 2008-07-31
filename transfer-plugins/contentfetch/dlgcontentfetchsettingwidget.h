@@ -35,6 +35,8 @@ private slots:
     void slotRejected();
     void slotCheckConfigurable(QTreeWidgetItem *p_item,
 			       int column);
+    void slotEnableChanged(QTreeWidgetItem* p_item,
+                           int column);
 
 signals:
     void configureScript(QWidget* widget, QObject* configadaptor);
