@@ -1,13 +1,3 @@
-/**
- * @file   contentfetchfactory.h
- * @author Ningyu Shi <shiningyu@gmail.com>
- * @date   Tue Jun  3 17:17:04 2008
- *
- * @brief
- *
- *
- */
-
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Ningyu Shi <shiningyu@gmail.com>
