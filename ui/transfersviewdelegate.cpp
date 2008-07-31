@@ -271,7 +271,7 @@ void GroupStatusEditor::slotStatusChanged(bool running)
 }
 
 TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
-    : KExtendableItemDelegate(parent), m_popup(0)
+    : KExtendableItemDelegate(parent)
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
     setExtendPixmap(SmallIcon("arrow-right"));
@@ -416,11 +416,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
         {
 //             kDebug(5001) << "TransfersViewDelegate::editorEvent() -> rightClick";
 
-            if(m_popup)
-            {
-                delete(m_popup);
-                m_popup = 0;
-            }
+            KMenu *popup = 0;
 
             TransferTreeModel * transferTreeModel = static_cast<TransferTreeModel *>(model);
 
@@ -429,7 +425,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 //                 kDebug(5001) << "isTransferGroup = true";
                 TransferGroupHandler * transferGroupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());
 
-                m_popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget*>(this));
+                popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget*>(this));
 
             }
             else
@@ -438,11 +434,15 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
                 TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
 
-                m_popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget*>(this));
+                popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget*>(this));
             }
 
-            if(m_popup)
-                m_popup->popup( mouseEvent->globalPos() );
+            if(popup) {
+                if(!popup->isVisible()) {
+                    popup->exec(QCursor::pos());
+                }
+                popup->deleteLater();
+            }
         }
     }
 

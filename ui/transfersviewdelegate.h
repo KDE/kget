@@ -20,8 +20,6 @@
 class QHBoxLayout;
 class QButtonGroup;
 
-class KMenu;
-
 class TransferHandler;
 class TransfersViewDelegate;
 
@@ -103,7 +101,6 @@ class TransfersViewDelegate : public KExtendableItemDelegate
     private:
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
 
-        KMenu * m_popup;
         QList<QModelIndex> m_editingIndexes;
         // QMap<TransferHandler *, QWidget *> m_transfersMap;
 };

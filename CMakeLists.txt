@@ -18,13 +18,22 @@ if(PLASMA_FOUND)
 endif(PLASMA_FOUND)
 
 
+# find kworkspace library to allow the shutdown after downloads completed option
 find_library(KDE4_KWORKSPACE_LIBRARY NAMES kworkspace PATHS ${KDE4_LIB_INSTALL_DIR} NO_DEFAULT_PATH )
-
 if(KDE4_KWORKSPACE_LIBRARY)
     set(KDE4_KWORKSPACE_LIBS ${kworkspace_LIB_DEPENDS} ${KDE4_KWORKSPACE_LIBRARY})
     add_definitions(-DHAVE_KWORKSPACE)
     set(KWORKSPACE_FOUND true)
 endif(KDE4_KWORKSPACE_LIBRARY)
+
+# find libkonq to allow actions and open with options in the context menu of a transfer
+find_library(KDE4_KONQUEROR_LIBRARY NAMES konq PATHS ${KDE4_LIB_INSTALL_DIR} NO_DEFAULT_PATH )
+if(KDE4_KONQUEROR_LIBRARY)
+    set(KDE4_KONQUEROR_LIBS ${konq_LIB_DEPENDS} ${KDE4_KONQUEROR_LIBRARY})
+    add_definitions(-DHAVE_KONQUEROR)
+    set(KONQUEROR_FOUND true)
+endif(KDE4_KONQUEROR_LIBRARY)
+
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
@@ -155,5 +164,9 @@ kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 kde4_add_executable(kget ${kget_SRCS})
 
 target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} kgetcore)
+
+if (KONQUEROR_FOUND)
+  target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})
+endif (KONQUEROR_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
