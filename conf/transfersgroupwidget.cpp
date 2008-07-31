@@ -24,6 +24,7 @@
 #include <QPushButton>
 #include <QHeaderView>
 #include <QTimer>
+#include <QAction>
 
 TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
     : QStyledItemDelegate(parent)
@@ -179,12 +180,15 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     iconButton->setButtonIconSize(16);
     iconButton->setText(i18n("Select Icon"));
     iconButton->setIcon(KIcon("preferences-desktop-icons"));
+    configureButton = new QPushButton(i18n("Configure..."));
+    configureButton->setIcon(KGet::actionCollection()->action("transfer_group_settings")->icon());
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
     buttonsLayout->addWidget(addButton);
     buttonsLayout->addWidget(renameButton);
     buttonsLayout->addWidget(deleteButton);
     buttonsLayout->addWidget(iconButton);
+    buttonsLayout->addWidget(configureButton);
 
     addWidget(m_view);
     addLayout(buttonsLayout);
@@ -193,6 +197,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     connect(deleteButton, SIGNAL(clicked()), m_view, SLOT(deleteSelectedGroup()));
     connect(renameButton, SIGNAL(clicked()), m_view, SLOT(renameSelectedGroup()));
     connect(iconButton, SIGNAL(iconChanged(const QString &)), m_view, SLOT(changeIcon(const QString &)));
+    connect(configureButton, SIGNAL(clicked()), KGet::actionCollection()->action("transfer_group_settings"), SLOT(trigger()));
     connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
                 this, SLOT(slotSelectionChanged(const QItemSelection &, const QItemSelection &)));
 }

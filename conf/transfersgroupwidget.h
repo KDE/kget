@@ -78,6 +78,7 @@ private:
     QPushButton *deleteButton;
     QPushButton *renameButton;
     KIconButton *iconButton;
+    QPushButton *configureButton;
 };
 
 #endif
