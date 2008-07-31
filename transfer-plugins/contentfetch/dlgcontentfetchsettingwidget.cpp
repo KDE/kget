@@ -33,8 +33,8 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
     connect(ui.configureScriptButton, SIGNAL(clicked()), this, SLOT(slotConfigureScript()));
     connect(ui.removeScriptButton, SIGNAL(clicked()), this, SLOT(slotRemoveScript()));
     connect(ui.scriptTreeWidget,
-	    SIGNAL(itemClicked(QTreeWidgetItem*, int)),
-	    this, SLOT(slotCheckConfigurable(QTreeWidgetItem*, int)));
+            SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+            this, SLOT(slotCheckConfigurable(QTreeWidgetItem*, int)));
     connect(ui.scriptTreeWidget,
             SIGNAL(itemChanged(QTreeWidgetItem* , int)),
             this, SLOT(slotEnableChanged(QTreeWidgetItem*, int)));
@@ -51,8 +51,8 @@ void DlgContentFetchSettingWidget::slotNewScript()
     DlgScriptEditing dialog(this);
     if(dialog.exec())
     {
-	addScriptItem(true, dialog.scriptPath(), dialog.scriptUrlRegexp(),
-		      dialog.scriptDescription());
+        addScriptItem(true, dialog.scriptPath(), dialog.scriptUrlRegexp(),
+                      dialog.scriptDescription());
     }
     m_changed = true;
 }
@@ -60,55 +60,55 @@ void DlgContentFetchSettingWidget::slotNewScript()
 void DlgContentFetchSettingWidget::slotEditScript()
 {
     QList<QTreeWidgetItem *> selectedItems =
-	ui.scriptTreeWidget->selectedItems();
+        ui.scriptTreeWidget->selectedItems();
     // only edit one item at one time
     if (selectedItems.size()!=1)
     {
-	return;
+        return;
     }
     QTreeWidgetItem &item = *(selectedItems[0]);
     DlgScriptEditing dialog(this, (QStringList() << item.toolTip(0)
-				   << item.text(1) << item.text(2)));
+                                   << item.text(1) << item.text(2)));
     if(dialog.exec())
     {
-	if (item.toolTip(0) != dialog.scriptPath())
-	{
-	    item.setText(0, QFileInfo(dialog.scriptPath()).fileName());
-	    item.setToolTip(0, dialog.scriptPath());
-	    m_changed = true;
-	}
-	if (item.text(1) != dialog.scriptUrlRegexp())
-	{
-	    item.setText(1, dialog.scriptUrlRegexp());
-	    m_changed = true;
-	}
-	if (item.text(2) != dialog.scriptDescription())
-	{
-	    item.setText(2, dialog.scriptDescription());
-	    m_changed = true;
-	}
+        if (item.toolTip(0) != dialog.scriptPath())
+        {
+            item.setText(0, QFileInfo(dialog.scriptPath()).fileName());
+            item.setToolTip(0, dialog.scriptPath());
+            m_changed = true;
+        }
+        if (item.text(1) != dialog.scriptUrlRegexp())
+        {
+            item.setText(1, dialog.scriptUrlRegexp());
+            m_changed = true;
+        }
+        if (item.text(2) != dialog.scriptDescription())
+        {
+            item.setText(2, dialog.scriptDescription());
+            m_changed = true;
+        }
     }
 }
 
 void DlgContentFetchSettingWidget::slotConfigureScript()
 {
     QList<QTreeWidgetItem *> selectedItems =
-	ui.scriptTreeWidget->selectedItems();
+        ui.scriptTreeWidget->selectedItems();
     // only configure one item at one time
     if (selectedItems.size()!=1)
     {
-	return;
+        return;
     }
     QString filename = selectedItems[0]->toolTip(0);
     if (m_p_action)
     {
-	delete m_p_action;
+        delete m_p_action;
     }
     m_p_action = new Kross::Action(this, QString("%1_ContentFetchConfig").arg(filename));
     // TODO add check file
     m_p_action->setFile(filename);
     m_p_action->addObject(this, "kgetscriptconfig",
-		     Kross::ChildrenInterface::AutoConnectSignals);
+                          Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
 
     KDialog *dialog = new KDialog(this);
@@ -143,10 +143,10 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
 void DlgContentFetchSettingWidget::slotRemoveScript()
 {
     QList<QTreeWidgetItem *> selectedItems =
-	ui.scriptTreeWidget->selectedItems();
+        ui.scriptTreeWidget->selectedItems();
 
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
-	delete(selectedItem);
+        delete(selectedItem);
     m_changed = true;
 }
 
@@ -182,9 +182,9 @@ void DlgContentFetchSettingWidget::saveContentFetchSetting()
 
     for (int i = 0; i < ui.scriptTreeWidget->topLevelItemCount(); ++i)
     {
-	paths.append(ui.scriptTreeWidget->topLevelItem(i)->toolTip(0));
-	regexps.append(ui.scriptTreeWidget->topLevelItem(i)->text(1));
-	descriptions.append(ui.scriptTreeWidget->topLevelItem(i)->text(2));
+        paths.append(ui.scriptTreeWidget->topLevelItem(i)->toolTip(0));
+        regexps.append(ui.scriptTreeWidget->topLevelItem(i)->text(1));
+        descriptions.append(ui.scriptTreeWidget->topLevelItem(i)->text(2));
         if (ui.scriptTreeWidget->topLevelItem(i)->checkState(0) == Qt::Unchecked)
         {
             enables.append(0);
@@ -207,9 +207,9 @@ void DlgContentFetchSettingWidget::slotSave()
 {
     if (m_changed)
     {
-	saveContentFetchSetting();
-	ContentFetchSetting::self()->writeConfig();
-	m_changed = false;
+        saveContentFetchSetting();
+        ContentFetchSetting::self()->writeConfig();
+        m_changed = false;
     }
 }
 
@@ -219,7 +219,7 @@ void DlgContentFetchSettingWidget::slotAccepted()
     // NOTICE: clean the last config script, might change in the furture
     if (m_p_action)
     {
-	delete m_p_action;
+        delete m_p_action;
         m_p_action = 0;
     }
 }
@@ -229,37 +229,30 @@ void DlgContentFetchSettingWidget::slotRejected()
     // clean the last config script
     if (m_p_action)
     {
-	delete m_p_action;
+        delete m_p_action;
         m_p_action = 0;
     }
 }
 
 void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item,
-							 int column )
+                                                         int column )
 {
     if (column == -1)
     {
-	return;
+        return;
     }
     QString filename = p_item->toolTip(0);
     Kross::Action action(this, QString("%1_CheckConfig").arg(filename));
     // TODO add check file
     action.setFile(filename);
     action.trigger();
-#ifdef DEBUG
-    QStringList funcs = action.functionNames();
-    for (int i = 0; i < funcs.size() ; ++i)
-    {
-	kDebug(5002) << funcs[i];
-    }
-#endif
     if (action.functionNames().contains("configureScript"))
     {
-	ui.configureScriptButton->setEnabled(true);
+        ui.configureScriptButton->setEnabled(true);
     }
     else
     {
-	ui.configureScriptButton->setEnabled(false);
+        ui.configureScriptButton->setEnabled(false);
     }
 }
 

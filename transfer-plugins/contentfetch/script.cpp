@@ -18,6 +18,16 @@ Script::Script(QObject* parent, const KUrl &source)
     :QThread(parent), m_p_kgetcore(0), m_source(source)
 {
     kDebug(5002) << "One Script Newed.";
+    /*
+    Use 0 as parent here because of threading issue, comply to qt manual.
+    Adapted below:
+    " The child of a QObject must always be created in the thread where the
+    parent was created. This implies, among other things, that you should
+    never pass the QThread object (this) as the parent of an object created
+    in the thread (since the QThread object itself was created in another thread)."
+
+     See http://doc.trolltech.com/4.4/threads.html#qobject-reentrancy
+    */
     m_p_kgetcore = new ScriptDownloadEngine(0, m_source);
 }
 
@@ -37,19 +47,20 @@ bool Script::setFile(const QString &filename)
 void Script::run()
 {
     setPriority(QThread::LowPriority);
+    // use 0 as parent, see Constructor.
     m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
     connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
-	    this, SIGNAL(newTransfer(const QString&)));
+            this, SIGNAL(newTransfer(const QString&)));
     connect(m_p_kgetcore, SIGNAL(percentUpdated(int)),
             this, SIGNAL(percentUpdated(int)));
     connect(this, SIGNAL(startDownload(QObject*)),
-	    m_p_kgetcore, SIGNAL(startDownload(QObject*)));
+            m_p_kgetcore, SIGNAL(startDownload(QObject*)));
     m_p_action->setFile(m_fileName);
     // TODO add check
     kDebug(5002) << "KGetCore Added to script at ThreadId " << QThread::currentThreadId();
     m_p_action->addObject(m_p_kgetcore, "kgetcore",
-			  Kross::ChildrenInterface::AutoConnectSignals);
+                          Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
     ScriptConfigAdaptor config(QFileInfo(m_fileName).fileName());
     emit startDownload(&config);
@@ -64,6 +75,6 @@ void Script::run()
     }
     else
     {
-       exec();
+        exec();
     }
 }

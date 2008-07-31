@@ -26,7 +26,7 @@
 KGET_EXPORT_PLUGIN( ContentFetchFactory )
 
 ContentFetchFactory::ContentFetchFactory(QObject *parent,
-					 const QVariantList &args)
+                                         const QVariantList &args)
   : TransferFactory(parent, args)
 {
 }
@@ -36,10 +36,10 @@ ContentFetchFactory::~ContentFetchFactory()
 }
 
 Transfer * ContentFetchFactory::createTransfer( const KUrl &srcUrl,
-						const KUrl &destUrl,
-						TransferGroup * parent,
-						Scheduler * scheduler,
-						const QDomElement * e )
+                                                const KUrl &destUrl,
+                                                TransferGroup * parent,
+                                                Scheduler * scheduler,
+                                                const QDomElement * e )
 {
     QStringList scriptPathList;
     QVector<QRegExp> regexpList;
@@ -60,19 +60,19 @@ Transfer * ContentFetchFactory::createTransfer( const KUrl &srcUrl,
     // No user script exists
     if (regexpList.size() == 0)
     {
-	return 0;
+        return 0;
     }
     QString url = srcUrl.url();
     QStringList::iterator fileIter = scriptPathList.begin();
     for(QVector<QRegExp>::iterator iter = regexpList.begin();
-	iter != regexpList.end(); ++iter, ++fileIter)
+        iter != regexpList.end(); ++iter, ++fileIter)
     {
-	if (iter->indexIn(url) != -1)
-	{
-	    kDebug(5001) << url << " match " << iter->pattern();
-	    return new ContentFetch(parent, this, scheduler, srcUrl, destUrl,
-				    *fileIter, e);
-	}
+        if (iter->indexIn(url) != -1)
+        {
+            kDebug(5001) << url << " match " << iter->pattern();
+            return new ContentFetch(parent, this, scheduler, srcUrl, destUrl,
+                                    *fileIter, e);
+        }
     }
     return 0;
 }

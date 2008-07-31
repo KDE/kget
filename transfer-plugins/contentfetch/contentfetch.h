@@ -48,13 +48,6 @@ class ContentFetch : public QObject, public Transfer
     private slots:
         void slotFinish();
         void slotAddTransfer(const QString &url);
-//    private slots:
-//        void slotResult( KJob * kioJob );
-//        void slotInfoMessage( KJob * kioJob, const QString & msg );
-//        void slotPercent( KJob * kioJob, unsigned long percent );
-//        void slotTotalSize( KJob * kioJob, qulonglong size );
-//        void slotProcessedSize( KJob * kioJob, qulonglong size );
-//        void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
 };
 
 #endif // CONTENT_FETCH_H

@@ -19,18 +19,18 @@ class DlgScriptEditing : public KDialog
 {
     Q_OBJECT
 
-public:
-    DlgScriptEditing(QWidget *p_parent);
-    DlgScriptEditing(QWidget *p_parent, const QStringList &script);
-    ~DlgScriptEditing();
-    void init();
-    QString scriptPath() const;
-    QString scriptUrlRegexp() const;
-    QString scriptDescription() const;
-private slots:
-    void slotChangeText();
-private:
-    Ui::DlgScriptEditing ui;
+    public:
+        DlgScriptEditing(QWidget *p_parent);
+        DlgScriptEditing(QWidget *p_parent, const QStringList &script);
+        ~DlgScriptEditing();
+        void init();
+        QString scriptPath() const;
+        QString scriptUrlRegexp() const;
+        QString scriptDescription() const;
+    private slots:
+        void slotChangeText();
+    private:
+        Ui::DlgScriptEditing ui;
 };
 
 #endif // DLG_SCRIPT_EDITING_H

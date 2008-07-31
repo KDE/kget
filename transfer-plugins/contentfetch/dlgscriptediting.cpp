@@ -27,7 +27,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent)
 }
 
 DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
-				   const QStringList &script)
+                                   const QStringList &script)
     : KDialog(p_parent)
 {
     QWidget *mainWidget = new QWidget(this);
@@ -49,7 +49,7 @@ void DlgScriptEditing::init()
 
     QStringList filter;
     foreach(Kross::InterpreterInfo* infos, Kross::Manager::self().interpreterInfos().values())
-	filter << infos->mimeTypes().join(" ");
+        filter << infos->mimeTypes().join(" ");
     ui.scriptPathRequester->setFilter(filter.join(" "));
 
     setModal(true);
@@ -57,11 +57,11 @@ void DlgScriptEditing::init()
     showButtonSeparator(true);
 
     connect(ui.scriptPathRequester,SIGNAL(textChanged(const QString &)),
-	    this, SLOT(slotChangeText()));
+            this, SLOT(slotChangeText()));
     connect(ui.scriptUrlRegexpEdit,SIGNAL(textChanged(const QString &)),
-	    this, SLOT(slotChangeText()));
+            this, SLOT(slotChangeText()));
     connect(ui.scriptDescriptionEdit,SIGNAL(textChanged(const QString &)),
-	    this, SLOT(slotChangeText()));
+            this, SLOT(slotChangeText()));
 }
 
 DlgScriptEditing::~DlgScriptEditing()
@@ -71,7 +71,7 @@ DlgScriptEditing::~DlgScriptEditing()
 void DlgScriptEditing::slotChangeText()
 {
     enableButton(KDialog::Ok, !(ui.scriptPathRequester->url().isEmpty() ||
-				ui.scriptUrlRegexpEdit->text().isEmpty()));
+                                ui.scriptUrlRegexpEdit->text().isEmpty()));
 }
 
 QString DlgScriptEditing::scriptPath() const

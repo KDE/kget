@@ -25,15 +25,15 @@
 #include <QString>
 
 ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
-			   Scheduler* scheduler, const KUrl& source,
-			   const KUrl& dest, const QString &scriptFile,
-			   const QDomElement* e)
+                           Scheduler* scheduler, const KUrl& source,
+                           const KUrl& dest, const QString &scriptFile,
+                           const QDomElement* e)
     : QObject(0), Transfer(parent, factory, scheduler, source, dest, e),
       m_p_group(parent), m_scriptFile(scriptFile), m_destDir(dest.directory())
 {
     m_p_script = new Script(this, source);
     connect(m_p_script, SIGNAL(newTransfer(const QString&)),
-	    this, SLOT(slotAddTransfer(const QString&)));
+            this, SLOT(slotAddTransfer(const QString&)));
     connect(m_p_script, SIGNAL(finished()), this, SLOT(slotFinish()));
     connect(m_p_script, SIGNAL(percentUpdated(int)), this, SLOT(setPercent(int)));
 }
@@ -52,7 +52,7 @@ void ContentFetch::stop()
 {
     if(status() == Stopped)
     {
-	return;
+        return;
     }
     kDebug(5001) << "ContentFetch::stop";
     // kill -9 the script

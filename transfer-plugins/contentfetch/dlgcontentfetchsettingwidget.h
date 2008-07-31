@@ -22,35 +22,35 @@ class DlgContentFetchSettingWidget : public QWidget
 {
     Q_OBJECT
 
-public:
-    DlgContentFetchSettingWidget(KDialog *p_parent = 0);
-    ~DlgContentFetchSettingWidget();
-private slots:
-    void slotNewScript();
-    void slotEditScript();
-    void slotConfigureScript();
-    void slotRemoveScript();
-    void slotSave();
-    void slotAccepted();
-    void slotRejected();
-    void slotCheckConfigurable(QTreeWidgetItem *p_item,
-			       int column);
-    void slotEnableChanged(QTreeWidgetItem* p_item,
-                           int column);
+    public:
+        DlgContentFetchSettingWidget(KDialog *p_parent = 0);
+        ~DlgContentFetchSettingWidget();
+    private slots:
+        void slotNewScript();
+        void slotEditScript();
+        void slotConfigureScript();
+        void slotRemoveScript();
+        void slotSave();
+        void slotAccepted();
+        void slotRejected();
+        void slotCheckConfigurable(QTreeWidgetItem *p_item,
+                                   int column);
+        void slotEnableChanged(QTreeWidgetItem* p_item,
+                               int column);
 
-signals:
-    void configureScript(QWidget* widget, QObject* configadaptor);
-    void configurationAccepted(QWidget* widget, QObject* configadaptor);
-private:
-    void addScriptItem(bool enabled, const QString &path, const QString &regexp,
-		       const QString &description);
-    void loadContentFetchSetting();
-    void saveContentFetchSetting();
+    signals:
+        void configureScript(QWidget* widget, QObject* configadaptor);
+        void configurationAccepted(QWidget* widget, QObject* configadaptor);
+    private:
+        void addScriptItem(bool enabled, const QString &path, const QString &regexp,
+                           const QString &description);
+        void loadContentFetchSetting();
+        void saveContentFetchSetting();
 
-    Ui::DlgContentFetchSettingWidget ui;
-    QPointer<KDialog> m_p_parent;
-    bool m_changed;
-    QPointer<Kross::Action> m_p_action;
+        Ui::DlgContentFetchSettingWidget ui;
+        QPointer<KDialog> m_p_parent;
+        bool m_changed;
+        QPointer<Kross::Action> m_p_action;
 };
 
 class SettingWidgetAdaptor : public QWidget
