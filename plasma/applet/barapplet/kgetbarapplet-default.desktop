@@ -2,8 +2,10 @@
 Encoding=UTF-8
 Name=KGet barchart applet
 Name[uk]=Аплет гістограми KGet
+Name[zh_TW]=KGet 圖表小程式
 Comment=KGet barchart applet
 Comment[uk]=Аплет гістограми KGet
+Comment[zh_TW]=KGet 圖表小程式
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet

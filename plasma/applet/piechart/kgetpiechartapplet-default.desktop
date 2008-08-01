@@ -2,8 +2,10 @@
 Encoding=UTF-8
 Name=KGet piechart applet
 Name[uk]=Аплет кругової діаграми KGet
+Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
 Comment[uk]=Аплек кругової діаграми KGet
+Comment[zh_TW]=KGet 圓餅圖小程式
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet

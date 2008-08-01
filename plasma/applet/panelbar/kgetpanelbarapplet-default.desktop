@@ -2,8 +2,10 @@
 Encoding=UTF-8
 Name=KGet panelbar applet
 Name[uk]=Аплет стовпчикової діаграми KGet
+Name[zh_TW]=KGet 面板列小程式
 Comment=KGet panelbar applet
 Comment[uk]=Аплет стовпчикової діаграми KGet
+Comment[zh_TW]=KGet 面板列小程式
 Icon=kget
 Type=Service
 ServiceTypes=Plasma/Applet
