@@ -5,91 +5,78 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>422</height>
+    <width>403</width>
+    <height>439</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
-    <widget class="QGroupBox" name="searchEngineGroupBox" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>1</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title" >
+    <widget class="KTitleWidget" name="ktitlewidget" >
+     <property name="text" >
       <string>Search Engines</string>
      </property>
-     <layout class="QGridLayout" >
-      <item row="1" column="1" >
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="newEngineBt" >
-          <property name="text" >
-           <string>New Engine...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="removeEngineBt" >
-          <property name="text" >
-           <string>Remove</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>91</width>
-          <height>32</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" colspan="2" >
-       <widget class="QTreeWidget" name="enginesTreeWidget" >
-        <property name="rootIsDecorated" >
-         <bool>false</bool>
-        </property>
-        <column>
-         <property name="text" >
-          <string>Engine name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text" >
-          <string>Url</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
     </widget>
+   </item>
+   <item>
+    <widget class="QTreeWidget" name="enginesTreeWidget" >
+     <property name="rootIsDecorated" >
+      <bool>false</bool>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Engine name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Url</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <spacer name="spacer" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>91</width>
+         <height>32</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="newEngineBt" >
+       <property name="text" >
+        <string>New Engine...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="removeEngineBt" >
+       <property name="text" >
+        <string>Remove</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KTitleWidget</class>
+   <extends>QWidget</extends>
+   <header>ktitlewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
