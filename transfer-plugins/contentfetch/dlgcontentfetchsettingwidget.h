@@ -13,7 +13,6 @@
 #include <KCModule>
 
 #include "ui_dlgcontentfetchsettingwidget.h"
-#include "scriptconfigadaptor.h"
 
 #include <QPointer>
 #include <kross/core/action.h>

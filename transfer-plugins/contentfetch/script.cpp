@@ -62,7 +62,7 @@ void Script::run()
     m_p_action->addObject(m_p_kgetcore, "kgetcore",
                           Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
-    ScriptConfigAdaptor config(QFileInfo(m_fileName).fileName());
+    ScriptConfigAdaptor config;
     emit startDownload(&config);
 
     //m_p_action->callFunction("startDownload", QVariantList());

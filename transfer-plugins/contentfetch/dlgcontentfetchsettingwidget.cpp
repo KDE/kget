@@ -10,7 +10,7 @@
 #include "dlgcontentfetchsettingwidget.h"
 #include "dlgscriptediting.h"
 #include "contentfetchsetting.h"
-
+#include "scriptconfigadaptor.h"
 #include "kget_export.h"
 
 #include <QSize>
@@ -118,8 +118,8 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     dialog->setModal(true);
 
     SettingWidgetAdaptor *widget = new SettingWidgetAdaptor(dialog);
-    ScriptConfigAdaptor config(selectedItems[0]->text(0));
-    emit configureScript(widget, &config);
+    ScriptConfigAdaptor config;
+    emit configureScript(widget,&config);
 
     if (widget->findChild<QWidget*>())
     {

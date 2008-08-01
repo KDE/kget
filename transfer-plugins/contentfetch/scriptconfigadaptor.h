@@ -12,78 +12,34 @@
 
 #include <QObject>
 #include <QString>
+#include <QVariant>
+
 #include <kconfig.h>
-#include <kconfigbase.h>
 #include <kconfiggroup.h>
 
 class ScriptConfigAdaptor : public QObject
 {
         Q_OBJECT
     public:
-
-        explicit ScriptConfigAdaptor(const QString& groupname, QObject* parent = 0) : QObject(parent)
-        {
-            // TODO: Fix hard coding
-            m_config = new KConfig("kgetscripts.rc");
-            setGroup(groupname);
-        }
-
+        ScriptConfigAdaptor(QObject* parent = 0) : QObject(parent), m_config(0) {}
         virtual ~ScriptConfigAdaptor()
         {
-            //m_config->sync();
             delete m_config;
         }
 
     public slots:
-
-        void setGroup(const QString& groupname)
-        {
-            m_group = m_config->group(groupname);
-        }
-
-        QVariant read(const QString& name, const QVariant& defaultvalue = QVariant())
-        {
-            QVariant value;
-            switch(defaultvalue.type()) {
-                case QVariant::Int:
-                    value = m_group.readEntry(name, defaultvalue.toInt());
-                    break;
-                case QVariant::Double:
-                    value = m_group.readEntry(name, defaultvalue.toDouble());
-                    break;
-                case QVariant::StringList:
-                    value = m_group.readEntry(name, defaultvalue.toStringList());
-                    break;
-                case QVariant::List:
-                    value = m_group.readEntry(name, defaultvalue.toList());
-                    break;
-                default:
-                    value = m_group.readEntry(name, defaultvalue.toString());
-                    break;
-            };
-            return value;
-        }
-
-        void write(const QString& name, const QVariant& value)
-        {
-            switch(value.type()) {
-                case QVariant::Int:
-                    m_group.writeEntry(name, value.toInt());
-                    break;
-                case QVariant::Double:
-                    m_group.writeEntry(name, value.toDouble());
-                    break;
-                case QVariant::StringList:
-                    m_group.writeEntry(name, value.toStringList());
-                    break;
-                case QVariant::List:
-                    m_group.writeEntry(name, value.toList());
-                    break;
-                default:
-                    m_group.writeEntry(name, value.toString());
-                    break;
-            };
-        }
+        bool setFile(const QString &filename, const QString &path = QString());
+        void unsetFile();
+        QVariant read(const QString &group, const QString &key,
+                      const QVariant &defaultvalue = QVariant());
+        void write(const QString &group, const QString &key,
+                   const QVariant &value);
+        void save();
+        /**
+         * Discard current setting, reread from disk file.
+         *
+         */
+        void reset();
 
     private:
         KConfig* m_config;
