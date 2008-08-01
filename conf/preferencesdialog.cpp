@@ -32,6 +32,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
     PluginSelector * pluginSelector = new PluginSelector(this);
+    connect(pluginSelector, SIGNAL(changed(bool)), SLOT(enableApplyButton()));
 
     groups->setLayout(new TransfersGroupWidget());
 
@@ -73,13 +74,18 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(pluginSelector, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugins"));
 
-    connect(this, SIGNAL(accepted()), SLOT(disableButtonApply()));
-    connect(this, SIGNAL(rejected()), SLOT(disableButtonApply()));
+    connect(this, SIGNAL(accepted()), SLOT(disableApplyButton()));
+    connect(this, SIGNAL(rejected()), SLOT(disableApplyButton()));
 }
 
-void PreferencesDialog::disableButtonApply()
+void PreferencesDialog::disableApplyButton()
 {
     enableButtonApply(false);
+}
+
+void PreferencesDialog::enableApplyButton()
+{
+    enableButtonApply(true);
 }
 
 void PreferencesDialog::slotToggleAfterFinishAction(int state)

@@ -26,7 +26,8 @@ class PreferencesDialog : public KConfigDialog
 
     private slots:
         void slotToggleAfterFinishAction(int state);
-        void disableButtonApply();
+        void disableApplyButton();
+        void enableApplyButton();
 
     private:
         Ui::DlgAdvanced dlgAdv;

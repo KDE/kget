@@ -1013,7 +1013,9 @@ void KGet::loadPlugins()
         KGetPlugin * plugin;
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
-            if (plugins.readEntry((*it)->property("X-KDE-PluginInfo-Name", QVariant::String).toString() + "Enabled") == "true")
+            QString pluginName = (*it)->property("X-KDE-PluginInfo-Name", QVariant::String).toString();
+            if (((*it)->property("X-KDE-PluginInfo-EnabledByDefault", QVariant::Bool).toBool() && plugins.readEntry(pluginName + "Enabled").isEmpty()) ||
+                 plugins.readEntry(pluginName + "Enabled") == "true")
             {
                 pluginList.prepend(plugin);
                 kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
