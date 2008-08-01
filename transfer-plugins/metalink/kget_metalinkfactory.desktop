@@ -2,9 +2,10 @@
 # service definition
 Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
+Icon=kget
 
 # standard fields
-Name=MetaLink
+Name=Metalink
 Comment=Metalink-Transfer plugin for KGet
 
 # options for library loader

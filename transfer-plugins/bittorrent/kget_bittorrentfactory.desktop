@@ -3,6 +3,7 @@
 Type=Service
 ServiceTypes=KPluginInfo
 X-KDE-ServiceTypes=KGet/Plugin
+Icon=application-x-bittorrent
 
 # standard fields
 Name=Bittorrent

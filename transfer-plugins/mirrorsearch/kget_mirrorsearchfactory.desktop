@@ -2,9 +2,10 @@
 # service definition
 Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
+Icon=kget
 
 # standard fields
-Name=MirrorSearch
+Name=Mirror Search
 
 Comment=Mirrorsearch-Transfer plugin for KGet
 

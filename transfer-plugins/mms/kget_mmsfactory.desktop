@@ -2,6 +2,7 @@
 # service definition
 Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
+Icon=kget
 
 # standard fields
 Name=MMS
