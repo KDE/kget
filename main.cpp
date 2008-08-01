@@ -86,9 +86,9 @@ public:
         QString destUrl;
         if (l.count() >= 2 && l.last().isLocalFile()) {
             if (!QFileInfo(l.last().path()).isDir())
-                destUrl = l.last().directory();
+                destUrl = l.last().directory(KUrl::AppendTrailingSlash);
             else
-                destUrl = l.last().path();
+                destUrl = l.last().path(KUrl::AddTrailingSlash);
 
             l.removeLast();
             KGet::addTransfer(l, destUrl, QString(), true);
