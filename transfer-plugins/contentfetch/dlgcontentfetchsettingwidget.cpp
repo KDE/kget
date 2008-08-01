@@ -166,6 +166,7 @@ void DlgContentFetchSettingWidget::loadContentFetchSetting()
     QStringList regexps = ContentFetchSetting::self()->urlRegexpList();
     QStringList descriptions = ContentFetchSetting::self()->descriptionList();
     QList<int> enables = ContentFetchSetting::self()->enableList();
+    // TODO: add some safety check to avoid crashing when user rc got corrputed.
     for (int i = 0; i < paths.size(); ++i)
     {
         addScriptItem(bool(enables[i]), paths[i], regexps[i], descriptions[i]);
