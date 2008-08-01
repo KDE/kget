@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+X-KDE-Library=kcm_kget_multisegkiofactory
+X-KDE-ParentComponents=kget_multisegkio_plugin
+
+Name=MultiSegmentKIO

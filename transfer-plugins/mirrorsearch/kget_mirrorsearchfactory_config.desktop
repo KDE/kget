@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+X-KDE-Library=kcm_kget_mirrorsearchfactory
+X-KDE-ParentComponents=kget_mirrorsearch_plugin
+
+Name=MirrorSearch

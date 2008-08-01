@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+X-KDE-Library=kcm_kget_contentfetchfactory
+X-KDE-ParentComponents=kget_contentfetch_plugin
+
+Name=Content Fetcher
