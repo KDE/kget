@@ -1,69 +1,23 @@
 [Desktop Entry]
 # service definition
 Type=Service
+ServiceTypes=KPluginInfo
 X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
-Name=KIO TransferFactory
-Name[de]=KIO-Übertragungsmodul
-Name[el]=Εργοστάσιο μεταφοράς KIO
-Name[eo]=KIO transmetadejo
-Name[fr]=TransferFactory KIO
-Name[ga]=TransferFactory KIO
-Name[hi]=के-आईओ ट्रांसफरफैक्ट्री
-Name[hu]=KIO letöltéskezelő
-Name[lt]=KIO siuntimo fabrikas
-Name[nb]=KIO overføringsfabrikk
-Name[nds]=KIO-Överdreegmoduul
-Name[ne]=कियो स्थानान्तरण फ्याक्ट्री
-Name[pl]=Moduł transferów KIO
-Name[pt]=Factory de Transferências do KIO
-Name[pt_BR]=Fator de transferência - KIO
-Name[sv]=I/O-slav överföringsgenerering
-Name[x-test]=xxKIO TransferFactoryxx
-Name[zh_CN]=KIO 传输工厂
-Name[zh_TW]=KIO 傳輸工廠
-Comment=Transfer plugin for KGet
-Comment[bg]=Приставка за трансфер - KGet
-Comment[ca]=Connector de transferències pel KGet
-Comment[cs]=Přenosový modul pro KGet
-Comment[da]=Overførselsplugin til KGet
-Comment[de]=Übertragungsmodul für KGet
-Comment[el]=Πρόσθετο μεταφοράς για το KGet
-Comment[eo]=Transmetada kromaĵo por KGet
-Comment[es]=Complemento de transferencia para KGet
-Comment[et]=KGeti ülekandeplugin
-Comment[fi]=Siirtoliitännäinen KGet-ohjelmaa varten
-Comment[fr]=Module de transfert pour KGet
-Comment[ga]=Breiseán aistrithe le haghaidh KGet
-Comment[gl]=Extensión de transferencias para KGet
-Comment[hi]=केगेट के लिए ट्रांसफर प्लगइन
-Comment[hu]=Letöltőmodul a KGethez
-Comment[it]=Estensione di trasferimento per KGet
-Comment[ja]=KGet の転送プラグイン
-Comment[km]=កម្មវិធី​ជំនួយ​ការ​ផ្ទេរ​សម្រាប់ KGet
-Comment[ko]=KGet 전송 플러그인
-Comment[lt]=KGet siuntimo įskiepis
-Comment[lv]=KGet pārsūtīšanas spraudnis
-Comment[nb]=KGet programtillegg for overføringer
-Comment[nds]=Överdreegmoduul för KGet
-Comment[ne]=केडीई गेटका लागि प्लगइन स्थानान्तरण गर्नुहोस्
-Comment[nl]=Overdrachtplugin voor KGet
-Comment[pl]=Wtyczka transferów dla KGet
-Comment[pt]='Plugin' de transferências para o KGet
-Comment[pt_BR]=Plugin de transferências para o KGet
-Comment[ru]=Модуль передачи для KGet
-Comment[sl]=Vstavek za prenose za KGet
-Comment[sv]=Överföringsinsticksprogram för Kget
-Comment[tr]=KGet için aktarım eklentisi
-Comment[uk]=Втулка перенесення для KGet
-Comment[vi]=Phần bổ sung truyền cho KGet
-Comment[x-test]=xxTransfer plugin for KGetxx
-Comment[zh_CN]=KGet 传输插件
-Comment[zh_TW]=KGet 傳輸外掛程式
+Name=Bittorrent
+Comment=Bittorrent-Transfer plugin for KGet
 
 # options for library loader
 X-KDE-Library=kget_bittorrentfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=200
 X-KDE-KGet-framework-version=1
+
+X-KDE-PluginInfo-Author=Lukas Appelhans
+X-KDE-PluginInfo-Email=l.appelhans@gmx.de
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Category=Service
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-Name=kget_bittorrent_plugin

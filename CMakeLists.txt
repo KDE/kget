@@ -115,6 +115,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
    conf/selectdirectoryitemdelegate.cpp
+   conf/pluginselector.cpp
    dbus/dbusmodelobserver.cpp
    dbus/dbustransfergroupobserver.cpp
    ui/droptarget.cpp
@@ -163,7 +164,7 @@ kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} kgetcore)
+target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
 
 if (KONQUEROR_FOUND)
   target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})

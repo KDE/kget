@@ -11,6 +11,9 @@
 #ifndef KGET_EXPORT_H
 #define KGET_EXPORT_H
 
+#include <KPluginFactory>
+#include <KPluginLoader>
+
 /* needed for KDE_EXPORT macros */
 #include <kdemacros.h>
 
@@ -35,7 +38,11 @@
  *     }
  */
 #define KGET_EXPORT_PLUGIN( classname ) \
-    K_PLUGIN_FACTORY( classname ## Factory, registerPlugin< classname >(); ) \
-    K_EXPORT_PLUGIN( classname ## Factory() )
+    K_PLUGIN_FACTORY( KGetFactory, registerPlugin< classname >(); ) \
+    K_EXPORT_PLUGIN( KGetFactory("classname") )
+
+#define KGET_EXPORT_PLUGIN_CONFIG( classname ) \
+    K_PLUGIN_FACTORY( KGetFactory, registerPlugin< classname >(); ) \
+    K_EXPORT_PLUGIN( KGetFactory( "classname" ) )
 
 #endif

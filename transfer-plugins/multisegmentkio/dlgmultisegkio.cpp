@@ -12,27 +12,25 @@
 
 #include "multisegkiosettings.h"
 
-DlgSettingsWidget::DlgSettingsWidget(KDialog *parent)
-    : QWidget(parent),
-      m_parent(parent)
+#include "kget_export.h"
+
+KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
+
+DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
+    : KCModule(KGetFactory::componentData(), parent, args)
 {
     ui.setupUi(this);
 
-    init();
-
-    connect(parent, SIGNAL(accepted()), SLOT(slotSave()));
-    connect(parent, SIGNAL(rejected()), SLOT(init()));
-
-    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
-    connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
-    connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
+    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()
 {
 }
 
-void DlgSettingsWidget::init()
+void DlgSettingsWidget::load()
 {
     ui.numSegSpinBox->setValue( MultiSegKioSettings::segments() );
     ui.minSegSizeSpinBox->setValue( MultiSegKioSettings::splitSize() );
@@ -41,7 +39,7 @@ void DlgSettingsWidget::init()
     ui.enginesCheckBox->setChecked(MultiSegKioSettings::useSearchEngines());
 }
 
-void DlgSettingsWidget::slotSave()
+void DlgSettingsWidget::save()
 {
     kDebug(5001) << "Saving Multithreaded config";
     MultiSegKioSettings::setSegments(ui.numSegSpinBox->value());
@@ -50,11 +48,6 @@ void DlgSettingsWidget::slotSave()
     MultiSegKioSettings::setUseSearchEngines(ui.enginesCheckBox->isChecked());
 
     MultiSegKioSettings::self()->writeConfig();
-}
-
-void DlgSettingsWidget::enableButtonApply()
-{
-    m_parent->enableButtonApply(true);
 }
 
 #include "dlgmultisegkio.moc"

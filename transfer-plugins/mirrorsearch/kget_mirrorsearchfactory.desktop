@@ -4,7 +4,7 @@ Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
-Name=MirrorSearch TransferFactory
+Name=MirrorSearch
 Name[de]=MirrorSearch-Übertragungsmodul
 Name[es]=Buscador de mirror TransferFactory
 Name[fr]=TransferFactory MirrorSearch
@@ -20,7 +20,7 @@ Name[x-test]=xxMirrorSearch TransferFactoryxx
 Name[zh_CN]=镜像搜索传输工厂
 Name[zh_TW]=MirrorSearch 傳輸工廠
 
-Comment=Transfer plugin for KGet
+Comment=Mirrorsearch-Transfer plugin for KGet
 Comment[bg]=Приставка за трансфер - KGet
 Comment[ca]=Connector de transferències pel KGet
 Comment[cs]=Přenosový modul pro KGet
@@ -64,3 +64,11 @@ X-KDE-Library=kget_mirrorsearchfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=40
 X-KDE-KGet-framework-version=1
+
+X-KDE-PluginInfo-Author=Manolo Valdes
+X-KDE-PluginInfo-Email=nolis71cu@gmail.com
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Category=Service
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-Name=kget_mirrorsearch_plugin

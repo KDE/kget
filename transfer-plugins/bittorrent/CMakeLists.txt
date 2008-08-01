@@ -193,7 +193,6 @@ set(kget_bittorrentfactory_PART_SRCS
   bttransferfactory.cpp
   bttransferhandler.cpp
   btdetailswidget.cpp
-  btsettingswidget.cpp
   scandlg.cpp
   btdatasource.cpp
   btchunkselector.cpp
@@ -218,12 +217,28 @@ set(kget_bittorrentfactory_PART_SRCS
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
   btdetailswidgetfrm.ui
-  btsettingswidget.ui
   scandlg.ui
   advanceddetails/chunkdownloadview.ui
   advanceddetails/trackerview.ui
   advanceddetails/webseedstab.ui
 )
+
+###Build KCM-Module
+set(kcm_kget_bittorrentfactory_PART_SRCS
+  btsettingswidget.cpp
+)
+
+kde4_add_ui_files(kcm_kget_bittorrentfactory_PART_SRCS
+  btsettingswidget.ui
+)
+
+kde4_add_kcfg_files(kcm_kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
+kde4_add_plugin(kcm_kget_bittorrentfactory ${kcm_kget_bittorrentfactory_PART_SRCS})
+target_link_libraries(kcm_kget_bittorrentfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+install(TARGETS kcm_kget_bittorrentfactory DESTINATION ${PLUGIN_INSTALL_DIR})
+
+install(FILES kget_bittorrentfactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+
 endif (GMP_FOUND AND QCA2_FOUND)
 else (ENABLE_EMBEDDED_TORRENT_SUPPORT)
     find_package(BTCore REQUIRED)

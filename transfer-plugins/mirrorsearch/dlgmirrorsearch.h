@@ -14,6 +14,8 @@
 #include "ui_dlgengineediting.h"
 #include "ui_dlgmirrorsearch.h"
 
+#include <KCModule>
+
 class DlgEngineEditing : public KDialog
 {
     Q_OBJECT
@@ -31,20 +33,21 @@ private:
     Ui::DlgEngineEditing ui;
 };
 
-class DlgSettingsWidget : public QWidget
+class DlgSettingsWidget : public KCModule
 {
     Q_OBJECT
 
 public:
-    DlgSettingsWidget(KDialog *parent = 0);
+    DlgSettingsWidget(QWidget *parent = 0, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget();
+
+public slots:
+    void save();
+    void load();
 
 private slots:
     void slotNewEngine();
     void slotRemoveEngine();
-    void slotSave();
-    void init();
-    //void enableButtonApply();
 
 private:
     void addSearchEngineItem(const QString &name, const QString &url);

@@ -4,7 +4,7 @@ Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
-Name=MetaLink TransferFactory
+Name=MetaLink
 Name[de]=Metalink-Übertragungsmodul
 Name[el]=Εργοστάσιο μεταφοράς MetaLink
 Name[eo]=MetaLink transmetadejo
@@ -21,7 +21,7 @@ Name[sv]=Metalink-överföringsgenerering
 Name[x-test]=xxMetaLink TransferFactoryxx
 Name[zh_CN]=MetaLink 传输工厂
 Name[zh_TW]=MetaLink 傳輸工廠
-Comment=Transfer plugin for KGet
+Comment=Metalink-Transfer plugin for KGet
 Comment[bg]=Приставка за трансфер - KGet
 Comment[ca]=Connector de transferències pel KGet
 Comment[cs]=Přenosový modul pro KGet
@@ -65,3 +65,12 @@ X-KDE-Library=kget_metalinkfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=90
 X-KDE-KGet-framework-version=1
+
+X-KDE-PluginInfo-Author=Manolo Valdes
+X-KDE-PluginInfo-Email=nolis71cu@gmail.com
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Category=Service
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-Name=kget_metalink_plugin
+

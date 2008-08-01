@@ -34,10 +34,6 @@ class MirrorSearchFactory : public TransferFactory
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        QWidget * createSettingsWidget(KDialog * parent);
-
-        QString displayName(){return "Mirror Search Engine";}
-
         const QList<KAction *> actions(TransferHandler *handler = 0);
 
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl);

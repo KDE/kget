@@ -8,35 +8,39 @@
    version 2 of the License, or (at your option) any later version.
 */
 #include "btsettingswidget.h"
+
+#include "kget_export.h"
 #include "bittorrentsettings.h"
 
 #include <kdebug.h>
 #include <kfiledialog.h>
 
-BTSettingsWidget::BTSettingsWidget(KDialog * parent)
-  : QWidget(parent),
-    m_parent(parent)
+KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
+
+BTSettingsWidget::BTSettingsWidget(QWidget * parent = 0, const QVariantList &args = QVariantList())
+  : KCModule(KGetFactory::componentData(), parent, args)
 {
     setupUi(this);
+
+    connect(portBox, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(torrentEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
+    connect(tempEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
+    connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(changed()));
+    connect(shareRatioSpin, SIGNAL(valueChanged(int)), SLOT(changed()));
+}
+
+void BTSettingsWidget::load()
+{
     torrentEdit->setMode(KFile::Directory);
     torrentEdit->fileDialog()->setCaption(i18n("Select a default Torrent-Folder"));
     tempEdit->setMode(KFile::Directory);
     tempEdit->fileDialog()->setCaption(i18n("Select a default Temporary-Folder"));
-
-    setDefault();
-
-    connect(portBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
-    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
-    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(enableButtonApply()));
-    connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(enableButtonApply()));
-    connect(shareRatioSpin, SIGNAL(valueChanged(double)), SLOT(enableButtonApply()));
-    connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
-    connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(enableButtonApply()));
-    connect(parent, SIGNAL(accepted()), SLOT(dialogAccepted()));
-    connect(parent, SIGNAL(rejected()), SLOT(setDefault()));
+    defaults();
 }
 
-void BTSettingsWidget::dialogAccepted()
+void BTSettingsWidget::save()
 {
     kDebug(5001) << "Save Bittorrent-config";
     BittorrentSettings::setPort(portBox->value());
@@ -50,7 +54,7 @@ void BTSettingsWidget::dialogAccepted()
     BittorrentSettings::self()->writeConfig();
 }
 
-void BTSettingsWidget::setDefault()
+void BTSettingsWidget::defaults()
 {
     portBox->setValue(BittorrentSettings::port());
     uploadBox->setValue(BittorrentSettings::uploadLimit());
@@ -59,11 +63,6 @@ void BTSettingsWidget::setDefault()
     torrentEdit->setUrl(BittorrentSettings::torrentDir());
     tempEdit->setUrl(BittorrentSettings::tmpDir());
     preallocBox->setChecked(BittorrentSettings::preAlloc());
-}
-
-void BTSettingsWidget::enableButtonApply()
-{
-    m_parent->enableButtonApply(true);
 }
 
 #include "btsettingswidget.moc"

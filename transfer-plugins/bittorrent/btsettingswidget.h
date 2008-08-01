@@ -13,23 +13,18 @@
 
 #include <ui_btsettingswidget.h>
 
-#include <QWidget>
+#include <KCModule>
 
-class KDialog;
-
-class BTSettingsWidget : public QWidget, public Ui::BTSettingsWidget
+class BTSettingsWidget : public KCModule, public Ui::BTSettingsWidget
 {
     Q_OBJECT
     public:
-        BTSettingsWidget(KDialog * parent);
+        BTSettingsWidget(QWidget * parent, const QVariantList &args);
 
-    private slots:
-        void dialogAccepted();
-        void setDefault();
-        void enableButtonApply();
-
-    private:
-        KDialog * m_parent;
+    public slots:
+        virtual void load();
+        virtual void save();
+        virtual void defaults();
 };
 
 #endif

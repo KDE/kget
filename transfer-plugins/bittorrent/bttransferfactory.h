@@ -7,12 +7,10 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
 #ifndef BTTRANSFERFACTORY_H
 #define BTTRANSFERFACTORY_H
 
 #include "core/plugin/transferfactory.h"
-#include "btsettingswidget.h"
 #include "btdatasource.h"
 
 class BTTransferFactory : public TransferFactory
@@ -29,10 +27,6 @@ class BTTransferFactory : public TransferFactory
         QWidget * createDetailsWidget(TransferHandler * transfer);
 
         const QList<KAction *> actions(TransferHandler * handler = 0);
-
-        QWidget * createSettingsWidget(KDialog * parent) { return new BTSettingsWidget(parent);}
-
-        QString displayName(){return "Bittorrent";}
 
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl);
 

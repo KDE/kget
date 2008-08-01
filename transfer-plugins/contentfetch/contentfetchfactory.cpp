@@ -14,7 +14,6 @@
 #include "core/transfergroup.h"
 #include "contentfetch.h"
 #include "contentfetchsetting.h"
-#include "dlgcontentfetchsettingwidget.h"
 
 #include <QStringList>
 #include <QList>
@@ -88,11 +87,6 @@ QWidget * ContentFetchFactory::createDetailsWidget(TransferHandler *transfer)
 {
     Q_UNUSED(transfer);
     return 0;   //Temporary!!
-}
-
-QWidget * ContentFetchFactory::createSettingsWidget(KDialog *parent)
-{
-    return new DlgContentFetchSettingWidget(parent);
 }
 
 const QList<KAction*> ContentFetchFactory::actions(TransferHandler *handler)

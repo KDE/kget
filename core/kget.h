@@ -233,12 +233,6 @@ class KGET_EXPORT KGet
         static void addTransferView(QAbstractItemView * view);
 
         /**
-         * Adds a Settings tab for every plugins that needs one
-         * to the KTabWidget.
-         */
-        static void setPluginsSettingsWidget(KTabWidget * widget);
-
-        /**
          * Gets all transfers
          */
         static QList<TransferHandler*> allTransfers();
@@ -324,6 +318,9 @@ class KGET_EXPORT KGet
         static void showNotification(QWidget *parent, KNotification::StandardEvent eventId, 
                                      const QString &text,
                                      const QString &icon = QString("dialog-error"));
+
+        static void loadPlugins();
+
     private:
         KGet();
         ~KGet();
@@ -374,7 +371,6 @@ class KGET_EXPORT KGet
         static TransferGroup * findGroup(const QString& groupName);
 
         //Plugin-related functions
-        static void loadPlugins();
         static void unloadPlugins();
         static KGetPlugin * createPluginFromService( const KService::Ptr &service );
 

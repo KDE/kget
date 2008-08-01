@@ -13,22 +13,21 @@
 
 #include "ui_dlgmultisegkio.h"
 
-class DlgSettingsWidget : public QWidget
+#include <KCModule>
+
+class DlgSettingsWidget : public KCModule
 {
     Q_OBJECT
-
 public:
-    DlgSettingsWidget(KDialog *parent = 0);
+    DlgSettingsWidget(QWidget * parent = 0, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget();
 
-private slots:
-    void slotSave();
-    void init();
-    void enableButtonApply();
+public slots:
+    virtual void save();
+    virtual void load();
 
 private:
     Ui::DlgMultiSeg ui;
-    KDialog *m_parent;
 };
 
 #endif // DLGMULTISEGKIO_H

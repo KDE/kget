@@ -7,9 +7,10 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
 #ifndef DLG_CONTENT_FETCH_SETTING_H
 #define DLG_CONTENT_FETCH_SETTING_H
+
+#include <KCModule>
 
 #include "ui_dlgcontentfetchsettingwidget.h"
 #include "scriptconfigadaptor.h"
@@ -17,22 +18,22 @@
 #include <QPointer>
 #include <kross/core/action.h>
 
-
-class DlgContentFetchSettingWidget : public QWidget
+class DlgContentFetchSettingWidget : public KCModule
 {
     Q_OBJECT
-
     public:
-        DlgContentFetchSettingWidget(KDialog *p_parent = 0);
+        DlgContentFetchSettingWidget(QWidget * parent, const QVariantList &args);
         ~DlgContentFetchSettingWidget();
+
+    public slots:
+        virtual void save();
+        virtual void load();
+
     private slots:
         void slotNewScript();
         void slotEditScript();
         void slotConfigureScript();
         void slotRemoveScript();
-        void slotSave();
-        void slotAccepted();
-        void slotRejected();
         void slotCheckConfigurable(QTreeWidgetItem *p_item,
                                    int column);
         void slotEnableChanged(QTreeWidgetItem* p_item,
@@ -48,8 +49,6 @@ class DlgContentFetchSettingWidget : public QWidget
         void saveContentFetchSetting();
 
         Ui::DlgContentFetchSettingWidget ui;
-        QPointer<KDialog> m_p_parent;
-        bool m_changed;
         QPointer<Kross::Action> m_p_action;
 };
 

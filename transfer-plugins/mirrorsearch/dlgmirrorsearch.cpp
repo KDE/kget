@@ -10,6 +10,7 @@
 
 #include "dlgmirrorsearch.h"
 
+#include "kget_export.h"
 #include "mirrorsearchsettings.h"
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
@@ -50,20 +51,17 @@ QString DlgEngineEditing::engineUrl() const
     return ui.urlEdit->text();
 }
 
-DlgSettingsWidget::DlgSettingsWidget(KDialog *parent)
-    : QWidget(parent),
-      m_parent(parent)
+KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
+
+DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
+    : KCModule(KGetFactory::componentData(), parent, args)
 {
     ui.setupUi(this);
     ui.newEngineBt->setIcon(KIcon("list-add"));
     ui.removeEngineBt->setIcon(KIcon("list-remove"));
 
-    init();
-
     connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
     connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
-    connect(parent, SIGNAL(accepted()), SLOT(slotSave()));
-    connect(parent, SIGNAL(rejected()), SLOT(init()));
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()
@@ -73,8 +71,10 @@ DlgSettingsWidget::~DlgSettingsWidget()
 void DlgSettingsWidget::slotNewEngine()
 {
     DlgEngineEditing dialog;
-    if(dialog.exec())
+    if(dialog.exec()) {
         addSearchEngineItem(dialog.engineName(), dialog.engineUrl());
+        changed();
+    }
 }
 
 void DlgSettingsWidget::slotRemoveEngine()
@@ -83,9 +83,11 @@ void DlgSettingsWidget::slotRemoveEngine()
 
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
         delete(selectedItem);
+
+    changed();
 }
 
-void DlgSettingsWidget::init()
+void DlgSettingsWidget::load()
 {
     loadSearchEnginesSettings();
 }
@@ -93,6 +95,7 @@ void DlgSettingsWidget::init()
 void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
 {
     ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
+    changed();
 }
 
 void DlgSettingsWidget::loadSearchEnginesSettings()
@@ -125,7 +128,7 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
     MirrorSearchSettings::self()->writeConfig();
 }
 
-void DlgSettingsWidget::slotSave()
+void DlgSettingsWidget::save()
 {
     kDebug(5001);
     saveSearchEnginesSettings();

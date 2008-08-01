@@ -63,17 +63,6 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual QWidget * createDetailsWidget( TransferHandler * transfer ) = 0;
 
-/**
- * Returns the Transfer Settings Widget if any.
- * otherwise returns 0
- */
-        virtual QWidget * createSettingsWidget(KDialog * parent) = 0;
-
-/**
- * Returns the Transfer Name
- */
-        virtual QString displayName() = 0;
-
         virtual const QList<KAction *> actions(TransferHandler *handler = 0) = 0;
 
         virtual void settingsChanged() {}

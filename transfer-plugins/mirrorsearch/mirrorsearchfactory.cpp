@@ -9,7 +9,6 @@
 */
 
 #include "mirrorsearchfactory.h"
-#include "dlgmirrorsearch.h"
 #include "mirrorsearchtransferdatasource.h"
 
 #include "core/scheduler.h"
@@ -54,12 +53,6 @@ QWidget * MirrorSearchFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer);
     return 0;   //Temporary!!
-}
-
-QWidget * MirrorSearchFactory::createSettingsWidget(KDialog * parent)
-{
-    kDebug(5001);
-    return new DlgSettingsWidget(parent);
 }
 
 const QList<KAction *> MirrorSearchFactory::actions(TransferHandler *handler)

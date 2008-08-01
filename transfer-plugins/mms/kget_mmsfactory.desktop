@@ -4,7 +4,7 @@ Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
-Name=MMS TransferFactory
+Name=MMS
 Name[de]=MMS-Übertragungsmodul
 Name[el]=Εργοστάσιο μεταφοράς MMS
 Name[fr]=TransferFactory MMS
@@ -18,9 +18,18 @@ Name[sv]=MMS-överföringsfabrik
 Name[x-test]=xxMMS TransferFactoryxx
 Name[zh_CN]=MMS 传输工厂
 Name[zh_TW]=MMS 傳輸工廠
+Comment=MMS-Transfer plugin for KGet
 
 # options for library loader
 X-KDE-Library=kget_mmsfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=80
 X-KDE-KGet-framework-version=1
+
+X-KDE-PluginInfo-Author=Lukas Appelhans
+X-KDE-PluginInfo-Email=l.appelhans@gmx.de
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Category=Service
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-Name=kget_mms_plugin

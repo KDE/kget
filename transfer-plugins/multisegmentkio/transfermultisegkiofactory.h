@@ -33,10 +33,6 @@ class TransferMultiSegKioFactory : public TransferFactory
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        QWidget * createSettingsWidget(KDialog * parent);
-
-        QString displayName(){return "Multithreaded HTTP(s) / FTP(s)";}
-
         const QList<KAction *> actions(TransferHandler *handler = 0);
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl);
 };

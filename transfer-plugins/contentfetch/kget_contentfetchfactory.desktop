@@ -4,8 +4,8 @@ Type=Service
 X-KDE-ServiceTypes=KGet/Plugin
 
 # standard fields
-Name=ContentFetch TransferFactory
-Comment=Transfer plugin for KGet
+Name=ContentFetch
+Comment=Content-Fetch-Transfer plugin for KGet
 Comment[bg]=Приставка за трансфер - KGet
 Comment[ca]=Connector de transferències pel KGet
 Comment[cs]=Přenosový modul pro KGet
@@ -49,3 +49,11 @@ X-KDE-Library=kget_contentfetchfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=110
 X-KDE-KGet-framework-version=1
+
+X-KDE-PluginInfo-Author=Ningyu Shi
+X-KDE-PluginInfo-Email=shiningyu@gmail.com
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Category=Service
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-Name=kget_contentfetch_plugin

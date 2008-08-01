@@ -14,7 +14,6 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 #include "multisegkiosettings.h"
-#include "dlgmultisegkio.h"
 #include "transfermultisegkio.h"
 #include "multisegkiodatasource.h"
 
@@ -59,11 +58,6 @@ QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * tra
 {
     Q_UNUSED(transfer);
     return 0;   //Temporary!!
-}
-
-QWidget * TransferMultiSegKioFactory::createSettingsWidget(KDialog * parent)
-{
-    return new DlgSettingsWidget(parent);
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)

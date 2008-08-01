@@ -7,26 +7,28 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
 #include "dlgcontentfetchsettingwidget.h"
 #include "dlgscriptediting.h"
 #include "contentfetchsetting.h"
+
+#include "kget_export.h"
 
 #include <QSize>
 
 #include <kdialog.h>
 #include <kdebug.h>
 
-DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
-    : QWidget(p_parent),
-      m_p_parent(p_parent),m_p_action(0)
+KGET_EXPORT_PLUGIN_CONFIG(DlgContentFetchSettingWidget)
+
+DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(QWidget * parent = 0, const QVariantList &args = QVariantList())
+    : KCModule(KGetFactory::componentData(), parent, args),
+      m_p_action(0)
 {
     ui.setupUi(this);
     ui.newScriptButton->setIcon(KIcon("list-add"));
     ui.removeScriptButton->setIcon(KIcon("list-remove"));
 
     loadContentFetchSetting();
-    m_changed = false;
 
     connect(ui.newScriptButton, SIGNAL(clicked()), this, SLOT(slotNewScript()));
     connect(ui.editScriptButton, SIGNAL(clicked()), this, SLOT(slotEditScript()));
@@ -38,8 +40,6 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(KDialog *p_parent)
     connect(ui.scriptTreeWidget,
             SIGNAL(itemChanged(QTreeWidgetItem* , int)),
             this, SLOT(slotEnableChanged(QTreeWidgetItem*, int)));
-    connect(p_parent, SIGNAL(accepted()), this, SLOT(slotAccepted()));
-    connect(p_parent, SIGNAL(rejected()), this, SLOT(slotRejected()));
 }
 
 DlgContentFetchSettingWidget::~DlgContentFetchSettingWidget()
@@ -54,7 +54,7 @@ void DlgContentFetchSettingWidget::slotNewScript()
         addScriptItem(true, dialog.scriptPath(), dialog.scriptUrlRegexp(),
                       dialog.scriptDescription());
     }
-    m_changed = true;
+    changed();
 }
 
 void DlgContentFetchSettingWidget::slotEditScript()
@@ -75,17 +75,17 @@ void DlgContentFetchSettingWidget::slotEditScript()
         {
             item.setText(0, QFileInfo(dialog.scriptPath()).fileName());
             item.setToolTip(0, dialog.scriptPath());
-            m_changed = true;
+            changed();
         }
         if (item.text(1) != dialog.scriptUrlRegexp())
         {
             item.setText(1, dialog.scriptUrlRegexp());
-            m_changed = true;
+            changed();
         }
         if (item.text(2) != dialog.scriptDescription())
         {
             item.setText(2, dialog.scriptDescription());
-            m_changed = true;
+            changed();
         }
     }
 }
@@ -147,7 +147,7 @@ void DlgContentFetchSettingWidget::slotRemoveScript()
 
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
         delete(selectedItem);
-    m_changed = true;
+    changed();
 }
 
 void DlgContentFetchSettingWidget::addScriptItem(bool enabled, const QString &path, const QString &regexp, const QString &description)
@@ -203,19 +203,9 @@ void DlgContentFetchSettingWidget::saveContentFetchSetting()
     ContentFetchSetting::self()->writeConfig();
 }
 
-void DlgContentFetchSettingWidget::slotSave()
+void DlgContentFetchSettingWidget::save()
 {
-    if (m_changed)
-    {
-        saveContentFetchSetting();
-        ContentFetchSetting::self()->writeConfig();
-        m_changed = false;
-    }
-}
-
-void DlgContentFetchSettingWidget::slotAccepted()
-{
-    slotSave();
+    saveContentFetchSetting();
     // NOTICE: clean the last config script, might change in the furture
     if (m_p_action)
     {
@@ -224,7 +214,7 @@ void DlgContentFetchSettingWidget::slotAccepted()
     }
 }
 
-void DlgContentFetchSettingWidget::slotRejected()
+void DlgContentFetchSettingWidget::load()
 {
     // clean the last config script
     if (m_p_action)
@@ -266,5 +256,5 @@ void DlgContentFetchSettingWidget::slotEnableChanged(QTreeWidgetItem* p_item,
     {
         return;
     }
-    m_changed = true;
+    changed();
 }

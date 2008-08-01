@@ -37,6 +37,7 @@
 #include <kactioncollection.h>
 #include <kio/renamedialog.h>
 #include <KSystemTrayIcon>
+#include <KSharedConfig>
 
 #include <QTextStream>
 #include <QDomElement>
@@ -515,25 +516,6 @@ bool KGet::schedulerRunning()
     return (m_scheduler->countRunningJobs() > 0);
 }
 
-void KGet::setPluginsSettingsWidget(KTabWidget * widget)
-{
-    kDebug(5001);
-    QList<TransferFactory *>::iterator it = m_transferFactories.begin();
-    const QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
-
-    QWidget * settingsWidget;
-    for( ; it!=itEnd ; ++it)
-    {
-        KDialog *dialog = static_cast<KDialog*>(widget->parent()->parent());
-        if (!dialog)
-            return;
-
-        settingsWidget = (*it)->createSettingsWidget(dialog);
-        if(settingsWidget)
-            widget->addTab( settingsWidget, (*it)->displayName() );
-    }
-}
-
 QList<TransferHandler*> KGet::allTransfers()
 {
     QList<TransferHandler*> transfers;
@@ -992,6 +974,7 @@ KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
 
 void KGet::loadPlugins()
 {
+    m_transferFactories.clear();
     // Add versioning constraint
     QString
     str  = "[X-KDE-KGet-framework-version] == ";
@@ -1023,25 +1006,33 @@ void KGet::loadPlugins()
     //members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 
+    const KConfigGroup plugins = KSharedConfig::openConfig("kgetrc")->group("Plugins");
+
     for( it = services.begin(); it != services.end(); ++it )
     {
         KGetPlugin * plugin;
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
-            pluginList.prepend(plugin);
-            kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
-                      << ") found and added to the list of available plugins" << endl;
+            if (plugins.readEntry((*it)->property("X-KDE-PluginInfo-Name", QVariant::String).toString() + "Enabled") == "true")
+            {
+                pluginList.prepend(plugin);
+                kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
+                             << ") found and added to the list of available plugins";
+            }
+            else
+                kDebug(5001) << "TransferFactory plugin (" << (*it)->library()
+                             << ") found, but not enabled";
         }
         else
             kDebug(5001) << "Error loading TransferFactory plugin (" 
-                      << (*it)->library() << ")" << endl;
+                      << (*it)->library() << ")";
     }
 
     QList<KGetPlugin *>::iterator it2 = pluginList.begin();
     QList<KGetPlugin *>::iterator it2End = pluginList.end();
 
     for( ; it2!=it2End ; ++it2 )
-        m_transferFactories.append( static_cast<TransferFactory *>(*it2) );
+        m_transferFactories.append( qobject_cast<TransferFactory *>(*it2) );
 
     kDebug(5001) << "Number of factories = " << m_transferFactories.size();
 }

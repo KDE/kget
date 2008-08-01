@@ -23,15 +23,12 @@ class PreferencesDialog : public KConfigDialog
     Q_OBJECT
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
-        KTabWidget * pluginsWidget(){return plugins;}
 
     private slots:
         void slotToggleAfterFinishAction(int state);
         void disableButtonApply();
 
     private:
-        KTabWidget * plugins;
-
         Ui::DlgAdvanced dlgAdv;
 };
 

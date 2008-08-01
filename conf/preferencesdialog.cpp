@@ -17,6 +17,7 @@
 #include "dlgwebinterface.h"
 
 #include "transfersgroupwidget.h"
+#include "pluginselector.h"
 
 #include <klocale.h>
 #include <ktabwidget.h>
@@ -30,7 +31,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     DlgWebinterface *webinterface = new DlgWebinterface(this);
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
-    plugins = new KTabWidget(this);
+    PluginSelector * pluginSelector = new PluginSelector(this);
 
     groups->setLayout(new TransfersGroupWidget());
 
@@ -70,7 +71,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
     addPage(webinterface, i18n("Webinterface"), "network-workgroup", i18n("Control KGet over Network or Internet"));
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
-    addPage(plugins, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugin Options"));
+    addPage(pluginSelector, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugins"));
 
     connect(this, SIGNAL(accepted()), SLOT(disableButtonApply()));
     connect(this, SIGNAL(rejected()), SLOT(disableButtonApply()));
