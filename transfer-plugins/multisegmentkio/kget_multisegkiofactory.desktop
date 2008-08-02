@@ -6,7 +6,9 @@ Icon=kget
 
 # standard fields
 Name=Multi Segment KIO
+Name[uk]=Багатосегментний KIO
 Comment=Multithreaded KIO-Transfer plugin for KGet
+Comment[uk]=Втулка перенесення багатопотокового KIO для KGet
 
 # options for library loader
 X-KDE-Library=kget_multisegkiofactory

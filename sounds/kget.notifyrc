@@ -357,9 +357,11 @@ Action=Sound
 
 [Event/error]
 Name=Error happens
+Name[km]=កំហុស​កើត​ឡើង
 Name[uk]=Сталися помилки
 Name[zh_TW]=發生了錯誤
 Comment=Some error just happens
+Comment[km]=កំហុស​មួយ​ចំនួន​ទើប​កើតឡើង
 Comment[uk]=Сталося декілька помилок
 Comment[zh_TW]=剛發生了一些錯誤
 Sound=KDE-Sys-App-Error.ogg
@@ -367,11 +369,13 @@ Action=PassivePopup|Sound
 
 [Event/notification]
 Name=Information
+Name[km]=ព័ត៌មាន
 Name[pt]=Informação
 Name[pt_BR]=Informação
 Name[uk]=Інформація
 Name[zh_TW]=資訊
 Comment=Some notice happens
+Comment[km]=ការ​កត់សម្គាល់​មួយ​ចំនួន​កើតឡើង
 Comment[uk]=Було декілька сповіщень
 Comment[zh_TW]=剛發生了一些通知
 Sound=KDE-Sys-App-Message.ogg

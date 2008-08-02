@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet panelbar applet
+Name[km]=អាប់ភ្លេត​របារ​បន្ទះ​របស់ KGet
 Name[uk]=Аплет стовпчикової діаграми KGet
 Name[zh_TW]=KGet 面板列小程式
 Comment=KGet panelbar applet
+Comment[km]=អាប់ភ្លេត​របារ​បន្ទះ​របស់ KGet
 Comment[uk]=Аплет стовпчикової діаграми KGet
 Comment[zh_TW]=KGet 面板列小程式
 Icon=kget

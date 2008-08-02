@@ -8,6 +8,7 @@ Icon=kget
 Name=Mirror Search
 
 Comment=Mirrorsearch-Transfer plugin for KGet
+Comment[uk]=Втулка перенесення Mirrorsearch для KGet
 
 # options for library loader
 X-KDE-Library=kget_mirrorsearchfactory

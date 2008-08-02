@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet piechart applet
+Name[km]=អាប់ភ្លេត​គំនូស​តាង​ចំណិត​របស់ KGet
 Name[uk]=Аплет кругової діаграми KGet
 Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
+Comment[km]=អាប់ភ្លេត​គំនូស​តាង​ចំណិត​របស់ KGet
 Comment[uk]=Аплек кругової діаграми KGet
 Comment[zh_TW]=KGet 圓餅圖小程式
 Icon=kget

@@ -8,6 +8,7 @@ Icon=application-x-bittorrent
 # standard fields
 Name=Bittorrent
 Comment=Bittorrent-Transfer plugin for KGet
+Comment[uk]=Втулка перенесення Bittorrent для KGet
 
 # options for library loader
 X-KDE-Library=kget_bittorrentfactory

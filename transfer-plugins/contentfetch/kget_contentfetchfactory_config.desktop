@@ -6,3 +6,4 @@ X-KDE-Library=kcm_kget_contentfetchfactory
 X-KDE-ParentComponents=kget_contentfetch_plugin
 
 Name=Content Fetcher
+Name[uk]=Засіб обробки вмісту
