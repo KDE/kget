@@ -23,6 +23,7 @@ class QAction;
 class KPassivePopup;
 
 class TransferObserver;
+class GenericTransferGroupObserver;
 
 /**
  * Class TransferHandler:
@@ -291,7 +292,7 @@ class GenericTransferObserver : public QObject, public TransferObserver
 {
     Q_OBJECT
     public:
-        GenericTransferObserver();
+        GenericTransferObserver(GenericTransferGroupObserver *groupObserver);
 
         void transferChangedEvent(TransferHandler * transfer);
 
@@ -313,6 +314,7 @@ class GenericTransferObserver : public QObject, public TransferObserver
 
 
         QString prevStatus;
+        GenericTransferGroupObserver *m_groupObserver;
 };
 
 #endif

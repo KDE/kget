@@ -16,7 +16,7 @@
 #include <kuiserverjobtracker.h>
 
 KUiServerJobs::KUiServerJobs(QObject *parent)
-    : QObject(parent), m_jobs(), m_globalJob(0)
+    : QObject(parent), m_jobs(), m_registeredJobs(), m_globalJob(0)
 {
 }
 
@@ -33,6 +33,7 @@ void KUiServerJobs::registerJob(KJob *job)
             globalJob()->registerJob(job);
         }
         else {
+            m_registeredJobs.append(job);
             KIO::getJobTracker()->registerJob(job);
         }
     }
@@ -47,6 +48,7 @@ void KUiServerJobs::unregisterJob(KJob *job)
             globalJob()->unregisterJob(job);
         }
         else {
+            m_registeredJobs.removeAll(job);
             KIO::getJobTracker()->unregisterJob(job);
         }
     }
@@ -55,25 +57,32 @@ void KUiServerJobs::unregisterJob(KJob *job)
 // every time the configuration changed, check the registered jobs and the state through the ui server
 void KUiServerJobs::reload()
 {
-    if(m_globalJob && !Settings::exportGlobalJob()) {
-        KIO::getJobTracker()->unregisterJob(globalJob());
-        delete m_globalJob;
-        m_globalJob = 0;
-    }
-
-    if(Settings::exportGlobalJob() && Settings::enableKUIServerIntegration()) {
-        KIO::getJobTracker()->registerJob(globalJob());
-
-        foreach(KJob *job, m_jobs) {
+    if(Settings::exportGlobalJob() && Settings::enableKUIServerIntegration() && !m_globalJob) {
+        foreach(KJob *job, m_registeredJobs) {
             KIO::getJobTracker()->unregisterJob(job);
+            m_registeredJobs.removeAll(job);
         }
+        KIO::getJobTracker()->registerJob(globalJob());
     }
     else {
+        if(!Settings::exportGlobalJob() && Settings::enableKUIServerIntegration()) {
+            if(m_globalJob) {
+                KIO::getJobTracker()->unregisterJob(globalJob());
+                delete m_globalJob;
+                m_globalJob = 0;
+            }
+        }
+         
         foreach(KJob *job, m_jobs) {
-            if(Settings::enableKUIServerIntegration() && job && job->percent() < 100) {
-                KIO::getJobTracker()->registerJob(job);
+            if(!Settings::exportGlobalJob() && Settings::enableKUIServerIntegration() && job 
+                                            && job->percent() < 100) {
+                if(!m_registeredJobs.contains(job)) {
+                    m_registeredJobs.append(job);
+                    KIO::getJobTracker()->registerJob(job);
+                }
             }
             else {
+                m_registeredJobs.removeAll(job);
                 KIO::getJobTracker()->unregisterJob(job);
             }
         }
@@ -88,6 +97,10 @@ KGetGlobalJob *KUiServerJobs::globalJob()
 
         foreach(KJob *job, m_jobs) {
             m_globalJob->registerJob(job);
+        }
+
+        if(Settings::exportGlobalJob() && Settings::enableKUIServerIntegration()) {
+            KIO::getJobTracker()->registerJob(globalJob());
         }
     }
 

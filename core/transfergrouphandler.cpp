@@ -11,6 +11,7 @@
 
 #include "core/transfergrouphandler.h"
 
+#include "core/kgetkjobadapter.h"
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfer.h"
@@ -341,9 +342,10 @@ void QObjectInterface::slotStop()
 
 
 
-GenericTransferGroupObserver::GenericTransferGroupObserver()
+GenericTransferGroupObserver::GenericTransferGroupObserver() : QObject(),
+    m_adapters()
 {
-    m_transferObserver = new GenericTransferObserver();
+    m_transferObserver = new GenericTransferObserver(this);
 }
 
 GenericTransferGroupObserver::~GenericTransferGroupObserver()
@@ -370,6 +372,8 @@ void GenericTransferGroupObserver::addedTransferEvent(TransferHandler * transfer
     
         KGet::save();
     }
+
+    registerTransferAsKJob(transfer);
 }
 
 void GenericTransferGroupObserver::removedTransferEvent(TransferHandler * transfer)
@@ -380,6 +384,10 @@ void GenericTransferGroupObserver::removedTransferEvent(TransferHandler * transf
     transfer->delObserver(m_transferObserver);
 
     KGet::save();
+    if(m_adapters.contains(transfer)) {
+        KGet::unregisterKJob(m_adapters [transfer]);
+        m_adapters.remove(transfer);
+    }
 }
 
 void GenericTransferGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
@@ -395,7 +403,23 @@ void GenericTransferGroupObserver::addTransferGroup(TransferGroupHandler *group)
 {
     foreach(TransferHandler *handler, group->transfers()) {
         handler->addObserver(m_transferObserver);
+        registerTransferAsKJob(handler);
     }
+}
+
+void GenericTransferGroupObserver::postTransferChanged(TransferHandler *transfer)
+{
+    if(m_adapters.contains(transfer)) {
+        m_adapters[transfer]->slotUpdateDescription();
+    }
+}
+
+void GenericTransferGroupObserver::registerTransferAsKJob(TransferHandler *transfer)
+{
+    KGetKJobAdapter *adapter = new KGetKJobAdapter(this, transfer);
+    KGet::registerKJob(adapter);
+
+    m_adapters [transfer] = adapter;
 }
 
 #include "transfergrouphandler.moc"

@@ -34,6 +34,7 @@ private:
     KGetGlobalJob *globalJob();
 
     QList <KJob *> m_jobs;
+    QList <KJob *> m_registeredJobs;
     KGetGlobalJob *m_globalJob;
 };
 

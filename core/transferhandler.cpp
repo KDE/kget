@@ -279,10 +279,11 @@ QList<QAction*> TransferHandler::factoryActions()
 }
 
 
-GenericTransferObserver::GenericTransferObserver()
-  : QObject(0),
+GenericTransferObserver::GenericTransferObserver(GenericTransferGroupObserver *groupObserver)
+  : QObject(groupObserver),
     TransferObserver()
 {
+    m_groupObserver = groupObserver;
 }
 
 void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
@@ -315,6 +316,8 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
 
     transfer->resetChangesFlags(this);
     transfer->checkShareRatio();
+
+    m_groupObserver->postTransferChanged(transfer);
 }
 
 bool GenericTransferObserver::allTransfersFinished()

@@ -24,6 +24,7 @@ class QObjectInterface;
 class GenericTransferObserver;
 class TransferGroupObserver;
 class TransferHandler;
+class KGetKJobAdapter;
 class Scheduler;
 
 class KGET_EXPORT TransferGroupHandler
@@ -322,7 +323,7 @@ class QObjectInterface : public QObject
         TransferGroupHandler * m_handler;
 };
 
-class GenericTransferGroupObserver : public TransferGroupObserver
+class GenericTransferGroupObserver : public TransferGroupObserver, public QObject
 {
     public:
         GenericTransferGroupObserver();
@@ -338,8 +339,14 @@ class GenericTransferGroupObserver : public TransferGroupObserver
 
         void addTransferGroup(TransferGroupHandler *group);
 
+        void postTransferChanged(TransferHandler *);
+
+    private:
+        void registerTransferAsKJob(TransferHandler *);
+
     private:
         GenericTransferObserver *m_transferObserver;
+        QMap <TransferHandler *, KGetKJobAdapter *> m_adapters;
 };
 
 #endif

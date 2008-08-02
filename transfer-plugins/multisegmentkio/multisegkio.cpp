@@ -61,8 +61,6 @@ MultiSegmentCopyJob::MultiSegmentCopyJob( const QList<KUrl> Urls, const KUrl& de
     m_putJob = 0;
     connect(&d->speed_timer, SIGNAL(timeout()), SLOT(calcSpeed()));
     QTimer::singleShot(0, this, SLOT(slotStart()));
-
-    KGet::registerKJob(this);
 }
 
 MultiSegmentCopyJob::MultiSegmentCopyJob(
@@ -99,14 +97,12 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
     setProcessedAmount(Bytes, ProcessedSize);
     setTotalAmount(Bytes, totalSize);
     QTimer::singleShot(0, this, SLOT(slotStart()));
-    KGet::registerKJob(this);
 }
 
 MultiSegmentCopyJob::~MultiSegmentCopyJob()
 {
     kDebug(5001);
     SegFactory->deleteLater();
-    KGet::unregisterKJob(this);
     delete d;
 }
 
@@ -123,7 +119,6 @@ void MultiSegmentCopyJob::stop()
         SegFactory->stopTransfer();
     if (m_putJob)
         m_putJob->close();
-    KGet::unregisterKJob(this);
 }
 
 void MultiSegmentCopyJob::slotUrls(QList<KUrl>& Urls)
