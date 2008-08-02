@@ -19,7 +19,7 @@ class DlgSettingsWidget : public KCModule
 {
     Q_OBJECT
 public:
-    DlgSettingsWidget(QWidget * parent = 0, const QVariantList &args = QVariantList());
+    explicit DlgSettingsWidget(QWidget * parent = 0, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget();
 
 public slots:
