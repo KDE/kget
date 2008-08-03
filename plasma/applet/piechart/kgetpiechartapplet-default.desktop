@@ -2,10 +2,12 @@
 Encoding=UTF-8
 Name=KGet piechart applet
 Name[km]=អាប់ភ្លេត​គំនូស​តាង​ចំណិត​របស់ KGet
+Name[tr]=KGet pasta grafiği programcığı
 Name[uk]=Аплет кругової діаграми KGet
 Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
 Comment[km]=អាប់ភ្លេត​គំនូស​តាង​ចំណិត​របស់ KGet
+Comment[tr]=KGet pasta grafiği programcığı
 Comment[uk]=Аплек кругової діаграми KGet
 Comment[zh_TW]=KGet 圓餅圖小程式
 Icon=kget

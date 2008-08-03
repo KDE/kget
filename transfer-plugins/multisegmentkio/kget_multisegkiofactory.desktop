@@ -6,8 +6,10 @@ Icon=kget
 
 # standard fields
 Name=Multi Segment KIO
+Name[tr]=Çok Parçalı KIO
 Name[uk]=Багатосегментний KIO
 Comment=Multithreaded KIO-Transfer plugin for KGet
+Comment[tr]=Çoklu işleyebilen KIO- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення багатопотокового KIO для KGet
 
 # options for library loader

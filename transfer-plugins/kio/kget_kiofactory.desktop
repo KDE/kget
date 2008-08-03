@@ -7,6 +7,7 @@ Icon=kget
 # standard fields
 Name=KIO
 Comment=KIO-Transfer plugin for KGet
+Comment[tr]=KIO- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення KIO для KGet
 
 # options for library loader

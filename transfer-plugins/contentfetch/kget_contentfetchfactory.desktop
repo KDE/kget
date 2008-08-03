@@ -6,7 +6,9 @@ Icon=kget
 
 # standard fields
 Name=Content Fetch
+Name[uk]=Отримання вмісту
 Comment=Content-Fetch-Transfer plugin for KGet
+Comment[tr]=İçerik-Getir- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення з обробкою вмісту для KGet
 
 # options for library loader

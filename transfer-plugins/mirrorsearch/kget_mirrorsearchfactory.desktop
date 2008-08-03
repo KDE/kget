@@ -6,8 +6,10 @@ Icon=kget
 
 # standard fields
 Name=Mirror Search
+Name[uk]=Пошук дзеркал
 
 Comment=Mirrorsearch-Transfer plugin for KGet
+Comment[tr]=Yansı arama- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Mirrorsearch для KGet
 
 # options for library loader
