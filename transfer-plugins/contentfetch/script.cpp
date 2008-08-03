@@ -50,8 +50,8 @@ void Script::run()
     // use 0 as parent, see Constructor.
     m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
     connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
-    connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&)),
-            this, SIGNAL(newTransfer(const QString&)));
+    connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&, const QString&)),
+            this, SIGNAL(newTransfer(const QString&, const QString&)));
     connect(m_p_kgetcore, SIGNAL(percentUpdated(int)),
             this, SIGNAL(percentUpdated(int)));
     connect(this, SIGNAL(startDownload(QObject*)),

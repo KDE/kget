@@ -65,11 +65,14 @@ objects, you must import them first.
 E.g. In python, you do 'import kgetcore'
 
 * kgetcore
-  ** void addTransfer(sourceUrl)
+  ** void addTransfer(sourceUrl, filename)
   Parameter:
     sourceUrl: QString/string
+    filename: QString/string, optional
   Description:
-    Add the sourceUrl into the kget transferlist.
+    Add the sourceUrl into the kget transferlist with the download file
+    set to 'filename'. If filename is ommitted, then kget will determine
+    the filename.
   ** string getSourceUrl()
   Description:
     Return the sourceurl from user input.

@@ -15,8 +15,9 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kdebug.h>
+#include <KDebug>
 #include <KMessageBox>
+#include <KUrl>
 
 #include <kross/core/manager.h>
 #include <kross/core/action.h>
@@ -29,11 +30,11 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
                            const KUrl& dest, const QString &scriptFile,
                            const QDomElement* e)
     : QObject(0), Transfer(parent, factory, scheduler, source, dest, e),
-      m_p_group(parent), m_scriptFile(scriptFile), m_destDir(dest.directory())
+      m_p_group(parent), m_scriptFile(scriptFile), m_destDir(dest.directory(KUrl::AppendTrailingSlash))
 {
     m_p_script = new Script(this, source);
-    connect(m_p_script, SIGNAL(newTransfer(const QString&)),
-            this, SLOT(slotAddTransfer(const QString&)));
+    connect(m_p_script, SIGNAL(newTransfer(const QString&, const QString&)),
+            this, SLOT(slotAddTransfer(const QString&, const QString&)));
     connect(m_p_script, SIGNAL(finished()), this, SLOT(slotFinish()));
     connect(m_p_script, SIGNAL(percentUpdated(int)), this, SLOT(setPercent(int)));
 }
@@ -62,9 +63,11 @@ void ContentFetch::stop()
     setTransferChange(Tc_Status, true);
 }
 
-void ContentFetch::slotAddTransfer(const QString &url)
+void ContentFetch::slotAddTransfer(const QString &url, const QString &filename)
 {
-    KGet::addTransfer(KUrl(url), m_destDir, m_p_group->name(), true);
+    // even if filename is empty it's still ok
+    kDebug() << "The whole filename is " << m_destDir + filename;
+    KGet::addTransfer(KUrl(url), m_destDir + filename, m_p_group->name(), true);
 }
 
 void ContentFetch::slotFinish()

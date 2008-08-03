@@ -29,12 +29,12 @@ QString ScriptDownloadEngine::getSourceUrl() const
     return m_source_url;
 }
 
-bool ScriptDownloadEngine::addTransfer(const QString &url)
+bool ScriptDownloadEngine::addTransfer(const QString &url,
+                                       const QString &filename)
 {
-    kDebug(5002) << "Url" << url << " from Script.";
+    kDebug(5002) << "Url" << url << " file " << filename << " from Script.";
     // TODO: check url here?
-    emit newTransfer(url);
-    // KGet::addTransfer(KUrl(url), m_dest_dir, m_p_group->name(), true);
+    emit newTransfer(url, filename);
     kDebug(5002) << "Transfer" << url << " Added to KGet.";
     return true;
 }

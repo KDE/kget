@@ -29,7 +29,7 @@ class Script: public QThread
         ~Script();
         bool setFile(const QString &filename);
     signals:
-        void newTransfer(const QString &url);
+        void newTransfer(const QString &url, const QString &filename);
         void startDownload(QObject* configadaptor);
         void percentUpdated(int percent);
     protected:
