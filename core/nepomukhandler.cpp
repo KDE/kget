@@ -39,7 +39,7 @@ int NepomukHandler::rating() const
 
 void NepomukHandler::addTag(const QString &newTag)
 {
-    m_resource.addTag(newTag);
+    m_resource.addTag(Nepomuk::Tag(newTag));
 }
 
 void NepomukHandler::removeTag(const QString &oldTag)
@@ -53,7 +53,7 @@ QStringList NepomukHandler::tags() const
 {
     QStringList list;
     foreach (const Nepomuk::Tag &tag, m_resource.tags())
-        list.append(tag.tagUri());
+        list.append(tag.genericLabel());
     return list;
 }
 
@@ -69,5 +69,5 @@ void NepomukHandler::saveFileProperties(const Nepomuk::Resource &res)
     Nepomuk::Resource m_res = res;
     m_res.setProperty(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_transfer->source()));
     m_res.setProperty(Soprano::Vocabulary::Xesam::size(), Nepomuk::Variant(m_transfer->totalSize()));
-    m_res.setProperty(Soprano::Vocabulary::NAO::Tag(), Nepomuk::Variant("Downloads"));
+    m_res.addTag(Nepomuk::Tag("Downloads"));
 }
