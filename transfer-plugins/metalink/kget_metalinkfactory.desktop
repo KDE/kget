@@ -9,6 +9,7 @@ Name=Metalink
 Comment=Metalink-Transfer plugin for KGet
 Comment[tr]=Metalink- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Metalink для KGet
+Comment[zh_TW]=KGet 的 Metalink 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_metalinkfactory

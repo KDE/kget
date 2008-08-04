@@ -10,6 +10,7 @@ Name=Bittorrent
 Comment=Bittorrent-Transfer plugin for KGet
 Comment[tr]=Bittorent- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Bittorrent для KGet
+Comment[zh_TW]=KGet 的 Bittorrent 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_bittorrentfactory

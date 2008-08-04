@@ -9,6 +9,7 @@ Name=KIO
 Comment=KIO-Transfer plugin for KGet
 Comment[tr]=KIO- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення KIO для KGet
+Comment[zh_TW]=KGet 的 KIO 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_kiofactory

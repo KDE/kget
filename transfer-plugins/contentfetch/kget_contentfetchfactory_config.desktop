@@ -8,3 +8,4 @@ X-KDE-ParentComponents=kget_contentfetch_plugin
 Name=Content Fetcher
 Name[tr]=İçerik Getirici
 Name[uk]=Засіб обробки вмісту
+Name[zh_TW]=內容擷取器

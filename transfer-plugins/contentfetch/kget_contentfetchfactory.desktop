@@ -7,9 +7,11 @@ Icon=kget
 # standard fields
 Name=Content Fetch
 Name[uk]=Отримання вмісту
+Name[zh_TW]=內容擷取
 Comment=Content-Fetch-Transfer plugin for KGet
 Comment[tr]=İçerik-Getir- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення з обробкою вмісту для KGet
+Comment[zh_TW]=KGet 的內容擷取傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_contentfetchfactory

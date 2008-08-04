@@ -7,10 +7,12 @@ Icon=kget
 # standard fields
 Name=Mirror Search
 Name[uk]=Пошук дзеркал
+Name[zh_TW]=映射搜尋
 
 Comment=Mirrorsearch-Transfer plugin for KGet
 Comment[tr]=Yansı arama- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Mirrorsearch для KGet
+Comment[zh_TW]=KGet 的映設搜尋傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_mirrorsearchfactory

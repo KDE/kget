@@ -9,6 +9,7 @@ Name=MMS
 Comment=MMS-Transfer plugin for KGet
 Comment[tr]=MMS- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення MMS для KGet
+Comment[zh_TW]=KGet 的 MMS 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_mmsfactory

@@ -8,9 +8,11 @@ Icon=kget
 Name=Multi Segment KIO
 Name[tr]=Çok Parçalı KIO
 Name[uk]=Багатосегментний KIO
+Name[zh_TW]=多段式 KIO
 Comment=Multithreaded KIO-Transfer plugin for KGet
 Comment[tr]=Çoklu işleyebilen KIO- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення багатопотокового KIO для KGet
+Comment[zh_TW]=KGet 的多緒 KIO 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_multisegkiofactory
