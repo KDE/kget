@@ -31,6 +31,7 @@ class ScriptDownloadEngine: public QObject
         void percentUpdated(int percent);
         void textStatusUpdated(const QString &text);
         void finished();
+        void aborted();
     public slots:
         QString getSourceUrl() const;
         bool addTransfer(const QString &url,
@@ -38,6 +39,7 @@ class ScriptDownloadEngine: public QObject
         void setPercent(int percent);
         void setTextStatus(const QString &text);
         void finish();
+        void abort();
     private:
         QString m_source_url;
 };

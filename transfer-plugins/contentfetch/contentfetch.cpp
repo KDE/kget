@@ -36,6 +36,7 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
     connect(m_p_script, SIGNAL(newTransfer(const QString&, const QString&)),
             this, SLOT(slotAddTransfer(const QString&, const QString&)));
     connect(m_p_script, SIGNAL(finished()), this, SLOT(slotFinish()));
+    connect(m_p_script, SIGNAL(aborted()), this, SLOT(slotAbort()));
     connect(m_p_script, SIGNAL(percentUpdated(int)), this, SLOT(setPercent(int)));
     connect(m_p_script, SIGNAL(textStatusUpdated(const QString&)), this, SLOT(slotSetTextStatus(const QString&)));
 }
@@ -77,6 +78,12 @@ void ContentFetch::slotFinish()
     setStatus(Job::Finished, i18nc("Transfer State: Finished", "Finished"), SmallIcon("dialog-ok"));
     setTransferChange(Tc_Status|Tc_Percent, true);
     //delete m_p_script;
+}
+
+void ContentFetch::slotAbort()
+{
+    setStatus(Job::Aborted, i18nc("Transfer State: Aborted", "Aborted"), SmallIcon("cancel"));
+    setTransferChange(Tc_Status, true);
 }
 
 void ContentFetch::slotSetTextStatus(const QString& text)

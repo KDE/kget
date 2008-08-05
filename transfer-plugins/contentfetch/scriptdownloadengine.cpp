@@ -54,4 +54,8 @@ void ScriptDownloadEngine::finish()
     emit finished();
 }
 
+void ScriptDownloadEngine::abort()
+{
+    emit aborted();
+}
 

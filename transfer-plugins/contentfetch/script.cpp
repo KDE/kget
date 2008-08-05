@@ -49,8 +49,9 @@ void Script::run()
     setPriority(QThread::LowPriority);
     // use 0 as parent, see Constructor.
     m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
-    // quit the exec() loop after get finish signal from script
+    // quit the exec() loop after get finish/abort signal from script
     connect(m_p_kgetcore, SIGNAL(finished()), this, SLOT(quit()));
+    connect(m_p_kgetcore, SIGNAL(aborted()), this, SLOT(quit()));
     // add transfer
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&, const QString&)),
             this, SIGNAL(newTransfer(const QString&, const QString&)));
@@ -60,6 +61,7 @@ void Script::run()
     connect(m_p_kgetcore, SIGNAL(textStatusUpdated(const QString&)),
             this, SIGNAL(textStatusUpdated(const QString&)));
     connect(m_p_kgetcore, SIGNAL(finished()), this, SIGNAL(finished()));
+    connect(m_p_kgetcore, SIGNAL(aborted()), this, SIGNAL(aborted()));
     // main entry point
     connect(this, SIGNAL(startDownload(QObject*)),
             m_p_kgetcore, SIGNAL(startDownload(QObject*)));

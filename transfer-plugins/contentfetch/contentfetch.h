@@ -47,6 +47,7 @@ class ContentFetch : public QObject, public Transfer
         QString m_destDir;
     private slots:
         void slotFinish();
+        void slotAbort();
         void slotAddTransfer(const QString &url, const QString &filename);
         void slotSetTextStatus(const QString& text);
 };
