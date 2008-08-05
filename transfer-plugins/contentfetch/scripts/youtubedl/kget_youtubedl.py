@@ -117,4 +117,5 @@ def startDownload(kconfig):
 	if video_format is not None:
 		video_url_real = '%s%s' % (video_url_real, const_video_url_format_suffix % video_format)
 	kgetcore.addTransfer(video_url_real)
+        kgetcore.finish()
         #print video_url_real

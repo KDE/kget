@@ -33,6 +33,7 @@ class Script: public QThread
         void startDownload(QObject* configadaptor);
         void percentUpdated(int percent);
         void textStatusUpdated(const QString &text);
+        void finished();
     protected:
         void run();
     private:

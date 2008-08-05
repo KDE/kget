@@ -73,11 +73,9 @@ void ContentFetch::slotAddTransfer(const QString &url, const QString &filename)
 
 void ContentFetch::slotFinish()
 {
-    kDebug(5001) << "finish() slot called.";
     m_percent = 100;
-    setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+    setStatus(Job::Finished, i18nc("Transfer State: Finished", "Finished"), SmallIcon("dialog-ok"));
     setTransferChange(Tc_Status|Tc_Percent, true);
-    kDebug(5001) << "finish() slot ended.";
     //delete m_p_script;
 }
 

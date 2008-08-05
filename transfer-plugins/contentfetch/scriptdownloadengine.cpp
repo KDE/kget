@@ -49,4 +49,9 @@ void ScriptDownloadEngine::setTextStatus(const QString &text)
     emit textStatusUpdated(text);
 }
 
+void ScriptDownloadEngine::finish()
+{
+    emit finished();
+}
+
 

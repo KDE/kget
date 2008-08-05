@@ -49,13 +49,18 @@ void Script::run()
     setPriority(QThread::LowPriority);
     // use 0 as parent, see Constructor.
     m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
-    connect(m_p_action, SIGNAL(finished(Kross::Action *)), this, SLOT(quit()));
+    // quit the exec() loop after get finish signal from script
+    connect(m_p_kgetcore, SIGNAL(finished()), this, SLOT(quit()));
+    // add transfer
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&, const QString&)),
             this, SIGNAL(newTransfer(const QString&, const QString&)));
+    // update status signal/slot
     connect(m_p_kgetcore, SIGNAL(percentUpdated(int)),
             this, SIGNAL(percentUpdated(int)));
     connect(m_p_kgetcore, SIGNAL(textStatusUpdated(const QString&)),
             this, SIGNAL(textStatusUpdated(const QString&)));
+    connect(m_p_kgetcore, SIGNAL(finished()), this, SIGNAL(finished()));
+    // main entry point
     connect(this, SIGNAL(startDownload(QObject*)),
             m_p_kgetcore, SIGNAL(startDownload(QObject*)));
     m_p_action->setFile(m_fileName);
