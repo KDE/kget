@@ -26,7 +26,7 @@ PluginSelector::PluginSelector(KDialog * parent)
     addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig("kgetrc"));
 
     load();
-    //updatePluginsState();
+
     connect(parent, SIGNAL(accepted()), SLOT(saveState()));
     connect(parent, SIGNAL(rejected()), SLOT(loadDefaults()));
 }

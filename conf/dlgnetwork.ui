@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>346</width>
+    <width>349</width>
     <height>488</height>
    </rect>
   </property>
@@ -13,13 +13,6 @@
    <property name="margin" >
     <number>0</number>
    </property>
-   <item>
-    <widget class="QCheckBox" name="kcfg_DownloadAtStartup" >
-     <property name="text" >
-      <string>Start downloading files immediately after startup</string>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QGroupBox" name="kcfg_LimitDownloads" >
      <property name="title" >

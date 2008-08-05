@@ -11,6 +11,8 @@
 
 #include "core/transfer.h"
 
+#include "settings.h"
+
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
@@ -177,6 +179,7 @@ void Transfer::save(const QDomElement &element)
     e.setAttribute("DownloadLimit", m_visibleDownloadLimit);
     e.setAttribute("UploadLimit", m_visibleUploadLimit);
     e.setAttribute("ElapsedTime", status() == Job::Running ? m_runningTime.elapsed() / 1000 : m_runningSeconds);
+    e.setAttribute("Policy", policy() == Job::Start ? "Start" : (policy() == Job::Stop ? "Stop" : "None"));
 }
 
 void Transfer::load(const QDomElement &e)
@@ -204,6 +207,23 @@ void Transfer::load(const QDomElement &e)
     setUploadLimit(e.attribute("UploadLimit").toInt(), Transfer::VisibleSpeedLimit);
     setDownloadLimit(e.attribute("DownloadLimit").toInt(), Transfer::VisibleSpeedLimit);
     m_runningSeconds = e.attribute("ElapsedTime").toInt();
+    if (Settings::startupAction() == 1)
+    {
+        setPolicy(Job::Start);
+    }
+    else if (Settings::startupAction() == 2)
+    {
+        setPolicy(Job::Stop);
+    }
+    else
+    {
+        if (e.attribute("Policy") == "Start")
+            setPolicy(Job::Start);
+        else if (e.attribute("Policy") == "Stop")
+            setPolicy(Job::Stop);
+        else
+            setPolicy(Job::None);
+    }
 }
 
 void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix)

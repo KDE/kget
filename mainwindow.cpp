@@ -355,10 +355,6 @@ void MainWindow::slotDelayedInit()
     cfg.group(QString()).writeEntry("AutoResume", true);
     cfg.sync();
 
-    // immediately start downloading if configured this way
-    if ( Settings::downloadAtStartup() )
-        slotStartDownload();
-
     // DropTarget
     m_drop = new DropTarget(this);
 
