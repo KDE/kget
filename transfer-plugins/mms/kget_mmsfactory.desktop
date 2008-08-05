@@ -7,6 +7,8 @@ Icon=kget
 # standard fields
 Name=MMS
 Comment=MMS-Transfer plugin for KGet
+Comment[et]=KGeti MMS ülekandeplugin
+Comment[ga]=Breiseán aistrithe MMS le haghaidh KGet
 Comment[tr]=MMS- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення MMS для KGet
 Comment[zh_TW]=KGet 的 MMS 傳輸外掛程式

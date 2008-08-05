@@ -7,6 +7,8 @@ Icon=kget
 # standard fields
 Name=KIO
 Comment=KIO-Transfer plugin for KGet
+Comment[et]=KGeti KIO ülekandeplugin
+Comment[ga]=Breiseán aistrithe KIO le haghaidh KGet
 Comment[tr]=KIO- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення KIO для KGet
 Comment[zh_TW]=KGet 的 KIO 傳輸外掛程式

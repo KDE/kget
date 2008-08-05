@@ -8,6 +8,8 @@ Icon=application-x-bittorrent
 # standard fields
 Name=Bittorrent
 Comment=Bittorrent-Transfer plugin for KGet
+Comment[et]=KGeti Bittorrenti ülekandeplugin
+Comment[ga]=Breiseán aistrithe Bittorrent le haghaidh KGet
 Comment[tr]=Bittorent- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Bittorrent для KGet
 Comment[zh_TW]=KGet 的 Bittorrent 傳輸外掛程式

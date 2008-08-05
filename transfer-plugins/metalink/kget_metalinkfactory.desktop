@@ -7,6 +7,8 @@ Icon=kget
 # standard fields
 Name=Metalink
 Comment=Metalink-Transfer plugin for KGet
+Comment[et]=KGeti Metalinki ülekandeplugin
+Comment[ga]=Breiseán aistrithe Metalink le haghaidh KGet
 Comment[tr]=Metalink- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Metalink для KGet
 Comment[zh_TW]=KGet 的 Metalink 傳輸外掛程式

@@ -6,5 +6,6 @@ X-KDE-Library=kcm_kget_mirrorsearchfactory
 X-KDE-ParentComponents=kget_mirrorsearch_plugin
 
 Name=MirrorSearch
+Name[et]=Peegliotsing
 Name[tr]=Yansı Arama
 Name[zh_TW]=映射搜尋
