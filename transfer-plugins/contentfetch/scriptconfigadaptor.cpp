@@ -27,13 +27,13 @@ bool ScriptConfigAdaptor::setFile(const QString &filename,
             if (info.isDir() && info.exists())
             {
                 // check for the ending slash
-                if (path.endsWith("/"))
+                if (path.endsWith('/'))
                 {
                     m_config = new KConfig(path + filename);
                 }
                 else
                 {
-                    m_config = new KConfig(path + "/" + filename);
+                    m_config = new KConfig(path + '/' + filename);
                 }
                 return true;
             }
