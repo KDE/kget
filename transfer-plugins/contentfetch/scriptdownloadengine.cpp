@@ -44,4 +44,9 @@ void ScriptDownloadEngine::setPercent(int percent)
     emit percentUpdated(percent);
 }
 
+void ScriptDownloadEngine::setTextStatus(const QString &text)
+{
+    emit textStatusUpdated(text);
+}
+
 

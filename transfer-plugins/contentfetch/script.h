@@ -32,6 +32,7 @@ class Script: public QThread
         void newTransfer(const QString &url, const QString &filename);
         void startDownload(QObject* configadaptor);
         void percentUpdated(int percent);
+        void textStatusUpdated(const QString &text);
     protected:
         void run();
     private:

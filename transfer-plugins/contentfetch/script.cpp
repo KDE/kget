@@ -54,6 +54,8 @@ void Script::run()
             this, SIGNAL(newTransfer(const QString&, const QString&)));
     connect(m_p_kgetcore, SIGNAL(percentUpdated(int)),
             this, SIGNAL(percentUpdated(int)));
+    connect(m_p_kgetcore, SIGNAL(textStatusUpdated(const QString&)),
+            this, SIGNAL(textStatusUpdated(const QString&)));
     connect(this, SIGNAL(startDownload(QObject*)),
             m_p_kgetcore, SIGNAL(startDownload(QObject*)));
     m_p_action->setFile(m_fileName);

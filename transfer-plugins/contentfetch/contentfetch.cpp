@@ -37,12 +37,13 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
             this, SLOT(slotAddTransfer(const QString&, const QString&)));
     connect(m_p_script, SIGNAL(finished()), this, SLOT(slotFinish()));
     connect(m_p_script, SIGNAL(percentUpdated(int)), this, SLOT(setPercent(int)));
+    connect(m_p_script, SIGNAL(textStatusUpdated(const QString&)), this, SLOT(slotSetTextStatus(const QString&)));
 }
 
 void ContentFetch::start()
 {
     kDebug(5001) << "ContentFetch::start";
-    setStatus(Job::Running, i18nc("transfer state: executing script", "scripting"), SmallIcon("network-connect"));
+    setStatus(Job::Running, i18nc("Transfer state: processing script", "Processing script..."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
     m_p_script->setFile(m_scriptFile);
     m_p_script->start();
@@ -78,6 +79,12 @@ void ContentFetch::slotFinish()
     setTransferChange(Tc_Status|Tc_Percent, true);
     kDebug(5001) << "finish() slot ended.";
     //delete m_p_script;
+}
+
+void ContentFetch::slotSetTextStatus(const QString& text)
+{
+    setStatus(Job::Running, text, SmallIcon("media-playback-start"));
+    setTransferChange(Tc_Status, true);
 }
 
 bool ContentFetch::isResumable() const

@@ -48,6 +48,7 @@ class ContentFetch : public QObject, public Transfer
     private slots:
         void slotFinish();
         void slotAddTransfer(const QString &url, const QString &filename);
+        void slotSetTextStatus(const QString& text);
 };
 
 #endif // CONTENT_FETCH_H
