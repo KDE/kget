@@ -28,6 +28,7 @@
 #include <KComboBox>
 #include <KDebug>
 #include <KFileDialog>
+#include <KWindowSystem>
 
 class NewTransferDialog::Private : public QObject
 {
@@ -202,7 +203,7 @@ public:
 K_GLOBAL_STATIC(NewTransferDialog, globalInstance)
 
 NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
-    m_sources()
+    m_window(0), m_sources()
 {
     d = new NewTransferDialog::Private(this);
 
@@ -238,8 +239,10 @@ NewTransferDialog::~NewTransferDialog()
     qRemovePostRoutine(globalInstance.destroy);
 }
 
-NewTransferDialog *NewTransferDialog::instance()
+NewTransferDialog *NewTransferDialog::instance(QWidget *parent)
 {
+    globalInstance->m_window = parent;
+
     return globalInstance;
 }
 
@@ -280,6 +283,12 @@ void NewTransferDialog::setDefaultDestination()
 void NewTransferDialog::prepareDialog()
 {
     setDefaultDestination();
+
+    if(m_window) {
+        KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop, NET::WMDesktop);
+        KWindowSystem::setCurrentDesktop(info.desktop());
+        m_window->activateWindow();
+    }
 
     if (!d->m_displayed) {
         d->m_displayed = true;

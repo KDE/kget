@@ -41,7 +41,7 @@ public:
     /**
     * Returns the current instance of the 'new transfer' dialog
     */
-    static NewTransferDialog *instance();
+    static NewTransferDialog *instance(QWidget *parent = 0);
 
     /**
     * Shows the dialog adding one transfer url.
@@ -69,7 +69,7 @@ private:
 
     class Private;
     NewTransferDialog::Private *d;
-
+    QWidget *m_window;
     KUrl::List m_sources;
 };
 
