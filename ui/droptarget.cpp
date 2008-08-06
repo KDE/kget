@@ -147,8 +147,7 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
 
 void DropTarget::playAnimationShow()
 {
-    if ( animTimer )
-        delete animTimer;
+    delete animTimer;
     animTimer = new QTimer;
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimateShow() ));
