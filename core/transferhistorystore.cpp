@@ -200,6 +200,7 @@ void XmlStore::SaveThread::run()
         doc->save( stream, 0 );
         file.close();
     }
+    delete doc;
 }
 
 XmlStore::DeleteThread::DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item) : QThread(parent),
