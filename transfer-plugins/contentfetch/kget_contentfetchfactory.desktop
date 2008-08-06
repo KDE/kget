@@ -7,11 +7,17 @@ Icon=kget
 # standard fields
 Name=Content Fetch
 Name[et]=Sisutõmbaja
+Name[gl]=Obter contidos
+Name[pt]=Obtenção de Conteúdo
+Name[pt_BR]=Obtenção de Conteúdo
 Name[uk]=Отримання вмісту
 Name[zh_TW]=內容擷取
 Comment=Content-Fetch-Transfer plugin for KGet
 Comment[et]=KGeti sisutõmbaja ülekandeplugin
 Comment[ga]=Breiseán aistrithe Content Fetch le haghaidh KGet
+Comment[gl]=Extensión de obtención de contidos para KGet
+Comment[pt]='Plugin' de transferências para obtenção de conteúdo para o KGet
+Comment[pt_BR]='Plugin' de transferências para obtenção de conteúdo para o KGet
 Comment[tr]=İçerik-Getir- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення з обробкою вмісту для KGet
 Comment[zh_TW]=KGet 的內容擷取傳輸外掛程式
