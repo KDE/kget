@@ -7,12 +7,14 @@ Icon=application-x-bittorrent
 
 # standard fields
 Name=Bittorrent
+Name[nds]=BitTorrent
 Name[pt]=BitTorrent
 Name[pt_BR]=BitTorrent
 Comment=Bittorrent-Transfer plugin for KGet
 Comment[et]=KGeti Bittorrenti ülekandeplugin
 Comment[ga]=Breiseán aistrithe Bittorrent le haghaidh KGet
 Comment[gl]=Extensión de transferencias Bittorrent para KGet
+Comment[nds]=Bittorent-Överdreegmoduul för KGet
 Comment[pt]='Plugin' de transferências de BitTorrent para o KGet
 Comment[pt_BR]='Plugin' de transferências de BitTorrent para o KGet
 Comment[tr]=Bittorent- KGet için aktarım eklentisi

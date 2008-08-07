@@ -8,6 +8,7 @@ X-KDE-ParentComponents=kget_contentfetch_plugin
 Name=Content Fetcher
 Name[et]=Sisutõmbaja
 Name[gl]=Obtentor de contidos
+Name[nds]=Content-Fetch-Moduul
 Name[pt]=Módulo de Obtenção de Conteúdos
 Name[pt_BR]=Módulo de Obtenção de Conteúdos
 Name[tr]=İçerik Getirici
