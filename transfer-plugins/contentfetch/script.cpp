@@ -51,7 +51,7 @@ void Script::run()
     m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
     // quit the exec() loop after get finish/abort signal from script
     connect(m_p_kgetcore, SIGNAL(finished()), this, SLOT(quit()));
-    connect(m_p_kgetcore, SIGNAL(aborted()), this, SLOT(quit()));
+    connect(m_p_kgetcore, SIGNAL(aborted(const QString&)), this, SLOT(quit()));
     // add transfer
     connect(m_p_kgetcore, SIGNAL(newTransfer(const QString&, const QString&)),
             this, SIGNAL(newTransfer(const QString&, const QString&)));
@@ -61,7 +61,7 @@ void Script::run()
     connect(m_p_kgetcore, SIGNAL(textStatusUpdated(const QString&)),
             this, SIGNAL(textStatusUpdated(const QString&)));
     connect(m_p_kgetcore, SIGNAL(finished()), this, SIGNAL(finished()));
-    connect(m_p_kgetcore, SIGNAL(aborted()), this, SIGNAL(aborted()));
+    connect(m_p_kgetcore, SIGNAL(aborted(const QString&)), this, SIGNAL(aborted(const QString&)));
     // main entry point
     connect(this, SIGNAL(startDownload(QObject*)),
             m_p_kgetcore, SIGNAL(startDownload(QObject*)));

@@ -54,8 +54,8 @@ void ScriptDownloadEngine::finish()
     emit finished();
 }
 
-void ScriptDownloadEngine::abort()
+void ScriptDownloadEngine::abort(const QString &error)
 {
-    emit aborted();
+    emit aborted(error);
 }
 

@@ -34,7 +34,7 @@ class Script: public QThread
         void percentUpdated(int percent);
         void textStatusUpdated(const QString &text);
         void finished();
-        void aborted();
+        void aborted(const QString &error);
     protected:
         void run();
     private:
