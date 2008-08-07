@@ -75,8 +75,6 @@ QVariant ScriptConfigAdaptor::read(const QString& group,
         case QVariant::Double:
             value = m_group.readEntry(key, defaultvalue.toDouble());
             break;
-        case QVariant::Bool:
-            value = m_group.readEntry(key, defaultvalue.toBool());
         case QVariant::StringList:
             value = m_group.readEntry(key, defaultvalue.toStringList());
             break;
@@ -103,8 +101,6 @@ void ScriptConfigAdaptor::write(const QString& group,
         case QVariant::Double:
             m_group.writeEntry(key, value.toDouble());
             break;
-        case QVariant::Bool:
-            m_group.writeEntry(key, value.toBool());
         case QVariant::StringList:
             m_group.writeEntry(key, value.toStringList());
             break;
