@@ -82,7 +82,7 @@ void ContentFetch::slotFinish()
 
 void ContentFetch::slotAbort()
 {
-    setStatus(Job::Aborted, i18nc("Transfer State: Aborted", "Aborted"), SmallIcon("cancel"));
+    setStatus(Job::Aborted, i18nc("Transfer State: Aborted", "Aborted"), SmallIcon("process-stop"));
     setTransferChange(Tc_Status, true);
 }
 
