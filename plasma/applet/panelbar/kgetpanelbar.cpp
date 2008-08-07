@@ -96,7 +96,7 @@ void KGetPanelBar::Private::setTransfers(const QVariantMap &transfers)
         QVariantList attributes = transfers [key].toList();
 
         // only show the percent of the active transfers
-        if(attributes.at(3).toUInt() == 1) {
+        if(attributes.at(3).toUInt() == 1 || (attributes.at(1).toDouble() == 100 && m_activeTransfers.contains(key))) {
             totalSize += attributes.at(2).toDouble();
             completedSize += ((attributes.at(1).toDouble() * attributes.at(2).toDouble()) / 100);
 
