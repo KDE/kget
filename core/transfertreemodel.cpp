@@ -70,7 +70,9 @@ void TransferTreeModel::delTransfer(Transfer * transfer)
 {
     TransferGroup * group = transfer->group();
 
-    beginRemoveRows(createIndex(m_transferGroups.indexOf(group), 0, group->handler()), group->size()-1, group->size()-1);
+    // Remove index corresponding to when it's created.
+    int remove_index = group->indexOf(transfer);
+    beginRemoveRows(createIndex(m_transferGroups.indexOf(group), 0, group->handler()), remove_index, remove_index);
 
     group->remove(transfer);
     m_changedTransfers.removeAll(transfer->handler());
@@ -431,7 +433,7 @@ QModelIndex TransferTreeModel::index(int row, int column, const QModelIndex & pa
 
     if(isTransferGroup(parent))
     {
-        //The given parent refers to a TransferGroup object
+        //The given parent refers to a TransferGroupHandler object
         void * pointer = parent.internalPointer();
         TransferGroupHandler * group = static_cast<TransferGroupHandler *>(pointer);
 
