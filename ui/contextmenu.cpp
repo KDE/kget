@@ -104,6 +104,9 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
 
         // TODO : seems like the popup menu has to be showed while the KonqMenuActions instance exists ?
         popup->exec(QCursor::pos());
+        popup->deleteLater();
+
+        return 0;
     }
 #endif
 

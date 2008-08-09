@@ -438,9 +438,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
             }
 
             if(popup) {
-                if(!popup->isVisible()) {
-                    popup->exec(QCursor::pos());
-                }
+                popup->exec(QCursor::pos());
                 popup->deleteLater();
             }
         }
