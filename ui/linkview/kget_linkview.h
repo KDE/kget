@@ -19,11 +19,12 @@ class QModelIndex;
 class QAbstractButton;
 class QButtonGroup;
 class QBoxLayout;
+class QComboBox;
 class QProgressBar;
 class QSortFilterProxyModel;
 class LinkImporter;
+class KLineEdit;
 class KUrlRequester;
-
 
 
 struct filterDefinition {
@@ -45,6 +46,11 @@ public:
         CompressedFiles = 3
     };
 
+    enum FilterMode {
+        Contain = 0,
+        DoesNotContain = 1
+    };
+
     KGetLinkView(QWidget *parent = 0);
     ~KGetLinkView();
 
@@ -59,13 +65,14 @@ signals:
 private slots:
     void slotStartLeech();
     void selectionChanged();
-    void updateSelectAllText(const QString &text);
+    void updateSelectAllText(const QString &text = QString());
     void doFilter(int id, const QString &textFilter = QString());
     void checkAll();
     void uncheckAll();
     void slotShowWebContent(int mode);
     void uncheckItem(const QModelIndex &index);
     void slotCheckSelected();
+    void slotInvertSelection();
 
     // import links slots
     void slotStartImport();
@@ -85,11 +92,14 @@ private:
     bool m_showWebContent;
 
     QButtonGroup *filterButtonsGroup;
+    KLineEdit *m_searchLine;
+    QComboBox *m_filterModeBox;
     QPushButton *downloadCheckedButton;
     QPushButton *checkAllButton;
     QPushButton *uncheckAllButton;
     QPushButton *m_importButton;
     QPushButton *m_checkSelectedButton;
+    QPushButton *m_invertSelectionButton;
 
     // import links widgets
     LinkImporter *m_linkImporter;

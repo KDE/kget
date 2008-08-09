@@ -14,33 +14,34 @@
 #include "core/linkimporter.h"
 #include "ui/newtransferdialog.h"
 
+#include <QApplication>
+#include <QButtonGroup>
+#include <QCheckBox>
+#include <QClipboard>
+#include <QComboBox>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QLabel>
+#include <QProcess>
+#include <QProgressBar>
+#include <QPushButton>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
+#include <QTreeView>
+#include <QVBoxLayout>
+
 #include <KActionCollection>
 #include <KDebug>
-#include <KShortcut>
-#include <kstandardaction.h>
-#include <KUrlRequester>
-#include <kiconloader.h>
-#include <kicon.h>
-#include <klocale.h>
-#include <kmessagebox.h>
+#include <KIcon>
+#include <KIconLoader>
 #include <KLineEdit>
+#include <KLocale>
+#include <KMessageBox>
 #include <KMimeType>
 #include <KSeparator>
-
-#include <QApplication>
-#include <QClipboard>
-#include <QProcess>
-#include <QTreeView>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QButtonGroup>
-#include <QPushButton>
-#include <QProgressBar>
-#include <QCheckBox>
-#include <QStandardItemModel>
-#include <QSortFilterProxyModel>
-#include <QHeaderView>
+#include <KShortcut>
+#include <KStandardAction>
+#include <KUrlRequester>
 
 static const char* WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.xhtml|\\.htm|\\.asp|\\.aspx|\\.jsp)).)*$)";
 static const char* VIDEO_FILES_REGEXP = "(.(?=(\\.avi|\\.mpeg|\\.mpg|\\.mov|\\.mp4|\\.wmv)))";
@@ -71,10 +72,16 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(m_treeWidget, SIGNAL(doubleClicked(const QModelIndex &)),
                         this, SLOT(uncheckItem(const QModelIndex &)));
 
-    KLineEdit *searchLine = new KLineEdit(this);
-    searchLine->setClearButtonShown(true);
-    searchLine->setClickMessage(i18n("Filter files here..."));
-    connect(searchLine, SIGNAL(textChanged(QString)), SLOT(updateSelectAllText(QString)));
+    m_searchLine = new KLineEdit(this);
+    m_searchLine->setClearButtonShown(true);
+    m_searchLine->setClickMessage(i18n("Filter files here..."));
+    connect(m_searchLine, SIGNAL(textChanged(QString)), SLOT(updateSelectAllText(QString)));
+
+    // filter mode combobox [contains, does not contain]
+    m_filterModeBox = new QComboBox(this);
+    m_filterModeBox->addItem(i18n("Contains"), QVariant(KGetLinkView::Contain));
+    m_filterModeBox->addItem(i18n("Does not Contain"), QVariant(KGetLinkView::DoesNotContain));
+    connect(m_filterModeBox, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectAllText()));
 
     setButtons(KDialog::None);
 
@@ -91,7 +98,8 @@ KGetLinkView::KGetLinkView(QWidget *parent)
                                 filterButtonsGroup, filters[i].type, filters[i].defaultFilter));
     }
 
-    filterLayout->addWidget(searchLine);
+    filterLayout->addWidget(m_searchLine);
+    filterLayout->addWidget(m_filterModeBox);
 
     // import url layout
     QLabel *importLabel = new QLabel(this);
@@ -129,6 +137,8 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     uncheckAllButton->setEnabled(false);
     m_checkSelectedButton = new QPushButton(i18n("Check selected"));
     m_checkSelectedButton->setEnabled(false);
+    m_invertSelectionButton = new QPushButton(i18n("Invert selection"));
+    m_invertSelectionButton->setEnabled(false);
     QCheckBox *showWebContentButton = new QCheckBox(i18n("Show web content"));
     downloadCheckedButton = new QPushButton( KIcon("kget"), i18n("Download checked"));
     downloadCheckedButton->setEnabled(false);
@@ -138,6 +148,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(checkAllButton, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(uncheckAllButton, SIGNAL(clicked()), this, SLOT(uncheckAll()));
     connect(m_checkSelectedButton, SIGNAL(clicked()), this, SLOT(slotCheckSelected()));
+    connect(m_invertSelectionButton, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
     connect(showWebContentButton, SIGNAL(stateChanged(int)), this, SLOT(slotShowWebContent(int)));
     connect(m_importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
@@ -147,11 +158,20 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     bottomButtonsLayout->addWidget(m_checkSelectedButton);
     bottomButtonsLayout->addWidget(checkAllButton);
     bottomButtonsLayout->addWidget(uncheckAllButton);
+    bottomButtonsLayout->addWidget(m_invertSelectionButton);
     bottomButtonsLayout->addWidget(showWebContentButton);
-    bottomButtonsLayout->addWidget(downloadCheckedButton);
-    bottomButtonsLayout->addWidget(cancelButton);
 
     mainLayout->addLayout(bottomButtonsLayout);
+
+    mainLayout->addWidget(new KSeparator(this));
+
+    QHBoxLayout *actionsLayout = new QHBoxLayout();
+
+    actionsLayout->addStretch(10);
+    actionsLayout->addWidget(downloadCheckedButton);
+    actionsLayout->addWidget(cancelButton);
+
+    mainLayout->addLayout(actionsLayout);
 
     QWidget *mainWidget = new QWidget(this);
     mainWidget->setLayout(mainLayout);
@@ -277,13 +297,19 @@ void KGetLinkView::selectionChanged()
     checkAllButton->setEnabled( !(!modelRowCount || count == modelRowCount ) );
 
     uncheckAllButton->setEnabled( count > 0 );
+    m_invertSelectionButton->setEnabled( count > 0 );
     m_checkSelectedButton->setEnabled(m_treeWidget->selectionModel()->selectedIndexes().size() > 0);
     downloadCheckedButton->setEnabled(buttonEnabled);
 }
 
 void KGetLinkView::updateSelectAllText(const QString &text)
 {
-    doFilter(filterButtonsGroup->checkedId(), text);
+    if(text.isEmpty()) {
+        doFilter(filterButtonsGroup->checkedId(), m_searchLine->text());
+    }
+    else {
+        doFilter(filterButtonsGroup->checkedId(), text);
+    }
 }
 
 void KGetLinkView::doFilter(int id, const QString &textFilter)
@@ -316,6 +342,10 @@ void KGetLinkView::doFilter(int id, const QString &textFilter)
                 filter.replace("(.", "(.*" + textFilter + '*');
             }
         }
+    }
+
+    if(m_filterModeBox->itemData(m_filterModeBox->currentIndex()).toInt() == KGetLinkView::DoesNotContain) {
+        filter = "(?!" + filter + ")";
     }
 
     kDebug() << "Applying filter " << filter;
@@ -364,6 +394,17 @@ void KGetLinkView::slotCheckSelected()
         QStandardItem *item = model->item(sourceIndex.row(), 1);
 
         item->setCheckState(Qt::Checked);
+    }
+}
+
+void KGetLinkView::slotInvertSelection()
+{
+    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *> (m_proxyModel->sourceModel());
+
+    for(int row=0;row<m_proxyModel->rowCount();row++) {
+        const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
+        QStandardItem *item = itemsModel->item(index.row(), 1);
+        item->setCheckState((item->checkState() == Qt::Checked) ? Qt::Unchecked : Qt::Checked);
     }
 }
 
