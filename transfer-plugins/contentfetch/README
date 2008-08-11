@@ -57,7 +57,40 @@ in through the function arguments. Here describe their types.
   you are ready with your widget, call this function to show it.
 
 * SettingWidgetAdaptor
-
+  Description:
+    This class is a helper class to provide a parser for the convenience
+    to load/save the configuration file.
+  Functions:
+  ** void setFile(config_file, path = "")
+  Parameter:
+    config_file: QString/string, config file name
+    path: QString/string, optional. The path of the config file, if
+  omitted, default value is the $KDEUSERDIR/share/app/kget/contentfetch_scripts_setting/
+  Description:
+    Initial the file, must be called before any read/write.
+  ** void unsetFile()
+  Description:
+    Free the file resource, ready to call setFile() again.
+  ** QVariant read(group, key, default_value)
+  Parameters:
+    group: string, section name
+    key: string, key name
+    default_value: int/double/string/list/stringlist
+  Description:
+    Read specific value from config, if not found, return default_value.
+  ** void write()
+  Parameters:
+    group: string, section name
+    key: string, key name
+    value: int/double/string/list/stringlist
+  Description:
+    Change specific value in the config.
+  ** void save()
+  Description:
+    Save the config data into file.
+  ** void reset()
+    Abandon changes in the config data, reread from file.
+  
 
 === Object ===
 Objects are pointers exported to script using the kross lib,to use these
@@ -76,6 +109,15 @@ E.g. In python, you do 'import kgetcore'
   ** string getSourceUrl()
   Description:
     Return the sourceurl from user input.
+  ** void finish()
+  Description:
+    Notify kget the processing of the script finishes, should be called
+    at the end of the script.
+  ** void abort(error_message = "")
+  Parameter:
+    error_message: QString/string, optional
+  Description:
+    Notify kget the script has failed with the error message.
 
 == NOTICE ==
 * Don't use threading/thread function within python, it will freeze kget
