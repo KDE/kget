@@ -26,9 +26,9 @@
 #include <kicon.h>
 
 TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
-    : m_group(group),
-      m_scheduler(scheduler),
-      m_qobject(0)
+  : Handler(scheduler),
+    m_group(group),
+    m_qobject(0)
 {
     addObserver(0);
 }

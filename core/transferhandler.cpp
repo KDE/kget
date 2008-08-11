@@ -31,7 +31,8 @@
 #endif
 
 TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
-    : m_transfer(transfer), m_scheduler(scheduler)
+  : Handler(scheduler),
+    m_transfer(transfer)
 {
     addObserver(0);
 }

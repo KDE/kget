@@ -64,6 +64,7 @@ set(kgetcore_SRCS
    core/transfergroup.cpp
    core/transfergrouphandler.cpp
    core/transferhandler.cpp
+   core/handler.cpp
    core/transfergroupscheduler.cpp
    core/plugin/plugin.cpp
    core/plugin/transferfactory.cpp

@@ -13,6 +13,7 @@
 
 #include <QVariant>
 
+#include "handler.h"
 #include "transfergroup.h"
 #include "kget_export.h"
 #include "observer.h"
@@ -27,7 +28,7 @@ class TransferHandler;
 class KGetKJobAdapter;
 class Scheduler;
 
-class KGET_EXPORT TransferGroupHandler
+class KGET_EXPORT TransferGroupHandler : public Handler
 {
     friend class GenericTransferObserver;
     friend class TransferGroup;
@@ -297,7 +298,6 @@ class KGET_EXPORT TransferGroupHandler
         void createActions();
 
         TransferGroup * m_group;
-        Scheduler * m_scheduler;
 
         QObjectInterface * m_qobject;
         QList<QAction *> m_actions;

@@ -14,6 +14,7 @@
 
 #include <QVariant>
 
+#include "handler.h"
 #include "transfer.h"
 #include "transfergroup.h"
 #include "kget_export.h"
@@ -56,7 +57,7 @@ class GenericTransferGroupObserver;
  * can ask to the TransferHandler for the ChangesFlags.
  */
 
-class KGET_EXPORT TransferHandler
+class KGET_EXPORT TransferHandler : public Handler
 {
     friend class KGet;
     friend class TransferTreeModel;
@@ -281,7 +282,6 @@ class KGET_EXPORT TransferHandler
         void postDeleteEvent();
 
         Transfer * m_transfer;
-        Scheduler * m_scheduler;
 
         QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;
