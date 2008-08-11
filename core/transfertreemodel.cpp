@@ -18,6 +18,7 @@
 #include "core/transfer.h"
 #include "settings.h"
 
+#include <typeinfo>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kio/netaccess.h>
@@ -174,14 +175,13 @@ bool TransferTreeModel::isTransferGroup(const QModelIndex & index) const
 
     void * pointer = index.internalPointer();
 
-    foreach(TransferGroup * group, m_transferGroups)
+    Handler *ph = static_cast<Handler*>(pointer);
+    //kDebug() << "ph's typeid is" << typeid(*ph).name();
+    //kDebug() << "TransferGroupHandler's typeid is" << typeid(*(m_transferGroups[0]->handler())).name();
+    if (typeid(*ph) == typeid(*(m_transferGroups[0]->handler())))
     {
-        if(group->handler() == pointer)
-        {
-            return true;
-        }
+        return true;
     }
-
     return false;
 }
 
