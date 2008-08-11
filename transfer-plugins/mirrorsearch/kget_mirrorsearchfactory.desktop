@@ -11,6 +11,7 @@ Name[gl]=Procura de Réplicas
 Name[km]=ការ​ស្វែងរក​កញ្ចក់
 Name[pt]=Pesquisa de Réplicas
 Name[pt_BR]=Pesquisa de Réplicas
+Name[sv]=Mirrorsearch
 Name[uk]=Пошук дзеркал
 Name[zh_TW]=映射搜尋
 
@@ -22,6 +23,7 @@ Comment[km]=Mirrorsearch-កម្មវិធី​ជំនួយ​ការ�
 Comment[nds]=MirrorSearch-Överdreegmoduul för KGet
 Comment[pt]='Plugin' de transferências com pesquisa de réplicas para o KGet
 Comment[pt_BR]='Plugin' de transferências com pesquisa de réplicas para o KGet
+Comment[sv]=Mirrorsearch-överföringsinsticksprogram för Kget
 Comment[tr]=Yansı arama- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Mirrorsearch для KGet
 Comment[zh_TW]=KGet 的映設搜尋傳輸外掛程式
