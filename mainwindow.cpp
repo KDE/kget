@@ -63,6 +63,7 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
     // do not quit the app when it has been minimized to system tray and a new transfer dialog
     // gets opened and closed again.
     qApp->setQuitOnLastWindowClosed(false);
+    setAttribute(Qt::WA_DeleteOnClose, false);
 
     // create the model
     KGet::self( this );
@@ -336,6 +337,7 @@ void MainWindow::slotDelayedInit()
     KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
     m_dock = new Tray(this);
+
     if(Settings::enableSystemTray()) {
         // DockWidget
         m_dock->show();
@@ -673,7 +675,9 @@ void MainWindow::slotNewConfig()
     m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
     m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
     m_dock->setVisible(Settings::enableSystemTray());
-    if(!Settings::enableSystemTray()) setVisible(true);
+
+    if(!Settings::enableSystemTray())
+        setVisible(true);
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
@@ -829,15 +833,18 @@ void MainWindow::slotImportUrl(const QString &url)
 }
 
 /** widget events */
-
 void MainWindow::closeEvent( QCloseEvent * e )
 {
-    e->ignore();
-    if(!Settings::enableSystemTray()) {
-        slotQuit();
-    }
-    else {
-        hide();
+    // if the event comes from out the application (close event) we decide between close or hide
+    // if the event comes from the application (system shutdown) we say goodbye
+    if(e->spontaneous()) {
+        e->ignore();
+        if(!Settings::enableSystemTray()) {
+            slotQuit();
+        }
+        else {
+            hide();
+        }
     }
 }
 
