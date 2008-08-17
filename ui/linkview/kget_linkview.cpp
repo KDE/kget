@@ -78,7 +78,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(m_searchLine, SIGNAL(textChanged(QString)), SLOT(updateSelectAllText(QString)));
 
     // filter mode combobox [contains, does not contain]
-    m_filterModeBox = new QComboBox(this);
+    m_filterModeBox = new KComboBox(this);
     m_filterModeBox->addItem(i18n("Contains"), QVariant(KGetLinkView::Contain));
     m_filterModeBox->addItem(i18n("Does not Contain"), QVariant(KGetLinkView::DoesNotContain));
     connect(m_filterModeBox, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectAllText()));
@@ -345,7 +345,7 @@ void KGetLinkView::doFilter(int id, const QString &textFilter)
     }
 
     if(m_filterModeBox->itemData(m_filterModeBox->currentIndex()).toInt() == KGetLinkView::DoesNotContain) {
-        filter = "(?!" + filter + ")";
+        filter = "(?!" + filter + ')';
     }
 
     kDebug() << "Applying filter " << filter;
