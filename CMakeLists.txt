@@ -2,7 +2,7 @@ project(kget)
 
 set(kget_adaptor_SRCS)
 
-macro_bool_to_01(Nepomuk_FOUND HAVE_NEPOMUK)
+macro_bool_to_01(0 HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
