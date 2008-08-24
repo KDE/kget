@@ -312,7 +312,7 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
     }
 
     if (transferFlags & Transfer::Tc_Percent) {
-        transfer->group()->setGroupChange(TransferGroup::Gc_Percent);
+        transfer->group()->setGroupChange(TransferGroup::Gc_Percent, true);
     }
 
     transfer->resetChangesFlags(this);
