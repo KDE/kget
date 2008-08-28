@@ -7,6 +7,7 @@ Icon=kget
 # standard fields
 Name=Metalink
 Name[km]=តំណ​មេតា
+Name[pt_BR]=Metacontato
 Comment=Metalink-Transfer plugin for KGet
 Comment[et]=KGeti Metalinki ülekandeplugin
 Comment[ga]=Breiseán aistrithe Metalink le haghaidh KGet
@@ -14,7 +15,7 @@ Comment[gl]=Extensión de transferencias Metalink para KGet
 Comment[km]=Metalink-កម្មវិធី​ជំនួយ​កា​រផ្ទេរ​សម្រាប់ KGet
 Comment[nds]=Metalink-Överdreegmoduul för KGet
 Comment[pt]='Plugin' de transferências do Metalink para o KGet
-Comment[pt_BR]='Plugin' de transferências do Metalink para o KGet
+Comment[pt_BR]=Plugin de transferências de metacontatos para o KGet
 Comment[sv]=Metalink-överföringsinsticksprogram för Kget
 Comment[tr]=Metalink- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Metalink для KGet
