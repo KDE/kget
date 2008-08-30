@@ -3,7 +3,8 @@
    Copyright (C) 2008 Javier Goday <jgoday @ gmail.com>
    First Url regular expression taken from urlview tool by Michael Elkins <me@cs.hmc.edu>.
    Regular expression improved by FiNex.
-   
+   Improvements to regular expression and slotReadFile by Frantisek Ziacik
+
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
    License as published by the Free Software Foundation; either
@@ -26,7 +27,8 @@
 #include <kio/netaccess.h>
 
 //static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
-static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
+// static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
+static QString REGULAR_EXPRESSION = "(\\w+[:]//)?(((([\\w-]+[.]){1,}(ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|com|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gd|ge|gf|gg|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|int|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|sv|st|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw|aero|biz|coop|info|museum|name|pro|travel))|([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)))([:][0-9]*)?([?/][\\w~#\\-;%?@&=/.+]*)?(?!\\w)";
 
 LinkImporter::LinkImporter(const KUrl &url, QObject *parent) : QThread(parent),
     m_url(url),
@@ -68,30 +70,43 @@ void LinkImporter::copyRemoteFile()
 void LinkImporter::slotReadFile(const QUrl &url)
 {
     QRegExp rx(REGULAR_EXPRESSION);
-
     QFile file(url.path());
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
     QTextStream in(&file);
     quint64 size = file.size();
-    quint64 readed = 0;
+    quint64 position = 0;
+
     while (!in.atEnd()) {
-        QString line = in.readLine(200);
-        readed += 200;
+        QString line = in.readLine();
+        int regexPos = 0;
+        quint64 lastPosition = position;
 
-        rx.indexIn(line);
+        while ((regexPos = rx.indexIn(line, regexPos)) > -1) {
+            QString link = rx.capturedTexts()[0];
 
-        foreach(const QString &link, rx.capturedTexts()) {
+            if (!link.contains("://"))
+                link = QString("http://") + link;
+
             QUrl auxUrl(link);
-
-            if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 && 
-                !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
+            if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 &&
+                                  !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
                 m_transfers << link;
             }
+
+            regexPos += rx.matchedLength();
+            position = lastPosition + regexPos;
+
+            emit progress(position * 100 / size);
         }
-        emit progress(readed * 100 / size);
+
+        position += line.size();
+
+        emit progress(position * 100 / size);
     }
+
     if(!m_url.isLocalFile()) {
         file.remove();
     }
