@@ -213,17 +213,13 @@ void MainWindow::setupActions()
     QAction *quitAction = KStandardAction::quit(this, SLOT(slotQuit()), actionCollection());
     actionCollection()->addAction("quit", quitAction);
     // local - Standard configure actions
-    QAction *preferencesAction = KStandardAction::preferences(this, SLOT(slotPreferences()), actionCollection());
-    actionCollection()->addAction("preferences", preferencesAction);
-    QAction *configToolbarAction = KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());
-    actionCollection()->addAction("configure_toolbars", configToolbarAction);
-    QAction *keyBindingsAction = KStandardAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection());
-    actionCollection()->addAction("configure_keys", keyBindingsAction);
-    QAction *cinfigNotifyAction = KStandardAction::configureNotifications(this, SLOT(slotConfigureNotifications()), actionCollection());
-    actionCollection()->addAction("configure_notifications", cinfigNotifyAction);
+    KStandardAction::preferences(this, SLOT(preferences()), actionCollection());
+    KStandardAction::configureToolbars(this, SLOT(configureToolbars()), actionCollection());
+    KStandardAction::keyBindings(this, SLOT(configureKeys()), actionCollection());
+
+    KStandardAction::configureNotifications(this, SLOT(slotConfigureNotifications()), actionCollection());
     m_menubarAction = KStandardAction::showMenubar(this, SLOT(slotShowMenubar()), actionCollection());
     m_menubarAction->setChecked(!menuBar()->isHidden());
-    actionCollection()->addAction("settings_showmenubar", m_menubarAction);
 
     // Transfer related actions
     QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");

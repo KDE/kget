@@ -26,14 +26,6 @@
    <Menu name="settings"><text>&amp;Settings</text>
         <Action name="auto_paste"/>
         <Action name="show_drop_target"/>
-        <Separator/>
-        <Action name="settings_showmenubar" append="show_merge"/>
-        <Merge name="StandardToolBarMenuHandler" append="show_merge"/>
-        <Action name="settings_showmenubar" append="show_merge"/>
-        <Action name="configure_notifications" append="configure_merge"/>
-        <Action name="configure_keys" append="configure_merge"/>
-        <Action name="configure_toolbars" append="configure_merge"/>
-        <Action name="preferences" append="configure_merge"/>
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
     </Menu>
