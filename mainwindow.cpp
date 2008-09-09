@@ -213,9 +213,9 @@ void MainWindow::setupActions()
     QAction *quitAction = KStandardAction::quit(this, SLOT(slotQuit()), actionCollection());
     actionCollection()->addAction("quit", quitAction);
     // local - Standard configure actions
-    KStandardAction::preferences(this, SLOT(preferences()), actionCollection());
-    KStandardAction::configureToolbars(this, SLOT(configureToolbars()), actionCollection());
-    KStandardAction::keyBindings(this, SLOT(configureKeys()), actionCollection());
+    KStandardAction::preferences(this, SLOT(slotPreferences()), actionCollection());
+    KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());
+    KStandardAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection());
 
     KStandardAction::configureNotifications(this, SLOT(slotConfigureNotifications()), actionCollection());
     m_menubarAction = KStandardAction::showMenubar(this, SLOT(slotShowMenubar()), actionCollection());
