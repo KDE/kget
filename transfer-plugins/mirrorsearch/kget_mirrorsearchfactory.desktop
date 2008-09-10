@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Mirror Search
+Name[el]=Αναζήτηση Mirror
 Name[et]=Peegliotsing
 Name[gl]=Procura de Réplicas
 Name[km]=ការ​ស្វែងរក​កញ្ចក់
@@ -16,6 +17,7 @@ Name[uk]=Пошук дзеркал
 Name[zh_TW]=映射搜尋
 
 Comment=Mirrorsearch-Transfer plugin for KGet
+Comment[el]=Πρόσθετο μεταφοράς Mirrorsearch για το KGet
 Comment[et]=KGeti peegliotsingu ülekandeplugin
 Comment[ga]=Breiseán aistrithe Mirrorsearch le haghaidh KGet
 Comment[gl]=Extensión de procura de réplicas para KGet

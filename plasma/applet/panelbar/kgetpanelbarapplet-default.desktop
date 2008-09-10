@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet panelbar applet
+Name[el]=Μικροεφαρμογή γραμμής πίνακα KGet
 Name[et]=KGeti paneeliriba aplett
 Name[gl]=Applet de painel de KGet
 Name[km]=អាប់ភ្លេត​របារ​បន្ទះ​របស់ KGet
@@ -12,6 +13,7 @@ Name[tr]=KGet panel programcığı
 Name[uk]=Аплет стовпчикової діаграми KGet
 Name[zh_TW]=KGet 面板列小程式
 Comment=KGet panelbar applet
+Comment[el]=Μικροεφαρμογή γραμμής πίνακα KGet
 Comment[et]=KGeti paneeliriba aplett
 Comment[gl]=Applet de painel de KGet
 Comment[km]=អាប់ភ្លេត​របារ​បន្ទះ​របស់ KGet

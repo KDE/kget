@@ -11,6 +11,7 @@ Name[nds]=BitTorrent
 Name[pt]=BitTorrent
 Name[pt_BR]=Bit Torrent
 Comment=Bittorrent-Transfer plugin for KGet
+Comment[el]=Πρόσθετο μεταφοράς Bittorrent για το KGet
 Comment[et]=KGeti Bittorrenti ülekandeplugin
 Comment[ga]=Breiseán aistrithe Bittorrent le haghaidh KGet
 Comment[gl]=Extensión de transferencias Bittorrent para KGet

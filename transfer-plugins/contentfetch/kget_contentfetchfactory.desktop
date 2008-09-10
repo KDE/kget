@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Content Fetch
+Name[el]=Ανάκτηση περιεχομένου
 Name[et]=Sisutõmbaja
 Name[gl]=Obter contidos
 Name[km]=កា​រទៅ​យក​មាតិកា
@@ -16,6 +17,7 @@ Name[sv]=Hämta innehåll
 Name[uk]=Отримання вмісту
 Name[zh_TW]=內容擷取
 Comment=Content-Fetch-Transfer plugin for KGet
+Comment[el]=Πρόσθετο μεταφοράς-ανάκτησης περιεχομένου για το KGet
 Comment[et]=KGeti sisutõmbaja ülekandeplugin
 Comment[ga]=Breiseán aistrithe Content Fetch le haghaidh KGet
 Comment[gl]=Extensión de obtención de contidos para KGet

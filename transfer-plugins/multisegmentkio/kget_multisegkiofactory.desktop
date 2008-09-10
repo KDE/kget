@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Multi Segment KIO
+Name[el]=ΚΙΟ πολλαπλών τμημάτων
 Name[et]=Mitmesegmendiline KIO
 Name[gl]=KIO multisegmento
 Name[km]=ផ្នែក​ច្រើន​របស់ KIO
@@ -17,6 +18,7 @@ Name[tr]=Çok Parçalı KIO
 Name[uk]=Багатосегментний KIO
 Name[zh_TW]=多段式 KIO
 Comment=Multithreaded KIO-Transfer plugin for KGet
+Comment[el]=Πρόσθετο μεταφοράς KIO πολλών νημάτων για το KGet
 Comment[et]=KGeti mitmelõimelise KIO ülekandeplugin
 Comment[gl]=Extensión de KIO de transferencias multifío para KGet
 Comment[km]=Multithreaded KIO-កម្មវិធី​ជំនួយ​កា​រ​ផ្ទេរ​សម្រាប់ KGet

@@ -357,6 +357,7 @@ Action=Sound
 
 [Event/error]
 Name=Error happens
+Name[el]=Συνέβει κάποιο σφάλμα
 Name[et]=Tekkis viga
 Name[gl]=Aconteceu un erro
 Name[km]=កំហុស​កើត​ឡើង
@@ -368,6 +369,7 @@ Name[tr]=Hatalar oluştu
 Name[uk]=Сталися помилки
 Name[zh_TW]=發生了錯誤
 Comment=Some error just happens
+Comment[el]=Συνέβει κάποιο σφάλμα
 Comment[et]=Tekkis mingi viga
 Comment[gl]=Acaba de acontecer un erro
 Comment[km]=កំហុស​មួយ​ចំនួន​ទើប​កើតឡើង
@@ -383,6 +385,7 @@ Action=PassivePopup|Sound
 
 [Event/notification]
 Name=Information
+Name[el]=Πληροφορίες
 Name[et]=Info
 Name[gl]=Información
 Name[km]=ព័ត៌មាន
@@ -394,6 +397,7 @@ Name[tr]=Bilgiler
 Name[uk]=Інформація
 Name[zh_TW]=資訊
 Comment=Some notice happens
+Comment[el]=Συμβαίνει κάποια ειδοποίηση
 Comment[et]=Tuli mingi teadaanne
 Comment[gl]=Notificouse algunha nova
 Comment[km]=ការ​កត់សម្គាល់​មួយ​ចំនួន​កើតឡើង
