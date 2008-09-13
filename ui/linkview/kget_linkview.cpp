@@ -44,7 +44,7 @@
 #include <KUrlRequester>
 
 static const char* WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.xhtml|\\.htm|\\.asp|\\.aspx|\\.jsp)).)*$)";
-static const char* VIDEO_FILES_REGEXP = "(.(?=(\\.avi|\\.mpeg|\\.mpg|\\.mov|\\.mp4|\\.wmv)))";
+static const char* VIDEO_FILES_REGEXP = "(.(?=(\\.avi|\\.mpeg|\\.mpg|\\.mov|\\.mp4|\\.wmv|\\.ogg)))";
 static const char* AUDIO_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg|\\.wma|\\.wav|\\.mpc|\\.flac))";
 static const char* COMPRESSED_FILES_REGEXP = "(.(?:\\.zip|\\.tar|\\.tar.bz|\\.bz|\\.bz2|\\.tar.gz|\\.rar|\\.arj|\\.7z))";
 
