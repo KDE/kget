@@ -8,6 +8,7 @@ Icon=kget
 Name=Metalink
 Name[km]=តំណ​មេតា
 Name[pt_BR]=Metacontato
+Name[zh_CN]=超级链接
 Comment=Metalink-Transfer plugin for KGet
 Comment[el]=Πρόσθετο μεταφοράς Metalink για το KGet
 Comment[et]=KGeti Metalinki ülekandeplugin
@@ -21,6 +22,7 @@ Comment[sl]=Vstavek za prenose Metalink za KGet
 Comment[sv]=Metalink-överföringsinsticksprogram för Kget
 Comment[tr]=Metalink- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Metalink для KGet
+Comment[zh_CN]=超级链接-KGet 传输插件
 Comment[zh_TW]=KGet 的 Metalink 傳輸外掛程式
 
 # options for library loader
