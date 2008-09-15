@@ -13,6 +13,8 @@ if( WEBKITKDE_FOUND)
     macro_bool_to_01(WEBVIEW_PATH HAVE_WEBVIEW )
 endif(WEBKITKDE_FOUND)
 
+macro_log_feature(WEBKITKDE_FOUND "WebKitKde" "Webkitkde libraries and header files" "" FALSE "" "Webkitkde is necessary to compile support for WebKitKde.")
+
 configure_file(config-kgetplugins.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kgetplugins.h )
 
 
