@@ -60,7 +60,7 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
         Transfer * findTransfer(const KUrl &src);
         Transfer *findTransferByDestination(const KUrl &dest);
 
-        bool KGET_EXPORT isTransferGroup(const QModelIndex & index) const;
+        bool isTransferGroup(const QModelIndex & index) const;
 
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);
