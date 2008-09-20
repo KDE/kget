@@ -180,6 +180,12 @@ public:
 
     void clear()
     {
+        if(urlRequester) {
+            urlRequester->clear();
+        }
+        if(listWidget) {
+            listWidget->clear();
+        }
         m_destRequester->comboBox()->clear();
         m_destRequester->clear();
         m_displayed = false;
