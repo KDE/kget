@@ -15,6 +15,7 @@ Name[pt]=Obtenção de Conteúdo
 Name[pt_BR]=Captura de conteúdo
 Name[sv]=Hämta innehåll
 Name[uk]=Отримання вмісту
+Name[x-test]=xxContent Fetchxx
 Name[zh_CN]=内容获取
 Name[zh_TW]=內容擷取
 Comment=Content-Fetch-Transfer plugin for KGet
@@ -29,6 +30,7 @@ Comment[pt_BR]=Plugin de transferência e captura de conteúdo para o KGet
 Comment[sv]=Hämta innehåll-överföringsinsticksprogram för Kget
 Comment[tr]=İçerik-Getir- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення з обробкою вмісту для KGet
+Comment[x-test]=xxContent-Fetch-Transfer plugin for KGetxx
 Comment[zh_CN]=内容获取-KGet 传输插件
 Comment[zh_TW]=KGet 的內容擷取傳輸外掛程式
 

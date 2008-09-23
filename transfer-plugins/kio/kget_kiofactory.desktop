@@ -7,6 +7,7 @@ Icon=kget
 # standard fields
 Name=KIO
 Name[nds]=KIO-Moduul
+Name[x-test]=xxKIOxx
 Comment=KIO-Transfer plugin for KGet
 Comment[el]=Πρόσθετο μεταφοράς KIO για το KGet
 Comment[et]=KGeti KIO ülekandeplugin
@@ -20,6 +21,7 @@ Comment[sl]=Vstavek za prenose KIO za KGet
 Comment[sv]=KIO-överföringsinsticksprogram för Kget
 Comment[tr]=KIO- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення KIO для KGet
+Comment[x-test]=xxKIO-Transfer plugin for KGetxx
 Comment[zh_CN]=KIO-KGet 传输插件
 Comment[zh_TW]=KGet 的 KIO 傳輸外掛程式
 

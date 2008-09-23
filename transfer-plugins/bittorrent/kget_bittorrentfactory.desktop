@@ -11,6 +11,7 @@ Name[nds]=BitTorrent
 Name[pt]=BitTorrent
 Name[pt_BR]=Bit Torrent
 Name[sl]=BitTorrent
+Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Comment=Bittorrent-Transfer plugin for KGet
 Comment[el]=Πρόσθετο μεταφοράς Bittorrent για το KGet
@@ -26,6 +27,7 @@ Comment[sl]=Vstavek za prenose BitTorrent za KGet
 Comment[sv]=Bittorrent-överföringsinsticksprogram för Kget
 Comment[tr]=Bittorent- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення Bittorrent для KGet
+Comment[x-test]=xxBittorrent-Transfer plugin for KGetxx
 Comment[zh_CN]=Bittorrent-KGet 传输插件
 Comment[zh_TW]=KGet 的 Bittorrent 傳輸外掛程式
 
