@@ -1,0 +1,760 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY kget "<application>KGet</application>">
+  <!ENTITY kappname "&kget;"><!-- replace kget here
+                                              do *not* replace kappname-->
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> 
+]>
+
+<book lang="&language;">
+
+<bookinfo>
+<title>The &kget; Handbook</title>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Jonathan</firstname>
+<othername>E.</othername>
+<surname>Drews</surname>
+</personname>
+&Jonathan.Drews.mail;
+</author>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<copyright>
+<year>2003</year>
+<holder>Jonathan E. Drews</holder>
+</copyright>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2005-08-31</date>
+<releaseinfo>0.8.4</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kget; is &kde;'s download manager, designed to be user friendly and versatile.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>kget</keyword>
+<keyword>kppp</keyword>
+<keyword>download</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="quickstart">
+<title>Quick-start Guide</title>
+<para>
+  <orderedlist>
+    <listitem><para>Start &kget;.</para></listitem>
+    <listitem><para>Drag and drop the required &URL; in the &kget; window.</para></listitem>
+  </orderedlist>
+</para>
+</chapter>
+
+
+<chapter id="using-kget">
+<title>Using &kget;</title>
+
+<sect1 id="kget-features">
+<title>&kget; Tutorial</title>
+
+<para>Here is a brief tutorial that demonstrates some of the features of
+  &kget;. The screenshot shows three software packages that are to be
+  downloaded. This tutorial lists the procedure to download the middle
+  one first, and then the other two.
+</para>
+
+
+<orderedlist>
+<listitem>
+<para>
+Place &kget; in offline mode, by choosing the menu item
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Offline
+Mode</guimenuitem></menuchoice>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Click on the first file with the &LMB;. Hold down the &Ctrl; key and click on
+the bottom most file. The &kget; window should look similar to this:
+
+<screenshot>
+<screeninfo>Screenshot of Kget</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Items to be downloaded from &konqueror;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+</listitem>
+
+<listitem><para>
+Click on the <guibutton>Delay</guibutton> button to prevent these items from being
+downloaded.
+</para></listitem>
+
+<listitem><para>
+Now click on the middle entry to highlight it. The top and bottom items will no
+longer be highlighted.
+<screenshot>
+<screeninfo>Screenshot of Kget</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Items to be downloaded from &konqueror;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para></listitem>
+
+<listitem><para>
+Put &kget; back into the online mode by unchecking
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Offline
+Mode</guimenuitem></menuchoice> and &kget; will download the middle file.
+</para></listitem>
+
+<listitem><para>
+Click on the top item, hold down the &Shift; key and click on the bottom item. The &kget; window
+should look like this:
+<screenshot>
+<screeninfo>Screenshot of Kget</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Items to be downloaded from &konqueror;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+
+<note><para>
+Holding down the &Ctrl; key allows you to select individual items;
+holding down the &Shift; key allows you to select consecutive items,
+while clicking with the &LMB;.
+</para></note></para>
+
+</listitem>
+
+<listitem><para>
+Now click on the <guiicon>Queue</guiicon> icon or choose <menuchoice>
+<guimenu>Transfer</guimenu><guimenuitem>Queue</guimenuitem></menuchoice> to
+download the two highlighted items.
+</para></listitem>
+
+</orderedlist>
+</sect1>
+</chapter>
+
+<chapter id="configuration">
+<title>Special Configurations</title>
+<sect1 id="configuration-auto-disconnect">
+<title>Configuration of Auto-Disconnect</title>
+
+<para>
+This feature is used for automatically disconnecting your modem once a
+download has been completed. To configure &kget; for auto-disconnect do:
+</para>
+
+<itemizedlist>
+<listitem><para>
+Go to <menuchoice><guimenu>Options</guimenu><guimenuitem>Auto-Disconnect Mode
+</guimenuitem></menuchoice>
+<action> to disconnect the modem.</action> Usually this
+would be &kppp;. Expert Mode must be on to use this feature.</para>
+</listitem>
+
+<listitem><para>
+For &SuSE; users the command <userinput><command>cinternet
+<option>-i</option>
+<parameter>ppp0</parameter> <option>-0</option></command></userinput> must be
+substituted for <userinput><command>kppp <option>-k</option></command></userinput>
+in the <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
+<guilabel> Automations</guilabel> menu.</para>
+</listitem>
+
+<listitem><para>
+ For Fedora Core users the command should be 
+<userinput><command>/usr/sbin/usernetctl 
+<parameter>ppp0</parameter> <option>down</option></command></userinput></para>
+</listitem>
+
+<listitem><para>
+Users of other distributions, please check the documentation included with your distribution for the appropriate command.
+</para></listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="configuration-downloading-in-folders">
+<title>Downloading Into Designated Folders</title>
+
+<para>
+To download <acronym>JPEG</acronym> files into a designated folder do:
+</para>
+<itemizedlist>
+<listitem><para>
+ Go to <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kget;...</guimenuitem></menuchoice>
+<guilabel>Folders</guilabel> menu.</para>
+</listitem>
+
+<listitem><para>
+Enter the files you wish to download using the extensions
+<literal role="extension">.jpg</literal> and <literal
+role="extension">.jpeg</literal> as shown below:
+</para>
+<screenshot>
+<screeninfo>Screenshot of Kget</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget5.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Downloading into designated files</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</listitem>
+
+<listitem>
+<para>Click on <interface>Apply</interface> and
+<interface>OK</interface>. When you download any
+<literal role="extension">.jpeg</literal> files they will be stored in
+<filename>/home/kdecvs/pics/JPEG</filename>.</para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="commands">
+<title>Command Reference</title>
+
+<sect1 id="kapp-mainwindow">
+<title>The main &kget; window</title>
+
+<sect2>
+<title>The <guimenu>File</guimenu> Menu</title>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the transfer window where you can paste &URL;'s.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Paste</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Pastes the contents of the clipboard into the
+transfer window.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export Transfer List...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a Save As window </action> that allows you to save
+highlighted &URL;'s to a <literal role="extension">.kget</literal> file. To use this feature:
+</para>
+<itemizedlist>
+<listitem><para>
+Place &kget; in offline mode by clicking on the offline mode button in
+the toolbar or choosing
+<menuchoice><guimenu>Options</guimenu><guimenuitem>Offline
+Mode</guimenuitem></menuchoice>.
+</para></listitem>
+<listitem><para>
+Drag the &URL;'s you wish to download on to &kget;.
+</para></listitem>
+
+<listitem><para>
+Next click on the top entry so that it is highlighted.
+</para></listitem>
+
+<listitem><para>
+Hold down the  <userinput><keycombo>
+&Shift;</keycombo></userinput>
+key and click on the bottom &URL; to highlight the entries like so:
+<screenshot>
+<screeninfo>Picture of kget saving to export file</screeninfo>
+	<mediaobject>
+               <imageobject>
+	    <imagedata fileref="kget4.png" format="PNG"/>
+	       </imageobject>
+        </mediaobject>
+</screenshot>
+</para></listitem>
+
+<listitem><para>
+Now click on <menuchoice><guimenu>File</guimenu>
+<guimenuitem>Export Transfer List...</guimenuitem></menuchoice> and enter the name of the
+<literal role="extension">.kget</literal> file for your downloads.
+</para></listitem>
+</itemizedlist>
+
+
+<para>This feature is used to save items that will be downloaded on a
+regular basis, such as the &kde; snapshots above.
+</para>
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import Transfer List...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Loads <literal role="extension">.kget</literal> files that were created with
+<menuchoice><guimenu>File</guimenu>
+<guimenuitem>Export Transfer List...</guimenuitem></menuchoice>
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import Text File...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Imports &URL;'s that are in text files.</action> This is a powerful feature that allows
+you to parse &URL;'s from text files and emails you may have received. It can 
+discriminate between ordinary text and &URL;'s, provided the &URL; begins at the 
+left margin of the document. &kget; will find these &URL;'s and load them into
+its main window for you. 
+<note><para>This feature only ignores regular text when you have clicked on
+the Expert Mode icon. If the Expert Mode is not used then the text file must
+contain only &URL;'s.
+</para></note> 
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Quit</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Quits &kget;</action></para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>The <guimenu>View</guimenu> Menu</title>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guimenuitem>Show Log Window</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+Opens a log window that shows the events that have occurred. This is useful
+for seeing what happened during a lengthy download. Here you can see if any
+packages were skipped or if a connection timed out. 
+</action></para></listitem>
+</varlistentry>
+<!-- 
+<varlistentry>
+<term><menuchoice>
+<guimenu>View</guimenu>
+
+</varlistentry> -->
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>The <guimenu>Transfer</guimenu> Menu</title>
+<note><para>
+In order for the entries in this menu to become active (not grayed out), you
+must highlight a download by clicking on the entry with the &LMB;.
+</para></note>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Copy &URL; to Clipboard</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>
+This pastes a highlighted line into the &kde; clipboard (&klipper;).
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Open Individual Window</guimenuitem>
+</menuchoice></term>
+<listitem><para><action> Displays the selected download in its own window.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Move To Beginning</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Moves a highlighted entry to the top of the download
+list.</action>
+<note><para>The topmost &URL; in &kget; is downloaded first.</para>
+</note>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Move To End</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Moves a highlighted entry to the bottom of the download
+list.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Resume</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Resumes a download that has been paused.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Pause</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Pauses a download that is running.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Delete</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Deletes a highlighted item from the &kget; main
+window.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Restart</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Combines the functions of Resume and Pause in one
+button.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Queue</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Causes the highlighted entries in &kget; to begin 
+downloading.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Timer</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Delays the download of the highlighted items by one
+minute. This is useful if you need to pause the download to check email or go
+to a website.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Transfer</guimenu>
+<guimenuitem>Delay</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Delays the download of the highlighted items
+indefinitely.</action>
+<note><para><guimenuitem>Queue</guimenuitem>,
+<guimenuitem>Timer</guimenuitem> and <guimenuitem>Delay</guimenuitem> are
+mutually exclusive; only one of them may be selected at a time.</para>
+</note>
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+  <title>The <guimenu>Options</guimenu> Menu</title>
+
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Use Animations</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para><action>Toggle use of animations</action> to display &kget;'s
+state.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Use Sound</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para><action>Toggle the use of sound</action> to indicate events, &eg; a
+file being added to the download list, or a download completing.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Expert Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Turns off prompting.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Use-Last-Folder Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>&kget; will ignore the current folder settings and
+place all new transfers in the folder where the last transfer was placed.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Offline Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles &kget; from being online (ready to download)
+to offline. The offline mode is used when you want to copy &URL;'s into &kget;
+without them being downloaded immediately.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Auto-Disconnect Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Causes &kget; to disconnect the modem.</action> Usually this
+would be &kppp;. Expert Mode must be on to use this feature.</para>
+<para>
+You can find more information about the Auto-Disconnect Mode in <xref linkend="configuration-auto-disconnect" />.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Options</guimenu>
+<guimenuitem>Auto Shutdown Mode</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Closes &kget; after all the downloads are
+completed. The Expert Mode must be turned on.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenu>Options</guimenu><guimenuitem>Auto-Paste
+Mode</guimenuitem></menuchoice></term>
+<listitem><para>Enable grabbing of files to download from the
+clipboard.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>The <guimenu>Settings</guimenu> Menu</title>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Hide Statusbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Hide the status bar</action>. The status bar normally
+displays statistics about the currently downloading files.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Drop Target</guimenuitem>
+</menuchoice></term>
+<listitem><para>The drop target is a desktop icon that allows for
+hiding and restoring of &kget;. Also, download links can be dragged-and-dropped
+onto this drop target, to add it to the download queue.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Shortcuts...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Display the &kde; Keyboard Shortcut Configuration
+Dialog.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Toolbars</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Display the &kde; Toolbar Configuration Dialog.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure &kget;</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launch the main &kget; configuration dialog.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>The <guimenu>Help</guimenu> Menu</title>
+
+&help.menu.documentation;
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="credits">
+
+<title>Credits and License</title>
+
+<para>
+&kget;
+</para>
+<para>
+Program copyright 1998 Matej Moss 
+</para>
+<para>
+Contributors:
+<itemizedlist>
+<listitem><para>Patrick Charbonnier <email>pch@freeshell.org</email></para>
+</listitem>
+<listitem><para>&Carsten.Pfeiffer; &Carsten.Pfeiffer.mail;</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>
+Documentation Copyright &copy; 2003 &Jonathan.Drews; &Jonathan.Drews.mail;
+</para>
+
+<para>Documentation Copyright &copy; 2007 Rohan B. Dhruva <email>rohandhruva@gmail.com</email></para>
+
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+
+&underGPL;        	 <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kapp">
+<title>How to obtain &kget;</title>
+
+&install.intro.documentation;
+
+</sect1>
+
+
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+&install.compile.documentation;
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab 
+-->
