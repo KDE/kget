@@ -21,6 +21,7 @@ class QHBoxLayout;
 class QButtonGroup;
 
 class TransferHandler;
+class TransferObserver;
 class TransfersViewDelegate;
 
 class GroupStatusButton : public QToolButton
@@ -100,9 +101,14 @@ class TransfersViewDelegate : public KExtendableItemDelegate
 
     private:
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
+        /**
+        * Remove the TransferDetailsWidget Observer (if it is an observer)
+        * when the expandable item is contracted or when the transfer is deleted
+        */
+        void removeTransferObserver(const QModelIndex &index);
 
         QList<QModelIndex> m_editingIndexes;
-        // QMap<TransferHandler *, QWidget *> m_transfersMap;
+        QMap<TransferHandler *, TransferObserver *> m_transfersMap;
 };
 
 #endif

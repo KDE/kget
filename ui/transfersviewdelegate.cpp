@@ -15,6 +15,7 @@
 #include "transferdetails.h"
 #include "ui/contextmenu.h"
 #include "core/kget.h"
+#include "core/observer.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
@@ -271,7 +272,8 @@ void GroupStatusEditor::slotStatusChanged(bool running)
 }
 
 TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
-    : KExtendableItemDelegate(parent)
+    : KExtendableItemDelegate(parent),
+    m_transfersMap()
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
     setExtendPixmap(SmallIcon("arrow-right"));
@@ -471,11 +473,13 @@ void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * 
 void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIndex)
 {
     if(transferIndex.isValid()) {
+        removeTransferObserver(transferIndex);
         contractItem(transferIndex);
         m_editingIndexes.removeAll(transferIndex);
     }
     else {
         foreach(const QModelIndex &index, m_editingIndexes) {
+            removeTransferObserver(index);
             contractItem(index);
         }
 
@@ -488,7 +492,16 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
     QGroupBox *groupBox = new QGroupBox(i18n("Transfer details"));
 
     QVBoxLayout *layout = new QVBoxLayout(groupBox);
-    layout->addWidget(TransferDetails::detailsWidget(handler));
+    QWidget *detailsWidget = TransferDetails::detailsWidget(handler);
+    layout->addWidget(detailsWidget);
+
+    // if the details widget is a transfer observer
+    // we add into the transfers_map to delete it when
+    // the extendableitem is closed before the widget or the transfer
+    TransferObserver *observer = dynamic_cast <TransferObserver *> (detailsWidget);
+    if (observer) {
+        m_transfersMap[handler] = observer;
+    }
 
     return groupBox;
 }
@@ -506,10 +519,25 @@ void TransfersViewDelegate::itemActivated(QModelIndex index)
             extendItem(widget, index);
         }
         else {
+            removeTransferObserver(index);
+
             m_editingIndexes.removeAll(index);
             contractItem(index);
         }
     }
 }
+
+void TransfersViewDelegate::removeTransferObserver(const QModelIndex &index)
+{
+    TransferHandler *handler = static_cast <TransferHandler *> (index.internalPointer());
+
+    // remove the observer from the handler
+    if (m_transfersMap.contains(handler)) {
+        TransferObserver *observer = m_transfersMap[handler];
+        m_transfersMap.remove(handler);
+        handler->delObserver(observer);
+    }
+}
+
 
 #include "transfersviewdelegate.moc"
