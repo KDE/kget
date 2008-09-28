@@ -272,8 +272,7 @@ void GroupStatusEditor::slotStatusChanged(bool running)
 }
 
 TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
-    : KExtendableItemDelegate(parent),
-    m_transfersMap()
+    : KExtendableItemDelegate(parent)
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
     setExtendPixmap(SmallIcon("arrow-right"));
@@ -500,7 +499,7 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
     // the extendableitem is closed before the widget or the transfer
     TransferObserver *observer = dynamic_cast <TransferObserver *> (detailsWidget);
     if (observer) {
-        m_transfersMap[handler] = observer;
+        m_transfersMap.insert(handler, observer);
     }
 
     return groupBox;
@@ -533,7 +532,7 @@ void TransfersViewDelegate::removeTransferObserver(const QModelIndex &index)
 
     // remove the observer from the handler
     if (m_transfersMap.contains(handler)) {
-        TransferObserver *observer = m_transfersMap[handler];
+        TransferObserver *observer = m_transfersMap.value(handler);
         m_transfersMap.remove(handler);
         handler->delObserver(observer);
     }

@@ -55,7 +55,6 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
 
 TransferDetails::~TransferDetails()
 {
-    // m_transfer->delObserver(this);
 }
 
 void TransferDetails::transferChangedEvent(TransferHandler * transfer)
