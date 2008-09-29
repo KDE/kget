@@ -600,8 +600,9 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
     kDebug(5001) << filename << groupname;
 
     QStringList list;
-    if (Settings::enableExceptions() && !KGet::getSaveDirectoryFromExceptions(filename).isEmpty())
-        list.append(KGet::getSaveDirectoryFromExceptions(filename));
+    const QString saveDirectoryFromExceptions = KGet::getSaveDirectoryFromExceptions(filename);
+    if (Settings::enableExceptions() && !saveDirectoryFromExceptions.isEmpty())
+        list.append(saveDirectoryFromExceptions);
 
     TransferGroup * group = KGet::m_transferTreeModel->findGroup(groupname);
 
@@ -820,9 +821,9 @@ QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
 {
     QString destDir;
 
-    QStringList list = Settings::extensionsFolderList();
-    QStringList::Iterator it = list.begin();
-    QStringList::Iterator end = list.end();
+    const QStringList list = Settings::extensionsFolderList();
+    QStringList::ConstIterator it = list.begin();
+    const QStringList::ConstIterator end = list.end();
     while (it != end) {
         // odd list items are regular expressions for extensions
         QString ext = *it;

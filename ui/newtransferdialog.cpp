@@ -170,7 +170,9 @@ void NewTransferDialog::setDestination(const QStringList &list)
 
     for (int i=0;i < list.count();i++)
     {
-        m_list[i].append('/' + filename);
+        if (!m_list.at(i).endsWith('/'))
+            m_list[i].append('/');
+        m_list[i].append(filename);
     }
     kDebug(5001) << m_list;
 
