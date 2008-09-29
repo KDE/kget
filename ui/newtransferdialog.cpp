@@ -77,7 +77,7 @@ public:
         {
             if (urlRequester) {
                 urlRequester->hide();
-                delete urlRequester;
+                urlRequester->deleteLater();
                 urlRequester = 0;
             }
             if (!listWidget) {
@@ -90,7 +90,7 @@ public:
         {
             if (listWidget) {
                 listWidget->hide();
-                delete listWidget;
+                listWidget->deleteLater();
                 listWidget = 0;
             }
             if (!urlRequester) {
@@ -156,7 +156,9 @@ public:
 
         for (int i=0;i < list.count();i++)
         {
-            m_list[i].append('/' + filename);
+            if (!m_list.at(i).endsWith('/'))
+                m_list[i].append('/');
+            m_list[i].append(filename);
         }
         kDebug(5001) << m_list;
 

@@ -55,9 +55,9 @@ DlgDirectories::~DlgDirectories()
 
 void DlgDirectories::readConfig()
 {
-    QStringList list = Settings::extensionsFolderList();
-    QStringList::Iterator it = list.begin();
-    const QStringList::Iterator end = list.end();
+    const QStringList list = Settings::extensionsFolderList();
+    QStringList::ConstIterator it = list.begin();
+    const QStringList::ConstIterator end = list.end();
     while (it != end) {
         // odd list items are regular expressions for extensions
         QString rexp = *it;
@@ -78,7 +78,7 @@ void DlgDirectories::readConfig()
 
 void DlgDirectories::saveSettings()
 {
-    Settings::setDefaultDirectory(defaultFolderRequester->url().url());
+    Settings::setDefaultDirectory(defaultFolderRequester->url().prettyUrl());
 
     QStringList list;
 
