@@ -821,9 +821,9 @@ QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
 {
     QString destDir;
 
-    const QStringList list = Settings::extensionsFolderList();
-    QStringList::ConstIterator it = list.begin();
-    const QStringList::ConstIterator end = list.end();
+    const QStringList list = Settings::extensionsFolderList();
+    QStringList::ConstIterator it = list.begin();
+    const QStringList::ConstIterator end = list.end();
     while (it != end) {
         // odd list items are regular expressions for extensions
         QString ext = *it;
