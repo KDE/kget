@@ -357,7 +357,7 @@ Action=Sound
 
 [Event/error]
 Name=Error happens
-Name[el]=Συνέβει κάποιο σφάλμα
+Name[el]=Συνέβη κάποιο σφάλμα
 Name[et]=Tekkis viga
 Name[gl]=Aconteceu un erro
 Name[km]=កំហុស​កើត​ឡើង
@@ -372,7 +372,7 @@ Name[x-test]=xxError happensxx
 Name[zh_CN]=发生错误
 Name[zh_TW]=發生了錯誤
 Comment=Some error just happens
-Comment[el]=Συνέβει κάποιο σφάλμα
+Comment[el]=Συνέβη κάποιο σφάλμα
 Comment[et]=Tekkis mingi viga
 Comment[gl]=Acaba de acontecer un erro
 Comment[km]=កំហុស​មួយ​ចំនួន​ទើប​កើតឡើង
