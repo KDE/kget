@@ -216,7 +216,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
 
     if ( linkList.isEmpty() )
     {
-        KMessageBox::sorry( htmlPart->widget(),
+        KMessageBox::sorry( htmlPart ? htmlPart->widget() : 0,
             i18n("There are no links in the active frame of the current HTML page."),
             i18n("No Links") );
         return;

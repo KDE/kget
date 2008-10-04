@@ -63,6 +63,7 @@ void Download::slotResult(KJob * job)
             QFile file(m_destUrl.url().remove("file://"));
             emit finishedSuccessfully(m_destUrl, file.readAll());
             m_data = 0;
+            break;
         }
         default:
             kDebug(5001) << "We are sorry to say you, that there were errors while downloading :(";
