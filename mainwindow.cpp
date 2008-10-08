@@ -210,8 +210,7 @@ void MainWindow::setupActions()
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
-    QAction *quitAction = KStandardAction::quit(this, SLOT(slotQuit()), actionCollection());
-    actionCollection()->addAction("quit", quitAction);
+    KStandardAction::quit(this, SLOT(slotQuit()), actionCollection());
     // local - Standard configure actions
     KStandardAction::preferences(this, SLOT(slotPreferences()), actionCollection());
     KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());

@@ -11,7 +11,7 @@
         <Separator/>
         <Action name="Transfer History" />
         <Separator/>
-        <Action name="quit"/>
+        <Action name="file_quit"/>
     </Menu>
         <Menu noMerge="1" name="Downloads"><text>&amp;Downloads</text>
         <Action name="start_all_download"/>
