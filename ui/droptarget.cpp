@@ -2,6 +2,7 @@
 
    Copyright (C) 2002 Patrick Charbonnier <pch@freeshell.org>
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
+   Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,15 +18,10 @@
 #include "ui/newtransferdialog.h"
 
 #include <kwindowsystem.h>
-#include <klocale.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
 #include <KPassivePopup>
-#include <kstandarddirs.h>
-#include <kactioncollection.h>
 #include <kapplication.h>
-#include <kiconloader.h>
-#include <KGlobalSettings>
 
 #include <QBitmap>
 #include <QPainter>
@@ -51,9 +47,9 @@ DropTarget::DropTarget(MainWindow * mw)
             && ((Settings::dropPosition().x() != 0) || (Settings::dropPosition().y() != 0)))
         position = QPoint(Settings::dropPosition());
     else
-        position = QPoint((int)desk.width() / 2, (int)desk.height() / 2);
+        position = QPoint(qRound(desk.width() / 2), qRound(desk.height() / 2));
 
-    resize(TARGET_SIZE, TARGET_SIZE);
+    setFixedSize(TARGET_SIZE, TARGET_SIZE);
 
     if(Settings::dropSticky())
         KWindowSystem::setState(winId(), KWindowSystem::Sticky);
@@ -72,10 +68,8 @@ DropTarget::DropTarget(MainWindow * mw)
     else
         setMask(QBitmap());
 
-    update();
-
     // popup menu for right mouse button
-    popupMenu = new KMenu();
+    popupMenu = new KMenu(this);
     popupMenu->addTitle(mw->windowTitle());
 
     QAction * downloadAction = mw->actionCollection()->action("start_all_download");
@@ -105,6 +99,7 @@ DropTarget::DropTarget(MainWindow * mw)
         showInformation = true;
     }
 
+    animTimer = new QTimer(this);
 }
 
 
@@ -115,8 +110,6 @@ DropTarget::~DropTarget()
 //    unsigned long state = KWindowSystem::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
 //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );
-    delete popupMenu;
-    delete animTimer;
 }
 
 void DropTarget::setDropTargetVisible( bool shown, bool internal )
@@ -147,8 +140,7 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
 
 void DropTarget::playAnimationShow()
 {
-    delete animTimer;
-    animTimer = new QTimer;
+    animTimer->disconnect();
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimateShow() ));
 
@@ -161,13 +153,10 @@ void DropTarget::playAnimationShow()
 
 void DropTarget::playAnimationHide()
 {
-    if ( animTimer )
-    {
-        if ( animTimer->isActive() )
-            move( x(), (int)(ani_y) );
-        delete animTimer;
-    }
-    animTimer = new QTimer;
+    if ( animTimer->isActive() )
+        move( x(), qRound(ani_y) );
+
+    animTimer->disconnect();
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimateHide() ));
     ani_y = (float)y();
@@ -177,13 +166,10 @@ void DropTarget::playAnimationHide()
 
 void DropTarget::playAnimationSync()
 {
-    if ( animTimer )
-    {
-        if ( animTimer->isActive() )
-            move( x(), (int)(ani_y) );
-        delete animTimer;
-    }
-    animTimer = new QTimer;
+    if ( animTimer->isActive() )
+        move( x(), qRound(ani_y) );
+
+    animTimer->disconnect();
     connect( animTimer, SIGNAL( timeout() ),
         this, SLOT( slotAnimateSync() ));
     ani_y = (float)y();
@@ -263,8 +249,6 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
     if(animTimer)
     {
         animTimer->stop();
-        delete animTimer;
-        animTimer = 0;
     }
 
     if (e->button() == Qt::LeftButton)
@@ -345,13 +329,11 @@ void DropTarget::slotAnimateShow()
     ani_vy *= 0.95;
     ani_y += ani_vy * dT;
 
-    move(x(), (int)(position.y() * (1 + ani_y)));
+    move(x(), qRound(position.y() * (1 + ani_y)));
 
-    if ( fabs(ani_y) < 0.01 && fabs(ani_vy) < 0.01 && animTimer )
+    if ( fabs(ani_y) < 0.01 && fabs(ani_vy) < 0.01 && animTimer->isActive() )
     {
         animTimer->stop();
-        delete animTimer;
-        animTimer = 0;
 
         if (showInformation)
             KPassivePopup::message(i18n("Drop Target"),
@@ -369,12 +351,10 @@ void DropTarget::slotAnimateHide()
     if ( new_y < -height() )
     {
         animTimer->stop();
-        delete animTimer;
-        animTimer = 0;
-        move( x(), (int)(ani_y) );
+        move( x(), qRound(ani_y) );
         hide();
     } else
-        move( x(), (int)(new_y) );
+        move( x(), qRound(new_y) );
 }
 
 void DropTarget::slotAnimateSync()
@@ -388,11 +368,9 @@ void DropTarget::slotAnimateSync()
     if ( ani_vy >= 1 )
     {
         animTimer->stop();
-        delete animTimer;
-        animTimer = 0;
-        move( x(), (int)(ani_y) );
+        move( x(), qRound(ani_y) );
     } else
-        move( x(), (int)(ani_y + 6*j) );
+        move( x(), qRound(ani_y + 6*j) );
 }
 
 void DropTarget::slotClose()
