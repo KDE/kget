@@ -17,9 +17,9 @@
 #include "ui_transferhistory.h"
 
 class QFileSystemWatcher;
-class QLineEdit;
 class QModelIndex;
 class QProgressBar;
+class KLineEdit;
 class KPushButton;
 class TransferHistoryStore;
 class TransferHistoryItem;
@@ -47,9 +47,9 @@ class TransferHistory : public KDialog, Ui::TransferHistory
         QWidget *m_view;
         QProgressBar *m_progressBar;
         QVBoxLayout *m_verticalLayout;
-        QComboBox *m_rangeTypeCombobox;
+        KComboBox *m_rangeTypeCombobox;
         QHBoxLayout *m_hboxLayout;
-        QLineEdit *m_searchBar;
+        KLineEdit *m_searchBar;
         QAction *m_actionDelete_Selected;
         QAction *m_actionClear;
         QAction *m_actionDownload;

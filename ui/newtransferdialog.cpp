@@ -200,7 +200,7 @@ public:
     KTitleWidget *m_titleWidget;
 
     KUrlComboRequester *m_destRequester;
-    QComboBox *m_groupComboBox;
+    KComboBox *m_groupComboBox;
     QCheckBox *m_defaultFolderButton;
     QLabel *m_groupLabel;
 

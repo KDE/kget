@@ -18,7 +18,6 @@
 #include <QButtonGroup>
 #include <QCheckBox>
 #include <QClipboard>
-#include <QComboBox>
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
@@ -31,6 +30,7 @@
 #include <QVBoxLayout>
 
 #include <KActionCollection>
+#include <KComboBox>
 #include <KDebug>
 #include <KIcon>
 #include <KIconLoader>
