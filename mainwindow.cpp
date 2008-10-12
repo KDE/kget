@@ -155,41 +155,41 @@ void MainWindow::exportTransfers(bool plain)
 
 void MainWindow::setupActions()
 {
-    QAction *newDownloadAction = actionCollection()->addAction("new_download");
+    KAction *newDownloadAction = actionCollection()->addAction("new_download");
     newDownloadAction->setText(i18n("&New Download..."));
     newDownloadAction->setIcon(KIcon("document-new"));
     newDownloadAction->setShortcuts(KShortcut("Ctrl+N"));
     connect(newDownloadAction, SIGNAL(triggered()), SLOT(slotNewTransfer()));
 
-    QAction *openAction = actionCollection()->addAction("import_transfers");
+    KAction *openAction = actionCollection()->addAction("import_transfers");
     openAction->setText(i18n("&Import Transfers..."));
     openAction->setIcon(KIcon("document-open"));
     openAction->setShortcuts(KShortcut("Ctrl+I"));
     connect(openAction, SIGNAL(triggered()), SLOT(slotImportTransfers()));
 
-    QAction *exportAction = actionCollection()->addAction("export_transfers");
+    KAction *exportAction = actionCollection()->addAction("export_transfers");
     exportAction->setText(i18n("&Export Transfers List..."));
     exportAction->setIcon(KIcon("document-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
-    QAction *exportPlainAction = actionCollection()->addAction("export_plain_transfers");
+    KAction *exportPlainAction = actionCollection()->addAction("export_plain_transfers");
     exportPlainAction->setText(i18n("&Export Transfers as Plain Text"));
     exportPlainAction->setIcon(KIcon("document-export"));
     exportPlainAction->setShortcuts(KShortcut("Ctrl+P"));
     connect(exportPlainAction, SIGNAL(triggered()), SLOT(slotExportPlainTransfers()));
 
-    QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
+    KAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18n("Delete Group"));
     deleteGroupAction->setIcon(KIcon("edit-delete"));
     connect(deleteGroupAction, SIGNAL(triggered()), SLOT(slotDeleteGroup()));
 
-    QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
+    KAction *renameGroupAction = actionCollection()->addAction("rename_groups");
     renameGroupAction->setText(i18n("Rename Group"));
     renameGroupAction->setIcon(KIcon("edit-rename"));
     connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
 
-    QAction *setIconGroupAction = actionCollection()->addAction("seticon_groups");
+    KAction *setIconGroupAction = actionCollection()->addAction("seticon_groups");
     setIconGroupAction->setText(i18n("Set Icon"));
     setIconGroupAction->setIcon(KIcon("preferences-desktop-icons"));
     connect(setIconGroupAction, SIGNAL(triggered()), SLOT(slotSetIconGroup()));
@@ -221,40 +221,40 @@ void MainWindow::setupActions()
     m_menubarAction->setChecked(!menuBar()->isHidden());
 
     // Transfer related actions
-    QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
+    KAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
     deleteSelectedAction->setText(i18nc("delete selected transfer item", "Delete Selected"));
     deleteSelectedAction->setIcon(KIcon("edit-delete"));
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
-    QAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
+    KAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
     deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Delete all finished"));
     deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
     connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
 
-    QAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
+    KAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
     redownloadSelectedAction->setText(i18nc("redownload selected transfer item", "Redownload Selected"));
     redownloadSelectedAction->setIcon(KIcon("view-refresh"));
     connect(redownloadSelectedAction, SIGNAL(triggered()), SLOT(slotRedownloadSelected()));
 
-    QAction *startAllAction = actionCollection()->addAction("start_all_download");
+    KAction *startAllAction = actionCollection()->addAction("start_all_download");
     startAllAction->setText(i18n("Start / Resume All"));
     startAllAction->setIcon(KIcon("media-seek-forward"));
     startAllAction->setShortcuts(KShortcut("Ctrl+R"));
     connect(startAllAction, SIGNAL(triggered()), SLOT(slotStartAllDownload()));
 
-    QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
+    KAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
     startSelectedAction->setText(i18n("Start / Resume Selected"));
     startSelectedAction->setIcon(KIcon("media-playback-start"));
     connect(startSelectedAction, SIGNAL(triggered()), SLOT(slotStartSelectedDownload()));
 
-    QAction *stopAllAction = actionCollection()->addAction("stop_all_download");
+    KAction *stopAllAction = actionCollection()->addAction("stop_all_download");
     stopAllAction->setText(i18n("Stop All"));
     stopAllAction->setIcon(KIcon("media-playback-pause"));
     stopAllAction->setShortcuts(KShortcut("Ctrl+P"));
     connect(stopAllAction, SIGNAL(triggered()), SLOT(slotStopAllDownload()));
 
-    QAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
+    KAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
     stopSelectedAction->setText(i18n("Stop Selected"));
     stopSelectedAction->setIcon(KIcon("media-playback-pause"));
     connect(stopSelectedAction, SIGNAL(triggered()), SLOT(slotStopSelectedDownload()));
@@ -275,22 +275,22 @@ void MainWindow::setupActions()
     stopActionMenu->addAction(stopSelectedAction);
     connect(stopActionMenu, SIGNAL(triggered()), SLOT(slotStopDownload()));
 
-    QAction *openDestAction = actionCollection()->addAction("transfer_open_dest");
+    KAction *openDestAction = actionCollection()->addAction("transfer_open_dest");
     openDestAction->setText(i18n("Open Destination"));
     openDestAction->setIcon(KIcon("document-open"));
     connect(openDestAction, SIGNAL(triggered()), SLOT(slotTransfersOpenDest()));
 
-    QAction *openFileAction = actionCollection()->addAction("transfer_open_file");
+    KAction *openFileAction = actionCollection()->addAction("transfer_open_file");
     openFileAction->setText(i18n("Open File"));
     openFileAction->setIcon(KIcon("document-open"));
     connect(openFileAction, SIGNAL(triggered()), SLOT(slotTransfersOpenFile()));
 
-    QAction *showDetailsAction = actionCollection()->addAction("transfer_show_details");
+    KAction *showDetailsAction = actionCollection()->addAction("transfer_show_details");
     showDetailsAction->setText(i18n("Show Details"));
     showDetailsAction->setIcon(KIcon("document-properties"));
     connect(showDetailsAction, SIGNAL(triggered()), SLOT(slotTransfersShowDetails()));
 
-    QAction *copyUrlAction = actionCollection()->addAction("transfer_copy_source_url");
+    KAction *copyUrlAction = actionCollection()->addAction("transfer_copy_source_url");
     copyUrlAction->setText(i18n("Copy URL to Clipboard"));
     copyUrlAction->setIcon(KIcon("edit-copy"));
     connect(copyUrlAction, SIGNAL(triggered()), SLOT(slotTransfersCopySourceUrl()));
@@ -301,25 +301,25 @@ void MainWindow::setupActions()
     showDropTargetAction->setChecked(Settings::showDropTarget());
     connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 
-    QAction *transferHistoryAction = actionCollection()->addAction("Transfer History");
+    KAction *transferHistoryAction = actionCollection()->addAction("Transfer History");
     transferHistoryAction->setText(i18n("&Transfer History..."));
     transferHistoryAction->setIcon(KIcon("view-history"));
     transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));
     connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
 
-    QAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
+    KAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
     transferGroupSettingsAction->setText(i18n("&Group Settings..."));
     transferGroupSettingsAction->setIcon(KIcon("preferences-system"));
     transferGroupSettingsAction->setShortcuts(KShortcut("Ctrl+G"));
     connect(transferGroupSettingsAction, SIGNAL(triggered()), SLOT(slotTransferGroupSettings()));
 
-    QAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
+    KAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
     transferSettingsAction->setText(i18n("&Transfer Settings..."));
     transferSettingsAction->setIcon(KIcon("preferences-system"));
     transferSettingsAction->setShortcuts(KShortcut("Ctrl+T"));
     connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));
 
-    QAction *listLinksAction = actionCollection()->addAction("import_links");
+    KAction *listLinksAction = actionCollection()->addAction("import_links");
     listLinksAction->setText(i18n("Import &Links..."));
     listLinksAction->setIcon(KIcon("view-list-text"));
     listLinksAction->setShortcuts(KShortcut("Ctrl+L"));
