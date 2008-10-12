@@ -301,7 +301,7 @@ void MainWindow::setupActions()
     showDropTargetAction->setChecked(Settings::showDropTarget());
     connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 
-    KAction *transferHistoryAction = actionCollection()->addAction("Transfer History");
+    KAction *transferHistoryAction = actionCollection()->addAction("transfer_history");
     transferHistoryAction->setText(i18n("&Transfer History..."));
     transferHistoryAction->setIcon(KIcon("view-history"));
     transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));

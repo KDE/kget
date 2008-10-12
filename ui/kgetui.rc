@@ -9,7 +9,7 @@
         <Action name="export_plain_transfers"/>
         <Action name="import_links"/>
         <Separator/>
-        <Action name="Transfer History" />
+        <Action name="transfer_history" />
         <Separator/>
         <Action name="file_quit"/>
     </Menu>
