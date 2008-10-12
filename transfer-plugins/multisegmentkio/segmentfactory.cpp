@@ -168,7 +168,11 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
 bool Segment::writeBuffer()
 {
 //     kDebug(5001) << "Segment::writeBuffer() sending: " << m_buffer.size() << " from job: "<< m_getJob;
-    bool rest;
+    if ( m_buffer.isEmpty() )
+    {
+        return false;
+    }
+   bool rest;
     emit data( this, m_buffer, rest);
     if ( rest )
     {
@@ -307,12 +311,6 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     Seg->setBytes( segment );
     kDebug(5001) << "Now the segment has: " << Seg->data().bytes <<" bytes.";
 
-    if(Job)
-    {
-        Job->resume();
-        kDebug(5001) << "Resuming Job...";
-    }
-
     SegData data;
     for(int i = 1; i < n; i++)
     {
@@ -320,14 +318,20 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
         {
             data.offset = i*segment + offset;
             data.bytes = rest_size;
-            Segments << createSegment(data, nextUrl());
-            kDebug(5001) << "Segment created at offset: "<< data.offset <<" with "<< data.bytes << " bytes.";
-            continue;
         }
-        data.offset = i*segment + offset;
-        data.bytes = segment;
+        else
+        {
+            data.offset = i*segment + offset;
+            data.bytes = segment;
+        }
         Segments << createSegment(data, nextUrl());
         kDebug(5001) << "Segment created at offset: "<< data.offset <<" with "<< data.bytes << " bytes.";
+    }
+
+    if(Job)
+    {
+        Job->resume();
+        kDebug(5001) << "Resuming Job...";
     }
 
     return Segments;
@@ -391,7 +395,12 @@ void SegmentFactory::slotSegmentTimeOut()
     kDebug(5001) <<  m_TimeOutSegments.size();
     if(m_TimeOutSegments.isEmpty())
         return;
-    m_TimeOutSegments.takeFirst()->restartTransfer( nextUrl() );
+    QList<Segment*>::const_iterator it = m_TimeOutSegments.begin();
+    QList<Segment*>::const_iterator itEnd = m_TimeOutSegments.end();
+    for ( ; it!=itEnd ; ++it )
+    {
+        (*it)->restartTransfer( nextUrl() );
+    }
 }
 
 Segment *SegmentFactory::takeLongest()
@@ -421,7 +430,7 @@ Segment *SegmentFactory::takeLongest()
 const KUrl SegmentFactory::nextUrl()
 {
     kDebug(5001);
-    if ( it_Urls == m_Urls.end() )
+    if ( it_Urls >= m_Urls.end() )
     {
         it_Urls = m_Urls.begin();
     }
