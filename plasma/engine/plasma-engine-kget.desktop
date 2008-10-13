@@ -41,4 +41,4 @@ X-KDE-ServiceTypes=Plasma/DataEngine
 Type=Service
 Icon=kget
 X-KDE-Library=plasma_engine_kget
-X-Plasma-EngineName=kget
+X-KDE-PluginInfo-Name=kget
