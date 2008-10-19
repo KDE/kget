@@ -84,8 +84,8 @@ MultiSegmentCopyJob::MultiSegmentCopyJob(
 
     if ( !SegmentsData.isEmpty() )
     {
-        QList<SegData>::const_iterator it = SegmentsData.begin();
-        QList<SegData>::const_iterator itEnd = SegmentsData.end();
+        QList<SegData>::const_iterator it = SegmentsData.constBegin();
+        QList<SegData>::const_iterator itEnd = SegmentsData.constEnd();
         for ( ; it!=itEnd ; ++it )
         {
             SegFactory->createSegment( (*it), SegFactory->nextUrl() );

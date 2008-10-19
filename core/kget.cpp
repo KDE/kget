@@ -213,8 +213,8 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
 {
     KUrl::List urlsToDownload;
 
-    KUrl::List::ConstIterator it = srcUrls.begin();
-    KUrl::List::ConstIterator itEnd = srcUrls.end();
+    KUrl::List::Iterator it = srcUrls.begin();
+    KUrl::List::Iterator itEnd = srcUrls.end();
 
     for(; it!=itEnd ; ++it)
     {
@@ -564,8 +564,8 @@ void KGet::settingsChanged()
 {
     kDebug(5001);
 
-    QList<TransferFactory*>::const_iterator it = m_transferFactories.begin();
-    QList<TransferFactory*>::const_iterator itEnd = m_transferFactories.end();
+    QList<TransferFactory*>::const_iterator it = m_transferFactories.constBegin();
+    QList<TransferFactory*>::const_iterator itEnd = m_transferFactories.constEnd();
 
     for( ; it!=itEnd ; ++it )
     {

@@ -204,7 +204,7 @@ SegmentFactory::SegmentFactory(uint n, const QList<KUrl> Urls)
 
 {
     kDebug(5001);
-    it_Urls = m_Urls.begin();
+    it_Urls = m_Urls.constBegin();
 }
 
 SegmentFactory::SegmentFactory()
@@ -395,8 +395,8 @@ void SegmentFactory::slotSegmentTimeOut()
     kDebug(5001) <<  m_TimeOutSegments.size();
     if(m_TimeOutSegments.isEmpty())
         return;
-    QList<Segment*>::const_iterator it = m_TimeOutSegments.begin();
-    QList<Segment*>::const_iterator itEnd = m_TimeOutSegments.end();
+    QList<Segment*>::const_iterator it = m_TimeOutSegments.constBegin();
+    QList<Segment*>::const_iterator itEnd = m_TimeOutSegments.constEnd();
     for ( ; it!=itEnd ; ++it )
     {
         (*it)->restartTransfer( nextUrl() );
@@ -410,8 +410,8 @@ Segment *SegmentFactory::takeLongest()
     Segment *longest = 0;
     KIO::filesize_t bytes = MultiSegKioSettings::splitSize()*1024;
 
-    QList<Segment*>::const_iterator it = m_Segments.begin();
-    QList<Segment*>::const_iterator itEnd = m_Segments.end();
+    QList<Segment*>::const_iterator it = m_Segments.constBegin();
+    QList<Segment*>::const_iterator itEnd = m_Segments.constEnd();
     for ( ; it!=itEnd ; ++it )
     {
         if((*it)->data().bytes > bytes)
@@ -430,9 +430,9 @@ Segment *SegmentFactory::takeLongest()
 const KUrl SegmentFactory::nextUrl()
 {
     kDebug(5001);
-    if ( it_Urls >= m_Urls.end() )
+    if ( it_Urls >= m_Urls.constEnd() )
     {
-        it_Urls = m_Urls.begin();
+        it_Urls = m_Urls.constBegin();
     }
     KUrl url(*it_Urls);
     it_Urls++;
