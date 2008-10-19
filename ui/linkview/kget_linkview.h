@@ -19,10 +19,10 @@ class QModelIndex;
 class QAbstractButton;
 class QButtonGroup;
 class QBoxLayout;
-class QComboBox;
 class QProgressBar;
 class QSortFilterProxyModel;
 class LinkImporter;
+class KComboBox;
 class KLineEdit;
 class KUrlRequester;
 
@@ -93,7 +93,7 @@ private:
 
     QButtonGroup *filterButtonsGroup;
     KLineEdit *m_searchLine;
-    QComboBox *m_filterModeBox;
+    KComboBox *m_filterModeBox;
     QPushButton *downloadCheckedButton;
     QPushButton *checkAllButton;
     QPushButton *uncheckAllButton;
