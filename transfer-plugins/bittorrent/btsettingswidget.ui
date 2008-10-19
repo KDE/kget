@@ -22,6 +22,9 @@
       <string>Network</string>
      </property>
      <layout class="QFormLayout" name="formLayout" >
+      <property name="fieldGrowthPolicy" >
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
       <item row="0" column="0" >
        <widget class="QLabel" name="portLabel" >
         <property name="text" >
@@ -42,12 +45,15 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="uploadLimitLabel" >
         <property name="text" >
-         <string>Upload Limit per Transfer: (0 if no limit)</string>
+         <string>Upload Limit per Transfer:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1" >
        <widget class="QSpinBox" name="uploadBox" >
+        <property name="specialValueText" >
+         <string>No Limit</string>
+        </property>
         <property name="suffix" >
          <string>KiB</string>
         </property>
@@ -59,31 +65,20 @@
       <item row="2" column="0" >
        <widget class="QLabel" name="downloadLabel" >
         <property name="text" >
-         <string>Download Limit per Transfer: (0 if no limit)</string>
+         <string>Download Limit per Transfer:</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1" >
        <widget class="QSpinBox" name="downloadBox" >
+        <property name="specialValueText" >
+         <string>No Limit</string>
+        </property>
         <property name="suffix" >
          <string>KiB</string>
         </property>
         <property name="maximum" >
          <number>100000</number>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
-         <string>Maximum Shared Ration: (0 if no limit)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" >
-       <widget class="QDoubleSpinBox" name="shareRatioSpin" >
-        <property name="maximum" >
-         <double>999.990000000000009</double>
         </property>
        </widget>
       </item>

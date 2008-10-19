@@ -28,7 +28,6 @@ BTSettingsWidget::BTSettingsWidget(QWidget * parent = 0, const QVariantList &arg
     connect(torrentEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
     connect(tempEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
     connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(changed()));
-    connect(shareRatioSpin, SIGNAL(valueChanged(int)), SLOT(changed()));
 }
 
 void BTSettingsWidget::load()
@@ -49,7 +48,6 @@ void BTSettingsWidget::save()
     BittorrentSettings::setTorrentDir(torrentEdit->url().url());
     BittorrentSettings::setTmpDir(tempEdit->url().url());
     BittorrentSettings::setPreAlloc(preallocBox->isChecked());
-    BittorrentSettings::setMaxShareRatio(shareRatioSpin->value());
 
     BittorrentSettings::self()->writeConfig();
 }
@@ -59,7 +57,6 @@ void BTSettingsWidget::defaults()
     portBox->setValue(BittorrentSettings::port());
     uploadBox->setValue(BittorrentSettings::uploadLimit());
     downloadBox->setValue(BittorrentSettings::downloadLimit());
-    shareRatioSpin->setValue(BittorrentSettings::maxShareRatio());
     torrentEdit->setUrl(BittorrentSettings::torrentDir());
     tempEdit->setUrl(BittorrentSettings::tmpDir());
     preallocBox->setChecked(BittorrentSettings::preAlloc());

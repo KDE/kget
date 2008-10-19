@@ -38,7 +38,7 @@ Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &des
 
     if (srcUrl.fileName().endsWith(".torrent"))
     {
-            return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
+        return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }
@@ -49,8 +49,7 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 
     if (!bttransfer)
     {
-        kError(5001) << "BTTransferFactory::createTransferHandler: WARNING!\n"
-                      "passing a non-BTTransfer pointer!!" << endl;
+        kError(5001) << "WARNING! passing a non-BTTransfer pointer!!";
         return 0;
     }
 

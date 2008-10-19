@@ -71,7 +71,7 @@ void BTTransferHandler::createScanDlg()
     scanDlg = new kt::ScanDlg(false, 0);
     scanDlg->show();
     scanDlg->execute(torrentControl(), false);
-    connect(scanDlg, SIGNAL(finished(int)), SLOT(removeSpeedLimits()));
+    connect(scanDlg, SIGNAL(finished(int)), SLOT(removeScanDlg()));
 }
 
 void BTTransferHandler::removeScanDlg()

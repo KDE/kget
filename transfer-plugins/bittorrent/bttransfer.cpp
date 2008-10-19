@@ -49,8 +49,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_ready(false),
     m_downloadFinished(false)
 {
-    if (m_source.url().isEmpty())
-        return;
 }
 
 BTTransfer::~BTTransfer()
@@ -61,7 +59,7 @@ BTTransfer::~BTTransfer()
     delete torrent;
 }
 
-/**Reimplemented functions from Transfer-Class (transfer.cpp)**/
+/** Reimplemented functions from Transfer-Class **/
 bool BTTransfer::isResumable() const
 {
     return true;
@@ -80,7 +78,7 @@ void BTTransfer::start()
             setTransferChange(Tc_Status, true);
 
             //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(init(KUrl)));
+            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(init(KUrl, QByteArray)));
         }
         else
             init();
@@ -246,16 +244,16 @@ void BTTransfer::updateTorrent()
 
     ChangesFlags changesFlags = 0;
 
-    if(m_downloadedSize != (m_downloadedSize = torrent->getStats().bytes_downloaded) )
+    if (m_downloadedSize != (m_downloadedSize = torrent->getStats().bytes_downloaded))
         changesFlags |= Tc_DownloadedSize;
 
-    if(m_uploadSpeed != torrent->getStats().upload_rate )
+    if (m_uploadSpeed != torrent->getStats().upload_rate)
     {
         m_uploadSpeed = torrent->getStats().upload_rate;
         changesFlags |= Tc_UploadSpeed;
     }
 
-    if(m_downloadSpeed != torrent->getStats().download_rate )
+    if (m_downloadSpeed != torrent->getStats().download_rate)
     {
         m_downloadSpeed = torrent->getStats().download_rate;
         changesFlags |= Tc_DownloadSpeed;
@@ -286,7 +284,7 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
-    bt::SetClientInfo("KGet",2,1,0,bt::NORMAL,"KG");//Set client info to KGet, WARNING: Pls change this for every release
+    bt::SetClientInfo("KGet", 2, KDE_VERSION_MINOR, KDE_VERSION_RELEASE, bt::NORMAL, "KG");//Set client info to KGet
 
     bt::Uint16 i = 0;
     do
@@ -302,36 +300,30 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     {
         torrent = new bt::TorrentControl();
 
-        if (!BittorrentSettings::tmpDir().isEmpty())
+        if (!BittorrentSettings::tmpDir().isEmpty() && QFileInfo(BittorrentSettings::tmpDir()).isDir())
         {
-            if (QFileInfo(BittorrentSettings::tmpDir()).isDir())
-                m_tmp = BittorrentSettings::tmpDir();
+            m_tmp = BittorrentSettings::tmpDir();
         }
 
         m_ready = true;
 
         torrent->init(0, m_source.url().remove("file://"), m_tmp + m_source.fileName().remove(".torrent"),
-                                                             m_dest.directory().remove("file://"), 0);
+                                                             m_dest.directory().remove("file://"), 0);//TODO: Make it work on windows!
 
-        if (torrent->getStats().multi_file_torrent)
-            m_dest = torrent->getStats().output_path;
-        else
-            m_dest = torrent->getDataDir() + torrent->getStats().torrent_name;
+        m_dest = torrent->getStats().multi_file_torrent ? torrent->getStats().output_path : torrent->getStats().output_path + torrent->getStats().torrent_name;
 
         torrent->createFiles();
 
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
-        setMaximumShareRatio(BittorrentSettings::maxShareRatio());
-
         connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
         connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
-        //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));
+        //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));//TODO: Fix it
     }
     catch (bt::Error &err)
     {
         kDebug(5001) << err.toString();
-        //m_ready = false;
+        //m_ready = false;//TODO: Error handling?
     }
     startTorrent();
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
@@ -340,7 +332,7 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
 void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
 {
     Q_UNUSED(error);
-    kDebug(5001) << errormsg;
+    kDebug(5001) << errormsg;//TODO: What to do now?
 }
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
@@ -474,7 +466,7 @@ void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadRemoved(cd);
 
-    setTransferChange(Tc_ChunksTotal | Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
+    setTransferChange(Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
 void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
@@ -482,7 +474,7 @@ void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadStarted(cd);
 
-    setTransferChange(Tc_ChunksTotal | Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
+    setTransferChange(Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
 void BTTransfer::peerAdded(bt::PeerInterface* peer)
