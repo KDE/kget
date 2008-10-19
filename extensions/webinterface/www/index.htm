@@ -79,7 +79,7 @@ window.addEvent('domready', function() {
             var tr = new Element('tr', {'class': 'toolTip download-list-table-item', 'title': toolTipText}).injectInside(table);
             var number = new Element('td', {'class': 'download-number', 'html': ((i < 10) ? '0' + i : i)}).injectInside(tr);
             var name = new Element('td', {'class': 'download-left', 'html': download.name}).injectAfter(number);
-            var size = new Element('td', {'html': 'download.size'}).injectAfter(name);
+            var size = new Element('td', {'html': download.size}).injectAfter(name);
             var progress = new Element('td', {'class': 'download-center', 'html': download.progress}).injectAfter(size);
             var speed = new Element('td', {'class': 'download-center', 'html': download.speed}).injectAfter(progress);
             var status = new Element('td', {'class': 'download-center', 'html': download.status}).injectAfter(speed);
