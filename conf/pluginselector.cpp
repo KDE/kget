@@ -23,7 +23,7 @@ PluginSelector::PluginSelector(KDialog * parent)
 {
     KService::List offers = KServiceTypeTrader::self()->query("KGet/Plugin");
 
-    addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig("kgetrc"));
+    addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KGlobal::config());
 
     load();
 

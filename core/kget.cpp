@@ -3,6 +3,7 @@
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007-2008 Lukas Appelhans <l.appelhans@gmx.de>
    Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
+   Copyright (C) 2008 Dario Freddi <drf54321@gmail.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,6 +39,7 @@
 #include <kio/renamedialog.h>
 #include <KSystemTrayIcon>
 #include <KSharedConfig>
+#include <KPluginInfo>
 
 #include <QTextStream>
 #include <QDomElement>
@@ -1005,24 +1007,28 @@ void KGet::loadPlugins()
     //members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 
-    const KConfigGroup plugins = KSharedConfig::openConfig("kgetrc")->group("Plugins");
+    KConfigGroup plugins = KConfigGroup(KGlobal::config(), "Plugins");
 
     for( it = services.begin(); it != services.end(); ++it )
     {
+        KPluginInfo info(*it);
+        info.load(plugins);
+
+        if( !info.isPluginEnabled() ) {
+            kDebug(5001) << "TransferFactory plugin (" << (*it)->library()
+                             << ") found, but not enabled";
+            continue;
+        }
+
         KGetPlugin * plugin;
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
-            QString pluginName = (*it)->property("X-KDE-PluginInfo-Name", QVariant::String).toString();
-            if (((*it)->property("X-KDE-PluginInfo-EnabledByDefault", QVariant::Bool).toBool() && plugins.readEntry(pluginName + "Enabled").isEmpty()) ||
-                 plugins.readEntry(pluginName + "Enabled") == "true")
-            {
-                pluginList.prepend(plugin);
-                kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
-                             << ") found and added to the list of available plugins";
-            }
-            else
-                kDebug(5001) << "TransferFactory plugin (" << (*it)->library()
-                             << ") found, but not enabled";
+            QString pluginName = info.name();
+            
+            pluginList.prepend(plugin);
+            kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
+                         << ") found and added to the list of available plugins";
+                
         }
         else
             kDebug(5001) << "Error loading TransferFactory plugin (" 
