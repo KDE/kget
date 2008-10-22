@@ -295,7 +295,7 @@ void NewTransferDialog::prepareDialog()
     if(m_window) {
         KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop, NET::WMDesktop);
         KWindowSystem::setCurrentDesktop(info.desktop());
-        m_window->activateWindow();
+        KWindowSystem::forceActiveWindow(m_window->winId());
     }
 
     if (!d->m_displayed) {
