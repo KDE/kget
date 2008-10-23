@@ -127,7 +127,7 @@ void BTTransfer::postDeleteEvent()
     tmpDir.rmdir(m_source.fileName().remove(".torrent"));
 
     kDebug(5001) << m_source.url();
-    QFile torrentFile(m_source.url().remove("file://"));
+    QFile torrentFile(m_source.path());
     torrentFile.remove();
 }
 

@@ -307,11 +307,9 @@ void NewTransferDialog::prepareDialog()
         {
             QString destDir = d->destination();
             m_sources = d->sources();
-    #ifdef Q_OS_WIN //krazy:exclude=cpp
-            destDir = destDir.remove("file:///");
-    #else
-            destDir = destDir.remove("file://");
-    #endif
+
+            destDir = KUrl(destDir).path();
+
             QString dir;
             if (m_sources.size() > 1)
                 dir = destDir;

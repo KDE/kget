@@ -48,7 +48,7 @@ void Download::slotResult(KJob * job)
         case 0://The download has finished
         {
             kDebug(5001) << "Downloading successfully finished" << m_destUrl.url();
-            QFile torrentFile(m_destUrl.url().remove("file://"));
+            QFile torrentFile(m_destUrl.path());
             if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text)) {}
                 //TODO: Do a Message box here
             torrentFile.write(m_data);
@@ -60,7 +60,7 @@ void Download::slotResult(KJob * job)
         case KIO::ERR_FILE_ALREADY_EXIST:
         {
             kDebug(5001) << "ERROR - File already exists";
-            QFile file(m_destUrl.url().remove("file://"));
+            QFile file(m_destUrl.path());
             emit finishedSuccessfully(m_destUrl, file.readAll());
             m_data = 0;
             break;

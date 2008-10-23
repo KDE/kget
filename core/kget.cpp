@@ -162,11 +162,7 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if (destDir.isEmpty())
     {
         if (Settings::useDefaultDirectory())
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-            destDir = Settings::defaultDirectory().remove("file:///");
-#else
-            destDir = Settings::defaultDirectory().remove("file://");
-#endif
+            destDir = KUrl(Settings::defaultDirectory()).path();
 
         QString checkExceptions = getSaveDirectoryFromExceptions(srcUrl);
         if (Settings::enableExceptions() && !checkExceptions.isEmpty())
@@ -246,11 +242,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
         if (destDir.isEmpty())
         {
             if (Settings::useDefaultDirectory())
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-                destDir = Settings::defaultDirectory().remove("file:///");
-#else
-                destDir = Settings::defaultDirectory().remove("file://");
-#endif
+                destDir = KUrl(Settings::defaultDirectory()).path();
 
             QString checkExceptions = getSaveDirectoryFromExceptions(*it);
             if (Settings::enableExceptions() && !checkExceptions.isEmpty())
@@ -614,11 +606,7 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
 
     for (int i = 0; i < list.size(); i++)
     {
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-        list[i] = list[i].remove("file:///");
-#else
-        list[i] = list[i].remove("file://");
-#endif
+        list[i] = KUrl(list[i]).path();
     }
     return list;
 }
@@ -836,10 +824,7 @@ QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
         }
     }
 
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-    destDir = destDir.remove("file:///");
-#endif
-    return destDir.remove("file://");
+    return KUrl(destDir).path();
 }
 
 bool KGet::isValidSource(const KUrl &source)

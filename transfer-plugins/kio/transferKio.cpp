@@ -66,14 +66,7 @@ void TransferKio::postDeleteEvent()
 {
     if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {
-        QString dest = m_dest.url() + ".part";
-        kDebug(5001) << dest;
-#ifdef Q_OS_WIN //krazy:exclude=cpp //TODO: Think about a portable sollution...
-        QFile destFile(dest.remove("file:///"));
-#else
-        QFile destFile(dest.remove("file://"));
-#endif
-        destFile.remove();
+        QFile::remove(m_dest.path() + ".part");
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 

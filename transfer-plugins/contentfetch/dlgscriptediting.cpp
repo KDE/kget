@@ -76,11 +76,7 @@ void DlgScriptEditing::slotChangeText()
 
 QString DlgScriptEditing::scriptPath() const
 {
-#ifdef Q_OS_WIN //krazy:exclude=cpp
-    return ui.scriptPathRequester->url().url().remove("file:///");
-#else
-    return ui.scriptPathRequester->url().url().remove("file://");
-#endif
+    return ui.scriptPathRequester->url().path();
 }
 
 QString DlgScriptEditing::scriptUrlRegexp() const
