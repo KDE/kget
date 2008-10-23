@@ -861,12 +861,6 @@ bool KGet::isValidSource(const KUrl &source)
             {
                 transfer->stop();
                 TransferHandler * th = transfer->handler();
-                //TODO If the transfer is expanded, it crash.
-                //     transfer should be collapsed before.
-                //     Is correct close it from the KGet class or should it
-                //     be handled in the viewscontainer?
-                //     KGet class should be generic, it shouldn't 
-                //     interfere with the UI
                 KGet::delTransfer(th);
                 return true;
             }
