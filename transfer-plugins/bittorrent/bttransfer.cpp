@@ -275,7 +275,11 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     if (src != m_source && !src.isEmpty())
         m_source = src;
 
+#ifdef Q_OS_WIN
+    QFile file(m_source.url().remove("file:///"));
+#else
     QFile file(m_source.url().remove("file://"));
+#endif
     if (!file.exists())
         return;
 
@@ -307,8 +311,16 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
 
         m_ready = true;
 
-        torrent->init(0, m_source.url().remove("file://"), m_tmp + m_source.fileName().remove(".torrent"),
-                                                             m_dest.directory().remove("file://"), 0);//TODO: Make it work on windows!
+        QString source;
+        QString dest;
+#ifdef Q_OS_WIN //krazy:exclude=cpp
+        source = m_source.url().remove("file:///");
+        dest = m_dest.directory().remove("file:///");
+#else
+        source = m_dest.directory().remove("file://");
+        dest = m_dest.directory().remove("file://");
+#endif
+        torrent->init(0, source, m_tmp + m_source.fileName().remove(".torrent"), dest, 0);
 
         m_dest = torrent->getStats().multi_file_torrent ? torrent->getStats().output_path : torrent->getStats().output_path + torrent->getStats().torrent_name;
 
