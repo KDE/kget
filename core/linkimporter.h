@@ -27,7 +27,13 @@ class KGET_EXPORT LinkImporter : public QThread
 Q_OBJECT
 public:
     LinkImporter(const KUrl &source, QObject *parent);
+    LinkImporter(QObject *parent);
     ~LinkImporter();
+
+    /**
+    * Check for urls in clipboard
+    */
+    void checkClipboard(const QString &clipboardContent);
 
     /**
     * Start reading the url contents
@@ -53,6 +59,12 @@ signals:
 
 private slots:
     void slotReadFile(const QUrl &url);
+
+private:
+    /**
+    * Checks if an url is valid and adds it to the transfers lists
+    */
+    void addTransfer(const QString &link);
 
 private:
     KUrl m_url;

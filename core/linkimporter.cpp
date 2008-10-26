@@ -37,8 +37,32 @@ LinkImporter::LinkImporter(const KUrl &url, QObject *parent) : QThread(parent),
 {
 }
 
+LinkImporter::LinkImporter(QObject *parent) : QThread(parent),
+    m_url(),
+    m_transfers(),
+    m_tempFile()
+{
+}
+
 LinkImporter::~LinkImporter()
 {
+}
+
+void LinkImporter::checkClipboard(const QString &clipboardContent)
+{
+    QRegExp rx(REGULAR_EXPRESSION);
+
+    int regexPos = 0;
+
+    while ((regexPos = rx.indexIn(clipboardContent, regexPos)) > -1) {
+        QString link = rx.capturedTexts()[0];
+
+        addTransfer(link);
+
+        regexPos += rx.matchedLength();
+    }
+
+    emit finished();
 }
 
 void LinkImporter::run()
@@ -87,14 +111,7 @@ void LinkImporter::slotReadFile(const QUrl &url)
         while ((regexPos = rx.indexIn(line, regexPos)) > -1) {
             QString link = rx.capturedTexts()[0];
 
-            if (!link.contains("://"))
-                link = QString("http://") + link;
-
-            QUrl auxUrl(link);
-            if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 &&
-                                  !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
-                m_transfers << link;
-            }
+            addTransfer(link);
 
             regexPos += rx.matchedLength();
             position = lastPosition + regexPos;
@@ -109,6 +126,19 @@ void LinkImporter::slotReadFile(const QUrl &url)
 
     if(!m_url.isLocalFile()) {
         file.remove();
+    }
+}
+
+void LinkImporter::addTransfer(const QString &link)
+{
+    if (!link.contains("://"))
+        link = QString("http://") + link;
+
+    QUrl auxUrl(link);
+
+    if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 &&
+       !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
+        m_transfers << link;
     }
 }
 

@@ -81,6 +81,7 @@ private slots:
     void updateImportButtonStatus(const QString &text);
 
 private:
+    void checkClipboard();
     void showLinks( const QList<QString>& links );
     QAbstractButton *createFilterButton(const QString &icon, const QString &name,
                             QButtonGroup *group, uint filterType, bool checked = false);

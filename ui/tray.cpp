@@ -50,6 +50,7 @@ Tray::Tray(MainWindow * parent)
     // add preferences action to the context menu
     QMenu * cm = contextMenu();
     cm->addAction( parent->actionCollection()->action("new_download") );
+    cm->addAction( parent->actionCollection()->action("import_links") );
     cm->addSeparator();
     cm->addAction( parent->actionCollection()->action("start_all_download") );
     cm->addAction( parent->actionCollection()->action("stop_all_download") );

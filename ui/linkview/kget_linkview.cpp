@@ -178,11 +178,28 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     setMainWidget(mainWidget);
 
     resize(600, 300);
+
+    checkClipboard();
 }
 
 KGetLinkView::~KGetLinkView()
 {
     delete(m_linkImporter);
+}
+
+void KGetLinkView::checkClipboard()
+{
+    QString clipboardContent = QApplication::clipboard()->text(QClipboard::Clipboard);
+
+    if (clipboardContent.length() > 0) {
+        delete m_linkImporter;
+
+        m_linkImporter = new LinkImporter(this);
+
+        connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
+
+        m_linkImporter->checkClipboard(clipboardContent);
+    }
 }
 
 void KGetLinkView::setLinks(const QList <QString> &links)
