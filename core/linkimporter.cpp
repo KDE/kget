@@ -129,7 +129,7 @@ void LinkImporter::slotReadFile(const QUrl &url)
     }
 }
 
-void LinkImporter::addTransfer(const QString &link)
+void LinkImporter::addTransfer(QString &link)
 {
     QUrl auxUrl;
     

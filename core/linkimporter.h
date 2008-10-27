@@ -64,7 +64,7 @@ private:
     /**
     * Checks if an url is valid and adds it to the transfers lists
     */
-    void addTransfer(const QString &link);
+    void addTransfer(QString &link);
 
 private:
     KUrl m_url;
