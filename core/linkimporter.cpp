@@ -131,10 +131,13 @@ void LinkImporter::slotReadFile(const QUrl &url)
 
 void LinkImporter::addTransfer(const QString &link)
 {
-    if (!link.contains("://"))
-        link = QString("http://") + link;
-
-    QUrl auxUrl(link);
+    QUrl auxUrl;
+    
+    if (link.contains("://")) {
+        auxUrl = QUrl(link);
+    } else {
+        auxUrl = QUrl(QString("http://") + link);
+    }
 
     if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 &&
        !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
