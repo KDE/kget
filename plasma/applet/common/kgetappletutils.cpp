@@ -22,7 +22,7 @@
 
 #include <plasma/svg.h>
 #include <plasma/widgets/label.h>
-#include <plasma/widgets/icon.h>
+#include <plasma/widgets/iconwidget.h>
 #include <plasma/widgets/pushbutton.h>
 
 #include <QGraphicsLinearLayout>
@@ -69,7 +69,7 @@ ErrorWidget::ErrorWidget(const QString &message, QGraphicsWidget *parent)
     m_errorLabel->setText(message);
     m_errorLabel->nativeWidget()->setAlignment(Qt::AlignCenter);
 
-    m_icon = new Plasma::Icon(KIcon("dialog-warning"),"", this);
+    m_icon = new Plasma::IconWidget(KIcon("dialog-warning"),"", this);
 
     m_launchButton = new Plasma::PushButton(this);
     m_launchButton->setText(i18n("Launch KGet"));

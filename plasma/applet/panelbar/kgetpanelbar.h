@@ -28,7 +28,7 @@ class QGraphicsLinearLayout;
 
 namespace Plasma {
     class Dialog;
-    class Icon;
+    class IconWidget;
 }
 
 class KGetPanelBar : public KGetApplet
@@ -52,7 +52,7 @@ private slots:
 private:
     Plasma::DataEngine *m_engine;
     Plasma::Dialog *m_dialog;
-    Plasma::Icon *m_icon;
+    Plasma::IconWidget *m_icon;
     QGraphicsLinearLayout *m_layout;
 
     class Private;

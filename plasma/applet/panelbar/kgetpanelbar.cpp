@@ -41,7 +41,7 @@
 #include <plasma/dialog.h>
 #include <plasma/svg.h>
 #include <plasma/theme.h>
-#include <plasma/widgets/icon.h>
+#include <plasma/widgets/iconwidget.h>
 
 const static int TOP_MARGIN = 60;
 const static int SPACING = 4;
@@ -188,7 +188,7 @@ void KGetPanelBar::init()
     m_dialog->setWindowFlags(Qt::Popup);
     m_dialog->setLayout(d->dialogLayout());
 
-    m_icon = new Plasma::Icon(KIcon("go-down"), QString(), this);
+    m_icon = new Plasma::IconWidget(KIcon("go-down"), QString(), this);
 
     m_layout = new QGraphicsLinearLayout(Qt::Horizontal, this);
     m_layout->addItem(m_icon);

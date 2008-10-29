@@ -31,7 +31,7 @@ class QRect;
 namespace Plasma {
     class Svg;
     class Label;
-    class Icon;
+    class IconWidget;
     class PushButton;
 }
 
@@ -55,7 +55,7 @@ private slots:
 private:
     QGraphicsLinearLayout *m_layout;
     Plasma::Label *m_errorLabel;
-    Plasma::Icon *m_icon;
+    Plasma::IconWidget *m_icon;
     Plasma::PushButton *m_launchButton;
 };
 
