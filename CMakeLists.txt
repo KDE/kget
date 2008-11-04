@@ -13,10 +13,7 @@ add_subdirectory(transfer-plugins)
 add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
-if(PLASMA_FOUND)
-    add_subdirectory(plasma)
-endif(PLASMA_FOUND)
-
+add_subdirectory(plasma)
 
 # find kworkspace library to allow the shutdown after downloads completed option
 find_library(KDE4_KWORKSPACE_LIBRARY NAMES kworkspace PATHS ${KDE4_LIB_INSTALL_DIR} NO_DEFAULT_PATH )
