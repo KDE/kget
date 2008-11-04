@@ -14,6 +14,7 @@ Name[sl]=BitTorrent
 Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Comment=Bittorrent-Transfer plugin for KGet
+Comment[de]=Bittorrent-Übertragungsmodul für KGet
 Comment[el]=Πρόσθετο μεταφοράς Bittorrent για το KGet
 Comment[et]=KGeti Bittorrenti ülekandeplugin
 Comment[ga]=Breiseán aistrithe Bittorrent le haghaidh KGet

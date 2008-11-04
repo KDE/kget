@@ -9,6 +9,7 @@ Name=KIO
 Name[nds]=KIO-Moduul
 Name[x-test]=xxKIOxx
 Comment=KIO-Transfer plugin for KGet
+Comment[de]=KIO_Übertragungsmodul für KGet
 Comment[el]=Πρόσθετο μεταφοράς KIO για το KGet
 Comment[et]=KGeti KIO ülekandeplugin
 Comment[ga]=Breiseán aistrithe KIO le haghaidh KGet

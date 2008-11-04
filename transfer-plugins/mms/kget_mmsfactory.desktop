@@ -8,6 +8,7 @@ Icon=kget
 Name=MMS
 Name[x-test]=xxMMSxx
 Comment=MMS-Transfer plugin for KGet
+Comment[de]=MMS-Übertragungsmodul für KGet
 Comment[el]=Πρόσθετο μεταφοράς MMS για το KGet
 Comment[et]=KGeti MMS ülekandeplugin
 Comment[ga]=Breiseán aistrithe MMS le haghaidh KGet
