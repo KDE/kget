@@ -1,4 +1,4 @@
-include_directories(${PLASMA_INCLUDE_DIR} ../../)
+include_directories( ../../)
 
 set(kget_engine_SRCS
     kgetengine.cpp
