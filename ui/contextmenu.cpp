@@ -35,16 +35,16 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
 
     //First check whether all the transfers in the list belong to the same 
     //transferfactory
-    bool sameFactory = true;
+    //bool sameFactory = true;
 
     QList<TransferHandler *>::iterator it = transfers.begin();
     QList<TransferHandler *>::iterator itEnd = transfers.end();
 
-    for(; (it!=itEnd) && (sameFactory) ; ++it)
+    /*for(; (it!=itEnd) && (sameFactory) ; ++it)
     {
         //sameFactory = ( (*it)->m_transfer->factory() == //Port factory() to transferhandler
          //               transfers.first()->m_transfer->factory() );
-    }
+    }*/
 
     KMenu *popup = new KMenu(parent);
     //Get the transfer factory actions
@@ -57,13 +57,13 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     popup->addAction( KGet::actionCollection()->action("transfer_settings") );
     popup->addSeparator();
 
-    foreach(QAction * it, actionList)
+    foreach (QAction * it, actionList)
     {
         //Plug each action in the popup menu
         popup->addAction( it );
     }
 
-    if(!actionList.isEmpty())
+    if (!actionList.isEmpty())
         popup->addSeparator();
 
 /*#ifdef HAVE_NEPOMUK //TODO: Reenable when Nepomuk is fixed
