@@ -21,7 +21,7 @@ Name[x-test]=xxMirror Searchxx
 Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
-Comment=Mirrorsearch-Transfer plugin for KGet
+Comment=Enable KGet to search the file through mirror search engines
 Comment[de]=MirrorSearch-Übertragungsmodul für KGet
 Comment[el]=Πρόσθετο μεταφοράς Mirrorsearch για το KGet
 Comment[et]=KGeti peegliotsingu ülekandeplugin
