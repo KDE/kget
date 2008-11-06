@@ -20,21 +20,6 @@ Name[x-test]=xxContent Fetchxx
 Name[zh_CN]=内容获取
 Name[zh_TW]=內容擷取
 Comment=Fetch contents with custom scripts.
-Comment[el]=Πρόσθετο μεταφοράς-ανάκτησης περιεχομένου για το KGet
-Comment[et]=KGeti sisutõmbaja ülekandeplugin
-Comment[ga]=Breiseán aistrithe Content Fetch le haghaidh KGet
-Comment[gl]=Extensión de obtención de contidos para KGet
-Comment[km]=កម្មវិធី​ជំនួយ​ការ​ផ្ទេរ​ការ​ទៅ​យក​មាតិកា​សម្រាប់ KGet
-Comment[nb]=KGet programtillegg for Content Fetch
-Comment[nds]=Content-Fetch-Överdreegmoduul för KGet
-Comment[pt]='Plugin' de transferências para obtenção de conteúdo para o KGet
-Comment[pt_BR]=Plugin de transferência e captura de conteúdo para o KGet
-Comment[sv]=Hämta innehåll-överföringsinsticksprogram för Kget
-Comment[tr]=İçerik-Getir- KGet için aktarım eklentisi
-Comment[uk]=Втулка перенесення з обробкою вмісту для KGet
-Comment[x-test]=xxContent-Fetch-Transfer plugin for KGetxx
-Comment[zh_CN]=内容获取-KGet 传输插件
-Comment[zh_TW]=KGet 的內容擷取傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_contentfetchfactory

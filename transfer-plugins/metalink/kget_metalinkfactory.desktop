@@ -11,24 +11,6 @@ Name[pt_BR]=Metacontato
 Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Comment=Allows to download files from Metalink
-Comment[de]=Metalink-Übertragungsmodul für KGet
-Comment[el]=Πρόσθετο μεταφοράς Metalink για το KGet
-Comment[et]=KGeti Metalinki ülekandeplugin
-Comment[ga]=Breiseán aistrithe Metalink le haghaidh KGet
-Comment[gl]=Extensión de transferencias Metalink para KGet
-Comment[km]=Metalink-កម្មវិធី​ជំនួយ​កា​រផ្ទេរ​សម្រាប់ KGet
-Comment[nb]=KGet programtillegg for Metalink-overføringer
-Comment[nds]=Metalink-Överdreegmoduul för KGet
-Comment[pt]='Plugin' de transferências do Metalink para o KGet
-Comment[pt_BR]=Plugin de transferências de metacontatos para o KGet
-Comment[ru]=Модуль Metalink для KGet
-Comment[sl]=Vstavek za prenose Metalink za KGet
-Comment[sv]=Metalink-överföringsinsticksprogram för Kget
-Comment[tr]=Metalink- KGet için aktarım eklentisi
-Comment[uk]=Втулка перенесення Metalink для KGet
-Comment[x-test]=xxMetalink-Transfer plugin for KGetxx
-Comment[zh_CN]=超级链接-KGet 传输插件
-Comment[zh_TW]=KGet 的 Metalink 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_metalinkfactory

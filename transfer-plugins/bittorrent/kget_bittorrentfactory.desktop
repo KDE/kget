@@ -14,24 +14,6 @@ Name[sl]=BitTorrent
 Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Comment=Allows to download files using Bittorrent
-Comment[de]=Bittorrent-Übertragungsmodul für KGet
-Comment[el]=Πρόσθετο μεταφοράς Bittorrent για το KGet
-Comment[et]=KGeti Bittorrenti ülekandeplugin
-Comment[ga]=Breiseán aistrithe Bittorrent le haghaidh KGet
-Comment[gl]=Extensión de transferencias Bittorrent para KGet
-Comment[km]=Bittorrent-កម្មវិធី​ជំនួយ​ការ​ផ្ទេរ​សម្រាប់ KGet
-Comment[nb]=KGet programtillegg for Bittorrent
-Comment[nds]=Bittorent-Överdreegmoduul för KGet
-Comment[pt]='Plugin' de transferências de BitTorrent para o KGet
-Comment[pt_BR]=Plugin de transferências do Bit Torrent para o KGet
-Comment[ru]=Модуль передачи Bittorrent для KGet
-Comment[sl]=Vstavek za prenose BitTorrent za KGet
-Comment[sv]=Bittorrent-överföringsinsticksprogram för Kget
-Comment[tr]=Bittorent- KGet için aktarım eklentisi
-Comment[uk]=Втулка перенесення Bittorrent для KGet
-Comment[x-test]=xxBittorrent-Transfer plugin for KGetxx
-Comment[zh_CN]=Bittorrent-KGet 传输插件
-Comment[zh_TW]=KGet 的 Bittorrent 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_bittorrentfactory

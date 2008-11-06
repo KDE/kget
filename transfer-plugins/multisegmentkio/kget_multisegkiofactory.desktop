@@ -21,21 +21,6 @@ Name[x-test]=xxMulti Segment KIOxx
 Name[zh_CN]=多段式 KIO
 Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
-Comment[el]=Πρόσθετο μεταφοράς KIO πολλών νημάτων για το KGet
-Comment[et]=KGeti mitmelõimelise KIO ülekandeplugin
-Comment[gl]=Extensión de KIO de transferencias multifío para KGet
-Comment[km]=Multithreaded KIO-កម្មវិធី​ជំនួយ​កា​រ​ផ្ទេរ​សម្រាប់ KGet
-Comment[nb]=KGet programtillegg for flertrådete KIO-overføringer
-Comment[nds]=Mehrsträngsch KIO-Överdreegmoduul för KGet
-Comment[pt]='Plugin' de transferências com KIO multi-segmentos para o KGet
-Comment[pt_BR]=Plugin de transferências do KIO multitarefa para o KGet
-Comment[ru]=Многопоточный KIO-модуль  для KGet
-Comment[sv]=Flertrådad KIO-överföringsinsticksprogram för Kget
-Comment[tr]=Çoklu işleyebilen KIO- KGet için aktarım eklentisi
-Comment[uk]=Втулка перенесення багатопотокового KIO для KGet
-Comment[x-test]=xxMultithreaded KIO-Transfer plugin for KGetxx
-Comment[zh_CN]=多段式 KIO-KGet 传输插件
-Comment[zh_TW]=KGet 的多緒 KIO 傳輸外掛程式
 
 # options for library loader
 X-KDE-Library=kget_multisegkiofactory
