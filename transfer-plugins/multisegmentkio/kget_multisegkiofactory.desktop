@@ -21,6 +21,13 @@ Name[x-test]=xxMulti Segment KIOxx
 Name[zh_CN]=多段式 KIO
 Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
+Comment[el]=Πολυνηματικό πρόσθετο λήψης αρχείων
+Comment[nds]=Mehrsträngsch Datei-Daallaadmoduul
+Comment[pt]='Plugin' de transferências de ficheiros multitarefa
+Comment[pt_BR]='Plugin' de transferências de ficheiros multitarefa
+Comment[sv]=Flertrådat insticksprogram för filnerladdning
+Comment[uk]=Втулка звантаження файлів у декілька потоків
+Comment[zh_TW]=多緒檔案下載外掛程式
 
 # options for library loader
 X-KDE-Library=kget_multisegkiofactory

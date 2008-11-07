@@ -11,6 +11,13 @@ Name[pt_BR]=Metacontato
 Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Comment=Allows to download files from Metalink
+Comment[el]=Επιτρέπει τη λήψη αρχείων από το Metalink
+Comment[nds]=Mit dit Moduul kannst Du Dateien vun Metalink daalladen
+Comment[pt]=Permite transferir os ficheiros a partir do Metalink
+Comment[pt_BR]=Permite transferir os ficheiros a partir do Metalink
+Comment[sv]=Gör det möjligt att ladda ner filer från Metalink
+Comment[uk]=Надає змогу звантажувати файли з Metalink
+Comment[zh_TW]=允許從 Metalink 下載檔案
 
 # options for library loader
 X-KDE-Library=kget_metalinkfactory

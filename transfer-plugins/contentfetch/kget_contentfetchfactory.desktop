@@ -20,6 +20,13 @@ Name[x-test]=xxContent Fetchxx
 Name[zh_CN]=内容获取
 Name[zh_TW]=內容擷取
 Comment=Fetch contents with custom scripts.
+Comment[el]=Ανάκτηση περιεχομένων με προσαρμοσμένα σενάρια.
+Comment[nds]=Inholt mit egen Skripten halen
+Comment[pt]=Obtém os conteúdos com programas personalizados.
+Comment[pt_BR]=Obtém os conteúdos com programas personalizados.
+Comment[sv]=Hämta innehåll med egna skript.
+Comment[uk]=Отримайте вміст за допомогою нетипових скриптів.
+Comment[zh_TW]=使用自訂的文稿抓取內容。
 
 # options for library loader
 X-KDE-Library=kget_contentfetchfactory

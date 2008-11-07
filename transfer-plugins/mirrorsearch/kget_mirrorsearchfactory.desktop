@@ -14,7 +14,7 @@ Name[km]=ការ​ស្វែងរក​កញ្ចក់
 Name[pt]=Pesquisa de Réplicas
 Name[pt_BR]=Procura de espelhos
 Name[ru]=Поиск зеркал
-Name[sv]=Mirrorsearch
+Name[sv]=Spegelsökning
 Name[tr]=Yansı Arama
 Name[uk]=Пошук дзеркал
 Name[x-test]=xxMirror Searchxx
@@ -22,6 +22,13 @@ Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
 Comment=Enable KGet to search the file through mirror search engines
+Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
+Comment[nds]=Lett KGet Dateien över Spegelserver-Söökmaschinen söken
+Comment[pt]=Permite ao KGet procurar pelo ficheiro nas réplicas dos motores de busca
+Comment[pt_BR]=Permite ao KGet procurar pelo ficheiro nas réplicas dos motores de busca
+Comment[sv]=Gör det möjligt för Kget att söka efter filen via spegelsöktjänster
+Comment[uk]=Умикає у KGet можливість пошуку за допомогою рушіїв пошук дзеркал
+Comment[zh_TW]=開啟 KGet 透過鏡射搜尋引擎來搜尋檔案
 
 # options for library loader
 X-KDE-Library=kget_mirrorsearchfactory
