@@ -369,7 +369,7 @@ void GenericTransferObserver::checkAndShutdown()
 {
     if(allTransfersFinished()) {
         KPassivePopup *message = popupMessage(i18n("Quit KGet"),
-                                            i18n("The computer turn off now because all downloads have been completed."));
+                                            i18n("The computer will turn off now because all downloads have been completed."));
         QObject::connect(message, SIGNAL(destroyed()), SLOT(slotShutdown()));
         QObject::connect(message, SIGNAL(destroyed()),  KGet::m_mainWindow, SLOT(slotQuit()));
     }
