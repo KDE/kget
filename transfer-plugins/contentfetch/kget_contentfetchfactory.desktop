@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Content Fetch
+Name[de]=Daten laden
 Name[el]=Ανάκτηση περιεχομένου
 Name[et]=Sisutõmbaja
 Name[gl]=Obter contidos
@@ -20,7 +21,9 @@ Name[x-test]=xxContent Fetchxx
 Name[zh_CN]=内容获取
 Name[zh_TW]=內容擷取
 Comment=Fetch contents with custom scripts.
+Comment[de]=Lädt Dateninhalte mit eigenen Skripten herunter.
 Comment[el]=Ανάκτηση περιεχομένων με προσαρμοσμένα σενάρια.
+Comment[gl]=Obtén contidos con scripts personalizados.
 Comment[nds]=Inholt mit egen Skripten halen
 Comment[pt]=Obtém os conteúdos com programas personalizados.
 Comment[pt_BR]=Obtém os conteúdos com programas personalizados.

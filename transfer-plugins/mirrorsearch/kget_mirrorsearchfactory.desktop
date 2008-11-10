@@ -22,7 +22,9 @@ Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
 Comment=Enable KGet to search the file through mirror search engines
+Comment[de]=Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen.
 Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
+Comment[gl]=Habilita a KGet para procurar o ficheiro mediante réplicas dos motores de procuras
 Comment[nds]=Lett KGet Dateien över Spegelserver-Söökmaschinen söken
 Comment[pt]=Permite ao KGet procurar pelo ficheiro nas réplicas dos motores de busca
 Comment[pt_BR]=Permite ao KGet procurar pelo ficheiro nas réplicas dos motores de busca
