@@ -53,7 +53,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 
 BTTransfer::~BTTransfer()
 {
-    if(torrent)
+    if (torrent && m_ready)
         torrent->setMonitor(0);
 
     delete torrent;
@@ -323,8 +323,9 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     }
     catch (bt::Error &err)
     {
-        kDebug(5001) << err.toString();
-        //m_ready = false;//TODO: Error handling?
+        m_ready = false;
+        setStatus(Job::Aborted, i18n("An error occured.."), SmallIcon("document-preview"));
+        KMessageBox::error(0, err.toString(), i18n("Error"));
     }
     startTorrent();
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
@@ -333,7 +334,9 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
 void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
 {
     Q_UNUSED(error);
-    kDebug(5001) << errormsg;//TODO: What to do now?
+    stop();
+    setStatus(Job::Aborted, i18n("An error occured.."), SmallIcon("document-preview"));
+    KMessageBox::error(0, errormsg, i18n("Error"));
 }
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
