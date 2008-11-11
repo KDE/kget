@@ -324,7 +324,7 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     catch (bt::Error &err)
     {
         m_ready = false;
-        setStatus(Job::Aborted, i18n("An error occured.."), SmallIcon("document-preview"));
+        setStatus(Job::Aborted, i18n("An error occurred.."), SmallIcon("document-preview"));
         KMessageBox::error(0, err.toString(), i18n("Error"));
     }
     startTorrent();
@@ -335,7 +335,7 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 {
     Q_UNUSED(error);
     stop();
-    setStatus(Job::Aborted, i18n("An error occured.."), SmallIcon("document-preview"));
+    setStatus(Job::Aborted, i18n("An error occurred.."), SmallIcon("document-preview"));
     KMessageBox::error(0, errormsg, i18n("Error"));
 }
 
