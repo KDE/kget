@@ -6,6 +6,7 @@ X-KDE-Library=kcm_kget_mirrorsearchfactory
 X-KDE-ParentComponents=kget_mirrorsearch_plugin
 
 Name=MirrorSearch
+Name[ca]=CercaMirall
 Name[et]=Peegliotsing
 Name[pt]=Pesquisa de Réplicas
 Name[pt_BR]=Procura de espelhos

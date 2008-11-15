@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet barchart applet
+Name[ca]=Miniaplicació de diagrama de barres del KGet
 Name[de]=KGet Balkengrafik-Modul
 Name[el]=Μικροεφαρμογή ραβδογραφήματος KGet
 Name[et]=KGeti tulpdiagrammi aplett
@@ -18,6 +19,7 @@ Name[x-test]=xxKGet barchart appletxx
 Name[zh_CN]=KGet 柱形图小程序
 Name[zh_TW]=KGet 圖表小程式
 Comment=KGet barchart applet
+Comment[ca]=Miniaplicació de diagrama de barres del KGet
 Comment[de]=KGet Balkengrafik-Modul
 Comment[el]=Μικροεφαρμογή ραβδογραφήματος KGet
 Comment[et]=KGeti tulpdiagrammi aplett

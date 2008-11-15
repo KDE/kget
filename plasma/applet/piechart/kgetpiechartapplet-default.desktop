@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet piechart applet
+Name[ca]=Miniaplicació de diagrama de sectors del KGet
 Name[de]=KGet Kuchengrafik-Modul
 Name[el]=Μικροεφαρμογή γραφήματος πίτας KGet
 Name[et]=KGeti sektordiagrammi aplett
@@ -18,6 +19,7 @@ Name[x-test]=xxKGet piechart appletxx
 Name[zh_CN]=KGet 饼图小程序
 Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
+Comment[ca]=Miniaplicació de diagrama de sectors del KGet
 Comment[de]=KGet Kuchengrafik-Modul
 Comment[el]=Μικροεφαρμογή γραφήματος πίτας KGet
 Comment[et]=KGeti sektordiagrammi aplett

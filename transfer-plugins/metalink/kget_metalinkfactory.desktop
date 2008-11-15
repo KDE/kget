@@ -6,14 +6,17 @@ Icon=kget
 
 # standard fields
 Name=Metalink
+Name[ca]=Metaenllaç
 Name[km]=តំណ​មេតា
 Name[pt_BR]=Metacontato
 Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Comment=Allows to download files from Metalink
+Comment[ca]=Permet descarregar fitxers des d'un metaenllaç
 Comment[de]=Ermöglicht die Übertragung von Dateien mittels Metalink
 Comment[el]=Επιτρέπει τη λήψη αρχείων από το Metalink
 Comment[gl]=Permítelle obter ficheiros de Metalink
+Comment[lt]=Leidžia atsisiųsti failus iš Metalink
 Comment[nds]=Mit dit Moduul kannst Du Dateien vun Metalink daalladen
 Comment[pt]=Permite transferir os ficheiros a partir do Metalink
 Comment[pt_BR]=Permite transferir os ficheiros a partir do Metalink

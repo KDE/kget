@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Mirror Search
+Name[ca]=Cerca miralls
 Name[de]=MirrorSearch
 Name[el]=Αναζήτηση Mirror
 Name[et]=Peegliotsing
@@ -22,6 +23,7 @@ Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
 Comment=Enable KGet to search the file through mirror search engines
+Comment[ca]=Permet que el KGet cerqui el fitxer a miralls de cercadors
 Comment[de]=Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen.
 Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
 Comment[gl]=Habilita a KGet para procurar o ficheiro mediante réplicas dos motores de procuras
