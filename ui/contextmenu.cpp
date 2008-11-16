@@ -37,19 +37,20 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     //transferfactory
     //bool sameFactory = true;
 
-    QList<TransferHandler *>::iterator it = transfers.begin();
+    /*QList<TransferHandler *>::iterator it = transfers.begin();
     QList<TransferHandler *>::iterator itEnd = transfers.end();
 
-    /*for(; (it!=itEnd) && (sameFactory) ; ++it)
+    for(; (it!=itEnd) && (sameFactory) ; ++it)
     {
         //sameFactory = ( (*it)->m_transfer->factory() == //Port factory() to transferhandler
          //               transfers.first()->m_transfer->factory() );
     }*/
 
     KMenu *popup = new KMenu(parent);
+    popup->addTitle(transfers.first()->dest().fileName());
     //Get the transfer factory actions
     QList<QAction*> actionList = transfers.first()->factoryActions();
-//     popup->addTitle( i18np("1 Download selected", "%1 Downloads selected", transfers.count()) );
+//     popup->addTitle( i18np("%1 Download selected", "%1 Downloads selected", transfers.count()) );
 
     //Plug all the actions in the popup menu
     popup->addActions(transfers.first()->contextActions());
@@ -119,7 +120,7 @@ KMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handle
         return 0;
 
     KMenu * popup = new KMenu(parent);
-//     popup->addTitle( i18nc( "%1 is the name of the group", "%1 Group", name() ) );
+    popup->addTitle(handler->name());
 
     popup->addActions(handler->actions());
     popup->addSeparator();
