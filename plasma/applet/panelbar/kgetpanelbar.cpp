@@ -34,6 +34,7 @@
 #include <KIconLoader>
 #include <KLocale>
 #include <KTitleWidget>
+#include <KWindowSystem>
 #include <kio/global.h>
 
 #include <plasma/applet.h>
@@ -185,7 +186,6 @@ void KGetPanelBar::init()
 {
     m_dialog = new Plasma::Dialog(0);
     m_dialog->setFocusPolicy(Qt::NoFocus);
-    m_dialog->setWindowFlags(Qt::Popup);
     m_dialog->setLayout(d->dialogLayout());
 
     m_icon = new Plasma::IconWidget(KIcon("go-down"), QString(), this);
@@ -233,6 +233,7 @@ void KGetPanelBar::showDialog()
     }
     else {
         m_dialog->show();
+        KWindowSystem::setState(m_dialog->winId(), NET::SkipTaskbar);
         m_dialog->move(popupPosition(m_dialog->sizeHint()));
     }
 }
