@@ -79,6 +79,7 @@ SHORT-TERM (URGENT):
   ADD <boom1992> let the user add new download-sources to a multithreaded transfer manually
   ADD <boom1992> Ask the user if he/she wants to delete the transfer (or probably if he/she wants to delete the tmp-file)?
   ADD <boom1992> Move deleting of big tmp-files to a new thread
+  ADD <boom1992> Change "Regular expression -> Folder" to "Regular expression -> Group"
 
 MID-TERM:
 
