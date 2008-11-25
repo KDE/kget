@@ -155,10 +155,13 @@ void transferMultiSegKio::createJob()
                 KUrl searchUrl(m_source);
                 searchUrl.setProtocol("search");
                 TransferDataSource * mirrorSearch = KGet::createTransferDataSource(searchUrl);
-                connect(mirrorSearch, SIGNAL(data(const QList<KUrl>&)),
-                   SLOT(slotSearchUrls(const QList<KUrl>&)));
-                mirrorSearch->start();
-            }
+                if (mirrorSearch)
+                {
+                    connect(mirrorSearch, SIGNAL(data(const QList<KUrl>&)),
+                        SLOT(slotSearchUrls(const QList<KUrl>&)));
+                    mirrorSearch->start();
+                }
+           }
             m_Urls << m_source;
         }
         if(SegmentsData.empty())
