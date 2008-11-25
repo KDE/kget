@@ -178,11 +178,9 @@ void MultiSegmentCopyJob::slotOpen( KIO::Job * job)
 
 void MultiSegmentCopyJob::slotWritten( KIO::Job * ,KIO::filesize_t bytesWritten)
 {
-//     kDebug(5001) << "MultiSegmentCopyJob::slotWritten() " << bytesWritten;
-    m_writeBlocked = false;
-    setProcessedAmount(Bytes, processedAmount(Bytes)+bytesWritten);
     if( processedAmount(Bytes) == totalAmount(Bytes) )
         m_putJob->close();
+    m_writeBlocked = false;
 }
 
 void MultiSegmentCopyJob::slotClose( KIO::Job * )
@@ -286,6 +284,7 @@ void MultiSegmentCopyJob::slotDataReq( Segment *seg, const QByteArray &data, boo
         emit updateSegmentsData();
         m_chunkSize = 0;
     }
+    setProcessedAmount(Bytes, processedAmount(Bytes)+data.size());
 }
 
 void MultiSegmentCopyJob::slotResult( KJob *job )
