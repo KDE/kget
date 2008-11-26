@@ -297,6 +297,11 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     if (!bt::Globals::instance().getServer().isOK())
         return;
 
+    QDir tmpDir(m_tmp + m_source.fileName().remove(".torrent"));
+    if (tmpDir.exists())
+    {
+        tmpDir.remove("torrent");
+    }
     try
     {
         torrent = new bt::TorrentControl();
