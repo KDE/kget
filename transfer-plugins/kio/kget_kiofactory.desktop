@@ -22,6 +22,7 @@ Comment[pt_BR]='Plugin' de transferência de ficheiros clássico
 Comment[sv]=Klassiskt insticksprogram för filnerladdning
 Comment[uk]=Втулка класичного звантаження файлів
 Comment[x-test]=xxClassic file downloader pluginxx
+Comment[zh_CN]=传统的文件下载插件
 Comment[zh_TW]=傳統檔案下載外掛程式
 
 # options for library loader

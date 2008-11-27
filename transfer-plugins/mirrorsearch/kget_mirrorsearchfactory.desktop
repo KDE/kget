@@ -35,6 +35,7 @@ Comment[pt_BR]=Permite ao KGet procurar pelo ficheiro nas réplicas dos motores 
 Comment[sv]=Gör det möjligt för Kget att söka efter filen via spegelsöktjänster
 Comment[uk]=Умикає у KGet можливість пошуку за допомогою рушіїв пошук дзеркал
 Comment[x-test]=xxEnable KGet to search the file through mirror search enginesxx
+Comment[zh_CN]=允许 KGet 通过镜像搜索引擎查找文件
 Comment[zh_TW]=開啟 KGet 透過鏡射搜尋引擎來搜尋檔案
 
 # options for library loader

@@ -34,6 +34,7 @@ Comment[pt_BR]=Obtém os conteúdos com programas personalizados.
 Comment[sv]=Hämta innehåll med egna skript.
 Comment[uk]=Отримайте вміст за допомогою нетипових скриптів.
 Comment[x-test]=xxFetch contents with custom scripts.xx
+Comment[zh_CN]=使用自定义脚本获取内容。
 Comment[zh_TW]=使用自訂的文稿抓取內容。
 
 # options for library loader

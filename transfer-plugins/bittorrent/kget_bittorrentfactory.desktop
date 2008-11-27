@@ -27,6 +27,7 @@ Comment[pt_BR]=Permite transferir ficheiros com o Bittorrent
 Comment[sv]=Gör det möjligt att ladda ner filer med användning av Bittorrent
 Comment[uk]=Надає змогу звантажувати файли за допомогою Bittorrent
 Comment[x-test]=xxAllows to download files using Bittorrentxx
+Comment[zh_CN]=使用 Bittorrent 协议下载文件
 Comment[zh_TW]=允許使用 Bittorrent 下載檔案
 
 # options for library loader

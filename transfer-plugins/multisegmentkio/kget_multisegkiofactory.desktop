@@ -35,6 +35,7 @@ Comment[pt_BR]='Plugin' de transferências de ficheiros multitarefa
 Comment[sv]=Flertrådat insticksprogram för filnerladdning
 Comment[uk]=Втулка звантаження файлів у декілька потоків
 Comment[x-test]=xxMultithreaded file download pluginxx
+Comment[zh_CN]=多线程文件下载插件
 Comment[zh_TW]=多緒檔案下載外掛程式
 
 # options for library loader
