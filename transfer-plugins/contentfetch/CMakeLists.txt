@@ -12,8 +12,6 @@ set(kget_contentfetchfactory_PART_SRCS
   scriptconfigadaptor.cpp
 )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/kget_contentfetchfactory.kcfg.cmake ${CMAKE_CURRENT_SOURCE_DIR}/kget_contentfetchfactory.kcfg)
-
 kde4_add_kcfg_files(kget_contentfetchfactory_PART_SRCS contentfetchsetting.kcfgc)
 
 kde4_add_plugin(kget_contentfetchfactory ${kget_contentfetchfactory_PART_SRCS})
