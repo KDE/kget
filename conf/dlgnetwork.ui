@@ -80,6 +80,15 @@
         <property name="enabled" >
          <bool>false</bool>
         </property>
+        <property name="maximum" >
+         <number>1000000</number>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
+        </property>
+        <property name="value" >
+         <number>10</number>
+        </property>
        </widget>
       </item>
      </layout>
@@ -98,6 +107,15 @@
        <widget class="QLabel" name="lb_per_transfer" >
         <property name="text" >
          <string>Per Transfer:</string>
+        </property>
+        <property name="maximum" >
+         <number>1000000</number>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
+        </property>
+        <property name="value" >
+         <number>10</number>
         </property>
        </widget>
       </item>
@@ -122,11 +140,8 @@
         <property name="suffix" >
          <string>kBi/s</string>
         </property>
-        <property name="minimum" >
-         <number>10</number>
-        </property>
         <property name="maximum" >
-         <number>100000</number>
+         <number>1000000</number>
         </property>
         <property name="singleStep" >
          <number>5</number>
@@ -242,7 +257,10 @@
          <string>sec</string>
         </property>
         <property name="maximum" >
-         <number>100</number>
+         <number>86400</number>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
         </property>
        </widget>
       </item>
