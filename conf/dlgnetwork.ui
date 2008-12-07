@@ -10,16 +10,7 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="leftMargin" >
-    <number>0</number>
-   </property>
-   <property name="topMargin" >
-    <number>0</number>
-   </property>
-   <property name="rightMargin" >
-    <number>0</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin" >
     <number>0</number>
    </property>
    <item>
@@ -60,7 +51,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>71</width>
           <height>48</height>
@@ -79,15 +70,6 @@
        <widget class="QSpinBox" name="kcfg_MaxConnectionsServer" >
         <property name="enabled" >
          <bool>false</bool>
-        </property>
-        <property name="maximum" >
-         <number>1000000</number>
-        </property>
-        <property name="singleStep" >
-         <number>5</number>
-        </property>
-        <property name="value" >
-         <number>10</number>
         </property>
        </widget>
       </item>
@@ -108,15 +90,6 @@
         <property name="text" >
          <string>Per Transfer:</string>
         </property>
-        <property name="maximum" >
-         <number>1000000</number>
-        </property>
-        <property name="singleStep" >
-         <number>5</number>
-        </property>
-        <property name="value" >
-         <number>10</number>
-        </property>
        </widget>
       </item>
       <item row="2" column="1" >
@@ -127,7 +100,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::Expanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>115</width>
           <height>36</height>
@@ -145,6 +118,9 @@
         </property>
         <property name="singleStep" >
          <number>5</number>
+        </property>
+        <property name="value" >
+         <number>10</number>
         </property>
        </widget>
       </item>
@@ -167,12 +143,30 @@
         <property name="suffix" >
          <string>KiB/s</string>
         </property>
+        <property name="maximum" >
+         <number>1000000</number>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
+        </property>
+        <property name="value" >
+         <number>10</number>
+        </property>
        </widget>
       </item>
       <item row="1" column="2" >
        <widget class="QSpinBox" name="kcfg_GlobalUploadLimit" >
         <property name="suffix" >
          <string>KiB/s</string>
+        </property>
+        <property name="maximum" >
+         <number>1000000</number>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
+        </property>
+        <property name="value" >
+         <number>10</number>
         </property>
        </widget>
       </item>
@@ -181,7 +175,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -194,7 +188,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -243,7 +237,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::Expanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>115</width>
           <height>56</height>
@@ -301,7 +295,7 @@
      <property name="sizeType" >
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>200</width>
        <height>16</height>
