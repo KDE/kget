@@ -44,7 +44,7 @@
             </sizepolicy>
            </property>
            <property name="text" >
-            <string>KSqueezedTextLabel</string>
+            <string comment="KDE::DoNotExtract" >KSqueezedTextLabel</string>
            </property>
           </widget>
          </item>
@@ -68,7 +68,7 @@
             </sizepolicy>
            </property>
            <property name="text" >
-            <string>KSqueezedTextLabel</string>
+            <string comment="KDE::DoNotExtract" >KSqueezedTextLabel</string>
            </property>
           </widget>
          </item>
