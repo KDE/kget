@@ -30,6 +30,7 @@ Comment=Enable KGet to search the file through mirror search engines
 Comment[ca]=Permet que el KGet cerqui el fitxer a miralls de cercadors
 Comment[de]=Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen.
 Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
+Comment[es]=Habillitar la busqueda de KGet de archivos en aplicaciones de busqueda espectral
 Comment[et]=Võimaldab KGetil otsida faile peegelotsingumootorite vahendusel
 Comment[gl]=Habilita a KGet para procurar o ficheiro mediante réplicas dos motores de procuras
 Comment[ja]=KGet でミラー検索エンジンを使ってファイルを検索します
