@@ -843,6 +843,16 @@ void MainWindow::closeEvent( QCloseEvent * e )
     }
 }
 
+void MainWindow::hideEvent(QHideEvent *)
+{
+    Settings::setShowMain(false);
+}
+
+void MainWindow::showEvent(QShowEvent *)
+{
+    Settings::setShowMain(true);
+}
+
 void MainWindow::dragEnterEvent(QDragEnterEvent * event)
 {
     event->setAccepted(KUrl::List::canDecode(event->mimeData())

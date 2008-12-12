@@ -92,10 +92,10 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
         if(!newtransfer.isEmpty())
             KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
     }
-    else if (reason == QSystemTrayIcon::Trigger) {
+    /*else if (reason == QSystemTrayIcon::Trigger) {
         // save the main window minimized state if it changes from the sys tray icon
         Settings::setShowMain(parentWidget()->isVisible());
-    }
+    }*/
 }
 
 // display blinking icon when downloading

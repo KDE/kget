@@ -327,7 +327,7 @@ void TransferGroup::transferChangedEvent(Transfer * transfer)
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 {
-    kDebug(5001) << "TransferGroup::save()  -->  " << name();
+    kDebug(5001) << " -->  " << name();
 
     e.setAttribute("Name", m_name);
     e.setAttribute("DefaultFolder", m_defaultFolder);
@@ -341,7 +341,7 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 
     for( ; it!=itEnd; ++it )
     {
-        kDebug(5001) << "TransferGroup::save()  -->" << name() << "  transfer: " << ((Transfer *) *it)->source();
+        kDebug(5001) << "  -->  " << name() << "  transfer: " << ((Transfer *) *it)->source();
         QDomElement t = e.ownerDocument().createElement("Transfer");
         e.appendChild(t);
         ((Transfer *) *it)->save(t);

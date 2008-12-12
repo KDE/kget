@@ -58,7 +58,9 @@ public slots:
 
 protected:
     // ignore/accept quit events
-    virtual void closeEvent( QCloseEvent * );
+    virtual void closeEvent(QCloseEvent *);
+    virtual void hideEvent(QHideEvent *);
+    virtual void showEvent(QShowEvent *);
 
     // drag and drop
     virtual void dragEnterEvent(QDragEnterEvent *);
