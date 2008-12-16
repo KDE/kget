@@ -254,7 +254,7 @@ void TransferHandler::postDeleteEvent()
 
     for(; it!=itEnd; ++it)
     {
-        if(*it)
+        if(*it && *it != dynamic_cast<TransferObserver*>(m_transfer))
             (*it)->deleteEvent(this);
     }
     kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";

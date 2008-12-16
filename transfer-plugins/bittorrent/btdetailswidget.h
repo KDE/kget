@@ -19,6 +19,9 @@
 
 class BTTransferHandler;
 
+class QShowEvent;
+class QHideEvent;
+
 class BTDetailsWidget : public QWidget, public TransferObserver, public Ui::BTDetailsWidgetFrm
 {
     Q_OBJECT
@@ -27,6 +30,10 @@ class BTDetailsWidget : public QWidget, public TransferObserver, public Ui::BTDe
         ~BTDetailsWidget();
 
         void transferChangedEvent(TransferHandler * transfer);
+
+    protected:
+        virtual void showEvent(QShowEvent * event);
+        virtual void hideEvent(QHideEvent * event);
 
     private:
         BTTransferHandler * m_transfer;

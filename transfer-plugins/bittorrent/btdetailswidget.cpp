@@ -16,7 +16,7 @@
 #include <kdebug.h>
 
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
-    : m_transfer(transfer)
+  : m_transfer(transfer)
 {
     setupUi(this);
 
@@ -34,12 +34,10 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     ulSpeedLabel->setText(i18nc("not available", "n/a"));
 
     progressBar->setValue(m_transfer->percent());
-    transfer->addObserver(this);
 }
 
 BTDetailsWidget::~BTDetailsWidget()
 {
-    //m_transfer->delObserver(this);
 }
 
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
@@ -75,6 +73,18 @@ void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
         progressBar->setValue(m_transfer->percent());
 
     m_transfer->resetChangesFlags(this);
+}
+
+void BTDetailsWidget::showEvent(QShowEvent * event)
+{
+    Q_UNUSED(event)
+    m_transfer->addObserver(this);
+}
+
+void BTDetailsWidget::hideEvent(QHideEvent * event)
+{
+    Q_UNUSED(event)
+    m_transfer->delObserver(this);
 }
 
 #include "btdetailswidget.moc"
