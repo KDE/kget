@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2007 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007 - 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -39,7 +39,7 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
 
 BTDetailsWidget::~BTDetailsWidget()
 {
-    m_transfer->delObserver(this);
+    //m_transfer->delObserver(this);
 }
 
 void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
