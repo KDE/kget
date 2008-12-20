@@ -54,8 +54,11 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
 
     //Plug all the actions in the popup menu
     popup->addActions(transfers.first()->contextActions());
-    popup->addSeparator();
-    popup->addAction( KGet::actionCollection()->action("transfer_settings") );
+    if (transfers.first()->status() != Job::Finished)
+    {
+        popup->addSeparator();
+        popup->addAction( KGet::actionCollection()->action("transfer_settings") );
+    }
     popup->addSeparator();
 
     foreach (QAction * it, actionList)
@@ -77,7 +80,7 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
 #endif*/
 
     popup->addAction( KGet::actionCollection()->action("transfer_open_dest") );
-    popup->addAction( KGet::actionCollection()->action("transfer_open_file") );
+    //popup->addAction( KGet::actionCollection()->action("transfer_open_file") );
     popup->addAction( KGet::actionCollection()->action("transfer_show_details") );
     popup->addAction( KGet::actionCollection()->action("transfer_copy_source_url") );
 

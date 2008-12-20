@@ -263,9 +263,12 @@ void TransferHandler::postDeleteEvent()
 QList<QAction*> TransferHandler::contextActions()
 {
     QList<QAction*> actions;
-    actions << KGet::actionCollection()->action("start_selected_download")
-            << KGet::actionCollection()->action("stop_selected_download")
-            << KGet::actionCollection()->action("delete_selected_download")
+    if (status() != Job::Finished) 
+    {
+        actions << KGet::actionCollection()->action("start_selected_download")
+                << KGet::actionCollection()->action("stop_selected_download");
+    }
+    actions << KGet::actionCollection()->action("delete_selected_download")
             << KGet::actionCollection()->action("redownload_selected_download");
 
     return actions;
