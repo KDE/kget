@@ -418,6 +418,7 @@ Action=PassivePopup|Sound
 [Event/notification]
 Name=Information
 Name[ca]=Informació
+Name[cs]=Informace
 Name[el]=Πληροφορίες
 Name[es]=Información
 Name[et]=Info
