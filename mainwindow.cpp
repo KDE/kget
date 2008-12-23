@@ -960,6 +960,7 @@ MainWindowGroupObserver::MainWindowGroupObserver(MainWindow *window)
     : QObject(window)
 {
     m_window = window;
+    m_transferObserver = new MainWindowTransferObserver(window);
 }
 
 void MainWindowGroupObserver::groupChangedEvent(TransferGroupHandler * group)
@@ -971,21 +972,39 @@ void MainWindowGroupObserver::groupChangedEvent(TransferGroupHandler * group)
     group->resetChangesFlags(this);
 }
 
-/**void MainWindowGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+void MainWindowGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 { 
-    Q_UNUSED(transfer);
     Q_UNUSED(after);
+    transfer->addObserver(m_transferObserver);
 }
 
 void MainWindowGroupObserver::removedTransferEvent(TransferHandler * transfer)
-{ 
-    Q_UNUSED(transfer);
+{
+    transfer->delObserver(m_transferObserver);
+
+    m_window->slotUpdateTitlePercent();
 }
 
+/**
 void MainWindowGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 {
     Q_UNUSED(transfer);
     Q_UNUSED(after);
 }**/
+
+MainWindowTransferObserver::MainWindowTransferObserver(MainWindow *window)
+    : QObject(window)
+{
+    m_window = window;
+}
+
+void MainWindowTransferObserver::transferChangedEvent(TransferHandler *transfer)
+{
+    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
+    if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
+        m_window->slotUpdateTitlePercent();
+    }
+    transfer->resetChangesFlags(this);
+}
 
 #include "mainwindow.moc"

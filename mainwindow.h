@@ -152,6 +152,23 @@ private:
 };
 
 /**
+ * Checks every transfer for a percent change to update the mainwindow title
+ */
+class MainWindowTransferObserver : public QObject, public TransferObserver
+{
+    public:
+        MainWindowTransferObserver(MainWindow *window);
+        virtual ~MainWindowTransferObserver(){}
+
+        virtual void transferChangedEvent(TransferHandler * transfer);
+
+//        virtual void deleteEvent(TransferHandler * transfer);
+
+    private:
+        MainWindow *m_window;
+};
+
+/**
 * Used to update the mainwindow caption when the groups percents change
 */
 class MainWindowGroupObserver : public QObject, public TransferGroupObserver
@@ -163,14 +180,15 @@ class MainWindowGroupObserver : public QObject, public TransferGroupObserver
 
         virtual void groupChangedEvent(TransferGroupHandler * group);
 
-        /**virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
 
         virtual void removedTransferEvent(TransferHandler * transfer);
-
+/**
         virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);**/
 
     private:
         MainWindow *m_window;
+        MainWindowTransferObserver *m_transferObserver;
 };
 
 class MainWindowModelObserver : public QObject, public ModelObserver
