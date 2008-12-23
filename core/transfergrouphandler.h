@@ -257,7 +257,7 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * @param postEvent if false the handler will not post an event to the
          * observers, if true the handler will post an event to the observers
          */
-        void setGroupChange(ChangesFlags change, bool postEvent=false);
+        void setGroupChange(ChangesFlags change, bool postEvent = false);
 
         /**
          * Posts a TransferGroupChangedEvent to all the observers

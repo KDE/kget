@@ -318,6 +318,14 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
         transfer->group()->setGroupChange(TransferGroup::Gc_Percent, true);
     }
 
+    if (transferFlags & Transfer::Tc_DownloadSpeed) {
+        transfer->group()->setGroupChange(TransferGroup::Gc_DownloadSpeed, true);
+    }
+
+    if (transferFlags & Transfer::Tc_UploadSpeed) {
+        transfer->group()->setGroupChange(TransferGroup::Gc_UploadSpeed, true);
+    }
+
     transfer->resetChangesFlags(this);
     transfer->checkShareRatio();
 
