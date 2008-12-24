@@ -6,6 +6,7 @@ X-KDE-Library=kcm_kget_bittorrentfactory
 X-KDE-ParentComponents=kget_bittorrent_plugin
 
 Name=Bittorrent
+Name[fr]=BitTorrent
 Name[ja]=BitTorrent
 Name[nds]=BitTorrent
 Name[nn]=BitTorrent
