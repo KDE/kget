@@ -23,7 +23,7 @@
 #include <QDomElement>
 #include <QFile>
 
-transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
+TransferMultiSegKio::TransferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
@@ -34,7 +34,7 @@ transferMultiSegKio::transferMultiSegKio(TransferGroup * parent, TransferFactory
         load( *e );
 }
 
-void transferMultiSegKio::start()
+void TransferMultiSegKio::start()
 {
     if(!m_copyjob)
         createJob();
@@ -46,7 +46,7 @@ void transferMultiSegKio::start()
     stopped = false;
 }
 
-void transferMultiSegKio::stop()
+void TransferMultiSegKio::stop()
 {
     kDebug(5001);
 
@@ -64,12 +64,12 @@ void transferMultiSegKio::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-bool transferMultiSegKio::isResumable() const
+bool TransferMultiSegKio::isResumable() const
 {
     return true;
 }
 
-void transferMultiSegKio::postDeleteEvent()
+void TransferMultiSegKio::postDeleteEvent()
 {
     if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {
@@ -77,7 +77,7 @@ void transferMultiSegKio::postDeleteEvent()
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
-void transferMultiSegKio::load(const QDomElement &e)
+void TransferMultiSegKio::load(const QDomElement &e)
 {
     kDebug(5001);
 
@@ -105,7 +105,7 @@ void transferMultiSegKio::load(const QDomElement &e)
     }
 }
 
-void transferMultiSegKio::save(const QDomElement &element)
+void TransferMultiSegKio::save(const QDomElement &element)
 {
     kDebug(5001);
 
@@ -143,7 +143,7 @@ void transferMultiSegKio::save(const QDomElement &element)
 
 //NOTE: INTERNAL METHODS
 
-void transferMultiSegKio::createJob()
+void TransferMultiSegKio::createJob()
 {
 //     mirror* searchjob = 0;
     if(!m_copyjob)
@@ -189,14 +189,14 @@ void transferMultiSegKio::createJob()
     }
 }
 
-void transferMultiSegKio::slotUpdateSegmentsData()
+void TransferMultiSegKio::slotUpdateSegmentsData()
 {
     SegmentsData.clear();
     SegmentsData = m_copyjob->SegmentsData();
     KGet::save();
 }
 
-void transferMultiSegKio::slotResult( KJob *kioJob )
+void TransferMultiSegKio::slotResult( KJob *kioJob )
 {
     kDebug(5001) << "(" << kioJob->error() << ")";
     switch (kioJob->error())
@@ -223,13 +223,13 @@ void transferMultiSegKio::slotResult( KJob *kioJob )
     setTransferChange(Tc_Status, true);
 }
 
-void transferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
+void TransferMultiSegKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 {
     Q_UNUSED(kioJob);
     m_log.append(QString(msg));
 }
 
-void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
+void TransferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
 //     kDebug(5001);
     Q_UNUSED(kioJob);
@@ -237,7 +237,7 @@ void transferMultiSegKio::slotPercent( KJob * kioJob, unsigned long percent )
     setTransferChange(Tc_Percent, true);
 }
 
-void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
+void TransferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob);
 
@@ -254,7 +254,7 @@ void transferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
     setTransferChange(Tc_TotalSize, true);
 }
 
-void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
+void TransferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 {
 //     kDebug(5001) << "slotProcessedSize"; 
 
@@ -271,7 +271,7 @@ void transferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
     setTransferChange(Tc_DownloadedSize, true);
 }
 
-void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
+void TransferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
 //     kDebug(5001) << "slotSpeed: " << bytes_per_second;
 
@@ -288,7 +288,7 @@ void transferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
     setTransferChange(Tc_DownloadSpeed, true);
 }
 
-void transferMultiSegKio::slotSearchUrls(const QList<KUrl> &Urls)
+void TransferMultiSegKio::slotSearchUrls(const QList<KUrl> &Urls)
 {
     kDebug(5001) << "got: " << Urls.size() << " Urls.";
     m_Urls = Urls;

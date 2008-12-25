@@ -265,20 +265,20 @@ QList<SegData> SegmentFactory::SegmentsData()
     return tdata;
 }
 
-QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
+QList<Segment *> SegmentFactory::splitSegment( Segment *seg, int n)
 {
-    kDebug(5001) << "Spliting " << Seg << "in " << n;
+    kDebug(5001) << "Spliting " << seg << "in " << n;
     QList<Segment *> Segments;
 
-    KIO::TransferJob *Job = Seg->job();
-    if(Job)
+    KIO::TransferJob *job = seg->job();
+    if(job)
     {
-        Job->suspend();
+        job->suspend();
         kDebug(5001) << "job Suspended...";
     }
 
-    KIO::filesize_t bytes = Seg->data().bytes;
-    KIO::filesize_t offset = Seg->data().offset;
+    KIO::filesize_t bytes = seg->data().bytes;
+    KIO::filesize_t offset = seg->data().offset;
 
     uint splitSize = 50;
     if( MultiSegKioSettings::splitSize() )
@@ -295,9 +295,9 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
     if( n == 0 )
     {
         kDebug(5001) << "Segment can't be splited.";
-        if(Job)
+        if(job)
         {
-            Job->resume();
+            job->resume();
             kDebug(5001) << "Resuming Job...";
         }
         return Segments;
@@ -305,11 +305,11 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
 
     KIO::filesize_t segment = bytes/n;
 
-    kDebug(5001) << "spliting: " << Seg->data().bytes <<" in "<< n << "  and got: " << segment;
+    kDebug(5001) << "spliting: " << seg->data().bytes <<" in "<< n << "  and got: " << segment;
 
     KIO::fileoffset_t rest_size = segment + ( bytes%n );
-    Seg->setBytes( segment );
-    kDebug(5001) << "Now the segment has: " << Seg->data().bytes <<" bytes.";
+    seg->setBytes( segment );
+    kDebug(5001) << "Now the segment has: " << seg->data().bytes <<" bytes.";
 
     SegData data;
     for(int i = 1; i < n; i++)
@@ -328,9 +328,9 @@ QList<Segment *> SegmentFactory::splitSegment( Segment *Seg, int n)
         kDebug(5001) << "Segment created at offset: "<< data.offset <<" with "<< data.bytes << " bytes.";
     }
 
-    if(Job)
+    if(job)
     {
-        Job->resume();
+        job->resume();
         kDebug(5001) << "Resuming Job...";
     }
 

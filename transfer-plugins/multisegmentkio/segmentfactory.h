@@ -168,7 +168,7 @@
         void setUrls(QList<KUrl> &Urls) {m_Urls = Urls;it_Urls=m_Urls.constBegin();}
         QList<Segment *> Segments() {return m_Segments;}
         uint nunOfSegments(){return m_segments;}
-        QList<Segment *> splitSegment( Segment *Seg, int n );
+        QList<Segment *> splitSegment( Segment *seg, int n );
         Segment *createSegment( SegData data, const KUrl &src );
         void deleteSegment(Segment *);
         const KUrl nextUrl();

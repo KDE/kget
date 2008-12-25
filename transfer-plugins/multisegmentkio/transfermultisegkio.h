@@ -21,12 +21,12 @@
  * This transfer uses the KIO class to download files
  */
  
-class transferMultiSegKio : public QObject, public Transfer
+class TransferMultiSegKio : public QObject, public Transfer
 {
     Q_OBJECT
 
     public:
-        transferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
+        TransferMultiSegKio(TransferGroup * parent, TransferFactory * factory,
                     Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
 

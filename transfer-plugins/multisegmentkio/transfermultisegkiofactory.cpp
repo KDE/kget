@@ -44,7 +44,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
          MultiSegKioSettings::segments() > 1
       )
     {
-       return new transferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
+       return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
 }
