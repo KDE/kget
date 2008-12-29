@@ -16,6 +16,7 @@
 #include <kio/job.h>
 
 class SegmentFactory;
+class Segment;
 
 class MultiSegKioDataSource : public TransferDataSource
 {
@@ -24,8 +25,11 @@ class MultiSegKioDataSource : public TransferDataSource
         ~MultiSegKioDataSource();
 
         void start();
-	void stop();
+        void stop();
         void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes);
+
+    private Q_SLOTS:
+        void slotDataReq( Segment *Seg, const QByteArray& Data, bool &ok);
 
     private:
         SegmentFactory * m_SegFactory;

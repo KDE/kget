@@ -49,3 +49,7 @@ void MultiSegKioDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset
                  SLOT(slotDataReq( Segment *, const QByteArray&, bool &)));
 }
 
+void MultiSegKioDataSource::slotDataReq( Segment *Seg, const QByteArray& Data, bool &ok)
+{
+    emit data (Seg->offset(),Data);
+}

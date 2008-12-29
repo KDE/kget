@@ -267,8 +267,12 @@ QList<SegData> SegmentFactory::SegmentsData()
 
 QList<Segment *> SegmentFactory::splitSegment( Segment *seg, int n)
 {
-    kDebug(5001) << "Spliting " << seg << "in " << n;
     QList<Segment *> Segments;
+    if ( seg && seg->status() != Segment::Running )
+    {
+        return Segments;
+    }
+    kDebug(5001) << "Spliting " << seg << "in " << n;
 
     KIO::TransferJob *job = seg->job();
     if(job)
