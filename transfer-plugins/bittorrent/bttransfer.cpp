@@ -349,7 +349,7 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
     kDebug(5001) << "Start seeding *********************************************************************";
     Q_UNUSED(ti);
     m_downloadFinished = true;
-    timer.stop();
+    //timer.stop();
     setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding.."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
 }
