@@ -49,9 +49,9 @@ class KGET_EXPORT TransferGroup : public JobQueue
             Gc_TotalSize           = 0x00000004,
             Gc_Percent             = 0x00000008,
             Gc_UploadSpeed         = 0x00000010,
-            Gc_DownloadSpeed       = 0x00000016,
+            Gc_DownloadSpeed       = 0x00000020,
             // Misc
-            Gc_ProcessedSize = 0x00010000
+            Gc_ProcessedSize       = 0x00010000
         };
 
         typedef int ChangesFlags;
