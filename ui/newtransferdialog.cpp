@@ -311,7 +311,7 @@ void NewTransferDialog::prepareDialog()
             destDir = KUrl(destDir).path();
 
             QString dir;
-            if (m_sources.size() > 1)
+            if (QFileInfo(destDir).isDir())
                 dir = destDir;
             else
                 dir = KUrl(destDir).directory();
