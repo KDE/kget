@@ -13,6 +13,7 @@
 #include "ui/droptarget.h"
 
 #include "core/kget.h"
+#include "core/transferhandler.h"
 #include "settings.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
@@ -27,15 +28,17 @@
 #include <QPainter>
 #include <QTimer>
 #include <QClipboard>
+#include <QStringList>
 
 #include <math.h>
 
 #define TARGET_SIZE   64
 #define TARGET_ANI_MS 20
+#define TARGET_TOOLTIP_MS 1000
 
 DropTarget::DropTarget(MainWindow * mw)
     : QWidget(0, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
-    parentWidget(mw), animTimer(0), showInformation(false)
+    parentWidget(mw), animTimer(0), toolTipTimer(0), showInformation(false)
 {
     KWindowSystem::setState(winId(), NET::SkipTaskbar);
 
@@ -100,6 +103,9 @@ DropTarget::DropTarget(MainWindow * mw)
     }
 
     animTimer = new QTimer(this);
+
+    toolTipTimer = new QTimer(this);
+    connect(toolTipTimer, SIGNAL(timeout()), SLOT(slotToolTipUpdate()));
 }
 
 
@@ -122,6 +128,7 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
 
     if (!shown)
     {
+        toolTipTimer->stop();
         Settings::setDropPosition( pos() );
         if ( Settings::animateDropTarget() )
             playAnimationHide();
@@ -135,6 +142,8 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
             playAnimationShow();
         else
             move(position);
+        toolTipTimer->start(TARGET_TOOLTIP_MS);
+        slotToolTipUpdate();
     }
 }
 
@@ -371,6 +380,48 @@ void DropTarget::slotAnimateSync()
         move( x(), qRound(ani_y) );
     } else
         move( x(), qRound(ani_y + 6*j) );
+}
+
+void DropTarget::slotToolTipUpdate()
+{
+    QStringList dataList;
+    QString data;
+    
+    foreach (TransferHandler *transfer, KGet::allTransfers()) {
+        data.clear();
+        switch (transfer->status()) {
+        case Job::Delayed:
+        case Job::Stopped:
+        case Job::Aborted:
+            data = i18n("%1(%2\% %3/%4) %5",
+                transfer->source().fileName(),
+                QString::number(transfer->percent()), 
+                KIO::convertSize(transfer->downloadedSize()),
+                KIO::convertSize(transfer->totalSize()),
+                transfer->statusText());
+            break;
+        case Job::Finished:
+            data = i18n("%1(%2) %3",  
+                transfer->source().fileName(), 
+                KIO::convertSize(transfer->totalSize()),
+                transfer->statusText());
+            break;
+        case Job::Running:
+            data = i18n("%1(%2\% %3/%4) Speed:%5/s",  
+                transfer->source().fileName(), 
+                QString::number(transfer->percent()), 
+                KIO::convertSize(transfer->downloadedSize()),
+                KIO::convertSize(transfer->totalSize()),
+                KIO::convertSize(transfer->downloadSpeed()));
+            break;
+        }
+        dataList << data;
+    }
+    
+    if (!dataList.empty())
+        setToolTip(dataList.join("\n"));
+    else
+       setToolTip(i18n("Ready")); 
 }
 
 void DropTarget::slotClose()
