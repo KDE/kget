@@ -60,14 +60,12 @@ private slots:
     void slotAnimateShow();
     void slotAnimateHide();
     void slotAnimateSync();
-    void slotToolTipUpdate();
     void slotClose();
 
 private:
     KMenu * popupMenu;
     MainWindow * parentWidget;
     QTimer * animTimer;
-    QTimer * toolTipTimer;
     QPixmap cachedPixmap;
 
     QAction * pop_sticky;
