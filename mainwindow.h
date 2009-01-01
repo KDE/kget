@@ -156,6 +156,7 @@ private:
  */
 class MainWindowTransferObserver : public QObject, public TransferObserver
 {
+    Q_OBJECT
     public:
         MainWindowTransferObserver(MainWindow *window);
         virtual ~MainWindowTransferObserver(){}
