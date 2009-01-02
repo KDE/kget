@@ -30,6 +30,7 @@ Name[zh_CN]=内容获取
 Name[zh_TW]=內容擷取
 Comment=Fetch contents with custom scripts.
 Comment[ca]=Agafa continguts amb scripts personalitzats.
+Comment[da]=Henter indhold med brugerdefinerede scripts.
 Comment[de]=Lädt Dateninhalte mit eigenen Skripten herunter.
 Comment[el]=Ανάκτηση περιεχομένων με προσαρμοσμένα σενάρια.
 Comment[es]=Contenidos traidos con guión especificado

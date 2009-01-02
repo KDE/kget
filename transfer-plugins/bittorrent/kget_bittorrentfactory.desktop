@@ -19,6 +19,7 @@ Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Comment=Allows to download files using Bittorrent
 Comment[ca]=Permet de descarregar fitxers usant el Bittorrent
+Comment[da]=Muliggør download af filer med brug af Bittorrent
 Comment[de]=Ermöglicht das Herunterladen von Dateien mit Bittorrent
 Comment[el]=Επιτρέπει τη λήψη αρχείων με χρήση του Bittorrent
 Comment[es]=Permitir la descarga de archivos usando Bittorrent

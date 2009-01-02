@@ -31,6 +31,7 @@ Name[zh_TW]=映射搜尋
 
 Comment=Enable KGet to search the file through mirror search engines
 Comment[ca]=Permet que el KGet cerqui el fitxer a miralls de cercadors
+Comment[da]=Gør KGet i stand til at søge efter filen via filspejl-søgemaskiner
 Comment[de]=Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen.
 Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
 Comment[es]=Habillitar la busqueda de KGet de archivos en aplicaciones de busqueda espectral

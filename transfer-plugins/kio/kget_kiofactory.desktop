@@ -10,6 +10,7 @@ Name[nds]=KIO-Moduul
 Name[x-test]=xxKIOxx
 Comment=Classic file downloader plugin
 Comment[ca]=Endollable de descarregador clàssic de fitxers
+Comment[da]=Plugin til klassisk fildownload
 Comment[de]=Klassisches Datei-Übertragungs-Modul
 Comment[el]=Κλασικό πρόσθετο λήψης αρχείων
 Comment[es]=Complemento de decarga de archivos clásico
