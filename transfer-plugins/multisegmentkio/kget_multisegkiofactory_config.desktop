@@ -8,6 +8,7 @@ X-KDE-ParentComponents=kget_multisegkio_plugin
 Name=MultiSegmentKIO
 Name[et]=Mitmesegmendiline KIO
 Name[fr]=KIO multi-segment
+Name[ko]=다중 세그먼트 KIO
 Name[lv]=MultisegmentuKIO
 Name[nds]=Mehrsegment-KIO-Moduul
 Name[nn]=Fleirsegmentert KIO
