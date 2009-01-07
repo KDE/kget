@@ -22,6 +22,15 @@ KUiServerJobs::KUiServerJobs(QObject *parent)
 
 KUiServerJobs::~KUiServerJobs()
 {
+    foreach(KJob *job, m_jobs) {
+        unregisterJob(job);
+    }
+
+    if(m_globalJob) {
+        KIO::getJobTracker()->unregisterJob(globalJob());
+        delete m_globalJob;
+        m_globalJob = 0;
+    }
 }
 
 void KUiServerJobs::registerJob(KJob *job)
@@ -73,7 +82,7 @@ void KUiServerJobs::reload()
                 m_globalJob = 0;
             }
         }
-         
+
         foreach(KJob *job, m_jobs) {
             if(!Settings::exportGlobalJob() && Settings::enableKUIServerIntegration() && job 
                                             && job->percent() < 100) {

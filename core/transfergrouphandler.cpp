@@ -369,7 +369,7 @@ void GenericTransferGroupObserver::addedTransferEvent(TransferHandler * transfer
 
     if (transfer->percent() != 100) {
         transfer->addObserver(m_transferObserver);
-    
+
         KGet::save();
     }
 
@@ -411,6 +411,11 @@ void GenericTransferGroupObserver::postTransferChanged(TransferHandler *transfer
 {
     if(m_adapters.contains(transfer)) {
         m_adapters[transfer]->slotUpdateDescription();
+
+        if(transfer->status() == Job::Finished) {
+            KGet::unregisterKJob(m_adapters [transfer]);
+            m_adapters.remove(transfer);
+        }
     }
 }
 
