@@ -62,6 +62,7 @@ KGet& KGet::self( MainWindow * mainWindow )
     if(mainWindow)
     {
         m_mainWindow = mainWindow;
+        m_jobManager = new KUiServerJobs(m_mainWindow);
     }
 
     static KGet m;
@@ -650,7 +651,7 @@ TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
 TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
-KUiServerJobs * KGet::m_jobManager = new KUiServerJobs();
+KUiServerJobs * KGet::m_jobManager = 0;
 
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()
