@@ -13,6 +13,8 @@
 #include "ui/droptarget.h"
 
 #include "core/kget.h"
+#include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
 #include "settings.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
@@ -26,12 +28,15 @@
 #include <QBitmap>
 #include <QPainter>
 #include <QTimer>
+#include <QToolTip>
 #include <QClipboard>
+#include <QStringList>
 
 #include <math.h>
 
 #define TARGET_SIZE   64
 #define TARGET_ANI_MS 20
+#define TARGET_TOOLTIP_MS 1000
 
 DropTarget::DropTarget(MainWindow * mw)
     : QWidget(0, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
@@ -100,6 +105,9 @@ DropTarget::DropTarget(MainWindow * mw)
     }
 
     animTimer = new QTimer(this);
+    
+    KGet::addObserver(new DropTargetModelObserver(this));
+    setMouseTracking(true);
 }
 
 
@@ -135,6 +143,7 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
             playAnimationShow();
         else
             move(position);
+        slotToolTipUpdate();
     }
 }
 
@@ -294,6 +303,8 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
         move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
         e->accept();
     }
+    if (mask().contains(mapFromGlobal(QCursor::pos())))
+        QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
 }
 
 void DropTarget::paintEvent( QPaintEvent * )
@@ -373,6 +384,50 @@ void DropTarget::slotAnimateSync()
         move( x(), qRound(ani_y + 6*j) );
 }
 
+void DropTarget::slotToolTipUpdate()
+{
+    QStringList dataList;
+    QString data;
+    
+    foreach (TransferHandler *transfer, KGet::allTransfers()) {
+        data.clear();
+        switch (transfer->status()) {
+        case Job::Delayed:
+        case Job::Stopped:
+        case Job::Aborted:
+            data = QString("%1(%2% %3/%4) %5")
+                .arg(transfer->source().fileName())
+                .arg(QString::number(transfer->percent())) 
+                .arg(KIO::convertSize(transfer->downloadedSize()))
+                .arg(KIO::convertSize(transfer->totalSize()))
+                .arg(transfer->statusText());
+            break;
+        case Job::Finished:
+            data = QString("%1(%2) %3")
+                .arg(transfer->source().fileName())
+                .arg(KIO::convertSize(transfer->totalSize()))
+                .arg(transfer->statusText());
+            break;
+        case Job::Running:
+            data = i18n("%1(%2% %3/%4) Speed:%5/s",  
+                transfer->source().fileName(),
+                QString::number(transfer->percent()), 
+                KIO::convertSize(transfer->downloadedSize()),
+                KIO::convertSize(transfer->totalSize()),
+                KIO::convertSize(transfer->downloadSpeed()));
+            break;
+        }
+        dataList << data;
+    }
+    
+    if (!dataList.empty())
+       tooltipText = dataList.join("\n");
+    else
+       tooltipText = i18n("Ready"); 
+    if (mask().contains(mapFromGlobal(QCursor::pos())))
+        QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
+}
+
 void DropTarget::slotClose()
 {
     if (!Settings::expertMode())
@@ -386,4 +441,70 @@ void DropTarget::slotClose()
     setVisible( false );
 }
 
+DropTargetModelObserver::DropTargetModelObserver(DropTarget *window) 
+    : QObject(window)
+{
+    m_window = window;
+    m_groupObserver = new DropTargetGroupObserver(window);
+}
+
+void DropTargetModelObserver::addedTransferGroupEvent(TransferGroupHandler *group)
+{
+    group->addObserver(m_groupObserver);
+}
+
+void DropTargetModelObserver::removedTransferGroupEvent(TransferGroupHandler *group)
+{
+    group->delObserver(m_groupObserver);
+}
+
+DropTargetGroupObserver::DropTargetGroupObserver(DropTarget *window) 
+    : QObject(window)
+{
+    m_window = window;
+    m_transferObserver = new DropTargetTransferObserver(window);
+}
+
+void DropTargetGroupObserver::groupChangedEvent(TransferGroupHandler * group)
+{
+    //TransferGroupHandler::ChangesFlags transferFlags = group->changesFlags(this);
+    m_window->slotToolTipUpdate();
+    group->resetChangesFlags(this);
+}
+
+void DropTargetGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+{ 
+    Q_UNUSED(after);
+    transfer->addObserver(m_transferObserver);
+}
+
+void DropTargetGroupObserver::removedTransferEvent(TransferHandler * transfer)
+{
+    transfer->delObserver(m_transferObserver);
+
+    m_window->slotToolTipUpdate();
+}
+
+/**
+void DropTargetGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+{
+    Q_UNUSED(transfer);
+    Q_UNUSED(after);
+}**/
+
+DropTargetTransferObserver::DropTargetTransferObserver(DropTarget *window)
+    : QObject(window)
+{
+    m_window = window;
+}
+
+void DropTargetTransferObserver::transferChangedEvent(TransferHandler *transfer)
+{
+    //TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
+//X     if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
+//X         m_window->slotUpdateTitlePercent();
+//X     }
+    m_window->slotToolTipUpdate();
+    transfer->resetChangesFlags(this);
+}
 #include "droptarget.moc"
