@@ -42,6 +42,7 @@ void KGetKJobAdapter::slotUpdateDescription()
                     qMakePair(QString("source"), m_transferHandler->source().prettyUrl()),
                     qMakePair(QString("destination"), m_transferHandler->dest().prettyUrl()));
 
+    emitSpeed(m_transferHandler->downloadSpeed());
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes));
     setTotalAmount(KJob::Bytes, totalAmount(KJob::Bytes));
     setPercent(percent());

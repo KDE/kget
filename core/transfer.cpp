@@ -263,5 +263,8 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
 {
+    if (change & Tc_DownloadedSize || change & Tc_Status) {
+        change = change | Tc_RemainingTime;
+    }
     handler()->setTransferChange(change, postEvent);
 }
