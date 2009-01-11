@@ -587,9 +587,9 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             TransferGroupHandler * group = transfer->group();
             Transfer::ChangesFlags changesFlags = transfer->changesFlags(0);
 
-            for(int i=0; i<8; i++)
+            for(int i=0; i<8; i++)//Check the 8 most right bits of the flag
             {
-                if(((changesFlags >> i) & 0x00000001) == 1)
+                if (((changesFlags >> i) & 0x00000001))//remove the ith bit(s) from the right and check if the rest is 0x00000001...
                 {
                     QModelIndex index = createIndex(group->indexOf(transfer), i, transfer);
                     emit dataChanged(index,index);
@@ -609,7 +609,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
 
             for(int i=0; i<8; i++)
             {
-                if(((changesFlags >> i) & 0x00000001) == 1)
+                if(((changesFlags >> i) & 0x00000001))
                 {
                     QModelIndex index = createIndex(m_transferGroups.indexOf(group->m_group), i, group);
                     emit dataChanged(index,index);
