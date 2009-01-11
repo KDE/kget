@@ -19,7 +19,7 @@
 JobQueue::JobQueue(Scheduler * scheduler)
     : m_maxSimultaneousJobs(2),
       m_scheduler(scheduler),
-      m_status(Stopped)
+      m_status(Running)
 {
     m_scheduler->addQueue(this);
 }
