@@ -55,7 +55,7 @@ void HttpServer::handleRequest()
 
     QByteArray data;
 
-    // for HTTP authorization informations see: http://www.governmentsecurity.org/articles/OverviewofHTTPAuthentication.php
+    // for HTTP authorization information see: http://www.governmentsecurity.org/articles/OverviewofHTTPAuthentication.php
     QString auth = header.value("Authorization");
     if (auth.length() < 6 || QByteArray::fromBase64(auth.right(auth.length() - 6).toUtf8()) !=
             QString(Settings::webinterfaceUser() + ':' + Settings::webinterfacePassword())) {
@@ -184,7 +184,7 @@ void HttpServer::handleRequest()
     }
     }
 
-    // for HTTP informations see: http://www.jmarshall.com/easy/http/
+    // for HTTP information see: http://www.jmarshall.com/easy/http/
     QByteArray block;
     block.append(QString("HTTP/1.1 %1 %2\r\n").arg(responseCode).arg(responseText).toUtf8());
     block.append(QString("Date: %1 GMT\r\n").arg(QDateTime(QDateTime::currentDateTime())
