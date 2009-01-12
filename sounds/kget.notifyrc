@@ -9,6 +9,7 @@ Comment[x-test]=xxKGetxx
 
 [Event/added]
 Name=Transfer Added
+Name[ar]=التحويل أضيف
 Name[ca]=Transferència afegida
 Name[cs]=Přidán přenos
 Name[da]=Overførsel tilføjet
@@ -48,6 +49,7 @@ Name[x-test]=xxTransfer Addedxx
 Name[zh_CN]=添加了任务
 Name[zh_TW]=已新增傳輸
 Comment=A new download has been added
+Comment[ar]=تنزيلات جديدة أضيفت
 Comment[bn]=একটি নতুন ডাউনলোড যোগ করা হয়েছে
 Comment[ca]=S'ha afegit una descàrrega nova
 Comment[cs]=Byl přidán nový přenos
@@ -98,6 +100,7 @@ Action=Sound
 
 [Event/started]
 Name=Download Started
+Name[ar]=التنزيل بدأ
 Name[ca]=S'ha iniciat la descàrrega
 Name[cs]=Stahování zahájeno
 Name[da]=Download startet
@@ -137,6 +140,7 @@ Name[x-test]=xxDownload Startedxx
 Name[zh_CN]=开始下载
 Name[zh_TW]=下載已開始
 Comment=Downloading started
+Comment[ar]=يجري التنزيل
 Comment[bn]=ডাউনলোড আরম্ভ করল
 Comment[br]=Kroget eo an enkargañ
 Comment[ca]=S'ha iniciat la descàrrega
@@ -188,6 +192,7 @@ Action=Sound
 
 [Event/finished]
 Name=Download Finished
+Name[ar]=التنزيل انتهى
 Name[ca]=Ha acabat la descàrrega
 Name[cs]=Stahování ukončeno
 Name[da]=Download afsluttet
@@ -227,6 +232,7 @@ Name[x-test]=xxDownload Finishedxx
 Name[zh_CN]=下载完成
 Name[zh_TW]=下載已完成
 Comment=Downloading finished
+Comment[ar]=التنزيل انتهى
 Comment[bn]=ডাউনলোড শেষ করল
 Comment[br]=Echu eo an enkargañ
 Comment[ca]=Ha acabat la descàrrega
@@ -276,6 +282,7 @@ Action=Sound
 
 [Event/finishedall]
 Name=All Downloads Finished
+Name[ar]=كل التنزيلات انتهت
 Name[ca]=Han acabat totes les descàrregues
 Name[cs]=Všechna stahování byla dokončena
 Name[da]=Alle downloads afsluttede
@@ -315,6 +322,7 @@ Name[x-test]=xxAll Downloads Finishedxx
 Name[zh_CN]=所有下载都已完成
 Name[zh_TW]=所有下載均已完成
 Comment=All downloads finished
+Comment[ar]=كل التنزيلات إنتهت
 Comment[bn]=সব ডাউনলোড শেষ করল
 Comment[ca]=Han acabat totes les descàrregues
 Comment[cs]=Všechna stahování byla dokončena
@@ -365,6 +373,7 @@ Action=Sound
 
 [Event/error]
 Name=Error happens
+Name[ar]=حدث خطأ
 Name[ca]=Hi ha hagut un error
 Name[da]=Fejl forekommer
 Name[de]=Fehler aufgetreten
@@ -373,6 +382,7 @@ Name[es]=Ocurrió un error
 Name[et]=Tekkis viga
 Name[fr]=Une erreur s'est produite
 Name[gl]=Aconteceu un erro
+Name[it]=Si è verificato un errore
 Name[ja]=エラー発生
 Name[km]=កំហុស​កើត​ឡើង
 Name[ko]=오류가 발생함
@@ -393,6 +403,7 @@ Name[x-test]=xxError happensxx
 Name[zh_CN]=发生错误
 Name[zh_TW]=發生了錯誤
 Comment=Some error just happens
+Comment[ar]=حدثت بعض الأخطاء
 Comment[ca]=Acaba d'haver-hi un error
 Comment[da]=Nogle fejl sker bare
 Comment[de]=Ein Fehler tritt gerade auf
@@ -401,6 +412,7 @@ Comment[es]=Acaba de ocurrir algún error
 Comment[et]=Tekkis mingi viga
 Comment[fr]=Une erreur vient de se produire
 Comment[gl]=Acaba de acontecer un erro
+Comment[it]=Si sono verificati alcuni errori
 Comment[ja]=何かエラーが発生しました
 Comment[km]=កំហុស​មួយ​ចំនួន​ទើប​កើតឡើង
 Comment[ko]=오류가 발생함
@@ -425,6 +437,7 @@ Action=PassivePopup|Sound
 
 [Event/notification]
 Name=Information
+Name[ar]=معلومة
 Name[ca]=Informació
 Name[cs]=Informace
 Name[el]=Πληροφορίες
@@ -432,6 +445,7 @@ Name[es]=Información
 Name[et]=Info
 Name[gl]=Información
 Name[hsb]=Informacija
+Name[it]=Informazioni
 Name[ja]=情報
 Name[km]=ព័ត៌មាន
 Name[ko]=정보
@@ -453,6 +467,7 @@ Name[x-test]=xxInformationxx
 Name[zh_CN]=信息
 Name[zh_TW]=資訊
 Comment=Some notice happens
+Comment[ar]=بعض الإشعارات حدثت
 Comment[ca]=Hi ha hagut alguna notificació
 Comment[da]=En bekendtgørelse sker
 Comment[de]=Eine Information wird angezeigt
@@ -461,6 +476,7 @@ Comment[es]=Hay un aviso
 Comment[et]=Tuli mingi teadaanne
 Comment[fr]=Une information est apparue
 Comment[gl]=Notificouse algunha nova
+Comment[it]=Ci sono delle notifiche
 Comment[ja]=何か通知があります
 Comment[km]=ការ​កត់សម្គាល់​មួយ​ចំនួន​កើតឡើង
 Comment[ko]=공지 사항이 있음

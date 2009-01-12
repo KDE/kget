@@ -6,12 +6,14 @@ X-KDE-Library=kcm_kget_contentfetchfactory
 X-KDE-ParentComponents=kget_contentfetch_plugin
 
 Name=Content Fetcher
+Name[ar]=جالب المحتوى
 Name[ca]=Recollidor de continguts
 Name[de]=Daten-Lader
 Name[el]=Ανάκτηση περιεχομένου
 Name[et]=Sisutõmbaja
 Name[fr]=Téléchargement de contenu
 Name[gl]=Obtentor de contidos
+Name[it]=Gestore contenuti
 Name[ja]=コンテンツ取得
 Name[km]=កម្មវិធី​ទៅ​យក​មាតិកា
 Name[ko]=내용 긁개

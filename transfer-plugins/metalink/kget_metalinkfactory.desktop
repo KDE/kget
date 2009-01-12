@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Metalink
+Name[ar]=ميتالينك
 Name[ca]=Metaenllaç
 Name[ja]=メタリンク
 Name[km]=តំណ​មេតា
@@ -16,6 +17,7 @@ Name[pt_BR]=Metacontato
 Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Comment=Allows to download files from Metalink
+Comment[ar]=السماح بتنزيل الملفات من ميتالينك
 Comment[ca]=Permet descarregar fitxers des d'un metaenllaç
 Comment[da]=Muliggør download af filer fra Metalink
 Comment[de]=Ermöglicht die Übertragung von Dateien mittels Metalink
@@ -24,6 +26,7 @@ Comment[es]=Permitir la descarga de archivos desde Metalink
 Comment[et]=Võimaldab laadida faile alla Metalinkist
 Comment[fr]=Permet de télécharger les fichiers utilisant Metalink
 Comment[gl]=Permítelle obter ficheiros de Metalink
+Comment[it]=Consente di scaricare file da Metalink
 Comment[ja]=メタリンクからファイルをダウンロードします
 Comment[km]=អនុញ្ញាត​ឲ្យ​ទាញយក​ឯកសារ​ពី​តំណ​មេតា
 Comment[ko]=메타링크에서 파일 다운로드하기

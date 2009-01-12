@@ -6,6 +6,7 @@ X-KDE-Library=kcm_kget_multisegkiofactory
 X-KDE-ParentComponents=kget_multisegkio_plugin
 
 Name=MultiSegmentKIO
+Name[ar]=متعدد أجزاء KIO
 Name[et]=Mitmesegmendiline KIO
 Name[fr]=KIO multi-segment
 Name[ko]=다중 세그먼트 KIO

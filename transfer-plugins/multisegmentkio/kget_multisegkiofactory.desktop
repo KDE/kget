@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Multi Segment KIO
+Name[ar]=متعدد اجزاء KIO
 Name[ca]=Multisegment KIO
 Name[da]=Multi Segment-KIO
 Name[de]=KIO-Übertragungsmodul für Mehrfachsegmente
@@ -32,6 +33,7 @@ Name[x-test]=xxMulti Segment KIOxx
 Name[zh_CN]=多段式 KIO
 Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
+Comment[ar]=ملحق تعدد تنزيل الملف
 Comment[ca]=Connector de transferències multifil per al KGet
 Comment[da]=Plugin til flertrådet fildownload
 Comment[de]=Multithread-Übertragungsmodul für KGet
@@ -40,6 +42,7 @@ Comment[es]=Complemento de decarga de archivo multicapa
 Comment[et]=Mitmelõimelise failide allalaadimise plugin
 Comment[fr]=Module multi-tâche de téléchargement de fichiers
 Comment[gl]=Extensión multifío de transferencias de ficheiros
+Comment[it]=Estensione di scaricamento file in blocchi
 Comment[ja]=マルチスレッドのファイルダウンロード用プラグイン
 Comment[km]=កម្មវិធី​ជំនួយ​ទាញយក​ឯកសារ​របស់ Multithreaded
 Comment[ko]=다중 스레드 파일 다운로드 플러그인
