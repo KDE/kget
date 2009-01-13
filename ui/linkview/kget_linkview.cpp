@@ -135,12 +135,12 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     checkAllButton = new QPushButton(i18n("Select all"));
     uncheckAllButton = new QPushButton(i18n("Deselect all"));
     uncheckAllButton->setEnabled(false);
-    m_checkSelectedButton = new QPushButton(i18n("Check selected"));
+    m_checkSelectedButton = new QPushButton(i18nc("Check as in mark, not as in verify", "Check selected"));
     m_checkSelectedButton->setEnabled(false);
     m_invertSelectionButton = new QPushButton(i18n("Invert selection"));
     m_invertSelectionButton->setEnabled(false);
     QCheckBox *showWebContentButton = new QCheckBox(i18n("Show web content"));
-    downloadCheckedButton = new QPushButton( KIcon("kget"), i18n("Download checked"));
+    downloadCheckedButton = new QPushButton( KIcon("kget"), i18nc("Check as in mark, not as in verify", "Download checked"));
     downloadCheckedButton->setEnabled(false);
     QPushButton *cancelButton = new QPushButton(KIcon("dialog-cancel"), i18n("Cancel"));
 
