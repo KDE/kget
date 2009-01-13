@@ -45,7 +45,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
 void DlgScriptEditing::init()
 {
     ui.scriptPathRequester->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-    ui.scriptPathRequester->fileDialog()->setCaption("Set script file");
+    ui.scriptPathRequester->fileDialog()->setCaption(i18n("Set script file"));
 
     QStringList filter;
     foreach(Kross::InterpreterInfo* infos, Kross::Manager::self().interpreterInfos().values())
