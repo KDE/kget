@@ -6,6 +6,8 @@ Icon=kget
 
 # standard fields
 Name=MMS
+Name[ml]=എംഎംഎസ്
+Name[sr]=ММС
 Name[x-test]=xxMMSxx
 Comment=MMS-Transfer plugin for KGet
 Comment[ar]=ملحق محول MMS لـ KGet
@@ -24,6 +26,7 @@ Comment[ja]=KGet の MMS 転送プラグイン
 Comment[km]=MMS-កម្មវិធី​ជំនួយ​ការ​ផ្ទេរ​សម្រាប់ KGet
 Comment[ko]=KGet MMS 전송 플러그인
 Comment[lv]=MMS KGet pārsūtīšanas spraudnis
+Comment[ml]=കെഗെറ്റിന്റെ എംഎംഎസ്-സ്ഥാനമാറ്റ സംയോജകം
 Comment[nb]=KGet programtillegg for MMS-overføringer
 Comment[nds]=MMS-Överdreegmoduul för KGet
 Comment[nl]=KGet-plugin voor MMS-overdracht
@@ -34,6 +37,7 @@ Comment[pt_BR]=Plug-in de transferências do MMS para o KGet
 Comment[ro]=Modul de transfer MMS pentru KGet
 Comment[ru]=Модуль MMS для KGet
 Comment[sl]=Vstavek za prenose MMS za KGet
+Comment[sr]=Прикључак ММС преноса за К‑гет
 Comment[sv]=MMS-överföringsinsticksprogram för Kget
 Comment[tr]=MMS- KGet için aktarım eklentisi
 Comment[uk]=Втулка перенесення MMS для KGet

@@ -6,7 +6,9 @@ Icon=kget
 
 # standard fields
 Name=KIO
+Name[ml]=കിയോ
 Name[nds]=KIO-Moduul
+Name[sr]=К‑У/И
 Name[x-test]=xxKIOxx
 Comment=Classic file downloader plugin
 Comment[ar]=ملحق تنزيل الملف الكلاسيكي
@@ -24,6 +26,7 @@ Comment[km]=កម្មវិធី​ជំនួយ​របស់​កម�
 Comment[ko]=고전 파일 다운로더 플러그인
 Comment[lt]=Klasikinis failų parsiuntimo įskiepis
 Comment[lv]=Klasiskās failu lejupielādes sparudnis
+Comment[ml]=നിത്യഹരിതമായ ഫയലുകള്‍ ഇറക്കിവെക്കാനുള്ള സംയോജകം
 Comment[nb]=Klassisk programtillegg for filnedlasting
 Comment[nds]=Klass'sch Dateidaallaad-Moduul
 Comment[nl]=Klassieke plugin voor bestand downloaden
@@ -32,6 +35,7 @@ Comment[pt]='Plugin' de transferência de ficheiros clássico
 Comment[pt_BR]=Plug-in de download de arquivos clássico
 Comment[ro]=Modul de descărcare clasică
 Comment[sl]=Vstavek za klasično prenašanje datotek
+Comment[sr]=Класични прикључак за преузимање фајлова
 Comment[sv]=Klassiskt insticksprogram för filnerladdning
 Comment[tr]=Klasik dosya indirme eklentisi
 Comment[uk]=Втулка класичного звантаження файлів
