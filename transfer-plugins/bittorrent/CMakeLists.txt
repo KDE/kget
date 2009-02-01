@@ -30,7 +30,9 @@ ENDIF(HAVE_XFS_XFS_H)
 # check for 64 bit file I/O functions
 check_function_exists(fopen64 HAVE_FOPEN64)
 check_function_exists(fseeko64 HAVE_FSEEKO64)
+check_function_exists(fseeko HAVE_FSEEKO)
 check_function_exists(ftello64 HAVE_FTELLO64)
+check_function_exists(ftello HAVE_FTELLO)
 check_function_exists(fstat64 HAVE_FSTAT64)
 check_function_exists(stat64 HAVE_STAT64)
 check_function_exists(ftruncate64 HAVE_FTRUNCATE64)
@@ -60,6 +62,7 @@ set(libbtcore_SRC
     libbtcore/util/waitjob.cpp
     libbtcore/util/autorotatelogjob.cpp
     libbtcore/util/compressfilejob.cpp
+    libbtcore/util/logsystemmanager.cpp
 
     libbtcore/bcodec/bdecoder.cpp  
     libbtcore/bcodec/bencoder.cpp  
@@ -77,6 +80,7 @@ set(libbtcore_SRC
     libbtcore/net/networkthread.cpp
     libbtcore/net/socketgroup.cpp
     libbtcore/net/socks.cpp
+    libbtcore/net/wakeuppipe.cpp
     
     libbtcore/mse/bigint.cpp  
     libbtcore/mse/functions.cpp  
@@ -98,6 +102,8 @@ set(libbtcore_SRC
     libbtcore/peer/packetwriter.cpp
     libbtcore/peer/packetreader.cpp
     libbtcore/peer/utpex.cpp
+    libbtcore/peer/accessmanager.cpp
+    libbtcore/peer/badpeerslist.cpp
 
     libbtcore/download/piece.cpp
     libbtcore/download/request.cpp
@@ -115,7 +121,7 @@ set(libbtcore_SRC
     libbtcore/interfaces/torrentfileinterface.cpp
     libbtcore/interfaces/trackerslist.cpp
     libbtcore/interfaces/logmonitorinterface.cpp
-    libbtcore/interfaces/ipblockinginterface.cpp
+    libbtcore/interfaces/blocklistinterface.cpp
     libbtcore/interfaces/exitoperation.cpp
     libbtcore/interfaces/chunkdownloadinterface.cpp
     libbtcore/interfaces/monitorinterface.cpp
@@ -128,7 +134,6 @@ set(libbtcore_SRC
     libbtcore/torrent/server.cpp
     libbtcore/torrent/torrent.cpp
     libbtcore/torrent/torrentfile.cpp
-    libbtcore/torrent/ipblocklist.cpp
     libbtcore/torrent/peersourcemanager.cpp
     libbtcore/torrent/uploader.cpp
     libbtcore/torrent/timeestimator.cpp
@@ -159,11 +164,13 @@ set(libbtcore_SRC
     libbtcore/diskio/chunk.cpp         
     libbtcore/diskio/dndfile.cpp         
     libbtcore/diskio/singlefilecache.cpp
-    libbtcore/diskio/cachefile.cpp  
-    libbtcore/diskio/chunkmanager.cpp  
     libbtcore/diskio/multifilecache.cpp
     libbtcore/diskio/preallocationthread.cpp
     libbtcore/diskio/movedatafilesjob.cpp
+    libbtcore/diskio/deletedatafilesjob.cpp
+    libbtcore/diskio/piecedata.cpp
+    libbtcore/diskio/cachefile.cpp  
+    libbtcore/diskio/chunkmanager.cpp  
 
     libbtcore/tracker/httptracker.cpp  
     libbtcore/tracker/tracker.cpp  
@@ -182,9 +189,10 @@ set(libbtcore_SRC
     
     libbtcore/btversion.cpp
 )
+
 if(WIN32)
-# Compile MinGW stuff on windows
-set(libbtcore_SRC ${libbtcore_SRC} libbtcore/util/mingw.cpp)
+# Compile stuff for windows
+set(libbtcore_SRC ${libbtcore_SRC} libbtcore/util/win32.cpp)
 endif(WIN32)
 
 
