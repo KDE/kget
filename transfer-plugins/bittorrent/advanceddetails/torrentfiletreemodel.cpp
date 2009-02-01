@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -26,6 +24,7 @@
 #include <kicon.h>
 #include <kmimetype.h>
 #include <QTreeView>
+#include <QSortFilterProxyModel>
 #include <bcodec/bdecoder.h>
 #include <bcodec/bencoder.h>
 #include <bcodec/bnode.h>
@@ -39,13 +38,17 @@ using namespace bt;
 namespace kt
 {
 	
-	TorrentFileTreeModel::Node::Node(Node* parent,bt::TorrentFileInterface* file,const QString & name) 
-		: parent(parent),file(file),name(name),size(0)
-	{}
-			
-	TorrentFileTreeModel::Node::Node(Node* parent,const QString & name) 
-		: parent(parent),file(0),name(name),size(0)
+	TorrentFileTreeModel::Node::Node(Node* parent,bt::TorrentFileInterface* file,
+ 		const QString & name, const bt::Uint32 total_chunks)
+		: parent(parent),file(file),name(name),size(0),chunks(total_chunks),chunks_set(false),percentage(0.0f)
 	{
+		chunks.setAll(false);
+	}
+			
+	TorrentFileTreeModel::Node::Node(Node* parent,const QString & name, const bt::Uint32 total_chunks)
+	: parent(parent),file(0),name(name),size(0),chunks(total_chunks),chunks_set(false),percentage(0.0f)
+	{
+		chunks.setAll(false);
 	}
 		
 	TorrentFileTreeModel::Node::~Node()
@@ -53,13 +56,13 @@ namespace kt
 		qDeleteAll(children);
 	}
 		
-	void TorrentFileTreeModel::Node::insert(const QString & path,bt::TorrentFileInterface* file)
+	void TorrentFileTreeModel::Node::insert(const QString & path,bt::TorrentFileInterface* file,bt::Uint32 num_chunks)
 	{
 		int p = path.indexOf(bt::DirSeparator());
 		if (p == -1)
 		{
 				// the file is part of this directory
-			children.append(new Node(this,file,path));
+			children.append(new Node(this,file,path,num_chunks));
 		}
 		else
 		{
@@ -68,14 +71,14 @@ namespace kt
 			{
 				if (n->name == subdir)
 				{
-					n->insert(path.mid(p+1),file);
+					n->insert(path.mid(p+1),file, num_chunks);
 					return;
 				}
 			}
 						
-			Node* n = new Node(this,subdir);
+			Node* n = new Node(this,subdir,num_chunks);
 			children.append(n);
-			n->insert(path.mid(p+1),file);
+			n->insert(path.mid(p+1),file, num_chunks);
 		}
 	}
 		
@@ -104,7 +107,102 @@ namespace kt
 		}
 		return size;
 	}
+	
+	void TorrentFileTreeModel::Node::fillChunks()
+	{
+		if (chunks_set)
+			return;
 		
+		if (!file)
+		{
+			foreach(Node* n, children)
+			{
+				n->fillChunks();
+				chunks.orBitSet(n->chunks);
+			}
+		}
+		else
+		{
+			for (Uint32 i = file->getFirstChunk(); i <= file->getLastChunk(); i++)
+				chunks.set(i, true);
+		}
+		chunks_set = true;
+	}
+	
+	void TorrentFileTreeModel::Node::updatePercentage(const BitSet & havechunks)
+	{
+		if (!chunks_set)
+			fillChunks(); // make sure we know the chunks which are part of this node
+
+		if (file)
+		{
+			percentage = file->getDownloadPercentage();
+		}
+		else
+		{			
+			if (havechunks.numOnBits() == 0 || chunks.numOnBits() == 0)
+			{
+				percentage = 0.0f;
+			}
+			else if (havechunks.allOn())
+			{
+				percentage = 100.0f;
+			}
+			else
+			{
+				// take the chunks of the node and
+				// logical and them with the chunks we have
+				BitSet tmp(chunks);
+				tmp.andBitSet(havechunks);
+	
+				percentage = 100.0f * ((float)tmp.numOnBits() / (float)chunks.numOnBits());
+			}
+		}
+		
+		if (parent)
+			parent->updatePercentage(havechunks); // update the percentage of the parent
+	}
+	
+	void TorrentFileTreeModel::Node::initPercentage(const bt::TorrentInterface* tc,const bt::BitSet & havechunks)
+	{
+		if (!chunks_set)
+			fillChunks();
+		
+		if (!tc->getStats().multi_file_torrent)
+		{
+			percentage = bt::Percentage(tc->getStats());
+			return;
+		}
+		
+		if (file)
+		{
+			percentage = file->getDownloadPercentage();
+		}
+		else
+		{			
+			if (havechunks.numOnBits() == 0 || chunks.numOnBits() == 0)
+			{
+				percentage = 0.0f;
+			}
+			else if (havechunks.allOn())
+			{
+				percentage = 100.0f;
+			}
+			else
+			{
+				// take the chunks of the node and
+				// logical and them with the chunks we have
+				BitSet tmp(chunks);
+				tmp.andBitSet(havechunks);
+	
+				percentage = 100.0f * ((float)tmp.numOnBits() / (float)chunks.numOnBits());
+			}
+			
+			foreach (Node* n,children)
+				n->initPercentage(tc,havechunks); // update the percentage of the children
+		}
+	}
+	
 	bt::Uint64 TorrentFileTreeModel::Node::bytesToDownload(const bt::TorrentInterface* tc)
 	{
 		bt::Uint64 s = 0;
@@ -152,13 +250,13 @@ namespace kt
 		}
 	}
 	
-	void TorrentFileTreeModel::Node::saveExpandedState(const QModelIndex & index,QTreeView* tv,BEncoder* enc)
+	void TorrentFileTreeModel::Node::saveExpandedState(const QModelIndex & index,QSortFilterProxyModel* pm,QTreeView* tv,BEncoder* enc)
 	{
 		if (file)
 			return;
 		
 		enc->write("expanded");
-		enc->write((Uint32)(tv->isExpanded(index) ? 1 : 0));
+		enc->write((Uint32)(tv->isExpanded(pm->mapFromSource(index)) ? 1 : 0));
 		
 		int idx = 0;
 		foreach (Node* n,children)
@@ -167,14 +265,14 @@ namespace kt
 			{
 				enc->write(n->name);
 				enc->beginDict();
-				n->saveExpandedState(index.child(idx,0),tv,enc);
+				n->saveExpandedState(index.child(idx,0),pm,tv,enc);
 				enc->end();
 			}
 			idx++;
 		}
 	}
 	
-	void TorrentFileTreeModel::Node::loadExpandedState(const QModelIndex & index,QTreeView* tv,BNode* n)
+	void TorrentFileTreeModel::Node::loadExpandedState(const QModelIndex & index,QSortFilterProxyModel* pm,QTreeView* tv,BNode* n)
 	{
 		if (file)
 			return;
@@ -185,7 +283,7 @@ namespace kt
 		
 		BValueNode* v = dict->getValue("expanded");
 		if (v)
-			tv->setExpanded(index,v->data().toInt() == 1);
+			tv->setExpanded(pm->mapFromSource(index),v->data().toInt() == 1);
 		
 		int idx = 0;
 		foreach (Node* n,children)
@@ -194,10 +292,21 @@ namespace kt
 			{
 				BDictNode* d = dict->getDict(n->name);
 				if (d)
-					n->loadExpandedState(index.child(idx,0),tv,d);
+					n->loadExpandedState(index.child(idx,0),pm,tv,d);
 			}
 			idx++;
 		}
+	}
+	
+	QString TorrentFileTreeModel::Node::path()
+	{
+		if (!parent)
+			return QString(); // the root node must not be included in the path
+		
+		if (file)
+			return name;
+		else
+			return parent->path() + name + bt::DirSeparator();
 	}
 
 	TorrentFileTreeModel::TorrentFileTreeModel(bt::TorrentInterface* tc,DeselectMode mode,QObject* parent) 
@@ -206,23 +315,34 @@ namespace kt
 		if (tc->getStats().multi_file_torrent)
 			constructTree();
 		else
-			root = new Node(0,tc->getStats().torrent_name);
+			root = new Node(0,tc->getStats().torrent_name,tc->getStats().total_chunks);
 	}
 
 
 	TorrentFileTreeModel::~TorrentFileTreeModel()
-	{}
+	{
+		delete root;
+	}
 	
 	void TorrentFileTreeModel::constructTree()
 	{
+		bt::Uint32 num_chunks = tc->getStats().total_chunks;
 		if (!root)
-			root = new Node(0,tc->getStats().torrent_name);
+			root = new Node(0,tc->getUserModifiedFileName(),num_chunks);
 		
 		for (Uint32 i = 0;i < tc->getNumFiles();i++)
 		{
 			bt::TorrentFileInterface & tf = tc->getTorrentFile(i);
-			root->insert(tf.getPath(),&tf);
+			root->insert(tf.getUserModifiedPath(),&tf,num_chunks);
 		}
+	}
+	
+	void TorrentFileTreeModel::onCodecChange()
+	{
+		delete root;
+		root = 0;
+		constructTree();
+		reset();
 	}
 
 	int TorrentFileTreeModel::rowCount(const QModelIndex & parent) const
@@ -269,7 +389,7 @@ namespace kt
 		if (!n)
 			return QVariant();
 			
-		if (role == Qt::DisplayRole)
+		if (role == Qt::DisplayRole || role == Qt::EditRole)
 		{
 			switch (index.column())
 			{
@@ -279,6 +399,19 @@ namespace kt
 						return BytesToString(n->fileSize(tc));
 					else
 						return BytesToString(tc->getStats().total_bytes);
+				default: return QVariant();
+			}
+		}
+		else if (role == Qt::UserRole) // sorting
+		{
+			switch (index.column())
+			{
+				case 0: return n->name;
+				case 1: 
+					if (tc->getStats().multi_file_torrent)
+						return n->fileSize(tc);
+					else
+						return tc->getStats().total_bytes;
 				default: return QVariant();
 			}
 		}
@@ -336,26 +469,12 @@ namespace kt
 		}
 	}
 	
-	Qt::ItemFlags TorrentFileTreeModel::flags(const QModelIndex & index) const
+	bool TorrentFileTreeModel::setCheckState(const QModelIndex & index, Qt::CheckState state)
 	{
-		if (!index.isValid())
-			return 0;
-		else if (tc->getStats().multi_file_torrent)
-			return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
-		else
-			return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
-	}
-	
-	bool TorrentFileTreeModel::setData(const QModelIndex & index, const QVariant & value, int role) 
-	{
-		if (!index.isValid() || role != Qt::CheckStateRole)
-			return false;
-		
 		Node* n = static_cast<Node*>(index.internalPointer());
 		if (!n)
 			return false;
 		
-		Qt::CheckState newState = static_cast<Qt::CheckState>(value.toInt());
 		if (!n->file)
 		{
 			bool reenable = false;
@@ -368,7 +487,7 @@ namespace kt
 			for (int i = 0;i < n->children.count();i++)
 			{
 				// recurse down the tree
-				setData(index.child(i,0),value,role);
+				setCheckState(index.child(i,0),state);
 			}
 			
 			if (reenable)
@@ -377,7 +496,7 @@ namespace kt
 		else
 		{
 			bt::TorrentFileInterface* file = n->file;
-			if (newState == Qt::Checked)
+			if (state == Qt::Checked)
 			{
 				if (file->getPriority() == ONLY_SEED_PRIORITY)
 					file->setPriority(NORMAL_PRIORITY);
@@ -401,6 +520,70 @@ namespace kt
 		if (emit_check_state_change)
 			checkStateChanged();
 		return true;
+	}
+	
+	void TorrentFileTreeModel::modifyPathOfFiles(Node* n,const QString & path)
+	{
+		for (int i = 0;i < n->children.count();i++)
+		{
+			Node* c = n->children.at(i);
+			if (!c->file) // another directory, continue recursively
+				modifyPathOfFiles(c, path + c->name + bt::DirSeparator());
+			else
+				c->file->setUserModifiedPath(path + c->name);
+		}
+	}
+	
+	bool TorrentFileTreeModel::setName(const QModelIndex & index,const QString & name)
+	{
+		Node* n = static_cast<Node*>(index.internalPointer());
+		if (!n || name.isEmpty() || name.contains(bt::DirSeparator()))
+			return false;
+		
+		if (!tc->getStats().multi_file_torrent)
+		{
+			// single file case so we only need to change the user modified name
+			tc->setUserModifiedFileName(name);
+			n->name = name;
+			dataChanged(index,index);
+			return true;
+		}
+		
+		if (!n->file)
+		{
+			// we are in a directory
+			n->name = name;
+			if (!n->parent)
+			{
+				// toplevel directory name has changed
+				tc->setUserModifiedFileName(name);
+			}
+			
+			dataChanged(index,index);
+			// modify the path of all files
+			modifyPathOfFiles(n,n->path());
+			return true;
+		}
+		else
+		{
+			n->name = name;
+			n->file->setUserModifiedPath(n->path());
+			dataChanged(index,index);
+			return true;
+		}
+	}
+	
+	bool TorrentFileTreeModel::setData(const QModelIndex & index, const QVariant & value, int role) 
+	{
+		if (!index.isValid())
+			return false;
+		
+		if (role == Qt::CheckStateRole)
+			return setCheckState(index, static_cast<Qt::CheckState>(value.toInt()));
+		else if (role == Qt::EditRole)
+			return setName(index,value.toString());
+		
+		return false;
 	}
 	
 	void TorrentFileTreeModel::checkAll()
@@ -454,7 +637,7 @@ namespace kt
 			return tc->getStats().total_bytes;
 	}
 	
-	QByteArray TorrentFileTreeModel::saveExpandedState(QTreeView* tv)
+	QByteArray TorrentFileTreeModel::saveExpandedState(QSortFilterProxyModel* pm,QTreeView* tv)
 	{
 		if (!tc->getStats().multi_file_torrent)
 			return QByteArray();
@@ -462,13 +645,13 @@ namespace kt
 		QByteArray data;
 		BEncoder enc(new BEncoderBufferOutput(data));
 		enc.beginDict();
-		root->saveExpandedState(index(0,0,QModelIndex()),tv,&enc);
+		root->saveExpandedState(index(0,0,QModelIndex()),pm,tv,&enc);
 		enc.end();
 		return data;
 	}
 		
 		
-	void TorrentFileTreeModel::loadExpandedState(QTreeView* tv,const QByteArray & state)
+	void TorrentFileTreeModel::loadExpandedState(QSortFilterProxyModel* pm,QTreeView* tv,const QByteArray & state)
 	{
 		if (!tc->getStats().multi_file_torrent)
 			return;
@@ -477,7 +660,7 @@ namespace kt
 		BNode* n = dec.decode();
 		if (n && n->getType() == BNode::DICT)
 		{
-			root->loadExpandedState(index(0,0,QModelIndex()),tv,n);
+			root->loadExpandedState(index(0,0,QModelIndex()),pm,tv,n);
 		}
 		delete n;
 	}

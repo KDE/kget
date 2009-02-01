@@ -104,6 +104,8 @@ class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
         virtual void peerRemoved(bt::PeerInterface* peer);
         virtual void stopped();
         virtual void destroyed();
+        virtual void filePercentageChanged(bt::TorrentFileInterface*, float) {}
+        virtual void filePreviewChanged(bt::TorrentFileInterface*, bool) {}
 
         bt::TorrentControl *torrent;
         QString m_tmp;

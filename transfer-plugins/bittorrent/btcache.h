@@ -136,7 +136,10 @@ class BTCache : public QObject, public bt::Cache
          * Delete all data files, in case of multi file torrents
          * empty directories should also be deleted.
          */
-        virtual void deleteDataFiles();
+        virtual KJob* deleteDataFiles() {return 0;}//TODO: Implement!!!
+        virtual bt::PieceData* loadPiece(bt::Chunk*, bt::Uint32, bt::Uint32) {return 0;}
+        virtual bt::PieceData* preparePiece(bt::Chunk*, bt::Uint32, bt::Uint32) {return 0;}
+        virtual void savePiece(bt::PieceData*) {}
         
         /**
          * Get the number of bytes all the files of this torrent are currently using on disk.

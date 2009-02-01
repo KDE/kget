@@ -39,6 +39,7 @@
 #include <interfaces/torrentfileinterface.h>
 #include <qfileinfo.h>
 #include <util/log.h>
+#include <util/timer.h>
 #include "iwfiletreemodel.h"
 #include "iwfilelistmodel.h"
 	
@@ -55,6 +56,7 @@ namespace kt
 		setAlternatingRowColors(true);
 		setSelectionMode(QAbstractItemView::ExtendedSelection);
 		setSelectionBehavior(QAbstractItemView::SelectRows);
+		setUniformRowHeights(true);
 		
 		proxy_model = new QSortFilterProxyModel(this);
 		proxy_model->setSortRole(Qt::UserRole);
@@ -71,6 +73,9 @@ namespace kt
 		delete_action = context_menu->addAction(i18n("Delete File(s)"),this,SLOT(deleteFiles()));
 		context_menu->addSeparator();
 		move_files_action = context_menu->addAction(i18n("Move File"),this,SLOT(moveFiles()));
+		context_menu->addSeparator();
+		collapse_action = context_menu->addAction(i18n("Collapse Folder Tree"),this,SLOT(collapseTree()));
+		expand_action = context_menu->addAction(i18n("Expand Folder Tree"),this,SLOT(expandTree()));
 		
 		connect(this,SIGNAL(customContextMenuRequested(const QPoint & )),
 				this,SLOT(showContextMenu(const QPoint& )));
@@ -79,6 +84,7 @@ namespace kt
 		
 		setEnabled(false);
 		show_list_of_files = false;
+		redraw = false;
 	}
 
 
@@ -94,7 +100,7 @@ namespace kt
 		{
 			saveState(cfg);
 			if (curr_tc)
-				expanded_state_map[curr_tc] = model->saveExpandedState(this);
+				expanded_state_map[curr_tc] = model->saveExpandedState(proxy_model,this);
 		}
 		proxy_model->setSourceModel(0);
 		delete model;
@@ -116,7 +122,7 @@ namespace kt
 			loadState(cfg);
 			QMap<bt::TorrentInterface*,QByteArray>::iterator i = expanded_state_map.find(tc);
 			if (i != expanded_state_map.end())
-				model->loadExpandedState(this,i.value());
+				model->loadExpandedState(proxy_model,this,i.value());
 			else
 				expandAll();
 		}
@@ -151,6 +157,8 @@ namespace kt
 			delete_action->setEnabled(true);
 			context_menu->popup(mapToGlobal(p));
 			move_files_action->setEnabled(true);
+			collapse_action->setEnabled(!show_list_of_files);
+			expand_action->setEnabled(!show_list_of_files);
 			return;
 		}
 	
@@ -168,10 +176,14 @@ namespace kt
 			open_action->setEnabled(true);
 			move_files_action->setEnabled(true);
 			preview_path = curr_tc->getStats().output_path;
+			collapse_action->setEnabled(false);
+			expand_action->setEnabled(false);
 		}
 		else if (file)
 		{
 			move_files_action->setEnabled(true);
+			collapse_action->setEnabled(false);
+			expand_action->setEnabled(false);
 			if (!file->isNull())
 			{
 				open_action->setEnabled(true);
@@ -198,6 +210,8 @@ namespace kt
 			delete_action->setEnabled(true);
 			open_action->setEnabled(true);
 			preview_path = curr_tc->getDataDir() + model->dirPath(item);
+			collapse_action->setEnabled(!show_list_of_files);
+			expand_action->setEnabled(!show_list_of_files);
 		}
 
 		context_menu->popup(mapToGlobal(p));
@@ -263,7 +277,7 @@ namespace kt
 			QModelIndexList sel = selectionModel()->selectedRows();
 			QMap<bt::TorrentFileInterface*,QString> moves;
 			
-			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///openTorrent"),
+			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///saveTorrentData"),
 					this,i18n("Select a directory to move the data to."));
 			if (dir.isNull())
 				return;
@@ -284,7 +298,7 @@ namespace kt
 		}
 		else
 		{
-			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///openTorrent"),
+			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///saveTorrentData"),
 					this,i18n("Select a directory to move the data to."));
 			if (dir.isNull())
 				return;
@@ -293,6 +307,38 @@ namespace kt
 		}
 	}
 	
+	void FileView::expandCollapseTree(const QModelIndex& idx, bool expand) 
+	{
+		int rowCount = proxy_model->rowCount(idx);
+		for (int i = 0; i < rowCount; i++) 
+		{
+			const QModelIndex& ridx = proxy_model->index(i, 0, idx);
+			if (proxy_model->hasChildren(ridx))
+				expandCollapseTree(ridx, expand);
+		}
+		setExpanded(idx, expand);
+	}
+
+	void FileView::expandCollapseSelected(bool expand) 
+	{
+		QModelIndexList sel = selectionModel()->selectedRows();
+		for (QModelIndexList::iterator i = sel.begin(); i != sel.end(); i++) 
+		{
+			if (proxy_model->hasChildren(*i))
+				expandCollapseTree(*i, expand);
+		}
+	}
+
+	void FileView::collapseTree() 
+	{
+		expandCollapseSelected(false);
+	}
+
+	void FileView::expandTree() 
+	{
+		expandCollapseSelected(true);
+	}
+
 	void FileView::onDoubleClicked(const QModelIndex & index)
 	{
 		if (!curr_tc)
@@ -306,7 +352,7 @@ namespace kt
 			if (!file)
 			{
 				// directory
-				new KRun(KUrl(curr_tc->getDataDir() + model->dirPath(index)), 0, 0, true, true);
+				new KRun(KUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), 0, 0, true, true);
 			}
 			else
 			{
@@ -346,6 +392,12 @@ namespace kt
 	{
 		if (model)
 			model->update();
+		
+		if (redraw)
+		{
+			scheduleDelayedItemsLayout();
+			redraw = false;
+		}
 	}
 	
 	void FileView::onTorrentRemoved(bt::TorrentInterface* tc)
@@ -363,7 +415,7 @@ namespace kt
 			return;
 		
 		saveState(cfg);
-		expanded_state_map[curr_tc] = model->saveExpandedState(this);
+		expanded_state_map[curr_tc] = model->saveExpandedState(proxy_model,this);
 		
 		proxy_model->setSourceModel(0);
 		delete model;
@@ -379,9 +431,37 @@ namespace kt
 		loadState(cfg);
 		QMap<bt::TorrentInterface*,QByteArray>::iterator i = expanded_state_map.find(curr_tc);
 		if (i != expanded_state_map.end())
-			model->loadExpandedState(this,i.value());
+			model->loadExpandedState(proxy_model,this,i.value());
 		else
 			expandAll();
+
+		collapse_action->setEnabled(!show_list_of_files);
+		expand_action->setEnabled(!show_list_of_files);
+	}
+	
+	bool FileView::viewportEvent(QEvent *event)
+	{
+		executeDelayedItemsLayout();
+		return QTreeView::viewportEvent(event);
+	}
+	
+	void FileView::filePercentageChanged(bt::TorrentFileInterface* file,float percentage)
+	{
+		if (model)
+			model->filePercentageChanged(file,percentage);
+	}
+	
+	void FileView::filePreviewChanged(bt::TorrentFileInterface* file,bool preview)
+	{
+		if (model)
+			model->filePreviewChanged(file,preview);
+	}
+	
+	void FileView::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
+	{
+		Q_UNUSED(topLeft);
+		Q_UNUSED(bottomRight);
+		redraw = true;
 	}
 }
 

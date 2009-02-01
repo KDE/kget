@@ -40,13 +40,11 @@ namespace kt
 	{
 		setupUi(this);
 		model = new ChunkDownloadModel(this);
-		pm = new QSortFilterProxyModel(this);
-		pm->setSourceModel(model);
-		pm->setSortRole(Qt::UserRole);
-		m_chunk_view->setModel(pm);
+		m_chunk_view->setModel(model);
 		m_chunk_view->setRootIsDecorated(false);
 		m_chunk_view->setSortingEnabled(true);
 		m_chunk_view->setAlternatingRowColors(true);
+		m_chunk_view->setUniformRowHeights(true);
 	}
 
 	ChunkDownloadView::~ChunkDownloadView()
@@ -68,9 +66,7 @@ namespace kt
 		if (!curr_tc)
 			return;
 
-		if (model->update())
-			pm->invalidate();
-
+		model->update();
 		const TorrentStats & s = curr_tc->getStats();
 		m_chunks_downloading->setText(QString::number(s.num_chunks_downloading));
 		m_chunks_downloaded->setText(QString::number(s.num_chunks_downloaded));
@@ -116,6 +112,7 @@ namespace kt
 			QHeaderView* v = m_chunk_view->header();
 			v->restoreState(s);
 			m_chunk_view->sortByColumn(v->sortIndicatorSection(),v->sortIndicatorOrder());
+			model->sort(v->sortIndicatorSection(),v->sortIndicatorOrder());
 		}
 	}
 }

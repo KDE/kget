@@ -21,14 +21,13 @@
 #include "peerview.h"
 
 #include <QHeaderView>
-#include <QSortFilterProxyModel>
 #include <klocale.h>
 #include <kicon.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 #include <interfaces/peerinterface.h>
-#include <torrent/ipblocklist.h>
+#include <peer/accessmanager.h>
 #include <util/functions.h>
 #include "peerviewmodel.h"
 
@@ -44,12 +43,10 @@ namespace kt
 		setRootIsDecorated(false);
 		setSortingEnabled(true);
 		setAlternatingRowColors(true);
+		setUniformRowHeights(true);
 		
 		model = new PeerViewModel(this);
-		pm = new QSortFilterProxyModel(this);
-		pm->setSourceModel(model);
-		pm->setSortRole(Qt::UserRole);
-		setModel(pm);
+		setModel(model);
 		
 		context_menu = new KMenu(this);
 		context_menu->addAction(KIcon("list-remove-user"),i18n("Kick Peer"),this,SLOT(kickPeer()));
@@ -72,15 +69,15 @@ namespace kt
 	
 	void PeerView::banPeer()
 	{
-		IPBlocklist& filter = IPBlocklist::instance();
+		AccessManager & aman = AccessManager::instance();
 		
 		QModelIndexList indices = selectionModel()->selectedRows();
 		foreach (const QModelIndex &idx,indices)
 		{
-			bt::PeerInterface* peer = model->indexToPeer(pm->mapToSource(idx));
+			bt::PeerInterface* peer = model->indexToPeer(idx);
 			if (peer)
 			{
-				filter.insert(peer->getStats().ip_address,3);
+				aman.banPeer(peer->getStats().ip_address);
 				peer->kill();
 			}
 		}
@@ -91,7 +88,7 @@ namespace kt
 		QModelIndexList indices = selectionModel()->selectedRows();
 		foreach (const QModelIndex &idx,indices)
 		{
-			bt::PeerInterface* peer = model->indexToPeer(pm->mapToSource(idx));
+			bt::PeerInterface* peer = model->indexToPeer(idx);
 			if (peer)
 				peer->kill();
 		}
@@ -109,8 +106,7 @@ namespace kt
 
 	void PeerView::update()
 	{
-		 if (model->update())
-			 pm->invalidate();
+		model->update();
 	}
 
 	void PeerView::removeAll()
@@ -134,6 +130,7 @@ namespace kt
 			QHeaderView* v = header();
 			v->restoreState(s);
 			sortByColumn(v->sortIndicatorSection(),v->sortIndicatorOrder());
+			model->sort(v->sortIndicatorSection(),v->sortIndicatorOrder());
 		}
 	}
 }

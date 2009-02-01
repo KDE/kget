@@ -54,9 +54,8 @@ namespace kt
 		
 		/**
 		 * Update the model
-		 * @return true if the view needs to be sorted again
 		 */
-		bool update();
+		void update();
 		
 		void clear();
 
@@ -66,7 +65,12 @@ namespace kt
 		virtual QVariant data(const QModelIndex & index,int role) const;
 		virtual bool removeRows(int row,int count,const QModelIndex & parent);
 		virtual bool insertRows(int row,int count,const QModelIndex & parent);
-	private:
+		virtual QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const;
+		
+	public slots:
+		void sort(int col, Qt::SortOrder order);
+		
+	public:
 		struct Item
 		{
 			mutable bt::ChunkDownloadInterface::Stats stats;
@@ -75,13 +79,15 @@ namespace kt
 			
 			Item(bt::ChunkDownloadInterface* cd,const QString & files);
 			
-			bool changed() const;
+			bool changed(int col,bool & modified) const;
 			QVariant data(int col) const;
-			QVariant dataForSorting(int col) const;
+			bool lessThan(int col,const Item* other) const;
 		};
-		
-		QList<Item> items;
+	private:
+		QList<Item*> items;
 		bt::TorrentInterface* tc;
+		int sort_column;
+		Qt::SortOrder sort_order;
 	};
 
 }

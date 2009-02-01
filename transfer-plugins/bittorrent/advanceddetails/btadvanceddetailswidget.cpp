@@ -75,7 +75,7 @@ void BTAdvancedDetailsWidget::init()
     webseeds_tab = new WebSeedsTab(this);
     webseeds_tab->changeTC(tc);
     tabWidget->insertTab(4, webseeds_tab, KIcon("network-server"), i18n("Webseeds"));
-    monitor = new Monitor(tc,peer_view,cd_view);
+    monitor = new Monitor(tc, peer_view, cd_view, file_view);
 }
 
 void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)

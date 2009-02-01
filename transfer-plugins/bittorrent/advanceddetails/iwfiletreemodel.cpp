@@ -38,11 +38,12 @@ namespace kt
 		mmfile = IsMultimediaFile(tc->getStats().output_path);
 		preview = false;
 		percentage = 0;
-		for (Uint32 i = 0;i < tc->getNumFiles();i++)
+
+		if (root)
 		{
-			bt::TorrentFileInterface & file = tc->getTorrentFile(i);
-			connect(&file,SIGNAL(downloadPercentageChanged( float )),this,SLOT(onPercentageUpdated( float )));
-			connect(&file,SIGNAL(previewAvailable( bool )),this,SLOT(onPreviewAvailable( bool )));
+			BitSet d = tc->downloadedChunksBitSet();
+			d -= tc->onlySeedChunksBitSet();
+			root->initPercentage(tc,d);
 		}
 	}
 
@@ -102,7 +103,7 @@ namespace kt
 			const bt::TorrentFileInterface* file = n->file;
 			switch (file->getPriority())
 			{
-				/**case FIRST_PRIORITY:
+				/*case FIRST_PRIORITY:
 					return InfoWidgetPluginSettings::firstColor();
 				case LAST_PRIORITY:	
 					return InfoWidgetPluginSettings::lastColor();
@@ -111,7 +112,7 @@ namespace kt
 				case ONLY_SEED_PRIORITY: 
 				case EXCLUDED: 
 				case PREVIEW_PRIORITY: 
-				default:**/
+				default:*/
 					return QVariant();
 			}
 		}
@@ -143,10 +144,10 @@ namespace kt
 					else
 						return i18nc("No preview available", "No");
 				case 4: 
-				{
-					float percent = file->getDownloadPercentage();
-					return ki18n("%1 %").subs(percent, 0, 'f', 2).toString();
-				}
+					if (file->getPriority() == ONLY_SEED_PRIORITY || file->getPriority() == EXCLUDED)
+						return QVariant();
+					else
+						return ki18n("%1 %").subs(n->percentage, 0, 'f', 2).toString();
 				default: return QVariant();
 			}	
 		}
@@ -166,13 +167,15 @@ namespace kt
 					else
 						return i18nc("No preview available", "No");
 				case 4: 
-				{
-					double percent = bt::Percentage(tc->getStats());
-					return ki18n("%1 %").subs(percent, 0, 'f', 2).toString();
-				}
+					return ki18n("%1 %").subs(bt::Percentage(tc->getStats()), 0, 'f', 2).toString();
 				default: return QVariant();
 			}
 		}
+		else if (tc->getStats().multi_file_torrent && index.column() == 4)
+		{
+			return ki18n("%1 %").subs(n->percentage, 0, 'f', 2).toString();
+		}
+		
 		return QVariant();
 	}
 	
@@ -195,7 +198,7 @@ namespace kt
 					else
 						return 1;
 				case 4: 
-					return file->getDownloadPercentage();
+					return n->percentage;
 			}	
 		}
 		else if (!tc->getStats().multi_file_torrent)
@@ -217,6 +220,11 @@ namespace kt
 					return bt::Percentage(tc->getStats());
 			}
 		}
+		else if (tc->getStats().multi_file_torrent && index.column() == 4)
+		{
+			return n->percentage;
+		}
+		
 		return QVariant();
 	}
 	
@@ -260,17 +268,15 @@ namespace kt
 		return true;
 	}
 	
-	
-	
-	void IWFileTreeModel::onPercentageUpdated(float /*p*/)
+	void IWFileTreeModel::filePercentageChanged(bt::TorrentFileInterface* file,float percentage)
 	{
-		bt::TorrentFileInterface* file = (bt::TorrentFileInterface*)sender();
+		Q_UNUSED(percentage);
 		update(index(0,0,QModelIndex()),file,4);
 	}
 	
-	void IWFileTreeModel::onPreviewAvailable(bool /*av*/)
+	void IWFileTreeModel::filePreviewChanged(bt::TorrentFileInterface* file,bool preview)
 	{
-		bt::TorrentFileInterface* file = (bt::TorrentFileInterface*)sender();
+		Q_UNUSED(preview);
 		update(index(0,0,QModelIndex()),file,3);
 	}
 	
@@ -281,6 +287,25 @@ namespace kt
 		{
 			QModelIndex i = createIndex(idx.row(),col,n);
 			emit dataChanged(i,i);
+			if(col == 4)
+			{
+				// update percentages along the tree
+				// this will go back up the tree and update the percentage of 
+				// all directories involved
+				BitSet d = tc->downloadedChunksBitSet();
+				d -= tc->onlySeedChunksBitSet();
+				n->updatePercentage(d);
+				
+				// emit necessary signals
+				QModelIndex parent = idx.parent();
+				while (parent.isValid())
+				{
+					Node* nd = (Node*)parent.internalPointer();
+					i = createIndex(parent.row(),4,nd);
+					emit dataChanged(i,i);
+					parent = parent.parent();
+				}
+			}
 		}
 		else
 		{
@@ -312,7 +337,7 @@ namespace kt
 			}
 			
 			if (changed)
-				dataChanged(createIndex(0,0),createIndex(0,4));
+				dataChanged(createIndex(0,2),createIndex(0,4));
 		}
 	}
 }

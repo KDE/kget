@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -25,9 +23,10 @@
 
 #include <QByteArray>
 #include <QAbstractItemModel>
-#include "util/constants.h"
+#include <util/constants.h>
 
 class QTreeView;
+class QSortFilterProxyModel;
 
 namespace bt
 {
@@ -72,17 +71,19 @@ namespace kt
 		
 		/**
 		 * Save which items are expanded.
+		 * @param pm Proxy model of the view
 		 * @param tv The QTreeView
 		 * @return The expanded state encoded in a byte array
 		 */
-		virtual QByteArray saveExpandedState(QTreeView* tv);
+		virtual QByteArray saveExpandedState(QSortFilterProxyModel* pm,QTreeView* tv);
 		
 		/**
 		 * Retore the expanded state of the tree.in a QTreeView
+		 * @param pm Proxy model of the view
 		 * @param tv The QTreeView
 		 * @param state The encoded expanded state
 		 */
-		virtual void loadExpandedState(QTreeView* tv,const QByteArray & state);
+		virtual void loadExpandedState(QSortFilterProxyModel* pm,QTreeView* tv,const QByteArray & state);
 
 		/**
 		 * Convert a model index to a file.
@@ -114,6 +115,22 @@ namespace kt
 		 * Update gui if necessary
 		 */
 		virtual void update();
+		
+		/**
+		 * Codec has changed, so update the model.
+		 */
+		virtual void onCodecChange();
+		
+		/// Set the file names editable
+		void setFileNamesEditable(bool on) {file_names_editable = on;}
+		
+		/// Are the file names editable
+		bool fileNamesEditable() const {return file_names_editable;}
+		
+		virtual Qt::ItemFlags flags(const QModelIndex & index) const;
+		
+		virtual void filePercentageChanged(bt::TorrentFileInterface* file,float percentage);
+		virtual void filePreviewChanged(bt::TorrentFileInterface* file,bool preview);
 signals:
 		/**
 		 * Emitted whenever one or more items changes check state
@@ -123,6 +140,7 @@ signals:
 	protected:
 		bt::TorrentInterface* tc;
 		DeselectMode mode;
+		bool file_names_editable;
 	};
 }
 

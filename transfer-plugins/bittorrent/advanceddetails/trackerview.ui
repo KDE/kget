@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>247</height>
+    <height>246</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout" >
@@ -43,9 +43,6 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
-            <string comment="KDE::DoNotExtract" >KSqueezedTextLabel</string>
-           </property>
           </widget>
          </item>
         </layout>
@@ -67,9 +64,6 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
-            <string comment="KDE::DoNotExtract" >KSqueezedTextLabel</string>
-           </property>
           </widget>
          </item>
         </layout>
@@ -87,6 +81,30 @@
            </item>
            <item>
             <widget class="QLabel" name="m_seeders" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text" >
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1" >
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="QLabel" name="label_6" >
+             <property name="text" >
+              <string>Leechers:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="m_leechers" >
              <property name="sizePolicy" >
               <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
                <horstretch>0</horstretch>
@@ -124,7 +142,7 @@
            </item>
           </layout>
          </item>
-         <item row="2" column="0" >
+         <item row="1" column="1" >
           <layout class="QHBoxLayout" >
            <item>
             <widget class="QLabel" name="label_5" >
@@ -135,30 +153,6 @@
            </item>
            <item>
             <widget class="QLabel" name="m_next_update" >
-             <property name="sizePolicy" >
-              <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text" >
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="3" column="0" >
-          <layout class="QHBoxLayout" >
-           <item>
-            <widget class="QLabel" name="label_6" >
-             <property name="text" >
-              <string>Leechers:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="m_leechers" >
              <property name="sizePolicy" >
               <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
                <horstretch>0</horstretch>
@@ -190,9 +184,16 @@
        <item>
         <layout class="QHBoxLayout" >
          <item>
-          <widget class="KPushButton" name="m_update_tracker" >
+          <widget class="KPushButton" name="m_announce" >
            <property name="text" >
-            <string>Update Tracker</string>
+            <string>Manual Announce</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="m_scrape" >
+           <property name="text" >
+            <string>Scrape</string>
            </property>
           </widget>
          </item>

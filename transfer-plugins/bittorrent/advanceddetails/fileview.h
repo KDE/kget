@@ -30,6 +30,7 @@ class QSortFilterProxyModel;
 namespace bt
 {
 	class TorrentInterface;
+	class TorrentFileInterface;
 }
 
 namespace kt
@@ -51,6 +52,9 @@ namespace kt
 		void saveState(KSharedConfigPtr cfg);
 		void loadState(KSharedConfigPtr cfg);
 		void update();
+		void filePercentageChanged(bt::TorrentFileInterface* file,float percentage);
+		void filePreviewChanged(bt::TorrentFileInterface* file,bool preview);
+		
 	public slots:
 		void onTorrentRemoved(bt::TorrentInterface* tc);
 
@@ -61,6 +65,10 @@ namespace kt
 		
 	private:
 		void changePriority(bt::Priority newpriority);
+		void expandCollapseTree(const QModelIndex& idx, bool expand);
+		void expandCollapseSelected(bool expand);
+		virtual bool viewportEvent(QEvent *event);
+		virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
 
 	private slots:
 		void open();
@@ -70,8 +78,11 @@ namespace kt
 		void doNotDownload();
 		void deleteFiles();
 		void moveFiles();
+		void collapseTree();
+		void expandTree();
 
 	private:
+		bool redraw;
 		bt::TorrentInterface* curr_tc;
 		TorrentFileModel* model;
 
@@ -83,6 +94,8 @@ namespace kt
 		QAction* dnd_action;
 		QAction* delete_action;
 		QAction* move_files_action;
+		QAction* collapse_action;
+		QAction* expand_action;
 
 		QString preview_path;
 		bool show_list_of_files;

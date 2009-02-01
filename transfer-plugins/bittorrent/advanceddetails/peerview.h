@@ -27,7 +27,6 @@
 #include <ksharedconfig.h>
 
 class KMenu;
-class QSortFilterProxyModel;
 
 namespace kt
 {
@@ -66,7 +65,6 @@ namespace kt
 	private:
 		KMenu* context_menu;
 		PeerViewModel* model;
-		QSortFilterProxyModel* pm;
 	};
 }
 

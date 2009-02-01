@@ -1,5 +1,3 @@
-/** IMPORTANT: please keep this file in sync with ktorrent! ****************/
-
 /***************************************************************************
  *   Copyright (C) 2007 by Joris Guisson and Ivan Vasic                    *
  *   joris.guisson@gmail.com                                               *
@@ -45,7 +43,6 @@ namespace kt
 		virtual QVariant data(const QModelIndex & index, int role) const;
 		virtual QModelIndex parent(const QModelIndex & index) const;
 		virtual QModelIndex index(int row,int column,const QModelIndex & parent) const;
-		virtual Qt::ItemFlags flags(const QModelIndex & index) const;
 		virtual bool setData(const QModelIndex & index, const QVariant & value, int role);
 		virtual void checkAll();
 		virtual void uncheckAll();
