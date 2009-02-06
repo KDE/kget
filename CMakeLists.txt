@@ -48,6 +48,8 @@ if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
 endif(SQLITE_FOUND)
 
+remove_definitions(-DQT_NO_HTTP)
+
 # kgetcore
 
 set(kgetcore_SRCS
