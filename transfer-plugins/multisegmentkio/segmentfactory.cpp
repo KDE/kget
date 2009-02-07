@@ -366,10 +366,10 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
     switch (seg->status())
     {
     case Segment::Killed :
-        //this site does not allow resuming. so its useless for multiseg
+        //this site does not allow resuming. so it is useless for multiseg
         if ( !DeleteUrl( seg->job()->url() ) )
         {
-        //TODO: notify that we cant resume or manage this transfer 
+        //TODO: notify that we cannot resume or manage this transfer 
         }
     break;
     case Segment::Timeout :
