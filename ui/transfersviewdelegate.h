@@ -97,7 +97,7 @@ class TransfersViewDelegate : public KExtendableItemDelegate
 
     public slots:
         void closeExpandableDetails(const QModelIndex &index = QModelIndex());
-        void itemActivated(QModelIndex index);
+        void itemActivated(const QModelIndex &index);
 
     private:
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);

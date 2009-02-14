@@ -505,7 +505,7 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
     return groupBox;
 }
 
-void TransfersViewDelegate::itemActivated(QModelIndex index)
+void TransfersViewDelegate::itemActivated(const QModelIndex &index)
 {
     const TransferTreeModel * transferTreeModel = static_cast <const TransferTreeModel *> (index.model());
 
