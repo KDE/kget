@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
+   Copyright (C) 2008 - 2009 Urs Wolfer <uwolfer @ kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -70,7 +70,7 @@ void HttpServer::handleRequest()
         data.append(authRequiredText.toUtf8());
     } else {
 
-    if (header.path().endsWith("data.json")) {
+    if (header.path().endsWith(QLatin1String("data.json"))) {
         data.append("{\"downloads\":[");
         bool needsToBeClosed = false;
         foreach(TransferHandler *transfer, KGet::allTransfers()) {
@@ -87,7 +87,7 @@ void HttpServer::handleRequest()
             needsToBeClosed = true;
         }
         data.append("]}");
-    } else if (header.path().startsWith("/do")) {
+    } else if (header.path().startsWith(QLatin1String("/do"))) {
         kDebug(5001) << request;
 
         QString args = header.path().right(header.path().length() - 4);
@@ -192,15 +192,15 @@ void HttpServer::handleRequest()
     block.append(QString("Server: KGet\r\n").toUtf8()); //TODO: add KGet version
     if (responseCode == 401)
         block.append(QString("WWW-Authenticate: Basic realm=\"KGet Webinterface Authorization\"\r\n").toUtf8());
-    if (header.path().endsWith(".png") && responseCode == 200)
+    if (header.path().endsWith(QLatin1String(".png")) && responseCode == 200)
         block.append(QString("Content-Type: image/png\r\n").toUtf8());
-    else if (header.path().endsWith(".json") && responseCode == 200)
+    else if (header.path().endsWith(QLatin1String(".json")) && responseCode == 200)
         block.append(QString("Content-Type: application/x-json\r\n").toUtf8());
-    else if (header.path().endsWith(".gif") && responseCode == 200)
+    else if (header.path().endsWith(QLatin1String(".gif")) && responseCode == 200)
         block.append(QString("Content-Type: image/gif\r\n").toUtf8());
-    else if (header.path().endsWith(".js") && responseCode == 200)
+    else if (header.path().endsWith(QLatin1String(".js")) && responseCode == 200)
         block.append(QString("Content-Type: text/javascript\r\n").toUtf8());
-    else if (header.path().endsWith(".htc") && responseCode == 200)
+    else if (header.path().endsWith(QLatin1String(".htc")) && responseCode == 200)
         block.append(QString("Content-Type: text/x-component\r\n").toUtf8());
     else
         block.append(QString("Content-Type: text/html; charset=UTF-8\r\n").toUtf8());

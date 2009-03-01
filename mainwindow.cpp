@@ -417,7 +417,7 @@ void MainWindow::slotImportTransfers()
                                                     "*.kgt *.metalink *.torrent|" + i18n("All Openable Files") +
                                                     " (*.kgt *.metalink *.torrent)", this, i18n("Open File"));
 
-    if(filename.endsWith(".kgt"))
+    if(filename.endsWith(QLatin1String(".kgt")))
     {
         KGet::load(filename);
         return;
@@ -866,7 +866,7 @@ void MainWindow::dropEvent(QDropEvent * event)
 
     if (!list.isEmpty())
     {
-        if (list.count() == 1 && list.first().url().endsWith(".kgt"))
+        if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt")))
         {
             int msgBoxResult = KMessageBox::questionYesNoCancel(this, i18n("The dropped file is a KGet-Transferlist"), "KGet",
                                    KGuiItem(i18n("&Download"), KIcon("document-save")), 

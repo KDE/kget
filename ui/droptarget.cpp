@@ -209,7 +209,7 @@ void DropTarget::dropEvent(QDropEvent * event)
 
     if (!list.isEmpty())
     {
-        if (list.count() == 1 && list.first().url().endsWith(".kgt"))
+        if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt")))
         {
             int msgBoxResult = KMessageBox::questionYesNoCancel(this, i18n("The dropped file is a KGet-Transferlist"), "KGet",
                                    KGuiItem(i18n("&Download"), KIcon("document-save")), 
