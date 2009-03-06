@@ -399,7 +399,15 @@ Action=Sound
 
 [Event/error]
 Name=Error Occurred
+Name[ga]=Tharla Earráid
+Name[pt_BR]=Ocorreu um erro
+Name[sv]=Fel inträffade
+Name[uk]=Сталася помилка
 Comment=An Error has Occurred
+Comment[ga]=Tharla Earráid
+Comment[pt_BR]=Ocorreu um erro
+Comment[sv]=Ett fel har inträffat
+Comment[uk]=Сталася помилка
 Sound=KDE-Sys-App-Error.ogg
 Action=PassivePopup|Sound
 
@@ -440,5 +448,9 @@ Name[x-test]=xxInformationxx
 Name[zh_CN]=信息
 Name[zh_TW]=資訊
 Comment=User Notified of Information
+Comment[ga]=Cuireadh Eolas in Iúl don Úsáideoir
+Comment[pt_BR]=Usuários notificados da informação
+Comment[sv]=Användare underrättad om information
+Comment[uk]=Сповіщення користувача щодо інформації
 Sound=KDE-Sys-App-Message.ogg
 Action=PassivePopup|Sound

@@ -37,6 +37,9 @@ Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
 Comment=Allows KGet to search through mirror search engines for files
+Comment[pt_BR]=Permite ao KGet pesquisar por arquivos através de mecanismos de pesquisa de mirrors
+Comment[sv]=Gör det möjligt för Kget att söka efter filen via spegelsöktjänster
+Comment[uk]=Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал
 
 # options for library loader
 X-KDE-Library=kget_mirrorsearchfactory
