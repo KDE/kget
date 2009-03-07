@@ -34,7 +34,7 @@ void TransferKio::start()
         createJob();
 
     kDebug(5001) << "TransferKio::start";
-    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
 }
 
@@ -150,7 +150,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 
     kDebug(5001) << "slotTotalSize";
 
-    setStatus(Job::Running, i18n("Downloading..."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
 
     m_totalSize = size;
     setTransferChange(Tc_Status | Tc_TotalSize, true);
@@ -164,7 +164,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 
     if(status() != Job::Running)
     {
-        setStatus(Job::Running, i18n("Downloading.."),  SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18n("Downloading...."),  SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status);
     }
     m_downloadedSize = size;
@@ -179,7 +179,7 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 
     if(status() != Job::Running)
     {
-        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status);
 
     }

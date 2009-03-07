@@ -33,9 +33,9 @@ BTSettingsWidget::BTSettingsWidget(QWidget * parent = 0, const QVariantList &arg
 void BTSettingsWidget::load()
 {
     torrentEdit->setMode(KFile::Directory);
-    torrentEdit->fileDialog()->setCaption(i18n("Select a default Torrent-Folder"));
+    torrentEdit->fileDialog()->setCaption(i18n("Select a default torrent folder"));
     tempEdit->setMode(KFile::Directory);
-    tempEdit->fileDialog()->setCaption(i18n("Select a default Temporary-Folder"));
+    tempEdit->fileDialog()->setCaption(i18n("Select a default temporary folder"));
     defaults();
 }
 

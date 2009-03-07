@@ -33,7 +33,7 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
 void MmsTransfer::start()
 {
     kDebug(5001) << "Trying to start Mms-transfer: " + m_source.prettyUrl();
-    setStatus(Job::Running, i18nc("transfer state: running", "Running.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+    setStatus(Job::Running, i18nc("transfer state: running", "Running...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
     mmsx = mmsx_connect(NULL, NULL, m_source.url().toAscii().data(), 1);
     if (mmsx)

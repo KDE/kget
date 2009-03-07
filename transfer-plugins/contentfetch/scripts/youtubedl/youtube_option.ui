@@ -13,7 +13,7 @@
    <item>
     <widget class="QGroupBox" name="fileSettingGroupBox" >
      <property name="title" >
-      <string>File-Settings</string>
+      <string>File Settings</string>
      </property>
      <layout class="QFormLayout" name="formLayout_3" >
       <property name="fieldGrowthPolicy" >
@@ -67,7 +67,7 @@
    <item>
     <widget class="QGroupBox" name="loginGroupBox" >
      <property name="toolTip" >
-      <string>Provide login info of your youtube account in order to access restricted media.</string>
+      <string>Provide login info of your YouTube account in order to access restricted media.</string>
      </property>
      <property name="title" >
       <string>Login Info</string>

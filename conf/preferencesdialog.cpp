@@ -70,7 +70,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(groups, i18n("Groups"), "bookmarks", i18n("Manage the groups"));
     addPage(directories, i18n("Folders"), "folder", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
-    addPage(webinterface, i18n("Webinterface"), "network-workgroup", i18n("Control KGet over Network or Internet"));
+    addPage(webinterface, i18n("Web Interface"), "network-workgroup", i18n("Control KGet over a Network or the Internet"));
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(pluginSelector, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugins"));
 

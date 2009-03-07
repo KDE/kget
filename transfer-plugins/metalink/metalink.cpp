@@ -34,7 +34,7 @@ void metalink::start()
     if(!m_copyjob)
         createJob();
 
-    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting.."), SmallIcon("connect-creating"));
+    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("connect-creating"));
     setTransferChange(Tc_Status, true);
 }
 

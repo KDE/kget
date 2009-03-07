@@ -70,7 +70,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
 
     if (groupEditor->text().isEmpty())
     {
-        KMessageBox::error( this, i18n("The group name is empty"), i18n("A group can not have an empty name\nPlease select a new one") );
+        KMessageBox::error( this, i18n("The group name is empty"), i18n("A group can not have an empty name.\nPlease select a new one.") );
         QTimer::singleShot( 0, this, SLOT(editCurrent()) );
         return;
     }
@@ -81,7 +81,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
             if(groupName == groupEditor->text() && 
                groupName != ((TransferGroupHandler *) currentIndex().internalPointer())->name() )
             {
-                KMessageBox::error( this, i18n("Group name already in use"), i18n("Another group with this name already exists\nPlease select a different name") );
+                KMessageBox::error( this, i18n("Group name already in use"), i18n("Another group with this name already exists.\nPlease select a different name.") );
                 QTimer::singleShot( 0, this, SLOT(editCurrent()) );
                 return;
             }
@@ -127,7 +127,7 @@ void TransfersGroupTree::deleteSelectedGroup()
 
         if(groupName == i18n("My Downloads"))
         {
-            KMessageBox::sorry(this, i18n("You can not delete this group!"));
+            KMessageBox::sorry(this, i18n("You can not delete this group."));
             continue;
         }
 

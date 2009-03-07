@@ -57,7 +57,7 @@
      <item>
       <widget class="QPushButton" name="newScriptButton" >
        <property name="text" >
-        <string>New Script...</string>
+        <string>New Script....</string>
        </property>
       </widget>
      </item>
@@ -71,14 +71,14 @@
      <item>
       <widget class="QPushButton" name="editScriptButton" >
        <property name="text" >
-        <string>Edit...</string>
+        <string>Edit....</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="configureScriptButton" >
        <property name="text" >
-        <string>Configure...</string>
+        <string>Configure....</string>
        </property>
       </widget>
      </item>

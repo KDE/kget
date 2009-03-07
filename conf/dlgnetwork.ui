@@ -25,7 +25,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="lbl_maxnum" >
         <property name="text" >
-         <string>Downloads number:</string>
+         <string>Number of downloads:</string>
         </property>
        </widget>
       </item>
@@ -68,7 +68,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="dllimitlb" >
         <property name="text" >
-         <string>Global Download-Limit:</string>
+         <string>Global Download Limit:</string>
         </property>
        </widget>
       </item>
@@ -91,7 +91,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>Global Upload-Limit:</string>
+         <string>Global Upload Limit:</string>
         </property>
        </widget>
       </item>

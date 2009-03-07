@@ -44,7 +44,7 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
 void ContentFetch::start()
 {
     kDebug(5001) << "ContentFetch::start";
-    setStatus(Job::Running, i18nc("Transfer state: processing script", "Processing script..."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18nc("Transfer state: processing script", "Processing script...."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
     m_p_script->setFile(m_scriptFile);
     m_p_script->start();

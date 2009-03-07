@@ -244,7 +244,7 @@ void TransferHistory::slotLoadRangeType(int type)
         QFontMetrics *font = new QFontMetrics(KGlobalSettings::generalFont());
         range_view->clear();
 
-        range_view->setLabels(QStringList() << i18n("Source-File") << i18n("Destination") << i18n("Time") << i18n("File Size") << i18n("Status"));
+        range_view->setLabels(QStringList() << i18n("Source File") << i18n("Destination") << i18n("Time") << i18n("File Size") << i18n("Status"));
         range_view->setRangeDelegate(0);
 
         switch(m_rangeType)

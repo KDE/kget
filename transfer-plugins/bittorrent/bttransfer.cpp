@@ -74,7 +74,7 @@ void BTTransfer::start()
             kDebug(5001) << m_dest.path();
             Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
 
-            setStatus(Job::Stopped, i18n("Downloading Torrent-File.."), SmallIcon("document-save"));
+            setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
 
             //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
@@ -210,7 +210,7 @@ void BTTransfer::startTorrent()
         torrent->setMonitor(this);
         torrent->start();
         timer.start(250);
-        setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading.."), SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
     }
@@ -280,7 +280,7 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     if (!file.exists())
         return;
 
-    setStatus(Job::Running, i18n("Analyzing torrent.."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
+    setStatus(Job::Running, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
@@ -329,7 +329,7 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
     catch (bt::Error &err)
     {
         m_ready = false;
-        setStatus(Job::Aborted, i18n("An error occurred.."), SmallIcon("document-preview"));
+        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
         KMessageBox::error(0, err.toString(), i18n("Error"));
     }
     startTorrent();
@@ -340,7 +340,7 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 {
     Q_UNUSED(error);
     stop();
-    setStatus(Job::Aborted, i18n("An error occurred.."), SmallIcon("document-preview"));
+    setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
     KMessageBox::error(0, errormsg, i18n("Error"));
 }
 
@@ -350,7 +350,7 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
     Q_UNUSED(ti);
     m_downloadFinished = true;
     //timer.stop();
-    setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding.."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding...."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
 }
 

@@ -16,7 +16,7 @@
    <item>
     <widget class="KTitleWidget" name="ktitlewidget" >
      <property name="text" >
-      <string>Group-Settings</string>
+      <string>Group Settings</string>
      </property>
     </widget>
    </item>

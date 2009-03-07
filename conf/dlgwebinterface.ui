@@ -16,7 +16,7 @@
    <item>
     <widget class="QGroupBox" name="kcfg_WebinterfaceEnabled" >
      <property name="title" >
-      <string>Enable Webinterface</string>
+      <string>Enable Web Interface</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>

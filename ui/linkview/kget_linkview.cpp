@@ -74,13 +74,13 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     m_searchLine = new KLineEdit(this);
     m_searchLine->setClearButtonShown(true);
-    m_searchLine->setClickMessage(i18n("Filter files here..."));
+    m_searchLine->setClickMessage(i18n("Filter files here...."));
     connect(m_searchLine, SIGNAL(textChanged(QString)), SLOT(updateSelectAllText(QString)));
 
     // filter mode combobox [contains, does not contain]
     m_filterModeBox = new KComboBox(this);
     m_filterModeBox->addItem(i18n("Contains"), QVariant(KGetLinkView::Contain));
-    m_filterModeBox->addItem(i18n("Does not Contain"), QVariant(KGetLinkView::DoesNotContain));
+    m_filterModeBox->addItem(i18n("Does not contain"), QVariant(KGetLinkView::DoesNotContain));
     connect(m_filterModeBox, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectAllText()));
 
     setButtons(KDialog::None);
@@ -216,7 +216,7 @@ void KGetLinkView::showLinks( const QList<QString>& links )
 {
     QStandardItemModel *model = new QStandardItemModel(0, 5, this);
 
-    model->setHeaderData(0, Qt::Horizontal, i18n("Auxiliar header"));
+    model->setHeaderData(0, Qt::Horizontal, i18n("Auxiliary header"));
     model->setHeaderData(1, Qt::Horizontal, i18n("File Name"));
     model->setHeaderData(2, Qt::Horizontal, i18n("Description"));
     model->setHeaderData(3, Qt::Horizontal, i18nc("list header: type of file", "File Type"));

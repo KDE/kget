@@ -151,7 +151,7 @@ void HttpServer::handleRequest()
             }
         }
         if (fileName == "index.htm") { // translations
-            data.replace("#{KGet Webinterface}", i18nc("@label", "KGet Webinterface").toUtf8());
+            data.replace("#{KGet Webinterface}", i18nc("@label", "KGet Web Interface").toUtf8());
             data.replace("#{Nr}", i18nc("@label number", "Nr").toUtf8());
             data.replace("#{File name}", i18nc("@label", "File name").toUtf8());
             data.replace("#{Finished}", i18nc("@label Progress of transfer", "Finished").toUtf8());
@@ -162,7 +162,7 @@ void HttpServer::handleRequest()
             data.replace("#{Remove}", i18nc("@action:button", "Remove").toUtf8());
             data.replace("#{Source:}", i18nc("@label Download from", "Source:").toUtf8());
             data.replace("#{Saving to:}", i18nc("@label Save download to", "Saving to:").toUtf8());
-            data.replace("#{Webinterface}", i18nc("@label Title in header", "Webinterface").toUtf8());
+            data.replace("#{Webinterface}", i18nc("@label Title in header", "Web Interface").toUtf8());
             data.replace("#{Settings}", i18nc("@action", "Settings").toUtf8());
             data.replace("#{Refresh}", i18nc("@action", "Refresh").toUtf8());
             data.replace("#{Enter URL: }", i18nc("@action", "Enter URL: ").toUtf8());
@@ -173,7 +173,7 @@ void HttpServer::handleRequest()
             data.replace("#{Save Settings}", i18nc("@action:button", "Save Settings").toUtf8());
             data.replace("#{Downloads}", i18nc("@title", "Downloads").toUtf8());
             data.replace("#{KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS}",
-                         i18nc("@label text in footer", "KGet Webinterface | Valid XHTML 1.0 Strict &amp; CSS").toUtf8().replace('&', "&amp;"));
+                         i18nc("@label text in footer", "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS").toUtf8().replace('&', "&amp;"));
 
             // delegate group combobox
             QString groupOptions = "";

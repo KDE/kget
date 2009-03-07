@@ -41,7 +41,7 @@ void TransferMultiSegKio::start()
 
     kDebug(5001);
 
-    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting.."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
     setTransferChange(Tc_Status, true);
     stopped = false;
 }
@@ -245,7 +245,7 @@ void TransferMultiSegKio::slotTotalSize( KJob *kioJob, qulonglong size )
 
     if (!m_isDownloading)
     {
-        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
         m_isDownloading = true;
         setTransferChange(Tc_Status , true);
     }
@@ -262,7 +262,7 @@ void TransferMultiSegKio::slotProcessedSize( KJob *kioJob, qulonglong size )
 
     if (!m_isDownloading)
     {
-        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
         m_isDownloading = true;
         setTransferChange(Tc_Status , true);
     }
@@ -279,7 +279,7 @@ void TransferMultiSegKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_seco
 
     if (!m_isDownloading)
     {
-        setStatus(Job::Running, i18n("Downloading.."), SmallIcon("media-playback-start"));
+        setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
         m_isDownloading = true;
         setTransferChange(Tc_Status , true);
     }

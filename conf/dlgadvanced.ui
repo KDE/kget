@@ -53,7 +53,7 @@
       <widget class="KComboBox" name="kcfg_StartupAction" >
        <item>
         <property name="text" >
-         <string>Restore Download-State</string>
+         <string>Restore Download State</string>
         </property>
        </item>
        <item>
