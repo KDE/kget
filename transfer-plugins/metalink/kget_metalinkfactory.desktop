@@ -21,11 +21,13 @@ Name[sr@latin]=MetaLink
 Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Comment=Allows files to be downloaded from Metalink
+Comment[et]=Võimaldab laadida faile alla Metalinkist
 Comment[nds]=Mit dit Moduul kannst Du Dateien vun Metalink daalladen
 Comment[pt]=Permite transferir os ficheiros a partir do Metalink
 Comment[pt_BR]=Permite baixar arquivos do Metalink
 Comment[sv]=Gör det möjligt att ladda ner filer från Metalink
 Comment[uk]=Надає змогу звантажувати файли з Metalink
+Comment[zh_TW]=允許從 Metalink 下載檔案
 
 # options for library loader
 X-KDE-Library=kget_metalinkfactory

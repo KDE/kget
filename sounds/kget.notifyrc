@@ -408,19 +408,23 @@ Action=Sound
 
 [Event/error]
 Name=Error Occurred
+Name[et]=Tekkis viga
 Name[ga]=Tharla Earráid
 Name[nds]=Fehler vörkamen
 Name[pt]=Ocorreu um Erro
 Name[pt_BR]=Ocorreu um erro
 Name[sv]=Fel inträffade
 Name[uk]=Сталася помилка
+Name[zh_TW]=發生錯誤
 Comment=An Error has Occurred
+Comment[et]=Tekkis viga
 Comment[ga]=Tharla Earráid
 Comment[nds]=Dat hett en Fehler geven
 Comment[pt]=Ocorreu um Erro
 Comment[pt_BR]=Ocorreu um erro
 Comment[sv]=Ett fel har inträffat
 Comment[uk]=Сталася помилка
+Comment[zh_TW]=發生錯誤
 Sound=KDE-Sys-App-Error.ogg
 Action=PassivePopup|Sound
 
@@ -462,11 +466,13 @@ Name[x-test]=xxInformationxx
 Name[zh_CN]=信息
 Name[zh_TW]=資訊
 Comment=User Notified of Information
+Comment[et]=Kasutajale teada antud teave
 Comment[ga]=Cuireadh Eolas in Iúl don Úsáideoir
 Comment[nds]=En Bruker hett en Bescheed kregen
 Comment[pt]=Utilizador Notificado da Informação
 Comment[pt_BR]=Usuários notificados da informação
 Comment[sv]=Användare underrättad om information
 Comment[uk]=Сповіщення користувача щодо інформації
+Comment[zh_TW]=使用者資訊通知
 Sound=KDE-Sys-App-Message.ogg
 Action=PassivePopup|Sound
