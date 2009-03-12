@@ -174,7 +174,7 @@ void MainWindow::setupActions()
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
     KAction *exportPlainAction = actionCollection()->addAction("export_plain_transfers");
-    exportPlainAction->setText(i18n("&Export Transfers as Plain Text"));
+    exportPlainAction->setText(i18n("&Export Transfers as Plain Text..."));
     exportPlainAction->setIcon(KIcon("document-export"));
     exportPlainAction->setShortcuts(KShortcut("Ctrl+P"));
     connect(exportPlainAction, SIGNAL(triggered()), SLOT(slotExportPlainTransfers()));
