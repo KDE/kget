@@ -24,6 +24,7 @@ Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Comment=Allows files to be downloaded using Bittorrent
 Comment[et]=Võimaldab faile alla laadida Bittorrenti abil
+Comment[ja]=BitTorrent を使ってファイルをダウンロードします
 Comment[nds]=Mit dit Moduul kannst Du Dateien mit Bittorrent daalladen
 Comment[pt]=Permite transferir ficheiros com o Bittorrent
 Comment[pt_BR]=Permite baixar arquivos usando o Bittorrent
