@@ -26,8 +26,10 @@ Comment[ja]=メタリンクからファイルをダウンロードします
 Comment[nds]=Mit dit Moduul kannst Du Dateien vun Metalink daalladen
 Comment[pt]=Permite transferir os ficheiros a partir do Metalink
 Comment[pt_BR]=Permite baixar arquivos do Metalink
+Comment[ru]=Позволяет загружать файлы с Metalink
 Comment[sv]=Gör det möjligt att ladda ner filer från Metalink
 Comment[uk]=Надає змогу звантажувати файли з Metalink
+Comment[x-test]=xxAllows files to be downloaded from Metalinkxx
 Comment[zh_TW]=允許從 Metalink 下載檔案
 
 # options for library loader
