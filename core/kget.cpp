@@ -163,7 +163,7 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if (destDir.isEmpty())
     {
         if (Settings::useDefaultDirectory())
-            destDir = KUrl(Settings::defaultDirectory()).path();
+            destDir = KUrl(Settings::defaultDirectory()).toLocalFile();
 
         QString checkExceptions = getSaveDirectoryFromExceptions(srcUrl);
         if (Settings::enableExceptions() && !checkExceptions.isEmpty())
@@ -243,7 +243,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
         if (destDir.isEmpty())
         {
             if (Settings::useDefaultDirectory())
-                destDir = KUrl(Settings::defaultDirectory()).path();
+                destDir = KUrl(Settings::defaultDirectory()).toLocalFile();
 
             QString checkExceptions = getSaveDirectoryFromExceptions(*it);
             if (Settings::enableExceptions() && !checkExceptions.isEmpty())
@@ -607,7 +607,7 @@ QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
 
     for (int i = 0; i < list.size(); i++)
     {
-        list[i] = KUrl(list[i]).path();
+        list[i] = KUrl(list[i]).toLocalFile();
     }
     return list;
 }
@@ -825,7 +825,7 @@ QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
         }
     }
 
-    return KUrl(destDir).path();
+    return KUrl(destDir).toLocalFile();
 }
 
 bool KGet::isValidSource(const KUrl &source)

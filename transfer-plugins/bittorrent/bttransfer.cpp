@@ -314,7 +314,7 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
         m_ready = true;
 
         kDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
-        torrent->init(0, m_source.path(), m_tmp + m_source.fileName().remove(".torrent"), KUrl(m_dest.directory()).path(), 0);
+        torrent->init(0, m_source.toLocalFile(), m_tmp + m_source.fileName().remove(".torrent"), KUrl(m_dest.directory()).toLocalFile(), 0);
 
         m_dest = torrent->getStats().multi_file_torrent ? torrent->getStats().output_path : torrent->getStats().output_path + torrent->getStats().torrent_name;
 

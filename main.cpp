@@ -85,7 +85,7 @@ public:
         // if there is a valid local file
         QString destUrl;
         if (l.count() >= 2 && l.last().isLocalFile()) {
-            if (!QFileInfo(l.last().path()).isDir())
+            if (!QFileInfo(l.last().toLocalFile()).isDir())
                 destUrl = l.last().directory(KUrl::AppendTrailingSlash);
             else
                 destUrl = l.last().path(KUrl::AddTrailingSlash);

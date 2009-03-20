@@ -285,7 +285,7 @@ void NewTransferDialog::showDialog(const KUrl::List &list)
 
 void NewTransferDialog::setDefaultDestination()
 {
-    d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().path(), d->transferGroup()));
+    d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().toLocalFile(), d->transferGroup()));
 }
 
 void NewTransferDialog::prepareDialog()
@@ -308,7 +308,7 @@ void NewTransferDialog::prepareDialog()
             QString destDir = d->destination();
             m_sources = d->sources();
 
-            destDir = KUrl(destDir).path();
+            destDir = KUrl(destDir).toLocalFile();
 
             QString dir;
             if (QFileInfo(destDir).isDir())

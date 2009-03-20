@@ -76,7 +76,7 @@ void DlgScriptEditing::slotChangeText()
 
 QString DlgScriptEditing::scriptPath() const
 {
-    return ui.scriptPathRequester->url().path();
+    return ui.scriptPathRequester->url().toLocalFile();
 }
 
 QString DlgScriptEditing::scriptUrlRegexp() const

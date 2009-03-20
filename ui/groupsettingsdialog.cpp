@@ -43,7 +43,7 @@ GroupSettingsDialog::~GroupSettingsDialog()
 
 void GroupSettingsDialog::save()
 {
-    m_group->setDefaultFolder(m_defaultFolderRequester->url().path());
+    m_group->setDefaultFolder(m_defaultFolderRequester->url().toLocalFile());
 
     if (m_downloadCheck->isChecked())
         m_group->setDownloadLimit(m_downloadBox->value(), Transfer::VisibleSpeedLimit);
