@@ -22,6 +22,7 @@ Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Comment=Allows files to be downloaded from Metalink
 Comment[et]=Võimaldab laadida faile alla Metalinkist
+Comment[ga]=Ceadaíonn sé seo comhaid a íosluchtú trí Metalink
 Comment[ja]=メタリンクからファイルをダウンロードします
 Comment[nds]=Mit dit Moduul kannst Du Dateien vun Metalink daalladen
 Comment[pt]=Permite transferir os ficheiros a partir do Metalink
