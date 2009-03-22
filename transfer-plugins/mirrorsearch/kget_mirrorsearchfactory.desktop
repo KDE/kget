@@ -39,8 +39,9 @@ Name[zh_TW]=映射搜尋
 
 Comment=Allows KGet to search through mirror search engines for files
 Comment[et]=Võimaldab KGetil otsida faile peegelotsingumootorite vahendusel
-Comment[ga]=Ceadaíonn sé seo do KGet comhaid a lorg trí hinnill chuardaigh scáthánaithe
+Comment[ga]=Ceadaíonn sé seo do KGet comhaid a lorg trí innill chuardaigh scáthánaithe
 Comment[ja]=KGet でミラー検索エンジンを使ってファイルを検索します
+Comment[nb]=Tillater KGet å søke etter filer via speil-søkemotorer
 Comment[nds]=Lett KGet Dateien över Spegelserver-Söökmaschinen söken
 Comment[pt]=Permite ao KGet procurar pelos ficheiros nas réplicas dos motores de busca
 Comment[pt_BR]=Permite ao KGet pesquisar por arquivos através de mecanismos de pesquisa de mirrors
