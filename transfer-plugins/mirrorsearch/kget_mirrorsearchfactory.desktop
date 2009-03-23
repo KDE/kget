@@ -46,6 +46,7 @@ Comment[nds]=Lett KGet Dateien över Spegelserver-Söökmaschinen söken
 Comment[pt]=Permite ao KGet procurar pelos ficheiros nas réplicas dos motores de busca
 Comment[pt_BR]=Permite ao KGet pesquisar por arquivos através de mecanismos de pesquisa de mirrors
 Comment[sv]=Gör det möjligt för Kget att söka efter filen via spegelsöktjänster
+Comment[tr]=KGet uygulamasının yansı motorlarında arama yapmasını sağlar
 Comment[uk]=Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал
 Comment[x-test]=xxAllows KGet to search through mirror search engines for filesxx
 Comment[zh_TW]=允許 KGet 透過鏡射搜尋引擎來搜尋檔案
