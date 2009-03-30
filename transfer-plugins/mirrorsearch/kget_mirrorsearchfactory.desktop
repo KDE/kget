@@ -45,6 +45,7 @@ Comment[ca]=Permet que el KGet cerqui el fitxer a miralls de cercadors
 Comment[da]=Gør KGet i stand til at søge efter filen via filspejl-søgemaskiner
 Comment[de]=Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen.
 Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
+Comment[en_GB]=Enable KGet to search for the file using mirror search engines
 Comment[es]=Habilitar que KGet pueda buscar el archivo por medio de réplicas de los motores de búsqueda
 Comment[et]=Võimaldab KGetil otsida faile peegelotsingumootorite vahendusel
 Comment[fr]=Permettre à KGet la recherche de fichiers depuis les moteurs de recherches de miroir
