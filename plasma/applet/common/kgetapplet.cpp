@@ -69,33 +69,51 @@ bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
 
 void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
-    kDebug();
-    if (event->mimeData()->hasUrls() && QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
+    kDebug();    
+    
+    QStringList urls;
+    if (event->mimeData()->hasUrls())
+    {
+        foreach (const KUrl &url, event->mimeData()->urls())
+            urls.append(url.url());
+    }
+    
+    if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
         OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
                             QDBusConnection::sessionBus());
-        QStringList urls;
-        foreach (const KUrl &url, event->mimeData()->urls())
-            urls.append(url.url());
 
         kget_interface.showNewTransferDialog(urls);
         event->accept();
+    }
+    else
+    {
+        QProcess::startDetached("kget", urls);
     }
 }
 
 void KGetApplet::dropEvent(QDropEvent * event)
 {
     kDebug();
-    if (event->mimeData()->hasUrls() && QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
+    
+    QStringList urls;
+    if (event->mimeData()->hasUrls())
+    {
+        foreach (const KUrl &url, event->mimeData()->urls())
+            urls.append(url.url());
+    }
+    
+    if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
         OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
                             QDBusConnection::sessionBus());
-        QStringList urls;
-        foreach (const KUrl &url, event->mimeData()->urls())
-            urls.append(url.url());
 
         kget_interface.showNewTransferDialog(urls);
         event->accept();
+    }
+    else
+    {
+        QProcess::startDetached("kget", urls);
     }
 }
 
