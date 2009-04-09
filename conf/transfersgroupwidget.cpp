@@ -3,6 +3,7 @@
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2007 Javier Goday <jgoday @ gmail.com>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,6 +26,7 @@
 #include <QHeaderView>
 #include <QTimer>
 #include <QAction>
+#include <QCheckBox>
 
 TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
     : QStyledItemDelegate(parent)
@@ -165,6 +167,9 @@ void TransfersGroupTree::changeIcon(const QString &icon)
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
     : QVBoxLayout()
 {
+    QCheckBox * m_directoriesAsSuggestionCheck = new QCheckBox(i18n("Use default directories for groups as suggestion"), parent);
+    m_directoriesAsSuggestionCheck->setObjectName("kcfg_DirectoriesAsSuggestion");
+
     m_view = new TransfersGroupTree(parent);
 
     addButton = new QPushButton(i18n("Add"));
@@ -190,6 +195,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     buttonsLayout->addWidget(iconButton);
     buttonsLayout->addWidget(configureButton);
 
+    addWidget(m_directoriesAsSuggestionCheck);
     addWidget(m_view);
     addLayout(buttonsLayout);
 

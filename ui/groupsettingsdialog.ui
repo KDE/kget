@@ -1,90 +1,108 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>GroupSettingsDialog</class>
- <widget class="QWidget" name="GroupSettingsDialog" >
-  <property name="geometry" >
+ <widget class="QWidget" name="GroupSettingsDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>415</width>
-    <height>149</height>
+    <height>154</height>
    </rect>
   </property>
-  <property name="layoutDirection" >
+  <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTitleWidget" name="ktitlewidget" >
-     <property name="text" >
+    <widget class="KTitleWidget" name="ktitlewidget">
+     <property name="text">
       <string>Group Settings</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label" >
-       <property name="text" >
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
         <string>Default folder:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="KUrlRequester" name="defaultFolderRequester" >
-       <property name="enabled" >
+     <item row="0" column="1">
+      <widget class="KUrlRequester" name="defaultFolderRequester">
+       <property name="enabled">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" >
-      <widget class="QCheckBox" name="downloadCheck" >
-       <property name="text" >
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="downloadCheck">
+       <property name="text">
         <string>Maximum download speed</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <widget class="QSpinBox" name="downloadBox" >
-       <property name="enabled" >
+     <item row="2" column="1">
+      <widget class="QSpinBox" name="downloadBox">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="suffix" >
+       <property name="suffix">
         <string>KiB</string>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>10000</number>
        </property>
       </widget>
      </item>
-     <item row="2" column="0" >
-      <widget class="QCheckBox" name="uploadCheck" >
-       <property name="text" >
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="uploadCheck">
+       <property name="text">
         <string>Maximum upload speed</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1" >
-      <widget class="QSpinBox" name="uploadBox" >
-       <property name="enabled" >
+     <item row="3" column="1">
+      <widget class="QSpinBox" name="uploadBox">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="suffix" >
+       <property name="suffix">
         <string>KiB</string>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>10000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="toolTip">
+        <string>Moves all transfers with the regular expression to this group</string>
+       </property>
+       <property name="text">
+        <string>Regular expression:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="KLineEdit" name="regExpEdit">
+       <property name="clickMessage">
+        <string>*movies*</string>
        </property>
       </widget>
      </item>
@@ -94,14 +112,19 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
+  <customwidget>
    <class>KTitleWidget</class>
    <extends>QWidget</extends>
    <header>ktitlewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -112,11 +135,11 @@
    <receiver>downloadBox</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>87</x>
      <y>95</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>205</x>
      <y>95</y>
     </hint>
@@ -128,11 +151,11 @@
    <receiver>uploadBox</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>87</x>
      <y>122</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>205</x>
      <y>122</y>
     </hint>

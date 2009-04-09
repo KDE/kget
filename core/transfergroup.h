@@ -1,16 +1,17 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
-
 #ifndef GROUP_H
 #define GROUP_H
+
+#include <QRegExp>
 
 #include <kio/netaccess.h>
 #include <KIcon>
@@ -188,6 +189,17 @@ class KGET_EXPORT TransferGroup : public JobQueue
         QString defaultFolder() {return m_defaultFolder;}
 
         /**
+         * Sets the regular expression of the group
+         * @param regexp the regular expression
+         */
+        void setRegExp(const QRegExp &regExp) {m_regExp = regExp;}
+
+        /**
+         * @returns the regular expression of the group
+         */
+        QRegExp regExp() {return m_regExp;}
+
+        /**
          * @return true if the group supports SpeedLimits
          */
         bool supportsSpeedLimits();
@@ -291,6 +303,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         int m_visibleUploadLimit;
         QString m_iconName;
         QString m_defaultFolder;
+        QRegExp m_regExp;
 };
 
 #endif

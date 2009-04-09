@@ -120,21 +120,6 @@
     </entry>
   </group>
 
-  <group name="Directories">
-    <entry name="UseDefaultDirectory" type="Bool">
-      <default>false</default>
-    </entry>
-    <entry name="DefaultDirectory" type="Path">
-      <default>$HOME</default>
-    </entry>
-    <entry name="EnableExceptions" type="Bool">
-      <default>false</default>
-    </entry>
-    <entry name="ExtensionsFolderList" type="StringList" key="Items">
-      <label>extRegExp, defaultFolder</label>
-    </entry>
-  </group>
-
   <group name="Webinterface">
     <entry name="WebinterfaceEnabled" type="Bool">
       <default>false</default>
@@ -147,6 +132,12 @@
     </entry>
     <entry name="WebinterfacePassword" type="String">
       <default>admin</default>
+    </entry>
+  </group>
+
+  <group name="Groups">
+    <entry name="DirectoriesAsSuggestion" type="Bool">
+      <default>false</default>
     </entry>
   </group>
 

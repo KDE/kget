@@ -14,6 +14,7 @@
 
 #include "core/kget.h"
 #include "core/transfertreemodel.h"
+#include "core/transfergrouphandler.h"
 #include "settings.h"
 
 #include <QWidget>
@@ -133,6 +134,9 @@ public:
                 }
             }
         }
+        if (!KGet::groupsFromExceptions(sources().first()).isEmpty()) {
+            m_groupComboBox->setCurrentIndex(m_groupComboBox->findText(KGet::groupsFromExceptions(sources().first()).first()->name()));
+        }
     }
 
     void setDestination(const KUrl::List &sources, const QStringList &list)
@@ -146,7 +150,7 @@ public:
         kDebug(5001) << m_list;
         QString filename = destination();
 
-        kDebug() << "Seting destination :multiple=" << m_multiple << " and filename=" << filename;
+        kDebug(5001) << "Seting destination :multiple=" << m_multiple << " and filename=" << filename;
         if (!filename.isEmpty() && m_multiple) {
             filename = KUrl(filename).directory();
         }
@@ -160,9 +164,26 @@ public:
                 m_list[i].append('/');
             m_list[i].append(filename);
         }
+        if (!KGlobalSettings::downloadPath().isEmpty()) {
+            m_list << KGlobalSettings::downloadPath();
+        }
         kDebug(5001) << m_list;
 
         m_destRequester->comboBox()->insertItems(0, m_list);
+        QString group = m_groupComboBox->currentText();
+        TransferGroupHandler * current = 0;
+        foreach (TransferGroupHandler * handler, KGet::allTransferGroups()) {
+            if (handler->name() == group) {
+                current = handler;
+            }
+        }
+        if (current && !current->defaultFolder().isEmpty()) {
+            if (m_destRequester->comboBox()->findText(current->defaultFolder()) == -1)
+                m_destRequester->comboBox()->addItem(current->defaultFolder());
+            m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(current->defaultFolder()));
+        } else if (current) {
+            m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(KGlobalSettings::downloadPath()));
+        }
     }
 
     void prepareGui()
@@ -173,24 +194,23 @@ public:
         m_destRequester->comboBox()->setEditable(true);
         m_destRequester->fileDialog()->setKeepLocation(true);
 
-        // transfer groups
-        m_groupComboBox->addItems(KGet::transferGroupNames());
-
-        m_groupComboBox->setCurrentIndex(0);
         m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
     }
 
     void clear()
     {
-        if(urlRequester) {
+        if (urlRequester) {
             urlRequester->clear();
         }
-        if(listWidget) {
+        if (listWidget) {
             listWidget->clear();
         }
         m_destRequester->comboBox()->clear();
         m_destRequester->clear();
         m_displayed = false;
+        m_groupComboBox->clear();
+        m_groupComboBox->addItems(KGet::transferGroupNames());
+        m_groupComboBox->setCurrentIndex(0);
     }
 
     KListWidget *listWidget;
@@ -201,7 +221,6 @@ public:
 
     KUrlComboRequester *m_destRequester;
     KComboBox *m_groupComboBox;
-    QCheckBox *m_defaultFolderButton;
     QLabel *m_groupLabel;
 
     bool m_multiple;
@@ -228,13 +247,13 @@ NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
     d->m_titleWidget = widget.titleWidget;
     d->m_destRequester = widget.destRequester;
     d->m_groupComboBox = widget.groupComboBox;
-    d->m_defaultFolderButton = widget.defaultFolderButton;
     d->m_groupLabel = widget.groupLabel;
 
     setMainWidget(mainWidget);
     
     d->prepareGui();
     resizeDialog();
+    d->clear();
 
     connect(d->m_groupComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setDefaultDestination()));
 
@@ -256,6 +275,10 @@ NewTransferDialog *NewTransferDialog::instance(QWidget *parent)
 
 void NewTransferDialog::showDialog(const QString &srcUrl)
 {
+    /*QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(KUrl(srcUrl));
+    if (!Settings::directoriesAsSuggestion && !groups.isEmpty()) {
+        KGet::addTransfer(KUrl(srcUrl), groups.first()->defaultFolder(), groups.first()->name());
+    }*/
     KUrl::List list;
     list << KUrl(srcUrl);
 
@@ -264,9 +287,30 @@ void NewTransferDialog::showDialog(const QString &srcUrl)
 
 void NewTransferDialog::showDialog(const KUrl::List &list)
 {
-    m_sources << list;
+    KUrl::List cleanedList;
+    kDebug() << "DIRECTORIES AS SUGGESTION" << Settings::directoriesAsSuggestion();
+    if (!Settings::directoriesAsSuggestion())
+    {
+        kDebug(5001) << "No, Directories not as suggestion";
+        foreach (const KUrl &url, list)
+        {
+            QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(url);
+            if (!groups.isEmpty())
+                KGet::addTransfer(url, groups.first()->defaultFolder(), groups.first()->name());
+            else
+                cleanedList << url;
+        }
+        kDebug() << "CLEANED LIST IS:" << cleanedList;
+        if (cleanedList.isEmpty())
+            return;//Return as we don't have anything to show
+    }
+    else
+        cleanedList << list;
+    m_sources << cleanedList;
 
-    kDebug() << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);
+    d->clear();//Let's clear the old stuff
+
+    kDebug(5001) << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);
     d->setMultiple(m_sources.size() > 1);
 
     if (list.count() == 2)
@@ -285,7 +329,16 @@ void NewTransferDialog::showDialog(const KUrl::List &list)
 
 void NewTransferDialog::setDefaultDestination()
 {
-    d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().toLocalFile(), d->transferGroup()));
+    if (m_sources.isEmpty()) {
+        return;
+    }
+    QStringList list;
+    foreach (TransferGroupHandler *handler, KGet::allTransferGroups()) {
+        if (!handler->defaultFolder().isEmpty())
+            list << handler->defaultFolder();
+    }
+    d->setDestination(m_sources, list);
+    //d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().path(), d->transferGroup()));
 }
 
 void NewTransferDialog::prepareDialog()
@@ -308,7 +361,7 @@ void NewTransferDialog::prepareDialog()
             QString destDir = d->destination();
             m_sources = d->sources();
 
-            destDir = KUrl(destDir).toLocalFile();
+            destDir = KUrl(destDir).path();
 
             QString dir;
             if (QFileInfo(destDir).isDir())
@@ -316,16 +369,8 @@ void NewTransferDialog::prepareDialog()
             else
                 dir = KUrl(destDir).directory();
 
-            if(d->m_defaultFolderButton->checkState() == Qt::Checked)
-            {
-                Settings::setDefaultDirectory(dir);
-                Settings::setUseDefaultDirectory(true);
-                Settings::self()->writeConfig();
-            }
-            else {
-                Settings::setLastDirectory(dir);
-                Settings::self()->writeConfig();
-            }
+            Settings::setLastDirectory(dir);
+            Settings::self()->writeConfig();
             
             kDebug(5001) << m_sources;
             if (m_sources.count() == 1)
@@ -335,7 +380,6 @@ void NewTransferDialog::prepareDialog()
         }
 
         m_sources.clear();
-        d->clear();
     }
 }
 

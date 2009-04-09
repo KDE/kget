@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2007-2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2007-2009 Lukas Appelhans <l.appelhans@gmx.de>
    Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2008 Dario Freddi <drf54321@gmail.com>
 
@@ -162,12 +162,9 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
 
     if (destDir.isEmpty())
     {
-        if (Settings::useDefaultDirectory())
-            destDir = KUrl(Settings::defaultDirectory()).toLocalFile();
-
-        QString checkExceptions = getSaveDirectoryFromExceptions(srcUrl);
-        if (Settings::enableExceptions() && !checkExceptions.isEmpty())
-            destDir = checkExceptions;
+        QList<TransferGroupHandler*> list = groupsFromExceptions(srcUrl);
+        if (!list.isEmpty())
+            destDir = list.first()->defaultFolder();
     }
 
     if (!isValidDestDirectory(destDir))
@@ -232,7 +229,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
     KUrl destUrl;
 
     // multiple files -> ask for directory, not for every single filename
-    if (!isValidDestDirectory(destDir) && !Settings::useDefaultDirectory())
+    if (!isValidDestDirectory(destDir))//TODO: Move that after the for-loop
         destDir = destInputDialog();
 
     it = urlsToDownload.begin();
@@ -242,12 +239,9 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
     {
         if (destDir.isEmpty())
         {
-            if (Settings::useDefaultDirectory())
-                destDir = KUrl(Settings::defaultDirectory()).toLocalFile();
-
-            QString checkExceptions = getSaveDirectoryFromExceptions(*it);
-            if (Settings::enableExceptions() && !checkExceptions.isEmpty())
-                destDir = checkExceptions;
+            QList<TransferGroupHandler*> list = groupsFromExceptions(*it);
+            if (!list.isEmpty())
+                destDir = list.first()->defaultFolder();
         }
         destUrl = getValidDestUrl(destDir, *it);
 
@@ -581,35 +575,22 @@ void KGet::reloadKJobs()
     m_jobManager->reload();
 }
 
-QStringList KGet::defaultFolders(const KUrl &filename, const QString &groupname)
+QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
 {
-    kDebug(5001) << filename << groupname;
+    QList<TransferGroupHandler*> handlers;
+    foreach (TransferGroupHandler * handler, allTransferGroups()) {
+        QRegExp regExp = handler->regExp();
+        if (!regExp.pattern().isEmpty() && !regExp.pattern().startsWith('*'))
+            regExp.setPattern('*' + regExp.pattern());
 
-    QStringList list;
-    const QString saveDirectoryFromExceptions = KGet::getSaveDirectoryFromExceptions(filename);
-    if (Settings::enableExceptions() && !saveDirectoryFromExceptions.isEmpty())
-        list.append(saveDirectoryFromExceptions);
+        regExp.setPatternSyntax(QRegExp::Wildcard);
 
-    TransferGroup * group = KGet::m_transferTreeModel->findGroup(groupname);
-
-    if (!group->defaultFolder().isEmpty())
-        list.append(group->defaultFolder());
-
-    if (Settings::useDefaultDirectory())
-        list.append(Settings::defaultDirectory());
-
-    if (!Settings::lastDirectory().isEmpty() &&
-        QString::compare(Settings::lastDirectory(), Settings::defaultDirectory()) != 0)
-        list.append(Settings::lastDirectory());
-
-    if (list.isEmpty())
-        list.append(QDir::homePath());//If we have no defaultDir, we return the home-dir
-
-    for (int i = 0; i < list.size(); i++)
-    {
-        list[i] = KUrl(list[i]).toLocalFile();
+        if (regExp.exactMatch(filename.url())) {
+            handlers.append(handler);
+        }
     }
-    return list;
+
+    return handlers;
 }
 
 void KGet::setGlobalDownloadLimit(int limit)
@@ -797,35 +778,6 @@ QString KGet::destInputDialog()
 
     Settings::setLastDirectory( destDir );
     return destDir;
-}
-
-QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
-{
-    QString destDir;
-
-    const QStringList list = Settings::extensionsFolderList();
-    QStringList::ConstIterator it = list.begin();
-    const QStringList::ConstIterator end = list.end();
-    while (it != end) {
-        // odd list items are regular expressions for extensions
-        QString ext = *it;
-        ++it;
-        QString path = *it;
-        ++it;
-
-        if (!ext.startsWith('*'))
-            ext = '*' + ext;
-
-        QRegExp rexp(ext);
-        rexp.setPatternSyntax(QRegExp::Wildcard);
-
-        if (rexp.exactMatch(filename.url())) {
-            destDir = path;
-            break;
-        }
-    }
-
-    return KUrl(destDir).toLocalFile();
 }
 
 bool KGet::isValidSource(const KUrl &source)

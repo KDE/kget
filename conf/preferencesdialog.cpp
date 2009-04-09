@@ -13,7 +13,6 @@
 
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
-#include "dlgdirectories.h"
 #include "dlgwebinterface.h"
 
 #include "transfersgroupwidget.h"
@@ -27,7 +26,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 {
     QWidget *appearance = new QWidget(this);
     QWidget *groups = new QWidget(this);
-    DlgDirectories *directories = new DlgDirectories(this);
     DlgWebinterface *webinterface = new DlgWebinterface(this);
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
@@ -68,7 +66,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 
     addPage(appearance, i18n("Appearance"), "preferences-desktop-theme", i18n("Change appearance settings"));
     addPage(groups, i18n("Groups"), "bookmarks", i18n("Manage the groups"));
-    addPage(directories, i18n("Folders"), "folder", i18n("Default Download Folders"));
     addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
     addPage(webinterface, i18n("Web Interface"), "network-workgroup", i18n("Control KGet over a Network or the Internet"));
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));

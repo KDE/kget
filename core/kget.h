@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    Based on:
        kmainwidget.{h,cpp}
@@ -263,14 +264,14 @@ class KGET_EXPORT KGet
          * Returns the kget kuiserver jobs manager
          *
          */
-         static void registerKJob(KJob *);
-         static void unregisterKJob(KJob *);
-         static void reloadKJobs();
+        static void registerKJob(KJob *);
+        static void unregisterKJob(KJob *);
+        static void reloadKJobs();
 
          /**
-          * @return a list of the defaultFolders for a transfer
+          * @return a list of the groups assigned to the filename of a transfer
           */
-         static QStringList defaultFolders(const KUrl &filename, const QString &groupname);
+        static QList<TransferGroupHandler*> groupsFromExceptions(const KUrl &filename);
 
         /**
          * Scans for all the available plugins and creates the proper
@@ -352,7 +353,6 @@ class KGET_EXPORT KGet
 
         static KUrl urlInputDialog();
         static QString destInputDialog();
-        static QString getSaveDirectoryFromExceptions(const KUrl &filename);
 
         static bool isValidSource(const KUrl &source);
         static bool isValidDestDirectory(const QString& destDir);

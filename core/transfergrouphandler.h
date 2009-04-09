@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -148,6 +149,17 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * @return the groups default folder
          */
         QString defaultFolder() {return m_group->defaultFolder();}
+
+        /**
+         * Sets the regular expression of the group
+         * @param regexp the regular expression
+         */
+        void setRegExp(const QRegExp &regexp) {m_group->setRegExp(regexp);}
+
+        /**
+         * @returns the regular expression of the group
+         */
+        QRegExp regExp() {return m_group->regExp();}
 
         /**
          * Set a Download-Limit for the group

@@ -34,6 +34,7 @@ class GroupSettingsDialog : public KDialog
         QSpinBox *m_downloadBox;
         QSpinBox *m_uploadBox;
         KUrlRequester *m_defaultFolderRequester;
+        KLineEdit *m_regExpEdit;
 };
 
 #endif

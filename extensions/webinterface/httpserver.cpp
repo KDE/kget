@@ -11,6 +11,7 @@
 #include "httpserver.h"
 
 #include "core/transferhandler.h"
+#include "core/transfergrouphandler.h"
 #include "core/kget.h"
 #include "settings.h"
 
@@ -110,7 +111,7 @@ void HttpServer::handleRequest()
             kDebug(5001) << action << data;
             if (action == "add") {
                 // take first item of default folder list (which should be the best one)
-                KGet::addTransfer(data, KGet::defaultFolders(data, group).at(0), group);
+                KGet::addTransfer(data, KGet::groupsFromExceptions(KUrl(data)).first()->defaultFolder());
                 data.append(QString("Ok, %1 added!").arg(data).toUtf8());
             } else if (action == "start") {
                 TransferHandler *transfer = KGet::findTransfer(data);

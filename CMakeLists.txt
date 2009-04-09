@@ -111,11 +111,9 @@ install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 # kget
 
 set(kget_SRCS ${kget_adaptor_SRCS}
-   conf/dlgdirectories.cpp
    conf/dlgwebinterface.cpp
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
-   conf/selectdirectoryitemdelegate.cpp
    conf/pluginselector.cpp
    dbus/dbusmodelobserver.cpp
    dbus/dbustransfergroupobserver.cpp
@@ -152,7 +150,6 @@ set(kget_SRCS ${kget_adaptor_SRCS}
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
-   conf/dlgdirectories.ui
    conf/dlgwebinterface.ui
    conf/dlgnetwork.ui
    ui/transferdetailsfrm.ui

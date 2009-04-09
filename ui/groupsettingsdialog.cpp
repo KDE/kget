@@ -17,23 +17,35 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
 {
     setCaption(i18n("Group Settings for %1", group->name()));
     showButtonSeparator(true);
+
     QWidget *widget = new QWidget(this);
+
     Ui::GroupSettingsDialog ui;
     ui.setupUi(widget);
+
     setMainWidget(widget);
+
     m_downloadBox = ui.downloadBox;
     m_downloadBox->setValue(group->downloadLimit(Transfer::VisibleSpeedLimit));
+
     m_uploadBox = ui.uploadBox;
     m_uploadBox->setValue(group->uploadLimit(Transfer::VisibleSpeedLimit));
+
     m_downloadCheck = ui.downloadCheck;
     if (m_downloadBox->value() != 0)
         m_downloadCheck->setChecked(true);
+
     m_uploadCheck = ui.uploadCheck;
     if (m_uploadBox->value() != 0)
         m_uploadCheck->setChecked(true);
+
     m_defaultFolderRequester = ui.defaultFolderRequester;
     m_defaultFolderRequester->setMode(KFile::Directory);
     m_defaultFolderRequester->setPath(group->defaultFolder());
+
+    m_regExpEdit = ui.regExpEdit;
+    m_regExpEdit->setText(group->regExp().pattern());
+
     connect(this, SIGNAL(accepted()), SLOT(save()));
 }
 
@@ -54,6 +66,10 @@ void GroupSettingsDialog::save()
         m_group->setUploadLimit(m_uploadBox->value(), Transfer::VisibleSpeedLimit);
     else
         m_group->setUploadLimit(0, Transfer::VisibleSpeedLimit);
+
+    QRegExp regExp;
+    regExp.setPattern(m_regExpEdit->text());
+    m_group->setRegExp(regExp);
 }
 
 #include "groupsettingsdialog.moc"
