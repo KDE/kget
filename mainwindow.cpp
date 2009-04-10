@@ -362,6 +362,7 @@ void MainWindow::slotDelayedInit()
                                              KGuiItem(i18n("Do Not Enable")))
                                              == KMessageBox::Yes) {
             Settings::setKonquerorIntegration(true);
+            m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
             slotKonquerorIntegration(true);
         }
 
