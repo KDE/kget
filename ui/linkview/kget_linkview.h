@@ -25,6 +25,7 @@ class LinkImporter;
 class KComboBox;
 class KLineEdit;
 class KUrlRequester;
+class KGetSortFilterProxyModel;
 
 
 struct filterDefinition {
@@ -39,18 +40,6 @@ class KGetLinkView : public KDialog
     Q_OBJECT
 
 public:
-    enum DownloadFilterType {
-        NoFilter = 0,
-        VideoFiles = 1,
-        AudioFiles = 2,
-        CompressedFiles = 3
-    };
-
-    enum FilterMode {
-        Contain = 0,
-        DoesNotContain = 1
-    };
-
     KGetLinkView(QWidget *parent = 0);
     ~KGetLinkView();
 
@@ -65,14 +54,13 @@ signals:
 private slots:
     void slotStartLeech();
     void selectionChanged();
-    void updateSelectAllText(const QString &text = QString());
-    void doFilter(int id, const QString &textFilter = QString());
+    void setTextFilter(const QString &text = QString());
     void checkAll();
     void uncheckAll();
-    void slotShowWebContent(int mode);
     void uncheckItem(const QModelIndex &index);
     void slotCheckSelected();
     void slotInvertSelection();
+    void updateSelectionButtons();
 
     // import links slots
     void slotStartImport();
@@ -89,8 +77,7 @@ private:
     QList<QString> m_links;
 
     QTreeView *m_treeWidget;
-    QSortFilterProxyModel *m_proxyModel;
-    bool m_showWebContent;
+    KGetSortFilterProxyModel *m_proxyModel;
 
     QButtonGroup *filterButtonsGroup;
     KLineEdit *m_searchLine;
@@ -107,14 +94,6 @@ private:
     KUrlRequester *m_urlRequester;
     QBoxLayout *m_importerLayout;
     QProgressBar *m_progressBar;
-};
-
-// icon, name, regular expression, and default of the filter buttons
-static const filterDefinition filters [] = {
-    {QString("view-list-icons"), i18nc("filter: show all file types", "All"), KGetLinkView::NoFilter, true},
-    {QString("video-x-generic"), i18n("Videos"), KGetLinkView::VideoFiles, false},
-    {QString("audio-x-generic"), i18n("Audio"), KGetLinkView::AudioFiles, false},
-    {QString("package-x-generic"), i18n("Archives"), KGetLinkView::CompressedFiles, false}
 };
 
 #endif // KGET_LINKVIEW_H

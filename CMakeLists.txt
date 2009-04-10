@@ -134,6 +134,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/history/transferhistorycategorizeddelegate.cpp
    ui/history/transferhistorycategorizedview.cpp
    ui/linkview/kget_linkview.cpp
+   ui/linkview/kget_sortfilterproxymodel.cpp
    mainwindow.cpp
    main.cpp
 

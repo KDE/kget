@@ -2,6 +2,7 @@
 
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
    Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -10,6 +11,7 @@
 */
 
 #include "kget_linkview.h"
+#include "kget_sortfilterproxymodel.h"
 #include "core/kget.h"
 #include "core/linkimporter.h"
 #include "ui/newtransferdialog.h"
@@ -24,14 +26,12 @@
 #include <QProcess>
 #include <QProgressBar>
 #include <QPushButton>
-#include <QSortFilterProxyModel>
 #include <QStandardItemModel>
 #include <QTreeView>
 #include <QVBoxLayout>
 
 #include <KActionCollection>
 #include <KComboBox>
-#include <KDebug>
 #include <KIcon>
 #include <KIconLoader>
 #include <KLineEdit>
@@ -43,20 +43,23 @@
 #include <KStandardAction>
 #include <KUrlRequester>
 
-static const char* WEB_CONTENT_REGEXP = "(^.(?:(?!(\\.php|\\.html|\\.xhtml|\\.htm|\\.asp|\\.aspx|\\.jsp)).)*$)";
-static const char* VIDEO_FILES_REGEXP = "(.(?=(\\.avi|\\.mpeg|\\.mpg|\\.mov|\\.mp4|\\.wmv|\\.ogg)))";
-static const char* AUDIO_FILES_REGEXP = "(.(?:\\.mp3|\\.ogg|\\.wma|\\.wav|\\.mpc|\\.flac))";
-static const char* COMPRESSED_FILES_REGEXP = "(.(?:\\.zip|\\.tar|\\.tar.bz|\\.bz|\\.bz2|\\.tar.gz|\\.rar|\\.arj|\\.7z))";
+// icon, name, regular expression, and default of the filter buttons
+static const filterDefinition filters [] = {
+    {QString("view-list-icons"), i18nc("filter: show all file types", "All"), KGetSortFilterProxyModel::NoFilter, true},
+    {QString("video-x-generic"), i18n("Videos"), KGetSortFilterProxyModel::VideoFiles, false},
+    {QString("audio-x-generic"), i18n("Audio"), KGetSortFilterProxyModel::AudioFiles, false},
+    {QString("package-x-generic"), i18n("Archives"), KGetSortFilterProxyModel::CompressedFiles, false}
+};
 
 KGetLinkView::KGetLinkView(QWidget *parent)
-  : KDialog(parent),
-    m_showWebContent(false)
+  : KDialog(parent)
 {
     setCaption(i18n("Import Links"));
 
     // proxy model to filter links
-    m_proxyModel = new QSortFilterProxyModel();
+    m_proxyModel = new KGetSortFilterProxyModel();
     m_proxyModel->setDynamicSortFilter(true);
+    m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     m_treeWidget = new QTreeView(this);
     m_treeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -67,7 +70,6 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_treeWidget->setRootIsDecorated(false);
     m_treeWidget->setSortingEnabled(true);
     m_treeWidget->setAllColumnsShowFocus(true);
-    m_treeWidget->setColumnWidth(0, 200); // make the filename column bigger by default
 
     connect(m_treeWidget, SIGNAL(doubleClicked(const QModelIndex &)),
                         this, SLOT(uncheckItem(const QModelIndex &)));
@@ -75,25 +77,27 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_searchLine = new KLineEdit(this);
     m_searchLine->setClearButtonShown(true);
     m_searchLine->setClickMessage(i18n("Filter files here..."));
-    connect(m_searchLine, SIGNAL(textChanged(QString)), SLOT(updateSelectAllText(QString)));
+    connect(m_searchLine, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
 
     // filter mode combobox [contains, does not contain]
     m_filterModeBox = new KComboBox(this);
-    m_filterModeBox->addItem(i18n("Contains"), QVariant(KGetLinkView::Contain));
-    m_filterModeBox->addItem(i18n("Does not Contain"), QVariant(KGetLinkView::DoesNotContain));
-    connect(m_filterModeBox, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectAllText()));
+    m_filterModeBox->addItem(i18n("Contains"), QVariant(KGetSortFilterProxyModel::Contain));
+    m_filterModeBox->addItem(i18n("Does not Contain"), QVariant(KGetSortFilterProxyModel::DoesNotContain));
+    connect(m_filterModeBox, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterMode(int)));
+    connect(filterButtonsGroup, SIGNAL(buttonClicked(int)), SLOT(updateSelectionButtons()));
 
     setButtons(KDialog::None);
 
     filterButtonsGroup = new QButtonGroup(this);
     filterButtonsGroup->setExclusive(true);
-    connect(filterButtonsGroup, SIGNAL(buttonClicked(int)), SLOT(doFilter(int)));
+    connect(filterButtonsGroup, SIGNAL(buttonClicked(int)), m_proxyModel, SLOT(setFilterType(int)));
 
     // filter buttons and filter line text box
     QHBoxLayout *filterLayout = new QHBoxLayout;
     filterLayout->addWidget(new QLabel(i18n("Show:")));
 
-    for (uint i = 0; i < sizeof(filters) / sizeof(*filters); ++i) {
+    for (uint i = 0; i < sizeof(filters) / sizeof(*filters); ++i)
+    {
         filterLayout->addWidget(createFilterButton(filters[i].icon, filters[i].name,
                                 filterButtonsGroup, filters[i].type, filters[i].defaultFilter));
     }
@@ -150,7 +154,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(m_checkSelectedButton, SIGNAL(clicked()), this, SLOT(slotCheckSelected()));
     connect(m_invertSelectionButton, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
     connect(downloadCheckedButton, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
-    connect(showWebContentButton, SIGNAL(stateChanged(int)), this, SLOT(slotShowWebContent(int)));
+    connect(showWebContentButton, SIGNAL(stateChanged(int)), m_proxyModel, SLOT(setShowWebContent(int)));
     connect(m_importButton, SIGNAL(clicked()), this, SLOT(slotStartImport()));
     connect(m_treeWidget->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
                                             SLOT(selectionChanged()));
@@ -191,7 +195,8 @@ void KGetLinkView::checkClipboard()
 {
     QString clipboardContent = QApplication::clipboard()->text(QClipboard::Clipboard);
 
-    if (clipboardContent.length() > 0) {
+    if (clipboardContent.length() > 0)
+    {
         delete m_linkImporter;
 
         m_linkImporter = new LinkImporter(this);
@@ -205,7 +210,8 @@ void KGetLinkView::checkClipboard()
 void KGetLinkView::setLinks(const QList <QString> &links)
 {
     m_links = QList <QString> ();
-    foreach(const QString &link, links) {
+    foreach(const QString &link, links)
+    {
         m_links << link;
     }
 
@@ -222,11 +228,14 @@ void KGetLinkView::showLinks( const QList<QString>& links )
     model->setHeaderData(3, Qt::Horizontal, i18nc("list header: type of file", "File Type"));
     model->setHeaderData(4, Qt::Horizontal, i18n("Location (URL)"));
 
-    foreach (const QString &linkitem, links) {
+    foreach (const QString &linkitem, links)
+    {
         KUrl url(linkitem);
         QString file = url.fileName();
         if (file.isEmpty())
+        {
             file = QString(url.host());
+        }
 
         KMimeType::Ptr mt = KMimeType::findByUrl(linkitem, 0, true, true);
 
@@ -236,7 +245,7 @@ void KGetLinkView::showLinks( const QList<QString>& links )
         item->setIcon(KIcon(mt->iconName()));
         item->setCheckable(true);
         item->setData(QVariant(url.fileName()), Qt::DisplayRole);
-        item->setData(QVariant(url.prettyUrl()), Qt::UserRole);
+        item->setData(QVariant(mt->name()), Qt::UserRole); // used for filtering DownloadFilterType
 
         items << new QStandardItem(QString::number(model->rowCount()));
         items << item;
@@ -252,25 +261,35 @@ void KGetLinkView::showLinks( const QList<QString>& links )
     m_proxyModel->setFilterKeyColumn(1);
 
     m_treeWidget->header()->hideSection(0);
+    m_treeWidget->setColumnWidth(0, 200); // make the filename column bigger by default
 
-    slotShowWebContent(false);
+    selectionChanged(); // adapt buttons to the new situation
 }
 
 void KGetLinkView::slotStartLeech()
 {
-    QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
-    KUrl::List urls;
+    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (model)
+    {
+        KUrl::List urls;
 
-    for(int row=0;row<model->rowCount();row++) {
-        QStandardItem *checkeableItem = model->item(row, 1);
+        for (int row=0 ; row < model->rowCount(); row++)
+        {
+            QStandardItem *checkeableItem = model->item(row, 1);
 
-        if(checkeableItem->checkState() == Qt::Checked) {
-            urls.append(KUrl(model->data(model->index(row, 1), Qt::UserRole).toString()));
+            if (checkeableItem->checkState() == Qt::Checked)
+            {
+                urls.append(KUrl(model->data(model->index(row, 1), Qt::UserRole).toString()));
+            }
         }
-    }
 
-    NewTransferDialog::instance()->showDialog(urls);
-    accept(); // close the dialog
+        NewTransferDialog::instance()->showDialog(urls);
+        accept(); // close the dialog
+    }
+    else
+    {
+        reject();
+    }
 }
 
 void KGetLinkView::setPageUrl( const QString& url )
@@ -280,16 +299,18 @@ void KGetLinkView::setPageUrl( const QString& url )
 
 void KGetLinkView::importUrl(const QString &url)
 {
-    if(url.isEmpty()) {
+    if (url.isEmpty())
+    {
         KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
-        if(clipboardUrl.isValid() && (
-            (!clipboardUrl.scheme().isEmpty() && !clipboardUrl.host().isEmpty())
-                ||
-            (clipboardUrl.isLocalFile()))) {
+        if (clipboardUrl.isValid() &&
+            ((!clipboardUrl.scheme().isEmpty() && !clipboardUrl.host().isEmpty()) ||
+            (clipboardUrl.isLocalFile())))
+        {
             m_urlRequester->setUrl(clipboardUrl);
         }
     }
-    else {
+    else
+    {
         m_urlRequester->setUrl(KUrl(url));
         slotStartImport();
     }
@@ -297,131 +318,123 @@ void KGetLinkView::importUrl(const QString &url)
 
 void KGetLinkView::selectionChanged()
 {
-    bool buttonEnabled = false;
-    int count = 0;
-    QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
+    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (model)
+    {
+        const int modelRowCount = model->rowCount();
+        bool buttonEnabled = false;
+        int count = 0;
 
-    for(int row=0;row<model->rowCount();row++) {
-        QStandardItem *checkeableItem = model->item(row, 1);
+        for (int row = 0; row < modelRowCount; row++)
+        {
+            QStandardItem *checkeableItem = model->item(row, 1);
 
-        if(checkeableItem->checkState() == Qt::Checked) {
-            buttonEnabled = true;
-            count++;
-        }
-    }
+            if ((checkeableItem->checkState() == Qt::Checked))
+            {
+                buttonEnabled = true;
 
-    const int modelRowCount = m_proxyModel->rowCount();
-    checkAllButton->setEnabled( !(!modelRowCount || count == modelRowCount ) );
-
-    uncheckAllButton->setEnabled( count > 0 );
-    m_invertSelectionButton->setEnabled( count > 0 );
-    m_checkSelectedButton->setEnabled(m_treeWidget->selectionModel()->selectedIndexes().size() > 0);
-    downloadCheckedButton->setEnabled(buttonEnabled);
-}
-
-void KGetLinkView::updateSelectAllText(const QString &text)
-{
-    if(text.isEmpty()) {
-        doFilter(filterButtonsGroup->checkedId(), m_searchLine->text());
-    }
-    else {
-        doFilter(filterButtonsGroup->checkedId(), text);
-    }
-}
-
-void KGetLinkView::doFilter(int id, const QString &textFilter)
-{
-    // TODO: escape user input for avoding malicious user input! (FiNEX)
-    QString filter;
-    switch(id) {
-        case KGetLinkView::AudioFiles:
-            filter = QString(AUDIO_FILES_REGEXP);
-            break;
-        case KGetLinkView::VideoFiles:
-            filter = QString(VIDEO_FILES_REGEXP);
-            break;
-        case KGetLinkView::CompressedFiles:
-            filter = QString(COMPRESSED_FILES_REGEXP);
-            break;
-        case KGetLinkView::NoFilter:
-        default:
-            filter =  m_showWebContent ? QString() : QString(WEB_CONTENT_REGEXP);
-    }
-
-    if(!textFilter.isEmpty()) {
-        if(filter.isEmpty()) {
-            filter = textFilter;
-        }
-        else {
-            if ( !m_showWebContent && KGetLinkView::NoFilter == id ) {
-                filter.replace("(^.", '(' + textFilter  );
-              } else {
-                filter.replace("(.", "(.*" + textFilter + '*');
+                // only count the checked files that are currently visible
+                if (m_proxyModel->mapFromSource(model->index(row, 1)).isValid())
+                {
+                    count++;
+                }
             }
         }
+
+        checkAllButton->setEnabled( !(!modelRowCount || count == m_proxyModel->rowCount() ) );
+        uncheckAllButton->setEnabled( count > 0 );
+        m_invertSelectionButton->setEnabled( count > 0 );
+        m_checkSelectedButton->setEnabled(m_treeWidget->selectionModel()->selectedIndexes().size() > 0);
+
+        downloadCheckedButton->setEnabled(buttonEnabled);
     }
+}
 
-    if(m_filterModeBox->itemData(m_filterModeBox->currentIndex()).toInt() == KGetLinkView::DoesNotContain) {
-        filter = "(?!" + filter + ')';
-    }
+void KGetLinkView::setTextFilter(const QString &text)
+{
+    // TODO: escape user input for avoding malicious user input! (FiNEX)
+    QString temp = text.isEmpty() ? m_searchLine->text() : text;
+    m_proxyModel->setFilterWildcard(temp);
 
-    kDebug() << "Applying filter " << filter;
+    updateSelectionButtons();
+}
 
-    const bool isFiltered = textFilter.isEmpty() && id == KGetLinkView::NoFilter;
-    checkAllButton->setText( isFiltered ? i18n("Select all") : i18n("Select all filtered"));
-    uncheckAllButton->setText( isFiltered ? i18n("Deselect all") : i18n("Deselect all filtered"));
+void KGetLinkView::updateSelectionButtons()
+{
+    const bool isFiltered = !m_searchLine->text().isEmpty() || (filterButtonsGroup->checkedId() != KGetSortFilterProxyModel::NoFilter);
+    checkAllButton->setText(isFiltered ? i18n("Select all filtered") : i18n("Select all"));
+    uncheckAllButton->setText(isFiltered ? i18n("Deselect all filtered") : i18n("Deselect all"));
 
-    m_proxyModel->setFilterRegExp(QRegExp(filter, Qt::CaseInsensitive));
+    selectionChanged();
 }
 
 void KGetLinkView::checkAll()
 {
-    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *> (m_proxyModel->sourceModel());
-    for(int row=0;row<m_proxyModel->rowCount();row++) {
-        const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
-        QStandardItem *item = itemsModel->item(index.row(), 1);
-        item->setCheckState(Qt::Checked);
+    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (itemsModel)
+    {
+        for (int row = 0; row < m_proxyModel->rowCount(); row++)
+        {
+            const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
+            QStandardItem *item = itemsModel->item(index.row(), 1);
+            item->setCheckState(Qt::Checked);
+        }
     }
 }
 
 void KGetLinkView::uncheckAll()
 {
-    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *> (m_proxyModel->sourceModel());
-    for(int row=0;row<m_proxyModel->rowCount();row++) {
-        const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
-        QStandardItem *item = itemsModel->item(index.row(), 1);
-        item->setCheckState(Qt::Unchecked);
+    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (itemsModel)
+    {
+        for (int row = 0; row < m_proxyModel->rowCount(); row++)
+        {
+            const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
+            QStandardItem *item = itemsModel->item(index.row(), 1);
+            item->setCheckState(Qt::Unchecked);
+        }
     }
 }
 
 void KGetLinkView::uncheckItem(const QModelIndex &index)
 {
-    QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
-    if(index.column() != 0) {
-        QStandardItem *item = model->itemFromIndex(model->index(m_proxyModel->mapToSource(index).row(), 1));
-        item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked);
+    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (model)
+    {
+        if (index.column() != 0)
+        {
+            QStandardItem *item = model->itemFromIndex(model->index(m_proxyModel->mapToSource(index).row(), 1));
+            item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked);
+        }
     }
 }
 
 void KGetLinkView::slotCheckSelected()
 {
-    QStandardItemModel *model = (QStandardItemModel*) m_proxyModel->sourceModel();
-    foreach(const QModelIndex &index, m_treeWidget->selectionModel()->selectedIndexes()) {
-        QModelIndex sourceIndex = m_proxyModel->mapToSource(index);
-        QStandardItem *item = model->item(sourceIndex.row(), 1);
+    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (model)
+    {
+        foreach(const QModelIndex &index, m_treeWidget->selectionModel()->selectedIndexes())
+        {
+            QModelIndex sourceIndex = m_proxyModel->mapToSource(index);
+            QStandardItem *item = model->item(sourceIndex.row(), 1);
 
-        item->setCheckState(Qt::Checked);
+            item->setCheckState(Qt::Checked);
+        }
     }
 }
 
 void KGetLinkView::slotInvertSelection()
 {
-    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *> (m_proxyModel->sourceModel());
-
-    for(int row=0;row<m_proxyModel->rowCount();row++) {
-        const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
-        QStandardItem *item = itemsModel->item(index.row(), 1);
-        item->setCheckState((item->checkState() == Qt::Checked) ? Qt::Unchecked : Qt::Checked);
+    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    if (itemsModel)
+    {
+        for (int row = 0; row < m_proxyModel->rowCount(); row++)
+        {
+            const QModelIndex index = m_proxyModel->mapToSource(m_proxyModel->index(row, 3));
+            QStandardItem *item = itemsModel->item(index.row(), 1);
+            item->setCheckState((item->checkState() == Qt::Checked) ? Qt::Unchecked : Qt::Checked);
+        }
     }
 }
 
@@ -434,7 +447,8 @@ void KGetLinkView::slotStartImport()
     connect(m_linkImporter, SIGNAL(progress(int)), SLOT(slotImportProgress(int)));
     connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
 
-    if(!m_urlRequester->url().isLocalFile()) {
+    if (!m_urlRequester->url().isLocalFile())
+    {
         m_linkImporter->copyRemoteFile();
     }
 
@@ -466,19 +480,16 @@ QAbstractButton *KGetLinkView::createFilterButton(const QString &icon, const QSt
     return filterButton;
 }
 
-void KGetLinkView::slotShowWebContent(int mode)
-{
-    m_showWebContent = (mode == Qt::Checked);
-    doFilter(filterButtonsGroup->checkedId());
-}
-
 void KGetLinkView::updateImportButtonStatus(const QString &text)
 {
     bool enabled = false;
-    if (!text.isEmpty()) {
+    if (!text.isEmpty())
+    {
         KUrl url(text);
         if (url.isValid())
+        {
             enabled = true;
+        }
     }
     m_importButton->setEnabled(enabled);
 }
