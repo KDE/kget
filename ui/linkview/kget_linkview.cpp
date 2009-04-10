@@ -178,7 +178,7 @@ void KGetLinkView::slotStartLeech()
 
             if (checkeableItem->checkState() == Qt::Checked)
             {
-                urls.append(KUrl(model->data(model->index(row, 1), Qt::UserRole).toString()));
+                urls.append(KUrl(model->data(model->index(row, 4)).toString()));
             }
         }
 
