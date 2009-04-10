@@ -21,7 +21,7 @@
 
 #include <QtCore/QStringList>
 
-static const QStringList MIME_TYPES = QString(";video/;audio/;archive/").split(';');
+static const QStringList MIME_TYPES = QString(";video/;audio/;archive/;image/").split(';');
 static const QString ARCHIVES = QString("/x-7z-compressed,/x-ace,/x-archive,/x-arj,/x-bzip,/x-bzip-compressed-tar,/x-compressed-tar,/x-rar,/x-tar,/x-tarz,/zip");
 static const QString WEB_CONTENT = QString("/html,/x-asp,/xhtml+xml,/x-php,");
 
@@ -68,6 +68,9 @@ void KGetSortFilterProxyModel::setFilterType(int filterType)
             break;
         case KGetSortFilterProxyModel::CompressedFiles:
             m_filterType = CompressedFiles;
+            break;
+        case KGetSortFilterProxyModel::ImageFiles:
+            m_filterType = ImageFiles;
             break;
         case KGetSortFilterProxyModel::NoFilter:
         default:

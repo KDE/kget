@@ -158,6 +158,7 @@ kde4_add_ui_files(kget_SRCS
    ui/history/transferhistory.ui
    ui/groupsettingsdialog.ui
    ui/transfersettingsdialog.ui
+   ui/linkview/importlinkdialog.ui
 )
 kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 

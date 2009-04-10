@@ -14,26 +14,12 @@
 #include <KDialog>
 #include <KLocale>
 
-class QTreeView;
+#include "ui_importlinkdialog.h"
+
 class QModelIndex;
-class QAbstractButton;
-class QButtonGroup;
-class QBoxLayout;
-class QProgressBar;
-class QSortFilterProxyModel;
 class LinkImporter;
-class KComboBox;
-class KLineEdit;
-class KUrlRequester;
 class KGetSortFilterProxyModel;
 
-
-struct filterDefinition {
-    QString icon;
-    QString name;
-    uint type;
-    bool defaultFilter;
-};
 
 class KGetLinkView : public KDialog
 {
@@ -71,29 +57,11 @@ private slots:
 private:
     void checkClipboard();
     void showLinks( const QList<QString>& links );
-    QAbstractButton *createFilterButton(const QString &icon, const QString &name,
-                            QButtonGroup *group, uint filterType, bool checked = false);
 
-    QList<QString> m_links;
-
-    QTreeView *m_treeWidget;
+    Ui::ImportLinkDialog ui;
     KGetSortFilterProxyModel *m_proxyModel;
-
-    QButtonGroup *filterButtonsGroup;
-    KLineEdit *m_searchLine;
-    KComboBox *m_filterModeBox;
-    QPushButton *downloadCheckedButton;
-    QPushButton *checkAllButton;
-    QPushButton *uncheckAllButton;
-    QPushButton *m_importButton;
-    QPushButton *m_checkSelectedButton;
-    QPushButton *m_invertSelectionButton;
-
-    // import links widgets
+    QList<QString> m_links;
     LinkImporter *m_linkImporter;
-    KUrlRequester *m_urlRequester;
-    QBoxLayout *m_importerLayout;
-    QProgressBar *m_progressBar;
 };
 
 #endif // KGET_LINKVIEW_H
