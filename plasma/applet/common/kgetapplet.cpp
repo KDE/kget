@@ -77,6 +77,11 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
         foreach (const KUrl &url, event->mimeData()->urls())
             urls.append(url.url());
     }
+    else
+    {
+        event->ignore();
+        return;
+    }
     
     if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
@@ -84,12 +89,12 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
                             QDBusConnection::sessionBus());
 
         kget_interface.showNewTransferDialog(urls);
-        event->accept();
     }
     else
     {
         QProcess::startDetached("kget", urls);
     }
+    event->accept();
 }
 
 void KGetApplet::dropEvent(QDropEvent * event)
@@ -102,6 +107,11 @@ void KGetApplet::dropEvent(QDropEvent * event)
         foreach (const KUrl &url, event->mimeData()->urls())
             urls.append(url.url());
     }
+    else
+    {
+        event->ignore();
+        return;
+    }
     
     if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
@@ -115,6 +125,7 @@ void KGetApplet::dropEvent(QDropEvent * event)
     {
         QProcess::startDetached("kget", urls);
     }
+    event->accept();
 }
 
 #include "kgetapplet.moc"
