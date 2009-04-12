@@ -34,7 +34,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
             NoFilter = 0,
             VideoFiles = 1,
             AudioFiles = 2,
-            CompressedFiles = 3,
+            CompressedFiles = 3
         };
 
         enum FilterMode {
