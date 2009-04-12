@@ -41,7 +41,7 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
 
     m_defaultFolderRequester = ui.defaultFolderRequester;
     m_defaultFolderRequester->setMode(KFile::Directory);
-    m_defaultFolderRequester->setPath(group->defaultFolder());
+    m_defaultFolderRequester->setUrl(group->defaultFolder());
 
     m_regExpEdit = ui.regExpEdit;
     m_regExpEdit->setText(group->regExp().pattern());
