@@ -189,10 +189,15 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * Set the group's icon
          * @param name the icon's name
          */
-        void setIconName(QString name) {m_group->setIconName(name);}
+        void setIconName(const QString &name) {m_group->setIconName(name);}
 
         /**
-         * @return the group's icon
+         * @returns the group's icon's name
+         */
+        QString iconName() const {return m_group->iconName();}
+
+        /**
+         * @returns the group's icon
          */
         QPixmap pixmap() {return m_group->pixmap();}
 

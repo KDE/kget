@@ -232,7 +232,12 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * Set the group's icon
          * @param name the icon's name
          */
-        void setIconName(QString name) {m_iconName = name;}
+        void setIconName(const QString &name) {m_iconName = name;}
+
+        /**
+         * @returns the group's icon's name
+         */
+        QString iconName() const {return m_iconName;}
 
         /**
          * @return the group's icon
