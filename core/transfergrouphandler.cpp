@@ -342,7 +342,7 @@ void QObjectInterface::slotStop()
 
 
 
-GenericTransferGroupObserver::GenericTransferGroupObserver() : QObject(),
+GenericTransferGroupObserver::GenericTransferGroupObserver(QObject * parent) : QObject(parent),
     m_adapters()
 {
     m_transferObserver = new GenericTransferObserver(this);

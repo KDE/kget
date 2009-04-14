@@ -34,7 +34,7 @@ class KGET_EXPORT TransferGroupHandler : public Handler
     friend class GenericTransferObserver;
     friend class TransferGroup;
     friend class TransferTreeModel;
-
+    friend class KGet;
     public:
 
         typedef TransferGroup::ChangesFlags ChangesFlags;
@@ -343,7 +343,7 @@ class QObjectInterface : public QObject
 class GenericTransferGroupObserver : public TransferGroupObserver, public QObject
 {
     public:
-        GenericTransferGroupObserver();
+        GenericTransferGroupObserver(QObject * parent);
         ~GenericTransferGroupObserver();
 
         virtual void groupChangedEvent(TransferGroupHandler * group);

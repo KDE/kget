@@ -223,5 +223,6 @@ void TransfersGroupWidget::slotSelectionChanged(const QItemSelection &newSelecti
 
     renameButton->setEnabled(canDelete);
     deleteButton->setEnabled(canDelete);
-    iconButton->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
+    if (!KGet::selectedTransferGroups().isEmpty())
+        iconButton->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
 }

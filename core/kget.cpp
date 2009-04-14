@@ -69,6 +69,20 @@ KGet& KGet::self( MainWindow * mainWindow )
     return m;
 }
 
+void KGet::deleteSelf()
+{
+    foreach (ModelObserver *observer, m_observers) {
+        KGet::delObserver(observer);
+    }
+    foreach (TransferGroup * group, m_transferTreeModel->transferGroups()) {
+        foreach (TransferGroupObserver *observer, group->handler()->m_observers) { //No we don't want to get stalked
+            group->handler()->delObserver(observer);
+        }
+
+        KGet::delGroup(group->name());
+    }
+}
+
 void KGet::addObserver(ModelObserver * observer)
 {
     kDebug(5001);
@@ -115,6 +129,12 @@ void KGet::delGroup(const QString& groupName)
 
     if(group)
     {
+        JobQueue::iterator begin = group->begin();
+        JobQueue::iterator end = group->end();
+        for (; begin != end; begin++) {
+            Transfer *transfer = static_cast<Transfer*>(*begin);
+            m_transferTreeModel->delTransfer(transfer);//Unregister transfers from model first, they will get deleted by the group when destructing
+        }
         m_transferTreeModel->delGroup(group);
         postRemovedTransferGroupEvent(group);
         delete(group);
@@ -422,7 +442,7 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
         kWarning(5001) << "Error reading the transfers file";
     }
 
-    addObserver(new GenericModelObserver());
+    addObserver(new GenericModelObserver(m_mainWindow));
 }
 
 void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
@@ -469,6 +489,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
             QDomElement e = doc.createElement("TransferGroup");
             root.appendChild(e);
             (*it)->save(e);
+            //KGet::delGroup((*it)->name());
         }
 
         QTextStream stream( &file );
@@ -1024,7 +1045,7 @@ void KGet::showNotification(QWidget *parent, KNotification::StandardEvent eventI
 
 GenericModelObserver::GenericModelObserver(QObject *parent) : QObject(parent)
 {
-    m_groupObserver = new GenericTransferGroupObserver();
+    m_groupObserver = new GenericTransferGroupObserver(this);
 }
 
 GenericModelObserver::~GenericModelObserver()

@@ -70,6 +70,11 @@ class KGET_EXPORT KGet
         static KGet& self( MainWindow * mainWindow=0 );
 
         /**
+         * Deletes itself
+         */
+        static void deleteSelf();
+
+        /**
          * Adds a new observer of the KGet. See observer.h for more info about it.
          *
          * @param observer The new observer

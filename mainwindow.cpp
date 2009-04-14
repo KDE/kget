@@ -109,6 +109,8 @@ MainWindow::~MainWindow()
     slotKonquerorIntegration( Settings::konquerorIntegration() );
     // the following call saves options set in above dtors
     Settings::self()->writeConfig();
+
+    KGet::deleteSelf();
 }
 
 QSize MainWindow::sizeHint() const

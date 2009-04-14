@@ -26,6 +26,9 @@ JobQueue::JobQueue(Scheduler * scheduler)
 
 JobQueue::~JobQueue()
 {
+    foreach (Job * job, m_jobs) {
+        delete job;
+    }
     m_scheduler->delQueue(this);
 }
 
