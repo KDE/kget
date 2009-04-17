@@ -14,6 +14,7 @@
 
 class TransferHandler;
 class NepomukHandler;
+class KLineEdit;
 
 class NepomukWidget : public QWidget
 {
@@ -26,12 +27,15 @@ class NepomukWidget : public QWidget
 
     private slots:
         void showTagContextMenu(const QString& tag);
+        void addCurrentTag();
         void removeCurrentTag();
+        void addNewTag();
 
     private:
         TransferHandler *m_transfer;
         NepomukHandler *m_nepHandler;
         QString m_currentTag;
+        KLineEdit *m_lineEdit;
 };
 
 #endif

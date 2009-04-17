@@ -13,8 +13,8 @@
 
 #include <Soprano/Vocabulary/Xesam>
 #include <Soprano/Vocabulary/NAO>
-#include <nepomuk/variant.h>
-#include <nepomuk/tag.h>
+#include <Nepomuk/Variant>
+#include <Nepomuk/Tag>
 
 NepomukHandler::NepomukHandler(Transfer *transfer, QObject *parent)
   : QObject(parent),
@@ -29,7 +29,7 @@ NepomukHandler::~NepomukHandler()
 
 void NepomukHandler::setRating(int rating)
 {
-    m_resource.setProperty(Soprano::Vocabulary::NAO::rating(), Nepomuk::Variant(rating));
+    m_resource.setRating(rating);
 }
 
 int NepomukHandler::rating() const
