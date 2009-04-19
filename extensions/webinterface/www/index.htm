@@ -31,6 +31,9 @@ window.addEvent('domready', function() {
         var request = new Request.JSON({url: 'data.json',
             secure: false,
             onComplete: function(jsonObj) {
+                $(document.body).getElements('div.tool-tip').each(function(elm) { // remove old tooltips
+                    elm.destroy();
+                });
                 listDownloads(jsonObj.downloads);
             }
         }).send();
