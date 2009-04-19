@@ -16,6 +16,7 @@
 #include "settings.h"
 
 #include <KDebug>
+#include <KGlobalSettings>
 #include <KMessageBox>
 #include <KStandardDirs>
 
@@ -111,7 +112,8 @@ void HttpServer::handleRequest()
             kDebug(5001) << action << data;
             if (action == "add") {
                 // take first item of default folder list (which should be the best one)
-                KGet::addTransfer(data, KGet::groupsFromExceptions(KUrl(data)).first()->defaultFolder());
+                const QString defaultFolder(KGet::groupsFromExceptions(KUrl(data)).first()->defaultFolder());
+                KGet::addTransfer(data, defaultFolder.isEmpty() ? KGlobalSettings::downloadPath() : defaultFolder, group);
                 data.append(QString("Ok, %1 added!").arg(data).toUtf8());
             } else if (action == "start") {
                 TransferHandler *transfer = KGet::findTransfer(data);
