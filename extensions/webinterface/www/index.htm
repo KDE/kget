@@ -84,19 +84,19 @@ window.addEvent('domready', function() {
             var speed = new Element('td', {'class': 'download-center', 'html': download.speed}).injectAfter(progress);
             var status = new Element('td', {'class': 'download-center', 'html': download.status}).injectAfter(speed);
             var startaction = new Element('td').injectAfter(status);
-            var start = new Element('a', {'href': '#', 'html': '#{Start}'}).injectInside(startaction);
+            var start = new Element('a', {'href': '#', 'html': '<input type="button" value="#{Start}" />'}).injectInside(startaction);
             start.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('start', download.src);
             });
             var stopaction = new Element('td').injectAfter(startaction);
-            var stop = new Element('a', {'href': '#', 'html': '#{Stop}'}).injectInside(stopaction);
+            var stop = new Element('a', {'href': '#', 'html': '<input type="button" value="#{Stop}" />'}).injectInside(stopaction);
             stop.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('stop', download.src);
             });
             var removeaction = new Element('td').injectAfter(stopaction);
-            var remove = new Element('a', {'href': '#', 'html': '#{Remove}'}).injectInside(removeaction);
+            var remove = new Element('a', {'href': '#', 'html': '<input type="button" value="#{Remove}" />'}).injectInside(removeaction);
             remove.addEvent('click', function(e) {
                 e = new Event(e).stop();
                 doAction('remove', download.src);
@@ -324,6 +324,9 @@ img {
 input {
     border: 1px solid #B0B7C5;
     background-color: #FFFFFF;
+}
+input:hover {
+    border: 1px solid #000000;
 }
 .input-button {
     cursor: pointer;
