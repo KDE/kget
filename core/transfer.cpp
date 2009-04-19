@@ -47,6 +47,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
     else
     {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStartStatus(status());
     }
 }
 
@@ -204,6 +205,7 @@ void Transfer::load(const QDomElement &e)
     {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
     }
+    setStartStatus(status());
     setUploadLimit(e.attribute("UploadLimit").toInt(), Transfer::VisibleSpeedLimit);
     setDownloadLimit(e.attribute("DownloadLimit").toInt(), Transfer::VisibleSpeedLimit);
     m_runningSeconds = e.attribute("ElapsedTime").toInt();

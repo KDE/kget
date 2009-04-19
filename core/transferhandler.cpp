@@ -335,14 +335,34 @@ void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
 bool GenericTransferObserver::allTransfersFinished()
 {
     bool quitFlag = true;
+
+    // if all the downloads had state finished from
+    // the beginning
+    bool allWereFinished = true;
+
     foreach(TransferGroup *transferGroup, KGet::m_transferTreeModel->transferGroups()) {
         foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
             if(transfer->status() != Job::Finished) {
                 quitFlag = false;
             }
+            if (transfer->status() == Job::Finished &&
+               transfer->startStatus() != Job::Finished)
+            {
+                allWereFinished = false;
+            }
         }
     }
 
+    // if the only downloads in the queue
+    // are those that are already finished
+    // before the current KGet instance
+    // we don't want to quit
+    if (allWereFinished)
+    {
+        return false;
+    }
+
+    // otherwise, we did some downloads right now, let quitFlag decide
     return quitFlag;
 }
 

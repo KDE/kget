@@ -43,6 +43,12 @@ void Job::setStatus(Status jobStatus)
     m_scheduler->jobChangedEvent(this, m_status);
 }
 
+void Job::setStartStatus(Status jobStatus)
+{
+    kDebug() << "Setting start status to " << jobStatus;
+    m_startStatus = jobStatus;
+}
+
 void Job::setPolicy(Policy jobPolicy)
 {
     if(jobPolicy == m_policy)

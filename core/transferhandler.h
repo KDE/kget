@@ -98,6 +98,7 @@ class KGET_EXPORT TransferHandler : public Handler
         void stop();
         void setDelay(int seconds);
         Job::Status status() const {return m_transfer->status();}
+        Job::Status startStatus() const {return m_transfer->startStatus();}
         int elapsedTime() const;
         int remainingTime() const;
         bool isResumable() const;

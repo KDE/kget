@@ -76,6 +76,7 @@ class KGET_EXPORT Job
         void setPolicy(Policy jobPolicy);
 
         Status status() const {return m_status;}
+        Status startStatus() const { return m_startStatus;}
         Policy policy() const {return m_policy;}
 
         virtual int elapsedTime() const =0;
@@ -90,6 +91,8 @@ class KGET_EXPORT Job
         void read(QDomNode * n);
         void write(QDomNode * n);
 
+        void setStartStatus(Status jobStatus);
+
         /**
          * This one posts a job event to the scheduler
          */
@@ -100,6 +103,8 @@ class KGET_EXPORT Job
 
     private:
         Status m_status;
+        // our status when KGet is started
+        Status m_startStatus;
         Policy m_policy;
 };
 
