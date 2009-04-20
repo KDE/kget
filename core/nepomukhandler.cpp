@@ -18,8 +18,8 @@
 
 NepomukHandler::NepomukHandler(Transfer *transfer, QObject *parent)
   : QObject(parent),
-    m_resource(Nepomuk::Resource(transfer->dest(), Soprano::Vocabulary::Xesam::File())),
-    m_transfer(transfer)
+    m_transfer(transfer),
+    m_resource(Nepomuk::Resource(transfer->dest(), Soprano::Vocabulary::Xesam::File()))
 {
 }
 

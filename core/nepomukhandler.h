@@ -35,8 +35,8 @@ class KGET_EXPORT NepomukHandler : public QObject
         virtual void saveFileProperties(const Nepomuk::Resource &res);
 
     private:
-        Nepomuk::Resource m_resource;
         Transfer *m_transfer;
+        Nepomuk::Resource m_resource;
 };
 
 #endif

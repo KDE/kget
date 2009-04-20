@@ -2,7 +2,14 @@ project(kget)
 
 set(kget_adaptor_SRCS)
 
-macro_bool_to_01(0 HAVE_NEPOMUK)
+macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
+if(HAVE_NEPOMUK)
+    include_directories(
+        ${SOPRANO_INCLUDE_DIR}
+        ${NEPOMUK_INCLUDE_DIR}
+    )
+    add_definitions(-DHAVE_NEPOMUK)
+endif(HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
@@ -36,13 +43,6 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${CMAKE_CURRENT_BINARY_DIR}
 )
-if(HAVE_NEPOMUK)
-    include_directories(
-        ${SOPRANO_INCLUDE_DIR}
-        ${NEPOMUK_INCLUDE_DIR}
-    )
-    add_definitions(-DHAVE_NEPOMUK)
-endif(HAVE_NEPOMUK)
 
 if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
@@ -141,12 +141,12 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    extensions/webinterface/httpserver.cpp
 )
 
-#if(HAVE_NEPOMUK)
-#    set(kget_SRCS 
-#        ${kget_SRCS}
-#        ui/nepomukwidget.cpp
-#    )
-#endif(HAVE_NEPOMUK)
+if(HAVE_NEPOMUK)
+   set(kget_SRCS
+       ${kget_SRCS}
+       ui/nepomukwidget.cpp
+   )
+endif(HAVE_NEPOMUK)
 
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui

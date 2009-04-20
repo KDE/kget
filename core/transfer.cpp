@@ -25,6 +25,7 @@
 
 #ifdef HAVE_NEPOMUK
 #include "nepomukhandler.h"
+#include <Nepomuk/ResourceManager>
 #endif
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
@@ -39,6 +40,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_handler(0), m_factory(factory)
 {
 #ifdef HAVE_NEPOMUK
+    Nepomuk::ResourceManager::instance()->init();
     m_nepomukHandler = new NepomukHandler(this, 0);
 #endif
 
