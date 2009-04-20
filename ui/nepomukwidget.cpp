@@ -35,6 +35,7 @@ NepomukWidget::NepomukWidget(TransferHandler *transfer, QWidget *parent)
     ratingWidget->setRating(m_nepHandler->rating());
     layout->addWidget(ratingWidget);
     Nepomuk::TagCloud *tags = new Nepomuk::TagCloud(this);
+    tags->setAutoUpdate(true);
     foreach (const QString &string, m_nepHandler->tags())
         tags->addTag(string, 4);
 
