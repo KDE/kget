@@ -59,6 +59,10 @@ Transfer::~Transfer()
         m_scheduler->stopDelayTimer(this);
 
     delete(m_handler);
+
+#ifdef HAVE_NEPOMUK
+    delete(m_nepomukHandler);
+#endif
 }
 
 int Transfer::elapsedTime() const
