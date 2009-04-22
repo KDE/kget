@@ -566,7 +566,22 @@ void MainWindow::slotStopSelectedDownload()
 
 void MainWindow::slotDeleteSelected()
 {
-    foreach(TransferHandler * it, KGet::selectedTransfers())
+    foreach (TransferHandler * it, KGet::selectedTransfers())
+    {
+        if (it->status() != Job::Finished) {
+            if (KMessageBox::questionYesNo(this,
+                    i18np("Are you sure you want to delete the selected transfer?", 
+                          "Are you sure you want to delete the selected transfers?", KGet::selectedTransfers().count()),
+                    i18n("Confirm transfer delete"),
+                    KGuiItem(i18n("Delete"), KIcon("edit-delete")), KStandardGuiItem::cancel()) == KMessageBox::No)
+            {
+                return;
+            }
+            break;
+        }
+    }
+
+    foreach (TransferHandler * it, KGet::selectedTransfers())
     {
         it->stop();
         m_viewsContainer->closeTransferDetails(it);
