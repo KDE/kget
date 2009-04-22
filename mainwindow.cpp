@@ -102,9 +102,6 @@ MainWindow::~MainWindow()
     KGet::save();
 
     slotSaveMyself();
-    delete clipboardTimer;
-    delete m_drop;
-    delete m_dock;
     // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
     slotKonquerorIntegration( Settings::konquerorIntegration() );
     // the following call saves options set in above dtors

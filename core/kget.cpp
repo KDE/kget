@@ -670,6 +670,7 @@ KGet::KGet()
 
 KGet::~KGet()
 {
+    delete m_transferTreeModel;
     delete m_scheduler;
 }
 
