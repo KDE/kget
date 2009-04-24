@@ -408,6 +408,7 @@ Action=Sound
 
 [Event/error]
 Name=Error Occurred
+Name[el]=Παρουσιάστηκε σφάλμα
 Name[et]=Tekkis viga
 Name[ga]=Tharla Earráid
 Name[ja]=エラー発生
@@ -425,6 +426,7 @@ Name[uk]=Сталася помилка
 Name[x-test]=xxError Occurredxx
 Name[zh_TW]=發生錯誤
 Comment=An Error has Occurred
+Comment[el]=Παρουσιάστηκε ένα σφάλμα
 Comment[et]=Tekkis viga
 Comment[ga]=Tharla Earráid
 Comment[ja]=エラーが発生しました
@@ -483,6 +485,7 @@ Name[x-test]=xxInformationxx
 Name[zh_CN]=信息
 Name[zh_TW]=資訊
 Comment=User Notified of Information
+Comment[el]=Ενημέρωση χρήστη με πληροφορίες
 Comment[et]=Kasutajale teada antud teave
 Comment[ga]=Cuireadh Eolas in Iúl don Úsáideoir
 Comment[km]=ព័ត៌មាន​ដែលបាន​ជូនដំណឹង​ដោយ​អ្នកប្រើ
