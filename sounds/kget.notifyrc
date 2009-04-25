@@ -408,6 +408,7 @@ Action=Sound
 
 [Event/error]
 Name=Error Occurred
+Name[de]=Fehler aufgetreten
 Name[el]=Παρουσιάστηκε σφάλμα
 Name[et]=Tekkis viga
 Name[ga]=Tharla Earráid
@@ -426,6 +427,7 @@ Name[uk]=Сталася помилка
 Name[x-test]=xxError Occurredxx
 Name[zh_TW]=發生錯誤
 Comment=An Error has Occurred
+Comment[de]=Es ist ein Fehler aufgetreten
 Comment[el]=Παρουσιάστηκε ένα σφάλμα
 Comment[et]=Tekkis viga
 Comment[ga]=Tharla Earráid
