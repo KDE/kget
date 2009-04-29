@@ -22,7 +22,7 @@
 #include <QtCore/QStringList>
 
 static const QStringList MIME_TYPES = QString(";video/;audio/;archive/;image/").split(';');
-static const QString ARCHIVES = QString("/x-7z-compressed,/x-ace,/x-archive,/x-arj,/x-bzip,/x-bzip-compressed-tar,/x-compressed-tar,/x-rar,/x-tar,/x-tarz,/zip");
+static const QString ARCHIVES = QString("/x-7z-compressed,/x-ace,/x-archive,/x-arj,/x-bzip,/x-bzip-compressed-tar,/x-compressed-tar,/x-deb/,/x-rar,/x-tar,/x-rpm,/x-tarz,/zip");
 static const QString WEB_CONTENT = QString("/html,/x-asp,/xhtml+xml,/x-php,");
 
 KGetSortFilterProxyModel::KGetSortFilterProxyModel(QObject *parent) :
