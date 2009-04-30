@@ -24,7 +24,11 @@ void mirror::search(const KUrl &url, QObject *receiver, const char *member)
     kDebug(5001);
 
     m_url = url;
-    m_Urls << m_url;
+    if (m_url.path() != m_url.fileName())
+    {
+        m_Urls << m_url;
+    }
+
     search(m_url.fileName(),receiver,member);
 }
 
@@ -53,6 +57,8 @@ void mirror::slotResult( KJob *job )
 {
     kDebug(5001);
     m_job = 0;
+    int minUrlsNeeded = static_cast<int>(!m_Urls.isEmpty());
+
     if( job->error() )
     {
         deleteLater();
@@ -76,7 +82,7 @@ void mirror::slotResult( KJob *job )
             }
     }
 
-    if (m_Urls.size() > 1)
+    if (m_Urls.size() > minUrlsNeeded)
         emit urls(m_Urls);
     deleteLater();
 }

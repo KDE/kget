@@ -292,6 +292,12 @@ void TransferMultiSegKio::slotSearchUrls(const QList<KUrl> &Urls)
 {
     kDebug(5001) << "got: " << Urls.size() << " Urls.";
     m_Urls = Urls;
+
+    //add the source URL as the mirrorSearch plugin does not include it in its result
+    if(!m_Urls.contains(m_source))
+    {
+        m_Urls << m_source;
+    }
     if (m_copyjob)
     {
         m_copyjob->slotUrls(m_Urls);
