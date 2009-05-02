@@ -336,7 +336,18 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     e.setAttribute("Icon", m_iconName);
     e.setAttribute("Status", status() == JobQueue::Running ? "Running" : "Stopped");
     e.setAttribute("RegExpPattern", m_regExp.pattern());
-    e.setAttribute("Tags", m_tags.join(";;"));
+
+#ifdef HAVE_NEPOMUK
+    QDomElement tags = e.ownerDocument().createElement("Tags");
+    foreach(const QString &tagOfList, m_tags)
+    {
+        QDomElement tag = e.ownerDocument().createElement("Tag");
+        QDomText text = e.ownerDocument().createTextNode(tagOfList);
+        tag.appendChild(text);
+        tags.appendChild(tag);
+    }
+    e.appendChild(tags);
+#endif //HAVE_NEPOMUK
 
     iterator it = begin();
     iterator itEnd = end();
@@ -367,9 +378,18 @@ void TransferGroup::load(const QDomElement & e)
         setStatus(JobQueue::Stopped);
 
     m_regExp.setPattern(e.attribute("RegExpPattern"));
-    QStringList tags = e.attribute("Tags").split(";;");
-    if (!tags.isEmpty())
-        m_tags = tags;
+
+#ifdef HAVE_NEPOMUK
+    QDomNodeList tagsNodeList = e.elementsByTagName("Tags").at(0).toElement().elementsByTagName("Tag");
+    for( uint i = 0; i < tagsNodeList.length(); ++i )
+    {
+        QString tag = tagsNodeList.item(i).toElement().text();
+        if (!tag.isEmpty())
+        {
+            m_tags << tag;
+        }
+    }
+#endif //HAVE_NEPOMUK
 
     QDomNodeList nodeList = e.elementsByTagName("Transfer");
     int nItems = nodeList.length();
