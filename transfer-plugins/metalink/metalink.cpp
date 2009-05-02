@@ -14,6 +14,11 @@
 #include "core/kget.h"
 #include "core/transfergroup.h"
 
+#ifdef HAVE_NEPOMUK
+#include "core/transfergrouphandler.h"
+#include "core/transferhandler.h"
+#endif //HAVE_NEPOMUK
+
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -128,6 +133,8 @@ void metalink::slotResult(KJob * job)
     QList<MlinkFileData>::iterator it = mldata.begin();
     QList<MlinkFileData>::iterator itEnd = mldata.end();
 
+    KUrl src = KUrl();
+
     for ( ; it!=itEnd ; ++it )
     {
         m_dest.setFileName( (*it).fileName );
@@ -146,7 +153,7 @@ void metalink::slotResult(KJob * job)
                 url.setAttribute("Url", (*KUrlit).url()); 
             }
         }
-        KUrl src = (*it).urls.takeFirst();
+        src = (*it).urls.takeFirst();
         e.setAttribute("Source", src.url());
 
         KGet::addTransfer(e, m_source.fileName());
@@ -154,6 +161,19 @@ void metalink::slotResult(KJob * job)
         url.clear();
         e.clear();
     }
+
+#ifdef HAVE_NEPOMUK
+    //set tags for the newly created group based on the tags of group the metalink was stored in
+    if (!src.isEmpty())
+    {
+        TransferHandler *transfer = KGet::findTransfer(src);
+        if (transfer)
+        {
+            transfer->group()->setTags(group()->tags());
+        }
+    }
+#endif //HAVE_NEPOMUK
+
     KGet::delTransfer(handler());
 }
 
