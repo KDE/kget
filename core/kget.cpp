@@ -558,7 +558,12 @@ QList<TransferGroupHandler*> KGet::allTransferGroups()
 
 TransferHandler * KGet::findTransfer(const KUrl &src)
 {
-    return KGet::m_transferTreeModel->findTransfer(src)->handler();
+    Transfer *transfer = KGet::m_transferTreeModel->findTransfer(src);
+    if (transfer)
+    {
+        return transfer->handler();
+    }
+    return 0;
 }
 
 void KGet::checkSystemTray()
