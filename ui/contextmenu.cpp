@@ -22,10 +22,10 @@
 #include <KMenu>
 #include <QWidgetAction>
 
-#ifdef HAVE_KONQUEROR 
+#ifdef HAVE_KONQUEROR
     #include <KFileItem>
+    #include <kfileitemlistproperties.h>
     #include <konq_menuactions.h>
-    #include <konq_popupmenuinformation.h>
 #endif
 
 KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
@@ -73,10 +73,13 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
 #ifdef HAVE_NEPOMUK
     KMenu *nepomukMenu = new KMenu(i18n("Semantic desktop"), parent);
     nepomukMenu->setIcon(KIcon("nepomuk"));
-    QWidgetAction *nepomukWidget = new QWidgetAction(parent);
-    nepomukWidget->setDefaultWidget(new NepomukWidget(transfers.first(), parent));
-    nepomukMenu->addAction(nepomukWidget);
+    QWidgetAction *nepomukWidgetAction = new QWidgetAction(parent);
+    NepomukWidget *nepomukWidget = new NepomukWidget(transfers.first(), parent);
+    nepomukWidgetAction->setDefaultWidget(nepomukWidget);
+    nepomukMenu->addAction(nepomukWidgetAction);
+    nepomukMenu->setEnabled(nepomukWidget->isValid());
     popup->addMenu(nepomukMenu);
+
 #endif
 
     popup->addAction( KGet::actionCollection()->action("transfer_open_dest") );
@@ -97,11 +100,9 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
         KFileItemList items;
         items << KFileItem(KFileItem::Unknown, KFileItem::Unknown, handler->dest());
 
-        KonqPopupMenuInformation popupInfo;
-        popupInfo.setItems(items);
-        popupInfo.setParentWidget(parent);
         KonqMenuActions menuActions;
-        menuActions.setPopupMenuInfo(popupInfo);
+        menuActions.setItemListProperties(KFileItemListProperties(items));
+        menuActions.setParentWidget(parent);
 
         menuActions.addActionsTo(popup);
         menuActions.addOpenWithActionsTo(popup, "DesktopEntryName != 'kget'");

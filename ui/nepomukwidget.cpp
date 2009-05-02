@@ -8,18 +8,14 @@
    version 2 of the License, or (at your option) any later version.
 */
 #include "nepomukwidget.h"
+#include "ui_nepomukwidget.h"
 
 #include "core/nepomukhandler.h"
 #include "core/transferhandler.h"
-#include <nepomuk/kratingwidget.h>
-#include <nepomuk/kmetadatatagcloud.h>
 #include <KAction>
 #include <KLineEdit>
 #include <KMenu>
 #include <KLocale>
-#include <QHBoxLayout>
-#include <QToolButton>
-#include <QVBoxLayout>
 
 NepomukWidget::NepomukWidget(TransferHandler *transfer, QWidget *parent)
   : QWidget(parent),
@@ -30,32 +26,20 @@ NepomukWidget::NepomukWidget(TransferHandler *transfer, QWidget *parent)
     if (!m_nepHandler)
         return;
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    KRatingWidget *ratingWidget = new KRatingWidget(this);
-    ratingWidget->setRating(m_nepHandler->rating());
-    layout->addWidget(ratingWidget);
-    Nepomuk::TagCloud *tags = new Nepomuk::TagCloud(this);
-    tags->setAutoUpdate(true);
+    Ui::NepomukWidget ui;
+    ui.setupUi(this);
+    ui.ratingWidget->setRating(m_nepHandler->rating());
+    ui.tags->setAutoUpdate(true);
     foreach (const QString &string, m_nepHandler->tags())
-        tags->addTag(string, 4);
+        ui.tags->addTag(string, 4);
+    ui.button->setIcon(KIcon("list-add"));
+    m_lineEdit = ui.lineEdit;
 
-    layout->addWidget(tags);
-
-    QHBoxLayout *inputLayout = new QHBoxLayout(this);
-    m_lineEdit = new KLineEdit(this);
-    m_lineEdit->setClickMessage(i18n("Enter a new tag"));
-    inputLayout->addWidget(m_lineEdit);
-    QToolButton *button = new QToolButton(this);
-    button->setIcon(KIcon("list-add"));
-    inputLayout->addWidget(button);
-    layout->addLayout(inputLayout);
-
-
-    connect(ratingWidget, SIGNAL(ratingChanged(int)), m_nepHandler, SLOT(setRating(int)));
-    connect(tags, SIGNAL(tagClicked(const QString&)), SLOT(showTagContextMenu(const QString&)));
+    connect(ui.ratingWidget, SIGNAL(ratingChanged(int)), m_nepHandler, SLOT(setRating(int)));
+    connect(ui.tags, SIGNAL(tagClicked(const QString&)), SLOT(showTagContextMenu(const QString&)));
     connect(m_lineEdit, SIGNAL(returnPressed(const QString&)), m_nepHandler, SLOT(addTag(const QString&)));
     connect(m_lineEdit, SIGNAL(returnPressed(const QString&)), m_lineEdit, SLOT(clear()));
-    connect(button, SIGNAL(pressed()), this, SLOT(addNewTag()));
+    connect(ui.button, SIGNAL(pressed()), this, SLOT(addNewTag()));
 }
 
 NepomukWidget::~NepomukWidget()
@@ -103,6 +87,11 @@ void NepomukWidget::addNewTag()
         m_nepHandler->addTag(tag);
         m_lineEdit->clear();
     }
+}
+
+bool NepomukWidget::isValid()
+{
+    return m_nepHandler->isValid();
 }
 
 #include "nepomukwidget.moc"

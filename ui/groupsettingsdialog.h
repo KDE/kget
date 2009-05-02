@@ -14,6 +14,10 @@
 
 #include <KDialog>
 
+#ifdef HAVE_NEPOMUK
+    #include "ui_grouptagssettingsdialog.h"
+    class KMenu;
+#endif
 class TransferGroupHandler;
 
 class GroupSettingsDialog : public KDialog
@@ -24,17 +28,34 @@ class GroupSettingsDialog : public KDialog
         ~GroupSettingsDialog();
 
     private slots:
+#ifdef HAVE_NEPOMUK
+        void modelClicked(QModelIndex index);
+        void tagClicked(const QString &tag);
+        void addCurrentTag();
+        void removeCurrentTag();
+        void addNewTag();
+        void textChanged(const QString &text);
+#endif //HAVE_NEPOMUK
         void save();
 
     private:
-        TransferGroupHandler* m_group;
+#ifdef HAVE_NEPOMUK
+        void updateUsedTagsLineEdit();
+#endif //HAVE_NEPOMUK
 
-        QCheckBox *m_downloadCheck;
-        QCheckBox *m_uploadCheck;
-        QSpinBox *m_downloadBox;
-        QSpinBox *m_uploadBox;
-        KUrlRequester *m_defaultFolderRequester;
-        KLineEdit *m_regExpEdit;
+    private:
+        TransferGroupHandler* m_group;
+        Ui::GroupSettingsDialog ui;
+
+#ifdef HAVE_NEPOMUK
+        Ui::GroupTagsSettingsDialog tagsUi;
+        QStringList m_tags;
+        QString m_currentTag;
+        QStringListModel *m_usedTagsModel;
+        KMenu *m_popup;
+        QAction *m_removeAction;
+        QAction *m_addAction;
+#endif //HAVE_NEPOMUK
 };
 
 #endif

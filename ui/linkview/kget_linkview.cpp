@@ -40,11 +40,10 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_proxyModel->setDynamicSortFilter(true);
     m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
-    ui.setupUi(this);
+    QWidget *widget = new QWidget(this);
+    ui.setupUi(widget);
 
     // set the Icons
-    ui.cancel->setIcon(KIcon("dialog-cancel"));
-    ui.downloadChecked->setIcon(KIcon("kget"));
     ui.importLinks->setIcon(KIcon("document-import"));
     ui.showAll->setIcon(KIcon("view-list-icons"));
     ui.showArchives->setIcon(KIcon("package-x-generic"));
@@ -69,18 +68,19 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), m_proxyModel, SLOT(setFilterType(int)));
     connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), SLOT(updateSelectionButtons()));
     connect(ui.urlRequester, SIGNAL(textChanged(const QString &)), SLOT(updateImportButtonStatus(const QString &)));
-    connect(ui.cancel, SIGNAL(clicked()), this, SLOT(hide()));
     connect(ui.selectAll, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(ui.deselectAll, SIGNAL(clicked()), this, SLOT(uncheckAll()));
     connect(ui.checkSelected, SIGNAL(clicked()), this, SLOT(slotCheckSelected()));
     connect(ui.invertSelection, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
-    connect(ui.downloadChecked, SIGNAL(clicked()), this, SLOT(slotStartLeech()));
+    connect(this, SIGNAL(okClicked()), this, SLOT(slotStartLeech()));
     connect(ui.showWebContent, SIGNAL(stateChanged(int)), m_proxyModel, SLOT(setShowWebContent(int)));
     connect(ui.importLinks, SIGNAL(clicked()), this, SLOT(slotStartImport()));
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             SLOT(selectionChanged()));
 
-    setButtons(KDialog::None);
+    setMainWidget(widget);
+    setButtonText(KDialog::Ok, i18n("&Download checked"));
+    setButtonIcon(KDialog::Ok, KIcon("kget"));
 
     checkClipboard();
 }
@@ -245,7 +245,7 @@ void KGetLinkView::selectionChanged()
         ui.invertSelection->setEnabled( count > 0 );
         ui.checkSelected->setEnabled(ui.treeView->selectionModel()->selectedIndexes().size() > 0);
 
-        ui.downloadChecked->setEnabled(buttonEnabled);
+        enableButtonOk(buttonEnabled);
     }
 }
 

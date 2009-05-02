@@ -336,6 +336,7 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     e.setAttribute("Icon", m_iconName);
     e.setAttribute("Status", status() == JobQueue::Running ? "Running" : "Stopped");
     e.setAttribute("RegExpPattern", m_regExp.pattern());
+    e.setAttribute("Tags", m_tags.join(";;"));
 
     iterator it = begin();
     iterator itEnd = end();
@@ -366,6 +367,9 @@ void TransferGroup::load(const QDomElement & e)
         setStatus(JobQueue::Stopped);
 
     m_regExp.setPattern(e.attribute("RegExpPattern"));
+    QStringList tags = e.attribute("Tags").split(";;");
+    if (!tags.isEmpty())
+        m_tags = tags;
 
     QDomNodeList nodeList = e.elementsByTagName("Transfer");
     int nItems = nodeList.length();

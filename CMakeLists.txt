@@ -160,6 +160,14 @@ kde4_add_ui_files(kget_SRCS
    ui/transfersettingsdialog.ui
    ui/linkview/importlinkdialog.ui
 )
+
+if(HAVE_NEPOMUK)
+    kde4_add_ui_files(kget_SRCS
+       ui/grouptagssettingsdialog.ui
+       ui/nepomukwidget.ui
+   )
+endif(HAVE_NEPOMUK)
+
 kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 
 kde4_add_executable(kget ${kget_SRCS})

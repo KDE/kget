@@ -11,11 +11,12 @@
 #include "transferKio.h"
 
 #include <kiconloader.h>
+#include <KIO/DeleteJob>
+#include <KIO/NetAccess>
 #include <klocale.h>
 #include <kdebug.h>
 
 #include <QDomElement>
-#include <QFile>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -66,7 +67,8 @@ void TransferKio::postDeleteEvent()
 {
     if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {
-        QFile::remove(m_dest.path() + ".part");
+        KIO::Job *del = KIO::del(m_dest.path() + ".part", KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, NULL);
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 

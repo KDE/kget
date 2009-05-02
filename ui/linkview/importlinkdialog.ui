@@ -260,40 +260,6 @@
    <item>
     <widget class="KSeparator" name="kseparator"/>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="downloadChecked">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string extracomment="Check as in mark, not as in verify">&amp;Download checked</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="cancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -339,8 +305,6 @@
   <tabstop>checkSelected</tabstop>
   <tabstop>showWebContent</tabstop>
   <tabstop>treeView</tabstop>
-  <tabstop>downloadChecked</tabstop>
-  <tabstop>cancel</tabstop>
  </tabstops>
  <resources/>
  <connections/>

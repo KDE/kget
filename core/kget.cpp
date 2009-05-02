@@ -42,10 +42,15 @@
 #include <KPluginInfo>
 
 #include <QTextStream>
+#include <QtGui/QComboBox>
 #include <QDomElement>
 #include <QApplication>
 #include <QClipboard>
 #include <QAbstractItemView>
+
+#ifdef HAVE_NEPOMUK
+    #include <Nepomuk/ResourceManager>
+#endif
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are
@@ -383,6 +388,11 @@ void KGet::addTransferView(QAbstractItemView * view)
     view->setModel(m_transferTreeModel);
 }
 
+void KGet::addTransferView(QComboBox * view)
+{
+    view->setModel(m_transferTreeModel);
+}
+
 void KGet::load( QString filename ) // krazy:exclude=passbyvalue
 {
     kDebug(5001) << "(" << filename << ")";
@@ -658,6 +668,10 @@ KUiServerJobs * KGet::m_jobManager = 0;
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()
 {
+#ifdef HAVE_NEPOMUK
+    Nepomuk::ResourceManager::instance()->init();
+#endif
+
     m_transferTreeModel = new TransferTreeModel(m_scheduler);
     m_selectionModel = new TransferTreeSelectionModel(m_transferTreeModel);
 

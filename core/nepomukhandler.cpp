@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,12 +16,17 @@
 #include <Soprano/Vocabulary/NAO>
 #include <Nepomuk/Variant>
 #include <Nepomuk/Tag>
+#include <QtCore/QFile>
 
 NepomukHandler::NepomukHandler(Transfer *transfer, QObject *parent)
   : QObject(parent),
+    m_isValid(false),
     m_transfer(transfer),
-    m_resource(Nepomuk::Resource(transfer->dest(), Soprano::Vocabulary::Xesam::File()))
+    m_destination(transfer->dest()),
+    m_resource(Nepomuk::Resource(m_destination, Soprano::Vocabulary::Xesam::File()))
 {
+    isValid();//NOTE the resource is checked whenever changing properties, as the underlying file could be removed etc.
+    //TODO also check isValid() for the const methods? --> set m_resource to mutable?
 }
 
 NepomukHandler::~NepomukHandler()
@@ -29,7 +35,8 @@ NepomukHandler::~NepomukHandler()
 
 void NepomukHandler::setRating(int rating)
 {
-    m_resource.setRating(rating);
+    if (isValid())
+        m_resource.setRating(rating);
 }
 
 int NepomukHandler::rating() const
@@ -39,14 +46,33 @@ int NepomukHandler::rating() const
 
 void NepomukHandler::addTag(const QString &newTag)
 {
-    m_resource.addTag(Nepomuk::Tag(newTag));
+    if (isValid() && !newTag.isEmpty())
+        m_resource.addTag(Nepomuk::Tag(newTag));
+}
+
+void NepomukHandler::addTags(const QStringList &newTags)
+{
+    if (isValid() && !newTags.isEmpty())
+    {
+        QStringList::const_iterator itEnd = newTags.end();
+        for( QStringList::const_iterator it = newTags.begin(); it != itEnd; ++it)
+        {
+            if(!(*it).isEmpty())
+            {
+                m_resource.addTag(Nepomuk::Tag(*it));
+            }
+        }
+    }
 }
 
 void NepomukHandler::removeTag(const QString &oldTag)
 {
-    QList<Nepomuk::Tag> list = m_resource.tags();
-    list.removeAll(Nepomuk::Tag(oldTag));
-    m_resource.setTags(list);
+    if (isValid())
+    {
+        QList<Nepomuk::Tag> list = m_resource.tags();
+        list.removeAll(Nepomuk::Tag(oldTag));
+        m_resource.setTags(list);
+    }
 }
 
 QStringList NepomukHandler::tags() const
@@ -59,7 +85,7 @@ QStringList NepomukHandler::tags() const
 
 void NepomukHandler::saveFileProperties()
 {
-    if (!m_resource.isValid())
+    if (!isValid())
         return;
     saveFileProperties(m_resource);
 }
@@ -69,5 +95,28 @@ void NepomukHandler::saveFileProperties(const Nepomuk::Resource &res)
     Nepomuk::Resource m_res = res;
     m_res.setProperty(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_transfer->source()));
     m_res.setProperty(Soprano::Vocabulary::Xesam::size(), Nepomuk::Variant(m_transfer->totalSize()));
-    m_res.addTag(Nepomuk::Tag("Downloads"));
+}
+
+bool NepomukHandler::isValid()
+{
+    bool valid = QFile::exists(m_destination.pathOrUrl());
+//NOTE the assoicated properties to the .part file do not seem to be correctly moved by Nepomuk
+//after finnishing the download by Nepomuk (the metadata is not transfered)
+//TODO reenable when this is fixed
+//     //a part file exists so use that as destination for the Nepomuk properties
+//     if (!valid && (QFile::exists(m_destination.pathOrUrl() + ".part")))
+//     {
+//         valid = true;
+//         m_destination = KUrl::fromPath(m_destination.pathOrUrl() + ".part");
+//         m_resource = Nepomuk::Resource(m_destination, Soprano::Vocabulary::Xesam::File());
+//     }
+    valid = valid && m_resource.isValid();
+    //check if the validity changed
+    if (valid != m_isValid)
+    {
+        m_isValid = valid;
+        emit validityChanged(m_isValid);
+    }
+
+    return valid;
 }

@@ -570,7 +570,7 @@ void MainWindow::slotDeleteSelected()
                     i18np("Are you sure you want to delete the selected transfer?", 
                           "Are you sure you want to delete the selected transfers?", KGet::selectedTransfers().count()),
                     i18n("Confirm transfer delete"),
-                    KGuiItem(i18n("Delete"), KIcon("edit-delete")), KStandardGuiItem::cancel()) == KMessageBox::No)
+                    KGuiItem(i18n("&Delete"), KIcon("edit-delete")), KStandardGuiItem::cancel()) == KMessageBox::No)
             {
                 return;
             }

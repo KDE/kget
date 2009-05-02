@@ -28,6 +28,7 @@
 #include "kget_export.h"
 #include "observer.h"
 
+class QComboBox;
 class QDomElement;
 class QAbstractItemView;
 
@@ -237,6 +238,11 @@ class KGET_EXPORT KGet
          * Sets the given view to the TransferTreeModel object
          */
         static void addTransferView(QAbstractItemView * view);
+
+        /**
+         * Sets the given comboBox to the TransferTreeModel object
+         */
+        static void addTransferView(QComboBox * view);
 
         /**
          * Gets all transfers

@@ -13,6 +13,7 @@
 #include "kget_export.h"
 #include <nepomuk/resource.h>
 #include <QObject>
+#include <KUrl>
 class Transfer;
 
 class KGET_EXPORT NepomukHandler : public QObject
@@ -22,20 +23,27 @@ class KGET_EXPORT NepomukHandler : public QObject
         NepomukHandler(Transfer *transfer, QObject *parent);
         ~NepomukHandler();
 
+        bool isValid();
         QStringList tags() const;
         int rating() const;
 
     public slots:
         void setRating(int rating);
         void addTag(const QString &newTag);
+        void addTags(const QStringList &newTags);
         void removeTag(const QString &oldTag);
         void saveFileProperties();
+
+    signals:
+        void validityChanged(bool isValid);
 
     protected:
         virtual void saveFileProperties(const Nepomuk::Resource &res);
 
     private:
+        bool m_isValid;
         Transfer *m_transfer;
+        KUrl m_destination;
         Nepomuk::Resource m_resource;
 };
 

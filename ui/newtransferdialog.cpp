@@ -209,7 +209,7 @@ public:
         m_destRequester->clear();
         m_displayed = false;
         m_groupComboBox->clear();
-        m_groupComboBox->addItems(KGet::transferGroupNames());
+        KGet::addTransferView(m_groupComboBox);
         m_groupComboBox->setCurrentIndex(0);
     }
 

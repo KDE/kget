@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>415</width>
-    <height>154</height>
+    <width>457</width>
+    <height>253</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -16,6 +22,12 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="KTitleWidget" name="ktitlewidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Group Settings</string>
      </property>
@@ -23,6 +35,9 @@
    </item>
    <item>
     <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -34,6 +49,23 @@
       <widget class="KUrlRequester" name="defaultFolderRequester">
        <property name="enabled">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="toolTip">
+        <string>Moves all transfers with the regular expression to this group</string>
+       </property>
+       <property name="text">
+        <string>Regular expression:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="KLineEdit" name="regExpEdit">
+       <property name="clickMessage">
+        <string>*movies*</string>
        </property>
       </widget>
      </item>
@@ -89,32 +121,68 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="toolTip">
-        <string>Moves all transfers with the regular expression to this group</string>
-       </property>
-       <property name="text">
-        <string>Regular expression:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="KLineEdit" name="regExpEdit">
-       <property name="clickMessage">
-        <string>*movies*</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QWidget" name="nepomukWidget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Used tags:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="KLineEdit" name="usedTags">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="tagButton">
+          <property name="text">
+           <string>Modify the tags</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+     <zorder>label_3</zorder>
+     <zorder>usedTags</zorder>
+     <zorder>tagButton</zorder>
+     <zorder></zorder>
+    </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KTitleWidget</class>
@@ -122,9 +190,9 @@
    <header>ktitlewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -136,12 +204,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>95</y>
+     <x>92</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>205</x>
-     <y>95</y>
+     <x>301</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>
@@ -152,12 +220,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>122</y>
+     <x>111</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>205</x>
-     <y>122</y>
+     <x>301</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
