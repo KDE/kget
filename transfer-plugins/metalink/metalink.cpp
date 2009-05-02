@@ -153,8 +153,8 @@ void metalink::slotResult(KJob * job)
 
         url.clear();
         e.clear();
-        KGet::delTransfer(handler());
     }
+    KGet::delTransfer(handler());
 }
 
 #include "metalink.moc"
