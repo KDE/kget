@@ -79,7 +79,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
             SLOT(selectionChanged()));
 
     setMainWidget(widget);
-    setButtonText(KDialog::Ok, i18n("&Download checked"));
+    setButtonText(KDialog::Ok, i18nc("Download the items which have been selected","&Download checked"));
     setButtonIcon(KDialog::Ok, KIcon("kget"));
 
     checkClipboard();
