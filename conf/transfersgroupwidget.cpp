@@ -48,7 +48,7 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
 
     setRootIsDecorated(false);
     setAlternatingRowColors(true);
-    setSelectionMode(QAbstractItemView::SingleSelection);
+    setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     KGet::addTransferView(this);
 
@@ -70,26 +70,21 @@ void TransfersGroupTree::commitData(QWidget *editor)
     if(groupEditor->groupIndex() != currentIndex())
         return;
 
-    if (groupEditor->text().isEmpty())
-    {
-        KMessageBox::error( this, i18n("The group name is empty"), i18n("A group can not have an empty name.\nPlease select a new one.") );
-        QTimer::singleShot( 0, this, SLOT(editCurrent()) );
-        return;
-    }
-    else 
+    const QString newName = groupEditor->text();
+    if (!newName.isEmpty())
     {
         foreach(const QString &groupName, KGet::transferGroupNames())
         {
-            if(groupName == groupEditor->text() && 
-               groupName != ((TransferGroupHandler *) currentIndex().internalPointer())->name() )
+            if(groupName == newName &&
+               groupName != model()->data(currentIndex(), Qt::DisplayRole).toString())
             {
-                KMessageBox::error( this, i18n("Group name already in use"), i18n("Another group with this name already exists.\nPlease select a different name.") );
+                KMessageBox::error( this, i18n("Another group with this name already exists. Please select a different name.", i18n("Group name already in use") ) );
                 QTimer::singleShot( 0, this, SLOT(editCurrent()) );
                 return;
             }
         }
 
-        KGet::renameGroup(model()->data(currentIndex()).toString(), groupEditor->text());
+        KGet::renameGroup(model()->data(currentIndex()).toString(), newName);
         setCurrentIndex(QModelIndex());
     }
 }
@@ -120,23 +115,24 @@ void TransfersGroupTree::deleteSelectedGroup()
 {
     QItemSelectionModel *selModel = selectionModel();
     QAbstractItemModel *dataModel = model();
-
     QModelIndexList indexList = selModel->selectedRows();
 
-    foreach(const QModelIndex &index, indexList)
+
+    if (!indexList.isEmpty())
     {
-        QString groupName = dataModel->data(index, Qt::DisplayRole).toString();
+        QString firstGroup = dataModel->data(indexList.first(), Qt::DisplayRole).toString();
 
-        if(groupName == i18n("My Downloads"))
+        if(KMessageBox::questionYesNo(this,
+            i18np("Are you sure that you want to remove the group named %1?", "Are you sure that you want to remove all selected groups?", firstGroup, indexList.count()),
+            i18np("Remove group", "Remove groups", indexList.count()),
+            KGuiItem(i18n("&Remove"), KIcon("edit-delete")), KStandardGuiItem::cancel()) == KMessageBox::Yes)
         {
-            KMessageBox::sorry(this, i18n("You can not delete this group."));
-            continue;
+            foreach(const QModelIndex &index, indexList)
+            {
+                QString groupName = dataModel->data(index, Qt::DisplayRole).toString();
+                KGet::delGroup(groupName);
+            }
         }
-
-        if(KMessageBox::questionYesNoCancel(this,
-                                            i18n("Are you sure that you want to remove\n"
-                                                 "the group named %1?", groupName)) == KMessageBox::Yes)
-            KGet::delGroup(groupName);
     }
 }
 
@@ -205,24 +201,28 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     connect(iconButton, SIGNAL(iconChanged(const QString &)), m_view, SLOT(changeIcon(const QString &)));
     connect(configureButton, SIGNAL(clicked()), KGet::actionCollection()->action("transfer_group_settings"), SLOT(trigger()));
     connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-                this, SLOT(slotSelectionChanged(const QItemSelection &, const QItemSelection &)));
+                this, SLOT(slotSelectionChanged()));
 }
 
-void TransfersGroupWidget::slotSelectionChanged(const QItemSelection &newSelection, 
-                    const QItemSelection &oldSelection)
+void TransfersGroupWidget::slotSelectionChanged()
 {
-    Q_UNUSED(oldSelection)
+    QModelIndexList selectedGroups = m_view->selectionModel()->selectedRows();
+    bool somethingSelected = !selectedGroups.isEmpty();
+    bool canDelete = somethingSelected;
 
-    bool canDelete = true;
-
-    foreach(const QModelIndex &index, newSelection.indexes()) {
+    foreach(const QModelIndex &index, selectedGroups) {
         if(index.row() == 0) {
             canDelete = false;
+            break;
         }
     }
 
     renameButton->setEnabled(canDelete);
     deleteButton->setEnabled(canDelete);
-    if (!KGet::selectedTransferGroups().isEmpty())
+    configureButton->setEnabled(somethingSelected);
+    iconButton->setEnabled(somethingSelected);
+    if (somethingSelected)
         iconButton->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
+    else
+        iconButton->setIcon(KIcon("preferences-desktop-icons"));
 }

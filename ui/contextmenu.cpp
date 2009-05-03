@@ -130,9 +130,26 @@ KMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handle
     popup->addSeparator();
     popup->addAction(KGet::actionCollection()->action("transfer_group_settings"));
     popup->addSeparator();
-    if(handler->name() != i18n("My Downloads")) {
-        popup->addAction( KGet::actionCollection()->action("delete_groups") );
-        popup->addAction( KGet::actionCollection()->action("rename_groups") );
+
+    QList<TransferGroupHandler *> transferGroups = KGet::selectedTransferGroups();
+    bool containsMainGroup = false;
+    foreach(TransferGroupHandler *transHandler, transferGroups)
+    {
+        if(transHandler->name() == i18n("My Downloads"))
+        {
+            containsMainGroup = true;
+            break;
+        }
+    }
+    if(!containsMainGroup) {
+        const int numGroups = transferGroups.count();
+        QAction *action = KGet::actionCollection()->action("delete_groups");
+        action->setText(i18np("Delete Group", "Delete Groups", numGroups));
+        popup->addAction(action);
+
+        action = KGet::actionCollection()->action("rename_groups");
+        action->setText(i18np("Rename Group", "Rename Groups", numGroups));
+        popup->addAction(action);
     }
     popup->addAction( KGet::actionCollection()->action("seticon_groups") );
     return popup;

@@ -69,7 +69,7 @@ public:
     TransfersGroupWidget(QWidget *parent=0);
 
 private slots:
-    void slotSelectionChanged(const QItemSelection &current, const QItemSelection &old);
+    void slotSelectionChanged();
 
 private:
     TransfersGroupTree *m_view;
