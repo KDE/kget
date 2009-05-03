@@ -893,10 +893,10 @@ bool KGet::isValidDestUrl(const KUrl &destUrl)
 {
     if(KIO::NetAccess::exists(destUrl, KIO::NetAccess::DestinationSide, 0))
     {
-        if (KMessageBox::warningYesNoCancel(0,
+        if (KMessageBox::warningYesNo(0,
             i18n("Destination file \n%1\nalready exists.\n"
-                 "Do you want to overwrite it?", destUrl.prettyUrl()))
-            == KMessageBox::Yes)
+                 "Do you want to overwrite it?", destUrl.prettyUrl()), i18n("Overwrite destination"),
+            KStandardGuiItem::overwrite(), KStandardGuiItem::cancel()) == KMessageBox::Yes)
         {
             safeDeleteFile( destUrl );
             return true;

@@ -440,11 +440,11 @@ void MainWindow::slotUpdateTitlePercent()
 void MainWindow::slotQuit()
 {
     if (KGet::schedulerRunning()) {
-        if (KMessageBox::warningYesNoCancel(this,
+        if (KMessageBox::warningYesNo(this,
                 i18n("Some transfers are still running.\n"
                      "Are you sure you want to close KGet?"),
                 i18n("Confirm Quit"),
-                KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
+                KStandardGuiItem::quit(), KStandardGuiItem::cancel(),
                 "ExitWithActiveTransfers") != KMessageBox::Yes)
             return;
 
@@ -566,11 +566,11 @@ void MainWindow::slotDeleteSelected()
     foreach (TransferHandler * it, KGet::selectedTransfers())
     {
         if (it->status() != Job::Finished) {
-            if (KMessageBox::questionYesNo(this,
+            if (KMessageBox::warningYesNo(this,
                     i18np("Are you sure you want to delete the selected transfer?", 
                           "Are you sure you want to delete the selected transfers?", KGet::selectedTransfers().count()),
                     i18n("Confirm transfer delete"),
-                    KGuiItem(i18n("&Delete"), KIcon("edit-delete")), KStandardGuiItem::cancel()) == KMessageBox::No)
+                    KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No)
             {
                 return;
             }

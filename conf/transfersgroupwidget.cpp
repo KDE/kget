@@ -122,10 +122,10 @@ void TransfersGroupTree::deleteSelectedGroup()
     {
         QString firstGroup = dataModel->data(indexList.first(), Qt::DisplayRole).toString();
 
-        if(KMessageBox::questionYesNo(this,
+        if(KMessageBox::warningYesNo(this,
             i18np("Are you sure that you want to remove the group named %1?", "Are you sure that you want to remove all selected groups?", firstGroup, indexList.count()),
             i18np("Remove group", "Remove groups", indexList.count()),
-            KGuiItem(i18n("&Remove"), KIcon("edit-delete")), KStandardGuiItem::cancel()) == KMessageBox::Yes)
+            KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::Yes)
         {
             foreach(const QModelIndex &index, indexList)
             {
