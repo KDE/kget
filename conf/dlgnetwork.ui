@@ -16,7 +16,7 @@
    <item>
     <widget class="QGroupBox" name="kcfg_LimitDownloads" >
      <property name="title" >
-      <string>Limit maximum downloads per group</string>
+      <string>Limit Maximum Downloads Per Group</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>
@@ -59,7 +59,7 @@
    <item>
     <widget class="QGroupBox" name="kcfg_SpeedLimit" >
      <property name="title" >
-      <string>Speed limit</string>
+      <string>Speed Limit</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>
@@ -68,7 +68,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="dllimitlb" >
         <property name="text" >
-         <string>Global Download Limit:</string>
+         <string>Global download limit:</string>
         </property>
        </widget>
       </item>
@@ -91,7 +91,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>Global Upload Limit:</string>
+         <string>Global upload limit:</string>
         </property>
        </widget>
       </item>
@@ -114,7 +114,7 @@
       <item row="2" column="0" >
        <widget class="QLabel" name="lb_per_transfer" >
         <property name="text" >
-         <string>Per Transfer:</string>
+         <string>Per transfer:</string>
         </property>
        </widget>
       </item>
@@ -137,7 +137,7 @@
    <item>
     <widget class="QGroupBox" name="kcfg_ReconnectOnBroken" >
      <property name="title" >
-      <string>Reconnect on error or broken connection</string>
+      <string>Reconnect on Error or Broken Connection</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>

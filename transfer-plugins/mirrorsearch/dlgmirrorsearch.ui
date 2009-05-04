@@ -24,12 +24,12 @@
      </property>
      <column>
       <property name="text" >
-       <string>Engine name</string>
+       <string>Engine Name</string>
       </property>
      </column>
      <column>
       <property name="text" >
-       <string>Url</string>
+       <string>URL</string>
       </property>
      </column>
     </widget>

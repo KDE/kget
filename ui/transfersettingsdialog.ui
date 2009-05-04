@@ -28,7 +28,7 @@
      <item row="0" column="0" >
       <widget class="QCheckBox" name="uploadCheck" >
        <property name="text" >
-        <string>Upload Limit</string>
+        <string>Upload limit:</string>
        </property>
       </widget>
      </item>
@@ -48,7 +48,7 @@
      <item row="1" column="0" >
       <widget class="QCheckBox" name="downloadCheck" >
        <property name="text" >
-        <string>Download Limit</string>
+        <string>Download limit:</string>
        </property>
       </widget>
      </item>
@@ -68,7 +68,7 @@
      <item row="2" column="0" >
       <widget class="QCheckBox" name="ratioCheck" >
        <property name="text" >
-        <string>Maximum Share Ratio</string>
+        <string>Maximum share ratio:</string>
        </property>
       </widget>
      </item>

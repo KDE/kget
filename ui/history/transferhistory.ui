@@ -96,7 +96,7 @@
        <item>
         <widget class="KButtonGroup" name="kbuttongroup_2" >
          <property name="title" >
-          <string>Select ranges</string>
+          <string>Select Ranges</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2" >
           <property name="spacing" >
@@ -133,7 +133,7 @@
        <item>
         <widget class="KButtonGroup" name="kbuttongroup_3" >
          <property name="title" >
-          <string>Filter history</string>
+          <string>Filter History</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3" >
           <property name="spacing" >

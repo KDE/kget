@@ -70,7 +70,7 @@
          </font>
         </property>
         <property name="text" >
-         <string>Download Speed:</string>
+         <string>Download speed:</string>
         </property>
        </widget>
       </item>
@@ -122,7 +122,7 @@
          </font>
         </property>
         <property name="text" >
-         <string>Upload Speed:</string>
+         <string>Upload speed:</string>
         </property>
        </widget>
       </item>

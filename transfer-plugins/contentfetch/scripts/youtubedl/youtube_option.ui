@@ -30,12 +30,12 @@
        <widget class="QComboBox" name="fileNameComboBox" >
         <item>
          <property name="text" >
-          <string>Use normalized name</string>
+          <string>Use Normalized Name</string>
          </property>
         </item>
         <item>
          <property name="text" >
-          <string>Use literal name</string>
+          <string>Use Literal Name</string>
          </property>
         </item>
        </widget>
@@ -51,12 +51,12 @@
        <widget class="QComboBox" name="qualityComboBox" >
         <item>
          <property name="text" >
-          <string>Best quality (.mp4)</string>
+          <string>Best Quality (.mp4)</string>
          </property>
         </item>
         <item>
          <property name="text" >
-          <string>Normal quality (.flv)</string>
+          <string>Normal Quality (.flv)</string>
          </property>
         </item>
        </widget>

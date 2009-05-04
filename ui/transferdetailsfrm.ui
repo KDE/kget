@@ -161,7 +161,7 @@
      <item>
       <widget class="QLabel" name="label" >
        <property name="text" >
-        <string>Remaining Time:</string>
+        <string>Remaining time:</string>
        </property>
       </widget>
      </item>

@@ -51,7 +51,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="groupLabel">
          <property name="text">
-          <string>Transfer Group:</string>
+          <string>Transfer group:</string>
          </property>
         </widget>
        </item>

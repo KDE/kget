@@ -32,7 +32,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&amp;Import links</string>
+        <string>&amp;Import Links</string>
        </property>
       </widget>
      </item>
@@ -161,7 +161,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Does not contain</string>
+         <string>Does Not Contain</string>
         </property>
        </item>
       </widget>
@@ -214,7 +214,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>D&amp;eselect all</string>
+        <string>D&amp;eselect All</string>
        </property>
       </widget>
      </item>
@@ -224,7 +224,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&amp;Select all</string>
+        <string>&amp;Select All</string>
        </property>
       </widget>
      </item>
@@ -234,7 +234,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Inver&amp;t selection</string>
+        <string>Inver&amp;t Selection</string>
        </property>
       </widget>
      </item>
@@ -244,7 +244,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string extracomment="Check as in mark, not as in verify">Chec&amp;k selected</string>
+        <string extracomment="Check as in mark, not as in verify">Chec&amp;k Selected</string>
        </property>
       </widget>
      </item>

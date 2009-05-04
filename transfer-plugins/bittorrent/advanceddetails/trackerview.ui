@@ -123,7 +123,7 @@
            <item>
             <widget class="QLabel" name="label_8" >
              <property name="text" >
-              <string>Times Downloaded:</string>
+              <string>Times downloaded:</string>
              </property>
             </widget>
            </item>
@@ -147,7 +147,7 @@
            <item>
             <widget class="QLabel" name="label_5" >
              <property name="text" >
-              <string>Next Update In:</string>
+              <string>Next update in:</string>
              </property>
             </widget>
            </item>

@@ -58,12 +58,12 @@
        </item>
        <item>
         <property name="text" >
-         <string>Start all Downloads</string>
+         <string>Start All Downloads</string>
         </property>
        </item>
        <item>
         <property name="text" >
-         <string>Stop all Downloads</string>
+         <string>Stop All Downloads</string>
         </property>
        </item>
       </widget>

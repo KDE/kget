@@ -72,7 +72,7 @@
      <item row="2" column="0">
       <widget class="QCheckBox" name="downloadCheck">
        <property name="text">
-        <string>Maximum download speed</string>
+        <string>Maximum download speed:</string>
        </property>
       </widget>
      </item>
@@ -98,7 +98,7 @@
      <item row="3" column="0">
       <widget class="QCheckBox" name="uploadCheck">
        <property name="text">
-        <string>Maximum upload speed</string>
+        <string>Maximum upload speed:</string>
        </property>
       </widget>
      </item>
@@ -163,7 +163,7 @@
         <item>
          <widget class="QPushButton" name="tagButton">
           <property name="text">
-           <string>Modify the tags</string>
+           <string>Modify Tags</string>
           </property>
          </widget>
         </item>
