@@ -9,6 +9,14 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+// If KNotificationItem is available, we ignore "ui/tray.h" and include
+// "ui/tray_newproto.h" instead. Just replace tray.cpp/h by tray_newproto.cpp/h
+// and remove the few other ifdefs in KGets code, if you want to remove support
+// for legacy tray (should be done by KDE 4.4)
+#ifdef HAVE_KNOTIFICATIONITEM
+#include "ui/tray_newproto.h"
+#endif
+
 #ifndef TRAY_H
 #define TRAY_H
 
@@ -18,7 +26,6 @@
 
 class MainWindow;
 class KGet;
-class QTimer;
 class QPixmap;
 
 /**
@@ -50,17 +57,12 @@ private:
      */
     void blendOverlay( QPixmap * sourcePixmap );
 
-    QTimer *blinkTimer;
     QPixmap *baseIcon, *grayedIcon, *alternateIcon;
-    QPixmap *playOverlay, *stopOverlay;
-    QPixmap *overlay;   //!< The current overlay (may be NULL)
-    bool iconOn;
-    bool overlayVisible;
-    bool m_running;
+    QPixmap *playOverlay;
+    bool m_downloading;
 
 private slots:
     void slotActivated( QSystemTrayIcon::ActivationReason reason );
-    void slotTimeout();
 };
 
 #endif

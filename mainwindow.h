@@ -17,6 +17,9 @@
 #include <kxmlguiwindow.h>
 #include <kurl.h>
 
+#ifdef HAVE_KNOTIFICATIONITEM
+#include <knotificationitem-1/knotificationitem.h>
+#endif
 #include "ui/tray.h"
 
 class ViewsContainer;
@@ -49,7 +52,9 @@ public:
     virtual void setSystemTrayDownloading(bool running);
     virtual void importLinks(const QList <QString> &links);
 
+#ifndef HAVE_KNOTIFICATIONITEM
     KSystemTrayIcon *systemTray() const { return m_dock;};
+#endif
 
 public slots:
     void slotQuit();

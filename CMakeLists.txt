@@ -48,6 +48,10 @@ if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
 endif(SQLITE_FOUND)
 
+if (KNOTIFICATIONITEM_FOUND)
+    add_definitions(-DHAVE_KNOTIFICATIONITEM)
+endif (KNOTIFICATIONITEM_FOUND)
+
 remove_definitions(-DQT_NO_HTTP)
 
 # kgetcore
@@ -104,6 +108,10 @@ if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
+if (KNOTIFICATIONITEM_FOUND)
+  target_link_libraries(kgetcore ${KNOTIFICATION_LIBRARY})
+endif (KNOTIFICATIONITEM_FOUND)
+
 set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -122,7 +130,6 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/transfersviewdelegate.cpp
    ui/splash.cpp
    ui/transferdetails.cpp
-   ui/tray.cpp
    ui/viewscontainer.cpp
    ui/newtransferdialog.cpp
    ui/groupsettingsdialog.cpp
@@ -140,6 +147,18 @@ set(kget_SRCS ${kget_adaptor_SRCS}
 
    extensions/webinterface/httpserver.cpp
 )
+
+if(KNOTIFICATIONITEM_FOUND)
+    set(kget_SRCS
+        ${kget_SRCS}
+        ui/tray_newproto.cpp
+    )
+else(KNOTIFICATIONITEM_FOUND)
+    set(kget_SRCS
+        ${kget_SRCS}
+        ui/tray.cpp
+    )
+endif(KNOTIFICATIONITEM_FOUND)
 
 if(HAVE_NEPOMUK)
    set(kget_SRCS
@@ -177,5 +196,9 @@ target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOT
 if (KONQUEROR_FOUND)
   target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})
 endif (KONQUEROR_FOUND)
+
+if (KNOTIFICATIONITEM_FOUND)
+  target_link_libraries(kget ${KNOTIFICATIONITEM_LIBRARY})
+endif (KNOTIFICATIONITEM_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})

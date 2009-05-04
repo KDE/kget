@@ -37,7 +37,9 @@
 #include <kiconloader.h>
 #include <kactioncollection.h>
 #include <kio/renamedialog.h>
+#ifndef HAVE_KNOTIFICATIONITEM
 #include <KSystemTrayIcon>
+#endif
 #include <KSharedConfig>
 #include <KPluginInfo>
 

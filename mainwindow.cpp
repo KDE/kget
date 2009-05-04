@@ -330,12 +330,17 @@ void MainWindow::slotDelayedInit()
     //Here we import the user's transfers.
     KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
+#ifdef HAVE_KNOTIFICATIONITEM
+    if(Settings::enableSystemTray()) {
+        m_dock = new Tray(this);
+    }
+#else
     m_dock = new Tray(this);
 
     if(Settings::enableSystemTray()) {
-        // DockWidget
         m_dock->show();
     }
+#endif
 
     // enable dropping
     setAcceptDrops(true);
@@ -684,10 +689,23 @@ void MainWindow::slotNewConfig()
 
     m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
     m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
-    m_dock->setVisible(Settings::enableSystemTray());
 
+#ifdef HAVE_KNOTIFICATIONITEM
+    if(Settings::enableSystemTray() && !m_dock)
+    {
+        m_dock = new Tray(this);
+    }
+    else if(!Settings::enableSystemTray() && m_dock)
+    {
+        setVisible(true);
+        delete m_dock;
+        m_dock = 0;
+    }
+#else
+    m_dock->setVisible(Settings::enableSystemTray());
     if(!Settings::enableSystemTray())
         setVisible(true);
+#endif
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
@@ -789,7 +807,12 @@ void MainWindow::setSystemTrayDownloading(bool running)
 {
     kDebug(5001);
 
+#ifdef HAVE_KNOTIFICATIONITEM
+    if (m_dock)
+        m_dock->setDownloading(running);
+#else
     m_dock->setDownloading(running);
+#endif
 }
 
 void MainWindow::importLinks(const QList <QString> &links)
@@ -842,19 +865,17 @@ void MainWindow::slotImportUrl(const QString &url)
     link_view->show();
 }
 
-/** widget events */
+/** widget events **/
 void MainWindow::closeEvent( QCloseEvent * e )
 {
     // if the event comes from out the application (close event) we decide between close or hide
     // if the event comes from the application (system shutdown) we say goodbye
     if(e->spontaneous()) {
         e->ignore();
-        if(!Settings::enableSystemTray()) {
+        if(!Settings::enableSystemTray())
             slotQuit();
-        }
-        else {
+        else
             hide();
-        }
     }
 }
 

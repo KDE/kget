@@ -23,7 +23,6 @@
 #include <kmenu.h>
 #include <kdebug.h>
 
-#include <QTimer>
 #include <QPainter>
 #include <QLabel>
 #include <QClipboard>
@@ -34,16 +33,14 @@
   */
 Tray::Tray(MainWindow * parent)
     : KSystemTrayIcon(parent),
-      blinkTimer( 0 ),
       grayedIcon( 0 ),
       alternateIcon( 0 ),
-      overlay( 0 ),
-      overlayVisible( false ),
-      m_running( false )
+      playOverlay( 0 ),
+      m_downloading( false )
 {
     baseIcon = new QPixmap( KSystemTrayIcon::loadIcon("kget").pixmap(22) );
-    playOverlay = new QPixmap( SmallIcon( "media-playback-start" ) );
-    stopOverlay = new QPixmap( SmallIcon( "media-playback-pause" ) );
+    // 12x12 pixel overlay looks fine, amarok uses 10x10
+    playOverlay = new QPixmap( SmallIcon( "media-playback-start", 12 ) );
 
     paintIcon();
 
@@ -55,9 +52,9 @@ Tray::Tray(MainWindow * parent)
     cm->addAction( parent->actionCollection()->action("start_all_download") );
     cm->addAction( parent->actionCollection()->action("stop_all_download") );
     cm->addSeparator();
-    cm->addAction( parent->actionCollection()->action("preferences") );
     cm->addAction( parent->actionCollection()->action("konqueror_integration") );
     cm->addAction( parent->actionCollection()->action("show_drop_target") );
+    cm->addAction( parent->actionCollection()->action("options_configure") );
 
     // add tooltip telling "I'm kget"
     setToolTip(i18n("KGet - Download Manager"));
@@ -71,13 +68,10 @@ Tray::Tray(MainWindow * parent)
 // dtor: delete internal classes
 Tray::~Tray()
 {
-    delete blinkTimer;
     delete baseIcon;
     delete grayedIcon;
     delete alternateIcon;
     delete playOverlay;
-    delete stopOverlay;
-//    delete overlay;   // deleting overlay is wrong - it's either playOverlay or stopOverlay
 }
 
 // filter middle mouse clicks to ask scheduler to paste URL
@@ -98,57 +92,25 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
     }*/
 }
 
-// display blinking icon when downloading
-void Tray::setDownloading( bool running )
+// display a play icon when downloading
+void Tray::setDownloading( bool downloading )
 {
-    if (running == m_running)
+    if (downloading == m_downloading)
         return;
 
-    m_running = running;
+    m_downloading = downloading;
     kDebug(5001) << "Tray::setDownloading";
 
-    if(!blinkTimer)
-    {
-        blinkTimer = new QTimer;
-        connect( blinkTimer, SIGNAL( timeout() ), this, SLOT( slotTimeout() ) );
-    }
-
-    overlayVisible = true;
-
-    if(running)
-    {
-        overlay = playOverlay;
-        blinkTimer->start( 1500 );  // start 'blink' timer
+    if (downloading)
         paintIcon( 50, true );
-    }
     else
-    {
-        overlay = stopOverlay;
-        blinkTimer->start( 1500 );  // start 'hide' timer
-        paintIcon( 50, true );
-    }
+        paintIcon( -1, true );
+
 }
 
 bool Tray::isDownloading()
 {
-    return m_running;
-}
-
-// slot executed every 1s: toggle icon pixmap
-void Tray::slotTimeout()
-{
-    if ( overlay == playOverlay )
-    {
-        overlayVisible = !overlayVisible;
-        paintIcon( 50/*mergeLevel*/, true );
-    }
-    else if( overlay == stopOverlay )
-    {
-        overlay = 0;
-        blinkTimer->stop();
-        paintIcon( -1, true );
-        overlayVisible = false;
-    }
+    return m_downloading;
 }
 
 void Tray::paintIcon( int mergePixels, bool force )
@@ -203,35 +165,20 @@ void Tray::paintIcon( int mergePixels, bool force )
 
 void Tray::blendOverlay( QPixmap * sourcePixmap )
 {
-    if ( !overlayVisible || !overlay || overlay->isNull() )
+    if ( !m_downloading || !playOverlay || playOverlay->isNull() )
         return setIcon( *sourcePixmap );
 
-    // here comes the tricky part.. no kdefx functions are helping here.. :-(
+    // no kdefx functions are helping here.. :-(
     // we have to blend pixmaps with different sizes (blending will be done in
-    // the bottom-left corner of source pixmap with a smaller overlay pixmap)
-    int opW = overlay->width(),
-        opH = overlay->height(),
-        opX = 1,
+    // the bottom-right corner of source pixmap with a smaller overlay pixmap)
+    int opW = playOverlay->width(),
+        opH = playOverlay->height(),
+        opX = sourcePixmap->width() - opW,
         opY = sourcePixmap->height() - opH;
 
-    // get the rectangle where blending will take place 
-    QPixmap sourceCropped( opW, opH );
-    sourceCropped.fill(Qt::transparent);
-    QPainter paint;
-    paint.begin( &sourceCropped );
-    paint.drawPixmap( 0, 0, *sourcePixmap, opX, opY, opW,opH );
-    paint.end();
-
-    // blend the overlay image over the cropped rectangle
-    QImage blendedImage = sourceCropped.toImage();
-    QImage overlayImage = overlay->toImage();
-    KIconEffect::overlay( blendedImage, overlayImage );
-    sourceCropped = QPixmap().fromImage( blendedImage );
-
-    // put back the blended rectangle to the original image
     QPixmap sourcePixmapCopy = *sourcePixmap;
-    paint.begin( &sourcePixmapCopy );
-    paint.drawPixmap( opX, opY, sourceCropped, 0, 0, opW,opH );
+    QPainter paint( &sourcePixmapCopy );
+    paint.drawPixmap( opX, opY, *playOverlay );
     paint.end();
 
     setIcon( sourcePixmapCopy );

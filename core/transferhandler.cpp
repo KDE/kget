@@ -375,7 +375,12 @@ KPassivePopup* GenericTransferObserver::popupMessage(const QString &title, const
     // so passing the QSystemTrayIcon as QWidget don't work
     if(Settings::enableSystemTray()) 
     {
+#ifdef HAVE_KNOTIFICATIONITEM
+        //FIXME: proper solution ...
+        popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow);
+#else
         popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow->systemTray());
+#endif
     }
     else 
     {
