@@ -488,7 +488,7 @@ void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIn
 
 QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *handler)
 {
-    QGroupBox *groupBox = new QGroupBox(i18n("Transfer details"));
+    QGroupBox *groupBox = new QGroupBox(i18n("Transfer Details"));
 
     QVBoxLayout *layout = new QVBoxLayout(groupBox);
     QWidget *detailsWidget = TransferDetails::detailsWidget(handler);

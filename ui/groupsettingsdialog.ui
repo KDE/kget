@@ -163,7 +163,7 @@
         <item>
          <widget class="QPushButton" name="tagButton">
           <property name="text">
-           <string>Modify Tags</string>
+           <string>Modify Tags...</string>
           </property>
          </widget>
         </item>

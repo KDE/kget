@@ -29,7 +29,7 @@
      <item row="0" column="0" >
       <widget class="QCheckBox" name="kcfg_AfterFinishActionEnabled" >
        <property name="text" >
-        <string>Execute action after all downloads have been finished</string>
+        <string>Execute action after all downloads have been finished:</string>
        </property>
       </widget>
      </item>

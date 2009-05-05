@@ -184,12 +184,12 @@ void MainWindow::setupActions()
     connect(deleteGroupAction, SIGNAL(triggered()), SLOT(slotDeleteGroup()));
 
     KAction *renameGroupAction = actionCollection()->addAction("rename_groups");
-    renameGroupAction->setText(i18n("Rename Group"));
+    renameGroupAction->setText(i18n("Rename Group..."));
     renameGroupAction->setIcon(KIcon("edit-rename"));
     connect(renameGroupAction, SIGNAL(triggered()), SLOT(slotRenameGroup()));
 
     KAction *setIconGroupAction = actionCollection()->addAction("seticon_groups");
-    setIconGroupAction->setText(i18n("Set Icon"));
+    setIconGroupAction->setText(i18n("Set Icon..."));
     setIconGroupAction->setIcon(KIcon("preferences-desktop-icons"));
     connect(setIconGroupAction, SIGNAL(triggered()), SLOT(slotSetIconGroup()));
 
@@ -227,7 +227,7 @@ void MainWindow::setupActions()
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     KAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
-    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Delete all finished"));
+    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Delete All Finished"));
     deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
     connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
 
@@ -301,19 +301,19 @@ void MainWindow::setupActions()
     connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
 
     KAction *transferHistoryAction = actionCollection()->addAction("transfer_history");
-    transferHistoryAction->setText(i18n("&Transfer History..."));
+    transferHistoryAction->setText(i18n("&Transfer History"));
     transferHistoryAction->setIcon(KIcon("view-history"));
     transferHistoryAction->setShortcuts(KShortcut("Ctrl+H"));
     connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
 
     KAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
-    transferGroupSettingsAction->setText(i18n("&Group Settings..."));
+    transferGroupSettingsAction->setText(i18n("&Group Settings"));
     transferGroupSettingsAction->setIcon(KIcon("preferences-system"));
     transferGroupSettingsAction->setShortcuts(KShortcut("Ctrl+G"));
     connect(transferGroupSettingsAction, SIGNAL(triggered()), SLOT(slotTransferGroupSettings()));
 
     KAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
-    transferSettingsAction->setText(i18n("&Transfer Settings..."));
+    transferSettingsAction->setText(i18n("&Transfer Settings"));
     transferSettingsAction->setIcon(KIcon("preferences-system"));
     transferSettingsAction->setShortcuts(KShortcut("Ctrl+T"));
     connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));

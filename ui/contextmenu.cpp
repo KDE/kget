@@ -71,7 +71,7 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
         popup->addSeparator();
 
 #ifdef HAVE_NEPOMUK
-    KMenu *nepomukMenu = new KMenu(i18n("Semantic desktop"), parent);
+    KMenu *nepomukMenu = new KMenu(i18n("Semantic Desktop"), parent);
     nepomukMenu->setIcon(KIcon("nepomuk"));
     QWidgetAction *nepomukWidgetAction = new QWidgetAction(parent);
     NepomukWidget *nepomukWidget = new NepomukWidget(transfers.first(), parent);
@@ -148,7 +148,7 @@ KMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handle
         popup->addAction(action);
 
         action = KGet::actionCollection()->action("rename_groups");
-        action->setText(i18np("Rename Group", "Rename Groups", numGroups));
+        action->setText(i18np("Rename Group...", "Rename Groups...", numGroups));
         popup->addAction(action);
     }
     popup->addAction( KGet::actionCollection()->action("seticon_groups") );

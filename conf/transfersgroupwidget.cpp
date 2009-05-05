@@ -78,7 +78,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
             if(groupName == newName &&
                groupName != model()->data(currentIndex(), Qt::DisplayRole).toString())
             {
-                KMessageBox::error( this, i18n("Another group with this name already exists. Please select a different name.", i18n("Group name already in use") ) );
+                KMessageBox::error( this, i18n("Another group with this name already exists. Please select a different name.", i18n("Group Name Already in Use") ) );
                 QTimer::singleShot( 0, this, SLOT(editCurrent()) );
                 return;
             }
@@ -124,7 +124,7 @@ void TransfersGroupTree::deleteSelectedGroup()
 
         if(KMessageBox::warningYesNo(this,
             i18np("Are you sure that you want to remove the group named %1?", "Are you sure that you want to remove all selected groups?", firstGroup, indexList.count()),
-            i18np("Remove group", "Remove groups", indexList.count()),
+            i18np("Remove Group", "Remove groups", indexList.count()),
             KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::Yes)
         {
             foreach(const QModelIndex &index, indexList)
@@ -179,7 +179,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     iconButton = new KIconButton(dynamic_cast<QWidget*>(this));
     iconButton->setIconSize(32);
     iconButton->setButtonIconSize(16);
-    iconButton->setText(i18n("Select Icon"));
+    iconButton->setText(i18n("Select Icon..."));
     iconButton->setIcon(KIcon("preferences-desktop-icons"));
     configureButton = new QPushButton(i18n("Configure..."));
     configureButton->setIcon(KGet::actionCollection()->action("transfer_group_settings")->icon());

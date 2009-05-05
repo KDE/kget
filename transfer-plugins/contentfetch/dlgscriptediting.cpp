@@ -22,7 +22,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent)
     ui.setupUi(mainWidget);
     setMainWidget(mainWidget);
 
-    setWindowTitle(i18n("Add new script"));
+    setWindowTitle(i18n("Add New Script"));
     init();
 }
 
@@ -34,7 +34,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
     ui.setupUi(mainWidget);
     setMainWidget(mainWidget);
 
-    setWindowTitle(i18n("Edit script"));
+    setWindowTitle(i18n("Edit Script"));
     ui.scriptPathRequester->setUrl(KUrl::fromPath(script[0]));
     ui.scriptUrlRegexpEdit->setText(script[1]);
     ui.scriptDescriptionEdit->setText(script[2]);
@@ -45,7 +45,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
 void DlgScriptEditing::init()
 {
     ui.scriptPathRequester->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-    ui.scriptPathRequester->fileDialog()->setCaption(i18n("Set script file"));
+    ui.scriptPathRequester->fileDialog()->setCaption(i18n("Set Script File"));
 
     QStringList filter;
     foreach(Kross::InterpreterInfo* infos, Kross::Manager::self().interpreterInfos().values())

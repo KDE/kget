@@ -49,7 +49,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 #endif
 
 #ifdef HAVE_KWORKSPACE
-    dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Turn off the computer"), QVariant(KGet::Shutdown));
+    dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Turn Off Computer"), QVariant(KGet::Shutdown));
 #endif
 
     // enable or disable the AfterFinishAction depends on the AfterFinishActionEnabled checkbox state

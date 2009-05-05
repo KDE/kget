@@ -79,7 +79,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
             SLOT(selectionChanged()));
 
     setMainWidget(widget);
-    setButtonText(KDialog::Ok, i18nc("Download the items which have been selected","&Download checked"));
+    setButtonText(KDialog::Ok, i18nc("Download the items which have been selected","&Download Checked"));
     setButtonIcon(KDialog::Ok, KIcon("kget"));
 
     checkClipboard();
@@ -261,8 +261,8 @@ void KGetLinkView::setTextFilter(const QString &text)
 void KGetLinkView::updateSelectionButtons()
 {
     const bool isFiltered = !ui.textFilter->text().isEmpty() || (ui.filterButtonGroup->checkedId() != KGetSortFilterProxyModel::NoFilter);
-    ui.selectAll->setText(isFiltered ? i18n("&Select all filtered") : i18n("&Select all"));
-    ui.deselectAll->setText(isFiltered ? i18n("D&eselect all filtered") : i18n("D&eselect all"));
+    ui.selectAll->setText(isFiltered ? i18n("&Select All Filtered") : i18n("&Select All"));
+    ui.deselectAll->setText(isFiltered ? i18n("D&eselect All Filtered") : i18n("D&eselect All"));
 
     selectionChanged();
 }
