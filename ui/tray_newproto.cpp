@@ -7,11 +7,9 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
-
-#include "core/kget.h"
-#include "mainwindow.h"
 #include "ui/tray_newproto.h"
+#include "mainwindow.h"
+#include "ui/newtransferdialog.h"
 #include <kaboutdata.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
@@ -52,29 +50,22 @@ Tray::Tray(MainWindow * parent)
     // Not of much use atm, but maybe we want to set this later?
     // setToolTipSubTitle("[..]");
 
-// filter middle mouse clicks to ask scheduler to paste URL
-// This does not yet work with KNotificationItem ...
-//  connect( this, SIGNAL( activated( QSystemTrayIcon::ActivationReason ) ),
-//                 SLOT( slotActivated( QSystemTrayIcon::ActivationReason ) ) );
+    // filter middle mouse clicks to ask scheduler to paste URL
+    connect( this, SIGNAL( secondaryActivateRequested(const QPoint&) ),
+             this, SLOT( slotActivated() ) );
 }
 
 
 // filter middle mouse clicks to ask scheduler to paste URL
-// This does not yet work with KNotificationItem ...
-/*
- *void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
- *{
- *    if ( reason == QSystemTrayIcon::MiddleClick )
- *    {
- *       // Here we paste the transfer
- *       QString newtransfer = QApplication::clipboard()->text();
- *       newtransfer = newtransfer.trimmed();
- *
- *       if(!newtransfer.isEmpty())
- *           KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
- *    }
- *}
- */
+void Tray::slotActivated()
+{
+    // Here we paste the transfer
+    QString newtransfer = QApplication::clipboard()->text();
+    newtransfer = newtransfer.trimmed();
+
+    if(!newtransfer.isEmpty())
+        NewTransferDialog::instance()->showDialog(newtransfer);
+}
 
 // display a play icon when downloading and
 // switch between Active or Passive state

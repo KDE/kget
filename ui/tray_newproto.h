@@ -32,13 +32,11 @@ Q_OBJECT
 public:
     Tray( MainWindow * parent );
 
-    void setDownloading(bool running);
+    void setDownloading(bool downloading);
     bool isDownloading();
 
-// filter middle mouse clicks to ask scheduler to paste URL
-// This does not yet work with KNotificationItem ...
-//private slots:
-//    void slotActivated( QSystemTrayIcon::ActivationReason reason );
+private slots:
+    void slotActivated();
 };
 
 #endif

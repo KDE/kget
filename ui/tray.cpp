@@ -12,8 +12,8 @@
 #include "ui/tray.h"
 
 #include "settings.h"
-#include "core/kget.h"
 #include "mainwindow.h"
+#include "ui/newtransferdialog.h"
 
 #include <kaboutdata.h>
 #include <kactioncollection.h>
@@ -84,7 +84,7 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
+            NewTransferDialog::instance()->showDialog(newtransfer);
     }
     /*else if (reason == QSystemTrayIcon::Trigger) {
         // save the main window minimized state if it changes from the sys tray icon
