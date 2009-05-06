@@ -48,9 +48,9 @@ if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
 endif(SQLITE_FOUND)
 
-if (KNOTIFICATIONITEM_FOUND)
+if (LIBKNOTIFICATIONITEM-1_FOUND)
     add_definitions(-DHAVE_KNOTIFICATIONITEM)
-endif (KNOTIFICATIONITEM_FOUND)
+endif (LIBKNOTIFICATIONITEM-1_FOUND)
 
 remove_definitions(-DQT_NO_HTTP)
 
@@ -148,17 +148,17 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    extensions/webinterface/httpserver.cpp
 )
 
-if(KNOTIFICATIONITEM_FOUND)
+if(LIBKNOTIFICATIONITEM-1_FOUND)
     set(kget_SRCS
         ${kget_SRCS}
         ui/tray_newproto.cpp
     )
-else(KNOTIFICATIONITEM_FOUND)
+else(LIBKNOTIFICATIONITEM-1_FOUND)
     set(kget_SRCS
         ${kget_SRCS}
         ui/tray.cpp
     )
-endif(KNOTIFICATIONITEM_FOUND)
+endif(LIBKNOTIFICATIONITEM-1_FOUND)
 
 if(HAVE_NEPOMUK)
    set(kget_SRCS
@@ -197,8 +197,8 @@ if (KONQUEROR_FOUND)
   target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})
 endif (KONQUEROR_FOUND)
 
-if (KNOTIFICATIONITEM_FOUND)
+if (LIBKNOTIFICATIONITEM-1_FOUND)
   target_link_libraries(kget ${KNOTIFICATIONITEM_LIBRARY})
-endif (KNOTIFICATIONITEM_FOUND)
+endif (LIBKNOTIFICATIONITEM-1_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
