@@ -1,6 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet Piechart Applet
+Name[pt]='Applet' de Gráfico Circular do KGet
+Name[pt_BR]=Miniaplicativo de gráfico circular do KGet
+Name[sv]=Cirkeldiagram-miniprogram för Kget
+Name[uk]=Аплет кругової діаграми KGet
+Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
 Comment[ar]=بريمج KGet piechart
 Comment[ca]=Miniaplicació de diagrama de sectors del KGet

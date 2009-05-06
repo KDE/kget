@@ -1,6 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet Barchart Applet
+Name[pt]='Applet' de Gráfico de Barras do KGet
+Name[pt_BR]=Miniaplicativo de gráfico de barras do KGet
+Name[sv]=Stapeldiagram-miniprogram för Kget
+Name[uk]=Аплет гістограми KGet
+Name[zh_TW]=KGet 圖表小程式
 Comment=KGet barchart applet
 Comment[ar]=بريمج KGet عمود خُطاطة
 Comment[ca]=Miniaplicació de diagrama de barres del KGet

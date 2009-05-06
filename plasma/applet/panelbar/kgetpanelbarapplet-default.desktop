@@ -1,6 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet Panelbar Applet
+Name[pt]='Applet' de Barra de Painéis do KGet
+Name[pt_BR]=Miniaplicativo de barra de painel do KGet
+Name[sv]=Panelrad-miniprogram för Kget
+Name[uk]=Аплет стовпчикової діаграми KGet
+Name[zh_TW]=KGet 面板列小程式
 Comment=KGet panelbar applet
 Comment[ar]=بريمج عمود التحكم KGet
 Comment[ca]=Miniaplicació de panell de barres del KGet
