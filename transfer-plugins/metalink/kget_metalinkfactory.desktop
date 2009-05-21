@@ -38,6 +38,7 @@ Comment[sv]=Gör det möjligt att ladda ner filer från Metalink
 Comment[tr]=Metalinkten dosya indirmenizi sağlar
 Comment[uk]=Надає змогу звантажувати файли з Metalink
 Comment[x-test]=xxAllows files to be downloaded from Metalinkxx
+Comment[zh_CN]=允许从 Metalink 上下载文件
 Comment[zh_TW]=允許從 Metalink 下載檔案
 
 # options for library loader

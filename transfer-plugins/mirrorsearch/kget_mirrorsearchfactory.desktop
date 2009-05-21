@@ -55,6 +55,7 @@ Comment[sv]=Gör det möjligt för Kget att söka efter filen via spegelsöktjä
 Comment[tr]=KGet uygulamasının yansı motorlarında arama yapmasını sağlar
 Comment[uk]=Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал
 Comment[x-test]=xxAllows KGet to search through mirror search engines for filesxx
+Comment[zh_CN]=允许 KGet 通过镜像搜索引擎查找文件
 Comment[zh_TW]=允許 KGet 透過鏡射搜尋引擎來搜尋檔案
 
 # options for library loader

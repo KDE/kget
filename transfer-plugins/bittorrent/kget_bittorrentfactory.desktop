@@ -42,6 +42,7 @@ Comment[sv]=Gör det möjligt att ladda ner filer med användning av Bittorrent
 Comment[tr]=Bittorrent kullanarak dosya indirmenizi sağlar
 Comment[uk]=Надає змогу звантажувати файли за допомогою Bittorrent
 Comment[x-test]=xxAllows files to be downloaded using Bittorrentxx
+Comment[zh_CN]=允许使用 Bittorrent 协议下载文件
 Comment[zh_TW]=允許使用 Bittorrent 下載檔案
 
 # options for library loader
