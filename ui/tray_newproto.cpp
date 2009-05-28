@@ -41,11 +41,11 @@ Tray::Tray(MainWindow * parent)
 
     // Set up basic tray parameters
     setCategory(ApplicationStatus);
-    setIcon("kget");
+    setIconByName("kget");
     setTitle(i18n("KGet"));
     setContextMenu(cm);
     setAssociatedWidget(parent);
-    setToolTipIcon("kget");
+    setToolTipIconByName("kget");
     setToolTipTitle(i18n("Download Manager"));
     // Not of much use atm, but maybe we want to set this later?
     // setToolTipSubTitle("[..]");
@@ -78,14 +78,14 @@ void Tray::setDownloading( bool downloading )
         if (status() == KNotificationItem::Active)
             return;
         setStatus(KNotificationItem::Active);
-        setOverlayIcon("media-playback-start");
+        setOverlayIconByName("media-playback-start");
     }
     else
     {
         if (status() == KNotificationItem::Passive)
             return;
         setStatus(KNotificationItem::Passive);
-        setOverlayIcon(QString());
+        setOverlayIconByName(QString());
     } 	
 }
 
