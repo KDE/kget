@@ -18,7 +18,7 @@
 #include <kurl.h>
 
 #ifdef HAVE_KNOTIFICATIONITEM
-#include <knotificationitem-1/knotificationitem.h>
+#include <knotificationitem.h>
 #endif
 #include "ui/tray.h"
 

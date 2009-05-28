@@ -11,7 +11,7 @@
 #ifndef TRAY_H
 #define TRAY_H
 
-#include <knotificationitem-1/knotificationitem.h>
+#include <knotificationitem.h>
 
 #include "core/observer.h"
 
