@@ -960,14 +960,13 @@ void KGet::loadPlugins()
     str += " and ";
     str += "[X-KDE-KGet-plugintype] == ";
 
-    KService::List offers;
 
     //TransferFactory plugins
-    offers = KServiceTypeTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
+    KService::List offers = KServiceTypeTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
 
     //Here we use a QMap only to easily sort the plugins by rank
     QMap<int, KService::Ptr> services;
-    QMap<int, KService::Ptr>::iterator it;
+    QMap<int, KService::Ptr>::ConstIterator it;
 
     for ( int i = 0; i < offers.count(); ++i )
     {
@@ -982,9 +981,9 @@ void KGet::loadPlugins()
     //members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 
-    KConfigGroup plugins = KConfigGroup(KGlobal::config(), "Plugins");
-
-    for( it = services.begin(); it != services.end(); ++it )
+    const KConfigGroup plugins = KConfigGroup(KGlobal::config(), "Plugins");
+   
+    for( it = services.constBegin(); it != services.constEnd(); ++it )
     {
         KPluginInfo info(*it);
         info.load(plugins);
@@ -998,7 +997,7 @@ void KGet::loadPlugins()
         KGetPlugin * plugin;
         if( (plugin = createPluginFromService(*it)) != 0 )
         {
-            QString pluginName = info.name();
+            const QString pluginName = info.name();
             
             pluginList.prepend(plugin);
             kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
@@ -1010,8 +1009,8 @@ void KGet::loadPlugins()
                       << (*it)->library() << ")";
     }
 
-    QList<KGetPlugin *>::iterator it2 = pluginList.begin();
-    QList<KGetPlugin *>::iterator it2End = pluginList.end();
+    QList<KGetPlugin *>::ConstIterator it2 = pluginList.constBegin();
+    QList<KGetPlugin *>::ConstIterator it2End = pluginList.constEnd();
 
     for( ; it2!=it2End ; ++it2 )
         m_transferFactories.append( qobject_cast<TransferFactory *>(*it2) );
