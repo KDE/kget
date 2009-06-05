@@ -11,6 +11,10 @@ if(HAVE_NEPOMUK)
     add_definitions(-DHAVE_NEPOMUK)
 endif(HAVE_NEPOMUK)
 
+if(QCA2_FOUND)
+    add_definitions(-DHAVE_QCA2)
+endif(QCA2_FOUND)
+
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
 
 add_subdirectory(conf)
