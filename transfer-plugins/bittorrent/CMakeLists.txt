@@ -176,6 +176,7 @@ set(libbtcore_SRC
     libbtcore/tracker/tracker.cpp  
     libbtcore/tracker/udptracker.cpp  
     libbtcore/tracker/udptrackersocket.cpp
+    libbtcore/tracker/httpannouncejob.cpp
     
     libbtcore/datachecker/datachecker.cpp          
     libbtcore/datachecker/datacheckerthread.cpp  
