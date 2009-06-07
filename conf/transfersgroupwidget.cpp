@@ -221,7 +221,7 @@ void TransfersGroupWidget::slotSelectionChanged()
     deleteButton->setEnabled(canDelete);
     configureButton->setEnabled(somethingSelected);
     iconButton->setEnabled(somethingSelected);
-    if (somethingSelected)
+    if (somethingSelected && !KGet::selectedTransferGroups().isEmpty())
         iconButton->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
     else
         iconButton->setIcon(KIcon("preferences-desktop-icons"));
