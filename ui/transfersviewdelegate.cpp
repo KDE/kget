@@ -420,6 +420,11 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
             KMenu *popup = 0;
 
             TransferTreeModel * transferTreeModel = static_cast<TransferTreeModel *>(model);
+            QAbstractItemView * transferView = static_cast<QAbstractItemView *>(parent());
+
+            QItemSelection selectedRow(model->index(index.row(), 0, index.parent()),
+                                       model->index(index.row(), model->columnCount(), index.parent()));
+            transferView->selectionModel()->select(selectedRow, QItemSelectionModel::ClearAndSelect);
 
             if(transferTreeModel->isTransferGroup(index))
             {
