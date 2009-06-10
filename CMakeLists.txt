@@ -198,6 +198,10 @@ kde4_add_executable(kget ${kget_SRCS})
 
 target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
 
+if (HAVE_NEPOMUK)
+  target_link_libraries(kget ${NEPOMUK_LIBRARIES})
+endif (HAVE_NEPOMUK)
+
 if (KONQUEROR_FOUND)
   target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})
 endif (KONQUEROR_FOUND)
