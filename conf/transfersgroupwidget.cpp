@@ -78,7 +78,7 @@ void TransfersGroupTree::commitData(QWidget *editor)
             if(groupName == newName &&
                groupName != model()->data(currentIndex(), Qt::DisplayRole).toString())
             {
-                KMessageBox::error( this, i18n("Another group with this name already exists. Please select a different name.", i18n("Group Name Already in Use") ) );
+                KMessageBox::error( this, i18n("Another group with this name already exists. Please select a different name."), i18n("Group Name Already in Use") );
                 QTimer::singleShot( 0, this, SLOT(editCurrent()) );
                 return;
             }

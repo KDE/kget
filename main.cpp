@@ -70,7 +70,7 @@ public:
         for (int i = 0; i < args->count(); i++)
         {
             QString txt(args->arg(i));
-            if ( txt.endsWith( ".kgt", Qt::CaseInsensitive ) )
+            if ( txt.endsWith( QLatin1String(".kgt"), Qt::CaseInsensitive ) )
                 KGet::load( txt );
             else
                 l.push_back(KUrl(args->arg(i)));

@@ -42,9 +42,9 @@
 #endif
 #include <KSharedConfig>
 #include <KPluginInfo>
+#include <KComboBox>
 
 #include <QTextStream>
-#include <QtGui/QComboBox>
 #include <QDomElement>
 #include <QApplication>
 #include <QClipboard>
@@ -390,7 +390,7 @@ void KGet::addTransferView(QAbstractItemView * view)
     view->setModel(m_transferTreeModel);
 }
 
-void KGet::addTransferView(QComboBox * view)
+void KGet::addTransferView(KComboBox * view)
 {
     view->setModel(m_transferTreeModel);
 }

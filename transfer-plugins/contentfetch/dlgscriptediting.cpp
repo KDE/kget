@@ -48,8 +48,8 @@ void DlgScriptEditing::init()
     ui.scriptPathRequester->fileDialog()->setCaption(i18n("Set Script File"));
 
     QStringList filter;
-    foreach(Kross::InterpreterInfo* infos, Kross::Manager::self().interpreterInfos().values())
-        filter << infos->mimeTypes().join(" ");
+    foreach(Kross::InterpreterInfo* info, Kross::Manager::self().interpreterInfos())
+        filter << info->mimeTypes().join(" ");
     ui.scriptPathRequester->setFilter(filter.join(" "));
 
     setModal(true);

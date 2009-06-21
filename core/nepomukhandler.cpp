@@ -101,7 +101,7 @@ bool NepomukHandler::isValid()
 {
     bool valid = QFile::exists(m_destination.pathOrUrl());
 //NOTE the assoicated properties to the .part file do not seem to be correctly moved by Nepomuk
-//after finnishing the download by Nepomuk (the metadata is not transfered)
+//after finnishing the download by Nepomuk (the metadata is not transferred)
 //TODO reenable when this is fixed
 //     //a part file exists so use that as destination for the Nepomuk properties
 //     if (!valid && (QFile::exists(m_destination.pathOrUrl() + ".part")))
