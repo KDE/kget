@@ -53,8 +53,8 @@ class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
         KTabWidget *tabWidget;
 
         BTTransferHandler * m_transfer;
-        kt::PeerView* peer_view;
-	kt::ChunkDownloadView* cd_view;
+        //kt::PeerView* peer_view;
+	//kt::ChunkDownloadView* cd_view;
 	kt::FileView* file_view;
 	kt::Monitor* monitor; 
         kt::TrackerView *tracker_view;
