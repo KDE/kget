@@ -142,10 +142,10 @@ QStringList KGet::transferGroupNames()
     return names;
 }
 
-void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalue
+void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
                        const QString& groupName, bool start)
 {
-    kDebug(5001) << "Source:" << srcUrl.url();
+    kDebug() << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
 
     KUrl destUrl;
 
@@ -160,8 +160,12 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
     if ( !isValidSource( srcUrl ) )
         return;
 
+    // when we get a destination directory and suggested filename, we don't 
+    // need to ask for it again
+    bool confirmDestination = false;
     if (destDir.isEmpty())
     {
+	confirmDestination = true;
         if (Settings::useDefaultDirectory())
             destDir = KUrl(Settings::defaultDirectory()).path();
 
@@ -170,11 +174,33 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, // krazy:exclude=passbyvalu
             destDir = checkExceptions;
     }
 
-    if (!isValidDestDirectory(destDir))
-        destDir = destInputDialog();
+    if (suggestedFileName.isEmpty())
+    {
+	confirmDestination = true;
+        suggestedFileName = srcUrl.fileName(KUrl::ObeyTrailingSlash);
+        if (suggestedFileName.isEmpty())
+        {
+            // simply use the full url as filename
+            suggestedFileName = KUrl::toPercentEncoding( srcUrl.prettyUrl(), "/" );
+        }
+    }
 
-    if( (destUrl = getValidDestUrl( destDir, srcUrl )).isEmpty() )
-        return;
+    // now ask for confirmation of the entire destination url (dir + filename)
+    if (confirmDestination || !isValidDestDirectory(destDir))
+    {
+        do 
+        {
+            destUrl = destFileInputDialog(destDir, suggestedFileName);
+            if (destUrl.isEmpty()) 
+                return;
+
+            destDir = destUrl.directory(KUrl::ObeyTrailingSlash);
+        } while (!isValidDestDirectory(destDir));
+    } else {
+       destUrl = KUrl();
+       destUrl.setDirectory(destDir); 
+       destUrl.addPath(suggestedFileName);
+    }
 
     if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || (destUrl.isLocalFile() && QFile::exists(destUrl.path()))) {
         KIO::RenameDialog dlg( m_mainWindow, i18n("Rename transfer"), srcUrl,
@@ -233,7 +259,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
 
     // multiple files -> ask for directory, not for every single filename
     if (!isValidDestDirectory(destDir) && !Settings::useDefaultDirectory())
-        destDir = destInputDialog();
+        destDir = destDirInputDialog();
 
     it = urlsToDownload.begin();
     itEnd = urlsToDownload.end();
@@ -286,12 +312,13 @@ void KGet::redownloadTransfer(TransferHandler * transfer)
      QString group = transfer->group()->name();
      QString src = transfer->source().url();
      QString dest = transfer->dest().url();
+     QString destFile = transfer->dest().fileName();
      bool running = false;
      if (transfer->status() == Job::Running)
          running = true;
 
      KGet::delTransfer(transfer);
-     KGet::addTransfer(src, dest, group, running);
+     KGet::addTransfer(src, dest, destFile, group, running);
 }
 
 QList<TransferHandler *> KGet::selectedTransfers()
@@ -791,12 +818,40 @@ KUrl KGet::urlInputDialog()
     return KUrl();
 }
 
-QString KGet::destInputDialog()
+QString KGet::destDirInputDialog()
 {
     QString destDir = KFileDialog::getExistingDirectory(Settings::lastDirectory());
 
     Settings::setLastDirectory( destDir );
     return destDir;
+}
+
+KUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName) // krazy:exclude=passbyvalue
+{
+    if (destDir.isEmpty())
+        destDir = Settings::lastDirectory();
+
+    // open the filedialog for confirmation
+    KFileDialog dlg(destDir, QString(),
+                    0L, 0L);
+    dlg.setCaption(i18n("Save As"));
+    dlg.setOperationMode(KFileDialog::Saving);
+    dlg.setMode(KFile::File | KFile::LocalOnly);
+
+    // Use the destination name if not empty...
+    if (!suggestedFileName.isEmpty())
+        dlg.setSelection(suggestedFileName);
+
+    if ( dlg.exec() == QDialog::Rejected )
+    {
+        return KUrl();
+    }
+    else
+    {
+        KUrl destUrl = dlg.selectedUrl();
+        Settings::setLastDirectory( destUrl.directory(KUrl::ObeyTrailingSlash) );
+        return destUrl;
+    }
 }
 
 QString KGet::getSaveDirectoryFromExceptions(const KUrl &filename)
@@ -922,14 +977,14 @@ bool KGet::isValidDestUrl(const KUrl &destUrl)
    */
 }
 
-KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
+KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl, const QString& destFileName)
 {
     if ( !isValidDestDirectory(destDir) )
         return KUrl();
 
     // create a proper destination file from destDir
     KUrl destUrl = KUrl( destDir );
-    QString filename = srcUrl.fileName();
+    QString filename = destFileName.isEmpty() ? srcUrl.fileName() : destFileName;
 
     if ( filename.isEmpty() )
     {

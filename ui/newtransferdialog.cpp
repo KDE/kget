@@ -329,7 +329,7 @@ void NewTransferDialog::prepareDialog()
             
             kDebug(5001) << m_sources;
             if (m_sources.count() == 1)
-                KGet::addTransfer(m_sources.takeFirst(), destDir, d->transferGroup());
+                KGet::addTransfer(m_sources.takeFirst(), destDir, QString(), d->transferGroup());
             else
                 KGet::addTransfer(m_sources, destDir, d->transferGroup());
         }
