@@ -11,6 +11,7 @@
 #include "transferKio.h"
 
 #include <kiconloader.h>
+#include <kio/scheduler.h>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <klocale.h>
@@ -89,6 +90,7 @@ void TransferKio::createJob()
 {
     if(!m_copyjob)
     {
+        KIO::Scheduler::checkSlaveOnHold(true);
         m_copyjob = KIO::file_copy(m_source, m_dest, -1, KIO::HideProgressInfo);
 
         connect(m_copyjob, SIGNAL(result(KJob *)), 

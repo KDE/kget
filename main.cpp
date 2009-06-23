@@ -80,9 +80,24 @@ public:
         if (splash)
             splash->removeSplash();
 
-        // the last arg read (when we have more than 1 arg) is considered
-        // as destination dir for the previous downloads
-        // if there is a valid local file
+        // if there are exactly two parameters, these may either be
+        // - two valid urls to download, or
+        // - one url and the simple filename to use for saving
+        if (l.count() == 2) {
+            KUrl lastUrl = l.last();
+            if (lastUrl.isLocalFile()) { // either absolute or relative
+                QString destDir = lastUrl.directory(KUrl::ObeyTrailingSlash);
+		QString fileName = lastUrl.fileName(KUrl::ObeyTrailingSlash);
+		KGet::addTransfer(l.first(), destDir, fileName);
+		return 0;
+	    } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.directory().isEmpty())) {
+	        // Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
+                QString suggestedFileName = lastUrl.url();
+		KGet::addTransfer(l.first(), QString(), suggestedFileName);
+		return 0;
+            }
+        }
+
         QString destUrl;
         if (l.count() >= 2 && l.last().isLocalFile()) {
             if (!QFileInfo(l.last().toLocalFile()).isDir())

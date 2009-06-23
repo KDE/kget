@@ -20,6 +20,7 @@
 #endif //HAVE_NEPOMUK
 
 #include <kiconloader.h>
+#include <kio/scheduler.h>
 #include <klocale.h>
 #include <kdebug.h>
 
@@ -84,6 +85,7 @@ void metalink::createJob()
 
     if(!m_copyjob)
     {
+        KIO::Scheduler::checkSlaveOnHold(true);
         m_copyjob = KIO::get(m_source , KIO::NoReload, KIO::HideProgressInfo);
         connect(m_copyjob,SIGNAL(data(KIO::Job*,const QByteArray &)), SLOT(slotData(KIO::Job*, const QByteArray& )));
         connect(m_copyjob, SIGNAL(result(KJob *)),

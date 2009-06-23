@@ -127,11 +127,12 @@ class KGET_EXPORT KGet
          * @param srcUrl The url to be downloaded
          * @param destDir The destination directory. If empty we show a dialog
          * where the user can choose it.
+	 * @param suggestedFileName a suggestion of a simple filename to be saved in destDir
          * @param groupName The name of the group the new transfer will belong to
          * @param start Specifies if the newly added transfers should be started.
          * If the group queue is already in a running state, this flag does nothing
          */
-        static void addTransfer(KUrl srcUrl, QString destDir = QString(),
+        static void addTransfer(KUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
                                 const QString& groupName = QString(), bool start=false);
 
         /**
@@ -364,7 +365,8 @@ class KGET_EXPORT KGet
         static void postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer = 0);
 
         static KUrl urlInputDialog();
-        static QString destInputDialog();
+        static QString destDirInputDialog();
+        static KUrl destFileInputDialog(QString destDir = QString(), const QString& suggestedFileName = QString());
 
         static bool isValidSource(const KUrl &source);
         static bool isValidDestDirectory(const QString& destDir);
@@ -378,7 +380,7 @@ class KGET_EXPORT KGet
          */
         static bool isValidDestUrl(const KUrl &destUrl);
 
-        static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl);
+        static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl, const QString& destFileName = QString());
 
         static TransferGroup * findGroup(const QString& groupName);
 
