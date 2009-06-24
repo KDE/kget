@@ -172,9 +172,10 @@ QStringList KGet::transferGroupNames()
 void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
                        const QString& groupName, bool start)
 {
+    // Note: destDir may actually be a full path to a file :-(
     kDebug() << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
 
-    KUrl destUrl;
+    KUrl destUrl; // the final destination, including filename
 
     if ( srcUrl.isEmpty() )
     {
@@ -196,6 +197,16 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, 
         QList<TransferGroupHandler*> list = groupsFromExceptions(srcUrl);
         if (!list.isEmpty())
             destDir = list.first()->defaultFolder();
+    } else {
+        // check whether destDir is actually already the path to a file
+        KUrl targetUrl = KUrl(destDir);
+        QString directory = targetUrl.directory(KUrl::ObeyTrailingSlash);
+        QString fileName = targetUrl.fileName(KUrl::ObeyTrailingSlash);
+        if (QFileInfo(directory).isDir() && !fileName.isEmpty())
+        {
+            destDir = directory;
+            suggestedFileName = fileName;
+        }
     }
 
     if (suggestedFileName.isEmpty())
@@ -221,9 +232,9 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, 
             destDir = destUrl.directory(KUrl::ObeyTrailingSlash);
         } while (!isValidDestDirectory(destDir));
     } else {
-       destUrl = KUrl();
-       destUrl.setDirectory(destDir); 
-       destUrl.addPath(suggestedFileName);
+        destUrl = KUrl();
+        destUrl.setDirectory(destDir); 
+        destUrl.addPath(suggestedFileName);
     }
 
     if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || (destUrl.isLocalFile() && QFile::exists(destUrl.path()))) {
