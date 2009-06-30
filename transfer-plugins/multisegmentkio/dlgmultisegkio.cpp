@@ -24,6 +24,7 @@ DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
     connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(ui.minSegSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(ui.saveDataSizeSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(changed()));
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()
