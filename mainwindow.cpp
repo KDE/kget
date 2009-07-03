@@ -763,7 +763,7 @@ void MainWindow::slotCheckClipboard()
 
         KUrl url = KUrl(lastClipboard);
 
-        if (url.isValid() && !url.isLocalFile())
+        if (url.isValid() && !url.protocol().isEmpty() && url.hasPath() && !url.isLocalFile())
             KGet::addTransfer( url );
     }
 }
