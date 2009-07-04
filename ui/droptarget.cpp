@@ -403,7 +403,7 @@ void DropTarget::slotToolTipUpdate()
                 transfer->statusText());
             break;
         case Job::Finished:
-            data = i18nc("%1 filename, %2 total size, %3 status", "%1(%2) %3"
+            data = i18nc("%1 filename, %2 total size, %3 status", "%1(%2) %3",
                 transfer->source().fileName(),
                 KIO::convertSize(transfer->totalSize()),
                 transfer->statusText());
