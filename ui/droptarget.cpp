@@ -395,23 +395,23 @@ void DropTarget::slotToolTipUpdate()
         case Job::Delayed:
         case Job::Stopped:
         case Job::Aborted:
-            data = QString("%1(%2% %3/%4) %5")
-                .arg(transfer->source().fileName())
-                .arg(QString::number(transfer->percent())) 
-                .arg(KIO::convertSize(transfer->downloadedSize()))
-                .arg(KIO::convertSize(transfer->totalSize()))
-                .arg(transfer->statusText());
+            data = i18nc("%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 status", "%1(%2% %3/%4) %5",
+                transfer->source().fileName(),
+                transfer->percent(),
+                KIO::convertSize(transfer->downloadedSize()),
+                KIO::convertSize(transfer->totalSize()),
+                transfer->statusText());
             break;
         case Job::Finished:
-            data = QString("%1(%2) %3")
-                .arg(transfer->source().fileName())
-                .arg(KIO::convertSize(transfer->totalSize()))
-                .arg(transfer->statusText());
+            data = i18nc("%1 filename, %2 total size, %3 status", "%1(%2) %3"
+                transfer->source().fileName(),
+                KIO::convertSize(transfer->totalSize()),
+                transfer->statusText());
             break;
         case Job::Running:
-            data = i18n("%1(%2% %3/%4) Speed:%5/s",  
+            data = i18nc("%1 filename, %2 percent complete, %3 downloaded out of %4 total size", "%1(%2% %3/%4) Speed:%5/s",
                 transfer->source().fileName(),
-                QString::number(transfer->percent()), 
+                transfer->percent(),
                 KIO::convertSize(transfer->downloadedSize()),
                 KIO::convertSize(transfer->totalSize()),
                 KIO::convertSize(transfer->downloadSpeed()));
