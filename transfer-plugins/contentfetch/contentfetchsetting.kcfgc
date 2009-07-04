@@ -3,4 +3,4 @@ File=kget_contentfetchfactory.kcfg
 Mutators=true
 Singleton=true
 Visibility=KDE_EXPORT
-SourceIncludeFiles=kstandarddirs.h
+IncludeFiles=kstandarddirs.h
