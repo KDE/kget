@@ -83,12 +83,17 @@ public:
         // if there are exactly two parameters, these may either be
         // - two valid urls to download, or
         // - one url and the simple filename to use for saving
+	// - one remote and one local url, the latter being the already user-specified target
         if (l.count() == 2) {
             KUrl lastUrl = l.last();
             if (lastUrl.isLocalFile()) { // either absolute or relative
-                QString destDir = lastUrl.directory(KUrl::ObeyTrailingSlash);
+                QString targetPath = lastUrl.path();
+		if (targetPath.startsWith('/')) {
+                    KGet::addTransfer(l.first(), lastUrl.path(), QString());
+                 } else {
 		QString fileName = lastUrl.fileName(KUrl::ObeyTrailingSlash);
-		KGet::addTransfer(l.first(), destDir, fileName);
+                    KGet::addTransfer(l.first(), QString(), fileName);
+                }
 		return 0;
 	    } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.directory().isEmpty())) {
 	        // Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
