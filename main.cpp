@@ -116,9 +116,9 @@ public:
         }
         // all the args read from command line are downloads
         if (l.count() == 1)
-            NewTransferDialog::instance(kget)->showDialog(l.takeFirst().url());
+            KGet::addTransfer(l.takeFirst());
         if (l.count() > 1 && !l.last().isLocalFile())
-            NewTransferDialog::instance(kget)->showDialog(l);
+            KGet::addTransfer(l);
         return 0;
     }
 
