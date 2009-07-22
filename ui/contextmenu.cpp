@@ -101,8 +101,8 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
         items << KFileItem(KFileItem::Unknown, KFileItem::Unknown, handler->dest());
 
         KonqMenuActions menuActions;
-        menuActions.setItemListProperties(KFileItemListProperties(items));
-        menuActions.setParentWidget(parent);
+//        menuActions.setItemListProperties(KFileItemListProperties(items));
+//        menuActions.setParentWidget(parent);
 
         menuActions.addActionsTo(popup);
         menuActions.addOpenWithActionsTo(popup, "DesktopEntryName != 'kget'");
