@@ -45,6 +45,7 @@ Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
 Comment[ar]=ملحق تعدد تنزيل الملف
 Comment[ca]=Connector de transferències multifil per al KGet
+Comment[cs]=Modul pro stahování ve více vláknech
 Comment[da]=Plugin til flertrådet fildownload
 Comment[de]=Multithread-Übertragungsmodul für KGet
 Comment[el]=Πολυνηματικό πρόσθετο λήψης αρχείων
