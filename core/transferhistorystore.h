@@ -56,7 +56,8 @@ class KGET_EXPORT TransferHistoryStore : public QObject
 public:
     enum Backend {
         Xml = 0,
-        SQLite = 1
+        SQLite = 1,
+        Nepomuk = 2
     };
 
     TransferHistoryStore();

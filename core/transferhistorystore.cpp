@@ -28,6 +28,11 @@
     #include <QSqlRecord>
 #endif
 
+#ifdef HAVE_NEPOMUK
+    #include "core/transferhistorystore_nepomuk_p.h"
+    #include "historyitem.h"
+#endif
+
 #include <KDebug>
 #include <kio/global.h>
 #include <KLocale>
@@ -143,6 +148,11 @@ TransferHistoryStore *TransferHistoryStore::getStore()
         case TransferHistoryStore::SQLite:
 #ifdef HAVE_SQLITE
             return new SQLiteStore(KStandardDirs::locateLocal("appdata", "transferhistory.db"));
+            break;
+#endif
+        case TransferHistoryStore::Nepomuk:
+#ifdef HAVE_NEPOMUK
+            return new NepomukStore(QString());
             break;
 #endif
         case TransferHistoryStore::Xml:
@@ -514,8 +524,67 @@ void SQLiteStore::createTables()
 }
 #endif
 
+#ifdef HAVE_NEPOMUK
+NepomukStore::NepomukStore(const QString &database)
+  : TransferHistoryStore()
+{
+    Q_UNUSED(database)
+}
+
+NepomukStore::~NepomukStore()
+{
+}
+
+void NepomukStore::load()
+{
+    QList<Nepomuk::HistoryItem> allItems = Nepomuk::HistoryItem::allHistoryItems();
+    for (int i = 0; i != allItems.count(); i++) {
+        Nepomuk::HistoryItem current = allItems.at(i);
+        TransferHistoryItem item;
+        item.setDest(current.destination());
+        item.setSource(current.source());
+        item.setState(current.state());
+        item.setDateTime(current.dateTime());
+        item.setSize(current.size());
+        m_items << item;
+        emit elementLoaded(i, allItems.count(), item);
+    }
+}
+
+void NepomukStore::clear()
+{
+    foreach (Nepomuk::HistoryItem item, Nepomuk::HistoryItem::allHistoryItems()) {
+        item.remove();
+    }
+}
+
+void NepomukStore::saveItem(const TransferHistoryItem &item)
+{
+    Nepomuk::HistoryItem historyItem(item.source());
+    historyItem.setDestination(item.dest());
+    historyItem.setSource(item.source());
+    historyItem.setState(item.state());
+    historyItem.setSize(item.size());
+    historyItem.setDateTime(item.dateTime());
+}
+
+void NepomukStore::deleteItem(const TransferHistoryItem &item)
+{
+    Nepomuk::HistoryItem historyItem(item.source());
+    historyItem.remove();
+    /*foreach (Nepomuk::HistoryItem it, Nepomuk::HistoryItem::allHistoryItems()) {
+        if (it.source() == item.source()) {
+            it.remove();
+        }
+    }    */
+}
+#endif
+
 #include "transferhistorystore.moc"
 #include "transferhistorystore_xml_p.moc"
 #ifdef HAVE_SQLITE
     #include "transferhistorystore_sqlite_p.moc"
+#endif
+#ifdef HAVE_NEPOMUK
+    #include "transferhistorystore_nepomuk_p.moc"
 #endif

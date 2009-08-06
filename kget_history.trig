@@ -1,0 +1,74 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ndho:    <http://nepomuk.kde.org/ontologies/2008/10/06/ndho#> .
+@prefix nrl:     <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#> .
+@prefix nao:     <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+
+<http://nepomuk.kde.org/ontologies/2008/10/06/ndho> {
+
+ndho:HistoryItem
+    a rdfs:Class ;
+    rdfs:comment "A kget history item." ;
+    rdfs:label "application" ;
+    rdfs:subClassOf rdfs:Resource .
+
+ndho:destination
+    a rdf:Property ;
+    rdfs:comment "Destination of the download." ;
+    rdfs:domain ndho:HistoryItem ;
+    rdfs:label "source" ;
+    rdfs:range xsd:string ;
+    nrl:maxCardinality "1" .
+
+ndho:source
+    a rdf:Property ;
+    rdfs:comment "Source of the download." ;
+    rdfs:domain ndho:HistoryItem ;
+    rdfs:label "source" ;
+    rdfs:range xsd:string ;
+    nrl:maxCardinality "1" .
+
+ndho:state
+    a rdf:Property ;
+    rdfs:comment "State of the download." ;
+    rdfs:domain ndho:HistoryItem ;
+    rdfs:label "state" ;
+    rdfs:range xsd:int ;
+    nrl:maxCardinality "1" .
+
+ndho:size
+    a rdf:Property ;
+    rdfs:comment "Size of the download." ;
+    rdfs:domain ndho:HistoryItem ;
+    rdfs:label "size" ;
+    rdfs:range xsd:int ;
+    nrl:maxCardinality "1" .
+
+ndho:dateTime
+    a rdf:Property ;
+    rdfs:comment "DateTime of the download." ;
+    rdfs:domain ndho:HistoryItem ;
+    rdfs:label "datetime" ;
+    rdfs:range xsd:dateTime ;
+    nrl:maxCardinality "1" .
+}
+
+<http://nepomuk.kde.org/ontologies/2008/10/06/ndho/metadata>
+{
+    <http://nepomuk.kde.org/ontologies/2008/10/06/ndho>
+          a       nrl:DocumentGraph , nrl:KnowledgeBase ;
+          nao:hasDefaultNamespace "http://nepomuk.kde.org/ontologies/2008/10/06/ndho#" ;
+          nao:hasDefaultNamespaceAbbreviation "ndho" ;
+          nao:lastModified "2008-09-17T18:46:32.866Z" ;
+          nao:serializationLanguage "TriG" ;
+          nao:status "Testing" ;
+          nrl:updatable "0" ;
+          nao:version "3" .
+
+    <http://nepomuk.kde.org/ontologies/2008/10/06/ndho/metadata>
+          a       nrl:GraphMetadata , nrl:DocumentGraph ;
+          nao:serializationLanguage "TriG" ;
+          nrl:coreGraphMetadataFor <http://nepomuk.kde.org/ontologies/2008/10/06/ndho> .
+}

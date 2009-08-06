@@ -9,6 +9,7 @@ if(HAVE_NEPOMUK)
         ${NEPOMUK_INCLUDE_DIR}
     )
     add_definitions(-DHAVE_NEPOMUK)
+    include(NepomukAddOntologyClasses)
 endif(HAVE_NEPOMUK)
 
 if(QCA2_FOUND)
@@ -95,6 +96,14 @@ if(HAVE_NEPOMUK)
 endif(HAVE_NEPOMUK)
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
+
+if (HAVE_NEPOMUK)
+    NEPOMUK_ADD_ONTOLOGY_CLASSES(
+        kgetcore_SRCS
+        ONTOLOGIES
+        ${CMAKE_CURRENT_SOURCE_DIR}/kget_history.trig
+    )
+endif (HAVE_NEPOMUK)
 
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
