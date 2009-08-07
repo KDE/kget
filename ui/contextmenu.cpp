@@ -100,12 +100,15 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
         KFileItemList items;
         items << KFileItem(KFileItem::Unknown, KFileItem::Unknown, handler->dest());
 
+/*
         KonqMenuActions menuActions;
-//        menuActions.setItemListProperties(KFileItemListProperties(items));
-//        menuActions.setParentWidget(parent);
+
+        menuActions.setItemListProperties(KFileItemListProperties(items));
+        menuActions.setParentWidget(parent);
 
         menuActions.addActionsTo(popup);
         menuActions.addOpenWithActionsTo(popup, "DesktopEntryName != 'kget'");
+*/
 
         // TODO : seems like the popup menu has to be showed while the KonqMenuActions instance exists ?
         popup->exec(QCursor::pos());
