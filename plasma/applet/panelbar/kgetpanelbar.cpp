@@ -180,6 +180,7 @@ KGetPanelBar::KGetPanelBar(QObject *parent, const QVariantList &args)
 
 KGetPanelBar::~KGetPanelBar()
 {
+    delete m_dialog;
 }
 
 void KGetPanelBar::init()
