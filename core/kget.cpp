@@ -322,13 +322,12 @@ bool KGet::delTransfer(TransferHandler * transfer)
     Transfer * t = transfer->m_transfer;
     t->stop();
 
-    m_transferTreeModel->delTransfer(t);
-
     //Here I delete the Transfer. The other possibility is to move it to a list
     //and to delete all these transfers when kget gets closed. Obviously, after
     //the notification to the views that the transfer has been removed, all the
     //pointers to it are invalid.
     transfer->postDeleteEvent();
+    m_transferTreeModel->delTransfer(t);
     delete t;
     return true;
 }
