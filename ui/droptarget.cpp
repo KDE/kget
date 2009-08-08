@@ -303,7 +303,7 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
         move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
         e->accept();
     }
-    if (mask().contains(mapFromGlobal(QCursor::pos())))
+    if (isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
         QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
 }
 
@@ -424,7 +424,7 @@ void DropTarget::slotToolTipUpdate()
        tooltipText = dataList.join("\n");
     else
        tooltipText = i18n("Ready"); 
-    if (mask().contains(mapFromGlobal(QCursor::pos())))
+    if (isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
         QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
 }
 
