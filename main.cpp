@@ -140,11 +140,11 @@ int main(int argc, char *argv[])
                          "(C) 1998 - 2000, Matej Koss"),
                          ki18n("<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"));
 
-    aboutData.addAuthor(ki18n("Dario Massarin"), ki18n("Maintainer, Core Developer"), "nekkar@libero.it");
+    aboutData.addAuthor(ki18n("Lukas Appelhans"), ki18n("Maintainer, Core Developer, Torrent Plugin Author"), "l.appelhans@gmx.de");
+    aboutData.addAuthor(ki18n("Dario Massarin"), ki18n("Core Developer"), "nekkar@libero.it");
     aboutData.addAuthor(ki18n("Urs Wolfer"), ki18n("Core Developer"), "uwolfer@kde.org");
     aboutData.addAuthor(ki18n("Manolo Valdes"), ki18n("Core Developer, Multithreaded Plugin Author"), "nolis71cu@gmail.com");
     aboutData.addAuthor(ki18n("Javier Goday"), ki18n("Developer"), "jgoday@gmail.com");
-    aboutData.addAuthor(ki18n("Lukas Appelhans"), ki18n("Developer, Torrent Plugin Author"), "l.appelhans@gmx.de");
     aboutData.addAuthor(ki18n("Patrick Charbonnier"), ki18n("Former Developer"), "pch@freeshell.org");
     aboutData.addAuthor(ki18n("Carsten Pfeiffer"), ki18n("Former Developer"), "pfeiffer@kde.org");
     aboutData.addAuthor(ki18n("Matej Koss"), ki18n("Former Developer"));
