@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -86,35 +87,41 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
         return;
 
     int removePosition = transfer->group()->indexOf(transfer);
-    int insertPosition = destGroup->size();
-    int groupIndex = m_transferGroups.indexOf(destGroup);
+    int insertPosition = after ? destGroup->indexOf(after) + 1 : 0;
 
-    beginRemoveRows(createIndex(groupIndex, 0, destGroup->handler()), removePosition, removePosition);
+    kDebug() << "INSERT POSITION" << insertPosition << "TRANSFER AFTER:" << after << "REMOVE POSITION:" << removePosition;
 
-    beginInsertRows(createIndex(m_transferGroups.indexOf(destGroup), 0, destGroup->handler()), insertPosition, insertPosition);
+    //beginRemoveRows(index(m_transferGroups.indexOf(transfer->group()), 0, QModelIndex()), removePosition, removePosition);
+
+    //beginInsertRows(index(m_transferGroups.indexOf(destGroup), 0, QModelIndex()), insertPosition, insertPosition);
+    
+    emit layoutAboutToBeChanged();
 
     if(destGroup == transfer->group())
     {
-        if(after)
+        if (after)
             destGroup->move(transfer, after);
         else
-            destGroup->move(transfer, static_cast<Transfer *>(destGroup->last()));
+            destGroup->move(transfer, 0);
     }
     else
     {
         transfer->group()->remove(transfer);
 
-        if(destGroup->size() != 0)
-            destGroup->insert(transfer, static_cast<Transfer *>(destGroup->last()));
+        if (after)
+            destGroup->insert(transfer, after);
         else
-            destGroup->append(transfer);
+            destGroup->prepend(transfer);
 
         transfer->m_jobQueue = destGroup;
     }
+    
+    emit layoutChanged();
 
-    endInsertRows();
-    endRemoveRows();
-
+    //emit dataChanged(index(0, 0, QModelIndex()), index(m_transferGroups.last()->size(), 5, index(m_transferGroups.size(), 0, QModelIndex())));
+    //endInsertRows();
+    //endRemoveRows();
+    
     KGet::selectionModel()->clearSelection();
 }
 
@@ -512,8 +519,8 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     if (!mdata->hasFormat("application/vnd.text.list"))
         return false;
 
-    if (column > 0)
-        return false;
+    //if (column > 0)
+    //    return false;
 
     if (parent.isValid())
         kDebug(5001) << "TransferTreeModel::dropMimeData" << " " << row << " " 
@@ -545,9 +552,24 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         TransferGroup * destGroup = findGroup(data(parent, Qt::DisplayRole).toString());
 
         TransferHandler * transferHandler = (TransferHandler *) stringList[++i].toInt(0, 16);
+        
+        if (destGroup) {
+            bool b = destGroup->size() > row && row - 1 >= 0;
+            if (b)
+                kDebug() << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
+            else
+                kDebug() << "TRANSFER AFTER NOT EXISTING";
 
-        if(destGroup)
-            moveTransfer(transferHandler->m_transfer, destGroup);
+            //The next line is a bit cryptic, so let's write an explanation here:
+            //First we check if the item is dropped *inside* a group and if the row value is actually valid for it...
+            //Then we decide whether we append it at the end (destGroup->size() == row) or somewhere inside the group...
+            //Transfer * after = parent.isValid() && row - 1 >= 0 && destGroup->size() >= row ? (destGroup->size() == row ? dynamic_cast<Transfer*>(destGroup->last()) : destGroup->operator[](row - 1)) : 0;
+            Transfer * after = 0;
+            if (parent.isValid() && row - 1 >= 0 && destGroup->size() >= row) {
+                after = destGroup->size() == row ? dynamic_cast<Transfer*>(destGroup->last()) : destGroup->operator[](row - 1);
+            }
+            moveTransfer(transferHandler->m_transfer, destGroup, after);
+         }
     }
     return true;
 }

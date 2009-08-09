@@ -12,7 +12,6 @@
 
 #include "core/transfergrouphandler.h"
 #include "core/kget.h"
-#include "core/transferhistorystore.h"
 
 #include <KDebug>
 #include <KMessageBox>
@@ -119,7 +118,6 @@ void TransferGroup::insert(Transfer * transfer, Transfer * after)
 
 void TransferGroup::remove(Transfer * transfer)
 {
-    TransferHistoryStore::getStore()->saveItem(TransferHistoryItem(*transfer));
     JobQueue::remove(transfer);
 
     m_handler->postRemovedTransferEvent(transfer);

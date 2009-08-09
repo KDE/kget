@@ -16,6 +16,7 @@
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
+#include "core/transferhistorystore.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -53,6 +54,8 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
 
 Transfer::~Transfer()
 {
+    TransferHistoryStore::getStore()->saveItem(TransferHistoryItem(*this));
+
     if(status() == Job::Delayed)
         m_scheduler->stopDelayTimer(this);
 
