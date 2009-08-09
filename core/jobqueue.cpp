@@ -136,7 +136,7 @@ void JobQueue::move(Job * job, Job * after)
     }
     else
     {
-        m_jobs.insert(m_jobs.indexOf(after) +1, job);
+        m_jobs.insert(m_jobs.indexOf(after) + 1, job);
     }
 
     m_scheduler->jobQueueMovedJobEvent(this, job);

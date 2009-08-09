@@ -174,6 +174,7 @@ void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
     TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
 
     view_delegate->closeExpandableDetails();
+    QTreeView::dragMoveEvent(event);
 }
 
 void TransfersView::toggleMainGroup()
