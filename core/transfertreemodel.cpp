@@ -91,10 +91,6 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
 
     kDebug() << "INSERT POSITION" << insertPosition << "TRANSFER AFTER:" << after << "REMOVE POSITION:" << removePosition;
 
-    //beginRemoveRows(index(m_transferGroups.indexOf(transfer->group()), 0, QModelIndex()), removePosition, removePosition);
-
-    //beginInsertRows(index(m_transferGroups.indexOf(destGroup), 0, QModelIndex()), insertPosition, insertPosition);
-    
     emit layoutAboutToBeChanged();
 
     if(destGroup == transfer->group())
@@ -115,13 +111,9 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
 
         transfer->m_jobQueue = destGroup;
     }
-    
+
     emit layoutChanged();
 
-    //emit dataChanged(index(0, 0, QModelIndex()), index(m_transferGroups.last()->size(), 5, index(m_transferGroups.size(), 0, QModelIndex())));
-    //endInsertRows();
-    //endRemoveRows();
-    
     KGet::selectionModel()->clearSelection();
 }
 
@@ -495,7 +487,9 @@ QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
 
     QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
-    foreach (const QModelIndex &index, indexes) 
+    QModelIndexList sortedIndexes = indexes;
+    qSort(sortedIndexes.begin(), sortedIndexes.end(), qGreater<QModelIndex>());
+    foreach (const QModelIndex &index, sortedIndexes) 
     {
         if (index.isValid())
         {
@@ -519,9 +513,6 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     if (!mdata->hasFormat("application/vnd.text.list"))
         return false;
 
-    //if (column > 0)
-    //    return false;
-
     if (parent.isValid())
         kDebug(5001) << "TransferTreeModel::dropMimeData" << " " << row << " " 
                                                           << column << endl;
@@ -543,6 +534,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     kDebug(5001) << stringList;
 
 
+    Transfer * after = 0;
     for(int i=0; i < rows; i++)
     {
 //         TransferGroup * group = findGroup(stringList[i]);
@@ -560,13 +552,12 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
             else
                 kDebug() << "TRANSFER AFTER NOT EXISTING";
 
-            //The next line is a bit cryptic, so let's write an explanation here:
-            //First we check if the item is dropped *inside* a group and if the row value is actually valid for it...
-            //Then we decide whether we append it at the end (destGroup->size() == row) or somewhere inside the group...
-            //Transfer * after = parent.isValid() && row - 1 >= 0 && destGroup->size() >= row ? (destGroup->size() == row ? dynamic_cast<Transfer*>(destGroup->last()) : destGroup->operator[](row - 1)) : 0;
-            Transfer * after = 0;
-            if (parent.isValid() && row - 1 >= 0 && destGroup->size() >= row) {
-                after = destGroup->size() == row ? dynamic_cast<Transfer*>(destGroup->last()) : destGroup->operator[](row - 1);
+            if (!after) {
+                bool droppedInsideGroup = parent.isValid();
+                bool rowValid = (row - 1 >= 0) && (destGroup->size() >= row);
+                if (droppedInsideGroup && rowValid) {
+                    after = destGroup->operator[](row - 1);//insert at the correct position
+                }
             }
             moveTransfer(transferHandler->m_transfer, destGroup, after);
          }
