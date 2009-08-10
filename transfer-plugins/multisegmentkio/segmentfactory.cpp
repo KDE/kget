@@ -397,13 +397,14 @@ void SegmentFactory::slotStatusChanged( Segment *seg)
 void SegmentFactory::slotSegmentTimeOut()
 {
     kDebug(5001) <<  m_TimeOutSegments.size();
+
     if(m_TimeOutSegments.isEmpty())
         return;
-    QList<Segment*>::const_iterator it = m_TimeOutSegments.constBegin();
-    QList<Segment*>::const_iterator itEnd = m_TimeOutSegments.constEnd();
-    for ( ; it!=itEnd ; ++it )
+    
+    while(!m_TimeOutSegments.isEmpty())
     {
-        (*it)->restartTransfer( nextUrl() );
+        Segment * segment = m_TimeOutSegments.takeFirst();
+        segment->restartTransfer( nextUrl() );
     }
 }
 
