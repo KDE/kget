@@ -26,7 +26,6 @@ add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
 add_subdirectory(plasma)
-add_subdirectory(tests)
 
 
 # find kworkspace library to allow the shutdown after downloads completed option
