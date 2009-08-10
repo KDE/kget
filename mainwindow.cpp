@@ -31,6 +31,7 @@
 #include "ui/transfersettingsdialog.h"
 #include "ui/linkview/kget_linkview.h"
 #include "extensions/webinterface/httpserver.h"
+#include "tests/testkget.h"
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -52,12 +53,14 @@
 
 #include <QClipboard>
 #include <QTimer>
+#include <QtTest/QtTest>
 
-MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget *parent)
+MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doTesting, QWidget *parent)
     : KXmlGuiWindow( parent ),
       m_drop(0),
       m_dock(0),
       m_startWithoutAnimation(startWithoutAnimation),
+      m_doTesting(doTesting),
       m_webinterface(0)
 {
     // do not quit the app when it has been minimized to system tray and a new transfer dialog
@@ -91,9 +94,6 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, QWidget 
 
     //Some of the widgets are initialized in slotDelayedInit()
     QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
-
-    // Update the title with the active transfers percent using the mainwindowmodelobserver
-    KGet::addObserver(new MainWindowModelObserver(this));
 }
 
 MainWindow::~MainWindow()
@@ -402,6 +402,17 @@ void MainWindow::slotDelayedInit()
         KGet::setGlobalDownloadLimit(0);
         KGet::setGlobalUploadLimit(0);
     }
+    
+    // Update the title with the active transfers percent using the mainwindowmodelobserver
+    KGet::addObserver(new MainWindowModelObserver(this));
+    
+    if(m_doTesting)
+    {
+        // Unit testing
+        TestKGet unitTest;
+        QTest::qExec(&unitTest);
+    }
+
 }
 
 void MainWindow::slotToggleDropTarget()

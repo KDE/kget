@@ -36,7 +36,7 @@ class MainWindow : public KXmlGuiWindow
 {
 Q_OBJECT
 public:
-    explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, QWidget *parent = 0);
+    explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = 0);
     ~MainWindow();
 
     // from the DBUS interface
@@ -152,6 +152,7 @@ private:
     QTimer *clipboardTimer;
 
     bool m_startWithoutAnimation;
+    bool m_doTesting;               // UnitTest flag
 
     HttpServer *m_webinterface;
 };

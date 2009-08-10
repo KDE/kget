@@ -26,6 +26,8 @@ add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
 add_subdirectory(plasma)
+add_subdirectory(tests)
+
 
 # find kworkspace library to allow the shutdown after downloads completed option
 find_library(KDE4_KWORKSPACE_LIBRARY NAMES kworkspace PATHS ${KDE4_LIB_INSTALL_DIR} NO_DEFAULT_PATH )
@@ -156,6 +158,7 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/history/transferhistorycategorizedview.cpp
    ui/linkview/kget_linkview.cpp
    ui/linkview/kget_sortfilterproxymodel.cpp
+   tests/testkget.cpp
    mainwindow.cpp
    main.cpp
 
@@ -205,7 +208,7 @@ kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
+target_link_libraries(kget ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
 
 if (HAVE_NEPOMUK)
   target_link_libraries(kget ${KDE4_NEPOMUK_LIBS})
@@ -220,3 +223,4 @@ if (LIBKNOTIFICATIONITEM-1_FOUND)
 endif (LIBKNOTIFICATIONITEM-1_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
+
