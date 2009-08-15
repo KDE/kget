@@ -2,6 +2,10 @@ project(kget)
 
 set(kget_adaptor_SRCS)
 
+if(CMAKE_BUILD_TYPE MATCHES debugfull)
+     add_definitions(-DDEBUG)
+endif(CMAKE_BUILD_TYPE MATCHES debugfull)
+
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
 if(HAVE_NEPOMUK)
     include_directories(
@@ -157,12 +161,18 @@ set(kget_SRCS ${kget_adaptor_SRCS}
    ui/history/transferhistorycategorizedview.cpp
    ui/linkview/kget_linkview.cpp
    ui/linkview/kget_sortfilterproxymodel.cpp
-   tests/testkget.cpp
    mainwindow.cpp
    main.cpp
 
    extensions/webinterface/httpserver.cpp
 )
+
+if(CMAKE_BUILD_TYPE MATCHES debugfull)
+    set(kget_SRCS
+        ${kget_SRCS}
+        tests/testkget.cpp
+    )
+endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
 if(LIBKNOTIFICATIONITEM-1_FOUND)
     set(kget_SRCS

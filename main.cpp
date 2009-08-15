@@ -56,7 +56,7 @@ public:
         KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
         if (!kget)
-        {
+	{
             kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"), args->isSet("test"));
             new KgetAdaptor(kget);
             QDBusConnection::sessionBus().registerObject("/KGet", kget);
@@ -157,7 +157,9 @@ int main(int argc, char *argv[])
     option.add("showDropTarget", ki18n("Start KGet with drop target"));
     option.add("hideMainWindow", ki18n("Start KGet with hidden main window"));
     option.add("startWithoutAnimation", ki18n("Start KGet without drop target animation"));
+#ifdef DEBUG
     option.add("test", ki18n("Execute Unit Testing"));
+#endif
     option.add("+[URL(s)]", ki18n("URL(s) to download"));
     KCmdLineArgs::addCmdLineOptions(option);
 

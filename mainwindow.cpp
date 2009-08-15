@@ -405,14 +405,15 @@ void MainWindow::slotDelayedInit()
     
     // Update the title with the active transfers percent using the mainwindowmodelobserver
     KGet::addObserver(new MainWindowModelObserver(this));
-    
+
+#ifdef DEBUG
     if(m_doTesting)
     {
         // Unit testing
         TestKGet unitTest;
         QTest::qExec(&unitTest);
     }
-
+#endif
 }
 
 void MainWindow::slotToggleDropTarget()
