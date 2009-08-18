@@ -173,7 +173,7 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, 
                        const QString& groupName, bool start)
 {
     // Note: destDir may actually be a full path to a file :-(
-    kDebug() << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
+    kDebug(5001) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
 
     KUrl destUrl; // the final destination, including filename
 
@@ -1142,7 +1142,7 @@ GenericModelObserver::~GenericModelObserver()
 void GenericModelObserver::addedTransferGroupEvent(TransferGroupHandler * group)
 {
     Q_UNUSED(group)
-    kDebug() << "OBSERVER :: Adding group " << group;
+    kDebug(5001) << "OBSERVER :: Adding group " << group;
     group->addObserver(m_groupObserver);
 
     // we need to do this to add the genericTransfer to all the transfers under the group

@@ -45,7 +45,7 @@ void Job::setStatus(Status jobStatus)
 
 void Job::setStartStatus(Status jobStatus)
 {
-    kDebug() << "Setting start status to " << jobStatus;
+    kDebug(5001) << "Setting start status to " << jobStatus;
     m_startStatus = jobStatus;
 }
 

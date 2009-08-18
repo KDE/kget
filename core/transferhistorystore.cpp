@@ -426,7 +426,7 @@ void SQLiteStore::load()
         QSqlQuery query = sql().exec("SELECT * FROM transfer_history_item");
 
         if (query.lastError().isValid()) {
-            kDebug() << query.lastError().text();
+            kDebug(5001) << query.lastError().text();
         }
         else {
             QSqlRecord rec = query.record();
@@ -469,7 +469,7 @@ void SQLiteStore::saveItem(const TransferHistoryItem &item)
                                 + QString::number(item.state())+"')");
 
         if (query.lastError().isValid()) {
-            kDebug() << query.lastError().text();
+            kDebug(5001) << query.lastError().text();
         }
 
         sql().commit();
@@ -491,7 +491,7 @@ void SQLiteStore::deleteItem(const TransferHistoryItem &item)
                                             " source = '" + item.source() + "';");
 
         if (query.lastError().isValid()) {
-            kDebug() << query.lastError().text();
+            kDebug(5001) << query.lastError().text();
         }
 
         sql().commit();
@@ -519,7 +519,7 @@ void SQLiteStore::createTables()
                                 "state int, PRIMARY KEY(dest, source));");
 
     if (query.lastError().isValid()) {
-        kDebug() << query.lastError().text();
+        kDebug(5001) << query.lastError().text();
     }
 }
 #endif

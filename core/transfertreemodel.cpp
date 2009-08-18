@@ -89,7 +89,7 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
     int removePosition = transfer->group()->indexOf(transfer);
     int insertPosition = after ? destGroup->indexOf(after) + 1 : 0;
 
-    kDebug() << "INSERT POSITION" << insertPosition << "TRANSFER AFTER:" << after << "REMOVE POSITION:" << removePosition;
+    kDebug(5001) << "INSERT POSITION" << insertPosition << "TRANSFER AFTER:" << after << "REMOVE POSITION:" << removePosition;
 
     emit layoutAboutToBeChanged();
 
@@ -548,9 +548,9 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         if (destGroup) {
             bool b = destGroup->size() > row && row - 1 >= 0;
             if (b)
-                kDebug() << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
+                kDebug(5001) << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
             else
-                kDebug() << "TRANSFER AFTER NOT EXISTING";
+                kDebug(5001) << "TRANSFER AFTER NOT EXISTING";
 
             if (!after) {
                 bool droppedInsideGroup = parent.isValid();
