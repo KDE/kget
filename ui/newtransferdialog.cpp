@@ -296,7 +296,7 @@ void NewTransferDialog::showDialog(const KUrl::List &list)
         {
             QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(url);
             if (!groups.isEmpty())
-                KGet::addTransfer(url, groups.first()->defaultFolder(), groups.first()->name());
+                KGet::addTransfer(url, groups.first()->defaultFolder(), "", groups.first()->name());
             else
                 cleanedList << url;
         }
