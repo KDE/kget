@@ -286,7 +286,7 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
     if ( urlsToDownload.count() == 1 )
     {
         // just one file -> ask for filename
-        addTransfer(srcUrls.first(), destDir + srcUrls.first().fileName(), groupName, start);
+        addTransfer(srcUrls.first(), destDir, srcUrls.first().fileName(), groupName, start);
         return;
     }
 
