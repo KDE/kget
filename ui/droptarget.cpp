@@ -106,7 +106,7 @@ DropTarget::DropTarget(MainWindow * mw)
 
     animTimer = new QTimer(this);
     
-    KGet::addObserver(new DropTargetModelObserver(this));
+    KGet::addObserver(this);
     setMouseTracking(true);
 }
 
@@ -441,70 +441,43 @@ void DropTarget::slotClose()
     setVisible( false );
 }
 
-DropTargetModelObserver::DropTargetModelObserver(DropTarget *window) 
-    : QObject(window)
+void DropTarget::addedTransferGroupEvent(TransferGroupHandler *group)
 {
-    m_window = window;
-    m_groupObserver = new DropTargetGroupObserver(window);
+    group->addObserver(this);
 }
 
-void DropTargetModelObserver::addedTransferGroupEvent(TransferGroupHandler *group)
+void DropTarget::removedTransferGroupEvent(TransferGroupHandler *group)
 {
-    group->addObserver(m_groupObserver);
+    group->delObserver(this);
 }
 
-void DropTargetModelObserver::removedTransferGroupEvent(TransferGroupHandler *group)
-{
-    group->delObserver(m_groupObserver);
-}
-
-DropTargetGroupObserver::DropTargetGroupObserver(DropTarget *window) 
-    : QObject(window)
-{
-    m_window = window;
-    m_transferObserver = new DropTargetTransferObserver(window);
-}
-
-void DropTargetGroupObserver::groupChangedEvent(TransferGroupHandler * group)
+void DropTarget::groupChangedEvent(TransferGroupHandler * group)
 {
     //TransferGroupHandler::ChangesFlags transferFlags = group->changesFlags(this);
-    m_window->slotToolTipUpdate();
+    slotToolTipUpdate();
     group->resetChangesFlags(this);
 }
 
-void DropTargetGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
+void DropTarget::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
 { 
     Q_UNUSED(after);
-    transfer->addObserver(m_transferObserver);
+    transfer->addObserver(this);
 }
 
-void DropTargetGroupObserver::removedTransferEvent(TransferHandler * transfer)
+void DropTarget::removedTransferEvent(TransferHandler * transfer)
 {
-    transfer->delObserver(m_transferObserver);
+    transfer->delObserver(this);
 
-    m_window->slotToolTipUpdate();
+    slotToolTipUpdate();
 }
 
-/**
-void DropTargetGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
-{
-    Q_UNUSED(transfer);
-    Q_UNUSED(after);
-}**/
-
-DropTargetTransferObserver::DropTargetTransferObserver(DropTarget *window)
-    : QObject(window)
-{
-    m_window = window;
-}
-
-void DropTargetTransferObserver::transferChangedEvent(TransferHandler *transfer)
+void DropTarget::transferChangedEvent(TransferHandler *transfer)
 {
     //TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
 //X     if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
 //X         m_window->slotUpdateTitlePercent();
 //X     }
-    m_window->slotToolTipUpdate();
+    slotToolTipUpdate();
     transfer->resetChangesFlags(this);
 }
 #include "droptarget.moc"

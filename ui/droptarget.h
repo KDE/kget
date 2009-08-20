@@ -29,7 +29,7 @@ class DropTargetModelObserver;
 class DropTargetGroupObserver;
 class DropTargetTransferObserver;
     
-class DropTarget : public QWidget
+class DropTarget : public QWidget, public TransferObserver, public TransferGroupObserver, public ModelObserver
 {
 Q_OBJECT
 
@@ -60,7 +60,17 @@ protected:
 
     // paint the drop target
     void paintEvent(QPaintEvent*);
+    
+    // OBSERVERS stuff
+    void transferChangedEvent(TransferHandler * transfer);
+    
+    void groupChangedEvent(TransferGroupHandler * group);
+    void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
+    void removedTransferEvent(TransferHandler * transfer);   
 
+    void addedTransferGroupEvent(TransferGroupHandler * group);
+    void removedTransferGroupEvent(TransferGroupHandler * group);    
+    
 private slots:
     void toggleSticky();
     void toggleMinimizeRestore();
@@ -92,60 +102,4 @@ private:
     float ani_y, ani_vy;
 };
 
-/**
- * Checks every transfer for a percent change to update the mainwindow title
- */
-class DropTargetTransferObserver : public QObject, public TransferObserver
-{
-    Q_OBJECT
-    public:
-        DropTargetTransferObserver(DropTarget *window);
-        virtual ~DropTargetTransferObserver(){}
-
-        virtual void transferChangedEvent(TransferHandler * transfer);
-
-//        virtual void deleteEvent(TransferHandler * transfer);
-
-    private:
-        DropTarget *m_window;
-};
-
-/**
-* Used to update the mainwindow caption when the groups percents change
-*/
-class DropTargetGroupObserver : public QObject, public TransferGroupObserver
-{
-    Q_OBJECT
-    public:
-        DropTargetGroupObserver(DropTarget *window);
-        virtual ~DropTargetGroupObserver() {}
-
-        virtual void groupChangedEvent(TransferGroupHandler * group);
-
-        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-
-        virtual void removedTransferEvent(TransferHandler * transfer);
-/**
-        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);**/
-
-    private:
-        DropTarget *m_window;
-        DropTargetTransferObserver *m_transferObserver;
-};
-
-class DropTargetModelObserver : public QObject, public ModelObserver
-{
-    Q_OBJECT
-    public:
-        DropTargetModelObserver(DropTarget *window);
-        virtual ~DropTargetModelObserver (){}
-
-        virtual void addedTransferGroupEvent(TransferGroupHandler * group);
-
-        virtual void removedTransferGroupEvent(TransferGroupHandler * group);
-
-    private:
-        DropTarget *m_window;
-        DropTargetGroupObserver *m_groupObserver;
-};
 #endif                          // _DROPTARGET_H
