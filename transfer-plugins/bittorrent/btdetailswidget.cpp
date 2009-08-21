@@ -34,57 +34,45 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     ulSpeedLabel->setText(i18nc("not available", "n/a"));
 
     progressBar->setValue(m_transfer->percent());
+    
+    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler *, TransferHandler::ChangesFlags)),
+            this,       SLOT(slotTransferChanged(TransferHandler *, TransferHandler::ChangesFlags)));
 }
 
 BTDetailsWidget::~BTDetailsWidget()
 {
 }
 
-void BTDetailsWidget::transferChangedEvent(TransferHandler * transfer)
+void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
 {
-    Q_UNUSED(transfer);
-    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
-
-    if(transferFlags & Transfer::Tc_DownloadSpeed)
+    kDebug(5001) << "BTDetailsWidget::slotTransferChanged";
+    
+    if(flags & Transfer::Tc_DownloadSpeed)
         dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->downloadSpeed()));
 
-    if(transferFlags & Transfer::Tc_UploadSpeed)
+    if(flags & Transfer::Tc_UploadSpeed)
         ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()));
 
-    if(transferFlags & BTTransfer::Tc_SeedsConnected)
+    if(flags & BTTransfer::Tc_SeedsConnected)
         seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');
 
-    if(transferFlags & BTTransfer::Tc_LeechesConnected)
+    if(flags & BTTransfer::Tc_LeechesConnected)
         leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + '(' + QString().setNum(m_transfer->leechesDisconnected()) + ')');
 
-    if(transferFlags & BTTransfer::Tc_ChunksDownloaded)
+    if(flags & BTTransfer::Tc_ChunksDownloaded)
         chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
 
-    if(transferFlags & BTTransfer::Tc_ChunksExcluded)
+    if(flags & BTTransfer::Tc_ChunksExcluded)
         chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
 
-    if(transferFlags & BTTransfer::Tc_ChunksTotal)
+    if(flags & BTTransfer::Tc_ChunksTotal)
         chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));
 
-    if(transferFlags & BTTransfer::Tc_ChunksLeft)
+    if(flags & BTTransfer::Tc_ChunksLeft)
         chunksLeftLabel->setText(QString().setNum(m_transfer->chunksLeft()));
 
-    if(transferFlags & Transfer::Tc_Percent)
+    if(flags & Transfer::Tc_Percent)
         progressBar->setValue(m_transfer->percent());
-
-    m_transfer->resetChangesFlags(this);
-}
-
-void BTDetailsWidget::showEvent(QShowEvent * event)
-{
-    Q_UNUSED(event)
-    m_transfer->addObserver(this);
-}
-
-void BTDetailsWidget::hideEvent(QHideEvent * event)
-{
-    Q_UNUSED(event)
-    m_transfer->delObserver(this);
 }
 
 #include "btdetailswidget.moc"

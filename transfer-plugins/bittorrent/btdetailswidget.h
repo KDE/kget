@@ -15,25 +15,22 @@
 
 #include <QWidget>
 
-#include "core/observer.h"
+#include "core/transferhandler.h"
 
 class BTTransferHandler;
 
 class QShowEvent;
 class QHideEvent;
 
-class BTDetailsWidget : public QWidget, public TransferObserver, public Ui::BTDetailsWidgetFrm
+class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
 {
     Q_OBJECT
     public:
         BTDetailsWidget(BTTransferHandler * transfer);
         ~BTDetailsWidget();
 
-        void transferChangedEvent(TransferHandler * transfer);
-
-    protected:
-        virtual void showEvent(QShowEvent * event);
-        virtual void hideEvent(QHideEvent * event);
+    public slots:
+        void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
 
     private:
         BTTransferHandler * m_transfer;
