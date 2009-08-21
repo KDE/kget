@@ -17,7 +17,7 @@
 #include <kstandarddirs.h>
 
 #include "core/kget.h"
-#include "kgetadaptor.h"
+#include "mainadaptor.h"
 #include "settings.h"
 #include "ui/splash.h"
 #include "mainwindow.h"
@@ -58,7 +58,7 @@ public:
         if (!kget)
 	{
             kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"), args->isSet("test"));
-            new KgetAdaptor(kget);
+            new MainAdaptor(kget);
             QDBusConnection::sessionBus().registerObject("/KGet", kget);
         }
         KWindowSystem::activateWindow(kget->winId());

@@ -25,7 +25,7 @@ namespace kt
     class Monitor;
 }
 
-class BTTransferHandler : public QObject, public TransferHandler
+class BTTransferHandler : public TransferHandler
 {
     Q_OBJECT
     public:

@@ -17,6 +17,7 @@
 #include "core/transfergroup.h"
 #include "core/transferhandler.h"
 #include "core/transfer.h"
+#include "transferadaptor.h"
 #include "settings.h"
 
 #include <kdebug.h>
@@ -65,10 +66,15 @@ void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
     group->append(transfer);
 
     endInsertRows();
+    
+    new TransferAdaptor(transfer->handler());
+    QDBusConnection::sessionBus().registerObject(transfer->handler()->dBusObjectPath(), transfer->handler());
 }
 
 void TransferTreeModel::delTransfer(Transfer * transfer)
 {
+    QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());
+
     TransferGroup * group = transfer->group();
 
     // Remove index corresponding to when it's created.

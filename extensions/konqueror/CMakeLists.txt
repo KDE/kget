@@ -34,7 +34,7 @@ set(khtml_kget_SRCS
    links.cpp
 )
 
-QT4_ADD_DBUS_INTERFACE(khtml_kget_SRCS ../../org.kde.kget.xml kget_interface )
+QT4_ADD_DBUS_INTERFACE(khtml_kget_SRCS ../../org.kde.kget.main.xml kget_interface )
 
 
 kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})

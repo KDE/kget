@@ -40,8 +40,8 @@ public:
     ~MainWindow();
 
     // from the DBUS interface
-    virtual void addTransfer(const QString& src, const QString& destDir = QString(), 
-                              bool start = false);
+    virtual QStringList addTransfer(const QString& src, const QString& destDir = QString(), 
+                                       bool start = false);
     virtual void showNewTransferDialog(const QStringList &urls);
     virtual bool dropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );

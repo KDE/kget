@@ -57,8 +57,10 @@ class GenericTransferGroupObserver;
  * can ask to the TransferHandler for the ChangesFlags.
  */
 
-class KGET_EXPORT TransferHandler : public Handler
+class KGET_EXPORT TransferHandler : public QObject, public Handler
 {
+    Q_OBJECT
+    
     friend class KGet;
     friend class TransferTreeModel;
     friend class Transfer;
@@ -94,8 +96,8 @@ class KGET_EXPORT TransferHandler : public Handler
         /**
          * These are all Job-related functions
          */
-        void start();
-        void stop();
+        virtual void start();
+        virtual void stop();
         void setDelay(int seconds);
         Job::Status status() const {return m_transfer->status();}
         Job::Status startStatus() const {return m_transfer->startStatus();}
@@ -248,6 +250,11 @@ class KGET_EXPORT TransferHandler : public Handler
          * @returns a list of the transfer's factory's actions
          */
         QList<QAction*> factoryActions();
+        
+        /**
+         * @returns the object path that will be shown in the DBUS interface
+         */
+        QString dBusObjectPath()       {return m_dBusObjectPath;}
 
 #ifdef HAVE_NEPOMUK
         /**
@@ -283,6 +290,8 @@ class KGET_EXPORT TransferHandler : public Handler
         void postDeleteEvent();
 
         Transfer * m_transfer;
+        
+        QString m_dBusObjectPath;
 
         QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;

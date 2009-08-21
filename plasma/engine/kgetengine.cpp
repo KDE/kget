@@ -73,7 +73,7 @@ void KGetEngine::getKGetData(const QString &name)
     removeAllData(name);
 
     if(isDBusServiceRegistered()) {
-        OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
+        OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
                             QDBusConnection::sessionBus());
 
         setData(I18N_NOOP(name), I18N_NOOP("error"), false);

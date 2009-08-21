@@ -34,6 +34,11 @@ TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
   : Handler(scheduler),
     m_transfer(transfer)
 {
+    static int dBusObjIdx = 0;
+    dBusObjIdx++;
+
+    m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx);
+    
     addObserver(0);
 }
 
@@ -225,7 +230,7 @@ void TransferHandler::postTransferChangedEvent()
     // Notify the observers
     for(; it!=itEnd; ++it)
     {
-        if(*it)
+        if((*it)/* && KGet::*/)
             (*it)->transferChangedEvent(this);
     }
 

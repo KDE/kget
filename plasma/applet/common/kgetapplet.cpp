@@ -46,7 +46,7 @@ void KGetApplet::init()
         m_engine->setProperty("refreshTime", 6000);
     }
     else {
-        kDebug() << "KGet Engine could not be loaded";
+        kDebug(5001) << "KGet Engine could not be loaded";
     }
 }
 
@@ -69,7 +69,7 @@ bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
 
 void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
-    kDebug();    
+    kDebug(5001);    
     
     QStringList urls;
     if (event->mimeData()->hasUrls())
@@ -85,7 +85,7 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
     
     if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
-        OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
+        OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
                             QDBusConnection::sessionBus());
 
         kget_interface.showNewTransferDialog(urls);
@@ -99,7 +99,7 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 
 void KGetApplet::dropEvent(QDropEvent * event)
 {
-    kDebug();
+    kDebug(5001);
     
     QStringList urls;
     if (event->mimeData()->hasUrls())
@@ -115,7 +115,7 @@ void KGetApplet::dropEvent(QDropEvent * event)
     
     if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
-        OrgKdeKgetInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
+        OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
                             QDBusConnection::sessionBus());
 
         kget_interface.showNewTransferDialog(urls);

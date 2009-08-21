@@ -945,10 +945,20 @@ void MainWindow::dropEvent(QDropEvent * event)
 
 /** DBUS interface */
 
-void MainWindow::addTransfer(const QString& src, const QString& dest, bool start)
+QStringList MainWindow::addTransfer(const QString& src, const QString& dest, bool start)
 {
+    QStringList dBusPaths;
+    
+   
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    KGet::addTransfer(src.split(';'), dest, QString(), start);
+    QList<TransferHandler *> addedTransfers = KGet::addTransfer(src.split(';'), dest, QString(), start);
+    
+    foreach(TransferHandler * handler, addedTransfers)
+    {
+        dBusPaths.append(handler->dBusObjectPath());
+    }
+    
+    return dBusPaths;
 }
 
 void MainWindow::showNewTransferDialog(const QStringList &urls)

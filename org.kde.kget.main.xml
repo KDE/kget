@@ -1,7 +1,7 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
 "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
-  <interface name="org.kde.kget">
+  <interface name="org.kde.kget.main">
     <method name="dropTargetVisible">
       <arg type="b" direction="out"/>
     </method>
@@ -18,6 +18,7 @@
       <arg type="s" direction="in"/>
       <arg type="s" direction="in"/>
       <arg type="b" direction="in"/>
+      <arg type="as" direction="out"/>
     </method>
     <method name="showNewTransferDialog">
       <arg type="as" direction="in"/>

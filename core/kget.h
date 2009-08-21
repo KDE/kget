@@ -41,12 +41,12 @@ class TransferGroupHandler;
 class TransferFactory;
 class TransferTreeModel;
 class TransferTreeSelectionModel;
-class ModelObserver;
 class KGetPlugin;
 class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
 class GenericTransferGroupObserver;
+
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are
@@ -132,7 +132,7 @@ class KGET_EXPORT KGet
          * @param start Specifies if the newly added transfers should be started.
          * If the group queue is already in a running state, this flag does nothing
          */
-        static void addTransfer(KUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
+        static TransferHandler * addTransfer(KUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
                                 const QString& groupName = QString(), bool start=false);
 
         /**
@@ -141,7 +141,7 @@ class KGET_EXPORT KGet
          * @param e The transfer's dom element
          * @param groupName The name of the group the new transfer will belong to
          */
-        static void addTransfer(const QDomElement& e, const QString& groupName = QString());
+        static TransferHandler * addTransfer(const QDomElement& e, const QString& groupName = QString());
 
         /**
          * Adds new transfers to the KGet
@@ -153,8 +153,8 @@ class KGET_EXPORT KGet
          * @param start Specifies if the newly added transfers should be started.
          * If the group queue is already in a running state, this flag does nothing
          */
-        static void addTransfer(KUrl::List srcUrls, QString destDir = QString(),
-                                const QString& groupName = QString(), bool start=false);
+        static const QList<TransferHandler *> addTransfer(KUrl::List srcUrls, QString destDir = QString(),
+                                                     const QString& groupName = QString(), bool start=false);
 
         /**
          * Removes a transfer from the KGet
@@ -348,7 +348,7 @@ class KGET_EXPORT KGet
          * @param groupName the group name
          * @param start Specifies if the newly added transfers should be started.
          */
-        static bool createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
+        static TransferHandler * createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
 
         /**
          * Posts an addedTransferGroupEvent to all the observers

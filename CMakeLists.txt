@@ -1,6 +1,12 @@
 project(kget)
 
 set(kget_adaptor_SRCS)
+# set(kget_transfer_adaptor_SRCS
+#     core/transferhandler.cpp
+#     core/transfertreemodel.cpp
+# )
+
+add_definitions(-DKDE_DEFAULT_DEBUG_AREA=5001) 
 
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
@@ -20,7 +26,7 @@ if(QCA2_FOUND)
     add_definitions(-DHAVE_QCA2)
 endif(QCA2_FOUND)
 
-qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.xml mainwindow.h MainWindow)
+qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.main.xml mainwindow.h MainWindow)
 
 add_subdirectory(conf)
 add_subdirectory(core)
@@ -101,7 +107,7 @@ if(HAVE_NEPOMUK)
 endif(HAVE_NEPOMUK)
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
-
+ 
 if (HAVE_NEPOMUK)
     NEPOMUK_ADD_ONTOLOGY_CLASSES(
         kgetcore_SRCS
@@ -110,6 +116,8 @@ if (HAVE_NEPOMUK)
     )
 endif (HAVE_NEPOMUK)
 
+qt4_add_dbus_adaptor(kgetcore_SRCS org.kde.kget.transfer.xml core/transferhandler.h TransferHandler)
+qt4_add_dbus_interface(kgetcore_SRCS org.kde.kget.transfer.xml transfer_interface)
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
@@ -137,7 +145,7 @@ install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # kget
 
-set(kget_SRCS ${kget_adaptor_SRCS}
+set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    conf/dlgwebinterface.cpp
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
@@ -168,10 +176,25 @@ set(kget_SRCS ${kget_adaptor_SRCS}
 )
 
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
+    ENABLE_TESTING()
+
     set(kget_SRCS
         ${kget_SRCS}
         tests/testkget.cpp
     )
+
+    set(kget_test_transfers_SRCS
+        kget_interface.cpp
+        transfer_interface.cpp
+        tests/testtransfers.cpp
+    )
+
+    qt4_add_dbus_interface(kget_test_transfers_SRCS org.kde.kget.main.xml kget_interface)
+
+    kde4_add_unit_test(kget_test_transfers
+        ${kget_test_transfers_SRCS})
+    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
+
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
 if(LIBKNOTIFICATIONITEM-1_FOUND)

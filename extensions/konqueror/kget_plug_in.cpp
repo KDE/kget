@@ -83,7 +83,7 @@ void KGet_plug_in::showPopup()
 
     if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
     {
-	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+	OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
         QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
         if (reply.isValid())
             hasDropTarget = reply.value();
@@ -119,7 +119,7 @@ void KGet_plug_in::slotShowDrop()
 #endif
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parentWidget);
     } else {
-	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+	OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
 	kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
@@ -227,7 +227,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     {
         KToolInvocation::kdeinitExecWait("kget");
     }
-    OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+    OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
     kgetInterface.importLinks(linkList);
 }
 

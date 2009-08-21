@@ -169,7 +169,7 @@ QStringList KGet::transferGroupNames()
     return names;
 }
 
-void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
+TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
                        const QString& groupName, bool start)
 {
     // Note: destDir may actually be a full path to a file :-(
@@ -182,11 +182,11 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, 
         //No src location: we let the user insert it manually
         srcUrl = urlInputDialog();
         if( srcUrl.isEmpty() )
-            return;
+            return 0;
     }
 
     if ( !isValidSource( srcUrl ) )
-        return;
+        return 0;
 
     // when we get a destination directory and suggested filename, we don't
     // need to ask for it again
@@ -227,7 +227,7 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, 
         {
             destUrl = destFileInputDialog(destDir, suggestedFileName);
             if (destUrl.isEmpty()) 
-        return;
+        return 0;
 
             destDir = destUrl.directory(KUrl::ObeyTrailingSlash);
         } while (!isValidDestDirectory(destDir));
@@ -243,12 +243,12 @@ void KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, 
         if (dlg.exec() == KIO::R_RENAME)
             destUrl = dlg.newDestUrl();
         else
-            return;
+            return 0;
     }
-    createTransfer(srcUrl, destUrl, groupName, start);
+    return createTransfer(srcUrl, destUrl, groupName, start);
 }
 
-void KGet::addTransfer(const QDomElement& e, const QString& groupName)
+TransferHandler * KGet::addTransfer(const QDomElement& e, const QString& groupName)
 {
     //We need to read these attributes now in order to know which transfer
     //plugin to use.
@@ -261,18 +261,19 @@ void KGet::addTransfer(const QDomElement& e, const QString& groupName)
 
     if ( srcUrl.isEmpty() || !isValidSource(srcUrl) 
          || !isValidDestDirectory(destUrl.directory()) )
-        return;
+        return 0;
 
-    createTransfer(srcUrl, destUrl, groupName, false, &e);
+    return createTransfer(srcUrl, destUrl, groupName, false, &e);
 }
 
-void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=passbyvalue
-                       const QString& groupName, bool start)
+const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString destDir, const QString& groupName, bool start)
 {
     KUrl::List urlsToDownload;
 
     KUrl::List::Iterator it = srcUrls.begin();
     KUrl::List::Iterator itEnd = srcUrls.end();
+    
+    QList<TransferHandler *> addedTransfers;
 
     for(; it!=itEnd ; ++it)
     {
@@ -281,13 +282,15 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
     }
 
     if ( urlsToDownload.count() == 0 )
-        return;
+        return addedTransfers;
 
     if ( urlsToDownload.count() == 1 )
     {
         // just one file -> ask for filename
-        addTransfer(srcUrls.first(), destDir, srcUrls.first().fileName(), groupName, start);
-        return;
+        TransferHandler * newTransfer = addTransfer(srcUrls.first(), destDir, srcUrls.first().fileName(), groupName, start);
+        
+        if(newTransfer)
+            addedTransfers.append(newTransfer);
     }
 
     KUrl destUrl;
@@ -312,8 +315,13 @@ void KGet::addTransfer(KUrl::List srcUrls, QString destDir, // krazy:exclude=pas
         if(!isValidDestUrl(destUrl))
             continue;
 
-        createTransfer(*it, destUrl, groupName, start);
+        TransferHandler * newTransfer = createTransfer(*it, destUrl, groupName, start);
+        
+        if(newTransfer)
+            addedTransfers.append(newTransfer);
     }
+    
+    return addedTransfers;
 }
 
 
@@ -732,7 +740,7 @@ KGet::~KGet()
     delete m_scheduler;
 }
 
-bool KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
+TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
                           bool start, const QDomElement * e)
 {
     kDebug(5001) << "srcUrl= " << src.url() << "  " 
@@ -764,11 +772,11 @@ bool KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& grou
             if (newTransfer->percent() != 100) //Don't add a finished observer if the Transfer has already been finished
                 newTransfer->handler()->addObserver(new GenericTransferObserver());
 */
-            return true;
+            return newTransfer->handler();
         }
     }
     kDebug(5001) << "Warning! No plugin found to handle the given url";
-    return false;
+    return 0;
 }
 
 TransferDataSource * KGet::createTransferDataSource(const KUrl &src)
