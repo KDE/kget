@@ -606,6 +606,8 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             TransferGroupHandler * group = transfer->group();
             Transfer::ChangesFlags changesFlags = transfer->changesFlags(0);
 
+            emit transfer->transferChangedEvent(transfer, changesFlags);
+            
             for(int i=0; i<8; i++)//Check the 8 most right bits of the flag
             {
                 if (((changesFlags >> i) & 0x00000001))//remove the ith bit(s) from the right and check if the rest is 0x00000001...

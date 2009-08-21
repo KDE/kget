@@ -255,7 +255,7 @@ class KGET_EXPORT TransferHandler : public QObject, public Handler
          * @returns the object path that will be shown in the DBUS interface
          */
         QString dBusObjectPath()       {return m_dBusObjectPath;}
-
+        
 #ifdef HAVE_NEPOMUK
         /**
          * Sets the NepomukHandler for the transfer
@@ -268,6 +268,9 @@ class KGET_EXPORT TransferHandler : public QObject, public Handler
          */
         NepomukHandler * nepomukHandler() {return m_transfer->nepomukHandler();}
 #endif
+
+    signals:
+        void transferChangedEvent(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
 
     private:
         /**

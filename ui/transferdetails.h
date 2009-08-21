@@ -21,17 +21,19 @@ class QLabel;
 class QProgressBar;
 class QVBoxLayout;
 
-class TransferDetails : public QWidget, public TransferObserver
+class TransferDetails : public QWidget
 {
     Q_OBJECT
     public:
         TransferDetails(TransferHandler * transfer);
         ~TransferDetails();
 
-        void transferChangedEvent(TransferHandler * transfer);
-
         // gets the generic details widget if the transfer factory doesn't override it
         static QWidget *detailsWidget(TransferHandler *transfer);
+        
+    public slots:
+        void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
+        
     private:
         TransferHandler * m_transfer;
         QVBoxLayout     * m_layout;

@@ -15,6 +15,7 @@
 
 #include <klocale.h>
 #include <kio/global.h>
+#include <kdebug.h>
 
 #include <QVBoxLayout>
 
@@ -48,38 +49,51 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_progressBar = frm.progressBar;
     m_remainingTimeLabel = frm.remainingTimeLabel;
 
-    transfer->addObserver(this);
     //This updates the widget with the right values
-    transferChangedEvent(transfer);
+    slotTransferChanged(transfer, 0xFFFFFFFF);
+    
+    connect(transfer, SIGNAL(transferChangedEvent(TransferHandler *, TransferHandler::ChangesFlags)),
+            this,     SLOT(slotTransferChanged(TransferHandler *, TransferHandler::ChangesFlags)));
 }
 
 TransferDetails::~TransferDetails()
 {
 }
 
-void TransferDetails::transferChangedEvent(TransferHandler * transfer)
+QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
 {
+    QWidget *details = KGet::factory(handler)->createDetailsWidget(handler);
+
+    if (!details) { // the transfer factory doesn't override the details widget so use the generic one
+        details = new TransferDetails(handler);
+    }
+
+    return details;
+}
+
+void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
+{
+    kDebug(5001) << "TransferDetails::slotTransferChanged";
+    
     Q_UNUSED(transfer);
 
-    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
-
-    if(transferFlags & Transfer::Tc_Status)
+    if(flags & Transfer::Tc_Status)
     {
         m_statusPixmapLabel->setPixmap(m_transfer->statusPixmap());
         m_statusTextLabel->setText(m_transfer->statusText());
     }
 
-    if((transferFlags & Transfer::Tc_TotalSize) || (transferFlags & Transfer::Tc_DownloadedSize))
+    if((flags & Transfer::Tc_TotalSize) || (flags & Transfer::Tc_DownloadedSize))
     {
         m_completedLabel->setText(i18n("%1 of %2", KIO::convertSize(m_transfer->downloadedSize()), KIO::convertSize(m_transfer->totalSize())));
     }
 
-    if(transferFlags & Transfer::Tc_Percent)
+    if(flags & Transfer::Tc_Percent)
     {
         m_progressBar->setValue(m_transfer->percent());
     }
 
-    if(transferFlags & Transfer::Tc_DownloadSpeed)
+    if(flags & Transfer::Tc_DownloadSpeed)
     {
         int speed = m_transfer->downloadSpeed();
 
@@ -93,20 +107,8 @@ void TransferDetails::transferChangedEvent(TransferHandler * transfer)
         else
             m_speedLabel->setText(i18n("%1/s", KIO::convertSize(speed)));
     }
+
     m_remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));
-
-    m_transfer->resetChangesFlags(this);
-}
-
-QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
-{
-    QWidget *details = KGet::factory(handler)->createDetailsWidget(handler);
-
-    if (!details) { // the transfer factory doesn't override the details widget so use the generic one
-        details = new TransferDetails(handler);
-    }
-
-    return details;
 }
 
 #include "transferdetails.moc"
