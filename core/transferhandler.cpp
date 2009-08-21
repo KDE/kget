@@ -30,9 +30,9 @@
     #include <kworkspace/kworkspace.h>
 #endif
 
-TransferHandler::TransferHandler(Transfer * transfer, Scheduler * scheduler)
-  : Handler(scheduler),
-    m_transfer(transfer)
+TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
+  : Handler(scheduler, parent),
+    m_transfer(parent)
 {
     static int dBusObjIdx = 0;
     dBusObjIdx++;

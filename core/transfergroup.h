@@ -40,6 +40,7 @@ class TransferTreeModel;
  */
 class KGET_EXPORT TransferGroup : public JobQueue
 {
+    Q_OBJECT
     public:
         enum GroupChange
         {
@@ -57,7 +58,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
 
         typedef int ChangesFlags;
 
-        TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name=QString());
+        TransferGroup(TransferTreeModel * model, Scheduler * parent, const QString & name=QString());
 
         virtual ~TransferGroup();
 

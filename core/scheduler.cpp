@@ -17,7 +17,8 @@
 
 #include <kdebug.h>
 
-Scheduler::Scheduler()
+Scheduler::Scheduler(QObject * parent)
+  : QObject(parent)
 {
 }
 

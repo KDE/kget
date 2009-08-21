@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,7 +16,6 @@
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
-#include "core/transferhistorystore.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -31,7 +30,7 @@
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                    const QDomElement * e)
-    : Job(parent, scheduler),
+    : Job(scheduler, parent),
       m_source(source), m_dest(dest),
       m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
@@ -54,8 +53,6 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
 
 Transfer::~Transfer()
 {
-    TransferHistoryStore::getStore()->saveItem(TransferHistoryItem(*this));
-
     if(status() == Job::Delayed)
         m_scheduler->stopDelayTimer(this);
 

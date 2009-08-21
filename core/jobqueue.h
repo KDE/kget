@@ -29,13 +29,14 @@
 class Job;
 class Scheduler;
 
-class KGET_EXPORT JobQueue
+class KGET_EXPORT JobQueue : public QObject
 {
+    Q_OBJECT
     public:
         enum Status {Running, Stopped};
         typedef QList<Job *>::iterator iterator;
 
-        JobQueue(Scheduler * scheduler);
+        JobQueue(Scheduler * parent);
         virtual ~JobQueue();
 
         /**

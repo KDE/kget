@@ -24,7 +24,7 @@ namespace bt
     class PeerInterface;
 }
 
-class BTTransfer : public QObject, public Transfer, public bt::MonitorInterface
+class BTTransfer : public Transfer, public bt::MonitorInterface
 {
     Q_OBJECT
 

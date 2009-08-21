@@ -15,6 +15,8 @@
 #include <QList>
 
 #include <kget_export.h>
+#include "core/transfer.h"
+#include "core/transfergroup.h"
 
 class KUrl;
 
@@ -88,7 +90,13 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
         static QString columnName(int column);
 
     signals:
-        void transfersChangedEvent(QList<TransferHandler *>);
+        void groupAddedEvent(TransferGroupHandler *);
+        void groupRemovedEvent(TransferGroupHandler *);
+        void groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>);
+        void transferAddedEvent(TransferHandler *, TransferGroupHandler *);
+        void transferRemovedEvent(TransferHandler *, TransferGroupHandler *);
+        void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
+        void transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>);
         
     private:
         void timerEvent(QTimerEvent *event);

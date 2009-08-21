@@ -23,7 +23,6 @@
 class TransferGroupScheduler : public Scheduler
 {
     Q_OBJECT
-
     public:
         TransferGroupScheduler();
         ~TransferGroupScheduler();

@@ -19,6 +19,7 @@
 #include <QCloseEvent>
 
 #include "core/observer.h"
+#include "core/transfer.h"
 
 class QAction;
 class QTimer;
@@ -43,7 +44,7 @@ public:
     void setDropTargetVisible( bool shown, bool internal = true );
 
 public slots:
-    void slotTransfersChanged(QList<TransferHandler *> transfers);
+    void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
     
 protected:
     // drag and drop

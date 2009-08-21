@@ -20,7 +20,7 @@
  * This transfer uses the KIO class to download files
  */
  
-class TransferKio : public QObject, public Transfer
+class TransferKio : public Transfer
 {
     Q_OBJECT
 

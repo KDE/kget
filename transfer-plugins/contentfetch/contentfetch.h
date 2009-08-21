@@ -16,7 +16,7 @@
 #include "script.h"
 #include <QString>
 
-class ContentFetch : public QObject, public Transfer
+class ContentFetch : public Transfer
 {
     Q_OBJECT
 

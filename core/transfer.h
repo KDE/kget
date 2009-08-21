@@ -32,9 +32,9 @@ class NepomukHandler;
 
 class KGET_EXPORT Transfer : public Job
 {
+    Q_OBJECT
     friend class TransferHandler;
     friend class TransferTreeModel;
-
     public:
 
         /**

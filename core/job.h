@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -29,8 +30,9 @@ class QDomNode;
 class Scheduler;
 class JobQueue;
 
-class KGET_EXPORT Job
+class KGET_EXPORT Job : public QObject
 {
+    Q_OBJECT
     public:
         /**
          * The status property describes the current job status
@@ -57,7 +59,7 @@ class KGET_EXPORT Job
                    /// queue status
         };
 
-        Job(JobQueue * parent, Scheduler * scheduler);
+        Job(Scheduler * scheduler, JobQueue * parent);
         virtual ~Job();
 
         //Job commands

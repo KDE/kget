@@ -29,7 +29,7 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
                            Scheduler* scheduler, const KUrl& source,
                            const KUrl& dest, const QString &scriptFile,
                            const QDomElement* e)
-    : QObject(0), Transfer(parent, factory, scheduler, source, dest, e),
+    : Transfer(parent, factory, scheduler, source, dest, e),
       m_p_group(parent), m_scriptFile(scriptFile), m_destDir(dest.directory(KUrl::AppendTrailingSlash))
 {
     m_p_script = new Script(this, source);

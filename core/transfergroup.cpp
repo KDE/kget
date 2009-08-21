@@ -24,8 +24,8 @@
 #include <QDomElement>
 
 
-TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, const QString & name)
-    : JobQueue(scheduler),
+TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * parent, const QString & name)
+    : JobQueue(parent),
       m_model(model), m_name(name),
       m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
@@ -33,7 +33,7 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * scheduler, c
       m_visibleDownloadLimit(0), m_visibleUploadLimit(0),
       m_iconName("bookmark-new-list"), m_defaultFolder(0)
 {
-    m_handler = new TransferGroupHandler(this, scheduler);
+    m_handler = new TransferGroupHandler(parent, this);
 }
 
 TransferGroup::~TransferGroup()

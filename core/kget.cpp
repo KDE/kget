@@ -26,6 +26,7 @@
 #include "core/kuiserverjobs.h"
 #include "core/transfergroupscheduler.h"
 #include "settings.h"
+#include "core/transferhistorystore.h"
 
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
@@ -80,13 +81,6 @@ void KGet::deleteSelf()
 {
     foreach (ModelObserver *observer, m_observers) {
         KGet::delObserver(observer);
-    }
-    foreach (TransferGroup * group, m_transferTreeModel->transferGroups()) {
-        foreach (TransferGroupObserver *observer, group->handler()->m_observers) { //No we don't want to get stalked
-            group->handler()->delObserver(observer);
-        }
-
-        KGet::delGroup(group->name());
     }
 }
 
@@ -144,7 +138,7 @@ void KGet::delGroup(const QString& groupName)
         }
         m_transferTreeModel->delGroup(group);
         postRemovedTransferGroupEvent(group);
-        delete(group);
+        group->deleteLater();
     }
 }
 
@@ -329,6 +323,7 @@ bool KGet::delTransfer(TransferHandler * transfer)
 {
     Transfer * t = transfer->m_transfer;
     t->stop();
+    TransferHistoryStore::getStore()->saveItem(TransferHistoryItem(*t));
 
     //Here I delete the Transfer. The other possibility is to move it to a list
     //and to delete all these transfers when kget gets closed. Obviously, after
@@ -336,7 +331,7 @@ bool KGet::delTransfer(TransferHandler * transfer)
     //pointers to it are invalid.
     transfer->postDeleteEvent();
     m_transferTreeModel->delTransfer(t);
-    delete t;
+    t->deleteLater();
     return true;
 }
 
@@ -1149,7 +1144,8 @@ GenericModelObserver::GenericModelObserver(QObject *parent) : QObject(parent)
 
 GenericModelObserver::~GenericModelObserver()
 {
-    delete m_groupObserver;
+    foreach (TransferGroupHandler * handler, KGet::allTransferGroups())
+        handler->delObserver(m_groupObserver);
 }
 
 void GenericModelObserver::addedTransferGroupEvent(TransferGroupHandler * group)

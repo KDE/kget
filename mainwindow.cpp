@@ -18,6 +18,7 @@
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 #include "dbus/dbusmodelobserver.h"
 #include "settings.h"
@@ -402,9 +403,13 @@ void MainWindow::slotDelayedInit()
         KGet::setGlobalDownloadLimit(0);
         KGet::setGlobalUploadLimit(0);
     }
-    
-    // Update the title with the active transfers percent using the mainwindowmodelobserver
-    KGet::addObserver(new MainWindowModelObserver(this));
+
+    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler *, TransferGroupHandler *)), this, SLOT(slotUpdateTitlePercent()));
+    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler *, TransferGroupHandler *)), this, SLOT(slotUpdateTitlePercent()));
+    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)), 
+                           SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
+    connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)),
+                           SLOT(slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)));
 
 #ifdef DEBUG
     if(m_doTesting)
@@ -452,6 +457,38 @@ void MainWindow::slotUpdateTitlePercent()
     } else {
         setPlainCaption(i18n("KGet"));
     }
+}
+
+void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
+{
+    bool update = false;
+    foreach (TransferHandler * handler, transfers.keys())
+    {
+        Transfer::ChangesFlags transferFlags = transfers.value(handler);
+        if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status)
+        {
+            update = true;
+            break;
+        }
+    }
+    if (update)
+        slotUpdateTitlePercent();
+}
+
+void MainWindow::slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
+{
+    bool update = false;
+    foreach (TransferGroupHandler * handler, groups.keys())
+    {
+        TransferGroup::ChangesFlags groupFlags = groups.value(handler);
+        if (groupFlags & TransferGroup::Gc_Percent)
+        {
+            update = true;
+            break;
+        }
+    }
+    if (update)
+        slotUpdateTitlePercent();
 }
 
 void MainWindow::slotQuit()
@@ -995,74 +1032,6 @@ QVariantMap MainWindow::transfers() const
 int MainWindow::transfersSpeed() const
 {
     return m_dbusModelObserver->transfersSpeed();
-}
-
-MainWindowModelObserver::MainWindowModelObserver(MainWindow *window) 
-    : QObject(window)
-{
-    m_window = window;
-    m_groupObserver = new MainWindowGroupObserver(window);
-}
-
-void MainWindowModelObserver::addedTransferGroupEvent(TransferGroupHandler *group)
-{
-    group->addObserver(m_groupObserver);
-}
-
-void MainWindowModelObserver::removedTransferGroupEvent(TransferGroupHandler *group)
-{
-    group->delObserver(m_groupObserver);
-}
-
-MainWindowGroupObserver::MainWindowGroupObserver(MainWindow *window) 
-    : QObject(window)
-{
-    m_window = window;
-    m_transferObserver = new MainWindowTransferObserver(window);
-}
-
-void MainWindowGroupObserver::groupChangedEvent(TransferGroupHandler * group)
-{
-    TransferGroupHandler::ChangesFlags transferFlags = group->changesFlags(this);
-    if (transferFlags & TransferGroup::Gc_Percent) {
-        m_window->slotUpdateTitlePercent();
-    }
-    group->resetChangesFlags(this);
-}
-
-void MainWindowGroupObserver::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
-{ 
-    Q_UNUSED(after);
-    transfer->addObserver(m_transferObserver);
-}
-
-void MainWindowGroupObserver::removedTransferEvent(TransferHandler * transfer)
-{
-    transfer->delObserver(m_transferObserver);
-
-    m_window->slotUpdateTitlePercent();
-}
-
-/**
-void MainWindowGroupObserver::movedTransferEvent(TransferHandler * transfer, TransferHandler * after)
-{
-    Q_UNUSED(transfer);
-    Q_UNUSED(after);
-}**/
-
-MainWindowTransferObserver::MainWindowTransferObserver(MainWindow *window)
-    : QObject(window)
-{
-    m_window = window;
-}
-
-void MainWindowTransferObserver::transferChangedEvent(TransferHandler *transfer)
-{
-    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
-    if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
-        m_window->slotUpdateTitlePercent();
-    }
-    transfer->resetChangesFlags(this);
 }
 
 #include "mainwindow.moc"

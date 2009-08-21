@@ -21,7 +21,7 @@
  * This transfer uses the KIO class to download files
  */
  
-class TransferMultiSegKio : public QObject, public Transfer
+class TransferMultiSegKio : public Transfer
 {
     Q_OBJECT
 

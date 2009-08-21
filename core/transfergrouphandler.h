@@ -31,6 +31,7 @@ class Scheduler;
 
 class KGET_EXPORT TransferGroupHandler : public Handler
 {
+    Q_OBJECT
     friend class GenericTransferObserver;
     friend class TransferGroup;
     friend class TransferTreeModel;
@@ -39,7 +40,7 @@ class KGET_EXPORT TransferGroupHandler : public Handler
 
         typedef TransferGroup::ChangesFlags ChangesFlags;
 
-        TransferGroupHandler(TransferGroup * group, Scheduler * scheduler);
+        TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent);
 
         ~TransferGroupHandler();
 

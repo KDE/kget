@@ -25,9 +25,9 @@
 #include <klocale.h>
 #include <kicon.h>
 
-TransferGroupHandler::TransferGroupHandler(TransferGroup * group, Scheduler * scheduler)
-  : Handler(scheduler),
-    m_group(group),
+TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)
+  : Handler(scheduler, parent),
+    m_group(parent),
     m_qobject(0)
 {
     addObserver(0);
@@ -350,7 +350,6 @@ GenericTransferGroupObserver::GenericTransferGroupObserver(QObject * parent) : Q
 
 GenericTransferGroupObserver::~GenericTransferGroupObserver()
 {
-    delete m_transferObserver;
 }
 
 void GenericTransferGroupObserver::groupChangedEvent(TransferGroupHandler * group)

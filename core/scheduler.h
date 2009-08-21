@@ -30,9 +30,8 @@
 class Scheduler : public QObject
 {
     Q_OBJECT
-
     public:
-        Scheduler();
+        Scheduler(QObject * parent = 0);
         ~Scheduler();
 
         /**

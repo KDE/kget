@@ -16,7 +16,7 @@
 
 #include "core/transfer.h"
 
-class metalink : public QObject, public Transfer
+class metalink : public Transfer
 {
     Q_OBJECT
 

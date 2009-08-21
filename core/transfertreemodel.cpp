@@ -45,6 +45,8 @@ void TransferTreeModel::addGroup(TransferGroup * group)
     beginInsertRows(QModelIndex(), m_transferGroups.size(), m_transferGroups.size());
 
     m_transferGroups.append(group);
+    
+    emit groupAddedEvent(group->handler());
 
     endInsertRows();
 }
@@ -55,6 +57,8 @@ void TransferTreeModel::delGroup(TransferGroup * group)
 
     m_transferGroups.removeAll(group);
     m_changedGroups.removeAll(group->handler());
+    
+    emit groupRemovedEvent(group->handler());
 
     endRemoveRows();
 }
@@ -64,6 +68,8 @@ void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
     beginInsertRows(createIndex(m_transferGroups.indexOf(group), 0, group->handler()), group->size(), group->size());
 
     group->append(transfer);
+    
+    emit transferAddedEvent(transfer->handler(), group->handler());
 
     endInsertRows();
     
@@ -83,6 +89,8 @@ void TransferTreeModel::delTransfer(Transfer * transfer)
 
     group->remove(transfer);
     m_changedTransfers.removeAll(transfer->handler());
+    
+    emit transferRemovedEvent(transfer->handler(), group->handler());
 
     endRemoveRows();
 }
@@ -98,9 +106,12 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
     kDebug(5001) << "INSERT POSITION" << insertPosition << "TRANSFER AFTER:" << after << "REMOVE POSITION:" << removePosition;
 
     emit layoutAboutToBeChanged();
+    
+    bool sameGroup = false;
 
     if(destGroup == transfer->group())
     {
+        sameGroup = true;
         if (after)
             destGroup->move(transfer, after);
         else
@@ -119,6 +130,9 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
     }
 
     emit layoutChanged();
+    
+    if (!sameGroup)
+        emit transferMovedEvent(transfer->handler(), destGroup->handler());
 
     KGet::selectionModel()->clearSelection();
 }
@@ -596,8 +610,8 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     Q_UNUSED(event);
 //     kDebug(5001) << "TransferTreeModel::timerEvent";
 
-    QList<TransferHandler *> updatedTransfers;
-    QList<TransferGroupHandler *> updatedGroups;
+    QMap<TransferHandler *, Transfer::ChangesFlags> updatedTransfers;
+    QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> updatedGroups;
 
     foreach(TransferHandler * transfer, m_changedTransfers)
     {
@@ -618,11 +632,11 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             }
 
             transfer->resetChangesFlags(0);
-            updatedTransfers.append(transfer);
+            updatedTransfers.insert(transfer, changesFlags);
         }
     }
     
-    emit transfersChangedEvent(m_changedTransfers);
+    emit transfersChangedEvent(updatedTransfers);
 
     foreach(TransferGroupHandler * group, m_changedGroups)
     {
@@ -640,9 +654,11 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             }
 
             group->resetChangesFlags(0);
-            updatedGroups.append(group);
+            updatedGroups.insert(group, changesFlags);
         }
     }
+    
+    emit groupsChangedEvent(updatedGroups);
 
     m_changedTransfers.clear();
     m_changedGroups.clear();

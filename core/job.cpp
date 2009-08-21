@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,8 +16,9 @@
 
 #include <kdebug.h>
 
-Job::Job(JobQueue * parent, Scheduler * scheduler)
-    : m_jobQueue(parent),
+Job::Job(Scheduler * scheduler, JobQueue * parent)
+    : QObject(parent),
+      m_jobQueue(parent),
       m_scheduler(scheduler),
       m_status(Stopped),
       m_policy(None)

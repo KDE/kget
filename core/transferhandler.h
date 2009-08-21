@@ -57,10 +57,9 @@ class GenericTransferGroupObserver;
  * can ask to the TransferHandler for the ChangesFlags.
  */
 
-class KGET_EXPORT TransferHandler : public QObject, public Handler
+class KGET_EXPORT TransferHandler : public Handler
 {
     Q_OBJECT
-    
     friend class KGet;
     friend class TransferTreeModel;
     friend class Transfer;
@@ -71,7 +70,7 @@ class KGET_EXPORT TransferHandler : public QObject, public Handler
 
         typedef Transfer::ChangesFlags ChangesFlags;
 
-        TransferHandler(Transfer * transfer, Scheduler * scheduler);
+        TransferHandler(Transfer * parent, Scheduler * scheduler);
 
         virtual ~TransferHandler();
 

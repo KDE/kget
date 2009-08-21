@@ -21,6 +21,8 @@
 #include <knotificationitem.h>
 #endif
 #include "ui/tray.h"
+#include "core/transfer.h"
+#include "core/transfergroup.h"
 
 class ViewsContainer;
 class DropTarget;
@@ -120,6 +122,10 @@ private slots:
 
     // import links slots
     void slotShowListLinks();
+    
+    //Model changes
+    void slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
+    void slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
 
 private:
     void exportTransfers(bool plain=false);
@@ -155,63 +161,6 @@ private:
     bool m_doTesting;               // UnitTest flag
 
     HttpServer *m_webinterface;
-};
-
-/**
- * Checks every transfer for a percent change to update the mainwindow title
- */
-class MainWindowTransferObserver : public QObject, public TransferObserver
-{
-    Q_OBJECT
-    public:
-        MainWindowTransferObserver(MainWindow *window);
-        virtual ~MainWindowTransferObserver(){}
-
-        virtual void transferChangedEvent(TransferHandler * transfer);
-
-//        virtual void deleteEvent(TransferHandler * transfer);
-
-    private:
-        MainWindow *m_window;
-};
-
-/**
-* Used to update the mainwindow caption when the groups percents change
-*/
-class MainWindowGroupObserver : public QObject, public TransferGroupObserver
-{
-    Q_OBJECT
-    public:
-        MainWindowGroupObserver(MainWindow *window);
-        virtual ~MainWindowGroupObserver() {}
-
-        virtual void groupChangedEvent(TransferGroupHandler * group);
-
-        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-
-        virtual void removedTransferEvent(TransferHandler * transfer);
-/**
-        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);**/
-
-    private:
-        MainWindow *m_window;
-        MainWindowTransferObserver *m_transferObserver;
-};
-
-class MainWindowModelObserver : public QObject, public ModelObserver
-{
-    Q_OBJECT
-    public:
-        MainWindowModelObserver(MainWindow *window);
-        virtual ~MainWindowModelObserver (){}
-
-        virtual void addedTransferGroupEvent(TransferGroupHandler * group);
-
-        virtual void removedTransferGroupEvent(TransferGroupHandler * group);
-
-    private:
-        MainWindow *m_window;
-        MainWindowGroupObserver *m_groupObserver;
 };
 
 #endif

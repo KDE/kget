@@ -7,8 +7,6 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
-
-
 #include "core/jobqueue.h"
 
 #include "core/scheduler.h"
@@ -16,9 +14,10 @@
 
 #include <kdebug.h>
 
-JobQueue::JobQueue(Scheduler * scheduler)
-    : m_maxSimultaneousJobs(2),
-      m_scheduler(scheduler),
+JobQueue::JobQueue(Scheduler * parent)
+    : QObject(parent),
+      m_maxSimultaneousJobs(2),
+      m_scheduler(parent),
       m_status(Running)
 {
     m_scheduler->addQueue(this);
@@ -26,9 +25,6 @@ JobQueue::JobQueue(Scheduler * scheduler)
 
 JobQueue::~JobQueue()
 {
-    foreach (Job * job, m_jobs) {
-        delete job;
-    }
     m_scheduler->delQueue(this);
 }
 

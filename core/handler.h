@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -10,12 +10,15 @@
 #ifndef HANDLER_H
 #define HANDLER_H
 
+#include <QObject>
+
 class Scheduler;
 
-class Handler
+class Handler : public QObject
 {
+    Q_OBJECT
     public:
-        Handler(Scheduler * scheduler);
+        Handler(Scheduler * scheduler, QObject * parent);
         virtual ~Handler();
 
         virtual void start() = 0;
