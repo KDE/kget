@@ -619,6 +619,8 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             updatedTransfers.append(transfer);
         }
     }
+    
+    emit transfersChangedEvent(m_changedTransfers);
 
     foreach(TransferGroupHandler * group, m_changedGroups)
     {

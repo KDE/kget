@@ -87,6 +87,9 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
 
         static QString columnName(int column);
 
+    signals:
+        void transfersChangedEvent(QList<TransferHandler *>);
+        
     private:
         void timerEvent(QTimerEvent *event);
 

@@ -425,6 +425,11 @@ QList<TransferGroupHandler *> KGet::selectedTransferGroups()
     return selectedTransferGroups;
 }
 
+TransferTreeModel * KGet::model()
+{
+    return m_transferTreeModel;
+}
+
 TransferTreeSelectionModel * KGet::selectionModel()
 {
     return m_selectionModel;

@@ -194,6 +194,11 @@ class KGET_EXPORT KGet
         selectedTransferGroups();
 
         /**
+         * @returns a pointer to the TransferTreeModel object
+         */
+        static TransferTreeModel * model();
+        
+        /**
          * @returns a pointer to the QItemSelectionModel object
          */
         static TransferTreeSelectionModel * selectionModel();

@@ -29,13 +29,10 @@ class DropTargetModelObserver;
 class DropTargetGroupObserver;
 class DropTargetTransferObserver;
     
-class DropTarget : public QWidget, public TransferObserver, public TransferGroupObserver, public ModelObserver
+class DropTarget : public QWidget
 {
 Q_OBJECT
 
-    friend class DropTargetModelObserver;
-    friend class DropTargetGroupObserver;
-    friend class DropTargetTransferObserver;
 public:
     DropTarget(MainWindow * parent);
     ~DropTarget();
@@ -45,6 +42,9 @@ public:
     void playAnimationSync();
     void setDropTargetVisible( bool shown, bool internal = true );
 
+public slots:
+    void slotTransfersChanged(QList<TransferHandler *> transfers);
+    
 protected:
     // drag and drop
     void dragEnterEvent(QDragEnterEvent *);
@@ -60,16 +60,6 @@ protected:
 
     // paint the drop target
     void paintEvent(QPaintEvent*);
-    
-    // OBSERVERS stuff
-    void transferChangedEvent(TransferHandler * transfer);
-    
-    void groupChangedEvent(TransferGroupHandler * group);
-    void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-    void removedTransferEvent(TransferHandler * transfer);   
-
-    void addedTransferGroupEvent(TransferGroupHandler * group);
-    void removedTransferGroupEvent(TransferGroupHandler * group);    
     
 private slots:
     void toggleSticky();

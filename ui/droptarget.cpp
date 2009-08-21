@@ -15,6 +15,7 @@
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "core/transfertreemodel.h"
 #include "settings.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
@@ -106,8 +107,10 @@ DropTarget::DropTarget(MainWindow * mw)
 
     animTimer = new QTimer(this);
     
-    KGet::addObserver(this);
     setMouseTracking(true);
+    
+    connect(KGet::model(), SIGNAL(transfersChangedEvent(QList<TransferHandler *>)),
+            this,          SLOT(slotTransfersChanged(QList<TransferHandler *>)));
 }
 
 
@@ -145,6 +148,13 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
             move(position);
         slotToolTipUpdate();
     }
+}
+
+void DropTarget::slotTransfersChanged(QList<TransferHandler *> transfers)
+{
+    kDebug() << "5001" << "DropTarget::slotTransfersChanged";
+    
+    slotToolTipUpdate();
 }
 
 void DropTarget::playAnimationShow()
@@ -441,43 +451,4 @@ void DropTarget::slotClose()
     setVisible( false );
 }
 
-void DropTarget::addedTransferGroupEvent(TransferGroupHandler *group)
-{
-    group->addObserver(this);
-}
-
-void DropTarget::removedTransferGroupEvent(TransferGroupHandler *group)
-{
-    group->delObserver(this);
-}
-
-void DropTarget::groupChangedEvent(TransferGroupHandler * group)
-{
-    //TransferGroupHandler::ChangesFlags transferFlags = group->changesFlags(this);
-    slotToolTipUpdate();
-    group->resetChangesFlags(this);
-}
-
-void DropTarget::addedTransferEvent(TransferHandler * transfer, TransferHandler * after)
-{ 
-    Q_UNUSED(after);
-    transfer->addObserver(this);
-}
-
-void DropTarget::removedTransferEvent(TransferHandler * transfer)
-{
-    transfer->delObserver(this);
-
-    slotToolTipUpdate();
-}
-
-void DropTarget::transferChangedEvent(TransferHandler *transfer)
-{
-    //TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
-//X     if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
-//X         m_window->slotUpdateTitlePercent();
-//X     }
-    slotToolTipUpdate();
-    transfer->resetChangesFlags(this);
-}
 #include "droptarget.moc"
