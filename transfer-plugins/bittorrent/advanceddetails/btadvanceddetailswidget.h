@@ -16,7 +16,7 @@
 
 #include <QWidget>
 
-#include "core/observer.h"
+#include "core/transferhandler.h"
 
 class BTTransferHandler;
 class KTabWidget;
@@ -31,18 +31,19 @@ namespace kt
     class WebSeedsTab;
     }
 
-class BTAdvancedDetailsWidget : public QWidget, public TransferObserver
+class BTAdvancedDetailsWidget : public QWidget
 {
     Q_OBJECT
     public:
         BTAdvancedDetailsWidget(BTTransferHandler * transfer);
-        ~BTAdvancedDetailsWidget();
 
-        void transferChangedEvent(TransferHandler * transfer);
         void deleteEvent(TransferHandler * transfer){/**FIXME: Implement this^^**/ Q_UNUSED(transfer); }
         void init();
-	kt::Monitor* torrentMonitor() const;
+        kt::Monitor* torrentMonitor() const;
 
+    public slots:
+        void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
+        
     signals:
          void aboutToClose();
 

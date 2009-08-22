@@ -39,14 +39,11 @@ BTAdvancedDetailsWidget::BTAdvancedDetailsWidget(BTTransferHandler * transfer)
 
     init();
 
-    transfer->addObserver(this);
     //This updates the widget with the right values
-    transferChangedEvent(transfer);
-}
-
-BTAdvancedDetailsWidget::~BTAdvancedDetailsWidget()
-{
-    m_transfer->delObserver(this);
+    slotTransferChanged(transfer, 0xFFFFFFFF);
+    
+    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler *, TransferHandler::ChangesFlags)),
+            this,       SLOT(slotTransferChanged(TransferHandler *, TransferHandler::ChangesFlags)));
 }
 
 void BTAdvancedDetailsWidget::init()
@@ -78,29 +75,6 @@ void BTAdvancedDetailsWidget::init()
     monitor = new Monitor(tc, 0, 0, file_view);
 }
 
-void BTAdvancedDetailsWidget::transferChangedEvent(TransferHandler * transfer)
-{
-    Q_UNUSED(transfer);
-    kDebug(5001);
-    TransferHandler::ChangesFlags transferFlags = m_transfer->changesFlags(this);
-    if (transferFlags & BTTransfer::Tc_ChunksTotal || transferFlags & BTTransfer::Tc_ChunksDownloaded || transferFlags & BTTransfer::Tc_ChunksExcluded || transferFlags & BTTransfer::Tc_ChunksLeft || transferFlags & Transfer::Tc_DownloadSpeed || transferFlags & Transfer::Tc_UploadSpeed)
-    {
-        //if (tabWidget->currentIndex() == 1)
-        //        peer_view->update();
-        //else if (tabWidget->currentIndex() == 2)
-        //        cd_view->update();
-        /*else */if (tabWidget->currentIndex() == 1)
-                tracker_view->update();
-    }
-    /*else if (m_transfer->status() == Job::Stopped)
-    {
-        peer_view->removeAll();
-        //cd_view->removeAll();
-    }*/
-
-    m_transfer->resetChangesFlags(this);
-}
-
 void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
 {
     Q_UNUSED(event);
@@ -114,6 +88,28 @@ void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
 kt::Monitor* BTAdvancedDetailsWidget::torrentMonitor() const
 {
     return monitor;
+}
+
+void BTAdvancedDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
+{
+    kDebug(5001) << "BTAdvancedDetailsWidget::slotTransferChanged" ;
+    
+    Q_UNUSED(transfer);
+    
+    if (flags & BTTransfer::Tc_ChunksTotal || flags & BTTransfer::Tc_ChunksDownloaded || flags & BTTransfer::Tc_ChunksExcluded || flags & BTTransfer::Tc_ChunksLeft || flags & Transfer::Tc_DownloadSpeed || flags & Transfer::Tc_UploadSpeed)
+    {
+        //if (tabWidget->currentIndex() == 1)
+        //        peer_view->update();
+        //else if (tabWidget->currentIndex() == 2)
+        //        cd_view->update();
+        /*else */if (tabWidget->currentIndex() == 1)
+                tracker_view->update();
+    }
+    /*else if (m_transfer->status() == Job::Stopped)
+    {
+        peer_view->removeAll();
+        //cd_view->removeAll();
+    }*/
 }
 
 #include "btadvanceddetailswidget.moc"
