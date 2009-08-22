@@ -75,4 +75,10 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
         progressBar->setValue(m_transfer->percent());
 }
 
+void BTDetailsWidget::showEvent(QShowEvent * event)
+{
+    slotTransferChanged(m_transfer, 0xFFFFFFFF);
+}
+
+
 #include "btdetailswidget.moc"

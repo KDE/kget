@@ -31,6 +31,9 @@ class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
 
     public slots:
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
+        
+    protected:
+        virtual void showEvent(QShowEvent * event);
 
     private:
         BTTransferHandler * m_transfer;
