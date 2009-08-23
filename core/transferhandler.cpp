@@ -66,7 +66,7 @@ void TransferHandler::start()
     if(m_transfer->group()->status() == JobQueue::Running)
     {
         m_transfer->setPolicy(Job::None);
-        m_transfer->group()->move(m_transfer, 0);
+        KGet::model()->moveTransfer(m_transfer, m_transfer->group());
     }
     else
     {
