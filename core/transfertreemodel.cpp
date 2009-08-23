@@ -45,7 +45,7 @@ void TransferTreeModel::addGroup(TransferGroup * group)
     beginInsertRows(QModelIndex(), m_transferGroups.size(), m_transferGroups.size());
 
     m_transferGroups.append(group);
-    
+
     emit groupAddedEvent(group->handler());
 
     endInsertRows();

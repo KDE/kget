@@ -25,6 +25,7 @@ class KPassivePopup;
 
 class TransferObserver;
 class GenericTransferGroupObserver;
+class KGetKJobAdapter;
 
 /**
  * Class TransferHandler:
@@ -293,40 +294,12 @@ class KGET_EXPORT TransferHandler : public Handler
 
         Transfer * m_transfer;
         
+        KGetKJobAdapter * m_kjobAdapter;
+        
         QString m_dBusObjectPath;
 
         QList<TransferObserver *> m_observers;
         QMap<TransferObserver *, ChangesFlags> m_changesFlags;
-};
-
-
-class GenericTransferObserver : public QObject, public TransferObserver
-{
-    Q_OBJECT
-    public:
-        GenericTransferObserver(GenericTransferGroupObserver *groupObserver);
-
-        void transferChangedEvent(TransferHandler * transfer);
-
-#ifdef HAVE_KWORKSPACE
-    private slots:
-        void slotShutdown();
-#endif
-
-    private:
-        bool allTransfersFinished();
-        KPassivePopup* popupMessage(const QString &title, const QString &message);
-
-        void checkAndFinish();
-
-#ifdef HAVE_KWORKSPACE
-        void checkAndShutdown();
-#endif
-        void checkAndUpdateSystemTray();
-
-
-        QString prevStatus;
-        GenericTransferGroupObserver *m_groupObserver;
 };
 
 #endif

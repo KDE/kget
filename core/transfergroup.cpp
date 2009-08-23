@@ -353,13 +353,10 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     for( ; it!=itEnd; ++it )
     {
         Transfer* transfer = static_cast<Transfer*>(*it);
-        if (transfer->status() != Job::Finished) // do not save finished downloads
-        {
-            kDebug(5001) << "  -->  " << name() << "  transfer: " << transfer->source();
+        kDebug(5001) << "  -->  " << name() << "  transfer: " << transfer->source();
         QDomElement t = e.ownerDocument().createElement("Transfer");
         e.appendChild(t);
-            transfer->save(t);
-        }
+        transfer->save(t);
     }
 }
 

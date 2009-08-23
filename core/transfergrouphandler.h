@@ -32,7 +32,7 @@ class Scheduler;
 class KGET_EXPORT TransferGroupHandler : public Handler
 {
     Q_OBJECT
-    friend class GenericTransferObserver;
+    friend class GenericObserver;
     friend class TransferGroup;
     friend class TransferTreeModel;
     friend class KGet;
@@ -352,32 +352,6 @@ class QObjectInterface : public QObject
 
     private:
         TransferGroupHandler * m_handler;
-};
-
-class GenericTransferGroupObserver : public TransferGroupObserver, public QObject
-{
-    public:
-        GenericTransferGroupObserver(QObject * parent);
-        ~GenericTransferGroupObserver();
-
-        virtual void groupChangedEvent(TransferGroupHandler * group);
-
-        virtual void addedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-
-        virtual void removedTransferEvent(TransferHandler * transfer);
-
-        virtual void movedTransferEvent(TransferHandler * transfer, TransferHandler * after);
-
-        void addTransferGroup(TransferGroupHandler *group);
-
-        void postTransferChanged(TransferHandler *);
-
-    private:
-        void registerTransferAsKJob(TransferHandler *);
-
-    private:
-        GenericTransferObserver *m_transferObserver;
-        QMap <TransferHandler *, KGetKJobAdapter *> m_adapters;
 };
 
 #endif

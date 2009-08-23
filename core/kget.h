@@ -27,17 +27,17 @@
 #include "scheduler.h"
 #include "kget_export.h"
 #include "observer.h"
+#include "transfer.h"
+#include "transfergrouphandler.h"
 
 class QDomElement;
 class QAbstractItemView;
 
 class KComboBox;
 
-class Transfer;
 class TransferDataSource;
 class TransferGroup;
 class TransferHandler;
-class TransferGroupHandler;
 class TransferFactory;
 class TransferTreeModel;
 class TransferTreeSelectionModel;
@@ -46,6 +46,7 @@ class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
 class GenericTransferGroupObserver;
+class KPassivePopup;
 
 
 /**
@@ -61,7 +62,7 @@ class GenericTransferGroupObserver;
 class KGET_EXPORT KGet
 {
     friend class NewTransferDialog;
-    friend class GenericTransferObserver;
+    friend class GenericObserver;
 
     public:
         enum AfterFinishAction {
@@ -424,18 +425,36 @@ class KGET_EXPORT KGet
         static KUiServerJobs *m_jobManager;
 };
 
-class GenericModelObserver : public QObject, public ModelObserver
+class GenericObserver : public QObject
 {
     Q_OBJECT
     public:
-        GenericModelObserver(QObject *parent = 0);
-        virtual ~GenericModelObserver ();
+        GenericObserver(QObject *parent = 0);
+        virtual ~GenericObserver ();
 
-        virtual void addedTransferGroupEvent(TransferGroupHandler * group);
-
-        virtual void removedTransferGroupEvent(TransferGroupHandler * group);
+    public slots:
+        void groupAddedEvent(TransferGroupHandler *handler);
+        void groupRemovedEvent(TransferGroupHandler *handler);
+        void transferAddedEvent(TransferHandler *handler);
+        void transferRemovedEvent(TransferHandler *handler);
+        void transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
+        void groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
+        void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
+        
+#ifdef HAVE_KWORKSPACE
+    private slots:
+        void slotShutdown();
+#endif
 
     private:
-        GenericTransferGroupObserver *m_groupObserver;
+        bool allTransfersFinished();
+        KPassivePopup* popupMessage(const QString &title, const QString &message);
+
+        void checkAndFinish();
+
+#ifdef HAVE_KWORKSPACE
+        void checkAndShutdown();
+#endif
+        void checkAndUpdateSystemTray();
 };
 #endif

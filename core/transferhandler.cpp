@@ -19,16 +19,13 @@
 #include "core/observer.h"
 #include "settings.h"
 #include "mainwindow.h"
+#include "kgetkjobadapter.h"
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <KPassivePopup>
 #include <QAction>
 #include <QVariant>
-
-#ifdef HAVE_KWORKSPACE
-    #include <kworkspace/kworkspace.h>
-#endif
 
 TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
   : Handler(scheduler, parent),
@@ -40,6 +37,9 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
     m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx);
     
     addObserver(0);
+
+    m_kjobAdapter = new KGetKJobAdapter(this, this);
+    KGet::registerKJob(m_kjobAdapter);
 }
 
 TransferHandler::~TransferHandler()
@@ -239,6 +239,18 @@ void TransferHandler::postTransferChangedEvent()
 
     // Notify the TransferTreeModel
     m_transfer->model()->postDataChangedEvent(this);
+    
+    
+    if (m_kjobAdapter)
+    {
+        m_kjobAdapter->slotUpdateDescription();
+    
+        if (m_transfer->status() == Job::Finished)
+        {
+            KGet::unregisterKJob(m_kjobAdapter);
+            m_kjobAdapter = 0;
+        }
+    }
 
     //kDebug(5001) << "TransferHandler::postTransferChangedEvent() LEAVING";
 }
@@ -262,6 +274,8 @@ void TransferHandler::postDeleteEvent()
         if(*it && *it != dynamic_cast<TransferObserver*>(m_transfer))
             (*it)->deleteEvent(this);
     }
+    if (m_kjobAdapter)
+        KGet::unregisterKJob(m_kjobAdapter);
     kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";
 }
 
@@ -286,140 +300,3 @@ QList<QAction*> TransferHandler::factoryActions()
         actions.append(action);
     return actions;
 }
-
-
-GenericTransferObserver::GenericTransferObserver(GenericTransferGroupObserver *groupObserver)
-  : QObject(groupObserver),
-    TransferObserver()
-{
-    m_groupObserver = groupObserver;
-}
-
-void GenericTransferObserver::transferChangedEvent(TransferHandler * transfer)
-{
-    //kDebug(5001);
-    TransferHandler::ChangesFlags transferFlags = transfer->changesFlags(this);
-
-    if (transfer->status() == Job::Finished && Settings::afterFinishActionEnabled() 
-                                            && Settings::afterFinishAction() == KGet::Quit) 
-    {
-        checkAndFinish();
-    }
-
-#ifdef HAVE_KWORKSPACE
-    if (transfer->status() == Job::Finished && Settings::afterFinishActionEnabled() 
-                                            && Settings::afterFinishAction() == KGet::Shutdown) {
-        checkAndShutdown();
-    }
-#endif
-
-    if (prevStatus != transfer->statusText())//FIXME: HACK: better: check statusFlags if it 
-    {                                                                 //contains Tc_Status (flags & Transfer::Tc_Status <-doesn't work)
-        prevStatus = transfer->statusText();
-        KGet::checkSystemTray();
-    }
-
-    if (transferFlags & Transfer::Tc_Percent) {
-        transfer->group()->setGroupChange(TransferGroup::Gc_Percent, true);
-    }
-
-    if (transferFlags & Transfer::Tc_DownloadSpeed) {
-        transfer->group()->setGroupChange(TransferGroup::Gc_DownloadSpeed, true);
-    }
-
-    if (transferFlags & Transfer::Tc_UploadSpeed) {
-        transfer->group()->setGroupChange(TransferGroup::Gc_UploadSpeed, true);
-    }
-
-    transfer->resetChangesFlags(this);
-    transfer->checkShareRatio();
-
-    m_groupObserver->postTransferChanged(transfer);
-}
-
-bool GenericTransferObserver::allTransfersFinished()
-{
-    bool quitFlag = true;
-
-    // if all the downloads had state finished from
-    // the beginning
-    bool allWereFinished = true;
-
-    foreach(TransferGroup *transferGroup, KGet::m_transferTreeModel->transferGroups()) {
-        foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
-            if(transfer->status() != Job::Finished) {
-                quitFlag = false;
-            }
-            if (transfer->status() == Job::Finished &&
-               transfer->startStatus() != Job::Finished)
-            {
-                allWereFinished = false;
-            }
-        }
-    }
-
-    // if the only downloads in the queue
-    // are those that are already finished
-    // before the current KGet instance
-    // we don't want to quit
-    if (allWereFinished)
-    {
-        return false;
-    }
-
-    // otherwise, we did some downloads right now, let quitFlag decide
-    return quitFlag;
-}
-
-KPassivePopup* GenericTransferObserver::popupMessage(const QString &title, const QString &message)
-{
-    KPassivePopup *popup;
-    // we have to call diferent message from kpassivePopup
-    // one with parent as QWidget for the mainWindow
-    // and another with parent as QSystemTrayIcon if the parent is a systemTray
-    // so passing the QSystemTrayIcon as QWidget don't work
-    if(Settings::enableSystemTray()) 
-    {
-#ifdef HAVE_KNOTIFICATIONITEM
-        //FIXME: proper solution ...
-        popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow);
-#else
-        popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow->systemTray());
-#endif
-    }
-    else 
-    {
-        popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow);
-    }
-
-    return popup;
-}
-
-void GenericTransferObserver::checkAndFinish()
-{
-    // check if there is some unfinished transfer in scheduler queues
-    if(allTransfersFinished()) {
-        KPassivePopup *message = popupMessage(i18n("Quit KGet"),
-                                            i18n("KGet is now closing, as all downloads have completed."));
-        QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
-    }
-}
-
-#ifdef HAVE_KWORKSPACE
-void GenericTransferObserver::checkAndShutdown()
-{
-    if(allTransfersFinished()) {
-        KPassivePopup *message = popupMessage(i18n("Quit KGet"),
-                                            i18n("The computer will now turn off, as all downloads have completed."));
-        QObject::connect(message, SIGNAL(destroyed()), SLOT(slotShutdown()));
-        QObject::connect(message, SIGNAL(destroyed()),  KGet::m_mainWindow, SLOT(slotQuit()));
-    }
-}
-
-void GenericTransferObserver::slotShutdown()
-{
-    KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmNo,
-                                KWorkSpace::ShutdownTypeHalt,
-                                KWorkSpace::ShutdownModeForceNow);
-}
-#endif
