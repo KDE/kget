@@ -23,7 +23,6 @@
 class QAction;
 
 class QObjectInterface;
-class GenericTransferObserver;
 class TransferGroupObserver;
 class TransferHandler;
 class KGetKJobAdapter;
