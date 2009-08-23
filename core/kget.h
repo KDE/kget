@@ -26,7 +26,6 @@
 #include "kuiserverjobs.h"
 #include "scheduler.h"
 #include "kget_export.h"
-#include "observer.h"
 #include "transfer.h"
 #include "transfergrouphandler.h"
 
@@ -45,7 +44,6 @@ class KGetPlugin;
 class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
-class GenericTransferGroupObserver;
 class KPassivePopup;
 
 
@@ -63,7 +61,7 @@ class KGET_EXPORT KGet
 {
     friend class NewTransferDialog;
     friend class GenericObserver;
-
+    friend class TransferTreeModel;
     public:
         enum AfterFinishAction {
             Quit = 0,
@@ -76,20 +74,6 @@ class KGET_EXPORT KGet
          * Deletes itself
          */
         static void deleteSelf();
-
-        /**
-         * Adds a new observer of the KGet. See observer.h for more info about it.
-         *
-         * @param observer The new observer
-         */
-        static void addObserver(ModelObserver * observer);
-
-        /**
-         * Removes an observer of the KGet. See observer.h for more info about it.
-         *
-         * @param observer The observer to remove
-         */
-        static void delObserver(ModelObserver * observer);
 
         /**
          * Adds a new group to the KGet.
@@ -356,20 +340,6 @@ class KGET_EXPORT KGet
          */
         static TransferHandler * createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
 
-        /**
-         * Posts an addedTransferGroupEvent to all the observers
-         *
-         * @param group the group that has been added to the group
-         */
-        static void postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer = 0);
-
-        /**
-         * Posts an removedTransferGroupEvent to all the observers
-         *
-         * @param group the group that has been removed from the group
-         */
-        static void postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer = 0);
-
         static KUrl urlInputDialog();
         static QString destDirInputDialog();
         static KUrl destFileInputDialog(QString destDir = QString(), const QString& suggestedFileName = QString());
@@ -405,8 +375,6 @@ class KGET_EXPORT KGet
          * warning message.
          */
         static bool safeDeleteFile( const KUrl& url );
-
-        static QList<ModelObserver *> m_observers;
 
         //Interview models
         static TransferTreeModel * m_transferTreeModel;

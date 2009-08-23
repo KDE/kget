@@ -20,7 +20,7 @@
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
-#include "dbus/dbusmodelobserver.h"
+//#include "dbus/dbusmodelobserver.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
 #include "ui/viewscontainer.h"
@@ -79,7 +79,7 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
 
     m_viewsContainer = new ViewsContainer(this);
     // initialize the model observer to export percents over dbus
-    m_dbusModelObserver = new DBusModelObserver();
+    //m_dbusModelObserver = new DBusModelObserver();
 
     setCentralWidget(m_viewsContainer);
 
@@ -1026,12 +1026,14 @@ bool MainWindow::offlineMode() const
 
 QVariantMap MainWindow::transfers() const
 {
-    return m_dbusModelObserver->transfers();
+    return QVariantMap();//FIXME
+    //return m_dbusModelObserver->transfers();
 }
 
 int MainWindow::transfersSpeed() const
 {
-    return m_dbusModelObserver->transfersSpeed();
+    return 0;//FIXME
+    //return m_dbusModelObserver->transfersSpeed();
 }
 
 #include "mainwindow.moc"

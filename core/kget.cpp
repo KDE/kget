@@ -22,7 +22,6 @@
 #include "core/transfertreeselectionmodel.h"
 #include "core/plugin/plugin.h"
 #include "core/plugin/transferfactory.h"
-#include "core/observer.h"
 #include "core/kuiserverjobs.h"
 #include "core/transfergroupscheduler.h"
 #include "settings.h"
@@ -84,32 +83,6 @@ KGet& KGet::self( MainWindow * mainWindow )
 
 void KGet::deleteSelf()
 {
-    foreach (ModelObserver *observer, m_observers) {
-        KGet::delObserver(observer);
-    }
-}
-
-void KGet::addObserver(ModelObserver * observer)
-{
-    kDebug(5001);
-
-    m_observers.append(observer);
-
-    //Update the new observer with the TransferGroups objects of the model
-    QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
-    QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
-
-    for( ; it!=itEnd ; ++it )
-    {
-        postAddedTransferGroupEvent(*it, observer);
-    }
-
-    kDebug(5001) << " >>> EXITING";
-}
-
-void KGet::delObserver(ModelObserver * observer)
-{
-    m_observers.removeAll(observer);
 }
 
 bool KGet::addGroup(const QString& groupName)
@@ -122,9 +95,6 @@ bool KGet::addGroup(const QString& groupName)
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
     m_transferTreeModel->addGroup(group);
-
-    //post notifications
-    postAddedTransferGroupEvent(group);
 
     return true;
 }
@@ -142,7 +112,6 @@ void KGet::delGroup(const QString& groupName)
             m_transferTreeModel->delTransfer(transfer);//Unregister transfers from model first, they will get deleted by the group when destructing
         }
         m_transferTreeModel->delGroup(group);
-        postRemovedTransferGroupEvent(group);
         group->deleteLater();
     }
 }
@@ -485,9 +454,6 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
                 m_transferTreeModel->addGroup(newGroup);
 
                 newGroup->load(nodeList.item(i).toElement());
-
-                //Post notifications
-                postAddedTransferGroupEvent(newGroup);
             }
             else
             {
@@ -575,10 +541,10 @@ void KGet::setSchedulerRunning(bool running)
     if(running)
     {
         m_scheduler->stop(); //stopall first, to have a clean startingpoint
-	m_scheduler->start();
+	    m_scheduler->start();
     }
     else
-	m_scheduler->stop();
+	    m_scheduler->stop();
 }
 
 bool KGet::schedulerRunning()
@@ -714,7 +680,6 @@ void KGet::calculateGlobalUploadLimit()
 }
 
 // ------ STATIC MEMBERS INITIALIZATION ------
-QList<ModelObserver *> KGet::m_observers;
 TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
@@ -795,43 +760,6 @@ TransferDataSource * KGet::createTransferDataSource(const KUrl &src)
             return dataSource;
     }
     return 0;
-}
-
-void KGet::postAddedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
-{
-    kDebug(5001);
-    if(observer)
-    {
-        observer->addedTransferGroupEvent(group->handler());
-        return;
-    }
-
-    QList<ModelObserver *>::iterator it = m_observers.begin();
-    QList<ModelObserver *>::iterator itEnd = m_observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        kDebug(5001) << "message posted";
-
-        (*it)->addedTransferGroupEvent(group->handler());
-    }
-}
-
-void KGet::postRemovedTransferGroupEvent(TransferGroup * group, ModelObserver * observer)
-{
-    if(observer)
-    {
-        observer->removedTransferGroupEvent(group->handler());
-        return;
-    }
-
-    QList<ModelObserver *>::iterator it = m_observers.begin();
-    QList<ModelObserver *>::iterator itEnd = m_observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        (*it)->removedTransferGroupEvent(group->handler());
-    }
 }
 
 KUrl KGet::urlInputDialog()

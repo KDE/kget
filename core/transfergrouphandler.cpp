@@ -15,7 +15,6 @@
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfer.h"
-#include "core/observer.h"
 #include "core/kget.h"
 
 #include <kdebug.h>
@@ -30,25 +29,10 @@ TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup 
     m_group(parent),
     m_qobject(0)
 {
-    addObserver(0);
 }
 
 TransferGroupHandler::~TransferGroupHandler()
 {
-}
-
-void TransferGroupHandler::addObserver(TransferGroupObserver * observer)
-{
-    kDebug(5001) << "TransferGroupHandler::addObserver";
-    m_observers.push_back(observer);
-    m_changesFlags[observer]=0xFFFFFFFF;
-    kDebug(5001) << "   Now we have " << m_observers.size() << " observers";
-}
-
-void TransferGroupHandler::delObserver(TransferGroupObserver * observer)
-{
-    m_observers.removeAll(observer);
-    m_changesFlags.remove(observer);
 }
 
 void TransferGroupHandler::start()
@@ -94,7 +78,6 @@ TransferHandler * TransferGroupHandler::operator[] (int i)
 void TransferGroupHandler::setName(const QString &name)
 {
     m_group->setName(name);
-    postGroupChangedEvent();
 }
 
 QVariant TransferGroupHandler::data(int column)
@@ -133,24 +116,14 @@ QVariant TransferGroupHandler::data(int column)
     }
 }
 
-TransferGroup::ChangesFlags TransferGroupHandler::changesFlags(TransferGroupObserver * observer)
+TransferGroup::ChangesFlags TransferGroupHandler::changesFlags()
 {
-    if( m_changesFlags.find(observer) != m_changesFlags.end() )
-        return m_changesFlags[observer];
-    else
-    {
-        kDebug(5001) << " TransferGroupHandler::changesFlags() doesn't see you as an observer! ";
-
-        return 0xFFFFFFFF;
-    }
+    return m_changesFlags;
 }
 
-void TransferGroupHandler::resetChangesFlags(TransferGroupObserver * observer)
+void TransferGroupHandler::resetChangesFlags()
 {
-    if( m_changesFlags.find(observer) != m_changesFlags.end() )
-        m_changesFlags[observer] = 0;
-    else
-        kDebug(5001) << " TransferGroupHandler::resetchangesFlags() doesn't see you as an observer! ";
+    m_changesFlags = 0;
 }
 
 int TransferGroupHandler::indexOf(TransferHandler * transfer)
@@ -187,116 +160,12 @@ QObjectInterface * TransferGroupHandler::qObject()
     return m_qobject;
 }
 
-void TransferGroupHandler::setGroupChange(ChangesFlags change, bool postEvent)
+void TransferGroupHandler::setGroupChange(ChangesFlags change, bool notifyModel)
 {
-    QMap<TransferGroupObserver *, ChangesFlags>::Iterator it = m_changesFlags.begin();
-    QMap<TransferGroupObserver *, ChangesFlags>::Iterator itEnd = m_changesFlags.end();
+    m_changesFlags |= change;
 
-    for( ; it!=itEnd; ++it )
-        *it |= change;
-
-    if(postEvent)
-        postGroupChangedEvent();
-}
-
-void TransferGroupHandler::postGroupChangedEvent()
-{
-    //Here we have to copy the list and iterate on the copy itself, because
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
-    QList<TransferGroupObserver *> observers = m_observers;
-
-    QList<TransferGroupObserver *>::iterator it = observers.begin();
-    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        if(*it)
-            (*it)->groupChangedEvent(this);
-    }
-
-    m_group->model()->postDataChangedEvent(this);
-}
-
-void TransferGroupHandler::postAddedTransferEvent(Transfer * transfer, Transfer * after)
-{
-    kDebug(5001) << "TransferGroupHandler::postAddedTransferEvent";
-    kDebug(5001) << "   number of observers = " << m_observers.size();
-
-    //Here we have to copy the list and iterate on the copy itself, because
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
-    QList<TransferGroupObserver *> observers = m_observers;
-
-    QList<TransferGroupObserver *>::iterator it = observers.begin();
-    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        if(*it)
-        {
-            if(after)
-                (*it)->addedTransferEvent(transfer->handler(), after->handler());
-            else
-                (*it)->addedTransferEvent(transfer->handler(), 0);
-        }
-    }
-}
-
-void TransferGroupHandler::postRemovedTransferEvent(Transfer * transfer)
-{
-    //Here we have to copy the list and iterate on the copy itself, because
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
-    QList<TransferGroupObserver *> observers = m_observers;
-
-    QList<TransferGroupObserver *>::iterator it = observers.begin();
-    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        if(*it)
-            (*it)->removedTransferEvent(transfer->handler());
-    }
-}
-
-void TransferGroupHandler::postMovedTransferEvent(Transfer * transfer, Transfer * after)
-{
-    //Here we have to copy the list and iterate on the copy itself, because
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
-    QList<TransferGroupObserver *> observers = m_observers;
-
-    QList<TransferGroupObserver *>::iterator it = observers.begin();
-    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        if(*it)
-        {
-            if(after)
-                (*it)->movedTransferEvent(transfer->handler(), after->handler());
-            else
-                (*it)->movedTransferEvent(transfer->handler(), 0);
-        }
-    }
-}
-
-void TransferGroupHandler::postDeleteEvent()
-{
-    //Here we have to copy the list and iterate on the copy itself, because
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
-    QList<TransferGroupObserver *> observers = m_observers;
-
-    QList<TransferGroupObserver *>::iterator it = observers.begin();
-    QList<TransferGroupObserver *>::iterator itEnd = observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        if(*it)
-            (*it)->deleteEvent(this);
-    }
+    if (notifyModel)
+        m_group->model()->postDataChangedEvent(this);
 }
 
 void TransferGroupHandler::createActions()

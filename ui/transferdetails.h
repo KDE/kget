@@ -13,7 +13,6 @@
 
 #include <QWidget>
 
-#include "core/observer.h"
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 

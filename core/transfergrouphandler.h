@@ -17,7 +17,6 @@
 #include "handler.h"
 #include "transfergroup.h"
 #include "kget_export.h"
-#include "observer.h"
 #include "kget.h"
 
 class QAction;
@@ -42,22 +41,6 @@ class KGET_EXPORT TransferGroupHandler : public Handler
         TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent);
 
         ~TransferGroupHandler();
-
-        /**
-         * Adds an observer to this TransferGroup
-         * Note that the observer with pointer == 0 is added by default, and
-         * it's used by the TransferTreeModel class
-         *
-         * @param observer The new observer that should be added
-         */
-        void addObserver(TransferGroupObserver * observer);
-
-        /**
-         * Removes an observer from this TransferGroup
-         *
-         * @param observer The observer that should be removed
-         */
-        void delObserver(TransferGroupObserver * observer);
 
         /**
          * These are all JobQueue-related functions
@@ -138,6 +121,11 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * belonging this group
          */
         int uploadSpeed() const         {return m_group->uploadSpeed();}
+        
+        /**
+         * @return the changes flags which are currently set on the transfer
+         */
+        ChangesFlags changesFlags();
 
         /**
          * Set a default Folder for the group
@@ -226,20 +214,6 @@ class KGET_EXPORT TransferGroupHandler : public Handler
         int columnCount() const     {return 6;}
 
         /**
-         * Returns the changes flags
-         *
-         * @param observer The observer that makes this request
-         */
-        ChangesFlags changesFlags(TransferGroupObserver * observer);
-
-        /**
-         * Resets the changes flags for a given TransferObserver
-         *
-         * @param observer The observer that makes this request
-         */
-        void resetChangesFlags(TransferGroupObserver * observer);
-
-        /**
          * @returns the index for the given transfer. If the transfer can't
          *          be found, it returns -1
          */
@@ -284,43 +258,14 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * Sets a change flag in the ChangesFlags variable.
          *
          * @param change The TransferChange flag to be set
-         * @param postEvent if false the handler will not post an event to the
-         * observers, if true the handler will post an event to the observers
+         * @param notifyModel notify the model about the change
          */
-        void setGroupChange(ChangesFlags change, bool postEvent = false);
+        void setGroupChange(ChangesFlags change, bool notifyModel = false);
 
         /**
-         * Posts a TransferGroupChangedEvent to all the observers
+         * Resets the changes flags
          */
-        void postGroupChangedEvent();
-
-        /**
-         * Posts an addedTransferEvent to all the observers
-         *
-         * @param transfer the transfer that has been added to the group
-         * @param after the transfer after which it has been added
-         */
-        void postAddedTransferEvent(Transfer * transfer, Transfer * after);
-
-        /**
-         * Posts an removedTransferEvent to all the observers
-         *
-         * @param transfer the transfer that has been removed from the group
-         */
-        void postRemovedTransferEvent(Transfer * transfer);
-
-        /**
-         * Posts an movedTransferEvent to all the observers
-         *
-         * @param transfer the transfer that has been removed from the group
-         * @param after the transfer after which the it has been moved
-         */
-        void postMovedTransferEvent(Transfer * transfer, Transfer * after);
-
-        /**
-         * Posts a deleteEvent to all the observers
-         */
-        void postDeleteEvent();
+        void resetChangesFlags();
 
         /**
          * Creates all the QActions
@@ -332,8 +277,7 @@ class KGET_EXPORT TransferGroupHandler : public Handler
         QObjectInterface * m_qobject;
         QList<QAction *> m_actions;
 
-        QList<TransferGroupObserver *> m_observers;
-        QMap<TransferGroupObserver *, ChangesFlags> m_changesFlags;
+        ChangesFlags m_changesFlags;
 };
 
 

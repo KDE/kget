@@ -13,8 +13,6 @@
 
 #include <knotificationitem.h>
 
-#include "core/observer.h"
-
 class MainWindow;
 class KGet;
 

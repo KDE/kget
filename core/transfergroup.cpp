@@ -38,7 +38,6 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * parent, cons
 
 TransferGroup::~TransferGroup()
 {
-    m_handler->postDeleteEvent();
 }
 
 int TransferGroup::downloadSpeed()
@@ -97,14 +96,12 @@ void TransferGroup::append(Transfer * transfer)
     JobQueue::append(transfer);
 
     calculateSpeedLimits();
-    m_handler->postAddedTransferEvent(transfer, after);
 }
 
 void TransferGroup::prepend(Transfer * transfer)
 {
     JobQueue::prepend(transfer);
 
-    m_handler->postAddedTransferEvent(transfer, 0);
     calculateSpeedLimits();
 }
 
@@ -112,7 +109,6 @@ void TransferGroup::insert(Transfer * transfer, Transfer * after)
 {
     JobQueue::insert(transfer, after);
 
-    m_handler->postAddedTransferEvent(transfer, after);
     calculateSpeedLimits();
 }
 
@@ -120,7 +116,6 @@ void TransferGroup::remove(Transfer * transfer)
 {
     JobQueue::remove(transfer);
 
-    m_handler->postRemovedTransferEvent(transfer);
     calculateSpeedLimits();
 }
 
@@ -129,17 +124,7 @@ void TransferGroup::move(Transfer * transfer, Transfer * after)
     if(transfer == after)
         return;
 
-    TransferGroup * oldTransferGroup = transfer->group();
-
     JobQueue::move(transfer, after);
-
-    if(oldTransferGroup == this)
-        m_handler->postMovedTransferEvent(transfer, after);
-    else
-    {
-        m_handler->postAddedTransferEvent(transfer, after);
-        oldTransferGroup->handler()->postRemovedTransferEvent(transfer);
-    }
 }
 
 Transfer * TransferGroup::findTransfer(const KUrl &src)
@@ -313,14 +298,6 @@ void TransferGroup::calculateUploadLimit()
             transfer->setUploadLimit(m_uploadLimit / n + pool / transfersNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
         }
     }
-}
-
-void TransferGroup::transferChangedEvent(Transfer * transfer)
-{
-    Q_UNUSED(transfer);
-//     Disable this line for now, since as of now we don't do nothing with this event.  
-//  reenabled  for the plasma applet
-    m_handler->postGroupChangedEvent();
 }
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue

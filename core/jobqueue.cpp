@@ -20,12 +20,10 @@ JobQueue::JobQueue(Scheduler * parent)
       m_scheduler(parent),
       m_status(Running)
 {
-    m_scheduler->addQueue(this);
 }
 
 JobQueue::~JobQueue()
 {
-    m_scheduler->delQueue(this);
 }
 
 Job * JobQueue::operator[] (int i) const

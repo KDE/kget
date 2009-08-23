@@ -16,7 +16,6 @@
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/plugin/transferfactory.h"
-#include "core/observer.h"
 #include "settings.h"
 #include "mainwindow.h"
 #include "kgetkjobadapter.h"
@@ -35,8 +34,6 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
     dBusObjIdx++;
 
     m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx);
-    
-    addObserver(0);
 
     m_kjobAdapter = new KGetKJobAdapter(this, this);
     KGet::registerKJob(m_kjobAdapter);
@@ -44,21 +41,6 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
 
 TransferHandler::~TransferHandler()
 {
-//    qDeleteAll(m_observers);
-}
-
-void TransferHandler::addObserver(TransferObserver * observer)
-{
-    m_observers.push_back(observer);
-    m_changesFlags[observer]=0xFFFFFFFF;
-    kDebug(5001) << "TransferHandler: OBSERVERS++ = " << m_observers.size();
-}
-
-void TransferHandler::delObserver(TransferObserver * observer)
-{
-    m_observers.removeAll(observer);
-    m_changesFlags.remove(observer);
-    kDebug(5001) << "TransferHandler: OBSERVERS-- = " << m_observers.size();
 }
 
 void TransferHandler::start()
@@ -183,76 +165,37 @@ bool TransferHandler::isSelected() const
     return m_transfer->m_isSelected;
 }
 
-Transfer::ChangesFlags TransferHandler::changesFlags(TransferObserver * observer) const
+Transfer::ChangesFlags TransferHandler::changesFlags() const
 {
-    if( m_changesFlags.find(observer) != m_changesFlags.end() )
-        return m_changesFlags[observer];
-    else
-    {
-        kDebug(5001) << " TransferHandler::changesFlags() doesn't see you as an observer! ";
-
-        return 0xFFFFFFFF;
-    }
+    return m_changesFlags;
 }
 
-void TransferHandler::resetChangesFlags(TransferObserver * observer)
+void TransferHandler::resetChangesFlags()
 {
-    if( m_changesFlags.find(observer) != m_changesFlags.end() )
-        m_changesFlags[observer] = 0;
-    else
-        kDebug(5001) << " TransferHandler::resetChangesFlags() doesn't see you as an observer! ";
+    m_changesFlags = 0;
 }
 
-void TransferHandler::setTransferChange(ChangesFlags change, bool postEvent)
+void TransferHandler::setTransferChange(ChangesFlags change, bool notifyModel)
 {
-    QMap<TransferObserver *, ChangesFlags>::Iterator it = m_changesFlags.begin();
-    QMap<TransferObserver *, ChangesFlags>::Iterator itEnd = m_changesFlags.end();
+    m_changesFlags |= change;
 
-    for( ; it!=itEnd; ++it )
-        *it |= change;
-
-    if(postEvent)
-        postTransferChangedEvent();
-}
-
-void TransferHandler::postTransferChangedEvent()
-{
-//     kDebug(5001) << "TransferHandler::postTransferChangedEvent() ENTERING";
-    
-    // Here we have to copy the list and iterate on the copy itself, because
-    // a view can remove itself as a view while we are iterating over the
-    // observers list and this leads to crashes.
-    QList<TransferObserver *> observers = m_observers;
-
-    QList<TransferObserver *>::iterator it = observers.begin();
-    QList<TransferObserver *>::iterator itEnd = observers.end();
-
-    // Notify the observers
-    for(; it!=itEnd; ++it)
+    if (notifyModel)
     {
-        if((*it)/* && KGet::*/)
-            (*it)->transferChangedEvent(this);
-    }
-
-    // Notify the group
-    m_transfer->group()->transferChangedEvent(m_transfer);
-
-    // Notify the TransferTreeModel
-    m_transfer->model()->postDataChangedEvent(this);
+        // Notify the TransferTreeModel
+        m_transfer->model()->postDataChangedEvent(this);
     
     
-    if (m_kjobAdapter)
-    {
-        m_kjobAdapter->slotUpdateDescription();
-    
-        if (m_transfer->status() == Job::Finished)
+        if (m_kjobAdapter)
         {
-            KGet::unregisterKJob(m_kjobAdapter);
-            m_kjobAdapter = 0;
+            m_kjobAdapter->slotUpdateDescription();
+
+            if (m_transfer->status() == Job::Finished)
+            {
+                KGet::unregisterKJob(m_kjobAdapter);
+                m_kjobAdapter = 0;
+            }
         }
     }
-
-    //kDebug(5001) << "TransferHandler::postTransferChangedEvent() LEAVING";
 }
 
 void TransferHandler::postDeleteEvent()
@@ -261,19 +204,6 @@ void TransferHandler::postDeleteEvent()
 
     m_transfer->postDeleteEvent();//First inform the transfer itself
 
-    //Here we have to copy the list and iterate on the copy itself, because
-    //a view can remove itself as a view while we are iterating over the
-    //observers list and this leads to crashes.
-    QList<TransferObserver *> observers = m_observers;
-
-    QList<TransferObserver *>::iterator it = observers.begin();
-    QList<TransferObserver *>::iterator itEnd = observers.end();
-
-    for(; it!=itEnd; ++it)
-    {
-        if(*it && *it != dynamic_cast<TransferObserver*>(m_transfer))
-            (*it)->deleteEvent(this);
-    }
     if (m_kjobAdapter)
         KGet::unregisterKJob(m_kjobAdapter);
     kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";

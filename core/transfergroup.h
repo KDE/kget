@@ -284,13 +284,6 @@ class KGET_EXPORT TransferGroup : public JobQueue
         void calculateUploadLimit();
 
         /**
-         * Notifies that the given transfer has changed
-         *
-         * @param transfer The transfer that has changed
-         */
-        void transferChangedEvent(Transfer * transfer);
-
-        /**
          * Saves this group object to the given QDomNode 
          *
          * @param n The QDomNode where the group will be saved

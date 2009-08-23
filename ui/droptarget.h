@@ -18,7 +18,6 @@
 #include <QDropEvent>
 #include <QCloseEvent>
 
-#include "core/observer.h"
 #include "core/transfer.h"
 
 class QAction;

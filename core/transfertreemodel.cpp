@@ -19,6 +19,7 @@
 #include "core/transfer.h"
 #include "transferadaptor.h"
 #include "settings.h"
+#include "transfergroupscheduler.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -48,6 +49,8 @@ void TransferTreeModel::addGroup(TransferGroup * group)
 
     emit groupAddedEvent(group->handler());
 
+    KGet::m_scheduler->addQueue(group);
+
     endInsertRows();
 }
 
@@ -59,6 +62,8 @@ void TransferTreeModel::delGroup(TransferGroup * group)
     m_changedGroups.removeAll(group->handler());
     
     emit groupRemovedEvent(group->handler());
+
+    KGet::m_scheduler->delQueue(group);
 
     endRemoveRows();
 }
@@ -618,7 +623,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         if(!updatedTransfers.contains(transfer))
         {
             TransferGroupHandler * group = transfer->group();
-            Transfer::ChangesFlags changesFlags = transfer->changesFlags(0);
+            Transfer::ChangesFlags changesFlags = transfer->changesFlags();
 
             emit transfer->transferChangedEvent(transfer, changesFlags);
             
@@ -631,7 +636,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
                 }
             }
 
-            transfer->resetChangesFlags(0);
+            transfer->resetChangesFlags();
             updatedTransfers.insert(transfer, changesFlags);
         }
     }
@@ -642,7 +647,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     {
         if(!updatedGroups.contains(group))
         {
-            TransferGroup::ChangesFlags changesFlags = group->changesFlags(0);
+            TransferGroup::ChangesFlags changesFlags = group->changesFlags();
 
             for(int i=0; i<8; i++)
             {
@@ -653,7 +658,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
                 }
             }
 
-            group->resetChangesFlags(0);
+            group->resetChangesFlags();
             updatedGroups.insert(group, changesFlags);
         }
     }

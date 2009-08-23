@@ -22,8 +22,6 @@
 
 #include <ksystemtrayicon.h>
 
-#include "core/observer.h"
-
 class MainWindow;
 class KGet;
 class QPixmap;

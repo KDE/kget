@@ -13,22 +13,21 @@
 
 #include <QtTest/QtTest>
 
-#include "observer.h"
+class TransferGroupHandler;
 
-class TestKGet: public QObject, public ModelObserver, public TransferGroupObserver, public TransferObserver
+class TestKGet : public QObject
 {
 Q_OBJECT
-
 public:
     TestKGet();
-    
-    void addedTransferGroupEvent(TransferGroupHandler * group);
-    void removedTransferGroupEvent(TransferGroupHandler * group);
 
 private slots:
     void simpleTest();
     void transferGroupTest();
     void transferGroupRepetitiveAddTest();
+    
+    void addedTransferGroupEvent(TransferGroupHandler * group);
+    void removedTransferGroupEvent(TransferGroupHandler * group);
     
 private:
     TransferGroupHandler * m_addedGH;

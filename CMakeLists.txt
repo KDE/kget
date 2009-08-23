@@ -150,8 +150,8 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
    conf/pluginselector.cpp
-   dbus/dbusmodelobserver.cpp
-   dbus/dbustransfergroupobserver.cpp
+   #dbus/dbusmodelobserver.cpp
+   #dbus/dbustransfergroupobserver.cpp
    ui/droptarget.cpp
    ui/transfersview.cpp
    ui/transfersviewdelegate.cpp

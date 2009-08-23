@@ -18,13 +18,10 @@
 #include "transfer.h"
 #include "transfergroup.h"
 #include "kget_export.h"
-#include "observer.h"
 
 class QAction;
 class KPassivePopup;
 
-class TransferObserver;
-class GenericTransferGroupObserver;
 class KGetKJobAdapter;
 
 /**
@@ -46,16 +43,6 @@ class KGetKJobAdapter;
  * it requests the scheduler to execute the start command to this specific transfer.
  * At this point the scheduler will evaluate this request and execute, if possible,
  * the start() function directly in the TransferKio.
- *
- * --- Notifies about the transfer changes ---
- * When a view is interested in receiving notifies about the specific transfer
- * rapresented by this TransferHandler object, it should add itself to the list
- * of observers calling the addObserver(TransferObserver *) function. On the 
- * contrary call the delObserver(TransferObserver *) function to remove it.
- *
- * --- Interrogation about what has changed in the transfer ---
- * When a TransferObserver receives a notify about a change in the Transfer, it
- * can ask to the TransferHandler for the ChangesFlags.
  */
 
 class KGET_EXPORT TransferHandler : public Handler
@@ -66,7 +53,6 @@ class KGET_EXPORT TransferHandler : public Handler
     friend class Transfer;
     friend class TransferFactory;
     friend class TransferGroupHandler;
-
     public:
 
         typedef Transfer::ChangesFlags ChangesFlags;
@@ -76,22 +62,6 @@ class KGET_EXPORT TransferHandler : public Handler
         virtual ~TransferHandler();
 
         bool supportsSpeedLimits() {return m_transfer->supportsSpeedLimits();}
-
-        /**
-         * Adds an observer to this Transfer
-         * Note that the observer with pointer == 0 is added by default, and
-         * it's used by the TransferTreeModel class
-         *
-         * @param observer The new observer that should be added
-         */
-        void addObserver(TransferObserver * observer);
-
-        /**
-         * Removes an observer from this Transfer
-         *
-         * @param observer The observer that should be removed
-         */
-        void delObserver(TransferObserver * observer);
 
         /**
          * These are all Job-related functions
@@ -229,17 +199,8 @@ class KGET_EXPORT TransferHandler : public Handler
 
         /**
          * Returns the changes flags
-         *
-         * @param observer The observer that makes this request
          */
-        ChangesFlags changesFlags(TransferObserver * observer) const;
-
-        /**
-         * Resets the changes flags for a given TransferObserver
-         *
-         * @param observer The observer that makes this request
-         */
-        void resetChangesFlags(TransferObserver * observer);
+        ChangesFlags changesFlags() const;
 
         /**
          * @returns a list of a actions, which are associated with this TransferHandler
@@ -271,26 +232,24 @@ class KGET_EXPORT TransferHandler : public Handler
 
     signals:
         void transferChangedEvent(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
+        
+    private slots:
+        void postDeleteEvent();
 
     private:
         /**
          * Sets a change flag in the ChangesFlags variable.
          *
          * @param change The TransferChange flag to be set
-         * @param postEvent if false the handler will not post an event to the observers,
-         * if true the handler will post an event to the observers
+         * @param notifyModel if false the handler will not post an event to the model,
+         * if true the handler will post an event to the model
          */
-        void setTransferChange(ChangesFlags change, bool postEvent=false);
+        void setTransferChange(ChangesFlags change, bool notifyModel = false);
 
         /**
-         * Posts a TransferChangedEvent to all the observers.
+         * Resets the changes flags
          */
-        void postTransferChangedEvent();
-
-        /**
-         * Posts a deleteEvent to all the observers
-         */
-        void postDeleteEvent();
+        void resetChangesFlags();
 
         Transfer * m_transfer;
         
@@ -298,8 +257,7 @@ class KGET_EXPORT TransferHandler : public Handler
         
         QString m_dBusObjectPath;
 
-        QList<TransferObserver *> m_observers;
-        QMap<TransferObserver *, ChangesFlags> m_changesFlags;
+        ChangesFlags m_changesFlags;
 };
 
 #endif

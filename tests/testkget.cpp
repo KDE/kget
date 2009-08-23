@@ -11,11 +11,14 @@
 #include "testkget.h"
 #include "transfergrouphandler.h"
 #include "kget.h"
+#include "transfertreemodel.h"
 
 TestKGet::TestKGet()
-    : m_addedGH(0)
+    : QObject(0),
+      m_addedGH(0)
 {
-    KGet::addObserver(this);
+    connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(addedTransferGroupEvent(TransferGroupHandler*)));
+    connect(KGet::model(), SIGNAL(removedAddedEvent(TransferGroupHandler*)), SLOT(removedTransferGroupEvent(TransferGroupHandler*)));
 }
 
 void TestKGet::addedTransferGroupEvent(TransferGroupHandler * group)

@@ -13,8 +13,6 @@
 
 #include <QtTest/QtTest>
 
-#include "observer.h"
-
 class OrgKdeKgetTransferInterface;
 class TestTransfers;
 

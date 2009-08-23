@@ -15,7 +15,6 @@
 #include "transferdetails.h"
 #include "ui/contextmenu.h"
 #include "core/kget.h"
-#include "core/observer.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
@@ -477,13 +476,11 @@ void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * 
 void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIndex)
 {
     if(transferIndex.isValid()) {
-        removeTransferObserver(transferIndex);
         contractItem(transferIndex);
         m_editingIndexes.removeAll(transferIndex);
     }
     else {
         foreach(const QModelIndex &index, m_editingIndexes) {
-            removeTransferObserver(index);
             contractItem(index);
         }
 
@@ -498,14 +495,6 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
     QVBoxLayout *layout = new QVBoxLayout(groupBox);
     QWidget *detailsWidget = TransferDetails::detailsWidget(handler);
     layout->addWidget(detailsWidget);
-
-    // if the details widget is a transfer observer
-    // we add into the transfers_map to delete it when
-    // the extendableitem is closed before the widget or the transfer
-    TransferObserver *observer = dynamic_cast <TransferObserver *> (detailsWidget);
-    if (observer) {
-        m_transfersMap.insert(handler, observer);
-    }
 
     return groupBox;
 }
@@ -523,25 +512,10 @@ void TransfersViewDelegate::itemActivated(const QModelIndex &index)
             extendItem(widget, index);
         }
         else {
-            removeTransferObserver(index);
-
             m_editingIndexes.removeAll(index);
             contractItem(index);
         }
     }
 }
-
-void TransfersViewDelegate::removeTransferObserver(const QModelIndex &index)
-{
-    TransferHandler *handler = static_cast <TransferHandler *> (index.internalPointer());
-
-    // remove the observer from the handler
-    if (m_transfersMap.contains(handler)) {
-        TransferObserver *observer = m_transfersMap.value(handler);
-        m_transfersMap.remove(handler);
-        handler->delObserver(observer);
-    }
-}
-
 
 #include "transfersviewdelegate.moc"
