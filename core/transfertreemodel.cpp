@@ -18,6 +18,7 @@
 #include "core/transferhandler.h"
 #include "core/transfer.h"
 #include "transferadaptor.h"
+#include "dbus/dbustransferwrapper.h"
 #include "settings.h"
 #include "transfergroupscheduler.h"
 
@@ -33,7 +34,6 @@ TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
       m_scheduler(scheduler),
       m_timerId(-1)
 {
-
 }
 
 TransferTreeModel::~TransferTreeModel()
@@ -78,8 +78,9 @@ void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
 
     endInsertRows();
     
-    new TransferAdaptor(transfer->handler());
-    QDBusConnection::sessionBus().registerObject(transfer->handler()->dBusObjectPath(), transfer->handler());
+    DBusTransferWrapper * wrapper = new DBusTransferWrapper(transfer->handler());
+    new TransferAdaptor(wrapper);
+    QDBusConnection::sessionBus().registerObject(transfer->handler()->dBusObjectPath(), wrapper);
 }
 
 void TransferTreeModel::delTransfer(Transfer * transfer)

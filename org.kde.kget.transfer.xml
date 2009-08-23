@@ -1,10 +1,79 @@
-<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
-"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
   <interface name="org.kde.kget.transfer">
+    <method name="supportsSpeedLimits">
+      <arg type="b" direction="out"/>
+    </method>
     <method name="start">
     </method>
     <method name="stop">
+    </method>
+    <method name="status">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="elapsedTime">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="remainingTime">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="isResumable">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="groupName">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="source">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="dest">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="totalSize">
+      <arg type="t" direction="out"/>
+    </method>
+    <method name="downloadedSize">
+      <arg type="t" direction="out"/>
+    </method>
+    <method name="uploadedSize">
+      <arg type="t" direction="out"/>
+    </method>
+    <method name="percent">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="downloadSpeed">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="uploadSpeed">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="setUploadLimit">
+      <arg name="ulLimit" type="i" direction="in"/>
+      <arg name="limit" type="i" direction="in"/>
+    </method>
+    <method name="setDownloadLimit">
+      <arg name="dlLimit" type="i" direction="in"/>
+      <arg name="limit" type="i" direction="in"/>
+    </method>
+    <method name="uploadLimit">
+      <arg type="i" direction="out"/>
+      <arg name="limit" type="i" direction="in"/>
+    </method>
+    <method name="downloadLimit">
+      <arg type="i" direction="out"/>
+      <arg name="limit" type="i" direction="in"/>
+    </method>
+    <method name="setMaximumShareRatio">
+      <arg name="ratio" type="d" direction="in"/>
+    </method>
+    <method name="maximumShareRatio">
+      <arg type="d" direction="out"/>
+    </method>
+    <method name="statusText">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="statusPixmap">
+      <arg type="v" direction="out"/>
     </method>
   </interface>
 </node>

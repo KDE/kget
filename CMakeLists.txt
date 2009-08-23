@@ -1,6 +1,6 @@
 project(kget)
 
-set(kget_adaptor_SRCS)
+#set(kget_adaptor_SRCS)
 # set(kget_transfer_adaptor_SRCS
 #     core/transferhandler.cpp
 #     core/transfertreemodel.cpp
@@ -97,6 +97,7 @@ set(kgetcore_SRCS
    core/download.cpp
    core/transferhistorystore.cpp
    core/linkimporter.cpp
+   dbus/dbustransferwrapper.cpp
 )
 
 if(HAVE_NEPOMUK)
@@ -116,7 +117,7 @@ if (HAVE_NEPOMUK)
     )
 endif (HAVE_NEPOMUK)
 
-qt4_add_dbus_adaptor(kgetcore_SRCS org.kde.kget.transfer.xml core/transferhandler.h TransferHandler)
+qt4_add_dbus_adaptor(kgetcore_SRCS org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
 qt4_add_dbus_interface(kgetcore_SRCS org.kde.kget.transfer.xml transfer_interface)
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
@@ -150,8 +151,6 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
    conf/pluginselector.cpp
-   #dbus/dbusmodelobserver.cpp
-   #dbus/dbustransfergroupobserver.cpp
    ui/droptarget.cpp
    ui/transfersview.cpp
    ui/transfersviewdelegate.cpp

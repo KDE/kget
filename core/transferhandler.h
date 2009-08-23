@@ -68,7 +68,6 @@ class KGET_EXPORT TransferHandler : public Handler
          */
         virtual void start();
         virtual void stop();
-        void setDelay(int seconds);
         Job::Status status() const {return m_transfer->status();}
         Job::Status startStatus() const {return m_transfer->startStatus();}
         int elapsedTime() const;
