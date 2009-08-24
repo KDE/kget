@@ -63,11 +63,6 @@ class KGET_EXPORT TransferHandler : public Handler
 
         bool supportsSpeedLimits() {return m_transfer->supportsSpeedLimits();}
 
-        /**
-         * These are all Job-related functions
-         */
-        virtual void start();
-        virtual void stop();
         Job::Status status() const {return m_transfer->status();}
         Job::Status startStatus() const {return m_transfer->startStatus();}
         int elapsedTime() const;
@@ -228,6 +223,12 @@ class KGET_EXPORT TransferHandler : public Handler
          */
         NepomukHandler * nepomukHandler() {return m_transfer->nepomukHandler();}
 #endif
+    public slots:
+        /**
+         * These are all Job-related functions
+         */
+        virtual void start();
+        virtual void stop();
 
     signals:
         void transferChangedEvent(TransferHandler * transfer, TransferHandler::ChangesFlags flags);

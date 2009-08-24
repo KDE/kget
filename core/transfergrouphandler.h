@@ -42,11 +42,6 @@ class KGET_EXPORT TransferGroupHandler : public Handler
 
         ~TransferGroupHandler();
 
-        /**
-         * These are all JobQueue-related functions
-         */
-        void start();
-        void stop();
         JobQueue::Status status() const {return m_group->status();}
 
         /**
@@ -232,13 +227,6 @@ class KGET_EXPORT TransferGroupHandler : public Handler
         const QList<QAction *> & actions();
 
         /**
-         * @returns a pointer to a QObjectInterface object which is a QObject
-         * by means of which you can connect signals and slots for this 
-         * transfer group.
-         */
-        QObjectInterface * qObject();
-
-        /**
          * Calculates the whole SpeedLimits
          */
         void calculateSpeedLimits() {m_group->calculateSpeedLimits();}
@@ -252,6 +240,13 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * Calculates the DownloadLimits
          */
         void calculateUploadLimit() {m_group->calculateUploadLimit();}
+        
+    public slots:
+        /**
+         * These are all JobQueue-related functions
+         */
+        void start();
+        void stop();
 
     private:
         /**
@@ -274,27 +269,9 @@ class KGET_EXPORT TransferGroupHandler : public Handler
 
         TransferGroup * m_group;
 
-        QObjectInterface * m_qobject;
         QList<QAction *> m_actions;
 
         ChangesFlags m_changesFlags;
-};
-
-
-class QObjectInterface : public QObject
-{
-    Q_OBJECT
-    public:
-        QObjectInterface(TransferGroupHandler * handler);
-
-    public slots:
-        void slotStart();        //Starts the download process
-        void slotStop();         //Stops the download process
-
-    signals:
-
-    private:
-        TransferGroupHandler * m_handler;
 };
 
 #endif

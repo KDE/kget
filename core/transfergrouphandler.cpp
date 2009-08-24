@@ -26,8 +26,7 @@
 
 TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)
   : Handler(scheduler, parent),
-    m_group(parent),
-    m_qobject(0)
+    m_group(parent)
 {
 }
 
@@ -152,14 +151,6 @@ const QList<QAction *> & TransferGroupHandler::actions()
     return m_actions;
 }
 
-QObjectInterface * TransferGroupHandler::qObject()
-{
-    if( !m_qobject )
-        m_qobject = new QObjectInterface(this);
-
-    return m_qobject;
-}
-
 void TransferGroupHandler::setGroupChange(ChangesFlags change, bool notifyModel)
 {
     m_changesFlags |= change;
@@ -173,40 +164,18 @@ void TransferGroupHandler::createActions()
     if( !m_actions.empty() )
         return;
 
-    //Calling this function we make sure the QObjectInterface object
-    //has been created (if not it will create it)
-    qObject();
-
     QAction *startAction = KGet::actionCollection()->addAction("transfer_group_start");
     startAction->setText(i18nc("start transfergroup downloads", "Start"));
     startAction->setIcon(KIcon("media-playback-start"));
-    QObject::connect(startAction, SIGNAL(triggered()), qObject(), SLOT(slotStart()));
+    QObject::connect(startAction, SIGNAL(triggered()), SLOT(start()));
     m_actions.append(startAction);
 
     QAction *stopAction = KGet::actionCollection()->addAction("transfer_group_stop");
     stopAction->setText(i18nc("stop transfergroup downloads", "Stop"));
     stopAction->setIcon(KIcon("media-playback-pause"));
-    QObject::connect(stopAction, SIGNAL(triggered()), qObject(), SLOT(slotStop()));
+    QObject::connect(stopAction, SIGNAL(triggered()), SLOT(stop()));
     m_actions.append(stopAction);
 
-}
-
-
-
-QObjectInterface::QObjectInterface(TransferGroupHandler * handler)
-    : m_handler(handler)
-{
-
-}
-
-void QObjectInterface::slotStart()
-{
-    m_handler->start();
-}
-
-void QObjectInterface::slotStop()
-{
-    m_handler->stop();
 }
 
 #include "transfergrouphandler.moc"
