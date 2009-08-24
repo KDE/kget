@@ -247,6 +247,9 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          */
         void start();
         void stop();
+        
+    signals:
+        void groupChangedEvent(TransferGroupHandler * transfer, TransferGroupHandler::ChangesFlags flags);
 
     private:
         /**

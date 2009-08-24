@@ -649,6 +649,8 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         if(!updatedGroups.contains(group))
         {
             TransferGroup::ChangesFlags changesFlags = group->changesFlags();
+            
+            emit group->groupChangedEvent(group, changesFlags);
 
             for(int i=0; i<8; i++)
             {
