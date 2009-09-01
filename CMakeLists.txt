@@ -180,6 +180,8 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/linkview/kget_sortfilterproxymodel.cpp
    ui/mirror/mirrorsettings.cpp
    ui/mirror/mirrormodel.cpp
+   ui/renamefile.cpp
+   ui/verificationdialog.cpp
    tests/testkget.cpp
    mainwindow.cpp
    main.cpp
@@ -241,6 +243,9 @@ kde4_add_ui_files(kget_SRCS
    ui/linkview/importlinkdialog.ui
    ui/mirror/mirrorsettings.ui
    ui/mirror/mirroradddlg.ui
+   ui/renamefile.ui
+   ui/verificationdialog.ui
+   ui/verificationadddlg.ui
 )
 
 if(HAVE_NEPOMUK)

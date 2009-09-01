@@ -1,83 +1,149 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TransferSettingsDialog</class>
- <widget class="QWidget" name="TransferSettingsDialog" >
-  <property name="geometry" >
+ <widget class="QWidget" name="TransferSettingsDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>141</height>
+    <width>469</width>
+    <height>335</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="KTitleWidget" name="ktitlewidget" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
+    <widget class="KTitleWidget" name="ktitlewidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Transfer Settings</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
-      <widget class="QCheckBox" name="uploadCheck" >
-       <property name="text" >
-        <string>Upload limit:</string>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Download Destination:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="QSpinBox" name="uploadSpin" >
-       <property name="enabled" >
+     <item row="0" column="1">
+      <widget class="KUrlRequester" name="kUrlRequester"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="uploadCheck">
+       <property name="text">
+        <string>Upload Limit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="uploadSpin">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="suffix" >
+       <property name="suffix">
         <string>KiB</string>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>100000</number>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" >
-      <widget class="QCheckBox" name="downloadCheck" >
-       <property name="text" >
-        <string>Download limit:</string>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="downloadCheck">
+       <property name="text">
+        <string>Download Limit</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <widget class="QSpinBox" name="downloadSpin" >
-       <property name="enabled" >
+     <item row="2" column="1">
+      <widget class="QSpinBox" name="downloadSpin">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="suffix" >
+       <property name="suffix">
         <string>KiB</string>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>100000</number>
        </property>
       </widget>
      </item>
-     <item row="2" column="0" >
-      <widget class="QCheckBox" name="ratioCheck" >
-       <property name="text" >
-        <string>Maximum share ratio:</string>
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="ratioCheck">
+       <property name="text">
+        <string>Maximum Share Ratio</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1" >
-      <widget class="QDoubleSpinBox" name="ratioSpin" >
-       <property name="enabled" >
+     <item row="3" column="1">
+      <widget class="QDoubleSpinBox" name="ratioSpin">
+       <property name="enabled">
         <bool>false</bool>
        </property>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QTreeView" name="treeView">
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="KPushButton" name="mirrors">
+         <property name="toolTip">
+          <string>Modify the mirrors used for downloading.</string>
+         </property>
+         <property name="text">
+          <string extracomment="The available mirrors (servers) for downloading">Mirrors</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="rename">
+         <property name="text">
+          <string>Rename</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="verification">
+         <property name="text">
+          <string extracomment="verification of the download (e.g. by using MD5)">Verification</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -85,9 +151,19 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>KTitleWidget</class>
    <extends>QWidget</extends>
    <header>ktitlewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -98,11 +174,11 @@
    <receiver>uploadSpin</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>97</x>
      <y>60</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>235</x>
      <y>60</y>
     </hint>
@@ -114,11 +190,11 @@
    <receiver>downloadSpin</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>97</x>
      <y>94</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>235</x>
      <y>94</y>
     </hint>
@@ -130,11 +206,11 @@
    <receiver>ratioSpin</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>84</x>
      <y>89</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>203</x>
      <y>90</y>
     </hint>

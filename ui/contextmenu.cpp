@@ -54,11 +54,8 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
 
     //Plug all the actions in the popup menu
     popup->addActions(transfers.first()->contextActions());
-    if (transfers.first()->status() != Job::Finished)
-    {
-        popup->addSeparator();
-        popup->addAction( KGet::actionCollection()->action("transfer_settings") );
-    }
+    popup->addSeparator();
+    popup->addAction( KGet::actionCollection()->action("transfer_settings") );
     popup->addSeparator();
 
     foreach (QAction * it, actionList)
