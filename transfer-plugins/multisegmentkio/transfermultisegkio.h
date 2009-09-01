@@ -13,14 +13,18 @@
 #ifndef TRANSFER_MULTISEGKIO_H
 #define TRANSFER_MULTISEGKIO_H
 
-#include <kio/job.h>
+#include <KIO/Job>
 
 #include "core/transfer.h"
-#include "multisegkio.h"
+#include "core/datasourcefactory.h"
+
 /**
- * This transfer uses the KIO class to download files
+ * This transfer uses multiple segments to download a file
  */
- 
+
+class DataSourceFactory;
+class FileModel;
+
 class TransferMultiSegKio : public Transfer
 {
     Q_OBJECT
@@ -30,12 +34,27 @@ class TransferMultiSegKio : public Transfer
                     Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
 
+        bool repair(const KUrl &file = KUrl());
+
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
         virtual bool setDirectory(const KUrl &newDirectory);
+
+        void init();
+
+        QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
+        void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors);
+
+        /**
+         * @param file for which to get the verifier
+         * @return Verifier that allows you to add checksums manually verify a file etc.
+         */
+        virtual Verifier *verifier(const KUrl &file = KUrl());
+
+        FileModel *fileModel();
 
     public slots:
         bool setNewDestination(const KUrl &newDestination);
@@ -48,27 +67,27 @@ class TransferMultiSegKio : public Transfer
 
         void save(const QDomElement &element);
         void load(const QDomElement *e);
+        void slotChecksumFound(QString type, QString checksum);
 
     private:
         void createJob();
 
-        MultiSegmentCopyJob *m_copyjob;
-        QList<SegData> SegmentsData;
-        QList<KUrl> m_Urls;
-        bool m_isDownloading;
-        bool stopped;
-        bool m_movingFile;
-
     private slots:
-        void slotUpdateSegmentsData();
-        void slotResult( KJob *kioJob );
-        void slotInfoMessage( KJob * kioJob, const QString & msg );
-        void slotPercent( KJob *kioJob, unsigned long percent );
-        void slotTotalSize( KJob *kioJob, qulonglong size );
-        void slotProcessedSize( KJob *kioJob, qulonglong size );
-        void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
-        void slotSearchUrls(const QList<KUrl> &Urls);
-        void newDestResult(KJob *result);
+        void slotPercent(ulong percent);
+        void slotProcessedSize(KIO::filesize_t processedSize);
+        void slotSpeed(unsigned long bytes_per_second);
+        void slotTotalSize(KIO::filesize_t size);
+        void slotSearchUrls(const QList<KUrl> &urls);
+        void slotStatus(Job::Status status);
+        void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
+        void slotVerified(bool isVerified);
+
+    private:
+        bool m_movingFile;
+        bool m_searchStarted;
+        bool m_verificationSearch;
+        DataSourceFactory *m_dataSourceFactory;
+        FileModel *m_fileModel;
 };
 
 #endif

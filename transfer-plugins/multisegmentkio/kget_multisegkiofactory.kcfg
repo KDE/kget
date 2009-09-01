@@ -4,18 +4,17 @@
   <kcfgfile name="kget_multisegkiofactory.rc"/>
   <group name="Segments">
     <entry name="Segments" type="Int">
-      <default>1</default>
-    </entry>
-    <entry name="SplitSize" type="Int">
-      <default>50</default>
-    </entry>
-    <entry name="SaveSegSize" type="Int">
-      <default>200</default>
+      <default>5</default>
     </entry>
   </group>
   <group name="SearchEngines">
     <entry name="UseSearchEngines" type="Bool">
       <default>false</default>
+    </entry>
+  </group>
+  <group name="Verification">
+    <entry name="UseSearchVerification" type="Bool">
+      <default>true</default>
     </entry>
   </group>
 </kcfg>

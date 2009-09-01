@@ -3,8 +3,7 @@ include_directories(
 )
 
 set(kget_multisegkiofactory_PART_SRCS
-  segmentfactory.cpp
-  multisegkio.cpp
+  segment.cpp
   multisegkiodatasource.cpp
   transfermultisegkio.cpp
   transfermultisegkiofactory.cpp
