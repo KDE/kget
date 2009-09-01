@@ -98,6 +98,7 @@ private slots:
     void slotShowMenubar();
     void slotTransferGroupSettings();
     void slotTransferSettings();
+    void slotCreateMetalink();
 
     // transfers slots
     void slotStopAllDownload();

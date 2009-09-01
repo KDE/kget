@@ -31,6 +31,7 @@
 #include "ui/groupsettingsdialog.h"
 #include "ui/transfersettingsdialog.h"
 #include "ui/linkview/kget_linkview.h"
+#include "ui/metalinkcreator/metalinkcreator.h"
 #include "extensions/webinterface/httpserver.h"
 #include "tests/testkget.h"
 
@@ -178,6 +179,10 @@ void MainWindow::setupActions()
     exportPlainAction->setIcon(KIcon("document-export"));
     exportPlainAction->setShortcuts(KShortcut("Ctrl+P"));
     connect(exportPlainAction, SIGNAL(triggered()), SLOT(slotExportPlainTransfers()));
+
+    KAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
+    createMetalinkAction->setText(i18n("&Create a Metalink"));
+    connect(createMetalinkAction, SIGNAL(triggered()), SLOT(slotCreateMetalink()));
 
     KAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18n("Delete Group"));
@@ -534,6 +539,13 @@ void MainWindow::slotExportTransfers()
 void MainWindow::slotExportPlainTransfers()
 {
     exportTransfers(true);
+}
+
+void MainWindow::slotCreateMetalink()
+{
+    MetalinkCreator *dialog = new MetalinkCreator(this);
+    dialog->show();
+    connect(dialog, SIGNAL(finished()), dialog, SLOT(deleteLater()));
 }
 
 void MainWindow::slotDeleteGroup()

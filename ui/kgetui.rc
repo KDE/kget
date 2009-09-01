@@ -8,6 +8,7 @@
         <Action name="export_transfers"/>
         <Action name="export_plain_transfers"/>
         <Action name="import_links"/>
+        <Action name="create_metalink"/>
         <Separator/>
         <Action name="transfer_history" />
         <Separator/>
