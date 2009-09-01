@@ -103,6 +103,7 @@ set(kgetcore_SRCS
    dbus/dbustransferwrapper.cpp
    core/filemodel.cpp
    core/verifier.cpp
+   core/kiodownload.cpp
 )
 
 if(HAVE_NEPOMUK)
