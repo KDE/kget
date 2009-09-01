@@ -24,6 +24,9 @@ endif(HAVE_NEPOMUK)
 
 if(QCA2_FOUND)
     add_definitions(-DHAVE_QCA2)
+    include_directories(
+        ${QCA2_INCLUDE_DIR}
+    )
 endif(QCA2_FOUND)
 
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.main.xml mainwindow.h MainWindow)
@@ -99,6 +102,7 @@ set(kgetcore_SRCS
    core/linkimporter.cpp
    dbus/dbustransferwrapper.cpp
    core/filemodel.cpp
+   core/verifier.cpp
 )
 
 if(HAVE_NEPOMUK)
@@ -140,6 +144,10 @@ endif (SQLITE_FOUND)
 if (LIBKNOTIFICATIONITEM-1_FOUND)
   target_link_libraries(kgetcore ${LIBKNOTIFICATIONITEM-1_LIBRARIES})
 endif (LIBKNOTIFICATIONITEM-1_FOUND)
+
+if (QCA2_FOUND)
+    target_link_libraries(kgetcore ${QCA2_LIBRARIES})
+endif (QCA2_FOUND)
 
 set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
