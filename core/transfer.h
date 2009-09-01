@@ -29,6 +29,7 @@ class TransferGroup;
 class Scheduler;
 class TransferTreeModel;
 class NepomukHandler;
+class FileModel;
 
 class KGET_EXPORT Transfer : public Job
 {
@@ -199,6 +200,11 @@ class KGET_EXPORT Transfer : public Job
          * @returns a pointer to the TransferFactory object
          */
         TransferFactory * factory() const   {return m_factory;}
+
+        /**
+         * @returns a pointer to the FileModel containing all files of this download
+         */
+        virtual FileModel * fileModel() {return 0;}
 
 #ifdef HAVE_NEPOMUK
         /**

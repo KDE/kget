@@ -98,6 +98,7 @@ set(kgetcore_SRCS
    core/transferhistorystore.cpp
    core/linkimporter.cpp
    dbus/dbustransferwrapper.cpp
+   core/filemodel.cpp
 )
 
 if(HAVE_NEPOMUK)
