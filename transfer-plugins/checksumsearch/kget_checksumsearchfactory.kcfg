@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+  <kcfgfile name="kget_checksumsearchfactory.rc"/>
+   <group name="ChecksumSearch">
+    <entry name="SearchStrings" type="StringList">
+      <label>List of the available search engines</label>
+      <default>.md5,MD5SUMS,.sha1,SHA1SUMS,-CHECKSUM</default>
+    </entry>
+    <entry name="UrlChangeModeList" type="IntList">
+      <label>Urls list of the available search engines</label>
+      <default>0,1,0,1,2</default>
+    </entry>
+    <entry name="ChecksumTypeList" type="StringList">
+      <label>Urls list of the available search engines</label>
+      <default>md5,md5,sha1,sha1,</default>
+    </entry>
+  </group>
+</kcfg>

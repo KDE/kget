@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+X-KDE-Library=kcm_kget_checksumsearchfactory
+X-KDE-ParentComponents=kget_checksumsearch_plugin
+
+Name=ChecksumSearch

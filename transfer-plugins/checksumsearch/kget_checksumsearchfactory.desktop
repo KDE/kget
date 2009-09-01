@@ -1,0 +1,24 @@
+[Desktop Entry]
+# service definition
+Type=Service
+X-KDE-ServiceTypes=KGet/Plugin
+Icon=kget
+
+# standard fields
+Name=Checksum Search
+
+Comment=Tries to find checksums for a specified url
+
+# options for library loader
+X-KDE-Library=kget_checksumsearchfactory
+X-KDE-KGet-plugintype=TransferFactory
+X-KDE-KGet-rank=30
+X-KDE-KGet-framework-version=1
+
+X-KDE-PluginInfo-Author=Matthias Fuchs
+X-KDE-PluginInfo-Email=mat69@gmx.net
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Category=Service
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-Name=kget_checksumsearch_plugin
