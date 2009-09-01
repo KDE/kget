@@ -89,6 +89,15 @@ int Transfer::elapsedTime() const
     return m_runningSeconds;
 }
 
+QHash<KUrl, QPair<bool, int> > Transfer::availableMirrors(const KUrl &file) const
+{
+    Q_UNUSED(file)
+
+    QHash<KUrl, QPair<bool, int> > available;
+    available[m_source] = QPair<bool, int>(true, 1);
+    return available;
+}
+
 void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit)

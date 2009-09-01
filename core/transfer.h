@@ -121,6 +121,21 @@ class KGET_EXPORT Transfer : public Job
         virtual bool supportsSpeedLimits() const {return false;}
 
         /**
+         * The mirrors that are available
+         * bool if it is used, int how many paralell connections are allowed
+         * to the mirror
+         * @param file the file for which the availableMirrors should be get
+         */
+        virtual QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
+
+        /**
+         * Set the mirrors, int the number of paralell connections to the mirror
+         * bool if the mirror should be used
+         * @param file the file for which the availableMirrors should be set
+         */
+        virtual void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors) {Q_UNUSED(file) Q_UNUSED(mirrors)}
+
+        /**
          * Set the Transfer's UploadLimit
          * @note this is not displayed in any GUI, use setVisibleUploadLimit(int) instead
          * @param visibleUlLimit upload Limit

@@ -93,6 +93,21 @@ class KGET_EXPORT TransferHandler : public Handler
         const KUrl & dest() const {return m_transfer->dest();}
 
         /**
+         * The mirrors that are available
+         * bool if it is used, int how many paralell connections are allowed
+         * to the mirror
+         * @param file the file for which the availableMirrors should be get
+         */
+        QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const {return m_transfer->availableMirrors(file);}
+
+        /**
+         * Set the mirrors, int the number of paralell connections to the mirror
+         * bool if the mirror should be used
+         * @param file the file for which the availableMirrors should be set
+         */
+        void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors) {m_transfer->setAvailableMirrors(file, mirrors);}
+
+        /**
          * @return the total size of the transfer in bytes
          */
         KIO::filesize_t totalSize() const;
