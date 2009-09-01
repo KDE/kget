@@ -5,7 +5,7 @@
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
    Copyright (C) 2006 - 2008 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -102,6 +102,8 @@ MainWindow::~MainWindow()
 {
     //Save the user's transfers
     KGet::save();
+    
+    NewTransferDialog::del();
 
     slotSaveMyself();
     // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
@@ -435,7 +437,7 @@ void MainWindow::slotToggleDropTarget()
 
 void MainWindow::slotNewTransfer()
 {
-    NewTransferDialog::instance(this)->showDialog();
+    NewTransferDialog::showNewTransferDialog(KUrl(), this);
 }
 
 void MainWindow::slotImportTransfers()
@@ -970,7 +972,7 @@ void MainWindow::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transfer list"), KIcon("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialog::instance(this)->showDialog(list.first().url());
+                NewTransferDialog::showNewTransferDialog(list.first().url(), this);
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
@@ -979,15 +981,15 @@ void MainWindow::dropEvent(QDropEvent * event)
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
-                NewTransferDialog::instance(this)->showDialog(str);
+                NewTransferDialog::showNewTransferDialog(str, this);
             }
             else
-                NewTransferDialog::instance(this)->showDialog(list);
+                NewTransferDialog::showNewTransferDialog(list, this);
         }
     }
     else
     {
-        NewTransferDialog::instance(this)->showDialog();
+        NewTransferDialog::showNewTransferDialog(KUrl(), this);
     }
 }
 
@@ -1012,7 +1014,7 @@ QStringList MainWindow::addTransfer(const QString& src, const QString& dest, boo
 
 void MainWindow::showNewTransferDialog(const QStringList &urls)
 {
-    NewTransferDialog::instance(this)->showDialog(urls);
+    NewTransferDialog::showNewTransferDialog(urls, this);
 }
 
 bool MainWindow::dropTargetVisible() const

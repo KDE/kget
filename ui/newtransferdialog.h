@@ -2,7 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
-   Copyright (C) 2008 by Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2009 by Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -37,24 +37,10 @@ class NewTransferDialog : public KDialog, Ui::NewTransferWidget
 public:
     NewTransferDialog(QWidget *parent = 0);
     ~NewTransferDialog();
-
-    /**
-    * Returns the current instance of the 'new transfer' dialog
-    */
-    static NewTransferDialog *instance(QWidget *parent = 0);
-
-    /**
-    * Shows the dialog adding one transfer url.
-    * If the dialog is already displayed, 
-    * then add the url to the others or other transfer, 
-    * and displayed the sources as a listWidget (multiple = true)
-    */
-    void showDialog(const QString &srcUrl = QString());
-
-    /**
-    * Shows the dialog adding one url list transfers
-    */
-    void showDialog(const KUrl::List &list);
+    
+    static void showNewTransferDialog(const KUrl &url = KUrl(), QWidget * parent = 0);
+    static void showNewTransferDialog(const KUrl::List &list, QWidget * parent = 0);
+    static void del();
 
 public slots:
     /**
@@ -64,8 +50,13 @@ public slots:
     void setDefaultDestination();
 
 private:
+    /**
+     * Shows the dialog adding one url list transfers
+     */
+    void showDialog(const KUrl::List &list, const QString &suggestedFileName = QString());
     void prepareDialog();
     void resizeDialog();
+    bool isEmpty();
 
     class Private;
     NewTransferDialog::Private *d;

@@ -64,7 +64,7 @@ void Tray::slotActivated()
     newtransfer = newtransfer.trimmed();
 
     if(!newtransfer.isEmpty())
-        NewTransferDialog::instance()->showDialog(newtransfer);
+        NewTransferDialog::showNewTransferDialog(KUrl(newtransfer));
 }
 
 // display a play icon when downloading and

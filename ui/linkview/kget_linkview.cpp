@@ -182,7 +182,7 @@ void KGetLinkView::slotStartLeech()
             }
         }
 
-        NewTransferDialog::instance()->showDialog(urls);
+        NewTransferDialog::showNewTransferDialog(urls);
         accept(); // close the dialog
     }
     else

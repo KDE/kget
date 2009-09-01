@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 by Enrico Ros <eros.kde@email.it>
+   Copyright (C) 2009 by Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -56,22 +57,24 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
         virtual Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                            TransferGroup * parent,
                                            Scheduler * scheduler,
-                                           const QDomElement * n = 0 )=0;
+                                           const QDomElement * n = 0 );
 
         virtual TransferHandler * createTransferHandler(Transfer * transfer,
-                                                        Scheduler * scheduler) = 0;
+                                                        Scheduler * scheduler);
 
-        virtual QWidget * createDetailsWidget( TransferHandler * transfer ) = 0;
+        virtual QWidget * createDetailsWidget(TransferHandler * transfer);
+        
+        virtual KDialog * createNewTransferDialog(const KUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
 
-        virtual const QList<KAction *> actions(TransferHandler *handler = 0) = 0;
+        virtual const QList<KAction *> actions(TransferHandler *handler = 0);
 
         virtual void settingsChanged() {}
 
 /**
  * Returns a Data Source. needed for Transfers Containers if any.
- * otherwise returns 0
+ * default implementation returns 0
  */
-        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type) = 0;
+        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type);
 };
 
 #endif

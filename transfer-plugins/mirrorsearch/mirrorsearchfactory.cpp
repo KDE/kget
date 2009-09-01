@@ -29,40 +29,6 @@ MirrorSearchFactory::~MirrorSearchFactory()
 {
 }
 
-Transfer * MirrorSearchFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
-                                               TransferGroup * parent,
-                                               Scheduler * scheduler, 
-                                               const QDomElement * e )
-{
-    kDebug(5001);
-    Q_UNUSED(srcUrl);
-    Q_UNUSED(destUrl);
-    Q_UNUSED(parent);
-    Q_UNUSED(scheduler);
-    Q_UNUSED(e);
-/**
-*We do not implement the transfer interface
-**/
-    return 0;
-}
-
-TransferHandler * MirrorSearchFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
-{
-    return new TransferHandler(transfer, scheduler);
-}
-
-QWidget * MirrorSearchFactory::createDetailsWidget( TransferHandler * transfer )
-{
-    Q_UNUSED(transfer);
-    return 0;   //Temporary!!
-}
-
-const QList<KAction *> MirrorSearchFactory::actions(TransferHandler *handler)
-{
-    Q_UNUSED(handler);
-    return QList<KAction *>();
-}
-
 TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
 {
     kDebug(5001);

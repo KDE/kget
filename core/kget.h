@@ -204,6 +204,11 @@ class KGET_EXPORT KGet
          * @param plain should list be in plain mode or kget mode
          */
         static void save( QString filename=QString(), bool plain=false );
+        
+        /**
+         * @returns a list of all transferfactories
+         */
+        static QList<TransferFactory*> factories();
 
         /**
          * @returns The factory of a given transfer

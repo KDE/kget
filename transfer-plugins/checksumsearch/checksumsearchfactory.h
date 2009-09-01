@@ -25,17 +25,6 @@ class ChecksumSearchFactory : public TransferFactory
         ChecksumSearchFactory(QObject *parent, const QVariantList &args);
         ~ChecksumSearchFactory();
 
-        Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
-                                   TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
-
-        TransferHandler * createTransferHandler(Transfer * transfer,
-                                                Scheduler * scheduler);
-
-        QWidget * createDetailsWidget( TransferHandler * transfer );
-
-        const QList<KAction *> actions(TransferHandler *handler = 0);
-
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type);
 };
 

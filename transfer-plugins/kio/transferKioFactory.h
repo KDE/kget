@@ -28,17 +28,7 @@ class TransferKioFactory : public TransferFactory
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
-        TransferHandler * createTransferHandler(Transfer * transfer,
-                                                Scheduler * scheduler);
-
-        QWidget * createDetailsWidget( TransferHandler * transfer );
-
-        QWidget * createSettingsWidget(KDialog * parent);
-
         QString displayName(){return "HTTP(s) / FTP(s)";}
-
-        const QList<KAction *> actions(TransferHandler *handler = 0);
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type) {Q_UNUSED(srcUrl); Q_UNUSED(type); return 0;}
 };
 
 #endif

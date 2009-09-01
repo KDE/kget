@@ -83,8 +83,8 @@ void Tray::slotActivated( QSystemTrayIcon::ActivationReason reason )
         QString newtransfer = QApplication::clipboard()->text();
         newtransfer = newtransfer.trimmed();
 
-        if(!newtransfer.isEmpty())
-            NewTransferDialog::instance()->showDialog(newtransfer);
+        if (!newtransfer.isEmpty())
+            NewTransferDialog::showNewTransferDialog(KUrl(newtransfer));
     }
     /*else if (reason == QSystemTrayIcon::Trigger) {
         // save the main window minimized state if it changes from the sys tray icon

@@ -44,27 +44,3 @@ Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
     }
     return 0;
 }
-
-TransferHandler * TransferKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
-{
-    return new TransferHandler(transfer, scheduler);
-}
-
-QWidget * TransferKioFactory::createDetailsWidget( TransferHandler * transfer )
-{
-    Q_UNUSED(transfer);
-    return 0;   //Temporary!!
-}
-
-QWidget * TransferKioFactory::createSettingsWidget(KDialog * parent)
-{
-    Q_UNUSED(parent);
-    return 0; // if there is no settings widget we must return 0
-}
-
-const QList<KAction *> TransferKioFactory::actions(TransferHandler *handler)
-{
-    Q_UNUSED(handler);
-    return QList<KAction *>();
-}
-

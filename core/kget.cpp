@@ -526,6 +526,11 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
     file.close();
 }
 
+QList<TransferFactory*> KGet::factories()
+{
+    return m_transferFactories;
+}
+
 TransferFactory * KGet::factory(TransferHandler * transfer)
 {
     return transfer->m_transfer->factory();

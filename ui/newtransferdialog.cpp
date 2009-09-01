@@ -2,7 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
-   Copyright (C) 2008 by Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2009 by Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +15,7 @@
 #include "core/kget.h"
 #include "core/transfertreemodel.h"
 #include "core/transfergrouphandler.h"
+#include "core/plugin/transferfactory.h"
 #include "settings.h"
 
 #include <QWidget>
@@ -40,6 +41,16 @@ public:
     {
         listWidget = 0;
         urlRequester = 0;
+    }
+    
+    bool isEmpty()
+    {
+        if (urlRequester) {
+            return urlRequester->text().isEmpty();
+        } else if (listWidget) {
+            return !listWidget->count();
+        }
+        return true;
     }
 
     KUrl::List sources() const
@@ -227,7 +238,7 @@ public:
     bool m_displayed; // determines whenever the dialog is already displayed or not (to add new sources)
 };
 
-K_GLOBAL_STATIC(NewTransferDialog, globalInstance)
+NewTransferDialog * m_newTransferDialog = 0;
 
 NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
     m_window(0), m_sources()
@@ -256,36 +267,58 @@ NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
     d->clear();
 
     connect(d->m_groupComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setDefaultDestination()));
-
-    qAddPostRoutine(globalInstance.destroy);
 }
 
 NewTransferDialog::~NewTransferDialog()
 {
     delete d;
-    qRemovePostRoutine(globalInstance.destroy);
 }
 
-NewTransferDialog *NewTransferDialog::instance(QWidget *parent)
+void NewTransferDialog::del()
 {
-    globalInstance->m_window = parent;
-
-    return globalInstance;
+    m_newTransferDialog->deleteLater();
 }
 
-void NewTransferDialog::showDialog(const QString &srcUrl)
+void NewTransferDialog::showNewTransferDialog(const KUrl &url, QWidget * parent)
 {
-    /*QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(KUrl(srcUrl));
-    if (!Settings::directoriesAsSuggestion && !groups.isEmpty()) {
-        KGet::addTransfer(KUrl(srcUrl), groups.first()->defaultFolder(), groups.first()->name());
-    }*/
-    KUrl::List list;
-    list << KUrl(srcUrl);
-
-    showDialog(list);
+    showNewTransferDialog(KUrl::List() << url, parent);
 }
 
-void NewTransferDialog::showDialog(const KUrl::List &list)
+void NewTransferDialog::showNewTransferDialog(const KUrl::List &list, QWidget * parent)
+{
+    QString suggestedFileName;
+    if (list.count() == 2)
+    {
+        if (list.at(1).protocol().isEmpty())//When we have no protocol in the second filename, then it's the filename (thrown by konqueror)
+            suggestedFileName = list.at(1).pathOrUrl();
+    }
+    if ((!m_newTransferDialog || m_newTransferDialog->isEmpty()) && list.count() == 1)
+    {
+        KUrl url = list.first();
+        KDialog * dialog = 0;
+        foreach (TransferFactory * factory, KGet::factories()) {
+            dialog = factory->createNewTransferDialog(url, suggestedFileName, !KGet::groupsFromExceptions(url).isEmpty() ? KGet::groupsFromExceptions(url).first() : 0);
+            if (dialog)
+            {
+                if(parent) {
+                    KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
+                    KWindowSystem::setCurrentDesktop(info.desktop());
+                    KWindowSystem::forceActiveWindow(parent->winId());
+                }
+                dialog->exec();
+                return;
+            }
+        }
+    }
+
+    if (!m_newTransferDialog)
+        m_newTransferDialog = new NewTransferDialog(parent);
+
+    m_newTransferDialog->m_window = parent;
+    m_newTransferDialog->showDialog(list, suggestedFileName);
+}
+
+void NewTransferDialog::showDialog(const KUrl::List &list, const QString &suggestedFileName)
 {
     KUrl::List cleanedList;
     kDebug() << "DIRECTORIES AS SUGGESTION" << Settings::directoriesAsSuggestion();
@@ -309,17 +342,11 @@ void NewTransferDialog::showDialog(const KUrl::List &list)
     m_sources << cleanedList;
 
     d->clear();//Let's clear the old stuff
-
     kDebug(5001) << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);
     d->setMultiple(m_sources.size() > 1);
-
-    if (list.count() == 2)
-    {
-        if (list.at(1).protocol().isEmpty())//When we have no protocol in the second filename, then it's the filename (thrown by konqueror)
-        {
-            d->setDestinationFileName(list.at(1).pathOrUrl());//We set it to the correct filename
-        }
-    }
+    
+    if (list.count() == 1 && !suggestedFileName.isEmpty())
+        d->setDestinationFileName(suggestedFileName);
 
     d->setSource(m_sources);
 
@@ -352,6 +379,7 @@ void NewTransferDialog::prepareDialog()
     }
 
     if (!d->m_displayed) {
+        kDebug(5001) << "Exec the dialog!";
         d->m_displayed = true;
 
         KDialog::exec();
@@ -380,6 +408,7 @@ void NewTransferDialog::prepareDialog()
         }
 
         m_sources.clear();
+        d->clear();
     }
 }
 
@@ -390,6 +419,11 @@ void NewTransferDialog::resizeDialog()
         d->m_groupComboBox->hide();
         d->m_groupLabel->hide();
     }
+}
+
+bool NewTransferDialog::isEmpty()
+{
+    return d->isEmpty();
 }
 
 #include "newtransferdialog.moc"

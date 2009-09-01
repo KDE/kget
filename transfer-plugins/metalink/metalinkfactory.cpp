@@ -41,27 +41,3 @@ Transfer * metalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &dest
     }
     return 0;
 }
-
-TransferHandler * metalinkFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
-{
-    return new TransferHandler(transfer, scheduler);
-}
-
-QWidget * metalinkFactory::createDetailsWidget( TransferHandler * transfer )
-{
-    Q_UNUSED(transfer);
-    return 0;   //Temporary!!
-}
-
-QWidget * metalinkFactory::createSettingsWidget(KDialog * parent)
-{
-    Q_UNUSED(parent);
-    return 0; // if there is no settings widget we must return 0
-}
-
-const QList<KAction *> metalinkFactory::actions(TransferHandler *handler)
-{
-    Q_UNUSED(handler);
-    return QList<KAction *>();
-}
-
