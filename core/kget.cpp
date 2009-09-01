@@ -748,7 +748,7 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
     return 0;
 }
 
-TransferDataSource * KGet::createTransferDataSource(const KUrl &src)
+TransferDataSource * KGet::createTransferDataSource(const KUrl &src, const QDomElement &type)
 {
     kDebug(5001);
     QList<TransferFactory *>::iterator it = m_transferFactories.begin();
@@ -757,7 +757,7 @@ TransferDataSource * KGet::createTransferDataSource(const KUrl &src)
     TransferDataSource *dataSource;
     for( ; it!=itEnd ; ++it)
     {
-        dataSource = (*it)->createTransferDataSource(src);
+        dataSource = (*it)->createTransferDataSource(src, type);
         if(dataSource)
             return dataSource;
     }

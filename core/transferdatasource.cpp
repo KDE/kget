@@ -12,8 +12,11 @@
 
 #include <kdebug.h>
 
-TransferDataSource::TransferDataSource(QObject *parent)
-:QObject(parent)
+TransferDataSource::TransferDataSource(const KUrl &srcUrl, QObject *parent)
+  : QObject(parent),
+    m_sourceUrl(srcUrl),
+    m_speed(0),
+    m_supposedSize(0)
 {
     kDebug(5001) ;
 }

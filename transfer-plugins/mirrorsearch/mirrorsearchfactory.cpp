@@ -14,6 +14,8 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 
+#include <QtXml/QDomElement>
+
 #include <kdebug.h>
 
 KGET_EXPORT_PLUGIN( MirrorSearchFactory )
@@ -61,16 +63,11 @@ const QList<KAction *> MirrorSearchFactory::actions(TransferHandler *handler)
     return QList<KAction *>();
 }
 
-TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl)
+TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
 {
     kDebug(5001);
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
-/**
-We will use a bogus protocol named "search" for this
-*/
-    if( prot == "search" )
+    if (type.attribute("type") == "search")
     {
         return new MirrorSearchTransferDataSource(srcUrl);
     }

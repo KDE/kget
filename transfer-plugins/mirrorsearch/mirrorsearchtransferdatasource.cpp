@@ -12,15 +12,10 @@
 #include "mirrors.h"
 #include <kdebug.h>
 
-MirrorSearchTransferDataSource::MirrorSearchTransferDataSource()
-:TransferDataSource(0)
-{
-    kDebug(5001);
-}
 MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const KUrl &srcUrl)
-:TransferDataSource(0)
+  : TransferDataSource(srcUrl, 0)
 {
-    m_filename = srcUrl.fileName();
+    m_filename = m_sourceUrl.fileName();
     kDebug(5001) << m_filename;
 }
 
@@ -36,11 +31,11 @@ void MirrorSearchTransferDataSource::stop()
     kDebug(5001);
 }
 
-void MirrorSearchTransferDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes)
+void MirrorSearchTransferDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum)
 {
-    Q_UNUSED(srcUrl);
     Q_UNUSED(offset);
     Q_UNUSED(bytes);
+    Q_UNUSED(segmentNum);
     kDebug(5001);
 }
 

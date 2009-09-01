@@ -71,7 +71,7 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
  * Returns a Data Source. needed for Transfers Containers if any.
  * otherwise returns 0
  */
-        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl) = 0;
+        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type) = 0;
 };
 
 #endif

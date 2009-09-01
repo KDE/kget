@@ -23,6 +23,8 @@
 #include <KNotification>
 #include <ktabwidget.h>
 
+#include <QtXml/QDomElement>
+
 #include "kuiserverjobs.h"
 #include "scheduler.h"
 #include "kget_export.h"
@@ -281,8 +283,11 @@ class KGET_EXPORT KGet
          * transfer DataSource object for transfers Containers
          *
          * @param src Source Url
+         * @param type the type of the DataSource that should be created e.g. <TransferDataSource type="search" />
+         * this is only needed when creating a "special" TransferDataSource like the search for Urls
+         * you can set additional information and the TransferDataSource will use it if it can
          */
-        static TransferDataSource * createTransferDataSource(const KUrl &src);
+        static TransferDataSource * createTransferDataSource(const KUrl &src, const QDomElement &type = QDomElement());
 
         /**
          * Sets the global download limit

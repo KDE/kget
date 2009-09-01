@@ -28,7 +28,7 @@ class BTTransferFactory : public TransferFactory
 
         const QList<KAction *> actions(TransferHandler * handler = 0);
 
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl);
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type);
 
 };
 

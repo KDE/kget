@@ -19,12 +19,11 @@ class MirrorSearchTransferDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
-        MirrorSearchTransferDataSource();
         MirrorSearchTransferDataSource(const KUrl &srcUrl);
 
         void start();
-	void stop();
-        void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes);
+        void stop();
+        void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum = -1);
 
     private Q_SLOTS:
         void slotSearchUrls(QList<KUrl>& Urls);

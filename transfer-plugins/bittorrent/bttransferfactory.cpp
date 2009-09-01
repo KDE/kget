@@ -89,7 +89,7 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
          return QList<KAction *>();
 }
 
-TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl)
+TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
 {
     /*if (srcUrl.fileName().endsWith(".torrent"))
         return new BTDataSource();*/

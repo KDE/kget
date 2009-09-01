@@ -17,6 +17,8 @@
 #include "transfermultisegkio.h"
 #include "multisegkiodatasource.h"
 
+#include <QtXml/QDomElement>
+
 #include <kdebug.h>
 
 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
@@ -44,7 +46,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
          MultiSegKioSettings::segments() > 1
       )
     {
-       return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
+       return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);//FIXME later when reworking multisegkio
     }
     return 0;
 }
@@ -66,9 +68,15 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
     return QList<KAction *>();
 }
 
- TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl)
+ TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
 {
     kDebug(5001);
+
+    //only use this TransferDataSource if no type is specified and the protocolls match
+    if (!type.attribute("type").isEmpty())
+    {
+        return 0;
+    }
 
     QString prot = srcUrl.protocol();
     kDebug(5001) << "Protocol = " << prot;
@@ -76,7 +84,7 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
         prot == "ftp"  || prot == "sftp"
       )
     {
-        return new MultiSegKioDataSource();
+        return new MultiSegKioDataSource(srcUrl);
     }
     return 0;
 }
