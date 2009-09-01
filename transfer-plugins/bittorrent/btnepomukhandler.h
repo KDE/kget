@@ -42,6 +42,11 @@ class BtNepomukHandler : public NepomukHandler
          */
         void setDestinations(const QList<KUrl> &destinations);
 
+        /**
+         * from NepomukHandler, empty as BtNepomukHandler does use setDestinations
+         */
+        void setNewDestination(const KUrl &newDestination);
+
     public slots:
         void setRating(int rating);
         void addTag(const QString &newTag);

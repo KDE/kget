@@ -66,6 +66,18 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         bool supportsSpeedLimits() const {return true;}
         void postDeleteEvent();
 
+        /**
+         * @returns the directory the Transfer will be stored to
+         */
+        virtual KUrl directory() const {return m_directory;}
+
+        /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        virtual bool setDirectory(const KUrl &newDirectory);
+
         //Bittorrent specific functions (connected with TransferFlags
         int chunksTotal() const;
         int chunksDownloaded() const;
@@ -96,6 +108,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void update();
         void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);
+        void newDestResult();
 
     private:
         void startTorrent();
@@ -119,11 +132,13 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         virtual void filePreviewChanged(bt::TorrentFileInterface*, bool) {}
 
         bt::TorrentControl *torrent;
+        KUrl m_directory;
         QString m_tmp;
         float m_ratio;
         QTimer timer;
         bool m_ready;
         bool m_downloadFinished;
+        bool m_movingFile;
 
 #ifdef HAVE_NEPOMUK
         BtNepomukHandler *m_nepHandler;

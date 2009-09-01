@@ -10,6 +10,9 @@
 */
 
 #include "transfermultisegkio.h"
+#ifdef HAVE_NEPOMUK
+#include "core/nepomukhandler.h"
+#endif //HAVE_NEPOMUK
 
 #include "multisegkiosettings.h"
 #include "core/kget.h"
@@ -17,6 +20,7 @@
 // #include "mirrors.h"
 
 #include <kiconloader.h>
+#include <KIO/CopyJob>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <klocale.h>
@@ -29,20 +33,23 @@ TransferMultiSegKio::TransferMultiSegKio(TransferGroup * parent, TransferFactory
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(0), m_isDownloading(false), stopped(true)
+      m_copyjob(0), m_isDownloading(false), stopped(true), m_movingFile(false)
 {
 }
 
 void TransferMultiSegKio::start()
 {
-    if(!m_copyjob)
-        createJob();
+    if (!m_movingFile)
+    {
+        if(!m_copyjob)
+            createJob();
 
-    kDebug(5001);
+        kDebug(5001);
 
-    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
-    setTransferChange(Tc_Status, true);
-    stopped = false;
+        setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+        setTransferChange(Tc_Status, true);
+        stopped = false;
+    }
 }
 
 void TransferMultiSegKio::stop()
@@ -66,6 +73,49 @@ void TransferMultiSegKio::stop()
 bool TransferMultiSegKio::isResumable() const
 {
     return true;
+}
+
+bool TransferMultiSegKio::setDirectory(const KUrl& newDirectory)
+{
+    KUrl newDest = newDirectory;
+    newDest.addPath(m_dest.fileName());
+    return setNewDestination(newDest);
+}
+
+bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
+{
+if (isResumable() && newDestination.isValid() && (newDestination != dest()))
+    {
+        KUrl oldPath = KUrl(m_dest.path() + ".part");
+        if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl()))
+        {
+            m_movingFile = true;
+            stop();
+            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+            setTransferChange(Tc_Status, true);
+
+            m_dest = newDestination;
+#ifdef HAVE_NEPOMUK
+            nepomukHandler()->setNewDestination(m_dest);
+#endif //HAVE_NEPOMUK
+
+            KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
+            connect(move, SIGNAL(result(KJob *)), this, SLOT(newDestResult(KJob *)));
+            connect(move, SIGNAL(infoMessage(KJob *, const QString &)), this, SLOT(slotInfoMessage(KJob *, const QString &)));
+            connect(move, SIGNAL(percent(KJob *, unsigned long)), this, SLOT(slotPercent(KJob *, unsigned long)));
+
+            return true;
+        }
+    }
+    return false;
+}
+
+void TransferMultiSegKio::newDestResult(KJob *result)
+{
+    Q_UNUSED(result);//TODO handle errors etc.!
+    m_movingFile = false;
+    start();
+    setTransferChange(Tc_FileName);
 }
 
 void TransferMultiSegKio::postDeleteEvent()

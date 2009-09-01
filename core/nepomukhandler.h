@@ -29,6 +29,7 @@ class KGET_EXPORT NepomukHandler : public QObject
         virtual QStringList tags() const;
         virtual int rating() const;
 
+        void setNewDestination(const KUrl &newDestination);
 
     public slots:
         virtual void setRating(int rating);

@@ -81,6 +81,14 @@ void Transfer::setNepomukHandler(NepomukHandler *handler)
 }
 #endif //HAVE_NEPOMUK
 
+bool Transfer::setDirectory(const KUrl& newDirectory)
+{
+    Q_UNUSED(newDirectory);
+
+    //the standard implemention always returns false
+    return false;
+}
+
 int Transfer::elapsedTime() const
 {
     if (status() == Job::Running)

@@ -16,30 +16,79 @@
 #include <kiconloader.h>
 #include <kio/scheduler.h>
 #include <KIO/DeleteJob>
+#include <KIO/CopyJob>
 #include <KIO/NetAccess>
 #include <klocale.h>
 #include <kdebug.h>
 
+#include <QtCore/QFile>
 #include <QDomElement>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(0)
+      m_copyjob(0),
+      m_movingFile(false)
 {
 
 }
 
+bool TransferKio::setDirectory(const KUrl& newDirectory)
+{
+    KUrl newDest = newDirectory;
+    newDest.addPath(m_dest.fileName());
+    return setNewDestination(newDest);
+}
+
+bool TransferKio::setNewDestination(const KUrl &newDestination)
+{
+    if (isResumable() && newDestination.isValid() && (newDestination != dest()))
+    {
+        KUrl oldPath = KUrl(m_dest.path() + ".part");
+        if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl()))
+        {
+            m_movingFile = true;
+            stop();
+            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+            setTransferChange(Tc_Status, true);
+
+            m_dest = newDestination;
+#ifdef HAVE_NEPOMUK
+            nepomukHandler()->setNewDestination(m_dest);
+#endif //HAVE_NEPOMUK
+
+            KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
+            connect(move, SIGNAL(result(KJob *)), this, SLOT(newDestResult(KJob *)));
+            connect(move, SIGNAL(infoMessage(KJob *, const QString &)), this, SLOT(slotInfoMessage(KJob *, const QString &)));
+            connect(move, SIGNAL(percent(KJob *, unsigned long)), this, SLOT(slotPercent(KJob *, unsigned long)));
+
+            return true;
+        }
+    }
+    return false;
+}
+
+void TransferKio::newDestResult(KJob *result)
+{
+    Q_UNUSED(result);//TODO handle errors etc.!
+    m_movingFile = false;
+    start();
+    setTransferChange(Tc_FileName);
+}
+
 void TransferKio::start()
 {
-    m_stopped = false;
-    if(!m_copyjob)
-        createJob();
+    if (!m_movingFile)
+    {
+        m_stopped = false;
+        if(!m_copyjob)
+            createJob();
 
-    kDebug(5001) << "TransferKio::start";
-    setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
-    setTransferChange(Tc_Status, true);
+        kDebug(5001) << "TransferKio::start";
+        setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+        setTransferChange(Tc_Status, true);
+    }
 }
 
 void TransferKio::stop()
@@ -177,7 +226,10 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 
     if(status() != Job::Running)
     {
-        setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
+        if (m_movingFile)
+            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+        else
+            setStatus(Job::Running, i18n("Downloading...."),  SmallIcon("media-playback-start"));
         setTransferChange(Tc_Status);
 
     }

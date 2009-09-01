@@ -30,7 +30,15 @@ class TransferMultiSegKio : public Transfer
                     Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
 
+        /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        virtual bool setDirectory(const KUrl &newDirectory);
+
     public slots:
+        bool setNewDestination(const KUrl &newDestination);
         // --- Job virtual functions ---
         void start();
         void stop();
@@ -39,8 +47,6 @@ class TransferMultiSegKio : public Transfer
         void postDeleteEvent();
 
         void save(const QDomElement &element);
-
-    protected:
         void load(const QDomElement *e);
 
     private:
@@ -51,6 +57,7 @@ class TransferMultiSegKio : public Transfer
         QList<KUrl> m_Urls;
         bool m_isDownloading;
         bool stopped;
+        bool m_movingFile;
 
     private slots:
         void slotUpdateSegmentsData();
@@ -61,6 +68,7 @@ class TransferMultiSegKio : public Transfer
         void slotProcessedSize( KJob *kioJob, qulonglong size );
         void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
         void slotSearchUrls(const QList<KUrl> &Urls);
+        void newDestResult(KJob *result);
 };
 
 #endif

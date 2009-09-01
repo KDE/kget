@@ -402,16 +402,6 @@ void DropTarget::slotToolTipUpdate()
     foreach (TransferHandler *transfer, KGet::allTransfers()) {
         data.clear();
         switch (transfer->status()) {
-        case Job::Delayed:
-        case Job::Stopped:
-        case Job::Aborted:
-            data = i18nc("%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 status", "%1(%2% %3/%4) %5",
-                transfer->source().fileName(),
-                transfer->percent(),
-                KIO::convertSize(transfer->downloadedSize()),
-                KIO::convertSize(transfer->totalSize()),
-                transfer->statusText());
-            break;
         case Job::Finished:
             data = i18nc("%1 filename, %2 total size, %3 status", "%1(%2) %3",
                 transfer->source().fileName(),
@@ -426,6 +416,14 @@ void DropTarget::slotToolTipUpdate()
                 KIO::convertSize(transfer->totalSize()),
                 KIO::convertSize(transfer->downloadSpeed()));
             break;
+        default:
+            data = i18nc("%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 status", "%1(%2% %3/%4) %5",
+                         transfer->source().fileName(),
+                         transfer->percent(),
+                         KIO::convertSize(transfer->downloadedSize()),
+                         KIO::convertSize(transfer->totalSize()),
+                         transfer->statusText());
+                         break;
         }
         dataList << data;
     }

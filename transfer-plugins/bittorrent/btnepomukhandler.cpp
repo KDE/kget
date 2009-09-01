@@ -36,6 +36,12 @@ BtNepomukHandler::~BtNepomukHandler()
 {
 }
 
+void BtNepomukHandler::setNewDestination(const KUrl &newDestination)
+{
+    Q_UNUSED(newDestination)
+    //NOTE we use setDestinations for BtNepomukHandler
+}
+
 void BtNepomukHandler::setDestinations(const QList<KUrl> &destinations)
 {
     //remove all Urls that should not be in m_destinations anymore

@@ -93,6 +93,18 @@ class KGET_EXPORT TransferHandler : public Handler
         const KUrl & dest() const {return m_transfer->dest();}
 
         /**
+         * @returns the directory the Transfer will be stored to
+         */
+        KUrl directory() const {return m_transfer->directory();}
+
+        /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        bool setDirectory(const KUrl &newDirectory) {return m_transfer->setDirectory(newDirectory);}
+
+        /**
          * The mirrors that are available
          * bool if it is used, int how many paralell connections are allowed
          * to the mirror

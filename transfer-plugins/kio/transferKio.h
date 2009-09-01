@@ -29,7 +29,16 @@ class TransferKio : public Transfer
                     Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
 
+        /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        virtual bool setDirectory(const KUrl &newDirectory);
+
     public slots:
+        bool setNewDestination(const KUrl &newDestination);
+
         // --- Job virtual functions ---
         void start();
         void stop();
@@ -42,6 +51,7 @@ class TransferKio : public Transfer
 
         KIO::FileCopyJob * m_copyjob;
         bool m_stopped;
+        bool m_movingFile;
 
     private slots:
         void slotResult( KJob * kioJob );
@@ -50,6 +60,7 @@ class TransferKio : public Transfer
         void slotTotalSize( KJob * kioJob, qulonglong size );
         void slotProcessedSize( KJob * kioJob, qulonglong size );
         void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
+        void newDestResult(KJob *result);
 };
 
 #endif

@@ -34,6 +34,7 @@
 #include <KDebug>
 #include <KLocale>
 #include <KIconLoader>
+#include <KIO/CopyJob>
 #include <KStandardDirs>
 #include <KUrl>
 #include <KMessageBox>
@@ -54,11 +55,13 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     torrent(0),
     m_tmp(KStandardDirs::locateLocal("appdata", "tmp/")),
     m_ready(false),
-    m_downloadFinished(false)
+    m_downloadFinished(false),
+    m_movingFile(false)
 #ifdef HAVE_NEPOMUK
     , m_nepHandler(0)
 #endif
 {
+    m_directory = m_dest.upUrl();//FIXME test
 }
 
 BTTransfer::~BTTransfer()
@@ -90,6 +93,11 @@ bool BTTransfer::isResumable() const
 
 void BTTransfer::start()
 {
+    if (m_movingFile)
+    {
+        return;
+    }
+
     if (!torrent)
     {
         if (!m_source.isLocalFile())
@@ -110,8 +118,49 @@ void BTTransfer::start()
         startTorrent();
 }
 
+bool BTTransfer::setDirectory(const KUrl &newDirectory)
+{
+    //check if the newDestination is the same as the old
+    KUrl temp = newDirectory;
+    temp.addPath(torrent->getStats().torrent_name);
+    if (isResumable() && newDirectory.isValid() && (newDirectory != dest()) && (temp != dest()))
+    {
+        if (torrent->changeOutputDir(newDirectory.pathOrUrl(), bt::TorrentInterface::MOVE_FILES))
+        {
+            connect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*, bool&)), this, SLOT(newDestResult()));
+            m_movingFile = true;
+            m_directory = newDirectory;
+            m_dest = m_directory;
+            m_dest.addPath(torrent->getStats().torrent_name);
+
+            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+            setTransferChange(Tc_Status, true);
+            return true;
+        }
+    }
+    m_movingFile = false;
+    return false;
+}
+
+void BTTransfer::newDestResult()
+{
+    disconnect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*, bool&)), this, SLOT(newDestResult()));
+    m_movingFile = false;
+#ifdef HAVE_NEPOMUK
+    m_nepHandler->setDestinations(files());
+#endif //HAVE_NEPOMUK
+
+    setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+    setTransferChange(Tc_FileName | Tc_Status, true);
+}
+
 void BTTransfer::stop()
 {
+    if (m_movingFile)
+    {
+        return;
+    }
+
     if (m_ready)
     {
         stopTorrent();
@@ -121,6 +170,11 @@ void BTTransfer::stop()
 /**Own public functions**/
 void BTTransfer::update()
 {
+    if (m_movingFile)
+    {
+        return;
+    }
+
     if (torrent)
     {
         QStringList files;

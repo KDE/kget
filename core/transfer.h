@@ -102,6 +102,18 @@ class KGET_EXPORT Transfer : public Job
         const KUrl & source() const            {return m_source;}
         const KUrl & dest() const              {return m_dest;}
 
+        /**
+         * @returns the directory the Transfer will be stored to
+         */
+        virtual KUrl directory() const {return m_dest.upUrl();}
+
+        /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        virtual bool setDirectory(const KUrl &newDirectory);
+
         //Transfer status
         KIO::filesize_t totalSize() const      {return m_totalSize;}
         KIO::filesize_t downloadedSize() const {return m_downloadedSize;}

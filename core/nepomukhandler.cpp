@@ -30,6 +30,13 @@ NepomukHandler::~NepomukHandler()
 {
 }
 
+void NepomukHandler::setNewDestination(const KUrl &newDestination)
+{
+    //TODO look if set tags get copied over!
+    m_destination = newDestination;
+    m_resource = Nepomuk::Resource(m_destination, Soprano::Vocabulary::Xesam::File());
+}
+
 void NepomukHandler::setRating(int rating)
 {
     m_resource.setRating(rating);

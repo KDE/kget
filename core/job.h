@@ -44,7 +44,9 @@ class KGET_EXPORT Job : public QObject
             Stopped, /// The job is stopped
             Aborted, /// The job is stopped, but this also indicates that it
                      /// stopped because an error occurred
-            Finished /// The job exited from its Running state successfully
+            Finished,/// The job exited from its Running state successfully
+            Moving   /// The associated files to that job (e.g. Download) are
+                     /// moved to a different location
         };
 
         /**
