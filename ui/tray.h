@@ -34,7 +34,7 @@ class QPixmap;
   * @short KGet's system tray icon.
   **/
 
-class Tray : public KSystemTrayIcon, public ModelObserver
+class Tray : public KSystemTrayIcon
 {
 Q_OBJECT
 public:
