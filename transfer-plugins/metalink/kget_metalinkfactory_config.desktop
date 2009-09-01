@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+X-KDE-Library=kcm_kget_metalinkfactory
+X-KDE-ParentComponents=kget_metalink_plugin
+
+Name=Metalink

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+  <kcfgfile name="kget_metalinkfactory.rc"/>
+  <group name="Files">
+    <entry name="SimultanousFiles" type="Int">
+      <default>2</default>
+      <min>1</min>
+      <max>10</max>
+    </entry>
+    <entry name="MirrorsPerFile" type="Int">
+      <default>3</default>
+      <min>1</min>
+      <max>10</max>
+    </entry>
+    <entry name="ConnectionsPerUrl" type="Int">
+      <default>2</default>
+      <min>1</min>
+      <max>10</max>
+    </entry>
+  </group>
+</kcfg>

@@ -12,35 +12,97 @@
 #ifndef METALINK_H
 #define METALINK_H
 
-#include <kio/job.h>
+#include <KIO/Job>
 
+#include "core/datasourcefactory.h"
 #include "core/transfer.h"
 
-class metalink : public Transfer
+#include "ui/metalinkcreator/metalinker.h"
+
+#ifdef HAVE_NEPOMUK
+class MetaNepomukHandler;
+#endif //HAVE_NEPOMUK
+
+class KDialog;
+
+class Metalink : public Transfer
 {
     Q_OBJECT
 
     public:
-        metalink(TransferGroup * parent, TransferFactory * factory,
+        Metalink(TransferGroup * parent, TransferFactory * factory,
                     Scheduler * scheduler, const KUrl & src, const KUrl & dest,
                     const QDomElement * e = 0);
+
+        ~Metalink();
+
+        void init();
+
+        void save(const QDomElement &element);
+        void load(const QDomElement *e);
+
+        /**
+         * Reimplemented to return a time based on the average of the last three speeds
+         */
+        int remainingTime() const;
+
+        bool repair(const KUrl &file = KUrl());
+
+        /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        virtual bool setDirectory(const KUrl &newDirectory);
+
+        QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
+        void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors);
+
+        /**
+         * @param file for which to get the verifier
+         * @return Verifier that allows you to add checksums manually verify a file etc.
+         */
+        virtual Verifier *verifier(const KUrl &file);
+
+        FileModel *fileModel();
 
     public Q_SLOTS:
         // --- Job virtual functions ---
         void start();
         void stop();
 
+        void postDeleteEvent();
+
         bool isResumable() const;
 
     private Q_SLOTS:
-        void slotData(KIO::Job *, const QByteArray& data);
-        void slotResult(KJob * job);
+        void metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
+        void filesSelected();
+        void totalSizeChanged(KIO::filesize_t size);
+        void processedSizeChanged();
+        void speedChanged();
+        void slotStatus(Job::Status status);
+        void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
+        void slotVerified(bool isVerified);
 
     private :
-        void createJob();
-        KIO::TransferJob *m_copyjob;
-        QByteArray m_data;
+        void startMetalink();
+        QList<KUrl> files() const;
 
+    private:
+        FileModel *m_fileModel;
+        KDialog *m_dialog;
+        int m_currentFiles;
+        KUrl m_localMetalinkLocation;
+        KGetMetalink::Metalink m_metalink;
+        QHash<KUrl, DataSourceFactory*> m_dataSourceFactory;
+        bool m_ready;
+        int m_speedCount;
+        int m_tempAverageSpeed;
+        mutable int m_averageSpeed;
+#ifdef HAVE_NEPOMUK
+        MetaNepomukHandler *m_nepHandler;
+#endif //HAVE_NEPOMUK
 };
 
 #endif
