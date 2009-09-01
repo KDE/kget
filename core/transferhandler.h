@@ -225,6 +225,12 @@ class KGET_EXPORT TransferHandler : public Handler
          */
         virtual FileModel * fileModel() {return m_transfer->fileModel();}
 
+        /**
+         * @param file for which to get the verifier
+         * @return Verifier that allows you to add checksums manually verify a file etc.
+         */
+        virtual Verifier * verifier(const KUrl &file) {return m_transfer->verifier(file);}
+
 #ifdef HAVE_NEPOMUK
         /**
          * Sets the NepomukHandler for the transfer

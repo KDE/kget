@@ -30,6 +30,7 @@ class Scheduler;
 class TransferTreeModel;
 class NepomukHandler;
 class FileModel;
+class Verifier;
 
 class KGET_EXPORT Transfer : public Job
 {
@@ -205,6 +206,12 @@ class KGET_EXPORT Transfer : public Job
          * @returns a pointer to the FileModel containing all files of this download
          */
         virtual FileModel * fileModel() {return 0;}
+
+        /**
+         * @param file for which to get the verifier
+         * @return Verifier that allows you to add checksums manually verify a file etc.
+         */
+        virtual Verifier * verifier(const KUrl &file) {Q_UNUSED(file) return 0;}
 
 #ifdef HAVE_NEPOMUK
         /**
