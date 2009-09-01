@@ -734,6 +734,8 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
         if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
         {
 //             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
+            newTransfer->init();
+            newTransfer->load(e);
             m_transferTreeModel->addTransfer(newTransfer, group);
 
             if(start)

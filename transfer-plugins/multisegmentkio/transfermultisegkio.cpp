@@ -31,9 +31,6 @@ TransferMultiSegKio::TransferMultiSegKio(TransferGroup * parent, TransferFactory
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0), m_isDownloading(false), stopped(true)
 {
-    kDebug(5001);
-    if( e )
-        load( *e );
 }
 
 void TransferMultiSegKio::start()
@@ -80,9 +77,20 @@ void TransferMultiSegKio::postDeleteEvent()
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
-void TransferMultiSegKio::load(const QDomElement &e)
+void TransferMultiSegKio::load(const QDomElement *element)
 {
     kDebug(5001);
+
+    if (!element)
+    {
+        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStartStatus(status());
+        return;
+    }
+
+    Transfer::load(element);//TODO is this nescessary for MultiSegKio?!
+
+    const QDomElement e = *element;
 
     SegData d;
     QDomNodeList segments = e.elementsByTagName ("Segment");
@@ -111,6 +119,8 @@ void TransferMultiSegKio::load(const QDomElement &e)
 void TransferMultiSegKio::save(const QDomElement &element)
 {
     kDebug(5001);
+
+    Transfer::save(element);//TODO is this nescessary for MultiSegKio?!
 
     QDomElement e = element;
 

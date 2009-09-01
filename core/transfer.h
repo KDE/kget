@@ -83,6 +83,20 @@ class KGET_EXPORT Transfer : public Job
 
         virtual ~Transfer();
 
+        /**
+         * Call this function after creating a Transfer
+         * @note this function creates a NepomukHandler
+         */
+        virtual void init();
+
+        /**
+         * Tries to repair file
+         * @param file the file of a download that should be repaired,
+         * if not defined all files of a download are going to be repaird
+         * @return true if a repair started, false if it was not nescessary
+         */
+        virtual bool repair(const KUrl &file = KUrl()) {Q_UNUSED(file) return false;}
+
         const KUrl & source() const            {return m_source;}
         const KUrl & dest() const              {return m_dest;}
 
@@ -92,6 +106,9 @@ class KGET_EXPORT Transfer : public Job
         KIO::filesize_t uploadedSize() const   {return m_uploadedSize;}
         QString statusText() const             {return m_statusText;}
         QPixmap statusPixmap() const           {return m_statusPixmap;}
+
+        static QString statusText(Job::Status status);
+        static QPixmap statusPixmap(Job::Status status);
 
         int percent() const                    {return m_percent;}
         int downloadSpeed() const              {return m_downloadSpeed;}
@@ -188,31 +205,34 @@ class KGET_EXPORT Transfer : public Job
          * Sets the NepomukHandler for the transfer
          * @param handler the new NepomukHandler
          */
-        void setNepomukHandler(NepomukHandler *handler) {m_nepomukHandler = handler;}
+        void setNepomukHandler(NepomukHandler *handler);
 
         /**
          * @returns a pointer to the NepomukHandler of this transfer
          */
-        NepomukHandler * nepomukHandler() const {return m_nepomukHandler;}
+        NepomukHandler * nepomukHandler() {return m_nepomukHandler;}
 #endif
 
         /**
          * Saves this transfer to the given QDomNode
          *
-         * @param n The pointer to the QDomNode where the transfer will be saved
-         * @return  The created QDomElement
+         * @param element The pointer to the QDomNode where the transfer will be saved
          */
         virtual void save(const QDomElement &element);
 
-    protected:
-        //Function used to load and save the transfer's info from xml
-        virtual void load(const QDomElement &e);
+        /**
+        * Loads the transfer's info from the QDomElement
+        *
+        * @param element The pointer to the QDomNode where info will be loaded from
+        */
+        virtual void load(const QDomElement *element);
 
+    protected:
         /**
          * Sets the Job status to jobStatus, the status text to text and
          * the status pixmap to pix.
          */
-        void setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix);
+        void setStatus(Job::Status jobStatus, const QString &text = QString(), const QPixmap &pix = QPixmap());
 
         /**
          * Makes the TransferHandler associated with this transfer know that
@@ -250,6 +270,8 @@ class KGET_EXPORT Transfer : public Job
         int m_runningSeconds;
         double m_ratio;
 
+        static const QStringList STATUSTEXTS;
+        static const QStringList STATUSICONS;
         QString m_statusText;
         QPixmap m_statusPixmap;
         QTime m_runningTime;

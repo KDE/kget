@@ -37,11 +37,6 @@ class TransferKio : public Transfer
         bool isResumable() const;
         void postDeleteEvent();
 
-        void save(const QDomElement &e);
-
-    protected:
-        void load(const QDomElement &e);
-
     private:
         void createJob();
 

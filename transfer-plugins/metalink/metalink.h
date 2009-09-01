@@ -32,11 +32,6 @@ class metalink : public Transfer
 
         bool isResumable() const;
 
-        void save(const QDomElement &e);
-
-    protected:
-        void load(const QDomElement &e);
-
     private Q_SLOTS:
         void slotData(KIO::Job *, const QByteArray& data);
         void slotResult(KJob * job);

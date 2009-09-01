@@ -34,11 +34,7 @@ class ContentFetch : public Transfer
         bool isResumable() const;
         void postDeleteEvent();
 
-        void save(const QDomElement &e);
         void setPercent(int percent);
-
-    protected:
-        void load(const QDomElement &e);
 
     private:
         Script *m_p_script;

@@ -72,17 +72,6 @@ void TransferKio::postDeleteEvent()
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
-void TransferKio::load(const QDomElement &e)
-{
-    Transfer::load(e);
-}
-
-void TransferKio::save(const QDomElement &e)
-{
-    Transfer::save(e);
-}
-
-
 //NOTE: INTERNAL METHODS
 
 void TransferKio::createJob()

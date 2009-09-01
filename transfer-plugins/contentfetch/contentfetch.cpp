@@ -109,16 +109,6 @@ void ContentFetch::postDeleteEvent()
     return;
 }
 
-void ContentFetch::load(const QDomElement &e)
-{
-    Transfer::load(e);
-}
-
-void ContentFetch::save(const QDomElement &e)
-{
-    Transfer::save(e);
-}
-
 void ContentFetch::setPercent(int percent)
 {
     m_percent = percent;

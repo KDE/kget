@@ -66,17 +66,6 @@ bool metalink::isResumable() const
     return false;
 }
 
-void metalink::load(const QDomElement &e)
-{
-    Transfer::load(e);
-}
-
-void metalink::save(const QDomElement &e)
-{
-    Transfer::save(e);
-}
-
-
 //NOTE: INTERNAL METHODS
 
 void metalink::createJob()

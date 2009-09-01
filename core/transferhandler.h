@@ -70,6 +70,14 @@ class KGET_EXPORT TransferHandler : public Handler
         bool isResumable() const;
 
         /**
+         * Tries to repair file
+         * @param file the file of a download that should be repaired,
+         * if not defined all files of a download are going to be repaird
+         * @return true if a repair started, false if it was not nescessary
+         */
+        bool repair(const KUrl &file = KUrl()) {return m_transfer->repair(file);}
+
+        /**
          * @return the transfer's group handler
          */
         TransferGroupHandler * group() const {return m_transfer->group()->handler();}
