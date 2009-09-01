@@ -16,6 +16,9 @@
 #include "advanceddetails/monitor.h"
 #include "core/kget.h"
 #include "core/download.h"
+#ifdef HAVE_NEPOMUK
+#include "core/nepomukhandler.h"
+#endif //HAVE_NEPOMUK
 
 #include <torrent/torrent.h>
 #include <peer/peermanager.h>
@@ -40,6 +43,10 @@
 #include <QFileInfo>
 #include <QDir>
 
+#ifdef HAVE_NEPOMUK
+#include "btnepomukhandler.h"
+#endif
+
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
@@ -48,6 +55,9 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_tmp(KStandardDirs::locateLocal("appdata", "tmp/")),
     m_ready(false),
     m_downloadFinished(false)
+#ifdef HAVE_NEPOMUK
+    , m_nepHandler(0)
+#endif
 {
 }
 
@@ -57,6 +67,19 @@ BTTransfer::~BTTransfer()
         torrent->setMonitor(0);
 
     delete torrent;
+}
+
+void BTTransfer::init()
+{
+#ifdef HAVE_NEPOMUK
+    if (!m_nepHandler)
+    {
+        m_nepHandler = new BtNepomukHandler(this, 0);
+        setNepomukHandler(m_nepHandler);
+    }
+#endif //HAVE_NEPOMUK
+
+    Transfer::init();
 }
 
 /** Reimplemented functions from Transfer-Class **/
@@ -78,10 +101,10 @@ void BTTransfer::start()
             setTransferChange(Tc_Status, true);
 
             //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(init(KUrl, QByteArray)));
+            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(btTransferInit(KUrl, QByteArray)));
         }
         else
-            init();
+            btTransferInit();
     }
     else
         startTorrent();
@@ -129,6 +152,10 @@ void BTTransfer::postDeleteEvent()
     kDebug(5001) << m_source.url();
     QFile torrentFile(m_source.path());
     torrentFile.remove();
+
+#ifdef HAVE_NEPOMUK
+    m_nepHandler->postDeleteEvent();
+#endif //HAVE_NEPOMUK
 }
 
 /**void BTTransfer::load(const QDomElement &e)
@@ -213,6 +240,10 @@ void BTTransfer::startTorrent()
         setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
+
+#ifdef HAVE_NEPOMUK
+        m_nepHandler->setDestinations(files());
+#endif //HAVE_NEPOMUK
     }
 }
 
@@ -268,7 +299,7 @@ void BTTransfer::updateTorrent()
     setTransferChange(changesFlags, true);
 }
 
-void BTTransfer::init(const KUrl &src, const QByteArray &data)
+void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 {
     Q_UNUSED(data);
     kDebug(5001);
@@ -316,7 +347,11 @@ void BTTransfer::init(const KUrl &src, const QByteArray &data)
         kDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
         torrent->init(0, m_source.toLocalFile(), m_tmp + m_source.fileName().remove(".torrent"), KUrl(m_dest.directory()).toLocalFile(), 0);
 
-        m_dest = torrent->getStats().multi_file_torrent ? torrent->getStats().output_path : torrent->getStats().output_path + torrent->getStats().torrent_name;
+        m_dest = torrent->getStats().output_path;
+        if (!torrent->getStats().multi_file_torrent && (m_dest.fileName() != torrent->getStats().torrent_name))//TODO check if this is needed, so if that case is true at some point
+        {
+            m_dest.addPath(torrent->getStats().torrent_name);
+        }
 
         torrent->createFiles();
 
@@ -512,6 +547,34 @@ void BTTransfer::destroyed()
 {
     if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->destroyed();
+}
+
+QList<KUrl> BTTransfer::files() const
+{
+    QList<KUrl> urls;
+
+    //multiple files
+    if (torrent->getStats().multi_file_torrent)
+    {
+
+        for (uint i = 0; i < torrent->getNumFiles(); ++i)
+        {
+            const QString path = torrent->getTorrentFile(i).getPathOnDisk();
+            urls.append(KUrl(path));
+        }
+    }
+    //one single file
+    else
+    {
+        KUrl temp = m_dest;
+        if (m_dest.fileName() != torrent->getStats().torrent_name)//TODO check if the body is ever entered!
+        {
+            temp.addPath(torrent->getStats().torrent_name);
+        }
+        urls.append(temp);
+    }
+
+    return urls;
 }
 
 #include "bttransfer.moc"

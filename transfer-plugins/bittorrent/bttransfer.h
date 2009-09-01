@@ -18,6 +18,10 @@
 
 #include <QTimer>
 
+#ifdef HAVE_NEPOMUK
+class BtNepomukHandler;
+#endif
+
 namespace bt
 {
     class ChunkDownloadInterface;
@@ -53,6 +57,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         ~BTTransfer();
 
         //Job virtual functions
+        virtual void init();
         void start();
         void stop();
         virtual int elapsedTime() const;
@@ -87,7 +92,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void setSpeedLimits(int ulLimit, int dlLimit);
 
     private slots:
-        void init(const KUrl &src = KUrl(), const QByteArray &data = QByteArray());
+        void btTransferInit(const KUrl &src = KUrl(), const QByteArray &data = QByteArray());
         void update();
         void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);
@@ -96,6 +101,12 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void startTorrent();
         void stopTorrent();
         void updateTorrent();
+
+        /**
+         * Returns a list of urls to the files being downloaded
+         * @return urls of the files being downloaded
+         */
+        QList<KUrl> files() const;
 
         // bt::MonitorInterface functions
         virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);
@@ -113,6 +124,10 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         QTimer timer;
         bool m_ready;
         bool m_downloadFinished;
+
+#ifdef HAVE_NEPOMUK
+        BtNepomukHandler *m_nepHandler;
+#endif //HAVE_NEPOMUK
 };
 
 #endif

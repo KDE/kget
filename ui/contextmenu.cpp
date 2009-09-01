@@ -77,7 +77,6 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     NepomukWidget *nepomukWidget = new NepomukWidget(transfers.first(), parent);
     nepomukWidgetAction->setDefaultWidget(nepomukWidget);
     nepomukMenu->addAction(nepomukWidgetAction);
-    nepomukMenu->setEnabled(nepomukWidget->isValid());
     popup->addMenu(nepomukMenu);
 
 #endif

@@ -24,7 +24,6 @@ class NepomukWidget : public QWidget
         ~NepomukWidget();
 
         static QWidget * createNepomukWidget(TransferHandler *transfer);
-        bool isValid();
 
     private slots:
         void showTagContextMenu(const QString& tag);

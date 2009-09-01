@@ -89,9 +89,4 @@ void NepomukWidget::addNewTag()
     }
 }
 
-bool NepomukWidget::isValid()
-{
-    return m_nepHandler->isValid();
-}
-
 #include "nepomukwidget.moc"
