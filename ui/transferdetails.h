@@ -15,6 +15,7 @@
 
 #include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
+#include "ui_transferdetailsfrm.h"
 
 class QLabel;
 class QProgressBar;
@@ -39,12 +40,7 @@ class TransferDetails : public QWidget
         QWidget         * m_genericWidget;
         QWidget         * m_detailsWidget;
 
-        QLabel          * m_statusPixmapLabel;
-        QLabel          * m_statusTextLabel;
-        QLabel          * m_completedLabel;
-        QLabel          * m_speedLabel;
-        QLabel          * m_remainingTimeLabel;
-        QProgressBar    * m_progressBar;
+        Ui::TransferDetailsFrm frm;
 };
 
 #endif

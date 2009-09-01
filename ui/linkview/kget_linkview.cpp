@@ -108,7 +108,7 @@ void KGetLinkView::checkClipboard()
 
 void KGetLinkView::setLinks(const QList <QString> &links)
 {
-    m_links = QList <QString> ();
+    m_links.clear();
     foreach(const QString &link, links)
     {
         m_links << link;
