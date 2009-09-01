@@ -12,14 +12,16 @@
 #ifdef HAVE_NEPOMUK
 #include "core/nepomukhandler.h"
 #endif //HAVE_NEPOMUK
+#include "core/verifier.h"
 
 #include <kiconloader.h>
 #include <kio/scheduler.h>
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
-#include <klocale.h>
-#include <kdebug.h>
+#include <KLocale>
+#include <KMessageBox>
+#include <KDebug>
 
 #include <QtCore/QFile>
 #include <QDomElement>
@@ -29,7 +31,8 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0),
-      m_movingFile(false)
+      m_movingFile(false),
+      m_verifier(0)
 {
 
 }
@@ -50,13 +53,18 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
         {
             m_movingFile = true;
             stop();
-            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+            setStatus(Job::Moving);
             setTransferChange(Tc_Status, true);
 
             m_dest = newDestination;
 #ifdef HAVE_NEPOMUK
             nepomukHandler()->setNewDestination(m_dest);
 #endif //HAVE_NEPOMUK
+
+            if (m_verifier)
+            {
+                m_verifier->setDestination(newDestination);
+            }
 
             KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
             connect(move, SIGNAL(result(KJob *)), this, SLOT(newDestResult(KJob *)));
@@ -105,7 +113,7 @@ void TransferKio::stop()
     }
 
     kDebug(5001) << "Stop";
-    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+    setStatus(Job::Stopped);
     m_downloadSpeed = 0;
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
@@ -120,7 +128,7 @@ void TransferKio::postDeleteEvent()
     if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {
         KIO::Job *del = KIO::del(m_dest.path() + ".part", KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, NULL);
+        KIO::NetAccess::synchronousRun(del, 0);
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 #ifdef HAVE_NEPOMUK
     nepomukHandler()->postDeleteEvent();
@@ -158,7 +166,7 @@ void TransferKio::slotResult( KJob * kioJob )
     {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
-            setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+            setStatus(Job::Finished);
         // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
             m_percent = 100;
             m_downloadSpeed = 0;
@@ -169,11 +177,16 @@ void TransferKio::slotResult( KJob * kioJob )
             //There has been an error
             kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
             if (!m_stopped)
-                setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
+                setStatus(Job::Aborted);
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
     m_copyjob=0;
+
+    if ((status() == Job::Finished) && m_verifier)
+    {
+        m_verifier->verify();
+    }
     setTransferChange(Tc_Status, true);
 }
 
@@ -197,7 +210,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 
     kDebug(5001) << "slotTotalSize";
 
-    setStatus(Job::Running, i18n("Downloading...."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running);
 
     m_totalSize = size;
     setTransferChange(Tc_Status | Tc_TotalSize, true);
@@ -211,7 +224,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 
     if(status() != Job::Running)
     {
-        setStatus(Job::Running, i18n("Downloading...."),  SmallIcon("media-playback-start"));
+        setStatus(Job::Running);
         setTransferChange(Tc_Status);
     }
     m_downloadedSize = size;
@@ -227,15 +240,61 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
     if(status() != Job::Running)
     {
         if (m_movingFile)
-            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+            setStatus(Job::Moving);
         else
-            setStatus(Job::Running, i18n("Downloading...."),  SmallIcon("media-playback-start"));
+            setStatus(Job::Running);
         setTransferChange(Tc_Status);
 
     }
 
     m_downloadSpeed = bytes_per_second;
     setTransferChange(Tc_DownloadSpeed, true);
+}
+
+void TransferKio::slotVerified(bool isVerified)
+{
+    if (!isVerified && KMessageBox::warningYesNo(0,
+                    i18n("The download (%1) could not be verfied. Do you want to repair it?", m_dest.fileName()),
+                    i18n("Verification failed.")) == KMessageBox::Yes)
+    {
+        repair();
+    }
+}
+
+bool TransferKio::repair(const KUrl &file)
+{
+    Q_UNUSED(file)
+
+    if (verifier()->status() == Verifier::NotVerified)
+    {
+        m_downloadedSize = 0;
+        m_percent = 0;
+        if(m_copyjob)
+        {
+            m_copyjob->kill(KJob::Quietly);
+            m_copyjob = 0;
+        }
+        setTransferChange(Tc_DownloadedSize | Tc_Percent, true);
+
+        start();
+
+        return true;
+    }
+
+    return false;
+}
+
+Verifier *TransferKio::verifier(const KUrl &file)
+{
+    Q_UNUSED(file)
+
+    if (!m_verifier)
+    {
+        m_verifier = new Verifier(m_dest);
+        connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+    }
+
+    return m_verifier;
 }
 
 #include "transferKio.moc"
