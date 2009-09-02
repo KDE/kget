@@ -56,13 +56,17 @@ public:
         KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
         if (!kget)
-	{
+        {
+#ifdef DEBUG
             kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"), args->isSet("test"));
+#else
+            kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"), false);
+#endif
             new MainAdaptor(kget);
             QDBusConnection::sessionBus().registerObject("/KGet", kget);
         }
         KWindowSystem::activateWindow(kget->winId());
-        
+
         if (args->isSet("showDropTarget"))
             Settings::setShowDropTarget( true );
 
