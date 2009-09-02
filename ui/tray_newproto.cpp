@@ -18,8 +18,6 @@
 
 #include <QClipboard>
 
-using namespace Experimental;
-
 /** class Tray
   * Reimplementation of the KNotificationItem class
   */

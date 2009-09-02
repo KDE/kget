@@ -61,16 +61,13 @@ endif(KDE4_KONQUEROR_LIBRARY)
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${CMAKE_CURRENT_BINARY_DIR}
+   ${KDE4_KDEUI_LIBRARY}
 )
 
 if(SQLITE_FOUND)
     add_definitions(-DHAVE_SQLITE)
 endif(SQLITE_FOUND)
 
-if (LIBKNOTIFICATIONITEM-1_FOUND)
-    add_definitions(-DHAVE_KNOTIFICATIONITEM)
-    include_directories(${LIBKNOTIFICATIONITEM-1_INCLUDE_DIR})
-endif (LIBKNOTIFICATIONITEM-1_FOUND)
 
 remove_definitions(-DQT_NO_HTTP)
 
@@ -142,9 +139,6 @@ if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
-if (LIBKNOTIFICATIONITEM-1_FOUND)
-  target_link_libraries(kgetcore ${LIBKNOTIFICATIONITEM-1_LIBRARIES})
-endif (LIBKNOTIFICATIONITEM-1_FOUND)
 
 if (QCA2_FOUND)
     target_link_libraries(kgetcore ${QCA2_LIBRARIES})
@@ -198,13 +192,8 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
     ENABLE_TESTING()
 
-    set(kget_SRCS
-        ${kget_SRCS}
-        tests/testkget.cpp
-    )
 
     set(kget_test_transfers_SRCS
-        kget_interface.cpp
         transfer_interface.cpp
         tests/testtransfers.cpp
     )
@@ -213,21 +202,15 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
 
     kde4_add_unit_test(kget_test_transfers
         ${kget_test_transfers_SRCS})
-    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
+    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
 
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-if(LIBKNOTIFICATIONITEM-1_FOUND)
-    set(kget_SRCS
-        ${kget_SRCS}
-        ui/tray_newproto.cpp
-    )
-else(LIBKNOTIFICATIONITEM-1_FOUND)
-    set(kget_SRCS
-        ${kget_SRCS}
-        ui/tray.cpp
-    )
-endif(LIBKNOTIFICATIONITEM-1_FOUND)
+set(kget_SRCS
+    ${kget_SRCS}
+    ui/tray_newproto.cpp
+)
+
 
 if(HAVE_NEPOMUK)
    set(kget_SRCS
@@ -272,7 +255,7 @@ kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFYCONFIG_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
+target_link_libraries(kget ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KNOTIFY_CONFIG_LIBS} ${KDE4_KUTILS_LIBRARY} kgetcore)
 
 if (HAVE_NEPOMUK)
   target_link_libraries(kget ${KDE4_NEPOMUK_LIBS})
@@ -282,9 +265,6 @@ if (KONQUEROR_FOUND)
   target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})
 endif (KONQUEROR_FOUND)
 
-if (LIBKNOTIFICATIONITEM-1_FOUND)
-  target_link_libraries(kget ${LIBKNOTIFICATIONITEM-1_LIBRARIES})
-endif (LIBKNOTIFICATIONITEM-1_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 

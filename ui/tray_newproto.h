@@ -24,7 +24,7 @@ class KGet;
   * @short KGet's system tray icon.
   **/
 
-class Tray : public Experimental::KNotificationItem
+class Tray : public KNotificationItem
 {
 Q_OBJECT
 public:
