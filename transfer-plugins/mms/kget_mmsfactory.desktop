@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=MMS
+Name[fi]=Multimediaviesti
 Name[hne]=एमएमएस
 Name[ml]=എംഎംഎസ്
 Name[sr]=ММС
@@ -20,6 +21,7 @@ Comment[el]=Πρόσθετο μεταφοράς MMS για το KGet
 Comment[es]=Complemento de transferencia de MMS para KGet
 Comment[et]=KGeti MMS ülekandeplugin
 Comment[eu]=MMS transferentziaren plugina KGet-entzako
+Comment[fi]=KGetin multimediaviestiliitännäinen
 Comment[fr]=Module de transfert MMS pour KGet
 Comment[ga]=Breiseán aistrithe MMS le haghaidh KGet
 Comment[gl]=Extensión de transferencias MMS para KGet
