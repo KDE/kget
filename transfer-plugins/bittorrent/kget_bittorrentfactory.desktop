@@ -8,6 +8,7 @@ Icon=application-x-bittorrent
 # standard fields
 Name=Bittorrent
 Name[ar]=بيت تورنت
+Name[fi]=Bittorrent 
 Name[fr]=BitTorrent
 Name[hne]=बिटटोरेंट
 Name[ja]=BitTorrent
@@ -31,6 +32,7 @@ Comment[el]=Επιτρέπει τη λήψη αρχείων με χρήση το
 Comment[es]=Permitir la descarga de archivos usando Bittorrent
 Comment[et]=Võimaldab faile alla laadida Bittorrenti abil
 Comment[eu]=Fitxategiak Bittorrent erabiliz deskargatzea uzten du
+Comment[fi]=Salli tiedostojen lataus Bittorrentilla
 Comment[ga]=Ceadaíonn sé seo comhaid a íosluchtú trí Bittorrent
 Comment[gl]=Permite obter ficheiros mediante Bittorrent
 Comment[ja]=BitTorrent を使ってファイルをダウンロードします

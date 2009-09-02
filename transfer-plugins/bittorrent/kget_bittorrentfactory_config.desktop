@@ -7,6 +7,7 @@ X-KDE-ParentComponents=kget_bittorrent_plugin
 
 Name=Bittorrent
 Name[ar]=بيت تورنت
+Name[fi]=Bittorrent 
 Name[fr]=BitTorrent
 Name[hne]=बिटटोरेंट
 Name[ja]=BitTorrent

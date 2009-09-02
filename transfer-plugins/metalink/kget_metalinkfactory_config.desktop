@@ -6,3 +6,17 @@ X-KDE-Library=kcm_kget_metalinkfactory
 X-KDE-ParentComponents=kget_metalink_plugin
 
 Name=Metalink
+Name[ar]=ميتالينك
+Name[ca]=Metaenllaç
+Name[hne]=मेटालिंक
+Name[ja]=メタリンク
+Name[km]=តំណ​មេតា
+Name[ko]=메타링크
+Name[ml]=സവിശേഷകണ്ണി
+Name[nn]=MetaLink
+Name[pa]=ਮੇਟਾਲਿੰਕ
+Name[pt_BR]=Metacontato
+Name[sr]=Металинк
+Name[sr@latin]=MetaLink
+Name[x-test]=xxMetalinkxx
+Name[zh_CN]=超级链接
