@@ -1078,9 +1078,11 @@ GenericObserver::GenericObserver(QObject *parent)
   : QObject(parent)
 {
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*)), SLOT(transferAddedEvent(TransferHandler*)));
+    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)),
+                           SLOT(transferAddedEvent(TransferHandler*)));
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(groupAddedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler*)), SLOT(transferRemovedEvent(TransferHandler*)));
+    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler*,TransferGroupHandler*)),
+                           SLOT(transferRemovedEvent(TransferHandler*)));
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)), 
                            SLOT(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags>)), 
