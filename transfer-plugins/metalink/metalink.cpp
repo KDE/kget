@@ -152,7 +152,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
 #ifdef HAVE_NEPOMUK
-        m_nepHandler->setFileMetaData(dest, m_metalink.files, *it);
+        m_nepHandler->setFileMetaData(dest, *it);
 #endif //HAVE_NEPOMUK
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?

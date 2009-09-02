@@ -349,16 +349,16 @@ void MetalinkCreator::createGeneral()
 void MetalinkCreator::loadGeneral()
 {
     uiGeneral.origin->setUrl(metalink.origin);
-    uiGeneral.identity->setText(metalink.files.data.identity);
-    uiGeneral.version->setText(metalink.files.data.version);
-    uiGeneral.description->setText(metalink.files.data.description);
-    uiGeneral.logo->setUrl(metalink.files.data.logo);
-    uiGeneral.os->setText(metalink.files.data.os);
+//     uiGeneral.identity->setText(metalink.files.data.identity);
+//     uiGeneral.version->setText(metalink.files.data.version);
+//     uiGeneral.description->setText(metalink.files.data.description);
+//     uiGeneral.logo->setUrl(metalink.files.data.logo);
+//     uiGeneral.os->setText(metalink.files.data.os);
 
     uiGeneral.dynamic->setChecked(metalink.dynamic);
 
-    const int indexLanguage = uiGeneral.language->findData(metalink.files.data.language);
-    uiGeneral.language->setCurrentIndex(indexLanguage);
+//     const int indexLanguage = uiGeneral.language->findData(metalink.files.data.language);
+//     uiGeneral.language->setCurrentIndex(indexLanguage);
 
     uiGeneral.use_published->setChecked(metalink.published.isValid());
     uiGeneral.use_publishedtimeoffset->setChecked(metalink.published.timeZoneOffset.isValid());
@@ -407,16 +407,16 @@ void MetalinkCreator::loadGeneral()
 void MetalinkCreator::saveGeneral()
 {
     metalink.origin = KUrl(uiGeneral.origin->text());
-    metalink.files.data.identity = uiGeneral.identity->text();
-    metalink.files.data.version = uiGeneral.version->text();
-    metalink.files.data.description = uiGeneral.description->text();
-    metalink.files.data.logo = KUrl(uiGeneral.logo->text());
-    metalink.files.data.os = uiGeneral.os->text();
-    metalink.files.data.identity = uiGeneral.identity->text();
+//     metalink.files.data.identity = uiGeneral.identity->text();
+//     metalink.files.data.version = uiGeneral.version->text();
+//     metalink.files.data.description = uiGeneral.description->text();
+//     metalink.files.data.logo = KUrl(uiGeneral.logo->text());
+//     metalink.files.data.os = uiGeneral.os->text();
+//     metalink.files.data.identity = uiGeneral.identity->text();
 
     metalink.dynamic = uiGeneral.dynamic->isChecked();
 
-    metalink.files.data.language = uiGeneral.language->itemData(uiGeneral.language->currentIndex()).toString();
+//     metalink.files.data.language = uiGeneral.language->itemData(uiGeneral.language->currentIndex()).toString();
 
     metalink.published.clear();
     if (uiGeneral.use_published->isChecked())
@@ -449,20 +449,20 @@ void MetalinkCreator::createGeneral2()
 
 void MetalinkCreator::loadGeneral2()
 {
-    uiGeneral2.copyright->setText(metalink.files.data.copyright);
-    uiGeneral2.lic_name->setText(metalink.files.data.license.name);
-    uiGeneral2.lic_url->setUrl(metalink.files.data.license.url);
-    uiGeneral2.pub_name->setText(metalink.files.data.publisher.name);
-    uiGeneral2.pub_url->setUrl(metalink.files.data.publisher.url);
+//     uiGeneral2.copyright->setText(metalink.files.data.copyright);
+//     uiGeneral2.lic_name->setText(metalink.files.data.license.name);
+//     uiGeneral2.lic_url->setUrl(metalink.files.data.license.url);
+//     uiGeneral2.pub_name->setText(metalink.files.data.publisher.name);
+//     uiGeneral2.pub_url->setUrl(metalink.files.data.publisher.url);
 }
 
 void MetalinkCreator::saveGeneral2()
 {
-    metalink.files.data.copyright = uiGeneral2.copyright->text();
-    metalink.files.data.license.name = uiGeneral2.lic_name->text();
-    metalink.files.data.license.url = KUrl(uiGeneral2.lic_url->text());
-    metalink.files.data.publisher.name = uiGeneral2.pub_name->text();
-    metalink.files.data.publisher.url = KUrl(uiGeneral2.pub_url->text());
+//     metalink.files.data.copyright = uiGeneral2.copyright->text();
+//     metalink.files.data.license.name = uiGeneral2.lic_name->text();
+//     metalink.files.data.license.url = KUrl(uiGeneral2.lic_url->text());
+//     metalink.files.data.publisher.name = uiGeneral2.pub_name->text();
+//     metalink.files.data.publisher.url = KUrl(uiGeneral2.pub_url->text());
 }
 
 void MetalinkCreator::createFiles()

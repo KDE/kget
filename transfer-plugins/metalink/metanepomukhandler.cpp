@@ -165,23 +165,16 @@ void MetaNepomukHandler::setProperty(const QUrl &uri, const Nepomuk::Variant &va
     m_tempResource.setProperty(uri, value);
 }
 
-void MetaNepomukHandler::setFileMetaData(const KUrl &dest, const KGetMetalink::Files &files, const KGetMetalink::File &file)
+void MetaNepomukHandler::setFileMetaData(const KUrl &dest, const KGetMetalink::File &file)
 {
     if (!m_resources.contains(dest))
     {
         m_resources[dest] = Nepomuk::Resource(dest, Soprano::Vocabulary::Xesam::File());
     }
 
-    QHash<QUrl, Nepomuk::Variant> filesData = files.properties();
-    QHash<QUrl, Nepomuk::Variant>::const_iterator it;
-    QHash<QUrl, Nepomuk::Variant>::const_iterator itEnd = filesData.constEnd();
-    for (it = filesData.constBegin(); it != itEnd; ++it)
-    {
-        m_resources[dest].setProperty(it.key(), it.value());
-    }
-
     QHash<QUrl, Nepomuk::Variant> fileData = file.properties();
-    itEnd = fileData.constEnd();
+    QHash<QUrl, Nepomuk::Variant>::const_iterator it;
+    QHash<QUrl, Nepomuk::Variant>::const_iterator itEnd = fileData.constEnd();
     for (it = fileData.constBegin(); it != itEnd; ++it)
     {
         m_resources[dest].setProperty(it.key(), it.value());

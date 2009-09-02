@@ -51,7 +51,7 @@ class DateConstruct
         {
         }
 
-        void setData(const QDateTime &dateTime, const QTime &timeZoneOffset = QTime());
+        void setData(const QDateTime &dateTime, const QTime &timeZoneOffset = QTime(), bool negativeOffset = false);
         void setData(const QString &dateConstruct);
 
         void clear();
@@ -119,6 +119,11 @@ class Metaurl
     public:
         Metaurl() {}
 
+        /**
+         * "smaller" urls are less important than larger, larger urls should be preffered
+         */
+        bool operator<(const Metaurl &other) const {return (this->preference < other.preference);}//TODO use also the location information and compare that with the current location being set or maybe using the dataengine to get the corrent location
+
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
 
@@ -147,9 +152,12 @@ class Url
     public:
         Url()
           : preference(0)
-          {
-          }
+        {
+        }
 
+        /**
+         * "smaller" urls are less important than larger, larger urls should be preffered
+         */
         bool operator<(const Url &other) const {return (this->preference < other.preference);}//TODO use also the location information and compare that with the current location being set or maybe using the dataengine to get the corrent location
 
         void load(const QDomElement &e);
@@ -260,18 +268,17 @@ class Files
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Return all Nepomuk-properties that can be extracted of Files
-         * @Note only Files is being looked at, not each File it contains, so
-         * you only get the general metadata for all Files
-        */
-        QHash<QUrl, Nepomuk::Variant> properties() const;
-#endif //HAVE_NEPOMUK
+// #ifdef HAVE_NEPOMUK//TODO wha this now?
+//         /**
+//          * Return all Nepomuk-properties that can be extracted of Files
+//          * @Note only Files is being looked at, not each File it contains, so
+//          * you only get the general metadata for all Files
+//         */
+//         QHash<QUrl, Nepomuk::Variant> properties() const;
+// #endif //HAVE_NEPOMUK
 
         void clear();
 
-        CommonData data;
         QList<File> files;
 };
 
@@ -301,10 +308,10 @@ class Metalink
 
         bool dynamic;
         QString xmlns; //the xmlns value is ignored when saving, instead the data format described in the specification is always used
-        DateConstruct published;
+        DateConstruct published; //when the metalink was published
         KUrl origin;
         QString generator;
-        DateConstruct updated;
+        DateConstruct updated; //when the metalink was updated
         Files files;
 };
 
@@ -344,6 +351,13 @@ class HandleMetalink
          */
         static void addProperty(QHash<QUrl, Nepomuk::Variant> *data, const QByteArray &uriBa, const QString &value);
 #endif //HAVE_NEPOMUK
+
+    private:
+        static void parseMetealink_v3_ed2(const QDomElement &e, Metalink *metalink);
+        static void paresFiles_v3_ed2(const QDomElement &e, Files *files);
+        static void parseCommonData_v3_ed2(const QDomElement &e, KGetMetalink::CommonData *data);
+        static void parseResources_v3_ed2(const QDomElement &e, KGetMetalink::Resources *resources);
+        static void parseDateConstruct_v3_ed2(DateConstruct *dateConstruct, const QString &data);
 };
 
 }

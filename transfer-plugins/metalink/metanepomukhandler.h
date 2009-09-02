@@ -52,10 +52,9 @@ class MetaNepomukHandler : public NepomukHandler
          * Stores the metadata of file in dest, creates a Nepomuk::Ressource for dest if
          * it is not existing yet
          * @param dest the destination of the file where to add the metadata
-         * @param files the general metadata
          * @param file the metadata, in general favoured compared with files
          */
-        void setFileMetaData(const KUrl &dest, const KGetMetalink::Files &files, const KGetMetalink::File &file);
+        void setFileMetaData(const KUrl &dest, const KGetMetalink::File &file);
 
     public slots:
         void setRating(int rating);
