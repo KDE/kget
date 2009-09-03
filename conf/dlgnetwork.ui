@@ -75,7 +75,7 @@
       <item row="0" column="1" >
        <widget class="QSpinBox" name="kcfg_GlobalDownloadLimit" >
         <property name="suffix" >
-         <string>KiB/s</string>
+         <string> KiB/s</string>
         </property>
         <property name="maximum" >
          <number>1000000</number>
@@ -98,7 +98,7 @@
       <item row="1" column="1" >
        <widget class="QSpinBox" name="kcfg_GlobalUploadLimit" >
         <property name="suffix" >
-         <string>KiB/s</string>
+         <string> KiB/s</string>
         </property>
         <property name="maximum" >
          <number>1000000</number>
@@ -121,7 +121,7 @@
       <item row="2" column="1" >
        <widget class="QSpinBox" name="kcfg_TransferSpeedLimit" >
         <property name="suffix" >
-         <string>KiB/s</string>
+         <string> KiB/s</string>
         </property>
         <property name="maximum" >
          <number>1000000</number>
@@ -167,7 +167,7 @@
       <item row="1" column="1" >
        <widget class="QSpinBox" name="kcfg_ReconnectDelay" >
         <property name="suffix" >
-         <string>sec</string>
+         <string> sec</string>
         </property>
         <property name="maximum" >
          <number>86400</number>
