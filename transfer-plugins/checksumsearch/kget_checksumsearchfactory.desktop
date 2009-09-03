@@ -6,8 +6,18 @@ Icon=kget
 
 # standard fields
 Name=Checksum Search
+Name[pt]=Pesquisa por Código de Validação
+Name[pt_BR]=Pesquisa por Código de Validação
+Name[sv]=Checksummesökning
+Name[uk]=Пошук контрольної суми
+Name[x-test]=xxChecksum Searchxx
 
 Comment=Tries to find checksums for a specified url
+Comment[pt]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
+Comment[pt_BR]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
+Comment[sv]=Försöker hitta checksummor för en specifik webbadress
+Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
+Comment[x-test]=xxTries to find checksums for a specified urlxx
 
 # options for library loader
 X-KDE-Library=kget_checksumsearchfactory
