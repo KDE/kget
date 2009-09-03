@@ -76,7 +76,7 @@ unsigned long KGetGlobalJob::percent() const
 void KGetGlobalJob::update()
 {
     emit description(this, "KGet global information", 
-                    qMakePair(QString("source"), QString("KGet is downloading %1 files").arg(m_jobs.size())),
+                    qMakePair(QString("source"), i18np("KGet is downloading %1 file", "KGet is downloading %1 files", m_jobs.size())),
                     qMakePair(QString("destination"), QString("to different locations")));
 
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes));
