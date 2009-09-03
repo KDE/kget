@@ -18,6 +18,7 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QTimer>
+#include <QtCore/QVarLengthArray>
 #include <QtXml/QDomText>
 
 #include <KIO/DeleteJob>
@@ -907,7 +908,7 @@ void DataSourceFactory::load(const QDomElement *element)
 
     const quint32 numBits = chunks.attribute("numBits").toInt();
     const quint32 numBytes = chunks.attribute("numBytes").toInt();
-    quint8 data[numBytes];
+    QVarLengthArray<quint8> data(numBytes);
 
     if (numBytes && (numBytes == chunkList.length()))
     {
@@ -919,7 +920,7 @@ void DataSourceFactory::load(const QDomElement *element)
 
         if (!m_finishedChunks)
         {
-            m_finishedChunks = new BitSet(data, numBits);
+            m_finishedChunks = new BitSet(data.data(), numBits);
             kDebug(5001) << m_finishedChunks->numOnBits() << " bits on of " << numBits << " bits.";
             //adapt the downloadedSize to what not has to be downloaded
             //that might differ to what has been download, e.g. if a chunk did not finish before closing Kget
@@ -933,7 +934,7 @@ void DataSourceFactory::load(const QDomElement *element)
         //set the finnished chunks to started
         if (!m_startedChunks)
         {
-            m_startedChunks = new BitSet(data, numBits);
+            m_startedChunks = new BitSet(data.data(), numBits);
         }
 
     }
