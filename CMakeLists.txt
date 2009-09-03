@@ -61,7 +61,6 @@ endif(KDE4_KONQUEROR_LIBRARY)
 include_directories(
    ${CMAKE_SOURCE_DIR}/kget/core/
    ${CMAKE_CURRENT_BINARY_DIR}
-   ${KDE4_KDEUI_LIBRARY}
 )
 
 if(SQLITE_FOUND)
