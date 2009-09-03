@@ -931,7 +931,7 @@ void DataSourceFactory::load(const QDomElement *element)
             }
         }
 
-        //set the finnished chunks to started
+        //set the finished chunks to started
         if (!m_startedChunks)
         {
             m_startedChunks = new BitSet(data.data(), numBits);
