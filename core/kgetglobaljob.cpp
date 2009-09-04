@@ -9,6 +9,8 @@
 */
 #include "kgetglobaljob.h"
 
+#include <klocale.h>
+
 #include <QTimer>
 
 KGetGlobalJob::KGetGlobalJob(QObject *parent)
