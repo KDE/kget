@@ -254,7 +254,7 @@ kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 
 kde4_add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore knotifyconfig)
+target_link_libraries(kget ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore ${KDE4_KNOTIFYCONFIG_LIBS})
 
 if (HAVE_NEPOMUK)
   target_link_libraries(kget ${KDE4_NEPOMUK_LIBS})
