@@ -11,6 +11,7 @@ Name[pt_BR]=Pesquisa por Código de Validação
 Name[sv]=Checksummesökning
 Name[uk]=Пошук контрольної суми
 Name[x-test]=xxChecksum Searchxx
+Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified url
 Comment[pt]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
@@ -18,6 +19,7 @@ Comment[pt_BR]=Tenta pesquisar os códigos de validação ('checksums') para um 
 Comment[sv]=Försöker hitta checksummor för en specifik webbadress
 Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
 Comment[x-test]=xxTries to find checksums for a specified urlxx
+Comment[zh_TW]=試著尋找指定網址的驗證碼
 
 # options for library loader
 X-KDE-Library=kget_checksumsearchfactory
