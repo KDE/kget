@@ -221,6 +221,9 @@ void KioDownload::slotData(KIO::Job *job, const QByteArray &data)
         m_processedSize += data.size();
         emit processedSize(m_processedSize);
     }
+    //QString fileName = job->metaData().value("content-disposition-filename");
+    //if (!fileName.isEmpty())
+    //    emit suggestedFileName(fileName);
 }
 
 #include "kiodownload.moc"

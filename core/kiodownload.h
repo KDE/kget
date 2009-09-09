@@ -49,6 +49,7 @@ class KioDownload : public QObject
         void totalSize(KIO::filesize_t size);
         void speed(ulong speed);
         void finished();
+        //void suggestedFileName(const QString &name);
 
     private slots:
         void slotResult(KJob *kioJob);

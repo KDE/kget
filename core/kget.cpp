@@ -69,7 +69,7 @@
  * it in the group named "Not grouped" (better name?).
  **/
 
-KGet& KGet::self( MainWindow * mainWindow )
+KGet* KGet::self( MainWindow * mainWindow )
 {
     if(mainWindow)
     {
@@ -77,12 +77,8 @@ KGet& KGet::self( MainWindow * mainWindow )
         m_jobManager = new KUiServerJobs(m_mainWindow);
     }
 
-    static KGet m;
+    static KGet *m = new KGet();
     return m;
-}
-
-void KGet::deleteSelf()
-{
 }
 
 bool KGet::addGroup(const QString& groupName)
@@ -711,6 +707,7 @@ KGet::KGet()
 
 KGet::~KGet()
 {
+    kDebug();
     delete m_transferTreeModel;
     delete m_scheduler;
 }

@@ -26,6 +26,7 @@ class ViewsContainer;
 class DropTarget;
 class DBusModelObserver;
 class HttpServer;
+class KGet;
 
 /**
  * The main window of KGet.
@@ -133,6 +134,8 @@ private:
 
     // one-time functions
     void setupActions();
+    
+    KGet * m_kget;
 
     // internal widgets
     ViewsContainer * m_viewsContainer;

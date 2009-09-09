@@ -69,13 +69,9 @@ class KGET_EXPORT KGet
             Quit = 0,
             Shutdown = 1
         };
+        ~KGet();
 
-        static KGet& self( MainWindow * mainWindow=0 );
-
-        /**
-         * Deletes itself
-         */
-        static void deleteSelf();
+        static KGet* self( MainWindow * mainWindow=0 );
 
         /**
          * Adds a new group to the KGet.
@@ -337,7 +333,6 @@ class KGET_EXPORT KGet
 
     private:
         KGet();
-        ~KGet();
 
         /**
          * Scans for all the available plugins and creates the proper

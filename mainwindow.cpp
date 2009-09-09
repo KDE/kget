@@ -71,7 +71,7 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     setAttribute(Qt::WA_DeleteOnClose, false);
 
     // create the model
-    KGet::self( this );
+    m_kget = KGet::self( this );
 
     // create actions
     setupActions();
@@ -111,7 +111,7 @@ MainWindow::~MainWindow()
     // the following call saves options set in above dtors
     Settings::self()->writeConfig();
 
-    KGet::deleteSelf();
+    delete m_kget;
 }
 
 QSize MainWindow::sizeHint() const
