@@ -98,6 +98,11 @@ bool BitSet::allOn() const
 	return num_on == num_bits;
 }
 
+bool BitSet::allOff() const
+{
+    return !num_on;
+}
+
 bool BitSet::operator == (const BitSet & bs)
 {
 	if (this->getNumBits() != bs.getNumBits())

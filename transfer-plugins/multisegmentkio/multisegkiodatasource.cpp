@@ -70,15 +70,35 @@ void MultiSegKioDataSource::stop()
     }
 }
 
+bool MultiSegKioDataSource::canHandleMultipleSegments() const
+{
+    return true;
+}
+
+QList<QPair<int, int> > MultiSegKioDataSource::assignedSegments() const
+{
+    QList<QPair<int, int> > assigned;
+    foreach (Segment *segment, m_segments)
+    {
+        assigned.append(segment->assignedSegments());
+    }
+
+    return assigned;
+}
+
 void MultiSegKioDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum)
 {
     kDebug(5001);
+    addSegments(offset, QPair<KIO::fileoffset_t, KIO::fileoffset_t>(bytes, bytes), QPair<int, int>(segmentNum, segmentNum));
+}
 
-    Segment *segment = new Segment(m_sourceUrl, offset, bytes, segmentNum, this);
+void MultiSegKioDataSource::addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
+{
+    Segment *segment = new Segment(m_sourceUrl, offset, segmentSize, segmentRange, this);
     m_segments.append(segment);
 
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
-    connect(segment, SIGNAL(finishedSegment(Segment*, int)), this, SLOT(slotFinishedSegment(Segment*, int)));
+    connect(segment, SIGNAL(finishedSegment(Segment*, int, bool)), this, SLOT(slotFinishedSegment(Segment*, int, bool)));
     connect(segment, SIGNAL(brokenSegment(Segment*,int)), this, SLOT(slotBrokenSegment(Segment*,int)));
 
     if (m_started)
@@ -100,16 +120,14 @@ void MultiSegKioDataSource::slotBrokenSegment(Segment *segment, int segmentNum)
     emit brokenSegment(this, segmentNum);
 }
 
-void MultiSegKioDataSource::slotFinishedSegment(int segmentNum)
+void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished)
 {
-    emit finishedSegment(this, segmentNum);
-}
-
-void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum)
-{
-    m_segments.removeAll(segment);
-    delete segment;
-    emit finishedSegment(this, segmentNum);
+    if (connectionFinished)
+    {
+        m_segments.removeAll(segment);
+        delete segment;
+    }
+    emit finishedSegment(this, segmentNum, connectionFinished);
 }
 
 void MultiSegKioDataSource::setSupposedSize(KIO::filesize_t supposedSize)
@@ -174,6 +192,76 @@ void MultiSegKioDataSource::killInitJob()
         m_getInitJob->kill(KJob::Quietly);
         m_getInitJob = 0;
     }
+}
+
+Segment *MultiSegKioDataSource::mostUnfinishedSegments(int *unfin) const
+{
+    int unfinished = 0;
+    Segment *seg = 0;
+    foreach (Segment *segment, m_segments)
+    {
+        if (segment->countUnfinishedSegments() > unfinished)
+        {
+            unfinished = segment->countUnfinishedSegments();
+            seg = segment;
+        }
+    }
+
+    if (unfin)
+    {
+        *unfin = unfinished;
+    }
+
+    return seg;
+}
+
+int MultiSegKioDataSource::countUnfinishedSegments() const
+{
+    int unfinished = 0;
+    mostUnfinishedSegments(&unfinished);
+
+    return unfinished;
+}
+
+int MultiSegKioDataSource::takeOneSegment()
+{
+    Segment *seg = mostUnfinishedSegments();
+
+    if (seg)
+    {
+        return seg->takeOneSegment();
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+QPair<int, int> MultiSegKioDataSource::split()
+{
+    Segment *seg = mostUnfinishedSegments();
+    if (seg)
+    {
+        return seg->split();
+    }
+    else
+    {
+        return QPair<int, int>(-1, -1);
+    }
+}
+
+QPair<int, int> MultiSegKioDataSource::removeConnection()
+{
+    Segment *seg = mostUnfinishedSegments();
+    QPair<int, int> assigned;
+    if (seg)
+    {
+        assigned = seg->assignedSegments();
+        m_segments.removeAll(seg);
+        delete seg;
+    }
+
+    return assigned;
 }
 
 #include "multisegkiodatasource.moc"

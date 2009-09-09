@@ -289,9 +289,14 @@ void DataSourceFactory::start()
     if (m_assignTried)
     {
         m_assignTried = false;
-        foreach(DataSource *source, m_sources)
+
+        //TODO maybe remove this later, if loading works without it
+        if (!m_startedChunks->allOn())
         {
-            assignSegment(source->transferDataSource());
+            foreach(DataSource *source, m_sources)
+            {
+                assignSegments(source->transferDataSource());
+            }
         }
     }
 
@@ -403,10 +408,33 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
 
     if (used)
     {
-        //there is already a TransferDataSource with that url, reuse it and increase numParalellSegments
+        //there is already a TransferDataSource with that url, reuse it and modify numParalellSegments
         if (m_sources.contains(url))
         {
-            m_sources[url]->setParalellSegments(numParalellConnections);
+            DataSource *source = m_sources[url];
+            source->setParalellSegments(numParalellConnections);
+            if (source->changeNeeded() > 0)
+            {
+                assignSegments(source->transferDataSource());
+            }
+            else
+            {
+                for (int i = source->changeNeeded(); i < 0; ++i)
+                {
+                    const QPair<int, int> removed = source->transferDataSource()->removeConnection();
+                    source->setCurrentSegments(source->currentSegments() - 1);
+                    kDebug(5001) << "Remove connection with segments" << removed;
+                    const int start = removed.first;
+                    const int end = removed.second;
+                    if ((start != -1) && (end != -1))
+                    {
+                        for (int k = start; k <= end; ++k)
+                        {
+                            m_startedChunks->set(k, false);
+                        }
+                    }
+                }
+            }
         }
         else
         {
@@ -429,10 +457,10 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                     m_sources[url]->setParalellSegments(numParalellConnections);
 
                     connect(source, SIGNAL(brokenSegment(TransferDataSource*,int)), this, SLOT(brokenSegment(TransferDataSource*,int)));
-                    connect(source, SIGNAL(finishedSegment(TransferDataSource*,int)), this, SLOT(finishedSegment(TransferDataSource*,int)));
+                    connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
                     connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
 
-                    assignSegment(source);
+                    assignSegments(source);
 
                     //the job is already running, so also start the TransferDataSource
                     if (!m_assignTried && !m_startTried && m_putJob && m_open && (m_status == Job::Running))
@@ -480,24 +508,23 @@ void DataSourceFactory::removeMirror(const KUrl &url)
     {
         DataSource *source = m_sources[url];
         source->transferDataSource()->stop();
+        const QList<QPair<int, int> > assigned = source->transferDataSource()->assignedSegments();
         m_sources.remove(url);
         m_unusedUrls.append(url);
         m_unusedConnections.append(source->paralellSegments());
         delete source;
 
-        QHash<int, KUrl>::iterator it;
-        QHash<int, KUrl>::iterator itEnd = m_assignedChunks.end();
-        for (it = m_assignedChunks.begin(); it != itEnd; )
+        for (int i = 0; i < assigned.count(); ++i)
         {
-            if (*it == url)
+            const int start = assigned[i].first;
+            const int end = assigned[i].second;
+            if ((start != -1) && (end != -1))
             {
-                kDebug(5001) << "Segment" << it.key() << "not assigned anymore.";
-                m_startedChunks->set(it.key(), false);
-                it = m_assignedChunks.erase(it);
-            }
-            else
-            {
-                ++it;
+                for (int k = start; k <= end; ++k)
+                {
+                    kDebug(5001) << "Segment" << k << "not assigned anymore.";
+                    m_startedChunks->set(k, false);
+                }
             }
         }
     }
@@ -524,7 +551,7 @@ void DataSourceFactory::removeMirror(const KUrl &url)
             {
                 kDebug(5001) << "Assigning a TransferDataSource.";
                 //simply assign a TransferDataSource
-                assignSegment((*m_sources.begin())->transferDataSource());
+                assignSegments((*m_sources.begin())->transferDataSource());
             }
             else if (m_unusedUrls.count())
             {
@@ -587,7 +614,7 @@ QHash<KUrl, QPair<bool, int> > DataSourceFactory::mirrors() const
 
 void DataSourceFactory::brokenSegment(TransferDataSource *source, int segmentNumber)
 {
-    kDebug() << "Segment" << segmentNumber << "broken," << source;
+    kDebug(5001) << "Segment" << segmentNumber << "broken," << source;
     if (!source || (segmentNumber < 0) || (static_cast<quint32>(segmentNumber) > m_finishedChunks->getNumBits()))
     {
         return;
@@ -609,7 +636,7 @@ void DataSourceFactory::broken(TransferDataSource *source, TransferDataSource::E
     }
 }
 
-void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentNumber)
+void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished)
 {
     if (!source || (segmentNumber < 0) || (static_cast<quint32>(segmentNumber) > m_finishedChunks->getNumBits()))
     {
@@ -618,6 +645,12 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
     }
 
     m_finishedChunks->set(segmentNumber, true);
+
+    if (!connectionFinished)
+    {
+        kDebug(5001) << "Some segments still not finished";
+        return;
+    }
 
     DataSource *dataSource = m_sources[source->sourceUrl()];
     dataSource->setCurrentSegments(dataSource->currentSegments() - 1);
@@ -630,11 +663,11 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
 
     if (!m_startedChunks->allOn())
     {
-        assignSegment(source);
+        assignSegments(source);
     }
 }
 
-void DataSourceFactory::assignSegment(TransferDataSource *source)
+void DataSourceFactory::assignSegments(TransferDataSource *source)
 {
     if (!m_startedChunks || !m_finishedChunks)
     {
@@ -642,7 +675,7 @@ void DataSourceFactory::assignSegment(TransferDataSource *source)
         m_assignTried = true;
         return;
     }
-    if (m_finishedChunks->allOn() || m_startedChunks->allOn())
+    if (m_finishedChunks->allOn())
     {
         kDebug(5001) << "All segments are finished already.";
         return;
@@ -652,35 +685,125 @@ void DataSourceFactory::assignSegment(TransferDataSource *source)
     //no more segments needed for that TransferDataSource
     if (dataSource->changeNeeded() <= 0)
     {
+        kDebug(5001) << "No change needed for" << dataSource;
         return;
     }
 
-    uint newchunk = 0;
-    for (uint i = 0; i != m_startedChunks->getNumBits(); i++)
+    //find the segments that should be assigned to the transferDataSource
+    int newStart = -1;
+    int newEnd = -1;
+
+    //a split needed
+    if (m_startedChunks->allOn())
     {
-        //we only choose chunks that are not started and finished
-        if ((m_startedChunks->get(i) == 0) && (m_finishedChunks->get(i) == 0))
+        int unfinished = 0;
+        DataSource *target = 0;
+        foreach (DataSource *source, m_sources)
         {
-            newchunk = i;
-            break;
+            int temp = source->transferDataSource()->countUnfinishedSegments();
+            if (temp > unfinished)
+            {
+                unfinished = temp;
+                target = source;
+            }
+        }
+        if (!unfinished || !target)
+        {
+            return;
+        }
+
+        if (source->canHandleMultipleSegments())
+        {
+            const QPair<int, int> splitResult = target->transferDataSource()->split();
+            newStart = splitResult.first;
+            newEnd = splitResult.second;
+        }
+        else
+        {
+            newStart = target->transferDataSource()->takeOneSegment();
+            newEnd = newStart;
+        }
+    }
+    //still some free segments
+    else
+    {
+        //avoid looking through all bits if not nescessary
+        if (m_startedChunks->allOff())
+        {
+            newStart = 0;
+
+            if (source->canHandleMultipleSegments())
+            {
+                newEnd = m_startedChunks->getNumBits() - 1;
+            }
+            else
+            {
+                newEnd = newStart;
+            }
+        }
+        else
+        {
+            for (uint i = 0; i < m_startedChunks->getNumBits(); ++i)
+            {
+                //we only choose chunks that are not started and finished
+                if (!m_startedChunks->get(i) && !m_finishedChunks->get(i))
+                {
+                    //first result is assigned to newStart and newEnd
+                    if (newStart == -1)
+                    {
+                        newStart = i;
+                        newEnd = i;
+
+                        if (!source->canHandleMultipleSegments())
+                        {
+                            break;
+                        }
+                    }
+                    //start already found, now find the end
+                    else
+                    {
+                        newEnd = i;
+                    }
+                }
+                //not continous
+                else if (newStart != -1)
+                {
+                    break;
+                }
+            }
         }
     }
 
-    const KIO::fileoffset_t newoff = KIO::fileoffset_t(newchunk * m_segSize);
+    if ((newStart == -1) || (newEnd == -1))
+    {
+        kDebug(5001) << "No segment can be assigned.";
+        return;
+    }
+
+    const KIO::fileoffset_t newoff = KIO::fileoffset_t(newStart * m_segSize);
     const KIO::fileoffset_t rest = m_size % m_segSize;
-    const KIO::fileoffset_t segSize = ((newchunk + 1 == m_startedChunks->getNumBits()) && rest) ? rest : m_segSize;
-    m_startedChunks->set(newchunk, true);
-    m_assignedChunks[newchunk] = source->sourceUrl();
-    source->addSegment(newoff, segSize, newchunk);
+
+    //if newStart is the last segment of the download and there is a rest, when segSize is rest
+    const KIO::fileoffset_t segSize = ((static_cast<uint>(newStart + 1) == m_startedChunks->getNumBits()) && rest) ? rest : m_segSize;
+
+    //the lastSegsize is rest, but only if there is a rest and it is the last segment of the download
+    const KIO::fileoffset_t lastSegSize = ((static_cast<uint>(newEnd + 1) == m_startedChunks->getNumBits() && rest) ? rest : m_segSize);
+
+    kDebug(5001) << "Segments assigned:" << newStart << "-" << newEnd << "offset:" << newoff << "segment-size:" << segSize << "rest:" << rest;
+
+    for (int i = newStart; i <= newEnd; ++i)
+    {
+        m_startedChunks->set(i, true);
+    }
+    source->addSegments(newoff, QPair<KIO::fileoffset_t, KIO::fileoffset_t>(segSize, lastSegSize), QPair<int, int>(newStart, newEnd));
 
     dataSource->setCurrentSegments(dataSource->currentSegments() + 1);
     //there should still be segments added to this transfer
     if (dataSource->changeNeeded() > 0)
     {
-        assignSegment(source);
+        assignSegments(source);
     }
 }
-
 void DataSourceFactory::slotWriteData(KIO::fileoffset_t offset, const QByteArray &data, bool &worked)
 {
     worked = !m_blocked && !m_movingFile && m_open;
@@ -893,7 +1016,6 @@ void DataSourceFactory::load(const QDomElement *element)
     if (e.hasAttribute("doDownload"))
     {
         m_doDownload = QVariant(e.attribute("doDownload")).toBool();
-        kDebug() << "****do: " << m_doDownload;
     }
     if (e.hasAttribute("maxMirrorsUsed"))
     {

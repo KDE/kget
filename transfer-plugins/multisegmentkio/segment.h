@@ -44,15 +44,14 @@ class Segment : public QObject
             Finished
         };
 
-        Segment(const KUrl &src, KIO::fileoffset_t offset, KIO::fileoffset_t bytes, int segmentNum, QObject *parent);
+        Segment(const KUrl &src, const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
 
         ~Segment();
 
         /**
          * Create the segment transfer
-         * @param url the remote url
          */
-        bool createTransfer ( const KUrl &src );
+        bool createTransfer();
 
         /**
          * stop the segment transfer
@@ -70,7 +69,7 @@ class Segment : public QObject
          * Returns the size the current segment has
          * @return the size of the segment
          */
-        KIO::filesize_t size() const {return m_bytes;}
+        KIO::filesize_t size() const {return m_curentSegSize;}
 
         /**
          * Returns the written bytes
@@ -90,6 +89,11 @@ class Segment : public QObject
          */
         Status status() const {return m_status;}//TODO needed?
 
+        QPair<int, int> assignedSegments() const;
+        int countUnfinishedSegments() const;
+        int takeOneSegment();
+        QPair<int, int> split();
+
     public Q_SLOTS:
         /**
          * start the segment transfer
@@ -105,8 +109,8 @@ class Segment : public QObject
     Q_SIGNALS:
         void data(KIO::fileoffset_t offset, const QByteArray &data, bool &worked);
 
-        void brokenSegment(Segment *segment, int segmentNum);
-        void finishedSegment(Segment *segment, int segmentNum);
+        void brokenSegment(Segment *segment, int segmentNum);//TODO
+        void finishedSegment(Segment *segment, int segmentNum, bool connectionFinished = true);
         void statusChanged( Segment*);
         void speed(ulong speed);
 
@@ -121,9 +125,12 @@ class Segment : public QObject
     private:
         Status m_status;
         KIO::fileoffset_t m_offset;
-        KIO::fileoffset_t m_bytes;
-        int m_segmentNum;
+        QPair<KIO::fileoffset_t, KIO::fileoffset_t> m_segSize;
+        KIO::fileoffset_t m_curentSegSize;
+        int m_curentSegment;
+        int m_endSegment;
         KIO::filesize_t m_bytesWritten;
+        KIO::filesize_t m_totalBytesLeft;
         KIO::TransferJob *m_getJob;
         QByteArray m_buffer;
         bool m_canResume;

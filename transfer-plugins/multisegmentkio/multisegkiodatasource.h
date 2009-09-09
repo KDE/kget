@@ -26,15 +26,22 @@ class MultiSegKioDataSource : public TransferDataSource
 
         void start();
         void stop();
+
+        bool canHandleMultipleSegments() const;
         void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum);
+        void addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
+        QPair<int, int> removeConnection();
+        QList<QPair<int, int> > assignedSegments() const;
+        int countUnfinishedSegments() const;
+        int takeOneSegment();
+        QPair<int, int> split();
 
         void setSupposedSize(KIO::filesize_t supposedSize);
 
     private Q_SLOTS:
         void slotSpeed(ulong speed);
         void slotBrokenSegment(Segment *segment, int segmentNum);
-        void slotFinishedSegment(int segmentNum);
-        void slotFinishedSegment(Segment *segment, int segmentNum);
+        void slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished);
 
         /**the following slots are there to check if the size reported by the mirror
          * Checks if the sizre reported by the mirror is correct
@@ -56,6 +63,7 @@ class MultiSegKioDataSource : public TransferDataSource
         void slotInitResult(KJob *job);
 
     private:
+        Segment *mostUnfinishedSegments(int *unfinished = 0) const;
         void killInitJob();
 
     private:

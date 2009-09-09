@@ -103,6 +103,7 @@ public:
 
 	/// Check if all bit are set to 1
 	bool allOn() const;
+    bool allOff() const;
 
 	/**
 	  * Check for equality of bitsets

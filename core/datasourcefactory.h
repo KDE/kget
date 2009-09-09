@@ -80,6 +80,7 @@ class DataSource
 class KGET_EXPORT DataSourceFactory : public QObject
 {
     Q_OBJECT
+
     public:
         /**
          * In general use this constructor, if the size is 0, the datasourcefactory will try to
@@ -212,12 +213,12 @@ class KGET_EXPORT DataSourceFactory : public QObject
          */
         void findFileSize();
 
-        void assignSegment(TransferDataSource *source);
+        void assignSegments(TransferDataSource *source);
         /**
          * Called when a segment is broken
          */
         void brokenSegment(TransferDataSource *source, int segmentNumber);
-        void finishedSegment(TransferDataSource *source, int segmentNumber);
+        void finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished = true);
 
         /**
          * A TransferDataSource is broken
@@ -241,11 +242,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
     private:
         /**
-        * Add a mirror that can be used for downloading
-        * @param used always true if usedDefined is false
-        * @param usedDefined true if the user defined used, otherwise false, needed to know if m_maxMirrorsUsed
-        * should be changed or not
-        */
+         * Add a mirror that can be used for downloading
+         * @param used always true if usedDefined is false
+         * @param usedDefined true if the user defined used, otherwise false,
+         * needed to know if m_maxMirrorsUsed should be changed or not
+         */
         void addMirror(const KUrl &url, bool used, int numParalellConnections, bool usedDefined);
 
         bool checkLocalFile();
@@ -262,7 +263,6 @@ class KGET_EXPORT DataSourceFactory : public QObject
         KIO::filesize_t m_prevDownloadedSize;
         KIO::fileoffset_t m_segSize;
         ulong m_speed;
-        QHash<int, KUrl> m_assignedChunks;
         /**
          * the cache of data that could not be written yet
          */

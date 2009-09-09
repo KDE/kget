@@ -23,6 +23,7 @@
 #include <QtCore/QTextStream>
 #include <QtXml/QDomElement>
 
+#include <KDebug>
 #include <KLocale>
 #include <KSystemTimeZone>
 
@@ -936,10 +937,12 @@ void KGetMetalink::HandleMetalink::parseResources_v3_ed2(const QDomElement &e, K
 
 void KGetMetalink::HandleMetalink::parseDateConstruct_v3_ed2(KGetMetalink::DateConstruct *dateConstruct, const QString &data)
 {
-    if (!dateConstruct)
+    if (!dateConstruct || data.isEmpty())
     {
         return;
     }
+
+    kDebug(5001) << "Parsing" << data;
 
     QString temp = data;
     QDateTime dateTime;
@@ -948,7 +951,7 @@ void KGetMetalink::HandleMetalink::parseDateConstruct_v3_ed2(KGetMetalink::DateC
     //Date according to RFC 822, the year with four characters preferred
     //e.g.: "Mon, 15 May 2006 00:00:01 GMT", "Fri, 01 Apr 2009 00:00:01 +1030"
     const QString weekdayExp = "ddd, ";
-    bool weekdayIncluded = (temp.at(3) == ',');
+    const bool weekdayIncluded = (temp.indexOf(',') == 3);
     int startPosition = (weekdayIncluded ? weekdayExp.length() : 0);
     const QString dayMonthExp = "dd MMM ";
     const QString yearExp = "yy";

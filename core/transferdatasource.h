@@ -19,9 +19,9 @@
 #include <kio/job.h>
 
 /**
-This Class is an interface for inter-plugins data change.
-allowing to use already implemented features from others plugins
-*/
+ * This Class is an interface for inter-plugins data change.
+ * allowing to use already implemented features from others plugins
+ */
 class KGET_EXPORT TransferDataSource : public QObject
 {
     Q_OBJECT
@@ -40,12 +40,41 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void stop() = 0;
 
         /**
+         * If true this TransferDataSource can handle multiple segments for one connection
+         * @note false by default
+         */
+        virtual bool canHandleMultipleSegments() const;
+
+        /**
          * Add a segment to be downloaded by this TransferDataSource
          * @param offset the offset of the file to be downloaded
          * @param bytes number of bytes to be downloaded
          * @param segmentNum the number of the segment to identify it
+         * @note instead of assigning only one segment (that results in one connection),
+         * one can assign multiple segments (all downloaded with one connection) via
+         * assignSegments, thus constant calling of addSegment and then reconnecting
+         * can be avoided
          */
         virtual void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum) = 0;//TODO
+
+        /**
+         * Adds multiple continous segments that should be downloaded by this TransferDataSource
+         * @param offset the offset of the file to be downloaded
+         * @param segmentSize first is the general segmentSize, second the segmentSize
+         * of the last segment in the range, if just one segment is assigned both need to have
+         * the same value
+         * @param segmentRange first the beginning, second the end
+         * @note the default implemention will just call addSegment multiple times, then
+         * split -- even if implemented -- would not work
+         */
+        virtual void addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
+
+        /**
+         * Removes one connection, usefull when setMaximumParalellDownloads was called with a lower number
+         * @return the segments that are removed (unassigned) now
+         *
+         */
+        virtual QPair<int, int> removeConnection();
 
         KUrl sourceUrl() const {return m_sourceUrl;}//TODO
 
@@ -68,6 +97,38 @@ class KGET_EXPORT TransferDataSource : public QObject
          * @param supposedSize the size the file should have
          */
         virtual void setSupposedSize(KIO::filesize_t supposedSize) {m_supposedSize = supposedSize;}
+
+        /**
+         * Returns the assignedSegments to this TransferDataSource
+         * Each connection is represented by a QPair, where the first int is the beginning
+         * segment and the last the ending segment
+         * @note an empty list is returned by default, the elements can also be (-1, -1)
+         */
+        virtual QList<QPair<int, int> > assignedSegments() const;
+
+        /**
+         * Returns the number of unfinished Segments of the connection with the most
+         * unfinished segments
+         * Each TransferDataSource can have multiple connections and each connection
+         * can have multiple segments assigned
+         * @note default implemention returns 0
+         */
+        virtual int countUnfinishedSegments() const;
+
+        /**
+         * Removes one segment of the connection with the most unfinished segments
+         * @note this method is usefull, if a TransferDataSource does not support multiple-segments
+         * as in that case split would result in many unassigned segments
+         */
+        virtual int takeOneSegment();
+
+        /**
+         * If a connection of this TransferDataSource is assigned multiple (continous) segments, then
+         * this method will split them (the unfinished ones) in half, it returns the beginning
+         * and the end of the now unassigned segments; (-1, -1) if there are none
+         * @note if only one segment is assigned to a connection split will also return (-1, -1)
+         */
+        virtual QPair<int, int> split();//TODO should split also take the current running segment into account?
 
     signals:
         /**
@@ -102,8 +163,10 @@ class KGET_EXPORT TransferDataSource : public QObject
          * emitted when an assigned segment finishes
          * @param source the source that emmited this signal
          * @param segmentNumber the number of the segment, to identify it
+         * @param connectionFinished true if all segments of this connection have been finished,
+         * if one segement (instead of a group of segments) has been asigned this is always true
          */
-        void finishedSegment(TransferDataSource *source, int segmentNumber);
+        void finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished = true);
 
         /**
          * Alert that datasource is no able to send any data

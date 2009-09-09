@@ -11,17 +11,22 @@
 
 #include "segment.h"
 
+#include <math.h>
+
 #include <KDebug>
 
 #include <QtCore/QTimer>
 
-Segment::Segment (const KUrl &src, KIO::fileoffset_t offset, KIO::fileoffset_t bytes, int segmentNum, QObject *parent)
+Segment::Segment(const KUrl &src, const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
   : QObject(parent),
     m_status(Stopped),
     m_offset(offset),
-    m_bytes(bytes),
-    m_segmentNum(segmentNum),
+    m_segSize(segmentSize),
+    m_curentSegSize(m_segSize.first),
+    m_curentSegment(segmentRange.first),
+    m_endSegment(segmentRange.second),
     m_bytesWritten(0),
+    m_totalBytesLeft(m_segSize.first * (m_endSegment - m_curentSegment) + m_segSize.second),
     m_getJob(0),
     m_canResume(true),
     m_url(src),
@@ -33,17 +38,18 @@ Segment::~Segment()
 {
     if (m_getJob)
     {
+        kDebug(5001) << "Closing transfer ...";
         m_getJob->kill(KJob::Quietly);
     }
 }
 
-bool Segment::createTransfer ( const KUrl &src )
+bool Segment::createTransfer()
 {
-    kDebug(5001) << " -- " << src;
+    kDebug(5001) << " -- " << m_url;
     if ( m_getJob )
         return false;
 
-    m_getJob = KIO::get(src, KIO::Reload, KIO::HideProgressInfo);
+    m_getJob = KIO::get(m_url, KIO::Reload, KIO::HideProgressInfo);
     m_getJob->suspend();
     m_getJob->addMetaData( "errorPage", "false" );
     m_getJob->addMetaData( "AllowCompressedPage", "false" );
@@ -80,7 +86,7 @@ bool Segment::startTransfer ()
     kDebug(5001);
     if (!m_getJob)
     {
-        createTransfer(m_url);
+        createTransfer();
     }
     if( m_getJob && m_status != Running )
     {
@@ -124,7 +130,7 @@ void Segment::slotResult( KJob *job )
         kDebug(5001) << "Looping until write the buffer ...";
 //         while(writeBuffer()) ;
     }
-    if( !m_bytes )
+    if (!m_totalBytesLeft)
     {
         setStatus(Finished);
         deleteLater();
@@ -148,9 +154,9 @@ void Segment::slotResult( KJob *job )
         }
         else
         {
-            kDebug(5001) << "Segment" << m_segmentNum << "broken, using" << m_url;
+            kDebug(5001) << "Segment" << m_curentSegment << "broken, using" << m_url;
             setStatus(Timeout);
-            emit brokenSegment(this, m_segmentNum);
+            emit brokenSegment(this, m_curentSegment);
         }
     }
 }
@@ -167,10 +173,10 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     }
 
     m_buffer.append(_data);
-    if (static_cast<uint>(m_buffer.size()) >= m_bytes)
+    if (static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
     {
         kDebug(5001) << "Segment::slotData() buffer full. stoping transfer...";
-        m_buffer.truncate( m_bytes );
+        m_buffer.truncate(m_totalBytesLeft);
         writeBuffer();
     }
     else
@@ -198,21 +204,35 @@ bool Segment::writeBuffer()
 
     if (worked)
     {
-        m_bytes -= m_buffer.size();
+        m_curentSegSize -= m_buffer.size();
+        m_totalBytesLeft -= m_buffer.size();
         m_offset += m_buffer.size();
         m_bytesWritten += m_buffer.size();
         m_buffer.clear();
-        kDebug(5001) << "Segment::writeBuffer() updating segment record of job:" << m_getJob << "--" << m_bytes << "bytes left";
+        kDebug(5001) << "Segment::writeBuffer() updating segment record of job:" << m_getJob << "--" << m_totalBytesLeft << "bytes left";
     }
-    if (!m_bytes)
+    //at least one segment has been finished
+    if (m_curentSegSize <= 0)
     {
-        kDebug(5001) << "Closing transfer ...";
-        if (m_getJob)
+        bool finished = (m_curentSegment == m_endSegment);
+        if (finished)
         {
-            m_getJob->kill(KJob::Quietly);
-            m_getJob = 0;
+            emit finishedSegment(this, m_curentSegment, finished);
         }
-        emit finishedSegment(this, m_segmentNum);
+        else
+        {
+            while (m_curentSegSize <= 0)
+            {
+                emit finishedSegment(this, m_curentSegment, finished);
+                ++m_curentSegment;
+                finished = (m_curentSegment == m_endSegment);
+                m_curentSegSize += (finished ? m_segSize.second : m_segSize.first);
+                if (!m_curentSegSize)
+                {
+                    break;
+                }
+            }
+        }
     }
     return worked;
 }
@@ -222,6 +242,80 @@ void Segment::setStatus(Status stat, bool doEmit)
     m_status = stat;
     if (doEmit)
         emit statusChanged(this);
+}
+
+QPair<int, int> Segment::assignedSegments() const
+{
+    return QPair<int, int>(m_curentSegment, m_endSegment);
+}
+
+int Segment::countUnfinishedSegments() const
+{
+    return m_endSegment - m_curentSegment;//do not count the current segment//TODO change that maybe?
+}
+
+int Segment::takeOneSegment()
+{
+    if (m_getJob)
+    {
+        m_getJob->suspend();
+    }
+
+    int oneSegment = -1;
+    int free = countUnfinishedSegments();
+    if (free > 1)
+    {
+        oneSegment = m_endSegment;
+        --m_endSegment;
+    }
+
+    kDebug(5001) << "Taken segment" << oneSegment;
+
+    if (m_getJob)
+    {
+        m_getJob->resume();
+    }
+    return oneSegment;
+}
+
+QPair<int, int> Segment::split()
+{
+    if (m_getJob)
+    {
+        m_getJob->suspend();
+    }
+
+    QPair<int, int> freed = QPair<int, int>(-1, -1);
+    int free = ceil((countUnfinishedSegments() + 1) / static_cast<double>(2));
+
+    if (!free)
+    {
+        kDebug(5001) << "None freed, start:" << m_curentSegment << "end:" << m_endSegment;
+
+        if (m_getJob)
+        {
+            m_getJob->resume();
+        }
+        return freed;
+    }
+//FIXME last seg, when one connection removed not finished, why???
+    const int newEnd = m_endSegment - free;
+    freed = QPair<int, int>(newEnd + 1, m_endSegment);
+    kDebug(5001) << "Start:" << m_curentSegment << "old end:" << m_endSegment << "new end:" << newEnd << "freed:" << freed;
+    m_endSegment = newEnd;
+    m_totalBytesLeft -= m_segSize.first * (free - 1) + m_segSize.second;
+
+    //end changed, so in any case the lastSegSize should be the normal segSize
+    if (free)
+    {
+        m_segSize.second = m_segSize.first;
+    }
+
+    if (m_getJob)
+    {
+        m_getJob->resume();
+    }
+    return freed;
 }
 
 #include "segment.moc"
