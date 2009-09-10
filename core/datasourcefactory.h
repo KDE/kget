@@ -215,9 +215,9 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         void assignSegments(TransferDataSource *source);
         /**
-         * Called when a segment is broken
+         * Called when segments are broken
          */
-        void brokenSegment(TransferDataSource *source, int segmentNumber);
+        void brokenSegments(TransferDataSource *source, const QPair<int, int> &segmentRange);
         void finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished = true);
 
         /**

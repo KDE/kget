@@ -99,7 +99,7 @@ void MultiSegKioDataSource::addSegments(const KIO::fileoffset_t offset, const QP
 
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
     connect(segment, SIGNAL(finishedSegment(Segment*, int, bool)), this, SLOT(slotFinishedSegment(Segment*, int, bool)));
-    connect(segment, SIGNAL(brokenSegment(Segment*,int)), this, SLOT(slotBrokenSegment(Segment*,int)));
+    connect(segment, SIGNAL(brokenSegments(Segment*,QPair<int,int>)), this, SLOT(slotBrokenSegments(Segment*,QPair<int,int>)));
 
     if (m_started)
     {
@@ -113,11 +113,9 @@ void MultiSegKioDataSource::slotSpeed(ulong downloadSpeed)
     emit speed(m_speed);
 }
 
-void MultiSegKioDataSource::slotBrokenSegment(Segment *segment, int segmentNum)
+void MultiSegKioDataSource::slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange)
 {
-    m_segments.removeAll(segment);
-    delete segment;
-    emit brokenSegment(this, segmentNum);
+    emit brokenSegments(this, segmentRange);
 }
 
 void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished)
@@ -142,17 +140,20 @@ void MultiSegKioDataSource::slotTotalSize(KJob *job, qulonglong size)
 {
     Q_UNUSED(job)
 
-    m_size = size;
+    kDebug(5001) << "Size found for" << m_sourceUrl << size << "bytes";
 
-    //the filesize is not what it should be, maybe using a wrong mirror
-    if (m_size && m_supposedSize && (m_size != m_supposedSize))
-    {
-        emit broken(this, WrongDownloadSize);
-    }
+    m_size = size;
 
     if (m_canResume)
     {
         killInitJob();
+    }
+
+    //the filesize is not what it should be, maybe using a wrong mirror
+    if (m_size && m_supposedSize && (m_size != m_supposedSize))
+    {
+        kDebug(5001) << "Size does not match for" << m_sourceUrl;
+        emit broken(this, WrongDownloadSize);
     }
 }
 

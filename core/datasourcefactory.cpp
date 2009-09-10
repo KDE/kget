@@ -456,7 +456,7 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                     m_sources[url] = new DataSource(source);
                     m_sources[url]->setParalellSegments(numParalellConnections);
 
-                    connect(source, SIGNAL(brokenSegment(TransferDataSource*,int)), this, SLOT(brokenSegment(TransferDataSource*,int)));
+                    connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int, int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int, int>)));
                     connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
                     connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
 
@@ -612,10 +612,10 @@ QHash<KUrl, QPair<bool, int> > DataSourceFactory::mirrors() const
     return mirrors;
 }
 
-void DataSourceFactory::brokenSegment(TransferDataSource *source, int segmentNumber)
+void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<int, int> &segmentRange)
 {
-    kDebug(5001) << "Segment" << segmentNumber << "broken," << source;
-    if (!source || (segmentNumber < 0) || (static_cast<quint32>(segmentNumber) > m_finishedChunks->getNumBits()))
+    kDebug(5001) << "Segments" << segmentRange << "broken," << source;
+    if (!source || (segmentRange.first < 0) || (segmentRange.second < 0) || (static_cast<quint32>(segmentRange.second) > m_finishedChunks->getNumBits()))
     {
         return;
     }
@@ -968,7 +968,6 @@ void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::fil
 
     //remove all current mirrors and readd the first unused mirror
     const QList<KUrl> mirrors = m_sources.keys();//TODO only remove the mirrors of the broken segments?! --> for that m_assignedChunks would need to be saved was well
-    //TODO maybe store the assigned segments alongside the used mirrors in form of a list --> "1,3,2.."? --> wouldn't that make transfers.kgt very large?//TODO is assigned segments a good idea at all, memory wise?
     foreach (const KUrl &mirror, mirrors)
     {
         removeMirror(mirror);

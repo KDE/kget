@@ -116,7 +116,7 @@ bool Segment::stopTransfer()
 
 void Segment::slotResult( KJob *job )
 {
-    kDebug(5001) << "Job:" << job;
+    kDebug(5001) << "Job:" << job << m_url;
 
     m_getJob = 0;
 
@@ -156,19 +156,20 @@ void Segment::slotResult( KJob *job )
         {
             kDebug(5001) << "Segment" << m_curentSegment << "broken, using" << m_url;
             setStatus(Timeout);
-            emit brokenSegment(this, m_curentSegment);
+            emit brokenSegments(this, QPair<int, int>(m_curentSegment, m_endSegment));
         }
     }
 }
 
 void Segment::slotData(KIO::Job *, const QByteArray& _data)
 {
-    // Check if the transfer allow resuming...
-    if ( m_offset && !m_canResume)
+    // Check if the transfer allows resuming...
+    if (m_offset && !m_canResume)
     {
-        kDebug(5001) << "the remote site does not allow resuming ...";
+        kDebug(5001) << m_url << "does not allow resuming.";
         stopTransfer();
         setStatus(Killed, false );
+        emit brokenSegments(this, QPair<int, int>(m_curentSegment, m_endSegment));//TODO maybe use specific error code from TransferDataSource?
         return;
     }
 
@@ -182,11 +183,11 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     else
     { 
     /* 
-     write to the local file only if the buffer has more than 8kbytes
+     write to the local file only if the buffer has more than 100kbytes
      this hack try to avoid too much cpu usage. it seems to be due KIO::Filejob
      so remove it when it works property
     */
-    if (m_buffer.size() > 16 * 1024)
+    if (m_buffer.size() > 100 * 1024)
         writeBuffer();
     }
 }
@@ -251,7 +252,7 @@ QPair<int, int> Segment::assignedSegments() const
 
 int Segment::countUnfinishedSegments() const
 {
-    return m_endSegment - m_curentSegment;//do not count the current segment//TODO change that maybe?
+    return m_endSegment - m_curentSegment;
 }
 
 int Segment::takeOneSegment()
@@ -298,7 +299,7 @@ QPair<int, int> Segment::split()
         }
         return freed;
     }
-//FIXME last seg, when one connection removed not finished, why???
+
     const int newEnd = m_endSegment - free;
     freed = QPair<int, int>(newEnd + 1, m_endSegment);
     kDebug(5001) << "Start:" << m_curentSegment << "old end:" << m_endSegment << "new end:" << newEnd << "freed:" << freed;

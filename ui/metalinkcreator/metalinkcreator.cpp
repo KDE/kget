@@ -610,12 +610,12 @@ void MetalinkCreator::fileDlg(KGetMetalink::File* file, bool edit)
     }
 
     FileDlg *fileDlg = new FileDlg(file, currentNames, m_countrySort, m_languageSort, this, edit);
+    fileDlg->setAttribute(Qt::WA_DeleteOnClose);
     fileDlg->setWindowModality(Qt::ApplicationModal);
     fileDlg->show();
 
     connect(fileDlg, SIGNAL(addFile()), this, SLOT(slotAddFile()));
     connect(fileDlg, SIGNAL(fileEdited(QString,QString)), this, SLOT(slotFileEdited(QString,QString)));
-    connect(fileDlg, SIGNAL(finished()), fileDlg, SLOT(deleteLater()));
 }
 
 void MetalinkCreator::slotFileProperties()
@@ -639,10 +639,10 @@ void MetalinkCreator::slotUrlsDropped(const QList<KUrl> &files)
     m_tempResources.clear();
     m_droppedFiles = files;
     DragDlg *dragDlg = new DragDlg(&m_tempResources, m_countrySort, this);
+    dragDlg->setAttribute(Qt::WA_DeleteOnClose);
     dragDlg->show();
 
     connect(dragDlg, SIGNAL(usedTypes(QStringList, bool)), this, SLOT(slotHandleDropped(QStringList, bool)));
-    connect(dragDlg, SIGNAL(finished()), dragDlg, SLOT(deleteLater()));
 }
 
 void MetalinkCreator::slotHandleDropped(const QStringList& types, bool createPartial)

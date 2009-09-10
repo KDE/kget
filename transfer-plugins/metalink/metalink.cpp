@@ -40,7 +40,6 @@ Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_fileModel(0),
-      m_dialog(0),
       m_currentFiles(0),
       m_ready(false),
       m_speedCount(0),
@@ -54,10 +53,6 @@ Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
 
 Metalink::~Metalink()
 {
-    if (m_dialog)
-    {
-        delete m_dialog;
-    }
 }
 
 void Metalink::init()
@@ -207,23 +202,22 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     // should be downloaded
     if (justDownloaded)
     {
-        if (!m_dialog)
-        {
-            m_dialog = new KDialog;
-            QWidget *widget = new QWidget(m_dialog);
-            Ui::FileSelection ui;
-            ui.setupUi(widget);
-            QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
-            proxy->setSourceModel(fileModel());
-            ui.treeView->setModel(proxy);
-            ui.treeView->sortByColumn(0, Qt::AscendingOrder);
-            ui.treeView->hideColumn(1);
-            m_dialog->setMainWidget(widget);
-            m_dialog->setCaption(i18n("File Selection"));
-            m_dialog->setButtons(KDialog::Ok);
-            connect(m_dialog, SIGNAL(finished()), this, SLOT(filesSelected()));
-        }
-        m_dialog->show();
+        KDialog *dialog = new KDialog;
+        dialog->setAttribute(Qt::WA_DeleteOnClose);
+        QWidget *widget = new QWidget(dialog);
+        Ui::FileSelection ui;
+        ui.setupUi(widget);
+        QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
+        proxy->setSourceModel(fileModel());
+        ui.treeView->setModel(proxy);
+        ui.treeView->sortByColumn(0, Qt::AscendingOrder);
+        ui.treeView->hideColumn(1);
+        dialog->setMainWidget(widget);
+        dialog->setCaption(i18n("File Selection"));
+        dialog->setButtons(KDialog::Ok);
+        connect(dialog, SIGNAL(finished()), this, SLOT(filesSelected()));
+
+        dialog->show();
     }
 }
 

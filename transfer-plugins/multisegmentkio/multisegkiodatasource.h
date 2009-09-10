@@ -40,7 +40,7 @@ class MultiSegKioDataSource : public TransferDataSource
 
     private Q_SLOTS:
         void slotSpeed(ulong speed);
-        void slotBrokenSegment(Segment *segment, int segmentNum);
+        void slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange);
         void slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished);
 
         /**the following slots are there to check if the size reported by the mirror

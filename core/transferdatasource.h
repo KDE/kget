@@ -177,9 +177,9 @@ class KGET_EXPORT TransferDataSource : public QObject
         /**
          * emitted when an assigned segment is broken
          * @param source the source that emmited this signal
-         * @param segmentNumber the number of the segment, to identify it
+         * @param segmentRange the range of the segments e.g. (1,1,) or (0, 10)
          */
-        void brokenSegment(TransferDataSource *source, int segmentNumber);
+        void brokenSegments(TransferDataSource *source, QPair<int, int> segmentRange);
 
         /**
          * The speed of the download

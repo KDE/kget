@@ -546,8 +546,8 @@ void MainWindow::slotExportPlainTransfers()
 void MainWindow::slotCreateMetalink()
 {
     MetalinkCreator *dialog = new MetalinkCreator(this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
-    connect(dialog, SIGNAL(finished()), dialog, SLOT(deleteLater()));
 }
 
 void MainWindow::slotDeleteGroup()

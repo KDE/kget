@@ -109,7 +109,7 @@ class Segment : public QObject
     Q_SIGNALS:
         void data(KIO::fileoffset_t offset, const QByteArray &data, bool &worked);
 
-        void brokenSegment(Segment *segment, int segmentNum);//TODO
+        void brokenSegments(Segment *segment, QPair<int, int> segmentRange);
         void finishedSegment(Segment *segment, int segmentNum, bool connectionFinished = true);
         void statusChanged( Segment*);
         void speed(ulong speed);

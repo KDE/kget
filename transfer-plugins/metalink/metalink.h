@@ -23,8 +23,6 @@
 class MetaNepomukHandler;
 #endif //HAVE_NEPOMUK
 
-class KDialog;
-
 class Metalink : public Transfer
 {
     Q_OBJECT
@@ -91,7 +89,6 @@ class Metalink : public Transfer
 
     private:
         FileModel *m_fileModel;
-        KDialog *m_dialog;
         int m_currentFiles;
         KUrl m_localMetalinkLocation;
         KGetMetalink::Metalink m_metalink;
