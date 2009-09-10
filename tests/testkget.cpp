@@ -18,7 +18,7 @@ TestKGet::TestKGet()
       m_addedGH(0)
 {
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(addedTransferGroupEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(removedAddedEvent(TransferGroupHandler*)), SLOT(removedTransferGroupEvent(TransferGroupHandler*)));
+    connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(removedTransferGroupEvent(TransferGroupHandler*)));
 }
 
 void TestKGet::addedTransferGroupEvent(TransferGroupHandler * group)

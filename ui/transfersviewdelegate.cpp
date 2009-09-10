@@ -281,9 +281,11 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-    const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+    TransferTreeModel * transferTreeModel = KGet::model();
+    
+    ModelItem * item = transferTreeModel->itemFromIndex(index);
 
-    if(transferTreeModel->isTransferGroup(index))
+    if (item->isGroup())
     {
         painter->save();
 
@@ -328,7 +330,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         KExtendableItemDelegate::paint(painter, option, index);
 
         if (index.column() == 3 && !isExtended(transferTreeModel->index(index.row(), 0, index.parent()))) { // the percent column
-            TransferHandler *transferHandler = static_cast<TransferHandler *>(index.internalPointer());
+            TransferHandler *transferHandler = item->asTransfer()->transferHandler();
 
             // following progressbar code has mostly been taken from Qt4 examples/network/torrent/mainview.cpp
             // Set up a QStyleOptionProgressBar to precisely mimic the
@@ -381,9 +383,9 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
 {
     Q_UNUSED(option);
 
-    const TransferTreeModel * transferTreeModel = static_cast<const TransferTreeModel *>(index.model());
+    TransferTreeModel * transferTreeModel = KGet::model();
 
-    if(transferTreeModel->isTransferGroup(index))
+    if (transferTreeModel->itemFromIndex(index)->isGroup())
     {
         return QSize(0, 35);
     }
@@ -418,26 +420,26 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
             KMenu *popup = 0;
 
-            TransferTreeModel * transferTreeModel = static_cast<TransferTreeModel *>(model);
+            TransferTreeModel * transferTreeModel = KGet::model();
             QAbstractItemView * transferView = static_cast<QAbstractItemView *>(parent());
 
             QItemSelection selectedRow(model->index(index.row(), 0, index.parent()),
                                        model->index(index.row(), model->columnCount(), index.parent()));
             transferView->selectionModel()->select(selectedRow, QItemSelectionModel::ClearAndSelect);
-
-            if(transferTreeModel->isTransferGroup(index))
+            
+            ModelItem * item = transferTreeModel->itemFromIndex(index);
+            if (item->isGroup())
             {
 //                 kDebug(5001) << "isTransferGroup = true";
-                TransferGroupHandler * transferGroupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());
+                TransferGroupHandler * transferGroupHandler = item->asGroup()->groupHandler();
 
                 popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget*>(this));
-
             }
             else
             {
 //                 kDebug(5001) << "isTransferGroup = false";
 
-                TransferHandler * transferHandler = static_cast<TransferHandler *>(index.internalPointer());
+                TransferHandler * transferHandler = item->asTransfer()->transferHandler();
 
                 popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget*>(this));
             }
@@ -455,8 +457,10 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 void TransfersViewDelegate::setEditorData(QWidget * editor, const QModelIndex & index) const
 {
     GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
+    
+    TransferTreeModel * m = KGet::model();
 
-    groupEditor->setRunning((static_cast<TransferGroupHandler *>(index.internalPointer())->status()) == JobQueue::Running);
+    groupEditor->setRunning(m->itemFromIndex(index)->asGroup()->groupHandler()->status() == JobQueue::Running);
 }
 
 void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const
@@ -464,8 +468,10 @@ void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * 
     Q_UNUSED(model);
 
     GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
-
-    TransferGroupHandler * groupHandler = static_cast<TransferGroupHandler *>(index.internalPointer());
+    
+    TransferTreeModel * m = KGet::model();
+    
+    TransferGroupHandler * groupHandler = m->itemFromIndex(index)->asGroup()->groupHandler();
 
     if (groupEditor->isRunning())
         groupHandler->start();
@@ -501,11 +507,13 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
 
 void TransfersViewDelegate::itemActivated(const QModelIndex &index)
 {
-    const TransferTreeModel * transferTreeModel = static_cast <const TransferTreeModel *> (index.model());
+    TransferTreeModel * transferTreeModel = KGet::model();
 
-    if(!transferTreeModel->isTransferGroup(index) && Settings::showExpandableTransferDetails() && index.column() == 0) {
+    ModelItem * item = transferTreeModel->itemFromIndex(index);
+
+    if(!item->isGroup() && Settings::showExpandableTransferDetails() && index.column() == 0) {
         if(!isExtended(index)) {
-            TransferHandler *handler = static_cast <TransferHandler *> (index.internalPointer());
+            TransferHandler *handler = item->asTransfer()->transferHandler();
             QWidget *widget = getDetailsWidgetForTransfer(handler);
 
             m_editingIndexes.append(index);

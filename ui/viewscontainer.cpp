@@ -15,6 +15,7 @@
 #include "core/plugin/transferfactory.h"
 #include "core/transferhandler.h"
 #include "core/transfertreeselectionmodel.h"
+#include "core/transfertreemodel.h"
 #include "transfersview.h"
 #include "transfersviewdelegate.h"
 #include "transferdetails.h"
@@ -252,7 +253,8 @@ void ViewsContainer::setExpandableDetails(bool show)
 void ViewsContainer::showTransferDetails(TransferHandler * transfer)
 {
     if(Settings::showExpandableTransferDetails()) {
-        m_transfersViewDelegate->itemActivated(m_transfersView->indexFromTransferHandler(transfer));
+        TransferTreeModel * model = KGet::model();
+        m_transfersViewDelegate->itemActivated(model->itemFromHandler(transfer)->index());
     }
     else {
         //First check if we already inserted this widget
@@ -280,7 +282,8 @@ void ViewsContainer::showTransferDetails(TransferHandler * transfer)
 void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
 {
     if(Settings::showExpandableTransferDetails()) {
-        m_transfersViewDelegate->closeExpandableDetails(m_transfersView->indexFromTransferHandler(transfer));
+        TransferTreeModel * model = KGet::model();
+        m_transfersViewDelegate->closeExpandableDetails(model->itemFromHandler(transfer)->index());
     }
     else {
         m_transfersBt->removeTransfer(transfer);

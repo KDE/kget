@@ -48,6 +48,9 @@ public slots:
     * for transfers in the new group
     */
     void setDefaultDestination();
+    
+private slots:
+    void urlChanged(const QString &text);
 
 private:
     /**

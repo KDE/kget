@@ -164,6 +164,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/groupsettingsdialog.cpp
    ui/transfersettingsdialog.cpp
    ui/contextmenu.cpp
+   ui/tray.cpp
    ui/history/rangetreewidget.cpp
    ui/history/transferhistory.cpp
    ui/history/transferhistoryitemdelegate.cpp
@@ -181,7 +182,6 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/metalinkcreator/localemodels.cpp
    ui/metalinkcreator/dragdlg.cpp
    ui/metalinkcreator/urlwidget.cpp
-   tests/testkget.cpp
    mainwindow.cpp
    main.cpp
 
@@ -191,25 +191,23 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
     ENABLE_TESTING()
 
+    set(kget_SRCS
+        ${kget_SRCS}
+        tests/testkget.cpp
+    )
 
     set(kget_test_transfers_SRCS
-        transfer_interface.cpp
         tests/testtransfers.cpp
     )
 
     qt4_add_dbus_interface(kget_test_transfers_SRCS org.kde.kget.main.xml kget_interface)
+    qt4_add_dbus_interface(kget_test_transfers_SRCS org.kde.kget.transfer.xml transfer_interface)
 
     kde4_add_unit_test(kget_test_transfers
         ${kget_test_transfers_SRCS})
+
     target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
-
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
-
-set(kget_SRCS
-    ${kget_SRCS}
-    ui/tray_newproto.cpp
-)
-
 
 if(HAVE_NEPOMUK)
    set(kget_SRCS

@@ -101,22 +101,6 @@ void TransfersView::setModel(QAbstractItemModel * model)
     connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT (toggleMainGroup()));
 }
 
-QModelIndex TransfersView::indexFromTransferHandler(TransferHandler *handler)
-{
-    for(int groupRow = 0; groupRow < model()->rowCount(); groupRow ++) {
-        QModelIndex groupIndex = model()->index(groupRow, 0, QModelIndex());
-        for(int transferRow = 0; transferRow < model()->rowCount(groupIndex); transferRow ++) {
-            QModelIndex index = model()->index(transferRow, 0, groupIndex);
-
-            TransferHandler *indexHandler = static_cast <TransferHandler *> (index.internalPointer());
-            if(indexHandler == handler) {
-                return index;
-            }
-        }
-    }
-    return QModelIndex();
-}
-
 void TransfersView::dropEvent(QDropEvent * event)
 {
     QModelIndex dropIndex = indexAt(event->pos());
@@ -179,7 +163,7 @@ void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
 
 void TransfersView::toggleMainGroup()
 {
-   // show or hide the first group header if there's only one download group
+    // show or hide the first group header if there's only one download group
     int nGroups = model()->rowCount(QModelIndex());
 
     if(nGroups <= 1) {
@@ -188,6 +172,7 @@ void TransfersView::toggleMainGroup()
     else {
         setRootIndex(QModelIndex());
     }
+    header()->setRootIndex(QModelIndex());//HACK: else the header isn't visible with no visible items in the view
 }
 
 void TransfersView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end)

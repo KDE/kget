@@ -23,6 +23,8 @@ class Handler : public QObject
 
         virtual void start() = 0;
         virtual void stop() = 0;
+        
+        virtual QVariant data(int column) = 0;
 
     protected:
         Scheduler * m_scheduler;

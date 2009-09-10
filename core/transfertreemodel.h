@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,12 +12,13 @@
 #ifndef TRANSFERTREEMODEL_H
 #define TRANSFERTREEMODEL_H
 
-#include <QAbstractItemModel>
+#include <QStandardItemModel>
 #include <QList>
 
 #include <kget_export.h>
 #include "core/transfer.h"
 #include "core/transfergroup.h"
+#include "core/handler.h"
 
 class KUrl;
 
@@ -25,8 +27,58 @@ class TransferGroup;
 class TransferHandler;
 class Transfer;
 class Scheduler;
+class TransferModelItem;
+class GroupModelItem;
 
-class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
+class KGET_EXPORT ModelItem : public QStandardItem
+{
+    public:
+        ModelItem(Handler * handler);
+        virtual ~ModelItem();
+
+        virtual QVariant data(int role = Qt::UserRole + 1) const = 0;
+        void emitDataChanged();
+        Handler * handler();
+        virtual bool isGroup();
+        
+        GroupModelItem * asGroup();
+        TransferModelItem * asTransfer();
+
+    private:
+        Handler * m_handler;
+};
+
+class KGET_EXPORT TransferModelItem : public ModelItem
+{
+    public:
+        TransferModelItem(TransferHandler *handler);
+        virtual ~TransferModelItem();
+
+        virtual QVariant data(int role = Qt::UserRole + 1) const;
+
+        TransferHandler * transferHandler();
+
+    private:
+        TransferHandler * m_transferHandler;
+};
+
+class KGET_EXPORT GroupModelItem : public ModelItem
+{
+    public:
+        GroupModelItem(TransferGroupHandler *handler);
+        virtual ~GroupModelItem();
+        
+        virtual QVariant data(int role = Qt::UserRole + 1) const;
+        
+        TransferGroupHandler * groupHandler();
+        
+        virtual bool isGroup();
+        
+    private:
+        TransferGroupHandler * m_groupHandler;
+};
+
+class KGET_EXPORT TransferTreeModel : public QStandardItemModel
 {
     Q_OBJECT
 
@@ -44,7 +96,6 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
             Speed,
             RemainingTime
         };
-
         TransferTreeModel(Scheduler * scheduler);
         ~TransferTreeModel();
 
@@ -54,30 +105,26 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
         void addTransfer(Transfer * transfer, TransferGroup * group);
         void delTransfer(Transfer * transfer);
 
-        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after=0);
+        TransferModelItem * itemFromTransferHandler(TransferHandler * handler);
+        GroupModelItem * itemFromTransferGroupHandler(TransferGroupHandler * handler);
+        ModelItem * itemFromHandler(Handler * handler);
 
-        const QList<TransferGroup *> & transferGroups();
+        ModelItem * itemFromIndex(const QModelIndex &index) const;
+
+        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after = 0);
+
+        QList<TransferGroup *> transferGroups();
 
         TransferGroup * findGroup(const QString & groupName);
         Transfer * findTransfer(const KUrl &src);
         Transfer *findTransferByDestination(const KUrl &dest);
 
-        bool isTransferGroup(const QModelIndex & index) const;
-
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);
 
-        QModelIndex createIndex(int row, int column, void * ptr = 0) const;
-
-        //QAbstractItemModel functions
-        int rowCount(const QModelIndex & parent) const;
-        int columnCount(const QModelIndex & parent) const;
         Qt::ItemFlags flags (const QModelIndex & index) const;
         QVariant headerData(int section, Qt::Orientation orientation,
                             int role = Qt::DisplayRole) const;
-        QVariant data (const QModelIndex & index, int role) const;
-        QModelIndex index(int row, int column, const QModelIndex & parent) const;
-        QModelIndex parent(const QModelIndex & index) const;
 
         //Drag & drop functions
         Qt::DropActions supportedDropActions() const;
@@ -88,6 +135,8 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
                           const QModelIndex &parent);
 
         static QString columnName(int column);
+        static int column(Transfer::TransferChange flag);
+        static int column(TransferGroup::GroupChange flag);
 
     signals:
         void groupAddedEvent(TransferGroupHandler *);
@@ -97,16 +146,18 @@ class KGET_EXPORT TransferTreeModel : public QAbstractItemModel
         void transferRemovedEvent(TransferHandler *, TransferGroupHandler *);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
         void transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>);
-        
+
     private:
         void timerEvent(QTimerEvent *event);
 
-        QList<TransferGroup *> m_transferGroups;
         Scheduler * m_scheduler;
 
         // Timer related variables
         QList<TransferHandler *> m_changedTransfers;
         QList<TransferGroupHandler *> m_changedGroups;
+        
+        QList<GroupModelItem*> m_transferGroups;
+        QList<TransferModelItem*> m_transfers;
 
         int m_timerId;
 };

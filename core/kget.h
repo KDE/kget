@@ -408,8 +408,8 @@ class GenericObserver : public QObject
     public slots:
         void groupAddedEvent(TransferGroupHandler *handler);
         void groupRemovedEvent(TransferGroupHandler *handler);
-        void transferAddedEvent(TransferHandler *handler);
-        void transferRemovedEvent(TransferHandler *handler);
+        void transferAddedEvent(TransferHandler *handler, TransferGroupHandler *group);
+        void transferRemovedEvent(TransferHandler *handler, TransferGroupHandler *group);
         void transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
         void groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);

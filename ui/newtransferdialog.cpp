@@ -22,6 +22,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QDir>
+#include <QFileInfo>
 
 #include <KLocale>
 #include <KListWidget>
@@ -108,6 +109,7 @@ public:
             if (!urlRequester) {
                 urlRequester = new KLineEdit();
                 urlRequester->setClearButtonShown(true);
+                connect(urlRequester, SIGNAL(textChanged(QString)), parent(), SLOT(urlChanged(QString)));
                 m_gridLayout1->addWidget(urlRequester, 0, 1, 1, 1);
                 m_destRequester->setMode(KFile::File);
             }
@@ -220,7 +222,10 @@ public:
         m_destRequester->clear();
         m_displayed = false;
         m_groupComboBox->clear();
-        KGet::addTransferView(m_groupComboBox);
+        //KGet::addTransferView(m_groupComboBox);
+        m_groupComboBox->clear();
+        foreach (TransferGroupHandler * group, KGet::allTransferGroups())
+            m_groupComboBox->addItem(KIcon(group->iconName()), group->name());
         m_groupComboBox->setCurrentIndex(0);
     }
 
@@ -271,7 +276,6 @@ NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
 
 NewTransferDialog::~NewTransferDialog()
 {
-    delete d;
 }
 
 void NewTransferDialog::del()
@@ -281,7 +285,7 @@ void NewTransferDialog::del()
 
 void NewTransferDialog::showNewTransferDialog(const KUrl &url, QWidget * parent)
 {
-    showNewTransferDialog(KUrl::List() << url, parent);
+    showNewTransferDialog(url.isEmpty() ? KUrl::List() : KUrl::List() << url, parent);
 }
 
 void NewTransferDialog::showNewTransferDialog(const KUrl::List &list, QWidget * parent)
@@ -322,7 +326,7 @@ void NewTransferDialog::showDialog(const KUrl::List &list, const QString &sugges
 {
     KUrl::List cleanedList;
     kDebug() << "DIRECTORIES AS SUGGESTION" << Settings::directoriesAsSuggestion();
-    if (!Settings::directoriesAsSuggestion())
+    if (!Settings::directoriesAsSuggestion() && !list.isEmpty())
     {
         kDebug(5001) << "No, Directories not as suggestion";
         foreach (const KUrl &url, list)
@@ -339,16 +343,19 @@ void NewTransferDialog::showDialog(const KUrl::List &list, const QString &sugges
     }
     else
         cleanedList << list;
+
     m_sources << cleanedList;
 
     d->clear();//Let's clear the old stuff
     kDebug(5001) << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);
     d->setMultiple(m_sources.size() > 1);
-    
-    if (list.count() == 1 && !suggestedFileName.isEmpty())
-        d->setDestinationFileName(suggestedFileName);
 
-    d->setSource(m_sources);
+    if (!m_sources.isEmpty()) {
+        if (list.count() == 1 && !suggestedFileName.isEmpty())
+            d->setDestinationFileName(suggestedFileName);
+
+        d->setSource(m_sources);
+    }
 
     resizeDialog();
     prepareDialog();
@@ -356,15 +363,17 @@ void NewTransferDialog::showDialog(const KUrl::List &list, const QString &sugges
 
 void NewTransferDialog::setDefaultDestination()
 {
-    if (m_sources.isEmpty()) {
-        return;
-    }
+    //if (m_sources.isEmpty()) {
+    //    return;
+    //}
     QStringList list;
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups()) {
         if (!handler->defaultFolder().isEmpty())
             list << handler->defaultFolder();
     }
     d->setDestination(m_sources, list);
+    if (!m_sources.isEmpty())
+        urlChanged(m_sources.first().path());
     //d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().path(), d->transferGroup()));
 }
 
@@ -424,6 +433,19 @@ void NewTransferDialog::resizeDialog()
 bool NewTransferDialog::isEmpty()
 {
     return d->isEmpty();
+}
+
+void NewTransferDialog::urlChanged(const QString &text)
+{
+    if (d->m_multiple)
+        return;
+    KUrl url(text);
+    //if (d->m_destRequester->url()->isEmpty())
+    //    d->setDestination(m_sources, QStringList());
+    if (QFileInfo(d->m_destRequester->url().path()).isDir())
+        d->setDestinationFileName(url.fileName());
+
+    kDebug() << url << url.fileName() << d->m_destRequester->url().fileName();
 }
 
 #include "newtransferdialog.moc"

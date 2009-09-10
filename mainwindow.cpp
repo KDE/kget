@@ -33,7 +33,9 @@
 #include "ui/linkview/kget_linkview.h"
 #include "ui/metalinkcreator/metalinkcreator.h"
 #include "extensions/webinterface/httpserver.h"
-#include "tests/testkget.h"
+#ifdef DEBUG
+    #include "tests/testkget.h"
+#endif
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
@@ -338,17 +340,9 @@ void MainWindow::slotDelayedInit()
     //Here we import the user's transfers.
     KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
 
-#ifdef HAVE_KNOTIFICATIONITEM
     if(Settings::enableSystemTray()) {
         m_dock = new Tray(this);
     }
-#else
-    m_dock = new Tray(this);
-
-    if(Settings::enableSystemTray()) {
-        m_dock->show();
-    }
-#endif
 
     // enable dropping
     setAcceptDrops(true);
@@ -419,7 +413,7 @@ void MainWindow::slotDelayedInit()
                            SLOT(slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)));
 
 #ifdef DEBUG
-    if(m_doTesting)
+    if (m_doTesting)
     {
         // Unit testing
         TestKGet unitTest;
@@ -753,7 +747,6 @@ void MainWindow::slotNewConfig()
     m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
     m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
 
-#ifdef HAVE_KNOTIFICATIONITEM
     if(Settings::enableSystemTray() && !m_dock)
     {
         m_dock = new Tray(this);
@@ -764,11 +757,6 @@ void MainWindow::slotNewConfig()
         delete m_dock;
         m_dock = 0;
     }
-#else
-    m_dock->setVisible(Settings::enableSystemTray());
-    if(!Settings::enableSystemTray())
-        setVisible(true);
-#endif
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
@@ -870,12 +858,8 @@ void MainWindow::setSystemTrayDownloading(bool running)
 {
     kDebug(5001);
 
-#ifdef HAVE_KNOTIFICATIONITEM
     if (m_dock)
         m_dock->setDownloading(running);
-#else
-    m_dock->setDownloading(running);
-#endif
 }
 
 void MainWindow::importLinks(const QList <QString> &links)

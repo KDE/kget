@@ -25,7 +25,6 @@ class TransfersView : public QTreeView
         ~TransfersView();
 
         void setModel(QAbstractItemModel * model);
-        QModelIndex indexFromTransferHandler(TransferHandler *handler);
 
     private:
         void dropEvent(QDropEvent * event);

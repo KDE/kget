@@ -302,7 +302,7 @@ void TransferGroup::calculateUploadLimit()
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 {
-    kDebug(5001) << " -->  " << name();
+    //kDebug(5001) << " -->  " << name();
 
     e.setAttribute("Name", m_name);
     e.setAttribute("DefaultFolder", m_defaultFolder);

@@ -99,7 +99,7 @@ void KGet::delGroup(const QString& groupName)
 {
     TransferGroup * group = m_transferTreeModel->findGroup(groupName);
 
-    if(group)
+    if (group)
     {
         JobQueue::iterator begin = group->begin();
         JobQueue::iterator end = group->end();
@@ -335,8 +335,9 @@ QList<TransferHandler *> KGet::selectedTransfers()
 
     foreach(const QModelIndex &currentIndex, selectedIndexes)
     {
-        if(!m_transferTreeModel->isTransferGroup(currentIndex))
-            selectedTransfers.append(static_cast<TransferHandler *> (currentIndex.internalPointer()));
+        ModelItem * item = m_transferTreeModel->itemFromIndex(currentIndex);
+        if (!item->isGroup())
+            selectedTransfers.append(item->asTransfer()->transferHandler());
     }
 
     return selectedTransfers;
@@ -383,8 +384,9 @@ QList<TransferGroupHandler *> KGet::selectedTransferGroups()
 
     foreach(const QModelIndex &currentIndex, selectedIndexes)
     {
-        if(m_transferTreeModel->isTransferGroup(currentIndex))
-            selectedTransferGroups.append(static_cast<TransferGroupHandler *> (currentIndex.internalPointer()));
+        ModelItem * item = m_transferTreeModel->itemFromIndex(currentIndex);
+        if (item->isGroup())
+            selectedTransferGroups.append(item->asGroup()->groupHandler());
     }
 
     return selectedTransferGroups;
@@ -505,14 +507,11 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         QDomElement root = doc.createElement("Transfers");
         doc.appendChild(root);
 
-        QList<TransferGroup *>::const_iterator it = m_transferTreeModel->transferGroups().begin();
-        QList<TransferGroup *>::const_iterator itEnd = m_transferTreeModel->transferGroups().end();
-
-        for ( ; it!=itEnd ; ++it )
+        foreach (TransferGroup * group, m_transferTreeModel->transferGroups())
         {
             QDomElement e = doc.createElement("TransferGroup");
             root.appendChild(e);
-            (*it)->save(e);
+            group->save(e);
             //KGet::delGroup((*it)->name());
         }
 
@@ -570,6 +569,7 @@ QList<TransferGroupHandler*> KGet::allTransferGroups()
 
     foreach (TransferGroup *group, KGet::m_transferTreeModel->transferGroups())
     {
+        kDebug() << group->name();
         transfergroups << group->handler();
     }
     return transfergroups;
@@ -1075,11 +1075,11 @@ GenericObserver::GenericObserver(QObject *parent)
   : QObject(parent)
 {
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)),
-                           SLOT(transferAddedEvent(TransferHandler*)));
+    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)), 
+                           SLOT(transferAddedEvent(TransferHandler*, TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(groupAddedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler*,TransferGroupHandler*)),
-                           SLOT(transferRemovedEvent(TransferHandler*)));
+    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler*, TransferGroupHandler*)), 
+                           SLOT(transferRemovedEvent(TransferHandler*, TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)), 
                            SLOT(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags>)), 
@@ -1104,16 +1104,18 @@ void GenericObserver::groupRemovedEvent(TransferGroupHandler *handler)
     KGet::save();
 }
 
-void GenericObserver::transferAddedEvent(TransferHandler *handler)
+void GenericObserver::transferAddedEvent(TransferHandler *handler, TransferGroupHandler *group)
 {
     Q_UNUSED(handler)
+    Q_UNUSED(group)
     KGet::save();
     KGet::calculateGlobalSpeedLimits();
 }
 
-void GenericObserver::transferRemovedEvent(TransferHandler *handler)
+void GenericObserver::transferRemovedEvent(TransferHandler *handler, TransferGroupHandler *group)
 {
     Q_UNUSED(handler)
+    Q_UNUSED(group)
     KGet::save();
     KGet::calculateGlobalSpeedLimits();
 }
