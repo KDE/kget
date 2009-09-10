@@ -49,7 +49,7 @@ DragDlg::DragDlg(KGetMetalink::Resources *ressources, QSortFilterProxyModel *cou
     }
     ui.groupBox->setLayout(layout);
 
-    connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+    connect(this, SIGNAL(accepted()), this, SLOT(slotFinished()));
 
     setCaption(i18n("Import dropped files"));
 }
