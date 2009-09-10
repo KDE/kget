@@ -500,7 +500,7 @@ void MetalinkCreator::loadFiles()
         if (!file.resources.isValid())
         {
             ++m_needUrlCount;
-            item->setIcon(KIcon("text-html"));
+            item->setIcon(KIcon("edit-delete"));
         }
         m_filesModel->insertRow(m_filesModel->rowCount(), item);
     }
@@ -541,7 +541,7 @@ void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
     if (!file.resources.isValid())
     {
         ++m_needUrlCount;
-        item->setIcon(KIcon("text-html"));
+        item->setIcon(KIcon("edit-delete"));
     }
     m_filesModel->insertRow(m_filesModel->rowCount(), item);
     metalink.files.files.append(file);
