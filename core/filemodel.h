@@ -37,7 +37,7 @@ class FileModel;
 class KGET_EXPORT FileItem
 {
     public:
-        FileItem(const QString &name, FileItem *parent = 0);
+        explicit FileItem(const QString &name, FileItem *parent = 0);
         ~FileItem();
 
         enum DataType

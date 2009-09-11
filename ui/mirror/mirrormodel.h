@@ -33,7 +33,7 @@ class MirrorDelegate : public QStyledItemDelegate
 
     public:
         MirrorDelegate(QObject *parent = 0);
-        MirrorDelegate(QSortFilterProxyModel *countrySort, QObject *parent = 0);
+        explicit MirrorDelegate(QSortFilterProxyModel *countrySort, QObject *parent = 0);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;

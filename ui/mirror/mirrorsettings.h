@@ -35,8 +35,8 @@ class MirrorAddDlg : public KDialog
     Q_OBJECT
 
     public:
-        MirrorAddDlg(MirrorModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
-        MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent = 0, Qt::WFlags flags = 0);
+        explicit MirrorAddDlg(MirrorModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
+        explicit MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent = 0, Qt::WFlags flags = 0);
 
         /**
          * Shows or hides elements, by default all (expect MirrorItem::Used) are shown
