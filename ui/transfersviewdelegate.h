@@ -97,6 +97,7 @@ class TransfersViewDelegate : public KExtendableItemDelegate
 
     public slots:
         void closeExpandableDetails(const QModelIndex &index = QModelIndex());
+        void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
         void itemActivated(const QModelIndex &index);
 
     private:

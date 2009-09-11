@@ -277,6 +277,7 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     setExtendPixmap(SmallIcon("arrow-right"));
     setContractPixmap(SmallIcon("arrow-down"));
     connect(parent, SIGNAL(activated(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
+    connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), this, SLOT(closeExpandableDetails(QModelIndex,int,int)));
 }
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
@@ -481,12 +482,15 @@ void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIn
         m_editingIndexes.removeAll(transferIndex);
     }
     else {
-        foreach(const QModelIndex &index, m_editingIndexes) {
-            contractItem(index);
-        }
-
+        contractAll();
         m_editingIndexes.clear();
     }
+}
+
+void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd)
+{
+    contractAll();
+    m_editingIndexes.clear();
 }
 
 QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *handler)
