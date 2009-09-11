@@ -71,6 +71,11 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
     {
         frm.statusPixmapContentLabel->setPixmap(m_transfer->statusPixmap());
         frm.statusTextContentLabel->setText(m_transfer->statusText());
+
+        if (m_transfer->status() == Job::Finished)
+        {
+            frm.speedContentLabel->setText(i18n("Average speed: %1/s", KIO::convertSize(m_transfer->averageDownloadSped())));
+        }
     }
 
     if((flags & Transfer::Tc_TotalSize) || (flags & Transfer::Tc_DownloadedSize))
@@ -83,7 +88,7 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
         frm.progressBar->setValue(m_transfer->percent());
     }
 
-    if(flags & Transfer::Tc_DownloadSpeed)
+    if ((flags & Transfer::Tc_DownloadSpeed) && (m_transfer->status() != Job::Finished))
     {
         int speed = m_transfer->downloadSpeed();
 

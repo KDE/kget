@@ -145,6 +145,11 @@ class KGET_EXPORT TransferHandler : public Handler
         int downloadSpeed() const;
 
         /**
+         * @return the average download speed of the transfer in bytes/sec
+         */
+        int averageDownloadSped() const;
+
+        /**
          * @return the upload speed of the transfer in bytes/sec
          */
         int uploadSpeed() const;

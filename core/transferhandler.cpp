@@ -108,6 +108,11 @@ int TransferHandler::downloadSpeed() const
     return m_transfer->downloadSpeed();
 }
 
+int TransferHandler::averageDownloadSped() const
+{
+    return m_transfer->averageDownloadSpeed();
+}
+
 int TransferHandler::uploadSpeed() const
 {
     return m_transfer->uploadSpeed();

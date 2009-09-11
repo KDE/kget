@@ -97,6 +97,17 @@ int Transfer::elapsedTime() const
     return m_runningSeconds;
 }
 
+int Transfer::averageDownloadSpeed() const
+{
+    const int runningSeconds = elapsedTime();
+    if (runningSeconds)
+    {
+        return m_totalSize / runningSeconds;
+    }
+
+    return 0;
+}
+
 QHash<KUrl, QPair<bool, int> > Transfer::availableMirrors(const KUrl &file) const
 {
     Q_UNUSED(file)

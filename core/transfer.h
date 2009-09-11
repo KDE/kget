@@ -126,6 +126,7 @@ class KGET_EXPORT Transfer : public Job
 
         int percent() const                    {return m_percent;}
         int downloadSpeed() const              {return m_downloadSpeed;}
+        int averageDownloadSpeed() const;
         int uploadSpeed() const                {return m_uploadSpeed;}
         virtual int remainingTime() const      {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
         virtual int elapsedTime() const;
