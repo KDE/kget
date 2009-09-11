@@ -504,7 +504,6 @@ void TransfersViewDelegate::itemActivated(const QModelIndex &index)
 {
     if (!index.isValid())
     {
-        kDebug() << "***return";
         return;
     }
 
