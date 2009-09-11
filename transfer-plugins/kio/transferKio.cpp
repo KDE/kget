@@ -183,11 +183,32 @@ void TransferKio::slotResult( KJob * kioJob )
     // when slotResult gets called, the m_copyjob has already been deleted!
     m_copyjob=0;
 
-    if ((status() == Job::Finished) && m_verifier)
+    Transfer::ChangesFlags flags = Tc_Status;
+    if (status() == Job::Finished)
     {
-        m_verifier->verify();
+        if (!m_totalSize)
+        {
+            //downloaded elsewhere already, e.g. Konqueror
+            if (!m_downloadedSize)
+            {
+                QFile file(m_dest.path() + ".part");
+                m_downloadedSize = file.size();
+                if (!m_downloadedSize)
+                {
+                    QFile file(m_dest.path());
+                    m_downloadedSize = file.size();
+                }
+            }
+            m_totalSize = m_downloadedSize;
+            flags |= Tc_DownloadedSize;
+        }
+        if (m_verifier)
+        {
+            m_verifier->verify();
+        }
     }
-    setTransferChange(Tc_Status, true);
+
+    setTransferChange(flags, true);
 }
 
 void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
