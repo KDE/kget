@@ -410,23 +410,17 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 {
     Q_UNUSED(option);
 
-    QMouseEvent * mouseEvent = dynamic_cast<QMouseEvent *>(event);
-
-    if(mouseEvent)
+    if (event->type() == QEvent::MouseButtonRelease)
     {
-        if(mouseEvent->button() == Qt::RightButton)
+        QMouseEvent * mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() == Qt::RightButton)
         {
 //             kDebug(5001) << "TransfersViewDelegate::editorEvent() -> rightClick";
 
             KMenu *popup = 0;
 
             TransferTreeModel * transferTreeModel = KGet::model();
-            QAbstractItemView * transferView = static_cast<QAbstractItemView *>(parent());
 
-            QItemSelection selectedRow(model->index(index.row(), 0, index.parent()),
-                                       model->index(index.row(), model->columnCount(), index.parent()));
-            transferView->selectionModel()->select(selectedRow, QItemSelectionModel::ClearAndSelect);
-            
             ModelItem * item = transferTreeModel->itemFromIndex(index);
             if (item->isGroup())
             {
@@ -444,7 +438,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
                 popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget*>(this));
             }
 
-            if(popup) {
+            if (popup) {
                 popup->exec(QCursor::pos());
                 popup->deleteLater();
             }
