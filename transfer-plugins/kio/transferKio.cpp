@@ -18,6 +18,7 @@
 #include <kdebug.h>
 
 #include <QDomElement>
+#include <QtCore/QFile>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -131,6 +132,28 @@ void TransferKio::slotResult( KJob * kioJob )
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
     m_copyjob=0;
+
+    Transfer::ChangesFlags flags = Tc_Status;
+    if (status() == Job::Finished)
+    {
+        if (!m_totalSize)
+        {
+            //downloaded elsewhere already, e.g. Konqueror
+            if (!m_downloadedSize)
+            {
+                QFile file(m_dest.path() + ".part");
+                m_downloadedSize = file.size();
+                if (!m_downloadedSize)
+                {
+                    QFile file(m_dest.path());
+                    m_downloadedSize = file.size();
+                }
+            }
+            m_totalSize = m_downloadedSize;
+            flags |= Tc_DownloadedSize;
+        }
+    }
+
     setTransferChange(Tc_Status, true);
 }
 
