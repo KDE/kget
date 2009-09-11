@@ -224,6 +224,7 @@ MetalinkCreator::MetalinkCreator(QWidget *parent)
     connect(&thread, SIGNAL(finished()), this, SLOT(slotThreadFinished()));
 
     setCaption(i18n("Create a Metalink"));
+    showButton(KDialog::Help, false);
 }
 
 MetalinkCreator::~MetalinkCreator()

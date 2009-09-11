@@ -24,7 +24,6 @@
 Tray::Tray(MainWindow * parent)
     : KNotificationItem(parent)
 {
-
     // set up the context menu
     KMenu * cm = contextMenu();
     cm->addAction( parent->actionCollection()->action("new_download") );

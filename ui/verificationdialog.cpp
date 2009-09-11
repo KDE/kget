@@ -122,7 +122,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         connect(ui.verify, SIGNAL(pressed()), this, SLOT(verifyPressed()));
     }
 
-    setButtons(KDialog::Ok);
+    setButtons(KDialog::Close);
 }
 
 void VerificationDialog::updateButtons()
