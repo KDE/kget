@@ -489,6 +489,10 @@ void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIn
 
 void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd)
 {
+    Q_UNUSED(parent)
+    Q_UNUSED(rowStart)
+    Q_UNUSED(rowEnd)
+
     contractAll();
     m_editingIndexes.clear();
 }
