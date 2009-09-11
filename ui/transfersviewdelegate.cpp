@@ -408,7 +408,8 @@ QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptio
 
 bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
-    Q_UNUSED(option);
+    Q_UNUSED(model)
+    Q_UNUSED(option)
 
     if (event->type() == QEvent::MouseButtonRelease)
     {
@@ -501,11 +502,17 @@ QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *han
 
 void TransfersViewDelegate::itemActivated(const QModelIndex &index)
 {
+    if (!index.isValid())
+    {
+        kDebug() << "***return";
+        return;
+    }
+
     TransferTreeModel * transferTreeModel = KGet::model();
 
     ModelItem * item = transferTreeModel->itemFromIndex(index);
 
-    if(!item->isGroup() && Settings::showExpandableTransferDetails() && index.column() == 0) {
+    if(item && !item->isGroup() && Settings::showExpandableTransferDetails() && index.column() == 0) {
         if(!isExtended(index)) {
             TransferHandler *handler = item->asTransfer()->transferHandler();
             QWidget *widget = getDetailsWidgetForTransfer(handler);
