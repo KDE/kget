@@ -89,7 +89,14 @@ class KGET_EXPORT KGet
          *
          * @param groupName The name of the group to be deleted
          */
-        static void delGroup(const QString& groupName);
+        static void delGroup(TransferGroupHandler * group, bool askUser = true);
+        
+        /**
+         * Removes specific groups from the KGet.
+         *
+         * @param groups The names of the groups to be deleted.
+         */
+        static void delGroups(QList<TransferGroupHandler*> groups, bool askUser = true);
 
         /**
          * Changes the name of the group
@@ -116,7 +123,7 @@ class KGET_EXPORT KGet
          * If the group queue is already in a running state, this flag does nothing
          */
         static TransferHandler * addTransfer(KUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
-                                const QString& groupName = QString(), bool start=false);
+                                const QString& groupName = QString(), bool start = false);
 
         /**
          * Adds a new transfer to the KGet
@@ -254,6 +261,12 @@ class KGET_EXPORT KGet
          * @param src the url
          */
         static TransferHandler * findTransfer(const KUrl &src);
+        
+        /**
+         * Get the group with the given name
+         * @param name the name
+         */
+        static TransferGroupHandler * findGroup(const QString &name);
 
         /**
          * Run this function for enabling the systemTray 
@@ -362,8 +375,6 @@ class KGET_EXPORT KGet
         static bool isValidDestUrl(const KUrl &destUrl);
 
         static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl, const QString& destFileName = QString());
-
-        static TransferGroup * findGroup(const QString& groupName);
 
         //Plugin-related functions
         static void unloadPlugins();

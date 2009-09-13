@@ -41,6 +41,7 @@
 #include <KPluginInfo>
 #include <KComboBox>
 #include <KPassivePopup>
+#include <KConfigDialog>
 
 #include <QTextStream>
 #include <QDomElement>
@@ -92,20 +93,53 @@ bool KGet::addGroup(const QString& groupName)
     return true;
 }
 
-void KGet::delGroup(const QString& groupName)
+void KGet::delGroup(TransferGroupHandler * group, bool askUser)
 {
-    TransferGroup * group = m_transferTreeModel->findGroup(groupName);
-
+    TransferGroup * g = group->m_group;
     if (group)
     {
-        JobQueue::iterator begin = group->begin();
-        JobQueue::iterator end = group->end();
+        if (askUser) {
+            QWidget * configDialog = KConfigDialog::exists("preferences");
+            if (KMessageBox::warningYesNo(configDialog ? configDialog : m_mainWindow,
+                           i18n("Are you sure that you want to remove the group named %1?", g->name()),
+                           i18n("Remove Group"),
+                           KStandardGuiItem::remove(), KStandardGuiItem::cancel()) != KMessageBox::Yes)
+                return;
+        }
+        JobQueue::iterator begin = g->begin();
+        JobQueue::iterator end = g->end();
         for (; begin != end; begin++) {
             Transfer *transfer = static_cast<Transfer*>(*begin);
             m_transferTreeModel->delTransfer(transfer);//Unregister transfers from model first, they will get deleted by the group when destructing
         }
-        m_transferTreeModel->delGroup(group);
-        group->deleteLater();
+        m_transferTreeModel->delGroup(g);
+        g->deleteLater();
+    }
+}
+
+void KGet::delGroups(QList<TransferGroupHandler*> groups, bool askUser)
+{
+    if (groups.isEmpty())
+        return;
+    if (groups.count() == 1) {
+        KGet::delGroup(groups.first(), askUser);
+        return;
+    }
+    bool del = !askUser;
+    if (askUser) {
+        QStringList names;
+        foreach (TransferGroupHandler * handler, groups)
+            names << handler->name();
+        QWidget * configDialog = KConfigDialog::exists("preferences");
+        del = KMessageBox::warningYesNoList(configDialog ? configDialog : m_mainWindow,
+              i18n("Are you sure that you want to remove the following groups?"),
+              names,
+              i18n("Remove groups"),
+              KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::Yes;
+    }
+    if (del) {
+        foreach (TransferGroupHandler * handler, groups)
+            KGet::delGroup(handler, false);
     }
 }
 
@@ -578,6 +612,16 @@ TransferHandler * KGet::findTransfer(const KUrl &src)
     if (transfer)
     {
         return transfer->handler();
+    }
+    return 0;
+}
+
+TransferGroupHandler * KGet::findGroup(const QString &name)
+{
+    TransferGroup *group = KGet::m_transferTreeModel->findGroup(name);
+    if (group)
+    {
+        return group->handler();
     }
     return 0;
 }

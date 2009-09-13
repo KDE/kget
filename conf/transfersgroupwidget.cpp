@@ -113,31 +113,7 @@ void TransfersGroupTree::addGroup()
 
 void TransfersGroupTree::deleteSelectedGroup()
 {
-    QList<TransferGroupHandler*> list = KGet::selectedTransferGroups();
-    QStringList names;
-    foreach (TransferGroupHandler * handler, list)
-        names << handler->name();
-
-    if (!list.isEmpty())
-    {
-        bool del = false;
-        if (list.count() == 1) {
-            del = KMessageBox::warningYesNo(this,
-                  i18n("Are you sure that you want to remove the group named %1?", list.first()->name()),
-                  i18n("Remove Group"),
-                  KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::Yes;
-        } else {
-            del = KMessageBox::warningYesNoList(this,
-                  i18n("Are you sure that you want to remove the following groups?"),
-                  names,
-                  i18n("Remove groups"),
-                  KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::Yes;
-        }
-        if (del) {
-            foreach (TransferGroupHandler * handler, list)
-                KGet::delGroup(handler->name());
-        }
-    }
+    KGet::delGroups(KGet::selectedTransferGroups());
 }
 
 void TransfersGroupTree::renameSelectedGroup()

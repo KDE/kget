@@ -38,7 +38,7 @@ void TestKGet::simpleTest()
 
 void TestKGet::transferGroupTest()
 {
-    KGet::delGroup("testGroup");            // In case you already have one
+    KGet::delGroup(KGet::findGroup("testGroup"));            // In case you already have one
 
     m_addedGH = 0;
     m_removedGH = 0;
@@ -59,7 +59,7 @@ void TestKGet::transferGroupTest()
     QVERIFY(m_addedGH->uploadSpeed() == 0);
     
     // Delete newly added Group
-    KGet::delGroup("testGroup");
+    KGet::delGroup(KGet::findGroup("testGroup"), false);
     QVERIFY(m_removedGH != 0);   // Should already have received the removed group notification
 
     QVERIFY(m_removedGH->name() == "testGroup");
@@ -78,7 +78,7 @@ void TestKGet::transferGroupRepetitiveAddTest()
     for(int i=0; i < 100; i++)
     {
         // Removing...
-        KGet::delGroup("testGroup" + QString::number(i));
+        KGet::delGroup(KGet::findGroup("testGroup" + QString::number(i)), false);
         QVERIFY(m_removedGH != 0);   // Should already have received the removed group notification
         QVERIFY(m_removedGH->name() == "testGroup" + QString::number(i));        
     }

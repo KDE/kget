@@ -546,11 +546,7 @@ void MainWindow::slotCreateMetalink()
 
 void MainWindow::slotDeleteGroup()
 {
-    foreach(TransferGroupHandler * it, KGet::selectedTransferGroups())
-    {
-        it->stop();
-        KGet::delGroup(it->name());
-    }
+    KGet::delGroups(KGet::selectedTransferGroups());
 }
 
 void MainWindow::slotRenameGroup()
