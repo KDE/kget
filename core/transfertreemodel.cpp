@@ -243,7 +243,7 @@ void TransferTreeModel::delTransfer(Transfer * transfer)
 
     group->remove(transfer);
     m_changedTransfers.removeAll(transfer->handler());
-    
+
     m_transfers.removeAll(item);
 
     emit transferRemovedEvent(transfer->handler(), group->handler());
@@ -592,16 +592,16 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     QMap<TransferHandler *, Transfer::ChangesFlags> updatedTransfers;
     QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> updatedGroups;
 
-    foreach(TransferHandler * transfer, m_changedTransfers)
+    foreach (TransferHandler * transfer, m_changedTransfers)
     {
         if (!updatedTransfers.contains(transfer))
         {
             TransferGroupHandler * group = transfer->group();
-            QStandardItem * item = itemFromHandler(group);
+            ModelItem * item = itemFromHandler(group);
             Transfer::ChangesFlags changesFlags = transfer->changesFlags();
 
             emit transfer->transferChangedEvent(transfer, changesFlags);
-            
+
             int row = group->indexOf(transfer);
 
             if (changesFlags & Transfer::Tc_FileName)

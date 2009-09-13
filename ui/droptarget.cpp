@@ -110,7 +110,7 @@ DropTarget::DropTarget(MainWindow * mw)
     setMouseTracking(true);
     
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
-            this,          SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
+            this,          SLOT(slotToolTipUpdate()));
 }
 
 
@@ -148,13 +148,6 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
             move(position);
         slotToolTipUpdate();
     }
-}
-
-void DropTarget::slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers)
-{
-    kDebug() << "5001" << "DropTarget::slotTransfersChanged";
-    
-    slotToolTipUpdate();
 }
 
 void DropTarget::playAnimationShow()

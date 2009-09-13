@@ -172,7 +172,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
 
     if (suggestedFileName.isEmpty())
     {
-	confirmDestination = true;
+	    confirmDestination = true;
         suggestedFileName = srcUrl.fileName(KUrl::ObeyTrailingSlash);
         if (suggestedFileName.isEmpty())
         {
@@ -188,7 +188,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
         {
             destUrl = destFileInputDialog(destDir, suggestedFileName);
             if (destUrl.isEmpty()) 
-        return 0;
+                return 0;
 
             destDir = destUrl.directory(KUrl::ObeyTrailingSlash);
         } while (!isValidDestDirectory(destDir));
@@ -298,7 +298,7 @@ bool KGet::delTransfer(TransferHandler * transfer)
     //pointers to it are invalid.
     transfer->postDeleteEvent();
     m_transferTreeModel->delTransfer(t);
-    t->deleteLater();
+    delete t;
     return true;
 }
 

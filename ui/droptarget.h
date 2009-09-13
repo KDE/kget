@@ -41,9 +41,6 @@ public:
     void playAnimationHide();
     void playAnimationSync();
     void setDropTargetVisible( bool shown, bool internal = true );
-
-public slots:
-    void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
     
 protected:
     // drag and drop
