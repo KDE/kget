@@ -234,8 +234,11 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
 
     if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || (destUrl.isLocalFile() && QFile::exists(destUrl.path()))) {
         KIO::RenameDialog dlg( m_mainWindow, i18n("Rename transfer"), srcUrl,
-                               destUrl, KIO::M_MULTI);
-        if (dlg.exec() == KIO::R_RENAME)
+                               destUrl, KIO::M_OVERWRITE);
+                               
+        int result = dlg.exec();
+        
+        if ( result == KIO::R_RENAME || result == KIO::R_OVERWRITE )
             destUrl = dlg.newDestUrl();
         else
             return 0;
