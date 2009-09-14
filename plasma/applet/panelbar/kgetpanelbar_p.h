@@ -23,6 +23,7 @@
 #include <QGraphicsProxyWidget>
 #include <QList>
 #include <QMap>
+#include "../common/transfer_interface.h"
 
 class QProgressBar;
 class QGridLayout;
@@ -34,20 +35,20 @@ public:
     Private(QGraphicsWidget *parent = 0);
     ~Private();
 
-    void setTransfers(const QVariantMap &transfers);
+    void setTransfers(QList<OrgKdeKgetTransferInterface*> transfers);
     QGridLayout *dialogLayout() {
         return m_dialogLayout;
     };
 
 private:
-    void showActiveTransfer(const QString &key, const QVariantList &attributes);
+    void showActiveTransfer(OrgKdeKgetTransferInterface* transfer);
     void clear();
 
 private:
     QProgressBar *m_bar;
     QGridLayout *m_dialogLayout;
 
-    QVariantMap m_transfers;
+    QList<OrgKdeKgetTransferInterface*> m_transfers;
     QMap <QString, int> m_activeTransfers;
     QMap <int, QProgressBar *> m_activeBars;
     QList <QWidget *> m_widgets;

@@ -1020,8 +1020,11 @@ bool MainWindow::offlineMode() const
 
 QVariantMap MainWindow::transfers() const
 {
-    return QVariantMap();//FIXME
-    //return m_dbusModelObserver->transfers();
+    QVariantMap t;
+    foreach (TransferHandler *handler, KGet::allTransfers())
+        t.insert(handler->source().pathOrUrl(), handler->dBusObjectPath());
+
+    return t;
 }
 
 int MainWindow::transfersSpeed() const

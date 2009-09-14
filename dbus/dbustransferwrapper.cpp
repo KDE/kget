@@ -63,12 +63,12 @@ QString DBusTransferWrapper::groupName() const
 
 QString DBusTransferWrapper::source() const
 {
-    return m_transfer->source().prettyUrl();
+    return m_transfer->source().pathOrUrl();
 }
 
 QString DBusTransferWrapper::dest() const
 {
-    return m_transfer->dest().prettyUrl();
+    return m_transfer->dest().pathOrUrl();
 }
 
 qulonglong DBusTransferWrapper::totalSize() const

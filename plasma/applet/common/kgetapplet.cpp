@@ -44,9 +44,15 @@ void KGetApplet::init()
     if (m_engine) {
         m_engine->connectSource("KGet", this);
         m_engine->setProperty("refreshTime", 6000);
-    }
-    else {
+    } else {
         kDebug(5001) << "KGet Engine could not be loaded";
+    }
+}
+
+void KGetApplet::setTransfers(const QVariantMap &transfers)
+{
+    foreach (const QString &url, transfers.keys()) {
+        m_transfers.append(new OrgKdeKgetTransferInterface("org.kde.kget", transfers[url].toString(), QDBusConnection::sessionBus()));
     }
 }
 

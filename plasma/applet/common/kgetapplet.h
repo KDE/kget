@@ -21,6 +21,7 @@
 #define KGETAPPLET_H
 
 #include <plasma/applet.h>
+#include "transfer_interface.h"
 
 namespace Plasma
 {
@@ -41,6 +42,7 @@ public:
     ~KGetApplet();
 
     void init();
+    void setTransfers(const QVariantMap &transfers);
 
 protected:
     virtual bool sceneEventFilter(QGraphicsItem * watched, QEvent * event);
@@ -48,6 +50,7 @@ protected:
     virtual void dropEvent(QDropEvent * event);
 
     Plasma::DataEngine *m_engine;
+    QList<OrgKdeKgetTransferInterface*> m_transfers;
 };
 
 #endif

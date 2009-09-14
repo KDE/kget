@@ -79,7 +79,7 @@ KGetPanelBar::Private::~Private()
     delete m_bar;
 }
 
-void KGetPanelBar::Private::setTransfers(const QVariantMap &transfers)
+void KGetPanelBar::Private::setTransfers(QList<OrgKdeKgetTransferInterface*> transfers)
 {
     double totalSize = 0;
     double completedSize = 0;
@@ -88,21 +88,22 @@ void KGetPanelBar::Private::setTransfers(const QVariantMap &transfers)
 
     // remove the progressbars for the deleted transfers
     foreach(const QString &key, m_activeTransfers.keys()) {
-        if(!m_transfers.keys().contains(key)) {
-            clear();
+        foreach (OrgKdeKgetTransferInterface* transfer, m_transfers) {
+            if (transfer->source().value() != key)
+                clear();
         }
     }
 
-    foreach(const QString &key, transfers.keys()) {
-        QVariantList attributes = transfers [key].toList();
+    foreach(OrgKdeKgetTransferInterface* transfer, m_transfers) {
+        //QVariantList attributes = transfers[key].toList();
 
         // only show the percent of the active transfers
-        if(attributes.at(3).toUInt() == 1 || (attributes.at(1).toDouble() == 100 && m_activeTransfers.contains(key))) {
-            totalSize += attributes.at(2).toDouble();
-            completedSize += ((attributes.at(1).toDouble() * attributes.at(2).toDouble()) / 100);
+        //if (transfer->status() == 1 || (transfer->percent() == 100 && m_activeTransfers.contains(transfer->source().value()))) {
+            totalSize += transfer->totalSize().value();
+            completedSize += transfer->downloadedSize().value();
 
-            showActiveTransfer(key, attributes);
-       }
+            showActiveTransfer(transfer);
+        //}
     }
 
     if(totalSize > 0) {
@@ -113,14 +114,14 @@ void KGetPanelBar::Private::setTransfers(const QVariantMap &transfers)
     }
 }
 
-void KGetPanelBar::Private::showActiveTransfer(const QString &key, const QVariantList &attributes)
+void KGetPanelBar::Private::showActiveTransfer(OrgKdeKgetTransferInterface* transfer)
 {
+    QString key = transfer->source().value();
     if (m_activeTransfers.contains(key)) {
-        int row = m_activeTransfers [key];
+        int row = m_activeTransfers[key];
         QProgressBar *progressBar = m_activeBars [row];
-        progressBar->setValue(attributes.at(1).toString().toInt());
-    }
-    else {
+        progressBar->setValue(transfer->percent().value());
+    } else {
         QLabel *icon = new QLabel();
         QLabel *name = new QLabel();
         QProgressBar *progressBar = new QProgressBar();
@@ -133,11 +134,12 @@ void KGetPanelBar::Private::showActiveTransfer(const QString &key, const QVarian
         m_activeTransfers [key] = row;
         m_activeBars [row] = progressBar;
 
-        icon->setPixmap(KIO::pixmapForUrl(attributes.at(0).toString(), 0, KIconLoader::Desktop, 16));
-        name->setText(attributes.at(0).toString());
+        QString fileName = KUrl(transfer->source().value()).fileName();
+        icon->setPixmap(KIO::pixmapForUrl(fileName, 0, KIconLoader::Desktop, 16));
+        name->setText(fileName);
         name->setStyleSheet(QString("color: %1;").
                             arg(Plasma::Theme::defaultTheme()->color(Plasma::Theme::TextColor).name()));
-        progressBar->setValue(attributes.at(1).toString().toInt());
+        progressBar->setValue(transfer->percent().value());
 
         m_dialogLayout->addWidget(icon, row, 0);
         m_dialogLayout->addWidget(name, row, 1);
@@ -215,7 +217,7 @@ void KGetPanelBar::dataUpdated(const QString &source, const Plasma::DataEngine::
 
     if(data["error"].toBool()) {
         kDebug() << "Error : " << data["errorMessage"].toString();
-        d->setTransfers(QVariantMap());
+        d->setTransfers(QList<OrgKdeKgetTransferInterface*>());
     }
     else if(!data["error"].toBool()) {
         if (!d) {
@@ -223,7 +225,9 @@ void KGetPanelBar::dataUpdated(const QString &source, const Plasma::DataEngine::
             m_layout->addItem(d);
         }
 
-        d->setTransfers(data["transfers"].toMap());
+        setTransfers(data["transfers"].toMap());
+        d->setTransfers(m_transfers);
+        //d->setTransfers(data["transfers"].toMap());
     }
 }
 

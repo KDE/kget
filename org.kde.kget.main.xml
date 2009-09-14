@@ -25,7 +25,7 @@
     </method>
     <method name="transfers">
        <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap"/> 
-       <arg name="out" type="a{sas}" direction="out"/>
+       <arg name="out" type="a{ss}" direction="out"/>
     </method>
     <method name="transfersSpeed">
       <arg type="i" direction="out"/>
