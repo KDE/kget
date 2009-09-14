@@ -48,10 +48,10 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
     kDebug(5001) << "BTDetailsWidget::slotTransferChanged";
     
     if(flags & Transfer::Tc_DownloadSpeed)
-        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->downloadSpeed()));
+        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->downloadSpeed()) + "/s");
 
     if(flags & Transfer::Tc_UploadSpeed)
-        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()));
+        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()) + "/s");
 
     if(flags & BTTransfer::Tc_SeedsConnected)
         seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');
