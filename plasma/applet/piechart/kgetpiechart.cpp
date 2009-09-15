@@ -52,7 +52,6 @@ const static int MAX_DOWNLOADS_PER_PAGE = 5;
 
 KGetPieChart::Private::Private(QGraphicsWidget *parent) : QGraphicsWidget(parent),
     m_data(),
-    m_transfers(),
     m_colors("Oxygen.colors"),
     m_totalSize(0),
     m_needsRepaint(0)
@@ -64,40 +63,37 @@ KGetPieChart::Private::~Private()
 {
 }
 
-void KGetPieChart::Private::setTransfers(const QVariantMap &transfers)
+void KGetPieChart::Private::setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
 {
     m_needsRepaint = false;
     m_totalSize = 0;
 
-    foreach (const QString &key, m_transfers.keys()) {
+    foreach (OrgKdeKgetTransferInterface* key, m_data.keys()) {
         if (!transfers.contains(key)) {
             m_data.remove(key);
             m_needsRepaint = true;
         }
     }
 
-    m_transfers = transfers;
-
-    foreach(const QString &name, transfers.keys()) {
-        QVariantList attributes = transfers[name].toList();
-        double length = attributes[2].toDouble();
-        double activeLength = attributes[1].toInt() * attributes[2].toDouble() / 100;
-        bool active = attributes[3].toBool();
+    foreach(OrgKdeKgetTransferInterface* transfer, transfers) {
+        double length = transfer->totalSize().value();
+        double activeLength = transfer->percent().value() * length / 100;
+        bool active = transfer->status() == 0;//0 == Job::Running
 
         if (length > 0) {
-            if (!m_data.contains(name)) {
-                m_data [name] = PrivateData();
+            if (!m_data.contains(transfer)) {
+                m_data[transfer] = PrivateData();
             }
 
 
-            if (length != m_data[name].length || activeLength != m_data[name].activeLength) {
+            if (length != m_data[transfer].length || activeLength != m_data[transfer].activeLength) {
                 m_needsRepaint = true;
             }
 
-            m_data [name].name = name;
-            m_data [name].length = length;
-            m_data [name].activeLength = activeLength;
-            m_data [name].isActive = active;
+            m_data[transfer].name = KUrl(transfer->source().value()).fileName();
+            m_data[transfer].length = length;
+            m_data[transfer].activeLength = activeLength;
+            m_data[transfer].isActive = active;
 
             m_totalSize += length;
         }
@@ -202,7 +198,7 @@ int KGetPieChart::Private::paintPieData(QPainter *p, const QRect &rect, int angl
 }
 
 // Draw the graph legend with the names of the data
-void KGetPieChart::Private::drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count)
+void KGetPieChart::Private::drawLegend(OrgKdeKgetTransferInterface* transfer, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count)
 {
     int textLength = option->rect.width() - 100;
     int y = option->rect.height() / 2 + 10;
@@ -215,11 +211,11 @@ void KGetPieChart::Private::drawLegend(const QString &name, QPainter *p, const Q
 
     // the data name
     p->drawText(QRect(LEFT_MARGIN + 14, count * 20 + y - 5, textLength, 20), Qt::AlignLeft,
-                    p->fontMetrics().elidedText(name, Qt::ElideLeft, textLength));
+                    p->fontMetrics().elidedText(KUrl(transfer->source().value()).fileName(), Qt::ElideLeft, textLength));
 
     // the data percent
     p->drawText(QRect(LEFT_MARGIN + 14 + textLength, count * 20 + y - 5, 150, 20),
-                    Qt::AlignLeft, KGlobal::locale()->formatByteSize(m_data [name].length));
+                    Qt::AlignLeft, KGlobal::locale()->formatByteSize(m_data[transfer].length));
 
     p->restore();
 }
@@ -301,7 +297,8 @@ void KGetPieChart::dataUpdated(const QString &source, const Plasma::DataEngine::
             m_layout->addItem(d);
         }
 
-        d->setTransfers(data["transfers"].toMap());
+        setTransfers(data["transfers"].toMap());
+        d->setTransfers(m_transfers);
     }
 }
 

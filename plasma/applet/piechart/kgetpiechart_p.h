@@ -39,7 +39,7 @@ public:
     Private(QGraphicsWidget *parent = 0);
     ~Private();
 
-    void setTransfers(const QVariantMap &transfers);
+    void setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
     void update();
 
@@ -47,7 +47,7 @@ private:
     // draw a portion of the pie chart and returns his end angle
     int paintPieData(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush);
      // Draw the graph legend with the names of the data
-    void drawLegend(const QString &name, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count);
+    void drawLegend(OrgKdeKgetTransferInterface* transfer, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count);
 
     inline double roundNumber(float number)
     {
@@ -61,8 +61,7 @@ private:
     };
 
 private:
-    QMap <QString, PrivateData> m_data;
-    QVariantMap m_transfers;
+    QMap <OrgKdeKgetTransferInterface*, PrivateData> m_data;
     KColorCollection m_colors;
 
     int m_totalSize;
