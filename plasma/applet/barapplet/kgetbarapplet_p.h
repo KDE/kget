@@ -35,14 +35,14 @@ public:
     Private(QGraphicsWidget *parent = 0);
     ~Private();
 
-    void setTransfers(const QVariantMap &transfers);
+    void setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
 
 public slots:
     void nextPage();
     void previousPage();
 
 private slots:
-    void populate();
+    void populate(const QList<OrgKdeKgetTransferInterface*> &transfers);
 
 private:
     void clear();
@@ -54,8 +54,7 @@ private:
     QPushButton *m_previousPageButton;
     QLabel *m_totalSizeLabel;
     QLabel *m_pageLabel;
-    QMap <QString, QProgressBar *> m_progressBars;
-    QVariantMap m_transfers;
+    QMap <OrgKdeKgetTransferInterface*, QProgressBar *> m_progressBars;
 
     int m_actualPage;
 };

@@ -91,73 +91,80 @@ KGetBarApplet::Private::~Private()
 {
 }
 
-void KGetBarApplet::Private::setTransfers(const QVariantMap &transfers)
+void KGetBarApplet::Private::setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
 {
-    if(transfers.keys() != m_transfers.keys()) {
+    /*QStringList urls;
+    foreach (OrgKdeKgetTransferInterface* transfer, transfers)
+        urls << transfer->source().value();
+    QStringList oldUrls;
+    foreach (OrgKdeKgetTransferInterface* transfer, m_progressBars.keys())
+        oldUrls << transfer->source().value();
+    if (urls != oldUrls) { //FIXME
         clear();
-    }
+    }*/
 
-    m_transfers = transfers;
-    populate();
+    populate(transfers);
 }
 
 void KGetBarApplet::Private::nextPage()
 {
-    if(m_transfers.size() >= ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE)) {
+    if (m_progressBars.size() >= ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE)) {
         m_actualPage ++;
 
         clear();
-        populate();
+        populate(m_progressBars.keys());
     }
 }
 
 void KGetBarApplet::Private::previousPage()
 {
-    if(m_actualPage > 0) {
+    if (m_actualPage > 0) {
         m_actualPage --;
 
         clear();
-        populate();
+        populate(m_progressBars.keys());
     }
 }
 
-void KGetBarApplet::Private::populate()
+void KGetBarApplet::Private::populate(const QList<OrgKdeKgetTransferInterface*> &transfers)
 {
     int totalSize = 0;
-    int limit = m_transfers.size() < ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE) ? 
-            m_transfers.size() :
+    int limit = transfers.size() < ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE) ? 
+            transfers.size() :
             ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE);
 
     for(int i = (m_actualPage * MAX_DOWNLOADS_PER_PAGE); i < limit; i++) {
-        QString key = m_transfers.keys().at(i);
+        OrgKdeKgetTransferInterface* transfer = transfers.at(i);
+        QString fileName = KUrl(transfer->source().value()).fileName();
+        kDebug() << fileName;
 
-        if(m_progressBars.count(key) <= 0) {
+        if (!m_progressBars.keys().contains(transfer)) {
             QProgressBar *bar = new QProgressBar(0);
-            bar->setFormat(m_transfers[key].toList().at(0).toString() + " %v%");
+            bar->setFormat(fileName + " %v%");
 
-            m_progressBars [key] = bar;
+            m_progressBars[transfer] = bar;
             m_barsLayout->insertWidget(0, bar);
         }
 
-        m_progressBars [key]->setValue(m_transfers[key].toList().at(1).toString().toInt());
-        totalSize += m_transfers[key].toList().at(2).toInt();
+        m_progressBars[transfer]->setValue(transfer->percent().value());
+        totalSize += transfer->totalSize().value();
     }
 
     m_pageLabel->setText(i18n("Showing %1-%2 of %3 transfers",
-        m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, m_transfers.size()));
+        m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, transfers.size()));
 
     // remove the progressbars for the deleted transfers
-    foreach(const QString &key, m_progressBars.keys()) {
-        if(!m_transfers.keys().contains(key)) {
-            QProgressBar *bar = m_progressBars [key];
-            m_progressBars.remove(key);
+    foreach(OrgKdeKgetTransferInterface* t, m_progressBars.keys()) {
+        if (!transfers.contains(t)) {
+            QProgressBar *bar = m_progressBars[t];
+            m_progressBars.remove(t);
             m_barsLayout->removeWidget(bar);
             delete bar;
         }
     }
 
     // activate or deactivate the navigation buttons
-    if(m_transfers.size() > ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE))
+    if(transfers.size() > ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE))
         m_nextPageButton->setEnabled(true);
     else
         m_nextPageButton->setEnabled(false);
@@ -170,10 +177,10 @@ void KGetBarApplet::Private::populate()
 
 void KGetBarApplet::Private::clear()
 {
-    foreach(const QString &key, m_progressBars.keys()) {
-        QProgressBar *bar = m_progressBars [key];
+    foreach (OrgKdeKgetTransferInterface* transfer, m_progressBars.keys()) {
+        QProgressBar *bar = m_progressBars[transfer];
         m_barsLayout->removeWidget(bar);
-        m_progressBars.remove(key);
+        m_progressBars.remove(transfer);
         delete bar;
     }
 }
@@ -225,6 +232,7 @@ void KGetBarApplet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *
 void KGetBarApplet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
 {
     Q_UNUSED(source)
+    kDebug();
 
     if(data["error"].toBool()) {
         if (!m_errorWidget) {
@@ -235,8 +243,7 @@ void KGetBarApplet::dataUpdated(const QString &source, const Plasma::DataEngine:
             m_errorWidget = KGetAppletUtils::createErrorWidget(data["errorMessage"].toString(), this);
             m_layout->addItem(m_errorWidget);
         }
-    }
-    else if(!data["error"].toBool()) {
+    } else if(!data["error"].toBool()) {
         if (!d) {
             m_layout->removeAt(0);
             delete m_errorWidget;
@@ -247,7 +254,8 @@ void KGetBarApplet::dataUpdated(const QString &source, const Plasma::DataEngine:
             m_layout->addItem(d);
         }
 
-        d->setTransfers(data["transfers"].toMap());
+        setTransfers(data["transfers"].toMap());
+        d->setTransfers(m_transfers);
     }
 }
 

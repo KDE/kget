@@ -51,9 +51,21 @@ void KGetApplet::init()
 
 void KGetApplet::setTransfers(const QVariantMap &transfers)
 {
+    QList<OrgKdeKgetTransferInterface*> ts;
     foreach (const QString &url, transfers.keys()) {
-        m_transfers.append(new OrgKdeKgetTransferInterface("org.kde.kget", transfers[url].toString(), QDBusConnection::sessionBus()));
+        OrgKdeKgetTransferInterface* t = 0;
+        foreach (OrgKdeKgetTransferInterface* transfer, m_transfers) {
+            if (transfer->source().value() == url) {
+                t = transfer;
+                break;
+            }
+        }
+        if (t)
+            ts.append(t);
+        else
+            ts.append(new OrgKdeKgetTransferInterface("org.kde.kget", transfers[url].toString(), QDBusConnection::sessionBus(), this));
     }
+    m_transfers = ts;
 }
 
 bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)

@@ -216,7 +216,7 @@ void KGetPanelBar::dataUpdated(const QString &source, const Plasma::DataEngine::
     Q_UNUSED(source)
 
     if(data["error"].toBool()) {
-        kDebug() << "Error : " << data["errorMessage"].toString();
+        kDebug() << "Error : " << data["erroarMessge"].toString();
         d->setTransfers(QList<OrgKdeKgetTransferInterface*>());
     }
     else if(!data["error"].toBool()) {
