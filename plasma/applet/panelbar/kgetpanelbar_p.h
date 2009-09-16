@@ -23,7 +23,7 @@
 #include <QGraphicsProxyWidget>
 #include <QList>
 #include <QMap>
-#include "../common/transfer_interface.h"
+#include "transfer_interface.h"
 
 class QProgressBar;
 class QGridLayout;

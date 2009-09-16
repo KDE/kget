@@ -3,7 +3,7 @@ set(kgetcommonapplet_SRCS
     common/kgetapplet.cpp
 )
 
-qt4_add_dbus_interface(kgetcommonapplet_SRCS ../../../kget/org.kde.kget.transfer.xml common/transfer_interface)
+qt4_add_dbus_interface(kgetcommonapplet_SRCS ../../../kget/org.kde.kget.transfer.xml transfer_interface)
 
 set(kgetbarapplet_SRCS
     barapplet/kgetbarapplet.cpp
