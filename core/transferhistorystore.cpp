@@ -122,7 +122,7 @@ TransferHistoryItem& TransferHistoryItem::operator=(const TransferHistoryItem &i
     return *this;
 }
 
-bool TransferHistoryItem::operator==(const TransferHistoryItem& item)
+bool TransferHistoryItem::operator==(const TransferHistoryItem& item) const
 {
     return dest() == item.dest() && source() == item.source();
 }

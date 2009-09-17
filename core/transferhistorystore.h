@@ -40,7 +40,7 @@ public:
     QDateTime dateTime() const;
 
     TransferHistoryItem& operator=(const TransferHistoryItem&);
-    bool operator==(const TransferHistoryItem&);
+    bool operator==(const TransferHistoryItem&) const;
 
 private:
     QString m_dest;
