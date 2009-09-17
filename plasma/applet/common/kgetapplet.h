@@ -21,12 +21,8 @@
 #define KGETAPPLET_H
 
 #include <plasma/applet.h>
+#include <plasma/dataengine.h>
 #include "transfer_interface.h"
-
-namespace Plasma
-{
-    class DataEngine;
-}
 
 class QEvent;
 class QDropEvent;
@@ -44,6 +40,13 @@ public:
     void init();
     void setTransfers(const QVariantMap &transfers);
 
+public slots:
+    virtual void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data) = 0;
+    
+signals:
+    void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
+    void transfersRemoved(const QList<OrgKdeKgetTransferInterface*> &transfers);
+    
 protected:
     virtual bool sceneEventFilter(QGraphicsItem * watched, QEvent * event);
     virtual void dropEvent(QGraphicsSceneDragDropEvent * event);

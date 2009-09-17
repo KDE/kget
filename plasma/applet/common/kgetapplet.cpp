@@ -42,8 +42,7 @@ void KGetApplet::init()
 {
     m_engine = dataEngine("kget");
     if (m_engine) {
-        m_engine->connectSource("KGet", this);
-        m_engine->setProperty("refreshTime", 6000);
+        m_engine->connectSource("KGet", this, 5000);
     } else {
         kDebug(5001) << "KGet Engine could not be loaded";
     }
@@ -52,19 +51,27 @@ void KGetApplet::init()
 void KGetApplet::setTransfers(const QVariantMap &transfers)
 {
     QList<OrgKdeKgetTransferInterface*> ts;
+    QList<OrgKdeKgetTransferInterface*> added;
     foreach (const QString &url, transfers.keys()) {
         OrgKdeKgetTransferInterface* t = 0;
         foreach (OrgKdeKgetTransferInterface* transfer, m_transfers) {
             if (transfer->source().value() == url) {
                 t = transfer;
+                m_transfers.removeAll(transfer);
                 break;
             }
         }
         if (t)
             ts.append(t);
-        else
-            ts.append(new OrgKdeKgetTransferInterface("org.kde.kget", transfers[url].toString(), QDBusConnection::sessionBus(), this));
+        else {
+            OrgKdeKgetTransferInterface* transfer = new OrgKdeKgetTransferInterface("org.kde.kget", 
+                                                                                    transfers[url].toString(), QDBusConnection::sessionBus(), this);
+            ts.append(transfer);
+            added.append(transfer);
+        }
     }
+    emit transfersRemoved(m_transfers);
+    emit transfersAdded(added);
     m_transfers = ts;
 }
 

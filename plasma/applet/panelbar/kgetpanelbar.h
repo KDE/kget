@@ -25,6 +25,7 @@
 
 class QGraphicsProxyWidget;
 class QGraphicsLinearLayout;
+class QProgressBar;
 
 namespace Plasma {
     class Dialog;
@@ -51,8 +52,8 @@ private slots:
 
 private:
     Plasma::DataEngine *m_engine;
-    Plasma::Dialog *m_dialog;
     Plasma::IconWidget *m_icon;
+    QProgressBar * m_bar;
     QGraphicsLinearLayout *m_layout;
 
     class Private;

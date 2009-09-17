@@ -45,16 +45,6 @@ QStringList KGetEngine::sources() const
     return sources;
 }
 
-void KGetEngine::setRefreshTime(uint time)
-{
-    setPollingInterval(time);
-}
-
-uint KGetEngine::refreshTime() const
-{
-    return 1000;
-}
-
 bool KGetEngine::sourceRequestEvent(const QString &name)
 {
     return updateSourceEvent(name);
@@ -62,7 +52,8 @@ bool KGetEngine::sourceRequestEvent(const QString &name)
 
 bool KGetEngine::updateSourceEvent(const QString &name)
 {
-    if(QString::compare(name, "KGet") == 0) {
+    kDebug();
+    if (QString::compare(name, "KGet") == 0) {
         getKGetData(name);
     }
     return true;
@@ -79,8 +70,7 @@ void KGetEngine::getKGetData(const QString &name)
         setData(I18N_NOOP(name), I18N_NOOP("error"), false);
         setData(I18N_NOOP(name), I18N_NOOP("transfers"),
                                 kget_interface.transfers().value());
-    }
-    else {
+    } else {
         setData(I18N_NOOP(name), I18N_NOOP("error"), true);
         setData(I18N_NOOP(name), I18N_NOOP("errorMessage"),
                                 I18N_NOOP("Is KGet up and running?"));

@@ -30,17 +30,12 @@ static const QString KGET_DBUS_PATH = "/KGet";
 
 class KGetEngine : public Plasma::DataEngine
 {
-    Q_OBJECT
-    Q_PROPERTY(uint refreshTime READ refreshTime WRITE setRefreshTime)
-
+Q_OBJECT
 public:
     KGetEngine(QObject* parent, const QVariantList& args);
     ~KGetEngine();
 
     QStringList sources() const;
-
-    void setRefreshTime(uint time);
-    uint refreshTime() const;
 
 protected:
     bool sourceRequestEvent(const QString &name);

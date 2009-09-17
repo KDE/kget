@@ -20,7 +20,7 @@
 #ifndef KGETPANELBAR_P_H
 #define KGETPANELBAR_P_H
 
-#include <QGraphicsProxyWidget>
+#include <plasma/dialog.h>
 #include <QList>
 #include <QMap>
 #include "transfer_interface.h"
@@ -28,30 +28,32 @@
 class QProgressBar;
 class QGridLayout;
 
-class KGetPanelBar::Private : public QGraphicsProxyWidget
+class KGetPanelBar::Private : public Plasma::Dialog
 {
 Q_OBJECT
 public:
-    Private(QGraphicsWidget *parent = 0);
+    Private(QWidget * parent = 0);
     ~Private();
-
-    void setTransfers(QList<OrgKdeKgetTransferInterface*> transfers);
+    
     QGridLayout *dialogLayout() {
         return m_dialogLayout;
     };
 
-private:
-    void showActiveTransfer(OrgKdeKgetTransferInterface* transfer);
+public slots:
+    void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
+    void transfersRemoved(const QList<OrgKdeKgetTransferInterface*> &transfers);
+    void update();
     void clear();
+
+signals:
+    void progressBarChanged(int value);
 
 private:
     QProgressBar *m_bar;
     QGridLayout *m_dialogLayout;
+    QWidget *m_widget;
 
-    QList<OrgKdeKgetTransferInterface*> m_transfers;
-    QMap <QString, int> m_activeTransfers;
-    QMap <int, QProgressBar *> m_activeBars;
-    QList <QWidget *> m_widgets;
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*> m_transfers;
 };
 
 #endif
