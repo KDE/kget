@@ -20,11 +20,14 @@
 
 #ifdef HAVE_NEPOMUK
 class BtNepomukHandler;
-#endif
+#endif //HAVE_NEPOMUK
+
+class FileModel;
 
 namespace bt
 {
     class ChunkDownloadInterface;
+    class TorrentFileInterface;
     class PeerInterface;
 }
 
@@ -78,6 +81,8 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
          */
         virtual bool setDirectory(const KUrl &newDirectory);
 
+        FileModel *fileModel();
+
         //Bittorrent specific functions (connected with TransferFlags
         int chunksTotal() const;
         int chunksDownloaded() const;
@@ -109,11 +114,13 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);
         void newDestResult();
+        void filesSelected();
 
     private:
         void startTorrent();
         void stopTorrent();
         void updateTorrent();
+        void updateFilesStatus();
 
         /**
          * Returns a list of urls to the files being downloaded
@@ -139,6 +146,9 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         bool m_ready;
         bool m_downloadFinished;
         bool m_movingFile;
+        FileModel *m_fileModel;
+        QHash<KUrl, bt::TorrentFileInterface*> m_files;
+        int m_updateCounter;
 
 #ifdef HAVE_NEPOMUK
         BtNepomukHandler *m_nepHandler;

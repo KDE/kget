@@ -15,6 +15,7 @@
 #include "btchunkselector.h"
 #include "advanceddetails/monitor.h"
 #include "core/kget.h"
+#include "core/filemodel.h"
 #include "core/download.h"
 #ifdef HAVE_NEPOMUK
 #include "core/nepomukhandler.h"
@@ -56,7 +57,9 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_tmp(KStandardDirs::locateLocal("appdata", "tmp/")),
     m_ready(false),
     m_downloadFinished(false),
-    m_movingFile(false)
+    m_movingFile(false),
+    m_fileModel(0),
+    m_updateCounter(0)
 #ifdef HAVE_NEPOMUK
     , m_nepHandler(0)
 #endif
@@ -294,6 +297,7 @@ void BTTransfer::startTorrent()
         setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
+        updateFilesStatus();
 
 #ifdef HAVE_NEPOMUK
         m_nepHandler->setDestinations(files());
@@ -313,8 +317,12 @@ void BTTransfer::stopTorrent()
         setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
     else
+    {
         setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+    }
     setTransferChange(Tc_Status, true);
+
+    updateFilesStatus();
 }
 
 void BTTransfer::updateTorrent()
@@ -332,25 +340,89 @@ void BTTransfer::updateTorrent()
     if (m_downloadedSize != (m_downloadedSize = torrent->getStats().bytes_downloaded))
         changesFlags |= Tc_DownloadedSize;
 
-    if (m_uploadSpeed != torrent->getStats().upload_rate)
+    if (m_uploadSpeed != static_cast<int>(torrent->getStats().upload_rate))
     {
         m_uploadSpeed = torrent->getStats().upload_rate;
         changesFlags |= Tc_UploadSpeed;
     }
 
-    if (m_downloadSpeed != torrent->getStats().download_rate)
+    if (m_downloadSpeed != static_cast<int>(torrent->getStats().download_rate))
     {
         m_downloadSpeed = torrent->getStats().download_rate;
         changesFlags |= Tc_DownloadSpeed;
     }
 
-    int percent = (((float) chunksDownloaded() / (float) chunksTotal()) * 100);
+    int percent = (chunksDownloaded() * 100) / chunksTotal();
     if (m_percent != percent) {
         m_percent = percent;
         changesFlags |= Tc_Percent;
     }
 
     setTransferChange(changesFlags, true);
+
+    //update the files status every 3 seconds
+    if (!m_updateCounter)
+    {
+        updateFilesStatus();
+        m_updateCounter = 12;
+    }
+    --m_updateCounter;
+}
+
+void BTTransfer::updateFilesStatus()
+{
+    const Job::Status curentStatus = this->status();
+    if (!torrent)
+    {
+        return;
+    }
+    const bt::TorrentStats *stats = &torrent->getStats();
+    if (stats->multi_file_torrent)
+    {
+        QHash<KUrl, bt::TorrentFileInterface*>::const_iterator it;
+        QHash<KUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
+        for (it = m_files.constBegin(); it != itEnd; ++it)
+        {
+            QModelIndex status = m_fileModel->index(it.key(), FileItem::Status);
+            if (!(*it)->doNotDownload() && (curentStatus == Job::Running))
+            {
+                m_fileModel->setData(status, Job::Running);
+            }
+            else
+            {
+                m_fileModel->setData(status, Job::Stopped);
+            }
+            if (qFuzzyCompare((*it)->getDownloadPercentage(), 100.0f))
+            {
+                m_fileModel->setData(status, Job::Finished);
+            }
+        }
+    }
+    else
+    {
+        QModelIndexList indexes = fileModel()->fileIndexes(FileItem::Status);
+        if (indexes.count() != 1)
+        {
+            return;
+        }
+
+        QModelIndex index = indexes.first();
+        if (stats->bytes_left_to_download)
+        {
+            if (curentStatus == Job::Running)
+            {
+                fileModel()->setData(index, Job::Running);
+            }
+            else
+            {
+                fileModel()->setData(index, Job::Stopped);
+            }
+        }
+        else
+        {
+            fileModel()->setData(index, Job::Finished);
+        }
+    }
 }
 
 void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
@@ -365,7 +437,7 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
     if (!file.exists())
         return;
 
-    setStatus(Job::Running, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
+    setStatus(Job::Stopped, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
@@ -607,10 +679,14 @@ QList<KUrl> BTTransfer::files() const
 {
     QList<KUrl> urls;
 
+    if (!torrent)
+    {
+        return urls;
+    }
+
     //multiple files
     if (torrent->getStats().multi_file_torrent)
     {
-
         for (uint i = 0; i < torrent->getNumFiles(); ++i)
         {
             const QString path = torrent->getTorrentFile(i).getPathOnDisk();
@@ -629,6 +705,132 @@ QList<KUrl> BTTransfer::files() const
     }
 
     return urls;
+}
+
+void BTTransfer::filesSelected()
+{
+    QModelIndexList indexes = fileModel()->fileIndexes(FileItem::File);
+    //one single file
+    if (indexes.count() == 1)
+    {
+        QModelIndex index = indexes.first();
+        const bool doDownload = index.data(Qt::CheckStateRole).toBool();
+        if (torrent && torrent->getStats().bytes_left_to_download)
+        {
+            if (doDownload)
+            {
+                start();
+            }
+            else
+            {
+                stop();
+            }
+        }
+    }
+    //multiple files
+    else
+    {
+        foreach (const QModelIndex &index, indexes)
+        {
+            const KUrl dest = fileModel()->getUrl(index);
+            const bool doDownload = index.data(Qt::CheckStateRole).toBool();
+            bt::TorrentFileInterface *file = m_files[dest];
+            file->setDoNotDownload(!doDownload);
+        }
+    }
+
+//     setTransferChange(Tc_TotalSize | Tc_DownloadedSize | Tc_Percent, true);
+}
+
+FileModel *BTTransfer::fileModel()//TODO korrektes file-model wenn nur eine datei im torrent!
+{
+    if (!m_fileModel)
+    {
+        if (!torrent)
+        {
+            return 0;
+        }
+
+        //multiple files
+        if (torrent->getStats().multi_file_torrent)
+        {
+            for (bt::Uint32 i = 0; i < torrent->getNumFiles(); ++i)
+            {
+                bt::TorrentFileInterface *file = &torrent->getTorrentFile(i);
+                m_files[KUrl(file->getPathOnDisk())] = file;
+            }
+            m_fileModel = new FileModel(m_files.keys(), directory(), this);
+    //         connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+            connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
+
+            //set the checkstate, the status and the size of the model items
+            QHash<KUrl, bt::TorrentFileInterface*>::const_iterator it;
+            QHash<KUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
+            const Job::Status curentStatus = this->status();
+            for (it = m_files.constBegin(); it != itEnd; ++it)
+            {
+                QModelIndex size = m_fileModel->index(it.key(), FileItem::Size);
+                m_fileModel->setData(size, static_cast<qlonglong>((*it)->getSize()));
+
+                const bool doDownload = !(*it)->doNotDownload();
+                QModelIndex checkIndex = m_fileModel->index(it.key(), FileItem::File);
+                const Qt::CheckState checkState = doDownload ? Qt::Checked : Qt::Unchecked;
+                m_fileModel->setData(checkIndex, checkState, Qt::CheckStateRole);
+
+                QModelIndex status = m_fileModel->index(it.key(), FileItem::Status);
+                if (doDownload && (curentStatus == Job::Running))
+                {
+                    m_fileModel->setData(status, Job::Running);
+                }
+                else
+                {
+                    m_fileModel->setData(status, Job::Stopped);
+                }
+                if (qFuzzyCompare((*it)->getDownloadPercentage(), 100.0f))
+                {
+                    m_fileModel->setData(status, Job::Finished);
+                }
+            }
+        }
+        //one single file
+        else
+        {
+            QList<KUrl> urls;
+            KUrl temp = m_dest;
+            if (m_dest.fileName() != torrent->getStats().torrent_name)//TODO check if the body is ever entered!
+            {
+                temp.addPath(torrent->getStats().torrent_name);
+            }
+            const KUrl url = temp;
+            urls.append(url);
+
+            m_fileModel = new FileModel(urls, directory(), this);
+            //         connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+            connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
+
+            QModelIndex size = m_fileModel->index(url, FileItem::Size);
+            m_fileModel->setData(size, static_cast<qlonglong>(torrent->getStats().total_bytes));
+
+            QModelIndex checkIndex = m_fileModel->index(url, FileItem::File);
+            m_fileModel->setData(checkIndex, Qt::Checked, Qt::CheckStateRole);
+
+            QModelIndex status = m_fileModel->index(url, FileItem::Status);
+            if (this->status() == Job::Running)
+            {
+                m_fileModel->setData(status, Job::Running);
+            }
+            else
+            {
+                m_fileModel->setData(status, Job::Stopped);
+            }
+            if (!torrent->getStats().bytes_left_to_download)
+            {
+                m_fileModel->setData(status, Job::Finished);
+            }
+        }
+    }
+
+    return m_fileModel;
 }
 
 #include "bttransfer.moc"
