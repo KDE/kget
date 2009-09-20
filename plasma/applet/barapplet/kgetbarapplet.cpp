@@ -154,10 +154,14 @@ void KGetBarApplet::Private::populate(const QList<OrgKdeKgetTransferInterface*> 
         m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, transfers.size()));
 
     // remove the progressbars for the deleted transfers
-    foreach(OrgKdeKgetTransferInterface* t, m_progressBars.keys()) {
-        if (!transfers.contains(t)) {
-            QProgressBar *bar = m_progressBars[t];
-            m_progressBars.remove(t);
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator it;
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator itEnd = m_progressBars.end();
+    for (it = m_progressBars.begin(); it != itEnd; ) {
+        if (transfers.contains(it.key())) {
+            ++it;
+        } else {
+            QProgressBar *bar = *it;
+            it = m_progressBars.erase(it);
             m_barsLayout->removeWidget(bar);
             delete bar;
         }
@@ -177,10 +181,12 @@ void KGetBarApplet::Private::populate(const QList<OrgKdeKgetTransferInterface*> 
 
 void KGetBarApplet::Private::clear()
 {
-    foreach (OrgKdeKgetTransferInterface* transfer, m_progressBars.keys()) {
-        QProgressBar *bar = m_progressBars[transfer];
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator it;
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator itEnd = m_progressBars.end();
+    for (it = m_progressBars.begin(); it != itEnd; ) {
+        QProgressBar *bar = *it;
+        it = m_progressBars.erase(it);
         m_barsLayout->removeWidget(bar);
-        m_progressBars.remove(transfer);
         delete bar;
     }
 }

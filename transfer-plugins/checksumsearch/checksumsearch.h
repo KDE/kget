@@ -50,7 +50,7 @@ class ChecksumSearch : public QObject
         static QStringList urlChangeModes() {return URLCHANGEMODES;}
 
         /**
-         * Returns a modified url according to the paramaters
+         * Returns a modified url according to the parameters
          * @param src the url to modify
          * @param change the string containing the change e.g. ".md5"
          * @param mode the mode of the change e.g. Append

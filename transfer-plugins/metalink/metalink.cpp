@@ -142,7 +142,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         KIO::filesize_t fileSize = (*it).size;
         m_totalSize += fileSize;
 
-        //create a DataSourceFactory for each seperate file
+        //create a DataSourceFactory for each separate file
         DataSourceFactory *dataFactory = new DataSourceFactory(dest, fileSize, segSize, this);
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 

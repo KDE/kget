@@ -463,9 +463,8 @@ void MainWindow::slotUpdateTitlePercent()
 void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
 {
     bool update = false;
-    foreach (TransferHandler * handler, transfers.keys())
+    foreach (Transfer::ChangesFlags transferFlags, transfers)
     {
-        Transfer::ChangesFlags transferFlags = transfers.value(handler);
         if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status)
         {
             update = true;
@@ -479,9 +478,8 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
 void MainWindow::slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
 {
     bool update = false;
-    foreach (TransferGroupHandler * handler, groups.keys())
+    foreach (TransferGroup::ChangesFlags groupFlags, groups)
     {
-        TransferGroup::ChangesFlags groupFlags = groups.value(handler);
         if (groupFlags & TransferGroup::Gc_Percent)
         {
             update = true;
@@ -877,8 +875,9 @@ void MainWindow::slotTransferGroupSettings()
     QList<TransferGroupHandler*> list = KGet::selectedTransferGroups();
     foreach(TransferGroupHandler* group, list)
     {
-        GroupSettingsDialog *settings = new GroupSettingsDialog(this, group);
+        QPointer<GroupSettingsDialog> settings = new GroupSettingsDialog(this, group);
         settings->exec();
+        delete settings;
     }
 }
 
@@ -888,8 +887,9 @@ void MainWindow::slotTransferSettings()
     QList<TransferHandler*> list = KGet::selectedTransfers();
     foreach(TransferHandler* transfer, list)
     {
-        TransferSettingsDialog *settings = new TransferSettingsDialog(this, transfer);
+        QPointer<TransferSettingsDialog> settings = new TransferSettingsDialog(this, transfer);
         settings->exec();
+        delete settings;
     }
 }
 

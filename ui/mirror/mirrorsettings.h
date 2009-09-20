@@ -40,7 +40,7 @@ class MirrorAddDlg : public KDialog
 
         /**
          * Shows or hides elements, by default all (expect MirrorItem::Used) are shown
-         * @param type the type whose visiblity should be modified
+         * @param type the type whose visibility should be modified
          * @param show if type should be shown or not
          * @note MirrorItem::Used and MirrorItem::Url can not be modified
          */

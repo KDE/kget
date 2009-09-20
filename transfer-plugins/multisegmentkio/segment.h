@@ -69,7 +69,7 @@ class Segment : public QObject
          * Returns the size the current segment has
          * @return the size of the segment
          */
-        KIO::filesize_t size() const {return m_curentSegSize;}
+        KIO::filesize_t size() const {return m_currentSegSize;}
 
         /**
          * Returns the written bytes
@@ -126,8 +126,8 @@ class Segment : public QObject
         Status m_status;
         KIO::fileoffset_t m_offset;
         QPair<KIO::fileoffset_t, KIO::fileoffset_t> m_segSize;
-        KIO::fileoffset_t m_curentSegSize;
-        int m_curentSegment;
+        KIO::fileoffset_t m_currentSegSize;
+        int m_currentSegment;
         int m_endSegment;
         KIO::filesize_t m_bytesWritten;
         KIO::filesize_t m_totalBytesLeft;

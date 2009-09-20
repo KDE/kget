@@ -164,7 +164,8 @@ void DataSourceFactory::findFileSize()
             const KUrl url = source->transferDataSource()->sourceUrl();
             QString prot = url.protocol();
             if ((prot == "http" || prot == "https" || prot == "ftp"  || prot == "sftp") &&
-                (!url.fileName().endsWith(".torrent")) && (!url.fileName().endsWith(".metalink")))
+                (!url.fileName().endsWith(QLatin1String(".torrent"))) &&
+                (!url.fileName().endsWith(QLatin1String(".metalink"))))
             {
                 m_tempDownload = new KioDownload(url, m_dest, this);
                 connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SIGNAL(processedSize(KIO::filesize_t)));
@@ -221,7 +222,7 @@ void DataSourceFactory::finished()
 
     changeStatus(Job::Finished);
 
-    //set all chunks to true, that is usefull for saving
+    //set all chunks to true, that is useful for saving
     init();
     m_startedChunks->setAll(true);
     m_finishedChunks->setAll(true);
@@ -765,7 +766,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
                         newEnd = i;
                     }
                 }
-                //not continous
+                //not continuous
                 else if (newStart != -1)
                 {
                     break;

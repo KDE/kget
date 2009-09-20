@@ -45,6 +45,8 @@ BTDetailsWidget::~BTDetailsWidget()
 
 void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
 {
+    Q_UNUSED(transfer)
+
     kDebug(5001) << "BTDetailsWidget::slotTransferChanged";
     
     if(flags & Transfer::Tc_DownloadSpeed)
@@ -80,6 +82,8 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
 
 void BTDetailsWidget::showEvent(QShowEvent * event)
 {
+    Q_UNUSED(event)
+
     slotTransferChanged(m_transfer, 0xFFFFFFFF);
 }
 

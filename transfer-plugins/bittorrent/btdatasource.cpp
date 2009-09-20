@@ -28,11 +28,11 @@
 
 using namespace bt;
 
-BTDataSource::BTDataSource()
-  : TransferDataSource(0),
+
+BTDataSource::BTDataSource(const KUrl &srcUrl, QObject *parent)
+  : TransferDataSource(srcUrl, parent),
     m_offset(0),
     m_bytes(0),
-    m_source(KUrl()),
     m_torrentSource(KUrl())
 {
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
@@ -137,32 +137,24 @@ void BTDataSource::init(const KUrl &torrentSource, const QByteArray &data)
     start();
 }
 
-void BTDataSource::addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes)
+void BTDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes,  int segmentNum)
 {
     kDebug(5001);
-    if (m_source == srcUrl)
+
+    if (offset < m_offset)
     {
-        if (offset < m_offset)
-        {
-            m_offset = offset;
-            if (m_bytes < bytes + m_offset - offset)
-            {
-                m_bytes = bytes + m_offset - offset;
-            }
-        }
-        if (offset > m_offset && m_bytes < bytes + m_offset - offset)
+        m_offset = offset;
+        if (m_bytes < bytes + m_offset - offset)
         {
             m_bytes = bytes + m_offset - offset;
         }
-        if (offset == m_offset && m_bytes < bytes)
-        {
-            m_bytes = bytes;
-        }
     }
-    else
+    if (offset > m_offset && m_bytes < bytes + m_offset - offset)
     {
-        m_source = srcUrl;
-        m_offset = offset;
+        m_bytes = bytes + m_offset - offset;
+    }
+    if (offset == m_offset && m_bytes < bytes)
+    {
         m_bytes = bytes;
     }
 }
@@ -176,7 +168,7 @@ void BTDataSource::getData(const KIO::fileoffset_t &off, const QByteArray &dataA
         splittedData = dataArray.left((off + dataArray.size()) - (m_offset + m_bytes));
     else
         splittedData = dataArray;
-        
+
     emit data(off, splittedData);
 
     if (m_offset + m_bytes == off + dataArray.size())

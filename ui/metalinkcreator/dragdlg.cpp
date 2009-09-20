@@ -26,16 +26,16 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QSortFilterProxyModel>
 
-DragDlg::DragDlg(KGetMetalink::Resources *ressources, QSortFilterProxyModel *countrySort, QWidget *parent)
+DragDlg::DragDlg(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort, QWidget *parent)
   : KDialog(parent),
-    m_ressources(ressources)
+    m_resources(resources)
 {
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
 
     m_urlWidget = new UrlWidget(this);
-    m_urlWidget->init(m_ressources, countrySort);
+    m_urlWidget->init(m_resources, countrySort);
     ui.urlLayout->addWidget(m_urlWidget->widget());
 
     QVBoxLayout *layout = new QVBoxLayout;

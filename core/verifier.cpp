@@ -955,7 +955,7 @@ void Verifier::load(const QDomElement &e)
         QList<QString> partialChecksums;
 
         const QDomNodeList partialHashList = pieces.elementsByTagName("hash");
-        for (int i = 0; i < partialHashList.size(); ++i)//TODO give this function the size of the file, to calculate how many hashs are needed as an aditional check, do that check in addPartialChecksums?!
+        for (int i = 0; i < partialHashList.size(); ++i)//TODO give this function the size of the file, to calculate how many hashs are needed as an additional check, do that check in addPartialChecksums?!
         {
             const QString hash = partialHashList.at(i).toElement().text();
             if (hash.isEmpty())

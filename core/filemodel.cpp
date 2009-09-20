@@ -234,7 +234,7 @@ FileModel::FileModel(const QList<KUrl> &files, const KUrl &destDirectory, QObjec
     m_checkStateChanged(false)
 {
     m_rootItem = new FileItem("root");
-    m_header << i18nc("file in a filsystem", "File") << i18nc("status of the download", "Status") << i18nc("size of the download", "Size");
+    m_header << i18nc("file in a filesystem", "File") << i18nc("status of the download", "Status") << i18nc("size of the download", "Size");
 
     setupModelData(files);
 }

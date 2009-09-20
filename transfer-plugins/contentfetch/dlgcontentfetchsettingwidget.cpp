@@ -48,11 +48,11 @@ DlgContentFetchSettingWidget::~DlgContentFetchSettingWidget()
 
 void DlgContentFetchSettingWidget::slotNewScript()
 {
-    DlgScriptEditing dialog(this);
-    if(dialog.exec())
+    QPointer<DlgScriptEditing> dialog = new DlgScriptEditing(this);
+    if (dialog->exec())
     {
-        addScriptItem(true, dialog.scriptPath(), dialog.scriptUrlRegexp(),
-                      dialog.scriptDescription());
+        addScriptItem(true, dialog->scriptPath(), dialog->scriptUrlRegexp(),
+                      dialog->scriptDescription());
     }
     changed();
 }
@@ -67,24 +67,24 @@ void DlgContentFetchSettingWidget::slotEditScript()
         return;
     }
     QTreeWidgetItem &item = *(selectedItems[0]);
-    DlgScriptEditing dialog(this, (QStringList() << item.toolTip(0)
+    QPointer<DlgScriptEditing> dialog = new DlgScriptEditing(this, (QStringList() << item.toolTip(0)
                                    << item.text(1) << item.text(2)));
-    if(dialog.exec())
+    if (dialog->exec())
     {
-        if (item.toolTip(0) != dialog.scriptPath())
+        if (item.toolTip(0) != dialog->scriptPath())
         {
-            item.setText(0, QFileInfo(dialog.scriptPath()).fileName());
-            item.setToolTip(0, dialog.scriptPath());
+            item.setText(0, QFileInfo(dialog->scriptPath()).fileName());
+            item.setToolTip(0, dialog->scriptPath());
             changed();
         }
-        if (item.text(1) != dialog.scriptUrlRegexp())
+        if (item.text(1) != dialog->scriptUrlRegexp())
         {
-            item.setText(1, dialog.scriptUrlRegexp());
+            item.setText(1, dialog->scriptUrlRegexp());
             changed();
         }
-        if (item.text(2) != dialog.scriptDescription())
+        if (item.text(2) != dialog->scriptDescription())
         {
-            item.setText(2, dialog.scriptDescription());
+            item.setText(2, dialog->scriptDescription());
             changed();
         }
     }

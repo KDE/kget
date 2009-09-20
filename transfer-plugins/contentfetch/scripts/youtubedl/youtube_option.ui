@@ -27,7 +27,7 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QComboBox" name="fileNameComboBox" >
+       <widget class="KComboBox" name="fileNameComboBox" >
         <item>
          <property name="text" >
           <string>Use Normalized Name</string>
@@ -48,7 +48,7 @@
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="QComboBox" name="qualityComboBox" >
+       <widget class="KComboBox" name="qualityComboBox" >
         <item>
          <property name="text" >
           <string>Best Quality (.mp4)</string>
@@ -89,7 +89,7 @@
          </widget>
         </item>
         <item row="2" column="1" >
-         <widget class="QLineEdit" name="passwordEdit" >
+         <widget class="KLineEdit" name="passwordEdit" >
           <property name="echoMode" >
            <enum>QLineEdit::Password</enum>
           </property>
@@ -103,7 +103,7 @@
          </widget>
         </item>
         <item row="1" column="1" >
-         <widget class="QLineEdit" name="usernameEdit" />
+         <widget class="KLineEdit" name="usernameEdit" />
         </item>
        </layout>
       </item>
@@ -135,6 +135,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

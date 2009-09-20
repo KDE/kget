@@ -12,6 +12,7 @@
 
 // header inclusion order is crucial because of signal emit clashes
 #include "bttransfer.h"
+#include "btdatasource.h"
 #include "bttransferhandler.h"
 #include "btdetailswidget.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
@@ -91,6 +92,8 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
 
 TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
 {
+    Q_UNUSED(srcUrl)
+    Q_UNUSED(type)
     /*if (srcUrl.fileName().endsWith(".torrent"))
         return new BTDataSource();*/
     return 0;

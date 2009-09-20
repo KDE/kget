@@ -109,7 +109,7 @@ namespace kt
 		int n = 0;
 		if (tc->getStats().multi_file_torrent)
 		{
-			for (Uint32 i = 0;i < tc->getNumFiles();i++)
+			for (Uint32 i = 0;i < tc->getNumFiles();++i)
 			{
 				const bt::TorrentFileInterface & tf = tc->getTorrentFile(i);
 				if (stats.chunk_index >= tf.getFirstChunk() && stats.chunk_index <= tf.getLastChunk())

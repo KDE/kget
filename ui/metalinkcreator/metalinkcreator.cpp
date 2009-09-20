@@ -518,12 +518,13 @@ void MetalinkCreator::slotUpdateFilesButtons()
 
 void MetalinkCreator::slotAddLocalFilesPressed()
 {
-    KFileDialog *dialog = new KFileDialog(KUrl(), QString(), this);
+    QPointer<KFileDialog> dialog = new KFileDialog(KUrl(), QString(), this);
     dialog->setMode(KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
     if (dialog->exec() == QDialog::Accepted)
     {
         slotUrlsDropped(dialog->selectedUrls());
     }
+    delete dialog;
 }
 
 void MetalinkCreator::slotAddFile()

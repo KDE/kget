@@ -115,6 +115,8 @@ void MultiSegKioDataSource::slotSpeed(ulong downloadSpeed)
 
 void MultiSegKioDataSource::slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange)
 {
+    Q_UNUSED(segment)
+
     emit brokenSegments(this, segmentRange);
 }
 

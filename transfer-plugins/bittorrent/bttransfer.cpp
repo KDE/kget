@@ -371,7 +371,7 @@ void BTTransfer::updateTorrent()
 
 void BTTransfer::updateFilesStatus()
 {
-    const Job::Status curentStatus = this->status();
+    const Job::Status currentStatus = this->status();
     if (!torrent)
     {
         return;
@@ -384,7 +384,7 @@ void BTTransfer::updateFilesStatus()
         for (it = m_files.constBegin(); it != itEnd; ++it)
         {
             QModelIndex status = m_fileModel->index(it.key(), FileItem::Status);
-            if (!(*it)->doNotDownload() && (curentStatus == Job::Running))
+            if (!(*it)->doNotDownload() && (currentStatus == Job::Running))
             {
                 m_fileModel->setData(status, Job::Running);
             }
@@ -409,7 +409,7 @@ void BTTransfer::updateFilesStatus()
         QModelIndex index = indexes.first();
         if (stats->bytes_left_to_download)
         {
-            if (curentStatus == Job::Running)
+            if (currentStatus == Job::Running)
             {
                 fileModel()->setData(index, Job::Running);
             }

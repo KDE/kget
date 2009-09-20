@@ -233,13 +233,14 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
     }
 
     if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || (destUrl.isLocalFile() && QFile::exists(destUrl.path()))) {
-        KIO::RenameDialog dlg( m_mainWindow, i18n("Rename transfer"), srcUrl,
-                               destUrl, KIO::M_OVERWRITE);
-                               
-        int result = dlg.exec();
-        
+        QPointer<KIO::RenameDialog> dlg = new KIO::RenameDialog(m_mainWindow,
+                                                i18n("Rename transfer"), srcUrl,
+                                                destUrl, KIO::M_OVERWRITE);
+
+        int result = dlg->exec();
+
         if ( result == KIO::R_RENAME || result == KIO::R_OVERWRITE )
-            destUrl = dlg.newDestUrl();
+            destUrl = dlg->newDestUrl();
         else
             return 0;
     }
@@ -637,10 +638,10 @@ void KGet::checkSystemTray()
     foreach (TransferHandler *handler, KGet::allTransfers())
     {
         if (handler->status() == Job::Running)
+        {
             running = true;
-
-        if (running)
-            continue;
+            break;
+        }
     }
 
     m_mainWindow->setSystemTrayDownloading(running);
@@ -650,12 +651,9 @@ void KGet::settingsChanged()
 {
     kDebug(5001);
 
-    QList<TransferFactory*>::const_iterator it = m_transferFactories.constBegin();
-    QList<TransferFactory*>::const_iterator itEnd = m_transferFactories.constEnd();
-
-    for( ; it!=itEnd ; ++it )
+    foreach (TransferFactory *factory, m_transferFactories)
     {
-        (*it)->settingsChanged();
+        factory->settingsChanged();
     }
 }
 
@@ -769,15 +767,12 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
         kDebug(5001) << "KGet::createTransfer  -> group not found";
         group = m_transferTreeModel->transferGroups().first();
     }
+
     Transfer * newTransfer;
-
-    QList<TransferFactory *>::iterator it = m_transferFactories.begin();
-    QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
-
-    for( ; it!=itEnd ; ++it)
+    foreach (TransferFactory *factory, m_transferFactories)
     {
         kDebug(5001) << "Trying plugin   n.plugins=" << m_transferFactories.size();
-        if((newTransfer = (*it)->createTransfer(src, dest, group, m_scheduler, e)))
+        if((newTransfer = factory->createTransfer(src, dest, group, m_scheduler, e)))
         {
 //             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
             newTransfer->init();
@@ -797,13 +792,11 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
 TransferDataSource * KGet::createTransferDataSource(const KUrl &src, const QDomElement &type)
 {
     kDebug(5001);
-    QList<TransferFactory *>::iterator it = m_transferFactories.begin();
-    QList<TransferFactory *>::iterator itEnd = m_transferFactories.end();
 
     TransferDataSource *dataSource;
-    for( ; it!=itEnd ; ++it)
+    foreach (TransferFactory *factory, m_transferFactories)
     {
-        dataSource = (*it)->createTransferDataSource(src, type);
+        dataSource = factory->createTransferDataSource(src, type);
         if(dataSource)
             return dataSource;
     }
@@ -852,24 +845,25 @@ KUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName
         destDir = Settings::lastDirectory();
 
     // open the filedialog for confirmation
-    KFileDialog dlg(destDir, QString(),
-                    0L, 0L);
-    dlg.setCaption(i18n("Save As"));
-    dlg.setOperationMode(KFileDialog::Saving);
-    dlg.setMode(KFile::File | KFile::LocalOnly);
+    QPointer<KFileDialog> dlg = new KFileDialog(destDir, QString(), 0, 0);
+    dlg->setCaption(i18n("Save As"));
+    dlg->setOperationMode(KFileDialog::Saving);
+    dlg->setMode(KFile::File | KFile::LocalOnly);
 
     // Use the destination name if not empty...
     if (!suggestedFileName.isEmpty())
-        dlg.setSelection(suggestedFileName);
+        dlg->setSelection(suggestedFileName);
 
-    if ( dlg.exec() == QDialog::Rejected )
+    if ( dlg->exec() == QDialog::Rejected )
     {
+        delete dlg;
         return KUrl();
     }
     else
     {
-        KUrl destUrl = dlg.selectedUrl();
+        KUrl destUrl = dlg->selectedUrl();
         Settings::setLastDirectory( destUrl.directory(KUrl::ObeyTrailingSlash) );
+        delete dlg;
         return destUrl;
     }
 }
@@ -1033,38 +1027,41 @@ void KGet::loadPlugins()
     QList<KGetPlugin *> pluginList;
 
     const KConfigGroup plugins = KConfigGroup(KGlobal::config(), "Plugins");
-   
-    for( it = services.constBegin(); it != services.constEnd(); ++it )
+
+    foreach (KService::Ptr service, services)
     {
-        KPluginInfo info(*it);
+        KPluginInfo info(service);
         info.load(plugins);
 
         if( !info.isPluginEnabled() ) {
-            kDebug(5001) << "TransferFactory plugin (" << (*it)->library()
+            kDebug(5001) << "TransferFactory plugin (" << service->library()
                              << ") found, but not enabled";
             continue;
         }
 
         KGetPlugin * plugin;
-        if( (plugin = createPluginFromService(*it)) != 0 )
+        if( (plugin = createPluginFromService(service)) != 0 )
         {
             const QString pluginName = info.name();
-            
+
             pluginList.prepend(plugin);
-            kDebug(5001) << "TransferFactory plugin (" << (*it)->library() 
+            kDebug(5001) << "TransferFactory plugin (" << (service)->library()
                          << ") found and added to the list of available plugins";
-                
         }
         else
-            kDebug(5001) << "Error loading TransferFactory plugin (" 
-                      << (*it)->library() << ")";
+        {
+            kDebug(5001) << "Error loading TransferFactory plugin ("
+                         << service->library() << ")";
+        }
     }
 
     QList<KGetPlugin *>::ConstIterator it2 = pluginList.constBegin();
     QList<KGetPlugin *>::ConstIterator it2End = pluginList.constEnd();
 
-    for( ; it2!=it2End ; ++it2 )
-        m_transferFactories.append( qobject_cast<TransferFactory *>(*it2) );
+    foreach (KGetPlugin *plugin, pluginList)
+    {
+        m_transferFactories.append(qobject_cast<TransferFactory *>(plugin));
+    }
 
     kDebug(5001) << "Number of factories = " << m_transferFactories.size();
 }
@@ -1174,31 +1171,17 @@ void GenericObserver::transferMovedEvent(TransferHandler *transfer, TransferGrou
 
 void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
 {
-    kDebug();
-    if (Settings::afterFinishActionEnabled())
-    {
-        bool allFinished = true;
-        foreach (TransferHandler *transfer, transfers.keys())
-        {
-            if (transfer->status() != Job::Finished)
-                allFinished = false;
-        }
-        if (allFinished)
-            kDebug() << "All finished";
-        if (allFinished && Settings::afterFinishAction() == KGet::Quit)
-            checkAndFinish();
-
-#ifdef HAVE_KWORKSPACE
-        if (allFinished && Settings::afterFinishAction() == KGet::Shutdown)
-            checkAndShutdown();
-#endif
-    }
+    kDebug(5001);
 
     bool checkSysTray = false;
-    foreach (TransferHandler *transfer, transfers.keys())
+    bool allFinished = true;
+    QMap<TransferHandler*, Transfer::ChangesFlags>::const_iterator it;
+    QMap<TransferHandler*, Transfer::ChangesFlags>::const_iterator itEnd = transfers.constEnd();
+    for (it = transfers.constBegin(); it != itEnd; ++it)
     {
-        TransferHandler::ChangesFlags transferFlags = transfers[transfer];
-        
+        TransferHandler::ChangesFlags transferFlags = *it;
+        TransferHandler *transfer = it.key();
+
         if (transferFlags & Transfer::Tc_Status)
             checkSysTray = true;
 
@@ -1214,18 +1197,35 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
         if (transferFlags & Transfer::Tc_UploadSpeed) {
             transfer->group()->setGroupChange(TransferGroup::Gc_UploadSpeed, true);
         }
+
+        if (transfer->status() != Job::Finished) {
+            allFinished = false;
+        }
     }
+
     if (checkSysTray)
         KGet::checkSystemTray();
+
+    if (Settings::afterFinishActionEnabled())
+    {
+        if (allFinished)
+            kDebug() << "All finished";
+        if (allFinished && Settings::afterFinishAction() == KGet::Quit)
+            checkAndFinish();
+
+#ifdef HAVE_KWORKSPACE
+        if (allFinished && Settings::afterFinishAction() == KGet::Shutdown)
+            checkAndShutdown();
+#endif
+    }
 }
 
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
 {
     bool recalculate = false;
-    foreach (TransferGroup::ChangesFlags flags, groups.values())
+    foreach (TransferGroup::ChangesFlags flags, groups)
     {
-        if (flags & TransferGroup::Gc_Percent)
-        {
+        if (flags & TransferGroup::Gc_Percent) {
             recalculate = true;
             break;
         }

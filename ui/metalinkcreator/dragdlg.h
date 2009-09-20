@@ -38,7 +38,7 @@ class DragDlg : public KDialog
     Q_OBJECT
 
     public:
-        DragDlg(KGetMetalink::Resources *ressources, QSortFilterProxyModel *countrySort, QWidget *parent = 0);
+        DragDlg(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort, QWidget *parent = 0);
 
     signals:
         /**
@@ -55,7 +55,7 @@ class DragDlg : public KDialog
 
     private:
         UrlWidget *m_urlWidget;
-        KGetMetalink::Resources *m_ressources;
+        KGetMetalink::Resources *m_resources;
         QList<QCheckBox*> m_checkBoxes;
         Ui::DragDlg ui;
 };

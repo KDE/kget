@@ -122,7 +122,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         /**
          * Add a mirror that can be used for downloading
          * @param url the url to the file
-         * @param used defines wether the mirror should initially be used for downloading or not,
+         * @param used defines whether the mirror should initially be used for downloading or not,
          * if true m_maxMirrorsUsed might be increased if needed
          * @param numParalellConnections the number of simultanous connections allowed to that mirror,
          * minimum is 1
@@ -167,7 +167,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         QHash<KUrl, QPair<bool, int> > mirrors() const;
 
         /**
-         * Returns wether the datasourcefactory should download the file or not,
+         * Returns whether the datasourcefactory should download the file or not,
          * true by default
          * @note can be used for multiple datasourcefactory downloads
          */
@@ -187,7 +187,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         Job::Status status() const;
 
         /**
-         * Tries to repair a broken download, via completly redownloading it
+         * Tries to repair a broken download, via completely redownloading it
          * or only the borken parts
          * @note call this if verification returned NotVerified
          */

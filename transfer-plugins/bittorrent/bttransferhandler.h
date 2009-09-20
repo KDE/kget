@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef _BTTRANSFERHANDLER_H
-#define _BTTRANSFERHANDLER_H
+#ifndef BTTRANSFERHANDLER_H
+#define BTTRANSFERHANDLER_H
 
 #include "bttransfer.h"
 #include "core/transferhandler.h"

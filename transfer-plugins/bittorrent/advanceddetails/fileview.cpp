@@ -225,7 +225,7 @@ namespace kt
 	void FileView::changePriority(bt::Priority newpriority)
 	{
 		QModelIndexList sel = selectionModel()->selectedRows(2);
-		for (QModelIndexList::iterator i = sel.begin();i != sel.end();i++)
+		for (QModelIndexList::iterator i = sel.begin();i != sel.end();++i)
 			*i = proxy_model->mapToSource(*i);
 		
 		model->changePriority(sel,newpriority);
@@ -260,7 +260,7 @@ namespace kt
 		if (n == 1) // single item can be a directory
 		{
 			if (!model->indexToFile(proxy_model->mapToSource(sel.front())))
-				n++;
+				++n;
 		} 
 			
 		QString msg = i18np("You will lose all data in this file, are you sure you want to do this?",
@@ -322,7 +322,7 @@ namespace kt
 	void FileView::expandCollapseSelected(bool expand) 
 	{
 		QModelIndexList sel = selectionModel()->selectedRows();
-		for (QModelIndexList::iterator i = sel.begin(); i != sel.end(); i++) 
+		for (QModelIndexList::iterator i = sel.begin(); i != sel.end(); ++i) 
 		{
 			if (proxy_model->hasChildren(*i))
 				expandCollapseTree(*i, expand);

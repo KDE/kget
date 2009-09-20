@@ -265,13 +265,13 @@ class KGET_EXPORT Verifier : public QObject
          * the newer overwrites the older and a checksum can only be added if it is
          * supported by the verifier
          * @param type the type of the checksums
-         * @param length the lenght of each piece
+         * @param length the length of each piece
          * @param checksums the checksums, first entry is piece number 0
          */
         void addPartialChecksums(const QString &type, KIO::filesize_t length, const QList<QString> &checksums);
 
         /**
-         * Returns the lenght of the "best" partialChecksums
+         * Returns the length of the "best" partialChecksums
          */
         KIO::filesize_t partialChunkLength() const;
 

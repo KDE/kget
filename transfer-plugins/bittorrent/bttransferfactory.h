@@ -11,7 +11,6 @@
 #define BTTRANSFERFACTORY_H
 
 #include "core/plugin/transferfactory.h"
-#include "btdatasource.h"
 
 class BTTransferFactory : public TransferFactory
 {

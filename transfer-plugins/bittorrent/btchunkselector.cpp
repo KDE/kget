@@ -62,7 +62,7 @@ BTChunkSelector::BTChunkSelector(ChunkManager & cman,Downloader & downer,PeerMan
 : ChunkSelectorInterface(cman,downer,pman)
 {       
     std::vector<Uint32> tmp;
-    for (Uint32 i = 0;i < cman.getNumChunks();i++)
+    for (Uint32 i = 0;i < cman.getNumChunks();++i)
     {
         if (!cman.getBitSet().get(i))
         {
@@ -85,7 +85,8 @@ Uint32 BTChunkSelector::leastPeers(const std::list<Uint32> & lp)
 {
     Uint32 sel = lp.front();
     Uint32 cnt = downer.numDownloadersForChunk(sel);
-    for (std::list<Uint32>::const_iterator i = lp.begin();i != lp.end();i++)
+    std::list<Uint32>::const_iterator itEnd = lp.end();
+    for (std::list<Uint32>::const_iterator i = lp.begin();i != itEnd;++i)
     {
         Uint32 cnt_i = downer.numDownloadersForChunk(*i);
         if (cnt_i < cnt)
@@ -114,18 +115,17 @@ bool BTChunkSelector::select(PieceDownloader* pd,Uint32 & chunk)
         sort_timer.update();
     }
     
-    std::list<Uint32>::iterator itr = chunks.begin();
-    while (itr != chunks.end())
+    std::list<Uint32>::iterator itr;
+    std::list<Uint32>::iterator itrEnd = chunks.end();
+    for (itr = chunks.begin(); itr != itrEnd; )
     {
-        Uint32 i = *itr;
-        Chunk* c = cman.getChunk(*itr);
+        const Uint32 i = *itr;
+        Chunk* c = cman.getChunk(i);
     
         // if we have the chunk remove it from the list
         if (bs.get(i))
         {
-            std::list<Uint32>::iterator tmp = itr;
-            itr++;
-            chunks.erase(tmp);
+            itr = chunks.erase(itr);
         }
         else
         {
@@ -154,7 +154,7 @@ bool BTChunkSelector::select(PieceDownloader* pd,Uint32 & chunk)
                         break;
                 }                
             }
-            itr++;
+            ++itr;
         }
     }
     
@@ -228,7 +228,7 @@ bool BTChunkSelector::select(PieceDownloader* pd,Uint32 & chunk)
 
 void BTChunkSelector::dataChecked(const BitSet & ok_chunks)
 {
-    for (Uint32 i = 0;i < ok_chunks.getNumBits();i++)
+    for (Uint32 i = 0;i < ok_chunks.getNumBits();++i)
     {
         bool in_chunks = std::find(chunks.begin(),chunks.end(),i) != chunks.end();
         if (in_chunks && ok_chunks.get(i))
@@ -253,7 +253,7 @@ void BTChunkSelector::reincluded(Uint32 from, Uint32 to)
         return;
     }
     
-    for (Uint32 i = from;i <= to;i++)
+    for (Uint32 i = from;i <= to;++i)
     {
         bool in_chunks = std::find(chunks.begin(),chunks.end(),i) != chunks.end();
         if (!in_chunks && cman.getChunk(i)->getStatus() != Chunk::ON_DISK)

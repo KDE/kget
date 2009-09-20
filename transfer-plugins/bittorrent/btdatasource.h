@@ -31,12 +31,12 @@ class BTDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
-        BTDataSource();
+        BTDataSource(const KUrl &srcUrl, QObject *parent);
         ~BTDataSource();
 
         void start();
-	void stop();
-        void addSegment(const KUrl &srcUrl, const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes);
+        void stop();
+        void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum);
         void getData(const KIO::fileoffset_t &off, const QByteArray &dataArray);
 
     private slots:
@@ -53,7 +53,6 @@ class BTDataSource : public TransferDataSource
 
         KIO::fileoffset_t m_offset;
         KIO::fileoffset_t m_bytes;
-        KUrl m_source;
         KUrl m_torrentSource;
         QTimer timer;
 };

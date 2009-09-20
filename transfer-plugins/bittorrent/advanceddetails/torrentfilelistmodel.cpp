@@ -209,7 +209,7 @@ namespace kt
 	{
 		if (tc->getStats().multi_file_torrent)
 		{
-			for (Uint32 i = 0;i < tc->getNumFiles();i++)
+			for (Uint32 i = 0;i < tc->getNumFiles();++i)
 				setData(index(i,0,QModelIndex()),Qt::Checked,Qt::CheckStateRole);
 		}
 	}
@@ -218,7 +218,7 @@ namespace kt
 	{
 		if (tc->getStats().multi_file_torrent)
 		{
-			for (Uint32 i = 0;i < tc->getNumFiles();i++)
+			for (Uint32 i = 0;i < tc->getNumFiles();++i)
 				setData(index(i,0,QModelIndex()),Qt::Unchecked,Qt::CheckStateRole);
 		}
 	}
@@ -228,7 +228,7 @@ namespace kt
 		if (!tc->getStats().multi_file_torrent)
 			return;
 
-		for (Uint32 i = 0;i < tc->getNumFiles();i++)
+		for (Uint32 i = 0;i < tc->getNumFiles();++i)
 			invertCheck(index(i,0,QModelIndex()));
 	}
 
@@ -245,7 +245,7 @@ namespace kt
 		if (tc->getStats().multi_file_torrent)
 		{
 			bt::Uint64 ret = 0;
-			for (Uint32 i = 0;i < tc->getNumFiles();i++)
+			for (Uint32 i = 0;i < tc->getNumFiles();++i)
 			{
 				const bt::TorrentFileInterface & file = tc->getTorrentFile(i);
 				if (!file.doNotDownload())

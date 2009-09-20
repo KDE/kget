@@ -123,7 +123,7 @@ namespace kt
 		}
 		else
 		{
-			for (Uint32 i = file->getFirstChunk(); i <= file->getLastChunk(); i++)
+			for (Uint32 i = file->getFirstChunk(); i <= file->getLastChunk(); ++i)
 				chunks.set(i, true);
 		}
 		chunks_set = true;
@@ -268,7 +268,7 @@ namespace kt
 				n->saveExpandedState(index.child(idx,0),pm,tv,enc);
 				enc->end();
 			}
-			idx++;
+			++idx;
 		}
 	}
 	
@@ -330,7 +330,7 @@ namespace kt
 		if (!root)
 			root = new Node(0,tc->getUserModifiedFileName(),num_chunks);
 		
-		for (Uint32 i = 0;i < tc->getNumFiles();i++)
+		for (Uint32 i = 0;i < tc->getNumFiles();++i)
 		{
 			bt::TorrentFileInterface & tf = tc->getTorrentFile(i);
 			root->insert(tf.getUserModifiedPath(),&tf,num_chunks);

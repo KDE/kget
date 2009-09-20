@@ -68,10 +68,14 @@ void KGetPieChart::Private::setTransfers(const QList<OrgKdeKgetTransferInterface
     m_needsRepaint = false;
     m_totalSize = 0;
 
-    foreach (OrgKdeKgetTransferInterface* key, m_data.keys()) {
-        if (!transfers.contains(key)) {
-            m_data.remove(key);
+    QMap<OrgKdeKgetTransferInterface*, KGetPieChart::PrivateData>::iterator it;
+    QMap<OrgKdeKgetTransferInterface*, KGetPieChart::PrivateData>::iterator itEnd = m_data.end();
+    for (it = m_data.begin(); it != itEnd; ) {
+        if (!transfers.contains(it.key())) {
+            it = m_data.erase(it);
             m_needsRepaint = true;
+        } else {
+            ++it;
         }
     }
 

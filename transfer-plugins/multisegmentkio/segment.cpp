@@ -11,7 +11,7 @@
 
 #include "segment.h"
 
-#include <math.h>
+#include <cmath>
 
 #include <KDebug>
 
@@ -22,11 +22,11 @@ Segment::Segment(const KUrl &src, const KIO::fileoffset_t offset, const QPair<KI
     m_status(Stopped),
     m_offset(offset),
     m_segSize(segmentSize),
-    m_curentSegSize(m_segSize.first),
-    m_curentSegment(segmentRange.first),
+    m_currentSegSize(m_segSize.first),
+    m_currentSegment(segmentRange.first),
     m_endSegment(segmentRange.second),
     m_bytesWritten(0),
-    m_totalBytesLeft(m_segSize.first * (m_endSegment - m_curentSegment) + m_segSize.second),
+    m_totalBytesLeft(m_segSize.first * (m_endSegment - m_currentSegment) + m_segSize.second),
     m_getJob(0),
     m_canResume(true),
     m_url(src),
@@ -154,9 +154,9 @@ void Segment::slotResult( KJob *job )
         }
         else
         {
-            kDebug(5001) << "Segment" << m_curentSegment << "broken, using" << m_url;
+            kDebug(5001) << "Segment" << m_currentSegment << "broken, using" << m_url;
             setStatus(Timeout);
-            emit brokenSegments(this, QPair<int, int>(m_curentSegment, m_endSegment));
+            emit brokenSegments(this, QPair<int, int>(m_currentSegment, m_endSegment));
         }
     }
 }
@@ -169,7 +169,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         kDebug(5001) << m_url << "does not allow resuming.";
         stopTransfer();
         setStatus(Killed, false );
-        emit brokenSegments(this, QPair<int, int>(m_curentSegment, m_endSegment));//TODO maybe use specific error code from TransferDataSource?
+        emit brokenSegments(this, QPair<int, int>(m_currentSegment, m_endSegment));//TODO maybe use specific error code from TransferDataSource?
         return;
     }
 
@@ -205,7 +205,7 @@ bool Segment::writeBuffer()
 
     if (worked)
     {
-        m_curentSegSize -= m_buffer.size();
+        m_currentSegSize -= m_buffer.size();
         m_totalBytesLeft -= m_buffer.size();
         m_offset += m_buffer.size();
         m_bytesWritten += m_buffer.size();
@@ -213,22 +213,22 @@ bool Segment::writeBuffer()
         kDebug(5001) << "Segment::writeBuffer() updating segment record of job:" << m_getJob << "--" << m_totalBytesLeft << "bytes left";
     }
     //at least one segment has been finished
-    if (m_curentSegSize <= 0)
+    if (m_currentSegSize <= 0)
     {
-        bool finished = (m_curentSegment == m_endSegment);
+        bool finished = (m_currentSegment == m_endSegment);
         if (finished)
         {
-            emit finishedSegment(this, m_curentSegment, finished);
+            emit finishedSegment(this, m_currentSegment, finished);
         }
         else
         {
-            while (m_curentSegSize <= 0)
+            while (m_currentSegSize <= 0)
             {
-                emit finishedSegment(this, m_curentSegment, finished);
-                ++m_curentSegment;
-                finished = (m_curentSegment == m_endSegment);
-                m_curentSegSize += (finished ? m_segSize.second : m_segSize.first);
-                if (!m_curentSegSize)
+                emit finishedSegment(this, m_currentSegment, finished);
+                ++m_currentSegment;
+                finished = (m_currentSegment == m_endSegment);
+                m_currentSegSize += (finished ? m_segSize.second : m_segSize.first);
+                if (!m_currentSegSize)
                 {
                     break;
                 }
@@ -247,12 +247,12 @@ void Segment::setStatus(Status stat, bool doEmit)
 
 QPair<int, int> Segment::assignedSegments() const
 {
-    return QPair<int, int>(m_curentSegment, m_endSegment);
+    return QPair<int, int>(m_currentSegment, m_endSegment);
 }
 
 int Segment::countUnfinishedSegments() const
 {
-    return m_endSegment - m_curentSegment;
+    return m_endSegment - m_currentSegment;
 }
 
 int Segment::takeOneSegment()
@@ -287,11 +287,11 @@ QPair<int, int> Segment::split()
     }
 
     QPair<int, int> freed = QPair<int, int>(-1, -1);
-    int free = ceil((countUnfinishedSegments() + 1) / static_cast<double>(2));
+    const int free = std::ceil((countUnfinishedSegments() + 1) / static_cast<double>(2));
 
     if (!free)
     {
-        kDebug(5001) << "None freed, start:" << m_curentSegment << "end:" << m_endSegment;
+        kDebug(5001) << "None freed, start:" << m_currentSegment << "end:" << m_endSegment;
 
         if (m_getJob)
         {
@@ -302,7 +302,7 @@ QPair<int, int> Segment::split()
 
     const int newEnd = m_endSegment - free;
     freed = QPair<int, int>(newEnd + 1, m_endSegment);
-    kDebug(5001) << "Start:" << m_curentSegment << "old end:" << m_endSegment << "new end:" << newEnd << "freed:" << freed;
+    kDebug(5001) << "Start:" << m_currentSegment << "old end:" << m_endSegment << "new end:" << newEnd << "freed:" << freed;
     m_endSegment = newEnd;
     m_totalBytesLeft -= m_segSize.first * (free - 1) + m_segSize.second;
 

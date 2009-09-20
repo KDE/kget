@@ -99,7 +99,7 @@ void KGetPanelBar::Private::transfersRemoved(const QList<OrgKdeKgetTransferInter
         int row, column, rowSpan, columnSpan;
         m_dialogLayout->getItemPosition(index, &row, &column, &rowSpan, &columnSpan);
         kDebug() << row;
-        
+
         QList<QLayoutItem*> items;
         for (int i = 0; i != 3; i++) {
             QLayoutItem * item = m_dialogLayout->itemAtPosition(row, i);
@@ -117,8 +117,11 @@ void KGetPanelBar::Private::update()
 {
     int totalSize = 0;
     int completedSize = 0;
-    foreach(OrgKdeKgetTransferInterface* transfer, m_transfers.keys()) {
-        m_transfers[transfer]->setValue(transfer->percent().value());
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::const_iterator it;
+    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::const_iterator itEnd = m_transfers.constEnd();
+    for (it = m_transfers.constBegin(); it != itEnd; ++it) {
+        OrgKdeKgetTransferInterface *transfer = it.key();
+        (*it)->setValue(transfer->percent().value());
         totalSize += transfer->totalSize().value();
         completedSize += transfer->downloadedSize().value();
     }
@@ -133,7 +136,7 @@ void KGetPanelBar::Private::update()
 void KGetPanelBar::Private::clear()
 {
     // TODO : Find another way to remove all layout widgets except the title one
-    for(int row = 1; row < m_dialogLayout->rowCount(); row++) {
+    for (int row = 1; row < m_dialogLayout->rowCount(); ++row) {
         delete m_dialogLayout->itemAtPosition(row, 0);
         delete m_dialogLayout->itemAtPosition(row, 1);
         delete m_dialogLayout->itemAtPosition(row, 2);

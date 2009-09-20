@@ -115,7 +115,7 @@ class MetalinkCreator : public KAssistantDialog
         /**
          * Handles the dropped files, calls dialogs if needed etc
          * @param types the types for which checksums should be calculated
-         * @param createPartial wether partial checksums should be created or not
+         * @param createPartial whether partial checksums should be created or not
          */
         void slotHandleDropped(const QStringList &types, bool createPartial);
 
@@ -160,7 +160,7 @@ class MetalinkCreator : public KAssistantDialog
         /**
          * Opens the dialog to enter data for a file
          * @param file the file that should be modifed
-         * @param edit wether an existing file is being edited or a new one being added
+         * @param edit whether an existing file is being edited or a new one being added
          */
         void fileDlg(KGetMetalink::File *file, bool edit = false);
 

@@ -45,7 +45,7 @@ namespace kt
 		items.clear();
 		if (tc)
 		{
-			for (Uint32 i = 0;i < tc->getNumWebSeeds();i++)
+			for (Uint32 i = 0;i < tc->getNumWebSeeds();++i)
 			{
 				const bt::WebSeedInterface* ws = curr_tc->getWebSeed(i);
 				Item item;
@@ -65,7 +65,7 @@ namespace kt
 		
 		bool ret = false;
 		
-		for (Uint32 i = 0;i < curr_tc->getNumWebSeeds();i++)
+		for (Uint32 i = 0;i < curr_tc->getNumWebSeeds();++i)
 		{
 			const bt::WebSeedInterface* ws = curr_tc->getWebSeed(i);
 			Item & item = items[i];
@@ -134,7 +134,7 @@ namespace kt
 		if (!curr_tc)
 			return QVariant();
 		
-		if (!index.isValid() || index.row() >= curr_tc->getNumWebSeeds() || index.row() < 0)
+		if (!index.isValid() || index.row() >= static_cast<int>(curr_tc->getNumWebSeeds()) || index.row() < 0)
 			return QVariant(); 
 		
 		if (role == Qt::DisplayRole)

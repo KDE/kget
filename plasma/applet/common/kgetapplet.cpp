@@ -52,7 +52,10 @@ void KGetApplet::setTransfers(const QVariantMap &transfers)
 {
     QList<OrgKdeKgetTransferInterface*> ts;
     QList<OrgKdeKgetTransferInterface*> added;
-    foreach (const QString &url, transfers.keys()) {
+    QVariantMap::const_iterator it;
+    QVariantMap::const_iterator itEnd = transfers.constEnd();
+    for (it = transfers.constBegin(); it != itEnd; ++it) {
+        const QString &url = it.key();
         OrgKdeKgetTransferInterface* t = 0;
         foreach (OrgKdeKgetTransferInterface* transfer, m_transfers) {
             if (transfer->source().value() == url) {

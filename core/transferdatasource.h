@@ -58,7 +58,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum) = 0;//TODO
 
         /**
-         * Adds multiple continous segments that should be downloaded by this TransferDataSource
+         * Adds multiple continuous segments that should be downloaded by this TransferDataSource
          * @param offset the offset of the file to be downloaded
          * @param segmentSize first is the general segmentSize, second the segmentSize
          * of the last segment in the range, if just one segment is assigned both need to have
@@ -70,7 +70,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
 
         /**
-         * Removes one connection, usefull when setMaximumParalellDownloads was called with a lower number
+         * Removes one connection, useful when setMaximumParalellDownloads was called with a lower number
          * @return the segments that are removed (unassigned) now
          *
          */
@@ -117,13 +117,13 @@ class KGET_EXPORT TransferDataSource : public QObject
 
         /**
          * Removes one segment of the connection with the most unfinished segments
-         * @note this method is usefull, if a TransferDataSource does not support multiple-segments
+         * @note this method is useful, if a TransferDataSource does not support multiple-segments
          * as in that case split would result in many unassigned segments
          */
         virtual int takeOneSegment();
 
         /**
-         * If a connection of this TransferDataSource is assigned multiple (continous) segments, then
+         * If a connection of this TransferDataSource is assigned multiple (continuous) segments, then
          * this method will split them (the unfinished ones) in half, it returns the beginning
          * and the end of the now unassigned segments; (-1, -1) if there are none
          * @note if only one segment is assigned to a connection split will also return (-1, -1)

@@ -179,7 +179,7 @@ void MirrorSettings::addPressed()
 void MirrorSettings::removeMirror()
 {
     QModelIndexList selected = ui.treeView->selectionModel()->selectedRows();
-    foreach(QModelIndex index, selected)
+    foreach (const QModelIndex &index, selected)
     {
         m_model->removeRow(index.row());
     }
