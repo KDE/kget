@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Checksum Search
+Name[gl]=Procura de suma de comprobación
 Name[nds]=Pröövsumm-Söök
 Name[pt]=Pesquisa por Código de Validação
 Name[pt_BR]=Pesquisa de soma de verificação
@@ -16,6 +17,7 @@ Name[x-test]=xxChecksum Searchxx
 Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified url
+Comment[gl]=Tenta atopar sumas de comprobación para un url que se especifique
 Comment[nds]=Söcht na en Pröövsumm för en angeven URL
 Comment[pt]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
 Comment[pt_BR]=Tenta encontrar as somas de verificação para uma URL especificada
