@@ -79,6 +79,7 @@ void TransferSettingsDialog::slotMirrors()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
     KDialog *mirrors = new MirrorSettings(this, m_transfer, m_model->getUrl(index));
+    mirrors->setAttribute(Qt::WA_DeleteOnClose);
     mirrors->show();
 }
 
@@ -86,6 +87,7 @@ void TransferSettingsDialog::slotRename()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
     RenameFile *renameDlg = new RenameFile(m_model, index, this);
+    renameDlg->setAttribute(Qt::WA_DeleteOnClose);
     renameDlg->show();
 }
 
@@ -93,6 +95,7 @@ void TransferSettingsDialog::slotVerification()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
     KDialog *verification = new VerificationDialog(this, m_transfer, m_model->getUrl(index));
+    verification->setAttribute(Qt::WA_DeleteOnClose);
     verification->show();
 }
 
