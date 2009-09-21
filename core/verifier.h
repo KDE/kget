@@ -220,15 +220,17 @@ class KGET_EXPORT Verifier : public QObject
 
         /**
          * Creates the checksum type of the file dest
+         * @param abortPtr makes it possible to abort the calculation of the checksum from another thread
          */
-        static QString checksum(const KUrl &dest, const QString &type);
+        static QString checksum(const KUrl &dest, const QString &type, bool *abortPtr);
 
         /**
          * Create partial checksums of type for file dest
+         * @param abortPtr makes it possible to abort the calculation of the checksums from another thread
          * @note the length of the partial checksum (if not defined = 0) is not less than 512 kb
          * and there won't be more partial checksums than 101
          */
-        static PartialChecksums partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length = 0);
+        static PartialChecksums partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length = 0, bool *abortPtr = 0);
 
         /**
          * @note only call verify() when this function returns true
@@ -308,7 +310,7 @@ class KGET_EXPORT Verifier : public QObject
         void changeStatus(bool verified);
 
     private:
-        static QString calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize = 0);
+        static QString calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize = 0, bool *abortPtr = 0);
 
     private:
         VerificationModel *m_model;

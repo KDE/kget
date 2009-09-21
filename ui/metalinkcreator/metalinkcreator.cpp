@@ -82,7 +82,7 @@ void DroppedFilesThread::run()
         KGetMetalink::Resources tempResources = m_tempResources.takeFirst();
         mutex.unlock();
 
-        while (files.count())
+        while (files.count() && !abort)
         {
             //take the first file and try to handle it
             const KUrl url = files.takeFirst();
@@ -121,7 +121,12 @@ void DroppedFilesThread::run()
 
             foreach (const QString &type, types)
             {
-                QString hash = Verifier::checksum(url, type);
+                if (abort)
+                {
+                    return;
+                }
+
+                QString hash = Verifier::checksum(url, type, &abort);
                 if (!hash.isEmpty())
                 {
                     file.verification.hashes[type] = hash;
@@ -132,7 +137,12 @@ void DroppedFilesThread::run()
             {
                 foreach (const QString &type, types)
                 {
-                    PartialChecksums partialChecksums = Verifier::partialChecksums(url, type);
+                    if (abort)
+                    {
+                        return;
+                    }
+
+                    PartialChecksums partialChecksums = Verifier::partialChecksums(url, type, 0, &abort);
                     if (partialChecksums.isValid())
                     {
                         KGetMetalink::Pieces pieces;
@@ -143,7 +153,10 @@ void DroppedFilesThread::run()
                     }
                 }
             }
-            emit fileResult(file);
+            if (!abort)
+            {
+                emit fileResult(file);
+            }
         }
         mutex.lock();
         run = m_files.count();

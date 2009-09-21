@@ -109,6 +109,7 @@ void VerificationThread::doVerify()
     mutex.lock();
     bool run = m_files.count();
     mutex.unlock();
+
     while (run && !abort)
     {
         mutex.lock();
@@ -125,9 +126,14 @@ void VerificationThread::doVerify()
             continue;
         }
 
-        const QString hash = Verifier::checksum(url, type);
+        const QString hash = Verifier::checksum(url, type, &abort);
         kDebug() << "Type:" << type << "Calculated checksum:" << hash << "Entered checksum:" << checksum;
         const bool fileVerified = (hash == checksum);
+
+        if (abort)
+        {
+            return;
+        }
 
         mutex.lock();
         if (!abort)
@@ -142,13 +148,13 @@ void VerificationThread::doVerify()
 
 void VerificationThread::doBrokenPieces()
 {
-    QMutexLocker locker(&mutex);
-    //TODO add bool to static, to stop it?
+    mutex.lock();
     const QString type = m_types.takeFirst();
     const QStringList checksums = m_checksums;
     m_checksums.clear();
     const KUrl url = m_files.takeFirst();
     const KIO::filesize_t length = m_length;
+    mutex.unlock();
 
     QList<QPair<KIO::fileoffset_t, KIO::filesize_t> > broken;
 
@@ -168,7 +174,12 @@ void VerificationThread::doBrokenPieces()
             return;
         }
 
-        const QStringList fileChecksums = Verifier::partialChecksums(url, type, length).checksums();
+        const QStringList fileChecksums = Verifier::partialChecksums(url, type, length, &abort).checksums();
+        if (abort)
+        {
+            emit brokenPieces(broken);
+            return;
+        }
 
         if (fileChecksums.size() != checksums.size())
         {
@@ -679,7 +690,7 @@ void Verifier::brokenPieces() const
     m_thread.findBrokenPieces(pair.first, checksums, length, m_dest);
 }
 
-QString Verifier::checksum(const KUrl &dest, const QString &type)
+QString Verifier::checksum(const KUrl &dest, const QString &type, bool *abortPtr)
 {
     QStringList supported = supportedVerficationTypes();
     if (!supported.contains(type))
@@ -695,7 +706,23 @@ QString Verifier::checksum(const KUrl &dest, const QString &type)
 
 #ifdef HAVE_QCA2
     QCA::Hash hash(type);
-    hash.update(&file);
+
+    //BEGIN taken from qca_basic.h and slightly adopted to allow abort
+    char buffer[1024];
+    int len;
+
+    while ((len=file.read(reinterpret_cast<char*>(buffer), sizeof(buffer))) > 0)
+    {
+        hash.update(buffer, len);
+        if (abortPtr && *abortPtr)
+        {
+            hash.final();
+            file.close();
+            return QString();
+        }
+    }
+    //END
+
     QString final = QString(QCA::arrayToHex(hash.final().toByteArray()));
     file.close();
     return final;
@@ -712,7 +739,7 @@ QString Verifier::checksum(const KUrl &dest, const QString &type)
     return QString();
 }
 
-PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length)
+PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length, bool *abortPtr)
 {
     QList<QString> checksums;
 
@@ -767,7 +794,7 @@ PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &typ
     //create all the checksums for the pieces
     for (int i = 0; i < numPieces; ++i)
     {
-        QString hash = calculatePartialChecksum(&file, type, length * i, length, fileSize);
+        QString hash = calculatePartialChecksum(&file, type, length * i, length, fileSize, abortPtr);
         if (hash.isEmpty())
         {
             file.close();
@@ -782,7 +809,7 @@ PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &typ
     return partialChecksums;
 }
 
-QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize)
+QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize, bool *abortPtr)
 {
     if (!file)
     {
@@ -822,6 +849,11 @@ QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO
     for (k = 0; k < numData; ++k)
     {
         if (!file->seek(startOffset + PARTSIZE * k))
+        {
+            return QString();
+        }
+
+        if (abortPtr && *abortPtr)
         {
             return QString();
         }
