@@ -232,18 +232,43 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
         destUrl.addPath(suggestedFileName);
     }
 
-    if(m_transferTreeModel->findTransferByDestination(destUrl) != 0 || (destUrl.isLocalFile() && QFile::exists(destUrl.path()))) {
-        QPointer<KIO::RenameDialog> dlg = new KIO::RenameDialog(m_mainWindow,
-                                                i18n("Rename transfer"), srcUrl,
-                                                destUrl, KIO::M_OVERWRITE);
+    Transfer * existingTransferDest = m_transferTreeModel->findTransferByDestination(destUrl);
+    KIO::RenameDialog * dlg = 0;
 
+    if(existingTransferDest) {   
+        if(existingTransferDest->status() == Job::Finished) {
+            if (KMessageBox::questionYesNoCancel(0,
+                    i18n("You have already downloaded that file from another location\n\nDownload and delete the previous one?"),
+                    i18n("File already downloaded. Download anyway?"), KStandardGuiItem::yes(),
+                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    == KMessageBox::Yes) {
+                existingTransferDest->stop();
+                KGet::delTransfer(existingTransferDest->handler());
+                start = true;
+            } else 
+                return 0;
+        } else {
+            dlg = new KIO::RenameDialog( m_mainWindow, i18n("You are already downloading the same file", destUrl.prettyUrl()), srcUrl,
+                                     destUrl, KIO::M_MULTI );
+        }
+    } else if (destUrl.isLocalFile() && QFile::exists(destUrl.path())) {
+        dlg = new KIO::RenameDialog( m_mainWindow, i18n("File already exists"), srcUrl,
+                                     destUrl, KIO::M_OVERWRITE );          
+    }
+
+    if(dlg) {
         int result = dlg->exec();
 
         if ( result == KIO::R_RENAME || result == KIO::R_OVERWRITE )
             destUrl = dlg->newDestUrl();
-        else
+        else {
+            delete(dlg);
             return 0;
+        }
+
+        delete(dlg);
     }
+
     return createTransfer(srcUrl, destUrl, groupName, start);
 }
 
@@ -871,8 +896,7 @@ KUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName
 bool KGet::isValidSource(const KUrl &source)
 {
     // Check if the URL is well formed
-    if (!source.isValid())
-    {
+    if (!source.isValid()) {
         KMessageBox::error(0,
                            i18n("Malformed URL:\n%1", source.prettyUrl()),
                            i18n("Error"));
@@ -882,7 +906,8 @@ bool KGet::isValidSource(const KUrl &source)
     // Check if the URL contains the protocol
     if ( source.protocol().isEmpty() ){
 
-        KMessageBox::error(0, i18n("Malformed URL, protocol missing:\n%1", source.prettyUrl()),
+        KMessageBox::error(0, 
+                           i18n("Malformed URL, protocol missing:\n%1", source.prettyUrl()),
                            i18n("Error"));
 
         return false;
@@ -891,25 +916,32 @@ bool KGet::isValidSource(const KUrl &source)
     Transfer * transfer = m_transferTreeModel->findTransfer( source );
     if ( transfer )
     {
-        if ( transfer->status() == Job::Finished )
-        {
+        if ( transfer->status() == Job::Finished ) {
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNoCancel(0,
-                i18n("URL already saved:\n%1\nDownload again?", source.prettyUrl()),
-                i18n("Download URL again?"), KStandardGuiItem::yes(),
-                KStandardGuiItem::no(), KStandardGuiItem::cancel(), "QuestionUrlAlreadySaved" )
-                == KMessageBox::Yes)
-            {
+                    i18n("You have already completed a download from the location: \n\n%1\n\nDownload it again?", source.prettyUrl()),
+                    i18n("Download it again?"), KStandardGuiItem::yes(),
+                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    == KMessageBox::Yes) {
                 transfer->stop();
-                TransferHandler * th = transfer->handler();
-                KGet::delTransfer(th);
+                KGet::delTransfer(transfer->handler());
                 return true;
             }
+            else
+                return false;
         }
-        else
-        {
-            //Transfer is already in list and not finished, ...
-            return false;
+        else {
+            if (KMessageBox::warningYesNoCancel(0,
+                    i18n("You have a download in progress from the location: \n\n%1\n\nDelete it and download again?", source.prettyUrl()),
+                    i18n("Delete it and download again?"), KStandardGuiItem::yes(),
+                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    == KMessageBox::Yes) {
+                transfer->stop();
+                KGet::delTransfer(transfer->handler());
+                return true;
+            }
+            else
+                return false;
         }
         return false;
     }
