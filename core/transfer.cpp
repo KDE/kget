@@ -51,12 +51,6 @@ Transfer::~Transfer()
 {
     if(status() == Job::Delayed)
         m_scheduler->stopDelayTimer(this);
-
-    delete(m_handler);
-
-#ifdef HAVE_NEPOMUK
-    delete(m_nepomukHandler);
-#endif
 }
 
 void Transfer::init()//TODO think about e, maybe not have it at all in the constructor?
@@ -64,7 +58,7 @@ void Transfer::init()//TODO think about e, maybe not have it at all in the const
 #ifdef HAVE_NEPOMUK
     if (!m_nepomukHandler)
     {
-        m_nepomukHandler = new NepomukHandler(this, 0);
+        m_nepomukHandler = new NepomukHandler(this);
     }
 #endif
 }

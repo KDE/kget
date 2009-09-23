@@ -18,8 +18,8 @@
 #include <Nepomuk/Tag>
 #include <QtCore/QFile>
 
-NepomukHandler::NepomukHandler(Transfer *transfer, QObject *parent)
-  : QObject(parent),
+NepomukHandler::NepomukHandler(Transfer *transfer)
+  : QObject(transfer),
     m_transfer(transfer),
     m_destination(transfer->dest()),
     m_resource(Nepomuk::Resource(m_destination, Soprano::Vocabulary::Xesam::File()))

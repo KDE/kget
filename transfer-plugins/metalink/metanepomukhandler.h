@@ -28,7 +28,7 @@ class MetaNepomukHandler : public NepomukHandler
 {
     Q_OBJECT
     public:
-        MetaNepomukHandler(Transfer *transfer, QObject *parent);
+        MetaNepomukHandler(Transfer *transfer);
         ~MetaNepomukHandler();
 
         QStringList tags() const;

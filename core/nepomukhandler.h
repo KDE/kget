@@ -23,7 +23,7 @@ class KGET_EXPORT NepomukHandler : public QObject
     Q_OBJECT
 
     public:
-        NepomukHandler(Transfer *transfer, QObject *parent);
+        NepomukHandler(Transfer *transfer);
         virtual ~NepomukHandler();
 
         virtual QStringList tags() const;

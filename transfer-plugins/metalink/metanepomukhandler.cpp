@@ -26,9 +26,9 @@
 #include <Nepomuk/Tag>
 #include <QtCore/QFile>
 
-MetaNepomukHandler::MetaNepomukHandler(Transfer *transfer, QObject *parent)
-: NepomukHandler(transfer, parent),
-m_tempResource(Nepomuk::Resource("KGet::Transfer::" + m_transfer->source().url()))
+MetaNepomukHandler::MetaNepomukHandler(Transfer *transfer)
+  : NepomukHandler(transfer),
+    m_tempResource(Nepomuk::Resource("KGet::Transfer::" + m_transfer->source().url()))
 {
 }
 

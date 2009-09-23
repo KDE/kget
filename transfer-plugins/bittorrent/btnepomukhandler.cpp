@@ -26,8 +26,8 @@
 #include <Nepomuk/Tag>
 #include <QtCore/QFile>
 //TODO postDeleteEvent
-BtNepomukHandler::BtNepomukHandler(Transfer *transfer, QObject *parent)
-  : NepomukHandler(transfer, parent),
+BtNepomukHandler::BtNepomukHandler(Transfer *transfer)
+  : NepomukHandler(transfer),
     m_tempResource(Nepomuk::Resource("KGet::Transfer::" + m_transfer->source().url()))
 {
 }

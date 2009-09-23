@@ -60,7 +60,7 @@ void Metalink::init()
 #ifdef HAVE_NEPOMUK
     if (!m_nepHandler)
     {
-        m_nepHandler = new MetaNepomukHandler(this, 0);
+        m_nepHandler = new MetaNepomukHandler(this);
         setNepomukHandler(m_nepHandler);
     }
 #endif //HAVE_NEPOMUK

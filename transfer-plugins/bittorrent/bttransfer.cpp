@@ -80,7 +80,7 @@ void BTTransfer::init()
 #ifdef HAVE_NEPOMUK
     if (!m_nepHandler)
     {
-        m_nepHandler = new BtNepomukHandler(this, 0);
+        m_nepHandler = new BtNepomukHandler(this);
         setNepomukHandler(m_nepHandler);
     }
 #endif //HAVE_NEPOMUK
