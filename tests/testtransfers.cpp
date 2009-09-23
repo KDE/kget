@@ -40,7 +40,7 @@ Operation::Operation(int randomNumber, OrgKdeKgetTransferInterface * transfer, T
 {
     double probabilityIndex = 1.0 * randomNumber / 1000 * typeProbabilitySum();
     
-    kDebug(5001) << "probabilityIndex = " << probabilityIndex << " typeProbabilitySum = " << typeProbabilitySum();
+//     kDebug(5001) << "probabilityIndex = " << probabilityIndex << " typeProbabilitySum = " << typeProbabilitySum();
     
     int type = 0;
     int probabilitySum = 0;
@@ -49,7 +49,7 @@ Operation::Operation(int randomNumber, OrgKdeKgetTransferInterface * transfer, T
     {
         probabilitySum += p;
         
-        kDebug(5001) << "probabilitySum = " << probabilitySum;
+//         kDebug(5001) << "probabilitySum = " << probabilitySum;
         
         if(probabilityIndex <= probabilitySum)
         {
@@ -122,26 +122,26 @@ TestTransfers::TestTransfers()
 //         kgetInterface.setDropTargetVisible(true);
 //     }
 
-    m_urlsList << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdebase-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdebase-runtime-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdebase-workspace-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdebindings-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdeedu-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdegames-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdegraphics-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdelibs-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdelibs-experimental-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdemultimedia-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdenetwork-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdepim-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdepim-runtime-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdepimlibs-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdeplasma-addons-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdesdk-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdetoys-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdeutils-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/kdewebdev-4.3.0.tar.bz2"
-               << "http://mirrors.isc.org/pub/kde/stable/4.3.0/src/oxygen-icons-4.3.0.tar.bz2";
+    m_urlsList << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebase-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebase-runtime-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebase-workspace-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebindings-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdeedu-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdegames-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdegraphics-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdelibs-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdelibs-experimental-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdemultimedia-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdenetwork-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdepim-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdepim-runtime-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdepimlibs-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdeplasma-addons-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdesdk-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdetoys-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdeutils-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdewebdev-4.3.1.tar.bz2"
+               << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/oxygen-icons-4.3.1.tar.bz2";
 }
 
 void TestTransfers::createTransfer()
@@ -161,7 +161,7 @@ void TestTransfers::createTransfer()
    
     QDBusReply<QStringList> reply = kgetInterface.addTransfer(m_urlsList[i], "/tmp/downloads/" + QString::number(i), false);
 
-    if(reply.isValid())
+    if(reply.isValid() && reply.value().size())
     {
 //         QList<QVariant> list = reply.value().variant().toList();
         kDebug(5001) << "TestTransfers::createTransfer -> transfer = " << reply.value();
@@ -213,7 +213,7 @@ Operation * TestTransfers::randomOperation(OrgKdeKgetTransferInterface * transfe
     double num = 1.0 * qrand() / RAND_MAX * 1000;
     
     Operation * op = new Operation(num, transfer, this);
-    kDebug(5001) << "Random number = " << num << "  type = " << op->type();
+//     kDebug(5001) << "Random number = " << num << "  type = " << op->type();
     
     return op;
 }
@@ -222,7 +222,7 @@ OrgKdeKgetTransferInterface * TestTransfers::randomTransfer()
 {
     int transferIndex = 1.0 * qrand() / RAND_MAX * m_transferIfaces.size();
 
-    kDebug(5001) << "Random transfer = " << transferIndex;
+//     kDebug(5001) << "Random transfer = " << transferIndex;
     
     if(transferIndex >= m_transferIfaces.size())
         return 0;
