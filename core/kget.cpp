@@ -233,7 +233,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
     }
 
     Transfer * existingTransferDest = m_transferTreeModel->findTransferByDestination(destUrl);
-    KIO::RenameDialog * dlg = 0;
+    QPointer<KIO::RenameDialog> dlg = 0;
 
     if(existingTransferDest) {   
         if(existingTransferDest->status() == Job::Finished) {
