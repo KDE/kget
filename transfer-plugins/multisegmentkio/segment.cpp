@@ -133,12 +133,10 @@ void Segment::slotResult( KJob *job )
     if (!m_totalBytesLeft)
     {
         setStatus(Finished);
-        deleteLater();
         return;
     }
     if( m_status == Killed )
     {
-        deleteLater();
         return;
     }
     if( m_status == Running )
