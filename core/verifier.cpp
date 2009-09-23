@@ -770,16 +770,12 @@ PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &typ
     }
     else
     {
-        numPieces = fileSize / PARTSIZE;
-        length = fileSize;
+        length = PARTSIZE;
+        numPieces = fileSize / length;
         if (numPieces > 100)
         {
             numPieces = 100;
             length = fileSize / numPieces;
-        }
-        else if (numPieces)
-        {
-            length = PARTSIZE;
         }
     }
 

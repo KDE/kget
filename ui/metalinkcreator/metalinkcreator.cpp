@@ -616,7 +616,7 @@ void MetalinkCreator::slotAddPressed()
     fileDlg(&m_tempFile);
 }
 
-void MetalinkCreator::fileDlg(KGetMetalink::File* file, bool edit)
+void MetalinkCreator::fileDlg(KGetMetalink::File *file, bool edit)
 {
     QStringList currentNames;
     for (int i = 0; i < m_filesModel->rowCount(); ++i)

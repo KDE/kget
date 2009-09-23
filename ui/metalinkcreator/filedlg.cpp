@@ -171,6 +171,8 @@ void FileDlg::slotAddHash()
 
 void FileDlg::slotOkClicked()
 {//TODO metaurl!!!
+    KGetMetalink::Verification pieces;
+    pieces.pieces = m_file->verification.pieces;//TODO remove once the partial hashes are also shown
     m_file->clear();
 
     m_file->name = ui.name->text();
@@ -198,6 +200,7 @@ void FileDlg::slotOkClicked()
         const QString hash = m_verificationModel->index(i, VerificationModel::Checksum).data().toString();
         m_file->verification.hashes[type] = hash;
     }
+    m_file->verification.pieces = pieces.pieces;
 
     //the file has been edited
     if (m_edit)
