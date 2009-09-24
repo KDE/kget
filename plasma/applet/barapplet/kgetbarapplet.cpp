@@ -213,6 +213,7 @@ KGetBarApplet::~KGetBarApplet()
 
 void KGetBarApplet::init()
 {
+    KGlobal::locale()->insertCatalog("plasma_applet_kget");
     m_layout = new QGraphicsLinearLayout(this);
     m_layout->setSpacing(SPACING);
     m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);

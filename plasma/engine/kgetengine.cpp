@@ -67,13 +67,12 @@ void KGetEngine::getKGetData(const QString &name)
         OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
                             QDBusConnection::sessionBus());
 
-        setData(I18N_NOOP(name), I18N_NOOP("error"), false);
-        setData(I18N_NOOP(name), I18N_NOOP("transfers"),
+        setData(name, "error", false);
+        setData(name, "transfers",
                                 kget_interface.transfers().value());
     } else {
-        setData(I18N_NOOP(name), I18N_NOOP("error"), true);
-        setData(I18N_NOOP(name), I18N_NOOP("errorMessage"),
-                                I18N_NOOP("Is KGet up and running?"));
+        setData(name, "error", true);
+        setData(name, "errorMessage", i18n("Is KGet up and running?"));
     }
 }
 

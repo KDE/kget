@@ -168,6 +168,8 @@ KGetPanelBar::~KGetPanelBar()
 
 void KGetPanelBar::init()
 {
+    KGlobal::locale()->insertCatalog("plasma_applet_kget");
+
     m_icon = new Plasma::IconWidget(KIcon("go-down"), QString(), this);
 
     m_layout = new QGraphicsLinearLayout(Qt::Horizontal, this);
