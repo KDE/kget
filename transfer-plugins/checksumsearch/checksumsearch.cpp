@@ -164,17 +164,17 @@ KUrl ChecksumSearch::createUrl(const KUrl &src, const QString &change, ChecksumS
     }
 
     KUrl url;
-    if (mode == Append)
+    if (mode == kg_Append)
     {
         url = KUrl(src.pathOrUrl() + change);
     }
-    else if (mode == ReplaceFile)
+    else if (mode == kg_ReplaceFile)
     {
         KUrl temp = src.upUrl();
         temp.addPath(change);
         url = temp;
     }
-    else if (mode == ReplaceEnding)
+    else if (mode == kg_ReplaceEnding)
     {
         QString fileName = src.fileName();
         int index = fileName.lastIndexOf('.');

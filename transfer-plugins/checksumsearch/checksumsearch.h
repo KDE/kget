@@ -39,9 +39,9 @@ class ChecksumSearch : public QObject
          */
         enum UrlChangeMode
         {
-            Append,     ///Appends the QString to the Url --> "http://test.com/aFile.zip"; ".md5" "http://test.com/aFile.zip.md5"
-            ReplaceFile,     ///Replaces the file of the Url with QString --> "http://test.com/aFile.zip"; "MD5SUMS" "http://test.com/MD5SUMS"
-            ReplaceEnding   ///Only replaces the file ending of the Url with QString --> "http://test.com/aFile.zip"; "-CHECKSUM" "http://test.com/aFile-CHECKSUM"
+            kg_Append,     ///Appends the QString to the Url --> "http://test.com/aFile.zip"; ".md5" "http://test.com/aFile.zip.md5"
+            kg_ReplaceFile,     ///Replaces the file of the Url with QString --> "http://test.com/aFile.zip"; "MD5SUMS" "http://test.com/MD5SUMS"
+            kg_ReplaceEnding   ///Only replaces the file ending of the Url with QString --> "http://test.com/aFile.zip"; "-CHECKSUM" "http://test.com/aFile-CHECKSUM"
         };
 
         /**
