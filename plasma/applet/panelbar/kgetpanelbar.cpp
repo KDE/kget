@@ -185,6 +185,8 @@ KGetPanelBar::~KGetPanelBar()
 
 void KGetPanelBar::init()
 {
+    KGlobal::locale()->insertCatalog("plasma_applet_kget");
+
     m_dialog = new Plasma::Dialog(0);
     m_dialog->setFocusPolicy(Qt::NoFocus);
     m_dialog->setLayout(d->dialogLayout());
