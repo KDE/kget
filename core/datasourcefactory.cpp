@@ -56,7 +56,6 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
     m_dest(dest),
     m_size(size),
     m_downloadedSize(0),
-    m_prevDownloadedSize(0),
     m_segSize(segSize),
     m_speed(0),
     m_tempOffset(0),
@@ -78,13 +77,14 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
     m_verifier(0)
 {
     kDebug(5001) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
+    
+    m_prevDownloadedSizes.append(0);
 }
 
 DataSourceFactory::DataSourceFactory(QObject *parent)
   : QObject(parent),
     m_size(0),
     m_downloadedSize(0),
-    m_prevDownloadedSize(0),
     m_segSize(0),
     m_speed(0),
     m_tempOffset(0),
@@ -106,6 +106,8 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
     m_verifier(0)
 {
     kDebug(5001) << "Initialize DataSourceFactory only with parrent";
+    
+    m_prevDownloadedSizes.append(0);
 }
 
 DataSourceFactory::~DataSourceFactory()
@@ -858,8 +860,11 @@ void DataSourceFactory::slotPercent(KJob* job, ulong p)
 
 void DataSourceFactory::speedChanged()
 {
-    m_speed = (m_downloadedSize - m_prevDownloadedSize) / (SPEEDTIMER / 1000);//downloaded in 1 second
-    m_prevDownloadedSize = m_downloadedSize;
+    m_speed = (m_downloadedSize - m_prevDownloadedSizes.first()) / (SPEEDTIMER * m_prevDownloadedSizes.size() / 1000);//downloaded in 1 second
+
+    m_prevDownloadedSizes.append(m_downloadedSize);
+    if(m_prevDownloadedSizes.size() > 10)
+        m_prevDownloadedSizes.removeFirst();
 
     emit speed(m_speed);
     emit percent(m_downloadedSize * 100 / m_size);

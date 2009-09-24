@@ -260,7 +260,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         KUrl m_newDest;
         KIO::filesize_t m_size;
         KIO::filesize_t m_downloadedSize;
-        KIO::filesize_t m_prevDownloadedSize;
+        QList<KIO::filesize_t> m_prevDownloadedSizes;
         KIO::fileoffset_t m_segSize;
         ulong m_speed;
         /**
