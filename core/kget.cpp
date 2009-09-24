@@ -179,7 +179,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
         if( srcUrl.isEmpty() )
             return 0;
     }
-
+    
     if ( !isValidSource( srcUrl ) )
         return 0;
 
@@ -840,7 +840,8 @@ KUrl KGet::urlInputDialog()
     while (!ok)
     {
         newtransfer = KInputDialog::getText(i18n("New Download"), i18n("Enter URL:"), newtransfer, &ok, 0);
-
+        newtransfer = newtransfer.trimmed();    //Remove any unnecessary space at the beginning and/or end
+        
         if (!ok)
         {
             //user pressed cancel

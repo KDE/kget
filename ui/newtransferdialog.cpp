@@ -47,7 +47,7 @@ public:
     bool isEmpty()
     {
         if (urlRequester) {
-            return urlRequester->text().isEmpty();
+            return urlRequester->text().trimmed().isEmpty();
         } else if (listWidget) {
             return !listWidget->count();
         }
@@ -61,11 +61,11 @@ public:
         {
             for (int i = 0; i != listWidget->count(); i++) {
                 if (listWidget->item(i)->checkState() == Qt::Checked)
-                    list << KUrl(listWidget->item(i)->text());
+                    list << KUrl(listWidget->item(i)->text().trimmed());
             }
         }
         else
-            list << KUrl(urlRequester->text());
+            list << KUrl(urlRequester->text().trimmed());
         return list;
     }
 
@@ -168,7 +168,7 @@ public:
             filename = KUrl(filename).directory();
         }
         else if (urlRequester) {
-            filename = KUrl(urlRequester->text()).fileName();
+            filename = KUrl(urlRequester->text().trimmed()).fileName();
         }
 
         for (int i=0;i < list.count();i++)
@@ -439,7 +439,7 @@ void NewTransferDialog::urlChanged(const QString &text)
 {
     if (d->m_multiple)
         return;
-    KUrl url(text);
+    KUrl url(text.trimmed());
     //if (d->m_destRequester->url()->isEmpty())
     //    d->setDestination(m_sources, QStringList());
     if (QFileInfo(d->m_destRequester->url().path()).isDir())
