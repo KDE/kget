@@ -20,14 +20,13 @@
 #ifndef CHECKSUMSEARCHTRANSFERDATASOURCE_H
 #define CHECKSUMSEARCHTRANSFERDATASOURCE_H
 
-#include "kget_export.h"
 #include "core/transferdatasource.h"
 
 #include <KIO/Job>
 
 class ChecksumSearch;
 
-class KGET_EXPORT ChecksumSearchTransferDataSource : public TransferDataSource
+class ChecksumSearchTransferDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
