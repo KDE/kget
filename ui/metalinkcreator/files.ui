@@ -79,7 +79,7 @@
    <item row="1" column="1">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Add at least one file. You can also drag and drop local files into this window, that would enter a lot information automatically.</string>
+      <string>Add at least one file. Adding local files adds a lot of information automatically.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

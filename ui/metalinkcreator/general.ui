@@ -23,6 +23,13 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="origin">
+       <property name="clickMessage">
+        <string>Web-Url to the metalink</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="labelDynamic">
        <property name="toolTip">
@@ -30,104 +37,6 @@
        </property>
        <property name="text">
         <string>Dynamic:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="toolTip">
-        <string extracomment="the basic identity of the metalink-file, e.g. KDE">The identity of the file</string>
-       </property>
-       <property name="text">
-        <string>Identity:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="KLineEdit" name="identity">
-       <property name="clickMessage">
-        <string>Identity e.g. &quot;KDE&quot;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="toolTip">
-        <string extracomment="the version of the file e.g. 4.3 for KDE">The version of the file</string>
-       </property>
-       <property name="text">
-        <string>Version:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="KLineEdit" name="version"/>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Description:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="KLineEdit" name="description">
-       <property name="showClearButton" stdset="0">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_17">
-       <property name="text">
-        <string>Logo:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="KLineEdit" name="logo">
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="clickMessage">
-        <string>Url to the logo</string>
-       </property>
-       <property name="showClearButton" stdset="0">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_19">
-       <property name="toolTip">
-        <string>The language of the file</string>
-       </property>
-       <property name="text">
-        <string>Language:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="KComboBox" name="language"/>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_20">
-       <property name="text">
-        <string>Operating system:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="KLineEdit" name="os">
-       <property name="showClearButton" stdset="0">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="KLineEdit" name="origin">
-       <property name="clickMessage">
-        <string>Web-Url to the metalink</string>
        </property>
       </widget>
      </item>
@@ -298,7 +207,7 @@
    <item row="1" column="1">
     <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>Here you can enter optional general information on the metalink. What you set here applies to all files, if an option is set here and later on a specific file then the later is preferred.</string>
+      <string>Here you can enter optional general information on the metalink.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -324,11 +233,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>KDateTimeWidget</class>
    <extends>QWidget</extends>

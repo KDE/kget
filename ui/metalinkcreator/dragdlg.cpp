@@ -26,9 +26,10 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QSortFilterProxyModel>
 
-DragDlg::DragDlg(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort, QWidget *parent)
+DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent)
   : KDialog(parent),
-    m_resources(resources)
+    m_resources(resources),
+    m_commonData(commonData)
 {
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
@@ -37,6 +38,10 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, QSortFilterProxyModel *coun
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(m_resources, countrySort);
     ui.urlLayout->addWidget(m_urlWidget->widget());
+
+    QWidget *data = new QWidget(this);
+    uiData.setupUi(data);
+    ui.dataLayout->addWidget(data);
 
     QVBoxLayout *layout = new QVBoxLayout;
     QStringList verifierTypes = Verifier::supportedVerficationTypes();
@@ -48,6 +53,10 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, QSortFilterProxyModel *coun
         m_checkBoxes.append(checkBox);
     }
     ui.groupBox->setLayout(layout);
+
+    //create the language selection
+    uiData.language->setModel(languageSort);
+    uiData.language->setCurrentIndex(-1);
 
     connect(this, SIGNAL(accepted()), this, SLOT(slotFinished()));
 
@@ -66,6 +75,18 @@ void DragDlg::slotFinished()
             used.append(checkbox->text().remove('&'));
         }
     }
+
+    m_commonData->identity = uiData.identity->text();
+    m_commonData->version = uiData.version->text();
+    m_commonData->description = uiData.description->text();
+    m_commonData->logo = KUrl(uiData.logo->text());
+    m_commonData->os = uiData.os->text();
+    m_commonData->copyright = uiData.copyright->text();
+    m_commonData->publisher.name = uiData.pub_name->text();
+    m_commonData->publisher.url = KUrl(uiData.pub_url->text());
+    m_commonData->license.name = uiData.lic_name->text();
+    m_commonData->license.url = KUrl(uiData.lic_url->text());
+    m_commonData->language = uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     emit usedTypes(used, ui.partialChecksums->isChecked());
 }

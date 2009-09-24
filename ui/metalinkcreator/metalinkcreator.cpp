@@ -53,13 +53,14 @@ DroppedFilesThread::~DroppedFilesThread()
     wait();
 }
 
-void DroppedFilesThread::setData(const QList<KUrl> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources)
+void DroppedFilesThread::setData(const QList<KUrl> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData)
 {
     QMutexLocker locker(&mutex);
     m_files.append(files);
     m_types.append(types);
     m_createPartial.append(createPartial);
     m_tempResources.append(tempResources);
+    m_tempCommonDatas.append(tempCommonData);
 
     if (!isRunning())
     {
@@ -80,6 +81,7 @@ void DroppedFilesThread::run()
         QStringList types = m_types.takeFirst();
         bool createPartial = m_createPartial.takeFirst();
         KGetMetalink::Resources tempResources = m_tempResources.takeFirst();
+        KGetMetalink::CommonData commonData = m_tempCommonDatas.takeFirst();
         mutex.unlock();
 
         while (files.count() && !abort)
@@ -101,6 +103,7 @@ void DroppedFilesThread::run()
             file.name = url.fileName();
             QFile localFile(url.path());
             file.size = localFile.size();
+            file.data = commonData;
 
             foreach (const KGetMetalink::Url &metalinkUrl, tempResources.urls)
             {
@@ -273,7 +276,6 @@ void MetalinkCreator::create()
 {
     createIntroduction();
     createGeneral();
-    createGeneral2();
     createFiles();
 }
 
@@ -289,14 +291,12 @@ void MetalinkCreator::load()
     }
 
     loadGeneral();
-    loadGeneral2();
     loadFiles();
 }
 
 void MetalinkCreator::slotSave()
 {
     saveGeneral();
-    saveGeneral2();
 
     KUrl url = KUrl(uiIntroduction.save->text());
     if (url.isValid())
@@ -350,7 +350,6 @@ void MetalinkCreator::createGeneral()
     uiGeneral.setupUi(widget);
 
     uiGeneral.dynamic->setToolTip(uiGeneral.labelDynamic->toolTip());
-    uiGeneral.language->setModel(m_languageSort);
 
     uiGeneral.publishedoffset->setEnabled(false);
     uiGeneral.publishedWidget->setEnabled(false);
@@ -363,74 +362,50 @@ void MetalinkCreator::createGeneral()
 void MetalinkCreator::loadGeneral()
 {
     uiGeneral.origin->setUrl(metalink.origin);
-//     uiGeneral.identity->setText(metalink.files.data.identity);
-//     uiGeneral.version->setText(metalink.files.data.version);
-//     uiGeneral.description->setText(metalink.files.data.description);
-//     uiGeneral.logo->setUrl(metalink.files.data.logo);
-//     uiGeneral.os->setText(metalink.files.data.os);
-
     uiGeneral.dynamic->setChecked(metalink.dynamic);
-
-//     const int indexLanguage = uiGeneral.language->findData(metalink.files.data.language);
-//     uiGeneral.language->setCurrentIndex(indexLanguage);
 
     uiGeneral.use_published->setChecked(metalink.published.isValid());
     uiGeneral.use_publishedtimeoffset->setChecked(metalink.published.timeZoneOffset.isValid());
-    if (metalink.published.isValid())
-    {
-      uiGeneral.published->setDateTime(metalink.published.dateTime);
-      uiGeneral.publishedoffset->setTime(metalink.published.timeZoneOffset);
-      uiGeneral.publishedNegative->setChecked(metalink.published.negativeOffset);
-    }
-    else
-    {
-      uiGeneral.published->setDateTime(QDateTime::currentDateTime());
-      int offset = KSystemTimeZones::local().currentOffset();
-      bool negativeOffset = (offset < 0);
-      uiGeneral.publishedNegative->setChecked(negativeOffset);
-      offset = abs(offset);
-      QTime time = QTime(0, 0, 0);
-      time = time.addSecs(abs(offset));
-      uiGeneral.publishedoffset->setTime(time);
-      uiGeneral.use_publishedtimeoffset->setChecked(true);
-      uiGeneral.publishedNegative->setChecked(negativeOffset);
+    if (metalink.published.isValid()) {
+        uiGeneral.published->setDateTime(metalink.published.dateTime);
+        uiGeneral.publishedoffset->setTime(metalink.published.timeZoneOffset);
+        uiGeneral.publishedNegative->setChecked(metalink.published.negativeOffset);
+    } else {
+        uiGeneral.published->setDateTime(QDateTime::currentDateTime());
+        int offset = KSystemTimeZones::local().currentOffset();
+        bool negativeOffset = (offset < 0);
+        uiGeneral.publishedNegative->setChecked(negativeOffset);
+        offset = abs(offset);
+        QTime time = QTime(0, 0, 0);
+        time = time.addSecs(abs(offset));
+        uiGeneral.publishedoffset->setTime(time);
+        uiGeneral.use_publishedtimeoffset->setChecked(true);
+        uiGeneral.publishedNegative->setChecked(negativeOffset);
     }
 
     uiGeneral.use_updated->setChecked(metalink.updated.isValid());
     uiGeneral.use_updatedtimeoffset->setChecked(metalink.updated.timeZoneOffset.isValid());
-    if (metalink.updated.isValid())
-    {
-      uiGeneral.updated->setDateTime(metalink.updated.dateTime);
-      uiGeneral.updatedoffset->setTime(metalink.updated.timeZoneOffset);
-      uiGeneral.updatedNegative->setChecked(metalink.updated.negativeOffset);
-    }
-    else
-    {
-      uiGeneral.updated->setDateTime(QDateTime::currentDateTime());
-      int offset = KSystemTimeZones::local().currentOffset();
-      bool negativeOffset = (offset < 0);
-      uiGeneral.updatedNegative->setChecked(negativeOffset);
-      QTime time = QTime(0, 0, 0);
-      time = time.addSecs(abs(offset));
-      uiGeneral.updatedoffset->setTime(time);
-      uiGeneral.use_updatedtimeoffset->setChecked(true);
-      uiGeneral.updatedNegative->setChecked(negativeOffset);
+    if (metalink.updated.isValid()) {
+        uiGeneral.updated->setDateTime(metalink.updated.dateTime);
+        uiGeneral.updatedoffset->setTime(metalink.updated.timeZoneOffset);
+        uiGeneral.updatedNegative->setChecked(metalink.updated.negativeOffset);
+    } else {
+        uiGeneral.updated->setDateTime(QDateTime::currentDateTime());
+        int offset = KSystemTimeZones::local().currentOffset();
+        bool negativeOffset = (offset < 0);
+        uiGeneral.updatedNegative->setChecked(negativeOffset);
+        QTime time = QTime(0, 0, 0);
+        time = time.addSecs(abs(offset));
+        uiGeneral.updatedoffset->setTime(time);
+        uiGeneral.use_updatedtimeoffset->setChecked(true);
+        uiGeneral.updatedNegative->setChecked(negativeOffset);
     }
 }
 
 void MetalinkCreator::saveGeneral()
 {
     metalink.origin = KUrl(uiGeneral.origin->text());
-//     metalink.files.data.identity = uiGeneral.identity->text();
-//     metalink.files.data.version = uiGeneral.version->text();
-//     metalink.files.data.description = uiGeneral.description->text();
-//     metalink.files.data.logo = KUrl(uiGeneral.logo->text());
-//     metalink.files.data.os = uiGeneral.os->text();
-//     metalink.files.data.identity = uiGeneral.identity->text();
-
     metalink.dynamic = uiGeneral.dynamic->isChecked();
-
-//     metalink.files.data.language = uiGeneral.language->itemData(uiGeneral.language->currentIndex()).toString();
 
     metalink.published.clear();
     if (uiGeneral.use_published->isChecked())
@@ -451,32 +426,6 @@ void MetalinkCreator::saveGeneral()
             metalink.updated.timeZoneOffset = uiGeneral.updatedoffset->time();
         }
     }
-}
-
-void MetalinkCreator::createGeneral2()
-{
-    QWidget *widget = new QWidget(this);
-    uiGeneral2.setupUi(widget);
-
-    m_general2 = addPage(widget, i18n("General optional information for the metalink."));
-}
-
-void MetalinkCreator::loadGeneral2()
-{
-//     uiGeneral2.copyright->setText(metalink.files.data.copyright);
-//     uiGeneral2.lic_name->setText(metalink.files.data.license.name);
-//     uiGeneral2.lic_url->setUrl(metalink.files.data.license.url);
-//     uiGeneral2.pub_name->setText(metalink.files.data.publisher.name);
-//     uiGeneral2.pub_url->setUrl(metalink.files.data.publisher.url);
-}
-
-void MetalinkCreator::saveGeneral2()
-{
-//     metalink.files.data.copyright = uiGeneral2.copyright->text();
-//     metalink.files.data.license.name = uiGeneral2.lic_name->text();
-//     metalink.files.data.license.url = KUrl(uiGeneral2.lic_url->text());
-//     metalink.files.data.publisher.name = uiGeneral2.pub_name->text();
-//     metalink.files.data.publisher.url = KUrl(uiGeneral2.pub_url->text());
 }
 
 void MetalinkCreator::createFiles()
@@ -652,8 +601,9 @@ void MetalinkCreator::slotFileProperties()
 void MetalinkCreator::slotUrlsDropped(const QList<KUrl> &files)
 {
     m_tempResources.clear();
+    m_tempCommonData.clear();
     m_droppedFiles = files;
-    DragDlg *dragDlg = new DragDlg(&m_tempResources, m_countrySort, this);
+    DragDlg *dragDlg = new DragDlg(&m_tempResources, &m_tempCommonData, m_countrySort, m_languageSort, this);
     dragDlg->setAttribute(Qt::WA_DeleteOnClose);
     dragDlg->show();
 
@@ -664,7 +614,7 @@ void MetalinkCreator::slotHandleDropped(const QStringList& types, bool createPar
 {
     uiFiles.progressBar->setMaximum(0);
     uiFiles.dragDrop->show();
-    thread.setData(m_droppedFiles, types, createPartial, m_tempResources);
+    thread.setData(m_droppedFiles, types, createPartial, m_tempResources, m_tempCommonData);
 }
 
 void MetalinkCreator::slotThreadFinished()

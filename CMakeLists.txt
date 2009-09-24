@@ -234,11 +234,11 @@ kde4_add_ui_files(kget_SRCS
    ui/verificationadddlg.ui
    ui/metalinkcreator/introduction.ui
    ui/metalinkcreator/general.ui
-   ui/metalinkcreator/general2.ui
    ui/metalinkcreator/files.ui
    ui/metalinkcreator/filedlg.ui
    ui/metalinkcreator/dragdlg.ui
    ui/metalinkcreator/urlwidget.ui
+   ui/metalinkcreator/commondata.ui
 )
 
 if(HAVE_NEPOMUK)

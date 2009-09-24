@@ -23,6 +23,7 @@
 #include <KDialog>
 
 #include "ui_dragdlg.h"
+#include "ui_commondata.h"
 
 class QCheckBox;
 class QSortFilterProxyModel;
@@ -30,6 +31,7 @@ class UrlWidget;
 
 namespace KGetMetalink
 {
+    class CommonData;
     class Resources;
 }
 
@@ -38,7 +40,7 @@ class DragDlg : public KDialog
     Q_OBJECT
 
     public:
-        DragDlg(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort, QWidget *parent = 0);
+        DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent = 0);
 
     signals:
         /**
@@ -56,8 +58,10 @@ class DragDlg : public KDialog
     private:
         UrlWidget *m_urlWidget;
         KGetMetalink::Resources *m_resources;
+        KGetMetalink::CommonData *m_commonData;
         QList<QCheckBox*> m_checkBoxes;
         Ui::DragDlg ui;
+        Ui::CommonData uiData;
 };
 
 #endif

@@ -29,7 +29,6 @@
 
 #include "ui_introduction.h"
 #include "ui_general.h"
-#include "ui_general2.h"
 #include "ui_files.h"
 
 namespace KGetMetalink
@@ -52,7 +51,7 @@ class DroppedFilesThread : public QThread
         DroppedFilesThread(QObject *parent = 0);
         ~DroppedFilesThread();
 
-        void setData(const QList<KUrl> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources);
+        void setData(const QList<KUrl> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData);
 
     signals:
         void fileResult(const KGetMetalink::File file);
@@ -67,6 +66,7 @@ class DroppedFilesThread : public QThread
         QList<QStringList> m_types;
         QList<bool> m_createPartial;
         QList<KGetMetalink::Resources> m_tempResources;
+        QList<KGetMetalink::CommonData> m_tempCommonDatas;
 };
 
 class FileWidget : public QWidget
@@ -180,10 +180,6 @@ class MetalinkCreator : public KAssistantDialog
         void loadGeneral();
         void saveGeneral();
 
-        void createGeneral2();
-        void loadGeneral2();
-        void saveGeneral2();
-
         void createFiles();
         void loadFiles();
 
@@ -194,6 +190,7 @@ class MetalinkCreator : public KAssistantDialog
 
         KGetMetalink::File m_tempFile;
         KGetMetalink::Resources m_tempResources;
+        KGetMetalink::CommonData m_tempCommonData;
         bool m_createPartial;
 
         QSortFilterProxyModel *m_countrySort;
@@ -205,9 +202,6 @@ class MetalinkCreator : public KAssistantDialog
 
         Ui::General uiGeneral;
         KPageWidgetItem *m_general;
-
-        Ui::General2 uiGeneral2;
-        KPageWidgetItem *m_general2;
 
         Ui::Files uiFiles;
         KPageWidgetItem *m_files;

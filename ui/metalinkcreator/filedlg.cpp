@@ -49,17 +49,21 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.urlLayout->addWidget(m_urlWidget->widget());
     connect(m_urlWidget, SIGNAL(urlsChanged()), this, SLOT(slotUpdateOkButton()));
 
+    QWidget *data = new QWidget(this);
+    uiData.setupUi(data);
+    ui.dataLayout->addWidget(data);
+
     ui.name->setText(m_file->name);
-    ui.identity->setText(m_file->data.identity);
-    ui.version->setText(m_file->data.version);
-    ui.description->setText(m_file->data.description);
-    ui.logo->setUrl(m_file->data.logo);
-    ui.os->setText(m_file->data.os);
-    ui.copyright->setText(m_file->data.copyright);
-    ui.pub_name->setText(m_file->data.publisher.name);
-    ui.pub_url->setUrl(m_file->data.publisher.url);
-    ui.lic_name->setText(m_file->data.license.name);
-    ui.lic_url->setUrl(m_file->data.license.url);
+    uiData.identity->setText(m_file->data.identity);
+    uiData.version->setText(m_file->data.version);
+    uiData.description->setText(m_file->data.description);
+    uiData.logo->setUrl(m_file->data.logo);
+    uiData.os->setText(m_file->data.os);
+    uiData.copyright->setText(m_file->data.copyright);
+    uiData.pub_name->setText(m_file->data.publisher.name);
+    uiData.pub_url->setUrl(m_file->data.publisher.url);
+    uiData.lic_name->setText(m_file->data.license.name);
+    uiData.lic_url->setUrl(m_file->data.license.url);
 
     if (m_file->size)
     {
@@ -68,9 +72,9 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
 
 
     //create the language selection
-    ui.language->setModel(languageSort);
-    const int index = ui.language->findData(m_file->data.language);
-    ui.language->setCurrentIndex(index);
+    uiData.language->setModel(languageSort);
+    const int index = uiData.language->findData(m_file->data.language);
+    uiData.language->setCurrentIndex(index);
 
 
     //create the verification stuff
@@ -177,18 +181,17 @@ void FileDlg::slotOkClicked()
 
     m_file->name = ui.name->text();
     m_file->size = ui.size->text().toLongLong();
-    m_file->data.identity = ui.identity->text();
-    m_file->data.version = ui.version->text();
-    m_file->data.description = ui.description->text();
-    m_file->data.logo = KUrl(ui.logo->text());
-    m_file->data.os = ui.os->text();
-    m_file->data.copyright = ui.copyright->text();
-    m_file->data.publisher.name = ui.pub_name->text();
-    m_file->data.publisher.url = KUrl(ui.pub_url->text());
-    m_file->data.license.name = ui.lic_name->text();
-    m_file->data.license.url = KUrl(ui.lic_url->text());
-
-    m_file->data.language = ui.language->itemData(ui.language->currentIndex()).toString();
+    m_file->data.identity = uiData.identity->text();
+    m_file->data.version = uiData.version->text();
+    m_file->data.description = uiData.description->text();
+    m_file->data.logo = KUrl(uiData.logo->text());
+    m_file->data.os = uiData.os->text();
+    m_file->data.copyright = uiData.copyright->text();
+    m_file->data.publisher.name = uiData.pub_name->text();
+    m_file->data.publisher.url = KUrl(uiData.pub_url->text());
+    m_file->data.license.name = uiData.lic_name->text();
+    m_file->data.license.url = KUrl(uiData.lic_url->text());
+    m_file->data.language = uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     m_urlWidget->save();
 

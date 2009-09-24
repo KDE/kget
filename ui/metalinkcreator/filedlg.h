@@ -24,6 +24,7 @@
 
 #include "ui_filedlg.h"
 #include "ui_urlwidget.h"
+#include "ui_commondata.h"
 
 namespace KGetMetalink
 {
@@ -64,6 +65,7 @@ class FileDlg : public KDialog
         bool m_edit;
         UrlWidget *m_urlWidget;
         Ui::FileDlg ui;
+        Ui::CommonData uiData;
         QHash<QString, int> m_diggestLength;
 };
 
