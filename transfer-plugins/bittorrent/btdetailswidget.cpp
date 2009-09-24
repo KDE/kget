@@ -56,22 +56,24 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
         ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()) + "/s");
 
     if(flags & BTTransfer::Tc_SeedsConnected)
-        seederLabel->setText(QString().setNum(m_transfer->seedsConnected()) + '(' + QString().setNum(m_transfer->seedsDisconnected()) + ')');
+        seederLabel->setText((m_transfer->seedsConnected()!=-1    ? QString().setNum(m_transfer->seedsConnected()) : "n/a ") + '(' + 
+                             (m_transfer->seedsDisconnected()!=-1 ? QString().setNum(m_transfer->seedsDisconnected()) : "n/a") + ')');
 
     if(flags & BTTransfer::Tc_LeechesConnected)
-        leecherLabel->setText(QString().setNum(m_transfer->leechesConnected()) + '(' + QString().setNum(m_transfer->leechesDisconnected()) + ')');
+        leecherLabel->setText((m_transfer->leechesConnected()!=-1    ? QString().setNum(m_transfer->leechesConnected()) : "n/a ") + '(' + 
+                              (m_transfer->leechesDisconnected()!=-1 ? QString().setNum(m_transfer->leechesDisconnected()) : "n/a") + ')');
 
     if(flags & BTTransfer::Tc_ChunksDownloaded)
-        chunksDownloadedLabel->setText(QString().setNum(m_transfer->chunksDownloaded()));
+        chunksDownloadedLabel->setText(m_transfer->chunksDownloaded()!=-1 ? QString().setNum(m_transfer->chunksDownloaded()) : "n/a");
 
     if(flags & BTTransfer::Tc_ChunksExcluded)
-        chunksExcludedLabel->setText(QString().setNum(m_transfer->chunksExcluded()));
+        chunksExcludedLabel->setText(m_transfer->chunksExcluded()!=-1 ? QString().setNum(m_transfer->chunksExcluded()) : "n/a");
 
     if(flags & BTTransfer::Tc_ChunksTotal)
-        chunksAllLabel->setText(QString().setNum(m_transfer->chunksTotal()));
+        chunksAllLabel->setText((m_transfer->chunksTotal()!=-1) ? QString().setNum(m_transfer->chunksTotal()) : "n/a");
 
     if(flags & BTTransfer::Tc_ChunksLeft)
-        chunksLeftLabel->setText(QString().setNum(m_transfer->chunksLeft()));
+        chunksLeftLabel->setText((m_transfer->chunksLeft()!=-1) ? QString().setNum(m_transfer->chunksLeft()) : "n/a");
 
     if(flags & Transfer::Tc_Percent)
         progressBar->setValue(m_transfer->percent());
