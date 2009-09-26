@@ -810,6 +810,11 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
             return newTransfer->handler();
         }
     }
+    
+    KMessageBox::error(m_mainWindow, 
+                       i18n("We are sorry. KGet is unable to download from this protocol"),
+                       i18n("We are sorry"));
+
     kDebug(5001) << "Warning! No plugin found to handle the given url";
     return 0;
 }
