@@ -26,7 +26,7 @@
 #include "core/transfergroupscheduler.h"
 #include "settings.h"
 #include "core/transferhistorystore.h"
-
+#include <iostream>
 #include <kio/netaccess.h>
 #include <kinputdialog.h>
 #include <kfiledialog.h>
@@ -576,7 +576,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         }
 
         QTextStream stream( &file );
-        doc.save( stream, 0 );
+        doc.save( stream, 2 );
     }
     file.close();
 }
@@ -833,6 +833,27 @@ TransferDataSource * KGet::createTransferDataSource(const KUrl &src, const QDomE
     return 0;
 }
 
+QString KGet::generalDestDir(bool preferXDGDownloadDir)
+{
+    QString dir;
+
+    if (preferXDGDownloadDir) {
+        dir = KGlobalSettings::downloadPath();
+    }
+
+    if (dir.isEmpty()) {
+        dir = Settings::lastDirectory();
+        if (dir.isEmpty()) {
+            dir = KGlobalSettings::desktopPath();
+            if (dir.isEmpty()) {
+                dir = QDir::homePath();
+            }
+        }
+    }
+
+    return dir;
+}
+
 KUrl KGet::urlInputDialog()
 {
     QString newtransfer;
@@ -864,16 +885,16 @@ KUrl KGet::urlInputDialog()
 
 QString KGet::destDirInputDialog()
 {
-    QString destDir = KFileDialog::getExistingDirectory(Settings::lastDirectory());
+    QString destDir = KFileDialog::getExistingDirectory(generalDestDir());
+    Settings::setLastDirectory(destDir);
 
-    Settings::setLastDirectory( destDir );
     return destDir;
 }
 
 KUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName) // krazy:exclude=passbyvalue
 {
     if (destDir.isEmpty())
-        destDir = Settings::lastDirectory();
+        destDir = generalDestDir();
 
     // open the filedialog for confirmation
     QPointer<KFileDialog> dlg = new KFileDialog(destDir, QString(), 0, 0);
@@ -885,18 +906,14 @@ KUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName
     if (!suggestedFileName.isEmpty())
         dlg->setSelection(suggestedFileName);
 
-    if ( dlg->exec() == QDialog::Rejected )
-    {
-        delete dlg;
-        return KUrl();
+    KUrl destUrl;
+    if (dlg->exec() != QDialog::Rejected){
+        destUrl = dlg->selectedUrl();
+        Settings::setLastDirectory(destUrl.directory(KUrl::ObeyTrailingSlash));
     }
-    else
-    {
-        KUrl destUrl = dlg->selectedUrl();
-        Settings::setLastDirectory( destUrl.directory(KUrl::ObeyTrailingSlash) );
-        delete dlg;
-        return destUrl;
-    }
+
+    delete dlg;
+    return destUrl;
 }
 
 bool KGet::isValidSource(const KUrl &source)

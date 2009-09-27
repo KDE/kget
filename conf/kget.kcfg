@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 
-  <include>QDir</include>
+  <include>KGlobalSettings</include>
 
   <kcfgfile name="kgetrc"/>
 
@@ -158,7 +158,7 @@
       <default>true</default>
     </entry>
     <entry name="LastDirectory" type="Path">
-      <default code="true">QDir::currentPath()</default>
+      <default code="true">KGlobalSettings::downloadPath()</default>
     </entry>
   </group>
  

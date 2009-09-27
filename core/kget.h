@@ -344,6 +344,14 @@ class KGET_EXPORT KGet
 
         static void loadPlugins();
 
+        /**
+         * Returns a download directory
+         * @param preferXDGDownloadDir if true the XDG_DOWNLOAD_DIR will be taken if it is not empty
+         * @note depending if the directories exist it will return them in the following order:
+         * (preferXDGDownloadDirectory >) lastDirectory > Desktop > Home
+         */
+        static QString generalDestDir(bool preferXDGDownloadDir = false);
+
     private:
         KGet();
 

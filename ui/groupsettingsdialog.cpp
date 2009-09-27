@@ -11,6 +11,7 @@
 #include "groupsettingsdialog.h"
 
 #include "core/transfergrouphandler.h"
+#include <KFileDialog>
 
 #ifdef HAVE_NEPOMUK
     #include <QtGui/QSortFilterProxyModel>
@@ -39,7 +40,9 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
         ui.uploadCheck->setChecked(true);
 
     ui.defaultFolderRequester->setMode(KFile::Directory);
-    ui.defaultFolderRequester->setUrl(group->defaultFolder());
+    QString path = group->defaultFolder();
+    ui.defaultFolderRequester->setUrl(path);
+    ui.defaultFolderRequester->setStartDir(KUrl(KGet::generalDestDir(true)));
 
     ui.regExpEdit->setText(group->regExp().pattern());
 

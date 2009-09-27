@@ -177,8 +177,10 @@ public:
                 m_list[i].append('/');
             m_list[i].append(filename);
         }
-        if (!KGlobalSettings::downloadPath().isEmpty()) {
-            m_list << KGlobalSettings::downloadPath();
+
+        const QString downloadPath = KGet::generalDestDir();
+        if (!downloadPath.isEmpty()) {
+            m_list << downloadPath;
         }
         kDebug(5001) << m_list;
 
@@ -195,7 +197,7 @@ public:
                 m_destRequester->comboBox()->addItem(current->defaultFolder());
             m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(current->defaultFolder()));
         } else if (current) {
-            m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(KGlobalSettings::downloadPath()));
+            m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(downloadPath));
         }
     }
 
