@@ -139,7 +139,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     if (!parent() || !(parent()->inherits("KHTMLPart") || parent()->inherits("WebKitPart")))
         return;
 
-    KHTMLPart *htmlPart = dynamic_cast<KHTMLPart*>( parent() );
+    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>( parent() );
     KParts::Part *activePart = 0L;
     if ( htmlPart && htmlPart->partManager() )
     {
@@ -163,8 +163,8 @@ void KGet_plug_in::showLinks( bool selectedOnly )
             doc = htmlPart->htmlDocument();
 
 #ifdef HAVE_WEBKITKDE
-        if (parent()->inherits("WebKitPart")) {
-            WebKitPart *part = dynamic_cast<WebKitPart *>(parent());
+        WebKitPart *part = qobject_cast<WebKitPart *>(parent());
+        if (part) {
             doc.open();
             doc.write(part->view()->page()->currentFrame()->toHtml());
             doc.close();

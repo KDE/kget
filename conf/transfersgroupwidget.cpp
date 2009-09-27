@@ -156,7 +156,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     renameButton = new QPushButton(i18n("Rename"));
     renameButton->setIcon(KIcon("edit-rename"));
     renameButton->setEnabled(false);
-    iconButton = new KIconButton(dynamic_cast<QWidget*>(this));
+    iconButton = new KIconButton(qobject_cast<QWidget*>(this));
     iconButton->setIconSize(32);
     iconButton->setButtonIconSize(16);
     iconButton->setText(i18n("Select Icon..."));

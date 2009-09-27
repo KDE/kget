@@ -46,7 +46,7 @@ Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &des
 
 TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
 {
-    BTTransfer * bttransfer = dynamic_cast<BTTransfer *>(transfer);
+    BTTransfer * bttransfer = qobject_cast<BTTransfer *>(transfer);
 
     if (!bttransfer)
     {
