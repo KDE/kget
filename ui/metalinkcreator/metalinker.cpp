@@ -437,22 +437,27 @@ void KGetMetalink::Pieces::clear()
 
 void KGetMetalink::Verification::load(const QDomElement &e)
 {
-    for (QDomElement elem = e.firstChildElement("hash"); !elem.isNull(); elem = elem.nextSiblingElement("hash"))
-    {
+    for (QDomElement elem = e.firstChildElement("hash"); !elem.isNull(); elem = elem.nextSiblingElement("hash")) {
         QString type = elem.attribute("type");
-        QString hash = elem.text();
-        if (!type.isEmpty() && !hash.isEmpty())
-        {
+        const QString hash = elem.text();
+        if (!type.isEmpty() && !hash.isEmpty()) {
             type = addaptHashType(type, true);
             hashes[type] = hash;
         }
     }
 
-    for (QDomElement elem = e.firstChildElement("pieces"); !elem.isNull(); elem = elem.nextSiblingElement("pieces"))
-    {
+    for (QDomElement elem = e.firstChildElement("pieces"); !elem.isNull(); elem = elem.nextSiblingElement("pieces")) {
         Pieces piecesItem;
         piecesItem.load(elem);
         pieces.append(piecesItem);
+    }
+
+    for (QDomElement elem = e.firstChildElement("signature"); !elem.isNull(); elem = elem.nextSiblingElement("signature")) {
+        const QString type = elem.attribute("type");
+        const QString siganture = elem.text();
+        if (!type.isEmpty() && !siganture.isEmpty()) {
+            signatures[type] = siganture;
+        }
     }
 }
 
@@ -462,8 +467,7 @@ void KGetMetalink::Verification::save(QDomElement &e) const
 
     QHash<QString, QString>::const_iterator it;
     QHash<QString, QString>::const_iterator itEnd = hashes.constEnd();
-    for (it = hashes.constBegin(); it != itEnd; ++it)
-    {
+    for (it = hashes.constBegin(); it != itEnd; ++it) {
         QDomElement hash = doc.createElement("hash");
         hash.setAttribute("type", addaptHashType(it.key(), false));
         QDomText text = doc.createTextNode(it.value());
@@ -471,9 +475,17 @@ void KGetMetalink::Verification::save(QDomElement &e) const
         e.appendChild(hash);
     }
 
-    foreach (const Pieces &item, pieces)
-    {
+    foreach (const Pieces &item, pieces) {
         item.save(e);
+    }
+
+    itEnd = signatures.constEnd();
+    for (it = signatures.constBegin(); it != itEnd; ++it) {
+        QDomElement hash = doc.createElement("signature");
+        hash.setAttribute("type", it.key());
+        QDomText text = doc.createTextNode(it.value());
+        hash.appendChild(text);
+        e.appendChild(hash);
     }
 }
 
@@ -785,8 +797,7 @@ void KGetMetalink::HandleMetalink::parseMetealink_v3_ed2(const QDomElement &e, M
 
 void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetMetalink::Files *files)
 {
-    if (!files)
-    {
+    if (!files) {
         return;
     }
 
@@ -794,48 +805,38 @@ void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetM
     CommonData filesData;
     parseCommonData_v3_ed2(filesElem, &filesData);
 
-    for (QDomElement elem = filesElem.firstChildElement("file"); !elem.isNull(); elem = elem.nextSiblingElement("file"))
-    {
+    for (QDomElement elem = filesElem.firstChildElement("file"); !elem.isNull(); elem = elem.nextSiblingElement("file")) {
         File file;
         file.name = elem.attribute("name");
         file.size = elem.firstChildElement("size").text().toULongLong();
         parseCommonData_v3_ed2(elem, &file.data);
 
         //ensure that inheritance works
-        if (file.data.identity.isEmpty())
-        {
+        if (file.data.identity.isEmpty()) {
             file.data.identity = filesData.identity;
         }
-        if (file.data.version.isEmpty())
-        {
+        if (file.data.version.isEmpty()) {
             file.data.version = filesData.version;
         }
-        if (file.data.description.isEmpty())
-        {
+        if (file.data.description.isEmpty()) {
             file.data.description = filesData.description;
         }
-        if (file.data.os.isEmpty())
-        {
+        if (file.data.os.isEmpty()) {
             file.data.os = filesData.os;
         }
-        if (file.data.logo.isEmpty())
-        {
+        if (file.data.logo.isEmpty()) {
             file.data.logo = filesData.logo;
         }
-        if (file.data.language.isEmpty())
-        {
+        if (file.data.language.isEmpty()) {
             file.data.language = filesData.language;
         }
-        if (file.data.copyright.isEmpty())
-        {
+        if (file.data.copyright.isEmpty()) {
             file.data.copyright = filesData.copyright;
         }
-        if (file.data.publisher.isEmpty())
-        {
+        if (file.data.publisher.isEmpty()) {
             file.data.publisher = filesData.publisher;
         }
-        if (file.data.license.isEmpty())
-        {
+        if (file.data.license.isEmpty()) {
             file.data.license = filesData.license;
         }
 
@@ -844,22 +845,27 @@ void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetM
         //load the verification information
         QDomElement veriE = elem.firstChildElement("verification");
 
-        for (QDomElement elemVer = veriE.firstChildElement("hash"); !elemVer.isNull(); elemVer = elemVer.nextSiblingElement("hash"))
-        {
+        for (QDomElement elemVer = veriE.firstChildElement("hash"); !elemVer.isNull(); elemVer = elemVer.nextSiblingElement("hash")) {
             QString type = elemVer.attribute("type");
             QString hash = elemVer.text();
-            if (!type.isEmpty() && !hash.isEmpty())
-            {
+            if (!type.isEmpty() && !hash.isEmpty()) {
                 type = addaptHashType(type, true);
                 file.verification.hashes[type] = hash;
             }
         }
 
-        for (QDomElement elemVer = veriE.firstChildElement("pieces"); !elemVer.isNull(); elemVer = elemVer.nextSiblingElement("pieces"))
-        {
+        for (QDomElement elemVer = veriE.firstChildElement("pieces"); !elemVer.isNull(); elemVer = elemVer.nextSiblingElement("pieces")) {
             Pieces piecesItem;
             piecesItem.load(elemVer);
             file.verification.pieces.append(piecesItem);
+        }
+
+         for (QDomElement elemVer = veriE.firstChildElement("signature"); !elemVer.isNull(); elemVer = elemVer.nextSiblingElement("signature")) {
+            const QString type = elemVer.attribute("type");
+            const QString signature = elemVer.text();
+            if (!type.isEmpty() && !signature.isEmpty()) {
+                file.verification.hashes[type] = signature;
+            }
         }
 
         files->files.append(file);

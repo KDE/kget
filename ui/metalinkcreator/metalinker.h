@@ -227,6 +227,7 @@ class Verification
 
         QHash<QString, QString> hashes;
         QList<Pieces> pieces;
+        QHash<QString, QString> signatures;
 };
 
 class File
