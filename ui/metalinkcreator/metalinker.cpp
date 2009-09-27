@@ -306,6 +306,19 @@ void KGetMetalink::Metaurl::clear()
     url.clear();
 }
 
+bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
+{
+    bool smaller = this->preference < other.preference;
+
+    if (!smaller && (this->preference == other.preference)) {
+        QString countryCode = KGlobal::locale()->country();
+        if (!countryCode.isEmpty()) {
+            smaller = (other.location.toLower() == countryCode.toLower());
+        }
+    }
+     return smaller;
+}
+
 void KGetMetalink::Url::load(const QDomElement &e)
 {
     location = e.attribute("location");

@@ -122,7 +122,7 @@ class Metaurl
         /**
          * "smaller" urls are less important than larger, larger urls should be preffered
          */
-        bool operator<(const Metaurl &other) const {return (this->preference < other.preference);}//TODO use also the location information and compare that with the current location being set or maybe using the dataengine to get the current location
+        bool operator<(const Metaurl &other) const {return (this->preference < other.preference);}
 
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
@@ -158,7 +158,7 @@ class Url
         /**
          * "smaller" urls are less important than larger, larger urls should be preffered
          */
-        bool operator<(const Url &other) const {return (this->preference < other.preference);}//TODO use also the location information and compare that with the current location being set or maybe using the dataengine to get the current location
+        bool operator<(const Url &other) const;
 
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
