@@ -14,7 +14,6 @@
 
 #include <Plasma/AbstractRunner>
 #include <KIcon>
-class QDBusError;
 class QDBusPendingCallWatcher;
 
 

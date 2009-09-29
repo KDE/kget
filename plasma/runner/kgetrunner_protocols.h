@@ -12,7 +12,6 @@
 #ifndef KGETRUNNER_PROTOCOLS_H
 #define KGETRUNNER_PROTOCOLS_H
 
-#include <QString>
 
 
 //  KGETRUNNER_PROTOCOLS defines the default protocols for
