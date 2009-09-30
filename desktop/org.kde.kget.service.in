@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.kde.kget
+Exec=@CMAKE_INSTALL_PREFIX@/bin/kget
+
