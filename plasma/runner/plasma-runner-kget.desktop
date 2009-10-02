@@ -67,6 +67,7 @@ Name[zh_TW]=KGet
 Comment=Download links with KGet
 Comment[pt]=Obter as ligações com o KGet
 Comment[pt_BR]=Baixar links com o KGet
+Comment[tr]=Bağlantıları KGet ile İndir
 Comment[uk]=Звантажити посилання за допомогою KGet
 Comment[x-test]=xxDownload links with KGetxx
 X-KDE-ServiceTypes=Plasma/Runner
