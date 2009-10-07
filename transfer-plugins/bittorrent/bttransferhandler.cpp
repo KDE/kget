@@ -27,6 +27,12 @@ BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * schedule
     scanDlg = 0;
 }
 
+BTTransferHandler::~BTTransferHandler()
+{
+    if(advancedDetails)
+        delete(advancedDetails);
+}
+
 void BTTransferHandler::createAdvancedDetails()
 {
     kDebug(5001);
