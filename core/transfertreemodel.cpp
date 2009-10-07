@@ -376,6 +376,16 @@ Transfer *TransferTreeModel::findTransferByDestination(const KUrl &dest)
     return 0;
 }
 
+Transfer * TransferTreeModel::findTransferByDBusObjectPath(const QString & dbusObjectPath)
+{
+    foreach (TransferModelItem * transfer, m_transfers)
+    {
+        if (transfer->transferHandler()->dBusObjectPath() == dbusObjectPath)
+            return transfer->transferHandler()->m_transfer;
+    }
+    return 0;
+}
+
 void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
 {
     if(m_timerId == -1)
@@ -594,42 +604,36 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
 
     foreach (TransferHandler * transfer, m_changedTransfers)
     {
-        if (!updatedTransfers.contains(transfer))
-        {
+        if (!updatedTransfers.contains(transfer)) {
             TransferGroupHandler * group = transfer->group();
             ModelItem * item = itemFromHandler(group);
             Transfer::ChangesFlags changesFlags = transfer->changesFlags();
 
             emit transfer->transferChangedEvent(transfer, changesFlags);
-
+            
             int row = group->indexOf(transfer);
 
-            if (changesFlags & Transfer::Tc_FileName)
-                static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_FileName)))->emitDataChanged();
-            if (changesFlags & Transfer::Tc_Status)
-                static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_Status)))->emitDataChanged();
-            if (changesFlags & Transfer::Tc_TotalSize)
-                static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_TotalSize)))->emitDataChanged();
-            if (changesFlags & Transfer::Tc_Percent)
-                static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_Percent)))->emitDataChanged();
-            if (changesFlags & Transfer::Tc_DownloadSpeed)
-                static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_DownloadSpeed)))->emitDataChanged();
-            if (changesFlags & Transfer::Tc_RemainingTime)
-                static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_RemainingTime)))->emitDataChanged();
+            kDebug(5001) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
             
-            /*for(int i=0; i<8; i++)//Check the 8 most right bits of the flag
-            {
-                if (((changesFlags >> i) & 0x00000001))//remove the ith bit(s) from the right and check if the rest is 0x00000001...
-                {
-                    QStandardItem *transferItem = item->child(group->indexOf(transfer), i);
-                    dynamic_cast<ModelItem*>(transferItem)->emitDataChanged();
-                    //QModelIndex index = createIndex(group->indexOf(transfer), i, transfer);
-                    //emit dataChanged(index,index);
-                }
-            }*/
+            // Now, check that model child items already exist (there are some cases when the transfer
+            // can notify for changes before the gui has been correctly initialized)
+            if(item->child(row, 0)) {
+                if (changesFlags & Transfer::Tc_FileName)
+                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_FileName)))->emitDataChanged();
+                if (changesFlags & Transfer::Tc_Status)
+                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_Status)))->emitDataChanged();
+                if (changesFlags & Transfer::Tc_TotalSize)
+                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_TotalSize)))->emitDataChanged();
+                if (changesFlags & Transfer::Tc_Percent)
+                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_Percent)))->emitDataChanged();
+                if (changesFlags & Transfer::Tc_DownloadSpeed)
+                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_DownloadSpeed)))->emitDataChanged();
+                if (changesFlags & Transfer::Tc_RemainingTime)
+                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_RemainingTime)))->emitDataChanged();
 
-            transfer->resetChangesFlags();
-            updatedTransfers.insert(transfer, changesFlags);
+                transfer->resetChangesFlags();
+                updatedTransfers.insert(transfer,changesFlags);            
+            }    
         }
     }
 

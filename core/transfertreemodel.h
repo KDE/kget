@@ -117,7 +117,8 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
 
         TransferGroup * findGroup(const QString & groupName);
         Transfer * findTransfer(const KUrl &src);
-        Transfer *findTransferByDestination(const KUrl &dest);
+        Transfer * findTransferByDestination(const KUrl &dest);
+        Transfer * findTransferByDBusObjectPath(const QString & dbusObjectPath);
 
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);
