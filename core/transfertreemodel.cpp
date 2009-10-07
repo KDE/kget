@@ -637,7 +637,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         }
     }
 
-    if(updatedTransfers.size())
+    if(!updatedTransfers.isEmpty())
         emit transfersChangedEvent(updatedTransfers);
 
     foreach(TransferGroupHandler * group, m_changedGroups)
@@ -677,7 +677,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         }
     }
 
-    if(updatedGroups.size())
+    if(!updatedGroups.isEmpty())
         emit groupsChangedEvent(updatedGroups);
 
     m_changedTransfers.clear();
