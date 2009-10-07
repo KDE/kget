@@ -276,7 +276,7 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
     setExtendPixmap(SmallIcon("arrow-right"));
     setContractPixmap(SmallIcon("arrow-down"));
-    connect(parent, SIGNAL(activated(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
+    connect(parent, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
     connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), this, SLOT(closeExpandableDetails(QModelIndex,int,int)));
 }
 
