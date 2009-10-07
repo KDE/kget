@@ -285,10 +285,12 @@ class KGET_EXPORT TransferHandler : public Handler
     signals:
         void transferChangedEvent(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
-    private slots:
-        void postDeleteEvent();
-
     private:
+        /**
+         * This functions gets called just before the handler is deleted
+         */
+        void destroy();
+        
         /**
          * Sets a change flag in the ChangesFlags variable.
          *

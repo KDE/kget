@@ -71,8 +71,6 @@ class KGET_EXPORT Job : public QObject
         virtual void setDelay(int seconds)=0;
         virtual void delayTimerEvent()=0;
 
-        virtual void postDeleteEvent() {}
-
         JobQueue * jobQueue() {return m_jobQueue;}
 
         //Job properties

@@ -62,7 +62,7 @@ class MetaNepomukHandler : public NepomukHandler
         void addTags(const QStringList &newTags);
         void removeTag(const QString &oldTag);
         void setProperty(const QUrl &uri, const Nepomuk::Variant &value);
-        void postDeleteEvent();
+        void deinit();
         void saveFileProperties();
 
     private:

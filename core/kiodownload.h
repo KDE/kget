@@ -42,7 +42,7 @@ class KioDownload : public QObject
 
         bool isResumable() const;
 
-//         void postDeleteEvent();
+//         void deinit();
 
     Q_SIGNALS:
         void processedSize(KIO::filesize_t size);

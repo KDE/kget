@@ -61,6 +61,14 @@ void TransferMultiSegKio::init()
     }
 }
 
+void TransferMultiSegKio::deinit()
+{
+    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
+    {
+        m_dataSourceFactory->deinit();
+    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
+}
+
 void TransferMultiSegKio::start()
 {
     kDebug(5001) << "Start TransferMultiSegKio";
@@ -167,17 +175,6 @@ bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
         return true;
     }
     return false;
-}
-
-void TransferMultiSegKio::postDeleteEvent()
-{
-    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
-    {
-        m_dataSourceFactory->postDeleteEvent();
-    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->postDeleteEvent();
-#endif //HAVE_NEPOMU
 }
 
 void TransferMultiSegKio::load(const QDomElement *element)

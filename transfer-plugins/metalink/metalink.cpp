@@ -275,13 +275,13 @@ void Metalink::startMetalink()
     }
 }
 
-void Metalink::postDeleteEvent()
+void Metalink::deinit()
 {
     if (status() != Job::Finished)//if the transfer is not finished, we delete the written files
     {
         foreach (DataSourceFactory *factory, m_dataSourceFactory)
         {
-            factory->postDeleteEvent();
+            factory->deinit();
         }
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
     else
@@ -291,7 +291,7 @@ void Metalink::postDeleteEvent()
         {
             if (!factory->doDownload())
             {
-                factory->postDeleteEvent();
+                factory->deinit();
             }
         }
     }
@@ -303,7 +303,7 @@ void Metalink::postDeleteEvent()
     }
 
 #ifdef HAVE_NEPOMUK
-    m_nepHandler->postDeleteEvent();
+    m_nepHandler->deinit();
 #endif //HAVE_NEPOMUK
 }
 

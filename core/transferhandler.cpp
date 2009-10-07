@@ -180,6 +180,16 @@ void TransferHandler::resetChangesFlags()
     m_changesFlags = 0;
 }
 
+void TransferHandler::destroy()
+{
+    kDebug(5001) << "TransferHandler::destroy() ENTERING";
+
+    if (m_kjobAdapter)
+        KGet::unregisterKJob(m_kjobAdapter);
+
+    kDebug(5001) << "TransferHandler::destroy() LEAVING";
+}
+
 void TransferHandler::setTransferChange(ChangesFlags change, bool notifyModel)
 {
     m_changesFlags |= change;
@@ -201,17 +211,6 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool notifyModel)
             }
         }
     }
-}
-
-void TransferHandler::postDeleteEvent()
-{
-    kDebug(5001) << "TransferHandler::postDeleteEvent() ENTERING";
-
-    m_transfer->postDeleteEvent();//First inform the transfer itself
-
-    if (m_kjobAdapter)
-        KGet::unregisterKJob(m_kjobAdapter);
-    kDebug(5001) << "TransferHandler::postDeleteEvent() LEAVING";
 }
 
 QList<QAction*> TransferHandler::contextActions()

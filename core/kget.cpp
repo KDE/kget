@@ -355,11 +355,11 @@ bool KGet::delTransfer(TransferHandler * transfer)
     t->stop();
     TransferHistoryStore::getStore()->saveItem(TransferHistoryItem(*t));
 
-    //Here I delete the Transfer. The other possibility is to move it to a list
-    //and to delete all these transfers when kget gets closed. Obviously, after
-    //the notification to the views that the transfer has been removed, all the
-    //pointers to it are invalid.
-    transfer->postDeleteEvent();
+    // TransferHandler deinitializations
+    transfer->destroy();
+    // Transfer deinitializations (the deinit function is called by the destroy() function)
+    t->destroy();
+    
     m_transferTreeModel->delTransfer(t);
     delete t;
     return true;
@@ -800,7 +800,7 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
         if((newTransfer = factory->createTransfer(src, dest, group, m_scheduler, e)))
         {
 //             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
-            newTransfer->init();
+            newTransfer->create();
             newTransfer->load(e);
             m_transferTreeModel->addTransfer(newTransfer, group);
 

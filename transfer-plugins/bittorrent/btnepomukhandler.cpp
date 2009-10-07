@@ -25,7 +25,7 @@
 #include <Nepomuk/Variant>
 #include <Nepomuk/Tag>
 #include <QtCore/QFile>
-//TODO postDeleteEvent
+//TODO deinit
 BtNepomukHandler::BtNepomukHandler(Transfer *transfer)
   : NepomukHandler(transfer),
     m_tempResource(Nepomuk::Resource("KGet::Transfer::" + m_transfer->source().url()))
@@ -172,7 +172,7 @@ void BtNepomukHandler::saveFileProperties()
     //NOTE do something here?
 }
 
-void BtNepomukHandler::postDeleteEvent()
+void BtNepomukHandler::deinit()
 {
     m_tempResource.remove();
 

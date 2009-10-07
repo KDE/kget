@@ -53,7 +53,7 @@ class BtNepomukHandler : public NepomukHandler
         void addTags(const QStringList &newTags);
         void removeTag(const QString &oldTag);
         void saveFileProperties();
-        void postDeleteEvent();
+        void deinit();
 
     private:
         QList<KUrl> m_newDestinations;

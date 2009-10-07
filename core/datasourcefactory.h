@@ -94,6 +94,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
         DataSourceFactory(QObject* parent);
 
         ~DataSourceFactory();
+        
+        void deinit();
 
         /**
          * @return true if the DataSourceFactory has enough information to start a download
@@ -179,8 +181,6 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * @note can be used for multiple datasourcefactory downloads
          */
         void setDoDownload(bool doDownload);
-
-        void postDeleteEvent();
 
         bool setNewDestination(const KUrl &newDest);
 

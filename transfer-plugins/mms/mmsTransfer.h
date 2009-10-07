@@ -39,7 +39,7 @@ class MmsTransfer : public QObject, public Transfer
         void stop();
 
         bool isResumable() const;
-        void postDeleteEvent();
+        void deinit();
 
     private slots:
         void read();

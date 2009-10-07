@@ -86,11 +86,32 @@ class KGET_EXPORT Transfer : public Job
         virtual ~Transfer();
 
         /**
-         * Call this function after creating a Transfer
+         * This functions gets called whenever a Transfer gets created. As opposed
+         * to init(), this isn't a virtual function and is not meant to be used in
+         * transfer plugins
+         */
+        void create();
+        
+        /**
+         * This functions gets called whenever a Transfer is going to be deleted. As opposed
+         * to deinit(), this isn't a virtual function and is not meant to be used in
+         * transfer plugins
+         */
+        void destroy();
+        
+        /**
+         * This function is called after the creation of a Transfer
+         * In transfer plugins you can put here whatever needs to be initialized
          * @note this function creates a NepomukHandler
          */
         virtual void init();
 
+        /**
+         * This function is called before the deletion of a Transfer
+         * In transfer plugins you can put here whatever needs to be deinitialized
+         */
+        virtual void deinit() {}        
+        
         /**
          * Tries to repair file
          * @param file the file of a download that should be repaired,

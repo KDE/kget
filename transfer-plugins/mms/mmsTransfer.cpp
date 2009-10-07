@@ -59,7 +59,7 @@ bool MmsTransfer::isResumable() const
     return true;
 }
 
-void MmsTransfer::postDeleteEvent()
+void MmsTransfer::deinit()
 {
     /**if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {

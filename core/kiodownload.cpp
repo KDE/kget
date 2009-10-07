@@ -113,7 +113,7 @@ bool KioDownload::isResumable() const
     return true;
 }
 
-// void KioDownload::postDeleteEvent()
+// void KioDownload::deinit()
 // {
 //     if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
 //     {

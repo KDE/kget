@@ -51,7 +51,7 @@ class TransferKio : public Transfer
         void stop();
 
         bool isResumable() const;
-        void postDeleteEvent();
+        void deinit();
 
     private:
         void createJob();

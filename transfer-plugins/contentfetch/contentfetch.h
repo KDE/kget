@@ -27,12 +27,13 @@ class ContentFetch : public Transfer
                      const QDomElement * e = 0);
 
     public slots:
+        void deinit();        
+        
         // --- Job virtual functions ---
         void start();
         void stop();
 
         bool isResumable() const;
-        void postDeleteEvent();
 
         void setPercent(int percent);
 

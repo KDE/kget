@@ -49,18 +49,33 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
 
 Transfer::~Transfer()
 {
+}
+
+void Transfer::create()
+{
+#ifdef HAVE_NEPOMUK
+    if (!m_nepomukHandler)
+        m_nepomukHandler = new NepomukHandler(this);
+#endif
+
+    init();
+}
+
+void Transfer::destroy()
+{
+    deinit();
+    
     if(status() == Job::Delayed)
         m_scheduler->stopDelayTimer(this);
+    
+#ifdef HAVE_NEPOMUK
+    nepomukHandler()->deinit();
+#endif //HAVE_NEPOMUK
 }
 
 void Transfer::init()//TODO think about e, maybe not have it at all in the constructor?
 {
-#ifdef HAVE_NEPOMUK
-    if (!m_nepomukHandler)
-    {
-        m_nepomukHandler = new NepomukHandler(this);
-    }
-#endif
+
 }
 
 #ifdef HAVE_NEPOMUK

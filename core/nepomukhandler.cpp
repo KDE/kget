@@ -111,7 +111,7 @@ bool NepomukHandler::isValid() const
     return valid;
 }
 
-void NepomukHandler::postDeleteEvent()
+void NepomukHandler::deinit()
 {
     if (!isValid())
     {

@@ -156,6 +156,15 @@ void DataSourceFactory::init()
     dir.mkpath(m_dest.directory());
 }
 
+void DataSourceFactory::deinit()
+{
+    if (m_dest.isLocalFile())
+    {
+        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
+    }
+}
+
 void DataSourceFactory::findFileSize()
 {
     kDebug(5001) << "Find the filesize";
@@ -257,15 +266,6 @@ bool DataSourceFactory::checkLocalFile()
 
     kDebug(5001) << "success";
     return true;
-}
-
-void DataSourceFactory::postDeleteEvent()
-{
-    if (m_dest.isLocalFile())
-    {
-        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
-    }
 }
 
 void DataSourceFactory::start()

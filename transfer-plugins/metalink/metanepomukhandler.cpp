@@ -192,7 +192,7 @@ void MetaNepomukHandler::saveFileProperties()
 }
 
 
-void MetaNepomukHandler::postDeleteEvent()
+void MetaNepomukHandler::deinit()
 {
     m_tempResource.remove();
 

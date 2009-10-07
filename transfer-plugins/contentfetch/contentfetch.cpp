@@ -41,6 +41,11 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
     connect(m_p_script, SIGNAL(textStatusUpdated(const QString&)), this, SLOT(slotSetTextStatus(const QString&)));
 }
 
+void ContentFetch::deinit()
+{
+    return;
+}
+
 void ContentFetch::start()
 {
     kDebug(5001) << "ContentFetch::start";
@@ -102,11 +107,6 @@ void ContentFetch::slotSetTextStatus(const QString& text)
 bool ContentFetch::isResumable() const
 {
     return false;
-}
-
-void ContentFetch::postDeleteEvent()
-{
-    return;
 }
 
 void ContentFetch::setPercent(int percent)

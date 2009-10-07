@@ -44,6 +44,7 @@ class TransferMultiSegKio : public Transfer
         virtual bool setDirectory(const KUrl &newDirectory);
 
         void init();
+        void deinit();
 
         QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
         void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors);
@@ -63,7 +64,6 @@ class TransferMultiSegKio : public Transfer
         void stop();
 
         bool isResumable() const;
-        void postDeleteEvent();
 
         void save(const QDomElement &element);
         void load(const QDomElement *e);

@@ -69,7 +69,7 @@ class Metalink : public Transfer
         void start();
         void stop();
 
-        void postDeleteEvent();
+        void deinit();
 
         bool isResumable() const;
 
