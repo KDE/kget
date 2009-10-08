@@ -238,7 +238,7 @@ void MainWindow::setupActions()
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     KAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
-    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Clear All Finished"));
+    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Remove All Finished"));
     deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
     connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
 
