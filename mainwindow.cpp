@@ -54,6 +54,7 @@
 #include <kactionmenu.h>
 #include <krun.h>
 #include <kicondialog.h>
+#include <kwindowsystem.h>
 
 #include <QClipboard>
 #include <QTimer>
@@ -462,15 +463,31 @@ void MainWindow::slotUpdateTitlePercent()
 
 void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
 {
-    bool update = false;
-    foreach (Transfer::ChangesFlags transferFlags, transfers)
-    {
-        if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status)
-        {
+    QMapIterator<TransferHandler*, Transfer::ChangesFlags> it(transfers);
+    
+    //QList<TransferHandler *> finishedTransfers;
+    bool update = false;    
+    
+    while (it.hasNext()) {
+        it.next();
+        
+        TransferHandler * transfer = it.key();
+        Transfer::ChangesFlags transferFlags = it.value();
+        
+        if ( (KWindowSystem::activeWindow() != winId()) && (transferFlags & Transfer::Tc_Status) 
+             && (transfer->status() == Job::Finished)   && (transfer->startStatus() != Job::Finished)) {         
+            KNotification::event(KNotification::Notification,
+                i18n("Downloads completed"),
+                i18n("<p>The following file has finished downloading:</p><p style=\"font-size: small;\">\
+                      %1</p>", transfer->source().fileName()),
+                KIcon("kget").pixmap(KIconLoader::SizeMedium), this);            
+        }
+        
+        if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
             update = true;
-            break;
         }
     }
+    
     if (update)
         slotUpdateTitlePercent();
 }
