@@ -332,6 +332,10 @@ void DropTarget::toggleMinimizeRestore()
     bool nextState = parentWidget->isHidden();
     Settings::setShowMain( nextState );
     parentWidget->setVisible( nextState );
+    if(nextState)
+    {
+        KWindowSystem::activateWindow(static_cast<KXmlGuiWindow *>(parentWidget)->winId());
+    }
 }
 
 /** widget animations */
