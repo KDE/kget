@@ -232,13 +232,13 @@ void MainWindow::setupActions()
 
     // Transfer related actions
     KAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
-    deleteSelectedAction->setText(i18nc("delete selected transfer item", "Delete Selected"));
+    deleteSelectedAction->setText(i18nc("delete selected transfer item", "Remove Selected"));
     deleteSelectedAction->setIcon(KIcon("edit-delete"));
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     KAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
-    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Delete All Finished"));
+    deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Clear All Finished"));
     deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
     connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
 
