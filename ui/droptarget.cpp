@@ -106,11 +106,15 @@ DropTarget::DropTarget(MainWindow * mw)
     }
 
     animTimer = new QTimer(this);
+    popupTimer = new QTimer(this);
     
     setMouseTracking(true);
     
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
             this,          SLOT(slotToolTipUpdate()));
+            
+    connect(popupTimer,    SIGNAL(timeout()),
+            this,          SLOT(slotToolTipTimer()));
 }
 
 
@@ -306,8 +310,16 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
         move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
         e->accept();
     }
-    if (isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
-        QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
+}
+
+void DropTarget::enterEvent(QEvent * event)
+{
+    popupTimer->start(2000);
+}
+
+void DropTarget::leaveEvent(QEvent * event)
+{
+    popupTimer->stop();
 }
 
 void DropTarget::paintEvent( QPaintEvent * )
@@ -429,7 +441,11 @@ void DropTarget::slotToolTipUpdate()
        tooltipText = dataList.join("\n");
     else
        tooltipText = i18n("Ready"); 
-    if (isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
+}
+
+void DropTarget::slotToolTipTimer()
+{
+    if (Settings::enablePopupTooltip() && !popupMenu->isVisible() && isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
         QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
 }
 

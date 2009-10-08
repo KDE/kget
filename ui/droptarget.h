@@ -54,6 +54,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent * e);
     void mouseDoubleClickEvent(QMouseEvent * e);
     void mouseMoveEvent(QMouseEvent * e);
+    void enterEvent(QEvent * event);
+    void leaveEvent(QEvent * event);
 
     // paint the drop target
     void paintEvent(QPaintEvent*);
@@ -66,12 +68,14 @@ private slots:
     void slotAnimateHide();
     void slotAnimateSync();
     void slotToolTipUpdate();
+    void slotToolTipTimer();
     void slotClose();
 
 private:
     KMenu * popupMenu;
     MainWindow * parentWidget;
     QTimer * animTimer;
+    QTimer * popupTimer;
     QPixmap cachedPixmap;
 
     QAction * pop_sticky;
