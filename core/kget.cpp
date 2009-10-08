@@ -377,12 +377,9 @@ void KGet::redownloadTransfer(TransferHandler * transfer)
      QString src = transfer->source().url();
      QString dest = transfer->dest().url();
      QString destFile = transfer->dest().fileName();
-     bool running = false;
-     if (transfer->status() == Job::Running)
-         running = true;
 
      KGet::delTransfer(transfer);
-     KGet::addTransfer(src, dest, destFile, group, running);
+     KGet::addTransfer(src, dest, destFile, group, true);
 }
 
 QList<TransferHandler *> KGet::selectedTransfers()
