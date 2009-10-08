@@ -43,6 +43,7 @@ public:
     // from the DBUS interface
     virtual QStringList addTransfer(const QString& src, const QString& destDir = QString(), 
                                        bool start = false);
+    virtual bool delTransfer(const QString& dbusObjectPath);
     virtual void showNewTransferDialog(const QStringList &urls);
     virtual bool dropTargetVisible() const;
     virtual void setDropTargetVisible( bool setVisible );

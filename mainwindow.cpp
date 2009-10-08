@@ -485,7 +485,10 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
         
         if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
             update = true;
+            break;
         }
+        
+        kDebug(5001) << it.key() << ": " << it.value() << endl;
     }
     
     if (update)
@@ -1007,6 +1010,16 @@ QStringList MainWindow::addTransfer(const QString& src, const QString& dest, boo
     }
     
     return dBusPaths;
+}
+
+bool MainWindow::delTransfer(const QString& dbusObjectPath)
+{
+    kDebug(5001) << "deleting Transfer";
+    
+    Transfer * transfer = KGet::model()->findTransferByDBusObjectPath(dbusObjectPath);
+    
+    if(transfer)
+        return KGet::delTransfer(transfer->handler());
 }
 
 void MainWindow::showNewTransferDialog(const QStringList &urls)
