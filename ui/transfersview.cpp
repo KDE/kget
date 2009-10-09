@@ -52,6 +52,8 @@ TransfersView::TransfersView(QWidget * parent)
                       SLOT(slotShowHeaderMenu(const QPoint &)));
     connect(this,     SIGNAL(doubleClicked(const QModelIndex &)),
             this,     SLOT(slotItemActivated(const QModelIndex &)));
+    connect(this,     SIGNAL(collapsed(const QModelIndex &)),
+            this,     SLOT(slotItemCollapsed(const QModelIndex &)));
     connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), 
             this,          SLOT(closeExpandableDetails(QModelIndex,int,int)));
 
@@ -195,7 +197,21 @@ void TransfersView::slotItemActivated(const QModelIndex & index)
             view_delegate->contractItem(index);
         }
     }
-    else if(item->isGroup() && isExpanded(index)) {
+}
+
+void TransfersView::slotItemCollapsed(const QModelIndex & index)
+{
+    if (!index.isValid())
+        return;
+
+    TransferTreeModel * transferTreeModel = KGet::model();
+    ModelItem * item = transferTreeModel->itemFromIndex(index);
+    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+
+    if(!item)
+        return;
+    
+    if(item->isGroup()) {
         TransferGroupHandler * groupHandler = item->asGroup()->groupHandler();
         QList<TransferHandler *> transfers = groupHandler->transfers();
 

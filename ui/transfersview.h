@@ -39,6 +39,7 @@ class TransfersView : public QTreeView
         void closeExpandableDetails(const QModelIndex &index = QModelIndex());
         void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
         void slotItemActivated(const QModelIndex & index);
+        void slotItemCollapsed(const QModelIndex & index);
         
     private slots:
         void toggleMainGroup();// show or hide the first group header if there's only one download group
