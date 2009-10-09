@@ -276,8 +276,6 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
     setExtendPixmap(SmallIcon("arrow-right"));
     setContractPixmap(SmallIcon("arrow-down"));
-    connect(parent, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(itemActivated(QModelIndex)));
-    connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), this, SLOT(closeExpandableDetails(QModelIndex,int,int)));
 }
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
@@ -473,65 +471,6 @@ void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * 
         groupHandler->start();
     else
         groupHandler->stop();
-}
-
-void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &transferIndex)
-{
-    if(transferIndex.isValid()) {
-        contractItem(transferIndex);
-        m_editingIndexes.removeAll(transferIndex);
-    }
-    else {
-        contractAll();
-        m_editingIndexes.clear();
-    }
-}
-
-void TransfersViewDelegate::closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd)
-{
-    Q_UNUSED(parent)
-    Q_UNUSED(rowStart)
-    Q_UNUSED(rowEnd)
-
-    contractAll();
-    m_editingIndexes.clear();
-}
-
-QWidget *TransfersViewDelegate::getDetailsWidgetForTransfer(TransferHandler *handler)
-{
-    QGroupBox *groupBox = new QGroupBox(i18n("Transfer Details"));
-
-    QVBoxLayout *layout = new QVBoxLayout(groupBox);
-    QWidget *detailsWidget = TransferDetails::detailsWidget(handler);
-    layout->addWidget(detailsWidget);
-
-    return groupBox;
-}
-
-void TransfersViewDelegate::itemActivated(const QModelIndex &index)
-{
-    if (!index.isValid())
-    {
-        return;
-    }
-
-    TransferTreeModel * transferTreeModel = KGet::model();
-
-    ModelItem * item = transferTreeModel->itemFromIndex(index);
-
-    if(item && !item->isGroup() && Settings::showExpandableTransferDetails() && index.column() == 0) {
-        if(!isExtended(index)) {
-            TransferHandler *handler = item->asTransfer()->transferHandler();
-            QWidget *widget = getDetailsWidgetForTransfer(handler);
-
-            m_editingIndexes.append(index);
-            extendItem(widget, index);
-        }
-        else {
-            m_editingIndexes.removeAll(index);
-            contractItem(index);
-        }
-    }
 }
 
 #include "transfersviewdelegate.moc"

@@ -11,7 +11,9 @@
 #include "transfersview.h"
 #include "settings.h"
 #include "transfersviewdelegate.h"
+#include "transferdetails.h"
 #include "core/transfertreemodel.h"
+#include "core/kget.h"
 
 #include <KDebug>
 #include <KAction>
@@ -21,11 +23,14 @@
 #include <QDropEvent>
 #include <QHeaderView>
 #include <QSignalMapper>
+#include <QHBoxLayout>
+#include <QGroupBox>
 
 TransfersView::TransfersView(QWidget * parent)
     : QTreeView(parent),
         m_headerMenu(0)
 {
+//     setItemsExpandable(false);
     setRootIsDecorated(false);
     setAnimated(true);
     setAllColumnsShowFocus(true);
@@ -45,6 +50,11 @@ TransfersView::TransfersView(QWidget * parent)
     populateHeaderActions();
     connect(header(), SIGNAL(customContextMenuRequested(const QPoint &)),
                       SLOT(slotShowHeaderMenu(const QPoint &)));
+    connect(this,     SIGNAL(doubleClicked(const QModelIndex &)),
+            this,     SLOT(slotItemActivated(const QModelIndex &)));
+    connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), 
+            this,          SLOT(closeExpandableDetails(QModelIndex,int,int)));
+
 }
 
 TransfersView::~TransfersView()
@@ -155,10 +165,45 @@ void TransfersView::populateHeaderActions()
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
 {
     Q_UNUSED(event);
+
+    closeExpandableDetails();
+    QTreeView::dragMoveEvent(event);
+}
+
+void TransfersView::slotItemActivated(const QModelIndex & index)
+{
+    if (!index.isValid())
+        return;
+
+    TransferTreeModel * transferTreeModel = KGet::model();
+    ModelItem * item = transferTreeModel->itemFromIndex(index);
     TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
 
-    view_delegate->closeExpandableDetails();
-    QTreeView::dragMoveEvent(event);
+    if(!item)
+        return;
+    
+    if(!item->isGroup() && Settings::showExpandableTransferDetails() && index.column() == 0) {
+        if(!view_delegate->isExtended(index)) {
+            TransferHandler *handler = item->asTransfer()->transferHandler();
+            QWidget *widget = getDetailsWidgetForTransfer(handler);
+
+            m_editingIndexes.append(index);
+            view_delegate->extendItem(widget, index);
+        }
+        else {
+            m_editingIndexes.removeAll(index);
+            view_delegate->contractItem(index);
+        }
+    }
+    else if(item->isGroup() && isExpanded(index)) {
+        TransferGroupHandler * groupHandler = item->asGroup()->groupHandler();
+        QList<TransferHandler *> transfers = groupHandler->transfers();
+
+        foreach(TransferHandler * transfer, transfers) {
+            kDebug(5001) << "Transfer = " << transfer->source().prettyUrl(); 
+            view_delegate->contractItem(KGet::model()->itemFromTransferHandler(transfer)->index());
+        }
+    }
 }
 
 void TransfersView::toggleMainGroup()
@@ -180,8 +225,8 @@ void TransfersView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, 
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
-    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
-    view_delegate->closeExpandableDetails(currentIndex());
+
+    closeExpandableDetails(currentIndex());
 }
 
 void TransfersView::slotSetColumnVisible(int column)
@@ -205,5 +250,43 @@ void TransfersView::slotShowHeaderMenu(const QPoint &point)
 {
     m_headerMenu->popup(header()->mapToGlobal(point));
 }
+
+void TransfersView::closeExpandableDetails(const QModelIndex &transferIndex)
+{
+    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+    
+    if(transferIndex.isValid()) {
+        view_delegate->contractItem(transferIndex);
+        m_editingIndexes.removeAll(transferIndex);
+    }
+    else {
+        view_delegate->contractAll();
+        m_editingIndexes.clear();
+    }
+}
+
+void TransfersView::closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd)
+{
+    Q_UNUSED(parent)
+    Q_UNUSED(rowStart)
+    Q_UNUSED(rowEnd)
+
+    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+
+    view_delegate->contractAll();
+    m_editingIndexes.clear();
+}
+
+QWidget *TransfersView::getDetailsWidgetForTransfer(TransferHandler *handler)
+{
+    QGroupBox *groupBox = new QGroupBox(i18n("Transfer Details"));
+
+    QVBoxLayout *layout = new QVBoxLayout(groupBox);
+    QWidget *detailsWidget = TransferDetails::detailsWidget(handler);
+    layout->addWidget(detailsWidget);
+
+    return groupBox;
+}
+
 
 #include "transfersview.moc"

@@ -94,16 +94,6 @@ class TransfersViewDelegate : public KExtendableItemDelegate
 
         void setEditorData(QWidget * editor, const QModelIndex & index) const;
         void setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const;
-
-    public slots:
-        void closeExpandableDetails(const QModelIndex &index = QModelIndex());
-        void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
-        void itemActivated(const QModelIndex &index);
-
-    private:
-        QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
-
-        QList<QModelIndex> m_editingIndexes;
 };
 
 #endif

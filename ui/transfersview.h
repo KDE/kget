@@ -35,12 +35,20 @@ class TransfersView : public QTreeView
         void dragMoveEvent ( QDragMoveEvent * event );
         void rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end);
 
+    public slots:
+        void closeExpandableDetails(const QModelIndex &index = QModelIndex());
+        void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
+        void slotItemActivated(const QModelIndex & index);
+        
     private slots:
         void toggleMainGroup();// show or hide the first group header if there's only one download group
         void slotSetColumnVisible(int column);
         void slotShowHeaderMenu(const QPoint &point);
 
     private:
+        QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
+
+        QList<QModelIndex> m_editingIndexes;
         KMenu *m_headerMenu;
 };
 

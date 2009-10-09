@@ -246,7 +246,7 @@ void ViewsContainer::setExpandableDetails(bool show)
         showDownloadsWindow();
     }
     else {
-        m_transfersViewDelegate->closeExpandableDetails();
+        m_transfersView->closeExpandableDetails();
     }
 }
 
@@ -254,7 +254,7 @@ void ViewsContainer::showTransferDetails(TransferHandler * transfer)
 {
     if(Settings::showExpandableTransferDetails()) {
         TransferTreeModel * model = KGet::model();
-        m_transfersViewDelegate->itemActivated(model->itemFromHandler(transfer)->index());
+        m_transfersView->slotItemActivated(model->itemFromHandler(transfer)->index());
     }
     else {
         //First check if we already inserted this widget
@@ -283,7 +283,7 @@ void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
 {
     if(Settings::showExpandableTransferDetails()) {
         TransferTreeModel * model = KGet::model();
-        m_transfersViewDelegate->closeExpandableDetails(model->itemFromHandler(transfer)->index());
+        m_transfersView->closeExpandableDetails(model->itemFromHandler(transfer)->index());
     }
     else {
         m_transfersBt->removeTransfer(transfer);
