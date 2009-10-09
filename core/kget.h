@@ -123,7 +123,7 @@ class KGET_EXPORT KGet
          * If the group queue is already in a running state, this flag does nothing
          */
         static TransferHandler * addTransfer(KUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
-                                const QString& groupName = QString(), bool start = false);
+                                             QString groupName = QString(), bool start = false);
 
         /**
          * Adds a new transfer to the KGet
@@ -144,7 +144,7 @@ class KGET_EXPORT KGet
          * If the group queue is already in a running state, this flag does nothing
          */
         static const QList<TransferHandler *> addTransfer(KUrl::List srcUrls, QString destDir = QString(),
-                                                     const QString& groupName = QString(), bool start=false);
+                                                          QString groupName = QString(), bool start=false);
 
         /**
          * Removes a transfer from the KGet

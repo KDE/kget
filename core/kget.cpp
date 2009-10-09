@@ -165,7 +165,7 @@ QStringList KGet::transferGroupNames()
 }
 
 TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
-                       const QString& groupName, bool start)
+                                    QString groupName, bool start)
 {
     // Note: destDir may actually be a full path to a file :-(
     kDebug(5001) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
@@ -190,15 +190,17 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
     {
         confirmDestination = true;
         QList<TransferGroupHandler*> list = groupsFromExceptions(srcUrl);
-        if (!list.isEmpty())
+        if (!list.isEmpty()) {
             destDir = list.first()->defaultFolder();
+            groupName = list.first()->name();
+        }
+        
     } else {
         // check whether destDir is actually already the path to a file
         KUrl targetUrl = KUrl(destDir);
         QString directory = targetUrl.directory(KUrl::ObeyTrailingSlash);
         QString fileName = targetUrl.fileName(KUrl::ObeyTrailingSlash);
-        if (QFileInfo(directory).isDir() && !fileName.isEmpty())
-        {
+        if (QFileInfo(directory).isDir() && !fileName.isEmpty()) {
             destDir = directory;
             suggestedFileName = fileName;
         }
@@ -290,7 +292,7 @@ TransferHandler * KGet::addTransfer(const QDomElement& e, const QString& groupNa
     return createTransfer(srcUrl, destUrl, groupName, false, &e);
 }
 
-const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString destDir, const QString& groupName, bool start)
+const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString destDir, QString groupName, bool start)
 {
     KUrl::List urlsToDownload;
 
@@ -331,8 +333,10 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
         if (destDir.isEmpty())
         {
             QList<TransferGroupHandler*> list = groupsFromExceptions(*it);
-            if (!list.isEmpty())
+            if (!list.isEmpty()) {
                 destDir = list.first()->defaultFolder();
+                groupName = list.first()->name();
+            }
         }
         destUrl = getValidDestUrl(destDir, *it);
 
