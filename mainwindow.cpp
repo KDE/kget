@@ -285,6 +285,14 @@ void MainWindow::setupActions()
     stopActionMenu->addAction(stopSelectedAction);
     connect(stopActionMenu, SIGNAL(triggered()), SLOT(slotStopDownload()));
 
+    KActionMenu *deleteActionMenu = new KActionMenu(KIcon("edit-delete"), i18n("Remove"),
+                                                    actionCollection());    
+    actionCollection()->addAction("delete_menu", deleteActionMenu);
+    deleteActionMenu->setDelayed(true);
+    deleteActionMenu->addAction(deleteSelectedAction);
+    deleteActionMenu->addAction(deleteAllFinishedAction);
+    connect(deleteActionMenu, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
+    
     KAction *openDestAction = actionCollection()->addAction("transfer_open_dest");
     openDestAction->setText(i18n("Open Destination"));
     openDestAction->setIcon(KIcon("document-open"));

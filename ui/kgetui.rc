@@ -17,8 +17,10 @@
         <Menu noMerge="1" name="Downloads"><text>&amp;Downloads</text>
         <Action name="start_all_download"/>
         <Action name="start_selected_download"/>
+        <Separator/>        
         <Action name="stop_all_download"/>
         <Action name="stop_selected_download"/>
+        <Separator/>        
         <Action name="delete_selected_download"/>
         <Action name="delete_all_finished"/>
         <Separator/>
@@ -36,7 +38,6 @@
     <Separator lineSeparator="true"/>
     <Action name="start_menu"/>
     <Action name="stop_menu"/>
-    <Action name="delete_selected_download"/>
-    <Action name="delete_all_finished"/>
+    <Action name="delete_menu"/>
 </ToolBar>
 </kpartgui>
