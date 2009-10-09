@@ -21,8 +21,8 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     setupUi(this);
 
     // Update the view with the correct values
-    srcEdit->setText(transfer->source().url());
-    destEdit->setText(transfer->dest().url());
+    srcEdit->setText(transfer->source().prettyUrl());
+    destEdit->setText(transfer->dest().prettyUrl());
 
     seederLabel->setText(i18nc("not available", "n/a"));
     leecherLabel->setText(i18nc("not available", "n/a"));
