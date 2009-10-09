@@ -8,6 +8,7 @@ X-KDE-ParentComponents=kget_checksumsearch_plugin
 Name=ChecksumSearch
 Name[et]=Kontrollsumma otsing
 Name[gl]=Procura de suma de comprobación
+Name[ko]=ChecksumSearch
 Name[nb]=Sjekksumsøk
 Name[nds]=Pröövsumm-Söök
 Name[nl]=ChecksumSearch
