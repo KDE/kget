@@ -20,41 +20,50 @@
 #ifndef KGETBARAPPLET_P_H
 #define KGETBARAPPLET_P_H
 
-#include <QGraphicsProxyWidget>
+#include <QGraphicsWidget>
 #include <QMap>
 
-class QVBoxLayout;
-class QPushButton;
-class QProgressBar;
-class QLabel;
+namespace Plasma
+{
+    class Label;
+    class PushButton;
+}
 
-class KGetBarApplet::Private : public QGraphicsProxyWidget
+class QGraphicsProxyWidget;
+class QProgressBar;
+
+class KGetBarApplet::Private : public QGraphicsWidget
 {
 Q_OBJECT
 public:
     Private(QGraphicsWidget *parent = 0);
     ~Private();
 
-    void setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
-
 public slots:
+    void addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
+    void removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void nextPage();
     void previousPage();
-
-private slots:
-    void populate(const QList<OrgKdeKgetTransferInterface*> &transfers);
+    void populate();
 
 private:
     void clear();
 
 private:
-    QVBoxLayout *m_verticalLayout;
-    QVBoxLayout *m_barsLayout;
-    QPushButton *m_nextPageButton;
-    QPushButton *m_previousPageButton;
-    QLabel *m_totalSizeLabel;
-    QLabel *m_pageLabel;
-    QMap <OrgKdeKgetTransferInterface*, QProgressBar *> m_progressBars;
+    struct Item
+    {
+        OrgKdeKgetTransferInterface *transfer;
+        QGraphicsProxyWidget *proxy;
+        QProgressBar *progressBar;
+    };
+
+    QGraphicsLinearLayout *m_verticalLayout;
+    Plasma::PushButton *m_nextPageButton;
+    Plasma::PushButton *m_previousPageButton;
+    Plasma::Label *m_totalSizeLabel;
+    Plasma::Label *m_pageLabel;
+    QList<OrgKdeKgetTransferInterface*> m_transfers;
+    QList<Item*> m_items;
 
     int m_actualPage;
 };

@@ -32,6 +32,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QProgressBar>
+#include <QStyleOptionGraphicsItem>
 
 #include <KDebug>
 #include <KIcon>
@@ -40,79 +41,75 @@
 #include <plasma/applet.h>
 #include <plasma/theme.h>
 #include <plasma/dataengine.h>
+#include <plasma/widgets/label.h>
+#include <plasma/widgets/pushbutton.h>
 
-#define TOP_MARGIN 60
-#define SPACING 4
-#define MARGIN 20
-#define MAX_DOWNLOADS_PER_PAGE 5
+const int TOP_MARGIN = 60;
+const int SPACING = 4;
+const int MARGIN = 20;
+const int MAX_DOWNLOADS_PER_PAGE = 5;
 
-KGetBarApplet::Private::Private(QGraphicsWidget *parent) : QGraphicsProxyWidget(parent),
+KGetBarApplet::Private::Private(QGraphicsWidget *parent) : QGraphicsWidget(parent),
     m_actualPage(0)
 {
+    m_verticalLayout = new QGraphicsLinearLayout(Qt::Vertical, this);
+
     // Pager layout and next, previous buttons
-    QHBoxLayout *pager_layout = new QHBoxLayout();
+    QGraphicsLinearLayout *pager_layout = new QGraphicsLinearLayout(Qt::Horizontal, m_verticalLayout);
 
-    m_pageLabel = new QLabel();
-
-    m_previousPageButton = new QPushButton(KIcon("go-previous"), "");
-    m_nextPageButton = new QPushButton(KIcon("go-next"), "");
+    m_previousPageButton = new Plasma::PushButton(this);
+    m_previousPageButton->setIcon(KIcon("go-previous"));
+    m_previousPageButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
+    m_nextPageButton = new Plasma::PushButton(this);
+    m_nextPageButton->setIcon(KIcon("go-next"));
+    m_nextPageButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
     m_previousPageButton->setEnabled(false);
     m_nextPageButton->setEnabled(false);
 
-    pager_layout->addWidget(m_previousPageButton);
-    pager_layout->addWidget(m_nextPageButton);
+    pager_layout->addItem(m_previousPageButton);
+    pager_layout->addItem(m_nextPageButton);
+
+    m_verticalLayout->addItem(pager_layout);
 
     // Total size
-    m_totalSizeLabel = new QLabel();
+    m_totalSizeLabel = new Plasma::Label(this);
     m_totalSizeLabel->setAlignment(Qt::AlignRight);
 
-    m_barsLayout = new QVBoxLayout();
+    m_verticalLayout->addItem(m_totalSizeLabel);
 
-    m_verticalLayout = new QVBoxLayout();
+    m_pageLabel = new Plasma::Label(this);
 
-    m_verticalLayout->addLayout(m_barsLayout);
-    m_verticalLayout->addLayout(pager_layout);
-    m_verticalLayout->addWidget(m_totalSizeLabel);
-    m_verticalLayout->addWidget(m_pageLabel);
+    m_verticalLayout->addItem(m_pageLabel);
 
-    // main widget
-    QWidget *widget = new QWidget();
-    widget->setStyleSheet("background-color: transparent; color: white");
-    widget->setLayout(m_verticalLayout);
-
-    setWidget(widget);
+    setLayout(m_verticalLayout);
 
     // connect the clicked signal of the next and previous buttons
-    QObject::connect(m_previousPageButton, SIGNAL(clicked()), SLOT(previousPage()));
-    QObject::connect(m_nextPageButton, SIGNAL(clicked()), SLOT(nextPage()));
+    connect(m_previousPageButton, SIGNAL(clicked()), SLOT(previousPage()));
+    connect(m_nextPageButton, SIGNAL(clicked()), SLOT(nextPage()));
 }
 
 KGetBarApplet::Private::~Private()
 {
 }
 
-void KGetBarApplet::Private::setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
+void KGetBarApplet::Private::addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
 {
-    /*QStringList urls;
-    foreach (OrgKdeKgetTransferInterface* transfer, transfers)
-        urls << transfer->source().value();
-    QStringList oldUrls;
-    foreach (OrgKdeKgetTransferInterface* transfer, m_progressBars.keys())
-        oldUrls << transfer->source().value();
-    if (urls != oldUrls) { //FIXME
-        clear();
-    }*/
+    m_transfers << transfers;
+}
 
-    populate(transfers);
+void KGetBarApplet::Private::removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
+{
+    foreach (OrgKdeKgetTransferInterface* transfer, transfers)
+        m_transfers.removeAll(transfer);
 }
 
 void KGetBarApplet::Private::nextPage()
 {
-    if (m_progressBars.size() >= ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE)) {
+    if (m_transfers.size() >= ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE)) {
         m_actualPage ++;
 
         clear();
-        populate(m_progressBars.keys());
+        populate();
     }
 }
 
@@ -122,148 +119,97 @@ void KGetBarApplet::Private::previousPage()
         m_actualPage --;
 
         clear();
-        populate(m_progressBars.keys());
+        populate();
     }
 }
 
-void KGetBarApplet::Private::populate(const QList<OrgKdeKgetTransferInterface*> &transfers)
+void KGetBarApplet::Private::populate()
 {
     int totalSize = 0;
-    int limit = transfers.size() < ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE) ? 
-            transfers.size() :
+    int limit = m_transfers.size() < ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE) ? 
+            m_transfers.size() :
             ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE);
 
     for(int i = (m_actualPage * MAX_DOWNLOADS_PER_PAGE); i < limit; i++) {
-        OrgKdeKgetTransferInterface* transfer = transfers.at(i);
+        OrgKdeKgetTransferInterface* transfer = m_transfers.at(i);
         QString fileName = KUrl(transfer->source().value()).fileName();
         kDebug() << fileName;
 
-        if (!m_progressBars.keys().contains(transfer)) {
-            QProgressBar *bar = new QProgressBar(0);
-            bar->setFormat(fileName + " %v%");
-
-            m_progressBars[transfer] = bar;
-            m_barsLayout->insertWidget(0, bar);
+        Item *item = 0;
+        foreach (Item * i, m_items) {
+            if (i->transfer == transfer) {
+                item = i;
+                break;
+            }
         }
 
-        m_progressBars[transfer]->setValue(transfer->percent().value());
+        if (!item) {
+            kDebug() << "Create new Item";
+            item = new Item;
+            item->proxy = new QGraphicsProxyWidget(this);
+            item->progressBar = new QProgressBar();
+            item->proxy->setWidget(item->progressBar);
+            item->progressBar->setFormat(fileName + " %v%");
+            item->transfer = transfer;
+
+            m_items.append(item);
+            m_verticalLayout->insertItem(0, item->proxy);
+        }
+
+        item->progressBar->setValue(transfer->percent().value());
         totalSize += transfer->totalSize().value();
     }
 
     m_pageLabel->setText(i18n("Showing %1-%2 of %3 transfers",
-        m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, transfers.size()));
+                         m_actualPage * MAX_DOWNLOADS_PER_PAGE, limit, m_transfers.size()));
 
     // remove the progressbars for the deleted transfers
-    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator it;
-    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator itEnd = m_progressBars.end();
-    for (it = m_progressBars.begin(); it != itEnd; ) {
-        if (transfers.contains(it.key())) {
-            ++it;
-        } else {
-            QProgressBar *bar = *it;
-            it = m_progressBars.erase(it);
-            m_barsLayout->removeWidget(bar);
-            delete bar;
+    foreach (Item * item, m_items) {
+        if (!m_transfers.contains(item->transfer)) {
+            m_verticalLayout->removeItem(item->proxy);
+            item->proxy->deleteLater();
+            item->progressBar->deleteLater();
+            m_items.removeAll(item);
+            delete item;
         }
     }
 
     // activate or deactivate the navigation buttons
-    if(transfers.size() > ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE))
-        m_nextPageButton->setEnabled(true);
-    else
-        m_nextPageButton->setEnabled(false);
+    m_nextPageButton->setEnabled(m_transfers.size() > ((m_actualPage + 1)* MAX_DOWNLOADS_PER_PAGE));
 
-    if(m_actualPage > 0)
-        m_previousPageButton->setEnabled(true);
-    else
-        m_previousPageButton->setEnabled(false);
+    m_previousPageButton->setEnabled(m_actualPage > 0);
 }
 
 void KGetBarApplet::Private::clear()
 {
-    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator it;
-    QMap<OrgKdeKgetTransferInterface*, QProgressBar*>::iterator itEnd = m_progressBars.end();
-    for (it = m_progressBars.begin(); it != itEnd; ) {
-        QProgressBar *bar = *it;
-        it = m_progressBars.erase(it);
-        m_barsLayout->removeWidget(bar);
-        delete bar;
+    foreach (Item * item, m_items) {
+        m_verticalLayout->removeItem(item->proxy);
+        item->proxy->deleteLater();
+        item->progressBar->deleteLater();
+        delete item;
     }
+    m_items.clear();
 }
 
-
-
 KGetBarApplet::KGetBarApplet(QObject *parent, const QVariantList &args) 
-        : KGetApplet(parent, args),
-        m_errorWidget(0),
-        d(new KGetBarApplet::Private(0))
+        : KGetApplet(parent, args)
 {
-    setAspectRatioMode(Plasma::IgnoreAspectRatio);
-    setBackgroundHints(Applet::DefaultBackground);
-
-    m_theme = new Plasma::Svg(this);
-    m_theme->setImagePath("widgets/kget");
 }
 
 KGetBarApplet::~KGetBarApplet()
 {
     delete d;
-    delete m_errorWidget;
 }
 
 void KGetBarApplet::init()
 {
-    KGlobal::locale()->insertCatalog("plasma_applet_kget");
-    m_layout = new QGraphicsLinearLayout(this);
-    m_layout->setSpacing(SPACING);
-    m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
-    m_layout->setOrientation(Qt::Vertical);
-
-    m_layout->addItem(d);
-
-    setLayout(m_layout);
-
-    resize(QSize(300, 360));
+    d = new KGetBarApplet::Private(this);
+    connect(this, SIGNAL(transfersAdded(QList<OrgKdeKgetTransferInterface*>)), d, SLOT(addTransfers(QList<OrgKdeKgetTransferInterface*>)));
+    connect(this, SIGNAL(transfersRemoved(QList<OrgKdeKgetTransferInterface*>)), d, SLOT(removeTransfers(QList<OrgKdeKgetTransferInterface*>)));
+    connect(this, SIGNAL(update()), d, SLOT(populate()));
+    setDataWidget(d);
 
     KGetApplet::init();
-}
-
-void KGetBarApplet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)
-{
-    Q_UNUSED(option);
-    if(formFactor() == Plasma::Planar || formFactor() == Plasma::MediaCenter) {
-        KGetAppletUtils::paintTitle(p, m_theme, contentsRect);
-    }
-}
-
-void KGetBarApplet::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
-{
-    Q_UNUSED(source)
-    kDebug();
-
-    if(data["error"].toBool()) {
-        if (!m_errorWidget) {
-            m_layout->removeAt(0);
-            delete d;
-            d = 0;
-
-            m_errorWidget = KGetAppletUtils::createErrorWidget(data["errorMessage"].toString(), this);
-            m_layout->addItem(m_errorWidget);
-        }
-    } else if(!data["error"].toBool()) {
-        if (!d) {
-            m_layout->removeAt(0);
-            delete m_errorWidget;
-            m_errorWidget = 0;
-
-            d = new KGetBarApplet::Private(this);
-
-            m_layout->addItem(d);
-        }
-
-        setTransfers(data["transfers"].toMap());
-        d->setTransfers(m_transfers);
-    }
 }
 
 #include "kgetbarapplet.moc"

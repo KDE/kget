@@ -20,17 +20,49 @@
 #ifndef KGETAPPLET_H
 #define KGETAPPLET_H
 
-#include <plasma/applet.h>
+#include <plasma/popupapplet.h>
 #include <plasma/dataengine.h>
 #include "transfer_interface.h"
 
 class QEvent;
 class QDropEvent;
+class QGraphicsLinearLayout;
+class ErrorWidget;
+
+namespace Plasma
+{
+    class Theme;
+    class IconWidget;
+    class Meter;
+}
 
 static const QString KGET_DBUS_SERVICE = "org.kde.kget";
 static const QString KGET_DBUS_PATH = "/KGet";
 
-class KGetApplet : public Plasma::Applet
+class ProxyWidget : public QGraphicsWidget
+{
+    Q_OBJECT
+    public:
+        ProxyWidget(QGraphicsWidget * parent);
+        ~ProxyWidget();
+        
+        void paint(QPainter * p, const QStyleOptionGraphicsItem * option, QWidget * widget);
+        
+        void setDataWidget(QGraphicsWidget *widget);
+        
+        QGraphicsWidget * dataWidget();
+        
+    private slots:
+        void themeChanged();
+        
+    private:
+        QGraphicsLinearLayout * m_layout;
+        QGraphicsWidget * m_dataWidget;
+        int m_textWidth;
+        int m_textHeight;
+};
+
+class KGetApplet : public Plasma::PopupApplet
 {
     Q_OBJECT
 public:
@@ -39,19 +71,27 @@ public:
 
     void init();
     void setTransfers(const QVariantMap &transfers);
+    void setDataWidget(QGraphicsWidget * widget);
 
 public slots:
-    virtual void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data) = 0;
-    
+    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
+
 signals:
     void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void transfersRemoved(const QList<OrgKdeKgetTransferInterface*> &transfers);
-    
+    void update();
+
 protected:
     virtual bool sceneEventFilter(QGraphicsItem * watched, QEvent * event);
     virtual void dropEvent(QGraphicsSceneDragDropEvent * event);
     virtual void dropEvent(QDropEvent * event);
+    virtual void constraintsEvent(Plasma::Constraints constraints);
 
+    ProxyWidget *m_proxyWidget;
+    ErrorWidget *m_errorWidget;
+    QGraphicsWidget *m_dataWidget;
+    Plasma::Meter *m_globalProgress;
+    Plasma::IconWidget *m_icon;
     Plasma::DataEngine *m_engine;
     QList<OrgKdeKgetTransferInterface*> m_transfers;
 };

@@ -21,6 +21,7 @@
 #include "kgetappletutils.h"
 
 #include <plasma/svg.h>
+#include <plasma/theme.h>
 #include <plasma/widgets/label.h>
 #include <plasma/widgets/iconwidget.h>
 #include <plasma/widgets/pushbutton.h>
@@ -43,12 +44,26 @@ const static int SPACING = 4;
 void KGetAppletUtils::paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rect)
 {
     p->setRenderHint(QPainter::SmoothPixmapTransform);
+    QFont font = Plasma::Theme::defaultTheme()->font(Plasma::Theme::DefaultFont);
+    font.setBold(true);
+    font.setPointSize(15);
+    QFontMetrics metrics(font);
+    p->setFont(font);
+    p->setPen(Plasma::Theme::defaultTheme()->color(Plasma::Theme::TextColor));
 
-    svg->paint(p, QRect(rect.x() + SPACING + 10,
-                        rect.y() + SPACING + 10, 111, 35), "title");
-    svg->paint(p, QRect(rect.x() + SPACING + 10,
-                        rect.y() + SPACING + 45,
-                        rect.width() - (SPACING + 10) * 2, 1), "line");
+    QRect iconRect(QPoint(rect.x() + SPACING + 10, rect.y() + SPACING + 10), QSize(metrics.height(), metrics.height()));
+    KIcon("kget").paint(p, iconRect);
+    //p->drawPixmap(QPointF(rect.x() + SPACING + 10, rect.y() + SPACING + 10), KIcon("kget").pixmap(iconRect.width(), iconRect.height()), iconRect);
+    //svg->paint(p, QRect(rect.x() + SPACING + 10,
+    //                    rect.y() + SPACING + 10, 111, 35), "title");
+    //p->setPen(Qt::black);
+    p->drawText(QRectF(rect.x() + SPACING * 2 + 10 + iconRect.width(), rect.y() + SPACING + 10, 
+                       metrics.width(i18n("KGet")), metrics.height()), i18n("KGet"));
+    p->drawLine(QPointF(rect.x() + SPACING + 10, rect.y() + SPACING * 2 + 10 + metrics.height()), 
+                QPointF(rect.width() - SPACING - 10, rect.y() + SPACING * 2 + 10 + metrics.height()));
+    //svg->paint(p, QRect(rect.x() + SPACING + 10,
+    //                    rect.y() + SPACING + 45,
+    //                    rect.width() - (SPACING + 10) * 2, 1), "line");
 }
 
 QGraphicsWidget *KGetAppletUtils::createErrorWidget(const QString &message, QGraphicsWidget *parent)

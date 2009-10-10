@@ -226,36 +226,20 @@ void KGetPieChart::Private::drawLegend(OrgKdeKgetTransferInterface* transfer, QP
 
 
 KGetPieChart::KGetPieChart(QObject *parent, const QVariantList &args) 
-        : KGetApplet(parent, args),
-        m_errorWidget(0)
+        : KGetApplet(parent, args)
 {
-    setAspectRatioMode(Plasma::IgnoreAspectRatio);
-    setBackgroundHints(Applet::DefaultBackground);
-
-    m_theme = new Plasma::Svg(this);
-    m_theme->setImagePath("widgets/kget");
 }
 
 KGetPieChart::~KGetPieChart()
 {
-    delete m_errorWidget;
     delete d;
 }
 
 void KGetPieChart::init()
 {
-    KGlobal::locale()->insertCatalog("plasma_applet_kget");
-    m_layout = new QGraphicsLinearLayout(this);
-    m_layout->setSpacing(SPACING);
-    m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
-    m_layout->setOrientation(Qt::Vertical);
-
     d = new KGetPieChart::Private(this);
-    m_layout->addItem(d);
-
-    setLayout(m_layout);
-
-    resize(QSize(300, 360));
+    connect(this, SIGNAL(update()), this, SLOT(slotUpdate()));
+    setDataWidget(d);
 
     KGetApplet::init();
 }
@@ -267,44 +251,13 @@ void KGetPieChart::constraintsEvent(Plasma::Constraints constraints)
             d->update();
         }
     }
+    KGetApplet::constraintsEvent(constraints);
 }
 
-void KGetPieChart::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect)
+void KGetPieChart::slotUpdate()
 {
-    Q_UNUSED(option)
-    if(formFactor() == Plasma::Planar || formFactor() == Plasma::MediaCenter) {
-        KGetAppletUtils::paintTitle(p, m_theme, contentsRect);
-    }
-}
-
-void KGetPieChart::dataUpdated(const QString &source, const Plasma::DataEngine::Data &data)
-{
-    Q_UNUSED(source)
-
-    if(data["error"].toBool()) {
-        if (!m_errorWidget) {
-            delete d;
-            d = 0;
-            m_layout->removeAt(0);
-
-            m_errorWidget = KGetAppletUtils::createErrorWidget(data["errorMessage"].toString(), this);
-            m_layout->addItem(m_errorWidget);
-        }
-    }
-    else if(!data["error"].toBool()) {
-        if (m_errorWidget) {
-            delete m_errorWidget;
-            m_errorWidget = 0;
-
-            d = new KGetPieChart::Private(this); 
-
-            m_layout->removeAt(0);
-            m_layout->addItem(d);
-        }
-
-        setTransfers(data["transfers"].toMap());
-        d->setTransfers(m_transfers);
-    }
+    d->setTransfers(m_transfers);
+    d->update();
 }
 
 #include "kgetpiechart.moc"

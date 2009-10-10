@@ -38,20 +38,8 @@ public:
     ~KGetBarApplet();
 
     void init();
-    void paintInterface(QPainter *painter, 
-                            const QStyleOptionGraphicsItem *option,
-                            const QRect &contentsRect);
-
-public slots:
-    void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
 
 private:
-    Plasma::Svg *m_theme;
-    Plasma::DataEngine *m_engine;
-
-    QGraphicsLinearLayout *m_layout;
-    QGraphicsWidget *m_errorWidget;
-
     class Private;
     Private *d;
 };

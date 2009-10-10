@@ -41,6 +41,8 @@ public:
 
     void setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    
+public slots:
     void update();
 
 private:
