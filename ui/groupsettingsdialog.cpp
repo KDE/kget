@@ -150,7 +150,7 @@ void GroupSettingsDialog::updateUsedTagsLineEdit()
 
 void GroupSettingsDialog::save()
 {
-    m_group->setDefaultFolder(ui.defaultFolderRequester->url().toLocalFile());
+    m_group->setDefaultFolder(ui.defaultFolderRequester->url().toLocalFile(KUrl::AddTrailingSlash));
 
     if (ui.downloadCheck->isChecked())
         m_group->setDownloadLimit(ui.downloadBox->value(), Transfer::VisibleSpeedLimit);
