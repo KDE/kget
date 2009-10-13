@@ -14,7 +14,7 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>This assistant allows you to create metalinks from scratch or base them on existing metalinks. A lot of the fields are optional or recommended, so enter them at will. The minimum is a save location, at least one file and one url.</string>
+      <string>This assistant allows you to create metalinks from scratch or base them on existing metalinks. A lot of the fields are optional or recommended, so enter them if desired. The minimum is a save location, at least one file and one URL.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

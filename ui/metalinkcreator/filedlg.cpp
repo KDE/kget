@@ -111,7 +111,7 @@ void FileDlg::slotUpdateOkButton()
     bool isDuplicate = (m_currentFileNames.indexOf(ui.name->text()) > -1);
 
     const QString enterName = i18n("Enter a filename.");
-    const QString enterUrl = i18n("Enter at least one url.");
+    const QString enterUrl = i18n("Enter at least one URL.");
     const QString duplicate = i18n("The filename exists already, choose a different one.");
 
     QString text;
@@ -143,7 +143,7 @@ void FileDlg::slotUpdateOkButton()
         //all requirements fulfilled
         if (text.isEmpty())
         {
-            text = i18n("Required data entered, also consider to enter additional information.");
+            text = i18n("Required data entered; also consider entering additional information.");
         }
     }
 

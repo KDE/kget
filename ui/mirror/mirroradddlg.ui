@@ -40,7 +40,7 @@
      <item row="0" column="1">
       <widget class="KLineEdit" name="url">
        <property name="clickMessage">
-        <string>Enter an url</string>
+        <string>Enter a URL</string>
        </property>
        <property name="showClearButton" stdset="0">
         <bool>true</bool>

@@ -190,7 +190,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 
     if (!m_dataSourceFactory.size())
     {
-        KMessageBox::error(0, i18n("Download failed, no working urls were found."), i18n("Error"));
+        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
         setTransferChange(Tc_Status, true);
         return;

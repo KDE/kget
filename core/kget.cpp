@@ -240,7 +240,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
     if(existingTransferDest) {   
         if(existingTransferDest->status() == Job::Finished) {
             if (KMessageBox::questionYesNoCancel(0,
-                    i18n("You have already downloaded that file from another location\n\nDownload and delete the previous one?"),
+                    i18n("You have already downloaded that file from another location.\n\nDownload and delete the previous one?"),
                     i18n("File already downloaded. Download anyway?"), KStandardGuiItem::yes(),
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
                     == KMessageBox::Yes) {
@@ -813,7 +813,7 @@ TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const 
     }
     
     KMessageBox::error(m_mainWindow, 
-                       i18n("We are sorry. KGet is unable to download from this protocol"),
+                       i18n("Unable to continue: KGet cannot download using this protocol."),
                        i18n("Protocol unsupported"));
 
     kDebug(5001) << "Warning! No plugin found to handle the given url";

@@ -63,7 +63,7 @@
         <string/>
        </property>
        <property name="clickMessage">
-        <string>Url to the logo</string>
+        <string>URL to the logo</string>
        </property>
        <property name="showClearButton" stdset="0">
         <bool>true</bool>
@@ -164,14 +164,14 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_23">
        <property name="text">
-        <string>Url:</string>
+        <string>URL:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="KLineEdit" name="lic_url">
        <property name="clickMessage">
-        <string>Url to the license</string>
+        <string>URL to the license</string>
        </property>
        <property name="showClearButton" stdset="0">
         <bool>true</bool>
@@ -234,7 +234,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_21">
        <property name="text">
-        <string>Url:</string>
+        <string>URL:</string>
        </property>
       </widget>
      </item>
@@ -244,7 +244,7 @@
         <string>publisher</string>
        </property>
        <property name="clickMessage">
-        <string>Url to the publisher</string>
+        <string>URL to the publisher</string>
        </property>
        <property name="showClearButton" stdset="0">
         <bool>true</bool>

@@ -32,7 +32,7 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
   : KDialog(parent, flags),
     m_model(model)
 {
-    setCaption(i18n("Add chechksum"));
+    setCaption(i18n("Add checksum"));
     showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);

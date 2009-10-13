@@ -13,7 +13,7 @@
       <default>FindFiles.com,FileWatcher.com</default>
     </entry>
     <entry name="SearchEnginesUrlList" type="StringList" key="UrlItems">
-      <label>Urls list of the available search engines</label>
+      <label>List of the available search engine URLs</label>
       <default>http://www.findfiles.com/list.php?db=Mirrors&amp;string=${filename},http://www.filewatcher.com/_/?q=+${filename}</default>
     </entry>
   </group>
