@@ -6,6 +6,7 @@ X-KDE-Library=kcm_kget_checksumsearchfactory
 X-KDE-ParentComponents=kget_checksumsearch_plugin
 
 Name=ChecksumSearch
+Name[en_GB]=ChecksumSearch
 Name[et]=Kontrollsumma otsing
 Name[gl]=Procura de suma de comprobación
 Name[ko]=ChecksumSearch
