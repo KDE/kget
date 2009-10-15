@@ -56,7 +56,7 @@ void KGetRunner::match(Plasma::RunnerContext& context)
             match.setText(i18n("Download %1 with KGet.", KUrl(m_urls.first()).prettyUrl()));
         }
         else {
-            match.setText(i18n("Download %1 links with KGet.", m_urls.size()));
+            match.setText(i18np("Download %1 link with KGet.", "Download %1 links with KGet.", m_urls.size()));
         }
         context.addMatch(query, match);
     }
@@ -85,7 +85,7 @@ void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::Que
     }
     else {
         KNotification::event(KNotification::Error,
-                i18n("<p>KGet Runner could not talk to KGet!</p><p style=\"font-size: small;\">DBus said:<br/>%1</p>", iface.lastError().message()),
+                i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", iface.lastError().message()),
                 KIcon("dialog-warning").pixmap(KIconLoader::SizeSmall)/*, 0, KNotification::Persistant*/);
     }
 }
@@ -120,7 +120,7 @@ void KGetRunner::callFinished(QDBusPendingCallWatcher* call)
     if(!reply.isValid() && (reply.error().type() != QDBusError::NoReply)) {
         //  Send a notification about the error to the user.
         KNotification::event(KNotification::Error,
-                i18n("<p>KGet Runner could not talk to KGet!</p><p style=\"font-size: small;\">DBus said:<br/>%1</p>", reply.error().message()),
+                i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", reply.error().message()),
                 KIcon("dialog-warning").pixmap(KIconLoader::SizeSmall)/*, 0, KNotification::Persistant*/);
     }
 }
