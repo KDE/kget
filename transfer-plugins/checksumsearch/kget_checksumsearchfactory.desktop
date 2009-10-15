@@ -23,6 +23,9 @@ Name[x-test]=xxChecksum Searchxx
 Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
+Comment[en_GB]=Tries to find checksums for a specified URL
+Comment[pt_BR]=Tenta encontrar as somas de verificação para um URL especificado
+Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
 
 # options for library loader
 X-KDE-Library=kget_checksumsearchfactory
