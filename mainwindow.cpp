@@ -1028,6 +1028,7 @@ bool MainWindow::delTransfer(const QString& dbusObjectPath)
     
     if(transfer)
         return KGet::delTransfer(transfer->handler());
+    return false;
 }
 
 void MainWindow::showNewTransferDialog(const QStringList &urls)
