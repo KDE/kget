@@ -26,6 +26,7 @@ Comment=Tries to find checksums for a specified URL
 Comment[en_GB]=Tries to find checksums for a specified URL
 Comment[pt]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
 Comment[pt_BR]=Tenta encontrar as somas de verificação para um URL especificado
+Comment[sv]=Försöker hitta checksummor för en specifik webbadress
 Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
 
 # options for library loader
