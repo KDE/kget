@@ -30,6 +30,7 @@
 #include <util/functions.h>
 #include <util/log.h>
 #include <peer/authenticationmonitor.h>
+#include <interfaces/trackerinterface.h>
 #include <btversion.h>
 
 #include <KDebug>
@@ -303,7 +304,7 @@ void BTTransfer::startTorrent()
 
 void BTTransfer::stopTorrent()
 {
-    torrent->stop(true);
+    torrent->stop();
     torrent->setMonitor(0);
     m_downloadSpeed = 0;
     timer.stop();
@@ -467,7 +468,7 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
         m_ready = true;
 
         kDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
-        torrent->init(0, m_source.toLocalFile(), m_tmp + m_source.fileName().remove(".torrent"), KUrl(m_dest.directory()).toLocalFile(), 0);
+        torrent->init(0, m_source.toLocalFile(), m_tmp + m_source.fileName().remove(".torrent"), KUrl(m_dest.directory()).toLocalFile());
 
         m_dest = torrent->getStats().output_path;
         if (!torrent->getStats().multi_file_torrent && (m_dest.fileName() != torrent->getStats().torrent_name))//TODO check if this is needed, so if that case is true at some point
@@ -517,7 +518,9 @@ KUrl::List BTTransfer::trackersList() const
     if (!torrent)
         return KUrl::List();
 
-    const KUrl::List trackers = torrent->getTrackersList()->getTrackerURLs();
+    KUrl::List trackers;
+    foreach (bt::TrackerInterface * tracker, torrent->getTrackersList()->getTrackers())
+        trackers << tracker->trackerURL();
     return trackers;
 }
 

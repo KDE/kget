@@ -79,7 +79,6 @@ namespace kt
 		bt::Uint32 num_not_downloaded;
 		bool silently;
 		bool restart;
-		bool qm_controlled;
 		int qm_priority;
 		bool scanning;
 		QProgressBar *m_progress;

@@ -81,6 +81,7 @@ set(libbtcore_SRC
     libbtcore/net/socketgroup.cpp
     libbtcore/net/socks.cpp
     libbtcore/net/wakeuppipe.cpp
+    libbtcore/net/reverseresolver.cpp
     
     libbtcore/mse/bigint.cpp  
     libbtcore/mse/functions.cpp  
@@ -120,6 +121,7 @@ set(libbtcore_SRC
     libbtcore/interfaces/torrentinterface.cpp
     libbtcore/interfaces/torrentfileinterface.cpp
     libbtcore/interfaces/trackerslist.cpp
+    libbtcore/interfaces/trackerinterface.cpp
     libbtcore/interfaces/logmonitorinterface.cpp
     libbtcore/interfaces/blocklistinterface.cpp
     libbtcore/interfaces/exitoperation.cpp
@@ -142,6 +144,9 @@ set(libbtcore_SRC
     libbtcore/torrent/advancedchokealgorithm.cpp
     libbtcore/torrent/torrentcontrol.cpp
     libbtcore/torrent/torrentcreator.cpp
+    libbtcore/torrent/torrentstats.cpp
+    libbtcore/torrent/job.cpp
+    libbtcore/torrent/jobqueue.cpp
 
     libbtcore/dht/announcetask.cpp  
     libbtcore/dht/dht.cpp                
@@ -171,18 +176,21 @@ set(libbtcore_SRC
     libbtcore/diskio/piecedata.cpp
     libbtcore/diskio/cachefile.cpp  
     libbtcore/diskio/chunkmanager.cpp  
+    libbtcore/diskio/preallocationjob.cpp
 
     libbtcore/tracker/httptracker.cpp  
     libbtcore/tracker/tracker.cpp  
     libbtcore/tracker/udptracker.cpp  
     libbtcore/tracker/udptrackersocket.cpp
     libbtcore/tracker/httpannouncejob.cpp
+    libbtcore/tracker/trackermanager.cpp
     
     libbtcore/datachecker/datachecker.cpp          
     libbtcore/datachecker/datacheckerthread.cpp  
     libbtcore/datachecker/singledatachecker.cpp
     libbtcore/datachecker/datacheckerlistener.cpp  
     libbtcore/datachecker/multidatachecker.cpp
+    libbtcore/datachecker/datacheckerjob.cpp
     
     libbtcore/migrate/cachemigrate.cpp  
     libbtcore/migrate/ccmigrate.cpp  

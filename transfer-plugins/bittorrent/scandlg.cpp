@@ -52,7 +52,6 @@ namespace kt
 		tc = 0;
 		silently = false;
 		restart = false;
-		qm_controlled = false;
 		scanning = false;
 		num_chunks = 0;
 		total_chunks = 0;
@@ -97,13 +96,12 @@ namespace kt
 		num_not_downloaded = 0;
 		if (auto_import || tc->getStats().running)
 			restart = true;
-		
-		qm_controlled = !tc->getStats().user_controlled;
+
 		qm_priority = tc->getPriority();
 
 		if (tc->getStats().running)
 		{
-			tc->stop(true);
+			tc->stop();
 		}
 		
 		scan();
