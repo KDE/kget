@@ -30,6 +30,7 @@ Comment[pt_BR]=Tenta encontrar as somas de verificação para um URL especificad
 Comment[sv]=Försöker hitta checksummor för en specifik webbadress
 Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
 Comment[x-test]=xxTries to find checksums for a specified URLxx
+Comment[zh_TW]=試著尋找指定網址的驗證碼
 
 # options for library loader
 X-KDE-Library=kget_checksumsearchfactory

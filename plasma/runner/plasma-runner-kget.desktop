@@ -78,6 +78,7 @@ Comment[sv]=Ladda ner länkar med Kget
 Comment[tr]=Bağlantıları KGet ile İndir
 Comment[uk]=Звантажити посилання за допомогою KGet
 Comment[x-test]=xxDownload links with KGetxx
+Comment[zh_TW]=用 KGet 下載連結
 X-KDE-ServiceTypes=Plasma/Runner
 Type=Service
 Icon=kget
