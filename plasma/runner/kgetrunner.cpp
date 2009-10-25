@@ -66,14 +66,14 @@ void KGetRunner::match(Plasma::RunnerContext& context)
 void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::QueryMatch& /*match*/)
 {
     QDBusConnectionInterface* connection = QDBusConnection::sessionBus().interface();
-    if(connection->isServiceRegistered("org.kde.kget"))  {
+    if(connection->isServiceRegistered("org.kde.kget.main"))  {
         //  KGet is running. Make the call immediately.
         showNewTransferDialog();
         return;
     }
     
     //  KGet is not running. Ask DBus to start it.
-    connection->startService("org.kde.kget");
+    connection->startService("org.kde.kget.main");
     if(connection->lastError().type() != QDBusError::NoError) {
         KNotification::event(KNotification::Error,
                 i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", connection->lastError().message()),
@@ -89,7 +89,7 @@ void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::Que
 
 void KGetRunner::showNewTransferDialog()
 {
-    QDBusInterface iface("org.kde.kget", "/KGet", "org.kde.kget");
+    QDBusInterface iface("org.kde.kget", "/KGet", "org.kde.kget.main");
     
     QDBusPendingCall call = iface.asyncCall("showNewTransferDialog", m_urls);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
