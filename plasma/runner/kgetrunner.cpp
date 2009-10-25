@@ -66,14 +66,14 @@ void KGetRunner::match(Plasma::RunnerContext& context)
 void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::QueryMatch& /*match*/)
 {
     QDBusConnectionInterface* connection = QDBusConnection::sessionBus().interface();
-    if(connection->isServiceRegistered("org.kde.kget.main"))  {
+    if(connection->isServiceRegistered("org.kde.kget"))  {
         //  KGet is running. Make the call immediately.
         showNewTransferDialog();
         return;
     }
     
     //  KGet is not running. Ask DBus to start it.
-    connection->startService("org.kde.kget.main");
+    connection->startService("org.kde.kget");
     if(connection->lastError().type() != QDBusError::NoError) {
         KNotification::event(KNotification::Error,
                 i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", connection->lastError().message()),
