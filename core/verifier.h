@@ -31,10 +31,6 @@
 #include <QtGui/QStyledItemDelegate>
 #include <QtXml/QDomElement>
 
-#ifdef HAVE_QCA2
-#include <QtCrypto>
-#endif
-
 #include "kget_export.h"
 
 class QFile;
