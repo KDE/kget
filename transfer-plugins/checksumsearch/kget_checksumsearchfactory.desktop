@@ -30,6 +30,7 @@ Comment[nn]=Prøver å finna sjekksummar for oppgjevne adresser
 Comment[pt]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
 Comment[pt_BR]=Tenta encontrar as somas de verificação para um URL especificado
 Comment[sv]=Försöker hitta checksummor för en specifik webbadress
+Comment[tr]=Belirtilen bir adres için sağlamaları bulmaya çalışır
 Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
 Comment[x-test]=xxTries to find checksums for a specified URLxx
 Comment[zh_TW]=試著尋找指定網址的驗證碼
