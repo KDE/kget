@@ -17,7 +17,7 @@
 #include <kxmlguiwindow.h>
 #include <kurl.h>
 
-#include <knotificationitem.h>
+#include <kstatusnotifieritem.h>
 #include "ui/tray.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"

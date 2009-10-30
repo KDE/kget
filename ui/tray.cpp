@@ -19,10 +19,10 @@
 #include <QClipboard>
 
 /** class Tray
-  * Reimplementation of the KNotificationItem class
+  * Reimplementation of the KStatusNotifierItem class
   */
 Tray::Tray(MainWindow * parent)
-    : KNotificationItem(parent)
+    : KStatusNotifierItem(parent)
 {
     // set up the context menu
     KMenu * cm = contextMenu();
@@ -72,25 +72,25 @@ void Tray::setDownloading( bool downloading )
 
     if (downloading)
     {
-        if (status() == KNotificationItem::Active)
+        if (status() == KStatusNotifierItem::Active)
             return;
-        setStatus(KNotificationItem::Active);
+        setStatus(KStatusNotifierItem::Active);
         setOverlayIconByName("media-playback-start");
     }
     else
     {
-        if (status() == KNotificationItem::Passive)
+        if (status() == KStatusNotifierItem::Passive)
             return;
-        setStatus(KNotificationItem::Passive);
+        setStatus(KStatusNotifierItem::Passive);
         setOverlayIconByName(QString());
     } 	
 }
 
 bool Tray::isDownloading()
 {
-    // KNotificationItem::NeedsAttention is not handled here,
+    // KStatusNotifierItem::NeedsAttention is not handled here,
     // as we do not use it.
-    return (status() == KNotificationItem::Active);
+    return (status() == KStatusNotifierItem::Active);
 }
 
 #include "tray.moc"

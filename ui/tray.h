@@ -11,7 +11,7 @@
 #ifndef TRAY_H
 #define TRAY_H
 
-#include <knotificationitem.h>
+#include <kstatusnotifieritem.h>
 
 class MainWindow;
 class KGet;
@@ -24,7 +24,7 @@ class KGet;
   * @short KGet's system tray icon.
   **/
 
-class Tray : public KNotificationItem
+class Tray : public KStatusNotifierItem
 {
 Q_OBJECT
 public:
