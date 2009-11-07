@@ -33,11 +33,7 @@
 
 #ifdef HAVE_WEBKITKDE
 #include <webkitpart.h>
-#ifdef HAVE_WEBVIEW
-#include <webview.h>
-#else
-#include <webkitview.h>
-#endif
+#include <QWebView>
 #include <QWebFrame>
 #endif
 

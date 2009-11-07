@@ -18,8 +18,6 @@ if( KDEWEBKIT_FOUND AND WEBKITPART_FOUND )
     add_definitions(-DHAVE_WEBKITKDE)
     include_directories(${KDEWEBKIT_INCLUDE_DIR})
     include_directories(${WEBKITPART_INCLUDE_DIR})
-    FIND_PATH(WEBVIEW_PATH webkitkde/webview.h PATH ${KDEWEBKIT_INCLUDE_DIR})
-    macro_bool_to_01(WEBVIEW_PATH HAVE_WEBVIEW )
     set(WEBKITKDE_FOUND true)
 endif( KDEWEBKIT_FOUND AND WEBKITPART_FOUND )
 
