@@ -308,7 +308,7 @@ Verifier *TransferKio::verifier(const KUrl &file)
 
     if (!m_verifier)
     {
-        m_verifier = new Verifier(m_dest);
+        m_verifier = new Verifier(m_dest, this);
         connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
     }
 

@@ -17,6 +17,7 @@
 
 #include "transfersgroupwidget.h"
 #include "pluginselector.h"
+#include "verificationpreferences.h"
 
 #include <klocale.h>
 #include <ktabwidget.h>
@@ -29,6 +30,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     DlgWebinterface *webinterface = new DlgWebinterface(this);
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
+    VerificationPreferences *verification = new VerificationPreferences(this);
+    connect(verification, SIGNAL(changed()), SLOT(enableApplyButton()));
     PluginSelector * pluginSelector = new PluginSelector(this);
     connect(pluginSelector, SIGNAL(changed(bool)), SLOT(enableApplyButton()));
 
@@ -36,7 +39,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
-    
 
     dlgApp.setupUi(appearance);
     dlgNet.setupUi(network);
@@ -71,6 +73,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(groups, i18n("Groups"), "bookmarks", i18n("Manage the groups"));
     addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
     addPage(webinterface, i18n("Web Interface"), "network-workgroup", i18n("Control KGet over a Network or the Internet"));
+    addPage(verification, i18n("Verification"), "document-encrypt", i18n("Verification"));
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(pluginSelector, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugins"));
 

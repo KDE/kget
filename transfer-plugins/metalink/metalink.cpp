@@ -19,6 +19,7 @@
 #include "core/download.h"
 #include "core/transferdatasource.h"
 #include "core/filemodel.h"
+#include "core/verifier.h"
 #ifdef HAVE_NEPOMUK
 #include "metanepomukhandler.h"
 #endif //HAVE_NEPOMUK
@@ -157,6 +158,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         connect(dataFactory, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
         connect(dataFactory, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
         connect(dataFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+        connect(dataFactory->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
 
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
@@ -175,10 +177,17 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         else
         {
             dataFactory->verifier()->model()->addChecksums((*it).verification.hashes);
-            foreach (const KGetMetalink::Pieces &pieces, (*it).verification.pieces)
-            {
+            foreach (const KGetMetalink::Pieces &pieces, (*it).verification.pieces) {
                 dataFactory->verifier()->addPartialChecksums(pieces.type, pieces.length, pieces.hashes);
             }
+
+            const QHash <QString, QString> signatures = (*it).verification.signatures;
+            QHash<QString, QString>::const_iterator it;
+            QHash<QString, QString>::const_iterator itEnd = signatures.constEnd();
+            for (it = signatures.constBegin(); it != itEnd; ++it) {//TODO make better
+                dataFactory->signature()->setSignature(*it);
+            }
+
             m_dataSourceFactory[dataFactory->dest()] = dataFactory;
         }
     }
@@ -484,6 +493,10 @@ void Metalink::slotVerified(bool isVerified)
         QStringList brokenFiles;
         foreach (DataSourceFactory *factory, m_dataSourceFactory)
         {
+            if (m_fileModel) {
+                QModelIndex checksumVerified = m_fileModel->index(factory->dest(), FileItem::ChecksumVerified);
+                m_fileModel->setData(checksumVerified, factory->verifier()->status());
+            }
             if (factory->doDownload() && (factory->verifier()->status() == Verifier::NotVerified))
             {
                 brokenFiles.append(factory->dest().pathOrUrl());
@@ -502,6 +515,39 @@ void Metalink::slotVerified(bool isVerified)
                 }
             }
         }
+    }
+}
+
+void Metalink::slotSignatureVerified()
+{
+    if (status() == Job::Finished)
+    {
+        //see if some files are NotVerified
+        QStringList brokenFiles;
+        foreach (DataSourceFactory *factory, m_dataSourceFactory)
+        {
+            if (m_fileModel) {
+                QModelIndex signatureVerified = m_fileModel->index(factory->dest(), FileItem::SignatureVerified);
+                m_fileModel->setData(signatureVerified, factory->signature()->status());
+            }
+            if (factory->doDownload() && (factory->verifier()->status() == Verifier::NotVerified))
+            {
+                brokenFiles.append(factory->dest().pathOrUrl());
+            }
+        }
+/*
+        if (brokenFiles.count())//TODO
+        {
+            if (KMessageBox::warningYesNoCancelList(0,
+                i18n("The download could not be verified, try to repair it?"),
+                     brokenFiles) == KMessageBox::Yes)
+            {
+                if (repair())
+                {
+                    return;
+                }
+            }
+        }*/
     }
 }
 
@@ -578,6 +624,7 @@ void Metalink::load(const QDomElement *element)
             connect(file, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
             m_dataSourceFactory[file->dest()] = file;
             connect(file->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+            connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
 
             //start the DataSourceFactories that were Started when KGet was closed
             if (file->status() == Job::Running)
@@ -626,6 +673,15 @@ Verifier *Metalink::verifier(const KUrl &file)
     return m_dataSourceFactory[file]->verifier();
 }
 
+Signature *Metalink::signature(const KUrl &file)
+{
+    if (!m_dataSourceFactory.contains(file)) {
+        return 0;
+    }
+
+    return m_dataSourceFactory[file]->signature();
+}
+
 QList<KUrl> Metalink::files() const
 {
     return m_dataSourceFactory.keys();
@@ -641,10 +697,15 @@ FileModel *Metalink::fileModel()
 
         foreach (DataSourceFactory *factory, m_dataSourceFactory)
         {
-            QModelIndex size = m_fileModel->index(factory->dest(), FileItem::Size);
+            const KUrl dest = factory->dest();
+            QModelIndex size = m_fileModel->index(dest, FileItem::Size);
             m_fileModel->setData(size, static_cast<qlonglong>(factory->size()));
-            QModelIndex status = m_fileModel->index(factory->dest(), FileItem::Status);
+            QModelIndex status = m_fileModel->index(dest, FileItem::Status);
             m_fileModel->setData(status, factory->status());
+            QModelIndex checksumVerified = m_fileModel->index(dest, FileItem::ChecksumVerified);
+            m_fileModel->setData(checksumVerified, factory->verifier()->status());
+            QModelIndex signatureVerified = m_fileModel->index(dest, FileItem::SignatureVerified);
+            m_fileModel->setData(signatureVerified, factory->signature()->status());
             if (!factory->doDownload())
             {
                 QModelIndex index = m_fileModel->index(factory->dest(), FileItem::File);

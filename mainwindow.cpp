@@ -55,7 +55,7 @@
 #include <krun.h>
 #include <kicondialog.h>
 #include <kwindowsystem.h>
-
+#include "core/verifier.h"
 #include <QClipboard>
 #include <QTimer>
 #include <QtTest/QtTest>

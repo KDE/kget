@@ -19,6 +19,7 @@
 #include "core/transferdatasource.h"
 // #include "mirrors.h"
 #include "core/filemodel.h"
+#include "core/verifier.h"
 
 #include <kiconloader.h>
 #include <KIO/CopyJob>
@@ -206,6 +207,11 @@ void TransferMultiSegKio::slotStatus(Job::Status status)
 
 void TransferMultiSegKio::slotVerified(bool isVerified)
 {
+    if (m_fileModel) {
+        QModelIndex checksumVerified = m_fileModel->index(m_dest, FileItem::ChecksumVerified);
+        m_fileModel->setData(checksumVerified, verifier()->status());
+    }
+
     if (!isVerified && KMessageBox::warningYesNo(0,
                                   i18n("The download (%1) could not be verfied. Do you want to repair it?", m_dest.fileName()),
                                   i18n("Verification failed.")) == KMessageBox::Yes)
@@ -284,6 +290,13 @@ Verifier *TransferMultiSegKio::verifier(const KUrl &file)
     return m_dataSourceFactory->verifier();
 }
 
+Signature *TransferMultiSegKio::signature(const KUrl &file)
+{
+    Q_UNUSED(file)
+
+    return m_dataSourceFactory->signature();
+}
+
 FileModel *TransferMultiSegKio::fileModel()
 {
     if (!m_fileModel)
@@ -295,6 +308,8 @@ FileModel *TransferMultiSegKio::fileModel()
         m_fileModel->setData(statusIndex, m_dataSourceFactory->status());
         QModelIndex sizeIndex = m_fileModel->index(m_dest, FileItem::Size);
         m_fileModel->setData(sizeIndex, static_cast<qlonglong>(m_dataSourceFactory->size()));
+        QModelIndex checksumVerified = m_fileModel->index(m_dest, FileItem::ChecksumVerified);
+        m_fileModel->setData(checksumVerified, verifier()->status());
     }
 
     return m_fileModel;

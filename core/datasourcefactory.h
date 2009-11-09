@@ -15,7 +15,6 @@
 
 #include "transferdatasource.h"
 #include "job.h"
-#include "core/verifier.h"
 
 #include <kio/job.h>
 
@@ -25,6 +24,8 @@ class BitSet;
 class KioDownload;
 class TransferDataSource;
 class QTimer;
+class Signature;
+class Verifier;
 
 namespace KIO
 {
@@ -194,6 +195,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void repair();
 
         Verifier *verifier();
+        Signature *signature();
 
     Q_SIGNALS:
         void processedSize(KIO::filesize_t size);
@@ -301,6 +303,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         Job::Status m_statusBeforeMove;
 
         Verifier *m_verifier;
+        Signature *m_signature;
 };
 
 #endif

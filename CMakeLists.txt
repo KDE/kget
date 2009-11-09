@@ -29,6 +29,13 @@ if(QCA2_FOUND)
     )
 endif(QCA2_FOUND)
 
+if(QGPGME_FOUND)
+    add_definitions(-DHAVE_QGPGME)
+    include_directories(
+        ${QGPGME_INCLUDES}
+    )
+endif(QGPGME_FOUND)
+
 qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.main.xml mainwindow.h MainWindow)
 
 add_subdirectory(conf)
@@ -138,10 +145,14 @@ if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
-
 if (QCA2_FOUND)
     target_link_libraries(kgetcore ${QCA2_LIBRARIES})
 endif (QCA2_FOUND)
+
+if (QGPGME_FOUND)
+    target_link_libraries(kgetcore ${QGPGME_LIBRARIES})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS}")
+endif(QGPGME_FOUND)
 
 set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -154,6 +165,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    conf/preferencesdialog.cpp
    conf/transfersgroupwidget.cpp
    conf/pluginselector.cpp
+   conf/verificationpreferences.cpp
    ui/droptarget.cpp
    ui/transfersview.cpp
    ui/transfersviewdelegate.cpp
@@ -182,6 +194,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/metalinkcreator/localemodels.cpp
    ui/metalinkcreator/dragdlg.cpp
    ui/metalinkcreator/urlwidget.cpp
+   ui/signaturedlg.cpp
    mainwindow.cpp
    main.cpp
 
@@ -221,6 +234,7 @@ kde4_add_ui_files(kget_SRCS
    conf/dlgappearance.ui
    conf/dlgwebinterface.ui
    conf/dlgnetwork.ui
+   conf/verificationpreferences.ui
    ui/transferdetailsfrm.ui
    ui/newtransferwidget.ui
    ui/history/transferhistory.ui
@@ -239,6 +253,7 @@ kde4_add_ui_files(kget_SRCS
    ui/metalinkcreator/dragdlg.ui
    ui/metalinkcreator/urlwidget.ui
    ui/metalinkcreator/commondata.ui
+   ui/signaturedlg.ui
 )
 
 if(HAVE_NEPOMUK)

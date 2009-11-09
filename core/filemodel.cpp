@@ -19,18 +19,19 @@
 
 #include "filemodel.h"
 
+#include "verifier.h"
+
 #include <KIcon>
 #include <KLocale>
 #include <KMimeType>
-
-
-#include <KDebug>
 
 FileItem::FileItem(const QString &name, FileItem *parent)
   : m_name(name),
     m_state(Qt::Checked),
     m_status(Job::Stopped),
     m_totalSize(0),
+    m_checkusmVerified(0),
+    m_signatureVerified(0),
     m_parent(parent)
 {
 }
@@ -57,7 +58,7 @@ int FileItem::childCount() const
 
 int FileItem::columnCount() const
 {
-    return 3;
+    return 5;
 }
 
 QVariant FileItem::data(int column, int role) const
@@ -101,6 +102,32 @@ QVariant FileItem::data(int column, int role) const
         {
             return KIO::convertSize(m_totalSize);
         }
+    } else if (column == FileItem::ChecksumVerified) {
+        if (role == Qt::DecorationRole) {
+            switch (m_checkusmVerified) {
+                case Verifier::Verified:
+                    return KIcon("dialog-ok");
+                case Verifier::NotVerified:
+                    return KIcon("dialog-error");
+                case Verifier::NoResult:
+                default:
+                    return KIcon();
+            }
+        }
+    } else if (column == FileItem::SignatureVerified) {//TODO implement all cases
+        if (role == Qt::DecorationRole) {
+            switch (m_signatureVerified) {
+                case Signature::Verified:
+                    return KIcon("dialog-ok");
+                case Signature::VerifiedInformation:
+                    return KIcon("dialog-information");
+                case Signature::NotVerified:
+                    return KIcon("dialog-error");
+                case Signature::NoResult:
+                default:
+                    return KIcon();
+            }
+        }
     }
 
     return QVariant();
@@ -127,6 +154,7 @@ bool FileItem::setData(int column, const QVariant &value, FileModel *model, int 
         {
             m_name = value.toString();
             model->changeData(this->row(), column, this);
+            return true;
         }
     }
     else if (column == FileItem::Status)
@@ -136,7 +164,10 @@ bool FileItem::setData(int column, const QVariant &value, FileModel *model, int 
             if (!childCount())
             {
                 m_status = static_cast<Job::Status>(value.toInt());
-                model->changeData(this->row(), column, this);
+                bool finished = (m_status == Job::Finished);
+                model->changeData(this->row(), column, this, finished);
+
+                return true;
             }
         }
     }
@@ -151,7 +182,16 @@ bool FileItem::setData(int column, const QVariant &value, FileModel *model, int 
             }
             m_totalSize = newSize;
             model->changeData(this->row(), column, this);
+            return true;
         }
+    } else if (column == FileItem::ChecksumVerified) {
+        m_checkusmVerified = value.toInt();
+        model->changeData(this->row(), column, this);
+        return true;
+    } else if (column == FileItem::SignatureVerified) {
+        m_signatureVerified = value.toInt();
+        model->changeData(this->row(), column, this);
+        return true;
     }
 
     return false;
@@ -234,7 +274,7 @@ FileModel::FileModel(const QList<KUrl> &files, const KUrl &destDirectory, QObjec
     m_checkStateChanged(false)
 {
     m_rootItem = new FileItem("root");
-    m_header << i18nc("file in a filesystem", "File") << i18nc("status of the download", "Status") << i18nc("size of the download", "Size");
+    m_header << i18nc("file in a filesystem", "File") << i18nc("status of the download", "Status") << i18nc("size of the download", "Size") << i18nc("checksum of a file", "Checksum") << i18nc("signature of a file", "Signature");
 
     setupModelData(files);
 }
@@ -482,10 +522,15 @@ int FileModel::rowCount(const QModelIndex &parent) const
     return parentItem->childCount();
 }
 
-void FileModel::changeData(int row, int column, FileItem *item)
+void FileModel::changeData(int row, int column, FileItem *item, bool finished)
 {
     QModelIndex index = createIndex(row, column, item);
     emit dataChanged(index, index);
+
+    if (finished) {
+        const KUrl file = getUrl(index);
+        emit fileFinished(file);
+    }
 }
 
 
@@ -497,12 +542,13 @@ void FileModel::setDirectory(const KUrl &newDirectory)
 
 KUrl FileModel::getUrl(const QModelIndex &index)
 {
-    if (!index.isValid() || (index.column() != FileItem::File))
-    {
+    if (!index.isValid()) {
         return KUrl();
     }
 
-    return getUrl(static_cast<FileItem*>(index.internalPointer()));
+    const QModelIndex file = index.sibling(index.row(), FileItem::File);
+
+    return getUrl(static_cast<FileItem*>(file.internalPointer()));
 }
 
 KUrl FileModel::getUrl(FileItem *item)

@@ -62,6 +62,12 @@ class Metalink : public Transfer
          */
         virtual Verifier *verifier(const KUrl &file);
 
+        /**
+         * @param file for which to get the signature
+         * @return Signature that allows you to add signatures and verify them
+         */
+        virtual Signature *signature(const KUrl &file);
+
         FileModel *fileModel();
 
     public Q_SLOTS:
@@ -82,6 +88,7 @@ class Metalink : public Transfer
         void slotStatus(Job::Status status);
         void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
         void slotVerified(bool isVerified);
+        void slotSignatureVerified();
 
     private :
         void startMetalink();

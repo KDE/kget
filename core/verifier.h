@@ -20,7 +20,7 @@
 #ifndef VERIFIER_H
 #define VERIFIER_H
 
-#include <KIO/Job>
+#include <kio/global.h>
 #include <KUrl>
 
 #include <QtCore/QAbstractTableModel>
@@ -33,9 +33,19 @@
 
 #include "kget_export.h"
 
+#ifdef HAVE_QGPGME
+#include <gpgme++/verificationresult.h>
+#endif //HAVE_QGPGME
+
+class KeyDownloader;
 class QFile;
 class QStandardItemModel;
+class SignatureThread;
 class TransferHandler;
+
+namespace GpgME {
+class VerificationResult;
+}
 
 class VerificationThread : public QThread
 {
@@ -76,8 +86,8 @@ class VerificationThread : public QThread
         void run();
 
     private:
-        QMutex mutex;
-        bool abort;
+        QMutex m_mutex;
+        bool m_abort;
         QStringList m_types;
         QStringList m_checksums;
         QList<KUrl> m_files;
@@ -112,7 +122,8 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
         enum dataType
         {
             Type,
-            Checksum
+            Checksum,
+            Verified
         };
 
         QVariant data(const QModelIndex &index, int role) const;
@@ -130,8 +141,9 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
          * supported by the verifier
          * @param type the type of the checksum
          * @param checksum the checksum
+         * @param verified if the file has been verified using this checksum
          */
-        void addChecksum(const QString &type, const QString &checksum);
+        void addChecksum(const QString &type, const QString &checksum, int verified = 0);
 
         /**
          * Add multiple checksums that will later be used in the verification process
@@ -142,9 +154,15 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
          */
         void addChecksums(const QHash<QString, QString> &checksums);
 
+        /**
+         * Sets the verificationStatus for type
+         */
+        void setVerificationStatus(const QString &type, int verified);
+
     private:
         QStringList m_types;
         QStringList m_checksums;
+        QList<int> m_verificationStatus;
 };
 
 class KGET_EXPORT PartialChecksums
@@ -178,7 +196,7 @@ class KGET_EXPORT Verifier : public QObject
     Q_OBJECT
 
     public:
-        Verifier(const KUrl &m_dest);
+        Verifier(const KUrl &dest, QObject *parent = 0);
         ~Verifier();
 
         enum VerificationStatus
@@ -186,6 +204,13 @@ class KGET_EXPORT Verifier : public QObject
             NoResult, //either not tried, or not enough information
             NotVerified,
             Verified
+        };
+
+        enum ChecksumStrength
+        {
+            Weak,
+            Strong,
+            Strongest
         };
 
         KUrl destination() const {return m_dest;}
@@ -279,9 +304,24 @@ class KGET_EXPORT Verifier : public QObject
         QPair<QString, QString> bestChecksum() const;
 
         /**
-         * Returns the "best" (strongest) stored partial checksum-type with the checksum
+         * Returns a checksum and a type
+         * @param strength the strength the checksum-type should have;
+         * weak is md5 > md4 (md5 preferred), strong is sha1 > ripmed160 >
+         * sha256 > sha384 > sha512 (sha1 preferred), strongest is sha512 >
+         * sha384 > sha256 .... < (sha512 preferred)
+         * If the category does not match then any checksum is taken
          */
-        QPair<QString, PartialChecksums*> bestPartialChecksums() const;
+        QPair<QString, QString> availableChecksum(ChecksumStrength strength) const;
+
+        /**
+         * Returns a PartialChecksum and a type
+         * @param strength the strength the checksum-type should have;
+         * weak is md5 > md4 > ... (md5 preferred), strong is sha1 > ripmed160 >
+         * sha256 > sha384 > sha512 > ... (sha1 preferred), strongest is sha512 >
+         * sha384 > sha256 ... (sha512 preferred)
+         * If the category does not match then any checksum is taken
+         */
+        QPair<QString, PartialChecksums*> availablePartialChecksum(Verifier::ChecksumStrength strength) const;
 
         /**
          * @return the model that stores the hash-types and checksums
@@ -303,10 +343,11 @@ class KGET_EXPORT Verifier : public QObject
         void brokenPieces(QList<QPair<KIO::fileoffset_t, KIO::filesize_t> >);
 
     private slots:
-        void changeStatus(bool verified);
+        void changeStatus(const QString &type, bool verified);
 
     private:
         static QString calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize = 0, bool *abortPtr = 0);
+        QStringList orderChecksumTypes(ChecksumStrength strenght) const;
 
     private:
         VerificationModel *m_model;
@@ -322,5 +363,164 @@ class KGET_EXPORT Verifier : public QObject
         static const int MD5LENGTH;
         static const int PARTSIZE;
 };
+
+/**
+ * @class Signature
+ *
+ * @short Class to verify signatures
+ */
+class KGET_EXPORT Signature : public QObject
+{
+    Q_OBJECT
+
+#ifdef HAVE_QGPGME
+    friend class KeyDownloader;
+    friend class SignatureThread;
+#endif //HAVE_QGPGME
+
+//TODO also support verification and decryption of files that contain the signature?
+    public:
+        Signature(const KUrl &dest, QObject *object = 0);
+
+        enum VerificationStatus
+        {
+            NoResult, //either not tried, or not enough information
+            NotWorked, //something during verification failed
+            NotVerified,
+            Verified,
+            VerifiedInformation //verified, though the there is some additional information
+        };
+
+        KUrl destination() const;
+        void setDestination(const KUrl &destination);
+
+        VerificationStatus status() const;
+#ifdef HAVE_QGPGME
+        GpgME::VerificationResult verificationResult();
+#endif //HAVE_QGPGME
+
+        void downloadKey(QString fingerprint);
+        QString signature();
+        void setSignature(const QString &signature);
+        void setSignature(const QByteArray &signature);
+
+        /**
+         * The fingerprint of the signature//TODO get even without verification??
+         */
+        QString fingerprint();
+        bool isVerifyable();
+        void verify();
+
+        void save(const QDomElement &element);
+        void load(const QDomElement &e);
+
+    signals:
+        void verified(int verificationStatus);
+
+    private slots:
+#ifdef HAVE_QGPGME
+        void slotVerified(const GpgME::VerificationResult &result);
+#endif //HAVE_QGPGME
+
+    private:
+#ifdef HAVE_QGPGME
+        /**
+         * Starts verification again if a verification was tried before but aborted
+         * because of missing keys
+         */
+        void signatureDownloaded();
+
+        /**
+         * Verifies a signature
+         */
+        static GpgME::VerificationResult verify(const KUrl &dest, const QByteArray &sig);
+#endif //HAVE_QGPGME
+
+    private:
+        SignatureThread *m_thread;
+        KUrl m_dest;
+        QByteArray m_signature;
+        bool m_verifyTried;
+        VerificationStatus m_status;
+        int m_sigSummary;
+        int m_error;
+        QString m_fingerprint;
+#ifdef HAVE_QGPGME
+        GpgME::VerificationResult m_verificationResult;
+#endif //HAVE_QGPGME
+};
+
+#ifdef HAVE_QGPGME
+/**
+ * @class KeyDownloader
+ *
+ * @short Class to download Keys
+ */
+class KeyDownloader : public QObject
+{
+    Q_OBJECT
+
+    public:
+        KeyDownloader(QObject* parent = 0);
+
+        /**
+         * Searches for a key with fignerprint
+         * @param fingerprint the fingerprint of the key that is searched
+         * @param sig Signature to notify of successful downloads
+         */
+        void downloadKey(QString fingerprint, Signature *sig);
+
+    private slots:
+        /**
+         * Parses the downloaded data and if it is a key tries to add it to GnuPG,
+         * if it is not a key try a different server.
+         */
+        void slotDownloaded(KJob *job);
+
+    private:
+        /**
+         * Searches for a key with fignerprint
+         * @param fingerprint the fingerprint of the key that is searched
+         * @param sig Signature to notify of successful downloads
+         * @param mirrorFailed if true another mirror will be tried
+         */
+        void downloadKey(QString fingerprint, Signature *sig, bool mirrorFailed);
+
+    private:
+        QMultiHash<QString, Signature*> m_downloading;
+        QHash<KJob*, QString> m_jobs;
+        QMultiHash<QString, QString> m_triedMirrors;
+};
+#endif //HAVE_QGPGME
+
+#ifdef HAVE_QGPGME
+class SignatureThread : public QThread
+{
+    Q_OBJECT
+
+    public:
+        SignatureThread(QObject *parent = 0);
+        ~SignatureThread();
+
+        void verify(const KUrl &dest, const QByteArray &sig);
+
+    signals:
+        /**
+         * Emitted when the verification of a file finishes, connect to this signal
+         * if you do the verification for one file only and do not want to bother with
+         * file and type
+         */
+        void verified(const GpgME::VerificationResult &result);
+
+    protected:
+        void run();
+
+    private:
+        QMutex m_mutex;
+        bool m_abort;
+        QList<KUrl> m_dest;
+        QList<QByteArray> m_sig;
+};
+#endif //HAVE_QGPGME
 
 #endif //VERIFIER_H

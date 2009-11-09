@@ -877,7 +877,7 @@ void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetM
             const QString type = elemVer.attribute("type");
             const QString signature = elemVer.text();
             if (!type.isEmpty() && !signature.isEmpty()) {
-                file.verification.hashes[type] = signature;
+                file.verification.signatures[type] = signature;
             }
         }
 

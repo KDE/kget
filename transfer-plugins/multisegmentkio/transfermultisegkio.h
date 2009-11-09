@@ -55,6 +55,12 @@ class TransferMultiSegKio : public Transfer
          */
         virtual Verifier *verifier(const KUrl &file = KUrl());
 
+        /**
+         * @param file for which to get the signature
+         * @return Signature that allows you to add signatures and verify them
+         */
+        virtual Signature *signature(const KUrl &file = KUrl());
+
         FileModel *fileModel();
 
     public slots:

@@ -17,64 +17,40 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
 ***************************************************************************/
 
-#ifndef VERIFICATIONDIALOG_H
-#define VERIFICATIONDIALOG_H
-
-#include "ui_verificationdialog.h"
-#include "ui_verificationadddlg.h"
+#ifndef SIGNATUREDLG_H
+#define SIGNATUREDLG_H
 
 #include <KDialog>
 
+#include "ui_signaturedlg.h"
+
 class FileModel;
+class Signature;
 class TransferHandler;
-class Verifier;
-class VerificationModel;
 
-class VerificationAddDlg : public KDialog
+class SignatureDlg : public KDialog
 {
     Q_OBJECT
 
     public:
-        explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
-
-    private slots:
-        void addChecksum();
-
-        /**
-         * Adds a checksum and prepares the dialog to add more items
-         */
-        void addMore();
-
-        void updateButton();
-
-    private:
-        Ui::VerificationAddDlg ui;
-        VerificationModel *m_model;
-        QHash<QString, int> m_diggestLength;
-};
-
-class VerificationDialog : public KDialog
-{
-    Q_OBJECT
-
-    public:
-        VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file);
+        SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget *parent = 0, Qt::WFlags flags = 0);
 
     private slots:
         void fileFinished(const KUrl &file);
-        void updateButtons();
-        void addPressed();
-        void removePressed();
         void verifyPressed();
-        void slotVerified(bool verified);
+        void updateData();
+        void updateButtons();
+        void updateSignature();
 
     private:
-        TransferHandler *m_transfer;
+        void clearData();
+
+    private:
+        Ui::SignatureDlg ui;
         KUrl m_file;
-        Verifier *m_verifier;
-        VerificationModel *m_model;
+        Signature *m_signature;
         FileModel *m_fileModel;
-        Ui::VerificationDialog ui;
+        static const QStringList OWNERTRUST;
 };
 
-#endif //VERIFICATIONDIALOG_H
+#endif

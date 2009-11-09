@@ -113,6 +113,10 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         ui.usedHashes->setItemDelegate(new VerificationDelegate(this));
         m_fileModel = m_transfer->fileModel();
 
+        if (m_fileModel) {
+            connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
+        }
+
         updateButtons();
 
         connect(m_model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateButtons()));
@@ -123,6 +127,13 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     }
 
     setButtons(KDialog::Close);
+}
+
+void VerificationDialog::fileFinished(const KUrl &file)
+{
+    if (m_file == file) {
+        updateButtons();
+    }
 }
 
 void VerificationDialog::updateButtons()

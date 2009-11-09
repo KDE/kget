@@ -44,7 +44,9 @@ class KGET_EXPORT FileItem
         {
             File = 0,
             Status,
-            Size
+            Size,
+            ChecksumVerified,
+            SignatureVerified
         };
 
         void appendChild(FileItem *child);
@@ -80,6 +82,8 @@ class KGET_EXPORT FileItem
         Qt::CheckState m_state;
         Job::Status m_status;
         KIO::fileoffset_t m_totalSize;
+        int m_checkusmVerified;
+        int m_signatureVerified;
         FileItem *m_parent;
 };
 
@@ -92,6 +96,8 @@ class KGET_EXPORT FileItem
 class KGET_EXPORT FileModel : public QAbstractItemModel
 {
     Q_OBJECT
+
+    friend class FileItem;
 
     public:
         FileModel(const QList<KUrl> &files, const KUrl &destDirectory, QObject *parent = 0);
@@ -107,7 +113,6 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
         int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-        void changeData(int row, int column, FileItem *item);
         void rename(const QModelIndex &file, const QString &newName);
 
         /**
@@ -162,6 +167,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
     Q_SIGNALS:
         void rename(const KUrl &oldUrl, const KUrl &newUrl);
         void checkStateChanged();
+        void fileFinished(const KUrl &file);
 
     private:
         void setupModelData(const QList<KUrl> &files);
@@ -184,6 +190,8 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
          * Get the item of the corresponding url
          */
         FileItem *getItem(const KUrl &file);
+
+        void changeData(int row, int column, FileItem *item, bool fileFinished = false);
 
     private slots:
         void renameFailed(const KUrl &beforeRename, const KUrl &afterRename);

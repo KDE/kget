@@ -11,10 +11,12 @@
 #include "transfersettingsdialog.h"
 #include "mirror/mirrorsettings.h"
 #include "renamefile.h"
+#include "signaturedlg.h"
 #include "verificationdialog.h"
 
 #include "core/transferhandler.h"
 #include "core/filemodel.h"
+#include "core/verifier.h"
 
 #include <KMessageBox>
 #include <KLineEdit>
@@ -44,6 +46,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.rename->setIcon(KIcon("edit-rename"));
     ui.rename->setEnabled(false);
     ui.verification->setEnabled(false);
+    ui.signature->setEnabled(false);
 
     if (m_model)
     {
@@ -69,6 +72,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     connect(ui.rename, SIGNAL(clicked(bool)), this, SLOT(slotRename()));
     connect(ui.mirrors, SIGNAL(clicked(bool)), this, SLOT(slotMirrors()));
     connect(ui.verification, SIGNAL(clicked(bool)), this, SLOT(slotVerification()));
+    connect(ui.signature, SIGNAL(clicked(bool)), this, SLOT(slotSignature()));
 }
 
 TransferSettingsDialog::~TransferSettingsDialog()
@@ -99,6 +103,15 @@ void TransferSettingsDialog::slotVerification()
     verification->show();
 }
 
+void TransferSettingsDialog::slotSignature()
+{
+    const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
+
+    SignatureDlg *signature = new SignatureDlg(m_transfer, m_model->getUrl(index), this);
+    signature->setAttribute(Qt::WA_DeleteOnClose);
+    signature->show();
+}
+
 void TransferSettingsDialog::slotSelectionChanged()
 {
     bool enabled = false;
@@ -114,6 +127,7 @@ void TransferSettingsDialog::slotSelectionChanged()
     ui.mirrors->setEnabled(enabled);
     ui.rename->setEnabled(enabled);
     ui.verification->setEnabled(enabled);
+    ui.signature->setEnabled(enabled);
 }
 
 void TransferSettingsDialog::save()

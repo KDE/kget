@@ -32,6 +32,7 @@ class TransferSettingsDialog : public KDialog
         void slotMirrors();
         void slotRename();
         void slotVerification();
+        void slotSignature();
         void slotSelectionChanged();
         void slotFinished();
         void save();

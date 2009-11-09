@@ -110,44 +110,23 @@ void FileDlg::slotUpdateOkButton()
     bool hasUrls =  m_urlWidget->hasUrls();
     bool isDuplicate = (m_currentFileNames.indexOf(ui.name->text()) > -1);
 
-    const QString enterName = i18n("Enter a filename.");
-    const QString enterUrl = i18n("Enter at least one URL.");
-    const QString duplicate = i18n("The filename exists already, choose a different one.");
+    QStringList information;
 
-    QString text;
-
-    if (isDuplicate)
-    {
-        text = duplicate;
-        if (!hasUrls)
-        {
-            text += ' ' + enterUrl;
-        }
+    if (!hasName) {
+        information << i18n("Enter a filename.");
     }
-    else
-    {
-        //no name yet
-        if (!hasName)
-        {
-            text = enterName;
-        }
-        //no urls yet
-        if (!hasUrls)
-        {
-            if (!text.isEmpty())
-            {
-                text += ' ';
-            }
-            text += enterUrl;
-        }
-        //all requirements fulfilled
-        if (text.isEmpty())
-        {
-            text = i18n("Required data entered; also consider entering additional information.");
-        }
+    if (isDuplicate) {
+        information << i18n("The filename exists already, choose a different one.");
+    }
+    if (!hasUrls) {
+        information << i18n("Enter at least one URL.");
     }
 
-    ui.ktitlewidget->setText(text, KTitleWidget::InfoMessage);
+    if (information.isEmpty()) {
+        information << i18n("Required data entered; also consider entering additional information.");
+    }
+
+    ui.ktitlewidget->setText(information.join(" "), KTitleWidget::InfoMessage);
 
     enableButtonOk(hasName && hasUrls && !isDuplicate);
 }

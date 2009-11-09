@@ -17,64 +17,54 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
 ***************************************************************************/
 
-#ifndef VERIFICATIONDIALOG_H
-#define VERIFICATIONDIALOG_H
+#ifndef VERIFICATIONPREFERENCES_H
+#define VERIFICATIONPREFERENCES_H
 
-#include "ui_verificationdialog.h"
-#include "ui_verificationadddlg.h"
+#include <QtGui/QWidget>
 
-#include <KDialog>
+#include "ui_verificationpreferences.h"
 
-class FileModel;
-class TransferHandler;
-class Verifier;
-class VerificationModel;
+class KConfigDialog;
+class KUrlRequester;//TODO needed?
+class QStringListModel;
 
-class VerificationAddDlg : public KDialog
+class VerificationPreferences : public QWidget
 {
     Q_OBJECT
 
     public:
-        explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
+        VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f = 0);
 
-    private slots:
-        void addChecksum();
-
+    signals:
         /**
-         * Adds a checksum and prepares the dialog to add more items
+         * Emitted when the mirrors change
          */
-        void addMore();
-
-        void updateButton();
-
-    private:
-        Ui::VerificationAddDlg ui;
-        VerificationModel *m_model;
-        QHash<QString, int> m_diggestLength;
-};
-
-class VerificationDialog : public KDialog
-{
-    Q_OBJECT
-
-    public:
-        VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file);
+        void changed();
 
     private slots:
-        void fileFinished(const KUrl &file);
-        void updateButtons();
-        void addPressed();
-        void removePressed();
-        void verifyPressed();
-        void slotVerified(bool verified);
+        void slotUrlClicked(const QItemSelection &selected = QItemSelection(), const QItemSelection &deslected = QItemSelection());
+        void slotAutomaticChecksumVerification(bool enalbed);
+        void slotAddClicked();
+        void slotAddMirror();
+        void slotRemoveMirror();
+        void slotMoveMirrorUp();
+        void slotMoveMirrorDown();
+        void slotDefaultClicked();
+        void slotAccpeted();
+        void slotRejected();
 
     private:
-        TransferHandler *m_transfer;
-        KUrl m_file;
-        Verifier *m_verifier;
-        VerificationModel *m_model;
-        FileModel *m_fileModel;
-        Ui::VerificationDialog ui;
+        /**
+         * Moves the selected url in the model
+         * @param moveUp if true the url is moved up, when false it will be moved down
+         */
+        void moveUrl(bool moveUp);
+
+    private:
+        Ui::VerificationPreferences ui;
+        QStringListModel *m_keyServers;
+        QStringList m_tempKeyServers;
+        KUrlRequester *m_url;
 };
 
-#endif //VERIFICATIONDIALOG_H
+#endif

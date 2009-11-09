@@ -174,4 +174,22 @@
     </entry>
   </group>
 
+  <group name="Verification">
+    <entry name="ChecksumAutomaticVerification" type="Bool">
+      <default>1</default>
+    </entry>
+    <entry name="ChecksumStrength" type="Int">
+      <default>1</default>
+    </entry>
+    <entry name="SignatureAutomaticVerification" type="Bool">
+      <default>1</default>
+    </entry>
+    <entry name="SignatureAutomaticDownloading" type="Bool">
+      <default>1</default>
+    </entry>
+    <entry name="SignatureKeyServers" type="StringList">
+      <default>http://keys.gnupg.net,http://stinkfoot.org,http://pgp.mit.edu,http://pgp.surfnet.nl,http://keyserver.gingerbear.net</default>
+    </entry>
+  </group>
+
 </kcfg>

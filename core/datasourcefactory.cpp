@@ -11,8 +11,10 @@
 #include "datasourcefactory.h"
 #include "bitset.h"
 #include "kiodownload.h"
+#include "settings.h"
 
 #include "core/kget.h"
+#include "core/verifier.h"
 
 #include <math.h>
 
@@ -43,13 +45,9 @@ DataSource::DataSource(TransferDataSource *transferDataSource)
 
 DataSource::~DataSource()
 {
-    if (m_dataSource)
-    {
-        delete m_dataSource;
-    }
+    delete m_dataSource;
 }
 
-//TODO //FIXME the downloads are slow, fix them somehow
 DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO::fileoffset_t segSize,
                                      QObject *parent)
   : QObject(parent),
@@ -74,10 +72,11 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
     m_tempDownload(0),
     m_status(Job::Stopped),
     m_statusBeforeMove(m_status),
-    m_verifier(0)
+    m_verifier(0),
+    m_signature(0)
 {
     kDebug(5001) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
-    
+
     m_prevDownloadedSizes.append(0);
 }
 
@@ -103,23 +102,18 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
     m_tempDownload(0),
     m_status(Job::Stopped),
     m_statusBeforeMove(m_status),
-    m_verifier(0)
+    m_verifier(0),
+    m_signature(0)
 {
     kDebug(5001) << "Initialize DataSourceFactory only with parrent";
-    
+
     m_prevDownloadedSizes.append(0);
 }
 
 DataSourceFactory::~DataSourceFactory()
 {
     qDeleteAll(m_sources);
-    delete m_tempDownload;
     killPutJob();
-
-    if (m_verifier)
-    {
-        delete m_verifier;
-    }
 }
 
 void DataSourceFactory::init()
@@ -1005,6 +999,7 @@ void DataSourceFactory::load(const QDomElement *element)
     }
 
     verifier()->load(e);
+    signature()->load(e);
 
     if (!m_size)
     {
@@ -1123,9 +1118,13 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
             emit speed(0);
             emit percent(100);
 
-            if (!loaded && verifier()->isVerifyable())
-            {
-                verifier()->verify();
+            if (!loaded) {
+                if (Settings::checksumAutomaticVerification() && verifier()->isVerifyable()) {
+                    verifier()->verify();
+                }
+                if (Settings::signatureAutomaticVerification() && signature()->isVerifyable()) {
+                    signature()->verify();
+                }
             }
             break;
         default:
@@ -1185,6 +1184,7 @@ void DataSourceFactory::save(const QDomElement &element)
     factory.setAttribute("maxMirrorsUsed", m_maxMirrorsUsed);
 
     verifier()->save(factory);
+    signature()->save(factory);
 
     //set the finished chunks
     if (m_finishedChunks)
@@ -1300,13 +1300,21 @@ Job::Status DataSourceFactory::status() const
 
 Verifier *DataSourceFactory::verifier()
 {
-    if (!m_verifier)
-    {
-        m_verifier = new Verifier(m_dest);
+    if (!m_verifier) {
+        m_verifier = new Verifier(m_dest, this);
         connect(m_verifier, SIGNAL(brokenPieces(QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >)), this, SLOT(slotRepair(QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >)));
     }
 
     return m_verifier;
+}
+
+Signature *DataSourceFactory::signature()
+{
+    if (!m_signature) {
+        m_signature = new Signature(m_dest, this);
+    }
+
+    return m_signature;
 }
 
 #include "datasourcefactory.moc"
