@@ -37,7 +37,7 @@ class SignatureDlg : public KDialog
 
     private slots:
         void fileFinished(const KUrl &file);
-        void verifyPressed();
+        void verifyClicked();
         void updateData();
         void updateButtons();
         void updateSignature();

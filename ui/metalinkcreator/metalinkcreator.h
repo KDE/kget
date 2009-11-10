@@ -142,12 +142,12 @@ class MetalinkCreator : public KAssistantDialog
         /**
          * Shows a dialog where local files can be selected
          */
-        void slotAddLocalFilesPressed();
+        void slotAddLocalFilesClicked();
 
         /**
          * Shows an empty file properties dialog to add a file
          */
-        void slotAddPressed();
+        void slotAddClicked();
 
         /**
          * Saves a metalink to the destination specified in the gui, calls the other save-methods

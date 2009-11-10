@@ -74,7 +74,7 @@ class MirrorSettings : public KDialog
 
     private slots:
         void updateButton();
-        void addPressed();
+        void addClicked();
         void removeMirror();
         void save();
 

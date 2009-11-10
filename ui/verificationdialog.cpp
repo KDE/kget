@@ -121,9 +121,9 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
 
         connect(m_model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateButtons()));
         connect(ui.usedHashes, SIGNAL(clicked(const QModelIndex&)), this, SLOT(updateButtons()));
-        connect(ui.add, SIGNAL(pressed()), this, SLOT(addPressed()));
-        connect(ui.remove, SIGNAL(pressed()), this, SLOT(removePressed()));
-        connect(ui.verify, SIGNAL(pressed()), this, SLOT(verifyPressed()));
+        connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
+        connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeClicked()));
+        connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
     }
 
     setButtons(KDialog::Close);
@@ -160,7 +160,7 @@ void VerificationDialog::updateButtons()
     ui.verify->setEnabled(verifyEnabled);
 }
 
-void VerificationDialog::removePressed()
+void VerificationDialog::removeClicked()
 {
     const QModelIndexList indexes = ui.usedHashes->selectionModel()->selectedRows();
     foreach (const QModelIndex &index, indexes)
@@ -170,13 +170,13 @@ void VerificationDialog::removePressed()
     updateButtons();
 }
 
-void VerificationDialog::addPressed()
+void VerificationDialog::addClicked()
 {
     VerificationAddDlg *dialog = new VerificationAddDlg(m_model, this);
     dialog->show();
 }
 
-void VerificationDialog::verifyPressed()
+void VerificationDialog::verifyClicked()
 {
     const QModelIndex index = ui.usedHashes->selectionModel()->selectedRows().first();
     if (index.isValid())

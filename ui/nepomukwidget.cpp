@@ -39,7 +39,7 @@ NepomukWidget::NepomukWidget(TransferHandler *transfer, QWidget *parent)
     connect(ui.tags, SIGNAL(tagClicked(const QString&)), SLOT(showTagContextMenu(const QString&)));
     connect(m_lineEdit, SIGNAL(returnPressed(const QString&)), m_nepHandler, SLOT(addTag(const QString&)));
     connect(m_lineEdit, SIGNAL(returnPressed(const QString&)), m_lineEdit, SLOT(clear()));
-    connect(ui.button, SIGNAL(pressed()), this, SLOT(addNewTag()));
+    connect(ui.button, SIGNAL(clicked()), this, SLOT(addNewTag()));
 }
 
 NepomukWidget::~NepomukWidget()

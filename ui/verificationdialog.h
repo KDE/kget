@@ -63,9 +63,9 @@ class VerificationDialog : public KDialog
     private slots:
         void fileFinished(const KUrl &file);
         void updateButtons();
-        void addPressed();
-        void removePressed();
-        void verifyPressed();
+        void addClicked();
+        void removeClicked();
+        void verifyClicked();
         void slotVerified(bool verified);
 
     private:

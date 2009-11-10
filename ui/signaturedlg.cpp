@@ -45,7 +45,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
     setMainWidget(widget);
 
     if (m_signature) {
-        connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyPressed()));
+        connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
         connect(ui.signature, SIGNAL(textChanged()), this, SLOT(updateSignature()));
         connect(m_signature, SIGNAL(verified(int)), this, SLOT(updateData()));
 
@@ -281,7 +281,7 @@ void SignatureDlg::updateData()
     ui.information->setComment(information.join(" "));
 }
 
-void SignatureDlg::verifyPressed()
+void SignatureDlg::verifyClicked()
 {
     clearData();
 

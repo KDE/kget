@@ -153,8 +153,8 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     updateButton();
 
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateButton()));
-    connect(ui.add, SIGNAL(pressed()), this, SLOT(addPressed()));
-    connect(ui.remove, SIGNAL(pressed()), this, SLOT(removeMirror()));
+    connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
+    connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeMirror()));
     connect(this, SIGNAL(finished()), this, SLOT(save()));
 
     resize(700, 400);
@@ -168,7 +168,7 @@ void MirrorSettings::updateButton()
     ui.remove->setEnabled(ui.treeView->selectionModel()->hasSelection());
 }
 
-void MirrorSettings::addPressed()
+void MirrorSettings::addClicked()
 {
     MirrorAddDlg *dialog = new MirrorAddDlg(m_model, this);
     dialog->showItem(MirrorItem::Preference, false);

@@ -92,8 +92,8 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
 
     connect(m_verificationModel, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(slotUpdateVerificationButtons()));
     connect(ui.used_hashes, SIGNAL(clicked(const QModelIndex&)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(ui.add_hash, SIGNAL(pressed()), this, SLOT(slotAddHash()));
-    connect(ui.remove_hash, SIGNAL(pressed()), this, SLOT(slotRemoveHash()));
+    connect(ui.add_hash, SIGNAL(clicked()), this, SLOT(slotAddHash()));
+    connect(ui.remove_hash, SIGNAL(clicked()), this, SLOT(slotRemoveHash()));
 
 
     slotUpdateOkButton();

@@ -445,8 +445,8 @@ void MetalinkCreator::createFiles()
     uiFiles.needUrl->hide();
     uiFiles.dragDrop->hide();
 
-    connect(uiFiles.add_local_file, SIGNAL(clicked(bool)), this, SLOT(slotAddLocalFilesPressed()));
-    connect(uiFiles.add_file, SIGNAL(clicked(bool)), this, SLOT(slotAddPressed()));
+    connect(uiFiles.add_local_file, SIGNAL(clicked(bool)), this, SLOT(slotAddLocalFilesClicked()));
+    connect(uiFiles.add_file, SIGNAL(clicked(bool)), this, SLOT(slotAddClicked()));
     connect(uiFiles.remove_file, SIGNAL(clicked(bool)), this, SLOT(slotRemoveFile()));
     connect(uiFiles.properties_file, SIGNAL(clicked(bool)), this, SLOT(slotFileProperties()));
     connect(uiFiles.files->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateFilesButtons()));
@@ -478,7 +478,7 @@ void MetalinkCreator::slotUpdateFilesButtons()
     uiFiles.properties_file->setEnabled(propertiesEnabled);
 }
 
-void MetalinkCreator::slotAddLocalFilesPressed()
+void MetalinkCreator::slotAddLocalFilesClicked()
 {
     QPointer<KFileDialog> dialog = new KFileDialog(KUrl(), QString(), this);
     dialog->setMode(KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
@@ -558,7 +558,7 @@ void MetalinkCreator::slotRemoveFile()
     slotUpdateAssistantButtons(0, m_files);
 }
 
-void MetalinkCreator::slotAddPressed()
+void MetalinkCreator::slotAddClicked()
 {
     //no old stored data should be used
     m_tempFile.clear();
