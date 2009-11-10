@@ -59,9 +59,6 @@
      </item>
      <item row="3" column="1">
       <widget class="KLineEdit" name="logo">
-       <property name="inputMask">
-        <string/>
-       </property>
        <property name="clickMessage">
         <string>URL to the logo</string>
        </property>
@@ -86,12 +83,15 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>Operating system:</string>
+        <string>Operating systems:</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="KLineEdit" name="os">
+       <property name="clickMessage">
+        <string>Supported OSes seperated with comma</string>
+       </property>
        <property name="showClearButton" stdset="0">
         <bool>true</bool>
        </property>
@@ -257,14 +257,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
