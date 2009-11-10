@@ -314,12 +314,12 @@ void MetalinkCreator::createIntroduction()
     uiIntroduction.setupUi(widget);
 
     uiIntroduction.save->setMode(KFile::File | KFile::LocalOnly);
-    uiIntroduction.save->setFilter("*.metalink|" + i18n("Metalink file"));
+    uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink file (*.meta4)"));
 
     uiIntroduction.createButton->toggle();
     uiIntroduction.load->setEnabled(false);
     uiIntroduction.load->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);
-    uiIntroduction.load->setFilter("*.metalink|" + i18n("Metalink file"));
+    uiIntroduction.load->setFilter("*.metalink *.meta4 |" + i18n("Metalink file (*.metalink *.meta4)"));
 
     connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
     connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));

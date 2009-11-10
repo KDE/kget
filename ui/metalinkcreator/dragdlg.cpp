@@ -80,7 +80,11 @@ void DragDlg::slotFinished()
     m_commonData->version = uiData.version->text();
     m_commonData->description = uiData.description->text();
     m_commonData->logo = KUrl(uiData.logo->text());
-    m_commonData->os = uiData.os->text();
+    if (uiData.os->text().isEmpty()) {
+        m_commonData->oses.clear();
+    } else {
+        m_commonData->oses = uiData.os->text().split(i18nc("comma, to seperate members of a list", ","));
+    }
     m_commonData->copyright = uiData.copyright->text();
     m_commonData->publisher.name = uiData.pub_name->text();
     m_commonData->publisher.url = KUrl(uiData.pub_url->text());

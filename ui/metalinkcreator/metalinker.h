@@ -106,7 +106,7 @@ class CommonData
         QString identity;
         QString version;
         QString description;
-        QString os;
+        QStringList oses;
         KUrl logo;
         QString language;
         UrlText publisher;

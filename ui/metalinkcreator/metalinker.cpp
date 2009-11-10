@@ -145,7 +145,6 @@ void KGetMetalink::CommonData::load(const QDomElement &e)
     identity = e.firstChildElement("identity").text();
     version = e.firstChildElement("version").text();
     description = e.firstChildElement("description").text();
-    os = e.firstChildElement("os").text();
     logo = KUrl(e.firstChildElement("logo").text());
     language = e.firstChildElement("language").text();
     copyright = e.firstChildElement("copyright").text();
@@ -157,6 +156,10 @@ void KGetMetalink::CommonData::load(const QDomElement &e)
     const QDomElement lincenseElem = e.firstChildElement("license");
     license.name = lincenseElem.attribute("name");
     license.url = KUrl(lincenseElem.attribute("url"));
+
+    for (QDomElement elemRes = e.firstChildElement("os"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("os")) {
+        oses << elemRes.text();
+    }
 }
 
 void KGetMetalink::CommonData::save(QDomElement &e) const
@@ -207,13 +210,6 @@ void KGetMetalink::CommonData::save(QDomElement &e) const
         elem.appendChild(text);
         e.appendChild(elem);
     }
-    if (!os.isEmpty())
-    {
-        QDomElement elem = doc.createElement("os");
-        QDomText text = doc.createTextNode(os);
-        elem.appendChild(text);
-        e.appendChild(elem);
-    }
     if (!publisher.isEmpty())
     {
         QDomElement elem = doc.createElement("publisher");
@@ -229,6 +225,13 @@ void KGetMetalink::CommonData::save(QDomElement &e) const
         elem.appendChild(text);
         e.appendChild(elem);
     }
+
+    foreach (const QString &os, oses) {
+        QDomElement elem = doc.createElement("os");
+        QDomText text = doc.createTextNode(os);
+        elem.appendChild(text);
+        e.appendChild(elem);
+    }
 }
 
 void KGetMetalink::CommonData::clear()
@@ -236,7 +239,7 @@ void KGetMetalink::CommonData::clear()
     identity.clear();
     version.clear();
     description.clear();
-    os.clear();
+    oses.clear();
     logo.clear();
     language.clear();
     publisher.clear();
@@ -255,7 +258,9 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
 
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#version", version);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#description", description);
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#OperatingSystem", os);
+    if (oses.count()) {
+        HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#OperatingSystem", oses.first());//TODO support all set oses!
+    }
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#language", language);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nco/#publisher", publisher.name);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#copyright", copyright);
@@ -352,7 +357,7 @@ bool KGetMetalink::Url::isValid()
     {
         valid = false;
     }
-    else if (url.fileName().endsWith(QLatin1String(".metalink")))
+    else if (url.fileName().endsWith(QLatin1String(".metalink")) || url.fileName().endsWith(QLatin1String(".meta4")))
     {
         valid = false;
     }
@@ -834,8 +839,8 @@ void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetM
         if (file.data.description.isEmpty()) {
             file.data.description = filesData.description;
         }
-        if (file.data.os.isEmpty()) {
-            file.data.os = filesData.os;
+        if (file.data.oses.isEmpty()) {
+            file.data.oses = filesData.oses;
         }
         if (file.data.logo.isEmpty()) {
             file.data.logo = filesData.logo;

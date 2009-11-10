@@ -170,7 +170,8 @@ void DataSourceFactory::findFileSize()
             QString prot = url.protocol();
             if ((prot == "http" || prot == "https" || prot == "ftp"  || prot == "sftp") &&
                 (!url.fileName().endsWith(QLatin1String(".torrent"))) &&
-                (!url.fileName().endsWith(QLatin1String(".metalink"))))
+                (!url.fileName().endsWith(QLatin1String(".metalink"))) &&
+                (!url.fileName().endsWith(QLatin1String(".meta4"))))
             {
                 m_tempDownload = new KioDownload(url, m_dest, this);
                 connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SIGNAL(processedSize(KIO::filesize_t)));

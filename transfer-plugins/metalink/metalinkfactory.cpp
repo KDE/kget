@@ -35,7 +35,7 @@ Transfer * metalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &dest
 {
     kDebug(5001) << "metalinkFactory::createTransfer";
 
-    if( srcUrl.fileName().endsWith (QLatin1String(".metalink")) )
+    if( srcUrl.fileName().endsWith (QLatin1String(".metalink")) || srcUrl.fileName().endsWith (QLatin1String(".meta4")) )
     {
         return new Metalink(parent, this, scheduler, srcUrl, destUrl, e);
     }
