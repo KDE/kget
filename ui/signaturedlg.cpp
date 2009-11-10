@@ -258,7 +258,7 @@ void SignatureDlg::updateData()
             break;
     }
 
-#ifndef HAVE_QPGME
+#ifndef HAVE_QGPGME
     ui.sigGroup->hide();
     ui.keyGroup->hide();
     ui.verify->hide();
