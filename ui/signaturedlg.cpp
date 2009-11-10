@@ -34,11 +34,10 @@ const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level
 
 SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags),
-    m_file(dest),
-    m_signature(transfer->signature(m_file)),
+    m_signature(transfer->signature(dest)),
     m_fileModel(transfer->fileModel())
 {
-    setCaption(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", m_file.fileName()));
+    setCaption(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
     showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
@@ -50,6 +49,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
         connect(m_signature, SIGNAL(verified(int)), this, SLOT(updateData()));
 
         if (m_fileModel) {
+            m_file = m_fileModel->index(dest, FileItem::File);
             connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
         }
 
@@ -64,7 +64,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
 
 void SignatureDlg::fileFinished(const KUrl &file)
 {
-    if (m_file == file) {
+    if (m_fileModel && (m_fileModel->getUrl(m_file) == file)) {
         updateButtons();
     }
 }
@@ -82,7 +82,7 @@ void SignatureDlg::updateSignature()
 void SignatureDlg::updateButtons()
 {
     bool enableVerify = m_signature && m_signature->isVerifyable();
-    if (!m_fileModel || !m_fileModel->downloadFinished(m_file)) {
+    if (!m_fileModel || !m_fileModel->downloadFinished(m_fileModel->getUrl(m_file))) {
         enableVerify = false;
     }
     ui.verify->setEnabled(enableVerify);

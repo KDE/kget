@@ -47,9 +47,9 @@ class SignatureDlg : public KDialog
 
     private:
         Ui::SignatureDlg ui;
-        KUrl m_file;
         Signature *m_signature;
         FileModel *m_fileModel;
+        QModelIndex m_file;
         static const QStringList OWNERTRUST;
 };
 

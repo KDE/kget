@@ -87,8 +87,7 @@ void VerificationAddDlg::addMore()
 VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file)
   : KDialog(parent),
     m_transfer(transfer),
-    m_file(file),
-    m_verifier(transfer->verifier(m_file)),
+    m_verifier(transfer->verifier(file)),
     m_model(0),
     m_fileModel(0)
 {
@@ -98,7 +97,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
     }
 
-    setCaption(i18n("Transfer Verification for %1", m_file.fileName()));
+    setCaption(i18n("Transfer Verification for %1", file.fileName()));
     showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
@@ -114,6 +113,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         m_fileModel = m_transfer->fileModel();
 
         if (m_fileModel) {
+            m_file = m_fileModel->index(file, FileItem::File);
             connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
         }
 
@@ -131,7 +131,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
 
 void VerificationDialog::fileFinished(const KUrl &file)
 {
-    if (m_file == file) {
+    if (m_fileModel && (m_fileModel->getUrl(m_file) == file)) {
         updateButtons();
     }
 }
@@ -142,7 +142,7 @@ void VerificationDialog::updateButtons()
 
     //check if the download finished and if the selected indexes are verifyable
     bool verifyEnabled = false;
-    if (m_fileModel && m_fileModel->downloadFinished(m_file))
+    if (m_fileModel && m_fileModel->downloadFinished(m_fileModel->getUrl(m_file)))
     {
         const QModelIndexList indexes = ui.usedHashes->selectionModel()->selectedRows();
         if (indexes.count())
@@ -194,8 +194,13 @@ void VerificationDialog::slotVerified(bool verified)
 
     if (verified)
     {
+        QString fileName;
+        if (m_fileModel) {
+            fileName = m_fileModel->getUrl(m_file).fileName();
+        }
+
         KMessageBox::information(this,
-                                 i18n("%1 was successfully verified.", m_file.fileName()),
+                                 i18n("%1 was successfully verified.", fileName),
                                  i18n("Verification successful"));
     }
 }

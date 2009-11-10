@@ -70,10 +70,10 @@ class VerificationDialog : public KDialog
 
     private:
         TransferHandler *m_transfer;
-        KUrl m_file;
         Verifier *m_verifier;
         VerificationModel *m_model;
         FileModel *m_fileModel;
+        QModelIndex m_file;
         Ui::VerificationDialog ui;
 };
 
