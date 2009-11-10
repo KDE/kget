@@ -205,12 +205,12 @@ void SignatureDlg::updateData()
                 if (key.numSubkeys()) {
                     const GpgME::Subkey subKey = key.subkey(0);
 
-                    const uint creation = subKey.creationTime();
+                    time_t creation = subKey.creationTime();
                     QDateTime creationTime;
                     creationTime.setTime_t(creation);
                     ui.creation->setText(creationTime.toString());
 
-                    const uint expiration = subKey.expirationTime();
+                    time_t expiration = subKey.expirationTime();
                     if (expiration) {
                         QDateTime expirationTime;
                         expirationTime.setTime_t(expiration);
