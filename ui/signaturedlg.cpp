@@ -164,23 +164,23 @@ void SignatureDlg::updateData()
 
                 switch (ownerTrust) {
                     case GpgME::Key::Never:
-                        information.prepend(i18n("The key is not to be trusted!"));
+                        information.prepend(i18n("The key is not to be trusted."));
                         ui.trustIcon->setPixmap(KIcon("dialog-error").pixmap(iconSize));
                         ui.trustIcon->show();
                         error = true;
                         break;
                     case GpgME::Key::Marginal:
-                        information.prepend(i18n("The key is marginally to be trusted!"));
+                        information.prepend(i18n("The key is to be trusted marginally."));
                         ui.trustIcon->setPixmap(KIcon("dialog-warning").pixmap(iconSize));
                         ui.trustIcon->show();
                         problem = true;
                         break;
                     case GpgME::Key::Full:
-                        information.prepend(i18n("The key is fully to be trusted!"));
+                        information.prepend(i18n("The key is to be trusted fully."));
                         ui.trustIcon->hide();
                         break;
                     case GpgME::Key::Ultimate:
-                        information.prepend(i18n("The key is ultimately to be trusted!"));
+                        information.prepend(i18n("The key is to be trusted ultimately."));
                         ui.trustIcon->hide();
                         break;
                     case GpgME::Key::Unknown:

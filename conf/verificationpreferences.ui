@@ -49,7 +49,7 @@
          <item>
           <widget class="QRadioButton" name="radioButton_5">
            <property name="text">
-            <string>Strong (recommened)</string>
+            <string>Strong (recommended)</string>
            </property>
           </widget>
          </item>

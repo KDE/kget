@@ -90,7 +90,7 @@
      <item row="5" column="1">
       <widget class="KLineEdit" name="os">
        <property name="clickMessage">
-        <string>Supported OSes seperated with comma</string>
+        <string>Supported OSes, separated with commas</string>
        </property>
        <property name="showClearButton" stdset="0">
         <bool>true</bool>
