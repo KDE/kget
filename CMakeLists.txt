@@ -281,6 +281,9 @@ if (KONQUEROR_FOUND)
   target_link_libraries(kget ${KDE4_KONQUEROR_LIBS})
 endif (KONQUEROR_FOUND)
 
+if (QGPGME_FOUND)
+  target_link_libraries(kget ${QGPGME_LIBRARIES})
+endif(QGPGME_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
