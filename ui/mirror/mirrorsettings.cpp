@@ -144,8 +144,7 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     ui.add->setGuiItem(KStandardGuiItem::add());
     ui.remove->setGuiItem(KStandardGuiItem::remove());
     ui.treeView->setModel(m_model);
-    ui.treeView->resizeColumnToContents(MirrorItem::Used);
-    ui.treeView->resizeColumnToContents(MirrorItem::Url);
+    ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     ui.treeView->hideColumn(MirrorItem::Preference);
     ui.treeView->hideColumn(MirrorItem::Country);
     ui.treeView->setItemDelegate(new MirrorDelegate(this));
