@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>431</height>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -124,6 +124,9 @@
        </widget>
       </item>
       <item>
+       <widget class="KLineEdit" name="url"/>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QListView" name="keyServers"/>
@@ -168,10 +171,6 @@
        </layout>
       </item>
      </layout>
-     <zorder>kcfg_SignatureAutomaticVerification</zorder>
-     <zorder>kcfg_SignatureAutomaticDownloading</zorder>
-     <zorder>verticalSpacer</zorder>
-     <zorder>label</zorder>
     </widget>
    </item>
   </layout>
@@ -187,6 +186,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

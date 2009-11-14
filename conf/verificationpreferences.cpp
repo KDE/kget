@@ -46,11 +46,12 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
 #endif
 
     slotAutomaticChecksumVerification(Settings::checksumAutomaticVerification());
-    slotUrlClicked();
+    slotUpdateButtons();
 
     connect(ui.kcfg_ChecksumAutomaticVerification, SIGNAL(clicked(bool)), this, SLOT(slotAutomaticChecksumVerification(bool)));
-    connect(ui.keyServers->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUrlClicked(QItemSelection,QItemSelection)));
-    connect(ui.add, SIGNAL(clicked(bool)), this, SLOT(slotAddClicked()));
+    connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateButtons()));
+    connect(ui.keyServers->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons(QItemSelection,QItemSelection)));
+    connect(ui.add, SIGNAL(clicked(bool)), this, SLOT(slotAddMirror()));
     connect(ui.remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveMirror()));
     connect(ui.up, SIGNAL(clicked(bool)), this, SLOT(slotMoveMirrorUp()));
     connect(ui.down, SIGNAL(clicked(bool)), this, SLOT(slotMoveMirrorDown()));
@@ -79,9 +80,12 @@ void VerificationPreferences::slotRejected()
     m_keyServers->setStringList(m_tempKeyServers);
 }
 
-void VerificationPreferences::slotUrlClicked(const QItemSelection &selected, const QItemSelection &deslected)
+void VerificationPreferences::slotUpdateButtons(const QItemSelection &selected, const QItemSelection &deslected)
 {
     Q_UNUSED(deslected)
+
+    const KUrl url = KUrl(ui.url->text());
+    ui.add->setEnabled(url.isValid() && url.hasHost() && !url.protocol().isEmpty());
 
     const QModelIndexList indexes = selected.indexes();
     ui.remove->setEnabled(indexes.count() == 1);
@@ -101,29 +105,13 @@ void VerificationPreferences::slotUrlClicked(const QItemSelection &selected, con
     ui.down->setEnabled(down);
 }
 
-void VerificationPreferences::slotAddClicked()//TODO make better --> own class dialog, to check if it is empty, existing etc.
-{
-    KDialog *dialog = new KDialog;
-    dialog->setAttribute(Qt::WA_DeleteOnClose);
-    QWidget *widget = new QWidget(dialog);
-    QVBoxLayout *layout = new QVBoxLayout(widget);
-    QLabel *label = new QLabel(i18n("Enter an URL to a keyserver."), widget);
-    layout->addWidget(label);
-    m_url = new KUrlRequester(widget);
-    layout->addWidget(m_url);
-    dialog->setMainWidget(widget);
-    dialog->setCaption(i18n("Key Server"));
-    dialog->setButtons(KDialog::Ok);
-    connect(dialog, SIGNAL(accepted()), this, SLOT(slotAddMirror()));
-
-    dialog->show();
-}
-
 void VerificationPreferences::slotAddMirror()
 {
     QStringList data = m_keyServers->stringList();
-    data.append(m_url->url().pathOrUrl());
+    data.append(KUrl(ui.url->text()).pathOrUrl());
     m_keyServers->setStringList(data);
+    
+    ui.url->clear();
 
     emit changed();
 }
@@ -132,7 +120,20 @@ void VerificationPreferences::slotRemoveMirror()
 {
     const QModelIndexList indexes = ui.keyServers->selectionModel()->selectedRows();
     if (indexes.count() == 1) {
-        m_keyServers->removeRow(indexes.first().row());
+        QModelIndex index = indexes.first();
+        int row = index.row();
+        m_keyServers->removeRow(row);
+        
+        //HACK, otherwise when deleting first item in the list it will show up- and down icon
+        m_keyServers->setStringList(m_keyServers->stringList());
+        const int rowCount = m_keyServers->rowCount();
+        if (row < rowCount) {
+            index = m_keyServers->index(row);
+            ui.keyServers->setCurrentIndex(index);
+        } else if (rowCount) {
+            index = m_keyServers->index(rowCount - 1);
+            ui.keyServers->setCurrentIndex(index);
+        }
     }
 
     emit changed();

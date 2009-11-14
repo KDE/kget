@@ -42,9 +42,8 @@ class VerificationPreferences : public QWidget
         void changed();
 
     private slots:
-        void slotUrlClicked(const QItemSelection &selected = QItemSelection(), const QItemSelection &deslected = QItemSelection());
+        void slotUpdateButtons(const QItemSelection &selected = QItemSelection(), const QItemSelection &deslected = QItemSelection());
         void slotAutomaticChecksumVerification(bool enalbed);
-        void slotAddClicked();
         void slotAddMirror();
         void slotRemoveMirror();
         void slotMoveMirrorUp();
