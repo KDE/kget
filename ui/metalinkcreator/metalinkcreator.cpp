@@ -313,13 +313,7 @@ void MetalinkCreator::createIntroduction()
     QWidget *widget = new QWidget(this);
     uiIntroduction.setupUi(widget);
 
-    uiIntroduction.save->setMode(KFile::File | KFile::LocalOnly);
-    uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink file (*.meta4)"));
-
-    uiIntroduction.createButton->toggle();
-    uiIntroduction.load->setEnabled(false);
-    uiIntroduction.load->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);
-    uiIntroduction.load->setFilter("*.metalink *.meta4|" + i18n("Metalink file (*.metalink *.meta4)"));
+    uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
 
     connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
     connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
@@ -336,8 +330,7 @@ void MetalinkCreator::slotUpdateIntroductionNextButton()
 
     //check if a save location and if selected if also a load location has been specified
     enableNext = uiIntroduction.save->url().isValid();
-    if (enableNext && uiIntroduction.loadButton->isChecked())
-    {
+    if (enableNext && uiIntroduction.loadButton->isChecked()) {
         enableNext = uiIntroduction.load->url().isValid();
     }
 

@@ -64,6 +64,9 @@ class DateConstruct
         QDateTime dateTime;
         QTime timeZoneOffset;
         bool negativeOffset;
+
+        static const QStringList WEEKDAYS;
+        static const QStringList MONTHS;
 };
 
 /**
@@ -314,6 +317,51 @@ class Metalink
         QString generator;
         DateConstruct updated; //when the metalink was updated
         Files files;
+
+        static const QString KGET_DESCRIPTION;
+};
+
+/**
+ * @class Metalink_v3
+ * Metalink version 3.0 2nd ed
+ * Used only for loading and saving, uses itself Metalink internally
+ */
+class Metalink_v3
+{
+    public:
+        Metalink_v3();
+
+        Metalink metalink();
+        void setMetalink(const Metalink &metalink);
+
+        void load(const QDomElement &e);
+
+        /**
+         * Save the metalink
+         * @return the QDomDocument containing the metalink
+         */
+        QDomDocument save() const;
+
+    private:
+        void parseFiles(const QDomElement &e);
+        Resources parseResources(const QDomElement &e);
+        DateConstruct parseDateConstruct(const QString &data);
+        CommonData parseCommonData(const QDomElement &e);
+        
+        /**
+         * Inherits CommonData, the inheritor inherits every settings
+         * from the ancestor it has not set itself
+         */
+        void inheritCommonData(const CommonData &ancestor, CommonData *inheritor);
+
+        void saveFiles(QDomElement &e) const;
+        void saveResources(const Resources &resources, QDomElement &e) const;
+        void saveVerification(const Verification &verification, QDomElement &e) const;
+        void saveCommonData(const CommonData &data, QDomElement &e) const;
+        QString dateConstructToString(const DateConstruct &date) const;
+
+    private:
+        Metalink m_metalink;
 };
 
 /**
@@ -340,7 +388,8 @@ class HandleMetalink
 
         /**
          * Saves metalink to destination
-         * @param destination the place where the metlink will be saved
+         * @param destination the place where the metlink will be saved, the ending defines
+         * what version should be used: *.meta4 --> Metalink 4.0; *.metalink --> Metalink 3.0
          * @param metalink the instance of metalink that will be written to the filesystem
          * @return return true if it worked
          */
@@ -352,13 +401,6 @@ class HandleMetalink
          */
         static void addProperty(QHash<QUrl, Nepomuk::Variant> *data, const QByteArray &uriBa, const QString &value);
 #endif //HAVE_NEPOMUK
-
-    private:
-        static void parseMetealink_v3_ed2(const QDomElement &e, Metalink *metalink);
-        static void paresFiles_v3_ed2(const QDomElement &e, Files *files);
-        static void parseCommonData_v3_ed2(const QDomElement &e, KGetMetalink::CommonData *data);
-        static void parseResources_v3_ed2(const QDomElement &e, KGetMetalink::Resources *resources);
-        static void parseDateConstruct_v3_ed2(DateConstruct *dateConstruct, const QString &data);
 };
 
 }

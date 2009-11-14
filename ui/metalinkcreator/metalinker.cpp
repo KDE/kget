@@ -23,6 +23,7 @@
 #include <QtCore/QTextStream>
 #include <QtXml/QDomElement>
 
+#include <kdeversion.h>
 #include <KDebug>
 #include <KLocale>
 #include <KSystemTimeZone>
@@ -30,6 +31,10 @@
 #ifdef HAVE_NEPOMUK
 #include <Nepomuk/Variant>
 #endif //HAVE_NEPOMUK
+
+const QStringList KGetMetalink::DateConstruct::WEEKDAYS = (QStringList() << "" << "Mon" << "Tue" << "Wed" << "Thu" << "Fri" << "Sat" << "Sun");
+const QStringList KGetMetalink::DateConstruct::MONTHS = (QStringList() << "" << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jul" << "Aug" << "Sep" << "Oct" << "Nov" << "Dec");
+const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
 
 namespace KGetMetalink
 {
@@ -272,7 +277,7 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
 
 void KGetMetalink::Metaurl::load(const QDomElement &e)
 {
-    type = e.attribute("type");
+    type = e.attribute("type").toLower();
     preference = e.attribute("preference").toInt();
     name = e.attribute("name");
     url = KUrl(e.text());
@@ -326,7 +331,7 @@ bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
 
 void KGetMetalink::Url::load(const QDomElement &e)
 {
-    location = e.attribute("location");
+    location = e.attribute("location").toLower();
     preference = e.attribute("preference").toInt();
     url = KUrl(e.text());
 }
@@ -647,36 +652,30 @@ QDomDocument KGetMetalink::Metalink::save() const
     QDomElement metalink = doc.createElement("metalink");
     metalink.setAttribute("xmlns", "urn:ietf:params:xml:ns:metalink"); //the xmlns value is ignored, instead the data format described in the specification is always used
 
-    if (!generator.isEmpty())
-    {
-        QDomElement elem = doc.createElement("generator");
-        QDomText text = doc.createTextNode(generator);
-        elem.appendChild(text);
-        metalink.appendChild(elem);
-    }
-    if (!origin.isEmpty())
-    {
+    QDomElement elem = doc.createElement("generator");
+    QDomText text = doc.createTextNode(Metalink::KGET_DESCRIPTION); //the set generator is ignored, instead when saving KGET is always used
+    elem.appendChild(text);
+    metalink.appendChild(elem);
+
+    if (!origin.isEmpty()) {
         QDomElement elem = doc.createElement("origin");
         QDomText text = doc.createTextNode(origin.url());
         elem.appendChild(text);
         metalink.appendChild(elem);
     }
-    if (published.isValid())
-    {
+    if (published.isValid()) {
         QDomElement elem = doc.createElement("published");
         QDomText text = doc.createTextNode(published.toString());
         elem.appendChild(text);
         metalink.appendChild(elem);
     }
-    if (dynamic)
-    {
+    if (dynamic) {
         QDomElement elem = doc.createElement("dynamic");
         QDomText text = doc.createTextNode("true");
         elem.appendChild(text);
         metalink.appendChild(elem);
     }
-    if (updated.isValid())
-    {
+    if (updated.isValid()) {
         QDomElement elem = doc.createElement("updated");
         QDomText text = doc.createTextNode(updated.toString());
         elem.appendChild(text);
@@ -701,164 +700,54 @@ void KGetMetalink::Metalink::clear()
     files.clear();
 }
 
-bool KGetMetalink::HandleMetalink::load(const KUrl &destination, KGetMetalink::Metalink *metalink)
+KGetMetalink::Metalink_v3::Metalink_v3()
 {
-    QFile file(destination.pathOrUrl());
-    if (!file.open(QIODevice::ReadOnly))
-    {
-        return false;
-    }
-
-    QDomDocument doc;
-    if (!doc.setContent(&file))
-    {
-        file.close();
-        return false;
-    }
-    file.close();
-
-    QDomElement root = doc.documentElement();
-    if (root.attribute("xmlns") == "urn:ietf:params:xml:ns:metalink")
-    {
-        metalink->load(root);
-        return true;
-    }
-    else if ((root.attribute("xmlns") == "http://www.metalinker.org/") || (root.attribute("version") == "3.0"))
-    {
-        parseMetealink_v3_ed2(root, metalink);
-        return true;
-    }
-
-    return false;
 }
 
-bool KGetMetalink::HandleMetalink::load(const QByteArray &data, KGetMetalink::Metalink *metalink)
+KGetMetalink::Metalink KGetMetalink::Metalink_v3::metalink()
 {
-    if (data.isNull())
-    {
-        return false;
-    }
-
-    QDomDocument doc;
-    if (!doc.setContent(data))
-    {
-        return false;
-    }
-
-    QDomElement root = doc.documentElement();
-    if (root.attribute("xmlns") == "urn:ietf:params:xml:ns:metalink")
-    {
-        metalink->load(root);
-        return true;
-    }
-    else if ((root.attribute("xmlns") == "http://www.metalinker.org/") || (root.attribute("version") == "3.0"))
-    {
-        parseMetealink_v3_ed2(root, metalink);
-        return true;
-    }
-
-    return false;
+    return m_metalink;
 }
 
-bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::Metalink *metalink)
+void KGetMetalink::Metalink_v3::setMetalink(const KGetMetalink::Metalink &metalink)
 {
-    QFile file(destination.pathOrUrl());
-    if (!file.open(QIODevice::WriteOnly))
-    {
-        return false;
-    }
-
-    QDomDocument doc = metalink->save();
-
-    QTextStream stream(&file);
-    doc.save(stream, 2);
-    file.close();
-
-    return true;
+    m_metalink = metalink;
 }
 
-#ifdef HAVE_NEPOMUK
-void KGetMetalink::HandleMetalink::addProperty(QHash<QUrl, Nepomuk::Variant> *data, const QByteArray &uriBa, const QString &value)
+void KGetMetalink::Metalink_v3::load(const QDomElement &e)
 {
-    if (data && !uriBa.isEmpty() && !value.isEmpty())
-    {
-        const QUrl uri = QUrl::fromEncoded(uriBa, QUrl::StrictMode);
-        (*data)[uri] = Nepomuk::Variant(value);
-    }
-}
-#endif //HAVE_NEPOMUK
-
-void KGetMetalink::HandleMetalink::parseMetealink_v3_ed2(const QDomElement &e, Metalink *metalink)
-{
-    if (!metalink)
-    {
-        return;
-    }
-
     QDomDocument doc = e.ownerDocument();
     const QDomElement metalinkDom = doc.firstChildElement("metalink");
 
-    //here we assume that the CommonData set in metalink is for the whole metalink
-    //and not the consisting files; the specification is a little bit unclear in that regard
-    CommonData data;
-    parseCommonData_v3_ed2(metalinkDom, &data);//TODO use this as general metadata for the whole document if something link that is specified?
+    m_metalink.dynamic = (metalinkDom.attribute("type") == "dynamic");
+    m_metalink.origin = KUrl(metalinkDom.attribute("origin"));
+    m_metalink.generator = metalinkDom.attribute("generator");
+    m_metalink.published = parseDateConstruct(metalinkDom.attribute("pubdate"));
+    m_metalink.updated = parseDateConstruct(metalinkDom.attribute("refreshdate"));
 
-    metalink->dynamic = (metalinkDom.attribute("type") == "dynamic");
-    metalink->origin = KUrl(metalinkDom.firstChildElement("origin").text());
-    metalink->generator = metalinkDom.firstChildElement("generator").text();
-
-    parseDateConstruct_v3_ed2(&metalink->published, metalinkDom.attribute("pubdate"));
-    parseDateConstruct_v3_ed2(&metalink->updated, metalinkDom.attribute("refreshdate"));
-
-    paresFiles_v3_ed2(metalinkDom, &metalink->files);
+    parseFiles(metalinkDom);
 }
 
-void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetMetalink::Files *files)
+void KGetMetalink::Metalink_v3::parseFiles(const QDomElement &e)
 {
-    if (!files) {
-        return;
-    }
+    //here we assume that the CommonData set in metalink is for every file in the metalink
+    CommonData data;
+    data = parseCommonData(e);
 
     const QDomElement filesElem = e.firstChildElement("files");
-    CommonData filesData;
-    parseCommonData_v3_ed2(filesElem, &filesData);
+    CommonData filesData = parseCommonData(filesElem);
+    
+    inheritCommonData(data, &filesData);
 
     for (QDomElement elem = filesElem.firstChildElement("file"); !elem.isNull(); elem = elem.nextSiblingElement("file")) {
         File file;
         file.name = elem.attribute("name");
         file.size = elem.firstChildElement("size").text().toULongLong();
-        parseCommonData_v3_ed2(elem, &file.data);
 
-        //ensure that inheritance works
-        if (file.data.identity.isEmpty()) {
-            file.data.identity = filesData.identity;
-        }
-        if (file.data.version.isEmpty()) {
-            file.data.version = filesData.version;
-        }
-        if (file.data.description.isEmpty()) {
-            file.data.description = filesData.description;
-        }
-        if (file.data.oses.isEmpty()) {
-            file.data.oses = filesData.oses;
-        }
-        if (file.data.logo.isEmpty()) {
-            file.data.logo = filesData.logo;
-        }
-        if (file.data.language.isEmpty()) {
-            file.data.language = filesData.language;
-        }
-        if (file.data.copyright.isEmpty()) {
-            file.data.copyright = filesData.copyright;
-        }
-        if (file.data.publisher.isEmpty()) {
-            file.data.publisher = filesData.publisher;
-        }
-        if (file.data.license.isEmpty()) {
-            file.data.license = filesData.license;
-        }
+        file.data = parseCommonData(elem);
+        inheritCommonData(filesData, &file.data);
 
-        parseResources_v3_ed2(elem, &file.resources);
+        file.resources = parseResources(elem);
 
         //load the verification information
         QDomElement veriE = elem.firstChildElement("verification");
@@ -886,84 +775,111 @@ void KGetMetalink::HandleMetalink::paresFiles_v3_ed2(const QDomElement &e, KGetM
             }
         }
 
-        files->files.append(file);
+        m_metalink.files.files.append(file);
     }
 }
 
-void KGetMetalink::HandleMetalink::parseCommonData_v3_ed2(const QDomElement &e, KGetMetalink::CommonData *data)
+KGetMetalink::CommonData KGetMetalink::Metalink_v3::parseCommonData(const QDomElement &e)
 {
-    if (!data)
-    {
-        return;
-    }
+    CommonData data;
 
-    data->load(e);
+    data.load(e);
 
     const QDomElement publisherElem = e.firstChildElement("publisher");
-    data->publisher.name = publisherElem.firstChildElement("name").text();
-    data->publisher.url = KUrl(publisherElem.firstChildElement("url").text());
+    data.publisher.name = publisherElem.firstChildElement("name").text();
+    data.publisher.url = KUrl(publisherElem.firstChildElement("url").text());
 
     const QDomElement lincenseElem = e.firstChildElement("license");
-    data->license.name = lincenseElem.firstChildElement("name").text();
-    data->license.url = KUrl(lincenseElem.firstChildElement("url").text());
+    data.license.name = lincenseElem.firstChildElement("name").text();
+    data.license.url = KUrl(lincenseElem.firstChildElement("url").text());
+
+    return data;
 }
 
-void KGetMetalink::HandleMetalink::parseResources_v3_ed2(const QDomElement &e, KGetMetalink::Resources *resources)
+void KGetMetalink::Metalink_v3::inheritCommonData(const KGetMetalink::CommonData &ancestor, KGetMetalink::CommonData *inheritor)
 {
-    if (!resources)
-    {
+    if (!inheritor) {
         return;
     }
+    
+    //ensure that inheritance works
+    if (inheritor->identity.isEmpty()) {
+        inheritor->identity = ancestor.identity;
+    }
+    if (inheritor->version.isEmpty()) {
+        inheritor->version = ancestor.version;
+    }
+    if (inheritor->description.isEmpty()) {
+        inheritor->description = ancestor.description;
+    }
+    if (inheritor->oses.isEmpty()) {
+        inheritor->oses = ancestor.oses;
+    }
+    if (inheritor->logo.isEmpty()) {
+        inheritor->logo = ancestor.logo;
+    }
+    if (inheritor->language.isEmpty()) {
+        inheritor->language = ancestor.language;
+    }
+    if (inheritor->copyright.isEmpty()) {
+        inheritor->copyright = ancestor.copyright;
+    }
+    if (inheritor->publisher.isEmpty()) {
+        inheritor->publisher = ancestor.publisher;
+    }
+    if (inheritor->license.isEmpty()) {
+        inheritor->license = ancestor.license;
+    }
+}
+
+KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElement &e)
+{
+    Resources resources;
 
     QDomElement res = e.firstChildElement("resources");
-    for (QDomElement elemRes = res.firstChildElement("url"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("url"))
-    {
+    for (QDomElement elemRes = res.firstChildElement("url"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("url")) {
         const QString location = elemRes.attribute("location");
         int preference = elemRes.attribute("preference").toInt();
-        if (preference > 100)
-        {
+        if (preference > 100) {
             preference = 100;
         }
         const KUrl link = KUrl(elemRes.text());
         QString type;
 
-        if (link.fileName().endsWith(QLatin1String(".torrent")))
-        {
+        if (link.fileName().endsWith(QLatin1String(".torrent"))) {
             type = "torrent";
         }
 
-        if (type.isEmpty())
-        {
+        if (type.isEmpty()) {
             Url url;
             url.location = location;
             url.preference = preference;
             url.url = link;
             url.load(elemRes);
-            if (url.isValid())
-            {
-                resources->urls.append(url);
+            if (url.isValid()) {
+                resources.urls.append(url);
             }
-        }
-        else
-        {
+        } else {
             //it might be a metaurl
             Metaurl metaurl;
             metaurl.preference = preference;
             metaurl.url = link;
             metaurl.type = type;
-            if (metaurl.isValid())
-            {
-                resources->metaurls.append(metaurl);
+            if (metaurl.isValid()) {
+                resources.metaurls.append(metaurl);
             }
         }
     }
+
+    return resources;
 }
 
-void KGetMetalink::HandleMetalink::parseDateConstruct_v3_ed2(KGetMetalink::DateConstruct *dateConstruct, const QString &data)
+KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const QString &data)
 {
-    if (!dateConstruct || data.isEmpty())
-    {
-        return;
+    DateConstruct dateConstruct;
+
+    if (data.isEmpty()){
+        return dateConstruct;
     }
 
     kDebug(5001) << "Parsing" << data;
@@ -974,6 +890,8 @@ void KGetMetalink::HandleMetalink::parseDateConstruct_v3_ed2(KGetMetalink::DateC
 
     //Date according to RFC 822, the year with four characters preferred
     //e.g.: "Mon, 15 May 2006 00:00:01 GMT", "Fri, 01 Apr 2009 00:00:01 +1030"
+    
+    //find the date
     const QString weekdayExp = "ddd, ";
     const bool weekdayIncluded = (temp.indexOf(',') == 3);
     int startPosition = (weekdayIncluded ? weekdayExp.length() : 0);
@@ -983,19 +901,17 @@ void KGetMetalink::HandleMetalink::parseDateConstruct_v3_ed2(KGetMetalink::DateC
     QString exp = dayMonthExp + yearExp + yearExp;
     int length = exp.length();
 
-    //BUG why does ddd that not work?? --> qt bug?
     QDate date = QDate::fromString(temp.mid(startPosition, length), exp);
-    if (!date.isValid())
-    {
+    if (!date.isValid()) {
         exp = dayMonthExp + yearExp;
         length = exp.length();
         date = QDate::fromString(temp.mid(startPosition, length), exp);
-        if (!date.isValid())
-        {
-            return;
+        if (!date.isValid()) {
+            return dateConstruct;
         }
     }
 
+    //find the time
     dateTime.setDate(date);
     temp = temp.mid(startPosition);
     temp = temp.mid(length + 1);//also remove the space
@@ -1007,38 +923,343 @@ void KGetMetalink::HandleMetalink::parseDateConstruct_v3_ed2(KGetMetalink::DateC
     exp = hourExp + ':' + minuteExp + ':' + secondExp;
     length = exp.length();
     QTime time = QTime::fromString(temp.left(length), exp);
-    if (!time.isValid())
-    {
+    if (!time.isValid()) {
         exp = hourExp + ':' + minuteExp;
         length = exp.length();
         time = QTime::fromString(temp.left(length), exp);
-        if (!time.isValid())
-        {
-            return;
+        if (!time.isValid()) {
+            return dateConstruct;
         }
     }
-
     dateTime.setTime(time);
+    
+    //find the offset
     temp = temp.mid(length + 1);//also remove the space
     bool negativeOffset = false;
-    //e.g. GMT
-    if (temp.length() == 3)
-    {
+
+    if (temp.length() == 3) { //e.g. GMT
         KTimeZone timeZone = KSystemTimeZones::readZone(temp);
-        if (timeZone.isValid())
-        {
+        if (timeZone.isValid()) {
             int offset = timeZone.currentOffset();
             negativeOffset = (offset < 0);
             timeZoneOffset = QTime(0, 0, 0);
             timeZoneOffset = timeZoneOffset.addSecs(qAbs(offset));
         }
-    }
-    //e.g. +1030
-    else if (temp.length() == 5)
-    {
+    } else if (temp.length() == 5) { //e.g. +1030
         negativeOffset = (temp[0] == '-');
         timeZoneOffset = QTime::fromString(temp.mid(1,4), "hhmm");
     }
 
-    dateConstruct->setData(dateTime, timeZoneOffset, negativeOffset);
+    dateConstruct.setData(dateTime, timeZoneOffset, negativeOffset);
+
+    return dateConstruct;
 }
+
+QDomDocument KGetMetalink::Metalink_v3::save() const
+{
+    QDomDocument doc;
+    QDomProcessingInstruction header = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+    doc.appendChild(header);
+
+    QDomElement metalink = doc.createElement("metalink");
+    metalink.setAttribute("xmlns", "http://www.metalinker.org/");
+    metalink.setAttribute("version", "3.0");
+    metalink.setAttribute("type", (m_metalink.dynamic ? "dynamic" : "static"));
+    metalink.setAttribute("generator", Metalink::KGET_DESCRIPTION); //the set generator is ignored, instead when saving KGET is always used
+
+    if (m_metalink.published.isValid()) {
+        metalink.setAttribute("pubdate", dateConstructToString(m_metalink.published));
+    }
+    if (m_metalink.updated.isValid()) {
+        metalink.setAttribute("refreshdate", dateConstructToString(m_metalink.updated));
+    }
+    if (!m_metalink.origin.isEmpty()) {
+        metalink.setAttribute("origin", m_metalink.origin.url());
+    }
+
+    saveFiles(metalink);
+
+    doc.appendChild(metalink);
+
+    return doc;
+}
+
+void KGetMetalink::Metalink_v3::saveFiles(QDomElement &e) const
+{
+    QDomDocument doc = e.ownerDocument();
+    QDomElement filesElem = doc.createElement("files");
+
+    foreach (const File &file, m_metalink.files.files) {
+        QDomElement elem = doc.createElement("file");
+        elem.setAttribute("name", file.name);
+
+        QDomElement size = doc.createElement("size");
+        QDomText text = doc.createTextNode(QString::number(file.size));
+        size.appendChild(text);
+        elem.appendChild(size);
+
+        saveCommonData(file.data, elem);
+        saveResources(file.resources, elem);
+        saveVerification(file.verification, elem);
+
+        filesElem.appendChild(elem);
+    }
+
+    e.appendChild(filesElem);
+}
+
+void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomElement &e) const
+{
+    QDomDocument doc = e.ownerDocument();
+    QDomElement res = doc.createElement("resources");
+
+    foreach (const Url &url, resources.urls) {
+        QDomElement elem = doc.createElement("url");
+        if (url.preference) {
+            elem.setAttribute("preference", url.preference);//TODO convert!!!
+        }
+        if (!url.location.isEmpty()) {
+            elem.setAttribute("location", url.location);
+        }
+
+        QDomText text = doc.createTextNode(url.url.url());
+        elem.appendChild(text);
+
+        res.appendChild(elem);
+    }
+
+    foreach (const Metaurl &metaurl, resources.metaurls) {
+        if (metaurl.type == "torrent") {
+            QDomElement elem = doc.createElement("url");
+            if (metaurl.preference) {
+                elem.setAttribute("preference", metaurl.preference);//TODO convert!!!
+                elem.setAttribute("type", "bittorrent");
+            }
+
+            QDomText text = doc.createTextNode(metaurl.url.url());
+            elem.appendChild(text);
+
+            res.appendChild(elem);
+        }
+    }
+
+    e.appendChild(res);
+}
+
+void KGetMetalink::Metalink_v3::saveVerification(const KGetMetalink::Verification &verification, QDomElement &e) const
+{
+    QDomDocument doc = e.ownerDocument();
+    QDomElement veri = doc.createElement("verification");
+
+    QHash<QString, QString>::const_iterator it;
+    QHash<QString, QString>::const_iterator itEnd = verification.hashes.constEnd();
+    for (it = verification.hashes.constBegin(); it != itEnd; ++it) {
+        QDomElement elem = doc.createElement("hash");
+        elem.setAttribute("type", it.key());
+        QDomText text = doc.createTextNode(it.value());
+        elem.appendChild(text);
+
+        veri.appendChild(elem);
+    }
+
+    foreach (const Pieces &pieces, verification.pieces) {
+        QDomElement elem = doc.createElement("pieces");
+        elem.setAttribute("type", pieces.type);
+        elem.setAttribute("length", QString::number(pieces.length));
+
+        for (int i = 0; i < pieces.hashes.count(); ++i) {
+            QDomElement hash = doc.createElement("hash");
+            hash.setAttribute("piece", i);
+            QDomText text = doc.createTextNode(pieces.hashes.at(i));
+            hash.appendChild(text);
+
+            elem.appendChild(hash);
+        }
+        veri.appendChild(elem);
+    }
+
+    itEnd = verification.signatures.constEnd();
+    for (it = verification.signatures.constBegin(); it != itEnd; ++it) {
+        QDomElement elem = doc.createElement("signature");
+        elem.setAttribute("type", it.key());
+        QDomText text = doc.createTextNode(it.value());
+        elem.appendChild(text);
+
+        veri.appendChild(elem);
+    }
+
+    e.appendChild(veri);
+}
+
+void KGetMetalink::Metalink_v3::saveCommonData(const KGetMetalink::CommonData &data, QDomElement &e) const
+{
+    QDomDocument doc = e.ownerDocument();
+
+    CommonData commonData = data;
+
+    if (!commonData.publisher.isEmpty()) {
+        QDomElement elem = doc.createElement("publisher");
+        QDomElement elemName = doc.createElement("name");
+        QDomElement elemUrl = doc.createElement("url");
+
+        QDomText text = doc.createTextNode(commonData.publisher.name);
+        elemName.appendChild(text);
+        elem.appendChild(elemName);
+
+        text = doc.createTextNode(commonData.publisher.url.url());
+        elemUrl.appendChild(text);
+        elem.appendChild(elemUrl);
+
+        e.appendChild(elem);
+
+        commonData.publisher.clear();
+    }
+    if (!commonData.license.isEmpty()) {
+        QDomElement elem = doc.createElement("license");
+        QDomElement elemName = doc.createElement("name");
+        QDomElement elemUrl = doc.createElement("url");
+
+        QDomText text = doc.createTextNode(commonData.license.name);
+        elemName.appendChild(text);
+        elem.appendChild(elemName);
+
+        text = doc.createTextNode(commonData.license.url.url());
+        elemUrl.appendChild(text);
+        elem.appendChild(elemUrl);
+
+        e.appendChild(elem);
+
+        commonData.license.clear();
+    }
+
+    if (commonData.oses.count() > 1) {//only one OS can be set in 3.0
+        commonData.oses.clear();
+    }
+
+    commonData.save(e);
+}
+
+QString KGetMetalink::Metalink_v3::dateConstructToString(const KGetMetalink::DateConstruct &date) const
+{
+    QString dateString;
+    if (!date.isValid()) {
+        return dateString;
+    }
+
+    //"Fri, 01 Apr 2009 00:00:01 +1030"
+    dateString += DateConstruct::WEEKDAYS[date.dateTime.date().dayOfWeek()];
+    dateString += date.dateTime.toString(", dd ");
+    dateString += DateConstruct::MONTHS[date.dateTime.date().month()];
+    dateString += date.dateTime.toString(" yyyy hh:mm:ss ");
+
+    if (date.timeZoneOffset.isValid()) {
+        dateString += (date.negativeOffset ? '-' : '+');
+        dateString += date.timeZoneOffset.toString("hhmm");
+    } else {
+        dateString += "+0000";
+    }
+
+    return dateString;
+}
+
+
+bool KGetMetalink::HandleMetalink::load(const KUrl &destination, KGetMetalink::Metalink *metalink)
+{
+    QFile file(destination.pathOrUrl());
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        return false;
+    }
+
+    QDomDocument doc;
+    if (!doc.setContent(&file))
+    {
+        file.close();
+        return false;
+    }
+    file.close();
+
+    QDomElement root = doc.documentElement();
+    if (root.attribute("xmlns") == "urn:ietf:params:xml:ns:metalink")
+    {
+        metalink->load(root);
+        return true;
+    }
+    else if ((root.attribute("xmlns") == "http://www.metalinker.org/") || (root.attribute("version") == "3.0"))
+    {
+        Metalink_v3 metalink_v3;
+        metalink_v3.load(root);
+        *metalink = metalink_v3.metalink();
+        return true;
+    }
+
+    return false;
+}
+
+bool KGetMetalink::HandleMetalink::load(const QByteArray &data, KGetMetalink::Metalink *metalink)
+{
+    if (data.isNull())
+    {
+        return false;
+    }
+
+    QDomDocument doc;
+    if (!doc.setContent(data))
+    {
+        return false;
+    }
+
+    QDomElement root = doc.documentElement();
+    if (root.attribute("xmlns") == "urn:ietf:params:xml:ns:metalink")
+    {
+        metalink->load(root);
+        return true;
+    }
+    else if ((root.attribute("xmlns") == "http://www.metalinker.org/") || (root.attribute("version") == "3.0"))
+    {
+        Metalink_v3 metalink_v3;
+        metalink_v3.load(root);
+        *metalink = metalink_v3.metalink();
+        return true;
+    }
+
+    return false;
+}
+
+bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::Metalink *metalink)
+{
+    QFile file(destination.pathOrUrl());
+    if (!file.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+
+    QDomDocument doc;
+    QString fileName = destination.fileName();
+    if (fileName.endsWith("meta4")) {
+        doc = metalink->save();
+    } else if (fileName.endsWith("metalink")) {
+        Metalink_v3 metalink_v3;
+        metalink_v3.setMetalink(*metalink);
+        doc = metalink_v3.save();
+    } else {
+        file.close();
+        return false;
+    }
+
+    QTextStream stream(&file);
+    doc.save(stream, 2);
+    file.close();
+
+    return true;
+}
+
+#ifdef HAVE_NEPOMUK
+void KGetMetalink::HandleMetalink::addProperty(QHash<QUrl, Nepomuk::Variant> *data, const QByteArray &uriBa, const QString &value)
+{
+    if (data && !uriBa.isEmpty() && !value.isEmpty())
+    {
+        const QUrl uri = QUrl::fromEncoded(uriBa, QUrl::StrictMode);
+        (*data)[uri] = Nepomuk::Variant(value);
+    }
+}
+#endif //HAVE_NEPOMUK
