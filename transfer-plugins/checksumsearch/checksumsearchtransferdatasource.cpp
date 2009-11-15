@@ -30,34 +30,28 @@ ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const KUrl &s
 
 ChecksumSearchTransferDataSource::~ChecksumSearchTransferDataSource()
 {
-    qDeleteAll(m_jobs);
 }
 
 void ChecksumSearchTransferDataSource::start()
 {
     kDebug(5001);
 
-    if (m_jobs.isEmpty())
-    {
-        QStringList changes = ChecksumSearchSettings::self()->searchStrings();
-        QList<int> modes = ChecksumSearchSettings::self()->urlChangeModeList();
-        QStringList types = ChecksumSearchSettings::self()->checksumTypeList();
+    QStringList changes = ChecksumSearchSettings::self()->searchStrings();
+    QList<int> modes = ChecksumSearchSettings::self()->urlChangeModeList();
+    QStringList types = ChecksumSearchSettings::self()->checksumTypeList();
+    
+    QList<KUrl> urls;
 
-        for (int i = 0; i < changes.size(); ++i)
-        {
-            const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(modes.at(i));
-            const KUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
+    for (int i = 0; i < changes.size(); ++i) {
+        const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(modes.at(i));
+        const KUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
+        urls.append(source);
+    }
+    
+    if (urls.count() && types.count()) {
+        ChecksumSearch *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
 
-            if (!m_jobs.contains(source))
-            {
-                ChecksumSearch *search = new ChecksumSearch(source, m_sourceUrl.fileName(), types.at(i));
-
-                connect(search, SIGNAL(finished(KUrl)), this, SLOT(slotFinished(KUrl)));
-                connect(search, SIGNAL(data(QString, QString)), this, SIGNAL(data(QString,QString)));
-
-                m_jobs[source] = search;
-            }
-        }
+        connect(search, SIGNAL(data(QString, QString)), this, SIGNAL(data(QString,QString)));
     }
 }
 
@@ -72,13 +66,6 @@ void ChecksumSearchTransferDataSource::addSegment(const KIO::fileoffset_t offset
     Q_UNUSED(bytes);
     Q_UNUSED(segmentNum);
     kDebug(5001);
-}
-
-void ChecksumSearchTransferDataSource::slotFinished(const KUrl &src)
-{
-    ChecksumSearch *search = m_jobs[src];
-    m_jobs.remove(src);
-    delete search;
 }
 
 #include "checksumsearchtransferdatasource.moc"

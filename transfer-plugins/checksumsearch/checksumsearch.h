@@ -30,7 +30,7 @@ class ChecksumSearch : public QObject
     Q_OBJECT
 
     public:
-        ChecksumSearch(KUrl src, QString fileName, QString type);
+        ChecksumSearch(const QList<KUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent = 0);
         ~ChecksumSearch();
 
         /**
@@ -59,13 +59,17 @@ class ChecksumSearch : public QObject
 
     Q_SIGNALS:
         void data(QString type, QString checksum);
-        void finished(KUrl src);
 
     private slots:
         void slotResult(KJob *job);
         void slotData(KIO::Job *job, const QByteArray &data);
 
     private:
+        /**
+         * Creates a download
+         */
+        void createDownload();
+
         /**
          * Parses the download
          */
@@ -79,8 +83,10 @@ class ChecksumSearch : public QObject
     private:
         KIO::TransferJob *m_copyJob;
         KUrl m_src;
+        QList<KUrl> m_srcs;
         QString m_fileName;
         QString m_type;
+        QStringList m_types;
         QByteArray m_dataBA;
         QString m_data;
         bool m_isEmpty;

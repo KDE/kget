@@ -29,16 +29,14 @@
 
 const QStringList ChecksumSearch::URLCHANGEMODES = (QStringList() << i18n("Append") << i18n("Replace file") << i18n("Replace file-ending"));
 
-ChecksumSearch::ChecksumSearch(KUrl src, QString fileName, QString type)
-  : m_copyJob(0),
-    m_src(src),
+ChecksumSearch::ChecksumSearch(const QList<KUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent)
+  : QObject(parent),
+    m_copyJob(0),
+    m_srcs(srcs),
     m_fileName(fileName),
-    m_type(type),
-    m_isEmpty(m_type.isEmpty())
+    m_types(types)
 {
-    m_copyJob = KIO::get(m_src, KIO::Reload, KIO::HideProgressInfo);
-    connect(m_copyJob, SIGNAL(data(KIO::Job *,const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
-    connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
+    createDownload();
 }
 
 ChecksumSearch::~ChecksumSearch()
@@ -49,7 +47,22 @@ ChecksumSearch::~ChecksumSearch()
     }
 }
 
-void ChecksumSearch::slotData(KIO::Job *job, const QByteArray& data)
+void ChecksumSearch::createDownload()
+{
+    if (m_srcs.isEmpty() || m_types.isEmpty()) {
+        deleteLater();
+    } else {
+        m_src = m_srcs.takeFirst();
+        m_type = m_types.takeFirst();
+        m_isEmpty = m_type.isEmpty();
+        
+        m_copyJob = KIO::get(m_src, KIO::Reload, KIO::HideProgressInfo);
+        connect(m_copyJob, SIGNAL(data(KIO::Job *,const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
+        connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
+    }
+}
+
+void ChecksumSearch::slotData(KIO::Job *job, const QByteArray &data)
 {
     Q_UNUSED(job);
     kDebug(5001);
@@ -64,15 +77,16 @@ void ChecksumSearch::slotData(KIO::Job *job, const QByteArray& data)
     }
 }
 
-void ChecksumSearch::slotResult(KJob * job)
+void ChecksumSearch::slotResult(KJob *job)
 {
     kDebug(5001);
+    
+    KIO::TransferJob *copyJob = static_cast<KIO::TransferJob*>(job);
 
-    if (m_copyJob->isErrorPage())
-    {
+    if (copyJob->isErrorPage()) {
         kDebug(5001) << "The requested url does not exist:" << m_src.pathOrUrl();
         m_copyJob = 0;
-        emit finished(m_src);
+        createDownload();
         return;
     }
 
@@ -133,10 +147,9 @@ void ChecksumSearch::parseDownload()
         emit data(m_type, hash);
     }
 
-    //only emit finished if type was specified, otherwise parseDownloadEmpty has to handle this
-    if (!m_isEmpty)
-    {
-        emit finished(m_src);
+    //only create a download here if type was specified, otherwise parseDownloadEmpty has to handle this
+    if (!m_isEmpty) {
+        createDownload();
     }
 }
 
@@ -153,7 +166,7 @@ void ChecksumSearch::parseDownloadEmpty()
         }
     }
 
-    emit finished(m_src);
+    createDownload();
 }
 
 KUrl ChecksumSearch::createUrl(const KUrl &src, const QString &change, ChecksumSearch::UrlChangeMode mode)
