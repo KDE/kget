@@ -25,7 +25,6 @@
 #include "ui_verificationpreferences.h"
 
 class KConfigDialog;
-class KUrlRequester;//TODO needed?
 class QStringListModel;
 
 class VerificationPreferences : public QWidget
@@ -42,7 +41,7 @@ class VerificationPreferences : public QWidget
         void changed();
 
     private slots:
-        void slotUpdateButtons(const QItemSelection &selected = QItemSelection(), const QItemSelection &deslected = QItemSelection());
+        void slotUpdateButtons();
         void slotAutomaticChecksumVerification(bool enalbed);
         void slotAddMirror();
         void slotRemoveMirror();
@@ -63,7 +62,6 @@ class VerificationPreferences : public QWidget
         Ui::VerificationPreferences ui;
         QStringListModel *m_keyServers;
         QStringList m_tempKeyServers;
-        KUrlRequester *m_url;
 };
 
 #endif

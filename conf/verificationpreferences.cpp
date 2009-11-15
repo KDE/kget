@@ -47,10 +47,12 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
 
     slotAutomaticChecksumVerification(Settings::checksumAutomaticVerification());
     slotUpdateButtons();
+    
+    connect(m_keyServers, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(slotUpdateButtons()));
 
     connect(ui.kcfg_ChecksumAutomaticVerification, SIGNAL(clicked(bool)), this, SLOT(slotAutomaticChecksumVerification(bool)));
     connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateButtons()));
-    connect(ui.keyServers->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons(QItemSelection,QItemSelection)));
+    connect(ui.keyServers->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
     connect(ui.add, SIGNAL(clicked(bool)), this, SLOT(slotAddMirror()));
     connect(ui.remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveMirror()));
     connect(ui.up, SIGNAL(clicked(bool)), this, SLOT(slotMoveMirrorUp()));
@@ -80,20 +82,17 @@ void VerificationPreferences::slotRejected()
     m_keyServers->setStringList(m_tempKeyServers);
 }
 
-void VerificationPreferences::slotUpdateButtons(const QItemSelection &selected, const QItemSelection &deslected)
+void VerificationPreferences::slotUpdateButtons()
 {
-    Q_UNUSED(deslected)
-
     const KUrl url = KUrl(ui.url->text());
     ui.add->setEnabled(url.isValid() && url.hasHost() && !url.protocol().isEmpty());
 
-    const QModelIndexList indexes = selected.indexes();
-    ui.remove->setEnabled(indexes.count() == 1);
-
+    const QModelIndex index = ui.keyServers->currentIndex();
     bool up = false;
     bool down = false;
-    if (indexes.count() == 1) {
-        const QModelIndex index = indexes.first();
+    const bool indexValid = index.isValid();
+    ui.remove->setEnabled(indexValid);
+    if (indexValid) {
         if (index.row() > 0) {
             up = true;
         }
@@ -124,19 +123,8 @@ void VerificationPreferences::slotRemoveMirror()
         int row = index.row();
         m_keyServers->removeRow(row);
         
-        //HACK, otherwise when deleting first item in the list it will show up- and down icon
-        m_keyServers->setStringList(m_keyServers->stringList());
-        const int rowCount = m_keyServers->rowCount();
-        if (row < rowCount) {
-            index = m_keyServers->index(row);
-            ui.keyServers->setCurrentIndex(index);
-        } else if (rowCount) {
-            index = m_keyServers->index(rowCount - 1);
-            ui.keyServers->setCurrentIndex(index);
-        }
+        emit changed();
     }
-
-    emit changed();
 }
 
 void VerificationPreferences::slotMoveMirrorUp()
