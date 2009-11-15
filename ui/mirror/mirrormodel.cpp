@@ -61,7 +61,7 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 
             return numConnections;
         }
-        else if (index.column() == MirrorItem::Preference)
+        else if (index.column() == MirrorItem::Priority)
         {
             QSpinBox *preference = new QSpinBox(parent);
             preference->setRange(0, 100);
@@ -99,7 +99,7 @@ void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) co
             const int num = index.model()->data(index, Qt::EditRole).toInt();
             numConnections->setValue(num);
         }
-        else if (index.column() == MirrorItem::Preference)
+        else if (index.column() == MirrorItem::Priority)
         {
             QSpinBox *preference = static_cast<QSpinBox*>(editor);
             const int num = index.model()->data(index, Qt::EditRole).toInt();
@@ -132,7 +132,7 @@ void MirrorDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, co
             QSpinBox *numConnections = static_cast<QSpinBox*>(editor);
             model->setData(index, numConnections->value());
         }
-        else if (index.column() == MirrorItem::Preference)
+        else if (index.column() == MirrorItem::Priority)
         {
             QSpinBox *preference = static_cast<QSpinBox*>(editor);
             model->setData(index, preference->value());
@@ -206,13 +206,13 @@ QVariant MirrorItem::data(int column, int role) const
             return m_numConnections;
         }
     }
-    else if (column == MirrorItem::Preference)
+    else if (column == MirrorItem::Priority)
     {
         if (role == Qt::DisplayRole)
         {
-            if (m_preference)
+            if (m_priority)
             {
-                return m_preference;
+                return m_priority;
             }
             else
             {
@@ -221,7 +221,7 @@ QVariant MirrorItem::data(int column, int role) const
         }
         else if ((role == Qt::EditRole) || (role == Qt::UserRole))
         {
-            return m_preference;
+            return m_priority;
         }
     }
     else if (column == MirrorItem::Country)
@@ -258,7 +258,7 @@ Qt::ItemFlags MirrorItem::flags(int column) const
     {
         flags |= Qt::ItemIsEditable;
     }
-    else if (column == MirrorItem::Preference)
+    else if (column == MirrorItem::Priority)
     {
         flags |= Qt::ItemIsEditable;
     }
@@ -300,9 +300,9 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
         m_numConnections = value.toInt();
         return true;
     }
-    else if ((column == MirrorItem::Preference) && (role == Qt::EditRole))
+    else if ((column == MirrorItem::Priority) && (role == Qt::EditRole))
     {
-        m_preference = value.toInt();
+        m_priority = value.toInt();
         return true;
     }
     else if ((column == MirrorItem::Country) && (role == Qt::EditRole))
@@ -367,24 +367,25 @@ int MirrorModel::columnCount(const QModelIndex &index) const
 
 QVariant MirrorModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if ((role != Qt::DisplayRole) || (orientation == Qt::Vertical))
-    {
+    if (orientation == Qt::Vertical) {
         return QVariant();
     }
-
-    switch (section)
-    {
-        case MirrorItem::Url:
-            return i18nc("Mirror as in server, in url", "Mirror");
-        case MirrorItem::Connections:
-            return i18nc("Number of paralell connections to the mirror", "Connections");
-        case MirrorItem::Preference:
-            return i18nc("The preference of the mirror", "Preference");
-        case MirrorItem::Country:
-            return i18nc("Location = country", "Location");
-        default:
-            return QVariant();
+    
+    if ((section == MirrorItem::Url) && (role == Qt::DisplayRole)) {
+        return i18nc("Mirror as in server, in url", "Mirror");
+    } else if (section == MirrorItem::Priority) {
+        if (role == Qt::DisplayRole) {
+            return i18nc("The priority of the mirror", "Priority");
+        } else if (role == Qt::DecorationRole) {
+            return KIcon("games-highscores");
+        }
+    } else if ((section == MirrorItem::Connections) && (role == Qt::DisplayRole)) {
+        return i18nc("Number of paralell connections to the mirror", "Connections");
+    } else if ((section == MirrorItem::Country) && (role == Qt::DisplayRole)) {
+        return i18nc("Location = country", "Location");
     }
+
+    return QVariant();
 }
 
 QVariant MirrorModel::data(const QModelIndex &index, int role) const
@@ -442,7 +443,7 @@ bool MirrorModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
-void MirrorModel::addMirror(const KUrl &url, int numConnections, int preference, const QString &countryCode)
+void MirrorModel::addMirror(const KUrl &url, int numConnections, int priority, const QString &countryCode)
 {
     if (!url.isValid())
     {
@@ -467,7 +468,7 @@ void MirrorModel::addMirror(const KUrl &url, int numConnections, int preference,
     item->setData(MirrorItem::Used, Qt::Checked, Qt::CheckStateRole);//every newly added mirror is set to checked automatically
     item->setData(MirrorItem::Url, QVariant(url));
     item->setData(MirrorItem::Connections, numConnections);
-    item->setData(MirrorItem::Preference, preference);
+    item->setData(MirrorItem::Priority, priority);
     item->setData(MirrorItem::Country, countryCode);
 
     emit endInsertRows();

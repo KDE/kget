@@ -21,6 +21,7 @@
 #include "filedlg.h"
 #include "dragdlg.h"
 #include "localemodels.h"
+#include "generalwidget.h"
 
 #include "core/verifier.h"
 
@@ -34,7 +35,6 @@
 #include <KMessageBox>
 #include <KPushButton>
 #include <KStandardDirs>
-#include <KSystemTimeZone>
 
 //TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
 
@@ -215,7 +215,7 @@ MetalinkCreator::MetalinkCreator(QWidget *parent)
   : KAssistantDialog(parent),
     m_needUrlCount(0),
     m_introduction(0),
-    m_general(0),
+    m_generalPage(0),
     m_filesModel(0)
 {
     CountryModel *countryModel = new CountryModel(this);
@@ -250,13 +250,13 @@ MetalinkCreator::~MetalinkCreator()
 void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidgetItem *from)
 {
     //once we leave the introduction page the data is being loaded
-    if (m_introduction && m_general && (from == m_introduction) && (to == m_general))
+    if (m_introduction && m_generalPage && (from == m_introduction) && (to == m_generalPage))
     {
         load();
     }
 
     //it is impossible to return to the introduction page
-    if (to == m_general)
+    if (to == m_generalPage)
     {
         enableButton(KDialog::User3, false);
     }
@@ -275,7 +275,8 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
 void MetalinkCreator::create()
 {
     createIntroduction();
-    createGeneral();
+    m_general = new GeneralWidget(this);
+    m_generalPage = addPage(m_general, i18n("General optional information for the metalink."));
     createFiles();
 }
 
@@ -290,13 +291,13 @@ void MetalinkCreator::load()
         }
     }
 
-    loadGeneral();
+    m_general->load(metalink);
     loadFiles();
 }
 
 void MetalinkCreator::slotSave()
 {
-    saveGeneral();
+    m_general->save(&metalink);
 
     KUrl url = KUrl(uiIntroduction.save->text());
     if (url.isValid())
@@ -335,90 +336,6 @@ void MetalinkCreator::slotUpdateIntroductionNextButton()
     }
 
     setValid(m_introduction, enableNext);
-}
-
-void MetalinkCreator::createGeneral()
-{
-    QWidget *widget = new QWidget(this);
-    uiGeneral.setupUi(widget);
-
-    uiGeneral.dynamic->setToolTip(uiGeneral.labelDynamic->toolTip());
-
-    uiGeneral.publishedoffset->setEnabled(false);
-    uiGeneral.publishedWidget->setEnabled(false);
-    uiGeneral.updatedoffset->setEnabled(false);
-    uiGeneral.updatedWidget->setEnabled(false);
-
-    m_general = addPage(widget, i18n("General optional information for the metalink."));
-}
-
-void MetalinkCreator::loadGeneral()
-{
-    uiGeneral.origin->setUrl(metalink.origin);
-    uiGeneral.dynamic->setChecked(metalink.dynamic);
-
-    uiGeneral.use_published->setChecked(metalink.published.isValid());
-    uiGeneral.use_publishedtimeoffset->setChecked(metalink.published.timeZoneOffset.isValid());
-    if (metalink.published.isValid()) {
-        uiGeneral.published->setDateTime(metalink.published.dateTime);
-        uiGeneral.publishedoffset->setTime(metalink.published.timeZoneOffset);
-        uiGeneral.publishedNegative->setChecked(metalink.published.negativeOffset);
-    } else {
-        uiGeneral.published->setDateTime(QDateTime::currentDateTime());
-        int offset = KSystemTimeZones::local().currentOffset();
-        bool negativeOffset = (offset < 0);
-        uiGeneral.publishedNegative->setChecked(negativeOffset);
-        offset = abs(offset);
-        QTime time = QTime(0, 0, 0);
-        time = time.addSecs(abs(offset));
-        uiGeneral.publishedoffset->setTime(time);
-        uiGeneral.use_publishedtimeoffset->setChecked(true);
-        uiGeneral.publishedNegative->setChecked(negativeOffset);
-    }
-
-    uiGeneral.use_updated->setChecked(metalink.updated.isValid());
-    uiGeneral.use_updatedtimeoffset->setChecked(metalink.updated.timeZoneOffset.isValid());
-    if (metalink.updated.isValid()) {
-        uiGeneral.updated->setDateTime(metalink.updated.dateTime);
-        uiGeneral.updatedoffset->setTime(metalink.updated.timeZoneOffset);
-        uiGeneral.updatedNegative->setChecked(metalink.updated.negativeOffset);
-    } else {
-        uiGeneral.updated->setDateTime(QDateTime::currentDateTime());
-        int offset = KSystemTimeZones::local().currentOffset();
-        bool negativeOffset = (offset < 0);
-        uiGeneral.updatedNegative->setChecked(negativeOffset);
-        QTime time = QTime(0, 0, 0);
-        time = time.addSecs(abs(offset));
-        uiGeneral.updatedoffset->setTime(time);
-        uiGeneral.use_updatedtimeoffset->setChecked(true);
-        uiGeneral.updatedNegative->setChecked(negativeOffset);
-    }
-}
-
-void MetalinkCreator::saveGeneral()
-{
-    metalink.origin = KUrl(uiGeneral.origin->text());
-    metalink.dynamic = uiGeneral.dynamic->isChecked();
-
-    metalink.published.clear();
-    if (uiGeneral.use_published->isChecked())
-    {
-        metalink.published.dateTime = uiGeneral.published->dateTime();
-        if (uiGeneral.use_publishedtimeoffset->isChecked())
-        {
-            metalink.published.timeZoneOffset = uiGeneral.publishedoffset->time();
-        }
-    }
-
-    metalink.updated.clear();
-    if (uiGeneral.use_updated->isChecked())
-    {
-        metalink.updated.dateTime = uiGeneral.updated->dateTime();
-        if (uiGeneral.use_updatedtimeoffset->isChecked())
-        {
-            metalink.updated.timeZoneOffset = uiGeneral.updatedoffset->time();
-        }
-    }
 }
 
 void MetalinkCreator::createFiles()

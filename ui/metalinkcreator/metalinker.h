@@ -125,7 +125,7 @@ class Metaurl
         /**
          * "smaller" urls are less important than larger, larger urls should be preffered
          */
-        bool operator<(const Metaurl &other) const {return (this->preference < other.preference);}
+        bool operator<(const Metaurl &other) const;
 
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
@@ -137,10 +137,10 @@ class Metaurl
         QString type;
 
         /**
-         * the preference of the urls, 100 is highest priority, 1 lowest
-         * default is 0 as in not set
+         * the priority of the urls, 1 is highest priority, higher numbers mean
+         * a lower priority
          */
-        int preference;
+        int priority;
 
         /**
          * Optional the name of a file that should be get of that metaurl
@@ -154,7 +154,7 @@ class Url
 {
     public:
         Url()
-          : preference(0)
+          : priority(0)
         {
         }
 
@@ -174,7 +174,7 @@ class Url
          * the preference of the urls, 100 is highest priority, 1 lowest
          * default is 0 as in not set
          */
-        int preference;
+        int priority;
 
         /**
          * the location of the server eg. "uk"

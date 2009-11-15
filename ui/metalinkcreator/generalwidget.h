@@ -17,54 +17,42 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
 ***************************************************************************/
 
-#ifndef FILEDLG_H
-#define FILEDLG_H
+#ifndef GENERALWIDGET_H
+#define GENERALWIDGET_H
 
-#include <KDialog>
+#include <QWidget>
 
-#include "ui_filedlg.h"
-#include "ui_urlwidget.h"
-#include "ui_commondata.h"
+#include "ui_generalwidget.h"
 
 namespace KGetMetalink
 {
-    class File;
+    class Metalink;
 }
 
-class QSortFilterProxyModel;
-class VerificationModel;
-class UrlWidget;
-
-class FileDlg : public KDialog
+class GeneralWidget : public QWidget
 {
     Q_OBJECT
 
     public:
-        FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent, bool edit = false);
-
-    Q_SIGNALS:
-        void addFile();
-        void fileEdited(const QString &oldFileName, const QString &newFileName);
-
+        GeneralWidget(QWidget *parent = 0);
+        
+        void load(const KGetMetalink::Metalink &metalink) const;
+        void save(KGetMetalink::Metalink *metalink);
+        
     private slots:
-        void slotUpdateOkButton();
-        void slotOkClicked();
-
-        //verification stuff
-        void slotUpdateVerificationButtons();
-        void slotAddHash();
-        void slotRemoveHash();
-
+        /**
+         * To correctly enable checkboxes
+         */
+        void slotPublishedEnabled(bool enabled);
+        
+        /**
+         * To correctly enable checkboxes
+         */
+        void slotUpdatedEnabled(bool enabled);
+        
     private:
-        KGetMetalink::File *m_file;
-        QString m_initialFileName;
-        QStringList m_currentFileNames;
-        VerificationModel *m_verificationModel;
-        bool m_edit;
-        UrlWidget *m_urlWidget;
-        Ui::FileDlg ui;
-        Ui::CommonData uiData;
-        QHash<QString, int> m_diggestLength;
+        Ui::GeneralWidget ui;
+        
 };
 
 #endif

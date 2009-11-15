@@ -189,6 +189,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/renamefile.cpp
    ui/verificationdialog.cpp
    ui/metalinkcreator/metalinkcreator.cpp
+   ui/metalinkcreator/generalwidget.cpp
    ui/metalinkcreator/metalinker.cpp
    ui/metalinkcreator/filedlg.cpp
    ui/metalinkcreator/localemodels.cpp
@@ -247,7 +248,7 @@ kde4_add_ui_files(kget_SRCS
    ui/verificationdialog.ui
    ui/verificationadddlg.ui
    ui/metalinkcreator/introduction.ui
-   ui/metalinkcreator/general.ui
+   ui/metalinkcreator/generalwidget.ui
    ui/metalinkcreator/files.ui
    ui/metalinkcreator/filedlg.ui
    ui/metalinkcreator/dragdlg.ui

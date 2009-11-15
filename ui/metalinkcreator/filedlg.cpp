@@ -24,8 +24,6 @@
 
 #include "../../core/verifier.h"
 
-#include "../mirror/mirrormodel.h"
-
 #include <QtGui/QSortFilterProxyModel>
 
 #include <KLocale>
@@ -90,6 +88,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.add_hash->setGuiItem(KStandardGuiItem::add());
     ui.remove_hash->setGuiItem(KStandardGuiItem::remove());
     ui.used_hashes->setModel(m_verificationModel);
+    ui.used_hashes->hideColumn(VerificationModel::Verified);
     slotUpdateVerificationButtons();
 
     connect(m_verificationModel, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(slotUpdateVerificationButtons()));
@@ -155,9 +154,9 @@ void FileDlg::slotAddHash()
 }
 
 void FileDlg::slotOkClicked()
-{//TODO metaurl!!!
-    KGetMetalink::Verification pieces;
-    pieces.pieces = m_file->verification.pieces;//TODO remove once the partial hashes are also shown
+{
+    QList<KGetMetalink::Metaurl> metaurls = m_file->resources.metaurls;//TODO remove once metaurls are also shown
+    QList<KGetMetalink::Pieces> pieces = m_file->verification.pieces;//TODO remove once the partial hashes are also shown
     m_file->clear();
 
     m_file->name = ui.name->text();
@@ -177,6 +176,7 @@ void FileDlg::slotOkClicked()
     m_file->data.language = uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     m_urlWidget->save();
+    m_file->resources.metaurls = metaurls;
 
 
     //store the verification data
@@ -186,7 +186,7 @@ void FileDlg::slotOkClicked()
         const QString hash = m_verificationModel->index(i, VerificationModel::Checksum).data().toString();
         m_file->verification.hashes[type] = hash;
     }
-    m_file->verification.pieces = pieces.pieces;
+    m_file->verification.pieces = pieces;
 
     //the file has been edited
     if (m_edit)

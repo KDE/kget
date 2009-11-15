@@ -28,7 +28,6 @@
 #include "metalinker.h"
 
 #include "ui_introduction.h"
-#include "ui_general.h"
 #include "ui_files.h"
 
 namespace KGetMetalink
@@ -37,6 +36,7 @@ namespace KGetMetalink
 }
 
 class CountryModel;
+class GeneralWidget;
 class LanguageModel;
 class QDragEnterEvent;
 class QShowEvent;
@@ -200,8 +200,8 @@ class MetalinkCreator : public KAssistantDialog
         Ui::Introduction uiIntroduction;
         KPageWidgetItem *m_introduction;
 
-        Ui::General uiGeneral;
-        KPageWidgetItem *m_general;
+        GeneralWidget *m_general;
+        KPageWidgetItem *m_generalPage;
 
         Ui::Files uiFiles;
         KPageWidgetItem *m_files;

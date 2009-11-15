@@ -77,7 +77,7 @@ void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
             ui.numConnections->setVisible(show);
             break;
 
-        case MirrorItem::Preference:
+        case MirrorItem::Priority:
             ui.labelPreference->setVisible(show);
             ui.preference->setVisible(show);
             break;
@@ -145,7 +145,7 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     ui.remove->setGuiItem(KStandardGuiItem::remove());
     ui.treeView->setModel(m_model);
     ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
-    ui.treeView->hideColumn(MirrorItem::Preference);
+    ui.treeView->hideColumn(MirrorItem::Priority);
     ui.treeView->hideColumn(MirrorItem::Country);
     ui.treeView->setItemDelegate(new MirrorDelegate(this));
 
@@ -170,7 +170,7 @@ void MirrorSettings::updateButton()
 void MirrorSettings::addClicked()
 {
     MirrorAddDlg *dialog = new MirrorAddDlg(m_model, this);
-    dialog->showItem(MirrorItem::Preference, false);
+    dialog->showItem(MirrorItem::Priority, false);
     dialog->showItem(MirrorItem::Country, false);
     dialog->show();
 }

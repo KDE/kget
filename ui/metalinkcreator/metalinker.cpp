@@ -275,10 +275,16 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
 }
 #endif //HAVE_NEPOMUK
 
+
+bool KGetMetalink::Metaurl::operator<(const KGetMetalink::Metaurl &other) const
+{
+     return this->priority > other.priority;
+}
+
 void KGetMetalink::Metaurl::load(const QDomElement &e)
 {
     type = e.attribute("type").toLower();
-    preference = e.attribute("preference").toInt();
+    priority = e.attribute("priority").toInt();
     name = e.attribute("name");
     url = KUrl(e.text());
 }
@@ -287,9 +293,9 @@ void KGetMetalink::Metaurl::save(QDomElement &e) const
 {
     QDomDocument doc = e.ownerDocument();
     QDomElement metaurl = doc.createElement("metaurl");
-    if (preference)
+    if (priority)
     {
-        metaurl.setAttribute("preference", preference);
+        metaurl.setAttribute("priority", priority);
     }
     if (!name.isEmpty())
     {
@@ -311,16 +317,16 @@ bool KGetMetalink::Metaurl::isValid()
 void KGetMetalink::Metaurl::clear()
 {
     type.clear();
-    preference = 0;
+    priority = 0;
     name.clear();
     url.clear();
 }
 
 bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
 {
-    bool smaller = this->preference < other.preference;
+    bool smaller = this->priority > other.priority;
 
-    if (!smaller && (this->preference == other.preference)) {
+    if (!smaller && (this->priority == other.priority)) {
         QString countryCode = KGlobal::locale()->country();
         if (!countryCode.isEmpty()) {
             smaller = (other.location.toLower() == countryCode.toLower());
@@ -332,7 +338,7 @@ bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
 void KGetMetalink::Url::load(const QDomElement &e)
 {
     location = e.attribute("location").toLower();
-    preference = e.attribute("preference").toInt();
+    priority = e.attribute("priority").toInt();
     url = KUrl(e.text());
 }
 
@@ -340,9 +346,9 @@ void KGetMetalink::Url::save(QDomElement &e) const
 {
     QDomDocument doc = e.ownerDocument();
     QDomElement elem = doc.createElement("url");
-    if (preference)
+    if (priority)
     {
-        elem.setAttribute("preference", preference);
+        elem.setAttribute("priority", priority);
     }
     if (!location.isEmpty())
     {
@@ -372,7 +378,7 @@ bool KGetMetalink::Url::isValid()
 
 void KGetMetalink::Url::clear()
 {
-    preference = 0;
+    priority = 0;
     location.clear();
     url.clear();
 }
@@ -838,31 +844,38 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
 
     QDomElement res = e.firstChildElement("resources");
     for (QDomElement elemRes = res.firstChildElement("url"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("url")) {
-        const QString location = elemRes.attribute("location");
+        const QString location = elemRes.attribute("location").toLower();
+
         int preference = elemRes.attribute("preference").toInt();
+        //the maximum preference we use is 100
         if (preference > 100) {
             preference = 100;
         }
+        const int priority = 100 - preference + 1;//convert old preference to new priority
+
         const KUrl link = KUrl(elemRes.text());
         QString type;
-
+        
         if (link.fileName().endsWith(QLatin1String(".torrent"))) {
             type = "torrent";
         }
 
         if (type.isEmpty()) {
             Url url;
+            if (preference) {
+                url.priority = priority;
+            }
             url.location = location;
-            url.preference = preference;
             url.url = link;
-            url.load(elemRes);
             if (url.isValid()) {
                 resources.urls.append(url);
             }
         } else {
             //it might be a metaurl
             Metaurl metaurl;
-            metaurl.preference = preference;
+            if (preference) {
+                metaurl.priority = priority;
+            }
             metaurl.url = link;
             metaurl.type = type;
             if (metaurl.isValid()) {
@@ -1015,8 +1028,13 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
 
     foreach (const Url &url, resources.urls) {
         QDomElement elem = doc.createElement("url");
-        if (url.preference) {
-            elem.setAttribute("preference", url.preference);//TODO convert!!!
+        if (url.priority) {
+            const int priority = url.priority;
+            int preference = 100 - priority + 1;
+            if (preference <= 0) {
+                preference = 1;//HACK if priority is larger 100 makes it 1
+            }
+            elem.setAttribute("preference", preference);
         }
         if (!url.location.isEmpty()) {
             elem.setAttribute("location", url.location);
@@ -1031,9 +1049,14 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
     foreach (const Metaurl &metaurl, resources.metaurls) {
         if (metaurl.type == "torrent") {
             QDomElement elem = doc.createElement("url");
-            if (metaurl.preference) {
-                elem.setAttribute("preference", metaurl.preference);//TODO convert!!!
-                elem.setAttribute("type", "bittorrent");
+            elem.setAttribute("type", "bittorrent");
+            if (metaurl.priority) {
+                const int priority = metaurl.priority;
+                int preference = 100 - priority + 1;
+                if (preference <= 0) {
+                    preference = 1;//HACK if priority is larger 100 makes it 1
+                }
+                elem.setAttribute("preference", preference);
             }
 
             QDomText text = doc.createTextNode(metaurl.url.url());

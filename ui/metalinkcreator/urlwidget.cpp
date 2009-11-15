@@ -24,7 +24,6 @@
 
 #include <QtGui/QSortFilterProxyModel>
 
-
 UrlWidget::UrlWidget(QObject *parent)
   : QObject(parent),
     m_resources(0),
@@ -36,6 +35,7 @@ UrlWidget::UrlWidget(QObject *parent)
 
     m_mirrorModel = new MirrorModel(this);
     ui.used_mirrors->setModel(m_mirrorModel);
+    ui.used_mirrors->resizeColumnToContents(MirrorItem::Priority);
     ui.used_mirrors->hideColumn(MirrorItem::Used);
     ui.used_mirrors->hideColumn(MirrorItem::Connections);
 
@@ -72,7 +72,7 @@ void UrlWidget::init(KGetMetalink::Resources *resources, QSortFilterProxyModel *
 
     foreach (const KGetMetalink::Url &url, m_resources->urls)
     {
-        m_mirrorModel->addMirror(url.url, 0, url.preference, url.location);
+        m_mirrorModel->addMirror(url.url, 0, url.priority, url.location);
     }
 
     MirrorDelegate *delegate = new MirrorDelegate(m_countrySort, this);
@@ -114,7 +114,7 @@ void UrlWidget::save()
         {
             KGetMetalink::Url url;
             url.url = KUrl(m_mirrorModel->index(i, MirrorItem::Url).data(Qt::UserRole).toUrl());
-            url.preference = m_mirrorModel->index(i, MirrorItem::Preference).data(Qt::UserRole).toInt();
+            url.priority = m_mirrorModel->index(i, MirrorItem::Priority).data(Qt::UserRole).toInt();
             url.location = m_mirrorModel->index(i, MirrorItem::Country).data(Qt::UserRole).toString();
             m_resources->urls.append(url);
         }
