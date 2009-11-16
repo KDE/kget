@@ -30,8 +30,10 @@ if(QCA2_FOUND)
 endif(QCA2_FOUND)
 
 if(QGPGME_FOUND)
+    find_package(Boost REQUIRED)
     add_definitions(-DHAVE_QGPGME)
     include_directories(
+        ${Boost_INCLUDE_DIRS}
         ${QGPGME_INCLUDES}
     )
 endif(QGPGME_FOUND)
