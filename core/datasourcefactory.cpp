@@ -659,10 +659,7 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
         return;
     }
 
-    if (!m_startedChunks->allOn())
-    {
-        assignSegments(source);
-    }
+    assignSegments(source);
 }
 
 void DataSourceFactory::assignSegments(TransferDataSource *source)
@@ -793,7 +790,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     {
         m_startedChunks->set(i, true);
     }
-    source->addSegments(newoff, QPair<KIO::fileoffset_t, KIO::fileoffset_t>(segSize, lastSegSize), QPair<int, int>(newStart, newEnd));
+    source->addSegments(newoff, qMakePair(segSize, lastSegSize), qMakePair(newStart, newEnd));
 
     dataSource->setCurrentSegments(dataSource->currentSegments() + 1);
     //there should still be segments added to this transfer

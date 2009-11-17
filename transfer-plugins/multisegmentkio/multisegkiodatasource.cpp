@@ -89,7 +89,7 @@ QList<QPair<int, int> > MultiSegKioDataSource::assignedSegments() const
 void MultiSegKioDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum)
 {
     kDebug(5001);
-    addSegments(offset, QPair<KIO::fileoffset_t, KIO::fileoffset_t>(bytes, bytes), QPair<int, int>(segmentNum, segmentNum));
+    addSegments(offset, qMakePair(bytes, bytes), qMakePair(segmentNum, segmentNum));
 }
 
 void MultiSegKioDataSource::addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
@@ -228,43 +228,37 @@ int MultiSegKioDataSource::countUnfinishedSegments() const
 
 int MultiSegKioDataSource::takeOneSegment()
 {
+    int unassigned = -1;
     Segment *seg = mostUnfinishedSegments();
+    if (seg) {
+        unassigned = seg->takeOneSegment();
+    }
 
-    if (seg)
-    {
-        return seg->takeOneSegment();
-    }
-    else
-    {
-        return -1;
-    }
+    return unassigned;
 }
 
 QPair<int, int> MultiSegKioDataSource::split()
 {
+    QPair<int, int> unassigned = qMakePair(-1, -1);
     Segment *seg = mostUnfinishedSegments();
-    if (seg)
-    {
-        return seg->split();
+    if (seg) {
+        unassigned = seg->split();
     }
-    else
-    {
-        return QPair<int, int>(-1, -1);
-    }
+    
+    return unassigned;
 }
 
 QPair<int, int> MultiSegKioDataSource::removeConnection()
 {
+    QPair<int, int> unassigned = qMakePair(-1, -1);
     Segment *seg = mostUnfinishedSegments();
-    QPair<int, int> assigned;
-    if (seg)
-    {
-        assigned = seg->assignedSegments();
+    if (seg) {
+        unassigned = seg->assignedSegments();
         m_segments.removeAll(seg);
         delete seg;
     }
 
-    return assigned;
+    return unassigned;
 }
 
 #include "multisegkiodatasource.moc"
