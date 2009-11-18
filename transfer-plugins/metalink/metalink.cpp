@@ -508,11 +508,9 @@ void Metalink::slotVerified(bool isVerified)
         if (brokenFiles.count())
         {
             if (KMessageBox::warningYesNoCancelList(0,
-                i18n("The download could not be verified, try to repair it?"),
-                     brokenFiles) == KMessageBox::Yes)
-            {
-                if (repair())
-                {
+                i18n("The download could not be verified, do you want to repair (if repairing does not work the download would be restarted) it?"),
+                     brokenFiles) == KMessageBox::Yes) {
+                if (repair()) {
                     return;
                 }
             }

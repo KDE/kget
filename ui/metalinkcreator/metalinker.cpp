@@ -32,8 +32,6 @@
 #include <Nepomuk/Variant>
 #endif //HAVE_NEPOMUK
 
-const QStringList KGetMetalink::DateConstruct::WEEKDAYS = (QStringList() << "" << "Mon" << "Tue" << "Wed" << "Thu" << "Fri" << "Sat" << "Sun");
-const QStringList KGetMetalink::DateConstruct::MONTHS = (QStringList() << "" << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jul" << "Aug" << "Sep" << "Oct" << "Nov" << "Dec");
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
 
 namespace KGetMetalink
@@ -914,11 +912,12 @@ KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const 
     QString exp = dayMonthExp + yearExp + yearExp;
     int length = exp.length();
 
-    QDate date = QDate::fromString(temp.mid(startPosition, length), exp);
+    QLocale locale = QLocale::c();
+    QDate date = locale.toDate(temp.mid(startPosition, length), exp);
     if (!date.isValid()) {
         exp = dayMonthExp + yearExp;
         length = exp.length();
-        date = QDate::fromString(temp.mid(startPosition, length), exp);
+        date = locale.toDate(temp.mid(startPosition, length), exp);
         if (!date.isValid()) {
             return dateConstruct;
         }
@@ -1168,12 +1167,11 @@ QString KGetMetalink::Metalink_v3::dateConstructToString(const KGetMetalink::Dat
     if (!date.isValid()) {
         return dateString;
     }
+    
+    QLocale locale = QLocale::c();
 
     //"Fri, 01 Apr 2009 00:00:01 +1030"
-    dateString += DateConstruct::WEEKDAYS[date.dateTime.date().dayOfWeek()];
-    dateString += date.dateTime.toString(", dd ");
-    dateString += DateConstruct::MONTHS[date.dateTime.date().month()];
-    dateString += date.dateTime.toString(" yyyy hh:mm:ss ");
+    dateString += locale.toString(date.dateTime, "ddd, dd MMM yyyy hh:mm:ss ");
 
     if (date.timeZoneOffset.isValid()) {
         dateString += (date.negativeOffset ? '-' : '+');

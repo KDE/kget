@@ -64,9 +64,6 @@ class DateConstruct
         QDateTime dateTime;
         QTime timeZoneOffset;
         bool negativeOffset;
-
-        static const QStringList WEEKDAYS;
-        static const QStringList MONTHS;
 };
 
 /**
