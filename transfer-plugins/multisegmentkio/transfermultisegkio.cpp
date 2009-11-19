@@ -213,10 +213,10 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
     }
 
     if (!isVerified) {
-        QString text = i18n("The download (%1) could not be verfied. Do you want to repair it?", m_dest.fileName());
+        QString text = i18n("The download (%1) could not be verified. Do you want to repair it?", m_dest.fileName());
 
         if (!verifier()->partialChunkLength()) {
-            text = i18n("The download (%1) could not be verfied. Do you want to redownload it?", m_dest.fileName());
+            text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
         }
         if (KMessageBox::warningYesNo(0,
                                       text,
