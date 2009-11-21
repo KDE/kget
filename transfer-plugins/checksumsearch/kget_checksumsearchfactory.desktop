@@ -28,6 +28,7 @@ Name[zh_TW]=驗證碼搜尋
 Comment=Tries to find checksums for a specified URL
 Comment[en_GB]=Tries to find checksums for a specified URL
 Comment[et]=Kontrollsumma otsimine määratud URL-ilt
+Comment[gl]=Tenta atopar sumas de comprobación para un URL que se indique
 Comment[nb]=Forsøker å finne sjekksummer for en gitt URL
 Comment[nn]=Prøver å finna sjekksummar for oppgjevne adresser
 Comment[pt]=Tenta pesquisar os códigos de validação ('checksums') para um dado URL
