@@ -1199,6 +1199,10 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
         }
     } else if (signature.status() && (m_sigSummary & GpgME::Signature::Red)) {//TODO handle more cases!
         m_status = Signature::NotVerified;
+        //TODO handle that dialog better in 4.5
+        KMessageBox::error(0,
+                           i18n("The signature could not be verified for %1. See transfer settings for more information.").arg(m_dest.fileName()),
+                           i18n("Signature not verified"));
     }
 
     emit verified(m_status);
