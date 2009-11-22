@@ -76,21 +76,21 @@ void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
 
 void Scheduler::jobQueueMovedJobEvent(JobQueue * queue, Job * job)
 {
-    Q_UNUSED(job);
+    Q_UNUSED(job)
 
     updateQueue(queue);
 }
 
 void Scheduler::jobQueueAddedJobEvent(JobQueue * queue, Job * job)
 {
-    Q_UNUSED(job);
+    Q_UNUSED(job)
 
     updateQueue(queue);
 }
 
 void Scheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
 {
-    Q_UNUSED(job);
+    Q_UNUSED(job)
 
     updateQueue(queue);
 }
@@ -116,7 +116,7 @@ void Scheduler::jobChangedEvent(Job * job, Job::Status status)
 
 void Scheduler::jobChangedEvent(Job * job, Job::Policy policy)
 {
-    Q_UNUSED(policy);
+    Q_UNUSED(policy)
 
     updateQueue( job->jobQueue() );
 }

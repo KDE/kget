@@ -123,7 +123,7 @@ void BTDataSource::update()
 
 void BTDataSource::init(const KUrl &torrentSource, const QByteArray &data)
 {
-    Q_UNUSED(data);
+    Q_UNUSED(data)
     m_torrentSource = torrentSource;
     try
     {

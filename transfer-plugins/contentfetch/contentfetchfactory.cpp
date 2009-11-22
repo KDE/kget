@@ -85,12 +85,12 @@ TransferHandler * ContentFetchFactory::createTransferHandler(
 
 QWidget * ContentFetchFactory::createDetailsWidget(TransferHandler *transfer)
 {
-    Q_UNUSED(transfer);
+    Q_UNUSED(transfer)
     return 0;   //Temporary!!
 }
 
 const QList<KAction*> ContentFetchFactory::actions(TransferHandler *handler)
 {
-    Q_UNUSED(handler);
+    Q_UNUSED(handler)
     return QList<KAction*>();
 }

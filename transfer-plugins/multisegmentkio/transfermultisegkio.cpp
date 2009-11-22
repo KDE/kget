@@ -323,7 +323,7 @@ FileModel *TransferMultiSegKio::fileModel()
 
 void TransferMultiSegKio::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
 {
-    Q_UNUSED(oldUrl);
+    Q_UNUSED(oldUrl)
 
     if (newUrl.isValid() && (newUrl != dest()) && m_dataSourceFactory)
     {

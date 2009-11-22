@@ -259,7 +259,7 @@ void KGetApplet::constraintsEvent(Plasma::Constraints constraints)
 
 bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
 {
-    Q_UNUSED(watched);
+    Q_UNUSED(watched)
     switch (event->type())
     {
         case QEvent::GraphicsSceneDrop:

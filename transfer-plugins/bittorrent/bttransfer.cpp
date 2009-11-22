@@ -424,7 +424,7 @@ void BTTransfer::updateFilesStatus()
 
 void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 {
-    Q_UNUSED(data);
+    Q_UNUSED(data)
     kDebug(5001);
     if (src != m_source && !src.isEmpty())
         m_source = src;
@@ -496,7 +496,7 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 
 void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
 {
-    Q_UNUSED(error);
+    Q_UNUSED(error)
     stop();
     setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
     KMessageBox::error(0, errormsg, i18n("Error"));
@@ -505,7 +505,7 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
     kDebug(5001) << "Start seeding *********************************************************************";
-    Q_UNUSED(ti);
+    Q_UNUSED(ti)
     m_downloadFinished = true;
     //timer.stop();
     setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding...."), SmallIcon("media-playback-start"));

@@ -188,7 +188,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         void speed(ulong speed);
 
     private Q_SLOTS:
-        virtual void slotSpeed(ulong speed) {Q_UNUSED(speed);}
+        virtual void slotSpeed(ulong speed) {Q_UNUSED(speed)}
 
     protected:
         KUrl m_sourceUrl;

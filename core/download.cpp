@@ -30,7 +30,7 @@ Download::~Download()
 
 void Download::slotData(KIO::Job *job, const QByteArray& data)
 {
-    Q_UNUSED(job);
+    Q_UNUSED(job)
     kDebug(5001);
     /**if (data.size() == 0)
     {

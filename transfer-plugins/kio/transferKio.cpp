@@ -79,7 +79,7 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
 
 void TransferKio::newDestResult(KJob *result)
 {
-    Q_UNUSED(result);//TODO handle errors etc.!
+    Q_UNUSED(result)//TODO handle errors etc.!
     m_movingFile = false;
     start();
     setTransferChange(Tc_FileName);
@@ -210,21 +210,21 @@ void TransferKio::slotResult( KJob * kioJob )
 
 void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 {
-  Q_UNUSED(kioJob);
+  Q_UNUSED(kioJob)
     m_log.append(QString(msg));
 }
 
 void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
     kDebug(5001) << "slotPercent";
-    Q_UNUSED(kioJob);
+    Q_UNUSED(kioJob)
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
 }
 
 void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 {
-    Q_UNUSED(kioJob);
+    Q_UNUSED(kioJob)
 
     kDebug(5001) << "slotTotalSize";
 
@@ -236,7 +236,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 
 void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 {
-    Q_UNUSED(kioJob);
+    Q_UNUSED(kioJob)
 
 //     kDebug(5001) << "slotProcessedSize";
 
@@ -251,7 +251,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 
 void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
-    Q_UNUSED(kioJob);
+    Q_UNUSED(kioJob)
 
 //     kDebug(5001) << "slotSpeed";
 

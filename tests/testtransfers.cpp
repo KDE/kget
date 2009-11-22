@@ -194,6 +194,8 @@ void TestTransfers::simpleTest()
 
 void TestTransfers::timerEvent(QTimerEvent * event)
 {
+    Q_UNUSED(event)
+
 //     foreach(OrgKdeKgetTransferInterface * iface, m_transferIfaces)
 //     {
 //         if(i%7)

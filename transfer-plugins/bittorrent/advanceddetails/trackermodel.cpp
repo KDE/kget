@@ -157,7 +157,7 @@ namespace kt
 	
 	bool TrackerModel::insertRows(int row,int count,const QModelIndex & parent)
 	{
-		Q_UNUSED(parent);
+        Q_UNUSED(parent)
 		beginInsertRows(QModelIndex(),row,row + count - 1);
 		if (tc)
 		{
@@ -181,7 +181,7 @@ namespace kt
 	
 	bool TrackerModel::removeRows(int row,int count,const QModelIndex & parent)
 	{
-		Q_UNUSED(parent);
+        Q_UNUSED(parent)
 		beginRemoveRows(QModelIndex(),row,row + count - 1);
 		if (tc)
 		{
@@ -267,7 +267,7 @@ namespace kt
 			ret = true;
 		}
 		
-		if (time_to_next_update != trk->timeToNextUpdate())
+		if (static_cast<bt::Uint32>(time_to_next_update) != trk->timeToNextUpdate())
 		{
 			time_to_next_update = trk->timeToNextUpdate();
 			ret = true;

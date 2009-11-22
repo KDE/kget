@@ -92,7 +92,7 @@ void Transfer::setNepomukHandler(NepomukHandler *handler)
 
 bool Transfer::setDirectory(const KUrl& newDirectory)
 {
-    Q_UNUSED(newDirectory);
+    Q_UNUSED(newDirectory)
 
     //the standard implemention always returns false
     return false;

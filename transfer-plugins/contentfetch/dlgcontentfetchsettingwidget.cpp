@@ -252,7 +252,7 @@ void DlgContentFetchSettingWidget::slotCheckConfigurable(QTreeWidgetItem *p_item
 void DlgContentFetchSettingWidget::slotEnableChanged(QTreeWidgetItem* p_item,
                                                      int column)
 {
-    Q_UNUSED(p_item);
+    Q_UNUSED(p_item)
     if (column != 0)
     {
         return;

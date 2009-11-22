@@ -130,7 +130,7 @@ namespace kt
 	
 	void WebSeedsTab::selectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
 	{
-		Q_UNUSED(deselected);
+        Q_UNUSED(deselected)
 		if (!curr_tc)
 			return;
 		

@@ -27,7 +27,7 @@
 KGetEngine::KGetEngine(QObject* parent, const QVariantList& args)
     : Plasma::DataEngine(parent)
 {
-    Q_UNUSED(args);
+    Q_UNUSED(args)
 
     interface = QDBusConnection::sessionBus().interface();
     setMinimumPollingInterval(MINIMUM_UPDATE_INTERVAL);

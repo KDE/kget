@@ -166,7 +166,7 @@ void TransfersView::populateHeaderActions()
 
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
 
     closeExpandableDetails();
     QTreeView::dragMoveEvent(event);
@@ -238,9 +238,9 @@ void TransfersView::toggleMainGroup()
 
 void TransfersView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end)
 {
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
+    Q_UNUSED(parent)
+    Q_UNUSED(start)
+    Q_UNUSED(end)
 
     closeExpandableDetails(currentIndex());
 }

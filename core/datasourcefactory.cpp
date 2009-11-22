@@ -846,7 +846,7 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
 
 void DataSourceFactory::slotPercent(KJob* job, ulong p)
 {
-    Q_UNUSED(job);
+    Q_UNUSED(job)
     emit percent(p);
 }
 
@@ -918,7 +918,7 @@ void DataSourceFactory::startMove()
 
 void DataSourceFactory::newDestResult(KJob *job)
 {
-    Q_UNUSED(job);//TODO handle errors etc.?
+    Q_UNUSED(job)//TODO handle errors etc.?
 
     m_movingFile = false;
     changeStatus(m_statusBeforeMove);

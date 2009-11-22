@@ -20,7 +20,7 @@ class Operation
 {
 public:
     // The Type enums numbers must be consecutive!!!
-    typedef enum Type
+    enum Type
     {
         TransferStart = 0,
         TransferStop  = 1,

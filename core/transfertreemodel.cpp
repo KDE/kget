@@ -596,7 +596,7 @@ int TransferTreeModel::column(TransferGroup::GroupChange flag)
 
 void TransferTreeModel::timerEvent(QTimerEvent *event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
 //     kDebug(5001) << "TransferTreeModel::timerEvent";
 
     QMap<TransferHandler *, Transfer::ChangesFlags> updatedTransfers;

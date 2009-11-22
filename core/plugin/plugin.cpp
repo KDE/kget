@@ -16,7 +16,7 @@
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList &args)
   : QObject(parent)
 {
-    Q_UNUSED(args);
+    Q_UNUSED(args)
 }
 
 KGetPlugin::~KGetPlugin()

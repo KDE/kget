@@ -65,7 +65,7 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
 {
     kDebug(5001) << "TransferDetails::slotTransferChanged";
 
-    Q_UNUSED(transfer);
+    Q_UNUSED(transfer)
 
     if(flags & Transfer::Tc_Status)
     {

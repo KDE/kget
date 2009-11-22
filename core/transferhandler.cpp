@@ -28,7 +28,8 @@
 
 TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
   : Handler(scheduler, parent),
-    m_transfer(parent)
+    m_transfer(parent),
+    m_changesFlags(Transfer::Tc_None)
 {
     static int dBusObjIdx = 0;
     dBusObjIdx++;

@@ -114,6 +114,7 @@ MainWindow::~MainWindow()
     // the following call saves options set in above dtors
     Settings::self()->writeConfig();
 
+    delete m_drop;
     delete m_kget;
 }
 

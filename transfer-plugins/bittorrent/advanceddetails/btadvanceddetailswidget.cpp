@@ -77,7 +77,7 @@ void BTAdvancedDetailsWidget::init()
 
 void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
 
     if (tc)
         tc->setMonitor(0);
@@ -94,7 +94,7 @@ void BTAdvancedDetailsWidget::slotTransferChanged(TransferHandler * transfer, Tr
 {
     kDebug(5001) << "BTAdvancedDetailsWidget::slotTransferChanged" ;
     
-    Q_UNUSED(transfer);
+    Q_UNUSED(transfer)
     
     if (flags & BTTransfer::Tc_ChunksTotal || flags & BTTransfer::Tc_ChunksDownloaded || flags & BTTransfer::Tc_ChunksExcluded || flags & BTTransfer::Tc_ChunksLeft || flags & Transfer::Tc_DownloadSpeed || flags & Transfer::Tc_UploadSpeed)
     {

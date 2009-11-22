@@ -304,7 +304,7 @@ void DropTarget::mouseDoubleClickEvent(QMouseEvent * e)
 
 void DropTarget::mouseMoveEvent(QMouseEvent * e)
 {
-    Q_UNUSED(e);
+    Q_UNUSED(e)
     if ( isdragging && !Settings::dropSticky() )
     {
         move( QCursor::pos().x() - dx, QCursor::pos().y() - dy );
@@ -314,11 +314,13 @@ void DropTarget::mouseMoveEvent(QMouseEvent * e)
 
 void DropTarget::enterEvent(QEvent * event)
 {
+    Q_UNUSED(event)
     popupTimer->start(2000);
 }
 
 void DropTarget::leaveEvent(QEvent * event)
 {
+    Q_UNUSED(event)
     popupTimer->stop();
 }
 

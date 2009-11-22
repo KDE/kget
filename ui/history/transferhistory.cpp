@@ -197,7 +197,7 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
 
 void TransferHistory::hideEvent(QHideEvent *event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     disconnect(watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotAddTransfers()));//Prevent reloading of TransferHistory when saving
     deleteLater();
 }

@@ -459,8 +459,8 @@ namespace kt
 	
 	void FileView::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
 	{
-		Q_UNUSED(topLeft);
-		Q_UNUSED(bottomRight);
+        Q_UNUSED(topLeft)
+        Q_UNUSED(bottomRight)
 		redraw = true;
 	}
 }

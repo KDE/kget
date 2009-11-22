@@ -68,7 +68,7 @@ KioDownload::~KioDownload()
 
 // void KioDownload::newDestResult(KJob *result)
 // {
-//     Q_UNUSED(result);//TODO handle errors etc.!
+//     Q_UNUSED(result)//TODO handle errors etc.!
 //     m_movingFile = false;
 //     start();
 //     setTransferChange(Tc_FileName);
@@ -182,28 +182,28 @@ void KioDownload::slotResult(KJob *kioJob)
 
 // void KioDownload::slotInfoMessage( KJob * kioJob, const QString & msg )
 // {
-//   Q_UNUSED(kioJob);
+//   Q_UNUSED(kioJob)
 //     m_log.append(QString(msg));
 // }
 // 
 // void KioDownload::slotPercent( KJob * kioJob, unsigned long percent )
 // {
 //     kDebug(5001) << "slotPercent";
-//     Q_UNUSED(kioJob);
+//     Q_UNUSED(kioJob)
 //     m_percent = percent;
 //     setTransferChange(Tc_Percent, true);
 // }
 // 
 void KioDownload::slotTotalSize(KJob *kioJob, qulonglong size)
 {
-    Q_UNUSED(kioJob);
+    Q_UNUSED(kioJob)
 
     emit totalSize(size);
 }
 
 void KioDownload::slotSpeed(KJob *kioJob, unsigned long bytes_per_second)
 {
-    Q_UNUSED(kioJob);
+    Q_UNUSED(kioJob)
 
     emit speed(bytes_per_second);
 }

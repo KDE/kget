@@ -371,8 +371,8 @@ bool KGet::delTransfer(TransferHandler * transfer)
 
 void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 {
-  Q_UNUSED(transfer);
-  Q_UNUSED(groupName);
+  Q_UNUSED(transfer)
+  Q_UNUSED(groupName)
 }
 
 void KGet::redownloadTransfer(TransferHandler * transfer)

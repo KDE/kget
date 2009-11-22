@@ -43,6 +43,8 @@ const static int SPACING = 4;
 
 void KGetAppletUtils::paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rect)
 {
+    Q_UNUSED(svg)
+
     p->setRenderHint(QPainter::SmoothPixmapTransform);
     QFont font = Plasma::Theme::defaultTheme()->font(Plasma::Theme::DefaultFont);
     font.setBold(true);

@@ -26,7 +26,8 @@
 
 TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)
   : Handler(scheduler, parent),
-    m_group(parent)
+    m_group(parent),
+    m_changesFlags(Transfer::Tc_None)
 {
 }
 

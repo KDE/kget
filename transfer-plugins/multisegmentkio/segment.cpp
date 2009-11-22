@@ -74,8 +74,8 @@ bool Segment::createTransfer()
 
 void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
 {
-    Q_UNUSED(job);
-    Q_UNUSED(offset);
+    Q_UNUSED(job)
+    Q_UNUSED(offset)
     kDebug(5001);
     m_canResume = true;
 }

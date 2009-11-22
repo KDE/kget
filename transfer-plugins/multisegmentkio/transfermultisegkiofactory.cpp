@@ -58,13 +58,13 @@ TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * t
 
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
-    Q_UNUSED(transfer);
+    Q_UNUSED(transfer)
     return 0;   //Temporary!!
 }
 
 const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
 {
-    Q_UNUSED(handler);
+    Q_UNUSED(handler)
     return QList<KAction *>();
 }
 

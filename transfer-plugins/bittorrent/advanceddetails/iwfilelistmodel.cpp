@@ -106,8 +106,8 @@ namespace kt
 					return InfoWidgetPluginSettings::normalColor();
 				case ONLY_SEED_PRIORITY: 
 				case EXCLUDED: 
-				case PREVIEW_PRIORITY: 
-				default:*/
+				case PREVIEW_PRIORITY:*/ 
+                default:
 					return QVariant();
 			}
 		}
@@ -244,14 +244,14 @@ namespace kt
 
 	void IWFileListModel::filePercentageChanged(bt::TorrentFileInterface* file,float percentage)
 	{
-		Q_UNUSED(percentage);
+        Q_UNUSED(percentage)
 		QModelIndex idx = createIndex(file->getIndex(),4,file);
 		emit dataChanged(idx,idx);
 	}
 
 	void IWFileListModel::filePreviewChanged(bt::TorrentFileInterface* file,bool preview)
 	{
-		Q_UNUSED(preview);
+        Q_UNUSED(preview)
 		QModelIndex idx = createIndex(file->getIndex(),3,file);
 		emit dataChanged(idx,idx);
 	}

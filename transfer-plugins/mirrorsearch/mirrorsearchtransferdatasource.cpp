@@ -33,9 +33,9 @@ void MirrorSearchTransferDataSource::stop()
 
 void MirrorSearchTransferDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum)
 {
-    Q_UNUSED(offset);
-    Q_UNUSED(bytes);
-    Q_UNUSED(segmentNum);
+    Q_UNUSED(offset)
+    Q_UNUSED(bytes)
+    Q_UNUSED(segmentNum)
     kDebug(5001);
 }
 

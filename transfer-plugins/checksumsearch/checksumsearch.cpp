@@ -64,7 +64,7 @@ void ChecksumSearch::createDownload()
 
 void ChecksumSearch::slotData(KIO::Job *job, const QByteArray &data)
 {
-    Q_UNUSED(job);
+    Q_UNUSED(job)
 
     if (m_dataBA.size() > 5 * 1024) {
         m_copyJob->kill(KJob::EmitResult);
