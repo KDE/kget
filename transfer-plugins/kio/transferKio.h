@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -42,6 +43,7 @@ class TransferKio : public Transfer
         bool repair(const KUrl &file = KUrl());
 
         Verifier *verifier(const KUrl &file = KUrl());
+        Signature *signature(const KUrl &file = KUrl());
 
     public slots:
         bool setNewDestination(const KUrl &newDestination);
@@ -72,6 +74,7 @@ class TransferKio : public Transfer
 
     private:
         Verifier *m_verifier;
+        Signature *m_signature;
 };
 
 #endif

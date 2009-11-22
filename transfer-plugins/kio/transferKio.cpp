@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -13,6 +14,7 @@
 #include "core/nepomukhandler.h"
 #endif //HAVE_NEPOMUK
 #include "core/verifier.h"
+#include "kget/settings.h"
 
 #include <kiconloader.h>
 #include <kio/scheduler.h>
@@ -32,7 +34,8 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0),
       m_movingFile(false),
-      m_verifier(0)
+      m_verifier(0),
+      m_signature(0)
 {
 
 }
@@ -46,11 +49,9 @@ bool TransferKio::setDirectory(const KUrl& newDirectory)
 
 bool TransferKio::setNewDestination(const KUrl &newDestination)
 {
-    if (isResumable() && newDestination.isValid() && (newDestination != dest()))
-    {
+    if (isResumable() && newDestination.isValid() && (newDestination != dest())) {
         KUrl oldPath = KUrl(m_dest.path() + ".part");
-        if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl()))
-        {
+        if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl())) {
             m_movingFile = true;
             stop();
             setStatus(Job::Moving);
@@ -61,9 +62,11 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
             nepomukHandler()->setNewDestination(m_dest);
 #endif //HAVE_NEPOMUK
 
-            if (m_verifier)
-            {
+            if (m_verifier) {
                 m_verifier->setDestination(newDestination);
+            }
+            if (m_signature) {
+                m_signature->setDestination(newDestination);
             }
 
             KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
@@ -159,8 +162,7 @@ void TransferKio::createJob()
 void TransferKio::slotResult( KJob * kioJob )
 {
     kDebug(5001) << "slotResult  (" << kioJob->error() << ")";
-    switch (kioJob->error())
-    {
+    switch (kioJob->error()) {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
             setStatus(Job::Finished);
@@ -181,17 +183,13 @@ void TransferKio::slotResult( KJob * kioJob )
     m_copyjob=0;
 
     Transfer::ChangesFlags flags = Tc_Status;
-    if (status() == Job::Finished)
-    {
-        if (!m_totalSize)
-        {
+    if (status() == Job::Finished) {
+        if (!m_totalSize) {
             //downloaded elsewhere already, e.g. Konqueror
-            if (!m_downloadedSize)
-            {
+            if (!m_downloadedSize) {
                 QFile file(m_dest.path() + ".part");
                 m_downloadedSize = file.size();
-                if (!m_downloadedSize)
-                {
+                if (!m_downloadedSize) {
                     QFile file(m_dest.path());
                     m_downloadedSize = file.size();
                 }
@@ -199,9 +197,11 @@ void TransferKio::slotResult( KJob * kioJob )
             m_totalSize = m_downloadedSize;
             flags |= Tc_DownloadedSize;
         }
-        if (m_verifier)
-        {
+        if (m_verifier && Settings::checksumAutomaticVerification()) {
             m_verifier->verify();
+        }
+        if (m_signature && Settings::signatureAutomaticVerification()) {
+            m_signature->verify();
         }
     }
 
@@ -319,6 +319,17 @@ Verifier *TransferKio::verifier(const KUrl &file)
     }
 
     return m_verifier;
+}
+
+Signature *TransferKio::signature(const KUrl &file)
+{
+    Q_UNUSED(file)
+
+    if (!m_signature) {
+        m_signature = new Signature(m_dest, this);
+    }
+    
+    return m_signature;
 }
 
 #include "transferKio.moc"
