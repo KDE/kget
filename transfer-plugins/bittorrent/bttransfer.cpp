@@ -437,7 +437,7 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
     setStatus(Job::Stopped, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
-    bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
+    bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"), false, false);//initialize the torrent-log
 
     bt::SetClientInfo("KGet", 2, KDE_VERSION_MINOR, KDE_VERSION_RELEASE, bt::NORMAL, "KG");//Set client info to KGet
 
