@@ -7,6 +7,7 @@ Icon=kget
 # standard fields
 Name=Checksum Search
 Name[en_GB]=Checksum Search
+Name[es]=Buscar comprabación de suma
 Name[et]=Kontrollsumma otsing
 Name[gl]=Procura de suma de comprobación
 Name[hr]=Pretraživač kontrolnih suma
@@ -27,6 +28,7 @@ Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
 Comment[en_GB]=Tries to find checksums for a specified URL
+Comment[es]=Intenta encontrar comprobación de suma para una dirección URL específicada
 Comment[et]=Kontrollsumma otsimine määratud URL-ilt
 Comment[gl]=Tenta atopar sumas de comprobación para un URL que se indique
 Comment[nb]=Forsøker å finne sjekksummer for en gitt URL
