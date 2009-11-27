@@ -140,7 +140,7 @@ if (KWORKSPACE_FOUND)
 endif (KWORKSPACE_FOUND)
 
 if (HAVE_NEPOMUK)
-  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${KDE4_NEPOMUK_LIBS})
+  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
 endif (HAVE_NEPOMUK)
 
 if (SQLITE_FOUND)
@@ -277,7 +277,7 @@ endif(QCA2_FOUND)
 
 
 if (HAVE_NEPOMUK)
-  target_link_libraries(kget ${KDE4_NEPOMUK_LIBS})
+  target_link_libraries(kget ${NEPOMUK_LIBRARIES})
 endif (HAVE_NEPOMUK)
 
 if (KONQUEROR_FOUND)
