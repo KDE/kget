@@ -31,7 +31,7 @@
 #include <dom/html_document.h>
 #include <kparts/partmanager.h>
 
-#ifdef HAVE_WEBKITKDE
+#ifdef HAVE_WEBKITPART
 #include <webkitpart.h>
 #include <QWebView>
 #include <QWebFrame>
@@ -109,7 +109,7 @@ void KGet_plug_in::slotShowDrop()
         QWidget *parentWidget = 0;
         if (parent() && parent()->inherits("KHTMLPart"))
             parentWidget = static_cast<KHTMLPart*>(parent())->widget();
-#ifdef HAVE_WEBKITKDE
+#ifdef HAVE_WEBKITPART
         if (parent() && parent()->inherits("WebKitPart"))
             parentWidget = static_cast<WebKitPart*>(parent())->view();
 #endif
@@ -158,7 +158,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
         if (htmlPart)
             doc = htmlPart->htmlDocument();
 
-#ifdef HAVE_WEBKITKDE
+#ifdef HAVE_WEBKITPART
         WebKitPart *part = qobject_cast<WebKitPart *>(parent());
         if (part) {
             doc.open();
