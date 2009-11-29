@@ -174,7 +174,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     m_buffer.append(_data);
     if (static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
     {
-        kDebug(5001) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it
+        kDebug(5001) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it? is this even needed?
         m_buffer.truncate(m_totalBytesLeft);
         writeBuffer();
     }
@@ -193,7 +193,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
 bool Segment::writeBuffer()
 {
     kDebug(5001) << "Segment::writeBuffer() sending:" << m_buffer.size() << "from job:" << m_getJob;
-    if (m_buffer.isEmpty()) {//TODO && !m_totalBytesLeft --> make finish
+    if (m_buffer.isEmpty()) {
         return false;
     }
 
@@ -211,18 +211,17 @@ bool Segment::writeBuffer()
 
     //check which segments have been finished
     bool finished = false;
+    //m_currentSegSize being smaller than 1 means that at least one segment has been finished
     while (m_currentSegSize <= 0 && !finished) {
         finished = (m_currentSegment == m_endSegment);
-        kDebug() << "***finished" << m_currentSegment << "out of" << m_endSegment << finished;
         emit finishedSegment(this, m_currentSegment, finished);
 
-        ++m_currentSegment;
-        m_currentSegSize += (finished ? m_segSize.second : m_segSize.first);
+        if (!finished) {
+            ++m_currentSegment;
+            m_currentSegSize += (m_currentSegment == m_endSegment ? m_segSize.second : m_segSize.first);
+        }
     }
-//     if (finished) {//NOTE needed?
-//         m_currentSegment = m_endSegment;
-//         m_currentSegSize = 0;
-//     }
+
 
     return worked;
 }

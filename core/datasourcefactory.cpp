@@ -656,7 +656,7 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
     m_finished = m_finishedChunks->allOn();
     if (m_finished)
     {
-        kDebug() << "***all chunks on";
+        kDebug() << "All segments have been downloaded.";
         return;
     }
 
@@ -837,7 +837,6 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
 
     if (m_finished)
     {
-        kDebug() << "***data written and finished";
         m_speedTimer->stop();
         killPutJob();
         changeStatus(Job::Finished);
@@ -1119,7 +1118,6 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
             emit percent(100);
 
             if (!loaded) {
-                kDebug(5001) << "****Verifying";
                 if (Settings::checksumAutomaticVerification() && verifier()->isVerifyable()) {
                     verifier()->verify();
                 }
@@ -1150,7 +1148,7 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
         //status the program was ended with
         return;
     }
-    kDebug() << "***emitting status change";
+
     emit statusChanged(m_status);
 }
 
