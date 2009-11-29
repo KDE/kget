@@ -124,8 +124,12 @@ void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum
 {
     if (connectionFinished)
     {
+        kDebug() << "***Conneciton finished" << segment;
         m_segments.removeAll(segment);
         delete segment;
+    }
+    if (m_segments.count() == 1) {
+        kDebug() << "***num segs still open:" << m_segments.count() << m_segments.first();
     }
     emit finishedSegment(this, segmentNum, connectionFinished);
 }
