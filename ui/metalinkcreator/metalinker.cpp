@@ -33,6 +33,7 @@
 #endif //HAVE_NEPOMUK
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
+const uint KGetMetalink::Metalink::MAX_PRIORITY = 255;
 
 namespace KGetMetalink
 {
@@ -276,13 +277,16 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
 
 bool KGetMetalink::Metaurl::operator<(const KGetMetalink::Metaurl &other) const
 {
-     return this->priority > other.priority;
+     return (this->priority > other.priority) || (this->priority == 0);
 }
 
 void KGetMetalink::Metaurl::load(const QDomElement &e)
 {
     type = e.attribute("type").toLower();
-    priority = e.attribute("priority").toInt();
+    priority = e.attribute("priority").toUInt();
+    if (priority > Metalink::MAX_PRIORITY) {
+        priority = Metalink::MAX_PRIORITY;
+    }
     name = e.attribute("name");
     url = KUrl(e.text());
 }
@@ -322,7 +326,7 @@ void KGetMetalink::Metaurl::clear()
 
 bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
 {
-    bool smaller = this->priority > other.priority;
+    bool smaller = (this->priority > other.priority) || ((this->priority == 0) && (other.priority != 0));
 
     if (!smaller && (this->priority == other.priority)) {
         QString countryCode = KGlobal::locale()->country();
@@ -336,7 +340,10 @@ bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
 void KGetMetalink::Url::load(const QDomElement &e)
 {
     location = e.attribute("location").toLower();
-    priority = e.attribute("priority").toInt();
+    priority = e.attribute("priority").toUInt();
+    if (priority > Metalink::MAX_PRIORITY) {
+        priority = Metalink::MAX_PRIORITY;
+    }
     url = KUrl(e.text());
 }
 
@@ -704,6 +711,8 @@ void KGetMetalink::Metalink::clear()
     files.clear();
 }
 
+const uint KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
+
 KGetMetalink::Metalink_v3::Metalink_v3()
 {
 }
@@ -844,12 +853,12 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
     for (QDomElement elemRes = res.firstChildElement("url"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("url")) {
         const QString location = elemRes.attribute("location").toLower();
 
-        int preference = elemRes.attribute("preference").toInt();
-        //the maximum preference we use is 100
-        if (preference > 100) {
-            preference = 100;
+        uint preference = elemRes.attribute("preference").toUInt();
+        //the maximum preference we use is MAX_PREFERENCE
+        if (preference > MAX_PREFERENCE) {
+            preference = MAX_PREFERENCE;
         }
-        const int priority = 100 - preference + 1;//convert old preference to new priority
+        const int priority = MAX_PREFERENCE - preference + 1;//convert old preference to new priority
 
         const KUrl link = KUrl(elemRes.text());
         QString type;
@@ -1027,11 +1036,11 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
 
     foreach (const Url &url, resources.urls) {
         QDomElement elem = doc.createElement("url");
-        if (url.priority) {
-            const int priority = url.priority;
-            int preference = 100 - priority + 1;
+        const uint priority = url.priority;
+        if (priority) {
+            int preference = MAX_PREFERENCE - priority + 1;
             if (preference <= 0) {
-                preference = 1;//HACK if priority is larger 100 makes it 1
+                preference = 1;//HACK if priority is larger MAX_PREFERENCE makes it 1
             }
             elem.setAttribute("preference", preference);
         }
@@ -1049,11 +1058,11 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
         if (metaurl.type == "torrent") {
             QDomElement elem = doc.createElement("url");
             elem.setAttribute("type", "bittorrent");
-            if (metaurl.priority) {
-                const int priority = metaurl.priority;
-                int preference = 100 - priority + 1;
+            const uint priority = metaurl.priority;
+            if (priority) {
+                int preference = MAX_PREFERENCE - priority + 1;
                 if (preference <= 0) {
-                    preference = 1;//HACK if priority is larger 100 makes it 1
+                    preference = 1;//HACK if priority is larger MAX_PREFERENCE makes it 1
                 }
                 elem.setAttribute("preference", preference);
             }

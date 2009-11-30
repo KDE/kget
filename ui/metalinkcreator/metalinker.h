@@ -117,7 +117,10 @@ class CommonData
 class Metaurl
 {
     public:
-        Metaurl() {}
+        Metaurl()
+          : priority(0)
+        {
+        }
 
         /**
          * "smaller" urls are less important than larger, larger urls should be preffered
@@ -134,10 +137,10 @@ class Metaurl
         QString type;
 
         /**
-         * the priority of the urls, 1 is highest priority, higher numbers mean
-         * a lower priority
+         * the priority of the urls, 1 is highest priority, 255 lowest
+         * default is 0 as in not set and thus is ranked even behind 255
          */
-        int priority;
+        uint priority;
 
         /**
          * Optional the name of a file that should be get of that metaurl
@@ -168,10 +171,10 @@ class Url
         void clear();
 
         /**
-         * the preference of the urls, 100 is highest priority, 1 lowest
-         * default is 0 as in not set
+         * the priority of the urls, 1 is highest priority, 255 lowest
+         * default is 0 as in not set and thus is ranked even behind 255
          */
-        int priority;
+        uint priority;
 
         /**
          * the location of the server eg. "uk"
@@ -316,6 +319,7 @@ class Metalink
         Files files;
 
         static const QString KGET_DESCRIPTION;
+        static const uint MAX_PRIORITY; //maximum pirority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
 };
 
 /**
@@ -359,6 +363,7 @@ class Metalink_v3
 
     private:
         Metalink m_metalink;
+        static const uint MAX_PREFERENCE;
 };
 
 /**

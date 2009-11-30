@@ -64,7 +64,7 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         else if (index.column() == MirrorItem::Priority)
         {
             QSpinBox *preference = new QSpinBox(parent);
-            preference->setRange(0, 100);
+            preference->setRange(0, 255);
 
             return preference;
         }
