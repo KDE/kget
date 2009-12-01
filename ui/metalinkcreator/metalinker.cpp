@@ -33,7 +33,7 @@
 #endif //HAVE_NEPOMUK
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
-const uint KGetMetalink::Metalink::MAX_PRIORITY = 255;
+const quint16 KGetMetalink::Metalink::MAX_PRIORITY = 255;
 
 namespace KGetMetalink
 {
@@ -711,7 +711,7 @@ void KGetMetalink::Metalink::clear()
     files.clear();
 }
 
-const uint KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
+const quint16 KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
 
 KGetMetalink::Metalink_v3::Metalink_v3()
 {
@@ -853,7 +853,7 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
     for (QDomElement elemRes = res.firstChildElement("url"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("url")) {
         const QString location = elemRes.attribute("location").toLower();
 
-        uint preference = elemRes.attribute("preference").toUInt();
+        quint16 preference = elemRes.attribute("preference").toUInt();
         //the maximum preference we use is MAX_PREFERENCE
         if (preference > MAX_PREFERENCE) {
             preference = MAX_PREFERENCE;
@@ -1036,7 +1036,7 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
 
     foreach (const Url &url, resources.urls) {
         QDomElement elem = doc.createElement("url");
-        const uint priority = url.priority;
+        const quint16 priority = url.priority;
         if (priority) {
             int preference = MAX_PREFERENCE - priority + 1;
             if (preference <= 0) {
@@ -1058,7 +1058,7 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
         if (metaurl.type == "torrent") {
             QDomElement elem = doc.createElement("url");
             elem.setAttribute("type", "bittorrent");
-            const uint priority = metaurl.priority;
+            const quint16 priority = metaurl.priority;
             if (priority) {
                 int preference = MAX_PREFERENCE - priority + 1;
                 if (preference <= 0) {
