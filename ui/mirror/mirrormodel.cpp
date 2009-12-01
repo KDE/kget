@@ -85,30 +85,22 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 
 void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    if (index.isValid() && editor)
-    {
-        if (index.column() == MirrorItem::Url)
-        {
+    if (index.isValid() && editor) {
+        if (index.column() == MirrorItem::Url) {
             KLineEdit *line = static_cast<KLineEdit*>(editor);
-            const KUrl url = index.model()->data(index, Qt::EditRole).toUrl();
+            const KUrl url = index.data(Qt::EditRole).toUrl();
             line->setUrl(url);
-        }
-        else if (index.column() == MirrorItem::Connections)
-        {
+        } else if (index.column() == MirrorItem::Connections) {
             QSpinBox *numConnections = static_cast<QSpinBox*>(editor);
-            const int num = index.model()->data(index, Qt::EditRole).toInt();
+            const int num = index.data(Qt::EditRole).toInt();
             numConnections->setValue(num);
-        }
-        else if (index.column() == MirrorItem::Priority)
-        {
+        } else if (index.column() == MirrorItem::Priority) {
             QSpinBox *preference = static_cast<QSpinBox*>(editor);
-            const int num = index.model()->data(index, Qt::EditRole).toInt();
+            const int num = index.data(Qt::EditRole).toInt();
             preference->setValue(num);
-        }
-        else if (index.column() == MirrorItem::Country)
-        {
+        } else if (index.column() == MirrorItem::Country) {
             KComboBox *countrySort = static_cast<KComboBox*>(editor);
-            const QString countryCode = index.model()->data(index, Qt::EditRole).toString();
+            const QString countryCode = index.data(Qt::EditRole).toString();
             const int indexCountrySort = countrySort->findData(countryCode);
             countrySort->setCurrentIndex(indexCountrySort);
         }

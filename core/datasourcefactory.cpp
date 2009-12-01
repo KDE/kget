@@ -915,6 +915,7 @@ void DataSourceFactory::startMove()
 
     m_dest = m_newDest;
     verifier()->setDestination(m_dest);
+    signature()->setDestination(m_dest);
 }
 
 void DataSourceFactory::newDestResult(KJob *job)

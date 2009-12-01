@@ -128,23 +128,17 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
 void ChecksumDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    if (index.isValid() && editor)
-    {
-        if (index.column() == 0)
-        {
+    if (index.isValid() && editor) {
+        if (index.column() == 0) {
             KLineEdit *line = static_cast<KLineEdit*>(editor);
-            line->setText(index.model()->data(index, Qt::EditRole).toString());
-        }
-        else if (index.column() == 1)
-        {
+            line->setText(index.data(Qt::EditRole).toString());
+        } else if (index.column() == 1) {
             KComboBox *modesBox = static_cast<KComboBox*>(editor);
-            const QString mode = index.model()->data(index, Qt::EditRole).toString();
+            const QString mode = index.data(Qt::EditRole).toString();
             modesBox->setCurrentIndex(modesBox->findText(mode));
-        }
-        else if (index.column() == 2)
-        {
+        } else if (index.column() == 2) {
             KComboBox *typesBox = static_cast<KComboBox*>(editor);
-            const QString type = index.model()->data(index, Qt::EditRole).toString();
+            const QString type = index.data(Qt::EditRole).toString();
             typesBox->setCurrentIndex(typesBox->findText(type));
         }
     }

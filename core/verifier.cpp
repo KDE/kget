@@ -255,18 +255,14 @@ QWidget *VerificationDelegate::createEditor(QWidget *parent, const QStyleOptionV
 
 void VerificationDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    if (index.isValid() && editor)
-    {
-        if (index.column() == VerificationModel::Type)
-        {
+    if (index.isValid() && editor) {
+        if (index.column() == VerificationModel::Type) {
             KComboBox *hashTypes = static_cast<KComboBox*>(editor);
-            const QString hashType = index.model()->data(index).toString();
+            const QString hashType = index.data().toString();
             hashTypes->setCurrentItem(hashType);
-        }
-        else if (index.column() == VerificationModel::Checksum)
-        {
+        } else if (index.column() == VerificationModel::Checksum) {
             KLineEdit *line = static_cast<KLineEdit*>(editor);
-            const QString checksum = index.model()->data(index).toString();
+            const QString checksum = index.data().toString();
             line->setText(checksum);
         }
     }
@@ -362,29 +358,22 @@ Qt::ItemFlags VerificationModel::flags(const QModelIndex &index) const
 
 bool VerificationModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (!index.isValid() || index.row() >= m_types.count())
-    {
+    if (!index.isValid() || index.row() >= m_types.count()) {
         return false;
     }
 
-    if ((index.column() == VerificationModel::Type) && role == Qt::EditRole)
-    {
+    if ((index.column() == VerificationModel::Type) && role == Qt::EditRole) {
         const QString type = value.toString();
-        if (Verifier::supportedVerficationTypes().contains(type) && !m_types.contains(type))
-        {
+        if (Verifier::supportedVerficationTypes().contains(type) && !m_types.contains(type)) {
             m_types[index.row()] = type;
             emit dataChanged(index, index);
             return true;
         }
-    }
-    else if ((index.column() == VerificationModel::Checksum) && role == Qt::EditRole)
-    {
-        const QModelIndex typeIndex = index.model()->index(index.row(), VerificationModel::Type);
-        const QString type = index.model()->data(typeIndex).toString();
+    } else if ((index.column() == VerificationModel::Checksum) && role == Qt::EditRole) {
+        const QModelIndex typeIndex = index.sibling(index.row(), VerificationModel::Type);
+        const QString type = typeIndex.data().toString();
         const QString checksum = value.toString();
-        if (Verifier::isChecksum(type, checksum))
-        {
-
+        if (Verifier::isChecksum(type, checksum)) {
             m_checksums[index.row()] = checksum;
             emit dataChanged(index, index);
             return true;

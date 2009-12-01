@@ -38,7 +38,7 @@ QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOpt
                                                 const QModelIndex & index) const
 {
     Q_UNUSED(option)
-    return new GroupEditor(index, index.model()->data(index, Qt::DisplayRole).toString(), parent);
+    return new GroupEditor(index, index.data(Qt::DisplayRole).toString(), parent);
 }
 
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
