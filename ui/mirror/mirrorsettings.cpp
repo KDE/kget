@@ -177,9 +177,8 @@ void MirrorSettings::addClicked()
 
 void MirrorSettings::removeMirror()
 {
-    QModelIndexList selected = ui.treeView->selectionModel()->selectedRows();
-    foreach (const QModelIndex &index, selected)
-    {
+    while (ui.treeView->selectionModel()->hasSelection()) {
+        const QModelIndex index = ui.treeView->selectionModel()->selectedRows().first();
         m_model->removeRow(index.row());
     }
 }

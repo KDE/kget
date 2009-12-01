@@ -41,7 +41,11 @@
     </spacer>
    </item>
    <item row="3" column="1">
-    <widget class="QListView" name="files"/>
+    <widget class="QListView" name="files">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+    </widget>
    </item>
    <item row="3" column="2">
     <layout class="QVBoxLayout" name="verticalLayout">

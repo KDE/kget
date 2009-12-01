@@ -443,9 +443,8 @@ void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &
 
 void MetalinkCreator::slotRemoveFile()
 {
-    const QModelIndexList indexes = uiFiles.files->selectionModel()->selectedRows();
-    foreach (const QModelIndex &index, indexes)
-    {
+    while (uiFiles.files->selectionModel()->hasSelection()) {
+        const QModelIndex index = uiFiles.files->selectionModel()->selectedRows().first();
         const QString filePath = index.data().toString();
         for (int i = 0; i < metalink.files.files.size(); ++i)
         {

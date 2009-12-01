@@ -99,10 +99,9 @@ void UrlWidget::slotAddMirror()
 
 void UrlWidget::slotRemoveMirror()
 {
-    QModelIndexList indexes = ui.used_mirrors->selectionModel()->selectedRows();
-    if (indexes.count() == 1)
-    {
-        m_mirrorModel->removeRow(indexes.first().row());
+    while (ui.used_mirrors->selectionModel()->hasSelection()) {
+        const QModelIndex index = ui.used_mirrors->selectionModel()->selectedRows().first();
+        m_mirrorModel->removeRow(index.row());
     }
 }
 

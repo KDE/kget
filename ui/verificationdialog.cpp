@@ -51,7 +51,7 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
 
     updateButton();
 
-    connect(ui.newHash, SIGNAL(userTextChanged(const QString &)), this, SLOT(updateButton()));
+    connect(ui.newHash, SIGNAL(userTextChanged(QString)), this, SLOT(updateButton()));
     connect(ui.hashTypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButton()));
     connect(this, SIGNAL(yesClicked()), this, SLOT(addChecksum()));
     connect(this, SIGNAL(user1Clicked()), this, SLOT(addMore()));
@@ -69,8 +69,7 @@ void VerificationAddDlg::updateButton()
 
 void VerificationAddDlg::addChecksum()
 {
-    if (m_model)
-    {
+    if (m_model) {
         m_model->addChecksum(ui.hashTypes->currentText(), ui.newHash->text());
     }
 }
@@ -91,8 +90,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     m_model(0),
     m_fileModel(0)
 {
-    if (m_verifier)
-    {
+    if (m_verifier) {
         m_model = m_verifier->model();
         connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
     }
@@ -106,8 +104,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     ui.remove->setGuiItem(KStandardGuiItem::remove());
     ui.verifying->hide();
 
-    if (m_model)
-    {
+    if (m_model) {
         ui.usedHashes->setModel(m_model);
         ui.usedHashes->setItemDelegate(new VerificationDelegate(this));
         m_fileModel = m_transfer->fileModel();
@@ -119,8 +116,9 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
 
         updateButtons();
 
-        connect(m_model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateButtons()));
-        connect(ui.usedHashes, SIGNAL(clicked(const QModelIndex&)), this, SLOT(updateButtons()));
+        connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateButtons()));
+        connect(m_model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateButtons()));
+        connect(ui.usedHashes, SIGNAL(clicked(QModelIndex)), this, SLOT(updateButtons()));
         connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
         connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeClicked()));
         connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
@@ -138,23 +136,14 @@ void VerificationDialog::fileFinished(const KUrl &file)
 
 void VerificationDialog::updateButtons()
 {
-    ui.remove->setEnabled(m_model && ui.usedHashes->selectionModel()->selectedIndexes().count());
+    ui.remove->setEnabled(m_model && ui.usedHashes->selectionModel()->hasSelection());
 
-    //check if the download finished and if the selected indexes are verifyable
+    //check if the download finished and if the selected index is verifyable
     bool verifyEnabled = false;
-    if (m_fileModel && m_fileModel->downloadFinished(m_fileModel->getUrl(m_file)))
-    {
+    if (m_fileModel && m_fileModel->downloadFinished(m_fileModel->getUrl(m_file))) {
         const QModelIndexList indexes = ui.usedHashes->selectionModel()->selectedRows();
-        if (indexes.count())
-        {
-            foreach (const QModelIndex &index, indexes)
-            {
-                verifyEnabled = m_verifier->isVerifyable(index);
-                if (!verifyEnabled)
-                {
-                    break;
-                }
-            }
+        if (indexes.count() == 1) {
+            verifyEnabled = m_verifier->isVerifyable(indexes.first());
         }
     }
     ui.verify->setEnabled(verifyEnabled);
@@ -162,12 +151,10 @@ void VerificationDialog::updateButtons()
 
 void VerificationDialog::removeClicked()
 {
-    const QModelIndexList indexes = ui.usedHashes->selectionModel()->selectedRows();
-    foreach (const QModelIndex &index, indexes)
-    {
+    while (ui.usedHashes->selectionModel()->hasSelection()) {
+        const QModelIndex index = ui.usedHashes->selectionModel()->selectedRows().first();
         m_model->removeRow(index.row());
     }
-    updateButtons();
 }
 
 void VerificationDialog::addClicked()
@@ -179,8 +166,7 @@ void VerificationDialog::addClicked()
 void VerificationDialog::verifyClicked()
 {
     const QModelIndex index = ui.usedHashes->selectionModel()->selectedRows().first();
-    if (index.isValid())
-    {
+    if (index.isValid()) {
          m_verifier->verify(index);
          ui.progressBar->setMaximum(0);
          ui.verifying->show();
@@ -192,8 +178,7 @@ void VerificationDialog::slotVerified(bool verified)
     ui.progressBar->setMaximum(1);
     ui.verifying->hide();
 
-    if (verified)
-    {
+    if (verified) {
         QString fileName;
         if (m_fileModel) {
             fileName = m_fileModel->getUrl(m_file).fileName();

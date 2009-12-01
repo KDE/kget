@@ -47,7 +47,7 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
 
     slotAutomaticChecksumVerification(Settings::checksumAutomaticVerification());
     slotUpdateButtons();
-    
+
     connect(m_keyServers, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(slotUpdateButtons()));
 
     connect(ui.kcfg_ChecksumAutomaticVerification, SIGNAL(clicked(bool)), this, SLOT(slotAutomaticChecksumVerification(bool)));
@@ -90,8 +90,8 @@ void VerificationPreferences::slotUpdateButtons()
     const QModelIndex index = ui.keyServers->currentIndex();
     bool up = false;
     bool down = false;
-    const bool indexValid = index.isValid();
-    ui.remove->setEnabled(indexValid);
+    const bool indexValid = index.isValid() && (ui.keyServers->selectionModel()->selectedRows().count() == 1);
+    ui.remove->setEnabled(ui.keyServers->selectionModel()->hasSelection());
     if (indexValid) {
         if (index.row() > 0) {
             up = true;
@@ -109,7 +109,7 @@ void VerificationPreferences::slotAddMirror()
     QStringList data = m_keyServers->stringList();
     data.append(KUrl(ui.url->text()).pathOrUrl());
     m_keyServers->setStringList(data);
-    
+
     ui.url->clear();
 
     emit changed();
@@ -117,12 +117,11 @@ void VerificationPreferences::slotAddMirror()
 
 void VerificationPreferences::slotRemoveMirror()
 {
-    const QModelIndexList indexes = ui.keyServers->selectionModel()->selectedRows();
-    if (indexes.count() == 1) {
-        QModelIndex index = indexes.first();
-        int row = index.row();
-        m_keyServers->removeRow(row);
-        
+    if (ui.keyServers->selectionModel()->hasSelection()) {
+        while (ui.keyServers->selectionModel()->selectedRows().count()) {
+            const QModelIndex index = ui.keyServers->selectionModel()->selectedRows().first();
+            m_keyServers->removeRow(index.row());
+        }
         emit changed();
     }
 }

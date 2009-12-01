@@ -38,12 +38,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
     ui.kUrlRequester->setUrl(m_transfer->directory().pathOrUrl());
     ui.kUrlRequester->lineEdit()->setReadOnly(true);
-    ui.kUrlRequester->setMode(KFile::Directory | KFile::ExistingOnly);
-    ui.mirrors->setEnabled(false);
     ui.rename->setIcon(KIcon("edit-rename"));
-    ui.rename->setEnabled(false);
-    ui.verification->setEnabled(false);
-    ui.signature->setEnabled(false);
 
     if (m_model)
     {

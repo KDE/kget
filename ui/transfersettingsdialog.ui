@@ -37,7 +37,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KUrlRequester" name="kUrlRequester"/>
+      <widget class="KUrlRequester" name="kUrlRequester">
+       <property name="mode">
+        <set>KFile::Directory|KFile::ExistingOnly</set>
+       </property>
+      </widget>
      </item>
      <item row="1" column="1">
       <widget class="QSpinBox" name="uploadSpin">
@@ -129,6 +133,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="KPushButton" name="mirrors">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="toolTip">
           <string>Modify the mirrors used for downloading.</string>
          </property>
@@ -139,6 +146,9 @@
        </item>
        <item>
         <widget class="KPushButton" name="rename">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Rename</string>
          </property>
@@ -146,6 +156,9 @@
        </item>
        <item>
         <widget class="KPushButton" name="verification">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string extracomment="verification of the download (e.g. by using MD5)">Verification</string>
          </property>
@@ -153,6 +166,9 @@
        </item>
        <item>
         <widget class="KPushButton" name="signature">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Signature</string>
          </property>

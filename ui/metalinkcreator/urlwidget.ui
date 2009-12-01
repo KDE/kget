@@ -19,6 +19,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" rowspan="3">
     <widget class="QTreeView" name="used_mirrors">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
      <property name="rootIsDecorated">
       <bool>false</bool>
      </property>

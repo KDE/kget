@@ -13,6 +13,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" rowspan="3">
     <widget class="QTreeView" name="treeView">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
      <property name="rootIsDecorated">
       <bool>false</bool>
      </property>
@@ -25,18 +28,10 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="KPushButton" name="add">
-     <property name="text">
-      <string>Add</string>
-     </property>
-    </widget>
+    <widget class="KPushButton" name="add"/>
    </item>
    <item row="1" column="1">
-    <widget class="KPushButton" name="remove">
-     <property name="text">
-      <string>Remove</string>
-     </property>
-    </widget>
+    <widget class="KPushButton" name="remove"/>
    </item>
    <item row="2" column="1">
     <spacer name="verticalSpacer">

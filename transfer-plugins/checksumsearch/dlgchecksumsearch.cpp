@@ -201,8 +201,8 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVar
     ui.treeView->setModel(m_model);
     ChecksumDelegate *delegate = new ChecksumDelegate(m_modesModel, m_typesModel, this);
     ui.treeView->setItemDelegate(delegate);
-    ui.add->setIcon(KIcon("list-add"));
-    ui.remove->setIcon(KIcon("list-remove"));
+    ui.add->setGuiItem(KStandardGuiItem::add());
+    ui.remove->setGuiItem(KStandardGuiItem::remove());
     slotUpdate();
 
     connect(ui.add, SIGNAL(clicked()), this, SLOT(slotAdd()));
@@ -227,9 +227,8 @@ void DlgChecksumSettingsWidget::slotAdd()
 
 void DlgChecksumSettingsWidget::slotRemove()
 {
-    QModelIndexList selected = ui.treeView->selectionModel()->selectedRows();
-    foreach(const QModelIndex &index, selected)
-    {
+    while (ui.treeView->selectionModel()->hasSelection()) {
+        const QModelIndex index = ui.treeView->selectionModel()->selectedRows().first();
         m_model->removeRow(index.row());
     }
 }

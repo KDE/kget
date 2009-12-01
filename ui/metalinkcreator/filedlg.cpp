@@ -51,6 +51,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     uiData.setupUi(data);
     ui.dataLayout->addWidget(data);
 
+    //set the file data
     ui.name->setText(m_file->name);
     uiData.identity->setText(m_file->data.identity);
     uiData.version->setText(m_file->data.version);
@@ -65,8 +66,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     uiData.lic_name->setText(m_file->data.license.name);
     uiData.lic_url->setUrl(m_file->data.license.url);
 
-    if (m_file->size)
-    {
+    if (m_file->size) {
         ui.size->setText(QString::number(m_file->size));
     }
 
@@ -81,8 +81,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     m_verificationModel = new VerificationModel(this);
     QHash<QString, QString>::const_iterator it;
     QHash<QString, QString>::const_iterator itEnd = m_file->verification.hashes.constEnd();
-    for (it = m_file->verification.hashes.constBegin(); it != itEnd; ++it)
-    {
+    for (it = m_file->verification.hashes.constBegin(); it != itEnd; ++it) {
         m_verificationModel->addChecksum(it.key(), it.value());
     }
     ui.add_hash->setGuiItem(KStandardGuiItem::add());
@@ -91,16 +90,15 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.used_hashes->hideColumn(VerificationModel::Verified);
     slotUpdateVerificationButtons();
 
-    connect(m_verificationModel, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(ui.used_hashes, SIGNAL(clicked(const QModelIndex&)), this, SLOT(slotUpdateVerificationButtons()));
+    connect(m_verificationModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
+    connect(m_verificationModel, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(slotUpdateVerificationButtons()));
+    connect(ui.used_hashes, SIGNAL(clicked(QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
     connect(ui.add_hash, SIGNAL(clicked()), this, SLOT(slotAddHash()));
     connect(ui.remove_hash, SIGNAL(clicked()), this, SLOT(slotRemoveHash()));
-
-
-    slotUpdateOkButton();
-
     connect(ui.name, SIGNAL(textEdited(QString)), this, SLOT(slotUpdateOkButton()));
     connect(this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()));
+
+    slotUpdateOkButton();
 
     setCaption(i18n("File Properties"));
 }
@@ -134,17 +132,15 @@ void FileDlg::slotUpdateOkButton()
 
 void FileDlg::slotUpdateVerificationButtons()
 {
-    ui.remove_hash->setEnabled(ui.used_hashes->selectionModel()->selectedIndexes().count());
+    ui.remove_hash->setEnabled(ui.used_hashes->selectionModel()->hasSelection());
 }
 
 void FileDlg::slotRemoveHash()
 {
-    const QModelIndexList indexes = ui.used_hashes->selectionModel()->selectedRows();
-    foreach (const QModelIndex &index, indexes)
-    {
+    while (ui.used_hashes->selectionModel()->hasSelection()) {
+        const QModelIndex index = ui.used_hashes->selectionModel()->selectedRows().first();
         m_verificationModel->removeRow(index.row());
     }
-    slotUpdateVerificationButtons();
 }
 
 void FileDlg::slotAddHash()
@@ -180,22 +176,18 @@ void FileDlg::slotOkClicked()
 
 
     //store the verification data
-    for (int i = 0; i < m_verificationModel->rowCount(); ++i)
-    {
+    for (int i = 0; i < m_verificationModel->rowCount(); ++i) {
         const QString type = m_verificationModel->index(i, VerificationModel::Type).data().toString();
         const QString hash = m_verificationModel->index(i, VerificationModel::Checksum).data().toString();
         m_file->verification.hashes[type] = hash;
     }
     m_file->verification.pieces = pieces;
 
-    //the file has been edited
-    if (m_edit)
-    {
+    if (m_edit) {
+        //the file has been edited
         emit fileEdited(m_initialFileName, m_file->name);
-    }
-    //a new file should be added, not edited
-    else
-    {
+    } else {
+        //a new file should be added, not edited
         emit addFile();
     }
 }
