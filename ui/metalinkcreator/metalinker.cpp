@@ -33,7 +33,7 @@
 #endif //HAVE_NEPOMUK
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
-const quint16 KGetMetalink::Metalink::MAX_PRIORITY = 255;
+const quint16 KGetMetalink::Metalink::MAX_URL_PRIORITY = 255;
 
 namespace KGetMetalink
 {
@@ -284,8 +284,8 @@ void KGetMetalink::Metaurl::load(const QDomElement &e)
 {
     type = e.attribute("type").toLower();
     priority = e.attribute("priority").toUInt();
-    if (priority > Metalink::MAX_PRIORITY) {
-        priority = Metalink::MAX_PRIORITY;
+    if (priority > Metalink::MAX_URL_PRIORITY) {
+        priority = Metalink::MAX_URL_PRIORITY;
     }
     name = e.attribute("name");
     url = KUrl(e.text());
@@ -341,8 +341,8 @@ void KGetMetalink::Url::load(const QDomElement &e)
 {
     location = e.attribute("location").toLower();
     priority = e.attribute("priority").toUInt();
-    if (priority > Metalink::MAX_PRIORITY) {
-        priority = Metalink::MAX_PRIORITY;
+    if (priority > Metalink::MAX_URL_PRIORITY) {
+        priority = Metalink::MAX_URL_PRIORITY;
     }
     url = KUrl(e.text());
 }

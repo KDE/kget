@@ -319,7 +319,7 @@ class Metalink
         Files files;
 
         static const QString KGET_DESCRIPTION;
-        static const quint16 MAX_PRIORITY; //maximum pirority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
+        static const quint16 MAX_URL_PRIORITY; //maximum pirority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
 };
 
 /**
