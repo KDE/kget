@@ -42,7 +42,6 @@ const static int TOP_MARGIN = 55;
 const static int LEFT_MARGIN = 15;
 const static int SPACING = 4;
 const static int MARGIN = 20;
-const static int MAX_DOWNLOADS_PER_PAGE = 5;
 
 ProxyWidget::ProxyWidget(QGraphicsWidget * parent) 
   : QGraphicsWidget(parent),
@@ -117,6 +116,7 @@ KGetApplet::KGetApplet(QObject *parent, const QVariantList &args)
     m_proxyWidget(0),
     m_errorWidget(0),
     m_dataWidget(0),
+    m_globalProgress(0),
     m_icon(0),
     m_engine(0)
 {
@@ -128,7 +128,6 @@ KGetApplet::KGetApplet(QObject *parent, const QVariantList &args)
 
 KGetApplet::~KGetApplet()
 {
-    delete m_globalProgress;
 }
 
 void KGetApplet::init()
@@ -210,7 +209,9 @@ void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data
             completedSize += transfer->downloadedSize().value();
             totalSize += transfer->totalSize().value();
         }
-        m_globalProgress->setValue((int) ((completedSize * 100) / totalSize));
+        if (m_globalProgress) {
+            m_globalProgress->setValue((completedSize * 100) / totalSize);
+        }
     }
 }
 

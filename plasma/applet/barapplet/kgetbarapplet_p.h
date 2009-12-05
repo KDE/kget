@@ -4,8 +4,9 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *
- *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+ *                                                                         *
+ *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>                 *
+ *   Copyright (C) 2009 by Matthias Fuchs <mat69@gmx.net>                  *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -25,8 +26,7 @@
 
 namespace Plasma
 {
-    class Label;
-    class PushButton;
+    class ScrollWidget;
 }
 
 class QGraphicsProxyWidget;
@@ -42,12 +42,7 @@ public:
 public slots:
     void addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
-    void nextPage();
-    void previousPage();
-    void populate();
-
-private:
-    void clear();
+    void slotUpdate();
 
 private:
     struct Item
@@ -57,15 +52,11 @@ private:
         QProgressBar *progressBar;
     };
 
-    QGraphicsLinearLayout *m_verticalLayout;
-    Plasma::PushButton *m_nextPageButton;
-    Plasma::PushButton *m_previousPageButton;
-    Plasma::Label *m_totalSizeLabel;
-    Plasma::Label *m_pageLabel;
+    Plasma::ScrollWidget *m_scrollWidget;
+    QGraphicsWidget *m_containerWidget;
+    QGraphicsLinearLayout *m_containerLayout;
     QList<OrgKdeKgetTransferInterface*> m_transfers;
     QList<Item*> m_items;
-
-    int m_actualPage;
 };
 
 #endif
