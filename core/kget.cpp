@@ -702,14 +702,30 @@ QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
 {
     QList<TransferGroupHandler*> handlers;
     foreach (TransferGroupHandler * handler, allTransferGroups()) {
-        QRegExp regExp = handler->regExp();
-        if (!regExp.pattern().isEmpty() && !regExp.pattern().startsWith('*'))
-            regExp.setPattern('*' + regExp.pattern());
+        QStringList patterns = handler->regExp().pattern().split(',');//FIXME 4.5 add a tooltip: "Enter a list of foo separated by ," and then do split(i18nc("used as seperator in a list, translate to the same thing you translated \"Enter a list of foo separated by ,\"", ","))
+        foreach (const QString &pattern, patterns) {
+            QRegExp regExp = QRegExp(pattern.trimmed());
 
-        regExp.setPatternSyntax(QRegExp::Wildcard);
+            //try with Regular Expression first
+            regExp.setPatternSyntax(QRegExp::RegExp2);
+            regExp.setCaseSensitivity(Qt::CaseInsensitive);
+            if (regExp.exactMatch(filename.url())) {
+                handlers.append(handler);
+                break;
+            }
 
-        if (regExp.exactMatch(filename.url())) {
-            handlers.append(handler);
+            //now try with wildcards
+            if (!regExp.pattern().isEmpty() && !regExp.pattern().startsWith('*')) {
+                regExp.setPattern('*' + regExp.pattern());
+            }
+
+            regExp.setPatternSyntax(QRegExp::Wildcard);
+            regExp.setCaseSensitivity(Qt::CaseInsensitive);
+
+            if (regExp.exactMatch(filename.url())) {
+                handlers.append(handler);
+                break;
+            }
         }
     }
 
