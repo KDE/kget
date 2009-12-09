@@ -4,7 +4,7 @@ set(kget_engine_SRCS
     kgetengine.cpp
 )
 
-qt4_add_dbus_interface(kget_engine_SRCS ../../../kget/org.kde.kget.main.xml kget_interface)
+qt4_add_dbus_interface(kget_engine_SRCS ../../../kget/dbus/org.kde.kget.main.xml kget_interface)
 
 kde4_add_plugin(plasma_engine_kget ${kget_engine_SRCS})
 target_link_libraries(plasma_engine_kget ${KDE4_KDECORE_LIBS} ${KDE4_PLASMA_LIBS})

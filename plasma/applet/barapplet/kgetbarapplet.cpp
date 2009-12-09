@@ -22,9 +22,11 @@
 #include "barapplet/kgetbarapplet.h"
 #include "barapplet/kgetbarapplet_p.h"
 
+#include "../../../core/transferhandler.h"
+
+#include <QProgressBar>
 #include <QGraphicsLinearLayout>
 #include <QGraphicsProxyWidget>
-#include <QProgressBar>
 
 #include <KDebug>
 
@@ -48,21 +50,18 @@ KGetBarApplet::Private::Private(QGraphicsWidget *parent)
 
 KGetBarApplet::Private::~Private()
 {
-    foreach (Item *item, m_items) {
-        delete item;
-    }
 }
 
 void KGetBarApplet::Private::addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
 {
     foreach (OrgKdeKgetTransferInterface *transfer, transfers) {
-        if (m_transfers.contains(transfer)) {
+        if (m_items.contains(transfer)) {
             continue;
         }
 
-        m_transfers.append(transfer);
+        connect(transfer, SIGNAL(transferChangedEvent(int)), this, SLOT(slotUpdateTransfer(int)));
 
-        QString fileName = KUrl(transfer->source().value()).fileName();
+        QString fileName = KUrl(transfer->dest().value()).fileName();
         kDebug() << fileName;
 
         Item *item = new Item;
@@ -70,9 +69,7 @@ void KGetBarApplet::Private::addTransfers(const QList<OrgKdeKgetTransferInterfac
         item->progressBar = new QProgressBar();
         item->proxy->setWidget(item->progressBar);
         item->progressBar->setFormat(fileName + " %v%");
-        item->transfer = transfer;
-
-        m_items.append(item);
+        m_items[transfer] = item;
 
         //running downloads are prepended, others appended
         if (transfer->percent() == 100) {
@@ -85,32 +82,41 @@ void KGetBarApplet::Private::addTransfers(const QList<OrgKdeKgetTransferInterfac
     }
 }
 
-void KGetBarApplet::Private::slotUpdate()
-{
-    //update percent and name (file could be renamed)
-    foreach (Item *item, m_items) {
-        OrgKdeKgetTransferInterface *transfer = item->transfer;
-        QString fileName = KUrl(transfer->source().value()).fileName();
-
-        item->progressBar->setFormat(fileName + " %v%");
-        item->progressBar->setValue(transfer->percent());
-    }
-}
-
 void KGetBarApplet::Private::removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers)
 {
-    foreach (OrgKdeKgetTransferInterface *transfer, transfers) {
-        m_transfers.removeAll(transfer);
-    }
-
     // remove the progressbars for the deleted transfers
-    foreach (Item *item, m_items) {
-        if (!m_transfers.contains(item->transfer)) {
+    QHash<OrgKdeKgetTransferInterface*, Item*>::iterator it;
+    QHash<OrgKdeKgetTransferInterface*, Item*>::iterator itEnd = m_items.end();
+    for (it = m_items.begin(); it != itEnd; ) {
+        OrgKdeKgetTransferInterface *transfer = it.key();
+        if (transfers.contains(transfer)) {
+            Item *item = it.value();
+            it = m_items.erase(it);
+
             m_containerLayout->removeItem(item->proxy);
             item->proxy->deleteLater();
             item->progressBar->deleteLater();
-            m_items.removeAll(item);
             delete item;
+        } else {
+            ++it;
+        }
+    }
+}
+
+void KGetBarApplet::Private::slotUpdateTransfer(int transferChange)
+{
+    OrgKdeKgetTransferInterface *transfer = qobject_cast<OrgKdeKgetTransferInterface*>(QObject::sender());
+
+    if (transfer && m_items.contains(transfer)) {
+        Item *item = m_items[transfer];
+
+        if (transferChange & Transfer::Tc_Percent) {
+            item->progressBar->setValue(transfer->percent());
+        }
+        if (transferChange & Transfer::Tc_FileName) {
+            const QString fileName = KUrl(transfer->dest().value()).fileName();
+            item->progressBar->setFormat(fileName + " %v%");
+            item->progressBar->setValue(transfer->percent());
         }
     }
 }
@@ -127,10 +133,9 @@ KGetBarApplet::~KGetBarApplet()
 void KGetBarApplet::init()
 {
     d = new KGetBarApplet::Private(this);
+    setDataWidget(d);
     connect(this, SIGNAL(transfersAdded(QList<OrgKdeKgetTransferInterface*>)), d, SLOT(addTransfers(QList<OrgKdeKgetTransferInterface*>)));
     connect(this, SIGNAL(transfersRemoved(QList<OrgKdeKgetTransferInterface*>)), d, SLOT(removeTransfers(QList<OrgKdeKgetTransferInterface*>)));
-    connect(this, SIGNAL(update()), d, SLOT(slotUpdate()));
-    setDataWidget(d);
 
     KGetApplet::init();
 }

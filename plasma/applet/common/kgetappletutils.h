@@ -4,8 +4,9 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *
- *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+ *                                                                         *
+ *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>                 *
+ *   Copyright (C) 2009 by Matthias Fuchs <mat69@gmx.net>                  *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -23,6 +24,7 @@
 
 #include <QGraphicsProxyWidget>
 
+class QDBusConnectionInterface;
 class QGraphicsLinearLayout;
 class QGraphicsWidget;
 class QPainter;
@@ -37,9 +39,12 @@ namespace Plasma {
 
 class KGetAppletUtils
 {
-public:
-    static void paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rect);
-    static QGraphicsWidget *createErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
+    public:
+        static void paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rect);
+        static QGraphicsWidget *createErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
+
+    private:
+        static const int SPACING;
 };
 
 class ErrorWidget : public QGraphicsProxyWidget
@@ -51,12 +56,17 @@ public:
 
 private slots:
     void launchKGet();
+    void checkKGetStatus();
+
+signals:
+    void kgetStarted();
 
 private:
     QGraphicsLinearLayout *m_layout;
     Plasma::Label *m_errorLabel;
     Plasma::IconWidget *m_icon;
     Plasma::PushButton *m_launchButton;
+    QDBusConnectionInterface *m_interface;
 };
 
 #endif

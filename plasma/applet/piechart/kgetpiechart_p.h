@@ -4,8 +4,9 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *
- *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+ *                                                                         *
+ *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>                 *
+ *   Copyright (C) 2009 by Matthias Fuchs <mat69@gmx.net>                  *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -20,17 +21,71 @@
 #ifndef KGETPIECHART_P_H
 #define KGETPIECHART_P_H
 
-#include <math.h>
-
-#include <QGraphicsWidget>
-#include <QMap>
+#include <QtCore/QHash>
+#include <QtGui/QGraphicsWidget>
+#include <QtGui/QPen>
 
 #include <KColorCollection>
+#include <KIO/Job>
 
-class QPainter;
-class QRect;
-class QBrush;
-class QStyleOptionGraphicsItem;
+class QGraphicsLinearLayout;
+
+namespace Plasma
+{
+    class Label;
+    class ScrollWidget;
+}
+
+class KGetPieChart::Data
+{
+    public:
+        QString name;
+        bool isFinished;
+        KIO::filesize_t size;
+        KIO::filesize_t downloadedSize;
+        QColor color;
+};
+
+class KGetPieChart::PieChart : public QGraphicsWidget
+{
+    Q_OBJECT
+
+    public:
+        PieChart(QHash<OrgKdeKgetTransferInterface*, Data> *data, KIO::filesize_t totalSize, QGraphicsWidget *parent = 0);
+        ~PieChart();
+
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
+        void setTotalSize(KIO::filesize_t totalSize);
+        void createAngles();
+
+    private:
+        QHash<OrgKdeKgetTransferInterface*, Data> *m_data;
+        KIO::filesize_t m_totalSize;
+        QHash<OrgKdeKgetTransferInterface*, QPair<int, int> > m_angles;
+        QPen m_totalPen;
+        QPen m_activePen;
+
+        static const float PIE_OPACITY;
+        static const float ACTIVE_PIE_OPACITY;
+};
+
+class KGetPieChart::Item : public QGraphicsWidget
+{
+    Q_OBJECT
+
+    public:
+        Item(QGraphicsWidget *parent = 0);
+        ~Item();
+
+        void setSize(KIO::filesize_t size);
+        void setName(const QString &name);
+        void setColor(const QColor &color);
+
+    private:
+        Plasma::Label *m_name;
+        Plasma::Label *m_sizeLabel;
+        Plasma::Label *m_colorLabel;
+};
 
 class KGetPieChart::Private : public QGraphicsWidget
 {
@@ -39,47 +94,25 @@ public:
     Private(QGraphicsWidget *parent = 0);
     ~Private();
 
-    void setTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
-    
-public slots:
-    void update();
+    public slots:
+        void addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
+        void removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
 
-private:
-    // draw a portion of the pie chart and returns his end angle
-    int paintPieData(QPainter *p, const QRect &rect, int angle, int percent, const QBrush &brush);
-     // Draw the graph legend with the names of the data
-    void drawLegend(OrgKdeKgetTransferInterface* transfer, QPainter *p, const QStyleOptionGraphicsItem *option, const QColor &color, int count);
+    private slots:
+        void slotUpdateTransfer(int transferChange);
 
-    inline double roundNumber(float number)
-    {
-        double intPart;
-        if (modf(number, &intPart) > 0.5) {
-            return intPart + 1;
-        }
-        else {
-            return intPart;
-        }
-    };
+    private:
+        void updateTransfers();
 
-private:
-    QMap <OrgKdeKgetTransferInterface*, PrivateData> m_data;
-    KColorCollection m_colors;
-
-    int m_totalSize;
-    bool m_needsRepaint;
-};
-
-class KGetPieChart::PrivateData
-{
-public:
-    PrivateData()
-    {};
-
-    QString name;
-    bool isActive;
-    double length;
-    double activeLength;
+    private:
+        KColorCollection m_colors;
+        KIO::filesize_t m_totalSize;
+        Plasma::ScrollWidget *m_scrollWidget;
+        QGraphicsWidget *m_containerWidget;
+        QGraphicsLinearLayout *m_containerLayout;
+        QHash<OrgKdeKgetTransferInterface*, Data> m_data;
+        QHash<OrgKdeKgetTransferInterface*, Item*> m_items;
+        PieChart *m_piechart;
 };
 
 #endif

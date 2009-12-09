@@ -24,8 +24,13 @@
 
 #include "plasma/datacontainer.h"
 
+const quint16 KGetEngine::MINIMUM_UPDATE_INTERVAL = 1000;
+const QString KGetEngine::KGET_DBUS_SERVICE = "org.kde.kget";
+const QString KGetEngine::KGET_DBUS_PATH = "/KGet";
+
 KGetEngine::KGetEngine(QObject* parent, const QVariantList& args)
-    : Plasma::DataEngine(parent)
+  : Plasma::DataEngine(parent),
+    m_kget(0)
 {
     Q_UNUSED(args)
 
@@ -53,23 +58,29 @@ bool KGetEngine::sourceRequestEvent(const QString &name)
 bool KGetEngine::updateSourceEvent(const QString &name)
 {
     kDebug();
-    if (QString::compare(name, "KGet") == 0) {
+    if (name == "KGet") {
         getKGetData(name);
     }
     return true;
+}
+
+void KGetEngine::updateData()
+{
+    updateSourceEvent("KGet");
 }
 
 void KGetEngine::getKGetData(const QString &name)
 {
     removeAllData(name);
 
-    if(isDBusServiceRegistered()) {
-        OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
-                            QDBusConnection::sessionBus());
+    if (isDBusServiceRegistered()) {
+        if (!m_kget) {
+            m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
+            connect(m_kget, SIGNAL(transferAddedRemoved()), this, SLOT(updateData()));
+        }
 
         setData(name, "error", false);
-        setData(name, "transfers",
-                                kget_interface.transfers().value());
+        setData(name, "transfers", m_kget->transfers().value());
     } else {
         setData(name, "error", true);
         setData(name, "errorMessage", i18n("Is KGet up and running?"));

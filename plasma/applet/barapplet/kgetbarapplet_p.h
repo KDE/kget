@@ -22,7 +22,7 @@
 #define KGETBARAPPLET_P_H
 
 #include <QGraphicsWidget>
-#include <QMap>
+#include <QHash>
 
 namespace Plasma
 {
@@ -34,29 +34,30 @@ class QProgressBar;
 
 class KGetBarApplet::Private : public QGraphicsWidget
 {
-Q_OBJECT
-public:
-    Private(QGraphicsWidget *parent = 0);
-    ~Private();
+    Q_OBJECT
 
-public slots:
-    void addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
-    void removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
-    void slotUpdate();
+    public:
+        Private(QGraphicsWidget *parent = 0);
+        ~Private();
 
-private:
-    struct Item
-    {
-        OrgKdeKgetTransferInterface *transfer;
-        QGraphicsProxyWidget *proxy;
-        QProgressBar *progressBar;
-    };
+    public slots:
+        void addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
+        void removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
 
-    Plasma::ScrollWidget *m_scrollWidget;
-    QGraphicsWidget *m_containerWidget;
-    QGraphicsLinearLayout *m_containerLayout;
-    QList<OrgKdeKgetTransferInterface*> m_transfers;
-    QList<Item*> m_items;
+    private slots:
+        void slotUpdateTransfer(int transferChange);
+
+    private:
+        struct Item
+        {
+            QGraphicsProxyWidget *proxy;
+            QProgressBar *progressBar;
+        };
+
+        Plasma::ScrollWidget *m_scrollWidget;
+        QGraphicsWidget *m_containerWidget;
+        QGraphicsLinearLayout *m_containerLayout;
+        QHash<OrgKdeKgetTransferInterface*, Item*> m_items;
 };
 
 #endif

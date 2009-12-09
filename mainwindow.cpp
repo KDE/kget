@@ -20,7 +20,6 @@
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
-//#include "dbus/dbusmodelobserver.h"
 #include "settings.h"
 #include "conf/preferencesdialog.h"
 #include "ui/viewscontainer.h"
@@ -82,8 +81,6 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     createGUI("kgetui.rc");
 
     m_viewsContainer = new ViewsContainer(this);
-    // initialize the model observer to export percents over dbus
-    //m_dbusModelObserver = new DBusModelObserver();
 
     setCentralWidget(m_viewsContainer);
 
@@ -885,13 +882,6 @@ void MainWindow::setSystemTrayDownloading(bool running)
         m_dock->setDownloading(running);
 }
 
-void MainWindow::importLinks(const QList <QString> &links)
-{
-    KGetLinkView *link_view = new KGetLinkView(this);
-    link_view->setLinks(links);
-    link_view->show();
-}
-
 void MainWindow::slotTransferHistory()
 {
     TransferHistory *history = new TransferHistory();
@@ -1000,77 +990,6 @@ void MainWindow::dropEvent(QDropEvent * event)
     {
         NewTransferDialog::showNewTransferDialog(KUrl(), this);
     }
-}
-
-
-/** DBUS interface */
-
-QStringList MainWindow::addTransfer(const QString& src, const QString& dest, bool start)
-{
-    QStringList dBusPaths;
-    
-   
-    // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    QList<TransferHandler *> addedTransfers = KGet::addTransfer(src.split(';'), dest, QString(), start);
-    
-    foreach(TransferHandler * handler, addedTransfers)
-    {
-        dBusPaths.append(handler->dBusObjectPath());
-    }
-    
-    return dBusPaths;
-}
-
-bool MainWindow::delTransfer(const QString& dbusObjectPath)
-{
-    kDebug(5001) << "deleting Transfer";
-    
-    Transfer * transfer = KGet::model()->findTransferByDBusObjectPath(dbusObjectPath);
-    
-    if(transfer)
-        return KGet::delTransfer(transfer->handler());
-    return false;
-}
-
-void MainWindow::showNewTransferDialog(const QStringList &urls)
-{
-    NewTransferDialog::showNewTransferDialog(urls, this);
-}
-
-bool MainWindow::dropTargetVisible() const
-{
-    return m_drop->isVisible();
-}
-
-void MainWindow::setDropTargetVisible( bool setVisible )
-{
-    if ( setVisible != Settings::showDropTarget() )
-        m_drop->setDropTargetVisible( setVisible );
-}
-
-void MainWindow::setOfflineMode( bool offline )
-{
-    KGet::setSchedulerRunning(offline);
-}
-
-bool MainWindow::offlineMode() const
-{
-    return !KGet::schedulerRunning();
-}
-
-QVariantMap MainWindow::transfers() const
-{
-    QVariantMap t;
-    foreach (TransferHandler *handler, KGet::allTransfers())
-        t.insert(handler->source().pathOrUrl(), handler->dBusObjectPath());
-
-    return t;
-}
-
-int MainWindow::transfersSpeed() const
-{
-    return 0;//FIXME
-    //return m_dbusModelObserver->transfersSpeed();
 }
 
 #include "mainwindow.moc"

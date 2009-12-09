@@ -36,30 +36,31 @@ namespace Plasma
     class Meter;
 }
 
-static const QString KGET_DBUS_SERVICE = "org.kde.kget";
-static const QString KGET_DBUS_PATH = "/KGet";
-
 class ProxyWidget : public QGraphicsWidget
 {
     Q_OBJECT
     public:
         ProxyWidget(QGraphicsWidget * parent);
         ~ProxyWidget();
-        
+
         void paint(QPainter * p, const QStyleOptionGraphicsItem * option, QWidget * widget);
-        
+
         void setDataWidget(QGraphicsWidget *widget);
-        
+
         QGraphicsWidget * dataWidget();
-        
+
     private slots:
         void themeChanged();
-        
+
     private:
         QGraphicsLinearLayout * m_layout;
         QGraphicsWidget * m_dataWidget;
         int m_textWidth;
         int m_textHeight;
+        static const int MARGIN;
+        static const int TOP_MARGIN;
+        static const int LEFT_MARGIN;
+        static const int SPACING;
 };
 
 class KGetApplet : public Plasma::PopupApplet
@@ -75,6 +76,9 @@ public:
 
 public slots:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
+
+private slots:
+    virtual void slotKgetStarted();
 
 signals:
     void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
@@ -94,6 +98,8 @@ protected:
     Plasma::IconWidget *m_icon;
     Plasma::DataEngine *m_engine;
     QList<OrgKdeKgetTransferInterface*> m_transfers;
+    static const QString KGET_DBUS_SERVICE;
+    static const QString KGET_DBUS_PATH;
 };
 
 #endif

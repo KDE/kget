@@ -38,10 +38,13 @@
 #include <KLocale>
 #include <KIcon>
 
-const static int TOP_MARGIN = 55;
-const static int LEFT_MARGIN = 15;
-const static int SPACING = 4;
-const static int MARGIN = 20;
+const int ProxyWidget::MARGIN = 20;
+const int ProxyWidget::TOP_MARGIN = 55;
+const int ProxyWidget::LEFT_MARGIN = 15;
+const int ProxyWidget::SPACING = 4;
+
+const QString KGetApplet::KGET_DBUS_SERVICE = "org.kde.kget";
+const QString KGetApplet::KGET_DBUS_PATH = "/KGet";
 
 ProxyWidget::ProxyWidget(QGraphicsWidget * parent) 
   : QGraphicsWidget(parent),
@@ -137,7 +140,7 @@ void KGetApplet::init()
     setPopupIcon("kget");
     m_engine = dataEngine("kget");
     if (m_engine) {
-        m_engine->connectSource("KGet", this, 5000);
+        m_engine->connectSource("KGet", this);
     } else {
         kDebug(5001) << "KGet Engine could not be loaded";
     }
@@ -145,6 +148,11 @@ void KGetApplet::init()
     m_globalProgress->setMeterType(Plasma::Meter::BarMeterHorizontal);
     m_globalProgress->setMinimumSize(QSize(0, 0));
     setGraphicsWidget(m_proxyWidget);
+}
+
+void KGetApplet::slotKgetStarted()
+{
+    m_engine->query("KGet");
 }
 
 void KGetApplet::setTransfers(const QVariantMap &transfers)
@@ -187,6 +195,7 @@ void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data
     if (data["error"].toBool()) {
         if (!m_errorWidget) {
             m_errorWidget = new ErrorWidget(data["errorMessage"].toString(), this);
+            connect(m_errorWidget, SIGNAL(kgetStarted()), this, SLOT(slotKgetStarted()));
         }
         if (m_proxyWidget->dataWidget() != m_errorWidget) {
             m_proxyWidget->setDataWidget(m_errorWidget);
@@ -226,8 +235,10 @@ void KGetApplet::constraintsEvent(Plasma::Constraints constraints)
 {
     if (constraints & Plasma::SizeConstraint) {
         QGraphicsLayoutItem *widget = layout()->itemAt(0);
-        if (dynamic_cast<Plasma::IconWidget*>(widget) && !m_icon)
-            m_icon = dynamic_cast<Plasma::IconWidget*>(widget);
+        Plasma::IconWidget *icon = 0;
+        if (!m_icon && (icon = dynamic_cast<Plasma::IconWidget*>(widget))) {
+            m_icon = icon;
+        }
         if (widget == m_proxyWidget && m_globalProgress->isVisible()) {
             kDebug() << "remove progressbar";
             m_globalProgress->hide();

@@ -23,31 +23,35 @@
 
 #include <QtDBus/QDBusConnectionInterface>
 
-static const uint MINIMUM_UPDATE_INTERVAL = 1000;
-static const QString KGET_DBUS_SERVICE = "org.kde.kget";
-static const QString KGET_DBUS_PATH = "/KGet";
-
+class OrgKdeKgetMainInterface;
 
 class KGetEngine : public Plasma::DataEngine
 {
-Q_OBJECT
-public:
-    KGetEngine(QObject* parent, const QVariantList& args);
-    ~KGetEngine();
+    Q_OBJECT
 
-    QStringList sources() const;
+    public:
+        KGetEngine(QObject* parent, const QVariantList& args);
+        ~KGetEngine();
 
-protected:
-    bool sourceRequestEvent(const QString &name);
-    bool updateSourceEvent(const QString& source);
+        QStringList sources() const;
 
-private slots:
-    void getKGetData(const QString &name);
+    protected:
+        bool sourceRequestEvent(const QString &name);
+        bool updateSourceEvent(const QString& source);
 
-private:
-    bool isDBusServiceRegistered();
+    private slots:
+        void getKGetData(const QString &name);
+        void updateData();
 
-    QDBusConnectionInterface *interface;
+    private:
+        bool isDBusServiceRegistered();
+
+    private:
+        QDBusConnectionInterface *interface;
+        OrgKdeKgetMainInterface *m_kget;
+        static const quint16 MINIMUM_UPDATE_INTERVAL;
+        static const QString KGET_DBUS_SERVICE;
+        static const QString KGET_DBUS_PATH;
 };
 
 K_EXPORT_PLASMA_DATAENGINE(kget, KGetEngine)

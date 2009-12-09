@@ -1,6 +1,8 @@
 project(kget)
 
-#set(kget_adaptor_SRCS)
+set(kget_adaptor_SRCS
+    dbus/dbuskgetwrapper.cpp
+)
 # set(kget_transfer_adaptor_SRCS
 #     core/transferhandler.cpp
 #     core/transfertreemodel.cpp
@@ -37,8 +39,6 @@ if(QGPGME_FOUND)
         ${QGPGME_INCLUDES}
     )
 endif(QGPGME_FOUND)
-
-qt4_add_dbus_adaptor(kget_adaptor_SRCS org.kde.kget.main.xml mainwindow.h MainWindow)
 
 add_subdirectory(conf)
 add_subdirectory(core)
@@ -128,8 +128,8 @@ if (HAVE_NEPOMUK)
     )
 endif (HAVE_NEPOMUK)
 
-qt4_add_dbus_adaptor(kgetcore_SRCS org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
-qt4_add_dbus_interface(kgetcore_SRCS org.kde.kget.transfer.xml transfer_interface)
+qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
+qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.transfer.xml transfer_interface)
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
@@ -204,6 +204,9 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    extensions/webinterface/httpserver.cpp
 )
 
+qt4_add_dbus_adaptor(kget_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
+qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.main.xml kget_interface)
+
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
     ENABLE_TESTING()
 
@@ -216,8 +219,8 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
         tests/testtransfers.cpp
     )
 
-    qt4_add_dbus_interface(kget_test_transfers_SRCS org.kde.kget.main.xml kget_interface)
-    qt4_add_dbus_interface(kget_test_transfers_SRCS org.kde.kget.transfer.xml transfer_interface)
+    qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.main.xml kget_interface)
+    qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.transfer.xml transfer_interface)
 
     kde4_add_unit_test(kget_test_transfers
         ${kget_test_transfers_SRCS})

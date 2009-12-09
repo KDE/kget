@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -10,7 +11,7 @@
 #ifndef DBUSTRANSFERWRAPPER_H
 #define DBUSTRANSFERWRAPPER_H
 
-#include <QObject>
+#include "core/transferhandler.h"
 
 #include <QDBusVariant>
 
@@ -122,9 +123,18 @@ class DBusTransferWrapper : public QObject
          * @return a pixmap associated with the current transfer status
          */
         QDBusVariant statusPixmap() const;
-        
+
+    signals:
+        /**
+         * Emitted when the transfer changes
+         */
+        void transferChangedEvent(int transferChange);
+
+    private slots:
+        void slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags changeflags);
+
     private:
-        TransferHandler * m_transfer;
+        TransferHandler *m_transfer;
 };
 
 #endif

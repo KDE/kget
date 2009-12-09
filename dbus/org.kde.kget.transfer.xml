@@ -75,5 +75,8 @@
     <method name="statusPixmap">
       <arg type="v" direction="out"/>
     </method>
+    <signal name="transferChangedEvent">
+      <arg type="i" direction="out"/>
+    </signal>
   </interface>
 </node>

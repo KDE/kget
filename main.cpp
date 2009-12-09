@@ -17,6 +17,7 @@
 #include <kstandarddirs.h>
 
 #include "core/kget.h"
+#include "dbus/dbuskgetwrapper.h"
 #include "mainadaptor.h"
 #include "settings.h"
 #include "ui/splash.h"
@@ -62,8 +63,10 @@ public:
 #else
             kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"), false);
 #endif
-            new MainAdaptor(kget);
-            QDBusConnection::sessionBus().registerObject("/KGet", kget);
+
+            DBusKGetWrapper *wrapper = new DBusKGetWrapper(kget);
+            new MainAdaptor(wrapper);
+            QDBusConnection::sessionBus().registerObject("/KGet", wrapper);
         }
         KWindowSystem::activateWindow(kget->winId());
 

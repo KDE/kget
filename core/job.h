@@ -23,7 +23,7 @@
  *  By definition a job must always belong to a JobQueue (see jobqueue.h).
  **/
 
-#include "kget_export.h"
+#include "../kget_export.h"
 
 class QDomNode;
 

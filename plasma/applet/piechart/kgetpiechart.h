@@ -38,12 +38,11 @@ public:
     ~KGetPieChart();
 
     void init();
-    void constraintsEvent(Plasma::Constraints constraints);
-
-public slots:
-    void slotUpdate();
 
 private:
+    class Data;
+    class Item;
+    class PieChart;
     class PrivateData;
     class Private;
     Private *d;

@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -8,13 +9,13 @@
    version 2 of the License, or (at your option) any later version.
 */
 #include "dbustransferwrapper.h"
-#include "transferhandler.h"
 #include "transfergrouphandler.h"
 
-DBusTransferWrapper::DBusTransferWrapper(TransferHandler * parent)
+DBusTransferWrapper::DBusTransferWrapper(TransferHandler *parent)
   : QObject(parent),
     m_transfer(parent)
 {
+    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler*,TransferHandler::ChangesFlags)), this, SLOT(slotTransferChanged(TransferHandler*,TransferHandler::ChangesFlags)));
 }
 
 DBusTransferWrapper::~DBusTransferWrapper()
@@ -140,3 +141,12 @@ QDBusVariant DBusTransferWrapper::statusPixmap() const
 {
     return QDBusVariant(QVariant::fromValue(m_transfer->statusPixmap()));
 }
+
+void DBusTransferWrapper::slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags changeFlags)
+{
+    Q_UNUSED(transfer)
+
+    emit transferChangedEvent(changeFlags);
+}
+
+#include "dbustransferwrapper.moc"

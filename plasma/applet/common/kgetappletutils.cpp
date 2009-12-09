@@ -4,8 +4,9 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *
- *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+ *                                                                         *
+ *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>                 *
+ *   Copyright (C) 2009 by Matthias Fuchs <mat69@gmx.net>                  *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -26,6 +27,7 @@
 #include <plasma/widgets/iconwidget.h>
 #include <plasma/widgets/pushbutton.h>
 
+#include <QtDBus/QDBusConnectionInterface>
 #include <QGraphicsLinearLayout>
 #include <QPainter>
 #include <QRect>
@@ -33,12 +35,13 @@
 #include <QLabel>
 #include <QProcess>
 #include <QPushButton>
+#include <QTimer>
 
 #include <KIcon>
 #include <KLocale>
 #include <KPushButton>
 
-const static int SPACING = 4;
+const int KGetAppletUtils::SPACING = 4;
 
 
 void KGetAppletUtils::paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rect)
@@ -79,6 +82,8 @@ QGraphicsWidget *KGetAppletUtils::createErrorWidget(const QString &message, QGra
 ErrorWidget::ErrorWidget(const QString &message, QGraphicsWidget *parent)
     : QGraphicsProxyWidget(parent)
 {
+    m_interface = QDBusConnection::sessionBus().interface();
+
     m_layout = new QGraphicsLinearLayout(this);
     m_layout->setOrientation(Qt::Vertical);
 
@@ -112,6 +117,16 @@ void ErrorWidget::launchKGet()
 {
     QProcess kgetProcess;
     kgetProcess.startDetached("kget");
+    checkKGetStatus();
+}
+
+void ErrorWidget::checkKGetStatus()
+{
+    if (m_interface->isServiceRegistered("org.kde.kget")) {
+        emit kgetStarted();
+    } else {
+        QTimer::singleShot(1000, this, SLOT(checkKGetStatus()));
+    }
 }
 
 #include "kgetappletutils.moc"

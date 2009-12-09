@@ -28,7 +28,7 @@
 
 class ViewsContainer;
 class DropTarget;
-class DBusModelObserver;
+class DBusKgetWrapper;
 class HttpServer;
 class KGet;
 
@@ -39,24 +39,14 @@ class KGet;
  */
 class MainWindow : public KXmlGuiWindow
 {
+    friend class DBusKGetWrapper;
+
 Q_OBJECT
 public:
     explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = 0);
     ~MainWindow();
 
-    // from the DBUS interface
-    virtual QStringList addTransfer(const QString& src, const QString& destDir = QString(), 
-                                       bool start = false);
-    virtual bool delTransfer(const QString& dbusObjectPath);
-    virtual void showNewTransferDialog(const QStringList &urls);
-    virtual bool dropTargetVisible() const;
-    virtual void setDropTargetVisible( bool setVisible );
-    virtual void setOfflineMode( bool online );
-    virtual bool offlineMode() const;
-    virtual QVariantMap transfers() const;
-    virtual int transfersSpeed() const;
     virtual void setSystemTrayDownloading(bool running);
-    virtual void importLinks(const QList <QString> &links);
 
 
 public slots:
@@ -144,8 +134,6 @@ private:
 
     // internal widgets
     ViewsContainer * m_viewsContainer;
-    // dbus modelObserver to export the transfer percents
-    DBusModelObserver *m_dbusModelObserver;
 
     // separated widgets
     DropTarget    * m_drop;
