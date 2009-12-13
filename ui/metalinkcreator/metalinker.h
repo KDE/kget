@@ -137,10 +137,10 @@ class Metaurl
         QString type;
 
         /**
-         * the priority of the urls, 1 is highest priority, 255 lowest
-         * default is 0 as in not set and thus is ranked even behind 255
+         * the priority of the urls, 1 is highest priority, 999999 lowest
+         * default is 0 as in not set and thus is ranked even behind 999999
          */
-        quint16 priority;
+        uint priority;
 
         /**
          * Optional the name of a file that should be get of that metaurl
@@ -171,10 +171,10 @@ class Url
         void clear();
 
         /**
-         * the priority of the urls, 1 is highest priority, 255 lowest
-         * default is 0 as in not set and thus is ranked even behind 255
+         * the priority of the urls, 1 is highest priority, 999999 lowest
+         * default is 0 as in not set and thus is ranked even behind 999999
          */
-        quint16 priority;
+        uint priority;
 
         /**
          * the location of the server eg. "uk"
@@ -319,7 +319,7 @@ class Metalink
         Files files;
 
         static const QString KGET_DESCRIPTION;
-        static const quint16 MAX_URL_PRIORITY; //maximum pirority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
+        static const uint MAX_URL_PRIORITY; //maximum pirority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
 };
 
 /**
@@ -348,7 +348,7 @@ class Metalink_v3
         Resources parseResources(const QDomElement &e);
         DateConstruct parseDateConstruct(const QString &data);
         CommonData parseCommonData(const QDomElement &e);
-        
+
         /**
          * Inherits CommonData, the inheritor inherits every settings
          * from the ancestor it has not set itself
@@ -363,7 +363,7 @@ class Metalink_v3
 
     private:
         Metalink m_metalink;
-        static const quint16 MAX_PREFERENCE;
+        static const uint MAX_PREFERENCE;
 };
 
 /**

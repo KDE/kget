@@ -55,6 +55,10 @@ void MirrorAddDlg::init()
 
     ui.successLabel->hide();
 
+    //FIXME in 4.5 change the text to Priority once trunk opens again
+    //TODO also change Widget-Names to Priority instead of Preference
+    ui.labelPreference->setText(m_model->headerData(MirrorItem::Priority, Qt::Horizontal, Qt::DisplayRole).toString() + ':');
+
     setButtons(KDialog::Yes | KDialog::User1 | KDialog::Cancel);
     setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
     setButtonGuiItem(KDialog::User1, KGuiItem(i18nc("Adds the item and reopens the dialog to add a further item", "Add more"), KIcon("list-add")));

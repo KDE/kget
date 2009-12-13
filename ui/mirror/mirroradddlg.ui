@@ -76,7 +76,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>100</number>
+        <number>999999</number>
        </property>
        <property name="specialValueText">
         <string>not specified</string>
@@ -112,6 +112,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -120,11 +125,6 @@
    <class>KIntNumInput</class>
    <extends>QWidget</extends>
    <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

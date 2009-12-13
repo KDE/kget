@@ -35,24 +35,23 @@ class GeneralWidget : public QWidget
 
     public:
         GeneralWidget(QWidget *parent = 0);
-        
+
         void load(const KGetMetalink::Metalink &metalink) const;
         void save(KGetMetalink::Metalink *metalink);
-        
+
     private slots:
         /**
          * To correctly enable checkboxes
          */
         void slotPublishedEnabled(bool enabled);
-        
+
         /**
          * To correctly enable checkboxes
          */
         void slotUpdatedEnabled(bool enabled);
-        
+
     private:
         Ui::GeneralWidget ui;
-        
 };
 
 #endif

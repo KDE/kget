@@ -33,7 +33,8 @@
 #endif //HAVE_NEPOMUK
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
-const quint16 KGetMetalink::Metalink::MAX_URL_PRIORITY = 255;
+const uint KGetMetalink::Metalink::MAX_URL_PRIORITY = 999999;
+const uint KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
 
 namespace KGetMetalink
 {
@@ -711,8 +712,6 @@ void KGetMetalink::Metalink::clear()
     files.clear();
 }
 
-const quint16 KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
-
 KGetMetalink::Metalink_v3::Metalink_v3()
 {
 }
@@ -749,7 +748,7 @@ void KGetMetalink::Metalink_v3::parseFiles(const QDomElement &e)
 
     const QDomElement filesElem = e.firstChildElement("files");
     CommonData filesData = parseCommonData(filesElem);
-    
+
     inheritCommonData(data, &filesData);
 
     for (QDomElement elem = filesElem.firstChildElement("file"); !elem.isNull(); elem = elem.nextSiblingElement("file")) {
@@ -814,7 +813,7 @@ void KGetMetalink::Metalink_v3::inheritCommonData(const KGetMetalink::CommonData
     if (!inheritor) {
         return;
     }
-    
+
     //ensure that inheritance works
     if (inheritor->identity.isEmpty()) {
         inheritor->identity = ancestor.identity;
@@ -853,7 +852,7 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
     for (QDomElement elemRes = res.firstChildElement("url"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("url")) {
         const QString location = elemRes.attribute("location").toLower();
 
-        quint16 preference = elemRes.attribute("preference").toUInt();
+        uint preference = elemRes.attribute("preference").toUInt();
         //the maximum preference we use is MAX_PREFERENCE
         if (preference > MAX_PREFERENCE) {
             preference = MAX_PREFERENCE;
@@ -862,7 +861,7 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
 
         const KUrl link = KUrl(elemRes.text());
         QString type;
-        
+
         if (link.fileName().endsWith(QLatin1String(".torrent"))) {
             type = "torrent";
         }
@@ -910,7 +909,7 @@ KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const 
 
     //Date according to RFC 822, the year with four characters preferred
     //e.g.: "Mon, 15 May 2006 00:00:01 GMT", "Fri, 01 Apr 2009 00:00:01 +1030"
-    
+
     //find the date
     const QString weekdayExp = "ddd, ";
     const bool weekdayIncluded = (temp.indexOf(',') == 3);
@@ -953,7 +952,7 @@ KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const 
         }
     }
     dateTime.setTime(time);
-    
+
     //find the offset
     temp = temp.mid(length + 1);//also remove the space
     bool negativeOffset = false;
@@ -1036,7 +1035,7 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
 
     foreach (const Url &url, resources.urls) {
         QDomElement elem = doc.createElement("url");
-        const quint16 priority = url.priority;
+        const uint priority = url.priority;
         if (priority) {
             int preference = MAX_PREFERENCE - priority + 1;
             if (preference <= 0) {
@@ -1058,7 +1057,7 @@ void KGetMetalink::Metalink_v3::saveResources(const Resources &resources, QDomEl
         if (metaurl.type == "torrent") {
             QDomElement elem = doc.createElement("url");
             elem.setAttribute("type", "bittorrent");
-            const quint16 priority = metaurl.priority;
+            const uint priority = metaurl.priority;
             if (priority) {
                 int preference = MAX_PREFERENCE - priority + 1;
                 if (preference <= 0) {
@@ -1176,7 +1175,7 @@ QString KGetMetalink::Metalink_v3::dateConstructToString(const KGetMetalink::Dat
     if (!date.isValid()) {
         return dateString;
     }
-    
+
     QLocale locale = QLocale::c();
 
     //"Fri, 01 Apr 2009 00:00:01 +1030"

@@ -64,7 +64,7 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         else if (index.column() == MirrorItem::Priority)
         {
             QSpinBox *preference = new QSpinBox(parent);
-            preference->setRange(0, 255);
+            preference->setRange(0, 999999);
 
             return preference;
         }
@@ -362,7 +362,7 @@ QVariant MirrorModel::headerData(int section, Qt::Orientation orientation, int r
     if (orientation == Qt::Vertical) {
         return QVariant();
     }
-    
+
     if ((section == MirrorItem::Url) && (role == Qt::DisplayRole)) {
         return i18nc("Mirror as in server, in url", "Mirror");
     } else if (section == MirrorItem::Priority) {

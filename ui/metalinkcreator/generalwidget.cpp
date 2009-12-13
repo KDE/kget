@@ -29,7 +29,7 @@ GeneralWidget::GeneralWidget(QWidget *parent)
     ui.setupUi(this);
 
     ui.dynamic->setToolTip(ui.labelDynamic->toolTip());
-    
+
     connect(ui.publishedGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotPublishedEnabled(bool)));
     connect(ui.updatedGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotUpdatedEnabled(bool)));
 }
