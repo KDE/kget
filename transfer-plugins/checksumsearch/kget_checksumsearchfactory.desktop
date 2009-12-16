@@ -6,6 +6,7 @@ Icon=kget
 
 # standard fields
 Name=Checksum Search
+Name[ca]=Cerca de suma de verificació
 Name[da]=Tjeksum-søgning
 Name[en_GB]=Checksum Search
 Name[es]=Buscar comprabación de suma
@@ -28,6 +29,7 @@ Name[x-test]=xxChecksum Searchxx
 Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
+Comment[ca]=Intenta cercar sumes de verificació per a un URL especificat
 Comment[da]=Forsøger at finde tjeksummer for en angivet URL
 Comment[en_GB]=Tries to find checksums for a specified URL
 Comment[es]=Intenta encontrar comprobación de suma para una dirección URL específicada
