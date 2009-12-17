@@ -27,6 +27,7 @@
 #include <QVariantMap>
 
 class MainWindow;
+class TransferHandler;
 
 class DBusKGetWrapper : public QObject
 {
@@ -49,9 +50,16 @@ class DBusKGetWrapper : public QObject
 
     signals:
         void transferAddedRemoved();
+        void transferAdded(const QString &url, const QString &dBusObjectPath);
+        void transferRemoved(const QString &url, const QString &dBusObjectPath);
+
+    private slots:
+        void slotTransferAdded(TransferHandler *transfer);
+        void slotTransferRemoved(TransferHandler *transfer);
 
     private:
         MainWindow *m_mainWindow;
+        QHash<TransferHandler*, QPair<QString, QString> > m_transfers;
 };
 
 #endif

@@ -311,6 +311,10 @@ void KGetPieChart::Private::slotUpdateTransfer(int transferChange)
 }
 void KGetPieChart::Private::updateTransfers()
 {
+    if (m_items.isEmpty()) {
+        return;
+    }
+
     int step = m_colors.count() / m_items.count();
     //there are more items than colors
     if (!step) {

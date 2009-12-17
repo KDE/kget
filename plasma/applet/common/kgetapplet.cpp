@@ -20,6 +20,7 @@
 #include "kgetapplet.h"
 #include "kget_interface.h"
 #include "kgetappletutils.h"
+#include "../../../core/transferhandler.h"
 
 #include <plasma/dataengine.h>
 #include <plasma/theme.h>
@@ -54,7 +55,7 @@ ProxyWidget::ProxyWidget(QGraphicsWidget * parent)
     m_layout = new QGraphicsLinearLayout(Qt::Vertical, this);
     m_layout->setSpacing(SPACING);
     //m_layout->setContentsMargins(MARGIN, TOP_MARGIN, MARGIN, MARGIN);
-    
+
     themeChanged();
 
     connect(Plasma::Theme::defaultTheme(), SIGNAL(themeChanged()), SLOT(themeChanged()));
@@ -66,10 +67,10 @@ ProxyWidget::~ProxyWidget()
 
 void ProxyWidget::paint(QPainter * p, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-    QRect rect = option->rect;
-    
+    const QRect rect = option->rect;
+
     p->setRenderHint(QPainter::SmoothPixmapTransform);
-    
+
     QFont font = Plasma::Theme::defaultTheme()->font(Plasma::Theme::DefaultFont);
     font.setBold(true);
     font.setPointSize(15);
@@ -78,7 +79,7 @@ void ProxyWidget::paint(QPainter * p, const QStyleOptionGraphicsItem * option, Q
     p->setPen(Plasma::Theme::defaultTheme()->color(Plasma::Theme::TextColor));
 
     QRect iconRect(QPoint(rect.x() + SPACING + 10, rect.y() + SPACING + 10), QSize(m_textHeight, m_textHeight));
-    
+
     KIcon("kget").paint(p, iconRect);
     p->drawText(QRectF(rect.x() + SPACING * 2 + 10 + iconRect.width(), rect.y() + SPACING + 10, 
                        m_textWidth, m_textHeight), i18n("KGet"));
@@ -97,7 +98,7 @@ void ProxyWidget::themeChanged()
     QFontMetrics metrics(font);
     m_textWidth = metrics.width(i18n("KGet"));
     m_textHeight = metrics.height();
-    
+
     m_layout->setContentsMargins(MARGIN, MARGIN + m_textHeight + SPACING + 10, MARGIN, MARGIN);
 }
 
@@ -109,7 +110,7 @@ void ProxyWidget::setDataWidget(QGraphicsWidget *widget)
     m_dataWidget = widget;
 }
 
-QGraphicsWidget * ProxyWidget::dataWidget()
+QGraphicsWidget *ProxyWidget::dataWidget()
 {
     return m_dataWidget;
 }
@@ -121,7 +122,9 @@ KGetApplet::KGetApplet(QObject *parent, const QVariantList &args)
     m_dataWidget(0),
     m_globalProgress(0),
     m_icon(0),
-    m_engine(0)
+    m_engine(0),
+    m_totalSize(0),
+    m_downloadedSize(0)
 {
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
     setBackgroundHints(Applet::DefaultBackground);
@@ -155,39 +158,6 @@ void KGetApplet::slotKgetStarted()
     m_engine->query("KGet");
 }
 
-void KGetApplet::setTransfers(const QVariantMap &transfers)
-{
-    QList<OrgKdeKgetTransferInterface*> ts;
-    QList<OrgKdeKgetTransferInterface*> added;
-    QVariantMap::const_iterator it;
-    QVariantMap::const_iterator itEnd = transfers.constEnd();
-    for (it = transfers.constBegin(); it != itEnd; ++it) {
-        const QString &url = it.key();
-        OrgKdeKgetTransferInterface* t = 0;
-        foreach (OrgKdeKgetTransferInterface* transfer, m_transfers) {
-            if (transfer->source().value() == url) {
-                t = transfer;
-                m_transfers.removeAll(transfer);
-                break;
-            }
-        }
-        if (t)
-            ts.append(t);
-        else {
-            OrgKdeKgetTransferInterface* transfer = new OrgKdeKgetTransferInterface("org.kde.kget", 
-                                                                                    transfers[url].toString(), QDBusConnection::sessionBus(), this);
-            ts.append(transfer);
-            added.append(transfer);
-        }
-    }
-    if (!m_transfers.isEmpty())
-        emit transfersRemoved(m_transfers);
-    if (!added.isEmpty())
-        emit transfersAdded(added);
-    m_transfers = ts;
-    emit update();
-}
-
 void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data &data)
 {
     Q_UNUSED(name)
@@ -201,7 +171,6 @@ void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data
             m_proxyWidget->setDataWidget(m_errorWidget);
             m_errorWidget->show();
             m_dataWidget->hide();
-            setTransfers(QVariantMap());
         }
     }
     else if (!data["error"].toBool()) {
@@ -211,16 +180,106 @@ void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data
             m_proxyWidget->setDataWidget(m_dataWidget);
             m_dataWidget->show();
         }
-        setTransfers(data["transfers"].toMap());
-        int completedSize = 0;
-        int totalSize = 0;
-        foreach (OrgKdeKgetTransferInterface* transfer, m_transfers) {
-            completedSize += transfer->downloadedSize().value();
-            totalSize += transfer->totalSize().value();
+        if (m_transfers.isEmpty()) {
+            transferAdded(data["transfers"].toMap());
+        } else {
+            if (data.contains("transferAdded")) {
+                transferAdded(data["transferAdded"].toMap());
+            }
+            if (data.contains("transferRemoved")) {
+                transferRemoved(data["transferRemoved"].toMap());
+            }
         }
-        if (m_globalProgress) {
-            m_globalProgress->setValue((completedSize * 100) / totalSize);
+    }
+}
+
+void KGetApplet::transferAdded(const QVariantMap &transfer)
+{
+    QList<OrgKdeKgetTransferInterface*> added;
+    QVariantMap::const_iterator it;
+    QVariantMap::const_iterator itEnd = transfer.constEnd();
+    for (it = transfer.constBegin(); it != itEnd; ++it) {
+        OrgKdeKgetTransferInterface *newTransfer = new OrgKdeKgetTransferInterface("org.kde.kget", it.value().toString(), QDBusConnection::sessionBus(), this);
+        connect(newTransfer, SIGNAL(transferChangedEvent(int)), this, SLOT(slotUpdateTransfer(int)));
+
+        added.append(newTransfer);
+
+        m_transfers[newTransfer].downloadedSize = newTransfer->downloadedSize();
+        m_transfers[newTransfer].size = newTransfer->totalSize();
+        m_downloadedSize += m_transfers[newTransfer].downloadedSize;
+        m_totalSize += m_transfers[newTransfer].size;
+    }
+
+    if (!added.isEmpty()) {
+        emit transfersAdded(added);
+        emit update();
+        updateGlobalProgress();
+    }
+}
+
+void KGetApplet::transferRemoved(const QVariantMap &transfer)
+{
+    Q_UNUSED(transfer)
+
+    QList<OrgKdeKgetTransferInterface*> removed;
+
+    QHash<OrgKdeKgetTransferInterface*, Data>::iterator it;
+    QHash<OrgKdeKgetTransferInterface*, Data>::iterator itEnd = m_transfers.end();
+    for (it = m_transfers.begin(); it != itEnd; ) {
+        const KUrl url = KUrl(it.key()->source().value());
+        //if the protocol is empty that means, that the transer does not exist anymore
+        if (url.protocol().isEmpty()) {
+            removed.append(it.key());
+
+            m_downloadedSize -= m_transfers[it.key()].downloadedSize;
+            m_totalSize -= m_transfers[it.key()].size;
+
+            it = m_transfers.erase(it);
+        } else {
+            ++it;
         }
+    }
+
+    if (!removed.isEmpty()) {
+        emit transfersRemoved(removed);
+        emit update();
+        updateGlobalProgress();
+    }
+}
+
+void KGetApplet::slotUpdateTransfer(int transferChange)
+{
+    OrgKdeKgetTransferInterface *transfer = qobject_cast<OrgKdeKgetTransferInterface*>(QObject::sender());
+
+    if (transfer && m_transfers.contains(transfer)) {
+        if (transferChange & Transfer::Tc_TotalSize) {
+            m_totalSize -= m_transfers[transfer].size;
+            m_downloadedSize -= m_transfers[transfer].downloadedSize;
+
+            m_transfers[transfer].size = transfer->totalSize();
+            m_transfers[transfer].downloadedSize = transfer->downloadedSize();
+            m_totalSize += m_transfers[transfer].size;
+            m_downloadedSize += m_transfers[transfer].downloadedSize;
+
+            updateGlobalProgress();
+            return;
+        }
+        if (transferChange & Transfer::Tc_DownloadedSize) {
+            m_downloadedSize -= m_transfers[transfer].downloadedSize;
+
+            m_transfers[transfer].downloadedSize = transfer->downloadedSize();
+            m_downloadedSize += m_transfers[transfer].downloadedSize;
+
+            updateGlobalProgress();
+            return;
+        }
+    }
+}
+
+void KGetApplet::updateGlobalProgress()
+{
+    if (m_globalProgress && m_totalSize) {
+        m_globalProgress->setValue((m_downloadedSize * 100) / m_totalSize);
     }
 }
 
@@ -257,7 +316,6 @@ void KGetApplet::constraintsEvent(Plasma::Constraints constraints)
             lay->addItem(m_icon);
             lay->addItem(m_globalProgress);
         }
-        setAspectRatioMode(Plasma::IgnoreAspectRatio);
         /*if (layout()->count() && dynamic_cast<Plasma::IconWidget*>(layout()->itemAt(0)) && !m_progressProxy.isVisible()) {
             qobject_cast<QGraphicsLinearLayout*>(layout())->addItem(m_progressProxy);
             m_progressProxy->show();
@@ -288,8 +346,8 @@ bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
 
 void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
-    kDebug(5001);    
-    
+    kDebug(5001);
+
     QStringList urls;
     if (event->mimeData()->hasUrls())
     {
@@ -301,7 +359,7 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
         event->ignore();
         return;
     }
-    
+
     if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
         OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,
@@ -319,7 +377,7 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 void KGetApplet::dropEvent(QDropEvent * event)
 {
     kDebug(5001);
-    
+
     QStringList urls;
     if (event->mimeData()->hasUrls())
     {
@@ -331,7 +389,7 @@ void KGetApplet::dropEvent(QDropEvent * event)
         event->ignore();
         return;
     }
-    
+
     if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE))
     {
         OrgKdeKgetMainInterface kget_interface(KGET_DBUS_SERVICE, KGET_DBUS_PATH,

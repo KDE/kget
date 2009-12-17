@@ -37,10 +37,14 @@ DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
   : QObject(parent),
     m_mainWindow(parent)
 {
+    foreach (TransferHandler *handler, KGet::allTransfers()) {
+        m_transfers[handler] = qMakePair(handler->source().pathOrUrl(), handler->dBusObjectPath());
+    }
+
     TransferTreeModel *model = KGet::model();
 
-    connect(model, SIGNAL(transferAddedEvent(TransferHandler*,TransferGroupHandler*)), this, SIGNAL(transferAddedRemoved()));
-    connect(model, SIGNAL(transferRemovedEvent(TransferHandler*, TransferGroupHandler*)), this, SIGNAL(transferAddedRemoved()));
+    connect(model, SIGNAL(transferAddedEvent(TransferHandler*,TransferGroupHandler*)), this, SLOT(slotTransferAdded(TransferHandler*)));
+    connect(model, SIGNAL(transferRemovedEvent(TransferHandler*, TransferGroupHandler*)), this, SLOT(slotTransferRemoved(TransferHandler*)));
 }
 
 DBusKGetWrapper::~DBusKGetWrapper()
@@ -104,12 +108,26 @@ bool DBusKGetWrapper::offlineMode() const
 
 QVariantMap DBusKGetWrapper::transfers() const
 {
-    QVariantMap transfers;
-    foreach (TransferHandler *handler, KGet::allTransfers()) {
-        transfers.insert(handler->source().pathOrUrl(), handler->dBusObjectPath());
+    const QList<QPair<QString, QString> > transfers = m_transfers.values();
+    QVariantMap result;
+    for (int i = 0; i < transfers.count(); ++i) {
+        result.insert(transfers[i].first, transfers[i].second);
     }
 
-    return transfers;
+    return result;
+}
+
+void DBusKGetWrapper::slotTransferAdded(TransferHandler *transfer)
+{
+    m_transfers[transfer] = qMakePair(transfer->source().pathOrUrl(), transfer->dBusObjectPath());
+    emit transferAdded(m_transfers[transfer].first, m_transfers[transfer].second);
+}
+
+void DBusKGetWrapper::slotTransferRemoved(TransferHandler *transfer)
+{
+    const QPair<QString, QString> removed = m_transfers[transfer];
+    m_transfers.remove(transfer);
+    emit transferRemoved(removed.first, removed.second);
 }
 
 int DBusKGetWrapper::transfersSpeed() const

@@ -24,6 +24,8 @@
 #include <plasma/dataengine.h>
 #include "transfer_interface.h"
 
+#include <KIO/Job>
+
 class QEvent;
 class QDropEvent;
 class QGraphicsLinearLayout;
@@ -71,7 +73,6 @@ public:
     ~KGetApplet();
 
     void init();
-    void setTransfers(const QVariantMap &transfers);
     void setDataWidget(QGraphicsWidget * widget);
 
 public slots:
@@ -79,11 +80,17 @@ public slots:
 
 private slots:
     virtual void slotKgetStarted();
+    void slotUpdateTransfer(int transferChange);
 
 signals:
     void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void transfersRemoved(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void update();
+
+private:
+    void updateGlobalProgress();
+    void transferAdded(const QVariantMap &transfer);
+    void transferRemoved(const QVariantMap &transfer);
 
 protected:
     virtual bool sceneEventFilter(QGraphicsItem * watched, QEvent * event);
@@ -91,13 +98,21 @@ protected:
     virtual void dropEvent(QDropEvent * event);
     virtual void constraintsEvent(Plasma::Constraints constraints);
 
+    struct Data
+    {
+        KIO::filesize_t size;
+        KIO::filesize_t downloadedSize;
+    };
+
     ProxyWidget *m_proxyWidget;
     ErrorWidget *m_errorWidget;
     QGraphicsWidget *m_dataWidget;
     Plasma::Meter *m_globalProgress;
     Plasma::IconWidget *m_icon;
     Plasma::DataEngine *m_engine;
-    QList<OrgKdeKgetTransferInterface*> m_transfers;
+    KIO::filesize_t m_totalSize;
+    KIO::filesize_t m_downloadedSize;
+    QHash<OrgKdeKgetTransferInterface*, Data> m_transfers;
     static const QString KGET_DBUS_SERVICE;
     static const QString KGET_DBUS_PATH;
 };

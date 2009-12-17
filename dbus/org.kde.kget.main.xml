@@ -37,7 +37,13 @@
     <method name="importLinks">
         <arg name="links" type="as" direction="in" />
     </method>
-    <signal name="transferAddedRemoved">
+    <signal name="transferAdded">
+        <arg type="s" direction="out"/>
+        <arg type="s" direction="out"/>
+    </signal>
+    <signal name="transferRemoved">
+        <arg type="s" direction="out"/>
+        <arg type="s" direction="out"/>
     </signal>
   </interface>
 </node>

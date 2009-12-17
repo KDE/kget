@@ -76,7 +76,8 @@ void KGetEngine::getKGetData(const QString &name)
     if (isDBusServiceRegistered()) {
         if (!m_kget) {
             m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
-            connect(m_kget, SIGNAL(transferAddedRemoved()), this, SLOT(updateData()));
+            connect(m_kget, SIGNAL(transferAdded(QString,QString)), this, SLOT(slotTransferAdded(QString,QString)));
+            connect(m_kget, SIGNAL(transferRemoved(QString,QString)), this, SLOT(slotTransferRemoved(QString,QString)));
         }
 
         setData(name, "error", false);
@@ -85,6 +86,32 @@ void KGetEngine::getKGetData(const QString &name)
         setData(name, "error", true);
         setData(name, "errorMessage", i18n("Is KGet up and running?"));
     }
+}
+
+void KGetEngine::slotTransferAdded(const QString &url, const QString &dBusObjectPath)
+{
+    const QString name = "KGet";
+    removeAllData(name);
+
+    QVariantMap added;
+    added.insert(url, dBusObjectPath);
+
+    setData(name, "error", false);
+    setData(name, "transfers", m_kget->transfers().value());
+    setData(name, "transferAdded", added);
+}
+
+void KGetEngine::slotTransferRemoved(const QString &url, const QString &dBusObjectPath)
+{
+    const QString name = "KGet";
+    removeAllData(name);
+
+    QVariantMap removed;
+    removed.insert(url, dBusObjectPath);
+
+    setData(name, "error", false);
+    setData(name, "transfers", m_kget->transfers().value());
+    setData(name, "transferRemoved", removed);
 }
 
 bool KGetEngine::isDBusServiceRegistered()
