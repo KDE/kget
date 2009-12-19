@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -19,6 +20,7 @@
 #include <KAction>
 #include <KLocale>
 #include <KMenu>
+#include <KRun>
 
 #include <QDropEvent>
 #include <QHeaderView>
@@ -196,6 +198,8 @@ void TransfersView::slotItemActivated(const QModelIndex & index)
             m_editingIndexes.removeAll(index);
             view_delegate->contractItem(index);
         }
+    } else if (!item->isGroup() && static_cast<TransferModelItem*>(item)->transferHandler()->status() == Job::Finished) {
+        new KRun(static_cast<TransferModelItem*>(item)->transferHandler()->dest(), this);
     }
 }
 
