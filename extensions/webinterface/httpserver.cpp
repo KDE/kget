@@ -79,8 +79,8 @@ void HttpServer::handleRequest()
             if (needsToBeClosed)
                 data.append(","); // close the last line
             data.append(QString("{\"name\":\"" + transfer->source().fileName() +
-                             "\", \"src\":\"" + transfer->source().url() +
-                             "\", \"dest\":\"" + transfer->dest().url()  +
+                             "\", \"src\":\"" + transfer->source().prettyUrl() +
+                             "\", \"dest\":\"" + transfer->dest().pathOrUrl()  +
                              "\", \"status\":\"" + transfer->statusText() +
                              "\", \"size\":\"" + KIO::convertSize(transfer->totalSize()) +
                              "\", \"progress\":\"" + QString::number(transfer->percent()) + "%"
