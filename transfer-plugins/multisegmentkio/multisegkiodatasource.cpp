@@ -20,7 +20,8 @@ MultiSegKioDataSource::MultiSegKioDataSource(const KUrl &srcUrl)
     m_canResume(false),
     m_getInitJob(0),
     m_hasInitJob(false),
-    m_started(false)
+    m_started(false),
+    m_restarted(0)
 {
     kDebug(5001);
 }
@@ -100,9 +101,9 @@ void MultiSegKioDataSource::addSegments(const KIO::fileoffset_t offset, const QP
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
     connect(segment, SIGNAL(finishedSegment(Segment*, int, bool)), this, SLOT(slotFinishedSegment(Segment*, int, bool)));
     connect(segment, SIGNAL(brokenSegments(Segment*,QPair<int,int>)), this, SLOT(slotBrokenSegments(Segment*,QPair<int,int>)));
+    connect(segment, SIGNAL(error(Segment*,int)), SLOT(slotError(Segment*,int)));
 
-    if (m_started)
-    {
+    if (m_started) {
         segment->startTransfer();
     }
 }
@@ -117,13 +118,15 @@ void MultiSegKioDataSource::slotBrokenSegments(Segment *segment, const QPair<int
 {
     Q_UNUSED(segment)
 
+    m_segments.removeAll(segment);
+    delete segment;
+
     emit brokenSegments(this, segmentRange);
 }
 
 void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished)
 {
-    if (connectionFinished)
-    {
+    if (connectionFinished) {
         m_segments.removeAll(segment);
         delete segment;
     }
@@ -197,6 +200,11 @@ void MultiSegKioDataSource::killInitJob()
     }
 }
 
+int MultiSegKioDataSource::currentSegments() const
+{
+    return m_segments.count();
+}
+
 Segment *MultiSegKioDataSource::mostUnfinishedSegments(int *unfin) const
 {
     int unfinished = 0;
@@ -244,7 +252,7 @@ QPair<int, int> MultiSegKioDataSource::split()
     if (seg) {
         unassigned = seg->split();
     }
-    
+
     return unassigned;
 }
 
@@ -260,5 +268,37 @@ QPair<int, int> MultiSegKioDataSource::removeConnection()
 
     return unassigned;
 }
+
+
+void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
+{
+    Q_UNUSED(KIOError)
+
+    kDebug(5001) << "Error" << KIOError << "segment" << segment;
+
+    const KIO::fileoffset_t offset = segment->offset();
+    const QPair<KIO::fileoffset_t, KIO::fileoffset_t> segmentSize = segment->segmentSize();
+    const QPair<int, int> range = segment->assignedSegments();
+
+    m_segments.removeAll(segment);
+    delete segment;
+
+    if (m_segments.isEmpty()) {
+        //empty, retry it three times
+        if (m_restarted < 3) {
+            ++m_restarted;
+            addSegments(offset, segmentSize, range);
+        } else {
+            emit brokenSegments(this, range);
+        }
+    } else {
+        //decrease the number of maximum paralell downloads, maybe the server does not support so many connections
+        if (m_paralellSegments > 1) {
+            --m_paralellSegments;
+        }
+        emit freeSegments(this, range);
+    }
+}
+
 
 #include "multisegkiodatasource.moc"

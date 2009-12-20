@@ -33,49 +33,6 @@ namespace KIO
 }
 
 /**
- * Contains information about the datasources and handles its deletion
- */
-class DataSource
-{
-    public:
-        DataSource(TransferDataSource *transferDataSource);
-        ~DataSource();
-
-        TransferDataSource *transferDataSource() {return m_dataSource;}
-
-        /**
-         * @return the number of paralell segments this DataSource is allowed to use
-         */
-        int paralellSegments() const {return m_paralellSegments;}
-
-        /**
-         * Sets the number of paralell segments this DataSource is allowed to use
-         */
-        void setParalellSegments(int paralellSegments) {m_paralellSegments = paralellSegments;}
-
-        /**
-         * @return the number of paralell segments this DataSources currently uses
-         */
-        int currentSegments() const {return m_currentSegments;}
-
-        /**
-         * Sets the number of paralell segments this DataSources currently uses
-         */
-        void setCurrentSegments(int currentSegments) {m_currentSegments = currentSegments;}
-
-        /**
-         * Returns the missmatch of paralellSegments() and currentSegments()
-         * @return the number of segments to add/remove e.g. -1 means one segment to remove
-         */
-        int changeNeeded() const {return m_paralellSegments - m_currentSegments;}
-
-    private:
-        TransferDataSource *m_dataSource;
-        int m_paralellSegments;
-        int m_currentSegments;
-};
-
-/**
  This class manages multiple DataSources and saves the received data to the file
  */
 class KGET_EXPORT DataSourceFactory : public QObject
@@ -95,7 +52,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         DataSourceFactory(QObject* parent);
 
         ~DataSourceFactory();
-        
+
         void deinit();
 
         /**
@@ -226,6 +183,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * A TransferDataSource is broken
          */
         void broken(TransferDataSource *source, TransferDataSource::Error error);
+        /**
+         * Emitted when a Datasource itself decides to not download a specific segmentRange,
+         * e.g. when there are too many connections for this TransferDataSource
+         */
+        void slotFreeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
         void slotWriteData(KIO::fileoffset_t offset, const QByteArray &data, bool &worked);
         void slotOffset(KIO::Job *job, KIO::filesize_t offset);
         void slotDataWritten(KIO::Job *job, KIO::filesize_t offset);
@@ -294,7 +256,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         bool m_finished;
 
         int m_maxMirrorsUsed;
-        QHash<KUrl, DataSource*> m_sources;
+        QHash<KUrl, TransferDataSource*> m_sources;
         QList<KUrl> m_unusedUrls;
         QList<int> m_unusedConnections;
         QTimer *m_speedTimer;

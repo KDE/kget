@@ -37,11 +37,18 @@ class MultiSegKioDataSource : public TransferDataSource
         QPair<int, int> split();
 
         void setSupposedSize(KIO::filesize_t supposedSize);
+        int currentSegments() const;
 
     private Q_SLOTS:
         void slotSpeed(ulong speed);
         void slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange);
         void slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished);
+
+        /**
+         * There was an error while downloading segment, the number of connections this
+         * TransferDataSource uses simultanously gets reduced
+         */
+        void slotError(Segment *segment, int KIOError);
 
         /**the following slots are there to check if the size reported by the mirror
          * Checks if the sizre reported by the mirror is correct
@@ -73,6 +80,7 @@ class MultiSegKioDataSource : public TransferDataSource
         KIO::TransferJob *m_getInitJob;
         bool m_hasInitJob;
         bool m_started;
+        int m_restarted;
 };
 
 #endif

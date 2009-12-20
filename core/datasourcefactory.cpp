@@ -36,18 +36,6 @@
 
 const int SPEEDTIMER = 1000;//1 second...
 
-DataSource::DataSource(TransferDataSource *transferDataSource)
-  : m_dataSource(transferDataSource),
-    m_paralellSegments(0),
-    m_currentSegments(0)
-{
-}
-
-DataSource::~DataSource()
-{
-    delete m_dataSource;
-}
-
 DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO::fileoffset_t segSize,
                                      QObject *parent)
   : QObject(parent),
@@ -112,7 +100,6 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
 
 DataSourceFactory::~DataSourceFactory()
 {
-    qDeleteAll(m_sources);
     killPutJob();
 }
 
@@ -164,9 +151,9 @@ void DataSourceFactory::findFileSize()
     kDebug(5001) << "Find the filesize";
     if (!m_size && !m_dest.isEmpty() && !m_tempDownload)
     {
-        foreach (DataSource *source, m_sources)
+        foreach (TransferDataSource *source, m_sources)
         {
-            const KUrl url = source->transferDataSource()->sourceUrl();
+            const KUrl url = source->sourceUrl();
             QString prot = url.protocol();
             if ((prot == "http" || prot == "https" || prot == "ftp"  || prot == "sftp") &&
                 (!url.fileName().endsWith(QLatin1String(".torrent"))) &&
@@ -284,16 +271,13 @@ void DataSourceFactory::start()
 
     init();
 
-    if (m_assignTried)
-    {
+    if (m_assignTried) {
         m_assignTried = false;
 
         //TODO maybe remove this later, if loading works without it
-        if (!m_startedChunks->allOn())
-        {
-            foreach(DataSource *source, m_sources)
-            {
-                assignSegments(source->transferDataSource());
+        if (!m_startedChunks->allOn()) {
+            foreach(TransferDataSource *source, m_sources) {
+                assignSegments(source);
             }
         }
     }
@@ -308,12 +292,12 @@ void DataSourceFactory::start()
             m_startTried = true;
             return;
         }
-        if (m_open)
-        {
+        if (m_open) {
             m_speedTimer->start();
 
-            foreach (DataSource *source, m_sources)
-                source->transferDataSource()->start();
+            foreach (TransferDataSource *source, m_sources) {
+                source->start();
+            }
 
             m_startTried = false;
             changeStatus(Job::Running);
@@ -353,8 +337,9 @@ void DataSourceFactory::stop()
     {
         m_speedTimer->stop();
     }
-    foreach (DataSource *source, m_sources)
-        source->transferDataSource()->stop();
+    foreach (TransferDataSource *source, m_sources) {
+        source->stop();
+    }
     m_startTried = false;
     changeStatus(Job::Stopped);
 }
@@ -409,18 +394,14 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
         //there is already a TransferDataSource with that url, reuse it and modify numParalellSegments
         if (m_sources.contains(url))
         {
-            DataSource *source = m_sources[url];
+            TransferDataSource *source = m_sources[url];
             source->setParalellSegments(numParalellConnections);
-            if (source->changeNeeded() > 0)
-            {
-                assignSegments(source->transferDataSource());
-            }
-            else
-            {
+            if (source->changeNeeded() > 0) {
+                assignSegments(source);
+            } else {
                 for (int i = source->changeNeeded(); i < 0; ++i)
                 {
-                    const QPair<int, int> removed = source->transferDataSource()->removeConnection();
-                    source->setCurrentSegments(source->currentSegments() - 1);
+                    const QPair<int, int> removed = source->removeConnection();
                     kDebug(5001) << "Remove connection with segments" << removed;
                     const int start = removed.first;
                     const int end = removed.second;
@@ -451,12 +432,13 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                         m_unusedConnections.removeAt(index);
                     }
 
-                    m_sources[url] = new DataSource(source);
+                    m_sources[url] = source;
                     m_sources[url]->setParalellSegments(numParalellConnections);
 
                     connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int, int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int, int>)));
                     connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
                     connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
+                    connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotRequestMaximumParalellDownloads(TransferDataSource*,QPair<int,int>)));
 
                     assignSegments(source);
 
@@ -504,9 +486,9 @@ void DataSourceFactory::removeMirror(const KUrl &url)
     kDebug(5001) << "Removing mirror: " << url;
     if (m_sources.contains(url))
     {
-        DataSource *source = m_sources[url];
-        source->transferDataSource()->stop();
-        const QList<QPair<int, int> > assigned = source->transferDataSource()->assignedSegments();
+        TransferDataSource *source = m_sources[url];
+        source->stop();
+        const QList<QPair<int, int> > assigned = source->assignedSegments();
         m_sources.remove(url);
         m_unusedUrls.append(url);
         m_unusedConnections.append(source->paralellSegments());
@@ -531,8 +513,8 @@ void DataSourceFactory::removeMirror(const KUrl &url)
     if (m_status == Job::Running)
     {
         bool assignNeeded = true;
-        QHash<KUrl, DataSource*>::const_iterator it;
-        QHash<KUrl, DataSource*>::const_iterator itEnd = m_sources.constEnd();
+        QHash<KUrl, TransferDataSource*>::const_iterator it;
+        QHash<KUrl, TransferDataSource*>::const_iterator itEnd = m_sources.constEnd();
         for (it = m_sources.constBegin(); it != itEnd; ++it)
         {
             if ((*it)->currentSegments())
@@ -549,7 +531,7 @@ void DataSourceFactory::removeMirror(const KUrl &url)
             {
                 kDebug(5001) << "Assigning a TransferDataSource.";
                 //simply assign a TransferDataSource
-                assignSegments((*m_sources.begin())->transferDataSource());
+                assignSegments(*m_sources.begin());
             }
             else if (m_unusedUrls.count())
             {
@@ -591,20 +573,14 @@ QHash<KUrl, QPair<bool, int> > DataSourceFactory::mirrors() const
 {
     QHash<KUrl, QPair<bool, int> > mirrors;
 
-    {
-        QHash<KUrl, DataSource*>::const_iterator it;
-        QHash<KUrl, DataSource*>::const_iterator itEnd = m_sources.constEnd();
-        for (it = m_sources.constBegin(); it != itEnd; ++it)
-        {
-            mirrors[it.key()] = QPair<bool, int>(true, (*it)->paralellSegments());
-        }
+    QHash<KUrl, TransferDataSource*>::const_iterator it;
+    QHash<KUrl, TransferDataSource*>::const_iterator itEnd = m_sources.constEnd();
+    for (it = m_sources.constBegin(); it != itEnd; ++it) {
+        mirrors[it.key()] = QPair<bool, int>(true, (*it)->paralellSegments());
     }
 
-    {
-        for (int i = 0; i < m_unusedUrls.count(); ++i)
-        {
-            mirrors[m_unusedUrls[i]] = QPair<bool, int>(false, m_unusedConnections[i]);
-        }
+    for (int i = 0; i < m_unusedUrls.count(); ++i) {
+        mirrors[m_unusedUrls[i]] = QPair<bool, int>(false, m_unusedConnections[i]);
     }
 
     return mirrors;
@@ -634,6 +610,22 @@ void DataSourceFactory::broken(TransferDataSource *source, TransferDataSource::E
     }
 }
 
+void DataSourceFactory::slotFreeSegments(TransferDataSource *source, QPair<int, int> segmentRange)
+{
+    kDebug(5001) << "Segments freed:" << source << segmentRange;
+
+    const int start = segmentRange.first;
+    const int end = segmentRange.second;
+    if ((start != -1) && (end != -1)) {
+        for (int i = start; i <= end; ++i) {
+            kDebug(5001) << "Segment" << i << "not assigned anymore.";
+            m_startedChunks->set(i, false);
+        }
+    }
+
+    assignSegments(source);
+}
+
 void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished)
 {
     if (!source || (segmentNumber < 0) || (static_cast<quint32>(segmentNumber) > m_finishedChunks->getNumBits()))
@@ -649,9 +641,6 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
         kDebug(5001) << "Some segments still not finished";
         return;
     }
-
-    DataSource *dataSource = m_sources[source->sourceUrl()];
-    dataSource->setCurrentSegments(dataSource->currentSegments() - 1);
 
     m_finished = m_finishedChunks->allOn();
     if (m_finished)
@@ -677,11 +666,9 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
         return;
     }
 
-    DataSource *dataSource = m_sources[source->sourceUrl()];
     //no more segments needed for that TransferDataSource
-    if (dataSource->changeNeeded() <= 0)
-    {
-        kDebug(5001) << "No change needed for" << dataSource;
+    if (source->changeNeeded() <= 0) {
+        kDebug(5001) << "No change needed for" << source;
         return;
     }
 
@@ -690,33 +677,26 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     int newEnd = -1;
 
     //a split needed
-    if (m_startedChunks->allOn())
-    {
+    if (m_startedChunks->allOn()) {
         int unfinished = 0;
-        DataSource *target = 0;
-        foreach (DataSource *source, m_sources)
-        {
-            int temp = source->transferDataSource()->countUnfinishedSegments();
-            if (temp > unfinished)
-            {
+        TransferDataSource *target = 0;
+        foreach (TransferDataSource *source, m_sources) {
+            int temp = source->countUnfinishedSegments();
+            if (temp > unfinished) {
                 unfinished = temp;
                 target = source;
             }
         }
-        if (!unfinished || !target)
-        {
+        if (!unfinished || !target) {
             return;
         }
 
-        if (source->canHandleMultipleSegments())
-        {
-            const QPair<int, int> splitResult = target->transferDataSource()->split();
+        if (source->canHandleMultipleSegments()) {
+            const QPair<int, int> splitResult = target->split();
             newStart = splitResult.first;
             newEnd = splitResult.second;
-        }
-        else
-        {
-            newStart = target->transferDataSource()->takeOneSegment();
+        } else {
+            newStart = target->takeOneSegment();
             newEnd = newStart;
         }
     }
@@ -793,10 +773,8 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     }
     source->addSegments(newoff, qMakePair(segSize, lastSegSize), qMakePair(newStart, newEnd));
 
-    dataSource->setCurrentSegments(dataSource->currentSegments() + 1);
     //there should still be segments added to this transfer
-    if (dataSource->changeNeeded() > 0)
-    {
+    if (source->changeNeeded() > 0) {
         assignSegments(source);
     }
 }
@@ -1209,33 +1187,27 @@ void DataSourceFactory::save(const QDomElement &element)
     }
 
     //set the used urls
-    {
-        QDomElement urls = doc.createElement("urls");
-        QHash<KUrl, DataSource*>::const_iterator it;
-        QHash<KUrl, DataSource*>::const_iterator itEnd = m_sources.constEnd();
-        for (it = m_sources.constBegin(); it != itEnd; ++it)
-        {
-            QDomElement url = doc.createElement("url");
-            const QDomText text = doc.createTextNode(it.key().url());
-            url.appendChild(text);
-            url.setAttribute("numParalellSegments", (*it)->paralellSegments());
-            urls.appendChild(url);
-            factory.appendChild(urls);
-        }
+    QDomElement urls = doc.createElement("urls");
+    QHash<KUrl, TransferDataSource*>::const_iterator it;
+    QHash<KUrl, TransferDataSource*>::const_iterator itEnd = m_sources.constEnd();
+    for (it = m_sources.constBegin(); it != itEnd; ++it) {
+        QDomElement url = doc.createElement("url");
+        const QDomText text = doc.createTextNode(it.key().url());
+        url.appendChild(text);
+        url.setAttribute("numParalellSegments", (*it)->paralellSegments());
+        urls.appendChild(url);
+        factory.appendChild(urls);
     }
 
     //set the unused urls
-    {
-        QDomElement urls = doc.createElement("unusedUrls");
-        for (int i = 0; i < m_unusedUrls.count(); ++i)
-        {
-            QDomElement url = doc.createElement("url");
-            const QDomText text = doc.createTextNode(m_unusedUrls.at(i).url());
-            url.appendChild(text);
-            url.setAttribute("numParalellSegments", m_unusedConnections.at(i));
-            urls.appendChild(url);
-            factory.appendChild(urls);
-        }
+    urls = doc.createElement("unusedUrls");
+    for (int i = 0; i < m_unusedUrls.count(); ++i) {
+        QDomElement url = doc.createElement("url");
+        const QDomText text = doc.createTextNode(m_unusedUrls.at(i).url());
+        url.appendChild(text);
+        url.setAttribute("numParalellSegments", m_unusedConnections.at(i));
+        urls.appendChild(url);
+        factory.appendChild(urls);
     }
 
     factories.appendChild(factory);

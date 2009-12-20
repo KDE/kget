@@ -29,8 +29,7 @@ Segment::Segment(const KUrl &src, const KIO::fileoffset_t offset, const QPair<KI
     m_totalBytesLeft(m_segSize.first * (m_endSegment - m_currentSegment) + m_segSize.second),
     m_getJob(0),
     m_canResume(true),
-    m_url(src),
-    m_restarted(0)
+    m_url(src)
 {
 }
 
@@ -116,7 +115,7 @@ bool Segment::stopTransfer()
 
 void Segment::slotResult( KJob *job )
 {
-    kDebug(5001) << "Job:" << job << m_url;
+    kDebug(5001) << "Job:" << job << m_url << "error:" << job->error();
 
     m_getJob = 0;
 
@@ -139,23 +138,8 @@ void Segment::slotResult( KJob *job )
     {
         return;
     }
-    if( m_status == Running )
-    {
-        ++m_restarted;
-        //try it 3 trimes
-        if (m_restarted <= 3)
-        {
-            const int seconds = 2 * m_restarted;
-            kDebug(5001) << "Conection broken" << job << "--restarting in" << seconds << "seconds for the" << m_restarted << "time--";
-            QTimer::singleShot(seconds * 1000, this, SLOT(startTransfer()));
-            setStatus(Timeout);
-        }
-        else
-        {
-            kDebug(5001) << "Segment" << m_currentSegment << "broken, using" << m_url;
-            setStatus(Timeout);
-            emit brokenSegments(this, QPair<int, int>(m_currentSegment, m_endSegment));
-        }
+    if (m_status == Running){
+        emit error(this, job->error());
     }
 }
 
@@ -236,6 +220,11 @@ void Segment::setStatus(Status stat, bool doEmit)
 QPair<int, int> Segment::assignedSegments() const
 {
     return QPair<int, int>(m_currentSegment, m_endSegment);
+}
+
+QPair<KIO::fileoffset_t, KIO::fileoffset_t> Segment::segmentSize() const
+{
+    return m_segSize;
 }
 
 int Segment::countUnfinishedSegments() const

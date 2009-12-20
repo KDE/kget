@@ -90,6 +90,7 @@ class Segment : public QObject
         Status status() const {return m_status;}//TODO needed?
 
         QPair<int, int> assignedSegments() const;
+        QPair<KIO::fileoffset_t, KIO::fileoffset_t> segmentSize() const;
         int countUnfinishedSegments() const;
         int takeOneSegment();
         QPair<int, int> split();
@@ -108,11 +109,15 @@ class Segment : public QObject
 
     Q_SIGNALS:
         void data(KIO::fileoffset_t offset, const QByteArray &data, bool &worked);
-
+        /**
+         * Emitted whenever the transfer is closed with an error
+         */
+        void error(Segment *semgent, int KIOError);
         void brokenSegments(Segment *segment, QPair<int, int> segmentRange);
         void finishedSegment(Segment *segment, int segmentNum, bool connectionFinished = true);
         void statusChanged( Segment*);
         void speed(ulong speed);
+        void connectionProblem();
 
     private Q_SLOTS:
         void slotData(KIO::Job *, const QByteArray& data);
@@ -135,7 +140,6 @@ class Segment : public QObject
         QByteArray m_buffer;
         bool m_canResume;
         KUrl m_url;
-        int m_restarted;
 };
 
 #endif // SEGMENT_H

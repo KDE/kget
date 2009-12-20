@@ -85,14 +85,6 @@ class KGET_EXPORT TransferDataSource : public QObject
         ulong currentSpeed() const {return m_speed;}
 
         /**
-         * sets the maximum number of paralell downloads this TransferDataSource is allowed to have
-         * @note default is 1
-         * @param maxDownloads the maximum paralell downloads
-         */
-        void setMaximumParalellDownloads(int maxDownloads) {m_maxParalellDownloads = maxDownloads;}
-        int maximumParalellDownloads() const {return m_maxParalellDownloads;}
-
-        /**
          * Set the size the server used for downloading should report
          * @param supposedSize the size the file should have
          */
@@ -129,6 +121,31 @@ class KGET_EXPORT TransferDataSource : public QObject
          * @note if only one segment is assigned to a connection split will also return (-1, -1)
          */
         virtual QPair<int, int> split();//TODO should split also take the current running segment into account?
+
+
+        //the following methods are used for managing the number of paralell connections
+        //subclasses have to keep track of the currentSegments
+        /**
+         * @return the number of paralell segments this DataSource is allowed to use,
+         * default is 1
+         */
+        virtual int paralellSegments() const;
+
+        /**
+         * Sets the number of paralell segments this DataSource is allowed to use
+         */
+        virtual void setParalellSegments(int paralellSegments);
+
+        /**
+         * @return the number of paralell segments this DataSources currently uses
+         */
+        virtual int currentSegments() const;
+
+        /**
+         * Returns the missmatch of paralellSegments() and currentSegments()
+         * @return the number of segments to add/remove e.g. -1 means one segment to remove
+         */
+        virtual int changeNeeded() const;
 
     signals:
         /**
@@ -187,13 +204,20 @@ class KGET_EXPORT TransferDataSource : public QObject
          */
         void speed(ulong speed);
 
+        /**
+         * Emitted when a Datasource itself decides to not download a specific segmentRange,
+         * e.g. when there are too many connections for this TransferDataSource
+         */
+        void freeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
+
     private Q_SLOTS:
         virtual void slotSpeed(ulong speed) {Q_UNUSED(speed)}
 
     protected:
         KUrl m_sourceUrl;
         ulong m_speed;
-        int m_maxParalellDownloads;
         KIO::filesize_t m_supposedSize;
+        int m_paralellSegments;
+        int m_currentSegments;
 };
 #endif
