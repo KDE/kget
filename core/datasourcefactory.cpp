@@ -438,7 +438,7 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                     connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int, int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int, int>)));
                     connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
                     connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
-                    connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotRequestMaximumParalellDownloads(TransferDataSource*,QPair<int,int>)));
+                    connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotFreeSegments(TransferDataSource*,QPair<int,int>)));
 
                     assignSegments(source);
 

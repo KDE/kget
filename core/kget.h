@@ -432,9 +432,10 @@ class GenericObserver : public QObject
         void transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
         void groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
-        
-#ifdef HAVE_KWORKSPACE
+
     private slots:
+        void slotSave();
+#ifdef HAVE_KWORKSPACE
         void slotShutdown();
 #endif
 
@@ -448,5 +449,10 @@ class GenericObserver : public QObject
         void checkAndShutdown();
 #endif
         void checkAndUpdateSystemTray();
+
+        void requestSave();
+
+    private:
+        QTimer *m_save;
 };
 #endif

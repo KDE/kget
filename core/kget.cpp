@@ -48,6 +48,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QAbstractItemView>
+#include <QTimer>
 
 #ifdef HAVE_NEPOMUK
     #include <Nepomuk/ResourceManager>
@@ -1185,7 +1186,8 @@ void KGet::showNotification(QWidget *parent, KNotification::StandardEvent eventI
 }
 
 GenericObserver::GenericObserver(QObject *parent)
-  : QObject(parent)
+  : QObject(parent),
+    m_save(0)
 {
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)), 
@@ -1221,7 +1223,7 @@ void GenericObserver::transferAddedEvent(TransferHandler *handler, TransferGroup
 {
     Q_UNUSED(handler)
     Q_UNUSED(group)
-    KGet::save();
+    requestSave();
     KGet::calculateGlobalSpeedLimits();
 }
 
@@ -1229,7 +1231,7 @@ void GenericObserver::transferRemovedEvent(TransferHandler *handler, TransferGro
 {
     Q_UNUSED(handler)
     Q_UNUSED(group)
-    KGet::save();
+    requestSave();
     KGet::calculateGlobalSpeedLimits();
 }
 
@@ -1237,8 +1239,27 @@ void GenericObserver::transferMovedEvent(TransferHandler *transfer, TransferGrou
 {
     Q_UNUSED(transfer)
     Q_UNUSED(group)
-    KGet::save();
+    requestSave();
     KGet::calculateGlobalSpeedLimits();
+}
+
+void GenericObserver::requestSave()
+{
+    if (!m_save) {
+        m_save = new QTimer(this);
+        m_save->setSingleShot(true);
+        m_save->setInterval(5000);
+        connect(m_save, SIGNAL(timeout()), this, SLOT(slotSave()));
+    }
+
+    if (!m_save->isActive()) {
+        m_save->start();
+    }
+}
+
+void GenericObserver::slotSave()
+{
+    KGet::save();
 }
 
 void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
