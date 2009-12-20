@@ -824,18 +824,17 @@ void MainWindow::slotToggleAutoPaste()
 
 void MainWindow::slotCheckClipboard()
 {
-    QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
+    const QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
 
-    if (clipData != lastClipboard)
-    {
+    if (clipData != lastClipboard) {
         lastClipboard = clipData;
         if (lastClipboard.isEmpty())
             return;
 
-        KUrl url = KUrl(lastClipboard);
-
-        if (url.isValid() && !url.protocol().isEmpty() && url.hasPath() && !url.isLocalFile())
+        const KUrl url = KUrl(lastClipboard);
+        if (url.isValid() && !url.protocol().isEmpty() && url.hasPath() && url.hasHost() && !url.isLocalFile()) {
             KGet::addTransfer( url );
+        }
     }
 }
 
