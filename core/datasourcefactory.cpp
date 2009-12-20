@@ -100,6 +100,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
 
 DataSourceFactory::~DataSourceFactory()
 {
+    qDeleteAll(m_sources);
     killPutJob();
 }
 
