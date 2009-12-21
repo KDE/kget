@@ -37,7 +37,6 @@ class ContentFetchFactory : public TransferFactory
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
         const QList<KAction *> actions(TransferHandler *handler = 0);
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type) {Q_UNUSED(srcUrl) Q_UNUSED(type) return 0;}
 };
 
 #endif // CONTENT_FETCH_FACTORY_H

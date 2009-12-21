@@ -73,40 +73,35 @@ void TransferMultiSegKio::deinit()
 void TransferMultiSegKio::start()
 {
     kDebug(5001) << "Start TransferMultiSegKio";
-    if (status() == Running)
-    {
+    if (status() == Running) {
         return;
     }
 
     m_dataSourceFactory->start();
 
-    if (MultiSegKioSettings::useSearchEngines() && !m_searchStarted)
-    {
+    if (MultiSegKioSettings::useSearchEngines() && !m_searchStarted) {
         m_searchStarted = true;
         QDomDocument doc;
         QDomElement element = doc.createElement("TransferDataSource");
         element.setAttribute("type", "search");
         doc.appendChild(element);
 
-        TransferDataSource * mirrorSearch = KGet::createTransferDataSource(m_source, element);
-        if (mirrorSearch)
-        {
+        TransferDataSource *mirrorSearch = KGet::createTransferDataSource(m_source, element, this);
+        if (mirrorSearch) {
             connect(mirrorSearch, SIGNAL(data(const QList<KUrl>&)), this, SLOT(slotSearchUrls(const QList<KUrl>&)));
             mirrorSearch->start();
         }
     }
 
-    if (MultiSegKioSettings::useSearchVerification() && !m_verificationSearch)
-    {
+    if (MultiSegKioSettings::useSearchVerification() && !m_verificationSearch) {
         m_verificationSearch = true;
         QDomDocument doc;
         QDomElement element = doc.createElement("TransferDataSource");
         element.setAttribute("type", "checksumsearch");
         doc.appendChild(element);
 
-        TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element);
-        if (checksumSearch)
-        {
+        TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element, this);
+        if (checksumSearch) {
             connect(checksumSearch, SIGNAL(data(QString, QString)), this, SLOT(slotChecksumFound(QString, QString)));
             checksumSearch->start();
         }

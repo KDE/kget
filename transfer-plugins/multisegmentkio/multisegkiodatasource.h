@@ -21,7 +21,7 @@ class MultiSegKioDataSource : public TransferDataSource
     Q_OBJECT
 
     public:
-        MultiSegKioDataSource(const KUrl &srcUrl);
+        MultiSegKioDataSource(const KUrl &srcUrl, QObject *parent);
         ~MultiSegKioDataSource();
 
         void start();

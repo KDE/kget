@@ -30,7 +30,7 @@ class ChecksumSearchTransferDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
-        ChecksumSearchTransferDataSource(const KUrl &srcUrl);
+        ChecksumSearchTransferDataSource(const KUrl &srcUrl, QObject *parent);
         virtual ~ChecksumSearchTransferDataSource();
 
         void start();

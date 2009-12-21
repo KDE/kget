@@ -68,7 +68,7 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
     return QList<KAction *>();
 }
 
- TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
+ TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     kDebug(5001);
 
@@ -84,7 +84,7 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
         prot == "ftp"  || prot == "sftp"
       )
     {
-        return new MultiSegKioDataSource(srcUrl);
+        return new MultiSegKioDataSource(srcUrl, parent);
     }
     return 0;
 }

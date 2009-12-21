@@ -29,13 +29,12 @@ MirrorSearchFactory::~MirrorSearchFactory()
 {
 }
 
-TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
+TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     kDebug(5001);
 
-    if (type.attribute("type") == "search")
-    {
-        return new MirrorSearchTransferDataSource(srcUrl);
+    if (type.attribute("type") == "search") {
+        return new MirrorSearchTransferDataSource(srcUrl, parent);
     }
     return 0;
 }

@@ -25,7 +25,7 @@ class MirrorSearchFactory : public TransferFactory
         MirrorSearchFactory(QObject *parent, const QVariantList &args);
         ~MirrorSearchFactory();
 
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type);
+        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
 };
 
 #endif

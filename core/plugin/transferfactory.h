@@ -63,18 +63,18 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
                                                         Scheduler * scheduler);
 
         virtual QWidget * createDetailsWidget(TransferHandler * transfer);
-        
+
         virtual KDialog * createNewTransferDialog(const KUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
 
         virtual const QList<KAction *> actions(TransferHandler *handler = 0);
 
         virtual void settingsChanged() {}
 
-/**
- * Returns a Data Source. needed for Transfers Containers if any.
- * default implementation returns 0
- */
-        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type);
+        /**
+         * Returns a Data Source. needed for Transfers Containers if any.
+         * default implementation returns 0
+         */
+        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
 };
 
 #endif

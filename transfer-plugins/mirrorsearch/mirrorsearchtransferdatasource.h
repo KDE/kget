@@ -19,7 +19,7 @@ class MirrorSearchTransferDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
-        MirrorSearchTransferDataSource(const KUrl &srcUrl);
+        MirrorSearchTransferDataSource(const KUrl &srcUrl, QObject *parent);
 
         void start();
         void stop();

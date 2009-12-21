@@ -12,8 +12,8 @@
 #include "mirrors.h"
 #include <kdebug.h>
 
-MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const KUrl &srcUrl)
-  : TransferDataSource(srcUrl, 0)
+MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const KUrl &srcUrl, QObject *parent)
+  : TransferDataSource(srcUrl, parent)
 {
     m_filename = m_sourceUrl.fileName();
     kDebug(5001) << m_filename;

@@ -14,8 +14,8 @@
 
 #include <KDebug>
 
-MultiSegKioDataSource::MultiSegKioDataSource(const KUrl &srcUrl)
-  : TransferDataSource(srcUrl, 0),
+MultiSegKioDataSource::MultiSegKioDataSource(const KUrl &srcUrl, QObject *parent)
+  : TransferDataSource(srcUrl, parent),
     m_size(0),
     m_canResume(false),
     m_getInitJob(0),

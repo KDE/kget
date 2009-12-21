@@ -23,8 +23,8 @@
 
 #include <KDebug>
 
-ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const KUrl &srcUrl)
-  : TransferDataSource(srcUrl, 0)
+ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const KUrl &srcUrl, QObject *parent)
+  : TransferDataSource(srcUrl, parent)
 {
 }
 
@@ -39,7 +39,7 @@ void ChecksumSearchTransferDataSource::start()
     QStringList changes = ChecksumSearchSettings::self()->searchStrings();
     QList<int> modes = ChecksumSearchSettings::self()->urlChangeModeList();
     QStringList types = ChecksumSearchSettings::self()->checksumTypeList();
-    
+
     QList<KUrl> urls;
 
     for (int i = 0; i < changes.size(); ++i) {
@@ -47,7 +47,7 @@ void ChecksumSearchTransferDataSource::start()
         const KUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
         urls.append(source);
     }
-    
+
     if (urls.count() && types.count()) {
         ChecksumSearch *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
 

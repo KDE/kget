@@ -61,9 +61,10 @@ const QList<KAction *> TransferFactory::actions(TransferHandler *handler)
     return QList<KAction *>();
 }
 
-TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type)
+TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
+    Q_UNUSED(parent)
     return 0;
 }

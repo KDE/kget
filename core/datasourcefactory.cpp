@@ -100,8 +100,9 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
 
 DataSourceFactory::~DataSourceFactory()
 {
-    qDeleteAll(m_sources);
     killPutJob();
+    delete m_startedChunks;
+    delete m_finishedChunks;
 }
 
 void DataSourceFactory::init()
@@ -420,7 +421,7 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
         {
             if (m_sources.count() < m_maxMirrorsUsed)
             {
-                TransferDataSource *source = KGet::createTransferDataSource(url);
+                TransferDataSource *source = KGet::createTransferDataSource(url, QDomElement(), this);
                 if (source)
                 {
                     kDebug(5001) << "Successfully created a TransferDataSource for " << url.pathOrUrl();

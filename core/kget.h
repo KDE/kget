@@ -301,7 +301,7 @@ class KGET_EXPORT KGet
          * this is only needed when creating a "special" TransferDataSource like the search for Urls
          * you can set additional information and the TransferDataSource will use it if it can
          */
-        static TransferDataSource * createTransferDataSource(const KUrl &src, const QDomElement &type = QDomElement());
+        static TransferDataSource * createTransferDataSource(const KUrl &src, const QDomElement &type = QDomElement(), QObject *parent = 0);
 
         /**
          * Sets the global download limit
