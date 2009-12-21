@@ -25,6 +25,7 @@
 
 #include "core/verifier.h"
 
+#include <QtCore/QTimer>
 #include <QtGui/QDragEnterEvent>
 #include <QtGui/QLabel>
 #include <QtGui/QSortFilterProxyModel>
@@ -214,22 +215,13 @@ void FileWidget::dropEvent(QDropEvent *event)
 MetalinkCreator::MetalinkCreator(QWidget *parent)
   : KAssistantDialog(parent),
     m_needUrlCount(0),
+    m_countrySort(0),
+    m_languageModel(0),
+    m_languageSort(0),
     m_introduction(0),
     m_generalPage(0),
     m_filesModel(0)
 {
-    CountryModel *countryModel = new CountryModel(this);
-    countryModel->setupModelData(KGlobal::locale()->allCountriesList());
-    m_countrySort = new QSortFilterProxyModel(this);
-    m_countrySort->setSourceModel(countryModel);
-    m_countrySort->sort(0);
-
-    m_languageModel = new LanguageModel(this);
-    m_languageModel->setupModelData(KGlobal::locale()->allLanguagesList());
-    m_languageSort = new QSortFilterProxyModel(this);
-    m_languageSort->setSourceModel(m_languageModel);
-    m_languageSort->sort(0);
-
     create();
 
     connect(this, SIGNAL(user1Clicked()), this, SLOT(slotSave()));
@@ -277,7 +269,25 @@ void MetalinkCreator::create()
     createIntroduction();
     m_general = new GeneralWidget(this);
     m_generalPage = addPage(m_general, i18n("General optional information for the metalink."));
+    QTimer::singleShot(0, this, SLOT(slotDelayedCreation()));
+}
+
+void MetalinkCreator::slotDelayedCreation()
+{
+    CountryModel *countryModel = new CountryModel(this);
+    countryModel->setupModelData(KGlobal::locale()->allCountriesList());
+    m_countrySort = new QSortFilterProxyModel(this);
+    m_countrySort->setSourceModel(countryModel);
+    m_countrySort->sort(0);
+
+    m_languageModel = new LanguageModel(this);
+    m_languageModel->setupModelData(KGlobal::locale()->allLanguagesList());
+    m_languageSort = new QSortFilterProxyModel(this);
+    m_languageSort->setSourceModel(m_languageModel);
+    m_languageSort->sort(0);
+
     createFiles();
+    slotUpdateIntroductionNextButton();
 }
 
 void MetalinkCreator::load()
@@ -329,8 +339,8 @@ void MetalinkCreator::slotUpdateIntroductionNextButton()
 {
     bool enableNext = false;
 
-    //check if a save location and if selected if also a load location has been specified
-    enableNext = uiIntroduction.save->url().isValid();
+    //check if a save location and if selected if also a load location has been specified and if the m_countrySort has been created
+    enableNext = uiIntroduction.save->url().isValid() && m_countrySort;
     if (enableNext && uiIntroduction.loadButton->isChecked()) {
         enableNext = uiIntroduction.load->url().isValid();
     }

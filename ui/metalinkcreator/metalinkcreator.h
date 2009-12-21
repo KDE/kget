@@ -121,6 +121,11 @@ class MetalinkCreator : public KAssistantDialog
 
     private slots:
         /**
+         * Creates the parts that take longer
+         */
+        void slotDelayedCreation();
+
+        /**
          * Deactivates the Next/Finish-Button when the metalink is not valid i.e. data is missing
          */
         void slotUpdateAssistantButtons(KPageWidgetItem *to = 0, KPageWidgetItem *from = 0);
