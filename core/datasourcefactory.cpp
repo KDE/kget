@@ -955,6 +955,11 @@ void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::fil
     addMirror(m_unusedUrls.takeFirst(), true, m_unusedConnections.takeFirst());
 
     m_downloadedSize = m_segSize * m_finishedChunks->numOnBits();
+    m_prevDownloadedSizes.clear();
+    if (m_downloadedSize) {
+        m_prevDownloadedSizes.append(m_downloadedSize);
+    }
+
     changeStatus(Job::Stopped, true);
     start();
 }
@@ -1040,6 +1045,8 @@ void DataSourceFactory::load(const QDomElement *element)
         }
 
     }
+    m_prevDownloadedSizes.clear();
+    m_prevDownloadedSizes.append(m_downloadedSize);
 
     init();
 
