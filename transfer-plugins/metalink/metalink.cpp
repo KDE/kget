@@ -137,7 +137,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         dest.addPath((*it).name);
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
-        //sort the urls according to their preference (descending --> "best" first)
+        //sort the urls according to their priority (highest first)
         qSort(urlList.begin(), urlList.end(), qGreater<KGetMetalink::Url>());
 
         KIO::filesize_t fileSize = (*it).size;
@@ -222,7 +222,9 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         proxy->setSourceModel(fileModel());
         ui.treeView->setModel(proxy);
         ui.treeView->sortByColumn(0, Qt::AscendingOrder);
-        ui.treeView->hideColumn(1);
+        ui.treeView->hideColumn(FileItem::Status);
+        ui.treeView->hideColumn(FileItem::ChecksumVerified);
+        ui.treeView->hideColumn(FileItem::SignatureVerified);
         dialog->setMainWidget(widget);
         dialog->setCaption(i18n("File Selection"));
         dialog->setButtons(KDialog::Ok);
