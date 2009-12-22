@@ -26,6 +26,7 @@ Name[sv]=Checksummesökning
 Name[tr]=Sağlama Araması
 Name[uk]=Пошук контрольної суми
 Name[x-test]=xxChecksum Searchxx
+Name[zh_CN]=校验和搜索
 Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
@@ -47,6 +48,7 @@ Comment[sv]=Försöker hitta checksummor för en specifik webbadress
 Comment[tr]=Belirtilen bir adres için sağlamaları bulmaya çalışır
 Comment[uk]=Намагається знайти контрольні суми файла за вказаною адресою
 Comment[x-test]=xxTries to find checksums for a specified URLxx
+Comment[zh_CN]=尝试查找指定 URL 的数据校验和
 Comment[zh_TW]=試著尋找指定網址的驗證碼
 
 # options for library loader
