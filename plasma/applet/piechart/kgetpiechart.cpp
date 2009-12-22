@@ -152,6 +152,7 @@ KGetPieChart::Item::Item(QGraphicsWidget *parent)
     m_colorLabel = new Plasma::Label();
     m_colorLabel->nativeWidget()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
     m_name = new Plasma::Label();
+    m_name->nativeWidget()->setWordWrap(false);
     m_name->nativeWidget()->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred));
     m_sizeLabel = new Plasma::Label();
     m_sizeLabel->nativeWidget()->setWordWrap(false);
