@@ -7,7 +7,7 @@ Icon=kget
 # standard fields
 Name=Metalink
 Name[ar]=ميتالينك
-Name[ca]=Metaenllaç
+Name[ca]=«Metalink»
 Name[cs]=Metalink
 Name[da]=Metalink
 Name[de]=Metalink
@@ -50,7 +50,7 @@ Name[x-test]=xxMetalinkxx
 Name[zh_CN]=超级链接
 Name[zh_TW]=Metalink
 Comment=Allows files to be downloaded from Metalink
-Comment[ca]=Permet descarregar fitxers des d'un metaenllaç
+Comment[ca]=Permet descarregar fitxers des d'un «metalink»
 Comment[da]=Muliggør download af filer fra Metalink
 Comment[de]=Ermöglicht die Übertragung von Dateien mittels Metalink
 Comment[el]=Επιτρέπει τη λήψη αρχείων από το Metalink
