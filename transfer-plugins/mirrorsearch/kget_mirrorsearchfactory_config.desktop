@@ -7,7 +7,7 @@ X-KDE-ParentComponents=kget_mirrorsearch_plugin
 
 Name=MirrorSearch
 Name[ar]=بحث المرآة
-Name[ca]=CercaMirall
+Name[ca]=Cerca de rèplica
 Name[cs]=MirrorSearch
 Name[da]=MirrorSearch
 Name[de]=MirrorSearch
@@ -38,6 +38,7 @@ Name[pt]=Pesquisa de Réplicas
 Name[pt_BR]=Procura de espelhos
 Name[ro]=MirrorSearch
 Name[ru]=Поиск зеркал
+Name[sk]=MirrorSearch
 Name[sl]=Iskanje zrcalnih strežnikov
 Name[sr]=Претрага огледала
 Name[sr@latin]=Pretraga ogledala

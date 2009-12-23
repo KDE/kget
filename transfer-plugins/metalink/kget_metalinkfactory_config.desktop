@@ -7,7 +7,7 @@ X-KDE-ParentComponents=kget_metalink_plugin
 
 Name=Metalink
 Name[ar]=ميتالينك
-Name[ca]=Metaenllaç
+Name[ca]=«Metalink»
 Name[cs]=Metalink
 Name[da]=Metalink
 Name[de]=Metalink
@@ -40,6 +40,7 @@ Name[pt]=Metalink
 Name[pt_BR]=Metacontato
 Name[ro]=Metalink
 Name[ru]=Metalink
+Name[sk]=Metalink
 Name[sl]=Metalink
 Name[sr]=Металинк
 Name[sr@latin]=MetaLink
