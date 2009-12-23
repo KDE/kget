@@ -196,7 +196,7 @@ class KGET_EXPORT Verifier : public QObject
     Q_OBJECT
 
     public:
-        Verifier(const KUrl &dest, QObject *parent = 0);
+        explicit Verifier(const KUrl &dest, QObject *parent = 0);
         ~Verifier();
 
         enum VerificationStatus
@@ -380,7 +380,7 @@ class KGET_EXPORT Signature : public QObject
 
 //TODO also support verification and decryption of files that contain the signature?
     public:
-        Signature(const KUrl &dest, QObject *object = 0);
+        explicit Signature(const KUrl &dest, QObject *object = 0);
 
         enum VerificationStatus
         {

@@ -251,7 +251,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
             } else 
                 return 0;
         } else {
-            dlg = new KIO::RenameDialog( m_mainWindow, i18n("You are already downloading the same file", destUrl.prettyUrl()), srcUrl,
+            dlg = new KIO::RenameDialog( m_mainWindow, i18n("You are already downloading the same file"/*, destUrl.prettyUrl()*/), srcUrl,
                                      destUrl, KIO::M_MULTI );
         }
     } else if (destUrl.isLocalFile() && QFile::exists(destUrl.path())) {
@@ -703,7 +703,7 @@ QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
 {
     QList<TransferGroupHandler*> handlers;
     foreach (TransferGroupHandler * handler, allTransferGroups()) {
-        QStringList patterns = handler->regExp().pattern().split(',');//FIXME 4.5 add a tooltip: "Enter a list of foo separated by ," and then do split(i18nc("used as seperator in a list, translate to the same thing you translated \"Enter a list of foo separated by ,\"", ","))
+        QStringList patterns = handler->regExp().pattern().split(',');//FIXME 4.5 add a tooltip: "Enter a list of foo separated by ," and then do split(i18nc("used as separator in a list, translate to the same thing you translated \"Enter a list of foo separated by ,\"", ","))
         foreach (const QString &pattern, patterns) {
             QRegExp regExp = QRegExp(pattern.trimmed());
 

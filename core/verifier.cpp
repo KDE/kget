@@ -1190,7 +1190,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
         m_status = Signature::NotVerified;
         //TODO handle that dialog better in 4.5
         KMessageBox::error(0,
-                           i18n("The signature could not be verified for %1. See transfer settings for more information.").arg(m_dest.fileName()),
+                           i18n("The signature could not be verified for %1. See transfer settings for more information.", m_dest.fileName()),
                            i18n("Signature not verified"));
     }
 
@@ -1284,7 +1284,7 @@ void KeyDownloader::downloadKey(QString fingerprint, Signature *sig, bool mirror
         return;
     }
 
-    if (!fingerprint.startsWith("0x")) {
+    if (!fingerprint.startsWith(QLatin1String("0x"))) {
         fingerprint = "0x" + fingerprint;
     }
 
