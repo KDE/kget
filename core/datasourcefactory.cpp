@@ -151,27 +151,16 @@ void DataSourceFactory::deinit()
 void DataSourceFactory::findFileSize()
 {
     kDebug(5001) << "Find the filesize";
-    if (!m_size && !m_dest.isEmpty() && !m_tempDownload)
-    {
-        foreach (TransferDataSource *source, m_sources)
-        {
-            const KUrl url = source->sourceUrl();
-            QString prot = url.protocol();
-            if ((prot == "http" || prot == "https" || prot == "ftp"  || prot == "sftp") &&
-                (!url.fileName().endsWith(QLatin1String(".torrent"))) &&
-                (!url.fileName().endsWith(QLatin1String(".metalink"))) &&
-                (!url.fileName().endsWith(QLatin1String(".meta4"))))
-            {
-                m_tempDownload = new KioDownload(url, m_dest, this);
-                connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SIGNAL(processedSize(KIO::filesize_t)));
-                connect(m_tempDownload, SIGNAL(speed(ulong)), this, SIGNAL(speed(ulong)));
-                connect(m_tempDownload, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(sizeFound(KIO::filesize_t)));
-                connect(m_tempDownload, SIGNAL(finished()), this, SLOT(finished()));
-                m_tempDownload->start();
-                changeStatus(Job::Running);
-                break;
-            }
-        }
+    if (!m_size && !m_dest.isEmpty() && !m_tempDownload && !m_sources.isEmpty()) {
+        //FIXME 4.5 move findingFileSize to the TransferDataSources themselves (make it a capability
+        //that they can support); no need for checking the protocol etc. in 4.4 as there is no other TransferDataSource than the one from MultiSegKIO for downloading yet
+        m_tempDownload = new KioDownload(m_sources.begin().value()->sourceUrl(), m_dest, this);
+        connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SIGNAL(processedSize(KIO::filesize_t)));
+        connect(m_tempDownload, SIGNAL(speed(ulong)), this, SIGNAL(speed(ulong)));
+        connect(m_tempDownload, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(sizeFound(KIO::filesize_t)));
+        connect(m_tempDownload, SIGNAL(finished()), this, SLOT(finished()));
+        m_tempDownload->start();
+        changeStatus(Job::Running);
     }
 }
 
