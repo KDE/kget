@@ -46,12 +46,16 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     QVBoxLayout *layout = new QVBoxLayout;
     QStringList verifierTypes = Verifier::supportedVerficationTypes();
     verifierTypes.sort();
-    foreach (const QString &type, verifierTypes)
-    {
-        QCheckBox *checkBox = new QCheckBox(type, this);
-        layout->addWidget(checkBox);
-        m_checkBoxes.append(checkBox);
+
+    //NOTE only supports the types that are supported by the Metalink 4.0 specification -- "Hash Function Textual Names"
+    foreach (const QString &type, verifierTypes) {
+        if (type.contains("sha", Qt::CaseInsensitive) || type.contains("md5", Qt::CaseInsensitive)) {
+            QCheckBox *checkBox = new QCheckBox(type, this);
+            layout->addWidget(checkBox);
+            m_checkBoxes.append(checkBox);
+        }
     }
+
     ui.groupBox->setLayout(layout);
 
     //create the language selection
