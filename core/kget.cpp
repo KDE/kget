@@ -794,6 +794,7 @@ KGet::~KGet()
 {
     kDebug();
     delete m_transferTreeModel;
+    delete m_jobManager;  //This one must always be before the scheduler otherwise the job manager can't remove the notifications when deleting.
     delete m_scheduler;
 }
 
