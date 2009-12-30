@@ -233,24 +233,24 @@ void SignatureDlg::updateData()
             ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
             ui.verificationIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
             ui.verificationIcon->show();
-            information.prepend("The signature has been verified succesfully.");
+            information.prepend(i18n("The signature has been verified succesfully."));
             break;
         case Signature::VerifiedInformation:
             ui.verificationIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
             ui.verificationIcon->show();
             ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
-            information.prepend("The signature has been verified succesfully:");
+            information.prepend(i18n("The signature has been verified succesfully:"));
             break;
         case Signature::NotVerified:
             ui.verified->setText(i18nc("pgp signature is not verified", "Failed"));
             ui.verificationIcon->setPixmap(KIcon("dialog-error").pixmap(iconSize));
             ui.verificationIcon->show();
-            information.prepend("Caution: Verification failed! Either you entered the wrong signature or the data has been modified!");
+            information.prepend(i18n("Caution: Verification failed! Either you entered the wrong signature or the data has been modified!"));
             error = true;
             break;
         case Signature::NotWorked://TODO downloading state? --> currently downloading
             ui.verified->clear();//TODO
-            information.prepend("Verification not possible. Check the entered data, check if gpg-agent is running or if you have an internet connection (for retrieving keys).");
+            information.prepend(i18n("Verification not possible. Check the entered data, check if gpg-agent is running or if you have an internet connection (for retrieving keys)."));
             problem = true;
             break;
         case Signature::NoResult:
