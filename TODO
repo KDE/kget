@@ -26,80 +26,32 @@ Main Window
 
     IN PROGRESS
 ---------------------
-  ADD <boom1992> Multi-Source downloading
-  ADD <boom1992> New DataSourceFactory class for core/, which downloads from datasources to a file, with support for speedlimits
-  ADD <uwolfer> add support for mms:// protocol (#96386)
 
         TODO
 ---------------------
 
 SHORT-TERM (URGENT):
+
+  CHG <kget> Change the way KDE Global Progress Tracking work (Refactor / Rewrite) (BUG: 213084, 218766) - 80% completed
+  CHG <kget> Stop All action doesn't stop the transfers with setted policy at Running
+
+MID-TERM:
+
   -- MULTISOURCEDOWNLOAD --
   ADD <boom1992> For each Transfer-Plugin, which supports speedlimits, there should be a button for "Add source", not sure if for 4.1 (depends on the plugins if they want to..)
   ADD <boom1992> Move some kind of AdvancedDetails to core, with "Peer-View", "Chunks-View", "File-View" and perhaps that status of sources (that will come with 4.2 hopefully)
   ADD <boom1992> Speedlimits support for every DataSource, which is able to do that
 
-  -- MAINWINDOW --
-
-  -- SCHEDULER --
-
-  -- SIDEBAR --
-  ADD <dario> re-import the sidebar (and think about a better one).
-  ADD <dario> add a "Finished" (is this the best name?) item. This will point
-      to the downloaded files.
-  ADD <dario> add a popupmenu to add or delete groups by right-clicking on them.
-
-  -- MAINVIEW --
-  ADD <dario> make it possible to drag a transfer in a group inside the
-      mainview or in the groups visible in the groupspanel.
-  ADD <dario> Implement the selection of a specific group. In this way 
-      selecting a group from the sidebar should display only its transfers.
-  ADD <dario> add a coloured band over the mainview displaying the currently
-      display items. For example if I select "Downloads" from the sidebar it
-      should display "Downloads". If instead I select a specific group <groupname>
-      it should display "Downloads - <groupname>"
-  ADD <dario> handle the situation when we remove a group which has transfers.
-
-  -- MISCELLANEOUS --
-  ADD <dario> implement the GlobalStatus object and make the
-      systray to update using the ViewInterface slots instead of the actual hack.
-      To make this happen we need to create also a special group containing all
-      the ungrouped Transfers. Then we just need to sum the progress of each group
-      to know the global download percentage.
   ADD <dario> implement progressive filling of the icon in the system tray
   CHG <pino> verify that all the settings are respected
-  ADD <pino> implement the grouping functionalities
-  ADD <dario> in order to have all the necessary informations to calculate a
-      global progress percentage, we need to know the size of each transfer
-      in the list. This is currently not the case. Now we have this information
-      only for the already started transfers. Maybe we should add a stat() virtual 
-      function to the transfer that makes the transfer retrieve all the necessary
-      informations. Then we should also create a Job, returned by the Transfer 
-      factory, to be added to the scheduler ( that's the new scheduler power ;-) ).
   ADD <boom1992> let the user add new download-sources to a multithreaded transfer manually
   ADD <boom1992> Ask the user if he/she wants to delete the transfer (or probably if he/she wants to delete the tmp-file)?
   ADD <boom1992> Move deleting of big tmp-files to a new thread
   ADD <boom1992> Change "Regular expression -> Folder" to "Regular expression -> Group"
-
-MID-TERM:
-
-  ADD <dario> change the actual way we use the priority for each transfer.
-      In the future it will describe the precise order the transfers will be 
-      downloaded.
-  ADD <dario> use KPassivePopups to notify when all the transfers have been
-      downloaded.
-  CHG <dario> profile kget and look for possible optimizations.
-  CHG <kget> setup a decent gui with a decent toolbars.
-  CHG <kget> sync the configuration options with what has currently been 
-      implemented.
-  ADD <dario> make it possible to associate a default folder to each group.
   ADD <pino> tooltips and what's this for settings
-  ADD <pino> implement the notifications
   ADD <dario> add a wizard on the first app execution, where the user can set
       his download folders and other "vital" settings like the integration with
       Konqueror. Perhaps we could provide a good default like ~/downloads/.
-  ADD <pino> make the sidebar capable of several sizes for its items (16, 22,
-      32, ...)
 
 LONG-TERM:
 
@@ -113,7 +65,6 @@ LONG-TERM:
   ADD <kget> add bandwidth limiting (#87600)
   ADD <dario> 'low priority downloads' as in br #50776.
   ADD <kget> add Help & Guide
-  ADD <uwolfer> show average transfer speed when finished (#49219)
   ADD <uwolfer> resume option when there is a file with the same name (#51450)
   ADD <uwolfer> preserve timestamp of downloaded files (as option) (#55511)
   ADD <uwolfer> recursion and other wget features (#57105)

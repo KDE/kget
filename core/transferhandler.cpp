@@ -37,7 +37,6 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
     m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx);
 
     m_kjobAdapter = new KGetKJobAdapter(this, this);
-    KGet::registerKJob(m_kjobAdapter);
 }
 
 TransferHandler::~TransferHandler()
@@ -185,9 +184,6 @@ void TransferHandler::destroy()
 {
     kDebug(5001) << "TransferHandler::destroy() ENTERING";
 
-    if (m_kjobAdapter)
-        KGet::unregisterKJob(m_kjobAdapter);
-
     kDebug(5001) << "TransferHandler::destroy() LEAVING";
 }
 
@@ -200,17 +196,7 @@ void TransferHandler::setTransferChange(ChangesFlags change, bool notifyModel)
         // Notify the TransferTreeModel
         m_transfer->model()->postDataChangedEvent(this);
     
-    
-        if (m_kjobAdapter)
-        {
-            m_kjobAdapter->slotUpdateDescription();
-
-            if (m_transfer->status() == Job::Finished)
-            {
-                KGet::unregisterKJob(m_kjobAdapter);
-                m_kjobAdapter = 0;
-            }
-        }
+        m_kjobAdapter->slotUpdateDescription();
     }
 }
 

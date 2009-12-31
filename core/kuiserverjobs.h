@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+   Copyright (C) 2009 by Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -12,6 +13,7 @@
 #define KUISERVERJOBS_H
 
 #include "kgetglobaljob.h"
+#include "transfer.h"
 
 #include <kio/job.h>
 #include <kio/filejob.h>
@@ -19,22 +21,32 @@
 #include <QObject>
 #include <QList>
 
+class TransferHandler; 
+class TransferGroupHandler;
+
 class KUiServerJobs : public QObject
 {
     Q_OBJECT
 public:
     KUiServerJobs(QObject *parent=0);
     ~KUiServerJobs();
+   
+    void settingsChanged();
 
-    void registerJob(KJob *job);
-    void unregisterJob(KJob *job);
-    void reload();
-
+public slots:
+    void slotTransferAdded(TransferHandler * transfer, TransferGroupHandler * group);
+    void slotTransferAboutToBeRemoved(TransferHandler * transfer, TransferGroupHandler * group);
+    void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
+    
 private:
-    KGetGlobalJob *globalJob();
+    void registerJob(KJob * job, TransferHandler * transfer);
+    void unregisterJob(KJob * job, TransferHandler * transfer);
+    bool shouldBeShown(TransferHandler * transfer);
+    bool existRunningTransfers();
+    KGetGlobalJob * globalJob();
 
-    QList <KJob *> m_jobs;
-    QList <KJob *> m_registeredJobs;
+    QMap <TransferHandler *, KJob *> m_registeredJobs;
+    QList <TransferHandler *> m_invalidTransfers;
     KGetGlobalJob *m_globalJob;
 };
 

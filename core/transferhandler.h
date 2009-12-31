@@ -251,6 +251,10 @@ class KGET_EXPORT TransferHandler : public Handler
          */
         QString dBusObjectPath()       {return m_dBusObjectPath;}
         
+        /**
+         * @returns the kJobAdapter object
+         */
+        KGetKJobAdapter * kJobAdapter() {return m_kjobAdapter;}
 
         /**
          * @returns a pointer to the FileModel containing all files of this download

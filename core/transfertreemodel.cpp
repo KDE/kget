@@ -235,6 +235,8 @@ void TransferTreeModel::delTransfer(Transfer * transfer)
     if (!item)
         return;
 
+    emit transferAboutToBeRemovedEvent(transfer->handler(), transfer->group()->handler());
+    
     item->parent()->takeRow(item->row());
 
     QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());

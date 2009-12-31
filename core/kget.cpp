@@ -77,6 +77,7 @@ KGet* KGet::self( MainWindow * mainWindow )
     }
 
     static KGet *m = new KGet();
+
     return m;
 }
 
@@ -682,21 +683,8 @@ void KGet::settingsChanged()
     {
         factory->settingsChanged();
     }
-}
-
-void KGet::registerKJob(KJob *job)
-{
-    m_jobManager->registerJob(job);
-}
-
-void KGet::unregisterKJob(KJob *job)
-{
-    m_jobManager->unregisterJob(job);
-}
-
-void KGet::reloadKJobs()
-{
-    m_jobManager->reload();
+    
+    m_jobManager->settingsChanged();
 }
 
 QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
@@ -783,6 +771,13 @@ KGet::KGet()
     m_transferTreeModel = new TransferTreeModel(m_scheduler);
     m_selectionModel = new TransferTreeSelectionModel(m_transferTreeModel);
 
+    QObject::connect(m_transferTreeModel, SIGNAL(transferAddedEvent(TransferHandler *, TransferGroupHandler *)),
+                     m_jobManager,        SLOT(slotTransferAdded(TransferHandler *, TransferGroupHandler *)));
+    QObject::connect(m_transferTreeModel, SIGNAL(transferAboutToBeRemovedEvent(TransferHandler *, TransferGroupHandler *)),
+                     m_jobManager,        SLOT(slotTransferAboutToBeRemoved(TransferHandler *, TransferGroupHandler *)));
+    QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
+                     m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
+            
     //Load all the available plugins
     loadPlugins();
 

@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+   Copyright (C) 2009 by Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,108 +12,154 @@
 #include "kuiserverjobs.h"
 
 #include "kgetglobaljob.h"
+#include "transferhandler.h"
 #include "settings.h"
+#include "kget.h"
 
 #include <kuiserverjobtracker.h>
+#include <kdebug.h>
 
 KUiServerJobs::KUiServerJobs(QObject *parent)
-    : QObject(parent), m_jobs(), m_registeredJobs(), m_globalJob(0)
+    : QObject(parent), m_globalJob(0)
 {
 }
 
 KUiServerJobs::~KUiServerJobs()
 {
-    foreach(KJob *job, m_jobs) {
-        unregisterJob(job);
+    while(m_registeredJobs.size()) {
+        unregisterJob(m_registeredJobs.begin().value(), m_registeredJobs.begin().key());
     }
 
     if(m_globalJob) {
-        KIO::getJobTracker()->unregisterJob(globalJob());
         delete m_globalJob;
-        m_globalJob = 0;
     }
 }
 
-void KUiServerJobs::registerJob(KJob *job)
+void KUiServerJobs::settingsChanged()
 {
-    m_jobs.append(job);
+    QList<TransferHandler *> transfers = KGet::allTransfers();
 
-    if(Settings::enableKUIServerIntegration()) {
-        if(Settings::exportGlobalJob()) {
-            globalJob()->registerJob(job);
-        }
-        else {
-            m_registeredJobs.append(job);
-            KIO::getJobTracker()->registerJob(job);
-        }
+    foreach(TransferHandler * transfer, transfers) {
+        if(shouldBeShown(transfer))
+            registerJob((KJob*) transfer->kJobAdapter(), transfer);
+        else
+            unregisterJob((KJob*) transfer->kJobAdapter(), transfer);
     }
+    
+    // GlobalJob is associated to a virtual transfer pointer of value == 0
+    if(shouldBeShown(0))
+        registerJob(globalJob(), 0);
+    else
+        unregisterJob(globalJob(), 0);
 }
 
-void KUiServerJobs::unregisterJob(KJob *job)
+void KUiServerJobs::slotTransferAdded(TransferHandler * transfer, TransferGroupHandler * group)
 {
-    m_jobs.removeAll(job);
-
-    if(Settings::enableKUIServerIntegration()) {
-        if(Settings::exportGlobalJob()) {
-            globalJob()->unregisterJob(job);
-        }
-        else {
-            m_registeredJobs.removeAll(job);
-            KIO::getJobTracker()->unregisterJob(job);
-        }
+    kDebug(5001);
+    
+    if(shouldBeShown(transfer))
+        registerJob((KJob*) transfer->kJobAdapter(), transfer);
+    
+    if(shouldBeShown(0)) {
+        globalJob()->update();
+        registerJob(globalJob(), 0);
     }
+    else
+        unregisterJob(globalJob(), 0);
 }
 
-// every time the configuration changed, check the registered jobs and the state through the ui server
-void KUiServerJobs::reload()
+void KUiServerJobs::slotTransferAboutToBeRemoved(TransferHandler * transfer, TransferGroupHandler * group)
 {
-    if(Settings::exportGlobalJob() && Settings::enableKUIServerIntegration() && !m_globalJob) {
-        foreach(KJob *job, m_registeredJobs) {
-            KIO::getJobTracker()->unregisterJob(job);
-            m_registeredJobs.removeAll(job);
-        }
-        KIO::getJobTracker()->registerJob(globalJob());
+    kDebug(5001);
+    
+    m_invalidTransfers.append(transfer);
+    
+    unregisterJob((KJob*) transfer->kJobAdapter(), transfer);
+    
+    if(shouldBeShown(0)) {
+        globalJob()->update();
+        registerJob(globalJob(), 0);
     }
-    else {
-        if((!Settings::exportGlobalJob() && Settings::enableKUIServerIntegration()) 
-                                         || !Settings::enableKUIServerIntegration()) {
-            if(m_globalJob) {
-                KIO::getJobTracker()->unregisterJob(globalJob());
-                delete m_globalJob;
-                m_globalJob = 0;
-            }
-        }
-
-        foreach(KJob *job, m_jobs) {
-            if(!Settings::exportGlobalJob() && Settings::enableKUIServerIntegration() && job 
-                                            && job->percent() < 100) {
-                if(!m_registeredJobs.contains(job)) {
-                    m_registeredJobs.append(job);
-                    KIO::getJobTracker()->registerJob(job);
-                }
-            }
-            else {
-                m_registeredJobs.removeAll(job);
-                KIO::getJobTracker()->unregisterJob(job);
-            }
-        }
-    }
+    else
+        unregisterJob(globalJob(), 0);
 }
 
-// get the kget global job
-KGetGlobalJob *KUiServerJobs::globalJob()
+void KUiServerJobs::slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers)
 {
-    if(!m_globalJob) {
+    kDebug(5001);
+    
+    if(!Settings::enableKUIServerIntegration())
+        return;
+    
+    QMapIterator<TransferHandler *, Transfer::ChangesFlags> i(transfers);
+    while (i.hasNext()) {
+        i.next();
+//         if(!m_invalidTransfers.contains(i.key()))
+        {
+            TransferHandler * transfer = i.key();
+            
+            if(shouldBeShown(transfer))
+                registerJob((KJob*) transfer->kJobAdapter(), transfer);
+            else 
+                unregisterJob((KJob*) transfer->kJobAdapter(), transfer);
+        }
+    }
+    
+    if(shouldBeShown(0)) {
+        globalJob()->update();
+        registerJob(globalJob(), 0);
+    }
+    else
+        unregisterJob(globalJob(), 0);
+}
+
+void KUiServerJobs::registerJob(KJob * job, TransferHandler * transfer)
+{
+    if(m_registeredJobs.contains(transfer) || !job)
+        return;
+    
+    KIO::getJobTracker()->registerJob(job);
+    m_registeredJobs[transfer] = job;
+}
+
+void KUiServerJobs::unregisterJob(KJob * job, TransferHandler * transfer)
+{
+    if(!m_registeredJobs.contains(transfer)  || !job)
+        return;
+    
+    KIO::getJobTracker()->unregisterJob(m_registeredJobs[transfer]);
+    m_registeredJobs.remove(transfer);
+}
+
+bool KUiServerJobs::shouldBeShown(TransferHandler * transfer)
+{
+    if(!Settings::enableKUIServerIntegration())
+        return false;
+    
+    if(Settings::exportGlobalJob() && (transfer == 0) && existRunningTransfers())
+        return true;
+    
+    if(!Settings::exportGlobalJob() && (transfer) && (transfer->status() == Job::Running))
+        return true;
+    
+    return false;
+}
+
+bool KUiServerJobs::existRunningTransfers()
+{
+    foreach(TransferHandler * transfer, KGet::allTransfers()) {
+        if(transfer->status() == Job::Running)
+            return true;
+    }
+    
+    return false;
+}
+
+KGetGlobalJob * KUiServerJobs::globalJob()
+{
+    if(!m_globalJob)
         m_globalJob = new KGetGlobalJob();
-
-        foreach(KJob *job, m_jobs) {
-            m_globalJob->registerJob(job);
-        }
-
-        if(Settings::exportGlobalJob() && Settings::enableKUIServerIntegration()) {
-            KIO::getJobTracker()->registerJob(globalJob());
-        }
-    }
-
+    
     return m_globalJob;
 }
+

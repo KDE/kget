@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+   Copyright (C) 2009 by Dario Massarin <nekkar@libero.it>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,13 +12,6 @@
 #define KGETGLOBALJOB_H
 
 #include <kio/job.h>
-#include <kio/filejob.h>
-
-#include <QList>
-
-#define DEFAULT_UPDATE_TIME 5000
-
-class QTimer;
 
 class KGetGlobalJob : public KJob
 {
@@ -26,23 +20,9 @@ public:
     KGetGlobalJob(QObject *parent=0);
     ~KGetGlobalJob();
 
-    void registerJob(KJob *);
-    void unregisterJob(KJob *);
-
+    void update();    
+    
     void start() {};
-
-    // reimplement this functions from KJob to query all the child jobs
-    qulonglong processedAmount(Unit unit) const;
-    qulonglong totalAmount(Unit unit) const;
-    unsigned long percent() const;
-
-private slots:
-    void update();
-
-private:
-    QList <KJob *> m_jobs;
-
-    QTimer *m_timer;
 };
 
 #endif

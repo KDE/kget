@@ -395,9 +395,6 @@ void MainWindow::slotDelayedInit()
     if ( Settings::autoPaste() )
         clipboardTimer->start(1000);
 
-    // kget kuiserver integration
-    KGet::reloadKJobs();
-
     if (Settings::webinterfaceEnabled())
         m_webinterface = new HttpServer(this);
 
@@ -780,8 +777,6 @@ void MainWindow::slotNewConfig()
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
-
-    KGet::reloadKJobs();
 
     if (Settings::autoPaste())
         clipboardTimer->start(1000);

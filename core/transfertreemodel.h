@@ -144,6 +144,7 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         void groupRemovedEvent(TransferGroupHandler *);
         void groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>);
         void transferAddedEvent(TransferHandler *, TransferGroupHandler *);
+        void transferAboutToBeRemovedEvent(TransferHandler *, TransferGroupHandler *);
         void transferRemovedEvent(TransferHandler *, TransferGroupHandler *);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
         void transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>);
