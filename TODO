@@ -34,6 +34,14 @@ SHORT-TERM (URGENT):
 
   CHG <kget> Change the way KDE Global Progress Tracking work (Refactor / Rewrite) (BUG: 213084, 218766) - 80% completed
   CHG <kget> Stop All action doesn't stop the transfers with setted policy at Running
+  CHG <kget> Related to BUG: 220516. You can reproduce this by unplugging your ethernet connection for some seconds and
+             connecting it again. Nobody will never put the download in the Delayed status, and the transfer will be stuck
+             without ever going on.
+  CHG <kget> Downloading from websites like rapidshare.com seems to have problems when one downloads a file as a free user
+             with the multithread plugin. Seems like just one of the chunks (the first one?) works, and the transfer gets
+             stuck at the percentage of 1 / (# of chunks) * 100. Allow  the first chunk to complete the entire download if
+             necessary?
+  CHG <kget> Transparency problems reported by Enrico Ros. Have still to download the video that demonstrates the problems.
 
 MID-TERM:
 
