@@ -169,8 +169,7 @@ QStringList KGet::transferGroupNames()
 TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
                                     QString groupName, bool start)
 {
-    if (srcUrl.protocol() == "desktop")
-        srcUrl = KUrl(KGlobalSettings::desktopPath() + srcUrl.pathOrUrl().remove("desktop:"));
+    srcUrl = KIO::NetAccess::mostLocalUrl(srcUrl, m_mainWindow);
     // Note: destDir may actually be a full path to a file :-(
     kDebug(5001) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
 
@@ -274,8 +273,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
     for(; it!=itEnd ; ++it)
     {
-        if ((*it).protocol() == "desktop")
-            *it = KUrl(KGlobalSettings::desktopPath() + (*it).pathOrUrl().remove("desktop:"));
+        *it = KIO::NetAccess::mostLocalUrl(*it, m_mainWindow);
         if ( isValidSource( *it ) )
             urlsToDownload.append( *it );
     }
