@@ -1259,7 +1259,9 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
             transfer->group()->setGroupChange(TransferGroup::Gc_UploadSpeed, true);
         }
 
-        if (transfer->status() != Job::Finished) {
+        if (transfer->status() == Job::Finished) {
+            requestSave();
+        } else {
             allFinished = false;
         }
     }

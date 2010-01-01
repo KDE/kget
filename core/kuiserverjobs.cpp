@@ -55,8 +55,9 @@ void KUiServerJobs::settingsChanged()
 
 void KUiServerJobs::slotTransferAdded(TransferHandler * transfer, TransferGroupHandler * group)
 {
+    Q_UNUSED(group)
     kDebug(5001);
-    
+
     if(shouldBeShown(transfer))
         registerJob((KJob*) transfer->kJobAdapter(), transfer);
     
@@ -70,6 +71,7 @@ void KUiServerJobs::slotTransferAdded(TransferHandler * transfer, TransferGroupH
 
 void KUiServerJobs::slotTransferAboutToBeRemoved(TransferHandler * transfer, TransferGroupHandler * group)
 {
+    Q_UNUSED(group)
     kDebug(5001);
     
     m_invalidTransfers.append(transfer);
