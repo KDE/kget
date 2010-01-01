@@ -39,6 +39,9 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.kUrlRequester->setUrl(m_transfer->directory().pathOrUrl());
     ui.kUrlRequester->lineEdit()->setReadOnly(true);
     ui.rename->setIcon(KIcon("edit-rename"));
+    ui.mirrors->setIcon(KIcon("download"));
+    ui.signature->setIcon(KIcon("application-pgp-signature"));
+    ui.verification->setIcon(KIcon("document-decrypt"));
 
     if (m_model)
     {

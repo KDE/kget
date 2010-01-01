@@ -204,7 +204,6 @@ void KioDownload::slotResult(KJob *kioJob)
 void KioDownload::slotPercent(KJob *kioJob, unsigned long percentDown)
 {
     Q_UNUSED(kioJob)
-    kDebug(5001);
     emit percent(percentDown);
 }
 // 
