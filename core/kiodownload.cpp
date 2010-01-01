@@ -26,11 +26,12 @@ KioDownload::KioDownload(const KUrl &src, const KUrl &dest, QObject *parent)
       m_dest(dest),
       m_file(0),
       m_getJob(0),
+      m_isResumeable(false),
       m_movingFile(false),
       m_processedSize(0),
       m_offset(0)
 {
-    kDebug() << "****";
+    kDebug(5001);
 }
 
 KioDownload::~KioDownload()
@@ -73,10 +74,16 @@ KioDownload::~KioDownload()
 //     start();
 //     setTransferChange(Tc_FileName);
 // }
+void KioDownload::slotInfoMessage(KJob* kioJob, const QString& msg)
+{
+    Q_UNUSED(kioJob)
+
+    kDebug(5001) << "Infomessage:" << msg;
+}
 
 void KioDownload::start()
 {
-    kDebug() << "****";
+    kDebug(5001);
     if (!m_movingFile)
     {
         if (!m_file)
@@ -86,7 +93,6 @@ void KioDownload::start()
             {
                 delete m_file;
                 m_file = 0;
-                kDebug() << "***not open";
             }
         }
         m_stopped = false;
@@ -110,7 +116,7 @@ void KioDownload::stop()
 
 bool KioDownload::isResumable() const
 {
-    return true;
+    return m_isResumeable;
 }
 
 // void KioDownload::deinit()
@@ -128,16 +134,18 @@ void KioDownload::createJob()
 {
     if (!m_getJob)//TODO delete when not stopped, how? test
     {
-        kDebug() << "****createJob";
+        kDebug(5001);
         m_getJob = KIO::get(m_source, KIO::Reload, KIO::HideProgressInfo);
         m_getJob->suspend();
         m_getJob->addMetaData("errorPage", "false");
         m_getJob->addMetaData("AllowCompressedPage", "false");
+        m_getJob->addMetaData("resume", KIO::number(100));
+        connect(m_getJob, SIGNAL(canResume(KIO::Job*,KIO::filesize_t)), this, SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
 
         connect(m_getJob, SIGNAL(data(KIO::Job *, const QByteArray&)), this, SLOT(slotData(KIO::Job *, const QByteArray&)));
         connect(m_getJob, SIGNAL(result(KJob *)), this, SLOT(slotResult( KJob *)));
-//         connect(m_getJob, SIGNAL(infoMessage(KJob *, const QString &)), this, SLOT(slotInfoMessage(KJob *, const QString &)));
-//         connect(m_getJob, SIGNAL(percent(KJob *, unsigned long)), this, SLOT(slotPercent(KJob *, unsigned long)));
+        connect(m_getJob, SIGNAL(infoMessage(KJob *, const QString &)), this, SLOT(slotInfoMessage(KJob *, const QString &)));
+        connect(m_getJob, SIGNAL(percent(KJob *, unsigned long)), this, SLOT(slotPercent(KJob *, unsigned long)));
         connect(m_getJob, SIGNAL(totalSize(KJob *, qulonglong)), this, SLOT(slotTotalSize(KJob*, qulonglong)));
         connect(m_getJob, SIGNAL(speed(KJob *, unsigned long)), this, SLOT(slotSpeed(KJob*,ulong)));
     }
@@ -150,6 +158,13 @@ void KioDownload::killJob()
         m_getJob->kill(KJob::EmitResult);
         m_getJob = 0;
     }
+}
+void KioDownload::slotCanResume(KIO::Job* job, KIO::filesize_t size)
+{
+    Q_UNUSED(job)
+    Q_UNUSED(size)
+    kDebug(5001);
+    m_isResumeable = true;
 }
 
 void KioDownload::slotResult(KJob *kioJob)
@@ -186,18 +201,18 @@ void KioDownload::slotResult(KJob *kioJob)
 //     m_log.append(QString(msg));
 // }
 // 
-// void KioDownload::slotPercent( KJob * kioJob, unsigned long percent )
-// {
-//     kDebug(5001) << "slotPercent";
-//     Q_UNUSED(kioJob)
-//     m_percent = percent;
-//     setTransferChange(Tc_Percent, true);
-// }
+void KioDownload::slotPercent(KJob *kioJob, unsigned long percentDown)
+{
+    Q_UNUSED(kioJob)
+    kDebug(5001);
+    emit percent(percentDown);
+}
 // 
 void KioDownload::slotTotalSize(KJob *kioJob, qulonglong size)
 {
     Q_UNUSED(kioJob)
 
+    kDebug(5001) << size;
     emit totalSize(size);
 }
 

@@ -171,6 +171,10 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * by start if no file size has been specified
          */
         void findFileSize();
+        /**
+         * Called from KIODownload when trying to find the filesize//TODO remove in 4.5 and combine it with TansferDataSource
+         */
+        void slotKIOProcessedSize(KIO::filesize_t size);
 
         void assignSegments(TransferDataSource *source);
         /**

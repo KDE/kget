@@ -49,15 +49,17 @@ class KioDownload : public QObject
         void totalSize(KIO::filesize_t size);
         void speed(ulong speed);
         void finished();
+        void percent(ulong percent);
         //void suggestedFileName(const QString &name);
 
     private slots:
         void slotResult(KJob *kioJob);
-//         void slotInfoMessage( KJob * kioJob, const QString & msg );
-//         void slotPercent( KJob * kioJob, unsigned long percent );
+        void slotInfoMessage(KJob *kioJob, const QString &msg);
+        void slotPercent( KJob * kioJob, unsigned long percent );
         void slotTotalSize( KJob * kioJob, qulonglong size );
         void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
 //         void newDestResult(KJob *result);
+        void slotCanResume(KIO::Job *job, KIO::filesize_t size);
         void slotData(KIO::Job *job, const QByteArray &data);
 
     private:
@@ -69,6 +71,7 @@ class KioDownload : public QObject
         KUrl m_dest;
         QFile *m_file;
         KIO::TransferJob *m_getJob;
+        bool m_isResumeable;
         bool m_stopped;
         bool m_movingFile;
         KIO::filesize_t m_processedSize;

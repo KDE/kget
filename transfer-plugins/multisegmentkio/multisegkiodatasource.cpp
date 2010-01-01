@@ -178,6 +178,8 @@ void MultiSegKioDataSource::slotCanResume(KIO::Job *job, KIO::filesize_t offset)
     Q_UNUSED(job)
     Q_UNUSED(offset)
 
+    kDebug(5001);
+
     m_canResume = true;
     if (m_size)
     {

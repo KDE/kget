@@ -155,7 +155,8 @@ void DataSourceFactory::findFileSize()
         //FIXME 4.5 move findingFileSize to the TransferDataSources themselves (make it a capability
         //that they can support); no need for checking the protocol etc. in 4.4 as there is no other TransferDataSource than the one from MultiSegKIO for downloading yet
         m_tempDownload = new KioDownload(m_sources.begin().value()->sourceUrl(), m_dest, this);
-        connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SIGNAL(processedSize(KIO::filesize_t)));
+        connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotKIOProcessedSize(KIO::filesize_t)));
+        connect(m_tempDownload, SIGNAL(percent(ulong)), this, SIGNAL(percent(ulong)));
         connect(m_tempDownload, SIGNAL(speed(ulong)), this, SIGNAL(speed(ulong)));
         connect(m_tempDownload, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(sizeFound(KIO::filesize_t)));
         connect(m_tempDownload, SIGNAL(finished()), this, SLOT(finished()));
@@ -164,12 +165,22 @@ void DataSourceFactory::findFileSize()
     }
 }
 
+void DataSourceFactory::slotKIOProcessedSize(KIO::filesize_t size)
+{
+    m_downloadedSize = size;
+    emit processedSize(m_downloadedSize);
+}
 
 void DataSourceFactory::sizeFound(KIO::filesize_t size)
 {
     m_size = size;
     kDebug(5001) << "Size found: " << m_size;
     emit totalSize(m_size);
+
+    if (!m_tempDownload->isResumable()) {
+        kDebug(5001) << "Download not resumeable, so do not stop it.";
+        return;
+    }
 
     init();
 

@@ -482,7 +482,7 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
             KNotification::event(KNotification::Notification,
                 i18n("Downloads completed"),
                 i18n("<p>The following file has finished downloading:</p><p style=\"font-size: small;\">\
-                      %1</p>", transfer->source().fileName()),
+                      %1</p>", transfer->dest().fileName()),
                 KIcon("kget").pixmap(KIconLoader::SizeMedium), this);            
         }
         
