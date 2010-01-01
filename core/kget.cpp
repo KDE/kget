@@ -169,6 +169,8 @@ QStringList KGet::transferGroupNames()
 TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
                                     QString groupName, bool start)
 {
+    if (srcUrl.protocol() == "desktop")
+        srcUrl = KUrl(KGlobalSettings::desktopPath() + srcUrl.pathOrUrl().remove("desktop:"));
     // Note: destDir may actually be a full path to a file :-(
     kDebug(5001) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
 
@@ -225,54 +227,21 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
         do 
         {
             destUrl = destFileInputDialog(destDir, suggestedFileName);
-            if (destUrl.isEmpty()) 
+            if (destUrl.isEmpty())
                 return 0;
 
             destDir = destUrl.directory(KUrl::ObeyTrailingSlash);
         } while (!isValidDestDirectory(destDir));
-    } else {
+    } /*else {
         destUrl = KUrl();
         destUrl.setDirectory(destDir); 
         destUrl.addPath(suggestedFileName);
-    }
+    }*/
+    destUrl = getValidDestUrl(destDir, srcUrl);
 
-    Transfer * existingTransferDest = m_transferTreeModel->findTransferByDestination(destUrl);
-    QPointer<KIO::RenameDialog> dlg = 0;
-
-    if(existingTransferDest) {   
-        if(existingTransferDest->status() == Job::Finished) {
-            if (KMessageBox::questionYesNoCancel(0,
-                    i18n("You have already downloaded that file from another location.\n\nDownload and delete the previous one?"),
-                    i18n("File already downloaded. Download anyway?"), KStandardGuiItem::yes(),
-                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
-                    == KMessageBox::Yes) {
-                existingTransferDest->stop();
-                KGet::delTransfer(existingTransferDest->handler());
-                start = true;
-            } else 
-                return 0;
-        } else {
-            dlg = new KIO::RenameDialog( m_mainWindow, i18n("You are already downloading the same file"/*, destUrl.prettyUrl()*/), srcUrl,
-                                     destUrl, KIO::M_MULTI );
-        }
-    } else if (destUrl.isLocalFile() && QFile::exists(destUrl.path())) {
-        dlg = new KIO::RenameDialog( m_mainWindow, i18n("File already exists"), srcUrl,
-                                     destUrl, KIO::M_OVERWRITE );          
-    }
-
-    if(dlg) {
-        int result = dlg->exec();
-
-        if ( result == KIO::R_RENAME || result == KIO::R_OVERWRITE )
-            destUrl = dlg->newDestUrl();
-        else {
-            delete(dlg);
-            return 0;
-        }
-
-        delete(dlg);
-    }
-
+    if (destUrl == KUrl())
+        return 0;
+    
     return createTransfer(srcUrl, destUrl, groupName, start);
 }
 
@@ -305,6 +274,8 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
     for(; it!=itEnd ; ++it)
     {
+        if ((*it).protocol() == "desktop")
+            *it = KUrl(KGlobalSettings::desktopPath() + (*it).pathOrUrl().remove("desktop:"));
         if ( isValidSource( *it ) )
             urlsToDownload.append( *it );
     }
@@ -342,7 +313,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
         }
         destUrl = getValidDestUrl(destDir, *it);
 
-        if(!isValidDestUrl(destUrl))
+        if (destUrl == KUrl())
             continue;
 
         TransferHandler * newTransfer = createTransfer(*it, destUrl, groupName, start);
@@ -941,7 +912,7 @@ bool KGet::isValidSource(const KUrl &source)
         return false;
     }
     // Check if the URL contains the protocol
-    if ( source.protocol().isEmpty() ){
+    if (source.protocol().isEmpty()){
 
         KMessageBox::error(0, 
                            i18n("Malformed URL, protocol missing:\n%1", source.prettyUrl()),
@@ -951,9 +922,9 @@ bool KGet::isValidSource(const KUrl &source)
     }
     // Check if a transfer with the same url already exists
     Transfer * transfer = m_transferTreeModel->findTransfer( source );
-    if ( transfer )
+    if (transfer)
     {
-        if ( transfer->status() == Job::Finished ) {
+        if (transfer->status() == Job::Finished) {
             // transfer is finished, ask if we want to download again
             if (KMessageBox::questionYesNoCancel(0,
                     i18n("You have already completed a download from the location: \n\n%1\n\nDownload it again?", source.prettyUrl()),
@@ -1005,60 +976,63 @@ bool KGet::isValidDestDirectory(const QString & destDir)
     return false;
 }
 
-bool KGet::isValidDestUrl(const KUrl &destUrl)
+KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
 {
-    if(KIO::NetAccess::exists(destUrl, KIO::NetAccess::DestinationSide, 0))
-    {
-        if (KMessageBox::warningYesNo(0,
-            i18n("Destination file \n%1\nalready exists.\n"
-                 "Do you want to overwrite it?", destUrl.prettyUrl()), i18n("Overwrite destination"),
-            KStandardGuiItem::overwrite(), KStandardGuiItem::cancel()) == KMessageBox::Yes)
-        {
-            safeDeleteFile( destUrl );
-            return true;
-        }
-        else
-            return false;
-    }
-    if (m_transferTreeModel->findTransferByDestination(destUrl) || destUrl.isEmpty())
-        return false;
-
-    return true;
-   /*
-    KIO::open_RenameDlg(i18n("File already exists"), 
-    (*it).url(), destUrl.url(),
-    KIO::M_MULTI);
-   */
-}
-
-KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl, const QString& destFileName)
-{
+    kDebug() << "Source Url" << srcUrl << "Destination" << destDir;
     if ( !isValidDestDirectory(destDir) )
         return KUrl();
 
-    // create a proper destination file from destDir
     KUrl destUrl = KUrl( destDir );
-    QString filename = destFileName.isEmpty() ? srcUrl.fileName() : destFileName;
 
-    if ( filename.isEmpty() )
-    {
-        // simply use the full url as filename
-        filename = KUrl::toPercentEncoding( srcUrl.prettyUrl(), "/" );
-        kDebug(5001) << " Filename is empty. Setting to  " << filename;
-        kDebug(5001) << "   srcUrl = " << srcUrl.url();
-        kDebug(5001) << "   prettyUrl = " << srcUrl.prettyUrl();
-    }
     if (QFileInfo(destUrl.path()).isDir())
     {
-        kDebug(5001) << " Filename is not empty";
+        QString filename = srcUrl.fileName();
+        if (filename.isEmpty())
+            filename = KUrl::toPercentEncoding( srcUrl.prettyUrl(), "/" );
         destUrl.adjustPath( KUrl::AddTrailingSlash );
         destUrl.setFileName( filename );
     }
-    if (!isValidDestUrl(destUrl))
-    {
-        kDebug(5001) << "   destUrl " << destUrl.path() << " is not valid";
-        return KUrl();
+    
+    Transfer * existingTransferDest = m_transferTreeModel->findTransferByDestination(destUrl);
+    QPointer<KIO::RenameDialog> dlg = 0;
+
+    if (existingTransferDest) {
+        if (existingTransferDest->status() == Job::Finished) {
+            if (KMessageBox::questionYesNoCancel(0,
+                    i18n("You have already downloaded that file from another location.\n\nDownload and delete the previous one?"),
+                    i18n("File already downloaded. Download anyway?"), KStandardGuiItem::yes(),
+                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    == KMessageBox::Yes) {
+                existingTransferDest->stop();
+                KGet::delTransfer(existingTransferDest->handler());
+                //start = true;
+            } else 
+                return KUrl();
+        } else {
+            dlg = new KIO::RenameDialog( m_mainWindow, i18n("You are already downloading the same file"/*, destUrl.prettyUrl()*/), srcUrl,
+                                     destUrl, KIO::M_MULTI );
+        }
+    } else if (srcUrl == destUrl) {
+        dlg = new KIO::RenameDialog(m_mainWindow, i18n("File already exists"), srcUrl,
+                                    destUrl, KIO::M_MULTI);
+    } else if (destUrl.isLocalFile() && QFile::exists(destUrl.path())) {
+        dlg = new KIO::RenameDialog( m_mainWindow, i18n("File already exists"), srcUrl,
+                                     destUrl, KIO::M_OVERWRITE );          
     }
+
+    if (dlg) {
+        int result = dlg->exec();
+
+        if (result == KIO::R_RENAME || result == KIO::R_OVERWRITE)
+            destUrl = dlg->newDestUrl();
+        else {
+            delete(dlg);
+            return KUrl();
+        }
+
+        delete(dlg);
+    }
+
     return destUrl;
 }
 

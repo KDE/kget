@@ -373,16 +373,7 @@ class KGET_EXPORT KGet
         static bool isValidSource(const KUrl &source);
         static bool isValidDestDirectory(const QString& destDir);
 
-        /**
-         * if the given url is a file that already exists the function asks
-         * the user to confirm the overwriting action
-         *
-         * @param destFile the url of the destination file
-         * @return true if the destination file is ok, otherwise returns false
-         */
-        static bool isValidDestUrl(const KUrl &destUrl);
-
-        static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl, const QString& destFileName = QString());
+        static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl);
 
         //Plugin-related functions
         static void unloadPlugins();
