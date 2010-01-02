@@ -491,7 +491,7 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
             break;
         }
         
-        kDebug(5001) << it.key() << ": " << it.value() << endl;
+//         kDebug(5001) << it.key() << ": " << it.value() << endl;
     }
     
     if (update)
@@ -632,6 +632,11 @@ void MainWindow::slotStopDownload()
 void MainWindow::slotStopAllDownload()
 {
     KGet::setSchedulerRunning(false);
+    
+    // This line ensures that each transfer is stopped. In the handler class
+    // the policy of the transfer will be correctly setted to None
+    foreach (TransferHandler * it, KGet::allTransfers())
+        it->stop();
 }
 
 void MainWindow::slotStopSelectedDownload()
