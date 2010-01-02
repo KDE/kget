@@ -231,12 +231,12 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
 
             destDir = destUrl.directory(KUrl::ObeyTrailingSlash);
         } while (!isValidDestDirectory(destDir));
-    } /*else {
+    } else {
         destUrl = KUrl();
         destUrl.setDirectory(destDir); 
         destUrl.addPath(suggestedFileName);
-    }*/
-    destUrl = getValidDestUrl(destDir, srcUrl);
+    }
+    destUrl = getValidDestUrl(destUrl, srcUrl);
 
     if (destUrl == KUrl())
         return 0;
@@ -309,7 +309,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
                 groupName = list.first()->name();
             }
         }
-        destUrl = getValidDestUrl(destDir, *it);
+        destUrl = getValidDestUrl(KUrl(destDir), *it);
 
         if (destUrl == KUrl())
             continue;
@@ -970,13 +970,13 @@ bool KGet::isValidDestDirectory(const QString & destDir)
     return false;
 }
 
-KUrl KGet::getValidDestUrl(const QString& destDir, const KUrl &srcUrl)
+KUrl KGet::getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl)
 {
     kDebug() << "Source Url" << srcUrl << "Destination" << destDir;
-    if ( !isValidDestDirectory(destDir) )
+    if ( !isValidDestDirectory(destDir.path()) )
         return KUrl();
 
-    KUrl destUrl = KUrl( destDir );
+    KUrl destUrl = destDir;
 
     if (QFileInfo(destUrl.path()).isDir())
     {

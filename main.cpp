@@ -95,14 +95,14 @@ public:
             KUrl lastUrl = l.last();
             if (lastUrl.isLocalFile()) { // either absolute or relative
                 QString targetPath = lastUrl.path();
-		if (targetPath.startsWith('/')) {
+                if (targetPath.startsWith('/')) {
                     KGet::addTransfer(l.first(), lastUrl.path(), QString());
                  } else {
                     QString fileName = lastUrl.fileName(KUrl::ObeyTrailingSlash);
                     KGet::addTransfer(l.first(), QString(), fileName);
                 }
-		return 0;
-	    } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.directory().isEmpty())) {
+                return 0;
+            } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.directory().isEmpty())) {
                 // Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
                 QString suggestedFileName = lastUrl.url();
                 KGet::addTransfer(l.first(), QString(), suggestedFileName);

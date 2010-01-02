@@ -33,11 +33,8 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
         m_layout->addWidget(m_detailsWidget);
     setLayout(m_layout);
 
-    frm.sourceContentEdit->setText(m_transfer->source().prettyUrl());
-    frm.destContentEdit->setText(m_transfer->dest().prettyUrl());
-
-    frm.sourceContentEdit->setText(transfer->source().prettyUrl());
-    frm.destContentEdit->setText(transfer->dest().prettyUrl());
+    frm.sourceContentEdit->setText(m_transfer->source().pathOrUrl());
+    frm.destContentEdit->setText(m_transfer->dest().pathOrUrl());
 
     //This updates the widget with the right values
     slotTransferChanged(transfer, 0xFFFFFFFF);
@@ -105,7 +102,7 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
 
     if(flags & Transfer::Tc_FileName)
     {
-        frm.destContentEdit->setText(m_transfer->dest().prettyUrl());
+        frm.destContentEdit->setText(m_transfer->dest().pathOrUrl());
     }
 
     frm.remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));

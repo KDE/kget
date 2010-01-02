@@ -373,7 +373,7 @@ class KGET_EXPORT KGet
         static bool isValidSource(const KUrl &source);
         static bool isValidDestDirectory(const QString& destDir);
 
-        static KUrl getValidDestUrl(const QString& destDir, const KUrl &srcUrl);
+        static KUrl getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl);
 
         //Plugin-related functions
         static void unloadPlugins();
