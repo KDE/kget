@@ -29,11 +29,18 @@
 #include <KMimeType>
 #include <KShortcut>
 #include <KStandardAction>
+#include <KWindowSystem>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
     : KDialog(parent), m_linkImporter(0)
 {
     setCaption(i18n("Import Links"));
+    
+    if (parent) {
+        KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
+        KWindowSystem::setCurrentDesktop(info.desktop());
+        KWindowSystem::forceActiveWindow(parent->winId());
+    }
 
     // proxy model to filter links
     m_proxyModel = new KGetSortFilterProxyModel();
