@@ -37,7 +37,7 @@ Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &des
 {
     kDebug(5001) << "BTTransferFactory::createTransfer";
 
-    if (srcUrl.fileName().endsWith(QLatin1String(".torrent")))
+    if (isSupported(srcUrl))
     {
         return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
@@ -100,3 +100,7 @@ TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &src
     return 0;
 }
 
+bool BTTransferFactory::isSupported(const KUrl &url) const
+{
+    return url.fileName().endsWith(QLatin1String(".torrent"));
+}

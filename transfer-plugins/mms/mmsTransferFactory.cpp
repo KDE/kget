@@ -32,12 +32,15 @@ Transfer * MmsTransferFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
 {
     kDebug(5001) << "MmsTransferFactory::createTransfer";
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
-    if (prot == "mms")
+    if (isSupported(srcUrl))
     {
         return new MmsTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
+}
+
+bool MmsTransferFactory::isSupported(const KUrl &src) const
+{
+    return src.protocol() == "mms";
 }
 

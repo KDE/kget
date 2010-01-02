@@ -37,6 +37,10 @@
     <method name="importLinks">
         <arg name="links" type="as" direction="in" />
     </method>
+    <method name="isSupported">
+      <arg name="out" type="b" direction="out"/>
+      <arg name="url" type="s" direction="in"/>
+    </method>
     <signal name="transferAdded">
         <arg type="s" direction="out"/>
         <arg type="s" direction="out"/>

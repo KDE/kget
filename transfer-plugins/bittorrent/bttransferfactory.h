@@ -29,6 +29,7 @@ class BTTransferFactory : public TransferFactory
 
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
 
+        bool isSupported(const KUrl &url) const;
 };
 
 #endif

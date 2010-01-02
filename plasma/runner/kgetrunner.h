@@ -2,6 +2,7 @@
  *   This file is part of the KDE project.
  *
  *   Copyright (C) 2009 Tomas Van Verrewegen <tomasvanverrewegen@telenet.be>
+ *   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published
@@ -11,6 +12,8 @@
 
 #ifndef KGETRUNNER_H
 #define KGETRUNNER_H
+
+#include "kget_interface.h"
 
 #include <Plasma/AbstractRunner>
 #include <KIcon>
@@ -29,7 +32,6 @@ class KGetRunner
 
     void match(Plasma::RunnerContext& context);
     void run(const Plasma::RunnerContext& context, const Plasma::QueryMatch& match);
-    void reloadConfiguration();
     
     private slots:
     
@@ -40,9 +42,9 @@ class KGetRunner
     
     QStringList parseUrls(const QString& text) const;
     
+    OrgKdeKgetMainInterface * m_kget;
     KIcon m_icon;
     QStringList m_urls;
-    QStringList m_protocols;
 };
 
 

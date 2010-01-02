@@ -39,10 +39,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
 {
     kDebug(5001);
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
-    if (prot == "http" || prot == "https" ||
-         prot == "ftp"  || prot == "sftp")
+    if (isSupported(srcUrl))
     {
        return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
@@ -76,13 +73,17 @@ const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
         return 0;
     }
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
-    if( prot == "http" || prot == "https" ||
-        prot == "ftp"  || prot == "sftp"
-      )
+    if (isSupported(srcUrl))
     {
         return new MultiSegKioDataSource(srcUrl, parent);
     }
     return 0;
+}
+
+bool TransferMultiSegKioFactory::isSupported(const KUrl &url) const
+{
+    QString prot = url.protocol();
+    kDebug(5001) << "Protocol = " << prot;
+    return (prot == "http" || prot == "https" ||
+            prot == "ftp"  || prot == "sftp");
 }

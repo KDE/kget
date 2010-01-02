@@ -25,6 +25,7 @@
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
+#include "core/plugin/transferfactory.h"
 #include "mainwindow.h"
 #include "settings.h"
 #include "ui/droptarget.h"
@@ -141,6 +142,16 @@ void DBusKGetWrapper::importLinks(const QList <QString> &links)
     KGetLinkView *link_view = new KGetLinkView(m_mainWindow);
     link_view->setLinks(links);
     link_view->show();
+}
+
+bool DBusKGetWrapper::isSupported(const QString &url) const
+{
+    foreach (TransferFactory * factory, KGet::factories()) {
+        kDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(KUrl(url));
+        if (factory->isSupported(KUrl(url)))
+            return true;
+    }
+    return false;
 }
 
 #include "dbuskgetwrapper.moc"

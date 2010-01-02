@@ -29,6 +29,8 @@ class metalinkFactory : public TransferFactory
                                    const QDomElement * e = 0 );
 
         QString displayName(){return "MetaLink";}
+        
+        bool isSupported(const KUrl &url) const;
 };
 
 #endif

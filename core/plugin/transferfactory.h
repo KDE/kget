@@ -31,6 +31,7 @@
  */
 
 #include <kaction.h>
+#include <QStringList>
 
 #include "core/plugin/plugin.h"
 #include "core/kget.h"
@@ -69,6 +70,8 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
         virtual const QList<KAction *> actions(TransferHandler *handler = 0);
 
         virtual void settingsChanged() {}
+        
+        virtual bool isSupported(const KUrl &url) const;
 
         /**
          * Returns a Data Source. needed for Transfers Containers if any.

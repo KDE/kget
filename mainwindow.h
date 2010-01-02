@@ -48,7 +48,6 @@ public:
 
     virtual void setSystemTrayDownloading(bool running);
 
-
 public slots:
     void slotQuit();
     void slotImportUrl(const QString &url);

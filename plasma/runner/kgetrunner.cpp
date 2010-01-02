@@ -2,6 +2,7 @@
  *   This file is part of the KDE project.
  *
  *   Copyright (C) 2009 Tomas Van Verrewegen <tomasvanverrewegen@telenet.be>
+ *   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published
@@ -10,7 +11,6 @@
  */
 
 #include "kgetrunner.h"
-#include "kgetrunner_protocols.h"
 #include <QDBusInterface>
 #include <QDBusPendingCall>
 #include <QDBusPendingCallWatcher>
@@ -19,14 +19,18 @@
 #include <QTimer>
 #include <KNotification>
 #include <KIconLoader>
+#include <KDebug>
 
+const QString KGET_DBUS_SERVICE = "org.kde.kget";
+const QString KGET_DBUS_PATH = "/KGet";
 
 KGetRunner::KGetRunner(QObject* parent, const QVariantList& args)
     : Plasma::AbstractRunner(parent, args), m_icon("kget")
 {
     setObjectName("KGet");
     addSyntax(Plasma::RunnerSyntax(":q:", i18n("Find all links in :q: and download them with KGet.")));
-    reloadConfiguration();
+    
+    m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
 }
 
 
@@ -34,20 +38,11 @@ KGetRunner::~KGetRunner()
 {
 }
 
-
-void KGetRunner::reloadConfiguration()
-{
-    //  For now, the list of protocols is configurable, but this will change when KGet offers
-    //  some kind of supportedProtocols() call.
-    m_protocols = config().readEntry("protocols", KGETRUNNER_PROTOCOLS).split(" ", QString::SkipEmptyParts);
-}
-
-
 void KGetRunner::match(Plasma::RunnerContext& context)
 {
     QString query = context.query();
     m_urls = parseUrls(context.query());
-    if(!m_urls.isEmpty()) {
+    if (!m_urls.isEmpty()) {
         Plasma::QueryMatch match(this);
         match.setType(Plasma::QueryMatch::PossibleMatch);
         match.setRelevance(0.9);
@@ -66,14 +61,14 @@ void KGetRunner::match(Plasma::RunnerContext& context)
 void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::QueryMatch& /*match*/)
 {
     QDBusConnectionInterface* connection = QDBusConnection::sessionBus().interface();
-    if(connection->isServiceRegistered("org.kde.kget"))  {
+    if(connection->isServiceRegistered(KGET_DBUS_SERVICE))  {
         //  KGet is running. Make the call immediately.
         showNewTransferDialog();
         return;
     }
     
     //  KGet is not running. Ask DBus to start it.
-    connection->startService("org.kde.kget");
+    connection->startService(KGET_DBUS_SERVICE);
     if(connection->lastError().type() != QDBusError::NoError) {
         KNotification::event(KNotification::Error,
                 i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", connection->lastError().message()),
@@ -89,12 +84,10 @@ void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::Que
 
 void KGetRunner::showNewTransferDialog()
 {
-    QDBusInterface iface("org.kde.kget", "/KGet", "org.kde.kget.main");
-    
-    QDBusPendingCall call = iface.asyncCall("showNewTransferDialog", m_urls);
+    QDBusPendingCall call = m_kget->asyncCall("showNewTransferDialog", m_urls);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
     QObject::connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(callFinished(QDBusPendingCallWatcher*)));
-                      
+
     m_urls.clear();
 }
 
@@ -123,13 +116,13 @@ QStringList KGetRunner::parseUrls(const QString& text) const
         //  We check if the match is a valid URL, if the protocol is handled by KGet,
         //  and if the host is not empty, otherwise "http://" would also be matched.
         KUrl url(re.cap());
-        if(url.isValid() && url.hasHost() && m_protocols.contains(url.protocol())) {
+        if (/*url.isValid() && url.hasHost() && */
+            (!QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE) || m_kget->isSupported(url.url()).value())) {
             urls << url.url();
             
             //  continue searching after last match...
             i = re.indexIn(text, i + re.matchedLength());
-        }
-        else {
+        } else {
             //  if the match is not a URL, continue searching from next character...
             i = re.indexIn(text, i + 1);
         }

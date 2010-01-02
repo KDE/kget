@@ -34,13 +34,17 @@ Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
 {
     kDebug(5001) << "TransferKioFactory::createTransfer";
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
-    if(    prot == "http" || prot == "https" 
-        || prot == "ftp"  || prot == "sftp"
-        || prot == "file")
+    if (isSupported(srcUrl))
     {
         return new TransferKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return 0;
+}
+
+bool TransferKioFactory::isSupported(const KUrl &url) const
+{
+    QString prot = url.protocol();
+    kDebug(5001) << "Protocol = " << prot;
+    return (prot == "http" || prot == "https" 
+         || prot == "ftp"  || prot == "sftp");
 }

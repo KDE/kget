@@ -68,3 +68,8 @@ TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUr
     Q_UNUSED(parent)
     return 0;
 }
+
+bool TransferFactory::isSupported(const KUrl &url) const
+{
+    return false;
+}

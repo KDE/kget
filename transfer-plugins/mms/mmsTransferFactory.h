@@ -39,6 +39,8 @@ class MmsTransferFactory : public TransferFactory
         QString displayName(){return "Microsoft Media Stream";}
 
         const QList<KAction *> actions(TransferHandler *handler = 0) {return QList<KAction *>();}
+        
+        bool isSupported(const KUrl &src) const;
 };
 
 #endif

@@ -10,6 +10,8 @@
 */
 #include "kgetkjobadapter.h"
 
+#include <KLocale>
+
 KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer) : KJob(parent)
 {
     m_transferHandler = transfer;
