@@ -38,7 +38,7 @@ unsigned long KGetKJobAdapter::percent() const
 
 void KGetKJobAdapter::slotUpdateDescription()
 {
-    emit description(this, "KGet Transfer", 
+    emit description(this, i18n("KGet Transfer"), 
                     qMakePair(QString("source"), m_transferHandler->source().prettyUrl()),
                     qMakePair(QString("destination"), m_transferHandler->dest().prettyUrl()));
 
