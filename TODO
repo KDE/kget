@@ -42,6 +42,10 @@ SHORT-TERM (URGENT):
              stuck at the percentage of 1 / (# of chunks) * 100. Allow  the first chunk to complete the entire download if
              necessary?
   CHG <kget> Transparency problems reported by Enrico Ros. Have still to download the video that demonstrates the problems.
+  CHG <kget> Disable popup notifications when we have the system tray jobs activated
+
+KDE 4.5:
+  CHG <kget> Make the global Status tracking show the filename if only one file is downloading at a time
 
 MID-TERM:
 
