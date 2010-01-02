@@ -169,24 +169,26 @@ TransferGroupHandler * TransferGroup::handler() const
 
 void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) 
 {
-    if (limit == Transfer::VisibleSpeedLimit)
+    if (limit == Transfer::VisibleSpeedLimit) {
         m_visibleUploadLimit = ulLimit;
         if (ulLimit < m_uploadLimit || m_uploadLimit == 0)
             m_uploadLimit = ulLimit;
-    else
+    } else {
         m_uploadLimit = ulLimit;
+    }
 
     calculateUploadLimit();
 }
 
 void TransferGroup::setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) 
 {
-    if (limit == Transfer::VisibleSpeedLimit)
+    if (limit == Transfer::VisibleSpeedLimit) {
         m_visibleDownloadLimit = dlLimit;
         if (dlLimit < m_downloadLimit || m_downloadLimit == 0)
             m_downloadLimit = dlLimit;
-    else
+    } else {
         m_downloadLimit = dlLimit;
+    }
 
     calculateDownloadLimit();
 }

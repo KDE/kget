@@ -91,6 +91,7 @@ void BTTransfer::init()
 
 void BTTransfer::deinit()
 {
+    kDebug() << "****************************DEINIT";
     QDir tmpDir(m_tmp);
     kDebug(5001) << m_tmp + m_source.fileName().remove(".torrent");
     tmpDir.rmdir(m_source.fileName().remove(".torrent") + "/dnd");

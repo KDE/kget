@@ -68,7 +68,7 @@ void TransferGroupScheduler::calculateDownloadLimit()
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
     {
         if (!Settings::speedLimit())
-            handler->setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
+            handler->setDownloadLimit(handler->downloadLimit(Transfer::VisibleSpeedLimit), Transfer::InvisibleSpeedLimit);
         else if (handler->transfers().count() < 1)
         {
             pool = pool + downloadLimit() / n;
@@ -110,7 +110,7 @@ void TransferGroupScheduler::calculateUploadLimit()
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
     {
         if (!Settings::speedLimit())
-            handler->setUploadLimit(0, Transfer::InvisibleSpeedLimit);
+            handler->setUploadLimit(handler->uploadLimit(Transfer::VisibleSpeedLimit), Transfer::InvisibleSpeedLimit);
         else if (handler->transfers().count() < 1)
             pool = pool + uploadLimit() / n;
         else if (uploadLimit() == 0 && handler->uploadLimit(Transfer::VisibleSpeedLimit) != 0)

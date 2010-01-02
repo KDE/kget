@@ -693,22 +693,18 @@ QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
 void KGet::setGlobalDownloadLimit(int limit)
 {
     m_scheduler->setDownloadLimit(limit);
-    if (!limit)
-        m_scheduler->calculateDownloadLimit();
 }
 
 void KGet::setGlobalUploadLimit(int limit)
 {
     m_scheduler->setUploadLimit(limit);
-    if (!limit)
-        m_scheduler->calculateUploadLimit();
 }
 
 void KGet::calculateGlobalSpeedLimits()
 {
-    if (m_scheduler->downloadLimit())//TODO: Remove this and the both other hacks in the 2 upper functions with a better replacement
+    //if (m_scheduler->downloadLimit())//TODO: Remove this and the both other hacks in the 2 upper functions with a better replacement
         m_scheduler->calculateDownloadLimit();
-    if (m_scheduler->uploadLimit())
+    //if (m_scheduler->uploadLimit())
         m_scheduler->calculateUploadLimit();
 }
 
@@ -1232,8 +1228,6 @@ void GenericObserver::slotSave()
 
 void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
 {
-    kDebug(5001);
-
     bool checkSysTray = false;
     bool allFinished = true;
     QMap<TransferHandler*, Transfer::ChangesFlags>::const_iterator it;
@@ -1288,11 +1282,12 @@ void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGro
     bool recalculate = false;
     foreach (TransferGroup::ChangesFlags flags, groups)
     {
-        if (flags & TransferGroup::Gc_Percent) {
+        if (flags & TransferGroup::Gc_Percent || flags & TransferGroup::Gc_Status) {
             recalculate = true;
             break;
         }
     }
+    kDebug() << "Recalculate limits?" << recalculate;
     if (recalculate)
         KGet::calculateGlobalSpeedLimits();
 }
