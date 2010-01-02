@@ -116,8 +116,9 @@ QStringList KGetRunner::parseUrls(const QString& text) const
         //  We check if the match is a valid URL, if the protocol is handled by KGet,
         //  and if the host is not empty, otherwise "http://" would also be matched.
         KUrl url(re.cap());
-        if (/*url.isValid() && url.hasHost() && */
-            (!QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE) || m_kget->isSupported(url.url()).value())) {
+        if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE) 
+            ? m_kget->isSupported(url.url()).value()
+            : (url.isValid() && url.hasHost())) {
             urls << url.url();
             
             //  continue searching after last match...
