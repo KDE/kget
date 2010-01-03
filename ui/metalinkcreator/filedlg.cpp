@@ -63,8 +63,6 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     uiData.copyright->setText(m_file->data.copyright);
     uiData.pub_name->setText(m_file->data.publisher.name);
     uiData.pub_url->setUrl(m_file->data.publisher.url);
-    uiData.lic_name->setText(m_file->data.license.name);
-    uiData.lic_url->setUrl(m_file->data.license.url);
 
     if (m_file->size) {
         ui.size->setText(QString::number(m_file->size));
@@ -167,8 +165,6 @@ void FileDlg::slotOkClicked()
     m_file->data.copyright = uiData.copyright->text();
     m_file->data.publisher.name = uiData.pub_name->text();
     m_file->data.publisher.url = KUrl(uiData.pub_url->text());
-    m_file->data.license.name = uiData.lic_name->text();
-    m_file->data.license.url = KUrl(uiData.lic_url->text());
     m_file->data.language = uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     m_urlWidget->save();

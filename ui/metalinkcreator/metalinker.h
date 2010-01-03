@@ -67,7 +67,7 @@ class DateConstruct
 };
 
 /**
- * This class contains a url and the name, it can be used to e.g. describe a license
+ * This class contains a url and the name, it can be used to e.g. describe a publisher
  */
 class UrlText
 {
@@ -111,7 +111,6 @@ class CommonData
         QString language;
         UrlText publisher;
         QString copyright;
-        UrlText license;
 };
 
 class Metaurl

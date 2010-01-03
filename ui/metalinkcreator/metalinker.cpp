@@ -158,10 +158,6 @@ void KGetMetalink::CommonData::load(const QDomElement &e)
     publisher.name = publisherElem.attribute("name");
     publisher.url = KUrl(publisherElem.attribute("url"));
 
-    const QDomElement lincenseElem = e.firstChildElement("license");
-    license.name = lincenseElem.attribute("name");
-    license.url = KUrl(lincenseElem.attribute("url"));
-
     for (QDomElement elemRes = e.firstChildElement("os"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("os")) {
         oses << elemRes.text();
     }
@@ -197,15 +193,6 @@ void KGetMetalink::CommonData::save(QDomElement &e) const
         QDomElement elem = doc.createElement("language");
         QDomText text = doc.createTextNode(language);
         elem.appendChild(text);
-        e.appendChild(elem);
-    }
-    if (!license.isEmpty())
-    {
-        QDomElement elem = doc.createElement("license");
-
-        elem.setAttribute("url", license.url.url());
-        elem.setAttribute("name", license.name);
-
         e.appendChild(elem);
     }
     if (!logo.isEmpty())
@@ -249,7 +236,6 @@ void KGetMetalink::CommonData::clear()
     language.clear();
     publisher.clear();
     copyright.clear();
-    license.clear();
 }
 
 #ifdef HAVE_NEPOMUK
@@ -258,7 +244,6 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
     //TODO what to do with identity?
     //TODO what uri for logo?
     //TODO what uri for publisher-url?
-    //TODO what uri for license-url?
     QHash<QUrl, Nepomuk::Variant> data;
 
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#version", version);
@@ -269,7 +254,6 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#language", language);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nco/#publisher", publisher.name);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#copyright", copyright);
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#licenseType", license.name);
 
     return data;
 }
@@ -488,7 +472,10 @@ void KGetMetalink::Verification::load(const QDomElement &e)
     }
 
     for (QDomElement elem = e.firstChildElement("signature"); !elem.isNull(); elem = elem.nextSiblingElement("signature")) {
-        const QString type = elem.attribute("type");
+        QString type = elem.attribute("type");
+        if (type == "application/pgp-signature") {//FIXME with 4.5 make it handle signatures by default with mime-type
+            type = "pgp";
+        }
         const QString siganture = elem.text();
         if (!type.isEmpty() && !siganture.isEmpty()) {
             signatures[type] = siganture;
@@ -516,8 +503,12 @@ void KGetMetalink::Verification::save(QDomElement &e) const
 
     itEnd = signatures.constEnd();
     for (it = signatures.constBegin(); it != itEnd; ++it) {
+        QString type = it.key();
+        if (type == "pgp") {//FIXME with 4.5 make it handle signatures by default with mime-type
+            type = "application/pgp-signature";
+        }
         QDomElement hash = doc.createElement("signature");
-        hash.setAttribute("type", it.key());
+        hash.setAttribute("type", type);
         QDomText text = doc.createTextNode(it.value());
         hash.appendChild(text);
         e.appendChild(hash);
@@ -642,15 +633,20 @@ void KGetMetalink::Metalink::load(const QDomElement &e)
     QDomDocument doc = e.ownerDocument();
     const QDomElement metalink = doc.firstChildElement("metalink");
 
-
-    dynamic = (metalink.firstChildElement("dynamic").text() == "true");
     xmlns = metalink.attribute("xmlns");
-    origin = KUrl(metalink.firstChildElement("origin").text());
     generator = metalink.firstChildElement("generator").text();
     updated.setData(metalink.firstChildElement("updated").text());
     published.setData(metalink.firstChildElement("published").text());
     updated.setData(metalink.firstChildElement("updated").text());
-
+    const QDomElement originElem = metalink.firstChildElement("origin");
+    origin = KUrl(metalink.firstChildElement("origin").text());
+    if (originElem.hasAttribute("dynamic")) {
+        bool worked = false;
+        dynamic = originElem.attribute("dynamic").toInt(&worked);
+        if (!worked) {
+            dynamic = (originElem.attribute("dynamic") == "true");
+        }
+    }
 
     files.load(e);
 }
@@ -673,17 +669,14 @@ QDomDocument KGetMetalink::Metalink::save() const
         QDomElement elem = doc.createElement("origin");
         QDomText text = doc.createTextNode(origin.url());
         elem.appendChild(text);
+        if (dynamic) {
+            elem.setAttribute("dynamic", "true");
+        }
         metalink.appendChild(elem);
     }
     if (published.isValid()) {
         QDomElement elem = doc.createElement("published");
         QDomText text = doc.createTextNode(published.toString());
-        elem.appendChild(text);
-        metalink.appendChild(elem);
-    }
-    if (dynamic) {
-        QDomElement elem = doc.createElement("dynamic");
-        QDomText text = doc.createTextNode("true");
         elem.appendChild(text);
         metalink.appendChild(elem);
     }
@@ -801,10 +794,6 @@ KGetMetalink::CommonData KGetMetalink::Metalink_v3::parseCommonData(const QDomEl
     data.publisher.name = publisherElem.firstChildElement("name").text();
     data.publisher.url = KUrl(publisherElem.firstChildElement("url").text());
 
-    const QDomElement lincenseElem = e.firstChildElement("license");
-    data.license.name = lincenseElem.firstChildElement("name").text();
-    data.license.url = KUrl(lincenseElem.firstChildElement("url").text());
-
     return data;
 }
 
@@ -838,9 +827,6 @@ void KGetMetalink::Metalink_v3::inheritCommonData(const KGetMetalink::CommonData
     }
     if (inheritor->publisher.isEmpty()) {
         inheritor->publisher = ancestor.publisher;
-    }
-    if (inheritor->license.isEmpty()) {
-        inheritor->license = ancestor.license;
     }
 }
 
@@ -1143,23 +1129,6 @@ void KGetMetalink::Metalink_v3::saveCommonData(const KGetMetalink::CommonData &d
         e.appendChild(elem);
 
         commonData.publisher.clear();
-    }
-    if (!commonData.license.isEmpty()) {
-        QDomElement elem = doc.createElement("license");
-        QDomElement elemName = doc.createElement("name");
-        QDomElement elemUrl = doc.createElement("url");
-
-        QDomText text = doc.createTextNode(commonData.license.name);
-        elemName.appendChild(text);
-        elem.appendChild(elemName);
-
-        text = doc.createTextNode(commonData.license.url.url());
-        elemUrl.appendChild(text);
-        elem.appendChild(elemUrl);
-
-        e.appendChild(elem);
-
-        commonData.license.clear();
     }
 
     if (commonData.oses.count() > 1) {//only one OS can be set in 3.0
