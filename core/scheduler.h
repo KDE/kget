@@ -44,16 +44,17 @@ class Scheduler : public QObject
         class JobFailure {
             public:
             JobFailure()
-                : status(None), failureTime(-1)
+                : status(None), time(-1), count(0)
             {}
             
-            bool isValid()                  {return ((status != None) && (failureTime != -1));}
+            bool isValid()                  {return ((status != None) && (time != -1));}
             
             FailureStatus status;
-            int failureTime;
+            int time;
+            int count;
             
-            bool operator==(JobFailure f)   {return ((status == f.status) && (failureTime == f.failureTime));}
-            bool operator!=(JobFailure f)   {return ((status != f.status) || (failureTime != f.failureTime));}            
+            bool operator==(JobFailure f)   {return ((status == f.status) && (time == f.time));}
+            bool operator!=(JobFailure f)   {return ((status != f.status) || (time != f.time));}            
         };
         
         Scheduler(QObject * parent = 0);

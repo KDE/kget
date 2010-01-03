@@ -64,6 +64,9 @@ int Scheduler::countRunningJobs()
 
 void Scheduler::settingsChanged()
 {
+    m_stallTimeout = Settings::reconnectDelay();
+    m_abortTimeout = Settings::reconnectDelay();
+    
     foreach(JobQueue * queue, m_queues)
     {
         updateQueue(queue);
@@ -131,32 +134,36 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
     switch(failure.status)
     {
         case None:
-            kDebug(5001) << "job = " << job << " failure = None ";
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = None ";
             break;
         case AboutToStall:
-            kDebug(5001) << "job = " << job << " failure = AboutToStall ";
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = AboutToStall ";
             break;
         case Stall:
-            kDebug(5001) << "job = " << job << " failure = Stall ";
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = Stall ";
             break;
         case StallTimeout:
-            kDebug(5001) << "job = " << job << " failure = StallTimeout ";
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = StallTimeout ";
             break;
         case Abort:
-            kDebug(5001) << "job = " << job << " failure = Abort ";
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = Abort ";
             break;
         case AbortTimeout:
-            kDebug(5001) << "job = " << job << " failure = AbortTimeout ";
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = AbortTimeout ";
             break;
     }
     
-    if(failure.status == StallTimeout || failure.status == AbortTimeout)
+    if( // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
+       (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)) ||
+        // Second condition: if count >  reconnectRetries and Timeout happened trigger a stop/start BUT only if
+        // 10 timeouts have happened (9 of them without taking any action). This means every 10*Settings::reconnectDelay() (ex. 15s -> 150s)
+       (failure.count >  Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout) 
+                                                      && !((failure.count - Settings::reconnectRetries()) % 10)) )
     {
         job->stop();        // This will trigger the changedEvent which will trigger an updateQueue call
     }
     else
         updateQueue( job->jobQueue() );  
-    
 }
 
 void Scheduler::start()
@@ -273,40 +280,49 @@ void Scheduler::timerEvent( QTimerEvent * event )
                 if(failure.status!=AboutToStall && failure.status!=Stall && failure.status!=StallTimeout)
                 {
                     failure.status = AboutToStall;
-                    failure.failureTime = 0;
+                    failure.time = 0;
+                    failure.count = 0;                    
                 }
                 else
                 {
-                    failure.failureTime++;
+                    failure.time++;
                     
-                    if(failure.failureTime >= m_stallTime + m_stallTimeout)
+                    if(failure.time >= m_stallTime + m_stallTimeout)
+                    {
                         failure.status = StallTimeout;
-                    else if(failure.failureTime >= m_stallTime)
+                        failure.count++;                    
+
+                    }
+                    else if(failure.time >= m_stallTime)
                         failure.status = Stall;
                     else
                         failure.status = AboutToStall;
                     
                     if(failure.status == StallTimeout)
-                        failure.failureTime = m_stallTime;
+                        failure.time = m_stallTime;
                 }
-                    
             } 
             else if((*it)->status() == Job::Aborted)            // Abort status initialization
             {
                 if(failure.status!=Abort)
                 {
                     failure.status = Abort;
-                    failure.failureTime = 0;
+                    failure.time = 0;
+                    failure.count = 0;
                 }
                 else
                 {
-                    failure.failureTime++;
+                    failure.time++;
+                    failure.count++;                    
                     
-                    if(failure.failureTime >= m_abortTimeout)
+                    if(failure.time >= m_abortTimeout)
+                    {
                         failure.status = AbortTimeout;
+                        failure.count++;                    
+                    }
                     
                     if(failure.status == AbortTimeout)
-                        failure.failureTime = 0;
+                        failure.time = 0;
                 }
             }
             else if ((*it)->isWorking())
@@ -320,7 +336,7 @@ void Scheduler::timerEvent( QTimerEvent * event )
                 m_failedJobs.remove(*it);
                            
 //             if(failure.isValid() || prevFailure.isValid())
-//                 kDebug(5001) << "failure = " << failure.status << " T=" << failure.failureTime << " prevFailure = " << prevFailure.status;
+//                 kDebug(5001) << "failure = " << failure.status << " T=" << failure.time << " prevFailure = " << prevFailure.status;
             
             if(failure.status != prevFailure.status)
                 jobChangedEvent(*it, failure);                      // Notify the scheduler
