@@ -266,6 +266,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         bool m_finished;
 
+        /**
+         * Wether the file-size has been initially defined (it is to be trusted) or not
+         */
+        bool m_sizeInitiallyDefined;
+
         int m_maxMirrorsUsed;
         QHash<KUrl, TransferDataSource*> m_sources;
         QList<KUrl> m_unusedUrls;

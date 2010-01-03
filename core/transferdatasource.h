@@ -189,7 +189,7 @@ class KGET_EXPORT TransferDataSource : public QObject
          * Alert that datasource is no able to send any data
          *@param source the datasource, sending the signal
          */
-        void broken(TransferDataSource *source, Error error);
+        void broken(TransferDataSource *source, TransferDataSource::Error error);
 
         /**
          * emitted when an assigned segment is broken

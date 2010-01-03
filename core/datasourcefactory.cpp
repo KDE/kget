@@ -55,6 +55,7 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
     m_assignTried(false),
     m_movingFile(false),
     m_finished(false),
+    m_sizeInitiallyDefined(m_size),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
     m_tempDownload(0),
@@ -85,6 +86,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
     m_assignTried(false),
     m_movingFile(false),
     m_finished(false),
+    m_sizeInitiallyDefined(m_size),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
     m_tempDownload(0),
@@ -458,8 +460,12 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
 
                     m_sources[url] = source;
                     m_sources[url]->setParalellSegments(numParalellConnections);
+                    if (m_sizeInitiallyDefined) {
+                        source->setSupposedSize(m_size);
+                    }
 
                     connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int, int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int, int>)));
+                    connect(source, SIGNAL(broken(TransferDataSource*, TransferDataSource::Error)), this, SLOT(broken(TransferDataSource*,TransferDataSource::Error)));
                     connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
                     connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
                     connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotFreeSegments(TransferDataSource*,QPair<int,int>)));
@@ -625,6 +631,7 @@ void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<i
 
 void DataSourceFactory::broken(TransferDataSource *source, TransferDataSource::Error error)
 {
+    kDebug(5001) << source << "is broken with error" << error;
     const QString url = source->sourceUrl().pathOrUrl();
 
     removeMirror(source->sourceUrl());
@@ -979,9 +986,7 @@ void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::fil
 
     m_downloadedSize = m_segSize * m_finishedChunks->numOnBits();
     m_prevDownloadedSizes.clear();
-    if (m_downloadedSize) {
-        m_prevDownloadedSizes.append(m_downloadedSize);
-    }
+    m_prevDownloadedSizes.append(m_downloadedSize);
 
     changeStatus(Job::Stopped, true);
     start();
