@@ -94,9 +94,9 @@ public:
         if (l.count() == 2) {
             KUrl lastUrl = l.last();
             if (lastUrl.isLocalFile()) { // either absolute or relative
-                QString targetPath = lastUrl.path();
-                if (targetPath.startsWith('/')) {
-                    KGet::addTransfer(l.first(), lastUrl.path(), QString());
+                QString targetPath = lastUrl.toLocalFile();
+                if (QDir::isAbsolutePath(targetPath)) {
+                    KGet::addTransfer(l.first(), lastUrl.toLocalFile(), QString());
                  } else {
                     QString fileName = lastUrl.fileName(KUrl::ObeyTrailingSlash);
                     KGet::addTransfer(l.first(), QString(), fileName);

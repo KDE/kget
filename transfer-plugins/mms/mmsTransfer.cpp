@@ -63,7 +63,7 @@ void MmsTransfer::deinit()
 {
     /**if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {
-        QString dest = m_dest.path() + ".part";
+        QString dest = m_dest.toLocalFile() + ".part";
         kDebug(5001) << dest;
 
         QFile destFile(dest);

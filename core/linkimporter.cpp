@@ -94,7 +94,7 @@ void LinkImporter::copyRemoteFile()
 void LinkImporter::slotReadFile(const QUrl &url)
 {
     QRegExp rx(REGULAR_EXPRESSION);
-    QFile file(url.path());
+    QFile file(url.toLocalFile());
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;

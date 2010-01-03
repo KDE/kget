@@ -973,12 +973,12 @@ bool KGet::isValidDestDirectory(const QString & destDir)
 KUrl KGet::getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl)
 {
     kDebug() << "Source Url" << srcUrl << "Destination" << destDir;
-    if ( !isValidDestDirectory(destDir.path()) )
+    if ( !isValidDestDirectory(destDir.toLocalFile()) )
         return KUrl();
 
     KUrl destUrl = destDir;
 
-    if (QFileInfo(destUrl.path()).isDir())
+    if (QFileInfo(destUrl.toLocalFile()).isDir())
     {
         QString filename = srcUrl.fileName();
         if (filename.isEmpty())
@@ -1009,7 +1009,7 @@ KUrl KGet::getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl)
     } else if (srcUrl == destUrl) {
         dlg = new KIO::RenameDialog(m_mainWindow, i18n("File already exists"), srcUrl,
                                     destUrl, KIO::M_MULTI);
-    } else if (destUrl.isLocalFile() && QFile::exists(destUrl.path())) {
+    } else if (destUrl.isLocalFile() && QFile::exists(destUrl.toLocalFile())) {
         dlg = new KIO::RenameDialog( m_mainWindow, i18n("File already exists"), srcUrl,
                                      destUrl, KIO::M_OVERWRITE );          
     }
@@ -1124,7 +1124,7 @@ bool KGet::safeDeleteFile( const KUrl& url )
 {
     if ( url.isLocalFile() )
     {
-        QFileInfo info( url.path() );
+        QFileInfo info( url.toLocalFile() );
         if ( info.isDir() )
         {
             KGet::showNotification(m_mainWindow, KNotification::Notification,

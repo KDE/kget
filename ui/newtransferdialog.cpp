@@ -400,7 +400,7 @@ void NewTransferDialog::prepareDialog()
             QString destDir = d->destination();
             m_sources = d->sources();
 
-            destDir = KUrl(destDir).path();
+            destDir = KUrl(destDir).toLocalFile();
 
             QString dir;
             if (QFileInfo(destDir).isDir())
@@ -444,7 +444,7 @@ void NewTransferDialog::urlChanged(const QString &text)
     KUrl url(text.trimmed());
     //if (d->m_destRequester->url()->isEmpty())
     //    d->setDestination(m_sources, QStringList());
-    if (QFileInfo(d->m_destRequester->url().path()).isDir())
+    if (QFileInfo(d->m_destRequester->url().toLocalFile()).isDir())
         d->setDestinationFileName(url.fileName());
 
     kDebug() << url << url.fileName() << d->m_destRequester->url().fileName();

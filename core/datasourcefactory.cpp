@@ -232,18 +232,18 @@ void DataSourceFactory::finished()
 
 bool DataSourceFactory::checkLocalFile()
 {
-    QString dest_orig = m_dest.path();
-    QByteArray _dest_part(QFile::encodeName(dest_orig));
+    QString dest_orig = m_dest.toLocalFile();
+    QString _dest_part(dest_orig);
 
     KDE_struct_stat buff_part;
-    bool bPartExists = (KDE_stat( _dest_part.data(), &buff_part ) != -1);
+    bool bPartExists = (KDE::stat( _dest_part, &buff_part ) != -1);
     if(!bPartExists)
     {
-        QByteArray _dest = QFile::encodeName(dest_orig);
+        QString _dest = dest_orig;
         int fd = -1;
         mode_t initialMode = 0666;
 
-        fd = KDE_open(_dest.data(), O_CREAT | O_TRUNC | O_WRONLY, initialMode);
+        fd = KDE::open(_dest, O_CREAT | O_TRUNC | O_WRONLY, initialMode);
         if ( fd < 0 )
         {
             kDebug(5001) << " error";

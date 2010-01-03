@@ -102,7 +102,7 @@ void DroppedFilesThread::run()
     //         }
 
             file.name = url.fileName();
-            QFile localFile(url.path());
+            QFile localFile(url.toLocalFile());
             file.size = localFile.size();
             file.data = commonData;
 
@@ -194,7 +194,7 @@ void FileWidget::dropEvent(QDropEvent *event)
 
     foreach (const QUrl &url, urls)
     {
-        QDir dir(url.path());
+        QDir dir(url.toLocalFile());
         //TODO implement directories
         if (dir.exists())
         {

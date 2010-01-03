@@ -187,10 +187,10 @@ void TransferKio::slotResult( KJob * kioJob )
         if (!m_totalSize) {
             //downloaded elsewhere already, e.g. Konqueror
             if (!m_downloadedSize) {
-                QFile file(m_dest.path() + ".part");
+                QFile file(m_dest.toLocalFile() + ".part");
                 m_downloadedSize = file.size();
                 if (!m_downloadedSize) {
-                    QFile file(m_dest.path());
+                    QFile file(m_dest.toLocalFile());
                     m_downloadedSize = file.size();
                 }
             }
