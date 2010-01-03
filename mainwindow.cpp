@@ -477,7 +477,8 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
         TransferHandler * transfer = it.key();
         Transfer::ChangesFlags transferFlags = it.value();
         
-        if ( (KWindowSystem::activeWindow() != winId()) && (transferFlags & Transfer::Tc_Status) 
+        if ( !Settings::enableKUIServerIntegration()    // Display popups only when the KUI integration is off
+             && (KWindowSystem::activeWindow() != winId()) && (transferFlags & Transfer::Tc_Status) 
              && (transfer->status() == Job::Finished)   && (transfer->startStatus() != Job::Finished)) {         
             KNotification::event(KNotification::Notification,
                 i18n("Downloads completed"),
