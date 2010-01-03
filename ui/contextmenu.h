@@ -19,12 +19,11 @@ class TransferGroupHandler;
 class KMenu;
 class QWidget;
 
-class ContextMenu
+namespace ContextMenu
 {
-    public:
-        static KMenu * createTransferContextMenu(QList<TransferHandler*> transfer, QWidget *parent);
-        static KMenu * createTransferContextMenu(TransferHandler* handler, QWidget *parent);
-        static KMenu * createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent);
+    KMenu * createTransferContextMenu(QList<TransferHandler*> transfer, QWidget *parent);
+    KMenu * createTransferContextMenu(TransferHandler* handler, QWidget *parent);
+    KMenu * createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent);
 };
 
 #endif

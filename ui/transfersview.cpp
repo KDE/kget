@@ -58,7 +58,6 @@ TransfersView::TransfersView(QWidget * parent)
             this,     SLOT(slotItemCollapsed(const QModelIndex &)));
     connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), 
             this,          SLOT(closeExpandableDetails(QModelIndex,int,int)));
-
 }
 
 TransfersView::~TransfersView()
@@ -198,6 +197,7 @@ void TransfersView::slotItemActivated(const QModelIndex & index)
             m_editingIndexes.removeAll(index);
             view_delegate->contractItem(index);
         }
+        KGet::actionCollection()->action("transfer_show_details")->setChecked(view_delegate->isExtended(index));
     } else if (!item->isGroup() && static_cast<TransferModelItem*>(item)->transferHandler()->status() == Job::Finished) {
         new KRun(static_cast<TransferModelItem*>(item)->transferHandler()->dest(), this);
     }
@@ -278,11 +278,19 @@ void TransfersView::closeExpandableDetails(const QModelIndex &transferIndex)
     if(transferIndex.isValid()) {
         view_delegate->contractItem(transferIndex);
         m_editingIndexes.removeAll(transferIndex);
-    }
-    else {
+    } else {
         view_delegate->contractAll();
         m_editingIndexes.clear();
     }
+}
+
+void TransfersView::selectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
+{
+    Q_UNUSED(deselected)
+    if (selected.indexes().isEmpty())
+        return;
+    TransfersViewDelegate *view_delegate = static_cast<TransfersViewDelegate *>(itemDelegate());
+    KGet::actionCollection()->action("transfer_show_details")->setChecked(view_delegate->isExtended(selected.indexes().first()));
 }
 
 void TransfersView::closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd)

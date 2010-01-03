@@ -301,9 +301,9 @@ void MainWindow::setupActions()
     openFileAction->setIcon(KIcon("document-open"));
     connect(openFileAction, SIGNAL(triggered()), SLOT(slotTransfersOpenFile()));
 
-    KAction *showDetailsAction = actionCollection()->addAction("transfer_show_details");
-    showDetailsAction->setText(i18n("Show Details"));
-    showDetailsAction->setIcon(KIcon("document-properties"));
+    KAction *showDetailsAction = new KToggleAction(KIcon("document-properties"), i18n("Show Details"), actionCollection());
+    actionCollection()->addAction("transfer_show_details", showDetailsAction);
+    showDetailsAction->setCheckable(Settings::showExpandableTransferDetails());
     connect(showDetailsAction, SIGNAL(triggered()), SLOT(slotTransfersShowDetails()));
 
     KAction *copyUrlAction = actionCollection()->addAction("transfer_copy_source_url");
@@ -769,6 +769,7 @@ void MainWindow::slotNewConfig()
 
     m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
     m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
+    actionCollection()->action("transfer_show_details")->setCheckable(Settings::showExpandableTransferDetails());
 
     if(Settings::enableSystemTray() && !m_dock)
     {

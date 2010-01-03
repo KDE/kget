@@ -45,6 +45,7 @@ class TransfersView : public QTreeView
         void toggleMainGroup();// show or hide the first group header if there's only one download group
         void slotSetColumnVisible(int column);
         void slotShowHeaderMenu(const QPoint &point);
+        void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
 
     private:
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
