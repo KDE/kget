@@ -43,6 +43,7 @@ class MultiSegKioDataSource : public TransferDataSource
         void slotSpeed(ulong speed);
         void slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange);
         void slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished);
+        void slotRestartBrokenSegment();
 
         /**
          * There was an error while downloading segment, the number of connections this
@@ -80,7 +81,6 @@ class MultiSegKioDataSource : public TransferDataSource
         KIO::TransferJob *m_getInitJob;
         bool m_hasInitJob;
         bool m_started;
-        int m_restarted;
 };
 
 #endif

@@ -50,6 +50,7 @@ class KioDownload : public QObject
         void speed(ulong speed);
         void finished();
         void percent(ulong percent);
+        void error();
         //void suggestedFileName(const QString &name);
 
     private slots:

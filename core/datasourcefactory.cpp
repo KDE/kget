@@ -151,15 +151,18 @@ void DataSourceFactory::deinit()
 void DataSourceFactory::findFileSize()
 {
     kDebug(5001) << "Find the filesize";
-    if (!m_size && !m_dest.isEmpty() && !m_tempDownload && !m_sources.isEmpty()) {
+    if (!m_size && !m_dest.isEmpty() && !m_sources.isEmpty()) {
         //FIXME 4.5 move findingFileSize to the TransferDataSources themselves (make it a capability
         //that they can support); no need for checking the protocol etc. in 4.4 as there is no other TransferDataSource than the one from MultiSegKIO for downloading yet
-        m_tempDownload = new KioDownload(m_sources.begin().value()->sourceUrl(), m_dest, this);
-        connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotKIOProcessedSize(KIO::filesize_t)));
-        connect(m_tempDownload, SIGNAL(percent(ulong)), this, SIGNAL(percent(ulong)));
-        connect(m_tempDownload, SIGNAL(speed(ulong)), this, SIGNAL(speed(ulong)));
-        connect(m_tempDownload, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(sizeFound(KIO::filesize_t)));
-        connect(m_tempDownload, SIGNAL(finished()), this, SLOT(finished()));
+        if (!m_tempDownload) {
+            m_tempDownload = new KioDownload(m_sources.begin().value()->sourceUrl(), m_dest, this);
+            connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotKIOProcessedSize(KIO::filesize_t)));
+            connect(m_tempDownload, SIGNAL(percent(ulong)), this, SIGNAL(percent(ulong)));
+            connect(m_tempDownload, SIGNAL(speed(ulong)), this, SIGNAL(speed(ulong)));
+            connect(m_tempDownload, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(sizeFound(KIO::filesize_t)));
+            connect(m_tempDownload, SIGNAL(finished()), this, SLOT(finished()));
+            connect(m_tempDownload, SIGNAL(error()), this, SLOT(slotKIOError()));
+        }
         m_tempDownload->start();
         changeStatus(Job::Running);
     }
@@ -169,6 +172,10 @@ void DataSourceFactory::slotKIOProcessedSize(KIO::filesize_t size)
 {
     m_downloadedSize = size;
     emit processedSize(m_downloadedSize);
+}
+void DataSourceFactory::slotKIOError()
+{
+    m_size = 0; //if KIO quits with an error any already gotten size should be ignored
 }
 
 void DataSourceFactory::sizeFound(KIO::filesize_t size)
@@ -273,6 +280,18 @@ void DataSourceFactory::start()
 
     init();
 
+    if (assignNeeded()) {
+        if (m_sources.count()) {
+            kDebug(5001) << "Assigning a TransferDataSource.";
+            //simply assign a TransferDataSource
+            assignSegments(*m_sources.begin());
+        } else if (m_unusedUrls.count()) {
+            kDebug(5001) << "Assigning an unused mirror";
+            //takes the first unused mirror
+            addMirror(m_unusedUrls.takeFirst(), true, m_unusedConnections.takeFirst());
+        }
+    }
+
     if (m_assignTried) {
         m_assignTried = false;
 
@@ -338,6 +357,9 @@ void DataSourceFactory::stop()
     if (m_speedTimer)
     {
         m_speedTimer->stop();
+    }
+    if (m_tempDownload) {
+        m_tempDownload->stop();
     }
     foreach (TransferDataSource *source, m_sources) {
         source->stop();
@@ -511,36 +533,13 @@ void DataSourceFactory::removeMirror(const KUrl &url)
         }
     }
 
-    //see if mirrors need to be assigned, e.g. the broken segment was the last one
-    if (m_status == Job::Running)
-    {
-        bool assignNeeded = true;
-        QHash<KUrl, TransferDataSource*>::const_iterator it;
-        QHash<KUrl, TransferDataSource*>::const_iterator itEnd = m_sources.constEnd();
-        for (it = m_sources.constBegin(); it != itEnd; ++it)
-        {
-            if ((*it)->currentSegments())
-            {
-                //at least one TransferDataSource is still running, so no assign needed
-                assignNeeded = false;
-                break;
-            }
-        }
-
-        if (assignNeeded)
-        {
-            if (m_sources.count())
-            {
-                kDebug(5001) << "Assigning a TransferDataSource.";
-                //simply assign a TransferDataSource
-                assignSegments(*m_sources.begin());
-            }
-            else if (m_unusedUrls.count())
-            {
-                kDebug(5001) << "Assigning an unused mirror";
-                //takes the first unused mirror
-                addMirror(m_unusedUrls.takeFirst(), true, m_unusedConnections.takeFirst());
-            }
+    if ((m_status == Job::Running) && assignNeeded()) {
+        //here we only handle the case when there are existing TransferDataSources,
+        //the other case is triggered when stopping and then starting again
+        if (m_sources.count()) {
+            kDebug(5001) << "Assigning a TransferDataSource.";
+            //simply assign a TransferDataSource
+            assignSegments(*m_sources.begin());
         }
     }
 }
@@ -588,12 +587,36 @@ QHash<KUrl, QPair<bool, int> > DataSourceFactory::mirrors() const
     return mirrors;
 }
 
+bool DataSourceFactory::assignNeeded() const
+{
+    bool assignNeeded = true;
+    QHash<KUrl, TransferDataSource*>::const_iterator it;
+    QHash<KUrl, TransferDataSource*>::const_iterator itEnd = m_sources.constEnd();
+    for (it = m_sources.constBegin(); it != itEnd; ++it) {
+        if ((*it)->currentSegments()) {
+            //at least one TransferDataSource is still running, so no assign needed
+            assignNeeded = false;
+            break;
+        }
+    }
+    return assignNeeded;
+}
+
 void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<int, int> &segmentRange)
 {
     kDebug(5001) << "Segments" << segmentRange << "broken," << source;
     if (!source || (segmentRange.first < 0) || (segmentRange.second < 0) || (static_cast<quint32>(segmentRange.second) > m_finishedChunks->getNumBits()))
     {
         return;
+    }
+
+    const int start = segmentRange.first;
+    const int end = segmentRange.second;
+    if ((start != -1) && (end != -1)) {
+        for (int k = start; k <= end; ++k) {
+            kDebug(5001) << "Segment" << k << "not assigned anymore.";
+            m_startedChunks->set(k, false);
+        }
     }
 
     removeMirror(source->sourceUrl());

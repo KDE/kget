@@ -153,9 +153,8 @@ void KioDownload::createJob()
 
 void KioDownload::killJob()
 {
-    if(m_getJob)
-    {
-        m_getJob->kill(KJob::EmitResult);
+    if (m_getJob) {
+        m_getJob->kill(KJob::Quietly);
         m_getJob = 0;
     }
 }
@@ -169,10 +168,12 @@ void KioDownload::slotCanResume(KIO::Job* job, KIO::filesize_t size)
 
 void KioDownload::slotResult(KJob *kioJob)
 {
-    kDebug(5001) << "slotResult  (" << kioJob->error() << ")";
-    switch (kioJob->error())
+    const int err = kioJob->error();
+    m_getJob = 0;
+    switch (err)
     {
         case 0:                            //The download has finished
+            kDebug(5001) << "Finished" << m_source;
             emit finished();
             break;
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
@@ -185,13 +186,15 @@ void KioDownload::slotResult(KJob *kioJob)
 //             break;
         default:
             //There has been an error
-            kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
+            kDebug(5001) << "Error" << err << "for" << m_source;
+            if (err > 1) {
+                emit error();
+            }
 //             if (!m_stopped)
 //                 setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
             break;
     }
 //     // when slotResult gets called, the m_copyjob has already been deleted!
-    m_getJob = 0;
 //     setTransferChange(Tc_Status, true);
 }
 

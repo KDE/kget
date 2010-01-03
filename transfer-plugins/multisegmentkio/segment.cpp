@@ -83,13 +83,11 @@ void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
 bool Segment::startTransfer ()
 {
     kDebug(5001);
-    if (!m_getJob)
-    {
+    if (!m_getJob) {
         createTransfer();
     }
-    if( m_getJob && m_status != Running )
-    {
-        setStatus( Running, false );
+    if (m_getJob && (m_status != Running)) {
+        setStatus(Running, false);
         m_getJob->resume();
         return true;
     }
@@ -100,13 +98,10 @@ bool Segment::stopTransfer()
 {
     kDebug(5001);
 
-    if(m_getJob)
-    {
-        setStatus( Stopped, false );
-
-        if (m_getJob)
-        {
-            m_getJob->kill( KJob::EmitResult );
+    setStatus(Stopped, false);
+    if (m_getJob) {
+        if (m_getJob) {
+            m_getJob->kill(KJob::EmitResult);
         }
         return true;
     }

@@ -247,6 +247,7 @@ bool Scheduler::shouldBeRunning( Job * job )
 
 void Scheduler::timerEvent( QTimerEvent * event )
 {
+    Q_UNUSED(event)
 //     kDebug(5001);
     
     foreach(JobQueue * queue, m_queues)

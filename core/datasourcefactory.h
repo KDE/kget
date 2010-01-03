@@ -175,6 +175,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * Called from KIODownload when trying to find the filesize//TODO remove in 4.5 and combine it with TansferDataSource
          */
         void slotKIOProcessedSize(KIO::filesize_t size);
+        void slotKIOError();
 
         void assignSegments(TransferDataSource *source);
         /**
@@ -216,6 +217,12 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * needed to know if m_maxMirrorsUsed should be changed or not
          */
         void addMirror(const KUrl &url, bool used, int numParalellConnections, bool usedDefined);
+
+        /**
+         * Checks if an assign is needed, i.e. there are no (running) TransferDataSources,
+         * yet some segements are still not finished
+         */
+        bool assignNeeded() const;
 
         bool checkLocalFile();
 

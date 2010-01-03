@@ -20,8 +20,7 @@ MultiSegKioDataSource::MultiSegKioDataSource(const KUrl &srcUrl, QObject *parent
     m_canResume(false),
     m_getInitJob(0),
     m_hasInitJob(false),
-    m_started(false),
-    m_restarted(0)
+    m_started(false)
 {
     kDebug(5001);
 }
@@ -62,7 +61,7 @@ void MultiSegKioDataSource::start()
 
 void MultiSegKioDataSource::stop()
 {
-    kDebug(5001);
+    kDebug(5001) << this << m_segments.count() << "segments stopped.";
 
     m_started = false;
     foreach (Segment *segment, m_segments)
@@ -204,6 +203,7 @@ void MultiSegKioDataSource::killInitJob()
 
 int MultiSegKioDataSource::currentSegments() const
 {
+    kDebug();
     return m_segments.count();
 }
 
@@ -278,28 +278,26 @@ void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
 
     kDebug(5001) << "Error" << KIOError << "segment" << segment;
 
-    const KIO::fileoffset_t offset = segment->offset();
-    const QPair<KIO::fileoffset_t, KIO::fileoffset_t> segmentSize = segment->segmentSize();
     const QPair<int, int> range = segment->assignedSegments();
-
     m_segments.removeAll(segment);
     delete segment;
 
     if (m_segments.isEmpty()) {
-        //empty, retry it three times
-        if (m_restarted < 3) {
-            ++m_restarted;
-            addSegments(offset, segmentSize, range);
-        } else {
-            emit brokenSegments(this, range);
-        }
+        kDebug(5001) << this << "has broken segments.";
+        emit brokenSegments(this, range);
     } else {
         //decrease the number of maximum paralell downloads, maybe the server does not support so many connections
         if (m_paralellSegments > 1) {
             --m_paralellSegments;
         }
+        kDebug(5001) << this << "reducing connections to" << m_paralellSegments << "and freeing range of semgents" << range;
         emit freeSegments(this, range);
     }
+}
+void MultiSegKioDataSource::slotRestartBrokenSegment()
+{
+    kDebug(5001) << this;
+    start();
 }
 
 
