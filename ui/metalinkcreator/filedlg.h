@@ -60,6 +60,7 @@ class FileDlg : public KDialog
         QString m_initialFileName;
         QStringList m_currentFileNames;
         VerificationModel *m_verificationModel;
+        QSortFilterProxyModel *m_verificationProxy;
         bool m_edit;
         UrlWidget *m_urlWidget;
         Ui::FileDlg ui;

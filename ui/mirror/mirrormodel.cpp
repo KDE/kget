@@ -20,7 +20,6 @@
 #include "mirrormodel.h"
 
 #include <QtCore/QAbstractListModel>
-#include <QtGui/QSortFilterProxyModel>
 #include <QtGui/QSpinBox>
 
 #include <KComboBox>
@@ -151,6 +150,23 @@ QSize MirrorDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelI
     hint.setWidth(QStyledItemDelegate::sizeHint(option, index).width());
     hint.setHeight(option.fontMetrics.height() + 7);
     return hint;
+}
+
+
+MirrorProxyModel::MirrorProxyModel(QObject *parent)
+  : QSortFilterProxyModel(parent)
+{
+}
+
+bool MirrorProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
+{
+    if (left.column() == MirrorItem::Used) {
+        const int leftData = sourceModel()->data(left, Qt::CheckStateRole).toInt();
+        const int rightData = sourceModel()->data(right, Qt::CheckStateRole).toInt();
+        return leftData < rightData;
+    }
+
+    return QSortFilterProxyModel::lessThan(left, right);
 }
 
 

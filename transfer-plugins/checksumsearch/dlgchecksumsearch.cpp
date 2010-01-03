@@ -26,6 +26,7 @@
 #include "checksumsearch.h"
 #include "checksumsearchsettings.h"
 
+#include <QtGui/QSortFilterProxyModel>
 #include <QtGui/QStandardItemModel>
 #include <QtGui/QStringListModel>
 
@@ -192,9 +193,14 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVar
     m_model->setHeaderData(1, Qt::Horizontal, i18nc("the mode defines how the url should be changed", "Change mode"));
     m_model->setHeaderData(2, Qt::Horizontal, i18nc("the type of the checksum e.g. md5", "Checksum type"));
 
-    ui.treeView->setModel(m_model);
+    m_proxy = new QSortFilterProxyModel(this);
+    m_proxy->setSourceModel(m_model);
+    m_proxy->setSortCaseSensitivity(Qt::CaseInsensitive);
+
+    ui.treeView->setModel(m_proxy);
     ChecksumDelegate *delegate = new ChecksumDelegate(m_modesModel, m_typesModel, this);
     ui.treeView->setItemDelegate(delegate);
+    ui.treeView->sortByColumn(2, Qt::AscendingOrder);
     ui.add->setGuiItem(KStandardGuiItem::add());
     ui.remove->setGuiItem(KStandardGuiItem::remove());
     slotUpdate();
@@ -223,7 +229,7 @@ void DlgChecksumSettingsWidget::slotRemove()
 {
     while (ui.treeView->selectionModel()->hasSelection()) {
         const QModelIndex index = ui.treeView->selectionModel()->selectedRows().first();
-        m_model->removeRow(index.row());
+        m_model->removeRow(m_proxy->mapToSource(index).row());
     }
 }
 

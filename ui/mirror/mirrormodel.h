@@ -20,6 +20,7 @@
 #ifndef MIRRORMODEL_H
 #define MIRRORMODEL_H
 
+#include <QtGui/QSortFilterProxyModel>
 #include <QtGui/QStyledItemDelegate>
 
 #include <KIcon>
@@ -43,6 +44,17 @@ class MirrorDelegate : public QStyledItemDelegate
 
     private:
         QSortFilterProxyModel *m_countrySort;
+};
+
+class MirrorProxyModel : public QSortFilterProxyModel
+{
+    Q_OBJECT
+
+    public:
+        MirrorProxyModel(QObject *parent = 0);
+
+    protected:
+        bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 };
 
 class MirrorItem

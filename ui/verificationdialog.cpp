@@ -19,6 +19,7 @@
 
 #include "verificationdialog.h"
 
+#include <QtGui/QSortFilterProxyModel>
 #include <QtGui/QStandardItemModel>
 
 #include <KLocale>
@@ -88,6 +89,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     m_transfer(transfer),
     m_verifier(transfer->verifier(file)),
     m_model(0),
+    m_proxy(0),
     m_fileModel(0)
 {
     if (m_verifier) {
@@ -105,10 +107,12 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     ui.verifying->hide();
 
     if (m_model) {
-        ui.usedHashes->setModel(m_model);
+        m_proxy = new QSortFilterProxyModel(this);
+        m_proxy->setSourceModel(m_model);
+        ui.usedHashes->setModel(m_proxy);
         ui.usedHashes->setItemDelegate(new VerificationDelegate(this));
-        m_fileModel = m_transfer->fileModel();
 
+        m_fileModel = m_transfer->fileModel();
         if (m_fileModel) {
             m_file = m_fileModel->index(file, FileItem::File);
             connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
@@ -153,7 +157,7 @@ void VerificationDialog::removeClicked()
 {
     while (ui.usedHashes->selectionModel()->hasSelection()) {
         const QModelIndex index = ui.usedHashes->selectionModel()->selectedRows().first();
-        m_model->removeRow(index.row());
+        m_model->removeRow(m_proxy->mapToSource(index).row());
     }
 }
 
@@ -165,7 +169,7 @@ void VerificationDialog::addClicked()
 
 void VerificationDialog::verifyClicked()
 {
-    const QModelIndex index = ui.usedHashes->selectionModel()->selectedRows().first();
+    const QModelIndex index = m_proxy->mapToSource(ui.usedHashes->selectionModel()->selectedRows().first());
     if (index.isValid()) {
          m_verifier->verify(index);
          ui.progressBar->setMaximum(0);

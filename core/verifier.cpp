@@ -344,11 +344,11 @@ Qt::ItemFlags VerificationModel::flags(const QModelIndex &index) const
     }
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    if (index.row() == VerificationModel::Type)
+    if (index.column() == VerificationModel::Type)
     {
         flags |= Qt::ItemIsEditable;
     }
-    else if (index.row() == VerificationModel::Checksum)
+    else if (index.column() == VerificationModel::Checksum)
     {
         flags |= Qt::ItemIsEditable;
     }

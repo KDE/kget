@@ -142,12 +142,14 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
 {
     m_model = new MirrorModel(this);
     m_model->setMirrors(m_transfer->availableMirrors(m_file));
+    m_proxy = new MirrorProxyModel(this);
+    m_proxy->setSourceModel(m_model);
 
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     ui.add->setGuiItem(KStandardGuiItem::add());
     ui.remove->setGuiItem(KStandardGuiItem::remove());
-    ui.treeView->setModel(m_model);
+    ui.treeView->setModel(m_proxy);
     ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     ui.treeView->hideColumn(MirrorItem::Priority);
     ui.treeView->hideColumn(MirrorItem::Country);
@@ -183,7 +185,7 @@ void MirrorSettings::removeMirror()
 {
     while (ui.treeView->selectionModel()->hasSelection()) {
         const QModelIndex index = ui.treeView->selectionModel()->selectedRows().first();
-        m_model->removeRow(index.row());
+        m_model->removeRow(m_proxy->mapToSource(index).row());
     }
 }
 

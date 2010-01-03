@@ -84,8 +84,12 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     }
     ui.add_hash->setGuiItem(KStandardGuiItem::add());
     ui.remove_hash->setGuiItem(KStandardGuiItem::remove());
-    ui.used_hashes->setModel(m_verificationModel);
+    m_verificationProxy = new QSortFilterProxyModel(this);
+    m_verificationProxy->setSourceModel(m_verificationModel);
+    ui.used_hashes->setSortingEnabled(true);
     ui.used_hashes->hideColumn(VerificationModel::Verified);
+    ui.used_hashes->setModel(m_verificationProxy);
+    ui.used_hashes->setItemDelegate(new VerificationDelegate(this));
     slotUpdateVerificationButtons();
 
     connect(m_verificationModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
@@ -137,7 +141,7 @@ void FileDlg::slotRemoveHash()
 {
     while (ui.used_hashes->selectionModel()->hasSelection()) {
         const QModelIndex index = ui.used_hashes->selectionModel()->selectedRows().first();
-        m_verificationModel->removeRow(index.row());
+        m_verificationModel->removeRow(m_verificationProxy->mapToSource(index).row());
     }
 }
 

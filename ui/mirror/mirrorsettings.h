@@ -82,6 +82,7 @@ class MirrorSettings : public KDialog
         TransferHandler *m_transfer;
         KUrl m_file;
         MirrorModel *m_model;
+        MirrorProxyModel *m_proxy;
         Ui::MirrorSettings ui;
 };
 

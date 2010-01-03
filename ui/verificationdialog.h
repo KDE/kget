@@ -26,6 +26,7 @@
 #include <KDialog>
 
 class FileModel;
+class QSortFilterProxyModel;
 class TransferHandler;
 class Verifier;
 class VerificationModel;
@@ -72,6 +73,7 @@ class VerificationDialog : public KDialog
         TransferHandler *m_transfer;
         Verifier *m_verifier;
         VerificationModel *m_model;
+        QSortFilterProxyModel *m_proxy;
         FileModel *m_fileModel;
         QModelIndex m_file;
         Ui::VerificationDialog ui;

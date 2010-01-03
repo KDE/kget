@@ -34,7 +34,10 @@ UrlWidget::UrlWidget(QObject *parent)
     ui.setupUi(m_widget);
 
     m_mirrorModel = new MirrorModel(this);
-    ui.used_mirrors->setModel(m_mirrorModel);
+    m_proxy = new QSortFilterProxyModel(this);
+    m_proxy->setSourceModel(m_mirrorModel);
+    ui.used_mirrors->setModel(m_proxy);
+    ui.used_mirrors->sortByColumn(MirrorItem::Priority, Qt::AscendingOrder);
     ui.used_mirrors->resizeColumnToContents(MirrorItem::Priority);
     ui.used_mirrors->hideColumn(MirrorItem::Used);
     ui.used_mirrors->hideColumn(MirrorItem::Connections);
@@ -86,7 +89,7 @@ bool UrlWidget::hasUrls() const
 
 void UrlWidget::slotUrlClicked()
 {
-    QModelIndexList selected = ui.used_mirrors->selectionModel()->selectedRows();
+    const QModelIndexList selected = ui.used_mirrors->selectionModel()->selectedRows();
     ui.remove_mirror->setEnabled(!selected.isEmpty());
 }
 
@@ -101,7 +104,7 @@ void UrlWidget::slotRemoveMirror()
 {
     while (ui.used_mirrors->selectionModel()->hasSelection()) {
         const QModelIndex index = ui.used_mirrors->selectionModel()->selectedRows().first();
-        m_mirrorModel->removeRow(index.row());
+        m_mirrorModel->removeRow(m_proxy->mapToSource(index).row());
     }
 }
 
