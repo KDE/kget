@@ -38,15 +38,13 @@ class KGET_EXPORT Job : public QObject
          * The status property describes the current job status
          */
         enum Status {
-            Running, /// The job is being executed
-            Delayed, /// The job is delayed. This means that the scheduler should
-                     /// not start it until it exits from the delayed state
-            Stopped, /// The job is stopped
-            Aborted, /// The job is stopped, but this also indicates that it
-                     /// stopped because an error occurred
-            Finished,/// The job exited from its Running state successfully
-            Moving   /// The associated files to that job (e.g. Download) are
-                     /// moved to a different location
+            Running  = 0, /// The job is being executed
+            Stopped  = 2, /// The job is stopped
+            Aborted  = 3, /// The job is stopped, but this also indicates that it
+                          /// stopped because an error occurred
+            Finished = 4, /// The job exited from its Running state successfully
+            Moving   = 5  /// The associated files to that job (e.g. Download) are
+                          /// moved to a different location
         };
 
         /**
@@ -68,9 +66,6 @@ class KGET_EXPORT Job : public QObject
         virtual void start()=0;
         virtual void stop()=0;
 
-        virtual void setDelay(int seconds)=0;
-        virtual void delayTimerEvent()=0;
-
         JobQueue * jobQueue() {return m_jobQueue;}
 
         //Job properties
@@ -83,7 +78,9 @@ class KGET_EXPORT Job : public QObject
 
         virtual int elapsedTime() const =0;
         virtual int remainingTime() const =0;
-
+        virtual bool isStalled() const =0;
+        virtual bool isWorking() const =0;
+        
         //Job capabilities
         virtual bool isResumable() const =0;
 

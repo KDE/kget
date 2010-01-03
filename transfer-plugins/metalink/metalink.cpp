@@ -84,7 +84,7 @@ void Metalink::start()
         {
             Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName());
 
-            setStatus(Job::Delayed, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
+            setStatus(Job::Running, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
 
             connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(metalinkInit(KUrl, QByteArray)));

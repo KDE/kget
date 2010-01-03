@@ -31,6 +31,31 @@ class Scheduler : public QObject
 {
     Q_OBJECT
     public:
+
+        enum FailureStatus {
+            None         = 0,
+            AboutToStall = 1,
+            Stall        = 2,
+            StallTimeout = 3,
+            Abort        = 4,
+            AbortTimeout = 5
+        };
+        
+        class JobFailure {
+            public:
+            JobFailure()
+                : status(None), failureTime(-1)
+            {}
+            
+            bool isValid()                  {return ((status != None) && (failureTime != -1));}
+            
+            FailureStatus status;
+            int failureTime;
+            
+            bool operator==(JobFailure f)   {return ((status == f.status) && (failureTime == f.failureTime));}
+            bool operator!=(JobFailure f)   {return ((status != f.status) || (failureTime != f.failureTime));}            
+        };
+        
         Scheduler(QObject * parent = 0);
         ~Scheduler();
 
@@ -78,10 +103,7 @@ class Scheduler : public QObject
         //Job notifications
         virtual void jobChangedEvent(Job * job, Job::Status status);
         virtual void jobChangedEvent(Job * job, Job::Policy status);
-
-        //Accessors methods
-        void startDelayTimer(Job * job, int seconds);
-        void stopDelayTimer(Job * job);
+        virtual void jobChangedEvent(Job * job, JobFailure failure);
 
     protected:
         /**
@@ -99,13 +121,19 @@ class Scheduler : public QObject
          * @param job the job to evaluate
          */
         bool shouldBeRunning( Job * job );
-
+        
     private:
         //Virtual QObject method
-        void timerEvent ( QTimerEvent * event);
+        void timerEvent(QTimerEvent * event);
 
         QList<JobQueue *> m_queues;
-        QMap<int, Job *> m_activeTimers;
+        QMap<Job *, JobFailure> m_failedJobs;
+
+        int m_failureCheckTimer;
+        
+        const int m_stallTime;
+        int m_stallTimeout;
+        int m_abortTimeout;
 };
 
 #endif

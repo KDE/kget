@@ -152,6 +152,8 @@ class KGET_EXPORT Transfer : public Job
         int uploadSpeed() const                {return m_uploadSpeed;}
         virtual int remainingTime() const      {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
         virtual int elapsedTime() const;
+        virtual bool isStalled() const         {return (status() == Job::Running && downloadSpeed() == 0);}
+        virtual bool isWorking() const         {return downloadSpeed() > 0;}
 
         virtual bool supportsSpeedLimits() const {return false;}
 
@@ -209,11 +211,6 @@ class KGET_EXPORT Transfer : public Job
          * Recalculate the share ratio
          */
         void checkShareRatio();
-
-        // --- Job virtual functions ---
-        virtual void setDelay(int seconds);
-        virtual void delayTimerEvent();
-
 
         bool isSelected() const             {return m_isSelected;}
 

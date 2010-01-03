@@ -35,12 +35,6 @@ void Job::setStatus(Status jobStatus)
     if(jobStatus == m_status)
         return;
 
-    if(m_status == Job::Delayed)
-    {
-        //The previous status was Job::Delayed. We must stop all the timers
-        m_scheduler->stopDelayTimer(this);
-    }
-
     m_status = jobStatus;
     m_scheduler->jobChangedEvent(this, m_status);
 }

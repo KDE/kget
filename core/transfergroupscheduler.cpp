@@ -54,6 +54,11 @@ void TransferGroupScheduler::jobChangedEvent(Job * job, Job::Policy status)
     Scheduler::jobChangedEvent(job, status);
 }
 
+void TransferGroupScheduler::jobChangedEvent(Job * job, JobFailure failure)
+{
+    Scheduler::jobChangedEvent(job, failure);
+}
+
 void TransferGroupScheduler::calculateSpeedLimits()
 {
     calculateDownloadLimit();

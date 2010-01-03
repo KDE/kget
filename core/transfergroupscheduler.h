@@ -36,6 +36,7 @@ class TransferGroupScheduler : public Scheduler
         //Job notifications
         virtual void jobChangedEvent(Job * job, Job::Status status);
         virtual void jobChangedEvent(Job * job, Job::Policy status);
+        virtual void jobChangedEvent(Job * job, JobFailure failure);        
 
         /**
          * Calculates the whole SpeedLimits

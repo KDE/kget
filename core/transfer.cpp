@@ -65,9 +65,6 @@ void Transfer::destroy()
 {
     deinit();
     
-    if(status() == Job::Delayed)
-        m_scheduler->stopDelayTimer(this);
-    
 #ifdef HAVE_NEPOMUK
     nepomukHandler()->deinit();
 #endif //HAVE_NEPOMUK
@@ -181,22 +178,6 @@ void Transfer::checkShareRatio()
         setDownloadLimit(1, Transfer::InvisibleSpeedLimit);//If we set it to 0 we would have no limit xD
     else
         setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
-}
-
-void Transfer::setDelay(int seconds)
-{
-    m_scheduler->startDelayTimer(this, seconds);
-
-    setStatus(Job::Delayed);
-
-    setTransferChange(Tc_Status, true);
-}
-
-void Transfer::delayTimerEvent()
-{
-    setStatus(Job::Stopped);
-
-    setTransferChange(Tc_Status, true);
 }
 
 void Transfer::setLog(const QString& message, LogLevel level)

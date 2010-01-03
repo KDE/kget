@@ -615,7 +615,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             
             int row = group->indexOf(transfer);
 
-            kDebug(5001) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
+//             kDebug(5001) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
             
             // Now, check that model child items already exist (there are some cases when the transfer
             // can notify for changes before the gui has been correctly initialized)

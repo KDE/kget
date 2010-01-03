@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DlgNetwork</class>
- <widget class="QWidget" name="DlgNetwork" >
-  <property name="geometry" >
+ <widget class="QWidget" name="DlgNetwork">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,46 +10,46 @@
     <height>488</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
-   <property name="margin" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="kcfg_LimitDownloads" >
-     <property name="title" >
+    <widget class="QGroupBox" name="kcfg_LimitDownloads">
+     <property name="title">
       <string>Limit Maximum Downloads Per Group</string>
      </property>
-     <property name="checkable" >
+     <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QFormLayout" name="formLayout_3" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbl_maxnum" >
-        <property name="text" >
+     <layout class="QFormLayout" name="formLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl_maxnum">
+        <property name="text">
          <string>Number of downloads:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QSpinBox" name="kcfg_MaxConnections" >
-        <property name="minimum" >
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="kcfg_MaxConnections">
+        <property name="minimum">
          <number>1</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lbl_maxnum_2" >
-        <property name="enabled" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbl_maxnum_2">
+        <property name="enabled">
          <bool>false</bool>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Downloads from the same server:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QSpinBox" name="kcfg_MaxConnectionsServer" >
-        <property name="enabled" >
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="kcfg_MaxConnectionsServer">
+        <property name="enabled">
          <bool>false</bool>
         </property>
        </widget>
@@ -57,76 +58,76 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="kcfg_SpeedLimit" >
-     <property name="title" >
+    <widget class="QGroupBox" name="kcfg_SpeedLimit">
+     <property name="title">
       <string>Speed Limit</string>
      </property>
-     <property name="checkable" >
+     <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QFormLayout" name="formLayout_2" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="dllimitlb" >
-        <property name="text" >
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="dllimitlb">
+        <property name="text">
          <string>Global download limit:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QSpinBox" name="kcfg_GlobalDownloadLimit" >
-        <property name="suffix" >
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="kcfg_GlobalDownloadLimit">
+        <property name="suffix">
          <string> KiB/s</string>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>1000000</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>5</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>10</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
          <string>Global upload limit:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QSpinBox" name="kcfg_GlobalUploadLimit" >
-        <property name="suffix" >
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="kcfg_GlobalUploadLimit">
+        <property name="suffix">
          <string> KiB/s</string>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>1000000</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>5</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>10</number>
         </property>
        </widget>
       </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="lb_per_transfer" >
-        <property name="text" >
+      <item row="2" column="0">
+       <widget class="QLabel" name="lb_per_transfer">
+        <property name="text">
          <string>Per transfer:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="QSpinBox" name="kcfg_TransferSpeedLimit" >
-        <property name="suffix" >
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="kcfg_TransferSpeedLimit">
+        <property name="suffix">
          <string> KiB/s</string>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>1000000</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>5</number>
         </property>
        </widget>
@@ -135,44 +136,47 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="kcfg_ReconnectOnBroken" >
-     <property name="title" >
+    <widget class="QGroupBox" name="kcfg_ReconnectOnBroken">
+     <property name="title">
       <string>Reconnect on Error or Broken Connection</string>
      </property>
-     <property name="checkable" >
+     <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QFormLayout" name="formLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lb_retries_2" >
-        <property name="text" >
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lb_retries_2">
+        <property name="text">
          <string>Number of retries:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QSpinBox" name="kcfg_ReconnectRetries" >
-        <property name="enabled" >
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="kcfg_ReconnectRetries">
+        <property name="enabled">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lb_after_2" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="lb_after_2">
+        <property name="text">
          <string>Retry after:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QSpinBox" name="kcfg_ReconnectDelay" >
-        <property name="suffix" >
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="kcfg_ReconnectDelay">
+        <property name="suffix">
          <string> sec</string>
         </property>
-        <property name="maximum" >
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
          <number>86400</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>5</number>
         </property>
        </widget>
@@ -181,24 +185,24 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBoxCompleted" >
-     <property name="enabled" >
+    <widget class="QGroupBox" name="groupBoxCompleted">
+     <property name="enabled">
       <bool>false</bool>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>After Completing Downloads</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QCheckBox" name="kcfg_AutoShutdown" >
-        <property name="text" >
+       <widget class="QCheckBox" name="kcfg_AutoShutdown">
+        <property name="text">
          <string>Auto shutdown</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="kcfg_AutoDisconnect" >
-        <property name="text" >
+       <widget class="QCheckBox" name="kcfg_AutoDisconnect">
+        <property name="text">
          <string>Auto disconnect</string>
         </property>
        </widget>
@@ -208,13 +212,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>200</width>
        <height>16</height>
@@ -224,6 +228,6 @@
    </item>
   </layout>
  </widget>
-  <resources/>
+ <resources/>
  <connections/>
 </ui>
