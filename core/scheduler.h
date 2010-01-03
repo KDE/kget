@@ -93,6 +93,12 @@ class Scheduler : public QObject
          * @returns the number of jobs that are currently in a Running state
          */
         int countRunningJobs();
+        
+        /**
+         * This function gets called by the KGet class whenever the settings
+         * have changed.
+         */
+        void settingsChanged();
 
         //JobQueue notifications
         virtual void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);

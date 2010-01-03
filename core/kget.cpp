@@ -654,6 +654,7 @@ void KGet::settingsChanged()
     }
     
     m_jobManager->settingsChanged();
+    m_scheduler->settingsChanged();
 }
 
 QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)

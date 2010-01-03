@@ -62,6 +62,14 @@ int Scheduler::countRunningJobs()
     return count;
 }
 
+void Scheduler::settingsChanged()
+{
+    foreach(JobQueue * queue, m_queues)
+    {
+        updateQueue(queue);
+    }
+}
+
 void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
 {
     if( status == JobQueue::Stopped )
