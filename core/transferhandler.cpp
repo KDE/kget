@@ -137,9 +137,9 @@ QVariant TransferHandler::data(int column)
 //             return QString::number(percent())+'%'; // display progressbar instead
             return QVariant();
         case 4:
-            if (downloadSpeed()==0)
+            if (downloadSpeed() == 0)
             {
-                if (status() == Job::Running)
+                if (m_transfer->isStalled())
                     return i18n("Stalled");
                 else
                     return QString();
@@ -147,7 +147,7 @@ QVariant TransferHandler::data(int column)
             else
                 return i18n("%1/s", KIO::convertSize(downloadSpeed()));
         case 5:
-            if (status() == Job::Running)
+            if (status() == Job::Running && downloadSpeed() != 0)
                 return KIO::convertSeconds(remainingTime());
             else
                 return QString();

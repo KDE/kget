@@ -59,7 +59,6 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
                     const QDomElement * e = 0);
         ~BTTransfer();
 
-
         virtual void init();
         void deinit();
 
@@ -70,6 +69,8 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         virtual int remainingTime() const;
         bool isResumable() const;
         bool supportsSpeedLimits() const {return true;}
+        virtual bool isStalled() const;
+        virtual bool isWorking() const;
 
         /**
          * @returns the directory the Transfer will be stored to

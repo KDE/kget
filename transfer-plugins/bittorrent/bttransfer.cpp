@@ -117,6 +117,19 @@ bool BTTransfer::isResumable() const
     return true;
 }
 
+bool BTTransfer::isStalled() const
+{
+    return (status() == Job::Running) && (downloadSpeed() == 0) && torrent && torrent->getStats().status == bt::STALLED;
+}
+
+bool BTTransfer::isWorking() const
+{
+    if (!torrent)
+        return false;
+    const bt::TorrentStats stats = torrent->getStats();
+    return (stats.status != bt::ERROR) && (stats.status != bt::STALLED) && (stats.status != bt::NO_SPACE_LEFT) && (stats.status != bt::INVALID_STATUS);
+}
+
 void BTTransfer::start()
 {
     if (m_movingFile)
@@ -327,7 +340,7 @@ void BTTransfer::stopTorrent()
 void BTTransfer::updateTorrent()
 {
     //kDebug(5001) << "Update torrent";
-    if (chunksTotal() == chunksDownloaded())
+    if (chunksTotal() == chunksDownloaded() && !m_downloadFinished)
         slotDownloadFinished(torrent);
 
     bt::UpdateCurrentTime();
