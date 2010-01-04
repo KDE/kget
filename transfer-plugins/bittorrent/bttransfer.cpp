@@ -446,8 +446,10 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 
     QFile file(m_source.toLocalFile());
 
-    if (!file.exists())
+    if (!file.exists()) {
+        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
         return;
+    }
 
     setStatus(Job::Stopped, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
@@ -463,8 +465,10 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
         i++;
     }while (!bt::Globals::instance().getServer().isOK() && i < 10);
 
-    if (!bt::Globals::instance().getServer().isOK())
+    if (!bt::Globals::instance().getServer().isOK()) {
+        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
         return;
+    }
 
     QDir tmpDir(m_tmp + m_source.fileName().remove(".torrent"));
     if (tmpDir.exists())
