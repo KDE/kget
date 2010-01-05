@@ -50,6 +50,10 @@
 #include "btnepomukhandler.h"
 #endif
 
+#ifdef ERROR
+#undef ERROR
+#endif
+
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const KUrl& src, const KUrl& dest,
                const QDomElement * e)
