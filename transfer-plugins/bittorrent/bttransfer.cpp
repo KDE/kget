@@ -237,7 +237,7 @@ void BTTransfer::load(const QDomElement *element)
 
     if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::FinishedKeepAlive);
+        setStatus(Job::FinishedKeepAlive, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
 }
 
