@@ -231,39 +231,24 @@ void BTTransfer::update()
         timer.stop();
 }
 
-/**void BTTransfer::load(const QDomElement &e)
+void BTTransfer::load(const QDomElement *element)
 {
-    kDebug(5001);
-    m_source = KUrl(e.attribute("Source"));
-    m_dest = KUrl(e.attribute("Dest"));
+    Transfer::load(element);
 
-    m_totalSize = e.attribute("TotalSize").toULongLong();
-    m_processedSize = e.attribute("ProcessedSize").toULongLong();
-
-    if( m_totalSize != 0)
-        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
-    else
-        m_percent = 0;
-
-    if((m_totalSize == m_processedSize) && (m_totalSize != 0))
+    if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
-        // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
-    }
-    else
-    {
-        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStatus(Job::FinishedKeepAlive);
     }
 }
 
-void BTTransfer::save(const QDomElement &element)
-{
-    kDebug(5001);
-
-    QDomElement e = element;
-
-    Transfer::save(e);
-}**/
+// void BTTransfer::save(const QDomElement &element)
+// {
+//     kDebug(5001);
+// 
+//     QDomElement e = element;
+// 
+//     Transfer::save(e);
+// }
 
 /**Public functions of BTTransfer**/
 
