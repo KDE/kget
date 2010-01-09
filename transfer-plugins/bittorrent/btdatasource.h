@@ -36,7 +36,7 @@ class BTDataSource : public TransferDataSource
 
         void start();
         void stop();
-        void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum);
+        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
         void getData(const KIO::fileoffset_t &off, const QByteArray &dataArray);
 
     private slots:

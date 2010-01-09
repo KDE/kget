@@ -70,11 +70,6 @@ void MultiSegKioDataSource::stop()
     }
 }
 
-bool MultiSegKioDataSource::canHandleMultipleSegments() const
-{
-    return true;
-}
-
 QList<QPair<int, int> > MultiSegKioDataSource::assignedSegments() const
 {
     QList<QPair<int, int> > assigned;
@@ -86,15 +81,9 @@ QList<QPair<int, int> > MultiSegKioDataSource::assignedSegments() const
     return assigned;
 }
 
-void MultiSegKioDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum)
+void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
 {
-    kDebug(5001);
-    addSegments(offset, qMakePair(bytes, bytes), qMakePair(segmentNum, segmentNum));
-}
-
-void MultiSegKioDataSource::addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
-{
-    Segment *segment = new Segment(m_sourceUrl, offset, segmentSize, segmentRange, this);
+    Segment *segment = new Segment(m_sourceUrl, segmentSize, segmentRange, this);
     m_segments.append(segment);
 
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));

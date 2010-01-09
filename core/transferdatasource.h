@@ -40,34 +40,15 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void stop() = 0;
 
         /**
-         * If true this TransferDataSource can handle multiple segments for one connection
-         * @note false by default
-         */
-        virtual bool canHandleMultipleSegments() const;
-
-        /**
-         * Add a segment to be downloaded by this TransferDataSource
-         * @param offset the offset of the file to be downloaded
-         * @param bytes number of bytes to be downloaded
-         * @param segmentNum the number of the segment to identify it
-         * @note instead of assigning only one segment (that results in one connection),
-         * one can assign multiple segments (all downloaded with one connection) via
-         * assignSegments, thus constant calling of addSegment and then reconnecting
-         * can be avoided
-         */
-        virtual void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum) = 0;//TODO
-
-        /**
          * Adds multiple continuous segments that should be downloaded by this TransferDataSource
-         * @param offset the offset of the file to be downloaded
          * @param segmentSize first is the general segmentSize, second the segmentSize
          * of the last segment in the range, if just one segment is assigned both need to have
-         * the same value
+         * the same value; segmentSize.first can be used to calculate the offset
          * @param segmentRange first the beginning, second the end
          * @note the default implemention will just call addSegment multiple times, then
          * split -- even if implemented -- would not work
          */
-        virtual void addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
+        virtual void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) = 0;
 
         /**
          * Removes one connection, useful when setMaximumParalellDownloads was called with a lower number

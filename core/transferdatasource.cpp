@@ -28,27 +28,6 @@ TransferDataSource::~TransferDataSource()
     kDebug(5001) ;
 }
 
-bool TransferDataSource::canHandleMultipleSegments() const
-{
-    return false;
-}
-
-void TransferDataSource::addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
-{
-    int k = 0;
-
-    for (int i = segmentRange.first; i <= segmentRange.second; ++i)
-    {
-        KIO::fileoffset_t bytes = segmentSize.first;
-        if (i == segmentRange.second)
-        {
-            bytes = segmentSize.second;
-        }
-        addSegment(offset + k * segmentSize.first, bytes, i);
-        ++k;
-    }
-}
-
 QPair<int, int> TransferDataSource::removeConnection()
 {
     return QPair<int, int>(-1, -1);
