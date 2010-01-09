@@ -62,10 +62,10 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         }
         else if (index.column() == MirrorItem::Priority)
         {
-            QSpinBox *preference = new QSpinBox(parent);
-            preference->setRange(0, 999999);
+            QSpinBox *priority = new QSpinBox(parent);
+            priority->setRange(0, 999999);
 
-            return preference;
+            return priority;
         }
         else if (index.column() == MirrorItem::Country)
         {
@@ -94,9 +94,9 @@ void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) co
             const int num = index.data(Qt::EditRole).toInt();
             numConnections->setValue(num);
         } else if (index.column() == MirrorItem::Priority) {
-            QSpinBox *preference = static_cast<QSpinBox*>(editor);
+            QSpinBox *priority = static_cast<QSpinBox*>(editor);
             const int num = index.data(Qt::EditRole).toInt();
-            preference->setValue(num);
+            priority->setValue(num);
         } else if (index.column() == MirrorItem::Country) {
             KComboBox *countrySort = static_cast<KComboBox*>(editor);
             const QString countryCode = index.data(Qt::EditRole).toString();
@@ -125,8 +125,8 @@ void MirrorDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, co
         }
         else if (index.column() == MirrorItem::Priority)
         {
-            QSpinBox *preference = static_cast<QSpinBox*>(editor);
-            model->setData(index, preference->value());
+            QSpinBox *priority = static_cast<QSpinBox*>(editor);
+            model->setData(index, priority->value());
         }
         else if (index.column() == MirrorItem::Country)
         {

@@ -58,16 +58,16 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="labelPreference">
+      <widget class="QLabel" name="labelPriority">
        <property name="text">
-        <string>Preference:</string>
+        <string>Priority:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="KIntNumInput" name="preference">
+      <widget class="KIntNumInput" name="priority">
        <property name="toolTip">
-        <string>Optional: The preference of the mirror, 1 lowest 100 highest.</string>
+        <string>Optional: The priority of the mirror, 1 highest 999999 lowest.</string>
        </property>
        <property name="value">
         <number>0</number>

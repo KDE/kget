@@ -55,10 +55,6 @@ void MirrorAddDlg::init()
 
     ui.successLabel->hide();
 
-    //FIXME in 4.5 change the text to Priority once trunk opens again
-    //TODO also change Widget-Names to Priority instead of Preference
-    ui.labelPreference->setText(m_model->headerData(MirrorItem::Priority, Qt::Horizontal, Qt::DisplayRole).toString() + ':');
-
     setButtons(KDialog::Yes | KDialog::User1 | KDialog::Cancel);
     setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
     setButtonGuiItem(KDialog::User1, KGuiItem(i18nc("Adds the item and reopens the dialog to add a further item", "Add more"), KIcon("list-add")));
@@ -82,8 +78,8 @@ void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
             break;
 
         case MirrorItem::Priority:
-            ui.labelPreference->setVisible(show);
-            ui.preference->setVisible(show);
+            ui.labelPriority->setVisible(show);
+            ui.priority->setVisible(show);
             break;
 
         case MirrorItem::Country:
@@ -111,9 +107,9 @@ void MirrorAddDlg::updateButton(const QString &text)
 void MirrorAddDlg::addMirror()
 {
     const int numConnections = ui.numConnections->isVisible() ? ui.numConnections->value() : 0;
-    const int preference = ui.preference->isVisible() ? ui.preference->value() : 0;
+    const int priority = ui.priority->isVisible() ? ui.priority->value() : 0;
     const QString countryCode = ui.location->itemData(ui.location->currentIndex()).toString();
-    m_model->addMirror(KUrl(ui.url->text()), numConnections, preference, countryCode);
+    m_model->addMirror(KUrl(ui.url->text()), numConnections, priority, countryCode);
     if (m_countryModel)
     {
         ui.location->setCurrentIndex(-1);
@@ -126,7 +122,7 @@ void MirrorAddDlg::addMore()
     ui.successLabel->setText(i18n("%1 has been successfully added.", ui.url->text()));
     ui.url->clear();
     ui.numConnections->setValue(1);
-    ui.preference->setValue(0);
+    ui.priority->setValue(0);
     if (m_countryModel)
     {
         ui.location->setCurrentIndex(-1);
