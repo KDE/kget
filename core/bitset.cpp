@@ -77,6 +77,37 @@ void BitSet::setAll(bool on)
 	num_on = on ? num_bits : 0;
 }
 
+void BitSet::getContinuousRange(qint32 *start, qint32 *end, bool on)
+{
+    *start = -1;
+    *end = -1;
+
+    const bool nothingFound = on ? allOff() : allOn();
+    if (nothingFound) {
+        return;
+    }
+
+    const bool everythingMatches = on ? allOn() : allOff();
+    if (everythingMatches) {
+        *start = 0;
+        *end = num_bits -1;
+        return;
+    }
+
+    for (quint32 i = 0; i < num_bits; ++i) {
+        if (get(i) == on) {
+            if (*start == -1) {
+                *start = i;
+            }
+            *end = i;
+        } else {
+            if (*start != -1) {
+                return;
+            }
+        }
+    }
+}
+
 void BitSet::clear()
 {
 	setAll(false);

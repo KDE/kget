@@ -82,6 +82,14 @@ public:
 
 	/// Get the number of on bits
 	quint32 numOnBits() const {return num_on;}
+
+    /**
+     * Finds a continous rang of bits that on/off
+     * @param start here the start bit will be stored, -1 if nothing is found
+     * @param end stores the end bit, -1 if nothing is found
+     * @param on wether a continous range of bits on (set) or off (not set) should be searched for
+     */
+    void getContinuousRange(qint32 *start, qint32 *end, bool on);
 	
 	/**
 	  * Set all bits to 0

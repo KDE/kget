@@ -730,55 +730,8 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
             newStart = target->takeOneSegment();
             newEnd = newStart;
         }
-    }
-    //still some free segments
-    else
-    {
-        //avoid looking through all bits if not nescessary
-        if (m_startedChunks->allOff())
-        {
-            newStart = 0;
-
-            if (source->canHandleMultipleSegments())
-            {
-                newEnd = m_startedChunks->getNumBits() - 1;
-            }
-            else
-            {
-                newEnd = newStart;
-            }
-        }
-        else
-        {
-            for (uint i = 0; i < m_startedChunks->getNumBits(); ++i)
-            {
-                //we only choose chunks that are not started and finished
-                if (!m_startedChunks->get(i) && !m_finishedChunks->get(i))
-                {
-                    //first result is assigned to newStart and newEnd
-                    if (newStart == -1)
-                    {
-                        newStart = i;
-                        newEnd = i;
-
-                        if (!source->canHandleMultipleSegments())
-                        {
-                            break;
-                        }
-                    }
-                    //start already found, now find the end
-                    else
-                    {
-                        newEnd = i;
-                    }
-                }
-                //not continuous
-                else if (newStart != -1)
-                {
-                    break;
-                }
-            }
-        }
+    } else {
+        m_startedChunks->getContinuousRange(&newStart, &newEnd, false);
     }
 
     if ((newStart == -1) || (newEnd == -1))
@@ -798,8 +751,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
 
     kDebug(5001) << "Segments assigned:" << newStart << "-" << newEnd << "offset:" << newoff << "segment-size:" << segSize << "rest:" << rest;
 
-    for (int i = newStart; i <= newEnd; ++i)
-    {
+    for (int i = newStart; i <= newEnd; ++i) {
         m_startedChunks->set(i, true);
     }
     source->addSegments(newoff, qMakePair(segSize, lastSegSize), qMakePair(newStart, newEnd));
