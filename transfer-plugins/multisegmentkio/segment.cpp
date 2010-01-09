@@ -18,10 +18,10 @@
 
 #include <QtCore/QTimer>
 
-Segment::Segment(const KUrl &src, const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
+Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
   : QObject(parent),
     m_status(Stopped),
-    m_offset(offset),
+    m_offset(segmentSize.first * segmentRange.first),
     m_segSize(segmentSize),
     m_currentSegSize(m_segSize.first),
     m_currentSegment(segmentRange.first),

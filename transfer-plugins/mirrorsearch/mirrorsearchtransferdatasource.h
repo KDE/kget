@@ -23,7 +23,7 @@ class MirrorSearchTransferDataSource : public TransferDataSource
 
         void start();
         void stop();
-        void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum = -1);
+        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
 
     private Q_SLOTS:
         void slotSearchUrls(QList<KUrl>& Urls);

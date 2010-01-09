@@ -44,7 +44,7 @@ class Segment : public QObject
             Finished
         };
 
-        Segment(const KUrl &src, const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
+        Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
 
         ~Segment();
 

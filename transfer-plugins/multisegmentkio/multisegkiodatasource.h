@@ -27,9 +27,7 @@ class MultiSegKioDataSource : public TransferDataSource
         void start();
         void stop();
 
-        bool canHandleMultipleSegments() const;
-        void addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum);
-        void addSegments(const KIO::fileoffset_t offset, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
+        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
         QPair<int, int> removeConnection();
         QList<QPair<int, int> > assignedSegments() const;
         int countUnfinishedSegments() const;

@@ -722,14 +722,9 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
             return;
         }
 
-        if (source->canHandleMultipleSegments()) {
-            const QPair<int, int> splitResult = target->split();
-            newStart = splitResult.first;
-            newEnd = splitResult.second;
-        } else {
-            newStart = target->takeOneSegment();
-            newEnd = newStart;
-        }
+        const QPair<int, int> splitResult = target->split();
+        newStart = splitResult.first;
+        newEnd = splitResult.second;
     } else {
         m_startedChunks->getContinuousRange(&newStart, &newEnd, false);
     }
@@ -740,7 +735,6 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
         return;
     }
 
-    const KIO::fileoffset_t newoff = KIO::fileoffset_t(newStart * m_segSize);
     const KIO::fileoffset_t rest = m_size % m_segSize;
 
     //if newStart is the last segment of the download and there is a rest, when segSize is rest
@@ -749,12 +743,12 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     //the lastSegsize is rest, but only if there is a rest and it is the last segment of the download
     const KIO::fileoffset_t lastSegSize = ((static_cast<uint>(newEnd + 1) == m_startedChunks->getNumBits() && rest) ? rest : m_segSize);
 
-    kDebug(5001) << "Segments assigned:" << newStart << "-" << newEnd << "offset:" << newoff << "segment-size:" << segSize << "rest:" << rest;
+    kDebug(5001) << "Segments assigned:" << newStart << "-" << newEnd << "segment-size:" << segSize << "rest:" << rest;
 
     for (int i = newStart; i <= newEnd; ++i) {
         m_startedChunks->set(i, true);
     }
-    source->addSegments(newoff, qMakePair(segSize, lastSegSize), qMakePair(newStart, newEnd));
+    source->addSegments(qMakePair(segSize, lastSegSize), qMakePair(newStart, newEnd));
 
     //there should still be segments added to this transfer
     if (source->changeNeeded() > 0) {

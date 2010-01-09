@@ -59,12 +59,10 @@ void ChecksumSearchTransferDataSource::stop()
 {
     kDebug(5001);
 }
-
-void ChecksumSearchTransferDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes, int segmentNum)
+void ChecksumSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
 {
-    Q_UNUSED(offset)
-    Q_UNUSED(bytes)
-    Q_UNUSED(segmentNum)
+    Q_UNUSED(segmentSize)
+    Q_UNUSED(segmentRange)
     kDebug(5001);
 }
 
