@@ -295,7 +295,11 @@ void BTTransfer::startTorrent()
         torrent->setMonitor(this);
         torrent->start();
         timer.start(250);
-        setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+        if (chunksTotal() == chunksDownloaded()/* && !m_downloadFinished*/) {
+            slotDownloadFinished(torrent);
+        } else {
+            setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+        }
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
         updateFilesStatus();
@@ -315,7 +319,7 @@ void BTTransfer::stopTorrent()
 
     if (m_downloadFinished)
     {
-        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::FinishedKeepAlive, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
     else
     {
@@ -329,9 +333,6 @@ void BTTransfer::stopTorrent()
 void BTTransfer::updateTorrent()
 {
     //kDebug(5001) << "Update torrent";
-    if (chunksTotal() == chunksDownloaded() && !m_downloadFinished)
-        slotDownloadFinished(torrent);
-
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
     torrent->update();
