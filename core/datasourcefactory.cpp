@@ -620,7 +620,6 @@ void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<i
     const int end = segmentRange.second;
     if ((start != -1) && (end != -1)) {
         for (int k = start; k <= end; ++k) {
-            kDebug(5001) << "Segment" << k << "not assigned anymore.";
             m_startedChunks->set(k, false);
         }
     }

@@ -8,6 +8,9 @@
     <entry name="Segments" type="Int">
       <default>5</default>
     </entry>
+    <entry name="SaveSegSize" type="Int">
+      <default>100</default>
+    </entry>
   </group>
   <group name="SearchEngines">
     <entry name="UseSearchEngines" type="Bool">

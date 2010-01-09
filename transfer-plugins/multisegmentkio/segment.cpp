@@ -10,6 +10,7 @@
 */
 
 #include "segment.h"
+#include "multisegkiosettings.h"
 
 #include <cmath>
 
@@ -164,7 +165,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
      this hack try to avoid too much cpu usage. it seems to be due KIO::Filejob
      so remove it when it works property
     */
-    if (m_buffer.size() > 100 * 1024)
+    if (m_buffer.size() > MultiSegKioSettings::saveSegSize() * 1024)
         writeBuffer();
     }
 }
