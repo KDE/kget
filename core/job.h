@@ -38,13 +38,15 @@ class KGET_EXPORT Job : public QObject
          * The status property describes the current job status
          */
         enum Status {
-            Running  = 0, /// The job is being executed
-            Stopped  = 2, /// The job is stopped
-            Aborted  = 3, /// The job is stopped, but this also indicates that it
-                          /// stopped because an error occurred
-            Finished = 4, /// The job exited from its Running state successfully
-            Moving   = 5  /// The associated files to that job (e.g. Download) are
-                          /// moved to a different location
+            Running            = 0, /// The job is being executed
+            Stopped            = 2, /// The job is stopped
+            Aborted            = 3, /// The job is stopped, but this also indicates that it
+                                    /// stopped because an error occurred
+            Finished           = 4, /// The job exited from its Running state successfully
+            FinishedKeepAlive  = 5, /// The job exited from its Running state successfully
+                                    /// but wants to be restarted by the scheduler
+            Moving             = 6  /// The associated files to that job (e.g. Download) are
+                                    /// moved to a different location
         };
 
         /**

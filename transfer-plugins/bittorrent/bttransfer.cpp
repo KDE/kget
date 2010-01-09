@@ -231,39 +231,24 @@ void BTTransfer::update()
         timer.stop();
 }
 
-/**void BTTransfer::load(const QDomElement &e)
+void BTTransfer::load(const QDomElement *element)
 {
-    kDebug(5001);
-    m_source = KUrl(e.attribute("Source"));
-    m_dest = KUrl(e.attribute("Dest"));
+    Transfer::load(element);
 
-    m_totalSize = e.attribute("TotalSize").toULongLong();
-    m_processedSize = e.attribute("ProcessedSize").toULongLong();
-
-    if( m_totalSize != 0)
-        m_percent = (int)((100.0 * m_processedSize) / m_totalSize);
-    else
-        m_percent = 0;
-
-    if((m_totalSize == m_processedSize) && (m_totalSize != 0))
+    if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Finished, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
-        // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
-    }
-    else
-    {
-        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStatus(Job::FinishedKeepAlive, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
 }
 
-void BTTransfer::save(const QDomElement &element)
-{
-    kDebug(5001);
-
-    QDomElement e = element;
-
-    Transfer::save(e);
-}**/
+// void BTTransfer::save(const QDomElement &element)
+// {
+//     kDebug(5001);
+// 
+//     QDomElement e = element;
+// 
+//     Transfer::save(e);
+// }
 
 /**Public functions of BTTransfer**/
 
@@ -310,7 +295,11 @@ void BTTransfer::startTorrent()
         torrent->setMonitor(this);
         torrent->start();
         timer.start(250);
-        setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+        if (chunksTotal() == chunksDownloaded()/* && !m_downloadFinished*/) {
+            slotDownloadFinished(torrent);
+        } else {
+            setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+        }
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
         updateFilesStatus();
@@ -330,7 +319,7 @@ void BTTransfer::stopTorrent()
 
     if (m_downloadFinished)
     {
-        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::FinishedKeepAlive, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
     else
     {
@@ -344,9 +333,6 @@ void BTTransfer::stopTorrent()
 void BTTransfer::updateTorrent()
 {
     //kDebug(5001) << "Update torrent";
-    if (chunksTotal() == chunksDownloaded() && !m_downloadFinished)
-        slotDownloadFinished(torrent);
-
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
     torrent->update();

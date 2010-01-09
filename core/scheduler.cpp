@@ -251,12 +251,12 @@ bool Scheduler::shouldBeRunning( Job * job )
     if( job->jobQueue()->status() == JobQueue::Stopped )
     {
         return ( (policy == Job::Start)   &&
-                 ((status != Job::Finished) || job->isResumable()) );
+                 (status != Job::Finished) );
     }
     else                           //JobQueue::Running
     {
         return ( (policy != Job::Stop)    &&
-                 ((status != Job::Finished) || job->isResumable()) );
+                 (status != Job::Finished) );
     }
 }
 

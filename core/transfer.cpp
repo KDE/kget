@@ -28,6 +28,7 @@
 #endif
 
 const QStringList Transfer::STATUSTEXTS = QStringList() << i18n("Downloading....") << i18nc("transfer state: delayed", "Delayed") << i18nc("transfer state: stopped", "Stopped") << i18nc("transfer state: aborted", "Aborted") << i18nc("transfer state: finished", "Finished") << i18nc("changing the destination of the file", "Changing destination");
+//TODO: Add FinishedKeepAlive status
 const QStringList Transfer::STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-pause";
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,

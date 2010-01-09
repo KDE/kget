@@ -108,7 +108,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         bool ready();
 
     protected:
-        //void load(const QDomElement &e);
+        void load(const QDomElement *element);
         void setSpeedLimits(int ulLimit, int dlLimit);
 
     private slots:
