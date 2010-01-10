@@ -8,6 +8,7 @@ X-KDE-ParentComponents=kget_multisegkio_plugin
 Name=MultiSegmentKIO
 Name[ar]=متعدد أجزاء KIO
 Name[ca]=MultiSegmentKIO
+Name[ca@valencia]=MultiSegmentKIO
 Name[cs]=MultiSegmentKIO
 Name[da]=MultiSegmentKIO
 Name[de]=MultiSegmentKIO

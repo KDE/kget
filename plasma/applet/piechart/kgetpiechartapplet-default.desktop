@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=KGet Piechart Applet
 Name[ca]=Miniaplicació de diagrama de sectors del KGet
+Name[ca@valencia]=Miniaplicació de diagrama de sectors del KGet
 Name[cs]=Applet pro koláčový graf v KGet
 Name[da]=KGet cirkeldiagram-applet
 Name[de]=KGet Tortengrafik-Modul
@@ -41,6 +42,7 @@ Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
 Comment[ar]=بريمج KGet piechart
 Comment[ca]=Miniaplicació de diagrama de sectors del KGet
+Comment[ca@valencia]=Miniaplicació de diagrama de sectors del KGet
 Comment[cs]=Applet pro koláčový graf v KGet
 Comment[da]=KGet cirkeldiagram-applet
 Comment[de]=KGet Tortengrafik-Modul

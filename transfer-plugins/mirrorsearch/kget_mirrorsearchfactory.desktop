@@ -8,6 +8,7 @@ Icon=kget
 Name=Mirror Search
 Name[ar]=بحث المرآة
 Name[ca]=Cerca de rèpliques
+Name[ca@valencia]=Cerca de rèpliques
 Name[cs]=Mirror Search
 Name[da]=Mirror Search
 Name[de]=Spiegel-Suche
@@ -53,6 +54,7 @@ Name[zh_TW]=映射搜尋
 
 Comment=Allows KGet to search through mirror search engines for files
 Comment[ca]=Permet que el KGet cerqui els fitxers a rèpliques de motors de cerques
+Comment[ca@valencia]=Permet que el KGet cerque els fitxers a rèpliques de motors de cerques
 Comment[da]=Gør KGet i stand til at søge efter filer via filspejl-søgemaskiner
 Comment[de]=Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen
 Comment[el]=Επιτρέπει στο KGet την αναζήτηση του αρχείου σε μηχανές αναζήτησης αντίγραφα
