@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=KGet Panelbar Applet
 Name[ca]=Miniaplicació de panell de barres del KGet
+Name[ca@valencia]=Miniaplicació de panell de barres del KGet
 Name[da]=KGet panel-applet
 Name[de]=KGet Kontrollleisten-Modul
 Name[el]=Μικροεφαρμογή γραμμής πίνακα KGet
@@ -38,6 +39,7 @@ Name[zh_TW]=KGet 面板列小程式
 Comment=KGet panelbar applet
 Comment[ar]=بريمج عمود التحكم KGet
 Comment[ca]=Miniaplicació de panell de barres del KGet
+Comment[ca@valencia]=Miniaplicació de panell de barres del KGet
 Comment[da]=KGet panel-applet
 Comment[de]=KGet Kontrollleisten-Modul
 Comment[el]=Μικροεφαρμογή γραμμής πίνακα KGet
