@@ -1190,6 +1190,7 @@ void GenericObserver::transferAddedEvent(TransferHandler *handler, TransferGroup
     Q_UNUSED(group)
     requestSave();
     KGet::calculateGlobalSpeedLimits();
+    KGet::checkSystemTray();
 }
 
 void GenericObserver::transferRemovedEvent(TransferHandler *handler, TransferGroupHandler *group)
@@ -1198,6 +1199,7 @@ void GenericObserver::transferRemovedEvent(TransferHandler *handler, TransferGro
     Q_UNUSED(group)
     requestSave();
     KGet::calculateGlobalSpeedLimits();
+    KGet::checkSystemTray();
 }
 
 void GenericObserver::transferMovedEvent(TransferHandler *transfer, TransferGroupHandler *group)
