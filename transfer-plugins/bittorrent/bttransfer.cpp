@@ -237,7 +237,7 @@ void BTTransfer::load(const QDomElement *element)
 
     if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::FinishedKeepAlive, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
 }
 
@@ -319,7 +319,7 @@ void BTTransfer::stopTorrent()
 
     if (m_downloadFinished)
     {
-        setStatus(Job::FinishedKeepAlive, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
     else
     {
@@ -517,7 +517,7 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
     Q_UNUSED(ti)
     m_downloadFinished = true;
     //timer.stop();
-    setStatus(Job::Running, i18nc("Transfer status: seeding", "Seeding...."), SmallIcon("media-playback-start"));
+    setStatus(Job::FinishedKeepAlive, i18nc("Transfer status: seeding", "Seeding...."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
 }
 
