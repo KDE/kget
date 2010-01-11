@@ -211,7 +211,7 @@ void Scheduler::updateQueue( JobQueue * queue )
         
         if( runningJobs < queue->maxSimultaneousJobs() )
         {
-            if( (*it)->status() == Job::Running )
+            if( (*it)->status() == Job::Running || (*it)->status() == Job::FinishedKeepAlive )
             {
                 if( !shouldBeRunning(*it) )
                 {
@@ -227,7 +227,7 @@ void Scheduler::updateQueue( JobQueue * queue )
                 {
                     kDebug(5001) << "Scheduler:    starting job";
                     (*it)->start();
-                    if(failure.status == None || failure.status == AboutToStall)
+                    if((failure.status == None || failure.status == AboutToStall) && (*it)->status() != Job::FinishedKeepAlive)
                         runningJobs++;
                 }
             }
