@@ -32,7 +32,7 @@
 #include <Nepomuk/Variant>
 #endif //HAVE_NEPOMUK
 
-const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet ") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
+const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet/") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
 const uint KGetMetalink::Metalink::MAX_URL_PRIORITY = 999999;
 const uint KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
 
