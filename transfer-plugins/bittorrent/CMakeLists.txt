@@ -203,9 +203,7 @@ set(libbtcore_SRC ${libbtcore_SRC} libbtcore/util/win32.cpp)
 endif(WIN32)
 
 endif (GMP_FOUND AND QCA2_FOUND)
-endif (ENABLE_EMBEDDED_TORRENT_SUPPORT)
-
-if (NOT (ENABLE_EMBEDDED_TORRENT_SUPPORT AND GMP_FOUND AND QCA2_FOUND))
+else (ENABLE_EMBEDDED_TORRENT_SUPPORT)
     find_package(BTCore REQUIRED)
     macro_log_feature(BTCORE_FOUND "BTCore" "KTorrent core library" "http://ktorrent.org/" FALSE "" "Needed to build Torrent support in KGet. Please install it or pass -DENABLE_EMBEDDED_TORRENT_SUPPORT=true to build embedded torrent support.")
 
@@ -213,7 +211,7 @@ if (NOT (ENABLE_EMBEDDED_TORRENT_SUPPORT AND GMP_FOUND AND QCA2_FOUND))
         ../../
        ${BTCORE_INCLUDE_DIR}
     )
-endif (NOT (ENABLE_EMBEDDED_TORRENT_SUPPORT AND GMP_FOUND AND QCA2_FOUND))
+endif (ENABLE_EMBEDDED_TORRENT_SUPPORT)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS}")
 
