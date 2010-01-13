@@ -1,13 +1,12 @@
 option(ENABLE_EMBEDDED_TORRENT_SUPPORT "Whether to build KGet torrent support with embedded torrent library or not" true)
 
-if (ENABLE_EMBEDDED_TORRENT_SUPPORT)
+macro_optional_find_package(GMP)
+macro_log_feature(GMP_FOUND "GMP" "The GNU Multiple Precision Arithmetic Library" "http://gmplib.org/" FALSE "" "Needed to build KGet Torrent support.")
+
+if (ENABLE_EMBEDDED_TORRENT_SUPPORT AND GMP_FOUND AND QCA2_FOUND)
     message(STATUS "Building KGet torrent support with embedded torrent library (libbtcore) (-DENABLE_EMBEDDED_TORRENT_SUPPORT=false to disable)")
     add_definitions(-DENABLE_EMBEDDED_TORRENT_SUPPORT)
 
-    macro_optional_find_package(GMP)
-    macro_log_feature(GMP_FOUND "GMP" "The GNU Multiple Precision Arithmetic Library" "http://gmplib.org/" FALSE "" "Needed to build KGet Torrent support.")
-
-if (GMP_FOUND AND QCA2_FOUND)
 include_directories(
    ../../
    libbtcore
@@ -202,8 +201,7 @@ if(WIN32)
 set(libbtcore_SRC ${libbtcore_SRC} libbtcore/util/win32.cpp)
 endif(WIN32)
 
-endif (GMP_FOUND AND QCA2_FOUND)
-else (ENABLE_EMBEDDED_TORRENT_SUPPORT)
+else (ENABLE_EMBEDDED_TORRENT_SUPPORT AND GMP_FOUND AND QCA2_FOUND)
     find_package(BTCore REQUIRED)
     macro_log_feature(BTCORE_FOUND "BTCore" "KTorrent core library" "http://ktorrent.org/" FALSE "" "Needed to build Torrent support in KGet. Please install it or pass -DENABLE_EMBEDDED_TORRENT_SUPPORT=true to build embedded torrent support.")
 
