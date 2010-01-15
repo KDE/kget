@@ -27,9 +27,22 @@
 #include "nepomukhandler.h"
 #endif
 
-const QStringList Transfer::STATUSTEXTS = QStringList() << i18n("Downloading....") << i18nc("transfer state: delayed", "Delayed") << i18nc("transfer state: stopped", "Stopped") << i18nc("transfer state: aborted", "Aborted") << i18nc("transfer state: finished", "Finished") << i18nc("changing the destination of the file", "Changing destination");
-//TODO: Add FinishedKeepAlive status
-const QStringList Transfer::STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-pause";
+struct StatusStrings
+{
+    const char * context;
+    const char * name;
+};
+
+const StatusStrings STATUSTEXTS[] = {
+    {"", I18N_NOOP("Downloading....")},
+    {I18N_NOOP2_NOSTRIP("transfer state: delayed", "Delayed")},
+    {I18N_NOOP2_NOSTRIP("transfer state: stopped", "Stopped")},
+    {I18N_NOOP2_NOSTRIP("transfer state: aborted", "Aborted")},
+    {I18N_NOOP2_NOSTRIP("transfer state: finished", "Finished")},
+    {"", ""},//TODO: Add FinishedKeepAlive status
+    {I18N_NOOP2_NOSTRIP("changing the destination of the file", "Changing destination")}
+};
+const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-pause";
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -283,7 +296,7 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     QString statusText = text;
     if (statusText.isEmpty())
     {
-        statusText = STATUSTEXTS[jobStatus];
+        statusText = i18nc(STATUSTEXTS[jobStatus].context, STATUSTEXTS[jobStatus].name);
     }
 
     QPixmap statusIcon = pix;
@@ -334,7 +347,7 @@ void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
 
 QString Transfer::statusText(Job::Status status)
 {
-    return STATUSTEXTS[status];
+    return i18nc(STATUSTEXTS[status].context, STATUSTEXTS[status].name);
 }
 
 QPixmap Transfer::statusPixmap(Job::Status status)

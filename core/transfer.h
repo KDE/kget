@@ -336,8 +336,6 @@ class KGET_EXPORT Transfer : public Job
         int m_runningSeconds;
         double m_ratio;
 
-        static const QStringList STATUSTEXTS;
-        static const QStringList STATUSICONS;
         QString m_statusText;
         QPixmap m_statusPixmap;
         QTime m_runningTime;
