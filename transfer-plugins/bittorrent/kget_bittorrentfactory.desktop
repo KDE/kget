@@ -8,6 +8,7 @@ Icon=application-x-bittorrent
 # standard fields
 Name=Bittorrent
 Name[ar]=بيت تورنت
+Name[ast]=Bittorrent
 Name[ca]=Bittorrent
 Name[ca@valencia]=Bittorrent
 Name[cs]=Bittorrent
@@ -55,6 +56,7 @@ Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Name[zh_TW]=Bittorrent
 Comment=Allows files to be downloaded using Bittorrent
+Comment[ast]=Permitir la baxada de ficheros usando Metalink
 Comment[ca]=Permet de descarregar fitxers usant el Bittorrent
 Comment[ca@valencia]=Permet de descarregar fitxers usant el Bittorrent
 Comment[da]=Muliggør download af filer med brug af Bittorrent

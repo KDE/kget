@@ -7,6 +7,7 @@ Icon=kget
 # standard fields
 Name=KIO
 Name[ar]=KIO
+Name[ast]=KIO
 Name[ca]=KIO
 Name[ca@valencia]=KIO
 Name[cs]=KIO
@@ -56,6 +57,7 @@ Name[zh_CN]=KIO
 Name[zh_TW]=KIO
 Comment=Classic file downloader plugin
 Comment[ar]=ملحق تنزيل الملف الكلاسيكي
+Comment[ast]=Complementu de baxada de ficheros clásicu
 Comment[ca]=Connector de descarregador clàssic de fitxers
 Comment[ca@valencia]=Connector de descarregador clàssic de fitxers
 Comment[da]=Plugin til klassisk fildownload

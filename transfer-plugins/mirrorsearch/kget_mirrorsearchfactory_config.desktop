@@ -7,6 +7,7 @@ X-KDE-ParentComponents=kget_mirrorsearch_plugin
 
 Name=MirrorSearch
 Name[ar]=بحث المرآة
+Name[ast]=GuetadorEspeyos
 Name[ca]=Cerca de rèplica
 Name[ca@valencia]=Cerca de rèplica
 Name[cs]=MirrorSearch

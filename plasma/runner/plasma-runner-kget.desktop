@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=KGet
 Name[ar]=KGet
+Name[ast]=KGet
 Name[be]=KGet
 Name[bg]=KGet
 Name[bn]=কে-গেট
@@ -68,6 +69,7 @@ Name[zh_CN]=KGet
 Name[zh_HK]=KGet
 Name[zh_TW]=KGet
 Comment=Download links with KGet
+Comment[ast]=Baxada d'enllaces con KGet
 Comment[ca]=Descarrega els enllaços amb el KGet
 Comment[ca@valencia]=Descarrega els enllaços amb el KGet
 Comment[da]=Download links med KGet

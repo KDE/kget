@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet Panelbar Applet
+Name[ast]=Miniaplicación barres de panel de KGet
 Name[ca]=Miniaplicació de panell de barres del KGet
 Name[ca@valencia]=Miniaplicació de panell de barres del KGet
 Name[da]=KGet panel-applet
@@ -40,6 +41,7 @@ Name[zh_CN]=KGet 面板栏小程序
 Name[zh_TW]=KGet 面板列小程式
 Comment=KGet panelbar applet
 Comment[ar]=بريمج عمود التحكم KGet
+Comment[ast]=Miniaplicación barres de panel de KGet
 Comment[ca]=Miniaplicació de panell de barres del KGet
 Comment[ca@valencia]=Miniaplicació de panell de barres del KGet
 Comment[da]=KGet panel-applet

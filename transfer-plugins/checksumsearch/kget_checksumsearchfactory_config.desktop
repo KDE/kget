@@ -6,6 +6,7 @@ X-KDE-Library=kcm_kget_checksumsearchfactory
 X-KDE-ParentComponents=kget_checksumsearch_plugin
 
 Name=ChecksumSearch
+Name[ast]=Guetador de comprobación de sumes
 Name[ca]=Cerca de suma de verificació
 Name[ca@valencia]=Cerca de suma de verificació
 Name[da]=ChecksumSearch
