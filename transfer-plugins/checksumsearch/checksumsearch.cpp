@@ -55,8 +55,9 @@ void ChecksumSearch::createDownload()
         m_src = m_srcs.takeFirst();
         m_type = m_types.takeFirst();
         m_isEmpty = m_type.isEmpty();
-        
+
         m_copyJob = KIO::get(m_src, KIO::Reload, KIO::HideProgressInfo);
+        m_copyJob->addMetaData("errorPage", "false");
         connect(m_copyJob, SIGNAL(data(KIO::Job *,const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
         connect(m_copyJob, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
     }
@@ -76,21 +77,15 @@ void ChecksumSearch::slotData(KIO::Job *job, const QByteArray &data)
 void ChecksumSearch::slotResult(KJob *job)
 {
     kDebug(5001);
-    
-    KIO::TransferJob *copyJob = static_cast<KIO::TransferJob*>(job);
 
-    if (copyJob->isErrorPage()) {
-        kDebug(5001) << "The requested url does not exist:" << m_src.pathOrUrl();
-        m_copyJob = 0;
-        createDownload();
-        return;
-    }
+    m_data.clear();
 
     switch (job->error())
     {
         case 0://The download has finished
         {
             kDebug(5001) << "Correctly downloaded" << m_src.pathOrUrl();
+            m_data = QString(m_dataBA);
             break;
         }
 
@@ -100,16 +95,19 @@ void ChecksumSearch::slotResult(KJob *job)
     }
 
     m_copyJob = 0;
-    m_data = QString(m_dataBA);
     m_dataBA.clear();
+
     parseDownload();
 }
 
 void ChecksumSearch::parseDownload()
 {
+    if (!m_data.isEmpty()) {
+        kDebug(5001) << "*******Parse*******\n" << m_data << "*******************";
+    }
+
     //no type has been specified
-    if (m_type.isEmpty())
-    {
+    if (m_type.isEmpty()) {
         parseDownloadEmpty();
         return;
     }
@@ -122,25 +120,25 @@ void ChecksumSearch::parseDownload()
 
     //find the correct line
     const QStringList lines = m_data.split('\n');
-    foreach (const QString &line, lines)
-    {
-        if (line.contains(m_fileName, Qt::CaseInsensitive))
-        {
-            if (rxChecksum.indexIn(line) > -1)
-            {
-                hash = rxChecksum.cap(0);
-                kDebug(5001) << "Found hash: " << hash;
-                emit data(m_type, hash);
+    foreach (const QString &line, lines) {
+        if (line.contains(m_fileName, Qt::CaseInsensitive)) {
+            if (rxChecksum.indexIn(line) > -1) {
+                hash = rxChecksum.cap(0).toLower();
+                if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
+                    kDebug(5001) << "Found hash: " << hash;
+                    emit data(m_type, hash);
+                }
             }
         }
     }
 
     //nothing found yet, so simply search for a word in the whole data that has the correct length
-    if (hash.isEmpty() && (rxChecksum.indexIn(m_data) > -1))
-    {
+    if (hash.isEmpty() && (rxChecksum.indexIn(m_data) > -1)) {
         QString hash = rxChecksum.cap(0);
-        kDebug(5001) << "Found hash:" << hash;
-        emit data(m_type, hash);
+        if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
+            kDebug(5001) << "Found hash:" << hash;
+            emit data(m_type, hash);
+        }
     }
 
     //only create a download here if type was specified, otherwise parseDownloadEmpty has to handle this
