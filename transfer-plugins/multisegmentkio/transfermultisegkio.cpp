@@ -92,20 +92,6 @@ void TransferMultiSegKio::start()
             mirrorSearch->start();
         }
     }
-
-    if (MultiSegKioSettings::useSearchVerification() && !m_verificationSearch) {
-        m_verificationSearch = true;
-        QDomDocument doc;
-        QDomElement element = doc.createElement("TransferDataSource");
-        element.setAttribute("type", "checksumsearch");
-        doc.appendChild(element);
-
-        TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element, this);
-        if (checksumSearch) {
-            connect(checksumSearch, SIGNAL(data(QString, QString)), this, SLOT(slotChecksumFound(QString, QString)));
-            checksumSearch->start();
-        }
-    }
 }
 
 void TransferMultiSegKio::stop()
@@ -240,6 +226,22 @@ void TransferMultiSegKio::slotSpeed(unsigned long bytes_per_second)
 
     m_downloadSpeed = bytes_per_second;
     setTransferChange(Tc_DownloadSpeed, true);
+
+    //only start the verification search _after_ data has come in, that way only connections
+    //are requested if there is already a successful one
+    if (bytes_per_second && !m_verificationSearch && MultiSegKioSettings::useSearchVerification()) {
+        m_verificationSearch = true;
+        QDomDocument doc;
+        QDomElement element = doc.createElement("TransferDataSource");
+        element.setAttribute("type", "checksumsearch");
+        doc.appendChild(element);
+
+        TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element, this);
+        if (checksumSearch) {
+            connect(checksumSearch, SIGNAL(data(QString, QString)), this, SLOT(slotChecksumFound(QString, QString)));
+            checksumSearch->start();
+        }
+    }
 }
 
 void TransferMultiSegKio::slotTotalSize(KIO::filesize_t size)
