@@ -42,5 +42,5 @@ install(TARGETS khtml_kget DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/khtml/kpartplugins)
 
 if (WEBKITPART_FOUND)
-    install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/webkitpart/kpartplugins)
+    install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/kwebkitpart/kpartplugins)
 endif (WEBKITPART_FOUND)
