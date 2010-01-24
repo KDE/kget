@@ -63,7 +63,8 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
     menu->addAction(showSelectedLinksAction);
 
-    if (parent && parent->inherits("KWebKitPart")) // not available at the moment
+    // Only KHTML supported at the moment...
+    if (!qobject_cast<KHTMLPart*>(parent))
         actionCollection()->action("show_selected_links")->setVisible(false);
 }
 
@@ -79,7 +80,7 @@ void KGet_plug_in::showPopup()
 
     if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
     {
-	OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
         QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
         if (reply.isValid())
             hasDropTarget = reply.value();
@@ -87,11 +88,11 @@ void KGet_plug_in::showPopup()
 
     m_dropTargetAction->setChecked(hasDropTarget);
 
-    if ( parent() && parent()->inherits( "KHTMLPart" ) )
-    {
-        KHTMLPart *htmlPart = static_cast<KHTMLPart*>( parent() );
+    KHTMLPart *part = qobject_cast<KHTMLPart*>(parent());
 
-        const QString selectedHtml = htmlPart->selectedTextAsHTML();
+    if(part)
+    {
+        const QString selectedHtml = part->selectedTextAsHTML();
 
         DOM::HTMLDocument document;
         document.open();
@@ -107,16 +108,13 @@ void KGet_plug_in::slotShowDrop()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
         QWidget *parentWidget = 0;
-        if (parent() && parent()->inherits("KHTMLPart"))
-            parentWidget = static_cast<KHTMLPart*>(parent())->widget();
-#ifdef HAVE_WEBKITPART
-        if (parent() && parent()->inherits("KWebKitPart"))
-            parentWidget = static_cast<KWebKitPart*>(parent())->view();
-#endif
+        KHTMLPart *part = qobject_cast<KHTMLPart*>(parent());
+        if (part)
+            parentWidget = part->widget();
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parentWidget);
     } else {
-	OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-	kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
+        OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
 
@@ -132,99 +130,91 @@ void KGet_plug_in::slotShowSelectedLinks()
 
 void KGet_plug_in::showLinks( bool selectedOnly )
 {
-    if (!parent() || !(parent()->inherits("KHTMLPart") || parent()->inherits("KWebKitPart")))
-        return;
+    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>(parent());
 
-    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>( parent() );
-    KParts::Part *activePart = 0L;
-    if ( htmlPart && htmlPart->partManager() )
+    if (htmlPart)
     {
-        activePart = htmlPart->partManager()->activePart();
-        if ( activePart && activePart->inherits( "KHTMLPart" ) )
-            htmlPart = static_cast<KHTMLPart*>( activePart );
-    }
+        if ( htmlPart->partManager() )
+        {
+            KHTMLPart *activePart = qobject_cast<KHTMLPart*>(htmlPart->partManager()->activePart());
+            if ( activePart )
+                htmlPart = activePart;
+        }
 
-    DOM::HTMLDocument doc;
+        DOM::HTMLDocument doc;
 
-    if ( selectedOnly )
-    {
-        doc.open();
-        if (htmlPart)
-            doc.write(htmlPart->selectedTextAsHTML());
-        doc.close();
-    }
-    else
-    {
-        if (htmlPart)
-            doc = htmlPart->htmlDocument();
-
-#ifdef HAVE_WEBKITPART
-        KWebKitPart *part = qobject_cast<KWebKitPart *>(parent());
-        if (part) {
+        if ( selectedOnly )
+        {
             doc.open();
-            doc.write(part->view()->page()->currentFrame()->toHtml());
+            if (htmlPart)
+                doc.write(htmlPart->selectedTextAsHTML());
             doc.close();
         }
-#endif
-    }
-
-    if ( doc.isNull() )
-        return;
-
-    DOM::HTMLCollection links = doc.links();
-    DOM::HTMLCollection images = doc.images();
-
-    QList<QString> linkList;
-    QSet<QString> dupeCheck;
-
-    for ( uint i = 0; i < links.length(); i++ )
-    {
-        DOM::Node link = links.item( i );
-        if ( link.isNull() || link.nodeType() != DOM::Node::ELEMENT_NODE )
-            continue;
-
-        LinkItem *item = new LinkItem( (DOM::Element) link );
-        if (item->isValid() && !dupeCheck.contains(item->url.url()))
-        {
-            linkList.append(item->url.url());
-            dupeCheck.insert(item->url.url());
-        }
         else
-            delete item;
-    }
-
-    /* do the same for images */
-    for ( uint i = 0; i < images.length(); i++ )
-    {
-        DOM::Node image  = images.item( i );
-        if ( image.isNull() || image.nodeType() != DOM::Node::ELEMENT_NODE )
-            continue;
-
-        LinkItem *item = new LinkItem( (DOM::Element) image );
-        if (item->isValid() && !dupeCheck.contains(item->url.url()))
         {
-            linkList.append(item->url.url());
-            dupeCheck.insert(item->url.url());
+            if (htmlPart)
+                doc = htmlPart->htmlDocument();
         }
-        else
-            delete item;
-    }
 
-    if ( linkList.isEmpty() )
-    {
-        KMessageBox::sorry( htmlPart ? htmlPart->widget() : 0,
-            i18n("There are no links in the active frame of the current HTML page."),
-            i18n("No Links") );
-        return;
-    }
+        if ( doc.isNull() )
+            return;
+
+        DOM::HTMLCollection links = doc.links();
+        DOM::HTMLCollection images = doc.images();
+
+        QList<QString> linkList;
+        QSet<QString> dupeCheck;
+
+        for ( uint i = 0; i < links.length(); i++ )
+        {
+            DOM::Node link = links.item( i );
+            if ( link.isNull() || link.nodeType() != DOM::Node::ELEMENT_NODE )
+                continue;
+
+            LinkItem *item = new LinkItem( (DOM::Element) link );
+            if (item->isValid() && !dupeCheck.contains(item->url.url()))
+            {
+                linkList.append(item->url.url());
+                dupeCheck.insert(item->url.url());
+            }
+            else
+                delete item;
+        }
+
+        /* do the same for images */
+        for ( uint i = 0; i < images.length(); i++ )
+        {
+            DOM::Node image  = images.item( i );
+            if ( image.isNull() || image.nodeType() != DOM::Node::ELEMENT_NODE )
+                continue;
+
+            LinkItem *item = new LinkItem( (DOM::Element) image );
+            if (item->isValid() && !dupeCheck.contains(item->url.url()))
+            {
+                linkList.append(item->url.url());
+                dupeCheck.insert(item->url.url());
+            }
+            else
+                delete item;
+        }
+
+        if ( linkList.isEmpty() )
+        {
+            KMessageBox::sorry( htmlPart ? htmlPart->widget() : 0,
+                i18n("There are no links in the active frame of the current HTML page."),
+                i18n("No Links") );
+            return;
+        }
 
 
-    if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
-    {
-        KToolInvocation::kdeinitExecWait("kget");
+        if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
+        {
+            KToolInvocation::kdeinitExecWait("kget");
+        }
+
+        OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        kgetInterface.importLinks(linkList);
     }
-    OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-    kgetInterface.importLinks(linkList);
 }
 
 KGetPluginFactory::KGetPluginFactory( QObject* parent )
