@@ -1,28 +1,18 @@
 include(MacroOptionalDependPackage)
 
-MACRO_OPTIONAL_DEPEND_PACKAGE(KdeWebKit "kdewebkit")
-if(DEPEND_PACKAGE_KdeWebKit)
-        macro_optional_find_package(KdeWebKit QUIET)
-else(DEPEND_PACKAGE_KdeWebKit)
-        set(KDEWEBKIT_FOUND FALSE)
-endif(DEPEND_PACKAGE_KdeWebKit)
-
-MACRO_OPTIONAL_DEPEND_PACKAGE(WebKitPart "webkitpart")
+MACRO_OPTIONAL_DEPEND_PACKAGE(WebKitPart "kwebkitpart")
 if(DEPEND_PACKAGE_WebKitPart)
         macro_optional_find_package(WebKitPart QUIET)
 else(DEPEND_PACKAGE_WebKitPart)
         set(WEBKITPART_FOUND FALSE)
 endif(DEPEND_PACKAGE_WebKitPart)
 
-if( KDEWEBKIT_FOUND AND WEBKITPART_FOUND )
-    add_definitions(-DHAVE_WEBKITKDE)
-    include_directories(${KDEWEBKIT_INCLUDE_DIR})
+if( WEBKITPART_FOUND )
+    add_definitions(-DHAVE_WEBKITPART)
     include_directories(${WEBKITPART_INCLUDE_DIR})
-    set(WEBKITKDE_FOUND true)
-endif( KDEWEBKIT_FOUND AND WEBKITPART_FOUND )
+    set(WEBKITPART_FOUND true)
+endif( WEBKITPART_FOUND )
 
-
-macro_log_feature(WEBKITKDE_FOUND "WebKitKde" "Webkitkde libraries and header files" "" FALSE "" "Webkitkde is necessary to compile support for WebKitKde.")
 
 configure_file(config-kgetplugins.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kgetplugins.h )
 

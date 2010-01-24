@@ -32,7 +32,7 @@
 #include <kparts/partmanager.h>
 
 #ifdef HAVE_WEBKITKDE
-#include <webkitpart.h>
+#include <KWebKitPart>
 #include <QWebView>
 #include <QWebFrame>
 #endif
@@ -63,7 +63,8 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
     menu->addAction(showSelectedLinksAction);
 
-    if (parent && parent->inherits("WebKitPart")) // not available at the moment
+    // Only KHTMLPart supported at the moment...
+    if (!qobject_cast<KHTMLPart*>(parent))
         actionCollection()->action("show_selected_links")->setVisible(false);
 }
 
@@ -79,7 +80,7 @@ void KGet_plug_in::showPopup()
 
     if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
     {
-	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
         QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
         if (reply.isValid())
             hasDropTarget = reply.value();
@@ -87,10 +88,10 @@ void KGet_plug_in::showPopup()
 
     m_dropTargetAction->setChecked(hasDropTarget);
 
-    if ( parent() && parent()->inherits( "KHTMLPart" ) )
-    {
-        KHTMLPart *htmlPart = static_cast<KHTMLPart*>( parent() );
+    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>( parent() );
 
+    if ( htmlPart )
+    {
         const QString selectedHtml = htmlPart->selectedTextAsHTML();
 
         DOM::HTMLDocument document;
@@ -107,16 +108,13 @@ void KGet_plug_in::slotShowDrop()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
         QWidget *parentWidget = 0;
-        if (parent() && parent()->inherits("KHTMLPart"))
-            parentWidget = static_cast<KHTMLPart*>(parent())->widget();
-#ifdef HAVE_WEBKITKDE
-        if (parent() && parent()->inherits("WebKitPart"))
-            parentWidget = static_cast<WebKitPart*>(parent())->view();
-#endif
+        KParts::ReadOnlyPart *part = qobject_cast<KHTMLPart*>(parent());
+        if (part)
+            parentWidget = part->widget();
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parentWidget);
     } else {
-	OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-	kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
+        OrgKdeKgetInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+        kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
 
@@ -132,16 +130,17 @@ void KGet_plug_in::slotShowSelectedLinks()
 
 void KGet_plug_in::showLinks( bool selectedOnly )
 {
-    if (!parent() || !(parent()->inherits("KHTMLPart") || parent()->inherits("WebKitPart")))
+    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>( parent() );
+
+    if (!htmlPart)
         return;
 
-    KHTMLPart *htmlPart = dynamic_cast<KHTMLPart*>( parent() );
     KParts::Part *activePart = 0L;
     if ( htmlPart && htmlPart->partManager() )
     {
         activePart = htmlPart->partManager()->activePart();
         if ( activePart && activePart->inherits( "KHTMLPart" ) )
-            htmlPart = static_cast<KHTMLPart*>( activePart );
+            htmlPart = qobject_cast<KHTMLPart*>( activePart );
     }
 
     DOM::HTMLDocument doc;
@@ -157,15 +156,6 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     {
         if (htmlPart)
             doc = htmlPart->htmlDocument();
-
-#ifdef HAVE_WEBKITKDE
-        if (parent()->inherits("WebKitPart")) {
-            WebKitPart *part = dynamic_cast<WebKitPart *>(parent());
-            doc.open();
-            doc.write(part->view()->page()->currentFrame()->toHtml());
-            doc.close();
-        }
-#endif
     }
 
     if ( doc.isNull() )
