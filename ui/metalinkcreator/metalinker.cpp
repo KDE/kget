@@ -151,12 +151,15 @@ void KGetMetalink::CommonData::load(const QDomElement &e)
     version = e.firstChildElement("version").text();
     description = e.firstChildElement("description").text();
     logo = KUrl(e.firstChildElement("logo").text());
-    language = e.firstChildElement("language").text();
     copyright = e.firstChildElement("copyright").text();
 
     const QDomElement publisherElem = e.firstChildElement("publisher");
     publisher.name = publisherElem.attribute("name");
     publisher.url = KUrl(publisherElem.attribute("url"));
+
+    for (QDomElement elemRes = e.firstChildElement("language"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("language")) {
+        languages << elemRes.text();
+    }
 
     for (QDomElement elemRes = e.firstChildElement("os"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("os")) {
         oses << elemRes.text();
@@ -188,13 +191,6 @@ void KGetMetalink::CommonData::save(QDomElement &e) const
         elem.appendChild(text);
         e.appendChild(elem);
     }
-    if (!language.isEmpty())
-    {
-        QDomElement elem = doc.createElement("language");
-        QDomText text = doc.createTextNode(language);
-        elem.appendChild(text);
-        e.appendChild(elem);
-    }
     if (!logo.isEmpty())
     {
         QDomElement elem = doc.createElement("logo");
@@ -218,6 +214,13 @@ void KGetMetalink::CommonData::save(QDomElement &e) const
         e.appendChild(elem);
     }
 
+    foreach (const QString &language, languages) {
+        QDomElement elem = doc.createElement("language");
+        QDomText text = doc.createTextNode(language);
+        elem.appendChild(text);
+        e.appendChild(elem);
+    }
+
     foreach (const QString &os, oses) {
         QDomElement elem = doc.createElement("os");
         QDomText text = doc.createTextNode(os);
@@ -233,7 +236,7 @@ void KGetMetalink::CommonData::clear()
     description.clear();
     oses.clear();
     logo.clear();
-    language.clear();
+    languages.clear();
     publisher.clear();
     copyright.clear();
 }
@@ -251,7 +254,9 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
     if (oses.count()) {
         HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#OperatingSystem", oses.first());//TODO support all set oses!
     }
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#language", language);
+    if (languages.count()) {
+        HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#language", languages.first());//TODO support all set languages!
+    }
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nco/#publisher", publisher.name);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#copyright", copyright);
 
@@ -267,7 +272,7 @@ bool KGetMetalink::Metaurl::operator<(const KGetMetalink::Metaurl &other) const
 
 void KGetMetalink::Metaurl::load(const QDomElement &e)
 {
-    type = e.attribute("type").toLower();
+    type = e.attribute("mediatype").toLower();
     priority = e.attribute("priority").toUInt();
     if (priority > Metalink::MAX_URL_PRIORITY) {
         priority = Metalink::MAX_URL_PRIORITY;
@@ -288,7 +293,7 @@ void KGetMetalink::Metaurl::save(QDomElement &e) const
     {
         metaurl.setAttribute("name", name);
     }
-    metaurl.setAttribute("type", type);
+    metaurl.setAttribute("mediatype", type);
 
     QDomText text = doc.createTextNode(url.url());
     metaurl.appendChild(text);
@@ -472,7 +477,7 @@ void KGetMetalink::Verification::load(const QDomElement &e)
     }
 
     for (QDomElement elem = e.firstChildElement("signature"); !elem.isNull(); elem = elem.nextSiblingElement("signature")) {
-        QString type = elem.attribute("type");
+        QString type = elem.attribute("mediatype");
         if (type == "application/pgp-signature") {//FIXME with 4.5 make it handle signatures by default with mime-type
             type = "pgp";
         }
@@ -508,7 +513,7 @@ void KGetMetalink::Verification::save(QDomElement &e) const
             type = "application/pgp-signature";
         }
         QDomElement hash = doc.createElement("signature");
-        hash.setAttribute("type", type);
+        hash.setAttribute("mediatype", type);
         QDomText text = doc.createTextNode(it.value());
         hash.appendChild(text);
         e.appendChild(hash);
@@ -819,8 +824,8 @@ void KGetMetalink::Metalink_v3::inheritCommonData(const KGetMetalink::CommonData
     if (inheritor->logo.isEmpty()) {
         inheritor->logo = ancestor.logo;
     }
-    if (inheritor->language.isEmpty()) {
-        inheritor->language = ancestor.language;
+    if (inheritor->languages.isEmpty()) {
+        inheritor->languages = ancestor.languages;
     }
     if (inheritor->copyright.isEmpty()) {
         inheritor->copyright = ancestor.copyright;

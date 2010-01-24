@@ -108,7 +108,7 @@ class CommonData
         QString description;
         QStringList oses;
         KUrl logo;
-        QString language;
+        QStringList languages;
         UrlText publisher;
         QString copyright;
 };

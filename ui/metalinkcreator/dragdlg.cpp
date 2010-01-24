@@ -92,7 +92,7 @@ void DragDlg::slotFinished()
     m_commonData->copyright = uiData.copyright->text();
     m_commonData->publisher.name = uiData.pub_name->text();
     m_commonData->publisher.url = KUrl(uiData.pub_url->text());
-    m_commonData->language = uiData.language->itemData(uiData.language->currentIndex()).toString();
+    m_commonData->languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     emit usedTypes(used, ui.partialChecksums->isChecked());
 }
