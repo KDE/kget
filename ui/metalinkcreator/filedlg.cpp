@@ -71,8 +71,10 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
 
     //create the language selection
     uiData.language->setModel(languageSort);
-    const int index = uiData.language->findData(m_file->data.language);
-    uiData.language->setCurrentIndex(index);
+    if (m_file->data.languages.count()) {//TODO 4.5 support multiple languages
+        const int index = uiData.language->findData(m_file->data.languages.first());
+        uiData.language->setCurrentIndex(index);
+    }
 
 
     //create the verification stuff
@@ -169,7 +171,7 @@ void FileDlg::slotOkClicked()
     m_file->data.copyright = uiData.copyright->text();
     m_file->data.publisher.name = uiData.pub_name->text();
     m_file->data.publisher.url = KUrl(uiData.pub_url->text());
-    m_file->data.language = uiData.language->itemData(uiData.language->currentIndex()).toString();
+    m_file->data.languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     m_urlWidget->save();
     m_file->resources.metaurls = metaurls;
