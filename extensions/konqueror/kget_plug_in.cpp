@@ -32,7 +32,7 @@
 #include <kparts/partmanager.h>
 
 #ifdef HAVE_WEBKITPART
-#include <kwebkitpart.h>
+#include <KWebKitPart>
 #include <QWebView>
 #include <QWebFrame>
 #endif
