@@ -32,6 +32,10 @@ Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset
     m_canResume(true),
     m_url(src)
 {
+    //last segment
+    if (m_endSegment - m_currentSegment == 0) {
+        m_currentSegSize = m_segSize.second;
+    }
 }
 
 Segment::~Segment()

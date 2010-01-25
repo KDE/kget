@@ -41,12 +41,10 @@ class KGET_EXPORT TransferDataSource : public QObject
 
         /**
          * Adds multiple continuous segments that should be downloaded by this TransferDataSource
-         * @param segmentSize first is the general segmentSize, second the segmentSize
-         * of the last segment in the range, if just one segment is assigned both need to have
-         * the same value; segmentSize.first can be used to calculate the offset
+         * @param segmentSize first is always the general segmentSize, second the segmentSize
+         * of the last segment in the range. If just one (the last) segment was assigned, then
+         * first would not equal second, this is to ensure that first can be used to calculate the offset
          * @param segmentRange first the beginning, second the end
-         * @note the default implemention will just call addSegment multiple times, then
-         * split -- even if implemented -- would not work
          */
         virtual void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) = 0;
 
