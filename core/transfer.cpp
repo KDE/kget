@@ -42,7 +42,7 @@ const StatusStrings STATUSTEXTS[] = {
     {"", ""},//TODO: Add FinishedKeepAlive status
     {I18N_NOOP2_NOSTRIP("changing the destination of the file", "Changing destination")}
 };
-const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-pause";
+const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,
