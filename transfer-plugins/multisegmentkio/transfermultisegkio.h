@@ -69,8 +69,6 @@ class TransferMultiSegKio : public Transfer
         void start();
         void stop();
 
-        bool isResumable() const;
-
         void save(const QDomElement &element);
         void load(const QDomElement *e);
         void slotChecksumFound(QString type, QString checksum);
@@ -79,6 +77,7 @@ class TransferMultiSegKio : public Transfer
         void createJob();
 
     private slots:
+        void slotUpdateCapabilities();
         void slotPercent(ulong percent);
         void slotProcessedSize(KIO::filesize_t processedSize);
         void slotSpeed(unsigned long bytes_per_second);

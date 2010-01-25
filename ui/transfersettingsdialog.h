@@ -29,6 +29,7 @@ class TransferSettingsDialog : public KDialog
         ~TransferSettingsDialog();
 
     private slots:
+        void updateCapabilities();
         void slotMirrors();
         void slotRename();
         void slotVerification();

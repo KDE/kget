@@ -11,6 +11,7 @@
  
 #include "multisegkiodatasource.h"
 #include "segment.h"
+#include "core/transfer.h"
 
 #include <KDebug>
 
@@ -173,6 +174,8 @@ void MultiSegKioDataSource::slotCanResume(KIO::Job *job, KIO::filesize_t offset)
     {
        killInitJob();
     }
+
+    setCapabilities(capabilities() | Transfer::Cap_Resuming);
 }
 
 void MultiSegKioDataSource::slotInitResult(KJob *job)

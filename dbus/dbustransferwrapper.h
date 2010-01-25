@@ -25,14 +25,12 @@ class DBusTransferWrapper : public QObject
         ~DBusTransferWrapper();
 
     public slots:
-        bool supportsSpeedLimits();
-
+        int capabilities() const;
         void start();
         void stop();
         int status() const;
         int elapsedTime() const;
         int remainingTime() const;
-        bool isResumable() const;
 
         /**
          * @return the transfer's group's name
@@ -129,6 +127,11 @@ class DBusTransferWrapper : public QObject
          * Emitted when the transfer changes
          */
         void transferChangedEvent(int transferChange);
+
+        /**
+         * Emitted whe the capabilities of the transfer changes
+         */
+        void capabilitiesChanged();
 
     private slots:
         void slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags changeflags);

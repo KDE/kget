@@ -66,14 +66,14 @@ int TransferGroup::uploadSpeed()
 
 bool TransferGroup::supportsSpeedLimits()
 {
-    bool b = true;
-    foreach (Job * job, runningJobs())
-    {
+    foreach (Job * job, runningJobs()) {
         Transfer * transfer = static_cast<Transfer*>(job);
-        if (!transfer->supportsSpeedLimits())
-            b = false;
+        if (!(transfer->capabilities() & Transfer::Cap_SpeedLimit)) {
+            return false;
+        }
     }
-    return b;
+
+    return true;
 }
 
 void TransferGroup::setStatus(Status queueStatus)

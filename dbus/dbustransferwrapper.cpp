@@ -16,15 +16,16 @@ DBusTransferWrapper::DBusTransferWrapper(TransferHandler *parent)
     m_transfer(parent)
 {
     connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler*,TransferHandler::ChangesFlags)), this, SLOT(slotTransferChanged(TransferHandler*,TransferHandler::ChangesFlags)));
+    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SIGNAL(capabilitiesChanged()));
 }
 
 DBusTransferWrapper::~DBusTransferWrapper()
 {
 }
 
-bool DBusTransferWrapper::supportsSpeedLimits()
+int DBusTransferWrapper::capabilities() const
 {
-    return m_transfer->supportsSpeedLimits();
+    return m_transfer->capabilities();
 }
 
 void DBusTransferWrapper::start()
@@ -50,11 +51,6 @@ int DBusTransferWrapper::elapsedTime() const
 int DBusTransferWrapper::remainingTime() const
 {
     return m_transfer->remainingTime();
-}
-
-bool DBusTransferWrapper::isResumable() const
-{
-    return m_transfer->isResumable();
 }
 
 QString DBusTransferWrapper::groupName() const

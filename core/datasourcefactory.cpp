@@ -39,6 +39,7 @@ const int SPEEDTIMER = 1000;//1 second...
 DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO::fileoffset_t segSize,
                                      QObject *parent)
   : QObject(parent),
+    m_capabilities(0),
     m_dest(dest),
     m_size(size),
     m_downloadedSize(0),
@@ -71,6 +72,7 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
 
 DataSourceFactory::DataSourceFactory(QObject *parent)
   : QObject(parent),
+    m_capabilities(0),
     m_size(0),
     m_downloadedSize(0),
     m_segSize(0),
@@ -368,6 +370,8 @@ void DataSourceFactory::stop()
     }
     m_startTried = false;
     changeStatus(Job::Stopped);
+
+    slotUpdateCapabilities();
 }
 
 void DataSourceFactory::setDoDownload(bool doDownload)
@@ -464,11 +468,14 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                         source->setSupposedSize(m_size);
                     }
 
+                    connect(source, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
                     connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int, int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int, int>)));
                     connect(source, SIGNAL(broken(TransferDataSource*, TransferDataSource::Error)), this, SLOT(broken(TransferDataSource*,TransferDataSource::Error)));
                     connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
                     connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
                     connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotFreeSegments(TransferDataSource*,QPair<int,int>)));
+
+                    slotUpdateCapabilities();
 
                     assignSegments(source);
 
@@ -1083,6 +1090,8 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
                     signature()->verify();
                 }
             }
+
+            slotUpdateCapabilities();
             break;
         default:
             //TODO handle Delayed and Aborted
@@ -1266,6 +1275,38 @@ Signature *DataSourceFactory::signature()
     }
 
     return m_signature;
+}
+
+Transfer::Capabilities DataSourceFactory::capabilities() const
+{
+    return m_capabilities;
+}
+
+void DataSourceFactory::slotUpdateCapabilities()
+{
+    const Transfer::Capabilities oldCaps = capabilities();
+    Transfer::Capabilities newCaps = 0;
+
+    foreach (TransferDataSource *source, m_sources) {
+        if (!source->assignedSegments().isEmpty()) {
+            if (newCaps) {
+                newCaps &= source->capabilities();
+            } else {
+                newCaps = source->capabilities();
+            }
+        }
+    }
+
+    if ((newCaps & Transfer::Cap_Resuming) || (status() == Job::Finished) || (status() == Job::Stopped)) {
+        newCaps |= Transfer::Cap_Moving | Transfer::Cap_Renaming;
+    }
+
+    newCaps |= Transfer::Cap_MultipleMirrors;
+
+    if (oldCaps != newCaps) {
+        m_capabilities = newCaps;
+        emit capabilitiesChanged();
+    }
 }
 
 #include "datasourcefactory.moc"

@@ -36,8 +36,8 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
-    ui.kUrlRequester->setUrl(m_transfer->directory().pathOrUrl());
-    ui.kUrlRequester->lineEdit()->setReadOnly(true);
+    ui.destination->setUrl(m_transfer->directory().pathOrUrl());
+    ui.destination->lineEdit()->setReadOnly(true);
     ui.rename->setIcon(KIcon("edit-rename"));
     ui.mirrors->setIcon(KIcon("download"));
     ui.signature->setIcon(KIcon("application-pgp-signature"));
@@ -53,14 +53,9 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
         ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     }
 
-    if (!transfer->supportsSpeedLimits()) {
-        ui.labelDownload->hide();
-        ui.downloadSpin->hide();
-        ui.labelUpload->hide();
-        ui.uploadSpin->hide();
-        ui.labelShareRatio->hide();
-        ui.ratioSpin->hide();
-    }
+    updateCapabilities();
+
+    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SLOT(updateCapabilities()));
     connect(this, SIGNAL(accepted()), SLOT(save()));
     connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotSelectionChanged()));
@@ -72,6 +67,23 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
 
 TransferSettingsDialog::~TransferSettingsDialog()
 {
+}
+
+void TransferSettingsDialog::updateCapabilities()
+{
+    const int capabilities = m_transfer->capabilities();
+
+    const bool supportsSpeedLimit = capabilities & Transfer::Cap_SpeedLimit;
+    ui.labelDownload->setVisible(supportsSpeedLimit);
+    ui.downloadSpin->setVisible(supportsSpeedLimit);
+    ui.labelUpload->setVisible(supportsSpeedLimit);
+    ui.uploadSpin->setVisible(supportsSpeedLimit);
+    ui.labelShareRatio->setVisible(supportsSpeedLimit);
+    ui.ratioSpin->setVisible(supportsSpeedLimit);
+
+    ui.destination->setEnabled(capabilities & Transfer::Cap_Moving);
+    ui.mirrors->setVisible(capabilities & Transfer::Cap_MultipleMirrors);
+    ui.rename->setVisible(capabilities & Transfer::Cap_Renaming);
 }
 
 void TransferSettingsDialog::slotMirrors()
@@ -128,7 +140,7 @@ void TransferSettingsDialog::slotSelectionChanged()
 void TransferSettingsDialog::save()
 {//TODO: Set to -1 when no limit
     KUrl oldDirectory = m_transfer->directory();
-    KUrl newDirectory = ui.kUrlRequester->url();
+    KUrl newDirectory = ui.destination->url();
     if ((oldDirectory != newDirectory) && !m_transfer->setDirectory(newDirectory))
     {
         KMessageBox::error(this, i18n("Changing the destination did not work, the destination stays unmodified."), i18n("Destination unmodified"));

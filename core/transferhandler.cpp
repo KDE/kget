@@ -37,10 +37,17 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
     m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx);
 
     m_kjobAdapter = new KGetKJobAdapter(this, this);
+
+    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SIGNAL(capabilitiesChanged()));
 }
 
 TransferHandler::~TransferHandler()
 {
+}
+
+Transfer::Capabilities TransferHandler::capabilities() const
+{
+    return m_transfer->capabilities();
 }
 
 void TransferHandler::start()
@@ -76,11 +83,6 @@ int TransferHandler::elapsedTime() const
 int TransferHandler::remainingTime() const
 {
     return m_transfer->remainingTime();
-}
-
-bool TransferHandler::isResumable() const
-{
-    return m_transfer->isResumable();
 }
 
 KIO::filesize_t TransferHandler::totalSize() const

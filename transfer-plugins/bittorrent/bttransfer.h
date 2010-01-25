@@ -67,8 +67,6 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void stop();
         virtual int elapsedTime() const;
         virtual int remainingTime() const;
-        bool isResumable() const;
-        bool supportsSpeedLimits() const {return true;}
         virtual bool isStalled() const;
         virtual bool isWorking() const;
 

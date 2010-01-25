@@ -13,6 +13,7 @@
 #define TRANSFERDATASOURCE_H
 
 #include "kget_export.h"
+#include "transfer.h"
 
 #include <QObject>
 
@@ -35,6 +36,11 @@ class KGET_EXPORT TransferDataSource : public QObject
             WrongDownloadSize,
             NotResumeable
         };
+
+        /**
+         * Returns the capabilities this TransferDataSource supports
+         */
+        Transfer::Capabilities capabilities() const;
 
         virtual void start() = 0;
         virtual void stop() = 0;
@@ -128,6 +134,11 @@ class KGET_EXPORT TransferDataSource : public QObject
 
     signals:
         /**
+         * Emitted when the capabilities of the TransferDataSource change
+         */
+        void capabilitiesChanged();
+
+        /**
          * Returns data in the forms of chucks
          * @note if the receiver set worked to wrong the TransferDataSource should cache the data
          * @param offset the offset in the file
@@ -189,6 +200,12 @@ class KGET_EXPORT TransferDataSource : public QObject
          */
         void freeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
 
+    protected:
+        /**
+         * Sets the capabilities and automatically emits capabilitiesChanged
+         */
+        void setCapabilities(Transfer::Capabilities capabilities);
+
     private Q_SLOTS:
         virtual void slotSpeed(ulong speed) {Q_UNUSED(speed)}
 
@@ -198,5 +215,8 @@ class KGET_EXPORT TransferDataSource : public QObject
         KIO::filesize_t m_supposedSize;
         int m_paralellSegments;
         int m_currentSegments;
+
+    private:
+        Transfer::Capabilities m_capabilities;
 };
 #endif

@@ -82,9 +82,6 @@ class KGET_EXPORT Job : public QObject
         virtual int remainingTime() const =0;
         virtual bool isStalled() const =0;
         virtual bool isWorking() const =0;
-        
-        //Job capabilities
-        virtual bool isResumable() const =0;
 
     protected:
         Scheduler * scheduler() const {return m_scheduler;}

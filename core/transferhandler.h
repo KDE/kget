@@ -61,13 +61,15 @@ class KGET_EXPORT TransferHandler : public Handler
 
         virtual ~TransferHandler();
 
-        bool supportsSpeedLimits() {return m_transfer->supportsSpeedLimits();}
-
         Job::Status status() const {return m_transfer->status();}
         Job::Status startStatus() const {return m_transfer->startStatus();}
         int elapsedTime() const;
         int remainingTime() const;
-        bool isResumable() const;
+
+        /**
+         * Returns the capabilities the Transfer supports
+         */
+        Transfer::Capabilities capabilities() const;
 
         /**
          * Tries to repair file
@@ -293,8 +295,12 @@ class KGET_EXPORT TransferHandler : public Handler
         virtual void stop();
 
     signals:
+        /**
+         * Emitted when the capabilities of the Transfer change
+         */
+        void capabilitiesChanged();
         void transferChangedEvent(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
-        
+
     private:
         /**
          * This functions gets called just before the handler is deleted

@@ -37,7 +37,7 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
       m_verifier(0),
       m_signature(0)
 {
-
+    setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming);//TODO check if it really can resume
 }
 
 bool TransferKio::setDirectory(const KUrl& newDirectory)
@@ -49,7 +49,7 @@ bool TransferKio::setDirectory(const KUrl& newDirectory)
 
 bool TransferKio::setNewDestination(const KUrl &newDestination)
 {
-    if (isResumable() && newDestination.isValid() && (newDestination != dest())) {
+    if (newDestination.isValid() && (newDestination != dest())) {
         KUrl oldPath = KUrl(m_dest.path() + ".part");
         if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl())) {
             m_movingFile = true;
@@ -119,11 +119,6 @@ void TransferKio::stop()
     setStatus(Job::Stopped);
     m_downloadSpeed = 0;
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
-}
-
-bool TransferKio::isResumable() const
-{
-    return true;
 }
 
 void TransferKio::deinit()

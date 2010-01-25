@@ -18,7 +18,8 @@ TransferDataSource::TransferDataSource(const KUrl &srcUrl, QObject *parent)
     m_speed(0),
     m_supposedSize(0),
     m_paralellSegments(1),
-    m_currentSegments(0)
+    m_currentSegments(0),
+    m_capabilities(0)
 {
     kDebug(5001) ;
 }
@@ -27,6 +28,18 @@ TransferDataSource::~TransferDataSource()
 {
     kDebug(5001) ;
 }
+
+Transfer::Capabilities TransferDataSource::capabilities() const
+{
+    return m_capabilities;
+}
+
+void TransferDataSource::setCapabilities(Transfer::Capabilities capabilities)
+{
+    m_capabilities = capabilities;
+    emit capabilitiesChanged();
+}
+
 
 QPair<int, int> TransferDataSource::removeConnection()
 {

@@ -53,6 +53,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         ~DataSourceFactory();
 
+        /**
+         * The capabilities the DataSourceFactory supports
+         */
+        Transfer::Capabilities capabilities() const;
+
         void deinit();
 
         /**
@@ -155,6 +160,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         Signature *signature();
 
     Q_SIGNALS:
+        void capabilitiesChanged();
         void processedSize(KIO::filesize_t size);
         void totalSize(KIO::filesize_t size);
         void speed(ulong speed);
@@ -166,6 +172,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void load(const QDomElement *e);
 
     private slots:
+        void slotUpdateCapabilities();
+
         /**
          * Tries to find the size of the file, automatically called
          * by start if no file size has been specified
@@ -231,6 +239,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void changeStatus(Job::Status status, bool loaded = false);
 
     private:
+        Transfer::Capabilities m_capabilities;
         KUrl m_dest;
         KUrl m_newDest;
         KIO::filesize_t m_size;

@@ -51,6 +51,7 @@ void TransferMultiSegKio::init()
     if (!m_dataSourceFactory)
     {
         m_dataSourceFactory = new DataSourceFactory(m_dest, 0, 500 * 1024, this);
+        connect(m_dataSourceFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
         connect(m_dataSourceFactory, SIGNAL(speed(ulong)), this, SLOT(slotSpeed(ulong)));
         connect(m_dataSourceFactory, SIGNAL(percent(ulong)), this, SLOT(slotPercent(ulong)));
         connect(m_dataSourceFactory, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotProcessedSize(KIO::filesize_t)));
@@ -59,6 +60,8 @@ void TransferMultiSegKio::init()
         connect(m_dataSourceFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
 
         m_dataSourceFactory->addMirror(m_source, MultiSegKioSettings::segments());
+
+        slotUpdateCapabilities();
     }
 }
 
@@ -105,11 +108,6 @@ void TransferMultiSegKio::stop()
     {
         m_dataSourceFactory->stop();
     }
-}
-
-bool TransferMultiSegKio::isResumable() const
-{
-    return true;
 }
 
 bool TransferMultiSegKio::repair(const KUrl &file)
@@ -183,6 +181,11 @@ void TransferMultiSegKio::slotStatus(Job::Status status)
     {
         QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
         m_fileModel->setData(statusIndex, status);
+    }
+
+    if (status == Job::Finished) {
+        //when finished the file can be renamed/moved in any case
+        setCapabilities( capabilities() | Transfer::Cap_Moving | Transfer::Cap_Renaming);
     }
 }
 
@@ -335,6 +338,11 @@ void TransferMultiSegKio::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
 
         setTransferChange(Tc_FileName);
     }
+}
+
+void TransferMultiSegKio::slotUpdateCapabilities()
+{
+    setCapabilities(m_dataSourceFactory->capabilities());
 }
 
 #include "transfermultisegkio.moc"

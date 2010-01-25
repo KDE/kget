@@ -66,6 +66,16 @@ class KGET_EXPORT Transfer : public Job
             Tc_Selection      = 0x00010000
         };
 
+        enum Capability
+        {
+            Cap_SpeedLimit = 0x00000001,
+            Cap_MultipleMirrors = 0x00000002,
+            Cap_Resuming = 0x00000004,
+            Cap_Renaming = 0x00000008,
+            Cap_Moving = 0x00000010
+        };
+        Q_DECLARE_FLAGS(Capabilities, Capability)
+
         enum LogLevel
         {
             info,
@@ -85,6 +95,11 @@ class KGET_EXPORT Transfer : public Job
                  const QDomElement * e = 0);
 
         virtual ~Transfer();
+
+        /**
+         * Returns the capabilities this Transfer supports
+         */
+        Capabilities capabilities() const;
 
         /**
          * This functions gets called whenever a Transfer gets created. As opposed
@@ -154,8 +169,6 @@ class KGET_EXPORT Transfer : public Job
         virtual int elapsedTime() const;
         virtual bool isStalled() const         {return (status() == Job::Running && downloadSpeed() == 0);}
         virtual bool isWorking() const         {return downloadSpeed() > 0;}
-
-        virtual bool supportsSpeedLimits() const {return false;}
 
         /**
          * The mirrors that are available
@@ -293,12 +306,23 @@ class KGET_EXPORT Transfer : public Job
         */
         virtual void load(const QDomElement *element);
 
+    signals:
+        /**
+         * Emitted when the capabilities of the Transfer change
+         */
+        void capabilitiesChanged();
+
     protected:
         /**
          * Sets the Job status to jobStatus, the status text to text and
          * the status pixmap to pix.
          */
         void setStatus(Job::Status jobStatus, const QString &text = QString(), const QPixmap &pix = QPixmap());
+
+        /**
+         * Sets the capabilities and automatically emits capabilitiesChanged
+         */
+        void setCapabilities(Capabilities capabilities);
 
         /**
          * Makes the TransferHandler associated with this transfer know that
@@ -331,6 +355,7 @@ class KGET_EXPORT Transfer : public Job
         bool m_isSelected;
 
     private:
+        Capabilities m_capabilities;
         int m_visibleUploadLimit;
         int m_visibleDownloadLimit;
         int m_runningSeconds;
@@ -346,5 +371,7 @@ class KGET_EXPORT Transfer : public Job
         NepomukHandler * m_nepomukHandler;
 #endif
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Transfer::Capabilities)
 
 #endif

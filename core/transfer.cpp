@@ -52,8 +52,8 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
       m_uploadLimit(0), m_downloadLimit(0), m_isSelected(false),
-      m_visibleUploadLimit(0), m_visibleDownloadLimit(0), m_ratio(0),
-      m_handler(0), m_factory(factory)
+      m_capabilities(0), m_visibleUploadLimit(0), m_visibleDownloadLimit(0),
+      m_ratio(0), m_handler(0), m_factory(factory)
 #ifdef HAVE_NEPOMUK
       , m_nepomukHandler(0)
 #endif
@@ -63,6 +63,17 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
 
 Transfer::~Transfer()
 {
+}
+
+Transfer::Capabilities Transfer::capabilities() const
+{
+    return m_capabilities;
+}
+
+void Transfer::setCapabilities(Capabilities capabilities)
+{
+    m_capabilities = capabilities;
+    emit capabilitiesChanged();
 }
 
 void Transfer::create()

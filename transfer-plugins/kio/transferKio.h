@@ -52,7 +52,6 @@ class TransferKio : public Transfer
         void start();
         void stop();
 
-        bool isResumable() const;
         void deinit();
 
     private:

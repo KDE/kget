@@ -153,6 +153,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
 
+        connect(dataFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
         connect(dataFactory, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(totalSizeChanged(KIO::filesize_t)));
         connect(dataFactory, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(processedSizeChanged()));
         connect(dataFactory, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
@@ -208,6 +209,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     }
 
     m_ready = !m_dataSourceFactory.isEmpty();
+    slotUpdateCapabilities();
 
     //the metalink-file has just been downloaded, so ask the user to choose the files that
     // should be downloaded
@@ -331,11 +333,6 @@ void Metalink::stop()
             factory->stop();
         }
     }
-}
-
-bool Metalink::isResumable() const
-{
-    return true;
 }
 
 void Metalink::totalSizeChanged(KIO::filesize_t size)
@@ -620,6 +617,7 @@ void Metalink::load(const QDomElement *element)
         file->load(&factory);
         if (file->isValid())
         {
+            connect(file, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
             connect(file, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(totalSizeChanged(KIO::filesize_t)));
             connect(file, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(processedSizeChanged()));
             connect(file, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
@@ -650,6 +648,7 @@ void Metalink::load(const QDomElement *element)
         }
     }
     m_ready = !m_dataSourceFactory.isEmpty();
+    slotUpdateCapabilities();
 }
 
 void Metalink::save(const QDomElement &element)
@@ -795,6 +794,25 @@ void Metalink::setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<boo
     }
 
     m_dataSourceFactory[file]->setMirrors(mirrors);
+}
+
+void Metalink::slotUpdateCapabilities()
+{
+    Capabilities oldCap = capabilities();
+    Capabilities newCap = 0;
+    foreach (DataSourceFactory *file, m_dataSourceFactory) {
+        if (file->doDownload()) {//FIXME when a download did not start yet it should be moveable!!//FIXME why not working, when only two connections?
+            if (newCap) {
+                newCap &= file->capabilities();
+            } else {
+                newCap = file->capabilities();
+            }
+        }
+    }
+
+    if (newCap != oldCap) {
+        setCapabilities(newCap);
+    }
 }
 
 #include "metalink.moc"

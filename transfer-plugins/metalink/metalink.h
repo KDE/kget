@@ -77,9 +77,8 @@ class Metalink : public Transfer
 
         void deinit();
 
-        bool isResumable() const;
-
     private Q_SLOTS:
+        void slotUpdateCapabilities();
         void metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
         void filesSelected();
         void totalSizeChanged(KIO::filesize_t size);

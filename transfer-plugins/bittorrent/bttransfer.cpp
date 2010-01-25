@@ -70,6 +70,8 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 #endif
 {
     m_directory = m_dest.upUrl();//FIXME test
+
+    setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming | Transfer::Cap_SpeedLimit);
 }
 
 BTTransfer::~BTTransfer()
@@ -116,11 +118,6 @@ void BTTransfer::deinit()
 }
 
 /** Reimplemented functions from Transfer-Class **/
-bool BTTransfer::isResumable() const
-{
-    return true;
-}
-
 bool BTTransfer::isStalled() const
 {
     return (status() == Job::Running) && (downloadSpeed() == 0) && torrent && torrent->getStats().status == bt::STALLED;
@@ -166,7 +163,7 @@ bool BTTransfer::setDirectory(const KUrl &newDirectory)
     //check if the newDestination is the same as the old
     KUrl temp = newDirectory;
     temp.addPath(torrent->getStats().torrent_name);
-    if (isResumable() && newDirectory.isValid() && (newDirectory != dest()) && (temp != dest()))
+    if (newDirectory.isValid() && (newDirectory != dest()) && (temp != dest()))
     {
         if (torrent->changeOutputDir(newDirectory.pathOrUrl(), bt::TorrentInterface::MOVE_FILES))
         {
