@@ -285,9 +285,11 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
     {
         // just one file -> ask for filename
         TransferHandler * newTransfer = addTransfer(srcUrls.first(), destDir, srcUrls.first().fileName(), groupName, start);
-        
-        if(newTransfer)
+
+        if (newTransfer) {
             addedTransfers.append(newTransfer);
+            return addedTransfers;
+        }
     }
 
     KUrl destUrl;
