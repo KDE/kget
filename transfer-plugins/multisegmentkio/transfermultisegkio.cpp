@@ -117,6 +117,7 @@ bool TransferMultiSegKio::repair(const KUrl &file)
         if (m_dataSourceFactory && (m_dataSourceFactory->verifier()->status() == Verifier::NotVerified))
         {
             m_dataSourceFactory->repair();
+            return true;
         }
     }
 
@@ -133,7 +134,7 @@ bool TransferMultiSegKio::setDirectory(const KUrl& newDirectory)
 bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
 {
     kDebug(5001) << "New destination: " << newDestination;
-    if (/*isResumable() && */newDestination.isValid() && (newDestination != dest()) && m_dataSourceFactory)
+    if ((capabilities() & Transfer::Cap_Moving) && newDestination.isValid() && (newDestination != dest()) && m_dataSourceFactory)
     {
         m_movingFile = true;
         stop();

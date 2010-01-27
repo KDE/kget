@@ -16,7 +16,7 @@
 #include "core/kget.h"
 #include "core/verifier.h"
 
-#include <math.h>
+#include <cmath>
 
 #include <QtCore/QDir>
 #include <QtCore/QTimer>
@@ -916,7 +916,7 @@ void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::fil
         for (it = brokenPieces.constBegin(); it != itEnd; ++it)
         {
             const quint32 startSegment = (*it).first / m_segSize;
-            const quint32 endSegment = ceil((*it).second / static_cast<double>(m_segSize)) - 1 + startSegment;
+            const quint32 endSegment = std::ceil((*it).second / static_cast<double>(m_segSize)) - 1 + startSegment;
             for (quint32 i = startSegment; i <= endSegment; ++i)
             {
                 m_startedChunks->set(i, false);

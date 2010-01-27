@@ -270,8 +270,8 @@ class KGET_EXPORT Verifier : public QObject
         /**
          * Call this method if you want to verify() in its own thread, then signals with
          * the result are emitted
-         * @param row of the model should be checked, if not defined the "best" checksum
-         * available will be used
+         * @param row of the model should be checked, if not defined the a checkum defined by
+         * Verifier::ChecksumStrength will be used
          */
         void verify(const QModelIndex &index = QModelIndex());
 
