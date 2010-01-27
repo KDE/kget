@@ -134,7 +134,7 @@ bool TransferMultiSegKio::setDirectory(const KUrl& newDirectory)
 bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
 {
     kDebug(5001) << "New destination: " << newDestination;
-    if ((capabilities() & Transfer::Cap_Moving) && newDestination.isValid() && (newDestination != dest()) && m_dataSourceFactory)
+    if (newDestination.isValid() && (newDestination != dest()) && m_dataSourceFactory)
     {
         m_movingFile = true;
         stop();
