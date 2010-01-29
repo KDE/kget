@@ -197,7 +197,26 @@ void Scheduler::updateQueue( JobQueue * queue )
 
     updatingQueue = true;
        
-    int runningJobs = 0;
+    int runningJobs = 0;    //Jobs that are running (and not in the stallTimeout)
+    int waitingJobs = 0;    //Jobs that we leave running but are in stallTimeout. We wait for them to start downloading, while we start other ones
+
+    /**
+     * Implemented behaviour
+     * 
+     * The scheduler allows a maximum number of runningJobs equal to the queue->maxSimultaneousJobs() setting.
+     * If that number is not reached because of stallTimeout transfers, the scheduler allows that:
+     *     (runningJobs + waitingJobs) < 2 * queue->maxSimultaneousJobs()
+     * Examples (with maxSimultaneousJobs = 2):
+     *        These are if the running jobs come first in the queue
+     *     1) 2 runningJobs - 0 waitingJobs
+     *     2) 1 runningJobs - up to 3 waitingJobs
+     *     3) 0 runningJobs - up to 4 waitingJobs
+     *        These are if the waiting jobs come first in the queue
+     *     1) 1 waitingJobs - 2 runningJobs
+     *     2) 2 waitingJobs - 2 runningJobs     
+     *     3) 3 waitingJobs - 1 runningJobs
+     *     4) 4 waitingJobs - 0 runningJobs
+     **/
 
     JobQueue::iterator it = queue->begin();
     JobQueue::iterator itEnd = queue->end();
@@ -209,7 +228,7 @@ void Scheduler::updateQueue( JobQueue * queue )
         
         JobFailure failure = m_failedJobs.value(*it);
         
-        if( runningJobs < queue->maxSimultaneousJobs() )
+        if( runningJobs < queue->maxSimultaneousJobs() && ((runningJobs + waitingJobs) < 2 * queue->maxSimultaneousJobs()) )
         {
             if( (*it)->status() == Job::Running || (*it)->status() == Job::FinishedKeepAlive )
             {
@@ -219,7 +238,9 @@ void Scheduler::updateQueue( JobQueue * queue )
                     (*it)->stop();
                 }
                 else if(failure.status == None || failure.status == AboutToStall)
-                    runningJobs++;
+                         runningJobs++;
+                     else
+                         waitingJobs++;
             }
             else             // != Job::Running
             {
@@ -229,6 +250,8 @@ void Scheduler::updateQueue( JobQueue * queue )
                     (*it)->start();
                     if((failure.status == None || failure.status == AboutToStall) && (*it)->status() != Job::FinishedKeepAlive)
                         runningJobs++;
+                    else
+                        waitingJobs++;
                 }
             }
         }
