@@ -893,7 +893,7 @@ QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO
 #endif //HAVE_QCA2
 }
 
-void Verifier::addPartialChecksums(const QString &type, KIO::filesize_t length, const QList<QString> &checksums)
+void Verifier::addPartialChecksums(const QString &type, KIO::filesize_t length, const QStringList &checksums)
 {
     if (!m_partialSums.contains(type) && length && !checksums.isEmpty())
     {

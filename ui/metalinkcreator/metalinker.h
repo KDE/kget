@@ -214,7 +214,7 @@ class Pieces
 
         QString type;
         KIO::filesize_t length;
-        QList<QString> hashes;
+        QStringList hashes;
 };
 
 class Verification

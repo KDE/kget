@@ -291,7 +291,7 @@ class KGET_EXPORT Verifier : public QObject
          * @param length the length of each piece
          * @param checksums the checksums, first entry is piece number 0
          */
-        void addPartialChecksums(const QString &type, KIO::filesize_t length, const QList<QString> &checksums);
+        void addPartialChecksums(const QString &type, KIO::filesize_t length, const QStringList &checksums);
 
         /**
          * Returns the length of the "best" partialChecksums
