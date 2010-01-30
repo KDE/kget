@@ -31,7 +31,6 @@ class MultiSegKioDataSource : public TransferDataSource
         QPair<int, int> removeConnection();
         QList<QPair<int, int> > assignedSegments() const;
         int countUnfinishedSegments() const;
-        int takeOneSegment();
         QPair<int, int> split();
 
         void setSupposedSize(KIO::filesize_t supposedSize);

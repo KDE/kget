@@ -228,17 +228,6 @@ int MultiSegKioDataSource::countUnfinishedSegments() const
     return unfinished;
 }
 
-int MultiSegKioDataSource::takeOneSegment()
-{
-    int unassigned = -1;
-    Segment *seg = mostUnfinishedSegments();
-    if (seg) {
-        unassigned = seg->takeOneSegment();
-    }
-
-    return unassigned;
-}
-
 QPair<int, int> MultiSegKioDataSource::split()
 {
     QPair<int, int> unassigned = qMakePair(-1, -1);

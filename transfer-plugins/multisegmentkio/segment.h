@@ -92,7 +92,6 @@ class Segment : public QObject
         QPair<int, int> assignedSegments() const;
         QPair<KIO::fileoffset_t, KIO::fileoffset_t> segmentSize() const;
         int countUnfinishedSegments() const;
-        int takeOneSegment();
         QPair<int, int> split();
 
     public Q_SLOTS:
