@@ -52,7 +52,7 @@ K_GLOBAL_STATIC(KeyDownloader, signatureDownloader)
 const QStringList Verifier::SUPPORTED = (QStringList() << "sha512" << "sha384" << "sha256" << "ripmed160" << "sha1" << "md5" << "md4");
 const int Verifier::DIGGESTLENGTH[] = {128, 96, 64, 40, 40, 32, 32};
 const int Verifier::MD5LENGTH = 32;
-const int Verifier::PARTSIZE = 512 * 1024;
+const int Verifier::PARTSIZE = 500 * 1024;
 
 static const QString s_md5 = QString("md5");
 

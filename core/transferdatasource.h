@@ -87,13 +87,6 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual int countUnfinishedSegments() const;
 
         /**
-         * Removes one segment of the connection with the most unfinished segments
-         * @note this method is useful, if a TransferDataSource does not support multiple-segments
-         * as in that case split would result in many unassigned segments
-         */
-        virtual int takeOneSegment();
-
-        /**
          * If a connection of this TransferDataSource is assigned multiple (continuous) segments, then
          * this method will split them (the unfinished ones) in half, it returns the beginning
          * and the end of the now unassigned segments; (-1, -1) if there are none

@@ -919,7 +919,7 @@ void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::fil
     }
 
     //remove all current mirrors and readd the first unused mirror
-    const QList<KUrl> mirrors = m_sources.keys();//TODO only remove the mirrors of the broken segments?! --> for that m_assignedChunks would need to be saved was well
+    const QList<KUrl> mirrors = m_sources.keys();//FIXME only remove the mirrors of the broken segments?! --> for that m_assignedChunks would need to be saved was well
     foreach (const KUrl &mirror, mirrors)
     {
         removeMirror(mirror);

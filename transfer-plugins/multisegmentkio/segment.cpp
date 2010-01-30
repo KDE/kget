@@ -232,30 +232,6 @@ int Segment::countUnfinishedSegments() const
     return m_endSegment - m_currentSegment;
 }
 
-int Segment::takeOneSegment()
-{
-    if (m_getJob)
-    {
-        m_getJob->suspend();
-    }
-
-    int oneSegment = -1;
-    int free = countUnfinishedSegments();
-    if (free > 1)
-    {
-        oneSegment = m_endSegment;
-        --m_endSegment;
-    }
-
-    kDebug(5001) << "Taken segment" << oneSegment;
-
-    if (m_getJob)
-    {
-        m_getJob->resume();
-    }
-    return oneSegment;
-}
-
 QPair<int, int> Segment::split()
 {
     if (m_getJob)

@@ -43,11 +43,6 @@ int TransferDataSource::countUnfinishedSegments() const
     return 0;
 }
 
-int TransferDataSource::takeOneSegment()
-{
-    return -1;
-}
-
 QPair<int, int> TransferDataSource::split()
 {
     return QPair<int, int>(-1, -1);
