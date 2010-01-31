@@ -1,23 +1,20 @@
 include(MacroOptionalDependPackage)
 
-MACRO_OPTIONAL_DEPEND_PACKAGE(WebKitPart "webkitpart")
-if(DEPEND_PACKAGE_WebKitPart)
-        macro_optional_find_package(WebKitPart QUIET)
-else(DEPEND_PACKAGE_WebKitPart)
-        set(WEBKITPART_FOUND FALSE)
-endif(DEPEND_PACKAGE_WebKitPart)
+MACRO_OPTIONAL_DEPEND_PACKAGE(KWebKitPart "kwebkitpart")
+if(DEPEND_PACKAGE_KWebKitPart)
+        macro_optional_find_package(KWebKitPart QUIET)
+else(DEPEND_PACKAGE_KWebKitPart)
+        set(KWEBKITPART_FOUND FALSE)
+endif(DEPEND_PACKAGE_KWebKitPart)
 
-if(WEBKITPART_FOUND)
-    add_definitions(-DHAVE_WEBKITPART)
-    include_directories(${WEBKITPART_INCLUDE_DIR})
-    set(WEBKITPART_FOUND true)
-endif(WEBKITPART_FOUND)
+if(KWEBKITPART_FOUND)
+    add_definitions(-DHAVE_KWEBKITPART)
+    include_directories(${KWEBKITPART_INCLUDE_DIR})
+    set(KWEBKITPART_FOUND true)
+endif(KWEBKITPART_FOUND)
 
 
-macro_log_feature(WEBKITPART_FOUND "WebKitPart" "WebKitPart libraries and header files" "https://svn.kde.org/home/kde/trunk/playground/libs/webkitkde" FALSE "" "WebKitPart is necessary to compile KGet support for WebKitPart.")
-
-configure_file(config-kgetplugins.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kgetplugins.h )
-
+macro_log_feature(KWEBKITPART_FOUND "KWebKitPart" "KWebKitPart libraries and header files" "https://svn.kde.org/home/kde/trunk/extragear/base/kwebkitpart" FALSE "" "KWebKitPart is necessary to compile KGet support for KWebKitPart.")
 
 set(khtml_kget_SRCS
    kget_plug_in.cpp
@@ -31,9 +28,9 @@ kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})
 
 target_link_libraries(khtml_kget ${KDE4_KHTML_LIBS})
 
-if( WEBKITPART_FOUND)
-    target_link_libraries(khtml_kget ${WEBKITPART_LIBRARIES} ${KDE4_KDEUI_LIBRARY} ${QT_QTWEBKIT_LIBRARY})
-endif(WEBKITPART_FOUND)
+if(KWEBKITPART_FOUND)
+    target_link_libraries(khtml_kget ${KWEBKITPART_LIBRARIES} ${KDE4_KDEUI_LIBRARY} ${QT_QTWEBKIT_LIBRARY})
+endif(KWEBKITPART_FOUND)
 
 install(TARGETS khtml_kget DESTINATION ${PLUGIN_INSTALL_DIR})
 
@@ -41,6 +38,6 @@ install(TARGETS khtml_kget DESTINATION ${PLUGIN_INSTALL_DIR})
 
 install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/khtml/kpartplugins)
 
-if (WEBKITPART_FOUND)
+if (KWEBKITPART_FOUND)
     install(FILES kget_plug_in.rc DESTINATION ${DATA_INSTALL_DIR}/kwebkitpart/kpartplugins)
-endif (WEBKITPART_FOUND)
+endif (KWEBKITPART_FOUND)
