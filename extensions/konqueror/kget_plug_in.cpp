@@ -244,7 +244,7 @@ KGetPluginFactory::~KGetPluginFactory()
 
 extern "C"
 {
-    KDE_EXPORT void* init_khtml_kget()
+    KDE_EXPORT void* init_kget_browser_integration()
     {
         KGlobal::locale()->insertCatalog("kget");
         return new KGetPluginFactory;

@@ -16,23 +16,23 @@ endif(KWEBKITPART_FOUND)
 
 macro_log_feature(KWEBKITPART_FOUND "KWebKitPart" "KWebKitPart libraries and header files" "https://svn.kde.org/home/kde/trunk/extragear/base/kwebkitpart" FALSE "" "KWebKitPart is necessary to compile KGet support for KWebKitPart.")
 
-set(khtml_kget_SRCS
+set(kget_browser_integration_SRCS
    kget_plug_in.cpp
    links.cpp
 )
 
-QT4_ADD_DBUS_INTERFACE(khtml_kget_SRCS ../../dbus/org.kde.kget.main.xml kget_interface )
+QT4_ADD_DBUS_INTERFACE(kget_browser_integration_SRCS ../../dbus/org.kde.kget.main.xml kget_interface )
 
 
-kde4_add_plugin(khtml_kget ${khtml_kget_SRCS})
+kde4_add_plugin(kget_browser_integration ${kget_browser_integration_SRCS})
 
-target_link_libraries(khtml_kget ${KDE4_KHTML_LIBS})
+target_link_libraries(kget_browser_integration ${KDE4_KHTML_LIBS})
 
 if(KWEBKITPART_FOUND)
-    target_link_libraries(khtml_kget ${KWEBKITPART_LIBRARIES} ${KDE4_KDEUI_LIBRARY} ${QT_QTWEBKIT_LIBRARY})
+    target_link_libraries(kget_browser_integration ${KWEBKITPART_LIBRARIES} ${KDE4_KDEUI_LIBRARY} ${QT_QTWEBKIT_LIBRARY})
 endif(KWEBKITPART_FOUND)
 
-install(TARGETS khtml_kget DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kget_browser_integration DESTINATION ${PLUGIN_INSTALL_DIR})
 
 ########### install files ###############
 
