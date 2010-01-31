@@ -14,7 +14,7 @@
 
 #include "links.h"
 #include "kget_interface.h"
-#include <config-kgetplugins.h>
+
 #include <KActionCollection>
 #include <KToggleAction>
 #include <kactionmenu.h>
@@ -31,7 +31,7 @@
 #include <dom/html_document.h>
 #include <kparts/partmanager.h>
 
-#ifdef HAVE_WEBKITPART
+#ifdef HAVE_KWEBKITPART
 #include <KWebKitPart>
 #include <QWebView>
 #include <QWebFrame>
@@ -63,8 +63,7 @@ KGet_plug_in::KGet_plug_in( QObject* parent )
     connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
     menu->addAction(showSelectedLinksAction);
 
-    // Only KHTML supported at the moment...
-    if (!qobject_cast<KHTMLPart*>(parent))
+    if (parent && parent->inherits("KWebKitPart")) // not available at the moment
         actionCollection()->action("show_selected_links")->setVisible(false);
 }
 
@@ -80,7 +79,7 @@ void KGet_plug_in::showPopup()
 
     if(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"))
     {
-        OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+	OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
         QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
         if (reply.isValid())
             hasDropTarget = reply.value();
@@ -88,10 +87,11 @@ void KGet_plug_in::showPopup()
 
     m_dropTargetAction->setChecked(hasDropTarget);
 
-    KHTMLPart *part = qobject_cast<KHTMLPart*>(parent());
-    if(part)
+    if ( parent() && parent()->inherits( "KHTMLPart" ) )
     {
-        const QString selectedHtml = part->selectedTextAsHTML();
+        KHTMLPart *htmlPart = static_cast<KHTMLPart*>( parent() );
+
+        const QString selectedHtml = htmlPart->selectedTextAsHTML();
 
         DOM::HTMLDocument document;
         document.open();
@@ -107,13 +107,16 @@ void KGet_plug_in::slotShowDrop()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
         QWidget *parentWidget = 0;
-        KHTMLPart *part = qobject_cast<KHTMLPart*>(parent());
-        if (part)
-            parentWidget = part->widget();
+        if (parent() && parent()->inherits("KHTMLPart"))
+            parentWidget = static_cast<KHTMLPart*>(parent())->widget();
+#ifdef HAVE_KWEBKITPART
+        if (parent() && parent()->inherits("KWebKitPart"))
+            parentWidget = static_cast<KWebKitPart*>(parent())->view();
+#endif
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parentWidget);
     } else {
-        OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-        kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
+	OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+	kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
 
@@ -129,17 +132,16 @@ void KGet_plug_in::slotShowSelectedLinks()
 
 void KGet_plug_in::showLinks( bool selectedOnly )
 {
-    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>(parent());
-
-    if (!htmlPart)
+    if (!parent() || !(parent()->inherits("KHTMLPart") || parent()->inherits("KWebKitPart")))
         return;
 
+    KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>( parent() );
     KParts::Part *activePart = 0L;
     if ( htmlPart && htmlPart->partManager() )
     {
         activePart = htmlPart->partManager()->activePart();
         if ( activePart && activePart->inherits( "KHTMLPart" ) )
-            htmlPart = qobject_cast<KHTMLPart*>( activePart );
+            htmlPart = static_cast<KHTMLPart*>( activePart );
     }
 
     DOM::HTMLDocument doc;
@@ -155,6 +157,15 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     {
         if (htmlPart)
             doc = htmlPart->htmlDocument();
+
+#ifdef HAVE_KWEBKITPART
+        KWebKitPart *part = qobject_cast<KWebKitPart *>(parent());
+        if (part) {
+            doc.open();
+            doc.write(part->view()->page()->currentFrame()->toHtml());
+            doc.close();
+        }
+#endif
     }
 
     if ( doc.isNull() )
