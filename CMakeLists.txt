@@ -106,6 +106,7 @@ set(kgetcore_SRCS
    core/transferhistorystore.cpp
    core/linkimporter.cpp
    dbus/dbustransferwrapper.cpp
+   dbus/dbusverifierwrapper.cpp
    core/filemodel.cpp
    core/verifier.cpp
    core/kiodownload.cpp
@@ -129,7 +130,10 @@ if (HAVE_NEPOMUK)
 endif (HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
+qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
 qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.transfer.xml transfer_interface)
+# qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.verfier.xml verifier_interface)
+
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
@@ -221,6 +225,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
 
     qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.main.xml kget_interface)
     qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.transfer.xml transfer_interface)
+    qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.verifier.xml verifier_interface)
 
     kde4_add_unit_test(kget_test_transfers
         ${kget_test_transfers_SRCS})

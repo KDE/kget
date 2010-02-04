@@ -18,6 +18,8 @@
 ***************************************************************************/
 
 #include "verifier.h"
+#include "dbus/dbusverifierwrapper.h"
+#include "verifieradaptor.h"
 #include "settings.h"
 
 #ifdef HAVE_QGPGME
@@ -173,35 +175,35 @@ void VerificationThread::doBrokenPieces()
     const KIO::filesize_t length = m_length;
     m_mutex.unlock();
 
-    QList<QPair<KIO::fileoffset_t, KIO::filesize_t> > broken;
+    QList<KIO::fileoffset_t> broken;
 
     if (QFile::exists(url.pathOrUrl()))
     {
         QFile file(url.pathOrUrl());
         if (!file.open(QIODevice::ReadOnly))
         {
-            emit brokenPieces(broken);
+            emit brokenPieces(broken, length);
             return;
         }
 
         const KIO::filesize_t fileSize = file.size();
         if (!length || !fileSize)
         {
-            emit brokenPieces(broken);
+            emit brokenPieces(broken, length);
             return;
         }
 
         const QStringList fileChecksums = Verifier::partialChecksums(url, type, length, &m_abort).checksums();
         if (m_abort)
         {
-            emit brokenPieces(broken);
+            emit brokenPieces(broken, length);
             return;
         }
 
         if (fileChecksums.size() != checksums.size())
         {
             kDebug(5001) << "Number of checksums differs!";
-            emit brokenPieces(broken);
+            emit brokenPieces(broken, length);
             return;
         }
 
@@ -211,12 +213,12 @@ void VerificationThread::doBrokenPieces()
             {
                 const int brokenStart = length * i;
                 kDebug(5001) << url << "broken segment" << i << "start" << brokenStart << "length" << length;
-                broken.append(QPair<KIO::fileoffset_t, KIO::filesize_t>(brokenStart, length));
+                broken.append(brokenStart);
             }
         }
     }
 
-    emit brokenPieces(broken);
+    emit brokenPieces(broken, length);
 }
 
 VerificationDelegate::VerificationDelegate(QObject *parent)
@@ -507,19 +509,31 @@ Verifier::Verifier(const KUrl &dest, QObject *parent)
     m_dest(dest),
     m_status(NoResult)
 {
+    static int dBusObjIdx = 0;
+    m_dBusObjectPath = "/KGet/Verifiers/" + QString::number(dBusObjIdx++);
+
+    DBusVerifierWrapper *wrapper = new DBusVerifierWrapper(this);
+    new VerifierAdaptor(wrapper);
+    QDBusConnection::sessionBus().registerObject(m_dBusObjectPath, wrapper);
+
     qRegisterMetaType<KIO::filesize_t>("KIO::filesize_t");
     qRegisterMetaType<KIO::fileoffset_t>("KIO::fileoffset_t");
-    qRegisterMetaType<QList<QPair<KIO::fileoffset_t,KIO::filesize_t> > >("QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >");
+    qRegisterMetaType<QList<KIO::fileoffset_t> >("QList<KIO::fileoffset_t>");
 
     m_model = new VerificationModel();
     connect(&m_thread, SIGNAL(verified(QString,bool,KUrl)), this, SLOT(changeStatus(QString,bool)));
-    connect(&m_thread, SIGNAL(brokenPieces(QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >)), this, SIGNAL(brokenPieces(QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >)));
+    connect(&m_thread, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)));
 }
 
 Verifier::~Verifier()
 {
     delete m_model;
     qDeleteAll(m_partialSums.begin(), m_partialSums.end());
+}
+
+QString Verifier::dBusObjectPath() const
+{
+    return m_dBusObjectPath;
 }
 
 VerificationModel *Verifier::model()

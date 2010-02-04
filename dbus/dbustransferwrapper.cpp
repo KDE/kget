@@ -10,6 +10,7 @@
 */
 #include "dbustransferwrapper.h"
 #include "transfergrouphandler.h"
+#include "verifier.h"
 
 DBusTransferWrapper::DBusTransferWrapper(TransferHandler *parent)
   : QObject(parent),
@@ -66,6 +67,11 @@ QString DBusTransferWrapper::source() const
 QString DBusTransferWrapper::dest() const
 {
     return m_transfer->dest().pathOrUrl();
+}
+
+bool DBusTransferWrapper::setDirectory(const QString &directory)
+{
+    return m_transfer->setDirectory(KUrl(directory));
 }
 
 qulonglong DBusTransferWrapper::totalSize() const
@@ -143,6 +149,22 @@ void DBusTransferWrapper::slotTransferChanged(TransferHandler *transfer, Transfe
     Q_UNUSED(transfer)
 
     emit transferChangedEvent(changeFlags);
+}
+
+QString DBusTransferWrapper::verifier(const QString &file)
+{
+    Verifier *verifier = m_transfer->verifier(KUrl(file));
+    if (verifier) {
+        return verifier->dBusObjectPath();
+    }
+
+    return QString();
+}
+
+bool DBusTransferWrapper::repair(const QString &file)
+{
+    return m_transfer->repair(KUrl(file));
+
 }
 
 #include "dbustransferwrapper.moc"

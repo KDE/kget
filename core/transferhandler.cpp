@@ -32,9 +32,7 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
     m_changesFlags(Transfer::Tc_None)
 {
     static int dBusObjIdx = 0;
-    dBusObjIdx++;
-
-    m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx);
+    m_dBusObjectPath = "/KGet/Transfers/" + QString::number(dBusObjIdx++);
 
     m_kjobAdapter = new KGetKJobAdapter(this, this);
 

@@ -1,0 +1,31 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.kget.verifier">
+    <method name="destination">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="addChecksum">
+      <arg name="type" type="s" direction="in"/>
+      <arg name="hash" type="s" direction="in"/>
+    </method>
+    <method name="isVerifyable">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="verify">
+    </method>
+    <method name="brokenPieces">
+    </method>
+    <method name="addPartialChecksums">
+      <arg name="type" type="s" direction="in"/>
+      <arg name="size" type="t" direction="in"/>
+      <arg name="checksums" type="as" direction="in"/>
+    </method>
+    <signal name="verified">
+      <arg name="verified" type="b" direction="out"/>
+    </signal>
+    <signal name="brokenPieces">
+      <arg name="offsets" type="as" direction="out"/>
+      <arg name="length" type="t" direction="out"/>
+    </signal>
+  </interface>
+</node>

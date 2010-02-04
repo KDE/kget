@@ -72,8 +72,20 @@
     <method name="statusPixmap">
       <arg type="v" direction="out"/>
     </method>
+    <method name="verifier">
+      <arg type="s" direction="out"/>
+      <arg name="file" type="s" direction="in"/>
+    </method>
+    <method name="repair">
+      <arg type="b" direction="out"/>
+      <arg name="file" type="s" direction="in"/>
+    </method>
+    <method name="setDirectory">
+      <arg type="b" direction="out"/>
+      <arg name="newDirectory" type="s" direction="in"/>
+    </method>
     <signal name="transferChangedEvent">
-      <arg type="i" direction="out"/>
+      <arg name="changeFlags" type="i" direction="out"/>
     </signal>
     <signal name="capabilitiesChanged">
     </signal>

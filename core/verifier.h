@@ -80,7 +80,7 @@ class VerificationThread : public QThread
 
         void verified(const QString &type, bool verified, const KUrl &file);
 
-        void brokenPieces(QList<QPair<KIO::fileoffset_t, KIO::filesize_t> >);
+        void brokenPieces(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
     protected:
         void run();
@@ -213,6 +213,11 @@ class KGET_EXPORT Verifier : public QObject
             Strongest
         };
 
+        /**
+         * @returns the object path that will be shown in the DBUS interface
+         */
+        QString dBusObjectPath() const;
+
         KUrl destination() const {return m_dest;}
         void setDestination(const KUrl &destination) {m_dest = destination;}//TODO handle the case when m_thread is working, while the file gets moved
 
@@ -299,11 +304,6 @@ class KGET_EXPORT Verifier : public QObject
         KIO::filesize_t partialChunkLength() const;
 
         /**
-         * Returns the "best" (strongest) stored checksum-type with the checksum
-         */
-        QPair<QString, QString> bestChecksum() const;
-
-        /**
          * Returns a checksum and a type
          * @param strength the strength the checksum-type should have;
          * weak is md5 > md4 (md5 preferred), strong is sha1 > ripmed160 >
@@ -338,9 +338,9 @@ class KGET_EXPORT Verifier : public QObject
         void verified(bool verified);
 
         /**
-         * Emitted when brokenPiecesThreaded finishes, the list can be empty
+         * Emitted when brokenPiecesThreaded finishes, the list can be empty, while length will be always set
          */
-        void brokenPieces(QList<QPair<KIO::fileoffset_t, KIO::filesize_t> >);
+       void brokenPieces(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
     private slots:
         void changeStatus(const QString &type, bool verified);
@@ -350,6 +350,7 @@ class KGET_EXPORT Verifier : public QObject
         QStringList orderChecksumTypes(ChecksumStrength strenght) const;
 
     private:
+        QString m_dBusObjectPath;
         VerificationModel *m_model;
         KUrl m_dest;
         VerificationStatus m_status;

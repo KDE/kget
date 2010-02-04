@@ -6,7 +6,7 @@
       <arg type="b" direction="out"/>
     </method>
     <method name="setDropTargetVisible">
-      <arg type="b" direction="in"/>
+      <arg name="visible" type="b" direction="in"/>
     </method>
     <method name="offlineMode">
       <arg type="b" direction="out"/>
@@ -15,17 +15,17 @@
       <arg type="b" direction="in"/>
     </method>
     <method name="addTransfer">
-      <arg type="s" direction="in"/>
-      <arg type="s" direction="in"/>
-      <arg type="b" direction="in"/>
+      <arg name="src" type="s" direction="in"/>
+      <arg name="destDir" type="s" direction="in"/>
+      <arg name="start" type="b" direction="in"/>
       <arg type="as" direction="out"/>
     </method>
     <method name="delTransfer">
-      <arg type="s" direction="in"/>
+      <arg name="dbusObjectPath" type="s" direction="in"/>
       <arg type="b" direction="out"/>
     </method>
     <method name="showNewTransferDialog">
-      <arg type="as" direction="in"/>
+      <arg name="urls" type="as" direction="in"/>
     </method>
     <method name="transfers">
        <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap"/> 
@@ -38,16 +38,16 @@
         <arg name="links" type="as" direction="in" />
     </method>
     <method name="isSupported">
-      <arg name="out" type="b" direction="out"/>
+      <arg type="b" direction="out"/>
       <arg name="url" type="s" direction="in"/>
     </method>
     <signal name="transferAdded">
-        <arg type="s" direction="out"/>
-        <arg type="s" direction="out"/>
+        <arg name="url" type="s" direction="out"/>
+        <arg name="dBusObjectPath" type="s" direction="out"/>
     </signal>
     <signal name="transferRemoved">
-        <arg type="s" direction="out"/>
-        <arg type="s" direction="out"/>
+        <arg name="url" type="s" direction="out"/>
+        <arg name="dBusObjectPath" type="s" direction="out"/>
     </signal>
   </interface>
 </node>

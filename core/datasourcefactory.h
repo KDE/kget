@@ -215,7 +215,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void startMove();
         void newDestResult(KJob *job);
 
-        void slotRepair(const QList<QPair<KIO::fileoffset_t,KIO::filesize_t> > &brokenPieces);
+        void slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
     private:
         /**

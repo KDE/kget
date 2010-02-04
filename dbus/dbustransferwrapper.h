@@ -48,6 +48,13 @@ class DBusTransferWrapper : public QObject
         QString dest() const;
 
         /**
+         * Move the download to the new destination
+         * @param newDirectory is a directory where the download should be stored
+         * @returns true if newDestination can be used
+         */
+        bool setDirectory(const QString &directory);
+
+        /**
          * @return the total size of the transfer in bytes
          */
         qulonglong totalSize() const;
@@ -121,6 +128,20 @@ class DBusTransferWrapper : public QObject
          * @return a pixmap associated with the current transfer status
          */
         QDBusVariant statusPixmap() const;
+
+        /**
+         * Returns the dBusObjectPath to the verifier
+         * @param file for wich to return the verifier
+         */
+        QString verifier(const QString &file);
+
+        /**
+         * Tries to repair file
+         * @param file the file of a download that should be repaired,
+         * if not defined all files of a download are going to be repaird
+         * @return true if a repair started, false if it was not nescessary
+         */
+        bool repair(const QString &file);
 
     signals:
         /**

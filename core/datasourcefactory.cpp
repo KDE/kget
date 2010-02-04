@@ -897,12 +897,17 @@ void DataSourceFactory::repair()
     }
 
     m_finished = false;
+
+    connect(verifier(), SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SLOT(slotRepair(QList<KIO::fileoffset_t>,KIO::filesize_t)));
+
     verifier()->brokenPieces();
 }
 
-void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::filesize_t> > &brokenPieces)
+void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length)
 {
-    if (brokenPieces.isEmpty())
+    disconnect(verifier(), SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SLOT(slotRepair(QList<KIO::fileoffset_t>,KIO::filesize_t)));
+
+    if (offsets.isEmpty())
     {
         kDebug(5001) << "Redownload everything";
         m_startedChunks->clear();
@@ -911,16 +916,12 @@ void DataSourceFactory::slotRepair(const QList<QPair<KIO::fileoffset_t, KIO::fil
     else
     {
         kDebug(5001) << "Redownload broken pieces";
-        QList<QPair<KIO::fileoffset_t, KIO::filesize_t> >::const_iterator it;
-        QList<QPair<KIO::fileoffset_t, KIO::filesize_t> >::const_iterator itEnd = brokenPieces.constEnd();
-        for (it = brokenPieces.constBegin(); it != itEnd; ++it)
-        {
-            const quint32 startSegment = (*it).first / m_segSize;
-            const quint32 endSegment = std::ceil((*it).second / static_cast<double>(m_segSize)) - 1 + startSegment;
-            for (quint32 i = startSegment; i <= endSegment; ++i)
-            {
-                m_startedChunks->set(i, false);
-                m_finishedChunks->set(i, false);
+        for (int i = 0; i < offsets.count(); ++i) {
+            const quint32 startSegment = offsets[i] / m_segSize;
+            const quint32 endSegment = std::ceil(length / static_cast<double>(m_segSize)) - 1 + startSegment;
+            for (quint32 k = startSegment; k <= endSegment; ++k) {
+                m_startedChunks->set(k, false);
+                m_finishedChunks->set(k, false);
             }
         }
     }
@@ -1262,7 +1263,6 @@ Verifier *DataSourceFactory::verifier()
 {
     if (!m_verifier) {
         m_verifier = new Verifier(m_dest, this);
-        connect(m_verifier, SIGNAL(brokenPieces(QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >)), this, SLOT(slotRepair(QList<QPair<KIO::fileoffset_t,KIO::filesize_t> >)));
     }
 
     return m_verifier;
