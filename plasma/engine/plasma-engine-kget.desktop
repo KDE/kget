@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=KGet Data Engine
 Name[ar]=KGet البيانات المحرك
+Name[ast]=Motor de KGet Data
 Name[ca]=Motor de dades del KGet
+Name[ca@valencia]=Motor de dades del KGet
 Name[cs]=Datový nástroj KGet
 Name[da]=KGet datamotor
 Name[de]=KGet-Datenmodul
@@ -40,6 +42,8 @@ Name[ru]=Движок данных KGet
 Name[sk]=Dátový nástroj KGet
 Name[sl]=Podatkovni pogon KGet
 Name[sr]=датомотор К‑гета
+Name[sr@ijekavian]=датомотор К‑гета
+Name[sr@ijekavianlatin]=datomotor KGeta
 Name[sr@latin]=datomotor KGeta
 Name[sv]=Datagränssnitt för Kget
 Name[tr]=KGet Veri Motoru
