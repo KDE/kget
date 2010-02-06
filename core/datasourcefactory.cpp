@@ -1156,8 +1156,13 @@ void DataSourceFactory::save(const QDomElement &element)
     //set the finished chunks
     if (m_finishedChunks)
     {
+        const KIO::fileoffset_t rest = m_size % m_segSize;
+        //the lastSegsize is rest, but only if there is a rest and it is the last segment of the download
+        const KIO::fileoffset_t lastSegSize = (rest ? rest : m_segSize);
+
         //not m_downloadedSize is stored, but the bytes that do not have to be redownloaded
-        factory.setAttribute("processedSize", m_segSize * m_finishedChunks->numOnBits());
+        const bool lastOn = m_finishedChunks->get(m_finishedChunks->getNumBits() - 1);
+        factory.setAttribute("processedSize", m_segSize * (m_finishedChunks->numOnBits() - lastOn) + lastOn * lastSegSize);
 
         QDomElement chunks = doc.createElement("chunks");
         chunks.setAttribute("numBits", m_finishedChunks->getNumBits());
