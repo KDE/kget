@@ -128,7 +128,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     QList<KGetMetalink::File>::const_iterator it;
     QList<KGetMetalink::File>::const_iterator itEnd = m_metalink.files.files.constEnd();
     m_totalSize = 0;
-    KIO::fileoffset_t segSize = 512 * 1024;//TODO use config here!
+    KIO::fileoffset_t segSize = 500 * 1024;//TODO use config here!
     const KUrl tempDest = KUrl(m_dest.directory());
     KUrl dest;
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
