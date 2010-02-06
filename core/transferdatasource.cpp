@@ -40,6 +40,10 @@ void TransferDataSource::setCapabilities(Transfer::Capabilities capabilities)
     emit capabilitiesChanged();
 }
 
+void TransferDataSource::findFileSize(KIO::fileoffset_t segmentSize)
+{
+    Q_UNUSED(segmentSize);
+}
 
 QPair<int, int> TransferDataSource::removeConnection()
 {

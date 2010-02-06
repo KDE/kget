@@ -46,10 +46,22 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void stop() = 0;
 
         /**
+         * Tries to find the filesize if this capability is supported,
+         * if successfull it emits foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)
+         * and assigns all segements to itself
+         * if not succesfull it will try to download the file nevertheless
+         * @note if stop is called and no size is found yet then this is aborted, i.e. needs to be
+         * called again if start is later called
+         * @param segmentSize the segments should have
+         */
+        virtual void findFileSize(KIO::fileoffset_t segmentSize);
+
+        /**
          * Adds multiple continuous segments that should be downloaded by this TransferDataSource
          * @param segmentSize first is always the general segmentSize, second the segmentSize
          * of the last segment in the range. If just one (the last) segment was assigned, then
          * first would not equal second, this is to ensure that first can be used to calculate the offset
+         * TransferDataSources have to handle all that internally.
          * @param segmentRange first the beginning, second the end
          */
         virtual void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) = 0;
@@ -127,9 +139,26 @@ class KGET_EXPORT TransferDataSource : public QObject
 
     signals:
         /**
+         * Emitted after findFileSize is called successfully
+         * @param source that foudn the filesize
+         * @param fileSize that was found
+         * @param segmentRange that was calculated based on the segmentSize and that was assigned to
+         * source automatically
+         */
+        void foundFileSize(TransferDataSource *source, KIO::filesize_t fileSize, const QPair<int, int> &segmentRange);
+
+        /**
          * Emitted when the capabilities of the TransferDataSource change
          */
         void capabilitiesChanged();
+
+        /**
+         * Emitted when the TransferDataSource finished the download on its own, e.g. when findFileSize
+         * is being called but no fileSize is found and instead the download finishes
+         * @param source the source that emmited this signal
+         * @param fileSize the fileSize of the finished file (calculated by the downloaded bytes)
+         */
+        void finishedDownload(TransferDataSource *source, KIO::filesize_t fileSize);
 
         /**
          * Returns data in the forms of chucks

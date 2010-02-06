@@ -19,39 +19,20 @@ MultiSegKioDataSource::MultiSegKioDataSource(const KUrl &srcUrl, QObject *parent
   : TransferDataSource(srcUrl, parent),
     m_size(0),
     m_canResume(false),
-    m_getInitJob(0),
-    m_hasInitJob(false),
     m_started(false)
 {
-    kDebug(5001);
+    kDebug(5001) << "Create MultiSegKioDataSource for" << m_sourceUrl << this;
+    setCapabilities(capabilities() | Transfer::Cap_FindFilesize);
 }
 
 MultiSegKioDataSource::~MultiSegKioDataSource()
 {
-    kDebug(5001);
-
-    killInitJob();
+    kDebug(5001) << this;
 }
 
 void MultiSegKioDataSource::start()
 {
-    kDebug(5001);
-
-    if (!m_hasInitJob && !m_getInitJob)
-    {
-        m_hasInitJob = true;
-        //check what size this server reports and if it is resumeable, so we do not
-        //have to do that for every Segment
-        m_getInitJob = KIO::get(m_sourceUrl, KIO::Reload, KIO::HideProgressInfo);
-        m_getInitJob->suspend();
-        m_getInitJob->addMetaData("errorPage", "false");
-        m_getInitJob->addMetaData("AllowCompressedPage", "false");
-        m_getInitJob->addMetaData("resume", KIO::number(1) );
-        connect(m_getInitJob, SIGNAL(canResume(KIO::Job *, KIO::filesize_t)), SLOT(slotCanResume(KIO::Job *, KIO::filesize_t)));
-        connect(m_getInitJob, SIGNAL(data(KIO::Job *, const QByteArray&)), this, SLOT(slotInitData(KIO::Job *, const QByteArray&)));
-        connect(m_getInitJob, SIGNAL(totalSize(KJob *, qulonglong)), this, SLOT(slotTotalSize(KJob*, qulonglong)));
-        connect(m_getInitJob, SIGNAL(result(KJob *)), this, SLOT(slotInitResult(KJob *)));
-    }
+    kDebug(5001) << this;
 
     m_started = true;
     foreach (Segment *segment, m_segments)
@@ -67,7 +48,13 @@ void MultiSegKioDataSource::stop()
     m_started = false;
     foreach (Segment *segment, m_segments)
     {
-        segment->stopTransfer();
+        if (segment->findingFileSize()) {
+            kDebug(5001) << "Removing findingFileSize segment" << this;
+            m_segments.removeAll(segment);
+            delete segment;
+        } else {
+            segment->stopTransfer();
+        }
     }
 }
 
@@ -87,14 +74,24 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     Segment *segment = new Segment(m_sourceUrl, segmentSize, segmentRange, this);
     m_segments.append(segment);
 
+    connect(segment, SIGNAL(canResume()), this, SLOT(slotCanResume()));
+    connect(segment, SIGNAL(totalSize(KIO::filesize_t,QPair<int,int>)), this, SLOT(slotTotalSize(KIO::filesize_t,QPair<int,int>)));
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
     connect(segment, SIGNAL(finishedSegment(Segment*, int, bool)), this, SLOT(slotFinishedSegment(Segment*, int, bool)));
     connect(segment, SIGNAL(brokenSegments(Segment*,QPair<int,int>)), this, SLOT(slotBrokenSegments(Segment*,QPair<int,int>)));
     connect(segment, SIGNAL(error(Segment*,int)), SLOT(slotError(Segment*,int)));
+    connect(segment, SIGNAL(finishedDownload(KIO::filesize_t)), this, SLOT(slotFinishedDownload(KIO::filesize_t)));
 
     if (m_started) {
         segment->startTransfer();
     }
+}
+
+void MultiSegKioDataSource::findFileSize(KIO::fileoffset_t segmentSize)
+{
+    addSegments(qMakePair(segmentSize, segmentSize), qMakePair(-1, -1));
+    Segment *segment = m_segments.last();
+    segment->startTransfer();
 }
 
 void MultiSegKioDataSource::slotSpeed(ulong downloadSpeed)
@@ -127,75 +124,40 @@ void MultiSegKioDataSource::setSupposedSize(KIO::filesize_t supposedSize)
     m_supposedSize = supposedSize;
 
     //check if the size is correct
-    slotTotalSize(0, m_size);
+    slotTotalSize(m_size);
 }
 
-void MultiSegKioDataSource::slotTotalSize(KJob *job, qulonglong size)
+void MultiSegKioDataSource::slotTotalSize(KIO::filesize_t size, const QPair<int, int> &range)
 {
-    Q_UNUSED(job)
-
     kDebug(5001) << "Size found for" << m_sourceUrl << size << "bytes";
 
     m_size = size;
 
-    if (m_canResume)
-    {
-        killInitJob();
+    //findFileSize was called
+    if ((range.first != -1) && (range.second != -1)) {
+        emit foundFileSize(this, size, range);
     }
 
     //the filesize is not what it should be, maybe using a wrong mirror
     if (m_size && m_supposedSize && (m_size != m_supposedSize))
     {
-        kDebug(5001) << "Size does not match for" << m_sourceUrl;
+        kDebug(5001) << "Size does not match for" << m_sourceUrl << this;
         emit broken(this, WrongDownloadSize);
     }
 }
 
-void MultiSegKioDataSource::slotInitData(KIO::Job *job, const QByteArray &data)
+void MultiSegKioDataSource::slotCanResume()
 {
-    Q_UNUSED(job)
-    static KIO::filesize_t downloaded = 0;
-    downloaded += static_cast<KIO::filesize_t>(data.size());
-    if ((downloaded > 100 * 1024))
-    {
-        killInitJob();
-    }
-}
+    kDebug(5001) << this;
 
-void MultiSegKioDataSource::slotCanResume(KIO::Job *job, KIO::filesize_t offset)
-{
-    Q_UNUSED(job)
-    Q_UNUSED(offset)
-
-    kDebug(5001);
-
-    m_canResume = true;
-    if (m_size)
-    {
-       killInitJob();
-    }
-
-    setCapabilities(capabilities() | Transfer::Cap_Resuming);
-}
-
-void MultiSegKioDataSource::slotInitResult(KJob *job)
-{
-    kDebug(5001) << "slotInitResult  (" << job->error() << ")";
-    m_getInitJob = 0;
-}
-
-void MultiSegKioDataSource::killInitJob()
-{
-    if (m_getInitJob)
-    {
-        m_getInitJob->kill(KJob::Quietly);
-        m_getInitJob = 0;
+    if (!m_canResume) {
+        m_canResume = true;
+        setCapabilities(capabilities() | Transfer::Cap_Resuming);
     }
 }
 
 int MultiSegKioDataSource::currentSegments() const
 {
-    kDebug();
     return m_segments.count();
 }
 
@@ -252,13 +214,22 @@ QPair<int, int> MultiSegKioDataSource::removeConnection()
     return unassigned;
 }
 
+bool MultiSegKioDataSource::tryMerge(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
+{
+    foreach (Segment *segment, m_segments) {
+        if (segment->merge(segmentSize, segmentRange)) {
+            return true;
+        }
+    }
+
+    return false;
+}
 
 void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
 {
-    Q_UNUSED(KIOError)
-
     kDebug(5001) << "Error" << KIOError << "segment" << segment;
 
+    const QPair<KIO::fileoffset_t, KIO::fileoffset_t> size = segment->segmentSize();
     const QPair<int, int> range = segment->assignedSegments();
     m_segments.removeAll(segment);
     delete segment;
@@ -272,9 +243,18 @@ void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
             --m_paralellSegments;
         }
         kDebug(5001) << this << "reducing connections to" << m_paralellSegments << "and freeing range of semgents" << range;
-        emit freeSegments(this, range);
+        if (!tryMerge(size, range)) {
+            emit freeSegments(this, range);
+        }
     }
 }
+
+void MultiSegKioDataSource::slotFinishedDownload(KIO::filesize_t size)
+{
+    stop();
+    emit finishedDownload(this, size);
+}
+
 void MultiSegKioDataSource::slotRestartBrokenSegment()
 {
     kDebug(5001) << this;

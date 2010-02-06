@@ -179,11 +179,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * by start if no file size has been specified
          */
         void findFileSize();
-        /**
-         * Called from KIODownload when trying to find the filesize//TODO remove in 4.5 and combine it with TansferDataSource
-         */
-        void slotKIOProcessedSize(KIO::filesize_t size);
-        void slotKIOError();
+
+        void slotFoundFileSize(TransferDataSource *source, KIO::filesize_t fileSize, const QPair<int,int> &segmentRange);
 
         void assignSegments(TransferDataSource *source);
         /**
@@ -207,8 +204,6 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void slotPercent(KJob *job, ulong percent);
         void open(KIO::Job *job);
         void speedChanged();
-        void sizeFound(KIO::filesize_t size);
-        void finished();
         /**
          * Kills the putjob and starts the moving of files
          */
@@ -216,6 +211,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void newDestResult(KJob *job);
 
         void slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
+
+        void slotFinishedDownload(TransferDataSource *source, KIO::filesize_t size);
 
     private:
         /**
@@ -269,6 +266,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * start() could be recalled
          */
         bool m_startTried;
+        bool m_findFilesizeTried;
 
         bool m_assignTried;
         bool m_movingFile;
@@ -285,7 +283,6 @@ class KGET_EXPORT DataSourceFactory : public QObject
         QList<KUrl> m_unusedUrls;
         QList<int> m_unusedConnections;
         QTimer *m_speedTimer;
-        KioDownload *m_tempDownload;
         Job::Status m_status;
         Job::Status m_statusBeforeMove;
 

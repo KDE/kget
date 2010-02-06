@@ -20,6 +20,7 @@
 
 Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
   : QObject(parent),
+    m_findFilesize((segmentRange.first == -1) && (segmentRange.second == -1)),
     m_status(Stopped),
     m_offset(segmentSize.first * segmentRange.first),
     m_segSize(segmentSize),
@@ -27,7 +28,6 @@ Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset
     m_currentSegment(segmentRange.first),
     m_endSegment(segmentRange.second),
     m_bytesWritten(0),
-    m_totalBytesLeft(m_segSize.first * (m_endSegment - m_currentSegment) + m_segSize.second),
     m_getJob(0),
     m_canResume(true),
     m_url(src)
@@ -35,6 +35,16 @@ Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset
     //last segment
     if (m_endSegment - m_currentSegment == 0) {
         m_currentSegSize = m_segSize.second;
+    }
+
+    if (m_findFilesize) {
+        m_offset = 0;
+        m_currentSegSize = 0;
+        m_currentSegment = 0;
+        m_endSegment = 0;
+        m_totalBytesLeft = 0;
+    } else {
+        m_totalBytesLeft = m_segSize.first * (m_endSegment - m_currentSegment) + m_segSize.second;
     }
 }
 
@@ -45,6 +55,11 @@ Segment::~Segment()
         kDebug(5001) << "Closing transfer ...";
         m_getJob->kill(KJob::Quietly);
     }
+}
+
+bool Segment::findingFileSize() const
+{
+    return m_findFilesize;
 }
 
 bool Segment::createTransfer()
@@ -59,7 +74,7 @@ bool Segment::createTransfer()
     m_getJob->addMetaData( "AllowCompressedPage", "false" );
     if (m_offset)
     {
-        m_canResume = false;
+        m_canResume = false;//FIXME set m_canResume to false by default!!
         m_getJob->addMetaData( "resume", KIO::number(m_offset) );
         connect(m_getJob, SIGNAL(canResume(KIO::Job *, KIO::filesize_t)),
                  SLOT( slotCanResume(KIO::Job *, KIO::filesize_t)));
@@ -70,6 +85,7 @@ bool Segment::createTransfer()
                 m_getJob->addMetaData( "speed-limit", KIO::number(Settings::transferSpeedLimit() * 1024) );
     }
     #endif
+    connect(m_getJob, SIGNAL(totalSize(KJob*, qulonglong)), this, SLOT(slotTotalSize(KJob*, qulonglong)));
     connect( m_getJob, SIGNAL(data(KIO::Job *, const QByteArray&)),
                  SLOT( slotData(KIO::Job *, const QByteArray&)));
     connect( m_getJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
@@ -82,12 +98,37 @@ void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
     Q_UNUSED(offset)
     kDebug(5001);
     m_canResume = true;
+    emit canResume();
 }
 
+void Segment::slotTotalSize(KJob *job, qulonglong size)
+{
+    Q_UNUSED(job)
+
+    if (m_findFilesize) {
+        int numSegments = size / m_segSize.first;
+        KIO::fileoffset_t rest = size % m_segSize.first;
+        if (rest) {
+            ++numSegments;
+            m_segSize.second = rest;
+        }
+
+        m_endSegment = numSegments - 1;
+
+        m_currentSegment = 0;
+        m_currentSegSize = m_segSize.first;
+        m_totalBytesLeft = size;
+
+        emit totalSize(size, qMakePair(m_currentSegment, m_endSegment));
+        m_findFilesize = false;
+    } else {
+        emit totalSize(size, qMakePair(-1, -1));
+    }
+}
 
 bool Segment::startTransfer ()
 {
-    kDebug(5001);
+    kDebug(5001) << m_url;
     if (!m_getJob) {
         createTransfer();
     }
@@ -126,10 +167,15 @@ void Segment::slotResult( KJob *job )
     }
     if ( !m_buffer.isEmpty() )
     {
-        kDebug(5001) << "Looping until write the buffer ...";
-//         while(writeBuffer()) ;
+        if (m_findFilesize && !job->error()) {
+            kDebug(5001) << "Looping until write the buffer ..." << m_url;
+            while(writeBuffer()) ;
+
+            emit finishedDownload(m_bytesWritten);
+            return;
+        }
     }
-    if (!m_totalBytesLeft)
+    if (!m_totalBytesLeft  && !m_findFilesize)
     {
         setStatus(Finished);
         return;
@@ -156,7 +202,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     }
 
     m_buffer.append(_data);
-    if (static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
+    if (!m_findFilesize && static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
     {
         kDebug(5001) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it? is this even needed?
         m_buffer.truncate(m_totalBytesLeft);
@@ -186,11 +232,18 @@ bool Segment::writeBuffer()
 
     if (worked) {
         m_currentSegSize -= m_buffer.size();
-        m_totalBytesLeft -= m_buffer.size();
+        if (!m_findFilesize) {
+            m_totalBytesLeft -= m_buffer.size();
+        }
         m_offset += m_buffer.size();
         m_bytesWritten += m_buffer.size();
         m_buffer.clear();
         kDebug(5001) << "Segment::writeBuffer() updating segment record of job:" << m_getJob << "--" << m_totalBytesLeft << "bytes left";
+    }
+
+    //finding filesize, so no segments defined yet
+    if (m_findFilesize) {
+        return worked;
     }
 
     //check which segments have been finished
@@ -270,6 +323,18 @@ QPair<int, int> Segment::split()
         m_getJob->resume();
     }
     return freed;
+}
+
+bool Segment::merge(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
+{
+    if (m_endSegment + 1 == segmentRange.first) {
+        m_endSegment = segmentRange.second;
+        m_segSize.second = segmentSize.second;
+        m_totalBytesLeft += segmentSize.first * (m_endSegment - segmentRange.first) + m_segSize.second;
+        return true;
+    }
+
+    return false;
 }
 
 #include "segment.moc"

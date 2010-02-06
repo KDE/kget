@@ -617,6 +617,7 @@ void TestTransfers::createTransfer()
 
     foreach (Commands *command, m_commands) {
         QDBusPendingReply<QStringList> reply = kgetInterface.addTransfer(command->source(), "/tmp/downloads/" + KUrl(command->source()).fileName(), false);
+        reply.waitForFinished();
 
         if (reply.value().size()) {
             kDebug(5001) << "TestTransfers::createTransfer -> transfer = " << reply.value();

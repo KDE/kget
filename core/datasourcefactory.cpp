@@ -10,7 +10,6 @@
 */
 #include "datasourcefactory.h"
 #include "bitset.h"
-#include "kiodownload.h"
 #include "settings.h"
 
 #include "core/kget.h"
@@ -53,13 +52,13 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
     m_open(false),
     m_blocked(false),
     m_startTried(false),
+    m_findFilesizeTried(false),
     m_assignTried(false),
     m_movingFile(false),
     m_finished(false),
     m_sizeInitiallyDefined(m_size),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
-    m_tempDownload(0),
     m_status(Job::Stopped),
     m_statusBeforeMove(m_status),
     m_verifier(0),
@@ -85,13 +84,13 @@ DataSourceFactory::DataSourceFactory(QObject *parent)
     m_open(false),
     m_blocked(false),
     m_startTried(false),
+    m_findFilesizeTried(false),
     m_assignTried(false),
     m_movingFile(false),
     m_finished(false),
     m_sizeInitiallyDefined(m_size),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
-    m_tempDownload(0),
     m_status(Job::Stopped),
     m_statusBeforeMove(m_status),
     m_verifier(0),
@@ -154,84 +153,49 @@ void DataSourceFactory::deinit()
 
 void DataSourceFactory::findFileSize()
 {
-    kDebug(5001) << "Find the filesize";
+    kDebug(5001) << "Find the filesize" << this;
     if (!m_size && !m_dest.isEmpty() && !m_sources.isEmpty()) {
-        //FIXME 4.5 move findingFileSize to the TransferDataSources themselves (make it a capability
-        //that they can support); no need for checking the protocol etc. in 4.4 as there is no other TransferDataSource than the one from MultiSegKIO for downloading yet
-        if (!m_tempDownload) {
-            m_tempDownload = new KioDownload(m_sources.begin().value()->sourceUrl(), m_dest, this);
-            connect(m_tempDownload, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotKIOProcessedSize(KIO::filesize_t)));
-            connect(m_tempDownload, SIGNAL(percent(ulong)), this, SIGNAL(percent(ulong)));
-            connect(m_tempDownload, SIGNAL(speed(ulong)), this, SIGNAL(speed(ulong)));
-            connect(m_tempDownload, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(sizeFound(KIO::filesize_t)));
-            connect(m_tempDownload, SIGNAL(finished()), this, SLOT(finished()));
-            connect(m_tempDownload, SIGNAL(error()), this, SLOT(slotKIOError()));
+        foreach (TransferDataSource *source, m_sources) {
+            if (source->capabilities() & Transfer::Cap_FindFilesize) {
+                connect(source, SIGNAL(foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)), this, SLOT(slotFoundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)));
+                connect(source, SIGNAL(finishedDownload(TransferDataSource*,KIO::filesize_t)), this, SLOT(slotFinishedDownload(TransferDataSource*,KIO::filesize_t)));
+
+                m_speedTimer->start();
+                source->findFileSize(m_segSize);
+                changeStatus(Job::Running);
+                slotUpdateCapabilities();
+                return;
+            }
         }
-        m_tempDownload->start();
-        changeStatus(Job::Running);
     }
 }
 
-void DataSourceFactory::slotKIOProcessedSize(KIO::filesize_t size)
+void DataSourceFactory::slotFoundFileSize(TransferDataSource *source, KIO::filesize_t fileSize, const QPair<int, int> &segmentRange)
 {
-    m_downloadedSize = size;
-    emit processedSize(m_downloadedSize);
-}
-void DataSourceFactory::slotKIOError()
-{
-    m_size = 0; //if KIO quits with an error any already gotten size should be ignored
-}
-
-void DataSourceFactory::sizeFound(KIO::filesize_t size)
-{
-    m_size = size;
-    kDebug(5001) << "Size found: " << m_size;
+    m_size = fileSize;
+    kDebug(5001) << source << "found size" << m_size << "and is assigned segments" << segmentRange << this;
     emit totalSize(m_size);
-
-    if (!m_tempDownload->isResumable()) {
-        kDebug(5001) << "Download not resumeable, so do not stop it.";
-        return;
-    }
 
     init();
 
-    //use what the tempDownload has downloaded if it is larger than a segment
-    m_tempDownload->stop();
-    const quint32 segmentsDownloaded = m_tempDownload->processedSize() / m_segSize;
-    if (segmentsDownloaded)
-    {
-        kDebug(5001) << "Segments reused of the tempDownload: " << segmentsDownloaded;
-
-        m_downloadedSize = segmentsDownloaded * m_segSize;
-        for (quint32 i = 0; i < segmentsDownloaded; ++i)
-        {
+    if ((segmentRange.first != -1) && (segmentRange.second != -1)) {
+        for (int i = segmentRange.first; i <= segmentRange.second; ++i) {
             m_startedChunks->set(i, true);
-            m_finishedChunks->set(i, true);
         }
     }
 
-    delete m_tempDownload;
-    m_tempDownload = 0;
-
-    if (m_startTried)
-    {
+    if (m_startTried) {
         start();
     }
 }
 
-void DataSourceFactory::finished()
+void DataSourceFactory::slotFinishedDownload(TransferDataSource *source, KIO::filesize_t size)
 {
-    m_downloadedSize = m_tempDownload->processedSize();
+    Q_UNUSED(source)
+    Q_UNUSED(size)
 
-    delete m_tempDownload;
-    m_tempDownload = 0;
-
-    changeStatus(Job::Finished);
-
-    //set all chunks to true, that is useful for saving
-    init();
-    m_startedChunks->setAll(true);
-    m_finishedChunks->setAll(true);
+    m_speedTimer->stop();
+    m_finished = true;
 }
 
 bool DataSourceFactory::checkLocalFile()
@@ -275,14 +239,24 @@ void DataSourceFactory::start()
         m_startTried = true;
         return;
     }
-    if (!m_size)
-    {
+
+    if (!m_putJob && checkLocalFile()) {
+        m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
+        connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(open(KIO::Job*)));
         m_startTried = true;
-        findFileSize();
         return;
     }
 
     init();
+
+    if (!m_size) {
+        if (!m_findFilesizeTried && m_sources.count()) {
+            m_findFilesizeTried = true;
+            findFileSize();
+        }
+        m_startTried = true;
+        return;
+    }
 
     if (assignNeeded()) {
         if (m_sources.count()) {
@@ -299,25 +273,14 @@ void DataSourceFactory::start()
     if (m_assignTried) {
         m_assignTried = false;
 
-        //TODO maybe remove this later, if loading works without it
-        if (!m_startedChunks->allOn()) {
-            foreach(TransferDataSource *source, m_sources) {
-                assignSegments(source);
-            }
+        foreach(TransferDataSource *source, m_sources) {
+            assignSegments(source);
         }
     }
 
-    if (checkLocalFile())
-    {
-        if (!m_putJob)
-        {
-            QFile::resize(m_dest.pathOrUrl(), m_size);//TODO should we keep that?
-            m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
-            connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(open(KIO::Job*)));
-            m_startTried = true;
-            return;
-        }
+    if (checkLocalFile()) {
         if (m_open) {
+            QFile::resize(m_dest.pathOrUrl(), m_size);//TODO should we keep that?
             m_speedTimer->start();
 
             foreach (TransferDataSource *source, m_sources) {
@@ -328,12 +291,13 @@ void DataSourceFactory::start()
             changeStatus(Job::Running);
         }
     }
+    slotUpdateCapabilities();
 }
 
 void DataSourceFactory::open(KIO::Job *job)
 {
     Q_UNUSED(job)
-    kDebug(5001) << "File opened.";
+    kDebug(5001) << "File opened" << this;
 
     if (!m_speedTimer)
     {
@@ -352,7 +316,7 @@ void DataSourceFactory::open(KIO::Job *job)
 
 void DataSourceFactory::stop()
 {
-    kDebug(5001) << "Stopping";
+    kDebug(5001) << "Stopping" << this;
     if (m_movingFile || (m_status == Job::Finished))
     {
         return;
@@ -362,13 +326,12 @@ void DataSourceFactory::stop()
     {
         m_speedTimer->stop();
     }
-    if (m_tempDownload) {
-        m_tempDownload->stop();
-    }
+
     foreach (TransferDataSource *source, m_sources) {
         source->stop();
     }
     m_startTried = false;
+    m_findFilesizeTried = false;
     changeStatus(Job::Stopped);
 
     slotUpdateCapabilities();
@@ -452,7 +415,7 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                 TransferDataSource *source = KGet::createTransferDataSource(url, QDomElement(), this);
                 if (source)
                 {
-                    kDebug(5001) << "Successfully created a TransferDataSource for " << url.pathOrUrl();
+                    kDebug(5001) << "Successfully created a TransferDataSource for " << url.pathOrUrl() << this;
 
                     //url might have been an unused Mirror, so remove it in any case
                     const int index = m_unusedUrls.indexOf(url);
@@ -618,7 +581,7 @@ bool DataSourceFactory::assignNeeded() const
 void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<int, int> &segmentRange)
 {
     kDebug(5001) << "Segments" << segmentRange << "broken," << source;
-    if (!source || (segmentRange.first < 0) || (segmentRange.second < 0) || (static_cast<quint32>(segmentRange.second) > m_finishedChunks->getNumBits()))
+    if (!source || !m_startedChunks || !m_finishedChunks || (segmentRange.first < 0) || (segmentRange.second < 0) || (static_cast<quint32>(segmentRange.second) > m_finishedChunks->getNumBits()))
     {
         return;
     }
@@ -819,7 +782,9 @@ void DataSourceFactory::speedChanged()
         m_prevDownloadedSizes.removeFirst();
 
     emit speed(m_speed);
-    emit percent(m_downloadedSize * 100 / m_size);
+    if (m_size) {
+        emit percent(m_downloadedSize * 100 / m_size);
+    }
 }
 
 void DataSourceFactory::killPutJob()

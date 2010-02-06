@@ -72,7 +72,8 @@ class KGET_EXPORT Transfer : public Job
             Cap_MultipleMirrors = 0x00000002,
             Cap_Resuming = 0x00000004,
             Cap_Renaming = 0x00000008,
-            Cap_Moving = 0x00000010
+            Cap_Moving = 0x00000010,
+            Cap_FindFilesize = 0x00000020
         };
         Q_DECLARE_FLAGS(Capabilities, Capability)
 

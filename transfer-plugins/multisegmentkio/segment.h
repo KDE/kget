@@ -58,8 +58,6 @@ class Segment : public QObject
          */
         bool stopTransfer ( );
 
-        void setData(KIO::fileoffset_t offset, KIO::filesize_t bytes);
-
         /**
          * Get the value of m_offset set
          */
@@ -93,6 +91,8 @@ class Segment : public QObject
         QPair<KIO::fileoffset_t, KIO::fileoffset_t> segmentSize() const;
         int countUnfinishedSegments() const;
         QPair<int, int> split();
+        bool merge(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int,int> &segmentRange);
+        bool findingFileSize() const;
 
     public Q_SLOTS:
         /**
@@ -117,16 +117,21 @@ class Segment : public QObject
         void statusChanged( Segment*);
         void speed(ulong speed);
         void connectionProblem();
+        void totalSize(KIO::filesize_t size, QPair<int, int> segmentRange);
+        void finishedDownload(KIO::filesize_t size);
+        void canResume();
 
     private Q_SLOTS:
-        void slotData(KIO::Job *, const QByteArray& data);
-        void slotCanResume(KIO::Job *, KIO::filesize_t);//TODO remove
+        void slotData(KIO::Job *job, const QByteArray &data);
+        void slotCanResume(KIO::Job *job, KIO::filesize_t);//TODO remove
+        void slotTotalSize(KJob *job, qulonglong size);
 
     private:
         bool writeBuffer();
         void setStatus(Status stat, bool doEmit=true);
 
     private:
+        bool m_findFilesize;
         Status m_status;
         KIO::fileoffset_t m_offset;
         QPair<KIO::fileoffset_t, KIO::fileoffset_t> m_segSize;

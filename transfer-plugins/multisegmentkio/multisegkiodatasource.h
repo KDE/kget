@@ -27,6 +27,7 @@ class MultiSegKioDataSource : public TransferDataSource
         void start();
         void stop();
 
+        void findFileSize(KIO::fileoffset_t segmentSize);
         void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
         QPair<int, int> removeConnection();
         QList<QPair<int, int> > assignedSegments() const;
@@ -51,32 +52,20 @@ class MultiSegKioDataSource : public TransferDataSource
         /**the following slots are there to check if the size reported by the mirror
          * Checks if the sizre reported by the mirror is correct
          */
-        void slotTotalSize(KJob *job, qulonglong size);
+        void slotTotalSize(KIO::filesize_t size, const QPair<int, int> &range = qMakePair(-1, -1));
 
-        /**
-         * This method is only there to check if more than 100 kb have
-         * been downloaded to stop it afterwards
-         */
-        void slotInitData(KIO::Job *job, const QByteArray &data);
+        void slotCanResume();
 
-        /**
-         * This method is only there to check if the job supports
-         * resuming
-         */
-        void slotCanResume(KIO::Job *job, KIO::filesize_t offset);
-
-        void slotInitResult(KJob *job);
+        void slotFinishedDownload(KIO::filesize_t size);
 
     private:
         Segment *mostUnfinishedSegments(int *unfinished = 0) const;
-        void killInitJob();
+        bool tryMerge(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int,int> &segmentRange);
 
     private:
         QList<Segment*> m_segments;
         KIO::filesize_t m_size;
         bool m_canResume;
-        KIO::TransferJob *m_getInitJob;
-        bool m_hasInitJob;
         bool m_started;
 };
 
