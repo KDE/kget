@@ -999,13 +999,6 @@ void DataSourceFactory::load(const QDomElement *element)
         {
             m_finishedChunks = new BitSet(data.data(), numBits);
             kDebug(5001) << m_finishedChunks->numOnBits() << " bits on of " << numBits << " bits.";
-            //adapt the downloadedSize to what not has to be downloaded
-            //that might differ to what has been download, e.g. if a chunk did not finish before closing Kget
-            if (m_segSize)
-            {
-                m_downloadedSize = m_segSize * m_finishedChunks->numOnBits();
-                kDebug(5001) << "Modified download size: " << m_downloadedSize;
-            }
         }
 
         //set the finished chunks to started
