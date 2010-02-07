@@ -104,6 +104,7 @@ void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
 void Segment::slotTotalSize(KJob *job, qulonglong size)
 {
     Q_UNUSED(job)
+    kDebug(5001) << "Size found for" << m_url;
 
     if (m_findFilesize) {
         int numSegments = size / m_segSize.first;
@@ -116,7 +117,7 @@ void Segment::slotTotalSize(KJob *job, qulonglong size)
         m_endSegment = numSegments - 1;
 
         m_currentSegment = 0;
-        m_currentSegSize = m_segSize.first;
+        m_currentSegSize = (numSegments == 1 ? m_segSize.second : m_segSize.first);
         m_totalBytesLeft = size;
 
         emit totalSize(size, qMakePair(m_currentSegment, m_endSegment));
@@ -202,7 +203,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     }
 
     m_buffer.append(_data);
-    if (!m_findFilesize && static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
+    if (!m_findFilesize && m_totalBytesLeft && static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
     {
         kDebug(5001) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it? is this even needed?
         m_buffer.truncate(m_totalBytesLeft);
