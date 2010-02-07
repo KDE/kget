@@ -25,6 +25,38 @@
 #include <KIO/Job>
 
 class ChecksumSearch;
+class ChecksumSearchTransferDataSource;
+
+/**
+ * ChecksumSearchController downloads the baseUrl of files one want to get checksums for
+ * e.g. www.example.com/directory/file.zip the baseUrl would be www.example.com/directory/
+ * the result is cached so not downloaded multiple times
+ */
+class ChecksumSearchController : public QObject
+{
+    Q_OBJECT
+    public:
+        ChecksumSearchController(QObject *parent = 0);
+        ~ChecksumSearchController();
+
+        /**
+         * Registers a search, downloads baseUrl if that has not be downloaded and then
+         * calls gotBaseUrl for any ChecksumSearchTransferDataSource that was registered
+         * for this baseUrl
+         * @param search ChecksumSearchTransferDataSource to register to baseUrl
+         * @param baseUrl that is being downloaded
+         */
+        void registerSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl);
+
+    private slots:
+        void slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
+        void slotResult(KJob *job);
+
+    private:
+        QMultiHash<KUrl, ChecksumSearchTransferDataSource*> m_searches;
+        QHash<KUrl, KUrl> m_finished;
+        QHash<KJob*, QPair<KUrl, KUrl> > m_jobs;
+};
 
 class ChecksumSearchTransferDataSource : public TransferDataSource
 {
@@ -38,7 +70,13 @@ class ChecksumSearchTransferDataSource : public TransferDataSource
         void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
 
     private:
+        void gotBaseUrl(const KUrl &urlToFile);
+
+    private:
         KUrl m_src;
+        static ChecksumSearchController s_controller;
+
+    friend class ChecksumSearchController;
 };
 
 #endif
