@@ -219,21 +219,9 @@ void TransferMultiSegKio::slotPercent(ulong percent)
 
 void TransferMultiSegKio::slotProcessedSize(KIO::filesize_t processedSize)
 {
-    m_downloadedSize = processedSize;
-
-    setTransferChange(Tc_DownloadedSize, true);
-}
-
-void TransferMultiSegKio::slotSpeed(unsigned long bytes_per_second)
-{
-    kDebug(5001) << "slotSpeed: " << bytes_per_second;
-
-    m_downloadSpeed = bytes_per_second;
-    setTransferChange(Tc_DownloadSpeed, true);
-
     //only start the verification search _after_ data has come in, that way only connections
     //are requested if there is already a successful one
-    if (bytes_per_second && !m_verificationSearch && MultiSegKioSettings::useSearchVerification()) {
+    if ((processedSize != m_downloadedSize) && !m_verificationSearch && MultiSegKioSettings::useSearchVerification()) {
         m_verificationSearch = true;
         QDomDocument doc;
         QDomElement element = doc.createElement("TransferDataSource");
@@ -246,6 +234,18 @@ void TransferMultiSegKio::slotSpeed(unsigned long bytes_per_second)
             checksumSearch->start();
         }
     }
+
+    m_downloadedSize = processedSize;
+
+    setTransferChange(Tc_DownloadedSize, true);
+}
+
+void TransferMultiSegKio::slotSpeed(unsigned long bytes_per_second)
+{
+    kDebug(5001) << "slotSpeed: " << bytes_per_second;
+
+    m_downloadSpeed = bytes_per_second;
+    setTransferChange(Tc_DownloadSpeed, true);
 }
 
 void TransferMultiSegKio::slotTotalSize(KIO::filesize_t size)
