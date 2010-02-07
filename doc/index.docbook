@@ -219,7 +219,7 @@ Right click on the drop target to see the options.
       </term>
       <listitem>
 	<para>
-	  <action>Check check this check box to show a splashscreen before startup.</action>
+	  <action>Check this check box to show a splashscreen before startup.</action>
 	</para>
       </listitem>
     </varlistentry>
