@@ -33,7 +33,6 @@ ChecksumSearchController ChecksumSearchTransferDataSource::s_controller;
 ChecksumSearchController::ChecksumSearchController(QObject *parent)
   : QObject(parent)
 {
-
 }
 
 ChecksumSearchController::~ChecksumSearchController()
@@ -54,9 +53,15 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             search->gotBaseUrl(m_finished[baseUrl]);
         }
     } else {
+        const bool alreadySearchedFor = m_searches.contains(baseUrl);
         if (!m_searches.contains(baseUrl, search)) {
-            kDebug(5001) << "Creating download for" << baseUrl;
             m_searches.insert(baseUrl, search);
+
+            if (alreadySearchedFor) {
+                kDebug(5001) << "Search already started for" << baseUrl;
+                return;
+            }
+            kDebug(5001) << "Creating download for" << baseUrl;
             static int files = 0;
 
             const KUrl dest = KUrl(KStandardDirs::locateLocal("appdata", "checksumsearch/") + QString::number(files++));
@@ -79,6 +84,18 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
                 m_jobs[job] = qMakePair(baseUrl, dest);
             }
         }
+    }
+}
+
+void ChecksumSearchController::unregisterSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl)
+{
+    if (baseUrl.isEmpty()) {
+        const QList<KUrl> keys = m_searches.keys(search);
+        foreach (const KUrl &key, keys) {
+            m_searches.remove(key, search);
+        }
+    } else {
+        m_searches.remove(baseUrl, search);
     }
 }
 
@@ -139,6 +156,7 @@ ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const KUrl &s
 
 ChecksumSearchTransferDataSource::~ChecksumSearchTransferDataSource()
 {
+    s_controller.unregisterSearch(this, m_sourceUrl.upUrl());
 }
 
 void ChecksumSearchTransferDataSource::start()
