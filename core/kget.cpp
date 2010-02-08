@@ -40,7 +40,6 @@
 #include <KSharedConfig>
 #include <KPluginInfo>
 #include <KComboBox>
-#include <KPassivePopup>
 #include <KConfigDialog>
 
 #include <QTextStream>
@@ -55,7 +54,12 @@
 #endif
 
 #ifdef HAVE_KWORKSPACE
+    #include <QDBusConnection>
+    #include <QDBusInterface>
+    #include <QDBusPendingCall>
     #include <kworkspace/kworkspace.h>
+    #include <solid/control/powermanager.h>
+    #include <solid/powermanagement.h>
 #endif
 
 /**
@@ -1146,15 +1150,16 @@ bool KGet::safeDeleteFile( const KUrl& url )
     return false;
 }
 
-void KGet::showNotification(QWidget *parent, KNotification::StandardEvent eventId, 
-                            const QString &text, const QString &icon)
+KNotification *KGet::showNotification(QWidget *parent, KNotification::StandardEvent eventId,
+                            const QString &text, const QString &icon, const QString &title, const KNotification::NotificationFlags &flags)
 {
-    KNotification::event(eventId, text, KIcon(icon).pixmap(KIconLoader::Small), parent);
+    return KNotification::event(eventId, title, text, KIcon(icon).pixmap(KIconLoader::SizeMedium), parent, flags);
 }
 
 GenericObserver::GenericObserver(QObject *parent)
   : QObject(parent),
-    m_save(0)
+    m_save(0),
+    m_finishAction(0)
 {
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)), 
@@ -1258,7 +1263,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
             transfer->group()->setGroupChange(TransferGroup::Gc_UploadSpeed, true);
         }
 
-        if (transfer->status() == Job::Finished) {
+        if ((transfer->status() == Job::Finished) || (transfer->status() == Job::FinishedKeepAlive)) {
             requestSave();
         } else {
             allFinished = false;
@@ -1270,15 +1275,46 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
 
     if (Settings::afterFinishActionEnabled())
     {
-        if (allFinished)
-            kDebug() << "All finished";
-        if (allFinished && Settings::afterFinishAction() == KGet::Quit)
-            checkAndFinish();
+        if (allFinished && allTransfersFinished()) {
+            kDebug(5001) << "All finished";
+            KNotification *notification = 0;
 
-#ifdef HAVE_KWORKSPACE
-        if (allFinished && Settings::afterFinishAction() == KGet::Shutdown)
-            checkAndShutdown();
-#endif
+            if (!m_finishAction) {
+                m_finishAction = new QTimer(this);
+                m_finishAction->setSingleShot(true);
+                m_finishAction->setInterval(10000);
+                connect(m_finishAction, SIGNAL(timeout()), this, SLOT(slotAfterFinishAction()));
+            }
+
+            switch (Settings::afterFinishAction()) {
+                case KGet::Quit:
+                    notification = KGet::showNotification(KGet::m_mainWindow, KNotification::Warning, i18n("KGet is now closing, as all downloads have completed."), "kget", "KGet", KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                    break;
+            #ifdef HAVE_KWORKSPACE
+                case KGet::Shutdown:
+                    notification = KGet::showNotification(KGet::m_mainWindow, KNotification::Warning, i18n("The computer will now turn off, as all downloads have completed."), "system-shutdown", i18nc("Shutting down computer", "Shutdown"), KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                    break;
+                case KGet::Hibernate:
+                    notification = KGet::showNotification(KGet::m_mainWindow, KNotification::Warning, i18n("The computer will now suspend to disk, as all downloads have completed."), "system-suspend-hibernate", i18nc("Hibernating computer", "Hibernating"), KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                    break;
+                case KGet::Suspend:
+                    notification = KGet::showNotification(KGet::m_mainWindow, KNotification::Warning, i18n("The computer will now suspend to RAM, as all downloads have completed."), "system-suspend", i18nc("Suspending computer", "Suspending"), KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                    break;
+            #endif
+                default:
+                    break;
+            }
+
+            if (notification) {
+                notification->setActions(QStringList() << i18nc("abort the proposed action", "Abort"));
+                connect(notification, SIGNAL(action1Activated()), this, SLOT(slotAbortAfterFinishAction()));
+                connect(m_finishAction, SIGNAL(timeout()), notification, SLOT(close()));
+
+                if (!m_finishAction->isActive()) {
+                    m_finishAction->start();
+                }
+            }
+        }
     }
 }
 
@@ -1307,11 +1343,11 @@ bool GenericObserver::allTransfersFinished()
 
     foreach(TransferGroup *transferGroup, KGet::model()->transferGroups()) {
         foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
-            if(transfer->status() != Job::Finished) {
+            if ((transfer->status() != Job::Finished) && (transfer->status() != Job::FinishedKeepAlive)) {
                 quitFlag = false;
             }
-            if (transfer->status() == Job::Finished &&
-               transfer->startStatus() != Job::Finished)
+            if (((transfer->status() == Job::Finished) && (transfer->startStatus() != Job::Finished)) ||
+                ((transfer->status() == Job::FinishedKeepAlive) && (transfer->startStatus() != Job::FinishedKeepAlive)))
             {
                 allWereFinished = false;
             }
@@ -1331,51 +1367,45 @@ bool GenericObserver::allTransfersFinished()
     return quitFlag;
 }
 
-KPassivePopup* GenericObserver::popupMessage(const QString &title, const QString &message)
+void GenericObserver::slotAfterFinishAction()
 {
-    KPassivePopup *popup;
-    // we have to call diferent message from kpassivePopup
-    // one with parent as QWidget for the mainWindow
-    // and another with parent as QSystemTrayIcon if the parent is a systemTray
-    // so passing the QSystemTrayIcon as QWidget don't work
-    if(Settings::enableSystemTray()) 
-    {
-        popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow);
-    }
-    else 
-    {
-        popup = KPassivePopup::message(5000, title, message, KGet::m_mainWindow);
-    }
+    kDebug(5001);
 
-    return popup;
-}
-
-void GenericObserver::checkAndFinish()
-{
-    kDebug();
-    // check if there is some unfinished transfer in scheduler queues
-    if(allTransfersFinished()) {
-        KPassivePopup *message = popupMessage(i18n("Quit KGet"),
-                                            i18n("KGet is now closing, as all downloads have completed."));
-        QObject::connect(message, SIGNAL(destroyed()), KGet::m_mainWindow, SLOT(slotQuit()));
-    }
-}
-
-#ifdef HAVE_KWORKSPACE
-void GenericObserver::checkAndShutdown()
-{
-    if(allTransfersFinished()) {
-        KPassivePopup *message = popupMessage(i18n("Quit KGet"),
-                                            i18n("The computer will now turn off, as all downloads have completed."));
-        QObject::connect(message, SIGNAL(destroyed()), SLOT(slotShutdown()));
-        QObject::connect(message, SIGNAL(destroyed()),  KGet::m_mainWindow, SLOT(slotQuit()));
+    switch (Settings::afterFinishAction()) {
+        case KGet::Quit:
+            kDebug(5001) << "Quit Kget.";
+            QTimer::singleShot(0, KGet::m_mainWindow, SLOT(slotQuit()));
+            break;
+    #ifdef HAVE_KWORKSPACE
+        case KGet::Shutdown:
+            QTimer::singleShot(0, KGet::m_mainWindow, SLOT(slotQuit()));
+            KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmNo,
+                        KWorkSpace::ShutdownTypeHalt,
+                        KWorkSpace::ShutdownModeForceNow);
+            break;
+        case KGet::Hibernate: {
+            QDBusConnection dbus(QDBusConnection::sessionBus());
+            QDBusInterface iface("org.kde.kded", "/modules/powerdevil", "org.kde.PowerDevil", dbus);
+            iface.asyncCall("suspend", Solid::Control::PowerManager::ToDisk);
+            break;
+        }
+        case KGet::Suspend: {
+            QDBusConnection dbus(QDBusConnection::sessionBus());
+            QDBusInterface iface("org.kde.kded", "/modules/powerdevil", "org.kde.PowerDevil", dbus);
+            iface.asyncCall("suspend", Solid::Control::PowerManager::ToRam);
+            break;
+        }
+    #endif
+        default:
+            break;
     }
 }
 
-void GenericObserver::slotShutdown()
+void GenericObserver::slotAbortAfterFinishAction()
 {
-    KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmNo,
-                                KWorkSpace::ShutdownTypeHalt,
-                                KWorkSpace::ShutdownModeForceNow);
+    kDebug(5001);
+
+    m_finishAction->stop();
 }
-#endif
+
+#include "kget.moc"

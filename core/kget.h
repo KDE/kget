@@ -46,7 +46,6 @@ class KGetPlugin;
 class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
-class KPassivePopup;
 
 
 /**
@@ -67,7 +66,9 @@ class KGET_EXPORT KGet
     public:
         enum AfterFinishAction {
             Quit = 0,
-            Shutdown = 1
+            Shutdown = 1,
+            Hibernate = 2,
+            Suspend = 3
         };
         ~KGet();
 
@@ -279,14 +280,6 @@ class KGET_EXPORT KGet
          */
         static void settingsChanged();
 
-        /**
-         * Returns the kget kuiserver jobs manager
-         *
-         */
-        static void registerKJob(KJob *);
-        static void unregisterKJob(KJob *);
-        static void reloadKJobs();
-
          /**
           * @return a list of the groups assigned to the filename of a transfer
           */
@@ -338,9 +331,11 @@ class KGET_EXPORT KGet
         * @param text Description of the information showed by the notification
         * @param icon Pixmap showed in the notification, by default 'dialog-error'
         */
-        static void showNotification(QWidget *parent, KNotification::StandardEvent eventId, 
-                                     const QString &text,
-                                     const QString &icon = QString("dialog-error"));
+        static KNotification *showNotification(QWidget *parent, KNotification::StandardEvent eventId,
+                                               const QString &text,
+                                               const QString &icon = QString("dialog-error"),
+                                               const QString &title = QString("KGet"),
+                                               const KNotification::NotificationFlags &flags = KNotification::CloseOnTimeout);
 
         static void loadPlugins();
 
@@ -376,7 +371,6 @@ class KGET_EXPORT KGet
         static KUrl getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl);
 
         //Plugin-related functions
-        static void unloadPlugins();
         static KGetPlugin * createPluginFromService( const KService::Ptr &service );
 
 
@@ -426,24 +420,16 @@ class GenericObserver : public QObject
 
     private slots:
         void slotSave();
-#ifdef HAVE_KWORKSPACE
-        void slotShutdown();
-#endif
+        void slotAfterFinishAction();
+        void slotAbortAfterFinishAction();
 
     private:
         bool allTransfersFinished();
-        KPassivePopup* popupMessage(const QString &title, const QString &message);
-
-        void checkAndFinish();
-
-#ifdef HAVE_KWORKSPACE
-        void checkAndShutdown();
-#endif
-        void checkAndUpdateSystemTray();
 
         void requestSave();
 
     private:
         QTimer *m_save;
+        QTimer *m_finishAction;
 };
 #endif
