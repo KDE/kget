@@ -71,6 +71,14 @@ public:
 	  * @param on False means 0, true 1
 	  */
 	void set(quint32 i,bool on);
+
+    /**
+     * Sets the value of a range of bits
+     * @param start of the range
+     * @param end of the range
+     * @param value to set the range to
+     */
+    void setRange(quint32 start, quint32 end, bool value);
 	
 	/// Set all bits on or off
 	void setAll(bool on);
@@ -157,6 +165,17 @@ inline void BitSet::set(quint32 i,bool on)
 		quint8 b = (0x01 << (7 - bit));
 		data[byte] &= (~b);
 	}
+}
+
+inline void BitSet::setRange(quint32 start, quint32 end, bool value)
+{
+    if ((start >= num_bits) || (end >= num_bits)) {
+        return;
+    }
+
+    for (quint32 i = start; i <= end; ++i) {
+        set(i, value);
+    }
 }
 
 #endif

@@ -179,9 +179,7 @@ void DataSourceFactory::slotFoundFileSize(TransferDataSource *source, KIO::files
     init();
 
     if ((segmentRange.first != -1) && (segmentRange.second != -1)) {
-        for (int i = segmentRange.first; i <= segmentRange.second; ++i) {
-            m_startedChunks->set(i, true);
-        }
+        m_startedChunks->setRange(segmentRange.first, segmentRange.second, true);
     }
 
     if (m_startTried) {
@@ -197,7 +195,7 @@ void DataSourceFactory::slotFinishedDownload(TransferDataSource *source, KIO::fi
     m_speedTimer->stop();
     m_finished = true;
 }
-
+//FIXME is this even needed
 bool DataSourceFactory::checkLocalFile()
 {
     QString dest_orig = m_dest.toLocalFile();
@@ -278,18 +276,16 @@ void DataSourceFactory::start()
         }
     }
 
-    if (checkLocalFile()) {
-        if (m_open) {
-            QFile::resize(m_dest.pathOrUrl(), m_size);//TODO should we keep that?
-            m_speedTimer->start();
+    if (m_open) {
+        QFile::resize(m_dest.pathOrUrl(), m_size);//TODO should we keep that?
+        m_speedTimer->start();
 
-            foreach (TransferDataSource *source, m_sources) {
-                source->start();
-            }
-
-            m_startTried = false;
-            changeStatus(Job::Running);
+        foreach (TransferDataSource *source, m_sources) {
+            source->start();
         }
+
+        m_startTried = false;
+        changeStatus(Job::Running);
     }
     slotUpdateCapabilities();
 }
@@ -398,12 +394,8 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                     kDebug(5001) << "Remove connection with segments" << removed;
                     const int start = removed.first;
                     const int end = removed.second;
-                    if ((start != -1) && (end != -1))
-                    {
-                        for (int k = start; k <= end; ++k)
-                        {
-                            m_startedChunks->set(k, false);
-                        }
+                    if ((start != -1) && (end != -1)) {
+                        m_startedChunks->setRange(start, end, false);
                     }
                 }
             }
@@ -498,13 +490,9 @@ void DataSourceFactory::removeMirror(const KUrl &url)
         {
             const int start = assigned[i].first;
             const int end = assigned[i].second;
-            if ((start != -1) && (end != -1))
-            {
-                for (int k = start; k <= end; ++k)
-                {
-                    kDebug(5001) << "Segment" << k << "not assigned anymore.";
-                    m_startedChunks->set(k, false);
-                }
+            if ((start != -1) && (end != -1)) {
+                m_startedChunks->setRange(start, end, false);
+                kDebug(5001) << "Segmentrange" << start << '-' << end << "not assigned anymore.";
             }
         }
     }
@@ -589,9 +577,7 @@ void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<i
     const int start = segmentRange.first;
     const int end = segmentRange.second;
     if ((start != -1) && (end != -1)) {
-        for (int k = start; k <= end; ++k) {
-            m_startedChunks->set(k, false);
-        }
+        m_startedChunks->setRange(start, end, false);
     }
 
     removeMirror(source->sourceUrl());
@@ -618,10 +604,8 @@ void DataSourceFactory::slotFreeSegments(TransferDataSource *source, QPair<int, 
     const int start = segmentRange.first;
     const int end = segmentRange.second;
     if ((start != -1) && (end != -1)) {
-        for (int i = start; i <= end; ++i) {
-            kDebug(5001) << "Segment" << i << "not assigned anymore.";
-            m_startedChunks->set(i, false);
-        }
+        m_startedChunks->setRange(start, end, false);
+        kDebug(5001) << "Segmentrange" << start << '-' << end << "not assigned anymore.";
     }
 
     assignSegments(source);
@@ -711,10 +695,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     const KIO::fileoffset_t lastSegSize = ((static_cast<uint>(newEnd + 1) == m_startedChunks->getNumBits() && rest) ? rest : m_segSize);
 
     kDebug(5001) << "Segments assigned:" << newStart << "-" << newEnd << "segment-size:" << m_segSize << "rest:" << rest;
-
-    for (int i = newStart; i <= newEnd; ++i) {
-        m_startedChunks->set(i, true);
-    }
+    m_startedChunks->setRange(newStart, newEnd, true);
     source->addSegments(qMakePair(m_segSize, lastSegSize), qMakePair(newStart, newEnd));
 
     //there should still be segments added to this transfer
@@ -882,12 +863,10 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
     {
         kDebug(5001) << "Redownload broken pieces";
         for (int i = 0; i < offsets.count(); ++i) {
-            const quint32 startSegment = offsets[i] / m_segSize;
-            const quint32 endSegment = std::ceil(length / static_cast<double>(m_segSize)) - 1 + startSegment;
-            for (quint32 k = startSegment; k <= endSegment; ++k) {
-                m_startedChunks->set(k, false);
-                m_finishedChunks->set(k, false);
-            }
+            const int start = offsets[i] / m_segSize;
+            const int end = std::ceil(length / static_cast<double>(m_segSize)) - 1 + start;
+            m_startedChunks->setRange(start, end, false);
+            m_finishedChunks->setRange(start, end, false);
         }
     }
 
