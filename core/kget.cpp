@@ -1258,7 +1258,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
             transfer->group()->setGroupChange(TransferGroup::Gc_UploadSpeed, true);
         }
 
-        if (transfer->status() == Job::Finished) {
+        if ((transfer->status() == Job::Finished) || (transfer->status() == Job::FinishedKeepAlive)) {
             requestSave();
         } else {
             allFinished = false;
@@ -1307,11 +1307,11 @@ bool GenericObserver::allTransfersFinished()
 
     foreach(TransferGroup *transferGroup, KGet::model()->transferGroups()) {
         foreach(TransferHandler *transfer, transferGroup->handler()->transfers()) {
-            if(transfer->status() != Job::Finished) {
+            if ((transfer->status() != Job::Finished) && (transfer->status() != Job::FinishedKeepAlive)) {
                 quitFlag = false;
             }
-            if (transfer->status() == Job::Finished &&
-               transfer->startStatus() != Job::Finished)
+            if (((transfer->status() == Job::Finished) && (transfer->startStatus() != Job::Finished)) ||
+                ((transfer->status() == Job::FinishedKeepAlive) && (transfer->startStatus() != Job::FinishedKeepAlive)))
             {
                 allWereFinished = false;
             }
