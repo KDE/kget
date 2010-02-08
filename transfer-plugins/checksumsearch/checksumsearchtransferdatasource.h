@@ -48,6 +48,13 @@ class ChecksumSearchController : public QObject
          */
         void registerSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl);
 
+        /**
+         * Unregisters a search, do that e.g. if the search gets destroyed
+         * @param search ChecksumSearchTransferDataSource to unregister to baseUrl
+         * @param baseUrl can be empty, in that case search is unregistered for any url
+         */
+        void unregisterSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl = KUrl());
+
     private slots:
         void slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
         void slotResult(KJob *job);
