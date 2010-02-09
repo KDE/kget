@@ -273,10 +273,17 @@ void DataSourceFactory::start()
         m_startTried = true;
         return;
     }
-    if (!m_size)
-    {
+
+    if (checkLocalFile()) {
+        if (!m_size) {
+            m_startTried = true;
+            findFileSize();
+            return;
+        }
+    } else {
+        //could not create file, maybe device not mounted so abort
         m_startTried = true;
-        findFileSize();
+        changeStatus(Job::Aborted);
         return;
     }
 
@@ -978,6 +985,7 @@ void DataSourceFactory::load(const QDomElement *element)
         m_maxMirrorsUsed = e.attribute("maxMirrorsUsed").toInt(&worked);
         m_maxMirrorsUsed = (worked ? m_maxMirrorsUsed : 3);
     }
+    m_sizeInitiallyDefined = QVariant(e.attribute("sizeInitiallyDefined", "false")).toBool();
 
     //load the finishedChunks
     const QDomElement chunks = e.firstChildElement("chunks");
@@ -1041,15 +1049,13 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
     m_status = status;
     switch (m_status)
     {
+        case Job::Aborted:
+        case Job::Moving:
         case Job::Stopped:
             m_speed = 0;
             emit speed(m_speed);
             break;
         case Job::Running:
-            break;
-        case Job::Moving:
-            m_speed = 0;
-            emit speed(m_speed);
             break;
         case Job::Finished:
             m_speed = 0;
@@ -1078,7 +1084,7 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
             }
             break;
         default:
-            //TODO handle Delayed and Aborted
+            //TODO handle Delayed
             break;
     }
 
@@ -1132,6 +1138,7 @@ void DataSourceFactory::save(const QDomElement &element)
     factory.setAttribute("status", m_status);
     factory.setAttribute("doDownload", m_doDownload);
     factory.setAttribute("maxMirrorsUsed", m_maxMirrorsUsed);
+    factory.setAttribute("sizeInitiallyDefined", m_sizeInitiallyDefined);
 
     verifier()->save(factory);
     signature()->save(factory);
