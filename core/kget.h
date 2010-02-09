@@ -126,7 +126,8 @@ class KGET_EXPORT KGet
                                              QString groupName = QString(), bool start = false);
 
         /**
-         * Adds a new transfer to the KGet
+         * Adds a new transfer to the KGet, it is assumed that this takes place because of loading
+         * that results in less checks for loaction etc.
          *
          * @param e The transfer's dom element
          * @param groupName The name of the group the new transfer will belong to
