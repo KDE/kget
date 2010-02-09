@@ -259,10 +259,6 @@ TransferHandler * KGet::addTransfer(const QDomElement& e, const QString& groupNa
               << " dest= " << destUrl.url() 
               << " group= "<< groupName << endl;
 
-    if ( srcUrl.isEmpty() || !isValidSource(srcUrl) 
-         || !isValidDestDirectory(destUrl.directory()) )
-        return 0;
-
     return createTransfer(srcUrl, destUrl, groupName, false, &e);
 }
 
