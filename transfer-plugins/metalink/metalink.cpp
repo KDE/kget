@@ -627,17 +627,12 @@ void Metalink::load(const QDomElement *element)
         connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
 
         //start the DataSourceFactories that were Started when KGet was closed
-        if (file->status() == Job::Running)
-        {
-            if (m_currentFiles < MetalinkSettings::simultanousFiles())
-            {
+        if (file->status() == Job::Running) {
+            if (m_currentFiles < MetalinkSettings::simultanousFiles()) {
                 ++m_currentFiles;
                 file->start();
-            }
-            else
-            {
+            } else {
                 //enough simultanous files already, so increase the number and set file to stop --> that will decrease the number again
-                ++m_currentFiles;
                 file->stop();
             }
         }
