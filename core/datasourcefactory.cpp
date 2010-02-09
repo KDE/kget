@@ -238,10 +238,17 @@ void DataSourceFactory::start()
         return;
     }
 
-    if (!m_putJob && checkLocalFile()) {
-        m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
-        connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(open(KIO::Job*)));
+    if (checkLocalFile()) {
+        if (!m_putJob) {
+            m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
+            connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(open(KIO::Job*)));
+            m_startTried = true;
+            return;
+        }
+    } else {
+        //could not create file, maybe device not mounted so abort
         m_startTried = true;
+        changeStatus(Job::Aborted);
         return;
     }
 
@@ -930,6 +937,7 @@ void DataSourceFactory::load(const QDomElement *element)
         m_maxMirrorsUsed = e.attribute("maxMirrorsUsed").toInt(&worked);
         m_maxMirrorsUsed = (worked ? m_maxMirrorsUsed : 3);
     }
+    m_sizeInitiallyDefined = QVariant(e.attribute("sizeInitiallyDefined", "false")).toBool();
 
     //load the finishedChunks
     const QDomElement chunks = e.firstChildElement("chunks");
@@ -993,15 +1001,13 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
     m_status = status;
     switch (m_status)
     {
+        case Job::Aborted:
+        case Job::Moving:
         case Job::Stopped:
             m_speed = 0;
             emit speed(m_speed);
             break;
         case Job::Running:
-            break;
-        case Job::Moving:
-            m_speed = 0;
-            emit speed(m_speed);
             break;
         case Job::Finished:
             m_speed = 0;
@@ -1032,7 +1038,7 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
             slotUpdateCapabilities();
             break;
         default:
-            //TODO handle Delayed and Aborted
+            //TODO handle Delayed
             break;
     }
 
@@ -1086,6 +1092,7 @@ void DataSourceFactory::save(const QDomElement &element)
     factory.setAttribute("status", m_status);
     factory.setAttribute("doDownload", m_doDownload);
     factory.setAttribute("maxMirrorsUsed", m_maxMirrorsUsed);
+    factory.setAttribute("sizeInitiallyDefined", m_sizeInitiallyDefined);
 
     verifier()->save(factory);
     signature()->save(factory);

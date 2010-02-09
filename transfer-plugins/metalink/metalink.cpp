@@ -270,9 +270,12 @@ void Metalink::startMetalink()
             //specified number of files is downloaded simultanously
             if (m_currentFiles < MetalinkSettings::simultanousFiles())
             {
+                const int status = factory->status();
                 //only start factories that should be downloaded
-                if (factory->doDownload() && (factory->status() != Job::Finished)
-                    && (factory->status() != Job::Running))
+                if (factory->doDownload() &&
+                    (status != Job::Finished) &&
+                    (status != Job::FinishedKeepAlive) &&
+                    (status != Job::Running))
                 {
                     ++m_currentFiles;
                     factory->start();
@@ -423,23 +426,22 @@ void Metalink::slotStatus(Job::Status status)
     bool changeStatus = true;
     switch (status)
     {
-        case Job::Stopped:
-            foreach (DataSourceFactory *factory, m_dataSourceFactory)
-            {
+        case Job::Aborted:
+        case Job::Stopped: {
+            m_currentFiles = 0;
+            foreach (DataSourceFactory *factory, m_dataSourceFactory) {
                 //one factory is still running, do not change the status
-                if (factory->doDownload() && (factory->status() == Job::Running))
-                {
+                if (factory->doDownload() && (factory->status() == Job::Running)) {
                     changeStatus = false;
-                    break;
+                    ++m_currentFiles;
                 }
             }
 
-            if (changeStatus)
-            {
-                setStatus(Job::Stopped);
+            if (changeStatus) {
+                setStatus(status);
             }
             break;
-
+        }
         case Job::Finished:
             //one file that has been downloaded now is finished//FIXME ignore downloads that were finished in the previous download!!!!
             if (m_currentFiles)
@@ -615,36 +617,29 @@ void Metalink::load(const QDomElement *element)
 
         DataSourceFactory *file = new DataSourceFactory(this);
         file->load(&factory);
-        if (file->isValid())
-        {
-            connect(file, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-            connect(file, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(totalSizeChanged(KIO::filesize_t)));
-            connect(file, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(processedSizeChanged()));
-            connect(file, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
-            connect(file, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
-            m_dataSourceFactory[file->dest()] = file;
-            connect(file->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
-            connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
+        connect(file, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
+        connect(file, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(totalSizeChanged(KIO::filesize_t)));
+        connect(file, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(processedSizeChanged()));
+        connect(file, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
+        connect(file, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
+        m_dataSourceFactory[file->dest()] = file;
+        connect(file->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+        connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
 
-            //start the DataSourceFactories that were Started when KGet was closed
-            if (file->status() == Job::Running)
-            {
-                if (m_currentFiles < MetalinkSettings::simultanousFiles())
-                {
-                    ++m_currentFiles;
-                    file->start();
-                }
-                else
-                {
-                    //enough simultanous files already, so increase the number and set file to stop --> that will decrease the number again
-                    ++m_currentFiles;
-                    file->stop();
-                }
-            }
-        }
-        else
+        //start the DataSourceFactories that were Started when KGet was closed
+        if (file->status() == Job::Running)
         {
-            delete file;
+            if (m_currentFiles < MetalinkSettings::simultanousFiles())
+            {
+                ++m_currentFiles;
+                file->start();
+            }
+            else
+            {
+                //enough simultanous files already, so increase the number and set file to stop --> that will decrease the number again
+                ++m_currentFiles;
+                file->stop();
+            }
         }
     }
     m_ready = !m_dataSourceFactory.isEmpty();
