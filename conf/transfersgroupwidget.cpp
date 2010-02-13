@@ -143,7 +143,7 @@ void TransfersGroupTree::changeIcon(const QString &icon)
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
     : QVBoxLayout()
 {
-    QCheckBox * m_directoriesAsSuggestionCheck = new QCheckBox(i18n("Use default directories for groups as suggestion"), parent);
+    QCheckBox * m_directoriesAsSuggestionCheck = new QCheckBox(i18n("Use default folders for groups as suggestion"), parent);
     m_directoriesAsSuggestionCheck->setObjectName("kcfg_DirectoriesAsSuggestion");
 
     m_view = new TransfersGroupTree(parent);
