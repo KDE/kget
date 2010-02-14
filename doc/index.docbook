@@ -485,7 +485,7 @@ you can verify your downloads. You just have to tick the Automatic verification 
       </term>
       <listitem>
 	<para>
-	  <action>Disables the confirmation dialogs, which causes verbosity.</action>
+	  <action>Disables the confirmation dialogs</action>, which causes verbosity.
 	</para>
       </listitem>
     </varlistentry>
@@ -591,7 +591,7 @@ you can verify your downloads. You just have to tick the Automatic verification 
 </screenshot>
 
 <sect1 id='File_Options'>
-<title>The File Menu</title>
+<title>The <guimenu>File</guimenu> Menu</title>
 <variablelist>
 <varlistentry>
 <term><menuchoice>
