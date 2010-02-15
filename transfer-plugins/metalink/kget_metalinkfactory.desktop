@@ -53,7 +53,7 @@ Name[sv]=Metalink
 Name[tr]=Metalink
 Name[uk]=Metalink
 Name[x-test]=xxMetalinkxx
-Name[zh_CN]=超级链接
+Name[zh_CN]=元链接
 Name[zh_TW]=Metalink
 Comment=Allows files to be downloaded from Metalink
 Comment[ast]=Permitir la baxada de ficheros dende Metalink
@@ -97,7 +97,7 @@ Comment[sv]=Gör det möjligt att ladda ner filer från Metalink
 Comment[tr]=Metalinkten dosya indirmenizi sağlar
 Comment[uk]=Надає змогу звантажувати файли з Metalink
 Comment[x-test]=xxAllows files to be downloaded from Metalinkxx
-Comment[zh_CN]=允许从 Metalink 上下载文件
+Comment[zh_CN]=根据元链接下载文件
 Comment[zh_TW]=允許從 Metalink 下載檔案
 
 # options for library loader
