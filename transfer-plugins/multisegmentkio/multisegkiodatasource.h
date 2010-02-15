@@ -39,7 +39,6 @@ class MultiSegKioDataSource : public TransferDataSource
 
     private Q_SLOTS:
         void slotSpeed(ulong speed);
-        void slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange);
         void slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished);
         void slotRestartBrokenSegment();
 

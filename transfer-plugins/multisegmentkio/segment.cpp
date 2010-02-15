@@ -198,7 +198,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         kDebug(5001) << m_url << "does not allow resuming.";
         stopTransfer();
         setStatus(Killed, false );
-        emit brokenSegments(this, QPair<int, int>(m_currentSegment, m_endSegment));//TODO maybe use specific error code from TransferDataSource?
+        emit error(this, KIO::ERR_CANNOT_RESUME);
         return;
     }
 

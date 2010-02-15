@@ -112,7 +112,6 @@ class Segment : public QObject
          * Emitted whenever the transfer is closed with an error
          */
         void error(Segment *semgent, int KIOError);
-        void brokenSegments(Segment *segment, QPair<int, int> segmentRange);
         void finishedSegment(Segment *segment, int segmentNum, bool connectionFinished = true);
         void statusChanged( Segment*);
         void speed(ulong speed);

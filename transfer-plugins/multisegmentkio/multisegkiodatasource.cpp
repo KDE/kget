@@ -78,7 +78,6 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     connect(segment, SIGNAL(totalSize(KIO::filesize_t,QPair<int,int>)), this, SLOT(slotTotalSize(KIO::filesize_t,QPair<int,int>)));
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
     connect(segment, SIGNAL(finishedSegment(Segment*, int, bool)), this, SLOT(slotFinishedSegment(Segment*, int, bool)));
-    connect(segment, SIGNAL(brokenSegments(Segment*,QPair<int,int>)), this, SLOT(slotBrokenSegments(Segment*,QPair<int,int>)));
     connect(segment, SIGNAL(error(Segment*,int)), SLOT(slotError(Segment*,int)));
     connect(segment, SIGNAL(finishedDownload(KIO::filesize_t)), this, SLOT(slotFinishedDownload(KIO::filesize_t)));
 
@@ -98,16 +97,6 @@ void MultiSegKioDataSource::slotSpeed(ulong downloadSpeed)
 {
     m_speed = downloadSpeed;
     emit speed(m_speed);
-}
-
-void MultiSegKioDataSource::slotBrokenSegments(Segment *segment, const QPair<int,int> &segmentRange)
-{
-    Q_UNUSED(segment)
-
-    m_segments.removeAll(segment);
-    delete segment;
-
-    emit brokenSegments(this, segmentRange);
 }
 
 void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished)
