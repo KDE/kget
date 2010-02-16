@@ -311,12 +311,6 @@ void MainWindow::setupActions()
     copyUrlAction->setIcon(KIcon("edit-copy"));
     connect(copyUrlAction, SIGNAL(triggered()), SLOT(slotTransfersCopySourceUrl()));
 
-    KToggleAction *showDropTargetAction = new KToggleAction(KIcon("kget"),
-                                          i18n("Show Drop Target"), actionCollection());
-    actionCollection()->addAction("show_drop_target", showDropTargetAction);
-    showDropTargetAction->setChecked(Settings::showDropTarget());
-    connect(showDropTargetAction, SIGNAL(triggered()), SLOT(slotToggleDropTarget()));
-
     KAction *transferHistoryAction = actionCollection()->addAction("transfer_history");
     transferHistoryAction->setText(i18n("&Transfer History"));
     transferHistoryAction->setIcon(KIcon("view-history"));
@@ -379,7 +373,7 @@ void MainWindow::slotDelayedInit()
             slotKonquerorIntegration(true);
         }
 
-        m_drop->setDropTargetVisible(true);
+        m_drop->setDropTargetVisible(false);
 
         // reset the FirstRun config option
         Settings::setFirstRun(false);
@@ -428,8 +422,6 @@ void MainWindow::slotDelayedInit()
 
 void MainWindow::slotToggleDropTarget()
 {
-    actionCollection()->action("show_drop_target")->setChecked(!m_drop->isVisible());
-
     m_drop->setDropTargetVisible(!m_drop->isVisible());
 }
 

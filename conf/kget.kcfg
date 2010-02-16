@@ -22,7 +22,7 @@
       <default>false</default>
     </entry>
     <entry name="ShowDropTarget" type="Bool">
-      <default>true</default>
+      <default>false</default>
     </entry>
     <entry name="AnimateDropTarget" type="Bool">
       <default>true</default>
