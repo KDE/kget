@@ -282,12 +282,12 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Use default directories for groups</guimenuitem>
+	  <guimenuitem>Use default folders for groups</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
 	<para>
-	  <action>Tick this box if you want &kget; to use default directories for your downloads.</action>
+	  <action>Tick this box if you want &kget; to use default folders for your downloads.</action>
 	</para>
       </listitem>
     </varlistentry>
