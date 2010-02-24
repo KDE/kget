@@ -303,7 +303,6 @@ void MainWindow::setupActions()
 
     KAction *showDetailsAction = new KToggleAction(KIcon("document-properties"), i18n("Show Details"), actionCollection());
     actionCollection()->addAction("transfer_show_details", showDetailsAction);
-    showDetailsAction->setCheckable(Settings::showExpandableTransferDetails());
     connect(showDetailsAction, SIGNAL(triggered()), SLOT(slotTransfersShowDetails()));
 
     KAction *copyUrlAction = actionCollection()->addAction("transfer_copy_source_url");
@@ -759,9 +758,7 @@ void MainWindow::slotNewConfig()
     // parsed often by the code. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
-    m_viewsContainer->setExpandableDetails(Settings::showExpandableTransferDetails());
     m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
-    actionCollection()->action("transfer_show_details")->setCheckable(Settings::showExpandableTransferDetails());
 
     if(Settings::enableSystemTray() && !m_dock)
     {

@@ -184,8 +184,8 @@ void TransfersView::slotItemActivated(const QModelIndex & index)
 
     if(!item)
         return;
-    
-    if(!item->isGroup() && Settings::showExpandableTransferDetails() && index.column() == 0) {
+
+    if(!item->isGroup() && index.column() == 0) {
         if(!view_delegate->isExtended(index)) {
             TransferHandler *handler = item->asTransfer()->transferHandler();
             QWidget *widget = getDetailsWidgetForTransfer(handler);

@@ -103,7 +103,7 @@ QVariant TransferModelItem::data(int role) const
     // tells the KExtendableItemDelegate which column contains the extender icon
     if (role == Qt::UserRole + 200)
     {
-        if (column() == 0 && Settings::showExpandableTransferDetails())
+        if (column() == 0)
             return true;
         else
             return false;
