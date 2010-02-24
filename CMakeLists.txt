@@ -168,6 +168,7 @@ install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    conf/dlgwebinterface.cpp
    conf/preferencesdialog.cpp
+   conf/transfersgrouptree.cpp
    conf/transfersgroupwidget.cpp
    conf/pluginselector.cpp
    conf/verificationpreferences.cpp
@@ -242,6 +243,7 @@ endif(HAVE_NEPOMUK)
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
+   conf/dlggroups.ui
    conf/dlgwebinterface.ui
    conf/dlgnetwork.ui
    conf/verificationpreferences.ui

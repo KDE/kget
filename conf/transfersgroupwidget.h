@@ -3,6 +3,7 @@
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2007 Javier Goday <jgoday @ gmail.com>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -13,72 +14,19 @@
 #ifndef TRANSFERS_GROUP_WIDGET_H
 #define TRANSFERS_GROUP_WIDGET_H
 
-#include <KLineEdit>
+#include "ui_dlggroups.h"
 
-#include <QStyledItemDelegate>
-#include <QVBoxLayout>
-#include <QTreeView>
-
-class QPushButton;
-class QItemSelection;
-class KIconButton;
-
-class GroupEditor : public KLineEdit
+class TransfersGroupWidget : public QWidget
 {
     Q_OBJECT
-public:
-    GroupEditor(QModelIndex group, const QString contents, QWidget * parent=0)
-        : KLineEdit(contents, parent), m_groupIndex(group)
-    {
-    }
+    public:
+        TransfersGroupWidget(QWidget *parent = 0);
 
-    QModelIndex groupIndex() const  {return m_groupIndex;}
+    private slots:
+        void slotSelectionChanged();
 
-private:
-    QModelIndex m_groupIndex;
-};
-
-class TransfersGroupDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-public:
-    TransfersGroupDelegate(QObject * parent=0);
-
-    QWidget * createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
-};
-
-class TransfersGroupTree : public QTreeView
-{
-    Q_OBJECT
-public:
-    TransfersGroupTree(QWidget *parent=0);
-
-public slots:
-    void editCurrent();
-    void addGroup();
-    void deleteSelectedGroup();
-    void renameSelectedGroup();
-    void changeIcon(const QString &icon);
-    void commitData(QWidget *editor);
-};
-
-class TransfersGroupWidget : public QVBoxLayout
-{
-    Q_OBJECT
-public:
-    TransfersGroupWidget(QWidget *parent=0);
-
-private slots:
-    void slotSelectionChanged();
-
-private:
-    TransfersGroupTree *m_view;
-
-    QPushButton *addButton;
-    QPushButton *deleteButton;
-    QPushButton *renameButton;
-    KIconButton *iconButton;
-    QPushButton *configureButton;
+    private:
+        Ui::DlgGroups ui;
 };
 
 #endif

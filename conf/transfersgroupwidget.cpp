@@ -4,6 +4,7 @@
    Copyright (C) 2007 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2007 Javier Goday <jgoday @ gmail.com>
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -12,197 +13,64 @@
 */
 
 #include "transfersgroupwidget.h"
+#include "transfersgrouptree.h"
 
 #include "core/kget.h"
-#include "core/transfergrouphandler.h"
+#include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
-#include <KMessageBox>
-#include <KIconButton>
-
-#include <QTreeView>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QHeaderView>
-#include <QTimer>
-#include <QAction>
-#include <QCheckBox>
-
-TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
-    : QStyledItemDelegate(parent)
+TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
+    : QWidget(parent)
 {
+    ui.setupUi(this);
 
-}
-
-QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem & option,
-                                                const QModelIndex & index) const
-{
-    Q_UNUSED(option)
-    return new GroupEditor(index, index.data(Qt::DisplayRole).toString(), parent);
-}
-
-TransfersGroupTree::TransfersGroupTree(QWidget *parent)
-    : QTreeView(parent)
-{
-    setItemDelegate(new TransfersGroupDelegate(this));
-
-    setRootIsDecorated(false);
-    setAlternatingRowColors(true);
-    setSelectionMode(QAbstractItemView::ExtendedSelection);
-
-    KGet::addTransferView(this);
+    ui.treeView->setModel(KGet::model());
+    ui.treeView->setSelectionModel(KGet::selectionModel());
 
     // hide the size, speed, percent and status columns
-    header()->hideSection(1);
-    header()->hideSection(2);
-    header()->hideSection(3);
-    header()->hideSection(4);
-    header()->hideSection(5);
+    ui.treeView->header()->hideSection(1);
+    ui.treeView->header()->hideSection(2);
+    ui.treeView->header()->hideSection(3);
+    ui.treeView->header()->hideSection(4);
+    ui.treeView->header()->hideSection(5);
 
-    setItemsExpandable(false);
-    setSelectionModel((QItemSelectionModel *) KGet::selectionModel());
-}
+    ui.add->setGuiItem(KStandardGuiItem::add());
+    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    ui.configure->setGuiItem(KStandardGuiItem::Configure);
+    ui.rename->setIcon(KIcon("edit-rename"));
+    ui.selectIcon->setIcon(KIcon("preferences-desktop-icons"));
 
-void TransfersGroupTree::commitData(QWidget *editor)
-{
-    GroupEditor * groupEditor = static_cast<GroupEditor *>(editor);
+    connect(ui.add, SIGNAL(clicked()), ui.treeView, SLOT(addGroup()));
+    connect(ui.remove, SIGNAL(clicked()), ui.treeView, SLOT(deleteSelectedGroup()));
+    connect(ui.rename, SIGNAL(clicked()), ui.treeView, SLOT(renameSelectedGroup()));
+    connect(ui.selectIcon, SIGNAL(iconChanged(QString)), ui.treeView, SLOT(changeIcon(QString)));
+    connect(ui.configure, SIGNAL(clicked()), KGet::actionCollection()->action("transfer_group_settings"), SLOT(trigger()));
+    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotSelectionChanged()));
 
-    if(groupEditor->groupIndex() != currentIndex())
-        return;
-
-    const QString newName = groupEditor->text();
-    if (!newName.isEmpty())
-    {
-        foreach(const QString &groupName, KGet::transferGroupNames())
-        {
-            if(groupName == newName &&
-               groupName != model()->data(currentIndex(), Qt::DisplayRole).toString())
-            {
-                KMessageBox::error( this, i18n("Another group with this name already exists. Please select a different name."), i18n("Group Name Already in Use") );
-                QTimer::singleShot( 0, this, SLOT(editCurrent()) );
-                return;
-            }
-        }
-
-        KGet::renameGroup(model()->data(currentIndex()).toString(), newName);
-        setCurrentIndex(QModelIndex());
-    }
-}
-
-void TransfersGroupTree::editCurrent()
-{
-    QTreeView::edit(currentIndex());
-}
-
-void TransfersGroupTree::addGroup()
-{
-    QString groupName(i18n("New Group"));
-    int i=0;
-
-    while(KGet::transferGroupNames().contains(groupName))
-    {
-        groupName = i18n("New Group") + QString::number(++i);
-    }
-
-    if (KGet::addGroup(groupName)) {
-        QModelIndex index = model()->index(model()->rowCount() - 1, 0);
-        setCurrentIndex(index);
-        editCurrent();
-    }
-}
-
-void TransfersGroupTree::deleteSelectedGroup()
-{
-    KGet::delGroups(KGet::selectedTransferGroups());
-}
-
-void TransfersGroupTree::renameSelectedGroup()
-{
-    if(currentIndex().isValid())
-        editCurrent();
-}
-
-void TransfersGroupTree::changeIcon(const QString &icon)
-{
-    kDebug(5001);
-    TransferTreeSelectionModel *selModel = KGet::selectionModel();
-
-    QModelIndexList indexList = selModel->selectedRows();
-
-    if (!icon.isEmpty())
-    {
-        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups())
-        {
-            group->setIconName(icon);
-        }
-    }
-    emit dataChanged(indexList.first(),indexList.last());
-}
-
-
-TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
-    : QVBoxLayout()
-{
-    QCheckBox * m_directoriesAsSuggestionCheck = new QCheckBox(i18n("Use default folders for groups as suggestion"), parent);
-    m_directoriesAsSuggestionCheck->setObjectName("kcfg_DirectoriesAsSuggestion");
-
-    m_view = new TransfersGroupTree(parent);
-
-    addButton = new QPushButton(i18n("Add"));
-    addButton->setIcon(KIcon("list-add"));
-    deleteButton = new QPushButton(i18n("Delete"));
-    deleteButton->setIcon(KIcon("list-remove"));
-    deleteButton->setEnabled(false);
-    renameButton = new QPushButton(i18n("Rename"));
-    renameButton->setIcon(KIcon("edit-rename"));
-    renameButton->setEnabled(false);
-    iconButton = new KIconButton(qobject_cast<QWidget*>(this));
-    iconButton->setIconSize(32);
-    iconButton->setButtonIconSize(16);
-    iconButton->setText(i18n("Select Icon..."));
-    iconButton->setIcon(KIcon("preferences-desktop-icons"));
-    configureButton = new QPushButton(i18n("Configure..."));
-    configureButton->setIcon(KGet::actionCollection()->action("transfer_group_settings")->icon());
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout();
-    buttonsLayout->addWidget(addButton);
-    buttonsLayout->addWidget(renameButton);
-    buttonsLayout->addWidget(deleteButton);
-    buttonsLayout->addWidget(iconButton);
-    buttonsLayout->addWidget(configureButton);
-
-    addWidget(m_directoriesAsSuggestionCheck);
-    addWidget(m_view);
-    addLayout(buttonsLayout);
-
-    connect(addButton, SIGNAL(clicked()), m_view, SLOT(addGroup()));
-    connect(deleteButton, SIGNAL(clicked()), m_view, SLOT(deleteSelectedGroup()));
-    connect(renameButton, SIGNAL(clicked()), m_view, SLOT(renameSelectedGroup()));
-    connect(iconButton, SIGNAL(iconChanged(const QString &)), m_view, SLOT(changeIcon(const QString &)));
-    connect(configureButton, SIGNAL(clicked()), KGet::actionCollection()->action("transfer_group_settings"), SLOT(trigger()));
-    connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-                this, SLOT(slotSelectionChanged()));
+    slotSelectionChanged();
 }
 
 void TransfersGroupWidget::slotSelectionChanged()
 {
-    QModelIndexList selectedGroups = m_view->selectionModel()->selectedRows();
-    bool somethingSelected = !selectedGroups.isEmpty();
+    const QModelIndexList selectedGroups = ui.treeView->selectionModel()->selectedRows();
+    const bool somethingSelected = !selectedGroups.isEmpty();
     bool canDelete = somethingSelected;
 
-    foreach(const QModelIndex &index, selectedGroups) {
-        if(index.row() == 0) {
+    foreach (const QModelIndex &index, selectedGroups) {
+        if (index.row() == 0) {
             canDelete = false;
             break;
         }
     }
 
-    renameButton->setEnabled(canDelete);
-    deleteButton->setEnabled(canDelete);
-    configureButton->setEnabled(somethingSelected);
-    iconButton->setEnabled(somethingSelected);
-    if (somethingSelected && !KGet::selectedTransferGroups().isEmpty())
-        iconButton->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
-    else
-        iconButton->setIcon(KIcon("preferences-desktop-icons"));
+    ui.rename->setEnabled(canDelete);
+    ui.remove->setEnabled(canDelete);
+    ui.configure->setEnabled(somethingSelected);
+    ui.selectIcon->setEnabled(somethingSelected);
+
+    if (somethingSelected && !KGet::selectedTransferGroups().isEmpty()) {
+        ui.selectIcon->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
+    } else {
+        ui.selectIcon->setIcon(KIcon("preferences-desktop-icons"));
+    }
 }

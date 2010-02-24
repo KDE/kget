@@ -26,7 +26,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     : KConfigDialog(parent, "preferences", skeleton)
 {
     QWidget *appearance = new QWidget(this);
-    QWidget *groups = new QWidget(this);
+    TransfersGroupWidget *groups = new TransfersGroupWidget(this);
     DlgWebinterface *webinterface = new DlgWebinterface(this);
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
@@ -34,8 +34,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     connect(verification, SIGNAL(changed()), SLOT(enableApplyButton()));
     PluginSelector * pluginSelector = new PluginSelector(this);
     connect(pluginSelector, SIGNAL(changed(bool)), SLOT(enableApplyButton()));
-
-    groups->setLayout(new TransfersGroupWidget());
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
