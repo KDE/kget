@@ -53,7 +53,6 @@
 #include <kactionmenu.h>
 #include <krun.h>
 #include <kicondialog.h>
-#include <kwindowsystem.h>
 #include "core/verifier.h"
 #include <QClipboard>
 #include <QTimer>
@@ -460,24 +459,14 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
     QMapIterator<TransferHandler*, Transfer::ChangesFlags> it(transfers);
     
     //QList<TransferHandler *> finishedTransfers;
-    bool update = false;    
+    bool update = false;
     
     while (it.hasNext()) {
         it.next();
         
-        TransferHandler * transfer = it.key();
+        //TransferHandler * transfer = it.key();
         Transfer::ChangesFlags transferFlags = it.value();
-        
-        if ( !Settings::enableKUIServerIntegration()    // Display popups only when the KUI integration is off
-             && (KWindowSystem::activeWindow() != winId()) && (transferFlags & Transfer::Tc_Status) 
-             && (transfer->status() == Job::Finished)   && (transfer->startStatus() != Job::Finished)) {         
-            KNotification::event(KNotification::Notification,
-                i18n("Downloads completed"),
-                i18n("<p>The following file has finished downloading:</p><p style=\"font-size: small;\">\
-                      %1</p>", transfer->dest().fileName()),
-                KIcon("kget").pixmap(KIconLoader::SizeMedium), this);            
-        }
-        
+
         if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
             update = true;
             break;
@@ -834,7 +823,7 @@ void MainWindow::slotTrayKonquerorIntegration(bool enable)
     slotKonquerorIntegration(enable);
     if (!enable && Settings::konquerorIntegration() && !Settings::expertMode())
     {
-        KGet::showNotification(this, KNotification::Notification,
+        KGet::showNotification(this, "notification",
                                      i18n("KGet has been temporarily disabled as download manager for Konqueror. "
             "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
             "as download manager for Konqueror\"."),

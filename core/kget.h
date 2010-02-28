@@ -332,10 +332,10 @@ class KGET_EXPORT KGet
         * @param text Description of the information showed by the notification
         * @param icon Pixmap showed in the notification, by default 'dialog-error'
         */
-        static KNotification *showNotification(QWidget *parent, KNotification::StandardEvent eventId,
+        static KNotification *showNotification(QWidget *parent, const QString &eventType,
                                                const QString &text,
                                                const QString &icon = QString("dialog-error"),
-                                               const QString &title = QString("KGet"),
+                                               const QString &title = i18n("KGet"),
                                                const KNotification::NotificationFlags &flags = KNotification::CloseOnTimeout);
 
         static void loadPlugins();

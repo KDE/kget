@@ -117,7 +117,7 @@ Comment[zh_CN]=添加了新下载
 Comment[zh_HK]=已新增新的下載
 Comment[zh_TW]=已新增新的傳輸
 Sound=KDE-K3B-Insert-Medium.ogg
-Action=Sound
+Action=None
 
 [Event/started]
 Name=Download Started
@@ -231,7 +231,7 @@ Comment[zh_CN]=下载已开始
 Comment[zh_HK]=下載已開始
 Comment[zh_TW]=下載已開始
 Sound=KDE-K3B-Insert-Medium.ogg
-Action=Sound
+Action=None
 
 [Event/finished]
 Name=Download Finished
@@ -343,7 +343,7 @@ Comment[zh_CN]=下载已完成
 Comment[zh_HK]=下載已完成
 Comment[zh_TW]=下載已完成
 Sound=KDE-K3B-Finish-Success.ogg
-Action=Sound
+Action=None
 
 [Event/finishedall]
 Name=All Downloads Finished
@@ -456,7 +456,7 @@ Comment[zh_CN]=所有下载都已完成
 Comment[zh_HK]=所有下載已完成
 Comment[zh_TW]=所有下載均已完成
 Sound=KDE-K3B-Finish-Success.ogg
-Action=Sound
+Action=None
 
 [Event/error]
 Name=Error Occurred
@@ -550,7 +550,7 @@ Comment[x-test]=xxAn Error has Occurredxx
 Comment[zh_CN]=发生了一个错误
 Comment[zh_TW]=發生錯誤
 Sound=KDE-Sys-App-Error.ogg
-Action=PassivePopup|Sound
+Action=Popup|Sound
 
 [Event/notification]
 Name=Information
@@ -650,4 +650,4 @@ Comment[x-test]=xxUser Notified of Informationxx
 Comment[zh_CN]=用户收到消息通知
 Comment[zh_TW]=使用者資訊通知
 Sound=KDE-Sys-App-Message.ogg
-Action=PassivePopup|Sound
+Action=Popup|Sound
