@@ -1,6 +1,7 @@
 [Global]
 IconName=kget
 Comment=KGet Download Manager
+Comment[nds]=KGet - Daallaad-Pleger
 Comment[pt]=Gestor de Transferências KGet
 Comment[pt_BR]=Gerenciador de downloads KGet
 Comment[uk]=Керування звантаженнями KGet
