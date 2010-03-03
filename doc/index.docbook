@@ -250,7 +250,7 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Expandable transfer details instead of separate tabs.</guimenuitem>
+	  <guimenuitem>Expandable transfer details instead of separate tabs</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -422,10 +422,11 @@ Right click on the drop target to see the options.
 <sect1 id='Web_Interface'>
 <title>Web Interface</title>
 <para>
-To enable the web interface, check <guilabel>Enable Web Interface</guilabel>, 
-default port is 8080 configure any port higher then 1024. Set User and Password.
- You can access your web interface on http://127.0.0.1:&lt;port&gt;.
- You will need to enter the username and password to get access.
+To enable the web interface, check <guilabel>Enable Web Interface</guilabel>; 
+default port is 8080, and you configure any port higher than 1024. Then set
+<guilabel>User</guilabel> and <guilabel>Password</guilabel>.
+You can access your web interface at http://127.0.0.1:&lt;port&gt;.
+You will need to enter the username and password to get access.
 </para>
   <screenshot>
     <screeninfo>&kget; Web Interface</screeninfo>
@@ -484,7 +485,7 @@ you can verify your downloads. You just have to tick the Automatic verification 
       </term>
       <listitem>
 	<para>
-	  <action>Disables the confirmation dialogs, which causes verbosity</action>
+	  <action>Disables the confirmation dialogs</action>, which causes verbosity.
 	</para>
       </listitem>
     </varlistentry>
@@ -550,7 +551,9 @@ you can verify your downloads. You just have to tick the Automatic verification 
       </term>
       <listitem>
 	<para>
+<!--
 	  <action>Blank</action>
+-->
 	</para>
       </listitem>
     </varlistentry>
@@ -588,7 +591,7 @@ you can verify your downloads. You just have to tick the Automatic verification 
 </screenshot>
 
 <sect1 id='File_Options'>
-<title>File Options</title>
+<title>The <guimenu>File</guimenu> Menu</title>
 <variablelist>
 <varlistentry>
 <term><menuchoice>
