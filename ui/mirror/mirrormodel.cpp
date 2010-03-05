@@ -398,8 +398,7 @@ QVariant MirrorModel::headerData(int section, Qt::Orientation orientation, int r
 
 QVariant MirrorModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || (index.row() >= rowCount()))
-    {
+    if (!index.isValid()) {
         return QVariant();
     }
 
@@ -408,8 +407,7 @@ QVariant MirrorModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags MirrorModel::flags(const QModelIndex &index) const
 {
-    if (!index.isValid() && (index.row() >= rowCount()))
-    {
+    if (!index.isValid()) {
         return 0;
     }
 
@@ -418,8 +416,7 @@ Qt::ItemFlags MirrorModel::flags(const QModelIndex &index) const
 
 bool MirrorModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (!index.isValid() && (index.row() >= rowCount()))
-    {
+    if (!index.isValid()) {
         return false;
     }
 
