@@ -338,8 +338,7 @@ QVariant VerificationModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags VerificationModel::flags(const QModelIndex &index) const
 {
-    if (!index.isValid() && (index.row() >= rowCount()))
-    {
+    if (!index.isValid()) {
         return 0;
     }
 
