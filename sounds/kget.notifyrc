@@ -1,6 +1,8 @@
 [Global]
 IconName=kget
 Comment=KGet Download Manager
+Comment[de]=KGet Download-Verwaltung
+Comment[hr]=Upravitelj skidanja KGet
 Comment[nb]=KGet Nedlastingshåndterer
 Comment[nds]=KGet - Daallaad-Pleger
 Comment[pt]=Gestor de Transferências KGet
