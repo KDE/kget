@@ -31,7 +31,7 @@ TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * parent, cons
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
       m_downloadLimit(0), m_uploadLimit(0),
       m_visibleDownloadLimit(0), m_visibleUploadLimit(0),
-      m_iconName("bookmark-new-list"), m_defaultFolder(0)
+      m_iconName("bookmark-new-list"), m_defaultFolder()
 {
     m_handler = new TransferGroupHandler(parent, this);
 }
