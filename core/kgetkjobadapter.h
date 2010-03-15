@@ -2,6 +2,7 @@
 
    Copyright (C) 2008 Javier Goday <jgoday @ gmail.com>
    Idea by Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public

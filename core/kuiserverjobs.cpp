@@ -12,6 +12,7 @@
 #include "kuiserverjobs.h"
 
 #include "kgetglobaljob.h"
+#include "kgetkjobadapter.h"
 #include "transferhandler.h"
 #include "settings.h"
 #include "kget.h"
@@ -40,10 +41,11 @@ void KUiServerJobs::settingsChanged()
     QList<TransferHandler *> transfers = KGet::allTransfers();
 
     foreach(TransferHandler * transfer, transfers) {
+        KJob *job = transfer->kJobAdapter();
         if(shouldBeShown(transfer))
-            registerJob((KJob*) transfer->kJobAdapter(), transfer);
+            registerJob(job, transfer);
         else
-            unregisterJob((KJob*) transfer->kJobAdapter(), transfer);
+            unregisterJob(job, transfer);
     }
     
     // GlobalJob is associated to a virtual transfer pointer of value == 0
@@ -59,7 +61,7 @@ void KUiServerJobs::slotTransferAdded(TransferHandler * transfer, TransferGroupH
     kDebug(5001);
 
     if(shouldBeShown(transfer))
-        registerJob((KJob*) transfer->kJobAdapter(), transfer);
+        registerJob(transfer->kJobAdapter(), transfer);
     
     if(shouldBeShown(0)) {
         globalJob()->update();
@@ -76,7 +78,7 @@ void KUiServerJobs::slotTransferAboutToBeRemoved(TransferHandler * transfer, Tra
     
     m_invalidTransfers.append(transfer);
     
-    unregisterJob((KJob*) transfer->kJobAdapter(), transfer);
+    unregisterJob(transfer->kJobAdapter(), transfer);
     
     if(shouldBeShown(0)) {
         globalJob()->update();
@@ -99,11 +101,13 @@ void KUiServerJobs::slotTransfersChanged(QMap<TransferHandler *, Transfer::Chang
 //         if(!m_invalidTransfers.contains(i.key()))
         {
             TransferHandler * transfer = i.key();
+            KJob *job = transfer->kJobAdapter();
+            if (shouldBeShown(transfer)) {
+                registerJob(job, transfer);
+            } else {
             
-            if(shouldBeShown(transfer))
-                registerJob((KJob*) transfer->kJobAdapter(), transfer);
-            else 
-                unregisterJob((KJob*) transfer->kJobAdapter(), transfer);
+                unregisterJob(job, transfer);
+            }
         }
     }
     
