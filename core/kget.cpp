@@ -331,7 +331,10 @@ bool KGet::delTransfer(TransferHandler * transfer)
 {
     Transfer * t = transfer->m_transfer;
     t->stop();
-    TransferHistoryStore::getStore()->saveItem(TransferHistoryItem(*t));
+    if (!m_store) {
+        m_store = TransferHistoryStore::getStore();
+    }
+    m_store->saveItem(TransferHistoryItem(*t));
 
     // TransferHandler deinitializations
     transfer->destroy();
@@ -727,6 +730,7 @@ QList<TransferFactory *> KGet::m_transferFactories;
 TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
+TransferHistoryStore * KGet::m_store = 0;
 
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()
@@ -758,6 +762,7 @@ KGet::~KGet()
     delete m_transferTreeModel;
     delete m_jobManager;  //This one must always be before the scheduler otherwise the job manager can't remove the notifications when deleting.
     delete m_scheduler;
+    delete m_store;
 }
 
 TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 

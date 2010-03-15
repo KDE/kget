@@ -46,6 +46,7 @@ class KGetPlugin;
 class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
+class TransferHistoryStore;
 
 
 /**
@@ -401,6 +402,9 @@ class KGET_EXPORT KGet
 
         //pointer to the kget uiserver jobs manager
         static KUiServerJobs *m_jobManager;
+
+        //pointer to the used TransferHistoryStore
+        static TransferHistoryStore *m_store;
 };
 
 class GenericObserver : public QObject
