@@ -150,4 +150,14 @@
       <arg>true</arg>
     </command>
   </transfer>
+  <transfer source="ftp://download.nvidia.com/XFree86/Linux-x86_64/190.53/NVIDIA-Linux-x86_64-190.53-pkg0.run">
+    <command type="AddChecksum">
+        <arg>sha1</arg>
+        <arg>5ce7273bdd91b918344e09b236292a18a7fdaa04</arg>
+    </command>
+    <command type="Start"/>
+    <command type="Verified">
+      <arg>true</arg>
+    </command>
+  </transfer>
 </tests>
