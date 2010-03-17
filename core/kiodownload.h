@@ -68,6 +68,7 @@ class KioDownload : public QObject
         void killJob();
 
     private:
+        bool m_tryResume;
         KUrl m_source;
         KUrl m_dest;
         QFile *m_file;

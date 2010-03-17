@@ -22,6 +22,7 @@
 
 KioDownload::KioDownload(const KUrl &src, const KUrl &dest, QObject *parent)
     : QObject(parent),
+      m_tryResume(true),
       m_source(src),
       m_dest(dest),
       m_file(0),
@@ -139,7 +140,9 @@ void KioDownload::createJob()
         m_getJob->suspend();
         m_getJob->addMetaData("errorPage", "false");
         m_getJob->addMetaData("AllowCompressedPage", "false");
-        m_getJob->addMetaData("resume", KIO::number(100));
+        if (m_tryResume) {
+            m_getJob->addMetaData("resume", KIO::number(100));
+        }
         connect(m_getJob, SIGNAL(canResume(KIO::Job*,KIO::filesize_t)), this, SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
 
         connect(m_getJob, SIGNAL(data(KIO::Job *, const QByteArray&)), this, SLOT(slotData(KIO::Job *, const QByteArray&)));
@@ -188,7 +191,15 @@ void KioDownload::slotResult(KJob *kioJob)
             //There has been an error
             kDebug(5001) << "Error" << err << "for" << m_source;
             if (err > 1) {
-                emit error();
+                //HACK if the error happened while trying to resume, then
+                //try again but without resuming, otherwise abort with an error
+                if (m_tryResume) {
+                    m_tryResume = false;
+                    createJob();
+                } else {
+                    m_tryResume = true;
+                    emit error();
+                }
             }
 //             if (!m_stopped)
 //                 setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
