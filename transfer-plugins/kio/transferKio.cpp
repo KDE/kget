@@ -90,8 +90,7 @@ void TransferKio::newDestResult(KJob *result)
 
 void TransferKio::start()
 {
-    if (!m_movingFile)
-    {
+    if (!m_movingFile && (status() != Finished)) {
         m_stopped = false;
         if(!m_copyjob)
             createJob();
@@ -104,8 +103,9 @@ void TransferKio::start()
 
 void TransferKio::stop()
 {
-    if(status() == Stopped)
+    if ((status() == Stopped) || (status() == Finished)) {
         return;
+    }
 
     m_stopped = true;
 
