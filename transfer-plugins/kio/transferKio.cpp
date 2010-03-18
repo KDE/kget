@@ -13,6 +13,7 @@
 #ifdef HAVE_NEPOMUK
 #include "core/nepomukhandler.h"
 #endif //HAVE_NEPOMUK
+#include "core/filemodel.h"
 #include "core/verifier.h"
 #include "kget/settings.h"
 
@@ -35,7 +36,8 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
       m_copyjob(0),
       m_movingFile(false),
       m_verifier(0),
-      m_signature(0)
+      m_signature(0),
+      m_fileModel(0)
 {
 
 }
@@ -90,8 +92,7 @@ void TransferKio::newDestResult(KJob *result)
 
 void TransferKio::start()
 {
-    if (!m_movingFile)
-    {
+    if (!m_movingFile && (status() != Finished)) {
         m_stopped = false;
         if(!m_copyjob)
             createJob();
@@ -99,13 +100,15 @@ void TransferKio::start()
         kDebug(5001) << "TransferKio::start";
         setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
         setTransferChange(Tc_Status, true);
+        statusChanged();
     }
 }
 
 void TransferKio::stop()
 {
-    if(status() == Stopped)
+    if ((status() == Stopped) || (status() == Finished)) {
         return;
+    }
 
     m_stopped = true;
 
@@ -119,6 +122,7 @@ void TransferKio::stop()
     setStatus(Job::Stopped);
     m_downloadSpeed = 0;
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
+    statusChanged();
 }
 
 bool TransferKio::isResumable() const
@@ -206,6 +210,7 @@ void TransferKio::slotResult( KJob * kioJob )
     }
 
     setTransferChange(flags, true);
+    statusChanged();
 }
 
 void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
@@ -232,6 +237,12 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 
     m_totalSize = size;
     setTransferChange(Tc_Status | Tc_TotalSize, true);
+    statusChanged();
+
+    if (m_fileModel) {
+        QModelIndex sizeIndex = m_fileModel->index(m_dest, FileItem::Size);
+        m_fileModel->setData(sizeIndex, static_cast<qlonglong>(m_totalSize));
+    }
 }
 
 void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
@@ -244,6 +255,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
     {
         setStatus(Job::Running);
         setTransferChange(Tc_Status);
+        statusChanged();
     }
     m_downloadedSize = size;
     setTransferChange(Tc_DownloadedSize, true);
@@ -262,6 +274,7 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
         else
             setStatus(Job::Running);
         setTransferChange(Tc_Status);
+        statusChanged();
 
     }
 
@@ -271,6 +284,11 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 
 void TransferKio::slotVerified(bool isVerified)
 {
+    if (m_fileModel) {
+        QModelIndex checksumVerified = m_fileModel->index(m_dest, FileItem::ChecksumVerified);
+        m_fileModel->setData(checksumVerified, verifier()->status());
+    }
+
     if (!isVerified) {
         QString text = i18n("The download (%1) could not be verified. Do you want to repair it?", m_dest.fileName());
 
@@ -331,5 +349,49 @@ Signature *TransferKio::signature(const KUrl &file)
     
     return m_signature;
 }
+
+FileModel *TransferKio::fileModel()
+{
+    if (!m_fileModel)
+    {
+        m_fileModel = new FileModel(QList<KUrl>() << m_dest, m_dest.upUrl(), this);
+        connect(m_fileModel, SIGNAL(rename(KUrl, KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+
+        QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
+        m_fileModel->setData(statusIndex, status());
+        QModelIndex sizeIndex = m_fileModel->index(m_dest, FileItem::Size);
+        m_fileModel->setData(sizeIndex, static_cast<qlonglong>(totalSize()));
+        QModelIndex checksumVerified = m_fileModel->index(m_dest, FileItem::ChecksumVerified);
+        m_fileModel->setData(checksumVerified, verifier()->status());
+    }
+
+    return m_fileModel;
+}
+
+void TransferKio::statusChanged()
+{
+    if (m_fileModel) {
+        QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
+        m_fileModel->setData(statusIndex, status());
+    }
+}
+
+void TransferKio::save(const QDomElement &element)
+{
+    Transfer::save(element);
+    verifier()->save(element);
+    signature()->save(element);
+}
+
+void TransferKio::load(const QDomElement *e)
+{
+    Transfer::load(e);
+    if (e) {
+        QDomElement element = *e;
+        verifier()->load(element);
+        signature()->load(element);
+    }
+}
+
 
 #include "transferKio.moc"

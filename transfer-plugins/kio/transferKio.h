@@ -45,6 +45,8 @@ class TransferKio : public Transfer
         Verifier *verifier(const KUrl &file = KUrl());
         Signature *signature(const KUrl &file = KUrl());
 
+        FileModel *fileModel();
+
     public slots:
         bool setNewDestination(const KUrl &newDestination);
 
@@ -55,8 +57,12 @@ class TransferKio : public Transfer
         bool isResumable() const;
         void deinit();
 
+        void save(const QDomElement &element);
+        void load(const QDomElement *e);
+
     private:
         void createJob();
+        void statusChanged();
 
         KIO::FileCopyJob * m_copyjob;
         bool m_stopped;
@@ -75,6 +81,7 @@ class TransferKio : public Transfer
     private:
         Verifier *m_verifier;
         Signature *m_signature;
+        FileModel *m_fileModel;
 };
 
 #endif
