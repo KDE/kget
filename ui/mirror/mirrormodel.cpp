@@ -164,6 +164,10 @@ bool MirrorProxyModel::lessThan(const QModelIndex &left, const QModelIndex &righ
         const int leftData = sourceModel()->data(left, Qt::CheckStateRole).toInt();
         const int rightData = sourceModel()->data(right, Qt::CheckStateRole).toInt();
         return leftData < rightData;
+    } else if (left.column() == MirrorItem::Priority) {
+        const int leftData = sourceModel()->data(left, Qt::UserRole).toInt();
+        const int rightData = sourceModel()->data(right, Qt::UserRole).toInt();
+        return (!leftData ? true : (leftData > rightData) && rightData);//0 is always smallest, otherwise larger is smaller
     }
 
     return QSortFilterProxyModel::lessThan(left, right);
@@ -172,7 +176,8 @@ bool MirrorProxyModel::lessThan(const QModelIndex &left, const QModelIndex &righ
 
 MirrorItem::MirrorItem()
   : m_checked(Qt::Unchecked),
-    m_numConnections(0)
+    m_numConnections(0),
+    m_priority(0)
 {
 }
 

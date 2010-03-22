@@ -34,10 +34,10 @@ UrlWidget::UrlWidget(QObject *parent)
     ui.setupUi(m_widget);
 
     m_mirrorModel = new MirrorModel(this);
-    m_proxy = new QSortFilterProxyModel(this);
+    m_proxy = new MirrorProxyModel(this);
     m_proxy->setSourceModel(m_mirrorModel);
     ui.used_mirrors->setModel(m_proxy);
-    ui.used_mirrors->sortByColumn(MirrorItem::Priority, Qt::AscendingOrder);
+    ui.used_mirrors->sortByColumn(MirrorItem::Priority, Qt::DescendingOrder);
     ui.used_mirrors->resizeColumnToContents(MirrorItem::Priority);
     ui.used_mirrors->hideColumn(MirrorItem::Used);
     ui.used_mirrors->hideColumn(MirrorItem::Connections);

@@ -30,6 +30,7 @@ namespace KGetMetalink
 }
 
 class MirrorModel;
+class MirrorProxyModel;
 class QSortFilterProxyModel;
 
 class UrlWidget : public QObject
@@ -59,7 +60,7 @@ class UrlWidget : public QObject
     private:
         KGetMetalink::Resources *m_resources;
         MirrorModel *m_mirrorModel;
-        QSortFilterProxyModel *m_proxy;
+        MirrorProxyModel *m_proxy;
         QSortFilterProxyModel *m_countrySort;
         QPointer<QWidget> m_widget;
         Ui::UrlWidget ui;
