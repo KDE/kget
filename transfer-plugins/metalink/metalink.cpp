@@ -125,6 +125,16 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         return;
     }
 
+    //offers a dialog to download the newest version of a dynamic metalink
+     if ((m_source.isLocalFile() || !justDownloaded) && m_metalink.dynamic) {
+        if (KMessageBox::questionYesNo(0, i18n("A newer version of this Metalink might exist, do you want to download it?"),
+                                       i18n("Redownload Metalink")) == KMessageBox::Yes) {
+            m_localMetalinkLocation.clear();
+            m_source = m_metalink.origin;
+            return;
+        }
+    }
+
     QList<KGetMetalink::File>::const_iterator it;
     QList<KGetMetalink::File>::const_iterator itEnd = m_metalink.files.files.constEnd();
     m_totalSize = 0;

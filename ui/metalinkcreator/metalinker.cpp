@@ -1212,6 +1212,7 @@ bool KGetMetalink::HandleMetalink::load(const QByteArray &data, KGetMetalink::Me
         return false;
     }
 
+    metalink->clear();
     QDomElement root = doc.documentElement();
     if (root.attribute("xmlns") == "urn:ietf:params:xml:ns:metalink")
     {
