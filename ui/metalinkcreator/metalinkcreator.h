@@ -20,12 +20,10 @@
 #ifndef METALINKCREATOR_H
 #define METALINKCREATOR_H
 
-#include <QtCore/QMutex>
-#include <QtCore/QThread>
-
 #include <KAssistantDialog>
 
 #include "metalinker.h"
+#include "filehandler.h"
 
 #include "ui_introduction.h"
 #include "ui_files.h"
@@ -43,38 +41,12 @@ class QShowEvent;
 class QSortFilterProxyModel;
 class QStandardItemModel;
 
-class DroppedFilesThread : public QThread
-{
-    Q_OBJECT
-
-    public:
-        DroppedFilesThread(QObject *parent = 0);
-        ~DroppedFilesThread();
-
-        void setData(const QList<KUrl> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData);
-
-    signals:
-        void fileResult(const KGetMetalink::File file);
-
-    protected:
-        void run();
-
-    private:
-        QMutex mutex;
-        bool abort;
-        QList<QList<KUrl> > m_files;
-        QList<QStringList> m_types;
-        QList<bool> m_createPartial;
-        QList<KGetMetalink::Resources> m_tempResources;
-        QList<KGetMetalink::CommonData> m_tempCommonDatas;
-};
-
 class FileWidget : public QWidget
 {
     Q_OBJECT
 
     public:
-        FileWidget(QWidget* parent = 0);
+        FileWidget(QWidget *parent = 0);
 
     signals:
         void urlsDropped(const QList<KUrl> &files);
@@ -105,12 +77,6 @@ class MetalinkCreator : public KAssistantDialog
          * This slot is used to update the filename in the filemodel if needed
          */
         void slotFileEdited(const QString &oldFileName, const QString &newFileName);
-
-        /**
-         * Starts the DropDlg
-         * @param files have been dropped
-         */
-        void slotUrlsDropped(const QList<KUrl> &files);
 
         /**
          * Handles the dropped files, calls dialogs if needed etc
@@ -161,6 +127,8 @@ class MetalinkCreator : public KAssistantDialog
 
         void slotThreadFinished();//TODO description
 
+        void slotOpenDragDlg();
+
     private:
         /**
          * Opens the dialog to enter data for a file
@@ -189,7 +157,8 @@ class MetalinkCreator : public KAssistantDialog
         void loadFiles();
 
     private:
-        DroppedFilesThread thread;
+        FileHandlerThread m_thread;
+        DirectoryHandler *m_handler;
         KGetMetalink::Metalink metalink;
         int m_needUrlCount;
 
@@ -212,8 +181,6 @@ class MetalinkCreator : public KAssistantDialog
         KPageWidgetItem *m_files;
 
         QStandardItemModel *m_filesModel;
-
-        QList<KUrl> m_droppedFiles;
 };
 
 #endif

@@ -201,6 +201,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/metalinkcreator/localemodels.cpp
    ui/metalinkcreator/dragdlg.cpp
    ui/metalinkcreator/urlwidget.cpp
+   ui/metalinkcreator/filehandler.cpp
    ui/signaturedlg.cpp
    mainwindow.cpp
    main.cpp
