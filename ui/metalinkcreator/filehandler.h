@@ -70,8 +70,8 @@ class DirectoryHandler : public QObject
     Q_OBJECT
 
     public:
-        FileHandler(QObject *parent);
-        ~FileHandler();
+        DirectoryHandler(QObject *parent);
+        ~DirectoryHandler();
 
         /**
          * Returns the handled files and clears the member, call this after finished is emitted

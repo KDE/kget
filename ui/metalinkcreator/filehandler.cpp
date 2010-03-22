@@ -124,13 +124,13 @@ void FileHandlerThread::run()
     }
 }
 
-DirectoryHandler::FileHandler(QObject *parent)
+DirectoryHandler::DirectoryHandler(QObject *parent)
   : QObject(parent),
     m_allJobsStarted(false)
 {
 }
 
-DirectoryHandler::~FileHandler()
+DirectoryHandler::~DirectoryHandler()
 {
 }
 
