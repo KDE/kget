@@ -281,7 +281,7 @@ void KGet_plug_in::showLinks( bool selectedOnly )
     {
         KParts::ReadOnlyPart *part = qobject_cast<KParts::ReadOnlyPart *>(parent());
         KMessageBox::sorry(part ? part->widget() : 0,
-                           i18n("Unable to communicate with the KGet download manager!"),
+                           i18n("Unable to communicate with the KGet download manager."),
                            i18n("Communication Error"));
         return;
     }
