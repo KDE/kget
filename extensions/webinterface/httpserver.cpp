@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2008 - 2009 Urs Wolfer <uwolfer @ kde.org>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -109,11 +110,26 @@ void HttpServer::handleRequest()
                 else if (map.at(0) == "group")
                     group = KUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
             }
-            kDebug(5001) << action << data;
+            kDebug(5001) << action << data << group;
             if (action == "add") {
-                // take first item of default folder list (which should be the best one)
-                const QString defaultFolder(KGet::groupsFromExceptions(KUrl(data)).first()->defaultFolder());
-                KGet::addTransfer(data, defaultFolder.isEmpty() ? KGlobalSettings::downloadPath() : defaultFolder, group);
+                //find a folder to store the download in 
+                QString defaultFolder;
+
+                //prefer the defaultFolder of the selected group
+                TransferGroupHandler *groupHandler = KGet::findGroup(group);
+                if (groupHandler) {
+                    defaultFolder = groupHandler->defaultFolder();
+                }
+                if (defaultFolder.isEmpty()) {
+                    QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(KUrl(data));
+                    if (groups.isEmpty()) {
+                        defaultFolder = KGet::generalDestDir();
+                    } else {
+                        // take first item of default folder list (which should be the best one)
+                        defaultFolder = groups.first()->defaultFolder();
+                    }
+                }
+                KGet::addTransfer(data, defaultFolder, QString(), group);
                 data.append(QString("Ok, %1 added!").arg(data).toUtf8());
             } else if (action == "start") {
                 TransferHandler *transfer = KGet::findTransfer(data);
