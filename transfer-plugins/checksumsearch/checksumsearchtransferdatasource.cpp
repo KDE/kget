@@ -37,11 +37,6 @@ ChecksumSearchController::ChecksumSearchController(QObject *parent)
 
 ChecksumSearchController::~ChecksumSearchController()
 {
-    QHash<KJob*, QPair<KUrl, KUrl> >::const_iterator it;
-    QHash<KJob*, QPair<KUrl, KUrl> >::const_iterator itEnd = m_jobs.constEnd();
-    for (it = m_jobs.constBegin(); it != itEnd; ++it) {
-        it.key()->kill();
-    }
 }
 
 void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl)
