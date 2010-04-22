@@ -69,7 +69,7 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
      BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(handler);
 
      QList<KAction*> actions;
-     if (bttransfer)
+     if (bttransfer && bttransfer->torrentControl())
      {
          KAction *openAdvancedDetailsAction = new KAction(KIcon("document-open"), i18n("&Advanced Details"), this);
  

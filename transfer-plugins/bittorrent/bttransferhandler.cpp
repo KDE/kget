@@ -35,6 +35,8 @@ BTTransferHandler::~BTTransferHandler()
 
 void BTTransferHandler::createAdvancedDetails()
 {
+    if (!torrentControl())
+        return;
     kDebug(5001);
 
     if (!advancedDetails)
@@ -67,6 +69,8 @@ kt::Monitor* BTTransferHandler::torrentMonitor() const
 
 void BTTransferHandler::createScanDlg()
 {
+    if (!torrentControl())
+        return;
     kDebug(5001);
     if (scanDlg)
     {

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>BTSettingsWidget</class>
- <widget class="QWidget" name="BTSettingsWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="BTSettingsWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,76 +10,83 @@
     <height>363</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="networkGroupBox" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <widget class="QGroupBox" name="networkGroupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Network</string>
      </property>
-     <layout class="QFormLayout" name="formLayout" >
-      <property name="fieldGrowthPolicy" >
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
       </property>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="portLabel" >
-        <property name="text" >
+      <item row="0" column="0">
+       <widget class="QLabel" name="portLabel">
+        <property name="text">
          <string>Port:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QSpinBox" name="portBox" >
-        <property name="maximum" >
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="portBox">
+        <property name="maximum">
          <number>99000</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>6881</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="uploadLimitLabel" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="uploadLimitLabel">
+        <property name="text">
          <string>Upload limit per transfer:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QSpinBox" name="uploadBox" >
-        <property name="specialValueText" >
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="uploadBox">
+        <property name="specialValueText">
          <string>No Limit</string>
         </property>
-        <property name="suffix" >
+        <property name="suffix">
          <string>KiB</string>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>10000</number>
         </property>
        </widget>
       </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="downloadLabel" >
-        <property name="text" >
+      <item row="2" column="0">
+       <widget class="QLabel" name="downloadLabel">
+        <property name="text">
          <string>Download limit per transfer:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="QSpinBox" name="downloadBox" >
-        <property name="specialValueText" >
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="downloadBox">
+        <property name="specialValueText">
          <string>No Limit</string>
         </property>
-        <property name="suffix" >
+        <property name="suffix">
          <string>KiB</string>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>100000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="utpBox">
+        <property name="text">
+         <string>Enable UTP protocol</string>
         </property>
        </widget>
       </item>
@@ -86,63 +94,63 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="folderGroupBox" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <widget class="QGroupBox" name="folderGroupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Folders</string>
      </property>
-     <layout class="QFormLayout" name="formLayout_2" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="torrentFolderLabel" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="torrentFolderLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Default torrent folder:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="KUrlRequester" name="torrentEdit" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+      <item row="0" column="1">
+       <widget class="KUrlRequester" name="torrentEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="filter" >
+        <property name="filter">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="tempFolderLabel" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="tempFolderLabel">
+        <property name="text">
          <string>Default temporary folder</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="KUrlRequester" name="tempEdit" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+      <item row="1" column="1">
+       <widget class="KUrlRequester" name="tempEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="QCheckBox" name="preallocBox" >
-        <property name="text" >
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="preallocBox">
+        <property name="text">
          <string>Pre-allocate disk space</string>
         </property>
        </widget>
@@ -152,10 +160,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>

@@ -31,7 +31,8 @@
 #include <util/log.h>
 #include <peer/authenticationmonitor.h>
 #include <interfaces/trackerinterface.h>
-#include <btversion.h>
+#include <utp/utpserver.h>
+#include <version.h>
 
 #include <KDebug>
 #include <KLocale>
@@ -197,9 +198,7 @@ void BTTransfer::newDestResult()
 void BTTransfer::stop()
 {
     if (m_movingFile)
-    {
         return;
-    }
 
     if (m_ready)
     {
@@ -232,7 +231,7 @@ void BTTransfer::load(const QDomElement *element)
 {
     Transfer::load(element);
 
-    if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
+    if ((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
         setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
     }
@@ -251,7 +250,9 @@ void BTTransfer::load(const QDomElement *element)
 
 void BTTransfer::setPort(int port)
 {
-    bt::Globals::instance().getServer().changePort(port);
+    bt::Globals::instance().getTCPServer().changePort(port);
+    if (BittorrentSettings::enableUTP())
+        bt::Globals::instance().getUTPServer().changePort(port + 1);
 }
 
 void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
@@ -266,16 +267,14 @@ void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
 void BTTransfer::addTracker(const QString &url)
 {
     kDebug(5001);
-    if(torrent->getStats().priv_torrent)
-    {
-	KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
-	return;
+    if(torrent->getStats().priv_torrent) {
+        KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
+        return;
     }
 
-    if(!KUrl(url).isValid())
-    {
-	KMessageBox::error(0, i18n("Malformed URL."));
-	return;
+    if(!KUrl(url).isValid()) {
+       KMessageBox::error(0, i18n("Malformed URL."));
+       return;
     }
 
     torrent->getTrackersList()->addTracker(url,true);
@@ -446,15 +445,16 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
     bt::SetClientInfo("KGet", 2, KDE_VERSION_MINOR, KDE_VERSION_RELEASE, bt::NORMAL, "KG");//Set client info to KGet
 
     bt::Uint16 i = 0;
-    do
-    {
-        bt::Globals::instance().initServer(BittorrentSettings::port() + i);
+    while (!bt::Globals::instance().initTCPServer(BittorrentSettings::port() + i) && i < 10)
         i++;
-    }while (!bt::Globals::instance().getServer().isOK() && i < 10);
-
-    if (!bt::Globals::instance().getServer().isOK()) {
+    
+    if (i == 10) {
         setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
         return;
+    }
+    if (BittorrentSettings::enableUTP()) {
+        while (!bt::Globals::instance().initUTPServer(BittorrentSettings::port() + i) && i < 10) //We don't care if it fails for now as UTP is experimental...
+            i++;
     }
 
     QDir tmpDir(m_tmp + m_source.fileName().remove(".torrent"));
@@ -493,6 +493,8 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
     catch (bt::Error &err)
     {
         m_ready = false;
+        torrent->deleteLater();
+        torrent = 0;
         setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
         KMessageBox::error(0, err.toString(), i18n("Error"));
     }
@@ -747,7 +749,7 @@ void BTTransfer::filesSelected()
 //     setTransferChange(Tc_TotalSize | Tc_DownloadedSize | Tc_Percent, true);
 }
 
-FileModel *BTTransfer::fileModel()//TODO korrektes file-model wenn nur eine datei im torrent!
+FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrents
 {
     if (!m_fileModel)
     {

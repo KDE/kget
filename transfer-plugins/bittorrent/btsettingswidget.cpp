@@ -28,6 +28,7 @@ BTSettingsWidget::BTSettingsWidget(QWidget * parent = 0, const QVariantList &arg
     connect(torrentEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
     connect(tempEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
     connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(changed()));
+    connect(utpBox, SIGNAL(stateChanged(int)), SLOT(changed()));
 }
 
 void BTSettingsWidget::load()
@@ -48,6 +49,7 @@ void BTSettingsWidget::save()
     BittorrentSettings::setTorrentDir(torrentEdit->url().url());
     BittorrentSettings::setTmpDir(tempEdit->url().url());
     BittorrentSettings::setPreAlloc(preallocBox->isChecked());
+    BittorrentSettings::setEnableUTP(utpBox->isChecked());
 
     BittorrentSettings::self()->writeConfig();
 }
@@ -60,6 +62,7 @@ void BTSettingsWidget::defaults()
     torrentEdit->setUrl(BittorrentSettings::torrentDir());
     tempEdit->setUrl(BittorrentSettings::tmpDir());
     preallocBox->setChecked(BittorrentSettings::preAlloc());
+    utpBox->setChecked(BittorrentSettings::enableUTP());
 }
 
 #include "btsettingswidget.moc"
