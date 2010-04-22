@@ -144,7 +144,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         m_totalSize += fileSize;
 
         //create a DataSourceFactory for each separate file
-        DataSourceFactory *dataFactory = new DataSourceFactory(dest, fileSize, segSize, this);
+        DataSourceFactory *dataFactory = new DataSourceFactory(this, dest, fileSize, segSize);
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
 #ifdef HAVE_NEPOMUK

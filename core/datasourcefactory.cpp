@@ -36,8 +36,7 @@
 
 const int SPEEDTIMER = 1000;//1 second...
 
-DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO::fileoffset_t segSize,
-                                     QObject *parent)
+DataSourceFactory::DataSourceFactory(QObject *parent, const KUrl &dest, KIO::filesize_t size, KIO::fileoffset_t segSize)
   : QObject(parent),
     m_dest(dest),
     m_size(size),
@@ -65,37 +64,6 @@ DataSourceFactory::DataSourceFactory(const KUrl &dest, KIO::filesize_t size, KIO
     m_signature(0)
 {
     kDebug(5001) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
-
-    m_prevDownloadedSizes.append(0);
-}
-
-DataSourceFactory::DataSourceFactory(QObject *parent)
-  : QObject(parent),
-    m_size(0),
-    m_downloadedSize(0),
-    m_segSize(0),
-    m_speed(0),
-    m_tempOffset(0),
-    m_startedChunks(0),
-    m_finishedChunks(0),
-    m_putJob(0),
-    m_doDownload(true),
-    m_open(false),
-    m_blocked(false),
-    m_startTried(false),
-    m_assignTried(false),
-    m_movingFile(false),
-    m_finished(false),
-    m_sizeInitiallyDefined(m_size),
-    m_maxMirrorsUsed(3),
-    m_speedTimer(0),
-    m_tempDownload(0),
-    m_status(Job::Stopped),
-    m_statusBeforeMove(m_status),
-    m_verifier(0),
-    m_signature(0)
-{
-    kDebug(5001) << "Initialize DataSourceFactory only with parrent";
 
     m_prevDownloadedSizes.append(0);
 }
@@ -228,8 +196,12 @@ void DataSourceFactory::finished()
 
     //set all chunks to true, that is useful for saving
     init();
-    m_startedChunks->setAll(true);
-    m_finishedChunks->setAll(true);
+    if (m_startedChunks) {
+        m_startedChunks->setAll(true);
+    }
+    if (m_finishedChunks) {
+        m_finishedChunks->setAll(true);
+    }
 }
 
 bool DataSourceFactory::checkLocalFile()
@@ -967,9 +939,10 @@ void DataSourceFactory::load(const QDomElement *element)
     {
         m_size = e.attribute("size").toULongLong();
     }
-    if (!m_segSize)
+    KIO::fileoffset_t tempSegSize = e.attribute("segementSize").toLongLong();
+    if (tempSegSize)
     {
-        m_segSize = e.attribute("segementSize").toLongLong();
+        m_segSize = tempSegSize;
     }
     if (!m_downloadedSize)
     {
