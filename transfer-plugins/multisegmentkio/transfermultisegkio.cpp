@@ -50,7 +50,7 @@ void TransferMultiSegKio::init()
 
     if (!m_dataSourceFactory)
     {
-        m_dataSourceFactory = new DataSourceFactory(m_dest, 0, 500 * 1024, this);
+         m_dataSourceFactory = new DataSourceFactory(this, m_dest);
         connect(m_dataSourceFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
         connect(m_dataSourceFactory, SIGNAL(speed(ulong)), this, SLOT(slotSpeed(ulong)));
         connect(m_dataSourceFactory, SIGNAL(percent(ulong)), this, SLOT(slotPercent(ulong)));
