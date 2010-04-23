@@ -319,14 +319,6 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     m_statusText = statusText;
     m_statusPixmap = statusIcon;
 
-#ifdef HAVE_NEPOMUK
-    if (jobStatus == Job::Finished)
-    {
-        m_nepomukHandler->addTags(group()->tags());
-        m_nepomukHandler->saveFileProperties();
-    }
-#endif
-
     if (jobStatus == Job::Running && status() != Job::Running)
     {
         m_runningTime.restart();
@@ -346,6 +338,14 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     * we can overwrite the last icon or text change.
     */
     Job::setStatus(jobStatus);
+
+#ifdef HAVE_NEPOMUK
+    if (jobStatus == Job::Finished)
+    {
+        m_nepomukHandler->addTags(group()->tags());
+        m_nepomukHandler->saveFileProperties();
+    }
+#endif
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
