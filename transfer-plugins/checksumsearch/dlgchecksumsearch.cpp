@@ -56,7 +56,7 @@ ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QString
 
     slotUpdate();
 
-    connect(ui.change, SIGNAL(userTextChanged(QString)), this, SLOT(slotUpdate()));
+    connect(ui.change, SIGNAL(textChanged(QString)), this, SLOT(slotUpdate()));
     connect(ui.mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdate()));
     connect(this, SIGNAL(accepted()), this, SLOT(slotAccpeted()));
 }

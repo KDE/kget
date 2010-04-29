@@ -52,7 +52,7 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
 
     updateButton();
 
-    connect(ui.newHash, SIGNAL(userTextChanged(QString)), this, SLOT(updateButton()));
+    connect(ui.newHash, SIGNAL(textChanged(QString)), this, SLOT(updateButton()));
     connect(ui.hashTypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButton()));
     connect(this, SIGNAL(yesClicked()), this, SLOT(addChecksum()));
     connect(this, SIGNAL(user1Clicked()), this, SLOT(addMore()));

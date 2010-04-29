@@ -73,7 +73,7 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
 
     connect(tagsUi.tagCloud, SIGNAL(tagClicked(const QString&)), this, SLOT(tagClicked(const QString&)));
     connect(tagsUi.usedTags, SIGNAL(clicked(QModelIndex)), this, SLOT(modelClicked(QModelIndex)));
-    connect(tagsUi.newTagsEdit, SIGNAL(userTextChanged(const QString &)), this, SLOT(textChanged(const QString &)));
+    connect(tagsUi.newTagsEdit, SIGNAL(textChanged(const QString &)), this, SLOT(textChanged(const QString &)));
     connect(tagsUi.addButton, SIGNAL(clicked(bool)), this, SLOT(addNewTag()));
     connect(ui.tagButton, SIGNAL(clicked(bool)), tagDialog, SLOT(show()));
     //END the tag-dialog
