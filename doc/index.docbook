@@ -663,9 +663,6 @@ There is also a text box to filter out results.</action></para></listitem>
 
 <varlistentry>
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>L</keycap></keycombo>
-</shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Create Metalink</guimenuitem>
 </menuchoice></term>
