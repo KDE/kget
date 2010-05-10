@@ -99,6 +99,7 @@ void Metalink::start()
 void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 {
     kDebug(5001);
+
     bool justDownloaded = !m_localMetalinkLocation.isValid();
     if (!src.isEmpty())
     {
@@ -121,7 +122,9 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     //error
     if (!m_metalink.isValid())
     {
-        kDebug(5001) << "Unknown error when trying to load the .metalink-file";
+        kError(5001) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
+        setStatus(Job::Aborted);
+        setTransferChange(Tc_Status, true);
         return;
     }
 
@@ -213,7 +216,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     if (!m_dataSourceFactory.size())
     {
         KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
-        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
+        setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return;
     }
@@ -239,16 +242,29 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         ui.treeView->hideColumn(FileItem::SignatureVerified);
         dialog->setMainWidget(widget);
         dialog->setCaption(i18n("File Selection"));
-        dialog->setButtons(KDialog::Ok);
-        connect(dialog, SIGNAL(finished()), this, SLOT(filesSelected()));
+        dialog->setButtons(KDialog::Ok | KDialog::Cancel);
+        connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
 
         dialog->show();
     }
 }
 
-void Metalink::filesSelected()
+void Metalink::fileDlgFinished(int result)
 {
+    //BEGIN HACK if the dialog was not accepted untick every file, so that the download does not start
+    //generally setStatus should do the job as well, but does not as it appears
+    if (result != QDialog::Accepted) {
+        for (int row = 0; row < fileModel()->rowCount(); ++row) {
+            QModelIndex index = fileModel()->index(row, FileItem::File);
+            if (index.isValid()) {
+                fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+            }
+        }
+    }
+    //END
+
     QModelIndexList files = fileModel()->fileIndexes(FileItem::File);
+    int numFilesSelected = 0;
     foreach (const QModelIndex &index, files)
     {
         const KUrl dest = fileModel()->getUrl(index);
@@ -256,6 +272,9 @@ void Metalink::filesSelected()
         if (m_dataSourceFactory.contains(dest))
         {
             m_dataSourceFactory[dest]->setDoDownload(doDownload);
+            if (doDownload) {
+                ++numFilesSelected;
+            }
         }
     }
 
@@ -264,9 +283,15 @@ void Metalink::filesSelected()
     processedSizeChanged();
     speedChanged();
 
+    //no files selected to download or dialog rejected, stop the download
+    if (!numFilesSelected  || (result != QDialog::Accepted)) {
+         setStatus(Job::Stopped);//FIXME
+         setTransferChange(Tc_Status, true);
+        return;
+    }
+
     //some files may be set to download, so start them as long as the transfer is not stopped
-    if (status() != Job::Stopped)
-    {
+    if (status() != Job::Stopped) {
         startMetalink();
     }
 }
