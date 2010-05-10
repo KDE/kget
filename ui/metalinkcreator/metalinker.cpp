@@ -528,14 +528,14 @@ void KGetMetalink::Verification::clear()
 
 bool KGetMetalink::File::isValid() const
 {
-    return !name.isEmpty() && resources.isValid();
+    return isValidNameAttribute() && resources.isValid();
 }
 
 void KGetMetalink::File::load(const QDomElement &e)
 {
     data.load(e);
 
-    name = e.attribute("name");
+    name = QUrl::fromPercentEncoding(e.attribute("name").toAscii());
     size = e.firstChildElement("size").text().toULongLong();
 
     verification.load(e);
@@ -575,6 +575,22 @@ void KGetMetalink::File::clear()
     resources.clear();
 }
 
+
+bool KGetMetalink::File::isValidNameAttribute() const
+{
+    if (name.isEmpty()) {
+        kError(5001) << "Name attribute of Metalink::File is empty.";
+        return false;
+    }
+
+    if (name.contains(QRegExp("$(\\.\\.?)?/")) || name.contains("/../") || name.endsWith("/..")) {
+        kError(5001) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
+        return false;
+    }
+
+    return true;
+}
+
 #ifdef HAVE_NEPOMUK
 QHash<QUrl, Nepomuk::Variant> KGetMetalink::File::properties() const
 {
@@ -584,13 +600,28 @@ QHash<QUrl, Nepomuk::Variant> KGetMetalink::File::properties() const
 
 bool KGetMetalink::Files::isValid() const
 {
-    bool isValid = !files.empty();
-    foreach (const File &file, files)
-    {
-        isValid &= file.isValid();
+    if (files.isEmpty()) {
+        return false;
     }
 
-    return isValid;
+    QStringList fileNames;
+    foreach (const File &file, files) {
+        fileNames << file.name;
+        if (!file.isValid()) {
+            return false;
+        }
+    }
+
+    //The value of name must be unique for each file
+    while (!fileNames.isEmpty()) {
+        const QString fileName = fileNames.takeFirst();
+        if (fileNames.contains(fileName)) {
+            kError(5001) << "Metalink::File name" << fileName << "exists multiple times.";
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void KGetMetalink::Files::load(const QDomElement &e)
@@ -751,7 +782,7 @@ void KGetMetalink::Metalink_v3::parseFiles(const QDomElement &e)
 
     for (QDomElement elem = filesElem.firstChildElement("file"); !elem.isNull(); elem = elem.nextSiblingElement("file")) {
         File file;
-        file.name = elem.attribute("name");
+        file.name = QUrl::fromPercentEncoding(elem.attribute("name").toAscii());
         file.size = elem.firstChildElement("size").text().toULongLong();
 
         file.data = parseCommonData(elem);

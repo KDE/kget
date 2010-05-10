@@ -81,7 +81,7 @@ class Metalink : public Transfer
 
     private Q_SLOTS:
         void metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
-        void filesSelected();
+        void fileDlgFinished(int result);
         void totalSizeChanged(KIO::filesize_t size);
         void processedSizeChanged();
         void speedChanged();
