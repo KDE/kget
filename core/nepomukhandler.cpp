@@ -12,6 +12,9 @@
 
 #include "transfer.h"
 
+#include "nfo.h"
+#include "ndo.h"
+#include "nie.h"
 #include <Soprano/Vocabulary/Xesam>
 #include <Soprano/Vocabulary/NAO>
 #include <Nepomuk/Variant>
@@ -22,7 +25,7 @@ NepomukHandler::NepomukHandler(Transfer *transfer)
   : QObject(transfer),
     m_transfer(transfer),
     m_destination(transfer->dest()),
-    m_resource(Nepomuk::Resource(m_destination, Soprano::Vocabulary::Xesam::File()))
+    m_resource(Nepomuk::Resource(m_destination, Nepomuk::Vocabulary::NFO::FileDataObject()))
 {
 }
 
@@ -34,7 +37,7 @@ void NepomukHandler::setNewDestination(const KUrl &newDestination)
 {
     //TODO look if set tags get copied over!
     m_destination = newDestination;
-    m_resource = Nepomuk::Resource(m_destination, Soprano::Vocabulary::Xesam::File());
+    m_resource = Nepomuk::Resource(m_destination, Nepomuk::Vocabulary::NFO::FileDataObject());
 }
 
 void NepomukHandler::setRating(int rating)
@@ -93,14 +96,23 @@ void NepomukHandler::setProperty(const QUrl &uri, const Nepomuk::Variant &value)
 
 void NepomukHandler::saveFileProperties()
 {
+    Nepomuk::Resource srcFileRes(m_transfer->source(), Nepomuk::Vocabulary::NFO::RemoteDataObject());
+    srcFileRes.setProperty(Nepomuk::Vocabulary::NIE::url(), m_transfer->source());
     saveFileProperties(m_resource);
 }
 
 void NepomukHandler::saveFileProperties(const Nepomuk::Resource &res)
 {
+    Nepomuk::Resource srcFileRes(m_transfer->source(), Nepomuk::Vocabulary::NFO::RemoteDataObject());
     Nepomuk::Resource m_res = res;
     m_res.setProperty(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_transfer->source()));
     m_res.setProperty(Soprano::Vocabulary::Xesam::size(), Nepomuk::Variant(m_transfer->totalSize()));
+    m_res.setProperty(Nepomuk::Vocabulary::NDO::copiedFrom(), srcFileRes);
+    m_res.setProperty(Nepomuk::Vocabulary::NIE::url(), m_transfer->dest());
+
+    /*Nepomuk::Resource downloadEventRes(QUrl(), Nepomuk::Vocabulary::NDO::DownloadEvent());
+    downloadEventRes.addProperty(Nepomuk::Vocabulary::NUAO::involves(), m_res);
+    downloadEventRes.addProperty(Nepomuk::Vocabulary::NUAO::start(), m_downloadJobStartTime);*/
 }
 
 bool NepomukHandler::isValid() const

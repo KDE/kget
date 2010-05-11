@@ -12,6 +12,8 @@ if(HAVE_NEPOMUK)
     set(kget_metalinkfactory_PART_SRCS
         ${kget_metalinkfactory_PART_SRCS}
         metanepomukhandler.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../nfo.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../nie.cpp
     )
 endif(HAVE_NEPOMUK)
 

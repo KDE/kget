@@ -21,6 +21,8 @@
 
 #include "core/transfer.h"
 
+#include "nfo.h"
+#include "nie.h"
 #include <Soprano/Vocabulary/Xesam>
 #include <Nepomuk/Variant>
 #include <Nepomuk/Tag>
@@ -64,7 +66,8 @@ void MetaNepomukHandler::setDestinations(const QList<KUrl> &destinations)
     {
         if (!m_resources.contains(destinations[i]) && !destinations[i].isEmpty())
         {
-            m_resources[destinations[i]] = Nepomuk::Resource(destinations[i], Soprano::Vocabulary::Xesam::File());
+            m_resources[destinations[i]] = Nepomuk::Resource(destinations[i], Nepomuk::Vocabulary::NFO::FileDataObject());
+            m_resources[destinations[i]].setProperty(Nepomuk::Vocabulary::NIE::url(), destinations[i]);
         }
     }
 }
@@ -183,12 +186,8 @@ void MetaNepomukHandler::setFileMetaData(const KUrl &dest, const KGetMetalink::F
 
 void MetaNepomukHandler::saveFileProperties()
 {
-    //store the already set data for the new destinations
-    //     if (!m_newDestinations.isEmpty())
-    //     {
-        //
-        //     }
-        //NOTE do something here?
+    foreach (Nepomuk::Resource res, m_resources.values())
+        NepomukHandler::saveFileProperties(res);
 }
 
 

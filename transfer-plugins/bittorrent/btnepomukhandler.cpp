@@ -21,6 +21,8 @@
 
 #include "core/transfer.h"
 
+#include "ndo.h"
+#include "nie.h"
 #include <Soprano/Vocabulary/Xesam>
 #include <Nepomuk/Variant>
 #include <Nepomuk/Tag>
@@ -64,7 +66,8 @@ void BtNepomukHandler::setDestinations(const QList<KUrl> &destinations)
     {
         if (!m_resources.contains(destinations[i]) && !destinations[i].isEmpty())
         {
-            m_resources[destinations[i]] = Nepomuk::Resource(destinations[i], Soprano::Vocabulary::Xesam::File());
+            m_resources[destinations[i]] = Nepomuk::Resource(destinations[i], Nepomuk::Vocabulary::NDO::TorrentedFile());
+            m_resources[destinations[i]].setProperty(Nepomuk::Vocabulary::NIE::url(), destinations[i]);
         }
     }
 }
@@ -164,12 +167,12 @@ void BtNepomukHandler::removeTag(const QString &oldTag)
 
 void BtNepomukHandler::saveFileProperties()
 {
-    //store the already set data for the new destinations
-//     if (!m_newDestinations.isEmpty())
-//     {
-//         
-//     }
-    //NOTE do something here?
+    Nepomuk::Resource srcFileRes(m_transfer->source(), Nepomuk::Vocabulary::NDO::Torrent());
+    srcFileRes.setProperty(Nepomuk::Vocabulary::NIE::url(), m_transfer->source());
+    foreach (Nepomuk::Resource res, m_resources.values()) {
+        NepomukHandler::saveFileProperties(res);
+        srcFileRes.addProperty(Nepomuk::Vocabulary::NIE::hasLogicalPart(), res);
+    }
 }
 
 void BtNepomukHandler::deinit()

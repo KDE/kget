@@ -35,6 +35,8 @@ if(HAVE_NEPOMUK)
     set(kget_bittorrentfactory_PART_SRCS
         ${kget_bittorrentfactory_PART_SRCS}
         btnepomukhandler.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../ndo.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../nie.cpp
         )
 endif(HAVE_NEPOMUK)
 

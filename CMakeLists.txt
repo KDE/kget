@@ -121,11 +121,17 @@ endif(HAVE_NEPOMUK)
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
  
 if (HAVE_NEPOMUK)
+    set(SDO_MIN_VERSION 0.4)
+    find_package(SharedDesktopOntologies ${SDO_MIN_VERSION})
+
     NEPOMUK_ADD_ONTOLOGY_CLASSES(
         kgetcore_SRCS
         ONTOLOGIES
         ${CMAKE_CURRENT_SOURCE_DIR}/kget_history.trig
     )
+    soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nfo.trig "NFO" "Nepomuk::Vocabulary" "trig")
+    soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nepomuk/ndo.trig "NDO" "Nepomuk::Vocabulary" "trig")
+    soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig "NIE" "Nepomuk::Vocabulary" "trig")
 endif (HAVE_NEPOMUK)
 
 qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
