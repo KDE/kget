@@ -35,9 +35,9 @@ if(HAVE_NEPOMUK)
     set(kget_bittorrentfactory_PART_SRCS
         ${kget_bittorrentfactory_PART_SRCS}
         btnepomukhandler.cpp
-        ${CMAKE_CURRENT_BINARY_DIR}/../../ndo.cpp
-        ${CMAKE_CURRENT_BINARY_DIR}/../../nie.cpp
         )
+    soprano_add_ontology(kget_bittorrentfactory_PART_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nepomuk/ndo.trig "NDO" "Nepomuk::Vocabulary" "trig")
+    soprano_add_ontology(kget_bittorrentfactory_PART_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig "NIE" "Nepomuk::Vocabulary" "trig")
 endif(HAVE_NEPOMUK)
 
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS

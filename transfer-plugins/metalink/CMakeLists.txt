@@ -12,9 +12,9 @@ if(HAVE_NEPOMUK)
     set(kget_metalinkfactory_PART_SRCS
         ${kget_metalinkfactory_PART_SRCS}
         metanepomukhandler.cpp
-        ${CMAKE_CURRENT_BINARY_DIR}/../../nfo.cpp
-        ${CMAKE_CURRENT_BINARY_DIR}/../../nie.cpp
     )
+    soprano_add_ontology(kget_metalinkfactory_PART_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nfo.trig "NFO" "Nepomuk::Vocabulary" "trig")
+    soprano_add_ontology(kget_metalinkfactory_PART_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig "NIE" "Nepomuk::Vocabulary" "trig")
 endif(HAVE_NEPOMUK)
 
 kde4_add_ui_files(kget_metalinkfactory_PART_SRCS
