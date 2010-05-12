@@ -122,14 +122,16 @@ void HttpServer::handleRequest()
                 }
                 if (defaultFolder.isEmpty()) {
                     QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(KUrl(data));
-                    if (groups.isEmpty()) {
+                    if (groups.isEmpty() || groups.first()->defaultFolder().isEmpty()) {
                         defaultFolder = KGet::generalDestDir();
                     } else {
                         // take first item of default folder list (which should be the best one)
-                        defaultFolder = groups.first()->defaultFolder();
+                        groupHandler = groups.first();
+                        group = groupHandler->name();
+                        defaultFolder = groupHandler->defaultFolder();
                     }
                 }
-                KGet::addTransfer(data, defaultFolder, QString(), group);
+                KGet::addTransfer(data, defaultFolder, KUrl(data).fileName(), group);
                 data.append(QString("Ok, %1 added!").arg(data).toUtf8());
             } else if (action == "start") {
                 TransferHandler *transfer = KGet::findTransfer(data);
