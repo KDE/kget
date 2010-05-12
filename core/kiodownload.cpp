@@ -159,6 +159,11 @@ void KioDownload::killJob()
         m_getJob->kill(KJob::Quietly);
         m_getJob = 0;
     }
+    killResumeJob();
+}
+
+void KioDownload::killResumeJob()
+{
     if (m_resumeJob) {
         m_resumeJob->kill(KJob::Quietly);
         m_resumeJob = 0;
@@ -170,6 +175,11 @@ void KioDownload::slotCanResume(KIO::Job* job, KIO::filesize_t size)
     Q_UNUSED(size)
     kDebug(5001);
     m_isResumeable = true;
+    m_tryResume = false;
+    killResumeJob();
+    if (m_totalSize) {
+        emit totalSize(m_totalSize);
+    }
 }
 
 void KioDownload::slotResult(KJob *kioJob)
@@ -275,8 +285,7 @@ void KioDownload::slotData(KIO::Job *job, const QByteArray &data)
         //only download 100 bytes for the resume job to try if resuming is supported
         if (m_processedResumeSize > 100) {
             m_tryResume = false;
-            m_resumeJob->kill(KJob::Quietly);
-            m_resumeJob = 0;
+            killResumeJob();
             if (m_totalSize) {
                 emit totalSize(m_totalSize);
             }

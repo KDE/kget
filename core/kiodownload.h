@@ -66,6 +66,7 @@ class KioDownload : public QObject
     private:
         void createJob();
         void killJob();
+        void killResumeJob();
 
     private:
         bool m_tryResume;
