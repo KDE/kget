@@ -26,6 +26,7 @@
 #include <KPassivePopup>
 #include <kapplication.h>
 
+#include <QDesktopWidget>
 #include <QBitmap>
 #include <QPainter>
 #include <QTimer>
@@ -45,16 +46,12 @@ DropTarget::DropTarget(MainWindow * mw)
 {
     KWindowSystem::setState(winId(), NET::SkipTaskbar);
 
-    QRect desk = KGlobalSettings::desktopGeometry(this);
-    desk.setRight( desk.right() - TARGET_SIZE );
-    desk.setBottom( desk.bottom() - TARGET_SIZE );
-
-    if (desk.contains(Settings::dropPosition())
-            && ((Settings::dropPosition().x() != 0) || (Settings::dropPosition().y() != 0)))
+    QRect screenGeo = qApp->desktop()->screenGeometry(Settings::dropPosition());
+    if ((screenGeo.x() + screenGeo.width() >= Settings::dropPosition().x() &&
+        screenGeo.y() + screenGeo.height() >= Settings::dropPosition().y()) && Settings::dropPosition().y() >= 0 && Settings::dropPosition().x() >= 0)
         position = QPoint(Settings::dropPosition());
     else
-        position = QPoint(qRound(desk.width() / 2), qRound(desk.height() / 2));
-
+        position = QPoint(screenGeo.x() + screenGeo.width() / 2, screenGeo.y() + screenGeo.height() / 2);
     setFixedSize(TARGET_SIZE, TARGET_SIZE);
 
     if(Settings::dropSticky())
