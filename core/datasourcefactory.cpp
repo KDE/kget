@@ -54,6 +54,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const KUrl &dest, KIO::fil
     m_assignTried(false),
     m_movingFile(false),
     m_finished(false),
+    m_removeFileOnDeinit(false),
     m_sizeInitiallyDefined(m_size),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
@@ -111,7 +112,7 @@ void DataSourceFactory::init()
 
 void DataSourceFactory::deinit()
 {
-    if (m_dest.isLocalFile())
+    if (m_removeFileOnDeinit && m_dest.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
@@ -245,6 +246,8 @@ void DataSourceFactory::start()
         m_startTried = true;
         return;
     }
+
+    m_removeFileOnDeinit = true;
 
     if (checkLocalFile()) {
         if (!m_size) {
@@ -952,6 +955,9 @@ void DataSourceFactory::load(const QDomElement *element)
     {
         m_doDownload = QVariant(e.attribute("doDownload")).toBool();
     }
+    if (e.hasAttribute("removeFileOnDeinit")) {
+        m_removeFileOnDeinit = QVariant(e.attribute("removeFileOnDeinit")).toBool();
+    }
     if (e.hasAttribute("maxMirrorsUsed"))
     {
         bool worked;
@@ -1110,6 +1116,7 @@ void DataSourceFactory::save(const QDomElement &element)
     factory.setAttribute("segementSize", m_segSize);
     factory.setAttribute("status", m_status);
     factory.setAttribute("doDownload", m_doDownload);
+    factory.setAttribute("removeFileOnDeinit", m_removeFileOnDeinit);
     factory.setAttribute("maxMirrorsUsed", m_maxMirrorsUsed);
     factory.setAttribute("sizeInitiallyDefined", m_sizeInitiallyDefined);
 
