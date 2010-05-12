@@ -45,7 +45,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * find the filesize
          * @note when you want to load a datasourcefactory you do not have to specify the url and segSize
          */
-        explicit DataSourceFactory(QObject *parent, const KUrl &dest = KUrl(), KIO::filesize_t size = 0, KIO::fileoffset_t segSize = 51000);
+        explicit DataSourceFactory(QObject *parent, const KUrl &dest = KUrl(), KIO::filesize_t size = 0, KIO::fileoffset_t segSize = 512000);
 
         ~DataSourceFactory();
 
