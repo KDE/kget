@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009-2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -27,9 +28,11 @@ KioDownload::KioDownload(const KUrl &src, const KUrl &dest, QObject *parent)
       m_dest(dest),
       m_file(0),
       m_getJob(0),
+      m_resumeJob(0),
       m_isResumeable(false),
       m_movingFile(false),
       m_processedSize(0),
+      m_totalSize(0),
       m_offset(0)
 {
     kDebug(5001);
@@ -140,10 +143,6 @@ void KioDownload::createJob()
         m_getJob->suspend();
         m_getJob->addMetaData("errorPage", "false");
         m_getJob->addMetaData("AllowCompressedPage", "false");
-        if (m_tryResume) {
-            m_getJob->addMetaData("resume", KIO::number(100));
-        }
-        connect(m_getJob, SIGNAL(canResume(KIO::Job*,KIO::filesize_t)), this, SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
 
         connect(m_getJob, SIGNAL(data(KIO::Job *, const QByteArray&)), this, SLOT(slotData(KIO::Job *, const QByteArray&)));
         connect(m_getJob, SIGNAL(result(KJob *)), this, SLOT(slotResult( KJob *)));
@@ -160,6 +159,10 @@ void KioDownload::killJob()
         m_getJob->kill(KJob::Quietly);
         m_getJob = 0;
     }
+    if (m_resumeJob) {
+        m_resumeJob->kill(KJob::Quietly);
+        m_resumeJob = 0;
+    }
 }
 void KioDownload::slotCanResume(KIO::Job* job, KIO::filesize_t size)
 {
@@ -171,6 +174,16 @@ void KioDownload::slotCanResume(KIO::Job* job, KIO::filesize_t size)
 
 void KioDownload::slotResult(KJob *kioJob)
 {
+    //resume job failed, probably only one connection supported
+    if (kioJob == m_resumeJob) {
+        m_resumeJob = 0;
+        m_tryResume = false;
+        if (m_totalSize) {
+            emit totalSize(m_totalSize);
+        }
+        return;
+    }
+
     const int err = kioJob->error();
     m_getJob = 0;
     switch (err)
@@ -190,17 +203,9 @@ void KioDownload::slotResult(KJob *kioJob)
         default:
             //There has been an error
             kDebug(5001) << "Error" << err << "for" << m_source;
-            if (err > 1) {
-                //HACK if the error happened while trying to resume, then
-                //try again but without resuming, otherwise abort with an error
-                if (m_tryResume) {
-                    m_tryResume = false;
-                    createJob();
-                } else {
-                    m_tryResume = true;
-                    emit error();
-                }
-            }
+
+            emit error();
+
 //             if (!m_stopped)
 //                 setStatus(Job::Aborted, i18n("Aborted"), SmallIcon("dialog-error"));
             break;
@@ -226,7 +231,12 @@ void KioDownload::slotTotalSize(KJob *kioJob, qulonglong size)
     Q_UNUSED(kioJob)
 
     kDebug(5001) << size;
-    emit totalSize(size);
+    m_totalSize = size;
+
+    //no need to wait for resumeJob
+    if (!m_tryResume) {
+        emit totalSize(m_totalSize);
+    }
 }
 
 void KioDownload::slotSpeed(KJob *kioJob, unsigned long bytes_per_second)
@@ -238,16 +248,39 @@ void KioDownload::slotSpeed(KJob *kioJob, unsigned long bytes_per_second)
 
 void KioDownload::slotData(KIO::Job *job, const QByteArray &data)
 {
-    Q_UNUSED(job)
+    if (job == m_getJob) {
+        if (m_file) {
+            m_file->seek(m_offset);
+            m_file->write(data);
+            m_offset += data.size();
 
-    if (m_file)
-    {
-        m_file->seek(m_offset);
-        m_file->write(data);
-        m_offset += data.size();
+            m_processedSize += data.size();
+            emit processedSize(m_processedSize);
 
-        m_processedSize += data.size();
-        emit processedSize(m_processedSize);
+            //create a job that checks if the server supports resumeing, after we already received data
+            if (!m_resumeJob && m_tryResume) {
+                m_resumeJob = KIO::get(m_source, KIO::Reload, KIO::HideProgressInfo);
+                m_resumeJob->suspend();
+                m_resumeJob->addMetaData("errorPage", "false");
+                m_resumeJob->addMetaData("AllowCompressedPage", "false");
+                m_resumeJob->addMetaData("resume", KIO::number(100));
+                connect(m_resumeJob, SIGNAL(canResume(KIO::Job*,KIO::filesize_t)), this, SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
+
+                connect(m_resumeJob, SIGNAL(data(KIO::Job *, const QByteArray&)), this, SLOT(slotData(KIO::Job *, const QByteArray&)));
+                connect(m_resumeJob, SIGNAL(result(KJob *)), this, SLOT(slotResult( KJob *)));
+            }
+        }
+    } else if (m_resumeJob && (job == m_resumeJob)) {
+        m_processedResumeSize += data.size();
+        //only download 100 bytes for the resume job to try if resuming is supported
+        if (m_processedResumeSize > 100) {
+            m_tryResume = false;
+            m_resumeJob->kill(KJob::Quietly);
+            m_resumeJob = 0;
+            if (m_totalSize) {
+                emit totalSize(m_totalSize);
+            }
+        }
     }
     //QString fileName = job->metaData().value("content-disposition-filename");
     //if (!fileName.isEmpty())

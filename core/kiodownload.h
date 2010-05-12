@@ -73,10 +73,13 @@ class KioDownload : public QObject
         KUrl m_dest;
         QFile *m_file;
         KIO::TransferJob *m_getJob;
+        KIO::TransferJob *m_resumeJob;
+        KIO::filesize_t m_processedResumeSize;
         bool m_isResumeable;
         bool m_stopped;
         bool m_movingFile;
         KIO::filesize_t m_processedSize;
+        KIO::filesize_t m_totalSize;
         KIO::fileoffset_t m_offset;
 };
 
