@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2007 Manolo Valdes <nolis71cu@gmail.com>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,6 +16,21 @@
 #include <kio/job.h>
 
 #include <QDomElement>
+
+bool MlinkFileData::isValidNameAttribute() const
+{
+    if (fileName.isEmpty()) {
+        kError(5001) << "Name attribute of Metalink::File is empty.";
+        return false;
+    }
+
+    if (fileName.contains(QRegExp("$(\\.\\.?)?/")) || fileName.contains("/../") || fileName.endsWith("/..")) {
+        kError(5001) << "Name attribute of Metalink::File contains directory traversal directives:" << fileName;
+        return false;
+    }
+
+    return true;
+}
 
 Metalinker::Metalinker()
 {
@@ -36,12 +52,24 @@ QList<MlinkFileData> Metalinker::parseMetalinkFile(const QByteArray &data)
 
     kDebug(5001) << files.length() << " <file> tags found";
 
+    QStringList fileNames;
     for( uint i=0 ; i < files.length() ; ++i )
     {
         QDomNode file = files.item(i);
         MlinkFileData data;
-        data.fileName = file.toElement().attribute("name");
+        data.fileName = QUrl::fromPercentEncoding(file.toElement().attribute("name").toAscii());
         kDebug(5001) << "filename: "<< data.fileName;
+        if (!data.isValidNameAttribute()) {
+            fileData.clear();
+            return fileData;
+        }
+
+        if (fileNames.contains(data.fileName)) {
+            kError(5001) << "Metalink::File name" << data.fileName << "exists multiple times.";
+            fileData.clear();
+            return fileData;
+        }
+        fileNames << data.fileName;
 
         QDomNodeList hashes = file.toElement().
             elementsByTagName("verification").
