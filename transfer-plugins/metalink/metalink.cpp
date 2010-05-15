@@ -730,6 +730,20 @@ FileModel *Metalink::fileModel()
     return m_fileModel;
 }
 
+void Metalink::filesSelected()
+{
+    QModelIndexList indexes = fileModel()->fileIndexes(FileItem::File);
+
+    foreach (const QModelIndex &index, indexes) {
+        const KUrl dest = fileModel()->getUrl(index);
+        const bool doDownload = index.data(Qt::CheckStateRole).toBool();
+        if (m_dataSourceFactory.contains(dest)) {
+            m_dataSourceFactory[dest]->setDoDownload(doDownload);
+        }
+    }
+    totalSizeChanged(0);
+}
+
 void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
 {
     if (!m_dataSourceFactory.contains(oldUrl))
