@@ -84,7 +84,7 @@ void Metalink::start()
         {
             Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName());
 
-            setStatus(Job::Running, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
+            setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
 
             connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(metalinkInit(KUrl, QByteArray)));
@@ -239,8 +239,8 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 
 void Metalink::fileDlgFinished(int result)
 {
-    //BEGIN HACK if the dialog was not accepted untick every file, so that the download does not start
-    //generally setStatus should do the job as well, but does not as it appears
+    //the dialog was not accepted untick every file, this ensures that the user does not
+    //press start by accident without first selecting the desired files
     if (result != QDialog::Accepted) {
         for (int row = 0; row < fileModel()->rowCount(); ++row) {
             QModelIndex index = fileModel()->index(row, FileItem::File);
@@ -249,7 +249,6 @@ void Metalink::fileDlgFinished(int result)
             }
         }
     }
-    //END
 
     QModelIndexList files = fileModel()->fileIndexes(FileItem::File);
     int numFilesSelected = 0;
@@ -273,15 +272,12 @@ void Metalink::fileDlgFinished(int result)
 
     //no files selected to download or dialog rejected, stop the download
     if (!numFilesSelected  || (result != QDialog::Accepted)) {
-         setStatus(Job::Stopped);//FIXME
-         setTransferChange(Tc_Status, true);
+        setStatus(Job::Stopped);
+        setTransferChange(Tc_Status, true);
         return;
     }
 
-    //some files may be set to download, so start them as long as the transfer is not stopped
-    if (status() != Job::Stopped) {
-        startMetalink();
-    }
+    startMetalink();
 }
 
 void Metalink::startMetalink()
