@@ -56,6 +56,11 @@ int FileItem::childCount() const
     return m_childItems.count();
 }
 
+bool FileItem::isFile() const
+{
+    return m_childItems.isEmpty();
+}
+
 int FileItem::columnCount() const
 {
     return 5;
@@ -75,13 +80,9 @@ QVariant FileItem::data(int column, int role) const
         }
         else if (role == Qt::DecorationRole)
         {
-            //has no children, so it is a file
-            if (!childCount())
-            {
+            if (isFile()) {
                 return KIcon(KMimeType::iconNameForUrl(KUrl(m_name)));
-            }
-            else
-            {
+            } else {
                 return KIcon("folder");
             }
         }
@@ -90,8 +91,7 @@ QVariant FileItem::data(int column, int role) const
     {
         if ((role == Qt::DisplayRole) || (role == Qt::DecorationRole))
         {
-            if (!childCount())
-            {
+            if (isFile()) {
                 return m_status;
             }
         }
@@ -161,8 +161,7 @@ bool FileItem::setData(int column, const QVariant &value, FileModel *model, int 
     {
         if (role == Qt::EditRole)
         {
-            if (!childCount())
-            {
+            if (isFile()) {
                 m_status = static_cast<Job::Status>(value.toInt());
                 bool finished = (m_status == Job::Finished);
                 model->changeData(this->row(), column, this, finished);
@@ -256,7 +255,7 @@ int FileItem::row() const
 
 void FileItem::addSize(KIO::fileoffset_t size, FileModel *model)
 {
-    if (childCount())
+    if (!isFile())
     {
         m_totalSize += size;
         model->changeData(this->row(), FileItem::Size, this);
@@ -350,8 +349,7 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
     if (index.column() == FileItem::Status)
     {
         const Job::Status status = static_cast<Job::Status>(data.toInt());
-        if (!item->childCount())
-        {
+        if (item->isFile()) {
             if (role == Qt::DisplayRole)
             {
                 if (m_customStatusTexts.contains(status))
@@ -374,9 +372,7 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
                     return Transfer::statusPixmap(status);
                 }
             }
-        }
-        else
-        {
+        } else {
             return QVariant();
         }
     }
@@ -393,11 +389,9 @@ bool FileModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     FileItem *item = static_cast<FileItem*>(index.internalPointer());
 
-    if ((index.column() == FileItem::File) && (role == Qt::CheckStateRole))
-    {
+    if ((index.column() == FileItem::File) && (role == Qt::CheckStateRole)) {
         const bool worked = item->setData(index.column(), value, this, role);
-        if (worked)
-        {
+        if (worked) {
             m_checkStateChanged = true;
         }
 
@@ -633,6 +627,18 @@ bool FileModel::downloadFinished(const KUrl &file)
     return false;
 }
 
+bool FileModel::isFile(const QModelIndex &index) const
+{
+    if (!index.isValid()) {
+        return false;
+    }
+
+    FileItem *item = static_cast<FileItem*>(index.internalPointer());
+
+    //only files can be renamed, no folders
+    return item->isFile();
+}
+
 void FileModel::rename(const QModelIndex &file, const QString &newName)
 {
     if (!file.isValid() || (file.column() != FileItem::File))
@@ -642,8 +648,7 @@ void FileModel::rename(const QModelIndex &file, const QString &newName)
 
     FileItem *item = static_cast<FileItem*>(file.internalPointer());
     //only files can be renamed, no folders
-    if (item->childCount())
-    {
+    if (!item->isFile()) {
         return;
     }
 
