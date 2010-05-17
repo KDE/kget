@@ -55,8 +55,9 @@ class KGET_EXPORT DataSourceFactory : public QObject
         Transfer::Capabilities capabilities() const;
 
         /**
-         * Deletes the created (!) file if the download was not finished
+         * Deletes the created (downloadInitialized() is true) file if the download was not finished
          * Does not delete anything if the download never got started
+         * @see downloadInitialized()
          */
         void deinit();
 
@@ -148,6 +149,13 @@ class KGET_EXPORT DataSourceFactory : public QObject
         bool setNewDestination(const KUrl &newDest);
 
         Job::Status status() const;
+
+        /**
+         * @return true if the download was already initialized, i.e. a file has been
+         * created and maybe even written to
+         * @see deinit()
+         */
+        bool downloadInitialized() const;
 
         /**
          * Tries to repair a broken download, via completely redownloading it
@@ -277,7 +285,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * True if download gets started the first time, if it gets never started there
          * is no reason to remove any -- maybe preexisting -- file
          */
-        bool m_removeFileOnDeinit;
+        bool m_downloadInitialized;
 
         /**
          * Wether the file-size has been initially defined (it is to be trusted) or not
