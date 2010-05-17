@@ -11,8 +11,8 @@
 */
 
 #include "metalink.h"
+#include "fileselectiondlg.h"
 #include "metalinksettings.h"
-#include "ui_fileselection.h"
 
 #include "core/kget.h"
 #include "core/transfergroup.h"
@@ -27,14 +27,15 @@
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
+#include <KIO/RenameDialog>
 #include <KLocale>
 #include <KMessageBox>
 #include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 
-#include <QDomElement>
-#include <QSortFilterProxyModel>
+#include <QtCore/QFile>
+#include <QtXml/QDomElement>
 
 Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
@@ -216,24 +217,21 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     // should be downloaded
     if (justDownloaded)
     {
-        KDialog *dialog = new KDialog;
+        KDialog *dialog = new FileSelectionDlg(fileModel());
         dialog->setAttribute(Qt::WA_DeleteOnClose);
-        QWidget *widget = new QWidget(dialog);
-        Ui::FileSelection ui;
-        ui.setupUi(widget);
-        QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
-        proxy->setSourceModel(fileModel());
-        ui.treeView->setModel(proxy);
-        ui.treeView->sortByColumn(0, Qt::AscendingOrder);
-        ui.treeView->hideColumn(FileItem::Status);
-        ui.treeView->hideColumn(FileItem::ChecksumVerified);
-        ui.treeView->hideColumn(FileItem::SignatureVerified);
-        dialog->setMainWidget(widget);
-        dialog->setCaption(i18n("File Selection"));
-        dialog->setButtons(KDialog::Ok | KDialog::Cancel);
         connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
 
         dialog->show();
+    }
+}
+
+void Metalink::untickAllFiles()
+{
+    for (int row = 0; row < fileModel()->rowCount(); ++row) {
+        QModelIndex index = fileModel()->index(row, FileItem::File);
+        if (index.isValid()) {
+            fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+        }
     }
 }
 
@@ -242,36 +240,13 @@ void Metalink::fileDlgFinished(int result)
     //the dialog was not accepted untick every file, this ensures that the user does not
     //press start by accident without first selecting the desired files
     if (result != QDialog::Accepted) {
-        for (int row = 0; row < fileModel()->rowCount(); ++row) {
-            QModelIndex index = fileModel()->index(row, FileItem::File);
-            if (index.isValid()) {
-                fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
-            }
-        }
+        untickAllFiles();
     }
 
-    QModelIndexList files = fileModel()->fileIndexes(FileItem::File);
-    int numFilesSelected = 0;
-    foreach (const QModelIndex &index, files)
-    {
-        const KUrl dest = fileModel()->getUrl(index);
-        const bool doDownload = index.data(Qt::CheckStateRole).toBool();
-        if (m_dataSourceFactory.contains(dest))
-        {
-            m_dataSourceFactory[dest]->setDoDownload(doDownload);
-            if (doDownload) {
-                ++numFilesSelected;
-            }
-        }
-    }
-
-    //make sure that the size, the downloaded size and the speed gets updated
-    totalSizeChanged(0);
-    processedSizeChanged();
-    speedChanged();
+    filesSelected();
 
     //no files selected to download or dialog rejected, stop the download
-    if (!numFilesSelected  || (result != QDialog::Accepted)) {
+    if (!m_numFilesSelected  || (result != QDialog::Accepted)) {
         setStatus(Job::Stopped);
         setTransferChange(Tc_Status, true);
         return;
@@ -732,16 +707,80 @@ FileModel *Metalink::fileModel()
 
 void Metalink::filesSelected()
 {
-    QModelIndexList indexes = fileModel()->fileIndexes(FileItem::File);
+    bool overwriteAll = false;
+    bool autoSkip = false;
+    bool cancel = false;
+    QModelIndexList files = fileModel()->fileIndexes(FileItem::File);
+    m_numFilesSelected = 0;
 
-    foreach (const QModelIndex &index, indexes) {
+    //sets the CheckState of the fileModel to the according DataSourceFactories
+    //and asks the user if there are existing files already
+    foreach (const QModelIndex &index, files)
+    {
         const KUrl dest = fileModel()->getUrl(index);
-        const bool doDownload = index.data(Qt::CheckStateRole).toBool();
-        if (m_dataSourceFactory.contains(dest)) {
-            m_dataSourceFactory[dest]->setDoDownload(doDownload);
+        bool doDownload = index.data(Qt::CheckStateRole).toBool();
+        if (m_dataSourceFactory.contains(dest))
+        {
+            DataSourceFactory *factory = m_dataSourceFactory[dest];
+
+            //check if the file at dest exists already and ask the user what to do in this case
+            if (doDownload && QFile::exists(dest.toLocalFile())) {
+                //usere has chosen to skip all files that exist already before
+                if (autoSkip) {
+                    fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+                    doDownload = false;
+                //ask the user, unless he has choosen overwriteAll before
+                } else if (!overwriteAll) {
+                    KIO::RenameDialog dlg(0, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Mode(KIO::M_MULTI | KIO::M_OVERWRITE | KIO::M_SKIP));
+                    const int result = dlg.exec();
+
+                    if (result == KIO::R_RENAME) {
+                        //no reason to use FileModel::rename() since the file does not exist yet, so simply skip it
+                        //avoids having to deal with signals
+                        const KUrl newDest = dlg.newDestUrl();
+                        factory->setDoDownload(doDownload);
+                        factory->setNewDestination(newDest);
+                        fileModel()->setData(index, newDest.fileName(), FileItem::File);
+                        ++m_numFilesSelected;
+
+                        m_dataSourceFactory.remove(dest);
+                        m_dataSourceFactory[newDest] = factory;
+                        continue;
+                    } else if (result == KIO::R_SKIP) {
+                        fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+                        doDownload = false;
+                    } else if (result == KIO::R_CANCEL) {
+                        cancel = true;
+                        break;
+                    } else if (result == KIO::R_AUTO_SKIP) {
+                        autoSkip = true;
+                        fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+                        doDownload = false;
+                    } else if (result == KIO::R_OVERWRITE_ALL) {
+                        overwriteAll = true;
+                    }
+                }
+            }
+
+            factory->setDoDownload(doDownload);
+            if (doDownload && (factory->status() != Finished) && (factory->status() != FinishedKeepAlive)) {
+                ++m_numFilesSelected;
+            }
         }
     }
+
+    //the user decided to cancel, so untick all files
+    if (cancel) {
+        m_numFilesSelected = 0;
+        untickAllFiles();
+        foreach (DataSourceFactory *factory, m_dataSourceFactory) {
+            factory->setDoDownload(false);
+        }
+    }
+
+    //make sure that the size, the downloaded size and the speed gets updated
     totalSizeChanged(0);
+    speedChanged();
 }
 
 void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)

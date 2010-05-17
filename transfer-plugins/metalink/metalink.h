@@ -82,6 +82,11 @@ class Metalink : public Transfer
     private Q_SLOTS:
         void metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
         void fileDlgFinished(int result);
+        /**
+         * Checks if the ticked (not started yet) files exist already on the hd and asks
+         * the user how to proceed in that case. Also calls the according DataSourceFactories
+         * setDoDownload(bool) methods.
+         */
         void filesSelected();
         void totalSizeChanged(KIO::filesize_t size);
         void processedSizeChanged();
@@ -94,6 +99,7 @@ class Metalink : public Transfer
     private :
         void startMetalink();
         QList<KUrl> files() const;
+        void untickAllFiles();
 
     private:
         FileModel *m_fileModel;
@@ -105,6 +111,7 @@ class Metalink : public Transfer
         int m_speedCount;
         int m_tempAverageSpeed;
         mutable int m_averageSpeed;
+        int m_numFilesSelected;//The number of files that are ticked and should be downloaded
 #ifdef HAVE_NEPOMUK
         MetaNepomukHandler *m_nepHandler;
 #endif //HAVE_NEPOMUK
