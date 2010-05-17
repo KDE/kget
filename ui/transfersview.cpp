@@ -49,9 +49,9 @@ TransfersView::TransfersView(QWidget * parent)
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 
-    populateHeaderActions();
     connect(header(), SIGNAL(customContextMenuRequested(const QPoint &)),
                       SLOT(slotShowHeaderMenu(const QPoint &)));
+    connect(header(), SIGNAL(sectionMoved(int,int,int)), this, SLOT(slotSectionMoved(int,int,int)));
     connect(this,     SIGNAL(doubleClicked(const QModelIndex &)),
             this,     SLOT(slotItemActivated(const QModelIndex &)));
     connect(this,     SIGNAL(collapsed(const QModelIndex &)),
@@ -62,18 +62,7 @@ TransfersView::TransfersView(QWidget * parent)
 
 TransfersView::~TransfersView()
 {
-    QList<int>  list;
-    for (int i = 0; i<5; i++)
-    {
-        int width = columnWidth(i);
-
-        if (Settings::columns().at(i) == 0) {
-            width = 90;
-        }
-
-        list.append(width);
-    }
-    Settings::setColumnWidths( list );
+    Settings::setHeaderState(header()->saveState().toBase64());
     Settings::self()->writeConfig();
 }
 
@@ -89,27 +78,14 @@ void TransfersView::setModel(QAbstractItemModel * model)
         openPersistentEditor(model->index(i, 1, QModelIndex()));
     }
 
-    QList<int> sizeList = Settings::columnWidths();
-
-    if (!sizeList.isEmpty())
-    {
-        int j = 0;
-        foreach(int i, sizeList)
-        {
-            setColumnWidth( j, i );
-            j++;
-        }
-    }
-    else
-    {
+    QByteArray loadedState = QByteArray::fromBase64(Settings::headerState().toAscii());
+    if (loadedState.isNull()) {
         setColumnWidth(0 , 250);
+    } else {
+        header()->restoreState(loadedState);
     }
 
-    QList <int> columns = Settings::columns();
-    for (int i=0; i<columns.size(); i++) {
-        setColumnHidden(i, (columns.at(i) == 1) ? false : true);
-    }
-
+    populateHeaderActions();
     toggleMainGroup();
     connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT (toggleMainGroup()));
 }
@@ -148,21 +124,55 @@ void TransfersView::populateHeaderActions()
     m_headerMenu = new KMenu(header());
     m_headerMenu->addTitle(i18n("Select columns"));
 
-    QList <int> columns = Settings::columns();
     QSignalMapper *columnMapper = new QSignalMapper(this);
-    connect(columnMapper, SIGNAL(mapped(int)),
-                           SLOT(slotSetColumnVisible(int)));
+    connect(columnMapper, SIGNAL(mapped(int)), SLOT(slotHideSection(int)));
 
-    for(uint i=0; i<=TransferTreeModel::RemainingTime; i++) {
+    //Create for each column an action with the column-header as name
+    QVector<KAction*> orderedMenuItems(header()->count());
+    for (int i = 0; i < header()->count(); ++i) {
         KAction *action = new KAction(this);
-        action->setText(TransferTreeModel::columnName(i));
+        action->setText(model()->headerData(i, Qt::Horizontal).toString());
         action->setCheckable(true);
-        action->setChecked((columns.at(i) == 1) ? true : false);
-        m_headerMenu->addAction(action);
+        action->setChecked(!header()->isSectionHidden(i));
+        orderedMenuItems[header()->visualIndex(i)] = action;
 
         connect(action, SIGNAL(toggled(bool)), columnMapper, SLOT(map()));
         columnMapper->setMapping(action, i);
     }
+
+    //append the sorted actions
+    for (int i = 0; i < orderedMenuItems.count(); ++i) {
+        m_headerMenu->addAction(orderedMenuItems[i]);
+    }
+}
+
+void TransfersView::slotHideSection(int logicalIndex)
+{
+    const bool hide = !header()->isSectionHidden(logicalIndex);
+    header()->setSectionHidden(logicalIndex, hide);
+}
+
+void TransfersView::slotSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex)
+{
+    Q_UNUSED(logicalIndex)
+
+    //first item is the title, so increase the indexes by one
+    ++oldVisualIndex;
+    ++newVisualIndex;
+    QList<QAction*> actions = m_headerMenu->actions();
+
+    QAction *before = actions.last();
+    if (newVisualIndex + 1 < actions.count()) {
+        if (newVisualIndex > oldVisualIndex) {
+            before = actions[newVisualIndex + 1];
+        } else {
+            before = actions[newVisualIndex];
+        }
+    }
+
+    QAction *action = actions[oldVisualIndex];
+    m_headerMenu->removeAction(action);
+    m_headerMenu->insertAction(before, action);
 }
 
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
@@ -247,23 +257,6 @@ void TransfersView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, 
     Q_UNUSED(end)
 
     closeExpandableDetails(currentIndex());
-}
-
-void TransfersView::slotSetColumnVisible(int column)
-{
-    QList <int> columns = Settings::columns();
-
-    if (columns.size() >= column) {
-        columns.replace(column, (columns.at(column) == 1) ? 0 : 1);
-    }
-    else {
-        columns.insert(column, 0);
-    }
-
-    setColumnHidden(column, (columns.at(column) == 1) ? false : true);
-
-    Settings::setColumns(columns);
-    Settings::self()->writeConfig();
 }
 
 void TransfersView::slotShowHeaderMenu(const QPoint &point)
