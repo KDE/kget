@@ -54,7 +54,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const KUrl &dest, KIO::fil
     m_assignTried(false),
     m_movingFile(false),
     m_finished(false),
-    m_removeFileOnDeinit(false),
+    m_downloadInitialized(false),
     m_sizeInitiallyDefined(m_size),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
@@ -112,7 +112,7 @@ void DataSourceFactory::init()
 
 void DataSourceFactory::deinit()
 {
-    if (m_removeFileOnDeinit && m_dest.isLocalFile())
+    if (m_downloadInitialized && m_dest.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
@@ -247,7 +247,7 @@ void DataSourceFactory::start()
         return;
     }
 
-    m_removeFileOnDeinit = true;
+    m_downloadInitialized = true;
 
     if (checkLocalFile()) {
         if (!m_size) {
@@ -354,6 +354,10 @@ void DataSourceFactory::stop()
 
 void DataSourceFactory::setDoDownload(bool doDownload)
 {
+    if (m_doDownload == doDownload) {
+        return;
+    }
+
     m_doDownload = doDownload;
     if (m_doDownload)
     {
@@ -813,8 +817,18 @@ bool DataSourceFactory::setNewDestination(const KUrl &newDestination)
     m_newDest = newDestination;
     if (m_newDest.isValid() && (m_newDest != m_dest))
     {
-        if (QFile::exists(m_dest.pathOrUrl()))
-        {
+        //No files created yet, simply change the urls
+        if (!m_downloadInitialized) {
+            m_dest = m_newDest;
+            if (m_verifier) {
+                verifier()->setDestination(m_dest);
+            }
+            if (m_signature) {
+                signature()->setDestination(m_dest);
+            }
+
+            return true;
+        } else if (QFile::exists(m_dest.pathOrUrl())) {
             //create all dirs needed
             QDir dir;
             dir.mkpath(m_newDest.directory());
@@ -956,7 +970,7 @@ void DataSourceFactory::load(const QDomElement *element)
         m_doDownload = QVariant(e.attribute("doDownload")).toBool();
     }
     if (e.hasAttribute("removeFileOnDeinit")) {
-        m_removeFileOnDeinit = QVariant(e.attribute("removeFileOnDeinit")).toBool();
+        m_downloadInitialized = QVariant(e.attribute("downloadInitialized")).toBool();
     }
     if (e.hasAttribute("maxMirrorsUsed"))
     {
@@ -1116,7 +1130,7 @@ void DataSourceFactory::save(const QDomElement &element)
     factory.setAttribute("segementSize", m_segSize);
     factory.setAttribute("status", m_status);
     factory.setAttribute("doDownload", m_doDownload);
-    factory.setAttribute("removeFileOnDeinit", m_removeFileOnDeinit);
+    factory.setAttribute("downloadInitialized", m_downloadInitialized);
     factory.setAttribute("maxMirrorsUsed", m_maxMirrorsUsed);
     factory.setAttribute("sizeInitiallyDefined", m_sizeInitiallyDefined);
 
@@ -1232,6 +1246,11 @@ bool DataSourceFactory::doDownload() const
 Job::Status DataSourceFactory::status() const
 {
     return m_status;
+}
+
+bool DataSourceFactory::downloadInitialized() const
+{
+    return m_downloadInitialized;
 }
 
 Verifier *DataSourceFactory::verifier()
