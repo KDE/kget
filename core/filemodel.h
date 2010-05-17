@@ -53,6 +53,10 @@ class KGET_EXPORT FileItem
 
         FileItem *child(int row);
         int childCount() const;
+        /**
+         * Returns true if the index represents a file
+         */
+        bool isFile() const;
         int columnCount() const;
         QVariant data(int column, int role) const;
         bool setData(int column, const QVariant &value, FileModel *model, int role = Qt::EditRole);
@@ -151,6 +155,11 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
          * Checks if the download for file has been finished
          */
         bool downloadFinished(const KUrl &file);
+
+        /**
+         * Returns true if the index represents a file
+         */
+        bool isFile(const QModelIndex &index) const;
 
     public slots:
         /**
