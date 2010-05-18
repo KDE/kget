@@ -813,20 +813,10 @@ TransferDataSource * KGet::createTransferDataSource(const KUrl &src, const QDomE
 
 QString KGet::generalDestDir(bool preferXDGDownloadDir)
 {
-    QString dir;
+    QString dir = Settings::lastDirectory();
 
     if (preferXDGDownloadDir) {
         dir = KGlobalSettings::downloadPath();
-    }
-
-    if (dir.isEmpty()) {
-        dir = Settings::lastDirectory();
-        if (dir.isEmpty()) {
-            dir = KGlobalSettings::desktopPath();
-            if (dir.isEmpty()) {
-                dir = QDir::homePath();
-            }
-        }
     }
 
     return dir;

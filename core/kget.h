@@ -349,7 +349,7 @@ class KGET_EXPORT KGet
          * Returns a download directory
          * @param preferXDGDownloadDir if true the XDG_DOWNLOAD_DIR will be taken if it is not empty
          * @note depending if the directories exist it will return them in the following order:
-         * (preferXDGDownloadDirectory >) lastDirectory > Desktop > Home
+         * (preferXDGDownloadDirectory >) lastDirectory > XDG_DOWNLOAD_DIR
          */
         static QString generalDestDir(bool preferXDGDownloadDir = false);
 
