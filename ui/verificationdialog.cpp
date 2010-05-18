@@ -28,6 +28,7 @@
 #include "core/filemodel.h"
 #include "core/transferhandler.h"
 #include "core/verifier.h"
+#include "settings.h"
 
 VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags),
@@ -112,6 +113,11 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         ui.usedHashes->setModel(m_proxy);
         ui.usedHashes->setItemDelegate(new VerificationDelegate(this));
 
+        QByteArray loadedState = QByteArray::fromBase64(Settings::verificationHeaderState().toAscii());
+        if (!loadedState.isNull()) {
+            ui.usedHashes->header()->restoreState(loadedState);
+        }
+
         m_fileModel = m_transfer->fileModel();
         if (m_fileModel) {
             m_file = m_fileModel->index(file, FileItem::File);
@@ -129,6 +135,22 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     }
 
     setButtons(KDialog::Close);
+
+    const QSize size = Settings::verificationSize();
+    if (size.isValid()) {
+        resize(size);
+    }
+
+    connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+}
+
+void VerificationDialog::slotFinished()
+{
+    if (m_model) {
+        Settings::setVerificationHeaderState(ui.usedHashes->header()->saveState().toBase64());
+    }
+    Settings::setVerificationSize(size());
+    Settings::self()->writeConfig();
 }
 
 void VerificationDialog::fileFinished(const KUrl &file)

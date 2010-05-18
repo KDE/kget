@@ -13,6 +13,7 @@
 #include "renamefile.h"
 #include "signaturedlg.h"
 #include "verificationdialog.h"
+#include "settings.h"
 
 #include "core/transferhandler.h"
 #include "core/filemodel.h"
@@ -50,7 +51,16 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
         m_proxy->setSourceModel(m_model);
         ui.treeView->setModel(m_proxy);
         ui.treeView->sortByColumn(0, Qt::AscendingOrder);
-        ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
+
+        QByteArray loadedState = QByteArray::fromBase64(Settings::transferSettingsHeaderState().toAscii());
+        if (!loadedState.isNull()) {
+            ui.treeView->header()->restoreState(loadedState);
+        }
+    }
+
+    const QSize size = Settings::transferSettingsSize();
+    if (size.isValid()) {
+        resize(size);
     }
 
     updateCapabilities();
@@ -67,6 +77,11 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
 
 TransferSettingsDialog::~TransferSettingsDialog()
 {
+    if (m_model) {
+        Settings::setTransferSettingsHeaderState(ui.treeView->header()->saveState().toBase64());
+    }
+    Settings::setTransferSettingsSize(size());
+    Settings::self()->writeConfig();
 }
 
 void TransferSettingsDialog::updateCapabilities()

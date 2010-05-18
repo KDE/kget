@@ -68,6 +68,7 @@ class VerificationDialog : public KDialog
         void removeClicked();
         void verifyClicked();
         void slotVerified(bool verified);
+        void slotFinished();
 
     private:
         TransferHandler *m_transfer;
