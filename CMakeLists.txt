@@ -14,7 +14,11 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
+if (NEPOMUK_FOUND)
+    set(SDO_MIN_VERSION 0.4)
+    find_package(SharedDesktopOntologies ${SDO_MIN_VERSION})
+    STRING (COMPARE GREATER "${SHAREDDESKTOPONTOLOGIES_VERSION}" "${SDO_MIN_VERSION}" HAVE_NEPOMUK)
+endif (NEPOMUK_FOUND)
 if(HAVE_NEPOMUK)
     include_directories(
         ${SOPRANO_INCLUDE_DIR}
@@ -48,7 +52,6 @@ add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
 add_subdirectory(plasma)
-
 
 # find kworkspace library to allow the shutdown after downloads completed option
 find_library(KDE4_KWORKSPACE_LIBRARY NAMES kworkspace PATHS ${KDE4_LIB_INSTALL_DIR} NO_DEFAULT_PATH )
@@ -116,13 +119,6 @@ if(HAVE_NEPOMUK)
        ${kgetcore_SRCS}
        core/nepomukhandler.cpp
     )
-endif(HAVE_NEPOMUK)
-
-kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
- 
-if (HAVE_NEPOMUK)
-    set(SDO_MIN_VERSION 0.4)
-    find_package(SharedDesktopOntologies ${SDO_MIN_VERSION})
 
     NEPOMUK_ADD_ONTOLOGY_CLASSES(
         kgetcore_SRCS
@@ -133,6 +129,8 @@ if (HAVE_NEPOMUK)
     soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nepomuk/ndo.trig "NDO" "Nepomuk::Vocabulary" "trig")
     soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig "NIE" "Nepomuk::Vocabulary" "trig")
 endif (HAVE_NEPOMUK)
+
+kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
 qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
 qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
