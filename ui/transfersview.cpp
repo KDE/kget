@@ -280,10 +280,12 @@ void TransfersView::closeExpandableDetails(const QModelIndex &transferIndex)
 void TransfersView::selectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
 {
     Q_UNUSED(deselected)
-    if (selected.indexes().isEmpty())
-        return;
-    TransfersViewDelegate *view_delegate = static_cast<TransfersViewDelegate *>(itemDelegate());
-    KGet::actionCollection()->action("transfer_show_details")->setChecked(view_delegate->isExtended(selected.indexes().first()));
+    if (!selected.indexes().isEmpty()) {
+        TransfersViewDelegate *view_delegate = static_cast<TransfersViewDelegate *>(itemDelegate());
+        KGet::actionCollection()->action("transfer_show_details")->setChecked(view_delegate->isExtended(selected.indexes().first()));
+    }
+
+    QTreeView::selectionChanged(selected, deselected);
 }
 
 void TransfersView::closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd)
