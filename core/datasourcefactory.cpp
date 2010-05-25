@@ -224,6 +224,11 @@ void DataSourceFactory::start()
 
     init();
 
+    if (!m_open) {
+        m_startTried = true;
+        return;
+    }
+
     if (!m_size) {
         if (!m_findFilesizeTried && m_sources.count()) {
             m_findFilesizeTried = true;
