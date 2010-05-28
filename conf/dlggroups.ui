@@ -50,9 +50,12 @@
       <widget class="KPushButton" name="remove"/>
      </item>
      <item>
-      <widget class="KPushButton" name="selectIcon">
+      <widget class="KIconButton" name="selectIcon">
        <property name="text">
         <string>Select Icon...</string>
+       </property>
+       <property name="iconSize">
+        <number>16</number>
        </property>
       </widget>
      </item>
@@ -64,6 +67,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KIconButton</class>
+   <extends>QPushButton</extends>
+   <header>kicondialog.h</header>
+  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
