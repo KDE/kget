@@ -102,12 +102,12 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
 
     QPainter p(this);
 
-    int offset = (event->rect().width() - m_iconSize) / 2;
+    const int offset = (rect().width() - m_iconSize) / 2;
 
     if(m_gradientId == 0)
         m_gradientId = isChecked() ? 1 : 0.7;
 
-    QRadialGradient gradient(event->rect().topLeft() + QPoint(event->rect().width() / 2, event->rect().height() / 2), event->rect().width() / 2);
+    QRadialGradient gradient(height() / 2.0, height() / 2.0, height() / 2);
 
     QPen pen;
 
@@ -126,7 +126,7 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
         pen.setColor(palette().color(QPalette::Highlight));
     }
 
-    QRect r = event->rect().adjusted(0,0,0,1);
+    QRect r = rect().adjusted(0, 0, 0, 1);
 
     p.fillRect(r, gradient);
 
@@ -136,10 +136,10 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
     {
         pen.setWidth(1);
         p.setPen(pen);
-        p.drawEllipse(event->rect().x()+5, event->rect().y()+4, event->rect().width()-10, event->rect().width()-10);
+        p.drawEllipse(rect().x()+5, rect().y()+4, rect().width()-10, rect().width()-10);
     }
 
-    p.drawPixmap(event->rect().topLeft() + QPoint(offset, offset-1),
+    p.drawPixmap(rect().topLeft() + QPoint(offset, offset - 1),
                  icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ?
                                            QIcon::Normal : QIcon::Disabled));
 }
