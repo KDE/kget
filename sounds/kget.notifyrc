@@ -2,6 +2,7 @@
 IconName=kget
 Comment=KGet Download Manager
 Comment[cs]=Správce stahování KGet
+Comment[da]=KGet downloadhåndtering
 Comment[de]=KGet-Download-Verwaltung
 Comment[en_GB]=KGet Download Manager
 Comment[es]=Gestor de descargas KGet
@@ -19,6 +20,7 @@ Comment[sv]=Kget nerladdningshanterare
 Comment[th]=เครื่องมือจัดการการดาวน์โหลด (KGet)
 Comment[uk]=Керування звантаженнями KGet
 Comment[x-test]=xxKGet Download Managerxx
+Comment[zh_CN]=KGet 下载管理器
 Comment[zh_TW]=KGet 下載管理員
 
 [Event/added]
