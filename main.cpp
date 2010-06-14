@@ -67,8 +67,9 @@ public:
             DBusKGetWrapper *wrapper = new DBusKGetWrapper(kget);
             new MainAdaptor(wrapper);
             QDBusConnection::sessionBus().registerObject("/KGet", wrapper);
+        } else {
+            KWindowSystem::forceActiveWindow(kget->winId());
         }
-        KWindowSystem::activateWindow(kget->winId());
 
         if (args->isSet("showDropTarget"))
             Settings::setShowDropTarget( true );
