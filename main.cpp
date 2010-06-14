@@ -24,6 +24,10 @@
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
 
+#if defined Q_WS_X11
+    #include <kstartupinfo.h>
+#endif
+
 class KGetApp : public KUniqueApplication
 {
 public:
@@ -67,8 +71,22 @@ public:
             DBusKGetWrapper *wrapper = new DBusKGetWrapper(kget);
             new MainAdaptor(wrapper);
             QDBusConnection::sessionBus().registerObject("/KGet", wrapper);
+        } else {
+            
+            //BEGIN taken from "kuniqueapplication.cpp"
+#ifdef Q_WS_X11
+            // This is the line that handles window activation if necessary,
+            // and what's important, it does it properly. If you reimplement newInstance(),
+            // and don't call the inherited one, use this (but NOT when newInstance()
+            // is called for the first time, like here).
+            KStartupInfo::setNewStartupId(kget, startupId());
+#endif
+#ifdef Q_WS_WIN
+            KWindowSystem::forceActiveWindow(kget->winId());
+#endif
+            //END
+
         }
-        KWindowSystem::activateWindow(kget->winId());
 
         if (args->isSet("showDropTarget"))
             Settings::setShowDropTarget( true );
