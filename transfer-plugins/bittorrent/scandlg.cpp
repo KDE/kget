@@ -81,6 +81,11 @@ namespace kt
 		}
 	}
 
+	void ScanDlg::error(const QString &err)
+	{
+		KMessageBox::error(0,i18n("Error scanning data: %1",err));
+	}
+
 	void ScanDlg::execute(bt::TorrentInterface* tc,bool silently)
 	{
 		m_torrent_label->setText(i18n("Scanning data of <b>%1</b> :",tc->getStats().torrent_name));
