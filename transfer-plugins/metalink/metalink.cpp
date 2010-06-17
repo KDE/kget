@@ -289,24 +289,11 @@ void Metalink::startMetalink()
 
 void Metalink::deinit()
 {
-    if (status() != Job::Finished)//if the transfer is not finished, we delete the written files
-    {
-        foreach (DataSourceFactory *factory, m_dataSourceFactory)
-        {
+    foreach (DataSourceFactory *factory, m_dataSourceFactory) {
+        if ((factory->status() != Job::Finished) && (factory->status() != Job::FinishedKeepAlive)) {
             factory->deinit();
         }
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
-    else
-    {
-        //in any case delete the files that should not be downloaded
-        foreach (DataSourceFactory *factory, m_dataSourceFactory)
-        {
-            if (!factory->doDownload())
-            {
-                factory->deinit();
-            }
-        }
-    }
 
     if (m_localMetalinkLocation.isLocalFile())
     {
@@ -722,6 +709,10 @@ void Metalink::filesSelected()
         if (m_dataSourceFactory.contains(dest))
         {
             DataSourceFactory *factory = m_dataSourceFactory[dest];
+            //ignore finished files
+            if ((factory->status() == Job::Finished) || (factory->status() == Job::FinishedKeepAlive)) {
+                continue;
+            }
 
             //check if the file at dest exists already and ask the user what to do in this case
             if (doDownload && QFile::exists(dest.toLocalFile())) {
@@ -776,6 +767,11 @@ void Metalink::filesSelected()
         foreach (DataSourceFactory *factory, m_dataSourceFactory) {
             factory->setDoDownload(false);
         }
+    }
+
+    //some files have been selected that are not finished yet, set them to stop if the transfer is not running (checked in slotStatus)
+    if (m_numFilesSelected) {
+        slotStatus(Job::Stopped);
     }
 
     //make sure that the size, the downloaded size and the speed gets updated
