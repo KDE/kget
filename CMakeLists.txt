@@ -291,7 +291,7 @@ endif(QCA2_FOUND)
 
 
 if (HAVE_NEPOMUK)
-  target_link_libraries(kget ${NEPOMUK_LIBRARIES})
+  target_link_libraries(kget ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
 endif (HAVE_NEPOMUK)
 
 if (KONQUEROR_FOUND)
