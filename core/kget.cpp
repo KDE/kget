@@ -875,23 +875,17 @@ KUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName
     if (destDir.isEmpty())
         destDir = generalDestDir();
 
-    // open the filedialog for confirmation
-    QPointer<KFileDialog> dlg = new KFileDialog(destDir, QString(), 0, 0);
-    dlg->setCaption(i18n("Save As"));
-    dlg->setOperationMode(KFileDialog::Saving);
-    dlg->setMode(KFile::File | KFile::LocalOnly);
-
     // Use the destination name if not empty...
-    if (!suggestedFileName.isEmpty())
-        dlg->setSelection(suggestedFileName);
+    KUrl startLocation(destDir);
+    if (!suggestedFileName.isEmpty()) {
+        startLocation.addPath(suggestedFileName);
+    }
 
-    KUrl destUrl;
-    if (dlg->exec() != QDialog::Rejected){
-        destUrl = dlg->selectedUrl();
+    KUrl destUrl = KFileDialog::getSaveUrl(startLocation, QString(), m_mainWindow, i18n("Save As"));
+    if (!destUrl.isEmpty()) {
         Settings::setLastDirectory(destUrl.directory(KUrl::ObeyTrailingSlash));
     }
 
-    delete dlg;
     return destUrl;
 }
 
