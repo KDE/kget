@@ -1,6 +1,6 @@
 <!DOCTYPE KGetTests>
 <tests>
-  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebase-4.3.1.tar.bz2">
+  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.4.5/src/kdebase-4.4.5.tar.bz2">
     <command type="AddChecksum">
       <arg>sha1</arg>
       <arg>notworking15a0a3ec737bdd07989763fa1ae781</arg>
@@ -20,7 +20,7 @@
     </command>
     <command type="AddChecksum">
       <arg>sha1</arg>
-      <arg>005681277615a0a3ec737bdd07989763fa1ae781</arg>
+      <arg>c14f6da09f0d1624189c69ccc200c70f2763dcbc</arg>
     </command>
     <command type="Repair">
       <arg>true</arg>
@@ -32,10 +32,10 @@
       <arg>true</arg>
     </command>
   </transfer>
-  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebase-runtime-4.3.1.tar.bz2">
+  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.4.5/src/kdebase-runtime-4.4.5.tar.bz2">
     <command type="AddChecksum">
       <arg>sha1</arg>
-      <arg>4cb7a4ed093bacf01d5ecff1cbc60a8934dea59c</arg>
+      <arg>93c58fbef37cdf0c9c6b37c773f8cde054fae51f</arg>
     </command>
     <command type="Start"/>
     <command type="ChangedEvent">
@@ -53,7 +53,7 @@
       <arg>true</arg>
     </command>
   </transfer>
-  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebase-workspace-4.3.1.tar.bz2">
+  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.4.5/src/kdebase-workspace-4.4.5.tar.bz2">
     <command type="Start"/>
     <command type="ChangedEvent">
       <arg>Tc_Percent</arg>
@@ -75,7 +75,7 @@
     </command>
     <command type="AddChecksum">
       <arg>sha1</arg>
-      <arg>c21a6e8028aa993878cccccb26b2611b3337eac9</arg>
+      <arg>d0defe431a760503f8fbb9ee2413b666b3c84cd7</arg>
     </command>
     <command type="IsVerifyable">
       <arg>true</arg>
@@ -85,10 +85,10 @@
       <arg>true</arg>
     </command>
   </transfer>
-  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdebindings-4.3.1.tar.bz2">
+  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.4.5/src/kdebindings-4.4.5.tar.bz2">
     <command type="AddChecksum">
       <arg>sha1</arg>
-      <arg>bb414b1ab28b51d9bbbfaa2d9c8474b27c325c32</arg>
+      <arg>2f041c5b050da879e8f5d09f668b56881f9f1bb2</arg>
     </command>
     <command type="RandomAction">
       <arg>true</arg>
@@ -115,7 +115,7 @@
       <arg>false</arg>
     </command>
   </transfer>
-  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdeutils-4.3.1.tar.bz2">
+  <transfer source="http://mirrors.isc.org/pub/kde/stable/4.4.5/src/kdeutils-4.4.5.tar.bz2">
     <command type="AddChecksum">
       <arg>sha1</arg>
       <arg>borked6306cfb137241b6c87f5944e6bf91870fe</arg>
@@ -124,10 +124,11 @@
       <arg>sha1</arg>
       <arg>512000</arg>
       <arg>borked37a13b2fc07fdf9ed95e42b6168e9d7ceb</arg>
-      <arg>4b55fe01b992dbb52aed32c62dbbf82351a8242e</arg>
-      <arg>5808bd04e37e777f892bc1a21ff0d1afffa4b267</arg>
+      <arg>1d886ba863f9e3d608f995b8095312fe513a3313</arg>
+      <arg>02297cdc86ecb701a74c2425083678140538430b</arg>
       <arg>borkedf60aaabe9df367150b3cdbd5735f21ee66</arg>
-      <arg>aeeb84fed3f01313f44a61d0304725f7219a2356</arg>
+      <arg>b930b4ad9f9caed3d558c47ffef1558fe2ff9bbb</arg>
+      <arg>fe97d2ebe3bd1813f4dadfebed4764c52fad9b6f</arg>
     </command>
     <command type="Start"/>
     <command type="Verified">  
@@ -141,7 +142,7 @@
     </command>
     <command type="AddChecksum">
       <arg>sha1</arg>
-      <arg>9743636306cfb137241b6c87f5944e6bf91870fe</arg>
+      <arg>c092cfbb46719d89a5718735dc81ca75c0176e45</arg>
     </command>
     <command type="Repair">
       <arg>true</arg>
