@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2002 Patrick Charbonnier <pch@valleeurpe.net>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,10 +12,15 @@
 #ifndef PLUGIN_KGET_PLUG_IN_H
 #define PLUGIN_KGET_PLUG_IN_H
 
+#include <KIO/Job>
 #include <kparts/plugin.h>
 #include <KPluginFactory>
 
 class KToggleAction;
+
+namespace KParts {
+    class ReadOnlyPart;
+}
 
 
 class KGet_plug_in : public KParts::Plugin
@@ -25,14 +31,37 @@ public:
     KToggleAction *m_dropTargetAction;
     virtual ~KGet_plug_in();
 
+    enum PartType {
+        None = 0,
+        KHTMLType,
+        KWebkitType,
+        DolphinType
+    };
+
 private:
-    void showLinks( bool );
+    void getLinks(bool selectedOnly = false);
 
 private slots:
     void slotShowDrop();
     void slotShowLinks();
     void slotShowSelectedLinks();
+    void slotImportLinks();
+    /**
+     * Only show the KGet Plugin in the DolphinPart, if the selected Url is ftp or sftp
+     */
+    void slotCheckUrlDolphin();
+
+    /**
+     * Links of the DolphinPart, gotten by a listJob
+     */
+    void slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
     void showPopup();
+
+private:
+    KParts::ReadOnlyPart *m_dolphinPart;
+    KUrl m_dolphinPartUrl;
+    PartType m_type;
+    QStringList m_linkList;
 };
 
 
