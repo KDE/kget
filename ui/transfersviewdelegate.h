@@ -2,6 +2,7 @@
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -29,7 +30,7 @@ class GroupStatusButton : public QToolButton
     Q_OBJECT
 
     public:
-        explicit GroupStatusButton(const QModelIndex & index, QWidget * parent=0);
+        GroupStatusButton(const QModelIndex &index, QWidget *parent);
 
     protected:
         void checkStateSet();
@@ -53,7 +54,7 @@ class GroupStatusEditor : public QWidget
     Q_OBJECT
 
     public:
-        explicit GroupStatusEditor(const QModelIndex & index, const QStyledItemDelegate * delegate, QWidget * parent=0);
+        GroupStatusEditor(const QModelIndex &index, QWidget *parent);
 
         void setRunning(bool running);
         bool isRunning();
