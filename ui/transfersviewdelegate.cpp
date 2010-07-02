@@ -3,6 +3,7 @@
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
    Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -204,7 +205,7 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     update();
 }
 
-GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const QStyledItemDelegate * delegate, QWidget * parent)
+GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     : QWidget(parent),
       m_index(index)
 {
@@ -223,7 +224,6 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const QStyledIte
     m_startBt->setIcon(KIcon("media-playback-start"));
     m_startBt->setFixedSize(36, 36);
     m_startBt->setIconSize(QSize(22, 22));
-    m_startBt->installEventFilter(const_cast<QStyledItemDelegate *>(delegate));
     m_layout->addWidget(m_startBt);
     m_btGroup->addButton(m_startBt);
 
@@ -233,7 +233,6 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const QStyledIte
     m_stopBt->setIcon(KIcon("media-playback-pause"));
     m_stopBt->setFixedSize(36, 36);
     m_stopBt->setIconSize(QSize(22, 22));
-    m_stopBt->installEventFilter(const_cast<QStyledItemDelegate *>(delegate));
     m_layout->addWidget(m_stopBt);
     m_btGroup->addButton(m_stopBt);
 
@@ -275,7 +274,7 @@ BasicTransfersViewDelegate::BasicTransfersViewDelegate(QAbstractItemView *parent
 QWidget *BasicTransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Status) {
-        GroupStatusEditor *qroupStatusEditor = new GroupStatusEditor(index, this, parent);
+        GroupStatusEditor *qroupStatusEditor = new GroupStatusEditor(index, parent);
         connect(qroupStatusEditor, SIGNAL(changedStatus(GroupStatusEditor*)), this, SLOT(slotGroupStatusChanged(GroupStatusEditor*)));
         return qroupStatusEditor;
     } else {
