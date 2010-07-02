@@ -75,7 +75,7 @@ void TransfersView::setModel(QAbstractItemModel * model)
     for(int i = 0; i < nGroups; i++)
     {
         kDebug(5001) << "openEditor for row " << i;
-        openPersistentEditor(model->index(i, 1, QModelIndex()));
+        openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
     QByteArray loadedState = QByteArray::fromBase64(Settings::headerState().toAscii());
@@ -109,7 +109,7 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
         for(int i = start; i <= end; i++)
         {
             kDebug(5001) << "openEditor for row " << i;
-            openPersistentEditor(model()->index(i, 1, parent));
+            openPersistentEditor(model()->index(i, TransferTreeModel::Status, parent));
         }
     }
 

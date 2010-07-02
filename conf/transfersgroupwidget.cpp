@@ -27,12 +27,10 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     ui.treeView->setModel(KGet::model());
     ui.treeView->setSelectionModel(KGet::selectionModel());
 
-    // hide the size, speed, percent and status columns
-    ui.treeView->header()->hideSection(1);
-    ui.treeView->header()->hideSection(2);
-    ui.treeView->header()->hideSection(3);
-    ui.treeView->header()->hideSection(4);
-    ui.treeView->header()->hideSection(5);
+    ui.treeView->header()->hideSection(TransferTreeModel::Progress);
+    ui.treeView->header()->hideSection(TransferTreeModel::RemainingTime);
+    ui.treeView->header()->hideSection(TransferTreeModel::Size);
+    ui.treeView->header()->hideSection(TransferTreeModel::Speed);
 
     ui.add->setGuiItem(KStandardGuiItem::add());
     ui.remove->setGuiItem(KStandardGuiItem::remove());

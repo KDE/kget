@@ -14,33 +14,23 @@
 #ifndef TRANSFERSGROUPTREE_H
 #define TRANSFERSGROUPTREE_H
 
+#include "ui/transfersviewdelegate.h"
+
 #include <QStyledItemDelegate>
 #include <QTreeView>
 
-#include <KLineEdit>
+class GroupStatusEditor;
 
-class GroupEditor : public KLineEdit
+class TransfersGroupDelegate : public BasicTransfersViewDelegate
 {
     Q_OBJECT
-public:
-    GroupEditor(QModelIndex group, const QString contents, QWidget * parent=0)
-        : KLineEdit(contents, parent), m_groupIndex(group)
-    {
-    }
 
-    QModelIndex groupIndex() const  {return m_groupIndex;}
+    public:
+        TransfersGroupDelegate(QAbstractItemView *parent);
 
-private:
-    QModelIndex m_groupIndex;
-};
-
-class TransfersGroupDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-public:
-    TransfersGroupDelegate(QObject * parent=0);
-
-    QWidget * createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+        void setEditorData(QWidget *editor, const QModelIndex &index) const;
+        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
 };
 
 class TransfersGroupTree : public QTreeView
@@ -48,6 +38,7 @@ class TransfersGroupTree : public QTreeView
     Q_OBJECT
     public:
         TransfersGroupTree(QWidget *parent=0);
+        void setModel(QAbstractItemModel *model);
 
     public slots:
         void editCurrent();
@@ -55,7 +46,9 @@ class TransfersGroupTree : public QTreeView
         void deleteSelectedGroup();
         void renameSelectedGroup();
         void changeIcon(const QString &icon);
-        void commitData(QWidget *editor);
+
+    private:
+        void rowsInserted(const QModelIndex &index, int start, int end);
 };
 
 #endif

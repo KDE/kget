@@ -204,9 +204,8 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
     update();
 }
 
-GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersViewDelegate * delegate, QWidget * parent)
+GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const QStyledItemDelegate * delegate, QWidget * parent)
     : QWidget(parent),
-      m_delegate(delegate),
       m_index(index)
 {
     setMinimumWidth(80);
@@ -224,7 +223,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersV
     m_startBt->setIcon(KIcon("media-playback-start"));
     m_startBt->setFixedSize(36, 36);
     m_startBt->setIconSize(QSize(22, 22));
-    m_startBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
+    m_startBt->installEventFilter(const_cast<QStyledItemDelegate *>(delegate));
     m_layout->addWidget(m_startBt);
     m_btGroup->addButton(m_startBt);
 
@@ -234,7 +233,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersV
     m_stopBt->setIcon(KIcon("media-playback-pause"));
     m_stopBt->setFixedSize(36, 36);
     m_stopBt->setIconSize(QSize(22, 22));
-    m_stopBt->installEventFilter(const_cast<TransfersViewDelegate *>(delegate));
+    m_stopBt->installEventFilter(const_cast<QStyledItemDelegate *>(delegate));
     m_layout->addWidget(m_stopBt);
     m_btGroup->addButton(m_stopBt);
 
@@ -243,8 +242,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex & index, const TransfersV
     m_layout->addStretch();
     m_layout->setMargin(1);
 
-    connect(m_startBt, SIGNAL(toggled(bool)),
-            this,      SLOT(slotStatusChanged(bool)));
+    connect(m_startBt, SIGNAL(toggled(bool)), this, SLOT(slotStatusChanged()));
 }
 
 void GroupStatusEditor::setRunning(bool running)
@@ -263,15 +261,61 @@ bool GroupStatusEditor::isRunning()
     return m_startBt->isChecked();
 }
 
-void GroupStatusEditor::slotStatusChanged(bool running)
+void GroupStatusEditor::slotStatusChanged()
 {
-    Q_UNUSED(running)
+    emit changedStatus(this);
+}
 
-    emit const_cast<TransfersViewDelegate *>(m_delegate)->commitData(this);
+
+BasicTransfersViewDelegate::BasicTransfersViewDelegate(QAbstractItemView *parent)
+  : KExtendableItemDelegate(parent)
+{
+}
+
+QWidget *BasicTransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    if (index.column() == TransferTreeModel::Status) {
+        GroupStatusEditor *qroupStatusEditor = new GroupStatusEditor(index, this, parent);
+        connect(qroupStatusEditor, SIGNAL(changedStatus(GroupStatusEditor*)), this, SLOT(slotGroupStatusChanged(GroupStatusEditor*)));
+        return qroupStatusEditor;
+    } else {
+        return KExtendableItemDelegate::createEditor(parent, option, index);
+    }
+}
+
+void BasicTransfersViewDelegate::slotGroupStatusChanged(GroupStatusEditor *editor)
+{
+    commitData(editor);
+}
+
+void BasicTransfersViewDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    if (index.column() == TransferTreeModel::Status) {
+        GroupStatusEditor *groupEditor = static_cast<GroupStatusEditor*>(editor);
+        groupEditor->setRunning(KGet::model()->itemFromIndex(index)->asGroup()->groupHandler()->status() == JobQueue::Running);
+    } else {
+        KExtendableItemDelegate::setEditorData(editor, index);
+    }
+}
+
+void BasicTransfersViewDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    if (index.column() == TransferTreeModel::Status) {
+        GroupStatusEditor *groupEditor = static_cast<GroupStatusEditor *>(editor);
+        TransferGroupHandler *groupHandler = KGet::model()->itemFromIndex(index)->asGroup()->groupHandler();
+
+        if (groupEditor->isRunning()) {
+            groupHandler->start();
+        } else {
+            groupHandler->stop();
+        }
+    } else {
+        KExtendableItemDelegate::setModelData(editor, model, index);
+    }
 }
 
 TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
-    : KExtendableItemDelegate(parent)
+    : BasicTransfersViewDelegate(parent)
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
     setExtendPixmap(SmallIcon("arrow-right"));
@@ -395,16 +439,6 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
     }
 }
 
-QWidget * TransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem & option , const QModelIndex & index) const
-{
-    Q_UNUSED(option)
-    Q_UNUSED(index)
-
-    GroupStatusEditor * groupsStatusEditor = new GroupStatusEditor(index, this, parent);
-
-    return groupsStatusEditor;
-}
-
 bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
     Q_UNUSED(model)
@@ -446,31 +480,6 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
     }
 
     return false;
-}
-
-void TransfersViewDelegate::setEditorData(QWidget * editor, const QModelIndex & index) const
-{
-    GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
-    
-    TransferTreeModel * m = KGet::model();
-
-    groupEditor->setRunning(m->itemFromIndex(index)->asGroup()->groupHandler()->status() == JobQueue::Running);
-}
-
-void TransfersViewDelegate::setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const
-{
-    Q_UNUSED(model)
-
-    GroupStatusEditor * groupEditor = static_cast<GroupStatusEditor *>(editor);
-    
-    TransferTreeModel * m = KGet::model();
-    
-    TransferGroupHandler * groupHandler = m->itemFromIndex(index)->asGroup()->groupHandler();
-
-    if (groupEditor->isRunning())
-        groupHandler->start();
-    else
-        groupHandler->stop();
 }
 
 #include "transfersviewdelegate.moc"
