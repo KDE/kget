@@ -53,17 +53,18 @@ class GroupStatusEditor : public QWidget
     Q_OBJECT
 
     public:
-        explicit GroupStatusEditor(const QModelIndex & index, const TransfersViewDelegate * delegate, QWidget * parent=0);
+        explicit GroupStatusEditor(const QModelIndex & index, const QStyledItemDelegate * delegate, QWidget * parent=0);
 
         void setRunning(bool running);
         bool isRunning();
 
     private slots:
-        void slotStatusChanged(bool running);
+        void slotStatusChanged();
+
+    signals:
+        void changedStatus(GroupStatusEditor *editor);
 
     private:
-        const TransfersViewDelegate * m_delegate;
-
         QModelIndex m_index;
 
         QHBoxLayout * m_layout;
@@ -73,11 +74,27 @@ class GroupStatusEditor : public QWidget
         GroupStatusButton * m_stopBt;
 };
 
-class TransfersViewDelegate : public KExtendableItemDelegate
+/**
+ * The BasicTransfersViewDelegate handles the setting of the status of a group
+ */
+class BasicTransfersViewDelegate : public KExtendableItemDelegate
 {
     Q_OBJECT
 
-    friend class GroupStatusEditor;
+    public:
+        BasicTransfersViewDelegate(QAbstractItemView *parent);
+
+        virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+        virtual void setEditorData(QWidget *editor, const QModelIndex &index) const;
+        virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+
+    private slots:
+        virtual void slotGroupStatusChanged(GroupStatusEditor *editor);
+};
+
+class TransfersViewDelegate : public BasicTransfersViewDelegate
+{
+    Q_OBJECT
 
     public:
         TransfersViewDelegate(QAbstractItemView *parent);
@@ -88,12 +105,7 @@ class TransfersViewDelegate : public KExtendableItemDelegate
 
         QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
-        QWidget * createEditor(QWidget *parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
-
         bool editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index);
-
-        void setEditorData(QWidget * editor, const QModelIndex & index) const;
-        void setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const;
 };
 
 #endif

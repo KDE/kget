@@ -15,22 +15,59 @@
 #include "transfersgrouptree.h"
 
 #include "core/kget.h"
+#include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
 #include <QtGui/QHeaderView>
 
-TransfersGroupDelegate::TransfersGroupDelegate(QObject * parent)
-    : QStyledItemDelegate(parent)
-{
+#include <KLineEdit>
 
+TransfersGroupDelegate::TransfersGroupDelegate(QAbstractItemView *parent)
+  : BasicTransfersViewDelegate(parent)
+{
 }
 
-QWidget * TransfersGroupDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem & option,
-                                                const QModelIndex & index) const
+QWidget *TransfersGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    Q_UNUSED(option)
-    return new GroupEditor(index, index.data(Qt::DisplayRole).toString(), parent);
+    if (index.column() == TransferTreeModel::Name) {
+        return new KLineEdit(parent);
+    } else {
+        return BasicTransfersViewDelegate::createEditor(parent, option, index);
+    }
 }
+
+void TransfersGroupDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    if (index.column() == TransferTreeModel::Name) {
+        KLineEdit *groupEditor = static_cast<KLineEdit*>(editor);
+        groupEditor->setText(index.data().toString());
+    } else {
+        BasicTransfersViewDelegate::setEditorData(editor, index);
+    }
+}
+
+void TransfersGroupDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    if (index.column() == TransferTreeModel::Name) {
+        KLineEdit *groupEditor = static_cast<KLineEdit*>(editor);
+        const QString newName = groupEditor->text();
+        const QString oldName = index.data().toString();
+
+        if (!newName.isEmpty()) {
+            foreach (const QString &groupName, KGet::transferGroupNames()) {
+                if (groupName == newName && groupName != oldName) {
+                    groupEditor->setText(oldName);
+                    return;
+                }
+            }
+
+            KGet::renameGroup(oldName, newName);
+        }
+    } else {
+        BasicTransfersViewDelegate::setModelData(editor, model, index);
+    }
+}
+
 
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     : QTreeView(parent)
@@ -38,26 +75,29 @@ TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     setItemDelegate(new TransfersGroupDelegate(this));
 }
 
-void TransfersGroupTree::commitData(QWidget *editor)
+void TransfersGroupTree::setModel(QAbstractItemModel *model)
 {
-    GroupEditor * groupEditor = static_cast<GroupEditor *>(editor);
+    QTreeView::setModel(model);
 
-    if (groupEditor->groupIndex() != currentIndex()) {
-        return;
+    int nGroups = model->rowCount(QModelIndex());
+    for (int i = 0; i < nGroups; i++) {
+        kDebug(5001) << "openEditor for row " << i;
+        openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
-    const QString newName = groupEditor->text();
-    if (!newName.isEmpty()){
-        foreach (const QString &groupName, KGet::transferGroupNames()) {
-            if (groupName == newName &&
-                groupName != model()->data(currentIndex(), Qt::DisplayRole).toString()) {
-                return;
-            }
+    setColumnWidth(0 , 250);
+}
+
+void TransfersGroupTree::rowsInserted(const QModelIndex &parent, int start, int end)
+{
+    if (!parent.isValid()) {
+        for (int i = start; i <= end; ++i) {
+            kDebug(5001) << "openEditor for row " << i;
+            openPersistentEditor(model()->index(i, TransferTreeModel::Status, parent));
         }
-
-        KGet::renameGroup(model()->data(currentIndex()).toString(), newName);
-        setCurrentIndex(QModelIndex());
     }
+
+    QTreeView::rowsInserted(parent, start, end);
 }
 
 void TransfersGroupTree::editCurrent()
