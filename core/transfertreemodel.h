@@ -2,6 +2,7 @@
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -112,6 +113,7 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         ModelItem * itemFromIndex(const QModelIndex &index) const;
 
         void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after = 0);
+        void moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after = 0);
 
         QList<TransferGroup *> transferGroups();
 

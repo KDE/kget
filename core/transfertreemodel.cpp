@@ -2,6 +2,7 @@
 
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -324,6 +325,15 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
         emit transferMovedEvent(transfer->handler(), destGroup->handler());
 
     KGet::selectionModel()->clearSelection();
+}
+
+void TransferTreeModel::moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after)
+{
+    Transfer *afterTransfer = 0;
+    if (after) {
+        afterTransfer = after->m_transfer;
+    }
+    moveTransfer(transfer->m_transfer, destGroup->m_group, afterTransfer);
 }
 
 QList<TransferGroup *> TransferTreeModel::transferGroups()

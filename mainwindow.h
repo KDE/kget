@@ -3,6 +3,7 @@
    Copyright (C) 2002 by Patrick Charbonnier <pch@freeshell.org>
    Based On Caitoo v.0.7.3 (c) 1998 - 2000, Matej Koss
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2009 - 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -89,6 +90,10 @@ private slots:
     void slotTransferGroupSettings();
     void slotTransferSettings();
     void slotCreateMetalink();
+    void slotPriorityTop();
+    void slotPriorityBottom();
+    void slotPriorityUp();
+    void slotPriorityDown();
 
     // transfers slots
     void slotStopAllDownload();

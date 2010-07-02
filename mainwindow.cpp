@@ -6,6 +6,7 @@
    Copyright (C) 2006 - 2008 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2009 - 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -185,6 +186,26 @@ void MainWindow::setupActions()
     KAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
     createMetalinkAction->setText(i18n("&Create a Metalink"));
     connect(createMetalinkAction, SIGNAL(triggered()), SLOT(slotCreateMetalink()));
+
+    KAction *priorityTop = actionCollection()->addAction("priority_top");
+    priorityTop->setText(i18n("Top Priority"));
+    priorityTop->setIcon(KIcon("arrow-up-double"));
+    connect(priorityTop, SIGNAL(triggered()), this, SLOT(slotPriorityTop()));
+
+    KAction *priorityBottom = actionCollection()->addAction("priority_bottom");
+    priorityBottom->setText(i18n("Least Priority"));
+    priorityBottom->setIcon(KIcon("arrow-down-double"));
+    connect(priorityBottom, SIGNAL(triggered()), this, SLOT(slotPriorityBottom()));
+
+    KAction *priorityUp = actionCollection()->addAction("priority_up");
+    priorityUp->setText(i18n("Increase Priority"));
+    priorityUp->setIcon(KIcon("arrow-up"));
+    connect(priorityUp, SIGNAL(triggered()), this, SLOT(slotPriorityUp()));
+
+    KAction *priorityDown = actionCollection()->addAction("priority_down");
+    priorityDown->setText(i18n("Decrease Priority"));
+    priorityDown->setIcon(KIcon("arrow-down"));
+    connect(priorityDown, SIGNAL(triggered()), this, SLOT(slotPriorityDown()));
 
     KAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18n("Delete Group"));
@@ -656,6 +677,141 @@ void MainWindow::slotRedownloadSelected()
     foreach(TransferHandler * it, KGet::selectedTransfers())
     {
         KGet::redownloadTransfer(it);
+    }
+}
+
+void MainWindow::slotPriorityTop()
+{
+    QList<TransferHandler*> selected = KGet::selectedTransfers();
+    TransferHandler *after = 0;
+    TransferGroupHandler *group = 0;
+    foreach (TransferHandler *transfer, selected) {
+        if (!transfer) {
+            continue;
+        }
+
+        //previous transfer was not of the same group, so after has to be reset as the group
+        if (!group || (group != transfer->group())) {
+            after = 0;
+            group = transfer->group();
+        }
+        KGet::model()->moveTransfer(transfer, group, after);
+        after = transfer;
+    }
+}
+
+void MainWindow::slotPriorityBottom()
+{
+    QList<TransferHandler*> selected = KGet::selectedTransfers();
+    QList<TransferHandler*> groupTransfers;
+    TransferHandler *after = 0;
+    TransferGroupHandler *group = 0;
+    foreach (TransferHandler *transfer, selected) {
+        if (!transfer) {
+            continue;
+        }
+
+        //previous transfer was not of the same group, so after has to be reset as the group
+        if (!group || (group != transfer->group())) {
+            group = transfer->group();
+            groupTransfers = group->transfers();
+            if (groupTransfers.isEmpty()) {
+                after = 0;
+            } else {
+                after = groupTransfers.last();
+            }
+        }
+
+        KGet::model()->moveTransfer(transfer, group, after);
+        after = transfer;
+    }
+}
+
+void MainWindow::slotPriorityUp()
+{
+    QList<TransferHandler*> selected = KGet::selectedTransfers();
+    QList<TransferHandler*> groupTransfers;
+    TransferHandler *after = 0;
+    int newIndex = -1;
+    TransferGroupHandler *group = 0;
+    foreach (TransferHandler *transfer, selected) {
+        if (!transfer) {
+            continue;
+        }
+
+        //previous transfer was not of the same group, so group has to be reset
+        if (!group || (group != transfer->group())) {
+            group = transfer->group();
+            groupTransfers = group->transfers();
+        }
+
+        after = 0;
+        if (!groupTransfers.isEmpty()) {
+            int index = groupTransfers.indexOf(transfer);
+
+            //do not move higher than the first place
+            if (index > 0) {
+                //if only Transfers at the top are select do not change their order
+                if ((index - 1) != newIndex) {
+                    newIndex = index - 1;
+                    if (newIndex - 1 >= 0) {
+                        after = groupTransfers[newIndex - 1];
+                    }
+
+                    //keep the list with the actual movements synchronised
+                    groupTransfers.move(index, newIndex);
+
+                    KGet::model()->moveTransfer(transfer, group, after);
+                } else {
+                    newIndex = index;
+                }
+            } else {
+                newIndex = 0;
+            }
+        }
+    }
+}
+
+void MainWindow::slotPriorityDown()
+{
+    QList<TransferHandler*> selected = KGet::selectedTransfers();
+    QList<TransferHandler*> groupTransfers;
+    int newIndex = -1;
+    TransferGroupHandler *group = 0;
+    for (int i = selected.count() - 1; i >= 0; --i) {
+        TransferHandler *transfer = selected[i];
+        if (!transfer) {
+            continue;
+        }
+
+        //previous transfer was not of the same group, so group has to be reset
+        if (!group || (group != transfer->group())) {
+            group = transfer->group();
+            groupTransfers = group->transfers();
+        }
+
+        if (!groupTransfers.isEmpty()) {
+            int index = groupTransfers.indexOf(transfer);
+
+            //do not move lower than the last place
+            if ((index != -1) && (index + 1 < groupTransfers.count())) {
+                //if only Transfers at the top are select do not change their order
+                if ((index + 1) != newIndex) {
+                    newIndex = index + 1;
+                    TransferHandler *after = groupTransfers[newIndex];
+
+
+                    //keep the list with the actual movements synchronised
+                    groupTransfers.move(index, newIndex);
+
+                    KGet::model()->moveTransfer(transfer, group, after);
+                } else {
+                    newIndex = index;
+                }
+            } else {
+                newIndex = index;
+            }
+        }
     }
 }
 
