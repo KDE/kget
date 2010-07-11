@@ -58,6 +58,8 @@ namespace kt
 		 
 		/// Handle the close event
 		virtual void closeEvent(QCloseEvent* e);
+        
+        virtual void error(const QString&);
 
 	protected slots:
 		virtual void reject();

@@ -157,6 +157,11 @@ namespace kt
 			KDialog::reject();
 		}
 	}
+	
+	void ScanDlg::error(const QString &message)
+    {
+        KMessageBox::error(0,i18n("Error scanning data: %1",message));
+    }
 		 
 	void ScanDlg::closeEvent(QCloseEvent* )
 	{
