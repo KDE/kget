@@ -30,8 +30,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-12-03</date>
-<releaseinfo>2.3.82</releaseinfo>
+<date>2010-07-17</date>
+<releaseinfo>2.4.93 (&kde; 4.5)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -43,7 +43,7 @@
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
+<keyword>kdenetwork</keyword>
 <keyword>kget</keyword>
 <keyword>kppp</keyword>
 <keyword>download</keyword>
@@ -77,7 +77,7 @@
 <title> &kget; Drop Target </title>
 
 <para>
-  The &kget; Drop Target has five options.
+  The &kget; Drop Target has four options.
 </para>
 
 <screenshot>
@@ -118,16 +118,16 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Hide Main Window</guimenuitem>
+	  <guimenuitem>Show/Hide Main Window</guimenuitem>
 	</menuchoice>
       </term>
     <listitem>
       <para>
-	<action>This option minimizes the main window to the system tray.</action>
+	<action>This option shows or minimizes the main window to the system tray.</action>
       </para>
      </listitem>
     </varlistentry>
-
+<!-- no longer in 4.5
     <varlistentry>
       <term>
 	<menuchoice>
@@ -140,7 +140,7 @@ Right click on the drop target to see the options.
       </para>
      </listitem>
     </varlistentry>
-
+-->
     <varlistentry>
       <term>
 	<menuchoice>
@@ -238,7 +238,7 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Enable animation</guimenuitem>
+	  <guimenuitem>Enable animations</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -247,18 +247,20 @@ Right click on the drop target to see the options.
 	</para>
       </listitem>
     </varlistentry>
+<!-- what is this?
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Expandable transfer details instead of separate tabs</guimenuitem>
+	  <guimenuitem>Enable popup tooltip</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
 	<para>
-	  <action>Shows transfer details inside the Download View.</action>
+	  <action>???</action>
 	</para>
       </listitem>
     </varlistentry>
+-->
   </variablelist>
 </para>
 </sect1>
@@ -282,7 +284,7 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Use default folders for groups</guimenuitem>
+	  <guimenuitem>Use default folders for groups as suggestion</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -340,7 +342,7 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Speed limit</guimenuitem>
+	  <guimenuitem>Speed Limit</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -457,7 +459,7 @@ You will need to enter the username and password to get access.
 	</mediaobject>
   </screenshot>
 
-<para>Using the two methods <guilabel>Checksum</guilabel> and <guilabel>Signature</guilabel> 
+<para>Using the two methods <guilabel>Checksums</guilabel> and <guilabel>Signature</guilabel> 
 you can verify your downloads. You just have to tick the Automatic verification check box.</para>
 </sect1>
 
@@ -520,7 +522,7 @@ you can verify your downloads. You just have to tick the Automatic verification 
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>History Backend</guimenuitem>
+	  <guimenuitem>History backend</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -664,7 +666,7 @@ There is also a text box to filter out results.</action></para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Create Metalink</guimenuitem>
+<guimenuitem>Create a Metalink</guimenuitem>
 </menuchoice></term>
 <listitem>
 <screenshot>
