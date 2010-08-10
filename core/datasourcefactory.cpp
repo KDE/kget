@@ -212,6 +212,7 @@ void DataSourceFactory::start()
         if (!m_putJob) {
             m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
             connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(open(KIO::Job*)));
+            connect(m_putJob, SIGNAL(destroyed(QObject*)), this, SLOT(slotPutJobDestroyed(QObject*)));
             m_startTried = true;
             return;
         }
@@ -763,6 +764,11 @@ void DataSourceFactory::killPutJob()
         m_putJob->close();
         m_putJob = 0;
     }
+}
+
+void DataSourceFactory::slotPutJobDestroyed(QObject *job)
+{
+    m_putJob = 0;
 }
 
 bool DataSourceFactory::setNewDestination(const KUrl &newDestination)
