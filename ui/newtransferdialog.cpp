@@ -132,10 +132,6 @@ public:
 
             if (m_srcUrl.isValid() && !m_srcUrl.protocol().isEmpty())
                 urlRequester->insert(m_srcUrl.prettyUrl());
-
-            if (urlRequester->text().isEmpty()) {
-                urlRequester->setFocus();
-            }
         }
         else {
             KUrl::List::const_iterator it = list.begin();
@@ -443,17 +439,9 @@ bool NewTransferDialog::isEmpty()
 
 void NewTransferDialog::urlChanged(const QString &text)
 {
-    if (d->m_multiple) {
-        enableButtonOk(true);
+    if (d->m_multiple)
         return;
-    }
-
     KUrl url(text.trimmed());
-    kDebug() << "***" << (url.isValid() && url.hasHost() && !url.protocol().isEmpty());
-    if (text.isEmpty()) {
-        d->urlRequester->setFocus();
-    }
-    enableButtonOk(url.isValid() && url.hasHost() && !url.protocol().isEmpty());
     //if (d->m_destRequester->url()->isEmpty())
     //    d->setDestination(m_sources, QStringList());
     if (QFileInfo(d->m_destRequester->url().toLocalFile()).isDir())
