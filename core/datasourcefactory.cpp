@@ -27,6 +27,7 @@
 #include <KIO/NetAccess>
 #include <KLocale>
 #include <KMessageBox>
+#include <kmountpoint.h>
 
 #include <KDebug>
 
@@ -260,6 +261,19 @@ void DataSourceFactory::start()
     }
 
     if (m_open) {
+        //check if the filesystem supports a file of m_size
+        const static KIO::filesize_t maxFatSize = 4294967295;
+        if (m_size > maxFatSize) {
+            KMountPoint::Ptr mountPoint = KMountPoint::currentMountPoints().findByPath(m_dest.directory());
+            if (!mountPoint.isNull()) {
+                if (mountPoint->mountType() == "vfat") {//TODO check what is reported on Windows for vfat
+                    stop();
+                    kError(5001) << "Filesize is larger than maximum file size supported by VFAT.";
+                    return;
+                }
+            }
+        }
+
         QFile::resize(m_dest.pathOrUrl(), m_size);//TODO should we keep that?
         m_speedTimer->start();
 
@@ -768,6 +782,8 @@ void DataSourceFactory::killPutJob()
 
 void DataSourceFactory::slotPutJobDestroyed(QObject *job)
 {
+    Q_UNUSED(job)
+
     m_putJob = 0;
 }
 
