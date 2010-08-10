@@ -216,6 +216,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * Kills the putjob and starts the moving of files
          */
         void startMove();
+        void slotPutJobDestroyed(QObject *job);
         void newDestResult(KJob *job);
 
         void slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
