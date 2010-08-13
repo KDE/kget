@@ -85,14 +85,16 @@ void KGetPieChart::PieChart::createAngles()
 {
     m_angles.clear();
 
-    QHash<OrgKdeKgetTransferInterface*, Data>::const_iterator it;
-    QHash<OrgKdeKgetTransferInterface*, Data>::const_iterator itEnd = m_data->constEnd();
-    int startAngle = 90 * 16;
-    for (it = m_data->constBegin(); it != itEnd; ++it) {
-        const int span = (-1 * ((it.value().size * 360 * 16) / m_totalSize));
-        m_angles[it.key()] = qMakePair(startAngle, span);
+    if (m_totalSize) {
+        QHash<OrgKdeKgetTransferInterface*, Data>::const_iterator it;
+        QHash<OrgKdeKgetTransferInterface*, Data>::const_iterator itEnd = m_data->constEnd();
+        int startAngle = 90 * 16;
+        for (it = m_data->constBegin(); it != itEnd; ++it) {
+            const int span = (-1 * ((it.value().size * 360 * 16) / m_totalSize));
+            m_angles[it.key()] = qMakePair(startAngle, span);
 
-        startAngle += span;
+            startAngle += span;
+        }
     }
 }
 
@@ -102,7 +104,7 @@ void KGetPieChart::PieChart::paint(QPainter *p, const QStyleOptionGraphicsItem *
 
     kDebug() << "Repaint";
 
-    if (m_angles.count() != m_data->count()) {
+    if (m_totalSize && (m_angles.count() != m_data->count())) {
         createAngles();
     }
 
@@ -139,7 +141,7 @@ void KGetPieChart::PieChart::paint(QPainter *p, const QStyleOptionGraphicsItem *
         p->drawPie(rect, angles.first, angles.second);
 
         p->setOpacity(ACTIVE_PIE_OPACITY);
-        if (!data.isFinished) {
+        if (m_totalSize && !data.isFinished) {
             angles.second = (-1 * ((data.downloadedSize * 360 * 16) / m_totalSize));
         }
         p->drawPie(QRect(rect.x() + 15, rect.y() + 15, rect.width() - 30, rect.height() - 30), angles.first, angles.second);
