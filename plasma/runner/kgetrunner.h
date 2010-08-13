@@ -3,6 +3,7 @@
  *
  *   Copyright (C) 2009 Tomas Van Verrewegen <tomasvanverrewegen@telenet.be>
  *   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+ *   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published
@@ -17,6 +18,8 @@
 
 #include <Plasma/AbstractRunner>
 #include <KIcon>
+
+class QDBusConnectionInterface;
 class QDBusPendingCallWatcher;
 
 
@@ -26,25 +29,27 @@ class KGetRunner
     Q_OBJECT
 
     public:
-        
-    KGetRunner(QObject* parent, const QVariantList& args);
-    ~KGetRunner();
+        KGetRunner(QObject* parent, const QVariantList& args);
+        ~KGetRunner();
 
-    void match(Plasma::RunnerContext& context);
-    void run(const Plasma::RunnerContext& context, const Plasma::QueryMatch& match);
-    
+        void match(Plasma::RunnerContext& context);
+        void run(const Plasma::RunnerContext& context, const Plasma::QueryMatch& match);
+
+    protected slots:
+        void init();
+
     private slots:
-    
-    void showNewTransferDialog();
-    void callFinished(QDBusPendingCallWatcher* call);
-        
+        void showNewTransferDialog();
+        void callFinished(QDBusPendingCallWatcher* call);
+
     private:
-    
-    QStringList parseUrls(const QString& text) const;
-    
-    OrgKdeKgetMainInterface * m_kget;
-    KIcon m_icon;
-    QStringList m_urls;
+        QStringList parseUrls(const QString& text) const;
+
+    private:
+        QDBusConnectionInterface *m_interface;
+        OrgKdeKgetMainInterface *m_kget;
+        KIcon m_icon;
+        QStringList m_urls;
 };
 
 

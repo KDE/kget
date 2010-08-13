@@ -3,6 +3,7 @@
  *
  *   Copyright (C) 2009 Tomas Van Verrewegen <tomasvanverrewegen@telenet.be>
  *   Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+ *   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published
@@ -29,13 +30,17 @@ KGetRunner::KGetRunner(QObject* parent, const QVariantList& args)
 {
     setObjectName("KGet");
     addSyntax(Plasma::RunnerSyntax(":q:", i18n("Find all links in :q: and download them with KGet.")));
-    
-    m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
 }
 
 
 KGetRunner::~KGetRunner()
 {
+}
+
+void KGetRunner::init()
+{
+    m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
+    m_interface = QDBusConnection::sessionBus().interface();
 }
 
 void KGetRunner::match(Plasma::RunnerContext& context)
@@ -116,7 +121,7 @@ QStringList KGetRunner::parseUrls(const QString& text) const
         //  We check if the match is a valid URL, if the protocol is handled by KGet,
         //  and if the host is not empty, otherwise "http://" would also be matched.
         KUrl url(re.cap());
-        if (QDBusConnection::sessionBus().interface()->isServiceRegistered(KGET_DBUS_SERVICE) 
+        if (m_interface->isServiceRegistered(KGET_DBUS_SERVICE)
             ? m_kget->isSupported(url.url()).value()
             : (url.isValid() && url.hasHost())) {
             urls << url.url();
