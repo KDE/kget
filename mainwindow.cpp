@@ -525,8 +525,6 @@ void MainWindow::slotQuit()
                 KStandardGuiItem::quit(), KStandardGuiItem::cancel(),
                 "ExitWithActiveTransfers") != KMessageBox::Yes)
             return;
-
-        KGet::setSchedulerRunning(false);
     }
 
     Settings::self()->writeConfig();
