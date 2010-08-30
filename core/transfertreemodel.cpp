@@ -87,7 +87,7 @@ QVariant TransferModelItem::data(int role) const
                 //store the icon for speed improvements, KIconLoader should make sure, that
                 //the icon data gets shared
                 if (m_mimeType.isNull()) {
-                    m_mimeType = KIcon(KMimeType::findByPath(m_transferHandler->dest().url())->iconName());
+                    m_mimeType = KIcon(KMimeType::iconNameForUrl(m_transferHandler->dest().url()));
                 }
 
                 return m_mimeType;
