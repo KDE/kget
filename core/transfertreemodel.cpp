@@ -24,8 +24,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <kio/netaccess.h>
-#include <kiconloader.h>
+#include <KMimeType>
 
 #include <qmimedata.h>
 
@@ -83,8 +82,15 @@ QVariant TransferModelItem::data(int role) const
     {
         switch (column())
         {
-            case 0:
-                return KIO::pixmapForUrl(m_transferHandler->dest(), 0, KIconLoader::Desktop, 16);
+            case 0: {
+                //store the icon for speed improvements, KIconLoader should make sure, that
+                //the icon data gets shared
+                if (m_mimeType.isNull()) {
+                    m_mimeType = KIcon(KMimeType::iconNameForUrl(m_transferHandler->dest().url()));
+                }
+
+                return m_mimeType;
+            }
             case 1:
                 return m_transferHandler->statusPixmap();
         }

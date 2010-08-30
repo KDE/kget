@@ -80,11 +80,15 @@ QVariant FileItem::data(int column, int role) const
         }
         else if (role == Qt::DecorationRole)
         {
-            if (isFile()) {
-                return KIcon(KMimeType::iconNameForUrl(KUrl(m_name)));
-            } else {
-                return KIcon("folder");
+            if (m_mimeType.isNull()) {
+                if (isFile()) {
+                    m_mimeType = KIcon(KMimeType::iconNameForUrl(KUrl(m_name)));
+                } else {
+                    m_mimeType = KIcon("folder");
+                }
             }
+
+            return m_mimeType;
         }
     }
     else if (column == FileItem::Status)

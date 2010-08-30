@@ -82,6 +82,7 @@ class KGET_EXPORT FileItem
 
     private:
         QList<FileItem*> m_childItems;
+        mutable KIcon m_mimeType;
         QString m_name;
         Qt::CheckState m_state;
         Job::Status m_status;
