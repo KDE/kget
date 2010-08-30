@@ -61,6 +61,7 @@ class KGET_EXPORT TransferModelItem : public ModelItem
 
     private:
         TransferHandler * m_transferHandler;
+        mutable KIcon m_mimeType;
 };
 
 class KGET_EXPORT GroupModelItem : public ModelItem
