@@ -169,6 +169,8 @@ install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 # kget
 
 set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
+   conf/autopastemodel.cpp
+   conf/integrationpreferences.cpp
    conf/dlgwebinterface.cpp
    conf/preferencesdialog.cpp
    conf/transfersgrouptree.cpp
@@ -248,6 +250,7 @@ kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
    conf/dlggroups.ui
+   conf/dlgintegration.ui
    conf/dlgwebinterface.ui
    conf/dlgnetwork.ui
    conf/verificationpreferences.ui

@@ -22,6 +22,7 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 #include "settings.h"
+#include "conf/autopastemodel.h"
 #include "conf/preferencesdialog.h"
 #include "ui/viewscontainer.h"
 #include "ui/tray.h"
@@ -967,7 +968,26 @@ void MainWindow::slotCheckClipboard()
 
         const KUrl url = KUrl(lastClipboard);
         if (url.isValid() && !url.protocol().isEmpty() && url.hasPath() && url.hasHost() && !url.isLocalFile()) {
-            KGet::addTransfer( url );
+            bool add = false;
+            const QString urlString = url.url();
+
+            //check the combined whitelist and blacklist
+            const QList<int> types = Settings::autoPasteTypes();
+            const QList<int> syntaxes = Settings::autoPastePatternSyntaxes();
+            const QStringList patterns = Settings::autoPastePatterns();
+            const Qt::CaseSensitivity cs = (Settings::autoPasteCaseInsensitive() ? Qt::CaseInsensitive : Qt::CaseSensitive);
+            for (int i = 0; i < types.count(); ++i) {
+                const QRegExp::PatternSyntax syntax = (syntaxes[i] == AutoPasteModel::Wildcard ? QRegExp::Wildcard : QRegExp::RegExp2);
+                QRegExp rx(patterns[i], cs, syntax);
+                if (rx.exactMatch(urlString)) {
+                    add = (types[i] == AutoPasteModel::Include);
+                    break;
+                }
+            }
+
+            if (add) {
+                KGet::addTransfer(url);
+            }
         }
     }
 }

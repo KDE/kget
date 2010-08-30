@@ -15,6 +15,8 @@
     </entry>
     <entry name="VerificationHeaderState" type="String">
     </entry>
+    <entry name="AutoPasteHeaderState" type="String">
+    </entry>
     <entry name="ShowMain" type="Bool">
       <default>true</default>
     </entry>
@@ -48,6 +50,18 @@
     </entry>
     <entry name="AutoPaste" type="Bool">
       <default>false</default>
+    </entry>
+    <entry name="AutoPasteCaseInsensitive" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="AutoPastePatterns" type="StringList">
+        <default>*</default>
+    </entry>
+    <entry name="AutoPasteTypes" type="IntList">
+        <default>0</default>
+    </entry>
+    <entry name="AutoPastePatternSyntaxes" type="IntList">
+        <default>0</default>
     </entry>
     <entry name="TimedDownload" type="Bool">
       <default>false</default>
