@@ -157,6 +157,13 @@ class KGET_EXPORT KGet
         static bool delTransfer(TransferHandler * transfer);
 
         /**
+         * Removes multiple transfers from the KGet
+         *
+         * @param transfers The transfers to be removed
+         */
+        static bool delTransfers(QList<TransferHandler*> transfers);
+
+        /**
          * Moves a transfer to a new group
          *
          * @param transfer The transfer to be moved
