@@ -38,11 +38,6 @@ ModelItem::~ModelItem()
 {
 }
 
-bool ModelItem::operator<(const QStandardItem &other) const
-{
-    return (this->row() <= other.row());
-}
-
 void ModelItem::emitDataChanged()
 {
     QStandardItem::emitDataChanged();
