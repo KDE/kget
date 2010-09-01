@@ -280,8 +280,9 @@ GroupModelItem * TransferTreeModel::itemFromTransferGroupHandler(TransferGroupHa
     
 ModelItem * TransferTreeModel::itemFromHandler(Handler * handler)
 {
-    if (qobject_cast<TransferHandler*>(handler)) {
-        return itemFromTransferHandler(qobject_cast<TransferHandler*>(handler));
+    TransferHandler *transfer = qobject_cast<TransferHandler*>(handler);
+    if (transfer) {
+        return itemFromTransferHandler(transfer);
     }
     return itemFromTransferGroupHandler(qobject_cast<TransferGroupHandler*>(handler));
 }

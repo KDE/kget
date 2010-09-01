@@ -31,7 +31,7 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     m_transfersView = new TransfersView(this);
     TransfersViewDelegate *transfersViewDelegate = new TransfersViewDelegate(m_transfersView);
     m_transfersView->setItemDelegate(transfersViewDelegate);
-    KGet::addTransferView(m_transfersView);
+    m_transfersView->setModel(KGet::model());
     m_transfersView->setSelectionModel(KGet::selectionModel());
     m_transfersView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 

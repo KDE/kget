@@ -240,16 +240,6 @@ class KGET_EXPORT KGet
         static bool schedulerRunning();
 
         /**
-         * Sets the given view to the TransferTreeModel object
-         */
-        static void addTransferView(QAbstractItemView * view);
-
-        /**
-         * Sets the given comboBox to the TransferTreeModel object
-         */
-        static void addTransferView(KComboBox * view);
-
-        /**
          * Gets all transfers
          */
         static QList<TransferHandler*> allTransfers();
