@@ -271,15 +271,13 @@ void Transfer::load(const QDomElement *element)
     else
         m_percent = 0;
 
-    if((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
-    {
-        setStatus(Job::Finished);
-    }
-    else
-    {
+    if ((m_totalSize == m_downloadedSize) && (m_totalSize != 0)) {
+        setStartStatus(Job::Finished);
+        setStatus(startStatus());
+    } else {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStartStatus(status());
     }
-    setStartStatus(status());
     setUploadLimit(e.attribute("UploadLimit").toInt(), Transfer::VisibleSpeedLimit);
     setDownloadLimit(e.attribute("DownloadLimit").toInt(), Transfer::VisibleSpeedLimit);
     m_runningSeconds = e.attribute("ElapsedTime").toInt();
@@ -304,20 +302,23 @@ void Transfer::load(const QDomElement *element)
 
 void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix)
 {
+    const bool statusChanged = (status() != jobStatus);
     QString statusText = text;
     if (statusText.isEmpty())
     {
         statusText = i18nc(STATUSTEXTS[jobStatus].context, STATUSTEXTS[jobStatus].name);
     }
 
-    QPixmap statusIcon = pix;
-    if (statusIcon.isNull())
-    {
-        statusIcon = SmallIcon(STATUSICONS[jobStatus]);
+    //always prefer pix, if it is set
+    if (pix.isNull()) {
+        m_statusPixmap = pix;
+    }
+
+    if (statusChanged || m_statusPixmap.isNull()) {
+        m_statusPixmap = SmallIcon(STATUSICONS[jobStatus]);
     }
 
     m_statusText = statusText;
-    m_statusPixmap = statusIcon;
 
     if (jobStatus == Job::Running && status() != Job::Running)
     {
@@ -340,7 +341,9 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     Job::setStatus(jobStatus);
 
 #ifdef HAVE_NEPOMUK
-    if (jobStatus == Job::Finished)
+    const bool loadedFinished = ((startStatus() == Job::Finished) || (startStatus() == Job::FinishedKeepAlive));
+    const bool isFinished = ((jobStatus == Job::Finished) || (jobStatus == Job::FinishedKeepAlive));
+    if (!loadedFinished && statusChanged && isFinished)
     {
         m_nepomukHandler->addTags(group()->tags());
         m_nepomukHandler->saveFileProperties();
