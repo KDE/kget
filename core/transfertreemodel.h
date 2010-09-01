@@ -40,6 +40,13 @@ class KGET_EXPORT ModelItem : public QStandardItem
         void emitDataChanged();
         Handler * handler();
         virtual bool isGroup();
+        /**
+          * Compares two QStandardItems
+          * returns true if row() of this is smaller
+          * @note there are no checks if both belong to the same group,
+          * same model or if both are of the same type
+          */
+        virtual bool operator<(const QStandardItem &other) const;
         
         GroupModelItem * asGroup();
         TransferModelItem * asTransfer();
@@ -105,6 +112,7 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
 
         void addTransfer(Transfer * transfer, TransferGroup * group);
         void delTransfer(Transfer * transfer);
+        void delTransfers(const QList<Transfer*> &transfers);
 
         TransferModelItem * itemFromTransferHandler(TransferHandler * handler);
         GroupModelItem * itemFromTransferGroupHandler(TransferGroupHandler * handler);

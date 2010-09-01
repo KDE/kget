@@ -329,20 +329,33 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
 bool KGet::delTransfer(TransferHandler * transfer)
 {
-    Transfer * t = transfer->m_transfer;
-    t->stop();
+    return delTransfers(QList<TransferHandler*>() << transfer);
+}
+
+bool KGet::delTransfers(QList<TransferHandler*> handlers)
+{
     if (!m_store) {
         m_store = TransferHistoryStore::getStore();
     }
-    m_store->saveItem(TransferHistoryItem(*t));
+    QList<Transfer*> transfers;
+    foreach (TransferHandler *handler, handlers) {
+        Transfer *transfer = handler->m_transfer;
+        transfers << transfer;
 
-    // TransferHandler deinitializations
-    transfer->destroy();
-    // Transfer deinitializations (the deinit function is called by the destroy() function)
-    t->destroy();
+        m_store->saveItem(TransferHistoryItem(*transfer));
+        if (transfer->status() != Job::Finished) {//FIXME should this be here?
+            handler->stop();//TODO is this needed?
+            transfer->stop();//TODO is this needed?
+        }
+
+        // TransferHandler deinitializations
+        handler->destroy();
+        // Transfer deinitializations (the deinit function is called by the destroy() function)
+        transfer->destroy();
+    }
     
-    m_transferTreeModel->delTransfer(t);
-    delete t;
+    m_transferTreeModel->delTransfers(transfers);
+    qDeleteAll(transfers);
     return true;
 }
 
@@ -370,6 +383,8 @@ QList<TransferHandler *> KGet::selectedTransfers()
     QList<TransferHandler *> selectedTransfers;
 
     QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
+    //sort the indexes as this can speed up operations like deleting etc.
+    qSort(selectedIndexes.begin(), selectedIndexes.end());
 
     foreach(const QModelIndex &currentIndex, selectedIndexes)
     {

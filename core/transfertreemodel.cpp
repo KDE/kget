@@ -38,6 +38,11 @@ ModelItem::~ModelItem()
 {
 }
 
+bool ModelItem::operator<(const QStandardItem &other) const
+{
+    return (this->row() <= other.row());
+}
+
 void ModelItem::emitDataChanged()
 {
     QStandardItem::emitDataChanged();
@@ -232,6 +237,75 @@ void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
     DBusTransferWrapper * wrapper = new DBusTransferWrapper(transfer->handler());
     new TransferAdaptor(wrapper);
     QDBusConnection::sessionBus().registerObject(transfer->handler()->dBusObjectPath(), wrapper);
+}
+
+void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
+{
+    QList<Transfer*> transfers = t;
+
+    //find all valid items and sort them according to their groups
+    QHash<TransferGroup*, QList<TransferModelItem*> > groups;
+    {
+        QList<Transfer*>::iterator it;
+        QList<Transfer*>::iterator itEnd = transfers.end();
+        for (it = transfers.begin(); it != itEnd; ) { 
+            TransferModelItem *item = itemFromTransferHandler((*it)->handler());
+            if (item) {
+                groups[(*it)->group()] << item;
+                ++it;
+            } else {
+                it = transfers.erase(it);
+            }
+        }
+    }
+
+    foreach(Transfer *transfer, transfers) {
+        emit transferAboutToBeRemovedEvent(transfer->handler(), transfer->group()->handler());
+    }
+
+    //remove the items from the model
+    {
+        QHash<TransferGroup*, QList<TransferModelItem*> >::iterator it;
+        QHash<TransferGroup*, QList<TransferModelItem*> >::iterator itEnd = groups.end();
+        for (it = groups.begin(); it != itEnd; ++it) {
+            const int numItems = (*it).count();
+            QStandardItem *parentItem = (*it).first()->parent();
+            QModelIndex parentIndex = parentItem->index();
+            if (numItems == parentItem->rowCount()) {
+                for (int i = 0; i < numItems; ++i) {
+                    m_transfers.removeAll((*it)[i]);
+                }
+                removeRows(0, numItems, parentIndex);
+                continue;
+            }
+
+            int rowStart = (*it).first()->row();
+            int numRows = 1;
+            m_transfers.removeAll((*it).first());
+            for (int i = 1; i < numItems; ++i) {
+                //previous item is neighbour
+                if (rowStart + numRows == (*it)[i]->row()) {
+                    ++numRows;
+                //no neighbour, so start again
+                } else {
+                    removeRows(rowStart, numRows, parentIndex);
+                    rowStart = (*it)[i]->row();
+                    numRows = 1;
+                }
+                m_transfers.removeAll((*it)[i]);
+            }
+            //remove last items
+            removeRows(rowStart, numRows, parentIndex);
+        }
+    }
+
+    foreach(Transfer *transfer, transfers) {
+        QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());
+        transfer->group()->remove(transfer);
+        m_changedTransfers.removeAll(transfer->handler());
+
+        emit transferRemovedEvent(transfer->handler(), transfer->group()->handler());
+    }
 }
 
 void TransferTreeModel::delTransfer(Transfer * transfer)

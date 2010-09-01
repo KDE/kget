@@ -641,12 +641,10 @@ void MainWindow::slotDeleteSelected()
         }
     }
 
-    foreach (TransferHandler * it, KGet::selectedTransfers())
-    {
-        it->stop();
-        m_viewsContainer->closeTransferDetails(it);
-        KGet::delTransfer(it);
+    foreach (TransferHandler * it, KGet::selectedTransfers()) {
+        m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
     }
+    KGet::delTransfers(KGet::selectedTransfers());
 }
 
 void MainWindow::slotRedownloadSelected()
@@ -700,12 +698,10 @@ void MainWindow::slotTransfersCopySourceUrl()
 
 void MainWindow::slotDeleteFinished()
 {
-    foreach(TransferHandler * it, KGet::finishedTransfers())
-    {
-        it->stop();
+    foreach(TransferHandler * it, KGet::finishedTransfers()) {
         m_viewsContainer->closeTransferDetails(it);
-        KGet::delTransfer(it);
     }
+    KGet::delTransfers(KGet::finishedTransfers());
 }
 
 void MainWindow::slotConfigureNotifications()
