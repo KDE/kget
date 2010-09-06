@@ -900,7 +900,13 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
     m_prevDownloadedSizes.clear();
     m_prevDownloadedSizes.append(m_downloadedSize);
 
-    changeStatus(Job::Stopped, true);
+    emit speed(0);
+    emit processedSize(m_downloadedSize);
+    if (m_size) {
+        emit percent((m_downloadedSize * 100) / m_size);
+    }
+    m_status = Job::Stopped;
+
     start();
 }
 
@@ -926,18 +932,21 @@ void DataSourceFactory::load(const QDomElement *element)
     verifier()->load(e);
     signature()->load(e);
 
-    if (!m_size)
-    {
+    if (!m_size) {
         m_size = e.attribute("size").toULongLong();
+        emit totalSize(m_size);
     }
     KIO::fileoffset_t tempSegSize = e.attribute("segementSize").toLongLong();
     if (tempSegSize)
     {
         m_segSize = tempSegSize;
     }
-    if (!m_downloadedSize)
-    {
+    if (!m_downloadedSize) {
         m_downloadedSize = e.attribute("processedSize").toULongLong();
+        emit processedSize(m_downloadedSize);
+        if (m_size) {
+            emit percent((m_downloadedSize * 100) / m_size);
+        }
     }
     if (e.hasAttribute("doDownload"))
     {
@@ -1008,10 +1017,10 @@ void DataSourceFactory::load(const QDomElement *element)
         addMirror(url, false, connections, true);
     }
 
-    changeStatus(static_cast<Job::Status>(e.attribute("status").toInt()), true);
+    m_status = static_cast<Job::Status>(e.attribute("status").toInt());
 }
 
-void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
+void DataSourceFactory::changeStatus(Job::Status status)
 {
     m_status = status;
     switch (m_status)
@@ -1041,13 +1050,11 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
             emit speed(0);
             emit percent(100);
 
-            if (!loaded) {
-                if (Settings::checksumAutomaticVerification() && verifier()->isVerifyable()) {
-                    verifier()->verify();
-                }
-                if (Settings::signatureAutomaticVerification() && signature()->isVerifyable()) {
-                    signature()->verify();
-                }
+            if (Settings::checksumAutomaticVerification() && verifier()->isVerifyable()) {
+                verifier()->verify();
+            }
+            if (Settings::signatureAutomaticVerification() && signature()->isVerifyable()) {
+                signature()->verify();
             }
 
             slotUpdateCapabilities();
@@ -1055,24 +1062,6 @@ void DataSourceFactory::changeStatus(Job::Status status, bool loaded)
         default:
             //TODO handle Delayed
             break;
-    }
-
-    //load has been called, so change the totalSize, percent and the processedSize if possible
-    if (loaded)
-    {
-        if (m_size)
-        {
-            emit totalSize(m_size);
-            if (m_downloadedSize)
-            {
-                emit processedSize(m_downloadedSize);
-                emit percent((m_downloadedSize * 100) / m_size);
-            }
-        }
-
-        //Do not emit a status when loading as it would not reflect the current status, but rather the
-        //status the program was ended with
-        return;
     }
 
     emit statusChanged(m_status);
