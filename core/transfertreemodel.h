@@ -105,7 +105,6 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         void delGroup(TransferGroup * group);
 
         void addTransfer(Transfer * transfer, TransferGroup * group);
-        void delTransfer(Transfer * transfer);
         void delTransfers(const QList<Transfer*> &transfers);
 
         TransferModelItem * itemFromTransferHandler(TransferHandler * handler);
@@ -148,8 +147,8 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         void groupRemovedEvent(TransferGroupHandler *);
         void groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>);
         void transferAddedEvent(TransferHandler *, TransferGroupHandler *);
-        void transferAboutToBeRemovedEvent(TransferHandler *, TransferGroupHandler *);
-        void transferRemovedEvent(TransferHandler *, TransferGroupHandler *);
+        void transfersAboutToBeRemovedEvent(const QList<TransferHandler*> &transfers);
+        void transfersRemovedEvent(const QList<TransferHandler*> &transfers);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
         void transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>);
 

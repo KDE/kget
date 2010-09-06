@@ -45,9 +45,9 @@
         <arg name="url" type="s" direction="out"/>
         <arg name="dBusObjectPath" type="s" direction="out"/>
     </signal>
-    <signal name="transferRemoved">
-        <arg name="url" type="s" direction="out"/>
-        <arg name="dBusObjectPath" type="s" direction="out"/>
+    <signal name="transfersRemoved">
+        <arg name="urls" type="as" direction="out"/>
+        <arg name="dBusObjectPaths" type="as" direction="out"/>
     </signal>
   </interface>
 </node>
