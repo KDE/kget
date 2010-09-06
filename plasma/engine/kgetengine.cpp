@@ -76,7 +76,7 @@ void KGetEngine::getKGetData(const QString &name)
     if (isDBusServiceRegistered()) {
         if (!m_kget) {
             m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
-            connect(m_kget, SIGNAL(transferAdded(QString,QString)), this, SLOT(slotTransferAdded(QString,QString)));
+            connect(m_kget, SIGNAL(transfersAdded(QStringList,QStringList)), this, SLOT(slotTransfersAdded(QStringList,QStringList)));
             connect(m_kget, SIGNAL(transfersRemoved(QStringList,QStringList)), this, SLOT(slotTransfersRemoved(QStringList,QStringList)));
         }
 
@@ -88,7 +88,7 @@ void KGetEngine::getKGetData(const QString &name)
     }
 }
 
-void KGetEngine::slotTransferAdded(const QString &url, const QString &dBusObjectPath)
+void KGetEngine::transferAdded(const QString &url, const QString &dBusObjectPath)
 {
     const QString name = "KGet";
     removeAllData(name);
@@ -99,6 +99,14 @@ void KGetEngine::slotTransferAdded(const QString &url, const QString &dBusObject
     setData(name, "error", false);
     setData(name, "transfers", m_kget->transfers().value());
     setData(name, "transferAdded", added);
+}
+
+//TODO investigate if this should be improved for speed reasons
+void KGetEngine::slotTransfersAdded(const QStringList &urls, const QStringList &dBusObjectPaths)
+{
+    for (int i = 0; i < urls.count(); ++i) {
+        transferAdded(urls[i], dBusObjectPaths[i]);
+    }
 }
 
 void KGetEngine::transferRemoved(const QString &url, const QString &dBusObjectPath)

@@ -331,13 +331,20 @@ void NewTransferDialog::showDialog(const KUrl::List &list, const QString &sugges
     if (!Settings::directoriesAsSuggestion() && !list.isEmpty())
     {
         kDebug(5001) << "No, Directories not as suggestion";
+        QHash<TransferGroupHandler*, KUrl::List> urlsPerGroup;
         foreach (const KUrl &url, list)
         {
             QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(url);
-            if (!groups.isEmpty())
-                KGet::addTransfer(url, groups.first()->defaultFolder(), url.fileName(), groups.first()->name());
-            else
+            if (!groups.isEmpty()) {
+                urlsPerGroup[groups.first()] << url;
+            } else {
                 cleanedList << url;
+            }
+        }
+        QHash<TransferGroupHandler*, KUrl::List>::const_iterator it;
+        QHash<TransferGroupHandler*, KUrl::List>::const_iterator itEnd = urlsPerGroup.constEnd();
+        for (it = urlsPerGroup.constBegin(); it != itEnd; ++it) {
+            KGet::addTransfer(it.value(), it.key()->defaultFolder(), it.key()->name());
         }
         kDebug() << "CLEANED LIST IS:" << cleanedList;
         if (cleanedList.isEmpty())

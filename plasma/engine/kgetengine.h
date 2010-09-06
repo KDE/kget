@@ -42,10 +42,11 @@ class KGetEngine : public Plasma::DataEngine
     private slots:
         void getKGetData(const QString &name);
         void updateData();
-        void slotTransferAdded(const QString &url, const QString &dBusObjectPath);
+        void slotTransfersAdded(const QStringList &urls, const QStringList &dBusObjectPaths);
         void slotTransfersRemoved(const QStringList &urls, const QStringList &dBusObjectPaths);
 
     private:
+        void transferAdded(const QString &url, const QString &dBusObjectPath);
         void transferRemoved(const QString &url, const QString &dBusObjectPath);
         bool isDBusServiceRegistered();
 

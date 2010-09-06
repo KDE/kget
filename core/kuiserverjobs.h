@@ -35,7 +35,7 @@ public:
     void settingsChanged();
 
 public slots:
-    void slotTransferAdded(TransferHandler * transfer, TransferGroupHandler * group);
+    void slotTransfersAdded(QList<TransferHandler*> transfers);
     void slotTransfersAboutToBeRemoved(const QList<TransferHandler*> &transfer);
     void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
 

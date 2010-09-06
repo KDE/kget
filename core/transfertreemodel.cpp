@@ -225,23 +225,42 @@ void TransferTreeModel::delGroup(TransferGroup * group)
     m_transferGroups.removeAll(item);
 }
 
-void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
+void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, TransferGroup *group)
 {
-    group->append(transfer);
+    ModelItem *parentItem = itemFromTransferGroupHandler(group->handler());
+    const QModelIndex parentIndex = parentItem->index();
+    beginInsertRows(parentItem->index(), parentItem->rowCount(), parentItem->rowCount() + transfers.count() - 1);
 
-    QList<QStandardItem*> items;
-    for (int i = 0; i != transfer->handler()->columnCount(); i++)
-        items << new TransferModelItem(transfer->handler());
+    //HACK blocks all signals from the model when adding multiple items,
+    //that way rowsInserted gets only emitted once, and not constantly when doing appendRow
+    //change this once there is a better way to append many transfers at once
+    blockSignals(true);
 
-    itemFromTransferGroupHandler(group->handler())->appendRow(items);
+    //now create and add the new items
+    QList<TransferHandler*> handlers;
+    foreach (Transfer *transfer, transfers) {
+        group->append(transfer);
+        TransferHandler *handler = transfer->handler();
+        handlers << handler;
 
-    emit transferAddedEvent(transfer->handler(), group->handler());
-    
-    m_transfers.append(static_cast<TransferModelItem*>(items.first()));
+        QList<QStandardItem*> items;
+        for (int i = 0; i != handler->columnCount(); ++i) {
+            items << new TransferModelItem(handler);
+        }
 
-    DBusTransferWrapper * wrapper = new DBusTransferWrapper(transfer->handler());
-    new TransferAdaptor(wrapper);
-    QDBusConnection::sessionBus().registerObject(transfer->handler()->dBusObjectPath(), wrapper);
+        parentItem->appendRow(items);
+
+        m_transfers.append(static_cast<TransferModelItem*>(items.first()));
+
+        DBusTransferWrapper * wrapper = new DBusTransferWrapper(handler);
+        new TransferAdaptor(wrapper);
+        QDBusConnection::sessionBus().registerObject(handler->dBusObjectPath(), wrapper);
+    }
+
+    //notify the rest of the changes
+    blockSignals(false);
+    endInsertRows();
+    emit transfersAddedEvent(handlers);
 }
 
 void TransferTreeModel::delTransfers(const QList<Transfer*> &t)

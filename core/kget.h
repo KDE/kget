@@ -48,7 +48,6 @@ class NewTransferDialog;
 class TransferGroupScheduler;
 class TransferHistoryStore;
 
-
 /**
  * This is our KGet class. This is where the user's transfers and searches are
  * stored and organized.
@@ -128,13 +127,13 @@ class KGET_EXPORT KGet
                                              QString groupName = QString(), bool start = false);
 
         /**
-         * Adds a new transfer to the KGet, it is assumed that this takes place because of loading
+         * Adds new transfers to the KGet, it is assumed that this takes place because of loading
          * that results in less checks for loaction etc.
          *
-         * @param e The transfer's dom element
+         * @param elements The dom elements of the transfers to add
          * @param groupName The name of the group the new transfer will belong to
          */
-        static TransferHandler * addTransfer(const QDomElement& e, const QString& groupName = QString());
+        static QList<TransferHandler*> addTransfers(const QList<QDomElement> &elements, const QString &groupName = QString());
 
         /**
          * Adds new transfers to the KGet
@@ -349,6 +348,8 @@ class KGET_EXPORT KGet
     private:
         KGet();
 
+        class TransferData;
+
         /**
          * Scans for all the available plugins and creates the proper
          * transfer object for the given src url
@@ -359,6 +360,11 @@ class KGET_EXPORT KGet
          * @param start Specifies if the newly added transfers should be started.
          */
         static TransferHandler * createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
+
+        /**
+         * Creates multiple transfers with transferData
+         */
+        static QList<TransferHandler*> createTransfers(const QList<TransferData> &transferData);
 
         static KUrl urlInputDialog();
         static QString destDirInputDialog();
@@ -404,6 +410,18 @@ class KGET_EXPORT KGet
         static TransferHistoryStore *m_store;
 };
 
+class KGet::TransferData
+{
+    public:
+        TransferData(const KUrl &src, const KUrl &dest, const QString &groupName = QString(), bool start = false, const QDomElement *e = 0);
+
+        KUrl src;
+        KUrl dest;
+        QString groupName;
+        bool start;
+        const QDomElement *e;
+};
+
 class GenericObserver : public QObject
 {
     Q_OBJECT
@@ -414,7 +432,7 @@ class GenericObserver : public QObject
     public slots:
         void groupAddedEvent(TransferGroupHandler *handler);
         void groupRemovedEvent(TransferGroupHandler *handler);
-        void transferAddedEvent(TransferHandler *handler, TransferGroupHandler *group);
+        void transfersAddedEvent(const QList<TransferHandler*> &handlers);
         void transfersRemovedEvent(const QList<TransferHandler*> &handlers);
         void transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
         void groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
