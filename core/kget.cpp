@@ -248,8 +248,15 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
 
     if (destUrl == KUrl())
         return 0;
-    
-    return createTransfer(srcUrl, destUrl, groupName, start);
+
+    TransferHandler *transfer = createTransfer(srcUrl, destUrl, groupName, start);
+    if (transfer) {
+        KGet::showNotification(m_mainWindow, "added",
+                                i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", transfer->source().pathOrUrl()),
+                                "kget", i18n("Download added"));
+    }
+
+    return transfer;
 }
 
 QList<TransferHandler*> KGet::addTransfers(const QList<QDomElement> &elements, const QString &groupName)
@@ -326,8 +333,25 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
         data << TransferData(*it, destUrl, groupName, start);
     }
-    
-    return createTransfers(data);
+
+    QList<TransferHandler*> transfers = createTransfers(data);
+    if (!transfers.isEmpty()) {
+        QString urls = transfers[0]->source().pathOrUrl();
+        for (int i = 1; i < transfers.count(); ++i) {
+            urls += '\n' + transfers[i]->source().pathOrUrl();
+        }
+
+        QString message;
+        if (transfers.count() == 1) {
+            message = i18n("<p>The following transfer has been added to the download list:</p>");
+        } else {
+            message = i18n("<p>The following transfers have been added to the download list:</p>");
+        }
+        const QString content = QString("<p style=\"font-size: small;\">\%1</p>").arg(urls);
+        KGet::showNotification(m_mainWindow, "added", message + content, "kget", i18n("Download added"));
+    }
+
+    return transfers;
 }
 
 
@@ -792,6 +816,7 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
     QList<bool> start;
     QHash<TransferGroup*, QList<Transfer*> > groups;
 
+    QStringList urlsFailed;
     foreach (const TransferData &data, dataItems) {
         kDebug(5001) << "srcUrl=" << data.src << " destUrl=" << data.dest << " group=" << data.groupName;
 
@@ -811,19 +836,31 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
                 handlers << newTransfer->handler();
                 groups[group] << newTransfer;
                 start << data.start;
-                
-                KGet::showNotification(m_mainWindow, "added",
-                                       i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", newTransfer->source().pathOrUrl()),
-                                       "kget", i18n("Download added"));
                 break;
             }
         }
         if (!newTransfer) {
-            KGet::showNotification(m_mainWindow, "error",
-                                   i18n("Unable to continue: KGet cannot download using this protocol."), "dialog-error", i18n("Protocol unsupported"));
-
+            urlsFailed << data.src.url();
             kWarning(5001) << "Warning! No plugin found to handle" << data.src;
         }
+    }
+
+    //show urls that failed
+    if (!urlsFailed.isEmpty()) {
+        QString message;
+        if (urlsFailed.count() == 1) {
+            message = i18n("<p>The following url cannot be downloaded, its protocols is not supported by KGet:</p>");
+        } else {
+            message = i18n("<p>The following urls cannot be downloaded, their protocols are not supported by KGet:</p>");
+        }
+
+        QString content = urlsFailed.takeFirst();
+        foreach (const QString &url, urlsFailed) {
+            content += '\n' + url;
+        }
+        content = QString("<p style=\"font-size: small;\">\%1</p>").arg(content);
+
+        KGet::showNotification(m_mainWindow, "error", message + content, "dialog-error", i18n("Protocol unsupported"));
     }
 
     //add the created transfers to the model and start them if specified
