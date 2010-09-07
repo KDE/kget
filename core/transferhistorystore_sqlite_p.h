@@ -26,6 +26,7 @@ public slots:
     void load();
     void clear();
     void saveItem(const TransferHistoryItem &item);
+    void saveItems(const QList<TransferHistoryItem> &items);
     void deleteItem(const TransferHistoryItem &item);
 
 private:

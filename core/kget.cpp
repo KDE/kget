@@ -342,11 +342,11 @@ bool KGet::delTransfers(QList<TransferHandler*> handlers)
         m_store = TransferHistoryStore::getStore();
     }
     QList<Transfer*> transfers;
+    QList<TransferHistoryItem> historyItems;
     foreach (TransferHandler *handler, handlers) {
         Transfer *transfer = handler->m_transfer;
         transfers << transfer;
-
-        m_store->saveItem(TransferHistoryItem(*transfer));
+        historyItems << TransferHistoryItem(*transfer);
         if (transfer->status() != Job::Finished) {//FIXME should this be here?
             handler->stop();//TODO is this needed?
             transfer->stop();//TODO is this needed?
@@ -357,7 +357,8 @@ bool KGet::delTransfers(QList<TransferHandler*> handlers)
         // Transfer deinitializations (the deinit function is called by the destroy() function)
         transfer->destroy();
     }
-    
+    m_store->saveItems(historyItems);
+
     m_transferTreeModel->delTransfers(transfers);
     qDeleteAll(transfers);
     return true;

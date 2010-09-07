@@ -74,6 +74,13 @@ public slots:
     {
         Q_UNUSED(item)
     };
+
+    virtual void saveItems(const QList<TransferHistoryItem> &items)
+    {
+        foreach(const TransferHistoryItem &item, items) {
+            saveItem(item);
+        }
+    };
     virtual void deleteItem(const TransferHistoryItem &item)
     {
         Q_UNUSED(item)
