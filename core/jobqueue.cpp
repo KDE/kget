@@ -85,7 +85,14 @@ void JobQueue::append(Job * job)
 {
     m_jobs.append(job);
 
-    m_scheduler->jobQueueAddedJobEvent(this, job);    
+    m_scheduler->jobQueueAddedJobEvent(this, job);
+}
+
+void JobQueue::append(const QList<Job*> &jobs)
+{
+    m_jobs.append(jobs);
+
+    m_scheduler->jobQueueAddedJobsEvent(this, jobs);
 }
 
 void JobQueue::prepend(Job * job)
@@ -109,6 +116,15 @@ void JobQueue::remove(Job * job)
     m_jobs.removeAll(job);
 
     m_scheduler->jobQueueRemovedJobEvent(this, job);
+}
+
+void JobQueue::remove(const QList<Job*> jobs)
+{
+    foreach (Job *job, jobs) {
+        m_jobs.removeAll(job);
+    }
+
+    m_scheduler->jobQueueRemovedJobsEvent(this, jobs);
 }
 
 void JobQueue::move(Job * job, Job * after)

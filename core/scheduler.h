@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Coypright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -105,7 +106,9 @@ class Scheduler : public QObject
         virtual void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);
         virtual void jobQueueMovedJobEvent(JobQueue * queue, Job * job);
         virtual void jobQueueAddedJobEvent(JobQueue * queue, Job * job);
+        virtual void jobQueueAddedJobsEvent(JobQueue *queue, const QList<Job*> jobs);
         virtual void jobQueueRemovedJobEvent(JobQueue * queue, Job * job);
+        virtual void jobQueueRemovedJobsEvent(JobQueue *queue, const QList<Job*> jobs);
 
         //Job notifications
         virtual void jobChangedEvent(Job * job, Job::Status status);

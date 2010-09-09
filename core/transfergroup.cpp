@@ -85,18 +85,22 @@ void TransferGroup::setStatus(Status queueStatus)
 
 void TransferGroup::append(Transfer * transfer)
 {
-    kDebug(5001) << "TransferGroup::append";
-
-    Transfer * after;
-    if(size() == 0) 
-        after = 0;
-    else
-        after = static_cast<Transfer *> (last());
-
     JobQueue::append(transfer);
 
     calculateSpeedLimits();
 }
+
+void TransferGroup::append(const QList<Transfer*> &transfers)
+{
+    QList<Job*> jobs;
+    foreach (Transfer *transfer, transfers) {
+        jobs << transfer;
+    }
+    JobQueue::append(jobs);
+
+    calculateSpeedLimits();
+}
+
 
 void TransferGroup::prepend(Transfer * transfer)
 {
@@ -115,6 +119,17 @@ void TransferGroup::insert(Transfer * transfer, Transfer * after)
 void TransferGroup::remove(Transfer * transfer)
 {
     JobQueue::remove(transfer);
+
+    calculateSpeedLimits();
+}
+
+void TransferGroup::remove(const QList<Transfer*> &transfers)
+{
+    QList<Job*> jobs;
+    foreach (Transfer *transfer, transfers) {
+        jobs << transfer;
+    }
+    JobQueue::remove(jobs);
 
     calculateSpeedLimits();
 }
