@@ -242,7 +242,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         void init();
         void killPutJob();
-        void changeStatus(Job::Status status, bool loaded = false);
+        void changeStatus(Job::Status status);
 
     private:
         Transfer::Capabilities m_capabilities;

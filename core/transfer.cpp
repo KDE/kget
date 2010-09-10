@@ -265,11 +265,7 @@ void Transfer::load(const QDomElement *element)
     m_totalSize = e.attribute("TotalSize").toULongLong();
     m_downloadedSize = e.attribute("DownloadedSize").toULongLong();
     m_uploadedSize = e.attribute("UploadedSize").toULongLong();
-
-    if( m_totalSize != 0)
-        m_percent = (int)((100.0 * m_downloadedSize) / m_totalSize);
-    else
-        m_percent = 0;
+    m_percent = (m_totalSize ? ((100.0 * m_downloadedSize) / m_totalSize) : 0);
 
     if ((m_totalSize == m_downloadedSize) && (m_totalSize != 0)) {
         setStartStatus(Job::Finished);
