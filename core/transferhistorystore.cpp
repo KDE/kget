@@ -457,23 +457,36 @@ void SQLiteStore::clear()
 
 void SQLiteStore::saveItem(const TransferHistoryItem &item)
 {
+    saveItems(QList<TransferHistoryItem>() << item);
+}
+
+void SQLiteStore::saveItems(const QList<TransferHistoryItem> &items)
+{
     if (sql().open()) {
         if (!sql().tables().contains("transfer_history_item")) {
             createTables();
         }
 
-       QSqlQuery query = sql().exec("insert into transfer_history_item(source, dest, size, time, state)"
+        if (!sql().transaction()) {
+            kWarning(5001) << "Could not establish a transaction, might be slow.";
+        }
+
+        foreach (const TransferHistoryItem &item, items) {
+            QSqlQuery query = sql().exec("insert into transfer_history_item(source, dest, size, time, state)"
                                 "values ('"+item.source()+"', '"+item.dest()+"', "
                                 + QString::number(item.size()) + ", "
                                 + QString::number(item.dateTime().toTime_t()) + ", '"
                                 + QString::number(item.state())+"')");
 
-        if (query.lastError().isValid()) {
-            kDebug(5001) << query.lastError().text();
+            if (query.lastError().isValid()) {
+                kDebug(5001) << query.lastError().text();
+            }
+            m_items << item;
         }
 
-        sql().commit();
-        m_items << item;
+        if (!sql().commit()) {
+            kWarning(5001) << "Could not commit changes.";
+        }
     }
     sql().close();
 
