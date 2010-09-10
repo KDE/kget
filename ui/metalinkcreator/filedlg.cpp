@@ -74,6 +74,9 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     if (m_file->data.languages.count()) {//TODO 4.5 support multiple languages
         const int index = uiData.language->findData(m_file->data.languages.first());
         uiData.language->setCurrentIndex(index);
+    } else {
+        //Do not select a language of a file if none was defined.
+        uiData.language->setCurrentIndex(-1);
     }
 
 
