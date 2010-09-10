@@ -27,17 +27,6 @@ class TransferGroupScheduler : public Scheduler
         TransferGroupScheduler();
         ~TransferGroupScheduler();
 
-        //JobQueue notifications
-        virtual void jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status);
-        virtual void jobQueueMovedJobEvent(JobQueue * queue, Job * job);
-        virtual void jobQueueAddedJobEvent(JobQueue * queue, Job * job);
-        virtual void jobQueueRemovedJobEvent(JobQueue * queue, Job * job);
-
-        //Job notifications
-        virtual void jobChangedEvent(Job * job, Job::Status status);
-        virtual void jobChangedEvent(Job * job, Job::Policy status);
-        virtual void jobChangedEvent(Job * job, JobFailure failure);        
-
         /**
          * Calculates the whole SpeedLimits
          */

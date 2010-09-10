@@ -24,41 +24,6 @@ TransferGroupScheduler::~TransferGroupScheduler()
 {
 }
 
-void TransferGroupScheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
-{
-    Scheduler::jobQueueChangedEvent(queue, status);
-}
-
-void TransferGroupScheduler::jobQueueMovedJobEvent(JobQueue * queue, Job * job)
-{
-    Scheduler::jobQueueMovedJobEvent(queue, job);
-}
-
-void TransferGroupScheduler::jobQueueAddedJobEvent(JobQueue * queue, Job * job)
-{
-    Scheduler::jobQueueAddedJobEvent(queue, job);
-}
-
-void TransferGroupScheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
-{
-    Scheduler::jobQueueRemovedJobEvent(queue, job);
-}
-
-void TransferGroupScheduler::jobChangedEvent(Job * job, Job::Status status)
-{
-    Scheduler::jobChangedEvent(job, status);
-}
-
-void TransferGroupScheduler::jobChangedEvent(Job * job, Job::Policy status)
-{
-    Scheduler::jobChangedEvent(job, status);
-}
-
-void TransferGroupScheduler::jobChangedEvent(Job * job, JobFailure failure)
-{
-    Scheduler::jobChangedEvent(job, failure);
-}
-
 void TransferGroupScheduler::calculateSpeedLimits()
 {
     calculateDownloadLimit();
