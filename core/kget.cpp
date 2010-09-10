@@ -248,8 +248,15 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
 
     if (destUrl == KUrl())
         return 0;
-    
-    return createTransfer(srcUrl, destUrl, groupName, start);
+
+    TransferHandler *transfer = createTransfer(srcUrl, destUrl, groupName, start);
+    if (transfer) {
+        KGet::showNotification(m_mainWindow, "added",
+                                i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", transfer->source().pathOrUrl()),
+                                "kget", i18n("Download added"));
+    }
+
+    return transfer;
 }
 
 QList<TransferHandler*> KGet::addTransfers(const QList<QDomElement> &elements, const QString &groupName)
@@ -326,8 +333,14 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
         data << TransferData(*it, destUrl, groupName, start);
     }
-    
-    return createTransfers(data);
+
+    QList<TransferHandler*> transfers = createTransfers(data);
+    foreach (TransferHandler *transfer, transfers) {
+        KGet::showNotification(m_mainWindow, "added",
+                                i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", transfer->source().pathOrUrl()),
+                                "kget", i18n("Download added"));
+    }
+    return transfers;
 }
 
 
@@ -821,10 +834,6 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
                 handlers << newTransfer->handler();
                 groups[group] << newTransfer;
                 start << data.start;
-                
-                KGet::showNotification(m_mainWindow, "added",
-                                       i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", newTransfer->source().pathOrUrl()),
-                                       "kget", i18n("Download added"));
                 break;
             }
         }
