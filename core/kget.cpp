@@ -711,7 +711,7 @@ QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
             }
 
             //now try with wildcards
-            if (!regExp.pattern().isEmpty() && !regExp.pattern().startsWith('*')) {
+            if (!regExp.pattern().isEmpty() && !regExp.pattern().contains('*')) {
                 regExp.setPattern('*' + regExp.pattern());
             }
 
