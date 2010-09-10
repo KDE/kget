@@ -100,28 +100,21 @@ bool KGet::addGroup(const QString& groupName)
     return true;
 }
 
-void KGet::delGroup(TransferGroupHandler * group, bool askUser)
+void KGet::delGroup(TransferGroupHandler *group, bool askUser)
 {
-    TransferGroup * g = group->m_group;
-    if (group)
-    {
-        if (askUser) {
-            QWidget * configDialog = KConfigDialog::exists("preferences");
-            if (KMessageBox::warningYesNo(configDialog ? configDialog : m_mainWindow,
-                           i18n("Are you sure that you want to remove the group named %1?", g->name()),
-                           i18n("Remove Group"),
-                           KStandardGuiItem::remove(), KStandardGuiItem::cancel()) != KMessageBox::Yes)
-                return;
-        }
-        JobQueue::iterator begin = g->begin();
-        JobQueue::iterator end = g->end();
-        for (; begin != end; begin++) {
-            Transfer *transfer = static_cast<Transfer*>(*begin);
-            m_transferTreeModel->delTransfer(transfer);//Unregister transfers from model first, they will get deleted by the group when destructing
-        }
-        m_transferTreeModel->delGroup(g);
-        g->deleteLater();
+    TransferGroup *g = group->m_group;
+
+    if (askUser) {
+        QWidget *configDialog = KConfigDialog::exists("preferences");
+        if (KMessageBox::warningYesNo(configDialog ? configDialog : m_mainWindow,
+                        i18n("Are you sure that you want to remove the group named %1?", g->name()),
+                        i18n("Remove Group"),
+                        KStandardGuiItem::remove(), KStandardGuiItem::cancel()) != KMessageBox::Yes)
+            return;
     }
+
+    m_transferTreeModel->delGroup(g);
+    g->deleteLater();
 }
 
 void KGet::delGroups(QList<TransferGroupHandler*> groups, bool askUser)
@@ -759,8 +752,8 @@ KGet::KGet()
 
     QObject::connect(m_transferTreeModel, SIGNAL(transferAddedEvent(TransferHandler *, TransferGroupHandler *)),
                      m_jobManager,        SLOT(slotTransferAdded(TransferHandler *, TransferGroupHandler *)));
-    QObject::connect(m_transferTreeModel, SIGNAL(transferAboutToBeRemovedEvent(TransferHandler *, TransferGroupHandler *)),
-                     m_jobManager,        SLOT(slotTransferAboutToBeRemoved(TransferHandler *, TransferGroupHandler *)));
+    QObject::connect(m_transferTreeModel, SIGNAL(transfersAboutToBeRemovedEvent(QList<TransferHandler*>)),
+                     m_jobManager,        SLOT(slotTransfersAboutToBeRemoved(QList<TransferHandler*>)));
     QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
                      m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
             
@@ -1165,8 +1158,8 @@ GenericObserver::GenericObserver(QObject *parent)
     connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)), 
                            SLOT(transferAddedEvent(TransferHandler*, TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(groupAddedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler*, TransferGroupHandler*)), 
-                           SLOT(transferRemovedEvent(TransferHandler*, TransferGroupHandler*)));
+    connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)),
+                           SLOT(transfersRemovedEvent(QList<TransferHandler*>)));
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)), 
                            SLOT(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags>)), 
@@ -1200,10 +1193,9 @@ void GenericObserver::transferAddedEvent(TransferHandler *handler, TransferGroup
     KGet::checkSystemTray();
 }
 
-void GenericObserver::transferRemovedEvent(TransferHandler *handler, TransferGroupHandler *group)
+void GenericObserver::transfersRemovedEvent(const QList<TransferHandler*> &handlers)
 {
-    Q_UNUSED(handler)
-    Q_UNUSED(group)
+    Q_UNUSED(handlers)
     requestSave();
     KGet::calculateGlobalSpeedLimits();
     KGet::checkSystemTray();

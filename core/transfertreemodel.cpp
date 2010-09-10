@@ -200,11 +200,20 @@ void TransferTreeModel::addGroup(TransferGroup * group)
 
 void TransferTreeModel::delGroup(TransferGroup * group)
 {
-    GroupModelItem * item = itemFromTransferGroupHandler(group->handler());
-    if (item)
-        takeRow(item->row());
-    else
+    GroupModelItem *item = itemFromTransferGroupHandler(group->handler());
+    if (!item) {
         return;
+    }
+
+    QList<Transfer*> transfers;
+    JobQueue::iterator it;
+    JobQueue::iterator itEnd = group->end();
+    for (it = group->begin(); it != itEnd; ++it) {
+        transfers << static_cast<Transfer*>(*it);
+    }
+    delTransfers(transfers);
+
+    takeRow(item->row());
 
     m_changedGroups.removeAll(group->handler());
 
@@ -237,6 +246,7 @@ void TransferTreeModel::addTransfer(Transfer * transfer, TransferGroup * group)
 void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
 {
     QList<Transfer*> transfers = t;
+    QList<TransferHandler*> handlers;
 
     //find all valid items and sort them according to their groups
     QHash<TransferGroup*, QList<TransferModelItem*> > groups;
@@ -246,6 +256,7 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
         for (it = transfers.begin(); it != itEnd; ) { 
             TransferModelItem *item = itemFromTransferHandler((*it)->handler());
             if (item) {
+                handlers << (*it)->handler();
                 groups[(*it)->group()] << item;
                 ++it;
             } else {
@@ -254,9 +265,7 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
         }
     }
 
-    foreach(Transfer *transfer, transfers) {
-        emit transferAboutToBeRemovedEvent(transfer->handler(), transfer->group()->handler());
-    }
+    emit transfersAboutToBeRemovedEvent(handlers);
 
     //remove the items from the model
     {
@@ -298,32 +307,9 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
         QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());
         transfer->group()->remove(transfer);
         m_changedTransfers.removeAll(transfer->handler());
-
-        emit transferRemovedEvent(transfer->handler(), transfer->group()->handler());
     }
-}
 
-void TransferTreeModel::delTransfer(Transfer * transfer)
-{
-    TransferModelItem * item = itemFromTransferHandler(transfer->handler());
-
-    if (!item)
-        return;
-
-    emit transferAboutToBeRemovedEvent(transfer->handler(), transfer->group()->handler());
-    
-    item->parent()->takeRow(item->row());
-
-    QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());
-
-    TransferGroup * group = transfer->group();
-
-    group->remove(transfer);
-    m_changedTransfers.removeAll(transfer->handler());
-
-    m_transfers.removeAll(item);
-
-    emit transferRemovedEvent(transfer->handler(), group->handler());
+    emit transfersRemovedEvent(handlers);
 }
 
 TransferModelItem * TransferTreeModel::itemFromTransferHandler(TransferHandler * handler)

@@ -52,11 +52,11 @@ class DBusKGetWrapper : public QObject
     signals:
         void transferAddedRemoved();
         void transferAdded(const QString &url, const QString &dBusObjectPath);
-        void transferRemoved(const QString &url, const QString &dBusObjectPath);
+        void transfersRemoved(const QStringList &urls, const QStringList &dbusObjectPaths);
 
     private slots:
         void slotTransferAdded(TransferHandler *transfer);
-        void slotTransferRemoved(TransferHandler *transfer);
+        void slotTransfersRemoved(const QList<TransferHandler*> &transfers);
 
     private:
         MainWindow *m_mainWindow;

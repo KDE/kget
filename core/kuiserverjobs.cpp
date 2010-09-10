@@ -2,7 +2,7 @@
 
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
    Copyright (C) 2009 by Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
+   Copyright (C) 2010 by Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -72,21 +72,21 @@ void KUiServerJobs::slotTransferAdded(TransferHandler * transfer, TransferGroupH
         unregisterJob(globalJob(), 0);
 }
 
-void KUiServerJobs::slotTransferAboutToBeRemoved(TransferHandler * transfer, TransferGroupHandler * group)
+void KUiServerJobs::slotTransfersAboutToBeRemoved(const QList<TransferHandler*> &transfers)
 {
-    Q_UNUSED(group)
     kDebug(5001);
-    
-    m_invalidTransfers.append(transfer);
-    
-    unregisterJob(transfer->kJobAdapter(), transfer);
-    
-    if(shouldBeShown(0)) {
-        globalJob()->update();
-        registerJob(globalJob(), 0);
+
+    m_invalidTransfers << transfers;
+    foreach (TransferHandler *transfer, transfers) {
+        unregisterJob(transfer->kJobAdapter(), transfer);
+
+        if (shouldBeShown(0)) {
+            globalJob()->update();
+            registerJob(globalJob(), 0);
+        } else {
+            unregisterJob(globalJob(), 0);
+        }
     }
-    else
-        unregisterJob(globalJob(), 0);
 }
 
 void KUiServerJobs::slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers)

@@ -402,7 +402,7 @@ void MainWindow::slotDelayedInit()
     }
 
     connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler *, TransferGroupHandler *)), this, SLOT(slotUpdateTitlePercent()));
-    connect(KGet::model(), SIGNAL(transferRemovedEvent(TransferHandler *, TransferGroupHandler *)), this, SLOT(slotUpdateTitlePercent()));
+    connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)), this, SLOT(slotUpdateTitlePercent()));
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)), 
                            SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)),

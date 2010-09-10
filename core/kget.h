@@ -425,7 +425,7 @@ class GenericObserver : public QObject
         void groupAddedEvent(TransferGroupHandler *handler);
         void groupRemovedEvent(TransferGroupHandler *handler);
         void transferAddedEvent(TransferHandler *handler, TransferGroupHandler *group);
-        void transferRemovedEvent(TransferHandler *handler, TransferGroupHandler *group);
+        void transfersRemovedEvent(const QList<TransferHandler*> &handlers);
         void transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
         void groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
