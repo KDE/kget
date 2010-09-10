@@ -10,9 +10,6 @@
 */
 
 #include "transferKio.h"
-#ifdef HAVE_NEPOMUK
-#include "core/nepomukhandler.h"
-#endif //HAVE_NEPOMUK
 #include "core/verifier.h"
 #include "kget/settings.h"
 
@@ -58,9 +55,6 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
             setTransferChange(Tc_Status, true);
 
             m_dest = newDestination;
-#ifdef HAVE_NEPOMUK
-            nepomukHandler()->setNewDestination(m_dest);
-#endif //HAVE_NEPOMUK
 
             if (m_verifier) {
                 m_verifier->setDestination(newDestination);

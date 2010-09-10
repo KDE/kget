@@ -18,10 +18,6 @@
 
 #include <QTimer>
 
-#ifdef HAVE_NEPOMUK
-class BtNepomukHandler;
-#endif //HAVE_NEPOMUK
-
 class FileModel;
 
 namespace bt
@@ -59,7 +55,6 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
                     const QDomElement * e = 0);
         ~BTTransfer();
 
-        virtual void init();
         void deinit();
 
         //Job virtual functions        
@@ -81,6 +76,8 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
          * @returns true if newDestination can be used
          */
         virtual bool setDirectory(const KUrl &newDirectory);
+
+        virtual QList<KUrl> files() const;
 
         FileModel *fileModel();
 
@@ -123,12 +120,6 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void updateTorrent();
         void updateFilesStatus();
 
-        /**
-         * Returns a list of urls to the files being downloaded
-         * @return urls of the files being downloaded
-         */
-        QList<KUrl> files() const;
-
         // bt::MonitorInterface functions
         virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);
         virtual void downloadStarted(bt::ChunkDownloadInterface* cd);
@@ -150,10 +141,6 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         FileModel *m_fileModel;
         QHash<KUrl, bt::TorrentFileInterface*> m_files;
         int m_updateCounter;
-
-#ifdef HAVE_NEPOMUK
-        BtNepomukHandler *m_nepHandler;
-#endif //HAVE_NEPOMUK
 };
 
 #endif

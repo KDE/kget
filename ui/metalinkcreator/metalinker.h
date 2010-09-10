@@ -100,7 +100,7 @@ class CommonData
         /**
          * Return Nepomuk-properties that can be extracted
          */
-        QHash<QUrl, Nepomuk::Variant> properties() const;
+        QList<QPair<QUrl, Nepomuk::Variant> > properties() const;
 #endif //HAVE_NEPOMUK
 
         QString identity;
@@ -251,7 +251,7 @@ class File
         /**
          * Return Nepomuk-properties that can be extracted of file, only including data
          */
-        QHash<QUrl, Nepomuk::Variant> properties() const;
+        QList<QPair<QUrl, Nepomuk::Variant> > properties() const;
 #endif //HAVE_NEPOMUK
 
         QString name;
@@ -408,7 +408,7 @@ class HandleMetalink
         /**
          * Convenience method to add Strings to the data
          */
-        static void addProperty(QHash<QUrl, Nepomuk::Variant> *data, const QByteArray &uriBa, const QString &value);
+        static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QByteArray &uriBa, const QString &value);
 #endif //HAVE_NEPOMUK
 };
 

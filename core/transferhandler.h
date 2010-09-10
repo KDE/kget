@@ -95,6 +95,11 @@ class KGET_EXPORT TransferHandler : public Handler
         const KUrl & dest() const {return m_transfer->dest();}
 
         /**
+         * @returns all files of this transfer
+         */
+        QList<KUrl> files() const {return m_transfer->files();}
+
+        /**
          * @returns the directory the Transfer will be stored to
          */
         KUrl directory() const {return m_transfer->directory();}

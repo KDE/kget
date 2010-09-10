@@ -12,7 +12,8 @@
 #include "contextmenu.h"
 
 #ifdef HAVE_NEPOMUK
-    #include "ui/nepomukwidget.h"
+    #include <kfilemetadatawidget.h>
+    #include "core/nepomukhandler.h"
 #endif
 
 #include "core/kget.h"
@@ -68,14 +69,19 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
         popup->addSeparator();
 
 #ifdef HAVE_NEPOMUK
+    QList<KFileItem> items;
+    foreach (TransferHandler *transfer, KGet::selectedTransfers()) {
+        items << transfer->nepomukHandler()->fileItems();
+    }
+
     KMenu *nepomukMenu = new KMenu(i18n("Semantic Desktop"), parent);
     nepomukMenu->setIcon(KIcon("nepomuk"));
     QWidgetAction *nepomukWidgetAction = new QWidgetAction(parent);
-    NepomukWidget *nepomukWidget = new NepomukWidget(transfers.first(), parent);
+    KFileMetaDataWidget *nepomukWidget = new KFileMetaDataWidget(parent);
+    nepomukWidget->setItems(items);
     nepomukWidgetAction->setDefaultWidget(nepomukWidget);
     nepomukMenu->addAction(nepomukWidgetAction);
     popup->addMenu(nepomukMenu);
-
 #endif
 
     popup->addAction( KGet::actionCollection()->action("transfer_open_dest") );

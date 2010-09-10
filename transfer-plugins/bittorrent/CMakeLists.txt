@@ -31,15 +31,6 @@ set(kget_bittorrentfactory_PART_SRCS
     advanceddetails/webseedstab.cpp
     )
 
-if(HAVE_NEPOMUK)
-    set(kget_bittorrentfactory_PART_SRCS
-        ${kget_bittorrentfactory_PART_SRCS}
-        btnepomukhandler.cpp
-        )
-    soprano_add_ontology(kget_bittorrentfactory_PART_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nepomuk/ndo.trig "NDO" "Nepomuk::Vocabulary" "trig")
-    soprano_add_ontology(kget_bittorrentfactory_PART_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig "NIE" "Nepomuk::Vocabulary" "trig")
-endif(HAVE_NEPOMUK)
-
 kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
     btdetailswidgetfrm.ui
     scandlg.ui
@@ -50,9 +41,7 @@ kde4_add_ui_files(kget_bittorrentfactory_PART_SRCS
 
 kde4_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 kde4_add_plugin(kget_bittorrentfactory ${kget_bittorrentfactory_PART_SRCS})
-if (HAVE_NEPOMUK)
-    target_link_libraries(kget_bittorrentfactory ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
-endif (HAVE_NEPOMUK)
+
 target_link_libraries(kget_bittorrentfactory ${KDE4_KIO_LIBS} ${LIBKTORRENT_LIBRARIES} kgetcore)
 install(TARGETS kget_bittorrentfactory DESTINATION  ${PLUGIN_INSTALL_DIR})
 install(FILES kget_bittorrentfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})

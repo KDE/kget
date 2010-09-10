@@ -117,6 +117,7 @@ if(HAVE_NEPOMUK)
     set(kgetcore_SRCS
        ${kgetcore_SRCS}
        core/nepomukhandler.cpp
+       core/nepomukcontroller.cpp
     )
 
     NEPOMUK_ADD_ONTOLOGY_CLASSES(
@@ -239,13 +240,6 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-if(HAVE_NEPOMUK)
-   set(kget_SRCS
-       ${kget_SRCS}
-       ui/nepomukwidget.cpp
-   )
-endif(HAVE_NEPOMUK)
-
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
@@ -274,13 +268,6 @@ kde4_add_ui_files(kget_SRCS
    ui/metalinkcreator/commondata.ui
    ui/signaturedlg.ui
 )
-
-if(HAVE_NEPOMUK)
-    kde4_add_ui_files(kget_SRCS
-       ui/grouptagssettingsdialog.ui
-       ui/nepomukwidget.ui
-   )
-endif(HAVE_NEPOMUK)
 
 kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 

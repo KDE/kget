@@ -10,9 +10,6 @@
 */
 
 #include "transfermultisegkio.h"
-#ifdef HAVE_NEPOMUK
-#include "core/nepomukhandler.h"
-#endif //HAVE_NEPOMUK
 
 #include "multisegkiosettings.h"
 #include "core/kget.h"
@@ -147,12 +144,7 @@ bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
             m_fileModel->setDirectory(directory());
         }
 
-#ifdef HAVE_NEPOMUK
-        nepomukHandler()->setNewDestination(m_dest);
-#endif //HAVE_NEPOMUK
-
         setTransferChange(Tc_FileName);
-
         return true;
     }
     return false;
@@ -333,9 +325,6 @@ void TransferMultiSegKio::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
         m_dataSourceFactory->setNewDestination(newUrl);
 
         m_dest = newUrl;
-#ifdef HAVE_NEPOMUK
-        nepomukHandler()->setNewDestination(m_dest);
-#endif //HAVE_NEPOMUK
 
         setTransferChange(Tc_FileName);
     }

@@ -11,10 +11,13 @@
 #define NEPOMUKHANDLER_H
 
 #include "kget_export.h"
-#include <nepomuk/resource.h>
+
 #include <QObject>
-#include <QtXml/QDomElement>
-#include <KUrl>
+#include <KFileItemList>
+
+namespace Nepomuk {
+    class Variant;
+}
 
 class Transfer;
 
@@ -26,42 +29,24 @@ class KGET_EXPORT NepomukHandler : public QObject
         NepomukHandler(Transfer *transfer);
         virtual ~NepomukHandler();
 
-        virtual QStringList tags() const;
-        virtual int rating() const;
-
-        void setNewDestination(const KUrl &newDestination);
-
-    public slots:
-        virtual void setRating(int rating);
-        virtual void addTag(const QString &newTag);
-        virtual void addTags(const QStringList &newTags);
-        virtual void removeTag(const QString &oldTag);
+        KFileItemList fileItems() const;
 
         /**
-         * Set a property of the resource.
-         *
-         * @param uri The URI identifying the property.
-         * @param value The value of the property (i.e. the object of the RDF triple(s))
+         * Sets properties to a list of files, if the list is empty m_destinations is used
          */
-        virtual void setProperty(const QUrl &uri, const Nepomuk::Variant &value);
+        void setProperties(const QList<QPair<QUrl, Nepomuk::Variant> > &properties, const QList<KUrl> &files = QList<KUrl>());
 
-        virtual void saveFileProperties();
+        void saveFileProperties();
 
         /**
          * Removes the resource if the isValid() is false
          * @note call this method at the end of the deinit of the transfer,
          * otherwise it might not work correctly
          */
-        virtual void deinit();
-
-    protected:
-        bool isValid() const;
-        void saveFileProperties(const Nepomuk::Resource &res);
-        Transfer *m_transfer;
+        void deinit();
 
     private:
-        KUrl m_destination;
-        Nepomuk::Resource m_resource;
+        Transfer *m_transfer;
 };
 
 #endif

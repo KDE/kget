@@ -52,6 +52,7 @@
 
 #ifdef HAVE_NEPOMUK
     #include <Nepomuk/ResourceManager>
+    #include "nepomukcontroller.h"
 #endif
 
 #ifdef HAVE_KWORKSPACE
@@ -484,6 +485,17 @@ TransferTreeSelectionModel * KGet::selectionModel()
     return m_selectionModel;
 }
 
+#ifdef HAVE_NEPOMUK
+NepomukController *KGet::nepomukController()
+{
+    if (!m_nepomukController) {
+        m_nepomukController = new NepomukController;
+    }
+
+    return m_nepomukController;
+}
+#endif
+
 void KGet::load( QString filename ) // krazy:exclude=passbyvalue
 {
     kDebug(5001) << "(" << filename << ")";
@@ -765,6 +777,9 @@ TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
 TransferHistoryStore * KGet::m_store = 0;
+#ifdef HAVE_NEPOMUK
+    NepomukController *KGet::m_nepomukController = 0;
+#endif
 
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()
@@ -797,6 +812,10 @@ KGet::~KGet()
     delete m_jobManager;  //This one must always be before the scheduler otherwise the job manager can't remove the notifications when deleting.
     delete m_scheduler;
     delete m_store;
+
+#ifdef HAVE_NEPOMUK
+    delete m_nepomukController;
+#endif
 }
 
 TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 

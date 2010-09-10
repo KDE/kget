@@ -19,6 +19,7 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
+
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
     : QWidget(parent)
 {

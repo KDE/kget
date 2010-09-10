@@ -334,10 +334,10 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 
 #ifdef HAVE_NEPOMUK
     QDomElement tags = e.ownerDocument().createElement("Tags");
-    foreach(const QString &tagOfList, m_tags)
+    foreach(const Nepomuk::Tag &tagOfList, m_tags)
     {
         QDomElement tag = e.ownerDocument().createElement("Tag");
-        QDomText text = e.ownerDocument().createTextNode(tagOfList);
+        QDomText text = e.ownerDocument().createTextNode(KUrl(tagOfList.resourceUri()).url());
         tag.appendChild(text);
         tags.appendChild(tag);
     }
@@ -382,7 +382,7 @@ void TransferGroup::load(const QDomElement & e)
         QString tag = tagsNodeList.item(i).toElement().text();
         if (!tag.isEmpty())
         {
-            m_tags << tag;
+            m_tags << Nepomuk::Tag(tag);
         }
     }
 #endif //HAVE_NEPOMUK

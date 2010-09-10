@@ -141,6 +141,11 @@ class KGET_EXPORT Transfer : public Job
         const KUrl & dest() const              {return m_dest;}
 
         /**
+         * @returns all files of this transfer
+         */
+        virtual QList<KUrl> files() const;
+
+        /**
          * @returns the directory the Transfer will be stored to
          */
         virtual KUrl directory() const {return m_dest.upUrl();}

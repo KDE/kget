@@ -21,7 +21,8 @@
 #include "core/filemodel.h"
 #include "core/verifier.h"
 #ifdef HAVE_NEPOMUK
-#include "metanepomukhandler.h"
+#include "core/nepomukhandler.h"
+#include <Nepomuk/Variant>
 #endif //HAVE_NEPOMUK
 
 #include <KIconLoader>
@@ -47,27 +48,11 @@ Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
       m_speedCount(0),
       m_tempAverageSpeed(0),
       m_averageSpeed(0)
-#ifdef HAVE_NEPOMUK
-      , m_nepHandler(0)
-#endif
 {
 }
 
 Metalink::~Metalink()
 {
-}
-
-void Metalink::init()
-{
-#ifdef HAVE_NEPOMUK
-    if (!m_nepHandler)
-    {
-        m_nepHandler = new MetaNepomukHandler(this);
-        setNepomukHandler(m_nepHandler);
-    }
-#endif //HAVE_NEPOMUK
-
-    Transfer::init();
 }
 
 void Metalink::start()
@@ -162,7 +147,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
 #ifdef HAVE_NEPOMUK
-        m_nepHandler->setFileMetaData(dest, *it);
+        nepomukHandler()->setProperties((*it).properties(), QList<KUrl>() << dest);
 #endif //HAVE_NEPOMUK
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
@@ -292,10 +277,6 @@ void Metalink::startMetalink()
                 break;
             }
         }
-
-#ifdef HAVE_NEPOMUK
-        m_nepHandler->setDestinations(files());
-#endif //HAVE_NEPOMUK
     }
 }
 
@@ -314,7 +295,7 @@ void Metalink::deinit()
     }
 
 #ifdef HAVE_NEPOMUK
-    m_nepHandler->deinit();
+    nepomukHandler()->deinit();
 #endif //HAVE_NEPOMUK
 }
 
@@ -799,10 +780,6 @@ void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
     m_dataSourceFactory.remove(oldUrl);
     m_dataSourceFactory[newUrl]->setNewDestination(newUrl);
 
-#ifdef HAVE_NEPOMUK
-    m_nepHandler->setDestinations(files());
-#endif //HAVE_NEPOMUK
-
     setTransferChange(Tc_FileName);
 }
 
@@ -834,12 +811,7 @@ bool Metalink::setDirectory(const KUrl &new_directory)
     }
     m_dataSourceFactory = newStorage;
 
-#ifdef HAVE_NEPOMUK
-    m_nepHandler->setDestinations(files());
-#endif //HAVE_NEPOMUK
-
     setTransferChange(Tc_FileName);
-
     return true;
 }
 

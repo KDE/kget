@@ -19,9 +19,6 @@
 
 #include "ui/metalinkcreator/metalinker.h"
 
-#ifdef HAVE_NEPOMUK
-class MetaNepomukHandler;
-#endif //HAVE_NEPOMUK
 
 class Metalink : public Transfer
 {
@@ -33,8 +30,6 @@ class Metalink : public Transfer
                     const QDomElement * e = 0);
 
         ~Metalink();
-
-        void init();
 
         void save(const QDomElement &element);
         void load(const QDomElement *e);
@@ -68,6 +63,8 @@ class Metalink : public Transfer
          */
         virtual Signature *signature(const KUrl &file);
 
+        virtual QList<KUrl> files() const;
+
         FileModel *fileModel();
 
     public Q_SLOTS:
@@ -97,7 +94,6 @@ class Metalink : public Transfer
 
     private :
         void startMetalink();
-        QList<KUrl> files() const;
         void untickAllFiles();
 
     private:
@@ -111,9 +107,6 @@ class Metalink : public Transfer
         int m_tempAverageSpeed;
         mutable int m_averageSpeed;
         int m_numFilesSelected;//The number of files that are ticked and should be downloaded
-#ifdef HAVE_NEPOMUK
-        MetaNepomukHandler *m_nepHandler;
-#endif //HAVE_NEPOMUK
 };
 
 #endif
