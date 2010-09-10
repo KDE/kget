@@ -72,8 +72,10 @@ Transfer::Capabilities Transfer::capabilities() const
 
 void Transfer::setCapabilities(Capabilities capabilities)
 {
-    m_capabilities = capabilities;
-    emit capabilitiesChanged();
+    if (m_capabilities != capabilities) {
+        m_capabilities = capabilities;
+        emit capabilitiesChanged();
+    }
 }
 
 void Transfer::create()
