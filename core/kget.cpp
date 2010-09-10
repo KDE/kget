@@ -63,6 +63,16 @@
     #include <solid/powermanagement.h>
 #endif
 
+
+KGet::TransferData::TransferData(const KUrl &source, const KUrl &destination, const QString& group, bool doStart, const QDomElement *element)
+  : src(source),
+    dest(destination),
+    groupName(group),
+    start(doStart),
+    e(element)
+{
+}
+
 /**
  * This is our KGet class. This is where the user's transfers and searches are
  * stored and organized.
@@ -242,18 +252,21 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
     return createTransfer(srcUrl, destUrl, groupName, start);
 }
 
-TransferHandler * KGet::addTransfer(const QDomElement& e, const QString& groupName)
+QList<TransferHandler*> KGet::addTransfers(const QList<QDomElement> &elements, const QString &groupName)
 {
-    //We need to read these attributes now in order to know which transfer
-    //plugin to use.
-    KUrl srcUrl = KUrl( e.attribute("Source") );
-    KUrl destUrl = KUrl( e.attribute("Dest") );
+    QList<TransferData> data;
 
-    kDebug(5001) << " src= " << srcUrl.url()
-              << " dest= " << destUrl.url() 
-              << " group= "<< groupName << endl;
+    foreach(const QDomElement &e, elements) {
+        //We need to read these attributes now in order to know which transfer
+        //plugin to use.
+        KUrl srcUrl = KUrl(e.attribute("Source"));
+        KUrl destUrl = KUrl(e.attribute("Dest"));
+        data << TransferData(srcUrl, destUrl, groupName, false, &e);
 
-    return createTransfer(srcUrl, destUrl, groupName, false, &e);
+        kDebug(5001) << "src=" << srcUrl << " dest=" << destUrl << " group=" << groupName;
+    }
+
+    return createTransfers(data);
 }
 
 const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString destDir, QString groupName, bool start)
@@ -295,6 +308,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
     it = urlsToDownload.begin();
     itEnd = urlsToDownload.end();
 
+    QList<TransferData> data;
     for ( ; it != itEnd; ++it )
     {
         if (destDir.isEmpty())
@@ -310,13 +324,10 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
         if (destUrl == KUrl())
             continue;
 
-        TransferHandler * newTransfer = createTransfer(*it, destUrl, groupName, start);
-        
-        if(newTransfer)
-            addedTransfers.append(newTransfer);
+        data << TransferData(*it, destUrl, groupName, start);
     }
     
-    return addedTransfers;
+    return createTransfers(data);
 }
 
 
@@ -750,8 +761,8 @@ KGet::KGet()
     m_transferTreeModel = new TransferTreeModel(m_scheduler);
     m_selectionModel = new TransferTreeSelectionModel(m_transferTreeModel);
 
-    QObject::connect(m_transferTreeModel, SIGNAL(transferAddedEvent(TransferHandler *, TransferGroupHandler *)),
-                     m_jobManager,        SLOT(slotTransferAdded(TransferHandler *, TransferGroupHandler *)));
+    QObject::connect(m_transferTreeModel, SIGNAL(transfersAddedEvent(QList<TransferHandler*>)),
+                     m_jobManager,        SLOT(slotTransfersAdded(QList<TransferHandler*>)));
     QObject::connect(m_transferTreeModel, SIGNAL(transfersAboutToBeRemovedEvent(QList<TransferHandler*>)),
                      m_jobManager,        SLOT(slotTransfersAboutToBeRemoved(QList<TransferHandler*>)));
     QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
@@ -776,44 +787,67 @@ KGet::~KGet()
 TransferHandler * KGet::createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName, 
                           bool start, const QDomElement * e)
 {
-    kDebug(5001) << "srcUrl= " << src.url() << "  " 
-                             << "destUrl= " << dest.url() 
-                             << "group= _" << groupName << "_" << endl;
+    QList<TransferHandler*> transfer = createTransfers(QList<TransferData>() << TransferData(src, dest, groupName, start, e));
+    return (transfer.isEmpty() ? 0 : transfer.first());
+}
 
-    TransferGroup * group = m_transferTreeModel->findGroup(groupName);
-    if (group==0)
-    {
-        kDebug(5001) << "KGet::createTransfer  -> group not found";
-        group = m_transferTreeModel->transferGroups().first();
+QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataItems)
+{
+    QList<TransferHandler*> handlers;
+    if (dataItems.isEmpty()) {
+        return handlers;
     }
 
-    Transfer * newTransfer;
-    foreach (TransferFactory *factory, m_transferFactories)
-    {
-        kDebug(5001) << "Trying plugin   n.plugins=" << m_transferFactories.size();
-        if((newTransfer = factory->createTransfer(src, dest, group, m_scheduler, e)))
-        {
-//             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
-            newTransfer->create();
-            newTransfer->load(e);
-            m_transferTreeModel->addTransfer(newTransfer, group);
-            
-            KGet::showNotification(m_mainWindow, "added",
-                                   i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", newTransfer->source().pathOrUrl()),
-                                   "kget", i18n("Download added"));
+    QList<bool> start;
+    QHash<TransferGroup*, QList<Transfer*> > groups;
 
-            if(start)
-                newTransfer->handler()->start();
+    foreach (const TransferData &data, dataItems) {
+        kDebug(5001) << "srcUrl=" << data.src << " destUrl=" << data.dest << " group=" << data.groupName;
 
-            return newTransfer->handler();
+        TransferGroup *group = m_transferTreeModel->findGroup(data.groupName);
+        if (!group) {
+            kDebug(5001) << "KGet::createTransfer  -> group not found";
+            group = m_transferTreeModel->transferGroups().first();
+        }
+
+        Transfer *newTransfer = 0;
+        foreach (TransferFactory *factory, m_transferFactories) {
+            kDebug(5001) << "Trying plugin   n.plugins=" << m_transferFactories.size();
+            if ((newTransfer = factory->createTransfer(data.src, data.dest, group, m_scheduler, data.e))) {
+    //             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
+                newTransfer->create();
+                newTransfer->load(data.e);
+                handlers << newTransfer->handler();
+                groups[group] << newTransfer;
+                start << data.start;
+                
+                KGet::showNotification(m_mainWindow, "added",
+                                       i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", newTransfer->source().pathOrUrl()),
+                                       "kget", i18n("Download added"));
+                break;
+            }
+        }
+        if (!newTransfer) {
+            KGet::showNotification(m_mainWindow, "error",
+                                   i18n("Unable to continue: KGet cannot download using this protocol."), "dialog-error", i18n("Protocol unsupported"));
+
+            kWarning(5001) << "Warning! No plugin found to handle" << data.src;
         }
     }
-    
-    KGet::showNotification(m_mainWindow, "error",
-                           i18n("Unable to continue: KGet cannot download using this protocol."), "dialog-error", i18n("Protocol unsupported"));
 
-    kDebug(5001) << "Warning! No plugin found to handle the given url";
-    return 0;
+    //add the created transfers to the model and start them if specified
+    QHash<TransferGroup*, QList<Transfer*> >::const_iterator it;
+    QHash<TransferGroup*, QList<Transfer*> >::const_iterator itEnd = groups.constEnd();
+    for (it = groups.constBegin(); it != itEnd; ++it) {
+        KGet::model()->addTransfers(it.value(), it.key());
+    }
+    for (int i = 0; i < handlers.count(); ++i) {
+        if (start[i]) {
+            handlers[i]->start();
+        }
+    }
+
+    return handlers;//TODO implement error message if it is 0, or should the addTransfers stuff do that, in case if the numer of returned items does not match the number of sent data?
 }
 
 TransferDataSource * KGet::createTransferDataSource(const KUrl &src, const QDomElement &type, QObject *parent)
@@ -1155,8 +1189,8 @@ GenericObserver::GenericObserver(QObject *parent)
     m_finishAction(0)
 {
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler*, TransferGroupHandler*)), 
-                           SLOT(transferAddedEvent(TransferHandler*, TransferGroupHandler*)));
+    connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler*>)),
+                           SLOT(transfersAddedEvent(QList<TransferHandler*>)));
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(groupAddedEvent(TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)),
                            SLOT(transfersRemovedEvent(QList<TransferHandler*>)));
@@ -1184,10 +1218,9 @@ void GenericObserver::groupRemovedEvent(TransferGroupHandler *handler)
     KGet::save();
 }
 
-void GenericObserver::transferAddedEvent(TransferHandler *handler, TransferGroupHandler *group)
+void GenericObserver::transfersAddedEvent(const QList<TransferHandler*> &handlers)
 {
-    Q_UNUSED(handler)
-    Q_UNUSED(group)
+    Q_UNUSED(handlers)
     requestSave();
     KGet::calculateGlobalSpeedLimits();
     KGet::checkSystemTray();

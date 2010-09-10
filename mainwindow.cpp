@@ -401,7 +401,7 @@ void MainWindow::slotDelayedInit()
         KGet::setGlobalUploadLimit(0);
     }
 
-    connect(KGet::model(), SIGNAL(transferAddedEvent(TransferHandler *, TransferGroupHandler *)), this, SLOT(slotUpdateTitlePercent()));
+    connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler*>)), this, SLOT(slotUpdateTitlePercent()));
     connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)), this, SLOT(slotUpdateTitlePercent()));
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)), 
                            SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));

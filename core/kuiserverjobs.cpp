@@ -56,20 +56,21 @@ void KUiServerJobs::settingsChanged()
         unregisterJob(globalJob(), 0);
 }
 
-void KUiServerJobs::slotTransferAdded(TransferHandler * transfer, TransferGroupHandler * group)
+void KUiServerJobs::slotTransfersAdded(QList<TransferHandler*> transfers)
 {
-    Q_UNUSED(group)
     kDebug(5001);
 
-    if(shouldBeShown(transfer))
+    foreach (TransferHandler *transfer, transfers) {
+        if(shouldBeShown(transfer))
         registerJob(transfer->kJobAdapter(), transfer);
-    
-    if(shouldBeShown(0)) {
-        globalJob()->update();
-        registerJob(globalJob(), 0);
+
+        if(shouldBeShown(0)) {
+            globalJob()->update();
+            registerJob(globalJob(), 0);
+        }
+        else
+            unregisterJob(globalJob(), 0);
     }
-    else
-        unregisterJob(globalJob(), 0);
 }
 
 void KUiServerJobs::slotTransfersAboutToBeRemoved(const QList<TransferHandler*> &transfers)

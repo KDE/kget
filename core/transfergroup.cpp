@@ -372,9 +372,11 @@ void TransferGroup::load(const QDomElement & e)
     QDomNodeList nodeList = e.elementsByTagName("Transfer");
     int nItems = nodeList.length();
 
-    for(int i=0; i<nItems; i++)
-    {
-        kDebug(5001) << "TransferGroup::load -> addTransfer";
-        KGet::addTransfer( nodeList.item(i).toElement(), name() );
+    QList<QDomElement> elements;
+    for (int i = 0; i < nItems; ++i) {
+        elements << nodeList.item(i).toElement();
     }
+
+    kDebug(5001) << "TransferGroup::load ->" << "add" << nItems << "transfers";
+    KGet::addTransfers(elements, name());
 }
