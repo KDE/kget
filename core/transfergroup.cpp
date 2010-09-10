@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -66,14 +67,16 @@ int TransferGroup::uploadSpeed()
 
 bool TransferGroup::supportsSpeedLimits()
 {
-    foreach (Job * job, runningJobs()) {
+    QList<Job*> jobs = runningJobs();
+    foreach (Job *job, jobs) {
         Transfer * transfer = static_cast<Transfer*>(job);
         if (!(transfer->capabilities() & Transfer::Cap_SpeedLimit)) {
             return false;
         }
     }
 
-    return true;
+    //empty jobs can't support a speed limit
+    return !jobs.isEmpty();
 }
 
 void TransferGroup::setStatus(Status queueStatus)
@@ -236,11 +239,11 @@ void TransferGroup::calculateDownloadLimit()
     kDebug(5001) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
     if (supportsSpeedLimits())
     {
-        int n = runningJobs().count();
+        const QList<Job*> running = runningJobs();
+        int n = running.count();
         int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
         QList<Transfer*> transfersNeedSpeed;
-        foreach (Job * job, runningJobs())
-        {
+        foreach (Job *job, running) {
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {
@@ -279,11 +282,11 @@ void TransferGroup::calculateUploadLimit()
     kDebug(5001) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
     if (supportsSpeedLimits())
     {
-        int n = runningJobs().count();
+        const QList<Job*> running = runningJobs();
+        int n = running.count();
         int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
         QList<Transfer*> transfersNeedSpeed;
-        foreach (Job * job, runningJobs())
-        {
+        foreach (Job *job, running) {
             Transfer * transfer = static_cast<Transfer*>(job);
             if (transfer)
             {

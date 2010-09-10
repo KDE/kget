@@ -54,22 +54,22 @@ class KGET_EXPORT JobQueue : public QObject
         /**
          * @return the begin of the job's list
          */
-        iterator begin()    {return m_jobs.begin();}
+        inline iterator begin()    {return m_jobs.begin();}
 
         /**
          * @return the end of the job's list
          */
-        iterator end()      {return m_jobs.end();}
+        inline iterator end()      {return m_jobs.end();}
 
         /**
          * @return the last job in the job's list
          */
-        Job * last()        {return m_jobs.last();}
+        inline Job * last()        {return m_jobs.last();}
 
         /**
          * @return the number of jobs in the queue
          */
-        int size() const    {return m_jobs.size();}
+        inline int size() const    {return m_jobs.size();}
 
         /**
          * @param job The job for which we want to find the index
