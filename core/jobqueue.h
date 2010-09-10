@@ -112,6 +112,13 @@ class KGET_EXPORT JobQueue : public QObject
         void append(Job * job);
 
         /**
+         * appends jobs to the current queue
+         *
+         * @param jobs to append to the current queue
+         */
+        void append(const QList<Job*> &jobs);
+
+        /**
          * prepends a job to the current queue
          *
          * @param job The job to prepend to the current queue
@@ -132,6 +139,13 @@ class KGET_EXPORT JobQueue : public QObject
          * @param job The job to remove from the current queue
          */
         void remove(Job * job);
+
+        /**
+         * removes jobs from the current queue
+         *
+         * @param jobs The jobs to remove from the current queue
+         */
+        void remove(const QList<Job*> jobs);
 
         /**
          * Moves a job in the queue. Both the given jobs must belong to this queue

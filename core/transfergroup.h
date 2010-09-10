@@ -2,6 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Coypright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -77,6 +78,13 @@ class KGET_EXPORT TransferGroup : public JobQueue
         void append(Transfer * transfer);
 
         /**
+         * Appends new transfers to the list of the transfers
+         *
+         * @param transfers to append
+         */
+        void append(const QList<Transfer*> &transfer);
+
+        /**
          * Prepends a new transfer to the list of the transfers
          *
          * @param transfer the transfer to prepend
@@ -97,6 +105,13 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param transfer the transfer to remove
          */
         void remove(Transfer * transfer);
+
+        /**
+         * Removes the given transfers from the list of the transfers
+         *
+         * @param transfers the transfers to remove
+         */
+        void remove(const QList<Transfer*> &transfers);
 
         /**
          * Moves a transfer in the list

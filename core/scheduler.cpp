@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
+   Coypright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -104,9 +105,24 @@ void Scheduler::jobQueueAddedJobEvent(JobQueue * queue, Job * job)
     updateQueue(queue);
 }
 
+void Scheduler::jobQueueAddedJobsEvent(JobQueue *queue, const QList<Job*> jobs)
+{
+    Q_UNUSED(jobs)
+
+    updateQueue(queue);
+}
+
+
 void Scheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
 {
     Q_UNUSED(job)
+
+    updateQueue(queue);
+}
+
+void Scheduler::jobQueueRemovedJobsEvent(JobQueue *queue, const QList<Job*> jobs)
+{
+    Q_UNUSED(jobs)
 
     updateQueue(queue);
 }

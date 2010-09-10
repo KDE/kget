@@ -237,8 +237,8 @@ void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, Transfer
 
     //now create and add the new items
     QList<TransferHandler*> handlers;
+    group->append(transfers);
     foreach (Transfer *transfer, transfers) {
-        group->append(transfer);
         TransferHandler *handler = transfer->handler();
         handlers << handler;
 
@@ -269,6 +269,7 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
 
     //find all valid items and sort them according to their groups
     QHash<TransferGroup*, QList<TransferModelItem*> > groups;
+    QHash<TransferGroup*, QList<Transfer*> > groupsTransfer;
     {
         QList<Transfer*>::iterator it;
         QList<Transfer*>::iterator itEnd = transfers.end();
@@ -277,6 +278,7 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
             if (item) {
                 handlers << (*it)->handler();
                 groups[(*it)->group()] << item;
+                groupsTransfer[(*it)->group()] << *it;
                 ++it;
             } else {
                 it = transfers.erase(it);
@@ -324,8 +326,15 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
 
     foreach(Transfer *transfer, transfers) {
         QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());
-        transfer->group()->remove(transfer);
         m_changedTransfers.removeAll(transfer->handler());
+    }
+
+    {
+        QHash<TransferGroup*, QList<Transfer*> >::iterator it;
+        QHash<TransferGroup*, QList<Transfer*> >::iterator itEnd = groupsTransfer.end();
+        for (it = groupsTransfer.begin(); it != itEnd; ++it) {
+            it.key()->remove(it.value());
+        }
     }
 
     emit transfersRemovedEvent(handlers);
