@@ -373,10 +373,6 @@ bool KGet::delTransfers(QList<TransferHandler*> handlers)
         Transfer *transfer = handler->m_transfer;
         transfers << transfer;
         historyItems << TransferHistoryItem(*transfer);
-        if (transfer->status() != Job::Finished) {//FIXME should this be here?
-            handler->stop();//TODO is this needed?
-            transfer->stop();//TODO is this needed?
-        }
 
         // TransferHandler deinitializations
         handler->destroy();
