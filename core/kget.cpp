@@ -4,6 +4,7 @@
    Copyright (C) 2007-2009 Lukas Appelhans <l.appelhans@gmx.de>
    Copyright (C) 2008 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2008 Dario Freddi <drf54321@gmail.com>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -777,6 +778,7 @@ TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
 TransferHistoryStore * KGet::m_store = 0;
+QHash<QString, QPixmap> KGet::m_pixmapCache;
 #ifdef HAVE_NEPOMUK
     NepomukController *KGet::m_nepomukController = 0;
 #endif
@@ -1227,7 +1229,11 @@ bool KGet::safeDeleteFile( const KUrl& url )
 KNotification *KGet::showNotification(QWidget *parent, const QString &eventType,
                             const QString &text, const QString &icon, const QString &title, const KNotification::NotificationFlags &flags)
 {
-    return KNotification::event(eventType, title, text, KIcon(icon).pixmap(KIconLoader::SizeMedium), parent, flags);
+    if (!m_pixmapCache.contains(icon)) {
+        m_pixmapCache[icon] = KIcon(icon).pixmap(KIconLoader::SizeMedium);
+    }
+
+    return KNotification::event(eventType, title, text, m_pixmapCache[icon], parent, flags);
 }
 
 GenericObserver::GenericObserver(QObject *parent)

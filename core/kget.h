@@ -2,6 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>
 
    Based on:
        kmainwidget.{h,cpp}
@@ -416,6 +417,12 @@ class KGET_EXPORT KGet
 
         //pointer to the used TransferHistoryStore
         static TransferHistoryStore *m_store;
+
+        /**
+         * Caches pixmaps for faster retrieval
+         * @note used in showNotifications and speeds up showing them
+         */
+        static QHash<QString, QPixmap> m_pixmapCache;
 
 #ifdef HAVE_NEPOMUK
         static NepomukController *m_nepomukController;

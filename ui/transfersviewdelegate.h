@@ -32,6 +32,13 @@ class GroupStatusButton : public QToolButton
     public:
         GroupStatusButton(const QModelIndex &index, QWidget *parent);
 
+        /**
+         * GroupStatusButton uses a cache for the set icon, if the
+         * icon changes the cache still remains the same.
+         * To use the new icon you have to call resetCache first.
+         */
+        void resetIconCache();
+
     protected:
         void checkStateSet();
         void enterEvent(QEvent * event);
@@ -44,7 +51,8 @@ class GroupStatusButton : public QToolButton
         QModelIndex m_index;
 
         int m_timerId;
-        int m_iconSize;
+        const int m_iconSize;
+        QHash<int, QPixmap> m_iconCache;
 
         float m_gradientId;
 };
