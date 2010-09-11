@@ -44,6 +44,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const KUrl &dest, KIO::fil
     m_downloadedSize(0),
     m_segSize(segSize),
     m_speed(0),
+    m_percent(0),
     m_tempOffset(0),
     m_startedChunks(0),
     m_finishedChunks(0),
@@ -143,7 +144,7 @@ void DataSourceFactory::slotFoundFileSize(TransferDataSource *source, KIO::files
 {
     m_size = fileSize;
     kDebug(5001) << source << "found size" << m_size << "and is assigned segments" << segmentRange << this;
-    emit totalSize(m_size);
+    emit dataSourceFactoryChange(Transfer::Tc_TotalSize);
 
     init();
 
@@ -735,7 +736,7 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
     if (written == tempSize)//TODO if not same cache it temporarly!
     {
         m_downloadedSize += written;
-        emit processedSize((m_downloadedSize));
+        emit dataSourceFactoryChange(Transfer::Tc_DownloadedSize);
 //             m_tempCache.clear();
     }
 
@@ -752,7 +753,8 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
 void DataSourceFactory::slotPercent(KJob* job, ulong p)
 {
     Q_UNUSED(job)
-    emit percent(p);
+    m_percent = p;
+    emit dataSourceFactoryChange(Transfer::Tc_Percent);
 }
 
 void DataSourceFactory::speedChanged()
@@ -763,10 +765,12 @@ void DataSourceFactory::speedChanged()
     if(m_prevDownloadedSizes.size() > 10)
         m_prevDownloadedSizes.removeFirst();
 
-    emit speed(m_speed);
-    if (m_size) {
-        emit percent(m_downloadedSize * 100 / m_size);
-    }
+    ulong percent = (m_size ? (m_downloadedSize * 100 / m_size) : 0);
+    const bool percentChanged = (percent != m_percent);
+    m_percent = percent;
+
+    Transfer::ChangesFlags change = (percentChanged ? (Transfer::Tc_DownloadSpeed | Transfer::Tc_Percent) : Transfer::Tc_DownloadSpeed);
+    emit dataSourceFactoryChange(change);
 }
 
 void DataSourceFactory::killPutJob()
@@ -899,12 +903,14 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
     m_downloadedSize = m_segSize * m_finishedChunks->numOnBits();
     m_prevDownloadedSizes.clear();
     m_prevDownloadedSizes.append(m_downloadedSize);
+    m_speed = 0;
 
-    emit speed(0);
-    emit processedSize(m_downloadedSize);
+    Transfer::ChangesFlags change = (Transfer::Tc_DownloadSpeed | Transfer::Tc_DownloadedSize);
     if (m_size) {
-        emit percent((m_downloadedSize * 100) / m_size);
+        change |= Transfer::Tc_Percent;
+        m_percent = (m_downloadedSize * 100 / m_size);
     }
+    emit dataSourceFactoryChange(change);
     m_status = Job::Stopped;
 
     start();
@@ -932,9 +938,11 @@ void DataSourceFactory::load(const QDomElement *element)
     verifier()->load(e);
     signature()->load(e);
 
+    Transfer::ChangesFlags change = Transfer::Tc_None;
+
     if (!m_size) {
         m_size = e.attribute("size").toULongLong();
-        emit totalSize(m_size);
+        change |= Transfer::Tc_TotalSize;
     }
     KIO::fileoffset_t tempSegSize = e.attribute("segementSize").toLongLong();
     if (tempSegSize)
@@ -943,9 +951,10 @@ void DataSourceFactory::load(const QDomElement *element)
     }
     if (!m_downloadedSize) {
         m_downloadedSize = e.attribute("processedSize").toULongLong();
-        emit processedSize(m_downloadedSize);
+        change |= Transfer::Tc_DownloadedSize;
         if (m_size) {
-            emit percent((m_downloadedSize * 100) / m_size);
+            m_percent = (m_downloadedSize * 100 / m_size);
+            change |= Transfer::Tc_Percent;
         }
     }
     if (e.hasAttribute("doDownload"))
@@ -1018,37 +1027,40 @@ void DataSourceFactory::load(const QDomElement *element)
     }
 
     m_status = static_cast<Job::Status>(e.attribute("status").toInt());
+
+    if (change != Transfer::Tc_None) {
+        emit dataSourceFactoryChange(change);
+    }
 }
 
 void DataSourceFactory::changeStatus(Job::Status status)
 {
+    Transfer::ChangesFlags change = Transfer::Tc_Status;
     m_status = status;
+
     switch (m_status)
     {
         case Job::Aborted:
         case Job::Moving:
         case Job::Stopped:
             m_speed = 0;
-            emit speed(m_speed);
+            change |= Transfer::Tc_DownloadSpeed;
             break;
         case Job::Running:
             break;
         case Job::Finished:
             m_speed = 0;
+            m_percent = 100;
 
-            if (m_size)
-            {
+            if (m_size) {
                 m_downloadedSize = m_size;
-                emit processedSize(m_downloadedSize);
-            }
-            else if (m_downloadedSize)
-            {
+                change |= Transfer::Tc_DownloadedSize;
+            } else if (m_downloadedSize) {
                 m_size = m_downloadedSize;
-                emit totalSize(m_size);
+                change |= Transfer::Tc_TotalSize;
             }
 
-            emit speed(0);
-            emit percent(100);
+            change |= Transfer::Tc_DownloadSpeed | Transfer::Tc_Percent;
 
             if (Settings::checksumAutomaticVerification() && verifier()->isVerifyable()) {
                 verifier()->verify();
@@ -1064,7 +1076,7 @@ void DataSourceFactory::changeStatus(Job::Status status)
             break;
     }
 
-    emit statusChanged(m_status);
+    emit dataSourceFactoryChange(change);
 }
 
 void DataSourceFactory::save(const QDomElement &element)
@@ -1188,6 +1200,11 @@ ulong DataSourceFactory::currentSpeed() const
     return m_speed;
 }
 
+ulong DataSourceFactory::percent() const
+{
+    return m_percent;
+}
+
 KUrl DataSourceFactory::dest() const
 {
     return m_dest;
@@ -1246,17 +1263,21 @@ void DataSourceFactory::slotUpdateCapabilities()
     const Transfer::Capabilities oldCaps = capabilities();
     Transfer::Capabilities newCaps = 0;
 
-    foreach (TransferDataSource *source, m_sources) {
-        if (!source->assignedSegments().isEmpty()) {
-            if (newCaps) {
-                newCaps &= source->capabilities();
-            } else {
-                newCaps = source->capabilities();
+    if ((status() == Job::Finished) || (status() == Job::Stopped)) {
+        newCaps |= Transfer::Cap_Moving | Transfer::Cap_Renaming;
+    } else {
+        foreach (TransferDataSource *source, m_sources) {
+            if (!source->assignedSegments().isEmpty()) {
+                if (newCaps) {
+                    newCaps &= source->capabilities();
+                } else {
+                    newCaps = source->capabilities();
+                }
             }
         }
     }
 
-    if ((newCaps & Transfer::Cap_Resuming) || (status() == Job::Finished) || (status() == Job::Stopped)) {
+    if (newCaps & Transfer::Cap_Resuming) {
         newCaps |= Transfer::Cap_Moving | Transfer::Cap_Renaming;
     }
 

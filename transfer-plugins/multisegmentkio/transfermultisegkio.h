@@ -77,13 +77,9 @@ class TransferMultiSegKio : public Transfer
         void createJob();
 
     private slots:
+        void slotDataSourceFactoryChange(Transfer::ChangesFlags change);
         void slotUpdateCapabilities();
-        void slotPercent(ulong percent);
-        void slotProcessedSize(KIO::filesize_t processedSize);
-        void slotSpeed(unsigned long bytes_per_second);
-        void slotTotalSize(KIO::filesize_t size);
         void slotSearchUrls(const QList<KUrl> &urls);
-        void slotStatus(Job::Status status);
         void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
         void slotVerified(bool isVerified);
 

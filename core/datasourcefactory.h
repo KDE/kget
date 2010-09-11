@@ -71,6 +71,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         KIO::filesize_t size() const;
         KIO::filesize_t downloadedSize() const;
         ulong currentSpeed() const;
+        ulong percent() const;
 
         KUrl dest() const;
 
@@ -169,11 +170,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
     Q_SIGNALS:
         void capabilitiesChanged();
-        void processedSize(KIO::filesize_t size);
-        void totalSize(KIO::filesize_t size);
-        void speed(ulong speed);
-        void percent(ulong percent);
-        void statusChanged(Job::Status status);
+        void dataSourceFactoryChange(Transfer::ChangesFlags change);
 
     public slots:
         void save(const QDomElement &element);
@@ -253,6 +250,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
         QList<KIO::filesize_t> m_prevDownloadedSizes;
         KIO::fileoffset_t m_segSize;
         ulong m_speed;
+        ulong m_percent;
+
         /**
          * the cache of data that could not be written yet
          */

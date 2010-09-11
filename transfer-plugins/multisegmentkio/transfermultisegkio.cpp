@@ -45,15 +45,10 @@ void TransferMultiSegKio::init()
 {
     Transfer::init();
 
-    if (!m_dataSourceFactory)
-    {
+    if (!m_dataSourceFactory) {
          m_dataSourceFactory = new DataSourceFactory(this, m_dest);
         connect(m_dataSourceFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-        connect(m_dataSourceFactory, SIGNAL(speed(ulong)), this, SLOT(slotSpeed(ulong)));
-        connect(m_dataSourceFactory, SIGNAL(percent(ulong)), this, SLOT(slotPercent(ulong)));
-        connect(m_dataSourceFactory, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(slotProcessedSize(KIO::filesize_t)));
-        connect(m_dataSourceFactory, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
-        connect(m_dataSourceFactory, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(slotTotalSize(KIO::filesize_t)));
+        connect(m_dataSourceFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
         connect(m_dataSourceFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
 
         m_dataSourceFactory->addMirror(m_source, MultiSegKioSettings::segments());
@@ -165,21 +160,51 @@ void TransferMultiSegKio::save(const QDomElement &element)
     m_dataSourceFactory->save(element);
 }
 
-void TransferMultiSegKio::slotStatus(Job::Status status)
+void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags change)
 {
-    setStatus(status);
-    setTransferChange(Tc_Status, true);
+    if (change & Tc_Status) {
+        setStatus(m_dataSourceFactory->status());
 
-    if (m_fileModel)
-    {
-        QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
-        m_fileModel->setData(statusIndex, status);
+        if (m_fileModel) {
+            QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
+            m_fileModel->setData(statusIndex, status());
+        }
+    }
+    if (change & Tc_TotalSize) {
+        m_totalSize = m_dataSourceFactory->size();
+        if (m_fileModel) {
+            QModelIndex sizeIndex = m_fileModel->index(m_dest, FileItem::Size);
+            m_fileModel->setData(sizeIndex, static_cast<qlonglong>(m_totalSize));
+        }
+    }
+    if (change & Tc_DownloadedSize) {
+        KIO::filesize_t processedSize = m_dataSourceFactory->downloadedSize();
+        //only start the verification search _after_ data has come in, that way only connections
+        //are requested if there is already a successful one
+        if ((processedSize != m_downloadedSize) && !m_verificationSearch && MultiSegKioSettings::useSearchVerification()) {
+            m_verificationSearch = true;
+            QDomDocument doc;
+            QDomElement element = doc.createElement("TransferDataSource");
+            element.setAttribute("type", "checksumsearch");
+            doc.appendChild(element);
+
+            TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element, this);
+            if (checksumSearch) {
+                connect(checksumSearch, SIGNAL(data(QString, QString)), this, SLOT(slotChecksumFound(QString, QString)));
+                checksumSearch->start();
+            }
+        }
+        m_downloadedSize = m_dataSourceFactory->downloadedSize();
+    }
+    if (change & Tc_Percent) {
+        m_percent = m_dataSourceFactory->percent();
+    }
+    if (change & Tc_DownloadSpeed) {
+        kDebug(5001) << "speed:" << m_downloadSpeed;
+        m_downloadSpeed = m_dataSourceFactory->currentSpeed();
     }
 
-    if (status == Job::Finished) {
-        //when finished the file can be renamed/moved in any case
-        setCapabilities( capabilities() | Transfer::Cap_Moving | Transfer::Cap_Renaming);
-    }
+    setTransferChange(change, true);
 }
 
 void TransferMultiSegKio::slotVerified(bool isVerified)
@@ -200,55 +225,6 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
                                       i18n("Verification failed.")) == KMessageBox::Yes) {
             repair();
         }
-    }
-}
-
-void TransferMultiSegKio::slotPercent(ulong percent)
-{
-    m_percent = percent;
-    setTransferChange(Tc_Percent, true);
-}
-
-void TransferMultiSegKio::slotProcessedSize(KIO::filesize_t processedSize)
-{
-    //only start the verification search _after_ data has come in, that way only connections
-    //are requested if there is already a successful one
-    if ((processedSize != m_downloadedSize) && !m_verificationSearch && MultiSegKioSettings::useSearchVerification()) {
-        m_verificationSearch = true;
-        QDomDocument doc;
-        QDomElement element = doc.createElement("TransferDataSource");
-        element.setAttribute("type", "checksumsearch");
-        doc.appendChild(element);
-
-        TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element, this);
-        if (checksumSearch) {
-            connect(checksumSearch, SIGNAL(data(QString, QString)), this, SLOT(slotChecksumFound(QString, QString)));
-            checksumSearch->start();
-        }
-    }
-
-    m_downloadedSize = processedSize;
-
-    setTransferChange(Tc_DownloadedSize, true);
-}
-
-void TransferMultiSegKio::slotSpeed(unsigned long bytes_per_second)
-{
-    kDebug(5001) << "slotSpeed: " << bytes_per_second;
-
-    m_downloadSpeed = bytes_per_second;
-    setTransferChange(Tc_DownloadSpeed, true);
-}
-
-void TransferMultiSegKio::slotTotalSize(KIO::filesize_t size)
-{
-    m_totalSize = size;
-    setTransferChange(Tc_TotalSize, true);
-
-    if (m_fileModel)
-    {
-        QModelIndex sizeIndex = m_fileModel->index(m_dest, FileItem::Size);
-        m_fileModel->setData(sizeIndex, static_cast<qlonglong>(m_dataSourceFactory->size()));
     }
 }
 

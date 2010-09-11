@@ -153,10 +153,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
 
         connect(dataFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-        connect(dataFactory, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(totalSizeChanged(KIO::filesize_t)));
-        connect(dataFactory, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(processedSizeChanged()));
-        connect(dataFactory, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
-        connect(dataFactory, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
+        connect(dataFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
         connect(dataFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
         connect(dataFactory->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
 
@@ -312,7 +309,33 @@ void Metalink::stop()
     }
 }
 
-void Metalink::totalSizeChanged(KIO::filesize_t size)
+void Metalink::slotDataSourceFactoryChange(Transfer::ChangesFlags change)
+{
+    if ((change & Tc_Status) | (change & Tc_TotalSize)) {
+        DataSourceFactory *factory = qobject_cast<DataSourceFactory*>(sender());
+        if (change & Tc_Status) {
+            bool changeStatus;
+            updateStatus(factory, &changeStatus);
+            if (!changeStatus) {
+                change &= ~Tc_Status;
+            }
+        }
+        if (change & Tc_TotalSize) {
+            recalculateTotalSize(factory);
+        }
+    }
+    if (change & Tc_DownloadedSize) {
+        recalculateProcessedSize();
+        change |= Tc_Percent;
+    }
+    if (change & Tc_DownloadSpeed) {
+        recalculateSpeed();
+    }
+
+    setTransferChange(change, true);
+}
+
+void Metalink::recalculateTotalSize(DataSourceFactory *sender)
 {
     m_totalSize = 0;
     foreach (DataSourceFactory *factory, m_dataSourceFactory)
@@ -323,21 +346,15 @@ void Metalink::totalSizeChanged(KIO::filesize_t size)
         }
     }
 
-    if (m_fileModel)
-    {
-        DataSourceFactory *factory = qobject_cast<DataSourceFactory*>(sender());
-        if (factory)
-        {
-            QModelIndex sizeIndex = m_fileModel->index(factory->dest(), FileItem::Size);
-            m_fileModel->setData(sizeIndex, static_cast<qlonglong>(size));
+    if (m_fileModel) {
+        if (sender) {
+            QModelIndex sizeIndex = m_fileModel->index(sender->dest(), FileItem::Size);
+            m_fileModel->setData(sizeIndex, static_cast<qlonglong>(sender->size()));
         }
     }
-
-    setTransferChange(Tc_TotalSize, true);
-    processedSizeChanged();
 }
 
-void Metalink::processedSizeChanged()
+void Metalink::recalculateProcessedSize()
 {
     m_downloadedSize = 0;
     foreach (DataSourceFactory *factory, m_dataSourceFactory)
@@ -356,12 +373,9 @@ void Metalink::processedSizeChanged()
     {
         m_percent = 0;
     }
-
-    Transfer::ChangesFlags flags = (Tc_DownloadedSize | Tc_Percent);
-    setTransferChange(flags, true);
 }
 
-void Metalink::speedChanged()
+void Metalink::recalculateSpeed()
 {
     m_downloadSpeed = 0;
     foreach (DataSourceFactory *factory, m_dataSourceFactory)
@@ -371,8 +385,6 @@ void Metalink::speedChanged()
             m_downloadSpeed += factory->currentSpeed();
         }
     }
-
-    setTransferChange(Tc_DownloadSpeed, true);
 
     //calculate the average of the last three speeds
     m_tempAverageSpeed += m_downloadSpeed;
@@ -394,10 +406,10 @@ int Metalink::remainingTime() const
     return KIO::calculateRemainingSeconds(m_totalSize, m_downloadedSize, m_averageSpeed);
 }
 
-void Metalink::slotStatus(Job::Status status)
+void Metalink::updateStatus(DataSourceFactory *sender, bool *changeStatus)
 {
-    ChangesFlags flags = Tc_Status;
-    bool changeStatus = true;
+    Job::Status status = (sender ? sender->status() : Job::Stopped);
+    *changeStatus = true;
     switch (status)
     {
         case Job::Aborted:
@@ -406,12 +418,12 @@ void Metalink::slotStatus(Job::Status status)
             foreach (DataSourceFactory *factory, m_dataSourceFactory) {
                 //one factory is still running, do not change the status
                 if (factory->doDownload() && (factory->status() == Job::Running)) {
-                    changeStatus = false;
+                    *changeStatus = false;
                     ++m_currentFiles;
                 }
             }
 
-            if (changeStatus) {
+            if (*changeStatus) {
                 setStatus(status);
             }
             break;
@@ -428,13 +440,12 @@ void Metalink::slotStatus(Job::Status status)
                 //one factory is not finished, do not change the status
                 if (factory->doDownload() && (factory->status() != Job::Finished))
                 {
-                    changeStatus = false;
+                    *changeStatus = false;
                     break;
                 }
             }
 
-            if (changeStatus)
-            {
+            if (*changeStatus) {
                 setStatus(Job::Finished);
             }
             break;
@@ -444,19 +455,11 @@ void Metalink::slotStatus(Job::Status status)
             break;
     }
 
-    if (m_fileModel)
-    {
-        DataSourceFactory *factory = qobject_cast<DataSourceFactory*>(sender());
-        if (factory)
-        {
-            QModelIndex statusIndex = m_fileModel->index(factory->dest(), FileItem::Status);
+    if (m_fileModel) {
+        if (sender) {
+            QModelIndex statusIndex = m_fileModel->index(sender->dest(), FileItem::Status);
             m_fileModel->setData(statusIndex, status);
         }
-    }
-
-    if (changeStatus)
-    {
-        setTransferChange(flags, true);
     }
 }
 
@@ -592,10 +595,7 @@ void Metalink::load(const QDomElement *element)
         DataSourceFactory *file = new DataSourceFactory(this);
         file->load(&factory);
         connect(file, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-        connect(file, SIGNAL(totalSize(KIO::filesize_t)), this, SLOT(totalSizeChanged(KIO::filesize_t)));
-        connect(file, SIGNAL(processedSize(KIO::filesize_t)), this, SLOT(processedSizeChanged()));
-        connect(file, SIGNAL(speed(ulong)), this, SLOT(speedChanged()));
-        connect(file, SIGNAL(statusChanged(Job::Status)), this, SLOT(slotStatus(Job::Status)));
+        connect(file, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
         m_dataSourceFactory[file->dest()] = file;
         connect(file->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
         connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
@@ -699,13 +699,13 @@ void Metalink::filesSelected()
         if (m_dataSourceFactory.contains(dest))
         {
             DataSourceFactory *factory = m_dataSourceFactory[dest];
-            //ignore finished files
+            //ignore finished transfers
             if ((factory->status() == Job::Finished) || (factory->status() == Job::FinishedKeepAlive)) {
                 continue;
             }
 
-            //check if the file at dest exists already and ask the user what to do in this case
-            if (doDownload && QFile::exists(dest.toLocalFile())) {
+            //check if the file at dest exists already and ask the user what to do in this case, ignore already running transfers
+            if (doDownload && (factory->status() != Job::Running) && QFile::exists(dest.toLocalFile())) {
                 //usere has chosen to skip all files that exist already before
                 if (autoSkip) {
                     fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
@@ -759,14 +759,12 @@ void Metalink::filesSelected()
         }
     }
 
+    Transfer::ChangesFlags change = (Tc_TotalSize | Tc_DownloadSpeed);
     //some files have been selected that are not finished yet, set them to stop if the transfer is not running (checked in slotStatus)
     if (m_numFilesSelected) {
-        slotStatus(Job::Stopped);
+        change |= Tc_Status;
     }
-
-    //make sure that the size, the downloaded size and the speed gets updated
-    totalSizeChanged(0);
-    speedChanged();
+    slotDataSourceFactoryChange(change);
 }
 
 void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)

@@ -84,10 +84,7 @@ class Metalink : public Transfer
          */
         void filesSelected();
         void slotUpdateCapabilities();
-        void totalSizeChanged(KIO::filesize_t size);
-        void processedSizeChanged();
-        void speedChanged();
-        void slotStatus(Job::Status status);
+        void slotDataSourceFactoryChange(Transfer::ChangesFlags change);
         void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
         void slotVerified(bool isVerified);
         void slotSignatureVerified();
@@ -95,6 +92,10 @@ class Metalink : public Transfer
     private :
         void startMetalink();
         void untickAllFiles();
+        void recalculateTotalSize(DataSourceFactory *sender);
+        void recalculateProcessedSize();
+        void recalculateSpeed();
+        void updateStatus(DataSourceFactory *sender, bool *changeStatus);
 
     private:
         FileModel *m_fileModel;
