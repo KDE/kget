@@ -774,7 +774,6 @@ TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
 TransferHistoryStore * KGet::m_store = 0;
-QHash<QString, QPixmap> KGet::m_pixmapCache;
 #ifdef HAVE_NEPOMUK
     NepomukController *KGet::m_nepomukController = 0;
 #endif
