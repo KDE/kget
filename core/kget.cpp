@@ -1225,11 +1225,7 @@ bool KGet::safeDeleteFile( const KUrl& url )
 KNotification *KGet::showNotification(QWidget *parent, const QString &eventType,
                             const QString &text, const QString &icon, const QString &title, const KNotification::NotificationFlags &flags)
 {
-    if (!m_pixmapCache.contains(icon)) {
-        m_pixmapCache[icon] = KIcon(icon).pixmap(KIconLoader::SizeMedium);
-    }
-
-    return KNotification::event(eventType, title, text, m_pixmapCache[icon], parent, flags);
+    return KNotification::event(eventType, title, text, KIcon(icon).pixmap(KIconLoader::SizeMedium), parent, flags);
 }
 
 GenericObserver::GenericObserver(QObject *parent)

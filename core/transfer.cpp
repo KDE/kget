@@ -44,8 +44,6 @@ const StatusStrings STATUSTEXTS[] = {
 };
 const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
 
-QHash<Job::Status, QPixmap> Transfer::m_statusPixmapCache;
-
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
                    Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                    const QDomElement * e)
@@ -321,10 +319,7 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     }
 
     if (statusChanged || m_statusPixmap.isNull()) {
-        if (!m_statusPixmapCache.contains(jobStatus)) {
-            m_statusPixmapCache[jobStatus] = SmallIcon(STATUSICONS[jobStatus]);
-        }
-        m_statusPixmap = m_statusPixmapCache[jobStatus];
+        m_statusPixmap = SmallIcon(STATUSICONS[jobStatus]);
     }
 
     m_statusText = statusText;

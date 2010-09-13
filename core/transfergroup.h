@@ -265,7 +265,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * Set the group's icon
          * @param name the icon's name
          */
-        void setIconName(const QString &name);
+        void setIconName(const QString &name) {m_iconName = name;}
 
         /**
          * @returns the group's icon's name
@@ -275,7 +275,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @return the group's icon
          */
-        QPixmap pixmap();
+        QPixmap pixmap() {return KIcon(m_iconName).pixmap(32);}
 
         /**
          * @return the handler associated with this group
@@ -335,7 +335,6 @@ class KGET_EXPORT TransferGroup : public JobQueue
         QString m_iconName;
         QString m_defaultFolder;
         QRegExp m_regExp;
-        static QHash<QString, QPixmap> m_pixmapCache;
 #ifdef HAVE_NEPOMUK
         QList<Nepomuk::Tag> m_tags;
 #endif //HAVE_NEPOMUK

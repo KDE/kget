@@ -24,7 +24,6 @@
 #include <QDateTime>
 #include <QDomElement>
 
-QHash<QString, QPixmap> TransferGroup::m_pixmapCache;;
 
 TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * parent, const QString & name)
     : JobQueue(parent),
@@ -78,20 +77,6 @@ bool TransferGroup::supportsSpeedLimits()
 
     //empty jobs can't support a speed limit
     return !jobs.isEmpty();
-}
-
-void TransferGroup::setIconName(const QString &name)
-{
-    m_iconName = name;
-}
-
-QPixmap TransferGroup::pixmap()
-{
-    if (!m_pixmapCache.contains(m_iconName)) {
-        m_pixmapCache[m_iconName] = KIcon(m_iconName).pixmap(32);
-    }
-
-    return m_pixmapCache[m_iconName];
 }
 
 void TransferGroup::setStatus(Status queueStatus)

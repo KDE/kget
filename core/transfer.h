@@ -369,7 +369,6 @@ class KGET_EXPORT Transfer : public Job
 
         QString m_statusText;
         QPixmap m_statusPixmap;
-        static QHash<Job::Status, QPixmap> m_statusPixmapCache;
         QTime m_runningTime;
 
         TransferHandler * m_handler;

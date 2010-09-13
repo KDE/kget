@@ -48,11 +48,6 @@ GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent
     setAttribute(Qt::WA_NoSystemBackground);
 }
 
-void GroupStatusButton::resetIconCache()
-{
-    m_iconCache.clear();
-}
-
 void GroupStatusButton::checkStateSet()
 {
 //     kDebug(5001) << "GroupStatusButton::checkStateSet";
@@ -145,11 +140,9 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
         p.drawEllipse(rect().x()+5, rect().y()+4, rect().width()-10, rect().width()-10);
     }
 
-    const QIcon::Mode iconMode = ((isChecked() || (m_status == Blinking)) ? QIcon::Normal : QIcon::Disabled);
-    if (!m_iconCache.contains(iconMode)) {
-        m_iconCache[iconMode] = icon().pixmap(m_iconSize, iconMode);
-    }
-    p.drawPixmap(rect().topLeft() + QPoint(offset, offset - 1), m_iconCache[iconMode]);
+    p.drawPixmap(rect().topLeft() + QPoint(offset, offset - 1),
+                 icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ?
+                                           QIcon::Normal : QIcon::Disabled));
 }
 
 void GroupStatusButton::timerEvent(QTimerEvent *event)
