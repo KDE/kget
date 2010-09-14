@@ -863,12 +863,9 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
 
     //show urls that failed
     if (!urlsFailed.isEmpty()) {
-        QString message;
-        if (urlsFailed.count() == 1) {
-            message = i18n("<p>The following url cannot be downloaded, its protocols is not supported by KGet:</p>");
-        } else {
-            message = i18n("<p>The following urls cannot be downloaded, their protocols are not supported by KGet:</p>");
-        }
+        QString message = i18np("<p>The following URL cannot be downloaded, its protocol is not supported by KGet:</p>",              
+                                "<p>The following URLs cannot be downloaded, their protocols are not supported by KGet:</p>",
+                                urlsFailed.count());
 
         QString content = urlsFailed.takeFirst();
         foreach (const QString &url, urlsFailed) {

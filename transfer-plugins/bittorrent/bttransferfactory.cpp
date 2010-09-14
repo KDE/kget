@@ -28,7 +28,7 @@ BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
     if (!bt::InitLibKTorrent())
     {
         kError(5001) << "Failed to initialize libktorrent";
-        KGet::showNotification(0, "error", i18n("Can't initialize libktorrent. Torrent support might not work!"));
+        KGet::showNotification(0, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
     }
 }
 
