@@ -105,10 +105,6 @@ void DataSourceFactory::init()
             m_finishedChunks = new BitSet(bitSetSize);
         }
     }
-
-    //create all dirs needed
-    QDir dir;
-    dir.mkpath(m_dest.directory());
 }
 
 void DataSourceFactory::deinit()
@@ -209,6 +205,9 @@ void DataSourceFactory::start()
 
     m_downloadInitialized = true;
 
+    //create all dirs needed
+    QDir dir;
+    dir.mkpath(m_dest.directory());
     if (checkLocalFile()) {
         if (!m_putJob) {
             m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
