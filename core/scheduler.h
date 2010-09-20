@@ -31,6 +31,7 @@
 class Scheduler : public QObject
 {
     Q_OBJECT
+
     public:
 
         enum FailureStatus {
@@ -74,6 +75,16 @@ class Scheduler : public QObject
          * @see start()
          */
         void stop();
+
+        /**
+         * Can be used to suspend the scheduler before doing lenghty operations
+         * and activating it later again
+         *
+         * HACK this is needed since the scheduler would constantly update the queue
+         * when stopping starting multiple transfers, this slows down that operation a lot
+         * and could result in transfers finishing before they are stopped etc.
+         */
+        void setIsSuspended(bool isSuspended);
 
         /**
          * Adds a queue to the scheduler.
@@ -131,19 +142,21 @@ class Scheduler : public QObject
          * @param job the job to evaluate
          */
         bool shouldBeRunning( Job * job );
-        
+
     private:
         //Virtual QObject method
         void timerEvent(QTimerEvent * event);
 
+    private:
         QList<JobQueue *> m_queues;
         QMap<Job *, JobFailure> m_failedJobs;
 
         int m_failureCheckTimer;
-        
+
         const int m_stallTime;
         int m_stallTimeout;
         int m_abortTimeout;
+        bool m_isSuspended;
 };
 
 #endif

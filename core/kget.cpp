@@ -631,6 +631,11 @@ bool KGet::schedulerRunning()
     return (m_scheduler->countRunningJobs() > 0);
 }
 
+void KGet::setSuspendScheduler(bool isSuspended)
+{
+    m_scheduler->setIsSuspended(isSuspended);
+}
+
 QList<TransferHandler*> KGet::allTransfers()
 {
     QList<TransferHandler*> transfers;
