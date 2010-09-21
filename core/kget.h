@@ -463,6 +463,8 @@ class GenericObserver : public QObject
         void slotSave();
         void slotAfterFinishAction();
         void slotAbortAfterFinishAction();
+        void slotResolveTransferError();
+        void slotNotificationClosed();
 
     private:
         bool allTransfersFinished();
@@ -472,5 +474,6 @@ class GenericObserver : public QObject
     private:
         QTimer *m_save;
         QTimer *m_finishAction;
+        QHash<KNotification*, TransferHandler*> m_notifications;
 };
 #endif

@@ -183,7 +183,8 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
             break;
     }
     
-    if( // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
+    if(failure.status == Error || //If this happens the job just gets stopped
+        // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
        (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)) ||
         // Second condition: if count >  reconnectRetries and Timeout happened trigger a stop/start BUT only if
         // 10 timeouts have happened (9 of them without taking any action). This means every 10*Settings::reconnectDelay() (ex. 15s -> 150s)
@@ -272,9 +273,9 @@ void Scheduler::updateQueue( JobQueue * queue )
                     (*it)->stop();
                 }
                 else if(failure.status == None || failure.status == AboutToStall)
-                         runningJobs++;
-                     else
-                         waitingJobs++;
+                    runningJobs++;
+                else
+                    waitingJobs++;
             }
             else             // != Job::Running
             {
@@ -365,37 +366,41 @@ void Scheduler::timerEvent( QTimerEvent * event )
             } 
             else if((*it)->status() == Job::Aborted)            // Abort status initialization
             {
-                if(failure.status!=Abort)
-                {
-                    failure.status = Abort;
-                    failure.time = 0;
-                    failure.count = 0;
-                }
-                else
-                {
-                    failure.time++;
-                    failure.count++;                    
-                    
-                    if(failure.time >= m_abortTimeout)
+                if ((*it)->error().type != Job::AutomaticRetry) {
+                    failure.status = Error;
+                } else {
+                    if(failure.status!=Abort)
                     {
-                        failure.status = AbortTimeout;
-                        failure.count++;                    
-                    }
-                    
-                    if(failure.status == AbortTimeout)
+                        failure.status = Abort;
                         failure.time = 0;
+                        failure.count = 0;
+                    }
+                    else
+                    {
+                        failure.time++;
+                        failure.count++;                    
+                    
+                        if(failure.time >= m_abortTimeout)
+                        {
+                            failure.status = AbortTimeout;
+                            failure.count++;                    
+                        }
+                    
+                        if(failure.status == AbortTimeout)
+                            failure.time = 0;
+                    }
                 }
             }
             else if ((*it)->isWorking())
             {
                 failure = JobFailure();
             }
-               
+
             if(failure.isValid())                                   // A failure has been detected
                 m_failedJobs[*it] = failure;
             else                                                    // No failure detected, remove it
                 m_failedJobs.remove(*it);
-                           
+
 //             if(failure.isValid() || prevFailure.isValid())
 //                 kDebug(5001) << "failure = " << failure.status << " T=" << failure.time << " prevFailure = " << prevFailure.status;
             

@@ -1327,6 +1327,16 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
                 KGet::showNotification(KGet::m_mainWindow, "started",
                                        i18n("<p>The following transfer has been started:</p><p style=\"font-size: small;\">\%1</p>", transfer->source().pathOrUrl()),
                                        "kget", i18n("Download started"));
+            } else if (transfer->status() == Job::Aborted && transfer->error().type != Job::AutomaticRetry) {
+                KNotification * notification = KNotification::event("error", i18n("Error"), i18n("<p>There has been an error in the following transfer:</p><p style=\"font-size: small;\">\%1</p>"
+                                            "<p>The error message is:</p><p style=\"font-size: small;\">\%2</p>", transfer->source().pathOrUrl(), transfer->error().text), 
+                                             transfer->error().pixmap, KGet::m_mainWindow, KNotification::CloseOnTimeout);
+                if (transfer->error().type == Job::ManualSolve) {
+                    m_notifications.insert(notification, transfer);
+                    notification->setActions(QStringList() << i18n("Resolve"));
+                    connect(notification, SIGNAL(action1Activated()), SLOT(slotResolveTransferError()));
+                    connect(notification, SIGNAL(closed()), SLOT(slotNotificationClosed()));
+                }
             }
         }
 
@@ -1402,6 +1412,25 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
                                i18n("<p>All transfers have been finished.</p>"),
                                "kget", i18n("Downloads completed"));
     }
+}
+
+void GenericObserver::slotResolveTransferError()
+{
+    KNotification * notification = static_cast<KNotification*>(QObject::sender());
+    if (notification) {
+        TransferHandler * handler = m_notifications[notification];
+        kDebug() << "Resolve error for" << handler->source().pathOrUrl() << "with id" << handler->error().id;
+        handler->resolveError(handler->error().id);
+        m_notifications.remove(notification);
+    }
+}
+
+void GenericObserver::slotNotificationClosed()
+{
+    kDebug() << "Remove notification";
+    KNotification * notification = static_cast<KNotification*>(QObject::sender());
+    if (notification)
+        m_notifications.remove(notification);
 }
 
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)

@@ -216,11 +216,11 @@ void Transfer::checkShareRatio()
 void Transfer::setLog(const QString& message, LogLevel level)
 {
     QString msg("<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : ");
-    if (level == error)
+    if (level == Log_Error)
     {
         msg += "<font color=\"red\">" + message + "</font>";
     }
-    if (level == warning)
+    if (level == Log_Warning)
     {
         msg += "<font color=\"yellow\">" + message + "</font>";
     } else {

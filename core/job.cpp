@@ -23,7 +23,10 @@ Job::Job(Scheduler * scheduler, JobQueue * parent)
       m_status(Stopped),
       m_policy(None)
 {
-
+    m_error.id = -1;
+    m_error.text = QString();
+    m_error.pixmap = QPixmap();
+    m_error.type = AutomaticRetry;
 }
 
 Job::~Job()
@@ -34,7 +37,12 @@ void Job::setStatus(Status jobStatus)
 {
     if(jobStatus == m_status)
         return;
-
+    if (m_status == Aborted) {
+        m_error.id = -1;
+        m_error.text = QString();
+        m_error.pixmap = QPixmap();
+        m_error.type = AutomaticRetry;
+    }
     m_status = jobStatus;
     m_scheduler->jobChangedEvent(this, m_status);
 }
@@ -54,4 +62,23 @@ void Job::setPolicy(Policy jobPolicy)
 
     m_policy = jobPolicy;
     m_scheduler->jobChangedEvent(this, m_policy);
+}
+
+void Job::setError(const QString &text, const QPixmap &pixmap, ErrorType type, int errorId)
+{
+    m_error.id = errorId;
+    m_error.text = text;
+    m_error.pixmap = pixmap;
+    m_error.type = type;
+    setStatus(Job::Aborted);
+}
+
+Job::Error Job::error() const
+{
+    return m_error;
+}
+
+void Job::resolveError(int errorId)
+{
+    Q_UNUSED(errorId)
 }

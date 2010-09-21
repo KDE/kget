@@ -79,9 +79,9 @@ class KGET_EXPORT Transfer : public Job
 
         enum LogLevel
         {
-            info,
-            warning,
-            error
+            Log_Info,
+            Log_Warning,
+            Log_Error
         };
 
         enum SpeedLimit
@@ -241,7 +241,7 @@ class KGET_EXPORT Transfer : public Job
         /**
          * Set Transfer history
          */
-         void setLog(const QString& message, LogLevel level = info);
+         void setLog(const QString& message, LogLevel level = Log_Info);
 
         /**
          * Defines the order between transfers

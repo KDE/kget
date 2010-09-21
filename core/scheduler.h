@@ -40,7 +40,8 @@ class Scheduler : public QObject
             Stall        = 2,
             StallTimeout = 3,
             Abort        = 4,
-            AbortTimeout = 5
+            AbortTimeout = 5,
+            Error = 6
         };
         
         class JobFailure {

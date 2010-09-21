@@ -25,6 +25,8 @@
 
 #include "../kget_export.h"
 
+#include <QPixmap>
+
 class QDomNode;
 
 class Scheduler;
@@ -60,7 +62,20 @@ class KGET_EXPORT Job : public QObject
             None   /// The scheduler should start this job depending on its
                    /// queue status
         };
-
+        /**
+         * Describes different types of errors and how the scheduler should manage them.
+         */
+        enum ErrorType {
+            AutomaticRetry,
+            ManualSolve,
+            NotSolveable
+        };
+        struct Error {
+            int id;
+            QString text;
+            QPixmap pixmap;
+            ErrorType type;
+        };
         Job(Scheduler * scheduler, JobQueue * parent);
         virtual ~Job();
 
@@ -73,15 +88,19 @@ class KGET_EXPORT Job : public QObject
         //Job properties
         void setStatus(Status jobStatus);
         void setPolicy(Policy jobPolicy);
+        void setError(const QString &text, const QPixmap &pixmap, ErrorType type = AutomaticRetry, int errorId = -1);
 
         Status status() const {return m_status;}
         Status startStatus() const { return m_startStatus;}
         Policy policy() const {return m_policy;}
+        Error error() const;
 
         virtual int elapsedTime() const =0;
         virtual int remainingTime() const =0;
         virtual bool isStalled() const =0;
         virtual bool isWorking() const =0;
+        
+        virtual void resolveError(int errorId);
 
     protected:
         Scheduler * scheduler() const {return m_scheduler;}
@@ -104,6 +123,7 @@ class KGET_EXPORT Job : public QObject
         // our status when KGet is started
         Status m_startStatus;
         Policy m_policy;
+        Error m_error;
 };
 
 #endif

@@ -403,7 +403,8 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
     QFile file(m_source.toLocalFile());
 
     if (!file.exists()) {
-        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
+        setError(i18n("Torrent file does not exist"), SmallIcon("dialog-cancel"), Job::NotSolveable);
+        setTransferChange(Tc_Status, true);
         return;
     }
 
@@ -419,7 +420,8 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
         i++;
     
     if (i == 10) {
-        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
+        setError(i18n("Cannot initialize port..."), SmallIcon("dialog-cancel"));
+        setTransferChange(Tc_Status);
         return;
     }
     if (BittorrentSettings::enableUTP()) {
@@ -465,8 +467,9 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
         m_ready = false;
         torrent->deleteLater();
         torrent = 0;
-        setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
-        KMessageBox::error(0, err.toString(), i18n("Error"));
+        setError(err.toString(), SmallIcon("dialog-cancel"), Job::NotSolveable);
+        setTransferChange(Tc_Status);
+        return;
     }
     startTorrent();
     connect(&timer, SIGNAL(timeout()), SLOT(update()));
@@ -476,8 +479,8 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 {
     Q_UNUSED(error)
     stop();
-    setStatus(Job::Aborted, i18n("An error occurred...."), SmallIcon("document-preview"));
-    KMessageBox::error(0, errormsg, i18n("Error"));
+    setError(errormsg, SmallIcon("dialog-cancel"), Job::NotSolveable);
+    setTransferChange(Tc_Status);
 }
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)

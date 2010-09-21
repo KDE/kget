@@ -62,9 +62,12 @@ class KGET_EXPORT TransferHandler : public Handler
         virtual ~TransferHandler();
 
         Job::Status status() const {return m_transfer->status();}
+        Job::Error error() const {return m_transfer->error();}
         Job::Status startStatus() const {return m_transfer->startStatus();}
         int elapsedTime() const;
         int remainingTime() const;
+        
+        void resolveError(int errorId) {m_transfer->resolveError(errorId);}
 
         /**
          * Returns the capabilities the Transfer supports

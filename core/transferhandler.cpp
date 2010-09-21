@@ -127,6 +127,8 @@ QVariant TransferHandler::data(int column)
         case 0:
             return dest().fileName();
         case 1:
+            if (status() == Job::Aborted && !error().text.isEmpty())
+                return error().text;
             return statusText();
         case 2:
             if (totalSize() != 0)
