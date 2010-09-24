@@ -596,8 +596,11 @@ void MainWindow::slotStartAllDownload()
 
 void MainWindow::slotStartSelectedDownload()
 {
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-        it->start();
+    KGet::setSuspendScheduler(true);
+    foreach (TransferHandler *transfer, KGet::selectedTransfers()) {
+        transfer->start();
+    }
+    KGet::setSuspendScheduler(false);
 }
 
 void MainWindow::slotStopDownload()
@@ -620,8 +623,11 @@ void MainWindow::slotStopAllDownload()
 
 void MainWindow::slotStopSelectedDownload()
 {
-    foreach (TransferHandler * it, KGet::selectedTransfers())
-        it->stop();
+    KGet::setSuspendScheduler(true);
+    foreach (TransferHandler *transfer, KGet::selectedTransfers()) {
+        transfer->stop();
+    }
+    KGet::setSuspendScheduler(false);
 }
 
 void MainWindow::slotDeleteSelected()

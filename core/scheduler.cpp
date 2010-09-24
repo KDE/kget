@@ -23,7 +23,8 @@ Scheduler::Scheduler(QObject * parent)
     m_failureCheckTimer(0),
     m_stallTime(5),
     m_stallTimeout(Settings::reconnectDelay()),
-    m_abortTimeout(Settings::reconnectDelay()) 
+    m_abortTimeout(Settings::reconnectDelay()),
+    m_isSuspended(false)
 {
 
 }
@@ -31,6 +32,19 @@ Scheduler::Scheduler(QObject * parent)
 Scheduler::~Scheduler()
 {
 
+}
+
+void Scheduler::setIsSuspended(bool isSuspended)
+{
+    const bool changed = (isSuspended != m_isSuspended);
+    m_isSuspended = isSuspended;
+
+    //update all the queues
+    if (changed && !m_isSuspended) {
+        foreach (JobQueue *queue, m_queues) {
+            updateQueue(queue);
+        }
+    }
 }
 
 void Scheduler::addQueue(JobQueue * queue)
@@ -211,6 +225,10 @@ void Scheduler::updateQueue( JobQueue * queue )
     if(updatingQueue)
         return;
 
+    if (m_isSuspended) {
+        return;
+    }
+
     updatingQueue = true;
        
     int runningJobs = 0;    //Jobs that are running (and not in the stallTimeout)
@@ -303,7 +321,11 @@ void Scheduler::timerEvent( QTimerEvent * event )
 {
     Q_UNUSED(event)
 //     kDebug(5001);
-    
+
+    if (m_isSuspended) {
+        return;
+    }
+
     foreach(JobQueue * queue, m_queues)
     {
         JobQueue::iterator it = queue->begin();
