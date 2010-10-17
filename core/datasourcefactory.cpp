@@ -109,10 +109,8 @@ void DataSourceFactory::init()
 
 void DataSourceFactory::deinit()
 {
-    if (m_downloadInitialized && m_dest.isLocalFile())
-    {
-        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+    if (m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
+        KIO::del(m_dest, KIO::HideProgressInfo);
     }
 }
 
