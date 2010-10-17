@@ -242,12 +242,12 @@ void KGetMetalink::CommonData::clear()
 }
 
 #ifdef HAVE_NEPOMUK
-QHash<QUrl, Nepomuk::Variant> KGetMetalink::CommonData::properties() const
+QList<QPair<QUrl, Nepomuk::Variant> > KGetMetalink::CommonData::properties() const
 {
     //TODO what to do with identity?
     //TODO what uri for logo?
     //TODO what uri for publisher-url?
-    QHash<QUrl, Nepomuk::Variant> data;
+    QList<QPair<QUrl, Nepomuk::Variant> > data;
 
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#version", version);
     HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#description", description);
@@ -592,7 +592,7 @@ bool KGetMetalink::File::isValidNameAttribute() const
 }
 
 #ifdef HAVE_NEPOMUK
-QHash<QUrl, Nepomuk::Variant> KGetMetalink::File::properties() const
+QList<QPair<QUrl, Nepomuk::Variant> > KGetMetalink::File::properties() const
 {
     return data.properties();
 }
@@ -1289,12 +1289,12 @@ bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::M
 }
 
 #ifdef HAVE_NEPOMUK
-void KGetMetalink::HandleMetalink::addProperty(QHash<QUrl, Nepomuk::Variant> *data, const QByteArray &uriBa, const QString &value)
+void KGetMetalink::HandleMetalink::addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QByteArray &uriBa, const QString &value)
 {
     if (data && !uriBa.isEmpty() && !value.isEmpty())
     {
         const QUrl uri = QUrl::fromEncoded(uriBa, QUrl::StrictMode);
-        (*data)[uri] = Nepomuk::Variant(value);
+        (*data) << qMakePair(uri, Nepomuk::Variant(value));
     }
 }
 #endif //HAVE_NEPOMUK

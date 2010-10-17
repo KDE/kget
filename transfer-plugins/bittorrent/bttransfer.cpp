@@ -17,9 +17,6 @@
 #include "core/kget.h"
 #include "core/filemodel.h"
 #include "core/download.h"
-#ifdef HAVE_NEPOMUK
-#include "core/nepomukhandler.h"
-#endif //HAVE_NEPOMUK
 
 #include <torrent/torrent.h>
 #include <peer/peermanager.h>
@@ -47,10 +44,6 @@
 #include <QFileInfo>
 #include <QDir>
 
-#ifdef HAVE_NEPOMUK
-#include "btnepomukhandler.h"
-#endif
-
 #ifdef ERROR
 #undef ERROR
 #endif
@@ -66,9 +59,6 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_movingFile(false),
     m_fileModel(0),
     m_updateCounter(0)
-#ifdef HAVE_NEPOMUK
-    , m_nepHandler(0)
-#endif
 {
     m_directory = m_dest.upUrl();//FIXME test
 
@@ -81,19 +71,6 @@ BTTransfer::~BTTransfer()
         torrent->setMonitor(0);
 
     delete torrent;
-}
-
-void BTTransfer::init()
-{
-#ifdef HAVE_NEPOMUK
-    if (!m_nepHandler)
-    {
-        m_nepHandler = new BtNepomukHandler(this);
-        setNepomukHandler(m_nepHandler);
-    }
-#endif //HAVE_NEPOMUK
-
-    Transfer::init();
 }
 
 void BTTransfer::deinit()
@@ -187,9 +164,6 @@ void BTTransfer::newDestResult()
 {
     disconnect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*, bool&)), this, SLOT(newDestResult()));
     m_movingFile = false;
-#ifdef HAVE_NEPOMUK
-    m_nepHandler->setDestinations(files());
-#endif //HAVE_NEPOMUK
 
     setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_FileName | Tc_Status, true);
@@ -299,10 +273,6 @@ void BTTransfer::startTorrent()
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
         updateFilesStatus();
-
-#ifdef HAVE_NEPOMUK
-        m_nepHandler->setDestinations(files());
-#endif //HAVE_NEPOMUK
     }
 }
 

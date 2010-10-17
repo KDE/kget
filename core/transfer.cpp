@@ -114,6 +114,12 @@ void Transfer::setNepomukHandler(NepomukHandler *handler)
 }
 #endif //HAVE_NEPOMUK
 
+QList<KUrl> Transfer::files() const
+{
+    return QList<KUrl>() << m_dest;
+}
+
+
 bool Transfer::setDirectory(const KUrl& newDirectory)
 {
     Q_UNUSED(newDirectory)
@@ -341,9 +347,7 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 #ifdef HAVE_NEPOMUK
     const bool loadedFinished = ((startStatus() == Job::Finished) || (startStatus() == Job::FinishedKeepAlive));
     const bool isFinished = ((jobStatus == Job::Finished) || (jobStatus == Job::FinishedKeepAlive));
-    if (!loadedFinished && statusChanged && isFinished)
-    {
-        m_nepomukHandler->addTags(group()->tags());
+    if (!loadedFinished && statusChanged && isFinished) {
         m_nepomukHandler->saveFileProperties();
     }
 #endif

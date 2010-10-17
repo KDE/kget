@@ -11,21 +11,21 @@
 #include "nepomukhandler.h"
 
 #include "transfer.h"
+#include "transfergroup.h"
+#include "kget.h"
+#include "nepomukcontroller.h"
+#include "verifier.h"
 
 #include "nfo.h"
 #include "ndo.h"
 #include "nie.h"
 #include <Soprano/Vocabulary/Xesam>
-#include <Soprano/Vocabulary/NAO>
 #include <Nepomuk/Variant>
 #include <Nepomuk/Tag>
-#include <QtCore/QFile>
 
 NepomukHandler::NepomukHandler(Transfer *transfer)
   : QObject(transfer),
-    m_transfer(transfer),
-    m_destination(transfer->dest()),
-    m_resource(Nepomuk::Resource(m_destination, Nepomuk::Vocabulary::NFO::FileDataObject()))
+    m_transfer(transfer)
 {
 }
 
@@ -33,102 +33,65 @@ NepomukHandler::~NepomukHandler()
 {
 }
 
-void NepomukHandler::setNewDestination(const KUrl &newDestination)
+KFileItemList NepomukHandler::fileItems() const
 {
-    //TODO look if set tags get copied over!
-    m_destination = newDestination;
-    m_resource = Nepomuk::Resource(m_destination, Nepomuk::Vocabulary::NFO::FileDataObject());
-}
-
-void NepomukHandler::setRating(int rating)
-{
-    m_resource.setRating(rating);
-}
-
-int NepomukHandler::rating() const
-{
-    return m_resource.rating();
-}
-
-void NepomukHandler::addTag(const QString &newTag)
-{
-    if(!newTag.isEmpty())
-    {
-        m_resource.addTag(Nepomuk::Tag(newTag));
+    KFileItemList fileItems;
+    foreach (const KUrl &destination, m_transfer->files()) {
+        fileItems << KFileItem(KFileItem::Unknown, KFileItem::Unknown, destination, true);
     }
+    return fileItems;
 }
 
-void NepomukHandler::addTags(const QStringList &newTags)
+void NepomukHandler::setProperties(const QList<QPair<QUrl, Nepomuk::Variant> > &properties, const QList<KUrl> &files)
 {
-    foreach (const QString &newTag, newTags)
-    {
-        if (!newTag.isEmpty())
-        {
-            m_resource.addTag(Nepomuk::Tag(newTag));
-        }
-    }
-}
-
-void NepomukHandler::removeTag(const QString &oldTag)
-{
-    if (!oldTag.isEmpty())
-    {
-        QList<Nepomuk::Tag> list = m_resource.tags();
-        list.removeAll(Nepomuk::Tag(oldTag));
-        m_resource.setTags(list);
-    }
-}
-
-QStringList NepomukHandler::tags() const
-{
-    QStringList list;
-    foreach (const Nepomuk::Tag &tag, m_resource.tags())
-    {
-        list.append(tag.genericLabel());
-    }
-    return list;
-}
-
-void NepomukHandler::setProperty(const QUrl &uri, const Nepomuk::Variant &value)
-{
-    m_resource.setProperty(uri, value);
+    QList<KUrl> usedFiles = (files.isEmpty() ? m_transfer->files() : files);
+    KGet::nepomukController()->setProperties(usedFiles, properties);
 }
 
 void NepomukHandler::saveFileProperties()
 {
-    Nepomuk::Resource srcFileRes(m_transfer->source(), Nepomuk::Vocabulary::NFO::RemoteDataObject());
-    srcFileRes.setProperty(Nepomuk::Vocabulary::NIE::url(), m_transfer->source());
-    saveFileProperties(m_resource);
-}
+    const QList<KUrl> destinations = m_transfer->files();
 
-void NepomukHandler::saveFileProperties(const Nepomuk::Resource &res)
-{
+    QPair<QUrl, Nepomuk::Variant> property = qMakePair(Nepomuk::Vocabulary::NIE::url(), Nepomuk::Variant(m_transfer->source()));
+    KGet::nepomukController()->setProperty(QList<KUrl>() << m_transfer->source(), property, Nepomuk::Vocabulary::NFO::RemoteDataObject());
     Nepomuk::Resource srcFileRes(m_transfer->source(), Nepomuk::Vocabulary::NFO::RemoteDataObject());
-    Nepomuk::Resource m_res = res;
-    m_res.setProperty(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_transfer->source()));
-    m_res.setProperty(Soprano::Vocabulary::Xesam::size(), Nepomuk::Variant(m_transfer->totalSize()));
-    m_res.setProperty(Nepomuk::Vocabulary::NDO::copiedFrom(), srcFileRes);
-    m_res.setProperty(Nepomuk::Vocabulary::NIE::url(), m_transfer->dest());
+
+    foreach (const KUrl &destination, destinations) {
+        //set all the properties
+        QList<QPair<QUrl, Nepomuk::Variant> > properties;
+        properties.append(qMakePair(Nepomuk::Vocabulary::NIE::url(), Nepomuk::Variant(destination)));
+        properties.append(qMakePair(Nepomuk::Vocabulary::NDO::copiedFrom(), Nepomuk::Variant(srcFileRes)));
+        properties.append(qMakePair(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_transfer->source().url())));
+
+        //just adds one Hash as otherwise it would not be clear in KFileMetaDataWidget which hash belongs
+        //to which algorithm
+        QPair<QString, QString> checksum = m_transfer->verifier(destination)->availableChecksum(Verifier::Strongest);
+        QString hashType = checksum.first;
+        QString hash = checksum.second;
+        if (!hashType.isEmpty() && !hash.isEmpty()) {
+            //use the offical names, i.e. uppercase and in the case of SHA with a '-'
+            hashType = hashType.toUpper();
+            if (hashType.contains(QRegExp("^SHA\\d+"))) {
+                hashType.insert(3, '-');
+            }
+            properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashAlgorithm(), Nepomuk::Variant(hashType)));
+            properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashValue(), Nepomuk::Variant(hash)));
+        }
+
+        KGet::nepomukController()->setProperties(QList<KUrl>() << destination, properties);
+    }
+
+    //set the tags of the group
+    KGet::nepomukController()->addTags(destinations, m_transfer->group()->tags());
 
     /*Nepomuk::Resource downloadEventRes(QUrl(), Nepomuk::Vocabulary::NDO::DownloadEvent());
     downloadEventRes.addProperty(Nepomuk::Vocabulary::NUAO::involves(), m_res);
     downloadEventRes.addProperty(Nepomuk::Vocabulary::NUAO::start(), m_downloadJobStartTime);*/
 }
 
-bool NepomukHandler::isValid() const
-{
-    bool valid = QFile::exists(m_destination.pathOrUrl());
-    valid = valid && m_resource.isValid();
-
-    return valid;
-}
-
 void NepomukHandler::deinit()
 {
-    if (!isValid())
-    {
-        m_resource.remove();
-    }
+    KGet::nepomukController()->removeResource(m_transfer->files());
 }
 
 #include "nepomukhandler.moc"
