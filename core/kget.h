@@ -246,16 +246,6 @@ class KGET_EXPORT KGet
         static bool schedulerRunning();
 
         /**
-         * Sets the given view to the TransferTreeModel object
-         */
-        static void addTransferView(QAbstractItemView * view);
-
-        /**
-         * Sets the given comboBox to the TransferTreeModel object
-         */
-        static void addTransferView(KComboBox * view);
-
-        /**
          * true suspends the scheduler, any events that would result in a reschedule are ignored
          * false wakes up the scheduler, events result in reschedule again
          * NOTE this is a HACK for cases where the scheduler is the bottleneck, e.g. when stopping

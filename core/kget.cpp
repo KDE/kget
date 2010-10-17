@@ -469,16 +469,6 @@ TransferTreeSelectionModel * KGet::selectionModel()
     return m_selectionModel;
 }
 
-void KGet::addTransferView(QAbstractItemView * view)
-{
-    view->setModel(m_transferTreeModel);
-}
-
-void KGet::addTransferView(KComboBox * view)
-{
-    view->setModel(m_transferTreeModel);
-}
-
 void KGet::load( QString filename ) // krazy:exclude=passbyvalue
 {
     kDebug(5001) << "(" << filename << ")";
