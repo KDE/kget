@@ -12,7 +12,7 @@
 #include "bttransfer.h"
 #include "bittorrentsettings.h"
 #include "bttransferhandler.h"
-#include "btchunkselector.h"
+//#include "btchunkselector.h"
 #include "advanceddetails/monitor.h"
 #include "core/kget.h"
 #include "core/filemodel.h"
