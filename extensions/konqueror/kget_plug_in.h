@@ -9,71 +9,38 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef PLUGIN_KGET_PLUG_IN_H
-#define PLUGIN_KGET_PLUG_IN_H
+#ifndef KGETPLUGIN_H
+#define KGETPLUGIN_H
 
-#include <KIO/Job>
 #include <kparts/plugin.h>
-#include <KPluginFactory>
 
 class KToggleAction;
 
 namespace KParts {
-    class ReadOnlyPart;
+    class HtmlExtension;
 }
 
 
-class KGet_plug_in : public KParts::Plugin
+class KGetPlugin : public KParts::Plugin
 {
     Q_OBJECT
 public:
-    KGet_plug_in( QObject* parent = 0 );
+    KGetPlugin(QObject* parent, const QVariantList&);
     KToggleAction *m_dropTargetAction;
-    virtual ~KGet_plug_in();
+    virtual ~KGetPlugin();
 
-    enum PartType {
-        None = 0,
-        KHTMLType,
-        KWebkitType,
-        DolphinType
-    };
-
-private:
-    void getLinks(bool selectedOnly = false);
-
-private slots:
+private Q_SLOTS:
     void slotShowDrop();
     void slotShowLinks();
     void slotShowSelectedLinks();
     void slotImportLinks();
-    /**
-     * Only show the KGet Plugin in the DolphinPart, if the selected Url is ftp or sftp
-     */
-    void slotCheckUrlDolphin();
-
-    /**
-     * Links of the DolphinPart, gotten by a listJob
-     */
-    void slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
     void showPopup();
 
 private:
-    KParts::ReadOnlyPart *m_dolphinPart;
-    KUrl m_dolphinPartUrl;
-    PartType m_type;
+    void getLinks(bool selectedOnly = false);
+    
+    KParts::HtmlExtension *m_extension;
     QStringList m_linkList;
-};
-
-
-class KGetPluginFactory : public KPluginFactory
-{
-    Q_OBJECT
-public:
-    KGetPluginFactory( QObject *parent = 0 );
-    ~KGetPluginFactory() ;
-
-    virtual QObject* createObject( QObject* parent = 0, const char* pname = 0,
-                                   const QStringList &args = QStringList() );
 };
 
 #endif

@@ -14,38 +14,41 @@
 
 #include "kget_plug_in.h"
 
-#include "links.h"
 #include "kget_interface.h"
 
-#include <KActionCollection>
-#include <KToggleAction>
-#include <kactionmenu.h>
-#include <khtml_part.h>
-#include <kiconloader.h>
-#include <KComponentData>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kmenu.h>
-#include <krun.h>
-#include <kicon.h>
-#include <ktoolinvocation.h>
-#include <dom/html_misc.h>
-#include <dom/html_document.h>
-#include <kparts/partmanager.h>
+#include <KDE/KActionCollection>
+#include <KDE/KToggleAction>
+#include <KDE/KActionMenu>
+#include <KDE/KIconLoader>
+#include <KDE/KComponentData>
+#include <KDE/KLocale>
+#include <KDE/KMessageBox>
+#include <KDE/KMenu>
+#include <KDE/KRun>
+#include <KDE/KIcon>
+#include <KDE/KToolInvocation>
+#include <KDE/KGenericFactory>
+#include <KDE/KProtocolInfo>
+#include <KDE/KParts/Part>
+#include <KDE/KParts/PartManager>
+#include <KDE/KParts/HtmlExtension>
 
-#ifdef HAVE_KWEBKITPART
-#include <KDE/KWebKitPart>
-#include <QtWebKit/QWebView>
-#include <QtWebKit/QWebPage>
-#include <QtWebKit/QWebFrame>
-#include <QtWebKit/QWebElement>
-#include <QtWebKit/QWebElementCollection>
-#endif
+#include <QtDBus/QDBusConnection>
 
-KGet_plug_in::KGet_plug_in(QObject *parent)
-  : Plugin(parent),
-    m_dolphinPart(0),
-    m_type(None)
+
+#define QL1S(x)   QLatin1String(x)
+
+K_PLUGIN_FACTORY(KGetPluginFactory, registerPlugin<KGetPlugin>();)
+K_EXPORT_PLUGIN(KGetPluginFactory("kgetplugin"))
+
+static QWidget* partWidget(QObject* obj)
+{
+    KParts::ReadOnlyPart* part = qobject_cast<KParts::ReadOnlyPart*>(obj);
+    return part ? part->widget() : 0;
+}
+
+KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
+           :KParts::Plugin(parent)
 {
     KActionMenu *menu = new KActionMenu(KIcon("kget"), i18n("Download Manager"), actionCollection());
     actionCollection()->addAction("kget_menu", menu);
@@ -56,124 +59,89 @@ KGet_plug_in::KGet_plug_in(QObject *parent)
     m_dropTargetAction = new KToggleAction(i18n("Show Drop Target"), actionCollection());
 
     connect(m_dropTargetAction, SIGNAL(triggered()), this, SLOT(slotShowDrop()));
-    actionCollection()->addAction("show_drop", m_dropTargetAction);
+    actionCollection()->addAction(QL1S("show_drop"), m_dropTargetAction);
     menu->addAction(m_dropTargetAction);
 
-    QAction *showLinksAction = actionCollection()->addAction("show_links");
+    QAction *showLinksAction = actionCollection()->addAction(QL1S("show_links"));
     showLinksAction->setText(i18n("List All Links"));
     connect(showLinksAction, SIGNAL(triggered()), SLOT(slotShowLinks()));
     menu->addAction(showLinksAction);
 
-    QAction *showSelectedLinksAction = actionCollection()->addAction("show_selected_links");
+    QAction *showSelectedLinksAction = actionCollection()->addAction(QL1S("show_selected_links"));
     showSelectedLinksAction->setText(i18n("List Selected Links"));
     connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
     menu->addAction(showSelectedLinksAction);
 
-    if (parent) {
-        if (parent->inherits("KHTMLPart")) {
-            m_type = KHTMLType;
-        } else if (parent->inherits("KWebKitPart")) {
-            m_type = KWebkitType;
-        } else if (parent->inherits("DolphinPart")) {
-            m_type = DolphinType;
+    m_extension = KParts::HtmlExtension::childObject(parent);
+    if (!m_extension)
+        menu->setVisible(false); // Hide if parent does not implement KParts::HtmlExtesnion.
+}
+
+
+KGetPlugin::~KGetPlugin()
+{
+}
+
+void KGetPlugin::showPopup()
+{
+    if (!m_extension)
+        return;   
+
+    KParts::SelectorInterface* selector = qobject_cast<KParts::SelectorInterface*>(m_extension);
+    if (selector) {
+        bool hasDropTarget = false;
+        if (QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
+            OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
+            QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
+            if (reply.isValid()) {
+                hasDropTarget = reply.value();
+            }
         }
+        m_dropTargetAction->setChecked(hasDropTarget);
+      
+        const KParts::SelectorInterface::QueryMethods methods = selector->supportedQueryMethods();
+        bool enable = (methods & KParts::SelectorInterface::EntireContent);
+        actionCollection()->action(QL1S("show_links"))->setEnabled(enable);
+        enable = (m_extension->hasSelection() && (methods & KParts::SelectorInterface::EntireContent));
+        actionCollection()->action(QL1S("show_selected_links"))->setEnabled(enable);
+        enable = (actionCollection()->action(QL1S("show_links"))->isEnabled() ||
+                  actionCollection()->action(QL1S("show_selected_links"))->isEnabled());
+        actionCollection()->action(QL1S("show_drop"))->setEnabled(enable);
+        return;
     }
-
-    //FIXME once DolphinPart gets exported
-    if ((m_type != KHTMLType) && (m_type != KWebkitType))//TODO support also for DolphinPart? --> DolphinView::selectedUrls()
-        actionCollection()->action("show_selected_links")->setVisible(false);
-
-    if (m_type == DolphinType) {
-        m_dolphinPart = qobject_cast<KParts::ReadOnlyPart*>(parent);
-        connect(m_dolphinPart, SIGNAL(started(KIO::Job*)), this, SLOT(slotCheckUrlDolphin()));//TODO use aboutToOpenURL from DolphinPart instead?
-    }
+    
+    actionCollection()->action(QL1S("show_selected_links"))->setEnabled(false);
+    actionCollection()->action(QL1S("show_links"))->setEnabled(false);
+    if (m_dropTargetAction->isChecked())
+        m_dropTargetAction->setChecked(false);
+    actionCollection()->action(QL1S("show_drop"))->setEnabled(false);        
 }
 
-
-KGet_plug_in::~KGet_plug_in()
-{
-}
-
-void KGet_plug_in::slotCheckUrlDolphin()
-{
-    m_dolphinPartUrl = m_dolphinPart->url();
-    const QString protocol = m_dolphinPartUrl.protocol();
-    const bool visible = protocol.contains("ftp");
-    actionCollection()->action("kget_menu")->setVisible(visible);
-}
-
-
-void KGet_plug_in::showPopup()
-{
-    bool hasDropTarget = false;
-
-    if (QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
-        QDBusReply<bool> reply = kgetInterface.dropTargetVisible();
-        if (reply.isValid()) {
-            hasDropTarget = reply.value();
-        }
-    }
-
-    m_dropTargetAction->setChecked(hasDropTarget);
-
-    bool enabled = false;
-    if (m_type == KHTMLType) {
-        const QString selectedHtml = qobject_cast<KHTMLPart*>(parent())->selectedTextAsHTML();
-        DOM::HTMLDocument document;
-        document.open();
-        document.write( selectedHtml );
-        document.close();
-        enabled = (document.getElementsByTagName("a").length() > 0);
-    }
-#ifdef HAVE_KWEBKITPART
-    else if (m_type == KWebkitType) {
-        // TODO: Find a way to find links and images in selected content.
-        // No straight forward way to accomplish this in QtWebKit without
-        // resorting to javascript based hacks right now!
-    }
-#endif
-    actionCollection()->action("show_selected_links")->setEnabled(enabled);
-}
-
-void KGet_plug_in::slotShowDrop()
+void KGetPlugin::slotShowDrop()
 {
     if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        QWidget *parentWidget = 0;
-        if (m_type == KHTMLType) {
-            parentWidget = qobject_cast<KHTMLPart*>(parent())->widget();
-        }
-#ifdef HAVE_KWEBKITPART
-        else if (m_type == KWebkitType) {
-            parentWidget = qobject_cast<KWebKitPart*>(parent())->view();
-        }
-#endif
-        else if (m_type == DolphinType) {
-            parentWidget = qobject_cast<KParts::ReadOnlyPart*>(parent())->widget();
-        }
-        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", parentWidget);
+        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", partWidget(parent()));
     } else {
         OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
         kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
     }
 }
 
-void KGet_plug_in::slotShowLinks()
+void KGetPlugin::slotShowLinks()
 {
     getLinks(false);
 }
 
-void KGet_plug_in::slotShowSelectedLinks()
+void KGetPlugin::slotShowSelectedLinks()
 {
     getLinks(true);
 }
 
-void KGet_plug_in::slotImportLinks()
+void KGetPlugin::slotImportLinks()
 {
     if (m_linkList.isEmpty()) {
-        KParts::ReadOnlyPart *part = qobject_cast<KParts::ReadOnlyPart *>(parent());
-        KMessageBox::sorry(part ? part->widget() : 0,
-                           i18n("There are no links in the active frame of the current HTML page."),
+        KMessageBox::sorry(partWidget(parent()),
+                           i18n("No downloadable links were found in the current view."),
                            i18n("No Links"));
         return;
     }
@@ -183,8 +151,7 @@ void KGet_plug_in::slotImportLinks()
 
     if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget") &&
         KToolInvocation::kdeinitExecWait("kget") != 0) {
-        KParts::ReadOnlyPart *part = qobject_cast<KParts::ReadOnlyPart *>(parent());
-        KMessageBox::sorry(part ? part->widget() : 0,
+        KMessageBox::sorry(partWidget(parent()),
                            i18n("Unable to communicate with the KGet download manager."),
                            i18n("Communication Error"));
         return;
@@ -194,157 +161,28 @@ void KGet_plug_in::slotImportLinks()
     kgetInterface.importLinks(m_linkList);
 }
 
-void KGet_plug_in::getLinks(bool selectedOnly)
+void KGetPlugin::getLinks(bool selectedOnly)
 {
-    QObject *obj = parent();
-    Q_ASSERT(obj);
-
-    m_linkList.clear();
-
-    if (m_type == KHTMLType) {
-        KHTMLPart *htmlPart = qobject_cast<KHTMLPart*>(obj);
-        KParts::Part *activePart = 0;
-
-        if (htmlPart && htmlPart->partManager()) {
-            activePart = htmlPart->partManager()->activePart();
-            if (activePart && activePart->inherits("KHTMLPart")) {
-                htmlPart = qobject_cast<KHTMLPart*>(activePart);
-            }
+    KParts::SelectorInterface* selector = qobject_cast<KParts::SelectorInterface*>(m_extension);
+    if (selector) {
+        m_linkList.clear();        
+        const QUrl baseUrl = m_extension->baseUrl();
+        KParts::SelectorInterface::QueryMethod method;
+        if (selectedOnly)
+            method = KParts::SelectorInterface::SelectedContent;
+        else
+            method = KParts::SelectorInterface::EntireContent;
+        const QList<KParts::SelectorInterface::Element> elements = selector->querySelectorAll(QL1S("a[href], img[src]"), method);
+        Q_FOREACH(const KParts::SelectorInterface::Element& element, elements) {
+            const QString attr = (element.hasAttribute(QL1S("href")) ? QL1S("href") : QL1S("src"));
+            const QUrl resolvedUrl = baseUrl.resolved(element.attribute(attr));
+            // Only select valid and non local (e.g. file, man page) links for download...
+            if (resolvedUrl.isValid() &&
+                KProtocolInfo::protocolClass(resolvedUrl.scheme()).compare(QL1S(":internet"), Qt::CaseInsensitive) == 0)
+                m_linkList << resolvedUrl.toString();
         }
-
-        DOM::HTMLDocument doc;
-
-        if (selectedOnly) {
-            doc.open();
-            if (htmlPart) {
-                doc.write(htmlPart->selectedTextAsHTML());
-            }
-            doc.close();
-        } else {
-            if (htmlPart) {
-                doc = htmlPart->htmlDocument();
-            }
-        }
-
-        if (!doc.isNull()) {
-            DOM::HTMLCollection links = doc.links();
-            DOM::HTMLCollection images = doc.images();
-
-            for (uint i = 0; i < links.length(); ++i) {
-                DOM::Node link = links.item( i );
-                if (link.isNull() || (link.nodeType() != DOM::Node::ELEMENT_NODE)) {
-                    continue;
-                }
-
-                LinkItem *item = new LinkItem(DOM::Element(link));
-                if (item->isValid()) {
-                    m_linkList.append(item->url.url());
-                } else {
-                    delete item;
-                }
-            }
-
-            /* do the same for images */
-            for (uint i = 0; i < images.length(); ++i) {
-                DOM::Node image  = images.item(i);
-                if ( image.isNull() || (image.nodeType() != DOM::Node::ELEMENT_NODE))
-                    continue;
-
-                LinkItem *item = new LinkItem(DOM::Element(image));
-                if (item->isValid()) {
-                    m_linkList.append(item->url.url());
-                } else {
-                    delete item;
-                }
-            }
-        }
+        
         slotImportLinks();
-    }
-#ifdef HAVE_KWEBKITPART
-    else if (m_type == KWebkitType) {
-        KWebKitPart *part = qobject_cast<KWebKitPart*>(obj);
-        Q_ASSERT(part);
-
-        QWebView *view = part->view();
-        if (view) {
-            QWebPage *page = view->page();
-            Q_ASSERT(page);
-
-            QWebFrame *frame = page->currentFrame();
-
-            // QtWebKit selector language is the same as the CSS3 language selectors. Consult
-            // http://www.w3.org/TR/css3-selectors/#selectors for details on CSS3 language
-            // selectors. The query below finds all the anchor(<a>) and image (<img>) links
-            // in the current frame.
-            const QWebElementCollection collection = frame->findAllElements(QLatin1String("a[href], img[src]"));
-            QString attrValue;
-
-            if (selectedOnly) {
-                // TODO: Find a way to find links and images in selected content.
-                // No straight forward way to accomplish this in QtWebKit without
-                // resorting to javascript based hacks right now!
-            } else {
-                foreach (const QWebElement &element, collection) {
-                    if (element.hasAttribute(QLatin1String("href"))) {
-                        attrValue = QLatin1String("href");
-                    } else {
-                        attrValue = QLatin1String("src");
-                    }
-
-                    const QUrl url = frame->baseUrl().resolved(QUrl(element.attribute("href")));
-                    if (url.isValid()) {
-                        m_linkList << url.toString();
-                    }
-                }
-            }
-        }
-        slotImportLinks();
-    }
-#endif
-    else if (m_type == DolphinType) {
-        KIO::ListJob *list = KIO::listDir(m_dolphinPartUrl, KIO::HideProgressInfo);
-        connect(list, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)), this, SLOT(slotEntries(KIO::Job*,KIO::UDSEntryList)));
-        connect(list, SIGNAL(finished(KJob*)), this, SLOT(slotImportLinks()));
-    }
-}
-
-void KGet_plug_in::slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries)
-{
-    Q_UNUSED(job)
-
-    const QString baseUrl = m_dolphinPartUrl.url(KUrl::AddTrailingSlash);
-    foreach (const KIO::UDSEntry &entry, entries) {
-        //skip all found dirs
-        if (!entry.isDir()) {
-            const QString name = entry.stringValue(KIO::UDSEntry::UDS_NAME);
-            m_linkList << baseUrl + name;
-        }
-    }
-}
-
-
-
-KGetPluginFactory::KGetPluginFactory( QObject* parent )
-                  :KPluginFactory("kget", "kget", parent)
-{
-}
-
-QObject* KGetPluginFactory::createObject( QObject* parent, const char*, const QStringList & )
-{
-    QObject *obj = new KGet_plug_in( parent );
-    return obj;
-}
-
-KGetPluginFactory::~KGetPluginFactory()
-{
-}
-
-extern "C"
-{
-    KDE_EXPORT void* init_kget_browser_integration()
-    {
-        KGlobal::locale()->insertCatalog("kget");
-        return new KGetPluginFactory;
     }
 }
 
