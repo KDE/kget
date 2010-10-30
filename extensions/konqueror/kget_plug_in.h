@@ -18,8 +18,8 @@ class KToggleAction;
 
 namespace KParts {
     class HtmlExtension;
+    class FileInfoExtension;
 }
-
 
 class KGetPlugin : public KParts::Plugin
 {
@@ -38,8 +38,9 @@ private Q_SLOTS:
 
 private:
     void getLinks(bool selectedOnly = false);
-    
-    KParts::HtmlExtension *m_extension;
+
+    KParts::FileInfoExtension* m_fileinfoExtn;
+    KParts::HtmlExtension* m_htmlExtn;
     QStringList m_linkList;
 };
 
