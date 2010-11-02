@@ -12,21 +12,17 @@
 #ifndef KGETPLUGIN_H
 #define KGETPLUGIN_H
 
-#include <kparts/plugin.h>
+#include <KDE/KParts/Plugin>
+
+#include <QtCore/QPointer>
 
 class KToggleAction;
-
-namespace KParts {
-    class HtmlExtension;
-    class FileInfoExtension;
-}
 
 class KGetPlugin : public KParts::Plugin
 {
     Q_OBJECT
 public:
     KGetPlugin(QObject* parent, const QVariantList&);
-    KToggleAction *m_dropTargetAction;
     virtual ~KGetPlugin();
 
 private Q_SLOTS:
@@ -39,9 +35,8 @@ private Q_SLOTS:
 private:
     void getLinks(bool selectedOnly = false);
 
-    KParts::FileInfoExtension* m_fileinfoExtn;
-    KParts::HtmlExtension* m_htmlExtn;
-    QStringList m_linkList;
+    QStringList m_linkList;    
+    KToggleAction *m_dropTargetAction;
 };
 
 #endif

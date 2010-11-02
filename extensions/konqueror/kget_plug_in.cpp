@@ -74,12 +74,9 @@ KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
     connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
     menu->addAction(showSelectedLinksAction);
 
-    m_htmlExtn = KParts::HtmlExtension::childObject(parent);
-    m_fileinfoExtn = KParts::FileInfoExtension::childObject(parent);
-
     // Hide this plugin if the parent part does not support either
     // The FileInfo or Html extensions...
-    if (!m_htmlExtn && !m_fileinfoExtn)
+    if (!KParts::HtmlExtension::childObject(parent) && !KParts::FileInfoExtension::childObject(parent))
         menu->setVisible(false);
 }
 
@@ -106,14 +103,15 @@ static bool hasDropTarget()
 void KGetPlugin::showPopup()
 {
     // Check for HtmlExtension support...
-    if (m_htmlExtn) {
-        KParts::SelectorInterface* selector = qobject_cast<KParts::SelectorInterface*>(m_htmlExtn);
+    KParts::HtmlExtension* htmlExtn = KParts::HtmlExtension::childObject(parent());
+    if (htmlExtn) {
+        KParts::SelectorInterface* selector = qobject_cast<KParts::SelectorInterface*>(htmlExtn);
         if (selector) {
             m_dropTargetAction->setChecked(hasDropTarget());
             const KParts::SelectorInterface::QueryMethods methods = selector->supportedQueryMethods();
             bool enable = (methods & KParts::SelectorInterface::EntireContent);
             actionCollection()->action(QL1S("show_links"))->setEnabled(enable);
-            enable = (m_htmlExtn->hasSelection() && (methods & KParts::SelectorInterface::SelectedContent));
+            enable = (htmlExtn->hasSelection() && (methods & KParts::SelectorInterface::SelectedContent));
             actionCollection()->action(QL1S("show_selected_links"))->setEnabled(enable);
             enable = (actionCollection()->action(QL1S("show_links"))->isEnabled() ||
                       actionCollection()->action(QL1S("show_selected_links"))->isEnabled());
@@ -123,12 +121,13 @@ void KGetPlugin::showPopup()
     }
 
     // Check for FileInfoExtension support...
-    if (m_fileinfoExtn) {
+    KParts::FileInfoExtension* fileinfoExtn = KParts::FileInfoExtension::childObject(parent());
+    if (fileinfoExtn) {
         m_dropTargetAction->setChecked(hasDropTarget());
-        const KParts::FileInfoExtension::QueryModes modes = m_fileinfoExtn->supportedQueryModes();
+        const KParts::FileInfoExtension::QueryModes modes = fileinfoExtn->supportedQueryModes();
         bool enable = (modes & KParts::FileInfoExtension::AllItems);
         actionCollection()->action(QL1S("show_links"))->setEnabled(enable);
-        enable = (m_fileinfoExtn->hasSelection() && (modes & KParts::FileInfoExtension::SelectedItems));
+        enable = (fileinfoExtn->hasSelection() && (modes & KParts::FileInfoExtension::SelectedItems));
         actionCollection()->action(QL1S("show_selected_links"))->setEnabled(enable);
         enable = (actionCollection()->action(QL1S("show_links"))->isEnabled() ||
                   actionCollection()->action(QL1S("show_selected_links"))->isEnabled());
@@ -189,11 +188,12 @@ void KGetPlugin::slotImportLinks()
 
 void KGetPlugin::getLinks(bool selectedOnly)
 {
-    if (m_htmlExtn) {
-        KParts::SelectorInterface* selector = qobject_cast<KParts::SelectorInterface*>(m_htmlExtn);
+    KParts::HtmlExtension* htmlExtn = KParts::HtmlExtension::childObject(parent());
+    if (htmlExtn) {
+        KParts::SelectorInterface* selector = qobject_cast<KParts::SelectorInterface*>(htmlExtn);
         if (selector) {
             m_linkList.clear();
-            const QUrl baseUrl = m_htmlExtn->baseUrl();
+            const QUrl baseUrl = htmlExtn->baseUrl();
             const KParts::SelectorInterface::QueryMethod method = (selectedOnly ? KParts::SelectorInterface::SelectedContent:
                                                                                   KParts::SelectorInterface::EntireContent);
             const QList<KParts::SelectorInterface::Element> elements = selector->querySelectorAll(QL1S("a[href], img[src]"), method);
@@ -204,16 +204,16 @@ void KGetPlugin::getLinks(bool selectedOnly)
                 if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty())
                     m_linkList << resolvedUrl.url();
             }
-
-            slotImportLinks();
         }
+        slotImportLinks();
     }
 
-    if (m_fileinfoExtn) {
+    KParts::FileInfoExtension* fileinfoExtn = KParts::FileInfoExtension::childObject(parent());
+    if (fileinfoExtn) {
         m_linkList.clear();
         const KParts::FileInfoExtension::QueryMode mode = (selectedOnly ? KParts::FileInfoExtension::SelectedItems:
                                                                           KParts::FileInfoExtension::AllItems);
-        const KFileItemList items = m_fileinfoExtn->queryFor(mode);
+        const KFileItemList items = fileinfoExtn->queryFor(mode);
         Q_FOREACH(const KFileItem& item, items) {
             const KUrl url = item.url();
             // Only select valid and non local links for download...
