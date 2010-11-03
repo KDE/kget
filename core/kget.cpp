@@ -322,6 +322,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
     {
         if (destDir.isEmpty())
         {
+            //TODO only use groupsFromExceptions if that is allowed in the settings
             QList<TransferGroupHandler*> list = groupsFromExceptions(*it);
             if (!list.isEmpty()) {
                 destDir = list.first()->defaultFolder();
@@ -713,34 +714,45 @@ QList<TransferGroupHandler*> KGet::groupsFromExceptions(const KUrl &filename)
 {
     QList<TransferGroupHandler*> handlers;
     foreach (TransferGroupHandler * handler, allTransferGroups()) {
-        QStringList patterns = handler->regExp().pattern().split(',');//FIXME 4.5 add a tooltip: "Enter a list of foo separated by ," and then do split(i18nc("used as separator in a list, translate to the same thing you translated \"Enter a list of foo separated by ,\"", ","))
-        foreach (const QString &pattern, patterns) {
-            QRegExp regExp = QRegExp(pattern.trimmed());
-
-            //try with Regular Expression first
-            regExp.setPatternSyntax(QRegExp::RegExp2);
-            regExp.setCaseSensitivity(Qt::CaseInsensitive);
-            if (regExp.exactMatch(filename.url())) {
-                handlers.append(handler);
-                break;
-            }
-
-            //now try with wildcards
-            if (!regExp.pattern().isEmpty() && !regExp.pattern().contains('*')) {
-                regExp.setPattern('*' + regExp.pattern());
-            }
-
-            regExp.setPatternSyntax(QRegExp::Wildcard);
-            regExp.setCaseSensitivity(Qt::CaseInsensitive);
-
-            if (regExp.exactMatch(filename.url())) {
-                handlers.append(handler);
-                break;
-            }
+        const QStringList patterns = handler->regExp().pattern().split(',');//FIXME 4.5 add a tooltip: "Enter a list of foo separated by ," and then do split(i18nc("used as separator in a list, translate to the same thing you translated \"Enter a list of foo separated by ,\"", ","))
+        if (matchesExceptions(filename, patterns)) {
+            handlers.append(handler);
         }
     }
 
     return handlers;
+}
+
+bool KGet::matchesExceptions(const KUrl &sourceUrl, const QStringList &patterns)
+{
+    foreach (const QString &pattern, patterns) {
+        const QString trimmedPattern = pattern.trimmed();
+        if (trimmedPattern.isEmpty()) {
+            continue;
+        }
+        QRegExp regExp = QRegExp(trimmedPattern);
+
+        //try with Regular Expression first
+        regExp.setPatternSyntax(QRegExp::RegExp2);
+        regExp.setCaseSensitivity(Qt::CaseInsensitive);
+        if (regExp.exactMatch(sourceUrl.url())) {
+            return true;
+        }
+
+        //now try with wildcards
+        if (!regExp.pattern().isEmpty() && !regExp.pattern().contains('*')) {
+            regExp.setPattern('*' + regExp.pattern());
+        }
+
+        regExp.setPatternSyntax(QRegExp::Wildcard);
+        regExp.setCaseSensitivity(Qt::CaseInsensitive);
+
+        if (regExp.exactMatch(sourceUrl.url())) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void KGet::setGlobalDownloadLimit(int limit)

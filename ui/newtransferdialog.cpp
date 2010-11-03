@@ -3,6 +3,7 @@
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
    Copyright (C) 2008 - 2009 by Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 by Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -147,8 +148,10 @@ public:
                 }
             }
         }
-        if (!KGet::groupsFromExceptions(sources().first()).isEmpty()) {
-            m_groupComboBox->setCurrentIndex(m_groupComboBox->findText(KGet::groupsFromExceptions(sources().first()).first()->name()));
+
+        const QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(sources().first());
+        if (!groups.isEmpty()) {
+            m_groupComboBox->setCurrentIndex(m_groupComboBox->findText(groups.first()->name()));
         }
     }
 
@@ -245,7 +248,7 @@ public:
     bool m_displayed; // determines whenever the dialog is already displayed or not (to add new sources)
 };
 
-NewTransferDialog * m_newTransferDialog = 0;
+QPointer<NewTransferDialog> m_newTransferDialog;
 
 NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
     m_window(0), m_sources()
@@ -290,70 +293,181 @@ void NewTransferDialog::showNewTransferDialog(const KUrl &url, QWidget * parent)
     showNewTransferDialog(url.isEmpty() ? KUrl::List() : KUrl::List() << url, parent);
 }
 
+/**
+ * NOTE some checks in this method might seem redundant, though target is to display as few dialogs, and then preferable
+ * the NewTransferDialog, to the user as possible i.e. if not enough information -- e.g. no destination folder
+ * determinable, ...-- is present for a url or a group of urls they won't be added as transfer,
+ * instead the NewTransferDialog will be shown
+ *
+ * This also tries to add as many transfers as possible with one run, to ensure a high speed
+ */
 void NewTransferDialog::showNewTransferDialog(const KUrl::List &list, QWidget * parent)
 {
+    KUrl::List urlList = list;
     QString suggestedFileName;
-    if (list.count() == 2)
-    {
-        if (list.at(1).protocol().isEmpty())//When we have no protocol in the second filename, then it's the filename (thrown by konqueror)
-            suggestedFileName = list.at(1).pathOrUrl();
+
+    ///Only two urls defined, check if second one is a path or a file name
+    if (urlList.count() == 2) {
+        const KUrl lastUrl = list.last();
+        const QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(urlList.first());
+        const QString groupName = (groups.isEmpty() ? QString() : groups.first()->name());
+        const QString defaultFolder = (groups.isEmpty() ? QString() : groups.first()->defaultFolder());
+
+        //check if last url is a file path, either absolute or relative
+        if (lastUrl.isLocalFile()) {
+            if (QDir::isAbsolutePath(lastUrl.toLocalFile())) {
+                //second url is a file path, use this one
+                KGet::addTransfer(list.first(), lastUrl.directory(KUrl::AppendTrailingSlash), lastUrl.fileName(), groupName);
+                return;
+            } else {
+                //second url is just a file name
+                suggestedFileName = lastUrl.fileName(KUrl::ObeyTrailingSlash);
+                urlList.removeLast();
+            }
+        } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.directory().isEmpty())) {
+            // Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
+            suggestedFileName = lastUrl.url();
+            urlList.removeLast();
+        }
     }
-    if ((!m_newTransferDialog || m_newTransferDialog->isEmpty()) && list.count() == 1)
-    {
-        KUrl url = list.first();
-        KDialog * dialog = 0;
+
+    ///More than two urls defined, and last is local and will be used as destination directory
+    if (urlList.count() > 2 && urlList.last().isLocalFile()) {
+        QString folder;
+        if (!QFileInfo(urlList.last().toLocalFile()).isDir()) {
+            folder = urlList.last().directory(KUrl::AppendTrailingSlash);
+        } else {
+            folder = urlList.last().path(KUrl::AddTrailingSlash);
+        }
+        urlList.removeLast();
+
+        if (!folder.isEmpty()) {
+            //find the associated groups first, we just need the first matching group though
+            QHash<QString, KUrl::List> handledUrls;//QMultiHash<groupName, sourceUrls>
+            const QList<TransferGroupHandler*> groups = KGet::allTransferGroups();
+            foreach (TransferGroupHandler *group, groups) {
+                if (urlList.isEmpty()) {
+                    break;
+                }
+
+                const QString groupName = group->name();
+                const QStringList patterns = group->regExp().pattern().split(',');
+
+                KUrl::List::iterator it = urlList.begin();
+                while (it != urlList.end()) {
+                    if (KGet::matchesExceptions(*it, patterns)) {
+                        handledUrls[groupName] << (*it);
+                        it = urlList.erase(it);
+                    } else {
+                        ++it;
+                    }
+                }
+            }
+
+            //now add all the transfers associated with a group at once for speed reasons
+            QHash<QString, KUrl::List>::const_iterator it;
+            QHash<QString, KUrl::List>::const_iterator itEnd = handledUrls.constEnd();
+            for (it = handledUrls.constBegin(); it != itEnd; ++it) {
+                KGet::addTransfer(it.value(), folder, it.key());
+            }
+
+            return;
+        }
+    }
+
+    ///Now handle default folders/groups
+    KUrl::List cleanedList;
+    kDebug(5001) << "DIRECTORIES AS SUGGESTION" << Settings::directoriesAsSuggestion();
+    if (!Settings::directoriesAsSuggestion() && !urlList.isEmpty()) {
+        kDebug(5001) << "No, Directories not as suggestion";
+
+        //use the suggested file name if specified and there is just one url
+        if ((urlList.count() == 1) && !suggestedFileName.isEmpty()) {
+            const QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(urlList.first());
+            const QString groupName = (groups.isEmpty() ? QString() : groups.first()->name());
+            const QString folder = (groups.isEmpty() ? QString() : groups.first()->defaultFolder());
+
+            //a folder has been specified, automatically download to that destination
+            if (!folder.isEmpty()) {
+                KGet::addTransfer(urlList.first(), folder, suggestedFileName, groupName);
+                return;
+            }
+        }
+
+        //find the associated groups first, we just need the first matching group though
+        QHash<QPair<QString, QString>, KUrl::List> handledUrls;//QMultiHash<QPair<groupName, folder>, sourceUrls> >
+        const QList<TransferGroupHandler*> groups = KGet::allTransferGroups();
+        foreach (TransferGroupHandler *group, groups) {
+            if (urlList.isEmpty()) {
+                break;
+            }
+
+            const QString folder = group->defaultFolder();
+            if (folder.isEmpty()) {
+                continue;
+            }
+
+            const QString groupName = group->name();
+            const QStringList patterns = group->regExp().pattern().split(',');
+
+            KUrl::List::iterator it = urlList.begin();
+            while (it != urlList.end()) {
+                if (KGet::matchesExceptions(*it, patterns)) {
+                    handledUrls[qMakePair(groupName, folder)] << (*it);
+                    it = urlList.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+        }
+
+        //now add all the transfers associated with a group at once for speed reasons
+        QHash<QPair<QString, QString>, KUrl::List>::const_iterator it;
+        QHash<QPair<QString, QString>, KUrl::List>::const_iterator itEnd = handledUrls.constEnd();
+        for (it = handledUrls.constBegin(); it != itEnd; ++it) {
+            const QString group = it.key().first;
+            const QString folder = it.key().second;
+            KGet::addTransfer(it.value(), folder, group);
+        }
+        kDebug(5001) << "CLEANED LIST IS:" << cleanedList;
+        if (cleanedList.isEmpty()) {
+            return;//Return as we don't have anything to show
+        }
+    } else {
+        cleanedList << urlList;
+    }
+
+    ///Handle custom newtransferdialogs...
+    if ((!m_newTransferDialog || m_newTransferDialog->isEmpty()) && cleanedList.count() == 1) {
+        KUrl url = cleanedList.first();
+        QPointer<KDialog> dialog;
         foreach (TransferFactory * factory, KGet::factories()) {
-            dialog = factory->createNewTransferDialog(url, suggestedFileName, !KGet::groupsFromExceptions(url).isEmpty() ? KGet::groupsFromExceptions(url).first() : 0);
-            if (dialog)
-            {
+            const QList<TransferGroupHandler*> groups =  KGet::groupsFromExceptions(url);
+            dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : 0);
+            if (dialog) {
                 if(parent) {
                     KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
                     KWindowSystem::setCurrentDesktop(info.desktop());
                     KWindowSystem::forceActiveWindow(parent->winId());
                 }
                 dialog->exec();
+                delete dialog;
                 return;
             }
         }
     }
 
+    ///Display default NewTransferDialog
     if (!m_newTransferDialog)
         m_newTransferDialog = new NewTransferDialog(parent);
 
     m_newTransferDialog->m_window = parent;
-    m_newTransferDialog->showDialog(list, suggestedFileName);
+    m_newTransferDialog->showDialog(cleanedList, suggestedFileName);
 }
 
 void NewTransferDialog::showDialog(const KUrl::List &list, const QString &suggestedFileName)
 {
-    KUrl::List cleanedList;
-    kDebug() << "DIRECTORIES AS SUGGESTION" << Settings::directoriesAsSuggestion();
-    if (!Settings::directoriesAsSuggestion() && !list.isEmpty())
-    {
-        kDebug(5001) << "No, Directories not as suggestion";
-        QHash<TransferGroupHandler*, KUrl::List> urlsPerGroup;
-        foreach (const KUrl &url, list)
-        {
-            QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(url);
-            if (!groups.isEmpty()) {
-                urlsPerGroup[groups.first()] << url;
-            } else {
-                cleanedList << url;
-            }
-        }
-        QHash<TransferGroupHandler*, KUrl::List>::const_iterator it;
-        QHash<TransferGroupHandler*, KUrl::List>::const_iterator itEnd = urlsPerGroup.constEnd();
-        for (it = urlsPerGroup.constBegin(); it != itEnd; ++it) {
-            KGet::addTransfer(it.value(), it.key()->defaultFolder(), it.key()->name());
-        }
-        kDebug() << "CLEANED LIST IS:" << cleanedList;
-        if (cleanedList.isEmpty())
-            return;//Return as we don't have anything to show
-    }
-    else
-        cleanedList << list;
-
-    m_sources << cleanedList;
+    m_sources << list;
 
     d->clear();//Let's clear the old stuff
     kDebug(5001) << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);

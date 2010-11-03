@@ -3,6 +3,7 @@
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
    Copyright (C) 2008 - 2009 by Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -37,8 +38,19 @@ class NewTransferDialog : public KDialog, Ui::NewTransferWidget
 public:
     NewTransferDialog(QWidget *parent = 0);
     ~NewTransferDialog();
-    
+
+    /**
+     * @see showNewTransferDialog(KUrl::List, QWidget)
+     */
     static void showNewTransferDialog(const KUrl &url = KUrl(), QWidget * parent = 0);
+
+    /**
+     * This will show a dialog to the user to input needed information.
+     * If the last url of the list is a local file or directory, then all files will
+     * be downloaded to that destination.
+     * If there are matching groups with default folders and the user set the option to
+     * use those, then the affected urls will be downloaded without showing them in the dialog
+     */
     static void showNewTransferDialog(const KUrl::List &list, QWidget * parent = 0);
     static void del();
 

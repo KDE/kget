@@ -105,45 +105,9 @@ public:
         if (splash)
             splash->removeSplash();
 
-        // if there are exactly two parameters, these may either be
-        // - two valid urls to download, or
-        // - one url and the simple filename to use for saving
-	// - one remote and one local url, the latter being the already user-specified target
-        if (l.count() == 2) {
-            KUrl lastUrl = l.last();
-            if (lastUrl.isLocalFile()) { // either absolute or relative
-                QString targetPath = lastUrl.toLocalFile();
-                if (QDir::isAbsolutePath(targetPath)) {
-                    KGet::addTransfer(l.first(), lastUrl.toLocalFile(), QString());
-                 } else {
-                    QString fileName = lastUrl.fileName(KUrl::ObeyTrailingSlash);
-                    KGet::addTransfer(l.first(), QString(), fileName);
-                }
-                return 0;
-            } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.directory().isEmpty())) {
-                // Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
-                QString suggestedFileName = lastUrl.url();
-                KGet::addTransfer(l.first(), QString(), suggestedFileName);
-                return 0;
-            }
-        }
+        if (!l.isEmpty())//FIXME this is called before all transfers and groups are loaded, this can lead to problems, e.g. not finding the correct groups for a transfer
+            NewTransferDialog::showNewTransferDialog(l, kget);
 
-        QString destUrl;
-        if (l.count() >= 2 && l.last().isLocalFile()) {
-            if (!QFileInfo(l.last().toLocalFile()).isDir())
-                destUrl = l.last().directory(KUrl::AppendTrailingSlash);
-            else
-                destUrl = l.last().path(KUrl::AddTrailingSlash);
-
-            l.removeLast();
-            KGet::addTransfer(l, destUrl, QString(), true);
-            return 0;
-        }
-        // all the args read from command line are downloads
-        if (l.count() == 1)
-            KGet::addTransfer(l.takeFirst());
-        if (l.count() > 1 && !l.last().isLocalFile())
-            KGet::addTransfer(l);
         return 0;
     }
 

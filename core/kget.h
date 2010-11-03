@@ -297,6 +297,11 @@ class KGET_EXPORT KGet
         static QList<TransferGroupHandler*> groupsFromExceptions(const KUrl &filename);
 
         /**
+         * Returns true if sourceUrl matches any of the patterns
+         */
+        static bool matchesExceptions(const KUrl &sourceUrl, const QStringList &patterns);
+
+        /**
          * Scans for all the available plugins and creates the proper
          * transfer DataSource object for transfers Containers
          *
