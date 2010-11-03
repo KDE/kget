@@ -92,9 +92,6 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
         show();
     else
         hide();
-
-    //Some of the widgets are initialized in slotDelayedInit()
-    QTimer::singleShot( 0, this, SLOT(slotDelayedInit()) );
 }
 
 MainWindow::~MainWindow()
@@ -334,7 +331,7 @@ void MainWindow::setupActions()
     connect(listLinksAction, SIGNAL(triggered()), SLOT(slotShowListLinks()));
 }
 
-void MainWindow::slotDelayedInit()
+void MainWindow::init()
 {
     //Here we import the user's transfers.
     KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
