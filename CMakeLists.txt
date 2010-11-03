@@ -25,6 +25,7 @@ if(HAVE_NEPOMUK)
         ${NEPOMUK_INCLUDE_DIR}
     )
     add_definitions(-DHAVE_NEPOMUK)
+    add_definitions(-DDISABLE_NEPOMUK_LEGACY)
     include(NepomukAddOntologyClasses)
 endif(HAVE_NEPOMUK)
 
