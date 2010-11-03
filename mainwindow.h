@@ -49,6 +49,9 @@ public:
 
     virtual void setSystemTrayDownloading(bool running);
 
+    //no slot, to make sure that MainWindow is correctly initialized before any transfers get added
+    void init();
+
 public slots:
     void slotQuit();
     void slotImportUrl(const QString &url);
@@ -109,7 +112,6 @@ private slots:
     void slotDeleteFinished();
 
     // misc slots
-    void slotDelayedInit();
     void slotSaveMyself();
     void slotNewToolbarConfig();
     void slotNewConfig();
