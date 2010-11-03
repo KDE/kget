@@ -64,7 +64,12 @@ GroupSettingsDialog::~GroupSettingsDialog()
 
 void GroupSettingsDialog::save()
 {
-    m_group->setDefaultFolder(ui.defaultFolderRequester->url().toLocalFile(KUrl::AddTrailingSlash));
+    //check needed, otherwise "/" would be added as folder if the line was empty!
+    if (ui.defaultFolderRequester->text().isEmpty()) {
+        m_group->setDefaultFolder(QString());
+    } else {
+        m_group->setDefaultFolder(ui.defaultFolderRequester->url().toLocalFile(KUrl::AddTrailingSlash));
+    }
 
     if (ui.downloadCheck->isChecked())
         m_group->setDownloadLimit(ui.downloadBox->value(), Transfer::VisibleSpeedLimit);
