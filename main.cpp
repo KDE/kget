@@ -107,7 +107,7 @@ public:
             splash->removeSplash();
 
         if (!l.isEmpty())//FIXME this is called before all transfers and groups are loaded, this can lead to problems, e.g. not finding the correct groups for a transfer
-            NewTransferDialog::showNewTransferDialog(l, kget);
+            NewTransferDialogHandler::showNewTransferDialog(l, kget);
 
         return 0;
     }

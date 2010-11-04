@@ -100,8 +100,6 @@ MainWindow::~MainWindow()
 {
     //Save the user's transfers
     KGet::save();
-    
-    NewTransferDialog::del();
 
     slotSaveMyself();
     // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
@@ -444,7 +442,7 @@ void MainWindow::slotToggleDropTarget()
 
 void MainWindow::slotNewTransfer()
 {
-    NewTransferDialog::showNewTransferDialog(KUrl(), this);
+    NewTransferDialogHandler::showNewTransferDialog(KUrl(), this);
 }
 
 void MainWindow::slotImportTransfers()
@@ -1123,7 +1121,7 @@ void MainWindow::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transfer list"), KIcon("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialog::showNewTransferDialog(list.first().url(), this);
+                NewTransferDialogHandler::showNewTransferDialog(list.first().url(), this);
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
@@ -1132,15 +1130,15 @@ void MainWindow::dropEvent(QDropEvent * event)
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
-                NewTransferDialog::showNewTransferDialog(str, this);
+                NewTransferDialogHandler::showNewTransferDialog(str, this);
             }
             else
-                NewTransferDialog::showNewTransferDialog(list, this);
+                NewTransferDialogHandler::showNewTransferDialog(list, this);
         }
     }
     else
     {
-        NewTransferDialog::showNewTransferDialog(KUrl(), this);
+        NewTransferDialogHandler::showNewTransferDialog(KUrl(), this);
     }
 }
 

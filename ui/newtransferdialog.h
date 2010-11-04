@@ -19,6 +19,8 @@
 
 #include "ui_newtransferwidget.h"
 
+class KJob;
+
 /**
 * Dialog to allow add one or more transfers to kget.
 * If only one transfer is added then the dialog shows a KUrlRequester.
@@ -27,32 +29,16 @@
 * Also display a KUrlComboRequester for the destination file (or folder if multiple = true)
 * And a QComboBox with the groups of transfer in case there are more than one
 * 
-* This class is a singleton, only one instance is allowed.
-* If a source is added and the dialog is already showed, 
-* the dialog becomes multiple and shows the KListWidget
-* adding the new transfer to the list of previous ones.
+* @note this class is private and should be used via NewTransferDialogHandler
 */
 class NewTransferDialog : public KDialog, Ui::NewTransferWidget
 {
     Q_OBJECT
+
+    friend class NewTransferDialogHandler;
+
 public:
-    NewTransferDialog(QWidget *parent = 0);
     ~NewTransferDialog();
-
-    /**
-     * @see showNewTransferDialog(KUrl::List, QWidget)
-     */
-    static void showNewTransferDialog(const KUrl &url = KUrl(), QWidget * parent = 0);
-
-    /**
-     * This will show a dialog to the user to input needed information.
-     * If the last url of the list is a local file or directory, then all files will
-     * be downloaded to that destination.
-     * If there are matching groups with default folders and the user set the option to
-     * use those, then the affected urls will be downloaded without showing them in the dialog
-     */
-    static void showNewTransferDialog(const KUrl::List &list, QWidget * parent = 0);
-    static void del();
 
 public slots:
     /**
@@ -65,6 +51,8 @@ private slots:
     void urlChanged(const QString &text);
 
 private:
+    explicit NewTransferDialog(QWidget *parent = 0);//TODO make explicit and private?
+
     /**
      * Shows the dialog adding one url list transfers
      */
@@ -73,10 +61,69 @@ private:
     void resizeDialog();
     bool isEmpty();
 
+private:
     class Private;
     NewTransferDialog::Private *d;
     QWidget *m_window;
     KUrl::List m_sources;
+};
+
+class NewTransferDialogHandler : public QObject
+{
+    Q_OBJECT
+
+    public:
+        explicit NewTransferDialogHandler(QObject *parent = 0);
+        ~NewTransferDialogHandler();
+
+        /**
+         * @see showNewTransferDialog(KUrl::List, QWidget)
+         */
+        static void showNewTransferDialog(const KUrl &url = KUrl(), QWidget * parent = 0);
+
+        /**
+         * This will show a dialog to the user to input needed information.
+         * If the last url of the list is a local file or directory, then all files will
+         * be downloaded to that destination.
+         * If there are matching groups with default folders and the user set the option to
+         * use those, then the affected urls will be downloaded without showing them in the dialog
+         */
+        static void showNewTransferDialog(KUrl::List list, QWidget *parent = 0);
+
+    private slots:
+        void slotMostLocalUrlResult(KJob *job);
+
+    private:
+        void handleUrls(const int jobId);
+        void createDialog(const KUrl::List &urls, const QString &suggestedFileName, QWidget *parent);
+
+    private:
+        struct UrlData {
+            KUrl::List urls;
+            QString folder;
+            QString suggestedFileName;
+            QWidget *parent;
+        };
+
+        /**
+         * Always points to the next unused jobId
+         */
+        int m_nextJobId;
+
+        /**
+         * QHash<jobId, numJobsForId>
+         * Calling addUrls will create jobs for each url with the same id
+         */
+        QHash<int, int> m_numJobs;
+
+        /**
+         * QHash<jobId, UrlData>
+         * Urls for which mosLocalUrl has finished already,
+         * folder and suggestedFileName can be an empty string if there are none
+         */
+        QHash<int, UrlData> m_urls;
+
+        QPointer<NewTransferDialog> m_dialog;
 };
 
 #endif

@@ -66,6 +66,7 @@ class NepomukController;
 class KGET_EXPORT KGet
 {
     friend class NewTransferDialog;
+    friend class NewTransferDialogHandler;
     friend class GenericObserver;
     friend class TransferTreeModel;
     public:
