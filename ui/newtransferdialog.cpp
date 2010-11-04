@@ -14,6 +14,7 @@
 #include "newtransferdialog.h"
 
 #include "core/kget.h"
+#include "mainwindow.h"
 #include "core/transfertreemodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/plugin/transferfactory.h"
@@ -26,10 +27,8 @@
 #include <QFileInfo>
 
 #include <KLocale>
-#include <KListWidget>
 #include <QListWidgetItem>
-#include <KLineEdit>
-#include <KComboBox>
+#include <KColorScheme>
 #include <KDebug>
 #include <KFileDialog>
 #include <KWindowSystem>
@@ -37,266 +36,206 @@
 K_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
 
-class NewTransferDialog::Private : public QObject
+NewTransferDialog::NewTransferDialog(QWidget *parent)
+  : KDialog(parent),
+    m_window(0),
+    m_displayed(false),
+    m_multiple(false),
+    m_wrongUrl(false)
 {
-public:
-    Private(QObject *parent=0) : QObject(parent),
-            m_multiple(0),
-            m_displayed(0)
-    {
-        listWidget = 0;
-        urlRequester = 0;
-    }
-    
-    bool isEmpty()
-    {
-        if (urlRequester) {
-            return urlRequester->text().trimmed().isEmpty();
-        } else if (listWidget) {
-            return !listWidget->count();
-        }
-        return true;
-    }
-
-    KUrl::List sources() const
-    {
-        KUrl::List list;
-        if (m_multiple)
-        {
-            for (int i = 0; i != listWidget->count(); i++) {
-                if (listWidget->item(i)->checkState() == Qt::Checked)
-                    list << KUrl(listWidget->item(i)->text().trimmed());
-            }
-        }
-        else
-            list << KUrl(urlRequester->text().trimmed());
-        return list;
-    }
-
-    QString destination() const
-    {
-        return m_destRequester->url().prettyUrl();
-    }
-
-    QString transferGroup() const
-    {
-        return m_groupComboBox->currentText();
-    }
-
-    /**
-    * Determines where is a multiple (listwidget) or single (kurlrequester) transfer
-    */
-    void setMultiple(bool value)
-    {
-        m_multiple = value;
-
-        if (value)
-        {
-            if (urlRequester) {
-                urlRequester->hide();
-                urlRequester->deleteLater();
-                urlRequester = 0;
-            }
-            if (!listWidget) {
-                listWidget = new KListWidget();
-                m_gridLayout1->addWidget(listWidget, 0, 1, 1, 1);
-                m_destRequester->setMode(KFile::Directory);
-            }
-        }
-        else
-        {
-            if (listWidget) {
-                listWidget->hide();
-                listWidget->deleteLater();
-                listWidget = 0;
-            }
-            if (!urlRequester) {
-                urlRequester = new KLineEdit();
-                urlRequester->setClearButtonShown(true);
-                connect(urlRequester, SIGNAL(textChanged(QString)), parent(), SLOT(urlChanged(QString)));
-                m_gridLayout1->addWidget(urlRequester, 0, 1, 1, 1);
-                m_destRequester->setMode(KFile::File);
-            }
-        }
-    }
-
-    void setDestinationFileName(const QString &filename)
-    {
-        m_destRequester->setUrl(m_destRequester->url().path(KUrl::AddTrailingSlash) + filename);
-    }
-
-    void setSource(const KUrl::List &list)
-    {
-        if (list.count() <= 1)
-        {
-            KUrl m_srcUrl = list.first().url();
-            urlRequester->clear();
-            if (m_srcUrl.isEmpty())
-                m_srcUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
-
-            if (m_srcUrl.isValid() && !m_srcUrl.protocol().isEmpty())
-                urlRequester->insert(m_srcUrl.prettyUrl());
-        }
-        else {
-            KUrl::List::const_iterator it = list.begin();
-            KUrl::List::const_iterator itEnd = list.end();
-
-            for (; it!=itEnd ; ++it)
-            {
-                if (it->url() != KUrl(it->url()).fileName())
-                {
-                    kDebug(5001) << "Insert " + it->url();
-                    QListWidgetItem *newItem = new QListWidgetItem(it->pathOrUrl(), listWidget);
-                    newItem->setCheckState(Qt::Checked);
-                }
-            }
-        }
-
-        const QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(sources().first());
-        if (!groups.isEmpty()) {
-            m_groupComboBox->setCurrentIndex(m_groupComboBox->findText(groups.first()->name()));
-        }
-    }
-
-    void setDestination(const KUrl::List &sources, const QStringList &list)
-    {
-        Q_UNUSED(sources)
-
-        m_destRequester->comboBox()->clear();
-        m_destRequester->clear();
-
-        QStringList m_list = list;
-        kDebug(5001) << m_list;
-        QString filename = destination();
-
-        kDebug(5001) << "Seting destination :multiple=" << m_multiple << " and filename=" << filename;
-        if (!filename.isEmpty() && m_multiple) {
-            filename = KUrl(filename).directory();
-        }
-        else if (urlRequester) {
-            filename = KUrl(urlRequester->text().trimmed()).fileName();
-        }
-
-        for (int i=0;i < list.count();i++)
-        {
-            if (!m_list.at(i).endsWith('/'))
-                m_list[i].append('/');
-            m_list[i].append(filename);
-        }
-
-        const QString downloadPath = KGet::generalDestDir();
-        if (!downloadPath.isEmpty()) {
-            m_list << downloadPath;
-        }
-        kDebug(5001) << m_list;
-
-        m_destRequester->comboBox()->insertItems(0, m_list);
-        QString group = m_groupComboBox->currentText();
-        TransferGroupHandler * current = 0;
-        foreach (TransferGroupHandler * handler, KGet::allTransferGroups()) {
-            if (handler->name() == group) {
-                current = handler;
-            }
-        }
-        if (current && !current->defaultFolder().isEmpty()) {
-            if (m_destRequester->comboBox()->findText(current->defaultFolder()) == -1)
-                m_destRequester->comboBox()->addItem(current->defaultFolder());
-            m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(current->defaultFolder()));
-        } else if (current) {
-            m_destRequester->comboBox()->setCurrentIndex(m_destRequester->comboBox()->findText(downloadPath));
-        }
-    }
-
-    void prepareGui()
-    {
-        // properties of the m_destRequester combobox
-        m_destRequester->comboBox()->setDuplicatesEnabled(false);
-        m_destRequester->comboBox()->setUrlDropsEnabled(true);
-        m_destRequester->comboBox()->setEditable(true);
-        m_destRequester->fileDialog()->setKeepLocation(true);
-
-        m_titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
-    }
-
-    void clear()
-    {
-        if (urlRequester) {
-            urlRequester->clear();
-        }
-        if (listWidget) {
-            listWidget->clear();
-        }
-        m_destRequester->comboBox()->clear();
-        m_destRequester->clear();
-        m_displayed = false;
-        m_groupComboBox->clear();
-        //KGet::addTransferView(m_groupComboBox);
-        m_groupComboBox->clear();
-        foreach (TransferGroupHandler * group, KGet::allTransferGroups())
-            m_groupComboBox->addItem(KIcon(group->iconName()), group->name());
-        m_groupComboBox->setCurrentIndex(0);
-    }
-
-    KListWidget *listWidget;
-    KLineEdit *urlRequester;
-
-    QGridLayout *m_gridLayout1;
-    KTitleWidget *m_titleWidget;
-
-    KUrlComboRequester *m_destRequester;
-    KComboBox *m_groupComboBox;
-    QLabel *m_groupLabel;
-
-    bool m_multiple;
-    bool m_displayed; // determines whenever the dialog is already displayed or not (to add new sources)
-};
-
-NewTransferDialog::NewTransferDialog(QWidget *parent) : KDialog(parent),
-    m_window(0), m_sources()
-{
-    d = new NewTransferDialog::Private(this);
-
     setModal(true);
     setCaption(i18n("New Download"));
     showButtonSeparator(true);
 
-    QWidget *mainWidget = new QWidget(this);
+    QWidget *widget = new QWidget(this);
+    ui.setupUi(widget);
+    setMainWidget(widget);
 
-    Ui::NewTransferWidget widget;
-    widget.setupUi(mainWidget);
+    enableButtonOk(false);
 
-    d->m_gridLayout1 = widget.gridLayout1;
-    d->m_titleWidget = widget.titleWidget;
-    d->m_destRequester = widget.destRequester;
-    d->m_groupComboBox = widget.groupComboBox;
-    d->m_groupLabel = widget.groupLabel;
+    KColorScheme scheme(QPalette::Active, KColorScheme::Window);
+    QPalette palette = ui.error->palette();
+    palette.setBrush(QPalette::WindowText, scheme.foreground(KColorScheme::NegativeText));
+    ui.error->setPalette(palette);
 
-    setMainWidget(mainWidget);
-    
-    d->prepareGui();
-    resizeDialog();
-    d->clear();
 
-    connect(d->m_groupComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setDefaultDestination()));
+    // properties of the m_destRequester combobox
+    ui.destRequester->comboBox()->setDuplicatesEnabled(false);
+    ui.destRequester->comboBox()->setUrlDropsEnabled(true);
+    ui.destRequester->comboBox()->setEditable(true);
+    ui.destRequester->fileDialog()->setKeepLocation(true);
+
+    ui.titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
+
+    clear();
+
+    connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
+
+    //TODO ones urlChecker is in do in the following slots the checking if the urls are correct
+    //then m_wrongUrl could be removed, as well as redisplaying the dialog
+    connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(destUrlChanged(QString)));
+    connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(urlChanged(QString)));
 }
 
 NewTransferDialog::~NewTransferDialog()
 {
 }
 
+void NewTransferDialog::setMultiple(bool useMultiple)
+{
+    m_multiple = useMultiple;
+
+    const Qt::Alignment alignment = Qt::AlignLeft | (m_multiple ? Qt::AlignTop : Qt::AlignVCenter);
+    ui.urlLabel->setAlignment(alignment);
+    ui.urlRequester->setVisible(!m_multiple);
+    ui.listWidget->setVisible(m_multiple);
+    ui.destRequester->setMode(m_multiple ? KFile::Directory : KFile::File);
+}
+
+void NewTransferDialog::clear()
+{
+    ui.urlRequester->clear();
+    ui.listWidget->clear();
+    ui.destRequester->comboBox()->clear();
+    ui.destRequester->clear();
+    m_displayed = false;
+    ui.groupComboBox->clear();
+
+    foreach (TransferGroupHandler *group, KGet::allTransferGroups()) {
+        ui.groupComboBox->addItem(KIcon(group->iconName()), group->name());
+    }
+    ui.groupComboBox->setCurrentIndex(0);
+}
+
+KUrl::List NewTransferDialog::sources() const
+{
+    KUrl::List list;
+    if (m_multiple) {
+        for (int i = 0; i != ui.listWidget->count(); i++) {
+            if (ui.listWidget->item(i)->checkState() == Qt::Checked) {
+                list << KUrl(ui.listWidget->item(i)->text().trimmed());
+            }
+        }
+    } else {
+        list << KUrl(ui.urlRequester->text().trimmed());
+    }
+
+    return list;
+}
+
+void NewTransferDialog::setSource(const KUrl::List &sources)
+{
+    if (sources.isEmpty()) {
+        return;
+    }
+
+    if (sources.count() == 1) {
+        KUrl m_srcUrl = sources.first().url();
+        ui.urlRequester->clear();
+        if (m_srcUrl.isEmpty())
+            m_srcUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+
+        //TODO use  urlChecker here once it is done
+        if (m_srcUrl.isValid() && !m_srcUrl.protocol().isEmpty())
+            ui.urlRequester->insert(m_srcUrl.prettyUrl());
+    } else {
+        foreach (const KUrl &sourceUrl, sources) {
+            if (sourceUrl.url() != KUrl(sourceUrl.url()).fileName()) {//TODO simplify, whatfor is this check anyway, shouldn't the sources be checked already??
+                kDebug(5001) << "Insert" << sourceUrl;
+                QListWidgetItem *newItem = new QListWidgetItem(sourceUrl.pathOrUrl(), ui.listWidget);
+                newItem->setCheckState(Qt::Checked);
+            }
+        }
+    }
+
+    const QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(sources.first());
+    if (!groups.isEmpty()) {
+        ui.groupComboBox->setCurrentIndex(ui.groupComboBox->findText(groups.first()->name()));
+    }
+}
+
+void NewTransferDialog::setDestinationFileName(const QString &filename)
+{
+    ui.destRequester->setUrl(ui.destRequester->url().path(KUrl::AddTrailingSlash) + filename);
+}
+
+//TODO improve this method, so that it does not take sources and has a better name
+void NewTransferDialog::setDestination(const KUrl::List &sources, const QStringList &l)
+{
+    Q_UNUSED(sources)
+
+    ui.destRequester->comboBox()->clear();
+    ui.destRequester->clear();
+
+    QStringList list = l;
+    kDebug(5001) << list;
+    QString filename = destination();
+
+    kDebug(5001) << "Seting destination :multiple=" << m_multiple << " and filename=" << filename;
+    if (!m_multiple) {
+        filename = KUrl(ui.urlRequester->text().trimmed()).fileName();
+    } else if (!filename.isEmpty()) {
+        filename = KUrl(filename).directory();
+    }
+
+    for (int i = 0; i < list.count(); ++i) {
+        if (!list.at(i).endsWith('/'))
+            list[i].append('/');
+        list[i].append(filename);
+    }
+
+    const QString downloadPath = KGet::generalDestDir();
+    if (!downloadPath.isEmpty()) {
+        list << downloadPath;
+    }
+    list.removeDuplicates();
+    kDebug(5001) << list;
+
+    ui.destRequester->comboBox()->insertItems(0, list);
+
+    //sets destRequester to either display the defaultFolder of group or the generalDestDir
+    QString group = ui.groupComboBox->currentText();
+    TransferGroupHandler * current = 0;
+    foreach (TransferGroupHandler * handler, KGet::allTransferGroups()) {
+        if (handler->name() == group) {
+            current = handler;
+            break;
+        }
+    }
+    if (current && !current->defaultFolder().isEmpty()) {
+        if (ui.destRequester->comboBox()->findText(current->defaultFolder()) == -1) {
+            ui.destRequester->comboBox()->addItem(current->defaultFolder());
+        }
+        ui.destRequester->comboBox()->setCurrentIndex(ui.destRequester->comboBox()->findText(current->defaultFolder()));
+    } else if (current) {
+        ui.destRequester->comboBox()->setCurrentIndex(ui.destRequester->comboBox()->findText(downloadPath));
+    }
+}
+
+QString NewTransferDialog::destination() const
+{
+    return ui.destRequester->url().prettyUrl();
+}
+
+QString NewTransferDialog::transferGroup() const
+{
+    return ui.groupComboBox->currentText();
+}
+
 void NewTransferDialog::showDialog(const KUrl::List &list, const QString &suggestedFileName)
 {
     m_sources << list;
 
-    d->clear();//Let's clear the old stuff
+    clear();//Let's clear the old stuff
     kDebug(5001) << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);
-    d->setMultiple(m_sources.size() > 1);
+    setMultiple(m_sources.size() > 1);
 
     if (!m_sources.isEmpty()) {
-        if (list.count() == 1 && !suggestedFileName.isEmpty())
-            d->setDestinationFileName(suggestedFileName);
+        if (list.count() == 1 && !suggestedFileName.isEmpty()) {
+            setDestinationFileName(suggestedFileName);
+        }
 
-        d->setSource(m_sources);
+        setSource(m_sources);
     }
 
     resizeDialog();
@@ -305,15 +244,12 @@ void NewTransferDialog::showDialog(const KUrl::List &list, const QString &sugges
 
 void NewTransferDialog::setDefaultDestination()
 {
-    //if (m_sources.isEmpty()) {
-    //    return;
-    //}
     QStringList list;
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups()) {
         if (!handler->defaultFolder().isEmpty())
             list << handler->defaultFolder();
     }
-    d->setDestination(m_sources, list);
+    setDestination(m_sources, list);
     if (!m_sources.isEmpty())
         urlChanged(m_sources.first().path());
     //d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().path(), d->transferGroup()));
@@ -321,26 +257,40 @@ void NewTransferDialog::setDefaultDestination()
 
 void NewTransferDialog::prepareDialog()
 {
-    setDefaultDestination();
+    //only set default destination if the previous operation did not result in an error
+    //otherwise the old data should be shown, so that it can be fixed
+    if (!m_wrongUrl) {
+        setDefaultDestination();
+    }
+    ui.errorWidget->setVisible(m_wrongUrl);
 
-    if(m_window) {
+    if (m_window) {
         KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop, NET::WMDesktop);
         KWindowSystem::setCurrentDesktop(info.desktop());
         KWindowSystem::forceActiveWindow(m_window->winId());
     }
 
-    if (!d->m_displayed) {
+    if (!m_displayed) {
+        m_displayed = true;
         kDebug(5001) << "Exec the dialog!";
-        d->m_displayed = true;
 
         KDialog::exec();
 
         if (result() == KDialog::Accepted)
         {
-            QString destDir = d->destination();
-            m_sources = d->sources();
+            QString destDir = destination();
+            m_sources = sources();
 
             destDir = KUrl(destDir).toLocalFile();
+
+            if (!KGet::isValidDestDirectory(destDir)) {//TODO urlChecker
+                kWarning(5001) << "Invalid dest dir, displaying dialog again.";
+                ui.errorText->setText(i18n("The specified destination directory is not valid."));
+                m_wrongUrl = true;
+                m_displayed = false;
+                prepareDialog();
+                return;
+            }
 
             QString dir;
             if (QFileInfo(destDir).isDir())
@@ -350,44 +300,93 @@ void NewTransferDialog::prepareDialog()
 
             Settings::setLastDirectory(dir);
             Settings::self()->writeConfig();
-            
+
             kDebug(5001) << m_sources;
-            if (m_sources.count() == 1)
-                KGet::addTransfer(m_sources.takeFirst(), destDir, QString(), d->transferGroup());
-            else
-                KGet::addTransfer(m_sources, destDir, d->transferGroup());
+
+            QList<KGet::TransferData> data;
+            if (m_sources.count() == 1) {
+                const KUrl sourceUrl = m_sources.takeFirst();
+                if (!KGet::isValidSource(sourceUrl)) {
+                    kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
+                    ui.errorText->setText(i18n("The specified source url is not valid."));
+                    m_wrongUrl = true;
+                    m_displayed = false;
+                    prepareDialog();
+                    return;
+                }
+
+                //false means that the user did not want to download it
+                if (KGet::isValidSource(sourceUrl)) {
+                    //empty means that the user aborted it, e.g. because he did not want to overwrite it
+                    const KUrl destUrl = KGet::getValidDestUrl(KUrl(destDir), sourceUrl);
+                    if (!destUrl.isEmpty()) {
+                        data << KGet::TransferData(sourceUrl, destUrl, transferGroup());
+                    }
+                }
+            } else {
+                foreach (const KUrl &sourceUrl, m_sources) {
+                    //empty means that the user aborted it, e.g. because he did not want to overwrite it
+                    const KUrl destUrl = KGet::getValidDestUrl(KUrl(destDir), sourceUrl);
+                    if (!destUrl.isEmpty()) {
+                        data << KGet::TransferData(sourceUrl, destUrl, transferGroup());
+                    }
+                }
+            }
+
+            if (!data.isEmpty()) {
+                KGet::createTransfers(data);
+            }
         }
+        m_wrongUrl = false;
 
         m_sources.clear();
-        d->clear();
+        clear();
     }
 }
 
+/**
+ * FIXME
+ * The dialog is always lagging behind, i.e. if first m_multiple is false, then a small dialog will be displayed
+ * if next m_multiple is true then still a small dialog will be displayed, then next dialog displayed no matter
+ * if m_multiple is true will be large
+*/
 void NewTransferDialog::resizeDialog()
 {
-    if (KGet::transferGroupNames().count() < 2)
-    {
-        d->m_groupComboBox->hide();
-        d->m_groupLabel->hide();
+    if (KGet::transferGroupNames().count() < 2) {
+        ui.groupComboBox->hide();
+        ui.groupLabel->hide();
     }
 }
 
 bool NewTransferDialog::isEmpty()
 {
-    return d->isEmpty();
+    return (m_multiple ? !ui.listWidget->count() : ui.urlRequester->text().trimmed().isEmpty());
 }
 
 void NewTransferDialog::urlChanged(const QString &text)
 {
-    if (d->m_multiple)
+    if (m_multiple) {
         return;
+    }
+
+    const QString destUrl = ui.destRequester->text();
     KUrl url(text.trimmed());
     //if (d->m_destRequester->url()->isEmpty())
     //    d->setDestination(m_sources, QStringList());
-    if (QFileInfo(d->m_destRequester->url().toLocalFile()).isDir())
-        d->setDestinationFileName(url.fileName());
+    if (QFileInfo(ui.destRequester->url().toLocalFile()).isDir())
+        setDestinationFileName(url.fileName());
 
-    kDebug() << url << url.fileName() << d->m_destRequester->url().fileName();
+    enableButtonOk(!text.isEmpty() && !destUrl.isEmpty());
+    kDebug() << url << url.fileName() << ui.destRequester->url().fileName();
+}
+
+void NewTransferDialog::destUrlChanged(const QString &url)
+{
+    if (m_multiple) {
+        enableButtonOk(!url.isEmpty());
+    } else {
+        enableButtonOk(!ui.urlRequester->text().isEmpty() && !url.isEmpty());
+    }
 }
 
 
@@ -407,30 +406,22 @@ NewTransferDialogHandler::NewTransferDialogHandler(QObject *parent)
 
 NewTransferDialogHandler::~NewTransferDialogHandler()
 {
-    if (m_dialog) {
-        if (!m_dialog->isVisible()) {
-            delete m_dialog;
-        } else {
-            m_dialog->deleteLater();
-        }
-    }
 }
 
 
-void NewTransferDialogHandler::showNewTransferDialog(const KUrl &url, QWidget *parent)
+void NewTransferDialogHandler::showNewTransferDialog(const KUrl &url)
 {
-    showNewTransferDialog(url.isEmpty() ? KUrl::List() : KUrl::List() << url, parent);
+    showNewTransferDialog(url.isEmpty() ? KUrl::List() : KUrl::List() << url);
 }
 
-void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls, QWidget *parent)
+void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
 {
     if (urls.isEmpty()) {
-        newTransferDialogHandler->createDialog(urls, QString(), parent);
+        newTransferDialogHandler->createDialog(urls, QString());
         return;
     }
 
     QHash<int, UrlData>::iterator itUrls = newTransferDialogHandler->m_urls.insert(newTransferDialogHandler->m_nextJobId, UrlData());
-    (*itUrls).parent = parent;
     QString folder;
     QString suggestedFileName;
 
@@ -492,7 +483,7 @@ void NewTransferDialogHandler::slotMostLocalUrlResult(KJob *j)
     const int jobId = job->property("jobId").toInt();
 
     if (job->error()) {
-        kWarning(5001) << "An error happened for asdfasdf";
+        kWarning(5001) << "An error happened for" << job->url();
     } else {
         m_urls[jobId].urls << job->mostLocalUrl();
     }
@@ -514,11 +505,10 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
     KUrl::List urls = (*itUrls).urls;
     const QString folder = (*itUrls).folder;
     const QString suggestedFileName = (*itUrls).suggestedFileName;
-    QWidget *parentWidget = (*itUrls).parent;
 
     KUrl::List::iterator it = urls.begin();
     while (it != urls.end()) {
-        //TODO rework the way KGet::isValidSource is done, so that the user is not constantly asked in case of existing urls
+        //TODO urlChecker + multiple questions at ones
         if (KGet::isValidSource(*it)) {
             ++it;
         } else {
@@ -588,18 +578,18 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         }
 
         //there are still some unhandled urls, i.e. for those no group could be found, add them with an empty group
-            foreach (const KUrl &sourceUrl, urls) {
-                const KUrl destUrl = KGet::getValidDestUrl(KUrl(folder), sourceUrl);
-                if (destUrl.isEmpty()) {
-                    kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-                    continue;
-                }
-
-                data << KGet::TransferData(sourceUrl, destUrl);
+        foreach (const KUrl &sourceUrl, urls) {
+            const KUrl destUrl = KGet::getValidDestUrl(KUrl(folder), sourceUrl);
+            if (destUrl.isEmpty()) {
+                kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
+                continue;
             }
 
-            //all urls have been handled
-            urls.clear();
+            data << KGet::TransferData(sourceUrl, destUrl);
+        }
+
+        //all urls have been handled
+        urls.clear();
     }
 
     ///Now handle default folders/groups
@@ -655,11 +645,10 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             const QList<TransferGroupHandler*> groups =  KGet::groupsFromExceptions(url);
             dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : 0);
             if (dialog) {
-                if(parentWidget) {
-                    KWindowInfo info = KWindowSystem::windowInfo(parentWidget->winId(), NET::WMDesktop, NET::WMDesktop);
-                    KWindowSystem::setCurrentDesktop(info.desktop());
-                    KWindowSystem::forceActiveWindow(parentWidget->winId());
-                }
+                KWindowInfo info = KWindowSystem::windowInfo(KGet::m_mainWindow->winId(), NET::WMDesktop, NET::WMDesktop);
+                KWindowSystem::setCurrentDesktop(info.desktop());
+                KWindowSystem::forceActiveWindow(KGet::m_mainWindow->winId());
+
                 dialog->exec();
                 delete dialog;
             }
@@ -671,17 +660,17 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
 
     ///Display default NewTransferDialog
     if (!urls.isEmpty()) {
-        createDialog(urls, suggestedFileName, parentWidget);
+        createDialog(urls, suggestedFileName);
     }
 }
 
-void NewTransferDialogHandler::createDialog(const KUrl::List &urls, const QString &suggestedFileName, QWidget *parent)
+void NewTransferDialogHandler::createDialog(const KUrl::List &urls, const QString &suggestedFileName)
 {
     if (!m_dialog) {
-        m_dialog = new NewTransferDialog(parent);
+        m_dialog = new NewTransferDialog(KGet::m_mainWindow);
     }
 
-    m_dialog->m_window = parent;
+    m_dialog->m_window = KGet::m_mainWindow;
     m_dialog->showDialog(urls, suggestedFileName);
 }
 

@@ -31,41 +31,69 @@ class KJob;
 * 
 * @note this class is private and should be used via NewTransferDialogHandler
 */
-class NewTransferDialog : public KDialog, Ui::NewTransferWidget
+class NewTransferDialog : public KDialog
 {
     Q_OBJECT
 
     friend class NewTransferDialogHandler;
 
-public:
-    ~NewTransferDialog();
+    public:
+        ~NewTransferDialog();
 
-public slots:
-    /**
-    * Called when the transfer group or the urlREquester changed, the dialog sets the default destination 
-    * for transfers in the new group
-    */
-    void setDefaultDestination();
-    
-private slots:
-    void urlChanged(const QString &text);
+    public slots:
+        /**
+        * Called when the transfer group or the urlREquester changed, the dialog sets the default destination
+        * for transfers in the new group
+        */
+        void setDefaultDestination();
 
-private:
-    explicit NewTransferDialog(QWidget *parent = 0);//TODO make explicit and private?
+    private slots:
+        void urlChanged(const QString &text);
+        void destUrlChanged(const QString &url);
 
-    /**
-     * Shows the dialog adding one url list transfers
-     */
-    void showDialog(const KUrl::List &list, const QString &suggestedFileName = QString());
-    void prepareDialog();
-    void resizeDialog();
-    bool isEmpty();
+    private:
+        explicit NewTransferDialog(QWidget *parent = 0);//TODO make explicit and private?
 
-private:
-    class Private;
-    NewTransferDialog::Private *d;
-    QWidget *m_window;
-    KUrl::List m_sources;
+        /**
+        * Shows the dialog adding one url list transfers
+        */
+        void showDialog(const KUrl::List &list, const QString &suggestedFileName = QString());
+        void prepareDialog();
+        void resizeDialog();
+        bool isEmpty();
+
+        /**
+         * Determines where is a multiple (listwidget) or single (kurlrequester) transfer
+         */
+        void setMultiple(bool useMultiple);
+
+        KUrl::List sources() const;
+
+        QString destination() const;
+
+        QString transferGroup() const;
+
+        /**
+         * Set sources to the dialog
+         */
+        void setSource(const KUrl::List &sources);
+
+        void setDestinationFileName(const QString &filename);
+        void setDestination(const KUrl::List &sources, const QStringList &list);
+
+        void clear();
+
+    private:
+        Ui::NewTransferWidget ui;
+        QWidget *m_window;
+        KUrl::List m_sources;
+
+        QSize m_singleSize;
+        QSize m_multipleSize;
+
+        bool m_displayed;//determines whenever the dialog is already displayed or not (to add new sources)
+        bool m_multiple;
+        bool m_wrongUrl;//if the specified directory or source is invalid
 };
 
 class NewTransferDialogHandler : public QObject
@@ -77,9 +105,9 @@ class NewTransferDialogHandler : public QObject
         ~NewTransferDialogHandler();
 
         /**
-         * @see showNewTransferDialog(KUrl::List, QWidget)
+         * @see showNewTransferDialog(KUrl::List)
          */
-        static void showNewTransferDialog(const KUrl &url = KUrl(), QWidget * parent = 0);
+        static void showNewTransferDialog(const KUrl &url = KUrl());
 
         /**
          * This will show a dialog to the user to input needed information.
@@ -87,15 +115,17 @@ class NewTransferDialogHandler : public QObject
          * be downloaded to that destination.
          * If there are matching groups with default folders and the user set the option to
          * use those, then the affected urls will be downloaded without showing them in the dialog
+         *
+         * @note MainWindow will always be the parent widget
          */
-        static void showNewTransferDialog(KUrl::List list, QWidget *parent = 0);
+        static void showNewTransferDialog(KUrl::List list);
 
     private slots:
         void slotMostLocalUrlResult(KJob *job);
 
     private:
         void handleUrls(const int jobId);
-        void createDialog(const KUrl::List &urls, const QString &suggestedFileName, QWidget *parent);
+        void createDialog(const KUrl::List &urls, const QString &suggestedFileName);
 
     private:
         struct UrlData {

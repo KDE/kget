@@ -442,7 +442,7 @@ void MainWindow::slotToggleDropTarget()
 
 void MainWindow::slotNewTransfer()
 {
-    NewTransferDialogHandler::showNewTransferDialog(KUrl(), this);
+    NewTransferDialogHandler::showNewTransferDialog(KUrl());
 }
 
 void MainWindow::slotImportTransfers()
@@ -1121,7 +1121,7 @@ void MainWindow::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transfer list"), KIcon("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialogHandler::showNewTransferDialog(list.first().url(), this);
+                NewTransferDialogHandler::showNewTransferDialog(list.first().url());
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
@@ -1130,15 +1130,15 @@ void MainWindow::dropEvent(QDropEvent * event)
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
-                NewTransferDialogHandler::showNewTransferDialog(str, this);
+                NewTransferDialogHandler::showNewTransferDialog(str);
             }
             else
-                NewTransferDialogHandler::showNewTransferDialog(list, this);
+                NewTransferDialogHandler::showNewTransferDialog(list);
         }
     }
     else
     {
-        NewTransferDialogHandler::showNewTransferDialog(KUrl(), this);
+        NewTransferDialogHandler::showNewTransferDialog(KUrl());
     }
 }
 

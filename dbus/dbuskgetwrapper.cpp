@@ -82,7 +82,7 @@ bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
 
 void DBusKGetWrapper::showNewTransferDialog(const QStringList &urls)
 {
-    NewTransferDialogHandler::showNewTransferDialog(urls, m_mainWindow);
+    NewTransferDialogHandler::showNewTransferDialog(urls);
 }
 
 bool DBusKGetWrapper::dropTargetVisible() const
