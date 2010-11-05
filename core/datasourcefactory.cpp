@@ -960,7 +960,7 @@ void DataSourceFactory::load(const QDomElement *element)
     {
         m_doDownload = QVariant(e.attribute("doDownload")).toBool();
     }
-    if (e.hasAttribute("removeFileOnDeinit")) {
+    if (e.hasAttribute("downloadInitialized")) {
         m_downloadInitialized = QVariant(e.attribute("downloadInitialized")).toBool();
     }
     if (e.hasAttribute("maxMirrorsUsed"))
