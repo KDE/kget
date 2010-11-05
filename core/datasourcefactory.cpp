@@ -201,6 +201,14 @@ void DataSourceFactory::start()
         return;
     }
 
+    //the file already exists, even though DataSourceFactory has not been initialized remove it
+    //to avoid problems like over methods not finished removing it because of a redownload
+    if (!m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
+        kDebug(5001) << "Removing existing file.";
+        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
+    }
+
     m_downloadInitialized = true;
 
     //create all dirs needed
@@ -701,6 +709,9 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
         assignSegments(source);
     }
 }
+
+//TODO implement checks if the correct offsets etc. are used + error recovering e.g. when something else
+//touches the file
 void DataSourceFactory::slotWriteData(KIO::fileoffset_t offset, const QByteArray &data, bool &worked)
 {
     worked = !m_blocked && !m_movingFile && m_open;
