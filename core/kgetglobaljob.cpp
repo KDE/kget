@@ -53,8 +53,7 @@ void KGetGlobalJob::update()
         percent =  0;
   
     emit description(this, "KGet global information", 
-                     qMakePair(QString("source"), i18np("KGet is downloading %1 file", "KGet is downloading %1 files", runningTransfers)),
-                     qMakePair(QString("destination"), QString("to different locations")));
+                      qMakePair(QString("source"), i18np("KGet is downloading %1 file", "KGet is downloading %1 files", runningTransfers)));
 
     emitSpeed(speed);
     setTotalAmount(KJob::Bytes, totalAmount);
