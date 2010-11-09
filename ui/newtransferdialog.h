@@ -89,7 +89,7 @@ class NewTransferDialog : public KDialog
         Ui::NewTransferWidget ui;
         QWidget *m_window;
         QTimer *m_timer;
-        KUrl::List m_sources;//TODO remove if possible
+        KUrl::List m_sources;
 
         //points to a folder if m_multiple otherwise to the destination
         KUrl m_destination;

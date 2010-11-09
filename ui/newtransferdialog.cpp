@@ -112,9 +112,10 @@ void NewTransferDialog::clear()
     ui.listWidget->clear();
     ui.destRequester->comboBox()->clear();
     ui.destRequester->clear();
-    m_existingTransfer = 0;
     ui.groupComboBox->clear();
     m_destination.clear();
+    m_sources.clear();
+    m_existingTransfer = 0;
 
     foreach (TransferGroupHandler *group, KGet::allTransferGroups()) {
         ui.groupComboBox->addItem(KIcon(group->iconName()), group->name());
