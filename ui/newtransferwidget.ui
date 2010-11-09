@@ -24,7 +24,7 @@
       <item>
        <widget class="QLabel" name="error">
         <property name="text">
-         <string extracomment="an error happened in connection with the user input">Error:</string>
+         <string extracomment="an error happened in connection with the user input"/>
         </property>
        </widget>
       </item>

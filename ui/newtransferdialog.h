@@ -20,6 +20,7 @@
 #include "ui_newtransferwidget.h"
 
 class KJob;
+class TransferHandler;
 
 /**
 * Dialog to allow add one or more transfers to kget.
@@ -49,10 +50,12 @@ class NewTransferDialog : public KDialog
 
     private slots:
         void urlChanged(const QString &text);
-        void destUrlChanged(const QString &url);
+        void inputTimer();
+        void checkInput();
+        void slotFinished(int resultCode);
 
     private:
-        explicit NewTransferDialog(QWidget *parent = 0);//TODO make explicit and private?
+        explicit NewTransferDialog(QWidget *parent = 0);
 
         /**
         * Shows the dialog adding one url list transfers
@@ -67,12 +70,6 @@ class NewTransferDialog : public KDialog
          */
         void setMultiple(bool useMultiple);
 
-        KUrl::List sources() const;
-
-        QString destination() const;
-
-        QString transferGroup() const;
-
         /**
          * Set sources to the dialog
          */
@@ -81,19 +78,30 @@ class NewTransferDialog : public KDialog
         void setDestinationFileName(const QString &filename);
         void setDestination(const KUrl::List &sources, const QStringList &list);
 
+        void setWarning(const QString &warning);
+        void setError(const QString &error);
+
+        void dialogAccepted();
+
         void clear();
 
     private:
         Ui::NewTransferWidget ui;
         QWidget *m_window;
-        KUrl::List m_sources;
+        QTimer *m_timer;
+        KUrl::List m_sources;//TODO remove if possible
 
-        QSize m_singleSize;
-        QSize m_multipleSize;
+        //points to a folder if m_multiple otherwise to the destination
+        KUrl m_destination;
 
-        bool m_displayed;//determines whenever the dialog is already displayed or not (to add new sources)
+        TransferHandler *m_existingTransfer;
+
+        QPalette m_error;
+        QPalette m_warning;
+        QBrush m_existingFileBackground;
+        QBrush m_normalBackground;
+
         bool m_multiple;
-        bool m_wrongUrl;//if the specified directory or source is invalid
 };
 
 class NewTransferDialogHandler : public QObject

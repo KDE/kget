@@ -18,19 +18,21 @@
 #include "core/transfertreemodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/plugin/transferfactory.h"
+#include "core/urlchecker.h"
 #include "settings.h"
 
-#include <QWidget>
 #include <QApplication>
 #include <QClipboard>
 #include <QDir>
 #include <QFileInfo>
+#include <QtCore/QTimer>
 
 #include <KLocale>
 #include <QListWidgetItem>
 #include <KColorScheme>
 #include <KDebug>
 #include <KFileDialog>
+#include <KIO/DeleteJob>
 #include <KWindowSystem>
 
 K_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
@@ -39,9 +41,8 @@ K_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 NewTransferDialog::NewTransferDialog(QWidget *parent)
   : KDialog(parent),
     m_window(0),
-    m_displayed(false),
-    m_multiple(false),
-    m_wrongUrl(false)
+    m_existingTransfer(0),
+    m_multiple(false)
 {
     setModal(true);
     setCaption(i18n("New Download"));
@@ -53,10 +54,22 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     enableButtonOk(false);
 
+    //timer to avoid constant checking of the input
+    m_timer = new QTimer(this);
+    m_timer->setInterval(150);
+    m_timer->setSingleShot(true);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(checkInput()));
+
+    //set the palettes for errors and warnings
     KColorScheme scheme(QPalette::Active, KColorScheme::Window);
-    QPalette palette = ui.error->palette();
-    palette.setBrush(QPalette::WindowText, scheme.foreground(KColorScheme::NegativeText));
-    ui.error->setPalette(palette);
+    m_error = ui.error->palette();
+    m_error.setBrush(QPalette::WindowText, scheme.foreground(KColorScheme::NegativeText));
+    m_warning = m_error;
+    m_warning.setBrush(QPalette::WindowText, scheme.foreground(KColorScheme::NeutralText));
+
+    scheme = KColorScheme(QPalette::Active, KColorScheme::View);
+    m_existingFileBackground = scheme.background(KColorScheme::NeutralBackground);
+    m_normalBackground = scheme.background();
 
 
     // properties of the m_destRequester combobox
@@ -71,10 +84,11 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
 
-    //TODO ones urlChecker is in do in the following slots the checking if the urls are correct
-    //then m_wrongUrl could be removed, as well as redisplaying the dialog
-    connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(destUrlChanged(QString)));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(urlChanged(QString)));
+    connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
+    connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
+    connect(ui.listWidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(inputTimer()));
+    connect(this, SIGNAL(finished(int)), this, SLOT(slotFinished(int)));
 }
 
 NewTransferDialog::~NewTransferDialog()
@@ -98,29 +112,14 @@ void NewTransferDialog::clear()
     ui.listWidget->clear();
     ui.destRequester->comboBox()->clear();
     ui.destRequester->clear();
-    m_displayed = false;
+    m_existingTransfer = 0;
     ui.groupComboBox->clear();
+    m_destination.clear();
 
     foreach (TransferGroupHandler *group, KGet::allTransferGroups()) {
         ui.groupComboBox->addItem(KIcon(group->iconName()), group->name());
     }
     ui.groupComboBox->setCurrentIndex(0);
-}
-
-KUrl::List NewTransferDialog::sources() const
-{
-    KUrl::List list;
-    if (m_multiple) {
-        for (int i = 0; i != ui.listWidget->count(); i++) {
-            if (ui.listWidget->item(i)->checkState() == Qt::Checked) {
-                list << KUrl(ui.listWidget->item(i)->text().trimmed());
-            }
-        }
-    } else {
-        list << KUrl(ui.urlRequester->text().trimmed());
-    }
-
-    return list;
 }
 
 void NewTransferDialog::setSource(const KUrl::List &sources)
@@ -132,15 +131,16 @@ void NewTransferDialog::setSource(const KUrl::List &sources)
     if (sources.count() == 1) {
         KUrl m_srcUrl = sources.first().url();
         ui.urlRequester->clear();
-        if (m_srcUrl.isEmpty())
+        if (m_srcUrl.isEmpty()) {
             m_srcUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+        }
 
-        //TODO use  urlChecker here once it is done
-        if (m_srcUrl.isValid() && !m_srcUrl.protocol().isEmpty())
+        if (UrlChecker::checkSource(m_srcUrl) == UrlChecker::NoError) {
             ui.urlRequester->insert(m_srcUrl.prettyUrl());
+        }
     } else {
         foreach (const KUrl &sourceUrl, sources) {
-            if (sourceUrl.url() != KUrl(sourceUrl.url()).fileName()) {//TODO simplify, whatfor is this check anyway, shouldn't the sources be checked already??
+            if (sourceUrl.url() != KUrl(sourceUrl.url()).fileName()) {//TODO simplify, whatfor is this check anyway, shouldn't the sources be checked already and if not add this to UrlChecker
                 kDebug(5001) << "Insert" << sourceUrl;
                 QListWidgetItem *newItem = new QListWidgetItem(sourceUrl.pathOrUrl(), ui.listWidget);
                 newItem->setCheckState(Qt::Checked);
@@ -169,13 +169,13 @@ void NewTransferDialog::setDestination(const KUrl::List &sources, const QStringL
 
     QStringList list = l;
     kDebug(5001) << list;
-    QString filename = destination();
+    QString filename = ui.destRequester->url().prettyUrl();
 
     kDebug(5001) << "Seting destination :multiple=" << m_multiple << " and filename=" << filename;
     if (!m_multiple) {
-        filename = KUrl(ui.urlRequester->text().trimmed()).fileName();
+        filename = m_destination.fileName();
     } else if (!filename.isEmpty()) {
-        filename = KUrl(filename).directory();
+        filename = m_destination.directory();
     }
 
     for (int i = 0; i < list.count(); ++i) {
@@ -212,26 +212,16 @@ void NewTransferDialog::setDestination(const KUrl::List &sources, const QStringL
     }
 }
 
-QString NewTransferDialog::destination() const
-{
-    return ui.destRequester->url().prettyUrl();
-}
-
-QString NewTransferDialog::transferGroup() const
-{
-    return ui.groupComboBox->currentText();
-}
-
 void NewTransferDialog::showDialog(const KUrl::List &list, const QString &suggestedFileName)
 {
-    m_sources << list;
-
     clear();//Let's clear the old stuff
-    kDebug(5001) << "SET SOURCES " << list << " MULTIPLE " << (m_sources.size () > 1);
-    setMultiple(m_sources.size() > 1);
+    m_sources << list;
+    const int size = m_sources.size();
+    kDebug(5001) << "SET SOURCES " << m_sources << " MULTIPLE " << (size > 1);
+    setMultiple(size > 1);
 
-    if (!m_sources.isEmpty()) {
-        if (list.count() == 1 && !suggestedFileName.isEmpty()) {
+    if (size) {
+        if (size == 1 && !suggestedFileName.isEmpty()) {
             setDestinationFileName(suggestedFileName);
         }
 
@@ -257,12 +247,7 @@ void NewTransferDialog::setDefaultDestination()
 
 void NewTransferDialog::prepareDialog()
 {
-    //only set default destination if the previous operation did not result in an error
-    //otherwise the old data should be shown, so that it can be fixed
-    if (!m_wrongUrl) {
-        setDefaultDestination();
-    }
-    ui.errorWidget->setVisible(m_wrongUrl);
+    setDefaultDestination();
 
     if (m_window) {
         KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop, NET::WMDesktop);
@@ -270,78 +255,8 @@ void NewTransferDialog::prepareDialog()
         KWindowSystem::forceActiveWindow(m_window->winId());
     }
 
-    if (!m_displayed) {
-        m_displayed = true;
-        kDebug(5001) << "Exec the dialog!";
-
-        KDialog::exec();
-
-        if (result() == KDialog::Accepted)
-        {
-            QString destDir = destination();
-            m_sources = sources();
-
-            destDir = KUrl(destDir).toLocalFile();
-
-            if (!KGet::isValidDestDirectory(destDir)) {//TODO urlChecker
-                kWarning(5001) << "Invalid dest dir, displaying dialog again.";
-                ui.errorText->setText(i18n("The specified destination directory is not valid."));
-                m_wrongUrl = true;
-                m_displayed = false;
-                prepareDialog();
-                return;
-            }
-
-            QString dir;
-            if (QFileInfo(destDir).isDir())
-                dir = destDir;
-            else
-                dir = KUrl(destDir).directory();
-
-            Settings::setLastDirectory(dir);
-            Settings::self()->writeConfig();
-
-            kDebug(5001) << m_sources;
-
-            QList<KGet::TransferData> data;
-            if (m_sources.count() == 1) {
-                const KUrl sourceUrl = m_sources.takeFirst();
-                if (!KGet::isValidSource(sourceUrl)) {
-                    kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-                    ui.errorText->setText(i18n("The specified source url is not valid."));
-                    m_wrongUrl = true;
-                    m_displayed = false;
-                    prepareDialog();
-                    return;
-                }
-
-                //false means that the user did not want to download it
-                if (KGet::isValidSource(sourceUrl)) {
-                    //empty means that the user aborted it, e.g. because he did not want to overwrite it
-                    const KUrl destUrl = KGet::getValidDestUrl(KUrl(destDir), sourceUrl);
-                    if (!destUrl.isEmpty()) {
-                        data << KGet::TransferData(sourceUrl, destUrl, transferGroup());
-                    }
-                }
-            } else {
-                foreach (const KUrl &sourceUrl, m_sources) {
-                    //empty means that the user aborted it, e.g. because he did not want to overwrite it
-                    const KUrl destUrl = KGet::getValidDestUrl(KUrl(destDir), sourceUrl);
-                    if (!destUrl.isEmpty()) {
-                        data << KGet::TransferData(sourceUrl, destUrl, transferGroup());
-                    }
-                }
-            }
-
-            if (!data.isEmpty()) {
-                KGet::createTransfers(data);
-            }
-        }
-        m_wrongUrl = false;
-
-        m_sources.clear();
-        clear();
-    }
+    kDebug(5001) << "Show the dialog!";
+    show();
 }
 
 /**
@@ -369,25 +284,212 @@ void NewTransferDialog::urlChanged(const QString &text)
         return;
     }
 
-    const QString destUrl = ui.destRequester->text();
     KUrl url(text.trimmed());
-    //if (d->m_destRequester->url()->isEmpty())
-    //    d->setDestination(m_sources, QStringList());
-    if (QFileInfo(ui.destRequester->url().toLocalFile()).isDir())
+    if (QFileInfo(ui.destRequester->url().toLocalFile()).isDir()) {
         setDestinationFileName(url.fileName());
-
-    enableButtonOk(!text.isEmpty() && !destUrl.isEmpty());
-    kDebug() << url << url.fileName() << ui.destRequester->url().fileName();
-}
-
-void NewTransferDialog::destUrlChanged(const QString &url)
-{
-    if (m_multiple) {
-        enableButtonOk(!url.isEmpty());
-    } else {
-        enableButtonOk(!ui.urlRequester->text().isEmpty() && !url.isEmpty());
     }
 }
+
+void NewTransferDialog::inputTimer()
+{
+    enableButtonOk(false);
+    if (!m_timer->isActive()) {
+        m_timer->start();
+    }
+}
+
+void NewTransferDialog::checkInput()
+{
+    const KUrl source = KUrl(ui.urlRequester->text().trimmed());
+    const KUrl dest = ui.destRequester->url();
+
+    //check the destination folder
+    UrlChecker::UrlError error = UrlChecker::checkFolder(dest);
+    const bool folderValid = (error == UrlChecker::NoError);
+    bool destinationValid = false;
+    if (!folderValid) {
+        if (m_multiple) {
+            setError(UrlChecker::message(KUrl(), UrlChecker::Folder, error));
+
+        } else {
+            //might be a destination instead of a folder
+            destinationValid = (UrlChecker::checkDestination(dest) == UrlChecker::NoError);
+        }
+    } else {
+        m_destination = dest;
+    }
+    ui.errorWidget->setVisible(!folderValid && !destinationValid);
+
+    //check the source
+    error = UrlChecker::checkSource(source);
+    const bool sourceValid = (error == UrlChecker::NoError);
+    if (!m_multiple && !sourceValid) {
+        setError(UrlChecker::message(KUrl(), UrlChecker::Source, error));
+        ui.errorWidget->show();
+    }
+
+    //check if any sources are checked and for existing transfers or destinations
+    bool filesChecked = false;
+    if (m_multiple && folderValid) {
+        KListWidget *list = ui.listWidget;
+
+        //check if some sources have been checked
+        for (int i = 0; i < list->count(); ++i) {
+            QListWidgetItem *item = list->item(i);
+            if (item->checkState() == Qt::Checked) {
+                filesChecked = true;
+                break;
+            }
+        }
+        if (!filesChecked) {
+            setError(i18n("You have no source urls selected."));
+            ui.errorWidget->show();
+        }
+
+        //check if there are existing files
+        if (filesChecked) {
+            bool existingFile = false;
+            for (int i = 0; i < list->count(); ++i) {
+                QListWidgetItem *item = list->item(i);
+                const KUrl source = KUrl(item->text());
+                const KUrl destUrl = UrlChecker::destUrl(dest, source);
+                if (UrlChecker::fileExists(destUrl)) {
+                    item->setBackground(m_existingFileBackground);
+                    existingFile = true;
+                } else {
+                    item->setBackground(m_normalBackground);
+                }
+                if (existingFile) {
+                    setWarning(i18n("Files that exist already at the current folder have been marked."));//TODO better message
+                    ui.errorWidget->show();
+                }
+            }
+        }
+    }
+
+    //single file
+    UrlChecker::UrlWarning warning = UrlChecker::NoWarning;
+    if (!m_multiple && sourceValid && (folderValid || destinationValid)) {
+        m_destination = UrlChecker::destUrl(dest, source);
+        ui.errorText->clear();
+        //show only one message for existing transfers
+        m_existingTransfer = UrlChecker::existingTransfer(source, UrlChecker::Source, &warning);
+        if (m_existingTransfer) {
+            setWarning(UrlChecker::message(KUrl(), UrlChecker::Source, warning));
+            ui.errorWidget->show();
+        } else {
+            m_existingTransfer = UrlChecker::existingTransfer(m_destination, UrlChecker::Destination, &warning);
+            if (m_existingTransfer) {
+                setWarning(UrlChecker::message(KUrl(), UrlChecker::Destination, warning));
+                ui.errorWidget->show();
+            }
+        }
+
+        //show the message of overwriting the file in any case
+        if (UrlChecker::fileExists(m_destination)) {
+            QString warning = ui.errorText->text();
+            if (!warning.isEmpty()) {
+                warning += '\n';
+            }
+            warning += UrlChecker::message(KUrl(), UrlChecker::Destination, UrlChecker::ExistingFile);
+            setWarning(warning);
+        }
+    }
+
+    //activate the ok button
+    if (m_multiple) {
+        enableButtonOk(folderValid && filesChecked);
+    } else {
+        enableButtonOk((folderValid || destinationValid) && sourceValid);
+    }
+
+    kDebug(5001) << source << source.fileName() << dest << dest.fileName();
+}
+
+void NewTransferDialog::slotFinished(int resultCode)
+{
+    if (resultCode == KDialog::Accepted) {
+        dialogAccepted();
+    }
+    clear();
+}
+
+void NewTransferDialog::dialogAccepted()
+{
+    kDebug(5001) << "Dialog accepted.";
+
+    //an existing transfer has been specified and since ok was clicked, it was chosen to be overwritten
+    if (m_existingTransfer) {
+        kDebug(5001) << "Removing existing transfer:" << m_existingTransfer;
+        KGet::delTransferSynchronously(m_existingTransfer);
+    }
+
+    //set the last directory
+    QString dir = m_destination.toLocalFile();
+    if (!QFileInfo(dir).isDir()) {
+        dir = m_destination.directory();
+    }
+    Settings::setLastDirectory(dir);
+    Settings::self()->writeConfig();
+
+    const QString group = ui.groupComboBox->currentText();
+
+    ///add data to create transfers
+    QList<KGet::TransferData> data;
+    if (!m_multiple) {
+        //removes m_destination if it exists
+        KIO::Job *del = KIO::del(m_destination, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
+        if (KIO::NetAccess::synchronousRun(del, 0)) {
+            kDebug(5001) << "Removing existing file:" << m_destination;
+        }
+
+        //sourceUrl is valid, has been checked before
+        const KUrl sourceUrl = KUrl(ui.urlRequester->text().trimmed());
+        kDebug(5001) << "Downloading" << sourceUrl << "to" << m_destination;
+        data << KGet::TransferData(sourceUrl, m_destination, group);
+    } else {
+        KUrl::List list;
+        for (int i = 0; i != ui.listWidget->count(); ++i) {
+            QListWidgetItem *item = ui.listWidget->item(i);
+
+            //find selected sources
+            if (item->checkState() == Qt::Checked) {
+                //both sourceUrl and destUrl are valid, they have been tested in checkInput
+                const KUrl sourceUrl = KUrl(item->text().trimmed());
+                const KUrl destUrl = UrlChecker::destUrl(m_destination, sourceUrl);
+                kDebug(5001) << "Downloading" << sourceUrl << "to" << destUrl;
+
+                //file exists already, remove it
+                if (item->background() == m_existingFileBackground) {
+                    kDebug(5001) << "Removing existing file:" << destUrl;
+                    KIO::Job *del = KIO::del(destUrl, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
+                    KIO::NetAccess::synchronousRun(del, 0);
+                }
+
+                data << KGet::TransferData(sourceUrl, destUrl, group);
+            }
+        }
+    }
+
+    if (!data.isEmpty()) {
+        KGet::createTransfers(data);
+    }
+}
+
+void NewTransferDialog::setError(const QString &error)
+{
+    ui.errorText->setText(error);
+    ui.error->setText(i18nc("an error happened in connection with the user input", "Error:"));
+    ui.error->setPalette(m_error);
+}
+
+void NewTransferDialog::setWarning(const QString &warning)
+{
+    ui.errorText->setText(warning);
+    ui.error->setText(i18nc("a warning happened in connection with the user input", "Warning:"));
+    ui.error->setPalette(m_warning);
+}
+
 
 
 /**
@@ -450,11 +552,17 @@ void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
 
     ///More than two urls defined, and last is local and will be used as destination directory
     if (urls.count() > 2 && urls.last().isLocalFile()) {
-        if (!QFileInfo(urls.last().toLocalFile()).isDir()) {
-            folder = urls.last().directory(KUrl::AppendTrailingSlash);
-        } else {
-            folder = urls.last().path(KUrl::AddTrailingSlash);
-        }
+        
+    /**
+     * FIXME should the code be uncommented again, though then inputing a wrong destination like
+     * ~/Downloads/folderNotExisting would result in ~/Downloads/ instead of informing the user
+     * and giving them the possibility to improve their mistake
+     */
+//         if (!QFileInfo(urls.last().toLocalFile()).isDir()) {
+//             folder = urls.last().directory(KUrl::AppendTrailingSlash);
+//         } else {
+            folder = urls.last().path(KUrl::AddTrailingSlash);//checks if that folder is correct happen later
+//         }
         urls.removeLast();
     }
 
@@ -503,19 +611,21 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
     }
 
     KUrl::List urls = (*itUrls).urls;
-    const QString folder = (*itUrls).folder;
-    const QString suggestedFileName = (*itUrls).suggestedFileName;
-
-    KUrl::List::iterator it = urls.begin();
-    while (it != urls.end()) {
-        //TODO urlChecker + multiple questions at ones
-        if (KGet::isValidSource(*it)) {
-            ++it;
-        } else {
-            kDebug(5001) << "Not downloading source:" << (*it);
-            it = urls.erase(it);
-        }
+    QString folder = (*itUrls).folder;
+    if (!folder.isEmpty() && (UrlChecker::checkFolder(KUrl(folder), true) != UrlChecker::NoError)) {
+        folder.clear();
     }
+
+    const QString suggestedFileName = (*itUrls).suggestedFileName;
+    KUrl newDest;
+    const KUrl folderUrl = KUrl(folder);
+
+    //check if the sources are correct
+    UrlChecker check(UrlChecker::Source);
+    check.addUrls(urls);
+    check.displayErrorMessages();
+    check.existingTransfers();
+    urls = check.correctUrls();
 
     QList<KGet::TransferData> data;
 
@@ -527,19 +637,17 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         const QString defaultFolder = (groups.isEmpty() ? QString() : groups.first()->defaultFolder());
 
         if (!folder.isEmpty()) {
-            const KUrl destUrl = KGet::getValidDestUrl(KUrl(folder), sourceUrl);
-            if (destUrl.isEmpty()) {
-                kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-            } else {
-                data << KGet::TransferData(sourceUrl, destUrl, groupName);
+            const KUrl destUrl = UrlChecker::destUrl(KUrl(folder), sourceUrl, suggestedFileName);
+            newDest = check.checkExistingFile(sourceUrl, destUrl);
+            if (!newDest.isEmpty()) {
+                data << KGet::TransferData(sourceUrl, newDest, groupName);
             }
             urls.removeFirst();
-        } else if (!Settings::directoriesAsSuggestion() && KGet::isValidDestDirectory(defaultFolder)) {
-            const KUrl destUrl = KGet::getValidDestUrl(KUrl(defaultFolder), sourceUrl);
-            if (destUrl.isEmpty()) {
-                kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-            } else {
-                data << KGet::TransferData(sourceUrl, destUrl, groupName);
+        } else if (!Settings::directoriesAsSuggestion() && (UrlChecker::checkFolder(KUrl(defaultFolder)) == UrlChecker::NoError)) {
+            const KUrl destUrl = UrlChecker::destUrl(KUrl(folder), sourceUrl, suggestedFileName);
+            newDest = check.checkExistingFile(sourceUrl, destUrl);
+            if (!newDest.isEmpty()) {
+                data << KGet::TransferData(sourceUrl, newDest, groupName);
             }
             urls.removeFirst();
         }
@@ -558,18 +666,15 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             const QStringList patterns = group->regExp().pattern().split(',');
 
             //find all urls where a group can be identified
-            it = urls.begin();
+            KUrl::List::iterator it = urls.begin();
             while (it != urls.end()) {
                 const KUrl sourceUrl = *it;
                 if (KGet::matchesExceptions(sourceUrl, patterns)) {
-                    const KUrl destUrl = KGet::getValidDestUrl(KUrl(folder), sourceUrl);
-                    if (destUrl.isEmpty()) {
-                        kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-                        it = urls.erase(it);
-                        continue;
+                    const KUrl destUrl = UrlChecker::destUrl(folderUrl, sourceUrl);
+                    newDest = check.checkExistingFile(sourceUrl, destUrl);
+                    if (!newDest.isEmpty()) {
+                        data << KGet::TransferData(sourceUrl, newDest, groupName);
                     }
-
-                    data << KGet::TransferData(sourceUrl, destUrl, groupName);
                     it = urls.erase(it);
                 } else {
                     ++it;
@@ -579,13 +684,11 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
 
         //there are still some unhandled urls, i.e. for those no group could be found, add them with an empty group
         foreach (const KUrl &sourceUrl, urls) {
-            const KUrl destUrl = KGet::getValidDestUrl(KUrl(folder), sourceUrl);
-            if (destUrl.isEmpty()) {
-                kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-                continue;
+            const KUrl destUrl = UrlChecker::destUrl(folderUrl, sourceUrl);
+            newDest = check.checkExistingFile(sourceUrl, destUrl);
+            if (!newDest.isEmpty()) {
+                data << KGet::TransferData(sourceUrl, newDest);
             }
-
-            data << KGet::TransferData(sourceUrl, destUrl);
         }
 
         //all urls have been handled
@@ -604,8 +707,8 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
                 break;
             }
 
-            const QString folder = group->defaultFolder();
-            if (!KGet::isValidDestDirectory(folder)) {
+            const KUrl folderUrl = KUrl(group->defaultFolder());
+            if (UrlChecker::checkFolder(folderUrl) != UrlChecker::NoError) {
                 continue;
             }
 
@@ -616,14 +719,12 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             while (it != urls.end()) {
                 const KUrl sourceUrl = *it;
                 if (KGet::matchesExceptions(sourceUrl, patterns)) {
-                    const KUrl destUrl = KGet::getValidDestUrl(KUrl(folder), sourceUrl);
-                    if (destUrl.isEmpty()) {
-                        kWarning(5001) << "Could not create a valid dest url for" << sourceUrl;
-                        it = urls.erase(it);
-                        continue;
+                    const KUrl destUrl = UrlChecker::destUrl(folderUrl, sourceUrl);
+                    newDest = check.checkExistingFile(sourceUrl, destUrl);
+                    if (!newDest.isEmpty()) {
+                        data << KGet::TransferData(sourceUrl, newDest, groupName);
                     }
 
-                    data << KGet::TransferData(sourceUrl, destUrl, groupName);
                     it = urls.erase(it);
                 } else {
                     ++it;
