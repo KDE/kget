@@ -112,6 +112,7 @@ set(kgetcore_SRCS
    dbus/dbusverifierwrapper.cpp
    core/filemodel.cpp
    core/verifier.cpp
+   core/urlchecker.cpp
    core/basedialog.cpp
 )
 

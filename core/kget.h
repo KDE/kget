@@ -69,6 +69,7 @@ class KGET_EXPORT KGet
     friend class NewTransferDialogHandler;
     friend class GenericObserver;
     friend class TransferTreeModel;
+    friend class UrlChecker;
     public:
         enum AfterFinishAction {
             Quit = 0,
