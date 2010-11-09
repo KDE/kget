@@ -115,6 +115,14 @@ void DataSourceFactory::deinit()
     }
 }
 
+void DataSourceFactory::synchronDeinit()
+{
+    if (m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
+        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
+    }
+}
+
 void DataSourceFactory::findFileSize()
 {
     kDebug(5001) << "Find the filesize" << this;

@@ -95,6 +95,12 @@ void BTTransfer::deinit()
     torrentFile.remove();
 }
 
+void BTTransfer::synchronDeinit()
+{
+    deinit();
+}
+
+
 /** Reimplemented functions from Transfer-Class **/
 bool BTTransfer::isStalled() const
 {

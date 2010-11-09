@@ -363,7 +363,22 @@ bool KGet::delTransfer(TransferHandler * transfer)
     return delTransfers(QList<TransferHandler*>() << transfer);
 }
 
-bool KGet::delTransfers(QList<TransferHandler*> handlers)
+bool KGet::delTransferSynchronously(TransferHandler* transfer)
+{
+    return delTransfersSynchronously(QList<TransferHandler*>() << transfer);
+}
+
+bool KGet::delTransfers(const QList<TransferHandler*> &transfers)
+{
+    return delTransfers(transfers, false);
+}
+
+bool KGet::delTransfersSynchronously(const QList<TransferHandler*> &transfers)
+{
+    return delTransfers(transfers, true);
+}
+
+bool KGet::delTransfers(const QList<TransferHandler*> &handlers, bool synchronously)
 {
     if (!m_store) {
         m_store = TransferHistoryStore::getStore();
@@ -378,7 +393,7 @@ bool KGet::delTransfers(QList<TransferHandler*> handlers)
         // TransferHandler deinitializations
         handler->destroy();
         // Transfer deinitializations (the deinit function is called by the destroy() function)
-        transfer->destroy();
+        transfer->destroy(synchronously);
     }
     m_store->saveItems(historyItems);
 
@@ -386,6 +401,7 @@ bool KGet::delTransfers(QList<TransferHandler*> handlers)
     qDeleteAll(transfers);
     return true;
 }
+
 
 void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 {
@@ -400,7 +416,7 @@ void KGet::redownloadTransfer(TransferHandler * transfer)
      QString dest = transfer->dest().url();
      QString destFile = transfer->dest().fileName();
 
-     KGet::delTransfer(transfer);
+     KGet::delTransferSynchronously(transfer);
      KGet::addTransfer(src, dest, destFile, group, true);
 }
 
@@ -1017,7 +1033,7 @@ bool KGet::isValidSource(const KUrl &source)
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
                     == KMessageBox::Yes) {
                 transfer->stop();
-                KGet::delTransfer(transfer->handler());
+                KGet::delTransferSynchronously(transfer->handler());
                 return true;
             }
             else
@@ -1030,7 +1046,7 @@ bool KGet::isValidSource(const KUrl &source)
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
                     == KMessageBox::Yes) {
                 transfer->stop();
-                KGet::delTransfer(transfer->handler());
+                KGet::delTransferSynchronously(transfer->handler());
                 return true;
             }
             else
@@ -1089,7 +1105,7 @@ KUrl KGet::getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl)
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
                     == KMessageBox::Yes) {
                 existingTransferDest->stop();
-                KGet::delTransfer(existingTransferDest->handler());
+                KGet::delTransferSynchronously(existingTransferDest->handler());
                 //start = true;
             } else 
                 return KUrl();

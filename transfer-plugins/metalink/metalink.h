@@ -73,6 +73,7 @@ class Metalink : public Transfer
         void stop();
 
         void deinit();
+        void synchronDeinit();
 
     private Q_SLOTS:
         void metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());

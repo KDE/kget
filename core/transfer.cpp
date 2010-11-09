@@ -88,10 +88,14 @@ void Transfer::create()
     init();
 }
 
-void Transfer::destroy()
+void Transfer::destroy(bool synchronDeinit)
 {
-    deinit();
-    
+    if (synchronDeinit) {
+        this->synchronDeinit();
+    } else {
+        deinit();
+    }
+
 #ifdef HAVE_NEPOMUK
     nepomukHandler()->deinit();
 #endif //HAVE_NEPOMUK

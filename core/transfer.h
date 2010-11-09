@@ -114,7 +114,7 @@ class KGET_EXPORT Transfer : public Job
          * to deinit(), this isn't a virtual function and is not meant to be used in
          * transfer plugins
          */
-        void destroy();
+        void destroy(bool synchronDeinit = false);
         
         /**
          * This function is called after the creation of a Transfer
@@ -127,8 +127,13 @@ class KGET_EXPORT Transfer : public Job
          * This function is called before the deletion of a Transfer
          * In transfer plugins you can put here whatever needs to be deinitialized
          */
-        virtual void deinit() {}        
-        
+        virtual void deinit() {}
+
+        /**
+         * Same as deinit, only that it will remove files synchronously where possible
+         */
+        virtual void synchronDeinit() {}
+
         /**
          * Tries to repair file
          * @param file the file of a download that should be repaired,

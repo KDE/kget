@@ -65,6 +65,14 @@ void TransferMultiSegKio::deinit()
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
+void TransferMultiSegKio::synchronDeinit()
+{
+    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
+    {
+        m_dataSourceFactory->synchronDeinit();
+    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
+}
+
 void TransferMultiSegKio::start()
 {
     kDebug(5001) << "Start TransferMultiSegKio";

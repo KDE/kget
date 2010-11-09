@@ -62,6 +62,12 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void deinit();
 
         /**
+         * Same as deinit, only that all file removals are done synchronously
+         * @see deinit
+         */
+        void synchronDeinit();
+
+        /**
          * @return true if the DataSourceFactory has enough information to start a download
          */
         bool isValid() const;

@@ -296,6 +296,26 @@ void Metalink::deinit()
 #endif //HAVE_NEPOMUK
 }
 
+void Metalink::synchronDeinit()
+{
+    foreach (DataSourceFactory *factory, m_dataSourceFactory) {
+        if ((factory->status() != Job::Finished) && (factory->status() != Job::FinishedKeepAlive)) {
+            factory->synchronDeinit();
+        }
+    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
+
+    if (m_localMetalinkLocation.isLocalFile())
+    {
+        KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
+    }
+
+#ifdef HAVE_NEPOMUK
+    nepomukHandler()->deinit();
+#endif //HAVE_NEPOMUK
+}
+
+
 void Metalink::stop()
 {
     kDebug(5001) << "metalink::Stop";
