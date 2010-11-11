@@ -194,15 +194,27 @@ void KGetPlugin::getLinks(bool selectedOnly)
         if (selector) {
             m_linkList.clear();
             const QUrl baseUrl = htmlExtn->baseUrl();
+            const QString query = QL1S("a[href], img[src], audio[src], video[src], embed[src], object[data]");
             const KParts::SelectorInterface::QueryMethod method = (selectedOnly ? KParts::SelectorInterface::SelectedContent:
                                                                                   KParts::SelectorInterface::EntireContent);
-            const QList<KParts::SelectorInterface::Element> elements = selector->querySelectorAll(QL1S("a[href], img[src]"), method);
+            const QList<KParts::SelectorInterface::Element> elements = selector->querySelectorAll(query, method);
+            QString attr;
             Q_FOREACH(const KParts::SelectorInterface::Element& element, elements) {
-                const QString attr = (element.hasAttribute(QL1S("href")) ? QL1S("href") : QL1S("src"));
+                if (element.hasAttribute(QL1S("href")))
+                    attr = QL1S("href");
+                else if (element.hasAttribute(QL1S("src")))
+                    attr = QL1S("src");
+                else if (element.hasAttribute(QL1S("data")))
+                    attr = QL1S("data");
                 const KUrl resolvedUrl (baseUrl.resolved(element.attribute(attr)));
-                // Only select valid and non local links for download...
-                if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty())
-                    m_linkList << resolvedUrl.url();
+                // Only select valid and non-local links for download...
+                if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty()) {
+                    if (element.hasAttribute(QL1S("type")))
+                        m_linkList << QString(QL1S("url ") + resolvedUrl.url() + QL1S(" type ") + element.attribute(attr));
+                    else
+                        m_linkList << resolvedUrl.url();
+
+                }
             }
         }
         slotImportLinks();
@@ -217,8 +229,12 @@ void KGetPlugin::getLinks(bool selectedOnly)
         Q_FOREACH(const KFileItem& item, items) {
             const KUrl url = item.url();
             // Only select valid and non local links for download...
-            if (item.isReadable() && item.isFile() && !item.isLocalFile() && !url.host().isEmpty())
-                m_linkList << url.url();
+            if (item.isReadable() && item.isFile() && !item.isLocalFile() && !url.host().isEmpty()) {
+                if (item.mimetype().isEmpty())
+                    m_linkList << url.url();
+                else
+                    m_linkList << QString(QL1S("url ") + url.url() + QL1S(" type ") + item.mimetype());
+            }
         }
         slotImportLinks();
     }

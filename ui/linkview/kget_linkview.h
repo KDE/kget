@@ -30,7 +30,7 @@ public:
     ~KGetLinkView();
 
     // void setLinks( QList<LinkItem*>& links );
-    void setLinks(const QList <QString> &links);
+    void setLinks(const QStringList &links);
     void setPageUrl( const QString& url );
     void importUrl(const QString &url = QString());
 
@@ -56,11 +56,11 @@ private slots:
 
 private:
     void checkClipboard();
-    void showLinks( const QList<QString>& links );
+    void showLinks( const QStringList &links );
 
     Ui::ImportLinkDialog ui;
     KGetSortFilterProxyModel *m_proxyModel;
-    QList<QString> m_links;
+    QStringList m_links;
     LinkImporter *m_linkImporter;
 };
 

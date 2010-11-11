@@ -113,18 +113,13 @@ void KGetLinkView::checkClipboard()
     }
 }
 
-void KGetLinkView::setLinks(const QList <QString> &links)
+void KGetLinkView::setLinks(const QStringList &links)
 {
-    m_links.clear();
-    foreach(const QString &link, links)
-    {
-        m_links << link;
-    }
-
+    m_links = links;
     showLinks(m_links);
 }
 
-void KGetLinkView::showLinks( const QList<QString>& links )
+void KGetLinkView::showLinks( const QStringList &links )
 {
     QStandardItemModel *model = new QStandardItemModel(0, 5, this);
 
@@ -136,27 +131,48 @@ void KGetLinkView::showLinks( const QList<QString>& links )
 
     foreach (const QString &linkitem, links)
     {
-        KUrl url(linkitem);
-        QString file = url.fileName();
-        if (file.isEmpty())
-        {
-            file = QString(url.host());
+        KUrl url;
+        KMimeType::Ptr mt;
+
+        if (linkitem.contains(QLatin1String("url "), Qt::CaseInsensitive) &&
+            linkitem.contains(QLatin1String("type "), Qt::CaseInsensitive)) {
+            const QStringList items = linkitem.split(QLatin1Char(' '), QString::SkipEmptyParts);
+            const int count = items.count();
+            int index = items.indexOf(QLatin1String("url"));
+            if (index > -1 && index+1 < count)
+                url = items.at(index+1);
+            index = items.indexOf(QLatin1String("type"));
+            if (index > -1 && index+1 < count)
+                mt = KMimeType::mimeType(items.at(index+1));
+        } else {
+            url = linkitem;
+            mt = KMimeType::findByUrl(linkitem, 0, true, true);
         }
 
-        KMimeType::Ptr mt = KMimeType::findByUrl(linkitem, 0, true, true);
+        qDebug() << Q_FUNC_INFO << linkitem;
+        
+        QString file = url.fileName();
+        if (file.isEmpty())
+            file = QString(url.host());
 
-        QList<QStandardItem*> items;
+        QString mimeTypeName, mimeTypeIcon, mimeTypeComment;
+        if (mt) {
+            mimeTypeName = mt->name();
+            mimeTypeIcon = mt->iconName();
+            mimeTypeComment = mt->comment();
+        }
 
         QStandardItem *item = new QStandardItem(file);
-        item->setIcon(KIcon(mt->iconName()));
+        item->setIcon(KIcon(mimeTypeIcon));
         item->setCheckable(true);
         item->setData(QVariant(url.fileName()), Qt::DisplayRole);
-        item->setData(QVariant(mt->name()), Qt::UserRole); // used for filtering DownloadFilterType
+        item->setData(QVariant(mimeTypeName), Qt::UserRole); // used for filtering DownloadFilterType
 
+        QList<QStandardItem*> items;        
         items << new QStandardItem(QString::number(model->rowCount()));
         items << item;
         items << new QStandardItem();
-        items << new QStandardItem(mt->comment());
+        items << new QStandardItem(mimeTypeComment);
         items << new QStandardItem(url.prettyUrl());
 
         model->insertRow(model->rowCount(), items);
