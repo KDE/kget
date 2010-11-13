@@ -301,7 +301,7 @@ void NewTransferDialog::inputTimer()
 
 void NewTransferDialog::checkInput()
 {
-    const KUrl source = KUrl(ui.urlRequester->text().trimmed());
+    KUrl source = KUrl(ui.urlRequester->text().trimmed());
     const KUrl dest = ui.destRequester->url();
 
     //check the destination folder
@@ -322,6 +322,9 @@ void NewTransferDialog::checkInput()
     ui.errorWidget->setVisible(!folderValid && !destinationValid);
 
     //check the source
+    if (!m_multiple) {
+        source = KIO::NetAccess::mostLocalUrl(source, 0);
+    }
     error = UrlChecker::checkSource(source);
     const bool sourceValid = (error == UrlChecker::NoError);
     if (!m_multiple && !sourceValid) {
