@@ -451,7 +451,7 @@ class KGET_EXPORT KGet
 #endif
 };
 
-class KGet::TransferData
+class KGET_EXPORT KGet::TransferData
 {
     public:
         TransferData(const KUrl &src, const KUrl &dest, const QString &groupName = QString(), bool start = false, const QDomElement *e = 0);
