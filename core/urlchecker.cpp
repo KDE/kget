@@ -49,6 +49,31 @@ UrlChecker::~UrlChecker()
 
 ///Static methods following
 
+inline bool lessThan(const KUrl &x, const KUrl &y)
+{
+    return x.url() < y.url();
+}
+
+void UrlChecker::removeDuplicates(KUrl::List &urls)
+{
+    //sort the urls, to find duplicates fast
+    qSort(urls.begin(), urls.end(), lessThan);
+
+    KUrl::List::iterator it = urls.begin();
+    KUrl::List::iterator itEnd = urls.end();
+    KUrl::List::iterator itFoward = it + 1;
+    while ((it != itEnd) && (itFoward != itEnd)) {
+        //urls are the same, remove one
+        if ((*it).equals(*itFoward, KUrl::CompareWithoutTrailingSlash | KUrl::AllowEmptyPath)) {
+            it = urls.erase(it);
+            ++itFoward;
+        } else {
+            ++it;
+            ++itFoward;
+        }
+    }
+}
+
 UrlChecker::UrlError UrlChecker::checkUrl(const KUrl &url, const UrlChecker::UrlType type, bool showNotification)
 {
     switch (type) {

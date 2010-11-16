@@ -615,6 +615,8 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
     }
 
     KUrl::List urls = (*itUrls).urls;
+    UrlChecker::removeDuplicates(urls);
+
     QString folder = (*itUrls).folder;
     if (!folder.isEmpty() && (UrlChecker::checkFolder(KUrl(folder), true) != UrlChecker::NoError)) {
         folder.clear();

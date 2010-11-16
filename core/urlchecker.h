@@ -50,6 +50,11 @@ class KGET_EXPORT UrlChecker
         explicit UrlChecker(UrlType type);
         ~UrlChecker();
 
+        /**
+         * Removes duplicates of a list of urls
+         */
+        static void removeDuplicates(KUrl::List &urls);
+
         //NOTE only first found error is reported, i.e. NotWriteable before ExistingFile if both are the case
         enum UrlError {
             //General
