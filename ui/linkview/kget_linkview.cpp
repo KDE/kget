@@ -49,6 +49,8 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
+    
+    m_proxyModel->setShowWebContent(ui.showWebContent->isChecked());
 
     // set the Icons
     ui.importLinks->setIcon(KIcon("document-import"));
