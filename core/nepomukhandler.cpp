@@ -65,17 +65,20 @@ void NepomukHandler::saveFileProperties()
 
         //just adds one Hash as otherwise it would not be clear in KFileMetaDataWidget which hash belongs
         //to which algorithm
-        QPair<QString, QString> checksum = m_transfer->verifier(destination)->availableChecksum(Verifier::Strongest);
-        QString hashType = checksum.first;
-        QString hash = checksum.second;
-        if (!hashType.isEmpty() && !hash.isEmpty()) {
-            //use the offical names, i.e. uppercase and in the case of SHA with a '-'
-            hashType = hashType.toUpper();
-            if (hashType.contains(QRegExp("^SHA\\d+"))) {
-                hashType.insert(3, '-');
+        Verifier *verifier = m_transfer->verifier(destination);
+        if (verifier) {
+            const QPair<QString, QString> checksum = verifier->availableChecksum(Verifier::Strongest);
+            QString hashType = checksum.first;
+            const QString hash = checksum.second;
+            if (!hashType.isEmpty() && !hash.isEmpty()) {
+                //use the offical names, i.e. uppercase and in the case of SHA with a '-'
+                hashType = hashType.toUpper();
+                if (hashType.contains(QRegExp("^SHA\\d+"))) {
+                    hashType.insert(3, '-');
+                }
+                properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashAlgorithm(), Nepomuk::Variant(hashType)));
+                properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashValue(), Nepomuk::Variant(hash)));
             }
-            properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashAlgorithm(), Nepomuk::Variant(hashType)));
-            properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashValue(), Nepomuk::Variant(hash)));
         }
 
         KGet::nepomukController()->setProperties(QList<KUrl>() << destination, properties);
