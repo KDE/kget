@@ -85,6 +85,9 @@ void TransfersView::setModel(QAbstractItemModel * model)
         header()->restoreState(loadedState);
     }
 
+    //FIXME without this line no header actions would be there, though the order of the columns, their size and if they are hidden still isn't stored
+    header()->setRootIndex(QModelIndex());//HACK
+
     populateHeaderActions();
     toggleMainGroup();
     connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT (toggleMainGroup()));
