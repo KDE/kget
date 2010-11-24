@@ -298,6 +298,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
          */
         bool m_sizeInitiallyDefined;
 
+        /**
+         * Downloadsize has only been found out once the download was finished
+         */
+        bool m_sizeFoundOnFinish;
+
         int m_maxMirrorsUsed;
         QHash<KUrl, TransferDataSource*> m_sources;
         QList<KUrl> m_unusedUrls;
