@@ -52,6 +52,7 @@ TransfersView::TransfersView(QWidget * parent)
     connect(header(), SIGNAL(customContextMenuRequested(const QPoint &)),
                       SLOT(slotShowHeaderMenu(const QPoint &)));
     connect(header(), SIGNAL(sectionMoved(int,int,int)), this, SLOT(slotSectionMoved(int,int,int)));
+    connect(header(), SIGNAL(sectionResized(int,int,int)), this, SLOT(slotSaveHeader()));
     connect(this,     SIGNAL(doubleClicked(const QModelIndex &)),
             this,     SLOT(slotItemActivated(const QModelIndex &)));
     connect(this,     SIGNAL(collapsed(const QModelIndex &)),
@@ -62,14 +63,11 @@ TransfersView::TransfersView(QWidget * parent)
 
 TransfersView::~TransfersView()
 {
-    Settings::setHeaderState(header()->saveState().toBase64());
-    Settings::self()->writeConfig();
 }
 
 void TransfersView::setModel(QAbstractItemModel * model)
 {
     QTreeView::setModel(model);
-
     int nGroups = model->rowCount(QModelIndex());
 
     for(int i = 0; i < nGroups; i++)
@@ -85,8 +83,8 @@ void TransfersView::setModel(QAbstractItemModel * model)
         header()->restoreState(loadedState);
     }
 
-    //FIXME without this line no header actions would be there, though the order of the columns, their size and if they are hidden still isn't stored
-    header()->setRootIndex(QModelIndex());//HACK
+    //Workaround if the saved headerState is corrupted
+    header()->setRootIndex(QModelIndex());
 
     populateHeaderActions();
     toggleMainGroup();
@@ -153,6 +151,7 @@ void TransfersView::slotHideSection(int logicalIndex)
 {
     const bool hide = !header()->isSectionHidden(logicalIndex);
     header()->setSectionHidden(logicalIndex, hide);
+    slotSaveHeader();
 }
 
 void TransfersView::slotSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex)
@@ -176,6 +175,13 @@ void TransfersView::slotSectionMoved(int logicalIndex, int oldVisualIndex, int n
     QAction *action = actions[oldVisualIndex];
     m_headerMenu->removeAction(action);
     m_headerMenu->insertAction(before, action);
+    slotSaveHeader();
+}
+
+void TransfersView::slotSaveHeader()
+{
+    Settings::setHeaderState(header()->saveState().toBase64());
+    Settings::self()->writeConfig();
 }
 
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )

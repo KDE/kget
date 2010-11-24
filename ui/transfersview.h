@@ -47,6 +47,7 @@ class TransfersView : public QTreeView
         void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
         void slotHideSection(int logicalIndex);
         void slotSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
+        void slotSaveHeader();
 
     private:
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
