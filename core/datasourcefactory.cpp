@@ -58,6 +58,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const KUrl &dest, KIO::fil
     m_finished(false),
     m_downloadInitialized(false),
     m_sizeInitiallyDefined(m_size),
+    m_sizeFoundOnFinish(false),
     m_maxMirrorsUsed(3),
     m_speedTimer(0),
     m_status(Job::Stopped),
@@ -970,6 +971,7 @@ void DataSourceFactory::load(const QDomElement *element)
         m_maxMirrorsUsed = (worked ? m_maxMirrorsUsed : 3);
     }
     m_sizeInitiallyDefined = QVariant(e.attribute("sizeInitiallyDefined", "false")).toBool();
+    m_sizeFoundOnFinish = QVariant(e.attribute("sizeFoundOnFinish", "false")).toBool();
 
     //load the finishedChunks
     const QDomElement chunks = e.firstChildElement("chunks");
@@ -1051,6 +1053,7 @@ void DataSourceFactory::changeStatus(Job::Status status)
             }
             else if (m_downloadedSize)
             {
+                m_sizeFoundOnFinish = true;
                 m_size = m_downloadedSize;
                 emit totalSize(m_size);
             }
@@ -1095,8 +1098,7 @@ void DataSourceFactory::save(const QDomElement &element)
     QDomElement factory = doc.createElement("factory");
     factory.setAttribute("dest", m_dest.url());
 
-    if (!m_finishedChunks)
-    {
+    if (!m_finishedChunks || m_sizeFoundOnFinish) {
         factory.setAttribute("processedSize", m_downloadedSize);
     }
     factory.setAttribute("size", m_size);
@@ -1106,13 +1108,13 @@ void DataSourceFactory::save(const QDomElement &element)
     factory.setAttribute("downloadInitialized", m_downloadInitialized);
     factory.setAttribute("maxMirrorsUsed", m_maxMirrorsUsed);
     factory.setAttribute("sizeInitiallyDefined", m_sizeInitiallyDefined);
+    factory.setAttribute("sizeFoundOnFinish", m_sizeFoundOnFinish);
 
     verifier()->save(factory);
     signature()->save(factory);
 
-    //set the finished chunks
-    if (m_finishedChunks)
-    {
+    //set the finished chunks, but only if chunks were actually used
+    if (m_finishedChunks && !m_sizeFoundOnFinish) {
         const KIO::fileoffset_t rest = m_size % m_segSize;
         //the lastSegsize is rest, but only if there is a rest and it is the last segment of the download
         const KIO::fileoffset_t lastSegSize = (rest ? rest : m_segSize);
