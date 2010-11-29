@@ -61,7 +61,6 @@
     #include <QDBusInterface>
     #include <QDBusPendingCall>
     #include <kworkspace/kworkspace.h>
-    #include <solid/control/powermanager.h>
     #include <solid/powermanagement.h>
 #endif
 
@@ -1527,15 +1526,21 @@ void GenericObserver::slotAfterFinishAction()
                         KWorkSpace::ShutdownModeForceNow);
             break;
         case KGet::Hibernate: {
-            QDBusConnection dbus(QDBusConnection::sessionBus());
-            QDBusInterface iface("org.kde.kded", "/modules/powerdevil", "org.kde.PowerDevil", dbus);
-            iface.asyncCall("suspend", Solid::Control::PowerManager::ToDisk);
+           QDBusMessage call;
+           call = QDBusMessage::createMethodCall("org.kde.Solid.PowerManagement",
+                                                 "/org/kde/Solid/PowerManagement",
+                                                 "org.kde.Solid.PowerManagement",
+                                                 "suspendToRam");
+           QDBusConnection::sessionBus().asyncCall(call);
             break;
         }
         case KGet::Suspend: {
-            QDBusConnection dbus(QDBusConnection::sessionBus());
-            QDBusInterface iface("org.kde.kded", "/modules/powerdevil", "org.kde.PowerDevil", dbus);
-            iface.asyncCall("suspend", Solid::Control::PowerManager::ToRam);
+           QDBusMessage call;
+           call = QDBusMessage::createMethodCall("org.kde.Solid.PowerManagement",
+                                                 "/org/kde/Solid/PowerManagement",
+                                                 "org.kde.Solid.PowerManagement",
+                                                 "suspendToDisk");
+           QDBusConnection::sessionBus().asyncCall(call);
             break;
         }
     #endif
