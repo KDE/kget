@@ -346,7 +346,7 @@ void NewTransferDialog::checkInput()
             }
         }
         if (!filesChecked) {
-            setError(i18n("You have no source urls selected."));
+            setError(i18n("You have no source URLs selected."));
             ui.errorWidget->show();
         }
 
@@ -364,7 +364,7 @@ void NewTransferDialog::checkInput()
                     item->setBackground(m_normalBackground);
                 }
                 if (existingFile) {
-                    setWarning(i18n("Files that exist already at the current folder have been marked."));//TODO better message
+                    setWarning(i18n("Files that exist already in the current folder have been marked."));//TODO better message
                     ui.errorWidget->show();
                 }
             }
