@@ -69,23 +69,32 @@ kt::Monitor* BTTransferHandler::torrentMonitor() const
 
 void BTTransferHandler::createScanDlg()
 {
+    kDebug() << "Create a scan dialog";
     if (!torrentControl())
         return;
     kDebug(5001);
+#if LIBKTORRENT_VERSION < 0x010100
     if (scanDlg)
     {
         scanDlg->stop();
         scanDlg->close();
     }
+#endif
 
-    scanDlg = new kt::ScanDlg(false, 0);
+#if LIBKTORRENT_VERSION >= 0x010100
+kDebug() << "Our version.h";
+    m_transfer->torrentControl()->startDataCheck(this);//TODO: Maybe start/stop it
+#else
+    scanDlg = new kt::ScanDlg(0);
     scanDlg->show();
     scanDlg->execute(torrentControl(), false);
     connect(scanDlg, SIGNAL(finished(int)), SLOT(removeScanDlg()));
+#endif
 }
-
+#if LIBKTORRENT_VERSION < 0x010100
 void BTTransferHandler::removeScanDlg()
 {
     kDebug(5001);
     scanDlg = 0;
 }
+#endif

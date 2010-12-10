@@ -14,6 +14,7 @@
 #include "bttransfer.h"
 #include "core/transferhandler.h"
 #include <torrent/torrentcontrol.h>
+#include <version.h>
 
 class Scheduler;
 
@@ -44,7 +45,7 @@ class BTTransferHandler : public TransferHandler
         bool ready() const                              {return m_transfer->ready();}
 
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
-	kt::Monitor* torrentMonitor() const;
+        kt::Monitor* torrentMonitor() const;
 
     public slots:
         void createAdvancedDetails();
@@ -52,7 +53,9 @@ class BTTransferHandler : public TransferHandler
 
     private slots:
         void removeAdvancedDetails();
+#if LIBKTORRENT_VERSION < 0x010100
         void removeScanDlg();
+#endif
 
     private:
         BTTransfer * m_transfer;

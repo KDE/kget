@@ -26,13 +26,93 @@
 #include <util/error.h>
 #include <util/log.h>
 #include <interfaces/torrentinterface.h>
-
 using namespace bt;
 
 namespace kt
 {
-	ScanDlg::ScanDlg(bool auto_import,QWidget* parent) 
-		: KDialog(parent),bt::DataCheckerListener(auto_import),mutex(QMutex::Recursive)
+#if LIBKTORRENT_VERSION >= 0x010100
+	ScanDlg::ScanDlg(KJob *job, QWidget* parent)
+    : KDialog(parent), m_job(static_cast<Job*>(job))
+    {
+        setButtons(KDialog::None);
+        Ui::ScanDlgBase ui;
+        QWidget *widget = new QWidget(this);
+        ui.setupUi(widget);
+        setMainWidget(widget);
+        m_torrent_label = ui.torrent_label;
+        m_chunks_found = ui.chunks_found;
+        m_chunks_failed = ui.chunks_failed;
+        m_chunks_downloaded = ui.chunks_downloaded;
+        m_chunks_not_downloaded = ui.chunks_not_downloaded;
+        m_progress = ui.progress;
+        m_cancel = ui.cancel;
+        m_cancel->setGuiItem(KStandardGuiItem::cancel());
+        connect(m_cancel,SIGNAL(clicked()),this,SLOT(reject()));
+        m_progress->setMaximum(100);
+        m_progress->setValue(0);
+        connect(m_job, SIGNAL(description(KJob *, QString, QPair<QString, QString >, QPair< QString, QString >)),
+                       SLOT(description(KJob *, QString, QPair<QString, QString >, QPair< QString, QString >)));
+        connect(m_job, SIGNAL(result(KJob *)),
+                       SLOT(result(KJob *)));
+        connect(m_job, SIGNAL(percent(KJob *, unsigned long)),
+                       SLOT(percent(KJob *, unsigned long)));
+    }
+    ScanDlg::~ScanDlg()
+    {
+    }
+     
+	void ScanDlg::closeEvent(QCloseEvent* )
+	{
+        if (m_job) {
+            m_job->kill(false);
+            m_job = 0;
+        }
+		else
+		        accept();
+	}
+
+	void ScanDlg::reject()
+	{
+		if (m_job) {
+			m_job->kill(false);
+            m_job = 0;
+        }
+		KDialog::reject();
+		deleteLater();
+	}
+
+	void ScanDlg::accept()
+	{
+		KDialog::accept();
+		deleteLater();
+	}
+
+	void ScanDlg::description(KJob *job, const QString &title, const QPair<QString, QString > &field1, const QPair< QString, QString > &field2)
+	{
+		m_chunks_found->setText(field1.first);
+		m_chunks_failed->setText(field1.second);
+		m_chunks_downloaded->setText(field1.first);
+		m_chunks_not_downloaded->setText(field2.second);
+	}
+	
+	void ScanDlg::result(KJob *job)
+	{
+        if (job->error() && job->error() != KIO::ERR_USER_CANCELED) {
+            KMessageBox::error(0,i18n("Error scanning data: %1",job->errorString()));
+        }
+	    m_job = 0;
+        m_progress->setValue(100);
+        disconnect(m_cancel,SIGNAL(clicked()),this,SLOT(reject()));
+        connect(m_cancel,SIGNAL(clicked()),this,SLOT(accept()));
+	}
+	
+	void ScanDlg::percent(KJob *job, unsigned long percent)
+	{
+	        m_progress->setValue(percent);
+	}
+#else
+	ScanDlg::ScanDlg(QWidget* parent) 
+		: KDialog(parent),bt::DataCheckerListener(false),mutex(QMutex::Recursive)
 	{
 		setButtons(KDialog::None);
 		Ui::ScanDlgBase ui;
@@ -203,6 +283,7 @@ namespace kt
 		m_chunks_downloaded->setText(QString::number(num_downloaded));
 		m_chunks_not_downloaded->setText(QString::number(num_not_downloaded));
 	}
+#endif
 }
 
 #include "scandlg.moc"

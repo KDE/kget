@@ -24,7 +24,12 @@
 #include <QTimer>
 #include <QMutex>
 #include <KDialog>
+#include <version.h>
+#if LIBKTORRENT_VERSION >= 0x010100
+#include <torrent/job.h>
+#else
 #include <datachecker/datacheckerlistener.h>
+#endif
 #include "ui_scandlg.h"
 
 namespace bt
@@ -36,11 +41,43 @@ namespace kt
 {
 	class TorrentInterface;
 
+#if LIBKTORRENT_VERSION >= 0x010100
+	class ScanDlg : public KDialog
+	{
+		Q_OBJECT
+	public:
+		ScanDlg(KJob *job, QWidget* parent);
+		virtual ~ScanDlg();
+
+	protected:
+		/// Handle the close event
+		virtual void closeEvent(QCloseEvent* e);
+     
+	protected slots:
+		virtual void reject();
+		virtual void accept();
+		
+	private slots:
+	        void description(KJob *job, const QString &title, const QPair<QString, QString > &field1, const QPair< QString, QString > &field2);
+		void result(KJob *job);
+		void percent(KJob *job, unsigned long percent);
+
+	private:
+		bt::Job * m_job;
+		QProgressBar *m_progress;
+		KPushButton *m_cancel;
+		QLabel *m_torrent_label;
+		QLabel *m_chunks_failed;
+		QLabel *m_chunks_found;
+		QLabel *m_chunks_not_downloaded;
+		QLabel *m_chunks_downloaded;
+	};
+#else
 	class ScanDlg : public KDialog,public bt::DataCheckerListener
 	{
 		Q_OBJECT
 	public:
-		ScanDlg(bool auto_import,QWidget* parent);
+		ScanDlg(QWidget* parent);
 		virtual ~ScanDlg();
 
 		/// Starts the scan threadvent(QC
@@ -91,6 +128,7 @@ namespace kt
 		QLabel *m_chunks_not_downloaded;
 		QLabel *m_chunks_downloaded;
 	};
+#endif
 }
 
 #endif
