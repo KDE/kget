@@ -210,7 +210,7 @@ void KGetPlugin::getLinks(bool selectedOnly)
                 // Only select valid and non-local links for download...
                 if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty()) {
                     if (element.hasAttribute(QL1S("type")))
-                        m_linkList << QString(QL1S("url ") + resolvedUrl.url() + QL1S(" type ") + element.attribute(attr));
+                        m_linkList << QString(QL1S("url ") + resolvedUrl.url() + QL1S(" type ") + element.attribute(QL1S("type")));
                     else
                         m_linkList << resolvedUrl.url();
 
