@@ -425,7 +425,13 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
 {
     Q_UNUSED(option)
 
-    TransferTreeModel * transferTreeModel = KGet::model();
+    TransferTreeModel *transferTreeModel = KGet::model();
+    ModelItem *item = transferTreeModel->itemFromIndex(index);
+
+    if (!item) {
+        kWarning(5001) << "Sizehint for non-existing item.";
+        return QSize();
+    }
 
     if (transferTreeModel->itemFromIndex(index)->isGroup())
     {
