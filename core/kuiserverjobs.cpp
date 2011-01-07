@@ -32,9 +32,7 @@ KUiServerJobs::~KUiServerJobs()
         unregisterJob(m_registeredJobs.begin().value(), m_registeredJobs.begin().key());
     }
 
-    if(m_globalJob) {
-        delete m_globalJob;
-    }
+    delete m_globalJob;
 }
 
 void KUiServerJobs::settingsChanged()
