@@ -109,11 +109,7 @@ void Transfer::init()//TODO think about e, maybe not have it at all in the const
 #ifdef HAVE_NEPOMUK
 void Transfer::setNepomukHandler(NepomukHandler *handler)
 {
-    if (m_nepomukHandler)
-    {
-        delete(m_nepomukHandler);
-        m_nepomukHandler = 0;
-    }
+    delete(m_nepomukHandler);
     m_nepomukHandler = handler;
 }
 #endif //HAVE_NEPOMUK
