@@ -583,7 +583,7 @@ bool KGetMetalink::File::isValidNameAttribute() const
         return false;
     }
 
-    if (name.contains(QRegExp("$(\\.\\.?)?/")) || name.contains("/../") || name.endsWith("/..")) {
+    if (name.contains(QRegExp("$(\\.\\.?)?/")) || name.contains("/../") || name.endsWith(QLatin1String("/.."))) {
         kError(5001) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
         return false;
     }
@@ -1270,9 +1270,9 @@ bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::M
 
     QDomDocument doc;
     QString fileName = destination.fileName();
-    if (fileName.endsWith("meta4")) {
+    if (fileName.endsWith(QLatin1String("meta4"))) {
         doc = metalink->save();
-    } else if (fileName.endsWith("metalink")) {
+    } else if (fileName.endsWith(QLatin1String("metalink"))) {
         Metalink_v3 metalink_v3;
         metalink_v3.setMetalink(*metalink);
         doc = metalink_v3.save();

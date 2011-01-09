@@ -499,7 +499,7 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
 void MainWindow::slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
 {
     bool update = false;
-    foreach (TransferGroup::ChangesFlags groupFlags, groups)
+    foreach (const TransferGroup::ChangesFlags &groupFlags, groups)
     {
         if (groupFlags & TransferGroup::Gc_Percent)
         {

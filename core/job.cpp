@@ -24,8 +24,6 @@ Job::Job(Scheduler * scheduler, JobQueue * parent)
       m_policy(None)
 {
     m_error.id = -1;
-    m_error.text = QString();
-    m_error.pixmap = QPixmap();
     m_error.type = AutomaticRetry;
 }
 
@@ -39,7 +37,7 @@ void Job::setStatus(Status jobStatus)
         return;
     if (m_status == Aborted) {
         m_error.id = -1;
-        m_error.text = QString();
+        m_error.text.clear();
         m_error.pixmap = QPixmap();
         m_error.type = AutomaticRetry;
     }

@@ -1463,7 +1463,7 @@ void GenericObserver::slotNotificationClosed()
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
 {
     bool recalculate = false;
-    foreach (TransferGroup::ChangesFlags flags, groups)
+    foreach (const TransferGroup::ChangesFlags &flags, groups)
     {
         if (flags & TransferGroup::Gc_Percent || flags & TransferGroup::Gc_Status) {
             recalculate = true;

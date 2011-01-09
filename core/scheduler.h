@@ -56,8 +56,8 @@ class Scheduler : public QObject
             int time;
             int count;
             
-            bool operator==(JobFailure f)   {return ((status == f.status) && (time == f.time));}
-            bool operator!=(JobFailure f)   {return ((status != f.status) || (time != f.time));}            
+            bool operator==(JobFailure f) const {return ((status == f.status) && (time == f.time));}
+            bool operator!=(JobFailure f) const {return ((status != f.status) || (time != f.time));}            
         };
         
         Scheduler(QObject * parent = 0);
