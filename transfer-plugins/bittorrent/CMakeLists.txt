@@ -10,7 +10,6 @@ set(kget_bittorrentfactory_PART_SRCS
     bttransferhandler.cpp
     btdetailswidget.cpp
     scandlg.cpp
-    btjobtracker.cpp
     #btdatasource.cpp
     #btchunkselector.cpp
     #btcache.cpp

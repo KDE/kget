@@ -83,7 +83,8 @@ void BTTransferHandler::createScanDlg()
 
 #if LIBKTORRENT_VERSION >= 0x010100
 kDebug() << "Our version.h";
-    m_transfer->torrentControl()->startDataCheck(this);//TODO: Maybe start/stop it
+    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), 0);//TODO: Maybe start/stop it
+    scanDlg->exec();
 #else
     scanDlg = new kt::ScanDlg(0);
     scanDlg->show();

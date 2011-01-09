@@ -15,7 +15,6 @@
 #include "btdatasource.h"
 #include "bttransferhandler.h"
 #include "btdetailswidget.h"
-#include "btjobtracker.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
 
 #include <kdebug.h>
@@ -34,8 +33,6 @@ BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
         kError(5001) << "Failed to initialize libktorrent";
         KGet::showNotification(0, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
     }
-
-    bt::Job::setJobTracker(new BTJobTracker(this));
 #endif
 }
 
