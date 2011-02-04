@@ -660,7 +660,7 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             urls.removeFirst();
         } else if (!Settings::directoriesAsSuggestion() && (UrlChecker::checkFolder(KUrl(defaultFolder)) == UrlChecker::NoError)) {
             const KUrl destUrl = UrlChecker::destUrl(KUrl(defaultFolder), sourceUrl, suggestedFileName);
-            const KUrl destUrl = UrlChecker::destUrl(KUrl(folder), sourceUrl, suggestedFileName);
+            //const KUrl destUrl = UrlChecker::destUrl(KUrl(folder), sourceUrl, suggestedFileName);
             newDest = check.checkExistingFile(sourceUrl, destUrl);
             if (!newDest.isEmpty()) {
                 data << KGet::TransferData(sourceUrl, newDest, groupName);
