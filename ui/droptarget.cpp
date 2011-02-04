@@ -119,6 +119,7 @@ DropTarget::~DropTarget()
 {
     Settings::setDropPosition( pos() );
     Settings::setShowDropTarget( !isHidden() );
+    Settings::self()->writeConfig();
 //    unsigned long state = KWindowSystem::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
 //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );

@@ -167,7 +167,9 @@
     <entry name="MainState" type="Int">
       <default>0</default>
     </entry>
-    <entry name="DropPosition" type="Point"/>
+    <entry name="DropPosition" type="Point">
+        <default code="true">QPoint(-1, -1)</default>
+    </entry>
     <entry name="DropSticky" type="Bool">
       <default>0</default>
     </entry>
