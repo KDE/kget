@@ -397,6 +397,7 @@ void NewTransferDialog::checkInput()
             }
             warning += UrlChecker::message(KUrl(), UrlChecker::Destination, UrlChecker::ExistingFile);
             setWarning(warning);
+            ui.errorWidget->show();
         }
     }
 
