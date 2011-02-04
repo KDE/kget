@@ -240,9 +240,17 @@ void NewTransferDialog::setDefaultDestination()
         if (!handler->defaultFolder().isEmpty())
             list << handler->defaultFolder();
     }
+    const QString fileName = ui.destRequester->url().fileName();
     setDestination(m_sources, list);
+    if (!m_sources.isEmpty()) {
     if (!m_sources.isEmpty())
         urlChanged(m_sources.first().path());
+        if (!m_multiple && !fileName.isEmpty()) {
+            KUrl url = ui.destRequester->url();
+            url.setFileName(fileName);
+            ui.destRequester->setUrl(url);
+        }
+    }
     //d->setDestination(m_sources, KGet::defaultFolders(m_sources.first().path(), d->transferGroup()));
 }
 
