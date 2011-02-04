@@ -35,6 +35,9 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
        <widget class="QCheckBox" name="kcfg_AnimateDropTarget">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Enable animations</string>
         </property>
@@ -42,6 +45,9 @@
       </item>
       <item row="2" column="0">
        <widget class="QCheckBox" name="kcfg_EnablePopupTooltip">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Enable popup tooltip</string>
         </property>
@@ -90,6 +96,22 @@
     <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_ShowDropTarget</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_EnablePopupTooltip</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>253</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>253</x>
+     <y>157</y>
     </hint>
    </hints>
   </connection>
