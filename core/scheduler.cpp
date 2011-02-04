@@ -14,6 +14,7 @@
 #include "core/kget.h"
 #include "core/job.h"
 #include "core/jobqueue.h"
+#include "core/transferhandler.h"
 #include "settings.h"
 
 #include <kdebug.h>
@@ -191,7 +192,7 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
        (failure.count >  Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout) 
                                                       && !((failure.count - Settings::reconnectRetries()) % 10)) )
     {
-        job->stop();        // This will trigger the changedEvent which will trigger an updateQueue call
+        static_cast<Transfer*>(job)->handler()->stop();// This will trigger the changedEvent which will trigger an updateQueue call
     }
     else
         updateQueue( job->jobQueue() );  
