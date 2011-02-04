@@ -78,7 +78,7 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     connect(segment, SIGNAL(totalSize(KIO::filesize_t,QPair<int,int>)), this, SLOT(slotTotalSize(KIO::filesize_t,QPair<int,int>)));
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
     connect(segment, SIGNAL(finishedSegment(Segment*, int, bool)), this, SLOT(slotFinishedSegment(Segment*, int, bool)));
-    connect(segment, SIGNAL(error(Segment*,int)), SLOT(slotError(Segment*,int)));
+    connect(segment, SIGNAL(error(Segment*,QString,Transfer::LogLevel)), this, SLOT(slotError(Segment*,QString,Transfer::LogLevel)));
     connect(segment, SIGNAL(finishedDownload(KIO::filesize_t)), this, SLOT(slotFinishedDownload(KIO::filesize_t)));
 
     if (m_started) {
@@ -214,9 +214,9 @@ bool MultiSegKioDataSource::tryMerge(const QPair<KIO::fileoffset_t, KIO::fileoff
     return false;
 }
 
-void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
+void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText, Transfer::LogLevel logLevel)
 {
-    kDebug(5001) << "Error" << KIOError << "segment" << segment;
+    kDebug(5001) << "Error" << errorText << "segment" << segment;
 
     const QPair<KIO::fileoffset_t, KIO::fileoffset_t> size = segment->segmentSize();
     const QPair<int, int> range = segment->assignedSegments();
@@ -236,6 +236,7 @@ void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
             emit freeSegments(this, range);
         }
     }
+    emit log(errorText, logLevel);
 }
 
 void MultiSegKioDataSource::slotFinishedDownload(KIO::filesize_t size)

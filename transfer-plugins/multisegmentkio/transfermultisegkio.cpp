@@ -50,6 +50,7 @@ void TransferMultiSegKio::init()
         connect(m_dataSourceFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
         connect(m_dataSourceFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
         connect(m_dataSourceFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+        connect(m_dataSourceFactory, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
 
         m_dataSourceFactory->addMirror(m_source, MultiSegKioSettings::segments());
 

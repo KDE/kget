@@ -46,7 +46,7 @@ class MultiSegKioDataSource : public TransferDataSource
          * There was an error while downloading segment, the number of connections this
          * TransferDataSource uses simultanously gets reduced
          */
-        void slotError(Segment *segment, int KIOError);
+        void slotError(Segment *segment, const QString &errorText, Transfer::LogLevel logLevel);
 
         /**the following slots are there to check if the size reported by the mirror
          * Checks if the sizre reported by the mirror is correct

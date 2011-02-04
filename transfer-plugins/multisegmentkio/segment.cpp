@@ -185,8 +185,8 @@ void Segment::slotResult( KJob *job )
     {
         return;
     }
-    if (m_status == Running){
-        emit error(this, job->error());
+    if (job->error() && (m_status == Running)) {
+        emit error(this, job->errorString(), Transfer::Log_Error);
     }
 }
 
@@ -198,7 +198,8 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         kDebug(5001) << m_url << "does not allow resuming.";
         stopTransfer();
         setStatus(Killed, false );
-        emit error(this, KIO::ERR_CANNOT_RESUME);
+        const QString errorText = KIO::buildErrorString(KIO::ERR_CANNOT_RESUME, m_url.prettyUrl());
+        emit error(this, errorText, Transfer::Log_Warning);
         return;
     }
 

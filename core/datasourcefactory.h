@@ -177,6 +177,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
     Q_SIGNALS:
         void capabilitiesChanged();
         void dataSourceFactoryChange(Transfer::ChangesFlags change);
+        void log(const QString &message, Transfer::LogLevel logLevel);
 
     public slots:
         void save(const QDomElement &element);

@@ -17,6 +17,8 @@
 
 #include <KIO/Job>
 
+#include "core/transfer.h"
+
 /**
  * class Segment
  */
@@ -111,7 +113,7 @@ class Segment : public QObject
         /**
          * Emitted whenever the transfer is closed with an error
          */
-        void error(Segment *semgent, int KIOError);
+        void error(Segment *segment, const QString &errorText, Transfer::LogLevel logLevel);
         void finishedSegment(Segment *segment, int segmentNum, bool connectionFinished = true);
         void statusChanged( Segment*);
         void speed(ulong speed);

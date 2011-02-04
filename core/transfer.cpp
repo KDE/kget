@@ -213,7 +213,7 @@ void Transfer::checkShareRatio()
         setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
 }
 
-void Transfer::setLog(const QString& message, LogLevel level)
+void Transfer::setLog(const QString& message, Transfer::LogLevel level)
 {
     QString msg("<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : ");
     if (level == Log_Error)

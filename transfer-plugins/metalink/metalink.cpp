@@ -156,6 +156,7 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         connect(dataFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
         connect(dataFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
         connect(dataFactory->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
+        connect(dataFactory, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
 
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
@@ -619,6 +620,7 @@ void Metalink::load(const QDomElement *element)
         m_dataSourceFactory[file->dest()] = file;
         connect(file->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
         connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
+        connect(file, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
 
         //start the DataSourceFactories that were Started when KGet was closed
         if (file->status() == Job::Running) {

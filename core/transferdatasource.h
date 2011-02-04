@@ -222,6 +222,8 @@ class KGET_EXPORT TransferDataSource : public QObject
          */
         void freeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
 
+        void log(const QString &message, Transfer::LogLevel logLevel);
+
     protected:
         /**
          * Sets the capabilities and automatically emits capabilitiesChanged

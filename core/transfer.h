@@ -244,11 +244,6 @@ class KGET_EXPORT Transfer : public Job
         const QStringList log() const;
 
         /**
-         * Set Transfer history
-         */
-         void setLog(const QString& message, LogLevel level = Log_Info);
-
-        /**
          * Defines the order between transfers
          */
         bool operator<(const Transfer& t2) const;
@@ -322,6 +317,12 @@ class KGET_EXPORT Transfer : public Job
          * Emitted when the capabilities of the Transfer change
          */
         void capabilitiesChanged();
+
+    public slots:
+         /**
+          * Set Transfer history
+          */
+         void setLog(const QString& message, Transfer::LogLevel level = Log_Info);
 
     protected:
         /**
