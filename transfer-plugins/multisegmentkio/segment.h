@@ -127,24 +127,32 @@ class Segment : public QObject
         void slotCanResume(KIO::Job *job, KIO::filesize_t);//TODO remove
         void slotTotalSize(KJob *job, qulonglong size);
 
+        /**
+         * Writes the buffer, assuming that this segment is finished and the rest should be written.
+         * Tries to write and if that fails waits for 50 msec and retries again.
+         * If this whole process still fails after 100 times, then error is emitted.
+         */
+        void slotWriteRest();
+
     private:
         bool writeBuffer();
         void setStatus(Status stat, bool doEmit=true);
 
     private:
         bool m_findFilesize;
+        bool m_canResume;
         Status m_status;
-        KIO::fileoffset_t m_offset;
-        QPair<KIO::fileoffset_t, KIO::fileoffset_t> m_segSize;
-        KIO::fileoffset_t m_currentSegSize;
         int m_currentSegment;
         int m_endSegment;
+        int m_errorCount;
+        KIO::fileoffset_t m_offset;
+        KIO::fileoffset_t m_currentSegSize;
         KIO::filesize_t m_bytesWritten;
         KIO::filesize_t m_totalBytesLeft;
         KIO::TransferJob *m_getJob;
-        QByteArray m_buffer;
-        bool m_canResume;
         KUrl m_url;
+        QByteArray m_buffer;
+        QPair<KIO::fileoffset_t, KIO::fileoffset_t> m_segSize;
 };
 
 #endif // SEGMENT_H
