@@ -223,6 +223,7 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
     m_segments.removeAll(segment);
     segment->deleteLater();
 
+    emit log(errorText, logLevel);
     if (m_segments.isEmpty()) {
         kDebug(5001) << this << "has broken segments.";
         emit brokenSegments(this, range);
@@ -236,7 +237,6 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
             emit freeSegments(this, range);
         }
     }
-    emit log(errorText, logLevel);
 }
 
 void MultiSegKioDataSource::slotFinishedDownload(KIO::filesize_t size)
