@@ -21,16 +21,17 @@
 Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
   : QObject(parent),
     m_findFilesize((segmentRange.first == -1) && (segmentRange.second == -1)),
+    m_canResume(true),
     m_status(Stopped),
-    m_offset(segmentSize.first * segmentRange.first),
-    m_segSize(segmentSize),
-    m_currentSegSize(m_segSize.first),
     m_currentSegment(segmentRange.first),
     m_endSegment(segmentRange.second),
+    m_errorCount(0),
+    m_offset(segmentSize.first * segmentRange.first),
+    m_currentSegSize(segmentSize.first),
     m_bytesWritten(0),
     m_getJob(0),
-    m_canResume(true),
-    m_url(src)
+    m_url(src),
+    m_segSize(segmentSize)
 {
     //last segment
     if (m_endSegment - m_currentSegment == 0) {
@@ -170,9 +171,7 @@ void Segment::slotResult( KJob *job )
     {
         if (m_findFilesize && !job->error()) {
             kDebug(5001) << "Looping until write the buffer ..." << m_url;
-            while(writeBuffer()) ;
-
-            emit finishedDownload(m_bytesWritten);
+            slotWriteRest();
             return;
         }
     }
@@ -206,8 +205,12 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     if (!m_findFilesize && m_totalBytesLeft && static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
     {
         kDebug(5001) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it? is this even needed?
+        if (m_getJob) {
+            m_getJob->kill(KJob::Quietly);
+            m_getJob = 0;
+        }
         m_buffer.truncate(m_totalBytesLeft);
-        writeBuffer();
+        slotWriteRest();
     }
     else
     { 
@@ -260,8 +263,31 @@ bool Segment::writeBuffer()
         }
     }
 
-
     return worked;
+}
+
+void Segment::slotWriteRest()
+{
+    if (m_buffer.isEmpty()) {
+        return;
+    }
+    kDebug() << this;
+
+    if (writeBuffer()) {
+        m_errorCount = 0;
+        if (m_findFilesize) {
+            emit finishedDownload(m_bytesWritten);
+        }
+        return;
+    }
+
+    if (++m_errorCount >= 100) {
+        kWarning() << "Failed to write to the file:" << m_url << this;
+        emit error(this, KIO::ERR_COULD_NOT_WRITE);
+    } else {
+        kDebug() << "Wait 50 msec:" << this;
+        QTimer::singleShot(50, this, SLOT(slotWriteRest()));
+    }
 }
 
 void Segment::setStatus(Status stat, bool doEmit)

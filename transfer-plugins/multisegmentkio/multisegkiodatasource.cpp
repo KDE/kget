@@ -51,7 +51,7 @@ void MultiSegKioDataSource::stop()
         if (segment->findingFileSize()) {
             kDebug(5001) << "Removing findingFileSize segment" << this;
             m_segments.removeAll(segment);
-            delete segment;
+            segment->deleteLater();
         } else {
             segment->stopTransfer();
         }
@@ -103,7 +103,7 @@ void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum
 {
     if (connectionFinished) {
         m_segments.removeAll(segment);
-        delete segment;
+        segment->deleteLater();
     }
     emit finishedSegment(this, segmentNum, connectionFinished);
 }
@@ -197,7 +197,7 @@ QPair<int, int> MultiSegKioDataSource::removeConnection()
     if (seg) {
         unassigned = seg->assignedSegments();
         m_segments.removeAll(seg);
-        delete seg;
+        seg->deleteLater();
     }
 
     return unassigned;
@@ -221,7 +221,7 @@ void MultiSegKioDataSource::slotError(Segment *segment, int KIOError)
     const QPair<KIO::fileoffset_t, KIO::fileoffset_t> size = segment->segmentSize();
     const QPair<int, int> range = segment->assignedSegments();
     m_segments.removeAll(segment);
-    delete segment;
+    segment->deleteLater();
 
     if (m_segments.isEmpty()) {
         kDebug(5001) << this << "has broken segments.";
