@@ -22,6 +22,7 @@
 #include <QObject>
 #include <QList>
 
+class KGetKJobAdapter;
 class TransferHandler; 
 class TransferGroupHandler;
 
@@ -39,9 +40,16 @@ public slots:
     void slotTransfersAboutToBeRemoved(const QList<TransferHandler*> &transfer);
     void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
 
+private slots:
+    void slotRequestStop(KJob *job, TransferHandler *transfer);
+
 private:
     void registerJob(KJob * job, TransferHandler * transfer);
-    void unregisterJob(KJob * job, TransferHandler * transfer);
+    void registerJob(KGetKJobAdapter *job, TransferHandler *transfer);
+    /**
+     * Unregisters job and returns true if it worked
+     */
+    bool unregisterJob(KJob * job, TransferHandler * transfer);
     bool shouldBeShown(TransferHandler * transfer);
     bool existRunningTransfers();
     KGetGlobalJob * globalJob();

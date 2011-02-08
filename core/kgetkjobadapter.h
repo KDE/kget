@@ -22,6 +22,7 @@
 */
 class KGetKJobAdapter : public KJob
 {
+    Q_OBJECT
 public:
     KGetKJobAdapter(QObject *parent, TransferHandler *transfer);
     ~KGetKJobAdapter();
@@ -34,6 +35,17 @@ public:
 
 public slots:
     void slotUpdateDescription();
+
+signals:
+    /**
+     * Emitted when doKill is called, e.g. when the gui is closed.
+     * Not handling this signal might lead to a crash if something tries to
+     * access the then non-existing gui.
+     */
+    void requestStop(KJob *job, TransferHandler *handler);
+
+protected:
+    virtual bool doKill();
 
 private:
     TransferHandler *m_transferHandler;

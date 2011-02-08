@@ -13,6 +13,8 @@
 
 #include <kio/job.h>
 
+class TransferHandler;
+
 class KGetGlobalJob : public KJob
 {
     Q_OBJECT
@@ -23,6 +25,19 @@ public:
     void update();    
     
     void start() {};
+
+signals:
+    /**
+     * Emitted when doKill is called, e.g. when the gui is closed.
+     * Not handling this signal might lead to a crash if something tries to
+     * access the then non-existing gui.
+     * @param job is this
+     * @param handler is always 0 suggesting that all TransferHandlers should be stopped
+     */
+    void requestStop(KJob *job, TransferHandler *handler);
+
+protected:
+    virtual bool doKill();
 };
 
 #endif
