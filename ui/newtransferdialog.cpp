@@ -243,7 +243,6 @@ void NewTransferDialog::setDefaultDestination()
     const QString fileName = ui.destRequester->url().fileName();
     setDestination(m_sources, list);
     if (!m_sources.isEmpty()) {
-    if (!m_sources.isEmpty())
         urlChanged(m_sources.first().path());
         if (!m_multiple && !fileName.isEmpty()) {
             KUrl url = ui.destRequester->url();
@@ -584,7 +583,7 @@ void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
         (*itUrls).folder = folder;
     }
     if (!suggestedFileName.isEmpty()) {
-        (*itUrls).suggestedFileName = suggestedFileName;
+        (*itUrls).suggestedFileName = KUrl(suggestedFileName).pathOrUrl();//pathOrUrl to get a non percent encoded url
     }
 
     newTransferDialogHandler->m_numJobs[newTransferDialogHandler->m_nextJobId] = urls.count();
