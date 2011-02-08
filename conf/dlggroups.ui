@@ -19,6 +19,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="kcfg_AskForDestination">
+     <property name="text">
+      <string>Ask for destination if there are no default folders</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="TransfersGroupTree" name="treeView">
      <property name="alternatingRowColors">
       <bool>true</bool>

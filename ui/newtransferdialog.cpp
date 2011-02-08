@@ -649,7 +649,12 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         const KUrl sourceUrl = urls.first();
         const QList<TransferGroupHandler*> groups = KGet::groupsFromExceptions(sourceUrl);
         const QString groupName = (groups.isEmpty() ? QString() : groups.first()->name());
-        const QString defaultFolder = (groups.isEmpty() ? QString() : groups.first()->defaultFolder());
+        QString defaultFolder;
+        if (groups.isEmpty()) {
+            defaultFolder = (Settings::askForDestination() ? QString() : KGlobalSettings::downloadPath());
+        } else {
+            defaultFolder = groups.first()->defaultFolder();
+        }
 
         if (!folder.isEmpty()) {
             const KUrl destUrl = UrlChecker::destUrl(KUrl(folder), sourceUrl, suggestedFileName);
@@ -658,7 +663,8 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
                 data << KGet::TransferData(sourceUrl, newDest, groupName);
             }
             urls.removeFirst();
-        } else if (!Settings::directoriesAsSuggestion() && (UrlChecker::checkFolder(KUrl(defaultFolder)) == UrlChecker::NoError)) {
+        } else if (((!groups.isEmpty() && !Settings::directoriesAsSuggestion()) || !Settings::askForDestination()) &&
+                   (UrlChecker::checkFolder(KUrl(defaultFolder)) == UrlChecker::NoError)) {
             const KUrl destUrl = UrlChecker::destUrl(KUrl(defaultFolder), sourceUrl, suggestedFileName);
             newDest = check.checkExistingFile(sourceUrl, destUrl);
             if (!newDest.isEmpty()) {
@@ -744,6 +750,25 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
                 } else {
                     ++it;
                 }
+            }
+        }
+    }
+
+    ///Download the rest of the urls to KGlobalSettings::downloadPath() if the user is not aksed for a destination
+    if (!Settings::askForDestination()) {
+        //the download path will be always used
+        const QString dir = KGlobalSettings::downloadPath();
+        if (!dir.isEmpty()) {
+            KUrl::List::iterator it = urls.begin();
+            while (it != urls.end()) {
+                const KUrl sourceUrl = *it;
+                const KUrl destUrl = UrlChecker::destUrl(dir, sourceUrl);
+                newDest = check.checkExistingFile(sourceUrl, destUrl);
+                if (!newDest.isEmpty()) {
+                    data << KGet::TransferData(sourceUrl, newDest);
+                }
+
+                it = urls.erase(it);
             }
         }
     }
