@@ -62,4 +62,10 @@ void KGetGlobalJob::update()
     setPercent(percent);
 }
 
+bool KGetGlobalJob::doKill()
+{
+    kDebug(5001) << "Kill of global job called:" << this;
+    emit requestStop(this, 0);
+    return KJob::doKill();
+}
 

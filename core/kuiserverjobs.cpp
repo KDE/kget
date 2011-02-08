@@ -40,11 +40,10 @@ void KUiServerJobs::settingsChanged()
     QList<TransferHandler *> transfers = KGet::allTransfers();
 
     foreach(TransferHandler * transfer, transfers) {
-        KJob *job = transfer->kJobAdapter();
         if(shouldBeShown(transfer))
-            registerJob(job, transfer);
+            registerJob(transfer->kJobAdapter(), transfer);
         else
-            unregisterJob(job, transfer);
+            unregisterJob(transfer->kJobAdapter(), transfer);
     }
     
     // GlobalJob is associated to a virtual transfer pointer of value == 0
@@ -101,16 +100,14 @@ void KUiServerJobs::slotTransfersChanged(QMap<TransferHandler *, Transfer::Chang
 //         if(!m_invalidTransfers.contains(i.key()))
         {
             TransferHandler * transfer = i.key();
-            KJob *job = transfer->kJobAdapter();
             if (shouldBeShown(transfer)) {
-                registerJob(job, transfer);
+                registerJob(transfer->kJobAdapter(), transfer);
             } else {
-            
-                unregisterJob(job, transfer);
+                unregisterJob(transfer->kJobAdapter(), transfer);
             }
         }
     }
-    
+
     if(shouldBeShown(0)) {
         globalJob()->update();
         registerJob(globalJob(), 0);
@@ -119,22 +116,53 @@ void KUiServerJobs::slotTransfersChanged(QMap<TransferHandler *, Transfer::Chang
         unregisterJob(globalJob(), 0);
 }
 
+void KUiServerJobs::registerJob(KGetKJobAdapter *job, TransferHandler *transfer)
+{
+     if (m_registeredJobs.contains(transfer) || !job) {
+         return;
+     }
+     connect(job, SIGNAL(requestStop(KJob*,TransferHandler*)), this, SLOT(slotRequestStop(KJob*,TransferHandler*)));
+     KJob *j = job;
+     registerJob(j, transfer);
+}
+
 void KUiServerJobs::registerJob(KJob * job, TransferHandler * transfer)
 {
     if(m_registeredJobs.contains(transfer) || !job)
         return;
-    
+
     KIO::getJobTracker()->registerJob(job);
     m_registeredJobs[transfer] = job;
 }
 
-void KUiServerJobs::unregisterJob(KJob * job, TransferHandler * transfer)
+bool KUiServerJobs::unregisterJob(KJob * job, TransferHandler * transfer)
 {
-    if(!m_registeredJobs.contains(transfer)  || !job)
-        return;
-    
+    if (!m_registeredJobs.contains(transfer)  || !job)
+        return false;
+
+    //unregister the job if it was a single adaptor
+    if (job != m_globalJob) {
+        disconnect(job);
+    }
     KIO::getJobTracker()->unregisterJob(m_registeredJobs[transfer]);
     m_registeredJobs.remove(transfer);
+
+    return true;
+}
+
+void KUiServerJobs::slotRequestStop(KJob* job, TransferHandler* transfer)
+{
+    if (unregisterJob(job, transfer)) {
+        if (transfer) {
+            transfer->stop();
+        } else {
+            foreach (TransferHandler *transfer, KGet::allTransfers()) {
+                if (transfer->status() == Job::Running) {
+                    transfer->stop();
+                }
+            }
+        }
+    }
 }
 
 bool KUiServerJobs::shouldBeShown(TransferHandler * transfer)
@@ -163,9 +191,10 @@ bool KUiServerJobs::existRunningTransfers()
 
 KGetGlobalJob * KUiServerJobs::globalJob()
 {
-    if(!m_globalJob)
+    if (!m_globalJob) {
         m_globalJob = new KGetGlobalJob();
-    
+        connect(m_globalJob, SIGNAL(requestStop(KJob*,TransferHandler*)), this, SLOT(slotRequestStop(KJob*,TransferHandler*)));
+    }
     return m_globalJob;
 }
 

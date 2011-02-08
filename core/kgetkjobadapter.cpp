@@ -12,9 +12,10 @@
 
 #include <KLocale>
 
-KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer) : KJob(parent)
+KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)
+  : KJob(parent),
+    m_transferHandler(transfer)
 {
-    m_transferHandler = transfer;
 }
 
 KGetKJobAdapter::~KGetKJobAdapter()
@@ -48,4 +49,11 @@ void KGetKJobAdapter::slotUpdateDescription()
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes));
     setTotalAmount(KJob::Bytes, totalAmount(KJob::Bytes));
     setPercent(percent());
+}
+
+bool KGetKJobAdapter::doKill()
+{
+    kDebug(5001) << "Kill of job adapter called:" << this << m_transferHandler->dest();
+    emit requestStop(this, m_transferHandler);
+    return KJob::doKill();
 }
