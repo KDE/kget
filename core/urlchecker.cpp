@@ -25,6 +25,7 @@
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
 #include "core/basedialog.h"
+#include "settings.h"
 
 #include <QtCore/QFileInfo>
 
@@ -539,7 +540,12 @@ KUrl::List UrlChecker::hasExistingTransferMessages(const KUrl::List &urls, const
                     break;
                 }
 
-                const int result = hasExistingDialog(it->first, type, warning);
+                int result;
+                if (Settings::filesOverwrite() || (Settings::filesAutomaticRename() && (warning != ExistingTransfer))) {
+                    result = YesAll;
+                } else {
+                    result = hasExistingDialog(it->first, type, warning);
+                }
                 switch (result) {
                     case YesAll:
                         isYesAll = true;
@@ -695,6 +701,12 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
     //any url is ignored
     if (m_cancle) {
         return KUrl();
+    }
+
+    if (Settings::filesOverwrite()) {
+        m_overwriteAll = true;
+    } else if (Settings::filesAutomaticRename()) {
+        m_autoRenameAll = true;
     }
 
     if ((source == destination) || (destination.isLocalFile() && QFile::exists(destination.toLocalFile()))) {
