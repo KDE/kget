@@ -16,6 +16,7 @@ KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)
   : KJob(parent),
     m_transferHandler(transfer)
 {
+    setCapabilities(Killable | Suspendable);
 }
 
 KGetKJobAdapter::~KGetKJobAdapter()
@@ -56,4 +57,20 @@ bool KGetKJobAdapter::doKill()
     kDebug(5001) << "Kill of job adapter called:" << this << m_transferHandler->dest();
     emit requestStop(this, m_transferHandler);
     return KJob::doKill();
+}
+
+bool KGetKJobAdapter::doSuspend()
+{
+    if (m_transferHandler->capabilities() & Transfer::Cap_Resuming) {
+        emit requestSuspend(this, m_transferHandler);
+        return true;
+    }
+
+    return false;
+}
+
+bool KGetKJobAdapter::doResume()
+{
+    emit requestResume(this, m_transferHandler);
+    return true;
 }

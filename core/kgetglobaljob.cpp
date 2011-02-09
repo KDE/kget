@@ -20,7 +20,7 @@
 KGetGlobalJob::KGetGlobalJob(QObject *parent)
     : KJob(parent)
 {
-
+    setCapabilities(Killable);
 }
 
 KGetGlobalJob::~KGetGlobalJob()

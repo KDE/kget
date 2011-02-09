@@ -122,6 +122,9 @@ void KUiServerJobs::registerJob(KGetKJobAdapter *job, TransferHandler *transfer)
          return;
      }
      connect(job, SIGNAL(requestStop(KJob*,TransferHandler*)), this, SLOT(slotRequestStop(KJob*,TransferHandler*)));
+     connect(job, SIGNAL(requestSuspend(KJob*,TransferHandler*)), this, SLOT(slotRequestSuspend(KJob*,TransferHandler*)));
+     connect(job, SIGNAL(requestResume(KJob*,TransferHandler*)), this, SLOT(slotRequestResume(KJob*,TransferHandler*)));
+
      KJob *j = job;
      registerJob(j, transfer);
 }
@@ -140,6 +143,12 @@ bool KUiServerJobs::unregisterJob(KJob * job, TransferHandler * transfer)
     if (!m_registeredJobs.contains(transfer)  || !job)
         return false;
 
+    //Transfer should only be suspended, thus still show the job tracker
+    if (m_suspendRequested.contains(transfer)) {
+        m_suspendRequested.removeAll(transfer);
+        return false;
+    }
+
     //unregister the job if it was a single adaptor
     if (job != m_globalJob) {
         disconnect(job);
@@ -150,16 +159,14 @@ bool KUiServerJobs::unregisterJob(KJob * job, TransferHandler * transfer)
     return true;
 }
 
-void KUiServerJobs::slotRequestStop(KJob* job, TransferHandler* transfer)
+void KUiServerJobs::slotRequestStop(KJob *job, TransferHandler *transfer)
 {
     if (unregisterJob(job, transfer)) {
         if (transfer) {
             transfer->stop();
         } else {
-            foreach (TransferHandler *transfer, KGet::allTransfers()) {
-                if (transfer->status() == Job::Running) {
-                    transfer->stop();
-                }
+            foreach (TransferHandler *t, KGet::allTransfers()) {
+                t->stop();
             }
         }
     }
@@ -198,3 +205,19 @@ KGetGlobalJob * KUiServerJobs::globalJob()
     return m_globalJob;
 }
 
+void KUiServerJobs::slotRequestSuspend(KJob *job, TransferHandler *transfer)
+{
+    Q_UNUSED(job)
+    if (transfer) {
+        m_suspendRequested << transfer;
+        transfer->stop();
+    }
+}
+
+void KUiServerJobs::slotRequestResume(KJob *job, TransferHandler *transfer)
+{
+    Q_UNUSED(job)
+    if (transfer) {
+        transfer->start();
+    }
+}

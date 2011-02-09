@@ -42,6 +42,8 @@ public slots:
 
 private slots:
     void slotRequestStop(KJob *job, TransferHandler *transfer);
+    void slotRequestSuspend(KJob *job, TransferHandler *transfer);
+    void slotRequestResume(KJob *job, TransferHandler *transfer);
 
 private:
     void registerJob(KJob * job, TransferHandler * transfer);
@@ -57,6 +59,7 @@ private:
 private:
     QMap <TransferHandler *, KJob *> m_registeredJobs;
     QList <TransferHandler *> m_invalidTransfers;
+    QList<TransferHandler*> m_suspendRequested;
     KGetGlobalJob *m_globalJob;
 };
 

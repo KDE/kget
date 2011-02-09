@@ -43,9 +43,13 @@ signals:
      * access the then non-existing gui.
      */
     void requestStop(KJob *job, TransferHandler *handler);
+    void requestSuspend(KJob *job, TransferHandler *handler);
+    void requestResume(KJob *job, TransferHandler *handler);
 
 protected:
     virtual bool doKill();
+    virtual bool doSuspend();
+    virtual bool doResume();
 
 private:
     TransferHandler *m_transferHandler;
