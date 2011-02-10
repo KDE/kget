@@ -11,6 +11,7 @@
 */
 
 #include "kget_linkview.h"
+#include "settings.h"
 #include "kget_sortfilterproxymodel.h"
 #include "core/kget.h"
 #include "core/linkimporter.h"
@@ -18,7 +19,7 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <QProcess>
+#include <QMenu>
 #include <QStandardItemModel>
 
 #include <KActionCollection>
@@ -70,9 +71,24 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     ui.treeView->setModel(m_proxyModel);
     ui.progressBar->hide();
 
+    //creates pattern syntax menu for the text filter
+    m_patternSyntaxMenu = new QMenu(i18nc("of a filter, e.g. RegExp or Wildcard", "Pattern Syntax"), this);
+    QAction *wildcardAction = new QAction(i18n("Escape Sequences"), this);
+    wildcardAction->setCheckable(true);
+    wildcardAction->setChecked(Settings::linkViewFilterPatternSyntax() == Wildcard);
+    QAction *regExpAction = new QAction(i18n("Regular Expression"), this);
+    regExpAction->setCheckable(true);
+    regExpAction->setChecked(Settings::linkViewFilterPatternSyntax() == RegExp);
+    QActionGroup *actionGroup = new QActionGroup(this);
+    actionGroup->addAction(wildcardAction);
+    actionGroup->addAction(regExpAction);
+    m_patternSyntaxMenu->addActions(actionGroup->actions());
+
+    connect(wildcardAction, SIGNAL(toggled(bool)), this, SLOT(wildcardPatternToggled(bool)));
     connect(ui.treeView, SIGNAL(doubleClicked(const QModelIndex &)),
             this, SLOT(uncheckItem(const QModelIndex &)));
     connect(ui.textFilter, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
+    connect(ui.textFilter, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(contextMenuDisplayed(QMenu*)));
     connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterMode(int)));
     connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), m_proxyModel, SLOT(setFilterType(int)));
     connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), SLOT(updateSelectionButtons()));
@@ -278,7 +294,12 @@ void KGetLinkView::setTextFilter(const QString &text)
 {
     // TODO: escape user input for avoding malicious user input! (FiNEX)
     QString temp = text.isEmpty() ? ui.textFilter->text() : text;
-    m_proxyModel->setFilterWildcard(temp);
+    if (Settings::linkViewFilterPatternSyntax() == Wildcard) {
+        m_proxyModel->setFilterWildcard(temp);
+    } else {
+        QRegExp rx(temp, Qt::CaseSensitive, QRegExp::RegExp2);
+        m_proxyModel->setFilterRegExp(rx);
+    }
 
     updateSelectionButtons();
 }
@@ -404,6 +425,22 @@ void KGetLinkView::updateImportButtonStatus(const QString &text)
         }
     }
     ui.importLinks->setEnabled(enabled);
+}
+
+void KGetLinkView::contextMenuDisplayed(QMenu *menu)
+{
+    menu->addSeparator();
+    menu->addMenu(m_patternSyntaxMenu);
+}
+
+
+void KGetLinkView::wildcardPatternToggled(bool enabled)
+{
+    if (enabled) {
+        Settings::setLinkViewFilterPatternSyntax(Wildcard);
+    } else {
+        Settings::setLinkViewFilterPatternSyntax(RegExp);
+    }
 }
 
 #include "kget_linkview.moc"

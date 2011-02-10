@@ -47,6 +47,8 @@ private slots:
     void slotCheckSelected();
     void slotInvertSelection();
     void updateSelectionButtons();
+    void contextMenuDisplayed(QMenu *menu);
+    void wildcardPatternToggled(bool enabled);
 
     // import links slots
     void slotStartImport();
@@ -58,10 +60,16 @@ private:
     void checkClipboard();
     void showLinks( const QStringList &links );
 
+private:
+    enum PatternSyntax {
+        Wildcard = 0,
+        RegExp
+    };
     Ui::ImportLinkDialog ui;
     KGetSortFilterProxyModel *m_proxyModel;
     QStringList m_links;
     LinkImporter *m_linkImporter;
+    QMenu *m_patternSyntaxMenu;
 };
 
 #endif // KGET_LINKVIEW_H
