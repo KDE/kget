@@ -158,10 +158,8 @@ void KUiServerJobs::slotRequestStop(KJob* job, TransferHandler* transfer)
         if (transfer) {
             transfer->stop();
         } else {
-            foreach (TransferHandler *transfer, KGet::allTransfers()) {
-                if (transfer->status() == Job::Running) {
-                    transfer->stop();
-                }
+            foreach (TransferHandler *t, KGet::allTransfers()) {
+                t->stop();
             }
         }
     }
