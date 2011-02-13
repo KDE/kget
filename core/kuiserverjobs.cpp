@@ -182,10 +182,12 @@ bool KUiServerJobs::shouldBeShown(TransferHandler * transfer)
 bool KUiServerJobs::existRunningTransfers()
 {
     foreach(TransferHandler * transfer, KGet::allTransfers()) {
-        if(transfer->status() == Job::Running)
+        //if added to m_invalidTransfers it means that the job is about to be removed
+        if ((transfer->status() == Job::Running) && !m_invalidTransfers.contains(transfer)) {
             return true;
+        }
     }
-    
+
     return false;
 }
 
