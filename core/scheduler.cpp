@@ -184,15 +184,16 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
             break;
     }
     
-    if(failure.status == Error || //If this happens the job just gets stopped
-        // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
-       (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)) ||
+    if (failure.status == Error || //If this happens the job just gets stopped
         // Second condition: if count >  reconnectRetries and Timeout happened trigger a stop/start BUT only if
         // 10 timeouts have happened (9 of them without taking any action). This means every 10*Settings::reconnectDelay() (ex. 15s -> 150s)
        (failure.count >  Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout) 
                                                       && !((failure.count - Settings::reconnectRetries()) % 10)) )
     {
         static_cast<Transfer*>(job)->handler()->stop();// This will trigger the changedEvent which will trigger an updateQueue call
+    } else if (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)){
+        // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
+        job->stop();//stops the job, it will be later restarted by updateQueue
     }
     else
         updateQueue( job->jobQueue() );  
