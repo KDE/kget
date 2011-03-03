@@ -31,7 +31,7 @@
 #include <QtGui/QStyledItemDelegate>
 #include <QtXml/QDomElement>
 
-#include "kget_export.h"
+#include "../kget_export.h"
 
 #ifdef HAVE_QGPGME
 #include <gpgme++/verificationresult.h>
@@ -173,7 +173,7 @@ class KGET_EXPORT PartialChecksums
         {
         }
 
-        PartialChecksums(KIO::filesize_t len, const QList<QString> &sums)
+        PartialChecksums(KIO::filesize_t len, const QStringList &sums)
           : m_length(len), m_checksums(sums)
         {
         }
@@ -183,13 +183,15 @@ class KGET_EXPORT PartialChecksums
         KIO::filesize_t length() const {return m_length;}
         void setLength(KIO::filesize_t length) {m_length = length;}
 
-        QList<QString> checksums() const {return m_checksums;}
-        void setChecksums(const QList<QString> &checksums) {m_checksums = checksums;}
+        QStringList checksums() const {return m_checksums;}
+        void setChecksums(const QStringList &checksums) {m_checksums = checksums;}
 
     private:
         KIO::filesize_t m_length;
-        QList<QString> m_checksums;
+        QStringList m_checksums;
 };
+
+Q_DECLARE_METATYPE(PartialChecksums)
 
 class KGET_EXPORT Verifier : public QObject
 {

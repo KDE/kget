@@ -18,7 +18,7 @@
 ***************************************************************************/
 
 #include "verifier.h"
-#include "dbus/dbusverifierwrapper.h"
+#include "../dbus/dbusverifierwrapper.h"
 #include "verifieradaptor.h"
 #include "settings.h"
 
@@ -565,17 +565,17 @@ QStringList Verifier::supportedVerficationTypes()
 
 int Verifier::diggestLength(const QString &type)
 {
+    if (type == s_md5)
+    {
+        return MD5LENGTH;
+    }
+
 #ifdef HAVE_QCA2
     if (QCA::isSupported(type.toLatin1()))
     {
         return DIGGESTLENGTH[SUPPORTED.indexOf(type)];
     }
 #endif //HAVE_QCA2
-
-    if (type == s_md5)
-    {
-        return MD5LENGTH;
-    }
 
     return 0;
 }
@@ -734,6 +734,15 @@ QString Verifier::checksum(const KUrl &dest, const QString &type, bool *abortPtr
         return QString();
     }
 
+    if (type == s_md5) {
+        KMD5 hash;
+        hash.update(file);
+        QString final = QString(hash.hexDigest());
+        file.close();
+        return final;
+    }
+
+
 #ifdef HAVE_QCA2
     QCA::Hash hash(type);
 
@@ -757,21 +766,13 @@ QString Verifier::checksum(const KUrl &dest, const QString &type, bool *abortPtr
     file.close();
     return final;
 #endif //HAVE_QCA2
-    if (type == s_md5)
-    {
-        KMD5 hash;
-        hash.update(file);
-        QString final = QString(hash.hexDigest());
-        file.close();
-        return final;
-    }
 
     return QString();
 }
 
 PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length, bool *abortPtr)
 {
-    QList<QString> checksums;
+    QStringList checksums;
 
     QStringList supported = supportedVerficationTypes();
     if (!supported.contains(type))
@@ -854,6 +855,10 @@ QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO
 
 #ifdef HAVE_QCA2
     QCA::Hash hash(type);
+
+    //it can be that QCA2 does not support md5, e.g. when Qt is compiled locally
+    KMD5 md5Hash;
+    const bool useMd5 = (type == s_md5);
 #else //NO QCA2
     if (type != s_md5)
     {
@@ -885,7 +890,15 @@ QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO
         }
 
         QByteArray data = file->read(PARTSIZE);
+#ifdef HAVE_QCA2
+        if (useMd5) {
+            md5Hash.update(data);
+        } else {
+            hash.update(data);
+        }
+#else //NO QCA2
         hash.update(data);
+#endif //HAVE_QCA2
     }
 
     //now read the rest
@@ -897,11 +910,19 @@ QString Verifier::calculatePartialChecksum(QFile *file, const QString &type, KIO
         }
 
         QByteArray data = file->read(dataRest);
+#ifdef HAVE_QCA2
+        if (useMd5) {
+            md5Hash.update(data);
+        } else {
+            hash.update(data);
+        }
+#else //NO QCA2
         hash.update(data);
+#endif //HAVE_QCA2
     }
 
 #ifdef HAVE_QCA2
-    return QString(QCA::arrayToHex(hash.final().toByteArray()));
+    return (useMd5 ? QString(md5Hash.hexDigest()) : QString(QCA::arrayToHex(hash.final().toByteArray())));
 #else //NO QCA2
     return QString(hash.hexDigest());
 #endif //HAVE_QCA2
@@ -1012,7 +1033,7 @@ void Verifier::load(const QDomElement &e)
 
         const QString type = pieces.attribute("type");
         const KIO::filesize_t length = pieces.attribute("length").toULongLong();
-        QList<QString> partialChecksums;
+        QStringList partialChecksums;
 
         const QDomNodeList partialHashList = pieces.elementsByTagName("hash");
         for (int i = 0; i < partialHashList.size(); ++i)//TODO give this function the size of the file, to calculate how many hashs are needed as an additional check, do that check in addPartialChecksums?!
