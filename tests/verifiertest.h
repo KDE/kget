@@ -47,6 +47,10 @@ class VerfierTest : public QObject
         void testAvailableChecksum_data();
         void testAvailablePartialChecksum();
         void testAvailablePartialChecksum_data();
+        void testVerify();
+        void testVerify_data();
+        void testBrokenPieces();
+        void testBrokenPieces_data();
 
     private:
         /**
