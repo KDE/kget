@@ -53,6 +53,7 @@ add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
 add_subdirectory(plasma)
+add_subdirectory(tests)
 
 macro_optional_find_package(KDE4Workspace)
 macro_log_feature(KDE4WORKSPACE_FOUND "KDE4Workspace" "KDE4 workspace libraries, part of kdebase-workspace" "http://www.kde.org" FALSE "" "Allows 'shutdown after downloads completed' in kget")
