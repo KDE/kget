@@ -671,6 +671,7 @@ QPair<QString, PartialChecksums*> Verifier::availablePartialChecksum(Verifier::C
         if (m_partialSums.contains(supported.at(i)) && available.contains(supported.at(i))) {
             type = supported.at(i);
             checksum =  m_partialSums[type];
+            break;
         }
     }
 
