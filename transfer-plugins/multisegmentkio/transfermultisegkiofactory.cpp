@@ -84,6 +84,11 @@ bool TransferMultiSegKioFactory::isSupported(const KUrl &url) const
 {
     QString prot = url.protocol();
     kDebug(5001) << "Protocol = " << prot;
-    return (prot == "http" || prot == "https" ||
-            prot == "ftp"  || prot == "sftp");
+    return addsProtocols().contains(prot);
+}
+
+QStringList TransferMultiSegKioFactory::addsProtocols() const
+{
+    static const QStringList protocols = QStringList() << "http" << "https" << "ftp" << "sftp";
+    return protocols;
 }

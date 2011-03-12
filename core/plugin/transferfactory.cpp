@@ -74,3 +74,8 @@ bool TransferFactory::isSupported(const KUrl &url) const
     Q_UNUSED(url)
     return false;
 }
+
+QStringList TransferFactory::addsProtocols() const
+{
+    return QStringList();
+}

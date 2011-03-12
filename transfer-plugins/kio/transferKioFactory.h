@@ -31,6 +31,7 @@ class TransferKioFactory : public TransferFactory
         QString displayName(){return "HTTP(s) / FTP(s)";}
         
         bool isSupported(const KUrl &url) const;
+        QStringList addsProtocols() const;
 };
 
 #endif

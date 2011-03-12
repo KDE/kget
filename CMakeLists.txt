@@ -115,6 +115,7 @@ set(kgetcore_SRCS
    core/verifier.cpp
    core/urlchecker.cpp
    core/basedialog.cpp
+   core/mostlocalurl.cpp
 )
 
 if(HAVE_NEPOMUK)

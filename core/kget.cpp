@@ -15,6 +15,7 @@
 #include "core/kget.h"
 
 #include "mainwindow.h"
+#include "core/mostlocalurl.h"
 #include "core/transfer.h"
 #include "core/transferdatasource.h"
 #include "core/transfergroup.h"
@@ -28,7 +29,6 @@
 #include "settings.h"
 #include "core/transferhistorystore.h"
 #include <iostream>
-#include <kio/netaccess.h>
 #include <kinputdialog.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
@@ -178,7 +178,7 @@ QStringList KGet::transferGroupNames()
 TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString suggestedFileName, // krazy:exclude=passbyvalue
                                     QString groupName, bool start)
 {
-    srcUrl = KIO::NetAccess::mostLocalUrl(srcUrl, m_mainWindow);
+    srcUrl = mostLocalUrl(srcUrl);
     // Note: destDir may actually be a full path to a file :-(
     kDebug(5001) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
 
@@ -288,7 +288,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
     for(; it!=itEnd ; ++it)
     {
-        *it = KIO::NetAccess::mostLocalUrl(*it, m_mainWindow);
+        *it = mostLocalUrl(*it);
         if ( isValidSource( *it ) )
             urlsToDownload.append( *it );
     }

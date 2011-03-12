@@ -74,6 +74,13 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
         virtual bool isSupported(const KUrl &url) const;
 
         /**
+         * Returns a list of protocols for which the TransferFactory adds support.
+         * An empty list simply means that the TransferFactory does not add support
+         * for the urls and might internally resort on other TransferFactories
+         */
+        virtual QStringList addsProtocols() const;
+
+        /**
          * Returns a Data Source. needed for Transfers Containers if any.
          * default implementation returns 0
          */

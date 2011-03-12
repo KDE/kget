@@ -15,6 +15,7 @@
 
 #include "core/kget.h"
 #include "mainwindow.h"
+#include "core/mostlocalurl.h"
 #include "core/transfertreemodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/plugin/transferfactory.h"
@@ -330,7 +331,7 @@ void NewTransferDialog::checkInput()
 
     //check the source
     if (!m_multiple) {
-        source = KIO::NetAccess::mostLocalUrl(source, 0);
+        source = mostLocalUrl(source);
     }
     error = UrlChecker::checkSource(source);
     const bool sourceValid = (error == UrlChecker::NoError);
@@ -589,9 +590,10 @@ void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
     newTransferDialogHandler->m_numJobs[newTransferDialogHandler->m_nextJobId] = urls.count();
     foreach (const KUrl &url, urls) {
         //needed to avoid when protocols like the desktop protocol is used, see bko:185283
-        KIO::StatJob *job = KIO::mostLocalUrl(url, KIO::HideProgressInfo);
+        KIO::Job *job = mostLocalUrlJob(url);
         job->setProperty("jobId", (newTransferDialogHandler->m_nextJobId));
         connect(job, SIGNAL(result(KJob*)), newTransferDialogHandler, SLOT(slotMostLocalUrlResult(KJob*)));
+        job->start();
     }
 
     ++(newTransferDialogHandler->m_nextJobId);
@@ -599,7 +601,7 @@ void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
 
 void NewTransferDialogHandler::slotMostLocalUrlResult(KJob *j)
 {
-    KIO::StatJob *job = static_cast<KIO::StatJob*>(j);
+    MostLocalUrlJob *job = static_cast<MostLocalUrlJob*>(j);//FIXME auch sonst in KGet mostLocalUrl ersetzen!!!
     const int jobId = job->property("jobId").toInt();
 
     if (job->error()) {

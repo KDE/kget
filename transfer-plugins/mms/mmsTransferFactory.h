@@ -41,6 +41,7 @@ class MmsTransferFactory : public TransferFactory
         const QList<KAction *> actions(TransferHandler *handler = 0) {return QList<KAction *>();}
         
         bool isSupported(const KUrl &src) const;
+        QStringList addsProtocols() const;
 };
 
 #endif

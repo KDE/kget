@@ -41,6 +41,11 @@ Transfer * MmsTransferFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
 
 bool MmsTransferFactory::isSupported(const KUrl &src) const
 {
-    return src.protocol() == "mms";
+    return addsProtocols().contains(src.protocol());
 }
 
+QStringList MmsTransferFactory::addsProtocols() const
+{
+    static const QStringList protocols = QStringList() << "mms";
+    return protocols;
+}
