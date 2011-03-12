@@ -601,7 +601,7 @@ void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
 
 void NewTransferDialogHandler::slotMostLocalUrlResult(KJob *j)
 {
-    MostLocalUrlJob *job = static_cast<MostLocalUrlJob*>(j);//FIXME auch sonst in KGet mostLocalUrl ersetzen!!!
+    MostLocalUrlJob *job = static_cast<MostLocalUrlJob*>(j);
     const int jobId = job->property("jobId").toInt();
 
     if (job->error()) {
