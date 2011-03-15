@@ -139,8 +139,6 @@ kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
 qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
 qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
-qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.transfer.xml transfer_interface)
-# qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.verfier.xml verifier_interface)
 
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
@@ -221,29 +219,6 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
 )
 
 qt4_add_dbus_adaptor(kget_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
-qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.main.xml kget_interface)
-
-if(CMAKE_BUILD_TYPE MATCHES debugfull)
-    ENABLE_TESTING()
-
-    set(kget_SRCS
-        ${kget_SRCS}
-        tests/testkget.cpp
-    )
-
-    set(kget_test_transfers_SRCS
-        tests/testtransfers.cpp
-    )
-
-    qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.main.xml kget_interface)
-    qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.transfer.xml transfer_interface)
-    qt4_add_dbus_interface(kget_test_transfers_SRCS dbus/org.kde.kget.verifier.xml verifier_interface)
-
-    kde4_add_unit_test(kget_test_transfers
-        ${kget_test_transfers_SRCS})
-
-    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KUTILS_LIBRARY} kgetcore)
-endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
 kde4_add_ui_files(kget_SRCS
    conf/dlgadvanced.ui

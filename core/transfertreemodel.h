@@ -16,7 +16,7 @@
 #include <QStandardItemModel>
 #include <QList>
 
-#include <kget_export.h>
+#include "../kget_export.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
 #include "core/handler.h"

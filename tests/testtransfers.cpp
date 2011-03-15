@@ -10,9 +10,9 @@
 */
 
 #include "testtransfers.h"
-#include "transfergrouphandler.h"
-#include "transferhandler.h"
-#include "kget.h"
+#include "core/transfergrouphandler.h"
+#include "core/transferhandler.h"
+#include "core/kget.h"
 
 #include "kget_interface.h"
 #include "transfer_interface.h"

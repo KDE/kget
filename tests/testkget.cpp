@@ -9,9 +9,9 @@
 */
 
 #include "testkget.h"
-#include "transfergrouphandler.h"
-#include "kget.h"
-#include "transfertreemodel.h"
+#include "core/transfergrouphandler.h"
+#include "core/kget.h"
+#include "core/transfertreemodel.h"
 
 TestKGet::TestKGet()
     : QObject(0),

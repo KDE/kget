@@ -1,19 +1,32 @@
-set(verifiertest_SRCS
-    verifiertest.cpp
+include_directories(
+   ../
 )
 
+#===========KGet===========
+if(CMAKE_BUILD_TYPE MATCHES debugfull)
+    ENABLE_TESTING()
+
+    add_definitions(-DDO_KGET_TEST)
+    set(kget_test_transfers_SRCS
+        testkget.cpp
+        testtransfers.cpp
+    )
+
+    qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.main.xml kget_interface)
+    qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.transfer.xml transfer_interface)
+    qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.verifier.xml verifier_interface)
+
+    kde4_add_unit_test(kget_test_transfers
+        ${kget_test_transfers_SRCS})
+
+    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} kgetcore)
+endif(CMAKE_BUILD_TYPE MATCHES debugfull)
+
+
+#===========Verifier===========
 kde4_add_unit_test(verifiertest
   TESTNAME kget-verifiertest
-  ${verifiertest_SRCS}
+  verifiertest.cpp
 )
 
-target_link_libraries(verifiertest kgetcore ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY})
-
-if (QCA2_FOUND)
-    target_link_libraries(verifiertest ${QCA2_LIBRARIES})
-endif (QCA2_FOUND)
-
-if (QGPGME_FOUND)
-    target_link_libraries(verifiertest ${QGPGME_LIBRARIES})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS}")
-endif(QGPGME_FOUND)
+target_link_libraries(verifiertest ${QT_QTTEST_LIBRARY} kgetcore)

@@ -34,7 +34,7 @@
 #include "ui/linkview/kget_linkview.h"
 #include "ui/metalinkcreator/metalinkcreator.h"
 #include "extensions/webinterface/httpserver.h"
-#ifdef DEBUG
+#ifdef DO_KGET_TEST
     #include "tests/testkget.h"
 #endif
 
@@ -425,7 +425,7 @@ void MainWindow::init()
     connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)),
                            SLOT(slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)));
 
-#ifdef DEBUG
+#ifdef DO_KGET_TEST
     if (m_doTesting)
     {
         // Unit testing

@@ -28,7 +28,7 @@
 
 #include "kuiserverjobs.h"
 #include "scheduler.h"
-#include "kget_export.h"
+#include "../kget_export.h"
 #include "transfer.h"
 #include "transfergrouphandler.h"
 
