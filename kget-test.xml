@@ -43,7 +43,7 @@
       <arg>50</arg>
     </command>
     <command type="SetDirectory">
-      <arg>/tmp/downloads2</arg>
+      <arg>${DIR}/downloads2</arg>
       <arg>true</arg>
     </command>
     <command type="Verified">  
@@ -99,7 +99,7 @@
       <arg>10</arg>
     </command>
     <command type="SetDirectory">
-      <arg>/tmp/downloads2</arg>
+      <arg>${DIR}/downloads2</arg>
       <arg>true</arg>
     </command>
     <command type="Verified">

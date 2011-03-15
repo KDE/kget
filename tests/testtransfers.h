@@ -16,6 +16,7 @@
 #include <QtTest/QtTest>
 #include <QtXml/QDomElement>
 
+class KTempDir;
 class OrgKdeKgetTransferInterface;
 class OrgKdeKgetVerifierInterface;
 class TestTransfers;
@@ -25,7 +26,7 @@ class Commands : public QObject
     Q_OBJECT
 
     public:
-        Commands(const QString &source, QObject *parent = 0);
+        Commands(const QString &source, QObject *parent);
 
         QString source() const;
         bool hasCommands() const;
@@ -33,7 +34,7 @@ class Commands : public QObject
         void executeCommands();
         void associateTransfer(OrgKdeKgetTransferInterface *transfer);
 
-        static QList<QPair<int, QVariant> > parseCommands(const QDomElement &e);
+        static QList<QPair<int, QVariant> > parseCommands(const QDomElement &e, TestTransfers *transfer);
 
     enum Action {
         Start,
@@ -87,6 +88,8 @@ class TestTransfers: public QObject
     public:
         TestTransfers();
 
+        QString tempDir() const;
+
     public slots:
         void createTransfer();
 
@@ -99,6 +102,7 @@ class TestTransfers: public QObject
     private:
         QList<OrgKdeKgetTransferInterface *> m_transferIfaces;
         QList<Commands*> m_commands;
+        QScopedPointer<KTempDir> m_dir;
 };
 
 #endif

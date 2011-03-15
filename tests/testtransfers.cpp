@@ -23,7 +23,8 @@
 #include <QDBusPendingReply>
 #include <QList>
 
-#include <krun.h>
+#include <KRun>
+#include <KTempDir>
 #include <qtest_kde.h>
 
 //FIXME not working fine if files or transfers are existing already
@@ -72,7 +73,7 @@ Commands::Commands(const QString &source, QObject *parent)
     }
 }
 
-QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement &e)
+QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestTransfers *transfer)
 {
     QList<QPair<int, QVariant> > commands;
 
@@ -190,7 +191,10 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement &e)
             case SetDirectory:
                 if (args.count() == 2) {
                     data = args.last();
-                    const QString newDirectory = args.first();
+                    QString newDirectory = args.first();
+                    if (transfer) {
+                        newDirectory.replace("${DIR}/", transfer->tempDir());
+                    }
                     if (!newDirectory.isEmpty() && data.canConvert(QVariant::Bool)) {
                         const bool shouldWork = data.toBool();
                         QList<QVariant> list;
@@ -539,6 +543,9 @@ TestTransfers::TestTransfers()
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", 0);
     }
 
+    m_dir.reset(new KTempDir());
+    kDebug(5001) << "Using temp dir:" << tempDir();
+
 //TODO add a signal to check if the move worked!!
 
 //                << "http://mirrors.isc.org/pub/kde/stable/4.3.1/src/kdeedu-4.3.1.tar.bz2"
@@ -573,6 +580,12 @@ TestTransfers::TestTransfers()
 //                << "28580c6f283fa7a6405f6a4415ebe9a4167f0992"
 //                << "75a82d2e80d946333f63e32db56767c3ed17ba33";
 }
+
+QString TestTransfers::tempDir() const
+{
+    return m_dir->name();
+}
+
 void TestTransfers::parseFile()
 {
     QFile file(QString::fromLocal8Bit(KDESRCDIR) + "/kget-test.xml");
@@ -594,7 +607,7 @@ void TestTransfers::parseFile()
             return;
         }
         Commands *transfer = new Commands(source, this);
-        transfer->setCommands(Commands::parseCommands(elem));
+        transfer->setCommands(Commands::parseCommands(elem, this));
         m_commands.append(transfer);
     }
 }
@@ -616,7 +629,7 @@ void TestTransfers::createTransfer()
     OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
 
     foreach (Commands *command, m_commands) {
-        QDBusPendingReply<QStringList> reply = kgetInterface.addTransfer(command->source(), "/tmp/downloads/" + KUrl(command->source()).fileName(), false);
+        QDBusPendingReply<QStringList> reply = kgetInterface.addTransfer(command->source(), tempDir() + KUrl(command->source()).fileName(), false);
         reply.waitForFinished();
 
         if (reply.value().size()) {
