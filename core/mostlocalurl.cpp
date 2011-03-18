@@ -89,4 +89,5 @@ void MostLocalUrlJob::slotResult(KJob* job)
         m_mostLocalUrl = static_cast<KIO::StatJob*>(job)->mostLocalUrl();
     }
     kDebug(5001) << "Setting mostLocalUrl to" << m_mostLocalUrl;
+    emitResult();
 }
