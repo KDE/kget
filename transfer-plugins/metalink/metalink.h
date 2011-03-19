@@ -76,7 +76,13 @@ class Metalink : public Transfer
         void synchronDeinit();
 
     private Q_SLOTS:
-        void metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
+        /**
+         * @return true if initialising worked
+         * @note false does not mean that an error happened, it could mean, that the user
+         * decided to update the metalink
+         */
+        bool metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
+
         void fileDlgFinished(int result);
         /**
          * Checks if the ticked (not started yet) files exist already on the hd and asks
@@ -91,6 +97,7 @@ class Metalink : public Transfer
         void slotSignatureVerified();
 
     private :
+        void downloadMetalink();
         void startMetalink();
         void untickAllFiles();
         void recalculateTotalSize(DataSourceFactory *sender);
@@ -101,6 +108,7 @@ class Metalink : public Transfer
     private:
         FileModel *m_fileModel;
         int m_currentFiles;
+        bool m_metalinkJustDownloaded;
         KUrl m_localMetalinkLocation;
         KGetMetalink::Metalink m_metalink;
         QHash<KUrl, DataSourceFactory*> m_dataSourceFactory;

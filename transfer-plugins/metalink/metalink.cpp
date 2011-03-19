@@ -19,6 +19,7 @@
 #include "core/download.h"
 #include "core/transferdatasource.h"
 #include "core/filemodel.h"
+#include "core/urlchecker.h"
 #include "core/verifier.h"
 #ifdef HAVE_NEPOMUK
 #include "core/nepomukhandler.h"
@@ -44,6 +45,7 @@ Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_fileModel(0),
       m_currentFiles(0),
+      m_metalinkJustDownloaded(false),
       m_ready(false),
       m_speedCount(0),
       m_tempAverageSpeed(0),
@@ -61,19 +63,10 @@ void Metalink::start()
 
     if (!m_ready)
     {
-        if (m_localMetalinkLocation.isValid())
-        {
-            metalinkInit();
+        if (m_localMetalinkLocation.isValid() && metalinkInit()) {
             startMetalink();
-        }
-        else
-        {
-            Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName());
-
-            setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
-            setTransferChange(Tc_Status, true);
-
-            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(metalinkInit(KUrl, QByteArray)));
+        } else {
+            downloadMetalink();
         }
     }
     else
@@ -82,45 +75,50 @@ void Metalink::start()
     }
 }
 
-void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
+void Metalink::downloadMetalink()
+{
+    m_metalinkJustDownloaded = true;
+
+    setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
+    setTransferChange(Tc_Status, true);
+    Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName());
+    connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(metalinkInit(KUrl, QByteArray)));
+}
+
+bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 {
     kDebug(5001);
 
-    bool justDownloaded = !m_localMetalinkLocation.isValid();
-    if (!src.isEmpty())
-    {
+    if (!src.isEmpty()) {
         m_localMetalinkLocation = src;
     }
 
     //use the downloaded metalink-file data directly if possible
-    if (!data.isEmpty())
-    {
+    if (!data.isEmpty()) {
         KGetMetalink::HandleMetalink::load(data, &m_metalink);
     }
 
-    //TODO error message?
     //try to parse the locally stored metalink-file
-    if (!m_metalink.isValid())
-    {
+    if (!m_metalink.isValid() && m_localMetalinkLocation.isValid()) {
         KGetMetalink::HandleMetalink::load(m_localMetalinkLocation.toLocalFile(), &m_metalink);
     }
 
-    //error
-    if (!m_metalink.isValid())
-    {
+    if (!m_metalink.isValid()) {
         kError(5001) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
-        return;
+        return false;
     }
 
     //offers a dialog to download the newest version of a dynamic metalink
-     if ((m_source.isLocalFile() || !justDownloaded) && m_metalink.dynamic) {
+     if ((m_source.isLocalFile() || !m_metalinkJustDownloaded) &&
+         m_metalink.dynamic && (UrlChecker::checkSource(m_metalink.origin) == UrlChecker::NoError)) {
         if (KMessageBox::questionYesNo(0, i18n("A newer version of this Metalink might exist, do you want to download it?"),
                                        i18n("Redownload Metalink")) == KMessageBox::Yes) {
             m_localMetalinkLocation.clear();
             m_source = m_metalink.origin;
-            return;
+            downloadMetalink();
+            return false;
         }
     }
 
@@ -197,12 +195,13 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         m_dest = dest;
     }
 
-    if (!m_dataSourceFactory.size())
-    {
+    if (!m_dataSourceFactory.size()) {
+        //TODO make this via log in the future + do not display the KMessageBox
+        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
         KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
-        return;
+        return false;
     }
 
     m_ready = !m_dataSourceFactory.isEmpty();
@@ -210,14 +209,15 @@ void Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 
     //the metalink-file has just been downloaded, so ask the user to choose the files that
     // should be downloaded
-    if (justDownloaded)
-    {
+    if (m_metalinkJustDownloaded) {
         KDialog *dialog = new FileSelectionDlg(fileModel());
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
 
         dialog->show();
     }
+
+    return true;
 }
 
 void Metalink::untickAllFiles()
