@@ -35,7 +35,6 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
     m_model(model)
 {
     setCaption(i18n("Add checksum"));
-    showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
@@ -43,20 +42,15 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
     QStringList supportedTypes = Verifier::supportedVerficationTypes();
     supportedTypes.sort();
     ui.hashTypes->addItems(supportedTypes);
-    ui.successLabel->hide();
 
-    setButtons(KDialog::Yes | KDialog::User1 | KDialog::Cancel);
+    setButtons(KDialog::Yes | KDialog::Cancel);
     setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
-    setButtonGuiItem(KDialog::User1, KGuiItem(i18nc("Adds the item and reopens the dialog to add a further item", "Add more"), KIcon("list-add")));
-    showButton(KDialog::Yes, true);
-    showButton(KDialog::User1, true);
 
     updateButton();
 
     connect(ui.newHash, SIGNAL(textChanged(QString)), this, SLOT(updateButton()));
     connect(ui.hashTypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButton()));
     connect(this, SIGNAL(yesClicked()), this, SLOT(addChecksum()));
-    connect(this, SIGNAL(user1Clicked()), this, SLOT(addMore()));
 }
 
 void VerificationAddDlg::updateButton()
@@ -74,15 +68,6 @@ void VerificationAddDlg::addChecksum()
     if (m_model) {
         m_model->addChecksum(ui.hashTypes->currentText(), ui.newHash->text());
     }
-}
-
-void VerificationAddDlg::addMore()
-{
-    addChecksum();
-    ui.successLabel->setText(i18n("%1 %2 has been successfully added.", ui.hashTypes->currentText(), ui.newHash->text()));
-    ui.newHash->clear();
-    ui.successLabel->show();
-    ui.hashTypes->setFocus();
 }
 
 VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file)

@@ -42,7 +42,6 @@ MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryMod
 void MirrorAddDlg::init()
 {
     setCaption(i18n("Add mirror"));
-    showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
@@ -53,19 +52,13 @@ void MirrorAddDlg::init()
         ui.location->setCurrentIndex(-1);
     }
 
-    ui.successLabel->hide();
-
-    setButtons(KDialog::Yes | KDialog::User1 | KDialog::Cancel);
+    setButtons(KDialog::Yes | KDialog::Cancel);
     setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
-    setButtonGuiItem(KDialog::User1, KGuiItem(i18nc("Adds the item and reopens the dialog to add a further item", "Add more"), KIcon("list-add")));
-    showButton(KDialog::Yes, true);
-    showButton(KDialog::User1, true);
 
     updateButton();
 
     connect(ui.url, SIGNAL(textChanged(const QString&)), this, SLOT(updateButton(QString)));
     connect(this, SIGNAL(yesClicked()), this, SLOT(addMirror()));
-    connect(this, SIGNAL(user1Clicked()), this, SLOT(addMore()));
 }
 
 void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
@@ -90,6 +83,7 @@ void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
         default:
             break;
     }
+    update();
 }
 
 void MirrorAddDlg::updateButton(const QString &text)
@@ -114,21 +108,6 @@ void MirrorAddDlg::addMirror()
     {
         ui.location->setCurrentIndex(-1);
     }
-}
-
-void MirrorAddDlg::addMore()
-{
-    addMirror();
-    ui.successLabel->setText(i18n("%1 has been successfully added.", ui.url->text()));
-    ui.url->clear();
-    ui.numConnections->setValue(1);
-    ui.priority->setValue(0);
-    if (m_countryModel)
-    {
-        ui.location->setCurrentIndex(-1);
-    }
-    ui.successLabel->show();
-    ui.url->setFocus();
 }
 
 MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file)

@@ -40,12 +40,6 @@ class VerificationAddDlg : public KDialog
 
     private slots:
         void addChecksum();
-
-        /**
-         * Adds a checksum and prepares the dialog to add more items
-         */
-        void addMore();
-
         void updateButton();
 
     private:

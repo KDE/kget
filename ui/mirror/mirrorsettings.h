@@ -48,12 +48,6 @@ class MirrorAddDlg : public KDialog
 
     private slots:
         void addMirror();
-
-        /**
-         * Adds a mirror and prepares the dialog to add more items
-         */
-        void addMore();
-
         void updateButton(const QString &text = QString());
 
     private:
