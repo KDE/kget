@@ -89,10 +89,9 @@ UrlChecker::UrlError UrlChecker::checkUrl(const KUrl &url, const UrlChecker::Url
     return NoError;
 }
 
-bool UrlChecker::fileExists(const KUrl &file)
+bool UrlChecker::wouldOverwrite(const KUrl &source, const KUrl &dest)
 {
-    //TODO also check source == destination here?
-    return (file.isLocalFile() && QFile::exists(file.toLocalFile()));
+    return (dest.isLocalFile() && QFile::exists(dest.toLocalFile()) && source != dest);
 }
 
 UrlChecker::UrlError UrlChecker::checkSource(const KUrl &src, bool showNotification)
@@ -709,7 +708,7 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
         m_autoRenameAll = true;
     }
 
-    if ((source == destination) || (destination.isLocalFile() && QFile::exists(destination.toLocalFile()))) {
+    if (wouldOverwrite(source, destination)) {
         KIO::RenameDialog_Mode args = static_cast<KIO::RenameDialog_Mode>(KIO::M_MULTI | KIO::M_SKIP | KIO::M_OVERWRITE);
         QScopedPointer<KIO::RenameDialog> dlg(new KIO::RenameDialog(KGet::m_mainWindow, i18n("File already exists"), source,
                                     destination, args));

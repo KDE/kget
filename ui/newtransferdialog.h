@@ -102,6 +102,7 @@ class NewTransferDialog : public KDialog
         QBrush m_normalBackground;
 
         bool m_multiple;
+        bool m_overWriteSingle;
 };
 
 class NewTransferDialogHandler : public QObject
