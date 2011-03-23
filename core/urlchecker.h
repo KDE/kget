@@ -115,11 +115,14 @@ class KGET_EXPORT UrlChecker
          */
         static UrlError checkFolder(const KUrl &folder, bool showNotification = false);
 
-
         /**
-         * @return true if file exists locally
+         * Checks if source is local and exists already
+         * @note If both dest and source are the same and local, then false will be returned
+         * since it is assumed, that local files are either not handled by any
+         * transfer plugin or are e.g. metalink or torrent files otherwise and thus
+         * can have the same source/dest.
          */
-        static bool fileExists(const KUrl &file);
+        static bool wouldOverwrite(const KUrl &source, const KUrl &dest);
 
         /**
          * Checks if there is an existing transfer for url with type

@@ -42,7 +42,8 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
   : KDialog(parent),
     m_window(0),
     m_existingTransfer(0),
-    m_multiple(false)
+    m_multiple(false),
+    m_overWriteSingle(false)
 {
     setModal(true);
     setCaption(i18n("New Download"));
@@ -116,6 +117,7 @@ void NewTransferDialog::clear()
     m_destination.clear();
     m_sources.clear();
     m_existingTransfer = 0;
+    m_overWriteSingle = false;
 
     foreach (TransferGroupHandler *group, KGet::allTransferGroups()) {
         ui.groupComboBox->addItem(KIcon(group->iconName()), group->name());
@@ -364,7 +366,7 @@ void NewTransferDialog::checkInput()
                 QListWidgetItem *item = list->item(i);
                 const KUrl source = KUrl(item->text());
                 const KUrl destUrl = UrlChecker::destUrl(dest, source);
-                if (UrlChecker::fileExists(destUrl)) {
+                if (UrlChecker::wouldOverwrite(source, destUrl)) {
                     item->setBackground(m_existingFileBackground);
                     existingFile = true;
                 } else {
@@ -396,8 +398,8 @@ void NewTransferDialog::checkInput()
             }
         }
 
-        //show the message of overwriting the file in any case
-        if (UrlChecker::fileExists(m_destination)) {
+        if (UrlChecker::wouldOverwrite(KUrl(ui.urlRequester->text().trimmed()), m_destination)) {
+            m_overWriteSingle = true;
             QString warning = ui.errorText->text();
             if (!warning.isEmpty()) {
                 warning += '\n';
@@ -405,6 +407,8 @@ void NewTransferDialog::checkInput()
             warning += UrlChecker::message(KUrl(), UrlChecker::Destination, UrlChecker::ExistingFile);
             setWarning(warning);
             ui.errorWidget->show();
+        } else {
+            m_overWriteSingle = false;
         }
     }
 
@@ -449,10 +453,13 @@ void NewTransferDialog::dialogAccepted()
     ///add data to create transfers
     QList<KGet::TransferData> data;
     if (!m_multiple) {
-        //removes m_destination if it exists
-        KIO::Job *del = KIO::del(m_destination, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
-        if (KIO::NetAccess::synchronousRun(del, 0)) {
-            kDebug(5001) << "Removing existing file:" << m_destination;
+        if (m_overWriteSingle) {
+            //removes m_destination if it exists
+            //TODO move this and the other del-jobs to the transfer-plugins? Reasons for/against?
+            KIO::Job *del = KIO::del(m_destination, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
+            if (KIO::NetAccess::synchronousRun(del, 0)) {
+                kDebug(5001) << "Removing existing file:" << m_destination;
+            }
         }
 
         //sourceUrl is valid, has been checked before
@@ -474,6 +481,7 @@ void NewTransferDialog::dialogAccepted()
                 //file exists already, remove it
                 if (item->background() == m_existingFileBackground) {
                     kDebug(5001) << "Removing existing file:" << destUrl;
+                    //TODO move this and the other del-jobs to the transfer-plugins? Reasons for/against?
                     KIO::Job *del = KIO::del(destUrl, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
                     KIO::NetAccess::synchronousRun(del, 0);
                 }
