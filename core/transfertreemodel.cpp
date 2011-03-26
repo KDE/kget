@@ -214,15 +214,14 @@ void TransferTreeModel::delGroup(TransferGroup * group)
     }
     delTransfers(transfers);
 
-    takeRow(item->row());
+    m_transferGroups.removeAll(item);
+    removeRow(item->row());
 
     m_changedGroups.removeAll(group->handler());
 
     emit groupRemovedEvent(group->handler());
 
     KGet::m_scheduler->delQueue(group);
-
-    m_transferGroups.removeAll(item);
 }
 
 void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, TransferGroup *group)
