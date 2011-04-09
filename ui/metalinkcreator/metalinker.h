@@ -247,6 +247,13 @@ class File
 
         bool isValid() const;
 
+        /**
+         * Controlls if the name attribute is valid, i.e. it is not empty and
+         * does not contain any directory traversal directives or information,
+         * as described in the Metalink 4.0 specification 4.1.2.1.
+         */
+        bool isValidNameAttribute() const;
+
 #ifdef HAVE_NEPOMUK
         /**
          * Return Nepomuk-properties that can be extracted of file, only including data
@@ -259,14 +266,6 @@ class File
         KIO::filesize_t size;
         CommonData data;
         Resources resources;
-
-    private:
-        /**
-         * Controlls if the name attribute is valid, i.e. it is not empty and
-         * does not contain any directory traversal directives or information,
-         * as described in the Metalink 4.0 specification 4.1.2.1.
-         */
-        bool isValidNameAttribute() const;
 };
 
 class Files

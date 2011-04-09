@@ -303,7 +303,7 @@ void KGetMetalink::Metaurl::save(QDomElement &e) const
 
 bool KGetMetalink::Metaurl::isValid()
 {
-    return url.isValid() && !type.isEmpty();
+    return url.isValid() && url.hasHost() && !url.protocol().isEmpty() && !type.isEmpty();
 }
 
 void KGetMetalink::Metaurl::clear()
@@ -358,17 +358,7 @@ void KGetMetalink::Url::save(QDomElement &e) const
 
 bool KGetMetalink::Url::isValid()
 {
-    bool valid = url.isValid();
-    if (url.fileName().endsWith(QLatin1String(".torrent")))
-    {
-        valid = false;
-    }
-    else if (url.fileName().endsWith(QLatin1String(".metalink")) || url.fileName().endsWith(QLatin1String(".meta4")))
-    {
-        valid = false;
-    }
-
-    return valid;
+    return url.isValid() && url.hasHost() && !url.protocol().isEmpty();
 }
 
 void KGetMetalink::Url::clear()

@@ -30,3 +30,21 @@ kde4_add_unit_test(verifiertest
 )
 
 target_link_libraries(verifiertest ${QT_QTTEST_LIBRARY} kgetcore)
+
+
+#===========Metalinker===========
+set(metalinktest_SRCS
+    metalinktest.cpp
+    ../ui/metalinkcreator/metalinker.cpp
+)
+
+kde4_add_unit_test( metalinktest
+  TESTNAME kget-metalinktest
+  ${metalinktest_SRCS}
+)
+
+target_link_libraries(metalinktest ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY})
+
+if (HAVE_NEPOMUK)
+  target_link_libraries(metalinktest ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
+endif (HAVE_NEPOMUK)
