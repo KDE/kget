@@ -583,7 +583,13 @@ bool KGetMetalink::File::isValidNameAttribute() const
         return false;
     }
 
-    if (name.contains(QRegExp("$(\\.\\.?)?/")) || name.contains("/../") || name.endsWith("/..")) {
+    if (name.endsWith('/')) {
+        kError(5001) << "Name attribute of Metalink::File does not contain a file name:" << name;
+        return false;
+    }
+
+    const QStringList components = name.split('/');
+    if (name.startsWith('/') || components.contains("..") || components.contains(".")) {
         kError(5001) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
         return false;
     }
