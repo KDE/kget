@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
                          QByteArray("2." + QByteArray::number(KDE_VERSION_MINOR) + '.' + QByteArray::number(KDE_VERSION_RELEASE)),
                          ki18n("An advanced download manager for KDE"),
                          KAboutData::License_GPL,
-                         ki18n("(C) 2005 - 2009, The KGet developers\n"
+                         ki18n("(C) 2005 - 2011, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
                          "(C) 1998 - 2000, Matej Koss"),
