@@ -186,9 +186,7 @@ void RangeTreeWidget::setLabels(const QStringList &labels)
 
 void RangeTreeWidget::setRangeDelegate(RangeDelegate *delegate)
 {
-    if (m_rangeDelegate) {
-        delete m_rangeDelegate;
-    }
+    delete m_rangeDelegate;
     m_rangeDelegate = delegate;
 }
 
