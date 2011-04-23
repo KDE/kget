@@ -130,9 +130,6 @@ if(HAVE_NEPOMUK)
         ONTOLOGIES
         ${CMAKE_CURRENT_SOURCE_DIR}/kget_history.trig
     )
-    soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nfo.trig "NFO" "Nepomuk::Vocabulary" "trig")
-    soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nepomuk/ndo.trig "NDO" "Nepomuk::Vocabulary" "trig")
-    soprano_add_ontology(kgetcore_SRCS ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig "NIE" "Nepomuk::Vocabulary" "trig")
 endif (HAVE_NEPOMUK)
 
 kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
