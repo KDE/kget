@@ -1198,9 +1198,6 @@ void KGet::loadPlugins()
         }
     }
 
-    QList<KGetPlugin *>::ConstIterator it2 = pluginList.constBegin();
-    QList<KGetPlugin *>::ConstIterator it2End = pluginList.constEnd();
-
     foreach (KGetPlugin *plugin, pluginList)
     {
         m_transferFactories.append(qobject_cast<TransferFactory *>(plugin));
