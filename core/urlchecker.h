@@ -67,7 +67,7 @@ class KGET_EXPORT UrlChecker
             NoHost,
 
             //Destination and Folder only
-            NotWriteable,
+            NotWriteable
         };
 
         enum UrlWarning {
