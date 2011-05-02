@@ -65,7 +65,7 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
                 KIO::NetAccess::synchronousRun(del, 0);
             }
 
-            if (baseUrl.protocol() != "ftp") {
+            if (baseUrl.protocol() != "ftp" && baseUrl.protocol() != "sftp") {
                 kDebug(5001) << "Downloading" << baseUrl;
                 KIO::FileCopyJob *job = KIO::file_copy(baseUrl, dest, -1, KIO::HideProgressInfo);
                 job->addMetaData("errorPage", "false");
