@@ -79,7 +79,7 @@ class NewTransferDialog : public KDialog
         void setDestination(const KUrl::List &sources, const QStringList &list);
 
         void setWarning(const QString &warning);
-        void setError(const QString &error);
+        void setInformation(const QString &information);
 
         void dialogAccepted();
 
@@ -96,8 +96,6 @@ class NewTransferDialog : public KDialog
 
         TransferHandler *m_existingTransfer;
 
-        QPalette m_error;
-        QPalette m_warning;
         QBrush m_existingFileBackground;
         QBrush m_normalBackground;
 

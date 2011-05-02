@@ -11,46 +11,20 @@
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string extracomment="Files as in files on a server">Files:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="1">
+   <item row="2" column="0">
     <widget class="QListView" name="files">
      <property name="selectionMode">
       <enum>QAbstractItemView::ExtendedSelection</enum>
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
+   <item row="2" column="1">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="KPushButton" name="add_local_file">
+       <property name="toolTip">
+        <string>Adds local files adding a lot information automatically.</string>
+       </property>
        <property name="text">
         <string>Add local files</string>
        </property>
@@ -80,17 +54,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Add at least one file. Adding local files adds a lot of information automatically.</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
+   <item row="3" column="0">
     <widget class="QWidget" name="dragDrop" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="margin">
@@ -113,12 +77,8 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="needUrl">
-     <property name="text">
-      <string>You need to set mirrors for the entries with an icon.</string>
-     </property>
-    </widget>
+   <item row="0" column="0" colspan="2">
+    <widget class="KMessageWidget" name="infoWidget" native="true"/>
    </item>
   </layout>
  </widget>
@@ -127,6 +87,12 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">KMessageWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

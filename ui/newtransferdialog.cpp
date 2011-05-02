@@ -62,14 +62,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     m_timer->setSingleShot(true);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(checkInput()));
 
-    //set the palettes for errors and warnings
-    KColorScheme scheme(QPalette::Active, KColorScheme::Window);
-    m_error = ui.error->palette();
-    m_error.setBrush(QPalette::WindowText, scheme.foreground(KColorScheme::NegativeText));
-    m_warning = m_error;
-    m_warning.setBrush(QPalette::WindowText, scheme.foreground(KColorScheme::NeutralText));
-
-    scheme = KColorScheme(QPalette::Active, KColorScheme::View);
+    const KColorScheme scheme = KColorScheme(QPalette::Active, KColorScheme::View);
     m_existingFileBackground = scheme.background(KColorScheme::NeutralBackground);
     m_normalBackground = scheme.background();
 
@@ -80,7 +73,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     ui.destRequester->comboBox()->setEditable(true);
     ui.destRequester->fileDialog()->setKeepLocation(true);
 
-    ui.titleWidget->setPixmap(KIcon("document-new").pixmap(22, 22), KTitleWidget::ImageLeft);
+    ui.errorWidget->setCloseButtonVisible(false);
 
     clear();
 
@@ -318,10 +311,11 @@ void NewTransferDialog::checkInput()
     UrlChecker::UrlError error = UrlChecker::checkFolder(dest);
     const bool folderValid = (error == UrlChecker::NoError);
     bool destinationValid = false;
+    QString infoText;
+    QString warningText;
     if (!folderValid) {
         if (m_multiple) {
-            setError(UrlChecker::message(KUrl(), UrlChecker::Folder, error));
-
+            infoText = UrlChecker::message(KUrl(), UrlChecker::Folder, error);
         } else {
             //might be a destination instead of a folder
             destinationValid = (UrlChecker::checkDestination(dest) == UrlChecker::NoError);
@@ -329,7 +323,6 @@ void NewTransferDialog::checkInput()
     } else {
         m_destination = dest;
     }
-    ui.errorWidget->setVisible(!folderValid && !destinationValid);
 
     //check the source
     if (!m_multiple) {
@@ -338,8 +331,7 @@ void NewTransferDialog::checkInput()
     error = UrlChecker::checkSource(source);
     const bool sourceValid = (error == UrlChecker::NoError);
     if (!m_multiple && !sourceValid) {
-        setError(UrlChecker::message(KUrl(), UrlChecker::Source, error));
-        ui.errorWidget->show();
+        infoText = UrlChecker::message(KUrl(), UrlChecker::Source, error);
     }
 
     //check if any sources are checked and for existing transfers or destinations
@@ -356,8 +348,7 @@ void NewTransferDialog::checkInput()
             }
         }
         if (!filesChecked) {
-            setError(i18n("You have no source URLs selected."));
-            ui.errorWidget->show();
+            infoText = i18n("Select at least one source url.");
         }
 
         //check if there are existing files
@@ -373,10 +364,9 @@ void NewTransferDialog::checkInput()
                 } else {
                     item->setBackground(m_normalBackground);
                 }
-                if (existingFile) {
-                    setWarning(i18n("Files that exist already in the current folder have been marked."));//TODO better message
-                    ui.errorWidget->show();
-                }
+            }
+            if (existingFile) {
+                warningText = i18n("Files that exist already in the current folder have been marked.");//TODO better message
             }
         }
     }
@@ -385,32 +375,34 @@ void NewTransferDialog::checkInput()
     UrlChecker::UrlWarning warning = UrlChecker::NoWarning;
     if (!m_multiple && sourceValid && (folderValid || destinationValid)) {
         m_destination = UrlChecker::destUrl(dest, source);
-        ui.errorText->clear();
         //show only one message for existing transfers
         m_existingTransfer = UrlChecker::existingTransfer(source, UrlChecker::Source, &warning);
         if (m_existingTransfer) {
-            setWarning(UrlChecker::message(KUrl(), UrlChecker::Source, warning));
-            ui.errorWidget->show();
+            warningText = UrlChecker::message(KUrl(), UrlChecker::Source, warning);
         } else {
             m_existingTransfer = UrlChecker::existingTransfer(m_destination, UrlChecker::Destination, &warning);
             if (m_existingTransfer) {
-                setWarning(UrlChecker::message(KUrl(), UrlChecker::Destination, warning));
-                ui.errorWidget->show();
+                warningText = UrlChecker::message(KUrl(), UrlChecker::Destination, warning);
             }
         }
 
         if (UrlChecker::wouldOverwrite(KUrl(ui.urlRequester->text().trimmed()), m_destination)) {
             m_overWriteSingle = true;
-            QString warning = ui.errorText->text();
-            if (!warning.isEmpty()) {
-                warning += '\n';
+            if (!warningText.isEmpty()) {
+                warningText += '\n';
             }
-            warning += UrlChecker::message(KUrl(), UrlChecker::Destination, UrlChecker::ExistingFile);
-            setWarning(warning);
-            ui.errorWidget->show();
+            warningText += UrlChecker::message(KUrl(), UrlChecker::Destination, UrlChecker::ExistingFile);
         } else {
             m_overWriteSingle = false;
         }
+    }
+
+    if (!infoText.isEmpty()) {
+        setInformation(infoText);
+    } else if (!warningText.isEmpty()) {
+        setWarning(warningText);
+    } else {
+        ui.errorWidget->hide();
     }
 
     //activate the ok button
@@ -497,18 +489,18 @@ void NewTransferDialog::dialogAccepted()
     }
 }
 
-void NewTransferDialog::setError(const QString &error)
+void NewTransferDialog::setInformation(const QString &information)
 {
-    ui.errorText->setText(error);
-    ui.error->setText(i18nc("an error happened in connection with the user input", "Error:"));
-    ui.error->setPalette(m_error);
+    ui.errorWidget->setMessageType(KMessageWidget::InformationMessageType);
+    ui.errorWidget->setText(information);
+    ui.errorWidget->setVisible(!information.isEmpty());
 }
 
 void NewTransferDialog::setWarning(const QString &warning)
 {
-    ui.errorText->setText(warning);
-    ui.error->setText(i18nc("a warning happened in connection with the user input", "Warning:"));
-    ui.error->setPalette(m_warning);
+    ui.errorWidget->setMessageType(KMessageWidget::WarningMessageType);
+    ui.errorWidget->setText(warning);
+    ui.errorWidget->setVisible(!warning.isEmpty());
 }
 
 

@@ -12,43 +12,8 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTitleWidget" name="titleWidget">
-     <property name="text">
-      <string>New Download</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="errorWidget" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="error">
-        <property name="text">
-         <string extracomment="an error happened in connection with the user input"/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="errorText">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+    <widget class="KMessageWidget" name="errorWidget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout"/>
     </widget>
    </item>
    <item>
@@ -123,11 +88,6 @@
    <header>klistwidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KTitleWidget</class>
-   <extends>QWidget</extends>
-   <header>ktitlewidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
@@ -141,6 +101,12 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">KMessageWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

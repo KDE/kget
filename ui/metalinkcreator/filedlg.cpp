@@ -51,6 +51,9 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     uiData.setupUi(data);
     ui.dataLayout->addWidget(data);
 
+    ui.infoWidget->setCloseButtonVisible(false);
+    ui.infoWidget->setMessageType(KMessageWidget::InformationMessageType);
+
     //set the file data
     ui.name->setText(m_file->name);
     uiData.identity->setText(m_file->data.identity);
@@ -128,11 +131,8 @@ void FileDlg::slotUpdateOkButton()
         information << i18n("Enter at least one URL.");
     }
 
-    if (information.isEmpty()) {
-        information << i18n("Required data entered; also consider entering additional information.");
-    }
-
-    ui.ktitlewidget->setText(information.join(" "), KTitleWidget::InfoMessage);
+    ui.infoWidget->setText(information.join(" "));
+    ui.infoWidget->setVisible(!information.isEmpty());
 
     enableButtonOk(hasName && hasUrls && !isDuplicate);
 }

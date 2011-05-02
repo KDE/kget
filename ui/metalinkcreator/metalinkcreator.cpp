@@ -113,7 +113,12 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
         enableButton(KDialog::User3, true);
     }
 
-    uiFiles.needUrl->setVisible(m_needUrlCount);
+    if (!m_filesModel->rowCount()) {
+        uiFiles.infoWidget->setText(i18n("Add at least one file."));
+    } else if (m_needUrlCount) {
+        uiFiles.infoWidget->setText(i18n("You need to set mirrors for the entries with an icon."));
+    }
+    uiFiles.infoWidget->setVisible(!m_filesModel->rowCount() || m_needUrlCount);
 
     //only enable finish then the metalink is valid (i.e. no required data missing)
     //and the thread is not running
@@ -181,6 +186,7 @@ void MetalinkCreator::createIntroduction()
     uiIntroduction.setupUi(widget);
 
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
+    uiIntroduction.save->fileDialog()->setOperationMode(KFileDialog::Saving);
 
     connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
     connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
@@ -215,13 +221,14 @@ void MetalinkCreator::createFiles()
     m_filesModel = new QStandardItemModel(0, 1, this);
     uiFiles.files->setModel(m_filesModel);
 
+    uiFiles.infoWidget->setCloseButtonVisible(false);
+    uiFiles.infoWidget->setMessageType(KMessageWidget::InformationMessageType);
     uiFiles.add_local_file->setIcon(KIcon("list-add"));
     uiFiles.add_file->setGuiItem(KStandardGuiItem::add());
     uiFiles.properties_file->setGuiItem(KStandardGuiItem::properties());
     uiFiles.properties_file->setEnabled(false);
     uiFiles.remove_file->setGuiItem(KStandardGuiItem::remove());
     uiFiles.remove_file->setEnabled(false);
-    uiFiles.needUrl->hide();
     uiFiles.dragDrop->hide();
 
     connect(uiFiles.add_local_file, SIGNAL(clicked(bool)), this, SLOT(slotAddLocalFilesClicked()));
@@ -231,7 +238,7 @@ void MetalinkCreator::createFiles()
     connect(uiFiles.files->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateFilesButtons()));
     connect(widget, SIGNAL(urlsDropped(QList<KUrl>)), m_handler, SLOT(slotFiles(QList<KUrl>)));
 
-    addPage(widget, i18nc("file as in file on hard drive", "Enter at least one file."));
+    addPage(widget, i18nc("file as in file on hard drive", "Files"));
 }
 
 void MetalinkCreator::loadFiles()

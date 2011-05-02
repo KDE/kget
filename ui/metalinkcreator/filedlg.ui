@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTitleWidget" name="ktitlewidget"/>
+    <widget class="KMessageWidget" name="infoWidget" native="true"/>
    </item>
    <item>
     <widget class="KTabWidget" name="tabWidget">
@@ -223,11 +223,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KTitleWidget</class>
-   <extends>QWidget</extends>
-   <header>ktitlewidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
@@ -247,6 +242,12 @@
    <class>KRestrictedLine</class>
    <extends>KLineEdit</extends>
    <header>krestrictedline.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">KMessageWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>
