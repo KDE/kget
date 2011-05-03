@@ -58,7 +58,7 @@ private slots:
 
 private:
     void checkClipboard();
-    void showLinks( const QStringList &links );
+    void showLinks(const QStringList &links, bool urlRequestVisible);
 
 private:
     enum PatternSyntax {

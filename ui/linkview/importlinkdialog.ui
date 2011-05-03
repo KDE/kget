@@ -7,39 +7,48 @@
     <x>0</x>
     <y>0</y>
     <width>750</width>
-    <height>390</height>
+    <height>393</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>&amp;File with links to import:</string>
-       </property>
-       <property name="buddy">
-        <cstring>urlRequester</cstring>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KUrlRequester" name="urlRequester"/>
-     </item>
-     <item>
-      <widget class="KPushButton" name="importLinks">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&amp;Import Links</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="KSeparator" name="kseparator_2"/>
+    <widget class="QWidget" name="importWidget" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>&amp;File with links to import:</string>
+          </property>
+          <property name="buddy">
+           <cstring>urlRequester</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KUrlRequester" name="urlRequester"/>
+        </item>
+        <item>
+         <widget class="KPushButton" name="importLinks">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>&amp;Import Links</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="KSeparator" name="kseparator_2"/>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">

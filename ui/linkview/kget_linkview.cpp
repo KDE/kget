@@ -134,11 +134,13 @@ void KGetLinkView::checkClipboard()
 void KGetLinkView::setLinks(const QStringList &links)
 {
     m_links = links;
-    showLinks(m_links);
+    showLinks(m_links, false);
 }
 
-void KGetLinkView::showLinks( const QStringList &links )
+void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 {
+    ui.importWidget->setVisible(urlRequestVisible);
+
     QStandardItemModel *model = new QStandardItemModel(0, 5, this);
 
     model->setHeaderData(0, Qt::Horizontal, i18n("Auxiliary header"));
@@ -410,7 +412,7 @@ void KGetLinkView::slotImportFinished()
 {
     ui.progressBar->hide();
     m_links = QList <QString> (m_linkImporter->links());
-    showLinks(m_links);
+    showLinks(m_links, true);
 }
 
 void KGetLinkView::updateImportButtonStatus(const QString &text)
