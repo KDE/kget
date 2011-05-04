@@ -593,6 +593,16 @@ bool Verifier::isChecksum(const QString &type, const QString &checksum)
     return false;
 }
 
+QString Verifier::cleanChecksumType(const QString &type)
+{
+    QString hashType = type.toUpper();
+    if (hashType.contains(QRegExp("^SHA\\d+"))) {
+        hashType.insert(3, '-');
+    }
+
+    return hashType;
+}
+
 bool Verifier::isVerifyable() const
 {
     return QFile::exists(m_dest.pathOrUrl()) && m_model->rowCount();
@@ -633,9 +643,9 @@ QStringList Verifier::orderChecksumTypes(Verifier::ChecksumStrength strength) co
     return checksumTypes;
 }
 
-QPair<QString, QString> Verifier::availableChecksum(Verifier::ChecksumStrength strength) const
+Checksum Verifier::availableChecksum(Verifier::ChecksumStrength strength) const
 {
-    QPair<QString, QString> pair;
+    Checksum pair;
 
     //check if there is at least one entry
     QModelIndex index = m_model->index(0, 0);
@@ -657,6 +667,19 @@ QPair<QString, QString> Verifier::availableChecksum(Verifier::ChecksumStrength s
     }
 
     return pair;
+}
+
+QList<Checksum> Verifier::availableChecksums() const
+{
+    QList<Checksum> checksums;
+
+    for (int i = 0; i < m_model->rowCount(); ++i) {
+        const QString type = m_model->index(i, VerificationModel::Type).data().toString();
+        const QString hash = m_model->index(i, VerificationModel::Checksum).data().toString();
+        checksums << qMakePair(type, hash);
+    }
+
+    return checksums;
 }
 
 QPair<QString, PartialChecksums*> Verifier::availablePartialChecksum(Verifier::ChecksumStrength strength) const
@@ -697,7 +720,7 @@ void Verifier::verify(const QModelIndex &index)
     QString checksum;
 
     if (row == -1) {
-        QPair<QString, QString> pair = availableChecksum(static_cast<Verifier::ChecksumStrength>(Settings::checksumStrength()));
+        Checksum pair = availableChecksum(static_cast<Verifier::ChecksumStrength>(Settings::checksumStrength()));
         type = pair.first;
         checksum = pair.second;
     } else if ((row >= 0) && (row < m_model->rowCount())) {

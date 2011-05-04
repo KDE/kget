@@ -30,6 +30,13 @@
 
 #ifdef HAVE_NEPOMUK
 #include <Nepomuk/Variant>
+#include <Nepomuk/Vocabulary/NCO>
+#include <Nepomuk/Vocabulary/NIE>
+#include <Nepomuk/Vocabulary/NFO>
+#include <Soprano/Vocabulary/NAO>
+
+using namespace Nepomuk::Vocabulary;
+using namespace Soprano::Vocabulary;
 #endif //HAVE_NEPOMUK
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet/") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
@@ -245,20 +252,48 @@ void KGetMetalink::CommonData::clear()
 QList<QPair<QUrl, Nepomuk::Variant> > KGetMetalink::CommonData::properties() const
 {
     //TODO what to do with identity?
-    //TODO what uri for logo?
-    //TODO what uri for publisher-url?
     QList<QPair<QUrl, Nepomuk::Variant> > data;
 
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#version", version);
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/01/19/nie/#description", description);
-    if (oses.count()) {
-        HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#OperatingSystem", oses.first());//TODO support all set oses!
+    HandleMetalink::addProperty(&data, NIE::version(), version);
+    HandleMetalink::addProperty(&data, NIE::description(), description);
+
+    QList<Nepomuk::Resource> osResources;
+    foreach (const QString &os, oses) {
+        Nepomuk::Resource osRes(os, NFO::OperatingSystem());
+        osRes.setProperty(NIE::title(), os);
+        osResources << osRes;
     }
-    if (languages.count()) {
-        HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#language", languages.first());//TODO support all set languages!
+    if (!osResources.isEmpty()) {
+        data << qMakePair(NAO::isRelated(), Nepomuk::Variant(osResources));
     }
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/2007/03/22/nco/#publisher", publisher.name);
-    HandleMetalink::addProperty(&data, "http://www.semanticdesktop.org/ontologies/nie/#copyright", copyright);
+
+    if (!logo.isEmpty()) {
+        Nepomuk::Resource logoRes(logo, NFO::RemoteDataObject());
+        logoRes.addType(NAO::Symbol());
+        data << qMakePair(NAO::hasSymbol(), Nepomuk::Variant(logoRes));
+    }
+
+    QList<Nepomuk::Variant> langVariants;
+    foreach (const QString &language, languages) {
+        langVariants << language;
+    }
+    if (langVariants.count()) {
+        data << qMakePair(NIE::language(), Nepomuk::Variant(langVariants));
+    }
+
+    if (!publisher.name.isEmpty()) {
+        Nepomuk::Resource res(publisher.name, NCO::OrganizationContact());
+        res.setLabel(publisher.name);
+        res.addProperty(NCO::fullname(), publisher.name);
+        if (!publisher.url.isEmpty()) {
+            Nepomuk::Resource website(publisher.url, NFO::Website());
+            website.addProperty(NIE::url(), publisher.url);
+            res.addProperty(NCO::websiteUrl(), website);
+        }
+        data << qMakePair(NCO::publisher(), Nepomuk::Variant(res));
+    }
+
+    HandleMetalink::addProperty(&data, NIE::copyright(), copyright);
 
     return data;
 }
@@ -1287,9 +1322,14 @@ bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::M
 #ifdef HAVE_NEPOMUK
 void KGetMetalink::HandleMetalink::addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QByteArray &uriBa, const QString &value)
 {
-    if (data && !uriBa.isEmpty() && !value.isEmpty())
-    {
-        const QUrl uri = QUrl::fromEncoded(uriBa, QUrl::StrictMode);
+    if (!uriBa.isEmpty()) {
+        addProperty(data, QUrl::fromEncoded(uriBa, QUrl::StrictMode), value);
+    }
+}
+
+void KGetMetalink::HandleMetalink::addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QUrl &uri, const QString &value)
+{
+    if (data && !uri.isEmpty() && !value.isEmpty()) {
         (*data) << qMakePair(uri, Nepomuk::Variant(value));
     }
 }

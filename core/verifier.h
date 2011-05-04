@@ -47,6 +47,8 @@ namespace GpgME {
 class VerificationResult;
 }
 
+typedef QPair<QString, QString> Checksum;
+
 class VerificationThread : public QThread
 {
     Q_OBJECT
@@ -247,6 +249,12 @@ class KGET_EXPORT Verifier : public QObject
         static bool isChecksum(const QString &type, const QString &checksum);
 
         /**
+         * Cleans the checksum type, that it should match the official name, i.e. upper case
+         * e.g. SHA-1 instead of sha1
+         */
+        static QString cleanChecksumType(const QString &type);
+
+        /**
          * Creates the checksum type of the file dest
          * @param abortPtr makes it possible to abort the calculation of the checksum from another thread
          */
@@ -313,7 +321,12 @@ class KGET_EXPORT Verifier : public QObject
          * sha384 > sha256 .... < (sha512 preferred)
          * If the category does not match then any checksum is taken
          */
-        QPair<QString, QString> availableChecksum(ChecksumStrength strength) const;
+        Checksum availableChecksum(ChecksumStrength strength) const;
+
+        /**
+         * Returns all set checksums
+         */
+        QList<Checksum> availableChecksums() const;
 
         /**
          * Returns a PartialChecksum and a type
