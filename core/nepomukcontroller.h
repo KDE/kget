@@ -21,7 +21,8 @@
 #define NEPOMUKCONTROLLER
 
 #include "../kget_export.h"
-#include "nfo.h"
+
+#include <Nepomuk/Vocabulary/NFO>
 
 #include <QtCore/QMutex>
 #include <QtCore/QThread>

@@ -16,12 +16,13 @@
 #include "nepomukcontroller.h"
 #include "verifier.h"
 
-#include "nfo.h"
-#include "ndo.h"
-#include "nie.h"
-#include <Soprano/Vocabulary/Xesam>
 #include <Nepomuk/Variant>
 #include <Nepomuk/Tag>
+#include <Nepomuk/Vocabulary/NDO>
+#include <Nepomuk/Vocabulary/NFO>
+#include <Nepomuk/Vocabulary/NIE>
+
+using namespace Nepomuk::Vocabulary;
 
 NepomukHandler::NepomukHandler(Transfer *transfer)
   : QObject(transfer),
@@ -52,16 +53,17 @@ void NepomukHandler::saveFileProperties()
 {
     const QList<KUrl> destinations = m_transfer->files();
 
-    QPair<QUrl, Nepomuk::Variant> property = qMakePair(Nepomuk::Vocabulary::NIE::url(), Nepomuk::Variant(m_transfer->source()));
-    KGet::nepomukController()->setProperty(QList<KUrl>() << m_transfer->source(), property, Nepomuk::Vocabulary::NFO::RemoteDataObject());
-    Nepomuk::Resource srcFileRes(m_transfer->source(), Nepomuk::Vocabulary::NFO::RemoteDataObject());
+    const KUrl src = m_transfer->source();
+    const QUrl srcType = (src.isLocalFile() ? NFO::FileDataObject() : NFO::RemoteDataObject());
+    QPair<QUrl, Nepomuk::Variant> property = qMakePair(NIE::url(), Nepomuk::Variant(src));
+    KGet::nepomukController()->setProperty(QList<KUrl>() << src, property, srcType);
+    Nepomuk::Resource srcFileRes(src, srcType);
 
     foreach (const KUrl &destination, destinations) {
         //set all the properties
         QList<QPair<QUrl, Nepomuk::Variant> > properties;
-        properties.append(qMakePair(Nepomuk::Vocabulary::NIE::url(), Nepomuk::Variant(destination)));
-        properties.append(qMakePair(Nepomuk::Vocabulary::NDO::copiedFrom(), Nepomuk::Variant(srcFileRes)));
-        properties.append(qMakePair(Soprano::Vocabulary::Xesam::originURL(), Nepomuk::Variant(m_transfer->source().url())));
+        properties.append(qMakePair(NIE::url(), Nepomuk::Variant(destination)));
+        properties.append(qMakePair(NDO::copiedFrom(), Nepomuk::Variant(srcFileRes)));
 
         //just adds one Hash as otherwise it would not be clear in KFileMetaDataWidget which hash belongs
         //to which algorithm
@@ -76,8 +78,8 @@ void NepomukHandler::saveFileProperties()
                 if (hashType.contains(QRegExp("^SHA\\d+"))) {
                     hashType.insert(3, '-');
                 }
-                properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashAlgorithm(), Nepomuk::Variant(hashType)));
-                properties.append(qMakePair(Nepomuk::Vocabulary::NFO::hashValue(), Nepomuk::Variant(hash)));
+                properties.append(qMakePair(NFO::hashAlgorithm(), Nepomuk::Variant(hashType)));
+                properties.append(qMakePair(NFO::hashValue(), Nepomuk::Variant(hash)));
             }
         }
 
