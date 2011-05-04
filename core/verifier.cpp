@@ -1122,6 +1122,7 @@ QString Signature::fingerprint()
 void Signature::downloadKey(QString fingerprint) // krazy:exclude=passbyvalue
 {
 #ifdef HAVE_QGPGME
+    kDebug(5001) << "Downloading key:" << fingerprint;
     signatureDownloader->downloadKey(fingerprint, this);
 #else
     Q_UNUSED(fingerprint)
@@ -1204,13 +1205,18 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     m_error = signature.status().code();
     m_fingerprint = signature.fingerprint();
 
+    kDebug(5001) << "Fingerprint:" << m_fingerprint;
+    kDebug(5001) << "Signature summary:" << m_sigSummary;
+    kDebug(5001) << "Error code:" << m_error;
+
     if (m_sigSummary & GpgME::Signature::KeyMissing) {
+        kDebug(5001) << "Public key missing.";
         if (Settings::signatureAutomaticDownloading() ||
             (KMessageBox::warningYesNoCancel(0,
              i18n("The key to verify the signature is missing, do you want to download it?")) == KMessageBox::Yes)) {
             m_verifyTried = true;
-            emit verified(m_status);
             downloadKey(m_fingerprint);
+            emit verified(m_status);
             return;
         }
     }
