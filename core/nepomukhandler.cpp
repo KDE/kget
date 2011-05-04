@@ -65,21 +65,23 @@ void NepomukHandler::saveFileProperties()
         properties.append(qMakePair(NIE::url(), Nepomuk::Variant(destination)));
         properties.append(qMakePair(NDO::copiedFrom(), Nepomuk::Variant(srcFileRes)));
 
-        //just adds one Hash as otherwise it would not be clear in KFileMetaDataWidget which hash belongs
-        //to which algorithm
         Verifier *verifier = m_transfer->verifier(destination);
         if (verifier) {
-            const QPair<QString, QString> checksum = verifier->availableChecksum(Verifier::Strongest);
-            QString hashType = checksum.first;
-            const QString hash = checksum.second;
-            if (!hashType.isEmpty() && !hash.isEmpty()) {
-                //use the offical names, i.e. uppercase and in the case of SHA with a '-'
-                hashType = hashType.toUpper();
-                if (hashType.contains(QRegExp("^SHA\\d+"))) {
-                    hashType.insert(3, '-');
+            const QList<Checksum> checksums = verifier->availableChecksums();
+            QList<Nepomuk::Variant> hashes;
+            foreach (const Checksum &checksum, checksums) {
+                QString hashType = Verifier::cleanChecksumType(checksum.first);
+                const QString hash = checksum.second;
+                if (!hashType.isEmpty() && !hash.isEmpty()) {
+                    Nepomuk::Resource hashRes(hash, NFO::FileHash());
+                    hashRes.addProperty(NFO::hashAlgorithm(), hashType);
+                    hashRes.addProperty(NFO::hashValue(), hash);
+                    hashRes.setLabel(hashType);
+                    hashes << hashRes;
                 }
-                properties.append(qMakePair(NFO::hashAlgorithm(), Nepomuk::Variant(hashType)));
-                properties.append(qMakePair(NFO::hashValue(), Nepomuk::Variant(hash)));
+            }
+            if (!hashes.isEmpty()) {
+                properties.append(qMakePair(NFO::hasHash(), Nepomuk::Variant(hashes)));
             }
         }
 

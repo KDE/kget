@@ -409,6 +409,7 @@ class HandleMetalink
          * Convenience method to add Strings to the data
          */
         static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QByteArray &uriBa, const QString &value);
+        static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QUrl &uri, const QString &value);
 #endif //HAVE_NEPOMUK
 };
 
