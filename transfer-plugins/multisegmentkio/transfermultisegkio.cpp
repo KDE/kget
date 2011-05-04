@@ -249,7 +249,7 @@ void TransferMultiSegKio::slotSearchUrls(const QList<KUrl> &urls)
 
 void TransferMultiSegKio::slotChecksumFound(QString type, QString checksum)
 {
-    m_dataSourceFactory->verifier()->model()->addChecksum(type, checksum);
+    m_dataSourceFactory->verifier()->addChecksum(type, checksum);
 }
 
 QHash<KUrl, QPair<bool, int> > TransferMultiSegKio::availableMirrors(const KUrl &file) const

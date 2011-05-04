@@ -21,7 +21,7 @@
 
 #include "core/filemodel.h"
 #include "core/transferhandler.h"
-#include "core/verifier.h"
+#include "core/signature.h"
 
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>

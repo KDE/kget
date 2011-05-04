@@ -28,6 +28,8 @@
 #include "core/filemodel.h"
 #include "core/transferhandler.h"
 #include "core/verifier.h"
+#include "core/verificationmodel.h"
+#include "core/verificationdelegate.h"
 #include "settings.h"
 
 VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WFlags flags)

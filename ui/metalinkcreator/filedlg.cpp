@@ -23,6 +23,8 @@
 #include "../verificationdialog.h"
 
 #include "../../core/verifier.h"
+#include "../../core/verificationmodel.h"
+#include "../../core/verificationdelegate.h"
 
 #include <QtGui/QSortFilterProxyModel>
 

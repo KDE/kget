@@ -13,6 +13,7 @@
 #include "settings.h"
 
 #include "core/kget.h"
+#include "core/signature.h"
 #include "core/verifier.h"
 
 #include <cmath>

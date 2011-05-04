@@ -133,7 +133,7 @@ void VerfierTest::testAvailableChecksum()
 
     Verifier verifier(m_file);
     for (int i = 0; i < checksums.size(); ++i) {
-        verifier.model()->addChecksum(checksums[i].first, checksums[i].second);
+        verifier.addChecksum(checksums[i].first, checksums[i].second);
     }
 
     const Checksum returned = verifier.availableChecksum(strength);
@@ -230,7 +230,7 @@ void VerfierTest::testVerify()
     Settings::setChecksumStrength(strength);
     Verifier verifier(m_file);
     for (int i = 0; i < checksums.size(); ++i) {
-        verifier.model()->addChecksum(checksums[i].first, checksums[i].second);
+        verifier.addChecksum(checksums[i].first, checksums[i].second);
     }
 
     QSignalSpy stateSpy(&verifier, SIGNAL(verified(bool)));

@@ -113,6 +113,12 @@ set(kgetcore_SRCS
    dbus/dbusverifierwrapper.cpp
    core/filemodel.cpp
    core/verifier.cpp
+   core/verificationthread.cpp
+   core/verificationmodel.cpp
+   core/verificationdelegate.cpp
+   core/signature.cpp
+   core/signaturethread.cpp
+   core/keydownloader.cpp
    core/urlchecker.cpp
    core/basedialog.cpp
    core/mostlocalurl.cpp

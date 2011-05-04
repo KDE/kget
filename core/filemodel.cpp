@@ -19,6 +19,7 @@
 
 #include "filemodel.h"
 
+#include "signature.h"
 #include "verifier.h"
 
 #include <KIcon>

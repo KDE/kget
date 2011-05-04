@@ -19,6 +19,7 @@
 
 #include "dbusverifierwrapper.h"
 #include "core/verifier.h"
+#include "core/verificationmodel.h"
 
 DBusVerifierWrapper::DBusVerifierWrapper(Verifier *verifier)
   : QObject(verifier),

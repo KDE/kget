@@ -11,6 +11,7 @@
 
 #include "transferKio.h"
 #include "core/verifier.h"
+#include "core/signature.h"
 #include "kget/settings.h"
 
 #include <kiconloader.h>

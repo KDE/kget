@@ -21,6 +21,7 @@
 #include "core/filemodel.h"
 #include "core/urlchecker.h"
 #include "core/verifier.h"
+#include "core/signature.h"
 #ifdef HAVE_NEPOMUK
 #include "core/nepomukhandler.h"
 #include <Nepomuk/Variant>
@@ -172,7 +173,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         }
         else
         {
-            dataFactory->verifier()->model()->addChecksums((*it).verification.hashes);
+            dataFactory->verifier()->addChecksums((*it).verification.hashes);
             foreach (const KGetMetalink::Pieces &pieces, (*it).verification.pieces) {
                 dataFactory->verifier()->addPartialChecksums(pieces.type, pieces.length, pieces.hashes);
             }
