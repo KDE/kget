@@ -17,6 +17,7 @@
 // #include "mirrors.h"
 #include "core/filemodel.h"
 #include "core/verifier.h"
+#include "core/signature.h"
 
 #include <kiconloader.h>
 #include <KIO/CopyJob>
@@ -294,6 +295,8 @@ FileModel *TransferMultiSegKio::fileModel()
         m_fileModel->setData(sizeIndex, static_cast<qlonglong>(m_dataSourceFactory->size()));
         QModelIndex checksumVerified = m_fileModel->index(m_dest, FileItem::ChecksumVerified);
         m_fileModel->setData(checksumVerified, verifier()->status());
+        QModelIndex signatureVerified = m_fileModel->index(m_dest, FileItem::SignatureVerified);
+        m_fileModel->setData(signatureVerified, signature()->status());
     }
 
     return m_fileModel;
