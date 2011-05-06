@@ -19,6 +19,7 @@
 
 #include "signaturedlg.h"
 
+#include "core/kget.h"
 #include "core/filemodel.h"
 #include "core/transferhandler.h"
 #include "core/signature.h"
@@ -28,6 +29,7 @@
 #include <gpgme++/key.h>
 #endif
 
+#include <KFileDialog>
 #include <KLocale>
 
 const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
@@ -38,14 +40,16 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
     m_fileModel(transfer->fileModel())
 {
     setCaption(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
-    showButtonSeparator(true);
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
 
+    ui.information->setCloseButtonVisible(false);
+    ui.information->setWordWrap(true);
     if (m_signature) {
+        connect(ui.loadSignature, SIGNAL(clicked(bool)), this, SLOT(loadSignatureClicked()));
         connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
-        connect(ui.signature, SIGNAL(textChanged()), this, SLOT(updateSignature()));
+        connect(ui.signature, SIGNAL(textChanged()), this, SLOT(textChanged()));
         connect(m_signature, SIGNAL(verified(int)), this, SLOT(updateData()));
 
         if (m_fileModel) {
@@ -56,6 +60,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
         updateData();
         updateButtons();
     } else {
+        ui.information->setMessageType(KMessageWidget::WarningMessageType);
         ui.information->setText(i18n("This option is not supported for the current transfer."));
         ui.sigGroup->hide();
         ui.keyGroup->hide();
@@ -69,11 +74,44 @@ void SignatureDlg::fileFinished(const KUrl &file)
     }
 }
 
-void SignatureDlg::updateSignature()
+void SignatureDlg::textChanged()
 {
     if (m_signature) {
-        m_signature->setSignature(ui.signature->toPlainText());
+        m_signature->setAsciiDetatchedSignature(ui.signature->toPlainText());
 
+        clearData();
+        updateButtons();
+    }
+}
+
+void SignatureDlg::loadSignatureClicked()
+{
+    const KUrl url = KFileDialog::getOpenUrl(KGet::generalDestDir(), "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' +
+                                             "*.sig|" + i18n("Detached OpenPGP binary signature (*.sig)"), this, i18n("Load Signature File"));
+    if (url.isEmpty()) {
+        return;
+    }
+
+    const bool isAsciiSig = url.fileName().endsWith("asc");
+    clearData();
+    handleWidgets(isAsciiSig);
+    ui.signature->clear();
+
+    QFile file(url.path());
+    if (!file.open(QIODevice::ReadOnly)) {
+        kWarning(5001) << "Could not open file" << url;
+        return;
+    }
+    if (file.size() > 1 * 1024) {
+        kWarning(5001) << "File is larger than 1 KiB, which is not supported.";
+        return;
+    }
+
+    const QByteArray data = file.readAll();
+    if (isAsciiSig) {
+        ui.signature->setText(data);
+    } else if (m_signature) {
+        m_signature->setSignature(data, Signature::BinaryDetached);
         clearData();
         updateButtons();
     }
@@ -95,7 +133,7 @@ void SignatureDlg::updateData()
     }
 
     const QString fingerprintString = m_signature->fingerprint();
-    const QString signature = m_signature->signature();
+    const QByteArray signature = m_signature->signature();
 
     QStringList information;
 
@@ -112,9 +150,13 @@ void SignatureDlg::updateData()
 
     ui.fingerprint->setText(fingerprintString);
 
-    ui.signature->blockSignals(true);
-    ui.signature->setText(signature);
-    ui.signature->blockSignals(false);
+    const bool isAsciiSig = (m_signature->type() != Signature::BinaryDetached);
+    handleWidgets(isAsciiSig);
+    if (isAsciiSig) {
+        ui.signature->blockSignals(true);
+        ui.signature->setText(signature);
+        ui.signature->blockSignals(false);
+    }
 
     ui.keyGroup->setVisible(!signature.isEmpty());
 
@@ -166,29 +208,24 @@ void SignatureDlg::updateData()
                     case GpgME::Key::Never:
                         information.prepend(i18n("The key is not to be trusted."));
                         ui.trustIcon->setPixmap(KIcon("dialog-error").pixmap(iconSize));
-                        ui.trustIcon->show();
                         error = true;
                         break;
                     case GpgME::Key::Marginal:
                         information.prepend(i18n("The key is to be trusted marginally."));
                         ui.trustIcon->setPixmap(KIcon("dialog-warning").pixmap(iconSize));
-                        ui.trustIcon->show();
                         problem = true;
                         break;
                     case GpgME::Key::Full:
-                        information.prepend(i18n("The key is to be trusted fully."));
-                        ui.trustIcon->hide();
+                        ui.trustIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
                         break;
                     case GpgME::Key::Ultimate:
-                        information.prepend(i18n("The key is to be trusted ultimately."));
-                        ui.trustIcon->hide();
+                        ui.trustIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
                         break;
                     case GpgME::Key::Unknown:
                     case GpgME::Key::Undefined:
                     default:
                         information.prepend(i18n("Trust level of the key is unclear."));
                         ui.trustIcon->setPixmap(KIcon("dialog-warning").pixmap(iconSize));
-                        ui.trustIcon->show();
                         problem = true;
                         break;
                 }
@@ -230,16 +267,11 @@ void SignatureDlg::updateData()
     ui.verificationIcon->hide();
     switch (verificationStatus) {
         case Signature::Verified:
-            ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
-            ui.verificationIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
-            ui.verificationIcon->show();
-            information.prepend(i18n("The signature has been verified successfully."));
-            break;
         case Signature::VerifiedInformation:
+        case Signature::VerifiedWarning:
             ui.verificationIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
             ui.verificationIcon->show();
             ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
-            information.prepend(i18n("The signature has been verified successfully:"));
             break;
         case Signature::NotVerified:
             ui.verified->setText(i18nc("pgp signature is not verified", "Failed"));
@@ -258,6 +290,10 @@ void SignatureDlg::updateData()
             break;
     }
 
+    if (verificationStatus == Signature::VerifiedWarning) {
+        problem = true;
+    }
+
 #ifndef HAVE_QGPGME
     ui.sigGroup->hide();
     ui.keyGroup->hide();
@@ -272,13 +308,18 @@ void SignatureDlg::updateData()
 
     //change the icon of the titlewidget
     if (error) {
-        ui.information->setText(i18n("Error:"), KTitleWidget::ErrorMessage);
+        ui.information->setMessageType(KMessageWidget::ErrorMessageType);
     } else if (problem) {
-        ui.information->setText(i18n("Problems:"), KTitleWidget::WarningMessage);
+        ui.information->setMessageType(KMessageWidget::WarningMessageType);
     } else {
-        ui.information->setText(i18n("Information:"), KTitleWidget::InfoMessage);
+        if (verificationStatus != Signature::Verified) {
+            ui.information->setMessageType(KMessageWidget::InformationMessageType);
+        }
     }
-    ui.information->setComment(information.join(" "));
+
+    const QString text = information.join(" ");
+    ui.information->setVisible(!text.isEmpty());
+    ui.information->setText(text);
 }
 
 void SignatureDlg::verifyClicked()
@@ -299,9 +340,15 @@ void SignatureDlg::clearData()
     ui.expiration->clear();
     ui.expirationIcon->hide();
     ui.trust->clear();
-    ui.trustIcon->hide();
+    ui.trustIcon->clear();
     ui.fingerprint->clear();
 }
 
+void SignatureDlg::handleWidgets(bool isAsciiSig)
+{
+    ui.asciiLabel->setVisible(isAsciiSig);
+    ui.signature->setVisible(isAsciiSig);
+    ui.binaryLabel->setVisible(!isAsciiSig);
+}
 
 #include "signaturedlg.moc"

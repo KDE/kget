@@ -40,10 +40,12 @@ class SignatureDlg : public KDialog
         void verifyClicked();
         void updateData();
         void updateButtons();
-        void updateSignature();
+        void textChanged();
+        void loadSignatureClicked();
 
     private:
         void clearData();
+        void handleWidgets(bool isAsciiSig);
 
     private:
         Ui::SignatureDlg ui;

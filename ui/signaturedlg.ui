@@ -7,12 +7,12 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>414</height>
+    <height>446</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="KTitleWidget" name="information"/>
+    <widget class="KMessageWidget" name="information" native="true"/>
    </item>
    <item>
     <widget class="QGroupBox" name="sigGroup">
@@ -20,16 +20,6 @@
       <string>Signature</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>PGP signature:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="KTextEdit" name="signature"/>
-      </item>
       <item>
        <layout class="QFormLayout" name="formLayout">
         <item row="0" column="0">
@@ -67,7 +57,68 @@
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="binaryLabel">
+        <property name="text">
+         <string>Has binary PGP signature.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="asciiLabel">
+        <property name="text">
+         <string>Ascii PGP signature:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KTextEdit" name="signature"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="KPushButton" name="loadSignature">
+          <property name="text">
+           <string>Load Signature</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KPushButton" name="verify">
+          <property name="text">
+           <string>Verify</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -183,6 +234,19 @@
           </property>
          </widget>
         </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
       <item row="5" column="0">
@@ -211,6 +275,19 @@
           </property>
          </widget>
         </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
       <item row="6" column="0">
@@ -233,38 +310,9 @@
      </layout>
     </widget>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="verify">
-       <property name="text">
-        <string>Verify</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KTitleWidget</class>
-   <extends>QWidget</extends>
-   <header>ktitlewidget.h</header>
-  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
@@ -274,6 +322,12 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">KMessageWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

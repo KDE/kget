@@ -183,7 +183,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
             QHash<QString, QString>::const_iterator itEnd = signatures.constEnd();
             for (it = signatures.constBegin(); it != itEnd; ++it) {
                 if (it.key().toLower() == "pgp") {
-                    dataFactory->signature()->setSignature(*it);
+                    dataFactory->signature()->setAsciiDetatchedSignature(*it);
                 }
             }
 

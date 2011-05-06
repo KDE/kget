@@ -41,8 +41,9 @@ K_GLOBAL_STATIC(KeyDownloader, signatureDownloader)
 
 SignaturePrivate::SignaturePrivate(Signature *signature)
   : q(signature),
-    verifyTried(false),
+    type(Signature::NoType),
     status(Signature::NoResult),
+    verifyTried(false),
     sigSummary(0),
     error(0)
 {
@@ -132,18 +133,23 @@ GpgME::VerificationResult Signature::verificationResult()
 }
 #endif //HAVE_QGPGME
 
-QString Signature::signature()
+QByteArray Signature::signature()
 {
-    return QString(d->signature);
+    return d->signature;
 }
 
-void Signature::setSignature(const QString &signature)
+void Signature::setAsciiDetatchedSignature(const QString &signature)
 {
-    setSignature(signature.toAscii());
+    setSignature(signature.toAscii(), AsciiDetached);
 }
 
-void Signature::setSignature(const QByteArray &signature)
+void Signature::setSignature(const QByteArray &signature, SignatureType type)
 {
+    if ((signature == d->signature) && (type == d->type)) {
+        return;
+    }
+
+    d->type = type;
     d->signature = signature;
 
     d->fingerprint.clear();
@@ -156,6 +162,11 @@ void Signature::setSignature(const QByteArray &signature)
 #endif //HAVE_QGPGME
 
     emit verified(d->status);//FIXME
+}
+
+Signature::SignatureType Signature::type() const
+{
+    return d->type;
 }
 
 QString Signature::fingerprint()
@@ -223,17 +234,22 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     }
 
     if (!signature.status()) {
-        if (d->sigSummary == GpgME::Signature::Valid) {
+        if (d->sigSummary & GpgME::Signature::Valid) {
             d->status = Signature::Verified;
         } else if ((d->sigSummary & GpgME::Signature::Green) || (d->sigSummary == 0)) {
             d->status = Signature::VerifiedInformation;
         }
-    } else if (signature.status() && (d->sigSummary & GpgME::Signature::Red)) {//TODO handle more cases!
-        d->status = Signature::NotVerified;
-        //TODO handle that dialog better in 4.5
-        KMessageBox::error(0,
-                           i18n("The signature could not be verified for %1. See transfer settings for more information.", d->dest.fileName()),
-                           i18n("Signature not verified"));
+    } else if (signature.status()) {
+        if ((d->sigSummary & GpgME::Signature::KeyExpired) || (d->sigSummary & GpgME::Signature::KeyRevoked)) {
+            d->status = Signature::VerifiedWarning;
+        }
+        if (d->sigSummary & GpgME::Signature::Red) {//TODO handle more cases!
+            d->status = Signature::NotVerified;
+            //TODO handle that dialog better in 4.5
+            KMessageBox::error(0,
+                            i18n("The signature could not be verified for %1. See transfer settings for more information.", d->dest.fileName()),
+                            i18n("Signature not verified"));
+        }
     }
 
     emit verified(d->status);
@@ -249,8 +265,19 @@ void Signature::save(const QDomElement &element)
     verification.setAttribute("sigStatus", d->sigSummary);
     verification.setAttribute("error", d->error);
     verification.setAttribute("fingerprint", d->fingerprint);
-    QDomText value = e.ownerDocument().createTextNode(d->signature);
+    verification.setAttribute("type", d->type);
+    QDomText value;
+    switch (d->type) {
+        case NoType:
+        case AsciiDetached:
+            value = e.ownerDocument().createTextNode(d->signature);
+            break;
+        case BinaryDetached:
+            value = e.ownerDocument().createTextNode(d->signature.toBase64());
+            break;
+    }
     verification.appendChild(value);
+
 
     e.appendChild(verification);
 }
@@ -262,7 +289,15 @@ void Signature::load(const QDomElement &e)
     d->sigSummary = verification.attribute("sigStatus").toInt();
     d->error = verification.attribute("error").toInt();
     d->fingerprint = verification.attribute("fingerprint");
-    d->signature = verification.text().toAscii();
+    d->type = static_cast<SignatureType>(verification.attribute("type").toInt());
+    switch (d->type) {
+        case NoType:
+        case AsciiDetached:
+            d->signature = verification.text().toAscii();
+            break;
+        case BinaryDetached:
+            d->signature = QByteArray::fromBase64(verification.text().toAscii());
+    }
 }
 
 #include "signature.moc"

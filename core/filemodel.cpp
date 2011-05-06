@@ -126,6 +126,8 @@ QVariant FileItem::data(int column, int role) const
                     return KIcon("dialog-ok");
                 case Signature::VerifiedInformation:
                     return KIcon("dialog-information");
+                case Signature::VerifiedWarning:
+                    return KIcon("dialog-warning");
                 case Signature::NotVerified:
                     return KIcon("dialog-error");
                 case Signature::NoResult:

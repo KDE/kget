@@ -47,13 +47,21 @@ class KGET_EXPORT Signature : public QObject
         explicit Signature(const KUrl &dest, QObject *object = 0);
         ~Signature();
 
+        enum SignatureType
+        {
+            NoType = 0,
+            AsciiDetached, //.asc
+            BinaryDetached //.sig
+        };
+
         enum VerificationStatus
         {
             NoResult, //either not tried, or not enough information
             NotWorked, //something during verification failed
             NotVerified,
             Verified,
-            VerifiedInformation //verified, though the there is some additional information
+            VerifiedInformation, //verified, though the there is some additional information
+            VerifiedWarning //verified, though there is a warning
         };
 
         KUrl destination() const;
@@ -65,9 +73,11 @@ class KGET_EXPORT Signature : public QObject
 #endif //HAVE_QGPGME
 
         void downloadKey(QString fingerprint);
-        QString signature();
-        void setSignature(const QString &signature);
-        void setSignature(const QByteArray &signature);
+        QByteArray signature();
+        void setAsciiDetatchedSignature(const QString &signature);
+        void setSignature(const QByteArray &signature, SignatureType type);
+
+        SignatureType type() const;
 
         /**
          * The fingerprint of the signature//TODO get even without verification??

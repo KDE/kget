@@ -43,13 +43,14 @@ struct SignaturePrivate
 
     Signature *q;
 
+    Signature::SignatureType type;
+    Signature::VerificationStatus status;
+    bool verifyTried;
+    int sigSummary;
+    int error;
     SignatureThread thread;
     KUrl dest;
     QByteArray signature;
-    bool verifyTried;
-    Signature::VerificationStatus status;
-    int sigSummary;
-    int error;
     QString fingerprint;
 #ifdef HAVE_QGPGME
     GpgME::VerificationResult verificationResult;
