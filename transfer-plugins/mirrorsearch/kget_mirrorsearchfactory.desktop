@@ -8,6 +8,7 @@ Icon=kget
 Name=Mirror Search
 Name[ar]=بحث المرآة
 Name[ast]=Guetador n'Espeyos
+Name[bs]=Pretraga ogledala
 Name[ca]=Cerca de rèpliques
 Name[ca@valencia]=Cerca de rèpliques
 Name[cs]=Mirror Search
@@ -59,6 +60,7 @@ Name[zh_TW]=映射搜尋
 
 Comment=Allows KGet to search through mirror search engines for files
 Comment[ast]=Habilitar que KGet pueda guetar el ficheru per aciu de répliques de los motores de gueta
+Comment[bs]=Omogućava KGetu da traži datoteke preko kopiranih pogona za traženje
 Comment[ca]=Permet que el KGet cerqui els fitxers a rèpliques de motors de cerques
 Comment[ca@valencia]=Permet que el KGet cerque els fitxers a rèpliques de motors de cerques
 Comment[da]=Gør KGet i stand til at søge efter filer via filspejl-søgemaskiner
