@@ -1,0 +1,5 @@
+ClassName=MmsSettings
+File=kget_mmsfactory.kcfg
+Mutators=true
+Singleton=true
+Visibility=KDE_EXPORT
