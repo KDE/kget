@@ -49,7 +49,7 @@
         <bool>true</bool>
        </property>
        <property name="specialValueText">
-        <string extracomment="No value has been set">Not set</string>
+        <string comment="No value has been set">Not set</string>
        </property>
        <property name="suffix">
         <string> KiB</string>
@@ -71,7 +71,7 @@
         <bool>true</bool>
        </property>
        <property name="specialValueText">
-        <string extracomment="No value has been set">Not set</string>
+        <string comment="No value has been set">Not set</string>
        </property>
        <property name="suffix">
         <string> KiB</string>
@@ -93,7 +93,7 @@
         <bool>true</bool>
        </property>
        <property name="specialValueText">
-        <string extracomment="No value has been set">Not set</string>
+        <string comment="No value has been set">Not set</string>
        </property>
       </widget>
      </item>
@@ -140,7 +140,7 @@
           <string>Modify the mirrors used for downloading.</string>
          </property>
          <property name="text">
-          <string extracomment="The available mirrors (servers) for downloading">Mirrors</string>
+          <string comment="The available mirrors (servers) for downloading">Mirrors</string>
          </property>
         </widget>
        </item>
@@ -160,7 +160,7 @@
           <bool>false</bool>
          </property>
          <property name="text">
-          <string extracomment="verification of the download (e.g. by using MD5)">Verification</string>
+          <string comment="verification of the download (e.g. by using MD5)">Verification</string>
          </property>
         </widget>
        </item>

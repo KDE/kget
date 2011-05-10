@@ -26,14 +26,14 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string extracomment="hash type as in md5t, sha1 etc.">Hash type:</string>
+        <string comment="hash type as in md5t, sha1 etc.">Hash type:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string extracomment="hash as a hash of type md5, sha1 etc.">Hash:</string>
+        <string comment="hash as a hash of type md5, sha1 etc.">Hash:</string>
        </property>
       </widget>
      </item>

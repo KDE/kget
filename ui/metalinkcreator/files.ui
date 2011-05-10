@@ -20,7 +20,7 @@
       </font>
      </property>
      <property name="text">
-      <string extracomment="Files as in files on a server">Files:</string>
+      <string comment="Files as in files on a server">Files:</string>
      </property>
     </widget>
    </item>

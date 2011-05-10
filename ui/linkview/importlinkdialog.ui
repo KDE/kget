@@ -53,7 +53,7 @@
      <item>
       <widget class="KPushButton" name="showAll">
        <property name="text">
-        <string extracomment="filter: show all file types">&amp;All</string>
+        <string comment="filter: show all file types">&amp;All</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -244,7 +244,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string extracomment="Check as in mark, not as in verify">Chec&amp;k Selected</string>
+        <string comment="Check as in mark, not as in verify">Chec&amp;k Selected</string>
        </property>
       </widget>
      </item>

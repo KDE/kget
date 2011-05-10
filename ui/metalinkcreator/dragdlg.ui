@@ -18,7 +18,7 @@
      </property>
      <widget class="QWidget" name="Seite">
       <attribute name="title">
-       <string extracomment="General options.">General</string>
+       <string comment="General options.">General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="5" column="1">
@@ -129,7 +129,7 @@
      </widget>
      <widget class="QWidget" name="Seite_2">
       <attribute name="title">
-       <string extracomment="These entries are optional.">Optional</string>
+       <string comment="These entries are optional.">Optional</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
