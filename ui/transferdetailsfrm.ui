@@ -48,7 +48,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="sourceLabel">
        <property name="text">
-        <string comment="source-file" extracomment="@label transfer source">Source:</string>
+        <string comment="source-file" comment="@label transfer source">Source:</string>
        </property>
       </widget>
      </item>
