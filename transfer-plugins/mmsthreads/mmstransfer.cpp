@@ -153,8 +153,8 @@ void MmsTransfer::slotBrokenUrl()
 void MmsTransfer::slotNotAllowMultiDownload()
 {
     KGet::showNotification(0, "notification",
-                           i18n("This url does not allow multiple connections,\n \
-                           the download will take longer."));
+                           i18n("This URL does not allow multiple connections,\n"
+                                "the download will take longer."));
 }
 
 #include "mmstransfer.moc"
