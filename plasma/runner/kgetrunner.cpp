@@ -121,9 +121,15 @@ QStringList KGetRunner::parseUrls(const QString& text) const
         //  We check if the match is a valid URL, if the protocol is handled by KGet,
         //  and if the host is not empty, otherwise "http://" would also be matched.
         KUrl url(re.cap());
-        if (m_interface->isServiceRegistered(KGET_DBUS_SERVICE)
+
+        //FIXME does not use the interface anymore as calling isServiceRegistered leads sometimes to a crash
+        //BUG: 259873
+        //TODO reenable once this has been fixed upstream
+        //NOTE a way to reproduce this crash is to start KGet, then to use Krunner e.g. with it2en: bla bla bla
+        //then closing Krunner (ESC) and then again calling it2en: bla bla bla until it crashes (here I need quite many blahs for that)
+        if (/*m_interface->isServiceRegistered(KGET_DBUS_SERVICE)
             ? m_kget->isSupported(url.url()).value()
-            : (url.isValid() && url.hasHost())) {
+            : */(url.isValid() && url.hasHost())) {
             urls << url.url();
             
             //  continue searching after last match...
