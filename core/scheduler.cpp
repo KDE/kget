@@ -190,7 +190,9 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
        (failure.count >  Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout) 
                                                       && !((failure.count - Settings::reconnectRetries()) % 10)) )
     {
-        static_cast<Transfer*>(job)->handler()->stop();// This will trigger the changedEvent which will trigger an updateQueue call
+        //FIXME reenable once a connection limit per mirror is in place BUG:262098
+        //static_cast<Transfer*>(job)->handler()->stop();// This will trigger the changedEvent which will trigger an updateQueue call
+        job->stop();//FIXME remove once a connection limit per mirror is in place
     } else if (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)){
         // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
         job->stop();//stops the job, it will be later restarted by updateQueue
