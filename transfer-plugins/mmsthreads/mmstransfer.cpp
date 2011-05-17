@@ -143,12 +143,9 @@ void MmsTransfer::slotProcessedSizeAndPercent(qulonglong size)
 
 void MmsTransfer::slotBrokenUrl()
 {
-    //FIXME: It continue trying of download and never stop, if you stop the download it show
-    //you the error.
-    setPolicy(Stop); // This is a patch for the problem!!
     setError(i18n("Download failed, could not access this URL."), SmallIcon("dialog-cancel"),
             Job::NotSolveable);
-    setTransferChange(Tc_Status);
+    setTransferChange(Tc_Status, true);
 }
 
 void MmsTransfer::slotNotAllowMultiDownload()

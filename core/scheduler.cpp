@@ -313,12 +313,14 @@ bool Scheduler::shouldBeRunning( Job * job )
     if( job->jobQueue()->status() == JobQueue::Stopped )
     {
         return ( (policy == Job::Start)   &&
-                 (status != Job::Finished) );
+                 ((status != Job::Finished) &&
+                 (status != Job::Aborted || job->error().type == Job::AutomaticRetry)));
     }
     else                           //JobQueue::Running
     {
         return ( (policy != Job::Stop)    &&
-                 (status != Job::Finished) );
+                 ((status != Job::Finished) ||
+                 (status != Job::Aborted || job->error().type == Job::AutomaticRetry)));
     }
 }
 

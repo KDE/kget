@@ -167,7 +167,7 @@ class KGET_EXPORT Transfer : public Job
         KIO::filesize_t downloadedSize() const {return m_downloadedSize;}
         KIO::filesize_t uploadedSize() const   {return m_uploadedSize;}
         QString statusText() const             {return m_statusText;}
-        QPixmap statusPixmap() const           {return m_statusPixmap;}
+        QPixmap statusPixmap() const           {return (error().pixmap.isNull() ? m_statusPixmap : error().pixmap);}
 
         static QString statusText(Job::Status status);
         static QPixmap statusPixmap(Job::Status status);
