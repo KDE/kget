@@ -54,7 +54,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.dataLayout->addWidget(data);
 
     ui.infoWidget->setCloseButtonVisible(false);
-    ui.infoWidget->setMessageType(KMessageWidget::InformationMessageType);
+    ui.infoWidget->setMessageType(KMessageWidget::Information);
 
     //set the file data
     ui.name->setText(m_file->name);

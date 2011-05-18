@@ -491,14 +491,14 @@ void NewTransferDialog::dialogAccepted()
 
 void NewTransferDialog::setInformation(const QString &information)
 {
-    ui.errorWidget->setMessageType(KMessageWidget::InformationMessageType);
+    ui.errorWidget->setMessageType(KMessageWidget::Information);
     ui.errorWidget->setText(information);
     ui.errorWidget->setVisible(!information.isEmpty());
 }
 
 void NewTransferDialog::setWarning(const QString &warning)
 {
-    ui.errorWidget->setMessageType(KMessageWidget::WarningMessageType);
+    ui.errorWidget->setMessageType(KMessageWidget::Warning);
     ui.errorWidget->setText(warning);
     ui.errorWidget->setVisible(!warning.isEmpty());
 }

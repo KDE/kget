@@ -222,7 +222,7 @@ void MetalinkCreator::createFiles()
     uiFiles.files->setModel(m_filesModel);
 
     uiFiles.infoWidget->setCloseButtonVisible(false);
-    uiFiles.infoWidget->setMessageType(KMessageWidget::InformationMessageType);
+    uiFiles.infoWidget->setMessageType(KMessageWidget::Information);
     uiFiles.add_local_file->setIcon(KIcon("list-add"));
     uiFiles.add_file->setGuiItem(KStandardGuiItem::add());
     uiFiles.properties_file->setGuiItem(KStandardGuiItem::properties());

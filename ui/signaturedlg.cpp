@@ -60,7 +60,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
         updateData();
         updateButtons();
     } else {
-        ui.information->setMessageType(KMessageWidget::WarningMessageType);
+        ui.information->setMessageType(KMessageWidget::Warning);
         ui.information->setText(i18n("This option is not supported for the current transfer."));
         ui.sigGroup->hide();
         ui.keyGroup->hide();
@@ -308,12 +308,12 @@ void SignatureDlg::updateData()
 
     //change the icon of the titlewidget
     if (error) {
-        ui.information->setMessageType(KMessageWidget::ErrorMessageType);
+        ui.information->setMessageType(KMessageWidget::Error);
     } else if (problem) {
-        ui.information->setMessageType(KMessageWidget::WarningMessageType);
+        ui.information->setMessageType(KMessageWidget::Warning);
     } else {
         if (verificationStatus != Signature::Verified) {
-            ui.information->setMessageType(KMessageWidget::InformationMessageType);
+            ui.information->setMessageType(KMessageWidget::Information);
         }
     }
 
