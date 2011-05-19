@@ -1,4 +1,7 @@
-install(PROGRAMS kget.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+# associate KGet with the correct mimetypes
+configure_file(kget.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/kget.desktop)
+
+install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/kget.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES kget_download.desktop DESTINATION
 ${SERVICES_INSTALL_DIR}/ServiceMenus)
 

@@ -1,3 +1,6 @@
+#Set supported mime type
+SET(SUPPORTED_KGET_MIMETYPES "${SUPPORTED_KGET_MIMETYPES}application/metalink+xml;" PARENT_SCOPE)
+
 include_directories(
    ../../
 )
