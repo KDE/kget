@@ -29,6 +29,8 @@
 #include <gpgme++/key.h>
 #endif
 
+#include <QtGui/QLayoutItem>
+
 #include <KFileDialog>
 #include <KLocale>
 
@@ -349,6 +351,16 @@ void SignatureDlg::handleWidgets(bool isAsciiSig)
     ui.asciiLabel->setVisible(isAsciiSig);
     ui.signature->setVisible(isAsciiSig);
     ui.binaryLabel->setVisible(!isAsciiSig);
+    QLayoutItem *item = ui.verticalLayout_2->itemAt(ui.verticalLayout_2->count() - 1);
+    QSpacerItem *spacer = item->spacerItem();
+    if (isAsciiSig) {
+        if (spacer) {
+            ui.verticalLayout_2->removeItem(item);
+            delete item;
+        }
+    } else if (!spacer) {
+        ui.verticalLayout_2->addStretch(1);
+    }
 }
 
 #include "signaturedlg.moc"
