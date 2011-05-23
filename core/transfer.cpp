@@ -314,11 +314,9 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     }
 
     //always prefer pix, if it is set
-    if (pix.isNull()) {
+    if (!pix.isNull()) {
         m_statusPixmap = pix;
-    }
-
-    if (statusChanged || m_statusPixmap.isNull()) {
+    } else if (statusChanged || m_statusPixmap.isNull()) {
         m_statusPixmap = SmallIcon(STATUSICONS[jobStatus]);
     }
 
