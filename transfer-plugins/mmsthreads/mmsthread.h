@@ -37,18 +37,18 @@ class MmsThread : public QThread
         MmsThread(const QString& url, const QString& name, int begin, int end);
         void run();
         void stop();
+        
 
     private:
         QString m_sourceUrl;
         QString m_fileName;
         int m_begin;
         int m_end;
-        ofstream m_file;
-        mmsx_t* m_mms;
         QMutex m_locker;
+        bool m_download;
 
     signals:
-        int reading(int data);
+        int reading(int data, int m_end, int m_begin);
 };
 
 #endif // MMSTHREAD_HPP

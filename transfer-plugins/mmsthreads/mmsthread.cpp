@@ -25,43 +25,59 @@ MmsThread::MmsThread(const QString& url, const QString& name, int begin, int end
     m_sourceUrl(url),
     m_fileName(name),
     m_begin(begin),
-    m_end(end)
-{}
+    m_end(end),
+    m_download(true)
+{
+    //Creating the file if it don't exist.
+    fstream file;
+    file.open(qstrdup(m_fileName.toAscii()), fstream::out | fstream::app);
+    file.close();
+}
 
 void MmsThread::run()
 {
-    m_file.open(qstrdup(m_fileName.toAscii()));
-    m_mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()) , 1e6);
-    m_file.seekp(m_begin);
-    mmsx_seek(0, m_mms, m_begin, 0);
-
-    while (m_begin < m_end) {
+    int read; // Seems that some times mmsx_read not read well.
+    fstream file;
+    mmsx_t* mms;
+    
+    //Reopening the file for write the information.
+    file.open(qstrdup(m_fileName.toAscii()), fstream::in | fstream::out | fstream::ate);
+    file.seekp(m_begin);
+    
+    //Connecting to the url
+    mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()) , 1e6);
+    mmsx_seek(0, mms, m_begin, 0);
+    while ((m_begin != m_end) && m_download) {
         if ((m_begin + 1024) > m_end) { 
             const int var = m_end - m_begin;
             char data[var];
-            mmsx_read(0, m_mms, data, var);
+            read = mmsx_read(0, mms, data, var);
             m_locker.lock();
-            m_file.write(data, var);
-            emit reading(var);
+            emit reading(var, m_end, m_begin = m_end);
+            if (read) {
+                file.write(data, var);
+            }
             m_locker.unlock();
-            m_begin = m_end;
             quit(); // NOTE: Keep "quit()" here, if not then the thread never finish.
         } else {
             char data[1024];
-            mmsx_read(0, m_mms, data, 1024);
+            read = mmsx_read(0, mms, data, 1024);
             m_locker.lock();
-            m_file.write(data, 1024);
-            emit reading(1024);
+            emit reading(1024, m_end, m_begin += 1024);
+            if (read) {
+                file.write(data, 1024);
+            }
             m_locker.unlock();
-            m_begin += 1024;
+            
         }
     }
-    m_file.close();
-    mmsx_close(m_mms);
+    
+    file.close();
+    mmsx_close(mms);
     exec();
 }
 
 void MmsThread::stop()
 {
-    m_begin = m_end; //TODO: Find another way to stop the threads!!
+    m_download = false;
 }

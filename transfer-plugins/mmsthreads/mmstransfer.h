@@ -50,7 +50,8 @@ class MmsTransfer : public Transfer
         void slotBrokenUrl();
 
     private:
-        MmsDownload * m_mmsdownload;
+        MmsDownload* m_mmsdownload;
+        QString m_fileTemp;
 };
 
 #endif

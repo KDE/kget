@@ -22,8 +22,12 @@
 
 #include <QString>
 #include <QTimer>
+#include <QMap>
+#include <QFile>
+#include <QDataStream>
 #include <libmms/mmsx.h>
 #include <fstream>
+#include <kstandarddirs.h>
 
 #include "mmsthread.h"
 
@@ -32,15 +36,16 @@ class MmsDownload : public QThread
 {
     Q_OBJECT
     public:
-        MmsDownload(const QString& url, const QString& name, int amountsThread);
+        MmsDownload(const QString& url, const QString& name, const QString& temp,
+                    int amountsThread);
         ~MmsDownload();
         void run();
         void stopTransfer();
         int threadsAlive();
-
+        
     public slots:
         void slotThreadFinish();
-        void slotRead(int reading);
+        void slotRead(int reading, int thread_end, int thead_ini);
         void slotSpeedChanged();
 
     signals:
@@ -53,17 +58,21 @@ class MmsDownload : public QThread
 
     private:
         bool isWorkingUrl();
+        void splitTransfer();
         void startTransfer();
-
+        void unSerialization();
+        void serialization();
+        
         QString m_sourceUrl;
         QString m_fileName;
+        QString m_fileTemp;
         int m_amountsThread;
         qulonglong m_downloadedSize;
         qulonglong m_prevDownloadedSizes;
         mmsx_t* m_mms;
         QTimer* m_speedTimer;
         QList<MmsThread*> m_threadList;
-
+        QMap<int, int> m_mapEndIni;
 };
 
 #endif // MMSDOWNLOAD_H

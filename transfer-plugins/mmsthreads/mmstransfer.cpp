@@ -34,8 +34,9 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
                         Scheduler * scheduler, const KUrl & source, const
                         KUrl &dest, const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-    m_mmsdownload(0)
+    m_mmsdownload(NULL)
 {
+    m_fileTemp = KStandardDirs::locateLocal("appdata", m_dest.fileName());
     kDebug(5001) << "Mms transfer initialized: " + m_source.prettyUrl();
 }
 
@@ -50,16 +51,15 @@ MmsTransfer::~MmsTransfer()
 void MmsTransfer::start()
 {
     kDebug(5001) << "Trying to start Mms-transfer: " + m_source.prettyUrl();
-    
-    if (status() == Running) {
+    if (status() == Running || m_mmsdownload) {
         return;
     }
     
     setStatus(Job::Running, i18nc("transfer state: running", "Running...."),
-                SmallIcon("network-connect"));
+              SmallIcon("media-playback-start"));
     m_mmsdownload = new MmsDownload(m_source.prettyUrl(), m_dest.pathOrUrl(),
-                                    MmsSettings::threads());
-    connect(m_mmsdownload, SIGNAL(signThreadFinish()), this, SLOT(slotResult()));
+                                    m_fileTemp, MmsSettings::threads());
+    connect(m_mmsdownload, SIGNAL(finished()), this, SLOT(slotResult()));
     connect(m_mmsdownload, SIGNAL(signBrokenUrl()), this, SLOT(slotBrokenUrl()));
     connect(m_mmsdownload, SIGNAL(signNotAllowMultiDownload()), this,
             SLOT(slotNotAllowMultiDownload()));
@@ -79,21 +79,24 @@ void MmsTransfer::stop()
         return;
     }
     // NOTE: When all threads stop, m_mmsdownload will be delete in MmsTransfer::slotResult.
-    if (m_mmsdownload->threadsAlive() > 0) {
-        m_mmsdownload->stopTransfer();
+    if (m_mmsdownload) {
+        if (m_mmsdownload->threadsAlive() > 0) {
+            m_mmsdownload->stopTransfer();
+        }
     }
 
-    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
-    m_downloadedSize = 0;
-    m_percent = 0;
-    m_downloadSpeed = 0;
-    setTransferChange(Tc_Percent | Tc_DownloadedSize | Tc_DownloadSpeed, true);
+    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"),
+                SmallIcon("process-stop"));
+    setTransferChange(Tc_Status, true);
 }
 
 void MmsTransfer::deinit()
 {
     if (status() != Job::Finished) {
-        KIO::Job *del = KIO::del(m_dest.path(), KIO::HideProgressInfo);
+        //Deleting file .kget, this file have the status of the download
+        KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
+        del = KIO::del(m_dest.path(), KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
     }
 }
@@ -105,16 +108,17 @@ void MmsTransfer::slotResult()
                    SmallIcon("dialog-ok"));
         m_percent = 100;
         m_downloadSpeed = 0;
-        setTransferChange(Tc_Percent | Tc_DownloadSpeed, true);
+        setTransferChange(Tc_Status | Tc_Percent | Tc_DownloadSpeed, true);
+        //Deleting file .kget, this file have the status of the download
+        KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
     }
-
+    
     if (status() == Stopped) {
-        m_downloadedSize = 0;
-        m_percent = 0;
         m_downloadSpeed = 0;
-        setTransferChange(Tc_Percent | Tc_DownloadedSize | Tc_DownloadSpeed, true);
+        setTransferChange(Tc_DownloadSpeed, true);
     }
-
+    
     if (m_mmsdownload->threadsAlive() == 0) {
         m_mmsdownload->quit();
         m_mmsdownload->deleteLater();
@@ -150,8 +154,7 @@ void MmsTransfer::slotBrokenUrl()
 
 void MmsTransfer::slotNotAllowMultiDownload()
 {
-    KGet::showNotification(0, "notification",
-                           i18n("This URL does not allow multiple connections,\n"
+    KGet::showNotification(0, "notification", i18n("This URL does not allow multiple connections,\n"
                                 "the download will take longer."));
 }
 
