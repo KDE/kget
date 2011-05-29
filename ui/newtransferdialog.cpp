@@ -153,7 +153,7 @@ void NewTransferDialog::setSource(const KUrl::List &sources)
 
 void NewTransferDialog::setDestinationFileName(const QString &filename)
 {
-    ui.destRequester->setUrl(ui.destRequester->url().path(KUrl::AddTrailingSlash) + filename);
+    ui.destRequester->setUrl(QString(ui.destRequester->url().path(KUrl::AddTrailingSlash) + filename));
 }
 
 //TODO improve this method, so that it does not take sources and has a better name

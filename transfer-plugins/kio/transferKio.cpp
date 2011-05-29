@@ -120,7 +120,7 @@ void TransferKio::deinit()
 {
     if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
     {
-        KIO::Job *del = KIO::del(m_dest.path() + ".part", KIO::HideProgressInfo);
+        KIO::Job *del = KIO::del(QString(m_dest.path() + ".part"), KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
