@@ -182,9 +182,14 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
         case AbortTimeout:
             kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = AbortTimeout ";
             break;
+        case Error:
+            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = Error ";
+            break;
     }
     
-    if (failure.status == Error || //If this happens the job just gets stopped
+    if (failure.status == Error) {
+        static_cast<Transfer*>(job)->handler()->stop();
+    } else if (//If this happens the job just gets stopped
         // Second condition: if count >  reconnectRetries and Timeout happened trigger a stop/start BUT only if
         // 10 timeouts have happened (9 of them without taking any action). This means every 10*Settings::reconnectDelay() (ex. 15s -> 150s)
        (failure.count >  Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout) 

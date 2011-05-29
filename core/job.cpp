@@ -64,11 +64,11 @@ void Job::setPolicy(Policy jobPolicy)
 
 void Job::setError(const QString &text, const QPixmap &pixmap, ErrorType type, int errorId)
 {
+    setStatus(Job::Aborted);
     m_error.id = errorId;
     m_error.text = text;
     m_error.pixmap = pixmap;
     m_error.type = type;
-    setStatus(Job::Aborted);
 }
 
 Job::Error Job::error() const

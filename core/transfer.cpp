@@ -308,8 +308,7 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 {
     const bool statusChanged = (status() != jobStatus);
     QString statusText = text;
-    if (statusText.isEmpty())
-    {
+    if (statusText.isEmpty()) {
         statusText = i18nc(STATUSTEXTS[jobStatus].context, STATUSTEXTS[jobStatus].name);
     }
 
