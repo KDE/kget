@@ -47,6 +47,7 @@ class MmsDownload : public QThread
         void slotThreadFinish();
         void slotRead(int reading, int thread_end, int thead_ini);
         void slotSpeedChanged();
+        void slotIsThreadConnected(bool connected);
 
     signals:
         void signBrokenUrl();
@@ -55,6 +56,7 @@ class MmsDownload : public QThread
         qulonglong signDownloaded(qulonglong reading);
         qulonglong signTotalSize(qulonglong size);
         unsigned long signSpeed(unsigned long bytes_per_second);
+        void signRestartDownload(int connections);
 
     private:
         bool isWorkingUrl();
@@ -66,9 +68,11 @@ class MmsDownload : public QThread
         QString m_sourceUrl;
         QString m_fileName;
         QString m_fileTemp;
-        int m_amountsThread;
+        int m_amountThreads;
+        int m_connectionsFails;
+        int m_connectionsSuccefully;
         qulonglong m_downloadedSize;
-        qulonglong m_prevDownloadedSizes;
+        QList<qulonglong> m_prevDownloadedSizes;
         mmsx_t* m_mms;
         QTimer* m_speedTimer;
         QList<MmsThread*> m_threadList;

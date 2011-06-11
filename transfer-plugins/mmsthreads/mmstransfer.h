@@ -48,9 +48,12 @@ class MmsTransfer : public Transfer
         void slotSpeed(ulong bytes_per_sec);
         void slotNotAllowMultiDownload();
         void slotBrokenUrl();
+        void slotConnectionsErrors(int connections);
 
     private:
         MmsDownload* m_mmsdownload;
+        int m_amountThreads;
+        bool m_retryDownload;
         QString m_fileTemp;
 };
 

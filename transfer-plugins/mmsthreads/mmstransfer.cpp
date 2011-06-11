@@ -34,7 +34,9 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
                         Scheduler * scheduler, const KUrl & source, const
                         KUrl &dest, const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-    m_mmsdownload(NULL)
+    m_mmsdownload(NULL),
+    m_amountThreads(MmsSettings::threads()),
+    m_retryDownload(false)
 {
     m_fileTemp = KStandardDirs::locateLocal("appdata", m_dest.fileName());
     kDebug(5001) << "Mms transfer initialized: " + m_source.prettyUrl();
@@ -42,6 +44,7 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
 
 MmsTransfer::~MmsTransfer()
 {
+    /** If m_mmsdownload is not deleted we delete it before end.*/
     if (m_mmsdownload) {
         m_mmsdownload->quit();
         m_mmsdownload->deleteLater();
@@ -50,15 +53,15 @@ MmsTransfer::~MmsTransfer()
 
 void MmsTransfer::start()
 {
-    kDebug(5001) << "Trying to start Mms-transfer: " + m_source.prettyUrl();
-    if (status() == Running || m_mmsdownload) {
+    /** Starting the download, is created the thread m_mmsdownload and is started the download*/
+    if (m_mmsdownload || status() == Finished) {
         return;
     }
-    
+
     setStatus(Job::Running, i18nc("transfer state: running", "Running...."),
               SmallIcon("media-playback-start"));
     m_mmsdownload = new MmsDownload(m_source.prettyUrl(), m_dest.pathOrUrl(),
-                                    m_fileTemp, MmsSettings::threads());
+                                    m_fileTemp, m_amountThreads);
     connect(m_mmsdownload, SIGNAL(finished()), this, SLOT(slotResult()));
     connect(m_mmsdownload, SIGNAL(signBrokenUrl()), this, SLOT(slotBrokenUrl()));
     connect(m_mmsdownload, SIGNAL(signNotAllowMultiDownload()), this,
@@ -69,16 +72,21 @@ void MmsTransfer::start()
             SLOT(slotProcessedSizeAndPercent(qulonglong)));
     connect(m_mmsdownload, SIGNAL(signSpeed(unsigned long)), this,
             SLOT(slotSpeed(unsigned long)));
+    connect(m_mmsdownload, SIGNAL(signRestartDownload(int)), this,
+            SLOT(slotConnectionsErrors(int)));
     m_mmsdownload->start();
     setTransferChange(Tc_Status, true);
 }
 
 void MmsTransfer::stop()
 {
+    /** The download is stopped, we call m_mmsdownload->stopTransfer() and when all threads
+     * are finish m_mmsdownload will be deleted in MmsTransfer::slotResult().
+     */
     if ((status() == Stopped) || (status() == Finished)) {
         return;
     }
-    // NOTE: When all threads stop, m_mmsdownload will be delete in MmsTransfer::slotResult.
+    
     if (m_mmsdownload) {
         if (m_mmsdownload->threadsAlive() > 0) {
             m_mmsdownload->stopTransfer();
@@ -92,8 +100,8 @@ void MmsTransfer::stop()
 
 void MmsTransfer::deinit()
 {
+    /** Deleting the temporary file and the unfinish file*/
     if (status() != Job::Finished) {
-        //Deleting file .kget, this file have the status of the download
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
         del = KIO::del(m_dest.path(), KIO::HideProgressInfo);
@@ -102,27 +110,44 @@ void MmsTransfer::deinit()
 }
 
 void MmsTransfer::slotResult()
-{
+{   
+    /** This slot is connected with the signal finish of m_mmsdownload*/
+    /** Deleting m_mmsdownload.*/
+    m_mmsdownload->deleteLater();
+    m_mmsdownload = NULL;
+    
+    /** If the download end without problems is changed the status to Finished and is deleted
+     * the temporary file where is saved the status of all threads that download the file.     
+     */
     if (m_downloadedSize == m_totalSize && m_totalSize != 0) {
         setStatus(Job::Finished, i18nc("Transfer State:Finished","Finished"),
                    SmallIcon("dialog-ok"));
         m_percent = 100;
         m_downloadSpeed = 0;
         setTransferChange(Tc_Status | Tc_Percent | Tc_DownloadSpeed, true);
-        //Deleting file .kget, this file have the status of the download
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
     }
     
+    /** When the download is stopped take some time to stop all the thread so when all the thread
+     * are finish we need to set m_downloadSpeed = 0 again. We put it in MmsTransfer::stop()
+     * but some thread can change the value before they finish.
+     */
     if (status() == Stopped) {
         m_downloadSpeed = 0;
         setTransferChange(Tc_DownloadSpeed, true);
-    }
+    }   
     
-    if (m_mmsdownload->threadsAlive() == 0) {
-        m_mmsdownload->quit();
-        m_mmsdownload->deleteLater();
-        m_mmsdownload = NULL;
+    /** If m_retryDownload == true then some threads has fail to connect, so the download was
+     * stopped in MmsTransfer::slotConnectionsErrors() and here when all the connected thread 
+     * are finished we delete the temporary file and we start again the download using the amount
+     * of threads defined in MmsTransfer::slotConnectionsErrors().
+     */
+    if (m_retryDownload) {
+        m_retryDownload = false;
+        KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
+        KIO::NetAccess::synchronousRun(del, 0);
+        start();
     }
 }
 
@@ -154,8 +179,27 @@ void MmsTransfer::slotBrokenUrl()
 
 void MmsTransfer::slotNotAllowMultiDownload()
 {
+    /** Some stream not allow seek in to a position, so we can't use more than one thread to 
+     * download the file, this is notify to the user because the download will take longer.
+     */
     KGet::showNotification(0, "notification", i18n("This URL does not allow multiple connections,\n"
                                 "the download will take longer."));
+}
+
+void MmsTransfer::slotConnectionsErrors(int connections)
+{
+    /** Here is called stop() for stop the download, set a new amount of thread
+     * and set m_retryDownload = true for restart the download when mmsdownload is finish and 
+     * emit a singal connected with MmsTransfer::slotResult(), see in MmsTransfer::slotResult()
+     * for understand when its started again the download.
+     */
+    stop();
+    m_retryDownload = true;
+    if (connections) {
+        m_amountThreads = connections;
+    } else {
+        m_amountThreads--;
+    }
 }
 
 #include "mmstransfer.moc"

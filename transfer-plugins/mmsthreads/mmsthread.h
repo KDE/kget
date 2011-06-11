@@ -17,7 +17,6 @@
 
 */
 
-
 #ifndef MMSTHREAD_HPP
 #define MMSTHREAD_HPP
 #include <libmms/mmsx.h>
@@ -48,7 +47,8 @@ class MmsThread : public QThread
         bool m_download;
 
     signals:
-        int reading(int data, int m_end, int m_begin);
+        void signReading(int data, int m_end, int m_begin);
+        void signIsConnected(bool connected);
 };
 
 #endif // MMSTHREAD_HPP

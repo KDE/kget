@@ -19,19 +19,22 @@
 
 #include "mmsdownload.h"
 
+const int SPEEDTIMER = 1000;//1 second...
+
 MmsDownload::MmsDownload(const QString &url, const QString &name, const QString &temp, 
                          int amountsThread)
 : QThread(),
   m_sourceUrl(url),
   m_fileName(name),
   m_fileTemp(temp),
-  m_amountsThread(amountsThread),
+  m_amountThreads(amountsThread),
+  m_connectionsFails(0),
+  m_connectionsSuccefully(0),
   m_downloadedSize(0),
-  m_prevDownloadedSizes(0),
   m_mms(NULL)
 {
     m_speedTimer = new QTimer(this);
-    m_speedTimer->setInterval(1000);
+    m_speedTimer->setInterval(SPEEDTIMER);
     connect(m_speedTimer, SIGNAL(timeout()), this, SLOT(slotSpeedChanged()));
 }
 
@@ -59,15 +62,20 @@ void MmsDownload::run()
 
 bool MmsDownload::isWorkingUrl()
 {
+    /** Check if the URL is working, if it can't connect then not start the download.*/
     m_mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()), 1e9);
     return m_mms;
 }
 
 void MmsDownload::splitTransfer()
 {
-    m_amountsThread = mmsx_get_seekable(m_mms) ? m_amountsThread : 0;
-    if (m_amountsThread == 0) {
-        m_amountsThread = 1;
+    /** We split the download in similar and each part is asigned to a thread and thi is saved in
+     * a map named m_mapEndIni. If we resume the download, then the temporal file will exist
+     * and we dont have to split the download only use it.
+     */
+    m_amountThreads = mmsx_get_seekable(m_mms) ? m_amountThreads : 0;
+    if (m_amountThreads == 0) {
+        m_amountThreads = 1;
         emit signNotAllowMultiDownload();
         QFile::remove(m_fileTemp);
     }
@@ -77,13 +85,12 @@ void MmsDownload::splitTransfer()
     
     if (QFile::exists(m_fileTemp)) {
         unSerialization();
-        m_prevDownloadedSizes = m_downloadedSize;
     } else {
-        int part = mmsx_get_length(m_mms) / m_amountsThread;
+        int part = mmsx_get_length(m_mms) / m_amountThreads;
         int ini = 0;
         int end = 0;
-        for (int i = 0; i < m_amountsThread; i++) {
-            if (i + 1 == m_amountsThread) {
+        for (int i = 0; i < m_amountThreads; i++) {
+            if (i + 1 == m_amountThreads) {
                 part = total - ini;
             }
             end = ini + part;
@@ -94,7 +101,7 @@ void MmsDownload::splitTransfer()
 }
 
 void MmsDownload::startTransfer()
-{
+{   
     m_speedTimer->start();
     QMap<int, int>::const_iterator iterator = m_mapEndIni.constBegin();
     while (iterator != m_mapEndIni.constEnd()) {
@@ -102,8 +109,8 @@ void MmsDownload::startTransfer()
                                           iterator.value(), iterator.key());
         m_threadList.append(thread);
         connect(thread, SIGNAL(finished()), this, SLOT(slotThreadFinish()));
-        connect(thread, SIGNAL(reading(int, int, int)), this, 
-                SLOT(slotRead(int, int, int)));
+        connect(thread, SIGNAL(signIsConnected(bool)), this, SLOT(slotIsThreadConnected(bool)));
+        connect(thread, SIGNAL(signReading(int,int,int)), this, SLOT(slotRead(int, int, int)));
         thread->start();
         ++iterator;
     }
@@ -111,18 +118,32 @@ void MmsDownload::startTransfer()
 
 void MmsDownload::slotSpeedChanged()
 {
-    emit signSpeed(m_downloadedSize - m_prevDownloadedSizes);
-    m_prevDownloadedSizes = m_downloadedSize;
+    /** Using the same speed calculating datasourcefactory uses (use all downloaded data 
+     * of the last 10 secs)
+     */
+    qulonglong speed;
+    if (m_prevDownloadedSizes.size()) {
+        speed = (m_downloadedSize - m_prevDownloadedSizes.first()) / (SPEEDTIMER *
+            m_prevDownloadedSizes.size() / 1000);//downloaded in 1 second
+    } else {
+        speed = 0;
+    }
+    
+    m_prevDownloadedSizes.append(m_downloadedSize);
+    if(m_prevDownloadedSizes.size() > 10)
+        m_prevDownloadedSizes.removeFirst();
+    
+    emit signSpeed(speed);
     serialization();
 }
 
 
 void MmsDownload::stopTransfer()
 {   
-    //NOTE: Here only is called thread->stop() because when the thread finish it emit a signal
-    // and slotThreadFinish(); is called where the thread is delete calling deleteLater(); and
-    // m_threadList is cleaning using removeAll().
-    
+    /** Here only is called thread->stop() because when the thread finish it emit a signal
+     * and slotThreadFinish(); is called where the thread is delete calling deleteLater(); and
+     * m_threadList is cleaning using removeAll().
+     */
     foreach (MmsThread* thread, m_threadList) {
         thread->stop();
         thread->quit();
@@ -137,10 +158,10 @@ int MmsDownload::threadsAlive()
 
 void MmsDownload::slotThreadFinish()
 {
-    MmsThread * thread = qobject_cast<MmsThread*>(QObject::sender());
+    MmsThread* thread = qobject_cast<MmsThread*>(QObject::sender());
     m_threadList.removeAll(thread);
     thread->deleteLater();
-    
+
     if (m_threadList.isEmpty()) {
         serialization();
         quit();
@@ -149,25 +170,56 @@ void MmsDownload::slotThreadFinish()
 
 void MmsDownload::slotRead(int reading, int thread_end, int thread_in)
 {
-    m_mapEndIni[thread_end] = thread_in;
+    /** We update the status of the thread in the map and emit a signal for update the download
+     * speed.
+     */
+    if (thread_in == thread_end) {
+        m_mapEndIni.remove(thread_end);    
+    } else {
+        m_mapEndIni[thread_end] = thread_in;
+    }
     m_downloadedSize += reading;
-    emit signDownloaded(m_downloadedSize);
+    emit signDownloaded(m_downloadedSize); 
+}
+
+void MmsDownload::slotIsThreadConnected(bool connected)
+{
+    /** All thread emit a signal connected with this slot, if they get connected succefully
+     * the value of "connected" will be true, and will be false if they can't connected. When all
+     * the thread emited the signal the amount of m_connectionsSuccefully and m_connectionsFails
+     * will be equal to m_amountThreads and we emit a signal to restart the download in
+     * mmstransfer using the amount of connections succefully connected.
+     */
+    if (connected) {
+        m_connectionsSuccefully++;
+    } else {
+        m_connectionsFails++;
+    }
+    if ((m_connectionsFails != 0) && 
+        (m_connectionsFails + m_connectionsSuccefully == m_amountThreads)) {
+        emit signRestartDownload(m_connectionsSuccefully);
+    }
 }
 
 void MmsDownload::serialization()
 {
+    /** Here we save the status of the download to the temporal file for resume the download 
+     * if we stop it.
+     */
     QFile file(m_fileTemp);
     file.open(QIODevice::WriteOnly);
     QDataStream out(&file);
-    out << m_mapEndIni << m_downloadedSize;
+    out << m_mapEndIni << m_downloadedSize << m_prevDownloadedSizes;
     file.close();
 }
 
 void MmsDownload::unSerialization()
 {
+    /** Here we read the status of the download to the temporal file for resume the download
+     */
     QFile file(m_fileTemp);
     file.open(QIODevice::ReadOnly);
     QDataStream in(&file);
-    in >> m_mapEndIni >> m_downloadedSize;
+    in >> m_mapEndIni >> m_downloadedSize >> m_prevDownloadedSizes;
     file.close();
 }

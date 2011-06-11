@@ -6,7 +6,7 @@
   <kcfgfile name="kget_mmsfactory.rc"/>
   <group name="Threads">
     <entry name="Threads" type="Int">
-      <default>40</default>
+      <default>50</default>
     </entry>
   </group>
 </kcfg>

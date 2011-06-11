@@ -17,7 +17,6 @@
 
 */
 
-
 #include "mmsthread.h"
 
 MmsThread::MmsThread(const QString& url, const QString& name, int begin, int end)
@@ -28,7 +27,7 @@ MmsThread::MmsThread(const QString& url, const QString& name, int begin, int end
     m_end(end),
     m_download(true)
 {
-    //Creating the file if it don't exist.
+    /** Creating the file if it don't exist.*/
     fstream file;
     file.open(qstrdup(m_fileName.toAscii()), fstream::out | fstream::app);
     file.close();
@@ -36,44 +35,55 @@ MmsThread::MmsThread(const QString& url, const QString& name, int begin, int end
 
 void MmsThread::run()
 {
-    int read; // Seems that some times mmsx_read not read well.
+    /** Seems that some times mmsx_read not read well.*/
+    int read; 
     fstream file;
     mmsx_t* mms;
     
-    //Reopening the file for write the information.
+    /** Reopening the file for write the information.*/
     file.open(qstrdup(m_fileName.toAscii()), fstream::in | fstream::out | fstream::ate);
     file.seekp(m_begin);
     
-    //Connecting to the url
+    /** Connecting to the url*/
     mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()) , 1e6);
-    mmsx_seek(0, mms, m_begin, 0);
-    while ((m_begin != m_end) && m_download) {
-        if ((m_begin + 1024) > m_end) { 
-            const int var = m_end - m_begin;
-            char data[var];
-            read = mmsx_read(0, mms, data, var);
-            m_locker.lock();
-            emit reading(var, m_end, m_begin = m_end);
-            if (read) {
-                file.write(data, var);
+    if (mms) {
+        m_locker.lock();
+        emit signIsConnected(true);
+        m_locker.unlock();
+        // If the connections result succefull it start the download.
+        mmsx_seek(0, mms, m_begin, 0);
+        while ((m_begin < m_end) && m_download) {
+            if ((m_begin + 1024) > m_end) { 
+                const int var = m_end - m_begin;
+                char data[var];
+                read = mmsx_read(0, mms, data, var);
+                m_locker.lock();
+                emit signReading(var, m_end, m_begin = m_end);
+                if (read) {
+                    file.write(data, var);
+                }
+                m_locker.unlock();
+            } else {
+                char data[1024];
+                read = mmsx_read(0, mms, data, 1024);
+                m_locker.lock();
+                emit signReading(1024, m_end, m_begin += 1024);
+                if (read) {
+                    file.write(data, 1024);
+                }
+                m_locker.unlock();
             }
-            m_locker.unlock();
-            quit(); // NOTE: Keep "quit()" here, if not then the thread never finish.
-        } else {
-            char data[1024];
-            read = mmsx_read(0, mms, data, 1024);
-            m_locker.lock();
-            emit reading(1024, m_end, m_begin += 1024);
-            if (read) {
-                file.write(data, 1024);
-            }
-            m_locker.unlock();
-            
         }
+        file.close();
+        mmsx_close(mms);
+        quit(); // NOTE: Keep "quit()" here, if not then the thread never emit the signal finish.
+    } else {
+        /** If the connections not result succefully then stop all the download*/
+        m_locker.lock();
+        emit signIsConnected(false);
+        m_locker.unlock();
+        quit(); // NOTE: Keep "quit()" here, if not then the thread never emit the signal finish.
     }
-    
-    file.close();
-    mmsx_close(mms);
     exec();
 }
 
