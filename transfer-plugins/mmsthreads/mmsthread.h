@@ -20,11 +20,8 @@
 #ifndef MMSTHREAD_HPP
 #define MMSTHREAD_HPP
 #include <libmms/mmsx.h>
-#include <fstream>
 #include <QtCore/QThread>
 #include <QtCore/QFile>
-#include <QtCore/QDataStream>
-#include <QtCore/QDebug>
 #include <QtCore/QMutex>
 
 using namespace std;
@@ -36,7 +33,6 @@ class MmsThread : public QThread
         MmsThread(const QString& url, const QString& name, int begin, int end);
         void run();
         void stop();
-        
 
     private:
         QString m_sourceUrl;

@@ -1,4 +1,4 @@
-/*
+ /*
     This file is part of the KDE project
     Copyright (C) 2011 Ernesto Rodriguez Ortiz <eortiz@uci.cu>
 
@@ -26,23 +26,17 @@ MmsThread::MmsThread(const QString& url, const QString& name, int begin, int end
     m_begin(begin),
     m_end(end),
     m_download(true)
-{
-    /** Creating the file if it don't exist.*/
-    fstream file;
-    file.open(qstrdup(m_fileName.toAscii()), fstream::out | fstream::app);
-    file.close();
-}
+{}
 
 void MmsThread::run()
 {
     /** Seems that some times mmsx_read not read well.*/
-    int read; 
-    fstream file;
+    int readed; 
     mmsx_t* mms;
-    
-    /** Reopening the file for write the information.*/
-    file.open(qstrdup(m_fileName.toAscii()), fstream::in | fstream::out | fstream::ate);
-    file.seekp(m_begin);
+    QFile file(m_fileName);
+    /** Opening the file for write the information.*/
+    file.open(QIODevice::ReadWrite);
+    file.seek(m_begin);
     
     /** Connecting to the url*/
     mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()) , 1e6);
@@ -50,26 +44,28 @@ void MmsThread::run()
         m_locker.lock();
         emit signIsConnected(true);
         m_locker.unlock();
-        // If the connections result succefull it start the download.
+        /** If the connections result succefull it start the download.*/
         mmsx_seek(0, mms, m_begin, 0);
         while ((m_begin < m_end) && m_download) {
             if ((m_begin + 1024) > m_end) { 
                 const int var = m_end - m_begin;
                 char data[var];
-                read = mmsx_read(0, mms, data, var);
+                readed = mmsx_read(0, mms, data, var);
                 m_locker.lock();
                 emit signReading(var, m_end, m_begin = m_end);
-                if (read) {
-                    file.write(data, var);
+                /** Writing the readed to the file */
+                if (readed) {
+                    file.write(data, readed);
                 }
                 m_locker.unlock();
             } else {
                 char data[1024];
-                read = mmsx_read(0, mms, data, 1024);
+                readed = mmsx_read(0, mms, data, 1024);
                 m_locker.lock();
                 emit signReading(1024, m_end, m_begin += 1024);
-                if (read) {
-                    file.write(data, 1024);
+                /** Writing the readed to the file */
+                if (readed) {
+                    file.write(data, readed);
                 }
                 m_locker.unlock();
             }

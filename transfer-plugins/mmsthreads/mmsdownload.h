@@ -20,13 +20,12 @@
 #ifndef MMSDOWNLOAD_H
 #define MMSDOWNLOAD_H
 
+#include <libmms/mmsx.h>
 #include <QString>
 #include <QTimer>
 #include <QMap>
 #include <QFile>
 #include <QDataStream>
-#include <libmms/mmsx.h>
-#include <fstream>
 #include <kstandarddirs.h>
 
 #include "mmsthread.h"

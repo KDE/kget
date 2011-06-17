@@ -20,11 +20,13 @@
 #ifndef MMSTRANSFER_H
 #define MMSTRANSFER_H
 
-#include <kio/job.h>
+
+#include <QTime>
+#include <kio/deletejob.h>
+#include "core/kget.h"
 #include "mmsdownload.h"
 #include "mmssettings.h"
 #include "core/transfer.h"
-#include <QTime>
 
 class MmsTransfer : public Transfer
 {

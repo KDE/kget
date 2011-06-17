@@ -19,17 +19,6 @@
 
 #include "mmstransfer.h"
 
-#include "core/kget.h"
-#include <KIO/DeleteJob>
-#include <kmessagebox.h>
-#include <kiconloader.h>
-#include <klocale.h>
-#include <kdebug.h>
-
-#include <QtCore/QFile>
-
-
-
 MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
                         Scheduler * scheduler, const KUrl & source, const
                         KUrl &dest, const QDomElement * e)
@@ -95,7 +84,8 @@ void MmsTransfer::stop()
 
     setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"),
                 SmallIcon("process-stop"));
-    setTransferChange(Tc_Status, true);
+    m_downloadSpeed = 0;
+    setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
 void MmsTransfer::deinit()
@@ -128,16 +118,7 @@ void MmsTransfer::slotResult()
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
     }
-    
-    /** When the download is stopped take some time to stop all the thread so when all the thread
-     * are finish we need to set m_downloadSpeed = 0 again. We put it in MmsTransfer::stop()
-     * but some thread can change the value before they finish.
-     */
-    if (status() == Stopped) {
-        m_downloadSpeed = 0;
-        setTransferChange(Tc_DownloadSpeed, true);
-    }   
-    
+     
     /** If m_retryDownload == true then some threads has fail to connect, so the download was
      * stopped in MmsTransfer::slotConnectionsErrors() and here when all the connected thread 
      * are finished we delete the temporary file and we start again the download using the amount
@@ -159,8 +140,8 @@ void MmsTransfer::slotTotalSize(qulonglong size)
 
 void MmsTransfer::slotSpeed(ulong speed)
 {
-    m_downloadSpeed = speed;
-    setTransferChange(Tc_DownloadSpeed, true);
+    m_downloadSpeed = (status() == Running) ? speed : 0;
+    setTransferChange(Tc_DownloadSpeed, true); 
 }
 
 void MmsTransfer::slotProcessedSizeAndPercent(qulonglong size)
