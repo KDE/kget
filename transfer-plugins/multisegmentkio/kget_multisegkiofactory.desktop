@@ -32,6 +32,7 @@ Name[ja]=マルチセグメントの KIO
 Name[kk]=Көп сегментті KIO
 Name[km]=ផ្នែក​ច្រើន​របស់ KIO
 Name[ko]=다중 세그먼트 KIO
+Name[lt]=Daugelio segmentų KIO
 Name[lv]=Multisegmentu KIO
 Name[ml]=ബഹു ഖണ്ഡ കിയോ
 Name[nb]=Multi-segment KIO
@@ -84,6 +85,7 @@ Comment[ja]=マルチスレッドのファイルダウンロード用プラグ�
 Comment[kk]=Файлды бірнеше ағынға бөліп жүктеу плагині
 Comment[km]=កម្មវិធី​ជំនួយ​ទាញយក​ឯកសារ​របស់ Multithreaded
 Comment[ko]=다중 스레드 파일 다운로드 플러그인
+Comment[lt]=Kelių atsiuntimo gijų priedas
 Comment[lv]=Daudzpavedienu failu lejupielādes spraudnis
 Comment[ml]=ഫയല്‍ ഇറക്കിവെക്കനുള്ള ബഹുപിരിയന്‍ സംയോജകം
 Comment[nb]=Programtillegg for flertrådete filnedlastinger
