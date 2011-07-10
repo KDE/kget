@@ -191,6 +191,8 @@
     <entry name="LastDirectory" type="Path">
       <default code="true">KGlobalSettings::downloadPath()</default>
     </entry>
+    <entry name="LastGroup" type="String">
+    </entry>
     <entry name="LinkViewFilterPatternSyntax" type="Int">
         <default>0</default>
     </entry>
