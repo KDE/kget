@@ -49,7 +49,6 @@ class NewTransferDialog : public KDialog
         void setDefaultDestination();
 
     private slots:
-        void urlChanged(const QString &text);
         void inputTimer();
         void checkInput();
         void slotFinished(int resultCode);
