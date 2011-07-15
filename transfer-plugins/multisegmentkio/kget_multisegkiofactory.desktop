@@ -61,6 +61,7 @@ Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
 Comment[ar]=ملحق تعدد تنزيل الملف
 Comment[ast]=Complementu de baxada de ficheru multicapa
+Comment[bg]=Приставка за многонишково изтегляне на файлове
 Comment[bs]=Dodatak za više-nitno preuzimanje datoteka
 Comment[ca]=Connector de transferències multifil per al KGet
 Comment[ca@valencia]=Connector de transferències multifil per al KGet

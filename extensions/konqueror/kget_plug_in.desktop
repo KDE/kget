@@ -12,6 +12,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Download Manager
+Name[bg]=Изтегляне на файлове
 Name[bs]=Upravnik preuzimanjima datoteka
 Name[ca]=Gestor de baixades
 Name[ca@valencia]=Gestor de baixades
