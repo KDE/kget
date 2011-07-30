@@ -77,9 +77,9 @@ DropTarget::DropTarget(MainWindow * mw)
 
     QAction * downloadAction = mw->actionCollection()->action("start_all_download");
     popupMenu->addAction( downloadAction );
-    connect( downloadAction, SIGNAL( toggled(bool) ), this, SLOT( slotStartStopToggled(bool) ) );
+    connect( downloadAction, SIGNAL(toggled(bool)), this, SLOT(slotStartStopToggled(bool)) );
     popupMenu->addSeparator();
-    pop_show = popupMenu->addAction( QString(), this, SLOT( toggleMinimizeRestore() ) );
+    pop_show = popupMenu->addAction( QString(), this, SLOT(toggleMinimizeRestore()) );
     popupMenu->addAction(parentWidget->actionCollection()->action("show_drop_target"));
     pop_sticky = popupMenu->addAction(i18nc("fix position for droptarget", "Sticky"), this, SLOT(toggleSticky()));
     pop_sticky->setCheckable(true);
@@ -107,7 +107,7 @@ DropTarget::DropTarget(MainWindow * mw)
     
     setMouseTracking(true);
     
-    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
+    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
             this,          SLOT(slotToolTipUpdate()));
             
     connect(popupTimer,    SIGNAL(timeout()),
@@ -155,8 +155,8 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
 void DropTarget::playAnimationShow()
 {
     animTimer->disconnect();
-    connect( animTimer, SIGNAL( timeout() ),
-        this, SLOT( slotAnimateShow() ));
+    connect( animTimer, SIGNAL(timeout()),
+        this, SLOT(slotAnimateShow()));
 
     move(position.x(), -TARGET_SIZE);
 
@@ -171,8 +171,8 @@ void DropTarget::playAnimationHide()
         move( x(), qRound(ani_y) );
 
     animTimer->disconnect();
-    connect( animTimer, SIGNAL( timeout() ),
-        this, SLOT( slotAnimateHide() ));
+    connect( animTimer, SIGNAL(timeout()),
+        this, SLOT(slotAnimateHide()));
     ani_y = (float)y();
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
@@ -184,8 +184,8 @@ void DropTarget::playAnimationSync()
         move( x(), qRound(ani_y) );
 
     animTimer->disconnect();
-    connect( animTimer, SIGNAL( timeout() ),
-        this, SLOT( slotAnimateSync() ));
+    connect( animTimer, SIGNAL(timeout()),
+        this, SLOT(slotAnimateSync()));
     ani_y = (float)y();
     ani_vy = -1;
     animTimer->start(TARGET_ANI_MS);

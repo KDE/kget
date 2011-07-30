@@ -53,9 +53,9 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_proxyModel->setSourceModel(m_model);
     m_view->setModel(m_proxyModel);
 
-    connect(item_delegate, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
-                           SIGNAL(deletedTransfer(const QString &, const QModelIndex &)));
-    connect(m_view, SIGNAL(doubleClicked(const QModelIndex &)), SIGNAL(doubleClicked(const QModelIndex &)));
+    connect(item_delegate, SIGNAL(deletedTransfer(QString,QModelIndex)),
+                           SIGNAL(deletedTransfer(QString,QModelIndex)));
+    connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SIGNAL(doubleClicked(QModelIndex)));
     setLayout(layout);
 }
 

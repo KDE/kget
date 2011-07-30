@@ -47,8 +47,8 @@ Tray::Tray(MainWindow * parent)
     // setToolTipSubTitle("[..]");
 
     // filter middle mouse clicks to ask scheduler to paste URL
-    connect( this, SIGNAL( secondaryActivateRequested(const QPoint&) ),
-             this, SLOT( slotActivated() ) );
+    connect( this, SIGNAL(secondaryActivateRequested(QPoint)),
+             this, SLOT(slotActivated()) );
 }
 
 

@@ -133,7 +133,7 @@ void BTTransfer::start()
             setTransferChange(Tc_Status, true);
 
             //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-            connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(btTransferInit(KUrl, QByteArray)));
+            connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(btTransferInit(KUrl,QByteArray)));
         }
         else
             btTransferInit();
@@ -151,7 +151,7 @@ bool BTTransfer::setDirectory(const KUrl &newDirectory)
     {
         if (torrent->changeOutputDir(newDirectory.pathOrUrl(), bt::TorrentInterface::MOVE_FILES))
         {
-            connect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*, bool&)), this, SLOT(newDestResult()));
+            connect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*,bool&)), this, SLOT(newDestResult()));
             m_movingFile = true;
             m_directory = newDirectory;
             m_dest = m_directory;
@@ -168,7 +168,7 @@ bool BTTransfer::setDirectory(const KUrl &newDirectory)
 
 void BTTransfer::newDestResult()
 {
-    disconnect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*, bool&)), this, SLOT(newDestResult()));
+    disconnect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*,bool&)), this, SLOT(newDestResult()));
     m_movingFile = false;
 
     setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
@@ -464,9 +464,9 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
-        connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*, QString)), SLOT(slotStoppedByError(bt::TorrentInterface*, QString)));
-        connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface* )));
-        //FIXME connect(tc,SIGNAL(corruptedDataFound( bt::TorrentInterface* )), this, SLOT(emitCorruptedData( bt::TorrentInterface* )));//TODO: Fix it
+        connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*,QString)), SLOT(slotStoppedByError(bt::TorrentInterface*,QString)));
+        connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface*)));
+        //FIXME connect(tc,SIGNAL(corruptedDataFound(bt::TorrentInterface*)), this, SLOT(emitCorruptedData(bt::TorrentInterface*)));//TODO: Fix it
     }
     catch (bt::Error &err)
     {

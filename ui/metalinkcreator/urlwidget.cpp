@@ -49,8 +49,8 @@ UrlWidget::UrlWidget(QObject *parent)
     connect(ui.add_mirror, SIGNAL(clicked(bool)), this, SLOT(slotAddMirror()));
     connect(ui.remove_mirror, SIGNAL(clicked(bool)), this, SLOT(slotRemoveMirror()));
     connect(m_mirrorModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(urlsChanged()));
-    connect(m_mirrorModel, SIGNAL(rowsInserted (QModelIndex,int,int)), this, SIGNAL(urlsChanged()));
-    connect(m_mirrorModel, SIGNAL(rowsRemoved (QModelIndex,int,int)), this, SIGNAL(urlsChanged()));
+    connect(m_mirrorModel, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SIGNAL(urlsChanged()));
+    connect(m_mirrorModel, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SIGNAL(urlsChanged()));
 }
 
 UrlWidget::~UrlWidget()

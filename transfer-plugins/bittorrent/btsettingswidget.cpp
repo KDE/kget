@@ -25,8 +25,8 @@ BTSettingsWidget::BTSettingsWidget(QWidget * parent = 0, const QVariantList &arg
     connect(portBox, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(torrentEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
-    connect(tempEdit, SIGNAL(textChanged(const QString &)), SLOT(changed()));
+    connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(changed()));
+    connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(changed()));
     connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(changed()));
     connect(utpBox, SIGNAL(stateChanged(int)), SLOT(changed()));
 }

@@ -33,12 +33,12 @@ ContentFetch::ContentFetch(TransferGroup* parent, TransferFactory* factory,
       m_p_group(parent), m_scriptFile(scriptFile), m_destDir(dest.directory(KUrl::AppendTrailingSlash))
 {
     m_p_script = new Script(this, source);
-    connect(m_p_script, SIGNAL(newTransfer(const QString&, const QString&)),
-            this, SLOT(slotAddTransfer(const QString&, const QString&)));
+    connect(m_p_script, SIGNAL(newTransfer(QString,QString)),
+            this, SLOT(slotAddTransfer(QString,QString)));
     connect(m_p_script, SIGNAL(finished()), this, SLOT(slotFinish()));
-    connect(m_p_script, SIGNAL(aborted(const QString&)), this, SLOT(slotAbort(const QString&)));
+    connect(m_p_script, SIGNAL(aborted(QString)), this, SLOT(slotAbort(QString)));
     connect(m_p_script, SIGNAL(percentUpdated(int)), this, SLOT(setPercent(int)));
-    connect(m_p_script, SIGNAL(textStatusUpdated(const QString&)), this, SLOT(slotSetTextStatus(const QString&)));
+    connect(m_p_script, SIGNAL(textStatusUpdated(QString)), this, SLOT(slotSetTextStatus(QString)));
 }
 
 void ContentFetch::deinit()

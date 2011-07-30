@@ -93,7 +93,7 @@ void TransferMultiSegKio::start()
 
         TransferDataSource *mirrorSearch = KGet::createTransferDataSource(m_source, element, this);
         if (mirrorSearch) {
-            connect(mirrorSearch, SIGNAL(data(const QList<KUrl>&)), this, SLOT(slotSearchUrls(const QList<KUrl>&)));
+            connect(mirrorSearch, SIGNAL(data(QList<KUrl>)), this, SLOT(slotSearchUrls(QList<KUrl>)));
             mirrorSearch->start();
         }
     }
@@ -200,7 +200,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
 
             TransferDataSource *checksumSearch = KGet::createTransferDataSource(m_source, element, this);
             if (checksumSearch) {
-                connect(checksumSearch, SIGNAL(data(QString, QString)), this, SLOT(slotChecksumFound(QString, QString)));
+                connect(checksumSearch, SIGNAL(data(QString,QString)), this, SLOT(slotChecksumFound(QString,QString)));
                 checksumSearch->start();
             }
         }
@@ -287,7 +287,7 @@ FileModel *TransferMultiSegKio::fileModel()
     if (!m_fileModel)
     {
         m_fileModel = new FileModel(QList<KUrl>() << m_dest, m_dest.upUrl(), this);
-        connect(m_fileModel, SIGNAL(rename(KUrl, KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+        connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
 
         QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
         m_fileModel->setData(statusIndex, m_dataSourceFactory->status());

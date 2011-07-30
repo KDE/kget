@@ -56,7 +56,7 @@ KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
     actionCollection()->addAction("kget_menu", menu);
 
     menu->setDelayed( false );
-    connect( menu->menu(), SIGNAL( aboutToShow() ), SLOT( showPopup() ));
+    connect( menu->menu(), SIGNAL(aboutToShow()), SLOT(showPopup()));
 
     m_dropTargetAction = new KToggleAction(i18n("Show Drop Target"), actionCollection());
 

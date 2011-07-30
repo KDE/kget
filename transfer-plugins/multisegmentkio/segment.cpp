@@ -78,8 +78,8 @@ bool Segment::createTransfer()
     {
         m_canResume = false;//FIXME set m_canResume to false by default!!
         m_getJob->addMetaData( "resume", KIO::number(m_offset) );
-        connect(m_getJob, SIGNAL(canResume(KIO::Job *, KIO::filesize_t)),
-                 SLOT( slotCanResume(KIO::Job *, KIO::filesize_t)));
+        connect(m_getJob, SIGNAL(canResume(KIO::Job*,KIO::filesize_t)),
+                 SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
     }
     #if 0 //TODO: we disable that code till it's implemented in kdelibs, also we need to think, which settings we should use
     if(Settings::speedLimit())
@@ -87,10 +87,10 @@ bool Segment::createTransfer()
                 m_getJob->addMetaData( "speed-limit", KIO::number(Settings::transferSpeedLimit() * 1024) );
     }
     #endif
-    connect(m_getJob, SIGNAL(totalSize(KJob*, qulonglong)), this, SLOT(slotTotalSize(KJob*, qulonglong)));
-    connect( m_getJob, SIGNAL(data(KIO::Job *, const QByteArray&)),
-                 SLOT( slotData(KIO::Job *, const QByteArray&)));
-    connect( m_getJob, SIGNAL(result(KJob *)), SLOT(slotResult( KJob *)));
+    connect(m_getJob, SIGNAL(totalSize(KJob*,qulonglong)), this, SLOT(slotTotalSize(KJob*,qulonglong)));
+    connect( m_getJob, SIGNAL(data(KIO::Job*,QByteArray)),
+                 SLOT(slotData(KIO::Job*,QByteArray)));
+    connect( m_getJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
     return true;
 }
 

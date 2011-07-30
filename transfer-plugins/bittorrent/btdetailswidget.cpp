@@ -35,8 +35,8 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
 
     progressBar->setValue(m_transfer->percent());
     
-    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler *, TransferHandler::ChangesFlags)),
-            this,       SLOT(slotTransferChanged(TransferHandler *, TransferHandler::ChangesFlags)));
+    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler*,TransferHandler::ChangesFlags)),
+            this,       SLOT(slotTransferChanged(TransferHandler*,TransferHandler::ChangesFlags)));
 }
 
 BTDetailsWidget::~BTDetailsWidget()

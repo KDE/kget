@@ -27,8 +27,8 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("URL:"));
-    connect(ui.urlEdit,SIGNAL(textChanged(const QString &)), SLOT(slotChangeText()));
-    connect(ui.engineNameEdit,SIGNAL(textChanged(const QString &)),SLOT(slotChangeText()));
+    connect(ui.urlEdit,SIGNAL(textChanged(QString)), SLOT(slotChangeText()));
+    connect(ui.engineNameEdit,SIGNAL(textChanged(QString)),SLOT(slotChangeText()));
     slotChangeText();
 }
 

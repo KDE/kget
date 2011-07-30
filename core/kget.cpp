@@ -824,8 +824,8 @@ KGet::KGet()
                      m_jobManager,        SLOT(slotTransfersAdded(QList<TransferHandler*>)));
     QObject::connect(m_transferTreeModel, SIGNAL(transfersAboutToBeRemovedEvent(QList<TransferHandler*>)),
                      m_jobManager,        SLOT(slotTransfersAboutToBeRemoved(QList<TransferHandler*>)));
-    QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
-                     m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
+    QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
+                     m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler*,Transfer::ChangesFlags>)));
             
     //Load all the available plugins
     loadPlugins();
@@ -1264,12 +1264,12 @@ GenericObserver::GenericObserver(QObject *parent)
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(groupAddedEvent(TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)),
                            SLOT(transfersRemovedEvent(QList<TransferHandler*>)));
-    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)), 
-                           SLOT(transfersChangedEvent(QMap<TransferHandler*, Transfer::ChangesFlags>)));
-    connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags>)), 
-                           SLOT(groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags>)));
-    connect(KGet::model(), SIGNAL(transferMovedEvent(TransferHandler *, TransferGroupHandler *)),
-                           SLOT(transferMovedEvent(TransferHandler *, TransferGroupHandler *)));
+    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)), 
+                           SLOT(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)));
+    connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)), 
+                           SLOT(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
+    connect(KGet::model(), SIGNAL(transferMovedEvent(TransferHandler*,TransferGroupHandler*)),
+                           SLOT(transferMovedEvent(TransferHandler*,TransferGroupHandler*)));
 }
 
 GenericObserver::~GenericObserver()

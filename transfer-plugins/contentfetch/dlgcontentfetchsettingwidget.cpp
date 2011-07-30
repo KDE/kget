@@ -35,11 +35,11 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(QWidget * parent = 0,
     connect(ui.configureScriptButton, SIGNAL(clicked()), this, SLOT(slotConfigureScript()));
     connect(ui.removeScriptButton, SIGNAL(clicked()), this, SLOT(slotRemoveScript()));
     connect(ui.scriptTreeWidget,
-            SIGNAL(itemClicked(QTreeWidgetItem*, int)),
-            this, SLOT(slotCheckConfigurable(QTreeWidgetItem*, int)));
+            SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+            this, SLOT(slotCheckConfigurable(QTreeWidgetItem*,int)));
     connect(ui.scriptTreeWidget,
-            SIGNAL(itemChanged(QTreeWidgetItem* , int)),
-            this, SLOT(slotEnableChanged(QTreeWidgetItem*, int)));
+            SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotEnableChanged(QTreeWidgetItem*,int)));
 }
 
 DlgContentFetchSettingWidget::~DlgContentFetchSettingWidget()

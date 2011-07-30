@@ -77,10 +77,10 @@ namespace kt
 		collapse_action = context_menu->addAction(i18n("Collapse Folder Tree"),this,SLOT(collapseTree()));
 		expand_action = context_menu->addAction(i18n("Expand Folder Tree"),this,SLOT(expandTree()));
 		
-		connect(this,SIGNAL(customContextMenuRequested(const QPoint & )),
-				this,SLOT(showContextMenu(const QPoint& )));
-		connect(this,SIGNAL(doubleClicked(const QModelIndex & )),
-				this,SLOT(onDoubleClicked(const QModelIndex & )));
+		connect(this,SIGNAL(customContextMenuRequested(QPoint)),
+				this,SLOT(showContextMenu(QPoint)));
+		connect(this,SIGNAL(doubleClicked(QModelIndex)),
+				this,SLOT(onDoubleClicked(QModelIndex)));
 		
 		setEnabled(false);
 		show_list_of_files = false;
@@ -109,7 +109,7 @@ namespace kt
 		setEnabled(tc != 0);
 		if (tc)
 		{
-			connect(tc,SIGNAL(missingFilesMarkedDND( bt::TorrentInterface* )),
+			connect(tc,SIGNAL(missingFilesMarkedDND(bt::TorrentInterface*)),
 					this,SLOT(onMissingFileMarkedDND(bt::TorrentInterface*)));
 			
 			if (show_list_of_files)

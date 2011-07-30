@@ -314,7 +314,7 @@ void DataSourceFactory::open(KIO::Job *job)
     }
 
     connect(m_putJob, SIGNAL(position(KIO::Job*,KIO::filesize_t)), this, SLOT(slotOffset(KIO::Job*,KIO::filesize_t)));
-    connect(m_putJob, SIGNAL(written(KIO::Job*, KIO::filesize_t)), this, SLOT(slotDataWritten(KIO::Job*,KIO::filesize_t)));
+    connect(m_putJob, SIGNAL(written(KIO::Job*,KIO::filesize_t)), this, SLOT(slotDataWritten(KIO::Job*,KIO::filesize_t)));
     m_open = true;
 
     if (m_startTried)
@@ -441,10 +441,10 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                     }
 
                     connect(source, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-                    connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int, int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int, int>)));
-                    connect(source, SIGNAL(broken(TransferDataSource*, TransferDataSource::Error)), this, SLOT(broken(TransferDataSource*,TransferDataSource::Error)));
+                    connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int,int>)));
+                    connect(source, SIGNAL(broken(TransferDataSource*,TransferDataSource::Error)), this, SLOT(broken(TransferDataSource*,TransferDataSource::Error)));
                     connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
-                    connect(source, SIGNAL(data(KIO::fileoffset_t, const QByteArray&, bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t, const QByteArray&, bool&)));
+                    connect(source, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t,QByteArray,bool&)));
                     connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotFreeSegments(TransferDataSource*,QPair<int,int>)));
                     connect(source, SIGNAL(log(QString,Transfer::LogLevel)), this, SIGNAL(log(QString,Transfer::LogLevel)));
 
@@ -856,8 +856,8 @@ void DataSourceFactory::startMove()
     killPutJob();
 
     KIO::Job *move = KIO::file_move(m_dest, m_newDest, -1, KIO::HideProgressInfo);
-    connect(move, SIGNAL(result(KJob *)), this, SLOT(newDestResult(KJob *)));
-    connect(move, SIGNAL(percent(KJob*, unsigned long)), this, SLOT(slotPercent(KJob*, ulong)));
+    connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
+    connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
 
     m_dest = m_newDest;
     verifier()->setDestination(m_dest);

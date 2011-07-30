@@ -65,9 +65,9 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
             }
 
             KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
-            connect(move, SIGNAL(result(KJob *)), this, SLOT(newDestResult(KJob *)));
-            connect(move, SIGNAL(infoMessage(KJob *, const QString &)), this, SLOT(slotInfoMessage(KJob *, const QString &)));
-            connect(move, SIGNAL(percent(KJob *, unsigned long)), this, SLOT(slotPercent(KJob *, unsigned long)));
+            connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
+            connect(move, SIGNAL(infoMessage(KJob*,QString)), this, SLOT(slotInfoMessage(KJob*,QString)));
+            connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
 
             return true;
         }
@@ -134,18 +134,18 @@ void TransferKio::createJob()
         KIO::Scheduler::checkSlaveOnHold(true);
         m_copyjob = KIO::file_copy(m_source, m_dest, -1, KIO::HideProgressInfo);
 
-        connect(m_copyjob, SIGNAL(result(KJob *)), 
-                this, SLOT(slotResult(KJob *)));
-        connect(m_copyjob, SIGNAL(infoMessage(KJob *, const QString &)), 
-                this, SLOT(slotInfoMessage(KJob *, const QString &)));
-        connect(m_copyjob, SIGNAL(percent(KJob *, unsigned long)), 
-                this, SLOT(slotPercent(KJob *, unsigned long)));
-        connect(m_copyjob, SIGNAL(totalSize(KJob *, qulonglong)), 
-                this, SLOT(slotTotalSize(KJob *, qulonglong)));
-        connect(m_copyjob, SIGNAL(processedSize(KJob *, qulonglong)), 
-                this, SLOT(slotProcessedSize(KJob *, qulonglong)));
-        connect(m_copyjob, SIGNAL(speed(KJob *, unsigned long)), 
-                this, SLOT(slotSpeed(KJob *, unsigned long)));
+        connect(m_copyjob, SIGNAL(result(KJob*)), 
+                this, SLOT(slotResult(KJob*)));
+        connect(m_copyjob, SIGNAL(infoMessage(KJob*,QString)), 
+                this, SLOT(slotInfoMessage(KJob*,QString)));
+        connect(m_copyjob, SIGNAL(percent(KJob*,ulong)), 
+                this, SLOT(slotPercent(KJob*,ulong)));
+        connect(m_copyjob, SIGNAL(totalSize(KJob*,qulonglong)), 
+                this, SLOT(slotTotalSize(KJob*,qulonglong)));
+        connect(m_copyjob, SIGNAL(processedSize(KJob*,qulonglong)), 
+                this, SLOT(slotProcessedSize(KJob*,qulonglong)));
+        connect(m_copyjob, SIGNAL(speed(KJob*,ulong)), 
+                this, SLOT(slotSpeed(KJob*,ulong)));
     }
 }
 

@@ -420,10 +420,10 @@ void MainWindow::init()
 
     connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler*>)), this, SLOT(slotUpdateTitlePercent()));
     connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)), this, SLOT(slotUpdateTitlePercent()));
-    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)), 
-                           SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
-    connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)),
-                           SLOT(slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)));
+    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)), 
+                           SLOT(slotTransfersChanged(QMap<TransferHandler*,Transfer::ChangesFlags>)));
+    connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)),
+                           SLOT(slotGroupsChanged(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
 
 #ifdef DO_KGET_TEST
     if (m_doTesting)
@@ -538,7 +538,7 @@ void MainWindow::slotPreferences()
     PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
 
     // keep us informed when the user changes settings
-    connect( dialog, SIGNAL(settingsChanged(const QString&)),
+    connect( dialog, SIGNAL(settingsChanged(QString)),
              this, SLOT(slotNewConfig()) );
 
     dialog->show();
@@ -875,7 +875,7 @@ void MainWindow::slotConfigureKeys()
 void MainWindow::slotConfigureToolbars()
 {
     KEditToolBar edit( actionCollection() );
-    connect(&edit, SIGNAL( newToolBarConfig() ), this, SLOT( slotNewToolbarConfig() ));
+    connect(&edit, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()));
     edit.exec();
 }
 

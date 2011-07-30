@@ -110,7 +110,7 @@ void MmsDownload::startTransfer()
         m_threadList.append(thread);
         connect(thread, SIGNAL(finished()), this, SLOT(slotThreadFinish()));
         connect(thread, SIGNAL(signIsConnected(bool)), this, SLOT(slotIsThreadConnected(bool)));
-        connect(thread, SIGNAL(signReading(int,int,int)), this, SLOT(slotRead(int, int, int)));
+        connect(thread, SIGNAL(signReading(int,int,int)), this, SLOT(slotRead(int,int,int)));
         thread->start();
         ++iterator;
     }

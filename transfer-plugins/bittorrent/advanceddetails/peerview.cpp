@@ -51,8 +51,8 @@ namespace kt
 		context_menu = new KMenu(this);
 		context_menu->addAction(KIcon("list-remove-user"),i18n("Kick Peer"),this,SLOT(kickPeer()));
 		context_menu->addAction(KIcon("view-filter"),i18n("Ban Peer"),this,SLOT(banPeer()));
-		connect(this,SIGNAL(customContextMenuRequested(const QPoint & )),
-				this,SLOT(showContextMenu(const QPoint& )));
+		connect(this,SIGNAL(customContextMenuRequested(QPoint)),
+				this,SLOT(showContextMenu(QPoint)));
 	}
 
 	PeerView::~PeerView()

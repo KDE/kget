@@ -59,8 +59,8 @@ void MmsTransfer::start()
             SLOT(slotTotalSize(qulonglong)));
     connect(m_mmsdownload, SIGNAL(signDownloaded(qulonglong)), this,
             SLOT(slotProcessedSizeAndPercent(qulonglong)));
-    connect(m_mmsdownload, SIGNAL(signSpeed(unsigned long)), this,
-            SLOT(slotSpeed(unsigned long)));
+    connect(m_mmsdownload, SIGNAL(signSpeed(ulong)), this,
+            SLOT(slotSpeed(ulong)));
     connect(m_mmsdownload, SIGNAL(signRestartDownload(int)), this,
             SLOT(slotConnectionsErrors(int)));
     m_mmsdownload->start();

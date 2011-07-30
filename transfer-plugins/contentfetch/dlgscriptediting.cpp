@@ -56,11 +56,11 @@ void DlgScriptEditing::init()
     setButtons(KDialog::Ok | KDialog::Cancel);
     showButtonSeparator(true);
 
-    connect(ui.scriptPathRequester,SIGNAL(textChanged(const QString &)),
+    connect(ui.scriptPathRequester,SIGNAL(textChanged(QString)),
             this, SLOT(slotChangeText()));
-    connect(ui.scriptUrlRegexpEdit,SIGNAL(textChanged(const QString &)),
+    connect(ui.scriptUrlRegexpEdit,SIGNAL(textChanged(QString)),
             this, SLOT(slotChangeText()));
-    connect(ui.scriptDescriptionEdit,SIGNAL(textChanged(const QString &)),
+    connect(ui.scriptDescriptionEdit,SIGNAL(textChanged(QString)),
             this, SLOT(slotChangeText()));
 }
 

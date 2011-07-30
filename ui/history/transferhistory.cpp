@@ -96,13 +96,13 @@ TransferHistory::TransferHistory(QWidget *parent)
     connect(m_openFile, SIGNAL(triggered()), this, SLOT(slotOpenFile()));
     connect(m_clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
     connect(m_rangeTypeCombobox, SIGNAL(activated(int)), this, SLOT(slotLoadRangeType(int)));
-    connect(m_view, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
-                    SLOT(slotDeleteTransfer(const QString &, const QModelIndex &)));
-    connect(m_view, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(slotOpenFile(const QModelIndex &)));
+    connect(m_view, SIGNAL(deletedTransfer(QString,QModelIndex)),
+                    SLOT(slotDeleteTransfer(QString,QModelIndex)));
+    connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
     connect(m_store, SIGNAL(loadFinished()), SLOT(slotLoadFinished()));
-    connect(m_store, SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)),
-                     SLOT(slotElementLoaded(int, int, const TransferHistoryItem &)));
-    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
+    connect(m_store, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
+                     SLOT(slotElementLoaded(int,int,TransferHistoryItem)));
+    connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
     slotAddTransfers();
 }
 
@@ -198,7 +198,7 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
 void TransferHistory::hideEvent(QHideEvent *event)
 {
     Q_UNUSED(event)
-    disconnect(watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotAddTransfers()));//Prevent reloading of TransferHistory when saving
+    disconnect(watcher, SIGNAL(directoryChanged(QString)), this, SLOT(slotAddTransfers()));//Prevent reloading of TransferHistory when saving
     deleteLater();
 }
 
@@ -301,9 +301,9 @@ void TransferHistory::slotSetListMode()
     m_verticalLayout->insertWidget(1, m_view);
     slotLoadRangeType(m_rangeType);
 
-    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
+    connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
     // we connect the doubleClicked signal over an item to the open file action
-    connect(m_view, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(slotOpenFile(const QModelIndex &)));
+    connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
 }
 
 void TransferHistory::slotSetIconMode()
@@ -314,10 +314,10 @@ void TransferHistory::slotSetIconMode()
     m_verticalLayout->insertWidget(1, m_view);
     slotLoadRangeType(m_rangeType);
 
-    connect(m_searchBar, SIGNAL(textChanged(const QString &)), m_view, SLOT(setFilterRegExp(const QString &)));
-    connect(m_view, SIGNAL(deletedTransfer(const QString &, const QModelIndex &)),
-                    SLOT(slotDeleteTransfer(const QString &, const QModelIndex &)));
-    connect(m_view, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(slotOpenFile(const QModelIndex &)));
+    connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
+    connect(m_view, SIGNAL(deletedTransfer(QString,QModelIndex)),
+                    SLOT(slotDeleteTransfer(QString,QModelIndex)));
+    connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
 }
 
 void TransferHistory::slotElementLoaded(int number, int total, const TransferHistoryItem &item)

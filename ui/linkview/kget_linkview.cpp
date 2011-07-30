@@ -85,14 +85,14 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_patternSyntaxMenu->addActions(actionGroup->actions());
 
     connect(wildcardAction, SIGNAL(toggled(bool)), this, SLOT(wildcardPatternToggled(bool)));
-    connect(ui.treeView, SIGNAL(doubleClicked(const QModelIndex &)),
-            this, SLOT(uncheckItem(const QModelIndex &)));
+    connect(ui.treeView, SIGNAL(doubleClicked(QModelIndex)),
+            this, SLOT(uncheckItem(QModelIndex)));
     connect(ui.textFilter, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
     connect(ui.textFilter, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(contextMenuDisplayed(QMenu*)));
     connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterMode(int)));
     connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), m_proxyModel, SLOT(setFilterType(int)));
     connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), SLOT(updateSelectionButtons()));
-    connect(ui.urlRequester, SIGNAL(textChanged(const QString &)), SLOT(updateImportButtonStatus(const QString &)));
+    connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
     connect(ui.selectAll, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(ui.deselectAll, SIGNAL(clicked()), this, SLOT(uncheckAll()));
     connect(ui.checkSelected, SIGNAL(clicked()), this, SLOT(slotCheckSelected()));
@@ -100,7 +100,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(this, SIGNAL(okClicked()), this, SLOT(slotStartLeech()));
     connect(ui.showWebContent, SIGNAL(stateChanged(int)), m_proxyModel, SLOT(setShowWebContent(int)));
     connect(ui.importLinks, SIGNAL(clicked()), this, SLOT(slotStartImport()));
-    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(selectionChanged()));
 
     setMainWidget(widget);
@@ -198,7 +198,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         model->insertRow(model->rowCount(), items);
     }
 
-    connect(model, SIGNAL(itemChanged(QStandardItem *)), this, SLOT(selectionChanged()));
+    connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(selectionChanged()));
     m_proxyModel->setSourceModel(model);
     m_proxyModel->setFilterKeyColumn(1);
 

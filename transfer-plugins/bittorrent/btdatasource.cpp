@@ -52,7 +52,7 @@ BTDataSource::BTDataSource(const KUrl &srcUrl, QObject *parent)
     tc = new TorrentControl();
     csf = new BTChunkSelectorFactory();
     cf = new BTCacheFactory();
-    connect(cf, SIGNAL(cacheAdded(BTCache*)), SLOT(cacheAdded(BTCache *)));
+    connect(cf, SIGNAL(cacheAdded(BTCache*)), SLOT(cacheAdded(BTCache*)));
     connect(csf, SIGNAL(selectorAdded(BTChunkSelector*)), SLOT(selectorAdded(BTChunkSelector*)));
     tc->setChunkSelectorFactory(csf);
     tc->setCacheFactory(cf);
@@ -68,7 +68,7 @@ BTDataSource::~BTDataSource()
 
 void BTDataSource::cacheAdded(BTCache *cache)
 {
-     connect(cache, SIGNAL(dataArrived(const KIO::fileoffset_t &, const QByteArray &)), SLOT(getData(const KIO::fileoffset_t &, const QByteArray &)));
+     connect(cache, SIGNAL(dataArrived(KIO::fileoffset_t,QByteArray)), SLOT(getData(KIO::fileoffset_t,QByteArray)));
 }
 
 void BTDataSource::selectorAdded(BTChunkSelector* selector)
@@ -81,7 +81,7 @@ void BTDataSource::start()
     if (m_torrentSource.isEmpty())
     {
         Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
-        connect(download, SIGNAL(finishedSuccessfully(KUrl, QByteArray)), SLOT(init(KUrl, QByteArray)));
+        connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(init(KUrl,QByteArray)));
     }
     else 
     {

@@ -57,7 +57,7 @@ void MirrorAddDlg::init()
 
     updateButton();
 
-    connect(ui.url, SIGNAL(textChanged(const QString&)), this, SLOT(updateButton(QString)));
+    connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(updateButton(QString)));
     connect(this, SIGNAL(yesClicked()), this, SLOT(addMirror()));
 }
 

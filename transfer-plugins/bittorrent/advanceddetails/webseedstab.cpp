@@ -48,10 +48,10 @@ namespace kt
 		m_webseed_list->setModel(proxy_model);
 		m_webseed_list->setSortingEnabled(true);
 		
-		connect(m_webseed_list->selectionModel(),SIGNAL( selectionChanged ( const QItemSelection & , const QItemSelection &  )),
-				this,SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));
+		connect(m_webseed_list->selectionModel(),SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+				this,SLOT(selectionChanged(QItemSelection,QItemSelection)));
 		
-		connect(m_webseed,SIGNAL(textChanged(const QString &)),this,SLOT(onWebSeedTextChanged(const QString&)));
+		connect(m_webseed,SIGNAL(textChanged(QString)),this,SLOT(onWebSeedTextChanged(QString)));
 	}
 
 

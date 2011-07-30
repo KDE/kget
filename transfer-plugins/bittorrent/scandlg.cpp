@@ -50,12 +50,12 @@ namespace kt
         connect(m_cancel,SIGNAL(clicked()),this,SLOT(reject()));
         m_progress->setMaximum(100);
         m_progress->setValue(0);
-        connect(m_job, SIGNAL(description(KJob *, QString, QPair<QString, QString >, QPair< QString, QString >)),
-                       SLOT(description(KJob *, QString, QPair<QString, QString >, QPair< QString, QString >)));
-        connect(m_job, SIGNAL(result(KJob *)),
-                       SLOT(result(KJob *)));
-        connect(m_job, SIGNAL(percent(KJob *, unsigned long)),
-                       SLOT(percent(KJob *, unsigned long)));
+        connect(m_job, SIGNAL(description(KJob*,QString,QPair<QString,QString>,QPair<QString,QString>)),
+                       SLOT(description(KJob*,QString,QPair<QString,QString>,QPair<QString,QString>)));
+        connect(m_job, SIGNAL(result(KJob*)),
+                       SLOT(result(KJob*)));
+        connect(m_job, SIGNAL(percent(KJob*,ulong)),
+                       SLOT(percent(KJob*,ulong)));
     }
     ScanDlg::~ScanDlg()
     {

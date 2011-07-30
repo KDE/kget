@@ -84,7 +84,7 @@ MetalinkCreator::MetalinkCreator(QWidget *parent)
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), this, SLOT(slotUpdateAssistantButtons(KPageWidgetItem*,KPageWidgetItem*)));
 
     qRegisterMetaType<KGetMetalink::File>("KGetMetalink::File");
-    connect(&m_thread, SIGNAL(fileResult(const KGetMetalink::File &)), this, SLOT(slotAddFile(const KGetMetalink::File &)));
+    connect(&m_thread, SIGNAL(fileResult(KGetMetalink::File)), this, SLOT(slotAddFile(KGetMetalink::File)));
     connect(&m_thread, SIGNAL(finished()), this, SLOT(slotThreadFinished()));
 
     setCaption(i18n("Create a Metalink"));
@@ -389,7 +389,7 @@ void MetalinkCreator::slotOpenDragDlg()
     dragDlg->setAttribute(Qt::WA_DeleteOnClose);
     dragDlg->show();
 
-    connect(dragDlg, SIGNAL(usedTypes(QStringList, bool)), this, SLOT(slotHandleDropped(QStringList, bool)));
+    connect(dragDlg, SIGNAL(usedTypes(QStringList,bool)), this, SLOT(slotHandleDropped(QStringList,bool)));
 }
 void MetalinkCreator::slotHandleDropped(const QStringList &types, bool createPartial)
 {

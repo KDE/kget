@@ -353,10 +353,10 @@ void XmlStore::load()
     m_loadThread = new XmlStore::LoadThread(this, m_storeUrl);
 
     connect(m_loadThread, SIGNAL(finished()), SIGNAL(loadFinished()));
-    connect(m_loadThread, SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)),
-                        SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)));
-    connect(m_loadThread, SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)),
-                        SLOT(slotLoadElement(int, int, const TransferHistoryItem &)));
+    connect(m_loadThread, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
+                        SIGNAL(elementLoaded(int,int,TransferHistoryItem)));
+    connect(m_loadThread, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
+                        SLOT(slotLoadElement(int,int,TransferHistoryItem)));
     m_loadThread->start();
 }
 
@@ -370,8 +370,8 @@ void XmlStore::saveItem(const TransferHistoryItem &item)
     m_saveThread = new XmlStore::SaveThread(this, m_storeUrl, item);
 
     connect(m_saveThread, SIGNAL(finished()), SIGNAL(saveFinished()));
-    connect(m_saveThread, SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)),
-                        SIGNAL(elementLoaded(int, int, const TransferHistoryItem &)));
+    connect(m_saveThread, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
+                        SIGNAL(elementLoaded(int,int,TransferHistoryItem)));
     m_saveThread->start();
 }
 

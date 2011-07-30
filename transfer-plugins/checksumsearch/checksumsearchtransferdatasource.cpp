@@ -69,13 +69,13 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
                 kDebug(5001) << "Downloading" << baseUrl;
                 KIO::FileCopyJob *job = KIO::file_copy(baseUrl, dest, -1, KIO::HideProgressInfo);
                 job->addMetaData("errorPage", "false");
-                connect(job, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
+                connect(job, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
                 m_jobs[job] = qMakePair(baseUrl, dest);
             } else {
                 kDebug(5001) << "ftp, doing a listjob";
                 KIO::ListJob *job = KIO::listDir(baseUrl, KIO::HideProgressInfo);
                 connect(job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)), this, SLOT(slotEntries(KIO::Job*,KIO::UDSEntryList)));
-                connect(job, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
+                connect(job, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
                 m_jobs[job] = qMakePair(baseUrl, dest);
             }
         }
@@ -195,7 +195,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const KUrl &urlToFile)
     if (urls.count() && types.count()) {
         ChecksumSearch *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
 
-        connect(search, SIGNAL(data(QString, QString)), this, SIGNAL(data(QString,QString)));
+        connect(search, SIGNAL(data(QString,QString)), this, SIGNAL(data(QString,QString)));
     }
 }
 
