@@ -228,7 +228,6 @@ void XmlStore::DeleteThread::run()
     QString error;
     int line;
     int column;
-    int total;
 
     if (!doc.setContent(&file, &error, &line, &column)) 
     {
@@ -238,7 +237,6 @@ void XmlStore::DeleteThread::run()
     file.close();
 
     QDomElement root = doc.documentElement();
-    total = root.childNodes().size();
 
     QDomNodeList list = root.elementsByTagName("Transfer");
 
@@ -302,6 +300,7 @@ void XmlStore::LoadThread::run()
     for (int i = 0 ; i < nItems ; i++)
     {
         QDomElement dom = list.item(i).toElement();
+        
         TransferHistoryItem item;
         item.setDest(dom.attribute("Dest"));
         item.setSource(dom.attribute("Source"));
@@ -313,10 +312,6 @@ void XmlStore::LoadThread::run()
     }
     doc.clear();
     file.close();
-    TransferHistoryItem item;
-
-    emit elementLoaded(total, total, item);
-    kDebug(5001) << "Load file" << m_url;
 }
 
 XmlStore::XmlStore(const QString &url) : TransferHistoryStore(),
