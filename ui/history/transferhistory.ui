@@ -1,38 +1,39 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TransferHistory</class>
- <widget class="QWidget" name="TransferHistory" >
-  <property name="geometry" >
+ <widget class="QWidget" name="TransferHistory">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>80</height>
+    <width>708</width>
+    <height>41</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <item>
-    <layout class="QVBoxLayout" >
+    <layout class="QVBoxLayout">
      <item>
-      <layout class="QHBoxLayout" >
-       <property name="topMargin" >
+      <layout class="QHBoxLayout">
+       <property name="topMargin">
         <number>0</number>
        </property>
-       <property name="rightMargin" >
+       <property name="rightMargin">
         <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="clearButton" >
-         <property name="text" >
+        <widget class="QPushButton" name="clearButton">
+         <property name="text">
           <string>Clear History</string>
          </property>
         </widget>
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -41,118 +42,72 @@
         </spacer>
        </item>
        <item>
-        <widget class="KButtonGroup" name="viewmodesgroup" >
-         <property name="title" >
-          <string comment="View modes" >View Modes</string>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>View Modes:</string>
          </property>
-         <property name="flat" >
-          <bool>false</bool>
-         </property>
-         <property name="checkable" >
-          <bool>false</bool>
-         </property>
-         <property name="checked" >
-          <bool>false</bool>
-         </property>
-         <property name="current" stdset="0" >
-          <number>-1</number>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" >
-          <property name="spacing" >
-           <number>2</number>
-          </property>
-          <property name="sizeConstraint" >
-           <enum>QLayout::SetMinimumSize</enum>
-          </property>
-          <property name="margin" >
-           <number>2</number>
-          </property>
-          <item>
-           <widget class="KPushButton" name="bt_iconview" >
-            <property name="checkable" >
-             <bool>true</bool>
-            </property>
-            <property name="checked" >
-             <bool>true</bool>
-            </property>
-            <property name="autoExclusive" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="KPushButton" name="bt_listview" >
-            <property name="checkable" >
-             <bool>true</bool>
-            </property>
-            <property name="autoExclusive" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
        <item>
-        <widget class="KButtonGroup" name="kbuttongroup_2" >
-         <property name="title" >
-          <string>Select Ranges</string>
+        <widget class="KPushButton" name="bt_iconview">
+         <property name="checkable">
+          <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" >
-          <property name="spacing" >
-           <number>2</number>
-          </property>
-          <property name="sizeConstraint" >
-           <enum>QLayout::SetMinimumSize</enum>
-          </property>
-          <property name="margin" >
-           <number>2</number>
-          </property>
-          <item>
-           <widget class="KComboBox" name="rangeType" >
-            <item>
-             <property name="text" >
-              <string>Date</string>
-             </property>
-            </item>
-            <item>
-             <property name="text" >
-              <string>Size</string>
-             </property>
-            </item>
-            <item>
-             <property name="text" >
-              <string>Host</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="KButtonGroup" name="kbuttongroup_3" >
-         <property name="title" >
-          <string>Filter History</string>
+        <widget class="KPushButton" name="bt_listview">
+         <property name="checkable">
+          <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" >
-          <property name="spacing" >
-           <number>2</number>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Select Ranges:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KComboBox" name="rangeType">
+         <item>
+          <property name="text">
+           <string>Date</string>
           </property>
-          <property name="sizeConstraint" >
-           <enum>QLayout::SetMinimumSize</enum>
+         </item>
+         <item>
+          <property name="text">
+           <string>Size</string>
           </property>
-          <property name="margin" >
-           <number>2</number>
+         </item>
+         <item>
+          <property name="text">
+           <string>Host</string>
           </property>
-          <item>
-           <widget class="KLineEdit" name="searchBar" >
-            <property name="showClearButton" stdset="0" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="KLineEdit" name="searchBar">
+         <property name="inputMask">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>Filter history</string>
+         </property>
+         <property name="showClearButton" stdset="0">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -160,24 +115,18 @@
     </layout>
    </item>
   </layout>
-  <action name="actionDelete_Selected" >
-   <property name="text" >
-    <string comment="delete selected transfer" >Delete Selected</string>
+  <action name="actionDelete_Selected">
+   <property name="text">
+    <string comment="delete selected transfer">Delete Selected</string>
    </property>
   </action>
-  <action name="actionDownload" >
-   <property name="text" >
+  <action name="actionDownload">
+   <property name="text">
     <string>Download</string>
    </property>
   </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KButtonGroup</class>
-   <extends>QGroupBox</extends>
-   <header>kbuttongroup.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

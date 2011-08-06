@@ -44,7 +44,7 @@ TransferHistoryItem::TransferHistoryItem() : QObject()
 
 TransferHistoryItem::TransferHistoryItem(const Transfer &transfer) : QObject()
 {
-    setDest(transfer.dest().url());
+    setDest(transfer.dest().pathOrUrl());
     setSource(transfer.source().url());
     setSize(transfer.totalSize());
     setDateTime(QDateTime::currentDateTime());
