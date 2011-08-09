@@ -18,6 +18,7 @@
 
 #include "core/job.h"
 #include "core/jobqueue.h"
+#include "../kget_export.h"
 
 /**
  * @brief Scheduler class: what handle all the jobs in kget.
@@ -28,7 +29,7 @@
  *
  */
 
-class Scheduler : public QObject
+class KGET_EXPORT Scheduler : public QObject
 {
     Q_OBJECT
 
