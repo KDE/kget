@@ -12,19 +12,28 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="kcfg_ChecksumAutomaticVerification">
      <property name="title">
-      <string>Checksums</string>
+      <string>Automatic checksums verification</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
      <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
       <item row="0" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Automatic verification:</string>
+         <string>Used checksum:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="0" column="1">
        <widget class="KButtonGroup" name="kcfg_ChecksumStrength">
         <property name="title">
          <string/>
@@ -58,20 +67,6 @@
           </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="kcfg_ChecksumAutomaticVerification">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Used checksum:</string>
-        </property>
        </widget>
       </item>
      </layout>
@@ -184,14 +179,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

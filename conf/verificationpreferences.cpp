@@ -45,12 +45,10 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
     ui.signatureGroup->hide();
 #endif
 
-    slotAutomaticChecksumVerification(Settings::checksumAutomaticVerification());
     slotUpdateButtons();
 
     connect(m_keyServers, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(slotUpdateButtons()));
 
-    connect(ui.kcfg_ChecksumAutomaticVerification, SIGNAL(clicked(bool)), this, SLOT(slotAutomaticChecksumVerification(bool)));
     connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateButtons()));
     connect(ui.keyServers->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
     connect(ui.add, SIGNAL(clicked(bool)), this, SLOT(slotAddMirror()));
@@ -61,11 +59,6 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
     connect(parent, SIGNAL(accepted()), SLOT(slotAccpeted()));
     connect(parent, SIGNAL(rejected()), SLOT(slotRejected()));
     connect(parent, SIGNAL(defaultClicked()), SLOT(slotDefaultClicked()));
-}
-
-void VerificationPreferences::slotAutomaticChecksumVerification(bool enalbed)
-{
-    ui.kcfg_ChecksumStrength->setEnabled(enalbed);
 }
 
 void VerificationPreferences::slotAccpeted()

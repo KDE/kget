@@ -42,7 +42,6 @@ class VerificationPreferences : public QWidget
 
     private slots:
         void slotUpdateButtons();
-        void slotAutomaticChecksumVerification(bool enalbed);
         void slotAddMirror();
         void slotRemoveMirror();
         void slotMoveMirrorUp();
