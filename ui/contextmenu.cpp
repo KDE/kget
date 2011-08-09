@@ -134,16 +134,8 @@ KMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handle
     popup->addAction(KGet::actionCollection()->action("transfer_group_settings"));
     popup->addSeparator();
 
-    QList<TransferGroupHandler *> transferGroups = KGet::selectedTransferGroups();
-    bool containsMainGroup = false;
-    foreach(TransferGroupHandler *transHandler, transferGroups)
-    {
-        if(transHandler->name() == i18n("My Downloads"))
-        {
-            containsMainGroup = true;
-            break;
-        }
-    }
+    bool containsMainGroup;
+    QList<TransferGroupHandler *> transferGroups = KGet::selectedTransferGroups(&containsMainGroup);
     if(!containsMainGroup) {
         const int numGroups = transferGroups.count();
         QAction *action = KGet::actionCollection()->action("delete_groups");

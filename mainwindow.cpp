@@ -544,7 +544,11 @@ void MainWindow::slotCreateMetalink()
 
 void MainWindow::slotDeleteGroup()
 {
-    KGet::delGroups(KGet::selectedTransferGroups());
+    bool mainSelected;
+    QList<TransferGroupHandler*> groups = KGet::selectedTransferGroups(&mainSelected);
+    if (!mainSelected) {
+        KGet::delGroups(groups);
+    }
 }
 
 void MainWindow::slotRenameGroup()
@@ -645,10 +649,16 @@ void MainWindow::slotDeleteSelected()
         }
     }
 
-    foreach (TransferHandler * it, KGet::selectedTransfers()) {
-        m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
+    const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
+    if (!selectedTransfers.isEmpty()) {
+        foreach (TransferHandler *it, selectedTransfers) {
+            m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
+        }
+        KGet::delTransfers(KGet::selectedTransfers());
+    } else {
+        //no transfers selected, delete groups if any are selected
+        slotDeleteGroup();
     }
-    KGet::delTransfers(KGet::selectedTransfers());
 }
 
 void MainWindow::slotRedownloadSelected()

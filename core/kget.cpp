@@ -472,8 +472,11 @@ QList<TransferHandler *> KGet::finishedTransfers()
     return finishedTransfers;
 }
 
-QList<TransferGroupHandler *> KGet::selectedTransferGroups()
+QList<TransferGroupHandler *> KGet::selectedTransferGroups(bool *mainSelected)
 {
+    if (mainSelected) {
+        *mainSelected = false;
+    }
     QList<TransferGroupHandler *> selectedTransferGroups;
 
     QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
@@ -481,8 +484,13 @@ QList<TransferGroupHandler *> KGet::selectedTransferGroups()
     foreach(const QModelIndex &currentIndex, selectedIndexes)
     {
         ModelItem * item = m_transferTreeModel->itemFromIndex(currentIndex);
-        if (item->isGroup())
-            selectedTransferGroups.append(item->asGroup()->groupHandler());
+        if (item->isGroup()) {
+            TransferGroupHandler *group = item->asGroup()->groupHandler();
+            if (mainSelected && group->name() == i18n("My Downloads")) {
+                *mainSelected = true;
+            }
+            selectedTransferGroups.append(group);
+        }
     }
 
     return selectedTransferGroups;
