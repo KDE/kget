@@ -7,7 +7,6 @@
         <Separator/>
         <Action name="import_transfers"/>
         <Action name="export_transfers"/>
-        <Action name="export_plain_transfers"/>
         <Action name="create_metalink"/>
         <Separator/>
         <Action name="transfer_history" />

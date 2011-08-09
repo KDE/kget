@@ -135,24 +135,6 @@ int MainWindow::transfersPercent()
     }
 }
 
-void MainWindow::exportTransfers(bool plain)
-{
-    QString filter = "";
-    if (!plain) {
-        filter = "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)";
-    }
-
-    QString filename = KFileDialog::getSaveFileName
-        (KUrl(),
-         filter,
-         this,
-         i18n("Export Transfers")
-        );
-
-    if(!filename.isEmpty())
-        KGet::save(filename, plain);
-}
-
 void MainWindow::setupActions()
 {
     KAction *newDownloadAction = actionCollection()->addAction("new_download");
@@ -172,12 +154,6 @@ void MainWindow::setupActions()
     exportAction->setIcon(KIcon("document-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
-
-    KAction *exportPlainAction = actionCollection()->addAction("export_plain_transfers");
-    exportPlainAction->setText(i18n("&Export Transfers as Plain Text..."));
-    exportPlainAction->setIcon(KIcon("document-export"));
-    exportPlainAction->setShortcuts(KShortcut("Ctrl+P"));
-    connect(exportPlainAction, SIGNAL(triggered()), SLOT(slotExportPlainTransfers()));
 
     KAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
     createMetalinkAction->setText(i18n("&Create a Metalink"));
@@ -546,12 +522,17 @@ void MainWindow::slotPreferences()
 
 void MainWindow::slotExportTransfers()
 {
-    exportTransfers(false);
-}
+    const QString filename = KFileDialog::getSaveFileName
+        (KUrl(),
+         "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)\n*.txt|" + i18n("Text File") + " (*.txt)",
+         this,
+         i18n("Export Transfers")
+        );
 
-void MainWindow::slotExportPlainTransfers()
-{
-    exportTransfers(true);
+    if (!filename.isEmpty()) {
+        const bool plain = !filename.endsWith("kgt");
+        KGet::save(filename, plain);
+    }
 }
 
 void MainWindow::slotCreateMetalink()
