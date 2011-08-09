@@ -139,7 +139,7 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
 
     resize(700, 400);
     setMainWidget(widget);
-    setCaption(i18n("Modify the used mirrors."));
+    setCaption(i18n("Modify the used mirrors"));
     setButtons(KDialog::Close);
 }
 
