@@ -44,6 +44,8 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
     setCaption(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
+    ui.loadSignature->setIcon(KIcon("document-open"));
+    ui.verify->setIcon(KIcon("document-encrypt"));
     setMainWidget(widget);
 
     ui.information->setCloseButtonVisible(false);
