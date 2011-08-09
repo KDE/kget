@@ -52,18 +52,18 @@ class KGET_EXPORT Transfer : public Job
             Tc_Status         = 0x00000002,
             Tc_TotalSize      = 0x00000004,
             Tc_Percent        = 0x00000008,
-            Tc_DownloadSpeed  = 0x00000016,
-            Tc_RemainingTime  = 0x00000032,
+            Tc_DownloadSpeed  = 0x00000010,
+            Tc_RemainingTime  = 0x00000020,
             // Misc
             Tc_UploadSpeed    = 0x00000100,
             Tc_UploadLimit    = 0x00000200,
             Tc_DownloadLimit  = 0x00000400,
             Tc_CanResume      = 0x00000800,
-            Tc_DownloadedSize = 0x00001600,
-            Tc_UploadedSize   = 0x00003200,
-            Tc_Log            = 0x00006400,
-            Tc_Group          = 0x00012800,
-            Tc_Selection      = 0x00025600
+            Tc_DownloadedSize = 0x00001000,
+            Tc_UploadedSize   = 0x00002000,
+            Tc_Log            = 0x00004000,
+            Tc_Group          = 0x00008000,
+            Tc_Selection      = 0x00010000
         };
 
         enum Capability
@@ -72,8 +72,8 @@ class KGET_EXPORT Transfer : public Job
             Cap_MultipleMirrors = 0x00000002,
             Cap_Resuming = 0x00000004,
             Cap_Renaming = 0x00000008,
-            Cap_Moving = 0x00000016,
-            Cap_FindFilesize = 0x00000032
+            Cap_Moving = 0x00000010,
+            Cap_FindFilesize = 0x00000020
         };
         Q_DECLARE_FLAGS(Capabilities, Capability)
 
