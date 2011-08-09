@@ -136,6 +136,9 @@ void NewTransferDialog::clear()
         ui.groupComboBox->addItem(KIcon(group->iconName()), group->name());
     }
     ui.groupComboBox->setCurrentItem(Settings::lastGroup());
+    if (ui.groupComboBox->currentIndex() == -1) {
+        ui.groupComboBox->setCurrentIndex(0);
+    }
 
     const bool multipleGroups = KGet::transferGroupNames().count();
     ui.groupComboBox->setVisible(multipleGroups);
