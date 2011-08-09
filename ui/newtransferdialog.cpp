@@ -102,6 +102,7 @@ void NewTransferDialog::setMultiple(bool useMultiple)
 void NewTransferDialog::clear()
 {
     ui.urlRequester->clear();
+    ui.urlRequester->setFocus();
     ui.listWidget->clear();
     ui.destRequester->comboBox()->clear();
     ui.destRequester->clear();
