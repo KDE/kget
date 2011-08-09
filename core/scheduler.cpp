@@ -11,13 +11,10 @@
 
 #include "core/scheduler.h"
 
-#include "core/kget.h"
-#include "core/job.h"
-#include "core/jobqueue.h"
 #include "core/transferhandler.h"
 #include "settings.h"
 
-#include <kdebug.h>
+#include <KDebug>
 
 Scheduler::Scheduler(QObject * parent)
   : QObject(parent),
