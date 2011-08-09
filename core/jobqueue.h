@@ -90,6 +90,7 @@ class KGET_EXPORT JobQueue : public QObject
         const QList<Job *> runningJobs();
 
         /**
+         * FIXME not implemented
          * Sets the maximum number of jobs belonging to this queue that 
          * should executed simultaneously by the scheduler
          *
