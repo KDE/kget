@@ -992,7 +992,7 @@ void MainWindow::slotCheckClipboard()
 void MainWindow::slotTrayKonquerorIntegration(bool enable)
 {
     slotKonquerorIntegration(enable);
-    if (!enable && Settings::konquerorIntegration() && !Settings::expertMode())
+    if (!enable && Settings::konquerorIntegration())
     {
         KGet::showNotification(this, "notification",
                                      i18n("KGet has been temporarily disabled as download manager for Konqueror. "

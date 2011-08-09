@@ -12,13 +12,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QCheckBox" name="kcfg_ExpertMode">
-     <property name="text">
-      <string>Disable confirmation dialogs (less verbosity)</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="kcfg_EnableSystemTray">
      <property name="text">
       <string>Enable system tray icon</string>

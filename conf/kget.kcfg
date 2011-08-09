@@ -42,9 +42,6 @@
   </group>
 
   <group name="Advanced">
-    <entry name="ExpertMode" type="Bool">
-      <default>false</default>
-    </entry>
     <entry name="KonquerorIntegration" type="Bool">
       <default>false</default>
     </entry>
