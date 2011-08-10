@@ -37,7 +37,7 @@
 const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
 
 SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : KGetSaveSizeDialog("SignatureDlg", parent, flags),
     m_signature(transfer->signature(dest)),
     m_fileModel(transfer->fileModel())
 {

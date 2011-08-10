@@ -11,7 +11,7 @@
 #ifndef KGET_LINKVIEW_H
 #define KGET_LINKVIEW_H
 
-#include <KDialog>
+#include "../../core/basedialog.h"
 #include <KLocale>
 
 #include "ui_importlinkdialog.h"
@@ -21,7 +21,7 @@ class LinkImporter;
 class KGetSortFilterProxyModel;
 
 
-class KGetLinkView : public KDialog
+class KGetLinkView : public KGetSaveSizeDialog
 {
     Q_OBJECT
 

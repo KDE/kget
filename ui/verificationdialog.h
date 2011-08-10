@@ -23,7 +23,7 @@
 #include "ui_verificationdialog.h"
 #include "ui_verificationadddlg.h"
 
-#include <KDialog>
+#include "../core/basedialog.h"
 
 class FileModel;
 class QSortFilterProxyModel;
@@ -50,7 +50,7 @@ class VerificationAddDlg : public KDialog
         QHash<QString, int> m_diggestLength;
 };
 
-class VerificationDialog : public KDialog
+class VerificationDialog : public KGetSaveSizeDialog
 {
     Q_OBJECT
 

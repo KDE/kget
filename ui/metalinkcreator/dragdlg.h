@@ -20,8 +20,7 @@
 #ifndef DRAGDLG_H
 #define DRAGDLG_H
 
-#include <KDialog>
-
+#include "../../core/basedialog.h"
 #include "ui_dragdlg.h"
 #include "ui_commondata.h"
 
@@ -35,7 +34,7 @@ namespace KGetMetalink
     class Resources;
 }
 
-class DragDlg : public KDialog
+class DragDlg : public KGetSaveSizeDialog
 {
     Q_OBJECT
 

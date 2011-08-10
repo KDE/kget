@@ -20,15 +20,14 @@
 #ifndef SIGNATUREDLG_H
 #define SIGNATUREDLG_H
 
-#include <KDialog>
-
 #include "ui_signaturedlg.h"
+#include "../core/basedialog.h"
 
 class FileModel;
 class Signature;
 class TransferHandler;
 
-class SignatureDlg : public KDialog
+class SignatureDlg : public KGetSaveSizeDialog
 {
     Q_OBJECT
 

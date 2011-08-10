@@ -119,7 +119,7 @@ void MirrorAddDlg::addMirror()
 }
 
 MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file)
-  : KDialog(parent),
+  : KGetSaveSizeDialog("MirrorSettings", parent),
     m_transfer(handler),
     m_file(file)
 {
@@ -145,10 +145,14 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeMirror()));
     connect(this, SIGNAL(finished()), this, SLOT(save()));
 
-    resize(700, 400);
     setMainWidget(widget);
     setCaption(i18n("Modify the used mirrors"));
     setButtons(KDialog::Close);
+}
+
+QSize MirrorSettings::sizeHint() const
+{
+    return QSize(700, 400);
 }
 
 void MirrorSettings::updateButton()

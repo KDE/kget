@@ -12,7 +12,7 @@
 #define TRANSFERHISTORY_H
 
 #include <QList>
-#include <KDialog>
+#include "../../core/basedialog.h"
 
 #include "ui_transferhistory.h"
 
@@ -24,7 +24,7 @@ class KPushButton;
 class TransferHistoryStore;
 class TransferHistoryItem;
 
-class TransferHistory : public KDialog, Ui::TransferHistory
+class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
 {
     Q_OBJECT
 

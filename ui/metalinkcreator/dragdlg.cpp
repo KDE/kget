@@ -27,7 +27,7 @@
 #include <QtGui/QSortFilterProxyModel>
 
 DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent)
-  : KDialog(parent),
+  : KGetSaveSizeDialog("DragDlg", parent),
     m_resources(resources),
     m_commonData(commonData)
 {

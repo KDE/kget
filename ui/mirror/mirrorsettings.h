@@ -21,8 +21,7 @@
 #define MIRRORSETTINGS_H
 
 #include "mirrormodel.h"
-
-#include <KDialog>
+#include "../../core/basedialog.h"
 
 #include "ui_mirrorsettings.h"
 #include "ui_mirroradddlg.h"
@@ -61,12 +60,14 @@ class MirrorAddDlg : public KDialog
         QSortFilterProxyModel *m_countryModel;
 };
 
-class MirrorSettings : public KDialog
+class MirrorSettings : public KGetSaveSizeDialog
 {
     Q_OBJECT
 
     public:
         MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file);
+
+        virtual QSize sizeHint() const;
 
     private slots:
         void updateButton();

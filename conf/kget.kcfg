@@ -186,10 +186,6 @@
     <entry name="HistoryColumnWidths" type="IntList">
       <label>The width of the columns in the history view</label>
     </entry>
-    <entry name="TransferSettingsSize" type="Size">
-    </entry>
-    <entry name="VerificationSize" type="Size">
-    </entry>
   </group>
 
   <group name="Verification">

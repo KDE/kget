@@ -81,7 +81,7 @@ void VerificationAddDlg::addChecksum()
 }
 
 VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file)
-  : KDialog(parent),
+  : KGetSaveSizeDialog("VerificationDialog", parent),
     m_transfer(transfer),
     m_verifier(transfer->verifier(file)),
     m_model(0),
@@ -131,11 +131,6 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
 
     setButtons(KDialog::Close);
 
-    const QSize size = Settings::verificationSize();
-    if (size.isValid()) {
-        resize(size);
-    }
-
     connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
 }
 
@@ -151,8 +146,6 @@ void VerificationDialog::slotFinished()
     if (m_model) {
         Settings::setVerificationHeaderState(ui.usedHashes->header()->saveState().toBase64());
     }
-    Settings::setVerificationSize(size());
-    Settings::self()->writeConfig();
 }
 
 void VerificationDialog::fileFinished(const KUrl &file)

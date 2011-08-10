@@ -19,7 +19,7 @@
 #endif
 
 GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group)
-  : KDialog(parent),
+  : KGetSaveSizeDialog("GroupSettingsDialog", parent),
     m_group(group)
 {
     setCaption(i18n("Group Settings for %1", group->name()));

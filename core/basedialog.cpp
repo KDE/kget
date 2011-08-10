@@ -18,6 +18,7 @@
 ***************************************************************************/
 
 #include "basedialog.h"
+#include "settings.h"
 
 KGetBaseDialog::KGetBaseDialog(QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags)
@@ -32,3 +33,20 @@ void KGetBaseDialog::slotButtonClicked(int button)
         KDialog::slotButtonClicked(button);
     }
 }
+
+KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, Qt::WFlags flags)
+  : KDialog(parent, flags),
+    m_name("Size" + name)
+{
+    const QSize size = KGlobal::config()->group("Geometry").readEntry(m_name.constData(), QSize());
+    if (size.isValid()) {
+        resize(size);
+    }
+} 
+
+KGetSaveSizeDialog::~KGetSaveSizeDialog()
+{
+    const QString name = QString("Size_") + metaObject()->className();
+    KGlobal::config()->group("Geometry").writeEntry(m_name.constData(), size());
+} 
+

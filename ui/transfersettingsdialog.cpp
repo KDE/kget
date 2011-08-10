@@ -24,7 +24,7 @@
 #include <QSortFilterProxyModel>
 
 TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler *transfer)
-  : KDialog(parent),
+  : KGetSaveSizeDialog("TransferSettingsDialog", parent),
     m_transfer(transfer),
     m_model(m_transfer->fileModel()),
     m_proxy(0)
@@ -61,11 +61,6 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
         }
     }
 
-    const QSize size = Settings::transferSettingsSize();
-    if (size.isValid()) {
-        resize(size);
-    }
-
     updateCapabilities();
 
     connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SLOT(updateCapabilities()));
@@ -83,8 +78,6 @@ TransferSettingsDialog::~TransferSettingsDialog()
     if (m_model) {
         Settings::setTransferSettingsHeaderState(ui.treeView->header()->saveState().toBase64());
     }
-    Settings::setTransferSettingsSize(size());
-    Settings::self()->writeConfig();
 }
 
 QSize TransferSettingsDialog::sizeHint() const

@@ -20,8 +20,7 @@
 #ifndef FILEDLG_H
 #define FILEDLG_H
 
-#include <KDialog>
-
+#include "../../core/basedialog.h"
 #include "ui_filedlg.h"
 #include "ui_urlwidget.h"
 #include "ui_commondata.h"
@@ -35,7 +34,7 @@ class QSortFilterProxyModel;
 class VerificationModel;
 class UrlWidget;
 
-class FileDlg : public KDialog
+class FileDlg : public KGetSaveSizeDialog
 {
     Q_OBJECT
 

@@ -11,6 +11,7 @@
 #define GROUPSETTINGSDIALOG_H
 
 #include "ui_groupsettingsdialog.h"
+#include "../core/basedialog.h"
 
 #include <KDialog>
 
@@ -22,7 +23,7 @@ namespace Nepomuk {
 
 class TransferGroupHandler;
 
-class GroupSettingsDialog : public KDialog
+class GroupSettingsDialog : public KGetSaveSizeDialog
 {
     Q_OBJECT
     public:

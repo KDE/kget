@@ -40,11 +40,12 @@
 #include <KIcon>
 
 TransferHistory::TransferHistory(QWidget *parent)
-    : KDialog(parent),
+    : KGetSaveSizeDialog("TransferHistory", parent),
     m_rangeType(TransferHistory::Date),
     m_progressBar(new QProgressBar(this)),
     m_iconModeEnabled(true)
 {
+    setAttribute(Qt::WA_DeleteOnClose);
     setCaption(i18n("Transfer History"));
     setButtons(KDialog::Close);
     //Setup Ui-Parts from Designer

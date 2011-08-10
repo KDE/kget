@@ -33,8 +33,9 @@
 #include <KWindowSystem>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
-    : KDialog(parent), m_linkImporter(0)
+    : KGetSaveSizeDialog("KGetLinkView", parent), m_linkImporter(0)
 {
+    setAttribute(Qt::WA_DeleteOnClose);
     setCaption(i18n("Import Links"));
     
     if (parent) {

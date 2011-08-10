@@ -13,15 +13,14 @@
 #define TRANSFERSETTINGSDIALOG_H
 
 #include "ui_transfersettingsdialog.h"
-
-#include <KDialog>
+#include "../core/basedialog.h"
 
 class FileModel;
 class QSortFilterProxyModel;
 class RenameFile;
 class TransferHandler;
 
-class TransferSettingsDialog : public KDialog
+class TransferSettingsDialog : public KGetSaveSizeDialog
 {
     Q_OBJECT
     public:

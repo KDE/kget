@@ -31,7 +31,7 @@
 #include <KLocale>
 
 FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent, bool edit)
-  : KDialog(parent),
+  : KGetSaveSizeDialog("FileDlg", parent),
     m_file(file),
     m_initialFileName(m_file->name),
     m_currentFileNames(currentFileNames),

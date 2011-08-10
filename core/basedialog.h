@@ -38,4 +38,23 @@ class KGET_EXPORT KGetBaseDialog : public KDialog
         virtual void slotButtonClicked(int button);
 };
 
+/**
+ * Subclass to make sure that the size of the dialog is
+ * automatically stored and restored
+ */
+class KGET_EXPORT KGetSaveSizeDialog : public KDialog
+{
+    Q_OBJECT
+
+    public:
+        /**
+         * Restores the dialog to the size saved for name
+         */
+        explicit KGetSaveSizeDialog(const QByteArray &name, QWidget *parent = 0, Qt::WFlags flags = 0);
+        virtual ~KGetSaveSizeDialog();
+        
+    private:
+        QByteArray m_name;
+};
+
 #endif
