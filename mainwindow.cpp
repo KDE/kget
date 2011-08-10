@@ -162,21 +162,25 @@ void MainWindow::setupActions()
     KAction *priorityTop = actionCollection()->addAction("priority_top");
     priorityTop->setText(i18n("Top Priority"));
     priorityTop->setIcon(KIcon("arrow-up-double"));
+    priorityTop->setShortcuts(KShortcut("Ctrl+PgUp"));
     connect(priorityTop, SIGNAL(triggered()), this, SLOT(slotPriorityTop()));
 
     KAction *priorityBottom = actionCollection()->addAction("priority_bottom");
     priorityBottom->setText(i18n("Least Priority"));
     priorityBottom->setIcon(KIcon("arrow-down-double"));
+    priorityBottom->setShortcuts(KShortcut("Ctrl+PgDown"));
     connect(priorityBottom, SIGNAL(triggered()), this, SLOT(slotPriorityBottom()));
 
     KAction *priorityUp = actionCollection()->addAction("priority_up");
     priorityUp->setText(i18n("Increase Priority"));
     priorityUp->setIcon(KIcon("arrow-up"));
+    priorityUp->setShortcuts(KShortcut("Ctrl+Up"));
     connect(priorityUp, SIGNAL(triggered()), this, SLOT(slotPriorityUp()));
 
     KAction *priorityDown = actionCollection()->addAction("priority_down");
     priorityDown->setText(i18n("Decrease Priority"));
     priorityDown->setIcon(KIcon("arrow-down"));
+    priorityDown->setShortcuts(KShortcut("Ctrl+Down"));
     connect(priorityDown, SIGNAL(triggered()), this, SLOT(slotPriorityDown()));
 
     KAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
