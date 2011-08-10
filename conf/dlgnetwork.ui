@@ -191,32 +191,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBoxCompleted">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="title">
-      <string>After Completing Downloads</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QCheckBox" name="kcfg_AutoShutdown">
-        <property name="text">
-         <string>Auto shutdown</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="kcfg_AutoDisconnect">
-        <property name="text">
-         <string>Auto disconnect</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>

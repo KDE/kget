@@ -9,6 +9,9 @@ RemoveKey=ShowSplashscreen
 RemoveKey=EnablePopupTooltip
 Group=Geometry
 RemoveKey=ColumnWidths
+Group=Network
+RemoveKey=AutoShutdown
+RemoveKey=AutoDisconnect
 
 Id=2.8.0-multiseg
 File=kget_multisegkiofactory.rc
