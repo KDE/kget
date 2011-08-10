@@ -445,7 +445,7 @@ void DropTarget::slotToolTipUpdate()
 
 void DropTarget::slotToolTipTimer()
 {
-    if (Settings::enablePopupTooltip() && !popupMenu->isVisible() && isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
+    if (!popupMenu->isVisible() && isVisible() && mask().contains(mapFromGlobal(QCursor::pos())))
         QToolTip::showText(QCursor::pos(),tooltipText,this,rect());
 }
 
