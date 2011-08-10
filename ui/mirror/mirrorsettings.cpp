@@ -39,6 +39,14 @@ MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryMod
     init();
 }
 
+QSize MirrorAddDlg::sizeHint() const
+{
+    QSize sh = KDialog::sizeHint();
+    sh.setHeight(minimumSize().height());
+    sh.setWidth(sh.width() * 1.5);
+    return sh;
+}
+
 void MirrorAddDlg::init()
 {
     setCaption(i18n("Add mirror"));
