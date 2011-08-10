@@ -31,6 +31,8 @@ class TransferHistory : public KDialog, Ui::TransferHistory
     public:
         TransferHistory(QWidget *parent = 0);
         ~TransferHistory();
+        
+        virtual QSize sizeHint() const;
 
     private:
         enum RangeType {

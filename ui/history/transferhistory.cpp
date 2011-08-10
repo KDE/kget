@@ -80,7 +80,6 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_actionDownload->setIcon(KIcon("document-new"));
     m_openFile = new QAction(KIcon("document-open"), i18n("&Open File"), this);
     setMainWidget(mainWidget);
-    setInitialSize(QSize(800, 400));
 
     m_verticalLayout->addWidget(m_view);
     m_verticalLayout->addWidget(m_progressBar);
@@ -109,6 +108,12 @@ TransferHistory::TransferHistory(QWidget *parent)
 TransferHistory::~TransferHistory()
 {
     delete m_store;
+}
+
+QSize TransferHistory::sizeHint() const
+{
+    QSize sh(800,600);
+    return sh;
 }
 
 void TransferHistory::slotDeleteTransfer()
