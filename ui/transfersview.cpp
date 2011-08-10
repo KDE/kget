@@ -77,8 +77,8 @@ void TransfersView::setModel(QAbstractItemModel * model)
     }
 
     QByteArray loadedState = QByteArray::fromBase64(Settings::headerState().toAscii());
-    if (loadedState.isNull()) {
-        setColumnWidth(0 , 250);
+    if (loadedState.isEmpty()) {
+        setColumnWidth(0 , 230);
     } else {
         header()->restoreState(loadedState);
     }
