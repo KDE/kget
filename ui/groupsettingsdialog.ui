@@ -88,7 +88,7 @@
         </sizepolicy>
        </property>
        <property name="suffix">
-        <string> KiB</string>
+        <string> KiB/s</string>
        </property>
        <property name="maximum">
         <number>10000</number>
@@ -114,7 +114,7 @@
         </sizepolicy>
        </property>
        <property name="suffix">
-        <string> KiB</string>
+        <string> KiB/s</string>
        </property>
        <property name="maximum">
         <number>10000</number>
@@ -138,9 +138,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KTitleWidget</class>
@@ -148,9 +148,9 @@
    <header>ktitlewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

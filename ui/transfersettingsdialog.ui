@@ -52,7 +52,7 @@
         <string comment="No value has been set">Not set</string>
        </property>
        <property name="suffix">
-        <string> KiB</string>
+        <string> KiB/s</string>
        </property>
        <property name="minimum">
         <number>0</number>
@@ -74,7 +74,7 @@
         <string comment="No value has been set">Not set</string>
        </property>
        <property name="suffix">
-        <string> KiB</string>
+        <string> KiB/s</string>
        </property>
        <property name="minimum">
         <number>0</number>
