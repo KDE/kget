@@ -19,18 +19,15 @@
 #include <QVBoxLayout>
 
 TransferDetails::TransferDetails(TransferHandler * transfer)
-    : m_transfer(transfer)
+  : QWidget(0),
+    m_transfer(transfer)
 {
     m_genericWidget = new QWidget(this);
 
     frm.setupUi(m_genericWidget);
 
-    m_detailsWidget = KGet::factory(m_transfer)->createDetailsWidget(m_transfer);
-
     m_layout = new QVBoxLayout(this);
     m_layout->addWidget(m_genericWidget);
-    if (m_detailsWidget)
-        m_layout->addWidget(m_detailsWidget);
     setLayout(m_layout);
 
     frm.sourceContentEdit->setText(m_transfer->source().pathOrUrl());

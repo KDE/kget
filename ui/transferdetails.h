@@ -38,7 +38,6 @@ class TransferDetails : public QWidget
         TransferHandler * m_transfer;
         QVBoxLayout     * m_layout;
         QWidget         * m_genericWidget;
-        QWidget         * m_detailsWidget;
 
         Ui::TransferDetailsFrm frm;
 };
