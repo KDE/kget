@@ -18,3 +18,8 @@ File=kget_multisegkiofactory.rc
 Group=Segments
 RemoveKey=SplitSize
 RemoveKey=SaveSegSize
+
+Id=2.8.0-kget-sensitive
+File=kgetrc
+Group=Advanced
+Script=kget_sensitive.pl,perl

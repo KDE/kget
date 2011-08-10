@@ -41,8 +41,8 @@
     <entry name="AutoPaste" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="AutoPasteCaseInsensitive" type="Bool">
-        <default>true</default>
+    <entry name="AutoPasteCaseSensitive" type="Bool">
+        <default>false</default>
     </entry>
     <entry name="AutoPastePatterns" type="StringList">
         <default>*</default>
