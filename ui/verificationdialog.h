@@ -54,6 +54,8 @@ class VerificationDialog : public KDialog
 
     public:
         VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file);
+        
+        virtual QSize sizeHint() const;
 
     private slots:
         void fileFinished(const KUrl &file);

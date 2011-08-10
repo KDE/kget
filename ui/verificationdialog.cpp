@@ -101,7 +101,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         ui.usedHashes->setItemDelegate(new VerificationDelegate(this));
 
         QByteArray loadedState = QByteArray::fromBase64(Settings::verificationHeaderState().toAscii());
-        if (!loadedState.isNull()) {
+        if (!loadedState.isEmpty()) {
             ui.usedHashes->header()->restoreState(loadedState);
         }
 
@@ -129,6 +129,13 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     }
 
     connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+}
+
+QSize VerificationDialog::sizeHint() const
+{
+    QSize sh = KDialog::sizeHint();
+    sh.setWidth(sh.width() * 1.2);
+    return sh;
 }
 
 void VerificationDialog::slotFinished()

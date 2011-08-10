@@ -89,8 +89,8 @@ TransferSettingsDialog::~TransferSettingsDialog()
 
 QSize TransferSettingsDialog::sizeHint() const
 {
-    QSize sh = QWidget::sizeHint();
-    sh.setWidth(QWidget::width() * 1.7);
+    QSize sh = KDialog::sizeHint();
+    sh.setWidth(sh.width() * 1.7);
     return sh;
 }
 
