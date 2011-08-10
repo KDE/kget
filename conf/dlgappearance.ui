@@ -12,22 +12,6 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
-    <widget class="QGroupBox" name="startupGroup">
-     <property name="title">
-      <string>Startup</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="kcfg_ShowSplashscreen">
-        <property name="text">
-         <string>Show splashscreen</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
     <widget class="QGroupBox" name="dropTargetGroup">
      <property name="title">
       <string>Drop Target</string>
@@ -63,7 +47,7 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>

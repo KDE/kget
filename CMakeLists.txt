@@ -187,7 +187,6 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    ui/droptarget.cpp
    ui/transfersview.cpp
    ui/transfersviewdelegate.cpp
-   ui/splash.cpp
    ui/transferdetails.cpp
    ui/viewscontainer.cpp
    ui/newtransferdialog.cpp

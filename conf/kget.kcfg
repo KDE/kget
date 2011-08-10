@@ -35,10 +35,6 @@
     <entry name="EnablePopupTooltip" type="Bool">
       <default>true</default>
     </entry>
-    <entry name="ShowSplashscreen" type="Bool">
-      <label>Sets to show the splashscreen while KGet is loading</label>
-      <default>false</default>
-    </entry>
   </group>
 
   <group name="Advanced">

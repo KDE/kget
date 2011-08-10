@@ -20,7 +20,6 @@
 #include "dbus/dbuskgetwrapper.h"
 #include "mainadaptor.h"
 #include "settings.h"
-#include "ui/splash.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
 
@@ -32,28 +31,13 @@ class KGetApp : public KUniqueApplication
 {
 public:
     KGetApp()
-        : KUniqueApplication(), kget( 0 ), splash( 0 )
+        : KUniqueApplication(), kget( 0 )
     {
-        showSplash();
     }
 
     ~KGetApp()
     {
-        delete splash;
         delete kget;
-    }
-
-    void showSplash()
-    {
-        //determine whether splash-screen is enabled in kgetrc
-        if ( !Settings::showSplashscreen() )
-            return;
-
-        // getting splash-screen path
-        QString path = KStandardDirs::locate( "data", "kget/pics/kget_splash.png" );
-
-        if ( !path.isEmpty() )
-            splash = new Splash( path );
     }
 
     int newInstance()
@@ -103,8 +87,6 @@ public:
         }
 
         args->clear();
-        if (splash)
-            splash->removeSplash();
 
         if (!l.isEmpty())
             NewTransferDialogHandler::showNewTransferDialog(l);
@@ -114,7 +96,6 @@ public:
 
 private:
     MainWindow * kget;
-    Splash * splash;
 };
 
 
