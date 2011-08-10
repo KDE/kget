@@ -34,6 +34,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
+    ui.ktitlewidget->setPixmap(SmallIcon("preferences-other"));
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
@@ -53,8 +54,10 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
         ui.treeView->sortByColumn(0, Qt::AscendingOrder);
 
         QByteArray loadedState = QByteArray::fromBase64(Settings::transferSettingsHeaderState().toAscii());
-        if (!loadedState.isNull()) {
+        if (!loadedState.isEmpty()) {
             ui.treeView->header()->restoreState(loadedState);
+        } else {
+            ui.treeView->header()->resizeSection(0, ui.treeView->header()->defaultSectionSize() * 3);
         }
     }
 
@@ -82,6 +85,13 @@ TransferSettingsDialog::~TransferSettingsDialog()
     }
     Settings::setTransferSettingsSize(size());
     Settings::self()->writeConfig();
+}
+
+QSize TransferSettingsDialog::sizeHint() const
+{
+    QSize sh = QWidget::sizeHint();
+    sh.setWidth(QWidget::width() * 1.7);
+    return sh;
 }
 
 void TransferSettingsDialog::updateCapabilities()
