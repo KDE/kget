@@ -31,7 +31,6 @@
         <Action name="edit_groups"/>
     </Menu>
    <Menu name="settings"><text>&amp;Settings</text>
-        <Action name="auto_paste"/>
         <Action name="show_drop_target"/>
     </Menu>
     <Menu name="help"><text>&amp;Help</text>
