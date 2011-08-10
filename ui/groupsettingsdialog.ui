@@ -69,55 +69,55 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QCheckBox" name="downloadCheck">
-       <property name="text">
-        <string>Maximum download speed:</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="QSpinBox" name="downloadBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="specialValueText">
+        <string comment="No value has been set">Not set</string>
+       </property>
        <property name="suffix">
         <string> KiB/s</string>
        </property>
        <property name="maximum">
         <number>10000</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QCheckBox" name="uploadCheck">
-       <property name="text">
-        <string>Maximum upload speed:</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QSpinBox" name="uploadBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="specialValueText">
+        <string comment="No value has been set">Not set</string>
+       </property>
        <property name="suffix">
         <string> KiB/s</string>
        </property>
        <property name="maximum">
         <number>10000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Maximum download speed:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Maximum upload speed:</string>
        </property>
       </widget>
      </item>
@@ -154,38 +154,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>downloadCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>downloadBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>92</x>
-     <y>134</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>301</x>
-     <y>140</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>uploadCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>uploadBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>111</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>301</x>
-     <y>173</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

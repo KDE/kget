@@ -33,12 +33,6 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     ui.downloadBox->setValue(group->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadBox->setValue(group->uploadLimit(Transfer::VisibleSpeedLimit));
 
-    if (ui.downloadBox->value() != 0)
-        ui.downloadCheck->setChecked(true);
-
-    if (ui.uploadBox->value() != 0)
-        ui.uploadCheck->setChecked(true);
-
     ui.defaultFolderRequester->setMode(KFile::Directory);
     QString path = group->defaultFolder();
     ui.defaultFolderRequester->setUrl(path);
@@ -71,15 +65,8 @@ void GroupSettingsDialog::save()
         m_group->setDefaultFolder(ui.defaultFolderRequester->url().toLocalFile(KUrl::AddTrailingSlash));
     }
 
-    if (ui.downloadCheck->isChecked())
-        m_group->setDownloadLimit(ui.downloadBox->value(), Transfer::VisibleSpeedLimit);
-    else
-        m_group->setDownloadLimit(0, Transfer::VisibleSpeedLimit);
-
-    if (ui.uploadCheck->isChecked())
-        m_group->setUploadLimit(ui.uploadBox->value(), Transfer::VisibleSpeedLimit);
-    else
-        m_group->setUploadLimit(0, Transfer::VisibleSpeedLimit);
+    m_group->setDownloadLimit(ui.downloadBox->value(), Transfer::VisibleSpeedLimit);
+    m_group->setUploadLimit(ui.uploadBox->value(), Transfer::VisibleSpeedLimit);
 
     QRegExp regExp;
     regExp.setPattern(ui.regExpEdit->text());
