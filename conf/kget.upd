@@ -1,0 +1,16 @@
+Id=2.8.0-kget
+File=kgetrc
+Group=Advanced
+RemoveKey=ExpertMode
+Group=Appearance
+RemoveKey=Columns
+RemoveKey=ShowExpandableTransferDetails
+RemoveKey=ShowSplashscreen
+Group=Geometry
+RemoveKey=ColumnWidths
+
+Id=2.8.0-multiseg
+File=kget_multisegkiofactory.rc
+Group=Segments
+RemoveKey=SplitSize
+RemoveKey=SaveSegSize
