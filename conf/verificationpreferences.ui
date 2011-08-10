@@ -138,14 +138,14 @@
           <item>
            <widget class="KPushButton" name="up">
             <property name="text">
-             <string>Move &amp;Up</string>
+             <string>&amp;Increase Priority</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="KPushButton" name="down">
             <property name="text">
-             <string>Move &amp;Down</string>
+             <string>&amp;Decrease Priority</string>
             </property>
            </widget>
           </item>

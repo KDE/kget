@@ -97,14 +97,14 @@
           <item>
            <widget class="KPushButton" name="increase">
             <property name="text">
-             <string>Increase Priority</string>
+             <string>&amp;Increase Priority</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="KPushButton" name="decrease">
             <property name="text">
-             <string>Decrease Priority</string>
+             <string>&amp;Decrease Priority</string>
             </property>
            </widget>
           </item>
@@ -132,9 +132,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>
@@ -142,9 +142,9 @@
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
