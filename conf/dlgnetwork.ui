@@ -69,7 +69,10 @@
       <item row="0" column="0">
        <widget class="QLabel" name="dllimitlb">
         <property name="text">
-         <string>Global download limit:</string>
+         <string>Global &amp;download limit:</string>
+        </property>
+        <property name="buddy">
+         <cstring>kcfg_GlobalDownloadLimit</cstring>
         </property>
        </widget>
       </item>
@@ -92,7 +95,10 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Global upload limit:</string>
+         <string>Global &amp;upload limit:</string>
+        </property>
+        <property name="buddy">
+         <cstring>kcfg_GlobalUploadLimit</cstring>
         </property>
        </widget>
       </item>
