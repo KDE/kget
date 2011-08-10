@@ -55,6 +55,14 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
     connect(this, SIGNAL(yesClicked()), this, SLOT(addChecksum()));
 }
 
+QSize VerificationAddDlg::sizeHint() const
+{
+    QSize sh = KDialog::sizeHint();
+    sh.setHeight(minimumSize().height());
+    sh.setWidth(sh.width() * 1.5);
+    return sh;
+}
+
 void VerificationAddDlg::updateButton()
 {
     const QString type = ui.hashTypes->currentText();

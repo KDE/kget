@@ -37,6 +37,8 @@ class VerificationAddDlg : public KDialog
 
     public:
         explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
+        
+        virtual QSize sizeHint() const;
 
     private slots:
         void addChecksum();

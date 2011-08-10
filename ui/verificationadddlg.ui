@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>297</width>
-    <height>194</height>
+    <height>63</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -59,14 +59,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
