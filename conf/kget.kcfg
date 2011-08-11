@@ -107,9 +107,6 @@
     <entry name="MaxConnections" type="Int">
       <default>2</default>
     </entry>
-    <entry name="MaxConnectionsServer" type="Int">
-      <default>2</default>
-    </entry>
     <entry name="SpeedLimit" type="Bool">
       <default>false</default>
     </entry>

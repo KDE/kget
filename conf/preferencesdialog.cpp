@@ -68,8 +68,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     // TODO: remove the following lines as soon as these features are ready
     dlgNet.lb_per_transfer->setVisible(false);
     dlgNet.kcfg_TransferSpeedLimit->setVisible(false);
-    dlgNet.lbl_maxnum_2->setVisible(false);
-    dlgNet.kcfg_MaxConnectionsServer->setVisible(false);
 
     addPage(appearance, i18n("Appearance"), "preferences-desktop-theme", i18n("Change appearance settings"));
     addPage(groups, i18n("Groups"), "bookmarks", i18n("Manage the groups"));
