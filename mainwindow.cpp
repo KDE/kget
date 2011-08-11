@@ -5,7 +5,7 @@
    Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
    Copyright (C) 2006 - 2008 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2006 Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2011 Lukas Appelhans <l.appelhans@gmx.de>
    Copyright (C) 2009 - 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
@@ -141,51 +141,62 @@ void MainWindow::setupActions()
     newDownloadAction->setText(i18n("&New Download..."));
     newDownloadAction->setIcon(KIcon("document-new"));
     newDownloadAction->setShortcuts(KShortcut("Ctrl+N"));
+    newDownloadAction->setHelpText(i18n("Opens a dialog to add a transfer to the list"));
     connect(newDownloadAction, SIGNAL(triggered()), SLOT(slotNewTransfer()));
 
     KAction *openAction = actionCollection()->addAction("import_transfers");
     openAction->setText(i18n("&Import Transfers..."));
     openAction->setIcon(KIcon("document-open"));
     openAction->setShortcuts(KShortcut("Ctrl+I"));
+    openAction->setHelpText(i18n("Imports a list of transfers"));
     connect(openAction, SIGNAL(triggered()), SLOT(slotImportTransfers()));
 
     KAction *exportAction = actionCollection()->addAction("export_transfers");
     exportAction->setText(i18n("&Export Transfers List..."));
     exportAction->setIcon(KIcon("document-export"));
     exportAction->setShortcuts(KShortcut("Ctrl+E"));
+    exportAction->setHelpText(i18n("Exports the current transfers into a file"));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
     KAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
     createMetalinkAction->setText(i18n("&Create a Metalink"));
+    createMetalinkAction->setIcon(KIcon("journal-new"));
+    createMetalinkAction->setHelpText(i18n("Creates or modifies a metalink and saves it on disk"));
     connect(createMetalinkAction, SIGNAL(triggered()), SLOT(slotCreateMetalink()));
 
     KAction *priorityTop = actionCollection()->addAction("priority_top");
     priorityTop->setText(i18n("Top Priority"));
     priorityTop->setIcon(KIcon("arrow-up-double"));
     priorityTop->setShortcuts(KShortcut("Ctrl+PgUp"));
+    priorityTop->setHelpText(i18n("Download selected transfer first"));
     connect(priorityTop, SIGNAL(triggered()), this, SLOT(slotPriorityTop()));
 
     KAction *priorityBottom = actionCollection()->addAction("priority_bottom");
     priorityBottom->setText(i18n("Least Priority"));
     priorityBottom->setIcon(KIcon("arrow-down-double"));
     priorityBottom->setShortcuts(KShortcut("Ctrl+PgDown"));
+    priorityBottom->setHelpText(i18n("Download selected transfer last"));
     connect(priorityBottom, SIGNAL(triggered()), this, SLOT(slotPriorityBottom()));
 
     KAction *priorityUp = actionCollection()->addAction("priority_up");
     priorityUp->setText(i18n("Increase Priority"));
     priorityUp->setIcon(KIcon("arrow-up"));
     priorityUp->setShortcuts(KShortcut("Ctrl+Up"));
+    priorityUp->setHelpText(i18n("Increase priority for selected transfer"));
     connect(priorityUp, SIGNAL(triggered()), this, SLOT(slotPriorityUp()));
 
     KAction *priorityDown = actionCollection()->addAction("priority_down");
     priorityDown->setText(i18n("Decrease Priority"));
     priorityDown->setIcon(KIcon("arrow-down"));
     priorityDown->setShortcuts(KShortcut("Ctrl+Down"));
+    priorityDown->setHelpText(i18n("Decrease priority for selected transfer"));
     connect(priorityDown, SIGNAL(triggered()), this, SLOT(slotPriorityDown()));
 
+    //FIXME: Not needed maybe because the normal delete already deletes groups?
     KAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18n("Delete Group"));
     deleteGroupAction->setIcon(KIcon("edit-delete"));
+    deleteGroupAction->setHelpText(i18n("Delete selected group"));
     connect(deleteGroupAction, SIGNAL(triggered()), SLOT(slotDeleteGroup()));
 
     KAction *renameGroupAction = actionCollection()->addAction("rename_groups");
@@ -196,6 +207,7 @@ void MainWindow::setupActions()
     KAction *setIconGroupAction = actionCollection()->addAction("seticon_groups");
     setIconGroupAction->setText(i18n("Set Icon..."));
     setIconGroupAction->setIcon(KIcon("preferences-desktop-icons"));
+    setIconGroupAction->setHelpText(i18n("Select a custom icon for the selected group"));
     connect(setIconGroupAction, SIGNAL(triggered()), SLOT(slotSetIconGroup()));
 
     m_autoPasteAction = new KToggleAction(KIcon("edit-paste"),
@@ -229,11 +241,13 @@ void MainWindow::setupActions()
     deleteSelectedAction->setText(i18nc("delete selected transfer item", "Remove Selected"));
     deleteSelectedAction->setIcon(KIcon("edit-delete"));
     deleteSelectedAction->setShortcuts(KShortcut("Del"));
+    deleteSelectedAction->setHelpText(i18n("Removes selected transfer and deletes files from disk if it's not finished"));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     KAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
     deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Remove All Finished"));
     deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
+    deleteAllFinishedAction->setHelpText(i18n("Removes all finished transfers and leaves all files on disk"));
     connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
 
     KAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
@@ -242,28 +256,32 @@ void MainWindow::setupActions()
     connect(redownloadSelectedAction, SIGNAL(triggered()), SLOT(slotRedownloadSelected()));
 
     KAction *startAllAction = actionCollection()->addAction("start_all_download");
-    startAllAction->setText(i18n("Start / Resume All"));
+    startAllAction->setText(i18n("Start All"));
     startAllAction->setIcon(KIcon("media-seek-forward"));
     startAllAction->setShortcuts(KShortcut("Ctrl+R"));
+    startAllAction->setHelpText(i18n("Starts / resumes all transfers"));
     connect(startAllAction, SIGNAL(triggered()), SLOT(slotStartAllDownload()));
 
     KAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
-    startSelectedAction->setText(i18n("Start / Resume Selected"));
+    startSelectedAction->setText(i18n("Start Selected"));
     startSelectedAction->setIcon(KIcon("media-playback-start"));
+    startSelectedAction->setHelpText(i18n("Starts / resumes selected transfer"));
     connect(startSelectedAction, SIGNAL(triggered()), SLOT(slotStartSelectedDownload()));
 
     KAction *stopAllAction = actionCollection()->addAction("stop_all_download");
-    stopAllAction->setText(i18n("Stop All"));
+    stopAllAction->setText(i18n("Pause All"));
     stopAllAction->setIcon(KIcon("media-playback-pause"));
     stopAllAction->setShortcuts(KShortcut("Ctrl+P"));
+    stopAllAction->setHelpText(i18n("Pauses all transfers"));
     connect(stopAllAction, SIGNAL(triggered()), SLOT(slotStopAllDownload()));
 
     KAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
     stopSelectedAction->setText(i18n("Stop Selected"));
     stopSelectedAction->setIcon(KIcon("media-playback-pause"));
+    stopSelectedAction->setHelpText(i18n("Pauses selected transfer"));
     connect(stopSelectedAction, SIGNAL(triggered()), SLOT(slotStopSelectedDownload()));
 
-    KActionMenu *startActionMenu = new KActionMenu(KIcon("media-playback-start"), i18n("Start / Resume"),
+    KActionMenu *startActionMenu = new KActionMenu(KIcon("media-playback-start"), i18n("Start"),
                                                      actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
     startActionMenu->setDelayed(true);
@@ -271,21 +289,13 @@ void MainWindow::setupActions()
     startActionMenu->addAction(startSelectedAction);
     connect(startActionMenu, SIGNAL(triggered()), SLOT(slotStartDownload()));
 
-    KActionMenu *stopActionMenu = new KActionMenu(KIcon("media-playback-pause"), i18n("Stop"),
+    KActionMenu *stopActionMenu = new KActionMenu(KIcon("media-playback-pause"), i18n("Pause"),
                                                     actionCollection());
     actionCollection()->addAction("stop_menu", stopActionMenu);
     stopActionMenu->setDelayed(true);
     stopActionMenu->addAction(stopAllAction);
     stopActionMenu->addAction(stopSelectedAction);
     connect(stopActionMenu, SIGNAL(triggered()), SLOT(slotStopDownload()));
-
-    KActionMenu *deleteActionMenu = new KActionMenu(KIcon("edit-delete"), i18n("Remove"),
-                                                    actionCollection());    
-    actionCollection()->addAction("delete_menu", deleteActionMenu);
-    deleteActionMenu->setDelayed(true);
-    deleteActionMenu->addAction(deleteSelectedAction);
-    deleteActionMenu->addAction(deleteAllFinishedAction);
-    connect(deleteActionMenu, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
     
     KAction *openDestAction = actionCollection()->addAction("transfer_open_dest");
     openDestAction->setText(i18n("Open Destination"));
