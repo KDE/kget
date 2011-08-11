@@ -77,7 +77,7 @@
    <item>
     <widget class="QGroupBox" name="kcfg_EnableKUIServerIntegration">
      <property name="title">
-      <string>Enable KDE global progress tracking</string>
+      <string>Enable KDE Global Progress Tracking</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -106,7 +106,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Handle existing files/transfers</string>
+      <string>Handle existing Files/Transfers</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>

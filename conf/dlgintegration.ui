@@ -28,7 +28,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="QGroupBox" name="kcfg_AutoPaste">
      <property name="title">
-      <string>Monitor clipboard for files to download</string>
+      <string>Monitor Clipboard for Files to Download</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
