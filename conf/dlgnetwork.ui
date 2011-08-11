@@ -130,7 +130,7 @@
    <item>
     <widget class="QGroupBox" name="kcfg_ReconnectOnBroken">
      <property name="title">
-      <string>Reconnect on Error or Broken Connection</string>
+      <string>Reconnect on Broken Connection</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
