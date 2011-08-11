@@ -25,7 +25,6 @@
 #include "ui_verificationpreferences.h"
 
 class KConfigDialog;
-class QStringListModel;
 
 class VerificationPreferences : public QWidget
 {
@@ -41,25 +40,12 @@ class VerificationPreferences : public QWidget
         void changed();
 
     private slots:
-        void slotUpdateButtons();
-        void slotAddMirror();
-        void slotRemoveMirror();
-        void slotMoveMirrorUp();
-        void slotMoveMirrorDown();
         void slotDefaultClicked();
         void slotAccpeted();
         void slotRejected();
 
     private:
-        /**
-         * Moves the selected url in the model
-         * @param moveUp if true the url is moved up, when false it will be moved down
-         */
-        void moveUrl(bool moveUp);
-
-    private:
         Ui::VerificationPreferences ui;
-        QStringListModel *m_keyServers;
         QStringList m_tempKeyServers;
 };
 

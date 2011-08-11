@@ -18,13 +18,11 @@
 ***************************************************************************/
 
 #include "verificationpreferences.h"
-
 #include "settings.h"
-
-#include <QtGui/QStringListModel>
 
 #include <KConfigDialog>
 #include <KDialog>
+#include <KLineEdit>
 #include <KLocale>
 #include <KUrlRequester>
 
@@ -34,28 +32,15 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
     ui.setupUi(this);
 
     m_tempKeyServers = Settings::signatureKeyServers();
-    m_keyServers = new QStringListModel(m_tempKeyServers, this);
-    ui.keyServers->setModel(m_keyServers);
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
-    ui.up->setIcon(KIcon("arrow-up"));
-    ui.down->setIcon(KIcon("arrow-down"));
+    ui.keyservers->upButton()->setText(i18n("&Increase Priority"));
+    ui.keyservers->downButton()->setText(i18n("&Decrease Priority"));
+    ui.keyservers->setItems(m_tempKeyServers);
 
 #ifndef HAVE_QGPGME
     ui.signatureGroup->hide();
 #endif
 
-    slotUpdateButtons();
-
-    connect(m_keyServers, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(slotUpdateButtons()));
-
-    connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateButtons()));
-    connect(ui.keyServers->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
-    connect(ui.add, SIGNAL(clicked(bool)), this, SLOT(slotAddMirror()));
-    connect(ui.remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveMirror()));
-    connect(ui.up, SIGNAL(clicked(bool)), this, SLOT(slotMoveMirrorUp()));
-    connect(ui.down, SIGNAL(clicked(bool)), this, SLOT(slotMoveMirrorDown()));
-
+    connect(ui.keyservers,SIGNAL(changed()),this,SIGNAL(changed()));
     connect(parent, SIGNAL(accepted()), SLOT(slotAccpeted()));
     connect(parent, SIGNAL(rejected()), SLOT(slotRejected()));
     connect(parent, SIGNAL(defaultClicked()), SLOT(slotDefaultClicked()));
@@ -63,7 +48,8 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
 
 void VerificationPreferences::slotAccpeted()
 {
-    m_tempKeyServers = m_keyServers->stringList();
+    ui.keyservers->lineEdit()->clear();
+    m_tempKeyServers = ui.keyservers->items();
     Settings::self()->setSignatureKeyServers(m_tempKeyServers);
     Settings::self()->writeConfig();
 }
@@ -72,93 +58,17 @@ void VerificationPreferences::slotRejected()
 {
     //PreferencesDialog is not recreated, so we have to manually stop the
     //settings from changing
-    m_keyServers->setStringList(m_tempKeyServers);
-}
-
-void VerificationPreferences::slotUpdateButtons()
-{
-    const KUrl url = KUrl(ui.url->text());
-    ui.add->setEnabled(url.isValid() && url.hasHost() && !url.protocol().isEmpty());
-
-    const QModelIndex index = ui.keyServers->currentIndex();
-    bool up = false;
-    bool down = false;
-    const bool indexValid = index.isValid() && (ui.keyServers->selectionModel()->selectedRows().count() == 1);
-    ui.remove->setEnabled(ui.keyServers->selectionModel()->hasSelection());
-    if (indexValid) {
-        if (index.row() > 0) {
-            up = true;
-        }
-        if (m_keyServers->rowCount() > (index.row() + 1)) {
-            down = true;
-        }
-    }
-    ui.up->setEnabled(up);
-    ui.down->setEnabled(down);
-}
-
-void VerificationPreferences::slotAddMirror()
-{
-    QStringList data = m_keyServers->stringList();
-    data.append(KUrl(ui.url->text()).pathOrUrl());
-    m_keyServers->setStringList(data);
-
-    ui.url->clear();
-
-    emit changed();
-}
-
-void VerificationPreferences::slotRemoveMirror()
-{
-    if (ui.keyServers->selectionModel()->hasSelection()) {
-        while (ui.keyServers->selectionModel()->selectedRows().count()) {
-            const QModelIndex index = ui.keyServers->selectionModel()->selectedRows().first();
-            m_keyServers->removeRow(index.row());
-        }
-        emit changed();
-    }
-}
-
-void VerificationPreferences::slotMoveMirrorUp()
-{
-    moveUrl(true);
-}
-
-void VerificationPreferences::slotMoveMirrorDown()
-{
-    moveUrl(false);
-}
-
-void VerificationPreferences::moveUrl(bool moveUp)
-{
-    const QModelIndexList indexes = ui.keyServers->selectionModel()->selectedRows();
-    if (indexes.count() == 1) {
-        QModelIndex index = indexes.first();
-        const QString url = index.data().toString();
-        int row = index.row();
-        m_keyServers->removeRow(row);
-
-        if (moveUp) {
-            --row;
-        } else {
-            ++row;
-        }
-        m_keyServers->insertRow(row);
-        index = m_keyServers->index(row);
-
-        m_keyServers->setData(index, url);
-        ui.keyServers->setCurrentIndex(index);
-
-        emit changed();
-    }
+    ui.keyservers->setItems(m_tempKeyServers);
+    ui.keyservers->lineEdit()->clear();
 }
 
 void VerificationPreferences::slotDefaultClicked()
 {
+    ui.keyservers->lineEdit()->clear();
     KConfigSkeletonItem *item = Settings::self()->findItem("SignatureKeyServers");
     if (item) {
         item->readDefault(Settings::self()->config());
-        m_keyServers->setStringList(Settings::signatureKeyServers());
+        ui.keyservers->setItems(Settings::signatureKeyServers());
     }
 }
 
