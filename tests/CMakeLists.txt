@@ -32,6 +32,15 @@ kde4_add_unit_test(verifiertest
 target_link_libraries(verifiertest ${QT_QTTEST_LIBRARY} kgetcore)
 
 
+#===========Scheduler===========
+kde4_add_unit_test(schedulertest
+  TESTNAME kget-schedulertest
+  schedulertest.cpp
+)
+
+target_link_libraries(schedulertest ${QT_QTTEST_LIBRARY} ${KDE4_KDECORE_LIBS} kgetcore)
+
+
 #===========Metalinker===========
 set(metalinktest_SRCS
     metalinktest.cpp
