@@ -599,10 +599,11 @@ void MainWindow::slotSetIconGroup()
 
 void MainWindow::slotStartDownload()
 {
-    if(KGet::selectedTransfers().size() == 0)
+    if (KGet::selectedTransfers().size() == 0 && KGet::selectedTransferGroups().size() == 0) {
         slotStartAllDownload();
-    else
+    } else {
         slotStartSelectedDownload();
+    }
 }
 
 void MainWindow::slotStartAllDownload()
@@ -616,15 +617,19 @@ void MainWindow::slotStartSelectedDownload()
     foreach (TransferHandler *transfer, KGet::selectedTransfers()) {
         transfer->start();
     }
+    foreach (TransferGroupHandler *group, KGet::selectedTransferGroups()) {
+        group->start();
+    }
     KGet::setSuspendScheduler(false);
 }
 
 void MainWindow::slotStopDownload()
 {
-    if(KGet::selectedTransfers().size() == 0)
+    if (KGet::selectedTransfers().size() == 0 && KGet::selectedTransferGroups().size() == 0) {
         slotStopAllDownload();
-    else
+    } else {
         slotStopSelectedDownload();
+    }
 }
 
 void MainWindow::slotStopAllDownload()
@@ -642,6 +647,9 @@ void MainWindow::slotStopSelectedDownload()
     KGet::setSuspendScheduler(true);
     foreach (TransferHandler *transfer, KGet::selectedTransfers()) {
         transfer->stop();
+    }
+    foreach (TransferGroupHandler *group, KGet::selectedTransferGroups()) {
+        group->stop();
     }
     KGet::setSuspendScheduler(false);
 }
