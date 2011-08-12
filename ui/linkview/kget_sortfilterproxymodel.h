@@ -30,12 +30,12 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
         KGetSortFilterProxyModel(QObject *parent = 0);
         virtual ~KGetSortFilterProxyModel();
 
-        enum DownloadFilterType {
+        enum DownloadFilterType { //Keep the numbers, they are necessary for the filtering to work
             NoFilter = 0,
             VideoFiles = 1,
-            AudioFiles = 2,
-            CompressedFiles = 3,
-            ImageFiles = 4
+            AudioFiles = 3,
+            CompressedFiles = 4,
+            ImageFiles = 2
         };
 
         enum FilterMode {

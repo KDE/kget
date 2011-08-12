@@ -285,16 +285,16 @@ void MainWindow::setupActions()
                                                      actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
     startActionMenu->setDelayed(true);
-    startActionMenu->addAction(startAllAction);
     startActionMenu->addAction(startSelectedAction);
+    startActionMenu->addAction(startAllAction);
     connect(startActionMenu, SIGNAL(triggered()), SLOT(slotStartDownload()));
 
     KActionMenu *stopActionMenu = new KActionMenu(KIcon("media-playback-pause"), i18n("Pause"),
                                                     actionCollection());
     actionCollection()->addAction("stop_menu", stopActionMenu);
     stopActionMenu->setDelayed(true);
-    stopActionMenu->addAction(stopAllAction);
     stopActionMenu->addAction(stopSelectedAction);
+    stopActionMenu->addAction(stopAllAction);
     connect(stopActionMenu, SIGNAL(triggered()), SLOT(slotStopDownload()));
     
     KAction *openDestAction = actionCollection()->addAction("transfer_open_dest");

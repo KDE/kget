@@ -37,6 +37,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setCaption(i18n("Import Links"));
+    setButtons(0);
     
     if (parent) {
         KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
@@ -56,18 +57,11 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     // set the Icons
     ui.importLinks->setIcon(KIcon("document-import"));
-    ui.showAll->setIcon(KIcon("view-list-icons"));
-    ui.showArchives->setIcon(KIcon("package-x-generic"));
-    ui.showAudio->setIcon(KIcon("audio-x-generic"));
-    ui.showImages->setIcon(KIcon("image-x-generic"));
-    ui.showVideos->setIcon(KIcon("video-x-generic"));
-
-    // set the ids for the filterButtonGroup
-    ui.filterButtonGroup->setId(ui.showAll, KGetSortFilterProxyModel::NoFilter);
-    ui.filterButtonGroup->setId(ui.showArchives, KGetSortFilterProxyModel::CompressedFiles);
-    ui.filterButtonGroup->setId(ui.showAudio, KGetSortFilterProxyModel::AudioFiles);
-    ui.filterButtonGroup->setId(ui.showImages, KGetSortFilterProxyModel::ImageFiles);
-    ui.filterButtonGroup->setId(ui.showVideos, KGetSortFilterProxyModel::VideoFiles);
+    ui.showCombo->setItemIcon(0, KIcon("view-list-icons"));
+    ui.showCombo->setItemIcon(4, KIcon("package-x-generic"));
+    ui.showCombo->setItemIcon(3, KIcon("audio-x-generic"));
+    ui.showCombo->setItemIcon(2, KIcon("image-x-generic"));
+    ui.showCombo->setItemIcon(1, KIcon("video-x-generic"));
 
     ui.treeView->setModel(m_proxyModel);
     ui.progressBar->hide();
@@ -91,22 +85,26 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.textFilter, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
     connect(ui.textFilter, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(contextMenuDisplayed(QMenu*)));
     connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterMode(int)));
-    connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), m_proxyModel, SLOT(setFilterType(int)));
-    connect(ui.filterButtonGroup, SIGNAL(buttonClicked(int)), SLOT(updateSelectionButtons()));
+    connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterType(int)));
+    connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
+    connect(ui.urlRequester, SIGNAL(urlSelected(KUrl)), SLOT(slotStartImport()));
     connect(ui.selectAll, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(ui.deselectAll, SIGNAL(clicked()), this, SLOT(uncheckAll()));
-    connect(ui.checkSelected, SIGNAL(clicked()), this, SLOT(slotCheckSelected()));
     connect(ui.invertSelection, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotStartLeech()));
+    connect(this, SIGNAL(accepted()), this, SLOT(slotStartLeech()));
     connect(ui.showWebContent, SIGNAL(stateChanged(int)), m_proxyModel, SLOT(setShowWebContent(int)));
     connect(ui.importLinks, SIGNAL(clicked()), this, SLOT(slotStartImport()));
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(selectionChanged()));
+    connect(ui.dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 
     setMainWidget(widget);
-    setButtonText(KDialog::Ok, i18nc("Download the items which have been selected","&Download Checked"));
-    setButtonIcon(KDialog::Ok, KIcon("kget"));
+    QPushButton *download = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
+                                                          QDialogButtonBox::AcceptRole,
+                                                          this,
+                                                          SLOT(accept()));
+    download->setIcon(KIcon("kget"));
 
     checkClipboard();
 }
@@ -186,6 +184,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         QStandardItem *item = new QStandardItem(file);
         item->setIcon(KIcon(mimeTypeIcon));
         item->setCheckable(true);
+        item->setCheckState(Qt::Checked);
         item->setData(QVariant(url.fileName()), Qt::DisplayRole);
         item->setData(QVariant(mimeTypeName), Qt::UserRole); // used for filtering DownloadFilterType
 
@@ -227,11 +226,6 @@ void KGetLinkView::slotStartLeech()
         }
 
         NewTransferDialogHandler::showNewTransferDialog(urls);
-        accept(); // close the dialog
-    }
-    else
-    {
-        reject();
     }
 }
 
@@ -287,7 +281,6 @@ void KGetLinkView::selectionChanged()
         ui.selectAll->setEnabled( !(!modelRowCount || count == m_proxyModel->rowCount() ) );
         ui.deselectAll->setEnabled( count > 0 );
         ui.invertSelection->setEnabled( count > 0 );
-        ui.checkSelected->setEnabled(ui.treeView->selectionModel()->selectedIndexes().size() > 0);
 
         enableButtonOk(buttonEnabled);
     }
@@ -309,7 +302,7 @@ void KGetLinkView::setTextFilter(const QString &text)
 
 void KGetLinkView::updateSelectionButtons()
 {
-    const bool isFiltered = !ui.textFilter->text().isEmpty() || (ui.filterButtonGroup->checkedId() != KGetSortFilterProxyModel::NoFilter);
+    const bool isFiltered = !ui.textFilter->text().isEmpty() || (ui.showCombo->currentIndex() != KGetSortFilterProxyModel::NoFilter);
     ui.selectAll->setText(isFiltered ? i18n("&Select All Filtered") : i18n("&Select All"));
     ui.deselectAll->setText(isFiltered ? i18n("D&eselect All Filtered") : i18n("D&eselect All"));
 
