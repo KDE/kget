@@ -113,7 +113,7 @@ MainWindow::~MainWindow()
 
 QSize MainWindow::sizeHint() const
 {
-    return QSize(720, 380);
+    return QSize(738, 380);
 }
 
 int MainWindow::transfersPercent()
