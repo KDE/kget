@@ -32,11 +32,10 @@ class Scheduler;
 class SettingsHelper //TODO better name
 {
     public:
-        SettingsHelper(bool useLimit, int limit);
+        SettingsHelper(int limit);
         ~SettingsHelper();
 
     private:
-        bool m_oldUseLimit;
         int m_oldLimit;
 };
 
@@ -105,7 +104,7 @@ class SchedulerTest : public QObject
         void testSuspendScheduler_data();
 
     private:
-        void createJobs();
+        static const int NO_LIMIT;
 };
 
 #endif

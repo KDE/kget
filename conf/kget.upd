@@ -1,4 +1,4 @@
-Id=2.8.0-kget
+Id=2.8.0
 File=kgetrc
 Group=Advanced
 RemoveKey=ExpertMode
@@ -14,13 +14,18 @@ RemoveKey=AutoShutdown
 RemoveKey=AutoDisconnect
 RemoveKey=MaxConnectionsServer
 
-Id=2.8.0-multiseg
+Id=2.8.0/multiseg
 File=kget_multisegkiofactory.rc
 Group=Segments
 RemoveKey=SplitSize
 RemoveKey=SaveSegSize
 
-Id=2.8.0-kget-sensitive
+Id=2.8.0/sensitive
 File=kgetrc
 Group=Advanced
 Script=kget_sensitive.pl,perl
+
+Id=2.8.0/limitdownloads
+File=kgetrc
+Group=Network
+Script=kget_limitdownloads.pl,perl

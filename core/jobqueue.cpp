@@ -75,10 +75,8 @@ void JobQueue::setStatus(Status queueStatus)
 
 int JobQueue::maxSimultaneousJobs() const
 {
-    if(Settings::limitDownloads())
-        return Settings::maxConnections();
-    else
-        return 1000;    // High value just to indicate no limit
+    const int maxConnections = Settings::maxConnections();
+    return (maxConnections ? maxConnections : 1000);// High value just to indicate no limit
 }
 
 void JobQueue::append(Job * job)

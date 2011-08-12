@@ -101,9 +101,6 @@
   </group>
 
   <group name="Network">
-    <entry name="LimitDownloads" type="Bool">
-      <default>true</default>
-    </entry>
     <entry name="MaxConnections" type="Int">
       <default>2</default>
     </entry>

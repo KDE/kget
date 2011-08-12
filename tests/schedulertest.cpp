@@ -26,17 +26,16 @@
 
 Q_DECLARE_METATYPE(QList<Job::Status>)
 
-SettingsHelper::SettingsHelper(bool useLimit, int limit)
-  : m_oldUseLimit(Settings::limitDownloads()),
-    m_oldLimit(Settings::maxConnections())
+const int SchedulerTest::NO_LIMIT = 0;
+
+SettingsHelper::SettingsHelper(int limit)
+  : m_oldLimit(Settings::maxConnections())
 {
-    Settings::setLimitDownloads(useLimit);
     Settings::setMaxConnections(limit);
 }
 
 SettingsHelper::~SettingsHelper()
 {
-    Settings::setLimitDownloads(m_oldUseLimit);
     Settings::setMaxConnections(m_oldLimit);
 }
 
@@ -91,12 +90,11 @@ void TestQueue::appendPub(Job *job)
 
 void SchedulerTest::testAppendJobs()
 {
-    QFETCH(bool, useLimit);
     QFETCH(int, limit);
     QFETCH(QList<Job::Status>, status);
     QFETCH(QList<Job::Status>, finalStatus);
 
-    SettingsHelper helper(useLimit, limit);
+    SettingsHelper helper(limit);
 
     Scheduler scheduler;
     TestQueue *queue = new TestQueue(&scheduler);
@@ -118,26 +116,24 @@ void SchedulerTest::testAppendJobs()
 
 void SchedulerTest::testAppendJobs_data()
 {
-    QTest::addColumn<bool>("useLimit");
     QTest::addColumn<int>("limit");
     QTest::addColumn<QList<Job::Status> >("status");
     QTest::addColumn<QList<Job::Status> >("finalStatus");
 
-    QTest::newRow("limit 2, two finished, will third be started?") << true << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
-    QTest::newRow("limit 2, will first two start while last will stay stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
-    QTest::newRow("limit 2, will first two start while last will be stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
-    QTest::newRow("no limit though 1 set, two finished, will third be started?") << false << 1 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
-    QTest::newRow("no limit though 1 set, will all three be started?") << false << 1 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
+    QTest::newRow("limit 2, two finished, will third be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
+    QTest::newRow("limit 2, will first two start while last will stay stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
+    QTest::newRow("limit 2, will first two start while last will be stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
+    QTest::newRow("no limit, two finished, will third be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
+    QTest::newRow("no limit, will all three be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
 } 
 
 void SchedulerTest::testCountRunningJobs()
 {
-    QFETCH(bool, useLimit);
     QFETCH(int, limit);
     QFETCH(QList<Job::Status>, status);
     QFETCH(int, numRunningJobs);
 
-    SettingsHelper helper(useLimit, limit);
+    SettingsHelper helper(limit);
 
     Scheduler scheduler;
     TestQueue *queue = new TestQueue(&scheduler);
@@ -155,25 +151,23 @@ void SchedulerTest::testCountRunningJobs()
 
 void SchedulerTest::testCountRunningJobs_data()
 {
-    QTest::addColumn<bool>("useLimit");
     QTest::addColumn<int>("limit");
     QTest::addColumn<QList<Job::Status> >("status");
     QTest::addColumn<int>("numRunningJobs");
 
-    QTest::newRow("limit 2, two finished, will third be started?") << true << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << 1;
-    QTest::newRow("limit 2, will first two start while last will stay stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << 2;
-    QTest::newRow("limit 2, will first two start while last will be stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << 2;
-    QTest::newRow("no limit though 1 set, two finished, will third be started?") << false << 1 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << 1;
-    QTest::newRow("no limit though 1 set, will all three be started?") << false << 1 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << 3;
+    QTest::newRow("limit 2, two finished, will third be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << 1;
+    QTest::newRow("limit 2, will first two start while last will stay stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << 2;
+    QTest::newRow("limit 2, will first two start while last will be stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << 2;
+    QTest::newRow("no limit, two finished, will third be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << 1;
+    QTest::newRow("no limit, will all three be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << 3;
 }
 
 void SchedulerTest::testStopScheduler()
 {
-    QFETCH(bool, useLimit);
     QFETCH(int, limit);
     QFETCH(QList<Job::Status>, status);
 
-    SettingsHelper helper(useLimit, limit);
+    SettingsHelper helper(limit);
 
     Scheduler scheduler;
     TestQueue *queue = new TestQueue(&scheduler);
@@ -194,25 +188,23 @@ void SchedulerTest::testStopScheduler()
 
 void SchedulerTest::testStopScheduler_data()
 {
-    QTest::addColumn<bool>("useLimit");
     QTest::addColumn<int>("limit");
     QTest::addColumn<QList<Job::Status> >("status");
 
-    QTest::newRow("limit 2, two finished, will third be started?") << true << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped);
-    QTest::newRow("limit 2, will first two start while last will stay stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped);
-    QTest::newRow("limit 2, will first two start while last will be stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running);
-    QTest::newRow("no limit though 1 set, two finished, will third be started?") << false << 1 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped);
-    QTest::newRow("no limit though 1 set, will all three be started?") << false << 1 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped);
+    QTest::newRow("limit 2, two finished, will third be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped);
+    QTest::newRow("limit 2, will first two start while last will stay stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped);
+    QTest::newRow("limit 2, will first two start while last will be stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running);
+    QTest::newRow("no limit, two finished, will third be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped);
+    QTest::newRow("no limit, will all three be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped);
 }
 
 void SchedulerTest::testSchedulerStartStop()
 {
-    QFETCH(bool, useLimit);
     QFETCH(int, limit);
     QFETCH(QList<Job::Status>, status);
     QFETCH(QList<Job::Status>, finalStatus);
 
-    SettingsHelper helper(useLimit, limit);
+    SettingsHelper helper(limit);
 
     Scheduler scheduler;
     TestQueue *queue = new TestQueue(&scheduler);
@@ -237,27 +229,25 @@ void SchedulerTest::testSchedulerStartStop()
 
 void SchedulerTest::testSchedulerStartStop_data()
 {
-    QTest::addColumn<bool>("useLimit");
     QTest::addColumn<int>("limit");
     QTest::addColumn<QList<Job::Status> >("status");
     QTest::addColumn<QList<Job::Status> >("finalStatus");
 
-    QTest::newRow("limit 2, two finished, will third be started?") << true << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
-    QTest::newRow("limit 2, will first two start while last will stay stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
-    QTest::newRow("limit 2, will first two start while last will be stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
-    QTest::newRow("no limit though 1 set, two finished, will third be started?") << false << 1 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
-    QTest::newRow("no limit though 1 set, will all three be started?") << false << 1 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
+    QTest::newRow("limit 2, two finished, will third be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
+    QTest::newRow("limit 2, will first two start while last will stay stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
+    QTest::newRow("limit 2, will first two start while last will be stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
+    QTest::newRow("no limit, two finished, will third be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
+    QTest::newRow("no limit, will all three be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
 }
 
 
 void SchedulerTest::testSuspendScheduler()
 {
-    QFETCH(bool, useLimit);
     QFETCH(int, limit);
     QFETCH(QList<Job::Status>, status);
     QFETCH(QList<Job::Status>, finalStatus);
 
-    SettingsHelper helper(useLimit, limit);
+    SettingsHelper helper(limit);
 
     Scheduler scheduler;
     TestQueue *queue = new TestQueue(&scheduler);
@@ -286,16 +276,15 @@ void SchedulerTest::testSuspendScheduler()
 
 void SchedulerTest::testSuspendScheduler_data()
 {
-    QTest::addColumn<bool>("useLimit");
     QTest::addColumn<int>("limit");
     QTest::addColumn<QList<Job::Status> >("status");
     QTest::addColumn<QList<Job::Status> >("finalStatus");
 
-    QTest::newRow("limit 2, two finished, will third be started?") << true << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
-    QTest::newRow("limit 2, will first two start while last will stay stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
-    QTest::newRow("limit 2, will first two start while last will be stopped?") << true << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
-    QTest::newRow("no limit though 1 set, two finished, will third be started?") << false << 1 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
-    QTest::newRow("no limit though 1 set, will all three be started?") << false << 1 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
+    QTest::newRow("limit 2, two finished, will third be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
+    QTest::newRow("limit 2, will first two start while last will stay stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
+    QTest::newRow("limit 2, will first two start while last will be stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Stopped);
+    QTest::newRow("no limit, two finished, will third be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Running);
+    QTest::newRow("no limit, will all three be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
 
 }
 
