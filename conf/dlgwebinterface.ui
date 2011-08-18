@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DlgWebinterface</class>
- <widget class="QWidget" name="DlgWebinterface" >
-  <property name="geometry" >
+ <widget class="QWidget" name="DlgWebinterface">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,63 +10,63 @@
     <height>389</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
-   <property name="margin" >
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="kcfg_WebinterfaceEnabled" >
-     <property name="title" >
+    <widget class="QGroupBox" name="kcfg_WebinterfaceEnabled">
+     <property name="title">
       <string>Enable Web Interface</string>
      </property>
-     <property name="checkable" >
+     <property name="checkable">
       <bool>true</bool>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>false</bool>
      </property>
-     <layout class="QFormLayout" name="formLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="portLabel" >
-        <property name="text" >
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="portLabel">
+        <property name="text">
          <string>Port:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QSpinBox" name="kcfg_WebinterfacePort" >
-        <property name="maximum" >
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="kcfg_WebinterfacePort">
+        <property name="maximum">
          <number>100000</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="userLabel" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="userLabel">
+        <property name="text">
          <string>User:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="KLineEdit" name="kcfg_WebinterfaceUser" >
-        <property name="showClearButton" stdset="0" >
+      <item row="1" column="1">
+       <widget class="KLineEdit" name="kcfg_WebinterfaceUser">
+        <property name="showClearButton" stdset="0">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="passwordLabel" >
-        <property name="text" >
+      <item row="2" column="0">
+       <widget class="QLabel" name="passwordLabel">
+        <property name="text">
          <string>Password:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="KLineEdit" name="kcfg_WebinterfacePassword" >
-        <property name="showClearButton" stdset="0" >
+      <item row="2" column="1">
+       <widget class="KLineEdit" name="webinterfacePwd">
+        <property name="showClearButton" stdset="0">
          <bool>true</bool>
         </property>
-        <property name="passwordMode" >
+        <property name="passwordMode">
          <bool>true</bool>
         </property>
        </widget>
@@ -75,10 +76,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>

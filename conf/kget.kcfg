@@ -137,9 +137,6 @@
     <entry name="WebinterfaceUser" type="String">
       <default>admin</default>
     </entry>
-    <entry name="WebinterfacePassword" type="String">
-      <default>admin</default>
-    </entry>
   </group>
 
   <group name="Groups">

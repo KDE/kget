@@ -2,6 +2,7 @@
 
    Copyright (C) 2008 - 2009 Urs Wolfer <uwolfer @ kde.org>
    Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
+   Copyright (C) 2011 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,8 +19,8 @@
 
 #include <KDebug>
 #include <KGlobalSettings>
-#include <KMessageBox>
 #include <KStandardDirs>
+#include <kwallet.h>
 
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -29,22 +30,55 @@
 #include <QDateTime>
 
 HttpServer::HttpServer(QWidget *parent)
-    : QObject(parent)
+    : QObject(parent),
+      m_wallet(0)
 {
-    tcpServer = new QTcpServer(this);
-    if (!tcpServer->listen(QHostAddress::Any, Settings::webinterfacePort())) {
-        KMessageBox::error(0, i18nc("@info", "Unable to start the server: %1.", tcpServer->errorString()));
+    m_wallet = KWallet::Wallet::openWallet(KWallet::Wallet::LocalWallet(),
+                                           parent->winId(),///Use MainWindow?
+                                           KWallet::Wallet::Asynchronous);
+    if (m_wallet) {
+        connect(m_wallet, SIGNAL(walletOpened(bool)), SLOT(init(bool)));
+    } else {
+        KGet::showNotification(parent, "error", i18n("Unable to start WebInterface: Could not open KWallet"));
+    }
+}
+
+HttpServer::~HttpServer()
+{
+    delete m_wallet;
+}
+
+void HttpServer::init(bool opened)
+{
+    if (opened &&
+        m_wallet->hasFolder("KGet") &&
+        m_wallet->setFolder("KGet")) {
+        m_wallet->readPassword("Webinterface", m_pwd);
+    } else {
+        KGet::showNotification(static_cast<QWidget*>(parent()), "error", i18n("Unable to start WebInterface: Could not open KWallet"));
+        return;
+    }
+    m_tcpServer = new QTcpServer(this);
+    if (!m_tcpServer->listen(QHostAddress::Any, Settings::webinterfacePort())) {
+        KGet::showNotification(static_cast<QWidget*>(parent()), "error", i18nc("@info", "Unable to start WebInterface: %1", m_tcpServer->errorString()));
         return;
     }
 
-    connect(tcpServer, SIGNAL(newConnection()), this, SLOT(handleRequest()));
+    connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(handleRequest()));
+}
+
+void HttpServer::settingsChanged()
+{
+    if (m_wallet) {
+        m_wallet->readPassword("Webinterface", m_pwd);
+    }
 }
 
 void HttpServer::handleRequest()
 {
     int responseCode = 200;
     QString responseText = "OK";
-    QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
+    QTcpSocket *clientConnection = m_tcpServer->nextPendingConnection();
 
     connect(clientConnection, SIGNAL(disconnected()),
             clientConnection, SLOT(deleteLater()));
@@ -61,7 +95,7 @@ void HttpServer::handleRequest()
     // for HTTP authorization information see: http://www.governmentsecurity.org/articles/OverviewofHTTPAuthentication.php
     QString auth = header.value("Authorization");
     if (auth.length() < 6 || QByteArray::fromBase64(auth.right(auth.length() - 6).toUtf8()) !=
-            QString(Settings::webinterfaceUser() + ':' + Settings::webinterfacePassword())) {
+            QString(Settings::webinterfaceUser() + ':' + m_pwd)) {
         responseCode = 401;
         responseText = "Authorization Required";
         // DO NOT TRANSLATE THE FOLLOWING MESSAGE! webserver messages are never translated.

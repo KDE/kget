@@ -251,16 +251,16 @@ class KGET_EXPORT KGet
          * @return a pointer to the KActionCollection objects
          */
         static KActionCollection * actionCollection();
-	
-	/**
-	 * if running == true starts the scheduler
-	 * if running == false stops the scheduler
-	 */
-	static void setSchedulerRunning(bool running=true);
 
-       /**
-        * Returns true if the scheduler has running jobs.
-        */
+        /**
+         * if running == true starts the scheduler
+         * if running == false stops the scheduler
+         */
+        static void setSchedulerRunning(bool running=true);
+
+        /**
+         * Returns true if the scheduler has running jobs.
+         */
         static bool schedulerRunning();
 
         /**

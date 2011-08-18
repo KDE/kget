@@ -939,6 +939,8 @@ void MainWindow::slotNewConfig()
     } else if (m_webinterface && !Settings::webinterfaceEnabled()) {
         delete m_webinterface;
         m_webinterface = 0;
+    } else if (m_webinterface) {
+        m_webinterface->settingsChanged();
     }
 
     if (Settings::speedLimit())

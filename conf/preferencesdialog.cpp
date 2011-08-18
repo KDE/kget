@@ -29,6 +29,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     QWidget *appearance = new QWidget(this);
     TransfersGroupWidget *groups = new TransfersGroupWidget(this);
     DlgWebinterface *webinterface = new DlgWebinterface(this);
+    connect(webinterface, SIGNAL(changed()), SLOT(enableApplyButton()));
+    connect(webinterface, SIGNAL(saved()), SLOT(settingsChangedSlot()));
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
     IntegrationPreferences *integration = new IntegrationPreferences(this);

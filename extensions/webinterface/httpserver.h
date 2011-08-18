@@ -15,18 +15,28 @@
 
 class QTcpServer;
 
+namespace KWallet {
+    class Wallet;
+}
+
 class HttpServer : public QObject
 {
     Q_OBJECT
 
 public:
     HttpServer(QWidget *parent = 0);
+    ~HttpServer();
+    
+    void settingsChanged();
 
 private slots:
+    void init(bool);
     void handleRequest();
 
 private:
-    QTcpServer *tcpServer;
+    KWallet::Wallet *m_wallet;
+    QTcpServer *m_tcpServer;
+    QString m_pwd;
 };
 
 #endif

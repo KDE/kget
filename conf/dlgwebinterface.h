@@ -15,17 +15,29 @@
 
 #include "ui_dlgwebinterface.h"
 
+namespace KWallet {
+    class Wallet;
+}
+
 class DlgWebinterface : public QWidget, public Ui::DlgWebinterface
 {
     Q_OBJECT
 
 public:
-    DlgWebinterface(QWidget *parent = 0);
+    DlgWebinterface(KDialog *parent = 0);
     ~DlgWebinterface();
+    
+signals:
+    void changed();
+    void saved();
 
 private Q_SLOTS:
     void readConfig();
     void saveSettings();
+    void walletOpened(bool);
+    
+private:
+    KWallet::Wallet *m_wallet;
 };
 
 #endif
