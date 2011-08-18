@@ -156,6 +156,8 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
 
 void DropTarget::playAnimationShow()
 {
+    if (animTimer->isActive())
+        animTimer->stop();
     animTimer->disconnect();
     connect( animTimer, SIGNAL(timeout()),
         this, SLOT(slotAnimateShow()));
@@ -170,8 +172,8 @@ void DropTarget::playAnimationShow()
 
 void DropTarget::playAnimationHide()
 {
-    if ( animTimer->isActive() )
-        move( x(), qRound(ani_y) );
+    if (animTimer->isActive())
+        animTimer->stop();
 
     animTimer->disconnect();
     connect( animTimer, SIGNAL(timeout()),
@@ -183,8 +185,8 @@ void DropTarget::playAnimationHide()
 
 void DropTarget::playAnimationSync()
 {
-    if ( animTimer->isActive() )
-        move( x(), qRound(ani_y) );
+    if (animTimer->isActive())
+        animTimer->stop();
 
     animTimer->disconnect();
     connect( animTimer, SIGNAL(timeout()),
