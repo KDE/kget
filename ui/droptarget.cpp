@@ -136,6 +136,7 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
     if (!shown)
     {
         Settings::setDropPosition( pos() );
+        position = pos();
         if ( Settings::animateDropTarget() )
             playAnimationHide();
         else
