@@ -143,11 +143,12 @@ void DropTarget::setDropTargetVisible( bool shown, bool internal )
     }
     else
     {
-        show();
-        if ( Settings::animateDropTarget() )
+        if ( Settings::animateDropTarget() ) {
             playAnimationShow();
-        else
+        } else {
             move(position);
+            show();
+        }
         slotToolTipUpdate();
     }
 }
@@ -162,6 +163,7 @@ void DropTarget::playAnimationShow()
 
     ani_y = -1;
     ani_vy = 0;
+    show();
     animTimer->start(TARGET_ANI_MS);
 }
 
@@ -381,8 +383,8 @@ void DropTarget::slotAnimateHide()
     if ( new_y < -height() )
     {
         animTimer->stop();
-        move( x(), qRound(ani_y) );
         hide();
+        move( x(), qRound(ani_y) );
     } else
         move( x(), qRound(new_y) );
 }
