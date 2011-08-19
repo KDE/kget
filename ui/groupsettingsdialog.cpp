@@ -56,6 +56,13 @@ GroupSettingsDialog::~GroupSettingsDialog()
 {
 }
 
+QSize GroupSettingsDialog::sizeHint() const
+{
+    QSize sh = KDialog::sizeHint();
+    sh.setWidth(sh.width() * 1.4);
+    return sh;
+}
+
 void GroupSettingsDialog::save()
 {
     //check needed, otherwise "/" would be added as folder if the line was empty!
