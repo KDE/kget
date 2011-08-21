@@ -226,9 +226,16 @@ void NewTransferDialog::showDialog(KUrl::List list, const QString &suggestedFile
 
 void NewTransferDialog::setDefaultDestination()
 {
+    //NOTE if the user enters a file name manually and the changes the group the manually entered file name will be overwritten
     setDestination();
+
+    //set a file name
     if (!m_multiple) {
-        urlChanged(ui.urlRequester->text());
+        const KUrl url(ui.urlRequester->text().trimmed());
+        if ((UrlChecker::checkSource(url) == UrlChecker::NoError) &&
+            QFileInfo(ui.destRequester->url().toLocalFile()).isDir()) {
+            setDestinationFileName(url.fileName());
+        }
     }
 }
 
@@ -261,18 +268,6 @@ void NewTransferDialog::resizeDialog()
 bool NewTransferDialog::isEmpty()
 {
     return (m_multiple ? !ui.listWidget->count() : ui.urlRequester->text().trimmed().isEmpty());
-}
-
-void NewTransferDialog::urlChanged(const QString &text)
-{
-    if (m_multiple) {
-        return;
-    }
-
-    KUrl url(text.trimmed());
-    if (QFileInfo(ui.destRequester->url().toLocalFile()).isDir()) {
-        setDestinationFileName(url.fileName());
-    }
 }
 
 void NewTransferDialog::inputTimer()
