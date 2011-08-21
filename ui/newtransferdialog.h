@@ -61,7 +61,6 @@ class NewTransferDialog : public KDialog
         */
         void showDialog(KUrl::List list, const QString &suggestedFileName = QString());
         void prepareDialog();
-        void resizeDialog();
         bool isEmpty();
 
         /**

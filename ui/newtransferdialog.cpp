@@ -136,6 +136,10 @@ void NewTransferDialog::clear()
         ui.groupComboBox->addItem(KIcon(group->iconName()), group->name());
     }
     ui.groupComboBox->setCurrentItem(Settings::lastGroup());
+
+    const bool multipleGroups = KGet::transferGroupNames().count();
+    ui.groupComboBox->setVisible(multipleGroups);
+    ui.groupLabel->setVisible(multipleGroups);
 }
 
 void NewTransferDialog::setSource(const KUrl::List &sources)
@@ -221,7 +225,6 @@ void NewTransferDialog::showDialog(KUrl::List list, const QString &suggestedFile
         setSource(m_sources);
     }
 
-    resizeDialog();
     prepareDialog();
 }
 
@@ -250,20 +253,6 @@ void NewTransferDialog::prepareDialog()
 
     kDebug(5001) << "Show the dialog!";
     show();
-}
-
-/**
- * FIXME
- * The dialog is always lagging behind, i.e. if first m_multiple is false, then a small dialog will be displayed
- * if next m_multiple is true then still a small dialog will be displayed, then next dialog displayed no matter
- * if m_multiple is true will be large
-*/
-void NewTransferDialog::resizeDialog()
-{
-    if (KGet::transferGroupNames().count() < 2) {
-        ui.groupComboBox->hide();
-        ui.groupLabel->hide();
-    }
 }
 
 bool NewTransferDialog::isEmpty()
