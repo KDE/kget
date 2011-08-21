@@ -77,7 +77,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
 
-    connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(urlChanged(QString)));
+    connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(setDefaultDestination()));
     connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
     connect(ui.listWidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(inputTimer()));
