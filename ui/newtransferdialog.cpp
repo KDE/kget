@@ -513,13 +513,19 @@ void NewTransferDialogHandler::showNewTransferDialog(KUrl::List urls)
     ///Only two urls defined, check if second one is a path or a file name
     if (urls.count() == 2) {
         const KUrl lastUrl = urls.last();
+        QDir dir(lastUrl.toLocalFile());
 
         //check if last url is a file path, either absolute or relative
         if (lastUrl.isLocalFile()) {
             if (QDir::isAbsolutePath(lastUrl.toLocalFile())) {
-                //second url is a file path, use this one
-                folder = lastUrl.directory(KUrl::AppendTrailingSlash);
-                suggestedFileName = lastUrl.fileName();
+                if (dir.exists()) {
+                    //second url is a folder path
+                    folder = lastUrl.path(KUrl::AddTrailingSlash);
+                } else {
+                    //second url is a file path, use this one
+                    folder = lastUrl.directory(KUrl::AppendTrailingSlash);
+                    suggestedFileName = lastUrl.fileName();
+                }
                 urls.removeLast();
             } else {
                 //second url is just a file name
