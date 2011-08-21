@@ -60,7 +60,7 @@ class NewTransferDialog : public KDialog
         /**
         * Shows the dialog adding one url list transfers
         */
-        void showDialog(const KUrl::List &list, const QString &suggestedFileName = QString());
+        void showDialog(KUrl::List list, const QString &suggestedFileName = QString());
         void prepareDialog();
         void resizeDialog();
         bool isEmpty();
@@ -76,7 +76,7 @@ class NewTransferDialog : public KDialog
         void setSource(const KUrl::List &sources);
 
         void setDestinationFileName(const QString &filename);
-        void setDestination(const KUrl::List &sources, const QStringList &list);
+        void setDestination();
 
         void setWarning(const QString &warning);
         void setInformation(const QString &information);
