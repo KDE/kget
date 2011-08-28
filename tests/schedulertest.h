@@ -104,8 +104,8 @@ class SchedulerTest : public QObject
         void testSuspendScheduler_data();
 
         /**
-         * Tests the case where the JobQueuePolicy is set to stop,
-         * by default it is set to start.
+         * Tests the case where the JobQueuePolicy is set to stop
+         * (this also happens on Scheduler::stop()) by default it is set to start.
          * Jobs with a Start policy might be started depending on their
          * other settings
          */

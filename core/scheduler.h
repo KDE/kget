@@ -82,6 +82,7 @@ class KGET_EXPORT Scheduler : public QObject
          * Can be used to suspend the scheduler before doing lenghty operations
          * and activating it later again
          *
+         * NOTE does not stop running jobs, just prevents changes to jobs
          * HACK this is needed since the scheduler would constantly update the queue
          * when stopping starting multiple transfers, this slows down that operation a lot
          * and could result in transfers finishing before they are stopped etc.
