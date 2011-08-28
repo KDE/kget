@@ -25,6 +25,9 @@
 
 class Scheduler;
 
+//TODO how should Job::Moving and Job::FinishedKeepAlive be tested? they clearly depend on the Transfer implementation
+//though TestJob itself already does what Transfers ought to do
+
 /**
  * Makes sure settings are changed on construction and then restored 
  * once the destructor is called
