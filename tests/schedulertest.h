@@ -97,11 +97,29 @@ class SchedulerTest : public QObject
          * Stops the scheduler and then starts it again to see if jobs
          * are correctly started
          */
-        void testSchedulerStartStop();
-        void testSchedulerStartStop_data();
+        void testSchedulerStopStart();
+        void testSchedulerStopStart_data();
 
         void testSuspendScheduler();
         void testSuspendScheduler_data();
+
+        /**
+         * Tests the case where the JobQueuePolicy is set to stop,
+         * by default it is set to start.
+         * Jobs with a Start policy might be started depending on their
+         * other settings
+         */
+        void testJobQueueStopPolicy();
+        void testJobQueueStopPolicy_data();
+
+        /**
+         * Tests the case where the JobQueuePolicy is set to stop,
+         * and then set to start again. By default it is set to start.
+         * Jobs with a Start policy might be started depending on their
+         * other settings
+         */
+        void testJobQueueStopStartPolicy();
+        void testJobQueueStopStartPolicy_data();
 
     private:
         static const int NO_LIMIT;
