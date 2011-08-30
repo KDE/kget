@@ -19,7 +19,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     kde4_add_unit_test(kget_test_transfers
         ${kget_test_transfers_SRCS})
 
-    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} kgetcore)
+    target_link_libraries(kget_test_transfers kgetcore ${QT_QTCORE_LIBRARY} ${QT_QTTEST_LIBRARY})
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
 
@@ -29,7 +29,7 @@ kde4_add_unit_test(verifiertest
   verifiertest.cpp
 )
 
-target_link_libraries(verifiertest ${QT_QTTEST_LIBRARY} kgetcore)
+target_link_libraries(verifiertest kgetcore ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QCA2_LIBRARIES})
 
 
 #===========Scheduler===========
