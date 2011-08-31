@@ -1,5 +1,5 @@
-/***************************************************************************
-*   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>                     *
+/**************************************************************************
+*   Copyright (C) 2011 Matthias Fuchs <mat69@gmx.net>                     *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
@@ -17,31 +17,31 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
 ***************************************************************************/
 
-#ifndef KGET_BASE_DIALOG
-#define KGET_BASE_DIALOG
+#ifndef URL_CHECKER_P_H
+#define URL_CHECKER_P_H
 
-#include "../kget_export.h"
 #include <KDialog>
 
 class QCheckBox;
 
 /**
- * Subclass to make sure that the size of the dialog is
- * automatically stored and restored
+ * Asks if existing transfers should be overwritten
  */
-class KGET_EXPORT KGetSaveSizeDialog : public KDialog
+class ExistingTransferDialog : public KDialog
 {
     Q_OBJECT
 
     public:
-        /**
-         * Restores the dialog to the size saved for name
-         */
-        explicit KGetSaveSizeDialog(const QByteArray &name, QWidget *parent = 0, Qt::WFlags flags = 0);
-        virtual ~KGetSaveSizeDialog();
-        
+        ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent = 0);
+
+    private slots:
+        void slotYesClicked();
+        void slotNoClicked();
+        void slotCancelClicked();
+
     private:
-        QByteArray m_name;
+        QCheckBox *m_applyAll;
 };
 
 #endif
+

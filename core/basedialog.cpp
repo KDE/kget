@@ -20,20 +20,6 @@
 #include "basedialog.h"
 #include "settings.h"
 
-KGetBaseDialog::KGetBaseDialog(QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags)
-{
-}
-
-void KGetBaseDialog::slotButtonClicked(int button)
-{
-    if ((button == KDialog::User1) || (button == KDialog::User2) || (button == KDialog::User3)) {
-        done(button);
-    } else {
-        KDialog::slotButtonClicked(button);
-    }
-}
-
 KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags),
     m_name("Size" + name)

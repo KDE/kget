@@ -20,20 +20,69 @@
 ***************************************************************************/
 
 #include "urlchecker.h"
+#include "urlchecker_p.h"
 #include "mainwindow.h"
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
-#include "core/basedialog.h"
 #include "settings.h"
 
 #include <QtCore/QFileInfo>
+#include <QtGui/QCheckBox>
+#include <QtGui/QHBoxLayout>
 
-#include <KDialog>
+#include <KDialogButtonBox>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocale>
-#include <KMessageBox>
+#include <KSeparator>
+#include <KStandardGuiItem>
+
+ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent)
+  : KDialog(parent)
+{
+    setCaption(caption.isEmpty() ? i18n("Question") : caption);
+    setModal(true);
+    setButtons(0);
+
+    QWidget *widget = new QWidget(this);
+    QVBoxLayout *layout = new QVBoxLayout;
+    QHBoxLayout *bottomLayout = new QHBoxLayout;
+
+    QLabel *label = new QLabel(text, this);
+    layout->addWidget(label);
+    layout->addWidget(new KSeparator(Qt::Horizontal, this));
+
+    m_applyAll = new QCheckBox(i18n("Appl&y to all"), this);
+    bottomLayout->addStretch(1);
+    bottomLayout->addWidget(m_applyAll);
+
+    KDialogButtonBox *buttonBox = new KDialogButtonBox(this);
+    buttonBox->addButton(KStandardGuiItem::yes(), QDialogButtonBox::YesRole, this, SLOT(slotYesClicked()));
+    buttonBox->addButton(KStandardGuiItem::no(), QDialogButtonBox::NoRole, this, SLOT(slotNoClicked()));
+    buttonBox->addButton(KStandardGuiItem::cancel(), QDialogButtonBox::RejectRole, this, SLOT(slotCancelClicked()));
+    bottomLayout->addWidget(buttonBox);
+    layout->addLayout(bottomLayout, 0);
+
+    widget->setLayout(layout);
+    setMainWidget(widget);
+}
+
+void ExistingTransferDialog::slotYesClicked()
+{
+   done(m_applyAll->isChecked() ? KDialog::User2 : KDialog::Yes);
+}
+
+void ExistingTransferDialog::slotNoClicked()
+{
+   done(m_applyAll->isChecked() ? KDialog::User1 : KDialog::No);
+}
+
+void ExistingTransferDialog::slotCancelClicked()
+{
+    done(QDialog::Rejected);
+}
+
 
 UrlChecker::UrlChecker(UrlType type)
   : m_type(type),
@@ -610,20 +659,9 @@ int UrlChecker::hasExistingDialog(const KUrl &url, const UrlChecker::UrlType typ
         }
     }
 
-    const QString text = message(url, type, warning);
+    QScopedPointer<KDialog> dialog(new ExistingTransferDialog(message(url, type, warning), caption, parent));
 
-    KDialog *dialog = new KGetBaseDialog(parent, Qt::Dialog);
-    dialog->setCaption(caption.isEmpty() ? i18n("Question") : caption);
-    dialog->setButtons(KDialog::Yes | KDialog::User1 | KDialog::No | KDialog::User2 | KDialog::Cancel);
-    dialog->setButtonText(KDialog::User2, i18nc("on a question", "Yes all"));
-    dialog->setButtonText(KDialog::User1, i18nc("on a question", "No all"));
-    dialog->setModal(true);
-    dialog->setDefaultButton(KDialog::No);
-    dialog->setEscapeButton(KDialog::No);
-
-    const int result = KMessageBox::createKMessageBox(dialog, QMessageBox::Information,
-                       text, QStringList(), QString(), 0, KMessageBox::Notify);
-
+    const int result = dialog->exec();
     switch (result) {
         case QDialog::Rejected:
             return Cancel;
