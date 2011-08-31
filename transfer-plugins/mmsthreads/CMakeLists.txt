@@ -1,5 +1,6 @@
 include_directories(
    ../../
+   ${LIBMMS_INCLUDE_DIR}
 )
 
 set(kget_mmsfactory_PART_SRCS
@@ -12,7 +13,7 @@ set(kget_mmsfactory_PART_SRCS
 kde4_add_kcfg_files(kget_mmsfactory_PART_SRCS mmssettings.kcfgc)
 kde4_add_plugin(kget_mmsfactory ${kget_mmsfactory_PART_SRCS})
 
-target_link_libraries(kget_mmsfactory ${KDE4_KIO_LIBS} kgetcore mms)
+target_link_libraries(kget_mmsfactory ${KDE4_KIO_LIBS} kgetcore ${LIBMMS_LIBRARIES})
 
 install(TARGETS kget_mmsfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES kget_mmsfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
