@@ -14,6 +14,9 @@
 #include "core/transferhandler.h"
 #include "settings.h"
 
+#include <algorithm>
+#include <boost/bind.hpp>
+
 #include <KDebug>
 
 Scheduler::Scheduler(QObject * parent)
@@ -61,9 +64,7 @@ void Scheduler::setHasNetworkConnection(bool hasConnection)
                 m_failureCheckTimer = 0;
             }
             foreach (JobQueue *queue, m_queues) {
-                for (JobQueue::iterator it = queue->begin(); it != queue->end(); ++it) {
-                    (*it)->stop();
-                }
+                std::for_each(queue->begin(), queue->end(), boost::bind(&Job::stop, _1));
             }
         }
     }
@@ -83,17 +84,8 @@ void Scheduler::delQueue(JobQueue * queue)
 int Scheduler::countRunningJobs()
 {
     int count = 0;
-
-    foreach(JobQueue * queue, m_queues)
-    {
-        JobQueue::iterator it = queue->begin();
-        JobQueue::iterator itEnd = queue->end();
-
-        for( ; it!=itEnd ; ++it )
-        {
-            if((*it)->status() == Job::Running)
-                count++;
-        }
+    foreach(JobQueue * queue, m_queues) {
+        count += std::count_if(queue->begin(), queue->end(), boost::bind(&Job::status, _1) == Job::Running);
     }
 
     return count;
@@ -226,24 +218,12 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
 
 void Scheduler::start()
 {
-    QList<JobQueue *>::iterator it = m_queues.begin();
-    QList<JobQueue *>::iterator itEnd = m_queues.end();
-
-    for( ; it!=itEnd ; ++it )
-    {
-        (*it)->setStatus(JobQueue::Running);
-    }
+    std::for_each(m_queues.begin(), m_queues.end(), boost::bind(&JobQueue::setStatus, _1, JobQueue::Running));
 }
 
 void Scheduler::stop()
 {
-    QList<JobQueue *>::iterator it = m_queues.begin();
-    QList<JobQueue *>::iterator itEnd = m_queues.end();
-
-    for( ; it!=itEnd ; ++it )
-    {
-        (*it)->setStatus(JobQueue::Stopped);
-    }
+    std::for_each(m_queues.begin(), m_queues.end(), boost::bind(&JobQueue::setStatus, _1, JobQueue::Stopped));
 }
 
 void Scheduler::updateQueue( JobQueue * queue )

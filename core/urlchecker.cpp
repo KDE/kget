@@ -27,6 +27,9 @@
 #include "core/transfertreemodel.h"
 #include "settings.h"
 
+#include <algorithm>
+#include <boost/bind.hpp>
+
 #include <QtCore/QFileInfo>
 #include <QtGui/QCheckBox>
 #include <QtGui/QHBoxLayout>
@@ -99,29 +102,19 @@ UrlChecker::~UrlChecker()
 
 ///Static methods following
 
-inline bool lessThan(const KUrl &x, const KUrl &y)
+struct lessThan
 {
-    return x.url() < y.url();
-}
+    bool operator()(const KUrl &lhs, const KUrl &rhs) const
+    {
+        return lhs.url() < rhs.url();
+    }
+};
 
 void UrlChecker::removeDuplicates(KUrl::List &urls)
 {
-    //sort the urls, to find duplicates fast
-    qSort(urls.begin(), urls.end(), lessThan);
-
-    KUrl::List::iterator it = urls.begin();
-    KUrl::List::iterator itEnd = urls.end();
-    KUrl::List::iterator itFoward = it + 1;
-    while ((it != itEnd) && (itFoward != itEnd)) {
-        //urls are the same, remove one
-        if ((*it).equals(*itFoward, KUrl::CompareWithoutTrailingSlash | KUrl::AllowEmptyPath)) {
-            it = urls.erase(it);
-            ++itFoward;
-        } else {
-            ++it;
-            ++itFoward;
-        }
-    }
+    std::sort(urls.begin(), urls.end(), lessThan());//sort the urls, to find duplicates fast
+    urls.erase(std::unique(urls.begin(), urls.end(),
+               boost::bind(&KUrl::equals, _1, _2, KUrl::CompareWithoutTrailingSlash | KUrl::AllowEmptyPath)), urls.end());
 }
 
 UrlChecker::UrlError UrlChecker::checkUrl(const KUrl &url, const UrlChecker::UrlType type, bool showNotification)
