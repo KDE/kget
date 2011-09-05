@@ -90,6 +90,13 @@ class KGET_EXPORT Scheduler : public QObject
         void setIsSuspended(bool isSuspended);
 
         /**
+         * The JobQueues will be informed of changes in the network connection
+         * If there is no network connection then the Scheduler won't act on
+         * the timerEvent or updateQueue
+         */
+        void setHasNetworkConnection(bool hasConnection);
+
+        /**
          * Adds a queue to the scheduler.
          *
          * @param queue The queue that should be added
@@ -150,6 +157,14 @@ class KGET_EXPORT Scheduler : public QObject
         //Virtual QObject method
         void timerEvent(QTimerEvent * event);
 
+        /**
+         * Calls updateQueue for all queues
+         * @see updateQueue
+         */
+        void updateAllQueues();
+
+        bool shouldUpdate() const;
+
     private:
         QList<JobQueue *> m_queues;
         QMap<Job *, JobFailure> m_failedJobs;
@@ -160,6 +175,11 @@ class KGET_EXPORT Scheduler : public QObject
         int m_stallTimeout;
         int m_abortTimeout;
         bool m_isSuspended;
+        bool m_hasConnection;
 };
 
+inline bool Scheduler::shouldUpdate() const
+{
+    return !m_isSuspended && m_hasConnection;
+}
 #endif

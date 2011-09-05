@@ -22,7 +22,8 @@ Scheduler::Scheduler(QObject * parent)
     m_stallTime(5),
     m_stallTimeout(Settings::reconnectDelay()),
     m_abortTimeout(Settings::reconnectDelay()),
-    m_isSuspended(false)
+    m_isSuspended(false),
+    m_hasConnection(true)
 {
 
 }
@@ -38,9 +39,32 @@ void Scheduler::setIsSuspended(bool isSuspended)
     m_isSuspended = isSuspended;
 
     //update all the queues
-    if (changed && !m_isSuspended) {
-        foreach (JobQueue *queue, m_queues) {
-            updateQueue(queue);
+    if (changed && shouldUpdate()) {
+        updateAllQueues();
+    }
+}
+
+void Scheduler::setHasNetworkConnection(bool hasConnection)
+{
+    const bool changed = (hasConnection != m_hasConnection);
+    m_hasConnection = hasConnection;
+
+    if (changed) {
+        if (hasConnection) {
+            if (!m_failureCheckTimer) {
+                m_failureCheckTimer = startTimer(1000);
+            }
+            updateAllQueues();
+        } else {
+            if (m_failureCheckTimer) {
+                killTimer(m_failureCheckTimer);
+                m_failureCheckTimer = 0;
+            }
+            foreach (JobQueue *queue, m_queues) {
+                for (JobQueue::iterator it = queue->begin(); it != queue->end(); ++it) {
+                    (*it)->stop();
+                }
+            }
         }
     }
 }
@@ -80,10 +104,7 @@ void Scheduler::settingsChanged()
     m_stallTimeout = Settings::reconnectDelay();
     m_abortTimeout = Settings::reconnectDelay();
     
-    foreach(JobQueue * queue, m_queues)
-    {
-        updateQueue(queue);
-    }
+    updateAllQueues();
 }
 
 void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
@@ -229,12 +250,8 @@ void Scheduler::updateQueue( JobQueue * queue )
 {
     static bool updatingQueue = false;
     
-    if(updatingQueue)
+    if (!shouldUpdate() || updatingQueue)
         return;
-
-    if (m_isSuspended) {
-        return;
-    }
 
     updatingQueue = true;
        
@@ -307,6 +324,13 @@ void Scheduler::updateQueue( JobQueue * queue )
     updatingQueue = false;
 }
 
+void Scheduler::updateAllQueues()
+{
+    foreach (JobQueue *queue, m_queues) {
+        updateQueue(queue);
+    }
+}
+
 bool Scheduler::shouldBeRunning( Job * job )
 {
     Job::Policy policy = job->policy();
@@ -331,7 +355,7 @@ void Scheduler::timerEvent( QTimerEvent * event )
     Q_UNUSED(event)
 //     kDebug(5001);
 
-    if (m_isSuspended) {
+    if (!shouldUpdate()) {
         return;
     }
 

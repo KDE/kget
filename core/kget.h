@@ -24,6 +24,7 @@
 #include <KNotification>
 #include <ktabwidget.h>
 
+#include <Solid/Networking>
 #include <QtXml/QDomElement>
 
 #include "kuiserverjobs.h"
@@ -415,6 +416,12 @@ class KGET_EXPORT KGet
         //Plugin-related functions
         static KGetPlugin * createPluginFromService( const KService::Ptr &service );
 
+        /**
+         * Stops all downloads if there is no connection and also displays
+         * a message.
+         * If there is a connection, then the downloads will be started again
+         */
+        static void setHasNetworkConnection(bool hasConnection);
 
         /**
          * Deletes the given file, if possible.
@@ -445,6 +452,8 @@ class KGET_EXPORT KGet
 
         //pointer to the used TransferHistoryStore
         static TransferHistoryStore *m_store;
+
+        static bool m_hasConnection;
 
 #ifdef HAVE_NEPOMUK
         static NepomukController *m_nepomukController;
@@ -485,6 +494,7 @@ class GenericObserver : public QObject
         void slotAbortAfterFinishAction();
         void slotResolveTransferError();
         void slotNotificationClosed();
+        void slotNetworkStatusChanged(const Solid::Networking::Status &status);
 
     private:
         bool allTransfersFinished();

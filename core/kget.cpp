@@ -814,6 +814,7 @@ TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
 TransferHistoryStore * KGet::m_store = 0;
+bool KGet::m_hasConnection = true;
 #ifdef HAVE_NEPOMUK
     NepomukController *KGet::m_nepomukController = 0;
 #endif
@@ -834,6 +835,10 @@ KGet::KGet()
                      m_jobManager,        SLOT(slotTransfersAboutToBeRemoved(QList<TransferHandler*>)));
     QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
                      m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler*,Transfer::ChangesFlags>)));
+
+    //check if there is a connection
+    const Solid::Networking::Status status = Solid::Networking::status();
+    KGet::setHasNetworkConnection((status == Solid::Networking::Connected) || (status == Solid::Networking::Unknown));
             
     //Load all the available plugins
     loadPlugins();
@@ -1214,6 +1219,28 @@ void KGet::loadPlugins()
     kDebug(5001) << "Number of factories = " << m_transferFactories.size();
 }
 
+
+void KGet::setHasNetworkConnection(bool hasConnection)
+{
+    kDebug(5001) << "Existing internet connection:" << hasConnection << "old:" << m_hasConnection;
+    if (hasConnection == m_hasConnection) {
+        return;
+    }
+    m_hasConnection = hasConnection;
+
+    if (hasConnection) {
+        KGet::showNotification(m_mainWindow, "notification",
+                               i18n("Internet connection established, resuming transfers."),
+                               "dialog-info");
+
+    } else {
+        KGet::showNotification(m_mainWindow, "notification",
+                               i18n("No internet connection, stopping transfers."),
+                               "dialog-info");
+    }
+    m_scheduler->setHasNetworkConnection(hasConnection);
+}
+
 KGetPlugin * KGet::createPluginFromService( const KService::Ptr &service )
 {
     //try to load the specified library
@@ -1278,6 +1305,9 @@ GenericObserver::GenericObserver(QObject *parent)
                            SLOT(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(transferMovedEvent(TransferHandler*,TransferGroupHandler*)),
                            SLOT(transferMovedEvent(TransferHandler*,TransferGroupHandler*)));
+    connect(Solid::Networking::notifier(), SIGNAL(statusChanged(Solid::Networking::Status)),
+                         this, SLOT(slotNetworkStatusChanged(Solid::Networking::Status)));
+
 }
 
 GenericObserver::~GenericObserver()
@@ -1463,6 +1493,11 @@ void GenericObserver::slotNotificationClosed()
     KNotification * notification = static_cast<KNotification*>(QObject::sender());
     if (notification)
         m_notifications.remove(notification);
+}
+
+void GenericObserver::slotNetworkStatusChanged(const Solid::Networking::Status &status)
+{
+    KGet::setHasNetworkConnection((status == Solid::Networking::Connected) || (status == Solid::Networking::Unknown));
 }
 
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)

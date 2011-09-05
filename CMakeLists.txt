@@ -146,7 +146,7 @@ qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverif
 
 kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
 
-target_link_libraries(kgetcore ${KDE4_KIO_LIBS})
+target_link_libraries(kgetcore ${KDE4_KIO_LIBS} ${KDE4_SOLID_LIBS})
 
 if (KDE4WORKSPACE_FOUND)
     target_link_libraries(kgetcore ${KDE4WORKSPACE_KWORKSPACE_LIBS})
