@@ -52,7 +52,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         /**
          * The capabilities the DataSourceFactory supports
          */
-        Transfer::Capabilities capabilities() const;
+        Transfer::Capabilities capabilities() const {return m_capabilities;}
 
         /**
          * Deletes the created (downloadInitialized() is true) file if the download was not finished
@@ -74,23 +74,23 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         void start();
         void stop();
-        KIO::filesize_t size() const;
-        KIO::filesize_t downloadedSize() const;
-        ulong currentSpeed() const;
-        ulong percent() const;
+        KIO::filesize_t size() const {return m_size;}
+        KIO::filesize_t downloadedSize() const {return m_downloadedSize;}
+        ulong currentSpeed() const {return m_speed;}
+        ulong percent() const {return m_percent;}
 
-        KUrl dest() const;
+        KUrl dest() const {return m_dest;}
 
         /**
          * The maximum number of mirrors that will be used for downloading, default is 3
          */
-        int maxMirrorsUsed() const;
+        int maxMirrorsUsed() const {return m_maxMirrorsUsed;}
 
         /**
          * Change the maximum number off mirrors that will be used for downloading,
          * if the download started already some mirrors might be added or removed automatically
          */
-        void setMaxMirrorsUsed(int maxMirrorsUsed);
+        void setMaxMirrorsUsed(int maxMirrorsUsed) {m_maxMirrorsUsed = maxMirrorsUsed;}
 
         /**
          * Add a mirror that can be used for downloading
@@ -144,7 +144,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * true by default
          * @note can be used for multiple datasourcefactory downloads
          */
-        bool doDownload() const;
+        bool doDownload() const {return m_doDownload;}
 
         /**
          * Set if the datasourcefactory should download the file or not,
@@ -155,14 +155,14 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         bool setNewDestination(const KUrl &newDest);
 
-        Job::Status status() const;
+        Job::Status status() const {return m_status;}
 
         /**
          * @return true if the download was already initialized, i.e. a file has been
          * created and maybe even written to
          * @see deinit()
          */
-        bool downloadInitialized() const;
+        bool downloadInitialized() const {return m_downloadInitialized;}
 
         /**
          * Tries to repair a broken download, via completely redownloading it

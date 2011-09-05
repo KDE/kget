@@ -150,7 +150,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @returns the Job in the queue at the given index i
          */
-        Transfer * operator[] (int i) const;
+        Transfer * operator[] (int i) const {return (Transfer *)((* (JobQueue *)this)[i]);}
 
         /**Set the group name
          * @param name group name
@@ -280,7 +280,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @return the handler associated with this group
          */
-        TransferGroupHandler * handler() const;
+        TransferGroupHandler * handler() const {return m_handler;}
 
         /**
          * @returns the TransferTreeModel that owns this group

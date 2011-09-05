@@ -93,7 +93,7 @@ class KGET_EXPORT Job : public QObject
         Status status() const {return m_status;}
         Status startStatus() const { return m_startStatus;}
         Policy policy() const {return m_policy;}
-        Error error() const;
+        Error error() const {return m_error;}
 
         virtual int elapsedTime() const =0;
         virtual int remainingTime() const =0;

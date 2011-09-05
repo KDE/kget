@@ -100,7 +100,7 @@ class KGET_EXPORT Transfer : public Job
         /**
          * Returns the capabilities this Transfer supports
          */
-        Capabilities capabilities() const;
+        Capabilities capabilities() const {return m_capabilities;}
 
         /**
          * This functions gets called whenever a Transfer gets created. As opposed
@@ -148,7 +148,7 @@ class KGET_EXPORT Transfer : public Job
         /**
          * @returns all files of this transfer
          */
-        virtual QList<KUrl> files() const;
+        virtual QList<KUrl> files() const {return QList<KUrl>() << m_dest;}
 
         /**
          * @returns the directory the Transfer will be stored to

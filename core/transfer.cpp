@@ -65,11 +65,6 @@ Transfer::~Transfer()
 {
 }
 
-Transfer::Capabilities Transfer::capabilities() const
-{
-    return m_capabilities;
-}
-
 void Transfer::setCapabilities(Capabilities capabilities)
 {
     if (m_capabilities != capabilities) {
@@ -113,12 +108,6 @@ void Transfer::setNepomukHandler(NepomukHandler *handler)
     m_nepomukHandler = handler;
 }
 #endif //HAVE_NEPOMUK
-
-QList<KUrl> Transfer::files() const
-{
-    return QList<KUrl>() << m_dest;
-}
-
 
 bool Transfer::setDirectory(const KUrl& newDirectory)
 {

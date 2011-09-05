@@ -173,18 +173,6 @@ Transfer *TransferGroup::findTransferByDestination(const KUrl &dest)
     return 0;
 }
 
-Transfer * TransferGroup::operator[] (int i) const
-{
-//     kDebug(5001) << "TransferGroup::operator[]";
-
-    return (Transfer *)((* (JobQueue *)this)[i]);
-}
-
-TransferGroupHandler * TransferGroup::handler() const
-{
-    return m_handler;
-}
-
 void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) 
 {
     if (limit == Transfer::VisibleSpeedLimit) {

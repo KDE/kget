@@ -1205,56 +1205,6 @@ bool DataSourceFactory::isValid() const
     return valid;
 }
 
-KIO::filesize_t DataSourceFactory::size() const
-{
-    return m_size;
-}
-
-KIO::filesize_t DataSourceFactory::downloadedSize() const
-{
-    return m_downloadedSize;
-}
-
-ulong DataSourceFactory::currentSpeed() const
-{
-    return m_speed;
-}
-
-ulong DataSourceFactory::percent() const
-{
-    return m_percent;
-}
-
-KUrl DataSourceFactory::dest() const
-{
-    return m_dest;
-}
-
-int DataSourceFactory::maxMirrorsUsed() const
-{
-    return m_maxMirrorsUsed;
-}
-
-void DataSourceFactory::setMaxMirrorsUsed(int maxMirrorsUsed)
-{
-    m_maxMirrorsUsed = maxMirrorsUsed;
-}
-
-bool DataSourceFactory::doDownload() const
-{
-    return m_doDownload;
-}
-
-Job::Status DataSourceFactory::status() const
-{
-    return m_status;
-}
-
-bool DataSourceFactory::downloadInitialized() const
-{
-    return m_downloadInitialized;
-}
-
 Verifier *DataSourceFactory::verifier()
 {
     if (!m_verifier) {
@@ -1271,11 +1221,6 @@ Signature *DataSourceFactory::signature()
     }
 
     return m_signature;
-}
-
-Transfer::Capabilities DataSourceFactory::capabilities() const
-{
-    return m_capabilities;
 }
 
 void DataSourceFactory::slotUpdateCapabilities()

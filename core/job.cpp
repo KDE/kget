@@ -71,11 +71,6 @@ void Job::setError(const QString &text, const QPixmap &pixmap, ErrorType type, i
     m_error.type = type;
 }
 
-Job::Error Job::error() const
-{
-    return m_error;
-}
-
 void Job::resolveError(int errorId)
 {
     Q_UNUSED(errorId)
