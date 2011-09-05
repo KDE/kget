@@ -54,22 +54,22 @@ class KGET_EXPORT JobQueue : public QObject
         /**
          * @return the begin of the job's list
          */
-        inline iterator begin()    {return m_jobs.begin();}
+        iterator begin()    {return m_jobs.begin();}
 
         /**
          * @return the end of the job's list
          */
-        inline iterator end()      {return m_jobs.end();}
+        iterator end()      {return m_jobs.end();}
 
         /**
          * @return the last job in the job's list
          */
-        inline Job * last()        {return m_jobs.last();}
+        Job * last()        {return m_jobs.last();}
 
         /**
          * @return the number of jobs in the queue
          */
-        inline int size() const    {return m_jobs.size();}
+        int size() const    {return m_jobs.size();}
 
         /**
          * @param job The job for which we want to find the index
@@ -82,7 +82,7 @@ class KGET_EXPORT JobQueue : public QObject
         /**
          * @returns the Job in the queue at the given index i
          */
-        Job * operator[] (int i) const;
+        Job * operator[] (int i) const  {return m_jobs[i];}
 
         /**
          * @return a list with the running Jobs

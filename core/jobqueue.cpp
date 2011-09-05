@@ -26,11 +26,6 @@ JobQueue::~JobQueue()
 {
 }
 
-Job * JobQueue::operator[] (int i) const
-{
-    return m_jobs[i];
-}
-
 const QList<Job *> JobQueue::runningJobs()
 {
     QList<Job *> jobs;
