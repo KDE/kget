@@ -159,7 +159,7 @@ void MainWindow::setupActions()
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
     KAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
-    createMetalinkAction->setText(i18n("&Create a Metalink"));
+    createMetalinkAction->setText(i18n("&Create a Metalink..."));
     createMetalinkAction->setIcon(KIcon("journal-new"));
     createMetalinkAction->setHelpText(i18n("Creates or modifies a metalink and saves it on disk"));
     connect(createMetalinkAction, SIGNAL(triggered()), SLOT(slotCreateMetalink()));
