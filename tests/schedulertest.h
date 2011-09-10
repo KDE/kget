@@ -127,6 +127,20 @@ class SchedulerTest : public QObject
         void testJobErrorType();
         void testJobErrorType_data();
 
+        /**
+         * There is no connection and transfers are added.
+         * Then connection is retrieved.
+         */
+        void testGettingNetworkConnection();
+        void testGettingNetworkConnection_data();
+
+        /**
+         * There is a connection and transfers are added.
+         * Then connection is lost.
+         */
+        void testLosingNetworkConnection();
+        void testLosingNetworkConnection_data();
+
     private:
         static const int NO_LIMIT;
 };

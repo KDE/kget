@@ -444,6 +444,68 @@ void SchedulerTest::testJobErrorType_data()
     QTest::newRow("queue stopped, job::stop, notsolveable, aborted") << false << Job::Stop << Job::NotSolveable << Job::Aborted;
 }
 
+void SchedulerTest::testGettingNetworkConnection()
+{
+    QFETCH(Job::Policy, policy);
+    QFETCH(Job::Status, finalStatus);
+
+    SettingsHelper helper(NO_LIMIT);
+
+    Scheduler scheduler;
+    TestQueue *queue = new TestQueue(&scheduler);
+    scheduler.addQueue(queue);
+    scheduler.setHasNetworkConnection(false);
+
+    TestJob *job = new TestJob(&scheduler, queue);
+    job->setPolicy(policy);
+    queue->appendPub(job);
+
+    scheduler.setHasNetworkConnection(true);
+
+    QCOMPARE(job->policy(), policy);//the policy should remain unchanged
+    QCOMPARE(job->status(), finalStatus);
+}
+
+void SchedulerTest::testGettingNetworkConnection_data()
+{
+    QTest::addColumn<Job::Policy>("policy");
+    QTest::addColumn<Job::Status>("finalStatus");
+
+    QTest::newRow("Start, Running") << Job::Start << Job::Running;
+    QTest::newRow("Stop, Stopped") << Job::Stop << Job::Stopped;
+    QTest::newRow("None, Running") << Job::None << Job::Running;
+}
+
+void SchedulerTest::testLosingNetworkConnection()
+{
+    QFETCH(Job::Policy, policy);
+
+    SettingsHelper helper(NO_LIMIT);
+
+    Scheduler scheduler;
+    TestQueue *queue = new TestQueue(&scheduler);
+    scheduler.addQueue(queue);
+    scheduler.setHasNetworkConnection(true);
+
+    TestJob *job = new TestJob(&scheduler, queue);
+    job->setPolicy(policy);
+    queue->appendPub(job);
+
+    scheduler.setHasNetworkConnection(false);
+
+    QCOMPARE(job->policy(), policy);//the policy should remain unchanged
+    QCOMPARE(job->status(), Job::Stopped);
+}
+
+void SchedulerTest::testLosingNetworkConnection_data()
+{
+    QTest::addColumn<Job::Policy>("policy");
+
+    QTest::newRow("Start") << Job::Start;
+    QTest::newRow("Stop") << Job::Stop;
+    QTest::newRow("None") << Job::None;
+}
+
 QTEST_MAIN(SchedulerTest)
 
 #include "schedulertest.moc"
