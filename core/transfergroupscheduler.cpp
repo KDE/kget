@@ -13,8 +13,8 @@
 #include "transfergrouphandler.h"
 #include "settings.h"
 
-TransferGroupScheduler::TransferGroupScheduler()
-  : Scheduler(),
+TransferGroupScheduler::TransferGroupScheduler(QObject *parent)
+  : Scheduler(parent),
     m_downloadLimit(0),
     m_uploadLimit(0)
 {

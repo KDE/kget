@@ -810,7 +810,7 @@ void KGet::calculateGlobalUploadLimit()
 TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
-TransferGroupScheduler * KGet::m_scheduler = new TransferGroupScheduler();
+TransferGroupScheduler * KGet::m_scheduler = 0;
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
 TransferHistoryStore * KGet::m_store = 0;
@@ -826,6 +826,7 @@ KGet::KGet()
     Nepomuk::ResourceManager::instance()->init();
 #endif
 
+    m_scheduler = new TransferGroupScheduler();
     m_transferTreeModel = new TransferTreeModel(m_scheduler);
     m_selectionModel = new TransferTreeSelectionModel(m_transferTreeModel);
 
