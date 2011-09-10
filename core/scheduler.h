@@ -33,6 +33,8 @@ class KGET_EXPORT Scheduler : public QObject
 {
     Q_OBJECT
 
+    friend class SchedulerTest;
+
     public:
 
         enum FailureStatus {

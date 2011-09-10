@@ -141,6 +141,9 @@ class SchedulerTest : public QObject
         void testLosingNetworkConnection();
         void testLosingNetworkConnection_data();
 
+        void testShouldUpdate();
+        void testShouldUpdate_data();
+
     private:
         static const int NO_LIMIT;
 };

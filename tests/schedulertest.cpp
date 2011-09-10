@@ -506,6 +506,37 @@ void SchedulerTest::testLosingNetworkConnection_data()
     QTest::newRow("None") << Job::None;
 }
 
+void SchedulerTest::testShouldUpdate()
+{
+    QFETCH(bool, isSuspended);
+    QFETCH(bool, hasNetworkConnection);
+    QFETCH(bool, shouldUpdate);
+
+    SettingsHelper helper(NO_LIMIT);
+
+    Scheduler scheduler;
+    TestQueue *queue = new TestQueue(&scheduler);
+    scheduler.addQueue(queue);
+
+    QVERIFY(scheduler.shouldUpdate());//should be true by default
+
+    scheduler.setIsSuspended(isSuspended);
+    scheduler.setHasNetworkConnection(hasNetworkConnection);
+
+    QCOMPARE(scheduler.shouldUpdate(), shouldUpdate);
+}
+
+void SchedulerTest::testShouldUpdate_data()
+{
+    QTest::addColumn<bool>("isSuspended");
+    QTest::addColumn<bool>("hasNetworkConnection");
+    QTest::addColumn<bool>("shouldUpdate");
+
+    QTest::newRow("false, true, true") << false << true << true;
+    QTest::newRow("true, true, false") << true << true << false;
+    QTest::newRow("false, false, false") << false << false << false;
+}
+
 QTEST_MAIN(SchedulerTest)
 
 #include "schedulertest.moc"
