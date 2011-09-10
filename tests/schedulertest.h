@@ -124,6 +124,9 @@ class SchedulerTest : public QObject
         void testJobQueueStopStartPolicy();
         void testJobQueueStopStartPolicy_data();
 
+        void testJobErrorType();
+        void testJobErrorType_data();
+
     private:
         static const int NO_LIMIT;
 };

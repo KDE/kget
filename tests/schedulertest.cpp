@@ -24,6 +24,9 @@
 #include <QtCore/QVariant>
 #include <QtTest/QtTest>
 
+Q_DECLARE_METATYPE(Job::ErrorType)
+Q_DECLARE_METATYPE(Job::Status)
+Q_DECLARE_METATYPE(Job::Policy)
 Q_DECLARE_METATYPE(QList<Job::Status>)
 Q_DECLARE_METATYPE(QList<Job::Policy>)
 
@@ -392,6 +395,54 @@ void SchedulerTest::testJobQueueStopStartPolicy_data()
     QTest::newRow("no limit, will all three be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running) << (QList<Job::Policy>() << Job::Start << Job::Start << Job::Start) << (QList<Job::Status>() << Job::Running << Job::Running << Job::Running);
 }
 
+void SchedulerTest::testJobErrorType()
+{
+    QFETCH(bool, jobQueueRunning);
+    QFETCH(Job::Policy, policy);
+    QFETCH(Job::ErrorType, errorType);
+    QFETCH(Job::Status, finalStatus);
+
+    SettingsHelper helper(NO_LIMIT);
+
+    Scheduler scheduler;
+    TestQueue *queue = new TestQueue(&scheduler);
+    queue->setStatus(jobQueueRunning ? JobQueue::Running : JobQueue::Stopped);
+    scheduler.addQueue(queue);
+
+    TestJob *job = new TestJob(&scheduler, queue);
+    job->setPolicy(policy);
+    job->setError(QString(), QPixmap(), errorType);
+    queue->appendPub(job);
+
+    QCOMPARE(job->status(), finalStatus);
+}
+
+void SchedulerTest::testJobErrorType_data()
+{
+    QTest::addColumn<bool>("jobQueueRunning");
+    QTest::addColumn<Job::Policy>("policy");
+    QTest::addColumn<Job::ErrorType>("errorType");
+    QTest::addColumn<Job::Status>("finalStatus");
+
+    QTest::newRow("queue running, job::none, autoretry, running") << true << Job::None << Job::AutomaticRetry << Job::Running;
+    QTest::newRow("queue running, job::start, autoretry, running") << true << Job::Start << Job::AutomaticRetry << Job::Running;
+    QTest::newRow("queue running, job::stop, autoretry, aborted") << true << Job::Stop << Job::AutomaticRetry << Job::Aborted;
+    QTest::newRow("queue running, job::none, manualsolve, aborted") << true << Job::None << Job::ManualSolve << Job::Aborted;
+    QTest::newRow("queue running, job::start, manualsolve, aborted") << true << Job::Start << Job::ManualSolve << Job::Aborted;
+    QTest::newRow("queue running, job::stop, manualsolve, aborted") << true << Job::Stop << Job::ManualSolve << Job::Aborted;
+    QTest::newRow("queue running, job::none, notsolveable, aborted") << true << Job::None << Job::NotSolveable << Job::Aborted;
+    QTest::newRow("queue running, job::start, notsolveable, aborted") << true << Job::Start << Job::NotSolveable << Job::Aborted;
+    QTest::newRow("queue running, job::stop, notsolveable, aborted") << true << Job::Stop << Job::NotSolveable << Job::Aborted;
+    QTest::newRow("queue stopped, job::none, autoretry, aborted") << false << Job::None << Job::AutomaticRetry << Job::Aborted;
+    QTest::newRow("queue stopped, job::start, autoretry, running") << false << Job::Start << Job::AutomaticRetry << Job::Running;
+    QTest::newRow("queue stopped, job::stop, autoretry, aborted") << false << Job::Stop << Job::AutomaticRetry << Job::Aborted;
+    QTest::newRow("queue stopped, job::none, manualsolve, aborted") << false << Job::None << Job::ManualSolve << Job::Aborted;
+    QTest::newRow("queue stopped, job::start, manualsolve, aborted") << false << Job::Start << Job::ManualSolve << Job::Aborted;
+    QTest::newRow("queue stopped, job::stop, manualsolve, aborted") << false << Job::Stop << Job::ManualSolve << Job::Aborted;
+    QTest::newRow("queue stopped, job::none, notsolveable, aborted") << false << Job::None << Job::NotSolveable << Job::Aborted;
+    QTest::newRow("queue stopped, job::start, notsolveable, aborted") << false << Job::Start << Job::NotSolveable << Job::Aborted;
+    QTest::newRow("queue stopped, job::stop, notsolveable, aborted") << false << Job::Stop << Job::NotSolveable << Job::Aborted;
+}
 
 QTEST_MAIN(SchedulerTest)
 
