@@ -1316,10 +1316,12 @@ void GenericObserver::requestSave()
 {
     if (!m_save) {
         m_save = new QTimer(this);
-        m_save->setSingleShot(true);
         m_save->setInterval(5000);
         connect(m_save, SIGNAL(timeout()), this, SLOT(slotSave()));
     }
+
+    //save regularly if there are running jobs
+    m_save->setSingleShot(!KGet::m_scheduler->hasRunningJobs());
 
     if (!m_save->isActive()) {
         m_save->start();
@@ -1364,8 +1366,10 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
             }
         }
 
-        if (transferFlags & Transfer::Tc_Status)
+        if (transferFlags & Transfer::Tc_Status) {
             checkSysTray = true;
+            requestSave();
+        }
 
         if (transferFlags & Transfer::Tc_Percent) {
             transfer->group()->setGroupChange(TransferGroup::Gc_Percent, true);

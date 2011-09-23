@@ -56,7 +56,21 @@ void Scheduler::delQueue(JobQueue * queue)
     m_queues.removeAll(queue);
 }
 
-int Scheduler::countRunningJobs()
+bool Scheduler::hasRunningJobs() const
+{
+    foreach (JobQueue *queue, m_queues) {
+        JobQueue::iterator it;
+        JobQueue::iterator itEnd = queue->end();
+        for (it = queue->begin(); it!=itEnd; ++it) {
+            if ((*it)->status() == Job::Running) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int Scheduler::countRunningJobs() const
 {
     int count = 0;
 
