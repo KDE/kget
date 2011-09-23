@@ -81,11 +81,26 @@ void Scheduler::delQueue(JobQueue * queue)
     m_queues.removeAll(queue);
 }
 
-int Scheduler::countRunningJobs()
+struct IsRunningJob
+{
+    bool operator()(Job *job) const {return (job->status() == Job::Running);}
+};
+
+bool Scheduler::hasRunningJobs() const
+{
+    foreach (JobQueue *queue, m_queues) {
+        if (std::find_if(queue->begin(), queue->end(), IsRunningJob()) != queue->end()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int Scheduler::countRunningJobs() const
 {
     int count = 0;
     foreach(JobQueue * queue, m_queues) {
-        count += std::count_if(queue->begin(), queue->end(), boost::bind(&Job::status, _1) == Job::Running);
+        count += std::count_if(queue->begin(), queue->end(), IsRunningJob());
     }
 
     return count;

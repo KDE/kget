@@ -115,9 +115,14 @@ class KGET_EXPORT Scheduler : public QObject
         void delQueue(JobQueue * queue);
 
         /**
+         * @returns true if there is at least one Job in the Running state
+         */
+        bool hasRunningJobs() const;
+
+        /**
          * @returns the number of jobs that are currently in a Running state
          */
-        int countRunningJobs();
+        int countRunningJobs() const;
         
         /**
          * This function gets called by the KGet class whenever the settings
