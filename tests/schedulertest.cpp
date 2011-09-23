@@ -153,6 +153,9 @@ void SchedulerTest::testCountRunningJobs()
     }
 
     QCOMPARE(scheduler.countRunningJobs(), numRunningJobs);
+
+    const bool hasRunningJobs = numRunningJobs;
+    QCOMPARE(scheduler.hasRunningJobs(), hasRunningJobs);
 }
 
 void SchedulerTest::testCountRunningJobs_data()
@@ -162,6 +165,7 @@ void SchedulerTest::testCountRunningJobs_data()
     QTest::addColumn<int>("numRunningJobs");
 
     QTest::newRow("limit 2, two finished, will third be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << 1;
+    QTest::newRow("limit 2, two finished, will none be started?") << 2 << (QList<Job::Status>() << Job::Finished << Job::Finished) << 0;
     QTest::newRow("limit 2, will first two start while last will stay stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Stopped) << 2;
     QTest::newRow("limit 2, will first two start while last will be stopped?") << 2 << (QList<Job::Status>() << Job::Stopped << Job::Stopped << Job::Running) << 2;
     QTest::newRow("no limit, two finished, will third be started?") << NO_LIMIT << (QList<Job::Status>() << Job::Finished << Job::Finished << Job::Stopped) << 1;

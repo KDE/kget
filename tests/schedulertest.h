@@ -87,6 +87,9 @@ class SchedulerTest : public QObject
         void testAppendJobs();
         void testAppendJobs_data();
 
+        /**
+         * Tests Scheduler::countRunningJobs and Scheduler::hasRunningJobs
+         */
         void testCountRunningJobs();
         void testCountRunningJobs_data();
 
