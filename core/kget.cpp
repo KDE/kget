@@ -652,7 +652,7 @@ void KGet::setSchedulerRunning(bool running)
 
 bool KGet::schedulerRunning()
 {
-    return (m_scheduler->countRunningJobs() > 0);
+    return (m_scheduler->hasRunningJobs());
 }
 
 void KGet::setSuspendScheduler(bool isSuspended)
