@@ -96,6 +96,7 @@ private slots:
     void slotPriorityBottom();
     void slotPriorityUp();
     void slotPriorityDown();
+    void slotDownloadFinishedActions();
 
     // transfers slots
     void slotStopAllDownload();

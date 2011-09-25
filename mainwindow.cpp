@@ -53,6 +53,7 @@
 #include <klocale.h>
 #include <kicon.h>
 #include <kactionmenu.h>
+#include <KSelectAction>
 #include <krun.h>
 #include <kicondialog.h>
 #include "core/verifier.h"
@@ -339,6 +340,58 @@ void MainWindow::setupActions()
     listLinksAction->setIcon(KIcon("view-list-text"));
     listLinksAction->setShortcuts(KShortcut("Ctrl+L"));
     connect(listLinksAction, SIGNAL(triggered()), SLOT(slotShowListLinks()));
+
+    //create the download finished actions which can be displayed in the toolbar
+    KSelectAction *downloadFinishedActions = new KSelectAction(i18n("After downloads finished action"), this);//TODO maybe with name??
+    actionCollection()->addAction("download_finished_actions", downloadFinishedActions);
+    downloadFinishedActions->setHelpText(i18n("Choose an action that is executed after all downloads have been finished."));
+
+    KAction *noAction = downloadFinishedActions->addAction(i18n("No Action"));
+    connect(noAction, SIGNAL(triggered()), SLOT(slotDownloadFinishedActions()));
+    downloadFinishedActions->addAction(noAction);
+
+    KAction *quitAction = downloadFinishedActions->addAction(i18n("Quit KGet"));
+    quitAction->setData(KGet::Quit);
+    connect(quitAction, SIGNAL(triggered()), SLOT(slotDownloadFinishedActions()));
+    downloadFinishedActions->addAction(quitAction);
+
+#ifdef HAVE_KWORKSPACE
+    KAction *shutdownAction = downloadFinishedActions->addAction(i18n("Turn Off Computer"));
+    shutdownAction->setData(KGet::Shutdown);
+    connect(shutdownAction, SIGNAL(triggered()), SLOT(slotDownloadFinishedActions()));
+    downloadFinishedActions->addAction(shutdownAction);
+
+    KAction *hibernateAction = downloadFinishedActions->addAction(i18n("Hibernate Computer"));
+    hibernateAction->setData(KGet::Hibernate);
+    connect(hibernateAction, SIGNAL(triggered()), SLOT(slotDownloadFinishedActions()));
+    downloadFinishedActions->addAction(hibernateAction);
+
+    KAction *suspendAction = downloadFinishedActions->addAction(i18n("Suspend Computer"));
+    suspendAction->setData(KGet::Suspend);
+    connect(suspendAction, SIGNAL(triggered()), SLOT(slotDownloadFinishedActions()));
+    downloadFinishedActions->addAction(suspendAction);
+#endif
+
+    if (Settings::afterFinishActionEnabled()) {
+        downloadFinishedActions->setCurrentItem(Settings::afterFinishAction() + 1);
+    } else {
+        downloadFinishedActions->setCurrentItem(0);
+    }
+}
+
+void MainWindow::slotDownloadFinishedActions()
+{
+    KAction *action = static_cast<KAction*>(QObject::sender());
+    bool ok;
+    const int type = action->data().toInt(&ok);
+    if (ok) {
+        Settings::self()->setAfterFinishAction(type);
+    }
+
+    //only after finish actions have a number assigned
+    Settings::self()->setAfterFinishActionEnabled(ok);
+    Settings::self()->writeConfig();
+    slotNewConfig();
 }
 
 void MainWindow::init()
@@ -519,13 +572,9 @@ void MainWindow::slotQuit()
 
 void MainWindow::slotPreferences()
 {
-    // an instance the dialog could be already created and could be cached,
-    // in which case you want to display the cached dialog
-    if ( PreferencesDialog::showDialog( "preferences" ) )
-        return;
-
-    // we didn't find an instance of this dialog, so lets create it
+    //never reuse the preference dialog, to make sure its settings are always reloaded
     PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     // keep us informed when the user changes settings
     connect( dialog, SIGNAL(settingsChanged(QString)),
