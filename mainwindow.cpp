@@ -77,12 +77,12 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     // create the model
     m_kget = KGet::self( this );
 
+    m_viewsContainer = new ViewsContainer(this);
+
     // create actions
     setupActions();
 
     createGUI("kgetui.rc");
-
-    m_viewsContainer = new ViewsContainer(this);
 
     setCentralWidget(m_viewsContainer);
 
@@ -238,6 +238,8 @@ void MainWindow::setupActions()
     m_menubarAction->setChecked(!menuBar()->isHidden());
 
     // Transfer related actions
+    actionCollection()->addAction(KStandardAction::SelectAll, "select_all", m_viewsContainer, SLOT(selectAll()));
+
     KAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
     deleteSelectedAction->setText(i18nc("delete selected transfer item", "Remove Selected"));
     deleteSelectedAction->setIcon(KIcon("edit-delete"));

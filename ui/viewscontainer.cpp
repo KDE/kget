@@ -51,4 +51,9 @@ void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
     m_transfersView->closeExpandableDetails(model->itemFromHandler(transfer)->index());
 }
 
+void ViewsContainer::selectAll()
+{
+    m_transfersView->selectAll();
+}
+
 #include "viewscontainer.moc"

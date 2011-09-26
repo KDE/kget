@@ -211,7 +211,8 @@ QList<QAction*> TransferHandler::contextActions()
                 << KGet::actionCollection()->action("stop_selected_download");
     }
     actions << KGet::actionCollection()->action("delete_selected_download")
-            << KGet::actionCollection()->action("redownload_selected_download");
+            << KGet::actionCollection()->action("redownload_selected_download")
+            << KGet::actionCollection()->action("select_all");
 
     return actions;
 }

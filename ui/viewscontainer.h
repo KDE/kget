@@ -28,6 +28,7 @@ class ViewsContainer : public QWidget
     public slots:
         void showTransferDetails(TransferHandler * transfer);
         void closeTransferDetails(TransferHandler * transfer);
+        void selectAll();
 
     private:
         TransfersView   * m_transfersView;
