@@ -188,8 +188,8 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         item->setData(QVariant(mimeTypeName), Qt::UserRole); // used for filtering DownloadFilterType
 
         QList<QStandardItem*> items;
-        QStandardItem *number = new QStandardItem(QString::number(model->rowCount()));
-        number->setData(model->rowCount(), Qt::UserRole);//used for inital sorting
+        QStandardItem *number = new QStandardItem();
+        number->setData(model->rowCount(), Qt::DisplayRole);//used for inital sorting
         items << number;
         items << item;
         items << new QStandardItem();
@@ -202,7 +202,6 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
     connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(selectionChanged()));
     m_proxyModel->setSourceModel(model);
     m_proxyModel->setFilterKeyColumn(1);
-    m_proxyModel->setSortRole(Qt::UserRole);
     m_proxyModel->sort(0);
 
     ui.treeView->header()->hideSection(0);
