@@ -125,7 +125,6 @@ void KGetLinkView::checkClipboard()
         m_linkImporter = new LinkImporter(this);
 
         connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
-
         m_linkImporter->checkClipboard(clipboardContent);
     }
 }
@@ -168,7 +167,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
             mt = KMimeType::findByUrl(linkitem, 0, true, true);
         }
 
-        qDebug() << Q_FUNC_INFO << linkitem;
+        kDebug(5001) << "Adding:" << linkitem;
         
         QString file = url.fileName();
         if (file.isEmpty())
@@ -188,8 +187,10 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         item->setData(QVariant(url.fileName()), Qt::DisplayRole);
         item->setData(QVariant(mimeTypeName), Qt::UserRole); // used for filtering DownloadFilterType
 
-        QList<QStandardItem*> items;        
-        items << new QStandardItem(QString::number(model->rowCount()));
+        QList<QStandardItem*> items;
+        QStandardItem *number = new QStandardItem(QString::number(model->rowCount()));
+        number->setData(model->rowCount(), Qt::UserRole);//used for inital sorting
+        items << number;
         items << item;
         items << new QStandardItem();
         items << new QStandardItem(mimeTypeComment);
@@ -201,6 +202,8 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
     connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(selectionChanged()));
     m_proxyModel->setSourceModel(model);
     m_proxyModel->setFilterKeyColumn(1);
+    m_proxyModel->setSortRole(Qt::UserRole);
+    m_proxyModel->sort(0);
 
     ui.treeView->header()->hideSection(0);
     ui.treeView->setColumnWidth(1, 200); // make the filename column bigger by default
