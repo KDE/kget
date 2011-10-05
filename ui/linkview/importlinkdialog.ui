@@ -60,33 +60,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="showCombo">
-       <item>
-        <property name="text">
-         <string>All</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Videos</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Images</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Audio</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Archives</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="showCombo"/>
      </item>
      <item>
       <widget class="QCheckBox" name="showWebContent">

@@ -21,23 +21,24 @@
 
 #include <QtCore/QStringList>
 
-static const QStringList MIME_TYPES = QString(";video/;audio/;archive/;image/").split(';');
 static const QString ARCHIVES = QString("/x-7z-compressed,/x-ace,/x-archive,/x-arj,/x-bzip,/x-bzip-compressed-tar,/x-compressed-tar,/x-deb/,/x-rar,/x-tar,/x-rpm,/x-tarz,/zip");
 static const QString WEB_CONTENT = QString("/html,/x-asp,/xhtml+xml,/x-php,");
 
-KGetSortFilterProxyModel::KGetSortFilterProxyModel(QObject *parent) :
-    QSortFilterProxyModel(parent), m_filterType(KGetSortFilterProxyModel::NoFilter),
-    m_filterMode(KGetSortFilterProxyModel::Contain), m_showWebContent(false)
+KGetSortFilterProxyModel::KGetSortFilterProxyModel(QObject *parent)
+  : QSortFilterProxyModel(parent),
+    m_filterType(NoFilter),
+    m_filterMode(Contain),
+    m_showWebContent(false)
 {
+    m_mimeTypes.insert(NoFilter, "");
+    m_mimeTypes.insert(VideoFiles, "video/");
+    m_mimeTypes.insert(AudioFiles, "audio/");
+    m_mimeTypes.insert(CompressedFiles, "archive/");
+    m_mimeTypes.insert(ImageFiles, "image/");
 }
 
 KGetSortFilterProxyModel::~KGetSortFilterProxyModel()
 {
-}
-
-KGetSortFilterProxyModel::DownloadFilterType KGetSortFilterProxyModel::filterType() const
-{
-    return m_filterType;
 }
 
 KGetSortFilterProxyModel::FilterMode KGetSortFilterProxyModel::filterMode() const
@@ -50,33 +51,9 @@ bool KGetSortFilterProxyModel::showWebContent() const
     return m_showWebContent;
 }
 
-void KGetSortFilterProxyModel::setFilterType(KGetSortFilterProxyModel::DownloadFilterType filterType)
-{
-    m_filterType = filterType;
-    invalidateFilter();
-}
-
 void KGetSortFilterProxyModel::setFilterType(int filterType)
 {
-    switch (filterType)
-    {
-        case AudioFiles:
-            m_filterType = AudioFiles;
-            break;
-        case KGetSortFilterProxyModel::VideoFiles:
-            m_filterType = VideoFiles;
-            break;
-        case KGetSortFilterProxyModel::CompressedFiles:
-            m_filterType = CompressedFiles;
-            break;
-        case KGetSortFilterProxyModel::ImageFiles:
-            m_filterType = ImageFiles;
-            break;
-        case KGetSortFilterProxyModel::NoFilter:
-        default:
-            m_filterType = NoFilter;
-    }
-
+    m_filterType = filterType;
     invalidateFilter();
 }
 
@@ -128,7 +105,7 @@ bool KGetSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex
     //do not show empty files when not using NoFilter and m_showWebContent
     if (!name.isEmpty() && (m_filterType != NoFilter))
     {
-        show = meta.startsWith(MIME_TYPES[m_filterType]);
+        show = meta.startsWith(m_mimeTypes[m_filterType]);
 
         if (m_filterType == CompressedFiles)
         {
@@ -147,16 +124,21 @@ bool KGetSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex
         }
     }
 
-    if (show)
-    {
-        //look if the text-filter matches
-        const QRegExp re = filterRegExp();
-        show = (re.indexIn(name) != -1) ? true : false;
-        if ((m_filterMode == DoesNotContain) && !re.isEmpty())
-        {
-            show = !show;
-        }
+    if (show) {
+        show = acceptText(name);
     }
 
     return show;
+}
+
+bool KGetSortFilterProxyModel::acceptText(const QString &text) const
+{
+    //look if the text-filter matches
+    const QRegExp re = filterRegExp();
+    bool accept = (re.indexIn(text) != -1) ? true : false;
+    if ((m_filterMode == DoesNotContain) && !re.isEmpty()) {
+        accept = !accept;
+    }
+
+    return accept;
 }

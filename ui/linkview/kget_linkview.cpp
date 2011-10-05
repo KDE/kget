@@ -57,11 +57,11 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     // set the Icons
     ui.importLinks->setIcon(KIcon("document-import"));
-    ui.showCombo->setItemIcon(0, KIcon("view-list-icons"));
-    ui.showCombo->setItemIcon(4, KIcon("package-x-generic"));
-    ui.showCombo->setItemIcon(3, KIcon("audio-x-generic"));
-    ui.showCombo->setItemIcon(2, KIcon("image-x-generic"));
-    ui.showCombo->setItemIcon(1, KIcon("video-x-generic"));
+    ui.showCombo->addItem(KIcon("view-list-icons"), i18n("All"), KGetSortFilterProxyModel::NoFilter);
+    ui.showCombo->addItem(KIcon("video-x-generic"), i18n("Videos"), KGetSortFilterProxyModel::VideoFiles);
+    ui.showCombo->addItem(KIcon("image-x-generic"), i18n("Images"), KGetSortFilterProxyModel::ImageFiles);
+    ui.showCombo->addItem(KIcon("audio-x-generic"), i18n("Audio"), KGetSortFilterProxyModel::AudioFiles);
+    ui.showCombo->addItem(KIcon("package-x-generic"), i18n("Archives"), KGetSortFilterProxyModel::CompressedFiles );
 
     ui.treeView->setModel(m_proxyModel);
     ui.progressBar->hide();
@@ -85,7 +85,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.textFilter, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
     connect(ui.textFilter, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(contextMenuDisplayed(QMenu*)));
     connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterMode(int)));
-    connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterType(int)));
+    connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMimeTypeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
     connect(ui.urlRequester, SIGNAL(urlSelected(KUrl)), SLOT(slotStartImport()));
@@ -208,6 +208,11 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
     ui.treeView->setColumnWidth(1, 200); // make the filename column bigger by default
 
     selectionChanged(); // adapt buttons to the new situation
+}
+
+void KGetLinkView::slotMimeTypeChanged(int index)
+{
+    m_proxyModel->setFilterType(ui.showCombo->itemData(index).toInt());
 }
 
 void KGetLinkView::slotStartLeech()

@@ -38,6 +38,7 @@ signals:
     void leechUrls( const KUrl::List& urls );
 
 private slots:
+    void slotMimeTypeChanged(int index);
     void slotStartLeech();
     void selectionChanged();
     void setTextFilter(const QString &text = QString());

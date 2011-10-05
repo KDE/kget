@@ -27,15 +27,15 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     public:
-        KGetSortFilterProxyModel(QObject *parent = 0);
+        explicit KGetSortFilterProxyModel(QObject *parent = 0);
         virtual ~KGetSortFilterProxyModel();
 
-        enum DownloadFilterType { //Keep the numbers, they are necessary for the filtering to work
-            NoFilter = 0,
-            VideoFiles = 1,
-            AudioFiles = 3,
-            CompressedFiles = 4,
-            ImageFiles = 2
+        enum DownloadFilterType {
+            NoFilter,
+            VideoFiles,
+            AudioFiles,
+            CompressedFiles,
+            ImageFiles
         };
 
         enum FilterMode {
@@ -43,13 +43,11 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
             DoesNotContain = 1
         };
 
-        DownloadFilterType filterType() const;
         FilterMode filterMode() const;
+        void setFilterType(int filterType);
         bool showWebContent() const;
 
     public slots:
-        void setFilterType(DownloadFilterType filterType);
-        void setFilterType(int filterType);
         void setFilterMode(FilterMode filterMode);
         void setFilterMode(int filterMode);
         void setShowWebContent(bool show);
@@ -59,9 +57,16 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
         virtual bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
 
     private:
-        DownloadFilterType m_filterType;
+        /**
+         * Returns true if text should be accepted by the filter
+         */
+        bool acceptText(const QString &text) const;
+
+    private:
+        int m_filterType;
         FilterMode m_filterMode;
         bool m_showWebContent;
+        QHash<int, QString> m_mimeTypes;
 };
 
 #endif // KGET_SORTFILTERPROXYMODEL_H
