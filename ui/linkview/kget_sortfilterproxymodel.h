@@ -27,7 +27,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     public:
-        explicit KGetSortFilterProxyModel(QObject *parent = 0);
+        explicit KGetSortFilterProxyModel(int sortColumn, QObject *parent = 0);
         virtual ~KGetSortFilterProxyModel();
 
         enum DownloadFilterType {
@@ -45,6 +45,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
 
         void setFilterType(int filterType);
         void setFilterMode(int filterMode);
+        void setFilterColumn(int column);
         bool showWebContent() const;
 
     public slots:
@@ -60,9 +61,16 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
          */
         bool acceptText(const QString &text) const;
 
+        /**
+         * @param row to get the column from
+         * @return string for the column that is being filtered
+         */
+        QString columnText(int row, const QModelIndex &sourceParent) const;
+
     private:
         int m_filterType;
         FilterMode m_filterMode;
+        int m_column;
         bool m_showWebContent;
         QHash<int, QString> m_mimeTypes;
 };

@@ -16,6 +16,7 @@
 
 #include "ui_importlinkdialog.h"
 
+class QAction;
 class QModelIndex;
 class LinkImporter;
 class KGetSortFilterProxyModel;
@@ -40,6 +41,7 @@ signals:
 private slots:
     void slotMimeTypeChanged(int index);
     void slotFilterModeChanged(int index);
+    void slotFilterColumn(QAction*);
     void slotStartLeech();
     void selectionChanged();
     void setTextFilter(const QString &text = QString());
@@ -72,6 +74,8 @@ private:
     QStringList m_links;
     LinkImporter *m_linkImporter;
     QMenu *m_patternSyntaxMenu;
+    QAction *m_nameAction;
+    QAction *m_urlAction;
 };
 
 #endif // KGET_LINKVIEW_H

@@ -24,10 +24,11 @@
 static const QString ARCHIVES = QString("/x-7z-compressed,/x-ace,/x-archive,/x-arj,/x-bzip,/x-bzip-compressed-tar,/x-compressed-tar,/x-deb/,/x-rar,/x-tar,/x-rpm,/x-tarz,/zip");
 static const QString WEB_CONTENT = QString("/html,/x-asp,/xhtml+xml,/x-php,");
 
-KGetSortFilterProxyModel::KGetSortFilterProxyModel(QObject *parent)
+KGetSortFilterProxyModel::KGetSortFilterProxyModel(int column, QObject *parent)
   : QSortFilterProxyModel(parent),
     m_filterType(NoFilter),
     m_filterMode(Contain),
+    m_column(column),
     m_showWebContent(false)
 {
     m_mimeTypes.insert(NoFilter, "");
@@ -79,6 +80,12 @@ void KGetSortFilterProxyModel::setShowWebContent(int show)
     invalidateFilter();
 }
 
+void KGetSortFilterProxyModel::setFilterColumn(int column)
+{
+    m_column = column;
+    invalidateFilter();
+}
+
 bool KGetSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
     const QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
@@ -88,11 +95,12 @@ bool KGetSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex
     }
 
     const QString meta = index.data(Qt::UserRole).toString();
-    const QString name = index.data(Qt::DisplayRole).toString();
+    const QString text = columnText(sourceRow, sourceParent);
     bool show = false;
 
-    //do not show empty files when not using NoFilter and m_showWebContent
-    if (!name.isEmpty() && (m_filterType != NoFilter))
+
+    //do not show entries if their text is empty when not using NoFilter and m_showWebContent
+    if (!text.isEmpty() && (m_filterType != NoFilter))
     {
         show = meta.startsWith(m_mimeTypes[m_filterType]);
 
@@ -109,15 +117,21 @@ bool KGetSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex
         }
         else
         {
-            show = !name.isEmpty() && !WEB_CONTENT.contains(meta.mid(meta.indexOf('/')));
+            show = !text.isEmpty() && !WEB_CONTENT.contains(meta.mid(meta.indexOf('/')));
         }
     }
 
     if (show) {
-        show = acceptText(name);
+        show = acceptText(text);
     }
 
     return show;
+}
+
+QString KGetSortFilterProxyModel::columnText(int row, const QModelIndex &sourceParent) const
+{
+    const QModelIndex index = sourceModel()->index(row, m_column, sourceParent);
+    return (index.isValid() ? index.data(Qt::DisplayRole).toString() : QString());
 }
 
 bool KGetSortFilterProxyModel::acceptText(const QString &text) const

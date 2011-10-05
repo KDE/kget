@@ -22,6 +22,7 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
+#include <KAction>
 #include <KActionCollection>
 #include <KIcon>
 #include <KIconLoader>
@@ -33,7 +34,10 @@
 #include <KWindowSystem>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
-    : KGetSaveSizeDialog("KGetLinkView", parent), m_linkImporter(0)
+  : KGetSaveSizeDialog("KGetLinkView", parent),
+    m_linkImporter(0),
+    m_nameAction(0),
+    m_urlAction(0)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setCaption(i18n("Import Links"));
@@ -46,7 +50,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     }
 
     // proxy model to filter links
-    m_proxyModel = new KGetSortFilterProxyModel();
+    m_proxyModel = new KGetSortFilterProxyModel(1, this);
     m_proxyModel->setDynamicSortFilter(true);
     m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
@@ -81,6 +85,17 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     actionGroup->addAction(wildcardAction);
     actionGroup->addAction(regExpAction);
     m_patternSyntaxMenu->addActions(actionGroup->actions());
+
+    //Filter for name/url actions
+    QActionGroup *columnGroup = new QActionGroup(this);
+    m_nameAction = new KAction(i18nc("name of a file", "Name"), this);
+    m_nameAction->setCheckable(true);
+    m_nameAction->setChecked(true);
+    m_urlAction = new KAction(i18n("URL"), this);
+    m_urlAction->setCheckable(true);
+    columnGroup->addAction(m_nameAction);
+    columnGroup->addAction(m_urlAction);
+    connect(columnGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotFilterColumn(QAction*)));
 
     connect(wildcardAction, SIGNAL(toggled(bool)), this, SLOT(wildcardPatternToggled(bool)));
     connect(ui.treeView, SIGNAL(doubleClicked(QModelIndex)),
@@ -221,6 +236,12 @@ void KGetLinkView::slotMimeTypeChanged(int index)
 void KGetLinkView::slotFilterModeChanged(int index)
 {
     m_proxyModel->setFilterMode(ui.filterMode->itemData(index).toInt());
+}
+
+void KGetLinkView::slotFilterColumn(QAction *action)
+{
+    //FIXME make this not depend on "magic numbers"?
+    m_proxyModel->setFilterColumn(action == m_urlAction ? 4 : 1);
 }
 
 void KGetLinkView::slotStartLeech()
@@ -442,6 +463,9 @@ void KGetLinkView::contextMenuDisplayed(QMenu *menu)
 {
     menu->addSeparator();
     menu->addMenu(m_patternSyntaxMenu);
+    menu->addSeparator()->setText(i18n("Filter Column"));
+    menu->addAction(m_nameAction);
+    menu->addAction(m_urlAction);
 }
 
 
