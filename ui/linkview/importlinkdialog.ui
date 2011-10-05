@@ -114,18 +114,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="filterMode">
-       <item>
-        <property name="text">
-         <string>Contains</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Does Not Contain</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="KComboBox" name="filterMode"/>
      </item>
     </layout>
    </item>

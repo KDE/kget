@@ -39,17 +39,15 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
         };
 
         enum FilterMode {
-            Contain = 0,
-            DoesNotContain = 1
+            Contain,
+            DoesNotContain
         };
 
-        FilterMode filterMode() const;
         void setFilterType(int filterType);
+        void setFilterMode(int filterMode);
         bool showWebContent() const;
 
     public slots:
-        void setFilterMode(FilterMode filterMode);
-        void setFilterMode(int filterMode);
         void setShowWebContent(bool show);
         void setShowWebContent(int show);
 

@@ -55,6 +55,9 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     
     m_proxyModel->setShowWebContent(ui.showWebContent->isChecked());
 
+    ui.filterMode->addItem(i18n("Contains"), KGetSortFilterProxyModel::Contain);
+    ui.filterMode->addItem(i18n("Does Not Contain"), KGetSortFilterProxyModel::DoesNotContain);
+
     // set the Icons
     ui.importLinks->setIcon(KIcon("document-import"));
     ui.showCombo->addItem(KIcon("view-list-icons"), i18n("All"), KGetSortFilterProxyModel::NoFilter);
@@ -84,7 +87,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
             this, SLOT(uncheckItem(QModelIndex)));
     connect(ui.textFilter, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
     connect(ui.textFilter, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(contextMenuDisplayed(QMenu*)));
-    connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), m_proxyModel, SLOT(setFilterMode(int)));
+    connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotFilterModeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMimeTypeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
@@ -213,6 +216,11 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 void KGetLinkView::slotMimeTypeChanged(int index)
 {
     m_proxyModel->setFilterType(ui.showCombo->itemData(index).toInt());
+}
+
+void KGetLinkView::slotFilterModeChanged(int index)
+{
+    m_proxyModel->setFilterMode(ui.filterMode->itemData(index).toInt());
 }
 
 void KGetLinkView::slotStartLeech()

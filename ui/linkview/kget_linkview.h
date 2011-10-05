@@ -39,6 +39,7 @@ signals:
 
 private slots:
     void slotMimeTypeChanged(int index);
+    void slotFilterModeChanged(int index);
     void slotStartLeech();
     void selectionChanged();
     void setTextFilter(const QString &text = QString());

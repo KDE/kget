@@ -41,11 +41,6 @@ KGetSortFilterProxyModel::~KGetSortFilterProxyModel()
 {
 }
 
-KGetSortFilterProxyModel::FilterMode KGetSortFilterProxyModel::filterMode() const
-{
-    return m_filterMode;
-}
-
 bool KGetSortFilterProxyModel::showWebContent() const
 {
     return m_showWebContent;
@@ -54,12 +49,6 @@ bool KGetSortFilterProxyModel::showWebContent() const
 void KGetSortFilterProxyModel::setFilterType(int filterType)
 {
     m_filterType = filterType;
-    invalidateFilter();
-}
-
-void KGetSortFilterProxyModel::setFilterMode(KGetSortFilterProxyModel::FilterMode filterMode)
-{
-    m_filterMode = filterMode;
     invalidateFilter();
 }
 
