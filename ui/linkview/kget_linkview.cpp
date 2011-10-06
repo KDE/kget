@@ -441,7 +441,7 @@ void KGetLinkView::slotImportProgress(int progress)
 void KGetLinkView::slotImportFinished()
 {
     ui.progressBar->hide();
-    m_links = QList <QString> (m_linkImporter->links());
+    m_links = m_linkImporter->links();
     showLinks(m_links, true);
 }
 
