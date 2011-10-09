@@ -1491,9 +1491,8 @@ bool GenericObserver::allTransfersFinished()
             if ((transfer->status() != Job::Finished) && (transfer->status() != Job::FinishedKeepAlive)) {
                 quitFlag = false;
             }
-            if (((transfer->status() == Job::Finished) && (transfer->startStatus() != Job::Finished)) ||
-                ((transfer->status() == Job::FinishedKeepAlive) && (transfer->startStatus() != Job::FinishedKeepAlive)))
-            {
+            if ((transfer->status() == Job::Finished || transfer->status() == Job::FinishedKeepAlive) &&
+                (transfer->startStatus() != Job::Finished && transfer->startStatus() != Job::FinishedKeepAlive)) {
                 allWereFinished = false;
             }
         }
