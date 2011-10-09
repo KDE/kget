@@ -1395,7 +1395,9 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
     if (checkSysTray)
         KGet::checkSystemTray();
 
-    if (Settings::afterFinishActionEnabled() && allFinished)
+    //only perform after finished actions if actually the status changed (that is the
+    //case if checkSysTray is set to true)
+    if (checkSysTray && Settings::afterFinishActionEnabled() && allFinished)
     {
         kDebug(5001) << "All finished";
         KNotification *notification = 0;
