@@ -90,9 +90,13 @@ void BTTransfer::deinit()
     }
     tmpDir.cdUp();
     tmpDir.rmdir(m_source.fileName().remove(".torrent"));
-    kDebug(5001) << m_source.url();
-    QFile torrentFile(m_source.toLocalFile());
-    torrentFile.remove();
+
+    //only remove the .torrent file if it was downloaded by KGet
+    if (!m_tmpTorrentFile.isEmpty()) {
+        kDebug(5001) << "Removing" << m_tmpTorrentFile;
+        QFile torrentFile(m_tmpTorrentFile);
+        torrentFile.remove();
+    }
 }
 
 void BTTransfer::synchronDeinit()
