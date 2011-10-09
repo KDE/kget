@@ -127,7 +127,8 @@ void BTTransfer::start()
         if (!m_source.isLocalFile())
         {
             kDebug(5001) << m_dest.path();
-            Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName()));
+            m_tmpTorrentFile = QString(KStandardDirs::locateLocal("appdata", "tmp/") + m_dest.fileName());
+            Download *download = new Download(m_source, m_tmpTorrentFile);
 
             setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);

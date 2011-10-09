@@ -134,6 +134,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         bt::TorrentControl *torrent;
         KUrl m_directory;
         QString m_tmp;
+        QString m_tmpTorrentFile;
         float m_ratio;
         QTimer timer;
         bool m_ready;
