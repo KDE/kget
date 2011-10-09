@@ -112,5 +112,5 @@ TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &src
 
 bool BTTransferFactory::isSupported(const KUrl &url) const
 {
-    return url.fileName().endsWith(QLatin1String(".torrent"));
+    return url.url().endsWith(QLatin1String(".torrent"));
 }
