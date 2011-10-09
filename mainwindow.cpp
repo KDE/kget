@@ -651,7 +651,7 @@ void MainWindow::slotDeleteSelected()
 {
     foreach (TransferHandler * it, KGet::selectedTransfers())
     {
-        if (it->status() != Job::Finished) {
+        if (it->status() != Job::Finished && it->status() != Job::FinishedKeepAlive) {
             if (KMessageBox::warningYesNo(this,
                     i18np("Are you sure you want to delete the selected transfer?", 
                           "Are you sure you want to delete the selected transfers?", KGet::selectedTransfers().count()),
