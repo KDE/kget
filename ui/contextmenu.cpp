@@ -98,7 +98,7 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
 
 #ifdef HAVE_KONQUEROR
     // only shows the open with actions if the transfer is finished
-    if (handler->status() == Job::Finished) {
+    if (handler->status() == Job::Finished || handler->status() == Job::FinishedKeepAlive) {
         KFileItemList items;
         items << KFileItem(KFileItem::Unknown, KFileItem::Unknown, handler->dest());
 
