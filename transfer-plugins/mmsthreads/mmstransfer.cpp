@@ -88,10 +88,10 @@ void MmsTransfer::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-void MmsTransfer::deinit()
+void MmsTransfer::deinit(Transfer::DeleteOptions options)
 {
     /** Deleting the temporary file and the unfinish file*/
-    if (status() != Job::Finished) {
+    if (options & Transfer::DeleteFiles) {
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
         del = KIO::del(m_dest.path(), KIO::HideProgressInfo);

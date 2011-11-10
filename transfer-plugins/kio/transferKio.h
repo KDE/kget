@@ -52,7 +52,7 @@ class TransferKio : public Transfer
         void start();
         void stop();
 
-        void deinit();
+        void deinit(Transfer::DeleteOptions options);
 
     private:
         void createJob();

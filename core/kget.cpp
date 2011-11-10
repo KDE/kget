@@ -357,27 +357,27 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 }
 
 
-bool KGet::delTransfer(TransferHandler * transfer)
+bool KGet::delTransfer(TransferHandler * transfer, DeleteMode mode)
 {
-    return delTransfers(QList<TransferHandler*>() << transfer);
+    return delTransfers(QList<TransferHandler*>() << transfer, false, mode);
 }
 
-bool KGet::delTransferSynchronously(TransferHandler* transfer)
+bool KGet::delTransferSynchronously(TransferHandler* transfer, DeleteMode mode)
 {
-    return delTransfersSynchronously(QList<TransferHandler*>() << transfer);
+    return delTransfers(QList<TransferHandler*>() << transfer, true, mode);
 }
 
-bool KGet::delTransfers(const QList<TransferHandler*> &transfers)
+bool KGet::delTransfers(const QList<TransferHandler*> &transfers, DeleteMode mode)
 {
-    return delTransfers(transfers, false);
+    return delTransfers(transfers, false, mode);
 }
 
-bool KGet::delTransfersSynchronously(const QList<TransferHandler*> &transfers)
+bool KGet::delTransfersSynchronously(const QList<TransferHandler*> &transfers, DeleteMode mode)
 {
-    return delTransfers(transfers, true);
+    return delTransfers(transfers, true, mode);
 }
 
-bool KGet::delTransfers(const QList<TransferHandler*> &handlers, bool synchronously)
+bool KGet::delTransfers(const QList<TransferHandler*> &handlers, bool synchronously, DeleteMode mode)
 {
     if (!m_store) {
         m_store = TransferHistoryStore::getStore();
@@ -392,7 +392,14 @@ bool KGet::delTransfers(const QList<TransferHandler*> &handlers, bool synchronou
         // TransferHandler deinitializations
         handler->destroy();
         // Transfer deinitializations (the deinit function is called by the destroy() function)
-        transfer->destroy(synchronously);
+        if (mode == AutoDelete) {
+            Transfer::DeleteOptions o = Transfer::DeleteTemporaryFiles;
+            if (transfer->status() != Job::Finished && transfer->status() != Job::FinishedKeepAlive)
+                o |= Transfer::DeleteFiles;
+            transfer->destroy(o, synchronously);
+        } else {
+            transfer->destroy((Transfer::DeleteTemporaryFiles | Transfer::DeleteFiles), synchronously);
+        }
     }
     m_store->saveItems(historyItems);
 

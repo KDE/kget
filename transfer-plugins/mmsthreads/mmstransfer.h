@@ -41,7 +41,7 @@ class MmsTransfer : public Transfer
     public slots:
         void start();
         void stop();
-        void deinit();
+        void deinit(Transfer::DeleteOptions options);
 
     private slots:
         void slotResult();

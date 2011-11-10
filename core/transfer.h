@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2004 Dario Massarin <nekkar@libero.it>
-   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
+   Copyright (C) 2008 - 2011 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -89,6 +89,13 @@ class KGET_EXPORT Transfer : public Job
             VisibleSpeedLimit   = 0x01,
             InvisibleSpeedLimit = 0x02
         };
+        
+        enum DeleteOption
+        {
+            DeleteTemporaryFiles = 0x00000001,
+            DeleteFiles = 0x00000002
+        };
+        Q_DECLARE_FLAGS(DeleteOptions, DeleteOption)
         typedef int ChangesFlags;
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
@@ -114,7 +121,7 @@ class KGET_EXPORT Transfer : public Job
          * to deinit(), this isn't a virtual function and is not meant to be used in
          * transfer plugins
          */
-        void destroy(bool synchronDeinit = false);
+        void destroy(DeleteOptions options, bool synchronDeinit = false);
         
         /**
          * This function is called after the creation of a Transfer
@@ -127,12 +134,12 @@ class KGET_EXPORT Transfer : public Job
          * This function is called before the deletion of a Transfer
          * In transfer plugins you can put here whatever needs to be deinitialized
          */
-        virtual void deinit() {}
+        virtual void deinit(DeleteOptions options) {Q_UNUSED(options);}
 
         /**
          * Same as deinit, only that it will remove files synchronously where possible
          */
-        virtual void synchronDeinit() {}
+        virtual void synchronDeinit(DeleteOptions options) {Q_UNUSED(options);}
 
         /**
          * Tries to repair file
@@ -385,5 +392,6 @@ class KGET_EXPORT Transfer : public Job
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Transfer::Capabilities)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Transfer::DeleteOptions)
 
 #endif

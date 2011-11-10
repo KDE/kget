@@ -44,8 +44,8 @@ class TransferMultiSegKio : public Transfer
         virtual bool setDirectory(const KUrl &newDirectory);
 
         virtual void init();
-        virtual void deinit();
-        virtual void synchronDeinit();
+        virtual void deinit(Transfer::DeleteOptions options);
+        virtual void synchronDeinit(Transfer::DeleteOptions options);
 
         QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
         void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors);

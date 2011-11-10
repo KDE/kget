@@ -55,8 +55,8 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
                     const QDomElement * e = 0);
         ~BTTransfer();
 
-        void deinit();
-        void synchronDeinit();
+        void deinit(Transfer::DeleteOptions options);
+        void synchronDeinit(Transfer::DeleteOptions options);
 
         //Job virtual functions        
         void start();

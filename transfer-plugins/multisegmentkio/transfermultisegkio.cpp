@@ -59,17 +59,17 @@ void TransferMultiSegKio::init()
     }
 }
 
-void TransferMultiSegKio::deinit()
+void TransferMultiSegKio::deinit(Transfer::DeleteOptions options)
 {
-    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
+    if (options & Transfer::DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         m_dataSourceFactory->deinit();
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
-void TransferMultiSegKio::synchronDeinit()
+void TransferMultiSegKio::synchronDeinit(Transfer::DeleteOptions options)
 {
-    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
+    if (options & Transfer::DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         m_dataSourceFactory->synchronDeinit();
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)

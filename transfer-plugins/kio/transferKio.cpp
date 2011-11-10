@@ -116,9 +116,9 @@ void TransferKio::stop()
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
 
-void TransferKio::deinit()
+void TransferKio::deinit(Transfer::DeleteOptions options)
 {
-    if (status() != Job::Finished)//if the transfer is not finished, we delete the *.part-file
+    if (options & DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         KIO::Job *del = KIO::del(QString(m_dest.path() + ".part"), KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);

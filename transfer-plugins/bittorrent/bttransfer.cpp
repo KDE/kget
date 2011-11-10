@@ -73,35 +73,36 @@ BTTransfer::~BTTransfer()
     delete torrent;
 }
 
-void BTTransfer::deinit()
+void BTTransfer::deinit(Transfer::DeleteOptions options)
 {
-    if (torrent && !torrent->getStats().completed) {
+    kDebug() << "****************************DEINIT";
+    if (torrent && (options & Transfer::DeleteFiles)) {//FIXME: Also delete when torrent does not exist
         torrent->deleteDataFiles();
     }
-    kDebug() << "****************************DEINIT";
-    QDir tmpDir(m_tmp);
-    kDebug(5001) << m_tmp + m_source.fileName().remove(".torrent");
-    tmpDir.rmdir(m_source.fileName().remove(".torrent") + "/dnd");
-    tmpDir.cd(m_source.fileName().remove(".torrent"));
-    QStringList list = tmpDir.entryList();
-    foreach (const QString &file, list)
-    {
-        tmpDir.remove(file);
-    }
-    tmpDir.cdUp();
-    tmpDir.rmdir(m_source.fileName().remove(".torrent"));
+    if (options & Transfer::DeleteTemporaryFiles) {
+        QDir tmpDir(m_tmp);
+        kDebug(5001) << m_tmp + m_source.fileName().remove(".torrent");
+        tmpDir.rmdir(m_source.fileName().remove(".torrent") + "/dnd");
+        tmpDir.cd(m_source.fileName().remove(".torrent"));
+        QStringList list = tmpDir.entryList();
+        foreach (const QString &file, list) {
+            tmpDir.remove(file);
+        }
+        tmpDir.cdUp();
+        tmpDir.rmdir(m_source.fileName().remove(".torrent"));
 
-    //only remove the .torrent file if it was downloaded by KGet
-    if (!m_tmpTorrentFile.isEmpty()) {
-        kDebug(5001) << "Removing" << m_tmpTorrentFile;
-        QFile torrentFile(m_tmpTorrentFile);
-        torrentFile.remove();
+        //only remove the .torrent file if it was downloaded by KGet
+        if (!m_tmpTorrentFile.isEmpty()) {
+            kDebug(5001) << "Removing" << m_tmpTorrentFile;
+            QFile torrentFile(m_tmpTorrentFile);
+            torrentFile.remove();
+        }
     }
 }
 
-void BTTransfer::synchronDeinit()
+void BTTransfer::synchronDeinit(Transfer::DeleteOptions options)
 {
-    deinit();
+    deinit(options);
 }
 
 

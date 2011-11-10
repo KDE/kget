@@ -279,15 +279,15 @@ void Metalink::startMetalink()
     }
 }
 
-void Metalink::deinit()
+void Metalink::deinit(Transfer::DeleteOptions options)
 {
     foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-        if ((factory->status() != Job::Finished) && (factory->status() != Job::FinishedKeepAlive)) {
+        if (options & Transfer::DeleteFiles) {
             factory->deinit();
         }
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 
-    if (m_localMetalinkLocation.isLocalFile())
+    if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);
@@ -298,15 +298,15 @@ void Metalink::deinit()
 #endif //HAVE_NEPOMUK
 }
 
-void Metalink::synchronDeinit()
+void Metalink::synchronDeinit(Transfer::DeleteOptions options)
 {
     foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-        if ((factory->status() != Job::Finished) && (factory->status() != Job::FinishedKeepAlive)) {
+        if (options & Transfer::DeleteFiles) {
             factory->synchronDeinit();
         }
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 
-    if (m_localMetalinkLocation.isLocalFile())
+    if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, 0);

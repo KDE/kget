@@ -252,6 +252,12 @@ void MainWindow::setupActions()
     deleteAllFinishedAction->setIcon(KIcon("edit-clear-list"));
     deleteAllFinishedAction->setHelpText(i18n("Removes all finished transfers and leaves all files on disk"));
     connect(deleteAllFinishedAction, SIGNAL(triggered()), SLOT(slotDeleteFinished()));
+    
+    KAction *deleteSelectedIncludingFilesAction = actionCollection()->addAction("delete_selected_download_including_files");
+    deleteSelectedIncludingFilesAction->setText(i18nc("delete selected transfer item and files", "Remove Selected and Delete Files"));
+    deleteSelectedIncludingFilesAction->setIcon(KIcon("edit-delete"));
+    deleteSelectedIncludingFilesAction->setHelpText(i18n("Removes selected transfer and deletes files from disk in any case"));
+    connect(deleteSelectedIncludingFilesAction, SIGNAL(triggered()), SLOT(slotDeleteSelectedIncludingFiles()));
 
     KAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
     redownloadSelectedAction->setText(i18nc("redownload selected transfer item", "Redownload Selected"));
@@ -728,6 +734,28 @@ void MainWindow::slotDeleteSelected()
             m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
         }
         KGet::delTransfers(KGet::selectedTransfers());
+    } else {
+        //no transfers selected, delete groups if any are selected
+        slotDeleteGroup();
+    }
+}
+
+void MainWindow::slotDeleteSelectedIncludingFiles()
+{
+    if (KMessageBox::warningYesNo(this,
+            i18np("Are you sure you want to delete the selected transfer including files?", 
+                    "Are you sure you want to delete the selected transfers including files?", KGet::selectedTransfers().count()),
+            i18n("Confirm transfer delete"),
+            KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No) {
+        return;
+    }
+
+    const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
+    if (!selectedTransfers.isEmpty()) {
+        foreach (TransferHandler *it, selectedTransfers) {
+            m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
+        }
+        KGet::delTransfers(KGet::selectedTransfers(), KGet::DeleteFiles);
     } else {
         //no transfers selected, delete groups if any are selected
         slotDeleteGroup();
