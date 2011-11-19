@@ -742,16 +742,16 @@ void MainWindow::slotDeleteSelected()
 
 void MainWindow::slotDeleteSelectedIncludingFiles()
 {
-    if (KMessageBox::warningYesNo(this,
-            i18np("Are you sure you want to delete the selected transfer including files?", 
-                    "Are you sure you want to delete the selected transfers including files?", KGet::selectedTransfers().count()),
-            i18n("Confirm transfer delete"),
-            KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No) {
-        return;
-    }
-
     const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
+
     if (!selectedTransfers.isEmpty()) {
+        if (KMessageBox::warningYesNo(this,
+                i18np("Are you sure you want to delete the selected transfer including files?", 
+                        "Are you sure you want to delete the selected transfers including files?", selectedTransfers.count()),
+                i18n("Confirm transfer delete"),
+                KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No) {
+            return;
+        }
         foreach (TransferHandler *it, selectedTransfers) {
             m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
         }
