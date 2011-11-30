@@ -1110,7 +1110,6 @@ void MainWindow::dragEnterEvent(QDragEnterEvent * event)
 void MainWindow::dropEvent(QDropEvent * event)
 {
     KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
-    QString str;
 
     if (!list.isEmpty())
     {
@@ -1128,10 +1127,7 @@ void MainWindow::dropEvent(QDropEvent * event)
         else
         {
             if (list.count() == 1)
-            {
-                str = event->mimeData()->text();
-                NewTransferDialogHandler::showNewTransferDialog(str);
-            }
+                NewTransferDialogHandler::showNewTransferDialog(list.first().url());
             else
                 NewTransferDialogHandler::showNewTransferDialog(list);
         }
