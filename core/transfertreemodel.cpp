@@ -27,24 +27,7 @@
 #include <klocale.h>
 #include <KMimeType>
 
-ItemMimeData::ItemMimeData()
-  : QMimeData()
-{
-}
-
-ItemMimeData::~ItemMimeData()
-{
-}
-
-void ItemMimeData::appendTransfer(const QWeakPointer<TransferHandler> &transfer)
-{
-    m_transfers.append(transfer);
-}
-
-QList<QWeakPointer<TransferHandler> > ItemMimeData::transfers() const
-{
-    return m_transfers;
-}
+#include <qmimedata.h>
 
 ModelItem::ModelItem(Handler * handler)
   : QStandardItem(),
@@ -564,26 +547,32 @@ Qt::DropActions TransferTreeModel::supportedDropActions() const
 QStringList TransferTreeModel::mimeTypes() const
 {
     QStringList types;
-    types << "kget/transfer_pointer";
+    types << "application/vnd.text.list";
     return types;
 }
 
 QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
 {
-    ItemMimeData *mimeData = new ItemMimeData();
+    QMimeData * mimeData = new QMimeData();
+    QByteArray encodedData;
+
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
     QModelIndexList sortedIndexes = indexes;
     qSort(sortedIndexes.begin(), sortedIndexes.end(), qGreater<QModelIndex>());
-    foreach (const QModelIndex &index, sortedIndexes) {
-        if (index.isValid() && index.column() == 0 && index.parent().isValid()) {
-            ModelItem *item = itemFromIndex(index);
-            if (!item->isGroup()) {
-                mimeData->appendTransfer(QWeakPointer<TransferHandler>(item->asTransfer()->transferHandler()));
+    foreach (const QModelIndex &index, sortedIndexes) 
+    {
+        if (index.isValid())
+        {
+            if(index.column() == 0 && index.parent().isValid())
+            {
+                stream << data(index.parent(), Qt::DisplayRole).toString();
+                stream << QString::number((qulonglong) itemFromIndex(index)->handler(), 16);
             }
         }
     }
 
-    mimeData->setData("kget/transfer_pointer", QByteArray());
+    mimeData->setData("application/vnd.text.list", encodedData);
     return mimeData;
 }
 
@@ -592,46 +581,57 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     if (action == Qt::IgnoreAction)
         return true;
 
-    const ItemMimeData *itemData = qobject_cast<const ItemMimeData*>(mdata);
-    if (!itemData) {
-        kWarning(5001) << "Unsuported mime data dropped.";
+    if (!mdata->hasFormat("application/vnd.text.list"))
         return false;
-    }
-
-    TransferGroup *destGroup = findGroup(data(parent, Qt::DisplayRole).toString());
-    if (!destGroup) {
-        kWarning(5001) << "No group could be found where the transfers should be inserted to.";
-        return false;
-    }
 
     if (parent.isValid())
         kDebug(5001) << "TransferTreeModel::dropMimeData" << " " << row << " " 
                                                           << column << endl;
 
-    QList<QWeakPointer<TransferHandler> > transfers = itemData->transfers();
-    kDebug(5001) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
+    QByteArray encodedData = mdata->data("application/vnd.text.list");
+    QDataStream stream(&encodedData, QIODevice::ReadOnly);
+    QStringList stringList;
+    int rows = 0;
 
-    const bool droppedInsideGroup = parent.isValid();
+    while (!stream.atEnd()) 
+    {
+        QString text;
+        stream >> text;
+        stringList << text;
+        ++rows;
+    }
+
+    kDebug(5001) << "TransferTreeModel::dropMimeData    DATA:";
+    kDebug(5001) << stringList;
+
+
     Transfer * after = 0;
-    for (int i = 0; i < transfers.count(); ++i) {
-        bool b = destGroup->size() > row && row - 1 >= 0;
-        if (b)
-            kDebug(5001) << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
-        else
-            kDebug(5001) << "TRANSFER AFTER NOT EXISTING";
+    for(int i=0; i < rows; i++)
+    {
+//         TransferGroup * group = findGroup(stringList[i]);
 
-        if (!after) {
-            bool rowValid = (row - 1 >= 0) && (destGroup->size() >= row);
-            if (droppedInsideGroup && rowValid) {
-                after = destGroup->operator[](row - 1);//insert at the correct position
+//         TransferGroup * destGroup = static_cast<TransferGroup *>(index(row, column, parent).internalPointer());
+
+        TransferGroup * destGroup = findGroup(data(parent, Qt::DisplayRole).toString());
+
+        TransferHandler * transferHandler = (TransferHandler *) stringList[++i].toInt(0, 16);
+        
+        if (destGroup) {
+            bool b = destGroup->size() > row && row - 1 >= 0;
+            if (b)
+                kDebug(5001) << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
+            else
+                kDebug(5001) << "TRANSFER AFTER NOT EXISTING";
+
+            if (!after) {
+                bool droppedInsideGroup = parent.isValid();
+                bool rowValid = (row - 1 >= 0) && (destGroup->size() >= row);
+                if (droppedInsideGroup && rowValid) {
+                    after = destGroup->operator[](row - 1);//insert at the correct position
+                }
             }
-        }
-
-        if (transfers[i].isNull()) {
-            kWarning() << "The moved transfer has been deleted inbetween.";
-        } else {
-            moveTransfer(transfers[i].data()->m_transfer, destGroup, after);
-        }
+            moveTransfer(transferHandler->m_transfer, destGroup, after);
+         }
     }
     return true;
 }

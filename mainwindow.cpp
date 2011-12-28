@@ -742,16 +742,16 @@ void MainWindow::slotDeleteSelected()
 
 void MainWindow::slotDeleteSelectedIncludingFiles()
 {
-    const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
+    if (KMessageBox::warningYesNo(this,
+            i18np("Are you sure you want to delete the selected transfer including files?", 
+                    "Are you sure you want to delete the selected transfers including files?", KGet::selectedTransfers().count()),
+            i18n("Confirm transfer delete"),
+            KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No) {
+        return;
+    }
 
+    const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
     if (!selectedTransfers.isEmpty()) {
-        if (KMessageBox::warningYesNo(this,
-                i18np("Are you sure you want to delete the selected transfer including files?", 
-                        "Are you sure you want to delete the selected transfers including files?", selectedTransfers.count()),
-                i18n("Confirm transfer delete"),
-                KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No) {
-            return;
-        }
         foreach (TransferHandler *it, selectedTransfers) {
             m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
         }
@@ -1204,6 +1204,7 @@ void MainWindow::dragEnterEvent(QDragEnterEvent * event)
 void MainWindow::dropEvent(QDropEvent * event)
 {
     KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
+    QString str;
 
     if (!list.isEmpty())
     {
@@ -1221,7 +1222,10 @@ void MainWindow::dropEvent(QDropEvent * event)
         else
         {
             if (list.count() == 1)
-                NewTransferDialogHandler::showNewTransferDialog(list.first().url());
+            {
+                str = event->mimeData()->text();
+                NewTransferDialogHandler::showNewTransferDialog(str);
+            }
             else
                 NewTransferDialogHandler::showNewTransferDialog(list);
         }
