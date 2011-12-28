@@ -58,7 +58,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     //timer to avoid constant checking of the input
     m_timer = new QTimer(this);
-    m_timer->setInterval(150);
+    m_timer->setInterval(350);
     m_timer->setSingleShot(true);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(checkInput()));
 
@@ -266,9 +266,7 @@ bool NewTransferDialog::isEmpty()
 void NewTransferDialog::inputTimer()
 {
     enableButtonOk(false);
-    if (!m_timer->isActive()) {
-        m_timer->start();
-    }
+    m_timer->start();
 }
 
 void NewTransferDialog::checkInput()
