@@ -15,6 +15,8 @@
 
 #include <QStandardItemModel>
 #include <QList>
+#include <QtCore/QMimeData>
+#include <QtCore/QWeakPointer>
 
 #include "../kget_export.h"
 #include "core/transfer.h"
@@ -30,6 +32,29 @@ class Transfer;
 class Scheduler;
 class TransferModelItem;
 class GroupModelItem;
+
+class ItemMimeData : public QMimeData
+{
+    Q_OBJECT
+    public:
+        ItemMimeData();
+        ~ItemMimeData();
+
+        /**
+         * Appends a transfer to the list of transfers.
+         * The weakpointer is there to check later on, that the transfer still exists
+         */
+        void appendTransfer(const QWeakPointer<TransferHandler> &transfer);
+
+        /**
+         * Returns all appended transfers
+         * The weakpointer is there to check later on, that the transfer still exists
+         */
+        QList<QWeakPointer<TransferHandler> > transfers() const;
+
+    private:
+        QList<QWeakPointer<TransferHandler> > m_transfers;
+};
 
 class KGET_EXPORT ModelItem : public QStandardItem
 {

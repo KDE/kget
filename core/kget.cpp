@@ -42,7 +42,6 @@
 #include <KPluginInfo>
 #include <KComboBox>
 #include <KConfigDialog>
-#include <KSaveFile>
 #include <KWindowSystem>
 
 #include <QTextStream>
@@ -598,7 +597,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
-    KSaveFile file(filename);
+    QFile file(filename);
     if ( !file.open( QIODevice::WriteOnly ) )
     {
         //kWarning(5001)<<"Unable to open output file when saving";
@@ -629,7 +628,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         QTextStream stream( &file );
         doc.save( stream, 2 );
     }
-    file.finalize();
+    file.close();
 }
 
 QList<TransferFactory*> KGet::factories()
