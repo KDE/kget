@@ -894,14 +894,17 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
 {
     disconnect(verifier(), SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SLOT(slotRepair(QList<KIO::fileoffset_t>,KIO::filesize_t)));
 
-    if (offsets.isEmpty())
+    if (!m_startedChunks || !m_finishedChunks)
     {
         kDebug(5001) << "Redownload everything";
-        m_startedChunks->clear();
-        m_finishedChunks->clear();
+        m_downloadedSize = 0;
     }
     else
     {
+        if (offsets.isEmpty()) {
+            m_startedChunks->clear();
+            m_finishedChunks->clear();
+        }
         kDebug(5001) << "Redownload broken pieces";
         for (int i = 0; i < offsets.count(); ++i) {
             const int start = offsets[i] / m_segSize;
@@ -909,7 +912,11 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
             m_startedChunks->setRange(start, end, false);
             m_finishedChunks->setRange(start, end, false);
         }
+
+        m_downloadedSize = m_segSize * m_finishedChunks->numOnBits();
     }
+    m_prevDownloadedSizes.clear();
+    m_prevDownloadedSizes.append(m_downloadedSize);
 
     //remove all current mirrors and readd the first unused mirror
     const QList<KUrl> mirrors = m_sources.keys();//FIXME only remove the mirrors of the broken segments?! --> for that m_assignedChunks would need to be saved was well
@@ -919,9 +926,6 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
     }
     addMirror(m_unusedUrls.takeFirst(), true, m_unusedConnections.takeFirst());
 
-    m_downloadedSize = m_segSize * m_finishedChunks->numOnBits();
-    m_prevDownloadedSizes.clear();
-    m_prevDownloadedSizes.append(m_downloadedSize);
     m_speed = 0;
 
     Transfer::ChangesFlags change = (Transfer::Tc_DownloadSpeed | Transfer::Tc_DownloadedSize);
