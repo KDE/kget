@@ -112,11 +112,13 @@ void TransferHistoryCategorizedView::update()
         m_delegate->categorizeItem(item);
     }
 
-    m_proxyModel = new KCategorizedSortFilterProxyModel();
+    m_proxyModel = new KCategorizedSortFilterProxyModel(this);
     m_proxyModel->setCategorizedModel(true);
     m_proxyModel->sort(0);
     m_proxyModel->setSourceModel(m_model);
+    QAbstractItemModel *oldProxy = m_view->model();
     m_view->setModel(m_proxyModel);
+    oldProxy->deleteLater();
 }
 
 #include "transferhistorycategorizedview.moc"
