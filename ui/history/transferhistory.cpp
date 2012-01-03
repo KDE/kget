@@ -242,8 +242,7 @@ void TransferHistory::slotLoadRangeType(int type)
             default:
                 cat_view->setCategorizedDelegate(new HostCategorizedDelegate());
         }
-    }
-    else {
+    } else {
         RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
         QFontMetrics *font = new QFontMetrics(KGlobalSettings::generalFont());
         range_view->clear();
