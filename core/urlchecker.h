@@ -121,6 +121,8 @@ class KGET_EXPORT UrlChecker
          * since it is assumed, that local files are either not handled by any
          * transfer plugin or are e.g. metalink or torrent files otherwise and thus
          * can have the same source/dest.
+         * Also keep in mind that false will be returned if dest is being removed
+         * at the moment. Avoid to ask a user twice in worst case.
          */
         static bool wouldOverwrite(const KUrl &source, const KUrl &dest);
 

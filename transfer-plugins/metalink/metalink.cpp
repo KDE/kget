@@ -287,6 +287,8 @@ void Metalink::deinit(Transfer::DeleteOptions options)
         }
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 
+    //FIXME does that mean, that the metalink file is always removed, even if
+    //downloaded by the user?
     if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
@@ -297,26 +299,6 @@ void Metalink::deinit(Transfer::DeleteOptions options)
     nepomukHandler()->deinit();
 #endif //HAVE_NEPOMUK
 }
-
-void Metalink::synchronDeinit(Transfer::DeleteOptions options)
-{
-    foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-        if (options & Transfer::DeleteFiles) {
-            factory->synchronDeinit();
-        }
-    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
-
-    if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
-    {
-        KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
-    }
-
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->deinit();
-#endif //HAVE_NEPOMUK
-}
-
 
 void Metalink::stop()
 {

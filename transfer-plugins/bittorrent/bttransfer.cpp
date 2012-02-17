@@ -100,12 +100,6 @@ void BTTransfer::deinit(Transfer::DeleteOptions options)
     }
 }
 
-void BTTransfer::synchronDeinit(Transfer::DeleteOptions options)
-{
-    deinit(options);
-}
-
-
 /** Reimplemented functions from Transfer-Class **/
 bool BTTransfer::isStalled() const
 {

@@ -12,6 +12,7 @@
 #include "bitset.h"
 #include "settings.h"
 
+#include "core/filedeleter.h"
 #include "core/kget.h"
 #include "core/signature.h"
 #include "core/verifier.h"
@@ -23,9 +24,7 @@
 #include <QtCore/QVarLengthArray>
 #include <QtXml/QDomText>
 
-#include <KIO/DeleteJob>
 #include <KIO/FileJob>
-#include <KIO/NetAccess>
 #include <KLocale>
 #include <KMessageBox>
 #include <kmountpoint.h>
@@ -113,15 +112,7 @@ void DataSourceFactory::init()
 void DataSourceFactory::deinit()
 {
     if (m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
-        KIO::del(m_dest, KIO::HideProgressInfo);
-    }
-}
-
-void DataSourceFactory::synchronDeinit()
-{
-    if (m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
-        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        FileDeleter::deleteFile(m_dest);
     }
 }
 
@@ -216,8 +207,9 @@ void DataSourceFactory::start()
     //to avoid problems like over methods not finished removing it because of a redownload
     if (!m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
         kDebug(5001) << "Removing existing file.";
-        KIO::Job *del = KIO::del(m_dest, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        m_startTried = true;
+        FileDeleter::deleteFile(m_dest, this, SLOT(slotRemovedFile()));
+        return;
     }
 
     m_downloadInitialized = true;
@@ -301,6 +293,15 @@ void DataSourceFactory::start()
         changeStatus(Job::Running);
     }
     slotUpdateCapabilities();
+}
+
+void DataSourceFactory::slotRemovedFile()
+{
+    kDebug(5001) << "File has been removed" << this;
+    if (m_startTried) {
+        m_startTried = false;
+        start();
+    }
 }
 
 void DataSourceFactory::open(KIO::Job *job)

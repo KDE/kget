@@ -21,7 +21,6 @@
 
 #include <kiconloader.h>
 #include <KIO/CopyJob>
-#include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <klocale.h>
 #include <KMessageBox>
@@ -64,14 +63,6 @@ void TransferMultiSegKio::deinit(Transfer::DeleteOptions options)
     if (options & Transfer::DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         m_dataSourceFactory->deinit();
-    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
-}
-
-void TransferMultiSegKio::synchronDeinit(Transfer::DeleteOptions options)
-{
-    if (options & Transfer::DeleteFiles)//if the transfer is not finished, we delete the *.part-file
-    {
-        m_dataSourceFactory->synchronDeinit();
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 

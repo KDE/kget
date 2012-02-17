@@ -121,7 +121,7 @@ class KGET_EXPORT Transfer : public Job
          * to deinit(), this isn't a virtual function and is not meant to be used in
          * transfer plugins
          */
-        void destroy(DeleteOptions options, bool synchronDeinit = false);
+        void destroy(DeleteOptions options);
         
         /**
          * This function is called after the creation of a Transfer
@@ -135,11 +135,6 @@ class KGET_EXPORT Transfer : public Job
          * In transfer plugins you can put here whatever needs to be deinitialized
          */
         virtual void deinit(DeleteOptions options) {Q_UNUSED(options);}
-
-        /**
-         * Same as deinit, only that it will remove files synchronously where possible
-         */
-        virtual void synchronDeinit(DeleteOptions options) {Q_UNUSED(options);}
 
         /**
          * Tries to repair file

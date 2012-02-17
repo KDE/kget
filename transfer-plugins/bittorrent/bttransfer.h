@@ -56,7 +56,6 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         ~BTTransfer();
 
         void deinit(Transfer::DeleteOptions options);
-        void synchronDeinit(Transfer::DeleteOptions options);
 
         //Job virtual functions        
         void start();

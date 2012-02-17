@@ -168,22 +168,11 @@ class KGET_EXPORT KGet
         static bool delTransfer(TransferHandler * transfer, DeleteMode mode = AutoDelete);
 
         /**
-         * Same as delTransfer, only that files are removed synchronously when possible
-         */
-        static bool delTransferSynchronously(TransferHandler * transfer, DeleteMode mode = AutoDelete);
-
-        /**
          * Removes multiple transfers from the KGet
          *
          * @param transfers The transfers to be removed
          */
         static bool delTransfers(const QList<TransferHandler*> &transfers, DeleteMode mode = AutoDelete);
-
-        /**
-         * Same as delTransfers, only that files are removed synchronously when possible
-         * @see delTransfers
-         */
-        static bool delTransfersSynchronously(const QList<TransferHandler*> &transfers, DeleteMode mode = AutoDelete);
 
         /**
          * Moves a transfer to a new group
@@ -405,8 +394,6 @@ class KGET_EXPORT KGet
          * Creates multiple transfers with transferData
          */
         static QList<TransferHandler*> createTransfers(const QList<TransferData> &transferData);
-
-        static bool delTransfers(const QList<TransferHandler*> &handlers, bool synchronously, DeleteMode mode = AutoDelete);
 
         static KUrl urlInputDialog();
         static QString destDirInputDialog();

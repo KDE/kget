@@ -45,7 +45,6 @@ class TransferMultiSegKio : public Transfer
 
         virtual void init();
         virtual void deinit(Transfer::DeleteOptions options);
-        virtual void synchronDeinit(Transfer::DeleteOptions options);
 
         QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
         void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors);

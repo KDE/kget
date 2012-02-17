@@ -83,13 +83,9 @@ void Transfer::create()
     init();
 }
 
-void Transfer::destroy(DeleteOptions options, bool synchronDeinit)
+void Transfer::destroy(DeleteOptions options)
 {
-    if (synchronDeinit) {
-        this->synchronDeinit(options);
-    } else {
-        deinit(options);
-    }
+    deinit(options);
 
 #ifdef HAVE_NEPOMUK
     nepomukHandler()->deinit();

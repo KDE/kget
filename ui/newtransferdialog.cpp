@@ -13,6 +13,7 @@
 
 #include "newtransferdialog.h"
 
+#include "core/filedeleter.h"
 #include "core/kget.h"
 #include "mainwindow.h"
 #include "core/mostlocalurl.h"
@@ -33,7 +34,6 @@
 #include <KColorScheme>
 #include <KDebug>
 #include <KFileDialog>
-#include <KIO/DeleteJob>
 #include <KWindowSystem>
 
 K_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
@@ -397,7 +397,7 @@ void NewTransferDialog::dialogAccepted()
     //an existing transfer has been specified and since ok was clicked, it was chosen to be overwritten
     if (m_existingTransfer) {
         kDebug(5001) << "Removing existing transfer:" << m_existingTransfer;
-        KGet::delTransferSynchronously(m_existingTransfer);
+        KGet::delTransfer(m_existingTransfer);
     }
 
     //set the last directory
@@ -414,12 +414,10 @@ void NewTransferDialog::dialogAccepted()
     QList<KGet::TransferData> data;
     if (!m_multiple) {
         if (m_overWriteSingle) {
-            //removes m_destination if it exists
-            //TODO move this and the other del-jobs to the transfer-plugins? Reasons for/against?
-            KIO::Job *del = KIO::del(m_destination, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
-            if (KIO::NetAccess::synchronousRun(del, 0)) {
-                kDebug(5001) << "Removing existing file:" << m_destination;
-            }
+            kDebug(5001) << "Removing existing file:" << m_destination;
+            //removes m_destination if it exists, do that here so that it is removed no matter if a transfer could be created or not
+            //as the user decided to throw the file away
+            FileDeleter::deleteFile(m_destination);
         }
 
         //sourceUrl is valid, has been checked before
@@ -441,9 +439,9 @@ void NewTransferDialog::dialogAccepted()
                 //file exists already, remove it
                 if (item->background() == m_existingFileBackground) {
                     kDebug(5001) << "Removing existing file:" << destUrl;
-                    //TODO move this and the other del-jobs to the transfer-plugins? Reasons for/against?
-                    KIO::Job *del = KIO::del(destUrl, KIO::HideProgressInfo);//TODO move this into an own global method or something? how shouuld it be called? advantage would be less compile time and less includes
-                    KIO::NetAccess::synchronousRun(del, 0);
+                    //removes destUrl if it exists, do that here so that it is removed no matter if a transfer could be created or not
+                    //as the user decided to throw the file away
+                    FileDeleter::deleteFile(destUrl);
                 }
 
                 data << KGet::TransferData(sourceUrl, destUrl, group);

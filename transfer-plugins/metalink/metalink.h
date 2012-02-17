@@ -73,7 +73,6 @@ class Metalink : public Transfer
         void stop();
 
         void deinit(Transfer::DeleteOptions options);
-        void synchronDeinit(Transfer::DeleteOptions options);
 
     private Q_SLOTS:
         /**

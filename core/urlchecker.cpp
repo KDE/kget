@@ -22,6 +22,7 @@
 #include "urlchecker.h"
 #include "urlchecker_p.h"
 #include "mainwindow.h"
+#include "core/filedeleter.h"
 #include "core/kget.h"
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
@@ -35,7 +36,6 @@
 #include <QtGui/QHBoxLayout>
 
 #include <KDialogButtonBox>
-#include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocale>
 #include <KSeparator>
@@ -133,7 +133,7 @@ UrlChecker::UrlError UrlChecker::checkUrl(const KUrl &url, const UrlChecker::Url
 
 bool UrlChecker::wouldOverwrite(const KUrl &source, const KUrl &dest)
 {
-    return (dest.isLocalFile() && QFile::exists(dest.toLocalFile()) && source != dest);
+    return (dest.isLocalFile() && QFile::exists(dest.toLocalFile()) && source != dest && !FileDeleter::isFileBeingDeleted(dest));
 }
 
 UrlChecker::UrlError UrlChecker::checkSource(const KUrl &src, bool showNotification)
@@ -616,7 +616,7 @@ void UrlChecker::removeTransfers(const QList<TransferHandler*> &toRemove)
     QList<TransferHandler*> transfers = toRemove;
     transfers.removeAll(0);
     if (!transfers.isEmpty()) {
-        KGet::delTransfersSynchronously(transfers);
+        KGet::delTransfers(transfers);
     }
 }
 
@@ -748,9 +748,7 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
         if (m_skipAll) { //only existing are ignored
             return KUrl();
         } else if (m_overwriteAll) {
-            //delete the file, that way it won't show up in future calls of this method, do that synchronously for that reason
-            KIO::Job *del = KIO::del(newDestination, KIO::HideProgressInfo);
-            KIO::NetAccess::synchronousRun(del, 0);
+            FileDeleter::deleteFile(newDestination);
             return newDestination;
         } else if (m_autoRenameAll) {
             newDestination = dlg->autoDestUrl();
@@ -761,15 +759,14 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
         const int result = dlg->exec();
         switch (result) {
             case KIO::R_OVERWRITE: {
-                //delete the file, that way it won't show up in future calls of this method, do that synchronously for that reason
-                KIO::Job *del = KIO::del(newDestination, KIO::HideProgressInfo);
-                KIO::NetAccess::synchronousRun(del, 0);
+                //delete the file, that way it won't show up in future calls of this method
+                FileDeleter::deleteFile(newDestination);
                 return newDestination;
             }
             case KIO::R_OVERWRITE_ALL: {
-                //delete the file, that way it won't show up in future calls of this method, do that synchronously for that reason
-                KIO::Job *del = KIO::del(newDestination, KIO::HideProgressInfo);
-                KIO::NetAccess::synchronousRun(del, 0);
+
+                //delete the file, that way it won't show up in future calls of this method
+                FileDeleter::deleteFile(newDestination);
                 m_overwriteAll = true;
                 return newDestination;
             }
