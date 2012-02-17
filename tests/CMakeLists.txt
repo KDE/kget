@@ -57,3 +57,16 @@ target_link_libraries(metalinktest ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${QT_QT
 if (HAVE_NEPOMUK)
   target_link_libraries(metalinktest ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
 endif (HAVE_NEPOMUK)
+
+#===========FileDeleter===========
+set(filedeletertest_SRCS
+    filedeletertest.cpp
+    ../core/filedeleter.cpp
+)
+
+kde4_add_unit_test(filedeletertest
+    TESTNAME kget-filedeletertest
+    ${filedeletertest_SRCS}
+)
+
+target_link_libraries(filedeletertest ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY})

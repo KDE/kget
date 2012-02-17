@@ -122,6 +122,7 @@ set(kgetcore_SRCS
    core/urlchecker.cpp
    core/basedialog.cpp
    core/mostlocalurl.cpp
+   core/filedeleter.cpp
 )
 
 if(HAVE_NEPOMUK)
