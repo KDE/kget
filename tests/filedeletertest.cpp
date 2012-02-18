@@ -27,6 +27,7 @@
 
 #include <KJob>
 #include <KTemporaryFile>
+#include <KUrl>
 
 void FileDeleterTest::fileDeleterTest()
 {
