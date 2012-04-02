@@ -254,7 +254,7 @@ TransferHandler * KGet::addTransfer(KUrl srcUrl, QString destDir, QString sugges
     TransferHandler *transfer = createTransfer(srcUrl, destUrl, groupName, start);
     if (transfer) {
         KGet::showNotification(m_mainWindow, "added",
-                                i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">\%1</p>", transfer->source().pathOrUrl()),
+                                i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">%1</p>", transfer->source().pathOrUrl()),
                                 "kget", i18n("Download added"));
     }
 
@@ -350,7 +350,7 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
         } else {
             message = i18n("<p>The following transfers have been added to the download list:</p>");
         }
-        const QString content = QString("<p style=\"font-size: small;\">\%1</p>").arg(urls);
+        const QString content = QString("<p style=\"font-size: small;\">%1</p>").arg(urls);
         KGet::showNotification(m_mainWindow, "added", message + content, "kget", i18n("Download added"));
     }
 
@@ -910,7 +910,7 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
         foreach (const QString &url, urlsFailed) {
             content += '\n' + url;
         }
-        content = QString("<p style=\"font-size: small;\">\%1</p>").arg(content);
+        content = QString("<p style=\"font-size: small;\">%1</p>").arg(content);
 
         KGet::showNotification(m_mainWindow, "error", message + content, "dialog-error", i18n("Protocol unsupported"));
     }
@@ -1379,15 +1379,15 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
         if (transferFlags & Transfer::Tc_Status) {
             if ((transfer->status() == Job::Finished)   && (transfer->startStatus() != Job::Finished)) {
                 KGet::showNotification(KGet::m_mainWindow, "finished",
-                                       i18n("<p>The following file has finished downloading:</p><p style=\"font-size: small;\">\%1</p>", transfer->dest().fileName()),
+                                       i18n("<p>The following file has finished downloading:</p><p style=\"font-size: small;\">%1</p>", transfer->dest().fileName()),
                                        "kget", i18n("Download completed"));
             } else if (transfer->status() == Job::Running) {
                 KGet::showNotification(KGet::m_mainWindow, "started",
-                                       i18n("<p>The following transfer has been started:</p><p style=\"font-size: small;\">\%1</p>", transfer->source().pathOrUrl()),
+                                       i18n("<p>The following transfer has been started:</p><p style=\"font-size: small;\">%1</p>", transfer->source().pathOrUrl()),
                                        "kget", i18n("Download started"));
             } else if (transfer->status() == Job::Aborted && transfer->error().type != Job::AutomaticRetry) {
-                KNotification * notification = KNotification::event("error", i18n("Error"), i18n("<p>There has been an error in the following transfer:</p><p style=\"font-size: small;\">\%1</p>"
-                                            "<p>The error message is:</p><p style=\"font-size: small;\">\%2</p>", transfer->source().pathOrUrl(), transfer->error().text), 
+                KNotification * notification = KNotification::event("error", i18n("Error"), i18n("<p>There has been an error in the following transfer:</p><p style=\"font-size: small;\">%1</p>"
+                                            "<p>The error message is:</p><p style=\"font-size: small;\">%2</p>", transfer->source().pathOrUrl(), transfer->error().text), 
                                              transfer->error().pixmap, KGet::m_mainWindow, KNotification::CloseOnTimeout);
                 if (transfer->error().type == Job::ManualSolve) {
                     m_notifications.insert(notification, transfer);
