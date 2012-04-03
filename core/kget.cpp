@@ -1221,18 +1221,22 @@ void KGet::setHasNetworkConnection(bool hasConnection)
         return;
     }
     m_hasConnection = hasConnection;
-
-    if (hasConnection) {
-        KGet::showNotification(m_mainWindow, "notification",
-                               i18n("Internet connection established, resuming transfers."),
-                               "dialog-info");
-
-    } else {
-        KGet::showNotification(m_mainWindow, "notification",
-                               i18n("No internet connection, stopping transfers."),
-                               "dialog-info");
-    }
+    const bool initialState = m_scheduler->hasRunningJobs();
     m_scheduler->setHasNetworkConnection(hasConnection);
+    const bool finalState = m_scheduler->hasRunningJobs();
+
+    if (initialState != finalState) {
+        if (hasConnection) {
+            KGet::showNotification(m_mainWindow, "notification",
+                                   i18n("Internet connection established, resuming transfers."),
+                                   "dialog-info");
+
+        } else {
+            KGet::showNotification(m_mainWindow, "notification",
+                                   i18n("No internet connection, stopping transfers."),
+                                   "dialog-info");
+        }
+    }
 }
 
 KGetPlugin * KGet::createPluginFromService( const KService::Ptr &service )
