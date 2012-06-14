@@ -48,12 +48,13 @@ class KGET_EXPORT Transfer : public Job
         {
             Tc_None           = 0x00000000,
             // These flags respect the Model columns order NOTE: The model only checks the last 8 bits, so all values which need to be updated by the model should look like: 0x000000xx
-            Tc_FileName       = 0x00000001,
-            Tc_Status         = 0x00000002,
-            Tc_TotalSize      = 0x00000004,
-            Tc_Percent        = 0x00000008,
-            Tc_DownloadSpeed  = 0x00000010,
-            Tc_RemainingTime  = 0x00000020,
+            Tc_Source         = 0x00000001,
+            Tc_FileName       = 0x00000002,
+            Tc_Status         = 0x00000004,
+            Tc_TotalSize      = 0x00000008,
+            Tc_Percent        = 0x00000010,
+            Tc_DownloadSpeed  = 0x00000020,
+            Tc_RemainingTime  = 0x00000040,
             // Misc
             Tc_UploadSpeed    = 0x00000100,
             Tc_UploadLimit    = 0x00000200,

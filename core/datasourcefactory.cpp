@@ -532,6 +532,7 @@ void DataSourceFactory::setMirrors(const QHash<KUrl, QPair<bool, int> > &mirrors
     //first remove the not set DataSources
     QList<KUrl> oldUrls = m_sources.keys();
     QList<KUrl> newUrls = mirrors.keys();
+    
     foreach (const KUrl &url, oldUrls)
     {
         if (!newUrls.contains(url))

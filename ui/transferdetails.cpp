@@ -61,45 +61,42 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
 
     Q_UNUSED(transfer)
 
-    if(flags & Transfer::Tc_Status)
-    {
+    if(flags & Transfer::Tc_Status) {
         frm.statusPixmapContentLabel->setPixmap(m_transfer->statusPixmap());
         frm.statusTextContentLabel->setText(m_transfer->statusText());
 
-        if (m_transfer->status() == Job::Finished)
-        {
+        if (m_transfer->status() == Job::Finished) {
             frm.speedContentLabel->setText(i18n("Average speed: %1/s", KIO::convertSize(m_transfer->averageDownloadSped())));
         }
     }
 
-    if((flags & Transfer::Tc_TotalSize) || (flags & Transfer::Tc_DownloadedSize))
-    {
+    if ((flags & Transfer::Tc_TotalSize) || (flags & Transfer::Tc_DownloadedSize)) {
         frm.completedContentLabel->setText(i18n("%1 of %2", KIO::convertSize(m_transfer->downloadedSize()), KIO::convertSize(m_transfer->totalSize())));
     }
 
-    if(flags & Transfer::Tc_Percent)
-    {
+    if (flags & Transfer::Tc_Percent) {
         frm.progressBar->setValue(m_transfer->percent());
     }
 
-    if ((flags & Transfer::Tc_DownloadSpeed) && (m_transfer->status() != Job::Finished))
-    {
+    if ((flags & Transfer::Tc_DownloadSpeed) && (m_transfer->status() != Job::Finished)) {
         int speed = m_transfer->downloadSpeed();
 
-        if(speed==0)
-        {
+        if (speed == 0) {
             if(m_transfer->status() == Job::Running)
                 frm.speedContentLabel->setText(i18n("Stalled") );
             else
                 frm.speedContentLabel->setText(QString());
-        }
-        else
+        } else {
             frm.speedContentLabel->setText(i18n("%1/s", KIO::convertSize(speed)));
+        }
     }
 
-    if(flags & Transfer::Tc_FileName)
-    {
+    if(flags & Transfer::Tc_FileName) {
         frm.destContentEdit->setText(m_transfer->dest().pathOrUrl());
+    }
+    
+    if (flags & Transfer::Tc_Source) {
+        frm.sourceContentEdit->setText(m_transfer->source().pathOrUrl());
     }
 
     frm.remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));

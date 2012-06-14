@@ -257,6 +257,17 @@ void TransferMultiSegKio::setAvailableMirrors(const KUrl &file, const QHash<KUrl
     Q_UNUSED(file)
 
     m_dataSourceFactory->setMirrors(mirrors);
+    
+    m_source = KUrl();
+    QHash< KUrl, QPair<bool, int> >::const_iterator it = mirrors.begin();
+    QHash< KUrl, QPair<bool, int> >::const_iterator end = mirrors.end();
+    for (; it != end; it++) {
+        if (it.value().first) {
+            m_source = it.key();
+            break;
+        }
+    }
+    setTransferChange(Tc_Source, true);
 }
 
 Verifier *TransferMultiSegKio::verifier(const KUrl &file)
