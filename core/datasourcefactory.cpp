@@ -448,6 +448,7 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
                     connect(source, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t,QByteArray,bool&)));
                     connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotFreeSegments(TransferDataSource*,QPair<int,int>)));
                     connect(source, SIGNAL(log(QString,Transfer::LogLevel)), this, SIGNAL(log(QString,Transfer::LogLevel)));
+                    connect(source, SIGNAL(urlChanged(KUrl, KUrl)), this, SLOT(slotUrlChanged(KUrl, KUrl)));
 
                     slotUpdateCapabilities();
 
@@ -490,6 +491,13 @@ void DataSourceFactory::addMirror(const KUrl &url, bool used, int numParalellCon
             m_unusedConnections.append(numParalellConnections);
         }
     }
+}
+
+void DataSourceFactory::slotUrlChanged(const KUrl &old, const KUrl &newUrl)
+{
+    TransferDataSource * ds = m_sources.take(old);
+    m_sources[newUrl] = ds;
+    emit dataSourceFactoryChange(Transfer::Tc_Source | Transfer::Tc_FileName);
 }
 
 void DataSourceFactory::removeMirror(const KUrl &url)

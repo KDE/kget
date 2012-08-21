@@ -80,9 +80,18 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     connect(segment, SIGNAL(finishedSegment(Segment*,int,bool)), this, SLOT(slotFinishedSegment(Segment*,int,bool)));
     connect(segment, SIGNAL(error(Segment*,QString,Transfer::LogLevel)), this, SLOT(slotError(Segment*,QString,Transfer::LogLevel)));
     connect(segment, SIGNAL(finishedDownload(KIO::filesize_t)), this, SLOT(slotFinishedDownload(KIO::filesize_t)));
+    connect(segment, SIGNAL(urlChanged(KUrl)), this, SLOT(slotUrlChanged(KUrl)));
 
     if (m_started) {
         segment->startTransfer();
+    }
+}
+
+void MultiSegKioDataSource::slotUrlChanged(const KUrl &url)
+{
+    if (m_sourceUrl != url) {
+        emit urlChanged(m_sourceUrl, url);
+        m_sourceUrl = url;
     }
 }
 

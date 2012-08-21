@@ -56,6 +56,8 @@ class MultiSegKioDataSource : public TransferDataSource
         void slotCanResume();
 
         void slotFinishedDownload(KIO::filesize_t size);
+        
+        void slotUrlChanged(const KUrl &url);
 
     private:
         Segment *mostUnfinishedSegments(int *unfinished = 0) const;

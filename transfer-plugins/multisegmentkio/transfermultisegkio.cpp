@@ -46,7 +46,7 @@ void TransferMultiSegKio::init()
     Transfer::init();
 
     if (!m_dataSourceFactory) {
-         m_dataSourceFactory = new DataSourceFactory(this, m_dest);
+        m_dataSourceFactory = new DataSourceFactory(this, m_dest);
         connect(m_dataSourceFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
         connect(m_dataSourceFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
         connect(m_dataSourceFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
@@ -163,6 +163,28 @@ void TransferMultiSegKio::save(const QDomElement &element)
 
 void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags change)
 {
+    if (change & Tc_FileName) {
+        QList<KUrl> urls = m_dataSourceFactory->mirrors().keys();
+        QString filename = urls.first().fileName();
+        foreach (const KUrl url, urls) {
+            if (filename != url.fileName())
+                return;
+        }
+        KUrl path = m_dest.directory();
+        path.addPath(filename);
+        setNewDestination(path);
+    }
+    if (change & Tc_Source) {
+        m_source = KUrl();
+        QHash< KUrl, QPair<bool, int> >::const_iterator it = m_dataSourceFactory->mirrors().begin();
+        QHash< KUrl, QPair<bool, int> >::const_iterator end = m_dataSourceFactory->mirrors().end();
+        for (; it != end; it++) {
+            if (it.value().first) {
+                m_source = it.key();
+                break;
+            }
+        }
+    }
     if (change & Tc_Status) {
         setStatus(m_dataSourceFactory->status());
 

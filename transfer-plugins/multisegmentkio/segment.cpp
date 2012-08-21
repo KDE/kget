@@ -82,16 +82,23 @@ bool Segment::createTransfer()
                  SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
     }
     #if 0 //TODO: we disable that code till it's implemented in kdelibs, also we need to think, which settings we should use
-    if(Settings::speedLimit())
+    if (Settings::speedLimit())
     {
-                m_getJob->addMetaData( "speed-limit", KIO::number(Settings::transferSpeedLimit() * 1024) );
+        m_getJob->addMetaData( "speed-limit", KIO::number(Settings::transferSpeedLimit() * 1024) );
     }
     #endif
     connect(m_getJob, SIGNAL(totalSize(KJob*,qulonglong)), this, SLOT(slotTotalSize(KJob*,qulonglong)));
-    connect( m_getJob, SIGNAL(data(KIO::Job*,QByteArray)),
+    connect(m_getJob, SIGNAL(data(KIO::Job*,QByteArray)),
                  SLOT(slotData(KIO::Job*,QByteArray)));
-    connect( m_getJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
+    connect(m_getJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
+    connect(m_getJob, SIGNAL(redirection(KIO::Job *,const KUrl &)), SLOT(slotRedirection(KIO::Job *, const KUrl &))); 
     return true;
+}
+
+void Segment::slotRedirection(KIO::Job* , const KUrl &url)
+{
+    m_url = url;
+    emit urlChanged(url);
 }
 
 void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )

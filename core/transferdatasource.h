@@ -223,6 +223,11 @@ class KGET_EXPORT TransferDataSource : public QObject
         void freeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
 
         void log(const QString &message, Transfer::LogLevel logLevel);
+        
+        /**
+         * Emitted when the filename of a url changes, e.g. when a link redirects
+         */
+        void urlChanged(const KUrl &old, const KUrl &newUrl);
 
     protected:
         /**

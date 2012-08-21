@@ -222,6 +222,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
         void slotFinishedDownload(TransferDataSource *source, KIO::filesize_t size);
+        
+        void slotUrlChanged(const KUrl &, const KUrl &);
 
     private:
         /**

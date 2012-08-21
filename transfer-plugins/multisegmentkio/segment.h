@@ -121,6 +121,7 @@ class Segment : public QObject
         void totalSize(KIO::filesize_t size, QPair<int, int> segmentRange);
         void finishedDownload(KIO::filesize_t size);
         void canResume();
+        void urlChanged(const KUrl &newUrl);
 
     private Q_SLOTS:
         void slotData(KIO::Job *job, const QByteArray &data);
@@ -133,6 +134,8 @@ class Segment : public QObject
          * If this whole process still fails after 100 times, then error is emitted.
          */
         void slotWriteRest();
+        
+        void slotRedirection(KIO::Job*, const KUrl &);
 
     private:
         bool writeBuffer();
