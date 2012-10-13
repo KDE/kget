@@ -8,7 +8,7 @@
   <!ENTITY % English "INCLUDE"> 
 ]>
 
-<book lang="&language;">
+<book id="kget" lang="&language;">
 <bookinfo>
 <title>The &kget; Handbook</title>
 
