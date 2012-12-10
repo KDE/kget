@@ -17,9 +17,9 @@ endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 if (NEPOMUK_FOUND)
     set(SDO_MIN_VERSION 0.4)
     find_package(SharedDesktopOntologies ${SDO_MIN_VERSION})
-    STRING (COMPARE GREATER "${SHAREDDESKTOPONTOLOGIES_VERSION}" "${SDO_MIN_VERSION}" HAVE_NEPOMUK)
 endif (NEPOMUK_FOUND)
-if(HAVE_NEPOMUK)
+if(SharedDesktopOntologies_FOUND)
+    set(HAVE_NEPOMUK SharedDesktopOntologies_FOUND)
     include_directories(
         ${SOPRANO_INCLUDE_DIR}
         ${NEPOMUK_INCLUDE_DIR}
@@ -27,7 +27,7 @@ if(HAVE_NEPOMUK)
     add_definitions(-DHAVE_NEPOMUK)
     add_definitions(-DDISABLE_NEPOMUK_LEGACY)
     include(NepomukAddOntologyClasses)
-endif(HAVE_NEPOMUK)
+endif(SharedDesktopOntologies_FOUND)
 
 if(QCA2_FOUND)
     add_definitions(-DHAVE_QCA2)
