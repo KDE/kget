@@ -39,7 +39,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
 {
     kDebug(5001);
 
-    if (isSupported(srcUrl))
+    if (isSupported(srcUrl) && (!e || !e->firstChildElement("factories").isNull()))
     {
        return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
