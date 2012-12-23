@@ -8,7 +8,6 @@ X-KDE-ParentComponents=kget_contentfetch_plugin
 Name=Content Fetcher
 Name[ar]=جالب المحتوى
 Name[ast]=Content Fetcher
-Name[bs]=Dobavljač sadržaja
 Name[ca]=Recollidor de continguts
 Name[ca@valencia]=Recollidor de continguts
 Name[cs]=Stahovač obsahu
