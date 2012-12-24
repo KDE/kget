@@ -116,10 +116,7 @@
        </widget>
       </item>
       <item>
-       <widget class="KEditListBox" name="keyservers">
-        <property name="flat">
-         <bool>true</bool>
-        </property>
+       <widget class="KEditListWidget" name="keyservers">
        </widget>
       </item>
      </layout>
@@ -129,9 +126,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KEditListBox</class>
+   <class>KEditListWidget</class>
    <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
+   <header>keditlistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>KButtonGroup</class>
