@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=KGet Barchart Applet
 Name[ast]=Miniaplicación gráfica de barres de KGet
+Name[bs]=trakasti grafikon KGeta
 Name[ca]=Miniaplicació de diagrama de barres del KGet
 Name[ca@valencia]=Miniaplicació de diagrama de barres del KGet
 Name[cs]=Applet pro sloupcový graf v KGet
@@ -52,6 +53,7 @@ Name[zh_TW]=KGet 圖表小程式
 Comment=KGet barchart applet
 Comment[ar]=بريمج KGet عمود خُطاطة
 Comment[ast]=Miniaplicación gráfica de barres de KGet
+Comment[bs]=Aplet trakastog grafikona za KGet
 Comment[ca]=Miniaplicació de diagrama de barres del KGet
 Comment[ca@valencia]=Miniaplicació de diagrama de barres del KGet
 Comment[cs]=Applet pro sloupcový graf v KGet

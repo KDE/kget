@@ -7,6 +7,7 @@ X-KDE-ParentComponents=kget_checksumsearch_plugin
 
 Name=ChecksumSearch
 Name[ast]=Guetador de comprobación de sumes
+Name[bs]=ChecksumSearch
 Name[ca]=Cerca de suma de verificació
 Name[ca@valencia]=Cerca de suma de verificació
 Name[cs]=Hledání kontrolního součtu
