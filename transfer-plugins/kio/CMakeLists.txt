@@ -1,5 +1,6 @@
 include_directories(
    ../../
+    ${CMAKE_CURRENT_BINARY_DIR}/../../
 )
 
 set(kget_kiofactory_PART_SRCS

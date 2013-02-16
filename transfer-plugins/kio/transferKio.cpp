@@ -12,7 +12,7 @@
 #include "transferKio.h"
 #include "core/verifier.h"
 #include "core/signature.h"
-#include "kget/settings.h"
+#include "settings.h"
 
 #include <kiconloader.h>
 #include <kio/scheduler.h>
