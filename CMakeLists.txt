@@ -1,5 +1,51 @@
 project(kget)
 
+if(NOT INSIDE_KDENETWORK)
+    message("Not building inside KDENetwork, loading KDE CMake Macros.")
+
+    find_package(KDE4 REQUIRED)
+
+    include(KDE4Defaults)
+    include(MacroLibrary)
+
+    include(CheckIncludeFile)
+    include(CheckIncludeFiles)
+    include(CheckSymbolExists)
+    include(CheckFunctionExists)
+    include(CheckLibraryExists)
+    include(CheckPrototypeExists)
+    include(CheckTypeSize)
+
+    set(CMAKE_REQUIRED_DEFINITIONS ${_KDE4_PLATFORM_DEFINITIONS})
+    if(WIN32)
+       set(CMAKE_REQUIRED_LIBRARIES ${KDEWIN32_LIBRARIES})
+       set(CMAKE_REQUIRED_INCLUDES  ${KDEWIN32_INCLUDES})
+    endif(WIN32)
+    add_definitions(${QT_DEFINITIONS} ${QT_QTDBUS_DEFINITIONS} ${KDE4_DEFINITIONS})
+    add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+    include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
+endif(NOT INSIDE_KDENETWORK)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+
+macro_optional_find_package(Nepomuk)
+macro_log_feature(Nepomuk_FOUND "Nepomuk" "Semantic Desktop" "http://nepomuk.kde.org" FALSE "" "Nepomuk is needed for the integration into KGet")
+
+macro_optional_find_package(Sqlite)
+macro_log_feature(SQLITE_FOUND "SQLite" "SQLite is a Binary-Database" "" FALSE "" "Needed for the SQLite-Backend of the KGet-History and the Kopete-Statistic-Plugin")
+
+macro_optional_find_package(QCA2)
+macro_log_feature(QCA2_FOUND "QCA2" "Qt Cryptographic Architecture" "http://delta.affinix.com/qca" FALSE "2.0.0" "Needed for the KGet bittorrent-plugin and some Kopete plugins")
+
+macro_optional_find_package(QGpgme)
+macro_log_feature(QGPGME_FOUND "QGpgME" "The QGpgME library" "http://www.kde.org" FALSE "" "QGpgME is required to have signature verifying support in KGet.")
+
+macro_optional_find_package(KTorrent)
+macro_log_feature(LIBKTORRENT_FOUND "libktorrent" "Backend Library of KTorrent" "http://ktorrent.org" FALSE "" "Needed to build KGet bittorrent support.")
+
+macro_optional_find_package(LibMms)
+macro_log_feature(LIBMMS_FOUND "libmms" "Library to read mms streams" "http://libmms.sourceforge.net" FALSE "" "Needed to build KGet mms support.")
+
 set(kget_adaptor_SRCS
     dbus/dbuskgetwrapper.cpp
 )
@@ -72,8 +118,10 @@ endif(LIBKONQ_FOUND)
 
 
 include_directories(
-   ${CMAKE_SOURCE_DIR}/kget/core/
-   ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/
+    ${CMAKE_CURRENT_BINARY_DIR}/core/
+    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 if(SQLITE_FOUND)
@@ -276,3 +324,6 @@ endif(QGPGME_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
+if (NOT INSIDE_KDENETWORK)
+    macro_display_feature_log()
+endif ()
