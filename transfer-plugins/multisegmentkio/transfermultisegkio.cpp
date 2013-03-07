@@ -166,6 +166,8 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
     if (change & Tc_FileName) {
         QList<KUrl> urls = m_dataSourceFactory->mirrors().keys();
         QString filename = urls.first().fileName();
+        if (filename.isEmpty())
+            return;
         foreach (const KUrl url, urls) {
             if (filename != url.fileName())
                 return;
