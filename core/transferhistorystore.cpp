@@ -31,6 +31,9 @@
 #ifdef HAVE_NEPOMUK
     #include "core/transferhistorystore_nepomuk_p.h"
     #include "historyitem.h"
+
+    #include <Soprano/Vocabulary/RDF>
+    #include <Nepomuk/Variant>
 #endif
 
 #include <KDebug>
@@ -546,6 +549,7 @@ NepomukStore::~NepomukStore()
 void NepomukStore::load()
 {
     QList<Nepomuk::HistoryItem> allItems = Nepomuk::HistoryItem::allHistoryItems();
+
     for (int i = 0; i != allItems.count(); i++) {
         Nepomuk::HistoryItem current = allItems.at(i);
         TransferHistoryItem item;
@@ -555,8 +559,10 @@ void NepomukStore::load()
         item.setDateTime(current.dateTime());
         item.setSize(current.size());
         m_items << item;
-        emit elementLoaded(i, allItems.count(), item);
+        emit elementLoaded(i + 1, allItems.count(), item);
     }
+
+    emit loadFinished();
 }
 
 void NepomukStore::clear()
@@ -569,6 +575,9 @@ void NepomukStore::clear()
 void NepomukStore::saveItem(const TransferHistoryItem &item)
 {
     Nepomuk::HistoryItem historyItem(item.source());
+
+    historyItem.setProperty(Soprano::Vocabulary::RDF::type(), Nepomuk::HistoryItem::resourceTypeUri());
+ 
     historyItem.setDestination(item.dest());
     historyItem.setSource(item.source());
     historyItem.setState(item.state());
