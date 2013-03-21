@@ -276,3 +276,7 @@ endif(QGPGME_FOUND)
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
+if (HAVE_NEPOMUK)
+    configure_file(kget_history.ontology.in ${CMAKE_CURRENT_BINARY_DIR}/kget_history.ontology)
+    install(FILES kget_history.trig ${CMAKE_CURRENT_BINARY_DIR}/kget_history.ontology DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ontology/kde)
+endif (HAVE_NEPOMUK)

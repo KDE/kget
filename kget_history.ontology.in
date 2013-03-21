@@ -1,0 +1,8 @@
+[Ontology]
+Version=1.0
+Name=KGet History Item
+Comment=Resource that represents a transfer history item in KGet
+Namespace=http://nepomuk.kde.org/ontologies/2008/10/06/ndho#
+Path=${CMAKE_INSTALL_PREFIX}/share/ontology/kde/kget_history.trig
+MimeType=application/x-trig
+Type=Data
