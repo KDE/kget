@@ -10,7 +10,18 @@
 #ifndef TRANSFERHISTORYSTORE_NEPOMUK_P_H
 #define TRANSFERHISTORYSTORE_NEPOMUK_P_H
 
+#include "transferhistorystore.h"
+
 #include <QList>
+
+namespace Nepomuk
+{
+    namespace Query
+    {
+        class Result;
+        class QueryServiceClient;
+    }
+}
 
 class TransferHistoryItem;
 class NepomukStore : public TransferHistoryStore
@@ -22,6 +33,7 @@ public:
 
 public slots:
     void load();
+    void loadResult(const QList<Nepomuk::Query::Result>& entries);
     void clear();
     void saveItem(const TransferHistoryItem &item);
     void deleteItem(const TransferHistoryItem &item);
