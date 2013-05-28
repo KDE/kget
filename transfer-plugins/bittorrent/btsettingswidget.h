@@ -19,7 +19,7 @@ class BTSettingsWidget : public KCModule, public Ui::BTSettingsWidget
 {
     Q_OBJECT
     public:
-        BTSettingsWidget(QWidget * parent, const QVariantList &args);
+        BTSettingsWidget(QWidget * parent = 0, const QVariantList &args = QVariantList());
 
     public slots:
         virtual void load();

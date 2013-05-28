@@ -17,7 +17,7 @@
 
 KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
 
-BTSettingsWidget::BTSettingsWidget(QWidget * parent = 0, const QVariantList &args = QVariantList())
+BTSettingsWidget::BTSettingsWidget(QWidget * parent, const QVariantList &args)
   : KCModule(KGetFactory::componentData(), parent, args)
 {
     setupUi(this);
