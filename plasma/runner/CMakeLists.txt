@@ -2,7 +2,7 @@ set(krunner_kget_SRCS
     kgetrunner.cpp
     )
 
-qt4_add_dbus_interface(krunner_kget_SRCS ../../../kget/dbus/org.kde.kget.main.xml kget_interface)
+qt4_add_dbus_interface(krunner_kget_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
 
 kde4_add_plugin(krunner_kget
     ${krunner_kget_SRCS}

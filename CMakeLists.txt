@@ -87,7 +87,7 @@ if(QGPGME_FOUND)
     add_definitions(-DHAVE_QGPGME)
     include_directories(
         ${Boost_INCLUDE_DIRS}
-        ${QGPGME_INCLUDES}
+        ${QGPGME_INCLUDE_DIR}
     )
 endif(QGPGME_FOUND)
 
