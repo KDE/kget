@@ -56,7 +56,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     target_link_libraries(metalinktest ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY})
 
     if (HAVE_NEPOMUK)
-    target_link_libraries(metalinktest ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
+    target_link_libraries(metalinktest ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY})
     endif (HAVE_NEPOMUK)
 
     #===========FileDeleter===========
