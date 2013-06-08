@@ -1,5 +1,6 @@
 /***************************************************************************
 *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+*   Copyright (C) 2012 Aish Raj Dahal <dahalaishraj@gmail.com>            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
@@ -1334,3 +1335,167 @@ void KGetMetalink::HandleMetalink::addProperty(QList<QPair<QUrl, Nepomuk::Varian
     }
 }
 #endif //HAVE_NEPOMUK
+
+
+KGetMetalink::MetalinkHttpParser::~MetalinkHttpParser()
+{
+
+}
+
+QString* KGetMetalink::MetalinkHttpParser::getEtag()
+{
+    return &m_EtagValue;
+}
+
+void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
+{
+    if (!m_Url.isValid()) {
+        kDebug() << "Url not valid";
+        return;
+    }
+
+    KIO::TransferJob *job;
+    job = KIO::get(m_Url);
+    job->addMetaData("PropagateHttpHeader", "true");
+    job->setRedirectionHandlingEnabled(false);
+    connect(job, SIGNAL(result(KJob*)), this, SLOT(slotHeaderResult(KJob*)));  // Finished
+    connect(job, SIGNAL(redirection(KIO::Job*,KUrl)), this, SLOT(slotRedirection(KIO::Job*,KUrl))); // Redirection
+    connect(job,SIGNAL(mimetype(KIO::Job*,QString)),this,SLOT(detectMime(KIO::Job*,QString))); // Mime detection.
+    kDebug() << " Verifying Metalink/HTTP Status" ;
+    m_loop.exec();
+}
+
+void KGetMetalink::MetalinkHttpParser::detectMime(KIO::Job *job, const QString &type)
+{
+    kDebug() << "Mime Type: " << type ;
+    job->kill();
+    m_loop.exit();
+}
+
+void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
+{
+    KIO::Job* job = qobject_cast<KIO::Job*>(kjob);
+    const QString httpHeaders = job ? job->queryMetaData("HTTP-Headers") : QString();
+    parseHeaders(httpHeaders);
+    setMetalinkHSatus();
+
+    // Handle the redirection... (Comment out if not desired)
+    if (m_redirectionUrl.isValid()) {
+       m_Url = m_redirectionUrl;
+       m_redirectionUrl = KUrl();
+       checkMetalinkHttp();
+    }
+
+}
+
+void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const KUrl & url)
+{
+    Q_UNUSED(job)
+    m_redirectionUrl = url;
+}
+
+bool KGetMetalink::MetalinkHttpParser::isMetalinkHttp()
+{
+    if (m_MetalinkHSatus) {
+        kDebug() << "Metalink Http detected" ;
+    }
+    else {
+        kDebug() << "No Metalink HTTP response found" ;
+    }
+    return m_MetalinkHSatus;
+}
+
+void KGetMetalink::MetalinkHttpParser::parseHeaders(const QString &httpHeader)
+{
+    QString trimedHeader = httpHeader.mid(httpHeader.indexOf('\n') + 1).trimmed();
+
+    foreach(QString line, trimedHeader.split('\n')) {
+        int colon = line.indexOf(':');
+        QString headerName = line.left(colon).trimmed();
+        QString headerValue = line.mid(colon + 1).trimmed();
+        m_headerInfo.insertMulti(headerName, headerValue);
+    }
+
+    m_EtagValue = m_headerInfo.value("ETag");
+}
+
+void KGetMetalink::MetalinkHttpParser::setMetalinkHSatus()
+{
+    bool linkStatus, digestStatus;
+    linkStatus = digestStatus = false;
+    if (m_headerInfo.contains("link")) {
+        QList<QString> linkValues = m_headerInfo.values("link");
+
+        foreach(QString linkVal, linkValues) {
+            if (linkVal.contains("rel=duplicate")) {
+                linkStatus = true;
+                break;
+            }
+        }
+    }
+
+    if (m_headerInfo.contains("digest")) {
+        QList<QString> digestValues = m_headerInfo.values("digest");
+
+        foreach(QString digestVal, digestValues) {
+            if (digestVal.contains("sha-256", Qt::CaseInsensitive)) {
+                digestStatus = true;
+                break;
+            }
+        }
+    }
+
+    if ((linkStatus) && (digestStatus)) {
+        m_MetalinkHSatus = true;
+    }
+
+}
+
+KUrl KGetMetalink::MetalinkHttpParser::getUrl()
+{
+    return m_Url;
+}
+
+QMultiMap<QString, QString>* KGetMetalink::MetalinkHttpParser::getHeaderInfo()
+{
+    return & m_headerInfo;
+}
+
+bool KGetMetalink::httpLinkHeader::operator<(const httpLinkHeader &other) const
+{
+    return m_depth < other.m_depth;
+}
+
+void KGetMetalink::httpLinkHeader::headerBuilder(const QString &line)
+{
+    url = line.mid(line.indexOf("<") + 1,line.indexOf(">") -1).trimmed();
+    QList<QString> attribList = line.split(";");
+    foreach ( QString str, attribList) {
+        QString attribId = str.mid(0,str.indexOf("=")).trimmed();
+        QString attribValue = str.mid(str.indexOf("=")+1).trimmed();
+        if (attribId == "rel") {
+            m_reltype = attribValue;
+        }
+        if (attribId == "depth") {
+            m_depth = attribValue.toInt();
+        }
+        if (attribId == "geo") {
+            m_geo = attribValue;
+        }
+        if (attribId == "pref") {
+            m_pref = true;
+        }
+        if (attribId == "pri") {
+            priority = attribValue.toUInt();
+        }
+        if (attribId == "type") {
+            type = attribValue;
+        }
+
+        if (attribId == "name") {
+            name = attribValue;
+        }
+    }
+}
+
+#include "metalinker.moc"

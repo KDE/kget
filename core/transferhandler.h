@@ -28,7 +28,7 @@ class KGetKJobAdapter;
  * Class TransferHandler:
  *
  * --- Overview ---
- * This class is the rapresentation of a Transfer object from the views'
+ * This class is the representation of a Transfer object from the views'
  * perspective (proxy pattern). In fact the views never handle directly the 
  * Transfer objects themselves (because this would break the model/view policy).
  * As a general rule, all the code strictly related to the views should placed 

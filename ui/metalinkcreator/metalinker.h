@@ -1,5 +1,6 @@
 /***************************************************************************
 *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+*   Copyright (C) 2012 Aish Raj Dahal <dahalaishraj@gmail.com>            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
@@ -25,6 +26,9 @@
 #include <KUrl>
 #include <QDate>
 #include <QDomElement>
+#include <QtCore/QEventLoop>
+#include <QtCore/QString>
+#include <QtCore/QObject>
 
 #ifdef HAVE_NEPOMUK
 namespace Nepomuk
@@ -248,7 +252,7 @@ class File
         bool isValid() const;
 
         /**
-         * Controlls if the name attribute is valid, i.e. it is not empty and
+         * Controls if the name attribute is valid, i.e. it is not empty and
          * does not contain any directory traversal directives or information,
          * as described in the Metalink 4.0 specification 4.1.2.1.
          */
@@ -410,6 +414,88 @@ class HandleMetalink
         static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QByteArray &uriBa, const QString &value);
         static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QUrl &uri, const QString &value);
 #endif //HAVE_NEPOMUK
+};
+
+class MetalinkHttpParser : public QObject
+{
+    Q_OBJECT
+    public:
+        MetalinkHttpParser(const KUrl& Url)
+            : m_Url(Url), m_MetalinkHSatus(false) , m_EtagValue(QString(""))
+        {
+            checkMetalinkHttp();
+        }
+
+        ~MetalinkHttpParser();
+
+        /**
+         * @return true if m_Url is a metalink/http supported URL.
+         */
+
+        bool isMetalinkHttp();
+
+        /**
+         * @return the Url m_Url which is being tested for metalink
+         */
+
+        KUrl getUrl();
+        QMultiMap<QString, QString>* getHeaderInfo();
+
+        /**
+         * @return Returns the ETag if present in the HTTP headers
+         */
+
+        QString* getEtag();
+
+    private slots:
+        void slotHeaderResult(KJob* kjob);
+        void checkMetalinkHttp();
+        void detectMime(KIO::Job *  job, const QString &  type);
+        void slotRedirection(KIO::Job*, const KUrl&);
+
+
+    private:
+        KUrl m_Url;
+        KUrl m_redirectionUrl;
+        bool m_MetalinkHSatus;
+        QEventLoop m_loop;
+        QMultiMap<QString, QString> m_headerInfo;
+        QString m_EtagValue ;
+
+        /**
+         * Parsees the Metalink values from QString to the Map
+         * @param Value of the QString ie raw HTTP headers
+         */
+        void parseHeaders(const QString&);
+
+        /**
+         * Sets the status of m_MetalinkHStatus to true if the URL is a Metalink
+         */
+        void setMetalinkHSatus();
+
+};
+
+class httpLinkHeader : public Metaurl
+{
+    public:
+    httpLinkHeader()
+            : m_pref(false)
+        {
+        }
+
+        QString m_reltype;
+        bool m_pref;
+        int m_depth;
+        QString m_geo;
+
+        /**
+         * Loads information from a header value into metalink header structure.
+         * @param Value of the "link" HTTP header response.
+         */
+        void headerBuilder(const QString &);
+
+        bool operator<(const httpLinkHeader &) const;
+
 };
 
 }

@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
                          QByteArray("2." + QByteArray::number(KDE_VERSION_MINOR) + '.' + QByteArray::number(KDE_VERSION_RELEASE)),
                          ki18n("An advanced download manager for KDE"),
                          KAboutData::License_GPL,
-                         ki18n("(C) 2005 - 2011, The KGet developers\n"
+                         ki18n("(C) 2005 - 2012, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
                          "(C) 1998 - 2000, Matej Koss"),
@@ -117,6 +117,7 @@ int main(int argc, char *argv[])
     aboutData.addAuthor(ki18n("Manolo Valdes"), ki18n("Core Developer, Multithreaded Plugin Author"), "nolis71cu@gmail.com");
     aboutData.addAuthor(ki18n("Matthias Fuchs"), ki18n("Core Developer"), "mat69@gmx.net");
     aboutData.addAuthor(ki18n("Javier Goday"), ki18n("Developer"), "jgoday@gmail.com");
+    aboutData.addAuthor(ki18n("Aish Raj Dahal"), ki18n("Google Summer of Code Student"));
     aboutData.addAuthor(ki18n("Ernesto Rodriguez Ortiz"), ki18n("Mms Plugin Author"), "eortiz@uci.cu");
     aboutData.addAuthor(ki18n("Patrick Charbonnier"), ki18n("Former Developer"), "pch@freeshell.org");
     aboutData.addAuthor(ki18n("Carsten Pfeiffer"), ki18n("Former Developer"), "pfeiffer@kde.org");

@@ -7,7 +7,9 @@ include_directories(
 
 set(kget_metalinkfactory_PART_SRCS
   metalinkfactory.cpp
-  metalink.cpp
+  abstractmetalink.cpp
+  metalinkxml.cpp
+  metalinkhttp.cpp
   fileselectiondlg.cpp
   ../../ui/metalinkcreator/metalinker.cpp
 )
