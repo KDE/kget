@@ -23,9 +23,10 @@
 #include "core/urlchecker.h"
 #include "core/verifier.h"
 #include "core/signature.h"
+
 #ifdef HAVE_NEPOMUK
-#include "core/nepomukhandler.h"
-#include <Nepomuk/Variant>
+    #include "core/nepomukhandler.h"
+    #include <Nepomuk2/Variant>
 #endif //HAVE_NEPOMUK
 
 #include <KIconLoader>

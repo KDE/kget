@@ -11,6 +11,8 @@
 #ifndef TRANSFERHISTORYSTORE_XML_P_H
 #define TRANSFERHISTORYSTORE_XML_P_H
 
+#include "transferhistorystore.h"
+
 #include <QList>
 #include <QThread>
 

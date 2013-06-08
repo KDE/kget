@@ -20,8 +20,10 @@
 #include "nepomukcontroller.h"
 
 #include <QtCore/QFile>
-#include <Nepomuk/Tag>
-#include <nepomuk/nepomukmassupdatejob.h>
+#include <Nepomuk2/DataManagement>
+#include <Nepomuk2/Tag>
+#include <Nepomuk2/Variant>
+#include <Soprano/Vocabulary/NAO>
 
 NepomukController::NepomukController(QObject *parent)
   : QThread(parent)
@@ -33,40 +35,35 @@ NepomukController::~NepomukController()
     wait();
 }
 
-void NepomukController::setProperty(const QList<KUrl> &uris, QPair<QUrl, Nepomuk::Variant> &property, const QUrl &uriType)
+void NepomukController::setProperty(const QList<QUrl> &uris, QPair<QUrl, Nepomuk2::Variant> &property, const QUrl &uriType)
 {
-    setProperties(uris, QList<QPair<QUrl, Nepomuk::Variant> >() << property, uriType);
+    setProperties(uris, QList<QPair<QUrl, Nepomuk2::Variant> >() << property, uriType);
 }
 
-void NepomukController::setProperties(const QList<KUrl> &uris, const QList<QPair<QUrl, Nepomuk::Variant> > &properties, const QUrl &uriType)
+void NepomukController::setProperties(const QList<QUrl> &uris, const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QUrl &uriType)
 {
     if (uris.isEmpty() || properties.isEmpty()) {
         return;
     }
 
-    QList<Nepomuk::Resource> resources;
-    foreach (const KUrl &uri, uris) {
-        resources << Nepomuk::Resource(uri, uriType);
+    for(QList<QPair<QUrl, Nepomuk2::Variant> >::ConstIterator i = properties.constBegin(); i < properties.constEnd(); i++) {
+        Nepomuk2::addProperty(uris, i->first, QVariantList() << i->second.variant());
     }
-    Nepomuk::MassUpdateJob *job = new Nepomuk::MassUpdateJob(this);
-    job->setResources(resources);
-    job->setProperties(properties);
-    job->start();
 }
 
-void NepomukController::addTags(const QList<KUrl> &uris, const QList<Nepomuk::Tag> &tags, const QUrl &uriType)
+void NepomukController::addTags(const QList<QUrl> &uris, const QList<Nepomuk2::Tag> &tags, const QUrl &uriType)
 {
+    QVariantList tagUris;
+
     if (uris.isEmpty() || tags.isEmpty()) {
         return;
     }
 
-    QList<Nepomuk::Resource> resources;
-    foreach (const KUrl &uri, uris) {
-        resources << Nepomuk::Resource(uri, uriType);
+    foreach(Nepomuk2::Tag tag, tags) {
+        tagUris.push_back(tag.uri());
     }
 
-    Nepomuk::MassUpdateJob *job = Nepomuk::MassUpdateJob::tagResources(resources, tags);
-    job->start();
+    Nepomuk2::addProperty(uris, Soprano::Vocabulary::NAO::hasTag(), tagUris);
 }
 
 void NepomukController::removeResource(const QList<KUrl> &uris)
@@ -97,7 +94,7 @@ void NepomukController::run()
 
         foreach (const KUrl &uri, uris) {
             if (!QFile::exists(uri.path())) {
-                Nepomuk::Resource resource(uri, Nepomuk::Vocabulary::NFO::FileDataObject());
+                Nepomuk2::Resource resource(uri, Nepomuk2::Vocabulary::NFO::FileDataObject());
                 resource.remove();
             }
         }

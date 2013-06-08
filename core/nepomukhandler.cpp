@@ -16,13 +16,13 @@
 #include "nepomukcontroller.h"
 #include "verifier.h"
 
-#include <Nepomuk/Variant>
-#include <Nepomuk/Tag>
-#include <Nepomuk/Vocabulary/NDO>
-#include <Nepomuk/Vocabulary/NFO>
-#include <Nepomuk/Vocabulary/NIE>
+#include <Nepomuk2/Variant>
+#include <Nepomuk2/Tag>
+#include <Nepomuk2/Vocabulary/NDO>
+#include <Nepomuk2/Vocabulary/NFO>
+#include <Nepomuk2/Vocabulary/NIE>
 
-using namespace Nepomuk::Vocabulary;
+using namespace Nepomuk2::Vocabulary;
 
 NepomukHandler::NepomukHandler(Transfer *transfer)
   : QObject(transfer),
@@ -43,37 +43,47 @@ KFileItemList NepomukHandler::fileItems() const
     return fileItems;
 }
 
-void NepomukHandler::setProperties(const QList<QPair<QUrl, Nepomuk::Variant> > &properties, const QList<KUrl> &files)
+void NepomukHandler::setProperties(const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QList<KUrl> &files)
 {
     QList<KUrl> usedFiles = (files.isEmpty() ? m_transfer->files() : files);
-    KGet::nepomukController()->setProperties(usedFiles, properties);
+    QList<QUrl> fileUrls;
+    
+    foreach(const KUrl &usedFile, usedFiles) {
+        fileUrls.push_back(usedFile);
+    }
+    
+    KGet::nepomukController()->setProperties(fileUrls, properties);
 }
 
 void NepomukHandler::saveFileProperties()
 {
-    const QList<KUrl> destinations = m_transfer->files();
+    QList<QUrl> destinations;
 
-    const KUrl src = m_transfer->source();
+    foreach(const KUrl &url, m_transfer->files()) {
+        destinations.push_back(url);
+    }
+
+    const QUrl src = m_transfer->source();
     const QUrl srcType = (src.isLocalFile() ? NFO::FileDataObject() : NFO::RemoteDataObject());
-    QPair<QUrl, Nepomuk::Variant> property = qMakePair(NIE::url(), Nepomuk::Variant(src));
-    KGet::nepomukController()->setProperty(QList<KUrl>() << src, property, srcType);
-    Nepomuk::Resource srcFileRes(src, srcType);
+    QPair<QUrl, Nepomuk2::Variant> property = qMakePair(NIE::url(), Nepomuk2::Variant(src));
+    KGet::nepomukController()->setProperty(QList<QUrl>() << src, property, srcType);
+    Nepomuk2::Resource srcFileRes(src, srcType);
 
-    foreach (const KUrl &destination, destinations) {
+    foreach (const QUrl &destination, destinations) {
         //set all the properties
-        QList<QPair<QUrl, Nepomuk::Variant> > properties;
-        properties.append(qMakePair(NIE::url(), Nepomuk::Variant(destination)));
-        properties.append(qMakePair(NDO::copiedFrom(), Nepomuk::Variant(srcFileRes)));
+        QList<QPair<QUrl, Nepomuk2::Variant> > properties;
+        properties.append(qMakePair(NIE::url(), Nepomuk2::Variant(destination)));
+        properties.append(qMakePair(NDO::copiedFrom(), Nepomuk2::Variant(srcFileRes)));
 
         Verifier *verifier = m_transfer->verifier(destination);
         if (verifier) {
             const QList<Checksum> checksums = verifier->availableChecksums();
-            QList<Nepomuk::Variant> hashes;
+            QList<Nepomuk2::Variant> hashes;
             foreach (const Checksum &checksum, checksums) {
                 QString hashType = Verifier::cleanChecksumType(checksum.first);
                 const QString hash = checksum.second;
                 if (!hashType.isEmpty() && !hash.isEmpty()) {
-                    Nepomuk::Resource hashRes(hash, NFO::FileHash());
+                    Nepomuk2::Resource hashRes(hash, NFO::FileHash());
                     hashRes.addProperty(NFO::hashAlgorithm(), hashType);
                     hashRes.addProperty(NFO::hashValue(), hash);
                     hashRes.setLabel(hashType);
@@ -81,11 +91,11 @@ void NepomukHandler::saveFileProperties()
                 }
             }
             if (!hashes.isEmpty()) {
-                properties.append(qMakePair(NFO::hasHash(), Nepomuk::Variant(hashes)));
+                properties.append(qMakePair(NFO::hasHash(), Nepomuk2::Variant(hashes)));
             }
         }
 
-        KGet::nepomukController()->setProperties(QList<KUrl>() << destination, properties);
+        KGet::nepomukController()->setProperties(QList<QUrl>() << destination, properties);
     }
 
     //set the tags of the group

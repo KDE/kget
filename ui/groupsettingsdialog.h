@@ -16,7 +16,7 @@
 #include <KDialog>
 
 #ifdef HAVE_NEPOMUK
-namespace Nepomuk {
+namespace Nepomuk2 {
     class TagWidget;
 }
 #endif
@@ -45,7 +45,7 @@ class GroupSettingsDialog : public KGetSaveSizeDialog
         Ui::GroupSettingsDialog ui;
 
 #ifdef HAVE_NEPOMUK
-        Nepomuk::TagWidget *m_tagWidget;
+        Nepomuk2::TagWidget *m_tagWidget;
 #endif //HAVE_NEPOMUK
 };
 

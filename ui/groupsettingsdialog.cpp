@@ -14,8 +14,8 @@
 #include <KFileDialog>
 
 #ifdef HAVE_NEPOMUK
-    #include <Nepomuk/Tag>
-    #include <Nepomuk/TagWidget>
+    #include <Nepomuk2/Tag>
+    #include <nepomuk2/tagwidget.h>
 #endif
 
 GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group)
@@ -41,9 +41,9 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     ui.regExpEdit->setText(group->regExp().pattern());
 
 #ifdef HAVE_NEPOMUK
-    m_tagWidget = new Nepomuk::TagWidget(this);
+    m_tagWidget = new Nepomuk2::TagWidget(this);
     m_tagWidget->setSelectedTags(group->tags());
-    m_tagWidget->setModeFlags(Nepomuk::TagWidget::MiniMode);
+    m_tagWidget->setModeFlags(Nepomuk2::TagWidget::MiniMode);
     ui.nepomukWidget->layout()->addWidget(m_tagWidget);
 #else
     ui.nepomukWidget->hide();

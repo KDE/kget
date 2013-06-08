@@ -53,7 +53,7 @@
 #include <QTimer>
 
 #ifdef HAVE_NEPOMUK
-    #include <Nepomuk/ResourceManager>
+    #include <Nepomuk2/ResourceManager>
     #include "nepomukcontroller.h"
 #endif
 
@@ -816,7 +816,7 @@ bool KGet::m_hasConnection = true;
 KGet::KGet()
 {
 #ifdef HAVE_NEPOMUK
-    Nepomuk::ResourceManager::instance()->init();
+    Nepomuk2::ResourceManager::instance()->init();
 #endif
 
     m_scheduler = new TransferGroupScheduler();

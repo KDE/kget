@@ -149,12 +149,12 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * Sets the Nepomuk tags of the group
          * @param tags the Nepomuk tags
          */
-        void setTags(const QList<Nepomuk::Tag> &tags) {m_group->setTags(tags);}
+        void setTags(const QList<Nepomuk2::Tag> &tags) {m_group->setTags(tags);}
 
         /**
          * @returns the Nepomuk tags of the group
          */
-        QList<Nepomuk::Tag> tags() const {return m_group->tags();}
+        QList<Nepomuk2::Tag> tags() const {return m_group->tags();}
 #endif //HAVE_NEPOMUK
 
         /**

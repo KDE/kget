@@ -11,6 +11,8 @@
 #ifndef TRANSFERHISTORYSTORE_SQLITE_P_H
 #define TRANSFERHISTORYSTORE_SQLITE_P_H
 
+#include "transferhistorystore.h"
+
 #include <QList>
 #include <QSqlDatabase>
 

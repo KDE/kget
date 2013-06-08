@@ -22,14 +22,14 @@
 
 #include "../kget_export.h"
 
-#include <Nepomuk/Vocabulary/NFO>
+#include <Nepomuk2/Vocabulary/NFO>
 
 #include <QtCore/QMutex>
 #include <QtCore/QThread>
 
 #include <KUrl>
 
-namespace Nepomuk {
+namespace Nepomuk2 {
     class Variant;
     class Tag;
 }
@@ -47,9 +47,9 @@ class KGET_EXPORT NepomukController : public QThread
         explicit NepomukController(QObject *parent = 0);
         ~NepomukController();
 
-        void setProperty(const QList<KUrl> &uris, QPair<QUrl, Nepomuk::Variant> &property, const QUrl &uriType = Nepomuk::Vocabulary::NFO::FileDataObject());
-        void setProperties(const QList<KUrl> &uris, const QList<QPair<QUrl, Nepomuk::Variant> > &properties, const QUrl &uriType = Nepomuk::Vocabulary::NFO::FileDataObject());
-        void addTags(const QList<KUrl> &uris, const QList<Nepomuk::Tag> &tags, const QUrl &uriType = Nepomuk::Vocabulary::NFO::FileDataObject());
+        void setProperty(const QList<QUrl> &uris, QPair<QUrl, Nepomuk2::Variant> &property, const QUrl &uriType = Nepomuk2::Vocabulary::NFO::FileDataObject());
+        void setProperties(const QList<QUrl> &uris, const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QUrl &uriType = Nepomuk2::Vocabulary::NFO::FileDataObject());
+        void addTags(const QList<QUrl> &uris, const QList<Nepomuk2::Tag> &tags, const QUrl &uriType = Nepomuk2::Vocabulary::NFO::FileDataObject());
 
         /**
          * Removes the resources associated with uris

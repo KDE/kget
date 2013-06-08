@@ -31,7 +31,7 @@
 #include <QtCore/QObject>
 
 #ifdef HAVE_NEPOMUK
-namespace Nepomuk
+namespace Nepomuk2
 {
     class Variant;
 }
@@ -104,7 +104,7 @@ class CommonData
         /**
          * Return Nepomuk-properties that can be extracted
          */
-        QList<QPair<QUrl, Nepomuk::Variant> > properties() const;
+        QList<QPair<QUrl, Nepomuk2::Variant> > properties() const;
 #endif //HAVE_NEPOMUK
 
         QString identity;
@@ -262,7 +262,7 @@ class File
         /**
          * Return Nepomuk-properties that can be extracted of file, only including data
          */
-        QList<QPair<QUrl, Nepomuk::Variant> > properties() const;
+        QList<QPair<QUrl, Nepomuk2::Variant> > properties() const;
 #endif //HAVE_NEPOMUK
 
         QString name;
@@ -411,8 +411,8 @@ class HandleMetalink
         /**
          * Convenience method to add Strings to the data
          */
-        static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QByteArray &uriBa, const QString &value);
-        static void addProperty(QList<QPair<QUrl, Nepomuk::Variant> > *data, const QUrl &uri, const QString &value);
+        static void addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QByteArray &uriBa, const QString &value);
+        static void addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QUrl &uri, const QString &value);
 #endif //HAVE_NEPOMUK
 };
 

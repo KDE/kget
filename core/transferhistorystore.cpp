@@ -29,11 +29,14 @@
 #endif
 
 #ifdef HAVE_NEPOMUK
-    #include "core/transferhistorystore_nepomuk_p.h"
-    #include "historyitem.h"
+    #include <core/transferhistorystore_nepomuk_p.h>
+    #include <historyitem.h>
 
     #include <Soprano/Vocabulary/RDF>
-    #include <Nepomuk/Variant>
+    #include <Nepomuk2/Variant>
+    #include <Nepomuk2/Query/QueryServiceClient>
+    #include <Nepomuk2/Query/ResourceTypeTerm>
+    #include <Nepomuk2/Query/Result>
 #endif
 
 #include <KDebug>
@@ -548,36 +551,47 @@ NepomukStore::~NepomukStore()
 
 void NepomukStore::load()
 {
-    QList<Nepomuk::HistoryItem> allItems = Nepomuk::HistoryItem::allHistoryItems();
+    Nepomuk2::Query::QueryServiceClient * queryService = new Nepomuk2::Query::QueryServiceClient(this);
+    Nepomuk2::Query::ResourceTypeTerm historyTypeTerm((Nepomuk2::Types::Class(Nepomuk2::HistoryItem::resourceTypeUri())));
+    Nepomuk2::Query::Query historyQuery(historyTypeTerm);
 
-    for (int i = 0; i != allItems.count(); i++) {
-        Nepomuk::HistoryItem current = allItems.at(i);
+    connect(queryService, SIGNAL(newEntries(const QList<Nepomuk2::Query::Result>&)), this, SLOT(loadResult(const QList<Nepomuk2::Query::Result>&)));
+    connect(queryService, SIGNAL(finishedListing()), this, SIGNAL(loadFinished()));
+    queryService->query(historyQuery);
+}
+
+void NepomukStore::loadResult(const QList<Nepomuk2::Query::Result>& entries)
+{
+    int newItemsCount = m_items.count() + entries.count();
+
+    for (int i = 0; i != entries.count(); i++) {
+        Nepomuk2::HistoryItem current = entries.at(i).resource();
         TransferHistoryItem item;
+
         item.setDest(current.destination());
         item.setSource(current.source());
         item.setState(current.state());
         item.setDateTime(current.dateTime());
         item.setSize(current.size());
         m_items << item;
-        emit elementLoaded(i + 1, allItems.count(), item);
-    }
 
-    emit loadFinished();
+        emit elementLoaded(m_items.count(), newItemsCount, item);
+    }
 }
 
 void NepomukStore::clear()
 {
-    foreach (Nepomuk::HistoryItem item, Nepomuk::HistoryItem::allHistoryItems()) {
-        item.remove();
+    for(int i = 0; i < m_items.count(); i++) {
+        deleteItem(m_items.at(i));
     }
+
+    m_items.clear();
 }
 
 void NepomukStore::saveItem(const TransferHistoryItem &item)
 {
-    Nepomuk::HistoryItem historyItem(item.source());
-
-    historyItem.setProperty(Soprano::Vocabulary::RDF::type(), Nepomuk::HistoryItem::resourceTypeUri());
- 
+    Nepomuk2::HistoryItem historyItem(item.source());
+    
     historyItem.setDestination(item.dest());
     historyItem.setSource(item.source());
     historyItem.setState(item.state());
@@ -587,13 +601,8 @@ void NepomukStore::saveItem(const TransferHistoryItem &item)
 
 void NepomukStore::deleteItem(const TransferHistoryItem &item)
 {
-    Nepomuk::HistoryItem historyItem(item.source());
+    Nepomuk2::HistoryItem historyItem(item.source());
     historyItem.remove();
-    /*foreach (Nepomuk::HistoryItem it, Nepomuk::HistoryItem::allHistoryItems()) {
-        if (it.source() == item.source()) {
-            it.remove();
-        }
-    }    */
 }
 #endif
 

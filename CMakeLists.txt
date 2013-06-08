@@ -28,8 +28,11 @@ endif(NOT INSIDE_KDENETWORK)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
-macro_optional_find_package(Nepomuk)
-macro_log_feature(Nepomuk_FOUND "Nepomuk" "Semantic Desktop" "http://nepomuk.kde.org" FALSE "" "Nepomuk is needed for the integration into KGet")
+macro_optional_find_package(NepomukCore)
+macro_log_feature(NepomukCore_FOUND "NepomukCore" "Semantic Desktop" "http://nepomuk.kde.org" FALSE "" "Nepomuk is needed for the integration into KGet")
+
+macro_optional_find_package(NepomukWidgets)
+macro_log_feature(NepomukWidgets_FOUND "NepomukWidgets" "Semantic Desktop" "http://nepomuk.kde.org" FALSE "" "Nepomuk is needed for the integration into KGet")
 
 macro_optional_find_package(Sqlite)
 macro_log_feature(SQLITE_FOUND "SQLite" "SQLite is a Binary-Database" "" FALSE "" "Needed for the SQLite-Backend of the KGet-History and the Kopete-Statistic-Plugin")
@@ -60,15 +63,15 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-if (NEPOMUK_FOUND)
-    set(SDO_MIN_VERSION 0.4)
-    find_package(SharedDesktopOntologies ${SDO_MIN_VERSION})
-endif (NEPOMUK_FOUND)
+if (NepomukCore_FOUND AND NepomukWidgets_FOUND)
+    find_package(SharedDesktopOntologies 0.4)
+endif (NepomukCore_FOUND AND NepomukWidgets_FOUND)
 if(SharedDesktopOntologies_FOUND)
     set(HAVE_NEPOMUK SharedDesktopOntologies_FOUND)
     include_directories(
         ${SOPRANO_INCLUDE_DIR}
-        ${NEPOMUK_INCLUDE_DIR}
+        ${NEPOMUK_CORE_INCLUDE_DIR}
+        ${NEPOMUK_WIDGETS_INCLUDE_DIR}
     )
     add_definitions(-DHAVE_NEPOMUK)
     add_definitions(-DDISABLE_NEPOMUK_LEGACY)
@@ -181,7 +184,7 @@ if(HAVE_NEPOMUK)
        core/nepomukcontroller.cpp
     )
 
-    NEPOMUK_ADD_ONTOLOGY_CLASSES(
+    NEPOMUK2_ADD_ONTOLOGY_CLASSES(
         kgetcore_SRCS
         ONTOLOGIES
         ${CMAKE_CURRENT_SOURCE_DIR}/kget_history.trig
@@ -203,7 +206,7 @@ if (KDE4WORKSPACE_FOUND)
 endif (KDE4WORKSPACE_FOUND)
 
 if (HAVE_NEPOMUK)
-  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
+  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
 endif (HAVE_NEPOMUK)
 
 if (SQLITE_FOUND)
@@ -312,7 +315,7 @@ endif(QCA2_FOUND)
 
 
 if (HAVE_NEPOMUK)
-  target_link_libraries(kget ${SOPRANO_LIBRARIES} ${NEPOMUK_LIBRARIES})
+  target_link_libraries(kget ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
 endif (HAVE_NEPOMUK)
 
 if (LIBKONQ_FOUND)
