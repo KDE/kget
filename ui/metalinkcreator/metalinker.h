@@ -478,7 +478,7 @@ class MetalinkHttpParser : public QObject
 class HttpLinkHeader : public Metaurl
 {
     public:
-    HttpLinkHeader()
+        HttpLinkHeader()
             : m_pref(false)
         {
         }
