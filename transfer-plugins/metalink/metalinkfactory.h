@@ -39,9 +39,6 @@ class MetalinkFactory : public TransferFactory
          * @return True if the URL is a metalink (xml or http).
          */
         bool isSupported(const KUrl &url) const;
-
-   private:
-        KGetMetalink::MetalinkHttpParser *m_metalinkHttpChecker;
 };
 
 #endif

@@ -60,7 +60,7 @@ MetalinkHttp::MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
       m_httpparser(httpParser)
 
 {
-
+    m_httpparser->setParent(this);
 }
 
 MetalinkHttp::~MetalinkHttp()

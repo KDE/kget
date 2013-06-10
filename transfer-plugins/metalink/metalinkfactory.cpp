@@ -36,18 +36,22 @@ Transfer * MetalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &dest
                                                const QDomElement * e )
 {
     kDebug(5001) << "metalinkFactory::createTransfer";
+    KGetMetalink::MetalinkHttpParser *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
 
-    m_metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
+    if (metalinkHttpChecker->isMetalinkHttp()) {
+        return new MetalinkHttp(parent, this, scheduler, srcUrl, destUrl, metalinkHttpChecker, e);
+    }
+    else
+    {
+        // No one takes ownership of this checker
+        metalinkHttpChecker->deleteLater();
 
-    if (m_metalinkHttpChecker->isMetalinkHttp()) {
-            //kDebug(5001) << "createtransfer:: This is metalinkhttp";
-        return new MetalinkHttp(parent,this,scheduler,srcUrl,destUrl,m_metalinkHttpChecker,e);
+        if (isSupported(srcUrl)) {
+            return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
+        }
+
+        return 0;
     }
-    else if (isSupported(srcUrl)) {
-        //kDebug(5001) << "createtransfer:: This is metalink / xml";
-        return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);
-    }
-    return 0;
 }
 
 bool MetalinkFactory::isSupported(const KUrl &url) const
