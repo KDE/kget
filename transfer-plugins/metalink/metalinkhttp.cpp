@@ -239,8 +239,8 @@ void MetalinkHttp::setLinks()
     const QMultiMap<QString, QString>* headerInf = m_httpparser->getHeaderInfo();
     QList<QString> linkVals = headerInf->values("link");
     foreach ( QString link, linkVals) {
-        KGetMetalink::HttpLinkHeader linkheader;
-        linkheader.parseHeaderLine(link);
+        KGetMetalink::HttpLinkHeader linkheader(link);
+
         if (linkheader.getReltype() == "duplicate") {
             m_linkheaderList.append(linkheader);
         }

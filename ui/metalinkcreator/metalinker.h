@@ -478,10 +478,7 @@ class MetalinkHttpParser : public QObject
 class HttpLinkHeader : public Metaurl
 {
     public:
-        HttpLinkHeader()
-            : m_pref(false)
-        {
-        }
+        HttpLinkHeader(const QString &headerLine);
 
         /**
          * Loads information from a header value into metalink header structure.
