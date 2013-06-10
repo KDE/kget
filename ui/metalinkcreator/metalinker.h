@@ -487,7 +487,7 @@ class HttpLinkHeader : public Metaurl
          * Loads information from a header value into metalink header structure.
          * @param Value of the "link" HTTP header response.
          */
-        void headerBuilder(const QString &);
+        void parseHeaderLine(const QString &);
 
         bool operator<(const HttpLinkHeader &) const;
 

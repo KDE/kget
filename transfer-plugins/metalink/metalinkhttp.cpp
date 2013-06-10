@@ -240,7 +240,7 @@ void MetalinkHttp::setLinks()
     QList<QString> linkVals = headerInf->values("link");
     foreach ( QString link, linkVals) {
         KGetMetalink::HttpLinkHeader linkheader;
-        linkheader.headerBuilder(link);
+        linkheader.parseHeaderLine(link);
         if (linkheader.getReltype() == "duplicate") {
             m_linkheaderList.append(linkheader);
         }

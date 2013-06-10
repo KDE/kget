@@ -1466,7 +1466,7 @@ bool KGetMetalink::HttpLinkHeader::operator<(const HttpLinkHeader &other) const
     return m_depth < other.m_depth;
 }
 
-void KGetMetalink::HttpLinkHeader::headerBuilder(const QString &line)
+void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
 {
     url = line.mid(line.indexOf("<") + 1,line.indexOf(">") -1).trimmed();
     QList<QString> attribList = line.split(";");
