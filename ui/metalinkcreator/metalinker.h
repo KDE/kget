@@ -480,6 +480,11 @@ class HttpLinkHeader : public Metaurl
     public:
         HttpLinkHeader(const QString &headerLine);
 
+        QString m_reltype;
+        bool m_pref;
+        int m_depth;
+        QString m_geo;
+
         /**
          * Loads information from a header value into metalink header structure.
          * @param Value of the "link" HTTP header response.
@@ -487,22 +492,6 @@ class HttpLinkHeader : public Metaurl
         void parseHeaderLine(const QString &);
 
         bool operator<(const HttpLinkHeader &) const;
-
-        void setReltype(const QString &reltype) { m_reltype = reltype; }
-        QString getReltype() const { return m_reltype; }
-        void setPref(bool pref) { m_pref = pref; }
-        bool getPref() const { return m_pref; }
-        void setDepth(int depth) { m_depth = depth; }
-        int getDepth() const { return m_depth; }
-        void setGeo(const QString &geo) { m_geo = geo; }
-        QString getGeo() const { return m_geo; }
-
-    private:
-        QString m_reltype;
-        bool m_pref;
-        int m_depth;
-        QString m_geo;
-
 };
 
 }

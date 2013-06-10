@@ -178,7 +178,7 @@ bool MetalinkHttp::metalinkHttpInit()
     for(int i = 0; i < m_linkheaderList.size(); ++i) {
         const KUrl url = m_linkheaderList[i].url;
         if (url.isValid()) {
-            if (m_linkheaderList[i].getPref()) {
+            if (m_linkheaderList[i].m_pref) {
                 kDebug() << "found etag in a mirror" ;
                 KGetMetalink::MetalinkHttpParser* eTagCher = new KGetMetalink::MetalinkHttpParser(url) ;
                 if (eTagCher->getEtag() != m_httpparser->getEtag()) { //There is an ETag mismatch
@@ -241,13 +241,13 @@ void MetalinkHttp::setLinks()
     foreach ( QString link, linkVals) {
         KGetMetalink::HttpLinkHeader linkheader(link);
 
-        if (linkheader.getReltype() == "duplicate") {
+        if (linkheader.m_reltype == "duplicate") {
             m_linkheaderList.append(linkheader);
         }
-        if (linkheader.getReltype() == "application/pgp-signature") {
+        if (linkheader.m_reltype == "application/pgp-signature") {
             m_signatureUrl = linkheader.url; //There will only be one signature
         }
-        if (linkheader.getReltype() == "application/metalink4+xml") {
+        if (linkheader.m_reltype == "application/metalink4+xml") {
             m_metalinkxmlUrl = linkheader.url ; // There will only be one metalink xml (metainfo URL)
         }
     }
