@@ -475,10 +475,10 @@ class MetalinkHttpParser : public QObject
 
 };
 
-class httpLinkHeader : public Metaurl
+class HttpLinkHeader : public Metaurl
 {
     public:
-    httpLinkHeader()
+    HttpLinkHeader()
             : m_pref(false)
         {
         }
@@ -494,7 +494,7 @@ class httpLinkHeader : public Metaurl
          */
         void headerBuilder(const QString &);
 
-        bool operator<(const httpLinkHeader &) const;
+        bool operator<(const HttpLinkHeader &) const;
 
 };
 

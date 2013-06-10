@@ -73,7 +73,7 @@ class MetalinkHttp : public AbstractMetalink
         KUrl m_metalinkxmlUrl ;
         void startMetalink();
         KGetMetalink::MetalinkHttpParser *m_httpparser;
-        QList<KGetMetalink::httpLinkHeader> m_linkheaderList;
+        QList<KGetMetalink::HttpLinkHeader> m_linkheaderList;
         QHash<QString, QString> m_DigestList;
 
         /**

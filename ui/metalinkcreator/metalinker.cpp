@@ -1461,12 +1461,12 @@ QMultiMap<QString, QString>* KGetMetalink::MetalinkHttpParser::getHeaderInfo()
     return & m_headerInfo;
 }
 
-bool KGetMetalink::httpLinkHeader::operator<(const httpLinkHeader &other) const
+bool KGetMetalink::HttpLinkHeader::operator<(const HttpLinkHeader &other) const
 {
     return m_depth < other.m_depth;
 }
 
-void KGetMetalink::httpLinkHeader::headerBuilder(const QString &line)
+void KGetMetalink::HttpLinkHeader::headerBuilder(const QString &line)
 {
     url = line.mid(line.indexOf("<") + 1,line.indexOf(">") -1).trimmed();
     QList<QString> attribList = line.split(";");
