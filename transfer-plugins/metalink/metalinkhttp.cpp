@@ -274,7 +274,7 @@ void MetalinkHttp::setDigests()
 
     foreach(const QString digest, digestList) {
         const int eqDelimiter = digest.indexOf('=');
-        const QString digestType = adaptDigestType(digest.left(eqDelimiter).trimmed());
+        const QString digestType = MetalinkHttp::adaptDigestType(digest.left(eqDelimiter).trimmed());
         const QString hexDigestValue = base64ToHex(digest.mid(eqDelimiter + 1).trimmed());
 
         m_DigestList.insertMulti(digestType,hexDigestValue);

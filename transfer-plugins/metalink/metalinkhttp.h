@@ -75,13 +75,12 @@ class MetalinkHttp : public AbstractMetalink
         KGetMetalink::MetalinkHttpParser *m_httpparser;
         QList<KGetMetalink::HttpLinkHeader> m_linkheaderList;
         QHash<QString, QString> m_DigestList;
+
         /**
          * Needed to change the cases of hash type to be compatible with the Metalink XML types
          * @param Standard hash algorithm value in QString
          */
-
-        QString adaptDigestType(const QString& );
-
+        static QString adaptDigestType(const QString& );
 };
 
 #endif //METALINKHTTP_H
