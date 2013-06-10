@@ -1475,30 +1475,31 @@ bool KGetMetalink::HttpLinkHeader::operator<(const HttpLinkHeader &other) const
 void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
 {
     url = line.mid(line.indexOf("<") + 1,line.indexOf(">") -1).trimmed();
-    QList<QString> attribList = line.split(";");
-    foreach ( QString str, attribList) {
-        QString attribId = str.mid(0,str.indexOf("=")).trimmed();
-        QString attribValue = str.mid(str.indexOf("=")+1).trimmed();
+    const QList<QString> attribList = line.split(";");
+
+    foreach (const QString str, attribList) {
+        const QString attribId = str.mid(0,str.indexOf("=")).trimmed();
+        const QString attribValue = str.mid(str.indexOf("=")+1).trimmed();
+
         if (attribId == "rel") {
             m_reltype = attribValue;
         }
-        if (attribId == "depth") {
+        else if (attribId == "depth") {
             m_depth = attribValue.toInt();
         }
-        if (attribId == "geo") {
+        else if (attribId == "geo") {
             m_geo = attribValue;
         }
-        if (attribId == "pref") {
+        else if (attribId == "pref") {
             m_pref = true;
         }
-        if (attribId == "pri") {
+        else if (attribId == "pri") {
             priority = attribValue.toUInt();
         }
-        if (attribId == "type") {
+        else if (attribId == "type") {
             type = attribValue;
         }
-
-        if (attribId == "name") {
+        else if (attribId == "name") {
             name = attribValue;
         }
     }
