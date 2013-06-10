@@ -237,17 +237,18 @@ bool MetalinkHttp::metalinkHttpInit()
 void MetalinkHttp::setLinks()
 {
     const QMultiMap<QString, QString>* headerInf = m_httpparser->getHeaderInfo();
-    QList<QString> linkVals = headerInf->values("link");
-    foreach ( QString link, linkVals) {
-        KGetMetalink::HttpLinkHeader linkheader(link);
+    const QList<QString> linkVals = headerInf->values("link");
+
+    foreach (const QString link, linkVals) {
+        const KGetMetalink::HttpLinkHeader linkheader(link);
 
         if (linkheader.reltype == "duplicate") {
             m_linkheaderList.append(linkheader);
         }
-        if (linkheader.reltype == "application/pgp-signature") {
+        else if (linkheader.reltype == "application/pgp-signature") {
             m_signatureUrl = linkheader.url; //There will only be one signature
         }
-        if (linkheader.reltype == "application/metalink4+xml") {
+        else if (linkheader.reltype == "application/metalink4+xml") {
             m_metalinkxmlUrl = linkheader.url ; // There will only be one metalink xml (metainfo URL)
         }
     }
