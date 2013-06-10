@@ -42,6 +42,15 @@
 #include <QtCore/QFile>
 #include <QtXml/QDomElement>
 
+/**
+* @return Hex value from a base64 value
+* @note needed for hex based signature verification
+*/
+QString base64ToHex(const QString& b64)
+{
+     return QString(QByteArray::fromBase64(b64.toAscii()).toHex());
+}
+
 MetalinkHttp::MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const KUrl & source, const KUrl & dest,
                          KGetMetalink::MetalinkHttpParser *httpParser,
@@ -81,11 +90,6 @@ void MetalinkHttp::startMetalink()
             }
         }
     }
-}
-
-QString MetalinkHttp::base64ToHex(const QString& b64)
-{
-     return QString(QByteArray::fromBase64(b64.toAscii()).toHex());
 }
 
 void MetalinkHttp::start()
