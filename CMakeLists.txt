@@ -64,6 +64,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
 if (NepomukCore_FOUND AND NepomukWidgets_FOUND)
+    find_package(Soprano)
     find_package(SharedDesktopOntologies 0.4)
 endif (NepomukCore_FOUND AND NepomukWidgets_FOUND)
 if(SharedDesktopOntologies_FOUND)
