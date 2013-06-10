@@ -1355,7 +1355,7 @@ void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
     }
 
     KIO::TransferJob *job;
-    job = KIO::get(m_Url);
+    job = KIO::get(m_Url, KIO::NoReload, KIO::HideProgressInfo);
     job->addMetaData("PropagateHttpHeader", "true");
     job->setRedirectionHandlingEnabled(false);
     connect(job, SIGNAL(result(KJob*)), this, SLOT(slotHeaderResult(KJob*)));  // Finished
