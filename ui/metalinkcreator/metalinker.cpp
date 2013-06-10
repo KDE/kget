@@ -1462,14 +1462,14 @@ QMultiMap<QString, QString>* KGetMetalink::MetalinkHttpParser::getHeaderInfo()
 }
 
 KGetMetalink::HttpLinkHeader::HttpLinkHeader(const QString &headerLine)
-    : m_pref(false)
+    : pref(false)
 {
     parseHeaderLine(headerLine);
 }
 
 bool KGetMetalink::HttpLinkHeader::operator<(const HttpLinkHeader &other) const
 {
-    return m_depth < other.m_depth;
+    return depth < other.depth;
 }
 
 void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
@@ -1482,16 +1482,16 @@ void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
         const QString attribValue = str.mid(str.indexOf("=")+1).trimmed();
 
         if (attribId == "rel") {
-            m_reltype = attribValue;
+            reltype = attribValue;
         }
         else if (attribId == "depth") {
-            m_depth = attribValue.toInt();
+            depth = attribValue.toInt();
         }
         else if (attribId == "geo") {
-            m_geo = attribValue;
+            geo = attribValue;
         }
         else if (attribId == "pref") {
-            m_pref = true;
+            pref = true;
         }
         else if (attribId == "pri") {
             priority = attribValue.toUInt();

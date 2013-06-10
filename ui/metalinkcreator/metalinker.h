@@ -480,10 +480,10 @@ class HttpLinkHeader : public Metaurl
     public:
         HttpLinkHeader(const QString &headerLine);
 
-        QString m_reltype;
-        bool m_pref;
-        int m_depth;
-        QString m_geo;
+        QString reltype;
+        bool pref;
+        int depth;
+        QString geo;
 
         /**
          * Loads information from a header value into metalink header structure.
