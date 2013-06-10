@@ -265,14 +265,14 @@ void MetalinkHttp::deinit(Transfer::DeleteOptions options)
 
 void MetalinkHttp::setDigests()
 {
-    QMultiMap<QString, QString>* digestInfo = m_httpparser->getHeaderInfo();
-    QList<QString> digestList = digestInfo->values("digest");
-    foreach( QString digest, digestList) {
-        int eqDelimiter = digest.indexOf('=');
-        QString digestType = digest.left(eqDelimiter).trimmed();
-        QString digestValue = digest.mid(eqDelimiter + 1).trimmed();
-        QString hexDigestValue = base64ToHex(digestValue);
-        digestType = adaptDigestType(digestType);
+    const QMultiMap<QString, QString>* digestInfo = m_httpparser->getHeaderInfo();
+    const QList<QString> digestList = digestInfo->values("digest");
+
+    foreach(const QString digest, digestList) {
+        const int eqDelimiter = digest.indexOf('=');
+        const QString digestType = adaptDigestType(digest.left(eqDelimiter).trimmed());
+        const QString hexDigestValue = base64ToHex(digest.mid(eqDelimiter + 1).trimmed());
+
         m_DigestList.insertMulti(digestType,hexDigestValue);
     }
 }
