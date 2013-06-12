@@ -224,12 +224,12 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * Sets the Nepomuk tags of the group
          * @param tags the Nepomuk tags
          */
-        void setTags(const QList<Nepomuk2::Tag> &tags) {m_tags = tags;}
+        void setTags(const QList<Nepomuk2::Tag> &tags);
 
         /**
          * @returns the Nepomuk tags of the group
          */
-        QList<Nepomuk2::Tag> tags() const {return m_tags;}
+        QList<Nepomuk2::Tag> tags() const { return m_tags.values(); }
 #endif //HAVE_NEPOMUK
 
         /**
@@ -336,7 +336,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         QString m_defaultFolder;
         QRegExp m_regExp;
 #ifdef HAVE_NEPOMUK
-        QList<Nepomuk2::Tag> m_tags;
+        QMap<QUrl, Nepomuk2::Tag> m_tags;
 #endif //HAVE_NEPOMUK
 };
 

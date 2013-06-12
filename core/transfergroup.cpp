@@ -65,6 +65,19 @@ int TransferGroup::uploadSpeed()
     return m_uploadSpeed;
 }
 
+#ifdef HAVE_NEPOMUK
+
+void TransferGroup::setTags(const QList< Nepomuk2::Tag >& tags)
+{
+    m_tags.clear();
+
+    foreach( const Nepomuk2::Tag &tag, tags) {
+        m_tags.insert(tag.uri(), tag);
+    }
+}
+
+#endif //HAVE_NEPOMUK
+
 bool TransferGroup::supportsSpeedLimits()
 {
     QList<Job*> jobs = runningJobs();
@@ -322,10 +335,10 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 
 #ifdef HAVE_NEPOMUK
     QDomElement tags = e.ownerDocument().createElement("Tags");
-    foreach(const Nepomuk2::Tag &tagOfList, m_tags)
+    for(QMap<QUrl, Nepomuk2::Tag>::const_iterator i = m_tags.constBegin(); i != m_tags.constEnd(); i++)
     {
         QDomElement tag = e.ownerDocument().createElement("Tag");
-        QDomText text = e.ownerDocument().createTextNode(tagOfList.uri().toString());
+        QDomText text = e.ownerDocument().createTextNode(i.key().toString());
         tag.appendChild(text);
         tags.appendChild(tag);
     }
@@ -370,7 +383,7 @@ void TransferGroup::load(const QDomElement & e)
         QString tag = tagsNodeList.item(i).toElement().text();
         if (!tag.isEmpty())
         {
-            m_tags << Nepomuk2::Tag(tag);
+            m_tags.insert(tag, Nepomuk2::Tag(tag));
         }
     }
 #endif //HAVE_NEPOMUK
