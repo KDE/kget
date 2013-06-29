@@ -172,8 +172,7 @@ void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data
             m_errorWidget->show();
             m_dataWidget->hide();
         }
-    }
-    else if (!data["error"].toBool()) {
+    } else if (!data["error"].toBool()) {
         if (m_errorWidget && m_errorWidget->isVisible())
             m_errorWidget->hide();
         if (m_proxyWidget->dataWidget() != m_dataWidget) {
@@ -334,14 +333,15 @@ bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
     {
         case QEvent::GraphicsSceneDrop:
             dropEvent(static_cast<QGraphicsSceneDragDropEvent*>(event));
-            return true;
+            break;
         case QEvent::Drop:
             dropEvent(static_cast<QDropEvent*>(event));
-            return true;
+            break;
         default:
             break;
     }
-    return false;
+    return Plasma::Applet::sceneEventFilter(watched, event);
+    //This is not 100% kosher, I think we should just return false, but otherwise the plasma resize buttons etc don't show u
 }
 
 void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)

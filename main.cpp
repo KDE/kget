@@ -52,7 +52,6 @@ public:
             kget = new MainWindow(!args->isSet("showDropTarget"), args->isSet("startWithoutAnimation"), false);
 #endif
 
-            kget->init();
             DBusKGetWrapper *wrapper = new DBusKGetWrapper(kget);
             new MainAdaptor(wrapper);
             QDBusConnection::sessionBus().registerObject("/KGet", wrapper);

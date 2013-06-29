@@ -65,6 +65,7 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     : KXmlGuiWindow( parent ),
       m_drop(0),
       m_dock(0),
+      clipboardTimer(0),
       m_startWithoutAnimation(startWithoutAnimation),
       m_doTesting(doTesting),
       m_webinterface(0)
@@ -90,6 +91,8 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     move( Settings::mainPosition() );
     setAutoSaveSettings();
     setPlainCaption(i18n("KGet"));
+    
+    init();
 
     if ( Settings::showMain() && showMainwindow)
         show();
@@ -991,14 +994,12 @@ void MainWindow::slotNewConfig()
     // parsed often by the code. When clicking Ok or Apply of
     // PreferencesDialog, this function is called.
 
-    m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
+    if (m_drop)
+        m_drop->setDropTargetVisible(Settings::showDropTarget(), false);
 
-    if(Settings::enableSystemTray() && !m_dock)
-    {
+    if (Settings::enableSystemTray() && !m_dock) {
         m_dock = new Tray(this);
-    }
-    else if(!Settings::enableSystemTray() && m_dock)
-    {
+    } else if (!Settings::enableSystemTray() && m_dock) {
         setVisible(true);
         delete m_dock;
         m_dock = 0;
@@ -1007,10 +1008,12 @@ void MainWindow::slotNewConfig()
     slotKonquerorIntegration(Settings::konquerorIntegration());
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
 
-    if (Settings::autoPaste())
-        clipboardTimer->start(1000);
-    else
-        clipboardTimer->stop();
+    if (clipboardTimer) {
+        if (Settings::autoPaste())
+            clipboardTimer->start(1000);
+        else
+            clipboardTimer->stop();
+    }
     m_autoPasteAction->setChecked(Settings::autoPaste());
 
     if (Settings::webinterfaceEnabled() && !m_webinterface) {

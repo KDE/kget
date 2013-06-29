@@ -340,7 +340,6 @@ void KGetPieChart::Private::updateTransfers()
 KGetPieChart::KGetPieChart(QObject *parent, const QVariantList &args) 
         : KGetApplet(parent, args)
 {
-    setMinimumSize(QSizeF(150, 250));
 }
 
 KGetPieChart::~KGetPieChart()

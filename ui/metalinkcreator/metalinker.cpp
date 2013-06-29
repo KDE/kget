@@ -1386,6 +1386,8 @@ void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
        checkMetalinkHttp();
     }
 
+    if (m_loop.isRunning())
+        m_loop.exit();
 }
 
 void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const KUrl & url)
