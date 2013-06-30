@@ -1060,7 +1060,7 @@ void DataSourceFactory::load(const QDomElement *element)
         addMirror(url, false, connections, true);
     }
 
-    m_status = static_cast<Job::Status>(e.attribute("status").toInt());
+    //m_status = static_cast<Job::Status>(e.attribute("status").toInt());
 
     if (change != Transfer::Tc_None) {
         emit dataSourceFactoryChange(change);

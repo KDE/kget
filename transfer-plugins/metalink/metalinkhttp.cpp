@@ -56,7 +56,7 @@ MetalinkHttp::MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
                          KGetMetalink::MetalinkHttpParser *httpParser,
                          const QDomElement * e)
     : AbstractMetalink(parent,factory,scheduler,source, dest, e) ,
-      m_signatureUrl(KUrl("")),
+      m_signatureUrl(KUrl()),
       m_httpparser(httpParser)
 
 {
@@ -68,13 +68,42 @@ MetalinkHttp::~MetalinkHttp()
 
 }
 
+void MetalinkHttp::load(const QDomElement *element)
+{
+    kDebug(5001);
+    Transfer::load(element);
+    DataSourceFactory * fac = new DataSourceFactory(this, m_dest);
+    m_dataSourceFactory.insert(m_dest, fac);
+
+    connect(fac, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
+    connect(fac, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
+    connect(fac->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+    connect(fac->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
+    connect(fac, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
+
+    fac->load(element);
+
+    if (fac->mirrors().isEmpty()) {
+        return;
+    }
+
+    m_ready = true;
+}
+
+void MetalinkHttp::save(const QDomElement &element)
+{
+    kDebug(5001);
+    Transfer::save(element);
+    m_dataSourceFactory.begin().value()->save(element);
+}
+
 void MetalinkHttp::startMetalink()
 {
     if (m_ready) {
         foreach (DataSourceFactory *factory, m_dataSourceFactory) {
             //specified number of files is downloaded simultanously
             if (m_currentFiles < MetalinkSettings::simultanousFiles()) {
-                const int status = factory->status();
+                const Job::Status status = factory->status();
 
                 //only start factories that should be downloaded
                 if (factory->doDownload() &&
@@ -84,8 +113,7 @@ void MetalinkHttp::startMetalink()
                     ++m_currentFiles;
                     factory->start();
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -102,8 +130,7 @@ void MetalinkHttp::start()
         if (metalinkHttpInit()) {
             startMetalink();
         }
-    }
-    else {
+    } else {
         startMetalink();
     }
 }
@@ -159,9 +186,8 @@ void MetalinkHttp::slotSignatureVerified()
 bool MetalinkHttp::metalinkHttpInit()
 {
     kDebug() << "m_dest = " << m_dest;
-    const KUrl tempDest=  KUrl(m_dest.directory());
-    KUrl dest;
-    dest = tempDest;
+    const KUrl tempDest = KUrl(m_dest.directory());
+    KUrl dest = tempDest;
     dest.addPath(m_dest.fileName());
     kDebug() << "dest = " << dest;
 
@@ -198,10 +224,7 @@ bool MetalinkHttp::metalinkHttpInit()
     if (dataFactory->mirrors().isEmpty()) {
         kDebug() << "data source factory being deleted" ;
         delete dataFactory;
-    }
-    else
-    {
-
+    } else {
         QHashIterator<QString, QString> itr(m_DigestList);
         while(itr.hasNext()) {
             itr.next();
@@ -211,14 +234,14 @@ bool MetalinkHttp::metalinkHttpInit()
         dataFactory->verifier()->addChecksums(m_DigestList);
 
         //Add OpenPGP signatures
-        if (m_signatureUrl != (KUrl(""))) {
+        if (m_signatureUrl != KUrl()) {
             Download *signat_download = new Download(m_signatureUrl, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
             connect(signat_download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(setSignature(KUrl,QByteArray)));
         }
         m_dataSourceFactory[dataFactory->dest()] = dataFactory;
     }
 
-    if ((m_dataSourceFactory).size()) {
+    if (m_dataSourceFactory.size()) {
         m_dest = dest;
     }
 
@@ -235,7 +258,6 @@ bool MetalinkHttp::metalinkHttpInit()
     slotUpdateCapabilities();
 
     return true;
-
 }
 
 void MetalinkHttp::setLinks()

@@ -29,9 +29,6 @@ class KGET_EXPORT AbstractMetalink : public Transfer
                          const QDomElement * e = 0);
         virtual ~AbstractMetalink();
 
-        virtual void save(const QDomElement &element) = 0;
-        virtual void load(const QDomElement *element) = 0;
-
         int remainingTime() const;
 
         bool repair(const KUrl &file = KUrl());
