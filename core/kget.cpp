@@ -103,7 +103,7 @@ bool KGet::addGroup(const QString& groupName)
     kDebug(5001);
 
     // Check if a group with that name already exists
-    if(m_transferTreeModel->findGroup(groupName))
+    if (m_transferTreeModel->findGroup(groupName))
         return false;
 
     TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
@@ -465,11 +465,8 @@ QList<TransferHandler *> KGet::finishedTransfers()
     return finishedTransfers;
 }
 
-QList<TransferGroupHandler *> KGet::selectedTransferGroups(bool *mainSelected)
+QList<TransferGroupHandler *> KGet::selectedTransferGroups()
 {
-    if (mainSelected) {
-        *mainSelected = false;
-    }
     QList<TransferGroupHandler *> selectedTransferGroups;
 
     QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
@@ -479,9 +476,6 @@ QList<TransferGroupHandler *> KGet::selectedTransferGroups(bool *mainSelected)
         ModelItem * item = m_transferTreeModel->itemFromIndex(currentIndex);
         if (item->isGroup()) {
             TransferGroupHandler *group = item->asGroup()->groupHandler();
-            if (mainSelected && group->name() == i18n("My Downloads")) {
-                *mainSelected = true;
-            }
             selectedTransferGroups.append(group);
         }
     }
@@ -520,8 +514,11 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     QString tmpFile;
 
     //Try to save the transferlist to a temporary location
-    if(!KIO::NetAccess::download(KUrl(filename), tmpFile, 0))
+    if(!KIO::NetAccess::download(KUrl(filename), tmpFile, 0)) {
+        if (m_transferTreeModel->transferGroups().isEmpty()) //Create the default group
+            addGroup(i18n("My Downloads"));
         return;
+    }
 
     QFile file(tmpFile);
     QDomDocument doc;
@@ -565,6 +562,9 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     {
         kWarning(5001) << "Error reading the transfers file";
     }
+    
+    if (m_transferTreeModel->transferGroups().isEmpty()) //Create the default group
+        addGroup(i18n("My Downloads"));
 
     new GenericObserver(m_mainWindow);
 }
@@ -836,9 +836,6 @@ KGet::KGet()
             
     //Load all the available plugins
     loadPlugins();
-
-    //Create the default group
-    addGroup(i18n("My Downloads"));
 }
 
 KGet::~KGet()

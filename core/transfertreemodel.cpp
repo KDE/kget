@@ -218,6 +218,8 @@ void TransferTreeModel::addGroup(TransferGroup * group)
 
 void TransferTreeModel::delGroup(TransferGroup * group)
 {
+    if (m_transferGroups.count() <= 1) //If there is only one group left, we should not remove it
+        return;
     GroupModelItem *item = itemFromTransferGroupHandler(group->handler());
     if (!item) {
         return;

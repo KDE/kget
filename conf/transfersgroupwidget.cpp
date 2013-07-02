@@ -53,14 +53,7 @@ void TransfersGroupWidget::slotSelectionChanged()
 {
     const QModelIndexList selectedGroups = ui.treeView->selectionModel()->selectedRows();
     const bool somethingSelected = !selectedGroups.isEmpty();
-    bool canDelete = somethingSelected;
-
-    foreach (const QModelIndex &index, selectedGroups) {
-        if (index.row() == 0) {
-            canDelete = false;
-            break;
-        }
-    }
+    bool canDelete = somethingSelected && KGet::selectedTransferGroups().count() != KGet::allTransferGroups().count();
 
     ui.rename->setEnabled(canDelete);
     ui.remove->setEnabled(canDelete);

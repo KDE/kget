@@ -134,9 +134,8 @@ KMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handle
     popup->addAction(KGet::actionCollection()->action("transfer_group_settings"));
     popup->addSeparator();
 
-    bool containsMainGroup;
-    QList<TransferGroupHandler *> transferGroups = KGet::selectedTransferGroups(&containsMainGroup);
-    if(!containsMainGroup) {
+    QList<TransferGroupHandler *> transferGroups = KGet::selectedTransferGroups();
+    if (transferGroups.count() != KGet::allTransferGroups().count()) {
         const int numGroups = transferGroups.count();
         QAction *action = KGet::actionCollection()->action("delete_groups");
         action->setText(i18np("Delete Group", "Delete Groups", numGroups));

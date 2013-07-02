@@ -618,9 +618,8 @@ void MainWindow::slotCreateMetalink()
 
 void MainWindow::slotDeleteGroup()
 {
-    bool mainSelected;
-    QList<TransferGroupHandler*> groups = KGet::selectedTransferGroups(&mainSelected);
-    if (!mainSelected) {
+    QList<TransferGroupHandler*> groups = KGet::selectedTransferGroups();
+    if (groups.count() != KGet::allTransferGroups().count()) {
         KGet::delGroups(groups);
     }
 }

@@ -202,7 +202,7 @@ class KGET_EXPORT KGet
          * @returns the list of selected groups
          */
         static QList<TransferGroupHandler *>
-        selectedTransferGroups(bool *mainSelected = 0);
+        selectedTransferGroups();
 
         /**
          * @returns a pointer to the TransferTreeModel object
