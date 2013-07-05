@@ -25,6 +25,9 @@
 #include <Nepomuk2/Variant>
 #include <Soprano/Vocabulary/NAO>
 
+#include <KJob>
+#include <KDebug>
+
 NepomukController::NepomukController(QObject *parent)
   : QThread(parent)
 {
@@ -47,7 +50,9 @@ void NepomukController::setProperties(const QList<QUrl> &uris, const QList<QPair
     }
 
     for(QList<QPair<QUrl, Nepomuk2::Variant> >::ConstIterator i = properties.constBegin(); i < properties.constEnd(); i++) {
-        Nepomuk2::addProperty(uris, i->first, QVariantList() << i->second.variant());
+        KJob * nepomukJob = Nepomuk2::addProperty(uris, i->first, QVariantList() << i->second.variant());
+        kWarning() << nepomukJob << uris << i->first << i->second.variant();
+        connect(nepomukJob, SIGNAL(result(KJob*)), this, SLOT(nepomukError(KJob*)));
     }
 }
 
@@ -99,4 +104,9 @@ void NepomukController::run()
             }
         }
     }
+}
+
+void NepomukController::nepomukError(KJob* job)
+{
+    kWarning() << job->errorText();
 }

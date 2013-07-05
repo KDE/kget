@@ -29,6 +29,8 @@
 
 #include <KUrl>
 
+class KJob;
+
 namespace Nepomuk2 {
     class Variant;
     class Tag;
@@ -63,9 +65,13 @@ class KGET_EXPORT NepomukController : public QThread
 
     private:
         bool continueToRun();
+        
 
     private:
         QMutex m_mutex;
         QList<KUrl> m_uris;
+
+    private slots:
+        void nepomukError(KJob * job);
 };
 #endif
