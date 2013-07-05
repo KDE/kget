@@ -18,6 +18,7 @@
 
 #include <Nepomuk2/Variant>
 #include <Nepomuk2/Tag>
+#include <Soprano/Vocabulary/RDF>
 #include <Nepomuk2/Vocabulary/NDO>
 #include <Nepomuk2/Vocabulary/NFO>
 #include <Nepomuk2/Vocabulary/NIE>
@@ -65,15 +66,15 @@ void NepomukHandler::saveFileProperties()
 
     const QUrl src = m_transfer->source();
     const QUrl srcType = (src.isLocalFile() ? NFO::FileDataObject() : NFO::RemoteDataObject());
-    QPair<QUrl, Nepomuk2::Variant> property = qMakePair(NIE::url(), Nepomuk2::Variant(src));
-    KGet::nepomukController()->setProperty(QList<QUrl>() << src, property, srcType);
-    Nepomuk2::Resource srcFileRes(src, srcType);
+    Nepomuk2::Resource srcFileRes(src);
+
+    srcFileRes.setProperty(Soprano::Vocabulary::RDF::type(), srcType);
 
     foreach (const QUrl &destination, destinations) {
         //set all the properties
+        Nepomuk2::Resource destinationRes(destination);
         QList<QPair<QUrl, Nepomuk2::Variant> > properties;
-        properties.append(qMakePair(NIE::url(), Nepomuk2::Variant(destination)));
-        properties.append(qMakePair(NDO::copiedFrom(), Nepomuk2::Variant(srcFileRes)));
+        properties.append(qMakePair(NDO::copiedFrom(), Nepomuk2::Variant(srcFileRes.uri())));
 
         Verifier *verifier = m_transfer->verifier(destination);
         if (verifier) {
@@ -95,7 +96,7 @@ void NepomukHandler::saveFileProperties()
             }
         }
 
-        KGet::nepomukController()->setProperties(QList<QUrl>() << destination, properties);
+        KGet::nepomukController()->setProperties(QList<QUrl>() << destinationRes.uri() , properties);
     }
 
     //set the tags of the group
