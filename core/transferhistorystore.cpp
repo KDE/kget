@@ -591,7 +591,8 @@ void NepomukStore::clear()
 void NepomukStore::saveItem(const TransferHistoryItem &item)
 {
     Nepomuk2::HistoryItem historyItem(item.source());
-    
+
+    historyItem.addType(Nepomuk2::HistoryItem::resourceTypeUri());
     historyItem.setDestination(item.dest());
     historyItem.setSource(item.source());
     historyItem.setState(item.state());
