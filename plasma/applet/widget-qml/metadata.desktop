@@ -1,0 +1,21 @@
+[Desktop Entry]
+Name=KGet
+Comment=Widget to monitor KGet downloads from desktop
+Icon=kget
+ 
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/main.qml
+X-Plasma-DefaultSize=200,200
+ 
+X-KDE-PluginInfo-Author=Bhushan Shah
+X-KDE-PluginInfo-Email=bhush94@gmail.com
+X-KDE-PluginInfo-Website=http://plasma.kde.org/
+X-KDE-PluginInfo-Category=Utilities
+X-KDE-PluginInfo-Name=org.kde.kget.widget
+X-KDE-PluginInfo-Version=0.1
+ 
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ServiceTypes=Plasma/Applet
+Type=Service
