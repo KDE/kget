@@ -34,10 +34,26 @@ Item {
         id: kgetSource
         engine: "kget"
         interval: 500
-        onSourceAdded: connectSource(source)
-        onSourceRemoved: disconnectSource(source)
+        onSourceAdded: {
+            if(source=="Error") {
+                connectSource(source)
+                state="error"
+            }
+            else {
+                connectSource(source)
+            }
+            onSourceRemoved: {
+                if(source=="Error") {
+                    disconnectSource(source)
+                    setUp()
+                    state=""
+                }
+                else {
+                    disconnectSource(source)
+                }
+            }
+        }
     }
-
     function setup() {
         var sources = kgetSource.sources;
         for(i=0;i<sources.length;i++) {
@@ -50,16 +66,29 @@ Item {
     MessageItem {
         id: msgBox
         anchors.fill: parent
-        visible: (kgetSource.data["Error"]==undefined)?false:true
+        visible: false
     }
 
     ScrollableListView {
         id: downloadList
         anchors.fill: parent
-        visible: (kgetSource.data["Error"]==undefined)?true:false
+        visible: true
         model: PlasmaCore.DataModel {
             dataSource: kgetSource
         }
         delegate: DownloadItem {}
     }
+
+    states:[
+    State {
+        name: ""
+        PropertyChanges{ target: downloadList; visible: true }
+        PropertyChanges { target: msgBox; visible: false }
+    },
+    State {
+        name: "error"
+        PropertyChanges { target: downloadList; visible: false }
+        PropertyChanges { target: msgBox; visible: true }
+    }
+    ]
 }
