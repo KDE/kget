@@ -35,22 +35,20 @@ Item {
         engine: "kget"
         interval: 500
         onSourceAdded: {
-            if(source=="Error") {
+            if (source=="Error") {
                 connectSource(source)
                 state="error"
-            }
-            else {
+            } else {
                 connectSource(source)
             }
-            onSourceRemoved: {
-                if(source=="Error") {
-                    disconnectSource(source)
-                    setUp()
-                    state=""
-                }
-                else {
-                    disconnectSource(source)
-                }
+        }
+        onSourceRemoved: {
+            if (source=="Error") {
+                disconnectSource(source)
+                setup()
+                state=""
+            } else {
+                disconnectSource(source)
             }
         }
     }

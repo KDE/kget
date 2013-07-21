@@ -79,8 +79,7 @@ void KGetEngine::getKGetData()
         if (!m_kget) {
             m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
         }
-    }
-    else {
+    } else {
         removeAllSources();
         data.insert("message", "KGet is not running");
         setData("Error",data);
