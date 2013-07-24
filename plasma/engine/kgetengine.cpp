@@ -60,9 +60,16 @@ bool KGetEngine::sourceRequestEvent(const QString &name)
 
 bool KGetEngine::updateSourceEvent(const QString &name)
 {
-    Q_UNUSED(name)
-
-    getKGetData();
+    if(name == "Error" && !isDBusServiceRegistered()) {
+        //Hack that keeps "Error" source connected, if source isn't updating data it gets disconnected
+        setData(name, "hack", containerForSource(name)->data().value("hack").toInt() + 1);
+    }
+    else if(name == "Error" && isEmpty()) {
+        getKGetData();
+    }
+    else {
+        getKGetData();
+    }
     return true;
 }
 
@@ -74,19 +81,19 @@ void KGetEngine::updateData()
 void KGetEngine::getKGetData()
 {
     Plasma::DataEngine::Data data;
-
     if (isDBusServiceRegistered()) {
         if (!m_kget) {
             m_kget = new OrgKdeKgetMainInterface(KGET_DBUS_SERVICE, KGET_DBUS_PATH, QDBusConnection::sessionBus(), this);
+            connect(m_kget, SIGNAL(transfersAdded(QStringList,QStringList)), this, SLOT(slotTransfersAdded(QStringList,QStringList)));
+            connect(m_kget, SIGNAL(transfersRemoved(QStringList,QStringList)), this, SLOT(slotTransfersRemoved(QStringList,QStringList)));
         }
     } else {
         removeAllSources();
         data.insert("message", "KGet is not running");
+        data.insert("hack", 0);
         setData("Error",data);
         return;
     }
-
-    removeSource("Error");
     QVariantMap transfer = m_kget->transfers().value();
     for (QVariantMap::const_iterator it = transfer.constBegin(); it != transfer.constEnd(); ++it) {
         OrgKdeKgetTransferInterface *newTransfer = new OrgKdeKgetTransferInterface("org.kde.kget", it.value().toString(), QDBusConnection::sessionBus(), this);
@@ -100,8 +107,18 @@ void KGetEngine::getKGetData()
         data.insert("speed", newTransfer->downloadSpeed().value());
         data.insert("icon", KMimeType::iconNameForUrl(KUrl(newTransfer->dest().value())));
         setData(KUrl(newTransfer->dest()). fileName(),data);
+        removeSource("Error");
     }
+}
 
+void KGetEngine::slotTransfersAdded(const QStringList &urls, const QStringList &dBusObjectPaths) {
+    getKGetData();
+}
+
+void KGetEngine::slotTransfersRemoved(const QStringList &urls, const QStringList &dBusObjectPaths) {
+    for (int i = 0; i < urls.count(); ++i) {
+        removeSource(KUrl(urls[i]).fileName());
+    }
 }
 
 bool KGetEngine::isDBusServiceRegistered()

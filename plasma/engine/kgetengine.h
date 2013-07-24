@@ -5,7 +5,7 @@
  *
  *   Copyright (C) 2013 by Bhushan Shah <bhush94@gmail.com>
  *   Copyright (C) 2007 by Javier Goday <jgoday@gmail.com>
- *   
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -33,7 +33,7 @@ class KGetEngine : public Plasma::DataEngine
     public:
         KGetEngine(QObject* parent, const QVariantList& args);
         ~KGetEngine();
-        
+
         void init();
 
     protected:
@@ -43,6 +43,8 @@ class KGetEngine : public Plasma::DataEngine
     private slots:
         void getKGetData();
         void updateData();
+        void slotTransfersAdded(const QStringList &urls, const QStringList &dBusObjectPaths);
+        void slotTransfersRemoved(const QStringList &urls, const QStringList &dBusObjectPaths);
 
     private:
         bool isDBusServiceRegistered();

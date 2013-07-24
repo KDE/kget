@@ -24,11 +24,11 @@ import org.kde.plasma.components 0.1 as Components
 Item {
 
     id: container
-    height: 100
-    width: 200
+    height: 360
+    width: 300
 
-    property int minimumWidth: 200
-    property int minimumHeight: 100
+    property int minimumWidth: 300
+    property int minimumHeight: 360
 
     PlasmaCore.DataSource {
         id: kgetSource
@@ -44,7 +44,6 @@ Item {
         }
         onSourceRemoved: {
             if (source=="Error") {
-                disconnectSource(source)
                 setup()
                 state=""
             } else {
@@ -54,12 +53,18 @@ Item {
     }
     function setup() {
         var sources = kgetSource.sources;
+        if(sources[0] == "Error") {
+            state="error";
+        }
         for(i=0;i<sources.length;i++) {
             kgetSource.connectSource(sources[i]);
         }
     }
 
-    Component.onCompleted: setup()
+    Component.onCompleted:{
+        plasmoid.aspectRatioMode=IgnoreAspectRatio;
+        setup();
+    }
 
     MessageItem {
         id: msgBox
