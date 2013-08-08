@@ -742,6 +742,7 @@ Name[zh_CN]=信息
 Name[zh_TW]=資訊
 Comment=User Notified of Information
 Comment[ast]=Notificación d'información d'usuariu
+Comment[bg]=Потребителят е уведомен за данните
 Comment[bs]=Korisnik je izvješten o nečemu
 Comment[ca]=L'usuari ha estat informat
 Comment[ca@valencia]=L'usuari ha estat informat

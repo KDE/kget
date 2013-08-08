@@ -7,6 +7,7 @@ Icon=kget
 # standard fields
 Name=Checksum Search
 Name[ast]=Guetar comprabación de suma
+Name[bg]=Търсене на контролна сума
 Name[bs]=Traženje kontrolnih suma
 Name[ca]=Cerca de suma de verificació
 Name[ca@valencia]=Cerca de suma de verificació
@@ -58,6 +59,7 @@ Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
 Comment[ast]=Intenta alcontrar comprobación de suma pa una direición URL especificada
+Comment[bg]=Търсене на контролни суми за указания URL-адрес
 Comment[bs]=Pokušava da nađe kontrolne sume za navedeni URL
 Comment[ca]=Intenta cercar sumes de verificació per a un URL especificat
 Comment[ca@valencia]=Intenta cercar sumes de verificació per a un URL especificat
