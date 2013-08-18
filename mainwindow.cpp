@@ -42,8 +42,6 @@
 #include <kstandarddirs.h>
 #include <KInputDialog>
 #include <kmessagebox.h>
-#include <kshortcutsdialog.h>
-#include <kedittoolbar.h>
 #include <knotifyconfigwidget.h>
 #include <kfiledialog.h>
 #include <ktoolinvocation.h>
@@ -83,13 +81,12 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     // create actions
     setupActions();
 
-    createGUI("kgetui.rc");
+    setupGUI(ToolBar | Keys | Save | Create);
 
     setCentralWidget(m_viewsContainer);
 
     // restore position, size and visibility
     move( Settings::mainPosition() );
-    setAutoSaveSettings();
     setPlainCaption(i18n("KGet"));
     
     init();
@@ -233,8 +230,6 @@ void MainWindow::setupActions()
     KStandardAction::quit(this, SLOT(slotQuit()), actionCollection());
     // local - Standard configure actions
     KStandardAction::preferences(this, SLOT(slotPreferences()), actionCollection());
-    KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());
-    KStandardAction::keyBindings(this, SLOT(slotConfigureKeys()), actionCollection());
 
     KStandardAction::configureNotifications(this, SLOT(slotConfigureNotifications()), actionCollection());
     m_menubarAction = KStandardAction::showMenubar(this, SLOT(slotShowMenubar()), actionCollection());
@@ -959,18 +954,6 @@ void MainWindow::slotDeleteFinished()
 void MainWindow::slotConfigureNotifications()
 {
     KNotifyConfigWidget::configure(this);
-}
-
-void MainWindow::slotConfigureKeys()
-{
-    KShortcutsDialog::configure(actionCollection());
-}
-
-void MainWindow::slotConfigureToolbars()
-{
-    KEditToolBar edit( actionCollection() );
-    connect(&edit, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()));
-    edit.exec();
 }
 
 
