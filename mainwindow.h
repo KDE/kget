@@ -83,8 +83,6 @@ private slots:
     void slotStartDownload();
     void slotStopDownload();
     void slotConfigureNotifications();
-    void slotConfigureKeys();
-    void slotConfigureToolbars();
     void slotToggleAutoPaste();
     void slotTrayKonquerorIntegration(bool);
     void slotKonquerorIntegration( bool );
