@@ -12,7 +12,7 @@
 #include "contextmenu.h"
 
 #ifdef HAVE_NEPOMUK
-    #include <kfilemetadatawidget.h>
+    #include "nepomuk2/filemetadatawidget.h"
     #include "core/nepomukhandler.h"
 #endif
 
@@ -77,7 +77,7 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     KMenu *nepomukMenu = new KMenu(i18n("Semantic Desktop"), parent);
     nepomukMenu->setIcon(KIcon("nepomuk"));
     QWidgetAction *nepomukWidgetAction = new QWidgetAction(parent);
-    KFileMetaDataWidget *nepomukWidget = new KFileMetaDataWidget(parent);
+    Nepomuk2::FileMetaDataWidget *nepomukWidget = new Nepomuk2::FileMetaDataWidget(parent);
     nepomukWidget->setItems(items);
     nepomukWidgetAction->setDefaultWidget(nepomukWidget);
     nepomukMenu->addAction(nepomukWidgetAction);
