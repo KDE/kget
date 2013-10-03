@@ -304,8 +304,9 @@ const QList<TransferHandler *> KGet::addTransfer(KUrl::List srcUrls, QString des
 
         if (newTransfer) {
             addedTransfers.append(newTransfer);
-            return addedTransfers;
         }
+
+        return addedTransfers;
     }
 
     KUrl destUrl;
