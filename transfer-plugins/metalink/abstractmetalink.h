@@ -19,7 +19,7 @@
 
 #include "ui/metalinkcreator/metalinker.h"
 
-class KGET_EXPORT AbstractMetalink : public Transfer
+class AbstractMetalink : public Transfer
 {
     Q_OBJECT
 
