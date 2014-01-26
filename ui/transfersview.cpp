@@ -29,8 +29,7 @@
 #include <QGroupBox>
 
 TransfersView::TransfersView(QWidget * parent)
-    : QTreeView(parent),
-        m_headerMenu(0)
+    : QTreeView(parent)
 {
 //     setItemsExpandable(false);
     setRootIsDecorated(false);
@@ -40,6 +39,7 @@ TransfersView::TransfersView(QWidget * parent)
     header()->setMinimumSectionSize(80);    
     header()->setContextMenuPolicy(Qt::CustomContextMenu);
     header()->setClickable(true);
+    m_headerMenu = new KMenu(header());
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
@@ -51,6 +51,7 @@ TransfersView::TransfersView(QWidget * parent)
 
     connect(header(), SIGNAL(customContextMenuRequested(QPoint)),
                       SLOT(slotShowHeaderMenu(QPoint)));
+    connect(header(), SIGNAL(sectionCountChanged(int,int)), this, SLOT(populateHeaderActions()));
     connect(header(), SIGNAL(sectionMoved(int,int,int)), this, SLOT(slotSectionMoved(int,int,int)));
     connect(header(), SIGNAL(sectionResized(int,int,int)), this, SLOT(slotSaveHeader()));
     connect(this,     SIGNAL(doubleClicked(QModelIndex)),
@@ -122,7 +123,7 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 
 void TransfersView::populateHeaderActions()
 {
-    m_headerMenu = new KMenu(header());
+    m_headerMenu->clear();
     m_headerMenu->addTitle(i18n("Select columns"));
 
     QSignalMapper *columnMapper = new QSignalMapper(this);
@@ -319,6 +320,5 @@ QWidget *TransfersView::getDetailsWidgetForTransfer(TransferHandler *handler)
 
     return groupBox;
 }
-
 
 #include "transfersview.moc"
