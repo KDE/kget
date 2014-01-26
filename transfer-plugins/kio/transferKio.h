@@ -70,6 +70,7 @@ class TransferKio : public Transfer
         void slotSpeed( KJob * kioJob, unsigned long bytes_per_second );
         void newDestResult(KJob *result);
         void slotVerified(bool isVerified);
+        void slotStatResult(KJob * kioJob);
 
     private:
         Verifier *m_verifier;

@@ -19,6 +19,8 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#include <utime.h>
+
 #include <kiconloader.h>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
@@ -188,7 +190,13 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
         }
     }
     if (change & Tc_Status) {
-        setStatus(m_dataSourceFactory->status());
+        if ((m_dataSourceFactory->status() == Job::Finished) && m_source.protocol() == "ftp") {
+            KIO::StatJob * statJob = KIO::stat(m_source);
+            connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
+            statJob->start();
+        } else {
+            setStatus(m_dataSourceFactory->status());  
+        }
 
         if (m_fileModel) {
             QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
@@ -251,6 +259,23 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
             repair();
         }
     }
+}
+
+void TransferMultiSegKio::slotStatResult(KJob* kioJob)
+{
+    KIO::StatJob * statJob = qobject_cast<KIO::StatJob *>(kioJob);
+
+    if (!statJob->error()) {
+        const KIO::UDSEntry entryResult = statJob->statResult();
+        struct utimbuf time;
+
+        time.modtime = entryResult.numberValue(KIO::UDSEntry::UDS_MODIFICATION_TIME);
+        time.actime = QDateTime::currentDateTime().toTime_t();
+        utime(m_dest.toLocalFile().toUtf8().constData(), &time);
+    }
+
+    setStatus(Job::Finished);
+    setTransferChange(Tc_Status, true);
 }
 
 void TransferMultiSegKio::slotSearchUrls(const QList<KUrl> &urls)

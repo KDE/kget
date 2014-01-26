@@ -82,6 +82,7 @@ class TransferMultiSegKio : public Transfer
         void slotSearchUrls(const QList<KUrl> &urls);
         void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
         void slotVerified(bool isVerified);
+        void slotStatResult(KJob * kioJob);
 
     private:
         bool m_movingFile;

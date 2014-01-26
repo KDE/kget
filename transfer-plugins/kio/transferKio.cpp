@@ -14,6 +14,8 @@
 #include "core/signature.h"
 #include "settings.h"
 
+#include <utime.h>
+
 #include <kiconloader.h>
 #include <kio/scheduler.h>
 #include <KIO/DeleteJob>
@@ -172,7 +174,8 @@ void TransferKio::slotResult( KJob * kioJob )
     // when slotResult gets called, the m_copyjob has already been deleted!
     m_copyjob=0;
 
-    Transfer::ChangesFlags flags = Tc_Status;
+    // If it is an ftp file, there's still work to do
+    Transfer::ChangesFlags flags = (m_source.protocol() != "ftp") ? Tc_Status : Tc_None;
     if (status() == Job::Finished) {
         if (!m_totalSize) {
             //downloaded elsewhere already, e.g. Konqueror
@@ -193,6 +196,12 @@ void TransferKio::slotResult( KJob * kioJob )
         if (m_signature && Settings::signatureAutomaticVerification()) {
             m_signature->verify();
         }
+    }
+
+    if (m_source.protocol() == "ftp") {
+        KIO::StatJob * statJob = KIO::stat(m_source);
+        connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
+        statJob->start();
     }
 
     setTransferChange(flags, true);
@@ -274,6 +283,24 @@ void TransferKio::slotVerified(bool isVerified)
         }
     }
 }
+
+void TransferKio::slotStatResult(KJob* kioJob)
+{
+    KIO::StatJob * statJob = qobject_cast<KIO::StatJob *>(kioJob);
+
+    if (!statJob->error()) {
+        const KIO::UDSEntry entryResult = statJob->statResult();
+        struct utimbuf time;
+
+        time.modtime = entryResult.numberValue(KIO::UDSEntry::UDS_MODIFICATION_TIME);
+        time.actime = QDateTime::currentDateTime().toTime_t();
+        utime(m_dest.toLocalFile().toUtf8().constData(), &time);
+    }
+
+    setStatus(Job::Finished);
+    setTransferChange(Tc_Status, true);
+}
+
 
 bool TransferKio::repair(const KUrl &file)
 {
