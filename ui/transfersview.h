@@ -29,7 +29,6 @@ class TransfersView : public QTreeView
     private:
         void dropEvent(QDropEvent * event);
         void rowsInserted(const QModelIndex &, int, int);
-        void populateHeaderActions();
 
     protected:
         void dragMoveEvent ( QDragMoveEvent * event );
@@ -48,6 +47,7 @@ class TransfersView : public QTreeView
         void slotHideSection(int logicalIndex);
         void slotSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
         void slotSaveHeader();
+        void populateHeaderActions();
 
     private:
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
