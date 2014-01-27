@@ -62,7 +62,7 @@ class AbstractMetalink : public Transfer
     public Q_SLOTS:
         // --- Job virtual functions ---
         virtual void start() = 0;
-        virtual void stop() = 0;
+        virtual void stop();
         virtual void deinit(Transfer::DeleteOptions options) = 0;
 
     protected Q_SLOTS:

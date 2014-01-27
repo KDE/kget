@@ -96,8 +96,9 @@ void TransferMultiSegKio::stop()
 {
     kDebug(5001);
 
-    if(status() == Stopped)
+    if ((status() == Stopped) || (status() == Finished)) {
         return;
+    }
 
     if (m_dataSourceFactory)
     {
