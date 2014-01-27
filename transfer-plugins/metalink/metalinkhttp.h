@@ -36,7 +36,6 @@ class MetalinkHttp : public AbstractMetalink
 
     // --- Job virtual functions ---
         void start();
-        void stop();
         void save(const QDomElement &element);
         void load(const QDomElement *element);
         void deinit(Transfer::DeleteOptions options);

@@ -39,7 +39,6 @@ class MetalinkXml : public AbstractMetalink
     public Q_SLOTS:
         // --- Job virtual functions ---
         void start();
-        void stop();
 
         void deinit(Transfer::DeleteOptions options);
 

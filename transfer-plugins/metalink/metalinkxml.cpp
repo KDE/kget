@@ -268,19 +268,6 @@ void MetalinkXml::deinit(Transfer::DeleteOptions options)
 #endif //HAVE_NEPOMUK
 }
 
-void MetalinkXml::stop()
-{
-    kDebug(5001) << "metalink::Stop";
-    if (m_ready && status() != Stopped)
-    {
-        m_currentFiles = 0;
-        foreach (DataSourceFactory *factory, m_dataSourceFactory)
-        {
-            factory->stop();
-        }
-    }
-}
-
 void MetalinkXml::load(const QDomElement *element)
 {
     Transfer::load(element);

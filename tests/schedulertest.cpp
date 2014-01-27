@@ -57,7 +57,7 @@ void TestJob::start()
 
 void TestJob::stop()
 {
-    if (status() == Running || status() == Aborted || status() == Moving) {
+    if ((status() == Running) || (status() == Aborted) || (status() == Moving) || (status() == Finished)) {
         setStatus(Stopped);
     }
 }

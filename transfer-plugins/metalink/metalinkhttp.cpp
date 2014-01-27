@@ -135,17 +135,6 @@ void MetalinkHttp::start()
     }
 }
 
-void MetalinkHttp::stop()
-{
-    kDebug(5001) << "metalink::Stop";
-    if (m_ready && status() != Stopped) {
-        m_currentFiles = 0;
-        foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-            factory->stop();
-        }
-    }
-}
-
 void MetalinkHttp::setSignature(KUrl & dest, QByteArray & data, DataSourceFactory* dataFactory)
 {
     Q_UNUSED(dest);

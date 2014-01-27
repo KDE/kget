@@ -535,5 +535,18 @@ void AbstractMetalink::filesSelected()
     slotDataSourceFactoryChange(change);
 }
 
+void AbstractMetalink::stop()
+{
+    kDebug(5001) << "metalink::Stop";
+    if (m_ready && ((status() != Stopped) || (status() != Finished)))
+    {
+        m_currentFiles = 0;
+        foreach (DataSourceFactory *factory, m_dataSourceFactory)
+        {
+            factory->stop();
+        }
+    }
+}
+
 #include "abstractmetalink.moc"
 
