@@ -134,7 +134,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="tempFolderLabel">
         <property name="text">
-         <string>Default temporary folder</string>
+         <string>Default temporary folder:</string>
         </property>
        </widget>
       </item>
