@@ -330,7 +330,7 @@ namespace kt
 				case 1: return i18n("Which client the peer is using");
 				case 2: return i18n("Download speed");
 				case 3: return i18n("Upload speed");
-				case 4: return i18n("Whether or not the peer has choked us.  If we are choked, the peer will not send us any data.");
+				case 4: return i18n("Whether or not the peer has choked us. If we are choked, the peer will not send us any data.");
 				case 5: return i18n("Snubbed means the peer has not sent us any data in the last 2 minutes");
 				case 6: return i18n("How much of the torrent's data the peer has");
 				case 7: return i18n("Whether or not the peer has DHT enabled");
