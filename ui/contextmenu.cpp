@@ -23,11 +23,9 @@
 #include <KMenu>
 #include <QWidgetAction>
 
-#ifdef HAVE_KONQUEROR
-    #include <KFileItem>
-    #include <kfileitemlistproperties.h>
-    #include <konq_menuactions.h>
-#endif
+#include <KFileItem>
+#include <kfileitemlistproperties.h>
+#include <kfileitemactions.h>
 
 KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
 {
@@ -96,18 +94,17 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
 {
     KMenu *popup = ContextMenu::createTransferContextMenu(QList<TransferHandler*>() << handler, parent);
 
-#ifdef HAVE_KONQUEROR
     // only shows the open with actions if the transfer is finished
     if (handler->status() == Job::Finished || handler->status() == Job::FinishedKeepAlive) {
         KFileItemList items;
         items << KFileItem(KFileItem::Unknown, KFileItem::Unknown, handler->dest());
 
-        KonqMenuActions menuActions;
+        KFileItemActions menuActions;
 
         menuActions.setItemListProperties(KFileItemListProperties(items));
         menuActions.setParentWidget(parent);
 
-        menuActions.addActionsTo(popup);
+        menuActions.addServiceActionsTo(popup);
         menuActions.addOpenWithActionsTo(popup, "DesktopEntryName != 'kget'");
 
         // TODO : seems like the popup menu has to be showed while the KonqMenuActions instance exists ?
@@ -116,7 +113,6 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
 
         return 0;
     }
-#endif
 
     return popup;
 }
