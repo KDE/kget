@@ -113,15 +113,6 @@ if(KDE4WORKSPACE_FOUND)
 	include_directories(${KDE4WORKSPACE_INCLUDE_DIR})
 endif(KDE4WORKSPACE_FOUND)
 
-# find libkonq to allow actions and open with options in the context menu of a transfer
-macro_optional_find_package(LibKonq)
-macro_log_feature(LIBKONQ_FOUND "libkonq" "KDE4 Konqueror library" "http://www.kde.org" FALSE "" "Needed to build actions and open with options in the context menu of a transfer")
-if(LIBKONQ_FOUND)
-    add_definitions(-DHAVE_KONQUEROR)
-	include_directories(${LIBKONQ_INCLUDE_DIR})
-endif(LIBKONQ_FOUND)
-
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/core/
@@ -318,10 +309,6 @@ endif(QCA2_FOUND)
 if (HAVE_NEPOMUK)
   target_link_libraries(kget ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
 endif (HAVE_NEPOMUK)
-
-if (LIBKONQ_FOUND)
-  target_link_libraries(kget ${LIBKONQ_LIBRARY})
-endif (LIBKONQ_FOUND)
 
 if (QGPGME_FOUND)
   target_link_libraries(kget ${QGPGME_LIBRARIES})
