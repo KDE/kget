@@ -30,7 +30,7 @@ class TransferKio : public Transfer
 
     public:
         TransferKio(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KUrl & src, const KUrl & dest,
+                    Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                     const QDomElement * e = 0);
 
         /**
@@ -38,15 +38,15 @@ class TransferKio : public Transfer
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const KUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory);
 
-        bool repair(const KUrl &file = KUrl());
+        bool repair(const QUrl &file = QUrl());
 
-        Verifier *verifier(const KUrl &file = KUrl());
-        Signature *signature(const KUrl &file = KUrl());
+        Verifier *verifier(const QUrl &file = QUrl());
+        Signature *signature(const QUrl &file = QUrl());
 
     public slots:
-        bool setNewDestination(const KUrl &newDestination);
+        bool setNewDestination(const QUrl &newDestination);
 
         // --- Job virtual functions ---
         void start();

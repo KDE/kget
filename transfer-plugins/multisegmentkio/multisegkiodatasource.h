@@ -21,7 +21,7 @@ class MultiSegKioDataSource : public TransferDataSource
     Q_OBJECT
 
     public:
-        MultiSegKioDataSource(const KUrl &srcUrl, QObject *parent);
+        MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent);
         ~MultiSegKioDataSource();
 
         void start();
@@ -57,7 +57,7 @@ class MultiSegKioDataSource : public TransferDataSource
 
         void slotFinishedDownload(KIO::filesize_t size);
         
-        void slotUrlChanged(const KUrl &url);
+        void slotUrlChanged(const QUrl &url);
 
     private:
         Segment *mostUnfinishedSegments(int *unfinished = 0) const;

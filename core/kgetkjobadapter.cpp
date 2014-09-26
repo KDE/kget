@@ -43,8 +43,8 @@ unsigned long KGetKJobAdapter::percent() const
 void KGetKJobAdapter::slotUpdateDescription()
 {
     emit description(this, i18n("KGet Transfer"), 
-                    qMakePair(QString("source"), m_transferHandler->source().prettyUrl()),
-                    qMakePair(QString("destination"), m_transferHandler->dest().prettyUrl()));
+                    qMakePair(QString("source"), m_transferHandler->source().toString()),
+                    qMakePair(QString("destination"), m_transferHandler->dest().toString()));
 
     emitSpeed(m_transferHandler->downloadSpeed());
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes));

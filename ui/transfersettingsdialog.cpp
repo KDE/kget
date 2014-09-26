@@ -21,6 +21,7 @@
 
 #include <KMessageBox>
 #include <KLineEdit>
+#include <KLocale>
 #include <QSortFilterProxyModel>
 
 TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler *transfer)
@@ -34,16 +35,16 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
-    ui.ktitlewidget->setPixmap(SmallIcon("preferences-other"));
+    ui.ktitlewidget->setPixmap(QIcon::fromTheme("preferences-other").pixmap(16));
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
-    ui.destination->setUrl(m_transfer->directory().pathOrUrl());
+    ui.destination->setUrl(m_transfer->directory().toString());
     ui.destination->lineEdit()->setReadOnly(true);
-    ui.rename->setIcon(KIcon("edit-rename"));
-    ui.mirrors->setIcon(KIcon("download"));
-    ui.signature->setIcon(KIcon("application-pgp-signature"));
-    ui.verification->setIcon(KIcon("document-decrypt"));
+    ui.rename->setIcon(QIcon::fromTheme("edit-rename"));
+    ui.mirrors->setIcon(QIcon::fromTheme("download"));
+    ui.signature->setIcon(QIcon::fromTheme("application-pgp-signature"));
+    ui.verification->setIcon(QIcon::fromTheme("document-decrypt"));
 
     if (m_model)
     {
@@ -157,8 +158,8 @@ void TransferSettingsDialog::slotSelectionChanged()
 
 void TransferSettingsDialog::save()
 {//TODO: Set to -1 when no limit
-    KUrl oldDirectory = m_transfer->directory();
-    KUrl newDirectory = ui.destination->url();
+    QUrl oldDirectory = m_transfer->directory();
+    QUrl newDirectory = ui.destination->url();
     if ((oldDirectory != newDirectory) && !m_transfer->setDirectory(newDirectory))
     {
         KMessageBox::error(this, i18n("Changing the destination did not work, the destination stays unmodified."), i18n("Destination unmodified"));

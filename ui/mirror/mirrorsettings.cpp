@@ -23,6 +23,8 @@
 
 #include <QtGui/QSortFilterProxyModel>
 
+#include <KLocale>
+
 MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags),
     m_model(model),
@@ -97,8 +99,8 @@ void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
 void MirrorAddDlg::updateButton(const QString &text)
 {
     bool enabled = false;
-    KUrl url(text);
-    if (url.isValid() && !url.protocol().isEmpty() && url.hasPath())
+    QUrl url(text);
+    if (url.isValid() && !url.scheme().isEmpty() && !url.path().isEmpty())
     {
         enabled = true;
     }
@@ -111,14 +113,14 @@ void MirrorAddDlg::addMirror()
     const int numConnections = ui.numConnections->isVisible() ? ui.numConnections->value() : 0;
     const int priority = ui.priority->isVisible() ? ui.priority->value() : 0;
     const QString countryCode = ui.location->itemData(ui.location->currentIndex()).toString();
-    m_model->addMirror(KUrl(ui.url->text()), numConnections, priority, countryCode);
+    m_model->addMirror(QUrl(ui.url->text()), numConnections, priority, countryCode);
     if (m_countryModel)
     {
         ui.location->setCurrentIndex(-1);
     }
 }
 
-MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file)
+MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const QUrl &file)
   : KGetSaveSizeDialog("MirrorSettings", parent),
     m_transfer(handler),
     m_file(file)

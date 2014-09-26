@@ -27,7 +27,7 @@
 
 struct FileData
 {
-    KUrl url;
+    QUrl url;
     KGetMetalink::File file;
 };
 
@@ -83,7 +83,7 @@ class DirectoryHandler : public QObject
          * The files the FileHandler should handle, the urls can also be urls to directories
          * then the files of these directories will be got recursively
          */
-        void slotFiles(const QList<KUrl> &files);
+        void slotFiles(const QList<QUrl> &files);
 
     signals:
         void finished();
@@ -104,7 +104,7 @@ class DirectoryHandler : public QObject
 
     private:
         bool m_allJobsStarted;
-        QHash<KJob*, KUrl> m_jobs;
+        QHash<KJob*, QUrl> m_jobs;
         QList<FileData> m_files;
 };
 

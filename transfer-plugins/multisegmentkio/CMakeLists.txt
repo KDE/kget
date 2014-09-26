@@ -9,9 +9,9 @@ set(kget_multisegkiofactory_PART_SRCS
   transfermultisegkiofactory.cpp
 )
 
-kde4_add_kcfg_files(kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
+kconfig_add_kcfg_files(kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
 
-kde4_add_plugin(kget_multisegkiofactory ${kget_multisegkiofactory_PART_SRCS})
+add_library(kget_multisegkiofactory MODULE ${kget_multisegkiofactory_PART_SRCS})
 
 target_link_libraries(kget_multisegkiofactory ${KDE4_KIO_LIBS} kgetcore)
 
@@ -24,12 +24,12 @@ set(kcm_kget_multisegkiofactory_PART_SRCS
   dlgmultisegkio.cpp
 )
 
-kde4_add_ui_files(kcm_kget_multisegkiofactory_PART_SRCS
+qt5_wrap_ui(kcm_kget_multisegkiofactory_PART_SRCS
   dlgmultisegkio.ui
 )
 
-kde4_add_kcfg_files(kcm_kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
-kde4_add_plugin(kcm_kget_multisegkiofactory ${kcm_kget_multisegkiofactory_PART_SRCS})
+kconfig_add_kcfg_files(kcm_kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
+add_library(kcm_kget_multisegkiofactory MODULE ${kcm_kget_multisegkiofactory_PART_SRCS})
 target_link_libraries(kcm_kget_multisegkiofactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 install(TARGETS kcm_kget_multisegkiofactory DESTINATION ${PLUGIN_INSTALL_DIR})
 

@@ -36,7 +36,7 @@ RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *pare
     setMainWidget(widget);
 
     const QString originalName = m_model->data(m_index, Qt::DisplayRole).toString();
-    m_dest = m_model->getUrl(m_index).upUrl();
+    m_dest = m_model->getUrl(m_index).adjusted(QUrl::RemoveFilename);
 
     ui.label->setText(i18n("Rename %1 to:", originalName));
     ui.name->setText(originalName);
@@ -51,10 +51,10 @@ RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *pare
 void RenameFile::updateButton()
 {
     const QString newName = ui.name->text();
-    KUrl dest = m_dest;
-    dest.addPath(newName);
+    QUrl dest = m_dest;
+    dest.setPath(m_dest.toString() + newName);
 
-    const bool enabled = !newName.isEmpty() && !QFile::exists(dest.pathOrUrl());
+    const bool enabled = !newName.isEmpty() && !QFile::exists(dest.toString());
     enableButtonOk(enabled);
 }
 

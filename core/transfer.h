@@ -17,8 +17,8 @@
 
 #include <QPixmap>
 #include <QTime>
+#include <QUrl>
 
-#include <kurl.h>
 #include <kio/global.h>
 
 class QDomElement;
@@ -100,7 +100,7 @@ class KGET_EXPORT Transfer : public Job
         typedef int ChangesFlags;
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
-                 Scheduler * scheduler, const KUrl & src, const KUrl & dest,
+                 Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                  const QDomElement * e = 0);
 
         virtual ~Transfer();
@@ -143,27 +143,27 @@ class KGET_EXPORT Transfer : public Job
          * if not defined all files of a download are going to be repaird
          * @return true if a repair started, false if it was not nescessary
          */
-        virtual bool repair(const KUrl &file = KUrl()) {Q_UNUSED(file) return false;}
+        virtual bool repair(const QUrl &file = QUrl()) {Q_UNUSED(file) return false;}
 
-        const KUrl & source() const            {return m_source;}
-        const KUrl & dest() const              {return m_dest;}
+        const QUrl & source() const            {return m_source;}
+        const QUrl & dest() const              {return m_dest;}
 
         /**
          * @returns all files of this transfer
          */
-        virtual QList<KUrl> files() const {return QList<KUrl>() << m_dest;}
+        virtual QList<QUrl> files() const {return QList<QUrl>() << m_dest;}
 
         /**
          * @returns the directory the Transfer will be stored to
          */
-        virtual KUrl directory() const {return m_dest.upUrl();}
+        virtual QUrl directory() const {return m_dest.path();} //FIXME: Does this work?
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const KUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory);
 
         //Transfer status
         KIO::filesize_t totalSize() const      {return m_totalSize;}
@@ -190,14 +190,14 @@ class KGET_EXPORT Transfer : public Job
          * to the mirror
          * @param file the file for which the availableMirrors should be get
          */
-        virtual QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
+        virtual QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const;
 
         /**
          * Set the mirrors, int the number of paralell connections to the mirror
          * bool if the mirror should be used
          * @param file the file for which the availableMirrors should be set
          */
-        virtual void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors) {Q_UNUSED(file) Q_UNUSED(mirrors)}
+        virtual void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) {Q_UNUSED(file) Q_UNUSED(mirrors)}
 
         /**
          * Set the Transfer's UploadLimit
@@ -280,13 +280,13 @@ class KGET_EXPORT Transfer : public Job
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier * verifier(const KUrl &file) {Q_UNUSED(file) return 0;}
+        virtual Verifier * verifier(const QUrl &file) {Q_UNUSED(file) return 0;}
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature * signature(const KUrl &file) {Q_UNUSED(file) return 0;}
+        virtual Signature * signature(const QUrl &file) {Q_UNUSED(file) return 0;}
 
 #ifdef HAVE_NEPOMUK
         /**
@@ -353,8 +353,8 @@ class KGET_EXPORT Transfer : public Job
         virtual void setSpeedLimits(int uploadLimit, int downloadLimit) {Q_UNUSED(uploadLimit) Q_UNUSED(downloadLimit) }
 
         // --- Transfer information ---
-        KUrl m_source;
-        KUrl m_dest;
+        QUrl m_source;
+        QUrl m_dest;
 
         QStringList   m_log;
         KIO::filesize_t m_totalSize;

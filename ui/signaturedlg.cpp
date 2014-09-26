@@ -33,10 +33,11 @@
 
 #include <KFileDialog>
 #include <KLocale>
+#include <KIconLoader>
 
 const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
 
-SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget *parent, Qt::WFlags flags)
+SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget *parent, Qt::WFlags flags)
   : KGetSaveSizeDialog("SignatureDlg", parent, flags),
     m_signature(transfer->signature(dest)),
     m_fileModel(transfer->fileModel())
@@ -44,8 +45,8 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
     setCaption(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
-    ui.loadSignature->setIcon(KIcon("document-open"));
-    ui.verify->setIcon(KIcon("document-encrypt"));
+    ui.loadSignature->setIcon(QIcon::fromTheme("document-open"));
+    ui.verify->setIcon(QIcon::fromTheme("document-encrypt"));
     setMainWidget(widget);
 
     ui.information->setCloseButtonVisible(false);
@@ -71,7 +72,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget 
     }
 }
 
-void SignatureDlg::fileFinished(const KUrl &file)
+void SignatureDlg::fileFinished(const QUrl &file)
 {
     if (m_fileModel && (m_fileModel->getUrl(m_file) == file)) {
         updateButtons();
@@ -273,13 +274,13 @@ void SignatureDlg::updateData()
         case Signature::Verified:
         case Signature::VerifiedInformation:
         case Signature::VerifiedWarning:
-            ui.verificationIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
+            ui.verificationIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
             ui.verificationIcon->show();
             ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
             break;
         case Signature::NotVerified:
             ui.verified->setText(i18nc("pgp signature is not verified", "Failed"));
-            ui.verificationIcon->setPixmap(KIcon("dialog-error").pixmap(iconSize));
+            ui.verificationIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(iconSize));
             ui.verificationIcon->show();
             information.prepend(i18n("Caution: Verification failed. Either you entered the wrong signature, or the data has been modified."));
             error = true;

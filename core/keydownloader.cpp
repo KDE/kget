@@ -100,8 +100,8 @@ void KeyDownloader::downloadKey(QString fingerprint, Signature *sig, bool mirror
             m_downloading.insert(fingerprint, sig);
         }
 
-        KUrl url(mirror);
-        url.addPath("pks/lookup");
+        QUrl url;
+        url.setPath(mirror + "pks/lookup");
         url.setQuery("op=get&options=mr&search=" + fingerprint);
         url.setPort(11371);
 

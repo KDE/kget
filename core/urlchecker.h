@@ -22,7 +22,7 @@
 
 #include "../kget_export.h"
 
-#include <KUrl>
+#include <QUrl>
 
 class Transfer;
 class TransferHandler;
@@ -53,7 +53,7 @@ class KGET_EXPORT UrlChecker
         /**
          * Removes duplicates of a list of urls
          */
-        static void removeDuplicates(KUrl::List &urls);
+        static void removeDuplicates(QList<QUrl> &urls);
 
         //NOTE only first found error is reported, i.e. NotWriteable before ExistingFile if both are the case
         enum UrlError {
@@ -95,25 +95,25 @@ class KGET_EXPORT UrlChecker
          * directly
          * @see checkExisting
          */
-        static UrlError checkUrl(const KUrl &url, const UrlType type, bool showNotification = false);
+        static UrlError checkUrl(const QUrl &url, const UrlType type, bool showNotification = false);
 
         /**
          * Convenience method of checkUrl
          * @param showNotification true shows a notification if an error is found
          */
-        static UrlError checkSource(const KUrl &source, bool showNotification = false);
+        static UrlError checkSource(const QUrl &source, bool showNotification = false);
 
         /**
          * Convenience method of checkUrl
          * @param showNotification true shows a notification if an error is found
          */
-        static UrlError checkDestination(const KUrl &destination, bool showNotification = false);
+        static UrlError checkDestination(const QUrl &destination, bool showNotification = false);
 
         /**
          * Convenience method of checkUrl
          * @param showNotification true shows a notification if an error is found
          */
-        static UrlError checkFolder(const KUrl &folder, bool showNotification = false);
+        static UrlError checkFolder(const QUrl &folder, bool showNotification = false);
 
         /**
          * Checks if source is local and exists already
@@ -124,7 +124,7 @@ class KGET_EXPORT UrlChecker
          * Also keep in mind that false will be returned if dest is being removed
          * at the moment. Avoid to ask a user twice in worst case.
          */
-        static bool wouldOverwrite(const KUrl &source, const KUrl &dest);
+        static bool wouldOverwrite(const QUrl &source, const QUrl &dest);
 
         /**
          * Checks if there is an existing transfer for url with type
@@ -136,12 +136,12 @@ class KGET_EXPORT UrlChecker
          * Keep in mind, that the same transfers could be found via Source and Destination!
          * @see checkUrl
          */
-        static TransferHandler *existingTransfer(const KUrl &url, const UrlType type, UrlWarning *warning = 0);
+        static TransferHandler *existingTransfer(const QUrl &url, const UrlType type, UrlWarning *warning = 0);
 
         /**
          * @note UrlType folder is not supported, the result then is undefined!
          */
-        static KUrl::List hasExistingTransferMessages(const KUrl::List &urls, const UrlType type);
+        static QList<QUrl> hasExistingTransferMessages(const QList<QUrl> &urls, const UrlType type);
 
         /**
          * Get a describing message for UrlError
@@ -150,7 +150,7 @@ class KGET_EXPORT UrlChecker
          * @note this method does no checks, it only creates messages based on the error code
          * @see checkUrl
          */
-        static QString message(const KUrl &url, const UrlType type, const UrlError error);
+        static QString message(const QUrl &url, const UrlType type, const UrlError error);
 
         /**
          * Get a describing message for UrlWarning
@@ -159,19 +159,19 @@ class KGET_EXPORT UrlChecker
          * @note this method does no checks, it only creates messages based on the warning code
          * @see existingTransfer fileExists
          */
-        static QString message(const KUrl &url, const UrlType type, const UrlWarning warning);
+        static QString message(const QUrl &url, const UrlType type, const UrlWarning warning);
 
         /**
          * Convenience method for multiple urls (urls can be empty)
          * @see message
          */
-        static QString message(const KUrl::List &urls, const UrlType type, const UrlError error);
+        static QString message(const QList<QUrl> &urls, const UrlType type, const UrlError error);
 
         /**
          * Convenience method for multiple urls (urls can be empty)
          * @see message
          */
-        static QString message(const KUrl::List &urls, const UrlType type, const UrlWarning warning);
+        static QString message(const QList<QUrl> &urls, const UrlType type, const UrlWarning warning);
 
         /**
          * Takes an url to a source and an url to either the destination or a folder
@@ -183,7 +183,7 @@ class KGET_EXPORT UrlChecker
          * @note no checkUrl check happens!
          * @see checkUrl
          */
-        static KUrl destUrl(const KUrl &destOrFolder, const KUrl &source, const QString &fileName = QString());
+        static QUrl destUrl(const QUrl &destOrFolder, const QUrl &source, const QString &fileName = QString());
 
         ///Non static methods following
 
@@ -209,7 +209,7 @@ class KGET_EXPORT UrlChecker
          * urls in correctUrls() and the others in errorUrls() and
          * splitErrorUrls()
          */
-        UrlError addUrl(const KUrl &url);
+        UrlError addUrl(const QUrl &url);
 
         /**
          * Does checkUrl for a list of urls.
@@ -220,7 +220,7 @@ class KGET_EXPORT UrlChecker
          * splitErrorUrls()
          * @see addUrl
          */
-        bool addUrls(const KUrl::List &urls);
+        bool addUrls(const QList<QUrl> &urls);
 
         /**
          * Displays error messages for the collected urls if any are needed
@@ -231,7 +231,7 @@ class KGET_EXPORT UrlChecker
          * Returns the correct urls collected with the last call to urlCollectErrors
          * @see urlCollectErrors
          */
-        KUrl::List correctUrls() const;
+        QList<QUrl> correctUrls() const;
 
         /**
          * Checks all correctUrls() if there are existing Transfers
@@ -256,14 +256,14 @@ class KGET_EXPORT UrlChecker
          * should not be downloaded
          * @see clear
          */
-        KUrl checkExistingFile(const KUrl &source, const KUrl &destination);
+        QUrl checkExistingFile(const QUrl &source, const QUrl &destination);
 
         /**
          * Returns all wrong urls 
          * @note the oder of the urls is not guaranteed to be the same as it initially was
          * @see urlCollectErrors splitErrorUrls existingTransfers
          */
-        KUrl::List errorUrls()const;
+        QList<QUrl> errorUrls()const;
 
         /**
          * Returns all wrong urls collected with the last call to urlCollectErrors
@@ -271,12 +271,12 @@ class KGET_EXPORT UrlChecker
          * @note urls without an error (UrlError == None) are not included
          * @see urlCollectErrors correctUrls errorUrls existingTransfers
          */
-        QHash<UrlError, KUrl::List> splitErrorUrls() const;
+        QHash<UrlError, QList<QUrl>> splitErrorUrls() const;
 
     private:
-        static TransferHandler *existingSource(const KUrl &url, UrlWarning &warning);
-        static TransferHandler *existingDestination(const KUrl &url, UrlWarning &warning);
-        static int hasExistingDialog(const KUrl &url, const UrlChecker::UrlType type, const UrlWarning warning);//TODO description --> returncode etc.!
+        static TransferHandler *existingSource(const QUrl &url, UrlWarning &warning);
+        static TransferHandler *existingDestination(const QUrl &url, UrlWarning &warning);
+        static int hasExistingDialog(const QUrl &url, const UrlChecker::UrlType type, const UrlWarning warning);//TODO description --> returncode etc.!
         static void removeTransfers(const QList<TransferHandler*> &toRemove);
 
         enum ExistingDialogReturn {
@@ -293,11 +293,11 @@ class KGET_EXPORT UrlChecker
 
     private:
         UrlType m_type;
-        KUrl::List m_correctUrls;
-        QHash<UrlError, KUrl::List> m_splitErrorUrls;
+        QList<QUrl> m_correctUrls;
+        QHash<UrlError, QList<QUrl>> m_splitErrorUrls;
 
-        QHash<UrlWarning, QPair<KUrl, Transfer*> > m_existingTransfers;
-        KUrl::List m_nonExistingUrls;
+        QHash<UrlWarning, QPair<QUrl, Transfer*> > m_existingTransfers;
+        QList<QUrl> m_nonExistingUrls;
 
         //Existing files stuff
         bool m_cancle;

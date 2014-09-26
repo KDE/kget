@@ -15,6 +15,7 @@
 #include <kapplication.h>
 #include <kmenu.h>
 #include <kdebug.h>
+#include <klocale.h>
 
 #include <QClipboard>
 
@@ -25,7 +26,7 @@ Tray::Tray(MainWindow * parent)
     : KStatusNotifierItem(parent)
 {
     // set up the context menu
-    KMenu * cm = contextMenu();
+    QMenu * cm = contextMenu();
     cm->addAction( parent->actionCollection()->action("new_download") );
     cm->addAction( parent->actionCollection()->action("import_links") );
     cm->addSeparator();

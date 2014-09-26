@@ -23,7 +23,7 @@ TransferFactory::TransferFactory(QObject *parent, const QVariantList &args)
 
 }
 
-Transfer * TransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * TransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * n)
@@ -47,7 +47,7 @@ QWidget * TransferFactory::createDetailsWidget(TransferHandler * transfer)
     return 0;
 }
         
-KDialog * TransferFactory::createNewTransferDialog(const KUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
+KDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(suggestedFileName)
@@ -61,7 +61,7 @@ const QList<KAction *> TransferFactory::actions(TransferHandler *handler)
     return QList<KAction *>();
 }
 
-TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource * TransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
@@ -69,7 +69,7 @@ TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUr
     return 0;
 }
 
-bool TransferFactory::isSupported(const KUrl &url) const
+bool TransferFactory::isSupported(const QUrl &url) const
 {
     Q_UNUSED(url)
     return false;

@@ -14,13 +14,13 @@ set(kget_metalinkfactory_PART_SRCS
   ../../ui/metalinkcreator/metalinker.cpp
 )
 
-kde4_add_ui_files(kget_metalinkfactory_PART_SRCS
+qt5_wrap_ui(kget_metalinkfactory_PART_SRCS
     fileselection.ui
 )
 
-kde4_add_kcfg_files(kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
+kconfig_add_kcfg_files(kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
 
-kde4_add_plugin(kget_metalinkfactory ${kget_metalinkfactory_PART_SRCS})
+add_library(kget_metalinkfactory MODULE ${kget_metalinkfactory_PART_SRCS})
 
 target_link_libraries(kget_metalinkfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} kgetcore)
 if (HAVE_NEPOMUK)
@@ -36,12 +36,12 @@ set(kcm_kget_metalinkfactory_PART_SRCS
 dlgmetalink.cpp
 )
 
-kde4_add_ui_files(kcm_kget_metalinkfactory_PART_SRCS
+qt5_wrap_ui(kcm_kget_metalinkfactory_PART_SRCS
 dlgmetalink.ui
 )
 
-kde4_add_kcfg_files(kcm_kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
-kde4_add_plugin(kcm_kget_metalinkfactory ${kcm_kget_metalinkfactory_PART_SRCS})
+kconfig_add_kcfg_files(kcm_kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
+add_library(kcm_kget_metalinkfactory MODULE ${kcm_kget_metalinkfactory_PART_SRCS})
 target_link_libraries(kcm_kget_metalinkfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 install(TARGETS kcm_kget_metalinkfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 

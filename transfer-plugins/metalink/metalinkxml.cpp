@@ -43,7 +43,7 @@
 #include <QtXml/QDomElement>
 
 MetalinkXml::MetalinkXml(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : AbstractMetalink(parent, factory, scheduler, source, dest, e)
 
@@ -79,10 +79,10 @@ void MetalinkXml::downloadMetalink()
     setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
     Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
-    connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(metalinkInit(KUrl,QByteArray)));
+    connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
 }
 
-bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
+bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 {
     kDebug(5001);
 
@@ -123,12 +123,12 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
     QList<KGetMetalink::File>::const_iterator itEnd = m_metalink.files.files.constEnd();
     m_totalSize = 0;
     KIO::fileoffset_t segSize = 500 * 1024;//TODO use config here!
-    const KUrl tempDest = KUrl(m_dest.directory());
-    KUrl dest;
+    const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
+    QUrl dest;
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
     {
         dest = tempDest;
-        dest.addPath((*it).name);
+        dest.setPath(tmpDest.adjusted(QUrl::RemoveFilename).toString() + (*it).name);
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
         //sort the urls according to their priority (highest first)
@@ -142,7 +142,7 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
 #ifdef HAVE_NEPOMUK
-        nepomukHandler()->setProperties((*it).properties(), QList<KUrl>() << dest);
+        nepomukHandler()->setProperties((*it).properties(), QList<QUrl>() << dest);
 #endif //HAVE_NEPOMUK
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
@@ -156,7 +156,7 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
         {
-            const KUrl url = urlList[i].url;
+            const QUrl url = urlList[i].url;
             if (url.isValid())
             {
                 dataFactory->addMirror(url, MetalinkSettings::connectionsPerUrl());
@@ -278,7 +278,7 @@ void MetalinkXml::load(const QDomElement *element)
     }
 
     const QDomElement e = *element;
-    m_localMetalinkLocation = KUrl(e.attribute("LocalMetalinkLocation"));
+    m_localMetalinkLocation = QUrl(e.attribute("LocalMetalinkLocation"));
     QDomNodeList factories = e.firstChildElement("factories").elementsByTagName("factory");
 
     //no stored information found, stop right here

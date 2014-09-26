@@ -61,12 +61,12 @@ QString DBusTransferWrapper::groupName() const
 
 QString DBusTransferWrapper::source() const
 {
-    return m_transfer->source().pathOrUrl();
+    return m_transfer->source().toString();
 }
 
 QString DBusTransferWrapper::dest() const
 {
-    return m_transfer->dest().pathOrUrl();
+    return m_transfer->dest().toString();
 }
 
 bool DBusTransferWrapper::setDirectory(const QString &directory)

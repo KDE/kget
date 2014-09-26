@@ -27,7 +27,7 @@
 #include <QtCore/QMutex>
 #include <QtCore/QThread>
 
-#include <KUrl>
+#include <QUrl>
 
 class KJob;
 
@@ -58,7 +58,7 @@ class KGET_EXPORT NepomukController : public QThread
          * @note This assumes that uris points to local files and only removes the resource if those
          * files do not exist anymore
          */
-        void removeResource(const QList<KUrl> &uris);
+        void removeResource(const QList<QUrl> &uris);
 
     protected:
         void run();
@@ -69,7 +69,7 @@ class KGET_EXPORT NepomukController : public QThread
 
     private:
         QMutex m_mutex;
-        QList<KUrl> m_uris;
+        QList<QUrl> m_uris;
 
     private slots:
         void nepomukError(KJob * job);

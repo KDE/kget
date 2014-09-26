@@ -55,7 +55,7 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
     public:
         TransferFactory(QObject *parent, const QVariantList &args);
 
-        virtual Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+        virtual Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                            TransferGroup * parent,
                                            Scheduler * scheduler,
                                            const QDomElement * n = 0 );
@@ -65,13 +65,13 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual QWidget * createDetailsWidget(TransferHandler * transfer);
 
-        virtual KDialog * createNewTransferDialog(const KUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
+        virtual KDialog * createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
 
         virtual const QList<KAction *> actions(TransferHandler *handler = 0);
 
         virtual void settingsChanged() {}
         
-        virtual bool isSupported(const KUrl &url) const;
+        virtual bool isSupported(const QUrl &url) const;
 
         /**
          * Returns a list of protocols for which the TransferFactory adds support.
@@ -84,7 +84,7 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
          * Returns a Data Source. needed for Transfers Containers if any.
          * default implementation returns 0
          */
-        virtual TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
+        virtual TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent);
 };
 
 #endif

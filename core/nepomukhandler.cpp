@@ -38,18 +38,18 @@ NepomukHandler::~NepomukHandler()
 KFileItemList NepomukHandler::fileItems() const
 {
     KFileItemList fileItems;
-    foreach (const KUrl &destination, m_transfer->files()) {
+    foreach (const QUrl &destination, m_transfer->files()) {
         fileItems << KFileItem(KFileItem::Unknown, KFileItem::Unknown, destination, true);
     }
     return fileItems;
 }
 
-void NepomukHandler::setProperties(const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QList<KUrl> &files)
+void NepomukHandler::setProperties(const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QList<QUrl> &files)
 {
-    QList<KUrl> usedFiles = (files.isEmpty() ? m_transfer->files() : files);
+    QList<QUrl> usedFiles = (files.isEmpty() ? m_transfer->files() : files);
     QList<QUrl> fileUrls;
     
-    foreach(const KUrl &usedFile, usedFiles) {
+    foreach(const QUrl &usedFile, usedFiles) {
         fileUrls.push_back(usedFile);
     }
     
@@ -60,7 +60,7 @@ void NepomukHandler::saveFileProperties()
 {
     QList<QUrl> destinations;
 
-    foreach(const KUrl &url, m_transfer->files()) {
+    foreach(const QUrl &url, m_transfer->files()) {
         destinations.push_back(url);
     }
 

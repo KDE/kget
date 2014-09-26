@@ -80,7 +80,7 @@ void VerificationAddDlg::addChecksum()
     }
 }
 
-VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file)
+VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const QUrl &file)
   : KGetSaveSizeDialog("VerificationDialog", parent),
     m_transfer(transfer),
     m_verifier(transfer->verifier(file)),
@@ -116,7 +116,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         m_fileModel = m_transfer->fileModel();
         if (m_fileModel) {
             m_file = m_fileModel->index(file, FileItem::File);
-            connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
+            connect(m_fileModel, SIGNAL(fileFinished(QUrl)), this, SLOT(fileFinished(QUrl)));
         }
 
         updateButtons();
@@ -148,7 +148,7 @@ void VerificationDialog::slotFinished()
     }
 }
 
-void VerificationDialog::fileFinished(const KUrl &file)
+void VerificationDialog::fileFinished(const QUrl &file)
 {
     if (m_fileModel && (m_fileModel->getUrl(m_file) == file)) {
         updateButtons();

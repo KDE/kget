@@ -71,7 +71,7 @@ void NepomukController::addTags(const QList<QUrl> &uris, const QList<Nepomuk2::T
     Nepomuk2::addProperty(uris, Soprano::Vocabulary::NAO::hasTag(), tagUris);
 }
 
-void NepomukController::removeResource(const QList<KUrl> &uris)
+void NepomukController::removeResource(const QList<QUrl> &uris)
 {
     QMutexLocker locker(&m_mutex);
     m_uris << uris;
@@ -93,11 +93,11 @@ void NepomukController::run()
 {
     while (continueToRun()) {
         m_mutex.lock();
-        QList<KUrl> uris = m_uris;
+        QList<QUrl> uris = m_uris;
         m_uris.clear();
         m_mutex.unlock();
 
-        foreach (const KUrl &uri, uris) {
+        foreach (const QUrl &uri, uris) {
             if (!QFile::exists(uri.path())) {
                 Nepomuk2::Resource resource(uri, Nepomuk2::Vocabulary::NFO::FileDataObject());
                 resource.remove();

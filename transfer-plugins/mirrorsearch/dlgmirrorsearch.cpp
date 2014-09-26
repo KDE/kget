@@ -13,6 +13,9 @@
 #include "kget_export.h"
 #include "mirrorsearchsettings.h"
 
+#include <KDebug>
+#include <KLocale>
+
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
     : KDialog(parent)
 {
@@ -54,11 +57,11 @@ QString DlgEngineEditing::engineUrl() const
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(KGetFactory::componentData(), parent, args)
+    : KCModule(/*KGetFactory::componentData(),*/ parent, args)
 {
     ui.setupUi(this);
-    ui.newEngineBt->setIcon(KIcon("list-add"));
-    ui.removeEngineBt->setIcon(KIcon("list-remove"));
+    ui.newEngineBt->setIcon(QIcon::fromTheme("list-add"));
+    ui.removeEngineBt->setIcon(QIcon::fromTheme("list-remove"));
 
     connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
     connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));

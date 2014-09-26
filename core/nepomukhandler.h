@@ -34,7 +34,7 @@ class KGET_EXPORT NepomukHandler : public QObject
         /**
          * Sets properties to a list of files, if the list is empty m_destinations is used
          */
-        void setProperties(const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QList<KUrl> &files = QList<KUrl>());
+        void setProperties(const QList<QPair<QUrl, Nepomuk2::Variant> > &properties, const QList<QUrl> &files = QList<QUrl>());
 
         void saveFileProperties();
 

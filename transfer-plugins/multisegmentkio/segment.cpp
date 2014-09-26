@@ -19,7 +19,7 @@
 
 #include <QtCore/QTimer>
 
-Segment::Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
+Segment::Segment(const QUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
   : QObject(parent),
     m_findFilesize((segmentRange.first == -1) && (segmentRange.second == -1)),
     m_canResume(true),
@@ -91,11 +91,11 @@ bool Segment::createTransfer()
     connect(m_getJob, SIGNAL(data(KIO::Job*,QByteArray)),
                  SLOT(slotData(KIO::Job*,QByteArray)));
     connect(m_getJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
-    connect(m_getJob, SIGNAL(redirection(KIO::Job *,const KUrl &)), SLOT(slotRedirection(KIO::Job *, const KUrl &))); 
+    connect(m_getJob, SIGNAL(redirection(KIO::Job *,const QUrl &)), SLOT(slotRedirection(KIO::Job *, const QUrl &))); 
     return true;
 }
 
-void Segment::slotRedirection(KIO::Job* , const KUrl &url)
+void Segment::slotRedirection(KIO::Job* , const QUrl &url)
 {
     m_url = url;
     emit urlChanged(url);
@@ -205,7 +205,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         kDebug(5001) << m_url << "does not allow resuming.";
         stopTransfer();
         setStatus(Killed, false );
-        const QString errorText = KIO::buildErrorString(KIO::ERR_CANNOT_RESUME, m_url.prettyUrl());
+        const QString errorText = KIO::buildErrorString(KIO::ERR_CANNOT_RESUME, m_url.toString());
         emit error(this, errorText, Transfer::Log_Warning);
         return;
     }

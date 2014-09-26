@@ -15,6 +15,7 @@
 #include <kcmdlineargs.h>
 #include <kuniqueapplication.h>
 #include <kstandarddirs.h>
+#include <k4aboutdata.h>
 
 #include "core/kget.h"
 #include "dbus/dbuskgetwrapper.h"
@@ -100,11 +101,11 @@ private:
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kget", 0, ki18n("KGet"),
-                         QByteArray("2." + QByteArray::number(KDE_VERSION_MINOR) + '.' + QByteArray::number(KDE_VERSION_RELEASE)),
+    K4AboutData aboutData("kget", 0, ki18n("KGet"),
+                         QByteArray("2.95.0"),//+ QByteArray::number(KDE_VERSION_MINOR) + '.' + QByteArray::number(KDE_VERSION_RELEASE)),
                          ki18n("An advanced download manager for KDE"),
-                         KAboutData::License_GPL,
-                         ki18n("(C) 2005 - 2012, The KGet developers\n"
+                         K4AboutData::License_GPL,
+                         ki18n("(C) 2005 - 2014, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
                          "(C) 2002, Carsten Pfeiffer\n"
                          "(C) 1998 - 2000, Matej Koss"),

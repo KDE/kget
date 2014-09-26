@@ -240,7 +240,7 @@ void TransfersView::slotItemCollapsed(const QModelIndex & index)
         QList<TransferHandler *> transfers = groupHandler->transfers();
 
         foreach(TransferHandler * transfer, transfers) {
-            kDebug(5001) << "Transfer = " << transfer->source().prettyUrl(); 
+            kDebug(5001) << "Transfer = " << transfer->source().toString(); 
             view_delegate->contractItem(KGet::model()->itemFromTransferHandler(transfer)->index());
         }
     }

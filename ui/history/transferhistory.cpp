@@ -38,6 +38,7 @@
 #include <kio/global.h>
 #include <KPushButton>
 #include <KIcon>
+#include <KLocale>
 
 TransferHistory::TransferHistory(QWidget *parent)
     : KGetSaveSizeDialog("TransferHistory", parent),

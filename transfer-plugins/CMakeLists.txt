@@ -9,6 +9,6 @@ add_subdirectory(mirrorsearch)
 if (LIBMMS_FOUND)
   add_subdirectory(mmsthreads)
 endif (LIBMMS_FOUND)
-add_subdirectory(checksumsearch)
+#add_subdirectory(checksumsearch) TODO: Port to KF5
 
 SET(SUPPORTED_KGET_MIMETYPES "${SUPPORTED_KGET_MIMETYPES}" PARENT_SCOPE)

@@ -47,7 +47,7 @@ class CountryModel : public QAbstractListModel
     private:
         QStringList m_countryCodes;
         QStringList m_countryNames;
-        QList<KIcon> m_countryIcons;
+        QList<QIcon> m_countryIcons;
 };
 
 /**

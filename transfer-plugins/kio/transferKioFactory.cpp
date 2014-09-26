@@ -53,3 +53,6 @@ QStringList TransferKioFactory::addsProtocols() const
     static const QStringList protocols = QStringList() << "http" << "https" << "ftp" << "sftp";
     return protocols;
 }
+
+#include "transferKioFactory.moc"
+

@@ -87,7 +87,7 @@ void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) co
     if (index.isValid() && editor) {
         if (index.column() == MirrorItem::Url) {
             KLineEdit *line = static_cast<KLineEdit*>(editor);
-            const KUrl url = index.data(Qt::EditRole).toUrl();
+            const QUrl url = index.data(Qt::EditRole).toUrl();
             line->setUrl(url);
         } else if (index.column() == MirrorItem::Connections) {
             QSpinBox *numConnections = static_cast<QSpinBox*>(editor);
@@ -194,7 +194,7 @@ QVariant MirrorItem::data(int column, int role) const
     {
         if (role == Qt::DisplayRole)
         {
-            return m_url.pathOrUrl();
+            return m_url.toString();
         }
         else if ((role == Qt::UserRole) || (role == Qt::EditRole))
         {
@@ -292,14 +292,14 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
     }
     else if ((column == MirrorItem::Url) && (role == Qt::EditRole))
     {
-        KUrl url;
+        QUrl url;
         if (value.type() == QVariant::Url)
         {
-            url = KUrl(value.toUrl());
+            url = QUrl(value.toUrl());
         }
         else if (value.type() == QVariant::String)
         {
-            url = KUrl(value.toString());
+            url = QUrl(value.toString());
         }
 
         if (!url.isEmpty())
@@ -328,16 +328,16 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
             QString path = KStandardDirs::locate("locale", QString::fromLatin1("l10n/%1/flag.png").arg(m_countryCode));
             if (path.isEmpty())
             {
-                m_countryFlag = KIcon();
+                m_countryFlag = QIcon();
             }
             else
             {
-                m_countryFlag = KIcon(path);
+                m_countryFlag = QIcon::fromTheme(path);
             }
         }
         else
         {
-            m_countryFlag = KIcon();
+            m_countryFlag = QIcon();
         }
         return true;
     }
@@ -390,7 +390,7 @@ QVariant MirrorModel::headerData(int section, Qt::Orientation orientation, int r
         if (role == Qt::DisplayRole) {
             return i18nc("The priority of the mirror", "Priority");
         } else if (role == Qt::DecorationRole) {
-            return KIcon("games-highscores");
+            return QIcon::fromTheme("games-highscores");
         }
     } else if ((section == MirrorItem::Connections) && (role == Qt::DisplayRole)) {
         return i18nc("Number of paralell connections to the mirror", "Connections");
@@ -453,7 +453,7 @@ bool MirrorModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
-void MirrorModel::addMirror(const KUrl &url, int numConnections, int priority, const QString &countryCode)
+void MirrorModel::addMirror(const QUrl &url, int numConnections, int priority, const QString &countryCode)
 {
     if (!url.isValid())
     {
@@ -463,7 +463,7 @@ void MirrorModel::addMirror(const KUrl &url, int numConnections, int priority, c
     for (int i = 0; i < rowCount(); ++i)
     {
         //exists already, so remove the row
-        if (KUrl(m_data.at(i)->data(MirrorItem::Url).toString()) == url)
+        if (QUrl(m_data.at(i)->data(MirrorItem::Url).toString()) == url)
         {
             removeRow(i);
             break;
@@ -484,12 +484,12 @@ void MirrorModel::addMirror(const KUrl &url, int numConnections, int priority, c
     emit endInsertRows();
 }
 
-void MirrorModel::setMirrors(const QHash<KUrl, QPair<bool, int> > &mirrors)
+void MirrorModel::setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors)
 {
     removeRows(0, rowCount());
 
-    QHash<KUrl, QPair<bool, int> >::const_iterator it;
-    QHash<KUrl, QPair<bool, int> >::const_iterator itEnd = mirrors.constEnd();
+    QHash<QUrl, QPair<bool, int> >::const_iterator it;
+    QHash<QUrl, QPair<bool, int> >::const_iterator itEnd = mirrors.constEnd();
     for (it = mirrors.constBegin(); it != itEnd; ++it)
     {
         MirrorItem *item = new MirrorItem;
@@ -503,13 +503,13 @@ void MirrorModel::setMirrors(const QHash<KUrl, QPair<bool, int> > &mirrors)
     emit reset();
 }
 
-QHash<KUrl, QPair<bool, int> > MirrorModel::availableMirrors() const
+QHash<QUrl, QPair<bool, int> > MirrorModel::availableMirrors() const
 {
-    QHash<KUrl, QPair<bool, int> > mirrors;
+    QHash<QUrl, QPair<bool, int> > mirrors;
     foreach (MirrorItem *item, m_data)
     {
         bool used = (item->data(MirrorItem::Used, Qt::CheckStateRole).toInt() == Qt::Checked) ? true : false;
-        const KUrl url = KUrl(item->data(MirrorItem::Url).toString());
+        const QUrl url = QUrl(item->data(MirrorItem::Url).toString());
         mirrors[url] = QPair<bool, int>(used, item->data(MirrorItem::Connections, Qt::UserRole).toInt());
     }
     return mirrors;

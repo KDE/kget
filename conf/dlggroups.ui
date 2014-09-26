@@ -44,30 +44,27 @@
    <item>
     <layout class="QHBoxLayout" name="layout">
      <item>
-      <widget class="KPushButton" name="add"/>
+      <widget class="QPushButton" name="add"/>
      </item>
      <item>
-      <widget class="KPushButton" name="rename">
+      <widget class="QPushButton" name="rename">
        <property name="text">
         <string>Rename</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="remove"/>
+      <widget class="QPushButton" name="remove"/>
      </item>
      <item>
       <widget class="KIconButton" name="selectIcon">
        <property name="text">
         <string>Select Icon...</string>
        </property>
-       <property name="iconSize">
-        <number>16</number>
-       </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="configure"/>
+      <widget class="QPushButton" name="configure"/>
      </item>
     </layout>
    </item>
@@ -77,12 +74,7 @@
   <customwidget>
    <class>KIconButton</class>
    <extends>QPushButton</extends>
-   <header>kicondialog.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
+   <header location="global">kiconbutton.h</header>
   </customwidget>
   <customwidget>
    <class>TransfersGroupTree</class>

@@ -13,9 +13,9 @@
 #define GROUP_H
 
 #include <QRegExp>
+#include <QIcon>
 
 #include <kio/netaccess.h>
-#include <KIcon>
 #include <KDebug>
 
 #include "jobqueue.h"
@@ -136,7 +136,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @return the transfer pointer if the transfer has been found. Otherwise
          * it returns 0
          */
-        Transfer * findTransfer(const KUrl &src);
+        Transfer * findTransfer(const QUrl &src);
 
         /**
          * Finds the first transfer with destination dest
@@ -145,7 +145,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          *
          * @return the transfer pointer if the transfer has been found, else return 0
          */
-         Transfer *findTransferByDestination(const KUrl &dest);
+         Transfer *findTransferByDestination(const QUrl &dest);
 
         /**
          * @returns the Job in the queue at the given index i
@@ -275,7 +275,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @return the group's icon
          */
-        QPixmap pixmap() {return KIcon(m_iconName).pixmap(32);}
+        QPixmap pixmap() {return QIcon::fromTheme(m_iconName).pixmap(32);}
 
         /**
          * @return the handler associated with this group

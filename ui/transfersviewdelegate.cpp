@@ -317,8 +317,8 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     : BasicTransfersViewDelegate(parent)
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
-    setExtendPixmap(SmallIcon("arrow-right"));
-    setContractPixmap(SmallIcon("arrow-down"));
+    setExtendPixmap(QIcon::fromTheme("arrow-right").pixmap(16));
+    setContractPixmap(QIcon::fromTheme("arrow-down").pixmap(16));
 }
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const

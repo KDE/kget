@@ -22,6 +22,7 @@
 #include "settings.h"
 
 #include <KConfigDialog>
+#include <KLocale>
 
 IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f)
   : QWidget(parent, f)
@@ -29,16 +30,16 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     ui.setupUi(this);
 
     //AutoPaste stuff
-    ui.type->addItem(KIcon("list-add"), i18n("Include"), AutoPasteModel::Include);
-    ui.type->addItem(KIcon("list-remove"), i18n("Exclude"), AutoPasteModel::Exclude);
+    ui.type->addItem(QIcon::fromTheme("list-add"), i18n("Include"), AutoPasteModel::Include);
+    ui.type->addItem(QIcon::fromTheme("list-remove"), i18n("Exclude"), AutoPasteModel::Exclude);
 
     ui.patternSyntax->addItem(i18n("Escape sequences"), AutoPasteModel::Wildcard);
     ui.patternSyntax->addItem(i18n("Regular expression"), AutoPasteModel::RegExp);
 
     ui.add->setGuiItem(KStandardGuiItem::add());
     ui.remove->setGuiItem(KStandardGuiItem::remove());
-    ui.increase->setIcon(KIcon("arrow-up"));
-    ui.decrease->setIcon(KIcon("arrow-down"));
+    ui.increase->setIcon(QIcon::fromTheme("arrow-up"));
+    ui.decrease->setIcon(QIcon::fromTheme("arrow-down"));
 
     m_model = new AutoPasteModel(this);
     m_model->load();

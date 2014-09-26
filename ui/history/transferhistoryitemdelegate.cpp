@@ -89,9 +89,9 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (index.model());
     QUrl url(model->data(index, TransferHistoryCategorizedDelegate::RoleUrl).toString());
     QString name = url.path().mid(url.path().lastIndexOf("/") + 1);
-    KIcon icon(KIO::pixmapForUrl(
-                    model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString(),
-                    0, KIconLoader::Panel));
+    QIcon icon;//(KIO::pixmapForUrl( TODO: PORT THIS!
+               //     model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString(),
+               //     0, KIconLoader::Panel));
     QString size = KIO::convertSize(model->data(index, TransferHistoryCategorizedDelegate::RoleSize).toInt());
     QString date = model->data(index, TransferHistoryCategorizedDelegate::RoleDate).toDate().toString("dd.MM.yyyy");
     QString host = url.host();

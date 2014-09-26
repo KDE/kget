@@ -8,7 +8,7 @@ set(kget_kiofactory_PART_SRCS
   transferKioFactory.cpp
 )
 
-kde4_add_plugin(kget_kiofactory ${kget_kiofactory_PART_SRCS})
+add_library(kget_kiofactory MODULE ${kget_kiofactory_PART_SRCS})
 
 target_link_libraries(kget_kiofactory ${KDE4_KIO_LIBS} kgetcore)
 

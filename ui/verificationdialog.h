@@ -55,12 +55,12 @@ class VerificationDialog : public KGetSaveSizeDialog
     Q_OBJECT
 
     public:
-        VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file);
+        VerificationDialog(QWidget *parent, TransferHandler *transfer, const QUrl &file);
         
         virtual QSize sizeHint() const;
 
     private slots:
-        void fileFinished(const KUrl &file);
+        void fileFinished(const QUrl &file);
         void updateButtons();
         void addClicked();
         void removeClicked();

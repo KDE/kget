@@ -65,7 +65,7 @@ class MirrorSettings : public KGetSaveSizeDialog
     Q_OBJECT
 
     public:
-        MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file);
+        MirrorSettings(QWidget *parent, TransferHandler *handler, const QUrl &file);
 
         virtual QSize sizeHint() const;
 
@@ -77,7 +77,7 @@ class MirrorSettings : public KGetSaveSizeDialog
 
     private:
         TransferHandler *m_transfer;
-        KUrl m_file;
+        QUrl m_file;
         MirrorModel *m_model;
         MirrorProxyModel *m_proxy;
         Ui::MirrorSettings ui;

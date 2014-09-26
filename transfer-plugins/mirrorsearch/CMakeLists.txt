@@ -8,9 +8,9 @@ set(kget_mirrorsearchfactory_PART_SRCS
   mirrorsearchfactory.cpp
 )
 
-kde4_add_kcfg_files(kget_mirrorsearchfactory_PART_SRCS mirrorsearchsettings.kcfgc)
+kconfig_add_kcfg_files(kget_mirrorsearchfactory_PART_SRCS mirrorsearchsettings.kcfgc)
 
-kde4_add_plugin(kget_mirrorsearchfactory ${kget_mirrorsearchfactory_PART_SRCS})
+add_library(kget_mirrorsearchfactory MODULE ${kget_mirrorsearchfactory_PART_SRCS})
 
 target_link_libraries(kget_mirrorsearchfactory ${KDE4_KIO_LIBS} kgetcore)
 
@@ -23,13 +23,13 @@ set(kcm_kget_mirrorsearchfactory_PART_SRCS
   dlgmirrorsearch.cpp
 )
 
-kde4_add_ui_files(kcm_kget_mirrorsearchfactory_PART_SRCS
+qt5_wrap_ui(kcm_kget_mirrorsearchfactory_PART_SRCS
   dlgmirrorsearch.ui 
   dlgengineediting.ui
 )
 
-kde4_add_kcfg_files(kcm_kget_mirrorsearchfactory_PART_SRCS mirrorsearchsettings.kcfgc)
-kde4_add_plugin(kcm_kget_mirrorsearchfactory ${kcm_kget_mirrorsearchfactory_PART_SRCS})
+kconfig_add_kcfg_files(kcm_kget_mirrorsearchfactory_PART_SRCS mirrorsearchsettings.kcfgc)
+add_library(kcm_kget_mirrorsearchfactory MODULE ${kcm_kget_mirrorsearchfactory_PART_SRCS})
 target_link_libraries(kcm_kget_mirrorsearchfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 install(TARGETS kcm_kget_mirrorsearchfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 

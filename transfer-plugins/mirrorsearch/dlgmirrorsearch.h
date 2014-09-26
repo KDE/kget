@@ -15,6 +15,7 @@
 #include "ui_dlgmirrorsearch.h"
 
 #include <KCModule>
+#include <KDialog>
 
 class DlgEngineEditing : public KDialog
 {

@@ -14,7 +14,7 @@
 
 #include <KDebug>
 
-Download::Download(const KUrl &srcUrl, const KUrl &destUrl)
+Download::Download(const QUrl &srcUrl, const QUrl &destUrl)
   : m_srcUrl(srcUrl),
     m_destUrl(destUrl)
 {

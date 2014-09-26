@@ -21,6 +21,7 @@
 #define RENAMEFILE_H
 
 #include <KDialog>
+#include <QUrl>
 
 #include "ui_renamefile.h"
 
@@ -43,7 +44,7 @@ class RenameFile : public KDialog
         FileModel *m_model;
         QModelIndex m_index;
         Ui::RenameFile ui;
-        KUrl m_dest;
+        QUrl m_dest;
 };
 
 #endif

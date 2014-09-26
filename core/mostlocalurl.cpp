@@ -24,10 +24,10 @@
 #include <KDebug>
 #include <KIO/NetAccess>
 
-KUrl mostLocalUrl(const KUrl &url)
+QUrl mostLocalUrl(const QUrl &url)
 {
     kDebug(5001);
-    const QString protocol = url.protocol();
+    const QString protocol = url.scheme();
     foreach (TransferFactory *factory, KGet::factories()) {
         if (factory->addsProtocols().contains(protocol)) {
             return url;
@@ -38,23 +38,23 @@ KUrl mostLocalUrl(const KUrl &url)
     return KIO::NetAccess::mostLocalUrl(url, 0);
 }
 
-MostLocalUrlJob *mostLocalUrlJob(const KUrl &url)
+MostLocalUrlJob *mostLocalUrlJob(const QUrl &url)
 {
     return new MostLocalUrlJob(url);
 }
 
-MostLocalUrlJob::MostLocalUrlJob(const KUrl& url)
+MostLocalUrlJob::MostLocalUrlJob(const QUrl& url)
   : KIO::Job(),
     m_url(url)
 {
 }
 
-KUrl MostLocalUrlJob::url()
+QUrl MostLocalUrlJob::url()
 {
     return m_url;
 }
 
-KUrl MostLocalUrlJob::mostLocalUrl() const
+QUrl MostLocalUrlJob::mostLocalUrl() const
 {
     return m_mostLocalUrl;
 }
@@ -62,7 +62,7 @@ KUrl MostLocalUrlJob::mostLocalUrl() const
 void MostLocalUrlJob::start()
 {
     bool startJob = true;
-    const QString protocol = m_url.protocol();
+    const QString protocol = m_url.scheme();
     foreach (TransferFactory *factory, KGet::factories()) {
         if (factory->addsProtocols().contains(protocol)) {
             startJob = false;

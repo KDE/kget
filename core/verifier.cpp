@@ -68,14 +68,14 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &ty
     QCA::Hash hash(type);
 
     //it can be that QCA2 does not support md5, e.g. when Qt is compiled locally
-    KMD5 md5Hash;
+    QCryptographicHash md5Hash(QCryptographicHash::Md5);
     const bool useMd5 = (type == MD5);
 #else //NO QCA2
     if (type != MD5)
     {
         return QString();
     }
-    KMD5 hash;
+    QCryptographicHash hash(QCryptographicHash::Md5);
 #endif //HAVE_QCA2
 
     //we only read 512kb each time, to save RAM
@@ -84,7 +84,7 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &ty
 
     if (!numData && !dataRest)
     {
-        QString();
+        return QString();
     }
 
     int k = 0;
@@ -103,12 +103,12 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &ty
         QByteArray data = file->read(PARTSIZE);
 #ifdef HAVE_QCA2
         if (useMd5) {
-            md5Hash.update(data);
+            md5Hash.addData(data);
         } else {
             hash.update(data);
         }
 #else //NO QCA2
-        hash.update(data);
+        hash.addData(data);
 #endif //HAVE_QCA2
     }
 
@@ -123,19 +123,19 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &ty
         QByteArray data = file->read(dataRest);
 #ifdef HAVE_QCA2
         if (useMd5) {
-            md5Hash.update(data);
+            md5Hash.addData(data);
         } else {
             hash.update(data);
         }
 #else //NO QCA2
-        hash.update(data);
+        hash.addData(data);
 #endif //HAVE_QCA2
     }
 
 #ifdef HAVE_QCA2
-    return (useMd5 ? QString(md5Hash.hexDigest()) : QString(QCA::arrayToHex(hash.final().toByteArray())));
+    return (useMd5 ? QString(md5Hash.result()) : QString(QCA::arrayToHex(hash.final().toByteArray())));
 #else //NO QCA2
-    return QString(hash.hexDigest());
+    return QString(hash.result());
 #endif //HAVE_QCA2
 }
 
@@ -160,7 +160,7 @@ QStringList VerifierPrivate::orderChecksumTypes(Verifier::ChecksumStrength stren
     return checksumTypes;
 }
 
-Verifier::Verifier(const KUrl &dest, QObject *parent)
+Verifier::Verifier(const QUrl &dest, QObject *parent)
   : QObject(parent),
     d(new VerifierPrivate(this))
 {
@@ -179,7 +179,7 @@ Verifier::Verifier(const KUrl &dest, QObject *parent)
     qRegisterMetaType<QList<KIO::fileoffset_t> >("QList<KIO::fileoffset_t>");
 
     d->model = new VerificationModel();
-    connect(&d->thread, SIGNAL(verified(QString,bool,KUrl)), this, SLOT(changeStatus(QString,bool)));
+    connect(&d->thread, SIGNAL(verified(QString,bool,QUrl)), this, SLOT(changeStatus(QString,bool)));
     connect(&d->thread, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)));
 }
 
@@ -193,12 +193,12 @@ QString Verifier::dBusObjectPath() const
     return d->dBusObjectPath;
 }
 
-KUrl Verifier::destination() const
+QUrl Verifier::destination() const
 {
     return d->dest;
 }
 
-void Verifier::setDestination(const KUrl &destination)
+void Verifier::setDestination(const QUrl &destination)
 {
     d->dest = destination;
 }
@@ -278,7 +278,7 @@ QString Verifier::cleanChecksumType(const QString &type)
 
 bool Verifier::isVerifyable() const
 {
-    return QFile::exists(d->dest.pathOrUrl()) && d->model->rowCount();
+    return QFile::exists(d->dest.toString()) && d->model->rowCount();
 }
 
 bool Verifier::isVerifyable(const QModelIndex &index) const
@@ -288,7 +288,7 @@ bool Verifier::isVerifyable(const QModelIndex &index) const
     {
         row = index.row();
     }
-    if (QFile::exists(d->dest.pathOrUrl()) && (row >= 0) && (row < d->model->rowCount()))
+    if (QFile::exists(d->dest.toString()) && (row >= 0) && (row < d->model->rowCount()))
     {
         return true;
     }
@@ -395,7 +395,7 @@ void Verifier::brokenPieces() const
     d->thread.findBrokenPieces(pair.first, checksums, length, d->dest);
 }
 
-QString Verifier::checksum(const KUrl &dest, const QString &type, bool *abortPtr)
+QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr)
 {
     QStringList supported = supportedVerficationTypes();
     if (!supported.contains(type))
@@ -403,16 +403,16 @@ QString Verifier::checksum(const KUrl &dest, const QString &type, bool *abortPtr
         return QString();
     }
 
-    QFile file(dest.pathOrUrl());
+    QFile file(dest.toString());
     if (!file.open(QIODevice::ReadOnly))
     {
         return QString();
     }
 
     if (type == VerifierPrivate::MD5) {
-        KMD5 hash;
-        hash.update(file);
-        QString final = QString(hash.hexDigest());
+        QCryptographicHash hash(QCryptographicHash::Md5);
+        hash.addData(&file);
+        QString final = QString(hash.result());
         file.close();
         return final;
     }
@@ -445,7 +445,7 @@ QString Verifier::checksum(const KUrl &dest, const QString &type, bool *abortPtr
     return QString();
 }
 
-PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length, bool *abortPtr)
+PartialChecksums Verifier::partialChecksums(const QUrl &dest, const QString &type, KIO::filesize_t length, bool *abortPtr)
 {
     QStringList checksums;
 
@@ -455,7 +455,7 @@ PartialChecksums Verifier::partialChecksums(const KUrl &dest, const QString &typ
         return PartialChecksums();
     }
 
-    QFile file(dest.pathOrUrl());
+    QFile file(dest.toString());
     if (!file.open(QIODevice::ReadOnly))
     {
         return PartialChecksums();

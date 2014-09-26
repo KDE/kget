@@ -43,11 +43,11 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     setCaption(i18n("Import Links"));
     setButtons(0);
     
-    if (parent) {
+    /*if (parent) {
         KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
         KWindowSystem::setCurrentDesktop(info.desktop());
         KWindowSystem::forceActiveWindow(parent->winId());
-    }
+    }*///TODO: Port all KWindowSystem stuff
 
     // proxy model to filter links
     m_proxyModel = new KGetSortFilterProxyModel(1, this);
@@ -142,8 +142,9 @@ void KGetLinkView::checkClipboard()
 
         m_linkImporter = new LinkImporter(this);
 
-        connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
         m_linkImporter->checkClipboard(clipboardContent);
+	
+	slotImportFinished();
     }
 }
 

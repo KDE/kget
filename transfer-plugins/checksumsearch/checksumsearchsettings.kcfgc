@@ -2,4 +2,4 @@ ClassName=ChecksumSearchSettings
 File=kget_checksumsearchfactory.kcfg
 Mutators=true
 Singleton=true
-Visibility=KDE_EXPORT
+Visibility=Q_DECL_EXPORT

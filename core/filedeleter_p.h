@@ -20,8 +20,10 @@
 #ifndef FILEDELETER_P_H
 #define FILEDELETER_P_H
 
+#include "filedeleter.h"
+
 #include <KIO/DeleteJob>
-#include <KUrl>
+#include <QUrl>
 
 #include <QtCore/QHash>
 #include <QtCore/QObject>
@@ -33,15 +35,15 @@ class FileDeleter::Private : QObject
         Private();
         ~Private();
 
-        KJob *deleteFile(const KUrl &dest, QObject *receiver, const char *method);
+        KJob *deleteFile(const QUrl &dest, QObject *receiver, const char *method);
 
-        bool isFileBeingDeleted(const KUrl &dest) const;
+        bool isFileBeingDeleted(const QUrl &dest) const;
 
     public Q_SLOTS:
         void slotResult(KJob *job);
 
     private:
-        QHash<KUrl, KJob*> m_jobs;
+        QHash<QUrl, KJob*> m_jobs;
 };
 
 #endif // FILEDELETER_P_H

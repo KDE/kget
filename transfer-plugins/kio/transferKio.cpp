@@ -29,7 +29,7 @@
 #include <QDomElement>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_copyjob(0),
@@ -40,18 +40,18 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
     setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming);//TODO check if it really can resume
 }
 
-bool TransferKio::setDirectory(const KUrl& newDirectory)
+bool TransferKio::setDirectory(const QUrl& newDirectory)
 {
-    KUrl newDest = newDirectory;
-    newDest.addPath(m_dest.fileName());
+    QUrl newDest = newDirectory;
+    newDest.setPath(newDest.adjusted(QUrl::RemoveFilename).toString() + m_dest.fileName());
     return setNewDestination(newDest);
 }
 
-bool TransferKio::setNewDestination(const KUrl &newDestination)
+bool TransferKio::setNewDestination(const QUrl &newDestination)
 {
     if (newDestination.isValid() && (newDestination != dest())) {
-        KUrl oldPath = KUrl(m_dest.path() + ".part");
-        if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl())) {
+        QUrl oldPath = QUrl(m_dest.path() + ".part");
+        if (oldPath.isValid() && QFile::exists(oldPath.toString())) {
             m_movingFile = true;
             stop();
             setStatus(Job::Moving);
@@ -66,7 +66,7 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
                 m_signature->setDestination(newDestination);
             }
 
-            KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
+            KIO::Job *move = KIO::file_move(oldPath, QUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
             connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
             connect(move, SIGNAL(infoMessage(KJob*,QString)), this, SLOT(slotInfoMessage(KJob*,QString)));
             connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
@@ -175,7 +175,7 @@ void TransferKio::slotResult( KJob * kioJob )
     m_copyjob=0;
 
     // If it is an ftp file, there's still work to do
-    Transfer::ChangesFlags flags = (m_source.protocol() != "ftp") ? Tc_Status : Tc_None;
+    Transfer::ChangesFlags flags = (m_source.scheme() != "ftp") ? Tc_Status : Tc_None;
     if (status() == Job::Finished) {
         if (!m_totalSize) {
             //downloaded elsewhere already, e.g. Konqueror
@@ -198,7 +198,7 @@ void TransferKio::slotResult( KJob * kioJob )
         }
     }
 
-    if (m_source.protocol() == "ftp") {
+    if (m_source.scheme() == "ftp") {
         KIO::StatJob * statJob = KIO::stat(m_source);
         connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
         statJob->start();
@@ -302,7 +302,7 @@ void TransferKio::slotStatResult(KJob* kioJob)
 }
 
 
-bool TransferKio::repair(const KUrl &file)
+bool TransferKio::repair(const QUrl &file)
 {
     Q_UNUSED(file)
 
@@ -325,7 +325,7 @@ bool TransferKio::repair(const KUrl &file)
     return false;
 }
 
-Verifier *TransferKio::verifier(const KUrl &file)
+Verifier *TransferKio::verifier(const QUrl &file)
 {
     Q_UNUSED(file)
 
@@ -338,7 +338,7 @@ Verifier *TransferKio::verifier(const KUrl &file)
     return m_verifier;
 }
 
-Signature *TransferKio::signature(const KUrl &file)
+Signature *TransferKio::signature(const QUrl &file)
 {
     Q_UNUSED(file)
 

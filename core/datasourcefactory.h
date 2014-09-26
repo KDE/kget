@@ -45,7 +45,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * find the filesize
          * @note when you want to load a datasourcefactory you do not have to specify the url and segSize
          */
-        explicit DataSourceFactory(QObject *parent, const KUrl &dest = KUrl(), KIO::filesize_t size = 0, KIO::fileoffset_t segSize = 512000);
+        explicit DataSourceFactory(QObject *parent, const QUrl &dest = QUrl(), KIO::filesize_t size = 0, KIO::fileoffset_t segSize = 512000);
 
         ~DataSourceFactory();
 
@@ -73,7 +73,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         ulong currentSpeed() const {return m_speed;}
         ulong percent() const {return m_percent;}
 
-        KUrl dest() const {return m_dest;}
+        QUrl dest() const {return m_dest;}
 
         /**
          * The maximum number of mirrors that will be used for downloading, default is 3
@@ -97,7 +97,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * to the new value, so to change the number of paralell connections of a mirror you are already
          * using simply call addMirror again
          */
-        void addMirror(const KUrl &url, bool used, int numParalellConnections = 1);
+        void addMirror(const QUrl &url, bool used, int numParalellConnections = 1);
 
         /**
          * Add a mirror that can be used for downloading, if it will be used depends if maxMirrorsUsed
@@ -109,7 +109,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * to the new value, so to change the number of paralell connections of a mirror you are already
          * using simply call addMirror again
         */
-        void addMirror(const KUrl &url, int numParalellConnections = 1);
+        void addMirror(const QUrl &url, int numParalellConnections = 1);
 
         /**
          * Does not use the specified mirror for downloading the file
@@ -117,7 +117,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * otherwise nohting will happen
          * @param url the mirror that should not be used anymore
          */
-        void removeMirror(const KUrl &url);
+        void removeMirror(const QUrl &url);
 
         /**
          * Sets the mirrors that should be used/not used for downloading
@@ -125,13 +125,13 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * (minimum is 1)
          * @note if you want the download to work at least one entry should be set to true
          */
-        void setMirrors(const QHash<KUrl, QPair<bool, int> > &mirrors);
+        void setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors);
 
         /**
          * Return all mirrors, where bool defines if the mirror is used,
          * while in defines the number of paralell connections for that mirror
          */
-        QHash<KUrl, QPair<bool, int> > mirrors() const;
+        QHash<QUrl, QPair<bool, int> > mirrors() const;
 
         /**
          * Returns whether the datasourcefactory should download the file or not,
@@ -147,7 +147,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          */
         void setDoDownload(bool doDownload);
 
-        bool setNewDestination(const KUrl &newDest);
+        bool setNewDestination(const QUrl &newDest);
 
         Job::Status status() const {return m_status;}
 
@@ -223,7 +223,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         void slotFinishedDownload(TransferDataSource *source, KIO::filesize_t size);
         
-        void slotUrlChanged(const KUrl &, const KUrl &);
+        void slotUrlChanged(const QUrl &, const QUrl &);
 
     private:
         /**
@@ -232,7 +232,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * @param usedDefined true if the user defined used, otherwise false,
          * needed to know if m_maxMirrorsUsed should be changed or not
          */
-        void addMirror(const KUrl &url, bool used, int numParalellConnections, bool usedDefined);
+        void addMirror(const QUrl &url, bool used, int numParalellConnections, bool usedDefined);
 
         /**
          * Checks if an assign is needed, i.e. there are no (running) TransferDataSources,
@@ -248,8 +248,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
     private:
         Transfer::Capabilities m_capabilities;
-        KUrl m_dest;
-        KUrl m_newDest;
+        QUrl m_dest;
+        QUrl m_newDest;
         KIO::filesize_t m_size;
         KIO::filesize_t m_downloadedSize;
         QList<KIO::filesize_t> m_prevDownloadedSizes;
@@ -303,8 +303,8 @@ class KGET_EXPORT DataSourceFactory : public QObject
         bool m_sizeFoundOnFinish;
 
         int m_maxMirrorsUsed;
-        QHash<KUrl, TransferDataSource*> m_sources;
-        QList<KUrl> m_unusedUrls;
+        QHash<QUrl, TransferDataSource*> m_sources;
+        QList<QUrl> m_unusedUrls;
         QList<int> m_unusedConnections;
         QTimer *m_speedTimer;
         Job::Status m_status;

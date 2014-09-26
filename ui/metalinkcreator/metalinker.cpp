@@ -355,7 +355,7 @@ bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
     bool smaller = (this->priority > other.priority) || ((this->priority == 0) && (other.priority != 0));
 
     if (!smaller && (this->priority == other.priority)) {
-        QString countryCode = KGlobal::locale()->country();
+        QString countryCode;// = KGlobal::locale()->country();//TODO: Port
         if (!countryCode.isEmpty()) {
             smaller = (other.location.toLower() == countryCode.toLower());
         }

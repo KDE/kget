@@ -15,7 +15,7 @@
 #define NEW_TRANSFER_DIALOG_H
 
 #include <KDialog>
-#include <KUrl>
+#include <QUrl>
 
 #include "ui_newtransferwidget.h"
 
@@ -24,10 +24,10 @@ class TransferHandler;
 
 /**
 * Dialog to allow add one or more transfers to kget.
-* If only one transfer is added then the dialog shows a KUrlRequester.
+* If only one transfer is added then the dialog shows a QUrlRequester.
 * If a list of transfers are added then the dialog shows a KListWidget (multiple = true)
 * with the transfers as checkable items.
-* Also display a KUrlComboRequester for the destination file (or folder if multiple = true)
+* Also display a QUrlComboRequester for the destination file (or folder if multiple = true)
 * And a QComboBox with the groups of transfer in case there are more than one
 * 
 * @note this class is private and should be used via NewTransferDialogHandler
@@ -59,7 +59,7 @@ class NewTransferDialog : public KDialog
         /**
         * Shows the dialog adding one url list transfers
         */
-        void showDialog(KUrl::List list, const QString &suggestedFileName = QString());
+        void showDialog(QList<QUrl> list, const QString &suggestedFileName = QString());
         void prepareDialog();
         bool isEmpty();
 
@@ -71,7 +71,7 @@ class NewTransferDialog : public KDialog
         /**
          * Set sources to the dialog
          */
-        void setSource(const KUrl::List &sources);
+        void setSource(const QList<QUrl> &sources);
 
         void setDestinationFileName(const QString &filename);
         void setDestination();
@@ -87,10 +87,10 @@ class NewTransferDialog : public KDialog
         Ui::NewTransferWidget ui;
         QWidget *m_window;
         QTimer *m_timer;
-        KUrl::List m_sources;
+        QList<QUrl> m_sources;
 
         //points to a folder if m_multiple otherwise to the destination
-        KUrl m_destination;
+        QUrl m_destination;
 
         TransferHandler *m_existingTransfer;
 
@@ -110,9 +110,9 @@ class NewTransferDialogHandler : public QObject
         ~NewTransferDialogHandler();
 
         /**
-         * @see showNewTransferDialog(KUrl::List)
+         * @see showNewTransferDialog(QList<QUrl>)
          */
-        static void showNewTransferDialog(const KUrl &url = KUrl());
+        static void showNewTransferDialog(const QUrl &url = QUrl());
 
         /**
          * This will show a dialog to the user to input needed information.
@@ -123,18 +123,18 @@ class NewTransferDialogHandler : public QObject
          *
          * @note MainWindow will always be the parent widget
          */
-        static void showNewTransferDialog(KUrl::List list);
+        static void showNewTransferDialog(QList<QUrl> list);
 
     private slots:
         void slotMostLocalUrlResult(KJob *job);
 
     private:
         void handleUrls(const int jobId);
-        void createDialog(const KUrl::List &urls, const QString &suggestedFileName);
+        void createDialog(const QList<QUrl> &urls, const QString &suggestedFileName);
 
     private:
         struct UrlData {
-            KUrl::List urls;
+            QList<QUrl> urls;
             QString folder;
             QString suggestedFileName;
             QWidget *parent;

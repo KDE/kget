@@ -158,7 +158,7 @@ void TransferGroup::move(Transfer * transfer, Transfer * after)
     JobQueue::move(transfer, after);
 }
 
-Transfer * TransferGroup::findTransfer(const KUrl &src)
+Transfer * TransferGroup::findTransfer(const QUrl &src)
 {
     iterator it = begin();
     iterator itEnd = end();
@@ -172,7 +172,7 @@ Transfer * TransferGroup::findTransfer(const KUrl &src)
     return 0;
 }
 
-Transfer *TransferGroup::findTransferByDestination(const KUrl &dest)
+Transfer *TransferGroup::findTransferByDestination(const QUrl &dest)
 {
     iterator it = begin();
     iterator itEnd = end();

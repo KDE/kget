@@ -22,7 +22,7 @@
 
 #include "kget_export.h"
 #include <KIO/Job>
-#include <KUrl>
+#include <QUrl>
 
 /**
  * NOTE this implementation does KIO::mostLocalUrl on any url whose protocol
@@ -40,12 +40,12 @@ class MostLocalUrlJob;
 /**
  * Synchronous
  */
-KGET_EXPORT KUrl mostLocalUrl(const KUrl &url);
+KGET_EXPORT QUrl mostLocalUrl(const QUrl &url);
 
 /**
  * Asynchronous
  */
-KGET_EXPORT MostLocalUrlJob *mostLocalUrlJob(const KUrl &url);
+KGET_EXPORT MostLocalUrlJob *mostLocalUrlJob(const QUrl &url);
 
 /**
  * Job for asynchronously getting the most local url, do not use directly, but use
@@ -55,22 +55,22 @@ class KGET_EXPORT MostLocalUrlJob : public KIO::Job
 {
     Q_OBJECT
     public:
-        MostLocalUrlJob(const KUrl &url);
+        MostLocalUrlJob(const QUrl &url);
 
         virtual void start();
-        KUrl url();
+        QUrl url();
 
         /**
          * Call this in the slot connected to result.
          */
-        KUrl mostLocalUrl() const;
+        QUrl mostLocalUrl() const;
 
     protected:
         virtual void slotResult(KJob *job);
 
     private:
-        KUrl m_url;
-        KUrl m_mostLocalUrl;
+        QUrl m_url;
+        QUrl m_mostLocalUrl;
 };
 
 #endif

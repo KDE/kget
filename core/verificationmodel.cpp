@@ -23,7 +23,7 @@
 #include <QtCore/QStringList>
 
 #include <KDebug>
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
 
 struct VerificationModelPrivate
@@ -62,12 +62,12 @@ QVariant VerificationModel::data(const QModelIndex &index, int role) const
         if (role == Qt::DecorationRole) {
             switch (status) {
                 case Verifier::Verified:
-                    return KIcon("dialog-ok");
+                    return QIcon::fromTheme("dialog-ok");
                 case Verifier::NotVerified:
-                    return KIcon("dialog-close");
+                    return QIcon::fromTheme("dialog-close");
                 case Verifier::NoResult:
                 default:
-                    return KIcon();
+                    return QIcon::fromTheme(QString());
             }
         } else if (role == Qt::EditRole) {
             return status;

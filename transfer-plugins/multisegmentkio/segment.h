@@ -46,7 +46,7 @@ class Segment : public QObject
             Finished
         };
 
-        Segment(const KUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
+        Segment(const QUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
 
         ~Segment();
 
@@ -121,7 +121,7 @@ class Segment : public QObject
         void totalSize(KIO::filesize_t size, QPair<int, int> segmentRange);
         void finishedDownload(KIO::filesize_t size);
         void canResume();
-        void urlChanged(const KUrl &newUrl);
+        void urlChanged(const QUrl &newUrl);
 
     private Q_SLOTS:
         void slotData(KIO::Job *job, const QByteArray &data);
@@ -135,7 +135,7 @@ class Segment : public QObject
          */
         void slotWriteRest();
         
-        void slotRedirection(KIO::Job*, const KUrl &);
+        void slotRedirection(KIO::Job*, const QUrl &);
 
     private:
         bool writeBuffer();
@@ -153,7 +153,7 @@ class Segment : public QObject
         KIO::filesize_t m_bytesWritten;
         KIO::filesize_t m_totalBytesLeft;
         KIO::TransferJob *m_getJob;
-        KUrl m_url;
+        QUrl m_url;
         QByteArray m_buffer;
         QPair<KIO::fileoffset_t, KIO::fileoffset_t> m_segSize;
 };

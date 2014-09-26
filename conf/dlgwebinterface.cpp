@@ -13,9 +13,10 @@
 #include "settings.h"
 
 #include <KMessageBox>
+#include <KLocale>
 #include <kwallet.h>
 
-DlgWebinterface::DlgWebinterface(KDialog *parent)
+DlgWebinterface::DlgWebinterface(QDialog *parent)
     : QWidget(parent),
       m_wallet(0)
 {

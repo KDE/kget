@@ -36,7 +36,7 @@ public:
     void importUrl(const QString &url = QString());
 
 signals:
-    void leechUrls( const KUrl::List& urls );
+    void leechUrls( const QList<QUrl>& urls );
 
 private slots:
     void slotMimeTypeChanged(int index);

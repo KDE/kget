@@ -30,9 +30,11 @@
 #include <QtGui/QStandardItemModel>
 #include <QtGui/QStringListModel>
 
+#include <KDebug>
+
 KGET_EXPORT_PLUGIN_CONFIG(DlgChecksumSettingsWidget)
 
-const KUrl ChecksumSearchAddDlg::URL = KUrl("http://www.example.com/file.zip");
+const QUrl ChecksumSearchAddDlg::URL = QUrl("http://www.example.com/file.zip");
 
 ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags),
@@ -66,7 +68,7 @@ void ChecksumSearchAddDlg::slotUpdate()
     enableButtonOk(!ui.change->text().isEmpty());
 
     const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(ui.mode->currentIndex());
-    const KUrl modifiedUrl = ChecksumSearch::createUrl(URL, ui.change->text(), mode);
+    const QUrl modifiedUrl = ChecksumSearch::createUrl(URL, ui.change->text(), mode);
     const QString text = i18n("%1 would become %2", URL.prettyUrl(), modifiedUrl.prettyUrl());
     ui.label->setText(text);
 }

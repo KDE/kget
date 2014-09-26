@@ -22,7 +22,7 @@
 #include "signature.h"
 #include "verifier.h"
 
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
 #include <KMimeType>
 
@@ -83,9 +83,9 @@ QVariant FileItem::data(int column, int role) const
         {
             if (m_mimeType.isNull()) {
                 if (isFile()) {
-                    m_mimeType = KIcon(KMimeType::iconNameForUrl(KUrl(m_name)));
+                    m_mimeType = QIcon::fromTheme(KMimeType::iconNameForUrl(QUrl(m_name)));
                 } else {
-                    m_mimeType = KIcon("folder");
+                    m_mimeType = QIcon::fromTheme("folder");
                 }
             }
 
@@ -111,28 +111,28 @@ QVariant FileItem::data(int column, int role) const
         if (role == Qt::DecorationRole) {
             switch (m_checkusmVerified) {
                 case Verifier::Verified:
-                    return KIcon("dialog-ok");
+                    return QIcon::fromTheme("dialog-ok");
                 case Verifier::NotVerified:
-                    return KIcon("dialog-error");
+                    return QIcon::fromTheme("dialog-error");
                 case Verifier::NoResult:
                 default:
-                    return KIcon();
+                    return QIcon::fromTheme(QString());
             }
         }
     } else if (column == FileItem::SignatureVerified) {//TODO implement all cases
         if (role == Qt::DecorationRole) {
             switch (m_signatureVerified) {
                 case Signature::Verified:
-                    return KIcon("dialog-ok");
+                    return QIcon::fromTheme("dialog-ok");
                 case Signature::VerifiedInformation:
-                    return KIcon("dialog-information");
+                    return QIcon::fromTheme("dialog-information");
                 case Signature::VerifiedWarning:
-                    return KIcon("dialog-warning");
+                    return QIcon::fromTheme("dialog-warning");
                 case Signature::NotVerified:
-                    return KIcon("dialog-error");
+                    return QIcon::fromTheme("dialog-error");
                 case Signature::NoResult:
                 default:
-                    return KIcon();
+                    return QIcon::fromTheme(QString());
             }
         }
     }
@@ -274,7 +274,7 @@ void FileItem::addSize(KIO::fileoffset_t size, FileModel *model)
 }
 
 
-FileModel::FileModel(const QList<KUrl> &files, const KUrl &destDirectory, QObject *parent)
+FileModel::FileModel(const QList<QUrl> &files, const QUrl &destDirectory, QObject *parent)
   : QAbstractItemModel(parent),
     m_destDirectory(destDirectory),
     m_checkStateChanged(false)
@@ -290,14 +290,14 @@ FileModel::~FileModel()
     delete m_rootItem;
 }
 
-void FileModel::setupModelData(const QList<KUrl> &files)
+void FileModel::setupModelData(const QList<QUrl> &files)
 {
-    QString destDirectory = m_destDirectory.pathOrUrl();
+    QString destDirectory = m_destDirectory.toString();
 
-    foreach (const KUrl &file, files)
+    foreach (const QUrl &file, files)
     {
         FileItem *parent = m_rootItem;
-        QStringList directories = file.pathOrUrl().remove(destDirectory).split('/', QString::SkipEmptyParts);
+        QStringList directories = file.toString().remove(destDirectory).split('/', QString::SkipEmptyParts);
         FileItem *child = 0;
         while (directories.count())
         {
@@ -461,7 +461,7 @@ QModelIndex FileModel::index(int row, int column, const QModelIndex &parent) con
     }
 }
 
-QModelIndex FileModel::index(const KUrl &file, int column)
+QModelIndex FileModel::index(const QUrl &file, int column)
 {
     FileItem *item = getItem(file);
     if (!item)
@@ -529,22 +529,22 @@ void FileModel::changeData(int row, int column, FileItem *item, bool finished)
     emit dataChanged(index, index);
 
     if (finished) {
-        const KUrl file = getUrl(index);
+        const QUrl file = getUrl(index);
         emit fileFinished(file);
     }
 }
 
 
-void FileModel::setDirectory(const KUrl &newDirectory)
+void FileModel::setDirectory(const QUrl &newDirectory)
 {
     m_destDirectory = newDirectory;
     m_itemCache.clear();
 }
 
-KUrl FileModel::getUrl(const QModelIndex &index)
+QUrl FileModel::getUrl(const QModelIndex &index)
 {
     if (!index.isValid()) {
-        return KUrl();
+        return QUrl();
     }
 
     const QModelIndex file = index.sibling(index.row(), FileItem::File);
@@ -552,12 +552,12 @@ KUrl FileModel::getUrl(const QModelIndex &index)
     return getUrl(static_cast<FileItem*>(file.internalPointer()));
 }
 
-KUrl FileModel::getUrl(FileItem *item)
+QUrl FileModel::getUrl(FileItem *item)
 {
     const QString path = getPath(item);
     const QString name = item->data(FileItem::File, Qt::DisplayRole).toString();
-    KUrl url = m_destDirectory;
-    url.addPath(path + name);
+    QUrl url = m_destDirectory;
+    url.setPath(m_destDirectory.toString() + path + name);
 
     return url;
 }
@@ -575,17 +575,17 @@ QString FileModel::getPath(FileItem *item)
     return path;
 }
 
-FileItem *FileModel::getItem(const KUrl &file)
+FileItem *FileModel::getItem(const QUrl &file)
 {
     if (m_itemCache.contains(file))
     {
         return m_itemCache[file];
     }
 
-    QString destDirectory = m_destDirectory.pathOrUrl();
+    QString destDirectory = m_destDirectory.toString();
 
     FileItem *item = m_rootItem;
-    QStringList directories = file.pathOrUrl().remove(destDirectory).split('/', QString::SkipEmptyParts);
+    QStringList directories = file.toString().remove(destDirectory).split('/', QString::SkipEmptyParts);
     while (directories.count())
     {
         QString part = directories.takeFirst();
@@ -619,7 +619,7 @@ FileItem *FileModel::getItem(const KUrl &file)
     return item;
 }
 
-bool FileModel::downloadFinished(const KUrl &file)
+bool FileModel::downloadFinished(const QUrl &file)
 {
     FileItem *item = getItem(file);
     if (item)
@@ -659,14 +659,14 @@ void FileModel::rename(const QModelIndex &file, const QString &newName)
         return;
     }
 
-    //Find out the old and the new KUrl
+    //Find out the old and the new QUrl
     QString oldName = file.data(Qt::DisplayRole).toString();
     QString path = getPath(item);
 
-    KUrl oldUrl = m_destDirectory;
-    oldUrl.addPath(path + oldName);
-    KUrl newUrl = m_destDirectory;
-    newUrl.addPath(path + newName);
+    QUrl oldUrl = m_destDirectory;
+    oldUrl.setPath(m_destDirectory.toString() + path + oldName);
+    QUrl newUrl = m_destDirectory;
+    newUrl.setPath(m_destDirectory.toString() + path + newName);
 
     m_itemCache.remove(oldUrl);
 
@@ -675,7 +675,7 @@ void FileModel::rename(const QModelIndex &file, const QString &newName)
     emit rename(oldUrl, newUrl);
 }
 
-void FileModel::renameFailed(const KUrl &beforeRename, const KUrl &afterRename)
+void FileModel::renameFailed(const QUrl &beforeRename, const QUrl &afterRename)
 {
     Q_UNUSED(beforeRename)
     Q_UNUSED(afterRename)

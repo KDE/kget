@@ -45,7 +45,7 @@ const StatusStrings STATUSTEXTS[] = {
 const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
-                   Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                   Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                    const QDomElement * e)
     : Job(scheduler, parent),
       m_source(source), m_dest(dest),
@@ -105,7 +105,7 @@ void Transfer::setNepomukHandler(NepomukHandler *handler)
 }
 #endif //HAVE_NEPOMUK
 
-bool Transfer::setDirectory(const KUrl& newDirectory)
+bool Transfer::setDirectory(const QUrl& newDirectory)
 {
     Q_UNUSED(newDirectory)
 
@@ -132,11 +132,11 @@ int Transfer::averageDownloadSpeed() const
     return 0;
 }
 
-QHash<KUrl, QPair<bool, int> > Transfer::availableMirrors(const KUrl &file) const
+QHash<QUrl, QPair<bool, int> > Transfer::availableMirrors(const QUrl &file) const
 {
     Q_UNUSED(file)
 
-    QHash<KUrl, QPair<bool, int> > available;
+    QHash<QUrl, QPair<bool, int> > available;
     available[m_source] = QPair<bool, int>(true, 1);
     return available;
 }
@@ -252,8 +252,8 @@ void Transfer::load(const QDomElement *element)
 
     const QDomElement e = *element;
 
-    m_source = KUrl(e.attribute("Source"));
-    m_dest = KUrl(e.attribute("Dest"));
+    m_source = QUrl(e.attribute("Source"));
+    m_dest = QUrl(e.attribute("Dest"));
 
     m_totalSize = e.attribute("TotalSize").toULongLong();
     m_downloadedSize = e.attribute("DownloadedSize").toULongLong();

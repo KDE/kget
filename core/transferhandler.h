@@ -80,7 +80,7 @@ class KGET_EXPORT TransferHandler : public Handler
          * if not defined all files of a download are going to be repaird
          * @return true if a repair started, false if it was not nescessary
          */
-        bool repair(const KUrl &file = KUrl()) {return m_transfer->repair(file);}
+        bool repair(const QUrl &file = QUrl()) {return m_transfer->repair(file);}
 
         /**
          * @return the transfer's group handler
@@ -90,29 +90,29 @@ class KGET_EXPORT TransferHandler : public Handler
         /**
          * @return the source url
          */
-        const KUrl & source() const {return m_transfer->source();}
+        const QUrl & source() const {return m_transfer->source();}
 
         /**
          * @return the dest url
          */
-        const KUrl & dest() const {return m_transfer->dest();}
+        const QUrl & dest() const {return m_transfer->dest();}
 
         /**
          * @returns all files of this transfer
          */
-        QList<KUrl> files() const {return m_transfer->files();}
+        QList<QUrl> files() const {return m_transfer->files();}
 
         /**
          * @returns the directory the Transfer will be stored to
          */
-        KUrl directory() const {return m_transfer->directory();}
+        QUrl directory() const {return m_transfer->directory();}
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        bool setDirectory(const KUrl &newDirectory) {return m_transfer->setDirectory(newDirectory);}
+        bool setDirectory(const QUrl &newDirectory) {return m_transfer->setDirectory(newDirectory);}
 
         /**
          * The mirrors that are available
@@ -120,14 +120,14 @@ class KGET_EXPORT TransferHandler : public Handler
          * to the mirror
          * @param file the file for which the availableMirrors should be get
          */
-        QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const {return m_transfer->availableMirrors(file);}
+        QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const {return m_transfer->availableMirrors(file);}
 
         /**
          * Set the mirrors, int the number of paralell connections to the mirror
          * bool if the mirror should be used
          * @param file the file for which the availableMirrors should be set
          */
-        void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors) {m_transfer->setAvailableMirrors(file, mirrors);}
+        void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) {m_transfer->setAvailableMirrors(file, mirrors);}
 
         /**
          * @return the total size of the transfer in bytes
@@ -275,13 +275,13 @@ class KGET_EXPORT TransferHandler : public Handler
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier * verifier(const KUrl &file) {return m_transfer->verifier(file);}
+        virtual Verifier * verifier(const QUrl &file) {return m_transfer->verifier(file);}
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature * signature(const KUrl &file) {return m_transfer->signature(file);}
+        virtual Signature * signature(const QUrl &file) {return m_transfer->signature(file);}
 
 #ifdef HAVE_NEPOMUK
         /**

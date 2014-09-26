@@ -16,14 +16,15 @@
 #include <KLocale>
 #include <KPluginInfo>
 #include <KSharedConfig>
-#include <KDialog>
+#include <QDialog>
 
-PluginSelector::PluginSelector(KDialog * parent)
+PluginSelector::PluginSelector(QDialog * parent)
   : KPluginSelector(parent)
 {
     KService::List offers = KServiceTypeTrader::self()->query("KGet/Plugin");
 
-    addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KGlobal::config());
+    //TODO: POrt this
+    //addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KGlobal::config());
 
     load();
 

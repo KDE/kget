@@ -17,7 +17,7 @@
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(KGetFactory::componentData(), parent, args)
+    : KCModule(/*KGetFactory::componentData(), */parent, args)
 {
     ui.setupUi(this);
 
@@ -40,7 +40,6 @@ void DlgSettingsWidget::load()
 
 void DlgSettingsWidget::save()
 {
-    kDebug(5001) << "Saving Multithreaded config";
     MultiSegKioSettings::setSegments(ui.numSegSpinBox->value());
     MultiSegKioSettings::setUseSearchEngines(ui.enginesCheckBox->isChecked());
     MultiSegKioSettings::setUseSearchVerification(ui.verificationCheckBox->isChecked());

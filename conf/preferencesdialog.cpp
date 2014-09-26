@@ -22,6 +22,8 @@
 
 #include <klocale.h>
 #include <ktabwidget.h>
+#include <kconfigdialog.h>
+#include <kconfigskeleton.h>
 
 PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
     : KConfigDialog(parent, "preferences", skeleton)
@@ -86,12 +88,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 
 void PreferencesDialog::disableApplyButton()
 {
-    enableButtonApply(false);
+    button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
 void PreferencesDialog::enableApplyButton()
 {
-    enableButtonApply(true);
+    button(QDialogButtonBox::Apply)->setEnabled(true);
 }
 
 void PreferencesDialog::slotToggleAfterFinishAction(int state)

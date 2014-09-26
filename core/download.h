@@ -16,7 +16,7 @@
 #include <QObject>
 #include <QByteArray>
 
-#include <KUrl>
+#include <QUrl>
 
 #include <kio/job.h>
 
@@ -24,11 +24,11 @@ class KGET_EXPORT Download : public QObject
 {
     Q_OBJECT
     public:
-        Download(const KUrl &srcUrl, const KUrl &destUrl);
+        Download(const QUrl &srcUrl, const QUrl &destUrl);
         ~Download();
 
     Q_SIGNALS:
-        void finishedSuccessfully(KUrl dest, QByteArray data);
+        void finishedSuccessfully(QUrl dest, QByteArray data);
         void finishedWithError();
 
     private slots:
@@ -37,9 +37,9 @@ class KGET_EXPORT Download : public QObject
 
     private:
         KIO::TransferJob *m_copyJob;
-        KUrl m_srcUrl;
-        KUrl m_destUrl;
-        KUrl m_destFile;
+        QUrl m_srcUrl;
+        QUrl m_destUrl;
+        QUrl m_destFile;
         QByteArray m_data;
 };
 

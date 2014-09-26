@@ -28,6 +28,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QSortFilterProxyModel>
 #include <QtGui/QStandardItemModel>
+#include <QMimeData>
 
 #include <KFileDialog>
 #include <KLocale>
@@ -87,8 +88,8 @@ MetalinkCreator::MetalinkCreator(QWidget *parent)
     connect(&m_thread, SIGNAL(fileResult(KGetMetalink::File)), this, SLOT(slotAddFile(KGetMetalink::File)));
     connect(&m_thread, SIGNAL(finished()), this, SLOT(slotThreadFinished()));
 
-    setCaption(i18n("Create a Metalink"));
-    showButton(KDialog::Help, false);
+    setWindowTitle(i18n("Create a Metalink"));
+    //showButton(KDialog::Help, false);
 }
 
 MetalinkCreator::~MetalinkCreator()
@@ -104,14 +105,14 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
     }
 
     //it is impossible to return to the introduction page
-    if (to == m_generalPage)
+    /*if (to == m_generalPage)
     {
         enableButton(KDialog::User3, false);
     }
     else
     {
         enableButton(KDialog::User3, true);
-    }
+    }*///TODO: Port all of this
 
     if (!m_filesModel->rowCount()) {
         uiFiles.infoWidget->setText(i18n("Add at least one file."));
@@ -122,7 +123,7 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
 
     //only enable finish then the metalink is valid (i.e. no required data missing)
     //and the thread is not running
-    enableButton(KDialog::User1, metalink.isValid() && !m_thread.isRunning());
+    //enableButton(KDialog::User1, metalink.isValid() && !m_thread.isRunning());
 }
 
 void MetalinkCreator::create()
@@ -136,13 +137,13 @@ void MetalinkCreator::create()
 void MetalinkCreator::slotDelayedCreation()
 {
     CountryModel *countryModel = new CountryModel(this);
-    countryModel->setupModelData(KGlobal::locale()->allCountriesList());
+    //countryModel->setupModelData(QLocale()->allCountriesList());//TODO:Port these 2
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
     m_countrySort->sort(0);
 
     m_languageModel = new LanguageModel(this);
-    m_languageModel->setupModelData(KGlobal::locale()->allLanguagesList());
+    //m_languageModel->setupModelData(KGlobal::locale()->allLanguagesList());
     m_languageSort = new QSortFilterProxyModel(this);
     m_languageSort->setSourceModel(m_languageModel);
     m_languageSort->sort(0);
@@ -186,7 +187,7 @@ void MetalinkCreator::createIntroduction()
     uiIntroduction.setupUi(widget);
 
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
-    uiIntroduction.save->fileDialog()->setOperationMode(KFileDialog::Saving);
+    uiIntroduction.save->fileDialog()->setAcceptMode(QFileDialog::AcceptSave);
 
     connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
     connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));

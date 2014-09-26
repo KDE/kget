@@ -12,7 +12,7 @@
 
 #include <kdebug.h>
 
-TransferDataSource::TransferDataSource(const KUrl &srcUrl, QObject *parent)
+TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
   : QObject(parent),
     m_sourceUrl(srcUrl),
     m_speed(0),

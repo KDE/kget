@@ -20,7 +20,7 @@
 #include "filedeleter.h"
 #include "filedeleter_p.h"
 
-K_GLOBAL_STATIC(FileDeleter, fileDeleter)
+Q_GLOBAL_STATIC(FileDeleter, fileDeleter)
 
 FileDeleter::Private::Private()
   : QObject(0)
@@ -31,14 +31,14 @@ FileDeleter::Private::~Private()
 {
 }
 
-bool FileDeleter::Private::isFileBeingDeleted(const KUrl &dest) const
+bool FileDeleter::Private::isFileBeingDeleted(const QUrl &dest) const
 {
     return m_jobs.contains(dest);
 }
 
-KJob *FileDeleter::Private::deleteFile(const KUrl &dest, QObject *receiver, const char *method)
+KJob *FileDeleter::Private::deleteFile(const QUrl &dest, QObject *receiver, const char *method)
 {
-    QHash<KUrl, KJob*>::iterator it = m_jobs.find(dest);
+    QHash<QUrl, KJob*>::iterator it = m_jobs.find(dest);
     if (it == m_jobs.end()) {
         KJob *job = KIO::del(dest, KIO::HideProgressInfo);
         it = m_jobs.insert(dest, job);
@@ -70,15 +70,14 @@ FileDeleter::~FileDeleter()
     delete d;
 }
 
-KJob *FileDeleter::deleteFile(const KUrl &dest, QObject *receiver, const char *method)
+KJob *FileDeleter::deleteFile(const QUrl &dest, QObject *receiver, const char *method)
 {
     return fileDeleter->d->deleteFile(dest, receiver, method);
 }
 
-bool FileDeleter::isFileBeingDeleted(const KUrl &dest)
+bool FileDeleter::isFileBeingDeleted(const QUrl &dest)
 {
     return fileDeleter->d->isFileBeingDeleted(dest);
 }
 
 #include "filedeleter.moc"
-#include "filedeleter_p.moc"

@@ -206,7 +206,7 @@ void KGetPlugin::getLinks(bool selectedOnly)
                     attr = QL1S("src");
                 else if (element.hasAttribute(QL1S("data")))
                     attr = QL1S("data");
-                const KUrl resolvedUrl (baseUrl.resolved(element.attribute(attr)));
+                const QUrl resolvedUrl (baseUrl.resolved(element.attribute(attr)));
                 // Only select valid and non-local links for download...
                 if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty()) {
                     if (element.hasAttribute(QL1S("type")))
@@ -227,7 +227,7 @@ void KGetPlugin::getLinks(bool selectedOnly)
                                                                           KParts::FileInfoExtension::AllItems);
         const KFileItemList items = fileinfoExtn->queryFor(mode);
         Q_FOREACH(const KFileItem& item, items) {
-            const KUrl url = item.url();
+            const QUrl url = item.url();
             // Only select valid and non local links for download...
             if (item.isReadable() && item.isFile() && !item.isLocalFile() && !url.host().isEmpty()) {
                 if (item.mimetype().isEmpty())

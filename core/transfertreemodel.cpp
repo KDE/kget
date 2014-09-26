@@ -104,7 +104,7 @@ QVariant TransferModelItem::data(int role) const
                 //store the icon for speed improvements, KIconLoader should make sure, that
                 //the icon data gets shared
                 if (m_mimeType.isNull()) {
-                    m_mimeType = KIcon(KMimeType::iconNameForUrl(m_transferHandler->dest().url()));
+                    m_mimeType = QIcon::fromTheme(KMimeType::iconNameForUrl(m_transferHandler->dest().url()));
                 }
 
                 return m_mimeType;
@@ -464,7 +464,7 @@ TransferGroup * TransferTreeModel::findGroup(const QString & groupName)
     return 0;
 }
 
-Transfer * TransferTreeModel::findTransfer(const KUrl &src)
+Transfer * TransferTreeModel::findTransfer(const QUrl &src)
 {
     /*foreach (TransferGroup * group, transferGroups())
     {
@@ -480,7 +480,7 @@ Transfer * TransferTreeModel::findTransfer(const KUrl &src)
     return 0;
 }
 
-Transfer *TransferTreeModel::findTransferByDestination(const KUrl &dest)
+Transfer *TransferTreeModel::findTransferByDestination(const QUrl &dest)
 {
     /*foreach (TransferGroup * group, transferGroups())
     {

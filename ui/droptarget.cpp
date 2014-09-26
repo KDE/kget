@@ -57,7 +57,7 @@ DropTarget::DropTarget(MainWindow * mw)
     if(Settings::dropSticky())
         KWindowSystem::setState(winId(), KWindowSystem::Sticky);
 
-    cachedPixmap = DesktopIcon("kget", TARGET_SIZE);
+    cachedPixmap = QIcon::fromTheme("kget").pixmap(TARGET_SIZE);
     if (!cachedPixmap.mask().isNull())
     {
         QBitmap mask(size());
@@ -89,7 +89,7 @@ DropTarget::DropTarget(MainWindow * mw)
 
     QAction *quitAction = new QAction(this);
     quitAction->setText(i18n("Quit KGet"));
-    quitAction->setIcon(KIcon("system-shutdown"));
+    quitAction->setIcon(QIcon::fromTheme("system-shutdown"));
     connect(quitAction, SIGNAL(triggered()), mw, SLOT(slotQuit()));
     popupMenu->addAction(quitAction);
 
@@ -222,8 +222,8 @@ void DropTarget::dropEvent(QDropEvent * event)
         if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt")))
         {
             int msgBoxResult = KMessageBox::questionYesNoCancel(this, i18n("The dropped file is a KGet Transfer List"), "KGet",
-                                   KGuiItem(i18n("&Download"), KIcon("document-save")), 
-                                       KGuiItem(i18n("&Load transfer list"), KIcon("list-add")), KStandardGuiItem::cancel());
+                                   KGuiItem(i18n("&Download"), QIcon::fromTheme("document-save")), 
+                                       KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
                 NewTransferDialogHandler::showNewTransferDialog(list.first().url());
@@ -290,7 +290,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
+            KGet::addTransfer(QUrl(newtransfer), QString(), QString(), QString(), true);
     }
 }
 

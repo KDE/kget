@@ -34,8 +34,8 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
 
     // the kcategoryizedview list
     TransferHistoryItemDelegate *item_delegate = new TransferHistoryItemDelegate(this);
-    m_drawer = new KCategoryDrawer();
     m_view = new KCategorizedView(this);
+    m_drawer = new KCategoryDrawer(m_view);
     m_view->setCategoryDrawer(m_drawer);
     m_view->setSelectionMode(QAbstractItemView::SingleSelection);
     m_view->setSpacing(KDialog::spacingHint());

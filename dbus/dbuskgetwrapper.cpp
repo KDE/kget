@@ -39,7 +39,7 @@ DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
     m_mainWindow(parent)
 {
     foreach (TransferHandler *handler, KGet::allTransfers()) {
-        m_transfers[handler] = qMakePair(handler->source().pathOrUrl(), handler->dBusObjectPath());
+        m_transfers[handler] = qMakePair(handler->source().toString(), handler->dBusObjectPath());
     }
 
     TransferTreeModel *model = KGet::model();
@@ -56,9 +56,11 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
 {
     QStringList dBusPaths;
 
-
+    QList<QUrl> urls;
+    foreach (const QString &s, src.split(";"))
+        urls.append(QUrl(s));
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    QList<TransferHandler*> addedTransfers = KGet::addTransfer(src.split(';'), dest, QString(), start);
+    QList<TransferHandler*> addedTransfers = KGet::addTransfer(urls, dest, QString(), start);
 
     foreach (TransferHandler *handler, addedTransfers) {
         dBusPaths.append(handler->dBusObjectPath());
@@ -82,7 +84,10 @@ bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
 
 void DBusKGetWrapper::showNewTransferDialog(const QStringList &urls)
 {
-    NewTransferDialogHandler::showNewTransferDialog(urls);
+    QList<QUrl> qurls;
+    foreach (const QString &s, urls)
+        qurls.append(QUrl(s));
+    NewTransferDialogHandler::showNewTransferDialog(qurls);
 }
 
 bool DBusKGetWrapper::dropTargetVisible() const
@@ -123,7 +128,7 @@ void DBusKGetWrapper::slotTransfersAdded(const QList<TransferHandler*> &transfer
     QStringList urls;
     QStringList objectPaths;
     foreach (TransferHandler *transfer, transfers) {
-        const QString url = transfer->source().pathOrUrl();
+        const QString url = transfer->source().toString();
         const QString objectPath = transfer->dBusObjectPath();
         urls << url;
         objectPaths << objectPath;

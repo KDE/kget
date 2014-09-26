@@ -35,7 +35,7 @@ DBusVerifierWrapper::~DBusVerifierWrapper()
 
 QString DBusVerifierWrapper::destination() const
 {
-    return m_verifier->destination().pathOrUrl();
+    return m_verifier->destination().toString();
 }
 
 void DBusVerifierWrapper::addChecksum(const QString &type, const QString &hash)

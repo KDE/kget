@@ -33,11 +33,11 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     ui.treeView->header()->hideSection(TransferTreeModel::Size);
     ui.treeView->header()->hideSection(TransferTreeModel::Speed);
 
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
-    ui.configure->setGuiItem(KStandardGuiItem::Configure);
-    ui.rename->setIcon(KIcon("edit-rename"));
-    ui.selectIcon->setIcon(KIcon("preferences-desktop-icons"));
+    //ui.add->setGuiItem(KStandardGuiItem::add());
+    //ui.remove->setGuiItem(KStandardGuiItem::remove());
+    //ui.configure->setGuiItem(KStandardGuiItem::Configure);//TODO: Port
+    ui.rename->setIcon(QIcon::fromTheme("edit-rename"));
+    ui.selectIcon->setIcon(QIcon::fromTheme("preferences-desktop-icons"));
 
     connect(ui.add, SIGNAL(clicked()), ui.treeView, SLOT(addGroup()));
     connect(ui.remove, SIGNAL(clicked()), ui.treeView, SLOT(deleteSelectedGroup()));
@@ -61,8 +61,8 @@ void TransfersGroupWidget::slotSelectionChanged()
     ui.selectIcon->setEnabled(somethingSelected);
 
     if (somethingSelected && !KGet::selectedTransferGroups().isEmpty()) {
-        ui.selectIcon->setIcon(KIcon(KGet::selectedTransferGroups().first()->iconName()));
+        ui.selectIcon->setIcon(QIcon::fromTheme(KGet::selectedTransferGroups().first()->iconName()));
     } else {
-        ui.selectIcon->setIcon(KIcon("preferences-desktop-icons"));
+        ui.selectIcon->setIcon(QIcon::fromTheme("preferences-desktop-icons"));
     }
 }

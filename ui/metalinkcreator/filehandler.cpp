@@ -142,7 +142,7 @@ QList<FileData> DirectoryHandler::takeFiles()
     return files;
 }
 
-void DirectoryHandler::slotFiles(const QList<KUrl> &files)
+void DirectoryHandler::slotFiles(const QList<QUrl> &files)
 {
     if (files.isEmpty()) {
         return;
@@ -188,8 +188,7 @@ void DirectoryHandler::slotDirEntries(KIO::Job *j, const KIO::UDSEntryList &entr
         if (!entry.isDir()) {
             const QString name = entry.stringValue(KIO::UDSEntry::UDS_NAME);
             FileData data;
-            data.url = baseUrl;
-            data.url.addPath(name);
+            data.url.setPath(baseUrl.toString() + "/" + name);//FIXME: Does this work?
             data.file.name = baseDir + name;
             data.file.size = entry.numberValue(KIO::UDSEntry::UDS_SIZE, -1);
 
