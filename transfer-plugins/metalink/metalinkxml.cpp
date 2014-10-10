@@ -128,7 +128,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
     {
         dest = tempDest;
-        dest.setPath(tmpDest.adjusted(QUrl::RemoveFilename).toString() + (*it).name);
+        dest.setPath(tempDest.adjusted(QUrl::RemoveFilename).toString() + (*it).name);
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
         //sort the urls according to their priority (highest first)

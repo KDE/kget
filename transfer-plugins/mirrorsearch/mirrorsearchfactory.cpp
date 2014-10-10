@@ -38,3 +38,5 @@ TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &sr
     }
     return 0;
 }
+
+#include "mirrorsearchfactory.moc"

@@ -58,3 +58,5 @@ bool MetalinkFactory::isSupported(const KUrl &url) const
 {
     return (url.fileName().endsWith(QLatin1String(".metalink")) || url.fileName().endsWith(QLatin1String(".meta4")));
 }
+
+#include "metalinkfactory.moc"

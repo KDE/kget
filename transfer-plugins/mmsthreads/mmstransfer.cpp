@@ -28,7 +28,7 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
     m_retryDownload(false)
 {
     m_fileTemp = KStandardDirs::locateLocal("appdata", m_dest.fileName());
-    kDebug(5001) << "Mms transfer initialized: " + m_source.prettyUrl();
+    kDebug(5001) << "Mms transfer initialized: " + m_source.toString();
 }
 
 MmsTransfer::~MmsTransfer()

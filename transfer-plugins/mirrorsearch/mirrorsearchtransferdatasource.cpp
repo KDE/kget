@@ -12,7 +12,7 @@
 #include "mirrors.h"
 #include <kdebug.h>
 
-MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const KUrl &srcUrl, QObject *parent)
+MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent)
 {
     m_filename = m_sourceUrl.fileName();
@@ -23,7 +23,7 @@ void MirrorSearchTransferDataSource::start()
 {
     kDebug(5001);
     if(!m_filename.isEmpty())
-        MirrorSearch (m_filename, this, SLOT(slotSearchUrls(QList<KUrl>&)));
+        MirrorSearch (m_filename, this, SLOT(slotSearchUrls(QList<QUrl>&)));
 }
 
 void MirrorSearchTransferDataSource::stop()
@@ -38,7 +38,7 @@ void MirrorSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t, 
     kDebug(5001);
 }
 
-void MirrorSearchTransferDataSource::slotSearchUrls(QList<KUrl>& Urls)
+void MirrorSearchTransferDataSource::slotSearchUrls(QList<QUrl>& Urls)
 {
     emit data(Urls);
 }

@@ -65,3 +65,5 @@ bool MmsTransferFactory::isSupported(const KUrl &url) const
     kDebug(5001) << "Protocol = " << prot;
     return (prot == "mms" || prot == "mmsh");
 }
+
+#include "mmstransferfactory.moc"

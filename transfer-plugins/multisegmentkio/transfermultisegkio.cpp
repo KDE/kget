@@ -123,7 +123,7 @@ bool TransferMultiSegKio::repair(const QUrl &file)
 bool TransferMultiSegKio::setDirectory(const QUrl& newDirectory)
 {
     QUrl newDest = newDirectory;
-    newDest.addPath(m_dest.fileName());
+    newDest.setPath(newDest.toString() + "/" + m_dest.fileName());
     return setNewDestination(newDest);
 }
 
@@ -175,8 +175,8 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
             if (filename != url.fileName())
                 return;
         }
-        QUrl path = m_dest.directory();
-        path.addPath(filename);
+        QUrl path = m_dest.adjusted(QUrl::RemoveFilename);
+        path.setPath(path.toString() + "/" + filename);
         setNewDestination(path);
     }
     if (change & Tc_Source) {
@@ -191,7 +191,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
         }
     }
     if (change & Tc_Status) {
-        if ((m_dataSourceFactory->status() == Job::Finished) && m_source.protocol() == "ftp") {
+        if ((m_dataSourceFactory->status() == Job::Finished) && m_source.scheme() == "ftp") {
             KIO::StatJob * statJob = KIO::stat(m_source);
             connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
             statJob->start();
@@ -338,7 +338,7 @@ FileModel *TransferMultiSegKio::fileModel()
 {
     if (!m_fileModel)
     {
-        m_fileModel = new FileModel(QList<QUrl>() << m_dest, m_dest.upUrl(), this);
+        m_fileModel = new FileModel(QList<QUrl>() << m_dest, m_dest.adjusted(QUrl::RemoveFilename), this);
         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
 
         QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);

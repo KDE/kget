@@ -153,7 +153,7 @@ void MetalinkHttp::slotSignatureVerified()
                 m_fileModel->setData(signatureVerified, factory->signature()->status());
             }
             if (factory->doDownload() && (factory->verifier()->status() == Verifier::NotVerified)) {
-                brokenFiles.append(factory->dest().pathOrUrl());
+                brokenFiles.append(factory->dest().toString());
             }
         }
 
@@ -175,7 +175,7 @@ void MetalinkHttp::slotSignatureVerified()
 bool MetalinkHttp::metalinkHttpInit()
 {
     kDebug() << "m_dest = " << m_dest;
-    const KUrl tempDest = KUrl(m_dest.directory());
+    const KUrl tempDest = KUrl(m_dest.adjusted(QUrl::RemoveFilename));
     KUrl dest = tempDest;
     dest.addPath(m_dest.fileName());
     kDebug() << "dest = " << dest;
