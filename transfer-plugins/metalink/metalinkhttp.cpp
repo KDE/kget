@@ -39,8 +39,8 @@
 #include <KDialog>
 #include <KStandardDirs>
 
-#include <QtCore/QFile>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QDomElement>
 
 /**
 * @return Hex value from a base64 value

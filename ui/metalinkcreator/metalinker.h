@@ -26,9 +26,9 @@
 #include <KUrl>
 #include <QDate>
 #include <QDomElement>
-#include <QtCore/QEventLoop>
-#include <QtCore/QString>
-#include <QtCore/QObject>
+#include <QEventLoop>
+#include <QString>
+#include <QObject>
 
 #ifdef HAVE_NEPOMUK
 namespace Nepomuk2

@@ -21,7 +21,7 @@
 #ifndef KGET_FILE_DELETER_TEST
 #define KGET_FILE_DELETER_TEST
 
-#include <QtCore/QObject>
+#include <QObject>
 
 class SignalReceiver : public QObject
 {

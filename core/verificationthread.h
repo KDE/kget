@@ -23,8 +23,8 @@
 #include <kio/global.h>
 #include <KUrl>
 
-#include <QtCore/QMutex>
-#include <QtCore/QThread>
+#include <QMutex>
+#include <QThread>
 
 class VerificationThread : public QThread
 {

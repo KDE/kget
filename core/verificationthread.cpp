@@ -22,7 +22,7 @@
 
 #include <KDebug>
 
-#include <QtCore/QFile>
+#include <QFile>
 
 VerificationThread::VerificationThread(QObject *parent)
   : QThread(parent),

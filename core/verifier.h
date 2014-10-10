@@ -23,9 +23,9 @@
 #include <kio/global.h>
 #include <QUrl>
 
-#include <QtCore/QModelIndex>
-#include <QtCore/QHash>
-#include <QtCore/QStringList>
+#include <QModelIndex>
+#include <QHash>
+#include <QStringList>
 
 #include "../kget_export.h"
 

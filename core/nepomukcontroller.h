@@ -24,8 +24,8 @@
 
 #include <Nepomuk2/Vocabulary/NFO>
 
-#include <QtCore/QMutex>
-#include <QtCore/QThread>
+#include <QMutex>
+#include <QThread>
 
 #include <QUrl>
 

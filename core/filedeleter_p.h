@@ -25,8 +25,8 @@
 #include <KIO/DeleteJob>
 #include <QUrl>
 
-#include <QtCore/QHash>
-#include <QtCore/QObject>
+#include <QHash>
+#include <QObject>
 
 class FileDeleter::Private : QObject
 {

@@ -22,7 +22,7 @@
 #include "../mirror/mirrormodel.h"
 #include "../mirror/mirrorsettings.h"
 
-#include <QtGui/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
 
 UrlWidget::UrlWidget(QObject *parent)
   : QObject(parent),

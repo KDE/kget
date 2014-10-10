@@ -21,7 +21,7 @@
 #include "mirrormodel.h"
 #include "core/transferhandler.h"
 
-#include <QtGui/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
 
 #include <KLocale>
 

@@ -20,7 +20,7 @@
 #ifndef LOCALEMODELS_H
 #define LOCALEMODELS_H
 
-#include <QtCore/QAbstractListModel>
+#include <QAbstractListModel>
 
 #include <KIcon>
 

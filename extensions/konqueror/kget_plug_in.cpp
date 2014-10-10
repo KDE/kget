@@ -16,26 +16,26 @@
 
 #include "kget_interface.h"
 
-#include <KDE/KActionCollection>
-#include <KDE/KToggleAction>
-#include <KDE/KActionMenu>
-#include <KDE/KIconLoader>
-#include <KDE/KComponentData>
-#include <KDE/KLocale>
-#include <KDE/KMessageBox>
-#include <KDE/KMenu>
-#include <KDE/KRun>
-#include <KDE/KIcon>
-#include <KDE/KToolInvocation>
-#include <KDE/KGenericFactory>
-#include <KDE/KProtocolInfo>
-#include <KDE/KFileItem>
+#include <KActionCollection>
+#include <KToggleAction>
+#include <KActionMenu>
+#include <KIconLoader>
+#include <KComponentData>
+#include <KLocale>
+#include <KMessageBox>
+#include <KMenu>
+#include <KRun>
+#include <KIcon>
+#include <KToolInvocation>
+#include <KGenericFactory>
+#include <KProtocolInfo>
+#include <KFileItem>
 #include <KDE/KParts/Part>
 #include <KDE/KParts/PartManager>
 #include <KDE/KParts/HtmlExtension>
 #include <KDE/KParts/FileInfoExtension>
 
-#include <QtDBus/QDBusConnection>
+#include <QDBusConnection>
 
 
 #define QL1S(x)   QLatin1String(x)

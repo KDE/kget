@@ -31,10 +31,10 @@
 #include <algorithm>
 #include <boost/bind.hpp>
 
-#include <QtCore/QFileInfo>
-#include <QtGui/QCheckBox>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QLabel>
+#include <QFileInfo>
+#include <QCheckBox>
+#include <QHBoxLayout>
+#include <QLabel>
 
 #include <KDialogButtonBox>
 #include <KIO/RenameDialog>

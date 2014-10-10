@@ -21,7 +21,7 @@
 #include "metalinktest.h"
 #include "../ui/metalinkcreator/metalinker.h"
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 void MetalinkTest::testFilePath()
 {

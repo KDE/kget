@@ -29,7 +29,7 @@
 #include <gpgme++/key.h>
 #endif
 
-#include <QtGui/QLayoutItem>
+#include <QLayoutItem>
 
 #include <KFileDialog>
 #include <KLocale>

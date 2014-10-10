@@ -21,7 +21,7 @@
 
 #include <plasma/dataengine.h>
 
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 
 class OrgKdeKgetMainInterface;
 

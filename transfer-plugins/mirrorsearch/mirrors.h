@@ -11,7 +11,7 @@
 #ifndef MIRROR_H
 #define MIRROR_H
 
-#include <QtCore/QObject>
+#include <QObject>
 #include <kio/job.h>
 
 class mirror : public QObject

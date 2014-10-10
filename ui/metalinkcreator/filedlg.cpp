@@ -26,7 +26,7 @@
 #include "../../core/verificationmodel.h"
 #include "../../core/verificationdelegate.h"
 
-#include <QtGui/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
 
 #include <KLocale>
 

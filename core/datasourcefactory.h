@@ -18,7 +18,7 @@
 
 #include <kio/job.h>
 
-#include <QtXml/QDomElement>
+#include <QDomElement>
 
 class BitSet;
 class KioDownload;

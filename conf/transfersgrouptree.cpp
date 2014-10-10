@@ -18,7 +18,7 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
-#include <QtGui/QHeaderView>
+#include <QHeaderView>
 
 #include <KLineEdit>
 

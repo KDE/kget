@@ -23,9 +23,9 @@
 #include "verifieradaptor.h"
 #include "settings.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QScopedPointer>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QScopedPointer>
+#include <QDomElement>
 
 #include <KCodecs>
 #include <KDebug>

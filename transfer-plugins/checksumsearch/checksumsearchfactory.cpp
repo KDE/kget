@@ -14,7 +14,7 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 
-#include <QtXml/QDomElement>
+#include <QDomElement>
 
 #include <kdebug.h>
 

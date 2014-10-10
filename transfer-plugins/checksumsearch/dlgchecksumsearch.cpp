@@ -26,9 +26,9 @@
 #include "checksumsearch.h"
 #include "checksumsearchsettings.h"
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStandardItemModel>
-#include <QtGui/QStringListModel>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
+#include <QStringListModel>
 
 #include <KDebug>
 

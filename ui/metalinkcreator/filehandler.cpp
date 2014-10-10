@@ -20,7 +20,7 @@
 #include "filehandler.h"
 #include "core/verifier.h"
 
-#include <QtCore/QDir>
+#include <QDir>
 
 FileHandlerThread::FileHandlerThread(QObject *parent)
   : QThread(parent),

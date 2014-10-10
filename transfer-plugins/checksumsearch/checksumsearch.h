@@ -20,7 +20,7 @@
 #ifndef CHECKSUMSEARCH_H
 #define CHECKSUMSEARCH_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include <KIO/Job>
 #include <KUrl>

@@ -23,11 +23,11 @@
 #include "localemodels.h"
 #include "generalwidget.h"
 
-#include <QtCore/QTimer>
-#include <QtGui/QDragEnterEvent>
-#include <QtGui/QLabel>
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStandardItemModel>
+#include <QTimer>
+#include <QDragEnterEvent>
+#include <QLabel>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
 #include <QMimeData>
 
 #include <KFileDialog>

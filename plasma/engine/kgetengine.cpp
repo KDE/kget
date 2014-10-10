@@ -19,7 +19,7 @@
 #include "kgetengine.h"
 #include "kget_interface.h"
 
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 #include <KDebug>
 
 #include "plasma/datacontainer.h"

@@ -20,8 +20,8 @@
 #ifndef MIRRORMODEL_H
 #define MIRRORMODEL_H
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStyledItemDelegate>
+#include <QSortFilterProxyModel>
+#include <QStyledItemDelegate>
 
 #include <QIcon>
 #include <QUrl>

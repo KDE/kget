@@ -25,7 +25,7 @@
 
 #include "checksumsearchtransferdatasource.h"
 
-#include <QtGui/QStyledItemDelegate>
+#include <QStyledItemDelegate>
 
 #include <KCModule>
 #include <KDialog>

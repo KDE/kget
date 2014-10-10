@@ -20,8 +20,8 @@
 #ifndef AUTOPASTEMODEL
 #define AUTOPASTEMODEL
 
-#include <QtCore/QAbstractTableModel>
-#include <QtGui/QStyledItemDelegate>
+#include <QAbstractTableModel>
+#include <QStyledItemDelegate>
 
 class AutoPasteDelegate : public QStyledItemDelegate
 {

@@ -3,7 +3,7 @@
 #include "../settings.h"
 #include "../core/verifier.h"
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 #include <KDebug>
 #include <KStandardDirs>

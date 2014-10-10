@@ -20,7 +20,7 @@
 #include "verificationmodel.h"
 #include "verifier.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 #include <KDebug>
 #include <QIcon>

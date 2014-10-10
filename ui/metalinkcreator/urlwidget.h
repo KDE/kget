@@ -20,7 +20,7 @@
 #ifndef URLWIDGET_H
 #define URLWIDGET_H
 
-#include <QtCore/QPointer>
+#include <QPointer>
 
 #include "ui_urlwidget.h"
 

@@ -17,7 +17,7 @@
 #include <KDebug>
 #include <KLocale>
 
-#include <QtCore/QTimer>
+#include <QTimer>
 
 Segment::Segment(const QUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent)
   : QObject(parent),

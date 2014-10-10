@@ -25,7 +25,7 @@
 #include <KMessageBox>
 #include <KDebug>
 
-#include <QtCore/QFile>
+#include <QFile>
 #include <QDomElement>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,

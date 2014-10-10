@@ -25,14 +25,14 @@
 #include <KLocale>
 #include <KMessageBox>
 
-#include <QtXml/QDomElement>
+#include <QDomElement>
 
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
 #include <gpgme++/data.h>
 #include <qgpgme/dataprovider.h>
 
-#include <QtCore/QFile>
+#include <QFile>
 #endif
 
 #ifdef HAVE_QGPGME

@@ -27,7 +27,7 @@
 #include <plasma/widgets/iconwidget.h>
 #include <plasma/widgets/pushbutton.h>
 
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 #include <QGraphicsLinearLayout>
 #include <QPainter>
 #include <QRect>

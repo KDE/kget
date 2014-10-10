@@ -20,8 +20,8 @@
 #ifndef KEY_DOWNLOADER_H
 #define KEY_DOWNLOADER_H
 
-#include <QtCore/QMultiHash>
-#include <QtCore/QObject>
+#include <QMultiHash>
+#include <QObject>
 
 class KJob;
 class Signature;

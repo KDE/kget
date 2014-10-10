@@ -19,8 +19,8 @@
 
 #include "verificationdialog.h"
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStandardItemModel>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
 
 #include <KLocale>
 #include <KMessageBox>

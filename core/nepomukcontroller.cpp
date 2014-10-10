@@ -19,7 +19,7 @@
 
 #include "nepomukcontroller.h"
 
-#include <QtCore/QFile>
+#include <QFile>
 #include <Nepomuk2/DataManagement>
 #include <Nepomuk2/Tag>
 #include <Nepomuk2/Variant>

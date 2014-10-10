@@ -20,9 +20,9 @@
 
 #include "metalinker.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QTextStream>
+#include <QDomElement>
 
 #include <kdeversion.h>
 #include <KDebug>

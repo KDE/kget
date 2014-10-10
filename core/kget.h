@@ -26,7 +26,7 @@
 #include <klocalizedstring.h>
 
 #include <Solid/Networking>
-#include <QtXml/QDomElement>
+#include <QDomElement>
 
 #include "kuiserverjobs.h"
 #include "scheduler.h"

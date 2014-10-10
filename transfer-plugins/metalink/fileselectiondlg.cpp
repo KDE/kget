@@ -21,7 +21,7 @@
 
 #include "../../core/filemodel.h"
 
-#include <QtGui/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
 
 #include <KInputDialog>
 

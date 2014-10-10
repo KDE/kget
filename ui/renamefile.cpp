@@ -20,7 +20,7 @@
 #include "renamefile.h"
 #include "core/filemodel.h"
 
-#include <QtCore/QFile>
+#include <QFile>
 
 #include <KLocale>
 

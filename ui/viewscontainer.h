@@ -14,7 +14,7 @@
 #ifndef VIEWSCONTAINER_H
 #define VIEWSCONTAINER_H
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 class TransfersView;
 class TransferHandler;

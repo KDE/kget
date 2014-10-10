@@ -27,7 +27,7 @@
 #include <QClipboard>
 #include <QDir>
 #include <QFileInfo>
-#include <QtCore/QTimer>
+#include <QTimer>
 
 #include <KLocale>
 #include <QListWidgetItem>

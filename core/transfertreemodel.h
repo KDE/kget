@@ -15,8 +15,8 @@
 
 #include <QStandardItemModel>
 #include <QList>
-#include <QtCore/QMimeData>
-#include <QtCore/QWeakPointer>
+#include <QMimeData>
+#include <QWeakPointer>
 #include <QUrl>
 
 #include "../kget_export.h"

@@ -20,7 +20,7 @@
 #ifndef INTEGRATIONPREFERENCES 
 #define INTEGRATIONPREFERENCES 
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 #include "ui_dlgintegration.h"
 

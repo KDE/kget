@@ -34,7 +34,7 @@
 #include <QProgressBar>
 #include <QGraphicsProxyWidget>
 #include <QPainter>
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 #include <KUrl>
 #include <KLocale>
 #include <KIcon>

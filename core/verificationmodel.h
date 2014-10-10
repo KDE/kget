@@ -22,7 +22,7 @@
 
 #include "../kget_export.h"
 
-#include <QtCore/QAbstractTableModel>
+#include <QAbstractTableModel>
 
 class VerificationModelPrivate;
 

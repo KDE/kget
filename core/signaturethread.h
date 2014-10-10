@@ -22,8 +22,8 @@
 
 #include <KUrl>
 
-#include <QtCore/QMutex>
-#include <QtCore/QThread>
+#include <QMutex>
+#include <QThread>
 
 #ifdef HAVE_QGPGME
 #include <gpgme++/verificationresult.h>

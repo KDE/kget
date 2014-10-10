@@ -19,10 +19,10 @@
 
 #include <cmath>
 
-#include <QtCore/QDir>
-#include <QtCore/QTimer>
-#include <QtCore/QVarLengthArray>
-#include <QtXml/QDomText>
+#include <QDir>
+#include <QTimer>
+#include <QVarLengthArray>
+#include <QDomText>
 
 #include <KIO/FileJob>
 #include <KLocale>

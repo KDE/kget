@@ -22,7 +22,7 @@
 
 #include "../kget_export.h"
 
-#include <QtGui/QStyledItemDelegate>
+#include <QStyledItemDelegate>
 
 class KGET_EXPORT VerificationDelegate : public QStyledItemDelegate
 {

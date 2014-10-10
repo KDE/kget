@@ -23,8 +23,8 @@
 
 #include "core/verifier.h"
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QSortFilterProxyModel>
+#include <QCheckBox>
+#include <QSortFilterProxyModel>
 
 #include <KLocale>
 
