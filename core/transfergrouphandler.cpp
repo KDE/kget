@@ -19,7 +19,7 @@
 
 #include <kdebug.h>
 #include <kmenu.h>
-#include <kaction.h>
+#include <QAction>
 #include <kactioncollection.h>
 #include <klocale.h>
 #include <kicon.h>

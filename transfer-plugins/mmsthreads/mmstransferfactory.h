@@ -42,7 +42,7 @@ class MmsTransferFactory : public TransferFactory
                                                 Scheduler * scheduler) {return new TransferHandler(transfer, scheduler);}
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<KAction *> actions(TransferHandler *handler = 0);
+        const QList<QAction *> actions(TransferHandler *handler = 0);
 
         bool isSupported(const KUrl &url) const;
 

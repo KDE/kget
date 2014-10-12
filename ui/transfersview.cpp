@@ -17,7 +17,7 @@
 #include "core/kget.h"
 
 #include <KDebug>
-#include <KAction>
+#include <QAction>
 #include <KLocale>
 #include <KMenu>
 #include <KRun>
@@ -130,9 +130,9 @@ void TransfersView::populateHeaderActions()
     connect(columnMapper, SIGNAL(mapped(int)), SLOT(slotHideSection(int)));
 
     //Create for each column an action with the column-header as name
-    QVector<KAction*> orderedMenuItems(header()->count());
+    QVector<QAction *> orderedMenuItems(header()->count());
     for (int i = 0; i < header()->count(); ++i) {
-        KAction *action = new KAction(this);
+        QAction *action = new QAction(this);
         action->setText(model()->headerData(i, Qt::Horizontal).toString());
         action->setCheckable(true);
         action->setChecked(!header()->isSectionHidden(i));

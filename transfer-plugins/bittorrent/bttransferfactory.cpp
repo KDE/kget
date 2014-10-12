@@ -74,20 +74,20 @@ QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
     return new BTDetailsWidget(bttransfer);
 }
 
-const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
+const QList<QAction *> BTTransferFactory::actions(TransferHandler *handler)
 {
      BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(handler);
 
-     QList<KAction*> actions;
+     QList<QAction *> actions;
      if (bttransfer && bttransfer->torrentControl())
      {
-         KAction *openAdvancedDetailsAction = new KAction(KIcon("document-open"), i18n("&Advanced Details"), this);
+         QAction *openAdvancedDetailsAction = new QAction(KIcon("document-open"), i18n("&Advanced Details"), this);
  
          connect(openAdvancedDetailsAction, SIGNAL(triggered()), bttransfer, SLOT(createAdvancedDetails()));
  
          actions.append(openAdvancedDetailsAction);
 
-         KAction *openScanDlg = new KAction(KIcon("document-open"), i18n("&Scan Files"), this);
+         QAction *openScanDlg = new QAction(KIcon("document-open"), i18n("&Scan Files"), this);
  
          connect(openScanDlg, SIGNAL(triggered()), bttransfer, SLOT(createScanDlg()));
  
@@ -97,7 +97,7 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
      if (bttransfer)
          return actions;
      else
-         return QList<KAction *>();
+         return QList<QAction *>();
 }
 
 TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)

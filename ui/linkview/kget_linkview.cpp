@@ -22,7 +22,7 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
 #include <KIcon>
 #include <KIconLoader>
@@ -88,10 +88,10 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     //Filter for name/url actions
     QActionGroup *columnGroup = new QActionGroup(this);
-    m_nameAction = new KAction(i18nc("name of a file", "Name"), this);
+    m_nameAction = new QAction(i18nc("name of a file", "Name"), this);
     m_nameAction->setCheckable(true);
     m_nameAction->setChecked(true);
-    m_urlAction = new KAction(i18n("URL"), this);
+    m_urlAction = new QAction(i18n("URL"), this);
     m_urlAction->setCheckable(true);
     columnGroup->addAction(m_nameAction);
     columnGroup->addAction(m_urlAction);

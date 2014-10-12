@@ -55,10 +55,10 @@ KDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QSt
     return 0;
 }
 
-const QList<KAction *> TransferFactory::actions(TransferHandler *handler)
+const QList<QAction *> TransferFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction *>();
+    return QList<QAction *>();
 }
 
 TransferDataSource * TransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)

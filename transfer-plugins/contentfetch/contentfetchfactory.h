@@ -36,7 +36,7 @@ class ContentFetchFactory : public TransferFactory
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<KAction *> actions(TransferHandler *handler = 0);
+        const QList<QAction *> actions(TransferHandler *handler = 0);
 };
 
 #endif // CONTENT_FETCH_FACTORY_H

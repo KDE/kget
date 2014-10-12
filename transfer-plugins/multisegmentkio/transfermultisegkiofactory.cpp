@@ -57,10 +57,10 @@ QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * tra
     return 0;   //Temporary!!
 }
 
-const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
+const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction *>();
+    return QList<QAction *>();
 }
 
  TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)

@@ -30,7 +30,7 @@
  * @see transfers/kio/kget_kiotransfer.desktop - desktop entry example
  */
 
-#include <kaction.h>
+#include <QAction>
 #include <QStringList>
 
 #include "core/plugin/plugin.h"
@@ -67,7 +67,7 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual KDialog * createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
 
-        virtual const QList<KAction *> actions(TransferHandler *handler = 0);
+        virtual const QList<QAction *> actions(TransferHandler *handler = 0);
 
         virtual void settingsChanged() {}
         

@@ -33,7 +33,7 @@ class TransferMultiSegKioFactory : public TransferFactory
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<KAction *> actions(TransferHandler *handler = 0);
+        const QList<QAction *> actions(TransferHandler *handler = 0);
         TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
         bool isSupported(const KUrl &url) const;
         QStringList addsProtocols() const;

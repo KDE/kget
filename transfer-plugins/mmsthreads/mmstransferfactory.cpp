@@ -53,10 +53,10 @@ QWidget * MmsTransferFactory::createDetailsWidget( TransferHandler * transfer )
     return 0;   //Temporary!!
 }
 
-const QList<KAction *> MmsTransferFactory::actions(TransferHandler *handler)
+const QList<QAction *> MmsTransferFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction *>();
+    return QList<QAction *>();
 }
 
 bool MmsTransferFactory::isSupported(const KUrl &url) const
