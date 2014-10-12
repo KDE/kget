@@ -51,7 +51,7 @@ void BTSettingsWidget::save()
     BittorrentSettings::setPreAlloc(preallocBox->isChecked());
     BittorrentSettings::setEnableUTP(utpBox->isChecked());
 
-    BittorrentSettings::self()->writeConfig();
+    BittorrentSettings::self()->save();
 }
 
 void BTSettingsWidget::defaults()

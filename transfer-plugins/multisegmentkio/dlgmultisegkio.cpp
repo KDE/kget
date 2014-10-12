@@ -44,7 +44,7 @@ void DlgSettingsWidget::save()
     MultiSegKioSettings::setUseSearchEngines(ui.enginesCheckBox->isChecked());
     MultiSegKioSettings::setUseSearchVerification(ui.verificationCheckBox->isChecked());
 
-    MultiSegKioSettings::self()->writeConfig();
+    MultiSegKioSettings::self()->save();
 }
 
 #include "dlgmultisegkio.moc"

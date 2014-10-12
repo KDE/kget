@@ -48,6 +48,7 @@
 #include <plasma/dataengine.h>
 #include <Plasma/Label>
 #include <Plasma/ScrollWidget>
+#include <KFormat>
 
 const float KGetPieChart::PieChart::PIE_OPACITY = 0.67f;
 const float KGetPieChart::PieChart::ACTIVE_PIE_OPACITY = 0.84f;
@@ -173,7 +174,7 @@ KGetPieChart::Item::~Item()
 
 void KGetPieChart::Item::setSize(KIO::filesize_t size)
 {
-    m_sizeLabel->setText(KGlobal::locale()->formatByteSize(size));
+    m_sizeLabel->setText(KFormat().formatByteSize(size));
 }
 
 void KGetPieChart::Item::setName(const QString &name)

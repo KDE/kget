@@ -43,7 +43,7 @@ void DlgSettingsWidget::save()
     MetalinkSettings::setMirrorsPerFile(ui.kcfg_MirrorsPerFile->value());
     MetalinkSettings::setConnectionsPerUrl(ui.kcfg_ConnectionsPerUrl->value());
 
-    MetalinkSettings::self()->writeConfig();
+    MetalinkSettings::self()->save();
 }
 
 #include "dlgmetalink.moc"

@@ -335,7 +335,7 @@ void AutoPasteModel::save()
     Settings::self()->setAutoPasteTypes(types);
     Settings::self()->setAutoPastePatternSyntaxes(syntaxes);
     Settings::self()->setAutoPastePatterns(patterns);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void AutoPasteModel::resetDefaults()

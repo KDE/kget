@@ -168,7 +168,8 @@ KGetPanelBar::~KGetPanelBar()
 
 void KGetPanelBar::init()
 {
-    KGlobal::locale()->insertCatalog("plasma_applet_kget");
+    //KF5 port: remove this line and define TRANSLATION_DOMAIN in CMakeLists.txt instead
+//KLocale::global()->insertCatalog("plasma_applet_kget");
 
     m_icon = new Plasma::IconWidget(KIcon("go-down"), QString(), this);
 

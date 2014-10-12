@@ -139,10 +139,10 @@ void HttpServer::handleRequest()
                 if (map.at(0) == "action")
                     action = map.at(1);
                 else if (map.at(0) == "data")
-                    data = KUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
+                    data = QUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
                 // action specific parameters
                 else if (map.at(0) == "group")
-                    group = KUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
+                    group = QUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
             }
             kDebug(5001) << action << data << group;
             if (action == "add") {

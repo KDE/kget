@@ -35,7 +35,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
     setMainWidget(mainWidget);
 
     setWindowTitle(i18n("Edit Script"));
-    ui.scriptPathRequester->setUrl(KUrl::fromPath(script[0]));
+    ui.scriptPathRequester->setUrl(QUrl::fromLocalFile(script[0]));
     ui.scriptUrlRegexpEdit->setText(script[1]);
     ui.scriptDescriptionEdit->setText(script[2]);
 

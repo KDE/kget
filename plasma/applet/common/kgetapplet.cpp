@@ -138,7 +138,8 @@ KGetApplet::~KGetApplet()
 
 void KGetApplet::init()
 {
-    KGlobal::locale()->insertCatalog("plasma_applet_kget");
+    //KF5 port: remove this line and define TRANSLATION_DOMAIN in CMakeLists.txt instead
+//KLocale::global()->insertCatalog("plasma_applet_kget");
 
     setPopupIcon("kget");
     m_engine = dataEngine("kget");

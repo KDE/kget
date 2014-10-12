@@ -164,7 +164,7 @@
       <default>true</default>
     </entry>
     <entry name="LastDirectory" type="Path">
-      <default code="true">KGlobalSettings::downloadPath()</default>
+      <default code="true">QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)</default>
     </entry>
     <entry name="LastGroup" type="String">
     </entry>

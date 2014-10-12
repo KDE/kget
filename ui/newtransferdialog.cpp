@@ -35,6 +35,7 @@
 #include <KDebug>
 #include <KFileDialog>
 #include <KWindowSystem>
+#include <QStandardPaths>
 
 Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
@@ -406,7 +407,7 @@ void NewTransferDialog::dialogAccepted()
         dir = m_destination.adjusted(QUrl::RemoveFilename).toString();
     }
     Settings::setLastDirectory(dir);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 
     const QString group = ui.groupComboBox->currentText();
 
@@ -624,7 +625,7 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         const QString groupName = (groups.isEmpty() ? QString() : groups.first()->name());
         QString defaultFolder;
         if (groups.isEmpty()) {
-            defaultFolder = (Settings::askForDestination() ? QString() : KGlobalSettings::downloadPath());
+            defaultFolder = (Settings::askForDestination() ? QString() : QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
         } else {
             defaultFolder = groups.first()->defaultFolder();
         }
@@ -727,10 +728,10 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         }
     }
 
-    ///Download the rest of the urls to KGlobalSettings::downloadPath() if the user is not aksed for a destination
+    ///Download the rest of the urls to QStandardPaths::writableLocation(QStandardPaths::DownloadLocation) if the user is not aksed for a destination
     if (!Settings::askForDestination()) {
         //the download path will be always used
-        const QString dir = KGlobalSettings::downloadPath();
+        const QString dir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
         if (!dir.isEmpty()) {
             QList<QUrl>::iterator it = urls.begin();
             while (it != urls.end()) {

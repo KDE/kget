@@ -321,7 +321,7 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
     else if ((column == MirrorItem::Country) && (role == Qt::EditRole))
     {
         m_countryCode = value.toString();
-        m_countryName = KGlobal::locale()->countryCodeToName(m_countryCode);
+        m_countryName = KLocale::global()->countryCodeToName(m_countryCode);
 
         if (!m_countryName.isEmpty())
         {

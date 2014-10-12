@@ -51,7 +51,7 @@ void VerificationPreferences::slotAccpeted()
     ui.keyservers->lineEdit()->clear();
     m_tempKeyServers = ui.keyservers->items();
     Settings::self()->setSignatureKeyServers(m_tempKeyServers);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void VerificationPreferences::slotRejected()

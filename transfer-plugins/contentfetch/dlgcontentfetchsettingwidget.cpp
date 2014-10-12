@@ -201,7 +201,7 @@ void DlgContentFetchSettingWidget::saveContentFetchSetting()
     ContentFetchSetting::self()->setDescriptionList(descriptions);
     ContentFetchSetting::self()->setEnableList(enables);
 
-    ContentFetchSetting::self()->writeConfig();
+    ContentFetchSetting::self()->save();
 }
 
 void DlgContentFetchSettingWidget::save()

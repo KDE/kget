@@ -108,7 +108,7 @@ RangeTreeWidget::~RangeTreeWidget()
         list.append(columnWidth(i));
     }
     Settings::setHistoryColumnWidths(list);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
     clear();
 
     delete m_rangeDelegate;

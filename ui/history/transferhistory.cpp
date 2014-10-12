@@ -39,6 +39,7 @@
 #include <KPushButton>
 #include <KIcon>
 #include <KLocale>
+#include <QFontDatabase>
 
 TransferHistory::TransferHistory(QWidget *parent)
     : KGetSaveSizeDialog("TransferHistory", parent),
@@ -245,7 +246,7 @@ void TransferHistory::slotLoadRangeType(int type)
         }
     } else {
         RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
-        QFontMetrics *font = new QFontMetrics(KGlobalSettings::generalFont());
+        QFontMetrics *font = new QFontMetrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
         range_view->clear();
 
         range_view->setLabels(QStringList() << i18n("Source File") << i18n("Destination") << i18n("Time") << i18n("File Size") << i18n("Status"));

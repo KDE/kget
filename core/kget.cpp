@@ -63,6 +63,7 @@
     #include <QDBusPendingCall>
     #include <kworkspace/kworkspace.h>
     #include <solid/powermanagement.h>
+#include <QStandardPaths>
 #endif
 
 
@@ -946,7 +947,7 @@ QString KGet::generalDestDir(bool preferXDGDownloadDir)
     QString dir = Settings::lastDirectory();
 
     if (preferXDGDownloadDir) {
-        dir = KGlobalSettings::downloadPath();
+        dir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
     }
 
     return dir;
@@ -1175,7 +1176,7 @@ void KGet::loadPlugins()
     //members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 
-    /*const KConfigGroup plugins = KConfigGroup(KGlobal::config(), "Plugins");
+    /*const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
 
     foreach (KService::Ptr service, services)
     {

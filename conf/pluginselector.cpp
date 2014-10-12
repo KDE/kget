@@ -24,7 +24,7 @@ PluginSelector::PluginSelector(QDialog * parent)
     KService::List offers = KServiceTypeTrader::self()->query("KGet/Plugin");
 
     //TODO: POrt this
-    //addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KGlobal::config());
+    //addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig());
 
     load();
 

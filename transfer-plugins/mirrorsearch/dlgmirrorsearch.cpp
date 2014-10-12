@@ -128,7 +128,7 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
     MirrorSearchSettings::self()->setSearchEnginesNameList(enginesNames);
     MirrorSearchSettings::self()->setSearchEnginesUrlList(enginesUrls);
 
-    MirrorSearchSettings::self()->writeConfig();
+    MirrorSearchSettings::self()->save();
 }
 
 void DlgSettingsWidget::save()
@@ -136,7 +136,7 @@ void DlgSettingsWidget::save()
     kDebug(5001);
     saveSearchEnginesSettings();
 
-    MirrorSearchSettings::self()->writeConfig();
+    MirrorSearchSettings::self()->save();
 }
 
 #include "dlgmirrorsearch.moc"

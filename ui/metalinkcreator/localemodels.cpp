@@ -65,7 +65,7 @@ void CountryModel::setupModelData(const QStringList &countryCodes)
 {
     foreach (const QString &countryCode, countryCodes)
     {
-        const QString countryName = KGlobal::locale()->countryCodeToName(countryCode);
+        const QString countryName = KLocale::global()->countryCodeToName(countryCode);
         if (!countryName.isEmpty())
         {
             m_countryCodes.append(countryCode);
@@ -129,7 +129,7 @@ void LanguageModel::setupModelData(const QStringList &languageCodes)
             continue;
         }
 
-        QString languageName = KGlobal::locale()->languageCodeToName(languageCode);
+        QString languageName = KLocale::global()->languageCodeToName(languageCode);
         if (!languageName.isEmpty())
         {
             m_languageCodes.append(languageCode);

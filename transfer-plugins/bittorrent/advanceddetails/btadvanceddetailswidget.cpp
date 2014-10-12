@@ -59,7 +59,7 @@ void BTAdvancedDetailsWidget::init()
     layout->addWidget(tabWidget);
     setLayout(layout);
     file_view = new FileView(this);
-    file_view->changeTC(tc, KGlobal::config());
+    file_view->changeTC(tc, KSharedConfig::openConfig());
     tabWidget->insertTab(0, file_view, KIcon("inode-directory"), i18n("Files"));
     //peer_view = new PeerView(this);
     //tabWidget->insertTab(1, peer_view, KIcon("system-users"), i18n("Peers"));

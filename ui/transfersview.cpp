@@ -182,7 +182,7 @@ void TransfersView::slotSectionMoved(int logicalIndex, int oldVisualIndex, int n
 void TransfersView::slotSaveHeader()
 {
     Settings::setHeaderState(header()->saveState().toBase64());
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )

@@ -14,6 +14,7 @@
 #include "ui_btdetailswidgetfrm.h"
 
 #include <kdebug.h>
+#include <KFormat>
 
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
   : m_transfer(transfer)
@@ -50,10 +51,10 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
     kDebug(5001) << "BTDetailsWidget::slotTransferChanged";
     
     if(flags & Transfer::Tc_DownloadSpeed)
-        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->downloadSpeed()) + "/s");
+        dlSpeedLabel->setText(KFormat().formatByteSize(m_transfer->downloadSpeed()) + "/s");
 
     if(flags & Transfer::Tc_UploadSpeed)
-        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()) + "/s");
+        ulSpeedLabel->setText(KFormat().formatByteSize(m_transfer->uploadSpeed()) + "/s");
 
     if(flags & BTTransfer::Tc_SeedsConnected)
         seederLabel->setText((m_transfer->seedsConnected()!=-1    ? QString().setNum(m_transfer->seedsConnected()) : i18nc("not available", "n/a")) + " (" + 

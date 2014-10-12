@@ -282,7 +282,7 @@ void DlgChecksumSettingsWidget::save()
     ChecksumSearchSettings::self()->setUrlChangeModeList(modes);
     ChecksumSearchSettings::self()->setChecksumTypeList(types);
 
-    ChecksumSearchSettings::self()->writeConfig();
+    ChecksumSearchSettings::self()->save();
 }
 
 

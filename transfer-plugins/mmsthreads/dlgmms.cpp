@@ -39,7 +39,7 @@ void DlgMmsSettings::save()
 {
     qDebug() << "Saving Multithreaded config";
     MmsSettings::setThreads(ui.numThreadSpinBox->value());
-    MmsSettings::self()->writeConfig();
+    MmsSettings::self()->save();
 }
 
 
