@@ -40,17 +40,17 @@ TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QSty
     m_actionDownload = new QAction(this);
     m_actionDownload->setText(i18n("Download again"));
     m_actionDownload->setIcon(KIcon("document-new"));
-    connect(m_actionDownload, SIGNAL(triggered()), SLOT(slotDownload()));
+    connect(m_actionDownload, &QAction::triggered, this, &TransferHistoryItemDelegate::slotDownload);
 
     m_actionDelete_Selected = new QAction(this);
     m_actionDelete_Selected->setText(i18nc("Delete selected history-item", "Delete selected"));
     m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
-    connect(m_actionDelete_Selected, SIGNAL(triggered()), SLOT(slotDeleteTransfer()));
+    connect(m_actionDelete_Selected, &QAction::triggered, this, &TransferHistoryItemDelegate::slotDeleteTransfer);
 
     m_openFile = new QAction(this);
     m_openFile->setText(i18n("Open file"));
     m_openFile->setIcon(KIcon("document-open"));
-    connect(m_openFile, SIGNAL(triggered()), SLOT(slotOpenFile()));
+    connect(m_openFile, &QAction::triggered, this, &TransferHistoryItemDelegate::slotOpenFile);
 }
 
 TransferHistoryItemDelegate::~TransferHistoryItemDelegate()

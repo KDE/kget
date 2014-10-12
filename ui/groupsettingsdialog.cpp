@@ -49,7 +49,7 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     ui.nepomukWidget->hide();
 #endif
 
-    connect(this, SIGNAL(accepted()), SLOT(save()));
+    connect(this, &GroupSettingsDialog::accepted, this, &GroupSettingsDialog::save);
 }
 
 GroupSettingsDialog::~GroupSettingsDialog()

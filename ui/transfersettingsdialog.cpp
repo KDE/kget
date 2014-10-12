@@ -64,14 +64,14 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
 
     updateCapabilities();
 
-    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SLOT(updateCapabilities()));
-    connect(this, SIGNAL(accepted()), SLOT(save()));
-    connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+    connect(m_transfer, &TransferHandler::capabilitiesChanged, this, &TransferSettingsDialog::updateCapabilities);
+    connect(this, &TransferSettingsDialog::accepted, this, &TransferSettingsDialog::save);
+    connect(this, &TransferSettingsDialog::finished, this, &TransferSettingsDialog::slotFinished);
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotSelectionChanged()));
-    connect(ui.rename, SIGNAL(clicked(bool)), this, SLOT(slotRename()));
-    connect(ui.mirrors, SIGNAL(clicked(bool)), this, SLOT(slotMirrors()));
-    connect(ui.verification, SIGNAL(clicked(bool)), this, SLOT(slotVerification()));
-    connect(ui.signature, SIGNAL(clicked(bool)), this, SLOT(slotSignature()));
+    connect(ui.rename, &KPushButton::clicked, this, &TransferSettingsDialog::slotRename);
+    connect(ui.mirrors, &KPushButton::clicked, this, &TransferSettingsDialog::slotMirrors);
+    connect(ui.verification, &KPushButton::clicked, this, &TransferSettingsDialog::slotVerification);
+    connect(ui.signature, &KPushButton::clicked, this, &TransferSettingsDialog::slotSignature);
 }
 
 TransferSettingsDialog::~TransferSettingsDialog()

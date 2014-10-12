@@ -156,8 +156,8 @@ void DirectoryHandler::slotFiles(const QList<QUrl> &files)
             KIO::ListJob *listJob = KIO::listRecursive(url);
             m_jobs[listJob] = url;
 
-            connect(listJob, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)), this, SLOT(slotDirEntries(KIO::Job*,KIO::UDSEntryList)));
-            connect(listJob, SIGNAL(result(KJob*)), this, SLOT(slotFinished(KJob*)));
+            connect(listJob, &KIO::ListJob::entries, this, &DirectoryHandler::slotDirEntries);
+            connect(listJob, &KIO::ListJob::result, this, &DirectoryHandler::slotFinished);
         } else {
             FileData data;
             data.url = url;

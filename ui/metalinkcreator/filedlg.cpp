@@ -47,7 +47,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(&m_file->resources, countrySort);
     ui.urlLayout->addWidget(m_urlWidget->widget());
-    connect(m_urlWidget, SIGNAL(urlsChanged()), this, SLOT(slotUpdateOkButton()));
+    connect(m_urlWidget, &UrlWidget::urlsChanged, this, &FileDlg::slotUpdateOkButton);
 
     QWidget *data = new QWidget(this);
     uiData.setupUi(data);
@@ -102,13 +102,13 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.used_hashes->setItemDelegate(new VerificationDelegate(this));
     slotUpdateVerificationButtons();
 
-    connect(m_verificationModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(m_verificationModel, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(ui.used_hashes, SIGNAL(clicked(QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(ui.add_hash, SIGNAL(clicked()), this, SLOT(slotAddHash()));
-    connect(ui.remove_hash, SIGNAL(clicked()), this, SLOT(slotRemoveHash()));
-    connect(ui.name, SIGNAL(textEdited(QString)), this, SLOT(slotUpdateOkButton()));
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()));
+    connect(m_verificationModel, &VerificationModel::dataChanged, this, &FileDlg::slotUpdateVerificationButtons);
+    connect(m_verificationModel, &VerificationModel::rowsRemoved, this, &FileDlg::slotUpdateVerificationButtons);
+    connect(ui.used_hashes, &QTreeView::clicked, this, &FileDlg::slotUpdateVerificationButtons);
+    connect(ui.add_hash, &KPushButton::clicked, this, &FileDlg::slotAddHash);
+    connect(ui.remove_hash, &KPushButton::clicked, this, &FileDlg::slotRemoveHash);
+    connect(ui.name, &KLineEdit::textEdited, this, &FileDlg::slotUpdateOkButton);
+    connect(this, &FileDlg::okClicked, this, &FileDlg::slotOkClicked);
 
     slotUpdateOkButton();
 

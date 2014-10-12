@@ -68,7 +68,7 @@ void MirrorAddDlg::init()
     updateButton();
 
     connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(updateButton(QString)));
-    connect(this, SIGNAL(yesClicked()), this, SLOT(addMirror()));
+    connect(this, &MirrorAddDlg::yesClicked, this, &MirrorAddDlg::addMirror);
 }
 
 void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
@@ -143,9 +143,9 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     updateButton();
 
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateButton()));
-    connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
-    connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeMirror()));
-    connect(this, SIGNAL(finished()), this, SLOT(save()));
+    connect(ui.add, &KPushButton::clicked, this, &MirrorSettings::addClicked);
+    connect(ui.remove, &KPushButton::clicked, this, &MirrorSettings::removeMirror);
+    connect(this, &MirrorSettings::finished, this, &MirrorSettings::save);
 
     setMainWidget(widget);
     setCaption(i18n("Modify the used mirrors"));

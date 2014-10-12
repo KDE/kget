@@ -64,7 +64,7 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     uiData.language->setModel(languageSort);
     uiData.language->setCurrentIndex(-1);
 
-    connect(this, SIGNAL(accepted()), this, SLOT(slotFinished()));
+    connect(this, &DragDlg::accepted, this, &DragDlg::slotFinished);
 
     setCaption(i18n("Import dropped files"));
 }

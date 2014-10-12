@@ -44,8 +44,8 @@ RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *pare
     setButtonText(KDialog::Ok, i18n("&Rename"));
     enableButtonOk(false);
 
-    connect(ui.name, SIGNAL(textEdited(QString)), this, SLOT(updateButton()));
-    connect(this, SIGNAL(okClicked()), this, SLOT(rename()));
+    connect(ui.name, &KLineEdit::textEdited, this, &RenameFile::updateButton);
+    connect(this, &RenameFile::okClicked, this, &RenameFile::rename);
 }
 
 void RenameFile::updateButton()

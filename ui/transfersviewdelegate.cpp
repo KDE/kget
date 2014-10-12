@@ -241,7 +241,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_layout->addStretch();
     m_layout->setMargin(1);
 
-    connect(m_startBt, SIGNAL(toggled(bool)), this, SLOT(slotStatusChanged()));
+    connect(m_startBt, &GroupStatusButton::toggled, this, &GroupStatusEditor::slotStatusChanged);
 }
 
 void GroupStatusEditor::setRunning(bool running)
@@ -275,7 +275,7 @@ QWidget *BasicTransfersViewDelegate::createEditor(QWidget *parent, const QStyleO
 {
     if (index.column() == TransferTreeModel::Status) {
         GroupStatusEditor *qroupStatusEditor = new GroupStatusEditor(index, parent);
-        connect(qroupStatusEditor, SIGNAL(changedStatus(GroupStatusEditor*)), this, SLOT(slotGroupStatusChanged(GroupStatusEditor*)));
+        connect(qroupStatusEditor, &GroupStatusEditor::changedStatus, this, &BasicTransfersViewDelegate::slotGroupStatusChanged);
         return qroupStatusEditor;
     } else {
         return KExtendableItemDelegate::createEditor(parent, option, index);

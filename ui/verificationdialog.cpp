@@ -50,9 +50,9 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
 
     updateButton();
 
-    connect(ui.newHash, SIGNAL(textChanged(QString)), this, SLOT(updateButton()));
-    connect(ui.hashTypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButton()));
-    connect(this, SIGNAL(yesClicked()), this, SLOT(addChecksum()));
+    connect(ui.newHash, &KLineEdit::textChanged, this, &VerificationAddDlg::updateButton);
+    connect(ui.hashTypes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &VerificationAddDlg::updateButton);
+    connect(this, &VerificationAddDlg::yesClicked, this, &VerificationAddDlg::addChecksum);
 }
 
 QSize VerificationAddDlg::sizeHint() const
@@ -90,7 +90,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
 {
     if (m_verifier) {
         m_model = m_verifier->model();
-        connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+        connect(m_verifier, &Verifier::verified, this, &VerificationDialog::slotVerified);
     }
 
     setCaption(i18n("Transfer Verification for %1", file.fileName()));
@@ -116,22 +116,22 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         m_fileModel = m_transfer->fileModel();
         if (m_fileModel) {
             m_file = m_fileModel->index(file, FileItem::File);
-            connect(m_fileModel, SIGNAL(fileFinished(QUrl)), this, SLOT(fileFinished(QUrl)));
+            connect(m_fileModel, &FileModel::fileFinished, this, &VerificationDialog::fileFinished);
         }
 
         updateButtons();
 
-        connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateButtons()));
-        connect(m_model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateButtons()));
-        connect(ui.usedHashes, SIGNAL(clicked(QModelIndex)), this, SLOT(updateButtons()));
-        connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
-        connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeClicked()));
-        connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
+        connect(m_model, &VerificationModel::dataChanged, this, &VerificationDialog::updateButtons);
+        connect(m_model, &VerificationModel::rowsRemoved, this, &VerificationDialog::updateButtons);
+        connect(ui.usedHashes, &QTreeView::clicked, this, &VerificationDialog::updateButtons);
+        connect(ui.add, &KPushButton::clicked, this, &VerificationDialog::addClicked);
+        connect(ui.remove, &KPushButton::clicked, this, &VerificationDialog::removeClicked);
+        connect(ui.verify, &KPushButton::clicked, this, &VerificationDialog::verifyClicked);
     }
 
     setButtons(KDialog::Close);
 
-    connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+    connect(this, &VerificationDialog::finished, this, &VerificationDialog::slotFinished);
 }
 
 QSize VerificationDialog::sizeHint() const

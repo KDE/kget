@@ -77,7 +77,7 @@ DropTarget::DropTarget(MainWindow * mw)
 
     QAction * downloadAction = mw->actionCollection()->action("start_all_download");
     popupMenu->addAction( downloadAction );
-    connect( downloadAction, SIGNAL(toggled(bool)), this, SLOT(slotStartStopToggled(bool)) );
+    connect(downloadAction, &QAction::toggled, this, &DropTarget::slotStartStopToggled);
     popupMenu->addSeparator();
     pop_show = popupMenu->addAction( QString(), this, SLOT(toggleMinimizeRestore()) );
     popupMenu->addAction(parentWidget->actionCollection()->action("show_drop_target"));
@@ -110,8 +110,7 @@ DropTarget::DropTarget(MainWindow * mw)
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
             this,          SLOT(slotToolTipUpdate()));
             
-    connect(popupTimer,    SIGNAL(timeout()),
-            this,          SLOT(slotToolTipTimer()));
+    connect(popupTimer, &QTimer::timeout, this, &DropTarget::slotToolTipTimer);
 }
 
 
@@ -159,8 +158,7 @@ void DropTarget::playAnimationShow()
     if (animTimer->isActive())
         animTimer->stop();
     animTimer->disconnect();
-    connect( animTimer, SIGNAL(timeout()),
-        this, SLOT(slotAnimateShow()));
+    connect(animTimer, &QTimer::timeout, this, &DropTarget::slotAnimateShow);
 
     move(position.x(), -TARGET_SIZE);
 
@@ -176,8 +174,7 @@ void DropTarget::playAnimationHide()
         animTimer->stop();
 
     animTimer->disconnect();
-    connect( animTimer, SIGNAL(timeout()),
-        this, SLOT(slotAnimateHide()));
+    connect(animTimer, &QTimer::timeout, this, &DropTarget::slotAnimateHide);
     ani_y = (float)y();
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
@@ -189,8 +186,7 @@ void DropTarget::playAnimationSync()
         animTimer->stop();
 
     animTimer->disconnect();
-    connect( animTimer, SIGNAL(timeout()),
-        this, SLOT(slotAnimateSync()));
+    connect(animTimer, &QTimer::timeout, this, &DropTarget::slotAnimateSync);
     ani_y = (float)y();
     ani_vy = -1;
     animTimer->start(TARGET_ANI_MS);
