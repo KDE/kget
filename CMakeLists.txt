@@ -274,7 +274,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
 
 qt5_add_dbus_adaptor(kget_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
 
-qt5_wrap_ui(kget_SRCS
+ki18n_wrap_ui(kget_SRCS
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
    conf/dlggroups.ui

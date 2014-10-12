@@ -24,7 +24,7 @@ set(kcm_kget_multisegkiofactory_PART_SRCS
   dlgmultisegkio.cpp
 )
 
-qt5_wrap_ui(kcm_kget_multisegkiofactory_PART_SRCS
+ki18n_wrap_ui(kcm_kget_multisegkiofactory_PART_SRCS
   dlgmultisegkio.ui
 )
 

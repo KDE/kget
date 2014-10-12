@@ -24,7 +24,7 @@ set(kcm_kget_mmsfactory_PART_SRCS
   dlgmms.cpp
 )
 
-qt5_wrap_ui(kcm_kget_mmsfactory_PART_SRCS
+ki18n_wrap_ui(kcm_kget_mmsfactory_PART_SRCS
   dlgmms.ui
 )
 kconfig_add_kcfg_files(kcm_kget_mmsfactory_PART_SRCS mmssettings.kcfgc)

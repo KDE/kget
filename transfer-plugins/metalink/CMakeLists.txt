@@ -14,7 +14,7 @@ set(kget_metalinkfactory_PART_SRCS
   ../../ui/metalinkcreator/metalinker.cpp
 )
 
-qt5_wrap_ui(kget_metalinkfactory_PART_SRCS
+ki18n_wrap_ui(kget_metalinkfactory_PART_SRCS
     fileselection.ui
 )
 
@@ -36,7 +36,7 @@ set(kcm_kget_metalinkfactory_PART_SRCS
 dlgmetalink.cpp
 )
 
-qt5_wrap_ui(kcm_kget_metalinkfactory_PART_SRCS
+ki18n_wrap_ui(kcm_kget_metalinkfactory_PART_SRCS
 dlgmetalink.ui
 )
 

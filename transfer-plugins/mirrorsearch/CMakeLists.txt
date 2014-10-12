@@ -23,7 +23,7 @@ set(kcm_kget_mirrorsearchfactory_PART_SRCS
   dlgmirrorsearch.cpp
 )
 
-qt5_wrap_ui(kcm_kget_mirrorsearchfactory_PART_SRCS
+ki18n_wrap_ui(kcm_kget_mirrorsearchfactory_PART_SRCS
   dlgmirrorsearch.ui 
   dlgengineediting.ui
 )

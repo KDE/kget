@@ -24,7 +24,7 @@ checksumsearch.cpp
 dlgchecksumsearch.cpp
 )
 
-qt5_wrap_ui(kcm_kget_checksumsearchfactory_PART_SRCS
+ki18n_wrap_ui(kcm_kget_checksumsearchfactory_PART_SRCS
 checksumsearch.ui
 checksumsearchadddlg.ui
 )
