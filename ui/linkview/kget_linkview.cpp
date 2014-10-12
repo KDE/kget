@@ -106,7 +106,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMimeTypeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
-    connect(ui.urlRequester, SIGNAL(urlSelected(KUrl)), SLOT(slotStartImport()));
+    connect(ui.urlRequester, SIGNAL(urlSelected(QUrl)), SLOT(slotStartImport()));
     connect(ui.selectAll, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(ui.deselectAll, SIGNAL(clicked()), this, SLOT(uncheckAll()));
     connect(ui.invertSelection, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
