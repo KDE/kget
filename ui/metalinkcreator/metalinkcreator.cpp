@@ -237,7 +237,7 @@ void MetalinkCreator::createFiles()
     connect(uiFiles.remove_file, SIGNAL(clicked(bool)), this, SLOT(slotRemoveFile()));
     connect(uiFiles.properties_file, SIGNAL(clicked(bool)), this, SLOT(slotFileProperties()));
     connect(uiFiles.files->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateFilesButtons()));
-    connect(widget, SIGNAL(urlsDropped(QList<KUrl>)), m_handler, SLOT(slotFiles(QList<KUrl>)));
+    connect(widget, SIGNAL(urlsDropped(QList<KUrl>)), m_handler, SLOT(slotFiles(QList<QUrl>)));
 
     addPage(widget, i18nc("file as in file on hard drive", "Files"));
 }
