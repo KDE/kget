@@ -40,7 +40,7 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
     ui.signatureGroup->hide();
 #endif
 
-    connect(ui.keyservers,SIGNAL(changed()),this,SIGNAL(changed()));
+    connect(ui.keyservers, &KEditListWidget::changed, this, &VerificationPreferences::changed);
     connect(parent, SIGNAL(accepted()), SLOT(slotAccpeted()));
     connect(parent, SIGNAL(rejected()), SLOT(slotRejected()));
     connect(parent, SIGNAL(defaultClicked()), SLOT(slotDefaultClicked()));

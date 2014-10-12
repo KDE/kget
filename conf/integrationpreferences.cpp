@@ -54,14 +54,14 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
         ui.list->header()->restoreState(loadedState);
     }
 
-    connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(changed()));
+    connect(m_model, &AutoPasteModel::dataChanged, this, &IntegrationPreferences::changed);
     connect(ui.list->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
-    connect(ui.pattern, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateButtons()));
-    connect(ui.pattern, SIGNAL(returnPressed(QString)), this, SLOT(slotAddItem()));
-    connect(ui.add, SIGNAL(clicked()), this, SLOT(slotAddItem()));
-    connect(ui.remove, SIGNAL(clicked()), this, SLOT(slotRemoveItem()));
-    connect(ui.increase, SIGNAL(clicked()), this, SLOT(slotIncreasePriority()));
-    connect(ui.decrease, SIGNAL(clicked()), this, SLOT(slotDecreasePriority()));
+    connect(ui.pattern, &KLineEdit::textChanged, this, &IntegrationPreferences::slotUpdateButtons);
+    connect(ui.pattern, &KLineEdit::returnPressed, this, &IntegrationPreferences::slotAddItem);
+    connect(ui.add, &KPushButton::clicked, this, &IntegrationPreferences::slotAddItem);
+    connect(ui.remove, &KPushButton::clicked, this, &IntegrationPreferences::slotRemoveItem);
+    connect(ui.increase, &KPushButton::clicked, this, &IntegrationPreferences::slotIncreasePriority);
+    connect(ui.decrease, &KPushButton::clicked, this, &IntegrationPreferences::slotDecreasePriority);
     connect(parent, SIGNAL(rejected()), m_model, SLOT(load()));
     connect(parent, SIGNAL(applyClicked()), m_model, SLOT(save()));
     connect(parent, SIGNAL(okClicked()), m_model, SLOT(save()));

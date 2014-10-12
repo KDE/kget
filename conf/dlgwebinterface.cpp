@@ -25,7 +25,7 @@ DlgWebinterface::DlgWebinterface(QDialog *parent)
     readConfig();
     
     connect(parent, SIGNAL(accepted()), SLOT(saveSettings()));
-    connect(webinterfacePwd, SIGNAL(textChanged(QString)), SIGNAL(changed()));
+    connect(webinterfacePwd, &KLineEdit::textChanged, this, &DlgWebinterface::changed);
 }
 
 DlgWebinterface::~DlgWebinterface()
@@ -40,7 +40,7 @@ void DlgWebinterface::readConfig()
                                                winId(),///Use MainWindow?
                                                KWallet::Wallet::Asynchronous);
         if (m_wallet) {
-            connect(m_wallet, SIGNAL(walletOpened(bool)), SLOT(walletOpened(bool)));
+            connect(m_wallet, &KWallet::Wallet::walletOpened, this, &DlgWebinterface::walletOpened);
         } else {
             KMessageBox::error(0, i18n("Could not open KWallet"));
         }
