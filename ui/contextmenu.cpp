@@ -20,14 +20,14 @@
 #include "core/plugin/transferfactory.h"
 #include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
-#include <KMenu>
+#include <QMenu>
 #include <QWidgetAction>
 
 #include <KFileItem>
 #include <kfileitemlistproperties.h>
 #include <kfileitemactions.h>
 
-KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
+QMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
 {
     if (transfers.empty())
         return 0;
@@ -45,11 +45,11 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
          //               transfers.first()->m_transfer->factory() );
     }*/
 
-    KMenu *popup = new KMenu(parent);
-    popup->addTitle(transfers.first()->dest().fileName());
+    QMenu *popup = new QMenu(parent);
+    popup->addSection(transfers.first()->dest().fileName());
     //Get the transfer factory actions
     QList<QAction*> actionList = transfers.first()->factoryActions();
-//     popup->addTitle( i18np("%1 Download selected", "%1 Downloads selected", transfers.count()) );
+//     popup->addSection( i18np("%1 Download selected", "%1 Downloads selected", transfers.count()) );
 
     //Plug all the actions in the popup menu
     popup->addActions(transfers.first()->contextActions());
@@ -72,7 +72,7 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
         items << transfer->nepomukHandler()->fileItems();
     }
 
-    KMenu *nepomukMenu = new KMenu(i18n("Semantic Desktop"), parent);
+    QMenu *nepomukMenu = new QMenu(i18n("Semantic Desktop"), parent);
     nepomukMenu->setIcon(KIcon("nepomuk"));
     QWidgetAction *nepomukWidgetAction = new QWidgetAction(parent);
     Nepomuk2::FileMetaDataWidget *nepomukWidget = new Nepomuk2::FileMetaDataWidget(parent);
@@ -90,9 +90,9 @@ KMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     return popup;
 }
 
-KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget *parent)
+QMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget *parent)
 {
-    KMenu *popup = ContextMenu::createTransferContextMenu(QList<TransferHandler*>() << handler, parent);
+    QMenu *popup = ContextMenu::createTransferContextMenu(QList<TransferHandler*>() << handler, parent);
 
     // only shows the open with actions if the transfer is finished
     if (handler->status() == Job::Finished || handler->status() == Job::FinishedKeepAlive) {
@@ -117,13 +117,13 @@ KMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
     return popup;
 }
 
-KMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent)
+QMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent)
 {
     if (!handler)
         return 0;
 
-    KMenu * popup = new KMenu(parent);
-    popup->addTitle(handler->name());
+    QMenu * popup = new QMenu(parent);
+    popup->addSection(handler->name());
 
     popup->addActions(handler->actions());
     popup->addSeparator();

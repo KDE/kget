@@ -13,7 +13,7 @@
 #include <kaboutdata.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kdebug.h>
 #include <klocale.h>
 

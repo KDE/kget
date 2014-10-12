@@ -24,7 +24,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kicon.h>
 
 #include <QApplication>
@@ -456,7 +456,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
         {
 //             kDebug(5001) << "TransfersViewDelegate::editorEvent() -> rightClick";
 
-            KMenu *popup = 0;
+            QMenu *popup = 0;
 
             TransferTreeModel * transferTreeModel = KGet::model();
 

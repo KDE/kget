@@ -23,7 +23,7 @@
 #include <KComponentData>
 #include <KLocale>
 #include <KMessageBox>
-#include <KMenu>
+#include <QMenu>
 #include <KRun>
 #include <KIcon>
 #include <KToolInvocation>

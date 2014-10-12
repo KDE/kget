@@ -25,7 +25,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kglobal.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <krun.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -62,7 +62,7 @@ namespace kt
 		proxy_model->setSortRole(Qt::UserRole);
 		setModel(proxy_model);
 		
-		context_menu = new KMenu(this);
+		context_menu = new QMenu(this);
 		open_action = context_menu->addAction(KIcon("document-open"),i18nc("Open file", "Open"),this,SLOT(open()));
 		context_menu->addSeparator();
 		download_first_action = context_menu->addAction(i18n("Download first"),this,SLOT(downloadFirst()));

@@ -19,7 +19,7 @@
 #include <KDebug>
 #include <QAction>
 #include <KLocale>
-#include <KMenu>
+#include <QMenu>
 #include <KRun>
 
 #include <QDropEvent>
@@ -39,7 +39,7 @@ TransfersView::TransfersView(QWidget * parent)
     header()->setMinimumSectionSize(80);    
     header()->setContextMenuPolicy(Qt::CustomContextMenu);
     header()->setClickable(true);
-    m_headerMenu = new KMenu(header());
+    m_headerMenu = new QMenu(header());
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
@@ -124,7 +124,7 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 void TransfersView::populateHeaderActions()
 {
     m_headerMenu->clear();
-    m_headerMenu->addTitle(i18n("Select columns"));
+    m_headerMenu->addSection(i18n("Select columns"));
 
     QSignalMapper *columnMapper = new QSignalMapper(this);
     connect(columnMapper, SIGNAL(mapped(int)), SLOT(slotHideSection(int)));

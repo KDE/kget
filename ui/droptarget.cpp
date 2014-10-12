@@ -21,7 +21,7 @@
 #include "ui/newtransferdialog.h"
 
 #include <kwindowsystem.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kmessagebox.h>
 #include <KPassivePopup>
 #include <kapplication.h>
@@ -72,8 +72,8 @@ DropTarget::DropTarget(MainWindow * mw)
         setMask(QBitmap());
 
     // popup menu for right mouse button
-    popupMenu = new KMenu(this);
-    popupMenu->addTitle(mw->windowTitle());
+    popupMenu = new QMenu(this);
+    popupMenu->addSection(mw->windowTitle());
 
     QAction * downloadAction = mw->actionCollection()->action("start_all_download");
     popupMenu->addAction( downloadAction );

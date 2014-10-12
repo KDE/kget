@@ -24,7 +24,7 @@
 #include <util/constants.h>
 #include <ksharedconfig.h>
 
-class KMenu;
+class QMenu;
 class QSortFilterProxyModel;
 
 namespace bt
@@ -86,7 +86,7 @@ namespace kt
 		bt::TorrentInterface* curr_tc;
 		TorrentFileModel* model;
 
-		KMenu* context_menu;
+		QMenu* context_menu;
 		QAction* open_action;
 		QAction* download_first_action;
 		QAction* download_normal_action;
