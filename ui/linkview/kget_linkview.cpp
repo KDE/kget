@@ -479,4 +479,4 @@ void KGetLinkView::wildcardPatternToggled(bool enabled)
     }
 }
 
-#include "kget_linkview.moc"
+

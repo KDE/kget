@@ -93,4 +93,4 @@ bool Tray::isDownloading()
     return (status() == KStatusNotifierItem::Active);
 }
 
-#include "tray.moc"
+

@@ -308,4 +308,4 @@ QString MetalinkHttp::adaptDigestType(const QString & hashType)
     }
 }
 
-#include "metalinkhttp.moc"
+

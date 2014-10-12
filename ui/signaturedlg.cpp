@@ -366,4 +366,4 @@ void SignatureDlg::handleWidgets(bool isAsciiSig)
     }
 }
 
-#include "signaturedlg.moc"
+

@@ -338,4 +338,4 @@ QSize RangeTreeWidgetItemDelegate::sizeHint(const QStyleOptionViewItem &option, 
     return QSize(0, 30);
 }
 
-#include "rangetreewidget.moc"
+

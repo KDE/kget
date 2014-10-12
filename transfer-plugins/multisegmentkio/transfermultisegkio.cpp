@@ -375,4 +375,4 @@ void TransferMultiSegKio::slotUpdateCapabilities()
     setCapabilities(m_dataSourceFactory->capabilities());
 }
 
-#include "transfermultisegkio.moc"
+

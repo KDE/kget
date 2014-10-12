@@ -65,5 +65,5 @@ void BTSettingsWidget::defaults()
     utpBox->setChecked(BittorrentSettings::enableUTP());
 }
 
-#include "btsettingswidget.moc"
+
  

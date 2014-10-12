@@ -285,4 +285,4 @@ void DlgChecksumSettingsWidget::save()
     ChecksumSearchSettings::self()->writeConfig();
 }
 
-#include "dlgchecksumsearch.moc"
+

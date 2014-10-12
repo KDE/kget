@@ -76,4 +76,4 @@ void FileDeleterTest::fileDeleterTest()
 
 QTEST_MAIN(FileDeleterTest)
 
-#include "filedeletertest.moc"
+

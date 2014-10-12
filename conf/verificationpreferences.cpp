@@ -72,4 +72,4 @@ void VerificationPreferences::slotDefaultClicked()
     }
 }
 
-#include "verificationpreferences.moc"
+

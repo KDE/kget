@@ -643,4 +643,4 @@ void Verifier::load(const QDomElement &e)
     }
 }
 
-#include "verifier.moc"
+

@@ -135,4 +135,4 @@ namespace kt
 	}
 }
 
-#include "peerview.moc"
+

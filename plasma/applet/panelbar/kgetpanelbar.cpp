@@ -228,5 +228,5 @@ void KGetPanelBar::showDialog()
     }
 }
 
-#include "kgetpanelbar.moc"
-#include "kgetpanelbar_p.moc"
+
+

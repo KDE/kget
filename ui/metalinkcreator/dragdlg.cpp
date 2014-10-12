@@ -99,4 +99,4 @@ void DragDlg::slotFinished()
     emit usedTypes(used, ui.partialChecksums->isChecked());
 }
 
-#include "dragdlg.moc"
+

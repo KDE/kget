@@ -1598,4 +1598,4 @@ void GenericObserver::slotAbortAfterFinishAction()
     m_finishAction->stop();
 }
 
-#include "kget.moc"
+

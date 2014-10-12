@@ -211,4 +211,4 @@ void ChecksumSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t
     kDebug(5001);
 }
 
-#include "checksumsearchtransferdatasource.moc"
+

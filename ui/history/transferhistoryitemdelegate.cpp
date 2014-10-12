@@ -204,4 +204,4 @@ void TransferHistoryItemDelegate::slotDeleteTransfer()
     emit deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
 }
 
-#include "transferhistoryitemdelegate.moc"
+

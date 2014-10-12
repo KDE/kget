@@ -112,4 +112,4 @@ void NepomukHandler::deinit()
     KGet::nepomukController()->removeResource(m_transfer->files());
 }
 
-#include "nepomukhandler.moc"
+

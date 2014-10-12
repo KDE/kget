@@ -90,4 +90,4 @@ void BTDetailsWidget::showEvent(QShowEvent * event)
 }
 
 
-#include "btdetailswidget.moc"
+

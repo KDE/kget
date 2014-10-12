@@ -75,4 +75,4 @@ Cache* BTCacheFactory::create(Torrent & tor,const QString & tmpdir,const QString
     return newcache;
 }
 
-#include "btcache.moc"
+

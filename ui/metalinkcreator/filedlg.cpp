@@ -199,4 +199,4 @@ void FileDlg::slotOkClicked()
     }
 }
 
-#include "filedlg.moc"
+

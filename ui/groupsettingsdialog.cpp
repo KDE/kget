@@ -84,4 +84,4 @@ void GroupSettingsDialog::save()
 #endif
 }
 
-#include "groupsettingsdialog.moc"
+

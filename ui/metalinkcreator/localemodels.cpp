@@ -139,4 +139,4 @@ void LanguageModel::setupModelData(const QStringList &languageCodes)
     reset();
 }
 
-#include "localemodels.moc"
+

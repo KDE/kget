@@ -64,4 +64,4 @@ void RenameFile::rename()
     m_model->rename(m_index, newName);
 }
 
-#include "renamefile.moc"
+

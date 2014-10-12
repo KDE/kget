@@ -84,4 +84,4 @@ void TestKGet::transferGroupRepetitiveAddTest()
     }
 }
 
-#include "testkget.moc"
+

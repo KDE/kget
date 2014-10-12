@@ -112,5 +112,5 @@ void BTAdvancedDetailsWidget::slotTransferChanged(TransferHandler * transfer, Tr
     }*/
 }
 
-#include "btadvanceddetailswidget.moc"
+
  

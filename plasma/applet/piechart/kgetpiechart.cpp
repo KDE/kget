@@ -357,5 +357,5 @@ void KGetPieChart::init()
     KGetApplet::init();
 }
 
-#include "kgetpiechart.moc"
-#include "kgetpiechart_p.moc"
+
+

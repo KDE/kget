@@ -121,4 +121,4 @@ void TransferHistoryCategorizedView::update()
     oldProxy->deleteLater();
 }
 
-#include "transferhistorycategorizedview.moc"
+

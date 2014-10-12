@@ -298,4 +298,4 @@ bt::ChunkSelectorInterface* BTChunkSelectorFactory::createChunkSelector(bt::Chun
     return selector;
 }
 
-#include "btchunkselector.moc"
+

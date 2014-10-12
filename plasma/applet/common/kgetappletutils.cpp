@@ -129,4 +129,4 @@ void ErrorWidget::checkKGetStatus()
     }
 }
 
-#include "kgetappletutils.moc"
+

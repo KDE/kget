@@ -1268,4 +1268,4 @@ void DataSourceFactory::slotUpdateCapabilities()
     }
 }
 
-#include "datasourcefactory.moc"
+

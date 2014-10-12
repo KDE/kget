@@ -1219,4 +1219,4 @@ void MainWindow::dropEvent(QDropEvent * event)
     }
 }
 
-#include "mainwindow.moc"
+

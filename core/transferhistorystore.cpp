@@ -151,4 +151,4 @@ TransferHistoryStore *TransferHistoryStore::getStore()
     }
 }
 
-#include "transferhistorystore.moc"
+

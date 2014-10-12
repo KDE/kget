@@ -182,4 +182,4 @@ void KeyDownloader::slotDownloaded(KJob *job)
 #endif //HAVE_QGPGME
 }
 
-#include "keydownloader.moc"
+

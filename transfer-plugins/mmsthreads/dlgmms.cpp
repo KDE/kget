@@ -42,5 +42,5 @@ void DlgMmsSettings::save()
     MmsSettings::self()->writeConfig();
 }
 
-#include "dlgmms.moc"
+
 

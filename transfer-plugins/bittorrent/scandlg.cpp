@@ -286,5 +286,5 @@ namespace kt
 #endif
 }
 
-#include "scandlg.moc"
+
 

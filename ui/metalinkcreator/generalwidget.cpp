@@ -122,4 +122,4 @@ void GeneralWidget::slotUpdatedEnabled(bool enabled)
 }
 
 
-#include "generalwidget.moc"
+

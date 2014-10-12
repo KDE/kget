@@ -69,4 +69,4 @@ void DlgWebinterface::saveSettings()
     emit saved();
 }
 
-#include "dlgwebinterface.moc"
+

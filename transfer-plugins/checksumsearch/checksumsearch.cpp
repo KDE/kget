@@ -197,4 +197,4 @@ KUrl ChecksumSearch::createUrl(const KUrl &src, const QString &change, ChecksumS
     return url;
 }
 
-#include "checksumsearch.moc"
+

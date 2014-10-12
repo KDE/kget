@@ -860,4 +860,4 @@ void Metalink::slotUpdateCapabilities()
     }
 }
 
-#include "metalink.moc"
+

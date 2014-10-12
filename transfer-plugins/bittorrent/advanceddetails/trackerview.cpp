@@ -227,4 +227,4 @@ namespace kt
 }
 
 
-#include "trackerview.moc"
+

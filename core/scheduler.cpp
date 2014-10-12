@@ -437,4 +437,4 @@ void Scheduler::timerEvent( QTimerEvent * event )
     }
 }
 
-#include "scheduler.moc"
+

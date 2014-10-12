@@ -406,4 +406,4 @@ void MetalinkCreator::slotThreadFinished()
     slotUpdateAssistantButtons(0, m_files);
 }
 
-#include "metalinkcreator.moc"
+

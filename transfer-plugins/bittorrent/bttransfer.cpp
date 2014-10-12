@@ -819,4 +819,4 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
     return m_fileModel;
 }
 
-#include "bttransfer.moc"
+

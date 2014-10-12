@@ -211,4 +211,4 @@ void VerificationDialog::slotVerified(bool verified)
     }
 }
 
-#include "verificationdialog.moc"
+

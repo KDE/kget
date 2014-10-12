@@ -300,4 +300,4 @@ void Signature::load(const QDomElement &e)
     }
 }
 
-#include "signature.moc"
+

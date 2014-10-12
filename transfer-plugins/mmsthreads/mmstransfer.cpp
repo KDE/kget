@@ -183,4 +183,4 @@ void MmsTransfer::slotConnectionsErrors(int connections)
     }
 }
 
-#include "mmstransfer.moc"
+

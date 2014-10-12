@@ -487,4 +487,4 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
     return false;
 }
 
-#include "transfersviewdelegate.moc"
+

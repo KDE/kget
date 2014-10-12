@@ -135,4 +135,4 @@ bool KGetEngine::isDBusServiceRegistered()
     return interface->isServiceRegistered(KGET_DBUS_SERVICE);
 }
 
-#include "kgetengine.moc"
+

@@ -459,4 +459,4 @@ void DropTarget::slotClose()
     setVisible( false );
 }
 
-#include "droptarget.moc"
+

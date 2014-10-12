@@ -84,4 +84,4 @@ void DBusVerifierWrapper::slotBrokenPieces(const QList<KIO::fileoffset_t> &offse
 }
 
 
-#include "dbusverifierwrapper.moc"
+

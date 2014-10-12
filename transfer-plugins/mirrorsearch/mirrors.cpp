@@ -99,4 +99,4 @@ void MirrorSearch ( const QString &fileName, QObject *receiver, const char *memb
     searcher->search(fileName, receiver, member);
 }
 
-#include "mirrors.moc"
+

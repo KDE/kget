@@ -137,4 +137,4 @@ QStringList KGetRunner::parseUrls(const QString& text) const
 }
 
 
-#include "kgetrunner.moc"
+

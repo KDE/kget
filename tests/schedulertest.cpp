@@ -543,4 +543,4 @@ void SchedulerTest::testShouldUpdate_data()
 
 QTEST_MAIN(SchedulerTest)
 
-#include "schedulertest.moc"
+
