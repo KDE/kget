@@ -24,6 +24,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocale>
+#include <KStandardGuiItem>
 
 MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags)
   : KDialog(parent, flags),
@@ -132,8 +133,8 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
 
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     ui.treeView->setModel(m_proxy);
     ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     ui.treeView->hideColumn(MirrorItem::Priority);
@@ -143,8 +144,8 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     updateButton();
 
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateButton()));
-    connect(ui.add, &KPushButton::clicked, this, &MirrorSettings::addClicked);
-    connect(ui.remove, &KPushButton::clicked, this, &MirrorSettings::removeMirror);
+    connect(ui.add, &QPushButton::clicked, this, &MirrorSettings::addClicked);
+    connect(ui.remove, &QPushButton::clicked, this, &MirrorSettings::removeMirror);
     connect(this, &MirrorSettings::finished, this, &MirrorSettings::save);
 
     setMainWidget(widget);

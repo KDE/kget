@@ -22,7 +22,7 @@
 #include <QAction>
 #include <kactioncollection.h>
 #include <klocale.h>
-#include <kicon.h>
+#include <QIcon>
 
 TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)
   : Handler(scheduler, parent),
@@ -167,13 +167,13 @@ void TransferGroupHandler::createActions()
 
     QAction *startAction = KGet::actionCollection()->addAction("transfer_group_start");
     startAction->setText(i18nc("start transfergroup downloads", "Start"));
-    startAction->setIcon(KIcon("media-playback-start"));
+    startAction->setIcon(QIcon::fromTheme("media-playback-start"));
     QObject::connect(startAction, SIGNAL(triggered()), SLOT(start()));
     m_actions.append(startAction);
 
     QAction *stopAction = KGet::actionCollection()->addAction("transfer_group_stop");
     stopAction->setText(i18nc("stop transfergroup downloads", "Stop"));
-    stopAction->setIcon(KIcon("media-playback-pause"));
+    stopAction->setIcon(QIcon::fromTheme("media-playback-pause"));
     QObject::connect(stopAction, SIGNAL(triggered()), SLOT(stop()));
     m_actions.append(stopAction);
 

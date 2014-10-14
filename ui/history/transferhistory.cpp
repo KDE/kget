@@ -36,8 +36,8 @@
 #include <KRun>
 #include <KGlobalSettings>
 #include <kio/global.h>
-#include <KPushButton>
-#include <KIcon>
+#include <QPushButton>
+#include <QIcon>
 #include <KLocale>
 #include <QFontDatabase>
 
@@ -62,8 +62,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_iconView = widget.bt_iconview;
     m_listView = widget.bt_listview;
 
-    m_listView->setIcon(KIcon("view-list-details"));
-    m_iconView->setIcon(KIcon("view-list-icons"));
+    m_listView->setIcon(QIcon::fromTheme("view-list-details"));
+    m_iconView->setIcon(QIcon::fromTheme("view-list-icons"));
 
     connect(m_listView, SIGNAL(clicked()), SLOT(slotSetListMode()));
     connect(m_iconView, SIGNAL(clicked()), SLOT(slotSetIconMode()));
@@ -76,12 +76,12 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_searchBar = widget.searchBar;
     //m_searchBar->setTreeWidget(m_treeWidget);
     m_clearButton = widget.clearButton;
-    m_clearButton->setIcon(KIcon("edit-clear-history"));
+    m_clearButton->setIcon(QIcon::fromTheme("edit-clear-history"));
     m_actionDelete_Selected = widget.actionDelete_Selected;
-    m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
+    m_actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
     m_actionDownload = widget.actionDownload;
-    m_actionDownload->setIcon(KIcon("document-new"));
-    m_openFile = new QAction(KIcon("document-open"), i18n("&Open File"), this);
+    m_actionDownload->setIcon(QIcon::fromTheme("document-new"));
+    m_openFile = new QAction(QIcon::fromTheme("document-open"), i18n("&Open File"), this);
     setMainWidget(mainWidget);
 
     m_verticalLayout->addWidget(m_view);

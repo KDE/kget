@@ -197,7 +197,7 @@ void SignatureDlg::updateData()
                 ui.expirationIcon->clear();
                 if (key.isExpired()) {
                     information << i18n("The key is expired.");
-                    ui.expirationIcon->setPixmap(KIcon("dialog-warning").pixmap(iconSize));
+                    ui.expirationIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
                     ui.expirationIcon->show();
                     problem = true;
                 } else {
@@ -212,25 +212,25 @@ void SignatureDlg::updateData()
                 switch (ownerTrust) {
                     case GpgME::Key::Never:
                         information.prepend(i18n("The key is not to be trusted."));
-                        ui.trustIcon->setPixmap(KIcon("dialog-error").pixmap(iconSize));
+                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(iconSize));
                         error = true;
                         break;
                     case GpgME::Key::Marginal:
                         information.prepend(i18n("The key is to be trusted marginally."));
-                        ui.trustIcon->setPixmap(KIcon("dialog-warning").pixmap(iconSize));
+                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
                         problem = true;
                         break;
                     case GpgME::Key::Full:
-                        ui.trustIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
+                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
                         break;
                     case GpgME::Key::Ultimate:
-                        ui.trustIcon->setPixmap(KIcon("dialog-ok").pixmap(iconSize));
+                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
                         break;
                     case GpgME::Key::Unknown:
                     case GpgME::Key::Undefined:
                     default:
                         information.prepend(i18n("Trust level of the key is unclear."));
-                        ui.trustIcon->setPixmap(KIcon("dialog-warning").pixmap(iconSize));
+                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
                         problem = true;
                         break;
                 }

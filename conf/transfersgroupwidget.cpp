@@ -19,7 +19,7 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
-#include <KPushButton>
+#include <QPushButton>
 
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
     : QWidget(parent)
@@ -40,8 +40,8 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     ui.rename->setIcon(QIcon::fromTheme("edit-rename"));
     ui.selectIcon->setIcon(QIcon::fromTheme("preferences-desktop-icons"));
 
-    connect(ui.add, &KPushButton::clicked, ui.treeView, &TransfersGroupTree::addGroup);
-    connect(ui.remove, &KPushButton::clicked, ui.treeView, &TransfersGroupTree::deleteSelectedGroup);
+    connect(ui.add, &QPushButton::clicked, ui.treeView, &TransfersGroupTree::addGroup);
+    connect(ui.remove, &QPushButton::clicked, ui.treeView, &TransfersGroupTree::deleteSelectedGroup);
     connect(ui.rename, &QPushButton::clicked, ui.treeView, &TransfersGroupTree::renameSelectedGroup);
     connect(ui.selectIcon, &KIconButton::iconChanged, ui.treeView, &TransfersGroupTree::changeIcon);
     connect(ui.configure, SIGNAL(clicked()), KGet::actionCollection()->action("transfer_group_settings"), SLOT(trigger()));

@@ -30,7 +30,7 @@
 #include <QProgressBar>
 
 #include <KDebug>
-#include <KIcon>
+#include <QIcon>
 #include <KIconLoader>
 #include <KLocale>
 #include <KTitleWidget>
@@ -60,7 +60,7 @@ KGetPanelBar::Private::Private(QWidget *parent) : Plasma::Dialog(parent),
 
     KTitleWidget *title = new KTitleWidget(this);
     title->setText(i18n("KGet transfers"));
-    title->setPixmap(KIcon("kget").pixmap(22, 22), KTitleWidget::ImageRight);
+    title->setPixmap(QIcon::fromTheme("kget").pixmap(22, 22), KTitleWidget::ImageRight);
     m_dialogLayout->addWidget(title, 0, 0, 1, 3);
 }
 
@@ -171,7 +171,7 @@ void KGetPanelBar::init()
     //KF5 port: remove this line and define TRANSLATION_DOMAIN in CMakeLists.txt instead
 //KLocale::global()->insertCatalog("plasma_applet_kget");
 
-    m_icon = new Plasma::IconWidget(KIcon("go-down"), QString(), this);
+    m_icon = new Plasma::IconWidget(QIcon::fromTheme("go-down"), QString(), this);
 
     m_layout = new QGraphicsLinearLayout(Qt::Horizontal, this);
     m_layout->addItem(m_icon);

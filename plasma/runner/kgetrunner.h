@@ -17,7 +17,7 @@
 #include "kget_interface.h"
 
 #include <Plasma/AbstractRunner>
-#include <KIcon>
+#include <QIcon>
 
 class QDBusConnectionInterface;
 class QDBusPendingCallWatcher;

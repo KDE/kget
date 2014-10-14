@@ -27,7 +27,7 @@
 #include <kio/netaccess.h>
 #include <kio/global.h>
 #include <KIconLoader>
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
 #include <KRun>
 
@@ -39,17 +39,17 @@ TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QSty
     // Actions
     m_actionDownload = new QAction(this);
     m_actionDownload->setText(i18n("Download again"));
-    m_actionDownload->setIcon(KIcon("document-new"));
+    m_actionDownload->setIcon(QIcon::fromTheme("document-new"));
     connect(m_actionDownload, &QAction::triggered, this, &TransferHistoryItemDelegate::slotDownload);
 
     m_actionDelete_Selected = new QAction(this);
     m_actionDelete_Selected->setText(i18nc("Delete selected history-item", "Delete selected"));
-    m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
+    m_actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
     connect(m_actionDelete_Selected, &QAction::triggered, this, &TransferHistoryItemDelegate::slotDeleteTransfer);
 
     m_openFile = new QAction(this);
     m_openFile->setText(i18n("Open file"));
-    m_openFile->setIcon(KIcon("document-open"));
+    m_openFile->setIcon(QIcon::fromTheme("document-open"));
     connect(m_openFile, &QAction::triggered, this, &TransferHistoryItemDelegate::slotOpenFile);
 }
 

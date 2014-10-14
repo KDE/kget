@@ -62,10 +62,10 @@ namespace kt
 				this,SLOT(currentChanged(QModelIndex,QModelIndex)));
 		connect(m_scrape,SIGNAL(clicked()),this,SLOT(scrapeClicked()));
 		
-		m_add_tracker->setIcon(KIcon("list-add"));
-		m_remove_tracker->setIcon(KIcon("list-remove"));
-		m_restore_defaults->setIcon(KIcon("kt-restore-defaults"));
-		m_change_tracker->setIcon(KIcon("kt-change-tracker"));
+		m_add_tracker->setIcon(QIcon::fromTheme("list-add"));
+		m_remove_tracker->setIcon(QIcon::fromTheme("list-remove"));
+		m_restore_defaults->setIcon(QIcon::fromTheme("kt-restore-defaults"));
+		m_change_tracker->setIcon(QIcon::fromTheme("kt-change-tracker"));
 		
 		setEnabled(false);
 		torrentChanged(0);

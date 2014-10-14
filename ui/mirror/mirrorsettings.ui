@@ -28,10 +28,10 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="KPushButton" name="add"/>
+    <widget class="QPushButton" name="add"/>
    </item>
    <item row="1" column="1">
-    <widget class="KPushButton" name="remove"/>
+    <widget class="QPushButton" name="remove"/>
    </item>
    <item row="2" column="1">
     <spacer name="verticalSpacer">
@@ -49,11 +49,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

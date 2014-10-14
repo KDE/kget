@@ -53,25 +53,25 @@ void BTAdvancedDetailsWidget::init()
     QGridLayout *layout = new QGridLayout();
     KTitleWidget *titleWidget = new KTitleWidget(this);
     titleWidget->setText(i18n("Advanced Details for %1", m_transfer->source().fileName()));
-    titleWidget->setPixmap(KIcon("dialog-information"));
+    titleWidget->setPixmap(QIcon::fromTheme("dialog-information"));
     layout->addWidget(titleWidget);
     tabWidget = new KTabWidget(this);
     layout->addWidget(tabWidget);
     setLayout(layout);
     file_view = new FileView(this);
     file_view->changeTC(tc, KSharedConfig::openConfig());
-    tabWidget->insertTab(0, file_view, KIcon("inode-directory"), i18n("Files"));
+    tabWidget->insertTab(0, file_view, QIcon::fromTheme("inode-directory"), i18n("Files"));
     //peer_view = new PeerView(this);
-    //tabWidget->insertTab(1, peer_view, KIcon("system-users"), i18n("Peers"));
+    //tabWidget->insertTab(1, peer_view, QIcon::fromTheme("system-users"), i18n("Peers"));
     //cd_view = new ChunkDownloadView(this);
     //cd_view->changeTC(tc);
-    //tabWidget->insertTab(2, cd_view, KIcon("preferences-plugin"), i18n("Chunks"));
+    //tabWidget->insertTab(2, cd_view, QIcon::fromTheme("preferences-plugin"), i18n("Chunks"));
     tracker_view = new TrackerView(this);
     tracker_view->changeTC(tc);
-    tabWidget->insertTab(1, tracker_view, KIcon("network-server"), i18n("Trackers"));
+    tabWidget->insertTab(1, tracker_view, QIcon::fromTheme("network-server"), i18n("Trackers"));
     webseeds_tab = new WebSeedsTab(this);
     webseeds_tab->changeTC(tc);
-    tabWidget->insertTab(2, webseeds_tab, KIcon("network-server"), i18n("Webseeds"));
+    tabWidget->insertTab(2, webseeds_tab, QIcon::fromTheme("network-server"), i18n("Webseeds"));
     monitor = new Monitor(tc, 0, 0, file_view);
 }
 

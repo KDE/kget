@@ -73,7 +73,7 @@ QMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
     }
 
     QMenu *nepomukMenu = new QMenu(i18n("Semantic Desktop"), parent);
-    nepomukMenu->setIcon(KIcon("nepomuk"));
+    nepomukMenu->setIcon(QIcon::fromTheme("nepomuk"));
     QWidgetAction *nepomukWidgetAction = new QWidgetAction(parent);
     Nepomuk2::FileMetaDataWidget *nepomukWidget = new Nepomuk2::FileMetaDataWidget(parent);
     nepomukWidget->setItems(items);

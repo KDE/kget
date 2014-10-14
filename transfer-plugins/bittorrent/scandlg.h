@@ -65,7 +65,7 @@ namespace kt
 	private:
 		bt::Job * m_job;
 		QProgressBar *m_progress;
-		KPushButton *m_cancel;
+		QPushButton *m_cancel;
 		QLabel *m_torrent_label;
 		QLabel *m_chunks_failed;
 		QLabel *m_chunks_found;
@@ -121,7 +121,7 @@ namespace kt
 		int qm_priority;
 		bool scanning;
 		QProgressBar *m_progress;
-		KPushButton *m_cancel;
+		QPushButton *m_cancel;
 		QLabel *m_torrent_label;
 		QLabel *m_chunks_failed;
 		QLabel *m_chunks_found;

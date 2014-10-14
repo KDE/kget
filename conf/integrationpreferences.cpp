@@ -23,6 +23,8 @@
 
 #include <KConfigDialog>
 #include <KLocale>
+#include <KGuiItem>
+#include <KStandardGuiItem>
 
 IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f)
   : QWidget(parent, f)
@@ -36,8 +38,8 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     ui.patternSyntax->addItem(i18n("Escape sequences"), AutoPasteModel::Wildcard);
     ui.patternSyntax->addItem(i18n("Regular expression"), AutoPasteModel::RegExp);
 
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     ui.increase->setIcon(QIcon::fromTheme("arrow-up"));
     ui.decrease->setIcon(QIcon::fromTheme("arrow-down"));
 
@@ -58,10 +60,10 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     connect(ui.list->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
     connect(ui.pattern, &KLineEdit::textChanged, this, &IntegrationPreferences::slotUpdateButtons);
     connect(ui.pattern, &KLineEdit::returnPressed, this, &IntegrationPreferences::slotAddItem);
-    connect(ui.add, &KPushButton::clicked, this, &IntegrationPreferences::slotAddItem);
-    connect(ui.remove, &KPushButton::clicked, this, &IntegrationPreferences::slotRemoveItem);
-    connect(ui.increase, &KPushButton::clicked, this, &IntegrationPreferences::slotIncreasePriority);
-    connect(ui.decrease, &KPushButton::clicked, this, &IntegrationPreferences::slotDecreasePriority);
+    connect(ui.add, &QPushButton::clicked, this, &IntegrationPreferences::slotAddItem);
+    connect(ui.remove, &QPushButton::clicked, this, &IntegrationPreferences::slotRemoveItem);
+    connect(ui.increase, &QPushButton::clicked, this, &IntegrationPreferences::slotIncreasePriority);
+    connect(ui.decrease, &QPushButton::clicked, this, &IntegrationPreferences::slotDecreasePriority);
     connect(parent, SIGNAL(rejected()), m_model, SLOT(load()));
     connect(parent, SIGNAL(applyClicked()), m_model, SLOT(save()));
     connect(parent, SIGNAL(okClicked()), m_model, SLOT(save()));

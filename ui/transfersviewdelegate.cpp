@@ -25,7 +25,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <QMenu>
-#include <kicon.h>
+#include <QIcon>
 
 #include <QApplication>
 #include <QPainter>
@@ -221,7 +221,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_startBt = new GroupStatusButton(m_index, this);
     m_startBt->setCheckable(true);
     m_startBt->setAutoRaise(true);
-    m_startBt->setIcon(KIcon("media-playback-start"));
+    m_startBt->setIcon(QIcon::fromTheme("media-playback-start"));
     m_startBt->setFixedSize(36, 36);
     m_startBt->setIconSize(QSize(22, 22));
     m_layout->addWidget(m_startBt);
@@ -230,7 +230,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_stopBt = new GroupStatusButton(m_index, this);
     m_stopBt->setCheckable(true);
     m_stopBt->setAutoRaise(true);
-    m_stopBt->setIcon(KIcon("media-playback-pause"));
+    m_stopBt->setIcon(QIcon::fromTheme("media-playback-pause"));
     m_stopBt->setFixedSize(36, 36);
     m_stopBt->setIconSize(QSize(22, 22));
     m_layout->addWidget(m_stopBt);

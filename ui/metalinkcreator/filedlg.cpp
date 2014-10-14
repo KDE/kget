@@ -27,6 +27,7 @@
 #include "../../core/verificationdelegate.h"
 
 #include <QSortFilterProxyModel>
+#include <KStandardGuiItem>
 
 #include <KLocale>
 
@@ -92,8 +93,8 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     for (it = m_file->verification.hashes.constBegin(); it != itEnd; ++it) {
         m_verificationModel->addChecksum(it.key(), it.value());
     }
-    ui.add_hash->setGuiItem(KStandardGuiItem::add());
-    ui.remove_hash->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add_hash, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove_hash, KStandardGuiItem::remove());
     m_verificationProxy = new QSortFilterProxyModel(this);
     m_verificationProxy->setSourceModel(m_verificationModel);
     ui.used_hashes->setSortingEnabled(true);
@@ -105,8 +106,8 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     connect(m_verificationModel, &VerificationModel::dataChanged, this, &FileDlg::slotUpdateVerificationButtons);
     connect(m_verificationModel, &VerificationModel::rowsRemoved, this, &FileDlg::slotUpdateVerificationButtons);
     connect(ui.used_hashes, &QTreeView::clicked, this, &FileDlg::slotUpdateVerificationButtons);
-    connect(ui.add_hash, &KPushButton::clicked, this, &FileDlg::slotAddHash);
-    connect(ui.remove_hash, &KPushButton::clicked, this, &FileDlg::slotRemoveHash);
+    connect(ui.add_hash, &QPushButton::clicked, this, &FileDlg::slotAddHash);
+    connect(ui.remove_hash, &QPushButton::clicked, this, &FileDlg::slotRemoveHash);
     connect(ui.name, &KLineEdit::textEdited, this, &FileDlg::slotUpdateOkButton);
     connect(this, &FileDlg::okClicked, this, &FileDlg::slotOkClicked);
 

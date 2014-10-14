@@ -49,7 +49,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="bt_iconview">
+        <widget class="QPushButton" name="bt_iconview">
          <property name="checkable">
           <bool>true</bool>
          </property>
@@ -62,7 +62,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="bt_listview">
+        <widget class="QPushButton" name="bt_listview">
          <property name="checkable">
           <bool>true</bool>
          </property>
@@ -136,11 +136,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

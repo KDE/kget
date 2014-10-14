@@ -20,7 +20,7 @@ class QFileSystemWatcher;
 class QModelIndex;
 class QProgressBar;
 class KLineEdit;
-class KPushButton;
+class QPushButton;
 class TransferHistoryStore;
 class TransferHistoryItem;
 
@@ -57,8 +57,8 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
         QAction *m_actionDownload;
         QAction *m_openFile;
         QPushButton *m_clearButton;
-        KPushButton *m_iconView;
-        KPushButton *m_listView;
+        QPushButton *m_iconView;
+        QPushButton *m_listView;
         bool m_iconModeEnabled;
         TransferHistoryStore *m_store;
 

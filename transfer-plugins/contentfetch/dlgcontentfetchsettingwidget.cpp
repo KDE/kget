@@ -25,8 +25,8 @@ DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(QWidget * parent = 0,
       m_p_action(0)
 {
     ui.setupUi(this);
-    ui.newScriptButton->setIcon(KIcon("list-add"));
-    ui.removeScriptButton->setIcon(KIcon("list-remove"));
+    ui.newScriptButton->setIcon(QIcon::fromTheme("list-add"));
+    ui.removeScriptButton->setIcon(QIcon::fromTheme("list-remove"));
 
     loadContentFetchSetting();
 

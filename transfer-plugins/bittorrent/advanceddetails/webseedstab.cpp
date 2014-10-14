@@ -36,8 +36,8 @@ namespace kt
 		setupUi(this);
 		connect(m_add,SIGNAL(clicked()),this,SLOT(addWebSeed()));
 		connect(m_remove,SIGNAL(clicked()),this,SLOT(removeWebSeed()));
-		m_add->setIcon(KIcon("list-add"));
-		m_remove->setIcon(KIcon("list-remove"));
+		m_add->setIcon(QIcon::fromTheme("list-add"));
+		m_remove->setIcon(QIcon::fromTheme("list-remove"));
 		m_add->setEnabled(false);
 		m_remove->setEnabled(false);
 		m_webseed_list->setEnabled(false);

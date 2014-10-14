@@ -24,7 +24,7 @@
 
 #include <QAction>
 #include <KActionCollection>
-#include <KIcon>
+#include <QIcon>
 #include <KIconLoader>
 #include <KLocale>
 #include <KMessageBox>
@@ -63,12 +63,12 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     ui.filterMode->addItem(i18n("Does Not Contain"), KGetSortFilterProxyModel::DoesNotContain);
 
     // set the Icons
-    ui.importLinks->setIcon(KIcon("document-import"));
-    ui.showCombo->addItem(KIcon("view-list-icons"), i18n("All"), KGetSortFilterProxyModel::NoFilter);
-    ui.showCombo->addItem(KIcon("video-x-generic"), i18n("Videos"), KGetSortFilterProxyModel::VideoFiles);
-    ui.showCombo->addItem(KIcon("image-x-generic"), i18n("Images"), KGetSortFilterProxyModel::ImageFiles);
-    ui.showCombo->addItem(KIcon("audio-x-generic"), i18n("Audio"), KGetSortFilterProxyModel::AudioFiles);
-    ui.showCombo->addItem(KIcon("package-x-generic"), i18n("Archives"), KGetSortFilterProxyModel::CompressedFiles );
+    ui.importLinks->setIcon(QIcon::fromTheme("document-import"));
+    ui.showCombo->addItem(QIcon::fromTheme("view-list-icons"), i18n("All"), KGetSortFilterProxyModel::NoFilter);
+    ui.showCombo->addItem(QIcon::fromTheme("video-x-generic"), i18n("Videos"), KGetSortFilterProxyModel::VideoFiles);
+    ui.showCombo->addItem(QIcon::fromTheme("image-x-generic"), i18n("Images"), KGetSortFilterProxyModel::ImageFiles);
+    ui.showCombo->addItem(QIcon::fromTheme("audio-x-generic"), i18n("Audio"), KGetSortFilterProxyModel::AudioFiles);
+    ui.showCombo->addItem(QIcon::fromTheme("package-x-generic"), i18n("Archives"), KGetSortFilterProxyModel::CompressedFiles );
 
     ui.treeView->setModel(m_proxyModel);
     ui.progressBar->hide();
@@ -122,7 +122,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
                                                           QDialogButtonBox::AcceptRole,
                                                           this,
                                                           SLOT(accept()));
-    download->setIcon(KIcon("kget"));
+    download->setIcon(QIcon::fromTheme("kget"));
 
     checkClipboard();
 }
@@ -200,7 +200,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         }
 
         QStandardItem *item = new QStandardItem(file);
-        item->setIcon(KIcon(mimeTypeIcon));
+        item->setIcon(QIcon::fromTheme(mimeTypeIcon));
         item->setCheckable(true);
         item->setCheckState(Qt::Checked);
         item->setData(QVariant(url.fileName()), Qt::DisplayRole);

@@ -25,7 +25,7 @@
 #include <KMessageBox>
 #include <QMenu>
 #include <KRun>
-#include <KIcon>
+#include <QIcon>
 #include <KToolInvocation>
 #include <KGenericFactory>
 #include <KProtocolInfo>
@@ -52,7 +52,7 @@ static QWidget* partWidget(QObject* obj)
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
            :KParts::Plugin(parent)
 {
-    KActionMenu *menu = new KActionMenu(KIcon("kget"), i18n("Download Manager"), actionCollection());
+    KActionMenu *menu = new KActionMenu(QIcon::fromTheme("kget"), i18n("Download Manager"), actionCollection());
     actionCollection()->addAction("kget_menu", menu);
 
     menu->setDelayed( false );

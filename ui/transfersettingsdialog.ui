@@ -135,7 +135,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="KPushButton" name="mirrors">
+        <widget class="QPushButton" name="mirrors">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -148,7 +148,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="rename">
+        <widget class="QPushButton" name="rename">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -158,7 +158,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="verification">
+        <widget class="QPushButton" name="verification">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -168,7 +168,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="signature">
+        <widget class="QPushButton" name="signature">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -197,11 +197,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTitleWidget</class>
    <extends>QWidget</extends>

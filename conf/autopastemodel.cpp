@@ -21,7 +21,7 @@
 #include "settings.h"
 
 #include <KComboBox>
-#include <KIcon>
+#include <QIcon>
 #include <KLineEdit>
 #include <KLocale>
 
@@ -192,7 +192,7 @@ QVariant AutoPasteModel::data(const QModelIndex &index, int role) const
     switch (column) {
         case Type: {
             if (role == Qt::DecorationRole) {
-                return (m_data[row].type == Include ? KIcon("list-add") : KIcon("list-remove"));
+                return (m_data[row].type == Include ? QIcon::fromTheme("list-add") : QIcon::fromTheme("list-remove"));
             } else if ((role == Qt::UserRole) || (role == Qt::EditRole)) {
                 return m_data[row].type;
             }

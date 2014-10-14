@@ -21,7 +21,8 @@
 #include "metalinker.h"
 #include "../mirror/mirrormodel.h"
 #include "../mirror/mirrorsettings.h"
-
+#include <KGuiItem>
+#include <KStandardGuiItem>
 #include <QSortFilterProxyModel>
 
 UrlWidget::UrlWidget(QObject *parent)
@@ -42,12 +43,12 @@ UrlWidget::UrlWidget(QObject *parent)
     ui.used_mirrors->hideColumn(MirrorItem::Used);
     ui.used_mirrors->hideColumn(MirrorItem::Connections);
 
-    ui.add_mirror->setGuiItem(KStandardGuiItem::add());
-    ui.remove_mirror->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add_mirror, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove_mirror, KStandardGuiItem::remove());
     ui.remove_mirror->setEnabled(false);
     connect(ui.used_mirrors->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUrlClicked()));
-    connect(ui.add_mirror, &KPushButton::clicked, this, &UrlWidget::slotAddMirror);
-    connect(ui.remove_mirror, &KPushButton::clicked, this, &UrlWidget::slotRemoveMirror);
+    connect(ui.add_mirror, &QPushButton::clicked, this, &UrlWidget::slotAddMirror);
+    connect(ui.remove_mirror, &QPushButton::clicked, this, &UrlWidget::slotRemoveMirror);
     connect(m_mirrorModel, &MirrorModel::dataChanged, this, &UrlWidget::urlsChanged);
     connect(m_mirrorModel, &MirrorModel::rowsInserted, this, &UrlWidget::urlsChanged);
     connect(m_mirrorModel, &MirrorModel::rowsRemoved, this, &UrlWidget::urlsChanged);

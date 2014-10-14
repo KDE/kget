@@ -21,7 +21,7 @@
    <item row="2" column="1">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="KPushButton" name="add_local_file">
+      <widget class="QPushButton" name="add_local_file">
        <property name="toolTip">
         <string>Adds local files adding a lot information automatically.</string>
        </property>
@@ -31,13 +31,13 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="add_file"/>
+      <widget class="QPushButton" name="add_file"/>
      </item>
      <item>
-      <widget class="KPushButton" name="properties_file"/>
+      <widget class="QPushButton" name="properties_file"/>
      </item>
      <item>
-      <widget class="KPushButton" name="remove_file"/>
+      <widget class="QPushButton" name="remove_file"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -83,11 +83,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KMessageWidget</class>
    <extends>QWidget</extends>

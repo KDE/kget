@@ -38,7 +38,7 @@
 #include <QProgressBar>
 
 #include <KDebug>
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
 #include <KGlobal>
 

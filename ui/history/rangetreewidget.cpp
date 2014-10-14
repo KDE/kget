@@ -11,7 +11,7 @@
 #include "rangetreewidget.h"
 #include "settings.h"
 
-#include <KIcon>
+#include <QIcon>
 #include <KDebug>
 
 #include <QApplication>

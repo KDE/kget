@@ -21,7 +21,7 @@
 #ifndef KTPEERVIEWMODEL_H
 #define KTPEERVIEWMODEL_H
 
-#include <kicon.h>
+#include <QIcon>
 #include <QList>
 #include <QAbstractTableModel>
 #include <interfaces/peerinterface.h>

@@ -33,7 +33,7 @@
 #include <KFileDialog>
 #include <KLocale>
 #include <KMessageBox>
-#include <KPushButton>
+#include <QPushButton>
 #include <KStandardDirs>
 
 //TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
@@ -224,11 +224,11 @@ void MetalinkCreator::createFiles()
 
     uiFiles.infoWidget->setCloseButtonVisible(false);
     uiFiles.infoWidget->setMessageType(KMessageWidget::Information);
-    uiFiles.add_local_file->setIcon(KIcon("list-add"));
-    uiFiles.add_file->setGuiItem(KStandardGuiItem::add());
-    uiFiles.properties_file->setGuiItem(KStandardGuiItem::properties());
+    uiFiles.add_local_file->setIcon(QIcon::fromTheme("list-add"));
+    KGuiItem::assign(uiFiles.add_file, KStandardGuiItem::add());
+    KGuiItem::assign(uiFiles.properties_file, KStandardGuiItem::properties());
     uiFiles.properties_file->setEnabled(false);
-    uiFiles.remove_file->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(uiFiles.remove_file, KStandardGuiItem::remove());
     uiFiles.remove_file->setEnabled(false);
     uiFiles.dragDrop->hide();
 
@@ -250,7 +250,7 @@ void MetalinkCreator::loadFiles()
         if (!file.resources.isValid())
         {
             ++m_needUrlCount;
-            item->setIcon(KIcon("edit-delete"));
+            item->setIcon(QIcon::fromTheme("edit-delete"));
         }
         m_filesModel->insertRow(m_filesModel->rowCount(), item);
     }
@@ -291,7 +291,7 @@ void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
     if (!file.resources.isValid())
     {
         ++m_needUrlCount;
-        item->setIcon(KIcon("edit-delete"));
+        item->setIcon(QIcon::fromTheme("edit-delete"));
     }
     m_filesModel->insertRow(m_filesModel->rowCount(), item);
     metalink.files.files.append(file);
@@ -311,7 +311,7 @@ void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &
     if (!item->icon().isNull())
     {
         --m_needUrlCount;
-        item->setIcon(KIcon());
+        item->setIcon(QIcon());
     }
 
     slotUpdateAssistantButtons(0, m_files);

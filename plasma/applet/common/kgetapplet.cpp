@@ -37,7 +37,7 @@
 #include <QDBusConnectionInterface>
 #include <KUrl>
 #include <KLocale>
-#include <KIcon>
+#include <QIcon>
 
 const int ProxyWidget::MARGIN = 20;
 const int ProxyWidget::TOP_MARGIN = 55;
@@ -80,7 +80,7 @@ void ProxyWidget::paint(QPainter * p, const QStyleOptionGraphicsItem * option, Q
 
     QRect iconRect(QPoint(rect.x() + SPACING + 10, rect.y() + SPACING + 10), QSize(m_textHeight, m_textHeight));
 
-    KIcon("kget").paint(p, iconRect);
+    QIcon::fromTheme("kget").paint(p, iconRect);
     p->drawText(QRectF(rect.x() + SPACING * 2 + 10 + iconRect.width(), rect.y() + SPACING + 10, 
                        m_textWidth, m_textHeight), i18n("KGet"));
     p->drawLine(QPointF(rect.x() + SPACING + 10, rect.y() + SPACING * 2 + 10 + m_textHeight), 

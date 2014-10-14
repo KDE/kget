@@ -22,7 +22,7 @@
 
 #include <QAbstractListModel>
 
-#include <KIcon>
+#include <QIcon>
 
 /**
  * The following models are there to store the localized names and the codes of languages and countries

@@ -98,8 +98,8 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     ui.verifying->hide();
 
     if (m_model) {
@@ -124,9 +124,9 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         connect(m_model, &VerificationModel::dataChanged, this, &VerificationDialog::updateButtons);
         connect(m_model, &VerificationModel::rowsRemoved, this, &VerificationDialog::updateButtons);
         connect(ui.usedHashes, &QTreeView::clicked, this, &VerificationDialog::updateButtons);
-        connect(ui.add, &KPushButton::clicked, this, &VerificationDialog::addClicked);
-        connect(ui.remove, &KPushButton::clicked, this, &VerificationDialog::removeClicked);
-        connect(ui.verify, &KPushButton::clicked, this, &VerificationDialog::verifyClicked);
+        connect(ui.add, &QPushButton::clicked, this, &VerificationDialog::addClicked);
+        connect(ui.remove, &QPushButton::clicked, this, &VerificationDialog::removeClicked);
+        connect(ui.verify, &QPushButton::clicked, this, &VerificationDialog::verifyClicked);
     }
 
     setButtons(KDialog::Close);

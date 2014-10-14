@@ -74,11 +74,11 @@ void CountryModel::setupModelData(const QStringList &countryCodes)
             QString path = KStandardDirs::locate("locale", QString::fromLatin1("l10n/%1/flag.png").arg(countryCode));
             if (path.isEmpty())
             {
-                m_countryIcons.append(KIcon());
+                m_countryIcons.append(QIcon());
             }
             else
             {
-                m_countryIcons.append(KIcon(path));
+                m_countryIcons.append(QIcon::fromTheme(path));
             }
         }
     }

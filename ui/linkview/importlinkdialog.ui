@@ -33,7 +33,7 @@
          <widget class="KUrlRequester" name="urlRequester"/>
         </item>
         <item>
-         <widget class="KPushButton" name="importLinks">
+         <widget class="QPushButton" name="importLinks">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -166,7 +166,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KPushButton" name="selectAll">
+      <widget class="QPushButton" name="selectAll">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -182,7 +182,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="deselectAll">
+      <widget class="QPushButton" name="deselectAll">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -198,7 +198,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="invertSelection">
+      <widget class="QPushButton" name="invertSelection">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -244,11 +244,6 @@
    <class>KSeparator</class>
    <extends>QFrame</extends>
    <header>kseparator.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
