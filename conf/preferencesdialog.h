@@ -16,7 +16,6 @@
 
 class QWidget;
 class KConfigSkeleton;
-class KTabWidget;
 
 class PreferencesDialog : public KConfigDialog
 {

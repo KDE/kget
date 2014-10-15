@@ -14,8 +14,6 @@
 #include "core/plugin/transferfactory.h"
 
 class Transfer;
-class TransferGroup;
-class Scheduler;
 class TransferDataSource;
 
 class MirrorSearchFactory : public TransferFactory

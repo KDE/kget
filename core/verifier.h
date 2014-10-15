@@ -30,8 +30,6 @@
 #include "kget_export.h"
 
 class QDomElement;
-class QFile;
-class TransferHandler;
 class VerificationModel;
 class VerifierPrivate;
 typedef QPair<QString, QString> Checksum;

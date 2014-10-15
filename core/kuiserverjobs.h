@@ -24,7 +24,6 @@
 
 class KGetKJobAdapter;
 class TransferHandler; 
-class TransferGroupHandler;
 
 class KUiServerJobs : public QObject
 {

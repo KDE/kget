@@ -25,9 +25,6 @@ class QTimer;
 class QMenu;
 
 class MainWindow;
-class DropTargetModelObserver;
-class DropTargetGroupObserver;
-class DropTargetTransferObserver;
     
 class DropTarget : public QWidget
 {

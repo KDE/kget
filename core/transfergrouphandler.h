@@ -22,9 +22,7 @@
 class QAction;
 
 class QObjectInterface;
-class TransferGroupObserver;
 class TransferHandler;
-class KGetKJobAdapter;
 class Scheduler;
 
 class KGET_EXPORT TransferGroupHandler : public Handler

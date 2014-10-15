@@ -35,9 +35,7 @@
 #include "transfergrouphandler.h"
 
 class QDomElement;
-class QAbstractItemView;
 
-class KComboBox;
 
 class TransferDataSource;
 class TransferGroup;

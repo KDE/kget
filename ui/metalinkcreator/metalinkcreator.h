@@ -33,11 +33,9 @@ namespace KGetMetalink
     class Metalink;
 }
 
-class CountryModel;
 class GeneralWidget;
 class LanguageModel;
 class QDragEnterEvent;
-class QShowEvent;
 class QSortFilterProxyModel;
 class QStandardItemModel;
 

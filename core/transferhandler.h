@@ -20,7 +20,6 @@
 #include "kget_export.h"
 
 class QAction;
-class KPassivePopup;
 
 class KGetKJobAdapter;
 

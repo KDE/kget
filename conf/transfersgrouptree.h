@@ -19,7 +19,6 @@
 #include <QStyledItemDelegate>
 #include <QTreeView>
 
-class GroupStatusEditor;
 
 class TransfersGroupDelegate : public BasicTransfersViewDelegate
 {

@@ -17,8 +17,6 @@
 #include "core/plugin/transferfactory.h"
 #include "ui_transferdetailsfrm.h"
 
-class QLabel;
-class QProgressBar;
 class QVBoxLayout;
 
 class TransferDetails : public QWidget

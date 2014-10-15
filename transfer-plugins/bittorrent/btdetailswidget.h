@@ -20,7 +20,6 @@
 class BTTransferHandler;
 
 class QShowEvent;
-class QHideEvent;
 
 class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
 {

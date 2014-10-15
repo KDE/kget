@@ -17,7 +17,6 @@
 
 class FileModel;
 class QSortFilterProxyModel;
-class RenameFile;
 class TransferHandler;
 
 class TransferSettingsDialog : public KGetSaveSizeDialog

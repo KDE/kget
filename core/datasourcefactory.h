@@ -21,7 +21,6 @@
 #include <QDomElement>
 
 class BitSet;
-class KioDownload;
 class TransferDataSource;
 class QTimer;
 class Signature;
