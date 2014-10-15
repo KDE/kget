@@ -30,7 +30,7 @@ using namespace bt;
 
 namespace kt
 {
-	static KIcon yes,no;
+	static QIcon yes,no;
 	static bool icons_loaded = false;
 
 	PeerViewModel::Item::Item(bt::PeerInterface* peer) : peer(peer)
