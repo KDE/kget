@@ -29,7 +29,6 @@
 #include <KLocale>
 #include <KMessageBox>
 #include <KMimeType>
-#include <KShortcut>
 #include <KStandardAction>
 #include <KWindowSystem>
 
