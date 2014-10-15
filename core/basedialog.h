@@ -20,7 +20,7 @@
 #ifndef KGET_BASE_DIALOG
 #define KGET_BASE_DIALOG
 
-#include "../kget_export.h"
+#include "kget_export.h"
 #include <KDialog>
 
 class QCheckBox;

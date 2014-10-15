@@ -20,7 +20,7 @@
 #ifndef VERIFICATION_DELEGATE_H
 #define VERIFICATION_DELEGATE_H
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 #include <QStyledItemDelegate>
 

@@ -27,7 +27,7 @@
 #include <QHash>
 #include <QStringList>
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 class QDomElement;
 class QFile;

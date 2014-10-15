@@ -13,7 +13,7 @@
 #define TRANSFER_H
 
 #include "job.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 
 #include <QPixmap>
 #include <QTime>

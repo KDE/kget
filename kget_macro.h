@@ -14,17 +14,6 @@
 #include <KPluginFactory>
 #include <KPluginLoader>
 
-/* needed for KDE_EXPORT macros */
-#include <kdemacros.h>
-
-/* export statements for unix */
-#ifdef MAKE_KGETCORE_LIB
-# define KGET_EXPORT KDE_EXPORT
-#else
-# define KGET_EXPORT KDE_IMPORT
-#endif
-
-
 /**
  * @short Declares a class as plugin.
  *

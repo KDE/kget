@@ -16,7 +16,7 @@
 
 #include "handler.h"
 #include "transfergroup.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 #include "kget.h"
 
 class QAction;

@@ -16,7 +16,7 @@
 
 #include <kdebug.h>
 
-KGET_EXPORT_PLUGIN( TransferKioFactory )
+//PORT QT5 KGET_EXPORT_PLUGIN( TransferKioFactory );
 
 TransferKioFactory::TransferKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

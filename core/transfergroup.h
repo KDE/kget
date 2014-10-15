@@ -19,7 +19,7 @@
 #include <KDebug>
 
 #include "jobqueue.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 #include "transfer.h"
 
 #ifdef HAVE_NEPOMUK

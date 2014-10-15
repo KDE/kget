@@ -39,6 +39,7 @@
 #include "core/transferhandler.h"
 #include "core/transferdatasource.h"
 #include "kget_export.h"
+#include "kget_macro.h"
 
 class TransferGroup;
 class Scheduler;

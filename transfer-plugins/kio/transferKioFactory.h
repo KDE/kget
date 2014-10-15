@@ -12,7 +12,7 @@
 #define KIO_FACTORY_H
 
 #include "core/plugin/transferfactory.h"
-
+#include "kget_macro.h"
 class Transfer;
 class TransferGroup;
 class Scheduler;

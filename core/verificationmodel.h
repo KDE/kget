@@ -20,7 +20,7 @@
 #ifndef VERIFICATION_MODEL_H
 #define VERIFICATION_MODEL_H
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 #include <QAbstractTableModel>
 

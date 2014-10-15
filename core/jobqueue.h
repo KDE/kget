@@ -24,7 +24,8 @@
  */
 
 #include <QList>
-#include "../kget_export.h"
+#include <QObject>
+#include "kget_export.h"
 
 class Job;
 class Scheduler;

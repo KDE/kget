@@ -21,7 +21,7 @@
 #define BTBITSET_H
 
 #include <kget_export.h>
-
+#include <QObject>
 /**
   * @author Joris Guisson
   * @brief Simple implementation of a BitSet

@@ -18,7 +18,7 @@
 
 #include <kdebug.h>
 
-KGET_EXPORT_PLUGIN( MirrorSearchFactory )
+//PORT QT5 KGET_EXPORT_PLUGIN( MirrorSearchFactory )
 
 MirrorSearchFactory::MirrorSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

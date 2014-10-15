@@ -19,7 +19,7 @@
 
 #include <kdebug.h>
 
-KGET_EXPORT_PLUGIN( MetalinkFactory )
+//PORT QT5 KGET_EXPORT_PLUGIN( MetalinkFactory )
 
 MetalinkFactory::MetalinkFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

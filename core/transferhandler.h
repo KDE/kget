@@ -17,7 +17,7 @@
 #include "handler.h"
 #include "transfer.h"
 #include "transfergroup.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 
 class QAction;
 class KPassivePopup;

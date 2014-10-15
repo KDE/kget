@@ -20,9 +20,11 @@
 #ifndef KGET_URL_CHECKER_H
 #define KGET_URL_CHECKER_H
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 #include <QUrl>
+#include <QHash>
+#include <QList>
 
 class Transfer;
 class TransferHandler;

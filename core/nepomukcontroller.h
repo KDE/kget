@@ -20,7 +20,7 @@
 #ifndef NEPOMUKCONTROLLER
 #define NEPOMUKCONTROLLER
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 #include <Nepomuk2/Vocabulary/NFO>
 

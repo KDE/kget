@@ -20,8 +20,9 @@
 #include <QDomElement>
 
 #include <kdebug.h>
+#include "kget_macro.h"
 
-KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
+//PORT QT5 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
 
 TransferMultiSegKioFactory::TransferMultiSegKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

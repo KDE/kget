@@ -12,7 +12,7 @@
 
 #include "metalinksettings.h"
 
-#include "kget_export.h"
+#include "kget_macro.h"
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 

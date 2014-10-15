@@ -20,7 +20,7 @@
 #ifndef KGET_SIGNATURE_H
 #define KGET_SIGNATURE_H
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 #include <KUrl>
 

@@ -54,7 +54,7 @@ QString DlgEngineEditing::engineUrl() const
     return ui.urlEdit->text();
 }
 
-KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
+//PORT QT5 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
     : KCModule(/*KGetFactory::componentData(),*/ parent, args)
