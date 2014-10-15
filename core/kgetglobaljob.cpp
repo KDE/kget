@@ -15,7 +15,6 @@
 #include <klocale.h>
 #include <kuiserverjobtracker.h>
 
-#include <QTimer>
 
 KGetGlobalJob::KGetGlobalJob(QObject *parent)
     : KJob(parent)

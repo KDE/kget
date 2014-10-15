@@ -19,7 +19,6 @@
 
 #include "localemodels.h"
 
-#include <KGlobal>
 #include <KLocale>
 #include <KStandardDirs>
 

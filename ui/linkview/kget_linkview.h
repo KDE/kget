@@ -12,7 +12,6 @@
 #define KGET_LINKVIEW_H
 
 #include "../../core/basedialog.h"
-#include <KLocale>
 
 #include "ui_importlinkdialog.h"
 

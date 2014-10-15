@@ -33,7 +33,6 @@
 #include <QListWidgetItem>
 #include <KColorScheme>
 #include <KDebug>
-#include <KFileDialog>
 #include <KWindowSystem>
 #include <QStandardPaths>
 

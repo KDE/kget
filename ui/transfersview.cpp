@@ -25,7 +25,6 @@
 #include <QDropEvent>
 #include <QHeaderView>
 #include <QSignalMapper>
-#include <QHBoxLayout>
 #include <QGroupBox>
 
 TransfersView::TransfersView(QWidget * parent)

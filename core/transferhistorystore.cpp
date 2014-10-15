@@ -17,16 +17,11 @@
 #include "settings.h"
 
 #include <QDateTime>
-#include <QDomDocument>
-#include <QFile>
 #include <QList>
 #include <QThread>
-#include <QTimer>
 
 #include <KDebug>
 #include <kio/global.h>
-#include <KLocale>
-#include <KMessageBox>
 #include <KStandardDirs>
 
 TransferHistoryItem::TransferHistoryItem() : QObject()

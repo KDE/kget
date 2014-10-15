@@ -13,7 +13,6 @@
 #include "ui_groupsettingsdialog.h"
 #include "../core/basedialog.h"
 
-#include <KDialog>
 
 #ifdef HAVE_NEPOMUK
 namespace Nepomuk2 {

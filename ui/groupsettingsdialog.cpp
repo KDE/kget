@@ -11,7 +11,6 @@
 #include "groupsettingsdialog.h"
 
 #include "core/transfergrouphandler.h"
-#include <KFileDialog>
 
 #ifdef HAVE_NEPOMUK
     #include <Nepomuk2/Tag>

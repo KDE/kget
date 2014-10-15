@@ -17,7 +17,6 @@
 #include <QAbstractItemModel>
 #include <QAction>
 #include <QApplication>
-#include <QDate>
 #include <QMenu>
 #include <QModelIndex>
 #include <QMouseEvent>

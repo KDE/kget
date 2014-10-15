@@ -19,11 +19,9 @@
 
 #include "mirrormodel.h"
 
-#include <QAbstractListModel>
 #include <QSpinBox>
 
 #include <KComboBox>
-#include <KGlobal>
 #include <KLineEdit>
 #include <KLocale>
 #include <KStandardDirs>

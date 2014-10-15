@@ -14,12 +14,10 @@
 
 #include <QFile>
 #include <QIODevice>
-#include <QList>
 #include <QMap>
 #include <QRegExp>
 #include <QDir>
 #include <QTextStream>
-#include <QStringList>
 
 #include <KDebug>
 #include <KLocale>

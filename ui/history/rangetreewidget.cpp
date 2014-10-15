@@ -11,15 +11,11 @@
 #include "rangetreewidget.h"
 #include "settings.h"
 
-#include <QIcon>
 #include <KDebug>
 
 #include <QApplication>
-#include <QDate>
 #include <QFont>
 #include <QHeaderView>
-#include <QHBoxLayout>
-#include <QLabel>
 #include <QLinearGradient>
 #include <QList>
 #include <QPainter>

@@ -11,7 +11,6 @@
 #ifndef TRANSFERHISTORY_H
 #define TRANSFERHISTORY_H
 
-#include <QList>
 #include "../../core/basedialog.h"
 
 #include "ui_transferhistory.h"

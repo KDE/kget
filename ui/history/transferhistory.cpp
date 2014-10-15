@@ -21,20 +21,16 @@
 #include <QFile>
 #include <QFileSystemWatcher>
 #include <QFontMetrics>
-#include <QLineEdit>
 #include <QMenu>
 #include <QModelIndex>
 #include <QProgressBar>
-#include <QStandardItem>
 #include <QVariant>
+#include <QStandardItem>
 
 #include <KDebug>
 #include <KStandardDirs>
-#include <KMessageBox>
-#include <KToolBar>
 #include <KTreeWidgetSearchLine>
 #include <KRun>
-#include <KGlobalSettings>
 #include <kio/global.h>
 #include <QPushButton>
 #include <QIcon>

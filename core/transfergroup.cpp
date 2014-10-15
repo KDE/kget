@@ -15,13 +15,8 @@
 #include "core/kget.h"
 
 #include <KDebug>
-#include <KMessageBox>
-#include <KLocale>
-#include <KStandardDirs>
 #include <kio/global.h>
 
-#include <QFile>
-#include <QDateTime>
 #include <QDomElement>
 
 

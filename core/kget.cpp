@@ -40,10 +40,8 @@
 #include <kio/renamedialog.h>
 #include <KSharedConfig>
 #include <KPluginInfo>
-#include <KComboBox>
 #include <KConfigDialog>
 #include <KSaveFile>
-#include <KWindowSystem>
 
 #include <QTextStream>
 #include <QDomElement>
@@ -59,9 +57,7 @@
 
 #ifdef HAVE_KWORKSPACE
     #include <QDBusConnection>
-    #include <QDBusInterface>
-    #include <QDBusPendingCall>
-    #include <kworkspace/kworkspace.h>
+            #include <kworkspace/kworkspace.h>
     #include <solid/powermanagement.h>
 #include <QStandardPaths>
 #endif

@@ -24,14 +24,11 @@
 #include "settings.h"
 
 #include <QFile>
-#include <QScopedPointer>
 #include <QDomElement>
 
-#include <KCodecs>
 #include <KDebug>
 
 #ifdef HAVE_QCA2
-#include <QtCrypto>
 #endif
 
 //TODO use mutable to make some methods const?

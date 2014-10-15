@@ -18,7 +18,6 @@
 #include "core/kget.h"
 
 #include <kdebug.h>
-#include <QMenu>
 #include <QAction>
 #include <kactioncollection.h>
 #include <klocale.h>

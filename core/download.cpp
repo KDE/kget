@@ -10,7 +10,6 @@
 #include "download.h"
 
 #include <QFile>
-#include <QFileInfo>
 
 #include <KDebug>
 

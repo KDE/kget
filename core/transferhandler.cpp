@@ -22,7 +22,6 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <KPassivePopup>
 #include <QAction>
 #include <QVariant>
 

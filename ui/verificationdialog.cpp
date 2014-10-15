@@ -20,7 +20,6 @@
 #include "verificationdialog.h"
 
 #include <QSortFilterProxyModel>
-#include <QStandardItemModel>
 
 #include <KLocale>
 #include <KMessageBox>

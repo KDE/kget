@@ -13,7 +13,6 @@
 
 #include "kget.h"
 
-#include <QMenu>
 #include <klocale.h>
 #include <kdebug.h>
 

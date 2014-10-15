@@ -23,13 +23,9 @@
 #include <QStandardItemModel>
 
 #include <QAction>
-#include <KActionCollection>
 #include <QIcon>
-#include <KIconLoader>
 #include <KLocale>
-#include <KMessageBox>
 #include <KMimeType>
-#include <KStandardAction>
 #include <KWindowSystem>
 
 KGetLinkView::KGetLinkView(QWidget *parent)

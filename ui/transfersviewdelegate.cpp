@@ -33,8 +33,6 @@
 #include <QModelIndex>
 #include <QButtonGroup>
 #include <QHBoxLayout>
-#include <QGroupBox>
-#include <QLabel>
 #include <QAbstractItemView>
 
 GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
