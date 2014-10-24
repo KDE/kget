@@ -56,14 +56,14 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget 
     ui.information->setCloseButtonVisible(false);
     ui.information->setWordWrap(true);
     if (m_signature) {
-        connect(ui.loadSignature, SIGNAL(clicked(bool)), this, SLOT(loadSignatureClicked()));
-        connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
-        connect(ui.signature, SIGNAL(textChanged()), this, SLOT(textChanged()));
-        connect(m_signature, SIGNAL(verified(int)), this, SLOT(updateData()));
+        connect(ui.loadSignature, &QPushButton::clicked, this, &SignatureDlg::loadSignatureClicked);
+        connect(ui.verify, &QPushButton::clicked, this, &SignatureDlg::verifyClicked);
+        connect(ui.signature, &KTextEdit::textChanged, this, &SignatureDlg::textChanged);
+        connect(m_signature, &Signature::verified, this, &SignatureDlg::updateData);
 
         if (m_fileModel) {
             m_file = m_fileModel->index(dest, FileItem::File);
-            connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
+            connect(m_fileModel, &FileModel::fileFinished, this, &SignatureDlg::fileFinished);
         }
 
         updateData();

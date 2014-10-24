@@ -54,10 +54,8 @@ TransfersView::TransfersView(QWidget * parent)
     connect(header(), SIGNAL(sectionCountChanged(int,int)), this, SLOT(populateHeaderActions()));
     connect(header(), SIGNAL(sectionMoved(int,int,int)), this, SLOT(slotSectionMoved(int,int,int)));
     connect(header(), SIGNAL(sectionResized(int,int,int)), this, SLOT(slotSaveHeader()));
-    connect(this,     SIGNAL(doubleClicked(QModelIndex)),
-            this,     SLOT(slotItemActivated(QModelIndex)));
-    connect(this,     SIGNAL(collapsed(QModelIndex)),
-            this,     SLOT(slotItemCollapsed(QModelIndex)));
+    connect(this, &TransfersView::doubleClicked, this, &TransfersView::slotItemActivated);
+    connect(this, &TransfersView::collapsed, this, &TransfersView::slotItemCollapsed);
     connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), 
             this,          SLOT(closeExpandableDetails(QModelIndex,int,int)));
 }
@@ -127,7 +125,7 @@ void TransfersView::populateHeaderActions()
     m_headerMenu->addSection(i18n("Select columns"));
 
     QSignalMapper *columnMapper = new QSignalMapper(this);
-    connect(columnMapper, SIGNAL(mapped(int)), SLOT(slotHideSection(int)));
+    connect(columnMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &TransfersView::slotHideSection);
 
     //Create for each column an action with the column-header as name
     QVector<QAction *> orderedMenuItems(header()->count());

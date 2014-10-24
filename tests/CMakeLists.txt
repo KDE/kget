@@ -10,6 +10,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     set(kget_test_transfers_SRCS
         testkget.cpp
         testtransfers.cpp
+        ../kget_debug.cpp
     )
 
     qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.main.xml kget_interface)
@@ -46,6 +47,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     set(metalinktest_SRCS
         metalinktest.cpp
         ../ui/metalinkcreator/metalinker.cpp
+        ../kget_debug.cpp
     )
 
     kde4_add_unit_test( metalinktest
