@@ -20,8 +20,9 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 
-//PORT QT5 KGET_EXPORT_PLUGIN( MetalinkFactory )
-
+K_PLUGIN_FACTORY(KGetFactory, 
+                 registerPlugin<MetalinkFactory>();
+)
 MetalinkFactory::MetalinkFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {
@@ -31,7 +32,7 @@ MetalinkFactory::~MetalinkFactory()
 {
 }
 
-Transfer * MetalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * e )
@@ -55,7 +56,7 @@ Transfer * MetalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &dest
     }
 }
 
-bool MetalinkFactory::isSupported(const KUrl &url) const
+bool MetalinkFactory::isSupported(const QUrl &url) const
 {
     return (url.fileName().endsWith(QLatin1String(".metalink")) || url.fileName().endsWith(QLatin1String(".meta4")));
 }

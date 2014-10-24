@@ -21,10 +21,14 @@
 #include "mmssettings.h"
 #include "mmstransfer.h"
 
+#include <kpluginfactory.h>
+
 #include "kget_debug.h"
 #include <qdebug.h>
 
-//KGET_EXPORT_PLUGIN( MmsTransferFactory )
+K_PLUGIN_FACTORY(KGetFactory, 
+                 registerPlugin<MmsTransferFactory>();
+)
 
 MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -33,14 +37,14 @@ MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args
 MmsTransferFactory::~MmsTransferFactory()
 {}
 
-Transfer * MmsTransferFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * MmsTransferFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
     qCDebug(KGET_DEBUG) << "MmsTransferFactory::createTransfer";
 
-    QString prot = srcUrl.protocol();
+    QString prot = srcUrl.scheme();
     qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     if (prot == "mms" || prot == "mmsh") {
         return new MmsTransfer(parent, this, scheduler, srcUrl, destUrl, e);
@@ -60,11 +64,11 @@ const QList<QAction *> MmsTransferFactory::actions(TransferHandler *handler)
     return QList<QAction *>();
 }
 
-bool MmsTransferFactory::isSupported(const KUrl &url) const
+bool MmsTransferFactory::isSupported(const QUrl &url) const
 {
-    QString prot = url.protocol();
+    QString prot = url.scheme();
     qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     return (prot == "mms" || prot == "mmsh");
 }
 
-
+#include "mmstransferfactory.moc"

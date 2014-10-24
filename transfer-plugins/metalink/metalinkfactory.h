@@ -27,7 +27,7 @@ class MetalinkFactory : public TransferFactory
         MetalinkFactory(QObject *parent, const QVariantList &args);
         ~MetalinkFactory();
 
-        Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
@@ -38,7 +38,7 @@ class MetalinkFactory : public TransferFactory
          * @param The Url to be tested
          * @return True if the URL is a metalink (xml or http).
          */
-        bool isSupported(const KUrl &url) const;
+        bool isSupported(const QUrl &url) const;
 };
 
 #endif

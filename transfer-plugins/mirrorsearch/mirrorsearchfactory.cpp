@@ -19,8 +19,9 @@
 
 #include <QDomElement>
 
-//PORT QT5 KGET_EXPORT_PLUGIN( MirrorSearchFactory )
-
+K_PLUGIN_FACTORY(KGetFactory, 
+                 registerPlugin<MirrorSearchFactory>();
+)
 MirrorSearchFactory::MirrorSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {
@@ -30,7 +31,7 @@ MirrorSearchFactory::~MirrorSearchFactory()
 {
 }
 
-TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *MirrorSearchFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     qCDebug(KGET_DEBUG);
 

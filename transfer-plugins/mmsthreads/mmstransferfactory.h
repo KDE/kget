@@ -34,7 +34,7 @@ class MmsTransferFactory : public TransferFactory
         MmsTransferFactory(QObject *parent, const QVariantList &args);
         ~MmsTransferFactory();
 
-        Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
@@ -44,7 +44,7 @@ class MmsTransferFactory : public TransferFactory
 
         const QList<QAction *> actions(TransferHandler *handler = 0);
 
-        bool isSupported(const KUrl &url) const;
+        bool isSupported(const QUrl &url) const;
 
         QString displayName(){return "mms";}
 

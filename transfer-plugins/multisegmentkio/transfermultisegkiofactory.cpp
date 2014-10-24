@@ -23,8 +23,9 @@
 #include <qdebug.h>
 #include "kget_macro.h"
 
-//PORT QT5 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
-
+K_PLUGIN_FACTORY(KGetFactory, 
+                 registerPlugin<TransferMultiSegKioFactory>();
+)
 TransferMultiSegKioFactory::TransferMultiSegKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {
@@ -34,7 +35,7 @@ TransferMultiSegKioFactory::~TransferMultiSegKioFactory()
 {
 }
 
-Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * TransferMultiSegKioFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * e )
@@ -65,7 +66,7 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
     return QList<QAction *>();
 }
 
- TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+ TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     qCDebug(KGET_DEBUG);
 
@@ -82,9 +83,9 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
     return 0;
 }
 
-bool TransferMultiSegKioFactory::isSupported(const KUrl &url) const
+bool TransferMultiSegKioFactory::isSupported(const QUrl &url) const
 {
-    QString prot = url.protocol();
+    QString prot = url.scheme();
     qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     return addsProtocols().contains(prot);
 }
