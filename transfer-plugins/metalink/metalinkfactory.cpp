@@ -41,19 +41,17 @@ Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &dest
     KGetMetalink::MetalinkHttpParser *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
 
     if (metalinkHttpChecker->isMetalinkHttp()) {
+        qCDebug(KGET_DEBUG) << "Create MetalinkHTTP";
         return new MetalinkHttp(parent, this, scheduler, srcUrl, destUrl, metalinkHttpChecker, e);
     }
-    else
-    {
-        // No one takes ownership of this checker
-        metalinkHttpChecker->deleteLater();
+    // No one takes ownership of this checker
+    metalinkHttpChecker->deleteLater();
 
-        if (isSupported(srcUrl)) {
-            return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
-        }
-
-        return 0;
+    if (isSupported(srcUrl)) {
+        return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
     }
+
+    return 0;
 }
 
 bool MetalinkFactory::isSupported(const QUrl &url) const

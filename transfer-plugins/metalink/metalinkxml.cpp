@@ -79,7 +79,7 @@ void MetalinkXml::downloadMetalink()
 {
     m_metalinkJustDownloaded = true;
 
-    setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
+    setStatus(Job::Running, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
     Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
     connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
@@ -87,7 +87,7 @@ void MetalinkXml::downloadMetalink()
 
 bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 {
-    qCDebug(KGET_DEBUG);
+    qCDebug(KGET_DEBUG) << "MetalinkXml::metalinkInit";
 
     if (!src.isEmpty()) {
         m_localMetalinkLocation = src;
@@ -131,7 +131,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
     {
         dest = tempDest;
-        dest.setPath(tempDest.adjusted(QUrl::RemoveFilename).toString() + (*it).name);
+        dest.setPath(tempDest.adjusted(QUrl::RemoveFilename | QUrl::RemoveScheme).toString() + "/" + (*it).name);
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
         //sort the urls according to their priority (highest first)
