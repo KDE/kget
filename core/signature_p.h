@@ -38,7 +38,7 @@ struct SignaturePrivate
     /**
      * Verifies a signature
      */
-    static GpgME::VerificationResult verify(const KUrl &dest, const QByteArray &sig);
+    static GpgME::VerificationResult verify(const QUrl &dest, const QByteArray &sig);
 #endif //HAVE_QGPGME
 
     Signature *q;
@@ -49,7 +49,7 @@ struct SignaturePrivate
     int sigSummary;
     int error;
     SignatureThread thread;
-    KUrl dest;
+    QUrl dest;
     QByteArray signature;
     QString fingerprint;
 #ifdef HAVE_QGPGME

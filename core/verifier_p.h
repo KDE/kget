@@ -44,7 +44,7 @@ struct VerifierPrivate
 
     QString dBusObjectPath;
     VerificationModel *model;
-    KUrl dest;
+    QUrl dest;
     Verifier::VerificationStatus status;
 
     QHash<QString, PartialChecksums*> partialSums;

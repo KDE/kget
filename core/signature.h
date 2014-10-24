@@ -22,7 +22,7 @@
 
 #include "kget_export.h"
 
-#include <KUrl>
+#include <QUrl>
 
 class QDomElement;
 
@@ -44,7 +44,7 @@ class KGET_EXPORT Signature : public QObject
 
 //TODO also support verification and decryption of files that contain the signature?
     public:
-        explicit Signature(const KUrl &dest, QObject *object = 0);
+        explicit Signature(const QUrl &dest, QObject *object = 0);
         ~Signature();
 
         enum SignatureType
@@ -64,8 +64,8 @@ class KGET_EXPORT Signature : public QObject
             VerifiedWarning //verified, though there is a warning
         };
 
-        KUrl destination() const;
-        void setDestination(const KUrl &destination);
+        QUrl destination() const;
+        void setDestination(const QUrl &destination);
 
         VerificationStatus status() const;
 #ifdef HAVE_QGPGME

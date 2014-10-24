@@ -21,7 +21,7 @@
 #define  VERIFICATION_THREAD_H
 
 #include <kio/global.h>
-#include <KUrl>
+#include <QUrl>
 
 #include <QMutex>
 #include <QThread>
@@ -34,9 +34,9 @@ class VerificationThread : public QThread
         VerificationThread(QObject *parent = 0);
         ~VerificationThread();
 
-        void verifiy(const QString &type, const QString &checksum, const KUrl &file);
+        void verifiy(const QString &type, const QString &checksum, const QUrl &file);
 
-        void findBrokenPieces(const QString &type, const QList<QString> checksums, KIO::filesize_t length, const KUrl &file);
+        void findBrokenPieces(const QString &type, const QList<QString> checksums, KIO::filesize_t length, const QUrl &file);
 
     private:
         enum WorkType
@@ -57,7 +57,7 @@ class VerificationThread : public QThread
          */
         void verified(bool verified);
 
-        void verified(const QString &type, bool verified, const KUrl &file);
+        void verified(const QString &type, bool verified, const QUrl &file);
 
         void brokenPieces(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
@@ -69,7 +69,7 @@ class VerificationThread : public QThread
         bool m_abort;
         QStringList m_types;
         QStringList m_checksums;
-        QList<KUrl> m_files;
+        QList<QUrl> m_files;
         KIO::filesize_t m_length;
         WorkType m_type;
 };

@@ -247,7 +247,6 @@ void TransferTreeModel::delGroup(TransferGroup * group)
 void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, TransferGroup *group)
 {
     ModelItem *parentItem = itemFromTransferGroupHandler(group->handler());
-    const QModelIndex parentIndex = parentItem->index();
     beginInsertRows(parentItem->index(), parentItem->rowCount(), parentItem->rowCount() + transfers.count() - 1);
 
     //HACK blocks all signals from the model when adding multiple items,

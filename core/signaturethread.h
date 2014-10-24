@@ -20,7 +20,7 @@
 #ifndef SIGNATURE_THREAD_H
 #define SIGNATURE_THREAD_H
 
-#include <KUrl>
+#include <QUrl>
 
 #include <QMutex>
 #include <QThread>
@@ -41,7 +41,7 @@ class SignatureThread : public QThread
          * @return true if the thread is valid, i.e. has QGPGME support
          */
         bool isValid() const;
-        void verify(const KUrl &dest, const QByteArray &sig);
+        void verify(const QUrl &dest, const QByteArray &sig);
 
 #ifdef HAVE_QGPGME
     signals:
@@ -59,7 +59,7 @@ class SignatureThread : public QThread
     private:
         QMutex m_mutex;
         bool m_abort;
-        QList<KUrl> m_dest;
+        QList<QUrl> m_dest;
         QList<QByteArray> m_sig;
 };
 

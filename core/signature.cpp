@@ -63,7 +63,7 @@ void SignaturePrivate::signatureDownloaded()
 }
 
 #ifdef HAVE_QGPGME
-GpgME::VerificationResult SignaturePrivate::verify(const KUrl &dest, const QByteArray &sig)
+GpgME::VerificationResult SignaturePrivate::verify(const QUrl &dest, const QByteArray &sig)
 {
     GpgME::VerificationResult result;
     if (!QFile::exists(dest.pathOrUrl()) || sig.isEmpty()) {
@@ -96,7 +96,7 @@ GpgME::VerificationResult SignaturePrivate::verify(const KUrl &dest, const QByte
 #endif //HAVE_QGPGME
 
 
-Signature::Signature(const KUrl &dest, QObject *object)
+Signature::Signature(const QUrl &dest, QObject *object)
   : QObject(object),
     d(new SignaturePrivate(this))
 {
@@ -112,12 +112,12 @@ Signature::~Signature()
     delete d;
 }
 
-KUrl Signature::destination() const
+QUrl Signature::destination() const
 {
     return d->dest;
 }
 
-void Signature::setDestination(const KUrl &destination)
+void Signature::setDestination(const QUrl &destination)
 {
     d->dest = destination;
 }

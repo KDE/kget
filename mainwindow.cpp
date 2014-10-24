@@ -496,12 +496,12 @@ void MainWindow::slotToggleDropTarget()
 
 void MainWindow::slotNewTransfer()
 {
-    NewTransferDialogHandler::showNewTransferDialog(KUrl());
+    NewTransferDialogHandler::showNewTransferDialog(QUrl());
 }
 
 void MainWindow::slotImportTransfers()
 {
-    QString filename = KFileDialog::getOpenFileName(KUrl(),
+    QString filename = KFileDialog::getOpenFileName(QUrl(),
                                                     "*.kgt *.metalink *.meta4 *.torrent|" + i18n("All Openable Files") +
                                                     " (*.kgt *.metalink *.meta4 *.torrent)", this, i18n("Open File"));
 
@@ -512,7 +512,7 @@ void MainWindow::slotImportTransfers()
     }
 
     if(!filename.isEmpty())
-        KGet::addTransfer( KUrl( filename ) );
+        KGet::addTransfer( QUrl( filename ) );
 }
 
 void MainWindow::slotUpdateTitlePercent()
@@ -597,7 +597,7 @@ void MainWindow::slotPreferences()
 void MainWindow::slotExportTransfers()
 {
     const QString filename = KFileDialog::getSaveFileName
-        (KUrl(),
+        (QUrl(),
          "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)\n*.txt|" + i18n("Text File") + " (*.txt)",
          this,
          i18n("Export Transfers")
@@ -1047,8 +1047,8 @@ void MainWindow::slotCheckClipboard()
         if (lastClipboard.isEmpty())
             return;
 
-        const KUrl url = KUrl(lastClipboard);
-        if (url.isValid() && !url.protocol().isEmpty() && url.hasPath() && url.hasHost() && !url.isLocalFile()) {
+        const QUrl url = QUrl(lastClipboard);
+        if (url.isValid() && !url.scheme().isEmpty() && !url.path().isEmpty() && !url.host().isEmpty() && !url.isLocalFile()) {
             bool add = false;
             const QString urlString = url.url();
 
@@ -1187,13 +1187,12 @@ void MainWindow::showEvent(QShowEvent *)
 
 void MainWindow::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->setAccepted(KUrl::List::canDecode(event->mimeData())
-                  || event->mimeData()->hasText());
+    event->setAccepted(event->mimeData()->hasUrls());
 }
 
 void MainWindow::dropEvent(QDropEvent * event)
 {
-    KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
+    QList<QUrl> list = event->mimeData()->urls();
 
     if (!list.isEmpty())
     {
@@ -1218,7 +1217,7 @@ void MainWindow::dropEvent(QDropEvent * event)
     }
     else
     {
-        NewTransferDialogHandler::showNewTransferDialog(KUrl());
+        NewTransferDialogHandler::showNewTransferDialog(QUrl());
     }
 }
 

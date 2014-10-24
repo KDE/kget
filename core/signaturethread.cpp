@@ -47,7 +47,7 @@ bool SignatureThread::isValid() const
 #endif //HAVE_QGPGME
 }
 
-void SignatureThread::verify(const KUrl &dest, const QByteArray &sig)
+void SignatureThread::verify(const QUrl &dest, const QByteArray &sig)
 {
     QMutexLocker locker(&m_mutex);
     m_dest.append(dest);
@@ -63,7 +63,7 @@ void SignatureThread::run()
 #ifdef HAVE_QGPGME
     while (!m_abort && m_dest.count()) {
         m_mutex.lock();
-        const KUrl dest = m_dest.takeFirst();
+        const QUrl dest = m_dest.takeFirst();
         const QByteArray sig = m_sig.takeFirst();
         m_mutex.unlock();
 
