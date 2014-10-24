@@ -271,6 +271,7 @@ void NewTransferDialog::inputTimer()
 
 void NewTransferDialog::checkInput()
 {
+    qDebug() << "Check input";
     QUrl source = QUrl(ui.urlRequester->text().trimmed());
     const QUrl dest = ui.destRequester->url();
 
@@ -379,7 +380,8 @@ void NewTransferDialog::checkInput()
         enableButtonOk((folderValid || destinationValid) && sourceValid);
     }
 
-    kDebug(5001) << source << source.fileName() << dest << dest.fileName();
+    kDebug(5001) << source << source.fileName() << dest << dest.fileName() << "Folder valid:" << folderValid
+                 << "Destination valid:" << destinationValid << "Source valid:" << sourceValid;
 }
 
 void NewTransferDialog::slotFinished(int resultCode)

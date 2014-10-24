@@ -877,7 +877,7 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
 
         Transfer *newTransfer = 0;
         foreach (TransferFactory *factory, m_transferFactories) {
-            kDebug(5001) << "Trying plugin   n.plugins=" << m_transferFactories.size();
+            kDebug(5001) << "Trying plugin   n.plugins=" << m_transferFactories.size() << factory->displayName();
             if ((newTransfer = factory->createTransfer(data.src, data.dest, group, m_scheduler, data.e))) {
     //             kDebug(5001) << "KGet::createTransfer   ->   CREATING NEW TRANSFER ON GROUP: _" << group->name() << "_";
                 newTransfer->create();
@@ -1154,6 +1154,8 @@ void KGet::loadPlugins()
 
     //TransferFactory plugins
     KService::List offers = KServiceTypeTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
+    
+    qDebug() << "Found" << offers.size() << "KService offers";
 
     //Here we use a QMap only to easily sort the plugins by rank
     QMap<int, KService::Ptr> services;
@@ -1172,7 +1174,7 @@ void KGet::loadPlugins()
     //members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 
-    /*const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
+    const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
 
     foreach (KService::Ptr service, services)
     {
@@ -1199,7 +1201,7 @@ void KGet::loadPlugins()
             kDebug(5001) << "Error loading TransferFactory plugin ("
                          << service->library() << ")";
         }
-    }*/
+    }
 
     foreach (KGetPlugin *plugin, pluginList)
     {

@@ -23,7 +23,7 @@
 
 #include <kdebug.h>
 
-KGET_EXPORT_PLUGIN( MmsTransferFactory )
+//KGET_EXPORT_PLUGIN( MmsTransferFactory )
 
 MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

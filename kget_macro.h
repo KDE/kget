@@ -24,17 +24,15 @@
  *     KGET_EXPORT_PLUGIN( CoolKgetPlugin );
  *     class CoolKgetPlugin : public KGetPlugin {
  *         ....
- *     }
+ *     }u
  */
 #define KGET_EXPORT_PLUGIN( classname ) \
-    K_PLUGIN_FACTORY( KGetFactory, registerPlugin< classname >(); )
+K_PLUGIN_FACTORY(KGetFactory, \
+                 registerPlugin<TransferKioFactory>(); \
+)
     
-    /*\
-    K_EXPORT_PLUGIN( KGetFactory("classname") )*/
 
 #define KGET_EXPORT_PLUGIN_CONFIG( classname ) \
-    K_PLUGIN_FACTORY( KGetFactory, registerPlugin< classname >(); ) 
-    /*\
-    K_EXPORT_PLUGIN( KGetFactory( "classname" ) )*/
+    K_PLUGIN_FACTORY( KGetFactory, registerPlugin< classname >(); )
 
 #endif

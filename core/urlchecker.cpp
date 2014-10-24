@@ -179,13 +179,15 @@ UrlChecker::UrlError UrlChecker::checkDestination(const QUrl &destination, bool 
             error = Invalid;
         }
 
-        if ((error == NoError) && !QFileInfo(destination.adjusted(QUrl::RemoveFilename).toString()).isWritable()) {
+        qDebug() << "Adjusted destination:" << destination.adjusted(QUrl::RemoveFilename).toString();
+        if ((error == NoError) && !QFileInfo(destination.adjusted(QUrl::RemoveFilename).toString().remove("file://")).isWritable()) {
             error = NotWriteable;
         }
     }
+        
+    kDebug(5001) << "Destination:" << destination << "has error:" << error;
 
     if (showNotification && (error != NoError)) {
-        kDebug(5001) << "Destination:" << destination << "has error:" << error;
         KGet::showNotification(KGet::m_mainWindow, "error", message(destination, Destination, error));
     }
 

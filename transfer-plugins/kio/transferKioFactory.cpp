@@ -15,8 +15,12 @@
 #include "transferKio.h"
 
 #include <kdebug.h>
+#include <kpluginfactory.h>
 
-//PORT QT5 KGET_EXPORT_PLUGIN( TransferKioFactory );
+K_PLUGIN_FACTORY(KGetFactory, 
+                 registerPlugin<TransferKioFactory>();
+)
+//KGET_EXPORT_PLUGIN( TransferKioFactory )
 
 TransferKioFactory::TransferKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -32,7 +36,7 @@ Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
-    kDebug(5001) << "TransferKioFactory::createTransfer";
+    qDebug() << "TransferKioFactory::createTransfer";
 
     if (isSupported(srcUrl))
     {
@@ -43,8 +47,8 @@ Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
 
 bool TransferKioFactory::isSupported(const KUrl &url) const
 {
-    QString prot = url.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    QString prot = url.scheme();
+    qDebug() << "Protocol = " << prot;
     return addsProtocols().contains(prot);
 }
 

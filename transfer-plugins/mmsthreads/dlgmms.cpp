@@ -21,7 +21,7 @@
 #include "mmssettings.h"
 #include "kget_export.h"
 
-KGET_EXPORT_PLUGIN_CONFIG(DlgMmsSettings)
+//KGET_EXPORT_PLUGIN_CONFIG(DlgMmsSettings)
 
 DlgMmsSettings::DlgMmsSettings(QWidget *parent, const QVariantList &args)
     : KCModule(/*KGetFactory::componentData(), */parent, args)

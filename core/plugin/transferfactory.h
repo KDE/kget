@@ -86,6 +86,8 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
          * default implementation returns 0
          */
         virtual TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent);
+        
+        virtual QString displayName() const;
 };
 
 #endif
