@@ -81,7 +81,7 @@ void BTTransfer::deinit(Transfer::DeleteOptions options)
     }
     if (options & Transfer::DeleteTemporaryFiles) {
         QDir tmpDir(m_tmp);
-        kDebug(5001) << m_tmp + m_source.fileName().remove(".torrent");
+        qCDebug(KGET_DEBUG) << m_tmp + m_source.fileName().remove(".torrent");
         tmpDir.rmdir(m_source.fileName().remove(".torrent") + "/dnd");
         tmpDir.cd(m_source.fileName().remove(".torrent"));
         QStringList list = tmpDir.entryList();
@@ -93,7 +93,7 @@ void BTTransfer::deinit(Transfer::DeleteOptions options)
 
         //only remove the .torrent file if it was downloaded by KGet
         if (!m_tmpTorrentFile.isEmpty()) {
-            kDebug(5001) << "Removing" << m_tmpTorrentFile;
+            qCDebug(KGET_DEBUG) << "Removing" << m_tmpTorrentFile;
             QFile torrentFile(m_tmpTorrentFile);
             torrentFile.remove();
         }
@@ -125,7 +125,7 @@ void BTTransfer::start()
     {
         if (!m_source.isLocalFile())
         {
-            kDebug(5001) << m_dest.path();
+            qCDebug(KGET_DEBUG) << m_dest.path();
             m_tmpTorrentFile = QString(KStandardDirs::locateLocal("appdata", "tmp/") + m_dest.fileName());
             Download *download = new Download(m_source, m_tmpTorrentFile);
 
@@ -219,7 +219,7 @@ void BTTransfer::load(const QDomElement *element)
 
 // void BTTransfer::save(const QDomElement &element)
 // {
-//     kDebug(5001);
+//     qCDebug(KGET_DEBUG);
 // 
 //     QDomElement e = element;
 // 
@@ -237,7 +237,7 @@ void BTTransfer::setPort(int port)
 
 void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     if (!torrent)
         return;
 
@@ -246,7 +246,7 @@ void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
 
 void BTTransfer::addTracker(const QString &url)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     if(torrent->getStats().priv_torrent) {
         KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
         return;
@@ -266,7 +266,7 @@ void BTTransfer::startTorrent()
 {
     if (m_ready)
     {
-        //kDebug(5001) << "Going to download that stuff :-0";
+        //qCDebug(KGET_DEBUG) << "Going to download that stuff :-0";
         setSpeedLimits(uploadLimit(Transfer::InvisibleSpeedLimit), downloadLimit(Transfer::InvisibleSpeedLimit));//Set traffic-limits before starting
         torrent->setMonitor(this);
         torrent->start();
@@ -304,7 +304,7 @@ void BTTransfer::stopTorrent()
 
 void BTTransfer::updateTorrent()
 {
-    //kDebug(5001) << "Update torrent";
+    //qCDebug(KGET_DEBUG) << "Update torrent";
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
     torrent->update();
@@ -402,7 +402,7 @@ void BTTransfer::updateFilesStatus()
 void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 {
     Q_UNUSED(data)
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     if (src != m_source && !src.isEmpty())
         m_source = src;
 
@@ -491,7 +491,7 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 
 void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 {
-    kDebug(5001) << "Start seeding *********************************************************************";
+    qCDebug(KGET_DEBUG) << "Start seeding *********************************************************************";
     Q_UNUSED(ti)
     m_downloadFinished = true;
     //timer.stop();

@@ -20,7 +20,8 @@
 #include "mainwindow.h"
 #include "kgetkjobadapter.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <klocale.h>
 #include <QAction>
 #include <QVariant>
@@ -119,7 +120,7 @@ int TransferHandler::uploadSpeed() const
 
 QVariant TransferHandler::data(int column)
 {
-//     kDebug(5001) << "TransferHandler::data(" << column << ")";
+//     qCDebug(KGET_DEBUG) << "TransferHandler::data(" << column << ")";
 
     switch(column)
     {
@@ -183,9 +184,9 @@ void TransferHandler::resetChangesFlags()
 
 void TransferHandler::destroy()
 {
-    kDebug(5001) << "TransferHandler::destroy() ENTERING";
+    qCDebug(KGET_DEBUG) << "TransferHandler::destroy() ENTERING";
 
-    kDebug(5001) << "TransferHandler::destroy() LEAVING";
+    qCDebug(KGET_DEBUG) << "TransferHandler::destroy() LEAVING";
 }
 
 void TransferHandler::setTransferChange(ChangesFlags change, bool notifyModel)

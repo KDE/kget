@@ -24,6 +24,9 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #ifdef HAVE_NEPOMUK
     #include "core/nepomukhandler.h"
     #include <Nepomuk2/Variant>
@@ -56,7 +59,7 @@ MetalinkXml::~MetalinkXml()
 
 void MetalinkXml::start()
 {
-    kDebug(5001) << "metalinkxml::start";
+    qCDebug(KGET_DEBUG) << "metalinkxml::start";
 
     if (!m_ready)
     {
@@ -84,7 +87,7 @@ void MetalinkXml::downloadMetalink()
 
 bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!src.isEmpty()) {
         m_localMetalinkLocation = src;
@@ -101,7 +104,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     }
 
     if (!m_metalink.isValid()) {
-        kError(5001) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
+        qCCritical(KGET_DEBUG) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -195,7 +198,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
-        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
+        qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
         KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);

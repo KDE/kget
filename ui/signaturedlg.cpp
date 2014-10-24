@@ -24,6 +24,10 @@
 #include "core/transferhandler.h"
 #include "core/signature.h"
 
+
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
 #include <gpgme++/key.h>
@@ -104,11 +108,11 @@ void SignatureDlg::loadSignatureClicked()
 
     QFile file(url.path());
     if (!file.open(QIODevice::ReadOnly)) {
-        kWarning(5001) << "Could not open file" << url;
+        qCWarning(KGET_DEBUG) << "Could not open file" << url;
         return;
     }
     if (file.size() > 1 * 1024) {
-        kWarning(5001) << "File is larger than 1 KiB, which is not supported.";
+        qCWarning(KGET_DEBUG) << "File is larger than 1 KiB, which is not supported.";
         return;
     }
 
@@ -173,14 +177,14 @@ void SignatureDlg::updateData()
         GpgME::Error err = GpgME::checkEngine(GpgME::OpenPGP);
         QScopedPointer<GpgME::Context> context(GpgME::Context::createForProtocol(GpgME::OpenPGP));
         if (err) {
-            kDebug(5001) << "OpenPGP not supported!";
+            qCDebug(KGET_DEBUG) << "OpenPGP not supported!";
         } else if (!context.data()) {
-                kDebug(5001) << "Could not create context.";
+                qCDebug(KGET_DEBUG) << "Could not create context.";
         } else {
             QByteArray fingerprint = fingerprintString.toAscii();
             const GpgME::Key key = context->key(fingerprint.constData(), err);
             if (err || key.isNull() || !key.numUserIDs() || !key.numSubkeys()) {
-                kDebug(5001) << "There was an error while loading the key:" << err;
+                qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err;
             } else {
                 if (key.isRevoked()) {
                     information << i18n("The key has been revoked.");

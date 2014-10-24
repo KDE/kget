@@ -20,7 +20,8 @@
 #include "signaturethread.h"
 #include "signature_p.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 SignatureThread::SignatureThread(QObject *parent)
   : QThread(parent),
@@ -73,6 +74,6 @@ void SignatureThread::run()
         }
     }
 #else //HAVE_QGPGME
-    kWarning(5001) << "No QGPGME support.";
+    qCWarning(KGET_DEBUG) << "No QGPGME support.";
 #endif //HAVE_QGPGME
 }

@@ -14,7 +14,8 @@
 #include "core/transfergrouphandler.h"
 #include "core/kget.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kio/global.h>
 
 #include <QDomElement>
@@ -225,14 +226,14 @@ int TransferGroup::downloadLimit(Transfer::SpeedLimit limit) const
 
 void TransferGroup::calculateSpeedLimits()
 {
-    kDebug(5001) << "We will calculate the new SpeedLimits now";
+    qCDebug(KGET_DEBUG) << "We will calculate the new SpeedLimits now";
     calculateDownloadLimit();
     calculateUploadLimit();
 }
 
 void TransferGroup::calculateDownloadLimit()
 {
-    kDebug(5001) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
+    qCDebug(KGET_DEBUG) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
     if (supportsSpeedLimits())
     {
         const QList<Job*> running = runningJobs();
@@ -275,7 +276,7 @@ void TransferGroup::calculateDownloadLimit()
 
 void TransferGroup::calculateUploadLimit()
 {
-    kDebug(5001) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
+    qCDebug(KGET_DEBUG) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
     if (supportsSpeedLimits())
     {
         const QList<Job*> running = runningJobs();
@@ -318,7 +319,7 @@ void TransferGroup::calculateUploadLimit()
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 {
-    //kDebug(5001) << " -->  " << name();
+    //qCDebug(KGET_DEBUG) << " -->  " << name();
 
     e.setAttribute("Name", m_name);
     e.setAttribute("DefaultFolder", m_defaultFolder);
@@ -346,7 +347,7 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     for( ; it!=itEnd; ++it )
     {
         Transfer* transfer = static_cast<Transfer*>(*it);
-        kDebug(5001) << "  -->  " << name() << "  transfer: " << transfer->source();
+        qCDebug(KGET_DEBUG) << "  -->  " << name() << "  transfer: " << transfer->source();
         QDomElement t = e.ownerDocument().createElement("Transfer");
         e.appendChild(t);
         transfer->save(t);
@@ -355,7 +356,7 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 
 void TransferGroup::load(const QDomElement & e)
 {
-    kDebug(5001) << "TransferGroup::load";
+    qCDebug(KGET_DEBUG) << "TransferGroup::load";
 
     m_name = e.attribute("Name");
     m_defaultFolder = e.attribute("DefaultFolder");
@@ -391,6 +392,6 @@ void TransferGroup::load(const QDomElement & e)
         elements << nodeList.item(i).toElement();
     }
 
-    kDebug(5001) << "TransferGroup::load ->" << "add" << nItems << "transfers";
+    qCDebug(KGET_DEBUG) << "TransferGroup::load ->" << "add" << nItems << "transfers";
     KGet::addTransfers(elements, name());
 }

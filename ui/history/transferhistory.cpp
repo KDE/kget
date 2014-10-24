@@ -17,6 +17,8 @@
 #include "core/transferhistorystore.h"
 #include "core/job.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QDateTime>
 #include <QFile>
 #include <QFileSystemWatcher>
@@ -85,7 +87,7 @@ TransferHistory::TransferHistory(QWidget *parent)
 
     watcher = new QFileSystemWatcher();
     watcher->addPath(KStandardDirs::locateLocal("appdata", QString()));
-    kDebug(5001) << watcher->directories();
+    qCDebug(KGET_DEBUG) << watcher->directories();
 
     m_store = TransferHistoryStore::getStore();
 

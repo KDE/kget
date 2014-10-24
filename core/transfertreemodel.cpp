@@ -23,7 +23,8 @@
 #include "settings.h"
 #include "transfergroupscheduler.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <klocale.h>
 #include <KMimeType>
 
@@ -524,7 +525,7 @@ void TransferTreeModel::postDataChangedEvent(TransferGroupHandler * group)
 
 Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
 {
-//     kDebug(5001) << "TransferTreeModel::flags()";
+//     qCDebug(KGET_DEBUG) << "TransferTreeModel::flags()";
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
@@ -596,31 +597,31 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
     const ItemMimeData *itemData = qobject_cast<const ItemMimeData*>(mdata);
     if (!itemData) {
-        kWarning(5001) << "Unsuported mime data dropped.";
+        qCWarning(KGET_DEBUG) << "Unsuported mime data dropped.";
         return false;
     }
 
     TransferGroup *destGroup = findGroup(data(parent, Qt::DisplayRole).toString());
     if (!destGroup) {
-        kWarning(5001) << "No group could be found where the transfers should be inserted to.";
+        qCWarning(KGET_DEBUG) << "No group could be found where the transfers should be inserted to.";
         return false;
     }
 
     if (parent.isValid())
-        kDebug(5001) << "TransferTreeModel::dropMimeData" << " " << row << " " 
+        qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData" << " " << row << " " 
                                                           << column << endl;
 
     QList<QWeakPointer<TransferHandler> > transfers = itemData->transfers();
-    kDebug(5001) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
+    qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
 
     const bool droppedInsideGroup = parent.isValid();
     Transfer * after = 0;
     for (int i = 0; i < transfers.count(); ++i) {
         bool b = destGroup->size() > row && row - 1 >= 0;
         if (b)
-            kDebug(5001) << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
+            qCDebug(KGET_DEBUG) << "TRANSFER AFTER:" << destGroup->operator[](row - 1)->source();
         else
-            kDebug(5001) << "TRANSFER AFTER NOT EXISTING";
+            qCDebug(KGET_DEBUG) << "TRANSFER AFTER NOT EXISTING";
 
         if (!after) {
             bool rowValid = (row - 1 >= 0) && (destGroup->size() >= row);
@@ -700,7 +701,7 @@ int TransferTreeModel::column(TransferGroup::GroupChange flag)
 void TransferTreeModel::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
-//     kDebug(5001) << "TransferTreeModel::timerEvent";
+//     qCDebug(KGET_DEBUG) << "TransferTreeModel::timerEvent";
 
     QMap<TransferHandler *, Transfer::ChangesFlags> updatedTransfers;
     QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> updatedGroups;
@@ -716,7 +717,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             
             int row = group->indexOf(transfer);
 
-//             kDebug(5001) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
+//             qCDebug(KGET_DEBUG) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
             
             // Now, check that model child items already exist (there are some cases when the transfer
             // can notify for changes before the gui has been correctly initialized)

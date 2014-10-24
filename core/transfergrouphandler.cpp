@@ -17,7 +17,8 @@
 #include "core/transfer.h"
 #include "core/kget.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QAction>
 #include <kactioncollection.h>
 #include <klocale.h>
@@ -36,13 +37,13 @@ TransferGroupHandler::~TransferGroupHandler()
 
 void TransferGroupHandler::start()
 {
-    kDebug(5001) << "TransferGroupHandler::start()";
+    qCDebug(KGET_DEBUG) << "TransferGroupHandler::start()";
     m_group->setStatus( JobQueue::Running );
 }
 
 void TransferGroupHandler::stop()
 {
-    kDebug(5001) << "TransferGroupHandler::stop()";
+    qCDebug(KGET_DEBUG) << "TransferGroupHandler::stop()";
     m_group->setStatus( JobQueue::Stopped );
 }
 
@@ -69,7 +70,7 @@ void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHand
 
 TransferHandler * TransferGroupHandler::operator[] (int i)
 {
-//     kDebug(5001) << "TransferGroupHandler::operator[" << i << "]";
+//     qCDebug(KGET_DEBUG) << "TransferGroupHandler::operator[" << i << "]";
 
     return (*m_group)[i]->handler();
 }
@@ -81,7 +82,7 @@ void TransferGroupHandler::setName(const QString &name)
 
 QVariant TransferGroupHandler::data(int column)
 {
-//     kDebug(5001) << "TransferGroupHandler::data(" << column << ")";
+//     qCDebug(KGET_DEBUG) << "TransferGroupHandler::data(" << column << ")";
 
     switch(column)
     {

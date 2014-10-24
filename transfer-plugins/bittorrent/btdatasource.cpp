@@ -42,7 +42,7 @@ BTDataSource::BTDataSource(const KUrl &srcUrl, QObject *parent)
     bt::Uint16 i = 0;
     do
     {
-        kDebug(5001) << "Trying to set port to" << BittorrentSettings::port() + i;
+        qCDebug(KGET_DEBUG) << "Trying to set port to" << BittorrentSettings::port() + i;
         bt::Globals::instance().initServer(BittorrentSettings::port() + i);
         i++;
     }while (!bt::Globals::instance().getServer().isOK() && i < 10);
@@ -131,7 +131,7 @@ void BTDataSource::init(const KUrl &torrentSource, const QByteArray &data)
     }
     catch (bt::Error &err)
     {
-        kDebug(5001) << err.toString();
+        qCDebug(KGET_DEBUG) << err.toString();
         //m_ready = false;
     }
     start();
@@ -139,7 +139,7 @@ void BTDataSource::init(const KUrl &torrentSource, const QByteArray &data)
 
 void BTDataSource::addSegment(const KIO::fileoffset_t offset, const KIO::fileoffset_t bytes,  int segmentNum)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (offset < m_offset)
     {

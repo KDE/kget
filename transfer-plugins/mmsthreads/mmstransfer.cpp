@@ -19,6 +19,10 @@
 
 #include "mmstransfer.h"
 
+
+#include "kget_debug.h"
+#include <qdebug.h>
+
 MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
                         Scheduler * scheduler, const KUrl & source, const
                         KUrl &dest, const QDomElement * e)
@@ -28,7 +32,7 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
     m_retryDownload(false)
 {
     m_fileTemp = KStandardDirs::locateLocal("appdata", m_dest.fileName());
-    kDebug(5001) << "Mms transfer initialized: " + m_source.toString();
+    qCDebug(KGET_DEBUG) << "Mms transfer initialized: " + m_source.toString();
 }
 
 MmsTransfer::~MmsTransfer()

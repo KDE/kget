@@ -10,6 +10,8 @@
 */
 #include "kgetkjobadapter.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <KLocale>
 
 KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)
@@ -54,7 +56,7 @@ void KGetKJobAdapter::slotUpdateDescription()
 
 bool KGetKJobAdapter::doKill()
 {
-    kDebug(5001) << "Kill of job adapter called:" << this << m_transferHandler->dest();
+    qCDebug(KGET_DEBUG) << "Kill of job adapter called:" << this << m_transferHandler->dest();
     emit requestStop(this, m_transferHandler);
     return KJob::doKill();
 }

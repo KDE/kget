@@ -19,7 +19,8 @@
 
 #include <QDomElement>
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include "kget_macro.h"
 
 //PORT QT5 KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
@@ -38,7 +39,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (isSupported(srcUrl) && (!e || !e->firstChildElement("factories").isNull()))
     {
@@ -66,7 +67,7 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
 
  TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     //only use this TransferDataSource if no type is specified and the protocolls match
     if (!type.attribute("type").isEmpty())
@@ -84,7 +85,7 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
 bool TransferMultiSegKioFactory::isSupported(const KUrl &url) const
 {
     QString prot = url.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     return addsProtocols().contains(prot);
 }
 

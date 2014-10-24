@@ -24,6 +24,9 @@
 #include <QTextStream>
 #include <QDomElement>
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <kdeversion.h>
 #include <KDebug>
 #include <KLocale>
@@ -605,18 +608,18 @@ void KGetMetalink::File::clear()
 bool KGetMetalink::File::isValidNameAttribute() const
 {
     if (name.isEmpty()) {
-        kError(5001) << "Name attribute of Metalink::File is empty.";
+        qCCritical(KGET_DEBUG) << "Name attribute of Metalink::File is empty.";
         return false;
     }
 
     if (name.endsWith('/')) {
-        kError(5001) << "Name attribute of Metalink::File does not contain a file name:" << name;
+        qCCritical(KGET_DEBUG) << "Name attribute of Metalink::File does not contain a file name:" << name;
         return false;
     }
 
     const QStringList components = name.split('/');
     if (name.startsWith('/') || components.contains("..") || components.contains(".")) {
-        kError(5001) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
+        qCCritical(KGET_DEBUG) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
         return false;
     }
 
@@ -648,7 +651,7 @@ bool KGetMetalink::Files::isValid() const
     while (!fileNames.isEmpty()) {
         const QString fileName = fileNames.takeFirst();
         if (fileNames.contains(fileName)) {
-            kError(5001) << "Metalink::File name" << fileName << "exists multiple times.";
+            qCCritical(KGET_DEBUG) << "Metalink::File name" << fileName << "exists multiple times.";
             return false;
         }
     }
@@ -955,7 +958,7 @@ KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const 
         return dateConstruct;
     }
 
-    kDebug(5001) << "Parsing" << data;
+    qCDebug(KGET_DEBUG) << "Parsing" << data;
 
     QString temp = data;
     QDateTime dateTime;

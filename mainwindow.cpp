@@ -38,6 +38,9 @@
     #include "tests/testkget.h"
 #endif
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <kapplication.h>
 #include <kstandarddirs.h>
 #include <KInputDialog>
@@ -540,7 +543,7 @@ void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFl
             break;
         }
         
-//         kDebug(5001) << it.key() << ": " << it.value() << endl;
+//         qCDebug(KGET_DEBUG) << it.key() << ": " << it.value() << endl;
     }
     
     if (update)
@@ -1107,7 +1110,7 @@ void MainWindow::slotShowMenubar()
 
 void MainWindow::setSystemTrayDownloading(bool running)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (m_dock)
         m_dock->setDownloading(running);
@@ -1121,7 +1124,7 @@ void MainWindow::slotTransferHistory()
 
 void MainWindow::slotTransferGroupSettings()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     QList<TransferGroupHandler*> list = KGet::selectedTransferGroups();
     foreach(TransferGroupHandler* group, list)
     {
@@ -1133,7 +1136,7 @@ void MainWindow::slotTransferGroupSettings()
 
 void MainWindow::slotTransferSettings()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     QList<TransferHandler*> list = KGet::selectedTransfers();
     foreach(TransferHandler* transfer, list)
     {

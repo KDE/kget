@@ -18,8 +18,9 @@
 #include "settings.h"
 #include "kget.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kuiserverjobtracker.h>
-#include <kdebug.h>
 
 KUiServerJobs::KUiServerJobs(QObject *parent)
     : QObject(parent), m_globalJob(0)
@@ -55,7 +56,7 @@ void KUiServerJobs::settingsChanged()
 
 void KUiServerJobs::slotTransfersAdded(QList<TransferHandler*> transfers)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     foreach (TransferHandler *transfer, transfers) {
         if(shouldBeShown(transfer))
@@ -72,7 +73,7 @@ void KUiServerJobs::slotTransfersAdded(QList<TransferHandler*> transfers)
 
 void KUiServerJobs::slotTransfersAboutToBeRemoved(const QList<TransferHandler*> &transfers)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     m_invalidTransfers << transfers;
     foreach (TransferHandler *transfer, transfers) {
@@ -89,7 +90,7 @@ void KUiServerJobs::slotTransfersAboutToBeRemoved(const QList<TransferHandler*> 
 
 void KUiServerJobs::slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     
     if(!Settings::enableKUIServerIntegration())
         return;

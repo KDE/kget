@@ -13,7 +13,8 @@
 #include "kget_export.h"
 #include "mirrorsearchsettings.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <KLocale>
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
@@ -133,7 +134,7 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
 
 void DlgSettingsWidget::save()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     saveSearchEnginesSettings();
 
     MirrorSearchSettings::self()->save();

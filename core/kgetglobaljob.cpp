@@ -12,6 +12,8 @@
 #include "transferhandler.h"
 #include "kget.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <klocale.h>
 #include <kuiserverjobtracker.h>
 
@@ -44,7 +46,7 @@ void KGetGlobalJob::update()
         }
     }
   
-//     kDebug(5001) << totalAmount;
+//     qCDebug(KGET_DEBUG) << totalAmount;
   
     if (totalAmount > 0) 
         percent = 100 * processedAmount / totalAmount;
@@ -63,7 +65,7 @@ void KGetGlobalJob::update()
 
 bool KGetGlobalJob::doKill()
 {
-    kDebug(5001) << "Kill of global job called:" << this;
+    qCDebug(KGET_DEBUG) << "Kill of global job called:" << this;
     emit requestStop(this, 0);
     return KJob::doKill();
 }

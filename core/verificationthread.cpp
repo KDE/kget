@@ -20,7 +20,8 @@
 #include "verificationthread.h"
 #include "verifier.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #include <QFile>
 
@@ -112,7 +113,7 @@ void VerificationThread::doVerify()
         }
 
         const QString hash = Verifier::checksum(url, type, &m_abort);
-        kDebug(5001) << "Type:" << type << "Calculated checksum:" << hash << "Entered checksum:" << checksum;
+        qCDebug(KGET_DEBUG) << "Type:" << type << "Calculated checksum:" << hash << "Entered checksum:" << checksum;
         const bool fileVerified = (hash == checksum);
 
         if (m_abort)
@@ -168,7 +169,7 @@ void VerificationThread::doBrokenPieces()
 
         if (fileChecksums.size() != checksums.size())
         {
-            kDebug(5001) << "Number of checksums differs!";
+            qCDebug(KGET_DEBUG) << "Number of checksums differs!";
             emit brokenPieces(broken, length);
             return;
         }
@@ -178,7 +179,7 @@ void VerificationThread::doBrokenPieces()
             if (fileChecksums.at(i) != checksums.at(i))
             {
                 const int brokenStart = length * i;
-                kDebug(5001) << url << "broken segment" << i << "start" << brokenStart << "length" << length;
+                qCDebug(KGET_DEBUG) << url << "broken segment" << i << "start" << brokenStart << "length" << length;
                 broken.append(brokenStart);
             }
         }

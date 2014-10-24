@@ -32,7 +32,8 @@
 #include "ui/linkview/kget_linkview.h"
 #include "ui/newtransferdialog.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
   : QObject(parent),
@@ -71,7 +72,7 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
 
 bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
 {
-    kDebug(5001) << "deleting Transfer";
+    qCDebug(KGET_DEBUG) << "deleting Transfer";
 
     Transfer *transfer = KGet::model()->findTransferByDBusObjectPath(dbusObjectPath);
 

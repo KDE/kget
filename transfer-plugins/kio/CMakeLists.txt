@@ -6,6 +6,7 @@ include_directories(
 set(kget_kiofactory_PART_SRCS
   transferKio.cpp
   transferKioFactory.cpp
+  ../../kget_debug.cpp
 )
 
 add_library(kget_kiofactory MODULE ${kget_kiofactory_PART_SRCS})

@@ -21,7 +21,8 @@
 #include "mmssettings.h"
 #include "mmstransfer.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 //KGET_EXPORT_PLUGIN( MmsTransferFactory )
 
@@ -37,10 +38,10 @@ Transfer * MmsTransferFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
-    kDebug(5001) << "MmsTransferFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "MmsTransferFactory::createTransfer";
 
     QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     if (prot == "mms" || prot == "mmsh") {
         return new MmsTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
@@ -62,7 +63,7 @@ const QList<QAction *> MmsTransferFactory::actions(TransferHandler *handler)
 bool MmsTransferFactory::isSupported(const KUrl &url) const
 {
     QString prot = url.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     return (prot == "mms" || prot == "mmsh");
 }
 

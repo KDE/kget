@@ -28,7 +28,7 @@ VerfierTest::VerfierTest(QObject *parent)
      path.append("test.txt");
      QFile file(path);
      if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-         kError(5001) << "Creating file failed:" << path;
+         qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
          abort();
      }
      m_file = KUrl(path);
@@ -37,12 +37,12 @@ VerfierTest::VerfierTest(QObject *parent)
     const qint64 size = data.size();
     for (int i = 0; i < 50000; ++i) {
         if (file.write(data) != size) {
-            kError(5001) << "Creating file failed:" << path;
+            qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
             abort();
         }
     }
 
-    kDebug(5001) << "Supported types:" << m_supported;
+    qCDebug(KGET_DEBUG) << "Supported types:" << m_supported;
 
     //Otherwise testVerify fails
     qRegisterMetaType<KUrl>("KUrl");

@@ -37,11 +37,11 @@ void BTTransferHandler::createAdvancedDetails()
 {
     if (!torrentControl())
         return;
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!advancedDetails)
     {
-        kDebug(5001) << "Going to create AdvancedDetails";
+        qCDebug(KGET_DEBUG) << "Going to create AdvancedDetails";
         advancedDetails = new BTAdvancedDetailsWidget(this);
         advancedDetails->show();
         connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
@@ -95,7 +95,7 @@ void BTTransferHandler::createScanDlg()
 #if LIBKTORRENT_VERSION < 0x010100
 void BTTransferHandler::removeScanDlg()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     scanDlg = 0;
 }
 #endif

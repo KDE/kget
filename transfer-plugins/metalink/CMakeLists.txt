@@ -12,6 +12,7 @@ set(kget_metalinkfactory_PART_SRCS
   metalinkhttp.cpp
   fileselectiondlg.cpp
   ../../ui/metalinkcreator/metalinker.cpp
+  ../../kget_debug.cpp
 )
 
 ki18n_wrap_ui(kget_metalinkfactory_PART_SRCS
@@ -33,7 +34,8 @@ install(FILES kget_metalinkfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 
 ###Build KCM-Module
 set(kcm_kget_metalinkfactory_PART_SRCS
-dlgmetalink.cpp
+    dlgmetalink.cpp
+    ../../kget_debug.cpp
 )
 
 ki18n_wrap_ui(kcm_kget_metalinkfactory_PART_SRCS

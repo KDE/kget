@@ -13,7 +13,8 @@
 #include "segment.h"
 #include "core/transfer.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 MultiSegKioDataSource::MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent),
@@ -21,18 +22,18 @@ MultiSegKioDataSource::MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent
     m_canResume(false),
     m_started(false)
 {
-    kDebug(5001) << "Create MultiSegKioDataSource for" << m_sourceUrl << this;
+    qCDebug(KGET_DEBUG) << "Create MultiSegKioDataSource for" << m_sourceUrl << this;
     setCapabilities(capabilities() | Transfer::Cap_FindFilesize);
 }
 
 MultiSegKioDataSource::~MultiSegKioDataSource()
 {
-    kDebug(5001) << this;
+    qCDebug(KGET_DEBUG) << this;
 }
 
 void MultiSegKioDataSource::start()
 {
-    kDebug(5001) << this;
+    qCDebug(KGET_DEBUG) << this;
 
     m_started = true;
     foreach (Segment *segment, m_segments)
@@ -43,13 +44,13 @@ void MultiSegKioDataSource::start()
 
 void MultiSegKioDataSource::stop()
 {
-    kDebug(5001) << this << m_segments.count() << "segments stopped.";
+    qCDebug(KGET_DEBUG) << this << m_segments.count() << "segments stopped.";
 
     m_started = false;
     foreach (Segment *segment, m_segments)
     {
         if (segment->findingFileSize()) {
-            kDebug(5001) << "Removing findingFileSize segment" << this;
+            qCDebug(KGET_DEBUG) << "Removing findingFileSize segment" << this;
             m_segments.removeAll(segment);
             segment->deleteLater();
         } else {
@@ -127,7 +128,7 @@ void MultiSegKioDataSource::setSupposedSize(KIO::filesize_t supposedSize)
 
 void MultiSegKioDataSource::slotTotalSize(KIO::filesize_t size, const QPair<int, int> &range)
 {
-    kDebug(5001) << "Size found for" << m_sourceUrl << size << "bytes";
+    qCDebug(KGET_DEBUG) << "Size found for" << m_sourceUrl << size << "bytes";
 
     m_size = size;
 
@@ -139,14 +140,14 @@ void MultiSegKioDataSource::slotTotalSize(KIO::filesize_t size, const QPair<int,
     //the filesize is not what it should be, maybe using a wrong mirror
     if (m_size && m_supposedSize && (m_size != m_supposedSize))
     {
-        kDebug(5001) << "Size does not match for" << m_sourceUrl << this;
+        qCDebug(KGET_DEBUG) << "Size does not match for" << m_sourceUrl << this;
         emit broken(this, WrongDownloadSize);
     }
 }
 
 void MultiSegKioDataSource::slotCanResume()
 {
-    kDebug(5001) << this;
+    qCDebug(KGET_DEBUG) << this;
 
     if (!m_canResume) {
         m_canResume = true;
@@ -225,7 +226,7 @@ bool MultiSegKioDataSource::tryMerge(const QPair<KIO::fileoffset_t, KIO::fileoff
 
 void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText, Transfer::LogLevel logLevel)
 {
-    kDebug(5001) << "Error" << errorText << "segment" << segment;
+    qCDebug(KGET_DEBUG) << "Error" << errorText << "segment" << segment;
 
     const QPair<KIO::fileoffset_t, KIO::fileoffset_t> size = segment->segmentSize();
     const QPair<int, int> range = segment->assignedSegments();
@@ -234,14 +235,14 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
 
     emit log(errorText, logLevel);
     if (m_segments.isEmpty()) {
-        kDebug(5001) << this << "has broken segments.";
+        qCDebug(KGET_DEBUG) << this << "has broken segments.";
         emit brokenSegments(this, range);
     } else {
         //decrease the number of maximum paralell downloads, maybe the server does not support so many connections
         if (m_paralellSegments > 1) {
             --m_paralellSegments;
         }
-        kDebug(5001) << this << "reducing connections to" << m_paralellSegments << "and freeing range of semgents" << range;
+        qCDebug(KGET_DEBUG) << this << "reducing connections to" << m_paralellSegments << "and freeing range of semgents" << range;
         if (!tryMerge(size, range)) {
             emit freeSegments(this, range);
         }
@@ -256,7 +257,7 @@ void MultiSegKioDataSource::slotFinishedDownload(KIO::filesize_t size)
 
 void MultiSegKioDataSource::slotRestartBrokenSegment()
 {
-    kDebug(5001) << this;
+    qCDebug(KGET_DEBUG) << this;
     start();
 }
 

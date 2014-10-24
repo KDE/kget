@@ -21,7 +21,8 @@
 #include "keydownloader.h"
 #include "settings.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <KLocale>
 #include <KMessageBox>
 
@@ -56,7 +57,7 @@ SignaturePrivate::~SignaturePrivate()
 void SignaturePrivate::signatureDownloaded()
 {
     if (verifyTried) {
-        kDebug(5001) << "Rerun verification.";
+        qCDebug(KGET_DEBUG) << "Rerun verification.";
         q->verify();
     }
 }
@@ -72,13 +73,13 @@ GpgME::VerificationResult SignaturePrivate::verify(const KUrl &dest, const QByte
     GpgME::initializeLibrary();
     GpgME::Error error = GpgME::checkEngine(GpgME::OpenPGP);
     if (error) {
-        kDebug(5001) << "OpenPGP not supported!";
+        qCDebug(KGET_DEBUG) << "OpenPGP not supported!";
         return result;
     }
 
     QScopedPointer<GpgME::Context> context(GpgME::Context::createForProtocol(GpgME::OpenPGP));
     if (!context.data()) {
-        kDebug(5001) << "Could not create context.";
+        qCDebug(KGET_DEBUG) << "Could not create context.";
         return result;
     }
 
@@ -177,7 +178,7 @@ QString Signature::fingerprint()
 void Signature::downloadKey(QString fingerprint) // krazy:exclude=passbyvalue
 {
 #ifdef HAVE_QGPGME
-    kDebug(5001) << "Downloading key:" << fingerprint;
+    qCDebug(KGET_DEBUG) << "Downloading key:" << fingerprint;
     signatureDownloader->downloadKey(fingerprint, this);
 #else
     Q_UNUSED(fingerprint)
@@ -207,7 +208,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     d->status = Signature::NotWorked;
 
     if (!d->verificationResult.numSignatures()) {
-        kDebug(5001) << "No signatures\n";
+        qCDebug(KGET_DEBUG) << "No signatures\n";
         emit verified(d->status);
         return;
     }
@@ -217,12 +218,12 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     d->error = signature.status().code();
     d->fingerprint = signature.fingerprint();
 
-    kDebug(5001) << "Fingerprint:" << d->fingerprint;
-    kDebug(5001) << "Signature summary:" << d->sigSummary;
-    kDebug(5001) << "Error code:" << d->error;
+    qCDebug(KGET_DEBUG) << "Fingerprint:" << d->fingerprint;
+    qCDebug(KGET_DEBUG) << "Signature summary:" << d->sigSummary;
+    qCDebug(KGET_DEBUG) << "Error code:" << d->error;
 
     if (d->sigSummary & GpgME::Signature::KeyMissing) {
-        kDebug(5001) << "Public key missing.";
+        qCDebug(KGET_DEBUG) << "Public key missing.";
         if (Settings::signatureAutomaticDownloading() ||
             (KMessageBox::warningYesNoCancel(0,
              i18n("The key to verify the signature is missing, do you want to download it?")) == KMessageBox::Yes)) {

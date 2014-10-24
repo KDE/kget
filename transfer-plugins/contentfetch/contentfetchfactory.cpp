@@ -68,7 +68,7 @@ Transfer * ContentFetchFactory::createTransfer( const KUrl &srcUrl,
     {
         if (iter->indexIn(url) != -1)
         {
-            kDebug(5001) << url << " match " << iter->pattern();
+            qCDebug(KGET_DEBUG) << url << " match " << iter->pattern();
             return new ContentFetch(parent, this, scheduler, srcUrl, destUrl,
                                     *fileIter, e);
         }

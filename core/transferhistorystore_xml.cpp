@@ -14,7 +14,8 @@
 #include <QFile>
 #include <QTextStream>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 XmlStore::SaveThread::SaveThread(QObject *parent, const QString &url, const QList<TransferHistoryItem> &list) : QThread(parent),
     m_url(url),
@@ -86,7 +87,7 @@ void XmlStore::DeleteThread::run()
 
     if (!doc.setContent(&file, &error, &line, &column)) 
     {
-        kDebug(5001) << "Error1" << error << line << column;
+        qCDebug(KGET_DEBUG) << "Error1" << error << line << column;
         return;
     }
     file.close();
@@ -140,7 +141,7 @@ void XmlStore::LoadThread::run()
 
     if (!doc.setContent(&file, &error, &line, &column)) 
     {
-        kDebug(5001) << "Error1" << error << line << column;
+        qCDebug(KGET_DEBUG) << "Error1" << error << line << column;
         file.close();
         return;
     }

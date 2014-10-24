@@ -92,7 +92,7 @@ kt::Monitor* BTAdvancedDetailsWidget::torrentMonitor() const
 
 void BTAdvancedDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
 {
-    kDebug(5001) << "BTAdvancedDetailsWidget::slotTransferChanged" ;
+    qCDebug(KGET_DEBUG) << "BTAdvancedDetailsWidget::slotTransferChanged" ;
     
     Q_UNUSED(transfer)
     

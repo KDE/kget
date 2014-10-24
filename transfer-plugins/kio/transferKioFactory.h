@@ -25,13 +25,13 @@ class TransferKioFactory : public TransferFactory
         ~TransferKioFactory();
 
     public slots:
-        virtual Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+        virtual Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
         virtual QString displayName() const {return "HTTP(s) / FTP(s)";}
         
-        virtual bool isSupported(const KUrl &url) const;
+        virtual bool isSupported(const QUrl &url) const;
         QStringList addsProtocols() const;
 };
 

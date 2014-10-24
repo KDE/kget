@@ -16,7 +16,8 @@
 #include "core/transfertreemodel.h"
 #include "core/kget.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QAction>
 #include <KLocale>
 #include <QMenu>
@@ -72,7 +73,7 @@ void TransfersView::setModel(QAbstractItemModel * model)
 
     for(int i = 0; i < nGroups; i++)
     {
-        kDebug(5001) << "openEditor for row " << i;
+        qCDebug(KGET_DEBUG) << "openEditor for row " << i;
         openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
@@ -101,15 +102,15 @@ void TransfersView::dropEvent(QDropEvent * event)
 
 void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 {
-    kDebug(5001) << "TransfersView::rowsInserted";
+    qCDebug(KGET_DEBUG) << "TransfersView::rowsInserted";
 
     if(!parent.isValid())
     {
-        kDebug(5001) << "parent is not valid " << start << "  " << end;
+        qCDebug(KGET_DEBUG) << "parent is not valid " << start << "  " << end;
 
         for(int i = start; i <= end; i++)
         {
-            kDebug(5001) << "openEditor for row " << i;
+            qCDebug(KGET_DEBUG) << "openEditor for row " << i;
             openPersistentEditor(model()->index(i, TransferTreeModel::Status, parent));
         }
     }
@@ -239,7 +240,7 @@ void TransfersView::slotItemCollapsed(const QModelIndex & index)
         QList<TransferHandler *> transfers = groupHandler->transfers();
 
         foreach(TransferHandler * transfer, transfers) {
-            kDebug(5001) << "Transfer = " << transfer->source().toString(); 
+            qCDebug(KGET_DEBUG) << "Transfer = " << transfer->source().toString(); 
             view_delegate->contractItem(KGet::model()->itemFromTransferHandler(transfer)->index());
         }
     }

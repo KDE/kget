@@ -141,6 +141,7 @@ remove_definitions(-DQT_NO_HTTP)
 # kgetcore
 
 set(kgetcore_SRCS
+   kget_debug.cpp
    core/job.cpp
    core/jobqueue.cpp
    core/kget.cpp
@@ -229,6 +230,7 @@ install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 # kget
 
 set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
+   kget_debug.cpp
    conf/autopastemodel.cpp
    conf/integrationpreferences.cpp
    conf/dlgwebinterface.cpp

@@ -14,9 +14,10 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 
-#include <QDomElement>
+#include "kget_debug.h"
+#include <qdebug.h>
 
-#include <kdebug.h>
+#include <QDomElement>
 
 //PORT QT5 KGET_EXPORT_PLUGIN( MirrorSearchFactory )
 
@@ -31,7 +32,7 @@ MirrorSearchFactory::~MirrorSearchFactory()
 
 TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (type.attribute("type") == "search") {
         return new MirrorSearchTransferDataSource(srcUrl, parent);

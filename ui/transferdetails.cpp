@@ -14,7 +14,9 @@
 
 #include <klocale.h>
 #include <kio/global.h>
-#include <kdebug.h>
+
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #include <QVBoxLayout>
 
@@ -57,7 +59,7 @@ QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
 
 void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
 {
-    kDebug(5001) << "TransferDetails::slotTransferChanged";
+    qCDebug(KGET_DEBUG) << "TransferDetails::slotTransferChanged";
 
     Q_UNUSED(transfer)
 

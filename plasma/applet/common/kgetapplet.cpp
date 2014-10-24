@@ -146,7 +146,7 @@ void KGetApplet::init()
     if (m_engine) {
         m_engine->connectSource("KGet", this);
     } else {
-        kDebug(5001) << "KGet Engine could not be loaded";
+        qCDebug(KGET_DEBUG) << "KGet Engine could not be loaded";
     }
     m_globalProgress = new Plasma::Meter(this);
     m_globalProgress->setMeterType(Plasma::Meter::BarMeterHorizontal);
@@ -347,7 +347,7 @@ bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
 
 void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     QStringList urls;
     if (event->mimeData()->hasUrls())
@@ -377,7 +377,7 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 
 void KGetApplet::dropEvent(QDropEvent * event)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     QStringList urls;
     if (event->mimeData()->hasUrls())

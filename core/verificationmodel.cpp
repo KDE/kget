@@ -22,7 +22,8 @@
 
 #include <QStringList>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QIcon>
 #include <KLocale>
 
@@ -179,7 +180,7 @@ bool VerificationModel::removeRows(int row, int count, const QModelIndex &parent
 void VerificationModel::addChecksum(const QString &type, const QString &checksum, int verified)
 {
     if (!Verifier::isChecksum(type, checksum)) {
-        kWarning(5001) << "Could not add checksum.\nType:" << type << "\nChecksum:" << checksum;
+        qCWarning(KGET_DEBUG) << "Could not add checksum.\nType:" << type << "\nChecksum:" << checksum;
         return;
     }
 

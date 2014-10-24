@@ -7,6 +7,7 @@ set(kget_multisegkiofactory_PART_SRCS
   multisegkiodatasource.cpp
   transfermultisegkio.cpp
   transfermultisegkiofactory.cpp
+  ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
@@ -22,6 +23,7 @@ install(FILES kget_multisegkiofactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 ###Build KCM-Module
 set(kcm_kget_multisegkiofactory_PART_SRCS
   dlgmultisegkio.cpp
+  ../../kget_debug.cpp
 )
 
 ki18n_wrap_ui(kcm_kget_multisegkiofactory_PART_SRCS

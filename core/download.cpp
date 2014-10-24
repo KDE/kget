@@ -11,13 +11,14 @@
 
 #include <QFile>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 Download::Download(const QUrl &srcUrl, const QUrl &destUrl)
   : m_srcUrl(srcUrl),
     m_destUrl(destUrl)
 {
-    kDebug(5001) << "DownloadFile: " << m_srcUrl.url() << " to dest: " << m_destUrl.url();
+    qCDebug(KGET_DEBUG) << "DownloadFile: " << m_srcUrl.url() << " to dest: " << m_destUrl.url();
     m_copyJob = KIO::get(m_srcUrl, KIO::NoReload, KIO::HideProgressInfo);
     connect(m_copyJob, SIGNAL(data(KIO::Job*,QByteArray)), SLOT(slotData(KIO::Job*,QByteArray)));
     connect(m_copyJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
@@ -30,7 +31,7 @@ Download::~Download()
 void Download::slotData(KIO::Job *job, const QByteArray& data)
 {
     Q_UNUSED(job)
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     /**if (data.size() == 0)
     {
         slotResult(job);
@@ -41,12 +42,12 @@ void Download::slotData(KIO::Job *job, const QByteArray& data)
 
 void Download::slotResult(KJob * job)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     switch (job->error())
     {
         case 0://The download has finished
         {
-            kDebug(5001) << "Downloading successfully finished" << m_destUrl.url();
+            qCDebug(KGET_DEBUG) << "Downloading successfully finished" << m_destUrl.url();
             QFile torrentFile(m_destUrl.toLocalFile());
             if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text)) {}
                 //TODO: Do a Message box here
@@ -58,14 +59,14 @@ void Download::slotResult(KJob * job)
         }
         case KIO::ERR_FILE_ALREADY_EXIST:
         {
-            kDebug(5001) << "ERROR - File already exists";
+            qCDebug(KGET_DEBUG) << "ERROR - File already exists";
             QFile file(m_destUrl.toLocalFile());
             emit finishedSuccessfully(m_destUrl, file.readAll());
             m_data = 0;
             break;
         }
         default:
-            kDebug(5001) << "We are sorry to say you, that there were errors while downloading :(";
+            qCDebug(KGET_DEBUG) << "We are sorry to say you, that there were errors while downloading :(";
             m_data = 0;
             emit finishedWithError();
             break;

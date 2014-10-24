@@ -31,6 +31,8 @@
 #include <algorithm>
 #include <boost/bind.hpp>
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QFileInfo>
 #include <QCheckBox>
 #include <QHBoxLayout>
@@ -155,7 +157,7 @@ UrlChecker::UrlError UrlChecker::checkSource(const QUrl &src, bool showNotificat
     }*/
 
     if (showNotification && (error != NoError)) {
-        kDebug(5001) << "Source:" << src << "has error:" << error;
+        qCDebug(KGET_DEBUG) << "Source:" << src << "has error:" << error;
         KGet::showNotification(KGet::m_mainWindow, "error", message(src, Source, error));
     }
 
@@ -185,7 +187,7 @@ UrlChecker::UrlError UrlChecker::checkDestination(const QUrl &destination, bool 
         }
     }
         
-    kDebug(5001) << "Destination:" << destination << "has error:" << error;
+    qCDebug(KGET_DEBUG) << "Destination:" << destination << "has error:" << error;
 
     if (showNotification && (error != NoError)) {
         KGet::showNotification(KGet::m_mainWindow, "error", message(destination, Destination, error));
@@ -218,7 +220,7 @@ UrlChecker::UrlError UrlChecker::checkFolder(const QUrl &folder, bool showNotifi
     }
 
     if (showNotification && (error != NoError)) {
-        kDebug(5001) << "Folder:" << folder << "has error:" << error;
+        qCDebug(KGET_DEBUG) << "Folder:" << folder << "has error:" << error;
         KGet::showNotification(KGet::m_mainWindow, "error", message(folder, Folder, error));
     }
 

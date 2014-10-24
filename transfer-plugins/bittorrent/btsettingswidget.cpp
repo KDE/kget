@@ -42,7 +42,7 @@ void BTSettingsWidget::load()
 
 void BTSettingsWidget::save()
 {
-    kDebug(5001) << "Save Bittorrent-config";
+    qCDebug(KGET_DEBUG) << "Save Bittorrent-config";
     BittorrentSettings::setPort(portBox->value());
     BittorrentSettings::setUploadLimit(uploadBox->value());
     BittorrentSettings::setDownloadLimit(downloadBox->value());

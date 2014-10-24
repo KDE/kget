@@ -11,7 +11,8 @@
 #include "mirrors.h"
 #include "mirrorsearchsettings.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 mirror::mirror()
 {
@@ -21,7 +22,7 @@ mirror::mirror()
 
 void mirror::search(const QUrl &url, QObject *receiver, const char *member)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     m_url = url;
     if (m_url.path() != m_url.fileName())
@@ -34,7 +35,7 @@ void mirror::search(const QUrl &url, QObject *receiver, const char *member)
 
 void mirror::search(const QString &fileName, QObject *receiver, const char *member)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     QUrl search(m_search_engine.replace("${filename}",fileName));
     m_job = KIO::get(search, KIO::NoReload, KIO::HideProgressInfo);
@@ -47,7 +48,7 @@ void mirror::search(const QString &fileName, QObject *receiver, const char *memb
 
 void mirror::slotData(KIO::Job *, const QByteArray& data)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     if (data.size() == 0)
         return;
     m_data.append(data);
@@ -55,7 +56,7 @@ void mirror::slotData(KIO::Job *, const QByteArray& data)
 
 void mirror::slotResult( KJob *job )
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     m_job = 0;
     int minUrlsNeeded = static_cast<int>(!m_Urls.isEmpty());
 
@@ -78,7 +79,7 @@ void mirror::slotResult( KJob *job )
             if ( u.endsWith( '/' + m_url.fileName() ) )
             {
                 m_Urls << QUrl(u);
-                kDebug(5001) << "url: " << u;
+                qCDebug(KGET_DEBUG) << "url: " << u;
             }
     }
 

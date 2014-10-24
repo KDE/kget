@@ -21,12 +21,13 @@
 
 #include <utime.h>
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kiconloader.h>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
 #include <klocale.h>
 #include <KMessageBox>
-#include <kdebug.h>
 
 #include <QDomElement>
 #include <QFile>
@@ -70,7 +71,7 @@ void TransferMultiSegKio::deinit(Transfer::DeleteOptions options)
 
 void TransferMultiSegKio::start()
 {
-    kDebug(5001) << "Start TransferMultiSegKio";
+    qCDebug(KGET_DEBUG) << "Start TransferMultiSegKio";
     if (status() == Running) {
         return;
     }
@@ -94,7 +95,7 @@ void TransferMultiSegKio::start()
 
 void TransferMultiSegKio::stop()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if ((status() == Stopped) || (status() == Finished)) {
         return;
@@ -129,7 +130,7 @@ bool TransferMultiSegKio::setDirectory(const QUrl& newDirectory)
 
 bool TransferMultiSegKio::setNewDestination(const QUrl &newDestination)
 {
-    kDebug(5001) << "New destination: " << newDestination;
+    qCDebug(KGET_DEBUG) << "New destination: " << newDestination;
     if (newDestination.isValid() && (newDestination != dest()) && m_dataSourceFactory)
     {
         m_movingFile = true;
@@ -151,7 +152,7 @@ bool TransferMultiSegKio::setNewDestination(const QUrl &newDestination)
 
 void TransferMultiSegKio::load(const QDomElement *element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     Transfer::load(element);
     m_dataSourceFactory->load(element);
@@ -159,7 +160,7 @@ void TransferMultiSegKio::load(const QDomElement *element)
 
 void TransferMultiSegKio::save(const QDomElement &element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     Transfer::save(element);
     m_dataSourceFactory->save(element);
 }
@@ -234,7 +235,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
         m_percent = m_dataSourceFactory->percent();
     }
     if (change & Tc_DownloadSpeed) {
-        kDebug(5001) << "speed:" << m_downloadSpeed;
+        qCDebug(KGET_DEBUG) << "speed:" << m_downloadSpeed;
         m_downloadSpeed = m_dataSourceFactory->currentSpeed();
     }
 
@@ -281,7 +282,7 @@ void TransferMultiSegKio::slotStatResult(KJob* kioJob)
 
 void TransferMultiSegKio::slotSearchUrls(const QList<QUrl> &urls)
 {
-    kDebug(5001) << "Found " << urls.size() << " urls.";
+    qCDebug(KGET_DEBUG) << "Found " << urls.size() << " urls.";
 
     foreach (const QUrl &url, urls)
     {

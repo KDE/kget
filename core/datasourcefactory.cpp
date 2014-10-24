@@ -29,7 +29,8 @@
 #include <KMessageBox>
 #include <kmountpoint.h>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 
 #include <kde_file.h>
@@ -67,7 +68,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::fil
     m_verifier(0),
     m_signature(0)
 {
-    kDebug(5001) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
+    qCDebug(KGET_DEBUG) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
 
     m_prevDownloadedSizes.append(0);
 }
@@ -118,7 +119,7 @@ void DataSourceFactory::deinit()
 
 void DataSourceFactory::findFileSize()
 {
-    kDebug(5001) << "Find the filesize" << this;
+    qCDebug(KGET_DEBUG) << "Find the filesize" << this;
     if (!m_size && !m_dest.isEmpty() && !m_sources.isEmpty()) {
         foreach (TransferDataSource *source, m_sources) {
             if (source->capabilities() & Transfer::Cap_FindFilesize) {
@@ -138,7 +139,7 @@ void DataSourceFactory::findFileSize()
 void DataSourceFactory::slotFoundFileSize(TransferDataSource *source, KIO::filesize_t fileSize, const QPair<int, int> &segmentRange)
 {
     m_size = fileSize;
-    kDebug(5001) << source << "found size" << m_size << "and is assigned segments" << segmentRange << this;
+    qCDebug(KGET_DEBUG) << source << "found size" << m_size << "and is assigned segments" << segmentRange << this;
     emit dataSourceFactoryChange(Transfer::Tc_TotalSize);
 
     init();
@@ -177,7 +178,7 @@ bool DataSourceFactory::checkLocalFile()
         fd = KDE::open(_dest, O_CREAT | O_TRUNC | O_WRONLY, initialMode);
         if ( fd < 0 )
         {
-            kDebug(5001) << " error";
+            qCDebug(KGET_DEBUG) << " error";
             return false;
         }
         else
@@ -186,13 +187,13 @@ bool DataSourceFactory::checkLocalFile()
         }
     }
 
-    kDebug(5001) << "success";
+    qCDebug(KGET_DEBUG) << "success";
     return true;
 }
 
 void DataSourceFactory::start()
 {
-    kDebug(5001) << "Start DataSourceFactory";
+    qCDebug(KGET_DEBUG) << "Start DataSourceFactory";
     if (m_movingFile || (m_status == Job::Finished))
     {
         return;
@@ -206,7 +207,7 @@ void DataSourceFactory::start()
     //the file already exists, even though DataSourceFactory has not been initialized remove it
     //to avoid problems like over methods not finished removing it because of a redownload
     if (!m_downloadInitialized && QFile::exists(m_dest.toLocalFile())) {
-        kDebug(5001) << "Removing existing file.";
+        qCDebug(KGET_DEBUG) << "Removing existing file.";
         m_startTried = true;
         FileDeleter::deleteFile(m_dest, this, SLOT(slotRemovedFile()));
         return;
@@ -250,11 +251,11 @@ void DataSourceFactory::start()
 
     if (assignNeeded()) {
         if (m_sources.count()) {
-            kDebug(5001) << "Assigning a TransferDataSource.";
+            qCDebug(KGET_DEBUG) << "Assigning a TransferDataSource.";
             //simply assign a TransferDataSource
             assignSegments(*m_sources.begin());
         } else if (m_unusedUrls.count()) {
-            kDebug(5001) << "Assigning an unused mirror";
+            qCDebug(KGET_DEBUG) << "Assigning an unused mirror";
             //takes the first unused mirror
             addMirror(m_unusedUrls.takeFirst(), true, m_unusedConnections.takeFirst());
         }
@@ -297,7 +298,7 @@ void DataSourceFactory::start()
 
 void DataSourceFactory::slotRemovedFile()
 {
-    kDebug(5001) << "File has been removed" << this;
+    qCDebug(KGET_DEBUG) << "File has been removed" << this;
     if (m_startTried) {
         m_startTried = false;
         start();
@@ -307,7 +308,7 @@ void DataSourceFactory::slotRemovedFile()
 void DataSourceFactory::open(KIO::Job *job)
 {
     Q_UNUSED(job)
-    kDebug(5001) << "File opened" << this;
+    qCDebug(KGET_DEBUG) << "File opened" << this;
 
     if (!m_speedTimer)
     {
@@ -326,7 +327,7 @@ void DataSourceFactory::open(KIO::Job *job)
 
 void DataSourceFactory::stop()
 {
-    kDebug(5001) << "Stopping" << this;
+    qCDebug(KGET_DEBUG) << "Stopping" << this;
     if (m_movingFile || (m_status == Job::Finished))
     {
         return;
@@ -384,7 +385,7 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
 {
     if (!url.isValid() || url.isEmpty())
     {
-        kDebug(5001) << "Url is not useable: " << url.toString();
+        qCDebug(KGET_DEBUG) << "Url is not useable: " << url.toString();
         return;
     }
     if (numParalellConnections <= 0)
@@ -409,7 +410,7 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
                 for (int i = source->changeNeeded(); i < 0; ++i)
                 {
                     const QPair<int, int> removed = source->removeConnection();
-                    kDebug(5001) << "Remove connection with segments" << removed;
+                    qCDebug(KGET_DEBUG) << "Remove connection with segments" << removed;
                     const int start = removed.first;
                     const int end = removed.second;
                     if ((start != -1) && (end != -1)) {
@@ -425,7 +426,7 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
                 TransferDataSource *source = KGet::createTransferDataSource(url, QDomElement(), this);
                 if (source)
                 {
-                    kDebug(5001) << "Successfully created a TransferDataSource for " << url.toString() << this;
+                    qCDebug(KGET_DEBUG) << "Successfully created a TransferDataSource for " << url.toString() << this;
 
                     //url might have been an unused Mirror, so remove it in any case
                     const int index = m_unusedUrls.indexOf(url);
@@ -462,7 +463,7 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
                 }
                 else
                 {
-                    kDebug(5001) << "A TransferDataSource could not be created for " << url.toString();
+                    qCDebug(KGET_DEBUG) << "A TransferDataSource could not be created for " << url.toString();
                 }
             }
             else if (usedDefined)
@@ -502,7 +503,7 @@ void DataSourceFactory::slotUrlChanged(const QUrl &old, const QUrl &newUrl)
 
 void DataSourceFactory::removeMirror(const QUrl &url)
 {
-    kDebug(5001) << "Removing mirror: " << url;
+    qCDebug(KGET_DEBUG) << "Removing mirror: " << url;
     if (m_sources.contains(url))
     {
         TransferDataSource *source = m_sources[url];
@@ -519,7 +520,7 @@ void DataSourceFactory::removeMirror(const QUrl &url)
             const int end = assigned[i].second;
             if ((start != -1) && (end != -1)) {
                 m_startedChunks->setRange(start, end, false);
-                kDebug(5001) << "Segmentrange" << start << '-' << end << "not assigned anymore.";
+                qCDebug(KGET_DEBUG) << "Segmentrange" << start << '-' << end << "not assigned anymore.";
             }
         }
     }
@@ -528,7 +529,7 @@ void DataSourceFactory::removeMirror(const QUrl &url)
         //here we only handle the case when there are existing TransferDataSources,
         //the other case is triggered when stopping and then starting again
         if (m_sources.count()) {
-            kDebug(5001) << "Assigning a TransferDataSource.";
+            qCDebug(KGET_DEBUG) << "Assigning a TransferDataSource.";
             //simply assign a TransferDataSource
             assignSegments(*m_sources.begin());
         }
@@ -596,7 +597,7 @@ bool DataSourceFactory::assignNeeded() const
 
 void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<int, int> &segmentRange)
 {
-    kDebug(5001) << "Segments" << segmentRange << "broken," << source;
+    qCDebug(KGET_DEBUG) << "Segments" << segmentRange << "broken," << source;
     if (!source || !m_startedChunks || !m_finishedChunks || (segmentRange.first < 0) || (segmentRange.second < 0) || (static_cast<quint32>(segmentRange.second) > m_finishedChunks->getNumBits()))
     {
         return;
@@ -614,7 +615,7 @@ void DataSourceFactory::brokenSegments(TransferDataSource *source, const QPair<i
 
 void DataSourceFactory::broken(TransferDataSource *source, TransferDataSource::Error error)
 {
-    kDebug(5001) << source << "is broken with error" << error;
+    qCDebug(KGET_DEBUG) << source << "is broken with error" << error;
     const QString url = source->sourceUrl().toString();
 
     removeMirror(source->sourceUrl());
@@ -627,13 +628,13 @@ void DataSourceFactory::broken(TransferDataSource *source, TransferDataSource::E
 
 void DataSourceFactory::slotFreeSegments(TransferDataSource *source, QPair<int, int> segmentRange)
 {
-    kDebug(5001) << "Segments freed:" << source << segmentRange;
+    qCDebug(KGET_DEBUG) << "Segments freed:" << source << segmentRange;
 
     const int start = segmentRange.first;
     const int end = segmentRange.second;
     if ((start != -1) && (end != -1)) {
         m_startedChunks->setRange(start, end, false);
-        kDebug(5001) << "Segmentrange" << start << '-' << end << "not assigned anymore.";
+        qCDebug(KGET_DEBUG) << "Segmentrange" << start << '-' << end << "not assigned anymore.";
     }
 
     assignSegments(source);
@@ -643,7 +644,7 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
 {
     if (!source || (segmentNumber < 0) || (static_cast<quint32>(segmentNumber) > m_finishedChunks->getNumBits()))
     {
-        kDebug(5001) << "Incorrect data";
+        qCDebug(KGET_DEBUG) << "Incorrect data";
         return;
     }
 
@@ -651,7 +652,7 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
 
     if (!connectionFinished)
     {
-        kDebug(5001) << "Some segments still not finished";
+        qCDebug(KGET_DEBUG) << "Some segments still not finished";
         return;
     }
 
@@ -669,19 +670,19 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
 {
     if (!m_startedChunks || !m_finishedChunks)
     {
-        kDebug(5001) << "Assign tried";
+        qCDebug(KGET_DEBUG) << "Assign tried";
         m_assignTried = true;
         return;
     }
     if (m_finishedChunks->allOn())
     {
-        kDebug(5001) << "All segments are finished already.";
+        qCDebug(KGET_DEBUG) << "All segments are finished already.";
         return;
     }
 
     //no more segments needed for that TransferDataSource
     if (source->changeNeeded() <= 0) {
-        kDebug(5001) << "No change needed for" << source;
+        qCDebug(KGET_DEBUG) << "No change needed for" << source;
         return;
     }
 
@@ -713,7 +714,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
 
     if ((newStart == -1) || (newEnd == -1))
     {
-        kDebug(5001) << "No segment can be assigned.";
+        qCDebug(KGET_DEBUG) << "No segment can be assigned.";
         return;
     }
 
@@ -722,7 +723,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     //the lastSegsize is rest, but only if there is a rest and it is the last segment of the download
     const KIO::fileoffset_t lastSegSize = ((static_cast<uint>(newEnd + 1) == m_startedChunks->getNumBits() && rest) ? rest : m_segSize);
 
-    kDebug(5001) << "Segments assigned:" << newStart << "-" << newEnd << "segment-size:" << m_segSize << "rest:" << rest;
+    qCDebug(KGET_DEBUG) << "Segments assigned:" << newStart << "-" << newEnd << "segment-size:" << m_segSize << "rest:" << rest;
     m_startedChunks->setRange(newStart, newEnd, true);
     source->addSegments(qMakePair(m_segSize, lastSegSize), qMakePair(newStart, newEnd));
 
@@ -806,7 +807,7 @@ void DataSourceFactory::killPutJob()
 {
     if (m_putJob)
     {
-        kDebug(5001) << "Closing the file";
+        qCDebug(KGET_DEBUG) << "Closing the file";
         m_open = false;
         m_putJob->close();
         m_putJob = 0;
@@ -906,7 +907,7 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
 
     if (!m_startedChunks || !m_finishedChunks)
     {
-        kDebug(5001) << "Redownload everything";
+        qCDebug(KGET_DEBUG) << "Redownload everything";
         m_downloadedSize = 0;
     }
     else
@@ -915,7 +916,7 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
             m_startedChunks->clear();
             m_finishedChunks->clear();
         }
-        kDebug(5001) << "Redownload broken pieces";
+        qCDebug(KGET_DEBUG) << "Redownload broken pieces";
         for (int i = 0; i < offsets.count(); ++i) {
             const int start = offsets[i] / m_segSize;
             const int end = std::ceil(length / static_cast<double>(m_segSize)) - 1 + start;
@@ -1025,7 +1026,7 @@ void DataSourceFactory::load(const QDomElement *element)
         if (!m_finishedChunks)
         {
             m_finishedChunks = new BitSet(data.data(), numBits);
-            kDebug(5001) << m_finishedChunks->numOnBits() << " bits on of " << numBits << " bits.";
+            qCDebug(KGET_DEBUG) << m_finishedChunks->numOnBits() << " bits on of " << numBits << " bits.";
         }
 
         //set the finished chunks to started

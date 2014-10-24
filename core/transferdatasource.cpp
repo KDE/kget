@@ -10,7 +10,8 @@
  
 #include "transferdatasource.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
   : QObject(parent),
@@ -21,12 +22,12 @@ TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
     m_currentSegments(0),
     m_capabilities(0)
 {
-    kDebug(5001) ;
+    qCDebug(KGET_DEBUG) ;
 }
 
 TransferDataSource::~TransferDataSource()
 {
-    kDebug(5001) ;
+    qCDebug(KGET_DEBUG) ;
 }
 
 Transfer::Capabilities TransferDataSource::capabilities() const

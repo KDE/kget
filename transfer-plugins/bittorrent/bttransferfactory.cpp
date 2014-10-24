@@ -30,7 +30,7 @@ BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
 #if LIBKTORRENT_VERSION >= 0x010100
     if (!bt::InitLibKTorrent())
     {
-        kError(5001) << "Failed to initialize libktorrent";
+        qCCritical(KGET_DEBUG) << "Failed to initialize libktorrent";
         KGet::showNotification(0, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
     }
 #endif
@@ -45,7 +45,7 @@ Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &des
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
 {
-    kDebug(5001) << "BTTransferFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "BTTransferFactory::createTransfer";
 
     if (isSupported(srcUrl))
     {
@@ -60,7 +60,7 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 
     if (!bttransfer)
     {
-        kError(5001) << "WARNING! passing a non-BTTransfer pointer!!";
+        qCCritical(KGET_DEBUG) << "WARNING! passing a non-BTTransfer pointer!!";
         return 0;
     }
 

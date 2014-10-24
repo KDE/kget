@@ -17,7 +17,8 @@
 #include "metalinkhttp.h"
 #include "metalinkxml.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 //PORT QT5 KGET_EXPORT_PLUGIN( MetalinkFactory )
 
@@ -35,7 +36,7 @@ Transfer * MetalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &dest
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001) << "metalinkFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "metalinkFactory::createTransfer";
     KGetMetalink::MetalinkHttpParser *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
 
     if (metalinkHttpChecker->isMetalinkHttp()) {

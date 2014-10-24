@@ -48,7 +48,7 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
 {
     Q_UNUSED(transfer)
 
-    kDebug(5001) << "BTDetailsWidget::slotTransferChanged";
+    qCDebug(KGET_DEBUG) << "BTDetailsWidget::slotTransferChanged";
     
     if(flags & Transfer::Tc_DownloadSpeed)
         dlSpeedLabel->setText(KFormat().formatByteSize(m_transfer->downloadSpeed()) + "/s");

@@ -26,7 +26,8 @@
 #include <QFile>
 #include <QDomElement>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #ifdef HAVE_QCA2
 #endif
@@ -352,7 +353,7 @@ QPair<QString, PartialChecksums*> Verifier::availablePartialChecksum(Verifier::C
 
 void Verifier::changeStatus(const QString &type, bool isVerified)
 {
-    kDebug(5001) << "Verified:" << isVerified;
+    qCDebug(KGET_DEBUG) << "Verified:" << isVerified;
     d->status = isVerified ? Verifier::Verified : Verifier::NotVerified;
     d->model->setVerificationStatus(type, d->status);
     emit verified(isVerified);

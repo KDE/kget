@@ -10,11 +10,14 @@
 #include "ui/tray.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
+
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <kaboutdata.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
 #include <QMenu>
-#include <kdebug.h>
 #include <klocale.h>
 
 #include <QClipboard>
@@ -67,7 +70,7 @@ void Tray::slotActivated()
 // switch between Active or Passive state
 void Tray::setDownloading( bool downloading )
 {
-    kDebug(5001) << "Tray::setDownloading";
+    qCDebug(KGET_DEBUG) << "Tray::setDownloading";
 
     if (downloading)
     {

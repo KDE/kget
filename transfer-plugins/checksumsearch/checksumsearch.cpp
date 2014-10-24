@@ -76,7 +76,7 @@ void ChecksumSearch::slotData(KIO::Job *job, const QByteArray &data)
 
 void ChecksumSearch::slotResult(KJob *job)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     m_data.clear();
 
@@ -84,13 +84,13 @@ void ChecksumSearch::slotResult(KJob *job)
     {
         case 0://The download has finished
         {
-            kDebug(5001) << "Correctly downloaded" << m_src.pathOrUrl();
+            qCDebug(KGET_DEBUG) << "Correctly downloaded" << m_src.pathOrUrl();
             m_data = QString(m_dataBA);
             break;
         }
 
         default:
-            kDebug(5001) << "There was error" << job->error() << "while downloading" << m_src.pathOrUrl();
+            qCDebug(KGET_DEBUG) << "There was error" << job->error() << "while downloading" << m_src.pathOrUrl();
             break;
     }
 
@@ -103,7 +103,7 @@ void ChecksumSearch::slotResult(KJob *job)
 void ChecksumSearch::parseDownload()
 {
     if (!m_data.isEmpty()) {
-        kDebug(5001) << "*******Parse*******\n" << m_data << "*******************";
+        qCDebug(KGET_DEBUG) << "*******Parse*******\n" << m_data << "*******************";
     }
 
     //no type has been specified
@@ -125,7 +125,7 @@ void ChecksumSearch::parseDownload()
             if (rxChecksum.indexIn(line) > -1) {
                 hash = rxChecksum.cap(0).toLower();
                 if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
-                    kDebug(5001) << "Found hash: " << hash;
+                    qCDebug(KGET_DEBUG) << "Found hash: " << hash;
                     emit data(m_type, hash);
                 }
             }
@@ -136,7 +136,7 @@ void ChecksumSearch::parseDownload()
     if (hash.isEmpty() && (rxChecksum.indexIn(m_data) > -1)) {
         QString hash = rxChecksum.cap(0);
         if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
-            kDebug(5001) << "Found hash:" << hash;
+            qCDebug(KGET_DEBUG) << "Found hash:" << hash;
             emit data(m_type, hash);
         }
     }

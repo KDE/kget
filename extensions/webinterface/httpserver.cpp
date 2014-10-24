@@ -125,7 +125,7 @@ void HttpServer::handleRequest()
         }
         data.append("]}");
     } else if (header.path().startsWith(QLatin1String("/do"))) {
-        kDebug(5001) << request;
+        qCDebug(KGET_DEBUG) << request;
 
         QString args = header.path().right(header.path().length() - 4);
 
@@ -144,7 +144,7 @@ void HttpServer::handleRequest()
                 else if (map.at(0) == "group")
                     group = QUrl::fromPercentEncoding(QByteArray(map.at(1).toUtf8()));
             }
-            kDebug(5001) << action << data << group;
+            qCDebug(KGET_DEBUG) << action << data << group;
             if (action == "add") {
                 //find a folder to store the download in 
                 QString defaultFolder;
@@ -180,7 +180,7 @@ void HttpServer::handleRequest()
                 if (transfer)
                     KGet::delTransfer(transfer);
             } else {
-                kWarning(5001) << "not implemented action" << action << data;
+                qCWarning(KGET_DEBUG) << "not implemented action" << action << data;
             }
         }
     } else { // read it from filesystem

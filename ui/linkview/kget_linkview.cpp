@@ -17,6 +17,8 @@
 #include "core/linkimporter.h"
 #include "ui/newtransferdialog.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QApplication>
 #include <QClipboard>
 #include <QMenu>
@@ -181,7 +183,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
             mt = KMimeType::findByUrl(linkitem, 0, true, true);
         }
 
-        kDebug(5001) << "Adding:" << linkitem;
+        qCDebug(KGET_DEBUG) << "Adding:" << linkitem;
         
         QString file = url.fileName();
         if (file.isEmpty())

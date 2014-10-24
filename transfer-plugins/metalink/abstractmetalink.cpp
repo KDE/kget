@@ -22,6 +22,8 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
@@ -537,7 +539,7 @@ void AbstractMetalink::filesSelected()
 
 void AbstractMetalink::stop()
 {
-    kDebug(5001) << "metalink::Stop";
+    qCDebug(KGET_DEBUG) << "metalink::Stop";
     if (m_ready && ((status() != Stopped) || (status() != Finished)))
     {
         m_currentFiles = 0;

@@ -18,7 +18,8 @@
 
 #include <QFile>
     
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
     
 SQLiteStore::SQLiteStore(const QString &database) : TransferHistoryStore(),
     m_dbName(database),
@@ -44,7 +45,7 @@ void SQLiteStore::load()
         QSqlQuery query = sql().exec("SELECT * FROM transfer_history_item");
 
         if (query.lastError().isValid()) {
-            kDebug(5001) << query.lastError().text();
+            qCDebug(KGET_DEBUG) << query.lastError().text();
         }
         else {
             QSqlRecord rec = query.record();
@@ -86,7 +87,7 @@ void SQLiteStore::saveItems(const QList<TransferHistoryItem> &items)
         }
 
         if (!sql().transaction()) {
-            kWarning(5001) << "Could not establish a transaction, might be slow.";
+            qCWarning(KGET_DEBUG) << "Could not establish a transaction, might be slow.";
         }
 
         foreach (const TransferHistoryItem &item, items) {
@@ -97,13 +98,13 @@ void SQLiteStore::saveItems(const QList<TransferHistoryItem> &items)
                                 + QString::number(item.state())+"')");
 
             if (query.lastError().isValid()) {
-                kDebug(5001) << query.lastError().text();
+                qCDebug(KGET_DEBUG) << query.lastError().text();
             }
             m_items << item;
         }
 
         if (!sql().commit()) {
-            kWarning(5001) << "Could not commit changes.";
+            qCWarning(KGET_DEBUG) << "Could not commit changes.";
         }
     }
     sql().close();
@@ -122,7 +123,7 @@ void SQLiteStore::deleteItem(const TransferHistoryItem &item)
                                             " source = '" + item.source() + "';");
 
         if (query.lastError().isValid()) {
-            kDebug(5001) << query.lastError().text();
+            qCDebug(KGET_DEBUG) << query.lastError().text();
         }
 
         sql().commit();
@@ -150,7 +151,7 @@ void SQLiteStore::createTables()
                                 "state int, PRIMARY KEY(dest, source));");
 
     if (query.lastError().isValid()) {
-        kDebug(5001) << query.lastError().text();
+        qCDebug(KGET_DEBUG) << query.lastError().text();
     }
 }
 

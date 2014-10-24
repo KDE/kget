@@ -8,6 +8,7 @@ set(kget_mmsfactory_PART_SRCS
   mmstransfer.cpp
   mmstransferfactory.cpp
   mmsthread.cpp
+  ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_mmsfactory_PART_SRCS mmssettings.kcfgc)
@@ -22,6 +23,7 @@ install(FILES kget_mmsfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 ###Build KCM-Module
 set(kcm_kget_mmsfactory_PART_SRCS
   dlgmms.cpp
+  ../../kget_debug.cpp
 )
 
 ki18n_wrap_ui(kcm_kget_mmsfactory_PART_SRCS

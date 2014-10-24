@@ -14,7 +14,8 @@
 #include "core/transfergroup.h"
 #include "transferKio.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kpluginfactory.h>
 
 K_PLUGIN_FACTORY(KGetFactory, 
@@ -31,12 +32,13 @@ TransferKioFactory::~TransferKioFactory()
 {
 }
 
-Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * TransferKioFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
-    qDebug() << "TransferKioFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "TransferKioFactory::createTransfer";
+    qWarning(KGET_DEBUG) << "KIOFACTORY createTRANSFER";
 
     if (isSupported(srcUrl))
     {
@@ -45,7 +47,7 @@ Transfer * TransferKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &d
     return 0;
 }
 
-bool TransferKioFactory::isSupported(const KUrl &url) const
+bool TransferKioFactory::isSupported(const QUrl &url) const
 {
     QString prot = url.scheme();
     qDebug() << "Protocol = " << prot;

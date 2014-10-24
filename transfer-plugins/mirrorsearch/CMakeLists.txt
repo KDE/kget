@@ -6,6 +6,7 @@ set(kget_mirrorsearchfactory_PART_SRCS
   mirrors.cpp
   mirrorsearchtransferdatasource.cpp
   mirrorsearchfactory.cpp
+  ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_mirrorsearchfactory_PART_SRCS mirrorsearchsettings.kcfgc)
@@ -21,6 +22,7 @@ install(FILES kget_mirrorsearchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 ###Build KCM-Module
 set(kcm_kget_mirrorsearchfactory_PART_SRCS
   dlgmirrorsearch.cpp
+  ../../kget_debug.cpp
 )
 
 ki18n_wrap_ui(kcm_kget_mirrorsearchfactory_PART_SRCS

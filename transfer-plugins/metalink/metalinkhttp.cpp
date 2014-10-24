@@ -24,6 +24,9 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #ifdef HAVE_NEPOMUK
     #include "core/nepomukhandler.h"
     #include <Nepomuk2/Variant>
@@ -70,7 +73,7 @@ MetalinkHttp::~MetalinkHttp()
 
 void MetalinkHttp::load(const QDomElement *element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     Transfer::load(element);
     DataSourceFactory * fac = new DataSourceFactory(this, m_dest);
     m_dataSourceFactory.insert(m_dest, fac);
@@ -92,7 +95,7 @@ void MetalinkHttp::load(const QDomElement *element)
 
 void MetalinkHttp::save(const QDomElement &element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     Transfer::save(element);
     m_dataSourceFactory.begin().value()->save(element);
 }
@@ -236,7 +239,7 @@ bool MetalinkHttp::metalinkHttpInit()
 
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
-        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
+        qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
         KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);

@@ -18,6 +18,9 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <QHeaderView>
 
 #include <KLineEdit>
@@ -81,7 +84,7 @@ void TransfersGroupTree::setModel(QAbstractItemModel *model)
 
     int nGroups = model->rowCount(QModelIndex());
     for (int i = 0; i < nGroups; i++) {
-        kDebug(5001) << "openEditor for row " << i;
+        qCDebug(KGET_DEBUG) << "openEditor for row " << i;
         openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
@@ -92,7 +95,7 @@ void TransfersGroupTree::rowsInserted(const QModelIndex &parent, int start, int 
 {
     if (!parent.isValid()) {
         for (int i = start; i <= end; ++i) {
-            kDebug(5001) << "openEditor for row " << i;
+            qCDebug(KGET_DEBUG) << "openEditor for row " << i;
             openPersistentEditor(model()->index(i, TransferTreeModel::Status, parent));
         }
     }
@@ -135,7 +138,7 @@ void TransfersGroupTree::renameSelectedGroup()
 
 void TransfersGroupTree::changeIcon(const QString &icon)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     TransferTreeSelectionModel *selModel = KGet::selectionModel();
 
     QModelIndexList indexList = selModel->selectedRows();

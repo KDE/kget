@@ -16,6 +16,9 @@
 
 #include <utime.h>
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <kiconloader.h>
 #include <kio/scheduler.h>
 #include <KIO/DeleteJob>
@@ -23,7 +26,6 @@
 #include <KIO/NetAccess>
 #include <KLocale>
 #include <KMessageBox>
-#include <KDebug>
 
 #include <QFile>
 #include <QDomElement>
@@ -92,7 +94,7 @@ void TransferKio::start()
         if(!m_copyjob)
             createJob();
 
-        kDebug(5001) << "TransferKio::start";
+        qCDebug(KGET_DEBUG) << "TransferKio::start";
         setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
         setTransferChange(Tc_Status, true);
     }
@@ -112,7 +114,7 @@ void TransferKio::stop()
         m_copyjob=0;
     }
 
-    kDebug(5001) << "Stop";
+    qCDebug(KGET_DEBUG) << "Stop";
     setStatus(Job::Stopped);
     m_downloadSpeed = 0;
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
@@ -153,7 +155,7 @@ void TransferKio::createJob()
 
 void TransferKio::slotResult( KJob * kioJob )
 {
-    kDebug(5001) << "slotResult  (" << kioJob->error() << ")";
+    qCDebug(KGET_DEBUG) << "slotResult  (" << kioJob->error() << ")";
     switch (kioJob->error()) {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
@@ -166,7 +168,7 @@ void TransferKio::slotResult( KJob * kioJob )
             break;
         default:
             //There has been an error
-            kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
+            qCDebug(KGET_DEBUG) << "--  E R R O R  (" << kioJob->error() << ")--";
             if (!m_stopped)
                 setStatus(Job::Aborted);
             break;
@@ -215,7 +217,7 @@ void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 
 void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
-    kDebug(5001) << "slotPercent";
+    qCDebug(KGET_DEBUG) << "slotPercent";
     Q_UNUSED(kioJob)
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -225,7 +227,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob)
 
-    kDebug(5001) << "slotTotalSize";
+    qCDebug(KGET_DEBUG) << "slotTotalSize";
 
     setStatus(Job::Running);
 
@@ -237,7 +239,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob)
 
-//     kDebug(5001) << "slotProcessedSize";
+//     qCDebug(KGET_DEBUG) << "slotProcessedSize";
 
     if(status() != Job::Running)
     {
@@ -252,7 +254,7 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
     Q_UNUSED(kioJob)
 
-//     kDebug(5001) << "slotSpeed";
+//     qCDebug(KGET_DEBUG) << "slotSpeed";
 
     if(status() != Job::Running)
     {

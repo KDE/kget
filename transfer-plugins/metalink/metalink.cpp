@@ -60,7 +60,7 @@ Metalink::~Metalink()
 
 void Metalink::start()
 {
-    kDebug(5001) << "metalink::start";
+    qCDebug(KGET_DEBUG) << "metalink::start";
 
     if (!m_ready)
     {
@@ -88,7 +88,7 @@ void Metalink::downloadMetalink()
 
 bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!src.isEmpty()) {
         m_localMetalinkLocation = src;
@@ -105,7 +105,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     }
 
     if (!m_metalink.isValid()) {
-        kError(5001) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
+        qCCritical(KGET_DEBUG) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -198,7 +198,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
-        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
+        qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
         KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
@@ -302,7 +302,7 @@ void Metalink::deinit(Transfer::DeleteOptions options)
 
 void Metalink::stop()
 {
-    kDebug(5001) << "metalink::Stop";
+    qCDebug(KGET_DEBUG) << "metalink::Stop";
     if (m_ready && status() != Stopped)
     {
         m_currentFiles = 0;

@@ -42,7 +42,7 @@ ChecksumSearchController::~ChecksumSearchController()
 void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl)
 {
     if (m_finished.contains(baseUrl)) {
-        kDebug(5001) << "Already downloaded" << baseUrl;
+        qCDebug(KGET_DEBUG) << "Already downloaded" << baseUrl;
         const KUrl urlToFile = m_finished[baseUrl];
         if (!urlToFile.isEmpty()) {
             search->gotBaseUrl(m_finished[baseUrl]);
@@ -53,10 +53,10 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             m_searches.insert(baseUrl, search);
 
             if (alreadySearchedFor) {
-                kDebug(5001) << "Search already started for" << baseUrl;
+                qCDebug(KGET_DEBUG) << "Search already started for" << baseUrl;
                 return;
             }
-            kDebug(5001) << "Creating download for" << baseUrl;
+            qCDebug(KGET_DEBUG) << "Creating download for" << baseUrl;
             static int files = 0;
 
             const KUrl dest = KUrl(KStandardDirs::locateLocal("appdata", "checksumsearch/") + QString::number(files++));
@@ -66,13 +66,13 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             }
 
             if (baseUrl.protocol() != "ftp" && baseUrl.protocol() != "sftp") {
-                kDebug(5001) << "Downloading" << baseUrl;
+                qCDebug(KGET_DEBUG) << "Downloading" << baseUrl;
                 KIO::FileCopyJob *job = KIO::file_copy(baseUrl, dest, -1, KIO::HideProgressInfo);
                 job->addMetaData("errorPage", "false");
                 connect(job, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
                 m_jobs[job] = qMakePair(baseUrl, dest);
             } else {
-                kDebug(5001) << "ftp, doing a listjob";
+                qCDebug(KGET_DEBUG) << "ftp, doing a listjob";
                 KIO::ListJob *job = KIO::listDir(baseUrl, KIO::HideProgressInfo);
                 connect(job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)), this, SLOT(slotEntries(KIO::Job*,KIO::UDSEntryList)));
                 connect(job, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
@@ -96,7 +96,7 @@ void ChecksumSearchController::unregisterSearch(ChecksumSearchTransferDataSource
 
 void ChecksumSearchController::slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!m_jobs.contains(job)) {
         return;
@@ -106,7 +106,7 @@ void ChecksumSearchController::slotEntries(KIO::Job *job, const KIO::UDSEntryLis
     const KUrl urlToFile = m_jobs[job].second;
     QFile file(urlToFile.toLocalFile());
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        kDebug(5001) << "Could not open file" << urlToFile;
+        qCDebug(KGET_DEBUG) << "Could not open file" << urlToFile;
     }
 
     QTextStream out(&file);
@@ -120,7 +120,7 @@ void ChecksumSearchController::slotEntries(KIO::Job *job, const KIO::UDSEntryLis
 
 void ChecksumSearchController::slotResult(KJob *job)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!m_jobs.contains(job)) {
         return;
@@ -130,7 +130,7 @@ void ChecksumSearchController::slotResult(KJob *job)
     const KUrl urlToFile = m_jobs[job].second;
     m_jobs.remove(job);
     if (job->error()) {
-        kDebug(5001) << "Error while getting baseurl:" << baseUrl << job->error() << job->errorString();
+        qCDebug(KGET_DEBUG) << "Error while getting baseurl:" << baseUrl << job->error() << job->errorString();
         m_finished[baseUrl] = KUrl();
         return;
     }
@@ -156,7 +156,7 @@ ChecksumSearchTransferDataSource::~ChecksumSearchTransferDataSource()
 
 void ChecksumSearchTransferDataSource::start()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     const KUrl baseUrl = m_sourceUrl.upUrl();
     s_controller.registerSearch(this, baseUrl);
@@ -166,7 +166,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const KUrl &urlToFile)
 {
     QFile file(urlToFile.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
-        kDebug(5001) << "Could not open file" << urlToFile;
+        qCDebug(KGET_DEBUG) << "Could not open file" << urlToFile;
         return;
     }
 
@@ -190,7 +190,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const KUrl &urlToFile)
         }
     }
 
-    kDebug(5001) << "Creating Checksumsearch for" << urls.count() << "urls.";
+    qCDebug(KGET_DEBUG) << "Creating Checksumsearch for" << urls.count() << "urls.";
 
     if (urls.count() && types.count()) {
         ChecksumSearch *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
@@ -201,14 +201,14 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const KUrl &urlToFile)
 
 void ChecksumSearchTransferDataSource::stop()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 }
 
 void ChecksumSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
 {
     Q_UNUSED(segmentSize)
     Q_UNUSED(segmentRange)
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 }
 
 
