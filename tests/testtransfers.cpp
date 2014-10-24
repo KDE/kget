@@ -14,6 +14,7 @@
 #include "core/transferhandler.h"
 #include "core/kget.h"
 
+#include "kget_debug.h"
 #include "kget_interface.h"
 #include "transfer_interface.h"
 #include "verifier_interface.h"
