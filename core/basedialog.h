@@ -21,14 +21,14 @@
 #define KGET_BASE_DIALOG
 
 #include "kget_export.h"
-#include <KDialog>
+#include <QDialog>
 
 
 /**
  * Subclass to make sure that the size of the dialog is
  * automatically stored and restored
  */
-class KGET_EXPORT KGetSaveSizeDialog : public KDialog
+class KGET_EXPORT KGetSaveSizeDialog : public QDialog
 {
     Q_OBJECT
 

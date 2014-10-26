@@ -21,10 +21,10 @@
 #include "settings.h"
 
 KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_name("Size" + name)
 {
-    const QSize size;// = KSharedConfig::openConfig()->group("Geometry").readEntry(m_name.constData(), QSize()); //TODO: Port this file
+    const QSize size = KSharedConfig::openConfig()->group("Geometry").readEntry(m_name.constData(), QSize()); //TODO: Port this file
     if (size.isValid()) {
         resize(size);
     }
@@ -33,6 +33,6 @@ KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, 
 KGetSaveSizeDialog::~KGetSaveSizeDialog()
 {
     const QString name = QString("Size_") + metaObject()->className();
-    //KSharedConfig::openConfig()->group("Geometry").writeEntry(m_name.constData(), size());
+    KSharedConfig::openConfig()->group("Geometry").writeEntry(m_name.constData(), size());
 } 
 

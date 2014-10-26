@@ -131,8 +131,7 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     m_proxy = new MirrorProxyModel(this);
     m_proxy->setSourceModel(m_model);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    ui.setupUi(this);
     KGuiItem::assign(ui.add, KStandardGuiItem::add());
     KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     ui.treeView->setModel(m_proxy);
@@ -148,9 +147,10 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     connect(ui.remove, &QPushButton::clicked, this, &MirrorSettings::removeMirror);
     connect(this, &MirrorSettings::finished, this, &MirrorSettings::save);
 
-    setMainWidget(widget);
-    setCaption(i18n("Modify the used mirrors"));
-    setButtons(KDialog::Close);
+    setWindowTitle(i18n("Modify the used mirrors"));
+    
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 }
 
 QSize MirrorSettings::sizeHint() const

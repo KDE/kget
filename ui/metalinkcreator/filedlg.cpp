@@ -41,9 +41,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     //remove the initial name, to see later if the chosen name is still free
     m_currentFileNames.removeAll(m_initialFileName);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    ui.setupUi(this);
 
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(&m_file->resources, countrySort);
@@ -109,11 +107,11 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     connect(ui.add_hash, &QPushButton::clicked, this, &FileDlg::slotAddHash);
     connect(ui.remove_hash, &QPushButton::clicked, this, &FileDlg::slotRemoveHash);
     connect(ui.name, &KLineEdit::textEdited, this, &FileDlg::slotUpdateOkButton);
-    connect(this, &FileDlg::okClicked, this, &FileDlg::slotOkClicked);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &FileDlg::slotOkClicked);
 
     slotUpdateOkButton();
 
-    setCaption(i18n("File Properties"));
+    setWindowTitle(i18n("File Properties"));
 }
 
 void FileDlg::slotUpdateOkButton()
@@ -137,7 +135,7 @@ void FileDlg::slotUpdateOkButton()
     ui.infoWidget->setText(information.join(" "));
     ui.infoWidget->setVisible(!information.isEmpty());
 
-    enableButtonOk(hasName && hasUrls && !isDuplicate);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(hasName && hasUrls && !isDuplicate);
 }
 
 void FileDlg::slotUpdateVerificationButtons()

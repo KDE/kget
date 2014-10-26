@@ -30,11 +30,11 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     m_model(m_transfer->fileModel()),
     m_proxy(0)
 {
-    setCaption(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
-    showButtonSeparator(true);
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    setWindowTitle(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
+    //showButtonSeparator(true);
+    
+    ui.setupUi(this);
+    
     ui.ktitlewidget->setPixmap(QIcon::fromTheme("preferences-other").pixmap(16));
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
@@ -72,6 +72,9 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     connect(ui.mirrors, &QPushButton::clicked, this, &TransferSettingsDialog::slotMirrors);
     connect(ui.verification, &QPushButton::clicked, this, &TransferSettingsDialog::slotVerification);
     connect(ui.signature, &QPushButton::clicked, this, &TransferSettingsDialog::slotSignature);
+    
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 TransferSettingsDialog::~TransferSettingsDialog()
@@ -83,7 +86,7 @@ TransferSettingsDialog::~TransferSettingsDialog()
 
 QSize TransferSettingsDialog::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setWidth(sh.width() * 1.7);
     return sh;
 }
@@ -108,7 +111,7 @@ void TransferSettingsDialog::updateCapabilities()
 void TransferSettingsDialog::slotMirrors()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
-    KDialog *mirrors = new MirrorSettings(this, m_transfer, m_model->getUrl(index));
+    QDialog *mirrors = new MirrorSettings(this, m_transfer, m_model->getUrl(index));
     mirrors->setAttribute(Qt::WA_DeleteOnClose);
     mirrors->show();
 }
@@ -124,7 +127,7 @@ void TransferSettingsDialog::slotRename()
 void TransferSettingsDialog::slotVerification()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
-    KDialog *verification = new VerificationDialog(this, m_transfer, m_model->getUrl(index));
+    QDialog *verification = new VerificationDialog(this, m_transfer, m_model->getUrl(index));
     verification->setAttribute(Qt::WA_DeleteOnClose);
     verification->show();
 }

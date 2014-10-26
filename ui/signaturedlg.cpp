@@ -46,12 +46,11 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget 
     m_signature(transfer->signature(dest)),
     m_fileModel(transfer->fileModel())
 {
-    setCaption(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    setWindowTitle(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
+
+    ui.setupUi(this);
     ui.loadSignature->setIcon(QIcon::fromTheme("document-open"));
     ui.verify->setIcon(QIcon::fromTheme("document-encrypt"));
-    setMainWidget(widget);
 
     ui.information->setCloseButtonVisible(false);
     ui.information->setWordWrap(true);
@@ -74,6 +73,8 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget 
         ui.sigGroup->hide();
         ui.keyGroup->hide();
     }
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 void SignatureDlg::fileFinished(const QUrl &file)

@@ -21,13 +21,10 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
   : KGetSaveSizeDialog("GroupSettingsDialog", parent),
     m_group(group)
 {
-    setCaption(i18n("Group Settings for %1", group->name()));
-    showButtonSeparator(true);
+    setWindowTitle(i18n("Group Settings for %1", group->name()));
+    //showButtonSeparator(true);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-
-    setMainWidget(widget);
+    ui.setupUi(this);
 
     ui.downloadBox->setValue(group->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadBox->setValue(group->uploadLimit(Transfer::VisibleSpeedLimit));
@@ -48,6 +45,8 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     ui.nepomukWidget->hide();
 #endif
 
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(this, &GroupSettingsDialog::accepted, this, &GroupSettingsDialog::save);
 }
 
@@ -57,7 +56,7 @@ GroupSettingsDialog::~GroupSettingsDialog()
 
 QSize GroupSettingsDialog::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setWidth(sh.width() * 1.4);
     return sh;
 }

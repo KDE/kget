@@ -219,13 +219,20 @@
      </widget>
     </widget>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>KRestrictedLine</class>
    <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <header>krestrictedline.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>
@@ -234,9 +241,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>KRestrictedLine</class>
-   <extends>KLineEdit</extends>
-   <header>krestrictedline.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KMessageWidget</class>

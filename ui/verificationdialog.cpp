@@ -92,11 +92,10 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         connect(m_verifier, &Verifier::verified, this, &VerificationDialog::slotVerified);
     }
 
-    setCaption(i18n("Transfer Verification for %1", file.fileName()));
-    showButtonSeparator(true);
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    setWindowTitle(i18n("Transfer Verification for %1", file.fileName()));
+
+    ui.setupUi(this);
+    
     KGuiItem::assign(ui.add, KStandardGuiItem::add());
     KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     ui.verifying->hide();
@@ -128,14 +127,14 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         connect(ui.verify, &QPushButton::clicked, this, &VerificationDialog::verifyClicked);
     }
 
-    setButtons(KDialog::Close);
-
     connect(this, &VerificationDialog::finished, this, &VerificationDialog::slotFinished);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 }
 
 QSize VerificationDialog::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setWidth(sh.width() * 1.2);
     return sh;
 }

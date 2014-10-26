@@ -12,14 +12,14 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="KTitleWidget" name="ktitlewidget">
+    <widget class="KTitleWidget" name="ktitlewidget" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="text">
+     <property name="text" stdset="0">
       <string>Transfer Settings</string>
      </property>
     </widget>
@@ -40,11 +40,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KUrlRequester" name="destination">
-       <property name="mode">
-        <set>KFile::Directory|KFile::ExistingOnly</set>
-       </property>
-      </widget>
+      <widget class="KUrlRequester" name="destination"/>
      </item>
      <item row="1" column="1">
       <widget class="QSpinBox" name="uploadSpin">
@@ -101,7 +97,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="labelDownload">
        <property name="text">
-        <string>&amp;Download limit:</string>
+        <string>Download &amp;limit:</string>
        </property>
        <property name="buddy">
         <cstring>downloadSpin</cstring>
@@ -111,7 +107,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="labelShareRatio">
        <property name="text">
-        <string>Maximum &amp;share ratio:</string>
+        <string>Ma&amp;ximum share ratio:</string>
        </property>
        <property name="buddy">
         <cstring>ratioSpin</cstring>
@@ -194,6 +190,13 @@
      </item>
     </layout>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -206,6 +209,7 @@
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

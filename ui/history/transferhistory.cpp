@@ -35,6 +35,7 @@
 #include <KRun>
 #include <kio/global.h>
 #include <QPushButton>
+#include <QDialogButtonBox>
 #include <QIcon>
 #include <KLocale>
 #include <QFontDatabase>
@@ -46,8 +47,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_iconModeEnabled(true)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setCaption(i18n("Transfer History"));
-    setButtons(KDialog::Close);
+    setWindowTitle(i18n("Transfer History"));
     //Setup Ui-Parts from Designer
     QWidget *mainWidget = new QWidget(this);
 
@@ -80,10 +80,16 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_actionDownload = widget.actionDownload;
     m_actionDownload->setIcon(QIcon::fromTheme("document-new"));
     m_openFile = new QAction(QIcon::fromTheme("document-open"), i18n("&Open File"), this);
-    setMainWidget(mainWidget);
 
     m_verticalLayout->addWidget(m_view);
     m_verticalLayout->addWidget(m_progressBar);
+    
+    QDialogButtonBox * buttonBox = new QDialogButtonBox(mainWidget);
+    buttonBox->clear();
+    buttonBox->addButton(QDialogButtonBox::Close);
+    m_verticalLayout->addWidget(buttonBox);
+    
+    layout()->addWidget(mainWidget);
 
     watcher = new QFileSystemWatcher();
     watcher->addPath(KStandardDirs::locateLocal("appdata", QString()));
@@ -103,6 +109,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     connect(m_store, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
                      SLOT(slotElementLoaded(int,int,TransferHistoryItem)));
     connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     slotAddTransfers();
 }
 

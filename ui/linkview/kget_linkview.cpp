@@ -37,8 +37,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_urlAction(0)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setCaption(i18n("Import Links"));
-    setButtons(0);
+    setWindowTitle(i18n("Import Links"));
     
     /*if (parent) {
         KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
@@ -51,8 +50,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_proxyModel->setDynamicSortFilter(true);
     m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    ui.setupUi(this);
     
     m_proxyModel->setShowWebContent(ui.showWebContent->isChecked());
 
@@ -114,7 +112,6 @@ KGetLinkView::KGetLinkView(QWidget *parent)
             SLOT(selectionChanged()));
     connect(ui.dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 
-    setMainWidget(widget);
     QPushButton *download = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
                                                           QDialogButtonBox::AcceptRole,
                                                           this,
@@ -265,7 +262,7 @@ void KGetLinkView::slotStartLeech()
 
 void KGetLinkView::setPageUrl( const QString& url )
 {
-    setPlainCaption( i18n( "Links in: %1 - KGet", url ) );
+    setWindowTitle( i18n( "Links in: %1 - KGet", url ) );
 }
 
 void KGetLinkView::importUrl(const QString &url)
@@ -315,8 +312,6 @@ void KGetLinkView::selectionChanged()
         ui.selectAll->setEnabled( !(!modelRowCount || count == m_proxyModel->rowCount() ) );
         ui.deselectAll->setEnabled( count > 0 );
         ui.invertSelection->setEnabled( count > 0 );
-
-        enableButtonOk(buttonEnabled);
     }
 }
 

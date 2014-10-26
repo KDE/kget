@@ -33,9 +33,7 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     m_resources(resources),
     m_commonData(commonData)
 {
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    ui.setupUi(this);
 
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(m_resources, countrySort);
@@ -64,9 +62,11 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     uiData.language->setModel(languageSort);
     uiData.language->setCurrentIndex(-1);
 
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(this, &DragDlg::accepted, this, &DragDlg::slotFinished);
 
-    setCaption(i18n("Import dropped files"));
+    setWindowTitle(i18n("Import dropped files"));
 }
 
 void DragDlg::slotFinished()

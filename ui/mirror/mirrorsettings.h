@@ -22,6 +22,7 @@
 
 #include "mirrormodel.h"
 #include "../../core/basedialog.h"
+#include <KDialog>
 
 #include "ui_mirrorsettings.h"
 #include "ui_mirroradddlg.h"

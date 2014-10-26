@@ -24,6 +24,7 @@
 #include "ui_verificationadddlg.h"
 
 #include "../core/basedialog.h"
+#include <KDialog>
 
 class FileModel;
 class QSortFilterProxyModel;
