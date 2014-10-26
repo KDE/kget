@@ -20,14 +20,14 @@
 #ifndef RENAMEFILE_H
 #define RENAMEFILE_H
 
-#include <KDialog>
+#include <QDialog>
 #include <QUrl>
 
 #include "ui_renamefile.h"
 
 class FileModel;
 
-class RenameFile : public KDialog
+class RenameFile : public QDialog
 {
     Q_OBJECT
 
