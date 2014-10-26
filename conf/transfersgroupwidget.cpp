@@ -19,6 +19,9 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 
+#include <KGuiItem>
+#include <KStandardGuiItem>
+
 #include <QPushButton>
 
 TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
@@ -34,11 +37,9 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     ui.treeView->header()->hideSection(TransferTreeModel::Size);
     ui.treeView->header()->hideSection(TransferTreeModel::Speed);
 
-    //ui.add->setGuiItem(KStandardGuiItem::add());
-    //ui.remove->setGuiItem(KStandardGuiItem::remove());
-    //ui.configure->setGuiItem(KStandardGuiItem::Configure);//TODO: Port
-    ui.rename->setIcon(QIcon::fromTheme("edit-rename"));
-    ui.selectIcon->setIcon(QIcon::fromTheme("preferences-desktop-icons"));
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
+    KGuiItem::assign(ui.configure, KStandardGuiItem::configure());
 
     connect(ui.add, &QPushButton::clicked, ui.treeView, &TransfersGroupTree::addGroup);
     connect(ui.remove, &QPushButton::clicked, ui.treeView, &TransfersGroupTree::deleteSelectedGroup);

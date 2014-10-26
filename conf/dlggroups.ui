@@ -51,6 +51,9 @@
        <property name="text">
         <string>Rename</string>
        </property>
+       <property name="icon">
+        <iconset theme="edit-rename"/>
+       </property>
       </widget>
      </item>
      <item>
@@ -60,6 +63,9 @@
       <widget class="KIconButton" name="selectIcon">
        <property name="text">
         <string>Select Icon...</string>
+       </property>
+       <property name="icon">
+        <iconset theme="preferences-desktop-icons"/>
        </property>
       </widget>
      </item>
