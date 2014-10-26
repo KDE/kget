@@ -99,3 +99,11 @@ void PreferencesDialog::slotToggleAfterFinishAction(int state)
 {
     dlgAdv.kcfg_AfterFinishAction->setEnabled(state == Qt::Checked);
 }
+
+void PreferencesDialog::updateWidgetsDefault()
+{
+    emit resetDefaults();
+    KConfigDialog::updateWidgetsDefault();
+}
+
+

@@ -65,9 +65,9 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     connect(ui.increase, &QPushButton::clicked, this, &IntegrationPreferences::slotIncreasePriority);
     connect(ui.decrease, &QPushButton::clicked, this, &IntegrationPreferences::slotDecreasePriority);
     connect(parent, SIGNAL(rejected()), m_model, SLOT(load()));
-    connect(parent, SIGNAL(applyClicked()), m_model, SLOT(save()));
-    connect(parent, SIGNAL(okClicked()), m_model, SLOT(save()));
-    connect(parent, SIGNAL(defaultClicked()), m_model, SLOT(resetDefaults()));
+    connect(parent, SIGNAL(settingsChanged(QString)), m_model, SLOT(save()));
+    connect(parent, SIGNAL(settingsChanged(QString)), m_model, SLOT(save()));
+    connect(parent, SIGNAL(resetDefaults()), m_model, SLOT(resetDefaults()));
 
     slotUpdateButtons();
 }
