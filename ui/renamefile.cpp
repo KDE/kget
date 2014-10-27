@@ -23,7 +23,7 @@
 #include <QFile>
 #include <QPushButton>
 
-#include <KLocale>
+#include <KLocalizedString>
 
 RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent, Qt::WFlags flags)
   : QDialog(parent, flags),

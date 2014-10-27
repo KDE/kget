@@ -26,7 +26,7 @@
 
 #include <QAction>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMimeType>
 #include <KWindowSystem>
 

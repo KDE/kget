@@ -40,7 +40,7 @@
 
 #include <KDialogButtonBox>
 #include <KIO/RenameDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KSeparator>
 #include <KStandardGuiItem>
 

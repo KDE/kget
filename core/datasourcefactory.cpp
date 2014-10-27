@@ -25,7 +25,7 @@
 #include <QDomText>
 
 #include <KIO/FileJob>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <kmountpoint.h>
 

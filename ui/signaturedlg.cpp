@@ -36,7 +36,7 @@
 #include <QLayoutItem>
 
 #include <KFileDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KIconLoader>
 
 const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");

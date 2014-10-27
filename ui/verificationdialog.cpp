@@ -21,7 +21,7 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 #include "core/filemodel.h"

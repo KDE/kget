@@ -24,7 +24,7 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 #include <KIO/Job>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 #ifdef HAVE_QGPGME

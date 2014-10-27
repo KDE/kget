@@ -20,7 +20,7 @@
 #include <QTextStream>
 
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <kio/copyjob.h>
 #include <kio/netaccess.h>
 

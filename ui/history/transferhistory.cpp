@@ -37,7 +37,7 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QFontDatabase>
 
 TransferHistory::TransferHistory(QWidget *parent)
