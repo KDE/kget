@@ -24,7 +24,7 @@
 #include "ui_verificationadddlg.h"
 
 #include "../core/basedialog.h"
-#include <KDialog>
+#include <QDialog>
 
 class FileModel;
 class QSortFilterProxyModel;
@@ -32,7 +32,7 @@ class TransferHandler;
 class Verifier;
 class VerificationModel;
 
-class VerificationAddDlg : public KDialog
+class VerificationAddDlg : public QDialog
 {
     Q_OBJECT
 

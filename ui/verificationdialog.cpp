@@ -32,31 +32,31 @@
 #include "settings.h"
 
 VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_model(model)
 {
-    setCaption(i18n("Add checksum"));
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    setWindowTitle(i18n("Add checksum"));
+    ui.setupUi(this);
 
     QStringList supportedTypes = Verifier::supportedVerficationTypes();
     supportedTypes.sort();
     ui.hashTypes->addItems(supportedTypes);
 
-    setButtons(KDialog::Yes | KDialog::Cancel);
-    setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
+    KGuiItem::assign(ui.buttonBox->button(QDialogButtonBox::Ok), KStandardGuiItem::add());
 
     updateButton();
 
     connect(ui.newHash, &KLineEdit::textChanged, this, &VerificationAddDlg::updateButton);
     connect(ui.hashTypes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &VerificationAddDlg::updateButton);
-    connect(this, &VerificationAddDlg::yesClicked, this, &VerificationAddDlg::addChecksum);
+    connect(this, &QDialog::accepted, this, &VerificationAddDlg::addChecksum);
+    
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 QSize VerificationAddDlg::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setHeight(minimumSize().height());
     sh.setWidth(sh.width() * 1.5);
     return sh;
@@ -68,8 +68,7 @@ void VerificationAddDlg::updateButton()
     const QString hash = ui.newHash->text();
     const bool enabled = Verifier::isChecksum(type, hash);
 
-    enableButton(KDialog::Yes, enabled);
-    enableButton(KDialog::User1, enabled);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
 }
 
 void VerificationAddDlg::addChecksum()
@@ -98,6 +97,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     
     KGuiItem::assign(ui.add, KStandardGuiItem::add());
     KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
+    KGuiItem::assign(ui.closeButton, KStandardGuiItem::close());
     ui.verifying->hide();
 
     if (m_model) {
@@ -128,8 +128,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     }
 
     connect(this, &VerificationDialog::finished, this, &VerificationDialog::slotFinished);
-    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.closeButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
 QSize VerificationDialog::sizeHint() const
