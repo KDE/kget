@@ -20,7 +20,7 @@
 #include "pluginselector.h"
 #include "verificationpreferences.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <ktabwidget.h>
 #include <kconfigdialog.h>
 #include <kconfigskeleton.h>
