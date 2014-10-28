@@ -32,7 +32,7 @@
 #include <version.h>
 
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <KIO/CopyJob>
 #include <KStandardDirs>

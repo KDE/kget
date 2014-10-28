@@ -15,7 +15,7 @@
 
 #include "kget_debug.h"
 #include <qdebug.h>
-#include <KLocale>
+#include <KLocalizedString>
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
     : KDialog(parent)
@@ -140,4 +140,3 @@ void DlgSettingsWidget::save()
     MirrorSearchSettings::self()->save();
 }
 
-#include "dlgmirrorsearch.moc"

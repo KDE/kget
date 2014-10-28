@@ -23,7 +23,7 @@
 #include "verifier.h"
 
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMimeType>
 
 FileItem::FileItem(const QString &name, FileItem *parent)

@@ -13,7 +13,7 @@
 
 #include <KServiceTypeTrader>
 #include <KService>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KPluginInfo>
 #include <KSharedConfig>
 #include <QDialog>

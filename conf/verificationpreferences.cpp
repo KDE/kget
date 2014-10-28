@@ -23,7 +23,7 @@
 #include <KConfigDialog>
 #include <KDialog>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KUrlRequester>
 
 VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f)

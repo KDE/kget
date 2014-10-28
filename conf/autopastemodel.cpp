@@ -23,7 +23,7 @@
 #include <KComboBox>
 #include <QIcon>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 
 AutoPasteDelegate::AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent)
   : QStyledItemDelegate(parent),

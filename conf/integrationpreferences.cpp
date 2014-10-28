@@ -22,7 +22,7 @@
 #include "settings.h"
 
 #include <KConfigDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KGuiItem>
 #include <KStandardGuiItem>
 
