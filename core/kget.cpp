@@ -53,6 +53,7 @@
 #include <QClipboard>
 #include <QAbstractItemView>
 #include <QTimer>
+#include <QtCore/qtemporaryfile.h>
 
 #ifdef HAVE_NEPOMUK
     #include <Nepomuk2/ResourceManager>
@@ -512,21 +513,27 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
 
-    QString tmpFile;
+    QTemporaryFile tmpFile;
 
-    //Try to save the transferlist to a temporary location
-    if(!KIO::NetAccess::download(QUrl(filename), tmpFile, 0)) {
+    QUrl url = QUrl(filename);
+    if (url.scheme().isEmpty())
+        url.setScheme("file");
+    KIO::StoredTransferJob * job = KIO::storedGet(url);
+    job->exec();
+    if (job->data().isEmpty() || !tmpFile.open()) {
+        qCDebug(KGET_DEBUG) << "Transferlist empty or cannot open temporary file";
         if (m_transferTreeModel->transferGroups().isEmpty()) //Create the default group
             addGroup(i18n("My Downloads"));
         return;
     }
+    tmpFile.write(job->data());
+    tmpFile.close();
 
-    QFile file(tmpFile);
     QDomDocument doc;
 
-    qCDebug(KGET_DEBUG) << "file:" << filename;
+    qCDebug(KGET_DEBUG) << "file:" << tmpFile.fileName();
 
-    if(doc.setContent(&file))
+    if(doc.setContent(&tmpFile))
     {
         QDomElement root = doc.documentElement();
 
@@ -583,6 +590,8 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
 
     if(filename.isEmpty())
         filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
+    
+    qCDebug(KGET_DEBUG) << "Save transferlist to " << filename;
 
     KSaveFile file(filename);
     if ( !file.open( QIODevice::WriteOnly ) )
