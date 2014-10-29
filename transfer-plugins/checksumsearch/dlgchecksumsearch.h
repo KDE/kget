@@ -34,7 +34,7 @@ class QSortFilterProxyModel;
 class QStandardItemModel;
 class QStringListModel;
 
-class ChecksumSearchAddDlg : public KDialog
+class ChecksumSearchAddDlg : public QDialog
 {
     Q_OBJECT
 
@@ -65,7 +65,7 @@ class ChecksumSearchAddDlg : public KDialog
         QStringListModel *m_modesModel;
         QStringListModel *m_typesModel;
 
-        static const KUrl URL;
+        static const QUrl URL;
 };
 
 class ChecksumDelegate : public QStyledItemDelegate
@@ -126,7 +126,6 @@ class DlgChecksumSettingsWidget : public KCModule
 
     private:
         Ui::ChecksumSearch ui;
-        KDialog *m_parent;
         QStandardItemModel *m_model;
         QSortFilterProxyModel *m_proxy;
         QStringList m_modes;

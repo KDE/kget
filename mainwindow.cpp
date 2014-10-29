@@ -43,7 +43,7 @@
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
-#include <KInputDialog>
+#include <QInputDialog>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
 #include <kfiledialog.h>
@@ -631,8 +631,8 @@ void MainWindow::slotRenameGroup()
 
     foreach(TransferGroupHandler * it, KGet::selectedTransferGroups())
     {
-        groupName = KInputDialog::getText(i18n("Enter Group Name"),
-                                          i18n("Group name:"), it->name(), &ok, this);
+        groupName = QInputDialog::getText(this, i18n("Enter Group Name"),
+                                          i18n("Group name:"), QLineEdit::Normal, it->name(), &ok);
         if(ok)
             it->setName(groupName);
     }

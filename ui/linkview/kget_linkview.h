@@ -75,6 +75,7 @@ private:
     QMenu *m_patternSyntaxMenu;
     QAction *m_nameAction;
     QAction *m_urlAction;
+    QPushButton * m_downloadButton;
 };
 
 #endif // KGET_LINKVIEW_H

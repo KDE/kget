@@ -6,6 +6,7 @@ set(kget_checksumsearchfactory_PART_SRCS
   checksumsearch.cpp
   checksumsearchtransferdatasource.cpp
   checksumsearchfactory.cpp
+  ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_checksumsearchfactory_PART_SRCS checksumsearchsettings.kcfgc)
@@ -20,6 +21,7 @@ install(FILES kget_checksumsearchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 ###Build KCM-Module
 set(kcm_kget_checksumsearchfactory_PART_SRCS
+../../kget_debug.cpp
 checksumsearch.cpp
 dlgchecksumsearch.cpp
 )

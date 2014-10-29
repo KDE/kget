@@ -113,9 +113,9 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
     connect(ui.dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 
-    QPushButton *download = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
+    m_downloadButton = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
                                                           QDialogButtonBox::AcceptRole);
-    download->setIcon(QIcon::fromTheme("kget"));
+    m_downloadButton->setIcon(QIcon::fromTheme("kget"));
 
     checkClipboard();
 }
@@ -161,7 +161,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 
     foreach (const QString &linkitem, links)
     {
-        KUrl url;
+        QUrl url;
         KMimeType::Ptr mt;
 
         if (linkitem.contains(QLatin1String("url "), Qt::CaseInsensitive) &&
@@ -206,7 +206,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         items << item;
         items << new QStandardItem();
         items << new QStandardItem(mimeTypeComment);
-        items << new QStandardItem(url.prettyUrl());
+        items << new QStandardItem(url.toDisplayString());
 
         model->insertRow(model->rowCount(), items);
     }
@@ -243,7 +243,7 @@ void KGetLinkView::slotStartLeech()
     QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (model)
     {
-        KUrl::List urls;
+        QList<QUrl> urls;
 
         for (int row = 0; row < model->rowCount(); row++)
         {
@@ -251,7 +251,7 @@ void KGetLinkView::slotStartLeech()
 
             if (checkeableItem->checkState() == Qt::Checked)
             {
-                urls.append(KUrl(model->data(model->index(row, 4)).toString()));
+                urls.append(QUrl(model->data(model->index(row, 4)).toString()));
             }
         }
 
@@ -268,7 +268,7 @@ void KGetLinkView::importUrl(const QString &url)
 {
     if (url.isEmpty())
     {
-        KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+        QUrl clipboardUrl = QUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
         if (clipboardUrl.isValid() &&
             ((!clipboardUrl.scheme().isEmpty() && !clipboardUrl.host().isEmpty()) ||
             (clipboardUrl.isLocalFile())))
@@ -278,7 +278,7 @@ void KGetLinkView::importUrl(const QString &url)
     }
     else
     {
-        ui.urlRequester->setUrl(KUrl(url));
+        ui.urlRequester->setUrl(QUrl(url));
         slotStartImport();
     }
 }
@@ -311,6 +311,7 @@ void KGetLinkView::selectionChanged()
         ui.selectAll->setEnabled( !(!modelRowCount || count == m_proxyModel->rowCount() ) );
         ui.deselectAll->setEnabled( count > 0 );
         ui.invertSelection->setEnabled( count > 0 );
+        m_downloadButton->setEnabled(buttonEnabled);
     }
 }
 
@@ -442,7 +443,7 @@ void KGetLinkView::updateImportButtonStatus(const QString &text)
     bool enabled = false;
     if (!text.isEmpty())
     {
-        KUrl url(text);
+        QUrl url(text);
         if (url.isValid())
         {
             enabled = true;

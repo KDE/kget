@@ -20,16 +20,17 @@
 #include "checksumsearch.h"
 
 #include "core/verifier.h"
+#include "kget_debug.h"
 
 #include <QFile>
 #include <QFileInfo>
 
-#include <KDebug>
+#include <QDebug>
 #include <KLocalizedString>
 
 const QStringList ChecksumSearch::URLCHANGEMODES = (QStringList() << i18n("Append") << i18n("Replace file") << i18n("Replace file-ending"));
 
-ChecksumSearch::ChecksumSearch(const QList<KUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent)
+ChecksumSearch::ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent)
   : QObject(parent),
     m_copyJob(0),
     m_srcs(srcs),
@@ -84,13 +85,13 @@ void ChecksumSearch::slotResult(KJob *job)
     {
         case 0://The download has finished
         {
-            qCDebug(KGET_DEBUG) << "Correctly downloaded" << m_src.pathOrUrl();
+            qCDebug(KGET_DEBUG) << "Correctly downloaded" << m_src.toDisplayString();
             m_data = QString(m_dataBA);
             break;
         }
 
         default:
-            qCDebug(KGET_DEBUG) << "There was error" << job->error() << "while downloading" << m_src.pathOrUrl();
+            qCDebug(KGET_DEBUG) << "There was error" << job->error() << "while downloading" << m_src.toDisplayString();
             break;
     }
 
@@ -163,22 +164,22 @@ void ChecksumSearch::parseDownloadEmpty()
     createDownload();
 }
 
-KUrl ChecksumSearch::createUrl(const KUrl &src, const QString &change, ChecksumSearch::UrlChangeMode mode)
+QUrl ChecksumSearch::createUrl(const QUrl &src, const QString &change, ChecksumSearch::UrlChangeMode mode)
 {
     if (!src.isValid() || change.isEmpty())
     {
-        return KUrl();
+        return QUrl();
     }
 
-    KUrl url;
+    QUrl url;
     if (mode == kg_Append)
     {
-        url = KUrl(src.pathOrUrl() + change);
+        url = QUrl(src.toString() + change);
     }
     else if (mode == kg_ReplaceFile)
     {
-        KUrl temp = src.upUrl();
-        temp.addPath(change);
+        QUrl temp = src.adjusted(QUrl::RemoveFilename);
+        temp.setPath(temp.toString() + "/" + change);
         url = temp;
     }
     else if (mode == kg_ReplaceEnding)
@@ -188,8 +189,8 @@ KUrl ChecksumSearch::createUrl(const KUrl &src, const QString &change, ChecksumS
         if (index > -1)
         {
             fileName = fileName.left(index) + change;
-            KUrl temp = src.upUrl();
-            temp.addPath(fileName);
+            QUrl temp = src.adjusted(QUrl::RemoveFilename);
+            temp.setPath(temp.toString() + "/" + fileName);
             url = temp;
         }
     }

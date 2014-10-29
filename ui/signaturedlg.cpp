@@ -35,7 +35,7 @@
 
 #include <QLayoutItem>
 
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KLocalizedString>
 #include <KIconLoader>
 
@@ -96,8 +96,8 @@ void SignatureDlg::textChanged()
 
 void SignatureDlg::loadSignatureClicked()
 {
-    const KUrl url = KFileDialog::getOpenUrl(KGet::generalDestDir(), "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' +
-                                             "*.sig|" + i18n("Detached OpenPGP binary signature (*.sig)"), this, i18n("Load Signature File"));
+    const QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Load Signature File"), KGet::generalDestDir(), "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' +
+                                             "*.sig|" + i18n("Detached OpenPGP binary signature (*.sig)"));
     if (url.isEmpty()) {
         return;
     }

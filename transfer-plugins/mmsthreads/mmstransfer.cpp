@@ -24,8 +24,8 @@
 #include <qdebug.h>
 
 MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
-                        Scheduler * scheduler, const KUrl & source, const
-                        KUrl &dest, const QDomElement * e)
+                        Scheduler * scheduler, const QUrl & source, const
+                        QUrl &dest, const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
     m_mmsdownload(NULL),
     m_amountThreads(MmsSettings::threads()),

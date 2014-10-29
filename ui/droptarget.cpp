@@ -203,14 +203,14 @@ void DropTarget::slotStartStopToggled( bool started )
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->setAccepted(KUrl::List::canDecode(event->mimeData())
+    event->setAccepted(event->mimeData()->hasUrls()
                   || event->mimeData()->hasText());
 }
 
 
 void DropTarget::dropEvent(QDropEvent * event)
 {
-    KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
+    QList<QUrl> list = event->mimeData()->urls();
     QString str;
 
     if (!list.isEmpty())

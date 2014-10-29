@@ -20,10 +20,11 @@
 #include "checksumsearchtransferdatasource.h"
 #include "checksumsearch.h"
 #include "checksumsearchsettings.h"
+#include "kget_debug.h"
 
 #include <QFile>
 
-#include <KDebug>
+#include <QDebug>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KStandardDirs>
@@ -39,11 +40,11 @@ ChecksumSearchController::~ChecksumSearchController()
 {
 }
 
-void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl)
+void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *search, const QUrl &baseUrl)
 {
     if (m_finished.contains(baseUrl)) {
         qCDebug(KGET_DEBUG) << "Already downloaded" << baseUrl;
-        const KUrl urlToFile = m_finished[baseUrl];
+        const QUrl urlToFile = m_finished[baseUrl];
         if (!urlToFile.isEmpty()) {
             search->gotBaseUrl(m_finished[baseUrl]);
         }
@@ -59,13 +60,13 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             qCDebug(KGET_DEBUG) << "Creating download for" << baseUrl;
             static int files = 0;
 
-            const KUrl dest = KUrl(KStandardDirs::locateLocal("appdata", "checksumsearch/") + QString::number(files++));
+            const QUrl dest = QUrl(KStandardDirs::locateLocal("appdata", "checksumsearch/") + QString::number(files++));
             if (QFile::exists(dest.toLocalFile())) {
                 KIO::Job *del = KIO::del(dest, KIO::HideProgressInfo);
                 KIO::NetAccess::synchronousRun(del, 0);
             }
 
-            if (baseUrl.protocol() != "ftp" && baseUrl.protocol() != "sftp") {
+            if (baseUrl.scheme() != "ftp" && baseUrl.scheme() != "sftp") {
                 qCDebug(KGET_DEBUG) << "Downloading" << baseUrl;
                 KIO::FileCopyJob *job = KIO::file_copy(baseUrl, dest, -1, KIO::HideProgressInfo);
                 job->addMetaData("errorPage", "false");
@@ -82,11 +83,11 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
     }
 }
 
-void ChecksumSearchController::unregisterSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl)
+void ChecksumSearchController::unregisterSearch(ChecksumSearchTransferDataSource *search, const QUrl &baseUrl)
 {
     if (baseUrl.isEmpty()) {
-        const QList<KUrl> keys = m_searches.keys(search);
-        foreach (const KUrl &key, keys) {
+        const QList<QUrl> keys = m_searches.keys(search);
+        foreach (const QUrl &key, keys) {
             m_searches.remove(key, search);
         }
     } else {
@@ -102,8 +103,8 @@ void ChecksumSearchController::slotEntries(KIO::Job *job, const KIO::UDSEntryLis
         return;
     }
 
-    const KUrl baseUrl = m_jobs[job].first;
-    const KUrl urlToFile = m_jobs[job].second;
+    const QUrl baseUrl = m_jobs[job].first;
+    const QUrl urlToFile = m_jobs[job].second;
     QFile file(urlToFile.toLocalFile());
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         qCDebug(KGET_DEBUG) << "Could not open file" << urlToFile;
@@ -126,12 +127,12 @@ void ChecksumSearchController::slotResult(KJob *job)
         return;
     }
 
-    const KUrl baseUrl = m_jobs[job].first;
-    const KUrl urlToFile = m_jobs[job].second;
+    const QUrl baseUrl = m_jobs[job].first;
+    const QUrl urlToFile = m_jobs[job].second;
     m_jobs.remove(job);
     if (job->error()) {
         qCDebug(KGET_DEBUG) << "Error while getting baseurl:" << baseUrl << job->error() << job->errorString();
-        m_finished[baseUrl] = KUrl();
+        m_finished[baseUrl] = QUrl();
         return;
     }
 
@@ -144,25 +145,25 @@ void ChecksumSearchController::slotResult(KJob *job)
     }
 }
 
-ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const KUrl &srcUrl, QObject *parent)
+ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent)
 {
 }
 
 ChecksumSearchTransferDataSource::~ChecksumSearchTransferDataSource()
 {
-    s_controller.unregisterSearch(this, m_sourceUrl.upUrl());
+    s_controller.unregisterSearch(this, m_sourceUrl.adjusted(QUrl::RemoveFilename));
 }
 
 void ChecksumSearchTransferDataSource::start()
 {
     qCDebug(KGET_DEBUG);
 
-    const KUrl baseUrl = m_sourceUrl.upUrl();
+    const QUrl baseUrl = m_sourceUrl.adjusted(QUrl::RemoveFilename);
     s_controller.registerSearch(this, baseUrl);
 }
 
-void ChecksumSearchTransferDataSource::gotBaseUrl(const KUrl &urlToFile)
+void ChecksumSearchTransferDataSource::gotBaseUrl(const QUrl &urlToFile)
 {
     QFile file(urlToFile.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
@@ -177,11 +178,11 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const KUrl &urlToFile)
     QList<int> modes = ChecksumSearchSettings::self()->urlChangeModeList();
     QStringList types = ChecksumSearchSettings::self()->checksumTypeList();
 
-    QList<KUrl> urls;
+    QList<QUrl> urls;
 
     for (int i = 0, k = 0; i < changes.size(); ++i) {
         const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(modes.at(i));
-        const KUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
+        const QUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
         if (data.indexOf(source.fileName().toAscii()) != -1) {
             urls.append(source);
             ++k;

@@ -23,14 +23,14 @@
 #include <QObject>
 
 #include <KIO/Job>
-#include <KUrl>
+#include <QUrl>
 
 class ChecksumSearch : public QObject
 {
     Q_OBJECT
 
     public:
-        ChecksumSearch(const QList<KUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent = 0);
+        ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent = 0);
         ~ChecksumSearch();
 
         /**
@@ -55,7 +55,7 @@ class ChecksumSearch : public QObject
          * @param change the string containing the change e.g. ".md5"
          * @param mode the mode of the change e.g. Append
          */
-        static KUrl createUrl(const KUrl &src, const QString &change, UrlChangeMode mode);
+        static QUrl createUrl(const QUrl &src, const QString &change, UrlChangeMode mode);
 
     Q_SIGNALS:
         void data(QString type, QString checksum);
@@ -82,8 +82,8 @@ class ChecksumSearch : public QObject
 
     private:
         KIO::TransferJob *m_copyJob;
-        KUrl m_src;
-        QList<KUrl> m_srcs;
+        QUrl m_src;
+        QList<QUrl> m_srcs;
         QString m_fileName;
         QString m_type;
         QStringList m_types;

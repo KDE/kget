@@ -14,12 +14,15 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 
+#include "kget_debug.h"
+
 #include <QDomElement>
 
-#include <kdebug.h>
+#include <qdebug.h>
 
-KGET_EXPORT_PLUGIN( ChecksumSearchFactory )
-
+K_PLUGIN_FACTORY(KGetFactory, 
+                 registerPlugin<ChecksumSearchFactory>();
+)
 ChecksumSearchFactory::ChecksumSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {
@@ -38,3 +41,5 @@ TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const KUrl &
     }
     return 0;
 }
+
+#include "checksumsearchfactory.moc"

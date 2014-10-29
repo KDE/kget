@@ -34,7 +34,7 @@ class MmsTransfer : public Transfer
 
     public:
         MmsTransfer(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KUrl & src, const KUrl & dest,
+                    Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                     const QDomElement * e = 0);
         ~MmsTransfer();
 
