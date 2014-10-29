@@ -13,7 +13,6 @@
 #include <kcategorizedsortfilterproxymodel.h>
 #include <kcategorizedview.h>
 #include <kcategorydrawer.h>
-#include <KDialog>
 #include <KDebug>
 
 #include <QGridLayout>
@@ -37,7 +36,7 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_drawer = new KCategoryDrawer(m_view);
     m_view->setCategoryDrawer(m_drawer);
     m_view->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_view->setSpacing(KDialog::spacingHint());
+    //m_view->setSpacing(KDialog::spacingHint());TODO: Port this line
     m_view->setViewMode(QListView::IconMode);
     m_view->setMouseTracking(true);
     m_view->setItemDelegate(item_delegate);

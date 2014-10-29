@@ -14,7 +14,7 @@
 #ifndef NEW_TRANSFER_DIALOG_H
 #define NEW_TRANSFER_DIALOG_H
 
-#include <KDialog>
+#include <QDialog>
 #include <QUrl>
 
 #include "ui_newtransferwidget.h"

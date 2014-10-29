@@ -43,7 +43,7 @@
 
 class TransferGroup;
 class Scheduler;
-class KDialog;
+class QDialog;
 
 /**
  * @short TransferFactory
@@ -66,7 +66,7 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
 
         virtual QWidget * createDetailsWidget(TransferHandler * transfer);
 
-        virtual KDialog * createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
+        virtual QDialog * createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
 
         virtual const QList<QAction *> actions(TransferHandler *handler = 0);
 

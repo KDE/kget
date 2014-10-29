@@ -46,7 +46,7 @@ QWidget * TransferFactory::createDetailsWidget(TransferHandler * transfer)
     return 0;
 }
         
-KDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
+QDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(suggestedFileName)

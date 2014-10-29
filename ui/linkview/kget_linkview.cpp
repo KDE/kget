@@ -111,11 +111,10 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(selectionChanged()));
     connect(ui.dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
+    connect(ui.dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 
     QPushButton *download = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
-                                                          QDialogButtonBox::AcceptRole,
-                                                          this,
-                                                          SLOT(accept()));
+                                                          QDialogButtonBox::AcceptRole);
     download->setIcon(QIcon::fromTheme("kget"));
 
     checkClipboard();

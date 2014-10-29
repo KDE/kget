@@ -21,6 +21,7 @@
 #include <QModelIndex>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QDate>
 
 #include <KDebug>
 #include <kio/netaccess.h>

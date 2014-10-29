@@ -387,7 +387,7 @@ void NewTransferDialog::checkInput()
 
 void NewTransferDialog::slotFinished(int resultCode)
 {
-    if (resultCode == KDialog::Accepted) {
+    if (resultCode == QDialog::Accepted) {
         dialogAccepted();
     }
     clear();
@@ -757,14 +757,14 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
     ///Handle custom newtransferdialogs...
     if ((!m_dialog || m_dialog->isEmpty()) && urls.count() == 1) {//FIXME why the m_dialog check? whenever a dialog has been created this would not be shown?
         QUrl url = urls.first();
-        QPointer<KDialog> dialog;
+        QPointer<QDialog> dialog;
         foreach (TransferFactory * factory, KGet::factories()) {
             const QList<TransferGroupHandler*> groups =  KGet::groupsFromExceptions(url);
             dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : 0);
             if (dialog) {
-                /**KWindowInfo info = KWindowSystem::windowInfo(KGet::m_mainWindow->winId(), NET::WMDesktop, NET::WMDesktop);
+                KWindowInfo info = KWindowSystem::windowInfo(KGet::m_mainWindow->winId(), NET::WMDesktop);
                 KWindowSystem::setCurrentDesktop(info.desktop());
-                KWindowSystem::forceActiveWindow(KGet::m_mainWindow->winId());**/
+                KWindowSystem::forceActiveWindow(KGet::m_mainWindow->winId());
 
                 dialog->exec();
                 delete dialog;
