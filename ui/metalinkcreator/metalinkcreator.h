@@ -47,7 +47,7 @@ class FileWidget : public QWidget
         FileWidget(QWidget *parent = 0);
 
     signals:
-        void urlsDropped(const QList<KUrl> &files);
+        void urlsDropped(const QList<QUrl> &files);
 
     protected:
         void dragEnterEvent(QDragEnterEvent *event);
