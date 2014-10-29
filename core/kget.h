@@ -25,7 +25,7 @@
 #include <ktabwidget.h>
 #include <klocalizedstring.h>
 
-#include <Solid/Networking>
+#include <QNetworkConfigurationManager>
 #include <QDomElement>
 
 #include "kuiserverjobs.h"
@@ -484,7 +484,7 @@ class GenericObserver : public QObject
         void slotAbortAfterFinishAction();
         void slotResolveTransferError();
         void slotNotificationClosed();
-        void slotNetworkStatusChanged(const Solid::Networking::Status &status);
+        void slotNetworkStatusChanged(bool online);
 
     private:
         bool allTransfersFinished();
@@ -495,5 +495,6 @@ class GenericObserver : public QObject
         QTimer *m_save;
         QTimer *m_finishAction;
         QHash<KNotification*, TransferHandler*> m_notifications;
+        QNetworkConfigurationManager m_networkConfig;
 };
 #endif

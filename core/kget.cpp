@@ -45,7 +45,7 @@
 #include <KSharedConfig>
 #include <KPluginInfo>
 #include <KConfigDialog>
-#include <KSaveFile>
+#include <QSaveFile>
 
 #include <QTextStream>
 #include <QDomElement>
@@ -593,7 +593,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
     
     qCDebug(KGET_DEBUG) << "Save transferlist to " << filename;
 
-    KSaveFile file(filename);
+    QSaveFile file(filename);
     if ( !file.open( QIODevice::WriteOnly ) )
     {
         //qCWarning(KGET_DEBUG)<<"Unable to open output file when saving";
@@ -624,7 +624,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         QTextStream stream( &file );
         doc.save( stream, 2 );
     }
-    file.finalize();
+    file.commit();
 }
 
 QList<TransferFactory*> KGet::factories()
@@ -839,10 +839,6 @@ KGet::KGet()
                      m_jobManager,        SLOT(slotTransfersAboutToBeRemoved(QList<TransferHandler*>)));
     QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
                      m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler*,Transfer::ChangesFlags>)));
-
-    //check if there is a connection
-    const Solid::Networking::Status status = Solid::Networking::status();
-    KGet::setHasNetworkConnection((status == Solid::Networking::Connected) || (status == Solid::Networking::Unknown));
             
     //Load all the available plugins
     loadPlugins();
@@ -1302,6 +1298,9 @@ GenericObserver::GenericObserver(QObject *parent)
     m_save(0),
     m_finishAction(0)
 {
+    //check if there is a connection
+    KGet::setHasNetworkConnection(m_networkConfig.isOnline());
+    
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler*>)),
                            SLOT(transfersAddedEvent(QList<TransferHandler*>)));
@@ -1314,8 +1313,8 @@ GenericObserver::GenericObserver(QObject *parent)
                            SLOT(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(transferMovedEvent(TransferHandler*,TransferGroupHandler*)),
                            SLOT(transferMovedEvent(TransferHandler*,TransferGroupHandler*)));
-    connect(Solid::Networking::notifier(), SIGNAL(statusChanged(Solid::Networking::Status)),
-                         this, SLOT(slotNetworkStatusChanged(Solid::Networking::Status)));
+    connect(&m_networkConfig, SIGNAL(onlineStateChanged(bool)),
+                         this, SLOT(slotNetworkStatusChanged(bool)));
 
 }
 
@@ -1510,9 +1509,9 @@ void GenericObserver::slotNotificationClosed()
         m_notifications.remove(notification);
 }
 
-void GenericObserver::slotNetworkStatusChanged(const Solid::Networking::Status &status)
+void GenericObserver::slotNetworkStatusChanged(bool online)
 {
-    KGet::setHasNetworkConnection((status == Solid::Networking::Connected) || (status == Solid::Networking::Unknown));
+    KGet::setHasNetworkConnection(online);
 }
 
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
