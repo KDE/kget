@@ -16,7 +16,7 @@
 #include <QDate>
 #include <QUrl>
 
-#include <KLocale>
+#include <KLocalizedString>
 
 TransferHistoryCategorizedDelegate::TransferHistoryCategorizedDelegate()
 {

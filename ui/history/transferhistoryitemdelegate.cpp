@@ -28,7 +28,7 @@
 #include <kio/global.h>
 #include <KIconLoader>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KRun>
 
 TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QStyledItemDelegate(),

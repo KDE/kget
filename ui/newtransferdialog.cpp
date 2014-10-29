@@ -32,7 +32,7 @@
 #include <QFileInfo>
 #include <QTimer>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QListWidgetItem>
 #include <KColorScheme>
 #include <KWindowSystem>
@@ -306,7 +306,7 @@ void NewTransferDialog::checkInput()
     //check if any sources are checked and for existing transfers or destinations
     bool filesChecked = false;
     if (m_multiple && folderValid) {
-        KListWidget *list = ui.listWidget;
+        QListWidget *list = ui.listWidget;
 
         //check if some sources have been checked
         for (int i = 0; i < list->count(); ++i) {

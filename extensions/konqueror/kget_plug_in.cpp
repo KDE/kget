@@ -21,7 +21,7 @@
 #include <KActionMenu>
 #include <KIconLoader>
 #include <KComponentData>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <QMenu>
 #include <KRun>

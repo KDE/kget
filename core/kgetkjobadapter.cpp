@@ -12,7 +12,7 @@
 
 #include "kget_debug.h"
 #include <qdebug.h>
-#include <KLocale>
+#include <KLocalizedString>
 
 KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)
   : KJob(parent),

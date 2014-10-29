@@ -21,7 +21,7 @@
 
 #include <KMessageBox>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QSortFilterProxyModel>
 
 TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler *transfer)

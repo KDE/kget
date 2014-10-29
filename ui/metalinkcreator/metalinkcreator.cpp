@@ -30,7 +30,7 @@
 #include <QStandardItemModel>
 
 #include <KFileDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <QPushButton>
 

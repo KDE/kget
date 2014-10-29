@@ -24,7 +24,7 @@
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 #include <QFile>

@@ -24,7 +24,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KInputDialog>
-#include <KLocale>
+#include <KLocalizedString>
 
 FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
   : KDialog(parent)

@@ -29,7 +29,7 @@
 
 #include <kdeversion.h>
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KSystemTimeZone>
 
 #ifdef HAVE_NEPOMUK

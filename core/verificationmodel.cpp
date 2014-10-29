@@ -25,7 +25,7 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 
 struct VerificationModelPrivate
 {

@@ -29,7 +29,7 @@
 #include <QSortFilterProxyModel>
 #include <KStandardGuiItem>
 
-#include <KLocale>
+#include <KLocalizedString>
 
 FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent, bool edit)
   : KGetSaveSizeDialog("FileDlg", parent),

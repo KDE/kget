@@ -55,7 +55,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KListWidget" name="listWidget"/>
+        <widget class="QListWidget" name="listWidget"/>
        </item>
       </layout>
      </item>
@@ -85,15 +85,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>

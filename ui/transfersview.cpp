@@ -19,7 +19,7 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 #include <QAction>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QMenu>
 #include <KRun>
 

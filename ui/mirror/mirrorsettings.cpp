@@ -23,7 +23,7 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KStandardGuiItem>
 
 MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags)
