@@ -103,14 +103,7 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
     }
 
     //it is impossible to return to the introduction page
-    /*if (to == m_generalPage)
-    {
-        enableButton(KDialog::User3, false);
-    }
-    else
-    {
-        enableButton(KDialog::User3, true);
-    }*///TODO: Port all of this
+    backButton()->setEnabled(to != m_generalPage);
 
     if (!m_filesModel->rowCount()) {
         uiFiles.infoWidget->setText(i18n("Add at least one file."));
