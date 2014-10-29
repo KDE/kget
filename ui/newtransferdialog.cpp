@@ -42,21 +42,18 @@ Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
 
 NewTransferDialog::NewTransferDialog(QWidget *parent)
-  : KDialog(parent),
+  : QDialog(parent),
     m_window(0),
     m_existingTransfer(0),
     m_multiple(false),
     m_overWriteSingle(false)
 {
     setModal(true);
-    setCaption(i18n("New Download"));
-    showButtonSeparator(true);
+    setWindowTitle(i18n("New Download"));
+    
+    ui.setupUi(this);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
-
-    enableButtonOk(false);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     //timer to avoid constant checking of the input
     m_timer = new QTimer(this);
@@ -84,6 +81,8 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
     connect(ui.listWidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(inputTimer()));
     connect(this, SIGNAL(finished(int)), this, SLOT(slotFinished(int)));
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 NewTransferDialog::~NewTransferDialog()
@@ -250,11 +249,11 @@ void NewTransferDialog::setDefaultDestination()
 
 void NewTransferDialog::prepareDialog()
 {
-    /*if (m_window) {
-        KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop, NET::WMDesktop);
+    if (m_window) {
+        KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop);
         KWindowSystem::setCurrentDesktop(info.desktop());
         KWindowSystem::forceActiveWindow(m_window->winId());
-    }*/
+    }
 
     qCDebug(KGET_DEBUG) << "Show the dialog!";
     show();
@@ -267,7 +266,7 @@ bool NewTransferDialog::isEmpty()
 
 void NewTransferDialog::inputTimer()
 {
-    enableButtonOk(false);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     m_timer->start();
 }
 
@@ -377,9 +376,9 @@ void NewTransferDialog::checkInput()
 
     //activate the ok button
     if (m_multiple) {
-        enableButtonOk(folderValid && filesChecked);
+        ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(folderValid && filesChecked);
     } else {
-        enableButtonOk((folderValid || destinationValid) && sourceValid);
+        ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled((folderValid || destinationValid) && sourceValid);
     }
 
     qCDebug(KGET_DEBUG) << source << source.fileName() << dest << dest.fileName() << "Folder valid:" << folderValid

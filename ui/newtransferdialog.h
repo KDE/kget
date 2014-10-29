@@ -32,7 +32,7 @@ class TransferHandler;
 * 
 * @note this class is private and should be used via NewTransferDialogHandler
 */
-class NewTransferDialog : public KDialog
+class NewTransferDialog : public QDialog
 {
     Q_OBJECT
 
