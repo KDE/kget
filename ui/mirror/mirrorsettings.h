@@ -22,7 +22,7 @@
 
 #include "mirrormodel.h"
 #include "../../core/basedialog.h"
-#include <KDialog>
+#include <QDialog>
 
 #include "ui_mirrorsettings.h"
 #include "ui_mirroradddlg.h"
@@ -30,7 +30,7 @@
 class QSortFilterProxyModel;
 class TransferHandler;
 
-class MirrorAddDlg : public KDialog
+class MirrorAddDlg : public QDialog
 {
     Q_OBJECT
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>481</width>
-    <height>167</height>
+    <height>187</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -29,7 +29,7 @@
      </item>
      <item row="0" column="1">
       <widget class="KLineEdit" name="url">
-       <property name="clickMessage">
+       <property name="clickMessage" stdset="0">
         <string>Enter a URL</string>
        </property>
        <property name="showClearButton" stdset="0">
@@ -98,9 +98,21 @@
      </property>
     </spacer>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Yes</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KIntNumInput</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
+  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
@@ -110,11 +122,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
