@@ -23,7 +23,7 @@
 #define Metalinker_H
 
 #include <KIO/Job>
-#include <KUrl>
+#include <QUrl>
 #include <QDate>
 #include <QDomElement>
 #include <QEventLoop>
@@ -83,7 +83,7 @@ class UrlText
         void clear();
 
         QString name;
-        KUrl url;
+        QUrl url;
 };
 
 /**
@@ -111,7 +111,7 @@ class CommonData
         QString version;
         QString description;
         QStringList oses;
-        KUrl logo;
+        QUrl logo;
         QStringList languages;
         UrlText publisher;
         QString copyright;
@@ -150,7 +150,7 @@ class Metaurl
          */
         QString name;
 
-        KUrl url;
+        QUrl url;
 };
 
 class Url
@@ -184,7 +184,7 @@ class Url
          */
         QString location;
 
-        KUrl url;
+        QUrl url;
 };
 
 class Resources
@@ -323,7 +323,7 @@ class Metalink
         bool dynamic;
         QString xmlns; //the xmlns value is ignored when saving, instead the data format described in the specification is always used
         DateConstruct published; //when the metalink was published
-        KUrl origin;
+        QUrl origin;
         QString generator;
         DateConstruct updated; //when the metalink was updated
         Files files;
@@ -388,7 +388,7 @@ class HandleMetalink
          * @param metalink the instance of Metalink where the metalink will be stored
          * @return return true if it worked
          */
-        static bool load(const KUrl &destination, Metalink *metalink);
+        static bool load(const QUrl &destination, Metalink *metalink);
 
         /**
          * Loads data into metalink
@@ -405,7 +405,7 @@ class HandleMetalink
          * @param metalink the instance of metalink that will be written to the filesystem
          * @return return true if it worked
          */
-        static bool save(const KUrl &destination, Metalink *metalink);
+        static bool save(const QUrl &destination, Metalink *metalink);
 
 #ifdef HAVE_NEPOMUK
         /**
@@ -420,7 +420,7 @@ class MetalinkHttpParser : public QObject
 {
     Q_OBJECT
     public:
-        MetalinkHttpParser(const KUrl& Url)
+        MetalinkHttpParser(const QUrl& Url)
             : m_Url(Url), m_MetalinkHSatus(false) , m_EtagValue(QString(""))
         {
             checkMetalinkHttp();
@@ -438,7 +438,7 @@ class MetalinkHttpParser : public QObject
          * @return the Url m_Url which is being tested for metalink
          */
 
-        KUrl getUrl();
+        QUrl getUrl();
         QMultiMap<QString, QString>* getHeaderInfo();
 
         /**
@@ -451,12 +451,12 @@ class MetalinkHttpParser : public QObject
         void slotHeaderResult(KJob* kjob);
         void checkMetalinkHttp();
         void detectMime(KIO::Job *  job, const QString &  type);
-        void slotRedirection(KIO::Job*, const KUrl&);
+        void slotRedirection(KIO::Job*, const QUrl&);
 
 
     private:
-        KUrl m_Url;
-        KUrl m_redirectionUrl;
+        QUrl m_Url;
+        QUrl m_redirectionUrl;
         bool m_MetalinkHSatus;
         QEventLoop m_loop;
         QMultiMap<QString, QString> m_headerInfo;

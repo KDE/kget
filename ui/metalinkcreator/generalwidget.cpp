@@ -87,7 +87,7 @@ void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
 
 void GeneralWidget::save(KGetMetalink::Metalink *metalink)
 {
-    metalink->origin = KUrl(ui.origin->text());
+    metalink->origin = QUrl(ui.origin->text());
     metalink->dynamic = ui.dynamic->isChecked();
 
     metalink->published.clear();

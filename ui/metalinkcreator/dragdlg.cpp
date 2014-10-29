@@ -85,7 +85,7 @@ void DragDlg::slotFinished()
     m_commonData->identity = uiData.identity->text();
     m_commonData->version = uiData.version->text();
     m_commonData->description = uiData.description->text();
-    m_commonData->logo = KUrl(uiData.logo->text());
+    m_commonData->logo = QUrl(uiData.logo->text());
     if (uiData.os->text().isEmpty()) {
         m_commonData->oses.clear();
     } else {
@@ -93,7 +93,7 @@ void DragDlg::slotFinished()
     }
     m_commonData->copyright = uiData.copyright->text();
     m_commonData->publisher.name = uiData.pub_name->text();
-    m_commonData->publisher.url = KUrl(uiData.pub_url->text());
+    m_commonData->publisher.url = QUrl(uiData.pub_url->text());
     m_commonData->languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     emit usedTypes(used, ui.partialChecksums->isChecked());

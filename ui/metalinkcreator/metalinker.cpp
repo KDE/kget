@@ -161,12 +161,12 @@ void KGetMetalink::CommonData::load(const QDomElement &e)
     identity = e.firstChildElement("identity").text();
     version = e.firstChildElement("version").text();
     description = e.firstChildElement("description").text();
-    logo = KUrl(e.firstChildElement("logo").text());
+    logo = QUrl(e.firstChildElement("logo").text());
     copyright = e.firstChildElement("copyright").text();
 
     const QDomElement publisherElem = e.firstChildElement("publisher");
     publisher.name = publisherElem.attribute("name");
-    publisher.url = KUrl(publisherElem.attribute("url"));
+    publisher.url = QUrl(publisherElem.attribute("url"));
 
     for (QDomElement elemRes = e.firstChildElement("language"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("language")) {
         languages << elemRes.text();
@@ -317,7 +317,7 @@ void KGetMetalink::Metaurl::load(const QDomElement &e)
         priority = Metalink::MAX_URL_PRIORITY;
     }
     name = e.attribute("name");
-    url = KUrl(e.text());
+    url = QUrl(e.text());
 }
 
 void KGetMetalink::Metaurl::save(QDomElement &e) const
@@ -342,7 +342,7 @@ void KGetMetalink::Metaurl::save(QDomElement &e) const
 
 bool KGetMetalink::Metaurl::isValid()
 {
-    return url.isValid() && url.hasHost() && !url.protocol().isEmpty() && !type.isEmpty();
+    return url.isValid() && !url.host().isEmpty() && !url.scheme().isEmpty() && !type.isEmpty();
 }
 
 void KGetMetalink::Metaurl::clear()
@@ -373,7 +373,7 @@ void KGetMetalink::Url::load(const QDomElement &e)
     if (priority > Metalink::MAX_URL_PRIORITY) {
         priority = Metalink::MAX_URL_PRIORITY;
     }
-    url = KUrl(e.text());
+    url = QUrl(e.text());
 }
 
 void KGetMetalink::Url::save(QDomElement &e) const
@@ -397,7 +397,7 @@ void KGetMetalink::Url::save(QDomElement &e) const
 
 bool KGetMetalink::Url::isValid()
 {
-    return url.isValid() && url.hasHost() && !url.protocol().isEmpty();
+    return url.isValid() && !url.host().isEmpty() && !url.scheme().isEmpty();
 }
 
 void KGetMetalink::Url::clear()
@@ -710,7 +710,7 @@ void KGetMetalink::Metalink::load(const QDomElement &e)
     published.setData(metalink.firstChildElement("published").text());
     updated.setData(metalink.firstChildElement("updated").text());
     const QDomElement originElem = metalink.firstChildElement("origin");
-    origin = KUrl(metalink.firstChildElement("origin").text());
+    origin = QUrl(metalink.firstChildElement("origin").text());
     if (originElem.hasAttribute("dynamic")) {
         bool worked = false;
         dynamic = originElem.attribute("dynamic").toInt(&worked);
@@ -796,7 +796,7 @@ void KGetMetalink::Metalink_v3::load(const QDomElement &e)
     const QDomElement metalinkDom = doc.firstChildElement("metalink");
 
     m_metalink.dynamic = (metalinkDom.attribute("type") == "dynamic");
-    m_metalink.origin = KUrl(metalinkDom.attribute("origin"));
+    m_metalink.origin = QUrl(metalinkDom.attribute("origin"));
     m_metalink.generator = metalinkDom.attribute("generator");
     m_metalink.published = parseDateConstruct(metalinkDom.attribute("pubdate"));
     m_metalink.updated = parseDateConstruct(metalinkDom.attribute("refreshdate"));
@@ -863,7 +863,7 @@ KGetMetalink::CommonData KGetMetalink::Metalink_v3::parseCommonData(const QDomEl
 
     const QDomElement publisherElem = e.firstChildElement("publisher");
     data.publisher.name = publisherElem.firstChildElement("name").text();
-    data.publisher.url = KUrl(publisherElem.firstChildElement("url").text());
+    data.publisher.url = QUrl(publisherElem.firstChildElement("url").text());
 
     return data;
 }
@@ -916,7 +916,7 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
         }
         const int priority = MAX_PREFERENCE - preference + 1;//convert old preference to new priority
 
-        const KUrl link = KUrl(elemRes.text());
+        const QUrl link = QUrl(elemRes.text());
         QString type;
 
         if (link.fileName().endsWith(QLatin1String(".torrent"))) {
@@ -1232,9 +1232,9 @@ QString KGetMetalink::Metalink_v3::dateConstructToString(const KGetMetalink::Dat
 }
 
 
-bool KGetMetalink::HandleMetalink::load(const KUrl &destination, KGetMetalink::Metalink *metalink)
+bool KGetMetalink::HandleMetalink::load(const QUrl &destination, KGetMetalink::Metalink *metalink)
 {
-    QFile file(destination.pathOrUrl());
+    QFile file(destination.toString());
     if (!file.open(QIODevice::ReadOnly))
     {
         return false;
@@ -1296,9 +1296,9 @@ bool KGetMetalink::HandleMetalink::load(const QByteArray &data, KGetMetalink::Me
     return false;
 }
 
-bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::Metalink *metalink)
+bool KGetMetalink::HandleMetalink::save(const QUrl &destination, KGetMetalink::Metalink *metalink)
 {
-    QFile file(destination.pathOrUrl());
+    QFile file(destination.toString());
     if (!file.open(QIODevice::WriteOnly)) {
         return false;
     }
@@ -1362,7 +1362,7 @@ void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
     job->addMetaData("PropagateHttpHeader", "true");
     job->setRedirectionHandlingEnabled(false);
     connect(job, SIGNAL(result(KJob*)), this, SLOT(slotHeaderResult(KJob*)));  // Finished
-    connect(job, SIGNAL(redirection(KIO::Job*,KUrl)), this, SLOT(slotRedirection(KIO::Job*,KUrl))); // Redirection
+    connect(job, SIGNAL(redirection(KIO::Job*,QUrl)), this, SLOT(slotRedirection(KIO::Job*,QUrl))); // Redirection
     connect(job,SIGNAL(mimetype(KIO::Job*,QString)),this,SLOT(detectMime(KIO::Job*,QString))); // Mime detection.
     kDebug() << " Verifying Metalink/HTTP Status" ;
     m_loop.exec();
@@ -1385,7 +1385,7 @@ void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
     // Handle the redirection... (Comment out if not desired)
     if (m_redirectionUrl.isValid()) {
        m_Url = m_redirectionUrl;
-       m_redirectionUrl = KUrl();
+       m_redirectionUrl = QUrl();
        checkMetalinkHttp();
     }
 
@@ -1393,7 +1393,7 @@ void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
         m_loop.exit();
 }
 
-void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const KUrl & url)
+void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const QUrl & url)
 {
     Q_UNUSED(job)
     m_redirectionUrl = url;
@@ -1456,7 +1456,7 @@ void KGetMetalink::MetalinkHttpParser::setMetalinkHSatus()
 
 }
 
-KUrl KGetMetalink::MetalinkHttpParser::getUrl()
+QUrl KGetMetalink::MetalinkHttpParser::getUrl()
 {
     return m_Url;
 }

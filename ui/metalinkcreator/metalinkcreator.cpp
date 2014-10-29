@@ -29,7 +29,7 @@
 #include <QMimeData>
 #include <QStandardItemModel>
 
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QPushButton>
@@ -74,7 +74,7 @@ MetalinkCreator::MetalinkCreator(QWidget *parent)
 {
     create();
 
-    connect(this, SIGNAL(user1Clicked()), this, SLOT(slotSave()));
+    connect(finishButton(), &QPushButton::clicked, this, &MetalinkCreator::slotSave);
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), this, SLOT(slotUpdateAssistantButtons(KPageWidgetItem*,KPageWidgetItem*)));
 
     qRegisterMetaType<KGetMetalink::File>("KGetMetalink::File");
@@ -139,12 +139,12 @@ void MetalinkCreator::slotDelayedCreation()
 
 void MetalinkCreator::load()
 {
-    KUrl url = KUrl(uiIntroduction.load->text());
+    QUrl url = uiIntroduction.load->url();
     if (uiIntroduction.loadButton->isChecked() && url.isValid())
     {
         if (!KGetMetalink::HandleMetalink::load(url, &metalink))
         {
-            KMessageBox::error(this, i18n("Unable to load: %1", url.pathOrUrl()), i18n("Error"));
+            KMessageBox::error(this, i18n("Unable to load: %1", url.toString()), i18n("Error"));
         }
     }
 
@@ -156,12 +156,12 @@ void MetalinkCreator::slotSave()
 {
     m_general->save(&metalink);
 
-    KUrl url = KUrl(uiIntroduction.save->text());
+    QUrl url = uiIntroduction.save->url();
     if (url.isValid())
     {
         if(!KGetMetalink::HandleMetalink::save(url, &metalink))
         {
-            KMessageBox::error(this, i18n("Unable to save to: %1", url.pathOrUrl()), i18n("Error"));
+            KMessageBox::error(this, i18n("Unable to save to: %1", url.toString()), i18n("Error"));
         }
     }
 }
@@ -252,8 +252,8 @@ void MetalinkCreator::slotUpdateFilesButtons()
 
 void MetalinkCreator::slotAddLocalFilesClicked()
 {
-    QPointer<KFileDialog> dialog = new KFileDialog(KUrl(), QString(), this);
-    dialog->setMode(KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
+    QPointer<QFileDialog> dialog = new QFileDialog(this);
+    dialog->setFileMode(QFileDialog::ExistingFiles);
     if (dialog->exec() == QDialog::Accepted) {
         m_handler->slotFiles(dialog->selectedUrls());
     }

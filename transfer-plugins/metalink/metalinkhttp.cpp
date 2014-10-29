@@ -55,11 +55,11 @@ QString base64ToHex(const QString& b64)
 }
 
 MetalinkHttp::MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          KGetMetalink::MetalinkHttpParser *httpParser,
                          const QDomElement * e)
     : AbstractMetalink(parent,factory,scheduler,source, dest, e) ,
-      m_signatureUrl(KUrl()),
+      m_signatureUrl(QUrl()),
       m_httpparser(httpParser)
 
 {
@@ -138,7 +138,7 @@ void MetalinkHttp::start()
     }
 }
 
-void MetalinkHttp::setSignature(KUrl & dest, QByteArray & data, DataSourceFactory* dataFactory)
+void MetalinkHttp::setSignature(QUrl & dest, QByteArray & data, DataSourceFactory* dataFactory)
 {
     Q_UNUSED(dest);
     dataFactory->signature()->setSignature(data,Signature::AsciiDetached);
@@ -178,9 +178,8 @@ void MetalinkHttp::slotSignatureVerified()
 bool MetalinkHttp::metalinkHttpInit()
 {
     kDebug() << "m_dest = " << m_dest;
-    const KUrl tempDest = KUrl(m_dest.adjusted(QUrl::RemoveFilename));
-    KUrl dest = tempDest;
-    dest.addPath(m_dest.fileName());
+    const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
+    QUrl dest = tempDest.toString() + "/" + m_dest.fileName();
     kDebug() << "dest = " << dest;
 
     //sort the urls according to their priority (highest first)
@@ -198,7 +197,7 @@ bool MetalinkHttp::metalinkHttpInit()
     //add the Mirrors Sources
 
     for(int i = 0; i < m_linkheaderList.size(); ++i) {
-        const KUrl url = m_linkheaderList[i].url;
+        const QUrl url = m_linkheaderList[i].url;
         if (url.isValid()) {
             if (m_linkheaderList[i].pref) {
                 kDebug() << "found etag in a mirror" ;
@@ -226,9 +225,9 @@ bool MetalinkHttp::metalinkHttpInit()
         dataFactory->verifier()->addChecksums(m_DigestList);
 
         //Add OpenPGP signatures
-        if (m_signatureUrl != KUrl()) {
+        if (m_signatureUrl != QUrl()) {
             Download *signat_download = new Download(m_signatureUrl, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
-            connect(signat_download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(setSignature(KUrl,QByteArray)));
+            connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }
         m_dataSourceFactory[dataFactory->dest()] = dataFactory;
     }

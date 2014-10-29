@@ -168,13 +168,13 @@ void FileDlg::slotOkClicked()
     m_file->data.identity = uiData.identity->text();
     m_file->data.version = uiData.version->text();
     m_file->data.description = uiData.description->text();
-    m_file->data.logo = KUrl(uiData.logo->text());
+    m_file->data.logo = QUrl(uiData.logo->text());
     if (!uiData.os->text().isEmpty()) {
         m_file->data.oses = uiData.os->text().split(i18nc("comma, to seperate members of a list", ","));
     }
     m_file->data.copyright = uiData.copyright->text();
     m_file->data.publisher.name = uiData.pub_name->text();
-    m_file->data.publisher.url = KUrl(uiData.pub_url->text());
+    m_file->data.publisher.url = QUrl(uiData.pub_url->text());
     m_file->data.languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     m_urlWidget->save();

@@ -41,7 +41,7 @@
 #include <QDomElement>
 
 Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
       m_fileModel(0),
@@ -83,10 +83,10 @@ void Metalink::downloadMetalink()
     setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
     Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
-    connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(metalinkInit(KUrl,QByteArray)));
+    connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
 }
 
-bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
+bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
 {
     qCDebug(KGET_DEBUG);
 
@@ -127,8 +127,8 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     QList<KGetMetalink::File>::const_iterator itEnd = m_metalink.files.files.constEnd();
     m_totalSize = 0;
     KIO::fileoffset_t segSize = 500 * 1024;//TODO use config here!
-    const KUrl tempDest = KUrl(m_dest.directory());
-    KUrl dest;
+    const QUrl tempDest = QUrl(m_dest.directory());
+    QUrl dest;
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
     {
         dest = tempDest;
@@ -146,7 +146,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
 #ifdef HAVE_NEPOMUK
-        nepomukHandler()->setProperties((*it).properties(), QList<KUrl>() << dest);
+        nepomukHandler()->setProperties((*it).properties(), QList<QUrl>() << dest);
 #endif //HAVE_NEPOMUK
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
@@ -160,7 +160,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
         {
-            const KUrl url = urlList[i].url;
+            const QUrl url = urlList[i].url;
             if (url.isValid())
             {
                 dataFactory->addMirror(url, MetalinkSettings::connectionsPerUrl());
@@ -533,7 +533,7 @@ void Metalink::slotSignatureVerified()
     }
 }
 
-bool Metalink::repair(const KUrl &file)
+bool Metalink::repair(const QUrl &file)
 {
     if (file.isValid())
     {
@@ -580,7 +580,7 @@ void Metalink::load(const QDomElement *element)
     }
 
     const QDomElement e = *element;
-    m_localMetalinkLocation = KUrl(e.attribute("LocalMetalinkLocation"));
+    m_localMetalinkLocation = QUrl(e.attribute("LocalMetalinkLocation"));
     QDomNodeList factories = e.firstChildElement("factories").elementsByTagName("factory");
 
     //no stored information found, stop right here
@@ -633,7 +633,7 @@ void Metalink::save(const QDomElement &element)
     }
 }
 
-Verifier *Metalink::verifier(const KUrl &file)
+Verifier *Metalink::verifier(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file))
     {
@@ -643,7 +643,7 @@ Verifier *Metalink::verifier(const KUrl &file)
     return m_dataSourceFactory[file]->verifier();
 }
 
-Signature *Metalink::signature(const KUrl &file)
+Signature *Metalink::signature(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file)) {
         return 0;
@@ -652,7 +652,7 @@ Signature *Metalink::signature(const KUrl &file)
     return m_dataSourceFactory[file]->signature();
 }
 
-QList<KUrl> Metalink::files() const
+QList<QUrl> Metalink::files() const
 {
     return m_dataSourceFactory.keys();
 }
@@ -662,12 +662,12 @@ FileModel *Metalink::fileModel()
     if (!m_fileModel)
     {
         m_fileModel = new FileModel(files(), directory(), this);
-        connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+        connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
         connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
 
         foreach (DataSourceFactory *factory, m_dataSourceFactory)
         {
-            const KUrl dest = factory->dest();
+            const QUrl dest = factory->dest();
             QModelIndex size = m_fileModel->index(dest, FileItem::Size);
             m_fileModel->setData(size, static_cast<qlonglong>(factory->size()));
             QModelIndex status = m_fileModel->index(dest, FileItem::Status);
@@ -699,7 +699,7 @@ void Metalink::filesSelected()
     //and asks the user if there are existing files already
     foreach (const QModelIndex &index, files)
     {
-        const KUrl dest = fileModel()->getUrl(index);
+        const QUrl dest = fileModel()->getUrl(index);
         bool doDownload = index.data(Qt::CheckStateRole).toBool();
         if (m_dataSourceFactory.contains(dest))
         {
@@ -723,7 +723,7 @@ void Metalink::filesSelected()
                     if (result == KIO::R_RENAME) {
                         //no reason to use FileModel::rename() since the file does not exist yet, so simply skip it
                         //avoids having to deal with signals
-                        const KUrl newDest = dlg.newDestUrl();
+                        const QUrl newDest = dlg.newDestUrl();
                         factory->setDoDownload(doDownload);
                         factory->setNewDestination(newDest);
                         fileModel()->setData(index, newDest.fileName(), FileItem::File);
@@ -772,7 +772,7 @@ void Metalink::filesSelected()
     slotDataSourceFactoryChange(change);
 }
 
-void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
+void Metalink::slotRename(const QUrl &oldUrl, const QUrl &newUrl)
 {
     if (!m_dataSourceFactory.contains(oldUrl))
     {
@@ -786,7 +786,7 @@ void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
     setTransferChange(Tc_FileName);
 }
 
-bool Metalink::setDirectory(const KUrl &new_directory)
+bool Metalink::setDirectory(const QUrl &new_directory)
 {
     if (new_directory == directory())
     {
@@ -798,17 +798,17 @@ bool Metalink::setDirectory(const KUrl &new_directory)
         m_fileModel->setDirectory(new_directory);
     }
 
-    const QString oldDirectory = directory().pathOrUrl(KUrl::AddTrailingSlash);
-    const QString newDirectory = new_directory.pathOrUrl(KUrl::AddTrailingSlash);
+    const QString oldDirectory = directory().pathOrUrl(QUrl::AddTrailingSlash);
+    const QString newDirectory = new_directory.pathOrUrl(QUrl::AddTrailingSlash);
     const QString fileName = m_dest.fileName();
     m_dest = new_directory;
     m_dest.addPath(fileName);
 
-    QHash<KUrl, DataSourceFactory*> newStorage;
+    QHash<QUrl, DataSourceFactory*> newStorage;
     foreach (DataSourceFactory *factory, m_dataSourceFactory)
     {
-        const KUrl oldUrl = factory->dest();
-        const KUrl newUrl = KUrl(oldUrl.pathOrUrl().replace(oldDirectory, newDirectory));
+        const QUrl oldUrl = factory->dest();
+        const QUrl newUrl = QUrl(oldUrl.pathOrUrl().replace(oldDirectory, newDirectory));
         factory->setNewDestination(newUrl);
         newStorage[newUrl] = factory;
     }
@@ -818,9 +818,9 @@ bool Metalink::setDirectory(const KUrl &new_directory)
     return true;
 }
 
-QHash<KUrl, QPair<bool, int> > Metalink::availableMirrors(const KUrl &file) const
+QHash<QUrl, QPair<bool, int> > Metalink::availableMirrors(const QUrl &file) const
 {
-    QHash<KUrl, QPair<bool, int> > urls;
+    QHash<QUrl, QPair<bool, int> > urls;
 
     if (m_dataSourceFactory.contains(file))
     {
@@ -831,7 +831,7 @@ QHash<KUrl, QPair<bool, int> > Metalink::availableMirrors(const KUrl &file) cons
 }
 
 
-void Metalink::setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors)
+void Metalink::setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors)
 {
     if (!m_dataSourceFactory.contains(file))
     {

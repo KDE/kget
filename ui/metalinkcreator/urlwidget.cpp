@@ -116,7 +116,7 @@ void UrlWidget::save()
         for (int i = 0; i < m_mirrorModel->rowCount(); ++i)
         {
             KGetMetalink::Url url;
-            url.url = KUrl(m_mirrorModel->index(i, MirrorItem::Url).data(Qt::UserRole).toUrl());
+            url.url = QUrl(m_mirrorModel->index(i, MirrorItem::Url).data(Qt::UserRole).toUrl());
             url.priority = m_mirrorModel->index(i, MirrorItem::Priority).data(Qt::UserRole).toInt();
             url.location = m_mirrorModel->index(i, MirrorItem::Country).data(Qt::UserRole).toString();
             m_resources->urls.append(url);

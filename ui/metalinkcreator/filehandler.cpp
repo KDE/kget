@@ -69,13 +69,13 @@ void FileHandlerThread::run()
         while (files.count() && !abort) {
             //take the first file and try to handle it
             FileData data = files.takeFirst();
-            const KUrl url = data.url;
+            const QUrl url = data.url;
             KGetMetalink::File file = data.file;
             file.data = commonData;
 
             foreach (const KGetMetalink::Url &metalinkUrl, tempResources.urls) {
                 KGetMetalink::Url mirror = metalinkUrl;
-                mirror.url.addPath(file.name);
+                mirror.url.setPath(mirror.url.toString() + "/" + file.name);
 
                 //if the url has already been added, remove it and readd it
                 for (int i = 0; i < file.resources.urls.count(); ++i) {
@@ -150,7 +150,7 @@ void DirectoryHandler::slotFiles(const QList<QUrl> &files)
 
     m_allJobsStarted = false;
 
-    foreach (const KUrl &url, files) {
+    foreach (const QUrl &url, files) {
         QDir dir(url.path());
         if (dir.exists()) {
             KIO::ListJob *listJob = KIO::listRecursive(url);
@@ -180,7 +180,7 @@ void DirectoryHandler::slotDirEntries(KIO::Job *j, const KIO::UDSEntryList &entr
         return;
     }
 
-    const KUrl baseUrl = m_jobs[job];
+    const QUrl baseUrl = m_jobs[job];
     const QString baseDir = baseUrl.fileName() + '/';
 
     foreach (const KIO::UDSEntry &entry, entries) {
