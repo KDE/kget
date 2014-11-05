@@ -38,12 +38,6 @@ include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
-find_package(NepomukCore QUIET)
-set_package_properties(NepomukCore_FOUND PROPERTIES DESCRIPTION "Semantic Desktop" URL "http://nepomuk.kde.org" TYPE OPTIONAL PURPOSE "Nepomuk is needed for the integration into KGet") 
-
-find_package(NepomukWidgets QUIET) 
-set_package_properties(NepomukWidgets_FOUND PROPERTIES DESCRIPTION "Semantic Desktop" URL "http://nepomuk.kde.org" TYPE OPTIONAL PURPOSE "Nepomuk is needed for the integration into KGet") 
-
 find_package(Sqlite QUIET)
 set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History") 
 
@@ -51,8 +45,8 @@ find_package(QCA2 QUIET)
 set_package_properties(QCA2_FOUND PROPERTIES DESCRIPTION "Qt Cryptographic Architecture" TYPE RECOMMENDED URL "http://delta.affinix.com/qca" PURPOSE "Needed for the KGet bittorrent-plugin") 
 #TODO: Check for version "2.0.0"
 
-find_package(QGpgme QUIET)
-set_package_properties(QGPGME_FOUND PROPERTIES DESCRIPTION "The QGpgME library" TYPE RECOMMENDED PURPOSE "QGpgME is required to have signature verifying support in KGet.") 
+find_package(KF5QGpgme)
+set_package_properties(KF5QGpgme_FOUND PROPERTIES DESCRIPTION "The QGpgME library" TYPE RECOMMENDED PURPOSE "QGpgME is required to have signature verifying support in KGet.") 
 
 find_package(KTorrent QUIET)
 set_package_properties(LIBKTORRENT_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.") 
@@ -73,22 +67,6 @@ set(kget_adaptor_SRCS
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
-
-#if (NepomukCore_FOUND AND NepomukWidgets_FOUND)
-#    find_package(Soprano)
-#    find_package(SharedDesktopOntologies 0.4)
-#endif (NepomukCore_FOUND AND NepomukWidgets_FOUND)
-#if(SharedDesktopOntologies_FOUND)
-#    set(HAVE_NEPOMUK SharedDesktopOntologies_FOUND)
-#    include_directories(
-#        ${SOPRANO_INCLUDE_DIR}
-#        ${NEPOMUK_CORE_INCLUDE_DIR}
-#        ${NEPOMUK_WIDGETS_INCLUDE_DIR}
-#    )
-#    add_definitions(-DHAVE_NEPOMUK)
-#    add_definitions(-DDISABLE_NEPOMUK_LEGACY)
-#    include(NepomukAddOntologyClasses)
-#endif(SharedDesktopOntologies_FOUND)
 
 #if(QCA2_FOUND)
 #    add_definitions(-DHAVE_QCA2)
@@ -183,14 +161,6 @@ set(kgetcore_SRCS
    core/filedeleter.cpp
 )
 
-if(HAVE_NEPOMUK)
-    set(kgetcore_SRCS
-       ${kgetcore_SRCS}
-       core/nepomukhandler.cpp
-       core/nepomukcontroller.cpp
-    )
-endif (HAVE_NEPOMUK)
-
 kconfig_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
 qt5_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
@@ -206,10 +176,6 @@ if (KDE4WORKSPACE_FOUND)
     target_link_libraries(kgetcore ${KDE4WORKSPACE_KWORKSPACE_LIBS})
 endif (KDE4WORKSPACE_FOUND)
 
-if (HAVE_NEPOMUK)
-  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
-endif (HAVE_NEPOMUK)
-
 if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
@@ -218,10 +184,10 @@ if (QCA2_FOUND)
     target_link_libraries(kgetcore ${QCA2_LIBRARIES})
 endif (QCA2_FOUND)
 
-if (QGPGME_FOUND)
+if (KF5QGpgme_FOUND)
     target_link_libraries(kgetcore ${QGPGME_LIBRARIES})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS}")
-endif(QGPGME_FOUND)
+    kde_enable_exceptions()
+endif()
 
 set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -316,19 +282,10 @@ if(QCA2_FOUND)
 endif(QCA2_FOUND)
 
 
-if (HAVE_NEPOMUK)
-  target_link_libraries(kget ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
-endif (HAVE_NEPOMUK)
-
-if (QGPGME_FOUND)
-  target_link_libraries(kget ${QGPGME_LIBRARIES})
-endif(QGPGME_FOUND)
+if (KF5QGpgme_FOUND)
+  target_link_libraries(kget KF5::QGpgme)
+endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-if (HAVE_NEPOMUK)
-    configure_file(kget_history.ontology.in ${CMAKE_CURRENT_BINARY_DIR}/kget_history.ontology)
-    install(FILES kget_history.trig ${CMAKE_CURRENT_BINARY_DIR}/kget_history.ontology DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ontology/kde)
-endif (HAVE_NEPOMUK)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES) 
