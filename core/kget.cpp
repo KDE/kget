@@ -33,7 +33,7 @@
 #include <qdebug.h>
 
 #include <iostream>
-#include <kinputdialog.h>
+#include <qinputdialog.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -42,6 +42,7 @@
 #include <kiconloader.h>
 #include <kactioncollection.h>
 #include <kio/renamedialog.h>
+#include <kio/deletejob.h>
 #include <KSharedConfig>
 #include <KPluginInfo>
 #include <KConfigDialog>
@@ -969,7 +970,7 @@ QUrl KGet::urlInputDialog()
 
     while (!ok)
     {
-        newtransfer = KInputDialog::getText(i18n("New Download"), i18n("Enter URL:"), newtransfer, &ok, 0);
+        newtransfer = QInputDialog::getText(0, i18n("New Download"), i18n("Enter URL:"), QLineEdit::Normal, newtransfer, &ok);
         newtransfer = newtransfer.trimmed();    //Remove any unnecessary space at the beginning and/or end
         
         if (!ok)
@@ -1276,7 +1277,8 @@ bool KGet::safeDeleteFile( const QUrl& url )
                                    "dialog-info");
             return false;
         }
-        KIO::NetAccess::del( url, 0L );
+        KIO::DeleteJob * del = KIO::del(url);
+        del->exec();
         return true;
     }
 

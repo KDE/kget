@@ -167,7 +167,7 @@ bool DataSourceFactory::checkLocalFile()
     QString dest_orig = m_dest.toLocalFile();
     QString _dest_part(dest_orig);
 
-    KDE_struct_stat buff_part;
+    /*KDE_struct_stat buff_part;
     bool bPartExists = (KDE::stat( _dest_part, &buff_part ) != -1);
     if(!bPartExists)
     {
@@ -185,7 +185,7 @@ bool DataSourceFactory::checkLocalFile()
         {
             close(fd);
         }
-    }
+    }*///TODO: Port if needed
 
     qCDebug(KGET_DEBUG) << "success";
     return true;

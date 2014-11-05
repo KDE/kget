@@ -281,18 +281,6 @@ class KGET_EXPORT UrlChecker
         static int hasExistingDialog(const QUrl &url, const UrlChecker::UrlType type, const UrlWarning warning);//TODO description --> returncode etc.!
         static void removeTransfers(const QList<TransferHandler*> &toRemove);
 
-        enum ExistingDialogReturn {
-            Cancel = 0,
-
-            //old stuff is overwritten/deleted
-            Yes,
-            YesAll,
-
-            //new stuff is not used
-            No,
-            NoAll
-        };
-
     private:
         UrlType m_type;
         QList<QUrl> m_correctUrls;

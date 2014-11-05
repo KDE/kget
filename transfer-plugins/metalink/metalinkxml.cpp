@@ -212,7 +212,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     // should be downloaded
     /* TODO this portion seems not to be working. Need to ask boom1992 */
     if (m_metalinkJustDownloaded) {
-        KDialog *dialog = new FileSelectionDlg(fileModel());
+        QDialog *dialog = new FileSelectionDlg(fileModel());
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
 

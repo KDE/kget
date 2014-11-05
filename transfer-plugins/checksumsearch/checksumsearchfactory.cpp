@@ -32,7 +32,7 @@ ChecksumSearchFactory::~ChecksumSearchFactory()
 {
 }
 
-TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     qCDebug(KGET_DEBUG);
 

@@ -16,16 +16,18 @@
 #include <KLocalizedString>
 #include <KPluginInfo>
 #include <KSharedConfig>
+#include <KPluginTrader>
 #include <QDialog>
 
 PluginSelector::PluginSelector(QDialog * parent)
   : KPluginSelector(parent)
 {
-    KService::List offers = KServiceTypeTrader::self()->query("KGet/Plugin");
+    KPluginInfo::List offers = KPluginTrader::self()->query("KMyApp/Plugin", "kf5");
 
-    //TODO: POrt this
-    addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig());
 
+    addPlugins(offers, KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig());
+
+    
     load();
 
     connect(parent, SIGNAL(accepted()), SLOT(saveState()));

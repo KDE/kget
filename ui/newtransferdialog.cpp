@@ -250,7 +250,7 @@ void NewTransferDialog::setDefaultDestination()
 void NewTransferDialog::prepareDialog()
 {
     if (m_window) {
-        KWindowInfo info = KWindowSystem::windowInfo(m_window->winId(), NET::WMDesktop);
+        KWindowInfo info(m_window->winId(), NET::WMDesktop);
         KWindowSystem::setCurrentDesktop(info.desktop());
         KWindowSystem::forceActiveWindow(m_window->winId());
     }
@@ -762,7 +762,7 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             const QList<TransferGroupHandler*> groups =  KGet::groupsFromExceptions(url);
             dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : 0);
             if (dialog) {
-                KWindowInfo info = KWindowSystem::windowInfo(KGet::m_mainWindow->winId(), NET::WMDesktop);
+                KWindowInfo info(KGet::m_mainWindow->winId(), NET::WMDesktop);
                 KWindowSystem::setCurrentDesktop(info.desktop());
                 KWindowSystem::forceActiveWindow(KGet::m_mainWindow->winId());
 

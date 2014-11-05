@@ -37,6 +37,7 @@
 #include <QCheckBox>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QPushButton>
 
 #include <KDialogButtonBox>
 #include <KIO/RenameDialog>
@@ -45,13 +46,11 @@
 #include <KStandardGuiItem>
 
 ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent)
-  : KDialog(parent)
+  : QDialog(parent)
 {
-    setCaption(caption.isEmpty() ? i18n("Question") : caption);
+    setWindowTitle(caption.isEmpty() ? i18n("Question") : caption);
     setModal(true);
-    setButtons(0);
 
-    QWidget *widget = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout;
     QHBoxLayout *bottomLayout = new QHBoxLayout;
 
@@ -63,30 +62,35 @@ ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QStrin
     bottomLayout->addStretch(1);
     bottomLayout->addWidget(m_applyAll);
 
-    KDialogButtonBox *buttonBox = new KDialogButtonBox(this);
-    buttonBox->addButton(KStandardGuiItem::yes(), QDialogButtonBox::YesRole, this, SLOT(slotYesClicked()));
-    buttonBox->addButton(KStandardGuiItem::no(), QDialogButtonBox::NoRole, this, SLOT(slotNoClicked()));
-    buttonBox->addButton(KStandardGuiItem::cancel(), QDialogButtonBox::RejectRole, this, SLOT(slotCancelClicked()));
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
+    buttonBox->setStandardButtons(QDialogButtonBox::Yes | QDialogButtonBox::No | QDialogButtonBox::Cancel);
+    connect(buttonBox->button(QDialogButtonBox::Yes), &QPushButton::clicked, this, &ExistingTransferDialog::slotYesClicked);
+    connect(buttonBox->button(QDialogButtonBox::No), &QPushButton::clicked, this, &ExistingTransferDialog::slotNoClicked);
+    connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, this, &ExistingTransferDialog::slotCancelClicked);
     bottomLayout->addWidget(buttonBox);
     layout->addLayout(bottomLayout, 0);
-
-    widget->setLayout(layout);
-    setMainWidget(widget);
+    
+    setLayout(layout);
 }
 
 void ExistingTransferDialog::slotYesClicked()
 {
-   done(m_applyAll->isChecked() ? KDialog::User2 : KDialog::Yes);
+    m_result = m_applyAll ? YesAll : Yes;
 }
 
 void ExistingTransferDialog::slotNoClicked()
 {
-   done(m_applyAll->isChecked() ? KDialog::User1 : KDialog::No);
+    m_result = m_applyAll ? NoAll : No;
 }
 
 void ExistingTransferDialog::slotCancelClicked()
 {
-    done(QDialog::Rejected);
+    m_result = Cancel;
+}
+
+ExistingTransferDialog::ExistingDialogReturn ExistingTransferDialog::result()
+{
+    return m_result;
 }
 
 
@@ -587,22 +591,22 @@ QList<QUrl> UrlChecker::hasExistingTransferMessages(const QList<QUrl> &urls, con
 
                 int result;
                 if (Settings::filesOverwrite() || (Settings::filesAutomaticRename() && (warning != ExistingTransfer))) {
-                    result = YesAll;
+                    result = ExistingTransferDialog::ExistingDialogReturn::YesAll;
                 } else {
                     result = hasExistingDialog(it->first, type, warning);
                 }
                 switch (result) {
-                    case YesAll:
+                    case ExistingTransferDialog::ExistingDialogReturn::YesAll:
                         isYesAll = true;
-                    case Yes:
+                    case ExistingTransferDialog::ExistingDialogReturn::Yes:
                         urlsToDownload << it->first;
                         toDelete << it->second;
                         break;
-                    case NoAll:
+                    case ExistingTransferDialog::ExistingDialogReturn::NoAll:
                         isNoAll = true;
-                    case No:
+                    case ExistingTransferDialog::ExistingDialogReturn::No:
                         break;
-                    case Cancel:
+                    case ExistingTransferDialog::ExistingDialogReturn::Cancel:
                     default:
                         removeTransfers(toDelete);
                         return urlsToDownload;
@@ -656,23 +660,11 @@ int UrlChecker::hasExistingDialog(const QUrl &url, const UrlChecker::UrlType typ
         }
     }
 
-    QScopedPointer<KDialog> dialog(new ExistingTransferDialog(message(url, type, warning), caption, parent));
+    QScopedPointer<QDialog> dialog(new ExistingTransferDialog(message(url, type, warning), caption, parent));
 
-    const int result = dialog->exec();
-    switch (result) {
-        case QDialog::Rejected:
-            return Cancel;
-        case KDialog::Yes:
-            return Yes;
-        case KDialog::User2:
-            return YesAll;
-        case KDialog::No:
-            return No;
-        case KDialog::User1:
-            return NoAll;
-        default:
-            return result;
-    }
+    dialog->exec();
+    const int result = (int) dialog->result();
+    return result;
 }
 
 ///Non static methods following

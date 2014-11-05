@@ -57,7 +57,7 @@ private:
     void saveSearchEnginesSettings();
 
     Ui::DlgMirrorSearch ui;
-    KDialog *m_parent;
+    QDialog *m_parent;
 };
 
 #endif // DLGMULTISEGKIO_H

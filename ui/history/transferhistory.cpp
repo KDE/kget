@@ -205,7 +205,7 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
 
     kDebug() << "Try to open the file : " << file;
     if (!file.isEmpty()) {
-        new KRun(file, this, true, false);
+        new KRun(file, this, true);
     }
 }
 

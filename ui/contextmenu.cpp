@@ -97,7 +97,7 @@ QMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
     // only shows the open with actions if the transfer is finished
     if (handler->status() == Job::Finished || handler->status() == Job::FinishedKeepAlive) {
         KFileItemList items;
-        items << KFileItem(KFileItem::Unknown, KFileItem::Unknown, handler->dest());
+        items << KFileItem(handler->dest());
 
         KFileItemActions menuActions;
 

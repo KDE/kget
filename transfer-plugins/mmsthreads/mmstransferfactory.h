@@ -46,7 +46,7 @@ class MmsTransferFactory : public TransferFactory
 
         bool isSupported(const QUrl &url) const;
 
-        QString displayName(){return "mms";}
+        QString displayName() const {return "mms";}
 
 };
 

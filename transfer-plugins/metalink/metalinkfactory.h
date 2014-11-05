@@ -31,7 +31,7 @@ class MetalinkFactory : public TransferFactory
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = 0 );
 
-        QString displayName() { return "MetaLink"; }
+        QString displayName() const { return "MetaLink"; }
         /**
          * Checks if a URL is supported by this plugin.
          *

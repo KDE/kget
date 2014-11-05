@@ -168,8 +168,8 @@ void DBusKGetWrapper::importLinks(const QList <QString> &links)
 bool DBusKGetWrapper::isSupported(const QString &url) const
 {
     foreach (TransferFactory * factory, KGet::factories()) {
-        kDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(KUrl(url));
-        if (factory->isSupported(KUrl(url)))
+        kDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(QUrl(url));
+        if (factory->isSupported(QUrl(url)))
             return true;
     }
     return false;

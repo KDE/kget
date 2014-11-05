@@ -186,7 +186,7 @@ void TransferHistoryItemDelegate::slotOpenFile()
 {
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
-    new KRun(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString(), m_view, true, false);
+    new KRun(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString(), m_view, true);
 }
 
 void TransferHistoryItemDelegate::slotDownload()
