@@ -27,7 +27,7 @@
 #include <KMessageBox>
 
 #include <QDomElement>
-
+#include <KGlobal>
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
 #include <gpgme++/data.h>
@@ -66,7 +66,7 @@ void SignaturePrivate::signatureDownloaded()
 GpgME::VerificationResult SignaturePrivate::verify(const QUrl &dest, const QByteArray &sig)
 {
     GpgME::VerificationResult result;
-    if (!QFile::exists(dest.pathOrUrl()) || sig.isEmpty()) {
+    if (!QFile::exists(dest.toDisplayString(QUrl::PreferLocalFile)) || sig.isEmpty()) {
         return result;
     }
 
@@ -83,7 +83,7 @@ GpgME::VerificationResult SignaturePrivate::verify(const QUrl &dest, const QByte
         return result;
     }
 
-    boost::shared_ptr<QFile> qFile(new QFile(dest.pathOrUrl()));
+    boost::shared_ptr<QFile> qFile(new QFile(dest.toDisplayString(QUrl::PreferLocalFile)));
     qFile->open(QIODevice::ReadOnly);
     QGpgME::QIODeviceDataProvider *file = new QGpgME::QIODeviceDataProvider(qFile);
     GpgME::Data dFile(file);
@@ -188,7 +188,7 @@ void Signature::downloadKey(QString fingerprint) // krazy:exclude=passbyvalue
 bool Signature::isVerifyable()
 {
 #ifdef HAVE_QGPGME
-    return QFile::exists(d->dest.pathOrUrl()) && !d->signature.isEmpty();
+    return QFile::exists(d->dest.toDisplayString(QUrl::PreferLocalFile)) && !d->signature.isEmpty();
 #else
     return false;
 #endif //HAVE_QGPGME

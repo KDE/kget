@@ -46,6 +46,7 @@ set_package_properties(QCA2_FOUND PROPERTIES DESCRIPTION "Qt Cryptographic Archi
 #TODO: Check for version "2.0.0"
 
 find_package(KF5QGpgme)
+find_package(KF5Gpgmepp)
 set_package_properties(KF5QGpgme_FOUND PROPERTIES DESCRIPTION "The QGpgME library" TYPE RECOMMENDED PURPOSE "QGpgME is required to have signature verifying support in KGet.") 
 
 find_package(KTorrent QUIET)
@@ -75,14 +76,14 @@ endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 #    )
 #endif(QCA2_FOUND)
 
-#if(QGPGME_FOUND)
-#    find_package(Boost REQUIRED)
-#    add_definitions(-DHAVE_QGPGME)
-#    include_directories(
-#        ${Boost_INCLUDE_DIRS}
-#        ${QGPGME_INCLUDE_DIR}
-#    )
-#endif(QGPGME_FOUND)
+if(KF5QGpgme_FOUND)
+    find_package(Boost REQUIRED)
+    add_definitions(-DHAVE_QGPGME)
+    include_directories(
+        ${Boost_INCLUDE_DIRS}
+        ${QGPGME_INCLUDE_DIR}
+    )
+endif(QGPGME_FOUND)
 
 add_subdirectory(conf)
 add_subdirectory(core)
@@ -185,7 +186,7 @@ if (QCA2_FOUND)
 endif (QCA2_FOUND)
 
 if (KF5QGpgme_FOUND)
-    target_link_libraries(kgetcore ${QGPGME_LIBRARIES})
+    target_link_libraries(kgetcore KF5::QGpgme KF5::Gpgmepp)
     kde_enable_exceptions()
 endif()
 
