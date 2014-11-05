@@ -13,7 +13,7 @@
 #include <kcategorizedsortfilterproxymodel.h>
 #include <kcategorizedview.h>
 #include <kcategorydrawer.h>
-#include <KDebug>
+#include <QDebug>
 
 #include <QGridLayout>
 #include <QModelIndex>

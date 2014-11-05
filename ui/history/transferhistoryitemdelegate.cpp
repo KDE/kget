@@ -23,7 +23,7 @@
 #include <QPainter>
 #include <QDate>
 
-#include <KDebug>
+#include <QDebug>
 #include <kio/netaccess.h>
 #include <kio/global.h>
 #include <KIconLoader>

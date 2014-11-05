@@ -29,8 +29,8 @@
 #include <QVariant>
 #include <QStandardItem>
 
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+
 #include <KTreeWidgetSearchLine>
 #include <KRun>
 #include <kio/global.h>
@@ -39,6 +39,7 @@
 #include <QIcon>
 #include <KLocalizedString>
 #include <QFontDatabase>
+#include <QStandardPaths>
 
 TransferHistory::TransferHistory(QWidget *parent)
     : KGetSaveSizeDialog("TransferHistory", parent),
@@ -92,7 +93,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     layout()->addWidget(mainWidget);
 
     watcher = new QFileSystemWatcher();
-    watcher->addPath(KStandardDirs::locateLocal("appdata", QString()));
+    watcher->addPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString());
     qCDebug(KGET_DEBUG) << watcher->directories();
 
     m_store = TransferHistoryStore::getStore();
@@ -203,7 +204,7 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
         file = categorized_view->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString();
     }
 
-    kDebug() << "Try to open the file : " << file;
+    //qDebug() << "Try to open the file : " << file;
     if (!file.isEmpty()) {
         new KRun(file, this, true);
     }
