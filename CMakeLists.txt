@@ -83,7 +83,7 @@ if(KF5QGpgme_FOUND)
         ${Boost_INCLUDE_DIRS}
         ${QGPGME_INCLUDE_DIR}
     )
-endif(QGPGME_FOUND)
+endif()
 
 add_subdirectory(conf)
 add_subdirectory(core)
