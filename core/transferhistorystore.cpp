@@ -20,7 +20,6 @@
 #include <QList>
 #include <QThread>
 
-#include <KDebug>
 #include <kio/global.h>
 #include <KStandardDirs>
 
@@ -133,11 +132,6 @@ TransferHistoryStore *TransferHistoryStore::getStore()
         case TransferHistoryStore::SQLite:
 #ifdef HAVE_SQLITE
             return new SQLiteStore(KStandardDirs::locateLocal("appdata", "transferhistory.db"));
-            break;
-#endif
-        case TransferHistoryStore::Nepomuk:
-#ifdef HAVE_NEPOMUK
-            return new NepomukStore(QString());
             break;
 #endif
         case TransferHistoryStore::Xml:

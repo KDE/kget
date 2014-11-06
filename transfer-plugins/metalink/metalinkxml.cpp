@@ -27,11 +27,6 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 
-#ifdef HAVE_NEPOMUK
-    #include "core/nepomukhandler.h"
-    #include <Nepomuk2/Variant>
-#endif //HAVE_NEPOMUK
-
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
@@ -143,10 +138,6 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
         //create a DataSourceFactory for each separate file
         DataSourceFactory *dataFactory = new DataSourceFactory(this, dest, fileSize, segSize);
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
-
-#ifdef HAVE_NEPOMUK
-        nepomukHandler()->setProperties((*it).properties(), QList<QUrl>() << dest);
-#endif //HAVE_NEPOMUK
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
 
@@ -266,9 +257,6 @@ void MetalinkXml::deinit(Transfer::DeleteOptions options)
         KIO::NetAccess::synchronousRun(del, 0);
     }
 
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->deinit();
-#endif //HAVE_NEPOMUK
 }
 
 void MetalinkXml::load(const QDomElement *element)

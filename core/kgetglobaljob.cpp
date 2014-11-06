@@ -14,7 +14,7 @@
 
 #include "kget_debug.h"
 #include <qdebug.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <kuiserverjobtracker.h>
 
 

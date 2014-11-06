@@ -30,13 +30,6 @@
 #include <QString>
 #include <QObject>
 
-#ifdef HAVE_NEPOMUK
-namespace Nepomuk2
-{
-    class Variant;
-}
-#endif //HAVE_NEPOMUK
-
 /**
  * The following classes try to resemble the structure of a Metalink-document, they partially support
  * the Metalink specification version 3.0 2nd ed and Draft 09
@@ -99,13 +92,6 @@ class CommonData
         void save(QDomElement &e) const;
 
         void clear();
-
-#ifdef HAVE_NEPOMUK
-        /**
-         * Return Nepomuk-properties that can be extracted
-         */
-        QList<QPair<QUrl, Nepomuk2::Variant> > properties() const;
-#endif //HAVE_NEPOMUK
 
         QString identity;
         QString version;
@@ -258,13 +244,6 @@ class File
          */
         bool isValidNameAttribute() const;
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Return Nepomuk-properties that can be extracted of file, only including data
-         */
-        QList<QPair<QUrl, Nepomuk2::Variant> > properties() const;
-#endif //HAVE_NEPOMUK
-
         QString name;
         Verification verification;
         KIO::filesize_t size;
@@ -281,15 +260,6 @@ class Files
 
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
-
-// #ifdef HAVE_NEPOMUK//TODO wha this now?
-//         /**
-//          * Return all Nepomuk-properties that can be extracted of Files
-//          * @Note only Files is being looked at, not each File it contains, so
-//          * you only get the general metadata for all Files
-//         */
-//         QHash<QUrl, Nepomuk::Variant> properties() const;
-// #endif //HAVE_NEPOMUK
 
         void clear();
 
@@ -407,13 +377,6 @@ class HandleMetalink
          */
         static bool save(const QUrl &destination, Metalink *metalink);
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Convenience method to add Strings to the data
-         */
-        static void addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QByteArray &uriBa, const QString &value);
-        static void addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QUrl &uri, const QString &value);
-#endif //HAVE_NEPOMUK
 };
 
 class MetalinkHttpParser : public QObject

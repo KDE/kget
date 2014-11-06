@@ -56,10 +56,6 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
 
     target_link_libraries(metalinktest KF5::KDELibs4Support KF5::KIOCore Qt5::Test)
 
-    if (HAVE_NEPOMUK)
-    target_link_libraries(metalinktest ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY})
-    endif (HAVE_NEPOMUK)
-
     #===========FileDeleter===========
     set(filedeletertest_SRCS
         filedeletertest.cpp

@@ -54,9 +54,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 #ifdef HAVE_SQLITE
     dlgAdv.kcfg_HistoryBackend->addItem(i18n("Sqlite"), QVariant(TransferHistoryStore::SQLite));
 #endif
-#ifdef HAVE_NEPOMUK
-    dlgAdv.kcfg_HistoryBackend->addItem(i18n("Nepomuk"), QVariant(TransferHistoryStore::Nepomuk));
-#endif
 
 #ifdef HAVE_KWORKSPACE
     dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Turn Off Computer"), QVariant(KGet::Shutdown));

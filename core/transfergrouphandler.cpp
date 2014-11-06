@@ -21,7 +21,7 @@
 #include <qdebug.h>
 #include <QAction>
 #include <kactioncollection.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QIcon>
 
 TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)

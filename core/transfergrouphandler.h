@@ -142,19 +142,6 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          */
         QRegExp regExp() {return m_group->regExp();}
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Sets the Nepomuk tags of the group
-         * @param tags the Nepomuk tags
-         */
-        void setTags(const QList<Nepomuk2::Tag> &tags) {m_group->setTags(tags);}
-
-        /**
-         * @returns the Nepomuk tags of the group
-         */
-        QList<Nepomuk2::Tag> tags() const {return m_group->tags();}
-#endif //HAVE_NEPOMUK
-
         /**
          * Set a Download-Limit for the group
          * @param limit the new download-limit

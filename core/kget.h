@@ -49,10 +49,6 @@ class NewTransferDialog;
 class TransferGroupScheduler;
 class TransferHistoryStore;
 
-#ifdef HAVE_NEPOMUK
-class NepomukController;
-#endif
-
 /**
  * This is our KGet class. This is where the user's transfers and searches are
  * stored and organized.
@@ -369,10 +365,6 @@ class KGET_EXPORT KGet
          */
         static QString generalDestDir(bool preferXDGDownloadDir = false);
 
-#ifdef HAVE_NEPOMUK
-        static NepomukController *nepomukController();
-#endif
-
     private:
         KGet();
 
@@ -445,9 +437,6 @@ class KGET_EXPORT KGet
 
         static bool m_hasConnection;
 
-#ifdef HAVE_NEPOMUK
-        static NepomukController *m_nepomukController;
-#endif
 };
 
 class KGET_EXPORT KGet::TransferData

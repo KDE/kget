@@ -61,19 +61,6 @@ int TransferGroup::uploadSpeed()
     return m_uploadSpeed;
 }
 
-#ifdef HAVE_NEPOMUK
-
-void TransferGroup::setTags(const QList< Nepomuk2::Tag >& tags)
-{
-    m_tags.clear();
-
-    foreach( const Nepomuk2::Tag &tag, tags) {
-        m_tags.insert(tag.uri(), tag);
-    }
-}
-
-#endif //HAVE_NEPOMUK
-
 bool TransferGroup::supportsSpeedLimits()
 {
     QList<Job*> jobs = runningJobs();
@@ -329,18 +316,6 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     e.setAttribute("Status", status() == JobQueue::Running ? "Running" : "Stopped");
     e.setAttribute("RegExpPattern", m_regExp.pattern());
 
-#ifdef HAVE_NEPOMUK
-    QDomElement tags = e.ownerDocument().createElement("Tags");
-    for(QMap<QUrl, Nepomuk2::Tag>::const_iterator i = m_tags.constBegin(); i != m_tags.constEnd(); i++)
-    {
-        QDomElement tag = e.ownerDocument().createElement("Tag");
-        QDomText text = e.ownerDocument().createTextNode(i.key().toString());
-        tag.appendChild(text);
-        tags.appendChild(tag);
-    }
-    e.appendChild(tags);
-#endif //HAVE_NEPOMUK
-
     iterator it = begin();
     iterator itEnd = end();
 
@@ -371,18 +346,6 @@ void TransferGroup::load(const QDomElement & e)
         setStatus(JobQueue::Stopped);
 
     m_regExp.setPattern(e.attribute("RegExpPattern"));
-
-#ifdef HAVE_NEPOMUK
-    QDomNodeList tagsNodeList = e.elementsByTagName("Tags").at(0).toElement().elementsByTagName("Tag");
-    for( uint i = 0; i < tagsNodeList.length(); ++i )
-    {
-        QString tag = tagsNodeList.item(i).toElement().text();
-        if (!tag.isEmpty())
-        {
-            m_tags.insert(tag, Nepomuk2::Tag(tag));
-        }
-    }
-#endif //HAVE_NEPOMUK
 
     QDomNodeList nodeList = e.elementsByTagName("Transfer");
     int nItems = nodeList.length();

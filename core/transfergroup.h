@@ -22,10 +22,6 @@
 #include "kget_export.h"
 #include "transfer.h"
 
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk2/Tag>
-#endif
-
 class QDomElement;
 
 class TransferGroupHandler;
@@ -219,19 +215,6 @@ class KGET_EXPORT TransferGroup : public JobQueue
          */
         QRegExp regExp() {return m_regExp;}
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Sets the Nepomuk tags of the group
-         * @param tags the Nepomuk tags
-         */
-        void setTags(const QList<Nepomuk2::Tag> &tags);
-
-        /**
-         * @returns the Nepomuk tags of the group
-         */
-        QList<Nepomuk2::Tag> tags() const { return m_tags.values(); }
-#endif //HAVE_NEPOMUK
-
         /**
          * @return true if the group supports SpeedLimits
          */
@@ -335,9 +318,6 @@ class KGET_EXPORT TransferGroup : public JobQueue
         QString m_iconName;
         QString m_defaultFolder;
         QRegExp m_regExp;
-#ifdef HAVE_NEPOMUK
-        QMap<QUrl, Nepomuk2::Tag> m_tags;
-#endif //HAVE_NEPOMUK
 };
 
 #endif

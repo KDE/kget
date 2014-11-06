@@ -282,18 +282,6 @@ class KGET_EXPORT TransferHandler : public Handler
          */
         virtual Signature * signature(const QUrl &file) {return m_transfer->signature(file);}
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Sets the NepomukHandler for the transfer
-         * @param handler the new NepomukHandler
-         */
-        void setNepomukHandler(NepomukHandler *handler) {m_transfer->setNepomukHandler(handler);}
-
-        /**
-         * @returns the NepomukHandler of the transfer
-         */
-        NepomukHandler * nepomukHandler() {return m_transfer->nepomukHandler();}
-#endif
     public slots:
         /**
          * These are all Job-related functions

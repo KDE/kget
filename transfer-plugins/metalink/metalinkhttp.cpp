@@ -27,11 +27,6 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 
-#ifdef HAVE_NEPOMUK
-    #include "core/nepomukhandler.h"
-    #include <Nepomuk2/Variant>
-#endif //HAVE_NEPOMUK
-
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>

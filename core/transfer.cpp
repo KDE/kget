@@ -18,14 +18,10 @@
 #include "core/scheduler.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QDomElement>
 #include <QTime>
-
-#ifdef HAVE_NEPOMUK
-#include "nepomukhandler.h"
-#endif
 
 struct StatusStrings
 {
@@ -54,9 +50,6 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_uploadLimit(0), m_downloadLimit(0), m_isSelected(false),
       m_capabilities(0), m_visibleUploadLimit(0), m_visibleDownloadLimit(0),
       m_ratio(0), m_handler(0), m_factory(factory)
-#ifdef HAVE_NEPOMUK
-      , m_nepomukHandler(0)
-#endif
 {
     Q_UNUSED(e)
 }
@@ -75,11 +68,6 @@ void Transfer::setCapabilities(Capabilities capabilities)
 
 void Transfer::create()
 {
-#ifdef HAVE_NEPOMUK
-    if (!m_nepomukHandler)
-        m_nepomukHandler = new NepomukHandler(this);
-#endif
-
     init();
 }
 
@@ -87,9 +75,6 @@ void Transfer::destroy(DeleteOptions options)
 {
     deinit(options);
 
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->deinit();
-#endif //HAVE_NEPOMUK
 }
 
 void Transfer::init()//TODO think about e, maybe not have it at all in the constructor?
@@ -97,13 +82,6 @@ void Transfer::init()//TODO think about e, maybe not have it at all in the const
 
 }
 
-#ifdef HAVE_NEPOMUK
-void Transfer::setNepomukHandler(NepomukHandler *handler)
-{
-    delete(m_nepomukHandler);
-    m_nepomukHandler = handler;
-}
-#endif //HAVE_NEPOMUK
 
 bool Transfer::setDirectory(const QUrl& newDirectory)
 {
@@ -326,13 +304,6 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     */
     Job::setStatus(jobStatus);
 
-#ifdef HAVE_NEPOMUK
-    const bool loadedFinished = ((startStatus() == Job::Finished) || (startStatus() == Job::FinishedKeepAlive));
-    const bool isFinished = ((jobStatus == Job::Finished) || (jobStatus == Job::FinishedKeepAlive));
-    if (!loadedFinished && statusChanged && isFinished) {
-        m_nepomukHandler->saveFileProperties();
-    }
-#endif
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)

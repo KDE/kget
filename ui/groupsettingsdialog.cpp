@@ -12,11 +12,6 @@
 
 #include "core/transfergrouphandler.h"
 
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk2/Tag>
-    #include <nepomuk2/tagwidget.h>
-#endif
-
 GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group)
   : KGetSaveSizeDialog("GroupSettingsDialog", parent),
     m_group(group)
@@ -36,14 +31,7 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
 
     ui.regExpEdit->setText(group->regExp().pattern());
 
-#ifdef HAVE_NEPOMUK
-    m_tagWidget = new Nepomuk2::TagWidget(this);
-    m_tagWidget->setSelectedTags(group->tags());
-    m_tagWidget->setModeFlags(Nepomuk2::TagWidget::MiniMode);
-    ui.nepomukWidget->layout()->addWidget(m_tagWidget);
-#else
     ui.nepomukWidget->hide();
-#endif
 
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
@@ -77,9 +65,6 @@ void GroupSettingsDialog::save()
     regExp.setPattern(ui.regExpEdit->text());
     m_group->setRegExp(regExp);
 
-#ifdef HAVE_NEPOMUK
-    m_group->setTags(m_tagWidget->selectedTags());
-#endif
 }
 
 
