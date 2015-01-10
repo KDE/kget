@@ -41,9 +41,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_P
 find_package(Sqlite QUIET)
 set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History") 
 
-find_package(QCA2 QUIET)
-set_package_properties(QCA2_FOUND PROPERTIES DESCRIPTION "Qt Cryptographic Architecture" TYPE RECOMMENDED URL "http://delta.affinix.com/qca" PURPOSE "Needed for the KGet bittorrent-plugin") 
-#TODO: Check for version "2.0.0"
+find_package(Qca 2.1.0)
+set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
+                       URL "http://delta.affinix.com/qca"
+                       TYPE REQUIRED)
+
 
 find_package(KF5QGpgme)
 find_package(KF5Gpgmepp)
@@ -69,12 +71,10 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-#if(QCA2_FOUND)
-#    add_definitions(-DHAVE_QCA2)
-#    include_directories(
-#        ${QCA2_INCLUDE_DIR}
-#    )
-#endif(QCA2_FOUND)
+if (Qca_FOUND)
+    add_definitions(-DHAVE_QCA2)
+MESSAGE(STATUS "QCA found")
+endif()
 
 if(KF5QGpgme_FOUND)
     find_package(Boost REQUIRED)
@@ -181,9 +181,9 @@ if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
-if (QCA2_FOUND)
-    target_link_libraries(kgetcore ${QCA2_LIBRARIES})
-endif (QCA2_FOUND)
+if (Qca_FOUND)
+    target_link_libraries(kgetcore qca)
+endif ()
 
 if (KF5QGpgme_FOUND)
     target_link_libraries(kgetcore KF5::QGpgme KF5::Gpgmepp)
@@ -278,9 +278,9 @@ ki18n_wrap_ui(kget_SRCS
 add_executable(kget ${kget_SRCS})
 
 target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus Qt5::Test KF5::Wallet KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KCMUtils KF5::NotifyConfig KF5::KDELibs4Support kgetcore)
-if(QCA2_FOUND)
-  target_link_libraries(kget ${QCA2_LIBRARIES})
-endif(QCA2_FOUND)
+if(Qca_FOUND)
+  target_link_libraries(kget qca)
+endif()
 
 
 if (KF5QGpgme_FOUND)

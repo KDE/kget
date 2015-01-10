@@ -30,6 +30,7 @@
 #include <qdebug.h>
 
 #ifdef HAVE_QCA2
+#include <qca_basic.h>
 #endif
 
 //TODO use mutable to make some methods const?
