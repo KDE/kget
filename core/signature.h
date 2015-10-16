@@ -23,6 +23,7 @@
 #include "kget_export.h"
 
 #include <QUrl>
+#include <QObject>
 
 class QDomElement;
 
