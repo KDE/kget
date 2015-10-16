@@ -41,15 +41,14 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_P
 find_package(Sqlite QUIET)
 set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History") 
 
-find_package(Qca 2.1.0)
+find_package(Qca-qt5 2.1.0)
 set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
                        URL "http://delta.affinix.com/qca"
                        TYPE REQUIRED)
 
 
-find_package(KF5QGpgme)
 find_package(KF5Gpgmepp)
-set_package_properties(KF5QGpgme_FOUND PROPERTIES DESCRIPTION "The QGpgME library" TYPE RECOMMENDED PURPOSE "QGpgME is required to have signature verifying support in KGet.") 
+set_package_properties(KF5Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgMEPP library" TYPE RECOMMENDED PURPOSE "GpgMEPP is required to have signature verifying support in KGet.") 
 
 find_package(KTorrent QUIET)
 set_package_properties(LIBKTORRENT_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.") 
@@ -71,17 +70,16 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-if (Qca_FOUND)
+if (Qca-qt5_FOUND)
     add_definitions(-DHAVE_QCA2)
 MESSAGE(STATUS "QCA found")
 endif()
 
-if(KF5QGpgme_FOUND)
+if(KF5Gpgmepp_FOUND)
     find_package(Boost REQUIRED)
     add_definitions(-DHAVE_QGPGME)
     include_directories(
         ${Boost_INCLUDE_DIRS}
-        ${QGPGME_INCLUDE_DIR}
     )
 endif()
 
@@ -181,11 +179,11 @@ if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
-if (Qca_FOUND)
-    target_link_libraries(kgetcore qca)
+if (Qca-qt5_FOUND)
+    target_link_libraries(kgetcore qca-qt5)
 endif ()
 
-if (KF5QGpgme_FOUND)
+if (KF5Gpgmepp_FOUND)
     target_link_libraries(kgetcore KF5::QGpgme KF5::Gpgmepp)
     kde_enable_exceptions()
 endif()
