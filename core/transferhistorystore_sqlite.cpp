@@ -20,7 +20,7 @@
     
 #include "kget_debug.h"
 #include <qdebug.h>
-    
+
 SQLiteStore::SQLiteStore(const QString &database) : TransferHistoryStore(),
     m_dbName(database),
     m_sql()

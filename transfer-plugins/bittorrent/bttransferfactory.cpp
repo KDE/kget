@@ -22,7 +22,7 @@
 #include <version.h>
 #include <torrent/job.h>
 
-KGET_EXPORT_PLUGIN(BTTransferFactory)
+K_PLUGIN_FACTORY_WITH_JSON(kget_bittorrent, "kget_bittorrent.json", registerPlugin<BTTransferFactory>();)
 
 BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

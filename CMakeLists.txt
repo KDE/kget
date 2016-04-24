@@ -50,7 +50,7 @@ set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
 find_package(KF5Gpgmepp)
 set_package_properties(KF5Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgMEPP library" TYPE RECOMMENDED PURPOSE "GpgMEPP is required to have signature verifying support in KGet.") 
 
-find_package(KTorrent QUIET)
+find_package(LibKTorrent 1.9.50 CONFIG REQUIRED)
 set_package_properties(LIBKTORRENT_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.") 
 
 find_package(LibMms QUIET)
@@ -82,6 +82,8 @@ if(KF5Gpgmepp_FOUND)
         ${Boost_INCLUDE_DIRS}
     )
 endif()
+
+set (KGET_PLUGIN_INSTALL_DIR ${PLUGIN_INSTALL_DIR}/kget)
 
 add_subdirectory(conf)
 add_subdirectory(core)
@@ -188,7 +190,8 @@ if (KF5Gpgmepp_FOUND)
     kde_enable_exceptions()
 endif()
 
-set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
+
+set_target_properties(kgetcore PROPERTIES VERSION 5.0.0 SOVERSION 5 )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 
