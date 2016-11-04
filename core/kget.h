@@ -396,7 +396,7 @@ class KGET_EXPORT KGet
         static QUrl getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl);
 
         //Plugin-related functions
-        static KGetPlugin * createPluginFromService( const KService::Ptr &service );
+        static KGetPlugin* loadPlugin(const KPluginMetaData& md);
 
         /**
          * Stops all downloads if there is no connection and also displays

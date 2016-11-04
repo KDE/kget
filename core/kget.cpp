@@ -47,6 +47,7 @@
 #include <KPluginInfo>
 #include <KConfigDialog>
 #include <QSaveFile>
+#include <KPluginMetaData>
 
 #include <QTextStream>
 #include <QDomElement>
@@ -1126,31 +1127,26 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
 void KGet::loadPlugins()
 {
     m_transferFactories.clear();
-    // Add versioning constraint
-    QString
-    str  = "[X-KDE-KGet-framework-version] == ";
-    str += QString::number( FrameworkVersion );
-    str += " and ";
-    str += "[X-KDE-KGet-rank] > 0";
-    str += " and ";
-    str += "[X-KDE-KGet-plugintype] == ";
 
+    // TransferFactory plugins
+    const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData& md) {
+        return md.serviceTypes().contains(QStringLiteral("KGet/Plugin")) &&
+            md.value(QStringLiteral("X-KDE-KGet-framework-version")) == QString::number(FrameworkVersion) &&
+            md.value(QStringLiteral("X-KDE-KGet-rank")).toInt() > 0 &&
+            md.value(QStringLiteral("X-KDE-KGet-plugintype")) == QStringLiteral("TransferFactory");
+    });
 
-    //TransferFactory plugins
-    KService::List offers = KServiceTypeTrader::self()->query( "KGet/Plugin", str + "'TransferFactory'" );
-    
-    qDebug() << "Found" << offers.size() << "KService offers";
+    qCDebug(KGET_DEBUG) << "Found" << offers.size() << "plugins";
 
     //Here we use a QMap only to easily sort the plugins by rank
-    QMap<int, KService::Ptr> services;
-    QMap<int, KService::Ptr>::ConstIterator it;
+    QMap<int, KPluginMetaData> sortedOffers;
 
-    for ( int i = 0; i < offers.count(); ++i )
+    for (const KPluginMetaData& md : offers)
     {
-        services[ offers[i]->property( "X-KDE-KGet-rank" ).toInt() ] = offers[i];
+        sortedOffers[md.value("X-KDE-KGet-rank").toInt()] = md;
         qCDebug(KGET_DEBUG) << " TransferFactory plugin found:" << endl <<
-         "  rank = " << offers[i]->property( "X-KDE-KGet-rank" ).toInt() << endl <<
-         "  plugintype = " << offers[i]->property( "X-KDE-KGet-plugintype" ) << endl;
+         "  rank = " << md.value("X-KDE-KGet-rank").toInt() << endl <<
+         "  plugintype = " << md.value("X-KDE-KGet-plugintype") << endl;
     }
 
     //I must fill this pluginList before and my m_transferFactories list after.
@@ -1160,36 +1156,37 @@ void KGet::loadPlugins()
 
     const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
 
-    foreach (KService::Ptr service, services)
+    for (const KPluginMetaData& md : sortedOffers)
     {
-        KPluginInfo info(service);
+        KPluginInfo info(md);
         info.load(plugins);
 
-        if( !info.isPluginEnabled() ) {
-            qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << service->library()
+        if (!info.isPluginEnabled())
+        {
+            qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName()
                              << ") found, but not enabled";
             continue;
         }
 
-        KGetPlugin * plugin;
-        if( (plugin = createPluginFromService(service)) != 0 )
+        KGetPlugin* plugin = loadPlugin(md);
+        if (plugin != nullptr)
         {
             const QString pluginName = info.name();
 
             pluginList.prepend(plugin);
-            qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << (service)->library()
+            qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName()
                          << ") found and added to the list of available plugins";
         }
         else
         {
             qCDebug(KGET_DEBUG) << "Error loading TransferFactory plugin ("
-                         << service->library() << ")";
+                         << md.fileName() << ")";
         }
     }
 
-    foreach (KGetPlugin *plugin, pluginList)
+    foreach (KGetPlugin* plugin, pluginList)
     {
-        m_transferFactories.append(qobject_cast<TransferFactory *>(plugin));
+        m_transferFactories.append(qobject_cast<TransferFactory*>(plugin));
     }
 
     qCDebug(KGET_DEBUG) << "Number of factories = " << m_transferFactories.size();
@@ -1221,22 +1218,18 @@ void KGet::setHasNetworkConnection(bool hasConnection)
     }
 }
 
-KGetPlugin * KGet::createPluginFromService( const KService::Ptr &service )
+KGetPlugin* KGet::loadPlugin(const KPluginMetaData& md)
 {
-    //try to load the specified library
-    KPluginFactory *factory = KPluginLoader(service->library()).factory();
-
-    if (!factory)
-    {
+    KPluginFactory* factory = KPluginLoader(md.fileName()).factory();
+    if (factory) {
+        return factory->create<TransferFactory>(KGet::m_mainWindow);
+    } else {
         KGet::showNotification(m_mainWindow, "error",
-                               i18n("Plugin loader could not load the plugin: %1.", service->library()),
+                               i18n("Plugin loader could not load the plugin: %1.", md.fileName()),
                                "dialog-info");
-        qCCritical(KGET_DEBUG) << "KPluginFactory could not load the plugin:" << service->library();
-        return 0;
+        qCCritical(KGET_DEBUG) << "KPluginFactory could not load the plugin:" << md.fileName();
+        return nullptr;
     }
-    KGetPlugin * plugin = factory->create< TransferFactory >(KGet::m_mainWindow);
-
-    return plugin;
 }
 
 bool KGet::safeDeleteFile( const QUrl& url )
