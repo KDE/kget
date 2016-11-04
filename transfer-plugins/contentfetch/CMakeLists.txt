@@ -13,14 +13,11 @@ set(kget_contentfetchfactory_PART_SRCS
 )
 
 kconfig_add_kcfg_files(kget_contentfetchfactory_PART_SRCS contentfetchsetting.kcfgc)
-
+kcoreaddons_desktop_to_json(kget_contentfetchfactory kget_contentfetchfactory.desktop)
 add_library(kget_contentfetchfactory MODULE ${kget_contentfetchfactory_PART_SRCS})
+target_link_libraries(kget_contentfetchfactory KF5::KIOCore KF5::KrossCore kgetcore)
 
-target_link_libraries(kget_contentfetchfactory KF5::KIOCore
-KF5::KrossCore ${KDE4_KROSSUI_LIBS} kgetcore)
-
-install(TARGETS kget_contentfetchfactory DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES kget_contentfetchfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS kget_contentfetchfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
 install(FILES kget_contentfetchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 ###Build KCM-Module

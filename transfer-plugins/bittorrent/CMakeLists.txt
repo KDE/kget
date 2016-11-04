@@ -42,10 +42,9 @@ ki18n_wrap_ui(kget_bittorrentfactory_PART_SRCS
     advanceddetails/webseedstab.ui
     )
 
-kcoreaddons_desktop_to_json(kget_bittorrent kget_bittorrentfactory.desktop)
-
 kconfig_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
 add_library(kget_bittorrent MODULE ${kget_bittorrentfactory_PART_SRCS})
+kcoreaddons_desktop_to_json(kget_bittorrent kget_bittorrentfactory.desktop)
 
 target_link_libraries(kget_bittorrent KF5::KIOCore ${LIBKTORRENT_LIBRARIES} kgetcore)
 install(TARGETS kget_bittorrent DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})

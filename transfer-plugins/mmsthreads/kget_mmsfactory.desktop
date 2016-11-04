@@ -1,10 +1,8 @@
 [Desktop Entry]
-# service definition
 Type=Service
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=kget
 
-# standard fields
 Name=MMS
 Name[ar]=MMS
 Name[ast]=MMS
@@ -127,7 +125,7 @@ Comment[zh_TW]=KGet 的 MMS 傳輸外掛程式
 X-KDE-Library=kget_mmsfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=80
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Ernesto Rodriguez Ortiz
 X-KDE-PluginInfo-Email=eortiz@uci.cu

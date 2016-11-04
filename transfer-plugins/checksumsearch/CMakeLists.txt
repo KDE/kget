@@ -10,13 +10,11 @@ set(kget_checksumsearchfactory_PART_SRCS
 )
 
 kconfig_add_kcfg_files(kget_checksumsearchfactory_PART_SRCS checksumsearchsettings.kcfgc)
-
 add_library(kget_checksumsearchfactory MODULE ${kget_checksumsearchfactory_PART_SRCS})
+kcoreaddons_desktop_to_json(kget_checksumsearchfactory kget_checksumsearchfactory.desktop)
+target_link_libraries(kget_checksumsearchfactory kgetcore)
 
-target_link_libraries(kget_checksumsearchfactory ${KDE4_KIO_LIBS} kgetcore)
-
-install(TARGETS kget_checksumsearchfactory DESTINATION  ${PLUGIN_INSTALL_DIR})
-install(FILES kget_checksumsearchfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS kget_checksumsearchfactory DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})
 install(FILES kget_checksumsearchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 ###Build KCM-Module
@@ -33,7 +31,7 @@ checksumsearchadddlg.ui
 
 kconfig_add_kcfg_files(kcm_kget_checksumsearchfactory_PART_SRCS checksumsearchsettings.kcfgc)
 add_library(kcm_kget_checksumsearchfactory MODULE ${kcm_kget_checksumsearchfactory_PART_SRCS})
-target_link_libraries(kcm_kget_checksumsearchfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} kgetcore)
+target_link_libraries(kcm_kget_checksumsearchfactory kgetcore)
 install(TARGETS kcm_kget_checksumsearchfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 
 install(FILES kget_checksumsearchfactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})

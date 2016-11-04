@@ -1,10 +1,8 @@
 [Desktop Entry]
-# service definition
 Type=Service
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=kget
 
-# standard fields
 Name=Multi Segment KIO
 Name[ar]=متعدد اجزاء KIO
 Name[ast]=Multi SegmentuKIO
@@ -122,7 +120,7 @@ Comment[zh_TW]=多緒檔案下載外掛程式
 X-KDE-Library=kget_multisegkiofactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=70
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Manolo Valdes
 X-KDE-PluginInfo-Email=nolis71cu@gmail.com

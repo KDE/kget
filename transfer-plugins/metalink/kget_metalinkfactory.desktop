@@ -1,10 +1,8 @@
 [Desktop Entry]
-# service definition
 Type=Service
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=kget
 
-# standard fields
 Name=Metalink
 Name[ar]=ميتالينك
 Name[ast]=Metalink
@@ -120,7 +118,7 @@ Comment[zh_TW]=允許從 Metalink 下載檔案
 X-KDE-Library=kget_metalinkfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=110
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Manolo Valdes
 X-KDE-PluginInfo-Email=nolis71cu@gmail.com
@@ -129,4 +127,3 @@ X-KDE-PluginInfo-Category=Service
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-PluginInfo-Name=kget_metalink_plugin
-

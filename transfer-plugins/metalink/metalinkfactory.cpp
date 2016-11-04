@@ -20,9 +20,8 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 
-K_PLUGIN_FACTORY(KGetFactory, 
-                 registerPlugin<MetalinkFactory>();
-)
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_metalinkfactory.json", registerPlugin<MetalinkFactory>();)
+
 MetalinkFactory::MetalinkFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {

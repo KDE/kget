@@ -20,13 +20,11 @@ ki18n_wrap_ui(kget_metalinkfactory_PART_SRCS
 )
 
 kconfig_add_kcfg_files(kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
-
 add_library(kget_metalinkfactory MODULE ${kget_metalinkfactory_PART_SRCS})
+kcoreaddons_desktop_to_json(kget_metalinkfactory kget_metalinkfactory.desktop)
+target_link_libraries(kget_metalinkfactory kgetcore)
 
-target_link_libraries(kget_metalinkfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} kgetcore)
-
-install(TARGETS kget_metalinkfactory DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES kget_metalinkfactory.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS kget_metalinkfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
 
 
 ###Build KCM-Module
@@ -41,7 +39,7 @@ dlgmetalink.ui
 
 kconfig_add_kcfg_files(kcm_kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
 add_library(kcm_kget_metalinkfactory MODULE ${kcm_kget_metalinkfactory_PART_SRCS})
-target_link_libraries(kcm_kget_metalinkfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::KDELibs4Support)
 install(TARGETS kcm_kget_metalinkfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 
 install(FILES kget_metalinkfactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})

@@ -26,9 +26,7 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 
-K_PLUGIN_FACTORY(KGetFactory, 
-                 registerPlugin<MmsTransferFactory>();
-)
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_mmsfactory.json", registerPlugin<MmsTransferFactory>();)
 
 MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

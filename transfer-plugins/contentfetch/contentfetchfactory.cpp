@@ -22,7 +22,7 @@
 
 #include <KDebug>
 
-KGET_EXPORT_PLUGIN( ContentFetchFactory )
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_contentfetchfactory.json", registerPlugin<ContentFetchFactory>();)
 
 ContentFetchFactory::ContentFetchFactory(QObject *parent,
                                          const QVariantList &args)

@@ -1,11 +1,8 @@
 [Desktop Entry]
-# service definition
 Type=Service
-ServiceTypes=KPluginInfo
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=application-x-bittorrent
 
-# standard fields
 Name=Bittorrent
 Name[ar]=بيت تورنت
 Name[ast]=Bittorrent
@@ -122,7 +119,7 @@ Comment[zh_TW]=允許使用 Bittorrent 下載檔案
 X-KDE-Library=kget_bittorrentfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=200
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Lukas Appelhans
 X-KDE-PluginInfo-Email=l.appelhans@gmx.de
