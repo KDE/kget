@@ -2,7 +2,7 @@ project(kget)
 
 cmake_minimum_required(VERSION 2.8.12)
 
-find_package(ECM REQUIRED NO_MODULE)
+find_package(ECM 5.14.0 REQUIRED NO_MODULE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -13,6 +13,7 @@ include(KDECompilerSettings)
 include(ECMInstallIcons)
 include(ECMMarkAsTest)
 include(GenerateExportHeader)
+include(ECMQtDeclareLoggingCategory)
 
 find_package(KF5 REQUIRED WidgetsAddons CoreAddons Solid Wallet 
                                             Config DBusAddons I18n ConfigWidgets Notifications KIO KDELibs4Support IconThemes KCMUtils NotifyConfig)
@@ -120,7 +121,6 @@ remove_definitions(-DQT_NO_HTTP)
 # kgetcore
 
 set(kgetcore_SRCS
-   kget_debug.cpp
    core/job.cpp
    core/jobqueue.cpp
    core/kget.cpp
@@ -161,6 +161,11 @@ set(kgetcore_SRCS
    core/mostlocalurl.cpp
    core/filedeleter.cpp
 )
+
+ecm_qt_declare_logging_category(kgetcore_SRCS
+                                HEADER kget_debug.h
+                                IDENTIFIER KGET_DEBUG
+                                CATEGORY_NAME kget)
 
 kconfig_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
