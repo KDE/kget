@@ -70,8 +70,8 @@ set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
                        TYPE REQUIRED)
 
 
-find_package(KF5Gpgmepp)
-set_package_properties(KF5Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgMEPP library" TYPE RECOMMENDED PURPOSE "GpgMEPP is required to have signature verifying support in KGet.") 
+find_package(Gpgmepp)
+set_package_properties(Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgME++ library" URL "http://www.gnupg.org" TYPE RECOMMENDED PURPOSE "GpgME++ is required to have signature verifying support in KGet.")
 
 find_package(LibKTorrent 1.9.50)
 set_package_properties(LIBKTORRENT_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.") 
@@ -98,12 +98,11 @@ if (Qca-qt5_FOUND)
 MESSAGE(STATUS "QCA found")
 endif()
 
-if(KF5Gpgmepp_FOUND)
-    find_package(Boost REQUIRED)
+find_package(Boost REQUIRED)
+
+if(Gpgmepp_FOUND)
+    find_package(QGpgme REQUIRED)
     add_definitions(-DHAVE_QGPGME)
-    include_directories(
-        ${Boost_INCLUDE_DIRS}
-    )
 endif()
 
 set (KGET_PLUGIN_INSTALL_DIR ${PLUGIN_INSTALL_DIR}/kget)
@@ -212,8 +211,8 @@ if (Qca-qt5_FOUND)
     target_link_libraries(kgetcore qca-qt5)
 endif ()
 
-if (KF5Gpgmepp_FOUND)
-    target_link_libraries(kgetcore KF5::QGpgme KF5::Gpgmepp)
+if (Gpgmepp_FOUND)
+    target_link_libraries(kgetcore QGpgme Gpgmepp)
     kde_enable_exceptions()
 endif()
 
@@ -313,9 +312,8 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
   target_link_libraries(kget Qt5::Test)
 endif()
 
-
-if (KF5QGpgme_FOUND)
-  target_link_libraries(kget KF5::QGpgme)
+if (QGpgme_FOUND)
+  target_link_libraries(kget QGpgme)
 endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})

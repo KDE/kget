@@ -83,7 +83,7 @@ GpgME::VerificationResult SignaturePrivate::verify(const QUrl &dest, const QByte
         return result;
     }
 
-    boost::shared_ptr<QFile> qFile(new QFile(dest.toDisplayString(QUrl::PreferLocalFile)));
+    std::shared_ptr<QFile> qFile(new QFile(dest.toDisplayString(QUrl::PreferLocalFile)));
     qFile->open(QIODevice::ReadOnly);
     QGpgME::QIODeviceDataProvider *file = new QGpgME::QIODeviceDataProvider(qFile);
     GpgME::Data dFile(file);
