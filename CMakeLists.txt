@@ -6,7 +6,7 @@ find_package(ECM 5.14.0 REQUIRED NO_MODULE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
 
-find_package(Qt5 5.2.0 REQUIRED CONFIG COMPONENTS Widgets Test Network Xml DBus Sql Test)
+find_package(Qt5 5.2.0 REQUIRED CONFIG COMPONENTS DBus Gui Network Sql Test Widgets Xml)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
@@ -15,8 +15,30 @@ include(ECMMarkAsTest)
 include(GenerateExportHeader)
 include(ECMQtDeclareLoggingCategory)
 
-find_package(KF5 REQUIRED WidgetsAddons CoreAddons Solid Wallet 
-                                            Config DBusAddons I18n ConfigWidgets Notifications KIO KDELibs4Support IconThemes KCMUtils NotifyConfig)
+find_package(KF5 REQUIRED
+    Completion
+    Config
+    ConfigWidgets
+    CoreAddons
+    DBusAddons
+    DocTools
+    I18n
+    IconThemes
+    ItemViews
+    KCMUtils
+    KDELibs4Support
+    KIO
+    Notifications
+    NotifyConfig
+    Parts
+    Service
+    Solid
+    TextWidgets
+    Wallet
+    WidgetsAddons
+    WindowSystem
+    XmlGui
+)
 
 #TODO: Check if we need all the dependencies
 
@@ -283,9 +305,12 @@ ki18n_wrap_ui(kget_SRCS
 
 add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus Qt5::Test KF5::Wallet KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KCMUtils KF5::NotifyConfig KF5::KDELibs4Support kgetcore)
+target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Wallet KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KCMUtils KF5::NotifyConfig KF5::KDELibs4Support kgetcore)
 if(Qca_FOUND)
   target_link_libraries(kget qca)
+endif()
+if(CMAKE_BUILD_TYPE MATCHES debugfull)
+  target_link_libraries(kget Qt5::Test)
 endif()
 
 

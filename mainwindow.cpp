@@ -61,7 +61,9 @@
 #include <QClipboard>
 #include <QTimer>
 #include <QKeySequence>
-#include <QtTest>
+#ifdef DO_KGET_TEST
+    #include <QtTest>
+#endif
 
 MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doTesting, QWidget *parent)
     : KXmlGuiWindow( parent ),
