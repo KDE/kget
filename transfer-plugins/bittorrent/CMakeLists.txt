@@ -5,7 +5,7 @@ kde_enable_exceptions()
 
 include_directories(
     ../../
-    ${LIBKTORRENT_INCLUDE_DIR}
+    KF5::Torrent
 )
 set(kget_bittorrentfactory_PART_SRCS
     bttransfer.cpp
@@ -46,7 +46,7 @@ kconfig_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc
 add_library(kget_bittorrent MODULE ${kget_bittorrentfactory_PART_SRCS})
 kcoreaddons_desktop_to_json(kget_bittorrent kget_bittorrentfactory.desktop)
 
-target_link_libraries(kget_bittorrent KF5::KIOCore ${LIBKTORRENT_LIBRARIES} kgetcore)
+target_link_libraries(kget_bittorrent KF5::KIOCore KF5::Torrent kgetcore)
 install(TARGETS kget_bittorrent DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})
 
 ###Build KCM-Module
