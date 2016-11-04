@@ -22,7 +22,7 @@
 PluginSelector::PluginSelector(QDialog * parent)
   : KPluginSelector(parent)
 {
-    KPluginInfo::List offers = KPluginTrader::self()->query("KMyApp/Plugin", "kf5");
+    KPluginInfo::List offers = KGet::self()->pluginInfos();
 
 
     addPlugins(offers, KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig());

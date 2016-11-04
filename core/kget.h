@@ -24,6 +24,7 @@
 #include <KNotification>
 #include <ktabwidget.h>
 #include <klocalizedstring.h>
+#include <KPluginInfo>
 
 #include <QNetworkConfigurationManager>
 #include <QDomElement>
@@ -230,6 +231,11 @@ class KGET_EXPORT KGet
         static QList<TransferFactory*> factories();
 
         /**
+         * @returns a list of pluginInfos associated with all transferFactories
+         */
+        static KPluginInfo::List pluginInfos();
+
+        /**
          * @returns The factory of a given transfer
          *
          * @param transfer the transfer about which we want to have the factory
@@ -421,6 +427,7 @@ class KGET_EXPORT KGet
         static TransferTreeSelectionModel * m_selectionModel;
 
         //Lists of available plugins
+        static KPluginInfo::List m_pluginInfoList;
         static QList<TransferFactory *> m_transferFactories;
 
         //pointer to the Main window

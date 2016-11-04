@@ -618,6 +618,11 @@ QList<TransferFactory*> KGet::factories()
     return m_transferFactories;
 }
 
+KPluginInfo::List KGet::pluginInfos()
+{
+    return m_pluginInfoList;
+}
+
 TransferFactory * KGet::factory(TransferHandler * transfer)
 {
     return transfer->m_transfer->factory();
@@ -799,6 +804,7 @@ void KGet::calculateGlobalUploadLimit()
 TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
+KPluginInfo::List KGet::m_pluginInfoList;
 TransferGroupScheduler * KGet::m_scheduler = 0;
 MainWindow * KGet::m_mainWindow = 0;
 KUiServerJobs * KGet::m_jobManager = 0;
@@ -1127,6 +1133,7 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
 void KGet::loadPlugins()
 {
     m_transferFactories.clear();
+    m_pluginInfoList.clear();
 
     // TransferFactory plugins
     const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData& md) {
@@ -1174,6 +1181,7 @@ void KGet::loadPlugins()
             const QString pluginName = info.name();
 
             pluginList.prepend(plugin);
+            m_pluginInfoList.prepend(info);
             qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName()
                          << ") found and added to the list of available plugins";
         }
