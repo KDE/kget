@@ -1,7 +1,6 @@
 [Desktop Entry]
-# service definition
 Type=Service
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=kget
 
 # standard fields
@@ -123,7 +122,7 @@ Comment[zh_TW]=傳統檔案下載外掛程式
 X-KDE-Library=kget_kiofactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=50
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Dario Massarin
 X-KDE-PluginInfo-Email=nekkar@libero.it
@@ -132,4 +131,3 @@ X-KDE-PluginInfo-Category=Service
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-PluginInfo-Name=kget_kio_plugin
-
