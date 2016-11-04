@@ -51,7 +51,7 @@ set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
 find_package(KF5Gpgmepp)
 set_package_properties(KF5Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgMEPP library" TYPE RECOMMENDED PURPOSE "GpgMEPP is required to have signature verifying support in KGet.") 
 
-find_package(LibKTorrent 1.9.50 CONFIG REQUIRED)
+find_package(LibKTorrent 1.9.50)
 set_package_properties(LIBKTORRENT_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.") 
 
 find_package(LibMms QUIET)
