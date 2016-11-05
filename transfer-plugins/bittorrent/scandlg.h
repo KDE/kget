@@ -25,11 +25,7 @@
 #include <QMutex>
 #include <KDialog>
 #include <version.h>
-#if LIBKTORRENT_VERSION >= 0x010100
 #include <torrent/job.h>
-#else
-#include <datachecker/datacheckerlistener.h>
-#endif
 #include "ui_scandlg.h"
 
 namespace bt
@@ -41,7 +37,6 @@ namespace kt
 {
 	class TorrentInterface;
 
-#if LIBKTORRENT_VERSION >= 0x010100
 	class ScanDlg : public KDialog
 	{
 		Q_OBJECT
@@ -72,63 +67,6 @@ namespace kt
 		QLabel *m_chunks_not_downloaded;
 		QLabel *m_chunks_downloaded;
 	};
-#else
-	class ScanDlg : public KDialog,public bt::DataCheckerListener
-	{
-		Q_OBJECT
-	public:
-		ScanDlg(QWidget* parent);
-		virtual ~ScanDlg();
-
-		/// Starts the scan threadvent(QC
-		void execute(bt::TorrentInterface* tc,bool silently);
-
-	protected:
-		/// Update progress info, runs in scan threadnted"))
-		virtual void progress(bt::Uint32 num,bt::Uint32 total);
-		 
-		/// Update status info, runs in scan thread
-		virtual void status(bt::Uint32 failed,bt::Uint32 found,bt::Uint32 downloaded,bt::Uint32 not_downloaded);
-		
-		/// Scan finished, runs in app thread
-		virtual void finished();
-		 
-		/// Handle the close event
-		virtual void closeEvent(QCloseEvent* e);
-        
-        virtual void error(const QString&);
-
-	protected slots:
-		virtual void reject();
-		virtual void accept();
-		void onCancelPressed();
-		/// Updates the GUI in app thread
-		void update();
-		void scan();
-
-	private:
-		bt::TorrentInterface* tc;
-		QMutex mutex;
-		QTimer timer;
-		bt::Uint32 num_chunks;
-		bt::Uint32 total_chunks;
-		bt::Uint32 num_downloaded;
-		bt::Uint32 num_failed;
-		bt::Uint32 num_found;
-		bt::Uint32 num_not_downloaded;
-		bool silently;
-		bool restart;
-		int qm_priority;
-		bool scanning;
-		QProgressBar *m_progress;
-		QPushButton *m_cancel;
-		QLabel *m_torrent_label;
-		QLabel *m_chunks_failed;
-		QLabel *m_chunks_found;
-		QLabel *m_chunks_not_downloaded;
-		QLabel *m_chunks_downloaded;
-	};
-#endif
 }
 
 #endif

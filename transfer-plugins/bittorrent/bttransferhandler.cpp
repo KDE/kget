@@ -71,31 +71,7 @@ void BTTransferHandler::createScanDlg()
 {
     if (!torrentControl())
         return;
-#if LIBKTORRENT_VERSION < 0x010100
-    if (scanDlg)
-    {
-        scanDlg->stop();
-        scanDlg->close();
-    }
-#endif
 
-#if LIBKTORRENT_VERSION >= 0x010200
     scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), 0);//TODO: Maybe start/stop it
     scanDlg->exec();
-#elif LIBKTORRENT_VERSION >= 0x010100
-    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false), 0);//TODO: Maybe start/stop it
-    scanDlg->exec();
-#else
-    scanDlg = new kt::ScanDlg(0);
-    scanDlg->show();
-    scanDlg->execute(torrentControl(), false);
-    connect(scanDlg, SIGNAL(finished(int)), SLOT(removeScanDlg()));
-#endif
 }
-#if LIBKTORRENT_VERSION < 0x010100
-void BTTransferHandler::removeScanDlg()
-{
-    qCDebug(KGET_DEBUG);
-    scanDlg = 0;
-}
-#endif

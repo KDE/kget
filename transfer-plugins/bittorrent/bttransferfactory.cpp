@@ -27,13 +27,11 @@ K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_bittorrentfactory.json", registerP
 BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {
-#if LIBKTORRENT_VERSION >= 0x010100
     if (!bt::InitLibKTorrent())
     {
         qCCritical(KGET_DEBUG) << "Failed to initialize libktorrent";
         KGet::showNotification(0, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
     }
-#endif
 }
 
 BTTransferFactory::~BTTransferFactory()
