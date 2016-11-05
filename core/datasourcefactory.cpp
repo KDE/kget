@@ -1012,12 +1012,12 @@ void DataSourceFactory::load(const QDomElement *element)
     const QDomNodeList chunkList = chunks.elementsByTagName("chunk");
 
     const quint32 numBits = chunks.attribute("numBits").toInt();
-    const quint32 numBytes = chunks.attribute("numBytes").toInt();
+    const int numBytes = chunks.attribute("numBytes").toInt();
     QVarLengthArray<quint8> data(numBytes);
 
     if (numBytes && (numBytes == chunkList.length()))
     {
-        for (quint32 i = 0; i < numBytes; ++i)
+        for (int i = 0; i < numBytes; ++i)
         {
             const quint8 value = chunkList.at(i).toElement().text().toInt();
             data[i] = value;

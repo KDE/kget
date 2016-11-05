@@ -122,11 +122,15 @@ QHash<QUrl, QPair<bool, int> > Transfer::availableMirrors(const QUrl &file) cons
 void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit)
+    {
         m_visibleUploadLimit = ulLimit;
         if (ulLimit < m_uploadLimit || m_uploadLimit == 0)
             m_uploadLimit = ulLimit;
+    }
     else
+    {
         m_uploadLimit = ulLimit;
+    }
 
     setSpeedLimits(m_uploadLimit, m_downloadLimit);
 }
@@ -134,11 +138,15 @@ void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 void Transfer::setDownloadLimit(int dlLimit, SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit)
+    {
         m_visibleDownloadLimit = dlLimit;
         if (dlLimit < m_downloadLimit || m_downloadLimit == 0)
             m_downloadLimit = dlLimit;
+    }
     else
+    {
         m_downloadLimit = dlLimit;
+    }
 
     setSpeedLimits(m_uploadLimit, m_downloadLimit);
 }

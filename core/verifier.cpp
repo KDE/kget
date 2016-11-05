@@ -605,7 +605,7 @@ void Verifier::load(const QDomElement &e)
     QDomElement verification = e.firstChildElement("verification");
     QDomNodeList const hashList = verification.elementsByTagName("hash");
 
-    for (uint i = 0; i < hashList.length(); ++i)
+    for (int i = 0; i < hashList.length(); ++i)
     {
         const QDomElement hash = hashList.item(i).toElement();
         const QString value = hash.text();
@@ -619,7 +619,7 @@ void Verifier::load(const QDomElement &e)
 
     QDomNodeList const piecesList = verification.elementsByTagName("pieces");
 
-    for (uint i = 0; i < piecesList.length(); ++i)
+    for (int i = 0; i < piecesList.length(); ++i)
     {
         QDomElement pieces = piecesList.at(i).toElement();
 
@@ -628,9 +628,9 @@ void Verifier::load(const QDomElement &e)
         QStringList partialChecksums;
 
         const QDomNodeList partialHashList = pieces.elementsByTagName("hash");
-        for (int i = 0; i < partialHashList.size(); ++i)//TODO give this function the size of the file, to calculate how many hashs are needed as an additional check, do that check in addPartialChecksums?!
+        for (int j = 0; j < partialHashList.size(); ++j)//TODO give this function the size of the file, to calculate how many hashs are needed as an additional check, do that check in addPartialChecksums?!
         {
-            const QString hash = partialHashList.at(i).toElement().text();
+            const QString hash = partialHashList.at(j).toElement().text();
             if (hash.isEmpty())
             {
                 break;
