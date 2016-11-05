@@ -70,7 +70,7 @@ set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
                        TYPE REQUIRED)
 
 
-find_package(Gpgmepp)
+find_package(Gpgmepp 1.7.0)
 set_package_properties(Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgME++ library" URL "http://www.gnupg.org" TYPE RECOMMENDED PURPOSE "GpgME++ is required to have signature verifying support in KGet.")
 
 find_package(KF5Torrent 1.9.50)
