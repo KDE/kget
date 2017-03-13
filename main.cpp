@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 {
     K4AboutData aboutData("kget", 0, ki18n("KGet"),
                          QByteArray("2.95.0"),//+ QByteArray::number(KDE_VERSION_MINOR) + '.' + QByteArray::number(KDE_VERSION_RELEASE)),
-                         ki18n("An advanced download manager for KDE"),
+                         ki18n("An advanced download manager by KDE"),
                          K4AboutData::License_GPL,
                          ki18n("(C) 2005 - 2014, The KGet developers\n"
                          "(C) 2001 - 2002, Patrick Charbonnier\n"
