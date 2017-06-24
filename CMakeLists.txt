@@ -10,7 +10,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_D
 find_package(Qt5 5.2.0 REQUIRED CONFIG COMPONENTS DBus Gui Network Sql Test Widgets Xml)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(ECMMarkAsTest)
 include(GenerateExportHeader)
