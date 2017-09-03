@@ -74,8 +74,8 @@ set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
 find_package(Gpgmepp 1.7.0)
 set_package_properties(Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgME++ library" URL "http://www.gnupg.org" TYPE RECOMMENDED PURPOSE "GpgME++ is required to have signature verifying support in KGet.")
 
-find_package(KF5Torrent 1.9.50)
-set_package_properties(KF5TORRENT_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.")
+find_package(KF5Torrent 2.1)
+set_package_properties(KF5Torrent_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.")
 
 find_package(LibMms QUIET)
 set_package_properties(LIBMMS_FOUND PROPERTIES DESCRIPTION "Library to read mms streams" TYPE RECOMMENDED PURPOSE "Needed to build KGet mms support.") 

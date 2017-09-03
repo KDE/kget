@@ -5,7 +5,6 @@ kde_enable_exceptions()
 
 include_directories(
     ../../
-    KF5::Torrent
 )
 set(kget_bittorrentfactory_PART_SRCS
     bttransfer.cpp
