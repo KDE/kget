@@ -1167,6 +1167,7 @@ void KGet::loadPlugins()
     {
         KPluginInfo info(md);
         info.load(plugins);
+        m_pluginInfoList.prepend(info);
 
         if (!info.isPluginEnabled())
         {
@@ -1181,7 +1182,6 @@ void KGet::loadPlugins()
             const QString pluginName = info.name();
 
             pluginList.prepend(plugin);
-            m_pluginInfoList.prepend(info);
             qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName()
                          << ") found and added to the list of available plugins";
         }
