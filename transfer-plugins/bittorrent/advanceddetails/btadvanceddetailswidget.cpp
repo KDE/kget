@@ -23,7 +23,8 @@
 #include "trackerview.h"
 #include "webseedstab.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kglobal.h>
 #include <kdialog.h>
 #include <ktabwidget.h>

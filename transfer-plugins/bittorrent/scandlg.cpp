@@ -45,7 +45,7 @@ namespace kt
         m_chunks_not_downloaded = ui.chunks_not_downloaded;
         m_progress = ui.progress;
         m_cancel = ui.cancel;
-        m_cancel->setGuiItem(KStandardGuiItem::cancel());
+        KGuiItem::assign(m_cancel, KStandardGuiItem::cancel());
         connect(m_cancel,SIGNAL(clicked()),this,SLOT(reject()));
         m_progress->setMaximum(100);
         m_progress->setValue(0);

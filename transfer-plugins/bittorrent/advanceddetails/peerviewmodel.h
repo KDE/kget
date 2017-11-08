@@ -73,7 +73,7 @@ namespace kt
 			bt::PeerInterface* peer;
 			mutable bt::PeerInterface::Stats stats;
 			QString country;
-			KIcon flag;
+			QIcon flag;
 			
 			Item(bt::PeerInterface* peer);
 			

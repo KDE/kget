@@ -200,7 +200,7 @@ namespace kt
 				break;
 			case 1: return flag;
 			case 8: return stats.dht_support ? yes : no;
-			case 10: return stats.has_upload_slot ? yes : QIcon::fromTheme();
+			case 10: return stats.has_upload_slot ? yes : QIcon();
 		}
 		
 		return QVariant();

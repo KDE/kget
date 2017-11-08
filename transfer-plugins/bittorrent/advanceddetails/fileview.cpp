@@ -219,7 +219,7 @@ namespace kt
 	
 	void FileView::open()
 	{
-		new KRun(KUrl(preview_path), 0, 0, true, true);
+		new KRun(QUrl(preview_path), nullptr, true);
 	}
 	
 	void FileView::changePriority(bt::Priority newpriority)
@@ -277,7 +277,7 @@ namespace kt
 			QModelIndexList sel = selectionModel()->selectedRows();
 			QMap<bt::TorrentFileInterface*,QString> moves;
 			
-			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///saveTorrentData"),
+			QString dir = KFileDialog::getExistingDirectory(QUrl("kfiledialog:///saveTorrentData"),
 					this,i18n("Select a directory to move the data to."));
 			if (dir.isNull())
 				return;
@@ -298,7 +298,7 @@ namespace kt
 		}
 		else
 		{
-			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///saveTorrentData"),
+			QString dir = KFileDialog::getExistingDirectory(QUrl("kfiledialog:///saveTorrentData"),
 					this,i18n("Select a directory to move the data to."));
 			if (dir.isNull())
 				return;
@@ -352,17 +352,17 @@ namespace kt
 			if (!file)
 			{
 				// directory
-				new KRun(KUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), 0, 0, true, true);
+				new KRun(QUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), nullptr, true);
 			}
 			else
 			{
 				// file
-				new KRun(KUrl(file->getPathOnDisk()), 0, 0, true, true);
+				new KRun(QUrl(file->getPathOnDisk()), nullptr, true);
 			}
 		}
 		else
 		{
-			new KRun(KUrl(curr_tc->getStats().output_path), 0, 0, true, true);
+			new KRun(QUrl(curr_tc->getStats().output_path), nullptr, true);
 		}
 	}
 	

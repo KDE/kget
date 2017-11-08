@@ -23,6 +23,7 @@
 
 #include "ui_trackerview.h"
 #include <QSortFilterProxyModel>
+#include <KSharedConfig>
 
 namespace bt
 {

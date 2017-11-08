@@ -17,7 +17,8 @@
 #include "btdetailswidget.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <util/functions.h>
 #include <version.h>
 #include <torrent/job.h>
@@ -38,7 +39,7 @@ BTTransferFactory::~BTTransferFactory()
 {
 }
 
-Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * BTTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl,
                                               TransferGroup * parent,
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
@@ -98,7 +99,7 @@ const QList<QAction *> BTTransferFactory::actions(TransferHandler *handler)
          return QList<QAction *>();
 }
 
-TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource * BTTransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
@@ -108,7 +109,9 @@ TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &src
     return 0;
 }
 
-bool BTTransferFactory::isSupported(const KUrl &url) const
+bool BTTransferFactory::isSupported(const QUrl &url) const
 {
     return url.url().endsWith(QLatin1String(".torrent"));
 }
+
+#include "bttransferfactory.moc"

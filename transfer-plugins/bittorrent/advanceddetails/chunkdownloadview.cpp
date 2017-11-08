@@ -22,6 +22,7 @@
 
 #include <QHeaderView>
 #include <QSortFilterProxyModel>
+#include <KConfigGroup>
 #include <klocale.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>

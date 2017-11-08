@@ -255,7 +255,7 @@ namespace kt
 		if (file)
 			return;
 		
-		enc->write("expanded");
+		enc->write(QByteArray("expanded"));
 		enc->write((Uint32)(tv->isExpanded(pm->mapFromSource(index)) ? 1 : 0));
 		
 		int idx = 0;
@@ -263,7 +263,7 @@ namespace kt
 		{
 			if (!n->file)
 			{
-				enc->write(n->name);
+				enc->write(n->name.toUtf8());
 				enc->beginDict();
 				n->saveExpandedState(index.child(idx,0),pm,tv,enc);
 				enc->end();
@@ -281,7 +281,7 @@ namespace kt
 		if (!dict)
 			return;
 		
-		BValueNode* v = dict->getValue("expanded");
+		BValueNode* v = dict->getValue(QByteArray("expanded"));
 		if (v)
 			tv->setExpanded(pm->mapFromSource(index),v->data().toInt() == 1);
 		
@@ -290,7 +290,7 @@ namespace kt
 		{
 			if (!n->file)
 			{
-				BDictNode* d = dict->getDict(n->name);
+				BDictNode* d = dict->getDict(n->name.toUtf8());
 				if (d)
 					n->loadExpandedState(index.child(idx,0),pm,tv,d);
 			}

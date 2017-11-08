@@ -13,7 +13,8 @@
 #include "bttransferhandler.h"
 #include "ui_btdetailswidgetfrm.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <QDebug>
 #include <KFormat>
 
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
@@ -22,8 +23,8 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     setupUi(this);
 
     // Update the view with the correct values
-    srcEdit->setText(transfer->source().pathOrUrl());
-    destEdit->setText(transfer->dest().pathOrUrl());
+    srcEdit->setText(transfer->source().toDisplayString(QUrl::PreferLocalFile));
+    destEdit->setText(transfer->dest().toDisplayString(QUrl::PreferLocalFile));
 
     seederLabel->setText(i18nc("not available", "n/a"));
     leecherLabel->setText(i18nc("not available", "n/a"));
@@ -80,7 +81,7 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
         progressBar->setValue(m_transfer->percent());
 
     if(flags & Transfer::Tc_FileName)
-        destEdit->setText(m_transfer->dest().pathOrUrl());
+        destEdit->setText(m_transfer->dest().toDisplayString(QUrl::PreferLocalFile));
 }
 
 void BTDetailsWidget::showEvent(QShowEvent * event)

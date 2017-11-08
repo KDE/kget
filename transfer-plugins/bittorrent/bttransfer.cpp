@@ -31,12 +31,13 @@
 #include <utp/utpserver.h>
 #include <version.h>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <QDebug>
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIO/CopyJob>
 #include <KStandardDirs>
-#include <KUrl>
+#include <QUrl>
 #include <KMessageBox>
 
 #include <QFile>
@@ -49,7 +50,7 @@
 #endif
 
 BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
-               Scheduler* scheduler, const KUrl& src, const KUrl& dest,
+               Scheduler* scheduler, const QUrl &src, const QUrl& dest,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
     torrent(0),
@@ -60,7 +61,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_fileModel(0),
     m_updateCounter(0)
 {
-    m_directory = m_dest.upUrl();//FIXME test
+    m_directory = KIO::upUrl(m_dest);//FIXME test
 
     setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming | Transfer::Cap_SpeedLimit);
 }
@@ -133,7 +134,7 @@ void BTTransfer::start()
             setTransferChange(Tc_Status, true);
 
             //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
-            connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(btTransferInit(KUrl,QByteArray)));
+            connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(btTransferInit(QUrl,QByteArray)));
         }
         else
             btTransferInit();
@@ -142,20 +143,22 @@ void BTTransfer::start()
         startTorrent();
 }
 
-bool BTTransfer::setDirectory(const KUrl &newDirectory)
+bool BTTransfer::setDirectory(const QUrl &newDirectory)
 {
     //check if the newDestination is the same as the old
-    KUrl temp = newDirectory;
-    temp.addPath(torrent->getStats().torrent_name);
+    QUrl temp = newDirectory;
+    temp = temp.adjusted(QUrl::StripTrailingSlash);
+    temp.setPath(temp.path() + '/' + (torrent->getStats().torrent_name));
     if (newDirectory.isValid() && (newDirectory != dest()) && (temp != dest()))
     {
-        if (torrent->changeOutputDir(newDirectory.pathOrUrl(), bt::TorrentInterface::MOVE_FILES))
+        if (torrent->changeOutputDir(newDirectory.url(QUrl::PreferLocalFile), bt::TorrentInterface::MOVE_FILES))
         {
             connect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*,bool&)), this, SLOT(newDestResult()));
             m_movingFile = true;
             m_directory = newDirectory;
             m_dest = m_directory;
-            m_dest.addPath(torrent->getStats().torrent_name);
+            m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
+            m_dest.setPath(m_dest.path() + '/' + (torrent->getStats().torrent_name));
 
             setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
             setTransferChange(Tc_Status, true);
@@ -252,7 +255,7 @@ void BTTransfer::addTracker(const QString &url)
         return;
     }
 
-    if(!KUrl(url).isValid()) {
+    if(!QUrl(url).isValid()) {
        KMessageBox::error(0, i18n("Malformed URL."));
        return;
     }
@@ -353,8 +356,8 @@ void BTTransfer::updateFilesStatus()
     const bt::TorrentStats *stats = &torrent->getStats();
     if (stats->multi_file_torrent)
     {
-        QHash<KUrl, bt::TorrentFileInterface*>::const_iterator it;
-        QHash<KUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
+        QHash<QUrl, bt::TorrentFileInterface*>::const_iterator it;
+        QHash<QUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
         for (it = m_files.constBegin(); it != itEnd; ++it)
         {
             QModelIndex status = m_fileModel->index(it.key(), FileItem::Status);
@@ -399,7 +402,7 @@ void BTTransfer::updateFilesStatus()
     }
 }
 
-void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
+void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
 {
     Q_UNUSED(data)
     qCDebug(KGET_DEBUG);
@@ -419,7 +422,7 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"), false, false);//initialize the torrent-log
 
-    bt::SetClientInfo("KGet", 2, KDE_VERSION_MINOR, KDE_VERSION_RELEASE, bt::NORMAL, "KG");//Set client info to KGet
+    bt::SetClientInfo("KGet", 2, 95, 0, bt::NORMAL, "KG");//Set client info to KGet TODO: don't hardcode version number
 
     bt::Uint16 i = 0;
     while (!bt::Globals::instance().initTCPServer(BittorrentSettings::port() + i) && i < 10)
@@ -452,12 +455,14 @@ void BTTransfer::btTransferInit(const KUrl &src, const QByteArray &data)
         m_ready = true;
 
         kDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
-        torrent->init(0, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), KUrl(m_dest.directory()).toLocalFile());
+        m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
+        torrent->init(0, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
 
         m_dest = torrent->getStats().output_path;
         if (!torrent->getStats().multi_file_torrent && (m_dest.fileName() != torrent->getStats().torrent_name))//TODO check if this is needed, so if that case is true at some point
         {
-            m_dest.addPath(torrent->getStats().torrent_name);
+            m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
+            m_dest.setPath(m_dest.path() + '/' + (torrent->getStats().torrent_name));
         }
 
         torrent->createFiles();
@@ -500,12 +505,12 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
 }
 
 /**Property-Functions**/
-KUrl::List BTTransfer::trackersList() const
+QList<QUrl> BTTransfer::trackersList() const
 {
     if (!torrent)
-        return KUrl::List();
+        return QList<QUrl>();
 
-    KUrl::List trackers;
+    QList<QUrl> trackers;
     foreach (bt::TrackerInterface * tracker, torrent->getTrackersList()->getTrackers())
         trackers << tracker->trackerURL();
     return trackers;
@@ -661,9 +666,9 @@ void BTTransfer::destroyed()
         static_cast<BTTransferHandler*>(handler())->torrentMonitor()->destroyed();
 }
 
-QList<KUrl> BTTransfer::files() const
+QList<QUrl> BTTransfer::files() const
 {
-    QList<KUrl> urls;
+    QList<QUrl> urls;
 
     if (!torrent)
     {
@@ -676,16 +681,17 @@ QList<KUrl> BTTransfer::files() const
         for (uint i = 0; i < torrent->getNumFiles(); ++i)
         {
             const QString path = torrent->getTorrentFile(i).getPathOnDisk();
-            urls.append(KUrl(path));
+            urls.append(QUrl(path));
         }
     }
     //one single file
     else
     {
-        KUrl temp = m_dest;
+        QUrl temp = m_dest;
         if (m_dest.fileName() != torrent->getStats().torrent_name)//TODO check if the body is ever entered!
         {
-            temp.addPath(torrent->getStats().torrent_name);
+            temp = temp.adjusted(QUrl::StripTrailingSlash);
+            temp.setPath(temp.path() + '/' + (torrent->getStats().torrent_name));
         }
         urls.append(temp);
     }
@@ -718,7 +724,7 @@ void BTTransfer::filesSelected()
     {
         foreach (const QModelIndex &index, indexes)
         {
-            const KUrl dest = fileModel()->getUrl(index);
+            const QUrl dest = fileModel()->getUrl(index);
             const bool doDownload = index.data(Qt::CheckStateRole).toBool();
             bt::TorrentFileInterface *file = m_files[dest];
             file->setDoNotDownload(!doDownload);
@@ -743,15 +749,15 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
             for (bt::Uint32 i = 0; i < torrent->getNumFiles(); ++i)
             {
                 bt::TorrentFileInterface *file = &torrent->getTorrentFile(i);
-                m_files[KUrl(file->getPathOnDisk())] = file;
+                m_files[QUrl(file->getPathOnDisk())] = file;
             }
             m_fileModel = new FileModel(m_files.keys(), directory(), this);
-    //         connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+    //         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
             connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
 
             //set the checkstate, the status and the size of the model items
-            QHash<KUrl, bt::TorrentFileInterface*>::const_iterator it;
-            QHash<KUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
+            QHash<QUrl, bt::TorrentFileInterface*>::const_iterator it;
+            QHash<QUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
             const Job::Status curentStatus = this->status();
             for (it = m_files.constBegin(); it != itEnd; ++it)
             {
@@ -781,17 +787,18 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
         //one single file
         else
         {
-            QList<KUrl> urls;
-            KUrl temp = m_dest;
+            QList<QUrl> urls;
+            QUrl temp = m_dest;
             if (m_dest.fileName() != torrent->getStats().torrent_name)//TODO check if the body is ever entered!
             {
-                temp.addPath(torrent->getStats().torrent_name);
+                temp = temp.adjusted(QUrl::StripTrailingSlash);
+                temp.setPath(temp.path() + '/' + (torrent->getStats().torrent_name));
             }
-            const KUrl url = temp;
+            const QUrl url = temp;
             urls.append(url);
 
             m_fileModel = new FileModel(urls, directory(), this);
-            //         connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+            //         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
             connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
 
             QModelIndex size = m_fileModel->index(url, FileItem::Size);

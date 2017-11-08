@@ -29,11 +29,11 @@
 using namespace bt;
 
 
-BTDataSource::BTDataSource(const KUrl &srcUrl, QObject *parent)
+BTDataSource::BTDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent),
     m_offset(0),
     m_bytes(0),
-    m_torrentSource(KUrl())
+    m_torrentSource(QUrl())
 {
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"));//initialize the torrent-log
 
@@ -81,7 +81,7 @@ void BTDataSource::start()
     if (m_torrentSource.isEmpty())
     {
         Download *download = new Download(m_source, KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName());
-        connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(init(KUrl,QByteArray)));
+        connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(init(QUrl,QByteArray)));
     }
     else 
     {
@@ -121,7 +121,7 @@ void BTDataSource::update()
     tc->update();
 }
 
-void BTDataSource::init(const KUrl &torrentSource, const QByteArray &data)
+void BTDataSource::init(const QUrl &torrentSource, const QByteArray &data)
 {
     Q_UNUSED(data)
     m_torrentSource = torrentSource;

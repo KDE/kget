@@ -9,16 +9,17 @@
 */
 #include "btsettingswidget.h"
 
-#include "kget_export.h"
+#include "kget_macro.h"
 #include "bittorrentsettings.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kfiledialog.h>
 
 KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
 
 BTSettingsWidget::BTSettingsWidget(QWidget * parent, const QVariantList &args)
-  : KCModule(KGetFactory::componentData(), parent, args)
+  : KCModule(/*KGetFactory::componentData(),*/ parent, args)
 {
     setupUi(this);
 
@@ -34,9 +35,9 @@ BTSettingsWidget::BTSettingsWidget(QWidget * parent, const QVariantList &args)
 void BTSettingsWidget::load()
 {
     torrentEdit->setMode(KFile::Directory);
-    torrentEdit->fileDialog()->setCaption(i18n("Select a default torrent folder"));
+    torrentEdit->fileDialog()->setWindowTitle(i18n("Select a default torrent folder"));
     tempEdit->setMode(KFile::Directory);
-    tempEdit->fileDialog()->setCaption(i18n("Select a default temporary folder"));
+    tempEdit->fileDialog()->setWindowTitle(i18n("Select a default temporary folder"));
     defaults();
 }
 
@@ -65,5 +66,6 @@ void BTSettingsWidget::defaults()
     utpBox->setChecked(BittorrentSettings::enableUTP());
 }
 
+#include "btsettingswidget.moc"
 
  

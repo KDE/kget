@@ -27,6 +27,7 @@
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include <kinputdialog.h>
+#include <kconfiggroup.h>
 #include <torrent/globals.h>
 #include <interfaces/trackerinterface.h>
 #include <interfaces/torrentinterface.h>

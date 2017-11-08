@@ -14,7 +14,7 @@
 #include "core/transferdatasource.h"
 
 #include <kio/job.h>
-#include <KUrl>
+#include <QUrl>
 #include <QTimer>
 
 namespace bt
@@ -31,7 +31,7 @@ class BTDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
-        BTDataSource(const KUrl &srcUrl, QObject *parent);
+        BTDataSource(const QUrl &srcUrl, QObject *parent);
         ~BTDataSource();
 
         void start();
@@ -40,7 +40,7 @@ class BTDataSource : public TransferDataSource
         void getData(const KIO::fileoffset_t &off, const QByteArray &dataArray);
 
     private slots:
-        void init(const KUrl &torrentSource, const QByteArray &data);
+        void init(const QUrl &torrentSource, const QByteArray &data);
         void cacheAdded(BTCache *cache);
         void selectorAdded(BTChunkSelector *selector);
         void update();
@@ -53,7 +53,7 @@ class BTDataSource : public TransferDataSource
 
         KIO::fileoffset_t m_offset;
         KIO::fileoffset_t m_bytes;
-        KUrl m_torrentSource;
+        QUrl m_torrentSource;
         QTimer timer;
 };
 

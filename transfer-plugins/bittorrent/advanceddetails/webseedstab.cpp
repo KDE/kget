@@ -20,6 +20,7 @@
  ***************************************************************************/
 #include "webseedstab.h"
 #include <QHeaderView>
+#include <kconfiggroup.h>
 #include <kmessagebox.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/webseedinterface.h>
@@ -79,8 +80,8 @@ namespace kt
 		if (!curr_tc)
 			return;
 		
-		KUrl url(m_webseed->text());
-		if (curr_tc != 0 && url.isValid() && url.protocol() == "http")
+		QUrl url(m_webseed->text());
+		if (curr_tc != 0 && url.isValid() && url.scheme() == "http")
 		{
 			if (curr_tc->addWebSeed(url))
 			{
@@ -89,7 +90,7 @@ namespace kt
 			}
 			else
 			{
-				KMessageBox::error(this,i18n("Cannot add the webseed %1, it is already part of the list of webseeds.", url.prettyUrl()));
+				KMessageBox::error(this,i18n("Cannot add the webseed %1, it is already part of the list of webseeds.", url.toDisplayString()));
 			}
 		}
 	}
@@ -106,7 +107,7 @@ namespace kt
 			if (ws && ws->isUserCreated())
 			{
 				if (!curr_tc->removeWebSeed(ws->getUrl()))
-					KMessageBox::error(this,i18n("Cannot remove webseed %1, it is part of the torrent.", ws->getUrl().prettyUrl()));
+					KMessageBox::error(this,i18n("Cannot remove webseed %1, it is part of the torrent.", ws->getUrl().toDisplayString()));
 			}
 		}
 		
@@ -139,8 +140,8 @@ namespace kt
 	
 	void WebSeedsTab::onWebSeedTextChanged(const QString & ws)
 	{
-		KUrl url(ws);
-		m_add->setEnabled(curr_tc != 0 && url.isValid() && url.protocol() == "http");
+		QUrl url(ws);
+		m_add->setEnabled(curr_tc != 0 && url.isValid() && url.scheme() == "http");
 	}
 	
 	void WebSeedsTab::update()
