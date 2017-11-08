@@ -18,7 +18,7 @@ using namespace bt;
 //TODO: Support buffered mode?
 BTCache::BTCache(Torrent & tor,const QString & tmpdir,const QString & datadir)
   : Cache(tor, tmpdir, datadir),
-    QObject(0)
+    QObject(nullptr)
 {
 }
 

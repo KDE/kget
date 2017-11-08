@@ -30,7 +30,7 @@ namespace kt
 {
 
 	WebSeedsModel::WebSeedsModel(QObject* parent)
-			: QAbstractTableModel(parent),curr_tc(0)
+			: QAbstractTableModel(parent),curr_tc(nullptr)
 	{
 	}
 

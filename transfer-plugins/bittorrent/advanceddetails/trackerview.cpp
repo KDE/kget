@@ -43,7 +43,7 @@ namespace kt
 	
 	
 	TrackerView::TrackerView(QWidget *parent)
-		: QWidget(parent), tc(0)
+		: QWidget(parent), tc(nullptr)
 	{
 		setupUi(this);
 		model = new TrackerModel(this);
@@ -69,7 +69,7 @@ namespace kt
 		m_change_tracker->setIcon(QIcon::fromTheme("kt-change-tracker"));
 		
 		setEnabled(false);
-		torrentChanged(0);
+		torrentChanged(nullptr);
 	}
 	
 	TrackerView::~TrackerView()
@@ -92,14 +92,14 @@ namespace kt
 		KUrl url(text);
 		if (!url.isValid())
 		{
-			KMessageBox::error(0, i18n("Malformed URL."));
+			KMessageBox::error(nullptr, i18n("Malformed URL."));
 			return;
 		}
 			
 		// check for dupes
 		if (!tc->getTrackersList()->addTracker(url,true))
 		{
-			KMessageBox::sorry(0,i18n("There already is a tracker named <b>%1</b>.",text));
+			KMessageBox::sorry(nullptr,i18n("There already is a tracker named <b>%1</b>.",text));
 		}
 		else
 		{
@@ -156,7 +156,7 @@ namespace kt
 		if (tc == ti)
 			return;
 		
-		setEnabled(ti != 0);
+		setEnabled(ti != nullptr);
 		torrentChanged(ti);
 		update();
 	}
@@ -177,7 +177,7 @@ namespace kt
 			m_restore_defaults->setEnabled(false);
 			m_change_tracker->setEnabled(false);
 			m_scrape->setEnabled(false);
-			model->changeTC(0);
+			model->changeTC(nullptr);
 		}
 		else
 		{

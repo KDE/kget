@@ -104,9 +104,9 @@ namespace kt
 		}
 		proxy_model->setSourceModel(0);
 		delete model;
-		model = 0;
+		model = nullptr;
 		curr_tc = tc;
-		setEnabled(tc != 0);
+		setEnabled(tc != nullptr);
 		if (tc)
 		{
 			connect(tc,SIGNAL(missingFilesMarkedDND(bt::TorrentInterface*)),
@@ -129,7 +129,7 @@ namespace kt
 		else
 		{
 			proxy_model->setSourceModel(0);
-			model = 0;
+			model = nullptr;
 		}
 	}
 	
@@ -266,7 +266,7 @@ namespace kt
 		QString msg = i18np("You will lose all data in this file, are you sure you want to do this?",
                             "You will lose all data in these files, are you sure you want to do this?", n);
 				
-		if (KMessageBox::warningYesNo(0,msg) == KMessageBox::Yes)
+		if (KMessageBox::warningYesNo(nullptr, msg) == KMessageBox::Yes)
 			changePriority(EXCLUDED);
 	}
 	
@@ -419,7 +419,7 @@ namespace kt
 		
 		proxy_model->setSourceModel(0);
 		delete model;
-		model = 0;
+		model = nullptr;
 			
 		if (show_list_of_files)
 			model = new IWFileListModel(curr_tc,this);

@@ -91,7 +91,7 @@ namespace kt
 	
 	QVariant IWFileTreeModel::data(const QModelIndex & index, int role) const
 	{
-		Node* n = 0;
+		Node* n = nullptr;
 		if (index.column() < 2 && role != Qt::ForegroundRole)
 			return TorrentFileTreeModel::data(index,role);
 		

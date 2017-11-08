@@ -28,7 +28,7 @@ namespace kt
 {
 
 	TrackerModel::TrackerModel(QObject* parent)
-			: QAbstractTableModel(parent),tc(0)
+			: QAbstractTableModel(parent),tc(nullptr)
 	{
 		running = false;
 	}

@@ -32,7 +32,7 @@ namespace kt
 {
 
 	WebSeedsTab::WebSeedsTab(QWidget* parent)
-			: QWidget(parent),curr_tc(0)
+			: QWidget(parent),curr_tc(nullptr)
 	{
 		setupUi(this);
 		connect(m_add,SIGNAL(clicked()),this,SLOT(addWebSeed()));
@@ -64,10 +64,10 @@ namespace kt
 	{
 		curr_tc = tc;
 		model->changeTC(tc);
-		m_add->setEnabled(curr_tc != 0);
-		m_remove->setEnabled(curr_tc != 0);
-		m_webseed_list->setEnabled(curr_tc != 0);
-		m_webseed->setEnabled(curr_tc != 0);
+		m_add->setEnabled(curr_tc != nullptr);
+		m_remove->setEnabled(curr_tc != nullptr);
+		m_webseed_list->setEnabled(curr_tc != nullptr);
+		m_webseed->setEnabled(curr_tc != nullptr);
 		onWebSeedTextChanged(m_webseed->text());
 		
 		// see if we need to enable or disable the remove button
@@ -141,7 +141,7 @@ namespace kt
 	void WebSeedsTab::onWebSeedTextChanged(const QString & ws)
 	{
 		QUrl url(ws);
-		m_add->setEnabled(curr_tc != 0 && url.isValid() && url.scheme() == "http");
+		m_add->setEnabled(curr_tc != nullptr && url.isValid() && url.scheme() == "http");
 	}
 	
 	void WebSeedsTab::update()

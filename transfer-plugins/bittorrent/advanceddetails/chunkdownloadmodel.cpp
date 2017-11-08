@@ -86,7 +86,7 @@ namespace kt
 	/////////////////////////////////////////////////////////////
 
 	ChunkDownloadModel::ChunkDownloadModel ( QObject* parent )
-			: QAbstractTableModel(parent),tc(0)
+			: QAbstractTableModel(parent),tc(nullptr)
 	{
 		sort_column = 0;
 		sort_order = Qt::AscendingOrder;

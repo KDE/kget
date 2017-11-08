@@ -53,12 +53,12 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                Scheduler* scheduler, const QUrl &src, const QUrl& dest,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
-    torrent(0),
+    torrent(nullptr),
     m_tmp(KStandardDirs::locateLocal("appdata", "tmp/")),
     m_ready(false),
     m_downloadFinished(false),
     m_movingFile(false),
-    m_fileModel(0),
+    m_fileModel(nullptr),
     m_updateCounter(0)
 {
     m_directory = KIO::upUrl(m_dest);//FIXME test
@@ -69,7 +69,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
 BTTransfer::~BTTransfer()
 {
     if (torrent && m_ready)
-        torrent->setMonitor(0);
+        torrent->setMonitor(nullptr);
 
     delete torrent;
 }
@@ -251,12 +251,12 @@ void BTTransfer::addTracker(const QString &url)
 {
     qCDebug(KGET_DEBUG);
     if(torrent->getStats().priv_torrent) {
-        KMessageBox::sorry(0, i18n("Cannot add a tracker to a private torrent."));
+        KMessageBox::sorry(nullptr, i18n("Cannot add a tracker to a private torrent."));
         return;
     }
 
     if(!QUrl(url).isValid()) {
-       KMessageBox::error(0, i18n("Malformed URL."));
+       KMessageBox::error(nullptr, i18n("Malformed URL."));
        return;
     }
 
@@ -288,7 +288,7 @@ void BTTransfer::startTorrent()
 void BTTransfer::stopTorrent()
 {
     torrent->stop();
-    torrent->setMonitor(0);
+    torrent->setMonitor(nullptr);
     m_downloadSpeed = 0;
     timer.stop();
 
@@ -456,7 +456,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
 
         kDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
         m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
-        torrent->init(0, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
+        torrent->init(nullptr, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
 
         m_dest = torrent->getStats().output_path;
         if (!torrent->getStats().multi_file_torrent && (m_dest.fileName() != torrent->getStats().torrent_name))//TODO check if this is needed, so if that case is true at some point
@@ -477,7 +477,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
     {
         m_ready = false;
         torrent->deleteLater();
-        torrent = 0;
+        torrent = nullptr;
         setError(err.toString(), SmallIcon("dialog-cancel"), Job::NotSolveable);
         setTransferChange(Tc_Status);
         return;

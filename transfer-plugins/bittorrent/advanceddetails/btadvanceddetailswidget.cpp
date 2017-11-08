@@ -73,7 +73,7 @@ void BTAdvancedDetailsWidget::init()
     webseeds_tab = new WebSeedsTab(this);
     webseeds_tab->changeTC(tc);
     tabWidget->insertTab(2, webseeds_tab, QIcon::fromTheme("network-server"), i18n("Webseeds"));
-    monitor = new Monitor(tc, 0, 0, file_view);
+    monitor = new Monitor(tc, nullptr, nullptr, file_view);
 }
 
 void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)

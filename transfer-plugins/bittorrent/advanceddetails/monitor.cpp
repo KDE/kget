@@ -85,7 +85,7 @@ namespace kt
 			pv->removeAll();
 		if (cdv)
 			cdv->removeAll();
-		tc = 0;
+		tc = nullptr;
 	}
 	
 	void Monitor::filePercentageChanged(bt::TorrentFileInterface* file,float percentage)

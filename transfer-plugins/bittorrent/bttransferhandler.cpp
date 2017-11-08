@@ -24,8 +24,8 @@ BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * schedule
     : TransferHandler(transfer, scheduler),
       m_transfer(transfer)
 {
-    advancedDetails = 0;
-    scanDlg = 0;
+    advancedDetails = nullptr;
+    scanDlg = nullptr;
 }
 
 BTTransferHandler::~BTTransferHandler()
@@ -48,7 +48,7 @@ void BTTransferHandler::createAdvancedDetails()
         connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
         if (m_transfer->torrentControl())
         {
-            m_transfer->torrentControl()->setMonitor(0);
+            m_transfer->torrentControl()->setMonitor(nullptr);
             m_transfer->torrentControl()->setMonitor(m_transfer);
         }
     }
@@ -57,7 +57,7 @@ void BTTransferHandler::createAdvancedDetails()
 void BTTransferHandler::removeAdvancedDetails()
 {
     advancedDetails->close();
-    advancedDetails = 0;
+    advancedDetails = nullptr;
 }
 
 kt::Monitor* BTTransferHandler::torrentMonitor() const
@@ -73,6 +73,6 @@ void BTTransferHandler::createScanDlg()
     if (!torrentControl())
         return;
 
-    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), 0);//TODO: Maybe start/stop it
+    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), nullptr);//TODO: Maybe start/stop it
     scanDlg->exec();
 }

@@ -64,7 +64,7 @@ namespace kt
 	{
         if (m_job) {
             m_job->kill(false);
-            m_job = 0;
+            m_job = nullptr;
         }
 		else
 		        accept();
@@ -74,7 +74,7 @@ namespace kt
 	{
 		if (m_job) {
 			m_job->kill(false);
-            m_job = 0;
+            m_job = nullptr;
         }
 		KDialog::reject();
 		deleteLater();
@@ -97,9 +97,9 @@ namespace kt
 	void ScanDlg::result(KJob *job)
 	{
         if (job->error() && job->error() != KIO::ERR_USER_CANCELED) {
-            KMessageBox::error(0,i18n("Error scanning data: %1",job->errorString()));
+            KMessageBox::error(nullptr,i18n("Error scanning data: %1",job->errorString()));
         }
-	    m_job = 0;
+	    m_job = nullptr;
         m_progress->setValue(100);
         disconnect(m_cancel,SIGNAL(clicked()),this,SLOT(reject()));
         connect(m_cancel,SIGNAL(clicked()),this,SLOT(accept()));
