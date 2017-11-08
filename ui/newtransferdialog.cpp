@@ -406,7 +406,7 @@ void NewTransferDialog::dialogAccepted()
     //set the last directory
     QString dir = m_destination.toLocalFile();
     if (!QFileInfo(dir).isDir()) {
-        dir = m_destination.adjusted(QUrl::RemoveFilename).toString();
+        dir = m_destination.adjusted(QUrl::RemoveFilename).toLocalFile();
     }
     Settings::setLastDirectory(dir);
     Settings::self()->save();
