@@ -10,7 +10,7 @@
 
 #include "dlgmirrorsearch.h"
 
-#include "kget_export.h"
+#include "kget_macro.h"
 #include "mirrorsearchsettings.h"
 
 #include "kget_debug.h"
@@ -55,7 +55,7 @@ QString DlgEngineEditing::engineUrl() const
     return ui.urlEdit->text();
 }
 
-//PORT QT5 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
+KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
     : KCModule(/*KGetFactory::componentData(),*/ parent, args)
@@ -140,3 +140,4 @@ void DlgSettingsWidget::save()
     MirrorSearchSettings::self()->save();
 }
 
+#include "dlgmirrorsearch.moc"
