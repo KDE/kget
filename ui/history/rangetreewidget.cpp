@@ -288,7 +288,7 @@ void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionVie
         QStyledItemDelegate::paint(painter, option, index);
     }
     else if(index.isValid()) {
-        QStyleOptionViewItemV4 opt(option);
+        QStyleOptionViewItem opt(option);
         QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
         style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
