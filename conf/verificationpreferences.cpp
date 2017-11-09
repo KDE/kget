@@ -23,7 +23,7 @@
 #include <KConfigDialog>
 #include <KDialog>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KUrlRequester>
 
 VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f)
@@ -40,10 +40,10 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
     ui.signatureGroup->hide();
 #endif
 
-    connect(ui.keyservers,SIGNAL(changed()),this,SIGNAL(changed()));
+    connect(ui.keyservers, &KEditListWidget::changed, this, &VerificationPreferences::changed);
     connect(parent, SIGNAL(accepted()), SLOT(slotAccpeted()));
     connect(parent, SIGNAL(rejected()), SLOT(slotRejected()));
-    connect(parent, SIGNAL(defaultClicked()), SLOT(slotDefaultClicked()));
+    connect(parent, SIGNAL(resetDefaults()), SLOT(slotDefaultClicked()));
 }
 
 void VerificationPreferences::slotAccpeted()
@@ -51,7 +51,7 @@ void VerificationPreferences::slotAccpeted()
     ui.keyservers->lineEdit()->clear();
     m_tempKeyServers = ui.keyservers->items();
     Settings::self()->setSignatureKeyServers(m_tempKeyServers);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void VerificationPreferences::slotRejected()
@@ -72,4 +72,4 @@ void VerificationPreferences::slotDefaultClicked()
     }
 }
 
-#include "verificationpreferences.moc"
+

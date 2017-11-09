@@ -36,7 +36,7 @@ class ChecksumSearchController : public QObject
 {
     Q_OBJECT
     public:
-        ChecksumSearchController(QObject *parent = 0);
+        ChecksumSearchController(QObject *parent = nullptr);
         ~ChecksumSearchController();
 
         /**
@@ -46,30 +46,30 @@ class ChecksumSearchController : public QObject
          * @param search ChecksumSearchTransferDataSource to register to baseUrl
          * @param baseUrl that is being downloaded
          */
-        void registerSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl);
+        void registerSearch(ChecksumSearchTransferDataSource *search, const QUrl &baseUrl);
 
         /**
          * Unregisters a search, do that e.g. if the search gets destroyed
          * @param search ChecksumSearchTransferDataSource to unregister to baseUrl
          * @param baseUrl can be empty, in that case search is unregistered for any url
          */
-        void unregisterSearch(ChecksumSearchTransferDataSource *search, const KUrl &baseUrl = KUrl());
+        void unregisterSearch(ChecksumSearchTransferDataSource *search, const QUrl &baseUrl = QUrl());
 
     private slots:
         void slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
         void slotResult(KJob *job);
 
     private:
-        QMultiHash<KUrl, ChecksumSearchTransferDataSource*> m_searches;
-        QHash<KUrl, KUrl> m_finished;
-        QHash<KJob*, QPair<KUrl, KUrl> > m_jobs;
+        QMultiHash<QUrl, ChecksumSearchTransferDataSource*> m_searches;
+        QHash<QUrl, QUrl> m_finished;
+        QHash<KJob*, QPair<QUrl, QUrl> > m_jobs;
 };
 
 class ChecksumSearchTransferDataSource : public TransferDataSource
 {
     Q_OBJECT
     public:
-        ChecksumSearchTransferDataSource(const KUrl &srcUrl, QObject *parent);
+        ChecksumSearchTransferDataSource(const QUrl &srcUrl, QObject *parent);
         virtual ~ChecksumSearchTransferDataSource();
 
         void start();
@@ -77,10 +77,10 @@ class ChecksumSearchTransferDataSource : public TransferDataSource
         void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
 
     private:
-        void gotBaseUrl(const KUrl &urlToFile);
+        void gotBaseUrl(const QUrl &urlToFile);
 
     private:
-        KUrl m_src;
+        QUrl m_src;
         static ChecksumSearchController s_controller;
 
     friend class ChecksumSearchController;

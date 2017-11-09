@@ -20,11 +20,11 @@
 #ifndef MIRRORMODEL_H
 #define MIRRORMODEL_H
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStyledItemDelegate>
+#include <QSortFilterProxyModel>
+#include <QStyledItemDelegate>
 
-#include <KIcon>
-#include <KUrl>
+#include <QIcon>
+#include <QUrl>
 
 class QSortFilterProxyModel;
 
@@ -33,8 +33,8 @@ class MirrorDelegate : public QStyledItemDelegate
     Q_OBJECT
 
     public:
-        MirrorDelegate(QObject *parent = 0);
-        explicit MirrorDelegate(QSortFilterProxyModel *countrySort, QObject *parent = 0);
+        MirrorDelegate(QObject *parent = nullptr);
+        explicit MirrorDelegate(QSortFilterProxyModel *countrySort, QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;
@@ -76,13 +76,13 @@ class MirrorItem
         bool setData(int column, const QVariant &value, int role = Qt::EditRole);
 
     private:
-        KUrl m_url;
+        QUrl m_url;
         Qt::CheckState m_checked;
         int m_numConnections;
         int m_priority;
         QString m_countryCode;
         QString m_countryName;
-        KIcon m_countryFlag;
+        QIcon m_countryFlag;
 };
 
 class MirrorModel : public QAbstractTableModel
@@ -101,9 +101,9 @@ class MirrorModel : public QAbstractTableModel
         bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
         bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
-        void addMirror(const KUrl &url, int numConnections = 0, int priority = 0, const QString &countryCode = QString());
-        void setMirrors(const QHash<KUrl, QPair<bool, int> > &mirrors);
-        QHash<KUrl, QPair<bool, int> > availableMirrors() const;
+        void addMirror(const QUrl &url, int numConnections = 0, int priority = 0, const QString &countryCode = QString());
+        void setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors);
+        QHash<QUrl, QPair<bool, int> > availableMirrors() const;
 
     private:
         QList<MirrorItem*> m_data;

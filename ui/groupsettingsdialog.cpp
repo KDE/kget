@@ -11,24 +11,15 @@
 #include "groupsettingsdialog.h"
 
 #include "core/transfergrouphandler.h"
-#include <KFileDialog>
-
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk2/Tag>
-    #include <nepomuk2/tagwidget.h>
-#endif
 
 GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group)
   : KGetSaveSizeDialog("GroupSettingsDialog", parent),
     m_group(group)
 {
-    setCaption(i18n("Group Settings for %1", group->name()));
-    showButtonSeparator(true);
+    setWindowTitle(i18n("Group Settings for %1", group->name()));
+    //showButtonSeparator(true);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-
-    setMainWidget(widget);
+    ui.setupUi(this);
 
     ui.downloadBox->setValue(group->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadBox->setValue(group->uploadLimit(Transfer::VisibleSpeedLimit));
@@ -36,20 +27,15 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
     ui.defaultFolderRequester->setMode(KFile::Directory);
     QString path = group->defaultFolder();
     ui.defaultFolderRequester->setUrl(path);
-    ui.defaultFolderRequester->setStartDir(KUrl(KGet::generalDestDir(true)));
+    ui.defaultFolderRequester->setStartDir(QUrl(KGet::generalDestDir(true)));
 
     ui.regExpEdit->setText(group->regExp().pattern());
 
-#ifdef HAVE_NEPOMUK
-    m_tagWidget = new Nepomuk2::TagWidget(this);
-    m_tagWidget->setSelectedTags(group->tags());
-    m_tagWidget->setModeFlags(Nepomuk2::TagWidget::MiniMode);
-    ui.nepomukWidget->layout()->addWidget(m_tagWidget);
-#else
     ui.nepomukWidget->hide();
-#endif
 
-    connect(this, SIGNAL(accepted()), SLOT(save()));
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(this, &GroupSettingsDialog::accepted, this, &GroupSettingsDialog::save);
 }
 
 GroupSettingsDialog::~GroupSettingsDialog()
@@ -58,7 +44,7 @@ GroupSettingsDialog::~GroupSettingsDialog()
 
 QSize GroupSettingsDialog::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setWidth(sh.width() * 1.4);
     return sh;
 }
@@ -69,7 +55,7 @@ void GroupSettingsDialog::save()
     if (ui.defaultFolderRequester->text().isEmpty()) {
         m_group->setDefaultFolder(QString());
     } else {
-        m_group->setDefaultFolder(ui.defaultFolderRequester->url().toLocalFile(KUrl::AddTrailingSlash));
+        m_group->setDefaultFolder(ui.defaultFolderRequester->url().toString());
     }
 
     m_group->setDownloadLimit(ui.downloadBox->value(), Transfer::VisibleSpeedLimit);
@@ -79,9 +65,6 @@ void GroupSettingsDialog::save()
     regExp.setPattern(ui.regExpEdit->text());
     m_group->setRegExp(regExp);
 
-#ifdef HAVE_NEPOMUK
-    m_group->setTags(m_tagWidget->selectedTags());
-#endif
 }
 
-#include "groupsettingsdialog.moc"
+

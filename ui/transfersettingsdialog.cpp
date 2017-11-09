@@ -21,29 +21,30 @@
 
 #include <KMessageBox>
 #include <KLineEdit>
+#include <KLocalizedString>
 #include <QSortFilterProxyModel>
 
 TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler *transfer)
   : KGetSaveSizeDialog("TransferSettingsDialog", parent),
     m_transfer(transfer),
     m_model(m_transfer->fileModel()),
-    m_proxy(0)
+    m_proxy(nullptr)
 {
-    setCaption(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
-    showButtonSeparator(true);
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
-    ui.ktitlewidget->setPixmap(SmallIcon("preferences-other"));
+    setWindowTitle(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
+    //showButtonSeparator(true);
+    
+    ui.setupUi(this);
+    
+    ui.ktitlewidget->setPixmap(QIcon::fromTheme("preferences-other").pixmap(16));
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
-    ui.destination->setUrl(m_transfer->directory().pathOrUrl());
+    ui.destination->setUrl(m_transfer->directory().toString());
     ui.destination->lineEdit()->setReadOnly(true);
-    ui.rename->setIcon(KIcon("edit-rename"));
-    ui.mirrors->setIcon(KIcon("download"));
-    ui.signature->setIcon(KIcon("application-pgp-signature"));
-    ui.verification->setIcon(KIcon("document-decrypt"));
+    ui.rename->setIcon(QIcon::fromTheme("edit-rename"));
+    ui.mirrors->setIcon(QIcon::fromTheme("download"));
+    ui.signature->setIcon(QIcon::fromTheme("application-pgp-signature"));
+    ui.verification->setIcon(QIcon::fromTheme("document-decrypt"));
 
     if (m_model)
     {
@@ -63,14 +64,17 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
 
     updateCapabilities();
 
-    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SLOT(updateCapabilities()));
-    connect(this, SIGNAL(accepted()), SLOT(save()));
-    connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+    connect(m_transfer, &TransferHandler::capabilitiesChanged, this, &TransferSettingsDialog::updateCapabilities);
+    connect(this, &TransferSettingsDialog::accepted, this, &TransferSettingsDialog::save);
+    connect(this, &TransferSettingsDialog::finished, this, &TransferSettingsDialog::slotFinished);
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotSelectionChanged()));
-    connect(ui.rename, SIGNAL(clicked(bool)), this, SLOT(slotRename()));
-    connect(ui.mirrors, SIGNAL(clicked(bool)), this, SLOT(slotMirrors()));
-    connect(ui.verification, SIGNAL(clicked(bool)), this, SLOT(slotVerification()));
-    connect(ui.signature, SIGNAL(clicked(bool)), this, SLOT(slotSignature()));
+    connect(ui.rename, &QPushButton::clicked, this, &TransferSettingsDialog::slotRename);
+    connect(ui.mirrors, &QPushButton::clicked, this, &TransferSettingsDialog::slotMirrors);
+    connect(ui.verification, &QPushButton::clicked, this, &TransferSettingsDialog::slotVerification);
+    connect(ui.signature, &QPushButton::clicked, this, &TransferSettingsDialog::slotSignature);
+    
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 TransferSettingsDialog::~TransferSettingsDialog()
@@ -82,7 +86,7 @@ TransferSettingsDialog::~TransferSettingsDialog()
 
 QSize TransferSettingsDialog::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setWidth(sh.width() * 1.7);
     return sh;
 }
@@ -107,7 +111,7 @@ void TransferSettingsDialog::updateCapabilities()
 void TransferSettingsDialog::slotMirrors()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
-    KDialog *mirrors = new MirrorSettings(this, m_transfer, m_model->getUrl(index));
+    QDialog *mirrors = new MirrorSettings(this, m_transfer, m_model->getUrl(index));
     mirrors->setAttribute(Qt::WA_DeleteOnClose);
     mirrors->show();
 }
@@ -123,7 +127,7 @@ void TransferSettingsDialog::slotRename()
 void TransferSettingsDialog::slotVerification()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
-    KDialog *verification = new VerificationDialog(this, m_transfer, m_model->getUrl(index));
+    QDialog *verification = new VerificationDialog(this, m_transfer, m_model->getUrl(index));
     verification->setAttribute(Qt::WA_DeleteOnClose);
     verification->show();
 }
@@ -157,8 +161,8 @@ void TransferSettingsDialog::slotSelectionChanged()
 
 void TransferSettingsDialog::save()
 {//TODO: Set to -1 when no limit
-    KUrl oldDirectory = m_transfer->directory();
-    KUrl newDirectory = ui.destination->url();
+    QUrl oldDirectory = m_transfer->directory();
+    QUrl newDirectory = ui.destination->url();
     if ((oldDirectory != newDirectory) && !m_transfer->setDirectory(newDirectory))
     {
         KMessageBox::error(this, i18n("Changing the destination did not work, the destination stays unmodified."), i18n("Destination unmodified"));
@@ -177,4 +181,4 @@ void TransferSettingsDialog::slotFinished()
     }
 }
 
-#include "transfersettingsdialog.moc"
+

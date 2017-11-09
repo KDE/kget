@@ -17,45 +17,40 @@
 #include "core/linkimporter.h"
 #include "ui/newtransferdialog.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QApplication>
 #include <QClipboard>
 #include <QMenu>
 #include <QStandardItemModel>
 
-#include <KAction>
-#include <KActionCollection>
-#include <KIcon>
-#include <KIconLoader>
-#include <KLocale>
-#include <KMessageBox>
+#include <QAction>
+#include <QIcon>
+#include <KLocalizedString>
 #include <KMimeType>
-#include <KShortcut>
-#include <KStandardAction>
 #include <KWindowSystem>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
   : KGetSaveSizeDialog("KGetLinkView", parent),
-    m_linkImporter(0),
-    m_nameAction(0),
-    m_urlAction(0)
+    m_linkImporter(nullptr),
+    m_nameAction(nullptr),
+    m_urlAction(nullptr)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setCaption(i18n("Import Links"));
-    setButtons(0);
+    setWindowTitle(i18n("Import Links"));
     
-    if (parent) {
+    /*if (parent) {
         KWindowInfo info = KWindowSystem::windowInfo(parent->winId(), NET::WMDesktop, NET::WMDesktop);
         KWindowSystem::setCurrentDesktop(info.desktop());
         KWindowSystem::forceActiveWindow(parent->winId());
-    }
+    }*///TODO: Port all KWindowSystem stuff
 
     // proxy model to filter links
     m_proxyModel = new KGetSortFilterProxyModel(1, this);
     m_proxyModel->setDynamicSortFilter(true);
     m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    ui.setupUi(this);
     
     m_proxyModel->setShowWebContent(ui.showWebContent->isChecked());
 
@@ -63,12 +58,12 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     ui.filterMode->addItem(i18n("Does Not Contain"), KGetSortFilterProxyModel::DoesNotContain);
 
     // set the Icons
-    ui.importLinks->setIcon(KIcon("document-import"));
-    ui.showCombo->addItem(KIcon("view-list-icons"), i18n("All"), KGetSortFilterProxyModel::NoFilter);
-    ui.showCombo->addItem(KIcon("video-x-generic"), i18n("Videos"), KGetSortFilterProxyModel::VideoFiles);
-    ui.showCombo->addItem(KIcon("image-x-generic"), i18n("Images"), KGetSortFilterProxyModel::ImageFiles);
-    ui.showCombo->addItem(KIcon("audio-x-generic"), i18n("Audio"), KGetSortFilterProxyModel::AudioFiles);
-    ui.showCombo->addItem(KIcon("package-x-generic"), i18n("Archives"), KGetSortFilterProxyModel::CompressedFiles );
+    ui.importLinks->setIcon(QIcon::fromTheme("document-import"));
+    ui.showCombo->addItem(QIcon::fromTheme("view-list-icons"), i18n("All"), KGetSortFilterProxyModel::NoFilter);
+    ui.showCombo->addItem(QIcon::fromTheme("video-x-generic"), i18n("Videos"), KGetSortFilterProxyModel::VideoFiles);
+    ui.showCombo->addItem(QIcon::fromTheme("image-x-generic"), i18n("Images"), KGetSortFilterProxyModel::ImageFiles);
+    ui.showCombo->addItem(QIcon::fromTheme("audio-x-generic"), i18n("Audio"), KGetSortFilterProxyModel::AudioFiles);
+    ui.showCombo->addItem(QIcon::fromTheme("package-x-generic"), i18n("Archives"), KGetSortFilterProxyModel::CompressedFiles );
 
     ui.treeView->setModel(m_proxyModel);
     ui.progressBar->hide();
@@ -88,10 +83,10 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     //Filter for name/url actions
     QActionGroup *columnGroup = new QActionGroup(this);
-    m_nameAction = new KAction(i18nc("name of a file", "Name"), this);
+    m_nameAction = new QAction(i18nc("name of a file", "Name"), this);
     m_nameAction->setCheckable(true);
     m_nameAction->setChecked(true);
-    m_urlAction = new KAction(i18n("URL"), this);
+    m_urlAction = new QAction(i18n("URL"), this);
     m_urlAction->setCheckable(true);
     columnGroup->addAction(m_nameAction);
     columnGroup->addAction(m_urlAction);
@@ -106,7 +101,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMimeTypeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
-    connect(ui.urlRequester, SIGNAL(urlSelected(KUrl)), SLOT(slotStartImport()));
+    connect(ui.urlRequester, SIGNAL(urlSelected(QUrl)), SLOT(slotStartImport()));
     connect(ui.selectAll, SIGNAL(clicked()), this, SLOT(checkAll()));
     connect(ui.deselectAll, SIGNAL(clicked()), this, SLOT(uncheckAll()));
     connect(ui.invertSelection, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
@@ -116,13 +111,11 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(selectionChanged()));
     connect(ui.dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
+    connect(ui.dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 
-    setMainWidget(widget);
-    QPushButton *download = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
-                                                          QDialogButtonBox::AcceptRole,
-                                                          this,
-                                                          SLOT(accept()));
-    download->setIcon(KIcon("kget"));
+    m_downloadButton = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
+                                                          QDialogButtonBox::AcceptRole);
+    m_downloadButton->setIcon(QIcon::fromTheme("kget"));
 
     checkClipboard();
 }
@@ -142,8 +135,9 @@ void KGetLinkView::checkClipboard()
 
         m_linkImporter = new LinkImporter(this);
 
-        connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
         m_linkImporter->checkClipboard(clipboardContent);
+	
+	slotImportFinished();
     }
 }
 
@@ -167,7 +161,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 
     foreach (const QString &linkitem, links)
     {
-        KUrl url;
+        QUrl url;
         KMimeType::Ptr mt;
 
         if (linkitem.contains(QLatin1String("url "), Qt::CaseInsensitive) &&
@@ -185,7 +179,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
             mt = KMimeType::findByUrl(linkitem, 0, true, true);
         }
 
-        kDebug(5001) << "Adding:" << linkitem;
+        qCDebug(KGET_DEBUG) << "Adding:" << linkitem;
         
         QString file = url.fileName();
         if (file.isEmpty())
@@ -199,7 +193,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         }
 
         QStandardItem *item = new QStandardItem(file);
-        item->setIcon(KIcon(mimeTypeIcon));
+        item->setIcon(QIcon::fromTheme(mimeTypeIcon));
         item->setCheckable(true);
         item->setCheckState(Qt::Checked);
         item->setData(QVariant(url.fileName()), Qt::DisplayRole);
@@ -212,7 +206,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         items << item;
         items << new QStandardItem();
         items << new QStandardItem(mimeTypeComment);
-        items << new QStandardItem(url.prettyUrl());
+        items << new QStandardItem(url.toDisplayString());
 
         model->insertRow(model->rowCount(), items);
     }
@@ -249,7 +243,7 @@ void KGetLinkView::slotStartLeech()
     QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (model)
     {
-        KUrl::List urls;
+        QList<QUrl> urls;
 
         for (int row = 0; row < model->rowCount(); row++)
         {
@@ -257,7 +251,7 @@ void KGetLinkView::slotStartLeech()
 
             if (checkeableItem->checkState() == Qt::Checked)
             {
-                urls.append(KUrl(model->data(model->index(row, 4)).toString()));
+                urls.append(QUrl(model->data(model->index(row, 4)).toString()));
             }
         }
 
@@ -267,14 +261,14 @@ void KGetLinkView::slotStartLeech()
 
 void KGetLinkView::setPageUrl( const QString& url )
 {
-    setPlainCaption( i18n( "Links in: %1 - KGet", url ) );
+    setWindowTitle( i18n( "Links in: %1 - KGet", url ) );
 }
 
 void KGetLinkView::importUrl(const QString &url)
 {
     if (url.isEmpty())
     {
-        KUrl clipboardUrl = KUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
+        QUrl clipboardUrl = QUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
         if (clipboardUrl.isValid() &&
             ((!clipboardUrl.scheme().isEmpty() && !clipboardUrl.host().isEmpty()) ||
             (clipboardUrl.isLocalFile())))
@@ -284,7 +278,7 @@ void KGetLinkView::importUrl(const QString &url)
     }
     else
     {
-        ui.urlRequester->setUrl(KUrl(url));
+        ui.urlRequester->setUrl(QUrl(url));
         slotStartImport();
     }
 }
@@ -317,8 +311,7 @@ void KGetLinkView::selectionChanged()
         ui.selectAll->setEnabled( !(!modelRowCount || count == m_proxyModel->rowCount() ) );
         ui.deselectAll->setEnabled( count > 0 );
         ui.invertSelection->setEnabled( count > 0 );
-
-        enableButtonOk(buttonEnabled);
+        m_downloadButton->setEnabled(buttonEnabled);
     }
 }
 
@@ -450,7 +443,7 @@ void KGetLinkView::updateImportButtonStatus(const QString &text)
     bool enabled = false;
     if (!text.isEmpty())
     {
-        KUrl url(text);
+        QUrl url(text);
         if (url.isValid())
         {
             enabled = true;
@@ -478,4 +471,4 @@ void KGetLinkView::wildcardPatternToggled(bool enabled)
     }
 }
 
-#include "kget_linkview.moc"
+

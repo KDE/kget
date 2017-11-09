@@ -20,7 +20,7 @@
 #ifndef VERIFICATIONPREFERENCES_H
 #define VERIFICATIONPREFERENCES_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 #include "ui_verificationpreferences.h"
 

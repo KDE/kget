@@ -34,8 +34,8 @@ class MmsTransfer : public Transfer
 
     public:
         MmsTransfer(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KUrl & src, const KUrl & dest,
-                    const QDomElement * e = 0);
+                    Scheduler * scheduler, const QUrl & src, const QUrl & dest,
+                    const QDomElement * e = nullptr);
         ~MmsTransfer();
 
     public slots:

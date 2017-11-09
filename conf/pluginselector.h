@@ -12,13 +12,13 @@
 
 #include <KPluginSelector>
 
-class KDialog;
+class QDialog;
 
 class PluginSelector : public KPluginSelector
 {
     Q_OBJECT
     public:
-        PluginSelector(KDialog * parent);
+        PluginSelector(QDialog * parent);
         ~PluginSelector();
 
     private slots:

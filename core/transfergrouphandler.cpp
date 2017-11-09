@@ -17,12 +17,12 @@
 #include "core/transfer.h"
 #include "core/kget.h"
 
-#include <kdebug.h>
-#include <kmenu.h>
-#include <kaction.h>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <QAction>
 #include <kactioncollection.h>
-#include <klocale.h>
-#include <kicon.h>
+#include <KLocalizedString>
+#include <QIcon>
 
 TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)
   : Handler(scheduler, parent),
@@ -37,13 +37,13 @@ TransferGroupHandler::~TransferGroupHandler()
 
 void TransferGroupHandler::start()
 {
-    kDebug(5001) << "TransferGroupHandler::start()";
+    qCDebug(KGET_DEBUG) << "TransferGroupHandler::start()";
     m_group->setStatus( JobQueue::Running );
 }
 
 void TransferGroupHandler::stop()
 {
-    kDebug(5001) << "TransferGroupHandler::stop()";
+    qCDebug(KGET_DEBUG) << "TransferGroupHandler::stop()";
     m_group->setStatus( JobQueue::Stopped );
 }
 
@@ -62,7 +62,7 @@ void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHand
         if(after)
             m_group->move( (*it)->m_transfer, after->m_transfer );
         else
-            m_group->move( (*it)->m_transfer, 0 );
+            m_group->move( (*it)->m_transfer, nullptr );
 
         after = *it;
     }
@@ -70,7 +70,7 @@ void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHand
 
 TransferHandler * TransferGroupHandler::operator[] (int i)
 {
-//     kDebug(5001) << "TransferGroupHandler::operator[" << i << "]";
+//     qCDebug(KGET_DEBUG) << "TransferGroupHandler::operator[" << i << "]";
 
     return (*m_group)[i]->handler();
 }
@@ -82,7 +82,7 @@ void TransferGroupHandler::setName(const QString &name)
 
 QVariant TransferGroupHandler::data(int column)
 {
-//     kDebug(5001) << "TransferGroupHandler::data(" << column << ")";
+//     qCDebug(KGET_DEBUG) << "TransferGroupHandler::data(" << column << ")";
 
     switch(column)
     {
@@ -167,16 +167,16 @@ void TransferGroupHandler::createActions()
 
     QAction *startAction = KGet::actionCollection()->addAction("transfer_group_start");
     startAction->setText(i18nc("start transfergroup downloads", "Start"));
-    startAction->setIcon(KIcon("media-playback-start"));
+    startAction->setIcon(QIcon::fromTheme("media-playback-start"));
     QObject::connect(startAction, SIGNAL(triggered()), SLOT(start()));
     m_actions.append(startAction);
 
     QAction *stopAction = KGet::actionCollection()->addAction("transfer_group_stop");
     stopAction->setText(i18nc("stop transfergroup downloads", "Stop"));
-    stopAction->setIcon(KIcon("media-playback-pause"));
+    stopAction->setIcon(QIcon::fromTheme("media-playback-pause"));
     QObject::connect(stopAction, SIGNAL(triggered()), SLOT(stop()));
     m_actions.append(stopAction);
 
 }
 
-#include "transfergrouphandler.moc"
+

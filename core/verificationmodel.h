@@ -20,9 +20,9 @@
 #ifndef VERIFICATION_MODEL_H
 #define VERIFICATION_MODEL_H
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
-#include <QtCore/QAbstractTableModel>
+#include <QAbstractTableModel>
 
 class VerificationModelPrivate;
 
@@ -31,7 +31,7 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
     Q_OBJECT
 
     public:
-        VerificationModel(QObject *parent = 0);
+        VerificationModel(QObject *parent = nullptr);
 
         enum dataType
         {

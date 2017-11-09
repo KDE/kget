@@ -21,8 +21,6 @@
 class QHBoxLayout;
 class QButtonGroup;
 
-class TransferHandler;
-class TransferObserver;
 class TransfersViewDelegate;
 
 class GroupStatusButton : public QToolButton

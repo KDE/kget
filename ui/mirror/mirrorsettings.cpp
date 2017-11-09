@@ -21,18 +21,21 @@
 #include "mirrormodel.h"
 #include "core/transferhandler.h"
 
-#include <QtGui/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
+
+#include <KLocalizedString>
+#include <KStandardGuiItem>
 
 MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_model(model),
-    m_countryModel(0)
+    m_countryModel(nullptr)
 {
     init();
 }
 
 MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_model(model),
     m_countryModel(countryModel)
 {
@@ -41,7 +44,7 @@ MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryMod
 
 QSize MirrorAddDlg::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setHeight(minimumSize().height());
     sh.setWidth(sh.width() * 1.5);
     return sh;
@@ -49,10 +52,8 @@ QSize MirrorAddDlg::sizeHint() const
 
 void MirrorAddDlg::init()
 {
-    setCaption(i18n("Add mirror"));
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    setWindowTitle(i18n("Add mirror"));
+    ui.setupUi(this);
 
     if (m_countryModel)
     {
@@ -60,13 +61,14 @@ void MirrorAddDlg::init()
         ui.location->setCurrentIndex(-1);
     }
 
-    setButtons(KDialog::Yes | KDialog::Cancel);
-    setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
+    KGuiItem::assign(ui.buttonBox->button(QDialogButtonBox::Yes), KStandardGuiItem::add());
 
     updateButton();
 
     connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(updateButton(QString)));
-    connect(this, SIGNAL(yesClicked()), this, SLOT(addMirror()));
+    connect(this, &QDialog::accepted, this, &MirrorAddDlg::addMirror);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
@@ -97,13 +99,12 @@ void MirrorAddDlg::showItem(MirrorItem::DataType type, bool show)
 void MirrorAddDlg::updateButton(const QString &text)
 {
     bool enabled = false;
-    KUrl url(text);
-    if (url.isValid() && !url.protocol().isEmpty() && url.hasPath())
+    QUrl url(text);
+    if (url.isValid() && !url.scheme().isEmpty() && !url.path().isEmpty())
     {
         enabled = true;
     }
-    enableButton(KDialog::Yes, enabled);
-    enableButton(KDialog::User1, enabled);
+    ui.buttonBox->button(QDialogButtonBox::Yes)->setEnabled(enabled);
 }
 
 void MirrorAddDlg::addMirror()
@@ -111,14 +112,14 @@ void MirrorAddDlg::addMirror()
     const int numConnections = ui.numConnections->isVisible() ? ui.numConnections->value() : 0;
     const int priority = ui.priority->isVisible() ? ui.priority->value() : 0;
     const QString countryCode = ui.location->itemData(ui.location->currentIndex()).toString();
-    m_model->addMirror(KUrl(ui.url->text()), numConnections, priority, countryCode);
+    m_model->addMirror(QUrl(ui.url->text()), numConnections, priority, countryCode);
     if (m_countryModel)
     {
         ui.location->setCurrentIndex(-1);
     }
 }
 
-MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file)
+MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const QUrl &file)
   : KGetSaveSizeDialog("MirrorSettings", parent),
     m_transfer(handler),
     m_file(file)
@@ -128,10 +129,10 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     m_proxy = new MirrorProxyModel(this);
     m_proxy->setSourceModel(m_model);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    ui.setupUi(this);
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
+    KGuiItem::assign(ui.closeButton, KStandardGuiItem::close());
     ui.treeView->setModel(m_proxy);
     ui.treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
     ui.treeView->hideColumn(MirrorItem::Priority);
@@ -141,13 +142,13 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
     updateButton();
 
     connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateButton()));
-    connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
-    connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeMirror()));
-    connect(this, SIGNAL(finished()), this, SLOT(save()));
+    connect(ui.add, &QPushButton::clicked, this, &MirrorSettings::addClicked);
+    connect(ui.remove, &QPushButton::clicked, this, &MirrorSettings::removeMirror);
+    connect(this, &MirrorSettings::finished, this, &MirrorSettings::save);
 
-    setMainWidget(widget);
-    setCaption(i18n("Modify the used mirrors"));
-    setButtons(KDialog::Close);
+    setWindowTitle(i18n("Modify the used mirrors"));
+    
+    connect(ui.closeButton, &QPushButton::clicked, this, &QDialog::accept);
 }
 
 QSize MirrorSettings::sizeHint() const
@@ -181,4 +182,4 @@ void MirrorSettings::save()
     m_transfer->setAvailableMirrors(m_file, m_model->availableMirrors());
 }
 
-#include "mirrorsettings.moc"
+

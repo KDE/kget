@@ -14,11 +14,12 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 
-#include <QtXml/QDomElement>
+#include "kget_debug.h"
+#include <qdebug.h>
 
-#include <kdebug.h>
+#include <QDomElement>
 
-KGET_EXPORT_PLUGIN( MirrorSearchFactory )
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_mirrorsearchfactory.json", registerPlugin<MirrorSearchFactory>();)
 
 MirrorSearchFactory::MirrorSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -29,12 +30,14 @@ MirrorSearchFactory::~MirrorSearchFactory()
 {
 }
 
-TransferDataSource *MirrorSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *MirrorSearchFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (type.attribute("type") == "search") {
         return new MirrorSearchTransferDataSource(srcUrl, parent);
     }
-    return 0;
+    return nullptr;
 }
+
+#include "mirrorsearchfactory.moc"

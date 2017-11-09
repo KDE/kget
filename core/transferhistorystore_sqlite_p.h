@@ -11,6 +11,8 @@
 #ifndef TRANSFERHISTORYSTORE_SQLITE_P_H
 #define TRANSFERHISTORYSTORE_SQLITE_P_H
 
+#ifdef HAVE_SQLITE
+
 #include "transferhistorystore.h"
 
 #include <QList>
@@ -39,4 +41,5 @@ private:
     QString m_dbName;
     QSqlDatabase m_sql;
 };
+#endif
 #endif

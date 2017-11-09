@@ -20,14 +20,14 @@
 #ifndef FILEHANDLER
 #define FILEHANDLER
 
-#include <QtCore/QMutex>
-#include <QtCore/QThread>
+#include <QMutex>
+#include <QThread>
 
 #include "metalinker.h"
 
 struct FileData
 {
-    KUrl url;
+    QUrl url;
     KGetMetalink::File file;
 };
 
@@ -40,7 +40,7 @@ class FileHandlerThread : public QThread
     Q_OBJECT
 
     public:
-        FileHandlerThread(QObject *parent = 0);
+        FileHandlerThread(QObject *parent = nullptr);
         ~FileHandlerThread();
 
         void setData(const QList<FileData> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData);
@@ -83,7 +83,7 @@ class DirectoryHandler : public QObject
          * The files the FileHandler should handle, the urls can also be urls to directories
          * then the files of these directories will be got recursively
          */
-        void slotFiles(const QList<KUrl> &files);
+        void slotFiles(const QList<QUrl> &files);
 
     signals:
         void finished();
@@ -104,7 +104,7 @@ class DirectoryHandler : public QObject
 
     private:
         bool m_allJobsStarted;
-        QHash<KJob*, KUrl> m_jobs;
+        QHash<KJob*, QUrl> m_jobs;
         QList<FileData> m_files;
 };
 

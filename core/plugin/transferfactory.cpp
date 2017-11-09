@@ -13,7 +13,6 @@
 
 #include "kget.h"
 
-#include <kmenu.h>
 #include <klocale.h>
 #include <kdebug.h>
 
@@ -23,7 +22,7 @@ TransferFactory::TransferFactory(QObject *parent, const QVariantList &args)
 
 }
 
-Transfer * TransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * TransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * n)
@@ -47,7 +46,7 @@ QWidget * TransferFactory::createDetailsWidget(TransferHandler * transfer)
     return 0;
 }
         
-KDialog * TransferFactory::createNewTransferDialog(const KUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
+QDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(suggestedFileName)
@@ -55,13 +54,13 @@ KDialog * TransferFactory::createNewTransferDialog(const KUrl &srcUrl, const QSt
     return 0;
 }
 
-const QList<KAction *> TransferFactory::actions(TransferHandler *handler)
+const QList<QAction *> TransferFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction *>();
+    return QList<QAction *>();
 }
 
-TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource * TransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
@@ -69,7 +68,7 @@ TransferDataSource * TransferFactory::createTransferDataSource(const KUrl &srcUr
     return 0;
 }
 
-bool TransferFactory::isSupported(const KUrl &url) const
+bool TransferFactory::isSupported(const QUrl &url) const
 {
     Q_UNUSED(url)
     return false;
@@ -79,3 +78,9 @@ QStringList TransferFactory::addsProtocols() const
 {
     return QStringList();
 }
+
+QString TransferFactory::displayName() const
+{
+    return "Undefined";
+}
+

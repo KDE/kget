@@ -18,14 +18,10 @@
 #include "core/scheduler.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QDomElement>
 #include <QTime>
-
-#ifdef HAVE_NEPOMUK
-#include "nepomukhandler.h"
-#endif
 
 struct StatusStrings
 {
@@ -45,7 +41,7 @@ const StatusStrings STATUSTEXTS[] = {
 const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
 
 Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
-                   Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                   Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                    const QDomElement * e)
     : Job(scheduler, parent),
       m_source(source), m_dest(dest),
@@ -53,10 +49,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
       m_uploadLimit(0), m_downloadLimit(0), m_isSelected(false),
       m_capabilities(0), m_visibleUploadLimit(0), m_visibleDownloadLimit(0),
-      m_ratio(0), m_handler(0), m_factory(factory)
-#ifdef HAVE_NEPOMUK
-      , m_nepomukHandler(0)
-#endif
+      m_ratio(0), m_handler(nullptr), m_factory(factory)
 {
     Q_UNUSED(e)
 }
@@ -75,11 +68,6 @@ void Transfer::setCapabilities(Capabilities capabilities)
 
 void Transfer::create()
 {
-#ifdef HAVE_NEPOMUK
-    if (!m_nepomukHandler)
-        m_nepomukHandler = new NepomukHandler(this);
-#endif
-
     init();
 }
 
@@ -87,9 +75,6 @@ void Transfer::destroy(DeleteOptions options)
 {
     deinit(options);
 
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->deinit();
-#endif //HAVE_NEPOMUK
 }
 
 void Transfer::init()//TODO think about e, maybe not have it at all in the constructor?
@@ -97,15 +82,8 @@ void Transfer::init()//TODO think about e, maybe not have it at all in the const
 
 }
 
-#ifdef HAVE_NEPOMUK
-void Transfer::setNepomukHandler(NepomukHandler *handler)
-{
-    delete(m_nepomukHandler);
-    m_nepomukHandler = handler;
-}
-#endif //HAVE_NEPOMUK
 
-bool Transfer::setDirectory(const KUrl& newDirectory)
+bool Transfer::setDirectory(const QUrl& newDirectory)
 {
     Q_UNUSED(newDirectory)
 
@@ -132,11 +110,11 @@ int Transfer::averageDownloadSpeed() const
     return 0;
 }
 
-QHash<KUrl, QPair<bool, int> > Transfer::availableMirrors(const KUrl &file) const
+QHash<QUrl, QPair<bool, int> > Transfer::availableMirrors(const QUrl &file) const
 {
     Q_UNUSED(file)
 
-    QHash<KUrl, QPair<bool, int> > available;
+    QHash<QUrl, QPair<bool, int> > available;
     available[m_source] = QPair<bool, int>(true, 1);
     return available;
 }
@@ -144,11 +122,15 @@ QHash<KUrl, QPair<bool, int> > Transfer::availableMirrors(const KUrl &file) cons
 void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit)
+    {
         m_visibleUploadLimit = ulLimit;
         if (ulLimit < m_uploadLimit || m_uploadLimit == 0)
             m_uploadLimit = ulLimit;
+    }
     else
+    {
         m_uploadLimit = ulLimit;
+    }
 
     setSpeedLimits(m_uploadLimit, m_downloadLimit);
 }
@@ -156,11 +138,15 @@ void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 void Transfer::setDownloadLimit(int dlLimit, SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit)
+    {
         m_visibleDownloadLimit = dlLimit;
         if (dlLimit < m_downloadLimit || m_downloadLimit == 0)
             m_downloadLimit = dlLimit;
+    }
     else
+    {
         m_downloadLimit = dlLimit;
+    }
 
     setSpeedLimits(m_uploadLimit, m_downloadLimit);
 }
@@ -252,8 +238,8 @@ void Transfer::load(const QDomElement *element)
 
     const QDomElement e = *element;
 
-    m_source = KUrl(e.attribute("Source"));
-    m_dest = KUrl(e.attribute("Dest"));
+    m_source = QUrl(e.attribute("Source"));
+    m_dest = QUrl(e.attribute("Dest"));
 
     m_totalSize = e.attribute("TotalSize").toULongLong();
     m_downloadedSize = e.attribute("DownloadedSize").toULongLong();
@@ -326,13 +312,6 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
     */
     Job::setStatus(jobStatus);
 
-#ifdef HAVE_NEPOMUK
-    const bool loadedFinished = ((startStatus() == Job::Finished) || (startStatus() == Job::FinishedKeepAlive));
-    const bool isFinished = ((jobStatus == Job::Finished) || (jobStatus == Job::FinishedKeepAlive));
-    if (!loadedFinished && statusChanged && isFinished) {
-        m_nepomukHandler->saveFileProperties();
-    }
-#endif
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)

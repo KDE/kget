@@ -16,16 +16,16 @@
 #include "core/transfertreemodel.h"
 #include "core/kget.h"
 
-#include <KDebug>
-#include <KAction>
-#include <KLocale>
-#include <KMenu>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <QAction>
+#include <KLocalizedString>
+#include <QMenu>
 #include <KRun>
 
 #include <QDropEvent>
 #include <QHeaderView>
 #include <QSignalMapper>
-#include <QHBoxLayout>
 #include <QGroupBox>
 
 TransfersView::TransfersView(QWidget * parent)
@@ -39,7 +39,7 @@ TransfersView::TransfersView(QWidget * parent)
     header()->setMinimumSectionSize(80);    
     header()->setContextMenuPolicy(Qt::CustomContextMenu);
     header()->setClickable(true);
-    m_headerMenu = new KMenu(header());
+    m_headerMenu = new QMenu(header());
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
@@ -54,10 +54,8 @@ TransfersView::TransfersView(QWidget * parent)
     connect(header(), SIGNAL(sectionCountChanged(int,int)), this, SLOT(populateHeaderActions()));
     connect(header(), SIGNAL(sectionMoved(int,int,int)), this, SLOT(slotSectionMoved(int,int,int)));
     connect(header(), SIGNAL(sectionResized(int,int,int)), this, SLOT(slotSaveHeader()));
-    connect(this,     SIGNAL(doubleClicked(QModelIndex)),
-            this,     SLOT(slotItemActivated(QModelIndex)));
-    connect(this,     SIGNAL(collapsed(QModelIndex)),
-            this,     SLOT(slotItemCollapsed(QModelIndex)));
+    connect(this, &TransfersView::doubleClicked, this, &TransfersView::slotItemActivated);
+    connect(this, &TransfersView::collapsed, this, &TransfersView::slotItemCollapsed);
     connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), 
             this,          SLOT(closeExpandableDetails(QModelIndex,int,int)));
 }
@@ -73,7 +71,7 @@ void TransfersView::setModel(QAbstractItemModel * model)
 
     for(int i = 0; i < nGroups; i++)
     {
-        kDebug(5001) << "openEditor for row " << i;
+        qCDebug(KGET_DEBUG) << "openEditor for row " << i;
         openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
@@ -102,15 +100,15 @@ void TransfersView::dropEvent(QDropEvent * event)
 
 void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 {
-    kDebug(5001) << "TransfersView::rowsInserted";
+    qCDebug(KGET_DEBUG) << "TransfersView::rowsInserted";
 
     if(!parent.isValid())
     {
-        kDebug(5001) << "parent is not valid " << start << "  " << end;
+        qCDebug(KGET_DEBUG) << "parent is not valid " << start << "  " << end;
 
         for(int i = start; i <= end; i++)
         {
-            kDebug(5001) << "openEditor for row " << i;
+            qCDebug(KGET_DEBUG) << "openEditor for row " << i;
             openPersistentEditor(model()->index(i, TransferTreeModel::Status, parent));
         }
     }
@@ -124,15 +122,15 @@ void TransfersView::rowsInserted(const QModelIndex & parent, int start, int end)
 void TransfersView::populateHeaderActions()
 {
     m_headerMenu->clear();
-    m_headerMenu->addTitle(i18n("Select columns"));
+    m_headerMenu->addSection(i18n("Select columns"));
 
     QSignalMapper *columnMapper = new QSignalMapper(this);
-    connect(columnMapper, SIGNAL(mapped(int)), SLOT(slotHideSection(int)));
+    connect(columnMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &TransfersView::slotHideSection);
 
     //Create for each column an action with the column-header as name
-    QVector<KAction*> orderedMenuItems(header()->count());
+    QVector<QAction *> orderedMenuItems(header()->count());
     for (int i = 0; i < header()->count(); ++i) {
-        KAction *action = new KAction(this);
+        QAction *action = new QAction(this);
         action->setText(model()->headerData(i, Qt::Horizontal).toString());
         action->setCheckable(true);
         action->setChecked(!header()->isSectionHidden(i));
@@ -182,7 +180,7 @@ void TransfersView::slotSectionMoved(int logicalIndex, int oldVisualIndex, int n
 void TransfersView::slotSaveHeader()
 {
     Settings::setHeaderState(header()->saveState().toBase64());
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void TransfersView::dragMoveEvent ( QDragMoveEvent * event )
@@ -240,7 +238,7 @@ void TransfersView::slotItemCollapsed(const QModelIndex & index)
         QList<TransferHandler *> transfers = groupHandler->transfers();
 
         foreach(TransferHandler * transfer, transfers) {
-            kDebug(5001) << "Transfer = " << transfer->source().prettyUrl(); 
+            qCDebug(KGET_DEBUG) << "Transfer = " << transfer->source().toString(); 
             view_delegate->contractItem(KGet::model()->itemFromTransferHandler(transfer)->index());
         }
     }
@@ -321,4 +319,4 @@ QWidget *TransfersView::getDetailsWidgetForTransfer(TransferHandler *handler)
     return groupBox;
 }
 
-#include "transfersview.moc"
+

@@ -18,7 +18,7 @@ using namespace bt;
 //TODO: Support buffered mode?
 BTCache::BTCache(Torrent & tor,const QString & tmpdir,const QString & datadir)
   : Cache(tor, tmpdir, datadir),
-    QObject(0)
+    QObject(nullptr)
 {
 }
 
@@ -36,7 +36,7 @@ void BTCache::save(Chunk* c)
     /*if (c->getStatus() == Chunk::MMAPPED)
     {
         KIO::fileoffset_t off = c->getIndex() * tor.getChunkSize();
-        kDebug(5001) << "Fileoffset is: " + QString::number(off);
+        qCDebug(KGET_DEBUG) << "Fileoffset is: " + QString::number(off);
         QByteArray data;
         QDataStream s(&data, QIODevice::WriteOnly | QIODevice::Unbuffered);
         s << c->getData();
@@ -47,7 +47,7 @@ void BTCache::save(Chunk* c)
     else if (c->getStatus() == Chunk::BUFFERED)
     {*/
         KIO::fileoffset_t off = c->getIndex() * tor.getChunkSize();
-        kDebug(5001) << "Fileoffset is: " + QString::number(off);
+        qCDebug(KGET_DEBUG) << "Fileoffset is: " + QString::number(off);
         QByteArray data;
         QDataStream s(&data, QIODevice::WriteOnly | QIODevice::Unbuffered);
         s << c->getData();
@@ -75,4 +75,4 @@ Cache* BTCacheFactory::create(Torrent & tor,const QString & tmpdir,const QString
     return newcache;
 }
 
-#include "btcache.moc"
+

@@ -16,26 +16,26 @@
 
 #include "kget_interface.h"
 
-#include <KDE/KActionCollection>
-#include <KDE/KToggleAction>
-#include <KDE/KActionMenu>
-#include <KDE/KIconLoader>
-#include <KDE/KComponentData>
-#include <KDE/KLocale>
-#include <KDE/KMessageBox>
-#include <KDE/KMenu>
-#include <KDE/KRun>
-#include <KDE/KIcon>
-#include <KDE/KToolInvocation>
-#include <KDE/KGenericFactory>
-#include <KDE/KProtocolInfo>
-#include <KDE/KFileItem>
+#include <KActionCollection>
+#include <KToggleAction>
+#include <KActionMenu>
+#include <KIconLoader>
+#include <KComponentData>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <QMenu>
+#include <KRun>
+#include <QIcon>
+#include <KToolInvocation>
+#include <KGenericFactory>
+#include <KProtocolInfo>
+#include <KFileItem>
 #include <KDE/KParts/Part>
 #include <KDE/KParts/PartManager>
 #include <KDE/KParts/HtmlExtension>
 #include <KDE/KParts/FileInfoExtension>
 
-#include <QtDBus/QDBusConnection>
+#include <QDBusConnection>
 
 
 #define QL1S(x)   QLatin1String(x)
@@ -46,13 +46,13 @@ K_EXPORT_PLUGIN(KGetPluginFactory("kgetplugin"))
 static QWidget* partWidget(QObject* obj)
 {
     KParts::ReadOnlyPart* part = qobject_cast<KParts::ReadOnlyPart*>(obj);
-    return part ? part->widget() : 0;
+    return part ? part->widget() : nullptr;
 }
 
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
            :KParts::Plugin(parent)
 {
-    KActionMenu *menu = new KActionMenu(KIcon("kget"), i18n("Download Manager"), actionCollection());
+    KActionMenu *menu = new KActionMenu(QIcon::fromTheme("kget"), i18n("Download Manager"), actionCollection());
     actionCollection()->addAction("kget_menu", menu);
 
     menu->setDelayed( false );
@@ -206,7 +206,7 @@ void KGetPlugin::getLinks(bool selectedOnly)
                     attr = QL1S("src");
                 else if (element.hasAttribute(QL1S("data")))
                     attr = QL1S("data");
-                const KUrl resolvedUrl (baseUrl.resolved(element.attribute(attr)));
+                const QUrl resolvedUrl (baseUrl.resolved(element.attribute(attr)));
                 // Only select valid and non-local links for download...
                 if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty()) {
                     if (element.hasAttribute(QL1S("type")))
@@ -227,7 +227,7 @@ void KGetPlugin::getLinks(bool selectedOnly)
                                                                           KParts::FileInfoExtension::AllItems);
         const KFileItemList items = fileinfoExtn->queryFor(mode);
         Q_FOREACH(const KFileItem& item, items) {
-            const KUrl url = item.url();
+            const QUrl url = item.url();
             // Only select valid and non local links for download...
             if (item.isReadable() && item.isFile() && !item.isLocalFile() && !url.host().isEmpty()) {
                 if (item.mimetype().isEmpty())

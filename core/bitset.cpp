@@ -23,7 +23,7 @@
 
 BitSet BitSet::null;
 
-BitSet::BitSet(quint32 num_bits) : num_bits(num_bits),data(0)
+BitSet::BitSet(quint32 num_bits) : num_bits(num_bits),data(nullptr)
 {
 	num_bytes = (num_bits / 8) + ((num_bits % 8 > 0) ? 1 : 0);
 	data = new quint8[num_bytes];
@@ -31,7 +31,7 @@ BitSet::BitSet(quint32 num_bits) : num_bits(num_bits),data(0)
 	num_on = 0;
 }
 
-BitSet::BitSet(const quint8* d,quint32 num_bits)  : num_bits(num_bits),data(0)
+BitSet::BitSet(const quint8* d,quint32 num_bits)  : num_bits(num_bits),data(nullptr)
 {
 	num_bytes = (num_bits / 8) + ((num_bits % 8 > 0) ? 1 : 0);
 	data = new quint8[num_bytes];
@@ -46,7 +46,7 @@ BitSet::BitSet(const quint8* d,quint32 num_bits)  : num_bits(num_bits),data(0)
 	}
 }
 
-BitSet::BitSet(const BitSet & bs) : num_bits(bs.num_bits),num_bytes(bs.num_bytes),data(0),num_on(bs.num_on)
+BitSet::BitSet(const BitSet & bs) : num_bits(bs.num_bits),num_bytes(bs.num_bytes),data(nullptr),num_on(bs.num_on)
 {
 	data = new quint8[num_bytes];
 	std::copy(bs.data,bs.data+num_bytes,data);

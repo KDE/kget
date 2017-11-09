@@ -32,14 +32,15 @@
 #include "ui/linkview/kget_linkview.h"
 #include "ui/newtransferdialog.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
   : QObject(parent),
     m_mainWindow(parent)
 {
     foreach (TransferHandler *handler, KGet::allTransfers()) {
-        m_transfers[handler] = qMakePair(handler->source().pathOrUrl(), handler->dBusObjectPath());
+        m_transfers[handler] = qMakePair(handler->source().toString(), handler->dBusObjectPath());
     }
 
     TransferTreeModel *model = KGet::model();
@@ -56,9 +57,11 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
 {
     QStringList dBusPaths;
 
-
+    QList<QUrl> urls;
+    foreach (const QString &s, src.split(";"))
+        urls.append(QUrl(s));
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    QList<TransferHandler*> addedTransfers = KGet::addTransfer(src.split(';'), dest, QString(), start);
+    QList<TransferHandler*> addedTransfers = KGet::addTransfer(urls, dest, QString(), start);
 
     foreach (TransferHandler *handler, addedTransfers) {
         dBusPaths.append(handler->dBusObjectPath());
@@ -69,7 +72,7 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
 
 bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
 {
-    kDebug(5001) << "deleting Transfer";
+    qCDebug(KGET_DEBUG) << "deleting Transfer";
 
     Transfer *transfer = KGet::model()->findTransferByDBusObjectPath(dbusObjectPath);
 
@@ -82,7 +85,10 @@ bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
 
 void DBusKGetWrapper::showNewTransferDialog(const QStringList &urls)
 {
-    NewTransferDialogHandler::showNewTransferDialog(urls);
+    QList<QUrl> qurls;
+    foreach (const QString &s, urls)
+        qurls.append(QUrl(s));
+    NewTransferDialogHandler::showNewTransferDialog(qurls);
 }
 
 bool DBusKGetWrapper::dropTargetVisible() const
@@ -123,7 +129,7 @@ void DBusKGetWrapper::slotTransfersAdded(const QList<TransferHandler*> &transfer
     QStringList urls;
     QStringList objectPaths;
     foreach (TransferHandler *transfer, transfers) {
-        const QString url = transfer->source().pathOrUrl();
+        const QString url = transfer->source().toString();
         const QString objectPath = transfer->dBusObjectPath();
         urls << url;
         objectPaths << objectPath;
@@ -162,11 +168,11 @@ void DBusKGetWrapper::importLinks(const QList <QString> &links)
 bool DBusKGetWrapper::isSupported(const QString &url) const
 {
     foreach (TransferFactory * factory, KGet::factories()) {
-        kDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(KUrl(url));
-        if (factory->isSupported(KUrl(url)))
+        kDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(QUrl(url));
+        if (factory->isSupported(QUrl(url)))
             return true;
     }
     return false;
 }
 
-#include "dbuskgetwrapper.moc"
+

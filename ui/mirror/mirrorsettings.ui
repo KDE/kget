@@ -6,32 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
-    <height>216</height>
+    <width>508</width>
+    <height>233</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" rowspan="3">
-    <widget class="QTreeView" name="treeView">
-     <property name="selectionMode">
-      <enum>QAbstractItemView::ExtendedSelection</enum>
-     </property>
-     <property name="rootIsDecorated">
-      <bool>false</bool>
-     </property>
-     <property name="uniformRowHeights">
-      <bool>true</bool>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="1">
-    <widget class="KPushButton" name="add"/>
+    <widget class="QPushButton" name="add"/>
    </item>
    <item row="1" column="1">
-    <widget class="KPushButton" name="remove"/>
+    <widget class="QPushButton" name="remove"/>
    </item>
    <item row="2" column="1">
     <spacer name="verticalSpacer">
@@ -46,15 +30,37 @@
      </property>
     </spacer>
    </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="closeButton">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" rowspan="4">
+    <widget class="QTreeView" name="treeView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>true</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -13,11 +13,9 @@
 #include <kcategorizedsortfilterproxymodel.h>
 #include <kcategorizedview.h>
 #include <kcategorydrawer.h>
-#include <KDialog>
-#include <KDebug>
+#include <QDebug>
 
 #include <QGridLayout>
-#include <QLineEdit>
 #include <QModelIndex>
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -34,11 +32,11 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
 
     // the kcategoryizedview list
     TransferHistoryItemDelegate *item_delegate = new TransferHistoryItemDelegate(this);
-    m_drawer = new KCategoryDrawer();
     m_view = new KCategorizedView(this);
+    m_drawer = new KCategoryDrawer(m_view);
     m_view->setCategoryDrawer(m_drawer);
     m_view->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_view->setSpacing(KDialog::spacingHint());
+    //m_view->setSpacing(KDialog::spacingHint());TODO: Port this line
     m_view->setViewMode(QListView::IconMode);
     m_view->setMouseTracking(true);
     m_view->setItemDelegate(item_delegate);
@@ -53,9 +51,8 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_proxyModel->setSourceModel(m_model);
     m_view->setModel(m_proxyModel);
 
-    connect(item_delegate, SIGNAL(deletedTransfer(QString,QModelIndex)),
-                           SIGNAL(deletedTransfer(QString,QModelIndex)));
-    connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SIGNAL(doubleClicked(QModelIndex)));
+    connect(item_delegate, &TransferHistoryItemDelegate::deletedTransfer, this, &TransferHistoryCategorizedView::deletedTransfer);
+    connect(m_view, &KCategorizedView::doubleClicked, this, &TransferHistoryCategorizedView::doubleClicked);
     setLayout(layout);
 }
 
@@ -121,4 +118,4 @@ void TransferHistoryCategorizedView::update()
     oldProxy->deleteLater();
 }
 
-#include "transferhistorycategorizedview.moc"
+

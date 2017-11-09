@@ -12,12 +12,12 @@
 
 #include "metalinksettings.h"
 
-#include "kget_export.h"
+#include "kget_macro.h"
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(KGetFactory::componentData(), parent, args)
+    : KCModule(/*KGetFactory::componentData(), */parent, args)
 {
     ui.setupUi(this);
 
@@ -43,7 +43,7 @@ void DlgSettingsWidget::save()
     MetalinkSettings::setMirrorsPerFile(ui.kcfg_MirrorsPerFile->value());
     MetalinkSettings::setConnectionsPerUrl(ui.kcfg_ConnectionsPerUrl->value());
 
-    MetalinkSettings::self()->writeConfig();
+    MetalinkSettings::self()->save();
 }
 
 #include "dlgmetalink.moc"

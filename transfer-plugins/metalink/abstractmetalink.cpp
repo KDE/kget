@@ -22,25 +22,27 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KIO/RenameDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 
-#include <QtCore/QFile>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QDomElement>
 
 AbstractMetalink::AbstractMetalink(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_fileModel(0),
-      m_currentFiles(0),
+      m_fileModel(nullptr),
+      m_currentFiles(),
       m_ready(false),
       m_speedCount(0),
       m_tempAverageSpeed(0),
@@ -209,13 +211,13 @@ void AbstractMetalink::slotVerified(bool isVerified)
                 m_fileModel->setData(checksumVerified, factory->verifier()->status());
             }
             if (factory->doDownload() && (factory->verifier()->status() == Verifier::NotVerified)) {
-                brokenFiles.append(factory->dest().pathOrUrl());
+                brokenFiles.append(factory->dest().toString());
             }
         }
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, do you want to repair (if repairing does not work the download would be restarted) it?"),
                      brokenFiles) == KMessageBox::Yes) {
                 if (repair()) {
@@ -238,7 +240,7 @@ void AbstractMetalink::slotSignatureVerified()
                 m_fileModel->setData(signatureVerified, factory->signature()->status());
             }
             if (factory->doDownload() && (factory->verifier()->status() == Verifier::NotVerified)) {
-                brokenFiles.append(factory->dest().pathOrUrl());
+                brokenFiles.append(factory->dest().toString());
             }
         }
 /*
@@ -257,7 +259,7 @@ void AbstractMetalink::slotSignatureVerified()
     }
 }
 
-bool AbstractMetalink::repair(const KUrl &file)
+bool AbstractMetalink::repair(const QUrl &file)
 {
     if (file.isValid()) {
         if (m_dataSourceFactory.contains(file)) {
@@ -287,7 +289,7 @@ bool AbstractMetalink::repair(const KUrl &file)
 }
 
 
-Verifier *AbstractMetalink::verifier(const KUrl &file)
+Verifier *AbstractMetalink::verifier(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file)) {
         return 0;
@@ -296,7 +298,7 @@ Verifier *AbstractMetalink::verifier(const KUrl &file)
     return m_dataSourceFactory[file]->verifier();
 }
 
-Signature *AbstractMetalink::signature(const KUrl &file)
+Signature *AbstractMetalink::signature(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file)) {
         return 0;
@@ -305,7 +307,7 @@ Signature *AbstractMetalink::signature(const KUrl &file)
     return m_dataSourceFactory[file]->signature();
 }
 
-QList<KUrl> AbstractMetalink::files() const
+QList<QUrl> AbstractMetalink::files() const
 {
     return m_dataSourceFactory.keys();
 }
@@ -314,11 +316,11 @@ FileModel *AbstractMetalink::fileModel()
 {
     if (!m_fileModel) {
         m_fileModel = new FileModel(files(), directory(), this);
-        connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+        connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
         connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
 
         foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-            const KUrl dest = factory->dest();
+            const QUrl dest = factory->dest();
             QModelIndex size = m_fileModel->index(dest, FileItem::Size);
             m_fileModel->setData(size, static_cast<qlonglong>(factory->size()));
             QModelIndex status = m_fileModel->index(dest, FileItem::Status);
@@ -338,7 +340,7 @@ FileModel *AbstractMetalink::fileModel()
     return m_fileModel;
 }
 
-void AbstractMetalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
+void AbstractMetalink::slotRename(const QUrl &oldUrl, const QUrl &newUrl)
 {
     if (!m_dataSourceFactory.contains(oldUrl)) {
         return;
@@ -351,7 +353,7 @@ void AbstractMetalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
     setTransferChange(Tc_FileName);
 }
 
-bool AbstractMetalink::setDirectory(const KUrl &new_directory)
+bool AbstractMetalink::setDirectory(const QUrl &new_directory)
 {
     if (new_directory == directory()) {
         return false;
@@ -361,16 +363,16 @@ bool AbstractMetalink::setDirectory(const KUrl &new_directory)
         m_fileModel->setDirectory(new_directory);
     }
 
-    const QString oldDirectory = directory().pathOrUrl(KUrl::AddTrailingSlash);
-    const QString newDirectory = new_directory.pathOrUrl(KUrl::AddTrailingSlash);
+    const QString oldDirectory = directory().toString();
+    const QString newDirectory = new_directory.toString();
     const QString fileName = m_dest.fileName();
     m_dest = new_directory;
-    m_dest.addPath(fileName);
+    m_dest.setPath(m_dest.adjusted(QUrl::RemoveFilename).toString() + fileName);
 
-    QHash<KUrl, DataSourceFactory*> newStorage;
+    QHash<QUrl, DataSourceFactory*> newStorage;
     foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-        const KUrl oldUrl = factory->dest();
-        const KUrl newUrl = KUrl(oldUrl.pathOrUrl().replace(oldDirectory, newDirectory));
+        const QUrl oldUrl = factory->dest();
+        const QUrl newUrl = QUrl(oldUrl.toString().replace(oldDirectory, newDirectory));
         factory->setNewDestination(newUrl);
         newStorage[newUrl] = factory;
     }
@@ -380,9 +382,9 @@ bool AbstractMetalink::setDirectory(const KUrl &new_directory)
     return true;
 }
 
-QHash<KUrl, QPair<bool, int> > AbstractMetalink::availableMirrors(const KUrl &file) const
+QHash<QUrl, QPair<bool, int> > AbstractMetalink::availableMirrors(const QUrl &file) const
 {
-    QHash<KUrl, QPair<bool, int> > urls;
+    QHash<QUrl, QPair<bool, int> > urls;
 
     if (m_dataSourceFactory.contains(file)) {
         urls = m_dataSourceFactory[file]->mirrors();
@@ -392,7 +394,7 @@ QHash<KUrl, QPair<bool, int> > AbstractMetalink::availableMirrors(const KUrl &fi
 }
 
 
-void AbstractMetalink::setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors)
+void AbstractMetalink::setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors)
 {
     if (!m_dataSourceFactory.contains(file)) {
         return;
@@ -462,7 +464,7 @@ void AbstractMetalink::filesSelected()
     //and asks the user if there are existing files already
     foreach (const QModelIndex &index, files)
     {
-        const KUrl dest = fileModel()->getUrl(index);
+        const QUrl dest = fileModel()->getUrl(index);
         bool doDownload = index.data(Qt::CheckStateRole).toBool();
         if (m_dataSourceFactory.contains(dest))
         {
@@ -486,7 +488,7 @@ void AbstractMetalink::filesSelected()
                     if (result == KIO::R_RENAME) {
                         //no reason to use FileModel::rename() since the file does not exist yet, so simply skip it
                         //avoids having to deal with signals
-                        const KUrl newDest = dlg.newDestUrl();
+                        const QUrl newDest = dlg.newDestUrl();
                         factory->setDoDownload(doDownload);
                         factory->setNewDestination(newDest);
                         fileModel()->setData(index, newDest.fileName(), FileItem::File);
@@ -537,7 +539,7 @@ void AbstractMetalink::filesSelected()
 
 void AbstractMetalink::stop()
 {
-    kDebug(5001) << "metalink::Stop";
+    qCDebug(KGET_DEBUG) << "metalink::Stop";
     if (m_ready && ((status() != Stopped) || (status() != Finished)))
     {
         m_currentFiles = 0;
@@ -548,5 +550,5 @@ void AbstractMetalink::stop()
     }
 }
 
-#include "abstractmetalink.moc"
+
 

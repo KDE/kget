@@ -18,24 +18,16 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
 ***************************************************************************/
 
-
 #ifndef Metalinker_H
 #define Metalinker_H
 
 #include <KIO/Job>
-#include <KUrl>
+#include <QUrl>
 #include <QDate>
 #include <QDomElement>
-#include <QtCore/QEventLoop>
-#include <QtCore/QString>
-#include <QtCore/QObject>
-
-#ifdef HAVE_NEPOMUK
-namespace Nepomuk2
-{
-    class Variant;
-}
-#endif //HAVE_NEPOMUK
+#include <QEventLoop>
+#include <QString>
+#include <QObject>
 
 /**
  * The following classes try to resemble the structure of a Metalink-document, they partially support
@@ -83,7 +75,7 @@ class UrlText
         void clear();
 
         QString name;
-        KUrl url;
+        QUrl url;
 };
 
 /**
@@ -100,18 +92,11 @@ class CommonData
 
         void clear();
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Return Nepomuk-properties that can be extracted
-         */
-        QList<QPair<QUrl, Nepomuk2::Variant> > properties() const;
-#endif //HAVE_NEPOMUK
-
         QString identity;
         QString version;
         QString description;
         QStringList oses;
-        KUrl logo;
+        QUrl logo;
         QStringList languages;
         UrlText publisher;
         QString copyright;
@@ -150,7 +135,7 @@ class Metaurl
          */
         QString name;
 
-        KUrl url;
+        QUrl url;
 };
 
 class Url
@@ -184,7 +169,7 @@ class Url
          */
         QString location;
 
-        KUrl url;
+        QUrl url;
 };
 
 class Resources
@@ -258,13 +243,6 @@ class File
          */
         bool isValidNameAttribute() const;
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Return Nepomuk-properties that can be extracted of file, only including data
-         */
-        QList<QPair<QUrl, Nepomuk2::Variant> > properties() const;
-#endif //HAVE_NEPOMUK
-
         QString name;
         Verification verification;
         KIO::filesize_t size;
@@ -281,15 +259,6 @@ class Files
 
         void load(const QDomElement &e);
         void save(QDomElement &e) const;
-
-// #ifdef HAVE_NEPOMUK//TODO wha this now?
-//         /**
-//          * Return all Nepomuk-properties that can be extracted of Files
-//          * @Note only Files is being looked at, not each File it contains, so
-//          * you only get the general metadata for all Files
-//         */
-//         QHash<QUrl, Nepomuk::Variant> properties() const;
-// #endif //HAVE_NEPOMUK
 
         void clear();
 
@@ -323,7 +292,7 @@ class Metalink
         bool dynamic;
         QString xmlns; //the xmlns value is ignored when saving, instead the data format described in the specification is always used
         DateConstruct published; //when the metalink was published
-        KUrl origin;
+        QUrl origin;
         QString generator;
         DateConstruct updated; //when the metalink was updated
         Files files;
@@ -388,7 +357,7 @@ class HandleMetalink
          * @param metalink the instance of Metalink where the metalink will be stored
          * @return return true if it worked
          */
-        static bool load(const KUrl &destination, Metalink *metalink);
+        static bool load(const QUrl &destination, Metalink *metalink);
 
         /**
          * Loads data into metalink
@@ -405,22 +374,15 @@ class HandleMetalink
          * @param metalink the instance of metalink that will be written to the filesystem
          * @return return true if it worked
          */
-        static bool save(const KUrl &destination, Metalink *metalink);
+        static bool save(const QUrl &destination, Metalink *metalink);
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Convenience method to add Strings to the data
-         */
-        static void addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QByteArray &uriBa, const QString &value);
-        static void addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QUrl &uri, const QString &value);
-#endif //HAVE_NEPOMUK
 };
 
 class MetalinkHttpParser : public QObject
 {
     Q_OBJECT
     public:
-        MetalinkHttpParser(const KUrl& Url)
+        MetalinkHttpParser(const QUrl& Url)
             : m_Url(Url), m_MetalinkHSatus(false) , m_EtagValue(QString(""))
         {
             checkMetalinkHttp();
@@ -438,7 +400,7 @@ class MetalinkHttpParser : public QObject
          * @return the Url m_Url which is being tested for metalink
          */
 
-        KUrl getUrl();
+        QUrl getUrl();
         QMultiMap<QString, QString>* getHeaderInfo();
 
         /**
@@ -451,12 +413,12 @@ class MetalinkHttpParser : public QObject
         void slotHeaderResult(KJob* kjob);
         void checkMetalinkHttp();
         void detectMime(KIO::Job *  job, const QString &  type);
-        void slotRedirection(KIO::Job*, const KUrl&);
+        void slotRedirection(KIO::Job*, const QUrl&);
 
 
     private:
-        KUrl m_Url;
-        KUrl m_redirectionUrl;
+        QUrl m_Url;
+        QUrl m_redirectionUrl;
         bool m_MetalinkHSatus;
         QEventLoop m_loop;
         QMultiMap<QString, QString> m_headerInfo;

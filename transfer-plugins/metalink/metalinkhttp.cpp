@@ -24,23 +24,21 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
-#ifdef HAVE_NEPOMUK
-    #include "core/nepomukhandler.h"
-    #include <Nepomuk2/Variant>
-#endif //HAVE_NEPOMUK
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KIO/RenameDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 
-#include <QtCore/QFile>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QDomElement>
 
 /**
 * @return Hex value from a base64 value
@@ -52,11 +50,11 @@ QString base64ToHex(const QString& b64)
 }
 
 MetalinkHttp::MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          KGetMetalink::MetalinkHttpParser *httpParser,
                          const QDomElement * e)
     : AbstractMetalink(parent,factory,scheduler,source, dest, e) ,
-      m_signatureUrl(KUrl()),
+      m_signatureUrl(QUrl()),
       m_httpparser(httpParser)
 
 {
@@ -70,7 +68,7 @@ MetalinkHttp::~MetalinkHttp()
 
 void MetalinkHttp::load(const QDomElement *element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     Transfer::load(element);
     DataSourceFactory * fac = new DataSourceFactory(this, m_dest);
     m_dataSourceFactory.insert(m_dest, fac);
@@ -92,7 +90,7 @@ void MetalinkHttp::load(const QDomElement *element)
 
 void MetalinkHttp::save(const QDomElement &element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     Transfer::save(element);
     m_dataSourceFactory.begin().value()->save(element);
 }
@@ -135,7 +133,7 @@ void MetalinkHttp::start()
     }
 }
 
-void MetalinkHttp::setSignature(KUrl & dest, QByteArray & data, DataSourceFactory* dataFactory)
+void MetalinkHttp::setSignature(QUrl & dest, QByteArray & data, DataSourceFactory* dataFactory)
 {
     Q_UNUSED(dest);
     dataFactory->signature()->setSignature(data,Signature::AsciiDetached);
@@ -153,13 +151,13 @@ void MetalinkHttp::slotSignatureVerified()
                 m_fileModel->setData(signatureVerified, factory->signature()->status());
             }
             if (factory->doDownload() && (factory->verifier()->status() == Verifier::NotVerified)) {
-                brokenFiles.append(factory->dest().pathOrUrl());
+                brokenFiles.append(factory->dest().toString());
             }
         }
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, try to repair it?"),
                      brokenFiles) == KMessageBox::Yes) {
                     if (repair()) {
@@ -175,9 +173,8 @@ void MetalinkHttp::slotSignatureVerified()
 bool MetalinkHttp::metalinkHttpInit()
 {
     kDebug() << "m_dest = " << m_dest;
-    const KUrl tempDest = KUrl(m_dest.directory());
-    KUrl dest = tempDest;
-    dest.addPath(m_dest.fileName());
+    const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
+    QUrl dest = tempDest.toString() + "/" + m_dest.fileName();
     kDebug() << "dest = " << dest;
 
     //sort the urls according to their priority (highest first)
@@ -195,7 +192,7 @@ bool MetalinkHttp::metalinkHttpInit()
     //add the Mirrors Sources
 
     for(int i = 0; i < m_linkheaderList.size(); ++i) {
-        const KUrl url = m_linkheaderList[i].url;
+        const QUrl url = m_linkheaderList[i].url;
         if (url.isValid()) {
             if (m_linkheaderList[i].pref) {
                 kDebug() << "found etag in a mirror" ;
@@ -223,9 +220,9 @@ bool MetalinkHttp::metalinkHttpInit()
         dataFactory->verifier()->addChecksums(m_DigestList);
 
         //Add OpenPGP signatures
-        if (m_signatureUrl != KUrl()) {
+        if (m_signatureUrl != QUrl()) {
             Download *signat_download = new Download(m_signatureUrl, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
-            connect(signat_download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(setSignature(KUrl,QByteArray)));
+            connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }
         m_dataSourceFactory[dataFactory->dest()] = dataFactory;
     }
@@ -236,8 +233,8 @@ bool MetalinkHttp::metalinkHttpInit()
 
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
-        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
-        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
+        qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
+        KMessageBox::error(nullptr, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -308,4 +305,4 @@ QString MetalinkHttp::adaptDigestType(const QString & hashType)
     }
 }
 
-#include "metalinkhttp.moc"
+

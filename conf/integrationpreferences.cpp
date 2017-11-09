@@ -22,6 +22,9 @@
 #include "settings.h"
 
 #include <KConfigDialog>
+#include <KLocalizedString>
+#include <KGuiItem>
+#include <KStandardGuiItem>
 
 IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f)
   : QWidget(parent, f)
@@ -29,16 +32,16 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     ui.setupUi(this);
 
     //AutoPaste stuff
-    ui.type->addItem(KIcon("list-add"), i18n("Include"), AutoPasteModel::Include);
-    ui.type->addItem(KIcon("list-remove"), i18n("Exclude"), AutoPasteModel::Exclude);
+    ui.type->addItem(QIcon::fromTheme("list-add"), i18n("Include"), AutoPasteModel::Include);
+    ui.type->addItem(QIcon::fromTheme("list-remove"), i18n("Exclude"), AutoPasteModel::Exclude);
 
     ui.patternSyntax->addItem(i18n("Escape sequences"), AutoPasteModel::Wildcard);
     ui.patternSyntax->addItem(i18n("Regular expression"), AutoPasteModel::RegExp);
 
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
-    ui.increase->setIcon(KIcon("arrow-up"));
-    ui.decrease->setIcon(KIcon("arrow-down"));
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
+    ui.increase->setIcon(QIcon::fromTheme("arrow-up"));
+    ui.decrease->setIcon(QIcon::fromTheme("arrow-down"));
 
     m_model = new AutoPasteModel(this);
     m_model->load();
@@ -53,18 +56,18 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
         ui.list->header()->restoreState(loadedState);
     }
 
-    connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(changed()));
+    connect(m_model, &AutoPasteModel::dataChanged, this, &IntegrationPreferences::changed);
     connect(ui.list->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
-    connect(ui.pattern, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateButtons()));
-    connect(ui.pattern, SIGNAL(returnPressed(QString)), this, SLOT(slotAddItem()));
-    connect(ui.add, SIGNAL(clicked()), this, SLOT(slotAddItem()));
-    connect(ui.remove, SIGNAL(clicked()), this, SLOT(slotRemoveItem()));
-    connect(ui.increase, SIGNAL(clicked()), this, SLOT(slotIncreasePriority()));
-    connect(ui.decrease, SIGNAL(clicked()), this, SLOT(slotDecreasePriority()));
+    connect(ui.pattern, &KLineEdit::textChanged, this, &IntegrationPreferences::slotUpdateButtons);
+    connect(ui.pattern, &KLineEdit::returnPressed, this, &IntegrationPreferences::slotAddItem);
+    connect(ui.add, &QPushButton::clicked, this, &IntegrationPreferences::slotAddItem);
+    connect(ui.remove, &QPushButton::clicked, this, &IntegrationPreferences::slotRemoveItem);
+    connect(ui.increase, &QPushButton::clicked, this, &IntegrationPreferences::slotIncreasePriority);
+    connect(ui.decrease, &QPushButton::clicked, this, &IntegrationPreferences::slotDecreasePriority);
     connect(parent, SIGNAL(rejected()), m_model, SLOT(load()));
-    connect(parent, SIGNAL(applyClicked()), m_model, SLOT(save()));
-    connect(parent, SIGNAL(okClicked()), m_model, SLOT(save()));
-    connect(parent, SIGNAL(defaultClicked()), m_model, SLOT(resetDefaults()));
+    connect(parent, SIGNAL(settingsChanged(QString)), m_model, SLOT(save()));
+    connect(parent, SIGNAL(settingsChanged(QString)), m_model, SLOT(save()));
+    connect(parent, SIGNAL(resetDefaults()), m_model, SLOT(resetDefaults()));
 
     slotUpdateButtons();
 }

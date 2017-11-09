@@ -22,10 +22,11 @@
 #include "core/transfertreeselectionmodel.h"
 #include "settings.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <klocale.h>
-#include <kmenu.h>
-#include <kicon.h>
+#include <QMenu>
+#include <QIcon>
 
 #include <QApplication>
 #include <QPainter>
@@ -33,8 +34,6 @@
 #include <QModelIndex>
 #include <QButtonGroup>
 #include <QHBoxLayout>
-#include <QGroupBox>
-#include <QLabel>
 #include <QAbstractItemView>
 
 GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
@@ -50,7 +49,7 @@ GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent
 
 void GroupStatusButton::checkStateSet()
 {
-//     kDebug(5001) << "GroupStatusButton::checkStateSet";
+//     qCDebug(KGET_DEBUG) << "GroupStatusButton::checkStateSet";
 
     QToolButton::checkStateSet();
 
@@ -221,7 +220,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_startBt = new GroupStatusButton(m_index, this);
     m_startBt->setCheckable(true);
     m_startBt->setAutoRaise(true);
-    m_startBt->setIcon(KIcon("media-playback-start"));
+    m_startBt->setIcon(QIcon::fromTheme("media-playback-start"));
     m_startBt->setFixedSize(36, 36);
     m_startBt->setIconSize(QSize(22, 22));
     m_layout->addWidget(m_startBt);
@@ -230,7 +229,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_stopBt = new GroupStatusButton(m_index, this);
     m_stopBt->setCheckable(true);
     m_stopBt->setAutoRaise(true);
-    m_stopBt->setIcon(KIcon("media-playback-pause"));
+    m_stopBt->setIcon(QIcon::fromTheme("media-playback-pause"));
     m_stopBt->setFixedSize(36, 36);
     m_stopBt->setIconSize(QSize(22, 22));
     m_layout->addWidget(m_stopBt);
@@ -241,7 +240,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_layout->addStretch();
     m_layout->setMargin(1);
 
-    connect(m_startBt, SIGNAL(toggled(bool)), this, SLOT(slotStatusChanged()));
+    connect(m_startBt, &GroupStatusButton::toggled, this, &GroupStatusEditor::slotStatusChanged);
 }
 
 void GroupStatusEditor::setRunning(bool running)
@@ -275,7 +274,7 @@ QWidget *BasicTransfersViewDelegate::createEditor(QWidget *parent, const QStyleO
 {
     if (index.column() == TransferTreeModel::Status) {
         GroupStatusEditor *qroupStatusEditor = new GroupStatusEditor(index, parent);
-        connect(qroupStatusEditor, SIGNAL(changedStatus(GroupStatusEditor*)), this, SLOT(slotGroupStatusChanged(GroupStatusEditor*)));
+        connect(qroupStatusEditor, &GroupStatusEditor::changedStatus, this, &BasicTransfersViewDelegate::slotGroupStatusChanged);
         return qroupStatusEditor;
     } else {
         return KExtendableItemDelegate::createEditor(parent, option, index);
@@ -317,8 +316,8 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     : BasicTransfersViewDelegate(parent)
 {
     Q_ASSERT(qobject_cast<QAbstractItemView *>(parent));
-    setExtendPixmap(SmallIcon("arrow-right"));
-    setContractPixmap(SmallIcon("arrow-down"));
+    setExtendPixmap(QIcon::fromTheme("arrow-right").pixmap(16));
+    setContractPixmap(QIcon::fromTheme("arrow-down").pixmap(16));
 }
 
 void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
@@ -407,7 +406,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
 
 ///    These lines are just for testing purposes. Uncomment them to show on the view the repaint events.
 //     static int i=0;
-//     kDebug(5001) << "paint!!! " << i++ << " " << index.internalPointer() << " " << index.column();
+//     qCDebug(KGET_DEBUG) << "paint!!! " << i++ << " " << index.internalPointer() << " " << index.column();
 //
 //     painter->drawRect(option.rect);
 //     painter->drawText(option.rect.topLeft(), QString::number(i));
@@ -429,7 +428,7 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
     ModelItem *item = transferTreeModel->itemFromIndex(index);
 
     if (!item) {
-        kWarning(5001) << "Sizehint for non-existing item.";
+        qCWarning(KGET_DEBUG) << "Sizehint for non-existing item.";
         return QSize();
     }
 
@@ -454,23 +453,23 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
         QMouseEvent * mouseEvent = static_cast<QMouseEvent *>(event);
         if (mouseEvent->button() == Qt::RightButton)
         {
-//             kDebug(5001) << "TransfersViewDelegate::editorEvent() -> rightClick";
+//             qCDebug(KGET_DEBUG) << "TransfersViewDelegate::editorEvent() -> rightClick";
 
-            KMenu *popup = 0;
+            QMenu *popup = nullptr;
 
             TransferTreeModel * transferTreeModel = KGet::model();
 
             ModelItem * item = transferTreeModel->itemFromIndex(index);
             if (item->isGroup())
             {
-//                 kDebug(5001) << "isTransferGroup = true";
+//                 qCDebug(KGET_DEBUG) << "isTransferGroup = true";
                 TransferGroupHandler * transferGroupHandler = item->asGroup()->groupHandler();
 
                 popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget*>(this));
             }
             else
             {
-//                 kDebug(5001) << "isTransferGroup = false";
+//                 qCDebug(KGET_DEBUG) << "isTransferGroup = false";
 
                 TransferHandler * transferHandler = item->asTransfer()->transferHandler();
 
@@ -487,4 +486,4 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
     return false;
 }
 
-#include "transfersviewdelegate.moc"
+

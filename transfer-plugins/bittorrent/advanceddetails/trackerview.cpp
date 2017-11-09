@@ -27,6 +27,7 @@
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include <kinputdialog.h>
+#include <kconfiggroup.h>
 #include <torrent/globals.h>
 #include <interfaces/trackerinterface.h>
 #include <interfaces/torrentinterface.h>
@@ -42,7 +43,7 @@ namespace kt
 	
 	
 	TrackerView::TrackerView(QWidget *parent)
-		: QWidget(parent), tc(0)
+		: QWidget(parent), tc(nullptr)
 	{
 		setupUi(this);
 		model = new TrackerModel(this);
@@ -62,13 +63,13 @@ namespace kt
 				this,SLOT(currentChanged(QModelIndex,QModelIndex)));
 		connect(m_scrape,SIGNAL(clicked()),this,SLOT(scrapeClicked()));
 		
-		m_add_tracker->setIcon(KIcon("list-add"));
-		m_remove_tracker->setIcon(KIcon("list-remove"));
-		m_restore_defaults->setIcon(KIcon("kt-restore-defaults"));
-		m_change_tracker->setIcon(KIcon("kt-change-tracker"));
+		m_add_tracker->setIcon(QIcon::fromTheme("list-add"));
+		m_remove_tracker->setIcon(QIcon::fromTheme("list-remove"));
+		m_restore_defaults->setIcon(QIcon::fromTheme("kt-restore-defaults"));
+		m_change_tracker->setIcon(QIcon::fromTheme("kt-change-tracker"));
 		
 		setEnabled(false);
-		torrentChanged(0);
+		torrentChanged(nullptr);
 	}
 	
 	TrackerView::~TrackerView()
@@ -91,14 +92,14 @@ namespace kt
 		KUrl url(text);
 		if (!url.isValid())
 		{
-			KMessageBox::error(0, i18n("Malformed URL."));
+			KMessageBox::error(nullptr, i18n("Malformed URL."));
 			return;
 		}
 			
 		// check for dupes
 		if (!tc->getTrackersList()->addTracker(url,true))
 		{
-			KMessageBox::sorry(0,i18n("There already is a tracker named <b>%1</b>.",text));
+			KMessageBox::sorry(nullptr,i18n("There already is a tracker named <b>%1</b>.",text));
 		}
 		else
 		{
@@ -155,7 +156,7 @@ namespace kt
 		if (tc == ti)
 			return;
 		
-		setEnabled(ti != 0);
+		setEnabled(ti != nullptr);
 		torrentChanged(ti);
 		update();
 	}
@@ -176,7 +177,7 @@ namespace kt
 			m_restore_defaults->setEnabled(false);
 			m_change_tracker->setEnabled(false);
 			m_scrape->setEnabled(false);
-			model->changeTC(0);
+			model->changeTC(nullptr);
 		}
 		else
 		{
@@ -227,4 +228,4 @@ namespace kt
 }
 
 
-#include "trackerview.moc"
+

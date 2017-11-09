@@ -13,10 +13,9 @@
 #define _TESTTRANSFERS_H
 
 #include <QDBusVariant>
-#include <QtTest/QtTest>
-#include <QtXml/QDomElement>
-
-class KTempDir;
+#include <QtTest>
+#include <QDomElement>
+#include <KTempDir>
 class OrgKdeKgetTransferInterface;
 class OrgKdeKgetVerifierInterface;
 class TestTransfers;

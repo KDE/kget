@@ -17,9 +17,10 @@
 #include "metalinkhttp.h"
 #include "metalinkxml.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 
-KGET_EXPORT_PLUGIN( MetalinkFactory )
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_metalinkfactory.json", registerPlugin<MetalinkFactory>();)
 
 MetalinkFactory::MetalinkFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -30,31 +31,31 @@ MetalinkFactory::~MetalinkFactory()
 {
 }
 
-Transfer * MetalinkFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001) << "metalinkFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "metalinkFactory::createTransfer";
     KGetMetalink::MetalinkHttpParser *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
 
     if (metalinkHttpChecker->isMetalinkHttp()) {
+        qCDebug(KGET_DEBUG) << "Create MetalinkHTTP";
         return new MetalinkHttp(parent, this, scheduler, srcUrl, destUrl, metalinkHttpChecker, e);
     }
-    else
-    {
-        // No one takes ownership of this checker
-        metalinkHttpChecker->deleteLater();
+    // No one takes ownership of this checker
+    metalinkHttpChecker->deleteLater();
 
-        if (isSupported(srcUrl)) {
-            return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
-        }
-
-        return 0;
+    if (isSupported(srcUrl)) {
+        return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
     }
+
+    return nullptr;
 }
 
-bool MetalinkFactory::isSupported(const KUrl &url) const
+bool MetalinkFactory::isSupported(const QUrl &url) const
 {
     return (url.fileName().endsWith(QLatin1String(".metalink")) || url.fileName().endsWith(QLatin1String(".meta4")));
 }
+
+#include "metalinkfactory.moc"

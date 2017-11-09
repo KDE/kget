@@ -22,6 +22,7 @@
 
 #include <QHeaderView>
 #include <QSortFilterProxyModel>
+#include <KConfigGroup>
 #include <klocale.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
@@ -36,7 +37,7 @@ namespace kt
 {
 	
 
-	ChunkDownloadView::ChunkDownloadView(QWidget* parent) : QWidget(parent),curr_tc(0)
+	ChunkDownloadView::ChunkDownloadView(QWidget* parent) : QWidget(parent),curr_tc(nullptr)
 	{
 		setupUi(this);
 		model = new ChunkDownloadModel(this);
@@ -117,4 +118,4 @@ namespace kt
 	}
 }
 
-#include "chunkdownloadview.moc"
+

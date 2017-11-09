@@ -21,8 +21,8 @@
 #include "../core/scheduler.h"
 #include "../settings.h"
 
-#include <QtCore/QVariant>
-#include <QtTest/QtTest>
+#include <QVariant>
+#include <QtTest>
 
 Q_DECLARE_METATYPE(Job::ErrorType)
 Q_DECLARE_METATYPE(Job::Status)
@@ -543,4 +543,4 @@ void SchedulerTest::testShouldUpdate_data()
 
 QTEST_MAIN(SchedulerTest)
 
-#include "schedulertest.moc"
+

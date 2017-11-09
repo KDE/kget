@@ -20,25 +20,18 @@
 
 #include "metalinker.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QTextStream>
+#include <QDomElement>
+
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #include <kdeversion.h>
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KSystemTimeZone>
 
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk2/Variant>
-    #include <Nepomuk2/Vocabulary/NCO>
-    #include <Nepomuk2/Vocabulary/NIE>
-    #include <Nepomuk2/Vocabulary/NFO>
-    #include <Soprano/Vocabulary/NAO>
-
-using namespace Nepomuk2::Vocabulary;
-using namespace Soprano::Vocabulary;
-#endif //HAVE_NEPOMUK
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet/") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
 const uint KGetMetalink::Metalink::MAX_URL_PRIORITY = 999999;
@@ -158,12 +151,12 @@ void KGetMetalink::CommonData::load(const QDomElement &e)
     identity = e.firstChildElement("identity").text();
     version = e.firstChildElement("version").text();
     description = e.firstChildElement("description").text();
-    logo = KUrl(e.firstChildElement("logo").text());
+    logo = QUrl(e.firstChildElement("logo").text());
     copyright = e.firstChildElement("copyright").text();
 
     const QDomElement publisherElem = e.firstChildElement("publisher");
     publisher.name = publisherElem.attribute("name");
-    publisher.url = KUrl(publisherElem.attribute("url"));
+    publisher.url = QUrl(publisherElem.attribute("url"));
 
     for (QDomElement elemRes = e.firstChildElement("language"); !elemRes.isNull(); elemRes = elemRes.nextSiblingElement("language")) {
         languages << elemRes.text();
@@ -249,57 +242,6 @@ void KGetMetalink::CommonData::clear()
     copyright.clear();
 }
 
-#ifdef HAVE_NEPOMUK
-QList<QPair<QUrl, Nepomuk2::Variant> > KGetMetalink::CommonData::properties() const
-{
-    //TODO what to do with identity?
-    QList<QPair<QUrl, Nepomuk2::Variant> > data;
-
-    HandleMetalink::addProperty(&data, NIE::version(), version);
-    HandleMetalink::addProperty(&data, NIE::description(), description);
-
-    QList<Nepomuk2::Resource> osResources;
-    foreach (const QString &os, oses) {
-        Nepomuk2::Resource osRes(os, NFO::OperatingSystem());
-        osRes.setProperty(NIE::title(), os);
-        osResources << osRes;
-    }
-    if (!osResources.isEmpty()) {
-        data << qMakePair(NAO::isRelated(), Nepomuk2::Variant(osResources));
-    }
-
-    if (!logo.isEmpty()) {
-        Nepomuk2::Resource logoRes(logo, NFO::RemoteDataObject());
-        logoRes.addType(NAO::Symbol());
-        data << qMakePair(NAO::hasSymbol(), Nepomuk2::Variant(logoRes));
-    }
-
-    QList<Nepomuk2::Variant> langVariants;
-    foreach (const QString &language, languages) {
-        langVariants << language;
-    }
-    if (langVariants.count()) {
-        data << qMakePair(NIE::language(), Nepomuk2::Variant(langVariants));
-    }
-
-    if (!publisher.name.isEmpty()) {
-        Nepomuk2::Resource res(publisher.name, NCO::OrganizationContact());
-        res.setLabel(publisher.name);
-        res.addProperty(NCO::fullname(), publisher.name);
-        if (!publisher.url.isEmpty()) {
-            Nepomuk2::Resource website(publisher.url, NFO::Website());
-            website.addProperty(NIE::url(), publisher.url);
-            res.addProperty(NCO::websiteUrl(), website);
-        }
-        data << qMakePair(NCO::publisher(), Nepomuk2::Variant(res));
-    }
-
-    HandleMetalink::addProperty(&data, NIE::copyright(), copyright);
-
-    return data;
-}
-#endif //HAVE_NEPOMUK
-
 
 bool KGetMetalink::Metaurl::operator<(const KGetMetalink::Metaurl &other) const
 {
@@ -314,7 +256,7 @@ void KGetMetalink::Metaurl::load(const QDomElement &e)
         priority = Metalink::MAX_URL_PRIORITY;
     }
     name = e.attribute("name");
-    url = KUrl(e.text());
+    url = QUrl(e.text());
 }
 
 void KGetMetalink::Metaurl::save(QDomElement &e) const
@@ -339,7 +281,7 @@ void KGetMetalink::Metaurl::save(QDomElement &e) const
 
 bool KGetMetalink::Metaurl::isValid()
 {
-    return url.isValid() && url.hasHost() && !url.protocol().isEmpty() && !type.isEmpty();
+    return url.isValid() && !url.host().isEmpty() && !url.scheme().isEmpty() && !type.isEmpty();
 }
 
 void KGetMetalink::Metaurl::clear()
@@ -355,7 +297,7 @@ bool KGetMetalink::Url::operator<(const KGetMetalink::Url &other) const
     bool smaller = (this->priority > other.priority) || ((this->priority == 0) && (other.priority != 0));
 
     if (!smaller && (this->priority == other.priority)) {
-        QString countryCode = KGlobal::locale()->country();
+        QString countryCode;// = KLocale::global()->country();//TODO: Port
         if (!countryCode.isEmpty()) {
             smaller = (other.location.toLower() == countryCode.toLower());
         }
@@ -370,7 +312,7 @@ void KGetMetalink::Url::load(const QDomElement &e)
     if (priority > Metalink::MAX_URL_PRIORITY) {
         priority = Metalink::MAX_URL_PRIORITY;
     }
-    url = KUrl(e.text());
+    url = QUrl(e.text());
 }
 
 void KGetMetalink::Url::save(QDomElement &e) const
@@ -394,7 +336,7 @@ void KGetMetalink::Url::save(QDomElement &e) const
 
 bool KGetMetalink::Url::isValid()
 {
-    return url.isValid() && url.hasHost() && !url.protocol().isEmpty();
+    return url.isValid() && !url.host().isEmpty() && !url.scheme().isEmpty();
 }
 
 void KGetMetalink::Url::clear()
@@ -605,30 +547,23 @@ void KGetMetalink::File::clear()
 bool KGetMetalink::File::isValidNameAttribute() const
 {
     if (name.isEmpty()) {
-        kError(5001) << "Name attribute of Metalink::File is empty.";
+        qCCritical(KGET_DEBUG) << "Name attribute of Metalink::File is empty.";
         return false;
     }
 
     if (name.endsWith('/')) {
-        kError(5001) << "Name attribute of Metalink::File does not contain a file name:" << name;
+        qCCritical(KGET_DEBUG) << "Name attribute of Metalink::File does not contain a file name:" << name;
         return false;
     }
 
     const QStringList components = name.split('/');
     if (name.startsWith('/') || components.contains("..") || components.contains(".")) {
-        kError(5001) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
+        qCCritical(KGET_DEBUG) << "Name attribute of Metalink::File contains directory traversal directives:" << name;
         return false;
     }
 
     return true;
 }
-
-#ifdef HAVE_NEPOMUK
-QList<QPair<QUrl, Nepomuk2::Variant> > KGetMetalink::File::properties() const
-{
-    return data.properties();
-}
-#endif //HAVE_NEPOMUK
 
 bool KGetMetalink::Files::isValid() const
 {
@@ -648,7 +583,7 @@ bool KGetMetalink::Files::isValid() const
     while (!fileNames.isEmpty()) {
         const QString fileName = fileNames.takeFirst();
         if (fileNames.contains(fileName)) {
-            kError(5001) << "Metalink::File name" << fileName << "exists multiple times.";
+            qCCritical(KGET_DEBUG) << "Metalink::File name" << fileName << "exists multiple times.";
             return false;
         }
     }
@@ -689,12 +624,6 @@ bool KGetMetalink::Metalink::isValid() const
     return files.isValid();
 }
 
-// #ifdef HAVE_NEPOMUK
-// QHash<QUrl, Nepomuk::Variant> KGetMetalink::Files::properties() const
-// {
-//     return data.properties();
-// }
-// #endif //HAVE_NEPOMUK
 
 void KGetMetalink::Metalink::load(const QDomElement &e)
 {
@@ -707,7 +636,7 @@ void KGetMetalink::Metalink::load(const QDomElement &e)
     published.setData(metalink.firstChildElement("published").text());
     updated.setData(metalink.firstChildElement("updated").text());
     const QDomElement originElem = metalink.firstChildElement("origin");
-    origin = KUrl(metalink.firstChildElement("origin").text());
+    origin = QUrl(metalink.firstChildElement("origin").text());
     if (originElem.hasAttribute("dynamic")) {
         bool worked = false;
         dynamic = originElem.attribute("dynamic").toInt(&worked);
@@ -793,7 +722,7 @@ void KGetMetalink::Metalink_v3::load(const QDomElement &e)
     const QDomElement metalinkDom = doc.firstChildElement("metalink");
 
     m_metalink.dynamic = (metalinkDom.attribute("type") == "dynamic");
-    m_metalink.origin = KUrl(metalinkDom.attribute("origin"));
+    m_metalink.origin = QUrl(metalinkDom.attribute("origin"));
     m_metalink.generator = metalinkDom.attribute("generator");
     m_metalink.published = parseDateConstruct(metalinkDom.attribute("pubdate"));
     m_metalink.updated = parseDateConstruct(metalinkDom.attribute("refreshdate"));
@@ -860,7 +789,7 @@ KGetMetalink::CommonData KGetMetalink::Metalink_v3::parseCommonData(const QDomEl
 
     const QDomElement publisherElem = e.firstChildElement("publisher");
     data.publisher.name = publisherElem.firstChildElement("name").text();
-    data.publisher.url = KUrl(publisherElem.firstChildElement("url").text());
+    data.publisher.url = QUrl(publisherElem.firstChildElement("url").text());
 
     return data;
 }
@@ -913,7 +842,7 @@ KGetMetalink::Resources KGetMetalink::Metalink_v3::parseResources(const QDomElem
         }
         const int priority = MAX_PREFERENCE - preference + 1;//convert old preference to new priority
 
-        const KUrl link = KUrl(elemRes.text());
+        const QUrl link = QUrl(elemRes.text());
         QString type;
 
         if (link.fileName().endsWith(QLatin1String(".torrent"))) {
@@ -955,7 +884,7 @@ KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const 
         return dateConstruct;
     }
 
-    kDebug(5001) << "Parsing" << data;
+    qCDebug(KGET_DEBUG) << "Parsing" << data;
 
     QString temp = data;
     QDateTime dateTime;
@@ -1229,9 +1158,9 @@ QString KGetMetalink::Metalink_v3::dateConstructToString(const KGetMetalink::Dat
 }
 
 
-bool KGetMetalink::HandleMetalink::load(const KUrl &destination, KGetMetalink::Metalink *metalink)
+bool KGetMetalink::HandleMetalink::load(const QUrl &destination, KGetMetalink::Metalink *metalink)
 {
-    QFile file(destination.pathOrUrl());
+    QFile file(destination.toString());
     if (!file.open(QIODevice::ReadOnly))
     {
         return false;
@@ -1293,9 +1222,9 @@ bool KGetMetalink::HandleMetalink::load(const QByteArray &data, KGetMetalink::Me
     return false;
 }
 
-bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::Metalink *metalink)
+bool KGetMetalink::HandleMetalink::save(const QUrl &destination, KGetMetalink::Metalink *metalink)
 {
-    QFile file(destination.pathOrUrl());
+    QFile file(destination.toString());
     if (!file.open(QIODevice::WriteOnly)) {
         return false;
     }
@@ -1320,22 +1249,6 @@ bool KGetMetalink::HandleMetalink::save(const KUrl &destination, KGetMetalink::M
     return true;
 }
 
-#ifdef HAVE_NEPOMUK
-void KGetMetalink::HandleMetalink::addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QByteArray &uriBa, const QString &value)
-{
-    if (!uriBa.isEmpty()) {
-        addProperty(data, QUrl::fromEncoded(uriBa, QUrl::StrictMode), value);
-    }
-}
-
-void KGetMetalink::HandleMetalink::addProperty(QList<QPair<QUrl, Nepomuk2::Variant> > *data, const QUrl &uri, const QString &value)
-{
-    if (data && !uri.isEmpty() && !value.isEmpty()) {
-        (*data) << qMakePair(uri, Nepomuk2::Variant(value));
-    }
-}
-#endif //HAVE_NEPOMUK
-
 
 KGetMetalink::MetalinkHttpParser::~MetalinkHttpParser()
 {
@@ -1359,7 +1272,7 @@ void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
     job->addMetaData("PropagateHttpHeader", "true");
     job->setRedirectionHandlingEnabled(false);
     connect(job, SIGNAL(result(KJob*)), this, SLOT(slotHeaderResult(KJob*)));  // Finished
-    connect(job, SIGNAL(redirection(KIO::Job*,KUrl)), this, SLOT(slotRedirection(KIO::Job*,KUrl))); // Redirection
+    connect(job, SIGNAL(redirection(KIO::Job*,QUrl)), this, SLOT(slotRedirection(KIO::Job*,QUrl))); // Redirection
     connect(job,SIGNAL(mimetype(KIO::Job*,QString)),this,SLOT(detectMime(KIO::Job*,QString))); // Mime detection.
     kDebug() << " Verifying Metalink/HTTP Status" ;
     m_loop.exec();
@@ -1382,7 +1295,7 @@ void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
     // Handle the redirection... (Comment out if not desired)
     if (m_redirectionUrl.isValid()) {
        m_Url = m_redirectionUrl;
-       m_redirectionUrl = KUrl();
+       m_redirectionUrl = QUrl();
        checkMetalinkHttp();
     }
 
@@ -1390,7 +1303,7 @@ void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
         m_loop.exit();
 }
 
-void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const KUrl & url)
+void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const QUrl & url)
 {
     Q_UNUSED(job)
     m_redirectionUrl = url;
@@ -1453,7 +1366,7 @@ void KGetMetalink::MetalinkHttpParser::setMetalinkHSatus()
 
 }
 
-KUrl KGetMetalink::MetalinkHttpParser::getUrl()
+QUrl KGetMetalink::MetalinkHttpParser::getUrl()
 {
     return m_Url;
 }
@@ -1507,4 +1420,4 @@ void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
     }
 }
 
-#include "metalinker.moc"
+

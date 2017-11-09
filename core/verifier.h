@@ -21,17 +21,15 @@
 #define VERIFIER_H
 
 #include <kio/global.h>
-#include <KUrl>
+#include <QUrl>
 
-#include <QtCore/QModelIndex>
-#include <QtCore/QHash>
-#include <QtCore/QStringList>
+#include <QModelIndex>
+#include <QHash>
+#include <QStringList>
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
 class QDomElement;
-class QFile;
-class TransferHandler;
 class VerificationModel;
 class VerifierPrivate;
 typedef QPair<QString, QString> Checksum;
@@ -70,7 +68,7 @@ class KGET_EXPORT Verifier : public QObject
     Q_OBJECT
 
     public:
-        explicit Verifier(const KUrl &dest, QObject *parent = 0);
+        explicit Verifier(const QUrl &dest, QObject *parent = nullptr);
         ~Verifier();
 
         enum VerificationStatus
@@ -92,8 +90,8 @@ class KGET_EXPORT Verifier : public QObject
          */
         QString dBusObjectPath() const;
 
-        KUrl destination() const;
-        void setDestination(const KUrl &destination);//TODO handle the case when m_thread is working, while the file gets moved
+        QUrl destination() const;
+        void setDestination(const QUrl &destination);//TODO handle the case when m_thread is working, while the file gets moved
 
         VerificationStatus status() const;
 
@@ -128,7 +126,7 @@ class KGET_EXPORT Verifier : public QObject
          * Creates the checksum type of the file dest
          * @param abortPtr makes it possible to abort the calculation of the checksum from another thread
          */
-        static QString checksum(const KUrl &dest, const QString &type, bool *abortPtr);
+        static QString checksum(const QUrl &dest, const QString &type, bool *abortPtr);
 
         /**
          * Create partial checksums of type for file dest
@@ -136,7 +134,7 @@ class KGET_EXPORT Verifier : public QObject
          * @note the length of the partial checksum (if not defined = 0) is not less than 512 kb
          * and there won't be more partial checksums than 101
          */
-        static PartialChecksums partialChecksums(const KUrl &dest, const QString &type, KIO::filesize_t length = 0, bool *abortPtr = 0);
+        static PartialChecksums partialChecksums(const QUrl &dest, const QString &type, KIO::filesize_t length = 0, bool *abortPtr = nullptr);
 
         /**
          * @note only call verify() when this function returns true

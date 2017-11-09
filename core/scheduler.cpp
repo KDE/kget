@@ -17,7 +17,8 @@
 #include <algorithm>
 #include <boost/bind.hpp>
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 Scheduler::Scheduler(QObject * parent)
   : QObject(parent),
@@ -169,7 +170,7 @@ void Scheduler::jobQueueRemovedJobsEvent(JobQueue *queue, const QList<Job*> jobs
 
 void Scheduler::jobChangedEvent(Job * job, Job::Status status)
 {
-    kDebug(5001) << "Scheduler::jobChangedEvent  (job=" << job << " status=" << status <<  ")";
+    qCDebug(KGET_DEBUG) << "Scheduler::jobChangedEvent  (job=" << job << " status=" << status <<  ")";
 
     if (!m_failureCheckTimer)
         m_failureCheckTimer = startTimer(1000);
@@ -190,25 +191,25 @@ void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
     switch(failure.status)
     {
         case None:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = None ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = None ";
             break;
         case AboutToStall:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = AboutToStall ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = AboutToStall ";
             break;
         case Stall:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = Stall ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Stall ";
             break;
         case StallTimeout:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = StallTimeout ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = StallTimeout ";
             break;
         case Abort:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = Abort ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Abort ";
             break;
         case AbortTimeout:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = AbortTimeout ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = AbortTimeout ";
             break;
         case Error:
-            kDebug(5001) << "job = " << job << " failure (#" << failure.count << ") = Error ";
+            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Error ";
             break;
     }
     
@@ -276,8 +277,8 @@ void Scheduler::updateQueue( JobQueue * queue )
 
     for( int job=0 ; it!=itEnd ; ++it, ++job)
     {
-        //kDebug(5001) << "MaxSimJobs " << queue->maxSimultaneousJobs();
-        kDebug(5001) << "Scheduler: Evaluating job " << job;
+        //qCDebug(KGET_DEBUG) << "MaxSimJobs " << queue->maxSimultaneousJobs();
+        qCDebug(KGET_DEBUG) << "Scheduler: Evaluating job " << job;
         
         JobFailure failure = m_failedJobs.value(*it);
         
@@ -287,7 +288,7 @@ void Scheduler::updateQueue( JobQueue * queue )
             {
                 if( !shouldBeRunning(*it) )
                 {
-                    kDebug(5001) << "Scheduler:    stopping job";
+                    qCDebug(KGET_DEBUG) << "Scheduler:    stopping job";
                     (*it)->stop();
                 }
                 else if(failure.status == None || failure.status == AboutToStall)
@@ -299,7 +300,7 @@ void Scheduler::updateQueue( JobQueue * queue )
             {
                 if( shouldBeRunning(*it) )
                 {
-                    kDebug(5001) << "Scheduler:    starting job";
+                    qCDebug(KGET_DEBUG) << "Scheduler:    starting job";
                     (*it)->start();
                     if((failure.status == None || failure.status == AboutToStall) && (*it)->status() != Job::FinishedKeepAlive)
                         runningJobs++;
@@ -311,7 +312,7 @@ void Scheduler::updateQueue( JobQueue * queue )
         else
         {
             //Stop all the other running downloads
-            kDebug(5001) << "Scheduler:    stopping job over maxSimJobs limit";
+            qCDebug(KGET_DEBUG) << "Scheduler:    stopping job over maxSimJobs limit";
             (*it)->stop();
         }
     }
@@ -348,7 +349,7 @@ bool Scheduler::shouldBeRunning( Job * job )
 void Scheduler::timerEvent( QTimerEvent * event )
 {
     Q_UNUSED(event)
-//     kDebug(5001);
+//     qCDebug(KGET_DEBUG);
 
     if (!shouldUpdate()) {
         return;
@@ -429,7 +430,7 @@ void Scheduler::timerEvent( QTimerEvent * event )
                 m_failedJobs.remove(*it);
 
 //             if(failure.isValid() || prevFailure.isValid())
-//                 kDebug(5001) << "failure = " << failure.status << " T=" << failure.time << " prevFailure = " << prevFailure.status;
+//                 qCDebug(KGET_DEBUG) << "failure = " << failure.status << " T=" << failure.time << " prevFailure = " << prevFailure.status;
             
             if(failure.status != prevFailure.status)
                 jobChangedEvent(*it, failure);                      // Notify the scheduler
@@ -437,4 +438,4 @@ void Scheduler::timerEvent( QTimerEvent * event )
     }
 }
 
-#include "scheduler.moc"
+

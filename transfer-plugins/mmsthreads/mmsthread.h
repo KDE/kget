@@ -20,9 +20,9 @@
 #ifndef MMSTHREAD_HPP
 #define MMSTHREAD_HPP
 #include <libmms/mmsx.h>
-#include <QtCore/QThread>
-#include <QtCore/QFile>
-#include <QtCore/QMutex>
+#include <QThread>
+#include <QFile>
+#include <QMutex>
 
 using namespace std;
 

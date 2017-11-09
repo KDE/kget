@@ -21,7 +21,7 @@
 #include "torrentfiletreemodel.h"
 
 #include <klocale.h>
-#include <kicon.h>
+#include <QIcon>
 #include <kmimetype.h>
 #include <QTreeView>
 #include <QSortFilterProxyModel>
@@ -46,7 +46,7 @@ namespace kt
 	}
 			
 	TorrentFileTreeModel::Node::Node(Node* parent,const QString & name, const bt::Uint32 total_chunks)
-	: parent(parent),file(0),name(name),size(0),chunks(total_chunks),chunks_set(false),percentage(0.0f)
+	: parent(parent),file(nullptr),name(name),size(0),chunks(total_chunks),chunks_set(false),percentage(0.0f)
 	{
 		chunks.setAll(false);
 	}
@@ -255,7 +255,7 @@ namespace kt
 		if (file)
 			return;
 		
-		enc->write("expanded");
+		enc->write(QByteArray("expanded"));
 		enc->write((Uint32)(tv->isExpanded(pm->mapFromSource(index)) ? 1 : 0));
 		
 		int idx = 0;
@@ -263,7 +263,7 @@ namespace kt
 		{
 			if (!n->file)
 			{
-				enc->write(n->name);
+				enc->write(n->name.toUtf8());
 				enc->beginDict();
 				n->saveExpandedState(index.child(idx,0),pm,tv,enc);
 				enc->end();
@@ -281,7 +281,7 @@ namespace kt
 		if (!dict)
 			return;
 		
-		BValueNode* v = dict->getValue("expanded");
+		BValueNode* v = dict->getValue(QByteArray("expanded"));
 		if (v)
 			tv->setExpanded(pm->mapFromSource(index),v->data().toInt() == 1);
 		
@@ -290,7 +290,7 @@ namespace kt
 		{
 			if (!n->file)
 			{
-				BDictNode* d = dict->getDict(n->name);
+				BDictNode* d = dict->getDict(n->name.toUtf8());
 				if (d)
 					n->loadExpandedState(index.child(idx,0),pm,tv,d);
 			}
@@ -310,12 +310,12 @@ namespace kt
 	}
 
 	TorrentFileTreeModel::TorrentFileTreeModel(bt::TorrentInterface* tc,DeselectMode mode,QObject* parent) 
-	: TorrentFileModel(tc,mode,parent),root(0),emit_check_state_change(true)
+	: TorrentFileModel(tc,mode,parent),root(nullptr),emit_check_state_change(true)
 	{
 		if (tc->getStats().multi_file_torrent)
 			constructTree();
 		else
-			root = new Node(0,tc->getStats().torrent_name,tc->getStats().total_chunks);
+			root = new Node(nullptr,tc->getStats().torrent_name,tc->getStats().total_chunks);
 	}
 
 
@@ -328,7 +328,7 @@ namespace kt
 	{
 		bt::Uint32 num_chunks = tc->getStats().total_chunks;
 		if (!root)
-			root = new Node(0,tc->getUserModifiedFileName(),num_chunks);
+			root = new Node(nullptr,tc->getUserModifiedFileName(),num_chunks);
 		
 		for (Uint32 i = 0;i < tc->getNumFiles();++i)
 		{
@@ -340,7 +340,7 @@ namespace kt
 	void TorrentFileTreeModel::onCodecChange()
 	{
 		delete root;
-		root = 0;
+		root = nullptr;
 		constructTree();
 		reset();
 	}
@@ -420,9 +420,9 @@ namespace kt
 			// if this is an empty folder then we are in the single file case
 			if (!n->file)
 				return n->children.count() > 0 ? 
-						KIcon("folder") : KIcon(KMimeType::findByPath(tc->getStats().torrent_name)->iconName());
+						QIcon::fromTheme("folder") : QIcon::fromTheme(KMimeType::findByPath(tc->getStats().torrent_name)->iconName());
 			else
-				return KIcon(KMimeType::findByPath(n->file->getPath())->iconName());
+				return QIcon::fromTheme(KMimeType::findByPath(n->file->getPath())->iconName());
 		}
 		else if (role == Qt::CheckStateRole && index.column() == 0)
 		{
@@ -454,7 +454,7 @@ namespace kt
 		if (!hasIndex(row, column, parent))
 			return QModelIndex();
 
-		Node* p = 0;
+		Node* p = nullptr;
 
 		if (!parent.isValid())
 			return createIndex(row,column,root);
@@ -710,4 +710,4 @@ namespace kt
 	}
 }
 
-#include "torrentfiletreemodel.moc"
+

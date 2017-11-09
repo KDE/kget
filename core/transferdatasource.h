@@ -27,7 +27,7 @@ class KGET_EXPORT TransferDataSource : public QObject
 {
     Q_OBJECT
     public:
-        TransferDataSource(const KUrl &srcUrl, QObject *parent);
+        TransferDataSource(const QUrl &srcUrl, QObject *parent);
         virtual ~TransferDataSource();
 
         enum Error
@@ -73,7 +73,7 @@ class KGET_EXPORT TransferDataSource : public QObject
          */
         virtual QPair<int, int> removeConnection();
 
-        KUrl sourceUrl() const {return m_sourceUrl;}//TODO
+        QUrl sourceUrl() const {return m_sourceUrl;}//TODO
 
         /**
          * returns the current speed of this data source
@@ -171,9 +171,9 @@ class KGET_EXPORT TransferDataSource : public QObject
 
         /**
          * Returns data in the forms of URL List
-         * @param data in form of KUrl list
+         * @param data in form of QUrl list
          */
-        void data(const QList<KUrl> &data);
+        void data(const QList<QUrl> &data);
 
         /**
          * Returns found checksums with their type
@@ -227,7 +227,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         /**
          * Emitted when the filename of a url changes, e.g. when a link redirects
          */
-        void urlChanged(const KUrl &old, const KUrl &newUrl);
+        void urlChanged(const QUrl &old, const QUrl &newUrl);
 
     protected:
         /**
@@ -239,7 +239,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void slotSpeed(ulong speed) {Q_UNUSED(speed)}
 
     protected:
-        KUrl m_sourceUrl;
+        QUrl m_sourceUrl;
         ulong m_speed;
         KIO::filesize_t m_supposedSize;
         int m_paralellSegments;

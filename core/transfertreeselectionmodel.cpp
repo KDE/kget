@@ -12,7 +12,6 @@
 
 #include "core/transfertreemodel.h"
 
-#include <kdebug.h>
 
 TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel * model)
     : QItemSelectionModel(model)
@@ -23,4 +22,4 @@ TransferTreeSelectionModel::~TransferTreeSelectionModel()
 {
 }
 
-#include "transfertreeselectionmodel.moc"
+

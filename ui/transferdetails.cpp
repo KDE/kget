@@ -14,12 +14,14 @@
 
 #include <klocale.h>
 #include <kio/global.h>
-#include <kdebug.h>
+
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #include <QVBoxLayout>
 
 TransferDetails::TransferDetails(TransferHandler * transfer)
-  : QWidget(0),
+  : QWidget(nullptr),
     m_transfer(transfer)
 {
     m_genericWidget = new QWidget(this);
@@ -30,8 +32,8 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     m_layout->addWidget(m_genericWidget);
     setLayout(m_layout);
 
-    frm.sourceContentEdit->setText(m_transfer->source().pathOrUrl());
-    frm.destContentEdit->setText(m_transfer->dest().pathOrUrl());
+    frm.sourceContentEdit->setText(m_transfer->source().toString());
+    frm.destContentEdit->setText(m_transfer->dest().toString());
 
     //This updates the widget with the right values
     slotTransferChanged(transfer, 0xFFFFFFFF);
@@ -57,7 +59,7 @@ QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
 
 void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
 {
-    kDebug(5001) << "TransferDetails::slotTransferChanged";
+    qCDebug(KGET_DEBUG) << "TransferDetails::slotTransferChanged";
 
     Q_UNUSED(transfer)
 
@@ -92,14 +94,14 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
     }
 
     if(flags & Transfer::Tc_FileName) {
-        frm.destContentEdit->setText(m_transfer->dest().pathOrUrl());
+        frm.destContentEdit->setText(m_transfer->dest().toString());
     }
     
     if (flags & Transfer::Tc_Source) {
-        frm.sourceContentEdit->setText(m_transfer->source().pathOrUrl());
+        frm.sourceContentEdit->setText(m_transfer->source().toString());
     }
 
     frm.remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));
 }
 
-#include "transferdetails.moc"
+

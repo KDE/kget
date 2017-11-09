@@ -13,7 +13,7 @@
 
 #include <QTreeView>
 
-class KMenu;
+class QMenu;
 class TransferHandler;
 
 class TransfersView : public QTreeView
@@ -21,7 +21,7 @@ class TransfersView : public QTreeView
     Q_OBJECT
 
     public:
-        TransfersView(QWidget * parent = 0);
+        TransfersView(QWidget * parent = nullptr);
         ~TransfersView();
 
         void setModel(QAbstractItemModel * model);
@@ -53,7 +53,7 @@ class TransfersView : public QTreeView
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
 
         QList<QModelIndex> m_editingIndexes;
-        KMenu *m_headerMenu;
+        QMenu *m_headerMenu;
 };
 
 #endif

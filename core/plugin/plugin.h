@@ -52,7 +52,7 @@
  * Bump this number whenever the plugin framework gets 
  * incompatible with older versions 
  */
- const int FrameworkVersion = 1;
+ const int FrameworkVersion = 2;
 
 /**
  * @short Base class for kget plugins.

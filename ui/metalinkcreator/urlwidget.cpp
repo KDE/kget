@@ -21,14 +21,15 @@
 #include "metalinker.h"
 #include "../mirror/mirrormodel.h"
 #include "../mirror/mirrorsettings.h"
-
-#include <QtGui/QSortFilterProxyModel>
+#include <KGuiItem>
+#include <KStandardGuiItem>
+#include <QSortFilterProxyModel>
 
 UrlWidget::UrlWidget(QObject *parent)
   : QObject(parent),
-    m_resources(0),
-    m_countrySort(0),
-    m_widget(0)
+    m_resources(nullptr),
+    m_countrySort(nullptr),
+    m_widget(nullptr)
 {
     m_widget = new QWidget;//TODO inherit from qWidget and set this widget as mainwidget?
     ui.setupUi(m_widget);
@@ -42,15 +43,15 @@ UrlWidget::UrlWidget(QObject *parent)
     ui.used_mirrors->hideColumn(MirrorItem::Used);
     ui.used_mirrors->hideColumn(MirrorItem::Connections);
 
-    ui.add_mirror->setGuiItem(KStandardGuiItem::add());
-    ui.remove_mirror->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add_mirror, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove_mirror, KStandardGuiItem::remove());
     ui.remove_mirror->setEnabled(false);
     connect(ui.used_mirrors->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUrlClicked()));
-    connect(ui.add_mirror, SIGNAL(clicked(bool)), this, SLOT(slotAddMirror()));
-    connect(ui.remove_mirror, SIGNAL(clicked(bool)), this, SLOT(slotRemoveMirror()));
-    connect(m_mirrorModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(urlsChanged()));
-    connect(m_mirrorModel, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SIGNAL(urlsChanged()));
-    connect(m_mirrorModel, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SIGNAL(urlsChanged()));
+    connect(ui.add_mirror, &QPushButton::clicked, this, &UrlWidget::slotAddMirror);
+    connect(ui.remove_mirror, &QPushButton::clicked, this, &UrlWidget::slotRemoveMirror);
+    connect(m_mirrorModel, &MirrorModel::dataChanged, this, &UrlWidget::urlsChanged);
+    connect(m_mirrorModel, &MirrorModel::rowsInserted, this, &UrlWidget::urlsChanged);
+    connect(m_mirrorModel, &MirrorModel::rowsRemoved, this, &UrlWidget::urlsChanged);
 }
 
 UrlWidget::~UrlWidget()
@@ -115,7 +116,7 @@ void UrlWidget::save()
         for (int i = 0; i < m_mirrorModel->rowCount(); ++i)
         {
             KGetMetalink::Url url;
-            url.url = KUrl(m_mirrorModel->index(i, MirrorItem::Url).data(Qt::UserRole).toUrl());
+            url.url = QUrl(m_mirrorModel->index(i, MirrorItem::Url).data(Qt::UserRole).toUrl());
             url.priority = m_mirrorModel->index(i, MirrorItem::Priority).data(Qt::UserRole).toInt();
             url.location = m_mirrorModel->index(i, MirrorItem::Country).data(Qt::UserRole).toString();
             m_resources->urls.append(url);
@@ -124,4 +125,4 @@ void UrlWidget::save()
 }
 
 
-#include "urlwidget.moc"
+

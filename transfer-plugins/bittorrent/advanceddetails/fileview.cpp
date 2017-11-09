@@ -25,7 +25,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kglobal.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <krun.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -62,8 +62,8 @@ namespace kt
 		proxy_model->setSortRole(Qt::UserRole);
 		setModel(proxy_model);
 		
-		context_menu = new KMenu(this);
-		open_action = context_menu->addAction(KIcon("document-open"),i18nc("Open file", "Open"),this,SLOT(open()));
+		context_menu = new QMenu(this);
+		open_action = context_menu->addAction(QIcon::fromTheme("document-open"),i18nc("Open file", "Open"),this,SLOT(open()));
 		context_menu->addSeparator();
 		download_first_action = context_menu->addAction(i18n("Download first"),this,SLOT(downloadFirst()));
 		download_normal_action = context_menu->addAction(i18n("Download normally"),this,SLOT(downloadNormal()));
@@ -104,9 +104,9 @@ namespace kt
 		}
 		proxy_model->setSourceModel(0);
 		delete model;
-		model = 0;
+		model = nullptr;
 		curr_tc = tc;
-		setEnabled(tc != 0);
+		setEnabled(tc != nullptr);
 		if (tc)
 		{
 			connect(tc,SIGNAL(missingFilesMarkedDND(bt::TorrentInterface*)),
@@ -129,7 +129,7 @@ namespace kt
 		else
 		{
 			proxy_model->setSourceModel(0);
-			model = 0;
+			model = nullptr;
 		}
 	}
 	
@@ -219,7 +219,7 @@ namespace kt
 	
 	void FileView::open()
 	{
-		new KRun(KUrl(preview_path), 0, 0, true, true);
+		new KRun(QUrl(preview_path), nullptr, true);
 	}
 	
 	void FileView::changePriority(bt::Priority newpriority)
@@ -266,7 +266,7 @@ namespace kt
 		QString msg = i18np("You will lose all data in this file, are you sure you want to do this?",
                             "You will lose all data in these files, are you sure you want to do this?", n);
 				
-		if (KMessageBox::warningYesNo(0,msg) == KMessageBox::Yes)
+		if (KMessageBox::warningYesNo(nullptr, msg) == KMessageBox::Yes)
 			changePriority(EXCLUDED);
 	}
 	
@@ -277,7 +277,7 @@ namespace kt
 			QModelIndexList sel = selectionModel()->selectedRows();
 			QMap<bt::TorrentFileInterface*,QString> moves;
 			
-			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///saveTorrentData"),
+			QString dir = KFileDialog::getExistingDirectory(QUrl("kfiledialog:///saveTorrentData"),
 					this,i18n("Select a directory to move the data to."));
 			if (dir.isNull())
 				return;
@@ -298,7 +298,7 @@ namespace kt
 		}
 		else
 		{
-			QString dir = KFileDialog::getExistingDirectory(KUrl("kfiledialog:///saveTorrentData"),
+			QString dir = KFileDialog::getExistingDirectory(QUrl("kfiledialog:///saveTorrentData"),
 					this,i18n("Select a directory to move the data to."));
 			if (dir.isNull())
 				return;
@@ -352,17 +352,17 @@ namespace kt
 			if (!file)
 			{
 				// directory
-				new KRun(KUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), 0, 0, true, true);
+				new KRun(QUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), nullptr, true);
 			}
 			else
 			{
 				// file
-				new KRun(KUrl(file->getPathOnDisk()), 0, 0, true, true);
+				new KRun(QUrl(file->getPathOnDisk()), nullptr, true);
 			}
 		}
 		else
 		{
-			new KRun(KUrl(curr_tc->getStats().output_path), 0, 0, true, true);
+			new KRun(QUrl(curr_tc->getStats().output_path), nullptr, true);
 		}
 	}
 	
@@ -419,7 +419,7 @@ namespace kt
 		
 		proxy_model->setSourceModel(0);
 		delete model;
-		model = 0;
+		model = nullptr;
 			
 		if (show_list_of_files)
 			model = new IWFileListModel(curr_tc,this);
@@ -465,4 +465,4 @@ namespace kt
 	}
 }
 
-#include "fileview.moc"
+

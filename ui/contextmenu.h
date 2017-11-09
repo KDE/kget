@@ -16,14 +16,14 @@
 
 class TransferHandler;
 class TransferGroupHandler;
-class KMenu;
+class QMenu;
 class QWidget;
 
 namespace ContextMenu
 {
-    KMenu * createTransferContextMenu(QList<TransferHandler*> transfer, QWidget *parent);
-    KMenu * createTransferContextMenu(TransferHandler* handler, QWidget *parent);
-    KMenu * createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent);
+    QMenu * createTransferContextMenu(QList<TransferHandler*> transfer, QWidget *parent);
+    QMenu * createTransferContextMenu(TransferHandler* handler, QWidget *parent);
+    QMenu * createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent);
 }
 
 #endif

@@ -20,7 +20,7 @@
 #include "filehandler.h"
 #include "core/verifier.h"
 
-#include <QtCore/QDir>
+#include <QDir>
 
 FileHandlerThread::FileHandlerThread(QObject *parent)
   : QThread(parent),
@@ -69,13 +69,13 @@ void FileHandlerThread::run()
         while (files.count() && !abort) {
             //take the first file and try to handle it
             FileData data = files.takeFirst();
-            const KUrl url = data.url;
+            const QUrl url = data.url;
             KGetMetalink::File file = data.file;
             file.data = commonData;
 
             foreach (const KGetMetalink::Url &metalinkUrl, tempResources.urls) {
                 KGetMetalink::Url mirror = metalinkUrl;
-                mirror.url.addPath(file.name);
+                mirror.url.setPath(mirror.url.toString() + "/" + file.name);
 
                 //if the url has already been added, remove it and readd it
                 for (int i = 0; i < file.resources.urls.count(); ++i) {
@@ -142,7 +142,7 @@ QList<FileData> DirectoryHandler::takeFiles()
     return files;
 }
 
-void DirectoryHandler::slotFiles(const QList<KUrl> &files)
+void DirectoryHandler::slotFiles(const QList<QUrl> &files)
 {
     if (files.isEmpty()) {
         return;
@@ -150,14 +150,14 @@ void DirectoryHandler::slotFiles(const QList<KUrl> &files)
 
     m_allJobsStarted = false;
 
-    foreach (const KUrl &url, files) {
+    foreach (const QUrl &url, files) {
         QDir dir(url.path());
         if (dir.exists()) {
             KIO::ListJob *listJob = KIO::listRecursive(url);
             m_jobs[listJob] = url;
 
-            connect(listJob, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)), this, SLOT(slotDirEntries(KIO::Job*,KIO::UDSEntryList)));
-            connect(listJob, SIGNAL(result(KJob*)), this, SLOT(slotFinished(KJob*)));
+            connect(listJob, &KIO::ListJob::entries, this, &DirectoryHandler::slotDirEntries);
+            connect(listJob, &KIO::ListJob::result, this, &DirectoryHandler::slotFinished);
         } else {
             FileData data;
             data.url = url;
@@ -180,7 +180,7 @@ void DirectoryHandler::slotDirEntries(KIO::Job *j, const KIO::UDSEntryList &entr
         return;
     }
 
-    const KUrl baseUrl = m_jobs[job];
+    const QUrl baseUrl = m_jobs[job];
     const QString baseDir = baseUrl.fileName() + '/';
 
     foreach (const KIO::UDSEntry &entry, entries) {
@@ -188,8 +188,7 @@ void DirectoryHandler::slotDirEntries(KIO::Job *j, const KIO::UDSEntryList &entr
         if (!entry.isDir()) {
             const QString name = entry.stringValue(KIO::UDSEntry::UDS_NAME);
             FileData data;
-            data.url = baseUrl;
-            data.url.addPath(name);
+            data.url.setPath(baseUrl.toString() + "/" + name);//FIXME: Does this work?
             data.file.name = baseDir + name;
             data.file.size = entry.numberValue(KIO::UDSEntry::UDS_SIZE, -1);
 
@@ -214,4 +213,4 @@ void DirectoryHandler::evaluateFileProcess()
     }
 }
 
-#include "filehandler.moc"
+

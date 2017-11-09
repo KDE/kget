@@ -51,7 +51,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         };
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
-                    Scheduler* scheduler, const KUrl& src, const KUrl& dest,
+                    Scheduler* scheduler, const QUrl &src, const QUrl& dest,
                     const QDomElement * e = 0);
         ~BTTransfer();
 
@@ -68,16 +68,16 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         /**
          * @returns the directory the Transfer will be stored to
          */
-        virtual KUrl directory() const {return m_directory;}
+        virtual QUrl directory() const {return m_directory;}
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const KUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory);
 
-        virtual QList<KUrl> files() const;
+        virtual QList<QUrl> files() const;
 
         FileModel *fileModel();
 
@@ -92,7 +92,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         int leechesDisconnected() const;
         int sessionBytesDownloaded() const;
         int sessionBytesUploaded() const;
-        KUrl::List trackersList() const;
+        QList<QUrl> trackersList() const;
         bt::TorrentControl * torrentControl();
 
         //More Bittorrent-Functions
@@ -107,7 +107,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void setSpeedLimits(int ulLimit, int dlLimit);
 
     private slots:
-        void btTransferInit(const KUrl &src = KUrl(), const QByteArray &data = QByteArray());
+        void btTransferInit(const QUrl &src = QUrl(), const QByteArray &data = QByteArray());
         void update();
         void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);
         void slotDownloadFinished(bt::TorrentInterface* ti);
@@ -131,7 +131,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         virtual void filePreviewChanged(bt::TorrentFileInterface*, bool) {}
 
         bt::TorrentControl *torrent;
-        KUrl m_directory;
+        QUrl m_directory;
         QString m_tmp;
         QString m_tmpTorrentFile;
         float m_ratio;
@@ -140,7 +140,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         bool m_downloadFinished;
         bool m_movingFile;
         FileModel *m_fileModel;
-        QHash<KUrl, bt::TorrentFileInterface*> m_files;
+        QHash<QUrl, bt::TorrentFileInterface*> m_files;
         int m_updateCounter;
 };
 

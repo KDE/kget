@@ -20,11 +20,12 @@
 #include "verificationmodel.h"
 #include "verifier.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
-#include <KDebug>
-#include <KIcon>
-#include <KLocale>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <QIcon>
+#include <KLocalizedString>
 
 struct VerificationModelPrivate
 {
@@ -62,12 +63,12 @@ QVariant VerificationModel::data(const QModelIndex &index, int role) const
         if (role == Qt::DecorationRole) {
             switch (status) {
                 case Verifier::Verified:
-                    return KIcon("dialog-ok");
+                    return QIcon::fromTheme("dialog-ok");
                 case Verifier::NotVerified:
-                    return KIcon("dialog-close");
+                    return QIcon::fromTheme("dialog-close");
                 case Verifier::NoResult:
                 default:
-                    return KIcon();
+                    return QIcon::fromTheme(QString());
             }
         } else if (role == Qt::EditRole) {
             return status;
@@ -179,7 +180,7 @@ bool VerificationModel::removeRows(int row, int count, const QModelIndex &parent
 void VerificationModel::addChecksum(const QString &type, const QString &checksum, int verified)
 {
     if (!Verifier::isChecksum(type, checksum)) {
-        kWarning(5001) << "Could not add checksum.\nType:" << type << "\nChecksum:" << checksum;
+        qCWarning(KGET_DEBUG) << "Could not add checksum.\nType:" << type << "\nChecksum:" << checksum;
         return;
     }
 

@@ -11,7 +11,7 @@
 #ifndef MIRROR_H
 #define MIRROR_H
 
-#include <QtCore/QObject>
+#include <QObject>
 #include <kio/job.h>
 
 class mirror : public QObject
@@ -20,12 +20,12 @@ class mirror : public QObject
 
     public:
         mirror();
-        void search(const KUrl &url, QObject *receiver, const char *member);
+        void search(const QUrl &url, QObject *receiver, const char *member);
         void search(const QString &fileName, QObject *receiver, const char *member);
 
     Q_SIGNALS:
 
-        void urls (QList<KUrl>&);
+        void urls (QList<QUrl>&);
 
     private Q_SLOTS:
 
@@ -36,11 +36,11 @@ class mirror : public QObject
 
         QString m_search_engine;
         KIO::TransferJob *m_job;
-        KUrl m_url;
-        QList<KUrl> m_Urls;
+        QUrl m_url;
+        QList<QUrl> m_Urls;
         QByteArray m_data;
 };
 
-void MirrorSearch ( const KUrl &url, QObject *receiver, const char *member );
+void MirrorSearch ( const QUrl &url, QObject *receiver, const char *member );
 
 #endif // MIRROR_H

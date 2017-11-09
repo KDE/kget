@@ -22,6 +22,7 @@
 
 #include "mirrormodel.h"
 #include "../../core/basedialog.h"
+#include <QDialog>
 
 #include "ui_mirrorsettings.h"
 #include "ui_mirroradddlg.h"
@@ -29,13 +30,13 @@
 class QSortFilterProxyModel;
 class TransferHandler;
 
-class MirrorAddDlg : public KDialog
+class MirrorAddDlg : public QDialog
 {
     Q_OBJECT
 
     public:
-        explicit MirrorAddDlg(MirrorModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
-        explicit MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent = 0, Qt::WFlags flags = 0);
+        explicit MirrorAddDlg(MirrorModel *model, QWidget *parent = nullptr, Qt::WFlags flags = 0);
+        explicit MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent = nullptr, Qt::WFlags flags = 0);
         
         virtual QSize sizeHint() const;
 
@@ -65,7 +66,7 @@ class MirrorSettings : public KGetSaveSizeDialog
     Q_OBJECT
 
     public:
-        MirrorSettings(QWidget *parent, TransferHandler *handler, const KUrl &file);
+        MirrorSettings(QWidget *parent, TransferHandler *handler, const QUrl &file);
 
         virtual QSize sizeHint() const;
 
@@ -77,7 +78,7 @@ class MirrorSettings : public KGetSaveSizeDialog
 
     private:
         TransferHandler *m_transfer;
-        KUrl m_file;
+        QUrl m_file;
         MirrorModel *m_model;
         MirrorProxyModel *m_proxy;
         Ui::MirrorSettings ui;

@@ -14,8 +14,6 @@
 #include "core/plugin/transferfactory.h"
 
 class Transfer;
-class TransferGroup;
-class Scheduler;
 class TransferDataSource;
 
 class ChecksumSearchFactory : public TransferFactory
@@ -25,7 +23,7 @@ class ChecksumSearchFactory : public TransferFactory
         ChecksumSearchFactory(QObject *parent, const QVariantList &args);
         ~ChecksumSearchFactory();
 
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
+        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent);
 };
 
 #endif

@@ -22,12 +22,9 @@
 
 class QAction;
 class QTimer;
-class KMenu;
+class QMenu;
 
 class MainWindow;
-class DropTargetModelObserver;
-class DropTargetGroupObserver;
-class DropTargetTransferObserver;
     
 class DropTarget : public QWidget
 {
@@ -72,7 +69,7 @@ private slots:
     void slotClose();
 
 private:
-    KMenu * popupMenu;
+    QMenu * popupMenu;
     MainWindow * parentWidget;
     QTimer * animTimer;
     QTimer * popupTimer;

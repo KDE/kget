@@ -20,9 +20,9 @@
 #ifndef LOCALEMODELS_H
 #define LOCALEMODELS_H
 
-#include <QtCore/QAbstractListModel>
+#include <QAbstractListModel>
 
-#include <KIcon>
+#include <QIcon>
 
 /**
  * The following models are there to store the localized names and the codes of languages and countries
@@ -37,7 +37,7 @@ class CountryModel : public QAbstractListModel
     Q_OBJECT
 
     public:
-        CountryModel(QObject *parent = 0);
+        CountryModel(QObject *parent = nullptr);
 
         int rowCount (const QModelIndex &parent = QModelIndex()) const;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -47,7 +47,7 @@ class CountryModel : public QAbstractListModel
     private:
         QStringList m_countryCodes;
         QStringList m_countryNames;
-        QList<KIcon> m_countryIcons;
+        QList<QIcon> m_countryIcons;
 };
 
 /**
@@ -58,7 +58,7 @@ class LanguageModel : public QAbstractListModel
     Q_OBJECT
 
     public:
-        LanguageModel(QObject *parent = 0);
+        LanguageModel(QObject *parent = nullptr);
 
         int rowCount (const QModelIndex &parent = QModelIndex()) const;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

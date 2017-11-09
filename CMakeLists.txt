@@ -1,54 +1,84 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(kget)
 
-if(NOT INSIDE_KDENETWORK)
-    message("Not building inside KDENetwork, loading KDE CMake Macros.")
+cmake_minimum_required(VERSION 2.8.12)
 
-    find_package(KDE4 REQUIRED)
+find_package(ECM 5.14.0 REQUIRED NO_MODULE)
 
-    include(KDE4Defaults)
-    include(MacroLibrary)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
 
-    include(CheckIncludeFile)
-    include(CheckIncludeFiles)
-    include(CheckSymbolExists)
-    include(CheckFunctionExists)
-    include(CheckLibraryExists)
-    include(CheckPrototypeExists)
-    include(CheckTypeSize)
+find_package(Qt5 5.2.0 REQUIRED CONFIG COMPONENTS DBus Gui Network Sql Test Widgets Xml)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+include(ECMInstallIcons)
+include(ECMMarkAsTest)
+include(GenerateExportHeader)
+include(ECMQtDeclareLoggingCategory)
 
-    set(CMAKE_REQUIRED_DEFINITIONS ${_KDE4_PLATFORM_DEFINITIONS})
-    if(WIN32)
-       set(CMAKE_REQUIRED_LIBRARIES ${KDEWIN32_LIBRARIES})
-       set(CMAKE_REQUIRED_INCLUDES  ${KDEWIN32_INCLUDES})
-    endif(WIN32)
-    add_definitions(${QT_DEFINITIONS} ${QT_QTDBUS_DEFINITIONS} ${KDE4_DEFINITIONS})
-    add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-    include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
-endif(NOT INSIDE_KDENETWORK)
+find_package(KF5 REQUIRED
+    Completion
+    Config
+    ConfigWidgets
+    CoreAddons
+    DBusAddons
+    DocTools
+    I18n
+    IconThemes
+    ItemViews
+    KCMUtils
+    KDELibs4Support
+    KIO
+    Notifications
+    NotifyConfig
+    Parts
+    Service
+    Solid
+    TextWidgets
+    Wallet
+    WidgetsAddons
+    WindowSystem
+    XmlGui
+)
+
+#TODO: Check if we need all the dependencies
+
+#include(CheckIncludeFile)
+#include(CheckIncludeFiles)
+#include(CheckSymbolExists)
+#include(CheckFunctionExists)
+#include(CheckLibraryExists)
+#include(CheckPrototypeExists)
+#include(CheckTypeSize)
+
+#set(CMAKE_REQUIRED_DEFINITIONS ${_KDE4_PLATFORM_DEFINITIONS})
+if(WIN32)
+   set(CMAKE_REQUIRED_LIBRARIES ${KDEWIN32_LIBRARIES})
+   set(CMAKE_REQUIRED_INCLUDES  ${KDEWIN32_INCLUDES})
+endif(WIN32)
+#add_definitions(${QT_DEFINITIONS} ${QT_QTDBUS_DEFINITIONS} ${KDE4_DEFINITIONS})
+#add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
-macro_optional_find_package(NepomukCore)
-macro_log_feature(NepomukCore_FOUND "NepomukCore" "Semantic Desktop" "http://nepomuk.kde.org" FALSE "" "Nepomuk is needed for the integration into KGet")
+find_package(Sqlite QUIET)
+set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History") 
 
-macro_optional_find_package(NepomukWidgets)
-macro_log_feature(NepomukWidgets_FOUND "NepomukWidgets" "Semantic Desktop" "http://nepomuk.kde.org" FALSE "" "Nepomuk is needed for the integration into KGet")
+find_package(Qca-qt5 2.1.0)
+set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
+                       URL "http://delta.affinix.com/qca"
+                       TYPE REQUIRED)
 
-macro_optional_find_package(Sqlite)
-macro_log_feature(SQLITE_FOUND "SQLite" "SQLite is a Binary-Database" "" FALSE "" "Needed for the SQLite-Backend of the KGet-History and the Kopete-Statistic-Plugin")
 
-macro_optional_find_package(QCA2)
-macro_log_feature(QCA2_FOUND "QCA2" "Qt Cryptographic Architecture" "http://delta.affinix.com/qca" FALSE "2.0.0" "Needed for the KGet bittorrent-plugin and some Kopete plugins")
+find_package(Gpgmepp 1.7.0)
+set_package_properties(Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgME++ library" URL "http://www.gnupg.org" TYPE RECOMMENDED PURPOSE "GpgME++ is required to have signature verifying support in KGet.")
 
-macro_optional_find_package(QGpgme)
-macro_log_feature(QGPGME_FOUND "QGpgME" "The QGpgME library" "http://www.kde.org" FALSE "" "QGpgME is required to have signature verifying support in KGet.")
+find_package(KF5Torrent 2.1)
+set_package_properties(KF5Torrent_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.")
 
-macro_optional_find_package(KTorrent)
-macro_log_feature(LIBKTORRENT_FOUND "libktorrent" "Backend Library of KTorrent" "http://ktorrent.org" FALSE "" "Needed to build KGet bittorrent support.")
-
-macro_optional_find_package(LibMms)
-macro_log_feature(LIBMMS_FOUND "libmms" "Library to read mms streams" "http://libmms.sourceforge.net" FALSE "" "Needed to build KGet mms support.")
+find_package(LibMms QUIET)
+set_package_properties(LIBMMS_FOUND PROPERTIES DESCRIPTION "Library to read mms streams" TYPE RECOMMENDED PURPOSE "Needed to build KGet mms support.") 
 
 set(kget_adaptor_SRCS
     dbus/dbuskgetwrapper.cpp
@@ -58,43 +88,25 @@ set(kget_adaptor_SRCS
 #     core/transfertreemodel.cpp
 # )
 
-add_definitions(-DKDE_DEFAULT_DEBUG_AREA=5001) 
+#add_definitions(-DKDE_DEFAULT_DEBUG_AREA=5001)  //TODO: PORT THIS!!
 
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)
 
-if (NepomukCore_FOUND AND NepomukWidgets_FOUND)
-    find_package(Soprano)
-    find_package(SharedDesktopOntologies 0.4)
-endif (NepomukCore_FOUND AND NepomukWidgets_FOUND)
-if(SharedDesktopOntologies_FOUND)
-    set(HAVE_NEPOMUK SharedDesktopOntologies_FOUND)
-    include_directories(
-        ${SOPRANO_INCLUDE_DIR}
-        ${NEPOMUK_CORE_INCLUDE_DIR}
-        ${NEPOMUK_WIDGETS_INCLUDE_DIR}
-    )
-    add_definitions(-DHAVE_NEPOMUK)
-    add_definitions(-DDISABLE_NEPOMUK_LEGACY)
-    include(NepomukAddOntologyClasses)
-endif(SharedDesktopOntologies_FOUND)
-
-if(QCA2_FOUND)
+if (Qca-qt5_FOUND)
     add_definitions(-DHAVE_QCA2)
-    include_directories(
-        ${QCA2_INCLUDE_DIR}
-    )
-endif(QCA2_FOUND)
+MESSAGE(STATUS "QCA found")
+endif()
 
-if(QGPGME_FOUND)
-    find_package(Boost REQUIRED)
+find_package(Boost REQUIRED)
+
+if(Gpgmepp_FOUND)
+    find_package(QGpgme REQUIRED)
     add_definitions(-DHAVE_QGPGME)
-    include_directories(
-        ${Boost_INCLUDE_DIRS}
-        ${QGPGME_INCLUDE_DIR}
-    )
-endif(QGPGME_FOUND)
+endif()
+
+set (KGET_PLUGIN_INSTALL_DIR ${PLUGIN_INSTALL_DIR}/kget)
 
 add_subdirectory(conf)
 add_subdirectory(core)
@@ -103,16 +115,16 @@ add_subdirectory(transfer-plugins)
 add_subdirectory(extensions)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
-add_subdirectory(plasma)
+#add_subdirectory(plasma) TODO PORT TO KF5/QML
 add_subdirectory(tests)
 add_subdirectory(doc)
 
-macro_optional_find_package(KDE4Workspace)
-macro_log_feature(KDE4WORKSPACE_FOUND "KDE4Workspace" "KDE4 workspace libraries, part of kdebase-workspace" "http://www.kde.org" FALSE "" "Allows 'shutdown after downloads completed' in kget")
-if(KDE4WORKSPACE_FOUND)
-    add_definitions(-DHAVE_KWORKSPACE)
-	include_directories(${KDE4WORKSPACE_INCLUDE_DIR})
-endif(KDE4WORKSPACE_FOUND)
+#macro_optional_find_package(KDE4Workspace)
+#macro_log_feature(KDE4WORKSPACE_FOUND "KDE4Workspace" "KDE4 workspace libraries, part of kdebase-workspace" "http://www.kde.org" FALSE "" "Allows 'shutdown after downloads completed' in kget")
+#if(KDE4WORKSPACE_FOUND)
+#    add_definitions(-DHAVE_KWORKSPACE)
+#	include_directories(${KDE4WORKSPACE_INCLUDE_DIR})
+#endif(KDE4WORKSPACE_FOUND)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -153,6 +165,8 @@ set(kgetcore_SRCS
    core/bitset.cpp
    core/download.cpp
    core/transferhistorystore.cpp
+   core/transferhistorystore_xml.cpp
+   core/transferhistorystore_sqlite.cpp
    core/linkimporter.cpp
    dbus/dbustransferwrapper.cpp
    dbus/dbusverifierwrapper.cpp
@@ -170,58 +184,48 @@ set(kgetcore_SRCS
    core/filedeleter.cpp
 )
 
-if(HAVE_NEPOMUK)
-    set(kgetcore_SRCS
-       ${kgetcore_SRCS}
-       core/nepomukhandler.cpp
-       core/nepomukcontroller.cpp
-    )
+ecm_qt_declare_logging_category(kgetcore_SRCS
+                                HEADER kget_debug.h
+                                IDENTIFIER KGET_DEBUG
+                                CATEGORY_NAME kget)
 
-    NEPOMUK2_ADD_ONTOLOGY_CLASSES(
-        kgetcore_SRCS
-        ONTOLOGIES
-        ${CMAKE_CURRENT_SOURCE_DIR}/kget_history.trig
-    )
-endif (HAVE_NEPOMUK)
+kconfig_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
-kde4_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
-
-qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
-qt4_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
+qt5_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
+qt5_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
 
 
-kde4_add_library(kgetcore SHARED ${kgetcore_SRCS})
+add_library(kgetcore SHARED ${kgetcore_SRCS})
+generate_export_header(kgetcore BASE_NAME kget)
 
-target_link_libraries(kgetcore ${KDE4_KIO_LIBS} ${KDE4_SOLID_LIBS})
+target_link_libraries(kgetcore Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KDELibs4Support)
 
 if (KDE4WORKSPACE_FOUND)
     target_link_libraries(kgetcore ${KDE4WORKSPACE_KWORKSPACE_LIBS})
 endif (KDE4WORKSPACE_FOUND)
 
-if (HAVE_NEPOMUK)
-  target_link_libraries(kgetcore ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
-endif (HAVE_NEPOMUK)
-
 if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif (SQLITE_FOUND)
 
-if (QCA2_FOUND)
-    target_link_libraries(kgetcore ${QCA2_LIBRARIES})
-endif (QCA2_FOUND)
+if (Qca-qt5_FOUND)
+    target_link_libraries(kgetcore qca-qt5)
+endif ()
 
-if (QGPGME_FOUND)
-    target_link_libraries(kgetcore ${QGPGME_LIBRARIES})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS}")
-endif(QGPGME_FOUND)
+if (Gpgmepp_FOUND)
+    target_link_libraries(kgetcore QGpgme Gpgmepp)
+    kde_enable_exceptions()
+endif()
 
-set_target_properties(kgetcore PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
+
+set_target_properties(kgetcore PROPERTIES VERSION 5.0.0 SOVERSION 5 )
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 # kget
 
 set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
+   kget_debug.cpp
    conf/autopastemodel.cpp
    conf/integrationpreferences.cpp
    conf/dlgwebinterface.cpp
@@ -263,12 +267,12 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    mainwindow.cpp
    main.cpp
 
-   extensions/webinterface/httpserver.cpp
+   #extensions/webinterface/httpserver.cpp
 )
 
-qt4_add_dbus_adaptor(kget_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
+qt5_add_dbus_adaptor(kget_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
 
-kde4_add_ui_files(kget_SRCS
+ki18n_wrap_ui(kget_SRCS
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
    conf/dlggroups.ui
@@ -297,31 +301,22 @@ kde4_add_ui_files(kget_SRCS
    ui/signaturedlg.ui
 )
 
-kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
+#kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
 
-kde4_add_executable(kget ${kget_SRCS})
+add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget ${QT_QTTEST_LIBRARY} ${KDE4_KDEUI_LIBRARY} ${KDE4_KIO_LIBRARY} ${KDE4_KCMUTILS_LIBRARY} kgetcore ${KDE4_KNOTIFYCONFIG_LIBS})
-if(QCA2_FOUND)
-  target_link_libraries(kget ${QCA2_LIBRARIES})
-endif(QCA2_FOUND)
+target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Wallet KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KCMUtils KF5::NotifyConfig KF5::KDELibs4Support kgetcore)
+if(Qca_FOUND)
+  target_link_libraries(kget qca)
+endif()
+if(CMAKE_BUILD_TYPE MATCHES debugfull)
+  target_link_libraries(kget Qt5::Test)
+endif()
 
-
-if (HAVE_NEPOMUK)
-  target_link_libraries(kget ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY} ${NEPOMUK_WIDGETS_LIBRARY})
-endif (HAVE_NEPOMUK)
-
-if (QGPGME_FOUND)
-  target_link_libraries(kget ${QGPGME_LIBRARIES})
-endif(QGPGME_FOUND)
+if (QGpgme_FOUND)
+  target_link_libraries(kget QGpgme)
+endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-if (HAVE_NEPOMUK)
-    configure_file(kget_history.ontology.in ${CMAKE_CURRENT_BINARY_DIR}/kget_history.ontology)
-    install(FILES kget_history.trig ${CMAKE_CURRENT_BINARY_DIR}/kget_history.ontology DESTINATION ${CMAKE_INSTALL_PREFIX}/share/ontology/kde)
-endif (HAVE_NEPOMUK)
-
-if (NOT INSIDE_KDENETWORK)
-    macro_display_feature_log()
-endif ()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES) 

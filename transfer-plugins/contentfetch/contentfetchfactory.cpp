@@ -22,7 +22,7 @@
 
 #include <KDebug>
 
-KGET_EXPORT_PLUGIN( ContentFetchFactory )
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_contentfetchfactory.json", registerPlugin<ContentFetchFactory>();)
 
 ContentFetchFactory::ContentFetchFactory(QObject *parent,
                                          const QVariantList &args)
@@ -68,7 +68,7 @@ Transfer * ContentFetchFactory::createTransfer( const KUrl &srcUrl,
     {
         if (iter->indexIn(url) != -1)
         {
-            kDebug(5001) << url << " match " << iter->pattern();
+            qCDebug(KGET_DEBUG) << url << " match " << iter->pattern();
             return new ContentFetch(parent, this, scheduler, srcUrl, destUrl,
                                     *fileIter, e);
         }
@@ -89,8 +89,8 @@ QWidget * ContentFetchFactory::createDetailsWidget(TransferHandler *transfer)
     return 0;   //Temporary!!
 }
 
-const QList<KAction*> ContentFetchFactory::actions(TransferHandler *handler)
+const QList<QAction *> ContentFetchFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction*>();
+    return QList<QAction *>();
 }

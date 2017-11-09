@@ -14,14 +14,10 @@
 #include "core/transfergrouphandler.h"
 #include "core/kget.h"
 
-#include <KDebug>
-#include <KMessageBox>
-#include <KLocale>
-#include <KStandardDirs>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kio/global.h>
 
-#include <QFile>
-#include <QDateTime>
 #include <QDomElement>
 
 
@@ -64,19 +60,6 @@ int TransferGroup::uploadSpeed()
     }
     return m_uploadSpeed;
 }
-
-#ifdef HAVE_NEPOMUK
-
-void TransferGroup::setTags(const QList< Nepomuk2::Tag >& tags)
-{
-    m_tags.clear();
-
-    foreach( const Nepomuk2::Tag &tag, tags) {
-        m_tags.insert(tag.uri(), tag);
-    }
-}
-
-#endif //HAVE_NEPOMUK
 
 bool TransferGroup::supportsSpeedLimits()
 {
@@ -158,7 +141,7 @@ void TransferGroup::move(Transfer * transfer, Transfer * after)
     JobQueue::move(transfer, after);
 }
 
-Transfer * TransferGroup::findTransfer(const KUrl &src)
+Transfer * TransferGroup::findTransfer(const QUrl &src)
 {
     iterator it = begin();
     iterator itEnd = end();
@@ -169,10 +152,10 @@ Transfer * TransferGroup::findTransfer(const KUrl &src)
         if( t->source().url() == src.url() )
             return t;
     }
-    return 0;
+    return nullptr;
 }
 
-Transfer *TransferGroup::findTransferByDestination(const KUrl &dest)
+Transfer *TransferGroup::findTransferByDestination(const QUrl &dest)
 {
     iterator it = begin();
     iterator itEnd = end();
@@ -183,7 +166,7 @@ Transfer *TransferGroup::findTransferByDestination(const KUrl &dest)
             return t;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) 
@@ -230,14 +213,14 @@ int TransferGroup::downloadLimit(Transfer::SpeedLimit limit) const
 
 void TransferGroup::calculateSpeedLimits()
 {
-    kDebug(5001) << "We will calculate the new SpeedLimits now";
+    qCDebug(KGET_DEBUG) << "We will calculate the new SpeedLimits now";
     calculateDownloadLimit();
     calculateUploadLimit();
 }
 
 void TransferGroup::calculateDownloadLimit()
 {
-    kDebug(5001) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
+    qCDebug(KGET_DEBUG) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
     if (supportsSpeedLimits())
     {
         const QList<Job*> running = runningJobs();
@@ -280,7 +263,7 @@ void TransferGroup::calculateDownloadLimit()
 
 void TransferGroup::calculateUploadLimit()
 {
-    kDebug(5001) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
+    qCDebug(KGET_DEBUG) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
     if (supportsSpeedLimits())
     {
         const QList<Job*> running = runningJobs();
@@ -323,7 +306,7 @@ void TransferGroup::calculateUploadLimit()
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 {
-    //kDebug(5001) << " -->  " << name();
+    //qCDebug(KGET_DEBUG) << " -->  " << name();
 
     e.setAttribute("Name", m_name);
     e.setAttribute("DefaultFolder", m_defaultFolder);
@@ -333,25 +316,13 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     e.setAttribute("Status", status() == JobQueue::Running ? "Running" : "Stopped");
     e.setAttribute("RegExpPattern", m_regExp.pattern());
 
-#ifdef HAVE_NEPOMUK
-    QDomElement tags = e.ownerDocument().createElement("Tags");
-    for(QMap<QUrl, Nepomuk2::Tag>::const_iterator i = m_tags.constBegin(); i != m_tags.constEnd(); i++)
-    {
-        QDomElement tag = e.ownerDocument().createElement("Tag");
-        QDomText text = e.ownerDocument().createTextNode(i.key().toString());
-        tag.appendChild(text);
-        tags.appendChild(tag);
-    }
-    e.appendChild(tags);
-#endif //HAVE_NEPOMUK
-
     iterator it = begin();
     iterator itEnd = end();
 
     for( ; it!=itEnd; ++it )
     {
         Transfer* transfer = static_cast<Transfer*>(*it);
-        kDebug(5001) << "  -->  " << name() << "  transfer: " << transfer->source();
+        qCDebug(KGET_DEBUG) << "  -->  " << name() << "  transfer: " << transfer->source();
         QDomElement t = e.ownerDocument().createElement("Transfer");
         e.appendChild(t);
         transfer->save(t);
@@ -360,7 +331,7 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 
 void TransferGroup::load(const QDomElement & e)
 {
-    kDebug(5001) << "TransferGroup::load";
+    qCDebug(KGET_DEBUG) << "TransferGroup::load";
 
     m_name = e.attribute("Name");
     m_defaultFolder = e.attribute("DefaultFolder");
@@ -376,18 +347,6 @@ void TransferGroup::load(const QDomElement & e)
 
     m_regExp.setPattern(e.attribute("RegExpPattern"));
 
-#ifdef HAVE_NEPOMUK
-    QDomNodeList tagsNodeList = e.elementsByTagName("Tags").at(0).toElement().elementsByTagName("Tag");
-    for( uint i = 0; i < tagsNodeList.length(); ++i )
-    {
-        QString tag = tagsNodeList.item(i).toElement().text();
-        if (!tag.isEmpty())
-        {
-            m_tags.insert(tag, Nepomuk2::Tag(tag));
-        }
-    }
-#endif //HAVE_NEPOMUK
-
     QDomNodeList nodeList = e.elementsByTagName("Transfer");
     int nItems = nodeList.length();
 
@@ -396,6 +355,6 @@ void TransferGroup::load(const QDomElement & e)
         elements << nodeList.item(i).toElement();
     }
 
-    kDebug(5001) << "TransferGroup::load ->" << "add" << nItems << "transfers";
+    qCDebug(KGET_DEBUG) << "TransferGroup::load ->" << "add" << nItems << "transfers";
     KGet::addTransfers(elements, name());
 }

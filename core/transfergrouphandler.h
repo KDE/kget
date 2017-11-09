@@ -16,15 +16,13 @@
 
 #include "handler.h"
 #include "transfergroup.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 #include "kget.h"
 
 class QAction;
 
 class QObjectInterface;
-class TransferGroupObserver;
 class TransferHandler;
-class KGetKJobAdapter;
 class Scheduler;
 
 class KGET_EXPORT TransferGroupHandler : public Handler
@@ -143,19 +141,6 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * @returns the regular expression of the group
          */
         QRegExp regExp() {return m_group->regExp();}
-
-#ifdef HAVE_NEPOMUK
-        /**
-         * Sets the Nepomuk tags of the group
-         * @param tags the Nepomuk tags
-         */
-        void setTags(const QList<Nepomuk2::Tag> &tags) {m_group->setTags(tags);}
-
-        /**
-         * @returns the Nepomuk tags of the group
-         */
-        QList<Nepomuk2::Tag> tags() const {return m_group->tags();}
-#endif //HAVE_NEPOMUK
 
         /**
          * Set a Download-Limit for the group

@@ -19,10 +19,9 @@
 
 #include "verificationdialog.h"
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStandardItemModel>
+#include <QSortFilterProxyModel>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 #include "core/filemodel.h"
@@ -33,31 +32,31 @@
 #include "settings.h"
 
 VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_model(model)
 {
-    setCaption(i18n("Add checksum"));
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    setWindowTitle(i18n("Add checksum"));
+    ui.setupUi(this);
 
     QStringList supportedTypes = Verifier::supportedVerficationTypes();
     supportedTypes.sort();
     ui.hashTypes->addItems(supportedTypes);
 
-    setButtons(KDialog::Yes | KDialog::Cancel);
-    setButtonGuiItem(KDialog::Yes, KStandardGuiItem::add());
+    KGuiItem::assign(ui.buttonBox->button(QDialogButtonBox::Ok), KStandardGuiItem::add());
 
     updateButton();
 
-    connect(ui.newHash, SIGNAL(textChanged(QString)), this, SLOT(updateButton()));
-    connect(ui.hashTypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButton()));
-    connect(this, SIGNAL(yesClicked()), this, SLOT(addChecksum()));
+    connect(ui.newHash, &KLineEdit::textChanged, this, &VerificationAddDlg::updateButton);
+    connect(ui.hashTypes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &VerificationAddDlg::updateButton);
+    connect(this, &QDialog::accepted, this, &VerificationAddDlg::addChecksum);
+    
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 QSize VerificationAddDlg::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setHeight(minimumSize().height());
     sh.setWidth(sh.width() * 1.5);
     return sh;
@@ -69,8 +68,7 @@ void VerificationAddDlg::updateButton()
     const QString hash = ui.newHash->text();
     const bool enabled = Verifier::isChecksum(type, hash);
 
-    enableButton(KDialog::Yes, enabled);
-    enableButton(KDialog::User1, enabled);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
 }
 
 void VerificationAddDlg::addChecksum()
@@ -80,26 +78,26 @@ void VerificationAddDlg::addChecksum()
     }
 }
 
-VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file)
+VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const QUrl &file)
   : KGetSaveSizeDialog("VerificationDialog", parent),
     m_transfer(transfer),
     m_verifier(transfer->verifier(file)),
-    m_model(0),
-    m_proxy(0),
-    m_fileModel(0)
+    m_model(nullptr),
+    m_proxy(nullptr),
+    m_fileModel(nullptr)
 {
     if (m_verifier) {
         m_model = m_verifier->model();
-        connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+        connect(m_verifier, &Verifier::verified, this, &VerificationDialog::slotVerified);
     }
 
-    setCaption(i18n("Transfer Verification for %1", file.fileName()));
-    showButtonSeparator(true);
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    setWindowTitle(i18n("Transfer Verification for %1", file.fileName()));
+
+    ui.setupUi(this);
+    
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
+    KGuiItem::assign(ui.closeButton, KStandardGuiItem::close());
     ui.verifying->hide();
 
     if (m_model) {
@@ -116,27 +114,26 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         m_fileModel = m_transfer->fileModel();
         if (m_fileModel) {
             m_file = m_fileModel->index(file, FileItem::File);
-            connect(m_fileModel, SIGNAL(fileFinished(KUrl)), this, SLOT(fileFinished(KUrl)));
+            connect(m_fileModel, &FileModel::fileFinished, this, &VerificationDialog::fileFinished);
         }
 
         updateButtons();
 
-        connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateButtons()));
-        connect(m_model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateButtons()));
-        connect(ui.usedHashes, SIGNAL(clicked(QModelIndex)), this, SLOT(updateButtons()));
-        connect(ui.add, SIGNAL(clicked()), this, SLOT(addClicked()));
-        connect(ui.remove, SIGNAL(clicked()), this, SLOT(removeClicked()));
-        connect(ui.verify, SIGNAL(clicked()), this, SLOT(verifyClicked()));
+        connect(m_model, &VerificationModel::dataChanged, this, &VerificationDialog::updateButtons);
+        connect(m_model, &VerificationModel::rowsRemoved, this, &VerificationDialog::updateButtons);
+        connect(ui.usedHashes, &QTreeView::clicked, this, &VerificationDialog::updateButtons);
+        connect(ui.add, &QPushButton::clicked, this, &VerificationDialog::addClicked);
+        connect(ui.remove, &QPushButton::clicked, this, &VerificationDialog::removeClicked);
+        connect(ui.verify, &QPushButton::clicked, this, &VerificationDialog::verifyClicked);
     }
 
-    setButtons(KDialog::Close);
-
-    connect(this, SIGNAL(finished()), this, SLOT(slotFinished()));
+    connect(this, &VerificationDialog::finished, this, &VerificationDialog::slotFinished);
+    connect(ui.closeButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
 QSize VerificationDialog::sizeHint() const
 {
-    QSize sh = KDialog::sizeHint();
+    QSize sh = QDialog::sizeHint();
     sh.setWidth(sh.width() * 1.2);
     return sh;
 }
@@ -148,7 +145,7 @@ void VerificationDialog::slotFinished()
     }
 }
 
-void VerificationDialog::fileFinished(const KUrl &file)
+void VerificationDialog::fileFinished(const QUrl &file)
 {
     if (m_fileModel && (m_fileModel->getUrl(m_file) == file)) {
         updateButtons();
@@ -211,4 +208,4 @@ void VerificationDialog::slotVerified(bool verified)
     }
 }
 
-#include "verificationdialog.moc"
+

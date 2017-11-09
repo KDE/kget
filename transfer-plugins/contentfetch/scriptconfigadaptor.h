@@ -21,7 +21,7 @@ class ScriptConfigAdaptor : public QObject
 {
         Q_OBJECT
     public:
-        ScriptConfigAdaptor(QObject* parent = 0) : QObject(parent), m_config(0) {}
+        ScriptConfigAdaptor(QObject* parent = nullptr) : QObject(parent), m_config(nullptr) {}
         virtual ~ScriptConfigAdaptor()
         {
             delete m_config;

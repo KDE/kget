@@ -1,4 +1,7 @@
-install(FILES kget.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kget)
+
+install(FILES kget.notifyrc
+    DESTINATION ${KNOTIFYRC_INSTALL_DIR}
+  )
 
 #install(FILES
 #   KGet_Added.ogg

@@ -17,35 +17,34 @@
 #include "btdetailswidget.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <util/functions.h>
 #include <version.h>
 #include <torrent/job.h>
 
-KGET_EXPORT_PLUGIN(BTTransferFactory)
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_bittorrentfactory.json", registerPlugin<BTTransferFactory>();)
 
 BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
 {
-#if LIBKTORRENT_VERSION >= 0x010100
     if (!bt::InitLibKTorrent())
     {
-        kError(5001) << "Failed to initialize libktorrent";
-        KGet::showNotification(0, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
+        qCCritical(KGET_DEBUG) << "Failed to initialize libktorrent";
+        KGet::showNotification(nullptr, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
     }
-#endif
 }
 
 BTTransferFactory::~BTTransferFactory()
 {
 }
 
-Transfer * BTTransferFactory::createTransfer(const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * BTTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl,
                                               TransferGroup * parent,
                                               Scheduler * scheduler, 
                                               const QDomElement * e )
 {
-    kDebug(5001) << "BTTransferFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "BTTransferFactory::createTransfer";
 
     if (isSupported(srcUrl))
     {
@@ -60,7 +59,7 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 
     if (!bttransfer)
     {
-        kError(5001) << "WARNING! passing a non-BTTransfer pointer!!";
+        qCCritical(KGET_DEBUG) << "WARNING! passing a non-BTTransfer pointer!!";
         return 0;
     }
 
@@ -74,20 +73,20 @@ QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
     return new BTDetailsWidget(bttransfer);
 }
 
-const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
+const QList<QAction *> BTTransferFactory::actions(TransferHandler *handler)
 {
      BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(handler);
 
-     QList<KAction*> actions;
+     QList<QAction *> actions;
      if (bttransfer && bttransfer->torrentControl())
      {
-         KAction *openAdvancedDetailsAction = new KAction(KIcon("document-open"), i18n("&Advanced Details"), this);
+         QAction *openAdvancedDetailsAction = new QAction(QIcon::fromTheme("document-open"), i18n("&Advanced Details"), this);
  
          connect(openAdvancedDetailsAction, SIGNAL(triggered()), bttransfer, SLOT(createAdvancedDetails()));
  
          actions.append(openAdvancedDetailsAction);
 
-         KAction *openScanDlg = new KAction(KIcon("document-open"), i18n("&Scan Files"), this);
+         QAction *openScanDlg = new QAction(QIcon::fromTheme("document-open"), i18n("&Scan Files"), this);
  
          connect(openScanDlg, SIGNAL(triggered()), bttransfer, SLOT(createScanDlg()));
  
@@ -97,10 +96,10 @@ const QList<KAction *> BTTransferFactory::actions(TransferHandler *handler)
      if (bttransfer)
          return actions;
      else
-         return QList<KAction *>();
+         return QList<QAction *>();
 }
 
-TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource * BTTransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
@@ -110,7 +109,9 @@ TransferDataSource * BTTransferFactory::createTransferDataSource(const KUrl &src
     return 0;
 }
 
-bool BTTransferFactory::isSupported(const KUrl &url) const
+bool BTTransferFactory::isSupported(const QUrl &url) const
 {
     return url.url().endsWith(QLatin1String(".torrent"));
 }
+
+#include "bttransferfactory.moc"

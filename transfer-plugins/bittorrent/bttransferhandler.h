@@ -53,9 +53,6 @@ class BTTransferHandler : public TransferHandler
 
     private slots:
         void removeAdvancedDetails();
-#if LIBKTORRENT_VERSION < 0x010100
-        void removeScanDlg();
-#endif
 
     private:
         BTTransfer * m_transfer;

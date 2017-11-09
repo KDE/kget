@@ -20,7 +20,7 @@
  ***************************************************************************/
 #include "peerviewmodel.h"
 #include <klocale.h>
-#include <kicon.h>
+#include <QIcon>
 #include <kstandarddirs.h>
 #include <interfaces/torrentinterface.h>
 #include <util/functions.h>
@@ -30,7 +30,7 @@ using namespace bt;
 
 namespace kt
 {
-	static KIcon yes,no;
+	static QIcon yes,no;
 	static bool icons_loaded = false;
 
 	PeerViewModel::Item::Item(bt::PeerInterface* peer) : peer(peer)
@@ -38,8 +38,8 @@ namespace kt
 		stats = peer->getStats();
 		if (!icons_loaded)
 		{
-			yes = KIcon("dialog-ok");
-			no = KIcon("dialog-cancel");
+			yes = QIcon::fromTheme("dialog-ok");
+			no = QIcon::fromTheme("dialog-cancel");
 		}
 	}
 		/*	
@@ -151,9 +151,9 @@ namespace kt
 					return QVariant();
 			case 4: return stats.choked ? i18nc("Choked", "Yes") : i18nc("Not choked", "No");
 			case 5: return stats.snubbed ? i18nc("Snubbed", "Yes") : i18nc("Not snubbed", "No");
-			case 6: return QString("%1 %").arg(KGlobal::locale()->formatNumber(stats.perc_of_file,2));
+			case 6: return QString("%1 %").arg(KLocale::global()->formatNumber(stats.perc_of_file,2));
 			case 7: return QVariant();
-			case 8: return KGlobal::locale()->formatNumber(stats.aca_score,2);
+			case 8: return KLocale::global()->formatNumber(stats.aca_score,2);
 			case 9: return QVariant(); 
 			case 10: return QString("%1 / %2").arg(stats.num_down_requests).arg(stats.num_up_requests);
 			case 11: return BytesToString(stats.bytes_downloaded);
@@ -196,11 +196,11 @@ namespace kt
 		{
 			case 0:
 				if (stats.encrypted)
-					return KIcon("kt-encrypted");
+					return QIcon::fromTheme("kt-encrypted");
 				break;
 			case 1: return flag;
 			case 8: return stats.dht_support ? yes : no;
-			case 10: return stats.has_upload_slot ? yes : KIcon();
+			case 10: return stats.has_upload_slot ? yes : QIcon();
 		}
 		
 		return QVariant();

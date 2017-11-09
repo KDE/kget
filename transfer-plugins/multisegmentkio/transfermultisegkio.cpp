@@ -21,25 +21,26 @@
 
 #include <utime.h>
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <kiconloader.h>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
 #include <klocale.h>
 #include <KMessageBox>
-#include <kdebug.h>
 
 #include <QDomElement>
 #include <QFile>
 
 TransferMultiSegKio::TransferMultiSegKio(TransferGroup *parent, TransferFactory *factory,
-                         Scheduler *scheduler, const KUrl &source, const KUrl &dest,
+                         Scheduler *scheduler, const QUrl &source, const QUrl &dest,
                          const QDomElement *e)
   : Transfer(parent, factory, scheduler, source, dest, e),
     m_movingFile(false),
     m_searchStarted(false),
     m_verificationSearch(false),
-    m_dataSourceFactory(0),
-    m_fileModel(0)
+    m_dataSourceFactory(nullptr),
+    m_fileModel(nullptr)
 {
 }
 
@@ -70,7 +71,7 @@ void TransferMultiSegKio::deinit(Transfer::DeleteOptions options)
 
 void TransferMultiSegKio::start()
 {
-    kDebug(5001) << "Start TransferMultiSegKio";
+    qCDebug(KGET_DEBUG) << "Start TransferMultiSegKio";
     if (status() == Running) {
         return;
     }
@@ -86,7 +87,7 @@ void TransferMultiSegKio::start()
 
         TransferDataSource *mirrorSearch = KGet::createTransferDataSource(m_source, element, this);
         if (mirrorSearch) {
-            connect(mirrorSearch, SIGNAL(data(QList<KUrl>)), this, SLOT(slotSearchUrls(QList<KUrl>)));
+            connect(mirrorSearch, SIGNAL(data(QList<QUrl>)), this, SLOT(slotSearchUrls(QList<QUrl>)));
             mirrorSearch->start();
         }
     }
@@ -94,7 +95,7 @@ void TransferMultiSegKio::start()
 
 void TransferMultiSegKio::stop()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if ((status() == Stopped) || (status() == Finished)) {
         return;
@@ -106,7 +107,7 @@ void TransferMultiSegKio::stop()
     }
 }
 
-bool TransferMultiSegKio::repair(const KUrl &file)
+bool TransferMultiSegKio::repair(const QUrl &file)
 {
     if (!file.isValid() || (m_dest == file))
     {
@@ -120,16 +121,16 @@ bool TransferMultiSegKio::repair(const KUrl &file)
     return false;
 }
 
-bool TransferMultiSegKio::setDirectory(const KUrl& newDirectory)
+bool TransferMultiSegKio::setDirectory(const QUrl& newDirectory)
 {
-    KUrl newDest = newDirectory;
-    newDest.addPath(m_dest.fileName());
+    QUrl newDest = newDirectory;
+    newDest.setPath(newDest.toString() + "/" + m_dest.fileName());
     return setNewDestination(newDest);
 }
 
-bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
+bool TransferMultiSegKio::setNewDestination(const QUrl &newDestination)
 {
-    kDebug(5001) << "New destination: " << newDestination;
+    qCDebug(KGET_DEBUG) << "New destination: " << newDestination;
     if (newDestination.isValid() && (newDestination != dest()) && m_dataSourceFactory)
     {
         m_movingFile = true;
@@ -151,7 +152,7 @@ bool TransferMultiSegKio::setNewDestination(const KUrl &newDestination)
 
 void TransferMultiSegKio::load(const QDomElement *element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     Transfer::load(element);
     m_dataSourceFactory->load(element);
@@ -159,7 +160,7 @@ void TransferMultiSegKio::load(const QDomElement *element)
 
 void TransferMultiSegKio::save(const QDomElement &element)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     Transfer::save(element);
     m_dataSourceFactory->save(element);
 }
@@ -167,22 +168,22 @@ void TransferMultiSegKio::save(const QDomElement &element)
 void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags change)
 {
     if (change & Tc_FileName) {
-        QList<KUrl> urls = m_dataSourceFactory->mirrors().keys();
+        QList<QUrl> urls = m_dataSourceFactory->mirrors().keys();
         QString filename = urls.first().fileName();
         if (filename.isEmpty())
             return;
-        foreach (const KUrl url, urls) {
+        foreach (const QUrl url, urls) {
             if (filename != url.fileName())
                 return;
         }
-        KUrl path = m_dest.directory();
-        path.addPath(filename);
+        QUrl path = m_dest.adjusted(QUrl::RemoveFilename);
+        path.setPath(path.toString() + "/" + filename);
         setNewDestination(path);
     }
     if (change & Tc_Source) {
-        m_source = KUrl();
-        QHash< KUrl, QPair<bool, int> >::const_iterator it = m_dataSourceFactory->mirrors().constBegin();
-        QHash< KUrl, QPair<bool, int> >::const_iterator end = m_dataSourceFactory->mirrors().constEnd();
+        m_source = QUrl();
+        QHash< QUrl, QPair<bool, int> >::const_iterator it = m_dataSourceFactory->mirrors().constBegin();
+        QHash< QUrl, QPair<bool, int> >::const_iterator end = m_dataSourceFactory->mirrors().constEnd();
         for (; it != end; it++) {
             if (it.value().first) {
                 m_source = it.key();
@@ -191,7 +192,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
         }
     }
     if (change & Tc_Status) {
-        if ((m_dataSourceFactory->status() == Job::Finished) && m_source.protocol() == "ftp") {
+        if ((m_dataSourceFactory->status() == Job::Finished) && m_source.scheme() == "ftp") {
             KIO::StatJob * statJob = KIO::stat(m_source);
             connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
             statJob->start();
@@ -234,7 +235,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
         m_percent = m_dataSourceFactory->percent();
     }
     if (change & Tc_DownloadSpeed) {
-        kDebug(5001) << "speed:" << m_downloadSpeed;
+        qCDebug(KGET_DEBUG) << "speed:" << m_downloadSpeed;
         m_downloadSpeed = m_dataSourceFactory->currentSpeed();
     }
 
@@ -254,7 +255,7 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
         if (!verifier()->partialChunkLength()) {
             text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
         }
-        if (KMessageBox::warningYesNo(0,
+        if (KMessageBox::warningYesNo(nullptr,
                                       text,
                                       i18n("Verification failed.")) == KMessageBox::Yes) {
             repair();
@@ -279,11 +280,11 @@ void TransferMultiSegKio::slotStatResult(KJob* kioJob)
     setTransferChange(Tc_Status, true);
 }
 
-void TransferMultiSegKio::slotSearchUrls(const QList<KUrl> &urls)
+void TransferMultiSegKio::slotSearchUrls(const QList<QUrl> &urls)
 {
-    kDebug(5001) << "Found " << urls.size() << " urls.";
+    qCDebug(KGET_DEBUG) << "Found " << urls.size() << " urls.";
 
-    foreach (const KUrl &url, urls)
+    foreach (const QUrl &url, urls)
     {
         m_dataSourceFactory->addMirror(url, MultiSegKioSettings::segments());
     }
@@ -294,7 +295,7 @@ void TransferMultiSegKio::slotChecksumFound(QString type, QString checksum)
     m_dataSourceFactory->verifier()->addChecksum(type, checksum);
 }
 
-QHash<KUrl, QPair<bool, int> > TransferMultiSegKio::availableMirrors(const KUrl &file) const
+QHash<QUrl, QPair<bool, int> > TransferMultiSegKio::availableMirrors(const QUrl &file) const
 {
     Q_UNUSED(file)
 
@@ -302,15 +303,15 @@ QHash<KUrl, QPair<bool, int> > TransferMultiSegKio::availableMirrors(const KUrl 
 }
 
 
-void TransferMultiSegKio::setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors)
+void TransferMultiSegKio::setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors)
 {
     Q_UNUSED(file)
 
     m_dataSourceFactory->setMirrors(mirrors);
     
-    m_source = KUrl();
-    QHash< KUrl, QPair<bool, int> >::const_iterator it = mirrors.begin();
-    QHash< KUrl, QPair<bool, int> >::const_iterator end = mirrors.end();
+    m_source = QUrl();
+    QHash< QUrl, QPair<bool, int> >::const_iterator it = mirrors.begin();
+    QHash< QUrl, QPair<bool, int> >::const_iterator end = mirrors.end();
     for (; it != end; it++) {
         if (it.value().first) {
             m_source = it.key();
@@ -320,14 +321,14 @@ void TransferMultiSegKio::setAvailableMirrors(const KUrl &file, const QHash<KUrl
     setTransferChange(Tc_Source, true);
 }
 
-Verifier *TransferMultiSegKio::verifier(const KUrl &file)
+Verifier *TransferMultiSegKio::verifier(const QUrl &file)
 {
     Q_UNUSED(file)
 
     return m_dataSourceFactory->verifier();
 }
 
-Signature *TransferMultiSegKio::signature(const KUrl &file)
+Signature *TransferMultiSegKio::signature(const QUrl &file)
 {
     Q_UNUSED(file)
 
@@ -338,8 +339,8 @@ FileModel *TransferMultiSegKio::fileModel()
 {
     if (!m_fileModel)
     {
-        m_fileModel = new FileModel(QList<KUrl>() << m_dest, m_dest.upUrl(), this);
-        connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+        m_fileModel = new FileModel(QList<QUrl>() << m_dest, m_dest.adjusted(QUrl::RemoveFilename), this);
+        connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
 
         QModelIndex statusIndex = m_fileModel->index(m_dest, FileItem::Status);
         m_fileModel->setData(statusIndex, m_dataSourceFactory->status());
@@ -354,7 +355,7 @@ FileModel *TransferMultiSegKio::fileModel()
     return m_fileModel;
 }
 
-void TransferMultiSegKio::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
+void TransferMultiSegKio::slotRename(const QUrl &oldUrl, const QUrl &newUrl)
 {
     Q_UNUSED(oldUrl)
 
@@ -375,4 +376,4 @@ void TransferMultiSegKio::slotUpdateCapabilities()
     setCapabilities(m_dataSourceFactory->capabilities());
 }
 
-#include "transfermultisegkio.moc"
+

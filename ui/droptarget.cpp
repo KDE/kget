@@ -21,7 +21,7 @@
 #include "ui/newtransferdialog.h"
 
 #include <kwindowsystem.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kmessagebox.h>
 #include <KPassivePopup>
 #include <kapplication.h>
@@ -41,8 +41,8 @@
 #define TARGET_TOOLTIP_MS 1000
 
 DropTarget::DropTarget(MainWindow * mw)
-    : QWidget(0, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
-    parentWidget(mw), animTimer(0), showInformation(false)
+    : QWidget(nullptr, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
+    parentWidget(mw), animTimer(nullptr), showInformation(false)
 {
     KWindowSystem::setState(winId(), NET::SkipTaskbar);
 
@@ -57,7 +57,7 @@ DropTarget::DropTarget(MainWindow * mw)
     if(Settings::dropSticky())
         KWindowSystem::setState(winId(), KWindowSystem::Sticky);
 
-    cachedPixmap = DesktopIcon("kget", TARGET_SIZE);
+    cachedPixmap = QIcon::fromTheme("kget").pixmap(TARGET_SIZE);
     if (!cachedPixmap.mask().isNull())
     {
         QBitmap mask(size());
@@ -72,12 +72,12 @@ DropTarget::DropTarget(MainWindow * mw)
         setMask(QBitmap());
 
     // popup menu for right mouse button
-    popupMenu = new KMenu(this);
-    popupMenu->addTitle(mw->windowTitle());
+    popupMenu = new QMenu(this);
+    popupMenu->addSection(mw->windowTitle());
 
     QAction * downloadAction = mw->actionCollection()->action("start_all_download");
     popupMenu->addAction( downloadAction );
-    connect( downloadAction, SIGNAL(toggled(bool)), this, SLOT(slotStartStopToggled(bool)) );
+    connect(downloadAction, &QAction::toggled, this, &DropTarget::slotStartStopToggled);
     popupMenu->addSeparator();
     pop_show = popupMenu->addAction( QString(), this, SLOT(toggleMinimizeRestore()) );
     popupMenu->addAction(parentWidget->actionCollection()->action("show_drop_target"));
@@ -89,7 +89,7 @@ DropTarget::DropTarget(MainWindow * mw)
 
     QAction *quitAction = new QAction(this);
     quitAction->setText(i18n("Quit KGet"));
-    quitAction->setIcon(KIcon("system-shutdown"));
+    quitAction->setIcon(QIcon::fromTheme("system-shutdown"));
     connect(quitAction, SIGNAL(triggered()), mw, SLOT(slotQuit()));
     popupMenu->addAction(quitAction);
 
@@ -110,8 +110,7 @@ DropTarget::DropTarget(MainWindow * mw)
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
             this,          SLOT(slotToolTipUpdate()));
             
-    connect(popupTimer,    SIGNAL(timeout()),
-            this,          SLOT(slotToolTipTimer()));
+    connect(popupTimer, &QTimer::timeout, this, &DropTarget::slotToolTipTimer);
 }
 
 
@@ -119,7 +118,7 @@ DropTarget::~DropTarget()
 {
     Settings::setDropPosition( pos() );
     Settings::setShowDropTarget( !isHidden() );
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 //    unsigned long state = KWindowSystem::windowInfo(kdrop->winId()).state();
 //    // state will be 0L if droptarget is hidden. Sigh.
 //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );
@@ -159,8 +158,7 @@ void DropTarget::playAnimationShow()
     if (animTimer->isActive())
         animTimer->stop();
     animTimer->disconnect();
-    connect( animTimer, SIGNAL(timeout()),
-        this, SLOT(slotAnimateShow()));
+    connect(animTimer, &QTimer::timeout, this, &DropTarget::slotAnimateShow);
 
     move(position.x(), -TARGET_SIZE);
 
@@ -176,8 +174,7 @@ void DropTarget::playAnimationHide()
         animTimer->stop();
 
     animTimer->disconnect();
-    connect( animTimer, SIGNAL(timeout()),
-        this, SLOT(slotAnimateHide()));
+    connect(animTimer, &QTimer::timeout, this, &DropTarget::slotAnimateHide);
     ani_y = (float)y();
     ani_vy = 0;
     animTimer->start(TARGET_ANI_MS);
@@ -189,8 +186,7 @@ void DropTarget::playAnimationSync()
         animTimer->stop();
 
     animTimer->disconnect();
-    connect( animTimer, SIGNAL(timeout()),
-        this, SLOT(slotAnimateSync()));
+    connect(animTimer, &QTimer::timeout, this, &DropTarget::slotAnimateSync);
     ani_y = (float)y();
     ani_vy = -1;
     animTimer->start(TARGET_ANI_MS);
@@ -207,14 +203,14 @@ void DropTarget::slotStartStopToggled( bool started )
 
 void DropTarget::dragEnterEvent(QDragEnterEvent * event)
 {
-    event->setAccepted(KUrl::List::canDecode(event->mimeData())
+    event->setAccepted(event->mimeData()->hasUrls()
                   || event->mimeData()->hasText());
 }
 
 
 void DropTarget::dropEvent(QDropEvent * event)
 {
-    KUrl::List list = KUrl::List::fromMimeData(event->mimeData());
+    QList<QUrl> list = event->mimeData()->urls();
     QString str;
 
     if (!list.isEmpty())
@@ -222,8 +218,8 @@ void DropTarget::dropEvent(QDropEvent * event)
         if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt")))
         {
             int msgBoxResult = KMessageBox::questionYesNoCancel(this, i18n("The dropped file is a KGet Transfer List"), "KGet",
-                                   KGuiItem(i18n("&Download"), KIcon("document-save")), 
-                                       KGuiItem(i18n("&Load transfer list"), KIcon("list-add")), KStandardGuiItem::cancel());
+                                   KGuiItem(i18n("&Download"), QIcon::fromTheme("document-save")), 
+                                       KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
                 NewTransferDialogHandler::showNewTransferDialog(list.first().url());
@@ -290,7 +286,7 @@ void DropTarget::mousePressEvent(QMouseEvent * e)
         newtransfer = newtransfer.trimmed();
 
         if(!newtransfer.isEmpty())
-            KGet::addTransfer(KUrl(newtransfer), QString(), QString(), true);
+            KGet::addTransfer(QUrl(newtransfer), QString(), QString(), QString(), true);
     }
 }
 
@@ -459,4 +455,4 @@ void DropTarget::slotClose()
     setVisible( false );
 }
 
-#include "droptarget.moc"
+

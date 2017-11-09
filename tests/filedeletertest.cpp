@@ -21,9 +21,9 @@
 #include "filedeletertest.h"
 #include "../core/filedeleter.h"
 
-#include <QtCore/QFile>
-#include <QtTest/QSignalSpy>
-#include <QtTest/QtTest>
+#include <QFile>
+#include <QSignalSpy>
+#include <QtTest>
 
 #include <KJob>
 #include <KTemporaryFile>
@@ -76,4 +76,4 @@ void FileDeleterTest::fileDeleterTest()
 
 QTEST_MAIN(FileDeleterTest)
 
-#include "filedeletertest.moc"
+

@@ -11,7 +11,8 @@
 #include "mirrors.h"
 #include "mirrorsearchsettings.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
 mirror::mirror()
 {
@@ -19,9 +20,9 @@ mirror::mirror()
        m_search_engine = MirrorSearchSettings::searchEnginesUrlList().takeFirst();
 }
 
-void mirror::search(const KUrl &url, QObject *receiver, const char *member)
+void mirror::search(const QUrl &url, QObject *receiver, const char *member)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     m_url = url;
     if (m_url.path() != m_url.fileName())
@@ -34,20 +35,20 @@ void mirror::search(const KUrl &url, QObject *receiver, const char *member)
 
 void mirror::search(const QString &fileName, QObject *receiver, const char *member)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
-    KUrl search(m_search_engine.replace("${filename}",fileName));
+    QUrl search(m_search_engine.replace("${filename}",fileName));
     m_job = KIO::get(search, KIO::NoReload, KIO::HideProgressInfo);
     connect(m_job,SIGNAL(data(KIO::Job*,QByteArray)),
                SLOT(slotData(KIO::Job*,QByteArray)));
     connect(m_job,SIGNAL(result(KJob*)),
                SLOT(slotResult(KJob*)));
-    connect(this,SIGNAL(urls(QList<KUrl>&)),receiver,member);
+    connect(this,SIGNAL(urls(QList<QUrl>&)),receiver,member);
 }
 
 void mirror::slotData(KIO::Job *, const QByteArray& data)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     if (data.size() == 0)
         return;
     m_data.append(data);
@@ -55,8 +56,8 @@ void mirror::slotData(KIO::Job *, const QByteArray& data)
 
 void mirror::slotResult( KJob *job )
 {
-    kDebug(5001);
-    m_job = 0;
+    qCDebug(KGET_DEBUG);
+    m_job = nullptr;
     int minUrlsNeeded = static_cast<int>(!m_Urls.isEmpty());
 
     if( job->error() )
@@ -77,8 +78,8 @@ void mirror::slotResult( KJob *job )
         start = hrefEnd + 1;
             if ( u.endsWith( '/' + m_url.fileName() ) )
             {
-                m_Urls << KUrl(u);
-                kDebug(5001) << "url: " << u;
+                m_Urls << QUrl(u);
+                qCDebug(KGET_DEBUG) << "url: " << u;
             }
     }
 
@@ -87,7 +88,7 @@ void mirror::slotResult( KJob *job )
     deleteLater();
 }
 
-void MirrorSearch ( const KUrl &url, QObject *receiver, const char *member )
+void MirrorSearch ( const QUrl &url, QObject *receiver, const char *member )
 {
     mirror *searcher = new mirror();
     searcher->search(url, receiver, member);
@@ -99,4 +100,4 @@ void MirrorSearch ( const QString &fileName, QObject *receiver, const char *memb
     searcher->search(fileName, receiver, member);
 }
 
-#include "mirrors.moc"
+

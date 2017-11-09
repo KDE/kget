@@ -27,7 +27,7 @@ class DlgMmsSettings : public KCModule
 {
     Q_OBJECT
     public:
-        explicit DlgMmsSettings(QWidget * parent = 0, const QVariantList &args = QVariantList());
+        explicit DlgMmsSettings(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
 
     public slots:
         virtual void save();

@@ -17,27 +17,29 @@
 #include "core/transferhistorystore.h"
 #include "core/job.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
 #include <QDateTime>
 #include <QFile>
 #include <QFileSystemWatcher>
 #include <QFontMetrics>
-#include <QLineEdit>
 #include <QMenu>
 #include <QModelIndex>
 #include <QProgressBar>
-#include <QStandardItem>
 #include <QVariant>
+#include <QStandardItem>
 
-#include <KDebug>
-#include <KStandardDirs>
-#include <KMessageBox>
-#include <KToolBar>
+#include <QDebug>
+
 #include <KTreeWidgetSearchLine>
 #include <KRun>
-#include <KGlobalSettings>
 #include <kio/global.h>
-#include <KPushButton>
-#include <KIcon>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QIcon>
+#include <KLocalizedString>
+#include <QFontDatabase>
+#include <QStandardPaths>
 
 TransferHistory::TransferHistory(QWidget *parent)
     : KGetSaveSizeDialog("TransferHistory", parent),
@@ -46,8 +48,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_iconModeEnabled(true)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setCaption(i18n("Transfer History"));
-    setButtons(KDialog::Close);
+    setWindowTitle(i18n("Transfer History"));
     //Setup Ui-Parts from Designer
     QWidget *mainWidget = new QWidget(this);
 
@@ -60,8 +61,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_iconView = widget.bt_iconview;
     m_listView = widget.bt_listview;
 
-    m_listView->setIcon(KIcon("view-list-details"));
-    m_iconView->setIcon(KIcon("view-list-icons"));
+    m_listView->setIcon(QIcon::fromTheme("view-list-details"));
+    m_iconView->setIcon(QIcon::fromTheme("view-list-icons"));
 
     connect(m_listView, SIGNAL(clicked()), SLOT(slotSetListMode()));
     connect(m_iconView, SIGNAL(clicked()), SLOT(slotSetIconMode()));
@@ -74,20 +75,26 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_searchBar = widget.searchBar;
     //m_searchBar->setTreeWidget(m_treeWidget);
     m_clearButton = widget.clearButton;
-    m_clearButton->setIcon(KIcon("edit-clear-history"));
+    m_clearButton->setIcon(QIcon::fromTheme("edit-clear-history"));
     m_actionDelete_Selected = widget.actionDelete_Selected;
-    m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
+    m_actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
     m_actionDownload = widget.actionDownload;
-    m_actionDownload->setIcon(KIcon("document-new"));
-    m_openFile = new QAction(KIcon("document-open"), i18n("&Open File"), this);
-    setMainWidget(mainWidget);
+    m_actionDownload->setIcon(QIcon::fromTheme("document-new"));
+    m_openFile = new QAction(QIcon::fromTheme("document-open"), i18n("&Open File"), this);
 
     m_verticalLayout->addWidget(m_view);
     m_verticalLayout->addWidget(m_progressBar);
+    
+    QDialogButtonBox * buttonBox = new QDialogButtonBox(mainWidget);
+    buttonBox->clear();
+    buttonBox->addButton(QDialogButtonBox::Close);
+    m_verticalLayout->addWidget(buttonBox);
+    
+    layout()->addWidget(mainWidget);
 
     watcher = new QFileSystemWatcher();
-    watcher->addPath(KStandardDirs::locateLocal("appdata", QString()));
-    kDebug(5001) << watcher->directories();
+    watcher->addPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString());
+    qCDebug(KGET_DEBUG) << watcher->directories();
 
     m_store = TransferHistoryStore::getStore();
 
@@ -103,6 +110,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     connect(m_store, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
                      SLOT(slotElementLoaded(int,int,TransferHistoryItem)));
     connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     slotAddTransfers();
 }
 
@@ -195,9 +204,9 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
         file = categorized_view->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString();
     }
 
-    kDebug() << "Try to open the file : " << file;
+    //qDebug() << "Try to open the file : " << file;
     if (!file.isEmpty()) {
-        new KRun(file, this, true, false);
+        new KRun(file, this, true);
     }
 }
 
@@ -244,7 +253,7 @@ void TransferHistory::slotLoadRangeType(int type)
         }
     } else {
         RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
-        QFontMetrics *font = new QFontMetrics(KGlobalSettings::generalFont());
+        QFontMetrics *font = new QFontMetrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
         range_view->clear();
 
         range_view->setLabels(QStringList() << i18n("Source File") << i18n("Destination") << i18n("Time") << i18n("File Size") << i18n("Status"));

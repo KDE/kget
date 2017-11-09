@@ -20,15 +20,15 @@
 #ifndef AUTOPASTEMODEL
 #define AUTOPASTEMODEL
 
-#include <QtCore/QAbstractTableModel>
-#include <QtGui/QStyledItemDelegate>
+#include <QAbstractTableModel>
+#include <QStyledItemDelegate>
 
 class AutoPasteDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
     public:
-        AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent = 0);
+        AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;

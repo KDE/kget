@@ -77,7 +77,7 @@ void KGetRunner::run(const Plasma::RunnerContext& /*context*/, const Plasma::Que
     if(connection->lastError().type() != QDBusError::NoError) {
         KNotification::event(KNotification::Error,
                 i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", connection->lastError().message()),
-                KIcon("dialog-warning").pixmap(KIconLoader::SizeSmall)/*, 0, KNotification::Persistant*/);
+                QIcon::fromTheme("dialog-warning").pixmap(KIconLoader::SizeSmall)/*, 0, KNotification::Persistant*/);
         return;
     }
     
@@ -105,7 +105,7 @@ void KGetRunner::callFinished(QDBusPendingCallWatcher* call)
         //  Send a notification about the error to the user.
         KNotification::event(KNotification::Error,
                 i18n("<p>KGet Runner could not communicate with KGet.</p><p style=\"font-size: small;\">Response from DBus:<br/>%1</p>", reply.error().message()),
-                KIcon("dialog-warning").pixmap(KIconLoader::SizeSmall)/*, 0, KNotification::Persistant*/);
+                QIcon::fromTheme("dialog-warning").pixmap(KIconLoader::SizeSmall)/*, 0, KNotification::Persistant*/);
     }
 }
 
@@ -137,4 +137,4 @@ QStringList KGetRunner::parseUrls(const QString& text) const
 }
 
 
-#include "kgetrunner.moc"
+

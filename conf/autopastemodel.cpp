@@ -21,9 +21,9 @@
 #include "settings.h"
 
 #include <KComboBox>
-#include <KIcon>
+#include <QIcon>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 
 AutoPasteDelegate::AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent)
   : QStyledItemDelegate(parent),
@@ -37,7 +37,7 @@ QWidget *AutoPasteDelegate::createEditor(QWidget *parent, const QStyleOptionView
     Q_UNUSED(option)
 
     if (!index.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     switch(index.column()) {
@@ -56,7 +56,7 @@ QWidget *AutoPasteDelegate::createEditor(QWidget *parent, const QStyleOptionView
             return syntaxes;
         }
         default:
-            return 0;
+            return nullptr;
     }
 }
 
@@ -192,7 +192,7 @@ QVariant AutoPasteModel::data(const QModelIndex &index, int role) const
     switch (column) {
         case Type: {
             if (role == Qt::DecorationRole) {
-                return (m_data[row].type == Include ? KIcon("list-add") : KIcon("list-remove"));
+                return (m_data[row].type == Include ? QIcon::fromTheme("list-add") : QIcon::fromTheme("list-remove"));
             } else if ((role == Qt::UserRole) || (role == Qt::EditRole)) {
                 return m_data[row].type;
             }
@@ -335,7 +335,7 @@ void AutoPasteModel::save()
     Settings::self()->setAutoPasteTypes(types);
     Settings::self()->setAutoPastePatternSyntaxes(syntaxes);
     Settings::self()->setAutoPastePatterns(patterns);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void AutoPasteModel::resetDefaults()

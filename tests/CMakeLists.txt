@@ -10,54 +10,51 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     set(kget_test_transfers_SRCS
         testkget.cpp
         testtransfers.cpp
+        ../kget_debug.cpp
     )
 
-    qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.main.xml kget_interface)
-    qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.transfer.xml transfer_interface)
-    qt4_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.verifier.xml verifier_interface)
+    qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.main.xml kget_interface)
+    qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.transfer.xml transfer_interface)
+    qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.verifier.xml verifier_interface)
 
-    kde4_add_unit_test(kget_test_transfers
-        ${kget_test_transfers_SRCS})
+    #REACTIVATE
+    #add_executable(kget_test_transfers ${kget_test_transfers_SRCS})
+    #add_test(kget_test_transfers kget_test_transfers)
+    #ecm_mark_as_test(kget_test_transfers)
 
-    target_link_libraries(kget_test_transfers ${QT_QTTEST_LIBRARY} ${KDE4_KIO_LIBS} kgetcore)
+    #target_link_libraries(kget_test_transfers Qt5::Test KF5::KIOCore kgetcore)
 
 
-    #===========Verifier===========
+#===========Verifier===========
     if (QCA2_FOUND)
-        kde4_add_unit_test(verifiertest
-        TESTNAME kget-verifiertest
-        verifiertest.cpp
-        )
+        add_executable(verifiertest verifiertest.cpp)
+        add_test(verifiertest verifiertest)
+        ecm_mark_as_test(verifiertest)
 
-        target_link_libraries(verifiertest ${QT_QTTEST_LIBRARY} ${KDE4_KDECORE_LIBS} ${QCA2_LIBRARIES} kgetcore)
+        target_link_libraries(verifiertest Qt5::Test KF5::KDELibs4Support ${QCA2_LIBRARIES} kgetcore)
     endif (QCA2_FOUND)
 
 
     #===========Scheduler===========
-    kde4_add_unit_test(schedulertest
-    TESTNAME kget-schedulertest
-    schedulertest.cpp
-    )
+    add_executable(schedulertest schedulertest.cpp)
+    add_test(schedulertest schedulertest ) 
+    ecm_mark_as_test(schedulertest)
 
-    target_link_libraries(schedulertest ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} ${KDE4_KDECORE_LIBS} kgetcore)
+    target_link_libraries(schedulertest Qt5::Test Qt5::Gui KF5::KDELibs4Support kgetcore)
 
 
     #===========Metalinker===========
     set(metalinktest_SRCS
         metalinktest.cpp
         ../ui/metalinkcreator/metalinker.cpp
+        ../kget_debug.cpp
     )
 
-    kde4_add_unit_test( metalinktest
-    TESTNAME kget-metalinktest
-    ${metalinktest_SRCS}
-    )
+    add_executable( metalinktest ${metalinktest_SRCS})
+    add_test(metalinktest metalinktest)
+    ecm_mark_as_test(metalinktest)
 
-    target_link_libraries(metalinktest ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY})
-
-    if (HAVE_NEPOMUK)
-    target_link_libraries(metalinktest ${SOPRANO_LIBRARIES} ${NEPOMUK_CORE_LIBRARY})
-    endif (HAVE_NEPOMUK)
+    target_link_libraries(metalinktest KF5::KDELibs4Support KF5::KIOCore Qt5::Test)
 
     #===========FileDeleter===========
     set(filedeletertest_SRCS
@@ -65,11 +62,10 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
         ../core/filedeleter.cpp
     )
 
-    kde4_add_unit_test(filedeletertest
-        TESTNAME kget-filedeletertest
-        ${filedeletertest_SRCS}
-    )
+    add_executable(filedeletertest ${filedeletertest_SRCS})
+     add_test(filedeletertest filedeletertest)
+     ecm_mark_as_test(filedeletertest)
 
-    target_link_libraries(filedeletertest ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY})
+    target_link_libraries(filedeletertest KF5::KIOCore Qt5::Test KF5::KDELibs4Support)
 
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)

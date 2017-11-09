@@ -12,7 +12,6 @@
 #define KGET_LINKVIEW_H
 
 #include "../../core/basedialog.h"
-#include <KLocale>
 
 #include "ui_importlinkdialog.h"
 
@@ -27,7 +26,7 @@ class KGetLinkView : public KGetSaveSizeDialog
     Q_OBJECT
 
 public:
-    KGetLinkView(QWidget *parent = 0);
+    KGetLinkView(QWidget *parent = nullptr);
     ~KGetLinkView();
 
     // void setLinks( QList<LinkItem*>& links );
@@ -36,7 +35,7 @@ public:
     void importUrl(const QString &url = QString());
 
 signals:
-    void leechUrls( const KUrl::List& urls );
+    void leechUrls( const QList<QUrl>& urls );
 
 private slots:
     void slotMimeTypeChanged(int index);
@@ -76,6 +75,7 @@ private:
     QMenu *m_patternSyntaxMenu;
     QAction *m_nameAction;
     QAction *m_urlAction;
+    QPushButton * m_downloadButton;
 };
 
 #endif // KGET_LINKVIEW_H

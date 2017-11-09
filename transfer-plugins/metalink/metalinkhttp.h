@@ -28,8 +28,8 @@ class MetalinkHttp : public AbstractMetalink
 
     public:
     MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
-                Scheduler * scheduler, const KUrl & src, const KUrl & dest,
-                KGetMetalink::MetalinkHttpParser *httpParser, const QDomElement * e = 0 );
+                Scheduler * scheduler, const QUrl & src, const QUrl & dest,
+                KGetMetalink::MetalinkHttpParser *httpParser, const QDomElement * e = nullptr );
     ~MetalinkHttp();
 
     public Q_SLOTS:
@@ -53,7 +53,7 @@ class MetalinkHttp : public AbstractMetalink
          * @note sets the signatures in the headers to the signature reader
          */
 
-        void setSignature(KUrl & dest, QByteArray & data, DataSourceFactory* dataFactory);
+        void setSignature(QUrl & dest, QByteArray & data, DataSourceFactory* dataFactory);
 
         /**
          * @note sets the Instance Digests in the headers to the vlaues as per
@@ -68,8 +68,8 @@ class MetalinkHttp : public AbstractMetalink
         void setLinks();
 
     private:
-        KUrl m_signatureUrl;
-        KUrl m_metalinkxmlUrl ;
+        QUrl m_signatureUrl;
+        QUrl m_metalinkxmlUrl ;
         void startMetalink();
         KGetMetalink::MetalinkHttpParser *m_httpparser;
         QList<KGetMetalink::HttpLinkHeader> m_linkheaderList;

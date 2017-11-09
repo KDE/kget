@@ -48,12 +48,12 @@ void ContentFetch::deinit()
 
 void ContentFetch::start()
 {
-    kDebug(5001) << "ContentFetch::start";
+    qCDebug(KGET_DEBUG) << "ContentFetch::start";
     setStatus(Job::Running, i18nc("Transfer state: processing script", "Processing script...."), SmallIcon("media-playback-start"));
     setTransferChange(Tc_Status, true);
     m_p_script->setFile(m_scriptFile);
     m_p_script->start();
-    kDebug(5001) << "ContentFetch::start() finished!";
+    qCDebug(KGET_DEBUG) << "ContentFetch::start() finished!";
 }
 
 void ContentFetch::stop()
@@ -62,7 +62,7 @@ void ContentFetch::stop()
     {
         return;
     }
-    kDebug(5001) << "ContentFetch::stop";
+    qCDebug(KGET_DEBUG) << "ContentFetch::stop";
     // kill -9 the script
     m_p_script->terminate();
     // delete m_p_script to avoid crash?

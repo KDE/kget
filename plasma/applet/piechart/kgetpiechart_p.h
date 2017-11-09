@@ -21,9 +21,9 @@
 #ifndef KGETPIECHART_P_H
 #define KGETPIECHART_P_H
 
-#include <QtCore/QHash>
-#include <QtGui/QGraphicsWidget>
-#include <QtGui/QPen>
+#include <QHash>
+#include <QGraphicsWidget>
+#include <QPen>
 
 #include <KColorCollection>
 #include <KIO/Job>

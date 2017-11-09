@@ -23,7 +23,7 @@
 #include "kget_export.h"
 
 class KJob;
-class KUrl;
+class QUrl;
 class QObject;
 
 /**
@@ -48,12 +48,12 @@ class KGET_EXPORT FileDeleter
          * @return the KJob that has been created
          * @note only use the returned job to create connections yourself, not to modify it!
          */
-        static KJob *deleteFile(const KUrl &dest, QObject *receiver = 0, const char *method = 0);
+        static KJob *deleteFile(const QUrl &dest, QObject *receiver = nullptr, const char *method = nullptr);
 
         /**
          * @return true if dest is being deleted
          */
-        static bool isFileBeingDeleted(const KUrl &dest);
+        static bool isFileBeingDeleted(const QUrl &dest);
 
     private:
         class Private;

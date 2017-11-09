@@ -20,42 +20,44 @@
 #include "renamefile.h"
 #include "core/filemodel.h"
 
-#include <QtCore/QFile>
+#include <QFile>
+#include <QPushButton>
 
-#include <KLocale>
+#include <KLocalizedString>
 
 RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_model(model),
     m_index(index)
 {
-    setCaption(i18n("Rename File"));
-    showButtonSeparator(true);
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
-
+    setWindowTitle(i18n("Rename File"));
+    //showButtonSeparator(true);
+    ui.setupUi(this);
+    
     const QString originalName = m_model->data(m_index, Qt::DisplayRole).toString();
-    m_dest = m_model->getUrl(m_index).upUrl();
+    m_dest = m_model->getUrl(m_index).adjusted(QUrl::RemoveFilename);
 
     ui.label->setText(i18n("Rename %1 to:", originalName));
     ui.name->setText(originalName);
 
-    setButtonText(KDialog::Ok, i18n("&Rename"));
-    enableButtonOk(false);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setText(i18n("&Rename"));
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    //ui.buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
 
-    connect(ui.name, SIGNAL(textEdited(QString)), this, SLOT(updateButton()));
-    connect(this, SIGNAL(okClicked()), this, SLOT(rename()));
+    connect(ui.name, &KLineEdit::textEdited, this, &RenameFile::updateButton);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &RenameFile::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(this, &QDialog::accepted, this, &RenameFile::rename);
 }
 
 void RenameFile::updateButton()
 {
     const QString newName = ui.name->text();
-    KUrl dest = m_dest;
-    dest.addPath(newName);
+    QUrl dest = m_dest;
+    dest.setPath(m_dest.toString() + newName);
 
-    const bool enabled = !newName.isEmpty() && !QFile::exists(dest.pathOrUrl());
-    enableButtonOk(enabled);
+    const bool enabled = !newName.isEmpty() && !QFile::exists(dest.toString());
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
 }
 
 void RenameFile::rename()
@@ -64,4 +66,4 @@ void RenameFile::rename()
     m_model->rename(m_index, newName);
 }
 
-#include "renamefile.moc"
+

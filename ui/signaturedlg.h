@@ -32,10 +32,10 @@ class SignatureDlg : public KGetSaveSizeDialog
     Q_OBJECT
 
     public:
-        SignatureDlg(TransferHandler *transfer, const KUrl &dest, QWidget *parent = 0, Qt::WFlags flags = 0);
+        SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget *parent = nullptr, Qt::WFlags flags = 0);
 
     private slots:
-        void fileFinished(const KUrl &file);
+        void fileFinished(const QUrl &file);
         void verifyClicked();
         void updateData();
         void updateButtons();

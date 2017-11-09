@@ -26,8 +26,8 @@ class Metalink : public Transfer
 
     public:
         Metalink(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KUrl & src, const KUrl & dest,
-                    const QDomElement * e = 0);
+                    Scheduler * scheduler, const QUrl & src, const QUrl & dest,
+                    const QDomElement * e = nullptr);
 
         ~Metalink();
 
@@ -39,31 +39,31 @@ class Metalink : public Transfer
          */
         int remainingTime() const;
 
-        bool repair(const KUrl &file = KUrl());
+        bool repair(const QUrl &file = QUrl());
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const KUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory);
 
-        QHash<KUrl, QPair<bool, int> > availableMirrors(const KUrl &file) const;
-        void setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors);
+        QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const;
+        void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors);
 
         /**
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier *verifier(const KUrl &file);
+        virtual Verifier *verifier(const QUrl &file);
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature *signature(const KUrl &file);
+        virtual Signature *signature(const QUrl &file);
 
-        virtual QList<KUrl> files() const;
+        virtual QList<QUrl> files() const;
 
         FileModel *fileModel();
 
@@ -80,7 +80,7 @@ class Metalink : public Transfer
          * @note false does not mean that an error happened, it could mean, that the user
          * decided to update the metalink
          */
-        bool metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
+        bool metalinkInit(const QUrl &url = QUrl(), const QByteArray &data = QByteArray());
 
         void fileDlgFinished(int result);
         /**
@@ -91,7 +91,7 @@ class Metalink : public Transfer
         void filesSelected();
         void slotUpdateCapabilities();
         void slotDataSourceFactoryChange(Transfer::ChangesFlags change);
-        void slotRename(const KUrl &oldUrl, const KUrl &newUrl);
+        void slotRename(const QUrl &oldUrl, const QUrl &newUrl);
         void slotVerified(bool isVerified);
         void slotSignatureVerified();
 
@@ -108,9 +108,9 @@ class Metalink : public Transfer
         FileModel *m_fileModel;
         int m_currentFiles;
         bool m_metalinkJustDownloaded;
-        KUrl m_localMetalinkLocation;
+        QUrl m_localMetalinkLocation;
         KGetMetalink::Metalink m_metalink;
-        QHash<KUrl, DataSourceFactory*> m_dataSourceFactory;
+        QHash<QUrl, DataSourceFactory*> m_dataSourceFactory;
         bool m_ready;
         int m_speedCount;
         int m_tempAverageSpeed;

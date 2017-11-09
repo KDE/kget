@@ -31,7 +31,7 @@ class FileSelectionDlg : public KDialog
     Q_OBJECT
 
     public:
-        FileSelectionDlg(FileModel *model, QWidget *parent = 0);
+        FileSelectionDlg(FileModel *model, QWidget *parent = nullptr);
 
     private:
         Ui::FileSelection ui;

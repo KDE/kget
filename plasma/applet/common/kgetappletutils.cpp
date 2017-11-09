@@ -27,7 +27,7 @@
 #include <plasma/widgets/iconwidget.h>
 #include <plasma/widgets/pushbutton.h>
 
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 #include <QGraphicsLinearLayout>
 #include <QPainter>
 #include <QRect>
@@ -37,9 +37,9 @@
 #include <QPushButton>
 #include <QTimer>
 
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
-#include <KPushButton>
+#include <QPushButton>
 
 const int KGetAppletUtils::SPACING = 4;
 
@@ -57,8 +57,8 @@ void KGetAppletUtils::paintTitle(QPainter *p, Plasma::Svg *svg, const QRect &rec
     p->setPen(Plasma::Theme::defaultTheme()->color(Plasma::Theme::TextColor));
 
     QRect iconRect(QPoint(rect.x() + SPACING + 10, rect.y() + SPACING + 10), QSize(metrics.height(), metrics.height()));
-    KIcon("kget").paint(p, iconRect);
-    //p->drawPixmap(QPointF(rect.x() + SPACING + 10, rect.y() + SPACING + 10), KIcon("kget").pixmap(iconRect.width(), iconRect.height()), iconRect);
+    QIcon::fromTheme("kget").paint(p, iconRect);
+    //p->drawPixmap(QPointF(rect.x() + SPACING + 10, rect.y() + SPACING + 10), QIcon::fromTheme("kget").pixmap(iconRect.width(), iconRect.height()), iconRect);
     //svg->paint(p, QRect(rect.x() + SPACING + 10,
     //                    rect.y() + SPACING + 10, 111, 35), "title");
     //p->setPen(Qt::black);
@@ -91,11 +91,11 @@ ErrorWidget::ErrorWidget(const QString &message, QGraphicsWidget *parent)
     m_errorLabel->setText(message);
     m_errorLabel->nativeWidget()->setAlignment(Qt::AlignCenter);
 
-    m_icon = new Plasma::IconWidget(KIcon("dialog-warning"),"", this);
+    m_icon = new Plasma::IconWidget(QIcon::fromTheme("dialog-warning"),"", this);
 
     m_launchButton = new Plasma::PushButton(this);
     m_launchButton->setText(i18n("Launch KGet"));
-    m_launchButton->nativeWidget()->setIcon(KIcon("kget"));
+    m_launchButton->nativeWidget()->setIcon(QIcon::fromTheme("kget"));
 
     m_layout->addItem(m_errorLabel);
     m_layout->addItem(m_icon);
@@ -129,4 +129,4 @@ void ErrorWidget::checkKGetStatus()
     }
 }
 
-#include "kgetappletutils.moc"
+

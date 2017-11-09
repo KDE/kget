@@ -24,6 +24,7 @@
 #include "ui_verificationadddlg.h"
 
 #include "../core/basedialog.h"
+#include <QDialog>
 
 class FileModel;
 class QSortFilterProxyModel;
@@ -31,12 +32,12 @@ class TransferHandler;
 class Verifier;
 class VerificationModel;
 
-class VerificationAddDlg : public KDialog
+class VerificationAddDlg : public QDialog
 {
     Q_OBJECT
 
     public:
-        explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = 0, Qt::WFlags flags = 0);
+        explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = nullptr, Qt::WFlags flags = 0);
         
         virtual QSize sizeHint() const;
 
@@ -55,12 +56,12 @@ class VerificationDialog : public KGetSaveSizeDialog
     Q_OBJECT
 
     public:
-        VerificationDialog(QWidget *parent, TransferHandler *transfer, const KUrl &file);
+        VerificationDialog(QWidget *parent, TransferHandler *transfer, const QUrl &file);
         
         virtual QSize sizeHint() const;
 
     private slots:
-        void fileFinished(const KUrl &file);
+        void fileFinished(const QUrl &file);
         void updateButtons();
         void addClicked();
         void removeClicked();

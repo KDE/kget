@@ -24,26 +24,24 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
-#ifdef HAVE_NEPOMUK
-    #include "core/nepomukhandler.h"
-    #include <Nepomuk2/Variant>
-#endif //HAVE_NEPOMUK
+#include "kget_debug.h"
+#include <qdebug.h>
 
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KIO/RenameDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 
-#include <QtCore/QFile>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QDomElement>
 
 MetalinkXml::MetalinkXml(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : AbstractMetalink(parent, factory, scheduler, source, dest, e)
 
@@ -56,7 +54,7 @@ MetalinkXml::~MetalinkXml()
 
 void MetalinkXml::start()
 {
-    kDebug(5001) << "metalinkxml::start";
+    qCDebug(KGET_DEBUG) << "metalinkxml::start";
 
     if (!m_ready)
     {
@@ -76,15 +74,15 @@ void MetalinkXml::downloadMetalink()
 {
     m_metalinkJustDownloaded = true;
 
-    setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
+    setStatus(Job::Running, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
     Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
-    connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(metalinkInit(KUrl,QByteArray)));
+    connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
 }
 
-bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
+bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG) << "MetalinkXml::metalinkInit";
 
     if (!src.isEmpty()) {
         m_localMetalinkLocation = src;
@@ -101,7 +99,7 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
     }
 
     if (!m_metalink.isValid()) {
-        kError(5001) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
+        qCCritical(KGET_DEBUG) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -110,7 +108,7 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
     //offers a dialog to download the newest version of a dynamic metalink
      if ((m_source.isLocalFile() || !m_metalinkJustDownloaded) &&
          m_metalink.dynamic && (UrlChecker::checkSource(m_metalink.origin) == UrlChecker::NoError)) {
-        if (KMessageBox::questionYesNo(0, i18n("A newer version of this Metalink might exist, do you want to download it?"),
+        if (KMessageBox::questionYesNo(nullptr, i18n("A newer version of this Metalink might exist, do you want to download it?"),
                                        i18n("Redownload Metalink")) == KMessageBox::Yes) {
             m_localMetalinkLocation.clear();
             m_source = m_metalink.origin;
@@ -123,12 +121,12 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
     QList<KGetMetalink::File>::const_iterator itEnd = m_metalink.files.files.constEnd();
     m_totalSize = 0;
     KIO::fileoffset_t segSize = 500 * 1024;//TODO use config here!
-    const KUrl tempDest = KUrl(m_dest.directory());
-    KUrl dest;
+    const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
+    QUrl dest;
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
     {
         dest = tempDest;
-        dest.addPath((*it).name);
+        dest.setPath(tempDest.adjusted(QUrl::RemoveFilename | QUrl::RemoveScheme).toString() + "/" + (*it).name);
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
         //sort the urls according to their priority (highest first)
@@ -141,10 +139,6 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
         DataSourceFactory *dataFactory = new DataSourceFactory(this, dest, fileSize, segSize);
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
-#ifdef HAVE_NEPOMUK
-        nepomukHandler()->setProperties((*it).properties(), QList<KUrl>() << dest);
-#endif //HAVE_NEPOMUK
-
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
 
         connect(dataFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
@@ -156,7 +150,7 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
         {
-            const KUrl url = urlList[i].url;
+            const QUrl url = urlList[i].url;
             if (url.isValid())
             {
                 dataFactory->addMirror(url, MetalinkSettings::connectionsPerUrl());
@@ -195,8 +189,8 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
 
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
-        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
-        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
+        qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
+        KMessageBox::error(nullptr, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -209,7 +203,7 @@ bool MetalinkXml::metalinkInit(const KUrl &src, const QByteArray &data)
     // should be downloaded
     /* TODO this portion seems not to be working. Need to ask boom1992 */
     if (m_metalinkJustDownloaded) {
-        KDialog *dialog = new FileSelectionDlg(fileModel());
+        QDialog *dialog = new FileSelectionDlg(fileModel());
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
 
@@ -260,12 +254,9 @@ void MetalinkXml::deinit(Transfer::DeleteOptions options)
     if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }
 
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->deinit();
-#endif //HAVE_NEPOMUK
 }
 
 void MetalinkXml::load(const QDomElement *element)
@@ -278,7 +269,7 @@ void MetalinkXml::load(const QDomElement *element)
     }
 
     const QDomElement e = *element;
-    m_localMetalinkLocation = KUrl(e.attribute("LocalMetalinkLocation"));
+    m_localMetalinkLocation = QUrl(e.attribute("LocalMetalinkLocation"));
     QDomNodeList factories = e.firstChildElement("factories").elementsByTagName("factory");
 
     //no stored information found, stop right here
@@ -331,4 +322,4 @@ void MetalinkXml::save(const QDomElement &element)
     }
 }
 
-#include "metalinkxml.moc"
+

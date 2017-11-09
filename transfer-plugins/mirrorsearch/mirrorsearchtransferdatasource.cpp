@@ -10,37 +10,39 @@
  
 #include "mirrorsearchtransferdatasource.h"
 #include "mirrors.h"
-#include <kdebug.h>
 
-MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const KUrl &srcUrl, QObject *parent)
+#include "kget_debug.h"
+#include <qdebug.h>
+
+MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent)
 {
     m_filename = m_sourceUrl.fileName();
-    kDebug(5001) << m_filename;
+    qCDebug(KGET_DEBUG) << m_filename;
 }
 
 void MirrorSearchTransferDataSource::start()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     if(!m_filename.isEmpty())
-        MirrorSearch (m_filename, this, SLOT(slotSearchUrls(QList<KUrl>&)));
+        MirrorSearch (m_filename, this, SLOT(slotSearchUrls(QList<QUrl>&)));
 }
 
 void MirrorSearchTransferDataSource::stop()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 }
 
 void MirrorSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
 {
     Q_UNUSED(segmentSize)
     Q_UNUSED(segmentRange)
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 }
 
-void MirrorSearchTransferDataSource::slotSearchUrls(QList<KUrl>& Urls)
+void MirrorSearchTransferDataSource::slotSearchUrls(QList<QUrl>& Urls)
 {
     emit data(Urls);
 }
 
-#include "mirrorsearchtransferdatasource.moc"
+

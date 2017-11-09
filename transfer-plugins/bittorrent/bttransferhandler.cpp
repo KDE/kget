@@ -17,14 +17,15 @@
 
 #include "core/scheduler.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <QDebug>
 
 BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler)
     : TransferHandler(transfer, scheduler),
       m_transfer(transfer)
 {
-    advancedDetails = 0;
-    scanDlg = 0;
+    advancedDetails = nullptr;
+    scanDlg = nullptr;
 }
 
 BTTransferHandler::~BTTransferHandler()
@@ -37,17 +38,17 @@ void BTTransferHandler::createAdvancedDetails()
 {
     if (!torrentControl())
         return;
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!advancedDetails)
     {
-        kDebug(5001) << "Going to create AdvancedDetails";
+        qCDebug(KGET_DEBUG) << "Going to create AdvancedDetails";
         advancedDetails = new BTAdvancedDetailsWidget(this);
         advancedDetails->show();
         connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
         if (m_transfer->torrentControl())
         {
-            m_transfer->torrentControl()->setMonitor(0);
+            m_transfer->torrentControl()->setMonitor(nullptr);
             m_transfer->torrentControl()->setMonitor(m_transfer);
         }
     }
@@ -56,7 +57,7 @@ void BTTransferHandler::createAdvancedDetails()
 void BTTransferHandler::removeAdvancedDetails()
 {
     advancedDetails->close();
-    advancedDetails = 0;
+    advancedDetails = nullptr;
 }
 
 kt::Monitor* BTTransferHandler::torrentMonitor() const
@@ -71,31 +72,7 @@ void BTTransferHandler::createScanDlg()
 {
     if (!torrentControl())
         return;
-#if LIBKTORRENT_VERSION < 0x010100
-    if (scanDlg)
-    {
-        scanDlg->stop();
-        scanDlg->close();
-    }
-#endif
 
-#if LIBKTORRENT_VERSION >= 0x010200
-    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), 0);//TODO: Maybe start/stop it
+    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), nullptr);//TODO: Maybe start/stop it
     scanDlg->exec();
-#elif LIBKTORRENT_VERSION >= 0x010100
-    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false), 0);//TODO: Maybe start/stop it
-    scanDlg->exec();
-#else
-    scanDlg = new kt::ScanDlg(0);
-    scanDlg->show();
-    scanDlg->execute(torrentControl(), false);
-    connect(scanDlg, SIGNAL(finished(int)), SLOT(removeScanDlg()));
-#endif
 }
-#if LIBKTORRENT_VERSION < 0x010100
-void BTTransferHandler::removeScanDlg()
-{
-    kDebug(5001);
-    scanDlg = 0;
-}
-#endif

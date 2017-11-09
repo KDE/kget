@@ -20,16 +20,15 @@
 #ifndef KGET_BASE_DIALOG
 #define KGET_BASE_DIALOG
 
-#include "../kget_export.h"
-#include <KDialog>
+#include "kget_export.h"
+#include <QDialog>
 
-class QCheckBox;
 
 /**
  * Subclass to make sure that the size of the dialog is
  * automatically stored and restored
  */
-class KGET_EXPORT KGetSaveSizeDialog : public KDialog
+class KGET_EXPORT KGetSaveSizeDialog : public QDialog
 {
     Q_OBJECT
 
@@ -37,7 +36,7 @@ class KGET_EXPORT KGetSaveSizeDialog : public KDialog
         /**
          * Restores the dialog to the size saved for name
          */
-        explicit KGetSaveSizeDialog(const QByteArray &name, QWidget *parent = 0, Qt::WFlags flags = 0);
+        explicit KGetSaveSizeDialog(const QByteArray &name, QWidget *parent = nullptr, Qt::WFlags flags = 0);
         virtual ~KGetSaveSizeDialog();
         
     private:

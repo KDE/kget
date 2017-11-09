@@ -20,18 +20,19 @@
 #ifndef RENAMEFILE_H
 #define RENAMEFILE_H
 
-#include <KDialog>
+#include <QDialog>
+#include <QUrl>
 
 #include "ui_renamefile.h"
 
 class FileModel;
 
-class RenameFile : public KDialog
+class RenameFile : public QDialog
 {
     Q_OBJECT
 
     public:
-        RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent = 0, Qt::WFlags flags = 0);
+        RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent = nullptr, Qt::WFlags flags = 0);
 
         void setOriginalName(const QString &originalName);
 
@@ -43,7 +44,7 @@ class RenameFile : public KDialog
         FileModel *m_model;
         QModelIndex m_index;
         Ui::RenameFile ui;
-        KUrl m_dest;
+        QUrl m_dest;
 };
 
 #endif

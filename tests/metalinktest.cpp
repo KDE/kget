@@ -21,7 +21,8 @@
 #include "metalinktest.h"
 #include "../ui/metalinkcreator/metalinker.h"
 
-#include <QtTest/QtTest>
+#include <KUrl>
+#include <QtTest>
 
 void MetalinkTest::testFilePath()
 {
@@ -97,4 +98,4 @@ void MetalinkTest::testMetaUrl_data()
 
 QTEST_MAIN(MetalinkTest)
 
-#include "metalinktest.moc"
+

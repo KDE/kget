@@ -21,18 +21,19 @@
 #include "keydownloader.h"
 #include "settings.h"
 
-#include <KDebug>
-#include <KLocale>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <KLocalizedString>
 #include <KMessageBox>
 
-#include <QtXml/QDomElement>
-
+#include <QDomElement>
+#include <KGlobal>
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
 #include <gpgme++/data.h>
 #include <qgpgme/dataprovider.h>
 
-#include <QtCore/QFile>
+#include <QFile>
 #endif
 
 #ifdef HAVE_QGPGME
@@ -56,33 +57,33 @@ SignaturePrivate::~SignaturePrivate()
 void SignaturePrivate::signatureDownloaded()
 {
     if (verifyTried) {
-        kDebug(5001) << "Rerun verification.";
+        qCDebug(KGET_DEBUG) << "Rerun verification.";
         q->verify();
     }
 }
 
 #ifdef HAVE_QGPGME
-GpgME::VerificationResult SignaturePrivate::verify(const KUrl &dest, const QByteArray &sig)
+GpgME::VerificationResult SignaturePrivate::verify(const QUrl &dest, const QByteArray &sig)
 {
     GpgME::VerificationResult result;
-    if (!QFile::exists(dest.pathOrUrl()) || sig.isEmpty()) {
+    if (!QFile::exists(dest.toDisplayString(QUrl::PreferLocalFile)) || sig.isEmpty()) {
         return result;
     }
 
     GpgME::initializeLibrary();
     GpgME::Error error = GpgME::checkEngine(GpgME::OpenPGP);
     if (error) {
-        kDebug(5001) << "OpenPGP not supported!";
+        qCDebug(KGET_DEBUG) << "OpenPGP not supported!";
         return result;
     }
 
     QScopedPointer<GpgME::Context> context(GpgME::Context::createForProtocol(GpgME::OpenPGP));
     if (!context.data()) {
-        kDebug(5001) << "Could not create context.";
+        qCDebug(KGET_DEBUG) << "Could not create context.";
         return result;
     }
 
-    boost::shared_ptr<QFile> qFile(new QFile(dest.pathOrUrl()));
+    std::shared_ptr<QFile> qFile(new QFile(dest.toDisplayString(QUrl::PreferLocalFile)));
     qFile->open(QIODevice::ReadOnly);
     QGpgME::QIODeviceDataProvider *file = new QGpgME::QIODeviceDataProvider(qFile);
     GpgME::Data dFile(file);
@@ -95,7 +96,7 @@ GpgME::VerificationResult SignaturePrivate::verify(const KUrl &dest, const QByte
 #endif //HAVE_QGPGME
 
 
-Signature::Signature(const KUrl &dest, QObject *object)
+Signature::Signature(const QUrl &dest, QObject *object)
   : QObject(object),
     d(new SignaturePrivate(this))
 {
@@ -111,12 +112,12 @@ Signature::~Signature()
     delete d;
 }
 
-KUrl Signature::destination() const
+QUrl Signature::destination() const
 {
     return d->dest;
 }
 
-void Signature::setDestination(const KUrl &destination)
+void Signature::setDestination(const QUrl &destination)
 {
     d->dest = destination;
 }
@@ -177,7 +178,7 @@ QString Signature::fingerprint()
 void Signature::downloadKey(QString fingerprint) // krazy:exclude=passbyvalue
 {
 #ifdef HAVE_QGPGME
-    kDebug(5001) << "Downloading key:" << fingerprint;
+    qCDebug(KGET_DEBUG) << "Downloading key:" << fingerprint;
     signatureDownloader->downloadKey(fingerprint, this);
 #else
     Q_UNUSED(fingerprint)
@@ -187,7 +188,7 @@ void Signature::downloadKey(QString fingerprint) // krazy:exclude=passbyvalue
 bool Signature::isVerifyable()
 {
 #ifdef HAVE_QGPGME
-    return QFile::exists(d->dest.pathOrUrl()) && !d->signature.isEmpty();
+    return QFile::exists(d->dest.toDisplayString(QUrl::PreferLocalFile)) && !d->signature.isEmpty();
 #else
     return false;
 #endif //HAVE_QGPGME
@@ -207,7 +208,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     d->status = Signature::NotWorked;
 
     if (!d->verificationResult.numSignatures()) {
-        kDebug(5001) << "No signatures\n";
+        qCDebug(KGET_DEBUG) << "No signatures\n";
         emit verified(d->status);
         return;
     }
@@ -217,14 +218,14 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     d->error = signature.status().code();
     d->fingerprint = signature.fingerprint();
 
-    kDebug(5001) << "Fingerprint:" << d->fingerprint;
-    kDebug(5001) << "Signature summary:" << d->sigSummary;
-    kDebug(5001) << "Error code:" << d->error;
+    qCDebug(KGET_DEBUG) << "Fingerprint:" << d->fingerprint;
+    qCDebug(KGET_DEBUG) << "Signature summary:" << d->sigSummary;
+    qCDebug(KGET_DEBUG) << "Error code:" << d->error;
 
     if (d->sigSummary & GpgME::Signature::KeyMissing) {
-        kDebug(5001) << "Public key missing.";
+        qCDebug(KGET_DEBUG) << "Public key missing.";
         if (Settings::signatureAutomaticDownloading() ||
-            (KMessageBox::warningYesNoCancel(0,
+            (KMessageBox::warningYesNoCancel(nullptr,
              i18n("The key to verify the signature is missing, do you want to download it?")) == KMessageBox::Yes)) {
             d->verifyTried = true;
             downloadKey(d->fingerprint);
@@ -246,7 +247,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
         if (d->sigSummary & GpgME::Signature::Red) {//TODO handle more cases!
             d->status = Signature::NotVerified;
             //TODO handle that dialog better in 4.5
-            KMessageBox::error(0,
+            KMessageBox::error(nullptr,
                             i18n("The signature could not be verified for %1. See transfer settings for more information.", d->dest.fileName()),
                             i18n("Signature not verified"));
         }
@@ -300,4 +301,4 @@ void Signature::load(const QDomElement &e)
     }
 }
 
-#include "signature.moc"
+

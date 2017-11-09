@@ -19,31 +19,34 @@
 
 #include "dlgchecksumsearch.h"
 
-#include "kget_export.h"
-
 #include "core/verifier.h"
 
 #include "checksumsearch.h"
 #include "checksumsearchsettings.h"
+#include "kget_debug.h"
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStandardItemModel>
-#include <QtGui/QStringListModel>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
+#include <QStringListModel>
 
-KGET_EXPORT_PLUGIN_CONFIG(DlgChecksumSettingsWidget)
+#include <QDebug>
 
-const KUrl ChecksumSearchAddDlg::URL = KUrl("http://www.example.com/file.zip");
+#include <KStandardGuiItem>
+#include <KPluginFactory>
+
+
+const QUrl ChecksumSearchAddDlg::URL = QUrl("http://www.example.com/file.zip");
+
+K_PLUGIN_FACTORY( KGetFactory, registerPlugin<DlgChecksumSettingsWidget>(); )
 
 ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent, Qt::WFlags flags)
-  : KDialog(parent, flags),
+  : QDialog(parent, flags),
     m_modesModel(modesModel),
     m_typesModel(typesModel)
 {
-    setCaption(i18n("Add item"));
-    showButtonSeparator(true);
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    setWindowTitle(i18n("Add item"));
+    
+    ui.setupUi(this);
 
     if (m_modesModel)
     {
@@ -59,15 +62,17 @@ ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QString
     connect(ui.change, SIGNAL(textChanged(QString)), this, SLOT(slotUpdate()));
     connect(ui.mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdate()));
     connect(this, SIGNAL(accepted()), this, SLOT(slotAccpeted()));
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 void ChecksumSearchAddDlg::slotUpdate()
 {
-    enableButtonOk(!ui.change->text().isEmpty());
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!ui.change->text().isEmpty());
 
     const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(ui.mode->currentIndex());
-    const KUrl modifiedUrl = ChecksumSearch::createUrl(URL, ui.change->text(), mode);
-    const QString text = i18n("%1 would become %2", URL.prettyUrl(), modifiedUrl.prettyUrl());
+    const QUrl modifiedUrl = ChecksumSearch::createUrl(URL, ui.change->text(), mode);
+    const QString text = i18n("%1 would become %2", URL.toDisplayString(), modifiedUrl.toDisplayString());
     ui.label->setText(text);
 }
 
@@ -78,8 +83,8 @@ void ChecksumSearchAddDlg::slotAccpeted()
 
 ChecksumDelegate::ChecksumDelegate(QObject *parent)
   : QStyledItemDelegate(parent),
-    m_modesModel(0),
-    m_typesModel(0)
+    m_modesModel(nullptr),
+    m_typesModel(nullptr)
 {
 }
 
@@ -124,7 +129,7 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 void ChecksumDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
@@ -178,7 +183,7 @@ void ChecksumDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionV
 }
 
 DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVariantList &args)
-  : KCModule(KGetFactory::componentData(), parent, args)
+  : KCModule(/*KGetFactory::componentDaa(), */parent, args)
 {
     ui.setupUi(this);
 
@@ -201,8 +206,8 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVar
     ChecksumDelegate *delegate = new ChecksumDelegate(m_modesModel, m_typesModel, this);
     ui.treeView->setItemDelegate(delegate);
     ui.treeView->sortByColumn(2, Qt::AscendingOrder);
-    ui.add->setGuiItem(KStandardGuiItem::add());
-    ui.remove->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     slotUpdate();
 
     connect(ui.add, SIGNAL(clicked()), this, SLOT(slotAdd()));
@@ -264,7 +269,7 @@ void DlgChecksumSettingsWidget::load()
 
 void DlgChecksumSettingsWidget::save()
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
     QStringList changes;
     QList<int> modes;
     QStringList types;
@@ -280,7 +285,8 @@ void DlgChecksumSettingsWidget::save()
     ChecksumSearchSettings::self()->setUrlChangeModeList(modes);
     ChecksumSearchSettings::self()->setChecksumTypeList(types);
 
-    ChecksumSearchSettings::self()->writeConfig();
+    ChecksumSearchSettings::self()->save();
 }
 
 #include "dlgchecksumsearch.moc"
+

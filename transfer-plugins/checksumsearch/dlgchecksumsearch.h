@@ -25,20 +25,21 @@
 
 #include "checksumsearchtransferdatasource.h"
 
-#include <QtGui/QStyledItemDelegate>
+#include <QStyledItemDelegate>
 
 #include <KCModule>
+#include <KDialog>
 
 class QSortFilterProxyModel;
 class QStandardItemModel;
 class QStringListModel;
 
-class ChecksumSearchAddDlg : public KDialog
+class ChecksumSearchAddDlg : public QDialog
 {
     Q_OBJECT
 
     public:
-        ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = 0, Qt::WFlags flags = 0);
+        ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = nullptr, Qt::WFlags flags = 0);
 
     signals:
         /**
@@ -64,7 +65,7 @@ class ChecksumSearchAddDlg : public KDialog
         QStringListModel *m_modesModel;
         QStringListModel *m_typesModel;
 
-        static const KUrl URL;
+        static const QUrl URL;
 };
 
 class ChecksumDelegate : public QStyledItemDelegate
@@ -72,8 +73,8 @@ class ChecksumDelegate : public QStyledItemDelegate
     Q_OBJECT
 
     public:
-        ChecksumDelegate(QObject *parent = 0);
-        ChecksumDelegate(QStringListModel *modesModel, QStringListModel *typesModel, QObject *parent = 0);
+        ChecksumDelegate(QObject *parent = nullptr);
+        ChecksumDelegate(QStringListModel *modesModel, QStringListModel *typesModel, QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;
@@ -90,7 +91,7 @@ class DlgChecksumSettingsWidget : public KCModule
     Q_OBJECT
 
     public:
-        explicit DlgChecksumSettingsWidget(QWidget *parent = 0, const QVariantList &args = QVariantList());
+        explicit DlgChecksumSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
         ~DlgChecksumSettingsWidget();
 
     public slots:
@@ -125,7 +126,6 @@ class DlgChecksumSettingsWidget : public KCModule
 
     private:
         Ui::ChecksumSearch ui;
-        KDialog *m_parent;
         QStandardItemModel *m_model;
         QSortFilterProxyModel *m_proxy;
         QStringList m_modes;

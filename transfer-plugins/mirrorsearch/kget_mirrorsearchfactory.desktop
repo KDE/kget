@@ -1,10 +1,8 @@
 [Desktop Entry]
-# service definition
 Type=Service
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=kget
 
-# standard fields
 Name=Mirror Search
 Name[ar]=بحث المرآة
 Name[ast]=Guetador n'Espeyos
@@ -120,7 +118,7 @@ Comment[zh_TW]=允許 KGet 透過鏡射搜尋引擎來搜尋檔案
 X-KDE-Library=kget_mirrorsearchfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=40
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Manolo Valdes
 X-KDE-PluginInfo-Email=nolis71cu@gmail.com

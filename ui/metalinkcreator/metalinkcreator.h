@@ -33,11 +33,9 @@ namespace KGetMetalink
     class Metalink;
 }
 
-class CountryModel;
 class GeneralWidget;
 class LanguageModel;
 class QDragEnterEvent;
-class QShowEvent;
 class QSortFilterProxyModel;
 class QStandardItemModel;
 
@@ -46,10 +44,10 @@ class FileWidget : public QWidget
     Q_OBJECT
 
     public:
-        FileWidget(QWidget *parent = 0);
+        FileWidget(QWidget *parent = nullptr);
 
     signals:
-        void urlsDropped(const QList<KUrl> &files);
+        void urlsDropped(const QList<QUrl> &files);
 
     protected:
         void dragEnterEvent(QDragEnterEvent *event);
@@ -61,7 +59,7 @@ class MetalinkCreator : public KAssistantDialog
     Q_OBJECT
 
     public:
-        MetalinkCreator(QWidget *parent = 0);
+        MetalinkCreator(QWidget *parent = nullptr);
         ~MetalinkCreator();
 
     public slots:
@@ -94,7 +92,7 @@ class MetalinkCreator : public KAssistantDialog
         /**
          * Deactivates the Next/Finish-Button when the metalink is not valid i.e. data is missing
          */
-        void slotUpdateAssistantButtons(KPageWidgetItem *to = 0, KPageWidgetItem *from = 0);
+        void slotUpdateAssistantButtons(KPageWidgetItem *to = nullptr, KPageWidgetItem *from = nullptr);
 
         void slotUpdateIntroductionNextButton();
 

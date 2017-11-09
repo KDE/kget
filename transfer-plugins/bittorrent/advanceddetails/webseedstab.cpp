@@ -20,6 +20,7 @@
  ***************************************************************************/
 #include "webseedstab.h"
 #include <QHeaderView>
+#include <kconfiggroup.h>
 #include <kmessagebox.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/webseedinterface.h>
@@ -31,13 +32,13 @@ namespace kt
 {
 
 	WebSeedsTab::WebSeedsTab(QWidget* parent)
-			: QWidget(parent),curr_tc(0)
+			: QWidget(parent),curr_tc(nullptr)
 	{
 		setupUi(this);
 		connect(m_add,SIGNAL(clicked()),this,SLOT(addWebSeed()));
 		connect(m_remove,SIGNAL(clicked()),this,SLOT(removeWebSeed()));
-		m_add->setIcon(KIcon("list-add"));
-		m_remove->setIcon(KIcon("list-remove"));
+		m_add->setIcon(QIcon::fromTheme("list-add"));
+		m_remove->setIcon(QIcon::fromTheme("list-remove"));
 		m_add->setEnabled(false);
 		m_remove->setEnabled(false);
 		m_webseed_list->setEnabled(false);
@@ -63,10 +64,10 @@ namespace kt
 	{
 		curr_tc = tc;
 		model->changeTC(tc);
-		m_add->setEnabled(curr_tc != 0);
-		m_remove->setEnabled(curr_tc != 0);
-		m_webseed_list->setEnabled(curr_tc != 0);
-		m_webseed->setEnabled(curr_tc != 0);
+		m_add->setEnabled(curr_tc != nullptr);
+		m_remove->setEnabled(curr_tc != nullptr);
+		m_webseed_list->setEnabled(curr_tc != nullptr);
+		m_webseed->setEnabled(curr_tc != nullptr);
 		onWebSeedTextChanged(m_webseed->text());
 		
 		// see if we need to enable or disable the remove button
@@ -79,8 +80,8 @@ namespace kt
 		if (!curr_tc)
 			return;
 		
-		KUrl url(m_webseed->text());
-		if (curr_tc != 0 && url.isValid() && url.protocol() == "http")
+		QUrl url(m_webseed->text());
+		if (curr_tc != 0 && url.isValid() && url.scheme() == "http")
 		{
 			if (curr_tc->addWebSeed(url))
 			{
@@ -89,7 +90,7 @@ namespace kt
 			}
 			else
 			{
-				KMessageBox::error(this,i18n("Cannot add the webseed %1, it is already part of the list of webseeds.", url.prettyUrl()));
+				KMessageBox::error(this,i18n("Cannot add the webseed %1, it is already part of the list of webseeds.", url.toDisplayString()));
 			}
 		}
 	}
@@ -106,7 +107,7 @@ namespace kt
 			if (ws && ws->isUserCreated())
 			{
 				if (!curr_tc->removeWebSeed(ws->getUrl()))
-					KMessageBox::error(this,i18n("Cannot remove webseed %1, it is part of the torrent.", ws->getUrl().prettyUrl()));
+					KMessageBox::error(this,i18n("Cannot remove webseed %1, it is part of the torrent.", ws->getUrl().toDisplayString()));
 			}
 		}
 		
@@ -139,8 +140,8 @@ namespace kt
 	
 	void WebSeedsTab::onWebSeedTextChanged(const QString & ws)
 	{
-		KUrl url(ws);
-		m_add->setEnabled(curr_tc != 0 && url.isValid() && url.protocol() == "http");
+		QUrl url(ws);
+		m_add->setEnabled(curr_tc != nullptr && url.isValid() && url.scheme() == "http");
 	}
 	
 	void WebSeedsTab::update()

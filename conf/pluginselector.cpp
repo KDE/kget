@@ -13,18 +13,21 @@
 
 #include <KServiceTypeTrader>
 #include <KService>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KPluginInfo>
 #include <KSharedConfig>
-#include <KDialog>
+#include <KPluginTrader>
+#include <QDialog>
 
-PluginSelector::PluginSelector(KDialog * parent)
+PluginSelector::PluginSelector(QDialog * parent)
   : KPluginSelector(parent)
 {
-    KService::List offers = KServiceTypeTrader::self()->query("KGet/Plugin");
+    KPluginInfo::List offers = KGet::self()->pluginInfos();
 
-    addPlugins(KPluginInfo::fromServices(offers), KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KGlobal::config());
 
+    addPlugins(offers, KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig());
+
+    
     load();
 
     connect(parent, SIGNAL(accepted()), SLOT(saveState()));
@@ -46,4 +49,4 @@ void PluginSelector::loadDefaults()
     defaults();
 }
 
-#include "pluginselector.moc"
+

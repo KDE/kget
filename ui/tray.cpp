@@ -10,11 +10,15 @@
 #include "ui/tray.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
+
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <kaboutdata.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
-#include <kmenu.h>
-#include <kdebug.h>
+#include <QMenu>
+#include <klocale.h>
 
 #include <QClipboard>
 
@@ -25,7 +29,7 @@ Tray::Tray(MainWindow * parent)
     : KStatusNotifierItem(parent)
 {
     // set up the context menu
-    KMenu * cm = contextMenu();
+    QMenu * cm = contextMenu();
     cm->addAction( parent->actionCollection()->action("new_download") );
     cm->addAction( parent->actionCollection()->action("import_links") );
     cm->addSeparator();
@@ -47,8 +51,7 @@ Tray::Tray(MainWindow * parent)
     // setToolTipSubTitle("[..]");
 
     // filter middle mouse clicks to ask scheduler to paste URL
-    connect( this, SIGNAL(secondaryActivateRequested(QPoint)),
-             this, SLOT(slotActivated()) );
+    connect(this, &Tray::secondaryActivateRequested, this, &Tray::slotActivated);
 }
 
 
@@ -60,14 +63,14 @@ void Tray::slotActivated()
     newtransfer = newtransfer.trimmed();
 
     if(!newtransfer.isEmpty())
-        NewTransferDialogHandler::showNewTransferDialog(KUrl(newtransfer));
+        NewTransferDialogHandler::showNewTransferDialog(QUrl(newtransfer));
 }
 
 // display a play icon when downloading and
 // switch between Active or Passive state
 void Tray::setDownloading( bool downloading )
 {
-    kDebug(5001) << "Tray::setDownloading";
+    qCDebug(KGET_DEBUG) << "Tray::setDownloading";
 
     if (downloading)
     {
@@ -92,4 +95,4 @@ bool Tray::isDownloading()
     return (status() == KStatusNotifierItem::Active);
 }
 
-#include "tray.moc"
+

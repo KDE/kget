@@ -28,8 +28,8 @@ class MetalinkXml : public AbstractMetalink
 
     public:
         MetalinkXml(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const KUrl & src, const KUrl & dest,
-                    const QDomElement * e = 0);
+                    Scheduler * scheduler, const QUrl & src, const QUrl & dest,
+                    const QDomElement * e = nullptr);
 
         ~MetalinkXml();
 
@@ -48,7 +48,7 @@ class MetalinkXml : public AbstractMetalink
          * @note false does not mean that an error happened, it could mean, that the user
          * decided to update the metalink
          */
-        bool metalinkInit(const KUrl &url = KUrl(), const QByteArray &data = QByteArray());
+        bool metalinkInit(const QUrl &url = QUrl(), const QByteArray &data = QByteArray());
 
     protected :
         /**
@@ -60,7 +60,7 @@ class MetalinkXml : public AbstractMetalink
 
     private:
         bool m_metalinkJustDownloaded;
-        KUrl m_localMetalinkLocation;
+        QUrl m_localMetalinkLocation;
         KGetMetalink::Metalink m_metalink;
 
 };

@@ -20,7 +20,7 @@
 #ifndef URLWIDGET_H
 #define URLWIDGET_H
 
-#include <QtCore/QPointer>
+#include <QPointer>
 
 #include "ui_urlwidget.h"
 
@@ -38,7 +38,7 @@ class UrlWidget : public QObject
     Q_OBJECT
 
     public:
-        UrlWidget(QObject *parent = 0);
+        UrlWidget(QObject *parent = nullptr);
         ~UrlWidget();
 
         void init(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort);

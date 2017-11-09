@@ -172,10 +172,10 @@
        <item row="3" column="2">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="KPushButton" name="add_hash"/>
+          <widget class="QPushButton" name="add_hash"/>
          </item>
          <item>
-          <widget class="KPushButton" name="remove_hash"/>
+          <widget class="QPushButton" name="remove_hash"/>
          </item>
          <item>
           <spacer name="verticalSpacer_2">
@@ -219,18 +219,20 @@
      </widget>
     </widget>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
+   <class>KRestrictedLine</class>
    <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <header>krestrictedline.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>
@@ -239,9 +241,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>KRestrictedLine</class>
-   <extends>KLineEdit</extends>
-   <header>krestrictedline.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KMessageWidget</class>

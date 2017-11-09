@@ -15,13 +15,14 @@
 #include "ui_dlgmirrorsearch.h"
 
 #include <KCModule>
+#include <KDialog>
 
 class DlgEngineEditing : public KDialog
 {
     Q_OBJECT
 
 public:
-    DlgEngineEditing(QWidget *parent = 0);
+    DlgEngineEditing(QWidget *parent = nullptr);
     ~DlgEngineEditing();
 
     QString engineName() const;
@@ -38,7 +39,7 @@ class DlgSettingsWidget : public KCModule
     Q_OBJECT
 
 public:
-    explicit DlgSettingsWidget(QWidget *parent = 0, const QVariantList &args = QVariantList());
+    explicit DlgSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget();
 
 public slots:
@@ -56,7 +57,7 @@ private:
     void saveSearchEnginesSettings();
 
     Ui::DlgMirrorSearch ui;
-    KDialog *m_parent;
+    QDialog *m_parent;
 };
 
 #endif // DLGMULTISEGKIO_H

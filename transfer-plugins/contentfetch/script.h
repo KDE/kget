@@ -19,7 +19,6 @@
 
 
 class ScriptDownloadEngine;
-class TransferGroup;
 
 class Script: public QThread
 {

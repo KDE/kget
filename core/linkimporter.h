@@ -15,7 +15,7 @@
 #include <QList>
 #include <QThread>
 
-#include <KUrl>
+#include <QUrl>
 
 class KLocalizedString;
 
@@ -26,7 +26,7 @@ class KGET_EXPORT LinkImporter : public QThread
 {
 Q_OBJECT
 public:
-    LinkImporter(const KUrl &source, QObject *parent);
+    LinkImporter(const QUrl &source, QObject *parent);
     LinkImporter(QObject *parent);
     ~LinkImporter();
 
@@ -67,7 +67,7 @@ private:
     void addTransfer(QString &link);
 
 private:
-    KUrl m_url;
+    QUrl m_url;
     QList <QString> m_transfers;
     QString m_tempFile;
 };

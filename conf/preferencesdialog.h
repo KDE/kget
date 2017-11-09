@@ -16,7 +16,6 @@
 
 class QWidget;
 class KConfigSkeleton;
-class KTabWidget;
 
 class PreferencesDialog : public KConfigDialog
 {
@@ -24,10 +23,14 @@ class PreferencesDialog : public KConfigDialog
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
 
+    signals:
+        void resetDefaults();
+
     private slots:
         void slotToggleAfterFinishAction(int state);
         void disableApplyButton();
         void enableApplyButton();
+        virtual void updateWidgetsDefault();
 
     private:
         Ui::DlgAdvanced dlgAdv;

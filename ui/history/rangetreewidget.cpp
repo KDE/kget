@@ -11,15 +11,11 @@
 #include "rangetreewidget.h"
 #include "settings.h"
 
-#include <KIcon>
-#include <KDebug>
+#include <QDebug>
 
 #include <QApplication>
-#include <QDate>
 #include <QFont>
 #include <QHeaderView>
-#include <QHBoxLayout>
-#include <QLabel>
 #include <QLinearGradient>
 #include <QList>
 #include <QPainter>
@@ -81,7 +77,7 @@ bool RangeSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelInd
 RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     m_data(),
     m_ranges(),
-    m_rangeDelegate(0)
+    m_rangeDelegate(nullptr)
 {
     setDragEnabled(false);
     setAlternatingRowColors(true);
@@ -108,7 +104,7 @@ RangeTreeWidget::~RangeTreeWidget()
         list.append(columnWidth(i));
     }
     Settings::setHistoryColumnWidths(list);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
     clear();
 
     delete m_rangeDelegate;
@@ -211,7 +207,7 @@ QList <QVariantList> RangeTreeWidget::data()
 
 QStandardItem *RangeTreeWidget::currentItem(int column)
 {
-    QStandardItem *item = 0;
+    QStandardItem *item = nullptr;
     if (column >= 0) {
         item = m_model->itemFromIndex(m_model->index(m_proxyModel->mapToSource(currentIndex()).row(), 
                                       column, 
@@ -292,7 +288,7 @@ void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionVie
         QStyledItemDelegate::paint(painter, option, index);
     }
     else if(index.isValid()) {
-        QStyleOptionViewItemV4 opt(option);
+        QStyleOptionViewItem opt(option);
         QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
         style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
@@ -338,4 +334,4 @@ QSize RangeTreeWidgetItemDelegate::sizeHint(const QStyleOptionViewItem &option, 
     return QSize(0, 30);
 }
 
-#include "rangetreewidget.moc"
+

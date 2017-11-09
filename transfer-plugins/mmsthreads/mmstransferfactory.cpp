@@ -21,9 +21,12 @@
 #include "mmssettings.h"
 #include "mmstransfer.h"
 
-#include <kdebug.h>
+#include <kpluginfactory.h>
 
-KGET_EXPORT_PLUGIN( MmsTransferFactory )
+#include "kget_debug.h"
+#include <qdebug.h>
+
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_mmsfactory.json", registerPlugin<MmsTransferFactory>();)
 
 MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -32,36 +35,38 @@ MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args
 MmsTransferFactory::~MmsTransferFactory()
 {}
 
-Transfer * MmsTransferFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * MmsTransferFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler, 
                                                const QDomElement * e )
 {
-    kDebug(5001) << "MmsTransferFactory::createTransfer";
+    qCDebug(KGET_DEBUG) << "MmsTransferFactory::createTransfer";
 
-    QString prot = srcUrl.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    QString prot = srcUrl.scheme();
+    qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     if (prot == "mms" || prot == "mmsh") {
         return new MmsTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
-    return 0;
+    return nullptr;
 }
 
 QWidget * MmsTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer)
-    return 0;   //Temporary!!
+    return nullptr;   //Temporary!!
 }
 
-const QList<KAction *> MmsTransferFactory::actions(TransferHandler *handler)
+const QList<QAction *> MmsTransferFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction *>();
+    return QList<QAction *>();
 }
 
-bool MmsTransferFactory::isSupported(const KUrl &url) const
+bool MmsTransferFactory::isSupported(const QUrl &url) const
 {
-    QString prot = url.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    QString prot = url.scheme();
+    qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     return (prot == "mms" || prot == "mmsh");
 }
+
+#include "mmstransferfactory.moc"

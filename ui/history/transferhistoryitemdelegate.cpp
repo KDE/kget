@@ -17,18 +17,18 @@
 #include <QAbstractItemModel>
 #include <QAction>
 #include <QApplication>
-#include <QDate>
 #include <QMenu>
 #include <QModelIndex>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QDate>
 
-#include <KDebug>
+#include <QDebug>
 #include <kio/netaccess.h>
 #include <kio/global.h>
 #include <KIconLoader>
-#include <KIcon>
-#include <KLocale>
+#include <QIcon>
+#include <KLocalizedString>
 #include <KRun>
 
 TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QStyledItemDelegate(),
@@ -39,18 +39,18 @@ TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QSty
     // Actions
     m_actionDownload = new QAction(this);
     m_actionDownload->setText(i18n("Download again"));
-    m_actionDownload->setIcon(KIcon("document-new"));
-    connect(m_actionDownload, SIGNAL(triggered()), SLOT(slotDownload()));
+    m_actionDownload->setIcon(QIcon::fromTheme("document-new"));
+    connect(m_actionDownload, &QAction::triggered, this, &TransferHistoryItemDelegate::slotDownload);
 
     m_actionDelete_Selected = new QAction(this);
     m_actionDelete_Selected->setText(i18nc("Delete selected history-item", "Delete selected"));
-    m_actionDelete_Selected->setIcon(KIcon("edit-delete"));
-    connect(m_actionDelete_Selected, SIGNAL(triggered()), SLOT(slotDeleteTransfer()));
+    m_actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
+    connect(m_actionDelete_Selected, &QAction::triggered, this, &TransferHistoryItemDelegate::slotDeleteTransfer);
 
     m_openFile = new QAction(this);
     m_openFile->setText(i18n("Open file"));
-    m_openFile->setIcon(KIcon("document-open"));
-    connect(m_openFile, SIGNAL(triggered()), SLOT(slotOpenFile()));
+    m_openFile->setIcon(QIcon::fromTheme("document-open"));
+    connect(m_openFile, &QAction::triggered, this, &TransferHistoryItemDelegate::slotOpenFile);
 }
 
 TransferHistoryItemDelegate::~TransferHistoryItemDelegate()
@@ -82,16 +82,16 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
         painter->restore();
     }
 
-    QStyleOptionViewItemV4 opt(option);
+    QStyleOptionViewItem opt(option);
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (index.model());
     QUrl url(model->data(index, TransferHistoryCategorizedDelegate::RoleUrl).toString());
     QString name = url.path().mid(url.path().lastIndexOf("/") + 1);
-    KIcon icon(KIO::pixmapForUrl(
-                    model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString(),
-                    0, KIconLoader::Panel));
+    QIcon icon;//(KIO::pixmapForUrl( TODO: PORT THIS!
+               //     model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString(),
+               //     0, KIconLoader::Panel));
     QString size = KIO::convertSize(model->data(index, TransferHistoryCategorizedDelegate::RoleSize).toInt());
     QString date = model->data(index, TransferHistoryCategorizedDelegate::RoleDate).toDate().toString("dd.MM.yyyy");
     QString host = url.host();
@@ -186,7 +186,7 @@ void TransferHistoryItemDelegate::slotOpenFile()
 {
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
-    new KRun(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString(), m_view, true, false);
+    new KRun(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString(), m_view, true);
 }
 
 void TransferHistoryItemDelegate::slotDownload()
@@ -204,4 +204,4 @@ void TransferHistoryItemDelegate::slotDeleteTransfer()
     emit deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
 }
 
-#include "transferhistoryitemdelegate.moc"
+

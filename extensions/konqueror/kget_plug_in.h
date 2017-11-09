@@ -14,7 +14,7 @@
 
 #include <KDE/KParts/Plugin>
 
-#include <QtCore/QPointer>
+#include <QPointer>
 
 class KToggleAction;
 

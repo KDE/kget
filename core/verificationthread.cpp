@@ -20,9 +20,10 @@
 #include "verificationthread.h"
 #include "verifier.h"
 
-#include <KDebug>
+#include "kget_debug.h"
+#include <qdebug.h>
 
-#include <QtCore/QFile>
+#include <QFile>
 
 VerificationThread::VerificationThread(QObject *parent)
   : QThread(parent),
@@ -41,7 +42,7 @@ VerificationThread::~VerificationThread()
     wait();
 }
 
-void VerificationThread::verifiy(const QString &type, const QString &checksum, const KUrl &file)
+void VerificationThread::verifiy(const QString &type, const QString &checksum, const QUrl &file)
 {
     QMutexLocker locker(&m_mutex);
     m_types.append(type);
@@ -55,7 +56,7 @@ void VerificationThread::verifiy(const QString &type, const QString &checksum, c
     }
 }
 
-void VerificationThread::findBrokenPieces(const QString &type, const QList<QString> checksums, KIO::filesize_t length, const KUrl &file)
+void VerificationThread::findBrokenPieces(const QString &type, const QList<QString> checksums, KIO::filesize_t length, const QUrl &file)
 {
     QMutexLocker locker(&m_mutex);
     m_types.clear();
@@ -100,7 +101,7 @@ void VerificationThread::doVerify()
         m_mutex.lock();
         const QString type = m_types.takeFirst();
         const QString checksum = m_checksums.takeFirst();
-        const KUrl url = m_files.takeFirst();
+        const QUrl url = m_files.takeFirst();
         m_mutex.unlock();
 
         if (type.isEmpty() || checksum.isEmpty())
@@ -112,7 +113,7 @@ void VerificationThread::doVerify()
         }
 
         const QString hash = Verifier::checksum(url, type, &m_abort);
-        kDebug(5001) << "Type:" << type << "Calculated checksum:" << hash << "Entered checksum:" << checksum;
+        qCDebug(KGET_DEBUG) << "Type:" << type << "Calculated checksum:" << hash << "Entered checksum:" << checksum;
         const bool fileVerified = (hash == checksum);
 
         if (m_abort)
@@ -137,15 +138,15 @@ void VerificationThread::doBrokenPieces()
     const QString type = m_types.takeFirst();
     const QStringList checksums = m_checksums;
     m_checksums.clear();
-    const KUrl url = m_files.takeFirst();
+    const QUrl url = m_files.takeFirst();
     const KIO::filesize_t length = m_length;
     m_mutex.unlock();
 
     QList<KIO::fileoffset_t> broken;
 
-    if (QFile::exists(url.pathOrUrl()))
+    if (QFile::exists(url.toString()))
     {
-        QFile file(url.pathOrUrl());
+        QFile file(url.toString());
         if (!file.open(QIODevice::ReadOnly))
         {
             emit brokenPieces(broken, length);
@@ -168,7 +169,7 @@ void VerificationThread::doBrokenPieces()
 
         if (fileChecksums.size() != checksums.size())
         {
-            kDebug(5001) << "Number of checksums differs!";
+            qCDebug(KGET_DEBUG) << "Number of checksums differs!";
             emit brokenPieces(broken, length);
             return;
         }
@@ -178,7 +179,7 @@ void VerificationThread::doBrokenPieces()
             if (fileChecksums.at(i) != checksums.at(i))
             {
                 const int brokenStart = length * i;
-                kDebug(5001) << url << "broken segment" << i << "start" << brokenStart << "length" << length;
+                qCDebug(KGET_DEBUG) << url << "broken segment" << i << "start" << brokenStart << "length" << length;
                 broken.append(brokenStart);
             }
         }

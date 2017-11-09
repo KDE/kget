@@ -13,6 +13,9 @@
 #include "transfergrouphandler.h"
 #include "settings.h"
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 TransferGroupScheduler::TransferGroupScheduler(QObject *parent)
   : Scheduler(parent),
     m_downloadLimit(0),
@@ -74,7 +77,7 @@ void TransferGroupScheduler::calculateDownloadLimit()
 void TransferGroupScheduler::calculateUploadLimit()
 {
     int n = KGet::allTransferGroups().count();
-    kDebug(5001) << n;
+    qCDebug(KGET_DEBUG) << n;
     int pool = 0;//We create a pool where we have some KiB/s to go to other groups...
     QList<TransferGroupHandler*> transfergroupsNeedSpeed;
     foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
@@ -122,4 +125,4 @@ void TransferGroupScheduler::setUploadLimit(int limit)
     calculateUploadLimit();
 }
 
-#include "transfergroupscheduler.moc"
+

@@ -14,11 +14,13 @@
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
 
-#include <QtXml/QDomElement>
+#include "kget_debug.h"
 
-#include <kdebug.h>
+#include <QDomElement>
 
-KGET_EXPORT_PLUGIN( ChecksumSearchFactory )
+#include <qdebug.h>
+
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_checksumsearchfactory.json", registerPlugin<ChecksumSearchFactory>();)
 
 ChecksumSearchFactory::ChecksumSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -29,12 +31,14 @@ ChecksumSearchFactory::~ChecksumSearchFactory()
 {
 }
 
-TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (type.attribute("type") == "checksumsearch") {
         return new ChecksumSearchTransferDataSource(srcUrl, parent);
     }
-    return 0;
+    return nullptr;
 }
+
+#include "checksumsearchfactory.moc"

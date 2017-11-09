@@ -1,10 +1,8 @@
 [Desktop Entry]
-# service definition
 Type=Service
-X-KDE-ServiceTypes=KGet/Plugin
+ServiceTypes=KGet/Plugin
 Icon=kget
 
-# standard fields
 Name=Content Fetch
 Name[ar]=جلب المحتوى
 Name[ast]=Content Fetch
@@ -121,7 +119,7 @@ Comment[zh_TW]=使用自訂的文稿抓取內容。
 X-KDE-Library=kget_contentfetchfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=110
-X-KDE-KGet-framework-version=1
+X-KDE-KGet-framework-version=2
 
 X-KDE-PluginInfo-Author=Ningyu Shi
 X-KDE-PluginInfo-Email=shiningyu@gmail.com

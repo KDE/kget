@@ -13,7 +13,9 @@
 #include "bttransferhandler.h"
 #include "ui_btdetailswidgetfrm.h"
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <QDebug>
+#include <KFormat>
 
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
   : m_transfer(transfer)
@@ -21,8 +23,8 @@ BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)
     setupUi(this);
 
     // Update the view with the correct values
-    srcEdit->setText(transfer->source().pathOrUrl());
-    destEdit->setText(transfer->dest().pathOrUrl());
+    srcEdit->setText(transfer->source().toDisplayString(QUrl::PreferLocalFile));
+    destEdit->setText(transfer->dest().toDisplayString(QUrl::PreferLocalFile));
 
     seederLabel->setText(i18nc("not available", "n/a"));
     leecherLabel->setText(i18nc("not available", "n/a"));
@@ -47,13 +49,13 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
 {
     Q_UNUSED(transfer)
 
-    kDebug(5001) << "BTDetailsWidget::slotTransferChanged";
+    qCDebug(KGET_DEBUG) << "BTDetailsWidget::slotTransferChanged";
     
     if(flags & Transfer::Tc_DownloadSpeed)
-        dlSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->downloadSpeed()) + "/s");
+        dlSpeedLabel->setText(KFormat().formatByteSize(m_transfer->downloadSpeed()) + "/s");
 
     if(flags & Transfer::Tc_UploadSpeed)
-        ulSpeedLabel->setText(KGlobal::locale()->formatByteSize(m_transfer->uploadSpeed()) + "/s");
+        ulSpeedLabel->setText(KFormat().formatByteSize(m_transfer->uploadSpeed()) + "/s");
 
     if(flags & BTTransfer::Tc_SeedsConnected)
         seederLabel->setText((m_transfer->seedsConnected()!=-1    ? QString().setNum(m_transfer->seedsConnected()) : i18nc("not available", "n/a")) + " (" + 
@@ -79,7 +81,7 @@ void BTDetailsWidget::slotTransferChanged(TransferHandler * transfer, TransferHa
         progressBar->setValue(m_transfer->percent());
 
     if(flags & Transfer::Tc_FileName)
-        destEdit->setText(m_transfer->dest().pathOrUrl());
+        destEdit->setText(m_transfer->dest().toDisplayString(QUrl::PreferLocalFile));
 }
 
 void BTDetailsWidget::showEvent(QShowEvent * event)
@@ -90,4 +92,4 @@ void BTDetailsWidget::showEvent(QShowEvent * event)
 }
 
 
-#include "btdetailswidget.moc"
+

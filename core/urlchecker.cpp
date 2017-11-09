@@ -1,5 +1,5 @@
 /***************************************************************************
-*   Copyright (C) 2007-2009 Lukas Appelhans <l.appelhans@gmx.de>          *
+*   Copyright (C) 2007-2014 Lukas Appelhans <l.appelhans@gmx.de>          *
 *   Copyright (C) 2008 Dario Freddi <drf54321@gmail.com>                  *
 *   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>                     *
 *                                                                         *
@@ -31,24 +31,26 @@
 #include <algorithm>
 #include <boost/bind.hpp>
 
-#include <QtCore/QFileInfo>
-#include <QtGui/QCheckBox>
-#include <QtGui/QHBoxLayout>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <QFileInfo>
+#include <QCheckBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
 
 #include <KDialogButtonBox>
 #include <KIO/RenameDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KSeparator>
 #include <KStandardGuiItem>
 
 ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent)
-  : KDialog(parent)
+  : QDialog(parent)
 {
-    setCaption(caption.isEmpty() ? i18n("Question") : caption);
+    setWindowTitle(caption.isEmpty() ? i18n("Question") : caption);
     setModal(true);
-    setButtons(0);
 
-    QWidget *widget = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout;
     QHBoxLayout *bottomLayout = new QHBoxLayout;
 
@@ -60,30 +62,35 @@ ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QStrin
     bottomLayout->addStretch(1);
     bottomLayout->addWidget(m_applyAll);
 
-    KDialogButtonBox *buttonBox = new KDialogButtonBox(this);
-    buttonBox->addButton(KStandardGuiItem::yes(), QDialogButtonBox::YesRole, this, SLOT(slotYesClicked()));
-    buttonBox->addButton(KStandardGuiItem::no(), QDialogButtonBox::NoRole, this, SLOT(slotNoClicked()));
-    buttonBox->addButton(KStandardGuiItem::cancel(), QDialogButtonBox::RejectRole, this, SLOT(slotCancelClicked()));
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
+    buttonBox->setStandardButtons(QDialogButtonBox::Yes | QDialogButtonBox::No | QDialogButtonBox::Cancel);
+    connect(buttonBox->button(QDialogButtonBox::Yes), &QPushButton::clicked, this, &ExistingTransferDialog::slotYesClicked);
+    connect(buttonBox->button(QDialogButtonBox::No), &QPushButton::clicked, this, &ExistingTransferDialog::slotNoClicked);
+    connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, this, &ExistingTransferDialog::slotCancelClicked);
     bottomLayout->addWidget(buttonBox);
     layout->addLayout(bottomLayout, 0);
-
-    widget->setLayout(layout);
-    setMainWidget(widget);
+    
+    setLayout(layout);
 }
 
 void ExistingTransferDialog::slotYesClicked()
 {
-   done(m_applyAll->isChecked() ? KDialog::User2 : KDialog::Yes);
+    m_result = m_applyAll ? YesAll : Yes;
 }
 
 void ExistingTransferDialog::slotNoClicked()
 {
-   done(m_applyAll->isChecked() ? KDialog::User1 : KDialog::No);
+    m_result = m_applyAll ? NoAll : No;
 }
 
 void ExistingTransferDialog::slotCancelClicked()
 {
-    done(QDialog::Rejected);
+    m_result = Cancel;
+}
+
+ExistingTransferDialog::ExistingDialogReturn ExistingTransferDialog::result()
+{
+    return m_result;
 }
 
 
@@ -104,20 +111,20 @@ UrlChecker::~UrlChecker()
 
 struct lessThan
 {
-    bool operator()(const KUrl &lhs, const KUrl &rhs) const
+    bool operator()(const QUrl &lhs, const QUrl &rhs) const
     {
         return lhs.url() < rhs.url();
     }
 };
 
-void UrlChecker::removeDuplicates(KUrl::List &urls)
+void UrlChecker::removeDuplicates(QList<QUrl> &urls)
 {
     std::sort(urls.begin(), urls.end(), lessThan());//sort the urls, to find duplicates fast
     urls.erase(std::unique(urls.begin(), urls.end(),
-               boost::bind(&KUrl::equals, _1, _2, KUrl::CompareWithoutTrailingSlash | KUrl::AllowEmptyPath)), urls.end());
+               boost::bind(&QUrl::matches, _1, _2, QUrl::StripTrailingSlash | QUrl::NormalizePathSegments)), urls.end());
 }
 
-UrlChecker::UrlError UrlChecker::checkUrl(const KUrl &url, const UrlChecker::UrlType type, bool showNotification)
+UrlChecker::UrlError UrlChecker::checkUrl(const QUrl &url, const UrlChecker::UrlType type, bool showNotification)
 {
     switch (type) {
         case Source:
@@ -131,12 +138,12 @@ UrlChecker::UrlError UrlChecker::checkUrl(const KUrl &url, const UrlChecker::Url
     return NoError;
 }
 
-bool UrlChecker::wouldOverwrite(const KUrl &source, const KUrl &dest)
+bool UrlChecker::wouldOverwrite(const QUrl &source, const QUrl &dest)
 {
     return (dest.isLocalFile() && QFile::exists(dest.toLocalFile()) && source != dest && !FileDeleter::isFileBeingDeleted(dest));
 }
 
-UrlChecker::UrlError UrlChecker::checkSource(const KUrl &src, bool showNotification)
+UrlChecker::UrlError UrlChecker::checkSource(const QUrl &src, bool showNotification)
 {
     //NOTE hasPath is not used, as this would dissallow adresses like http://www.kde.org/ as there is no path
     UrlError error = NoError;
@@ -146,7 +153,7 @@ UrlChecker::UrlError UrlChecker::checkSource(const KUrl &src, bool showNotificat
     if ((error == NoError) && !src.isValid()) {
         error = Invalid;
     }
-    if ((error == NoError) && src.protocol().isEmpty()){
+    if ((error == NoError) && src.scheme().isEmpty()){
         error = NoProtocol;
     }
     /*if ((error == NoError) && !src.hasHost()) {//FIXME deactivated to allow file://....metalink etc
@@ -154,16 +161,16 @@ UrlChecker::UrlError UrlChecker::checkSource(const KUrl &src, bool showNotificat
     }*/
 
     if (showNotification && (error != NoError)) {
-        kDebug(5001) << "Source:" << src << "has error:" << error;
+        qCDebug(KGET_DEBUG) << "Source:" << src << "has error:" << error;
         KGet::showNotification(KGet::m_mainWindow, "error", message(src, Source, error));
     }
 
-    //TODO also check sourceUrl.url() != KUrl(sourceUrl.url()).fileName() as in NewTransferDialog::setSource?
+    //TODO also check sourceUrl.url() != QUrl(sourceUrl.url()).fileName() as in NewTransferDialog::setSource?
 
     return error;
 }
 
-UrlChecker::UrlError UrlChecker::checkDestination(const KUrl &destination, bool showNotification)
+UrlChecker::UrlError UrlChecker::checkDestination(const QUrl &destination, bool showNotification)
 {
     UrlError error = NoError;
 
@@ -173,18 +180,20 @@ UrlChecker::UrlError UrlChecker::checkDestination(const KUrl &destination, bool 
 
     if (error == NoError) {
         //not supposed to be a folder
-        QFileInfo fileInfo(destination.pathOrUrl());
+        QFileInfo fileInfo(destination.toString());
         if (!destination.isValid() || fileInfo.isDir()) {
             error = Invalid;
         }
 
-        if ((error == NoError) && !QFileInfo(destination.directory()).isWritable()) {
+        qDebug() << "Adjusted destination:" << destination.adjusted(QUrl::RemoveFilename).toString();
+        if ((error == NoError) && !QFileInfo(destination.adjusted(QUrl::RemoveFilename).toString().remove("file://")).isWritable()) {
             error = NotWriteable;
         }
     }
+        
+    qCDebug(KGET_DEBUG) << "Destination:" << destination << "has error:" << error;
 
     if (showNotification && (error != NoError)) {
-        kDebug(5001) << "Destination:" << destination << "has error:" << error;
         KGet::showNotification(KGet::m_mainWindow, "error", message(destination, Destination, error));
     }
 
@@ -192,11 +201,11 @@ UrlChecker::UrlError UrlChecker::checkDestination(const KUrl &destination, bool 
 }
 
 
-UrlChecker::UrlError UrlChecker::checkFolder(const KUrl &folder, bool showNotification)
+UrlChecker::UrlError UrlChecker::checkFolder(const QUrl &folder, bool showNotification)
 {
     UrlError error = NoError;
 
-    const QString destDir = folder.pathOrUrl();
+    const QString destDir = folder.toString();
     if (folder.isEmpty() || destDir.isEmpty()) {
         error = Empty;
     }
@@ -215,31 +224,30 @@ UrlChecker::UrlError UrlChecker::checkFolder(const KUrl &folder, bool showNotifi
     }
 
     if (showNotification && (error != NoError)) {
-        kDebug(5001) << "Folder:" << folder << "has error:" << error;
+        qCDebug(KGET_DEBUG) << "Folder:" << folder << "has error:" << error;
         KGet::showNotification(KGet::m_mainWindow, "error", message(folder, Folder, error));
     }
 
     return error;
 }
 
-KUrl UrlChecker::destUrl(const KUrl &destOrFolder, const KUrl &source, const QString &fileName)
+QUrl UrlChecker::destUrl(const QUrl &destOrFolder, const QUrl &source, const QString &fileName)
 {
-    KUrl dest = destOrFolder;
+    QUrl dest = destOrFolder;
     if (QFileInfo(dest.toLocalFile()).isDir()) {
         QString usedFileName = (fileName.isEmpty() ? source.fileName() : fileName);
         if (usedFileName.isEmpty()) {
-            usedFileName = KUrl::toPercentEncoding(source.prettyUrl(), "/");
+            usedFileName = QUrl::toPercentEncoding(source.toString(), "/");
         }
-        dest.adjustPath(KUrl::AddTrailingSlash);
-        dest.setFileName(usedFileName);
+        dest = dest.adjusted(QUrl::RemoveFilename).toString() + usedFileName;
     } else if (!fileName.isEmpty()) {
-        dest.setFileName(fileName);
+        dest.setPath(dest.adjusted(QUrl::RemoveFilename).toString() + fileName);
     }
 
     return dest;
 }
 
-TransferHandler *UrlChecker::existingTransfer(const KUrl &url, const UrlChecker::UrlType type, UrlChecker::UrlWarning *warning)
+TransferHandler *UrlChecker::existingTransfer(const QUrl &url, const UrlChecker::UrlType type, UrlChecker::UrlWarning *warning)
 {
     UrlWarning temp;
     UrlWarning &warn = (warning ? (*warning) : temp);
@@ -251,11 +259,11 @@ TransferHandler *UrlChecker::existingTransfer(const KUrl &url, const UrlChecker:
         case Destination:
             return existingDestination(url, warn);
         default:
-            return 0;
+            return nullptr;
     }
 }
 
-TransferHandler *UrlChecker::existingSource(const KUrl &source, UrlChecker::UrlWarning &warning)
+TransferHandler *UrlChecker::existingSource(const QUrl &source, UrlChecker::UrlWarning &warning)
 {
     // Check if a transfer with the same url already exists
     Transfer *transfer = KGet::m_transferTreeModel->findTransfer(source);
@@ -267,10 +275,10 @@ TransferHandler *UrlChecker::existingSource(const KUrl &source, UrlChecker::UrlW
         }
     }
 
-    return (transfer ? transfer->handler() : 0);
+    return (transfer ? transfer->handler() : nullptr);
 }
 
-TransferHandler *UrlChecker::existingDestination(const KUrl &url, UrlChecker::UrlWarning &warning)
+TransferHandler *UrlChecker::existingDestination(const QUrl &url, UrlChecker::UrlWarning &warning)
 {
     Transfer *transfer = KGet::m_transferTreeModel->findTransferByDestination(url);
     if (transfer) {
@@ -279,15 +287,15 @@ TransferHandler *UrlChecker::existingDestination(const KUrl &url, UrlChecker::Ur
         } else {
             warning = ExistingTransfer;
         }
-    } else if (QFile::exists(url.pathOrUrl())) {
+    } else if (QFile::exists(url.toString())) {
         warning = ExistingFile;
     }
 
-    return (transfer ? transfer->handler() : 0);
+    return (transfer ? transfer->handler() : nullptr);
 }
 
 
-QString UrlChecker::message(const KUrl &url, const UrlChecker::UrlType type, const UrlChecker::UrlError error)
+QString UrlChecker::message(const QUrl &url, const UrlChecker::UrlType type, const UrlChecker::UrlError error)
 {
     if (url.isEmpty()) {
         if (type == Folder) {
@@ -329,7 +337,7 @@ QString UrlChecker::message(const KUrl &url, const UrlChecker::UrlType type, con
             }
         }
     } else {
-        const QString urlString = url.prettyUrl();
+        const QString urlString = url.toString();
         if (type == Folder) {
             switch (error) {
                 case Empty:
@@ -373,7 +381,7 @@ QString UrlChecker::message(const KUrl &url, const UrlChecker::UrlType type, con
     return QString();
 }
 
-QString UrlChecker::message(const KUrl &url, const UrlChecker::UrlType type, const UrlChecker::UrlWarning warning)
+QString UrlChecker::message(const QUrl &url, const UrlChecker::UrlType type, const UrlChecker::UrlWarning warning)
 {
     if (url.isEmpty()) {
         if (type == Destination) {
@@ -401,7 +409,7 @@ QString UrlChecker::message(const KUrl &url, const UrlChecker::UrlType type, con
             }
         }
     } else {
-        const QString urlString = url.prettyUrl();
+        const QString urlString = url.toString();
         if (type == Destination) {
             switch (warning) {
                 case ExistingFile:
@@ -429,20 +437,20 @@ QString UrlChecker::message(const KUrl &url, const UrlChecker::UrlType type, con
     return QString();
 }
 
-QString UrlChecker::message(const KUrl::List &urls, const UrlChecker::UrlType type, const UrlChecker::UrlError error)
+QString UrlChecker::message(const QList<QUrl> &urls, const UrlChecker::UrlType type, const UrlChecker::UrlError error)
 {
     QString urlsString;
     if (!urls.isEmpty()) {
-        urlsString = urls.first().prettyUrl();
+        urlsString = urls.first().toString();
         for (int i = 1; i < urls.count(); ++i) {
-            urlsString += '\n' + urls[i].prettyUrl();
+            urlsString += '\n' + urls[i].toString();
         }
         urlsString = QString("<p style=\"font-size: small;\">\%1</p>").arg(urlsString);
     }
 
     if (urls.isEmpty()) {
         if ((type == Folder) || (type == Destination)) {
-            return message(KUrl(), type, error);
+            return message(QUrl(), type, error);
         }
         if (type == Source) {
             switch (error) {
@@ -478,13 +486,13 @@ QString UrlChecker::message(const KUrl::List &urls, const UrlChecker::UrlType ty
     return QString();
 }
 
-QString UrlChecker::message(const KUrl::List &urls, const UrlChecker::UrlType type, const UrlChecker::UrlWarning warning)
+QString UrlChecker::message(const QList<QUrl> &urls, const UrlChecker::UrlType type, const UrlChecker::UrlWarning warning)
 {
     QString urlsString;
     if (!urls.isEmpty()) {
-        urlsString = urls.first().prettyUrl();
+        urlsString = urls.first().toString();
         for (int i = 1; i < urls.count(); ++i) {
-            urlsString += '\n' + urls[i].prettyUrl();
+            urlsString += '\n' + urls[i].toString();
         }
         urlsString = QString("<p style=\"font-size: small;\">\%1</p>").arg(urlsString);
     }
@@ -541,14 +549,14 @@ QString UrlChecker::message(const KUrl::List &urls, const UrlChecker::UrlType ty
 }
 
 
-KUrl::List UrlChecker::hasExistingTransferMessages(const KUrl::List &urls, const UrlChecker::UrlType type)
+QList<QUrl> UrlChecker::hasExistingTransferMessages(const QList<QUrl> &urls, const UrlChecker::UrlType type)
 {
     UrlWarning warning;
-    QHash<UrlWarning, QList<QPair<KUrl, TransferHandler*> > > splitWarnings;
-    KUrl::List urlsToDownload;
+    QHash<UrlWarning, QList<QPair<QUrl, TransferHandler*> > > splitWarnings;
+    QList<QUrl> urlsToDownload;
 
     //collect all errors
-    foreach(const KUrl &url, urls) {
+    foreach(const QUrl &url, urls) {
         TransferHandler *transfer = existingTransfer(url, type, &warning);
         if (transfer) {
             splitWarnings[warning] << qMakePair(url, transfer);
@@ -558,15 +566,15 @@ KUrl::List UrlChecker::hasExistingTransferMessages(const KUrl::List &urls, const
     }
 
     //First ask about unfinished existing transfers
-    QList<QPair<KUrl, TransferHandler*> >::const_iterator it;
-    QList<QPair<KUrl, TransferHandler*> >::const_iterator itEnd;
+    QList<QPair<QUrl, TransferHandler*> >::const_iterator it;
+    QList<QPair<QUrl, TransferHandler*> >::const_iterator itEnd;
     QList<UrlWarning> orderOfExecution;
     QList<TransferHandler*> toDelete;
     orderOfExecution << ExistingTransfer << ExistingFinishedTransfer;
     for (int i = 0; i < orderOfExecution.count(); ++i) {
         warning = orderOfExecution[i];
         if (splitWarnings.contains(warning)) {
-            QList<QPair<KUrl, TransferHandler*> > existing = splitWarnings[warning];
+            QList<QPair<QUrl, TransferHandler*> > existing = splitWarnings[warning];
             itEnd = existing.constEnd();
             bool isYesAll = false;
             bool isNoAll = false;
@@ -583,22 +591,22 @@ KUrl::List UrlChecker::hasExistingTransferMessages(const KUrl::List &urls, const
 
                 int result;
                 if (Settings::filesOverwrite() || (Settings::filesAutomaticRename() && (warning != ExistingTransfer))) {
-                    result = YesAll;
+                    result = ExistingTransferDialog::ExistingDialogReturn::YesAll;
                 } else {
                     result = hasExistingDialog(it->first, type, warning);
                 }
                 switch (result) {
-                    case YesAll:
+                    case ExistingTransferDialog::ExistingDialogReturn::YesAll:
                         isYesAll = true;
-                    case Yes:
+                    case ExistingTransferDialog::ExistingDialogReturn::Yes:
                         urlsToDownload << it->first;
                         toDelete << it->second;
                         break;
-                    case NoAll:
+                    case ExistingTransferDialog::ExistingDialogReturn::NoAll:
                         isNoAll = true;
-                    case No:
+                    case ExistingTransferDialog::ExistingDialogReturn::No:
                         break;
-                    case Cancel:
+                    case ExistingTransferDialog::ExistingDialogReturn::Cancel:
                     default:
                         removeTransfers(toDelete);
                         return urlsToDownload;
@@ -614,14 +622,14 @@ KUrl::List UrlChecker::hasExistingTransferMessages(const KUrl::List &urls, const
 void UrlChecker::removeTransfers(const QList<TransferHandler*> &toRemove)
 {
     QList<TransferHandler*> transfers = toRemove;
-    transfers.removeAll(0);
+    transfers.removeAll(nullptr);
     if (!transfers.isEmpty()) {
         KGet::delTransfers(transfers);
     }
 }
 
 
-int UrlChecker::hasExistingDialog(const KUrl &url, const UrlChecker::UrlType type, const UrlChecker::UrlWarning warning)
+int UrlChecker::hasExistingDialog(const QUrl &url, const UrlChecker::UrlType type, const UrlChecker::UrlWarning warning)
 {
     QWidget *parent = KGet::m_mainWindow;
 
@@ -652,23 +660,11 @@ int UrlChecker::hasExistingDialog(const KUrl &url, const UrlChecker::UrlType typ
         }
     }
 
-    QScopedPointer<KDialog> dialog(new ExistingTransferDialog(message(url, type, warning), caption, parent));
+    QScopedPointer<QDialog> dialog(new ExistingTransferDialog(message(url, type, warning), caption, parent));
 
-    const int result = dialog->exec();
-    switch (result) {
-        case QDialog::Rejected:
-            return Cancel;
-        case KDialog::Yes:
-            return Yes;
-        case KDialog::User2:
-            return YesAll;
-        case KDialog::No:
-            return No;
-        case KDialog::User1:
-            return NoAll;
-        default:
-            return result;
-    }
+    dialog->exec();
+    const int result = (int) dialog->result();
+    return result;
 }
 
 ///Non static methods following
@@ -694,7 +690,7 @@ void UrlChecker::setType(UrlChecker::UrlType type)
     m_type = type;
 }
 
-UrlChecker::UrlError UrlChecker::addUrl(const KUrl &url)
+UrlChecker::UrlError UrlChecker::addUrl(const QUrl &url)
 {
     const UrlError error = checkUrl(url, m_type);
     if (error == NoError) {
@@ -706,10 +702,10 @@ UrlChecker::UrlError UrlChecker::addUrl(const KUrl &url)
     return error;
 }
 
-bool UrlChecker::addUrls(const KUrl::List &urls)
+bool UrlChecker::addUrls(const QList<QUrl> &urls)
 {
     bool worked = true;
-    foreach (const KUrl &url, urls) {
+    foreach (const QUrl &url, urls) {
         const UrlError error = addUrl(url);
         if (error != NoError) {
             worked = false;
@@ -724,13 +720,13 @@ void UrlChecker::existingTransfers()
     m_correctUrls = hasExistingTransferMessages(correctUrls(), m_type);
 }
 
-KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
+QUrl UrlChecker::checkExistingFile(const QUrl &source, const QUrl &destination)
 {
-    KUrl newDestination = destination;
+    QUrl newDestination = destination;
 
     //any url is ignored
     if (m_cancle) {
-        return KUrl();
+        return QUrl();
     }
 
     if (Settings::filesOverwrite()) {
@@ -746,7 +742,7 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
 
         ///in the following cases no dialog needs to be shown
         if (m_skipAll) { //only existing are ignored
-            return KUrl();
+            return QUrl();
         } else if (m_overwriteAll) {
             FileDeleter::deleteFile(newDestination);
             return newDestination;
@@ -778,15 +774,15 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
                 m_autoRenameAll = true;
                 return newDestination;
             case KIO::R_SKIP:
-                return KUrl();
+                return QUrl();
             case KIO::R_AUTO_SKIP:
                 m_skipAll = true;
-                return KUrl();
+                return QUrl();
             case KIO::R_CANCEL:
                 m_cancle = true;
-                return KUrl();
+                return QUrl();
             default:
-                return KUrl();
+                return QUrl();
         }
     }
 
@@ -794,17 +790,17 @@ KUrl UrlChecker::checkExistingFile(const KUrl &source, const KUrl &destination)
 }
 
 
-KUrl::List UrlChecker::correctUrls() const
+QList<QUrl> UrlChecker::correctUrls() const
 {
     return m_correctUrls;
 }
 
-KUrl::List UrlChecker::errorUrls() const
+QList<QUrl> UrlChecker::errorUrls() const
 {
-    KUrl::List urls;
+    QList<QUrl> urls;
 
-    QHash<UrlChecker::UrlError, KUrl::List>::const_iterator it;
-    QHash<UrlChecker::UrlError, KUrl::List>::const_iterator itEnd = m_splitErrorUrls.constEnd();
+    QHash<UrlChecker::UrlError, QList<QUrl>>::const_iterator it;
+    QHash<UrlChecker::UrlError, QList<QUrl>>::const_iterator itEnd = m_splitErrorUrls.constEnd();
     for (it = m_splitErrorUrls.constBegin(); it != itEnd; ++it) {
         urls << (*it);
     }
@@ -812,15 +808,15 @@ KUrl::List UrlChecker::errorUrls() const
     return urls;
 }
 
-QHash<UrlChecker::UrlError, KUrl::List> UrlChecker::splitErrorUrls() const
+QHash<UrlChecker::UrlError, QList<QUrl>> UrlChecker::splitErrorUrls() const
 {
     return m_splitErrorUrls;
 }
 
 void UrlChecker::displayErrorMessages()
 {
-    QHash<UrlChecker::UrlError, KUrl::List>::const_iterator it;
-    QHash<UrlChecker::UrlError, KUrl::List>::const_iterator itEnd = m_splitErrorUrls.constEnd();
+    QHash<UrlChecker::UrlError, QList<QUrl>>::const_iterator it;
+    QHash<UrlChecker::UrlError, QList<QUrl>>::const_iterator itEnd = m_splitErrorUrls.constEnd();
     for (it = m_splitErrorUrls.constBegin(); it != itEnd; ++it) {
         QString m;
         if (it->count() > 1) {

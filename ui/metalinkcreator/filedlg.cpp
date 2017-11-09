@@ -26,9 +26,10 @@
 #include "../../core/verificationmodel.h"
 #include "../../core/verificationdelegate.h"
 
-#include <QtGui/QSortFilterProxyModel>
+#include <QSortFilterProxyModel>
+#include <KStandardGuiItem>
 
-#include <KLocale>
+#include <KLocalizedString>
 
 FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent, bool edit)
   : KGetSaveSizeDialog("FileDlg", parent),
@@ -40,14 +41,12 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     //remove the initial name, to see later if the chosen name is still free
     m_currentFileNames.removeAll(m_initialFileName);
 
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    ui.setupUi(this);
 
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(&m_file->resources, countrySort);
     ui.urlLayout->addWidget(m_urlWidget->widget());
-    connect(m_urlWidget, SIGNAL(urlsChanged()), this, SLOT(slotUpdateOkButton()));
+    connect(m_urlWidget, &UrlWidget::urlsChanged, this, &FileDlg::slotUpdateOkButton);
 
     QWidget *data = new QWidget(this);
     uiData.setupUi(data);
@@ -92,8 +91,8 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     for (it = m_file->verification.hashes.constBegin(); it != itEnd; ++it) {
         m_verificationModel->addChecksum(it.key(), it.value());
     }
-    ui.add_hash->setGuiItem(KStandardGuiItem::add());
-    ui.remove_hash->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(ui.add_hash, KStandardGuiItem::add());
+    KGuiItem::assign(ui.remove_hash, KStandardGuiItem::remove());
     m_verificationProxy = new QSortFilterProxyModel(this);
     m_verificationProxy->setSourceModel(m_verificationModel);
     ui.used_hashes->setSortingEnabled(true);
@@ -102,17 +101,17 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.used_hashes->setItemDelegate(new VerificationDelegate(this));
     slotUpdateVerificationButtons();
 
-    connect(m_verificationModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(m_verificationModel, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(ui.used_hashes, SIGNAL(clicked(QModelIndex)), this, SLOT(slotUpdateVerificationButtons()));
-    connect(ui.add_hash, SIGNAL(clicked()), this, SLOT(slotAddHash()));
-    connect(ui.remove_hash, SIGNAL(clicked()), this, SLOT(slotRemoveHash()));
-    connect(ui.name, SIGNAL(textEdited(QString)), this, SLOT(slotUpdateOkButton()));
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()));
+    connect(m_verificationModel, &VerificationModel::dataChanged, this, &FileDlg::slotUpdateVerificationButtons);
+    connect(m_verificationModel, &VerificationModel::rowsRemoved, this, &FileDlg::slotUpdateVerificationButtons);
+    connect(ui.used_hashes, &QTreeView::clicked, this, &FileDlg::slotUpdateVerificationButtons);
+    connect(ui.add_hash, &QPushButton::clicked, this, &FileDlg::slotAddHash);
+    connect(ui.remove_hash, &QPushButton::clicked, this, &FileDlg::slotRemoveHash);
+    connect(ui.name, &KLineEdit::textEdited, this, &FileDlg::slotUpdateOkButton);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &FileDlg::slotOkClicked);
 
     slotUpdateOkButton();
 
-    setCaption(i18n("File Properties"));
+    setWindowTitle(i18n("File Properties"));
 }
 
 void FileDlg::slotUpdateOkButton()
@@ -136,7 +135,7 @@ void FileDlg::slotUpdateOkButton()
     ui.infoWidget->setText(information.join(" "));
     ui.infoWidget->setVisible(!information.isEmpty());
 
-    enableButtonOk(hasName && hasUrls && !isDuplicate);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(hasName && hasUrls && !isDuplicate);
 }
 
 void FileDlg::slotUpdateVerificationButtons()
@@ -169,13 +168,13 @@ void FileDlg::slotOkClicked()
     m_file->data.identity = uiData.identity->text();
     m_file->data.version = uiData.version->text();
     m_file->data.description = uiData.description->text();
-    m_file->data.logo = KUrl(uiData.logo->text());
+    m_file->data.logo = QUrl(uiData.logo->text());
     if (!uiData.os->text().isEmpty()) {
         m_file->data.oses = uiData.os->text().split(i18nc("comma, to seperate members of a list", ","));
     }
     m_file->data.copyright = uiData.copyright->text();
     m_file->data.publisher.name = uiData.pub_name->text();
-    m_file->data.publisher.url = KUrl(uiData.pub_url->text());
+    m_file->data.publisher.url = QUrl(uiData.pub_url->text());
     m_file->data.languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     m_urlWidget->save();
@@ -199,4 +198,4 @@ void FileDlg::slotOkClicked()
     }
 }
 
-#include "filedlg.moc"
+

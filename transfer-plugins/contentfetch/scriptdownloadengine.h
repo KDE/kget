@@ -15,7 +15,6 @@
 #include <KUrl>
 
 // forward declaration
-class TransferGroup;
 class Script;
 
 class ScriptDownloadEngine: public QObject

@@ -30,8 +30,8 @@ GeneralWidget::GeneralWidget(QWidget *parent)
 
     ui.dynamic->setToolTip(ui.labelDynamic->toolTip());
 
-    connect(ui.publishedGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotPublishedEnabled(bool)));
-    connect(ui.updatedGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotUpdatedEnabled(bool)));
+    connect(ui.publishedGroupBox, &QGroupBox::toggled, this, &GeneralWidget::slotPublishedEnabled);
+    connect(ui.updatedGroupBox, &QGroupBox::toggled, this, &GeneralWidget::slotUpdatedEnabled);
 }
 
 void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
@@ -87,7 +87,7 @@ void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
 
 void GeneralWidget::save(KGetMetalink::Metalink *metalink)
 {
-    metalink->origin = KUrl(ui.origin->text());
+    metalink->origin = QUrl(ui.origin->text());
     metalink->dynamic = ui.dynamic->isChecked();
 
     metalink->published.clear();
@@ -122,4 +122,4 @@ void GeneralWidget::slotUpdatedEnabled(bool enabled)
 }
 
 
-#include "generalwidget.moc"
+

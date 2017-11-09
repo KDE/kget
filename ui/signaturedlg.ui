@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>446</height>
+    <height>492</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -107,14 +107,14 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="loadSignature">
+         <widget class="QPushButton" name="loadSignature">
           <property name="text">
            <string>Load Signature</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="verify">
+         <widget class="QPushButton" name="verify">
           <property name="text">
            <string>Verify</string>
           </property>
@@ -310,14 +310,16 @@
      </layout>
     </widget>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

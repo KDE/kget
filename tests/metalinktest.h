@@ -20,7 +20,7 @@
 #ifndef KGET_METALINK_TEST_H
 #define KGET_METALINK_TEST_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 class MetalinkTest : public QObject
 {

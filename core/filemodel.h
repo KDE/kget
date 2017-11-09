@@ -23,21 +23,21 @@
 #include "kget_export.h"
 #include "transfer.h"
 
-#include <KUrl>
+#include <QUrl>
 
 #include <QAbstractItemModel>
 #include <QList>
 #include <QVariant>
 
 #include <kio/global.h>
-#include <KIcon>
+#include <QIcon>
 
 class FileModel;
 
 class KGET_EXPORT FileItem
 {
     public:
-        explicit FileItem(const QString &name, FileItem *parent = 0);
+        explicit FileItem(const QString &name, FileItem *parent = nullptr);
         ~FileItem();
 
         enum DataType
@@ -82,7 +82,7 @@ class KGET_EXPORT FileItem
 
     private:
         QList<FileItem*> m_childItems;
-        mutable KIcon m_mimeType;
+        mutable QIcon m_mimeType;
         QString m_name;
         Qt::CheckState m_state;
         Job::Status m_status;
@@ -105,7 +105,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
     friend class FileItem;
 
     public:
-        FileModel(const QList<KUrl> &files, const KUrl &destDirectory, QObject *parent = 0);
+        FileModel(const QList<QUrl> &files, const QUrl &destDirectory, QObject *parent = nullptr);
         ~FileModel();
 
         QVariant data(const QModelIndex &index, int role) const;
@@ -113,7 +113,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
         Qt::ItemFlags flags(const QModelIndex &index) const;
         QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
         QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-        QModelIndex index(const KUrl &file, int column);
+        QModelIndex index(const QUrl &file, int column);
         QModelIndex parent(const QModelIndex &index) const;
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
         int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -131,14 +131,14 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
          * The url on the filesystem (no check if the file exists yet!) of index,
          * it can be a folder or file
          */
-        KUrl getUrl(const QModelIndex &index);
+        QUrl getUrl(const QModelIndex &index);
 
         /**
          * Set the url to the directory the files are stored in, the filemodel stores
          * its entries as relative path to the base directory
          * @param newDirectory the base directory for the model
          */
-        void setDirectory(const KUrl &newDirectory);
+        void setDirectory(const QUrl &newDirectory);
 
         /**
          * Set a custom status text for status
@@ -148,14 +148,14 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
 
         /**
          * Set a custom status icon for status
-         * @note KIcon() removes the custom icon for status
+         * @note QIcon() removes the custom icon for status
          */
-        void setCustomStatusIcon(Job::Status status, const KIcon &icon);
+        void setCustomStatusIcon(Job::Status status, const QIcon &icon);
 
         /**
          * Checks if the download for file has been finished
          */
-        bool downloadFinished(const KUrl &file);
+        bool downloadFinished(const QUrl &file);
 
         /**
          * Returns true if the index represents a file
@@ -175,18 +175,18 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
         void stopWatchCheckState();
 
     Q_SIGNALS:
-        void rename(const KUrl &oldUrl, const KUrl &newUrl);
+        void rename(const QUrl &oldUrl, const QUrl &newUrl);
         void checkStateChanged();
-        void fileFinished(const KUrl &file);
+        void fileFinished(const QUrl &file);
 
     private:
-        void setupModelData(const QList<KUrl> &files);
+        void setupModelData(const QList<QUrl> &files);
 
         /**
          * The url on the filesystem (no check if the file exists yet!) of item,
          * it can be a folder or file
          */
-        KUrl getUrl(FileItem *item);
+        QUrl getUrl(FileItem *item);
 
         /**
          * Get the path of item
@@ -199,20 +199,20 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
         /**
          * Get the item of the corresponding url
          */
-        FileItem *getItem(const KUrl &file);
+        FileItem *getItem(const QUrl &file);
 
         void changeData(int row, int column, FileItem *item, bool fileFinished = false);
 
     private slots:
-        void renameFailed(const KUrl &beforeRename, const KUrl &afterRename);
+        void renameFailed(const QUrl &beforeRename, const QUrl &afterRename);
 
     private:
         FileItem *m_rootItem;
-        KUrl m_destDirectory;
+        QUrl m_destDirectory;
         QList<QVariant> m_header;
         bool m_checkStateChanged;
 
-        QHash<KUrl, FileItem*> m_itemCache; //used to make getItem faster
+        QHash<QUrl, FileItem*> m_itemCache; //used to make getItem faster
 
         /**
          * Stores links to all files
@@ -220,7 +220,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
         QList<FileItem*> m_files;
 
         QHash<Job::Status, QString> m_customStatusTexts;
-        QHash<Job::Status, KIcon> m_customStatusIcons;
+        QHash<Job::Status, QIcon> m_customStatusIcons;
 };
 
 #endif

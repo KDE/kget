@@ -23,17 +23,16 @@
 #include "localemodels.h"
 #include "generalwidget.h"
 
-#include <QtCore/QTimer>
-#include <QtGui/QDragEnterEvent>
-#include <QtGui/QLabel>
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QStandardItemModel>
+#include <QTimer>
+#include <QDragEnterEvent>
+#include <QSortFilterProxyModel>
+#include <QMimeData>
+#include <QStandardItemModel>
 
-#include <KFileDialog>
-#include <KLocale>
+#include <QFileDialog>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KPushButton>
-#include <KStandardDirs>
+#include <QPushButton>
 
 //TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
 
@@ -58,37 +57,31 @@ void FileWidget::dropEvent(QDropEvent *event)
 
     event->acceptProposedAction();
 
-    QList<KUrl> kurls;
-    foreach (const QUrl &url, urls) {
-        kurls.append(url);
-    }
-
-    if (!kurls.isEmpty()) {
-        emit urlsDropped(kurls);
+    if (!urls.isEmpty()) {
+        emit urlsDropped(urls);
     }
 }
 
 MetalinkCreator::MetalinkCreator(QWidget *parent)
   : KAssistantDialog(parent),
     m_needUrlCount(0),
-    m_countrySort(0),
-    m_languageModel(0),
-    m_languageSort(0),
-    m_introduction(0),
-    m_generalPage(0),
-    m_filesModel(0)
+    m_countrySort(nullptr),
+    m_languageModel(nullptr),
+    m_languageSort(nullptr),
+    m_introduction(nullptr),
+    m_generalPage(nullptr),
+    m_filesModel(nullptr)
 {
     create();
 
-    connect(this, SIGNAL(user1Clicked()), this, SLOT(slotSave()));
+    connect(finishButton(), &QPushButton::clicked, this, &MetalinkCreator::slotSave);
     connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), this, SLOT(slotUpdateAssistantButtons(KPageWidgetItem*,KPageWidgetItem*)));
 
     qRegisterMetaType<KGetMetalink::File>("KGetMetalink::File");
     connect(&m_thread, SIGNAL(fileResult(KGetMetalink::File)), this, SLOT(slotAddFile(KGetMetalink::File)));
     connect(&m_thread, SIGNAL(finished()), this, SLOT(slotThreadFinished()));
 
-    setCaption(i18n("Create a Metalink"));
-    showButton(KDialog::Help, false);
+    setWindowTitle(i18n("Create a Metalink"));
 }
 
 MetalinkCreator::~MetalinkCreator()
@@ -104,14 +97,7 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
     }
 
     //it is impossible to return to the introduction page
-    if (to == m_generalPage)
-    {
-        enableButton(KDialog::User3, false);
-    }
-    else
-    {
-        enableButton(KDialog::User3, true);
-    }
+    backButton()->setEnabled(to != m_generalPage);
 
     if (!m_filesModel->rowCount()) {
         uiFiles.infoWidget->setText(i18n("Add at least one file."));
@@ -122,7 +108,7 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
 
     //only enable finish then the metalink is valid (i.e. no required data missing)
     //and the thread is not running
-    enableButton(KDialog::User1, metalink.isValid() && !m_thread.isRunning());
+    //enableButton(KDialog::User1, metalink.isValid() && !m_thread.isRunning());
 }
 
 void MetalinkCreator::create()
@@ -136,13 +122,13 @@ void MetalinkCreator::create()
 void MetalinkCreator::slotDelayedCreation()
 {
     CountryModel *countryModel = new CountryModel(this);
-    countryModel->setupModelData(KGlobal::locale()->allCountriesList());
+    //countryModel->setupModelData(QLocale()->allCountriesList());//TODO:Port these 2
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
     m_countrySort->sort(0);
 
     m_languageModel = new LanguageModel(this);
-    m_languageModel->setupModelData(KGlobal::locale()->allLanguagesList());
+    //m_languageModel->setupModelData(KLocale::global()->allLanguagesList());
     m_languageSort = new QSortFilterProxyModel(this);
     m_languageSort->setSourceModel(m_languageModel);
     m_languageSort->sort(0);
@@ -153,12 +139,12 @@ void MetalinkCreator::slotDelayedCreation()
 
 void MetalinkCreator::load()
 {
-    KUrl url = KUrl(uiIntroduction.load->text());
+    QUrl url = uiIntroduction.load->url();
     if (uiIntroduction.loadButton->isChecked() && url.isValid())
     {
         if (!KGetMetalink::HandleMetalink::load(url, &metalink))
         {
-            KMessageBox::error(this, i18n("Unable to load: %1", url.pathOrUrl()), i18n("Error"));
+            KMessageBox::error(this, i18n("Unable to load: %1", url.toString()), i18n("Error"));
         }
     }
 
@@ -170,12 +156,12 @@ void MetalinkCreator::slotSave()
 {
     m_general->save(&metalink);
 
-    KUrl url = KUrl(uiIntroduction.save->text());
+    QUrl url = uiIntroduction.save->url();
     if (url.isValid())
     {
         if(!KGetMetalink::HandleMetalink::save(url, &metalink))
         {
-            KMessageBox::error(this, i18n("Unable to save to: %1", url.pathOrUrl()), i18n("Error"));
+            KMessageBox::error(this, i18n("Unable to save to: %1", url.toString()), i18n("Error"));
         }
     }
 }
@@ -186,7 +172,7 @@ void MetalinkCreator::createIntroduction()
     uiIntroduction.setupUi(widget);
 
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
-    uiIntroduction.save->fileDialog()->setOperationMode(KFileDialog::Saving);
+    uiIntroduction.save->fileDialog()->setAcceptMode(QFileDialog::AcceptSave);
 
     connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
     connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
@@ -223,11 +209,11 @@ void MetalinkCreator::createFiles()
 
     uiFiles.infoWidget->setCloseButtonVisible(false);
     uiFiles.infoWidget->setMessageType(KMessageWidget::Information);
-    uiFiles.add_local_file->setIcon(KIcon("list-add"));
-    uiFiles.add_file->setGuiItem(KStandardGuiItem::add());
-    uiFiles.properties_file->setGuiItem(KStandardGuiItem::properties());
+    uiFiles.add_local_file->setIcon(QIcon::fromTheme("list-add"));
+    KGuiItem::assign(uiFiles.add_file, KStandardGuiItem::add());
+    KGuiItem::assign(uiFiles.properties_file, KStandardGuiItem::properties());
     uiFiles.properties_file->setEnabled(false);
-    uiFiles.remove_file->setGuiItem(KStandardGuiItem::remove());
+    KGuiItem::assign(uiFiles.remove_file, KStandardGuiItem::remove());
     uiFiles.remove_file->setEnabled(false);
     uiFiles.dragDrop->hide();
 
@@ -236,7 +222,7 @@ void MetalinkCreator::createFiles()
     connect(uiFiles.remove_file, SIGNAL(clicked(bool)), this, SLOT(slotRemoveFile()));
     connect(uiFiles.properties_file, SIGNAL(clicked(bool)), this, SLOT(slotFileProperties()));
     connect(uiFiles.files->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateFilesButtons()));
-    connect(widget, SIGNAL(urlsDropped(QList<KUrl>)), m_handler, SLOT(slotFiles(QList<KUrl>)));
+    connect(widget, SIGNAL(urlsDropped(QList<QUrl>)), m_handler, SLOT(slotFiles(QList<QUrl>)));
 
     addPage(widget, i18nc("file as in file on hard drive", "Files"));
 }
@@ -249,7 +235,7 @@ void MetalinkCreator::loadFiles()
         if (!file.resources.isValid())
         {
             ++m_needUrlCount;
-            item->setIcon(KIcon("edit-delete"));
+            item->setIcon(QIcon::fromTheme("edit-delete"));
         }
         m_filesModel->insertRow(m_filesModel->rowCount(), item);
     }
@@ -266,8 +252,8 @@ void MetalinkCreator::slotUpdateFilesButtons()
 
 void MetalinkCreator::slotAddLocalFilesClicked()
 {
-    QPointer<KFileDialog> dialog = new KFileDialog(KUrl(), QString(), this);
-    dialog->setMode(KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
+    QPointer<QFileDialog> dialog = new QFileDialog(this);
+    dialog->setFileMode(QFileDialog::ExistingFiles);
     if (dialog->exec() == QDialog::Accepted) {
         m_handler->slotFiles(dialog->selectedUrls());
     }
@@ -281,7 +267,7 @@ void MetalinkCreator::slotAddFile()
     metalink.files.files.append(m_tempFile);
     m_tempFile.clear();
 
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
@@ -290,12 +276,12 @@ void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
     if (!file.resources.isValid())
     {
         ++m_needUrlCount;
-        item->setIcon(KIcon("edit-delete"));
+        item->setIcon(QIcon::fromTheme("edit-delete"));
     }
     m_filesModel->insertRow(m_filesModel->rowCount(), item);
     metalink.files.files.append(file);
 
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &newFileName)
@@ -310,10 +296,10 @@ void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &
     if (!item->icon().isNull())
     {
         --m_needUrlCount;
-        item->setIcon(KIcon());
+        item->setIcon(QIcon());
     }
 
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotRemoveFile()
@@ -339,7 +325,7 @@ void MetalinkCreator::slotRemoveFile()
     }
 
     slotUpdateFilesButtons();
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotAddClicked()
@@ -402,7 +388,7 @@ void MetalinkCreator::slotThreadFinished()
 {
     uiFiles.progressBar->setMaximum(10);
     uiFiles.dragDrop->hide();
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
-#include "metalinkcreator.moc"
+

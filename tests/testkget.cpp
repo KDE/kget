@@ -14,8 +14,8 @@
 #include "core/transfertreemodel.h"
 
 TestKGet::TestKGet()
-    : QObject(0),
-      m_addedGH(0)
+    : QObject(nullptr),
+      m_addedGH(nullptr)
 {
     connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(addedTransferGroupEvent(TransferGroupHandler*)));
     connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(removedTransferGroupEvent(TransferGroupHandler*)));
@@ -40,12 +40,12 @@ void TestKGet::transferGroupTest()
 {
     KGet::delGroup(KGet::findGroup("testGroup"));            // In case you already have one
 
-    m_addedGH = 0;
-    m_removedGH = 0;
+    m_addedGH = nullptr;
+    m_removedGH = nullptr;
     
     // Add Group
     QVERIFY(KGet::addGroup("testGroup"));
-    QVERIFY(m_addedGH != 0);   // Should already have received the added group notification
+    QVERIFY(m_addedGH != nullptr);   // Should already have received the added group notification
     
     // Verify default Group parameters
     QVERIFY(m_addedGH->name() == "testGroup");
@@ -60,7 +60,7 @@ void TestKGet::transferGroupTest()
     
     // Delete newly added Group
     KGet::delGroup(KGet::findGroup("testGroup"), false);
-    QVERIFY(m_removedGH != 0);   // Should already have received the removed group notification
+    QVERIFY(m_removedGH != nullptr);   // Should already have received the removed group notification
 
     QVERIFY(m_removedGH->name() == "testGroup");
 }
@@ -71,7 +71,7 @@ void TestKGet::transferGroupRepetitiveAddTest()
     {
         // Adding...
         QVERIFY(KGet::addGroup("testGroup" + QString::number(i)));
-        QVERIFY(m_addedGH != 0);   // Should already have received the added group notification
+        QVERIFY(m_addedGH != nullptr);   // Should already have received the added group notification
         QVERIFY(m_addedGH->name() == "testGroup" + QString::number(i));
     }
     
@@ -79,9 +79,9 @@ void TestKGet::transferGroupRepetitiveAddTest()
     {
         // Removing...
         KGet::delGroup(KGet::findGroup("testGroup" + QString::number(i)), false);
-        QVERIFY(m_removedGH != 0);   // Should already have received the removed group notification
+        QVERIFY(m_removedGH != nullptr);   // Should already have received the removed group notification
         QVERIFY(m_removedGH->name() == "testGroup" + QString::number(i));        
     }
 }
 
-#include "testkget.moc"
+

@@ -11,7 +11,6 @@
 #ifndef TRANSFERHISTORY_H
 #define TRANSFERHISTORY_H
 
-#include <QList>
 #include "../../core/basedialog.h"
 
 #include "ui_transferhistory.h"
@@ -20,7 +19,7 @@ class QFileSystemWatcher;
 class QModelIndex;
 class QProgressBar;
 class KLineEdit;
-class KPushButton;
+class QPushButton;
 class TransferHistoryStore;
 class TransferHistoryItem;
 
@@ -29,7 +28,7 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
     Q_OBJECT
 
     public:
-        TransferHistory(QWidget *parent = 0);
+        TransferHistory(QWidget *parent = nullptr);
         ~TransferHistory();
         
         virtual QSize sizeHint() const;
@@ -57,8 +56,8 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
         QAction *m_actionDownload;
         QAction *m_openFile;
         QPushButton *m_clearButton;
-        KPushButton *m_iconView;
-        KPushButton *m_listView;
+        QPushButton *m_iconView;
+        QPushButton *m_listView;
         bool m_iconModeEnabled;
         TransferHistoryStore *m_store;
 

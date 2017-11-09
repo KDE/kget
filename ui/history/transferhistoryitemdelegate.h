@@ -12,7 +12,6 @@
 #define TRANSFERHISTORYITEMDELEGATE_H
 
 #include <QStyledItemDelegate>
-#include <QObject>
 
 #define ICON_SIZE 40
 #define PADDING 5

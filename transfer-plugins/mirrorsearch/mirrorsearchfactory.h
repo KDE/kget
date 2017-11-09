@@ -14,8 +14,6 @@
 #include "core/plugin/transferfactory.h"
 
 class Transfer;
-class TransferGroup;
-class Scheduler;
 class TransferDataSource;
 
 class MirrorSearchFactory : public TransferFactory
@@ -25,7 +23,7 @@ class MirrorSearchFactory : public TransferFactory
         MirrorSearchFactory(QObject *parent, const QVariantList &args);
         ~MirrorSearchFactory();
 
-        TransferDataSource * createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent);
+        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent);
 };
 
 #endif

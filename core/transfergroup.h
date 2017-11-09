@@ -13,18 +13,14 @@
 #define GROUP_H
 
 #include <QRegExp>
+#include <QIcon>
 
 #include <kio/netaccess.h>
-#include <KIcon>
 #include <KDebug>
 
 #include "jobqueue.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 #include "transfer.h"
-
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk2/Tag>
-#endif
 
 class QDomElement;
 
@@ -134,18 +130,18 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param src the url of the source location
          *
          * @return the transfer pointer if the transfer has been found. Otherwise
-         * it returns 0
+         * it returns nullptr
          */
-        Transfer * findTransfer(const KUrl &src);
+        Transfer * findTransfer(const QUrl &src);
 
         /**
          * Finds the first transfer with destination dest
          *
          * @param dest the url of the destination location
          *
-         * @return the transfer pointer if the transfer has been found, else return 0
+         * @return the transfer pointer if the transfer has been found, else return nullptr
          */
-         Transfer *findTransferByDestination(const KUrl &dest);
+         Transfer *findTransferByDestination(const QUrl &dest);
 
         /**
          * @returns the Job in the queue at the given index i
@@ -219,19 +215,6 @@ class KGET_EXPORT TransferGroup : public JobQueue
          */
         QRegExp regExp() {return m_regExp;}
 
-#ifdef HAVE_NEPOMUK
-        /**
-         * Sets the Nepomuk tags of the group
-         * @param tags the Nepomuk tags
-         */
-        void setTags(const QList<Nepomuk2::Tag> &tags);
-
-        /**
-         * @returns the Nepomuk tags of the group
-         */
-        QList<Nepomuk2::Tag> tags() const { return m_tags.values(); }
-#endif //HAVE_NEPOMUK
-
         /**
          * @return true if the group supports SpeedLimits
          */
@@ -275,7 +258,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * @return the group's icon
          */
-        QPixmap pixmap() {return KIcon(m_iconName).pixmap(32);}
+        QPixmap pixmap() {return QIcon::fromTheme(m_iconName).pixmap(32);}
 
         /**
          * @return the handler associated with this group
@@ -335,9 +318,6 @@ class KGET_EXPORT TransferGroup : public JobQueue
         QString m_iconName;
         QString m_defaultFolder;
         QRegExp m_regExp;
-#ifdef HAVE_NEPOMUK
-        QMap<QUrl, Nepomuk2::Tag> m_tags;
-#endif //HAVE_NEPOMUK
 };
 
 #endif

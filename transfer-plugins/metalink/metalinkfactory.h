@@ -27,18 +27,18 @@ class MetalinkFactory : public TransferFactory
         MetalinkFactory(QObject *parent, const QVariantList &args);
         ~MetalinkFactory();
 
-        Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
+                                   const QDomElement * e = nullptr );
 
-        QString displayName() { return "MetaLink"; }
+        QString displayName() const { return "MetaLink"; }
         /**
          * Checks if a URL is supported by this plugin.
          *
          * @param The Url to be tested
          * @return True if the URL is a metalink (xml or http).
          */
-        bool isSupported(const KUrl &url) const;
+        bool isSupported(const QUrl &url) const;
 };
 
 #endif

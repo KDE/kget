@@ -16,42 +16,44 @@
 
 #include <utime.h>
 
+#include "kget_debug.h"
+#include <qdebug.h>
+
 #include <kiconloader.h>
 #include <kio/scheduler.h>
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KDebug>
 
-#include <QtCore/QFile>
+#include <QFile>
 #include <QDomElement>
 
 TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(0),
+      m_copyjob(nullptr),
       m_movingFile(false),
-      m_verifier(0),
-      m_signature(0)
+      m_verifier(nullptr),
+      m_signature(nullptr)
 {
     setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming);//TODO check if it really can resume
 }
 
-bool TransferKio::setDirectory(const KUrl& newDirectory)
+bool TransferKio::setDirectory(const QUrl& newDirectory)
 {
-    KUrl newDest = newDirectory;
-    newDest.addPath(m_dest.fileName());
+    QUrl newDest = newDirectory;
+    newDest.setPath(newDest.adjusted(QUrl::RemoveFilename).toString() + m_dest.fileName());
     return setNewDestination(newDest);
 }
 
-bool TransferKio::setNewDestination(const KUrl &newDestination)
+bool TransferKio::setNewDestination(const QUrl &newDestination)
 {
     if (newDestination.isValid() && (newDestination != dest())) {
-        KUrl oldPath = KUrl(m_dest.path() + ".part");
-        if (oldPath.isValid() && QFile::exists(oldPath.pathOrUrl())) {
+        QUrl oldPath = QUrl(m_dest.path() + ".part");
+        if (oldPath.isValid() && QFile::exists(oldPath.toString())) {
             m_movingFile = true;
             stop();
             setStatus(Job::Moving);
@@ -66,7 +68,7 @@ bool TransferKio::setNewDestination(const KUrl &newDestination)
                 m_signature->setDestination(newDestination);
             }
 
-            KIO::Job *move = KIO::file_move(oldPath, KUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
+            KIO::Job *move = KIO::file_move(oldPath, QUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
             connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
             connect(move, SIGNAL(infoMessage(KJob*,QString)), this, SLOT(slotInfoMessage(KJob*,QString)));
             connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
@@ -92,7 +94,7 @@ void TransferKio::start()
         if(!m_copyjob)
             createJob();
 
-        kDebug(5001) << "TransferKio::start";
+        qCDebug(KGET_DEBUG) << "TransferKio::start";
         setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
         setTransferChange(Tc_Status, true);
     }
@@ -109,10 +111,10 @@ void TransferKio::stop()
     if(m_copyjob)
     {
         m_copyjob->kill(KJob::EmitResult);
-        m_copyjob=0;
+        m_copyjob=nullptr;
     }
 
-    kDebug(5001) << "Stop";
+    qCDebug(KGET_DEBUG) << "Stop";
     setStatus(Job::Stopped);
     m_downloadSpeed = 0;
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
@@ -123,7 +125,7 @@ void TransferKio::deinit(Transfer::DeleteOptions options)
     if (options & DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         KIO::Job *del = KIO::del(QString(m_dest.path() + ".part"), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
@@ -153,7 +155,7 @@ void TransferKio::createJob()
 
 void TransferKio::slotResult( KJob * kioJob )
 {
-    kDebug(5001) << "slotResult  (" << kioJob->error() << ")";
+    qCDebug(KGET_DEBUG) << "slotResult  (" << kioJob->error() << ")";
     switch (kioJob->error()) {
         case 0:                            //The download has finished
         case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
@@ -166,16 +168,16 @@ void TransferKio::slotResult( KJob * kioJob )
             break;
         default:
             //There has been an error
-            kDebug(5001) << "--  E R R O R  (" << kioJob->error() << ")--";
+            qCDebug(KGET_DEBUG) << "--  E R R O R  (" << kioJob->error() << ")--";
             if (!m_stopped)
                 setStatus(Job::Aborted);
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
-    m_copyjob=0;
+    m_copyjob=nullptr;
 
     // If it is an ftp file, there's still work to do
-    Transfer::ChangesFlags flags = (m_source.protocol() != "ftp") ? Tc_Status : Tc_None;
+    Transfer::ChangesFlags flags = (m_source.scheme() != "ftp") ? Tc_Status : Tc_None;
     if (status() == Job::Finished) {
         if (!m_totalSize) {
             //downloaded elsewhere already, e.g. Konqueror
@@ -198,7 +200,7 @@ void TransferKio::slotResult( KJob * kioJob )
         }
     }
 
-    if (m_source.protocol() == "ftp") {
+    if (m_source.scheme() == "ftp") {
         KIO::StatJob * statJob = KIO::stat(m_source);
         connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
         statJob->start();
@@ -215,7 +217,7 @@ void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
 
 void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
 {
-    kDebug(5001) << "slotPercent";
+    qCDebug(KGET_DEBUG) << "slotPercent";
     Q_UNUSED(kioJob)
     m_percent = percent;
     setTransferChange(Tc_Percent, true);
@@ -225,7 +227,7 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob)
 
-    kDebug(5001) << "slotTotalSize";
+    qCDebug(KGET_DEBUG) << "slotTotalSize";
 
     setStatus(Job::Running);
 
@@ -237,7 +239,7 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
 {
     Q_UNUSED(kioJob)
 
-//     kDebug(5001) << "slotProcessedSize";
+//     qCDebug(KGET_DEBUG) << "slotProcessedSize";
 
     if(status() != Job::Running)
     {
@@ -252,7 +254,7 @@ void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
 {
     Q_UNUSED(kioJob)
 
-//     kDebug(5001) << "slotSpeed";
+//     qCDebug(KGET_DEBUG) << "slotSpeed";
 
     if(status() != Job::Running)
     {
@@ -276,7 +278,7 @@ void TransferKio::slotVerified(bool isVerified)
         if (!verifier()->partialChunkLength()) {
             text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
         }
-        if (KMessageBox::warningYesNo(0,
+        if (KMessageBox::warningYesNo(nullptr,
                                       text,
                                       i18n("Verification failed.")) == KMessageBox::Yes) {
             repair();
@@ -302,7 +304,7 @@ void TransferKio::slotStatResult(KJob* kioJob)
 }
 
 
-bool TransferKio::repair(const KUrl &file)
+bool TransferKio::repair(const QUrl &file)
 {
     Q_UNUSED(file)
 
@@ -313,7 +315,7 @@ bool TransferKio::repair(const KUrl &file)
         if(m_copyjob)
         {
             m_copyjob->kill(KJob::Quietly);
-            m_copyjob = 0;
+            m_copyjob = nullptr;
         }
         setTransferChange(Tc_DownloadedSize | Tc_Percent, true);
 
@@ -325,7 +327,7 @@ bool TransferKio::repair(const KUrl &file)
     return false;
 }
 
-Verifier *TransferKio::verifier(const KUrl &file)
+Verifier *TransferKio::verifier(const QUrl &file)
 {
     Q_UNUSED(file)
 
@@ -338,7 +340,7 @@ Verifier *TransferKio::verifier(const KUrl &file)
     return m_verifier;
 }
 
-Signature *TransferKio::signature(const KUrl &file)
+Signature *TransferKio::signature(const QUrl &file)
 {
     Q_UNUSED(file)
 
@@ -349,4 +351,4 @@ Signature *TransferKio::signature(const KUrl &file)
     return m_signature;
 }
 
-#include "transferKio.moc"
+

@@ -20,16 +20,16 @@
 #ifndef VERIFICATION_DELEGATE_H
 #define VERIFICATION_DELEGATE_H
 
-#include "../kget_export.h"
+#include "kget_export.h"
 
-#include <QtGui/QStyledItemDelegate>
+#include <QStyledItemDelegate>
 
 class KGET_EXPORT VerificationDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
     public:
-        VerificationDelegate(QObject *parent = 0);
+        VerificationDelegate(QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;

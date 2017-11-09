@@ -26,7 +26,7 @@
 #include <interfaces/peerinterface.h>
 #include <ksharedconfig.h>
 
-class KMenu;
+class QMenu;
 
 namespace kt
 {
@@ -63,7 +63,7 @@ namespace kt
 		void kickPeer();
 				
 	private:
-		KMenu* context_menu;
+		QMenu* context_menu;
 		PeerViewModel* model;
 	};
 }

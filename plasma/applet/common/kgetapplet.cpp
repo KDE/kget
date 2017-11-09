@@ -34,10 +34,10 @@
 #include <QProgressBar>
 #include <QGraphicsProxyWidget>
 #include <QPainter>
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 #include <KUrl>
 #include <KLocale>
-#include <KIcon>
+#include <QIcon>
 
 const int ProxyWidget::MARGIN = 20;
 const int ProxyWidget::TOP_MARGIN = 55;
@@ -80,7 +80,7 @@ void ProxyWidget::paint(QPainter * p, const QStyleOptionGraphicsItem * option, Q
 
     QRect iconRect(QPoint(rect.x() + SPACING + 10, rect.y() + SPACING + 10), QSize(m_textHeight, m_textHeight));
 
-    KIcon("kget").paint(p, iconRect);
+    QIcon::fromTheme("kget").paint(p, iconRect);
     p->drawText(QRectF(rect.x() + SPACING * 2 + 10 + iconRect.width(), rect.y() + SPACING + 10, 
                        m_textWidth, m_textHeight), i18n("KGet"));
     p->drawLine(QPointF(rect.x() + SPACING + 10, rect.y() + SPACING * 2 + 10 + m_textHeight), 
@@ -138,14 +138,15 @@ KGetApplet::~KGetApplet()
 
 void KGetApplet::init()
 {
-    KGlobal::locale()->insertCatalog("plasma_applet_kget");
+    //KF5 port: remove this line and define TRANSLATION_DOMAIN in CMakeLists.txt instead
+//KLocale::global()->insertCatalog("plasma_applet_kget");
 
     setPopupIcon("kget");
     m_engine = dataEngine("kget");
     if (m_engine) {
         m_engine->connectSource("KGet", this);
     } else {
-        kDebug(5001) << "KGet Engine could not be loaded";
+        qCDebug(KGET_DEBUG) << "KGet Engine could not be loaded";
     }
     m_globalProgress = new Plasma::Meter(this);
     m_globalProgress->setMeterType(Plasma::Meter::BarMeterHorizontal);
@@ -346,7 +347,7 @@ bool KGetApplet::sceneEventFilter(QGraphicsItem * watched, QEvent * event)
 
 void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     QStringList urls;
     if (event->mimeData()->hasUrls())
@@ -376,7 +377,7 @@ void KGetApplet::dropEvent(QGraphicsSceneDragDropEvent * event)
 
 void KGetApplet::dropEvent(QDropEvent * event)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     QStringList urls;
     if (event->mimeData()->hasUrls())
@@ -405,4 +406,4 @@ void KGetApplet::dropEvent(QDropEvent * event)
     event->accept();
 }
 
-#include "kgetapplet.moc"
+

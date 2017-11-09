@@ -61,17 +61,17 @@ QString DBusTransferWrapper::groupName() const
 
 QString DBusTransferWrapper::source() const
 {
-    return m_transfer->source().pathOrUrl();
+    return m_transfer->source().toString();
 }
 
 QString DBusTransferWrapper::dest() const
 {
-    return m_transfer->dest().pathOrUrl();
+    return m_transfer->dest().toString();
 }
 
 bool DBusTransferWrapper::setDirectory(const QString &directory)
 {
-    return m_transfer->setDirectory(KUrl(directory));
+    return m_transfer->setDirectory(QUrl(directory));
 }
 
 qulonglong DBusTransferWrapper::totalSize() const
@@ -153,7 +153,7 @@ void DBusTransferWrapper::slotTransferChanged(TransferHandler *transfer, Transfe
 
 QString DBusTransferWrapper::verifier(const QString &file)
 {
-    Verifier *verifier = m_transfer->verifier(KUrl(file));
+    Verifier *verifier = m_transfer->verifier(QUrl(file));
     if (verifier) {
         return verifier->dBusObjectPath();
     }
@@ -163,8 +163,8 @@ QString DBusTransferWrapper::verifier(const QString &file)
 
 bool DBusTransferWrapper::repair(const QString &file)
 {
-    return m_transfer->repair(KUrl(file));
+    return m_transfer->repair(QUrl(file));
 
 }
 
-#include "dbustransferwrapper.moc"
+

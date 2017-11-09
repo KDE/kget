@@ -22,29 +22,25 @@
 #include "core/urlchecker.h"
 #include "core/verifier.h"
 #include "core/signature.h"
-#ifdef HAVE_NEPOMUK
-    #include "core/nepomukhandler.h"
-    #include <Nepomuk2/Variant>
-#endif //HAVE_NEPOMUK
 
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KIO/RenameDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 
-#include <QtCore/QFile>
-#include <QtXml/QDomElement>
+#include <QFile>
+#include <QDomElement>
 
 Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const KUrl & source, const KUrl & dest,
+                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_fileModel(0),
+      m_fileModel(nullptr),
       m_currentFiles(0),
       m_metalinkJustDownloaded(false),
       m_ready(false),
@@ -60,7 +56,7 @@ Metalink::~Metalink()
 
 void Metalink::start()
 {
-    kDebug(5001) << "metalink::start";
+    qCDebug(KGET_DEBUG) << "metalink::start";
 
     if (!m_ready)
     {
@@ -83,12 +79,12 @@ void Metalink::downloadMetalink()
     setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
     Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
-    connect(download, SIGNAL(finishedSuccessfully(KUrl,QByteArray)), SLOT(metalinkInit(KUrl,QByteArray)));
+    connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
 }
 
-bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
+bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (!src.isEmpty()) {
         m_localMetalinkLocation = src;
@@ -105,7 +101,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     }
 
     if (!m_metalink.isValid()) {
-        kError(5001) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
+        qCCritical(KGET_DEBUG) << "Unknown error when trying to load the .metalink-file. Metalink is not valid.";
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -114,7 +110,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     //offers a dialog to download the newest version of a dynamic metalink
      if ((m_source.isLocalFile() || !m_metalinkJustDownloaded) &&
          m_metalink.dynamic && (UrlChecker::checkSource(m_metalink.origin) == UrlChecker::NoError)) {
-        if (KMessageBox::questionYesNo(0, i18n("A newer version of this Metalink might exist, do you want to download it?"),
+        if (KMessageBox::questionYesNo(nullptr, i18n("A newer version of this Metalink might exist, do you want to download it?"),
                                        i18n("Redownload Metalink")) == KMessageBox::Yes) {
             m_localMetalinkLocation.clear();
             m_source = m_metalink.origin;
@@ -127,8 +123,8 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
     QList<KGetMetalink::File>::const_iterator itEnd = m_metalink.files.files.constEnd();
     m_totalSize = 0;
     KIO::fileoffset_t segSize = 500 * 1024;//TODO use config here!
-    const KUrl tempDest = KUrl(m_dest.directory());
-    KUrl dest;
+    const QUrl tempDest = QUrl(m_dest.directory());
+    QUrl dest;
     for (it = m_metalink.files.files.constBegin(); it != itEnd ; ++it)
     {
         dest = tempDest;
@@ -145,10 +141,6 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         DataSourceFactory *dataFactory = new DataSourceFactory(this, dest, fileSize, segSize);
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
-#ifdef HAVE_NEPOMUK
-        nepomukHandler()->setProperties((*it).properties(), QList<KUrl>() << dest);
-#endif //HAVE_NEPOMUK
-
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
 
         connect(dataFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
@@ -160,7 +152,7 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
         {
-            const KUrl url = urlList[i].url;
+            const QUrl url = urlList[i].url;
             if (url.isValid())
             {
                 dataFactory->addMirror(url, MetalinkSettings::connectionsPerUrl());
@@ -198,8 +190,8 @@ bool Metalink::metalinkInit(const KUrl &src, const QByteArray &data)
 
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
-        kWarning(5001) << "Download of" << m_source << "failed, no working URLs were found.";
-        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
+        qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
+        KMessageBox::error(nullptr, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -292,17 +284,14 @@ void Metalink::deinit(Transfer::DeleteOptions options)
     if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }
 
-#ifdef HAVE_NEPOMUK
-    nepomukHandler()->deinit();
-#endif //HAVE_NEPOMUK
 }
 
 void Metalink::stop()
 {
-    kDebug(5001) << "metalink::Stop";
+    qCDebug(KGET_DEBUG) << "metalink::Stop";
     if (m_ready && status() != Stopped)
     {
         m_currentFiles = 0;
@@ -489,7 +478,7 @@ void Metalink::slotVerified(bool isVerified)
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, do you want to repair (if repairing does not work the download would be restarted) it?"),
                      brokenFiles) == KMessageBox::Yes) {
                 if (repair()) {
@@ -520,7 +509,7 @@ void Metalink::slotSignatureVerified()
 /*
         if (brokenFiles.count())//TODO
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, try to repair it?"),
                      brokenFiles) == KMessageBox::Yes)
             {
@@ -533,7 +522,7 @@ void Metalink::slotSignatureVerified()
     }
 }
 
-bool Metalink::repair(const KUrl &file)
+bool Metalink::repair(const QUrl &file)
 {
     if (file.isValid())
     {
@@ -580,7 +569,7 @@ void Metalink::load(const QDomElement *element)
     }
 
     const QDomElement e = *element;
-    m_localMetalinkLocation = KUrl(e.attribute("LocalMetalinkLocation"));
+    m_localMetalinkLocation = QUrl(e.attribute("LocalMetalinkLocation"));
     QDomNodeList factories = e.firstChildElement("factories").elementsByTagName("factory");
 
     //no stored information found, stop right here
@@ -633,26 +622,26 @@ void Metalink::save(const QDomElement &element)
     }
 }
 
-Verifier *Metalink::verifier(const KUrl &file)
+Verifier *Metalink::verifier(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file))
     {
-        return 0;
+        return nullptr;
     }
 
     return m_dataSourceFactory[file]->verifier();
 }
 
-Signature *Metalink::signature(const KUrl &file)
+Signature *Metalink::signature(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file)) {
-        return 0;
+        return nullptr;
     }
 
     return m_dataSourceFactory[file]->signature();
 }
 
-QList<KUrl> Metalink::files() const
+QList<QUrl> Metalink::files() const
 {
     return m_dataSourceFactory.keys();
 }
@@ -662,12 +651,12 @@ FileModel *Metalink::fileModel()
     if (!m_fileModel)
     {
         m_fileModel = new FileModel(files(), directory(), this);
-        connect(m_fileModel, SIGNAL(rename(KUrl,KUrl)), this, SLOT(slotRename(KUrl,KUrl)));
+        connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
         connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
 
         foreach (DataSourceFactory *factory, m_dataSourceFactory)
         {
-            const KUrl dest = factory->dest();
+            const QUrl dest = factory->dest();
             QModelIndex size = m_fileModel->index(dest, FileItem::Size);
             m_fileModel->setData(size, static_cast<qlonglong>(factory->size()));
             QModelIndex status = m_fileModel->index(dest, FileItem::Status);
@@ -699,7 +688,7 @@ void Metalink::filesSelected()
     //and asks the user if there are existing files already
     foreach (const QModelIndex &index, files)
     {
-        const KUrl dest = fileModel()->getUrl(index);
+        const QUrl dest = fileModel()->getUrl(index);
         bool doDownload = index.data(Qt::CheckStateRole).toBool();
         if (m_dataSourceFactory.contains(dest))
         {
@@ -717,13 +706,13 @@ void Metalink::filesSelected()
                     doDownload = false;
                 //ask the user, unless he has choosen overwriteAll before
                 } else if (!overwriteAll) {
-                    KIO::RenameDialog dlg(0, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Mode(KIO::M_MULTI | KIO::M_OVERWRITE | KIO::M_SKIP));
+                    KIO::RenameDialog dlg(nullptr, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Mode(KIO::M_MULTI | KIO::M_OVERWRITE | KIO::M_SKIP));
                     const int result = dlg.exec();
 
                     if (result == KIO::R_RENAME) {
                         //no reason to use FileModel::rename() since the file does not exist yet, so simply skip it
                         //avoids having to deal with signals
-                        const KUrl newDest = dlg.newDestUrl();
+                        const QUrl newDest = dlg.newDestUrl();
                         factory->setDoDownload(doDownload);
                         factory->setNewDestination(newDest);
                         fileModel()->setData(index, newDest.fileName(), FileItem::File);
@@ -772,7 +761,7 @@ void Metalink::filesSelected()
     slotDataSourceFactoryChange(change);
 }
 
-void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
+void Metalink::slotRename(const QUrl &oldUrl, const QUrl &newUrl)
 {
     if (!m_dataSourceFactory.contains(oldUrl))
     {
@@ -786,7 +775,7 @@ void Metalink::slotRename(const KUrl &oldUrl, const KUrl &newUrl)
     setTransferChange(Tc_FileName);
 }
 
-bool Metalink::setDirectory(const KUrl &new_directory)
+bool Metalink::setDirectory(const QUrl &new_directory)
 {
     if (new_directory == directory())
     {
@@ -798,17 +787,17 @@ bool Metalink::setDirectory(const KUrl &new_directory)
         m_fileModel->setDirectory(new_directory);
     }
 
-    const QString oldDirectory = directory().pathOrUrl(KUrl::AddTrailingSlash);
-    const QString newDirectory = new_directory.pathOrUrl(KUrl::AddTrailingSlash);
+    const QString oldDirectory = directory().pathOrUrl(QUrl::AddTrailingSlash);
+    const QString newDirectory = new_directory.pathOrUrl(QUrl::AddTrailingSlash);
     const QString fileName = m_dest.fileName();
     m_dest = new_directory;
     m_dest.addPath(fileName);
 
-    QHash<KUrl, DataSourceFactory*> newStorage;
+    QHash<QUrl, DataSourceFactory*> newStorage;
     foreach (DataSourceFactory *factory, m_dataSourceFactory)
     {
-        const KUrl oldUrl = factory->dest();
-        const KUrl newUrl = KUrl(oldUrl.pathOrUrl().replace(oldDirectory, newDirectory));
+        const QUrl oldUrl = factory->dest();
+        const QUrl newUrl = QUrl(oldUrl.pathOrUrl().replace(oldDirectory, newDirectory));
         factory->setNewDestination(newUrl);
         newStorage[newUrl] = factory;
     }
@@ -818,9 +807,9 @@ bool Metalink::setDirectory(const KUrl &new_directory)
     return true;
 }
 
-QHash<KUrl, QPair<bool, int> > Metalink::availableMirrors(const KUrl &file) const
+QHash<QUrl, QPair<bool, int> > Metalink::availableMirrors(const QUrl &file) const
 {
-    QHash<KUrl, QPair<bool, int> > urls;
+    QHash<QUrl, QPair<bool, int> > urls;
 
     if (m_dataSourceFactory.contains(file))
     {
@@ -831,7 +820,7 @@ QHash<KUrl, QPair<bool, int> > Metalink::availableMirrors(const KUrl &file) cons
 }
 
 
-void Metalink::setAvailableMirrors(const KUrl &file, const QHash<KUrl, QPair<bool, int> > &mirrors)
+void Metalink::setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors)
 {
     if (!m_dataSourceFactory.contains(file))
     {
@@ -860,4 +849,4 @@ void Metalink::slotUpdateCapabilities()
     }
 }
 
-#include "metalink.moc"
+

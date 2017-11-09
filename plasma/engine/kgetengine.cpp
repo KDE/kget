@@ -19,7 +19,7 @@
 #include "kgetengine.h"
 #include "kget_interface.h"
 
-#include <QtDBus/QDBusConnectionInterface>
+#include <QDBusConnectionInterface>
 #include <KDebug>
 
 #include "plasma/datacontainer.h"
@@ -135,4 +135,4 @@ bool KGetEngine::isDBusServiceRegistered()
     return interface->isServiceRegistered(KGET_DBUS_SERVICE);
 }
 
-#include "kgetengine.moc"
+

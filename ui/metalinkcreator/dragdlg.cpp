@@ -23,17 +23,17 @@
 
 #include "core/verifier.h"
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QSortFilterProxyModel>
+#include <QCheckBox>
+#include <QSortFilterProxyModel>
+
+#include <KLocalizedString>
 
 DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent)
   : KGetSaveSizeDialog("DragDlg", parent),
     m_resources(resources),
     m_commonData(commonData)
 {
-    QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
-    setMainWidget(widget);
+    ui.setupUi(this);
 
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(m_resources, countrySort);
@@ -62,9 +62,11 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     uiData.language->setModel(languageSort);
     uiData.language->setCurrentIndex(-1);
 
-    connect(this, SIGNAL(accepted()), this, SLOT(slotFinished()));
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(this, &DragDlg::accepted, this, &DragDlg::slotFinished);
 
-    setCaption(i18n("Import dropped files"));
+    setWindowTitle(i18n("Import dropped files"));
 }
 
 void DragDlg::slotFinished()
@@ -83,7 +85,7 @@ void DragDlg::slotFinished()
     m_commonData->identity = uiData.identity->text();
     m_commonData->version = uiData.version->text();
     m_commonData->description = uiData.description->text();
-    m_commonData->logo = KUrl(uiData.logo->text());
+    m_commonData->logo = QUrl(uiData.logo->text());
     if (uiData.os->text().isEmpty()) {
         m_commonData->oses.clear();
     } else {
@@ -91,10 +93,10 @@ void DragDlg::slotFinished()
     }
     m_commonData->copyright = uiData.copyright->text();
     m_commonData->publisher.name = uiData.pub_name->text();
-    m_commonData->publisher.url = KUrl(uiData.pub_url->text());
+    m_commonData->publisher.url = QUrl(uiData.pub_url->text());
     m_commonData->languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
     emit usedTypes(used, ui.partialChecksums->isChecked());
 }
 
-#include "dragdlg.moc"
+

@@ -15,15 +15,14 @@
 
 #include <QStandardItemModel>
 #include <QList>
-#include <QtCore/QMimeData>
-#include <QtCore/QWeakPointer>
+#include <QMimeData>
+#include <QWeakPointer>
+#include <QUrl>
 
-#include "../kget_export.h"
+#include "kget_export.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
 #include "core/handler.h"
-
-class KUrl;
 
 class TransferGroupHandler;
 class TransferGroup;
@@ -86,7 +85,7 @@ class KGET_EXPORT TransferModelItem : public ModelItem
 
     private:
         TransferHandler * m_transferHandler;
-        mutable KIcon m_mimeType;
+        mutable QIcon m_mimeType;
 };
 
 class KGET_EXPORT GroupModelItem : public ModelItem
@@ -138,14 +137,14 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
 
         ModelItem * itemFromIndex(const QModelIndex &index) const;
 
-        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after = 0);
-        void moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after = 0);
+        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after = nullptr);
+        void moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after = nullptr);
 
         QList<TransferGroup *> transferGroups();
 
         TransferGroup * findGroup(const QString & groupName);
-        Transfer * findTransfer(const KUrl &src);
-        Transfer * findTransferByDestination(const KUrl &dest);
+        Transfer * findTransfer(const QUrl &src);
+        Transfer * findTransferByDestination(const QUrl &dest);
         Transfer * findTransferByDBusObjectPath(const QString & dbusObjectPath);
 
         void postDataChangedEvent(TransferHandler * transfer);

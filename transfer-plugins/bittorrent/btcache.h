@@ -73,7 +73,7 @@ class BTCache : public QObject, public bt::Cache
          * @param ndir The directory
          * @return The job doing the move
          */
-        virtual KJob* moveDataFiles(const QString & ndir) {return 0;}
+        virtual KJob* moveDataFiles(const QString & ndir) {return nullptr;}
         
         /**
          * A move of a bunch of data files has finished
@@ -136,9 +136,9 @@ class BTCache : public QObject, public bt::Cache
          * Delete all data files, in case of multi file torrents
          * empty directories should also be deleted.
          */
-        virtual KJob* deleteDataFiles() {return 0;}//TODO: Implement!!!
-        virtual bt::PieceData* loadPiece(bt::Chunk*, bt::Uint32, bt::Uint32) {return 0;}
-        virtual bt::PieceData* preparePiece(bt::Chunk*, bt::Uint32, bt::Uint32) {return 0;}
+        virtual KJob* deleteDataFiles() {return nullptr;}//TODO: Implement!!!
+        virtual bt::PieceData* loadPiece(bt::Chunk*, bt::Uint32, bt::Uint32) {return nullptr;}
+        virtual bt::PieceData* preparePiece(bt::Chunk*, bt::Uint32, bt::Uint32) {return nullptr;}
         virtual void savePiece(bt::PieceData*) {}
         
         /**

@@ -22,8 +22,8 @@
 
 #include <QHeaderView>
 #include <klocale.h>
-#include <kicon.h>
-#include <kmenu.h>
+#include <QIcon>
+#include <QMenu>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 #include <interfaces/peerinterface.h>
@@ -48,9 +48,9 @@ namespace kt
 		model = new PeerViewModel(this);
 		setModel(model);
 		
-		context_menu = new KMenu(this);
-		context_menu->addAction(KIcon("list-remove-user"),i18n("Kick Peer"),this,SLOT(kickPeer()));
-		context_menu->addAction(KIcon("view-filter"),i18n("Ban Peer"),this,SLOT(banPeer()));
+		context_menu = new QMenu(this);
+		context_menu->addAction(QIcon::fromTheme("list-remove-user"),i18n("Kick Peer"),this,SLOT(kickPeer()));
+		context_menu->addAction(QIcon::fromTheme("view-filter"),i18n("Ban Peer"),this,SLOT(banPeer()));
 		connect(this,SIGNAL(customContextMenuRequested(QPoint)),
 				this,SLOT(showContextMenu(QPoint)));
 	}
@@ -135,4 +135,4 @@ namespace kt
 	}
 }
 
-#include "peerview.moc"
+

@@ -1,7 +1,7 @@
 # KDE Config File
 [Desktop Entry]
 Type=Application
-Exec=kget -caption %c %i %U
+Exec=kget -qwindowtitle %c %i %U
 Icon=kget
 Terminal=false
 MimeType=@SUPPORTED_KGET_MIMETYPES@
@@ -160,3 +160,4 @@ GenericName[zh_TW]=下載管理員
 Categories=Qt;KDE;Network;FileTransfer;
 X-DBUS-ServiceType=Unique
 X-DocPath=kget/index.html
+X-DBUS-ServiceName=org.kde.kget

@@ -39,7 +39,7 @@ class DragDlg : public KGetSaveSizeDialog
     Q_OBJECT
 
     public:
-        DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent = 0);
+        DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent = nullptr);
 
     signals:
         /**

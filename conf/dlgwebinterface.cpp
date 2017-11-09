@@ -13,18 +13,19 @@
 #include "settings.h"
 
 #include <KMessageBox>
+#include <KLocalizedString>
 #include <kwallet.h>
 
-DlgWebinterface::DlgWebinterface(KDialog *parent)
+DlgWebinterface::DlgWebinterface(QDialog *parent)
     : QWidget(parent),
-      m_wallet(0)
+      m_wallet(nullptr)
 {
     setupUi(this);
 
     readConfig();
     
     connect(parent, SIGNAL(accepted()), SLOT(saveSettings()));
-    connect(webinterfacePwd, SIGNAL(textChanged(QString)), SIGNAL(changed()));
+    connect(webinterfacePwd, &KLineEdit::textChanged, this, &DlgWebinterface::changed);
 }
 
 DlgWebinterface::~DlgWebinterface()
@@ -39,9 +40,9 @@ void DlgWebinterface::readConfig()
                                                winId(),///Use MainWindow?
                                                KWallet::Wallet::Asynchronous);
         if (m_wallet) {
-            connect(m_wallet, SIGNAL(walletOpened(bool)), SLOT(walletOpened(bool)));
+            connect(m_wallet, &KWallet::Wallet::walletOpened, this, &DlgWebinterface::walletOpened);
         } else {
-            KMessageBox::error(0, i18n("Could not open KWallet"));
+            KMessageBox::error(nullptr, i18n("Could not open KWallet"));
         }
     }
 }
@@ -56,7 +57,7 @@ void DlgWebinterface::walletOpened(bool opened)
         m_wallet->readPassword("Webinterface", pwd);
         webinterfacePwd->setText(pwd);
     } else {
-        KMessageBox::error(0, i18n("Could not open KWallet"));
+        KMessageBox::error(nullptr, i18n("Could not open KWallet"));
     }
 }
 
@@ -68,4 +69,4 @@ void DlgWebinterface::saveSettings()
     emit saved();
 }
 
-#include "dlgwebinterface.moc"
+

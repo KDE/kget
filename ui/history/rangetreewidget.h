@@ -30,7 +30,7 @@ class RangeDelegate;
 class RangeSortFilterProxyModel : public QSortFilterProxyModel
 {
 public:
-    RangeSortFilterProxyModel(QObject *parent = 0);
+    RangeSortFilterProxyModel(QObject *parent = nullptr);
     ~RangeSortFilterProxyModel();
 
 protected:
@@ -42,7 +42,7 @@ class RangeTreeWidget : public QTreeView
 Q_OBJECT
 public:
 
-    RangeTreeWidget(QWidget *parent = 0);
+    RangeTreeWidget(QWidget *parent = nullptr);
     ~RangeTreeWidget();
 
     /**
@@ -98,7 +98,7 @@ class RangeDelegate : public QObject
 {
 Q_OBJECT
     public:
-        RangeDelegate(QObject *parent = 0);
+        RangeDelegate(QObject *parent = nullptr);
         ~RangeDelegate();
 
         /**
@@ -114,7 +114,7 @@ class HostRangeDelegate : public RangeDelegate
 {
 Q_OBJECT
     public:
-        HostRangeDelegate(QObject *parent = 0);
+        HostRangeDelegate(QObject *parent = nullptr);
         ~HostRangeDelegate();
 
         QVariant getRangeData(const QVariant &data);

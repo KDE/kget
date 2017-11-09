@@ -12,10 +12,11 @@
 #include "transferhandler.h"
 #include "kget.h"
 
-#include <klocale.h>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <KLocalizedString>
 #include <kuiserverjobtracker.h>
 
-#include <QTimer>
 
 KGetGlobalJob::KGetGlobalJob(QObject *parent)
     : KJob(parent)
@@ -45,7 +46,7 @@ void KGetGlobalJob::update()
         }
     }
   
-//     kDebug(5001) << totalAmount;
+//     qCDebug(KGET_DEBUG) << totalAmount;
   
     if (totalAmount > 0) 
         percent = 100 * processedAmount / totalAmount;
@@ -64,8 +65,8 @@ void KGetGlobalJob::update()
 
 bool KGetGlobalJob::doKill()
 {
-    kDebug(5001) << "Kill of global job called:" << this;
-    emit requestStop(this, 0);
+    qCDebug(KGET_DEBUG) << "Kill of global job called:" << this;
+    emit requestStop(this, nullptr);
     return KJob::doKill();
 }
 

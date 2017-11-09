@@ -20,8 +20,10 @@
 #include "pluginselector.h"
 #include "verificationpreferences.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <ktabwidget.h>
+#include <kconfigdialog.h>
+#include <kconfigskeleton.h>
 
 PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
     : KConfigDialog(parent, "preferences", skeleton)
@@ -29,16 +31,16 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     QWidget *appearance = new QWidget(this);
     TransfersGroupWidget *groups = new TransfersGroupWidget(this);
     DlgWebinterface *webinterface = new DlgWebinterface(this);
-    connect(webinterface, SIGNAL(changed()), SLOT(enableApplyButton()));
-    connect(webinterface, SIGNAL(saved()), SLOT(settingsChangedSlot()));
+    connect(webinterface, &DlgWebinterface::changed, this, &PreferencesDialog::enableApplyButton);
+    connect(webinterface, &DlgWebinterface::saved, this, &PreferencesDialog::settingsChangedSlot);
     QWidget *network = new QWidget(this);
     QWidget *advanced = new QWidget(this);
     IntegrationPreferences *integration = new IntegrationPreferences(this);
-    connect(integration, SIGNAL(changed()), SLOT(enableApplyButton()));
+    connect(integration, &IntegrationPreferences::changed, this, &PreferencesDialog::enableApplyButton);
     VerificationPreferences *verification = new VerificationPreferences(this);
-    connect(verification, SIGNAL(changed()), SLOT(enableApplyButton()));
+    connect(verification, &VerificationPreferences::changed, this, &PreferencesDialog::enableApplyButton);
     PluginSelector * pluginSelector = new PluginSelector(this);
-    connect(pluginSelector, SIGNAL(changed(bool)), SLOT(enableApplyButton()));
+    connect(pluginSelector, &PluginSelector::changed, this, &PreferencesDialog::enableApplyButton);
 
     Ui::DlgAppearance dlgApp;
     Ui::DlgNetwork dlgNet;
@@ -52,9 +54,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 #ifdef HAVE_SQLITE
     dlgAdv.kcfg_HistoryBackend->addItem(i18n("Sqlite"), QVariant(TransferHistoryStore::SQLite));
 #endif
-#ifdef HAVE_NEPOMUK
-    dlgAdv.kcfg_HistoryBackend->addItem(i18n("Nepomuk"), QVariant(TransferHistoryStore::Nepomuk));
-#endif
 
 #ifdef HAVE_KWORKSPACE
     dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Turn Off Computer"), QVariant(KGet::Shutdown));
@@ -64,8 +63,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 
     // enable or disable the AfterFinishAction depends on the AfterFinishActionEnabled checkbox state
     dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState () == Qt::Checked);
-    connect(dlgAdv.kcfg_AfterFinishActionEnabled, SIGNAL(stateChanged(int)),
-                                                  SLOT(slotToggleAfterFinishAction(int)));
+    connect(dlgAdv.kcfg_AfterFinishActionEnabled, &QCheckBox::stateChanged, this, &PreferencesDialog::slotToggleAfterFinishAction);
 
     // TODO: remove the following lines as soon as these features are ready
     dlgNet.lb_per_transfer->setVisible(false);
@@ -80,21 +78,29 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(pluginSelector, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugins"));
 
-    connect(this, SIGNAL(accepted()), SLOT(disableApplyButton()));
-    connect(this, SIGNAL(rejected()), SLOT(disableApplyButton()));
+    connect(this, &PreferencesDialog::accepted, this, &PreferencesDialog::disableApplyButton);
+    connect(this, &PreferencesDialog::rejected, this, &PreferencesDialog::disableApplyButton);
 }
 
 void PreferencesDialog::disableApplyButton()
 {
-    enableButtonApply(false);
+    button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
 void PreferencesDialog::enableApplyButton()
 {
-    enableButtonApply(true);
+    button(QDialogButtonBox::Apply)->setEnabled(true);
 }
 
 void PreferencesDialog::slotToggleAfterFinishAction(int state)
 {
     dlgAdv.kcfg_AfterFinishAction->setEnabled(state == Qt::Checked);
 }
+
+void PreferencesDialog::updateWidgetsDefault()
+{
+    emit resetDefaults();
+    KConfigDialog::updateWidgetsDefault();
+}
+
+

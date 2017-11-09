@@ -30,7 +30,7 @@ namespace kt
 {
 
 	WebSeedsModel::WebSeedsModel(QObject* parent)
-			: QAbstractTableModel(parent),curr_tc(0)
+			: QAbstractTableModel(parent),curr_tc(nullptr)
 	{
 	}
 
@@ -142,7 +142,7 @@ namespace kt
 			const bt::WebSeedInterface* ws = curr_tc->getWebSeed(index.row());
 			switch (index.column())
 			{
-				case 0: return ws->getUrl().prettyUrl();
+				case 0: return ws->getUrl().toDisplayString();
 				case 1: return bt::BytesPerSecToString(ws->getDownloadRate());
 				case 2: return bt::BytesToString(ws->getTotalDownloaded());
 				case 3: return ws->getStatus();

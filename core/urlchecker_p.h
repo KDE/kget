@@ -20,19 +20,33 @@
 #ifndef URL_CHECKER_P_H
 #define URL_CHECKER_P_H
 
-#include <KDialog>
+#include <QDialog>
 
 class QCheckBox;
 
 /**
  * Asks if existing transfers should be overwritten
  */
-class ExistingTransferDialog : public KDialog
+class ExistingTransferDialog : public QDialog
 {
     Q_OBJECT
 
     public:
-        ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent = 0);
+        ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent = nullptr);
+        
+        enum ExistingDialogReturn {
+            Cancel = 0,
+
+            //old stuff is overwritten/deleted
+            Yes,
+            YesAll,
+
+            //new stuff is not used
+            No,
+            NoAll
+        };
+        
+        ExistingDialogReturn result();
 
     private slots:
         void slotYesClicked();
@@ -41,6 +55,7 @@ class ExistingTransferDialog : public KDialog
 
     private:
         QCheckBox *m_applyAll;
+        ExistingDialogReturn m_result;
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include "../settings.h"
 #include "../core/verifier.h"
 
-#include <QtTest/QtTest>
+#include <QtTest>
 
 #include <KDebug>
 #include <KStandardDirs>
@@ -28,7 +28,7 @@ VerfierTest::VerfierTest(QObject *parent)
      path.append("test.txt");
      QFile file(path);
      if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-         kError(5001) << "Creating file failed:" << path;
+         qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
          abort();
      }
      m_file = KUrl(path);
@@ -37,12 +37,12 @@ VerfierTest::VerfierTest(QObject *parent)
     const qint64 size = data.size();
     for (int i = 0; i < 50000; ++i) {
         if (file.write(data) != size) {
-            kError(5001) << "Creating file failed:" << path;
+            qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
             abort();
         }
     }
 
-    kDebug(5001) << "Supported types:" << m_supported;
+    qCDebug(KGET_DEBUG) << "Supported types:" << m_supported;
 
     //Otherwise testVerify fails
     qRegisterMetaType<KUrl>("KUrl");
@@ -57,7 +57,7 @@ void VerfierTest::testChecksum()
         return;
     }
 
-    QCOMPARE(Verifier::checksum(m_file, type, 0), checksum);
+    QCOMPARE(Verifier::checksum(m_file, type, nullptr), checksum);
 }
 
 void VerfierTest::testChecksum_data()
@@ -79,7 +79,7 @@ void VerfierTest::testPartialChecksums()
     QFETCH(QStringList, checksums);
     QFETCH(bool, result);
 
-    const PartialChecksums partial = Verifier::partialChecksums(m_file, type, length, 0);
+    const PartialChecksums partial = Verifier::partialChecksums(m_file, type, length, nullptr);
     QCOMPARE((partial.checksums() == checksums), result);
 }
 
@@ -351,4 +351,4 @@ void VerfierTest::testBrokenPieces_data()
 
 QTEST_MAIN(VerfierTest)
 
-#include "verifiertest.moc"
+

@@ -10,7 +10,9 @@
 */
 #include "kgetkjobadapter.h"
 
-#include <KLocale>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include <KLocalizedString>
 
 KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)
   : KJob(parent),
@@ -43,8 +45,8 @@ unsigned long KGetKJobAdapter::percent() const
 void KGetKJobAdapter::slotUpdateDescription()
 {
     emit description(this, i18n("KGet Transfer"), 
-                    qMakePair(QString("source"), m_transferHandler->source().prettyUrl()),
-                    qMakePair(QString("destination"), m_transferHandler->dest().prettyUrl()));
+                    qMakePair(QString("source"), m_transferHandler->source().toString()),
+                    qMakePair(QString("destination"), m_transferHandler->dest().toString()));
 
     emitSpeed(m_transferHandler->downloadSpeed());
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes));
@@ -54,7 +56,7 @@ void KGetKJobAdapter::slotUpdateDescription()
 
 bool KGetKJobAdapter::doKill()
 {
-    kDebug(5001) << "Kill of job adapter called:" << this << m_transferHandler->dest();
+    qCDebug(KGET_DEBUG) << "Kill of job adapter called:" << this << m_transferHandler->dest();
     emit requestStop(this, m_transferHandler);
     return KJob::doKill();
 }

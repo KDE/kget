@@ -12,7 +12,7 @@
 #define KIO_FACTORY_H
 
 #include "core/plugin/transferfactory.h"
-
+#include "kget_macro.h"
 class Transfer;
 class TransferGroup;
 class Scheduler;
@@ -24,13 +24,14 @@ class TransferKioFactory : public TransferFactory
         TransferKioFactory(QObject *parent, const QVariantList &args);
         ~TransferKioFactory();
 
-        Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+    public slots:
+        virtual Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
+                                   const QDomElement * e = nullptr );
 
-        QString displayName(){return "HTTP(s) / FTP(s)";}
+        virtual QString displayName() const {return "HTTP(s) / FTP(s)";}
         
-        bool isSupported(const KUrl &url) const;
+        virtual bool isSupported(const QUrl &url) const;
         QStringList addsProtocols() const;
 };
 

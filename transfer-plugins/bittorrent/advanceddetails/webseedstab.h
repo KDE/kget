@@ -23,6 +23,7 @@
 
 #include <QWidget>
 #include <QSortFilterProxyModel>
+#include <KSharedConfig>
 #include "ui_webseedstab.h"
 
 namespace bt

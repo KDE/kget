@@ -23,20 +23,20 @@
 #include <kactioncollection.h>
 #include <KNotification>
 #include <ktabwidget.h>
+#include <klocalizedstring.h>
+#include <KPluginInfo>
 
-#include <Solid/Networking>
-#include <QtXml/QDomElement>
+#include <QNetworkConfigurationManager>
+#include <QDomElement>
 
 #include "kuiserverjobs.h"
 #include "scheduler.h"
-#include "../kget_export.h"
+#include "kget_export.h"
 #include "transfer.h"
 #include "transfergrouphandler.h"
 
 class QDomElement;
-class QAbstractItemView;
 
-class KComboBox;
 
 class TransferDataSource;
 class TransferGroup;
@@ -49,10 +49,6 @@ class MainWindow;
 class NewTransferDialog;
 class TransferGroupScheduler;
 class TransferHistoryStore;
-
-#ifdef HAVE_NEPOMUK
-class NepomukController;
-#endif
 
 /**
  * This is our KGet class. This is where the user's transfers and searches are
@@ -84,7 +80,7 @@ class KGET_EXPORT KGet
         };
         ~KGet();
 
-        static KGet* self( MainWindow * mainWindow=0 );
+        static KGet* self( MainWindow * mainWindow = nullptr );
 
         /**
          * Adds a new group to the KGet.
@@ -135,7 +131,7 @@ class KGET_EXPORT KGet
          * @param start Specifies if the newly added transfers should be started.
          * If the group queue is already in a running state, this flag does nothing
          */
-        static TransferHandler * addTransfer(KUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
+        static TransferHandler * addTransfer(QUrl srcUrl, QString destDir = QString(), QString suggestedFileName = QString(),
                                              QString groupName = QString(), bool start = false);
 
         /**
@@ -157,7 +153,7 @@ class KGET_EXPORT KGet
          * @param start Specifies if the newly added transfers should be started.
          * If the group queue is already in a running state, this flag does nothing
          */
-        static const QList<TransferHandler *> addTransfer(KUrl::List srcUrls, QString destDir = QString(),
+        static const QList<TransferHandler *> addTransfer(QList<QUrl> srcUrls, QString destDir = QString(),
                                                           QString groupName = QString(), bool start=false);
 
         /**
@@ -235,6 +231,11 @@ class KGET_EXPORT KGet
         static QList<TransferFactory*> factories();
 
         /**
+         * @returns a list of pluginInfos associated with all transferFactories
+         */
+        static KPluginInfo::List pluginInfos();
+
+        /**
          * @returns The factory of a given transfer
          *
          * @param transfer the transfer about which we want to have the factory
@@ -279,7 +280,7 @@ class KGET_EXPORT KGet
          * Get the transfer with the given url
          * @param src the url
          */
-        static TransferHandler * findTransfer(const KUrl &src);
+        static TransferHandler * findTransfer(const QUrl &src);
         
         /**
          * Get the group with the given name
@@ -301,12 +302,12 @@ class KGET_EXPORT KGet
          /**
           * @return a list of the groups assigned to the filename of a transfer
           */
-        static QList<TransferGroupHandler*> groupsFromExceptions(const KUrl &filename);
+        static QList<TransferGroupHandler*> groupsFromExceptions(const QUrl &filename);
 
         /**
          * Returns true if sourceUrl matches any of the patterns
          */
-        static bool matchesExceptions(const KUrl &sourceUrl, const QStringList &patterns);
+        static bool matchesExceptions(const QUrl &sourceUrl, const QStringList &patterns);
 
         /**
          * Scans for all the available plugins and creates the proper
@@ -317,7 +318,7 @@ class KGET_EXPORT KGet
          * this is only needed when creating a "special" TransferDataSource like the search for Urls
          * you can set additional information and the TransferDataSource will use it if it can
          */
-        static TransferDataSource * createTransferDataSource(const KUrl &src, const QDomElement &type = QDomElement(), QObject *parent = 0);
+        static TransferDataSource * createTransferDataSource(const QUrl &src, const QDomElement &type = QDomElement(), QObject *parent = nullptr);
 
         /**
          * Sets the global download limit
@@ -370,10 +371,6 @@ class KGET_EXPORT KGet
          */
         static QString generalDestDir(bool preferXDGDownloadDir = false);
 
-#ifdef HAVE_NEPOMUK
-        static NepomukController *nepomukController();
-#endif
-
     private:
         KGet();
 
@@ -388,24 +385,24 @@ class KGET_EXPORT KGet
          * @param groupName the group name
          * @param start Specifies if the newly added transfers should be started.
          */
-        static TransferHandler * createTransfer(const KUrl &src, const KUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
+        static TransferHandler * createTransfer(const QUrl &src, const QUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = nullptr);
 
         /**
          * Creates multiple transfers with transferData
          */
         static QList<TransferHandler*> createTransfers(const QList<TransferData> &transferData);
 
-        static KUrl urlInputDialog();
+        static QUrl urlInputDialog();
         static QString destDirInputDialog();
-        static KUrl destFileInputDialog(QString destDir = QString(), const QString& suggestedFileName = QString());
+        static QUrl destFileInputDialog(QString destDir = QString(), const QString& suggestedFileName = QString());
 
-        static bool isValidSource(const KUrl &source);
+        static bool isValidSource(const QUrl &source);
         static bool isValidDestDirectory(const QString& destDir);
 
-        static KUrl getValidDestUrl(const KUrl& destDir, const KUrl &srcUrl);
+        static QUrl getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl);
 
         //Plugin-related functions
-        static KGetPlugin * createPluginFromService( const KService::Ptr &service );
+        static KGetPlugin* loadPlugin(const KPluginMetaData& md);
 
         /**
          * Stops all downloads if there is no connection and also displays
@@ -423,13 +420,14 @@ class KGET_EXPORT KGet
          * is a directory or if it is not local it returns false and shows a
          * warning message.
          */
-        static bool safeDeleteFile( const KUrl& url );
+        static bool safeDeleteFile( const QUrl& url );
 
         //Interview models
         static TransferTreeModel * m_transferTreeModel;
         static TransferTreeSelectionModel * m_selectionModel;
 
         //Lists of available plugins
+        static KPluginInfo::List m_pluginInfoList;
         static QList<TransferFactory *> m_transferFactories;
 
         //pointer to the Main window
@@ -446,18 +444,15 @@ class KGET_EXPORT KGet
 
         static bool m_hasConnection;
 
-#ifdef HAVE_NEPOMUK
-        static NepomukController *m_nepomukController;
-#endif
 };
 
 class KGET_EXPORT KGet::TransferData
 {
     public:
-        TransferData(const KUrl &src, const KUrl &dest, const QString &groupName = QString(), bool start = false, const QDomElement *e = 0);
+        TransferData(const QUrl &src, const QUrl &dest, const QString &groupName = QString(), bool start = false, const QDomElement *e = nullptr);
 
-        KUrl src;
-        KUrl dest;
+        QUrl src;
+        QUrl dest;
         QString groupName;
         bool start;
         const QDomElement *e;
@@ -467,7 +462,7 @@ class GenericObserver : public QObject
 {
     Q_OBJECT
     public:
-        GenericObserver(QObject *parent = 0);
+        GenericObserver(QObject *parent = nullptr);
         virtual ~GenericObserver ();
 
     public slots:
@@ -485,7 +480,7 @@ class GenericObserver : public QObject
         void slotAbortAfterFinishAction();
         void slotResolveTransferError();
         void slotNotificationClosed();
-        void slotNetworkStatusChanged(const Solid::Networking::Status &status);
+        void slotNetworkStatusChanged(bool online);
 
     private:
         bool allTransfersFinished();
@@ -496,5 +491,6 @@ class GenericObserver : public QObject
         QTimer *m_save;
         QTimer *m_finishAction;
         QHash<KNotification*, TransferHandler*> m_notifications;
+        QNetworkConfigurationManager m_networkConfig;
 };
 #endif

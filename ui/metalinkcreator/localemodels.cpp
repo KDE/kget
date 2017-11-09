@@ -19,7 +19,6 @@
 
 #include "localemodels.h"
 
-#include <KGlobal>
 #include <KLocale>
 #include <KStandardDirs>
 
@@ -65,7 +64,7 @@ void CountryModel::setupModelData(const QStringList &countryCodes)
 {
     foreach (const QString &countryCode, countryCodes)
     {
-        const QString countryName = KGlobal::locale()->countryCodeToName(countryCode);
+        const QString countryName = KLocale::global()->countryCodeToName(countryCode);
         if (!countryName.isEmpty())
         {
             m_countryCodes.append(countryCode);
@@ -74,11 +73,11 @@ void CountryModel::setupModelData(const QStringList &countryCodes)
             QString path = KStandardDirs::locate("locale", QString::fromLatin1("l10n/%1/flag.png").arg(countryCode));
             if (path.isEmpty())
             {
-                m_countryIcons.append(KIcon());
+                m_countryIcons.append(QIcon());
             }
             else
             {
-                m_countryIcons.append(KIcon(path));
+                m_countryIcons.append(QIcon::fromTheme(path));
             }
         }
     }
@@ -129,7 +128,7 @@ void LanguageModel::setupModelData(const QStringList &languageCodes)
             continue;
         }
 
-        QString languageName = KGlobal::locale()->languageCodeToName(languageCode);
+        QString languageName = KLocale::global()->languageCodeToName(languageCode);
         if (!languageName.isEmpty())
         {
             m_languageCodes.append(languageCode);
@@ -139,4 +138,4 @@ void LanguageModel::setupModelData(const QStringList &languageCodes)
     reset();
 }
 
-#include "localemodels.moc"
+

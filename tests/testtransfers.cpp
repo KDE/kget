@@ -14,6 +14,7 @@
 #include "core/transferhandler.h"
 #include "core/kget.h"
 
+#include "kget_debug.h"
 #include "kget_interface.h"
 #include "transfer_interface.h"
 #include "verifier_interface.h"
@@ -35,8 +36,8 @@ Commands::Commands(const QString &source, QObject *parent)
   : QObject(parent),
     m_timerId(-1),
     m_source(source),
-    m_transfer(0),
-    m_verifier(0)
+    m_transfer(nullptr),
+    m_verifier(nullptr)
 {
     static int instance = 0;
     if (!instance++) {
@@ -81,7 +82,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
         const QString typeString = elem.attribute("type").toLower();
 
         if (!s_stringCommands.contains(typeString)) {
-            kDebug(5001) << "Error while parsing, type" << typeString << "not supported.";
+            qCDebug(KGET_DEBUG) << "Error while parsing, type" << typeString << "not supported.";
             QWARN("Problem while parsing.");
             return commands;
         }
@@ -110,7 +111,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                         break;
                     }
                 }
-                kDebug(5001) << "Parsing IsVerifyable/Verified/Repair failed.";
+                qCDebug(KGET_DEBUG) << "Parsing IsVerifyable/Verified/Repair failed.";
                 QWARN("Problem while parsing.");
                 break;
             case AddChecksum:
@@ -118,7 +119,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                     data = args;
                     commands.append(QPair<int, QVariant>(type, data));
                 } else {
-                    kDebug(5001) << "Parsing setHash failed.";
+                    qCDebug(KGET_DEBUG) << "Parsing setHash failed.";
                     QWARN("Problem while parsing.");
                 }
                 break;
@@ -138,7 +139,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                         break;
                     }
                 }
-                kDebug(5001) << "Parsing AddPartialChecksums failed.";
+                qCDebug(KGET_DEBUG) << "Parsing AddPartialChecksums failed.";
                 QWARN("Problem while parsing.");
                 break;
             }
@@ -157,7 +158,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                     commands.append(QPair<int, QVariant>(type, data));
                     break;
                 }
-                kDebug(5001) << "Parsing BrokenPieces failed.";
+                qCDebug(KGET_DEBUG) << "Parsing BrokenPieces failed.";
                 QWARN("Problem while parsing.");
                 break;
             }
@@ -184,7 +185,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                         }
                     }
                 }
-                kDebug(5001) << "Parsing RandomAction failed.";
+                qCDebug(KGET_DEBUG) << "Parsing RandomAction failed.";
                 QWARN("Problem while parsing.");
                 break;
             }
@@ -204,7 +205,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                         break;
                     }
                 }
-                kDebug(5001) << "Parsing SetDirectory failed.";
+                qCDebug(KGET_DEBUG) << "Parsing SetDirectory failed.";
                 QWARN("Problem while parsing.");
                 break;
             case Wait:
@@ -216,7 +217,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                         break;
                     }
                 }
-                kDebug(5001) << "Parsing Wait failed.";
+                qCDebug(KGET_DEBUG) << "Parsing Wait failed.";
                 QWARN("Problem while parsing.");
                 break;
             case ChangedEvent:
@@ -242,7 +243,7 @@ QList<QPair<int, QVariant> > Commands::parseCommands(const QDomElement& e, TestT
                         }
                     }
                 }
-                kDebug(5001) << "Parsing ChangedEvent failed" << args;
+                qCDebug(KGET_DEBUG) << "Parsing ChangedEvent failed" << args;
                 QWARN("Problem while parsing.");
                 break;
             default:
@@ -262,15 +263,15 @@ QString Commands::source() const
 void Commands::associateTransfer(OrgKdeKgetTransferInterface *transfer)
 {
     if (m_transfer) {
-        disconnect(m_transfer, 0, this, 0);
+        disconnect(m_transfer, nullptr, this, nullptr);
     }
     if (m_verifier) {
-        disconnect(m_verifier, 0, this, 0);
+        disconnect(m_verifier, nullptr, this, nullptr);
         delete m_verifier;
     }
 
     m_transfer = transfer;
-    kDebug(5001) << this << "associated with" << m_transfer << m_source;
+    qCDebug(KGET_DEBUG) << this << "associated with" << m_transfer << m_source;
 
     QDBusPendingReply<QString> reply = m_transfer->dest();
     const QString dest = reply.value();
@@ -300,10 +301,10 @@ void Commands::timerEvent(QTimerEvent *event)
     const int value = qrand() % 10;
     //70% of the cases start, in 30% stop
     if (value > 2) {
-        kDebug(5001) << this << "is randomly started.";
+        qCDebug(KGET_DEBUG) << this << "is randomly started.";
         m_transfer->start();
     } else {
-        kDebug(5001) << this << "is randomly stopped";
+        qCDebug(KGET_DEBUG) << this << "is randomly stopped";
         m_transfer->stop();
     }
 }
@@ -337,21 +338,21 @@ void Commands::executeCommands()
         switch (type) {
             case Start:
                 m_transfer->start();
-                kDebug(5001) << this << "is started.";
+                qCDebug(KGET_DEBUG) << this << "is started.";
                 break;
             case Stop:
                 m_transfer->stop();
-                kDebug(5001) << this << "is stopped.";
+                qCDebug(KGET_DEBUG) << this << "is stopped.";
                 break;
             case AddChecksum: {
                 QStringList hash = command.toStringList();
-                kDebug(5001) << this << "adding hash" << hash;
+                qCDebug(KGET_DEBUG) << this << "adding hash" << hash;
                 QDBusPendingReply<void> reply = m_verifier->addChecksum(hash.takeFirst(), hash.takeLast());
                 break;
             }
             case AddPartialChecksums: {
                 QList<QVariant> list = command.toList();
-                kDebug(5001) << this << "adding partial hash" << list;
+                qCDebug(KGET_DEBUG) << this << "adding partial hash" << list;
                 const QString type = list.takeFirst().toString();
                 const qulonglong length = list.takeFirst().toULongLong();
                 QStringList checksums;
@@ -364,17 +365,17 @@ void Commands::executeCommands()
             case IsVerifyable: {
                 const bool shouldWork = command.toBool();
                 QDBusPendingReply<bool> reply = m_verifier->isVerifyable();
-                kDebug(5001) << this << "isVerifyable" << reply.value();
+                qCDebug(KGET_DEBUG) << this << "isVerifyable" << reply.value();
                 QVERIFY(reply.value() == shouldWork);
                 break;
             }
             case Verify: {
-                kDebug(5001) << this << "verification started.";
+                qCDebug(KGET_DEBUG) << this << "verification started.";
                 m_verifier->verify();
                 break;
             }
             case FindBrokenPieces:
-                kDebug(5001) << this << "find broken pieces.";
+                qCDebug(KGET_DEBUG) << this << "find broken pieces.";
                 m_verifier->brokenPieces();
                 break;
             case Repair: {
@@ -383,7 +384,7 @@ void Commands::executeCommands()
                 QDBusPendingReply<bool> reply = m_transfer->repair(dest.value());
 
                 const bool isRepairable = reply.value();
-                kDebug(5001) << this << "repair started" << isRepairable;
+                qCDebug(KGET_DEBUG) << this << "repair started" << isRepairable;
                 QVERIFY(isRepairable == shouldWork);
                 break;
             }
@@ -394,13 +395,13 @@ void Commands::executeCommands()
                 QDBusPendingReply<bool> reply = m_transfer->setDirectory(newDirectory);
 
                 const bool moveStarted = reply.value();
-                kDebug(5001) << this << "set changing directory started" << moveStarted;
+                qCDebug(KGET_DEBUG) << this << "set changing directory started" << moveStarted;
                 QVERIFY(moveStarted == shouldWork);
                 break;
             }
             case Wait: {
                 const int time = command.toInt();
-                kDebug(5001) << this << "waiting for" << time << "msecs" << m_transfer;
+                qCDebug(KGET_DEBUG) << this << "waiting for" << time << "msecs" << m_transfer;
                 QTimer::singleShot(time, this, SLOT(slotWaitEvent()));
                 return;
                 break;
@@ -410,15 +411,15 @@ void Commands::executeCommands()
                 const bool turnOn = commands.takeFirst().toBool();
                 if (m_timerId == -1) {
                     if (turnOn) {
-                        kDebug(5001) << this << "starting random timer.";
+                        qCDebug(KGET_DEBUG) << this << "starting random timer.";
                         m_timerId = startTimer(commands.takeFirst().toInt());
                     }
                 } else {
-                    kDebug(5001) << this << "killing random timer.";
+                    qCDebug(KGET_DEBUG) << this << "killing random timer.";
                     killTimer(m_timerId);
                     m_timerId = -1;
                     if (turnOn) {
-                        kDebug(5001) << this << "starting random timer.";
+                        qCDebug(KGET_DEBUG) << this << "starting random timer.";
                         m_timerId = startTimer(commands.takeFirst().toInt());
                     }
                 }
@@ -473,7 +474,7 @@ void Commands::slotChangedEvent(int event)
             case Transfer::Tc_Percent: {
                 QDBusPendingReply<int> reply = m_transfer->percent();
                 if (reply.value() >= compareValue) {
-                    kDebug(5001) << this << "ChangedEvent percent.";
+                    qCDebug(KGET_DEBUG) << this << "ChangedEvent percent.";
                     m_commands.takeFirst();
                     executeCommands();
                 }
@@ -499,7 +500,7 @@ void Commands::slotVerified(bool verified)
             m_commands.takeFirst();
             if (command.canConvert(QVariant::Bool)) {
                 const bool shouldWork = command.toBool();
-                kDebug(5001) << this << "is verified" << verified;
+                qCDebug(KGET_DEBUG) << this << "is verified" << verified;
                 QVERIFY(verified == shouldWork);
             }
 
@@ -508,7 +509,7 @@ void Commands::slotVerified(bool verified)
         }
     }
 
-    kDebug(5001) << this << "is verified" << verified;
+    qCDebug(KGET_DEBUG) << this << "is verified" << verified;
     QVERIFY(verified);
 }
 
@@ -540,11 +541,11 @@ void Commands::slotBrokenPieces(const QStringList &offsets, qulonglong length)
 TestTransfers::TestTransfers()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", 0);
+        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", nullptr);
     }
 
     m_dir.reset(new KTempDir());
-    kDebug(5001) << "Using temp dir:" << tempDir();
+    qCDebug(KGET_DEBUG) << "Using temp dir:" << tempDir();
 
 //TODO add a signal to check if the move worked!!
 
@@ -620,7 +621,7 @@ void TestTransfers::createTransfer()
 
 
     if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        kDebug(5001) << "Service not registered yet, retrying.";
+        qCDebug(KGET_DEBUG) << "Service not registered yet, retrying.";
         QTimer::singleShot(500, this, SLOT(createTransfer()));
         return;
     }
@@ -633,7 +634,7 @@ void TestTransfers::createTransfer()
         reply.waitForFinished();
 
         if (reply.value().size()) {
-            kDebug(5001) << "TestTransfers::createTransfer -> transfer = " << reply.value();
+            qCDebug(KGET_DEBUG) << "TestTransfers::createTransfer -> transfer = " << reply.value();
             OrgKdeKgetTransferInterface *transfer = new OrgKdeKgetTransferInterface("org.kde.kget", reply.value().first(), QDBusConnection::sessionBus(), this);
 
             command->associateTransfer(transfer);
@@ -670,5 +671,5 @@ void TestTransfers::simpleTest()
 
 QTEST_KDEMAIN(TestTransfers, GUI)
 
-#include "testtransfers.moc"
+
 

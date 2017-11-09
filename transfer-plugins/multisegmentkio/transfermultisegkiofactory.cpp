@@ -17,11 +17,13 @@
 #include "transfermultisegkio.h"
 #include "multisegkiodatasource.h"
 
-#include <QtXml/QDomElement>
+#include <QDomElement>
 
-#include <kdebug.h>
+#include "kget_debug.h"
+#include <qdebug.h>
+#include "kget_macro.h"
 
-KGET_EXPORT_PLUGIN( TransferMultiSegKioFactory )
+K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_multisegkiofactory.json", registerPlugin<TransferMultiSegKioFactory>();)
 
 TransferMultiSegKioFactory::TransferMultiSegKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
@@ -32,18 +34,18 @@ TransferMultiSegKioFactory::~TransferMultiSegKioFactory()
 {
 }
 
-Transfer * TransferMultiSegKioFactory::createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
+Transfer * TransferMultiSegKioFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                                TransferGroup * parent,
                                                Scheduler * scheduler,
                                                const QDomElement * e )
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     if (isSupported(srcUrl) && (!e || !e->firstChildElement("factories").isNull()))
     {
        return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
-    return 0;
+    return nullptr;
 }
 
 TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
@@ -54,36 +56,36 @@ TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * t
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer)
-    return 0;   //Temporary!!
+    return nullptr;   //Temporary!!
 }
 
-const QList<KAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
+const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
 {
     Q_UNUSED(handler)
-    return QList<KAction *>();
+    return QList<QAction *>();
 }
 
- TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const KUrl &srcUrl, const QDomElement &type, QObject *parent)
+ TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
-    kDebug(5001);
+    qCDebug(KGET_DEBUG);
 
     //only use this TransferDataSource if no type is specified and the protocolls match
     if (!type.attribute("type").isEmpty())
     {
-        return 0;
+        return nullptr;
     }
 
     if (isSupported(srcUrl))
     {
         return new MultiSegKioDataSource(srcUrl, parent);
     }
-    return 0;
+    return nullptr;
 }
 
-bool TransferMultiSegKioFactory::isSupported(const KUrl &url) const
+bool TransferMultiSegKioFactory::isSupported(const QUrl &url) const
 {
-    QString prot = url.protocol();
-    kDebug(5001) << "Protocol = " << prot;
+    QString prot = url.scheme();
+    qCDebug(KGET_DEBUG) << "Protocol = " << prot;
     return addsProtocols().contains(prot);
 }
 
@@ -92,3 +94,5 @@ QStringList TransferMultiSegKioFactory::addsProtocols() const
     static const QStringList protocols = QStringList() << "http" << "https" << "ftp" << "sftp";
     return protocols;
 }
+
+#include "transfermultisegkiofactory.moc"
