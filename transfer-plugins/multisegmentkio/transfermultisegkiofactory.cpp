@@ -45,7 +45,7 @@ Transfer * TransferMultiSegKioFactory::createTransfer( const QUrl &srcUrl, const
     {
        return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
-    return 0;
+    return nullptr;
 }
 
 TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
@@ -56,7 +56,7 @@ TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * t
 QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer)
-    return 0;   //Temporary!!
+    return nullptr;   //Temporary!!
 }
 
 const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
@@ -72,14 +72,14 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
     //only use this TransferDataSource if no type is specified and the protocolls match
     if (!type.attribute("type").isEmpty())
     {
-        return 0;
+        return nullptr;
     }
 
     if (isSupported(srcUrl))
     {
         return new MultiSegKioDataSource(srcUrl, parent);
     }
-    return 0;
+    return nullptr;
 }
 
 bool TransferMultiSegKioFactory::isSupported(const QUrl &url) const

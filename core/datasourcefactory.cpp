@@ -49,7 +49,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::fil
     m_tempOffset(0),
     m_startedChunks(0),
     m_finishedChunks(0),
-    m_putJob(0),
+    m_putJob(nullptr),
     m_doDownload(true),
     m_open(false),
     m_blocked(false),
@@ -65,8 +65,8 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::fil
     m_speedTimer(0),
     m_status(Job::Stopped),
     m_statusBeforeMove(m_status),
-    m_verifier(0),
-    m_signature(0)
+    m_verifier(nullptr),
+    m_signature(nullptr)
 {
     qCDebug(KGET_DEBUG) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
 
@@ -277,7 +277,7 @@ void DataSourceFactory::start()
             if (!mountPoint) {
                 if (mountPoint->mountType() == "vfat") {//TODO check what is reported on Windows for vfat
                     stop();
-                    KMessageBox::error(0, i18n("Filesize is larger than maximum file size supported by VFAT."), i18n("Error"));
+                    KMessageBox::error(nullptr, i18n("Filesize is larger than maximum file size supported by VFAT."), i18n("Error"));
                     return;
                 }
             }
@@ -622,7 +622,7 @@ void DataSourceFactory::broken(TransferDataSource *source, TransferDataSource::E
 
     if (error == TransferDataSource::WrongDownloadSize)
     {
-        KMessageBox::error(0, i18nc("A mirror is removed when the file has the wrong download size", "%1 removed as it did report a wrong file size.", url), i18n("Error"));
+        KMessageBox::error(nullptr, i18nc("A mirror is removed when the file has the wrong download size", "%1 removed as it did report a wrong file size.", url), i18n("Error"));
     }
 }
 
@@ -693,7 +693,7 @@ void DataSourceFactory::assignSegments(TransferDataSource *source)
     //a split needed
     if (m_startedChunks->allOn()) {
         int unfinished = 0;
-        TransferDataSource *target = 0;
+        TransferDataSource *target = nullptr;
         foreach (TransferDataSource *source, m_sources) {
             int temp = source->countUnfinishedSegments();
             if (temp > unfinished) {
@@ -810,7 +810,7 @@ void DataSourceFactory::killPutJob()
         qCDebug(KGET_DEBUG) << "Closing the file";
         m_open = false;
         m_putJob->close();
-        m_putJob = 0;
+        m_putJob = nullptr;
     }
 }
 
@@ -818,7 +818,7 @@ void DataSourceFactory::slotPutJobDestroyed(QObject *job)
 {
     Q_UNUSED(job)
 
-    m_putJob = 0;
+    m_putJob = nullptr;
 }
 
 bool DataSourceFactory::setNewDestination(const QUrl &newDestination)

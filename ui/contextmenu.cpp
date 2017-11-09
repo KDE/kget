@@ -25,7 +25,7 @@
 QMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
 {
     if (transfers.empty())
-        return 0;
+        return nullptr;
 
     //First check whether all the transfers in the list belong to the same 
     //transferfactory
@@ -90,7 +90,7 @@ QMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
         popup->exec(QCursor::pos());
         popup->deleteLater();
 
-        return 0;
+        return nullptr;
     }
 
     return popup;
@@ -99,7 +99,7 @@ QMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
 QMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent)
 {
     if (!handler)
-        return 0;
+        return nullptr;
 
     QMenu * popup = new QMenu(parent);
     popup->addSection(handler->name());

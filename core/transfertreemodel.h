@@ -137,8 +137,8 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
 
         ModelItem * itemFromIndex(const QModelIndex &index) const;
 
-        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after = 0);
-        void moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after = 0);
+        void moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after = nullptr);
+        void moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after = nullptr);
 
         QList<TransferGroup *> transferGroups();
 

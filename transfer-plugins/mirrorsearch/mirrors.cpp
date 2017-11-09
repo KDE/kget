@@ -57,7 +57,7 @@ void mirror::slotData(KIO::Job *, const QByteArray& data)
 void mirror::slotResult( KJob *job )
 {
     qCDebug(KGET_DEBUG);
-    m_job = 0;
+    m_job = nullptr;
     int minUrlsNeeded = static_cast<int>(!m_Urls.isEmpty());
 
     if( job->error() )

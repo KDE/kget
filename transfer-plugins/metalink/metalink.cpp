@@ -40,7 +40,7 @@ Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_fileModel(0),
+      m_fileModel(nullptr),
       m_currentFiles(0),
       m_metalinkJustDownloaded(false),
       m_ready(false),
@@ -110,7 +110,7 @@ bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
     //offers a dialog to download the newest version of a dynamic metalink
      if ((m_source.isLocalFile() || !m_metalinkJustDownloaded) &&
          m_metalink.dynamic && (UrlChecker::checkSource(m_metalink.origin) == UrlChecker::NoError)) {
-        if (KMessageBox::questionYesNo(0, i18n("A newer version of this Metalink might exist, do you want to download it?"),
+        if (KMessageBox::questionYesNo(nullptr, i18n("A newer version of this Metalink might exist, do you want to download it?"),
                                        i18n("Redownload Metalink")) == KMessageBox::Yes) {
             m_localMetalinkLocation.clear();
             m_source = m_metalink.origin;
@@ -191,7 +191,7 @@ bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
         qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
-        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
+        KMessageBox::error(nullptr, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -284,7 +284,7 @@ void Metalink::deinit(Transfer::DeleteOptions options)
     if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }
 
 }
@@ -478,7 +478,7 @@ void Metalink::slotVerified(bool isVerified)
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, do you want to repair (if repairing does not work the download would be restarted) it?"),
                      brokenFiles) == KMessageBox::Yes) {
                 if (repair()) {
@@ -509,7 +509,7 @@ void Metalink::slotSignatureVerified()
 /*
         if (brokenFiles.count())//TODO
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, try to repair it?"),
                      brokenFiles) == KMessageBox::Yes)
             {
@@ -626,7 +626,7 @@ Verifier *Metalink::verifier(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file))
     {
-        return 0;
+        return nullptr;
     }
 
     return m_dataSourceFactory[file]->verifier();
@@ -635,7 +635,7 @@ Verifier *Metalink::verifier(const QUrl &file)
 Signature *Metalink::signature(const QUrl &file)
 {
     if (!m_dataSourceFactory.contains(file)) {
-        return 0;
+        return nullptr;
     }
 
     return m_dataSourceFactory[file]->signature();
@@ -706,7 +706,7 @@ void Metalink::filesSelected()
                     doDownload = false;
                 //ask the user, unless he has choosen overwriteAll before
                 } else if (!overwriteAll) {
-                    KIO::RenameDialog dlg(0, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Mode(KIO::M_MULTI | KIO::M_OVERWRITE | KIO::M_SKIP));
+                    KIO::RenameDialog dlg(nullptr, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Mode(KIO::M_MULTI | KIO::M_OVERWRITE | KIO::M_SKIP));
                     const int result = dlg.exec();
 
                     if (result == KIO::R_RENAME) {

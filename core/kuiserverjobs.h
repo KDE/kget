@@ -29,7 +29,7 @@ class KUiServerJobs : public QObject
 {
     Q_OBJECT
 public:
-    KUiServerJobs(QObject *parent=0);
+    KUiServerJobs(QObject *parent = nullptr);
     ~KUiServerJobs();
    
     void settingsChanged();

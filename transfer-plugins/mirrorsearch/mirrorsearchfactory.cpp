@@ -37,7 +37,7 @@ TransferDataSource *MirrorSearchFactory::createTransferDataSource(const QUrl &sr
     if (type.attribute("type") == "search") {
         return new MirrorSearchTransferDataSource(srcUrl, parent);
     }
-    return 0;
+    return nullptr;
 }
 
 #include "mirrorsearchfactory.moc"

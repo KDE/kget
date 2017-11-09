@@ -37,7 +37,7 @@ QWidget *AutoPasteDelegate::createEditor(QWidget *parent, const QStyleOptionView
     Q_UNUSED(option)
 
     if (!index.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     switch(index.column()) {
@@ -56,7 +56,7 @@ QWidget *AutoPasteDelegate::createEditor(QWidget *parent, const QStyleOptionView
             return syntaxes;
         }
         default:
-            return 0;
+            return nullptr;
     }
 }
 

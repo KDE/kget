@@ -37,7 +37,7 @@ class CountryModel : public QAbstractListModel
     Q_OBJECT
 
     public:
-        CountryModel(QObject *parent = 0);
+        CountryModel(QObject *parent = nullptr);
 
         int rowCount (const QModelIndex &parent = QModelIndex()) const;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -58,7 +58,7 @@ class LanguageModel : public QAbstractListModel
     Q_OBJECT
 
     public:
-        LanguageModel(QObject *parent = 0);
+        LanguageModel(QObject *parent = nullptr);
 
         int rowCount (const QModelIndex &parent = QModelIndex()) const;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

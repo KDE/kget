@@ -34,10 +34,10 @@ TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(0),
+      m_copyjob(nullptr),
       m_movingFile(false),
-      m_verifier(0),
-      m_signature(0)
+      m_verifier(nullptr),
+      m_signature(nullptr)
 {
     setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming);//TODO check if it really can resume
 }
@@ -111,7 +111,7 @@ void TransferKio::stop()
     if(m_copyjob)
     {
         m_copyjob->kill(KJob::EmitResult);
-        m_copyjob=0;
+        m_copyjob=nullptr;
     }
 
     qCDebug(KGET_DEBUG) << "Stop";
@@ -125,7 +125,7 @@ void TransferKio::deinit(Transfer::DeleteOptions options)
     if (options & DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         KIO::Job *del = KIO::del(QString(m_dest.path() + ".part"), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
@@ -174,7 +174,7 @@ void TransferKio::slotResult( KJob * kioJob )
             break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
-    m_copyjob=0;
+    m_copyjob=nullptr;
 
     // If it is an ftp file, there's still work to do
     Transfer::ChangesFlags flags = (m_source.scheme() != "ftp") ? Tc_Status : Tc_None;
@@ -278,7 +278,7 @@ void TransferKio::slotVerified(bool isVerified)
         if (!verifier()->partialChunkLength()) {
             text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
         }
-        if (KMessageBox::warningYesNo(0,
+        if (KMessageBox::warningYesNo(nullptr,
                                       text,
                                       i18n("Verification failed.")) == KMessageBox::Yes) {
             repair();
@@ -315,7 +315,7 @@ bool TransferKio::repair(const QUrl &file)
         if(m_copyjob)
         {
             m_copyjob->kill(KJob::Quietly);
-            m_copyjob = 0;
+            m_copyjob = nullptr;
         }
         setTransferChange(Tc_DownloadedSize | Tc_Percent, true);
 

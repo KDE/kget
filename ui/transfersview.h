@@ -21,7 +21,7 @@ class TransfersView : public QTreeView
     Q_OBJECT
 
     public:
-        TransfersView(QWidget * parent = 0);
+        TransfersView(QWidget * parent = nullptr);
         ~TransfersView();
 
         void setModel(QAbstractItemModel * model);

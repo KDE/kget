@@ -189,11 +189,11 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
         //No src location: we let the user insert it manually
         srcUrl = urlInputDialog();
         if( srcUrl.isEmpty() )
-            return 0;
+            return nullptr;
     }
     
     if ( !isValidSource( srcUrl ) )
-        return 0;
+        return nullptr;
 
     // when we get a destination directory and suggested filename, we don't
     // need to ask for it again
@@ -236,7 +236,7 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
         {
             destUrl = destFileInputDialog(destDir, suggestedFileName);
             if (destUrl.isEmpty())
-                return 0;
+                return nullptr;
 
             destDir = destUrl.adjusted(QUrl::RemoveFilename).toString();
         } while (!isValidDestDirectory(destDir));
@@ -247,7 +247,7 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
     destUrl = getValidDestUrl(destUrl, srcUrl);
 
     if (destUrl == QUrl())
-        return 0;
+        return nullptr;
 
     TransferHandler *transfer = createTransfer(srcUrl, destUrl, groupName, start);
     if (transfer) {
@@ -567,7 +567,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
 {
     if ( !filename.isEmpty()
         && QFile::exists( filename )
-        && (KMessageBox::questionYesNoCancel(0,
+        && (KMessageBox::questionYesNoCancel(nullptr,
                 i18n("The file %1 already exists.\nOverwrite?", filename),
                 i18n("Overwrite existing file?"), KStandardGuiItem::yes(),
                 KStandardGuiItem::no(), KStandardGuiItem::cancel(), "QuestionFilenameExists" )
@@ -684,7 +684,7 @@ TransferHandler * KGet::findTransfer(const QUrl &src)
     {
         return transfer->handler();
     }
-    return 0;
+    return nullptr;
 }
 
 TransferGroupHandler * KGet::findGroup(const QString &name)
@@ -694,7 +694,7 @@ TransferGroupHandler * KGet::findGroup(const QString &name)
     {
         return group->handler();
     }
-    return 0;
+    return nullptr;
 }
 
 void KGet::checkSystemTray()
@@ -805,10 +805,10 @@ TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
 KPluginInfo::List KGet::m_pluginInfoList;
-TransferGroupScheduler * KGet::m_scheduler = 0;
-MainWindow * KGet::m_mainWindow = 0;
-KUiServerJobs * KGet::m_jobManager = 0;
-TransferHistoryStore * KGet::m_store = 0;
+TransferGroupScheduler * KGet::m_scheduler = nullptr;
+MainWindow * KGet::m_mainWindow = nullptr;
+KUiServerJobs * KGet::m_jobManager = nullptr;
+TransferHistoryStore * KGet::m_store = nullptr;
 bool KGet::m_hasConnection = true;
 // ------ PRIVATE FUNCTIONS ------
 KGet::KGet()
@@ -843,7 +843,7 @@ TransferHandler * KGet::createTransfer(const QUrl &src, const QUrl &dest, const 
                           bool start, const QDomElement * e)
 {
     QList<TransferHandler*> transfer = createTransfers(QList<TransferData>() << TransferData(src, dest, groupName, start, e));
-    return (transfer.isEmpty() ? 0 : transfer.first());
+    return (transfer.isEmpty() ? nullptr : transfer.first());
 }
 
 QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataItems)
@@ -866,7 +866,7 @@ QList<TransferHandler*> KGet::createTransfers(const QList<TransferData> &dataIte
             group = m_transferTreeModel->transferGroups().first();
         }
 
-        Transfer *newTransfer = 0;
+        Transfer *newTransfer = nullptr;
         foreach (TransferFactory *factory, m_transferFactories) {
             qCDebug(KGET_DEBUG) << "Trying plugin   n.plugins=" << m_transferFactories.size() << factory->displayName();
             if ((newTransfer = factory->createTransfer(data.src, data.dest, group, m_scheduler, data.e))) {
@@ -926,7 +926,7 @@ TransferDataSource * KGet::createTransferDataSource(const QUrl &src, const QDomE
         if(dataSource)
             return dataSource;
     }
-    return 0;
+    return nullptr;
 }
 
 QString KGet::generalDestDir(bool preferXDGDownloadDir)
@@ -951,7 +951,7 @@ QUrl KGet::urlInputDialog()
 
     while (!ok)
     {
-        newtransfer = QInputDialog::getText(0, i18n("New Download"), i18n("Enter URL:"), QLineEdit::Normal, newtransfer, &ok);
+        newtransfer = QInputDialog::getText(nullptr, i18n("New Download"), i18n("Enter URL:"), QLineEdit::Normal, newtransfer, &ok);
         newtransfer = newtransfer.trimmed();    //Remove any unnecessary space at the beginning and/or end
         
         if (!ok)
@@ -1020,7 +1020,7 @@ bool KGet::isValidSource(const QUrl &source)
     {
         if (transfer->status() == Job::Finished) {
             // transfer is finished, ask if we want to download again
-            if (KMessageBox::questionYesNoCancel(0,
+            if (KMessageBox::questionYesNoCancel(nullptr,
                     i18n("You have already completed a download from the location: \n\n%1\n\nDownload it again?", source.toString()),
                     i18n("Download it again?"), KStandardGuiItem::yes(),
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
@@ -1033,7 +1033,7 @@ bool KGet::isValidSource(const QUrl &source)
                 return false;
         }
         else {
-            if (KMessageBox::warningYesNoCancel(0,
+            if (KMessageBox::warningYesNoCancel(nullptr,
                     i18n("You have a download in progress from the location: \n\n%1\n\nDelete it and download again?", source.toString()),
                     i18n("Delete it and download again?"), KStandardGuiItem::yes(),
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
@@ -1058,14 +1058,14 @@ bool KGet::isValidDestDirectory(const QString & destDir)
         if (QFileInfo(QUrl(destDir).adjusted(QUrl::RemoveFilename).toString()).isWritable())
             return (!destDir.isEmpty());
         if (!QFileInfo(QUrl(destDir).adjusted(QUrl::RemoveFilename).toString()).isWritable() && !destDir.isEmpty())
-            KMessageBox::error(0, i18n("Directory is not writable"));
+            KMessageBox::error(nullptr, i18n("Directory is not writable"));
     }
     else
     {
         if (QFileInfo(destDir).isWritable())
             return (!destDir.isEmpty());
         if (!QFileInfo(destDir).isWritable() && !destDir.isEmpty())
-            KMessageBox::error(0, i18n("Directory is not writable"));
+            KMessageBox::error(nullptr, i18n("Directory is not writable"));
     }
     return false;
 }
@@ -1088,11 +1088,11 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
     }
     
     Transfer * existingTransferDest = m_transferTreeModel->findTransferByDestination(destUrl);
-    QPointer<KIO::RenameDialog> dlg = 0;
+    QPointer<KIO::RenameDialog> dlg = nullptr;
 
     if (existingTransferDest) {
         if (existingTransferDest->status() == Job::Finished) {
-            if (KMessageBox::questionYesNoCancel(0,
+            if (KMessageBox::questionYesNoCancel(nullptr,
                     i18n("You have already downloaded that file from another location.\n\nDownload and delete the previous one?"),
                     i18n("File already downloaded. Download anyway?"), KStandardGuiItem::yes(),
                     KStandardGuiItem::no(), KStandardGuiItem::cancel())
@@ -1272,8 +1272,8 @@ KNotification *KGet::showNotification(QWidget *parent, const QString &eventType,
 
 GenericObserver::GenericObserver(QObject *parent)
   : QObject(parent),
-    m_save(0),
-    m_finishAction(0)
+    m_save(nullptr),
+    m_finishAction(nullptr)
 {
     //check if there is a connection
     KGet::setHasNetworkConnection(m_networkConfig.isOnline());
@@ -1423,7 +1423,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
     if (checkSysTray && Settings::afterFinishActionEnabled() && allFinished)
     {
         qCDebug(KGET_DEBUG) << "All finished";
-        KNotification *notification = 0;
+        KNotification *notification = nullptr;
 
         if (!m_finishAction) {
             m_finishAction = new QTimer(this);

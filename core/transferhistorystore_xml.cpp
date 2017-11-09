@@ -172,9 +172,9 @@ void XmlStore::LoadThread::run()
 
 XmlStore::XmlStore(const QString &url) : TransferHistoryStore(),
     m_storeUrl(url),
-    m_loadThread(0),
-    m_saveThread(0),
-    m_deleteThread(0)
+    m_loadThread(nullptr),
+    m_saveThread(nullptr),
+    m_deleteThread(nullptr)
 {
 }
 

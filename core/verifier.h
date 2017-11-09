@@ -68,7 +68,7 @@ class KGET_EXPORT Verifier : public QObject
     Q_OBJECT
 
     public:
-        explicit Verifier(const QUrl &dest, QObject *parent = 0);
+        explicit Verifier(const QUrl &dest, QObject *parent = nullptr);
         ~Verifier();
 
         enum VerificationStatus
@@ -134,7 +134,7 @@ class KGET_EXPORT Verifier : public QObject
          * @note the length of the partial checksum (if not defined = 0) is not less than 512 kb
          * and there won't be more partial checksums than 101
          */
-        static PartialChecksums partialChecksums(const QUrl &dest, const QString &type, KIO::filesize_t length = 0, bool *abortPtr = 0);
+        static PartialChecksums partialChecksums(const QUrl &dest, const QString &type, KIO::filesize_t length = 0, bool *abortPtr = nullptr);
 
         /**
          * @note only call verify() when this function returns true

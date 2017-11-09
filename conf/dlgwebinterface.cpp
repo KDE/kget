@@ -18,7 +18,7 @@
 
 DlgWebinterface::DlgWebinterface(QDialog *parent)
     : QWidget(parent),
-      m_wallet(0)
+      m_wallet(nullptr)
 {
     setupUi(this);
 
@@ -42,7 +42,7 @@ void DlgWebinterface::readConfig()
         if (m_wallet) {
             connect(m_wallet, &KWallet::Wallet::walletOpened, this, &DlgWebinterface::walletOpened);
         } else {
-            KMessageBox::error(0, i18n("Could not open KWallet"));
+            KMessageBox::error(nullptr, i18n("Could not open KWallet"));
         }
     }
 }
@@ -57,7 +57,7 @@ void DlgWebinterface::walletOpened(bool opened)
         m_wallet->readPassword("Webinterface", pwd);
         webinterfacePwd->setText(pwd);
     } else {
-        KMessageBox::error(0, i18n("Could not open KWallet"));
+        KMessageBox::error(nullptr, i18n("Could not open KWallet"));
     }
 }
 

@@ -130,7 +130,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          * @param src the url of the source location
          *
          * @return the transfer pointer if the transfer has been found. Otherwise
-         * it returns 0
+         * it returns nullptr
          */
         Transfer * findTransfer(const QUrl &src);
 
@@ -139,7 +139,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          *
          * @param dest the url of the destination location
          *
-         * @return the transfer pointer if the transfer has been found, else return 0
+         * @return the transfer pointer if the transfer has been found, else return nullptr
          */
          Transfer *findTransferByDestination(const QUrl &dest);
 

@@ -29,7 +29,7 @@ class KGET_EXPORT VerificationDelegate : public QStyledItemDelegate
     Q_OBJECT
 
     public:
-        VerificationDelegate(QObject *parent = 0);
+        VerificationDelegate(QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;

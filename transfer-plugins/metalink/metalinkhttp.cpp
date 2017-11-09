@@ -157,7 +157,7 @@ void MetalinkHttp::slotSignatureVerified()
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, try to repair it?"),
                      brokenFiles) == KMessageBox::Yes) {
                     if (repair()) {
@@ -234,7 +234,7 @@ bool MetalinkHttp::metalinkHttpInit()
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
         qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
-        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
+        KMessageBox::error(nullptr, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;

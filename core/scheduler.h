@@ -63,7 +63,7 @@ class KGET_EXPORT Scheduler : public QObject
             bool operator!=(JobFailure f) const {return ((status != f.status) || (time != f.time));}            
         };
         
-        Scheduler(QObject * parent = 0);
+        Scheduler(QObject * parent = nullptr);
         ~Scheduler();
 
         /**

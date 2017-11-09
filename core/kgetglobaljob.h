@@ -19,7 +19,7 @@ class KGetGlobalJob : public KJob
 {
     Q_OBJECT
 public:
-    KGetGlobalJob(QObject *parent=0);
+    KGetGlobalJob(QObject *parent = nullptr);
     ~KGetGlobalJob();
 
     void update();    
@@ -32,7 +32,7 @@ signals:
      * Not handling this signal might lead to a crash if something tries to
      * access the then non-existing gui.
      * @param job is this
-     * @param handler is always 0 suggesting that all TransferHandlers should be stopped
+     * @param handler is always nullptr suggesting that all TransferHandlers should be stopped
      */
     void requestStop(KJob *job, TransferHandler *handler);
 

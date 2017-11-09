@@ -27,7 +27,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     public:
-        explicit KGetSortFilterProxyModel(int sortColumn, QObject *parent = 0);
+        explicit KGetSortFilterProxyModel(int sortColumn, QObject *parent = nullptr);
         virtual ~KGetSortFilterProxyModel();
 
         enum DownloadFilterType {

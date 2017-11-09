@@ -29,14 +29,14 @@ class ContentFetchFactory : public TransferFactory
 
         Transfer * createTransfer( const KUrl &srcUrl, const KUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
+                                   const QDomElement * e = nullptr );
 
         TransferHandler * createTransferHandler(Transfer * transfer,
                                                 Scheduler * scheduler);
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<QAction *> actions(TransferHandler *handler = 0);
+        const QList<QAction *> actions(TransferHandler *handler = nullptr);
 };
 
 #endif // CONTENT_FETCH_FACTORY_H

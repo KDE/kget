@@ -62,7 +62,7 @@ void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHand
         if(after)
             m_group->move( (*it)->m_transfer, after->m_transfer );
         else
-            m_group->move( (*it)->m_transfer, 0 );
+            m_group->move( (*it)->m_transfer, nullptr );
 
         after = *it;
     }

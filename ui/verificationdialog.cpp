@@ -82,9 +82,9 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
   : KGetSaveSizeDialog("VerificationDialog", parent),
     m_transfer(transfer),
     m_verifier(transfer->verifier(file)),
-    m_model(0),
-    m_proxy(0),
-    m_fileModel(0)
+    m_model(nullptr),
+    m_proxy(nullptr),
+    m_fileModel(nullptr)
 {
     if (m_verifier) {
         m_model = m_verifier->model();

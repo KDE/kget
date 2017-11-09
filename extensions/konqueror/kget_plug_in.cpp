@@ -46,7 +46,7 @@ K_EXPORT_PLUGIN(KGetPluginFactory("kgetplugin"))
 static QWidget* partWidget(QObject* obj)
 {
     KParts::ReadOnlyPart* part = qobject_cast<KParts::ReadOnlyPart*>(obj);
-    return part ? part->widget() : 0;
+    return part ? part->widget() : nullptr;
 }
 
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)

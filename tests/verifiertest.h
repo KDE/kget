@@ -34,7 +34,7 @@ class VerfierTest : public QObject
     Q_OBJECT
 
     public:
-        explicit VerfierTest(QObject *parent = 0);
+        explicit VerfierTest(QObject *parent = nullptr);
 
     private slots:
         void testChecksum();

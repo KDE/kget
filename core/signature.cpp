@@ -225,7 +225,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     if (d->sigSummary & GpgME::Signature::KeyMissing) {
         qCDebug(KGET_DEBUG) << "Public key missing.";
         if (Settings::signatureAutomaticDownloading() ||
-            (KMessageBox::warningYesNoCancel(0,
+            (KMessageBox::warningYesNoCancel(nullptr,
              i18n("The key to verify the signature is missing, do you want to download it?")) == KMessageBox::Yes)) {
             d->verifyTried = true;
             downloadKey(d->fingerprint);
@@ -247,7 +247,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
         if (d->sigSummary & GpgME::Signature::Red) {//TODO handle more cases!
             d->status = Signature::NotVerified;
             //TODO handle that dialog better in 4.5
-            KMessageBox::error(0,
+            KMessageBox::error(nullptr,
                             i18n("The signature could not be verified for %1. See transfer settings for more information.", d->dest.fileName()),
                             i18n("Signature not verified"));
         }

@@ -44,7 +44,7 @@ class MainWindow : public KXmlGuiWindow
 
 Q_OBJECT
 public:
-    explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = 0);
+    explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = nullptr);
     ~MainWindow();
 
     virtual void setSystemTrayDownloading(bool running);

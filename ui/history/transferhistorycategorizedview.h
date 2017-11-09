@@ -27,7 +27,7 @@ class TransferHistoryCategorizedView : public QWidget
 Q_OBJECT
 public:
 
-    TransferHistoryCategorizedView(QWidget *parent = 0);
+    TransferHistoryCategorizedView(QWidget *parent = nullptr);
     ~TransferHistoryCategorizedView();
 
     void addData(const QDate &date, const QString &url, const QString &dest, int size);

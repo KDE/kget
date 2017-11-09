@@ -27,9 +27,9 @@
 
 UrlWidget::UrlWidget(QObject *parent)
   : QObject(parent),
-    m_resources(0),
-    m_countrySort(0),
-    m_widget(0)
+    m_resources(nullptr),
+    m_countrySort(nullptr),
+    m_widget(nullptr)
 {
     m_widget = new QWidget;//TODO inherit from qWidget and set this widget as mainwidget?
     ui.setupUi(m_widget);

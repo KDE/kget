@@ -39,8 +39,8 @@ TransferMultiSegKio::TransferMultiSegKio(TransferGroup *parent, TransferFactory 
     m_movingFile(false),
     m_searchStarted(false),
     m_verificationSearch(false),
-    m_dataSourceFactory(0),
-    m_fileModel(0)
+    m_dataSourceFactory(nullptr),
+    m_fileModel(nullptr)
 {
 }
 
@@ -255,7 +255,7 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
         if (!verifier()->partialChunkLength()) {
             text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
         }
-        if (KMessageBox::warningYesNo(0,
+        if (KMessageBox::warningYesNo(nullptr,
                                       text,
                                       i18n("Verification failed.")) == KMessageBox::Yes) {
             repair();

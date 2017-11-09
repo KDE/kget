@@ -163,7 +163,7 @@ int MultiSegKioDataSource::currentSegments() const
 Segment *MultiSegKioDataSource::mostUnfinishedSegments(int *unfin) const
 {
     int unfinished = 0;
-    Segment *seg = 0;
+    Segment *seg = nullptr;
     foreach (Segment *segment, m_segments)
     {
         if (segment->countUnfinishedSegments() > unfinished)

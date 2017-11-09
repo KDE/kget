@@ -83,8 +83,8 @@ void ChecksumSearchAddDlg::slotAccpeted()
 
 ChecksumDelegate::ChecksumDelegate(QObject *parent)
   : QStyledItemDelegate(parent),
-    m_modesModel(0),
-    m_typesModel(0)
+    m_modesModel(nullptr),
+    m_typesModel(nullptr)
 {
 }
 
@@ -129,7 +129,7 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 void ChecksumDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const

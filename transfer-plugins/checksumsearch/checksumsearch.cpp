@@ -32,7 +32,7 @@ const QStringList ChecksumSearch::URLCHANGEMODES = (QStringList() << i18n("Appen
 
 ChecksumSearch::ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent)
   : QObject(parent),
-    m_copyJob(0),
+    m_copyJob(nullptr),
     m_srcs(srcs),
     m_fileName(fileName),
     m_types(types)
@@ -95,7 +95,7 @@ void ChecksumSearch::slotResult(KJob *job)
             break;
     }
 
-    m_copyJob = 0;
+    m_copyJob = nullptr;
     m_dataBA.clear();
 
     parseDownload();

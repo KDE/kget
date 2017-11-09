@@ -32,7 +32,7 @@ class ExistingTransferDialog : public QDialog
     Q_OBJECT
 
     public:
-        ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent = 0);
+        ExistingTransferDialog(const QString &text, const QString &caption, QWidget *parent = nullptr);
         
         enum ExistingDialogReturn {
             Cancel = 0,

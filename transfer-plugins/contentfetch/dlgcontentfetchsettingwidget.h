@@ -55,7 +55,7 @@ class SettingWidgetAdaptor : public QWidget
 {
     Q_OBJECT
     public:
-        explicit SettingWidgetAdaptor(QWidget* parent = 0) : QWidget(parent) {}
+        explicit SettingWidgetAdaptor(QWidget* parent = nullptr) : QWidget(parent) {}
         virtual ~SettingWidgetAdaptor() {}
     public slots:
         void setWidget(QWidget* widget)

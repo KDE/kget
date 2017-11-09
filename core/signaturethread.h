@@ -34,7 +34,7 @@ class SignatureThread : public QThread
     Q_OBJECT
 
     public:
-        SignatureThread(QObject *parent = 0);
+        SignatureThread(QObject *parent = nullptr);
         ~SignatureThread();
 
         /**

@@ -77,7 +77,7 @@ bool RangeSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelInd
 RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     m_data(),
     m_ranges(),
-    m_rangeDelegate(0)
+    m_rangeDelegate(nullptr)
 {
     setDragEnabled(false);
     setAlternatingRowColors(true);
@@ -207,7 +207,7 @@ QList <QVariantList> RangeTreeWidget::data()
 
 QStandardItem *RangeTreeWidget::currentItem(int column)
 {
-    QStandardItem *item = 0;
+    QStandardItem *item = nullptr;
     if (column >= 0) {
         item = m_model->itemFromIndex(m_model->index(m_proxyModel->mapToSource(currentIndex()).row(), 
                                       column, 

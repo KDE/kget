@@ -54,7 +54,7 @@ class NewTransferDialog : public QDialog
         void slotFinished(int resultCode);
 
     private:
-        explicit NewTransferDialog(QWidget *parent = 0);
+        explicit NewTransferDialog(QWidget *parent = nullptr);
 
         /**
         * Shows the dialog adding one url list transfers
@@ -106,7 +106,7 @@ class NewTransferDialogHandler : public QObject
     Q_OBJECT
 
     public:
-        explicit NewTransferDialogHandler(QObject *parent = 0);
+        explicit NewTransferDialogHandler(QObject *parent = nullptr);
         ~NewTransferDialogHandler();
 
         /**

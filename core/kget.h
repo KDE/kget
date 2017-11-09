@@ -80,7 +80,7 @@ class KGET_EXPORT KGet
         };
         ~KGet();
 
-        static KGet* self( MainWindow * mainWindow=0 );
+        static KGet* self( MainWindow * mainWindow = nullptr );
 
         /**
          * Adds a new group to the KGet.
@@ -318,7 +318,7 @@ class KGET_EXPORT KGet
          * this is only needed when creating a "special" TransferDataSource like the search for Urls
          * you can set additional information and the TransferDataSource will use it if it can
          */
-        static TransferDataSource * createTransferDataSource(const QUrl &src, const QDomElement &type = QDomElement(), QObject *parent = 0);
+        static TransferDataSource * createTransferDataSource(const QUrl &src, const QDomElement &type = QDomElement(), QObject *parent = nullptr);
 
         /**
          * Sets the global download limit
@@ -385,7 +385,7 @@ class KGET_EXPORT KGet
          * @param groupName the group name
          * @param start Specifies if the newly added transfers should be started.
          */
-        static TransferHandler * createTransfer(const QUrl &src, const QUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = 0);
+        static TransferHandler * createTransfer(const QUrl &src, const QUrl &dest, const QString& groupName = QString(), bool start = false, const QDomElement * e = nullptr);
 
         /**
          * Creates multiple transfers with transferData
@@ -449,7 +449,7 @@ class KGET_EXPORT KGet
 class KGET_EXPORT KGet::TransferData
 {
     public:
-        TransferData(const QUrl &src, const QUrl &dest, const QString &groupName = QString(), bool start = false, const QDomElement *e = 0);
+        TransferData(const QUrl &src, const QUrl &dest, const QString &groupName = QString(), bool start = false, const QDomElement *e = nullptr);
 
         QUrl src;
         QUrl dest;
@@ -462,7 +462,7 @@ class GenericObserver : public QObject
 {
     Q_OBJECT
     public:
-        GenericObserver(QObject *parent = 0);
+        GenericObserver(QObject *parent = nullptr);
         virtual ~GenericObserver ();
 
     public slots:

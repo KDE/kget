@@ -31,7 +31,7 @@ class VerificationThread : public QThread
     Q_OBJECT
 
     public:
-        VerificationThread(QObject *parent = 0);
+        VerificationThread(QObject *parent = nullptr);
         ~VerificationThread();
 
         void verifiy(const QString &type, const QString &checksum, const QUrl &file);

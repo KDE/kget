@@ -455,7 +455,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
         {
 //             qCDebug(KGET_DEBUG) << "TransfersViewDelegate::editorEvent() -> rightClick";
 
-            QMenu *popup = 0;
+            QMenu *popup = nullptr;
 
             TransferTreeModel * transferTreeModel = KGet::model();
 

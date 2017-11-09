@@ -30,13 +30,13 @@ struct VerifierPrivate
 {
     VerifierPrivate(Verifier *verifier)
       : q(verifier),
-        model(0)
+        model(nullptr)
     {
     }
 
     ~VerifierPrivate();
 
-    static QString calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize = 0, bool *abortPtr = 0);
+    static QString calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize = 0, bool *abortPtr = nullptr);
     QStringList orderChecksumTypes(Verifier::ChecksumStrength strength) const;
 
 

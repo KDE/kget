@@ -32,9 +32,9 @@
 
 KGetLinkView::KGetLinkView(QWidget *parent)
   : KGetSaveSizeDialog("KGetLinkView", parent),
-    m_linkImporter(0),
-    m_nameAction(0),
-    m_urlAction(0)
+    m_linkImporter(nullptr),
+    m_nameAction(nullptr),
+    m_urlAction(nullptr)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(i18n("Import Links"));

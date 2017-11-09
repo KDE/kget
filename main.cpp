@@ -32,7 +32,7 @@ class KGetApp : public QObject
 {
 public:
     KGetApp(QCommandLineParser *p)
-        : kget( 0 ), parser( p )
+        : kget( nullptr ), parser( p )
     {
     }
 

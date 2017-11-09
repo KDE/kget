@@ -30,7 +30,7 @@ class ChecksumSearch : public QObject
     Q_OBJECT
 
     public:
-        ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent = 0);
+        ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent = nullptr);
         ~ChecksumSearch();
 
         /**

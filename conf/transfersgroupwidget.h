@@ -20,7 +20,7 @@ class TransfersGroupWidget : public QWidget
 {
     Q_OBJECT
     public:
-        TransfersGroupWidget(QWidget *parent = 0);
+        TransfersGroupWidget(QWidget *parent = nullptr);
 
     private slots:
         void slotSelectionChanged();

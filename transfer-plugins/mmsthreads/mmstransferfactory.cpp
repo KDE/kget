@@ -47,13 +47,13 @@ Transfer * MmsTransferFactory::createTransfer( const QUrl &srcUrl, const QUrl &d
     if (prot == "mms" || prot == "mmsh") {
         return new MmsTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
-    return 0;
+    return nullptr;
 }
 
 QWidget * MmsTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
     Q_UNUSED(transfer)
-    return 0;   //Temporary!!
+    return nullptr;   //Temporary!!
 }
 
 const QList<QAction *> MmsTransferFactory::actions(TransferHandler *handler)

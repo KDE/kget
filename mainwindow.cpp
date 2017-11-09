@@ -67,12 +67,12 @@
 
 MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doTesting, QWidget *parent)
     : KXmlGuiWindow( parent ),
-      m_drop(0),
-      m_dock(0),
-      clipboardTimer(0),
+      m_drop(nullptr),
+      m_dock(nullptr),
+      clipboardTimer(nullptr),
       m_startWithoutAnimation(startWithoutAnimation),
       m_doTesting(doTesting)/*,
-      m_webinterface(0)*/
+      m_webinterface(nullptr)*/
 {
     // do not quit the app when it has been minimized to system tray and a new transfer dialog
     // gets opened and closed again.
@@ -777,8 +777,8 @@ void MainWindow::slotRedownloadSelected()
 void MainWindow::slotPriorityTop()
 {
     QList<TransferHandler*> selected = KGet::selectedTransfers();
-    TransferHandler *after = 0;
-    TransferGroupHandler *group = 0;
+    TransferHandler *after = nullptr;
+    TransferGroupHandler *group = nullptr;
     foreach (TransferHandler *transfer, selected) {
         if (!transfer) {
             continue;
@@ -786,7 +786,7 @@ void MainWindow::slotPriorityTop()
 
         //previous transfer was not of the same group, so after has to be reset as the group
         if (!group || (group != transfer->group())) {
-            after = 0;
+            after = nullptr;
             group = transfer->group();
         }
         KGet::model()->moveTransfer(transfer, group, after);
@@ -798,8 +798,8 @@ void MainWindow::slotPriorityBottom()
 {
     QList<TransferHandler*> selected = KGet::selectedTransfers();
     QList<TransferHandler*> groupTransfers;
-    TransferHandler *after = 0;
-    TransferGroupHandler *group = 0;
+    TransferHandler *after = nullptr;
+    TransferGroupHandler *group = nullptr;
     foreach (TransferHandler *transfer, selected) {
         if (!transfer) {
             continue;
@@ -810,7 +810,7 @@ void MainWindow::slotPriorityBottom()
             group = transfer->group();
             groupTransfers = group->transfers();
             if (groupTransfers.isEmpty()) {
-                after = 0;
+                after = nullptr;
             } else {
                 after = groupTransfers.last();
             }
@@ -825,9 +825,9 @@ void MainWindow::slotPriorityUp()
 {
     QList<TransferHandler*> selected = KGet::selectedTransfers();
     QList<TransferHandler*> groupTransfers;
-    TransferHandler *after = 0;
+    TransferHandler *after = nullptr;
     int newIndex = -1;
-    TransferGroupHandler *group = 0;
+    TransferGroupHandler *group = nullptr;
     foreach (TransferHandler *transfer, selected) {
         if (!transfer) {
             continue;
@@ -839,7 +839,7 @@ void MainWindow::slotPriorityUp()
             groupTransfers = group->transfers();
         }
 
-        after = 0;
+        after = nullptr;
         if (!groupTransfers.isEmpty()) {
             int index = groupTransfers.indexOf(transfer);
 
@@ -871,7 +871,7 @@ void MainWindow::slotPriorityDown()
     QList<TransferHandler*> selected = KGet::selectedTransfers();
     QList<TransferHandler*> groupTransfers;
     int newIndex = -1;
-    TransferGroupHandler *group = 0;
+    TransferGroupHandler *group = nullptr;
     for (int i = selected.count() - 1; i >= 0; --i) {
         TransferHandler *transfer = selected[i];
         if (!transfer) {
@@ -991,7 +991,7 @@ void MainWindow::slotNewConfig()
     } else if (!Settings::enableSystemTray() && m_dock) {
         setVisible(true);
         delete m_dock;
-        m_dock = 0;
+        m_dock = nullptr;
     }
 
     slotKonquerorIntegration(Settings::konquerorIntegration());
@@ -1009,7 +1009,7 @@ void MainWindow::slotNewConfig()
         m_webinterface = new HttpServer(this);
     } else if (m_webinterface && !Settings::webinterfaceEnabled()) {
         delete m_webinterface;
-        m_webinterface = 0;
+        m_webinterface = nullptr;
     } else if (m_webinterface) {
         m_webinterface->settingsChanged();
     }*///TODO: Port to KF5

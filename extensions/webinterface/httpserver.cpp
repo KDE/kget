@@ -31,7 +31,7 @@
 
 HttpServer::HttpServer(QWidget *parent)
     : QObject(parent),
-      m_wallet(0)
+      m_wallet(nullptr)
 {
     m_wallet = KWallet::Wallet::openWallet(KWallet::Wallet::LocalWallet(),
                                            parent->winId(),///Use MainWindow?

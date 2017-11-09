@@ -24,7 +24,7 @@ class DlgWebinterface : public QWidget, public Ui::DlgWebinterface
     Q_OBJECT
 
 public:
-    DlgWebinterface(QDialog *parent = 0);
+    DlgWebinterface(QDialog *parent = nullptr);
     ~DlgWebinterface();
     
 signals:

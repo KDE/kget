@@ -108,7 +108,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     //offers a dialog to download the newest version of a dynamic metalink
      if ((m_source.isLocalFile() || !m_metalinkJustDownloaded) &&
          m_metalink.dynamic && (UrlChecker::checkSource(m_metalink.origin) == UrlChecker::NoError)) {
-        if (KMessageBox::questionYesNo(0, i18n("A newer version of this Metalink might exist, do you want to download it?"),
+        if (KMessageBox::questionYesNo(nullptr, i18n("A newer version of this Metalink might exist, do you want to download it?"),
                                        i18n("Redownload Metalink")) == KMessageBox::Yes) {
             m_localMetalinkLocation.clear();
             m_source = m_metalink.origin;
@@ -190,7 +190,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     if (!m_dataSourceFactory.size()) {
         //TODO make this via log in the future + do not display the KMessageBox
         qCWarning(KGET_DEBUG) << "Download of" << m_source << "failed, no working URLs were found.";
-        KMessageBox::error(0, i18n("Download failed, no working URLs were found."), i18n("Error"));
+        KMessageBox::error(nullptr, i18n("Download failed, no working URLs were found."), i18n("Error"));
         setStatus(Job::Aborted);
         setTransferChange(Tc_Status, true);
         return false;
@@ -254,7 +254,7 @@ void MetalinkXml::deinit(Transfer::DeleteOptions options)
     if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }
 
 }

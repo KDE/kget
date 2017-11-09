@@ -60,7 +60,7 @@ class MultiSegKioDataSource : public TransferDataSource
         void slotUrlChanged(const QUrl &url);
 
     private:
-        Segment *mostUnfinishedSegments(int *unfinished = 0) const;
+        Segment *mostUnfinishedSegments(int *unfinished = nullptr) const;
         bool tryMerge(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int,int> &segmentRange);
 
     private:

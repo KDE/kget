@@ -38,7 +38,7 @@ TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const QUrl &
     if (type.attribute("type") == "checksumsearch") {
         return new ChecksumSearchTransferDataSource(srcUrl, parent);
     }
-    return 0;
+    return nullptr;
 }
 
 #include "checksumsearchfactory.moc"

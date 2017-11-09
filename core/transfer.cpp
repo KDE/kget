@@ -49,7 +49,7 @@ Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
       m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
       m_uploadLimit(0), m_downloadLimit(0), m_isSelected(false),
       m_capabilities(0), m_visibleUploadLimit(0), m_visibleDownloadLimit(0),
-      m_ratio(0), m_handler(0), m_factory(factory)
+      m_ratio(0), m_handler(nullptr), m_factory(factory)
 {
     Q_UNUSED(e)
 }

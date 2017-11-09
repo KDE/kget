@@ -41,8 +41,8 @@ AbstractMetalink::AbstractMetalink(TransferGroup * parent, TransferFactory * fac
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,
                          const QDomElement * e)
     : Transfer(parent, factory, scheduler, source, dest, e),
-      m_fileModel(0),
-      m_currentFiles(0),
+      m_fileModel(nullptr),
+      m_currentFiles(),
       m_ready(false),
       m_speedCount(0),
       m_tempAverageSpeed(0),
@@ -217,7 +217,7 @@ void AbstractMetalink::slotVerified(bool isVerified)
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(0,
+            if (KMessageBox::warningYesNoCancelList(nullptr,
                 i18n("The download could not be verified, do you want to repair (if repairing does not work the download would be restarted) it?"),
                      brokenFiles) == KMessageBox::Yes) {
                 if (repair()) {

@@ -38,7 +38,7 @@ class UrlWidget : public QObject
     Q_OBJECT
 
     public:
-        UrlWidget(QObject *parent = 0);
+        UrlWidget(QObject *parent = nullptr);
         ~UrlWidget();
 
         void init(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort);

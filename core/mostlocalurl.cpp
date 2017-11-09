@@ -36,7 +36,7 @@ QUrl mostLocalUrl(const QUrl &url)
     }
 
     qCDebug(KGET_DEBUG) << "Starting KIO::NetAccess::mostLocalUrl for:" << url;
-    return KIO::NetAccess::mostLocalUrl(url, 0);
+    return KIO::NetAccess::mostLocalUrl(url, nullptr);
 }
 
 MostLocalUrlJob *mostLocalUrlJob(const QUrl &url)

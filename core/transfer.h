@@ -101,7 +101,7 @@ class KGET_EXPORT Transfer : public Job
 
         Transfer(TransferGroup * parent, TransferFactory * factory,
                  Scheduler * scheduler, const QUrl & src, const QUrl & dest,
-                 const QDomElement * e = 0);
+                 const QDomElement * e = nullptr);
 
         virtual ~Transfer();
 
@@ -274,19 +274,19 @@ class KGET_EXPORT Transfer : public Job
         /**
          * @returns a pointer to the FileModel containing all files of this download
          */
-        virtual FileModel * fileModel() {return 0;}
+        virtual FileModel * fileModel() {return nullptr;}
 
         /**
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier * verifier(const QUrl &file) {Q_UNUSED(file) return 0;}
+        virtual Verifier * verifier(const QUrl &file) {Q_UNUSED(file) return nullptr;}
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature * signature(const QUrl &file) {Q_UNUSED(file) return 0;}
+        virtual Signature * signature(const QUrl &file) {Q_UNUSED(file) return nullptr;}
 
         /**
          * Saves this transfer to the given QDomNode

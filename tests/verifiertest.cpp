@@ -57,7 +57,7 @@ void VerfierTest::testChecksum()
         return;
     }
 
-    QCOMPARE(Verifier::checksum(m_file, type, 0), checksum);
+    QCOMPARE(Verifier::checksum(m_file, type, nullptr), checksum);
 }
 
 void VerfierTest::testChecksum_data()
@@ -79,7 +79,7 @@ void VerfierTest::testPartialChecksums()
     QFETCH(QStringList, checksums);
     QFETCH(bool, result);
 
-    const PartialChecksums partial = Verifier::partialChecksums(m_file, type, length, 0);
+    const PartialChecksums partial = Verifier::partialChecksums(m_file, type, length, nullptr);
     QCOMPARE((partial.checksums() == checksums), result);
 }
 

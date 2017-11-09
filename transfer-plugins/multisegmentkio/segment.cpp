@@ -31,7 +31,7 @@ Segment::Segment(const QUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset
     m_offset(segmentSize.first * segmentRange.first),
     m_currentSegSize(segmentSize.first),
     m_bytesWritten(0),
-    m_getJob(0),
+    m_getJob(nullptr),
     m_url(src),
     m_segSize(segmentSize)
 {
@@ -169,7 +169,7 @@ void Segment::slotResult( KJob *job )
 {
     qCDebug(KGET_DEBUG) << "Job:" << job << m_url << "error:" << job->error();
 
-    m_getJob = 0;
+    m_getJob = nullptr;
 
     //clear the buffer as the download might be moved around
     if (m_status == Stopped)
@@ -217,7 +217,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         qCDebug(KGET_DEBUG) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it? is this even needed?
         if (m_getJob) {
             m_getJob->kill(KJob::Quietly);
-            m_getJob = 0;
+            m_getJob = nullptr;
         }
         m_buffer.truncate(m_totalBytesLeft);
         slotWriteRest();

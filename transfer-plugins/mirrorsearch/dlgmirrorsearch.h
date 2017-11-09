@@ -22,7 +22,7 @@ class DlgEngineEditing : public KDialog
     Q_OBJECT
 
 public:
-    DlgEngineEditing(QWidget *parent = 0);
+    DlgEngineEditing(QWidget *parent = nullptr);
     ~DlgEngineEditing();
 
     QString engineName() const;
@@ -39,7 +39,7 @@ class DlgSettingsWidget : public KCModule
     Q_OBJECT
 
 public:
-    explicit DlgSettingsWidget(QWidget *parent = 0, const QVariantList &args = QVariantList());
+    explicit DlgSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget();
 
 public slots:

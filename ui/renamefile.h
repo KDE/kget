@@ -32,7 +32,7 @@ class RenameFile : public QDialog
     Q_OBJECT
 
     public:
-        RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent = 0, Qt::WFlags flags = 0);
+        RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent = nullptr, Qt::WFlags flags = 0);
 
         void setOriginalName(const QString &originalName);
 

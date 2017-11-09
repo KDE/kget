@@ -24,7 +24,7 @@ class ContentFetch : public Transfer
         ContentFetch(TransferGroup * parent, TransferFactory * factory,
                      Scheduler * scheduler, const KUrl & src,
                      const KUrl & dest, const QString &scriptFile,
-                     const QDomElement * e = 0);
+                     const QDomElement * e = nullptr);
 
     public slots:
         void deinit();        

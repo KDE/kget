@@ -259,7 +259,7 @@ TransferHandler *UrlChecker::existingTransfer(const QUrl &url, const UrlChecker:
         case Destination:
             return existingDestination(url, warn);
         default:
-            return 0;
+            return nullptr;
     }
 }
 
@@ -275,7 +275,7 @@ TransferHandler *UrlChecker::existingSource(const QUrl &source, UrlChecker::UrlW
         }
     }
 
-    return (transfer ? transfer->handler() : 0);
+    return (transfer ? transfer->handler() : nullptr);
 }
 
 TransferHandler *UrlChecker::existingDestination(const QUrl &url, UrlChecker::UrlWarning &warning)
@@ -291,7 +291,7 @@ TransferHandler *UrlChecker::existingDestination(const QUrl &url, UrlChecker::Ur
         warning = ExistingFile;
     }
 
-    return (transfer ? transfer->handler() : 0);
+    return (transfer ? transfer->handler() : nullptr);
 }
 
 
@@ -622,7 +622,7 @@ QList<QUrl> UrlChecker::hasExistingTransferMessages(const QList<QUrl> &urls, con
 void UrlChecker::removeTransfers(const QList<TransferHandler*> &toRemove)
 {
     QList<TransferHandler*> transfers = toRemove;
-    transfers.removeAll(0);
+    transfers.removeAll(nullptr);
     if (!transfers.isEmpty()) {
         KGet::delTransfers(transfers);
     }

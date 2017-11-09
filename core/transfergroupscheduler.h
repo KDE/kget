@@ -24,7 +24,7 @@ class TransferGroupScheduler : public Scheduler
 {
     Q_OBJECT
     public:
-        explicit TransferGroupScheduler(QObject *parent = 0);
+        explicit TransferGroupScheduler(QObject *parent = nullptr);
         ~TransferGroupScheduler();
 
         /**

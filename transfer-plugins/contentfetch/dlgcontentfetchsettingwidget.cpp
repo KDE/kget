@@ -20,9 +20,9 @@
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgContentFetchSettingWidget)
 
-DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(QWidget * parent = 0, const QVariantList &args = QVariantList())
+DlgContentFetchSettingWidget::DlgContentFetchSettingWidget(QWidget * parent = nullptr, const QVariantList &args = QVariantList())
     : KCModule(KGetFactory::componentData(), parent, args),
-      m_p_action(0)
+      m_p_action(nullptr)
 {
     ui.setupUi(this);
     ui.newScriptButton->setIcon(QIcon::fromTheme("list-add"));
@@ -211,7 +211,7 @@ void DlgContentFetchSettingWidget::save()
     if (m_p_action)
     {
         delete m_p_action;
-        m_p_action = 0;
+        m_p_action = nullptr;
     }
 }
 
@@ -221,7 +221,7 @@ void DlgContentFetchSettingWidget::load()
     if (m_p_action)
     {
         delete m_p_action;
-        m_p_action = 0;
+        m_p_action = nullptr;
     }
     // this class is never destroyed, so reload the rc file into ui to sync
     loadContentFetchSetting();

@@ -366,7 +366,7 @@ TransferModelItem * TransferTreeModel::itemFromTransferHandler(TransferHandler *
         if (handler == item->transferHandler())
             return item;
     }
-    return 0;
+    return nullptr;
 }
 
 GroupModelItem * TransferTreeModel::itemFromTransferGroupHandler(TransferGroupHandler * handler)
@@ -376,7 +376,7 @@ GroupModelItem * TransferTreeModel::itemFromTransferGroupHandler(TransferGroupHa
         if (handler == item->groupHandler())
             return item;
     }
-    return 0;
+    return nullptr;
 }
     
 ModelItem * TransferTreeModel::itemFromHandler(Handler * handler)
@@ -393,7 +393,7 @@ ModelItem * TransferTreeModel::itemFromIndex(const QModelIndex &index) const
     QStandardItem *item = QStandardItemModel::itemFromIndex(index);
     if (item)
         return dynamic_cast<ModelItem*>(item);
-    return 0;
+    return nullptr;
 }
 
 void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after)
@@ -413,7 +413,7 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
         if (after)
             destGroup->move(transfer, after);
         else
-            destGroup->move(transfer, 0);
+            destGroup->move(transfer, nullptr);
     }
     else
     {
@@ -437,7 +437,7 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
 
 void TransferTreeModel::moveTransfer(TransferHandler *transfer, TransferGroupHandler *destGroup, TransferHandler *after)
 {
-    Transfer *afterTransfer = 0;
+    Transfer *afterTransfer = nullptr;
     if (after) {
         afterTransfer = after->m_transfer;
     }
@@ -461,7 +461,7 @@ TransferGroup * TransferTreeModel::findGroup(const QString & groupName)
         if (group->groupHandler()->name() == groupName)
             return group->groupHandler()->m_group;
     }
-    return 0;
+    return nullptr;
 }
 
 Transfer * TransferTreeModel::findTransfer(const QUrl &src)
@@ -477,7 +477,7 @@ Transfer * TransferTreeModel::findTransfer(const QUrl &src)
         if (transfer->transferHandler()->source() == src)
             return transfer->transferHandler()->m_transfer;
     }
-    return 0;
+    return nullptr;
 }
 
 Transfer *TransferTreeModel::findTransferByDestination(const QUrl &dest)
@@ -493,7 +493,7 @@ Transfer *TransferTreeModel::findTransferByDestination(const QUrl &dest)
         if (transfer->transferHandler()->dest() == dest)
             return transfer->transferHandler()->m_transfer;
     }
-    return 0;
+    return nullptr;
 }
 
 Transfer * TransferTreeModel::findTransferByDBusObjectPath(const QString & dbusObjectPath)
@@ -503,7 +503,7 @@ Transfer * TransferTreeModel::findTransferByDBusObjectPath(const QString & dbusO
         if (transfer->transferHandler()->dBusObjectPath() == dbusObjectPath)
             return transfer->transferHandler()->m_transfer;
     }
-    return 0;
+    return nullptr;
 }
 
 void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
@@ -614,7 +614,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
 
     const bool droppedInsideGroup = parent.isValid();
-    Transfer * after = 0;
+    Transfer * after = nullptr;
     for (int i = 0; i < transfers.count(); ++i) {
         bool b = destGroup->size() > row && row - 1 >= 0;
         if (b)

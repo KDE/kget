@@ -34,7 +34,7 @@ class GeneralWidget : public QWidget
     Q_OBJECT
 
     public:
-        GeneralWidget(QWidget *parent = 0);
+        GeneralWidget(QWidget *parent = nullptr);
 
         void load(const KGetMetalink::Metalink &metalink) const;
         void save(KGetMetalink::Metalink *metalink);

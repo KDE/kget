@@ -26,14 +26,14 @@ class TransferMultiSegKioFactory : public TransferFactory
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                  TransferGroup * parent, Scheduler * scheduler,
-                                 const QDomElement * e = 0 );
+                                 const QDomElement * e = nullptr );
 
         TransferHandler * createTransferHandler(Transfer * transfer,
                                               Scheduler * scheduler);
 
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<QAction *> actions(TransferHandler *handler = 0);
+        const QList<QAction *> actions(TransferHandler *handler = nullptr);
         TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent);
         bool isSupported(const QUrl &url) const;
         QStringList addsProtocols() const;

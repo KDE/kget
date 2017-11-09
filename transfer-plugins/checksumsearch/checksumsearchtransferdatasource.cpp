@@ -63,7 +63,7 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             const QUrl dest = QUrl(KStandardDirs::locateLocal("appdata", "checksumsearch/") + QString::number(files++));
             if (QFile::exists(dest.toLocalFile())) {
                 KIO::Job *del = KIO::del(dest, KIO::HideProgressInfo);
-                KIO::NetAccess::synchronousRun(del, 0);
+                KIO::NetAccess::synchronousRun(del, nullptr);
             }
 
             if (baseUrl.scheme() != "ftp" && baseUrl.scheme() != "sftp") {

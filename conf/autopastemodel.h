@@ -28,7 +28,7 @@ class AutoPasteDelegate : public QStyledItemDelegate
     Q_OBJECT
 
     public:
-        AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent = 0);
+        AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;

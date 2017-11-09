@@ -152,7 +152,7 @@ Transfer * TransferGroup::findTransfer(const QUrl &src)
         if( t->source().url() == src.url() )
             return t;
     }
-    return 0;
+    return nullptr;
 }
 
 Transfer *TransferGroup::findTransferByDestination(const QUrl &dest)
@@ -166,7 +166,7 @@ Transfer *TransferGroup::findTransferByDestination(const QUrl &dest)
             return t;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) 

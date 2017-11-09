@@ -66,7 +66,7 @@ void KGetGlobalJob::update()
 bool KGetGlobalJob::doKill()
 {
     qCDebug(KGET_DEBUG) << "Kill of global job called:" << this;
-    emit requestStop(this, 0);
+    emit requestStop(this, nullptr);
     return KJob::doKill();
 }
 

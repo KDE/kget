@@ -28,7 +28,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
   : KGetSaveSizeDialog("TransferSettingsDialog", parent),
     m_transfer(transfer),
     m_model(m_transfer->fileModel()),
-    m_proxy(0)
+    m_proxy(nullptr)
 {
     setWindowTitle(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
     //showButtonSeparator(true);

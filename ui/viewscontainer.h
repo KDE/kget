@@ -23,7 +23,7 @@ class ViewsContainer : public QWidget
 {
     Q_OBJECT
     public:
-        ViewsContainer(QWidget * parent = 0);
+        ViewsContainer(QWidget * parent = nullptr);
 
     public slots:
         void showTransferDetails(TransferHandler * transfer);

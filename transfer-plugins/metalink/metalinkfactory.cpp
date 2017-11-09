@@ -50,7 +50,7 @@ Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &dest
         return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
     }
 
-    return 0;
+    return nullptr;
 }
 
 bool MetalinkFactory::isSupported(const QUrl &url) const

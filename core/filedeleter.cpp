@@ -23,7 +23,7 @@
 Q_GLOBAL_STATIC(FileDeleter, fileDeleter)
 
 FileDeleter::Private::Private()
-  : QObject(0)
+  : QObject(nullptr)
 {
 }
 

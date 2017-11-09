@@ -28,7 +28,7 @@
 
 MirrorDelegate::MirrorDelegate(QObject *parent)
   : QStyledItemDelegate(parent),
-    m_countrySort(0)
+    m_countrySort(nullptr)
 {
 }
 
@@ -77,7 +77,7 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const

@@ -36,7 +36,7 @@ class ChecksumSearchController : public QObject
 {
     Q_OBJECT
     public:
-        ChecksumSearchController(QObject *parent = 0);
+        ChecksumSearchController(QObject *parent = nullptr);
         ~ChecksumSearchController();
 
         /**

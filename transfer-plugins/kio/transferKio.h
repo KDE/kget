@@ -31,7 +31,7 @@ class TransferKio : public Transfer
     public:
         TransferKio(TransferGroup * parent, TransferFactory * factory,
                     Scheduler * scheduler, const QUrl & src, const QUrl & dest,
-                    const QDomElement * e = 0);
+                    const QDomElement * e = nullptr);
 
         /**
          * Move the download to the new destination

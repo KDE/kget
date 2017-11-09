@@ -41,8 +41,8 @@
 #define TARGET_TOOLTIP_MS 1000
 
 DropTarget::DropTarget(MainWindow * mw)
-    : QWidget(0, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
-    parentWidget(mw), animTimer(0), showInformation(false)
+    : QWidget(nullptr, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
+    parentWidget(mw), animTimer(nullptr), showInformation(false)
 {
     KWindowSystem::setState(winId(), NET::SkipTaskbar);
 

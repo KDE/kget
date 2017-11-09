@@ -36,13 +36,13 @@ class MmsTransferFactory : public TransferFactory
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
+                                   const QDomElement * e = nullptr );
 
         TransferHandler * createTransferHandler(Transfer * transfer,
                                                 Scheduler * scheduler) {return new TransferHandler(transfer, scheduler);}
         QWidget * createDetailsWidget( TransferHandler * transfer );
 
-        const QList<QAction *> actions(TransferHandler *handler = 0);
+        const QList<QAction *> actions(TransferHandler *handler = nullptr);
 
         bool isSupported(const QUrl &url) const;
 

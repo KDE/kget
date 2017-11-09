@@ -45,12 +45,12 @@ void MmsThread::run()
         emit signIsConnected(true);
         m_locker.unlock();
         /** If the connections result succefull it start the download.*/
-        mmsx_seek(0, mms, m_begin, 0);
+        mmsx_seek(nullptr, mms, m_begin, 0);
         while ((m_begin < m_end) && m_download) {
             if ((m_begin + 1024) > m_end) { 
                 const int var = m_end - m_begin;
                 char data[var];
-                readed = mmsx_read(0, mms, data, var);
+                readed = mmsx_read(nullptr, mms, data, var);
                 m_locker.lock();
                 emit signReading(var, m_end, m_begin = m_end);
                 /** Writing the readed to the file */
@@ -60,7 +60,7 @@ void MmsThread::run()
                 m_locker.unlock();
             } else {
                 char data[1024];
-                readed = mmsx_read(0, mms, data, 1024);
+                readed = mmsx_read(nullptr, mms, data, 1024);
                 m_locker.lock();
                 emit signReading(1024, m_end, m_begin += 1024);
                 /** Writing the readed to the file */

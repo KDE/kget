@@ -28,7 +28,7 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
     Q_OBJECT
 
     public:
-        TransferHistory(QWidget *parent = 0);
+        TransferHistory(QWidget *parent = nullptr);
         ~TransferHistory();
         
         virtual QSize sizeHint() const;

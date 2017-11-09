@@ -97,9 +97,9 @@ void MmsTransfer::deinit(Transfer::DeleteOptions options)
     /** Deleting the temporary file and the unfinish file*/
     if (options & Transfer::DeleteFiles) {
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
         del = KIO::del(m_dest.path(), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }
 }
 
@@ -120,7 +120,7 @@ void MmsTransfer::slotResult()
         m_downloadSpeed = 0;
         setTransferChange(Tc_Status | Tc_Percent | Tc_DownloadSpeed, true);
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
     }
      
     /** If m_retryDownload == true then some threads has fail to connect, so the download was
@@ -131,7 +131,7 @@ void MmsTransfer::slotResult()
     if (m_retryDownload) {
         m_retryDownload = false;
         KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, 0);
+        KIO::NetAccess::synchronousRun(del, nullptr);
         start();
     }
 }
@@ -167,7 +167,7 @@ void MmsTransfer::slotNotAllowMultiDownload()
     /** Some stream not allow seek in to a position, so we can't use more than one thread to 
      * download the file, this is notify to the user because the download will take longer.
      */
-    KGet::showNotification(0, "notification", i18n("This URL does not allow multiple connections,\n"
+    KGet::showNotification(nullptr, "notification", i18n("This URL does not allow multiple connections,\n"
                                 "the download will take longer."));
 }
 

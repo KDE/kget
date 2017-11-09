@@ -36,8 +36,8 @@ Commands::Commands(const QString &source, QObject *parent)
   : QObject(parent),
     m_timerId(-1),
     m_source(source),
-    m_transfer(0),
-    m_verifier(0)
+    m_transfer(nullptr),
+    m_verifier(nullptr)
 {
     static int instance = 0;
     if (!instance++) {
@@ -263,10 +263,10 @@ QString Commands::source() const
 void Commands::associateTransfer(OrgKdeKgetTransferInterface *transfer)
 {
     if (m_transfer) {
-        disconnect(m_transfer, 0, this, 0);
+        disconnect(m_transfer, nullptr, this, nullptr);
     }
     if (m_verifier) {
-        disconnect(m_verifier, 0, this, 0);
+        disconnect(m_verifier, nullptr, this, nullptr);
         delete m_verifier;
     }
 
@@ -541,7 +541,7 @@ void Commands::slotBrokenPieces(const QStringList &offsets, qulonglong length)
 TestTransfers::TestTransfers()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", 0);
+        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", nullptr);
     }
 
     m_dir.reset(new KTempDir());

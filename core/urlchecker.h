@@ -133,12 +133,12 @@ class KGET_EXPORT UrlChecker
          * @param type *Source checks if there is a transfer with the same source
          * *Destination checks if there is a transfer with the same destination
          * @return if an existing transfer is found it will be returned,
-         * otherwise 0 will be returned
+         * otherwise nullptr will be returned
          * @note checkUrl check is not done and UrlType Folder is not supported
          * Keep in mind, that the same transfers could be found via Source and Destination!
          * @see checkUrl
          */
-        static TransferHandler *existingTransfer(const QUrl &url, const UrlType type, UrlWarning *warning = 0);
+        static TransferHandler *existingTransfer(const QUrl &url, const UrlType type, UrlWarning *warning = nullptr);
 
         /**
          * @note UrlType folder is not supported, the result then is undefined!

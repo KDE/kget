@@ -40,7 +40,7 @@ class FileHandlerThread : public QThread
     Q_OBJECT
 
     public:
-        FileHandlerThread(QObject *parent = 0);
+        FileHandlerThread(QObject *parent = nullptr);
         ~FileHandlerThread();
 
         void setData(const QList<FileData> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData);

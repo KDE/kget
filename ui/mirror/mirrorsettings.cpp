@@ -29,7 +29,7 @@
 MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags)
   : QDialog(parent, flags),
     m_model(model),
-    m_countryModel(0)
+    m_countryModel(nullptr)
 {
     init();
 }

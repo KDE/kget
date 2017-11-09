@@ -65,12 +65,12 @@ void FileWidget::dropEvent(QDropEvent *event)
 MetalinkCreator::MetalinkCreator(QWidget *parent)
   : KAssistantDialog(parent),
     m_needUrlCount(0),
-    m_countrySort(0),
-    m_languageModel(0),
-    m_languageSort(0),
-    m_introduction(0),
-    m_generalPage(0),
-    m_filesModel(0)
+    m_countrySort(nullptr),
+    m_languageModel(nullptr),
+    m_languageSort(nullptr),
+    m_introduction(nullptr),
+    m_generalPage(nullptr),
+    m_filesModel(nullptr)
 {
     create();
 
@@ -267,7 +267,7 @@ void MetalinkCreator::slotAddFile()
     metalink.files.files.append(m_tempFile);
     m_tempFile.clear();
 
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
@@ -281,7 +281,7 @@ void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
     m_filesModel->insertRow(m_filesModel->rowCount(), item);
     metalink.files.files.append(file);
 
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &newFileName)
@@ -299,7 +299,7 @@ void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &
         item->setIcon(QIcon());
     }
 
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotRemoveFile()
@@ -325,7 +325,7 @@ void MetalinkCreator::slotRemoveFile()
     }
 
     slotUpdateFilesButtons();
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 void MetalinkCreator::slotAddClicked()
@@ -388,7 +388,7 @@ void MetalinkCreator::slotThreadFinished()
 {
     uiFiles.progressBar->setMaximum(10);
     uiFiles.dragDrop->hide();
-    slotUpdateAssistantButtons(0, m_files);
+    slotUpdateAssistantButtons(nullptr, m_files);
 }
 
 

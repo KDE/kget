@@ -39,7 +39,7 @@ class ChecksumSearchAddDlg : public QDialog
     Q_OBJECT
 
     public:
-        ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = 0, Qt::WFlags flags = 0);
+        ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = nullptr, Qt::WFlags flags = 0);
 
     signals:
         /**
@@ -73,8 +73,8 @@ class ChecksumDelegate : public QStyledItemDelegate
     Q_OBJECT
 
     public:
-        ChecksumDelegate(QObject *parent = 0);
-        ChecksumDelegate(QStringListModel *modesModel, QStringListModel *typesModel, QObject *parent = 0);
+        ChecksumDelegate(QObject *parent = nullptr);
+        ChecksumDelegate(QStringListModel *modesModel, QStringListModel *typesModel, QObject *parent = nullptr);
 
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
         void setEditorData(QWidget *editor, const QModelIndex &index) const;
@@ -91,7 +91,7 @@ class DlgChecksumSettingsWidget : public KCModule
     Q_OBJECT
 
     public:
-        explicit DlgChecksumSettingsWidget(QWidget *parent = 0, const QVariantList &args = QVariantList());
+        explicit DlgChecksumSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
         ~DlgChecksumSettingsWidget();
 
     public slots:

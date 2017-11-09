@@ -43,8 +43,8 @@ Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
 NewTransferDialog::NewTransferDialog(QWidget *parent)
   : QDialog(parent),
-    m_window(0),
-    m_existingTransfer(0),
+    m_window(nullptr),
+    m_existingTransfer(nullptr),
     m_multiple(false),
     m_overWriteSingle(false)
 {
@@ -109,7 +109,7 @@ void NewTransferDialog::clear()
     ui.destRequester->clear();
     m_destination.clear();
     m_sources.clear();
-    m_existingTransfer = 0;
+    m_existingTransfer = nullptr;
     m_overWriteSingle = false;
 
     //add all destinations
@@ -187,7 +187,7 @@ void NewTransferDialog::setDestination()
 {
     //sets destRequester to either display the defaultFolder of group or the generalDestDir
     QString group = ui.groupComboBox->currentText();
-    TransferGroupHandler * current = 0;
+    TransferGroupHandler * current = nullptr;
     foreach (TransferGroupHandler * handler, KGet::allTransferGroups()) {
         if (handler->name() == group) {
             current = handler;
@@ -760,7 +760,7 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         QPointer<QDialog> dialog;
         foreach (TransferFactory * factory, KGet::factories()) {
             const QList<TransferGroupHandler*> groups =  KGet::groupsFromExceptions(url);
-            dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : 0);
+            dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : nullptr);
             if (dialog) {
                 KWindowInfo info(KGet::m_mainWindow->winId(), NET::WMDesktop);
                 KWindowSystem::setCurrentDesktop(info.desktop());

@@ -70,7 +70,7 @@ void KeyDownloader::downloadKey(QString fingerprint, Signature *sig, bool mirror
     } else {
         const QStringList servers = Settings::signatureKeyServers();
         if (!servers.count()) {
-            KMessageBox::error(0,
+            KMessageBox::error(nullptr,
                                i18n("No server for downloading keys is specified in settings. Downloading aborted."),
                                i18n("No key server"));
             return;

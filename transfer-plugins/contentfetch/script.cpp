@@ -15,11 +15,11 @@
 #include <KDebug>
 
 Script::Script(QObject* parent, const KUrl &source)
-    :QThread(parent), m_p_kgetcore(0), m_source(source)
+    :QThread(parent), m_p_kgetcore(nullptr), m_source(source)
 {
     kDebug(5002) << "One Script Newed.";
     /*
-    Use 0 as parent here because of threading issue, comply to qt manual.
+    Use nullptr as parent here because of threading issue, comply to qt manual.
     Adapted below:
     " The child of a QObject must always be created in the thread where the
     parent was created. This implies, among other things, that you should
@@ -28,7 +28,7 @@ Script::Script(QObject* parent, const KUrl &source)
 
      See http://doc.trolltech.com/4.4/threads.html#qobject-reentrancy
     */
-    m_p_kgetcore = new ScriptDownloadEngine(0, m_source);
+    m_p_kgetcore = new ScriptDownloadEngine(nullptr, m_source);
 }
 
 Script::~Script()
@@ -48,7 +48,7 @@ void Script::run()
 {
     setPriority(QThread::LowPriority);
     // use 0 as parent, see Constructor.
-    m_p_action = new Kross::Action(0, m_fileName); //"ContentFetchScript");
+    m_p_action = new Kross::Action(nullptr, m_fileName); //"ContentFetchScript");
     // quit the exec() loop after get finish/abort signal from script
     connect(m_p_kgetcore, SIGNAL(finished()), this, SLOT(quit()));
     connect(m_p_kgetcore, SIGNAL(aborted(QString)), this, SLOT(quit()));

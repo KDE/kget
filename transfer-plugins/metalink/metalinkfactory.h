@@ -29,7 +29,7 @@ class MetalinkFactory : public TransferFactory
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = 0 );
+                                   const QDomElement * e = nullptr );
 
         QString displayName() const { return "MetaLink"; }
         /**

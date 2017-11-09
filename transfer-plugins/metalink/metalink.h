@@ -27,7 +27,7 @@ class Metalink : public Transfer
     public:
         Metalink(TransferGroup * parent, TransferFactory * factory,
                     Scheduler * scheduler, const QUrl & src, const QUrl & dest,
-                    const QDomElement * e = 0);
+                    const QDomElement * e = nullptr);
 
         ~Metalink();
 

@@ -337,7 +337,7 @@ QPair<QString, PartialChecksums*> Verifier::availablePartialChecksum(Verifier::C
 {
     QPair<QString, PartialChecksums*> pair;
     QString type;
-    PartialChecksums *checksum = 0;
+    PartialChecksums *checksum = nullptr;
 
     const QStringList available = supportedVerficationTypes();
     const QStringList supported = d->orderChecksumTypes(strength);

@@ -31,7 +31,7 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
     Q_OBJECT
 
     public:
-        VerificationModel(QObject *parent = 0);
+        VerificationModel(QObject *parent = nullptr);
 
         enum dataType
         {

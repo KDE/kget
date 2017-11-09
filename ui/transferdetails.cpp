@@ -21,7 +21,7 @@
 #include <QVBoxLayout>
 
 TransferDetails::TransferDetails(TransferHandler * transfer)
-  : QWidget(0),
+  : QWidget(nullptr),
     m_transfer(transfer)
 {
     m_genericWidget = new QWidget(this);

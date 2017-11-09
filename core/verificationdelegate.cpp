@@ -62,7 +62,7 @@ QWidget *VerificationDelegate::createEditor(QWidget *parent, const QStyleOptionV
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 void VerificationDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const

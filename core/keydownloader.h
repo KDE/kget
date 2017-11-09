@@ -36,7 +36,7 @@ class KeyDownloader : public QObject
     Q_OBJECT
 
     public:
-        KeyDownloader(QObject *parent = 0);
+        KeyDownloader(QObject *parent = nullptr);
 
         /**
          * @return true if KeyDownloader is valid, i.e. has QPGME support

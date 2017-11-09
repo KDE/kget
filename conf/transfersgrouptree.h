@@ -36,7 +36,7 @@ class TransfersGroupTree : public QTreeView
 {
     Q_OBJECT
     public:
-        TransfersGroupTree(QWidget *parent=0);
+        TransfersGroupTree(QWidget *parent = nullptr);
         void setModel(QAbstractItemModel *model);
 
     public slots:

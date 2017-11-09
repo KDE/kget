@@ -298,7 +298,7 @@ void FileModel::setupModelData(const QList<QUrl> &files)
     {
         FileItem *parent = m_rootItem;
         QStringList directories = file.toString().remove(destDirectory).split('/', QString::SkipEmptyParts);
-        FileItem *child = 0;
+        FileItem *child = nullptr;
         while (directories.count())
         {
             QString part = directories.takeFirst();
