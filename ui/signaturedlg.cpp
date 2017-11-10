@@ -102,7 +102,7 @@ void SignatureDlg::loadSignatureClicked()
         return;
     }
 
-    const bool isAsciiSig = url.fileName().endsWith("asc");
+    const bool isAsciiSig = url.fileName().endsWith(QLatin1String("asc"));
     clearData();
     handleWidgets(isAsciiSig);
     ui.signature->clear();
